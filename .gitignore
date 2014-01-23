@@ -1,0 +1,9 @@
+/log/*.log
+/.bundle
+/tmp/
+/.sass-cache/
+/bin
+.powrc
+.rvmrc
+.rbenv-version
+/doc/
