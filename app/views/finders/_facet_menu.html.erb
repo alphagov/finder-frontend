@@ -1,0 +1,4 @@
+<%= form_tag({}, class: 'facet-menu') do %>
+  <%= render @finder.facets %>
+  <%= submit_tag "Filter results" %>
+<% end %>
