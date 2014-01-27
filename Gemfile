@@ -28,11 +28,11 @@ group :doc do
 end
 
 group :development, :test do
-  gem 'rspec-rails'
   gem 'debugger'
-  gem 'cucumber-rails', require: false
 end
 
 group :test do
-
+  gem 'cucumber-rails', require: false
+  gem 'rspec-rails'
+  gem 'webmock'
 end
