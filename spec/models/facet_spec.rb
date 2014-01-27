@@ -40,4 +40,17 @@ describe Facet do
       specify { subject.value.should be_nil }
     end
   end
+
+  describe "after_initialize hook" do
+    class ExampleFacet < Facet
+      def after_initialize
+        @key = 'overridden'
+      end
+    end
+    let(:facet_class) { ExampleFacet }
+
+    it "should call after_initialize after intialize" do
+      subject.key.should == "overridden"
+    end
+  end
 end
