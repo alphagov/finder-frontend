@@ -1,10 +1,7 @@
 class Facet
   attr_accessor :name, :key, :value
 
-  def initialize(attrs = {})
-    @name = attrs[:name]
-    @key = attrs[:key]
-    @value = attrs[:value]
+  def initialize(schema, value = nil)
   end
 
   def to_partial_path
