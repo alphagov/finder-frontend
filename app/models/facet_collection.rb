@@ -22,6 +22,10 @@ class FacetCollection
     end
   end
 
+  def to_partial_path
+    'facet_collection'
+  end
+
 private
   def build_facet(schema)
     facet_class_for_type(schema["type"]).new(schema, facet_values[schema["key"]])
