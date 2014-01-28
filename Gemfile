@@ -3,14 +3,7 @@ source 'https://BnrJb6FZyzspBboNJzYZ@gem.fury.io/govuk/'
 
 gem 'rails', '4.0.2'
 gem 'slimmer'
-# gem 'gds-api-adapters'
-
-#
-# See https://github.com/sstephenson/execjs#readme for more supported runtimes
-# gem 'therubyracer', platforms: :ruby
-
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-# gem 'jbuilder', '~> 1.2'
+gem 'gds-api-adapters', path: '../gds-api-adapters'
 
 group :assets do
   if ENV['FRONTEND_TOOLKIT_DEV']

@@ -1,9 +1,11 @@
+require 'gds_api/finder_api'
+
 class FinderApi
   attr_reader :slug, :api
 
   def initialize(slug)
     @slug = slug
-    # @api = FinderFrontend.finder_api
+    @api = GdsApi::FinderApi.new(Plek.current.find('finder-api'))
   end
 
   def get_schema
@@ -31,7 +33,7 @@ class FinderApi
     }
   end
 
-  # def get_documents(params)
-  #   api.get_documents(slug, params)
-  # end
+  def get_documents(params)
+    api.get_documents(slug, params)
+  end
 end
