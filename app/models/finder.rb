@@ -13,4 +13,12 @@ class Finder
     @name = attrs[:name]
     @facets = attrs[:facets]
   end
+
+  def document_noun
+    "case"
+  end
+
+  def results
+    @results ||= ResultSet.get(api, facets.to_params)
+  end
 end

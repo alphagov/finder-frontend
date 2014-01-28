@@ -30,4 +30,16 @@ describe Finder do
       specify { subject.facets.should == :a_facet_collection }
     end
   end
+
+  describe '#results' do
+    let(:facet_params) { :some_facet_values }
+    let(:facet_collection) { OpenStruct.new(to_params: facet_params) }
+    subject { Finder.new(api: api, facets: facet_collection) }
+
+    before do
+      ResultSet.stub(:get).with(api, :some_facet_values).and_return(:a_result_set)
+    end
+
+    specify { subject.results.should == :a_result_set }
+  end
 end

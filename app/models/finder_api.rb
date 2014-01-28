@@ -33,7 +33,7 @@ class FinderApi
     }
   end
 
-  def get_documents(params)
+  def get_result_set(params)
     api.get_documents(slug, params)
   end
 end
