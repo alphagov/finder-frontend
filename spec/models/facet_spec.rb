@@ -2,12 +2,7 @@ require 'spec_helper'
 
 describe Facet do
   let(:facet_class) { Facet }
-  let(:schema) { {
-    "name" => "Case type",
-    "key" => "case_type"
-  } }
-  let(:value) { "some-value" }
-  subject { facet_class.new(schema, value) }
+  subject { facet_class.new }
 
   describe "#to_partial_path" do
     context "with a Facet" do
@@ -21,9 +16,22 @@ describe Facet do
     end
   end
 
-  describe "attribute assignment" do
+  describe ".from_hash" do
+    let(:facet_hash) { {
+      "name" => "Case type",
+      "key" => "case_type",
+      "value" => "merger-inquiries"
+    } }
+    subject { Facet.from_hash(facet_hash) }
+
     specify { subject.name.should == "Case type" }
     specify { subject.key.should == "case_type" }
+    specify { subject.value.should == "merger-inquiries" }
+  end
+
+  describe "#value" do
+    let(:value) { nil }
+    subject { facet_class.new(value: value) }
 
     context "with a value" do
       let(:value) { "reviews-of-undertakings-and-orders" }
