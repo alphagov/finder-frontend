@@ -13,6 +13,9 @@ describe FacetCollection do
 
   describe "enumerability" do
     let(:facets_schema) { [select_schema, select_schema, select_schema] }
+    before do
+      SelectFacet.stub(:new).with(select_schema, anything).and_return(:a_select_facet)
+    end
 
     specify { subject.should respond_to(:each) }
     specify { subject.count.should == 3 }
