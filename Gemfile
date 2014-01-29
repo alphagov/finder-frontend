@@ -3,7 +3,7 @@ source 'https://BnrJb6FZyzspBboNJzYZ@gem.fury.io/govuk/'
 
 gem 'rails', '4.0.2'
 gem 'slimmer'
-gem 'gds-api-adapters', path: '../gds-api-adapters'
+gem 'gds-api-adapters', github: 'alphagov/gds-api-adapters', branch: 'add-finder-api-adapter'
 
 group :assets do
   if ENV['FRONTEND_TOOLKIT_DEV']

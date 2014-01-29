@@ -1,5 +1,7 @@
-PATH
-  remote: ../gds-api-adapters
+GIT
+  remote: git://github.com/alphagov/gds-api-adapters.git
+  revision: d2d5e05116ee3a185f98e05d2b07739f6faaa332
+  branch: add-finder-api-adapter
   specs:
     gds-api-adapters (8.2.3)
       link_header
@@ -78,7 +80,7 @@ GEM
     hike (1.2.3)
     i18n (0.6.9)
     json (1.8.1)
-    link_header (0.0.7)
+    link_header (0.0.8)
     lrucache (0.1.4)
       PriorityQueue (~> 0.1.2)
     mail (2.5.4)
