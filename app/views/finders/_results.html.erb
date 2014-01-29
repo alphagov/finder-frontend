@@ -1,0 +1,7 @@
+<section class="results">
+  <h2><%= pluralize(results.count, results.document_noun) %></h2>
+
+  <ul>
+    <%= render results.documents %>
+  </ul>
+</section>

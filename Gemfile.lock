@@ -1,3 +1,13 @@
+PATH
+  remote: ../gds-api-adapters
+  specs:
+    gds-api-adapters (8.2.3)
+      link_header
+      lrucache (~> 0.1.1)
+      null_logger
+      plek
+      rest-client (~> 1.6.3)
+
 GEM
   remote: https://rubygems.org/
   remote: https://BnrJb6FZyzspBboNJzYZ@gem.fury.io/govuk/
@@ -68,6 +78,7 @@ GEM
     hike (1.2.3)
     i18n (0.6.9)
     json (1.8.1)
+    link_header (0.0.7)
     lrucache (0.1.4)
       PriorityQueue (~> 0.1.2)
     mail (2.5.4)
@@ -163,6 +174,7 @@ PLATFORMS
 DEPENDENCIES
   cucumber-rails
   debugger
+  gds-api-adapters!
   govuk_frontend_toolkit (= 0.41.0)
   rails (= 4.0.2)
   rspec-rails

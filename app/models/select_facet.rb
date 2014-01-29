@@ -1,8 +1,29 @@
 class SelectFacet < Facet
-  attr_accessor :options
+  attr_reader :allowed_values
 
-  def initialize(attrs = {})
-    super
-    @options = attrs[:options]
+  def value
+    @value if allowed_values.map(&:value).include?(@value)
+  end
+
+  def values_for_select
+    ([blank_value_for_select] + allowed_values_for_select).compact
+  end
+
+private
+  def allowed_values_for_select
+    allowed_values.map do |option|
+      [option.label, option.value]
+    end
+  end
+
+  def blank_value_for_select
+    [@include_blank, nil] if @include_blank.present?
+  end
+
+  def after_initialize
+    @allowed_values = schema["allowed_values"].map do |option|
+      OpenStruct.new(value: option["value"], label: option["label"])
+    end
+    @include_blank = schema["include_blank"]
   end
 end

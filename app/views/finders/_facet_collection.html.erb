@@ -1,0 +1,4 @@
+<%= form_tag({}, method: :get, class: 'facet-menu') do %>
+  <%= render facet_collection.facets %>
+  <input type="submit" value="Refresh results" />
+<% end %>
