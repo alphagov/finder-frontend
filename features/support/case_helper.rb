@@ -16,7 +16,7 @@ module CaseHelper
   end
 
   def finder_api_merger_inquiry_cases_url
-    "#{Plek.current.find('finder-api')}/finders/cma-cases/documents.json?case_type=merger-inquiries"
+    "#{Plek.current.find('finder-api')}/finders/cma-cases/documents.json?case_type=merger-inquiry"
   end
 
   def all_cases_json
