@@ -2,14 +2,14 @@ class SelectFacet < Facet
   attr_reader :allowed_values, :include_blank
 
   def self.from_hash(select_facet_hash)
-    self.new({
-      name: select_facet_hash['name'],
-      key: select_facet_hash['key'],
-      include_blank: select_facet_hash['include_blank'],
-      allowed_values: select_facet_hash['allowed_values'].map do | allowed_value_hash |
-        build_allowed_value(allowed_value_hash.symbolize_keys)
-      end
-    })
+    self.new(
+      facet_attrs_from_hash(select_facet_hash).merge({
+        include_blank: select_facet_hash['include_blank'],
+        allowed_values: select_facet_hash['allowed_values'].map do | allowed_value_hash |
+          build_allowed_value(allowed_value_hash.symbolize_keys)
+        end
+      })
+    )
   end
 
   def initialize(params = {})
