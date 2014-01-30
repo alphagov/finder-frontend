@@ -8,8 +8,8 @@ class ResultSet
     self.new(documents: documents, document_noun: result_set_hash['document_noun'])
   end
 
-  def self.get(api, params)
-    self.from_hash(api.get_result_set(params))
+  def self.get(slug, params)
+    self.from_hash(FinderFrontend.finder_api.get_documents(slug, params))
   end
 
   def initialize(attrs)

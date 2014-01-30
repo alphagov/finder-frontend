@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 describe ResultSet do
+  include ApiHelper
+
   describe ".from_hash" do
     context "when the api returns a result set hash with some documents" do
       let(:result_set_hash) { {
@@ -24,14 +26,11 @@ describe ResultSet do
   end
 
   describe ".get" do
-    let(:api) {
-      api = double
-      api.stub(:get_result_set).and_return(:result_set_hash)
-      api
-    }
-    let(:params) { { slug: 'finder-slug', some_facet: 'a-facet-value' } }
+    let(:finder_slug) { 'finder-slug' }
+    let(:params) { { some_facet: 'a-facet-value' } }
+    before { mock_api.stub(:get_documents).with(finder_slug, params).and_return(:result_set_hash) }
 
-    subject { ResultSet.get(api, params) }
+    subject { ResultSet.get(finder_slug, params) }
 
     it "should get a result set hash from the api and build a result set with it" do
       ResultSet.stub(:from_hash).with(:result_set_hash).and_return(:a_built_result_set)

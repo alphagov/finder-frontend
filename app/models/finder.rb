@@ -1,6 +1,5 @@
 class Finder
-  attr_reader :api, :slug, :name, :facets
-  attr_accessor :api
+  attr_reader :slug, :name, :facets
 
   def self.from_hash(finder_hash)
     self.new(
@@ -10,20 +9,18 @@ class Finder
     )
   end
 
-  def self.get(api)
-    finder = self.from_hash(api.get_finder)
-    finder.api = api
+  def self.get(slug)
+    finder = self.from_hash(FinderFrontend.finder_api.get_finder(slug))
     finder
   end
 
-  def self.get_with_facet_values(api, facet_values)
-    finder = self.get(api)
+  def self.get_with_facet_values(slug, facet_values)
+    finder = self.get(slug)
     finder.facets.values = facet_values
     finder
   end
 
   def initialize(attrs = {})
-    @api = attrs[:api]
     @slug = attrs[:slug]
     @name = attrs[:name]
     @facets = attrs[:facets]
@@ -34,6 +31,6 @@ class Finder
   end
 
   def results
-    @results ||= ResultSet.get(api, facets.values)
+    @results ||= ResultSet.get(slug, facets.values)
   end
 end

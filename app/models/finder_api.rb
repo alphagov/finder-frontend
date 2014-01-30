@@ -1,14 +1,15 @@
 require 'gds_api/finder_api'
 
 class FinderApi
-  attr_reader :slug, :api
+  # This class will no longer be necessary when finder schema comes from the api
 
-  def initialize(slug)
-    @slug = slug
+  attr_reader :api
+
+  def initialize
     @api = GdsApi::FinderApi.new(Plek.current.find('finder-api'))
   end
 
-  def get_finder
+  def get_finder(slug)
     {
       'slug' => 'cma-cases',
       'name' => 'Competition and Markets Authority cases',
@@ -33,7 +34,7 @@ class FinderApi
     }
   end
 
-  def get_result_set(params)
+  def get_documents(slug, params)
     api.get_documents(slug, params)
   end
 end

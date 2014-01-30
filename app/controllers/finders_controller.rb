@@ -4,13 +4,9 @@ class FindersController < ApplicationController
 
 private
   def finder
-    @finder ||= Finder.get_with_facet_values(finder_api, facet_params)
+    @finder ||= Finder.get_with_facet_values(finder_slug, facet_params)
   end
   helper_method :finder
-
-  def finder_api
-    FinderApi.new(finder_slug)
-  end
 
   def finder_slug
     params[:slug]
