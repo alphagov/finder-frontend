@@ -5,6 +5,7 @@ gem 'rails', '4.0.2'
 gem 'slimmer'
 gem 'gds-api-adapters', github: 'alphagov/gds-api-adapters', branch: 'add-finder-api-adapter'
 gem 'exception_notification', '4.0.1'
+gem 'aws-ses', require: 'aws/ses'
 
 group :assets do
   if ENV['FRONTEND_TOOLKIT_DEV']
