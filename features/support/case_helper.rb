@@ -25,6 +25,7 @@ module CaseHelper
       documents: [
         {
           title: 'HealthCorp / DrugInc merger inquiry',
+          url: '/cma-cases/healthcorp-druginc-merger-inquiry',
           metadata: [
             { type: 'date', name: 'date_referred', value: '2003-12-30' },
             { type: 'text', name: 'case_type', value: 'Merger inquiry' }
@@ -32,6 +33,7 @@ module CaseHelper
         },
         {
           title: 'Private healthcare market investigation',
+          url: '/cma-cases/private-healthcare-market-investigation',
           metadata: [
             { type: 'date', name: 'date_referred', value: '2007-08-14' },
             { type: 'text', name: 'case_type', value: 'Market investigation' }
@@ -47,6 +49,7 @@ module CaseHelper
       documents: [
         {
           title: 'HealthCorp / DrugInc merger inquiry',
+          url: '/cma-cases/healthcorp-druginc-merger-inquiry',
           metadata: [
             { type: 'date', name: 'date_referred', value: '2003-12-30' },
             { type: 'text', name: 'case_type', value: 'Merger inquiry' }
