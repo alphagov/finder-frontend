@@ -4,7 +4,7 @@ class FindersController < ApplicationController
 
 private
   def finder
-    @finder ||= Finder.build(api: finder_api, facet_values: facet_params)
+    @finder ||= Finder.get_with_facet_values(finder_api, facet_params)
   end
   helper_method :finder
 

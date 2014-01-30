@@ -8,7 +8,7 @@ class FinderApi
     @api = GdsApi::FinderApi.new(Plek.current.find('finder-api'))
   end
 
-  def get_schema
+  def get_finder
     {
       'slug' => 'cma-cases',
       'name' => 'Competition and Markets Authority cases',

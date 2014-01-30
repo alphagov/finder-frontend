@@ -2,57 +2,79 @@ require 'spec_helper'
 require 'ostruct'
 
 describe FacetCollection do
-  subject { FacetCollection.new(facets_schema: facets_schema, facet_values: facet_values) }
-  let(:facets_schema) { [] }
-  let(:facet_values) { {} }
+  let(:facets) {[]}
+  subject { FacetCollection.new(facets: facets) }
 
-  let(:select_schema) { {
-    "type" => "select",
-    "key" => "case_type"
-  } }
+  describe ".from_hash" do
+    let(:facet_collection_hash) { {
+        "facets" => [facet_hash]
+    } }
+    subject { FacetCollection.from_hash(facet_collection_hash) }
+
+    context "with a hash describing a select facet" do
+      let(:facet_hash) { {
+        "type" => "select",
+        "name" => "Case type"
+      } }
+
+      it "should build a SelectFacet with the facet hash" do
+        SelectFacet.stub(:from_hash).with(facet_hash).and_return(:a_select_facet)
+        subject.first.should == :a_select_facet
+      end
+    end
+
+    context "with a hash describing a facet of unknown type" do
+      let(:facet_hash) { {
+        "type" => "llama",
+        "name" => "Llamas are multi-facetd animals"
+      } }
+
+      it "should build a Facet with the facet hash" do
+        Facet.stub(:from_hash).with(facet_hash).and_return(:a_normal_facet)
+        subject.first.should == :a_normal_facet
+      end
+    end
+  end
 
   describe "enumerability" do
-    let(:facets_schema) { [select_schema, select_schema, select_schema] }
-    before do
-      SelectFacet.stub(:new).with(select_schema, anything).and_return(:a_select_facet)
-    end
+    context "with 3 facets" do
+      let(:facets) { [:a_facet, :another_facet, :and_another_facet] }
 
-    specify { subject.should respond_to(:each) }
-    specify { subject.count.should == 3 }
-  end
-
-  describe "#facets" do
-    let(:facets_schema) { [select_schema] }
-
-    context do
-      it 'should build facet objects of the right type' do
-        SelectFacet.should_receive(:new).with(select_schema, anything).and_return(:a_select_facet)
-
-        subject.facets.first.should == :a_select_facet
-      end
-    end
-
-    context do
-      let(:facet_values) { {
-        case_type: "merger-investigations"
-      }.with_indifferent_access }
-
-      it 'should assign user submitted values' do
-        SelectFacet.should_receive(:new).with(select_schema, "merger-investigations").and_return(:a_select_facet_with_value_set)
-
-        subject.facets.first.should == :a_select_facet_with_value_set
-      end
+      specify { subject.should respond_to(:each) }
+      specify { subject.count.should == 3 }
     end
   end
 
-  describe "#to_params" do
+  describe "#values" do
     context "with facets with values" do
-      before do
-        subject.facets << OpenStruct.new(key: "case_type", value: "merger-investigations")
-        subject.facets << OpenStruct.new(key: "decision_type", value: nil)
-      end
+      let(:facets) { [
+          OpenStruct.new(key: "case_type", value: "merger-investigations"),
+          OpenStruct.new(key: "decision_type", value: nil)
+      ] }
 
-      specify { subject.to_params.should == {"case_type" => "merger-investigations"} }
+      it "should return a hash with the keys/values of facets with a non-blank value" do
+        subject.values.should == {"case_type" => "merger-investigations"}
+      end
+    end
+  end
+
+  describe "#values=" do
+    context "with facets with values" do
+      let(:facets) { [
+          OpenStruct.new(key: "case_type", value: nil),
+          OpenStruct.new(key: "decision_type", value: nil)
+      ] }
+
+      it "should accept a hash of key/value pairs, and set the facet values for each" do
+        subject.values = {
+          "case_type" => "merger-investigations",
+          decision_type: "catch-22"
+        }
+        subject.values.should == {
+          "case_type" => "merger-investigations",
+          "decision_type" => "catch-22"
+        }
+      end
     end
   end
 end
