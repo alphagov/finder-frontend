@@ -18,14 +18,14 @@ class FinderApi
           'name' => 'Case type',
           'key' => 'case_type',
           'allowed_values' => [
-            {'label' => 'Airport price control reviews',            'value' => 'airport-price-control-reviews'},
-            {'label' => 'Market investigations',                    'value' => 'market-investigations'},
-            {'label' => 'Remittals',                                'value' => 'remittals'},
-            {'label' => 'Telecommunications price control appeals', 'value' => 'telecommunications-price-control-appeals'},
-            {'label' => 'Energy code modification appeals',         'value' => 'energy-code-modification-appeals'},
-            {'label' => 'Merger inquiries',                         'value' => 'merger-inquiries'},
-            {'label' => 'Reviews of undertakings and orders',       'value' => 'reviews-of-undertakings-and-orders'},
-            {'label' => 'Water price determinations',               'value' => 'water-price-determinations'}
+            {'label' => 'Airport price control reviews',            'value' => 'airport-price-control-review'},
+            {'label' => 'Market investigations',                    'value' => 'market-investigation'},
+            {'label' => 'Remittals',                                'value' => 'remittal'},
+            {'label' => 'Telecommunications price control appeals', 'value' => 'telecommunications-price-control-appeal'},
+            {'label' => 'Energy code modification appeals',         'value' => 'energy-code-modification-appeal'},
+            {'label' => 'Merger inquiries',                         'value' => 'merger-inquiry'},
+            {'label' => 'Reviews of undertakings and orders',       'value' => 'reviews-of-undertakings-and-order'},
+            {'label' => 'Water price determinations',               'value' => 'water-price-determination'}
           ],
           'include_blank' => 'All case types'
         }
