@@ -40,7 +40,7 @@ private
   def self.facet_class_for_type(type)
     case type
     when "select" then SelectFacet
-    else Facet
+    else raise ArgumentError.new("Unknown facet type: #{type}")
     end
   end
 end

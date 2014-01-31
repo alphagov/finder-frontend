@@ -22,18 +22,6 @@ describe FacetCollection do
         subject.first.should == :a_select_facet
       end
     end
-
-    context "with a hash describing a facet of unknown type" do
-      let(:facet_hash) { {
-        "type" => "llama",
-        "name" => "Llamas are multi-facetd animals"
-      } }
-
-      it "should build a Facet with the facet hash" do
-        Facet.stub(:from_hash).with(facet_hash).and_return(:a_normal_facet)
-        subject.first.should == :a_normal_facet
-      end
-    end
   end
 
   describe "enumerability" do
