@@ -1,7 +1,11 @@
-<section class="results">
-  <h2><%= pluralize(results.count, results.document_noun) %></h2>
+<div class="filtered-results">
+  <div class="inner-block">
+    <section class="results">
+      <h2><span class="result-count"><%= results.count %></span> <%= results.document_noun.pluralize(results.count) %></h2>
 
-  <ul>
-    <%= render results.documents %>
-  </ul>
-</section>
+      <ul>
+        <%= render results.documents %>
+      </ul>
+    </section>
+  </div>
+</div>
