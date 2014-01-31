@@ -1,5 +1,5 @@
 class ResultSet
-  attr_reader :documents, :document_noun
+  attr_reader :documents
 
   delegate :count, to: :documents
 
@@ -8,7 +8,6 @@ class ResultSet
   end
 
   def initialize(attrs)
-    @document_noun = attrs[:document_noun]
     @documents = attrs[:documents]
   end
 

@@ -13,6 +13,7 @@ class FinderApi
     {
       'slug' => 'cma-cases',
       'name' => 'Competition and Markets Authority cases',
+      'document_noun' => 'case',
       'facets' => [
         {
           'type' => 'select',

@@ -21,7 +21,6 @@ module CaseHelper
 
   def all_cases_json
     {
-      document_noun: 'case',
       documents: [
         {
           title: 'HealthCorp / DrugInc merger inquiry',
@@ -45,7 +44,6 @@ module CaseHelper
 
   def merger_inquiry_cases_json
     {
-      document_noun: 'case',
       documents: [
         {
           title: 'HealthCorp / DrugInc merger inquiry',

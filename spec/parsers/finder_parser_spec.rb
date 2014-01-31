@@ -5,6 +5,7 @@ describe FinderParser do
     let(:finder_hash) { {
       "name" => "CMA Cases",
       "slug" => "finder-slug",
+      "document_noun" => "case",
       "facets" => :facet_hashes
     } }
     before {
@@ -14,6 +15,7 @@ describe FinderParser do
 
     specify { subject.name.should == "CMA Cases" }
     specify { subject.slug.should == "finder-slug" }
+    specify { subject.document_noun.should == "case" }
     specify { subject.facets.should == :a_facet_collection }
   end
 end
