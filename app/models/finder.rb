@@ -1,23 +1,8 @@
 class Finder
   attr_reader :slug, :name, :facets
 
-  def self.from_hash(finder_hash)
-    self.new(
-      name: finder_hash['name'],
-      slug: finder_hash['slug'],
-      facets: FacetCollection.from_hash(finder_hash.slice('facets'))
-    )
-  end
-
   def self.get(slug)
-    finder = self.from_hash(FinderFrontend.finder_api.get_finder(slug))
-    finder
-  end
-
-  def self.get_with_facet_values(slug, facet_values)
-    finder = self.get(slug)
-    finder.facets.values = facet_values
-    finder
+    FinderParser.parse(FinderFrontend.finder_api.get_finder(slug))
   end
 
   def initialize(attrs = {})

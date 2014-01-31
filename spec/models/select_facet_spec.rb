@@ -3,31 +3,6 @@ require "spec_helper"
 describe SelectFacet do
   subject { SelectFacet.new }
 
-  describe ".from_hash" do
-    let(:facet_hash) { {
-      "name" => "Case type",
-      "key" => "case_type",
-      "allowed_values" => [
-        { "label" => "Airport price control reviews", "value" => "airport-price-control-reviews" },
-        { "label" => "Market investigations",         "value" => "market-investigations" },
-        { "label" => "Remittals",                     "value" => "remittals" }
-      ],
-      "include_blank" => "All case types"
-    } }
-    subject { SelectFacet.from_hash(facet_hash) }
-
-    specify { subject.name.should == "Case type" }
-    specify { subject.key.should == "case_type" }
-    specify { subject.include_blank.should == "All case types" }
-
-    it "should build a list of allowed values" do
-      subject.allowed_values[0].label.should == "Airport price control reviews"
-      subject.allowed_values[0].value.should == "airport-price-control-reviews"
-      subject.allowed_values[2].label.should == "Remittals"
-      subject.allowed_values[2].value.should == "remittals"
-    end
-  end
-
   describe "#value" do
     let(:allowed_values) { [ OpenStruct.new(label: "Allowed value", value: "allowed-value") ] }
     let(:value) { nil }

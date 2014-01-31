@@ -3,13 +3,8 @@ class ResultSet
 
   delegate :count, to: :documents
 
-  def self.from_hash(result_set_hash)
-    documents = result_set_hash['documents'].map { |document_hash| Document.from_hash(document_hash) }
-    self.new(documents: documents, document_noun: result_set_hash['document_noun'])
-  end
-
   def self.get(slug, params)
-    self.from_hash(FinderFrontend.finder_api.get_documents(slug, params))
+    ResultSetParser.parse(FinderFrontend.finder_api.get_documents(slug, params))
   end
 
   def initialize(attrs)

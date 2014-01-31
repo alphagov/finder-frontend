@@ -5,25 +5,6 @@ describe FacetCollection do
   let(:facets) {[]}
   subject { FacetCollection.new(facets: facets) }
 
-  describe ".from_hash" do
-    let(:facet_collection_hash) { {
-        "facets" => [facet_hash]
-    } }
-    subject { FacetCollection.from_hash(facet_collection_hash) }
-
-    context "with a hash describing a select facet" do
-      let(:facet_hash) { {
-        "type" => "select",
-        "name" => "Case type"
-      } }
-
-      it "should build a SelectFacet with the facet hash" do
-        SelectFacet.stub(:from_hash).with(facet_hash).and_return(:a_select_facet)
-        subject.first.should == :a_select_facet
-      end
-    end
-  end
-
   describe "enumerability" do
     context "with 3 facets" do
       let(:facets) { [:a_facet, :another_facet, :and_another_facet] }

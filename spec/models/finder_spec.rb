@@ -7,20 +7,16 @@ describe Finder do
   let(:slug) { "finder-slug" }
   subject { Finder.new(name: name, slug: slug) }
 
-  describe ".from_hash" do
-    let(:finder_hash) { {
-      "name" => name,
-      "slug" => slug,
-      "facets" => :facet_collection_hash
-    } }
-    subject { Finder.from_hash(finder_hash) }
-    before do
-      FacetCollection.stub(:from_hash).with("facets" => :facet_collection_hash).and_return(:a_facet_collection)
-    end
+  describe ".get" do
+    let (:finder_hash_from_api) { { "name" => "CMA Cases" } }
+    before {
+      mock_api.stub(:get_finder).with(slug).and_return(finder_hash_from_api)
+    }
 
-    specify { subject.name.should == "CMA Cases" }
-    specify { subject.slug.should == "finder-slug" }
-    specify { subject.facets.should == :a_facet_collection }
+    it "should use FinderParser to build a finder based on the api's response" do
+      FinderParser.should_receive(:parse).with(finder_hash_from_api).and_return(:a_built_finder)
+      Finder.get(slug).should == :a_built_finder
+    end
   end
 
   describe "#results" do
@@ -33,25 +29,5 @@ describe Finder do
     end
 
     specify { subject.results.should == :a_result_set }
-  end
-
-  describe "#get" do
-    before { mock_api.stub(:get_finder).with(slug).and_return("name" => "CMA Cases") }
-
-    specify { Finder.get(slug).should be_a(Finder) }
-    specify { Finder.get(slug).name.should == "CMA Cases" }
-  end
-
-  describe "#get_with_facet_values" do
-    let(:facet_collection) { FacetCollection.new }
-    before {
-      FacetCollection.stub(:from_hash).and_return(facet_collection)
-      mock_api.stub(:get_finder).with(slug).and_return("name" => "CMA Cases")
-    }
-
-    it "should get the finder and then populate its facets' values" do
-      facet_collection.should_receive(:values=).with(:some_facet_values)
-      Finder.get_with_facet_values(slug, :some_facet_values).should be_a(Finder)
-    end
   end
 end

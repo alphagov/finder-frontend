@@ -16,19 +16,6 @@ describe Facet do
     end
   end
 
-  describe ".from_hash" do
-    let(:facet_hash) { {
-      "name" => "Case type",
-      "key" => "case_type",
-      "value" => "merger-inquiries"
-    } }
-    subject { Facet.from_hash(facet_hash) }
-
-    specify { subject.name.should == "Case type" }
-    specify { subject.key.should == "case_type" }
-    specify { subject.value.should == "merger-inquiries" }
-  end
-
   describe "#value" do
     let(:value) { nil }
     subject { facet_class.new(value: value) }

@@ -1,0 +1,23 @@
+require 'spec_helper'
+
+describe ResultSetParser do
+  context "with a result set hash with some documents" do
+    let(:result_set_hash) { {
+      'document_noun' => 'case',
+      'documents' => [
+        :a_document_hash,
+        :another_document_hash
+      ]
+    } }
+
+    subject { ResultSetParser.parse(result_set_hash) }
+
+    before do
+      DocumentParser.stub(:parse).with(:a_document_hash).and_return(:a_document_instance)
+      DocumentParser.stub(:parse).with(:another_document_hash).and_return(:another_document_instance)
+    end
+
+    specify { subject.document_noun.should == 'case' }
+    specify { subject.documents.should == [:a_document_instance, :another_document_instance] }
+  end
+end
