@@ -1,4 +1,9 @@
 <li class="document">
   <h3><%= link_to document.title, document.url %></h3>
-  <%= document_metadata_for(document) %>
+  <dl>
+    <% document.metadata.each do |entry| %>
+      <dt><%= entry[:name] %></dt>
+      <dd><%= document_metadata_value(entry[:value], entry[:type]) %>
+    <% end %>
+  </dl>
 </li>
