@@ -90,23 +90,6 @@ $gutter-one-sixth: $gutter / 6;
       }
     }
 
-    // .checkbox {
-    //   position: relative;
-    //   label {
-    //     @include core-14;
-    //     display: block;
-    //     padding-left: $gutter-two-thirds;
-    //   }
-    //   input {
-    //     position: absolute;
-    //     top: $gutter-one-sixth;
-    //     left: 0;
-    //     @include media (tablet) {
-    //       top: $gutter * 0.25;
-    //     }
-    //   }
-    // }
-
     .button {
       @include button($button-colour);
       width: auto;
