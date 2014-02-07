@@ -1,5 +1,4 @@
 source 'https://rubygems.org'
-source 'https://BnrJb6FZyzspBboNJzYZ@gem.fury.io/govuk/'
 
 gem 'rails', '4.0.2'
 gem 'slimmer'
@@ -12,7 +11,7 @@ group :assets do
   if ENV['FRONTEND_TOOLKIT_DEV']
     gem 'govuk_frontend_toolkit', path: '../govuk_frontend_toolkit_gem'
   else
-    gem 'govuk_frontend_toolkit', '0.41.0'
+    gem 'govuk_frontend_toolkit', '0.42.0'
   end
   gem 'sass-rails', '~> 4.0.0'
   gem 'uglifier', '>= 1.3.0'
