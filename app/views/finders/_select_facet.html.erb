@@ -1,3 +1,6 @@
-<%= label_tag select_facet.key, select_facet.name %>
-<%= select_tag select_facet.key,
-               options_for_select(select_facet.values_for_select, select_facet.value) %>
+<div class="facet">
+  <%= label_tag select_facet.key, select_facet.name %>
+  <%= select_tag select_facet.key,
+                 options_for_select(select_facet.values_for_select, select_facet.value),
+                 class: 'single-row-select' %>
+</div>

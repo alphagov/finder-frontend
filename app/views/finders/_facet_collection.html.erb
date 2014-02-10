@@ -1,4 +1,10 @@
-<%= form_tag({}, method: :get, class: 'facet-menu') do %>
-  <%= render facet_collection.facets %>
-  <input type="submit" value="Refresh results" />
-<% end %>
+<div class="filter-form">
+  <div class="inner-block">
+    <p>You can use the filters to show only cases that match your interests</p>
+
+    <%= form_tag({}, method: :get, class: 'facet-menu') do %>
+      <%= render facet_collection.facets %>
+      <input type="submit" value="Refresh results" class="button" />
+    <% end %>
+  </div>
+</div>
