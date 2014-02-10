@@ -1,15 +1,10 @@
-$gutter: 30px;
-$gutter-half: $gutter / 2;
-$gutter-one-third: $gutter / 3;
-$gutter-two-thirds: $gutter*(2/3);
-$gutter-one-sixth: $gutter / 6;
-
-@import "_typography.scss";
-@import "_measurements.scss";
-@import "_colours.scss";
-@import "_shims.scss";
-@import "_css3.scss";
-@import "design-patterns/_buttons.scss";
+// govuk_frontend_toolkit helpers
+@import "typography";
+@import "measurements";
+@import "colours";
+@import "shims";
+@import "css3";
+@import "design-patterns/buttons";
 
 
 #finder-frontend {
@@ -62,7 +57,7 @@ $gutter-one-sixth: $gutter / 6;
       width: $full-width;
       margin: 0;
       @include media (desktop) {
-        padding: $gutter-one-sixth 0;
+        padding: 5px 0;
       }
 
       border-color: $border-colour;
@@ -78,14 +73,14 @@ $gutter-one-sixth: $gutter / 6;
     @include media (tablet) {
       .single-row-select {
         border: 1px solid $border-colour;
-        padding: $gutter-one-sixth $gutter-one-sixth $gutter-one-sixth $gutter-one-third;
+        padding: 5px 5px 5px 10px;
         width: $full-width;
         background: $white;
         background-image: image-url('dropdown-arrow-small.png');
         background-repeat: no-repeat;
         background-position: right center;
         @include box-shadow(1px 1px 1px $white);
-        @include border-radius($gutter-one-sixth);
+        @include border-radius(5px);
         @include appearance(none);
       }
     }
