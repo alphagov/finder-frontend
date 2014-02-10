@@ -11,7 +11,7 @@ class FinderApi
   def get_schema
     {
       'slug' => 'cma-cases',
-      'name' => 'Competition and Markets Authority&nbsp;cases',
+      'name' => 'Competition and Markets Authority cases',
       'facets' => [
         {
           'type' => 'select',
