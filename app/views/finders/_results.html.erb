@@ -1,7 +1,7 @@
 <div class="filtered-results">
   <div class="inner-block">
     <section class="results">
-      <h2><span class="result-count"><%= results.count %></span> <%= results.document_noun.pluralize(results.count) %></h2>
+      <h2><span class="result-count"><%= results.count %></span> <%= finder.document_noun.pluralize(results.count) %></h2>
 
       <ul>
         <%= render results.documents %>
