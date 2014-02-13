@@ -1,19 +1,14 @@
 class Facet
-  attr_accessor :schema, :name, :key, :value
+  attr_reader :name, :key
+  attr_accessor :value
 
-  def initialize(schema, value = nil)
-    @schema = schema
-    @name = schema["name"]
-    @key = schema["key"]
-    @value = value.presence
-    after_initialize
+  def initialize(attrs = {})
+    @key = attrs[:key]
+    @name = attrs[:name]
+    @value = attrs[:value].presence
   end
 
   def to_partial_path
     self.class.name.underscore
-  end
-
-private
-  def after_initialize
   end
 end

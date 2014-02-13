@@ -1,5 +1,11 @@
 class SelectFacet < Facet
-  attr_reader :allowed_values
+  attr_reader :allowed_values, :include_blank
+
+  def initialize(params = {})
+    super
+    @include_blank = params[:include_blank]
+    @allowed_values = params[:allowed_values]
+  end
 
   def value
     @value if allowed_values.map(&:value).include?(@value)
@@ -11,6 +17,7 @@ class SelectFacet < Facet
 
 private
   def allowed_values_for_select
+    allowed_values.map(&:to_option_for_select)
     allowed_values.map do |option|
       [option.label, option.value]
     end
@@ -18,12 +25,5 @@ private
 
   def blank_value_for_select
     [@include_blank, nil] if @include_blank.present?
-  end
-
-  def after_initialize
-    @allowed_values = schema["allowed_values"].map do |option|
-      OpenStruct.new(value: option["value"], label: option["label"])
-    end
-    @include_blank = schema["include_blank"]
   end
 end

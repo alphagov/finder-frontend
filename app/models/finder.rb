@@ -1,16 +1,14 @@
 class Finder
-  attr_reader :api, :name, :facets
+  attr_reader :slug, :name, :document_noun, :facets
 
-  def self.build(args = {})
-    schema = args[:api].get_schema
-    facets = FacetCollection.new(facets_schema: schema['facets'],
-                                 facet_values: args[:facet_values])
-    new(api: args[:api], facets: facets, name: schema['name'])
+  def self.get(slug)
+    FinderParser.parse(FinderFrontend.finder_api.get_finder(slug))
   end
 
   def initialize(attrs = {})
-    @api = attrs[:api]
+    @slug = attrs[:slug]
     @name = attrs[:name]
+    @document_noun = attrs[:document_noun]
     @facets = attrs[:facets]
   end
 
@@ -19,6 +17,6 @@ class Finder
   end
 
   def results
-    @results ||= ResultSet.get(api, facets.to_params)
+    @results ||= ResultSet.get(slug, facets.values)
   end
 end

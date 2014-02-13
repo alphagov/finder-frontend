@@ -1,43 +1,31 @@
 require 'spec_helper'
 
 describe Finder do
+  include ApiHelper
+
+  let(:name) { "CMA Cases" }
   let(:slug) { "finder-slug" }
-  let(:api) { FinderApi.new(slug) }
+  subject { Finder.new(name: name, slug: slug) }
 
-  describe ".build" do
-    subject { Finder.build(api: api, facet_values: facet_values) }
-    let(:schema) { {
-      'name' => 'Finder name',
-      'facets' => :the_facets_schema
-    } }
-    let(:facet_values) { :some_facet_values }
+  describe ".get" do
+    let (:finder_hash_from_api) { { "name" => "CMA Cases" } }
+    before {
+      mock_api.stub(:get_finder).with(slug).and_return(finder_hash_from_api)
+    }
 
-    before do
-      api.stub(:get_schema).and_return(schema)
-    end
-
-    specify { subject.name.should == 'Finder name' }
-    specify { subject.api.should == api }
-
-    describe "building a facet collection" do
-      before do
-        FacetCollection.should_receive(:new).with(
-          facets_schema: :the_facets_schema,
-          facet_values: :some_facet_values
-        ).and_return(:a_facet_collection)
-      end
-
-      specify { subject.facets.should == :a_facet_collection }
+    it "should use FinderParser to build a finder based on the api's response" do
+      FinderParser.should_receive(:parse).with(finder_hash_from_api).and_return(:a_built_finder)
+      Finder.get(slug).should == :a_built_finder
     end
   end
 
-  describe '#results' do
+  describe "#results" do
     let(:facet_params) { :some_facet_values }
-    let(:facet_collection) { OpenStruct.new(to_params: facet_params) }
-    subject { Finder.new(api: api, facets: facet_collection) }
+    let(:facet_collection) { OpenStruct.new(values: facet_params) }
+    subject { Finder.new(slug: slug, facets: facet_collection) }
 
     before do
-      ResultSet.stub(:get).with(api, :some_facet_values).and_return(:a_result_set)
+      ResultSet.stub(:get).with(slug, :some_facet_values).and_return(:a_result_set)
     end
 
     specify { subject.results.should == :a_result_set }
