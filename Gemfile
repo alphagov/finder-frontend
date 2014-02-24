@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.0.2'
+gem 'rails', '4.0.3'
 gem 'slimmer'
 gem 'gds-api-adapters', github: 'alphagov/gds-api-adapters', branch: 'add-finder-api-adapter'
 gem 'exception_notification', '4.0.1'
