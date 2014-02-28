@@ -72,19 +72,65 @@
 
     .facet {
       margin-bottom: $gutter;
+      background-color:$grey-3;
+      padding: $gutter-one-third;
+
+      legend {
+        @include core-19;
+        font-weight:bold;
+      }
+      .checkbox-container {
+        padding: 5px;
+        margin: 0 -5px;
+        background-color: $white;
+        height:120px;
+        overflow:scroll;
+
+        ul{
+          list-style:none;
+          padding:0px;
+          margin:0px;
+
+          ul {
+            padding-left: $gutter-half;;
+          }
+        }
+      }
+
+      /* Redefine scrollbars so they are always visible in scrolling facets*/
+      ::-webkit-scrollbar {
+          -webkit-appearance: none;
+          width: 7px;
+      }
+      ::-webkit-scrollbar-thumb {
+          border-radius: 4px;
+          background-color: rgba(0,0,0,.5);
+          -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
+      }
+
+    }
+
+    label {
+      @include inline-block;
+      width:90%;
     }
 
     input {
       @include core-14;
       background: $white;
-      border: 1px solid $grey-3;
+      border: 1px solid $border-colour;
       width: $full-width;
       margin: 0;
+
       @include media (desktop) {
         padding: 5px 0;
       }
+    }
 
-      border-color: $border-colour;
+    input[type="checkbox"] {
+      width: 12px;
+      margin: 3px $gutter-one-third 0 0;
+      vertical-align: top;
     }
 
     select {
@@ -151,7 +197,7 @@
           @include core-14;
           margin-left: 0;
           margin-right: $gutter-one-third;
-          display: inline-block;
+          @include inline-block;
         }
       }
     }
