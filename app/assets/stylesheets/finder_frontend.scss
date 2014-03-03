@@ -86,15 +86,13 @@
         height:120px;
         overflow:scroll;
 
-        ul{
-          list-style:none;
-          padding:0px;
-          margin:0px;
 
-          ul {
-            padding-left: $gutter-half;;
-          }
+        ul {
+          margin:0;
+          list-style:none;
+          padding-left: $gutter-two-thirds;
         }
+
       }
 
       /* Redefine scrollbars so they are always visible in scrolling facets*/
