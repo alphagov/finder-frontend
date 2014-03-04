@@ -5,22 +5,24 @@
                  class: 'single-row-select' %>
 
 </div>
-<div class="facet open">
-  <span class='legend'>Case type</span><span class='controls'><a class='clear-selected'>clear</a><div class='toggle'></div></span>
+<div class="facet open js-openable-facet">
+  <span class='legend'>Case type</span><span class='controls'><a class='clear-selected js-hidden'>clear</a><div class='toggle'></div></span>
   <div class='checkbox-container'>
-    <!-- I know uls of inputs are bad for screen readers, but how else to mark up a group of checkboxes with nested checkboxes?-->
-      <input type='checkbox' name='ca98'id='ca89'><label for='ca89'>CA89</label>
-      <input type='checkbox' name='cartels' id='cartels'><label for='cartels'>Cartels</label>
-      <input type='checkbox' name='criminal_cartels' id='criminal_cartels'><label for='criminal_cartels'>Criminal cartels</label>
+    <ul>
+      <li><input type='checkbox' name='ca98'id='ca89'><label for='ca89'>CA89</label></li>
+      <li><input type='checkbox' name='cartels' id='cartels'><label for='cartels'>Cartels</label></li>
+      <li><input type='checkbox' name='criminal_cartels' id='criminal_cartels'><label for='criminal_cartels'>Criminal cartels</label>
         <ul>
           <li><input type='checkbox' name='markets' id='markets'><label for='markets'>Markets</label></li>
           <li><input type='checkbox' name='mergers' id='mergers'><label for='mergers'>Mergers</label></li>
         </ul>
-      <input type='checkbox' name='airport_price_control_reviews' id='airport_price_control_reviews'><label for='airport_price_control_reviews'>Airport price control reviews</label>
-      <input type='checkbox' name='market_investigations' id='market_investigations'><label for='market_investigations'>Market investigations</label>
-      <input type='checkbox' name='remittals' id='remittals'><label for='remittals'>Remittals</label>
-      <input type='checkbox' name='telecommunications-price-control-appeal' id='telecommunications-price-control-appeal'><label for='telecommunications-price-control-appeal'>Telecommunications price control appeals</label>
-      <input type='checkbox' name='energy-code-modification-appeal' id='energy-code-modification-appeal'><label for='energy-code-modification-appeal'>Energy code modification appeal</label>
-      <input type='checkbox' name='reviews-of-undertakings-and-order' id='reviews-of-undertakings-and-order'><label for='reviews-of-undertakings-and-order'>Reviews of undertakings and order</label>
+      </li>
+      <li><input type='checkbox' name='airport_price_control_reviews' id='airport_price_control_reviews'><label for='airport_price_control_reviews'>Airport price control reviews</label></li>
+      <li><input type='checkbox' name='market_investigations' id='market_investigations'><label for='market_investigations'>Market investigations</label></li>
+      <li><input type='checkbox' name='remittals' id='remittals'><label for='remittals'>Remittals</label></li>
+      <li><input type='checkbox' name='telecommunications-price-control-appeal' id='telecommunications-price-control-appeal'><label for='telecommunications-price-control-appeal'>Telecommunications price control appeals</label></li>
+      <li><input type='checkbox' name='energy-code-modification-appeal' id='energy-code-modification-appeal'><label for='energy-code-modification-appeal'>Energy code modification appeal</label></li>
+      <li><input type='checkbox' name='reviews-of-undertakings-and-order' id='reviews-of-undertakings-and-order'><label for='reviews-of-undertakings-and-order'>Reviews of undertakings and order</label></li>
+    </ul>
   </div>
 </div>
