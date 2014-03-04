@@ -73,42 +73,49 @@
     .facet {
       margin-bottom: $gutter;
       background-color:$grey-3;
-      padding: $gutter-one-third;
       @extend %contain-floats;
-
-      .legend {
-        @include core-19;
-        @include inline-block;
-        float:left;
-        font-weight:bold;
-      }
-
-      .controls {
-        float:right;
-
-        .clear-selected {
-          left: -9999em;
-          position: relative;
-          height:1px;
+      padding-bottom:5px;
+      .head {
+        @extend %contain-floats;
+        padding: $gutter-one-third;
+        .legend {
+          @include core-19;
           @include inline-block;
+          float:left;
+          font-weight:bold;
         }
-        .toggle {
-          background: image-url('toggle-sprite.png') no-repeat;
-          height: 10px;
-          width: 12px;
-          @include inline-block;
+
+        .controls {
+          float:right;
+
+          .clear-selected {
+            @include inline-block;
+
+            &.js-hidden {
+              left: -9999em;
+              position: relative;
+              height:1px;
+            }
+          }
+          .toggle {
+            background: image-url('toggle-sprite.png') no-repeat;
+            height: 10px;
+            width: 12px;
+            @include inline-block;
+          }
         }
       }
-
       .checkbox-container {
         height:0px;
         margin-left:-9999px;
-        margin-top: $gutter;
 
         ul {
           margin:0;
+          padding:0;
           list-style:none;
-          padding-left: $gutter-two-thirds;
+          ul {
+            padding-left: $gutter-two-thirds;
+          }
         }
         label {
           @include inline-block;
@@ -130,7 +137,7 @@
       &.open {
         .checkbox-container {
           padding: 5px;
-          margin: $gutter -5px 0;
+          margin: 0 5px;
           background-color: $white;
           height:200px;
           overflow-y:scroll;
