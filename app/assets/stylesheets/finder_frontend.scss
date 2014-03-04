@@ -75,9 +75,29 @@
       background-color:$grey-3;
       @extend %contain-floats;
       padding-bottom:5px;
+
+
+      &.open {
+        .checkbox-container {
+          padding: 5px;
+          margin: 0 5px;
+          background-color: $white;
+          height:200px;
+          overflow-y:scroll;
+        }
+        .head {
+          .controls {
+            .toggle {
+              background-position:-12px 0;
+            }
+          }
+        }
+      }
+
       .head {
         @extend %contain-floats;
         padding: $gutter-one-third;
+
         .legend {
           @include core-19;
           @include inline-block;
@@ -90,6 +110,7 @@
 
           .clear-selected {
             @include inline-block;
+            margin-right: 5px;
 
             &.js-hidden {
               left: -9999em;
@@ -131,19 +152,6 @@
           border:none;
           margin: 3px $gutter-one-third 0 0;
           vertical-align: top;
-        }
-      }
-
-      &.open {
-        .checkbox-container {
-          padding: 5px;
-          margin: 0 5px;
-          background-color: $white;
-          height:200px;
-          overflow-y:scroll;
-        }
-        .toggle {
-          background-position:-12px 0;
         }
       }
 
