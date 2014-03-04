@@ -73,30 +73,12 @@
     .facet {
       margin-bottom: $gutter;
       background-color:$grey-3;
-      @extend %contain-floats;
       padding-bottom:5px;
-
-
-      &.open {
-        .checkbox-container {
-          padding: 5px;
-          margin: 0 5px;
-          background-color: $white;
-          height:200px;
-          overflow-y:scroll;
-        }
-        .head {
-          .controls {
-            .toggle {
-              background-position:-12px 0;
-            }
-          }
-        }
-      }
 
       .head {
         @extend %contain-floats;
         padding: $gutter-one-third;
+        height:20px;
 
         .legend {
           @include core-19;
@@ -115,7 +97,8 @@
             &.js-hidden {
               left: -9999em;
               position: relative;
-              height:1px;
+              height:0px;
+              overflow:hidden;
             }
           }
           .toggle {
@@ -129,6 +112,7 @@
       .checkbox-container {
         height:0px;
         margin-left:-9999px;
+        overflow:hidden;
 
         ul {
           margin:0;
@@ -155,6 +139,22 @@
         }
       }
 
+      &.open {
+        .checkbox-container {
+          padding: 5px;
+          margin: 0 5px;
+          background-color: $white;
+          height:200px;
+          overflow-y:scroll;
+        }
+        .head {
+          .controls {
+            .toggle {
+              background-position:-12px 0;
+            }
+          }
+        }
+      }
       /* Redefine scrollbars so they are always visible in scrolling facets */
       ::-webkit-scrollbar {
           -webkit-appearance: none;
