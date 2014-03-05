@@ -24,6 +24,7 @@ end
 
 group :development, :test do
   gem 'debugger'
+  gem 'jasmine-rails'
 end
 
 group :test do
