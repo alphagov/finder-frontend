@@ -7,6 +7,30 @@
 @import "design-patterns/buttons";
 
 
+#wrapper {
+  display: block;
+  text-align: center;
+  padding-bottom: $gutter;
+  
+  @include media(desktop) {
+    padding-bottom: $gutter*2;
+  }
+
+  #content {
+    text-align: left;
+    display: block;
+    position: relative;
+    margin: 0 auto;
+    width: auto;
+    max-width: 960 + $gutter*2;
+    @extend %contain-floats;
+
+    @include ie-lte(8){
+      width: 960px;
+    }
+  }
+}
+
 #finder-frontend {
   @extend %contain-floats;
   margin-bottom: $gutter*2;
