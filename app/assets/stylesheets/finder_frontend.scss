@@ -79,6 +79,7 @@
         @extend %contain-floats;
         padding: $gutter-one-third;
         height:20px;
+        cursor:pointer;
 
         .legend {
           @include core-19;
