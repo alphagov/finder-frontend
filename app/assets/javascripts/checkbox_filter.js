@@ -3,8 +3,8 @@
 
   window.GOVUK = window.GOVUK || {};
 
-  function CheckboxFilter(options) {
-    GOVUK.Proxifier.proxifyMethods(this, ['toggleFacet', 'resetCheckboxes']);
+  function CheckboxFilter(options){
+    GOVUK.Proxifier.proxifyMethods(this, ['toggleFacet', 'resetCheckboxes', 'updateCheckboxResetter', 'checkSiblings']);
 
     this.$facet = $(options.el);
     this.$checkboxResetter = this.$facet.find('.clear-selected');
@@ -12,7 +12,7 @@
 
     this.$facet.find('.head').on('click', this.toggleFacet);
     this.$checkboxResetter.on('click', this.resetCheckboxes);
-    this.$checkboxes.on('click', this.updateCheckboxes);
+    this.$checkboxes.on('click', $.proxy(this.updateCheckboxes, this));
   }
 
 
@@ -29,10 +29,10 @@
     return false;
   };
 
-  CheckboxFilter.prototype.updateCheckboxes = function updateCheckboxes(){
-    /* Nested checkboxes effect their ancestors and children */
-    var checked = $(this).prop("checked"),
-        container = $(this).parent(),
+  CheckboxFilter.prototype.updateCheckboxes = function updateCheckboxes(e){
+    // Nested checkboxes effect their ancestors and children
+    var checked = $(e.target).prop("checked"),
+        container = $(e.target).parent(),
         siblings = container.siblings();
 
     // Set all children of this checkbox to match this checkbox
@@ -41,44 +41,49 @@
       checked: checked
     });
 
+    this.checkSiblings(container, checked);
+    this.updateCheckboxResetter();
 
-    function checkSiblings(el){
-      var parent = el.parent().parent(),
-          all = true;
+  };
 
-      /* Do all the checkboxes on this level agree? */
-      el.siblings().each(function(){
-        return all = ($(this).children('input[type="checkbox"]').prop("checked") === checked);
+  CheckboxFilter.prototype.checkSiblings = function checkSiblings(el, checked){
+    var parent = el.parent().parent(),
+        all = true;
+
+    // Do all the checkboxes on this level agree?
+    el.siblings().each(function(){
+      return all = ($(this).children('input[type="checkbox"]').prop("checked") === checked);
+    });
+
+    if (all) {
+      /*
+        If all the checkboxes on this level agree set their shared parent to be the same.
+        Then push the changes up the checkbox tree.
+      */
+      parent.children('input[type="checkbox"]').prop({
+        indeterminate: false,
+        checked: checked
       });
+      this.checkSiblings(parent, all);
 
-      if (all && checked) {
-        /*
-          If all the checkboxes on this level are checked set their shared parent to be checked.
-          Then push the changes up the checkbox tree.
-        */
-        parent.children('input[type="checkbox"]').prop({
-          indeterminate: false,
-          checked: checked
-        });
+    } else {
+       // if the checkboxes on this level disagree then set the parent to indeterminate
+       el.parents("li").children('input[type="checkbox"]').prop({
+         indeterminate: true,
+         checked: false
+       });
+     }
+   }
 
-        checkSiblings(parent);
-      } else if (all && !checked) {
-        /*
-          If all the checkboxes on this level are unchecked set their shared parent to be unchecked.
-          Then push the changes up the checkbox tree.
-        */
-         parent.children('input[type="checkbox"]').prop("checked", checked);
-         parent.children('input[type="checkbox"]').prop("indeterminate", false);
-         checkSiblings(parent);
-       } else {
-         // if the checkboxes on this level disagree then set the parent to indeterminate
-         el.parents("li").children('input[type="checkbox"]').prop({
-           indeterminate: true,
-           checked: false
-         });
-       }
+  CheckboxFilter.prototype.updateCheckboxResetter = function updateCheckboxResetter(){
+    var anyCheckedBoxes = this.$checkboxes.is(":checked"),
+        checkboxResetterHidden = this.$checkboxResetter.hasClass('js-hidden');
+
+    if (anyCheckedBoxes && checkboxResetterHidden) {
+      this.$checkboxResetter.removeClass('js-hidden');
+    } else if (!anyCheckedBoxes && !checkboxResetterHidden) {
+      this.$checkboxResetter.addClass('js-hidden');
     }
-    checkSiblings(container)
   };
 
   GOVUK.CheckboxFilter = CheckboxFilter;
