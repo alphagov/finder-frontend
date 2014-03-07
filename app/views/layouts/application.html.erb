@@ -2,7 +2,10 @@
 <html>
 <head>
   <title>Placeholder</title>
-  <%= stylesheet_link_tag    "application", media: "all" %>
+  <!--[if gt IE 8]><!--><%= stylesheet_link_tag "application" %><!--<![endif]-->
+  <!--[if IE 6]><%= stylesheet_link_tag "application-ie6" %><![endif]-->
+  <!--[if IE 7]><%= stylesheet_link_tag "application-ie7" %><![endif]-->
+  <!--[if IE 8]><%= stylesheet_link_tag "application-ie8" %><![endif]-->
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
