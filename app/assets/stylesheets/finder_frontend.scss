@@ -127,8 +127,7 @@
           @include inline-block;
           width:90%;
           @include ie(6){
-            background-color: red;
-            width:95%;
+            width:80%;
           }
         }
         /* IE6 doesn't support psuedo selectors so scoping to checkbox-container instead of using a psuedo selector */
