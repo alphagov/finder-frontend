@@ -46,12 +46,12 @@
 
   };
 
-  CheckboxFilter.prototype.checkSiblings = function checkSiblings(el, checked){
-    var parent = el.parent().parent(),
+  CheckboxFilter.prototype.checkSiblings = function checkSiblings(listitem, checked){
+    var parent = listitem.parent().parent(),
         all = true;
 
     // Do all the checkboxes on this level agree?
-    el.siblings().each(function(){
+    listitem.siblings().each(function(){
       return all = ($(this).children('input[type="checkbox"]').prop("checked") === checked);
     });
 
@@ -68,7 +68,7 @@
 
     } else {
        // if the checkboxes on this level disagree then set the parent to indeterminate
-       el.parents("li").children('input[type="checkbox"]').prop({
+       listitem.parents('li').children('input[type="checkbox"]').prop({
          indeterminate: true,
          checked: false
        });
