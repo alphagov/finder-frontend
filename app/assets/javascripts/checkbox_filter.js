@@ -30,7 +30,7 @@
   };
 
   CheckboxFilter.prototype.updateCheckboxes = function updateCheckboxes(e){
-    // Nested checkboxes effect their ancestors and children
+    // Nested checkboxes affect their ancestors and children
     var checked = $(e.target).prop("checked"),
         container = $(e.target).parent(),
         siblings = container.siblings();
