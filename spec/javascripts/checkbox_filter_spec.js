@@ -1,4 +1,4 @@
-describe('CheckboxFilter', function() {
+describe('CheckboxFilter', function(){
   var filterHTML;
 
   beforeEach(function(){
@@ -29,59 +29,187 @@ describe('CheckboxFilter', function() {
     filterHTML.remove();
   });
 
-  it("should set the parent of a nested checkbox to be indeterminate if not all siblings agree", function() {
-    var filter = new GOVUK.CheckboxFilter({el:'.js-openable-facet'});
-    $('#markets').prop("checked", true);
-    expect(filterHTML.find(':indeterminate').length).toBe(0);
-    expect(filterHTML.find(':checked').length).toBe(1);
-    filter.checkSiblings($('#markets').parent(), true);
-    expect(filterHTML.find(':indeterminate').length).toBe(1);
-  });
+  describe('toggleFacet', function(){
 
-  it("should set the parent of a nested checkbox to be checked if all siblings are checked", function(){
-    var filter = new GOVUK.CheckboxFilter({el:'.js-openable-facet'});
-    $('#markets').prop("checked", true);
-    $('#mergers').prop("checked", true);
-    expect(filterHTML.find(':indeterminate').length).toBe(0);
+    it("should add the class 'open' if the facet doesn't currently have it", function(){
+      var filter = new GOVUK.CheckboxFilter({el:'.js-openable-facet'});
+      filterHTML.removeClass('open');
+      expect(filterHTML.hasClass('open')).toBe(false);
+      filter.toggleFacet();
+      expect(filterHTML.hasClass('open')).toBe(true);
+    });
 
-    expect(filterHTML.find(':checked').length).toBe(2);
-    filter.checkSiblings($('#mergers').parent(), true);
-    expect(filterHTML.find(':indeterminate').length).toBe(0);
-    expect(filterHTML.find(':checked').length).toBe(3);
+    it("should remove the class 'open' if the facet currently has it", function(){
+      var filter = new GOVUK.CheckboxFilter({el:'.js-openable-facet'});
+      filterHTML.addClass('open');
+      expect(filterHTML.hasClass('open')).toBe(true);
+      filter.toggleFacet();
+      expect(filterHTML.hasClass('open')).toBe(false);
+    });
 
   });
 
-  it("should set the parent of a nested checkbox to be unchecked if all siblings are unchecked", function(){
-    var filter = new GOVUK.CheckboxFilter({el:'.js-openable-facet'});
-    $('#markets').prop("checked", true);
-    $('#criminal_cartels').prop("checked", true);
+  describe('resetCheckboxes', function(){
 
-    // Uncheck a child checkbox
-    $('#mergers').prop("checked", false);
-    filter.checkSiblings($('#mergers').parent(), false);
+    it("should uncheck any checked checkboxes", function(){
+      var filter = new GOVUK.CheckboxFilter({el:'.js-openable-facet'});
 
-    // Parent should have changed to be indeterminate
-    expect(filterHTML.find(':indeterminate').length).toBe(1);
-    expect(filterHTML.find(':checked').length).toBe(1);
+      // Check all checkboxes on this filter
+      filterHTML.find('.checkbox-container input').prop("checked", true);
+      expect(filterHTML.find(':checked').length).toBe($('.checkbox-container input').length);
 
-    // Uncheck second child checkbox
-    $('#markets').prop("checked", false);
-    filter.checkSiblings($('#markets').parent(), false);
+      // Reset them
+      filter.resetCheckboxes();
 
-    // Parent should have changed to match agreeing children
-    expect(filterHTML.find(':indeterminate').length).toBe(0);
-    expect(filterHTML.find(':checked').length).toBe(0);
+      // They should not be checked
+      expect(filterHTML.find(':checked').length).toBe(0);
+    });
+
   });
 
-  it("should recursively go up the checkbox tree", function(){
-    var filter = new GOVUK.CheckboxFilter({el:'.js-openable-facet'});
+  describe('updateCheckboxes', function(){
 
-    spyOn(filter, "checkSiblings").and.callThrough();
+    it("should update any descendant checkboxes of this checkbox to be checked if this checkbox is checked", function(){
+      var filter = new GOVUK.CheckboxFilter({el:'.js-openable-facet'});
+      var checkboxSelector = "#criminal_cartels"
+      var clickEvent = {target:checkboxSelector}
 
-    $('#markets').prop("checked", true);
-    $('#mergers').prop("checked", true);
-    filter.checkSiblings($('#mergers').parent(), true);
-    expect(filter.checkSiblings.calls.count()).toBe(2);
+      // Check one checkbox
+      filterHTML.find($(checkboxSelector)).prop("checked", true);
+      expect(filterHTML.find(':checked').length).toBe(1);
+
+      // Call updateCheckbox and expect all child checkboxes to have been checked
+      filter.updateCheckboxes(clickEvent);
+      expect(filterHTML.find(':checked').length).toBe(3);
+
+    });
+
+    it("should update any descendant checkboxes of this checkbox to be unchecked if this checkbox is unchecked", function(){
+      var filter = new GOVUK.CheckboxFilter({el:'.js-openable-facet'});
+      var checkboxSelector = "#criminal_cartels"
+      var clickEvent = {target:checkboxSelector}
+      var totalCheckboxes = filterHTML.find('.checkbox-container input').length
+
+      // Check all checkboxes
+      filterHTML.find('.checkbox-container input').prop("checked", true);
+      expect($(checkboxSelector).parent().find(":checked").length).toBe(3);
+
+      // Uncheck a parent one
+      filterHTML.find($(checkboxSelector)).prop("checked", false);
+      expect(filterHTML.find(':checked').length).toBe(totalCheckboxes - 1);
+
+      filter.updateCheckboxes({target:checkboxSelector});
+
+      // Expect children to have been unchecked
+      expect($(checkboxSelector).parent().find(":checked").length).toBe(0);
+    });
+
+    it("should call checkSiblings", function(){
+      var filter = new GOVUK.CheckboxFilter({el:'.js-openable-facet'});
+
+      spyOn(filter, "checkSiblings");
+      filter.updateCheckboxes({target:'#criminal_cartels'});
+      expect(filter.checkSiblings.calls.count()).toBe(1);
+    });
+
+    it("should call updateCheckboxResetter", function(){
+      var filter = new GOVUK.CheckboxFilter({el:'.js-openable-facet'});
+
+      spyOn(filter, "updateCheckboxResetter");
+      filter.updateCheckboxes({target:'#criminal_cartels'});
+      expect(filter.updateCheckboxResetter.calls.count()).toBe(1);
+    });
+
   });
+
+
+  describe('checkSiblings', function(){
+
+    it("should set the parent of a nested checkbox to be indeterminate if not all siblings agree", function(){
+      var filter = new GOVUK.CheckboxFilter({el:'.js-openable-facet'});
+
+      $('#markets').prop("checked", true);
+      expect(filterHTML.find(':indeterminate').length).toBe(0);
+      expect(filterHTML.find(':checked').length).toBe(1);
+      filter.checkSiblings($('#markets').parent(), true);
+      expect(filterHTML.find(':indeterminate').length).toBe(1);
+    });
+
+    it("should set the parent of a nested checkbox to be checked if all siblings are checked", function(){
+      var filter = new GOVUK.CheckboxFilter({el:'.js-openable-facet'});
+
+      $('#markets').prop("checked", true);
+      $('#mergers').prop("checked", true);
+      expect(filterHTML.find(':indeterminate').length).toBe(0);
+
+      expect(filterHTML.find(':checked').length).toBe(2);
+      filter.checkSiblings($('#mergers').parent(), true);
+      expect(filterHTML.find(':indeterminate').length).toBe(0);
+      expect(filterHTML.find(':checked').length).toBe(3);
+
+    });
+
+    it("should set the parent of a nested checkbox to be unchecked if all siblings are unchecked", function(){
+      var filter = new GOVUK.CheckboxFilter({el:'.js-openable-facet'});
+
+      $('#markets').prop("checked", true);
+      $('#criminal_cartels').prop("checked", true);
+
+      // Uncheck a child checkbox
+      $('#mergers').prop("checked", false);
+      filter.checkSiblings($('#mergers').parent(), false);
+
+      // Parent should have changed to be indeterminate
+      expect(filterHTML.find(':indeterminate').length).toBe(1);
+      expect(filterHTML.find(':checked').length).toBe(1);
+
+      // Uncheck second child checkbox
+      $('#markets').prop("checked", false);
+      filter.checkSiblings($('#markets').parent(), false);
+
+      // Parent should have changed to match agreeing children
+      expect(filterHTML.find(':indeterminate').length).toBe(0);
+      expect(filterHTML.find(':checked').length).toBe(0);
+    });
+
+    it("should recursively go up the checkbox tree", function(){
+      var filter = new GOVUK.CheckboxFilter({el:'.js-openable-facet'});
+
+      spyOn(filter, "checkSiblings").and.callThrough();
+
+      $('#markets').prop("checked", true);
+      $('#mergers').prop("checked", true);
+
+      filter.checkSiblings($('#mergers').parent(), true);
+      expect(filter.checkSiblings.calls.count()).toBe(2);
+    });
+  });
+
+  describe("updateCheckboxResetter", function(){
+
+    it("should add the visually-hidden class to the checkbox resetter if no checkboxes are checked",function(){
+      var filter = new GOVUK.CheckboxFilter({el:'.js-openable-facet'});
+
+      expect(filterHTML.find($('.clear-selected')).hasClass('js-hidden')).toBe(true);
+      filter.updateCheckboxResetter();
+      expect(filterHTML.find($('.clear-selected')).hasClass('js-hidden')).toBe(true);
+
+      $('#markets').prop("checked", true);
+      filter.updateCheckboxResetter();
+      expect(filterHTML.find($('.clear-selected')).hasClass('js-hidden')).toBe(false);
+    });
+
+    it("should remove the visually-hidden class to the checkbox resetter if any checkboxes are checked",function(){
+       var filter = new GOVUK.CheckboxFilter({el:'.js-openable-facet'});
+
+       filterHTML.find($('.clear-selected')).removeClass('js-hidden');
+       expect(filterHTML.find($('.clear-selected')).hasClass('js-hidden')).toBe(false);
+
+       filter.updateCheckboxResetter();
+       expect(filterHTML.find($('.clear-selected')).hasClass('js-hidden')).toBe(true);
+    });
+
+  });
+
 });
 
