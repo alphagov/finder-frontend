@@ -1,31 +1,151 @@
-<div class="facet">
-  <%= label_tag select_facet.key, select_facet.name %>
-  <%= select_tag select_facet.key,
-                 options_for_select(select_facet.values_for_select, select_facet.value),
-                 class: 'single-row-select' %>
-
-</div>
-<div class="facet js-openable-facet" tabindex="0">
-  <div class='head'>
-    <span class='legend'>Case type</span>
-    <div class='controls'><a class='clear-selected js-hidden'>clear</a><div class='toggle'></div></div>
+<div class="facet js-openable-facet case-type" tabindex="0">
+  <div class="head">
+    <span class="legend">Case type</span>
+    <div class="controls">
+      <a class="clear-selected js-hidden">clear</a>
+      <div class="toggle"></div>
     </div>
-  <div class='checkbox-container'>
+  </div>
+  <div class="checkbox-container">
     <ul>
-      <li><input type='checkbox' name='ca98'id='ca89'><label for='ca89'>CA89</label></li>
-      <li><input type='checkbox' name='cartels' id='cartels'><label for='cartels'>Cartels</label></li>
-      <li><input type='checkbox' name='criminal_cartels' id='criminal_cartels'><label for='criminal_cartels'>Criminal cartels</label>
+      <li>
+        <input type="checkbox" name="ca98" id="ca89"><label for="ca89">CA89 and civil cartels</label>
+      </li>
+      <li>
+        <input type="checkbox" name="cartels" id="cartels"><label for="cartels">Criminal cartels</label>
+      </li>
+      <li>
+        <input type="checkbox" name="markets" id="markets"><label for="markets">Markets</label>
         <ul>
-          <li><input type='checkbox' name='markets' id='markets'><label for='markets'>Markets</label></li>
-          <li><input type='checkbox' name='mergers' id='mergers'><label for='mergers'>Mergers</label></li>
+          <li>
+            <input type="checkbox" name="markets" id="markets"><label for="markets">Phase 1</label>
+          </li>
+          <li>
+            <input type="checkbox" name="mergers" id="mergers"><label for="mergers">Phase 2</label>
+          </li>
         </ul>
       </li>
-      <li><input type='checkbox' name='airport_price_control_reviews' id='airport_price_control_reviews'><label for='airport_price_control_reviews'>Airport price control reviews</label></li>
-      <li><input type='checkbox' name='market_investigations' id='market_investigations'><label for='market_investigations'>Market investigations</label></li>
-      <li><input type='checkbox' name='remittals' id='remittals'><label for='remittals'>Remittals</label></li>
-      <li><input type='checkbox' name='telecommunications-price-control-appeal' id='telecommunications-price-control-appeal'><label for='telecommunications-price-control-appeal'>Telecommunications price control appeals</label></li>
-      <li><input type='checkbox' name='energy-code-modification-appeal' id='energy-code-modification-appeal'><label for='energy-code-modification-appeal'>Energy code modification appeal</label></li>
-      <li><input type='checkbox' name='reviews-of-undertakings-and-order' id='reviews-of-undertakings-and-order'><label for='reviews-of-undertakings-and-order'>Reviews of undertakings and order</label></li>
+      <li>
+        <input type="checkbox" name="mergers" id="mergers"><label for="mergers">Mergers</label>
+        <ul>
+          <li>
+            <input type="checkbox" name="markets" id="markets"><label for="markets">Phase 1</label>
+          </li>
+          <li>
+            <input type="checkbox" name="mergers" id="mergers"><label for="mergers">Phase 2</label>
+          </li>
+        </ul>
+        </li>
+      <li>
+        <input type="checkbox" name="airport_price_control_reviews" id="airport_price_control_reviews"><label for="airport_price_control_reviews">Consumer enforcement</label>
+      </li>
+      <li>
+        <input type="checkbox" name="market_investigations" id="market_investigations"><label for="market_investigations">Regulatory references and appeals</label>
+      </li>
+      <li>
+        <input type="checkbox" name="remittals" id="remittals"><label for="remittals">Reviews of orders and undertakings</label>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="facet js-openable-facet case-sector" tabindex="4">
+  <div class="head">
+    <span class="legend">Market sector</span>
+    <div class="controls">
+      <a class="clear-selected js-hidden">clear</a><div class="toggle"></div>
+    </div>
+  </div>
+  <div class="checkbox-container">
+    <ul>
+      <li>
+        <input type="checkbox" name="ca98" id="ca89"><label for="ca89">Agriculture, environment and natural resources</label>
+      </li>
+      <li>
+        <input type="checkbox" name="cartels" id="cartels"><label for="cartels">Aerospace</label>
+      </li>
+      <li>
+        <input type="checkbox" name="markets" id="markets"><label for="markets">Building and construction</label>
+      </li>
+      <li>
+        <input type="checkbox" name="markets" id="markets"><label for="markets">Chemicals</label>
+      </li>
+      <li>
+        <input type="checkbox" name="mergers" id="mergers"><label for="mergers">Clothing, footwear and fashion</label>
+      </li>
+      <li>
+        <input type="checkbox" name="mergers" id="mergers"><label for="mergers">Communications</label>
+      </li>
+      <li>
+        <input type="checkbox" name="markets" id="markets"><label for="markets">Defence</label>
+      </li>
+      <li>
+        <input type="checkbox" name="mergers" id="mergers"><label for="mergers">Distribution and Service Industries</label>
+      </li>
+      <li>
+        <input type="checkbox" name="airport_price_control_reviews" id="airport_price_control_reviews">
+        <label for="airport_price_control_reviews">Electronics Industry</label>
+      </li>
+      <li>
+        <input type="checkbox" name="market_investigations" id="market_investigations"><label for="market_investigations">Energy</label>
+      </li>
+      <li>
+        <input type="checkbox" name="remittals" id="remittals"><label for="remittals">Engineering</label>
+      </li>
+      <li>
+        <input type="checkbox" name="remittals" id="remittals"><label for="remittals">Financial services</label>
+      </li>
+      <li>
+        <input type="checkbox" name="remittals" id="remittals"><label for="remittals">Fire, police and security</label>
+      </li>
+      <li>
+        <input type="checkbox" name="remittals" id="remittals"><label for="remittals">Food manufacturing</label>
+      </li>
+      <li>
+        <input type="checkbox" name="remittals" id="remittals"><label for="remittals">Giftware, jewellery and tableware</label>
+      </li>
+      <li>
+        <input type="checkbox" name="remittals" id="remittals"><label for="remittals">Healthcare and medical equipment</label>
+      </li>
+      <li>
+        <input type="checkbox" name="remittals" id="remittals"><label for="remittals">Household goods, furniture and furnishings</label>
+      </li>
+      <li>
+        <input type="checkbox" name="remittals" id="remittals"><label for="remittals">Mineral extraction, mining and quarrying</label>
+      </li>
+      <li>
+        <input type="checkbox" name="remittals" id="remittals"><label for="remittals">Motor Industry</label>
+      </li>
+      <li>
+        <input type="checkbox" name="remittals" id="remittals"><label for="remittals">Oil and Gas refining and Petrochemicals</label>
+      </li>
+      <li>
+        <input type="checkbox" name="remittals" id="remittals"><label for="remittals">Recreation and Leisure</label>
+      </li>
+      <li>
+        <input type="checkbox" name="remittals" id="remittals"><label for="remittals">Paper printing and packaging</label>
+      </li>
+      <li>
+        <input type="checkbox" name="remittals" id="remittals"><label for="remittals">Pharmaceuticals</label>
+      </li>
+      <li>
+        <input type="checkbox" name="remittals" id="remittals"><label for="remittals">Public markets</label>
+      </li>
+      <li>
+        <input type="checkbox" name="remittals" id="remittals"><label for="remittals">Retail and wholesale</label>
+      </li>
+      <li>
+        <input type="checkbox" name="remittals" id="remittals"><label for="remittals">Telecommunications</label>
+      </li>
+      <li>
+        <input type="checkbox" name="remittals" id="remittals"><label for="remittals">Textiles</label>
+      </li>
+      <li>
+        <input type="checkbox" name="remittals" id="remittals"><label for="remittals">Transport</label>
+      </li>
+      <li>
+        <input type="checkbox" name="remittals" id="remittals"><label for="remittals">Utilities</label>
+      </li>
     </ul>
   </div>
 </div>
