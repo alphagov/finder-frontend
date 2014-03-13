@@ -14,5 +14,8 @@
 
 
 jQuery(function($) {
-  new GOVUK.CheckboxFilter({el:'.js-openable-facet'})
+  $('.js-openable-facet').each(function(){
+    console.log(this);
+    new GOVUK.CheckboxFilter({el:$(this)});
+  })
 });

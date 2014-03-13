@@ -32,7 +32,7 @@ describe('CheckboxFilter', function(){
   describe('toggleFacet', function(){
 
     it("should add the class 'open' if the facet doesn't currently have it", function(){
-      var filter = new GOVUK.CheckboxFilter({el:'.js-openable-facet'});
+      var filter = new GOVUK.CheckboxFilter({el:filterHTML});
       filterHTML.removeClass('open');
       expect(filterHTML.hasClass('open')).toBe(false);
       filter.toggleFacet();
@@ -40,7 +40,7 @@ describe('CheckboxFilter', function(){
     });
 
     it("should remove the class 'open' if the facet currently has it", function(){
-      var filter = new GOVUK.CheckboxFilter({el:'.js-openable-facet'});
+      var filter = new GOVUK.CheckboxFilter({el:filterHTML});
       filterHTML.addClass('open');
       expect(filterHTML.hasClass('open')).toBe(true);
       filter.toggleFacet();
@@ -52,7 +52,7 @@ describe('CheckboxFilter', function(){
   describe('resetCheckboxes', function(){
 
     it("should uncheck any checked checkboxes", function(){
-      var filter = new GOVUK.CheckboxFilter({el:'.js-openable-facet'});
+      var filter = new GOVUK.CheckboxFilter({el:filterHTML});
 
       // Check all checkboxes on this filter
       filterHTML.find('.checkbox-container input').prop("checked", true);
@@ -70,7 +70,7 @@ describe('CheckboxFilter', function(){
   describe('updateCheckboxes', function(){
 
     it("should update any descendant checkboxes of this checkbox to be checked if this checkbox is checked", function(){
-      var filter = new GOVUK.CheckboxFilter({el:'.js-openable-facet'});
+      var filter = new GOVUK.CheckboxFilter({el:filterHTML});
       var checkboxSelector = "#criminal_cartels"
       var clickEvent = {target:checkboxSelector}
 
@@ -85,7 +85,7 @@ describe('CheckboxFilter', function(){
     });
 
     it("should update any descendant checkboxes of this checkbox to be unchecked if this checkbox is unchecked", function(){
-      var filter = new GOVUK.CheckboxFilter({el:'.js-openable-facet'});
+      var filter = new GOVUK.CheckboxFilter({el:filterHTML});
       var checkboxSelector = "#criminal_cartels"
       var clickEvent = {target:checkboxSelector}
       var totalCheckboxes = filterHTML.find('.checkbox-container input').length
@@ -105,7 +105,7 @@ describe('CheckboxFilter', function(){
     });
 
     it("should call checkSiblings", function(){
-      var filter = new GOVUK.CheckboxFilter({el:'.js-openable-facet'});
+      var filter = new GOVUK.CheckboxFilter({el:filterHTML});
 
       spyOn(filter, "checkSiblings");
       filter.updateCheckboxes({target:'#criminal_cartels'});
@@ -113,7 +113,7 @@ describe('CheckboxFilter', function(){
     });
 
     it("should call updateCheckboxResetter", function(){
-      var filter = new GOVUK.CheckboxFilter({el:'.js-openable-facet'});
+      var filter = new GOVUK.CheckboxFilter({el:filterHTML});
 
       spyOn(filter, "updateCheckboxResetter");
       filter.updateCheckboxes({target:'#criminal_cartels'});
@@ -126,7 +126,7 @@ describe('CheckboxFilter', function(){
   describe('checkSiblings', function(){
 
     it("should set the parent of a nested checkbox to be indeterminate if not all siblings agree", function(){
-      var filter = new GOVUK.CheckboxFilter({el:'.js-openable-facet'});
+      var filter = new GOVUK.CheckboxFilter({el:filterHTML});
 
       $('#markets').prop("checked", true);
       expect(filterHTML.find(':indeterminate').length).toBe(0);
@@ -136,7 +136,7 @@ describe('CheckboxFilter', function(){
     });
 
     it("should set the parent of a nested checkbox to be checked if all siblings are checked", function(){
-      var filter = new GOVUK.CheckboxFilter({el:'.js-openable-facet'});
+      var filter = new GOVUK.CheckboxFilter({el:filterHTML});
 
       $('#markets').prop("checked", true);
       $('#mergers').prop("checked", true);
@@ -150,7 +150,7 @@ describe('CheckboxFilter', function(){
     });
 
     it("should set the parent of a nested checkbox to be unchecked if all siblings are unchecked", function(){
-      var filter = new GOVUK.CheckboxFilter({el:'.js-openable-facet'});
+      var filter = new GOVUK.CheckboxFilter({el:filterHTML});
 
       $('#markets').prop("checked", true);
       $('#criminal_cartels').prop("checked", true);
@@ -173,7 +173,7 @@ describe('CheckboxFilter', function(){
     });
 
     it("should recursively go up the checkbox tree", function(){
-      var filter = new GOVUK.CheckboxFilter({el:'.js-openable-facet'});
+      var filter = new GOVUK.CheckboxFilter({el:filterHTML});
 
       spyOn(filter, "checkSiblings").and.callThrough();
 
@@ -188,7 +188,7 @@ describe('CheckboxFilter', function(){
   describe("updateCheckboxResetter", function(){
 
     it("should add the visually-hidden class to the checkbox resetter if no checkboxes are checked",function(){
-      var filter = new GOVUK.CheckboxFilter({el:'.js-openable-facet'});
+      var filter = new GOVUK.CheckboxFilter({el:filterHTML});
 
       expect(filterHTML.find($('.clear-selected')).hasClass('js-hidden')).toBe(true);
       filter.updateCheckboxResetter();
@@ -200,7 +200,7 @@ describe('CheckboxFilter', function(){
     });
 
     it("should remove the visually-hidden class to the checkbox resetter if any checkboxes are checked",function(){
-       var filter = new GOVUK.CheckboxFilter({el:'.js-openable-facet'});
+       var filter = new GOVUK.CheckboxFilter({el:filterHTML});
 
        filterHTML.find($('.clear-selected')).removeClass('js-hidden');
        expect(filterHTML.find($('.clear-selected')).hasClass('js-hidden')).toBe(false);

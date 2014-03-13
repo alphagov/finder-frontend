@@ -6,7 +6,7 @@
   function CheckboxFilter(options){
     GOVUK.Proxifier.proxifyMethods(this, ['toggleFacet', 'resetCheckboxes', 'updateCheckboxResetter', 'checkSiblings']);
 
-    this.$facet = $(options.el);
+    this.$facet = options.el;
     this.$checkboxResetter = this.$facet.find('.clear-selected');
     this.$checkboxes = this.$facet.find("input[type='checkbox']");
 
