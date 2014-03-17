@@ -106,14 +106,17 @@
             background: image-url('toggle-sprite.png') no-repeat;
             height: 10px;
             width: 12px;
+            background-position:-12px 0;
             @include inline-block;
           }
         }
       }
       .checkbox-container {
-        height:0px;
-        margin-left:-9999px;
-        overflow:hidden;
+        padding: 5px;
+        margin: 0 5px;
+        background-color: $white;
+        height:200px;
+        overflow-y:scroll;
 
         ul {
           margin:0;
@@ -138,19 +141,20 @@
           vertical-align: top;
         }
       }
-
-      &.open {
-        .checkbox-container {
-          padding: 5px;
-          margin: 0 5px;
-          background-color: $white;
-          height:200px;
-          overflow-y:scroll;
-        }
-        .head {
-          .controls {
-            .toggle {
-              background-position:-12px 0;
+      .js-enabled & {
+        &.closed {
+          .checkbox-container {
+            height:0px;
+            margin-left:-9999px;
+            overflow:hidden;
+            padding:0px;
+            margin:0px;
+          }
+          .head {
+            .controls {
+              .toggle {
+                background-position:0 0;
+              }
             }
           }
         }

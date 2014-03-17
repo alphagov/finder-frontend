@@ -17,7 +17,7 @@
 
 
   CheckboxFilter.prototype.toggleFacet = function toggleFacet(){
-    this.$facet.toggleClass('open');
+    this.$facet.toggleClass('closed');
   };
 
   CheckboxFilter.prototype.resetCheckboxes = function resetCheckboxes(){
