@@ -29,6 +29,72 @@ describe('CheckboxFilter', function(){
     filterHTML.remove();
   });
 
+  describe('listenForKeys', function(){
+
+    it("should bind an event handler to the keypress event", function(){
+      var filter = new GOVUK.CheckboxFilter({el:filterHTML});
+      spyOn(filter, "checkForSpecialKeys");
+      filter.listenForKeys();
+
+      // Simulate keypress
+      filterHTML.trigger('keypress');
+      expect(filter.checkForSpecialKeys.calls.count()).toBe(1);
+    });
+
+  });
+
+  describe('checkForSpecialKeys', function(){
+
+    it ("should do something if the key event passed in is a return character", function(){
+      var filter = new GOVUK.CheckboxFilter({el:filterHTML});
+      spyOn(filter, "toggleFacet");
+      filter.listenForKeys();
+
+      // 13 is the return key
+      filter.checkForSpecialKeys({keyCode:13});
+
+      expect(filter.toggleFacet.calls.count()).toBe(1);
+    });
+
+    it ('should do nothing if the key is not return', function(){
+      var filter = new GOVUK.CheckboxFilter({el:filterHTML});
+      spyOn(filter, "toggleFacet");
+      filter.listenForKeys();
+
+      filter.checkForSpecialKeys({keyCode:11});
+      expect(filter.toggleFacet.calls.count()).toBe(0);
+    });
+
+  });
+
+  describe('stopListeningForKeys', function(){
+
+    it('should remove an event handler for the keypress event', function(){
+      var filter = new GOVUK.CheckboxFilter({el:filterHTML});
+      spyOn(filter, "checkForSpecialKeys");
+      filter.listenForKeys();
+      filter.stopListeningForKeys();
+      // Simulate keypress
+      filterHTML.trigger('keypress');
+      expect(filter.checkForSpecialKeys.calls.count()).toBe(0);
+    });
+
+  });
+
+  describe('ensureFacetIsOpen', function(){
+    it ('should always leave the facet in an open state', function(){
+      var filter = new GOVUK.CheckboxFilter({el:filterHTML});
+      filterHTML.addClass('closed')
+      expect(filterHTML.hasClass('closed')).toBe(true);
+
+      filter.ensureFacetIsOpen();
+      expect(filterHTML.hasClass('closed')).toBe(false);
+      filter.ensureFacetIsOpen();
+      expect(filterHTML.hasClass('closed')).toBe(false);
+
+    });
+  });
+
   describe('toggleFacet', function(){
 
     it("should add the class 'open' if the facet doesn't currently have it", function(){
