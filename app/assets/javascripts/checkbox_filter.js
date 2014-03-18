@@ -4,17 +4,41 @@
   window.GOVUK = window.GOVUK || {};
 
   function CheckboxFilter(options){
-    GOVUK.Proxifier.proxifyMethods(this, ['toggleFacet', 'resetCheckboxes', 'updateCheckboxResetter', 'checkSiblings']);
+    GOVUK.Proxifier.proxifyMethods(this, ['toggleFacet', 'resetCheckboxes', 'updateCheckboxResetter', 'checkSiblings', 'listenForKeys','stopListeningForKeys', 'ensureFacetIsOpen']);
 
     this.$facet = options.el;
     this.$checkboxResetter = this.$facet.find('.clear-selected');
     this.$checkboxes = this.$facet.find("input[type='checkbox']");
 
     this.$facet.find('.head').on('click', this.toggleFacet);
+    this.$facet.on('focus', this.listenForKeys);
+    this.$facet.on('blur', this.stopListeningForKeys);
+
     this.$checkboxResetter.on('click', this.resetCheckboxes);
-    this.$checkboxes.on('click', $.proxy(this.updateCheckboxes, this));
+
+    this.$checkboxes.on('click', $.proxy(this.updateCheckboxes,this));
+    this.$checkboxes.on('focus', this.ensureFacetIsOpen);
   }
 
+  CheckboxFilter.prototype.listenForKeys = function listenForKeys(){
+    this.$facet.keypress($.proxy(this.checkForSpecialKeys, this));
+  };
+
+  CheckboxFilter.prototype.checkForSpecialKeys = function checkForSpecialKeys(e){
+    if(e.keyCode == 13) {
+      this.toggleFacet();
+    }
+  };
+
+  CheckboxFilter.prototype.stopListeningForKeys = function stopListeningForKeys(){
+    this.$facet.unbind('keypress');
+  };
+
+  CheckboxFilter.prototype.ensureFacetIsOpen = function ensureFacetIsOpen(){
+    if (this.$facet.hasClass('closed')) {
+      this.$facet.removeClass('closed');
+    }
+  };
 
   CheckboxFilter.prototype.toggleFacet = function toggleFacet(){
     this.$facet.toggleClass('closed');
