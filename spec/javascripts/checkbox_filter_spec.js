@@ -97,20 +97,20 @@ describe('CheckboxFilter', function(){
 
   describe('toggleFacet', function(){
 
-    it("should add the class 'open' if the facet doesn't currently have it", function(){
+    it("should add the class 'closed' if the facet doesn't currently have it", function(){
       var filter = new GOVUK.CheckboxFilter({el:filterHTML});
-      filterHTML.removeClass('open');
-      expect(filterHTML.hasClass('open')).toBe(false);
+      filterHTML.removeClass('closed');
+      expect(filterHTML.hasClass('closed')).toBe(false);
       filter.toggleFacet();
-      expect(filterHTML.hasClass('open')).toBe(true);
+      expect(filterHTML.hasClass('closed')).toBe(true);
     });
 
-    it("should remove the class 'open' if the facet currently has it", function(){
+    it("should remove the class 'closed' if the facet currently has it", function(){
       var filter = new GOVUK.CheckboxFilter({el:filterHTML});
-      filterHTML.addClass('open');
-      expect(filterHTML.hasClass('open')).toBe(true);
+      filterHTML.addClass('closed');
+      expect(filterHTML.hasClass('closed')).toBe(true);
       filter.toggleFacet();
-      expect(filterHTML.hasClass('open')).toBe(false);
+      expect(filterHTML.hasClass('closed')).toBe(false);
     });
 
   });
