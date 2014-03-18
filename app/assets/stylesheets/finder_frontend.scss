@@ -75,6 +75,10 @@
       background-color:$grey-3;
       padding-bottom:5px;
 
+      &:focus {
+        outline: 3px solid #ffbf47;
+      }
+
       .head {
         @extend %contain-floats;
         padding: $gutter-one-third;
@@ -144,9 +148,8 @@
       .js-enabled & {
         &.closed {
           .checkbox-container {
-            height:0px;
-            margin-left:-9999px;
-            overflow:hidden;
+            position:absolute;
+            left:-9999px;
             padding:0px;
             margin:0px;
           }
