@@ -116,6 +116,7 @@
         }
       }
       .checkbox-container {
+        position:relative;
         padding: 5px;
         margin: 0 5px;
         background-color: $white;
@@ -130,19 +131,20 @@
             padding-left: $gutter-two-thirds;
           }
         }
-        label {
-          @include inline-block;
-          width:90%;
-          @include ie(6){
-            width:80%;
+        li {
+
+          label {
+            @include inline-block;
+            margin-left:20px;
           }
-        }
-        /* IE6 doesn't support psuedo selectors so scoping to checkbox-container instead of using a psuedo selector */
-        input {
-          width: 12px;
-          border:none;
-          margin: 3px $gutter-one-third 0 0;
-          vertical-align: top;
+          /* IE6 doesn't support psuedo selectors so scoping to checkbox-container instead of using a psuedo selector */
+          input {
+            width: 12px;
+            border:none;
+            margin: 3px $gutter-one-third 0 0;
+            vertical-align: top;
+            position:absolute;
+          }
         }
       }
       .js-enabled & {
