@@ -4,9 +4,10 @@
   window.GOVUK = window.GOVUK || {};
 
   function CheckboxFilter(options){
-    GOVUK.Proxifier.proxifyMethods(this, ['toggleFacet', 'resetCheckboxes', 'updateCheckboxResetter', 'checkSiblings', 'listenForKeys','stopListeningForKeys', 'ensureFacetIsOpen']);
+    GOVUK.Proxifier.proxifyMethods(this, ['toggleFacet', 'resetCheckboxes', 'updateCheckboxResetter', 'checkSiblings', 'listenForKeys','stopListeningForKeys', 'ensureFacetIsOpen', 'open', 'close', 'setupHeight']);
 
     this.$facet = options.el;
+
     this.$checkboxResetter = this.$facet.find('.clear-selected');
     this.$checkboxes = this.$facet.find("input[type='checkbox']");
 
@@ -19,6 +20,31 @@
     this.$checkboxes.on('click', $.proxy(this.updateCheckboxes,this));
     this.$checkboxes.on('focus', this.ensureFacetIsOpen);
   }
+
+  CheckboxFilter.prototype.setupHeight = function setupHeight(){
+    var checkboxContainer = this.$facet.find('.checkbox-container');
+    var checkboxList = checkboxContainer.children('ul');
+    var initCheckboxContainerHeight = checkboxContainer.height();
+    var height = checkboxList.height();
+
+    if (height < initCheckboxContainerHeight) {
+      // Resize if the list is smaller than its container
+      checkboxContainer.height(height);
+
+    } else if (checkboxList.height() < initCheckboxContainerHeight + 50) {
+      // Resize if the list is only slightly bigger than its container
+      checkboxContainer.height(checkboxList.height());
+    }
+  }
+
+  CheckboxFilter.prototype.open = function open(){
+    this.$facet.removeClass('closed');
+    this.setupHeight();
+  };
+
+  CheckboxFilter.prototype.close = function close(){
+    this.$facet.addClass('closed');
+  };
 
   CheckboxFilter.prototype.listenForKeys = function listenForKeys(){
     this.$facet.keypress($.proxy(this.checkForSpecialKeys, this));
@@ -36,12 +62,16 @@
 
   CheckboxFilter.prototype.ensureFacetIsOpen = function ensureFacetIsOpen(){
     if (this.$facet.hasClass('closed')) {
-      this.$facet.removeClass('closed');
+      this.open();
     }
   };
 
   CheckboxFilter.prototype.toggleFacet = function toggleFacet(){
-    this.$facet.toggleClass('closed');
+    if (this.$facet.hasClass('closed')) {
+      this.open();
+    } else {
+      this.close();
+    }
   };
 
   CheckboxFilter.prototype.resetCheckboxes = function resetCheckboxes(){
