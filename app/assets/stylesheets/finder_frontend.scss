@@ -75,6 +75,7 @@
       background-color:$grey-3;
       padding-bottom:5px;
 
+
       &:focus {
         outline: 3px solid #ffbf47;
       }
@@ -82,19 +83,19 @@
       .head {
         @extend %contain-floats;
         padding: $gutter-one-third;
-        height:20px;
         cursor:pointer;
-
+        position:relative;
         .legend {
           @include core-19;
           @include inline-block;
-          float:left;
+          margin-right:40px;
           font-weight:bold;
         }
 
         .controls {
-          float:right;
-
+          position:absolute;
+          right:$gutter-one-third;
+          top:$gutter-one-third;
           .clear-selected {
             @include inline-block;
             margin-right: 5px;
@@ -136,6 +137,17 @@
           label {
             @include inline-block;
             margin-left:20px;
+
+            /* if the label is long break it with a hypen if the browser allows this behaviour */
+            -ms-word-break: break-all;
+            word-break: break-all;
+
+            /* Non standard for webkit */
+            word-break: break-word;
+
+            -webkit-hyphens: auto;
+            -moz-hyphens: auto;
+            hyphens: auto;
           }
           /* IE6 doesn't support psuedo selectors so scoping to checkbox-container instead of using a psuedo selector */
           input {
