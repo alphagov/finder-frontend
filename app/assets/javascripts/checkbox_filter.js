@@ -52,6 +52,8 @@
 
   CheckboxFilter.prototype.checkForSpecialKeys = function checkForSpecialKeys(e){
     if(e.keyCode == 13) {
+
+      // keyCode 13 is the return key.
       this.toggleFacet();
     }
   };
