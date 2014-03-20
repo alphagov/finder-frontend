@@ -75,9 +75,30 @@
       background-color:$grey-3;
       padding-bottom:5px;
 
-
       &:focus {
         outline: 3px solid #ffbf47;
+      }
+
+      &.radio-facet {
+        padding: $gutter-one-third;
+
+        .legend {
+          width:100%;
+        }
+        label {
+          margin-right:$gutter-one-third;
+          @include inline-block;
+        }
+        input {
+          width:14px;
+        }
+      }
+
+      .legend {
+        @include core-19;
+        @include inline-block;
+        margin-right:40px;
+        font-weight:bold;
       }
 
       .head {
@@ -85,12 +106,6 @@
         padding: $gutter-one-third;
         cursor:pointer;
         position:relative;
-        .legend {
-          @include core-19;
-          @include inline-block;
-          margin-right:40px;
-          font-weight:bold;
-        }
 
         .controls {
           position:absolute;
