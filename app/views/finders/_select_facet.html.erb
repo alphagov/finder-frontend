@@ -1,6 +1,6 @@
-<div class="facet js-openable-facet case-type closed" tabindex="0">
+<div class="facet js-openable-facet closed" tabindex="0">
   <div class="head">
-    <span class="legend">Case type</span>
+    <span class="legend"><%= select_facet.name %></span>
     <div class="controls">
       <a class="clear-selected js-hidden">clear</a>
       <div class="toggle"></div>
@@ -8,144 +8,14 @@
   </div>
   <div class="checkbox-container">
     <ul>
+      <% select_facet.allowed_values.each do | option | %>
       <li>
-        <input type="checkbox" name="ca98" id="ca89"><label for="ca89">CA89 and civil cartels</label>
+        <input type="checkbox" name='<%=select_facet.key%>[<%= option['value']%>]' value='<%= option['value']%>' id='<%= option['value']%>'>
+        <label for='<%= option['value']%>'><%= option['label']%></label>
       </li>
-      <li>
-        <input type="checkbox" name="cartels" id="cartels"><label for="cartels">Criminal cartels</label>
-      </li>
-      <li>
-        <input type="checkbox" name="markets" id="markets"><label for="markets">Markets</label>
-        <ul>
-          <li>
-            <input type="checkbox" name="markets" id="markets_p1"><label for="markets_p1">Phase 1</label>
-          </li>
-          <li>
-            <input type="checkbox" name="mergers" id="markets_p2"><label for="markets_p2">Phase 2</label>
-          </li>
-        </ul>
-      </li>
-     <li>
-        <input type="checkbox" name="mergers" id="mergers"><label for="mergers">Mergers</label>
-        <ul>
-          <li>
-            <input type="checkbox" name="markets" id="mergers_p1"><label for="mergers_p1">Phase 1</label>
-          </li>
-          <li>
-            <input type="checkbox" name="mergers" id="mergers_p2"><label for="mergers_p2">Phase 2</label>
-          </li>
-        </ul>
-        </li>
-      <li>
-        <input type="checkbox" name="airport_price_control_reviews" id="airport_price_control_reviews"><label for="airport_price_control_reviews">Consumer enforcement</label>
-      </li>
-      <li>
-        <input type="checkbox" name="market_investigations" id="market_investigations"><label for="market_investigations">Regulatory references and appeals</label>
-      </li>
-      <li>
-        <input type="checkbox" name="remittals" id="remittals"><label for="remittals">Reviews of orders and undertakings</label>
-      </li>
+      <% end %>
     </ul>
   </div>
 </div>
 
-<div class="facet js-openable-facet case-sector closed" tabindex="0">
-  <div class="head">
-    <span class="legend">Market sector</span>
-    <div class="controls">
-      <a class="clear-selected js-hidden">clear</a><div class="toggle"></div>
-    </div>
-  </div>
-  <div class="checkbox-container">
-    <ul>
-      <li>
-        <input type="checkbox" name="agriculture-environment-and-natural-resources" id="agriculture-environment-and-natural-resources"><label for="agriculture-environment-and-natural-resources">Agriculture, environment and natural resources</label>
-      </li>
-      <li>
-        <input type="checkbox" name="aerospace" id="aerospace"><label for="Aerospace">Aerospace</label>
-      </li>
-      <li>
-        <input type="checkbox" name="building-and-construction" id="building-and-construction"><label for="building-and-construction">Building and construction</label>
-      </li>
-      <li>
-        <input type="checkbox" name="chemicals" id="chemicals"><label for="chemicals">Chemicals</label>
-      </li>
-      <li>
-        <input type="checkbox" name="clothing-footwear-and-fashion" id="clothing-footwear-and-fashion"><label for="clothing-footwear-and-fashion">Clothing, footwear and fashion</label>
-      </li>
-      <li>
-        <input type="checkbox" name="communications" id="communications"><label for="communications">Communications</label>
-      </li>
-      <li>
-        <input type="checkbox" name="defence" id="defence"><label for="defence">Defence</label>
-      </li>
-      <li>
-        <input type="checkbox" name="distribution-and-service-industries" id="distribution-and-service-industries"><label for="distribution-and-service-industries">Distribution and Service Industries</label>
-      </li>
-      <li>
-        <input type="checkbox" name="electronics-industry" id="electronics-industry">
-        <label for="electronics-industry">Electronics Industry</label>
-      </li>
-      <li>
-        <input type="checkbox" name="energy" id="energy"><label for="energy">Energy</label>
-      </li>
-      <li>
-        <input type="checkbox" name="engineering" id="engineering"><label for="engineering">Engineering</label>
-      </li>
-      <li>
-        <input type="checkbox" name="financial-services" id="financial-services"><label for="financial-services">Financial services</label>
-      </li>
-      <li>
-        <input type="checkbox" name="fire-police-and-security" id="fire-police-and-security"><label for="fire-police-and-security">Fire, police and security</label>
-      </li>
-      <li>
-        <input type="checkbox" name="food-manufacturing" id="food-manufacturing"><label for="food-manufacturing">Food manufacturing</label>
-      </li>
-      <li>
-        <input type="checkbox" name="giftware-jewellery-and-tableware" id="giftware-jewellery-and-tableware"><label for="giftware-jewellery-and-tableware">Giftware, jewellery and tableware</label>
-      </li>
-      <li>
-        <input type="checkbox" name="healthcare-and-medical-equipment" id="healthcare-and-medical-equipment"><label for="healthcare-and-medical-equipment">Healthcare and medical equipment</label>
-      </li>
-      <li>
-        <input type="checkbox" name="household-goods-furniture-and-furnishings" id="household-goods-furniture-and-furnishings"><label for="household-goods-furniture-and-furnishings">Household goods, furniture and furnishings</label>
-      </li>
-      <li>
-        <input type="checkbox" name="mineral-extraction-mining-and-quarrying" id="mineral-extraction-mining-and-quarrying"><label for="mineral-extraction-mining-and-quarrying">Mineral extraction, mining and quarrying</label>
-      </li>
-      <li>
-        <input type="checkbox" name="motor-industry" id="motor-industry"><label for="motor-industry">Motor Industry</label>
-      </li>
-      <li>
-        <input type="checkbox" name="oil-and-gas-refining-and-petrochemicals" id="oil-and-gas-refining-and-petrochemicals"><label for="oil-and-gas-refining-and-petrochemicals">Oil and Gas refining and Petrochemicals</label>
-      </li>
-      <li>
-        <input type="checkbox" name="recreation-and-leisure" id="recreation-and-leisure"><label for="recreation-and-leisure">Recreation and Leisure</label>
-      </li>
-      <li>
-        <input type="checkbox" name="paper-printing-and-packaging" id="paper-printing-and-packaging"><label for="paper-printing-and-packaging">Paper printing and packaging</label>
-      </li>
-      <li>
-        <input type="checkbox" name="pharmaceuticals" id="pharmaceuticals"><label for="pharmaceuticals">Pharmaceuticals</label>
-      </li>
-      <li>
-        <input type="checkbox" name="public-markets" id="public-markets"><label for="public-markets">Public markets</label>
-      </li>
-      <li>
-        <input type="checkbox" name="retail-and-wholesale" id="retail-and-wholesale"><label for="retail-and-wholesale">Retail and wholesale</label>
-      </li>
-      <li>
-        <input type="checkbox" name="telecommunications" id="telecommunications"><label for="telecommunications">Telecommunications</label>
-      </li>
-      <li>
-        <input type="checkbox" name="textiles" id="textiles"><label for="textiles">Textiles</label>
-      </li>
-      <li>
-        <input type="checkbox" name="transport" id="transport"><label for="transport">Transport</label>
-      </li>
-      <li>
-        <input type="checkbox" name="utilities" id="utilities"><label for="utilities">Utilities</label>
-      </li>
-    </ul>
-  </div>
-</div>
+
