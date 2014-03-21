@@ -11,4 +11,14 @@ module ApplicationHelper
       value
     end
   end
+
+  def input_checked(key, value)
+    if params[key]
+      if params[key].is_a?(Array) && params[key].include?(value)
+        ' checked="checked"'
+      elsif params[key] == value
+        ' checked="checked"'
+      end
+    end
+  end
 end
