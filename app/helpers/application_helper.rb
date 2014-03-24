@@ -13,7 +13,7 @@ module ApplicationHelper
   end
 
   def input_checked(key, value)
-    if facet_has_selected_values?(key)
+    if facet_has_any_selected_values?(key)
       if params[key].is_a?(Array) && params[key].include?(value)
         ' checked="checked"'
       elsif params[key] == value
