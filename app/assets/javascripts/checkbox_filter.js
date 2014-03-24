@@ -4,21 +4,19 @@
   window.GOVUK = window.GOVUK || {};
 
   function CheckboxFilter(options){
-    GOVUK.Proxifier.proxifyMethods(this, ['toggleFacet', 'resetCheckboxes', 'updateCheckboxResetter', 'checkSiblings', 'listenForKeys','stopListeningForKeys', 'ensureFacetIsOpen', 'open', 'close', 'setupHeight']);
 
     this.$facet = options.el;
-
     this.$checkboxResetter = this.$facet.find('.clear-selected');
     this.$checkboxes = this.$facet.find("input[type='checkbox']");
 
-    this.$facet.find('.head').on('click', this.toggleFacet);
-    this.$facet.on('focus', this.listenForKeys);
-    this.$facet.on('blur', this.stopListeningForKeys);
+    this.$facet.find('.head').on('click', $.proxy(this.toggleFacet, this));
+    this.$facet.on('focus', $.proxy(this.listenForKeys, this));
+    this.$facet.on('blur', $.proxy(this.stopListeningForKeys, this));
 
-    this.$checkboxResetter.on('click', this.resetCheckboxes);
+    this.$checkboxResetter.on('click', $.proxy(this.resetCheckboxes, this));
 
-    this.$checkboxes.on('click', $.proxy(this.updateCheckboxes,this));
-    this.$checkboxes.on('focus', this.ensureFacetIsOpen);
+    this.$checkboxes.on('click', $.proxy(this.updateCheckboxes, this));
+    this.$checkboxes.on('focus', $.proxy(this.ensureFacetIsOpen, this));
   }
 
   CheckboxFilter.prototype.setupHeight = function setupHeight(){
