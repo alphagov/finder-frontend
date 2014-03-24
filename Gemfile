@@ -29,6 +29,7 @@ end
 
 group :test do
   gem 'cucumber-rails', require: false
+  gem 'launchy'
   gem 'rspec-rails'
   gem 'webmock'
 end
