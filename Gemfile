@@ -23,7 +23,7 @@ group :doc do
 end
 
 group :development, :test do
-  gem 'debugger'
+  gem 'byebug'
   gem 'jasmine-rails'
 end
 
