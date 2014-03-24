@@ -73,7 +73,6 @@
     .facet {
       margin-bottom: $gutter;
       background-color:$grey-3;
-      padding-bottom:5px;
 
       &:focus {
         outline: 3px solid #ffbf47;
@@ -134,7 +133,7 @@
       .checkbox-container {
         position:relative;
         padding: 5px;
-        margin: 0 5px;
+        margin: 0 5px 5px 5px;
         background-color: $white;
         height:200px;
         overflow-y:scroll;
