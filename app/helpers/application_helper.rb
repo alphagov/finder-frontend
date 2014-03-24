@@ -22,7 +22,7 @@ module ApplicationHelper
     end
   end
 
-  def facet_has_selected_values?(key)
+  def facet_has_any_selected_values?(key)
     params.has_key?(key)
   end
 
