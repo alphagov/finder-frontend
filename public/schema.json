@@ -26,7 +26,8 @@
       "include_blank": false,
       "allowed_values": [
         {"label": "Open", "value": "open"},
-        {"label": "Closed", "value": "closed"}
+        {"label": "Closed", "value": "closed"},
+        {"label": "All", "value": "all"}
       ]
     },
 
