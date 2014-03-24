@@ -8,7 +8,10 @@ class SelectFacet < Facet
   end
 
   def value
-    @value if allowed_values.map(&:value).include?(@value)
+    return nil if @value.nil?
+
+    permitted_values = allowed_values.map(&:value)
+    @value.select {|v| permitted_values.include?(v) }
   end
 
   def values_for_select

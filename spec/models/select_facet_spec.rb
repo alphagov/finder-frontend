@@ -4,18 +4,32 @@ describe SelectFacet do
   subject { SelectFacet.new }
 
   describe "#value" do
-    let(:allowed_values) { [ OpenStruct.new(label: "Allowed value", value: "allowed-value") ] }
+    let(:allowed_values) { [
+      OpenStruct.new(label: "Allowed value 1", value: "allowed-value-1"),
+      OpenStruct.new(label: "Allowed value 2", value: "allowed-value-2")
+    ] }
+
     let(:value) { nil }
     subject { SelectFacet.new(value: value, allowed_values: allowed_values) }
 
-    context "value is allowed" do
-      let(:value) { "allowed-value" }
-      specify { subject.value.should == "allowed-value" }
+    context "single permitted value" do
+      let(:value) { ["allowed-value-1"] }
+      specify { subject.value.should == ["allowed-value-1"] }
     end
 
-    context "value is not allowed" do
-      let(:value) { "not-allowed-value" }
-      specify { subject.value.should be_nil }
+    context "multiple permitted values" do
+      let(:value) { ["allowed-value-1", "allowed-value-2"] }
+      specify { subject.value.should == ["allowed-value-1", "allowed-value-2"] }
+    end
+
+    context "single disallowed value" do
+      let(:value) { ["not-allowed-value"] }
+      specify { subject.value.should == [] }
+    end
+
+    context "mix of permitted and disallowed values" do
+      let(:value) { ["allowed-value-1", "not-allowed-value"] }
+      specify { subject.value.should == ["allowed-value-1"] }
     end
   end
 
