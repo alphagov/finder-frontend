@@ -110,7 +110,7 @@ module CaseHelper
       facets.values.each do |value|
         check(value)
       end
-      click_on "Refresh results"
+      click_on "Filter results"
     end
   end
 end
