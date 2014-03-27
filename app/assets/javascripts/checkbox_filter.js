@@ -18,7 +18,7 @@
     this.$checkboxes.on('click', $.proxy(this.updateCheckboxes, this));
     this.$checkboxes.on('focus', $.proxy(this.ensureFacetIsOpen, this));
 
-    // setupHeight is called on open, but facets containing things will already be open
+    // setupHeight is called on open, but facets containing checked checkboxes will already be open
     if (this.isOpen()) {
       this.setupHeight();
     }
