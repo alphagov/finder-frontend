@@ -73,6 +73,7 @@
     .facet {
       margin-bottom: $gutter;
       background-color:$grey-3;
+      padding:5px;
 
       &:focus {
         outline: 3px solid #ffbf47;
@@ -102,14 +103,14 @@
 
       .head {
         @extend %contain-floats;
-        padding: $gutter-one-third;
+        padding: 5px;
         cursor:pointer;
         position:relative;
 
         .controls {
           position:absolute;
-          right:$gutter-one-third;
-          top:$gutter-one-third;
+          right:5px;
+          top:5px;
           .clear-selected {
             @include inline-block;
             margin-right: 5px;
@@ -133,7 +134,6 @@
       .checkbox-container {
         position:relative;
         padding: 5px;
-        margin: 0 5px 5px 5px;
         background-color: $white;
         height:200px;
         overflow-y:scroll;
