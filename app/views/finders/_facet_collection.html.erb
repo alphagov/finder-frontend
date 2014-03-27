@@ -2,9 +2,9 @@
   <div class="inner-block">
     <p>You can use the filters to show only cases that match your interests</p>
 
-    <%= form_tag({}, method: :get, class: 'facet-menu') do %>
+    <form method="get" action="" class="facet-menu">
       <%= render facet_collection.facets %>
       <input type="submit" value="Filter results" class="button" />
-    <% end %>
+    </form>
   </div>
 </div>
