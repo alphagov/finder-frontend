@@ -1,7 +1,7 @@
 require "spec_helper"
 
-describe SelectFacet do
-  subject { SelectFacet.new }
+describe RadioFacet do
+  subject { RadioFacet.new }
 
   describe "#value" do
     let(:allowed_values) { [
@@ -10,26 +10,21 @@ describe SelectFacet do
     ] }
 
     let(:value) { nil }
-    subject { SelectFacet.new(value: value, allowed_values: allowed_values) }
+    subject { RadioFacet.new(value: value, allowed_values: allowed_values) }
 
     context "single permitted value" do
-      let(:value) { ["allowed-value-1"] }
-      specify { subject.value.should == ["allowed-value-1"] }
+      let(:value) { "allowed-value-1" }
+      specify { subject.value.should == "allowed-value-1" }
     end
 
-    context "multiple permitted values" do
+    context "multiple values disallowed" do
       let(:value) { ["allowed-value-1", "allowed-value-2"] }
-      specify { subject.value.should == ["allowed-value-1", "allowed-value-2"] }
+      specify { subject.value.should == nil }
     end
 
     context "single disallowed value" do
-      let(:value) { ["not-allowed-value"] }
-      specify { subject.value.should == [] }
-    end
-
-    context "mix of permitted and disallowed values" do
-      let(:value) { ["allowed-value-1", "not-allowed-value"] }
-      specify { subject.value.should == ["allowed-value-1"] }
+      let(:value) { "not-allowed-value" }
+      specify { subject.value.should == nil }
     end
   end
 
@@ -40,7 +35,7 @@ describe SelectFacet do
       OpenStruct.new(label: "Remittals", value: "remittals")
     ] }
     let(:include_blank) { '' }
-    subject { SelectFacet.new(include_blank: include_blank, allowed_values: allowed_values) }
+    subject { RadioFacet.new(include_blank: include_blank, allowed_values: allowed_values) }
 
     context "with a blank value for include_blank" do
       let(:include_blank) { '' }

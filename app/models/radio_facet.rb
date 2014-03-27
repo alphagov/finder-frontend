@@ -1,4 +1,4 @@
-class SelectFacet < Facet
+class RadioFacet < Facet
   attr_reader :allowed_values, :include_blank
 
   def initialize(params = {})
@@ -8,10 +8,7 @@ class SelectFacet < Facet
   end
 
   def value
-    return nil if @value.nil?
-
-    permitted_values = allowed_values.map(&:value)
-    @value.select {|v| permitted_values.include?(v) }
+    @value if allowed_values.map(&:value).include?(@value)
   end
 
   def values_for_select

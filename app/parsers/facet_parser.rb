@@ -1,8 +1,10 @@
 module FacetParser
   def self.parse(facet_hash)
     case facet_hash['type']
-    when 'select'
+    when 'multi-select'
       SelectFacet.new(select_facet_attrs(facet_hash))
+    when 'single-select'
+      RadioFacet.new(select_facet_attrs(facet_hash))
     else
       raise ArgumentError.new("Unknown facet type: #{facet_hash['type']}")
     end

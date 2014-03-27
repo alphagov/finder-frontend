@@ -1,6 +1,21 @@
-<div class="facet">
-  <%= label_tag select_facet.key, select_facet.name %>
-  <%= select_tag select_facet.key,
-                 options_for_select(select_facet.values_for_select, select_facet.value),
-                 class: 'single-row-select' %>
+<div class="facet js-openable-facet<%=' closed' unless facet_has_any_selected_values?(select_facet.key) %>" tabindex="0">
+  <div class="head">
+    <span class="legend"><%= select_facet.name %></span>
+    <div class="controls">
+      <a class="clear-selected<%=' js-hidden' unless facet_has_any_selected_values?(select_facet.key) %>">clear</a>
+      <div class="toggle"></div>
+    </div>
+  </div>
+  <div class="checkbox-container">
+    <ul>
+      <% select_facet.allowed_values.each do | option | %>
+      <li>
+        <input type="checkbox" name="<%=select_facet.key%>[]" value="<%= option['value']%>" id="<%= option['value']%>" <%= input_checked(select_facet.key, option['value']) %>>
+        <label for='<%= option['value']%>'><%= option['label']%></label>
+      </li>
+      <% end %>
+    </ul>
+  </div>
 </div>
+
+

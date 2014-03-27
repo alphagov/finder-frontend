@@ -7,11 +7,12 @@
 @import "design-patterns/buttons";
 
 
+
 #wrapper {
   display: block;
   text-align: center;
   padding-bottom: $gutter;
-  
+
   @include media(desktop) {
     padding-bottom: $gutter*2;
   }
@@ -52,7 +53,6 @@
 
   .filter-form,
   .filtered-results {
-
     @include media(tablet) {
       float: left;
       width: $one-third;
@@ -72,19 +72,146 @@
 
     .facet {
       margin-bottom: $gutter;
+      background-color:$grey-3;
+
+      &:focus {
+        outline: 3px solid #ffbf47;
+      }
+
+      &.radio-facet {
+        padding: $gutter-one-third;
+
+        .legend {
+          width:100%;
+        }
+        label {
+          margin-right:$gutter-one-third;
+          @include inline-block;
+        }
+        input {
+          width:14px;
+        }
+      }
+
+      .legend {
+        @include core-19;
+        @include inline-block;
+        margin-right:40px;
+        font-weight:bold;
+      }
+
+      .head {
+        @extend %contain-floats;
+        padding: $gutter-one-third;
+        cursor:pointer;
+        position:relative;
+
+        .controls {
+          position:absolute;
+          right:$gutter-one-third;
+          top:$gutter-one-third;
+          .clear-selected {
+            @include inline-block;
+            margin-right: 5px;
+
+            &.js-hidden {
+              left: -9999em;
+              position: relative;
+              height:0px;
+              overflow:hidden;
+            }
+          }
+          .toggle {
+            background: image-url('toggle-sprite.png') no-repeat;
+            height: 10px;
+            width: 12px;
+            background-position:-12px 0;
+            @include inline-block;
+          }
+        }
+      }
+      .checkbox-container {
+        position:relative;
+        padding: 5px;
+        margin: 0 5px 5px 5px;
+        background-color: $white;
+        height:200px;
+        overflow-y:scroll;
+
+        ul {
+          margin:0;
+          padding:0;
+          list-style:none;
+          ul {
+            padding-left: $gutter-two-thirds;
+          }
+        }
+        li {
+
+          label {
+            @include inline-block;
+            margin-left:20px;
+
+            /* if the label is long break it with a hypen if the browser allows this behaviour */
+            -ms-word-break: break-all;
+            word-break: break-all;
+
+            /* Non standard for webkit */
+            word-break: break-word;
+
+            -webkit-hyphens: auto;
+            -moz-hyphens: auto;
+            hyphens: auto;
+          }
+          /* IE6 doesn't support psuedo selectors so scoping to checkbox-container instead of using a psuedo selector */
+          input {
+            width: 12px;
+            border:none;
+            margin: 3px $gutter-one-third 0 0;
+            vertical-align: top;
+            position:absolute;
+          }
+        }
+      }
+      .js-enabled & {
+        &.closed {
+          .checkbox-container {
+            position:absolute;
+            left:-9999px;
+            padding:0px;
+            margin:0px;
+          }
+          .head {
+            .controls {
+              .toggle {
+                background-position:0 0;
+              }
+            }
+          }
+        }
+      }
+      /* Redefine scrollbars so they are always visible in scrolling facets */
+      ::-webkit-scrollbar {
+          -webkit-appearance: none;
+          width: 7px;
+      }
+      ::-webkit-scrollbar-thumb {
+          border-radius: 4px;
+          background-color: rgba(0,0,0,.5);
+          -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
+      }
     }
 
     input {
       @include core-14;
       background: $white;
-      border: 1px solid $grey-3;
+      border: 1px solid $border-colour;
       width: $full-width;
       margin: 0;
+
       @include media (desktop) {
         padding: 5px 0;
       }
-
-      border-color: $border-colour;
     }
 
     select {
@@ -151,7 +278,7 @@
           @include core-14;
           margin-left: 0;
           margin-right: $gutter-one-third;
-          display: inline-block;
+          @include inline-block;
         }
       }
     }

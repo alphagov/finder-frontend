@@ -3,7 +3,7 @@ require 'spec_helper'
 describe ResultSetParser do
   context "with a result set hash with some documents" do
     let(:result_set_hash) { {
-      'documents' => [
+      'results' => [
         :a_document_hash,
         :another_document_hash
       ]

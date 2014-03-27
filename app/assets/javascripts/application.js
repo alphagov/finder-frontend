@@ -11,3 +11,10 @@
 // about supported directives.
 //
 //= require_tree .
+
+
+jQuery(function($) {
+  $('.js-openable-facet').each(function(){
+    new GOVUK.CheckboxFilter({el:$(this)});
+  })
+});
