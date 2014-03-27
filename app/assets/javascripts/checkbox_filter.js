@@ -17,6 +17,11 @@
 
     this.$checkboxes.on('click', $.proxy(this.updateCheckboxes, this));
     this.$checkboxes.on('focus', $.proxy(this.ensureFacetIsOpen, this));
+
+    // setupHeight is called on open, but facets containing things will already be open
+    if (this.isOpen()) {
+      this.setupHeight();
+    }
   }
 
   CheckboxFilter.prototype.setupHeight = function setupHeight(){
@@ -33,6 +38,10 @@
       // Resize if the list is only slightly bigger than its container
       checkboxContainer.height(checkboxList.height());
     }
+  }
+
+  CheckboxFilter.prototype.isOpen = function isOpen(){
+    return !this.$facet.hasClass('closed');
   }
 
   CheckboxFilter.prototype.open = function open(){
