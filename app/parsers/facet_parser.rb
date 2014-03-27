@@ -31,6 +31,6 @@ private
   end
 
   def self.build_allowed_value(attrs)
-    OpenStruct.new(label: attrs[:label], value: attrs[:value])
+    OpenStruct.new(label: attrs[:label], value: attrs[:value], non_described: attrs[:non_described])
   end
 end

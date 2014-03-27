@@ -27,7 +27,7 @@
       "allowed_values": [
         {"label": "Open", "value": "open"},
         {"label": "Closed", "value": "closed"},
-        {"label": "All", "value": ""}
+        {"label": "All", "value": "", "non_described": true }
       ]
     },
 

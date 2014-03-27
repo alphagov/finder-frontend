@@ -22,6 +22,10 @@ class FacetCollection
     end
   end
 
+  def with_selected_values
+    facets.select { |f| !f.selected_values.blank? }
+  end
+
   def to_partial_path
     'facet_collection'
   end

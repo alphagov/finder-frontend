@@ -8,7 +8,7 @@ describe FacetParser do
       "key" => "case_type",
       "value" => ["market-investigations"],
       "allowed_values" => [
-        { "label" => "Airport price control reviews", "value" => "airport-price-control-reviews" },
+        { "label" => "Airport price control reviews", "value" => "airport-price-control-reviews", "non_described" => true },
         { "label" => "Market investigations",         "value" => "market-investigations" },
         { "label" => "Remittals",                     "value" => "remittals" }
       ],
@@ -25,8 +25,10 @@ describe FacetParser do
     it "should build a list of allowed values" do
       subject.allowed_values[0].label.should == "Airport price control reviews"
       subject.allowed_values[0].value.should == "airport-price-control-reviews"
+      subject.allowed_values[0].non_described.should == true
       subject.allowed_values[2].label.should == "Remittals"
       subject.allowed_values[2].value.should == "remittals"
+      subject.allowed_values[2].non_described.should == nil
     end
   end
 end

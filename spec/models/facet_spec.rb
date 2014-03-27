@@ -35,4 +35,10 @@ describe Facet do
       specify { subject.value.should be_nil }
     end
   end
+
+  describe "#selected_values" do
+    it "should return nil" do
+      subject.selected_values.should be_nil
+    end
+  end
 end
