@@ -23,17 +23,25 @@ class Document
 private
 
   def date_metadata
-    ['opened_date', 'closed_date'].map do |key|
-      {
-        name: key.humanize,
-        value: @attrs[key],
-        type: 'date'
-      }
+    keys = ['opened_date', 'closed_date'].select do |key|
+      @attrs.has_key?(key)
+    end
+
+    keys.map do |key|
+        {
+          name: key.humanize,
+          value: @attrs[key],
+          type: 'date'
+        }
     end
   end
 
   def tag_metadata
-    ['case_type', 'case_state', 'market_sector', 'outcome_type'].map do |key|
+    keys = ['case_type', 'case_state', 'market_sector', 'outcome_type'].select do |key|
+      @attrs.has_key?(key)
+    end
+
+    keys.map do |key|
       {
         name: key.humanize,
         value: @attrs[key]['label'],
