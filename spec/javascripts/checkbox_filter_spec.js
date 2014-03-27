@@ -31,6 +31,14 @@ describe('CheckboxFilter', function(){
     filterHTML.remove();
   });
 
+  it('should check the open status of the checkbox when it creates the facet', function(){
+    spyOn(GOVUK.CheckboxFilter.prototype, 'isOpen').and.returnValue(true);
+    spyOn(GOVUK.CheckboxFilter.prototype, 'setupHeight');
+
+    filter = new GOVUK.CheckboxFilter({el:filterHTML});
+    expect(filter.setupHeight.calls.count()).toBe(1);
+  });
+
   describe('open', function(){
 
     it('should remove the class closed to the facet', function(){
