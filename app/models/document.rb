@@ -28,11 +28,11 @@ private
     end
 
     keys.map do |key|
-        {
-          name: key.humanize,
-          value: @attrs[key],
-          type: 'date'
-        }
+      {
+        name: key.humanize,
+        value: @attrs[key],
+        type: 'date'
+      }
     end
   end
 
