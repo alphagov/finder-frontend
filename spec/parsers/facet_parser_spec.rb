@@ -7,6 +7,7 @@ describe FacetParser do
       "name" => "Case type",
       "key" => "case_type",
       "value" => ["market-investigations"],
+      "preposition" => "of type",
       "allowed_values" => [
         { "label" => "Airport price control reviews", "value" => "airport-price-control-reviews", "non_described" => true },
         { "label" => "Market investigations",         "value" => "market-investigations" },
@@ -21,6 +22,7 @@ describe FacetParser do
     specify { subject.key.should == "case_type" }
     specify { subject.value.should == ["market-investigations"] }
     specify { subject.include_blank.should == "All case types" }
+    specify { subject.preposition.should == "of type" }
 
     it "should build a list of allowed values" do
       subject.allowed_values[0].label.should == "Airport price control reviews"
