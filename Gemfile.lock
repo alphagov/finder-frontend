@@ -89,6 +89,9 @@ GEM
     launchy (2.4.2)
       addressable (~> 2.3)
     link_header (0.0.8)
+    logstash-event (1.1.5)
+    logstasher (0.4.8)
+      logstash-event (~> 1.1.0)
     lrucache (0.1.4)
       PriorityQueue (~> 0.1.2)
     mail (2.5.4)
@@ -197,6 +200,7 @@ DEPENDENCIES
   govuk_frontend_toolkit (= 0.43.0)
   jasmine-rails
   launchy
+  logstasher (= 0.4.8)
   rails (= 4.0.3)
   rspec-rails
   sass-rails (~> 4.0.0)

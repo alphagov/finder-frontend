@@ -7,6 +7,8 @@ gem 'exception_notification', '4.0.1'
 gem 'aws-ses', require: 'aws/ses'
 gem 'unicorn', '4.8.1'
 
+gem 'logstasher', '0.4.8'
+
 group :assets do
   if ENV['FRONTEND_TOOLKIT_DEV']
     gem 'govuk_frontend_toolkit', path: '../govuk_frontend_toolkit_gem'
