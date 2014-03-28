@@ -23,7 +23,7 @@ class FacetCollection
   end
 
   def with_selected_values
-    facets.select { |f| !f.selected_values.blank? }
+    facets.select { |f| f.selected_values.present? }
   end
 
   def to_partial_path
