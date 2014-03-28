@@ -24,7 +24,7 @@ private
 
   def date_metadata
     keys = ['opened_date', 'closed_date'].select do |key|
-      @attrs.has_key?(key)
+      @attrs.fetch(key, false).present?
     end
 
     keys.map do |key|
@@ -38,7 +38,7 @@ private
 
   def tag_metadata
     keys = ['case_type', 'case_state', 'market_sector', 'outcome_type'].select do |key|
-      @attrs.has_key?(key)
+      @attrs.fetch(key, {}).fetch('label', false).present?
     end
 
     keys.map do |key|
