@@ -38,9 +38,10 @@ module ApplicationHelper
   end
 
   def facet_values_sentence(facet)
-    values = facet.selected_values.map { |value|
-      content_tag(:strong, "#{value.label} #{link_to("×", url_for(link_params_without_facet_value(facet.key, value.value)))}".html_safe)
-    }
+    values = facet.selected_values.map do |option|
+      link_url = url_for(link_params_without_facet_value(facet.key, option.value))
+      content_tag(:strong, "#{option.label} #{link_to("×", link_url)}".html_safe)
+    end
     values.to_sentence(last_word_connector: ' and ')
   end
 end
