@@ -38,7 +38,7 @@ describe Facet do
 
   describe "#selected_values" do
     it "should return nil" do
-      subject.selected_values.should be_nil
+      subject.selected_values.should == []
     end
   end
 end

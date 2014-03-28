@@ -19,7 +19,7 @@ class SelectFacet < Facet
   end
 
   def selected_values
-    return nil if @value.nil?
+    return [] if @value.nil?
     allowed_values.select { |option| @value.include?(option.value) && option.described }
   end
 

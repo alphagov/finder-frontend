@@ -14,6 +14,6 @@ class Facet
   end
 
   def selected_values
-    nil
+    []
   end
 end
