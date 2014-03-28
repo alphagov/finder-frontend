@@ -244,7 +244,7 @@
   }
 
   .filtered-results {
-    h2 {
+    .result-info {
       @include core-16;
       vertical-align: baseline;
       border-bottom: solid 1px $border-colour;
@@ -253,6 +253,13 @@
       .result-count {
         @include bold-48;
         margin-right: $gutter-one-third;
+      }
+      a {
+        color: $secondary-text-colour;
+        text-decoration: none;
+        font-weight: normal;
+        position: relative;
+        top: 1px;
       }
     }
 

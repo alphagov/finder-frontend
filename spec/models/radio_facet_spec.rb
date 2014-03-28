@@ -62,4 +62,39 @@ describe RadioFacet do
       end
     end
   end
+
+  describe "#selected_values" do
+    let(:allowed_values) { [
+      OpenStruct.new(label: "Allowed value 1", value: "allowed-value-1", described: true),
+      OpenStruct.new(label: "Allowed value 2", value: "allowed-value-2", described: false)
+    ] }
+
+    let(:value) { nil }
+    subject { RadioFacet.new(value: value, allowed_values: allowed_values) }
+
+    context "permitted value" do
+      let(:value) { "allowed-value-1" }
+
+      it "should return selected value object" do
+        subject.selected_values.length.should == 1
+        subject.selected_values[0].should == allowed_values[0]
+      end
+    end
+
+    context "permitted non described value" do
+      let(:value) { "allowed-value-2" }
+
+      it "should return no value objects" do
+        subject.selected_values.should == []
+      end
+    end
+
+    context "non-permitted value" do
+      let(:value) { "non-allowed-value-1" }
+
+      it "should return no value objects" do
+        subject.selected_values.should == []
+      end
+    end
+  end
 end

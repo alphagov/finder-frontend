@@ -18,6 +18,11 @@ class SelectFacet < Facet
     ([blank_value_for_select] + allowed_values_for_select).compact
   end
 
+  def selected_values
+    return [] if @value.nil?
+    allowed_values.select { |option| @value.include?(option.value) && option.described }
+  end
+
 private
   def allowed_values_for_select
     allowed_values.map(&:to_option_for_select)

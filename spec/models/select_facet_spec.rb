@@ -5,8 +5,8 @@ describe SelectFacet do
 
   describe "#value" do
     let(:allowed_values) { [
-      OpenStruct.new(label: "Allowed value 1", value: "allowed-value-1"),
-      OpenStruct.new(label: "Allowed value 2", value: "allowed-value-2")
+      OpenStruct.new(label: "Allowed value 1", value: "allowed-value-1", described: true),
+      OpenStruct.new(label: "Allowed value 2", value: "allowed-value-2", described: true)
     ] }
 
     let(:value) { nil }
@@ -35,9 +35,9 @@ describe SelectFacet do
 
   describe "#values_for_select" do
     let(:allowed_values) { [
-      OpenStruct.new(label: "Airport price control reviews", value: "airport-price-control-reviews"),
-      OpenStruct.new(label: "Market investigations", value: "market-investigations"),
-      OpenStruct.new(label: "Remittals", value: "remittals")
+      OpenStruct.new(label: "Airport price control reviews", value: "airport-price-control-reviews", described: true),
+      OpenStruct.new(label: "Market investigations",         value: "market-investigations",         described: true),
+      OpenStruct.new(label: "Remittals",                     value: "remittals",                     described: true)
     ] }
     let(:include_blank) { '' }
     subject { SelectFacet.new(include_blank: include_blank, allowed_values: allowed_values) }
@@ -64,6 +64,52 @@ describe SelectFacet do
           ['Market investigations', 'market-investigations'],
           ['Remittals', 'remittals']
         ]
+      end
+    end
+  end
+
+  describe "#selected_values" do
+    let(:allowed_values) { [
+      OpenStruct.new(label: "Allowed value 1", value: "allowed-value-1", described: true),
+      OpenStruct.new(label: "Allowed value 2", value: "allowed-value-2", described: true),
+      OpenStruct.new(label: "Allowed value 3", value: "allowed-value-3", described: false)
+    ] }
+
+    let(:value) { nil }
+    subject { SelectFacet.new(value: value, allowed_values: allowed_values) }
+
+    context "permitted value" do
+      let(:value) { ["allowed-value-1"] }
+
+      it "should return selected value object" do
+        subject.selected_values.length.should == 1
+        subject.selected_values[0].should == allowed_values[0]
+      end
+    end
+
+    context "multiple permitted values" do
+      let(:value) { ["allowed-value-1", "allowed-value-2"] }
+
+      it "should return selected value object" do
+        subject.selected_values.length.should == 2
+        subject.selected_values[0].should == allowed_values[0]
+        subject.selected_values[1].should == allowed_values[1]
+      end
+    end
+
+    context "permitted non described value" do
+      let(:value) { ["allowed-value-3"] }
+
+      it "should return no value objects" do
+        subject.selected_values.should == []
+      end
+    end
+
+    context "non-permitted value" do
+      let(:value) { ["non-allowed-value-1"] }
+
+      it "should return no value objects" do
+        subject.selected_values.should == []
       end
     end
   end

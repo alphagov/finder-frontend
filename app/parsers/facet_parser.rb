@@ -15,7 +15,8 @@ private
     {
       key: facet_hash['key'],
       name: facet_hash['name'],
-      value: facet_hash['value']
+      value: facet_hash['value'],
+      preposition: facet_hash['preposition'],
     }.merge(subtype_attr_builder.call)
   end
 
@@ -31,6 +32,6 @@ private
   end
 
   def self.build_allowed_value(attrs)
-    OpenStruct.new(label: attrs[:label], value: attrs[:value])
+    OpenStruct.new(label: attrs[:label], value: attrs[:value], described: !attrs[:non_described])
   end
 end
