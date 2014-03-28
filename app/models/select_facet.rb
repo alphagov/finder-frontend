@@ -20,7 +20,7 @@ class SelectFacet < Facet
 
   def selected_values
     return nil if @value.nil?
-    allowed_values.select { |value| @value.include?(value.value) && !value.non_described }
+    allowed_values.select { |value| @value.include?(value.value) && value.described }
   end
 
 private

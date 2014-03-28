@@ -65,8 +65,8 @@ describe RadioFacet do
 
   describe "#selected_values" do
     let(:allowed_values) { [
-      OpenStruct.new(label: "Allowed value 1", value: "allowed-value-1"),
-      OpenStruct.new(label: "Allowed value 2", value: "allowed-value-2", non_described: true)
+      OpenStruct.new(label: "Allowed value 1", value: "allowed-value-1", described: true),
+      OpenStruct.new(label: "Allowed value 2", value: "allowed-value-2", described: false)
     ] }
 
     let(:value) { nil }

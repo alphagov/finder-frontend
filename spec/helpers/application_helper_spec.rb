@@ -47,8 +47,8 @@ describe ApplicationHelper do
 
   describe ".facet_values_sentence" do
     let(:allowed_values) { [
-      OpenStruct.new(label: "Allowed value 1", value: "allowed-value-1"),
-      OpenStruct.new(label: "Allowed value 2", value: "allowed-value-2")
+      OpenStruct.new(label: "Allowed value 1", value: "allowed-value-1", described: true),
+      OpenStruct.new(label: "Allowed value 2", value: "allowed-value-2", described: true)
     ] }
 
     it "should use the facet preposition to create a sentence" do

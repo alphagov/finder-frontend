@@ -16,7 +16,7 @@ class RadioFacet < Facet
   end
 
   def selected_values
-    allowed_values.select { |value| value.value == @value && !value.non_described }
+    allowed_values.select { |value| value.value == @value && value.described }
   end
 
 private

@@ -5,8 +5,8 @@ describe SelectFacet do
 
   describe "#value" do
     let(:allowed_values) { [
-      OpenStruct.new(label: "Allowed value 1", value: "allowed-value-1"),
-      OpenStruct.new(label: "Allowed value 2", value: "allowed-value-2")
+      OpenStruct.new(label: "Allowed value 1", value: "allowed-value-1", described: true),
+      OpenStruct.new(label: "Allowed value 2", value: "allowed-value-2", described: true)
     ] }
 
     let(:value) { nil }
@@ -35,9 +35,9 @@ describe SelectFacet do
 
   describe "#values_for_select" do
     let(:allowed_values) { [
-      OpenStruct.new(label: "Airport price control reviews", value: "airport-price-control-reviews"),
-      OpenStruct.new(label: "Market investigations", value: "market-investigations"),
-      OpenStruct.new(label: "Remittals", value: "remittals")
+      OpenStruct.new(label: "Airport price control reviews", value: "airport-price-control-reviews", described: true),
+      OpenStruct.new(label: "Market investigations",         value: "market-investigations",         described: true),
+      OpenStruct.new(label: "Remittals",                     value: "remittals",                     described: true)
     ] }
     let(:include_blank) { '' }
     subject { SelectFacet.new(include_blank: include_blank, allowed_values: allowed_values) }
@@ -70,9 +70,9 @@ describe SelectFacet do
 
   describe "#selected_values" do
     let(:allowed_values) { [
-      OpenStruct.new(label: "Allowed value 1", value: "allowed-value-1"),
-      OpenStruct.new(label: "Allowed value 2", value: "allowed-value-2"),
-      OpenStruct.new(label: "Allowed value 3", value: "allowed-value-3", non_described: true)
+      OpenStruct.new(label: "Allowed value 1", value: "allowed-value-1", described: true),
+      OpenStruct.new(label: "Allowed value 2", value: "allowed-value-2", described: true),
+      OpenStruct.new(label: "Allowed value 3", value: "allowed-value-3", described: false)
     ] }
 
     let(:value) { nil }
