@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '4.0.3'
 gem 'slimmer'
-gem 'gds-api-adapters', github: 'alphagov/gds-api-adapters', branch: 'add-finder-api-adapter'
+gem 'gds-api-adapters', '10.3.0'
 gem 'exception_notification', '4.0.1'
 gem 'aws-ses', require: 'aws/ses'
 gem 'unicorn', '4.8.1'
