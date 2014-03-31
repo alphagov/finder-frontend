@@ -5,7 +5,7 @@
 @import "shims";
 @import "css3";
 @import "design-patterns/buttons";
-
+@import "not-ie-conditional";
 
 
 #wrapper {
@@ -170,18 +170,21 @@
           }
         }
       }
-      .js-enabled & {
-        &.closed {
-          .checkbox-container {
-            position:absolute;
-            left:-9999px;
-            padding:0px;
-            margin:0px;
-          }
-          .head {
-            .controls {
-              .toggle {
-                background-position:0 0;
+      @include not-ie-lte(7) {
+
+        .js-enabled & {
+          &.closed {
+            .checkbox-container {
+              position:absolute;
+              left:-9999px;
+              padding:0px;
+              margin:0px;
+            }
+            .head {
+              .controls {
+                .toggle {
+                  background-position:0 0;
+                }
               }
             }
           }
