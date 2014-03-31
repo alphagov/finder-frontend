@@ -119,12 +119,16 @@
               overflow:hidden;
             }
           }
-          .toggle {
-            background: image-url('toggle-sprite.png') no-repeat;
-            height: 10px;
-            width: 12px;
-            background-position:-12px 0;
-            @include inline-block;
+           @include not-ie-lte(7) {
+             .js-enabled & {
+              .toggle {
+                background: image-url('toggle-sprite.png') no-repeat;
+                height: 10px;
+                width: 12px;
+                background-position:-12px 0;
+                @include inline-block;
+              }
+            }
           }
         }
       }
