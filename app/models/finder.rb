@@ -2,7 +2,7 @@ class Finder
   attr_reader :slug, :name, :document_noun, :facets
 
   def self.get(slug)
-    FinderParser.parse(FinderFrontend.finder_api.get_finder(slug))
+    FinderParser.parse(FinderFrontend.finder_api.get_schema(slug))
   end
 
   def initialize(attrs = {})

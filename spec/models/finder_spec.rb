@@ -10,7 +10,7 @@ describe Finder do
   describe ".get" do
     let (:finder_hash_from_api) { { "name" => "CMA Cases" } }
     before {
-      mock_api.stub(:get_finder).with(slug).and_return(finder_hash_from_api)
+      mock_api.stub(:get_schema).with(slug).and_return(finder_hash_from_api)
     }
 
     it "should use FinderParser to build a finder based on the api's response" do

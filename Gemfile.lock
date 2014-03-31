@@ -65,7 +65,7 @@ GEM
       actionmailer (>= 3.0.4)
       activesupport (>= 3.0.4)
     execjs (2.0.2)
-    gds-api-adapters (10.3.0)
+    gds-api-adapters (10.4.0)
       link_header
       lrucache (~> 0.1.1)
       null_logger
@@ -196,7 +196,7 @@ DEPENDENCIES
   byebug
   cucumber-rails
   exception_notification (= 4.0.1)
-  gds-api-adapters (= 10.3.0)
+  gds-api-adapters (= 10.4.0)
   govuk_frontend_toolkit (= 0.43.0)
   jasmine-rails
   launchy

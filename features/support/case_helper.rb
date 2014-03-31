@@ -9,6 +9,12 @@ module CaseHelper
       body: merger_inquiry_cases_json,
       headers: { 'Content-Type' => 'application/json' }
     )
+
+    stub_request(:get, finder_api_schema_url).to_return(
+      body: schema_json,
+      headers: { 'Content-Type' => 'application/json' }
+    )
+
   end
 
   def finder_api_all_cases_url
@@ -17,6 +23,10 @@ module CaseHelper
 
   def finder_api_merger_inquiry_cases_url
     "#{Plek.current.find('finder-api')}/finders/cma-cases/documents.json?case_type[]=mergers"
+  end
+
+  def finder_api_schema_url
+    "#{Plek.current.find('finder-api')}/finders/cma-cases/schema.json"
   end
 
   def all_cases_json
@@ -103,6 +113,74 @@ module CaseHelper
         }
       ]
     }|
+  end
+
+  def schema_json
+    %|{
+        "slug": "cma-cases",
+        "name": "Competition and Markets Authority cases",
+        "document_noun": "case",
+        "facets": [
+          {
+              "key": "case_type",
+              "name": "Case type",
+              "type": "multi-select",
+              "include_blank": "All case types",
+              "preposition": "of type",
+              "allowed_values": [
+                {"label": "CA98 and civil cartels", "value": "ca98-and-civil-cartels"},
+                {"label": "Criminal cartels", "value": "criminal-cartels"},
+                {"label": "Markets", "value": "markets"},
+                {"label": "Mergers", "value": "mergers"}
+              ]
+          },
+
+          {
+            "key": "case_state",
+            "name": "Case state",
+            "type": "single-select",
+            "include_blank": false,
+            "preposition": "which are",
+            "allowed_values": [
+              {"label": "Open", "value": "open"},
+              {"label": "Closed", "value": "closed"},
+              {"label": "All", "value": "", "non_described": true }
+            ]
+          },
+
+          {
+            "key": "market_sector",
+            "name": "Market sector",
+            "type": "multi-select",
+            "include_blank": false,
+            "preposition": "about",
+            "allowed_values": [
+              {"label": "Agriculture, environment and natural resources", "value": "agriculture-environment-and-natural-resources"},
+              {"label": "Aerospace", "value": "aerospace"},
+              {"label": "Building and construction", "value": "building-and-construction"},
+              {"label": "Chemicals", "value": "chemicals"},
+              {"label": "Clothing, footwear and fashion", "value": "clothing-footwear-and-fashion"},
+              {"label": "Communications", "value": "communications"},
+              {"label": "Defence", "value": "defence"}
+            ]
+          },
+
+          {
+            "key": "outcome_type",
+            "name": "Outcome",
+            "type": "multi-select",
+            "include_blank": false,
+            "preposition": "with outcome",
+            "allowed_values": [
+              {"label": "CA98 - no grounds for action/non-infringement", "value": "ca98-no-grounds-for-action-non-infringement"},
+              {"label": "CA98 - infringement Chapter I", "value": "ca98-infringement-chapter-i"},
+              {"label": "CA98 - infringement Chapter II", "value": "ca98-infringement-chapter-ii"},
+              {"label": "CA98 - administrative priorities", "value": "ca98-administrative-priorities"}
+            ]
+          }
+        ]
+      }
+    |
   end
 
   def select_filters(facets = {})
