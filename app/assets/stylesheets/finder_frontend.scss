@@ -82,9 +82,6 @@
       &.radio-facet {
         padding: $gutter-one-third;
 
-        .legend {
-          width:100%;
-        }
         label {
           margin-right:$gutter-one-third;
           @include inline-block;
