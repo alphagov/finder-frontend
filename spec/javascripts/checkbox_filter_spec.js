@@ -136,21 +136,21 @@ describe('CheckboxFilter', function(){
   describe('checkForSpecialKeys', function(){
 
     it ("should do something if the key event passed in is a return character", function(){
-      spyOn(filter, "toggleFacet");
+      spyOn(filter, "toggleFinder");
       filter.listenForKeys();
 
       // 13 is the return key
       filter.checkForSpecialKeys({keyCode:13});
 
-      expect(filter.toggleFacet.calls.count()).toBe(1);
+      expect(filter.toggleFinder.calls.count()).toBe(1);
     });
 
     it ('should do nothing if the key is not return', function(){
-      spyOn(filter, "toggleFacet");
+      spyOn(filter, "toggleFinder");
       filter.listenForKeys();
 
       filter.checkForSpecialKeys({keyCode:11});
-      expect(filter.toggleFacet.calls.count()).toBe(0);
+      expect(filter.toggleFinder.calls.count()).toBe(0);
     });
 
   });
@@ -168,32 +168,32 @@ describe('CheckboxFilter', function(){
 
   });
 
-  describe('ensureFacetIsOpen', function(){
+  describe('ensureFinderIsOpen', function(){
     it ('should always leave the facet in an open state', function(){
       filterHTML.addClass('closed')
       expect(filterHTML.hasClass('closed')).toBe(true);
 
-      filter.ensureFacetIsOpen();
+      filter.ensureFinderIsOpen();
       expect(filterHTML.hasClass('closed')).toBe(false);
-      filter.ensureFacetIsOpen();
+      filter.ensureFinderIsOpen();
       expect(filterHTML.hasClass('closed')).toBe(false);
 
     });
   });
 
-  describe('toggleFacet', function(){
+  describe('toggleFinder', function(){
 
     it("should call close if the facet is currently open", function(){
       filterHTML.removeClass('closed');
       spyOn(filter, "close");
-      filter.toggleFacet();
+      filter.toggleFinder();
       expect(filter.close.calls.count()).toBe(1);
     });
 
     it("should call open if the facet is currently closed", function(){
       filterHTML.addClass('closed');
       spyOn(filter, "open");
-      filter.toggleFacet();
+      filter.toggleFinder();
       expect(filter.open.calls.count()).toBe(1);
     });
 
