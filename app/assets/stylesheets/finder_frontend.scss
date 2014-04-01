@@ -79,25 +79,26 @@
         outline: 3px solid #ffbf47;
       }
 
-      &.radio-facet {
-        padding: $gutter-one-third;
-
-        label {
-          margin-right:$gutter-one-third;
-          @include inline-block;
-        }
-        input {
-          width:14px;
-        }
-      }
-
       .legend {
         @include core-19;
         @include inline-block;
         margin-right:40px;
         font-weight:bold;
       }
-      &.checkbox-filter {
+    }
+    .radio-facet {
+      padding: $gutter-one-third;
+
+      label {
+        margin-right:$gutter-one-third;
+        @include inline-block;
+      }
+      input {
+        width:14px;
+      }
+    }
+
+    .checkbox-filter {
       .head {
         @extend %contain-floats;
         padding: 5px;
@@ -205,7 +206,7 @@
           -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
       }
     }
-    }
+
     input {
       @include core-14;
       background: $white;
