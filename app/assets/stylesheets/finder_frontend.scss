@@ -120,6 +120,8 @@
               overflow:hidden;
             }
           }
+
+          /* Checkbox-filters are always open in IE 6 and 7 so don't show toggle */
            @include not-ie-lte(7) {
              .js-enabled & {
               .toggle {
@@ -175,8 +177,9 @@
           }
         }
       }
-      @include not-ie-lte(7) {
 
+      /* Checkbox-filters are always open in IE 6 and 7 so don't show toggle */
+      @include not-ie-lte(7) {
         .js-enabled & {
           &.closed {
             .checkbox-container {
@@ -185,17 +188,13 @@
               padding:0;
               margin:0;
             }
-            .head {
-              .controls {
-                .toggle {
-                  background-position:0 0;
-                }
-              }
+            .toggle {
+              background-position:0 0;
             }
           }
         }
       }
-      /* Redefine scrollbars so they are always visible in scrolling facets */
+      /* Redefine scrollbars so they are always visible in scrolling checkbox lists */
       ::-webkit-scrollbar {
           -webkit-appearance: none;
           width: 7px;
