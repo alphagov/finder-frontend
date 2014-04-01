@@ -99,6 +99,41 @@
     }
 
     .checkbox-filter {
+
+      /* Checkbox-filters are always open in IE 6 and 7 so don't show toggle */
+      @include not-ie-lte(7) {
+        .js-enabled & {
+          .toggle {
+            background: image-url('toggle-sprite.png') no-repeat;
+            height: 10px;
+            width: 12px;
+            background-position:-12px 0;
+            @include inline-block;
+          }
+          &.closed {
+            .checkbox-container {
+              position:absolute;
+              left:-9999px;
+              padding:0;
+              margin:0;
+            }
+            .toggle {
+              background-position:0 0;
+            }
+          }
+        }
+      }
+      /* Redefine scrollbars so they are always visible in scrolling checkbox lists */
+      ::-webkit-scrollbar {
+          -webkit-appearance: none;
+          width: 7px;
+      }
+      ::-webkit-scrollbar-thumb {
+          border-radius: 4px;
+          background-color: rgba(0,0,0,.5);
+          -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
+      }
+
       .head {
         @extend %contain-floats;
         padding: 5px;
@@ -118,18 +153,6 @@
               position: relative;
               height:0px;
               overflow:hidden;
-            }
-          }
-        }
-        /* Checkbox-filters are always open in IE 6 and 7 so don't show toggle */
-         @include not-ie-lte(7) {
-           .js-enabled & {
-            .toggle {
-              background: image-url('toggle-sprite.png') no-repeat;
-              height: 10px;
-              width: 12px;
-              background-position:-12px 0;
-              @include inline-block;
             }
           }
         }
@@ -175,31 +198,6 @@
             position:absolute;
           }
         }
-      }
-
-      /* Checkbox-filters are always open in IE 6 and 7 so don't show toggle */
-      @include not-ie-lte(7) {
-        .js-enabled &.closed {
-          .checkbox-container {
-            position:absolute;
-            left:-9999px;
-            padding:0;
-            margin:0;
-          }
-          .toggle {
-            background-position:0 0;
-          }
-        }
-      }
-      /* Redefine scrollbars so they are always visible in scrolling checkbox lists */
-      ::-webkit-scrollbar {
-          -webkit-appearance: none;
-          width: 7px;
-      }
-      ::-webkit-scrollbar-thumb {
-          border-radius: 4px;
-          background-color: rgba(0,0,0,.5);
-          -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
       }
     }
 
