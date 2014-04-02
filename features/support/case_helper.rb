@@ -184,7 +184,7 @@ module CaseHelper
   end
 
   def select_filters(facets = {})
-    within ".facet-menu" do
+    within ".filter-form form" do
       facets.values.each do |value|
         check(value)
       end

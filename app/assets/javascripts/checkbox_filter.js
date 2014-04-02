@@ -5,27 +5,27 @@
 
   function CheckboxFilter(options){
 
-    this.$facet = options.el;
-    this.$checkboxResetter = this.$facet.find('.clear-selected');
-    this.$checkboxes = this.$facet.find("input[type='checkbox']");
+    this.$filter = options.el;
+    this.$checkboxResetter = this.$filter.find('.clear-selected');
+    this.$checkboxes = this.$filter.find("input[type='checkbox']");
 
-    this.$facet.find('.head').on('click', $.proxy(this.toggleFacet, this));
-    this.$facet.on('focus', $.proxy(this.listenForKeys, this));
-    this.$facet.on('blur', $.proxy(this.stopListeningForKeys, this));
+    this.$filter.find('.head').on('click', $.proxy(this.toggleFinder, this));
+    this.$filter.on('focus', $.proxy(this.listenForKeys, this));
+    this.$filter.on('blur', $.proxy(this.stopListeningForKeys, this));
 
     this.$checkboxResetter.on('click', $.proxy(this.resetCheckboxes, this));
 
     this.$checkboxes.on('click', $.proxy(this.updateCheckboxes, this));
-    this.$checkboxes.on('focus', $.proxy(this.ensureFacetIsOpen, this));
+    this.$checkboxes.on('focus', $.proxy(this.ensureFinderIsOpen, this));
 
-    // setupHeight is called on open, but facets containing checked checkboxes will already be open
+    // setupHeight is called on open, but filters containing checked checkboxes will already be open
     if (this.isOpen()) {
       this.setupHeight();
     }
   }
 
   CheckboxFilter.prototype.setupHeight = function setupHeight(){
-    var checkboxContainer = this.$facet.find('.checkbox-container');
+    var checkboxContainer = this.$filter.find('.checkbox-container');
     var checkboxList = checkboxContainer.children('ul');
     var initCheckboxContainerHeight = checkboxContainer.height();
     var height = checkboxList.height();
@@ -41,42 +41,42 @@
   }
 
   CheckboxFilter.prototype.isOpen = function isOpen(){
-    return !this.$facet.hasClass('closed');
+    return !this.$filter.hasClass('closed');
   }
 
   CheckboxFilter.prototype.open = function open(){
-    this.$facet.removeClass('closed');
+    this.$filter.removeClass('closed');
     this.setupHeight();
   };
 
   CheckboxFilter.prototype.close = function close(){
-    this.$facet.addClass('closed');
+    this.$filter.addClass('closed');
   };
 
   CheckboxFilter.prototype.listenForKeys = function listenForKeys(){
-    this.$facet.keypress($.proxy(this.checkForSpecialKeys, this));
+    this.$filter.keypress($.proxy(this.checkForSpecialKeys, this));
   };
 
   CheckboxFilter.prototype.checkForSpecialKeys = function checkForSpecialKeys(e){
     if(e.keyCode == 13) {
 
       // keyCode 13 is the return key.
-      this.toggleFacet();
+      this.toggleFinder();
     }
   };
 
   CheckboxFilter.prototype.stopListeningForKeys = function stopListeningForKeys(){
-    this.$facet.unbind('keypress');
+    this.$filter.unbind('keypress');
   };
 
-  CheckboxFilter.prototype.ensureFacetIsOpen = function ensureFacetIsOpen(){
-    if (this.$facet.hasClass('closed')) {
+  CheckboxFilter.prototype.ensureFinderIsOpen = function ensureFinderIsOpen(){
+    if (this.$filter.hasClass('closed')) {
       this.open();
     }
   };
 
-  CheckboxFilter.prototype.toggleFacet = function toggleFacet(){
-    if (this.$facet.hasClass('closed')) {
+  CheckboxFilter.prototype.toggleFinder = function toggleFinder(){
+    if (this.$filter.hasClass('closed')) {
       this.open();
     } else {
       this.close();
@@ -84,7 +84,7 @@
   };
 
   CheckboxFilter.prototype.resetCheckboxes = function resetCheckboxes(){
-    this.$facet.find("input[type='checkbox']").prop({
+    this.$filter.find("input[type='checkbox']").prop({
       indeterminate: false,
       "checked": false
     });

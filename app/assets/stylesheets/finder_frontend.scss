@@ -70,7 +70,7 @@
       margin-bottom: $gutter;
     }
 
-    .facet {
+    .filter {
       margin-bottom: $gutter;
       background-color:$grey-3;
       padding:5px;
@@ -79,23 +79,59 @@
         outline: 3px solid #ffbf47;
       }
 
-      &.radio-facet {
-        padding: $gutter-one-third;
-
-        label {
-          margin-right:$gutter-one-third;
-          @include inline-block;
-        }
-        input {
-          width:14px;
-        }
-      }
-
       .legend {
         @include core-19;
         @include inline-block;
         margin-right:40px;
         font-weight:bold;
+      }
+    }
+    .radio-filter {
+      padding: $gutter-one-third;
+
+      label {
+        margin-right:$gutter-one-third;
+        @include inline-block;
+      }
+      input {
+        width:14px;
+      }
+    }
+
+    .checkbox-filter {
+
+      /* Checkbox-filters are always open in IE 6 and 7 so don't show toggle */
+      @include not-ie-lte(7) {
+        .js-enabled & {
+          .toggle {
+            background: image-url('toggle-sprite.png') no-repeat;
+            height: 10px;
+            width: 12px;
+            background-position:-12px 0;
+            @include inline-block;
+          }
+          &.closed {
+            .checkbox-container {
+              position:absolute;
+              left:-9999px;
+              padding:0;
+              margin:0;
+            }
+            .toggle {
+              background-position:0 0;
+            }
+          }
+        }
+      }
+      /* Redefine scrollbars so they are always visible in scrolling checkbox lists */
+      ::-webkit-scrollbar {
+          -webkit-appearance: none;
+          width: 7px;
+      }
+      ::-webkit-scrollbar-thumb {
+          border-radius: 4px;
+          background-color: rgba(0,0,0,.5);
+          -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
       }
 
       .head {
@@ -117,17 +153,6 @@
               position: relative;
               height:0px;
               overflow:hidden;
-            }
-          }
-           @include not-ie-lte(7) {
-             .js-enabled & {
-              .toggle {
-                background: image-url('toggle-sprite.png') no-repeat;
-                height: 10px;
-                width: 12px;
-                background-position:-12px 0;
-                @include inline-block;
-              }
             }
           }
         }
@@ -174,36 +199,6 @@
           }
         }
       }
-      @include not-ie-lte(7) {
-
-        .js-enabled & {
-          &.closed {
-            .checkbox-container {
-              position:absolute;
-              left:-9999px;
-              padding:0;
-              margin:0;
-            }
-            .head {
-              .controls {
-                .toggle {
-                  background-position:0 0;
-                }
-              }
-            }
-          }
-        }
-      }
-      /* Redefine scrollbars so they are always visible in scrolling facets */
-      ::-webkit-scrollbar {
-          -webkit-appearance: none;
-          width: 7px;
-      }
-      ::-webkit-scrollbar-thumb {
-          border-radius: 4px;
-          background-color: rgba(0,0,0,.5);
-          -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
-      }
     }
 
     input {
@@ -215,28 +210,6 @@
 
       @include media (desktop) {
         padding: 5px 0;
-      }
-    }
-
-    select {
-      @include core-14;
-      background: $white;
-      line-height: 1.3;
-      width: $full-width;
-    }
-
-    @include media (tablet) {
-      .single-row-select {
-        border: 1px solid $border-colour;
-        padding: 5px 5px 5px 10px;
-        width: $full-width;
-        background: $white;
-        background-image: image-url('dropdown-arrow-small.png');
-        background-repeat: no-repeat;
-        background-position: right center;
-        @include box-shadow(1px 1px 1px $white);
-        @include border-radius(5px);
-        @include appearance(none);
       }
     }
 
