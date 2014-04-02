@@ -3,6 +3,10 @@
     <p>You can use the filters to show only cases that match your interests</p>
 
     <form method="get" action="">
+      <div>
+        <label for="keywords">Keywords</label>
+        <input type="text" name="keywords" id="keywords" />
+      </div>
       <%= render facet_collection.facets %>
       <input type="submit" value="Filter results" class="button" />
     </form>

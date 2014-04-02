@@ -14,7 +14,13 @@ module CaseHelper
       body: schema_json,
       headers: { 'Content-Type' => 'application/json' }
     )
+  end
 
+  def stub_keyword_search_api_request
+    stub_request(:get, finder_api_keyword_search_url).to_return(
+      body: keyword_search_results,
+      headers: { 'Content-Type' => 'application/json' },
+    )
   end
 
   def finder_api_all_cases_url
@@ -27,6 +33,41 @@ module CaseHelper
 
   def finder_api_schema_url
     "#{Plek.current.find('finder-api')}/finders/cma-cases/schema.json"
+  end
+
+  def finder_api_keyword_search_url
+    "#{Plek.current.find('finder-api')}/finders/cma-cases/documents.json?keywords=keyword%20searchable"
+  end
+
+  def keyword_search_results
+    %|{
+      "results": [
+        {
+          "title": "Acme keyword searchable case",
+          "slug": "cma-cases/acme-keyword-searchable-case",
+          "opened_date": "2008-06-28",
+          "closed_date": "2010-10-05",
+          "summary": "Inquiry into making CMA cases keyword saerchable",
+
+          "market_sector": {
+            "value": "pharmaceuticals",
+            "label": "Pharmaceuticals"
+          },
+          "case_type": {
+            "value": "mergers",
+            "label": "Mergers"
+          },
+          "outcome_type": {
+            "value": "ca98-infringement-chapter-i",
+            "label": "CA98 - infringement Chapter I"
+          },
+          "case_state": {
+            "value": "closed",
+            "label": "Closed"
+          }
+        }
+      ]
+    }|
   end
 
   def all_cases_json
