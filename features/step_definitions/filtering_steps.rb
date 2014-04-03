@@ -25,7 +25,7 @@ When(/^I search cases by keyword$/) do
   visit finder_path('cma-cases')
 
   @keyword_search = "keyword searchable"
-  fill_in("Keywords", with: @keyword_search)
+  fill_in("Search", with: @keyword_search)
   click_on "Filter results"
 end
 
