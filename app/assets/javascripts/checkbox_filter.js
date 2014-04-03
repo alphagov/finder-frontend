@@ -4,14 +4,11 @@
   window.GOVUK = window.GOVUK || {};
 
   function CheckboxFilter(options){
+    var allowCollapsible = (typeof ieVersion == "undefined" || ieVersion > 7) ? true : false;
 
     this.$filter = options.el;
     this.$checkboxResetter = this.$filter.find('.clear-selected');
     this.$checkboxes = this.$filter.find("input[type='checkbox']");
-
-    this.$filter.find('.head').on('click', $.proxy(this.toggleFinder, this));
-    this.$filter.on('focus', $.proxy(this.listenForKeys, this));
-    this.$filter.on('blur', $.proxy(this.stopListeningForKeys, this));
 
     this.$checkboxResetter.on('click', $.proxy(this.resetCheckboxes, this));
 
@@ -19,9 +16,17 @@
     this.$checkboxes.on('focus', $.proxy(this.ensureFinderIsOpen, this));
 
     // setupHeight is called on open, but filters containing checked checkboxes will already be open
-    if (this.isOpen()) {
+    if (this.isOpen() || !allowCollapsible) {
       this.setupHeight();
     }
+
+    if(allowCollapsible){
+      // set up open/close listeners
+      this.$filter.find('.head').on('click', $.proxy(this.toggleFinder, this));
+      this.$filter.on('focus', $.proxy(this.listenForKeys, this));
+      this.$filter.on('blur', $.proxy(this.stopListeningForKeys, this));
+    }
+
   }
 
   CheckboxFilter.prototype.setupHeight = function setupHeight(){

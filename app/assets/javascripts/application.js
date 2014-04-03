@@ -14,9 +14,7 @@
 
 
 jQuery(function($) {
-  if(typeof ieVersion == "undefined" || ieVersion > 7){
-    $('.js-openable-filter').each(function(){
-      new GOVUK.CheckboxFilter({el:$(this)});
-    })
-  }
+  $('.js-openable-filter').each(function(){
+    new GOVUK.CheckboxFilter({el:$(this)});
+  })
 });

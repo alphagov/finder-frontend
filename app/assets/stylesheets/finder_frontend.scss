@@ -103,6 +103,9 @@
       /* Checkbox-filters are always open in IE 6 and 7 so don't show toggle */
       @include not-ie-lte(7) {
         .js-enabled & {
+          .head {
+            cursor:pointer;
+          }
           .toggle {
             background: image-url('toggle-sprite.png') no-repeat;
             height: 10px;
@@ -137,7 +140,6 @@
       .head {
         @extend %contain-floats;
         padding: 5px;
-        cursor:pointer;
         position:relative;
 
         .controls {
