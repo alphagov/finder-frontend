@@ -37,7 +37,10 @@
   margin-bottom: $gutter*2;
 
   .inner-block {
-    margin: 0 $gutter;
+    margin: 0 $gutter-half;
+    @include media(tablet) {
+      margin: 0 $gutter;
+    }
   }
 
   header h1 {
