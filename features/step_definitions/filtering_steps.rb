@@ -18,3 +18,19 @@ Then(/^I can get a list of all merger inquiries$/) do
   page.should have_content('1 case')
   page.should have_css('.filtered-results .document', count: 1)
 end
+
+When(/^I search cases by keyword$/) do
+  stub_keyword_search_api_request
+
+  visit finder_path('cma-cases')
+
+  @keyword_search = "keyword searchable"
+  fill_in("Search", with: @keyword_search)
+  click_on "Filter results"
+end
+
+Then(/^I see all cases which contain the keywords$/) do
+  within ".filtered-results" do
+    expect(page).to have_css("a", text: @keyword_search)
+  end
+end

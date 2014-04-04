@@ -5,7 +5,7 @@ describe Finder do
 
   let(:name) { "CMA Cases" }
   let(:slug) { "finder-slug" }
-  subject { Finder.new(name: name, slug: slug) }
+  subject(:finder) { Finder.new(name: name, slug: slug) }
 
   describe ".get" do
     let (:finder_hash_from_api) { { "name" => "CMA Cases" } }
@@ -20,14 +20,40 @@ describe Finder do
   end
 
   describe "#results" do
-    let(:facet_params) { :some_facet_values }
-    let(:facet_collection) { OpenStruct.new(values: facet_params) }
-    subject { Finder.new(slug: slug, facets: facet_collection) }
+    subject(:finder) { Finder.new(slug: slug, facets: facet_collection) }
+
+    let(:facet_params) { { some_facet: "value" } }
+    let(:facet_collection) { double(:facet_collection, values: { some_facet: "value" }) }
+
+    let(:result_set) { double(:result_set) }
 
     before do
-      ResultSet.stub(:get).with(slug, :some_facet_values).and_return(:a_result_set)
+      ResultSet.stub(:get).and_return(result_set)
     end
 
-    specify { subject.results.should == :a_result_set }
+    it "queries ResultSet with slug and facet values" do
+      expect(ResultSet).to receive(:get).with(slug, facet_params)
+
+      finder.results
+    end
+
+    it "returns the result set" do
+      expect(finder.results).to eq(result_set)
+    end
+
+    context "when search keywords are set" do
+      before do
+        finder.keywords = search_keywords
+      end
+
+      let(:search_keywords) { double(:search_keywords) }
+
+      it "includes the search term in the ResultSet query" do
+        expect(ResultSet).to receive(:get)
+          .with(slug, hash_including("keywords" => search_keywords))
+
+        finder.results
+      end
+    end
   end
 end

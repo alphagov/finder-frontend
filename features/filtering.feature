@@ -6,3 +6,8 @@ Feature: Filtering cases
   Scenario: Business analyst filters cases by case type
     Given a collection of cases exist
     Then I can get a list of all merger inquiries
+
+  Scenario: Filter cases by keyword
+    Given a collection of cases exist
+    When I search cases by keyword
+    Then I see all cases which contain the keywords

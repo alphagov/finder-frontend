@@ -201,10 +201,12 @@
       background: $white;
       border: 1px solid $border-colour;
       width: $full-width;
-      margin: 0;
+      margin: 0 0 0 -1px;
 
       @include media (desktop) {
         padding: 5px 0;
+        text-indent: 5px;
+        @include core-16;
       }
     }
 
