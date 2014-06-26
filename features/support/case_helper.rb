@@ -1,4 +1,8 @@
+require 'gds_api/test_helpers/content_api'
+
 module CaseHelper
+  include GdsApi::TestHelpers::ContentApi
+
   def stub_case_collection_api_request
     stub_request(:get, finder_api_all_cases_url).to_return(
       body: all_cases_json,
@@ -21,6 +25,11 @@ module CaseHelper
       body: keyword_search_results,
       headers: { 'Content-Type' => 'application/json' },
     )
+  end
+
+  def stub_finder_artefact_api_request
+    artefact_data = artefact_for_slug('cma-cases').merge(cma_case_artefact)
+    content_api_has_an_artefact('cma-cases', artefact_data)
   end
 
   def finder_api_all_cases_url
@@ -222,6 +231,34 @@ module CaseHelper
         ]
       }
     |
+  end
+
+  def cma_case_artefact
+    {
+      :id => "http://contentapi.dev.gov.uk/cma-cases.json",
+      :web_url => "http://finder-frontend.dev.gov.uk/cma-cases",
+      :title => "Competition and Markets Authority cases",
+      :format => "finder",
+      :updated_at => "2014-06-26T13:44:57+01:00",
+      :tags => [
+        {
+          :id => "http://contentapi.dev.gov.uk/tags/organisation/competition-and-markets-authority.json",
+          :slug => "competition-and-markets-authority",
+          :web_url => "http://www.dev.gov.uk/government/organisations/competition-and-markets-authority",
+          :title => "Competition and Markets Authority ",
+          :details => {
+            :description => nil,
+            :short_description => nil,
+            :type => "organisation"
+          },
+          :content_with_tag => {
+            :id => "http://contentapi.dev.gov.uk/with_tag.json?organisation=competition-and-markets-authority",
+            :web_url => nil
+          },
+          :parent => nil
+        }
+      ]
+    }
   end
 
   def select_filters(facets = {})

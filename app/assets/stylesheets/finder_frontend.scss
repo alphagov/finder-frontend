@@ -7,6 +7,7 @@
 @import "design-patterns/buttons";
 @import "not-ie-conditional";
 
+@import "reset";
 
 #wrapper {
   display: block;
@@ -43,14 +44,45 @@
     }
   }
 
-  header h1 {
-    @include heading-48;
-    @include bold-48;
-    margin: 0 $gutter-half $gutter;
-
+  header {
+    width: $full-width;
+    margin-bottom: $gutter;
     @include media(tablet) {
-      margin: $gutter;
-      width: $two-thirds;
+      margin-bottom: $gutter
+    }
+
+    h1 {
+      @include heading-48;
+      font-weight: bold;
+      margin: $gutter-one-third $gutter-half;
+
+      @include media(tablet) {
+        margin: $gutter-half $gutter;
+        width: $two-thirds;
+      }
+    }
+    .metadata {
+      position: relative;
+      @include core-14;
+      @extend %contain-floats;
+      width: 100%;
+
+      dt {
+        float: left;
+        clear: left;
+        width: auto;
+        min-width: 120px;
+        @include media(tablet) {
+          padding-right: $gutter-one-third;
+        }
+      }
+      dd {
+        float: left;
+        width: 57%;
+        @include media(tablet) {
+          width: 70%;
+        }
+      }
     }
   }
 
@@ -222,6 +254,7 @@
       @include core-16;
       vertical-align: baseline;
       border-bottom: solid 1px $border-colour;
+      margin: $gutter-half 0;
       padding-bottom: $gutter-half;
 
       .result-count {
