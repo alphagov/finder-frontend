@@ -1,20 +1,30 @@
 require 'spec_helper'
+require 'gds_api/test_helpers/content_api'
 
 describe Finder do
   include ApiHelper
+  include GdsApi::TestHelpers::ContentApi
 
   let(:name) { "CMA Cases" }
-  let(:slug) { "finder-slug" }
+  let(:slug) { "cma-cases" }
   subject(:finder) { Finder.new(name: name, slug: slug) }
 
   describe ".get" do
     let (:finder_hash_from_api) { { "name" => "CMA Cases" } }
+    let (:cma_case_artefact) { {
+      "title" => "Competition and Markets Authority cases",
+      "organisations" => []
+    } }
     before {
       mock_api.stub(:get_schema).with(slug).and_return(finder_hash_from_api)
+      artefact_data = artefact_for_slug(slug).merge(cma_case_artefact)
+      content_api_has_an_artefact(slug, artefact_data)
     }
 
     it "should use FinderParser to build a finder based on the api's response" do
-      FinderParser.should_receive(:parse).with(finder_hash_from_api).and_return(:a_built_finder)
+      FinderParser.should_receive(:parse).with(finder_hash_from_api.merge(
+        "name" => "Competition and Markets Authority cases",
+        "organisations" => [])).and_return(:a_built_finder)
       Finder.get(slug).should == :a_built_finder
     end
   end
