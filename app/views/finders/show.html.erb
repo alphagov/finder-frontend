@@ -2,6 +2,16 @@
 
 <header>
   <h1><%= raw(finder.name) %></h1>
+  <% if finder.primary_organisation %>
+    <div class="metadata">
+      <dl class="inner-block">
+        <dt>From:</dt>
+        <dd>
+          <%= link_to finder.primary_organisation.title, finder.primary_organisation.web_url %>
+        </dd>
+      </dl>
+    </div>
+  <% end %>
 </header>
 
 <%= render finder.facets %>
