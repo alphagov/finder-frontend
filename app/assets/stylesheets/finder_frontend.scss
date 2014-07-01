@@ -121,19 +121,26 @@
         font-weight:bold;
       }
     }
-    .radio-filter {
+    .radio-filter,
+    .text-filter {
       padding: $gutter-one-third;
 
       label {
         margin-right:$gutter-one-third;
         @include inline-block;
       }
+    }
+    .radio-filter {
       input {
         width:14px;
       }
     }
 
     .checkbox-filter {
+
+      &:hover {
+        background-color:$grey-2;
+      }
 
       /* Checkbox-filters are always open in IE 6 and 7 so don't show toggle */
       @include not-ie-lte(7) {
