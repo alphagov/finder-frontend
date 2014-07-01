@@ -121,19 +121,26 @@
         font-weight:bold;
       }
     }
-    .radio-filter {
+    .radio-filter,
+    .text-filter {
       padding: $gutter-one-third;
 
       label {
         margin-right:$gutter-one-third;
         @include inline-block;
       }
+    }
+    .radio-filter {
       input {
         width:14px;
       }
     }
 
     .checkbox-filter {
+
+      &:hover {
+        background-color:$grey-2;
+      }
 
       /* Checkbox-filters are always open in IE 6 and 7 so don't show toggle */
       @include not-ie-lte(7) {
@@ -142,11 +149,17 @@
             cursor:pointer;
           }
           .toggle {
-            background: image-url('toggle-sprite.png') no-repeat;
-            height: 10px;
-            width: 12px;
-            background-position:-12px 0;
+            height: 25px;
+            width: 23px;
             @include inline-block;
+            background-image: image-url('toggle-sprite.png');
+            background-repeat:no-repeat;
+            background-position: 0px -32px;
+
+            @include device-pixel-ratio() {
+              background-image:image-url('toggle-sprite-retina.png');
+              background-size: 32px 50px;
+            }
           }
           &.closed {
             .checkbox-container {
@@ -156,7 +169,7 @@
               margin:0;
             }
             .toggle {
-              background-position:0 0;
+              background-position:0 3px;
             }
           }
         }
