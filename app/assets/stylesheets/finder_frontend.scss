@@ -149,11 +149,17 @@
             cursor:pointer;
           }
           .toggle {
-            background: image-url('toggle-sprite.png') no-repeat;
-            height: 10px;
-            width: 12px;
-            background-position:-12px 0;
+            height: 25px;
+            width: 23px;
             @include inline-block;
+            background-image: image-url('toggle-sprite.png');
+            background-repeat:no-repeat;
+            background-position: 0px -32px;
+
+            @include device-pixel-ratio() {
+              background-image:image-url('toggle-sprite-retina.png');
+              background-size: 32px 50px;
+            }
           }
           &.closed {
             .checkbox-container {
@@ -163,7 +169,7 @@
               margin:0;
             }
             .toggle {
-              background-position:0 0;
+              background-position:0 3px;
             }
           }
         }
