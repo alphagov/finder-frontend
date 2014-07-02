@@ -149,7 +149,7 @@
             cursor:pointer;
           }
           .toggle {
-            height: 25px;
+            height: 15px;
             width: 23px;
             @include inline-block;
             background-image: image-url('toggle-sprite.png');
