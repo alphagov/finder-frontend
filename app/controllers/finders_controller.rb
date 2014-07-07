@@ -1,4 +1,7 @@
 class FindersController < ApplicationController
+
+  before_filter :set_robots_headers
+
   def show
   end
 
@@ -21,5 +24,17 @@ private
 
   def keywords
     params[:keywords]
+  end
+
+  def set_robots_headers
+    if finders_excluded_from_robots.include?(finder_slug)
+      response.headers["X-Robots-Tag"] = "none"
+    end
+  end
+
+  def finders_excluded_from_robots
+    [
+      'aaib-reports'
+    ]
   end
 end
