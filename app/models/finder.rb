@@ -27,10 +27,6 @@ class Finder
     @organisations = attrs[:organisations]
   end
 
-  def document_noun
-    "case"
-  end
-
   def results
     @results ||= ResultSet.get(slug, search_params)
   end
