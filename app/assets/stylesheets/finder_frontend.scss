@@ -33,6 +33,10 @@
   }
 }
 
+strong {
+  font-weight: 600;
+}
+
 #finder-frontend {
   @extend %contain-floats;
   margin-bottom: $gutter*2;
