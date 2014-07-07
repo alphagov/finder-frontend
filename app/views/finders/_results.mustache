@@ -1,0 +1,24 @@
+<div class="filtered-results">
+  <div class="inner-block">
+    <p class="result-info">
+      <span class="result-count">
+        {{count}}
+      </span>
+      {{{pluralised_document_noun}}}
+      {{{applied_filters}}}
+    </p>
+    <ul>
+      {{#documents}}
+          <li class="document">
+            <h3><a href='{{slug}}'>{{title}}</a></h3>
+            <dl>
+              {{#metadata}}
+                <dt>{{name}}</dt>
+                <dd>{{value}}</dd>
+              {{/metadata}}
+            </dl>
+          </li>
+        {{/documents}}
+    </ul>
+  </div>
+</div>
