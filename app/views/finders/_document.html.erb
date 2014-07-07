@@ -2,8 +2,12 @@
   <h3><%= link_to document.title, document.url %></h3>
   <dl>
     <% document.metadata.each do |entry| %>
-      <dt><%= entry[:name] %></dt>
-      <dd><%= document_metadata_value(entry[:value], entry[:type]) %>
+      <% if entry[:type] == "date" %>
+        <dt class="date"><%= entry[:name] %>:</dt>
+      <% else %>
+        <dt><%= entry[:name] %>:</dt>
+      <% end %>
+      <dd><%= document_metadata_value(entry[:value], entry[:type]) %></dd>
     <% end %>
   </dl>
 </li>
