@@ -6,6 +6,7 @@ describe DocumentParser do
       {
         "title" => "Private healthcare market investigation",
         "slug" => "cma-cases/private-healthcare-market-investigation",
+        "document_type" => "cma_case",
         "opened_date" => "2007-08-14",
         "closed_date" => "2008-03-01",
         "summary" => "Inquiry into the private healthcare market",
