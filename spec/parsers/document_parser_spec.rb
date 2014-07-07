@@ -30,7 +30,7 @@ describe DocumentParser do
     }
     subject { DocumentParser.parse(document_hash) }
 
-    specify { subject.should be_a Document }
+    specify { subject.should be_a CmaCase }
     specify { subject.title.should == 'Private healthcare market investigation' }
     specify { subject.url.should == '/cma-cases/private-healthcare-market-investigation' }
     specify { subject.metadata.to_set.should == [
