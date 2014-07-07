@@ -34,7 +34,7 @@ describe AaibReport do
             type: 'text',
           },
           {
-            name: 'Date of occurrence',
+            name: 'Occurred',
             value: date_of_occurrence,
             type: 'date',
           },
@@ -61,7 +61,7 @@ describe AaibReport do
             type: 'text',
           },
           {
-            name: 'Date of occurrence',
+            name: 'Occurred',
             value: date_of_occurrence,
             type: 'date',
           },

@@ -35,8 +35,8 @@ describe DocumentParser do
     specify { subject.title.should == 'Private healthcare market investigation' }
     specify { subject.url.should == '/cma-cases/private-healthcare-market-investigation' }
     specify { subject.metadata.to_set.should == [
-      { type: 'date', name: 'Opened date', value: '2007-08-14' },
-      { type: 'date', name: 'Closed date', value: '2008-03-01' },
+      { type: 'date', name: 'Opened', value: '2007-08-14' },
+      { type: 'date', name: 'Closed', value: '2008-03-01' },
       { type: 'text', name: 'Case type', value: 'Markets' },
       { type: 'text', name: 'Case state', value: 'Closed' },
       { type: 'text', name: 'Outcome type', value: 'CA98 - infringement Chapter I' },

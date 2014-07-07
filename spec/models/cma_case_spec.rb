@@ -54,12 +54,12 @@ describe CmaCase do
             type: 'text',
           },
           {
-            name: 'Opened date',
+            name: 'Opened',
             value: opened_date,
             type: 'date',
           },
           {
-            name: 'Closed date',
+            name: 'Closed',
             value: closed_date,
             type: 'date',
           },
@@ -104,7 +104,7 @@ describe CmaCase do
             type: 'text',
           },
           {
-            name: 'Opened date',
+            name: 'Opened',
             value: opened_date,
             type: 'date',
           },
@@ -154,7 +154,7 @@ describe CmaCase do
             type: 'text',
           },
           {
-            name: 'Opened date',
+            name: 'Opened',
             value: opened_date,
             type: 'date',
           },
