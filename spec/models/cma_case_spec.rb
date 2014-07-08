@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-describe Document do
-  subject { Document.new(document_attributes) }
+describe CmaCase do
+  subject { CmaCase.new(document_attributes) }
   let(:opened_date) { 1.year.ago.to_date }
   let(:closed_date) { 3.months.ago.to_date }
   let(:document_attributes) { {} }
@@ -54,12 +54,12 @@ describe Document do
             type: 'text',
           },
           {
-            name: 'Opened date',
+            name: 'Opened',
             value: opened_date,
             type: 'date',
           },
           {
-            name: 'Closed date',
+            name: 'Closed',
             value: closed_date,
             type: 'date',
           },
@@ -104,7 +104,7 @@ describe Document do
             type: 'text',
           },
           {
-            name: 'Opened date',
+            name: 'Opened',
             value: opened_date,
             type: 'date',
           },
@@ -154,7 +154,7 @@ describe Document do
             type: 'text',
           },
           {
-            name: 'Opened date',
+            name: 'Opened',
             value: opened_date,
             type: 'date',
           },

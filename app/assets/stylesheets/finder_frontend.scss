@@ -303,10 +303,20 @@
       dl {
         margin: 0;
 
-        dt { display: none; }
-        dd {
+        dt, dd {
           @include core-14;
           margin-left: 0;
+        }
+
+        dt {
+          display: none;
+
+          &.metadata-date-label {
+            @include inline-block;
+          }
+        }
+
+        dd {
           margin-right: $gutter-one-third;
           @include inline-block;
         }

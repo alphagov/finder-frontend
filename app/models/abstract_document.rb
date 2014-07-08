@@ -1,4 +1,4 @@
-class Document
+class AbstractDocument
   attr_reader :title, :slug
 
   def initialize(attrs)
@@ -22,22 +22,30 @@ class Document
 
 private
 
+  def date_metadata_mappings
+    {}
+  end
+
   def date_metadata
-    keys = ['opened_date', 'closed_date'].select do |key|
+    keys = date_metadata_mappings.keys.select do |key|
       @attrs.fetch(key, false).present?
     end
 
     keys.map do |key|
       {
-        name: key.humanize,
+        name: date_metadata_mappings[key] || key.humanize,
         value: @attrs[key],
         type: 'date'
       }
     end
   end
 
+  def tag_metadata_keys
+    []
+  end
+
   def tag_metadata
-    keys = ['case_type', 'case_state', 'market_sector', 'outcome_type'].select do |key|
+    keys = tag_metadata_keys.select do |key|
       @attrs.fetch(key, {}).fetch('label', false).present?
     end
 

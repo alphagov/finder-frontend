@@ -2,8 +2,7 @@
   <h3><%= link_to document.title, document.url %></h3>
   <dl>
     <% document.metadata.each do |entry| %>
-      <dt><%= entry[:name] %></dt>
-      <dd><%= document_metadata_value(entry[:value], entry[:type]) %>
+      <%= document_metadata_attribute_html(entry[:name], entry[:type], entry[:value]) %>
     <% end %>
   </dl>
 </li>
