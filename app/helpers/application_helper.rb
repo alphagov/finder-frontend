@@ -3,15 +3,6 @@ module ApplicationHelper
     ['finder-page', finder.slug].join(' ')
   end
 
-  def document_metadata_value(value, type)
-    case type
-    when "date"
-      Date.parse(value).strftime("%d %B %Y")
-    else
-      value
-    end
-  end
-
   def input_checked(key, value)
     if facet_has_any_selected_values?(key)
       if params[key].is_a?(Array) && params[key].include?(value)

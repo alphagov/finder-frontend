@@ -312,7 +312,7 @@ strong {
         dt {
           display: none;
 
-          &.date {
+          &.metadata-date-label {
             @include inline-block;
           }
         }
