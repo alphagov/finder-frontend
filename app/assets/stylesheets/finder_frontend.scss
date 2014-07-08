@@ -33,10 +33,6 @@
   }
 }
 
-strong {
-  font-weight: 600;
-}
-
 #finder-frontend {
   @extend %contain-floats;
   margin-bottom: $gutter*2;
@@ -284,6 +280,9 @@ strong {
         font-weight: normal;
         position: relative;
         top: 1px;
+      }
+      strong {
+        font-weight: 600;
       }
     }
 
