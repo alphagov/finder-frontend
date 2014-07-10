@@ -9,14 +9,13 @@ RSpec.describe ResultSetPresenter do
   let(:finder) do
     OpenStruct.new({
       results: results,
-      search_results_hash: results.search_results_hash,
       document_noun: document_noun,
-      selected_facets_hash: facets
+      facets: facets
     })
   end
 
   let(:results) do
-    OpenStruct.new({ count: count, search_results_hash:result_set })
+    OpenStruct.new({ count: count, to_hash:result_set })
   end
 
   let(:document_noun){ 'case' }
@@ -64,6 +63,10 @@ RSpec.describe ResultSetPresenter do
   end
 
   let(:facets) do
+    OpenStruct.new(selected_facets_hash: selected_facets_hash)
+  end
+
+  let(:selected_facets_hash) do
     [
       {
         key:'',
@@ -82,7 +85,6 @@ RSpec.describe ResultSetPresenter do
       }
     ]
   end
-
   describe '#to_hash' do
     it 'should return an appropriate hash' do
       presenter.to_hash[:count].should == count
@@ -99,10 +101,10 @@ RSpec.describe ResultSetPresenter do
       document_noun.should have_received(:pluralize).with(count)
     end
 
-    it 'should call describe_filters_in_sentence with facets' do
+    it 'should call describe_filters_in_sentence with selected_facets_hash' do
       allow(presenter).to receive(:describe_filters_in_sentence).and_call_original
       presenter.to_hash
-      presenter.should have_received(:describe_filters_in_sentence).with facets
+      presenter.should have_received(:describe_filters_in_sentence).with selected_facets_hash
     end
 
     it 'should call package_metadata with document metadata' do
@@ -115,25 +117,19 @@ RSpec.describe ResultSetPresenter do
   describe '#describe_filters_in_sentence' do
     it 'should call facet_values_sentence for all selected_values in a facet' do
       allow(presenter).to receive(:facet_values_sentence).and_call_original
-      presenter.describe_filters_in_sentence(facets)
+      presenter.describe_filters_in_sentence(selected_facets_hash)
       facets.each do | facet |
         presenter.should have_received(:facet_values_sentence).with facet
       end
     end
 
     it 'should include prepositions for each facet' do
-      sentence = presenter.describe_filters_in_sentence(facets)
+      sentence = presenter.describe_filters_in_sentence(selected_facets_hash)
       facets.each do | facet |
         sentence.include?(facet[:preposition]).should == true
       end
     end
 
-    context 'with no facets' do
-      let(:facets) {[]}
-      it 'should return an empty string' do
-        presenter.describe_filters_in_sentence(facets).should == ''
-      end
-    end
   end
 
   describe '#facet_values_sentence' do

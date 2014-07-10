@@ -4,9 +4,9 @@ class ResultSetPresenter
 
   def initialize(finder, facet_params)
     @result_count = finder.results.count
-    @results = finder.results.search_results_hash
+    @results = finder.results.to_hash
     @documents_noun = finder.document_noun
-    @applied_filters = finder.selected_facets_hash
+    @applied_filters = finder.facets.selected_facets_hash
     @params = facet_params
   end
 
@@ -42,7 +42,7 @@ class ResultSetPresenter
 
   def format_result_metadata(results)
     results = results.map do |result|
-      {title: result[:title], slug: result[:slug], metadata: format_result_metadata1(result[:metadata])}
+      { title: result[:title], slug: result[:slug], metadata: format_result_metadata1(result[:metadata]) }
     end
     results
   end
