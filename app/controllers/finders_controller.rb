@@ -3,6 +3,7 @@ class FindersController < ApplicationController
   before_filter :set_robots_headers
 
   def show
+    @results = ResultSetPresenter.new(finder, facet_params)
   end
 
 private
