@@ -27,7 +27,7 @@ class ResultSetPresenter
    end
 
   def facet_values_sentence(facet)
-    values = facet[:selected_values].map do |option|
+    values = facet[:selected_values_hash].map do |option|
 
       # build a link with out this facet selected
       # make a content tag

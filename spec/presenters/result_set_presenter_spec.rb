@@ -44,14 +44,14 @@ RSpec.describe ResultSetPresenter do
       {
         key:'',
         preposition: 'of type',
-        selected_values: [
+        selected_values_hash: [
           { label: 'CA98 and civil cartels' },
           { label: 'Mergers' },
         ]
       },{
         key:'',
         preposition: 'about',
-        selected_values: [
+        selected_values_hash: [
           { label: 'Farming' },
           { label: 'Chemicals' },
         ]
