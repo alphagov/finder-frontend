@@ -8,59 +8,32 @@ RSpec.describe ResultSetPresenter do
 
   let(:finder) do
     OpenStruct.new({
-      results: results,
+      results: result_set,
       document_noun: document_noun,
       facets: facets
     })
-  end
-
-  let(:results) do
-    OpenStruct.new({ count: count, to_hash:result_set })
   end
 
   let(:document_noun){ 'case' }
   let(:count) { 2 }
 
   let(:result_set) do
-    [
-      {
-        title: 'Investigation into the distribution of road fuels in parts of Scotland',
-        slug: 'slug-1',
-        metadata:
-          [
-            {name: 'Case state', value: 'Open', type: '' },
-            {name: 'Opened date', value: '2006-7-14', type: 'date' },
-            {name: 'Case type', value: 'CA98 and civil cartels', type: '' },
-          ],
-      },
-      {
-        title: 'Heathcorp / Druginc merger inquiry',
-        slug: 'slug-1',
-        metadata:
-          [
-            { name: 'Case state', value: 'Closed', type: '' },
-            { name: 'Opened date', value: '2005-12-30', type: '' },
-            { name: 'Closed date', value: '2006-03-01', type: '' },
-            { name: 'Outcome type', value: 'Mergers - phase 1 found not to qualify', type: '' },
-            { name: 'Case type', value: 'Mergers', type: '' },
-            { name: 'Market sector', value: 'Pharmaceuticals', type: '' },
-          ]
-      },
-      {
-        title: 'Investigation into the distribution of road fuels in parts of Scotland',
-        slug: 'slug-1',
-        metadata:
-          [
-            { name: 'Case state', value: 'Closed', type: '' },
-            { name: 'Opened date', value: '2003-12-30', type: 'date' },
-            { name: 'Closed date', value: '2004-03-01', type: 'date' },
-            { name: 'Outcome type', value: 'CA98 - infringement Chapter I', type: '' },
-            { name: 'Case type', value: 'CA98 and civil cartels', type: '' },
-            { name: 'Market sector', value: 'Distribution and Service Industries', type: '' },
-          ],
-      }
-    ]
+    OpenStruct.new({ count: count, documents: [ document ] })
   end
+
+  let(:document) do
+    OpenStruct.new({
+      title: 'Investigation into the distribution of road fuels in parts of Scotland',
+      slug: 'slug-1',
+      metadata:
+        [
+          { name: 'Case state', value: 'Open', type: 'text' },
+          { name: 'Opened date', value: '2006-7-14', type: 'date' },
+          { name: 'Case type', value: 'CA98 and civil cartels', type: 'text' },
+        ]
+      })
+  end
+
 
   let(:facets) do
     OpenStruct.new(selected_facets_hash: selected_facets_hash)
@@ -107,10 +80,10 @@ RSpec.describe ResultSetPresenter do
       presenter.should have_received(:describe_filters_in_sentence).with selected_facets_hash
     end
 
-    it 'should call package_metadata with document metadata' do
-      allow(presenter).to receive(:format_result_metadata).and_call_original
+    it 'should call documents' do
+      allow(presenter).to receive(:documents).and_call_original
       presenter.to_hash
-      presenter.should have_received(:format_result_metadata).with result_set
+      presenter.should have_received(:documents).with
     end
   end
 
@@ -143,59 +116,27 @@ RSpec.describe ResultSetPresenter do
     end
   end
 
-  describe '#format_result_metadata' do
-    it 'should return an array' do
-      presenter.format_result_metadata(result_set).is_a?(Array).should == true
-    end
-
-    context 'with no date metadata' do
+  describe '#documents' do
+    context "has one document" do
       let(:result_set) do
-        [{
-          title: 'title',
-          slug: 'test',
-          metadata:[{ name: 'Case state', value: 'Closed'}],
-        }]
-      end
-
-      it 'return name and value keys from the results' do
-        presenter.format_result_metadata(result_set).should == result_set
+         OpenStruct.new({ count: count, documents: [ document ] })
+       end
+      it 'should create a new search_result_presenter hash for each result' do
+        search_result_objects = subject.documents
+        search_result_objects.count.should == 1
+        search_result_objects.first.is_a?(Hash).should == true
       end
     end
 
-    context 'with date metadata' do
+    context "has 3 documents" do
       let(:result_set) do
-        [{
-          title: 'title',
-          slug: 'test',
-          metadata: [{ name: 'Date type', value: raw_date, type: type }],
-        }]
-      end
-      let(:raw_date) { '2003-12-30' }
-      let(:type) { 'date' }
-
-      it 'should call format_date_if_date on each value' do
-        allow(presenter).to receive(:format_date_if_date).and_call_original
-        presenter.format_result_metadata(result_set)
-        presenter.should have_received(:format_date_if_date).with raw_date, type
+         OpenStruct.new({ count: count, documents: [ document, document, document ] })
+       end
+      it 'should create a new document for each result' do
+         search_result_objects = subject.documents
+          search_result_objects.count.should == 3
       end
     end
-
-  end
-
-  describe '#format_date_if_date' do
-    let(:raw_date) { '2003-12-30' }
-    let(:formatted_date) { '30 December 2003' }
-    let(:a_date_type) { 'date'}
-    let(:not_a_date_type) { 'not a date' }
-
-    it 'should return a formatted date if type = date' do
-      presenter.format_date_if_date(raw_date, a_date_type).should == formatted_date
-    end
-
-    it 'should return the unchanged value if type != date' do
-      presenter.format_date_if_date(raw_date, not_a_date_type).should == raw_date
-    end
-
   end
 
 end
