@@ -1,4 +1,11 @@
 class SearchResultPresenter
+
+  include ActionView::Context
+  include ActionView::Helpers::TagHelper
+  include ActionView::Helpers::TranslationHelper
+  include SpecialistDocumentsHelper
+  include DateTimeHelper
+
   attr_reader :title, :slug, :formatted_metadata
 
   def initialize(search_result)
@@ -17,7 +24,7 @@ class SearchResultPresenter
 
   def format_metadata(metadata)
     data = metadata.map do |datum|
-      { name: datum[:name], value: format_date_if_date(datum[:value], datum[:type]) }
+      { html: document_metadata_attribute_html(datum[:name], datum[:type], datum[:value]) }
     end
     data
   end
