@@ -16,4 +16,10 @@ class Facet
   def selected_values
     []
   end
+
+  def selected_values_to_hash
+    selected_values.map do | selected_value |
+      { label: selected_value.label, value: selected_value.value }
+    end
+  end
 end
