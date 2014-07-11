@@ -26,6 +26,17 @@ class FacetCollection
     facets.select { |f| f.selected_values.present? }
   end
 
+  def selected_facets_hash
+    facets_hash = with_selected_values.map do |facet|
+      {
+        preposition: facet.preposition,
+        key: facet.key,
+        selected_values_hash: facet.selected_values_to_hash
+      }
+    end
+    facets_hash
+  end
+
   def to_partial_path
     'facet_collection'
   end
