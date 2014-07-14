@@ -9,14 +9,14 @@ describe AaibReport do
     context 'with all attributes' do
       let(:document_attributes) do
         {
-          'aircraft_category' => {
-            'key' => 'commercial-fixed-wing',
+          'aircraft_category' => [{
+            'value' => 'commercial-fixed-wing',
             'label' => 'Commercial - fixed wing',
-          },
-          'report_type' => {
-            'key' => 'annual-safety-reports',
+          }],
+          'report_type' => [{
+            'value' => 'annual-safety-reports',
             'label' => 'Annual safety reports',
-          },
+          }],
           'date_of_occurrence' => date_of_occurrence,
         }
       end
@@ -45,10 +45,10 @@ describe AaibReport do
     context 'with missing attributes' do
       let(:document_attributes) do
         {
-          'aircraft_category' => {
-            'key' => 'commercial-fixed-wing',
+          'aircraft_category' => [{
+            'value' => 'commercial-fixed-wing',
             'label' => 'Commercial - fixed wing',
-          },
+          }],
           'date_of_occurrence' => date_of_occurrence,
         }
       end
@@ -72,14 +72,14 @@ describe AaibReport do
     context 'with empty attributes' do
       let(:document_attributes) do
         {
-          'aircraft_category' => {
-            'key' => 'commercial-fixed-wing',
+          'aircraft_category' => [{
+            'value' => 'commercial-fixed-wing',
             'label' => 'Commercial - fixed wing',
-          },
-          'report_type' => {
-            'key' => '',
+          }],
+          'report_type' => [{
+            'value' => nil,
             'label' => nil,
-          },
+          }],
           'date_of_occurrence' => nil,
         }
       end
