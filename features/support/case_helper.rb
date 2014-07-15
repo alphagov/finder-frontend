@@ -59,22 +59,22 @@ module CaseHelper
           "closed_date": "2010-10-05",
           "summary": "Inquiry into making CMA cases keyword saerchable",
 
-          "market_sector": {
+          "market_sector": [{
             "value": "pharmaceuticals",
             "label": "Pharmaceuticals"
-          },
-          "case_type": {
+          }],
+          "case_type": [{
             "value": "mergers",
             "label": "Mergers"
-          },
-          "outcome_type": {
+          }],
+          "outcome_type": [{
             "value": "ca98-infringement-chapter-i",
             "label": "CA98 - infringement Chapter I"
-          },
-          "case_state": {
+          }],
+          "case_state": [{
             "value": "closed",
             "label": "Closed"
-          }
+          }]
         }
       ]
     }|
@@ -91,22 +91,22 @@ module CaseHelper
           "closed_date": "2004-03-01",
           "summary": "Inquiry into the HealthCorp / DrugInc merger",
 
-          "market_sector": {
+          "market_sector": [{
             "value": "pharmaceuticals",
             "label": "Pharmaceuticals"
-          },
-          "case_type": {
+          }],
+          "case_type": [{
             "value": "mergers",
             "label": "Mergers"
-          },
-          "outcome_type": {
+          }],
+          "outcome_type": [{
             "value": "ca98-infringement-chapter-i",
             "label": "CA98 - infringement Chapter I"
-          },
-          "case_state": {
+          }],
+          "case_state": [{
             "value": "closed",
             "label": "Closed"
-          }
+          }]
         },
         {
           "title": "Private healthcare market investigation",
@@ -116,22 +116,22 @@ module CaseHelper
           "closed_date": "2008-03-01",
           "summary": "Inquiry into the private healthcare market",
 
-          "market_sector": {
+          "market_sector": [{
             "value": "pharmaceuticals",
             "label": "Pharmaceuticals"
-          },
-          "case_type": {
+          }],
+          "case_type": [{
             "value": "markets",
             "label": "Markets"
-          },
-          "outcome_type": {
+          }],
+          "outcome_type": [{
             "value": "ca98-infringement-chapter-i",
             "label": "CA98 - infringement Chapter I"
-          },
-          "case_state": {
+          }],
+          "case_state": [{
             "value": "closed",
             "label": "Closed"
-          }
+          }]
         }
       ]
     }|
@@ -148,22 +148,22 @@ module CaseHelper
           "closed_date": "2004-03-01",
           "summary": "Inquiry into the HealthCorp / DrugInc merger",
 
-          "market_sector": {
+          "market_sector": [{
             "value": "pharmaceuticals",
             "label": "Pharmaceuticals"
-          },
-          "case_type": {
+          }],
+          "case_type": [{
             "value": "mergers",
             "label": "Mergers"
-          },
-          "outcome_type": {
+          }],
+          "outcome_type": [{
             "value": "ca98-infringement-chapter-i",
             "label": "CA98 - infringement Chapter I"
-          },
-          "case_state": {
+          }],
+          "case_state": [{
             "value": "closed",
             "label": "Closed"
-          }
+          }]
         }
       ]
     }|

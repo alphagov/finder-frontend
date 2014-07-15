@@ -47,10 +47,24 @@ private
       .select(&method(:metadata_value_present?))
   end
 
+  def tag_labels_for(key)
+    Array(attrs.fetch(key, []))
+      .map { |tag| tag.fetch("label") }
+     .select(&:present?)
+  end
+
   def build_tag_metadata(key)
+    labels = tag_labels_for(key)
+
+    if labels.count > 1
+      value = "#{labels.first} and #{labels.count - 1} others"
+    else
+      value = labels.first
+    end
+
     {
       name: key,
-      value: attrs.fetch(key, {})["label"],
+      value: value,
       type: "text",
     }
   end

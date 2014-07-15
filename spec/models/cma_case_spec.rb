@@ -10,22 +10,22 @@ describe CmaCase do
     context 'with all attributes' do
       let(:document_attributes) do
         {
-          'case_type' => {
-            'key' => 'mergers',
+          'case_type' => [{
+            'value' => 'mergers',
             'label' => 'Mergers',
-          },
-          'case_state' => {
-            'key' => 'closed',
+          }],
+          'case_state' => [{
+            'value' => 'closed',
             'label' => 'Closed',
-          },
-          'market_sector' => {
-            'key' => 'energy',
+          }],
+          'market_sector' => [{
+            'value' => 'energy',
             'label' => 'Energy',
-          },
-          'outcome_type' => {
-            'key' => 'mergers-phase-1-clearance',
+          }],
+          'outcome_type' => [{
+            'value' => 'mergers-phase-1-clearance',
             'label' => 'Mergers - phase 1 clearance',
-          },
+          }],
           'opened_date' => opened_date,
           'closed_date' => closed_date,
         }
@@ -70,18 +70,18 @@ describe CmaCase do
     context 'with missing attributes' do
       let(:document_attributes) do
         {
-          'case_type' => {
-            'key' => 'mergers',
+          'case_type' => [{
+            'value' => 'mergers',
             'label' => 'Mergers',
-          },
-          'case_state' => {
-            'key' => 'open',
+          }],
+          'case_state' => [{
+            'value' => 'open',
             'label' => 'Open',
-          },
-          'market_sector' => {
-            'key' => 'energy',
+          }],
+          'market_sector' => [{
+            'value' => 'energy',
             'label' => 'Energy',
-          },
+          }],
           'opened_date' => opened_date,
         }
       end
@@ -115,22 +115,22 @@ describe CmaCase do
     context 'with empty attributes' do
       let(:document_attributes) do
         {
-          'case_type' => {
-            'key' => 'mergers',
+          'case_type' => [{
+            'value' => 'mergers',
             'label' => 'Mergers',
-          },
-          'case_state' => {
-            'key' => 'open',
+          }],
+          'case_state' => [{
+            'value' => 'open',
             'label' => 'Open',
-          },
-          'market_sector' => {
-            'key' => 'energy',
+          }],
+          'market_sector' => [{
+            'value' => 'energy',
             'label' => 'Energy',
-          },
-          'outcome_type' => {
-            'key' => '',
+          }],
+          'outcome_type' => [{
+            'value' => nil,
             'label' => nil,
-          },
+          }],
           'opened_date' => opened_date,
           'closed_date' => nil,
         }
