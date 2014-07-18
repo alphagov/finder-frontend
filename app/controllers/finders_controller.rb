@@ -20,7 +20,12 @@ private
   end
 
   def facet_params
-    params
+    # TODO Use a whitelist based on the facets in the schema
+    params.except(
+      :controller,
+      :action,
+      :slug,
+    )
   end
 
   def keywords
