@@ -11,6 +11,8 @@ gem 'logstasher', '0.4.8'
 
 gem 'shared_mustache', '0.1.2'
 
+gem 'pry'
+
 group :assets do
   if ENV['FRONTEND_TOOLKIT_DEV']
     gem 'govuk_frontend_toolkit', path: '../govuk_frontend_toolkit_gem'
