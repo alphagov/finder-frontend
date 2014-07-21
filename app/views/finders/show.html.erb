@@ -15,4 +15,4 @@
 </header>
 
 <%= render finder.facets %>
-<%= render finder.results %>
+<%= render_mustache('results', @results.to_hash) %>

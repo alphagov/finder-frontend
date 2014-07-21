@@ -1,0 +1,31 @@
+<div class="filtered-results">
+  <div class="inner-block">
+    <p class="result-info">
+      <span class="result-count">
+        {{count}}
+      </span>
+      {{{pluralised_document_noun}}}
+      {{{applied_filters}}}
+    </p>
+    <ul>
+      {{#documents}}
+          <li class="document">
+            <h3><a href='{{slug}}'>{{title}}</a></h3>
+            <dl>
+              {{#metadata}}
+                {{#is_text}}
+                  <dt class='metadata-text-label'>{{label}}:</dt>
+                  <dd class='metadata-text-value'>{{value}}<dd>
+                {{/is_text}}
+
+                {{#is_date}}
+                  <dt class='metadata-date-label'>{{label}}:</dt>
+                  <dd class='metadata-date-value'><time datetime='{{machine_date}}'>{{human_date}}</time><dd>
+                {{/is_date}}
+              {{/metadata}}
+            </dl>
+          </li>
+        {{/documents}}
+    </ul>
+  </div>
+</div>

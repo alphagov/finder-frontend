@@ -3,6 +3,7 @@ class FindersController < ApplicationController
   before_filter :set_robots_headers
 
   def show
+    @results = ResultSetPresenter.new(finder, facet_params)
   end
 
 private
@@ -19,7 +20,12 @@ private
   end
 
   def facet_params
-    params
+    # TODO Use a whitelist based on the facets in the schema
+    params.except(
+      :controller,
+      :action,
+      :slug,
+    )
   end
 
   def keywords
