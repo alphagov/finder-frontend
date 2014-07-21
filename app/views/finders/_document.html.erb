@@ -1,8 +1,0 @@
-<li class="document">
-  <h3><%= link_to document.title, document.url %></h3>
-  <dl>
-    <% document.metadata.each do |entry| %>
-      <%= document_metadata_attribute_html(entry[:name], entry[:type], entry[:value]) %>
-    <% end %>
-  </dl>
-</li>

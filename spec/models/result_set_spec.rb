@@ -21,21 +21,4 @@ describe ResultSet do
 
     specify { subject.count.should == 2 }
   end
-
-  describe '#to_hash' do
-    subject { ResultSet.new(documents: [a_document_instance, another_document_instance]) }
-    let(:a_document_instance) { OpenStruct.new({title: title, slug: slug, metadata: metadata }) }
-    let(:another_document_instance) { a_document_instance }
-
-    let(:slug) {'slug-1'}
-    let(:title) {'title 1'}
-    let(:metadata) { 'metadata' }
-
-    it 'should return search results as a hash' do
-      subject.to_hash.is_a?(Array).should == true
-      subject.to_hash[0][:title].should == title
-      subject.to_hash[0][:slug].should == slug
-      subject.to_hash[0][:metadata].should == metadata
-    end
-  end
 end

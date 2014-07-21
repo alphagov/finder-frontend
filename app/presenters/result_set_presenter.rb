@@ -1,5 +1,4 @@
 class ResultSetPresenter
-  include ApplicationHelper
   include ActionView::Helpers
 
   attr_reader :finder, :documents_noun, :params, :result_set
@@ -48,10 +47,9 @@ class ResultSetPresenter
   end
 
   def documents
-    documents = result_set.documents.map do |result|
+    result_set.documents.map do |result|
       SearchResultPresenter.new(result).to_hash
     end
-    documents
   end
 
 end

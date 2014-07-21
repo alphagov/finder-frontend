@@ -54,7 +54,7 @@ RSpec.describe ResultSetPresenter do
       document_noun.should have_received(:pluralize).with(count)
     end
 
-    it 'should call describe_filters_in_sentence with selected_facets_hash' do
+    it 'should call describe_filters_in_sentence' do
       allow(presenter).to receive(:describe_filters_in_sentence)
       presenter.to_hash
       presenter.should have_received(:describe_filters_in_sentence)

@@ -59,15 +59,4 @@ describe FacetCollection do
       end
     end
   end
-
-  describe '#selected_facets_hash' do
-    let(:facets) { [
-        OpenStruct.new(key: "case_type", selected_values: "merger-investigations", preposition: 'prep', selected_values_to_hash:[]),
-        OpenStruct.new(key: "decision_type", selected_values_to_hash: nil)
-    ] }
-
-    it 'should return a hash of selected facets' do
-      subject.selected_facets_hash.should == [ { :preposition=>"prep", :key=>"case_type", selected_values_hash:[] } ]
-    end
-  end
 end
