@@ -1,5 +1,4 @@
 class ResultSetPresenter
-  include ActionView::Helpers
 
   attr_reader :finder, :documents_noun, :params, :result_set
 
@@ -29,7 +28,7 @@ class ResultSetPresenter
   def facet_values_sentence(facet)
     values = facet.selected_values.map do |option|
       query_string = link_params_without_facet_value(facet.key, option.value).to_query
-      content_tag(:strong, "#{option.label} #{link_to("×", "?#{query_string}")}".html_safe)
+      "<strong>#{option.label} <a href='?#{query_string}'>×</a></strong>"
     end
     values.to_sentence(last_word_connector: ' and ')
   end
