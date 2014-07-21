@@ -13,12 +13,11 @@
   <% end %>
   <% if finder.primary_organisation %>
     <div class="metadata">
-      <dl class="inner-block">
-        <dt>From:</dt>
-        <dd>
-          <%= link_to finder.primary_organisation.title, finder.primary_organisation.web_url %>
-        </dd>
-      </dl>
+      <div class="inner-block">
+        <%= render partial: 'govuk_component/metadata', locals: {
+          from: link_to(finder.primary_organisation.title, finder.primary_organisation.web_url),
+        } %>
+      </div>
     </div>
   <% end %>
 </header>

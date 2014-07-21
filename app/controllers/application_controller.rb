@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   include Slimmer::Headers
+  include Slimmer::SharedTemplates
   before_filter :set_slimmer_headers
 
   # Prevent CSRF attacks by raising an exception.
