@@ -40,7 +40,8 @@ private
 
   def finders_excluded_from_robots
     [
-      'aaib-reports'
+      'aaib-reports',
+      'international-development-funding',
     ]
   end
 end
