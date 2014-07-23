@@ -28,6 +28,11 @@ group :doc do
   gem 'sdoc', require: false
 end
 
+group :development do
+  gem "better_errors"
+  gem "binding_of_caller"
+end
+
 group :development, :test do
   gem 'byebug'
   gem 'jasmine-rails'
