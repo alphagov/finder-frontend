@@ -4,6 +4,13 @@ class FindersController < ApplicationController
 
   def show
     @results = ResultSetPresenter.new(finder, facet_params)
+    
+    respond_to do |format|
+      format.html
+      format.json do
+        render json: @results
+      end
+    end
   end
 
 private

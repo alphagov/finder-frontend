@@ -109,9 +109,9 @@
 
   LiveSearch.prototype.displayResults = function displayResults(results){
     this.$resultsBlock.mustache('finders/_results', results);
-    this.$resultsBlock.find('.js-openable-filter').each(function(){
-      new GOVUK.CheckboxFilter({el:$(this)});
-    })
+    //this.$resultsBlock.find('.js-openable-filter').each(function(){
+    //  new GOVUK.CheckboxFilter({el:$(this)});
+    //})
   };
 
   // LiveSearch.prototype.restoreCheckboxes = function restoreCheckboxes(){

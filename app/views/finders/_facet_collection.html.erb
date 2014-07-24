@@ -2,13 +2,13 @@
   <div class="inner-block">
     <p>You can use the filters to show only <%= finder.document_noun.pluralize %> that match your interests</p>
 
-    <form method="get" action="">
+    <form method="get" action="/aaib-reports" class="js-live-search-form">
       <div class="filter text-filter">
         <label class="legend" for="search">Search</label>
         <input value="<%= params[:keywords] %>" placeholder="eg <%= finder.document_noun %> title" type="text" name="keywords" id="search" />
       </div>
       <%= render facet_collection.facets %>
-      <input type="submit" value="Filter results" class="button" />
+      <input type="submit" value="Filter results" class="button js-live-search-fallback"/>
     </form>
   </div>
 </div>
