@@ -17,9 +17,9 @@ describe RadioFacet do
       specify { subject.value.should == "allowed-value-1" }
     end
 
-    context "multiple values disallowed" do
+    context "multiple values parsed as one" do
       let(:value) { ["allowed-value-1", "allowed-value-2"] }
-      specify { subject.value.should == nil }
+      specify { subject.value.should == "allowed-value-1" }
     end
 
     context "single disallowed value" do
