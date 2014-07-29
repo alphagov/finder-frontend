@@ -29,7 +29,7 @@ describe("liveSearch", function(){
   };
 
   beforeEach(function () {
-    $form = $('<form action="/somewhere" class="js-live-search-form"><input type="checkbox" name="field" value="sheep" checked></form>');
+    $form = $('<form action="/somewhere" class="js-live-search-form"><input type="checkbox" name="field" value="sheep" checked><input type="submit" value="Filter results" class="button js-live-search-fallback"/></form>');
     $results = $('<div class="js-live-search-results-block"></div>');
 
     $('body').append($form).append($results);
@@ -125,6 +125,15 @@ describe("liveSearch", function(){
     expect(liveSearch.cache('some-slug')).toBe(undefined);
     liveSearch.cache('some-slug', 'something in the cache');
     expect(liveSearch.cache('some-slug')).toBe('something in the cache');
+  });
+
+  it("should show the filter results button if the GOVUK.support.history returns false", function(){
+    // Hide the filter button (this is done in the CSS under the .js-enabled selector normally)
+    $form.find('.js-live-search-fallback').hide();
+    expect($form.find('.js-live-search-fallback').is(":visible")).toBe(false);
+    GOVUK.support.history = function(){ return false; };
+    liveSearch = new GOVUK.LiveSearch({$form: $form, $results: $results});
+    expect($form.find('.js-live-search-fallback').is(":visible")).toBe(true);
   });
 
   describe('with relevant dom nodes set', function(){
