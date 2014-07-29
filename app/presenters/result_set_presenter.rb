@@ -28,7 +28,8 @@ class ResultSetPresenter
   def facet_values_sentence(facet)
     values = facet.selected_values.map do |option|
       query_string = link_params_without_facet_value(facet.key, option.value).to_query
-      "<strong>#{option.label} <a href='?#{query_string}'>×</a></strong>"
+      href = CGI.escapeHTML("?#{query_string}")
+      "<strong>#{option.label} <a href='#{href}'>×</a></strong>"
     end
     values.to_sentence(last_word_connector: ' and ')
   end
@@ -50,5 +51,4 @@ class ResultSetPresenter
       SearchResultPresenter.new(result).to_hash
     end
   end
-
 end
