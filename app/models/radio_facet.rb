@@ -8,7 +8,9 @@ class RadioFacet < Facet
   end
 
   def value
-    @value if allowed_values.map(&:value).include?(@value)
+    Array(@value).find { |value|
+      allowed_values.map(&:value).include?(value)
+    }
   end
 
   def values_for_select
@@ -16,7 +18,7 @@ class RadioFacet < Facet
   end
 
   def selected_values
-    allowed_values.select { |option| option.value == @value && option.described }
+    allowed_values.select { |option| option.value == value && option.described }
   end
 
 private
