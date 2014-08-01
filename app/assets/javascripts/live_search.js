@@ -18,7 +18,8 @@
 
     if(GOVUK.support.history()){
       this.saveState();
-      this.$form.on('change', 'input[type=checkbox]', $.proxy(this.checkboxChange, this));
+      this.$form.on('change', 'input[type=checkbox], input[type=text]', $.proxy(this.formChange, this));
+
       $(window).on('popstate', $.proxy(this.popState, this));
     } else {
       this.$form.find('.js-live-search-fallback').show();
@@ -41,8 +42,7 @@
     }
   };
 
-
-  LiveSearch.prototype.checkboxChange = function checkboxChange(e){
+  LiveSearch.prototype.formChange = function formChange(e){
     var pageUpdated;
     if(this.isNewState()){
       this.saveState();

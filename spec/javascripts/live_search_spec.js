@@ -149,7 +149,7 @@ describe("liveSearch", function(){
       //spyOn(liveSearch, 'pageTrack').and.returnValue(promise);
       $form.find('input').prop('checked', false);
 
-      liveSearch.checkboxChange();
+      liveSearch.formChange();
       expect(liveSearch.state).toEqual([]);
       expect(liveSearch.updateResults).toHaveBeenCalled();
       promise.done.calls.mostRecent().args[0]();
@@ -158,7 +158,7 @@ describe("liveSearch", function(){
 
     it("should do nothing if state hasn't changed when a checkbox is changed", function(){
       spyOn(liveSearch, 'updateResults');
-      liveSearch.checkboxChange();
+      liveSearch.formChange();
       expect(liveSearch.state).toEqual({ field: 'sheep'});
       expect(liveSearch.updateResults).not.toHaveBeenCalled();
     });
