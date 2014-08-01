@@ -10,11 +10,8 @@
     this.resultCache =  {};
 
     this.$form = options.$form;
-
     this.$resultsBlock = options.$results;
-
     this.action = this.$form.attr('action') + '.json';
-
 
     if(GOVUK.support.history()){
       this.saveState();
