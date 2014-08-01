@@ -15,6 +15,6 @@
 </header>
 
 <%= render finder.facets %>
-<div class='js-live-search-results-block'>
+<div class='js-live-search-results-block' aria-live='polite' id='search-results'>
   <%= render_mustache('results', @results.to_hash) %>
 </div>
