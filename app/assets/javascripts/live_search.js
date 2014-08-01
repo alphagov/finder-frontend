@@ -76,7 +76,7 @@
       $.proxy(this.showLoadingIndicator, this);
       return $.ajax({
         url: this.action,
-        data: this.state,
+        data: this.state
       }).done(function(response){
         liveSearch.cache($.param(liveSearch.state), response);
         liveSearch.displayResults(response);
