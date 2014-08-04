@@ -36,6 +36,8 @@
       this.saveState(event.originalEvent.state);
       this.updateResults();
       this.restoreCheckboxes();
+      this.restoreTextInputs();
+      //this.restoreRadios();
     }
   };
 
@@ -116,6 +118,24 @@
       }
     }
     return false;
+  };
+
+  LiveSearch.prototype.restoreTextInputs = function restoreTextInputs(){
+    var that = this;
+    this.$form.find('input[type=text]').each(function(i, el){
+      var $el = $(el);
+      $el.val(that.getTextInputValue($el.attr('name')));
+    });
+  };
+
+  LiveSearch.prototype.getTextInputValue = function getTextInputValue(name){
+    var i, _i;
+    for(i=0,_i=this.state.length; i<_i; i++){
+      if(this.state[i].name === name){
+        return this.state[i].value
+      }
+    }
+    return '';
   };
 
   GOVUK.LiveSearch = LiveSearch;
