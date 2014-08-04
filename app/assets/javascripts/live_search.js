@@ -15,7 +15,7 @@
 
     if(GOVUK.support.history()){
       this.saveState();
-      this.$form.on('change', 'input[type=checkbox], input[type=text]', $.proxy(this.formChange, this));
+      this.$form.on('change', 'input[type=checkbox], input[type=text], input[type=radio]', $.proxy(this.formChange, this));
 
       $(window).on('popstate', $.proxy(this.popState, this));
     } else {
@@ -35,9 +35,8 @@
     if(event.originalEvent.state){
       this.saveState(event.originalEvent.state);
       this.updateResults();
-      this.restoreCheckboxes();
+      this.restoreBooleans();
       this.restoreTextInputs();
-      //this.restoreRadios();
     }
   };
 
@@ -102,15 +101,15 @@
     this.$resultsBlock.mustache('finders/_results', results);
   };
 
-  LiveSearch.prototype.restoreCheckboxes = function restoreCheckboxes(){
+  LiveSearch.prototype.restoreBooleans = function restoreBooleans(){
     var that = this;
-    this.$form.find('input[type=checkbox]').each(function(i, el){
+    this.$form.find('input[type=checkbox], input[type=radio]').each(function(i, el){
       var $el = $(el);
-      $el.prop('checked', that.isCheckboxSelected($el.attr('name'), $el.attr('value')));
+      $el.prop('checked', that.isBooleanSelected($el.attr('name'), $el.attr('value')));
     });
   };
 
-  LiveSearch.prototype.isCheckboxSelected = function isCheckboxSelected(name, value){
+  LiveSearch.prototype.isBooleanSelected = function isBooleanSelected(name, value){
     var i, _i;
     for(i=0,_i=this.state.length; i<_i; i++){
       if(this.state[i].name === name && this.state[i].value === value){
