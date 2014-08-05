@@ -17,6 +17,17 @@
       this.saveState();
       this.$form.on('change', 'input[type=checkbox], input[type=text], input[type=radio]', $.proxy(this.formChange, this));
 
+      var liveSearch = this;
+      this.$form.find('input[type=text]').keypress(
+        function(e){
+          if(e.keyCode == 13) {
+            // 13 is the return key
+            liveSearch.formChange();
+            e.preventDefault();
+          }
+        }
+      );
+
       $(window).on('popstate', $.proxy(this.popState, this));
     } else {
       this.$form.find('.js-live-search-fallback').show();

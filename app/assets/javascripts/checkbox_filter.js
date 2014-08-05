@@ -26,7 +26,6 @@
       this.$filter.on('focus', $.proxy(this.listenForKeys, this));
       this.$filter.on('blur', $.proxy(this.stopListeningForKeys, this));
     }
-
   }
 
   CheckboxFilter.prototype.setupHeight = function setupHeight(){
