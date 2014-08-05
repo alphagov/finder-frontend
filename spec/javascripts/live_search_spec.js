@@ -136,7 +136,7 @@ describe("liveSearch", function(){
     expect($form.find('.js-live-search-fallback').is(":visible")).toBe(true);
   });
 
-  describe('with relevant dom nodes set', function(){
+  describe('with relevant DOM nodes set', function(){
     beforeEach(function(){
       liveSearch.$form = $form;
       liveSearch.$resultsBlock = $results;
@@ -170,5 +170,69 @@ describe("liveSearch", function(){
       expect($results.find('h3').text()).toBe('Test report');
       expect($results.find('.result-count').text()).toMatch(/^\s*1\s*/);
     });
+  });
+
+  describe("popState", function(){
+    var dummyHistoryState;
+
+    beforeEach(function(){
+      dummyHistoryState = { originalEvent:{ state:true} };
+    });
+
+    it("should call restoreBooleans, restoreTextInputs, saveState and updateResults if there is an event in the history", function(){
+      spyOn(liveSearch, 'restoreBooleans');
+      spyOn(liveSearch, 'restoreTextInputs');
+      spyOn(liveSearch, 'saveState');
+      spyOn(liveSearch, 'updateResults');
+
+      liveSearch.popState(dummyHistoryState);
+
+      expect(liveSearch.restoreBooleans).toHaveBeenCalled();
+      expect(liveSearch.restoreTextInputs).toHaveBeenCalled();
+      expect(liveSearch.saveState).toHaveBeenCalled();
+      expect(liveSearch.updateResults).toHaveBeenCalled();
+    });
+  });
+
+  describe("restoreBooleans", function(){
+    beforeEach(function(){
+      liveSearch.state = [{name:"list_1[]", value:"checkbox_1"}, {name:"list_1[]", value:"checkbox_2"}, {name:'list_2[]', value:"radio_1"}]
+      liveSearch.$form = $('<form action="/somewhere" class="js-live-search-form"><input id="check_1" type="checkbox" name="list_1[]" value="checkbox_1"><input type="checkbox" id="check_2"  name="list_1[]" value="checkbox_2"><input type="radio" id="radio_1"  name="list_2[]" value="radio_1"><input type="radio" id="radio_2"  name="list_2[]" value="radio_2"><input type="submit"/></form>');
+    });
+
+    it("should check a checkbox if in the state it is checked in the history", function(){
+      expect(liveSearch.$form.find('input[type=checkbox]:checked').length).toBe(0)
+      liveSearch.restoreBooleans();
+      expect(liveSearch.$form.find('input[type=checkbox]:checked').length).toBe(2)
+    });
+
+    it("should not check all the checkboxes if only one is checked", function(){
+      liveSearch.state = [{name:"list_1[]", value:"checkbox_2"}]
+      expect(liveSearch.$form.find('input[type=checkbox]:checked').length).toBe(0)
+      liveSearch.restoreBooleans();
+      expect(liveSearch.$form.find('input[type=checkbox]:checked')[0].id).toBe('check_2');
+      expect(liveSearch.$form.find('input[type=checkbox]:checked').length).toBe(1)
+    });
+
+    it("should pick a radiobox if in the state it is picked in the history", function(){
+      expect(liveSearch.$form.find('input[type=radio]:checked').length).toBe(0)
+      liveSearch.restoreBooleans();
+      expect(liveSearch.$form.find('input[type=radio]:checked').length).toBe(1)
+    });
+  });
+
+  describe("restoreKeywords", function(){
+    beforeEach(function(){
+       liveSearch.state = [{name:"text_1", value:"Monday"}]
+       liveSearch.$form = $('<form action="/somewhere"><input id="text_1" type="text" name="text_1"><input id="text_2" type="text" name="text_2"></form>');
+     });
+
+     it("should put the right text back in the right box", function(){
+       expect(liveSearch.$form.find('#text_1').val()).toBe('');
+       expect(liveSearch.$form.find('#text_2').val()).toBe('');
+       liveSearch.restoreTextInputs();
+       expect(liveSearch.$form.find('#text_1').val()).toBe('Monday');
+       expect(liveSearch.$form.find('#text_2').val()).toBe('');
+     })
   });
 });
