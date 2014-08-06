@@ -4,7 +4,6 @@
   window.GOVUK = window.GOVUK || {};
 
   function LiveSearch(options){
-    this.action = false;
     this.state = false;
     this.previousState = false;
     this.resultCache =  {};
