@@ -99,7 +99,7 @@
   };
 
   LiveSearch.prototype.showLoadingIndicator = function showLoadingIndicator(){
-    var $resultCount = this.$results.find('.result-info');
+    var $resultCount = this.$resultsBlock.find('.result-info');
     $resultCount.text('Loading...');
   };
 
