@@ -81,7 +81,7 @@
     var cachedResultData = this.cache($.param(this.state));
     var liveSearch = this;
     if(typeof cachedResultData === 'undefined'){
-      $.proxy(this.showLoadingIndicator, this);
+      this.showLoadingIndicator();
       return $.ajax({
         url: this.action,
         data: this.state
