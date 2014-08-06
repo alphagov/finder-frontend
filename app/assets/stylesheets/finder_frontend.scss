@@ -259,6 +259,10 @@
       @include button($button-colour);
       width: auto;
       @include bold-24;
+
+      .js-enabled & {
+        display:none;
+      }
     }
   }
 

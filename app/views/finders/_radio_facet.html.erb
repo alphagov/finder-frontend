@@ -3,7 +3,7 @@
   <fieldset>
   <% radio_facet.allowed_values.each do | option | %>
     <label for='<%= option['value']%>'>
-      <input type="radio" name='<%=radio_facet.key%>' value='<%= option['value']%>' id='<%= option['value']%>'<%= input_checked(radio_facet.key, option['value']) %>>
+      <input type="radio" name='<%=radio_facet.key%>' value='<%= option['value']%>' id='<%= option['value']%>'<%= input_checked(radio_facet.key, option['value']) %> aria-controls="search-results">
       <%= option['label']%>
     </label>
   <% end %>

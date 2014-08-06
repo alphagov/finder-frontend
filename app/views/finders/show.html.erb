@@ -15,4 +15,6 @@
 </header>
 
 <%= render finder.facets %>
-<%= render_mustache('results', @results.to_hash) %>
+<div class='js-live-search-results-block'>
+  <%= render_mustache('results', @results.to_hash) %>
+</div>

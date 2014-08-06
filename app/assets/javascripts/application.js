@@ -10,14 +10,24 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+//= require support
+//
 //= require shared_mustache
 //= require templates
 //
 //= require checkbox_filter
+//= require live_search
 
 
 jQuery(function($) {
   $('.js-openable-filter').each(function(){
     new GOVUK.CheckboxFilter({el:$(this)});
-  })
+  });
+
+  var $form = $('.js-live-search-form'),
+      $results = $('.js-live-search-results-block');
+
+  if($form.length && $results.length){
+    new GOVUK.LiveSearch({$form:$form, $results:$results});
+  }
 });

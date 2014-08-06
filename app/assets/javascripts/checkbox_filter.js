@@ -26,7 +26,6 @@
       this.$filter.on('focus', $.proxy(this.listenForKeys, this));
       this.$filter.on('blur', $.proxy(this.stopListeningForKeys, this));
     }
-
   }
 
   CheckboxFilter.prototype.setupHeight = function setupHeight(){
@@ -92,7 +91,7 @@
     this.$filter.find("input[type='checkbox']").prop({
       indeterminate: false,
       "checked": false
-    });
+    }).trigger("change");
     this.$checkboxResetter.addClass('js-hidden');
     return false;
   };
