@@ -4,7 +4,7 @@ class FindersController < ApplicationController
 
   def show
     @results = ResultSetPresenter.new(finder, facet_params)
-    
+
     respond_to do |format|
       format.html
       format.json do
@@ -32,6 +32,7 @@ private
       :controller,
       :action,
       :slug,
+      :format,
     )
   end
 
