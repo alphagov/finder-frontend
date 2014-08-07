@@ -9,7 +9,8 @@
     this.resultCache =  {};
 
     this.$form = options.$form;
-    this.$resultsBlock = options.$results;
+    this.$resultsBlock = options.$results.find('#js-results');
+    this.$countBlock = options.$results.find('#js-search-results-info');
     this.action = this.$form.attr('action') + '.json';
 
     if(GOVUK.support.history()){
@@ -99,16 +100,17 @@
   };
 
   LiveSearch.prototype.showLoadingIndicator = function showLoadingIndicator(){
-    var $resultCount = this.$resultsBlock.find('.result-info');
+    var $resultCount = this.$countBlock.find('.result-info');
     $resultCount.text('Loading...');
   };
 
   LiveSearch.prototype.showErrorIndicator = function showErrorIndicator(){
-    this.$resultsBlock.find('.result-info').text('Error. Please try modifying your search and trying again.');
+    this.$countBlock.find('.result-info').text('Error. Please try modifying your search and trying again.');
   };
 
   LiveSearch.prototype.displayResults = function displayResults(results){
     this.$resultsBlock.mustache('finders/_results', results);
+    this.$countBlock.mustache('finders/_result_count', results);
   };
 
   LiveSearch.prototype.restoreBooleans = function restoreBooleans(){

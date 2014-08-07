@@ -16,5 +16,14 @@
 
 <%= render finder.facets %>
 <div class='js-live-search-results-block'>
-  <%= render_mustache('results', @results.to_hash) %>
+  <div class="filtered-results">
+    <div class="inner-block">
+      <p class="result-info" aria-live='polite' id='js-search-results-info'>
+        <%= render_mustache('result_count', @results.to_hash)%>
+      </p>
+      <div id='js-results'>
+        <%= render_mustache('results', @results.to_hash) %>
+      </div>
+    </div>
+  </div>
 </div>

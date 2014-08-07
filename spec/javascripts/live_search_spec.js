@@ -31,7 +31,7 @@ describe("liveSearch", function(){
   beforeEach(function () {
     $form = $('<form action="/somewhere" class="js-live-search-form"><input type="checkbox" name="field" value="sheep" checked><input type="submit" value="Filter results" class="button js-live-search-fallback"/></form>');
     $results = $('<div class="js-live-search-results-block"></div>');
-
+    $count = $('<p class="result-info" aria-live="polite" id="js-search-results-info"></p>');
     $('body').append($form).append($results);
 
     _supportHistory = GOVUK.support.history;
@@ -140,6 +140,7 @@ describe("liveSearch", function(){
     beforeEach(function(){
       liveSearch.$form = $form;
       liveSearch.$resultsBlock = $results;
+      liveSearch.$countBlock = $count;
       liveSearch.state = { field: "sheep" };
     });
 
@@ -168,7 +169,7 @@ describe("liveSearch", function(){
       liveSearch.state = { the: "first" };
       liveSearch.displayResults(dummyResponse);
       expect($results.find('h3').text()).toBe('Test report');
-      expect($results.find('.result-count').text()).toMatch(/^\s*1\s*/);
+      expect($count.find('.result-count').text()).toMatch(/^\s*1\s*/);
     });
   });
 
