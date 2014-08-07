@@ -31,7 +31,7 @@ describe("liveSearch", function(){
   beforeEach(function () {
     $form = $('<form action="/somewhere" class="js-live-search-form"><input type="checkbox" name="field" value="sheep" checked><input type="submit" value="Filter results" class="button js-live-search-fallback"/></form>');
     $results = $('<div class="js-live-search-results-block"></div>');
-    $count = $('<p class="result-info" aria-live="polite" id="search-results-info"></p>');
+    $count = $('<p class="result-info" aria-live="polite" id="js-search-results-info"></p>');
     $('body').append($form).append($results);
 
     _supportHistory = GOVUK.support.history;

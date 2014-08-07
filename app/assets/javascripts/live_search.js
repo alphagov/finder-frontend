@@ -10,7 +10,7 @@
 
     this.$form = options.$form;
     this.$resultsBlock = options.$results.find('#js-results');
-    this.$countBlock = options.$results.find('#search-results-info');
+    this.$countBlock = options.$results.find('#js-search-results-info');
     this.action = this.$form.attr('action') + '.json';
 
     if(GOVUK.support.history()){
