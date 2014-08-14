@@ -9,6 +9,8 @@ module DocumentParser
       CmaCase.new(document_hash)
     when "international_development_fund"
       InternationalDevelopmentFund.new(document_hash)
+    when "drug_safety_update"
+      DrugSafetyUpdate.new(document_hash)
     end
   end
 end
