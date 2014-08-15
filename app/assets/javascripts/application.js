@@ -20,9 +20,13 @@
 
 
 jQuery(function($) {
-  $('.js-openable-filter').each(function(){
-    new GOVUK.CheckboxFilter({el:$(this)});
+  var filters = $('.js-openable-filter').map(function(){
+    return new GOVUK.CheckboxFilter({el:$(this)});
   });
+
+  if (filters.length > 0 && $('.js-openable-filter').not('.closed').size() == 0) {
+    filters[0].open();
+  }
 
   var $form = $('.js-live-search-form'),
       $results = $('.js-live-search-results-block');
