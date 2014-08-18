@@ -100,12 +100,11 @@
   };
 
   LiveSearch.prototype.showLoadingIndicator = function showLoadingIndicator(){
-    var $resultCount = this.$countBlock.find('.result-info');
-    $resultCount.text('Loading...');
+    this.$countBlock.text('Loading...');
   };
 
   LiveSearch.prototype.showErrorIndicator = function showErrorIndicator(){
-    this.$countBlock.find('.result-info').text('Error. Please try modifying your search and trying again.');
+    this.$countBlock.text('Error. Please try modifying your search and trying again.');
   };
 
   LiveSearch.prototype.displayResults = function displayResults(results){
