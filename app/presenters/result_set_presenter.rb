@@ -15,7 +15,12 @@ class ResultSetPresenter
       pluralised_document_noun: documents_noun.pluralize(result_set.count),
       applied_filters: describe_filters_in_sentence,
       documents: documents,
+      any_filters_applied: any_filters_applied?,
     }
+  end
+
+  def any_filters_applied?
+    finder.facets.with_selected_values.count > 0
   end
 
   def describe_filters_in_sentence
