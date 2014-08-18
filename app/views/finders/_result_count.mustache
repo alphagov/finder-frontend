@@ -1,5 +1,9 @@
-<span class="result-count">
-  {{count}}
-</span>
-{{{pluralised_document_noun}}}
-{{{applied_filters}}}
+{{#any_filters_applied}}
+<p class="result-info">
+  <span class="result-count">
+    {{count}}
+  </span>
+  {{{pluralised_document_noun}}}
+  {{{applied_filters}}}
+</p>
+{{/any_filters_applied}}
