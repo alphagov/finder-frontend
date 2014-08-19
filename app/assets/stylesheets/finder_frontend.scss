@@ -228,6 +228,7 @@
           label {
             @include inline-block;
             margin-left:20px;
+            width: 91%;
           }
           /* IE6 doesn't support psuedo selectors so scoping to checkbox-container instead of using a psuedo selector */
           input {
