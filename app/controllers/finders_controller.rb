@@ -50,6 +50,7 @@ private
     [
       'aaib-reports',
       'international-development-funding',
+      'drug-safety-update',
     ]
   end
 end
