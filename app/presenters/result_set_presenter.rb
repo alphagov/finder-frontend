@@ -34,7 +34,7 @@ class ResultSetPresenter
     values = facet.selected_values.map do |option|
       query_string = link_params_without_facet_value(facet.key, option.value).to_query
       href = CGI.escapeHTML("?#{query_string}")
-      "<strong>#{option.label} <a href='#{href}'>×</a></strong>"
+      "<strong>#{option.label}&nbsp;<a href='#{href}'>×</a></strong>"
     end
     values.to_sentence(last_word_connector: ' and ')
   end
