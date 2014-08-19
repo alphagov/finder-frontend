@@ -4,6 +4,7 @@ describe("liveSearch", function(){
     "count":1,
     "pluralised_document_noun":"reports",
     "applied_filters":" \u003Cstrong\u003ECommercial - rotorcraft \u003Ca href='?format=json\u0026keywords='\u003E×\u003C/a\u003E\u003C/strong\u003E",
+    "any_filters_applied":true,
     "documents":[
       {
         "title":"Test report",
@@ -31,7 +32,7 @@ describe("liveSearch", function(){
   beforeEach(function () {
     $form = $('<form action="/somewhere" class="js-live-search-form"><input type="checkbox" name="field" value="sheep" checked><input type="submit" value="Filter results" class="button js-live-search-fallback"/></form>');
     $results = $('<div class="js-live-search-results-block"></div>');
-    $count = $('<p class="result-info" aria-live="polite" id="js-search-results-info"></p>');
+    $count = $('<div aria-live="assertive" id="js-search-results-info"><p class="result-info"></p></div>');
     $('body').append($form).append($results);
 
     _supportHistory = GOVUK.support.history;

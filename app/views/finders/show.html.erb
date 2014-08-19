@@ -18,9 +18,9 @@
 <div class='js-live-search-results-block'>
   <div class="filtered-results">
     <div class="inner-block">
-      <p class="result-info" aria-live='assertive' id='js-search-results-info'>
+      <div aria-live='assertive' id='js-search-results-info'>
         <%= render_mustache('result_count', @results.to_hash)%>
-      </p>
+      </div>
       <div id='js-results'>
         <%= render_mustache('results', @results.to_hash) %>
       </div>

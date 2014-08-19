@@ -6,7 +6,7 @@ end
 Then(/^I can get a list of all merger inquiries$/) do
   stub_finder_artefact_api_request
   visit finder_path('cma-cases')
-  page.should have_content('2 cases')
+  page.should_not have_content('2 cases')
   page.should have_css('a', text: 'Competition and Markets Authority')
   page.should have_css('.filtered-results .document', count: 2)
 

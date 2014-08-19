@@ -39,6 +39,7 @@ RSpec.describe ResultSetPresenter do
     before(:each) do
       subject.stub(:describe_filters_in_sentence).and_return("a sentence summarising the selected filters")
       subject.stub(:documents).and_return({ key: 'value' })
+      subject.stub(:any_filters_applied?).and_return(true)
     end
 
     it 'should return an appropriate hash' do
@@ -46,6 +47,7 @@ RSpec.describe ResultSetPresenter do
       subject.to_hash[:pluralised_document_noun].present?.should == true
       subject.to_hash[:documents].present?.should == true
       subject.to_hash[:applied_filters].present?.should == true
+      subject.to_hash[:any_filters_applied].present?.should == true
     end
 
     it 'should call pluralize on the document noun with the results_count' do
