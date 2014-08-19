@@ -3,7 +3,7 @@ require 'gds_api/helpers'
 class Finder
   include GdsApi::Helpers
 
-  attr_reader :slug, :name, :document_noun, :facets
+  attr_reader :slug, :name, :document_noun, :facets, :related_links
   attr_accessor :keywords
 
   def self.get(slug)
@@ -25,6 +25,8 @@ class Finder
     @document_noun = attrs[:document_noun]
     @facets = attrs[:facets]
     @organisations = attrs[:organisations]
+    @related_links = [{title: 'Link other thing', web_url: '/link-1'},
+                      {title: 'Link to thing', web_url: '/link-2'}]#attrs[:related_links]
   end
 
   def results
