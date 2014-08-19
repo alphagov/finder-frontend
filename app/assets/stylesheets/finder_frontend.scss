@@ -47,9 +47,6 @@
   header {
     width: $full-width;
     margin-bottom: $gutter;
-    @include media(tablet) {
-      margin-bottom: $gutter
-    }
 
     h1 {
       @include heading-48;
@@ -59,6 +56,19 @@
       @include media(tablet) {
         margin: $gutter-half $gutter;
         width: $two-thirds;
+        float:left;
+      }
+    }
+    .related-links {
+      @include core-16;
+      margin: $gutter-one-third $gutter-half;
+      list-style:none;
+
+      @include media(tablet) {
+        padding-top: 7px;
+        margin-left: 0;
+        float:right;
+        width: 20%;
       }
     }
     .metadata {
