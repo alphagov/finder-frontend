@@ -24,7 +24,7 @@ jQuery(function($) {
     return new GOVUK.CheckboxFilter({el:$(this)});
   });
 
-  if (filters.length > 0 && $('.js-openable-filter').not('.closed').size() == 0) {
+  if (filters.length > 0 && $('.js-openable-filter').not('.closed').length == 0) {
     filters[0].open();
   }
 
