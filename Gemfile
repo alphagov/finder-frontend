@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.0.3'
+gem 'rails', '4.0.9'
 gem 'slimmer'
 gem 'gds-api-adapters', '10.4.0'
 gem 'exception_notification', '4.0.1'
@@ -19,7 +19,7 @@ group :assets do
   else
     gem 'govuk_frontend_toolkit', '0.43.0'
   end
-  gem 'sass-rails', '~> 4.0.0'
+  gem 'sass-rails', '~> 4.0.2'
   gem 'uglifier', '>= 1.3.0'
 end
 
