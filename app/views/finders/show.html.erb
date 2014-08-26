@@ -2,11 +2,11 @@
 
 <header>
   <h1><%= raw(finder.name) %></h1>
-  <% if finder.related_links %>
+  <% if finder.related %>
     <div class='related-links'>
       <ul>
-        <% finder.related_links.each do |link| %>
-          <li><%= link_to link[:title], link[:web_url] %></li>
+        <% finder.related.each do |link| %>
+          <li><%= link_to "View #{link[:title]}", link[:web_url] %></li>
         <% end %>
       </ul>
     </div>
