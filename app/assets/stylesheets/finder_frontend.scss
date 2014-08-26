@@ -70,9 +70,15 @@
         float:right;
         width: 20%;
       }
+
+      li {
+        margin-bottom:4px;
+        @include media(tablet) {
+          margin-bottom:8px;
+        }
+      }
     }
     .metadata {
-      position: relative;
       @include core-14;
       @extend %contain-floats;
       width: 100%;
