@@ -49,7 +49,6 @@ private
   def finders_excluded_from_robots
     [
       'aaib-reports',
-      'international-development-funding',
       'drug-safety-update',
     ]
   end
