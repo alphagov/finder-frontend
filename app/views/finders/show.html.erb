@@ -2,6 +2,15 @@
 
 <header>
   <h1><%= raw(finder.name) %></h1>
+  <% if finder.related %>
+    <div class='related-links'>
+      <ul>
+        <% finder.related.each do |link| %>
+          <li><%= link_to "View #{link[:title]}", link[:web_url] %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
   <% if finder.primary_organisation %>
     <div class="metadata">
       <dl class="inner-block">

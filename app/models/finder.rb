@@ -3,18 +3,20 @@ require 'gds_api/helpers'
 class Finder
   include GdsApi::Helpers
 
-  attr_reader :slug, :name, :document_noun, :facets
+  attr_reader :slug, :name, :document_noun, :facets, :related
   attr_accessor :keywords
 
   def self.get(slug)
     schema_attributes = FinderFrontend.finder_api.get_schema(slug).to_hash
     artefact_attributes = content_api.artefact(slug)
     organisation_tags = artefact_attributes.tags.select { |t| t.details.type == "organisation" }
+    related_artefacts = artefact_attributes.related
 
     FinderParser.parse(
       schema_attributes.merge(
         "name" => artefact_attributes['title'],
         "organisations" => organisation_tags,
+        "related"=> related_artefacts,
       )
     )
   end
@@ -25,6 +27,7 @@ class Finder
     @document_noun = attrs[:document_noun]
     @facets = attrs[:facets]
     @organisations = attrs[:organisations]
+    @related = attrs[:related]
   end
 
   def results

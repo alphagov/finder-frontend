@@ -6,6 +6,7 @@ module FinderParser
       document_noun: finder_hash['document_noun'],
       facets: FacetCollectionParser.parse(finder_hash['facets']),
       organisations: finder_hash['organisations'],
+      related: finder_hash['related'],
     )
   end
 end

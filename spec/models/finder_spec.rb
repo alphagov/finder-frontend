@@ -24,7 +24,7 @@ describe Finder do
     it "should use FinderParser to build a finder based on the api's response" do
       FinderParser.should_receive(:parse).with(finder_hash_from_api.merge(
         "name" => "Competition and Markets Authority cases",
-        "organisations" => [])).and_return(:a_built_finder)
+        "organisations" => [], "related"=>[])).and_return(:a_built_finder)
       Finder.get(slug).should == :a_built_finder
     end
   end
