@@ -50,6 +50,7 @@ private
     [
       'aaib-reports',
       'drug-safety-update',
+      'drug-device-alerts',
     ]
   end
 end
