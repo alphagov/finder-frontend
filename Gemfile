@@ -9,7 +9,7 @@ gem 'unicorn', '4.8.1'
 
 gem 'logstasher', '0.4.8'
 
-gem 'shared_mustache', '0.1.2'
+gem 'shared_mustache', '0.1.3'
 
 gem 'pry'
 
