@@ -1,4 +1,9 @@
 class DrugSafetyUpdate < AbstractDocument
+
+  def summary
+    attrs[:summary]
+  end
+
 private
   def date_metadata_keys
     %w(

@@ -20,6 +20,10 @@ class AbstractDocument
     "/#{slug}"
   end
 
+  def summary
+    nil
+  end
+
 private
   attr_reader :attrs
 

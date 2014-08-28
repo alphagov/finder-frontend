@@ -2,6 +2,9 @@
   {{#documents}}
     <li class="document">
       <h3><a href='{{slug}}'>{{title}}</a></h3>
+      {{#summary}}
+        <p>{{summary}}</p>
+      {{/summary}}
       <dl>
         {{#metadata}}
           {{#is_text}}
