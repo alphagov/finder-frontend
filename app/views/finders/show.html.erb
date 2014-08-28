@@ -2,7 +2,7 @@
 
 <header>
   <h1><%= raw(finder.name) %></h1>
-  <% if finder.related %>
+  <% if finder.related.any? %>
     <div class='related-links'>
       <ul>
         <% finder.related.each do |link| %>
