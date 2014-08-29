@@ -1,10 +1,12 @@
 class SearchResultPresenter
 
-  attr_reader :title, :slug, :raw_metadata
+  attr_reader :title, :slug, :raw_metadata, :summary
 
   def initialize(search_result)
     @title = search_result.title
     @slug = search_result.slug
+    @summary = search_result.summary
+
     @raw_metadata = search_result.metadata
   end
 
@@ -12,6 +14,7 @@ class SearchResultPresenter
     {
       title: title,
       slug: slug,
+      summary: summary,
       metadata: metadata,
     }
   end
