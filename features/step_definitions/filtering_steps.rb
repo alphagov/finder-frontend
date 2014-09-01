@@ -7,8 +7,8 @@ Then(/^I can get a list of all merger inquiries$/) do
   stub_finder_artefact_api_request
   visit finder_path('cma-cases')
   page.should_not have_content('2 cases')
-  page.should have_css('a', text: 'Competition and Markets Authority')
   page.should have_css('.filtered-results .document', count: 2)
+  page.should have_css(shared_component_selector('metadata'))
 
   within '.filtered-results .document:nth-child(1)' do
     page.should have_link('HealthCorp / DrugInc merger inquiry')
