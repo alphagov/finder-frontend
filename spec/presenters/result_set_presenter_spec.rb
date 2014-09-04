@@ -10,10 +10,12 @@ RSpec.describe ResultSetPresenter do
     OpenStruct.new({
       results: result_set,
       document_noun: document_noun,
-      facets: facets
+      facets: facets,
+      keywords: keywords,
     })
   end
 
+  let(:keywords){ '' }
   let(:document_noun){ 'case' }
   let(:count) { 2 }
   let(:facets) {[ :facet_1, :facet_2 ]}
@@ -101,7 +103,7 @@ RSpec.describe ResultSetPresenter do
 
     before(:each) do
       subject.stub(:facet_values_sentence)
-      subject.stub(:link_params_without_facet_value)
+      subject.stub(:link_without_facet_value)
     end
 
     it 'should call facet_values_sentence for all selected_values in a facet' do
@@ -116,6 +118,14 @@ RSpec.describe ResultSetPresenter do
       sentence = presenter.describe_filters_in_sentence
       facets.each do | facet |
         sentence.include?(facet[:preposition]).should == true
+      end
+    end
+
+    context 'when keywords have been searched for' do
+      let(:keywords) { "my search term" }
+
+      it 'should include the keywords' do
+        presenter.describe_filters_in_sentence.should include("my search term")
       end
     end
   end
