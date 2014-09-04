@@ -20,7 +20,7 @@ class ResultSetPresenter
   end
 
   def any_filters_applied?
-    finder.facets.with_selected_values.count > 0
+    finder.facets.with_selected_values.count > 0 || finder.keywords.present?
   end
 
   def describe_filters_in_sentence
