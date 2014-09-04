@@ -24,10 +24,22 @@ class ResultSetPresenter
   end
 
   def describe_filters_in_sentence
-    selections = finder.facets.with_selected_values.map do |facet|
+    keywords_description.concat(selected_filter_descriptions).to_sentence
+  end
+
+  def keywords_description
+    if finder.keywords.present?
+      href = "TODO: This should be a thing that works, otherwise you two are clowns."
+      ['containing '+ "<strong>#{finder.keywords}&nbsp;<a href='#{href}'>×</a></strong>"]
+    else
+      []
+    end
+  end
+
+  def selected_filter_descriptions
+    finder.facets.with_selected_values.map do |facet|
       "#{facet.preposition} #{facet_values_sentence(facet)}"
     end
-    selections.to_sentence
   end
 
   def facet_values_sentence(facet)
@@ -36,6 +48,7 @@ class ResultSetPresenter
       href = CGI.escapeHTML("?#{query_string}")
       "<strong>#{option.label}&nbsp;<a href='#{href}'>×</a></strong>"
     end
+
     values.to_sentence(last_word_connector: ' and ')
   end
 
