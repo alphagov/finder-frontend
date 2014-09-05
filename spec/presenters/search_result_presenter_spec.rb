@@ -24,7 +24,7 @@ RSpec.describe SearchResultPresenter do
   }
 
   describe "#to_hash" do
-    it "should return a hash" do
+    it "returns a hash" do
       subject.to_hash.is_a?(Hash).should == true
     end
 
@@ -36,7 +36,7 @@ RSpec.describe SearchResultPresenter do
       ]
     }
 
-    it "should return a hash of the data we need to show the document" do
+    it "returns a hash of the data we need to show the document" do
       hash = subject.to_hash
       hash[:title].should == title
       hash[:slug].should == slug
@@ -45,11 +45,11 @@ RSpec.describe SearchResultPresenter do
   end
 
   describe '#metadata' do
-    it 'should return an array' do
+    it 'returns an array' do
       subject.metadata.is_a?(Array).should == true
     end
 
-    it 'should format metadata' do
+    it 'formats metadata' do
       allow(presenter).to receive(:build_text_metadata).and_call_original
       allow(presenter).to receive(:build_date_metadata).and_call_original
 
@@ -63,10 +63,10 @@ RSpec.describe SearchResultPresenter do
 
   describe '#build_text_metadata' do
     let(:data) { {name: 'some name', value: 'some value'} }
-    it 'should return a hash' do
+    it 'returns a hash' do
       subject.build_text_metadata(data).is_a?(Hash).should == true
     end
-    it 'should set the type to text' do
+    it 'sets the type to text' do
       subject.build_text_metadata(data).fetch(:is_text).should == true
     end
   end
@@ -77,15 +77,15 @@ RSpec.describe SearchResultPresenter do
     let(:formatted_date) { '1 December 2003' }
     let(:iso_date) { '2003-12-01' }
 
-    it 'should return a hash' do
+    it 'returns a hash' do
       subject.build_date_metadata(data).is_a?(Hash).should == true
     end
 
-    it 'should set the type to date' do
+    it 'sets the type to date' do
       subject.build_date_metadata(data).fetch(:is_date).should == true
     end
 
-    it 'should format the date' do
+    it 'formats the date' do
       date_metadata = subject.build_date_metadata(data)
       date_metadata.fetch(:human_date).should == formatted_date
       date_metadata.fetch(:machine_date).should == iso_date
