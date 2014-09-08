@@ -28,10 +28,6 @@ class AbstractDocument
     raw_metadata.map(&method(:humanize_metadata_name))
   end
 
-  def to_partial_path
-    "document"
-  end
-
   def path
     "/#{link}"
   end

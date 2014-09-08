@@ -10,8 +10,4 @@ class ResultSet
   def initialize(attrs)
     @documents = attrs[:documents]
   end
-
-  def to_partial_path
-    'results'
-  end
 end
