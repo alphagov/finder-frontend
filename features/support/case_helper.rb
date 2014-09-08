@@ -46,6 +46,7 @@ module CaseHelper
     %w(
       title
       link
+      description
       case_type
       case_state
       market_sector

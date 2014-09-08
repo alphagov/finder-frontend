@@ -1,7 +1,7 @@
 class DrugSafetyUpdate < AbstractDocument
 
   def summary
-    attrs[:summary]
+    attrs.fetch(:description)
   end
 
   def self.date_metadata_keys

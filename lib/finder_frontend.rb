@@ -40,8 +40,16 @@ module FinderFrontend
       }
     end
 
+    def base_return_fields
+      %w(
+        title
+        link
+        description
+      )
+    end
+
     def return_fields
-      %w(title link).concat(metadata_fields)
+      base_return_fields.concat(metadata_fields)
     end
 
     def presenter_class
