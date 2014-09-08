@@ -3,8 +3,8 @@ class ResultSet
 
   delegate :count, to: :documents
 
-  def self.get(slug, params)
-    ResultSetParser.parse(FinderFrontend.finder_api.get_documents(slug, params))
+  def self.get(finder_slug, document_type, params)
+    ResultSetParser.parse(FinderFrontend.get_documents(finder_slug, document_type, params))
   end
 
   def initialize(attrs)

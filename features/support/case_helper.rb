@@ -4,26 +4,22 @@ module CaseHelper
   include GdsApi::TestHelpers::ContentApi
 
   def stub_case_collection_api_request
-    stub_request(:get, finder_api_all_cases_url).to_return(
+    stub_request(:get, rummager_all_cases_url).to_return(
       body: all_cases_json,
-      headers: { 'Content-Type' => 'application/json' }
     )
 
-    stub_request(:get, finder_api_merger_inquiry_cases_url).to_return(
+    stub_request(:get, rummager_merger_inquiry_cases_url).to_return(
       body: merger_inquiry_cases_json,
-      headers: { 'Content-Type' => 'application/json' }
     )
 
-    stub_request(:get, finder_api_schema_url).to_return(
+    stub_request(:get, schema_url).to_return(
       body: schema_json,
-      headers: { 'Content-Type' => 'application/json' }
     )
   end
 
   def stub_keyword_search_api_request
-    stub_request(:get, finder_api_keyword_search_url).to_return(
+    stub_request(:get, rummager_keyword_search_url).to_return(
       body: keyword_search_results,
-      headers: { 'Content-Type' => 'application/json' },
     )
   end
 
@@ -32,20 +28,55 @@ module CaseHelper
     content_api_has_an_artefact('cma-cases', artefact_data)
   end
 
-  def finder_api_all_cases_url
-    "#{Plek.current.find('finder-api')}/finders/cma-cases/documents.json"
+  def search_params(params = {})
+    default_search_params.merge(params).to_a.map { |tuple|
+      tuple.join("=")
+    }.join("&")
   end
 
-  def finder_api_merger_inquiry_cases_url
-    "#{Plek.current.find('finder-api')}/finders/cma-cases/documents.json?case_type[]=mergers"
+  def default_search_params
+    {
+      "count" => "1000",
+      "fields" => cma_search_fields.join(","),
+      "filter_document_type" => "cma_case",
+    }
   end
 
-  def finder_api_schema_url
+  def cma_search_fields
+    %w(
+      title
+      link
+      case_type
+      case_state
+      market_sector
+      outcome_type
+      opened_date
+      closed_date
+    )
+  end
+
+  def rummager_all_cases_url
+    "#{Plek.current.find('search')}/unified_search.json?#{search_params}"
+  end
+
+  def rummager_merger_inquiry_cases_url
+    params = {
+      "filter_case_type[]" => "mergers",
+    }
+
+    "#{Plek.current.find('search')}/unified_search.json?#{search_params(params)}"
+  end
+
+  def schema_url
     "#{Plek.current.find('finder-api')}/finders/cma-cases/schema.json"
   end
 
-  def finder_api_keyword_search_url
-    "#{Plek.current.find('finder-api')}/finders/cma-cases/documents.json?keywords=keyword%20searchable"
+  def rummager_keyword_search_url
+    params = {
+      "q" => "keyword%20searchable",
+    }
+
+    "#{Plek.current.find('search')}/unified_search.json?#{search_params(params)}"
   end
 
   def keyword_search_results
@@ -53,11 +84,10 @@ module CaseHelper
       "results": [
         {
           "title": "Acme keyword searchable case",
-          "slug": "cma-cases/acme-keyword-searchable-case",
-          "document_type": "cma_case",
           "opened_date": "2008-06-28",
           "closed_date": "2010-10-05",
           "summary": "Inquiry into making CMA cases keyword saerchable",
+          "document_type": "cma_case",
 
           "market_sector": [{
             "value": "pharmaceuticals",
@@ -74,9 +104,16 @@ module CaseHelper
           "case_state": [{
             "value": "closed",
             "label": "Closed"
-          }]
+          }],
+
+          "link": "/cma-cases/somewhat-unique-cma-case",
+          "_id": "/cma-cases/somewhat-unique-cma-case"
         }
-      ]
+      ],
+      "total": 1,
+      "start": 0,
+      "facets": {},
+      "suggested_queries": []
     }|
   end
 
@@ -85,11 +122,10 @@ module CaseHelper
       "results": [
         {
           "title": "HealthCorp / DrugInc merger inquiry",
-          "slug": "cma-cases/healthcorp-druginc-merger-inquiry",
-          "document_type": "cma_case",
           "opened_date": "2003-12-30",
           "closed_date": "2004-03-01",
           "summary": "Inquiry into the HealthCorp / DrugInc merger",
+          "document_type": "cma_case",
 
           "market_sector": [{
             "value": "pharmaceuticals",
@@ -106,15 +142,17 @@ module CaseHelper
           "case_state": [{
             "value": "closed",
             "label": "Closed"
-          }]
+          }],
+
+          "link": "cma-cases/healthcorp-druginc-merger-inquiry",
+          "_id": "cma-cases/healthcorp-druginc-merger-inquiry"
         },
         {
           "title": "Private healthcare market investigation",
-          "slug": "cma-cases/private-healthcare-market-investigation",
-          "document_type": "cma_case",
           "opened_date": "2007-08-14",
           "closed_date": "2008-03-01",
           "summary": "Inquiry into the private healthcare market",
+          "document_type": "cma_case",
 
           "market_sector": [{
             "value": "pharmaceuticals",
@@ -131,9 +169,16 @@ module CaseHelper
           "case_state": [{
             "value": "closed",
             "label": "Closed"
-          }]
+          }],
+
+          "link": "cma-cases/private-healthcare-market-investigation",
+          "_id": "cma-cases/private-healthcare-market-investigation"
         }
-      ]
+      ],
+      "total": 2,
+      "start": 0,
+      "facets": {},
+      "suggested_queries": []
     }|
   end
 
@@ -142,7 +187,6 @@ module CaseHelper
       "results": [
         {
           "title": "HealthCorp / DrugInc merger inquiry",
-          "slug": "cma-cases/healthcorp-druginc-merger-inquiry",
           "document_type": "cma_case",
           "opened_date": "2003-12-30",
           "closed_date": "2004-03-01",
@@ -163,9 +207,16 @@ module CaseHelper
           "case_state": [{
             "value": "closed",
             "label": "Closed"
-          }]
+          }],
+
+          "link": "cma-cases/healthcorp-druginc-merger-inquiry",
+          "_id": "cma-cases/healthcorp-druginc-merger-inquiry"
         }
-      ]
+      ],
+      "total": 1,
+      "start": 0,
+      "facets": {},
+      "suggested_queries": []
     }|
   end
 
