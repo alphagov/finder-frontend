@@ -6,7 +6,7 @@ describe AaibReport do
   let(:document_attributes) { base_attributes.merge(extra_attributes) }
   let(:base_attributes) { {
     title: "A CMA Case",
-    slug: "cma-cases/a-cma-case",
+    link: "cma-cases/a-cma-case",
   } }
   let(:extra_attributes) { {} }
 

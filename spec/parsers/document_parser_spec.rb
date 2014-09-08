@@ -5,7 +5,7 @@ describe DocumentParser do
     let(:document_hash) {
       {
         "title" => "Private healthcare market investigation",
-        "slug" => "cma-cases/private-healthcare-market-investigation",
+        "link" => "cma-cases/private-healthcare-market-investigation",
         "document_type" => "cma_case",
         "opened_date" => "2007-08-14",
         "closed_date" => "2008-03-01",

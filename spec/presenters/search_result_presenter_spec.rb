@@ -7,13 +7,13 @@ RSpec.describe SearchResultPresenter do
   let(:document) {
     OpenStruct.new({
       title: title,
-      slug: slug,
+      link: link,
       metadata: metadata,
     })
   }
 
   let(:title) { 'Investigation into the distribution of road fuels in parts of Scotland' }
-  let(:slug) { 'slug-1' }
+  let(:link) { 'link-1' }
 
   let(:metadata) {
     [
@@ -39,7 +39,7 @@ RSpec.describe SearchResultPresenter do
     it "returns a hash of the data we need to show the document" do
       hash = subject.to_hash
       hash[:title].should == title
-      hash[:slug].should == slug
+      hash[:link].should == link
       hash[:metadata].should == formatted_metadata
     end
   end

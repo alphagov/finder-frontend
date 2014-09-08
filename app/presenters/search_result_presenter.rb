@@ -1,10 +1,10 @@
 class SearchResultPresenter
 
-  attr_reader :title, :slug, :raw_metadata, :summary
+  attr_reader :title, :link, :raw_metadata, :summary
 
   def initialize(search_result)
     @title = search_result.title
-    @slug = search_result.slug
+    @link = search_result.link
     @summary = search_result.summary
 
     @raw_metadata = search_result.metadata
@@ -13,7 +13,7 @@ class SearchResultPresenter
   def to_hash
     {
       title: title,
-      slug: slug,
+      link: link,
       summary: summary,
       metadata: metadata,
     }

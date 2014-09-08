@@ -1,5 +1,5 @@
 class AbstractDocument
-  attr_reader :title, :slug
+  attr_reader :title, :link
 
   def self.date_metadata_keys
     []
@@ -19,9 +19,9 @@ class AbstractDocument
 
   def initialize(attrs)
     @title = attrs.fetch(:title)
-    @slug = attrs.fetch(:slug)
+    @link = attrs.fetch(:link)
 
-    @attrs = attrs.except(:title, :slug)
+    @attrs = attrs.except(:title, :link)
   end
 
   def metadata
@@ -33,7 +33,7 @@ class AbstractDocument
   end
 
   def url
-    "/#{slug}"
+    "/#{link}"
   end
 
   def summary

@@ -25,13 +25,8 @@ module FinderFrontend
 
     def call
       rummager_api.unified_search(default_params.merge(massaged_params))
-      .to_hash
-      .fetch("results")
-      .map { |doc|
-        doc.merge(
-          "slug" => doc.fetch("link"),
-        )
-      }
+        .to_hash
+        .fetch("results")
     end
 
   private
