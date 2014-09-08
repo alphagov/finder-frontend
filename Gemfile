@@ -45,5 +45,6 @@ group :test do
   gem 'cucumber-rails', require: false
   gem 'launchy'
   gem 'rspec-rails'
+  gem 'simplecov'
   gem 'webmock'
 end
