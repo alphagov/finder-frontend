@@ -5,7 +5,7 @@ describe DocumentParser do
     let(:document_hash) {
       {
         "title" => "Private healthcare market investigation",
-        "slug" => "cma-cases/private-healthcare-market-investigation",
+        "link" => "cma-cases/private-healthcare-market-investigation",
         "document_type" => "cma_case",
         "opened_date" => "2007-08-14",
         "closed_date" => "2008-03-01",
@@ -33,7 +33,7 @@ describe DocumentParser do
 
     specify { subject.should be_a CmaCase }
     specify { subject.title.should == 'Private healthcare market investigation' }
-    specify { subject.url.should == '/cma-cases/private-healthcare-market-investigation' }
+    specify { subject.path.should == '/cma-cases/private-healthcare-market-investigation' }
     specify { subject.metadata.to_set.should == [
       { type: 'date', name: 'Opened', value: '2007-08-14' },
       { type: 'date', name: 'Closed', value: '2008-03-01' },

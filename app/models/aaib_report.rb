@@ -1,19 +1,19 @@
 class AaibReport < AbstractDocument
 private
-  def date_metadata_keys
+  def self.date_metadata_keys
     %w(
       date_of_occurrence
     )
   end
 
-  def tag_metadata_keys
+  def self.tag_metadata_keys
     %w(
       aircraft_category
       report_type
     )
   end
 
-  def metadata_name_mappings
+  def self.metadata_name_mappings
     {
       "date_of_occurrence" => "Occurred",
     }

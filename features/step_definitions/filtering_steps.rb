@@ -11,7 +11,10 @@ Then(/^I can get a list of all merger inquiries$/) do
   page.should have_css(shared_component_selector('metadata'))
 
   within '.filtered-results .document:nth-child(1)' do
-    page.should have_link('HealthCorp / DrugInc merger inquiry')
+    page.should have_link(
+      'HealthCorp / DrugInc merger inquiry',
+      href: '/cma-cases/healthcorp-druginc-merger-inquiry',
+    )
     page.should have_content('30 December 2003')
     page.should have_content('Mergers')
   end

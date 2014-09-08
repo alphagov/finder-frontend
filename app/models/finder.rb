@@ -7,13 +7,13 @@ class Finder
   attr_accessor :keywords
 
   def self.get(slug)
-    schema_attributes = FinderFrontend.finder_api.get_schema(slug).to_hash
+    schema_attributes = FinderFrontend.get_schema(slug)
     artefact_attributes = content_api.artefact(slug)
     organisation_tags = artefact_attributes.tags.select { |t| t.details.type == "organisation" }
     related_artefacts = artefact_attributes.related
 
     FinderParser.parse(
-      schema_attributes.merge(
+      schema_attributes.send(:schema_hash).merge(
         "name" => artefact_attributes['title'],
         "organisations" => organisation_tags,
         "related"=> related_artefacts,
@@ -31,7 +31,11 @@ class Finder
   end
 
   def results
-    @results ||= ResultSet.get(slug, search_params)
+    @results ||= ResultSet.get(
+      slug,
+      document_type,
+      search_params,
+    )
   end
 
   def primary_organisation
@@ -40,6 +44,17 @@ class Finder
 
 private
   attr_reader :organisations
+
+  def document_type
+    # TODO: get this from the content api respose
+    {
+      "cma-cases" => "cma_case",
+      "aaib-reports" => "aaib_report",
+      "international-development-funding" => "international_development_fund",
+      "drug-device-alerts" => "medical_safety_alert",
+      "drug-safety-update" => "drug_safety_update",
+    }.fetch(@slug)
+  end
 
   def search_params
     facet_search_params.merge(keyword_search_params)

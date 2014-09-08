@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '4.0.9'
 gem 'slimmer', '4.2.2'
-gem 'gds-api-adapters', '10.4.0'
+gem 'gds-api-adapters', '14.4.2'
 gem 'exception_notification', '4.0.1'
 gem 'aws-ses', require: 'aws/ses'
 gem 'unicorn', '4.8.1'
@@ -36,6 +36,7 @@ group :development do
 end
 
 group :development, :test do
+  gem 'awesome_print'
   gem 'byebug'
   gem 'jasmine-rails'
 end
@@ -44,5 +45,6 @@ group :test do
   gem 'cucumber-rails', require: false
   gem 'launchy'
   gem 'rspec-rails'
+  gem 'simplecov'
   gem 'webmock'
 end
