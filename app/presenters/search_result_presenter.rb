@@ -4,7 +4,7 @@ class SearchResultPresenter
 
   def initialize(search_result)
     @title = search_result.title
-    @link = search_result.link
+    @link = search_result.path
     @summary = search_result.summary
 
     @raw_metadata = search_result.metadata

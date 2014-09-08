@@ -107,8 +107,8 @@ module CaseHelper
             "label": "Closed"
           }],
 
-          "link": "/cma-cases/somewhat-unique-cma-case",
-          "_id": "/cma-cases/somewhat-unique-cma-case"
+          "link": "cma-cases/somewhat-unique-cma-case",
+          "_id": "cma-cases/somewhat-unique-cma-case"
         }
       ],
       "total": 1,

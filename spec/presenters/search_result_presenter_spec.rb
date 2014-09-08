@@ -7,7 +7,7 @@ RSpec.describe SearchResultPresenter do
   let(:document) {
     OpenStruct.new({
       title: title,
-      link: link,
+      path: link,
       metadata: metadata,
     })
   }

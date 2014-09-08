@@ -1,5 +1,5 @@
 class AbstractDocument
-  attr_reader :title, :link
+  attr_reader :title
 
   def self.date_metadata_keys
     []
@@ -32,7 +32,7 @@ class AbstractDocument
     "document"
   end
 
-  def url
+  def path
     "/#{link}"
   end
 
@@ -41,7 +41,7 @@ class AbstractDocument
   end
 
 private
-  attr_reader :attrs
+  attr_reader :link, :attrs
 
   def raw_metadata
     tag_metadata + date_metadata
