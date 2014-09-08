@@ -1,9 +1,25 @@
 class AbstractDocument
   attr_reader :title, :slug
 
+  def self.date_metadata_keys
+    []
+  end
+
+  def self.tag_metadata_keys
+    []
+  end
+
+  def self.metadata_keys
+    tag_metadata_keys + date_metadata_keys
+  end
+
+  def self.metadata_name_mappings
+    {}
+  end
+
   def initialize(attrs)
-    @title = attrs[:title]
-    @slug = attrs[:slug]
+    @title = attrs.fetch(:title)
+    @slug = attrs.fetch(:slug)
 
     @attrs = attrs.except(:title, :slug)
   end
@@ -32,7 +48,7 @@ private
   end
 
   def date_metadata
-    date_metadata_keys
+    self.class.date_metadata_keys
       .map(&method(:build_date_metadata))
       .select(&method(:metadata_value_present?))
   end
@@ -46,7 +62,7 @@ private
   end
 
   def tag_metadata
-    tag_metadata_keys
+    self.class.tag_metadata_keys
       .map(&method(:build_tag_metadata))
       .select(&method(:metadata_value_present?))
   end
@@ -84,18 +100,6 @@ private
   end
 
   def metadata_label(key)
-    metadata_name_mappings.fetch(key, key.humanize)
-  end
-
-  def date_metadata_keys
-    []
-  end
-
-  def tag_metadata_keys
-    []
-  end
-
-  def metadata_name_mappings
-    {}
+    self.class.metadata_name_mappings.fetch(key, key.humanize)
   end
 end

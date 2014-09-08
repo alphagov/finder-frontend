@@ -4,20 +4,19 @@ class DrugSafetyUpdate < AbstractDocument
     attrs[:summary]
   end
 
-private
-  def date_metadata_keys
+  def self.date_metadata_keys
     %w(
       published_at
     )
   end
 
-  def tag_metadata_keys
+  def self.tag_metadata_keys
     %w(
       therapeutic_area
     )
   end
 
-  def metadata_name_mappings
+  def self.metadata_name_mappings
     {
       "published_at" => "Published",
     }

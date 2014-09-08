@@ -2,13 +2,19 @@ require 'spec_helper'
 
 describe InternationalDevelopmentFund do
   subject { InternationalDevelopmentFund.new(document_attributes) }
-  let(:document_attributes) { {} }
+  let(:document_attributes) { base_attributes.merge(extra_attributes) }
+  let(:base_attributes) { {
+    title: "A CMA Case",
+    slug: "cma-cases/a-cma-case",
+  } }
+  let(:extra_attributes) { {} }
+
 
   describe '#metadata' do
     context 'with all attributes' do
-      let(:document_attributes) do
+      let(:extra_attributes) do
         {
-          'application_state' => [{
+          'fund_state' => [{
             'value' => 'closed',
             'label' => 'Closed',
           }],
@@ -22,7 +28,7 @@ describe InternationalDevelopmentFund do
       specify do
         subject.metadata.should == [
           {
-            name: 'Application state',
+            name: 'Fund state',
             value: 'Closed',
             type: 'text',
           },
@@ -36,9 +42,9 @@ describe InternationalDevelopmentFund do
     end
 
     context 'with missing attributes' do
-      let(:document_attributes) do
+      let(:extra_attributes) do
         {
-          'application_state' => [{
+          'fund_state' => [{
             'value' => 'open',
             'label' => 'Open',
           }],
@@ -48,7 +54,7 @@ describe InternationalDevelopmentFund do
       specify do
         subject.metadata.should == [
           {
-            name: 'Application state',
+            name: 'Fund state',
             value: 'Open',
             type: 'text',
           },
@@ -57,9 +63,9 @@ describe InternationalDevelopmentFund do
     end
 
     context 'with empty attributes' do
-      let(:document_attributes) do
+      let(:extra_attributes) do
         {
-          'application_state' => [{
+          'fund_state' => [{
             'value' => 'open',
             'label' => 'Open',
           }],
@@ -73,7 +79,7 @@ describe InternationalDevelopmentFund do
       specify do
         subject.metadata.should == [
           {
-            name: 'Application state',
+            name: 'Fund state',
             value: 'Open',
             type: 'text',
           },

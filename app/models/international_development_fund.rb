@@ -1,8 +1,7 @@
 class InternationalDevelopmentFund < AbstractDocument
-private
-  def tag_metadata_keys
+  def self.tag_metadata_keys
     %w(
-      application_state
+      fund_state
       location
     )
   end

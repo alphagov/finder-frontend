@@ -3,11 +3,16 @@ require 'spec_helper'
 describe DrugSafetyUpdate do
   subject { DrugSafetyUpdate.new(document_attributes) }
   let(:published_at) { 1.year.ago.to_date }
-  let(:document_attributes) { {} }
+  let(:document_attributes) { base_attributes.merge(extra_attributes) }
+  let(:base_attributes) { {
+    title: "A CMA Case",
+    slug: "cma-cases/a-cma-case",
+  } }
+  let(:extra_attributes) { {} }
 
   describe '#metadata' do
     context 'with all attributes' do
-      let(:document_attributes) do
+      let(:extra_attributes) do
         {
           'therapeutic_area' => [{
             'value' => 'anaesthesia-intensive-care',
@@ -34,7 +39,7 @@ describe DrugSafetyUpdate do
     end
 
     context 'with missing attributes' do
-      let(:document_attributes) do
+      let(:extra_attributes) do
         {}
       end
 
@@ -44,7 +49,7 @@ describe DrugSafetyUpdate do
     end
 
     context 'with empty attributes' do
-      let(:document_attributes) do
+      let(:extra_attributes) do
         {
           'therapeutic_area' => [{
             'value' => nil,

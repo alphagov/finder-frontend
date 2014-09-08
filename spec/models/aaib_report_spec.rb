@@ -3,11 +3,16 @@ require 'spec_helper'
 describe AaibReport do
   subject { AaibReport.new(document_attributes) }
   let(:date_of_occurrence) { 1.year.ago.to_date }
-  let(:document_attributes) { {} }
+  let(:document_attributes) { base_attributes.merge(extra_attributes) }
+  let(:base_attributes) { {
+    title: "A CMA Case",
+    slug: "cma-cases/a-cma-case",
+  } }
+  let(:extra_attributes) { {} }
 
   describe '#metadata' do
     context 'with all attributes' do
-      let(:document_attributes) do
+      let(:extra_attributes) do
         {
           'aircraft_category' => [{
             'value' => 'commercial-fixed-wing',
@@ -43,7 +48,7 @@ describe AaibReport do
     end
 
     context 'with missing attributes' do
-      let(:document_attributes) do
+      let(:extra_attributes) do
         {
           'aircraft_category' => [{
             'value' => 'commercial-fixed-wing',
@@ -70,7 +75,7 @@ describe AaibReport do
     end
 
     context 'with empty attributes' do
-      let(:document_attributes) do
+      let(:extra_attributes) do
         {
           'aircraft_category' => [{
             'value' => 'commercial-fixed-wing',
