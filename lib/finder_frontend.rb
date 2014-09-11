@@ -85,6 +85,7 @@ module FinderFrontend
       keyword_param
         .merge(filter_params)
         .merge(document_type_param)
+        .merge(order_param)
     end
 
   private
@@ -95,6 +96,14 @@ module FinderFrontend
         {"q" => params.fetch("keywords")}
       else
         {}
+      end
+    end
+
+    def order_param
+      if params.has_key?("keywords")
+        {}
+      else
+        {"order" => "-last_update"}
       end
     end
 

@@ -57,12 +57,17 @@ module CaseHelper
   end
 
   def rummager_all_cases_url
-    "#{Plek.current.find('search')}/unified_search.json?#{search_params}"
+    params = {
+      "order" => "-last_update",
+    }
+
+    "#{Plek.current.find('search')}/unified_search.json?#{search_params(params)}"
   end
 
   def rummager_merger_inquiry_cases_url
     params = {
       "filter_case_type[]" => "mergers",
+      "order" => "-last_update",
     }
 
     "#{Plek.current.find('search')}/unified_search.json?#{search_params(params)}"
