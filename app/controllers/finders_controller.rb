@@ -1,5 +1,7 @@
-class FindersController < ApplicationController
+require 'gds_api/helpers'
 
+class FindersController < ApplicationController
+  include GdsApi::Helpers
   before_filter :set_robots_headers
 
   def show
@@ -11,6 +13,14 @@ class FindersController < ApplicationController
         render json: @results
       end
     end
+  end
+
+  def email_signup
+    # So using request.env["PATH_INFO"] has a leading slash which would need
+    # removing before asking the content api for the artefact. I don't like this
+    # either but I prefer it to string manip.
+    artefact = content_api.artefact("#{finder_slug}/email-signup")
+    @signup = SignupPresenter.new(artefact)
   end
 
 private

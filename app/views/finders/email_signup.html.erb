@@ -1,0 +1,20 @@
+<% content_for :title, raw(@signup.page_title) %>
+
+<header class="signups">
+  <h1><%= raw @signup.title %></h1>
+</header>
+
+<div class="outer-block">
+  <div class="inner-block signup-content">
+    <p>You're signing up for e-mail alerts for <strong><%= @signup.name %></strong>.</p>
+
+    <p><%= raw(@signup.body) %></p>
+
+    <%= link_to "Create subscription", @signup.target, class: "button" %>
+
+    <p class="quiet">
+      You can enter your email address on the next page to complete
+      the subscription
+    </p>
+  </div>
+</div>
