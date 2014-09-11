@@ -13,6 +13,11 @@ class FindersController < ApplicationController
     end
   end
 
+  def signup
+    schema_attributes = Finder.schema_attributes_hash(finder_slug)
+    @signup = SignupPresenter.new(schema_attributes)
+  end
+
 private
   def finder
     @finder ||= Finder.get(finder_slug).tap { |finder|

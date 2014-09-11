@@ -7,18 +7,22 @@ class Finder
   attr_accessor :keywords
 
   def self.get(slug)
-    schema_attributes = FinderFrontend.get_schema(slug)
+    schema_attributes = schema_attributes_hash(slug)
     artefact_attributes = content_api.artefact(slug)
     organisation_tags = artefact_attributes.tags.select { |t| t.details.type == "organisation" }
     related_artefacts = artefact_attributes.related
 
     FinderParser.parse(
-      schema_attributes.send(:schema_hash).merge(
+      schema_attributes.merge(
         "name" => artefact_attributes['title'],
         "organisations" => organisation_tags,
         "related"=> related_artefacts,
       )
     )
+  end
+
+  def self.schema_attributes_hash(slug)
+    FinderFrontend.get_schema(slug).send(:schema_hash)
   end
 
   def initialize(attrs = {})
