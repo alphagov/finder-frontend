@@ -44,9 +44,32 @@
     }
   }
 
+  .signup-content {
+    a.button {
+      @include button($button-colour);
+      width: auto;
+      @include bold-24;
+    }
+
+    p {
+      @include core-19;
+      margin: $gutter-half 0;
+
+      &.quiet {
+        color: $grey-1;
+        width: $two-thirds;
+      }
+    }
+
+    strong {
+      font-weight: bold;
+    }
+  }
+
   header {
     width: $full-width;
     margin-bottom: $gutter;
+    clear: both;
 
     h1 {
       @include heading-48;
@@ -59,6 +82,9 @@
         float:left;
       }
     }
+
+    &.signups h1 { float: inherit; }
+
     .related-links {
       @include core-16;
       margin: $gutter-one-third $gutter-half;
