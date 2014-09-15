@@ -5,6 +5,8 @@ module FacetParser
       SelectFacet.new(select_facet_attrs(facet_hash))
     when 'single-select'
       RadioFacet.new(select_facet_attrs(facet_hash))
+    when 'date'
+      DateFacet.new(facet_details(facet_hash))
     else
       raise ArgumentError.new("Unknown facet type: #{facet_hash['type']}")
     end
@@ -33,5 +35,14 @@ private
 
   def self.build_allowed_value(attrs)
     OpenStruct.new(label: attrs[:label], value: attrs[:value], described: !attrs[:non_described])
+  end
+
+  def self.facet_details(facet_hash)
+    {
+      key: facet_hash['key'],
+      name: facet_hash['name'],
+      value: facet_hash['value'],
+      preposition: facet_hash['preposition'],
+    }
   end
 end
