@@ -168,7 +168,9 @@
       background-color:$grey-2;
     }
 
-    /* Checkbox-filters are always open in IE 6 and 7 so don't show toggle */
+    /* Only apply these styles to chrome/firefox/safari and ie8 upwards
+       this is because checkbox filters are always open on ie6/7 so no
+       need to have closed styles or toggles. */
     @include not-ie-lte(7) {
       .js-enabled & {
         .head {
