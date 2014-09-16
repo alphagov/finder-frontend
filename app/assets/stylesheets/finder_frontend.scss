@@ -129,158 +129,167 @@
       @include core-16;
       margin-bottom: $gutter;
     }
-    .filter {
-      margin-bottom: $gutter;
-      background-color:$grey-3;
-      padding: 0 5px;
+  }
 
-      &:focus {
-        outline: 3px solid #ffbf47;
-      }
+  .filter {
+    margin-bottom: $gutter;
+    background-color:$grey-3;
+    padding: 0 5px;
 
-      .legend {
-        @include core-19;
-        @include inline-block;
-        margin-right:40px;
-        font-weight:bold;
-        padding-top: $gutter-one-third;
-      }
-    }
-    .radio-filter,
-    .text-filter {
-      padding: 0 $gutter-one-third;
-
-      label {
-        margin-right:$gutter-one-third;
-        @include inline-block;
-      }
-    }
-    .radio-filter {
-      input {
-        width:14px;
-      }
+    &:focus {
+      outline: 3px solid #ffbf47;
     }
 
-    .text-filter input {
-      @include core-14;
-      background: $white;
-      border: 1px solid $border-colour;
-      width: $full-width;
-      margin: 0 0 0 -1px;
+    .legend {
+      @include core-19;
+      @include inline-block;
+      margin-right:40px;
+      font-weight:bold;
+      padding-top: $gutter-one-third;
+    }
+  }
+  .radio-filter,
+  .text-filter {
+    padding: 0 $gutter-one-third;
 
-      @include media (desktop) {
-        padding: 5px 0;
-        margin-bottom: $gutter-one-third;
-        text-indent: 5px;
-        @include core-16;
-      }
+    label {
+      margin-right:$gutter-one-third;
+      @include inline-block;
+    }
+  }
+  .radio-filter input {
+    width:14px;
+  }
+
+  .checkbox-filter {
+    padding-bottom: 5px;
+
+    &:hover {
+      background-color:$grey-2;
     }
 
-    .checkbox-filter {
-      padding-bottom: 5px;
+    /* Checkbox-filters are always open in IE 6 and 7 so don't show toggle */
+    @include not-ie-lte(7) {
+      .js-enabled & {
+        .head {
+          cursor:pointer;
+        }
+        .toggle {
+          height: 15px;
+          width: 23px;
+          @include inline-block;
+          background-image: image-url('toggle-sprite.png');
+          background-repeat:no-repeat;
+          background-position: 0px -32px;
 
-      &:hover {
-        background-color:$grey-2;
-      }
-
-      /* Checkbox-filters are always open in IE 6 and 7 so don't show toggle */
-      @include not-ie-lte(7) {
-        .js-enabled & {
-          .head {
-            cursor:pointer;
+          @include device-pixel-ratio() {
+            background-image:image-url('toggle-sprite-retina.png');
+            background-size: 32px 50px;
+          }
+        }
+        &.closed {
+          .checkbox-container {
+            position:absolute;
+            left:-9999px;
+            padding:0;
+            margin:0;
           }
           .toggle {
-            height: 15px;
-            width: 23px;
-            @include inline-block;
-            background-image: image-url('toggle-sprite.png');
-            background-repeat:no-repeat;
-            background-position: 0px -32px;
-
-            @include device-pixel-ratio() {
-              background-image:image-url('toggle-sprite-retina.png');
-              background-size: 32px 50px;
-            }
-          }
-          &.closed {
-            .checkbox-container {
-              position:absolute;
-              left:-9999px;
-              padding:0
-              margin:0;
-            }
-            .toggle {
-              background-position:0 3px;
-            }
+            background-position:0 3px;
           }
         }
       }
-      /* Redefine scrollbars so they are always visible in scrolling checkbox lists */
-      ::-webkit-scrollbar {
-          -webkit-appearance: none;
-          width: 7px;
-      }
-      ::-webkit-scrollbar-thumb {
-          border-radius: 4px;
-          background-color: rgba(0,0,0,.5);
-          -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
-      }
+    }
+    /* Redefine scrollbars so they are always visible in scrolling checkbox lists */
+    ::-webkit-scrollbar {
+        -webkit-appearance: none;
+        width: 7px;
+    }
+    ::-webkit-scrollbar-thumb {
+        border-radius: 4px;
+        background-color: rgba(0,0,0,.5);
+        -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
+    }
 
-      .head {
-        @extend %contain-floats;
-        padding: 0 5px;
-        position:relative;
+    .head {
+      @extend %contain-floats;
+      padding: 0 5px;
+      position:relative;
 
-        .controls {
-          position:absolute;
-          right:5px;
-          top:10px;
-          .clear-selected {
-            @include inline-block;
-            margin-right: 5px;
+      .controls {
+        position:absolute;
+        right:5px;
+        top:10px;
+        .clear-selected {
+          @include inline-block;
+          margin-right: 5px;
 
-            &.js-hidden {
-              left: -9999em;
-              position: relative;
-              height:0px;
-              overflow:hidden;
-            }
+          &.js-hidden {
+            left: -9999em;
+            position: relative;
+            height:0px;
+            overflow:hidden;
           }
         }
       }
-      .checkbox-container {
-        position:relative;
-        padding: 5px;
-        background-color: $white;
-        height:200px;
-        overflow-y:scroll;
-        overflow-x:hidden;
+    }
+    .checkbox-container {
+      position:relative;
+      padding: 5px;
+      background-color: $white;
+      height:200px;
+      overflow-y:scroll;
+      overflow-x:hidden;
 
+      ul {
+        margin:0;
+        padding:0;
+        list-style:none;
         ul {
-          margin:0;
-          padding:0;
-          list-style:none;
-          ul {
-            padding-left: $gutter-two-thirds;
-          }
-        }
-        li {
-
-          label {
-            @include inline-block;
-            margin-left:20px;
-            width: 91%;
-          }
-          /* IE6 doesn't support psuedo selectors so scoping to checkbox-container instead of using a psuedo selector */
-          input {
-            width: 12px;
-            border:none;
-            margin: 3px $gutter-one-third 0 0;
-            vertical-align: top;
-            position:absolute;
-          }
+          padding-left: $gutter-two-thirds;
         }
       }
+      li {
+
+        label {
+          @include inline-block;
+          margin-left:20px;
+          width: 91%;
+        }
+        /* IE6 doesn't support psuedo selectors so scoping to checkbox-container instead of using a psuedo selector */
+        input {
+          width: 12px;
+          border:none;
+          margin: 3px $gutter-one-third 0 0;
+          vertical-align: top;
+          position:absolute;
+        }
+      }
+    }
+  }
+
+  input {
+    @include core-14;
+    background: $white;
+    border: 1px solid $border-colour;
+    width: $full-width;
+    margin: 0 0 0 -1px;
+
+    @include media (desktop) {
+      padding: 5px 0;
+      margin-bottom: $gutter-one-third;
+      text-indent: 5px;
+      @include core-16;
+    }
+  }
+
+  .button {
+    @include button($button-colour);
+    width: auto;
+    @include bold-24;
+
+    .js-enabled & {
+      display:none;
     }
   }
 
