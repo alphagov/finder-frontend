@@ -182,7 +182,7 @@
           @include inline-block;
           background-image: image-url('toggle-sprite.png');
           background-repeat:no-repeat;
-          background-position: 0px -32px;
+          background-position: 0 -32px;
 
           @include device-pixel-ratio() {
             background-image:image-url('toggle-sprite-retina.png');
