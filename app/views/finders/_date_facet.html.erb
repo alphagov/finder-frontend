@@ -1,9 +1,7 @@
 <div class="filter text-filter">
   <label class="legend" for="<%= date_facet.key %>[from]"><%= date_facet.name %> after</label>
-  <input value="" placeholder="<%= Date.today.strftime("%e/%m/%y") %>" type="text" name="<%= date_facet.key %>[from]" id="<%= date_facet.key %>[from]" aria-controls="js-search-results-info"/>
-</div>
+  <input value="" placeholder="eg <%= Date.today.strftime("%e/%m/%Y") %>" type="text" name="<%= date_facet.key %>[from]" id="<%= date_facet.key %>[from]" aria-controls="js-search-results-info"/>
 
-<div class="filter text-filter">
-  <label class="legend" for="<%= date_facet.key %>[to]"><%= date_facet.name %> to</label>
-  <input value="" placeholder="<%= Date.today.strftime("%e/%m/%y") %>" type="text" name="<%= date_facet.key %>[to]" id="<%= date_facet.key %>[to]" aria-controls="js-search-results-info"/>
+  <label class="legend" for="<%= date_facet.key %>[to]"><%= date_facet.name %> before</label>
+  <input value="" placeholder="eg <%= Date.today.strftime("%e/%m/%Y") %>" type="text" name="<%= date_facet.key %>[to]" id="<%= date_facet.key %>[to]" aria-controls="js-search-results-info"/>
 </div>
