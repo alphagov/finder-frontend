@@ -143,6 +143,7 @@
         @include inline-block;
         margin-right:40px;
         font-weight:bold;
+        padding-top: $gutter-one-third;
       }
     }
     .radio-filter,
@@ -169,12 +170,14 @@
 
       @include media (desktop) {
         padding: 5px 0;
+        margin-bottom: $gutter-one-third;
         text-indent: 5px;
         @include core-16;
       }
     }
 
     .checkbox-filter {
+      padding-bottom: 5px;
 
       &:hover {
         background-color:$grey-2;
@@ -203,7 +206,7 @@
             .checkbox-container {
               position:absolute;
               left:-9999px;
-              padding:0;
+              padding:0
               margin:0;
             }
             .toggle {
@@ -231,7 +234,7 @@
         .controls {
           position:absolute;
           right:5px;
-          top:5px;
+          top:10px;
           .clear-selected {
             @include inline-block;
             margin-right: 5px;
