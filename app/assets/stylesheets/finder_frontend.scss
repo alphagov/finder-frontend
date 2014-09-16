@@ -132,7 +132,7 @@
     .filter {
       margin-bottom: $gutter;
       background-color:$grey-3;
-      padding:5px;
+      padding: 0 5px;
 
       &:focus {
         outline: 3px solid #ffbf47;
@@ -147,7 +147,7 @@
     }
     .radio-filter,
     .text-filter {
-      padding: $gutter-one-third;
+      padding: 0 $gutter-one-third;
 
       label {
         margin-right:$gutter-one-third;
@@ -225,7 +225,7 @@
 
       .head {
         @extend %contain-floats;
-        padding: 5px;
+        padding: 0 5px;
         position:relative;
 
         .controls {
