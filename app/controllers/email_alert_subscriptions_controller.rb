@@ -1,8 +1,15 @@
 require 'email_alert_signup_api'
+require 'gds_api/helpers'
 
 class EmailAlertSubscriptionsController < ApplicationController
+  include GdsApi::Helpers
 
   def new
+    # So using request.env["PATH_INFO"] has a leading slash which would need
+    # removing before asking the content api for the artefact. I don't like this
+    # either but I prefer it to string manip.
+    artefact = content_api.artefact("#{finder_slug}/email-signup")
+    @signup = SignupPresenter.new(artefact)
   end
 
   def create
