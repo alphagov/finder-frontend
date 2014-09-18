@@ -12,7 +12,7 @@ class SignupPresenter < Struct.new(:artefact)
   end
 
   def body
-    artefact.description
+    artefact.details["description"]
   end
 
   def target
