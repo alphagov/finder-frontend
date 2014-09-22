@@ -1,0 +1,22 @@
+<% content_for :title, @signup.page_title %>
+
+<header class="signups">
+  <h1><%= @signup.title %></h1>
+</header>
+
+<div class="outer-block">
+  <div class="inner-block signup-content">
+    <p>You're signing up for e-mail alerts for <strong><%= @signup.name %></strong>.</p>
+
+    <p><%= @signup.body %></p>
+
+    <%= form_tag email_alert_subscriptions_path do %>
+      <%= submit_tag 'Create subscription', class: "button" %>
+    <% end %>
+
+    <p class="quiet">
+      You can enter your email address on the next page to complete
+      the subscription
+    </p>
+  </div>
+</div>

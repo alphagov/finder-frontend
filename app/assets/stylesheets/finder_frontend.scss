@@ -44,21 +44,47 @@
     }
   }
 
+  p {
+    margin: $gutter-half 0;
+    @include core-19;
+
+    @include media(tablet) {
+      margin: $gutter 0;
+      max-width: $two-thirds;
+    }
+
+    &.quiet {
+      color: $grey-1;
+    }
+  }
+
+  strong {
+    font-weight: 600;
+  }
+
+  a.button, input.button {
+    @include button($button-colour);
+    width: auto;
+    @include bold-24;
+  }
+
   header {
     width: $full-width;
     margin-bottom: $gutter;
+    clear: both;
 
     h1 {
       @include heading-48;
       font-weight: bold;
-      margin: $gutter-one-third $gutter-half;
+      margin: $gutter-half;
 
       @include media(tablet) {
-        margin: $gutter-half $gutter;
+        margin: $gutter;
         width: $two-thirds;
         float:left;
       }
     }
+
     .related-links {
       @include core-16;
       margin: $gutter-one-third $gutter-half;
@@ -94,11 +120,15 @@
   }
 
   .filter-form {
+
+    .js-enabled & .button {
+      display:none;
+    }
     p {
+      max-width: $full-width;
       @include core-16;
       margin-bottom: $gutter;
     }
-
     .filter {
       margin-bottom: $gutter;
       background-color:$grey-3;
@@ -127,6 +157,20 @@
     .radio-filter {
       input {
         width:14px;
+      }
+    }
+
+    .text-filter input {
+      @include core-14;
+      background: $white;
+      border: 1px solid $border-colour;
+      width: $full-width;
+      margin: 0 0 0 -1px;
+
+      @include media (desktop) {
+        padding: 5px 0;
+        text-indent: 5px;
+        @include core-16;
       }
     }
 
@@ -235,30 +279,6 @@
         }
       }
     }
-
-    input {
-      @include core-14;
-      background: $white;
-      border: 1px solid $border-colour;
-      width: $full-width;
-      margin: 0 0 0 -1px;
-
-      @include media (desktop) {
-        padding: 5px 0;
-        text-indent: 5px;
-        @include core-16;
-      }
-    }
-
-    .button {
-      @include button($button-colour);
-      width: auto;
-      @include bold-24;
-
-      .js-enabled & {
-        display:none;
-      }
-    }
   }
 
   .filtered-results {
@@ -279,9 +299,6 @@
         font-weight: normal;
         position: relative;
         top: 1px;
-      }
-      strong {
-        font-weight: 600;
       }
     }
 
