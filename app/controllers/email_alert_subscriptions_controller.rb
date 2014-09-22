@@ -3,6 +3,7 @@ require 'gds_api/helpers'
 
 class EmailAlertSubscriptionsController < ApplicationController
   include GdsApi::Helpers
+  protect_from_forgery except: :create
 
   def new
     # So using request.env["PATH_INFO"] has a leading slash which would need
