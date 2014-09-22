@@ -97,4 +97,33 @@ describe RadioFacet do
       end
     end
   end
+
+  describe "#sentence_fragment" do
+
+    let(:allowed_values) { [
+      OpenStruct.new(label: "Allowed value 1", value: "allowed-value-1", described: true),
+      OpenStruct.new(label: "Allowed value 2", value: "allowed-value-2", described: false)
+    ] }
+
+    let(:value) { nil }
+    subject {
+      RadioFacet.new(
+        value: value,
+        allowed_values: allowed_values,
+        preposition: "of value",
+        key: "test_value"
+      )
+    }
+
+    context "single value" do
+      let(:value) { "allowed-value-1" }
+
+      specify {
+        subject.sentence_fragment.preposition.should == "of value"
+        subject.sentence_fragment.values.first.label == "Allowed value 1"
+        subject.sentence_fragment.values.first.parameter_key == "test_value"
+        subject.sentence_fragment.values.first.other_params == nil
+      }
+    end
+  end
 end
