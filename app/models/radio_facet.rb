@@ -21,6 +21,21 @@ class RadioFacet < Facet
     allowed_values.select { |option| option.value == value && option.described }
   end
 
+  def sentence_fragment
+    return nil unless value
+
+    OpenStruct.new(
+      preposition: preposition,
+      values: [
+        OpenStruct.new(
+          label: value.capitalize,
+          parameter_key: key,
+          other_params: nil,
+        ),
+      ]
+    )
+  end
+
 private
   def allowed_values_for_select
     allowed_values.map(&:to_option_for_select)

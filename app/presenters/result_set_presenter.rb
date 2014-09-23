@@ -20,52 +20,57 @@ class ResultSetPresenter
   end
 
   def any_filters_applied?
-    finder.facets.with_selected_values.count > 0 || finder.keywords.present?
+    finder.facet_sentence_fragments.length > 0 || finder.keywords.present?
   end
 
   def describe_filters_in_sentence
-    keywords_description.concat(selected_filter_descriptions).to_sentence
+    [
+      keywords_description,
+      selected_filter_descriptions
+    ].compact.join(' ')
   end
 
   def keywords_description
     if finder.keywords.present?
       href = link_without_facet_value("keywords", finder.keywords)
-      ["containing <strong>#{finder.keywords}&nbsp;<a href='#{href}'>×</a></strong>"]
+      "containing <strong>#{finder.keywords}&nbsp;<a href='#{href}'>×</a></strong>"
     else
-      []
+      ""
     end
   end
 
   def selected_filter_descriptions
-    finder.facets.with_selected_values.map do |facet|
-      "#{facet.preposition} #{facet_values_sentence(facet)}"
-    end
+    finder.facet_sentence_fragments.flat_map { |fragment|
+      fragment_description(fragment)
+    }.join(' ')
   end
 
-  def facet_values_sentence(facet)
-    values = facet.selected_values.map do |option|
-      href = link_without_facet_value(facet.key, option.value)
-      "<strong>#{option.label}&nbsp;<a href='#{href}'>×</a></strong>"
-    end
-
-    values.to_sentence(last_word_connector: ' and ')
+  def fragment_description(fragment)
+    [
+      fragment.preposition,
+      fragment_values_to_s(fragment.values)
+    ]
   end
 
-  def link_without_facet_value(facet_key, value_to_remove)
-    query_string = link_params_without_facet_value(facet_key, value_to_remove).to_query
+  def fragment_values_to_s(values)
+    values.map { |value|
+      fragment_to_link(value)
+    }.to_sentence(last_word_connector: ' and ')
+  end
+
+  def fragment_to_link(value)
+    "<strong>#{value.label}&nbsp;<a href='#{link_without_facet_value(value.parameter_key, value.other_params)}'>×</a></strong>"
+  end
+
+  def link_without_facet_value(parameter_key, other_params)
+    query_string = link_params_without_facet_value(parameter_key, other_params).to_query
     CGI.escapeHTML("?#{query_string}")
   end
 
-  def link_params_without_facet_value(facet_key, value_to_remove)
-    remaining_values = Array(params.fetch(facet_key)).reject { |facet_value|
-      facet_value == value_to_remove
-    }
-
-    if remaining_values.empty?
-      params.except(facet_key)
-    else
-      params.except(facet_key).merge(facet_key => remaining_values)
-    end
+  def link_params_without_facet_value(parameter_key, other_params)
+    params
+      .merge(parameter_key => other_params)
+      .reject { |_, v| v.blank? }
   end
 
   def documents

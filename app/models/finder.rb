@@ -42,6 +42,10 @@ class Finder
     organisations.first
   end
 
+  def facet_sentence_fragments
+    facets.map { |facet| facet.sentence_fragment }.compact
+  end
+
 private
   attr_reader :organisations
 

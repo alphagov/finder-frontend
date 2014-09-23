@@ -1,0 +1,7 @@
+<div class="filter text-filter">
+  <label class="legend" for="<%= date_facet.key %>[from]"><%= date_facet.name %> after</label>
+  <input value="<%= params.fetch(date_facet.key, {}).fetch('from', nil) %>" placeholder="eg <%= Date.today.strftime("%e/%m/%Y") %>" type="text" name="<%= date_facet.key %>[from]" id="<%= date_facet.key %>[from]" aria-controls="js-search-results-info"/>
+
+  <label class="legend" for="<%= date_facet.key %>[to]"><%= date_facet.name %> before</label>
+  <input value="<%= params.fetch(date_facet.key, {}).fetch('to', nil) %>" placeholder="eg <%= Date.today.strftime("%e/%m/%Y") %>" type="text" name="<%= date_facet.key %>[to]" id="<%= date_facet.key %>[to]" aria-controls="js-search-results-info"/>
+</div>

@@ -23,7 +23,32 @@ class SelectFacet < Facet
     allowed_values.select { |option| @value.include?(option.value) && option.described }
   end
 
+  def sentence_fragment
+    return nil unless selected_values.any?
+
+    OpenStruct.new(
+      preposition: preposition,
+      values: value_fragments,
+    )
+  end
+
 private
+  def value_fragments
+    selected_values.map { |v|
+      OpenStruct.new(
+        label: v.label,
+        parameter_key: key,
+        other_params: other_params(v),
+      )
+    }
+  end
+
+  def other_params(v)
+    selected_values
+      .map(&:value)
+      .reject { |selected_value|  selected_value == v.value }
+  end
+
   def allowed_values_for_select
     allowed_values.map(&:to_option_for_select)
     allowed_values.map do |option|
