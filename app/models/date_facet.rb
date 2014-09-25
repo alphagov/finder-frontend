@@ -74,7 +74,15 @@ private
     end
 
     def date
-      @date ||= Date.parse(original_input) rescue nil
+      @date ||= parse_date(original_input)
+    end
+
+    def parse_date(original_input)
+      if original_input =~ /(\d{2})\/(\d{2})\/(\d{2})$/
+        Date.new("20#{$3}".to_i, $2.to_i, $1.to_i)
+      else
+        Date.parse(original_input) rescue nil
+      end
     end
 
     def to_param
