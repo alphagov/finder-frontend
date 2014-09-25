@@ -65,6 +65,16 @@ describe DateFacet do
       }
     end
 
+    context "6 digit date value" do
+      let(:value) { { to: "22/09/14" } }
+      specify {
+        subject.sentence_fragment.preposition.should == "occurred before"
+        subject.sentence_fragment.values.first.label == "22 September 2014"
+        subject.sentence_fragment.values.first.parameter_key == "date_of_occurrence[to]"
+        subject.sentence_fragment.values.first.other_params == []
+      }
+    end
+
     context "multiple date values" do
       let(:value) {
         {

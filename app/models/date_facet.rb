@@ -74,7 +74,7 @@ private
     end
 
     def date
-      @date ||= Date.parse(original_input) rescue nil
+      @date ||= DateParser.parse(original_input)
     end
 
     def to_param
