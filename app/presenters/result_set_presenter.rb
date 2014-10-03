@@ -55,7 +55,7 @@ class ResultSetPresenter
   def fragment_values_to_s(values)
     values.map { |value|
       fragment_to_link(value)
-    }.to_sentence(last_word_connector: ' and ')
+    }.to_sentence(last_word_connector: ' or ')
   end
 
   def fragment_to_link(value)
