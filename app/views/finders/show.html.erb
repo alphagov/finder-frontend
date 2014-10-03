@@ -11,15 +11,22 @@
       </ul>
     </div>
   <% end %>
-  <% if finder.primary_organisation %>
+
+  <% if finder.primary_organisation || finder.signup_page_path %>
     <div class="metadata">
       <div class="inner-block">
-        <%= render partial: 'govuk_component/metadata', locals: {
-          from: link_to(finder.primary_organisation.title, finder.primary_organisation.web_url),
-        } %>
+        <% if finder.primary_organisation %>
+          <%= render partial: 'govuk_component/metadata', locals: {
+            from: link_to(finder.primary_organisation.title, finder.primary_organisation.web_url),
+          } %>
+        <% end %>
+        <% if finder.signup_page_path %>
+          <%= link_to finder.signup_page_text, finder.signup_page_path, class: "govdelivery" %>
+        <% end %>
       </div>
     </div>
   <% end %>
+
 </header>
 
 <%= render finder.facets %>
