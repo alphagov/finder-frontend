@@ -3,7 +3,7 @@ require 'gds_api/helpers'
 class Finder
   include GdsApi::Helpers
 
-  attr_reader :slug, :name, :document_noun, :facets, :related
+  attr_reader :slug, :name, :document_noun, :facets, :related, :signup_page_path, :signup_page_text
   attr_accessor :keywords
 
   def self.get(slug)
@@ -28,6 +28,8 @@ class Finder
     @facets = attrs[:facets]
     @organisations = attrs[:organisations]
     @related = attrs[:related]
+    @signup_page_path = attrs[:signup_page_path]
+    @signup_page_text = attrs[:signup_page_text]
   end
 
   def results
