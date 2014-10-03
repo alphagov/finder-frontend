@@ -181,7 +181,7 @@
           @include inline-block;
           background-image: image-url('toggle-sprite.png');
           background-repeat:no-repeat;
-          background-position: 0 -32px;
+          background-position:0 3px;
 
           @include device-pixel-ratio() {
             background-image:image-url('toggle-sprite-retina.png');
@@ -196,7 +196,7 @@
             margin:0;
           }
           .toggle {
-            background-position:0 3px;
+            background-position: 0 -33px;
           }
         }
       }
