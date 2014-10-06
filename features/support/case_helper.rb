@@ -331,5 +331,3 @@ module CaseHelper
     end
   end
 end
-
-World(CaseHelper)

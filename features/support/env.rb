@@ -83,3 +83,5 @@ After do
   end
 end
 
+require 'case_helper'
+World(CaseHelper)
