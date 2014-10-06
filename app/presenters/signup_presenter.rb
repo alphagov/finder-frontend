@@ -1,4 +1,9 @@
-class SignupPresenter < Struct.new(:artefact)
+class SignupPresenter
+
+  def initialize(signup)
+    @signup = signup
+  end
+
   def page_title
     "#{name} emails"
   end
@@ -8,14 +13,20 @@ class SignupPresenter < Struct.new(:artefact)
   end
 
   def name
-    artefact.title
+    signup.title
   end
 
   def body
-    artefact.details["description"]
+    signup.body
   end
 
   def target
     "#"
   end
+
+private
+
+  attr_reader(
+    :signup,
+  )
 end
