@@ -1,4 +1,4 @@
-require "spec_helper"
+require "rails_helper"
 
 describe DateFacet do
   subject { DateFacet.new }

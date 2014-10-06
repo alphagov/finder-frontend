@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe DocumentParser do
   context "with a document hash" do

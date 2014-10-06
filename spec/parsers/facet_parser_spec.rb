@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe FacetParser do
   context "with a select facet hash" do

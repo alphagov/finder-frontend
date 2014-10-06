@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 require 'email_alert_signup_api'
 
 describe EmailAlertSignupAPI do

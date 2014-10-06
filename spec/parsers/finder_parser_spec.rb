@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe FinderParser do
   context "with a finder hash" do
