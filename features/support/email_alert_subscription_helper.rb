@@ -9,7 +9,7 @@ module EmailAlertSubscriptionHelper
     {
       :id => "http://contentapi.dev.gov.uk/drug-device-alerts%2Femail-signup.json",
       :web_url => "http://finder-frontend.dev.gov.uk/drug-device-alerts/email-signup",
-      :title => "Medical Safety Alert",
+      :title => "Alerts and recalls for drugs and medical devices",
       :format => "finder_email_signup",
       :updated_at => "2014-09-30T10:09:27+01:00",
       # :tags => [],

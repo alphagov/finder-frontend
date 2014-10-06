@@ -1,0 +1,8 @@
+<ul>
+  <% select_facet.allowed_values.each do | option | %>
+  <li>
+    <input type="checkbox" name="<%=select_facet.key%>[]" value="<%= option['value']%>" id="<%= option['value']%>" <%= input_checked(select_facet.key, option['value']) %> aria-controls="js-search-results-info">
+    <label for='<%= option['value']%>'><%= option['label']%></label>
+  </li>
+  <% end %>
+</ul>

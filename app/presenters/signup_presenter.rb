@@ -20,6 +20,10 @@ class SignupPresenter
     signup.body
   end
 
+  def facets
+    signup.facets
+  end
+
   def target
     "#"
   end

@@ -11,6 +11,7 @@
     <p><%= @signup.body %></p>
 
     <%= form_tag email_alert_subscriptions_path do %>
+      <%= render @signup.facets %>
       <%= submit_tag 'Create subscription', class: "button" %>
     <% end %>
 

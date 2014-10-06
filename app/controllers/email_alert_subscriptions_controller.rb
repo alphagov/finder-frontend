@@ -29,7 +29,9 @@ private
 
   def signup_page
     EmailSignupPage.new(
+      slug: finder_slug,
       artefact: artefact_api.get(artefact_slug),
+      schema_facets: schema_hash.fetch("facets"),
     )
   end
 
@@ -52,6 +54,24 @@ private
   end
 
   def finder_url_for_alert_type
-    @finder_url_for_alert_type ||= "#{Plek.current.find('finder-frontend')}/#{finder_slug}.atom"
+    parameter_string = URI.escape(facet_params.collect{ |k,v| "#{k}=#{v}"}.join('&') )
+    @finder_url_for_alert_type ||= "#{Plek.current.find('finder-frontend')}/#{finder_slug}.atom?#{parameter_string}"
+  end
+
+  def schema_hash
+    FinderFrontend.get_schema(finder_slug).send(:schema_hash)
+  end
+
+  def facet_params
+    # TODO Use a whitelist based on the facets in the schema
+    params.except(
+      "controller",
+      "action",
+      "slug",
+      "format",
+      "utf8",
+      "authenticity_token",
+      "commit",
+    )
   end
 end

@@ -3,12 +3,18 @@ require 'rails_helper'
 describe EmailAlertSubscriptionsController do
 
   describe 'POST "#create"' do
+    let(:schema_hash) {
+      {
+        'facets' => [],
+      }
+    }
+    let(:schema) { double(:schema, schema_hash: schema_hash) }
     let(:alert_name) { double(:alert_name) }
     let(:alert_identifier) { double(:alert_identifier) }
     let(:delivery_api) { double(:delivery_api) }
-    let(:finder) {
-      double(:finder,
-        name: alert_name
+    let(:artefact) {
+      double(:artefact,
+        title: alert_name
       )
     }
     let(:signup_api_wrapper) {
@@ -16,11 +22,14 @@ describe EmailAlertSubscriptionsController do
         signup_url: 'http://www.example.com'
       )
     }
+    let(:artefact_api_wrapper) { double(:artefact_api_wrapper) }
 
     before do
+      allow(FinderFrontend).to receive(:get_schema).with('cma-cases').and_return(schema)
       allow(controller).to receive(:delivery_api).and_return(delivery_api)
       allow(controller).to receive(:finder_url_for_alert_type).and_return(alert_identifier)
-      allow(Finder).to receive(:get).with('cma-cases').and_return(finder)
+      allow(ArtefactAPI).to receive(:new).and_return(artefact_api_wrapper)
+      allow(artefact_api_wrapper).to receive(:get).and_return(artefact)
       allow(EmailAlertSignupAPI).to receive(:new).with(
         delivery_api: delivery_api,
         alert_identifier: alert_identifier,
