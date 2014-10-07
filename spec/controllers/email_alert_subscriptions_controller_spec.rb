@@ -26,6 +26,7 @@ describe EmailAlertSubscriptionsController do
       double(:signup_page,
         title: alert_name,
         alert_identifier: alert_identifier,
+        emailable_facet_keys: [],
       )
     }
 

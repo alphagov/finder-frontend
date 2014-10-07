@@ -22,6 +22,17 @@ class EmailSignupPage
     @finder_url_for_alert_type ||= "#{Plek.current.find('finder-frontend')}/#{slug}.atom?#{parameter_string(facet_attributes)}"
   end
 
+  def emailable_facet_keys
+    case document_type
+    when "medical_safety_alert"
+      %w(
+        alert_type
+      )
+    else
+      %w()
+    end
+  end
+
 private
 
   attr_reader(
@@ -33,17 +44,6 @@ private
   def document_type
     # TODO: get this from the content api respose
     SLUG_TO_DOCUMENT_TYPE_MAPPINGS.fetch(slug)
-  end
-
-  def emailable_facet_keys
-    case document_type
-    when "medical_safety_alert"
-      %w(
-        alert_type
-      )
-    else
-      %w()
-    end
   end
 
   def emailable_facets

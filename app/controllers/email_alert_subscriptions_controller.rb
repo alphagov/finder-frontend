@@ -58,15 +58,6 @@ private
   end
 
   def facet_params
-    # TODO Use a whitelist based on the facets in the schema
-    params.except(
-      "controller",
-      "action",
-      "slug",
-      "format",
-      "utf8",
-      "authenticity_token",
-      "commit",
-    )
+    params.slice(*signup_page.emailable_facet_keys)
   end
 end
