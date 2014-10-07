@@ -38,7 +38,7 @@ private
   def email_alert_signup_api
     EmailAlertSignupAPI.new(
       delivery_api: delivery_api,
-      alert_identifier: finder_url_for_alert_type,
+      alert_identifier: signup_page.alert_identifier(facet_params),
       alert_name: signup_page.title
     )
   end
@@ -51,11 +51,6 @@ private
 
   def delivery_api
     @delivery_api ||= GdsApi::GovUkDelivery.new(Plek.current.find('govuk-delivery'))
-  end
-
-  def finder_url_for_alert_type
-    parameter_string = URI.escape(facet_params.collect{ |k,v| "#{k}=#{v}"}.join('&') )
-    @finder_url_for_alert_type ||= "#{Plek.current.find('finder-frontend')}/#{finder_slug}.atom?#{parameter_string}"
   end
 
   def schema_hash

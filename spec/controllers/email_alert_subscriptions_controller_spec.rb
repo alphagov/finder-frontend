@@ -12,24 +12,28 @@ describe EmailAlertSubscriptionsController do
     let(:alert_name) { double(:alert_name) }
     let(:alert_identifier) { double(:alert_identifier) }
     let(:delivery_api) { double(:delivery_api) }
-    let(:artefact) {
-      double(:artefact,
-        title: alert_name
-      )
-    }
     let(:signup_api_wrapper) {
       double(:signup_api_wrapper,
         signup_url: 'http://www.example.com'
       )
     }
-    let(:artefact_api_wrapper) { double(:artefact_api_wrapper) }
+    let(:artefact_api_wrapper) {
+      double(:artefact_api_wrapper,
+        get: double(:artefact),
+      )
+    }
+    let(:signup_page) {
+      double(:signup_page,
+        title: alert_name,
+        alert_identifier: alert_identifier,
+      )
+    }
 
     before do
       allow(FinderFrontend).to receive(:get_schema).with('cma-cases').and_return(schema)
       allow(controller).to receive(:delivery_api).and_return(delivery_api)
-      allow(controller).to receive(:finder_url_for_alert_type).and_return(alert_identifier)
+      allow(EmailSignupPage).to receive(:new).and_return(signup_page);
       allow(ArtefactAPI).to receive(:new).and_return(artefact_api_wrapper)
-      allow(artefact_api_wrapper).to receive(:get).and_return(artefact)
       allow(EmailAlertSignupAPI).to receive(:new).with(
         delivery_api: delivery_api,
         alert_identifier: alert_identifier,
