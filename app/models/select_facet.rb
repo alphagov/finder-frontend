@@ -8,10 +8,14 @@ class SelectFacet < Facet
   end
 
   def value
-    return nil if @value.nil?
+    return nil if @value.blank?
 
     permitted_values = allowed_values.map(&:value)
     @value.select {|v| permitted_values.include?(v) }
+  end
+
+  def value=(new_value)
+    @value = Array(new_value)
   end
 
   def values_for_select
