@@ -5,7 +5,7 @@ class Facet
   def initialize(attrs = {})
     @key = attrs[:key]
     @name = attrs[:name]
-    @value = attrs[:value].presence
+    self.value = attrs[:value].presence
     @preposition = attrs[:preposition]
   end
 
