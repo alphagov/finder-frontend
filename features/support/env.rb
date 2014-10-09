@@ -85,9 +85,9 @@ end
 
 require 'case_helper'
 require 'email_alert_subscription_helper'
-require 'delivery_api_helpers'
+require 'email_alert_api_helpers'
 
 World(CaseHelper)
 World(EmailAlertSubscriptionHelper)
-World(DeliveryAPIHelpers)
+World(EmailAlertAPIHelpers)
 

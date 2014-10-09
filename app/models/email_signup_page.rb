@@ -18,8 +18,10 @@ class EmailSignupPage
     FacetCollectionParser.parse(emailable_facets)
   end
 
-  def alert_identifier(facet_attributes)
-    @finder_url_for_alert_type ||= "#{Plek.current.find('finder-frontend')}/#{slug}.atom?#{parameter_string(facet_attributes)}"
+  def tags(facet_attributes)
+    facet_attributes.merge(
+      "document_type" => [document_type]
+    )
   end
 
   def emailable_facet_keys

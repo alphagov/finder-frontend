@@ -37,9 +37,9 @@ private
 
   def email_alert_signup_api
     EmailAlertSignupAPI.new(
-      delivery_api: delivery_api,
-      alert_identifier: signup_page.alert_identifier(facet_params),
-      alert_name: signup_page.title
+      email_alert_api: email_alert_api,
+      title: signup_page.title,
+      tags: signup_page.tags(facet_params),
     )
   end
 
@@ -47,10 +47,6 @@ private
     ArtefactAPI.new(
       content_api: content_api,
     )
-  end
-
-  def delivery_api
-    @delivery_api ||= GdsApi::GovUkDelivery.new(Plek.current.find('govuk-delivery'))
   end
 
   def schema_hash
