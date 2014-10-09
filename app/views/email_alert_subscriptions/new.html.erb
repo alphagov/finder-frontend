@@ -12,7 +12,7 @@
 
     <%= form_tag email_alert_subscriptions_path do %>
       <%= render @signup.facets %>
-      <%= submit_tag 'Create subscription', class: "button" %>
+      <%= submit_tag 'Create subscription', class: "button", role: "button"  %>
     <% end %>
 
     <p class="quiet">
