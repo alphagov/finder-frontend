@@ -153,6 +153,14 @@ RSpec.describe ResultSetPresenter do
         presenter.describe_filters_in_sentence.should include("my search term")
       end
     end
+
+    context 'when XSS attack keywords have been searched for' do
+      let(:keywords) { '<script>alert("hello")</script>'}
+
+      it 'escapes keywords appropriately' do
+        presenter.describe_filters_in_sentence.should include('&lt;script&gt;alert')
+      end
+    end
   end
 
   describe '#facet_values_sentence' do
