@@ -1,4 +1,5 @@
 class ResultSetPresenter
+  include ERB::Util
 
   attr_reader :finder, :documents_noun, :params, :result_set
 
@@ -33,7 +34,7 @@ class ResultSetPresenter
   def keywords_description
     if finder.keywords.present?
       href = link_without_facet_value("keywords", finder.keywords)
-      "containing <strong>#{finder.keywords}&nbsp;<a href='#{href}'>×</a></strong>"
+      "containing <strong>#{html_escape(finder.keywords)}&nbsp;<a href='#{href}'>×</a></strong>"
     else
       ""
     end
