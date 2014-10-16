@@ -8,15 +8,15 @@ class Finder
 
   def self.get(slug)
     schema_attributes = FinderFrontend.get_schema(slug)
-    artefact_attributes = content_api.artefact(slug)
-    organisation_tags = artefact_attributes.tags.select { |t| t.details.type == "organisation" }
-    related_artefacts = artefact_attributes.related
+    content_item = content_store.content_item("/#{slug}")
+    organisation_tags = content_item.links.organisations
+    related_content_items = content_item.links.related
 
     FinderParser.parse(
       schema_attributes.send(:schema_hash).merge(
-        "name" => artefact_attributes['title'],
+        "name" => content_item['title'],
         "organisations" => organisation_tags,
-        "related"=> related_artefacts,
+        "related"=> related_content_items,
       )
     )
   end
@@ -76,7 +76,7 @@ private
     end
   end
 
-  def self.content_api
-    @content_api ||= GdsApi::ContentApi.new(Plek.current.find('contentapi'))
+  def self.content_store
+    @content_store ||= GdsApi::ContentStore.new(Plek.current.find('content-store'))
   end
 end
