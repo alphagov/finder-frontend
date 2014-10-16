@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe FacetCollectionParser do
   context "with an array of facet hashes" do

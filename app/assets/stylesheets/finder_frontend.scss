@@ -44,17 +44,26 @@
     }
   }
 
-  .signup-content p {
-    margin: $gutter-half 0;
-    @include core-19;
+  .signup-content {
+    p {
+      margin: $gutter-half 0;
+      @include core-19;
 
-    @include media(tablet) {
-      margin: $gutter 0;
-      max-width: $two-thirds;
+      @include media(tablet) {
+        margin: $gutter 0;
+        max-width: $two-thirds;
+      }
+
+      &.quiet {
+        color: $grey-1;
+      }
     }
 
-    &.quiet {
-      color: $grey-1;
+    .button {
+      margin-top: $gutter-half;
+      @include media(tablet) {
+        margin-top: $gutter;
+      }
     }
   }
 
@@ -289,10 +298,6 @@
     @include button($button-colour);
     width: auto;
     @include bold-24;
-
-    .js-enabled & {
-      display:none;
-    }
   }
 
   .filtered-results {

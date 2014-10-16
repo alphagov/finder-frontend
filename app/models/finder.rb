@@ -51,13 +51,7 @@ private
 
   def document_type
     # TODO: get this from the content api respose
-    {
-      "cma-cases" => "cma_case",
-      "aaib-reports" => "aaib_report",
-      "international-development-funding" => "international_development_fund",
-      "drug-device-alerts" => "medical_safety_alert",
-      "drug-safety-update" => "drug_safety_update",
-    }.fetch(@slug)
+    SLUG_TO_DOCUMENT_TYPE_MAPPINGS.fetch(@slug)
   end
 
   def search_params

@@ -1,0 +1,6 @@
+<% select_facet.allowed_values.each do | option | %>
+  <label for='<%= option['value']%>' class="selectable">
+    <input type="checkbox" name="<%=select_facet.key%>[]" value="<%= option['value']%>" id="<%= option['value']%>" <%= input_checked(select_facet.key, option['value']) %> class="checkbox">
+    <%= option['label']%>
+  </label>
+<% end %>
