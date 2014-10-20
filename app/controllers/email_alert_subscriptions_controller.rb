@@ -7,6 +7,7 @@ class EmailAlertSubscriptionsController < ApplicationController
 
   def new
     content = content_store.content_item(request.path)
+    binding.pry
     @signup = SignupPresenter.new(content)
   end
 

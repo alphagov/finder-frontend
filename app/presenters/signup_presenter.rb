@@ -1,4 +1,4 @@
-class SignupPresenter < Struct.new(:artefact)
+class SignupPresenter < Struct.new(:content_item)
   def page_title
     "#{name} emails"
   end
@@ -8,11 +8,11 @@ class SignupPresenter < Struct.new(:artefact)
   end
 
   def name
-    artefact.title
+    content_item.title
   end
 
   def body
-    artefact.details["description"]
+    content_item.details["description"]
   end
 
   def target
