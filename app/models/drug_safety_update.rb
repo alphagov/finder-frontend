@@ -9,4 +9,16 @@ class DrugSafetyUpdate < AbstractDocument
       therapeutic_area
     )
   end
+
+  def self.date_metadata_keys
+    %w(
+      published_date
+    )
+  end
+
+  def self.metadata_name_mappings
+    {
+      "published_date" => "Published",
+    }
+  end
 end
