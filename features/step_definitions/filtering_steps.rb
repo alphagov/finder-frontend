@@ -1,10 +1,10 @@
 Given(/^a collection of cases exist$/) do
-  stub_finder_artefact_api_request
+  stub_finder_content_item_request
   stub_case_collection_api_request
 end
 
 Then(/^I can get a list of all merger inquiries$/) do
-  stub_finder_artefact_api_request
+  stub_finder_content_item_request
   visit finder_path('cma-cases')
   page.should_not have_content('2 cases')
   page.should have_css('.filtered-results .document', count: 2)
@@ -26,7 +26,7 @@ Then(/^I can get a list of all merger inquiries$/) do
 end
 
 When(/^I search cases by keyword$/) do
-  stub_finder_artefact_api_request
+  stub_finder_content_item_request
   stub_keyword_search_api_request
 
   visit finder_path('cma-cases')

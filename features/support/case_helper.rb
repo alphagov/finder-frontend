@@ -1,7 +1,7 @@
-require 'gds_api/test_helpers/content_api'
+require 'gds_api/test_helpers/content_store'
 
 module CaseHelper
-  include GdsApi::TestHelpers::ContentApi
+  include GdsApi::TestHelpers::ContentStore
 
   def stub_case_collection_api_request
     stub_request(:get, rummager_all_cases_url).to_return(
@@ -23,9 +23,8 @@ module CaseHelper
     )
   end
 
-  def stub_finder_artefact_api_request
-    artefact_data = artefact_for_slug('cma-cases').merge(cma_case_artefact)
-    content_api_has_an_artefact('cma-cases', artefact_data)
+  def stub_finder_content_item_request
+    content_store_has_item('/cma-cases', cma_cases_content_item)
   end
 
   def search_params(params = {})
@@ -294,31 +293,24 @@ module CaseHelper
     |
   end
 
-  def cma_case_artefact
+  def cma_cases_content_item
     {
-      :id => "http://contentapi.dev.gov.uk/cma-cases.json",
-      :web_url => "http://finder-frontend.dev.gov.uk/cma-cases",
-      :title => "Competition and Markets Authority cases",
-      :format => "finder",
-      :updated_at => "2014-06-26T13:44:57+01:00",
-      :tags => [
-        {
-          :id => "http://contentapi.dev.gov.uk/tags/organisation/competition-and-markets-authority.json",
-          :slug => "competition-and-markets-authority",
-          :web_url => "http://www.dev.gov.uk/government/organisations/competition-and-markets-authority",
-          :title => "Competition and Markets Authority ",
-          :details => {
-            :description => nil,
-            :short_description => nil,
-            :type => "organisation"
-          },
-          :content_with_tag => {
-            :id => "http://contentapi.dev.gov.uk/with_tag.json?organisation=competition-and-markets-authority",
-            :web_url => nil
-          },
-          :parent => nil
-        }
-      ]
+      base_path: "/cma-cases",
+      title: "CMA Cases",
+      description: "",
+      format: "finder",
+      need_ids: [],
+      details: {},
+      links: {
+        organisations: [
+          {
+            title: "Competition And Markets Authority",
+            base_path: "/government/organisations/competition-and-markets-authority",
+          }
+        ],
+        topics: [],
+        related: [],
+      }
     }
   end
 
