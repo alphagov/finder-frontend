@@ -7,6 +7,7 @@ module FinderParser
       facets: FacetCollectionParser.parse(finder_hash['facets']),
       organisations: finder_hash['organisations'],
       related: finder_hash['related'],
+      email_alert_signup: finder_hash['email_alert_signup'],
     )
   end
 end

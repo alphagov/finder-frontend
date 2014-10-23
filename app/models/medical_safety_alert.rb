@@ -5,4 +5,16 @@ class MedicalSafetyAlert < AbstractDocument
       medical_specialism
     )
   end
+
+  def self.date_metadata_keys
+    %w(
+      issued_date
+    )
+  end
+
+  def self.metadata_name_mappings
+    {
+      "issued_date" => "Issued",
+    }
+  end
 end
