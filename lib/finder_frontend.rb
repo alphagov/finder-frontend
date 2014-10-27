@@ -59,6 +59,7 @@ module FinderFrontend
         "drug_safety_update" => DrugSafetyUpdate,
         "international_development_fund" => InternationalDevelopmentFund,
         "medical_safety_alert" => MedicalSafetyAlert,
+        "maib_report" => MaibReport,
       }.fetch(document_type) { |type| raise "Unknown document type #{type}" }
     end
 
