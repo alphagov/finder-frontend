@@ -12,13 +12,13 @@ class DrugSafetyUpdate < AbstractDocument
 
   def self.date_metadata_keys
     %w(
-      published_date
+      first_published_at
     )
   end
 
   def self.metadata_name_mappings
     {
-      "published_date" => "Published",
+      "first_published_at" => "Published",
     }
   end
 end
