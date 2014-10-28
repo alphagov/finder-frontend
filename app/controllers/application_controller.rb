@@ -24,6 +24,7 @@ private
       'aaib-reports',
       'drug-safety-update',
       'drug-device-alerts',
+      'maib-reports',
     ]
   end
 

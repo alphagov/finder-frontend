@@ -11,6 +11,8 @@ module DocumentParser
       InternationalDevelopmentFund.new(document_hash)
     when "drug_safety_update"
       DrugSafetyUpdate.new(document_hash)
+    when "maib_report"
+      MaibReport.new(document_hash)
     when "medical_safety_alert"
       MedicalSafetyAlert.new(document_hash)
     end

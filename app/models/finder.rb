@@ -67,6 +67,7 @@ private
       "international-development-funding" => "international_development_fund",
       "drug-device-alerts" => "medical_safety_alert",
       "drug-safety-update" => "drug_safety_update",
+      "maib-reports" => "maib_report",
     }.fetch(@slug)
   end
 
