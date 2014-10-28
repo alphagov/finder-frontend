@@ -60,6 +60,7 @@ module FinderFrontend
         "international_development_fund" => InternationalDevelopmentFund,
         "medical_safety_alert" => MedicalSafetyAlert,
         "maib_report" => MaibReport,
+        "raib_report" => RaibReport,
       }.fetch(document_type) { |type| raise "Unknown document type #{type}" }
     end
 
