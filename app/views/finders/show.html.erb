@@ -20,6 +20,13 @@
       </div>
     </div>
   <% end %>
+  <% if finder.email_alert_signup %>
+    <div class='inner-block'>
+      <p class='email-link'>
+        <%= link_to "Subscribe to email alerts", finder.email_alert_signup.web_url %>
+      </p>
+    </div>
+  <% end %>
 </header>
 
 <%= render finder.facets %>
