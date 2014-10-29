@@ -7,7 +7,11 @@ class EmailAlertSubscriptionsController < ApplicationController
 
   def new
     content = content_store.content_item(request.path)
-    @signup = SignupPresenter.new(content)
+    if content
+      @signup = SignupPresenter.new(content)
+    else
+      error_not_found
+    end
   end
 
   def create
@@ -38,6 +42,10 @@ private
 
   def finder_url_for_alert_type
     @finder_url_for_alert_type ||= "#{Plek.current.find('finder-frontend')}/#{finder_slug}.atom"
+  end
+
+  def error_not_found
+    render status: :not_found, text: "404 error not found"
   end
 
 end
