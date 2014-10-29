@@ -68,6 +68,7 @@ private
       "drug-device-alerts" => "medical_safety_alert",
       "drug-safety-update" => "drug_safety_update",
       "maib-reports" => "maib_report",
+      "raib-reports" => "raib_report",
     }.fetch(@slug)
   end
 

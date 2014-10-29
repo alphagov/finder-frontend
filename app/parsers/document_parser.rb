@@ -15,6 +15,8 @@ module DocumentParser
       MaibReport.new(document_hash)
     when "medical_safety_alert"
       MedicalSafetyAlert.new(document_hash)
+    when "raib_report"
+      RaibReport.new(document_hash)
     end
   end
 end
