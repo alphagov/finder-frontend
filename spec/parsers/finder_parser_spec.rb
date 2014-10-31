@@ -6,7 +6,8 @@ describe FinderParser do
       "name" => "CMA Cases",
       "slug" => "finder-slug",
       "document_noun" => "case",
-      "facets" => :facet_hashes
+      "facets" => :facet_hashes,
+      "keyword_search_placeholder" => "eg Case name",
     } }
     before {
       FacetCollectionParser.stub(:parse).with(:facet_hashes).and_return(:a_facet_collection)
@@ -17,5 +18,6 @@ describe FinderParser do
     specify { subject.slug.should == "finder-slug" }
     specify { subject.document_noun.should == "case" }
     specify { subject.facets.should == :a_facet_collection }
+    specify { subject.keyword_search_placeholder.should == "eg Case name"}
   end
 end
