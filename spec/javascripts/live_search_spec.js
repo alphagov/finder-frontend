@@ -128,6 +128,23 @@ describe("liveSearch", function(){
     expect(liveSearch.cache('some-slug')).toBe('something in the cache');
   });
 
+  describe("should not display out of date results", function(){
+
+    it('should not update the results if the state associated with these results is not the current state of the page', function(){
+      liveSearch.state = 'cma-cases.json?keywords=123'
+      spyOn(liveSearch.$resultsBlock, 'mustache');
+      liveSearch.displayResults(dummyResponse, 'made up state');
+      expect(liveSearch.$resultsBlock.mustache).not.toHaveBeenCalled();
+    });
+
+    it('should update the results if the state of these results matches the state of the page', function(){
+      liveSearch.state = 'cma-cases.json?keywords=123'
+      spyOn(liveSearch.$resultsBlock, 'mustache');
+      liveSearch.displayResults(dummyResponse, liveSearch.state);
+      expect(liveSearch.$resultsBlock.mustache).toHaveBeenCalled();
+    });
+  });
+
   it("should show the filter results button if the GOVUK.support.history returns false", function(){
     // Hide the filter button (this is done in the CSS under the .js-enabled selector normally)
     $form.find('.js-live-search-fallback').hide();
