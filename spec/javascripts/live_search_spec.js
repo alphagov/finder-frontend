@@ -1,7 +1,7 @@
 describe("liveSearch", function(){
   var $form, $results, _supportHistory, liveSearch;
   var dummyResponse = {
-    "count":1,
+    "total":1,
     "pluralised_document_noun":"reports",
     "applied_filters":" \u003Cstrong\u003ECommercial - rotorcraft \u003Ca href='?format=json\u0026keywords='\u003E×\u003C/a\u003E\u003C/strong\u003E",
     "any_filters_applied":true,

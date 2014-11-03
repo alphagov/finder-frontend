@@ -8,8 +8,9 @@ RSpec.describe ResultSetPresenter do
 
   let(:finder) do
     OpenStruct.new({
-      results: result_set,
+      results: results,
       document_noun: document_noun,
+      total: 2,
       facets: [ a_facet, another_facet ],
       keywords: keywords,
     })
@@ -72,10 +73,10 @@ RSpec.describe ResultSetPresenter do
 
   let(:keywords){ '' }
   let(:document_noun){ 'case' }
-  let(:count) { 2 }
+  let(:total) { 2 }
 
-  let(:result_set) do
-    OpenStruct.new({ count: count, documents: [ document ] })
+  let(:results) do
+    OpenStruct.new({ total: total, documents: [ document ] })
   end
 
   let(:document) do
@@ -99,7 +100,7 @@ RSpec.describe ResultSetPresenter do
     end
 
     it 'returns an appropriate hash' do
-      presenter.to_hash[:count].should == count
+      presenter.to_hash[:total].should == total
       presenter.to_hash[:pluralised_document_noun].present?.should == true
       presenter.to_hash[:documents].present?.should == true
       presenter.to_hash[:applied_filters].present?.should == true
@@ -109,7 +110,7 @@ RSpec.describe ResultSetPresenter do
     it 'calls pluralize on the document noun with the results_count' do
       allow(document_noun).to receive(:pluralize)
       presenter.to_hash
-      document_noun.should have_received(:pluralize).with(count)
+      document_noun.should have_received(:pluralize).with(total)
     end
 
     it 'calls describe_filters_in_sentence' do
@@ -221,8 +222,8 @@ RSpec.describe ResultSetPresenter do
 
   describe '#documents' do
     context "has one document" do
-      let(:result_set) do
-        OpenStruct.new({ count: count, documents: [ document ] })
+      let(:results) do
+        OpenStruct.new({ total: total, documents: [ document ] })
       end
       it 'creates a new search_result_presenter hash for each result' do
         search_result_objects = presenter.documents
@@ -232,8 +233,8 @@ RSpec.describe ResultSetPresenter do
     end
 
     context "has 3 documents" do
-      let(:result_set) do
-        OpenStruct.new({ count: count, documents: [ document, document, document ] })
+      let(:results) do
+        OpenStruct.new({ total: total, documents: [ document, document, document ] })
       end
       it 'creates a new document for each result' do
         search_result_objects = presenter.documents
