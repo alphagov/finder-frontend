@@ -1,19 +1,20 @@
 class ResultSetPresenter
   include ERB::Util
 
-  attr_reader :finder, :documents_noun, :params, :result_set
+  attr_reader :finder, :documents_noun, :params, :results, :total
 
   def initialize(finder, facet_params)
     @finder = finder
-    @result_set = finder.results
+    @results = finder.results.documents
+    @total = finder.results.total
     @documents_noun = finder.document_noun
     @params = facet_params
   end
 
   def to_hash
     {
-      count: result_set.count,
-      pluralised_document_noun: documents_noun.pluralize(result_set.count),
+      total: total > 1000 ? "1,000+" : total,
+      pluralised_document_noun: documents_noun.pluralize(total),
       applied_filters: describe_filters_in_sentence,
       documents: documents,
       any_filters_applied: any_filters_applied?,
@@ -75,7 +76,7 @@ class ResultSetPresenter
   end
 
   def documents
-    result_set.documents.map do |result|
+    results.map do |result|
       SearchResultPresenter.new(result).to_hash
     end
   end
