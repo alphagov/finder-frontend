@@ -77,4 +77,26 @@ describe DateParser do
     }
   end
 
+  context "date far in the past" do
+    let(:date_string) { "22/09/80" }
+
+    subject(:parsed_date) { DateParser.parse(date_string) }
+    specify {
+      parsed_date.year.should == 1980
+      parsed_date.month.should == 9
+      parsed_date.day.should == 22
+    }
+  end
+
+  context "date in the future" do
+    let(:date_string) { "22/09/25" }
+
+    subject(:parsed_date) { DateParser.parse(date_string) }
+    specify {
+      parsed_date.year.should == 2025
+      parsed_date.month.should == 9
+      parsed_date.day.should == 22
+    }
+  end
+
 end
