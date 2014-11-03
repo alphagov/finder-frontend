@@ -38,10 +38,7 @@ class Finder
     @organisations = attrs[:organisations]
     @related = attrs[:related]
     @email_alert_signup = attrs[:email_alert_signup]
-    @keyword_search_placeholder = attrs.fetch(
-      :keyword_search_placeholder,
-      "eg #{document_noun} title"
-    )
+    @keyword_search_placeholder = attrs[:keyword_search_placeholder]
   end
 
   def results
