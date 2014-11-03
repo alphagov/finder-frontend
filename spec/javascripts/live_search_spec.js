@@ -44,7 +44,6 @@ describe("liveSearch", function(){
   afterEach(function(){
     $form.remove();
     $results.remove();
-
     GOVUK.support.history = _supportHistory;
   });
 
@@ -101,7 +100,7 @@ describe("liveSearch", function(){
     spyOn(jQuery, 'ajax').and.returnValue(ajaxCallback);
 
     liveSearch.updateResults();
-    expect(jQuery.ajax).toHaveBeenCalledWith({url: '/somewhere.json', data: {not: "cached"}});
+    expect(jQuery.ajax).toHaveBeenCalledWith({url: '/somewhere.json', data: {not: "cached"}, searchState : 'not=cached'});
     expect(ajaxCallback.done).toHaveBeenCalled();
     ajaxCallback.done.calls.mostRecent().args[0]('response data')
     expect(liveSearch.displayResults).toHaveBeenCalled();
@@ -138,9 +137,9 @@ describe("liveSearch", function(){
     });
 
     it('should update the results if the state of these results matches the state of the page', function(){
-      liveSearch.state = 'cma-cases.json?keywords=123'
+      liveSearch.state = {search: 'state'};
       spyOn(liveSearch.$resultsBlock, 'mustache');
-      liveSearch.displayResults(dummyResponse, liveSearch.state);
+      liveSearch.displayResults(dummyResponse, $.param(liveSearch.state));
       expect(liveSearch.$resultsBlock.mustache).toHaveBeenCalled();
     });
   });
@@ -185,7 +184,7 @@ describe("liveSearch", function(){
     it("should display results from the cache", function(){
       liveSearch.resultCache["the=first"] = dummyResponse;
       liveSearch.state = { the: "first" };
-      liveSearch.displayResults(dummyResponse);
+      liveSearch.displayResults(dummyResponse, $.param(liveSearch.state));
       expect($results.find('h3').text()).toBe('Test report');
       expect($count.find('.result-count').text()).toMatch(/^\s*1\s*/);
     });
