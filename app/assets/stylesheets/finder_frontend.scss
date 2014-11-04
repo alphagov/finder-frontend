@@ -68,6 +68,10 @@
     @include bold-24;
   }
 
+  .govuk-beta-label {
+    margin: 0 $gutter;
+  }
+
   header {
     width: $full-width;
     margin-bottom: $gutter;
