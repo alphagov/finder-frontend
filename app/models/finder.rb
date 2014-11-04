@@ -3,7 +3,7 @@ require 'gds_api/helpers'
 class Finder
   include GdsApi::Helpers
 
-  attr_reader :slug, :name, :document_noun, :facets, :related, :email_alert_signup, :keyword_search_placeholder
+  attr_reader :slug, :name, :document_noun, :facets, :related, :email_alert_signup, :keyword_search_placeholder, :beta
   attr_accessor :keywords
 
   def self.get(slug)
@@ -13,8 +13,8 @@ class Finder
     related_content_items = content_item.links.related
 
     FinderParser.parse(
+      content_item,
       schema_attributes.send(:schema_hash).merge(
-        "name" => content_item['title'],
         "organisations" => organisation_tags,
         "related"=> related_content_items,
         "email_alert_signup" => self.email_alert_signup(content_item),
@@ -33,6 +33,7 @@ class Finder
   def initialize(attrs = {})
     @slug = attrs[:slug]
     @name = attrs[:name]
+    @beta = attrs[:beta]
     @document_noun = attrs[:document_noun]
     @facets = attrs[:facets]
     @organisations = attrs[:organisations]
