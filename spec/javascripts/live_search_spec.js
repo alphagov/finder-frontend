@@ -44,7 +44,6 @@ describe("liveSearch", function(){
   afterEach(function(){
     $form.remove();
     $results.remove();
-
     GOVUK.support.history = _supportHistory;
   });
 
@@ -101,7 +100,7 @@ describe("liveSearch", function(){
     spyOn(jQuery, 'ajax').and.returnValue(ajaxCallback);
 
     liveSearch.updateResults();
-    expect(jQuery.ajax).toHaveBeenCalledWith({url: '/somewhere.json', data: {not: "cached"}});
+    expect(jQuery.ajax).toHaveBeenCalledWith({url: '/somewhere.json', data: {not: "cached"}, searchState : 'not=cached'});
     expect(ajaxCallback.done).toHaveBeenCalled();
     ajaxCallback.done.calls.mostRecent().args[0]('response data')
     expect(liveSearch.displayResults).toHaveBeenCalled();
@@ -126,6 +125,23 @@ describe("liveSearch", function(){
     expect(liveSearch.cache('some-slug')).toBe(undefined);
     liveSearch.cache('some-slug', 'something in the cache');
     expect(liveSearch.cache('some-slug')).toBe('something in the cache');
+  });
+
+  describe("should not display out of date results", function(){
+
+    it('should not update the results if the state associated with these results is not the current state of the page', function(){
+      liveSearch.state = 'cma-cases.json?keywords=123'
+      spyOn(liveSearch.$resultsBlock, 'mustache');
+      liveSearch.displayResults(dummyResponse, 'made up state');
+      expect(liveSearch.$resultsBlock.mustache).not.toHaveBeenCalled();
+    });
+
+    it('should update the results if the state of these results matches the state of the page', function(){
+      liveSearch.state = {search: 'state'};
+      spyOn(liveSearch.$resultsBlock, 'mustache');
+      liveSearch.displayResults(dummyResponse, $.param(liveSearch.state));
+      expect(liveSearch.$resultsBlock.mustache).toHaveBeenCalled();
+    });
   });
 
   it("should show the filter results button if the GOVUK.support.history returns false", function(){
@@ -168,7 +184,7 @@ describe("liveSearch", function(){
     it("should display results from the cache", function(){
       liveSearch.resultCache["the=first"] = dummyResponse;
       liveSearch.state = { the: "first" };
-      liveSearch.displayResults(dummyResponse);
+      liveSearch.displayResults(dummyResponse, $.param(liveSearch.state));
       expect($results.find('h3').text()).toBe('Test report');
       expect($count.find('.result-count').text()).toMatch(/^\s*1\s*/);
     });

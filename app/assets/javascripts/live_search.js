@@ -79,21 +79,23 @@
   };
 
   LiveSearch.prototype.updateResults = function updateResults(){
-    var cachedResultData = this.cache($.param(this.state));
+    var searchState = $.param(this.state);
+    var cachedResultData = this.cache(searchState);
     var liveSearch = this;
     if(typeof cachedResultData === 'undefined'){
       this.showLoadingIndicator();
       return $.ajax({
         url: this.action,
-        data: this.state
+        data: this.state,
+        searchState: searchState
       }).done(function(response){
         liveSearch.cache($.param(liveSearch.state), response);
-        liveSearch.displayResults(response);
+        liveSearch.displayResults(response, this.searchState);
       }).error(function(){
         liveSearch.showErrorIndicator();
       });
     } else {
-      this.displayResults(cachedResultData);
+      this.displayResults(cachedResultData, searchState);
       var out = new $.Deferred()
       return out.resolve();
     }
@@ -107,10 +109,16 @@
     this.$countBlock.text('Error. Please try modifying your search and trying again.');
   };
 
-  LiveSearch.prototype.displayResults = function displayResults(results){
-    this.$resultsBlock.mustache('finders/_results', results);
-    this.$countBlock.mustache('finders/_result_count', results);
+  LiveSearch.prototype.displayResults = function displayResults(results, action){
+    // As search is asynchronous, check that the action associated with these results is
+    // still the latest to stop results being overwritten by stale data
+    if(action == $.param(this.state)) {
+      this.$resultsBlock.mustache('finders/_results', results);
+      this.$countBlock.mustache('finders/_result_count', results);
+    }
   };
+
+
 
   LiveSearch.prototype.restoreBooleans = function restoreBooleans(){
     var that = this;
