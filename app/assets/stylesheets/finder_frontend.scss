@@ -82,6 +82,12 @@
       font-weight: bold;
       margin: $gutter-half;
 
+      .aside {
+        @include heading-27;
+        display: block;
+        color: $grey-1;
+      }
+
       @include media(tablet) {
         margin: $gutter;
         width: $two-thirds;
@@ -289,6 +295,10 @@
 
     input.button[type=submit] {
       margin-top: $gutter-one-third;
+    }
+
+    p {
+      max-width: $full-width;
     }
 
     .block-label {
