@@ -12,7 +12,7 @@
     <%= form_tag email_alert_subscriptions_path, class: 'signup-choices form' do %>
       <% if @signup.choices? %>
         <fieldset>
-          <legend class="form-label-bold">
+          <legend>
             Select the email alerts you need
           </legend>
           <% @signup.choices.each do |choice| %>
