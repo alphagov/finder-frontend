@@ -10,16 +10,19 @@
 
     <p><%= @signup.body %></p>
 
-    <%= form_tag email_alert_subscriptions_path, class: 'signup-choices' do %>
+    <%= form_tag email_alert_subscriptions_path, class: 'signup-choices form' do %>
       <% if @signup.choices? %>
-        <% @signup.choices.each do |choice| %>
-          <p>
-            <%= check_box_tag "choices[#{@signup.choice_key}][#{choice.key}]" %>
-            <%= label_tag "choices[#{@signup.choice_key}][#{choice.key}]" do %>
+        <fieldset>
+          <legend class="form-label-bold">
+            Which types of <%= @signup.name.downcase %> do you want to sign up for?
+          </legend>
+          <% @signup.choices.each do |choice| %>
+            <%= label_tag "choices[#{@signup.choice_key}][#{choice.key}]", class: 'block-label' do %>
+              <%= check_box_tag "choices[#{@signup.choice_key}][#{choice.key}]" %>
               <strong><%= choice.name %></strong> - <%= choice.body %>
             <% end %>
-          </p>
-        <% end %>
+          <% end %>
+        </fieldset>
       <% end %>
       <%= submit_tag 'Create subscription', class: "button" %>
     <% end %>

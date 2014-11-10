@@ -283,9 +283,50 @@
     }
   }
 
-  .signup-choices input[type=checkbox] {
-    width: 12px;
-    margin: 3px $gutter-one-third 0 0;
+  .form {
+    @include core-19;
+    max-width: $two-thirds;
+
+    input.button[type=submit] {
+      margin-top: $gutter-one-third;
+    }
+
+    .block-label {
+      display: block;
+      float: left;
+      clear: left;
+      position: relative;
+      background: #dee0e2;
+      border: 1px solid #dee0e2;
+      padding: 18px 30px 15px 45px;
+      margin: 5px 0;
+      cursor: pointer;
+
+      input[type=checkbox] {
+        position: absolute;
+        top: 20px;
+        left: 15px;
+        cursor: pointer;
+        width: 14px;
+      }
+
+      &:hover {
+        border-color: #0b0c0c;
+      }
+
+      &.selected {
+        background: #fff;
+        border-color: #0b0c0c;
+      }
+
+      &.focused {
+        outline: 3px solid #ffbf47;
+
+        input[type=checkbox]:focus {
+          outline: none;
+        }
+      }
+    }
   }
 
   input.text {
