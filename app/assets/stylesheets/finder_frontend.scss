@@ -283,6 +283,11 @@
     }
   }
 
+  .signup-choices input[type=checkbox] {
+    width: 12px;
+    margin: 3px $gutter-one-third 0 0;
+  }
+
   input.text {
     @include core-16;
     background: $white;
@@ -293,6 +298,7 @@
     margin-bottom: $gutter-one-third;
     text-indent: 5px;
   }
+
 
   .button {
     @include button($button-colour);
