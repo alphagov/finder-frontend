@@ -13,7 +13,7 @@
       <% if @signup.choices? %>
         <fieldset>
           <legend class="form-label-bold">
-            Select the email alerts you need.
+            Select the email alerts you need
           </legend>
           <% @signup.choices.each do |choice| %>
             <%= label_tag "choices[#{@signup.choice_key}][#{choice.key}]", class: 'block-label' do %>
