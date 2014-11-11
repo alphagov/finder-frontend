@@ -309,8 +309,8 @@
       float: left;
       clear: left;
       position: relative;
-      background: #dee0e2;
-      border: 1px solid #dee0e2;
+      background: $panel-colour;
+      border: 1px solid $panel-colour;
       padding: 18px 30px 15px 45px;
       margin: 5px 0;
       cursor: pointer;
@@ -324,16 +324,16 @@
       }
 
       &:hover {
-        border-color: #0b0c0c;
+        border-color: $black;
       }
 
       &.selected {
-        background: #fff;
-        border-color: #0b0c0c;
+        background: $white;
+        border-color: $black;
       }
 
       &.focused {
-        outline: 3px solid #ffbf47;
+        outline: 3px solid $yellow;
 
         input[type=checkbox]:focus {
           outline: none;
