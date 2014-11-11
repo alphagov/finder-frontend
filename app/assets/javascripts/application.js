@@ -19,7 +19,6 @@
 //= require live_search
 //= require govuk_toolkit
 
-
 jQuery(function($) {
   var filters = $('.js-openable-filter').map(function(){
     return new GOVUK.CheckboxFilter({el:$(this)});

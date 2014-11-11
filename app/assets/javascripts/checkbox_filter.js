@@ -10,10 +10,10 @@
     this.$checkboxResetter = this.$filter.find('.clear-selected');
     this.$checkboxes = this.$filter.find("input[type='checkbox']");
 
-    this.$checkboxResetter.on('click', $.proxy(this.resetCheckboxes, this));
+    this.$checkboxResetter.on('click', this.resetCheckboxes.bind(this));
 
-    this.$checkboxes.on('click', $.proxy(this.updateCheckboxes, this));
-    this.$checkboxes.on('focus', $.proxy(this.ensureFinderIsOpen, this));
+    this.$checkboxes.on('click', this.updateCheckboxes.bind(this));
+    this.$checkboxes.on('focus', this.ensureFinderIsOpen.bind(this));
 
     // setupHeight is called on open, but filters containing checked checkboxes will already be open
     if (this.isOpen() || !allowCollapsible) {
@@ -22,9 +22,9 @@
 
     if(allowCollapsible){
       // set up open/close listeners
-      this.$filter.find('.head').on('click', $.proxy(this.toggleFinder, this));
-      this.$filter.on('focus', $.proxy(this.listenForKeys, this));
-      this.$filter.on('blur', $.proxy(this.stopListeningForKeys, this));
+      this.$filter.find('.head').on('click', this.toggleFinder.bind(this));
+      this.$filter.on('focus', this.listenForKeys.bind(this));
+      this.$filter.on('blur', this.stopListeningForKeys.bind(this));
     }
   }
 
@@ -58,7 +58,7 @@
   };
 
   CheckboxFilter.prototype.listenForKeys = function listenForKeys(){
-    this.$filter.keypress($.proxy(this.checkForSpecialKeys, this));
+    this.$filter.keypress(this.checkForSpecialKeys.bind(this));
   };
 
   CheckboxFilter.prototype.checkForSpecialKeys = function checkForSpecialKeys(e){
