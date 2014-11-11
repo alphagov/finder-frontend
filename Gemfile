@@ -16,7 +16,11 @@ gem 'pry'
 gem 'airbrake', '4.0.0'
 
 group :assets do
-  gem 'govuk_frontend_toolkit', '0.43.0'
+  if ENV['FRONTEND_TOOLKIT_DEV']
+    gem 'govuk_frontend_toolkit', path: '../govuk_frontend_toolkit_gem'
+  else
+    gem 'govuk_frontend_toolkit', '2.0.1'
+  end
   gem 'sass-rails', '~> 4.0.2'
   gem 'uglifier', '>= 1.3.0'
 end
