@@ -17,6 +17,7 @@
 //
 //= require checkbox_filter
 //= require live_search
+//= require govuk_toolkit
 
 
 jQuery(function($) {
@@ -34,4 +35,7 @@ jQuery(function($) {
   if($form.length && $results.length){
     new GOVUK.LiveSearch({$form:$form, $results:$results});
   }
+
+  var $buttons = $("label.block-label input[type='checkbox']");
+  new GOVUK.SelectionButtons($buttons);
 });
