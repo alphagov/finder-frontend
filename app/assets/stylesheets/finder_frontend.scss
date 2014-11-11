@@ -55,6 +55,7 @@
   }
 
   legend {
+    color:$text-colour;
     margin-bottom: $gutter-half;
     @include media(tablet) {
       margin-bottom: $gutter-two-thirds;
