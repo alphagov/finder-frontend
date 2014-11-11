@@ -295,7 +295,9 @@
 
   .form {
     @include core-19;
-    max-width: $two-thirds;
+    @include media(tablet) {
+      max-width: $two-thirds;
+    }
 
     input.button[type=submit] {
       margin-top: $gutter-one-third;
@@ -306,7 +308,7 @@
     }
 
     .block-label {
-      float: left;
+      display: block;
       clear: left;
       position: relative;
       background: $panel-colour;
@@ -314,6 +316,10 @@
       padding: 18px $gutter $gutter-half 45px;
       margin: 5px 0;
       cursor: pointer;
+
+      @include media(tablet) {
+        float: left;
+      }
 
       input.checkbox {
         position: absolute;
