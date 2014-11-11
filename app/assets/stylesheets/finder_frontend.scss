@@ -346,6 +346,10 @@
       h3 {
         @include bold-19;
         margin: 0;
+
+        a {
+          text-decoration:none;
+        }
       }
 
       dl {
