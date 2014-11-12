@@ -377,13 +377,6 @@
         @include bold-48;
         margin-right: $gutter-one-third;
       }
-      a {
-        color: $secondary-text-colour;
-        text-decoration: none;
-        font-weight: normal;
-        position: relative;
-        top: 1px;
-      }
     }
 
     ul {
