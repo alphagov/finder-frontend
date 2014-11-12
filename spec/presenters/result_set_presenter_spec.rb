@@ -197,26 +197,7 @@ RSpec.describe ResultSetPresenter do
       sentence = presenter.selected_filter_descriptions
       a_facet.sentence_fragment.values.each do | value |
         sentence.include?("<strong>#{value.label}").should == true
-        sentence.include?(presenter.link_params_without_facet_value.to_query).should == true
       end
-    end
-
-    it 'calls link_params_without_facet_value for each option in a facet' do
-      presenter.selected_filter_descriptions
-      a_facet.sentence_fragment.values.each do | value |
-        presenter.should have_received(:link_params_without_facet_value).with(value.parameter_key, value.other_params)
-      end
-    end
-  end
-
-  describe '#link_params_without_facet_value' do
-    let(:params){ { "first_key" => ["one", "two"], "second_key" => "three" } }
-    it "removes an empty parameter" do
-      presenter.link_params_without_facet_value("second_key", []).should == { "first_key" => ["one", "two"] }
-    end
-
-    it "removes a single value" do
-      presenter.link_params_without_facet_value('first_key', ["two"]).should == { "first_key" => ["two"], "second_key" => "three" }
     end
   end
 

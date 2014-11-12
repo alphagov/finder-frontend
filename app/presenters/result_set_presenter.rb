@@ -34,8 +34,7 @@ class ResultSetPresenter
 
   def keywords_description
     if finder.keywords.present?
-      href = link_without_facet_value("keywords", finder.keywords)
-      "containing <strong>#{html_escape(finder.keywords)}&nbsp;<a href='#{href}'>×</a></strong>"
+      "containing <strong>#{html_escape(finder.keywords)}</strong>"
     else
       ""
     end
@@ -56,23 +55,8 @@ class ResultSetPresenter
 
   def fragment_values_to_s(values)
     values.map { |value|
-      fragment_to_link(value)
+      "<strong>#{value.label}</strong>"
     }.to_sentence(last_word_connector: ' or ')
-  end
-
-  def fragment_to_link(value)
-    "<strong>#{value.label}&nbsp;<a href='#{link_without_facet_value(value.parameter_key, value.other_params)}'>×</a></strong>"
-  end
-
-  def link_without_facet_value(parameter_key, other_params)
-    query_string = link_params_without_facet_value(parameter_key, other_params).to_query
-    CGI.escapeHTML("?#{query_string}")
-  end
-
-  def link_params_without_facet_value(parameter_key, other_params)
-    params
-      .merge(parameter_key => other_params)
-      .reject { |_, v| v.blank? }
   end
 
   def documents
