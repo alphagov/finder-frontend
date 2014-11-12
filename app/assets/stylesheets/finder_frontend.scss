@@ -269,27 +269,22 @@
           padding-left: $gutter-two-thirds;
         }
       }
-      li {
-
-        label {
-          @include inline-block;
-          margin-left:20px;
-          width: 91%;
-        }
-        /* IE6 doesn't support psuedo selectors so scoping to checkbox-container instead of using a psuedo selector */
-        input {
-          width: 12px;
-          border:none;
-          margin: 3px $gutter-one-third 0 0;
-          vertical-align: top;
-          position:absolute;
-        }
+      label {
+        @include inline-block;
+        margin-left:20px;
+        width: 91%;
+      }
+      /* IE6 doesn't support psuedo selectors so scoping to checkbox-container instead of using a psuedo selector */
+      input {
+        margin: 3px $gutter-one-third 0 0;
+        vertical-align: top;
+        position:absolute;
       }
     }
   }
 
-  input {
-    @include core-14;
+  input.text {
+    @include core-16;
     background: $white;
     border: 1px solid $border-colour;
     width: $full-width;
@@ -297,10 +292,6 @@
     padding: 5px 0;
     margin-bottom: $gutter-one-third;
     text-indent: 5px;
-
-    @include media (desktop) {
-      @include core-16;
-    }
   }
 
   .button {
