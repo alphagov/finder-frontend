@@ -16,7 +16,7 @@ Faceted searching over documents.
 ##Dependencies
 * [alphagov/static](http://github.com/alphagov/static): provides static assets (JS/CSS) and provides the GOV.UK templates.
 * [alphagov/finder-api](http://github.com/alphagov/finder-api): provides the schema used to build the list of facets
-* [alphagov/govuk_content_api](http://github.com/alphagov/govuk_content_api): provides the artefact for the finder itself -- containing the finder title, tagged organisations and related links
+* [alphagov/content-store](http://github.com/alphagov/content-store): provides the content items for the finder itself -- containing the finder title, tagged organisations and related links
 * [alphagov/rummager](http://github.com/alphagov/rummager): provides search results
 
 ##Running the application
@@ -26,6 +26,12 @@ $ ./startup.sh
 ```
 
 If you are using the GDS development virtual machine then the application will be available on the host at [http://finder-frontend.dev.gov.uk/](http://finder-frontend.dev.gov.uk/)
+
+The first time you run the Application, you may get an error like `undefined method links for nil NilClass`. This is because you are missing the required entries in the ContentStore for each Finder. To fix this:
+
+1. Clone `[alphagov/content-store](http://github.com/alphagov/content-store)`, `[alphagov/router-api](https://github.com/alphagov/router-api)` and `[alphagov/url-arbiter](https://github.com/alphagov/url-arbiter)` and `bundle install` in each Repo.
+2. Start the `publishing-api` with bowl. This is a meta-application which will start the 3 Applications mentioned in step 1.
+3. In [alphagov/finder-api](http://github.com/alphagov/finder-api), run `bundle exec rake publishing_api:publish`
 
 ##Running the test suite
 
