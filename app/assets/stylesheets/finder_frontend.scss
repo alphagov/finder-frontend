@@ -52,9 +52,13 @@
       margin: $gutter 0;
       max-width: $two-thirds;
     }
+  }
 
-    &.quiet {
-      color: $grey-1;
+  legend {
+    color:$text-colour;
+    margin-bottom: $gutter-half;
+    @include media(tablet) {
+      margin-bottom: $gutter-two-thirds;
     }
   }
 
@@ -81,6 +85,12 @@
       @include heading-48;
       font-weight: bold;
       margin: $gutter-half;
+
+      .aside {
+        @include heading-27;
+        display: block;
+        color: $grey-1;
+      }
 
       @include media(tablet) {
         margin: $gutter;
@@ -283,6 +293,61 @@
     }
   }
 
+  .form {
+    @include core-19;
+    @include media(tablet) {
+      max-width: $two-thirds;
+    }
+
+    input.button[type=submit] {
+      margin-top: $gutter-one-third;
+    }
+
+    p {
+      max-width: $full-width;
+    }
+
+    .block-label {
+      display: block;
+      clear: left;
+      position: relative;
+      background: $panel-colour;
+      border: 1px solid $panel-colour;
+      padding: 18px $gutter $gutter-half 45px;
+      margin: 5px 0;
+      cursor: pointer;
+
+      @include media(tablet) {
+        float: left;
+      }
+
+      input.checkbox {
+        position: absolute;
+        top: $gutter-two-thirds;
+        left: $gutter-half;
+        cursor: pointer;
+        width: 14px;
+      }
+
+      &:hover {
+        border-color: $black;
+      }
+
+      &.selected {
+        background: $white;
+        border-color: $black;
+      }
+
+      &.focused {
+        outline: 3px solid $yellow;
+
+        input[type=checkbox]:focus {
+          outline: none;
+        }
+      }
+    }
+  }
+
   input.text {
     @include core-16;
     background: $white;
@@ -298,10 +363,6 @@
     @include button($button-colour);
     width: auto;
     @include bold-24;
-
-    .js-enabled & {
-      display:none;
-    }
   }
 
   .filtered-results {

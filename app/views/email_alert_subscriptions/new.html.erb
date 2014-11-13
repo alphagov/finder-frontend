@@ -1,22 +1,32 @@
 <% content_for :title, @signup.page_title %>
 
 <header class="signups">
-  <h1><%= @signup.title %></h1>
+  <h1>
+    <span class="aside">Email alert subscription</span>
+    <%= @signup.name %>
+  </h1>
 </header>
 
 <div class="outer-block">
   <div class="inner-block signup-content">
-    <p>You're signing up for e-mail alerts for <strong><%= @signup.name %></strong>.</p>
+    <%= form_tag email_alert_subscriptions_path, class: 'signup-choices form' do %>
+      <% if @signup.choices? %>
+        <fieldset>
+          <legend>
+            Select the email alerts you need
+          </legend>
+          <% @signup.choices.each do |choice| %>
+            <%= label_tag "choices[#{@signup.choice_key}][#{choice.key}]", class: 'block-label' do %>
+              <%= check_box_tag "choices[#{@signup.choice_key}][#{choice.key}]", 1, false, class: 'checkbox' %>
+              <%= choice.name %>
+            <% end %>
+          <% end %>
+        </fieldset>
+      <% end %>
 
-    <p><%= @signup.body %></p>
-
-    <%= form_tag email_alert_subscriptions_path do %>
+      <p><%= @signup.body %></p>
       <%= submit_tag 'Create subscription', class: "button" %>
     <% end %>
 
-    <p class="quiet">
-      You can enter your email address on the next page to complete
-      the subscription
-    </p>
   </div>
 </div>
