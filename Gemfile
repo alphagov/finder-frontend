@@ -11,8 +11,6 @@ gem 'logstasher', '0.4.8'
 
 gem 'shared_mustache', '0.1.3'
 
-gem 'pry'
-
 gem 'airbrake', '4.0.0'
 
 group :assets do
@@ -39,6 +37,7 @@ group :development, :test do
   gem 'awesome_print'
   gem 'byebug'
   gem 'jasmine-rails'
+  gem 'pry'
 end
 
 group :test do
