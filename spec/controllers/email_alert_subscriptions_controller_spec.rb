@@ -18,14 +18,9 @@ describe EmailAlertSubscriptionsController do
     }
 
     before do
-      allow(controller).to receive(:delivery_api).and_return(delivery_api)
-      allow(controller).to receive(:finder_url_for_alert_type).and_return(alert_identifier)
+      allow(controller).to receive(:email_alert_api).and_return(delivery_api)
       allow(Finder).to receive(:get).with('cma-cases').and_return(finder)
-      allow(EmailAlertSignupAPI).to receive(:new).with(
-        delivery_api: delivery_api,
-        alert_identifier: alert_identifier,
-        alert_name: alert_name
-      ).and_return(signup_api_wrapper)
+      allow(EmailAlertSignupAPI).to receive(:new).and_return(signup_api_wrapper)
     end
 
     it 'redirects to the correct email subscription url' do

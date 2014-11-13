@@ -3,38 +3,38 @@ require 'email_alert_signup_api'
 
 describe EmailAlertSignupAPI do
 
-  let(:delivery_api)      { double(:delivery_api) }
-  let(:alert_identifier)  { double(:alert_identifier) }
-  let(:alert_name)        { double(:alert_name) }
+  let(:email_alert_api)      { double(:email_alert_api) }
+  let(:attributes)  {
+    {
+      "format" => "test-reports",
+      "report_type" => ["first", "second"],
+    }
+  }
 
   subject(:signup_api_wrapper) {
     EmailAlertSignupAPI.new(
-      delivery_api: delivery_api,
-      alert_name: alert_name,
-      alert_identifier: alert_identifier
+      email_alert_api: email_alert_api,
+      attributes: attributes,
     )
   }
 
   describe '#signup_url' do
-    let(:mock_signup_url) { double(:mock_signup_url) }
+    let(:subscription_url) { "http://www.example.org/list-id/signup" }
+    let(:mock_subscriber_list) { double(:mock_subscriber_list, subscription_url: subscription_url) }
+    let(:mock_response) { double(:mock_response, subscriber_list: mock_subscriber_list)}
 
     before do
-      allow(delivery_api).to receive(:topic)
-      allow(delivery_api).to receive(:signup_url).and_return(mock_signup_url)
+      allow(email_alert_api).to receive(:find_or_create_subscriber_list).and_return(mock_response)
     end
 
-    it 'asks govuk_delivery to create a topic' do
+    it 'asks govuk_delivery to find or create the subscriber list' do
       signup_api_wrapper.signup_url
-      expect(delivery_api).to have_received(:topic).with(alert_identifier, alert_name)
-    end
 
-    it 'asks govuk_delivery to fetch the subscription url for a topic' do
-      signup_api_wrapper.signup_url
-      expect(delivery_api).to have_received(:signup_url).with(alert_identifier)
+      expect(email_alert_api).to have_received(:find_or_create_subscriber_list).with("tags" => attributes)
     end
 
     it 'returns the url govuk_delivery gives back' do
-      expect(signup_api_wrapper.signup_url).to eql mock_signup_url
+      expect(signup_api_wrapper.signup_url).to eql subscription_url
     end
   end
 
