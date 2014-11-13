@@ -15,20 +15,19 @@
 
     if(GOVUK.support.history()){
       this.saveState();
-      this.$form.on('change', 'input[type=checkbox], input[type=text], input[type=radio]', $.proxy(this.formChange, this));
+      this.$form.on('change', 'input[type=checkbox], input[type=text], input[type=radio]', this.formChange.bind(this));
 
-      var liveSearch = this;
       this.$form.find('input[type=text]').keypress(
         function(e){
           if(e.keyCode == 13) {
             // 13 is the return key
-            liveSearch.formChange();
+            this.formChange();
             e.preventDefault();
           }
-        }
+        }.bind(this)
       );
 
-      $(window).on('popstate', $.proxy(this.popState, this));
+      $(window).on('popstate', this.popState.bind(this));
     } else {
       this.$form.find('.js-live-search-fallback').show();
     }
@@ -57,11 +56,9 @@
       this.saveState();
       pageUpdated = this.updateResults();
       pageUpdated.done(
-        $.proxy(
-          function(){
-            history.pushState(this.state, '', window.location.pathname + "?" + $.param(this.state));
-          },
-          this)
+        function(){
+          history.pushState(this.state, '', window.location.pathname + "?" + $.param(this.state));
+        }.bind(this)
       );
     }
   };
