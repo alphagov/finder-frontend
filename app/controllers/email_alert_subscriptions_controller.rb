@@ -27,6 +27,10 @@ private
     Finder.get(finder_slug)
   end
 
+  def finder_format
+    finder.document_type
+  end
+
   def email_alert_signup_api
     EmailAlertSignupAPI.new(
       email_alert_api: email_alert_api,
@@ -36,7 +40,7 @@ private
 
   def email_signup_attributes
     {
-      "format" => [finder_slug],
+      "format" => [finder_format],
     }.merge(choices)
   end
 
