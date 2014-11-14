@@ -2,101 +2,65 @@ require "spec_helper"
 
 describe DateParser do
 
-  context "8 digit date" do
-    let(:date_string) { "22/09/2014" }
+  # These dates have been chosen based on analytics from site search more info here: https://designpatterns.hackpad.com/Dates-vpx6XlVjIbE
+  dates = { # Zero padded, full year, various delimiters
+            "21/01/2002" => Date.new(2002,1,21),
+            "21.01.2002" => Date.new(2002,1,21),
+            "21-01-2002" => Date.new(2002,1,21),
+            "21 01 2002" => Date.new(2002,1,21),
+            "21012002" => Date.new(2002,1,21),
 
-    subject(:parsed_date) { DateParser.parse(date_string) }
-    specify {
-      parsed_date.year.should == 2014
-      parsed_date.month.should == 9
-      parsed_date.day.should == 22
-    }
+            # Zero padded, abbreviated year, various delimiters
+            "21/01/14" => Date.new(2014,1,21),
+            "21.01.14" => Date.new(2014,1,21),
+            "21-01-14" => Date.new(2014,1,21),
+
+            # Zero padded, abbreviated year, last century
+            "21/01/99" => Date.new(1999,1,21),
+            "21.01.99" => Date.new(1999,1,21),
+            "21-01-99" => Date.new(1999,1,21),
+            "21 01 99" => Date.new(1999,1,21),
+
+            # Unpadded dates, various delimiters
+            "21/1/2002" => Date.new(2002,1,21),
+            "21-1-2002" => Date.new(2002,1,21),
+            "21.1.2002" => Date.new(2002,1,21),
+            "21 1 2002" => Date.new(2002,1,21),
+
+            # Other dates that people have entered on site search
+            "21st january 2014" => Date.new(2014,1,21),
+            "21 January 2014" => Date.new(2014,1,21),
+            "september 2014" => Date.new(2014,9,1),
+            "2008" => Date.new(2008,1,1),
+            "2004/6/1" => Date.new(2004,6,1),
+            "09/2013" => Date.new(2013,9,1),
+            "22 Sept 2014" => Date.new(2014,9,22),
+
+            # Invalid date
+            "31/15/14" => nil,
+
+            # Future date
+            '22/09/25' => Date.new(2025,9,22),
+          }
+
+  dates.each_pair do | input, expected |
+    it "returns the correct date for #{input}" do
+      expect( DateParser.parse(input) ).to eq(expected)
+    end
   end
 
-  context "6 digit date" do
-    let(:date_string) { "22/09/14" }
+  it "handles dates without years correctly" do
+    date_to_parse = '26 november'
 
-    subject(:parsed_date) { DateParser.parse(date_string) }
-    specify {
-      parsed_date.year.should == 2014
-      parsed_date.month.should == 9
-      parsed_date.day.should == 22
-    }
+    year = 2001
+
+    # Expected date is the date we've given it with the year returned by stubbed time.now
+    expected_date = Date.new(year,11,26)
+
+    # Stub Time.now to a known date
+    pretend_today = Time.new(year,03,11)
+    Time.stub(:now) { pretend_today }
+
+    expect( DateParser.parse(date_to_parse) ).to eq(expected_date)
   end
-
-  context "5 digit date" do
-    let(:date_string) { "22/9/14" }
-
-    subject(:parsed_date) { DateParser.parse(date_string) }
-    specify {
-      parsed_date.year.should == 2014
-      parsed_date.month.should == 9
-      parsed_date.day.should == 22
-    }
-  end
-
-  context "non-numeric long date" do
-    let(:date_string) { "22nd September 2014" }
-
-    subject(:parsed_date) { DateParser.parse(date_string) }
-    specify {
-      parsed_date.year.should == 2014
-      parsed_date.month.should == 9
-      parsed_date.day.should == 22
-    }
-  end
-
-  context "non-numeric short date" do
-    let(:date_string) { "22 Sept 2014" }
-
-    subject(:parsed_date) { DateParser.parse(date_string) }
-    specify {
-      parsed_date.year.should == 2014
-      parsed_date.month.should == 9
-      parsed_date.day.should == 22
-    }
-  end
-
-  context "false date value" do
-    let(:date_string) { "31/15/14" }
-
-    subject(:parsed_date) { DateParser.parse(date_string) }
-    specify {
-      parsed_date.should == nil
-    }
-  end
-
-  context "reverse date" do
-    let(:date_string) { "2014/09/22" }
-
-    subject(:parsed_date) { DateParser.parse(date_string) }
-    specify {
-      parsed_date.year.should == 2014
-      parsed_date.month.should == 9
-      parsed_date.day.should == 22
-    }
-  end
-
-  context "date far in the past" do
-    let(:date_string) { "22/09/80" }
-
-    subject(:parsed_date) { DateParser.parse(date_string) }
-    specify {
-      parsed_date.year.should == 1980
-      parsed_date.month.should == 9
-      parsed_date.day.should == 22
-    }
-  end
-
-  context "date in the future" do
-    let(:date_string) { "22/09/25" }
-
-    subject(:parsed_date) { DateParser.parse(date_string) }
-    specify {
-      parsed_date.year.should == 2025
-      parsed_date.month.should == 9
-      parsed_date.day.should == 22
-    }
-  end
-
 end
