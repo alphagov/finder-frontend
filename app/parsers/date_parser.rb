@@ -1,13 +1,22 @@
 class DateParser
   def self.parse(date_string)
-    # Line below has been added to fix Ruby's parsing of 6 digits
-    # This will be break in the year 2100 
-    massaged_date = date_string.sub(/\A(\d{1,2})\/(\d{1,2})\/(\d{2})\z/, '\1/\2/20\3')
-    if date = Date.parse(massaged_date) rescue nil
-      if date.year > (DateTime.now + 50.years).year
-        date = date - 100.years
-      end
-      date
+    # Catches if user inputs just year which Chronic would parse as a time. e.g. "2008" as "8:08pm"
+    if date_string.match(/^\d{4}$/)
+      date_string = "01/01/#{date_string}"
+    end
+
+    # Catches fully padded dates without delimiters, eg 01012001
+    if date_string.match(/^\d{8}$/)
+      date_string = date_string.gsub(/(\d{2})(\d{2})(\d{4})/, '\1/\2/\3')
+    end
+
+    # Converts spaces or dots with slashes, eg 01.01.2001 to 01/01/2001
+    date_string = date_string.gsub(/(\d+)[. ](\d+)[. ]/, '\1/\2/')
+
+    if date = Chronic.parse(date_string, guess: :begin)
+      date.to_date
+    else
+      nil
     end
   end
 end
