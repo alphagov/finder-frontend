@@ -8,7 +8,8 @@ describe EmailAlertSubscriptionsController do
     let(:delivery_api) { double(:delivery_api) }
     let(:finder) {
       double(:finder,
-        name: alert_name
+        name: alert_name,
+        document_type: 'cma_case'
       )
     }
     let(:signup_api_wrapper) {

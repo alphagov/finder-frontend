@@ -58,9 +58,6 @@ class Finder
     facets.map { |facet| facet.sentence_fragment }.compact
   end
 
-private
-  attr_reader :organisations
-
   def document_type
     # TODO: get this from the content api respose
     {
@@ -73,6 +70,9 @@ private
       "raib-reports" => "raib_report",
     }.fetch(@slug)
   end
+
+private
+  attr_reader :organisations
 
   def search_params
     facet_search_params.merge(keyword_search_params)
