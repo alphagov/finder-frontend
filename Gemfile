@@ -13,6 +13,8 @@ gem 'shared_mustache', '0.1.3'
 
 gem 'airbrake', '4.0.0'
 
+gem 'chronic', '0.10.2'
+
 group :assets do
   if ENV['FRONTEND_TOOLKIT_DEV']
     gem 'govuk_frontend_toolkit', path: '../govuk_frontend_toolkit_gem'
