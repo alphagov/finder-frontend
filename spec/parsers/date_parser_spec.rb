@@ -49,6 +49,12 @@ describe DateParser do
     end
   end
 
+  dates.each_pair do | input, expected |
+    it "returns the correct date for #{input} with trailing whitespace" do
+      expect( DateParser.parse("#{input} ") ).to eq(expected)
+    end
+  end
+
   it "handles dates without years correctly" do
     date_to_parse = '26 november'
 
