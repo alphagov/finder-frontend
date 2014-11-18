@@ -9,7 +9,6 @@ describe FinderParser do
       "slug" => "finder-slug",
       "document_noun" => "case",
       "facets" => :facet_hashes,
-      "keyword_search_placeholder" => "eg Case name",
     } }
 
     let(:cma_cases_content_item) { {
@@ -42,6 +41,5 @@ describe FinderParser do
     specify { subject.slug.should == "finder-slug" }
     specify { subject.document_noun.should == "case" }
     specify { subject.facets.should == :a_facet_collection }
-    specify { subject.keyword_search_placeholder.should == "eg Case name"}
   end
 end

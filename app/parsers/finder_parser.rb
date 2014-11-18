@@ -9,10 +9,6 @@ module FinderParser
       organisations: finder_hash['organisations'],
       related: finder_hash['related'],
       email_alert_signup: finder_hash['email_alert_signup'],
-      keyword_search_placeholder: finder_hash.fetch(
-        'keyword_search_placeholder',
-        "eg #{finder_hash['document_noun']} title"
-      ),
     )
   end
 end
