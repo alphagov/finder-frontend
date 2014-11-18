@@ -1,4 +1,7 @@
 require 'spec_helper'
+require 'gds_api/test_helpers/content_store'
+include GdsApi::TestHelpers::ContentStore
+include FixturesHelper
 
 describe EmailAlertSubscriptionsController do
 
@@ -6,12 +9,7 @@ describe EmailAlertSubscriptionsController do
     let(:alert_name) { double(:alert_name) }
     let(:alert_identifier) { double(:alert_identifier) }
     let(:delivery_api) { double(:delivery_api) }
-    let(:finder) {
-      double(:finder,
-        name: alert_name,
-        document_type: 'cma_case'
-      )
-    }
+    let(:finder) { cma_cases_content_item.merge({title: alert_name}) }
     let(:signup_api_wrapper) {
       double(:signup_api_wrapper,
         signup_url: 'http://www.example.com'
@@ -19,8 +17,8 @@ describe EmailAlertSubscriptionsController do
     }
 
     before do
+      content_store_has_item('/cma-cases', finder)
       allow(controller).to receive(:email_alert_api).and_return(delivery_api)
-      allow(Finder).to receive(:get).with('cma-cases').and_return(finder)
       allow(EmailAlertSignupAPI).to receive(:new).and_return(signup_api_wrapper)
     end
 
