@@ -1,7 +1,7 @@
 <% content_for :title, raw(finder.name) %>
 
 <header>
-  <% if finder.beta %>
+  <% if finder.beta? %>
     <%= render partial: 'govuk_component/beta_label' %>
   <% end %>
   <h1><%= raw(finder.name) %></h1>

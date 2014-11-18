@@ -1,0 +1,78 @@
+class FinderPresenter
+
+  attr_reader :name, :slug, :document_noun, :document_type, :organisations, :keywords
+
+  def initialize(content_item, values = {}, keywords = nil)
+    @content_item = content_item
+    @name = content_item.title
+    @slug = content_item.base_path.gsub('/','')
+    @document_noun = content_item.details.document_noun
+    @document_type = content_item.details.document_type
+    @organisations = content_item.links.organisations
+    facets.values = values
+    @keywords = keywords
+  end
+
+  def beta?
+    content_item.details.beta
+  end
+
+  def email_alert_signup
+    if content_item.links.email_alert_signup
+      content_item.links.email_alert_signup.first
+    else
+      nil
+    end
+  end
+
+  def facets
+    @facets ||= FacetCollection.new(
+      content_item.details.facets.map { |facet|
+        FacetParser.parse(facet)
+      }
+    )
+  end
+
+  def facet_sentence_fragments
+    facets.to_a.map(&:sentence_fragment).compact
+  end
+
+  def organisations
+    content_item.links.organisations
+  end
+
+  def primary_organisation
+    organisations.first
+  end
+
+  def related
+    content_item.links.related
+  end
+
+  def results
+    @results ||= ResultSet.get(
+      slug,
+      document_type,
+      search_params,
+    )
+  end
+
+private
+  attr_reader :content_item, :values
+
+  def facet_search_params
+    facets.values
+  end
+
+  def keyword_search_params
+    if keywords
+      { "keywords" => keywords }
+    else
+      {}
+    end
+  end
+
+  def search_params
+    facet_search_params.merge(keyword_search_params)
+  end
+end

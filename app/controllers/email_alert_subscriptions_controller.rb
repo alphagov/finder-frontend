@@ -24,7 +24,7 @@ private
   end
 
   def finder
-    Finder.get(finder_slug)
+    Finder.new(content_store.content_item("/#{finder_slug}"))
   end
 
   def finder_format
