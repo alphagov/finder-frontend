@@ -11,10 +11,6 @@ module CaseHelper
     stub_request(:get, rummager_merger_inquiry_cases_url).to_return(
       body: merger_inquiry_cases_json,
     )
-
-    stub_request(:get, schema_url).to_return(
-      body: schema_json,
-    )
   end
 
   def stub_keyword_search_api_request
@@ -70,10 +66,6 @@ module CaseHelper
     }
 
     "#{Plek.current.find('search')}/unified_search.json?#{search_params(params)}"
-  end
-
-  def schema_url
-    "#{Plek.current.find('finder-api')}/finders/cma-cases/schema.json"
   end
 
   def rummager_keyword_search_url
@@ -225,93 +217,12 @@ module CaseHelper
     }|
   end
 
-  def schema_json
-    %|{
-        "slug": "cma-cases",
-        "name": "Competition and Markets Authority cases",
-        "document_noun": "case",
-        "facets": [
-          {
-              "key": "case_type",
-              "name": "Case type",
-              "type": "multi-select",
-              "include_blank": "All case types",
-              "preposition": "of type",
-              "allowed_values": [
-                {"label": "CA98 and civil cartels", "value": "ca98-and-civil-cartels"},
-                {"label": "Criminal cartels", "value": "criminal-cartels"},
-                {"label": "Markets", "value": "markets"},
-                {"label": "Mergers", "value": "mergers"}
-              ]
-          },
-
-          {
-            "key": "case_state",
-            "name": "Case state",
-            "type": "single-select",
-            "include_blank": false,
-            "preposition": "which are",
-            "allowed_values": [
-              {"label": "Open", "value": "open"},
-              {"label": "Closed", "value": "closed"},
-              {"label": "All", "value": "", "non_described": true }
-            ]
-          },
-
-          {
-            "key": "market_sector",
-            "name": "Market sector",
-            "type": "multi-select",
-            "include_blank": false,
-            "preposition": "about",
-            "allowed_values": [
-              {"label": "Agriculture, environment and natural resources", "value": "agriculture-environment-and-natural-resources"},
-              {"label": "Aerospace", "value": "aerospace"},
-              {"label": "Building and construction", "value": "building-and-construction"},
-              {"label": "Chemicals", "value": "chemicals"},
-              {"label": "Clothing, footwear and fashion", "value": "clothing-footwear-and-fashion"},
-              {"label": "Communications", "value": "communications"},
-              {"label": "Defence", "value": "defence"}
-            ]
-          },
-
-          {
-            "key": "outcome_type",
-            "name": "Outcome",
-            "type": "multi-select",
-            "include_blank": false,
-            "preposition": "with outcome",
-            "allowed_values": [
-              {"label": "CA98 - no grounds for action/non-infringement", "value": "ca98-no-grounds-for-action-non-infringement"},
-              {"label": "CA98 - infringement Chapter I", "value": "ca98-infringement-chapter-i"},
-              {"label": "CA98 - infringement Chapter II", "value": "ca98-infringement-chapter-ii"},
-              {"label": "CA98 - administrative priorities", "value": "ca98-administrative-priorities"}
-            ]
-          }
-        ]
-      }
-    |
+  def fixtures_path
+    File.expand_path(File.dirname(__FILE__)) + "/../fixtures"
   end
 
   def cma_cases_content_item
-    {
-      base_path: "/cma-cases",
-      title: "CMA Cases",
-      description: "",
-      format: "finder",
-      need_ids: [],
-      details: {},
-      links: {
-        organisations: [
-          {
-            title: "Competition And Markets Authority",
-            base_path: "/government/organisations/competition-and-markets-authority",
-          }
-        ],
-        topics: [],
-        related: [],
-      }
-    }
+    JSON.parse(File.read(fixtures_path + "/cma_cases_content_item.json"))
   end
 
   def select_filters(facets = {})
