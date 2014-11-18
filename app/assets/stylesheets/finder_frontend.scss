@@ -159,6 +159,15 @@
     }
   }
 
+  .help-text {
+    @include core-14;
+    display:block;
+    padding: $gutter-one-third/2 0;
+    @include media(tablet) {
+      padding: $gutter-one-third 0;
+    }
+  }
+
   .filter {
     margin-bottom: $gutter;
     background-color:$grey-3;
