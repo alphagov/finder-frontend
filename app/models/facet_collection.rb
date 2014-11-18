@@ -3,10 +3,8 @@ class FacetCollection
 
   attr_reader :facets
 
-  delegate :each, to: :facets
-
-  def initialize(attrs = {})
-    @facets = attrs[:facets]
+  def initialize(facets)
+    @facets = facets
   end
 
   def values
@@ -17,7 +15,7 @@ class FacetCollection
 
   def values=(value_hash)
     value_hash = value_hash.stringify_keys
-    each do |facet|
+    facets.each do |facet|
       facet.value = value_hash[facet.key]
     end
   end
@@ -28,5 +26,9 @@ class FacetCollection
 
   def to_partial_path
     'facet_collection'
+  end
+
+  def to_a
+    facets
   end
 end

@@ -1,14 +1,13 @@
 class SelectFacet < Facet
-  attr_reader :allowed_values, :include_blank
+  attr_reader :allowed_values
 
-  def initialize(params = {})
+  def initialize(facet)
     super
-    @include_blank = params[:include_blank]
-    @allowed_values = params[:allowed_values]
+    @allowed_values = facet.allowed_values
   end
 
   def value
-    return nil if @value.blank?
+    return [] if @value.blank?
 
     permitted_values = allowed_values.map(&:value)
     @value.select {|v| permitted_values.include?(v) }
@@ -18,13 +17,11 @@ class SelectFacet < Facet
     @value = Array(new_value)
   end
 
-  def values_for_select
-    ([blank_value_for_select] + allowed_values_for_select).compact
-  end
-
   def selected_values
     return [] if @value.nil?
-    allowed_values.select { |option| @value.include?(option.value) && option.described }
+    allowed_values.select { |option|
+      @value.include?(option.value)
+    }
   end
 
   def sentence_fragment
@@ -51,16 +48,5 @@ private
     selected_values
       .map(&:value)
       .reject { |selected_value|  selected_value == v.value }
-  end
-
-  def allowed_values_for_select
-    allowed_values.map(&:to_option_for_select)
-    allowed_values.map do |option|
-      [option.label, option.value]
-    end
-  end
-
-  def blank_value_for_select
-    [@include_blank, nil] if @include_blank.present?
   end
 end

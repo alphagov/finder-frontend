@@ -1,13 +1,22 @@
 require "spec_helper"
 
 describe DateFacet do
-  subject { DateFacet.new }
+  let(:facet_struct) {
+    OpenStruct.new(
+      type: "date",
+      name: "Occurred",
+      key: "date_of_occurrence",
+      preposition: "occurred",
+    )
+  }
+
+  subject { DateFacet.new(facet_struct) }
+
+  before do
+    subject.value = value
+  end
 
   describe "#value" do
-
-    let(:value) { nil }
-    subject { DateFacet.new(value: value) }
-
     context "single date value" do
       let(:value) { { from: "22/09/1988" } }
       specify { subject.value.should == "from:1988-09-22" }
@@ -47,13 +56,6 @@ describe DateFacet do
   describe "#sentence_fragment" do
 
     let(:value) { nil }
-    subject { 
-      DateFacet.new(
-        value: value,
-        preposition: "occurred",
-        key: "date_of_occurrence"
-      )
-    }
 
     context "single date value" do
       let(:value) { { from: "22/09/1988" } }

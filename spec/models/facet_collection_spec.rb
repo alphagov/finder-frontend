@@ -3,14 +3,14 @@ require 'ostruct'
 
 describe FacetCollection do
   let(:facets) {[]}
-  subject { FacetCollection.new(facets: facets) }
+  subject { FacetCollection.new(facets) }
 
   describe "enumerability" do
     context "with 3 facets" do
       let(:facets) { [:a_facet, :another_facet, :and_another_facet] }
 
-      specify { subject.should respond_to(:each) }
-      specify { subject.count.should == 3 }
+      specify { subject.to_a.should respond_to(:each) }
+      specify { subject.to_a.count.should == 3 }
     end
   end
 
@@ -18,7 +18,6 @@ describe FacetCollection do
     context "with facets with values" do
       let(:facets) { [
           OpenStruct.new(key: "case_type", value: "merger-investigations"),
-          OpenStruct.new(key: "decision_type", value: nil)
       ] }
 
       it "should return a hash with the keys/values of facets with a non-blank value" do

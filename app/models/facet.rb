@@ -2,11 +2,11 @@ class Facet
   attr_reader :name, :key, :preposition
   attr_accessor :value
 
-  def initialize(attrs = {})
-    @key = attrs[:key]
-    @name = attrs[:name]
-    self.value = attrs[:value].presence
-    @preposition = attrs[:preposition]
+  def initialize(facet)
+    @key = facet.key
+    @name = facet.name
+    self.value = facet.value.presence
+    @preposition = facet.preposition
   end
 
   def to_partial_path
