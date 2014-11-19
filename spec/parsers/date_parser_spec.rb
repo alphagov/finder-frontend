@@ -39,6 +39,9 @@ describe DateParser do
             # Invalid date
             "31/15/14" => nil,
 
+            # Dates should be interpretted as UK not US
+            "01/11/2014" => Date.new(2014,11,01),
+
             # Future date
             '22/09/25' => Date.new(2025,9,22),
           }
