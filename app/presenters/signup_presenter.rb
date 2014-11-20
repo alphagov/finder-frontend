@@ -11,6 +11,10 @@ class SignupPresenter < Struct.new(:content_item)
     content_item.description
   end
 
+  def beta?
+    content_item.details.beta
+  end
+
   def choices?
     choice_data.present?
   end

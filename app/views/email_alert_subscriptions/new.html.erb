@@ -1,6 +1,9 @@
 <% content_for :title, @signup.page_title %>
 
 <header class="signups">
+  <% if @signup.beta? %>
+    <%= render partial: 'govuk_component/beta_label' %>
+  <% end %>
   <h1>
     <span class="aside">Email alert subscription</span>
     <%= @signup.name %>
