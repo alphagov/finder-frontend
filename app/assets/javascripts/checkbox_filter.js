@@ -30,7 +30,7 @@
 
   CheckboxFilter.prototype.setupHeight = function setupHeight(){
     var checkboxContainer = this.$filter.find('.checkbox-container');
-    var checkboxList = checkboxContainer.children('.js-inner');
+    var checkboxList = checkboxContainer.children('.js-auto-height-inner');
     var initCheckboxContainerHeight = checkboxContainer.height();
     var height = checkboxList.height();
 

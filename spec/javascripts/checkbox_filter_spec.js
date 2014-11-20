@@ -8,7 +8,7 @@ describe('CheckboxFilter', function(){
         "<div class='controls'><a class='clear-selected js-hidden'>clear</a><div class='toggle'></div></div>" +
       "</div>" +
       "<div class='checkbox-container'>"+
-        "<div class='js-inner'>"+
+        "<div class='js-auto-height-inner'>"+
           "<input type='checkbox' name='ca98'id='ca89'><label for='ca89'>CA89</label></li>" +
           "<input type='checkbox' name='cartels' id='cartels'><label for='cartels'>Cartels</label></li>" +
           "<input type='checkbox' name='criminal_cartels' id='criminal_cartels'><label for='criminal_cartels'>Criminal cartels</label>" +
@@ -76,7 +76,7 @@ describe('CheckboxFilter', function(){
     });
 
     it('should shrink checkbox-container to fit the checkbox list if the list is smaller than the container', function(){
-      var listHeight = filterHTML.find('.checkbox-container > .js-inner').height();
+      var listHeight = filterHTML.find('.checkbox-container > .js-auto-height-inner').height();
 
       filter.setupHeight();
 
@@ -87,13 +87,13 @@ describe('CheckboxFilter', function(){
       // build a list that is just bigger than the parent height which will be 200px
       listItem = "<li><input type='checkbox' name='ca98'id='ca89'><label for='ca89'>CA89</label></li>";
 
-      while( filterHTML.find('.checkbox-container > .js-inner').height() < checkboxContainerHeight) {
-        filterHTML.find('.checkbox-container > .js-inner').append(listItem);
+      while( filterHTML.find('.checkbox-container > .js-auto-height-inner').height() < checkboxContainerHeight) {
+        filterHTML.find('.checkbox-container > .js-auto-height-inner').append(listItem);
       }
 
       filter.setupHeight();
 
-      var listHeight = filterHTML.find('.checkbox-container > .js-inner').height();
+      var listHeight = filterHTML.find('.checkbox-container > .js-auto-height-inner').height();
 
       expect(filterHTML.find('.checkbox-container').height()).toBe(listHeight);
     });
@@ -102,13 +102,13 @@ describe('CheckboxFilter', function(){
       // build a list whose height is bigger than the parent height + stretch margin
       listItem = "<input type='checkbox' name='ca98'id='ca89'><label for='ca89'>CA89</label>";
 
-      while( filterHTML.find('.checkbox-container > .js-inner').height() < stretchMargin + checkboxContainerHeight + 1) {
-        filterHTML.find('.checkbox-container > .js-inner').append(listItem);
+      while( filterHTML.find('.checkbox-container > .js-auto-height-inner').height() < stretchMargin + checkboxContainerHeight + 1) {
+        filterHTML.find('.checkbox-container > .js-auto-height-inner').append(listItem);
       }
 
       filter.setupHeight();
 
-      var listHeight = filterHTML.find('.checkbox-container > .js-inner').height();
+      var listHeight = filterHTML.find('.checkbox-container > .js-auto-height-inner').height();
 
       expect(filterHTML.find('.checkbox-container').height()).toBe(checkboxContainerHeight);
     });
@@ -217,7 +217,6 @@ describe('CheckboxFilter', function(){
 
       expect(filterHTML.find($('.clear-selected')).hasClass('js-hidden')).toBe(true);
       filter.updateCheckboxResetter();
-
       expect(filterHTML.find($('.clear-selected')).hasClass('js-hidden')).toBe(true);
 
       $('#ca89').prop("checked", true);
