@@ -17,6 +17,10 @@ class FinderPresenter
     content_item.details.beta
   end
 
+  def email_alert_signup_enabled?
+    content_item.details.email_signup_enabled
+  end
+
   def email_alert_signup
     if content_item.links.email_alert_signup
       content_item.links.email_alert_signup.first
