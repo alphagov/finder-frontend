@@ -1,6 +1,6 @@
 class FinderPresenter
 
-  attr_reader :name, :slug, :document_noun, :document_type, :organisations, :keywords
+  attr_reader :name, :slug, :document_noun, :document_type, :organisations, :keywords, :beta_message
 
   def initialize(content_item, values = {}, keywords = nil)
     @content_item = content_item
@@ -11,6 +11,7 @@ class FinderPresenter
     @organisations = content_item.links.organisations
     facets.values = values
     @keywords = keywords
+    @beta_message = content_item.details.beta_message
   end
 
   def beta?
