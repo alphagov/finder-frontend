@@ -273,7 +273,6 @@
     }
     .checkbox-container {
       position:relative;
-      padding: 5px;
       margin-top: 5px;
       background-color: $white;
       height:200px;
@@ -290,15 +289,21 @@
       }
       label {
         @include inline-block;
-        margin-left:20px;
-        width: 91%;
+        padding: 7px 0 7px 30px;
+        width: 90%;
+        border-bottom: 1px solid $border-colour;
+
+        &:hover {
+          background-color: $grey-4;
+        }
       }
       /* IE6 doesn't support psuedo selectors so scoping to checkbox-container instead of using a psuedo selector */
       input {
-        margin: 3px $gutter-one-third 0 0;
+        margin-left: -23px;
         vertical-align: top;
         position:absolute;
       }
+
     }
   }
 
