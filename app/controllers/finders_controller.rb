@@ -1,4 +1,8 @@
+require 'gds_api/helpers'
+
 class FindersController < ApplicationController
+  include GdsApi::Helpers
+
   def show
     @results = ResultSetPresenter.new(finder, facet_params)
 
@@ -12,10 +16,11 @@ class FindersController < ApplicationController
 
 private
   def finder
-    @finder ||= Finder.get(finder_slug).tap { |finder|
-      finder.facets.values = facet_params
-      finder.keywords = keywords unless keywords.blank?
-    }
+    @finder ||= FinderPresenter.new(
+      content_store.content_item("/#{finder_slug}"),
+      facet_params,
+      keywords,
+    )
   end
   helper_method :finder
 
@@ -34,6 +39,6 @@ private
   end
 
   def keywords
-    params[:keywords]
+    params[:keywords] unless params[:keywords].blank?
   end
 end

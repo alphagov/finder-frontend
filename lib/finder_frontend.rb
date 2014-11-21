@@ -1,23 +1,12 @@
-require 'gds_api/finder_api'
 require 'gds_api/rummager'
 
 module FinderFrontend
   def self.get_documents(slug, document_type, params)
-    FindDocuments.new(get_schema(slug), document_type, params).call
-  end
-
-  def self.get_schema(finder_slug)
-    @schemae ||= {}
-    @schemae[finder_slug] ||= finder_api.get_schema(finder_slug)
-  end
-
-  def self.finder_api
-    @finder_api ||= GdsApi::FinderApi.new(Plek.new.find('finder-api'))
+    FindDocuments.new(document_type, params).call
   end
 
   class FindDocuments
-    def initialize(schema, document_type, params)
-      @schema = schema
+    def initialize(document_type, params)
       # TODO Get `document_type` from `schema`
       @document_type = document_type
       @params = params
@@ -30,7 +19,7 @@ module FinderFrontend
 
   private
 
-    attr_reader :schema, :document_type, :params
+    attr_reader :document_type, :params
 
     def default_params
       {
