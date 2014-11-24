@@ -20,7 +20,7 @@
           </legend>
           <% @signup.choices.each do |choice| %>
             <%= label_tag "choices[#{@signup.choice_key}][#{choice.key}]", class: 'block-label' do %>
-              <%= check_box_tag "choices[#{@signup.choice_key}][#{choice.key}]", 1, true, class: 'checkbox' %>
+              <%= check_box_tag "choices[#{@signup.choice_key}][#{choice.key}]", 1, choice.prechecked, class: 'checkbox' %>
               <%= choice.name %>
             <% end %>
           <% end %>
