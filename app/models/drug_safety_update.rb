@@ -1,7 +1,7 @@
 class DrugSafetyUpdate < AbstractDocument
 
   def summary
-    attrs.fetch(:description, nil)
+    truncated_summary_or_nil
   end
 
   def self.tag_metadata_keys

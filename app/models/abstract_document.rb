@@ -98,4 +98,10 @@ private
   def metadata_label(key)
     self.class.metadata_name_mappings.fetch(key, key.humanize)
   end
+
+  def truncated_summary_or_nil
+    description = attrs.fetch(:description, nil)
+    description = description.truncate(60, separator: '.') if description.present?
+    description
+  end
 end
