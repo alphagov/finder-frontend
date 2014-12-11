@@ -101,7 +101,9 @@ private
 
   def truncated_summary_or_nil
     description = attrs.fetch(:description, nil)
-    description = description.truncate(60, separator: '.') if description.present?
+
+    # This truncates the description at the end of the first sentence
+    description = description.gsub(/\.\s[A-Z].*/, '.') if description.present?
     description
   end
 end
