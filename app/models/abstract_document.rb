@@ -98,4 +98,12 @@ private
   def metadata_label(key)
     self.class.metadata_name_mappings.fetch(key, key.humanize)
   end
+
+  def truncated_summary_or_nil
+    description = attrs.fetch(:description, nil)
+
+    # This truncates the description at the end of the first sentence
+    description = description.gsub(/\.\s[A-Z].*/, '.') if description.present?
+    description
+  end
 end
