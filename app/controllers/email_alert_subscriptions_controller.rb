@@ -41,14 +41,8 @@ private
   def email_signup_attributes
     {
       "format" => [finder_format],
-    }.merge(choices)
-  end
-
-  def choices
-    return {} unless params.has_key?(:choices)
-
-    tag_key = params[:choices].keys.first
-    {tag_key => params[:choices][tag_key].keys}
+      "filter" => params["filter"],
+    }
   end
 
   def error_not_found
