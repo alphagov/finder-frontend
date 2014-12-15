@@ -7,35 +7,92 @@ describe EmailAlertSignupAPI do
   let(:attributes)  {
     {
       "format" => "test-reports",
-      "report_type" => ["first", "second"],
+      "filter" => ["first", "second"],
     }
   }
-
+  let(:available_choices) {
+    [
+      OpenStruct.new({
+        "key" => "first",
+        "radio_button_name" => "First thing",
+        "topic_name" => "first thing",
+        "prechecked" => false,
+      }),
+      OpenStruct.new({
+        "key" => "second",
+        "radio_button_name" => "Second thing",
+        "topic_name" => "second thing",
+        "prechecked" => false,
+      }),
+    ]
+  }
+  let(:subscription_list_title_prefix) {
+    {
+      "singular" => "Format with report type: ",
+      "plural" => "Format with report types: ",
+    }
+  }
+  let(:subscription_url) { "http://www.example.org/list-id/signup" }
+  let(:mock_subscriber_list) { double(:mock_subscriber_list, subscription_url: subscription_url) }
+  let(:mock_response) { double(:mock_response, subscriber_list: mock_subscriber_list)}
   subject(:signup_api_wrapper) {
     EmailAlertSignupAPI.new(
       email_alert_api: email_alert_api,
       attributes: attributes,
+      available_choices: available_choices,
+      subscription_list_title_prefix: subscription_list_title_prefix,
     )
   }
 
+  before do
+    allow(email_alert_api).to receive(:find_or_create_subscriber_list).and_return(mock_response)
+  end
+
   describe '#signup_url' do
-    let(:subscription_url) { "http://www.example.org/list-id/signup" }
-    let(:mock_subscriber_list) { double(:mock_subscriber_list, subscription_url: subscription_url) }
-    let(:mock_response) { double(:mock_response, subscriber_list: mock_subscriber_list)}
-
-    before do
-      allow(email_alert_api).to receive(:find_or_create_subscriber_list).and_return(mock_response)
-    end
-
-    it 'asks govuk_delivery to find or create the subscriber list' do
-      signup_api_wrapper.signup_url
-
-      expect(email_alert_api).to have_received(:find_or_create_subscriber_list).with("tags" => attributes)
-    end
-
     it 'returns the url govuk_delivery gives back' do
       expect(signup_api_wrapper.signup_url).to eql subscription_url
     end
-  end
 
+    context 'with multiple choices selected and a title prefix' do
+      it 'asks govuk_delivery to find or create the subscriber list' do
+        signup_api_wrapper.signup_url
+
+        expect(email_alert_api).to have_received(:find_or_create_subscriber_list).with(
+          "tags" => attributes,
+          "title" => "Format with report types: first thing and second thing",
+        )
+      end
+    end
+
+    context 'with one choice selected and a title prefix' do
+      let(:attributes)  {
+        {
+          "format" => "test-reports",
+          "filter" => ["first"],
+        }
+      }
+      it 'asks govuk_delivery to find or create the subscriber list' do
+        signup_api_wrapper.signup_url
+
+        expect(email_alert_api).to have_received(:find_or_create_subscriber_list).with(
+          "tags" => attributes,
+          "title" => "Format with report type: first thing",
+        )
+      end
+    end
+
+    context 'without a title prefix' do
+      let(:subscription_list_title_prefix)  {
+        {}
+      }
+      it 'asks govuk_delivery to find or create the subscriber list' do
+        signup_api_wrapper.signup_url
+
+        expect(email_alert_api).to have_received(:find_or_create_subscriber_list).with(
+          "tags" => attributes,
+          "title" => "First thing and second thing",
+        )
+      end
+    end
+  end
 end

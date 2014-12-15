@@ -6,7 +6,6 @@ class EmailAlertSubscriptionsController < ApplicationController
   protect_from_forgery except: :create
 
   def new
-    content = content_store.content_item(request.path)
     if content
       @signup = SignupPresenter.new(content)
     else
@@ -19,6 +18,11 @@ class EmailAlertSubscriptionsController < ApplicationController
   end
 
 private
+
+  def content
+    @content ||= content_store.content_item(request.path)
+  end
+
   def finder_slug
     params[:slug]
   end
@@ -35,20 +39,16 @@ private
     EmailAlertSignupAPI.new(
       email_alert_api: email_alert_api,
       attributes: email_signup_attributes,
+      subscription_list_title_prefix: content.details.subscription_list_title_prefix,
+      available_choices: content.details.email_signup_choice,
     )
   end
 
   def email_signup_attributes
     {
       "format" => [finder_format],
-    }.merge(choices)
-  end
-
-  def choices
-    return {} unless params.has_key?(:choices)
-
-    tag_key = params[:choices].keys.first
-    {tag_key => params[:choices][tag_key].keys}
+      "filter" => params["filter"],
+    }
   end
 
   def error_not_found
@@ -56,3 +56,4 @@ private
   end
 
 end
+

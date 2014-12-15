@@ -19,9 +19,9 @@
             Select the email alerts you need
           </legend>
           <% @signup.choices.each do |choice| %>
-            <%= label_tag "choices[#{@signup.choice_key}][#{choice.key}]", class: 'block-label' do %>
-              <%= check_box_tag "choices[#{@signup.choice_key}][#{choice.key}]", 1, choice.prechecked, class: 'checkbox' %>
-              <%= choice.name %>
+            <%= label_tag "filter_#{choice.key}", class: 'block-label' do %>
+              <%= check_box_tag "filter[]", choice.key, choice.prechecked, class: 'checkbox', id: "filter_#{choice.key}" %>
+              <%= choice.radio_button_name %>
             <% end %>
           <% end %>
         </fieldset>

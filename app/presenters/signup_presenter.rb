@@ -19,16 +19,12 @@ class SignupPresenter < Struct.new(:content_item)
     choice_data.present?
   end
 
-  def choice_key
-    choice_data.key
-  end
-
   def choices
-    choice_data.choices
+    choice_data
   end
 
   def choice_name(choice)
-    choice_data.copy[choice]["name"]
+    choice_data.copy[choice]["radio_button_name"]
   end
 
   def choice_body(choice)
