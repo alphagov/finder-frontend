@@ -21,7 +21,7 @@ private
   attr_reader :email_alert_api, :attributes, :subscription_list_title_prefix, :available_choices, :filter_key
 
   def subscriber_list
-    response = email_alert_api.find_or_create_subscriber_list("tags" => attributes_with_renamed_key, "title" => title)
+    response = email_alert_api.find_or_create_subscriber_list("tags" => massaged_attributes, "title" => title)
     response.subscriber_list
   end
 
@@ -47,14 +47,14 @@ private
     available_choices.select {|x| x.key == key}[0]
   end
 
-  def attributes_with_renamed_key
+  def massaged_attributes
+    massaged_attributes = attributes.dup
     if available_choices.empty?
-      attributes
+      massaged_attributes.delete("filter")
     else
-      attributes_with_key = attributes.dup
-      attributes_with_key[@filter_key] = attributes_with_key.delete("filter")
-      attributes_with_key
+      massaged_attributes[@filter_key] = massaged_attributes.delete("filter")
     end
+    massaged_attributes
   end
 
   # Title string helpers
