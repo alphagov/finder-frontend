@@ -41,6 +41,7 @@ private
       attributes: email_signup_attributes,
       subscription_list_title_prefix: content.details.subscription_list_title_prefix,
       available_choices: content.details.email_signup_choice,
+      filter_key: content.details.email_filter_by,
     )
   end
 

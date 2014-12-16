@@ -32,6 +32,7 @@ describe EmailAlertSignupAPI do
       "plural" => "Format with report types: ",
     }
   }
+  let(:filter_key) { "alert_type" }
   let(:subscription_url) { "http://www.example.org/list-id/signup" }
   let(:mock_subscriber_list) { double(:mock_subscriber_list, subscription_url: subscription_url) }
   let(:mock_response) { double(:mock_response, subscriber_list: mock_subscriber_list)}
@@ -41,6 +42,7 @@ describe EmailAlertSignupAPI do
       attributes: attributes,
       available_choices: available_choices,
       subscription_list_title_prefix: subscription_list_title_prefix,
+      filter_key: filter_key
     )
   }
 
@@ -58,7 +60,10 @@ describe EmailAlertSignupAPI do
         signup_api_wrapper.signup_url
 
         expect(email_alert_api).to have_received(:find_or_create_subscriber_list).with(
-          "tags" => attributes,
+          "tags" => {
+            "format" => "test-reports",
+            "alert_type" => ["first", "second"],
+          },
           "title" => "Format with report types: first thing and second thing",
         )
       end
@@ -75,7 +80,10 @@ describe EmailAlertSignupAPI do
         signup_api_wrapper.signup_url
 
         expect(email_alert_api).to have_received(:find_or_create_subscriber_list).with(
-          "tags" => attributes,
+          "tags" => {
+            "format" => "test-reports",
+            "alert_type" => ["first"],
+          },
           "title" => "Format with report type: first thing",
         )
       end
@@ -89,7 +97,10 @@ describe EmailAlertSignupAPI do
         signup_api_wrapper.signup_url
 
         expect(email_alert_api).to have_received(:find_or_create_subscriber_list).with(
-          "tags" => attributes,
+          "tags" => {
+            "format" => "test-reports",
+            "alert_type" => ["first", "second"],
+          },
           "title" => "First thing and second thing",
         )
       end

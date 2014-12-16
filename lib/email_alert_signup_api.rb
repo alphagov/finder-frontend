@@ -7,6 +7,7 @@ class EmailAlertSignupAPI
     @attributes = dependencies.fetch(:attributes)
     @subscription_list_title_prefix = dependencies.fetch(:subscription_list_title_prefix)
     @available_choices = dependencies.fetch(:available_choices)
+    @filter_key = dependencies.fetch(:filter_key)
   end
 
   def signup_url
@@ -14,10 +15,10 @@ class EmailAlertSignupAPI
   end
 
 private
-  attr_reader :email_alert_api, :attributes, :subscription_list_title_prefix, :available_choices
+  attr_reader :email_alert_api, :attributes, :subscription_list_title_prefix, :available_choices, :filter_key
 
   def subscriber_list
-    response = email_alert_api.find_or_create_subscriber_list("tags" => attributes, "title" => title)
+    response = email_alert_api.find_or_create_subscriber_list("tags" => attributes_with_renamed_key, "title" => title)
     response.subscriber_list
   end
 
@@ -37,6 +38,12 @@ private
 
   def choice_hash_by_key(key)
     available_choices.select {|x| x.key == key}[0]
+  end
+
+  def attributes_with_renamed_key
+    attributes_with_key = attributes.dup
+    attributes_with_key[@filter_key] = attributes_with_key.delete("filter")
+    attributes_with_key
   end
 
   # Title string helpers
