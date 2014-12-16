@@ -7,6 +7,10 @@ class EmailAlertSignupAPI
     @attributes = dependencies.fetch(:attributes)
     @subscription_list_title_prefix = dependencies.fetch(:subscription_list_title_prefix)
     @available_choices = dependencies.fetch(:available_choices)
+    @filter_key = dependencies.fetch(:filter_key)
+    if attributes['filter'].blank? && !available_choices.blank?
+      raise ArgumentError, "User must choose at least one of the available options"
+    end
   end
 
   def signup_url
@@ -14,20 +18,24 @@ class EmailAlertSignupAPI
   end
 
 private
-  attr_reader :email_alert_api, :attributes, :subscription_list_title_prefix, :available_choices
+  attr_reader :email_alert_api, :attributes, :subscription_list_title_prefix, :available_choices, :filter_key
 
   def subscriber_list
-    response = email_alert_api.find_or_create_subscriber_list("tags" => attributes, "title" => title)
+    response = email_alert_api.find_or_create_subscriber_list("tags" => attributes_with_renamed_key, "title" => title)
     response.subscriber_list
   end
 
   def title
-    if attributes.fetch("filter").length == 1
-      plural_or_single = "singular"
+    if available_choices.empty?
+      title = subscription_list_title_prefix.to_s
     else
-      plural_or_single = "plural"
+      if attributes.fetch("filter").length == 1
+        plural_or_single = "singular"
+      else
+        plural_or_single = "plural"
+      end
+      title = subscription_list_title_prefix[plural_or_single].to_s + to_sentence(topic_names)
     end
-    title = subscription_list_title_prefix[plural_or_single].to_s + to_sentence(topic_names)
     force_capitalize(title)
   end
 
@@ -37,6 +45,16 @@ private
 
   def choice_hash_by_key(key)
     available_choices.select {|x| x.key == key}[0]
+  end
+
+  def attributes_with_renamed_key
+    if available_choices.empty?
+      attributes
+    else
+      attributes_with_key = attributes.dup
+      attributes_with_key[@filter_key] = attributes_with_key.delete("filter")
+      attributes_with_key
+    end
   end
 
   # Title string helpers
