@@ -8,6 +8,9 @@ class EmailAlertSignupAPI
     @subscription_list_title_prefix = dependencies.fetch(:subscription_list_title_prefix)
     @available_choices = dependencies.fetch(:available_choices)
     @filter_key = dependencies.fetch(:filter_key)
+    if attributes['filter'].blank? && !available_choices.blank?
+      raise ArgumentError, "User must choose at least one of the available options"
+    end
   end
 
   def signup_url

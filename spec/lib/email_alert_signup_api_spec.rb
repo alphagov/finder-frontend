@@ -89,6 +89,18 @@ describe EmailAlertSignupAPI do
       end
     end
 
+    context 'with no choice selected' do
+      let(:attributes)  {
+        {
+          "format" => "test-reports",
+          "filter" => [],
+        }
+      }
+      it 'raises an error' do
+        expect { signup_api_wrapper.signup_url }.to raise_error(ArgumentError)
+      end
+    end
+
     context 'without a title prefix' do
       let(:subscription_list_title_prefix)  {
         {}
