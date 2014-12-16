@@ -117,5 +117,26 @@ describe EmailAlertSignupAPI do
         )
       end
     end
+
+    context 'no options available' do
+      let(:available_choices) { [] }
+      let(:attributes)  {
+        {
+          "format" => "test-reports",
+        }
+      }
+      let(:filter_key) { nil }
+      let(:subscription_list_title_prefix) { "Format" }
+      it 'asks govuk_delivery to find or create the subscriber list' do
+        signup_api_wrapper.signup_url
+
+        expect(email_alert_api).to have_received(:find_or_create_subscriber_list).with(
+          "tags" => {
+            "format" => "test-reports",
+          },
+          "title" => "Format",
+        )
+      end
+    end
   end
 end

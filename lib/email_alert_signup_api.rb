@@ -26,12 +26,16 @@ private
   end
 
   def title
-    if attributes.fetch("filter").length == 1
-      plural_or_single = "singular"
+    if available_choices.empty?
+      title = subscription_list_title_prefix.to_s
     else
-      plural_or_single = "plural"
+      if attributes.fetch("filter").length == 1
+        plural_or_single = "singular"
+      else
+        plural_or_single = "plural"
+      end
+      title = subscription_list_title_prefix[plural_or_single].to_s + to_sentence(topic_names)
     end
-    title = subscription_list_title_prefix[plural_or_single].to_s + to_sentence(topic_names)
     force_capitalize(title)
   end
 
@@ -44,9 +48,13 @@ private
   end
 
   def attributes_with_renamed_key
-    attributes_with_key = attributes.dup
-    attributes_with_key[@filter_key] = attributes_with_key.delete("filter")
-    attributes_with_key
+    if available_choices.empty?
+      attributes
+    else
+      attributes_with_key = attributes.dup
+      attributes_with_key[@filter_key] = attributes_with_key.delete("filter")
+      attributes_with_key
+    end
   end
 
   # Title string helpers
