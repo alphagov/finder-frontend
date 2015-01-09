@@ -1,4 +1,4 @@
-<% content_for :title, raw(finder.name) %>
+<% content_for :title, finder.name %>
 
 <header>
   <% if finder.beta? %>
@@ -8,7 +8,7 @@
       <%= render partial: 'govuk_component/beta_label' %>
     <% end %>
   <% end %>
-  <h1><%= raw(finder.name) %></h1>
+  <h1><%= finder.name %></h1>
   <% if finder.related.any? %>
     <div class='related-links'>
       <ul>
