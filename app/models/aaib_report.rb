@@ -1,4 +1,9 @@
 class AaibReport < AbstractDocument
+
+  def summary
+    truncated_summary_or_nil
+  end
+
 private
   def self.date_metadata_keys
     %w(
