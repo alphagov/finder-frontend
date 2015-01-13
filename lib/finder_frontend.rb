@@ -44,6 +44,7 @@ module FinderFrontend
       {
         "aaib_report" => AaibReport,
         "cma_case" => CmaCase,
+        "contact" => Contact,
         "drug_safety_update" => DrugSafetyUpdate,
         "international_development_fund" => InternationalDevelopmentFund,
         "medical_safety_alert" => MedicalSafetyAlert,
