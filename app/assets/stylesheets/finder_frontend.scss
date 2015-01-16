@@ -320,6 +320,20 @@
       max-width: $full-width;
     }
 
+    fieldset.invalid {
+      border-left: solid 4px $error-colour;
+      padding-left: $gutter-half;
+      margin-left: -$gutter-half - 4;
+    }
+
+    .validation-message {
+      color: $error-colour;
+      font-weight: bold;
+      padding: $gutter-half;
+      margin-left: -$gutter-half - 4;
+      border-left: solid 4px $error-colour;
+    }
+
     .block-label {
       display: block;
       clear: left;

@@ -14,10 +14,10 @@
   <div class="inner-block signup-content">
     <%= form_tag email_alert_subscriptions_path, class: 'signup-choices form' do %>
       <% if @signup.choices? %>
-        <fieldset>
-          <legend>
+        <fieldset<%= ' class="invalid"'.html_safe if @error_message.present? %> aria-labelledby="fieldset-title">
+          <p id="fieldset-title">
             Select the email alerts you need
-          </legend>
+          </p>
           <% @signup.choices.each do |choice| %>
             <%= label_tag "filter_#{choice.key}", class: 'block-label' do %>
               <%= check_box_tag "filter[]", choice.key, choice.prechecked, class: 'checkbox', id: "filter_#{choice.key}" %>
@@ -25,6 +25,9 @@
             <% end %>
           <% end %>
         </fieldset>
+        <% if @error_message.present? %>
+          <p class="validation-message"><%= @error_message %></p>
+        <% end %>
       <% end %>
 
       <p><%= @signup.body %></p>
