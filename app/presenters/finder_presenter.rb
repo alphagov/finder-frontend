@@ -30,6 +30,14 @@ class FinderPresenter
     end
   end
 
+  def email_alert_signup_url
+    if content_item.details.signup_link.present?
+      content_item.details.signup_link
+    else
+      email_alert_signup.web_url
+    end
+  end
+
   def facets
     @facets ||= FacetCollection.new(
       content_item.details.facets.map { |facet|
