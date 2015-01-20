@@ -1,14 +1,15 @@
 require 'gds_api/rummager'
 
 module FinderFrontend
-  def self.get_documents(slug, document_type, params)
-    FindDocuments.new(document_type, params).call
+  def self.get_documents(finder, params)
+    FindDocuments.new(finder, params).call
   end
 
   class FindDocuments
-    def initialize(document_type, params)
+    def initialize(finder, params)
       # TODO Get `document_type` from `schema`
-      @document_type = document_type
+      @finder = finder
+      @document_type = finder.document_type
       @params = params
     end
 
@@ -19,7 +20,7 @@ module FinderFrontend
 
   private
 
-    attr_reader :document_type, :params
+    attr_reader :document_type, :params, :finder
 
     def default_params
       {
@@ -40,21 +41,8 @@ module FinderFrontend
       base_return_fields.concat(metadata_fields)
     end
 
-    def presenter_class
-      {
-        "aaib_report" => AaibReport,
-        "cma_case" => CmaCase,
-        "contact" => Contact,
-        "drug_safety_update" => DrugSafetyUpdate,
-        "international_development_fund" => InternationalDevelopmentFund,
-        "medical_safety_alert" => MedicalSafetyAlert,
-        "maib_report" => MaibReport,
-        "raib_report" => RaibReport,
-      }.fetch(document_type) { |type| raise "Unknown document type #{type}" }
-    end
-
     def metadata_fields
-      presenter_class.metadata_keys
+      finder.facets.to_a.map(&:key)
     end
 
     def massaged_params
