@@ -22,8 +22,6 @@ private
   def finders_excluded_from_robots
     [
       'aaib-reports',
-      'drug-safety-update',
-      'drug-device-alerts',
       'maib-reports',
       'raib-reports',
     ]
