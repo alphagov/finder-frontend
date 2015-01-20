@@ -50,6 +50,10 @@ class FinderPresenter
     facets.to_a.map(&:sentence_fragment).compact
   end
 
+  def facet_keys
+    facets.to_a.map(&:key)
+  end
+
   def organisations
     content_item.links.organisations
   end
@@ -64,7 +68,7 @@ class FinderPresenter
 
   def results
     @results ||= ResultSet.get(
-      document_type,
+      self,
       search_params,
     )
   end

@@ -1,8 +1,8 @@
 class ResultSet
   attr_reader :documents, :total
 
-  def self.get(document_type, params)
-    ResultSetParser.parse(FinderFrontend.get_documents(document_type, params))
+  def self.get(finder, params)
+    ResultSetParser.parse(FinderFrontend.get_documents(finder, params))
   end
 
   def initialize(documents, total)
