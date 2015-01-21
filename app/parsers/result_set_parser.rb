@@ -1,8 +1,8 @@
 module ResultSetParser
-  def self.parse(response)
+  def self.parse(response, finder)
 
     documents = response['results']
-      .map { |document_hash| DocumentParser.parse(document_hash) }
+      .map { |document| Document.new(document, finder) }
 
     ResultSet.new(
       documents,
