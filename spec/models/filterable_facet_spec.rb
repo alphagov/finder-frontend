@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Facet do
+describe FilterableFacet do
   let(:facet_struct) {
     OpenStruct.new(
       key: "test_facet",
@@ -9,16 +9,16 @@ describe Facet do
     )
   }
 
-  let(:facet_class) { Facet }
+  let(:facet_class) { FilterableFacet }
   subject { facet_class.new(facet_struct) }
 
   describe "#to_partial_path" do
     context "with a Facet" do
-      specify { subject.to_partial_path.should == "facet" }
+      specify { subject.to_partial_path.should == "filterable_facet" }
     end
 
     context "with another kind of facet" do
-      class ExampleFacet < Facet; end
+      class ExampleFacet < FilterableFacet; end
       let(:facet_class) { ExampleFacet }
       specify { subject.to_partial_path.should == "example_facet" }
     end
