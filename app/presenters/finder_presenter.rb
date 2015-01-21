@@ -62,6 +62,10 @@ class FinderPresenter
     facets.to_a.map(&:key)
   end
 
+  def show_summaries?
+    content_item.details.show_summaries
+  end
+
   def organisations
     content_item.links.organisations
   end
