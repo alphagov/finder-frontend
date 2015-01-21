@@ -58,6 +58,10 @@ class FinderPresenter
     filters.map(&:sentence_fragment).compact
   end
 
+  def show_summaries?
+    content_item.details.show_summaries
+  end
+
   def organisations
     content_item.links.organisations
   end
