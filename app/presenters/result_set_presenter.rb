@@ -22,7 +22,7 @@ class ResultSetPresenter
   end
 
   def any_filters_applied?
-    finder.facet_sentence_fragments.length > 0 || finder.keywords.present?
+    finder.filter_sentence_fragments.length > 0 || finder.keywords.present?
   end
 
   def describe_filters_in_sentence
@@ -41,7 +41,7 @@ class ResultSetPresenter
   end
 
   def selected_filter_descriptions
-    finder.facet_sentence_fragments.flat_map { |fragment|
+    finder.filter_sentence_fragments.flat_map { |fragment|
       fragment_description(fragment)
     }.join(' ')
   end

@@ -1,4 +1,4 @@
-class DateFacet < Facet
+class DateFacet < FilterableFacet
   def value
     serialized_values.join(",")
   end

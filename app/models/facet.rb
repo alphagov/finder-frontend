@@ -1,24 +1,26 @@
 class Facet
-  attr_reader :name, :key, :preposition
+  attr_reader :name, :key, :type
   attr_accessor :value
 
   def initialize(facet)
+    @facet = facet
     @key = facet.key
     @name = facet.name
     self.value = facet.value.presence
     @preposition = facet.preposition
     @filterable = facet.filterable.nil? ? true : facet.filterable
-  end
-
-  def to_partial_path
-    self.class.name.underscore
-  end
-
-  def selected_values
-    []
+    @type = facet.type
   end
 
   def filterable?
-    @filterable
+    false
   end
+
+  def metadata?
+    facet.metadata
+  end
+
+private
+  attr_reader :facet
+
 end

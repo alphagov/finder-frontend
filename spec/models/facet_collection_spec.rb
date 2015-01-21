@@ -5,6 +5,10 @@ describe FacetCollection do
   let(:facets) {[]}
   subject { FacetCollection.new(facets) }
 
+  before do
+    subject.stub(:filters) { facets }
+  end
+
   describe "enumerability" do
     context "with 3 facets" do
       let(:facets) { [:a_facet, :another_facet, :and_another_facet] }

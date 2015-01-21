@@ -42,12 +42,20 @@ class FinderPresenter
     @facets ||= FacetCollection.new(
       content_item.details.facets.map { |facet|
         FacetParser.parse(facet)
-      }.select(&:filterable?)
+      }
     )
   end
 
-  def facet_sentence_fragments
-    facets.to_a.map(&:sentence_fragment).compact
+  def filters
+    facets.filters
+  end
+
+  def metadata
+    facets.metadata
+  end
+
+  def filter_sentence_fragments
+    filters.map(&:sentence_fragment).compact
   end
 
   def organisations
