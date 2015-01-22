@@ -402,7 +402,7 @@
 
       .result-count {
         @include bold-48;
-        margin-right: $gutter-one-third;
+        margin-right: $gutter-one-third / 2;
       }
     }
 
