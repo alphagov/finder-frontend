@@ -56,7 +56,7 @@ class ResultSetPresenter
   def fragment_values_to_s(values)
     values.map { |value|
       "<strong>#{html_escape(value.label)}</strong>"
-    }.to_sentence(last_word_connector: ' or ')
+    }.to_sentence(two_words_connector: ' or ', last_word_connector: ' or ')
   end
 
   def documents
