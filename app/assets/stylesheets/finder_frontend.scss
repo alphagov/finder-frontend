@@ -397,12 +397,12 @@
       @include core-16;
       vertical-align: baseline;
       border-bottom: solid 1px $border-colour;
-      margin: $gutter-half 0;
+      margin: 0 0 $gutter-half 0;
       padding-bottom: $gutter-half;
 
       .result-count {
         @include bold-48;
-        margin-right: $gutter-one-third;
+        margin-right: $gutter-one-third / 2;
       }
     }
 
