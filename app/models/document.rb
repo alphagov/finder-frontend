@@ -25,18 +25,6 @@ class Document
     description = description.gsub(/\.\s[A-Z].*/, '.') if description.present? && finder.show_summaries?
   end
 
-  def date_metadata_keys
-    finder.metadata.select{ |f| f.type != "multi-select" }.map(&:key)
-  end
-
-  def tag_metadata_keys
-    finder.metadata.select{ |f| f.type == "multi-select" }.map(&:key)
-  end
-
-  def metadata_keys
-    tag_metadata_keys + date_metadata_keys
-  end
-
   def metadata_name_mappings
     finder.metadata.select{ |f| f.short_name != nil }
           .each_with_object({}) { |facet, hash| hash[facet.key] = facet.short_name }
@@ -44,6 +32,14 @@ class Document
 
 private
   attr_reader :link, :attrs, :finder
+
+  def date_metadata_keys
+    finder.date_metadata_keys
+  end
+
+  def tag_metadata_keys
+    finder.text_metadata_keys
+  end
 
   def raw_metadata
     tag_metadata + date_metadata
