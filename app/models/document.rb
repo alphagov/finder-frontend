@@ -26,11 +26,11 @@ class Document
   end
 
   def date_metadata_keys
-    finder.metadata.select{ |f| f.type != "multi-select" }.map(&:key)
+    finder.metadata.select{ |f| f.type == "date" }.map(&:key)
   end
 
   def tag_metadata_keys
-    finder.metadata.select{ |f| f.type == "multi-select" }.map(&:key)
+    finder.metadata.select{ |f| f.type == "text" }.map(&:key)
   end
 
   def metadata_keys
