@@ -4,7 +4,9 @@ describe FacetParser do
   context "with a select facet OpenStruct" do
     let(:facet) {
       OpenStruct.new(
-        type: "multi-select",
+        type: "text",
+        filterable: true,
+        display_as_result_metadata: true,
         name: "Case type",
         key: "case_type",
         value: ["market-investigations"],
