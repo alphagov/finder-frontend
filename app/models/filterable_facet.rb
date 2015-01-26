@@ -17,7 +17,4 @@ class FilterableFacet < Facet
     []
   end
 
-  def filterable?
-    true
-  end
 end
