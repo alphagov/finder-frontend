@@ -50,8 +50,7 @@ The application has jasmine tests, which can be accessed at `/specs` when the ap
 4. Map your new document type to this new subclass in:
    * `lib/finder_frontend.rb#presenter_class`
    * `app/parsers/document_parser.rb#parse`
-5. Map your finder slug to your document type in `app/models/finder.rb#document_type`
-6. Ensure your documents are indexed in [alphagov/rummager](http://github.com/alphagov/rummager).
+5. Ensure your documents are indexed in [alphagov/rummager](http://github.com/alphagov/rummager) with the correct document type.
 
 ##Application structure
 * No data store -- all data comes via the APIs mentioned above.
