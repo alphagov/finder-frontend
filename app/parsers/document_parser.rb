@@ -7,6 +7,8 @@ module DocumentParser
       AaibReport.new(document_hash)
     when "cma_case"
       CmaCase.new(document_hash)
+    when "contact"
+      Contact.new(document_hash)
     when "international_development_fund"
       InternationalDevelopmentFund.new(document_hash)
     when "drug_safety_update"
