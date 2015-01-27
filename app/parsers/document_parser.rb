@@ -17,6 +17,8 @@ module DocumentParser
       MedicalSafetyAlert.new(document_hash)
     when "raib_report"
       RaibReport.new(document_hash)
+    else
+      raise "Unexpected document type: #{document_hash.fetch(:document_type)}"
     end
   end
 end
