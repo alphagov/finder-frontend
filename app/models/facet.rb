@@ -7,6 +7,7 @@ class Facet
     @name = facet.name
     self.value = facet.value.presence
     @preposition = facet.preposition
+    @filterable = facet.filterable.nil? ? true : facet.filterable
   end
 
   def to_partial_path
@@ -15,5 +16,9 @@ class Facet
 
   def selected_values
     []
+  end
+
+  def filterable?
+    @filterable
   end
 end

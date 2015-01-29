@@ -42,7 +42,7 @@ class FinderPresenter
     @facets ||= FacetCollection.new(
       content_item.details.facets.map { |facet|
         FacetParser.parse(facet)
-      }
+      }.select(&:filterable?)
     )
   end
 
