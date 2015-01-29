@@ -17,7 +17,7 @@ class FindersController < ApplicationController
 private
   def finder
     @finder ||= FinderPresenter.new(
-      content_store.content_item("/#{finder_slug}"),
+      content_store.content_item!("/#{finder_slug}"),
       facet_params,
       keywords,
     )
