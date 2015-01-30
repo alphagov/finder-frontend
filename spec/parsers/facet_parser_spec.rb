@@ -2,13 +2,14 @@ require 'spec_helper'
 
 describe FacetParser do
   context "with a select facet OpenStruct" do
-    let(:facet) { 
+    let(:facet) {
       OpenStruct.new(
         type: "multi-select",
         name: "Case type",
         key: "case_type",
         value: ["market-investigations"],
         preposition: "of type",
+        filterable: true,
         allowed_values: [
            OpenStruct.new(
             label: "Airport price control reviews",
@@ -16,7 +17,7 @@ describe FacetParser do
           ),
            OpenStruct.new(
             label: "Market investigations",
-            value: "market-investigations" 
+            value: "market-investigations"
           ),
            OpenStruct.new(
             label: "Remittals",

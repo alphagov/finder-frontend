@@ -1,7 +1,7 @@
 module FacetParser
   def self.parse(facet)
     case facet.type
-    when 'multi-select'
+    when 'multi-select', 'text'
       SelectFacet.new(facet)
     when 'date'
       DateFacet.new(facet)

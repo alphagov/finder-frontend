@@ -14,6 +14,7 @@
           "type": "multi-select",
           "include_blank": "All case types",
           "preposition": "of type",
+          "filterable": true,
           "allowed_values": [
             {"label": "CA98 and civil cartels", "value": "ca98-and-civil-cartels"},
             {"label": "Criminal cartels", "value": "criminal-cartels"},
@@ -28,6 +29,7 @@
         "type": "multi-select",
         "include_blank": false,
         "preposition": "which are",
+        "filterable": true,
         "allowed_values": [
           {"label": "Open", "value": "open"},
           {"label": "Closed", "value": "closed"}
@@ -40,6 +42,7 @@
         "type": "multi-select",
         "include_blank": false,
         "preposition": "about",
+        "filterable": true,
         "allowed_values": [
           {"label": "Agriculture, environment and natural resources", "value": "agriculture-environment-and-natural-resources"},
           {"label": "Aerospace", "value": "aerospace"},
@@ -57,6 +60,7 @@
         "type": "multi-select",
         "include_blank": false,
         "preposition": "with outcome",
+        "filterable": true,
         "allowed_values": [
           {"label": "CA98 - no grounds for action/non-infringement", "value": "ca98-no-grounds-for-action-non-infringement"},
           {"label": "CA98 - infringement Chapter I", "value": "ca98-infringement-chapter-i"},
