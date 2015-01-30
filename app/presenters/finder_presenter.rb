@@ -64,7 +64,6 @@ class FinderPresenter
 
   def results
     @results ||= ResultSet.get(
-      slug,
       document_type,
       search_params,
     )
