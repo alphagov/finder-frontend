@@ -6,11 +6,7 @@ class EmailAlertSubscriptionsController < ApplicationController
   protect_from_forgery except: :create
 
   def new
-    if content
-      @signup = signup_presenter
-    else
-      error_not_found
-    end
+    @signup = signup_presenter
   end
 
   def create
@@ -34,7 +30,7 @@ private
   end
 
   def content
-    @content ||= content_store.content_item(request.path)
+    @content ||= content_store.content_item!(request.path)
   end
 
   def finder_slug
@@ -42,7 +38,7 @@ private
   end
 
   def finder
-    FinderPresenter.new(content_store.content_item("/#{finder_slug}"))
+    FinderPresenter.new(content_store.content_item!("/#{finder_slug}"))
   end
 
   def finder_format
@@ -73,10 +69,4 @@ private
       "filter" => chosen_options,
     }
   end
-
-  def error_not_found
-    render status: :not_found, text: "404 error not found"
-  end
-
 end
-
