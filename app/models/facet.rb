@@ -14,11 +14,11 @@ class Facet
   end
 
   def filterable?
-    false
+    facet.filterable
   end
 
   def metadata?
-    facet.metadata
+    facet.display_as_result_metadata
   end
 
 private
