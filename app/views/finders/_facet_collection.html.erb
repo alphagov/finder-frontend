@@ -2,8 +2,8 @@
   <div class="inner-block">
     <form method="get" action="<%=finder.slug%>" class="js-live-search-form">
       <div class="filter text-filter">
-        <label class="legend" for="search">Search</label>
-        <input value="<%= params[:keywords] %>" type="text" name="keywords" id="search" aria-controls="js-search-results-info" class='text'/>
+        <label class="legend" for="finder-keyword-search">Search</label>
+        <input value="<%= params[:keywords] %>" type="text" name="keywords" id="finder-keyword-search" aria-controls="js-search-results-info" class='text'/>
       </div>
       <%= render facet_collection.facets %>
       <input type="submit" value="Filter results" class="button js-live-search-fallback"/>
