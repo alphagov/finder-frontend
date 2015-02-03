@@ -5,6 +5,17 @@ include FixturesHelper
 
 describe EmailAlertSubscriptionsController do
 
+  describe 'GET #new' do
+    describe "finder email signup item doesn't exist" do
+      it 'returns a 404, rather than 5xx' do
+        content_store_does_not_have_item('/does-not-exist/email-signup')
+
+        get :new, slug: 'does-not-exist'
+        expect(response.status).to eq(404)
+      end
+    end
+  end
+
   describe 'POST "#create"' do
     let(:alert_name) { double(:alert_name) }
     let(:alert_identifier) { double(:alert_identifier) }
