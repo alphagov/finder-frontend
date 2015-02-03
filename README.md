@@ -29,7 +29,7 @@ If you are using the GDS development virtual machine then the application will b
 
 The first time you run the Application, you may get an error like `undefined method links for nil NilClass`. This is because you are missing the required entries in the ContentStore for each Finder. To fix this:
 
-1. Clone `[alphagov/content-store](http://github.com/alphagov/content-store)`, `[alphagov/router-api](https://github.com/alphagov/router-api)` and `[alphagov/url-arbiter](https://github.com/alphagov/url-arbiter)` and `bundle install` in each Repo.
+1. Clone [alphagov/content-store](http://github.com/alphagov/content-store), [alphagov/router-api](https://github.com/alphagov/router-api) and [alphagov/url-arbiter](https://github.com/alphagov/url-arbiter) and `bundle install` in each Repo.
 2. Start the `publishing-api` with bowl. This is a meta-application which will start the 3 Applications mentioned in step 1.
 3. In [alphagov/finder-api](http://github.com/alphagov/finder-api), run `bundle exec rake publishing_api:publish`
 
