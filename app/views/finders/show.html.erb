@@ -20,26 +20,22 @@
   <% end %>
   <% if finder.primary_organisation %>
     <div class="metadata">
-      <div class="inner-block">
-        <%= render partial: 'govuk_component/metadata', locals: {
-          from: link_to(finder.primary_organisation.title, finder.primary_organisation.web_url),
-        } %>
-      </div>
+      <%= render partial: 'govuk_component/metadata', locals: {
+        from: link_to(finder.primary_organisation.title, finder.primary_organisation.web_url),
+      } %>
     </div>
   <% end %>
 <% if finder.email_alert_signup_enabled? %>
-  <div class='inner-block'>
-    <p class='email-link'>
-      <%= link_to "Subscribe to email alerts", finder.email_alert_signup_url %>
-    </p>
-  </div>
+  <p class='email-link'>
+    <%= link_to "Subscribe to email alerts", finder.email_alert_signup_url %>
+  </p>
 <% end %>
 </header>
 
-<%= render finder.facets %>
-<div class='js-live-search-results-block'>
-  <div class="filtered-results">
-    <div class="inner-block">
+<div class="filtering">
+  <%= render finder.facets %>
+  <div class='js-live-search-results-block'>
+    <div class="filtered-results">
       <div aria-live='assertive' id='js-search-results-info'>
         <%= render_mustache('result_count', @results.to_hash)%>
       </div>

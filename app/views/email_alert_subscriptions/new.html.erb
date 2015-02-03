@@ -11,7 +11,7 @@
 </header>
 
 <div class="outer-block">
-  <div class="inner-block signup-content">
+  <div class="signup-content">
     <%= form_tag email_alert_subscriptions_path, class: 'signup-choices form' do %>
       <% if @signup.choices? %>
         <fieldset<%= ' class="invalid"'.html_safe if @error_message.present? %> aria-labelledby="fieldset-title">
