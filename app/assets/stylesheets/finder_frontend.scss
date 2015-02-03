@@ -57,26 +57,11 @@
   }
 
   header {
-    width: $full-width;
-    margin-bottom: $gutter;
-    clear: both;
+    margin: $gutter 0;
 
-    h1 {
-      @include heading-48;
-      font-weight: bold;
-      margin: $gutter-half 0;
-
-      .aside {
-        @include heading-27;
-        display: block;
-        color: $grey-1;
-      }
-
-      @include media(tablet) {
-        margin: $gutter 0;
-        width: $two-thirds;
-        float:left;
-      }
+    @include media(tablet) {
+      width: $two-thirds;
+      float: left;
     }
 
     .email-link {
@@ -115,6 +100,7 @@
   }
 
   .filtering {
+    clear: both; // Clear `header` float for max-width
     @extend %grid-row;
   }
 
