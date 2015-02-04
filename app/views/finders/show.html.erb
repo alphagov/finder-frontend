@@ -1,16 +1,32 @@
 <% content_for :title, finder.name %>
 
-<header>
-  <% if finder.beta? %>
-    <% if finder.beta_message %>
-      <%= render partial: 'govuk_component/beta_label', locals: { message: finder.beta_message } %>
-    <% else %>
-      <%= render partial: 'govuk_component/beta_label' %>
-    <% end %>
+<% if finder.beta? %>
+  <% if finder.beta_message %>
+    <%= render partial: 'govuk_component/beta_label', locals: { message: finder.beta_message } %>
+  <% else %>
+    <%= render partial: 'govuk_component/beta_label' %>
   <% end %>
-  <%= render partial: 'govuk_component/title', locals: {
-    title: finder.name
-  } %>
+<% end %>
+
+<header>
+  <div class="title-and-metadata">
+    <%= render partial: 'govuk_component/title', locals: {
+      title: finder.name
+    } %>
+    <% if finder.primary_organisation %>
+      <div class="metadata">
+        <%= render partial: 'govuk_component/metadata', locals: {
+          from: link_to(finder.primary_organisation.title, finder.primary_organisation.web_url),
+        } %>
+      </div>
+    <% end %>
+    <% if finder.email_alert_signup_enabled? %>
+      <p class='email-link'>
+        <%= link_to "Subscribe to email alerts", finder.email_alert_signup_url %>
+      </p>
+    <% end %>
+  </div>
+
   <% if finder.related.any? %>
     <div class='related-links'>
       <ul>
@@ -20,18 +36,6 @@
       </ul>
     </div>
   <% end %>
-  <% if finder.primary_organisation %>
-    <div class="metadata">
-      <%= render partial: 'govuk_component/metadata', locals: {
-        from: link_to(finder.primary_organisation.title, finder.primary_organisation.web_url),
-      } %>
-    </div>
-  <% end %>
-<% if finder.email_alert_signup_enabled? %>
-  <p class='email-link'>
-    <%= link_to "Subscribe to email alerts", finder.email_alert_signup_url %>
-  </p>
-<% end %>
 </header>
 
 <div class="filtering">
