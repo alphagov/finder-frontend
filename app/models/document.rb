@@ -5,8 +5,9 @@ class Document
     attrs = attrs.with_indifferent_access
     @title = attrs.fetch(:title)
     @link = attrs.fetch(:link)
+    @description = attrs.fetch(:description, nil)
 
-    @attrs = attrs.except(:title, :link)
+    @attrs = attrs.except(:title, :link, :description)
     @finder = finder
   end
 
@@ -19,10 +20,10 @@ class Document
   end
 
   def summary
-    description = attrs.fetch(:description, nil)
-
-    # This truncates the description at the end of the first sentence
-    description = description.gsub(/\.\s[A-Z].*/, '.') if description.present? && finder.show_summaries?
+    if finder.show_summaries? && description.present?
+      # This truncates the description at the end of the first sentence
+      description.gsub(/\.\s[A-Z].*/, '.')
+    end
   end
 
   def metadata_name_mappings
@@ -31,7 +32,7 @@ class Document
   end
 
 private
-  attr_reader :link, :attrs, :finder
+  attr_reader :link, :attrs, :finder, :description
 
   def date_metadata_keys
     finder.date_metadata_keys
