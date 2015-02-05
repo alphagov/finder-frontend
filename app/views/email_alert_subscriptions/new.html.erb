@@ -1,17 +1,19 @@
 <% content_for :title, @signup.page_title %>
 
-<header class="signups">
-  <% if @signup.beta? %>
-    <%= render partial: 'govuk_component/beta_label' %>
-  <% end %>
-  <h1>
-    <span class="aside">Email alert subscription</span>
-    <%= @signup.name %>
-  </h1>
+<% if @signup.beta? %>
+  <%= render partial: 'govuk_component/beta_label' %>
+<% end %>
+<header>
+ <div class="title-and-metadata">
+    <%= render partial: 'govuk_component/title', locals: {
+      title: @signup.name,
+      context: "Email alert subscription"
+    } %>
+  </div>
 </header>
 
 <div class="outer-block">
-  <div class="inner-block signup-content">
+  <div class="signup-content">
     <%= form_tag email_alert_subscriptions_path, class: 'signup-choices form' do %>
       <% if @signup.choices? %>
         <fieldset<%= ' class="invalid"'.html_safe if @error_message.present? %> aria-labelledby="fieldset-title">
