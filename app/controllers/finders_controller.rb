@@ -24,10 +24,6 @@ private
   end
   helper_method :finder
 
-  def finder_slug
-    params[:slug]
-  end
-
   def facet_params
     # TODO Use a whitelist based on the facets in the schema
     params.except(

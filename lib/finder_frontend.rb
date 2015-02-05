@@ -1,7 +1,7 @@
 require 'gds_api/rummager'
 
 module FinderFrontend
-  def self.get_documents(slug, document_type, params)
+  def self.get_documents(document_type, params)
     FindDocuments.new(document_type, params).call
   end
 

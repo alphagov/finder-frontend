@@ -33,10 +33,6 @@ private
     @content ||= content_store.content_item!(request.path)
   end
 
-  def finder_slug
-    params[:slug]
-  end
-
   def finder
     FinderPresenter.new(content_store.content_item!("/#{finder_slug}"))
   end

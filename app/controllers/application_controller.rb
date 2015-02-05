@@ -29,7 +29,7 @@ private
   end
 
   def finder_slug
-    raise NotImplementedError
+    params[:slug]
   end
 
   def error_not_found

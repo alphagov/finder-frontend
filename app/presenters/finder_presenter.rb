@@ -5,7 +5,7 @@ class FinderPresenter
   def initialize(content_item, values = {}, keywords = nil)
     @content_item = content_item
     @name = content_item.title
-    @slug = content_item.base_path.gsub('/','')
+    @slug = content_item.base_path
     @document_noun = content_item.details.document_noun
     @document_type = content_item.details.document_type
     @organisations = content_item.links.organisations
@@ -64,7 +64,6 @@ class FinderPresenter
 
   def results
     @results ||= ResultSet.get(
-      slug,
       document_type,
       search_params,
     )
