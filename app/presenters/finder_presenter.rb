@@ -93,6 +93,12 @@ class FinderPresenter
     )
   end
 
+  def label_for_metadata_key(key)
+    facet = metadata.find { |f| f.key == key }
+
+    facet.short_name || facet.key.humanize
+  end
+
 private
   attr_reader :content_item, :values
 

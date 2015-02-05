@@ -26,11 +26,6 @@ class Document
     end
   end
 
-  def metadata_name_mappings
-    finder.metadata.select{ |f| f.short_name != nil }
-          .each_with_object({}) { |facet, hash| hash[facet.key] = facet.short_name }
-  end
-
 private
   attr_reader :link, :attrs, :finder, :description
 
@@ -94,11 +89,7 @@ private
 
   def humanize_metadata_name(metadata_hash)
     metadata_hash.merge(
-      name: metadata_label(metadata_hash.fetch(:name))
+      name: finder.label_for_metadata_key(metadata_hash.fetch(:name))
     )
-  end
-
-  def metadata_label(key)
-    metadata_name_mappings.fetch(key, key.humanize)
   end
 end
