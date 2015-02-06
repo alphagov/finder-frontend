@@ -1,27 +1,14 @@
-class AbstractDocument
+class Document
   attr_reader :title
 
-  def self.date_metadata_keys
-    []
-  end
-
-  def self.tag_metadata_keys
-    []
-  end
-
-  def self.metadata_keys
-    tag_metadata_keys + date_metadata_keys
-  end
-
-  def self.metadata_name_mappings
-    {}
-  end
-
-  def initialize(attrs)
+  def initialize(attrs, finder)
+    attrs = attrs.with_indifferent_access
     @title = attrs.fetch(:title)
     @link = attrs.fetch(:link)
+    @description = attrs.fetch(:description, nil)
 
-    @attrs = attrs.except(:title, :link)
+    @attrs = attrs.except(:title, :link, :description)
+    @finder = finder
   end
 
   def metadata
@@ -33,18 +20,29 @@ class AbstractDocument
   end
 
   def summary
-    nil
+    if finder.show_summaries? && description.present?
+      # This truncates the description at the end of the first sentence
+      description.gsub(/\.\s[A-Z].*/, '.')
+    end
   end
 
 private
-  attr_reader :link, :attrs
+  attr_reader :link, :attrs, :finder, :description
+
+  def date_metadata_keys
+    finder.date_metadata_keys
+  end
+
+  def tag_metadata_keys
+    finder.text_metadata_keys
+  end
 
   def raw_metadata
     tag_metadata + date_metadata
   end
 
   def date_metadata
-    self.class.date_metadata_keys
+    date_metadata_keys
       .map(&method(:build_date_metadata))
       .select(&method(:metadata_value_present?))
   end
@@ -58,7 +56,7 @@ private
   end
 
   def tag_metadata
-    self.class.tag_metadata_keys
+    tag_metadata_keys
       .map(&method(:build_tag_metadata))
       .select(&method(:metadata_value_present?))
   end
@@ -91,19 +89,7 @@ private
 
   def humanize_metadata_name(metadata_hash)
     metadata_hash.merge(
-      name: metadata_label(metadata_hash.fetch(:name))
+      name: finder.label_for_metadata_key(metadata_hash.fetch(:name))
     )
-  end
-
-  def metadata_label(key)
-    self.class.metadata_name_mappings.fetch(key, key.humanize)
-  end
-
-  def truncated_summary_or_nil
-    description = attrs.fetch(:description, nil)
-
-    # This truncates the description at the end of the first sentence
-    description = description.gsub(/\.\s[A-Z].*/, '.') if description.present?
-    description
   end
 end

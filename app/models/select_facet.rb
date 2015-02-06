@@ -1,4 +1,4 @@
-class SelectFacet < Facet
+class SelectFacet < FilterableFacet
   attr_reader :allowed_values
 
   def initialize(facet)

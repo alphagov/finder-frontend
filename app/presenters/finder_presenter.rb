@@ -42,12 +42,36 @@ class FinderPresenter
     @facets ||= FacetCollection.new(
       content_item.details.facets.map { |facet|
         FacetParser.parse(facet)
-      }.select(&:filterable?)
+      }
     )
   end
 
-  def facet_sentence_fragments
-    facets.to_a.map(&:sentence_fragment).compact
+  def filters
+    facets.filters
+  end
+
+  def metadata
+    facets.metadata
+  end
+
+  def date_metadata_keys
+    metadata.select{ |f| f.type == "date" }.map(&:key)
+  end
+
+  def text_metadata_keys
+    metadata.select{ |f| f.type == "text" }.map(&:key)
+  end
+
+  def filter_sentence_fragments
+    filters.map(&:sentence_fragment).compact
+  end
+
+  def facet_keys
+    facets.to_a.map(&:key)
+  end
+
+  def show_summaries?
+    content_item.details.show_summaries
   end
 
   def organisations
@@ -64,9 +88,15 @@ class FinderPresenter
 
   def results
     @results ||= ResultSet.get(
-      document_type,
+      self,
       search_params,
     )
+  end
+
+  def label_for_metadata_key(key)
+    facet = metadata.find { |f| f.key == key }
+
+    facet.short_name || facet.key.humanize
   end
 
 private
