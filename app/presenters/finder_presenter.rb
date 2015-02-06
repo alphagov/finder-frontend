@@ -1,13 +1,13 @@
 class FinderPresenter
 
-  attr_reader :name, :slug, :document_noun, :document_type, :organisations, :keywords, :beta_message
+  attr_reader :name, :slug, :document_noun, :filter, :organisations, :keywords, :beta_message
 
   def initialize(content_item, values = {}, keywords = nil)
     @content_item = content_item
     @name = content_item.title
     @slug = content_item.base_path
     @document_noun = content_item.details.document_noun
-    @document_type = content_item.details.document_type
+    @filter = content_item.details.filter
     @organisations = content_item.links.organisations
     facets.values = values
     @keywords = keywords

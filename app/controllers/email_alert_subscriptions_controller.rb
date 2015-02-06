@@ -38,7 +38,7 @@ private
   end
 
   def finder_format
-    finder.document_type
+    finder.filter.filter_document_type
   end
 
   def available_choices

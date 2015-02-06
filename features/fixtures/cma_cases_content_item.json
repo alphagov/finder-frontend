@@ -16,6 +16,9 @@
     "format_name":"Competition and Markets Authority case",
     "signup_link":null,
     "summaries":false,
+    "filter": {
+      "filter_document_type": "cma_case"
+    },
     "facets":[
       {
         "key":"case_type",
