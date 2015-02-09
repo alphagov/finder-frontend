@@ -24,11 +24,22 @@ A string. Required.
 
 The lowercase singular version of whatever format the Finder is using. For example: [`/cma-cases`](https://www.gov.uk/cma-cases) has a `document_noun` of `case`, [`/aaib-report`](https://www.gov.uk/aaib-reports) has a `document_noun` of `report`. This is used to construct the sentence descriving the current search by the user.
 
-## `document_type`
+## `filter`
 
-A string. Required.
+A hash. Required.
 
-[snake_case](http://en.wikipedia.org/wiki/Snake_case) string which tells Finder Frontend what doctype to limit the search to in Rummager. It must match the name of the file describing the doctype [in Rummager](https://github.com/alphagov/rummager/tree/master/config/schema/default/doctypes).
+Used to restrict the base search in Rummager. It can contain any key and value pair as long as the key is listed in `ALLOWED_FILTER_FIELDS` [in Rummager](https://github.com/alphagov/rummager/blob/be2ee6927eeab348c0bfc1e2b553c9c138a3ebc8/lib/search_parameter_parser.rb#L16) and prepended with `filter_`.
+
+For example filtering all documents with a `contact` format from HM Revenue & Customs would need a hash like:
+
+```
+{
+  "filter_document_type": "contact",
+  "filter_organisations": [
+    "hm-revenue-customs"
+  ]
+}
+```
 
 ## `email_signup_enabled`
 

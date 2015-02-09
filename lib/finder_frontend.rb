@@ -8,7 +8,6 @@ module FinderFrontend
   class FindDocuments
     def initialize(finder, params)
       @finder = finder
-      @document_type = finder.document_type
       @params = params
     end
 
@@ -19,7 +18,7 @@ module FinderFrontend
 
   private
 
-    attr_reader :document_type, :params, :finder
+    attr_reader :params, :finder
 
     def default_params
       {
@@ -45,7 +44,7 @@ module FinderFrontend
     end
 
     def massaged_params
-      ParamsMassager.new(params, document_type).to_h
+      ParamsMassager.new(params, finder).to_h
     end
 
     def rummager_api
@@ -54,20 +53,20 @@ module FinderFrontend
   end
 
   class ParamsMassager
-    def initialize(params, document_type)
+    def initialize(params, finder)
       @params = params
-      @document_type = document_type
+      @finder = finder
     end
 
     def to_h
       keyword_param
         .merge(filter_params)
-        .merge(document_type_param)
+        .merge(base_filter)
         .merge(order_param)
     end
 
   private
-    attr_reader :params, :document_type
+    attr_reader :params, :finder
 
     def keyword_param
       if params.has_key?("keywords")
@@ -93,10 +92,8 @@ module FinderFrontend
         }
     end
 
-    def document_type_param
-      {
-        "filter_document_type" => document_type,
-      }
+    def base_filter
+      finder.filter.to_h
     end
   end
 end
