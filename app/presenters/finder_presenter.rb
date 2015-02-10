@@ -5,6 +5,7 @@ class FinderPresenter
   delegate :beta_message,
            :document_noun,
            :filter,
+           :summary,
            to: :"content_item.details"
 
   def initialize(content_item, values = {}, keywords = nil)

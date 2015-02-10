@@ -60,6 +60,10 @@
       @include grid-column(2/3);
     }
 
+    .summary {
+      margin-top: $gutter;
+    }
+
     .email-link {
       margin-top: $gutter;
       a {
