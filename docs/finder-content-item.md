@@ -28,14 +28,14 @@ The lowercase singular version of whatever format the Finder is using. For examp
 
 A hash. Required.
 
-Used to restrict the base search in Rummager. It can contain any key and value pair as long as the key is listed in `ALLOWED_FILTER_FIELDS` [in Rummager](https://github.com/alphagov/rummager/blob/be2ee6927eeab348c0bfc1e2b553c9c138a3ebc8/lib/search_parameter_parser.rb#L16) and prepended with `filter_`.
+Used to restrict the base search in Rummager. It can contain any key and value pair as long as the key is listed in `ALLOWED_FILTER_FIELDS` [in Rummager](https://github.com/alphagov/rummager/blob/be2ee6927eeab348c0bfc1e2b553c9c138a3ebc8/lib/search_parameter_parser.rb#L16).
 
 For example filtering all documents with a `contact` format from HM Revenue & Customs would need a hash like:
 
 ```
 {
-  "filter_document_type": "contact",
-  "filter_organisations": [
+  "document_type": "contact",
+  "organisations": [
     "hm-revenue-customs"
   ]
 }

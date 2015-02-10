@@ -61,7 +61,6 @@ module FinderFrontend
     def to_h
       keyword_param
         .merge(filter_params)
-        .merge(base_filter)
         .merge(order_param)
     end
 
@@ -87,6 +86,7 @@ module FinderFrontend
     def filter_params
       params
         .except("keywords")
+        .merge(base_filter)
         .reduce({}) { |memo, (k,v)|
           memo.merge("filter_#{k}" => v)
         }
