@@ -67,6 +67,12 @@ A boolean. Required.
 
 Used to decide if the summaries for Documents should be displayed in the results list. It will truncate the summary at the end of the first sentence.
 
+## `summary`
+
+A string. Optional.
+
+Rendered in the header after the metadata. Can contain Govspeak and is rendered using the [Govspeak component](http://govuk-component-guide.herokuapp.com/component/govspeak).
+
 ## `facets`
 
 An array of hashes. Optional.

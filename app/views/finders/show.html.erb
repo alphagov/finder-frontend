@@ -20,6 +20,15 @@
         } %>
       </div>
     <% end %>
+
+    <% if finder.summary %>
+      <div class="summary">
+        <%= render partial: 'govuk_component/govspeak', locals: {
+            content: finder.summary
+          } %>
+      </div>
+    <% end %>
+
     <% if finder.email_alert_signup_enabled? %>
       <p class='email-link'>
         <%= link_to "Subscribe to email alerts", finder.email_alert_signup_url %>
