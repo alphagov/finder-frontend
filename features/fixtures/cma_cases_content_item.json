@@ -17,7 +17,7 @@
     "signup_link":null,
     "summaries":false,
     "filter": {
-      "filter_document_type": "cma_case"
+      "document_type": "cma_case"
     },
     "facets":[
       {
