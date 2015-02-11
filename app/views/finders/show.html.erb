@@ -17,6 +17,9 @@
       <div class="metadata">
         <%= render partial: 'govuk_component/metadata', locals: {
           from: link_to(finder.primary_organisation.title, finder.primary_organisation.web_url),
+          part_of: finder.part_of.map { |link|
+            link_to(link.title, link.web_url)
+          },
         } %>
       </div>
     <% end %>

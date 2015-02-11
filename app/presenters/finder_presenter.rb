@@ -81,6 +81,10 @@ class FinderPresenter
     content_item.links.organisations
   end
 
+  def part_of
+    @part_of = content_item.links.part_of || []
+  end
+
   def primary_organisation
     organisations.first
   end
