@@ -4,6 +4,7 @@ class FinderPresenter
 
   delegate :beta_message,
            :document_noun,
+           :human_readable_finder_format,
            :filter,
            :summary,
            to: :"content_item.details"
