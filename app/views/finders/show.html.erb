@@ -11,6 +11,7 @@
 <header>
   <div class="title-and-metadata">
     <%= render partial: 'govuk_component/title', locals: {
+      context: finder.human_readable_finder_format,
       title: finder.name
     } %>
     <% if finder.primary_organisation %>

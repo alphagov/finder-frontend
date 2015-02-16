@@ -55,6 +55,12 @@ Not specifically used by the Finder, but used by [Specialist Frontend](https://g
 Usually a singularised version of the title of the Finder - `"Competition and Markets Authority case"` for [`/cma-cases`](https://www.gov.uk/cma-cases) for example.
 However there are edge cases where it's not the same such as `"Medical safety alert"` for [Alerts and recalls for drugs and medical devices](https://www.gov.uk/drug-device-alerts).
 
+## `human_readable_finder_format`
+
+A string. Optional.
+
+Human readable version of the content format. Passed as the context to the [title](http://govuk-component-guide.herokuapp.com/component/title) component.
+
 ## `signup_link`
 
 A string. Optional.
