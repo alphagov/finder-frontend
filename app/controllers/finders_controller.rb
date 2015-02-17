@@ -11,6 +11,9 @@ class FindersController < ApplicationController
       format.json do
         render json: @results
       end
+      format.atom do
+        @feed = AtomPresenter.new(finder)
+      end
     end
   end
 

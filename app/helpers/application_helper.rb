@@ -12,4 +12,8 @@ module ApplicationHelper
   def facet_has_any_selected_values?(key)
     params.has_key?(key)
   end
+
+  def absolute_url_for(path)
+    URI.join(Plek.current.website_root, path)
+  end
 end
