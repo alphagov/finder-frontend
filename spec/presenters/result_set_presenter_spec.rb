@@ -8,6 +8,7 @@ RSpec.describe ResultSetPresenter do
 
   let(:finder) do
     OpenStruct.new({
+      slug: "/a-finder",
       results: results,
       document_noun: document_noun,
       total: 2,
@@ -105,6 +106,7 @@ RSpec.describe ResultSetPresenter do
       presenter.to_hash[:documents].present?.should == true
       presenter.to_hash[:applied_filters].present?.should == true
       presenter.to_hash[:any_filters_applied].present?.should == true
+      presenter.to_hash[:atom_url].present?.should == true
     end
 
     it 'calls pluralize on the document noun with the results_count' do
@@ -220,6 +222,27 @@ RSpec.describe ResultSetPresenter do
       it 'creates a new document for each result' do
         search_result_objects = presenter.documents
         search_result_objects.count.should == 3
+      end
+    end
+  end
+
+  describe "#atom_url" do
+    context "with no params" do
+      it "returns the finder URL appended with .atom" do
+        presenter.atom_url.should == "/a-finder.atom"
+      end
+    end
+
+    context "with some params" do
+      let(:params) do
+        {
+          keyword: "legal",
+          format: "publication",
+          state: "open",
+        }
+      end
+      it "returns the finder URL appended with .atom and query params" do
+        presenter.atom_url.should == "/a-finder.atom?format=publication&keyword=legal&state=open"
       end
     end
   end
