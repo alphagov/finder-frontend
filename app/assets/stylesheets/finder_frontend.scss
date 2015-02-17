@@ -364,6 +364,21 @@
       }
     }
 
+    .feed {
+      @include core-14;
+      display: block;
+      margin-bottom: $gutter;
+      span {
+        padding-right: $gutter-one-third / 2;
+      }
+      a {
+        background: image-url('feed-icon-black.png') 0 40% no-repeat;
+        font-weight: bold;
+        padding: 0 $gutter-one-third 0 $gutter-half;
+        text-decoration: none;
+      }
+    }
+
     ul {
       list-style-type: none;
       padding-left: 0;
