@@ -18,6 +18,7 @@ class ResultSetPresenter
       applied_filters: describe_filters_in_sentence,
       documents: documents,
       any_filters_applied: any_filters_applied?,
+      atom_url: atom_url
     }
   end
 
@@ -63,5 +64,9 @@ class ResultSetPresenter
     results.map do |result|
       SearchResultPresenter.new(result).to_hash
     end
+  end
+
+  def atom_url
+    params.empty? ? "#{finder.slug}.atom" : "#{finder.slug}.atom?#{params.to_query}"
   end
 end

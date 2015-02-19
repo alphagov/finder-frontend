@@ -32,6 +32,7 @@ module FinderFrontend
         title
         link
         description
+        last_update
       )
     end
 

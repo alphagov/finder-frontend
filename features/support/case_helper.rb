@@ -42,6 +42,7 @@ module CaseHelper
       title
       link
       description
+      last_update
       case_type
       case_state
       market_sector
@@ -83,6 +84,7 @@ module CaseHelper
           "title": "Acme keyword searchable case",
           "opened_date": "2008-06-28",
           "closed_date": "2010-10-05",
+          "last_update": "2010-10-06",
           "summary": "Inquiry into making CMA cases keyword saerchable",
           "document_type": "cma_case",
 
@@ -121,6 +123,7 @@ module CaseHelper
           "title": "HealthCorp / DrugInc merger inquiry",
           "opened_date": "2003-12-30",
           "closed_date": "2004-03-01",
+          "last_update": "2005-03-01",
           "summary": "Inquiry into the HealthCorp / DrugInc merger",
           "document_type": "cma_case",
 
@@ -148,6 +151,7 @@ module CaseHelper
           "title": "Private healthcare market investigation",
           "opened_date": "2007-08-14",
           "closed_date": "2008-03-01",
+          "last_update": "2008-03-04",
           "summary": "Inquiry into the private healthcare market",
           "document_type": "cma_case",
 
@@ -187,6 +191,7 @@ module CaseHelper
           "document_type": "cma_case",
           "opened_date": "2003-12-30",
           "closed_date": "2004-03-01",
+          "last_update": "2004-03-04",
           "summary": "Inquiry into the HealthCorp / DrugInc merger",
 
           "market_sector": [{

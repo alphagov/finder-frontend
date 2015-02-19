@@ -1,13 +1,14 @@
 class Document
-  attr_reader :title
+  attr_reader :title, :last_update
 
   def initialize(attrs, finder)
     attrs = attrs.with_indifferent_access
     @title = attrs.fetch(:title)
     @link = attrs.fetch(:link)
     @description = attrs.fetch(:description, nil)
+    @last_update = attrs.fetch(:last_update)
 
-    @attrs = attrs.except(:title, :link, :description)
+    @attrs = attrs.except(:title, :link, :description, :last_update)
     @finder = finder
   end
 
@@ -16,7 +17,7 @@ class Document
   end
 
   def path
-    "/#{link}"
+    link.starts_with?("/") ? link : "/#{link}"
   end
 
   def summary

@@ -12,6 +12,7 @@
     this.$resultsBlock = options.$results.find('#js-results');
     this.$countBlock = options.$results.find('#js-search-results-info');
     this.action = this.$form.attr('action') + '.json';
+    this.$atomAutodiscoveryLink = options.$atomAutodiscoveryLink;
 
     if(GOVUK.support.history()){
       this.saveState();
@@ -112,6 +113,7 @@
     if(action == $.param(this.state)) {
       this.$resultsBlock.mustache('finders/_results', results);
       this.$countBlock.mustache('finders/_result_count', results);
+      this.$atomAutodiscoveryLink.attr('href', results.atom_url);
     }
   };
 

@@ -30,9 +30,14 @@ jQuery(function($) {
 
   var $form = $('.js-live-search-form'),
       $results = $('.js-live-search-results-block');
+      $atomAutodiscoveryLink = $("link[type='application/atom+xml']").eq('0');
 
   if($form.length && $results.length){
-    new GOVUK.LiveSearch({$form:$form, $results:$results});
+    new GOVUK.LiveSearch({
+      $form:$form,
+      $results:$results,
+      $atomAutodiscoveryLink:$atomAutodiscoveryLink
+    });
   }
 
   var $buttons = $("label.block-label input[type='checkbox']");

@@ -1,4 +1,5 @@
 <% content_for :title, finder.name %>
+<% content_for :head, auto_discovery_link_tag(:atom, @results.atom_url) %>
 
 <% if finder.beta? %>
   <% if finder.beta_message %>

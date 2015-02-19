@@ -5,6 +5,7 @@ describe("liveSearch", function(){
     "pluralised_document_noun":"reports",
     "applied_filters":" \u003Cstrong\u003ECommercial - rotorcraft \u003Ca href='?format=json\u0026keywords='\u003E×\u003C/a\u003E\u003C/strong\u003E",
     "any_filters_applied":true,
+    "atom_url": "http://an-atom-url.atom?some-query-param",
     "documents":[
       {
         "title":"Test report",
@@ -33,12 +34,13 @@ describe("liveSearch", function(){
     $form = $('<form action="/somewhere" class="js-live-search-form"><input type="checkbox" name="field" value="sheep" checked><input type="submit" value="Filter results" class="button js-live-search-fallback"/></form>');
     $results = $('<div class="js-live-search-results-block"></div>');
     $count = $('<div aria-live="assertive" id="js-search-results-info"><p class="result-info"></p></div>');
-    $('body').append($form).append($results);
+    $atomAutodiscoveryLink = $("<link href='http://an-atom-url.atom' rel='alternate' title='ATOM' type='application/atom+xml'>");
+    $('body').append($form).append($results).append($atomAutodiscoveryLink);
 
     _supportHistory = GOVUK.support.history;
     GOVUK.support.history = function(){ return true; };
 
-    liveSearch = new GOVUK.LiveSearch({$form: $form, $results: $results});
+    liveSearch = new GOVUK.LiveSearch({$form: $form, $results: $results, $atomAutodiscoveryLink:$atomAutodiscoveryLink});
   });
 
   afterEach(function(){
@@ -159,6 +161,7 @@ describe("liveSearch", function(){
       liveSearch.$resultsBlock = $results;
       liveSearch.$countBlock = $count;
       liveSearch.state = { field: "sheep" };
+      liveSearch.$atomAutodiscoveryLink = $atomAutodiscoveryLink;
     });
 
     it("should update save state and update results when checkbox is changed", function(){
@@ -187,6 +190,11 @@ describe("liveSearch", function(){
       liveSearch.displayResults(dummyResponse, $.param(liveSearch.state));
       expect($results.find('h3').text()).toBe('Test report');
       expect($count.find('.result-count').text()).toMatch(/^\s*1\s*/);
+    });
+
+    it("should update the Atom autodiscovery link", function(){
+      liveSearch.displayResults(dummyResponse, $.param(liveSearch.state));
+      expect($atomAutodiscoveryLink.attr('href')).toEqual(dummyResponse.atom_url);
     });
   });
 
