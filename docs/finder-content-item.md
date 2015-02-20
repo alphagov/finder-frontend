@@ -1,10 +1,8 @@
 # The Finder Content Item Format
 
-A Finder Content Item is a specialisation of the [Content Item](https://github.com/alphagov/content-store/blob/master/doc/content_item_fields.md). This guide explains what goes in the details hash of the ContentItem and why.
+A Finder Content Item is a specialisation of the [Content Item](https://github.com/alphagov/content-store/blob/master/doc/content_item_fields.md) and is used by Finder Frontend to render the Finder page. This guide explains what goes into the ContentItem and why.
 
-The Finder Content Item is used by Finder Frontend to render the Finder page. Most of what it uses goes in the `details` hash.
-
-# The `details` hash
+# `details`
 
 ## `beta`
 
@@ -147,14 +145,35 @@ A string. Required.
 
 Appended to the URL when the option is select. Usually a paramterized slug of the label, but it doesn't need to be a direct 1:1.
 
-# Outside of the details hash
 
-## `links`
+# `routes`
 
-### `organisations`
+In order for a Finder to work as intended, the routes array needs to have 3 entries. One for the page, one for `.json` which is used to update the results and one for `.atom` which is used for the Atom feed. Example:
+
+```json
+[
+  {
+    "path": "/a-finder-base-path",
+    "type": "exact",
+  },
+  {
+    "path": "/a-finder-base-path.json",
+    "type": "exact",
+  },
+  {
+    "path": "/a-finder-base-path.atom",
+    "type": "exact",
+  }
+]
+```
+
+
+# `links`
+
+## `organisations`
 
 Currently, only the first Organisation is displayed as metadata on the Finder.
 
-### `email_alert_signup`
+## `email_alert_signup`
 
 This is the Content Item for the email-signup for the Finder. Most of these live at `#{base_path}/email-signup` but there's no reason this couldn't point anywhere else.
