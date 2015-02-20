@@ -9,11 +9,13 @@ class AtomPresenter
   end
 
   def entries
-    finder.results.documents
+    finder.results.documents.map { |d|
+      EntryPresenter.new(d)
+    }
   end
 
   def updated_at
-    DateTime.parse(entries.first.last_update)
+    entries.first.updated_at
   end
 
 private

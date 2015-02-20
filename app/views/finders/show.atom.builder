@@ -8,7 +8,7 @@ atom_feed do |feed|
   end
 
   @feed.entries.each do |result|
-    feed.entry(result, id: result.path, url: absolute_url_for(result.path), updated: DateTime.parse(result.last_update)) do |entry|
+    feed.entry(result, id: result.tag(feed), url: absolute_url_for(result.path), updated: result.updated_at) do |entry|
       entry.title(result.title)
       entry.summary(result.summary, type: 'html')
     end
