@@ -20,7 +20,7 @@ Can contain HTML. If `beta` is true, `beta_message` will be passed to the beta b
 
 A string. Required.
 
-The lowercase singular version of whatever format the Finder is using. For example: [`/cma-cases`](https://www.gov.uk/cma-cases) has a `document_noun` of `case`, [`/aaib-report`](https://www.gov.uk/aaib-reports) has a `document_noun` of `report`. This is used to construct the sentence descriving the current search by the user.
+The lowercase singular version of whatever format the Finder is using. For example: [`/cma-cases`](https://www.gov.uk/cma-cases) has a `document_noun` of `case`, [`/aaib-report`](https://www.gov.uk/aaib-reports) has a `document_noun` of `report`. This is used to construct the sentence describing the current search by the user.
 
 ## `filter`
 
