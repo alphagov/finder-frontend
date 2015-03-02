@@ -1,42 +1,42 @@
-Given(/^a collection of cases exist$/) do
-  stub_finder_content_item_request
-  stub_case_collection_api_request
+Given(/^a collection of documents exist$/) do
+  content_store_has_mosw_reports_finder
+  stub_rummager_api_request
 end
 
-Then(/^I can get a list of all merger inquiries$/) do
-  stub_finder_content_item_request
-  visit finder_path('cma-cases')
-  page.should_not have_content('2 cases')
+Then(/^I can get a list of all documents with matching metadata$/) do
+  content_store_has_mosw_reports_finder
+  visit finder_path('mosw-reports')
+  page.should_not have_content('2 reports')
   page.should have_css('.filtered-results .document', count: 2)
   page.should have_css(shared_component_selector('metadata'))
 
   within '.filtered-results .document:nth-child(1)' do
     page.should have_link(
-      'HealthCorp / DrugInc merger inquiry',
-      href: '/cma-cases/healthcorp-druginc-merger-inquiry',
+      'West London wobbley walk',
+      href: '/mosw-reports/west-london-wobbley-walk',
     )
     page.should have_content('30 December 2003')
-    page.should have_content('Mergers')
+    page.should have_content('Backward')
   end
 
-  select_filters('Case type' => 'Mergers')
+  select_filters('Walk type' => 'Hopscotch')
 
-  page.should have_content('1 case')
+  page.should have_content('1 report')
   page.should have_css('.filtered-results .document', count: 1)
 end
 
-When(/^I search cases by keyword$/) do
-  stub_finder_content_item_request
+When(/^I search documents by keyword$/) do
+  content_store_has_mosw_reports_finder
   stub_keyword_search_api_request
 
-  visit finder_path('cma-cases')
+  visit finder_path('mosw-reports')
 
   @keyword_search = "keyword searchable"
   fill_in("Search", with: @keyword_search)
   click_on "Filter results"
 end
 
-Then(/^I see all cases which contain the keywords$/) do
+Then(/^I see all documents which contain the keywords$/) do
   within ".filtered-results" do
     expect(page).to have_css("a", text: @keyword_search)
   end

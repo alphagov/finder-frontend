@@ -4,6 +4,7 @@ include GdsApi::TestHelpers::ContentStore
 include FixturesHelper
 
 describe EmailAlertSubscriptionsController do
+  include GovukContentSchemaExamples
 
   describe 'GET #new' do
     describe "finder email signup item doesn't exist" do
@@ -20,7 +21,7 @@ describe EmailAlertSubscriptionsController do
     let(:alert_name) { double(:alert_name) }
     let(:alert_identifier) { double(:alert_identifier) }
     let(:delivery_api) { double(:delivery_api) }
-    let(:finder) { cma_cases_content_item.merge({title: alert_name}) }
+    let(:finder) { govuk_content_schema_example('finder').to_hash.merge({title: alert_name}) }
     let(:signup_finder) { cma_cases_signup_content_item }
     let(:signup_api_wrapper) {
       double(:signup_api_wrapper,
