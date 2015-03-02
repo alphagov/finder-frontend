@@ -6,6 +6,17 @@ class SelectFacet < FilterableFacet
     @allowed_values = facet.allowed_values
   end
 
+  def options
+    allowed_values.map do | allowed_value |
+      {
+        "value" => allowed_value.value,
+        "label" => allowed_value.label,
+        "id" => allowed_value.value,
+        "checked" => value.include?(allowed_value.value),
+      }
+    end
+  end
+
   def value
     return [] if @value.blank?
 
