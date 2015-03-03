@@ -7,6 +7,8 @@
 #
 #   $ GOVUK_CONTENT_SCHEMAS_PATH=/some/dir/govuk-content-schemas bundle exec rake
 #
+require 'gds_api/test_helpers/content_store'
+
 module GovukContentSchemaExamples
   extend ActiveSupport::Concern
 

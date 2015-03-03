@@ -1,8 +1,6 @@
-require 'gds_api/test_helpers/content_store'
 require_relative '../../lib/govuk_content_schema_examples'
 
 module DocumentHelper
-  include GdsApi::TestHelpers::ContentStore
   include GovukContentSchemaExamples
 
   def stub_rummager_api_request
