@@ -9,6 +9,10 @@
   <% end %>
 <% end %>
 
+<% if finder.government? %>
+  <%= render partial: 'govuk_component/government_navigation', locals: { active: finder.government_content_section } %>
+<% end %>
+
 <header>
   <div class="title-and-metadata">
     <%= render partial: 'govuk_component/title', locals: {

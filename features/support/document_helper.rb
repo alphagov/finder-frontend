@@ -23,6 +23,13 @@ module DocumentHelper
     content_store_has_item('/mosw-reports', govuk_content_schema_example('finder').to_json)
   end
 
+  def content_store_has_government_finder
+    base_path = '/government/policies/benefits-reform'
+    content_store_has_item(base_path,
+      govuk_content_schema_example('finder').merge('base_path' => base_path).to_json
+    )
+  end
+
   def search_params(params = {})
     default_search_params.merge(params).to_a.map { |tuple|
       tuple.join("=")

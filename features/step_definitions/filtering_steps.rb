@@ -39,3 +39,13 @@ Then(/^I see all documents which contain the keywords$/) do
     expect(page).to have_css("a", text: @keyword_search)
   end
 end
+
+Given(/^a government finder exists$/) do
+  content_store_has_government_finder
+  stub_rummager_api_request
+end
+
+Then(/^I can see the government header$/) do
+  visit finder_path('government/policies/benefits-reform')
+  page.should have_css(shared_component_selector('government_navigation'))
+end
