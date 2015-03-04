@@ -4,7 +4,6 @@ Given(/^a collection of documents exist$/) do
 end
 
 Then(/^I can get a list of all documents with matching metadata$/) do
-  content_store_has_mosw_reports_finder
   visit finder_path('mosw-reports')
   page.should_not have_content('2 reports')
   page.should have_css('.filtered-results .document', count: 2)
@@ -26,7 +25,6 @@ Then(/^I can get a list of all documents with matching metadata$/) do
 end
 
 When(/^I search documents by keyword$/) do
-  content_store_has_mosw_reports_finder
   stub_keyword_search_api_request
 
   visit finder_path('mosw-reports')
