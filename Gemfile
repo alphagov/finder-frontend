@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.1.9'
-gem 'slimmer', '5.0.0'
+gem 'rails', '4.2.0'
+gem 'slimmer', '7.0.0'
 gem 'gds-api-adapters', '16.1.0'
 gem 'exception_notification', '4.0.1'
 gem 'aws-ses', require: 'aws/ses'
