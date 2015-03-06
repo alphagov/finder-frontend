@@ -1,8 +1,6 @@
-require 'gds_api/test_helpers/content_store'
 require_relative '../../lib/govuk_content_schema_examples'
 
 module DocumentHelper
-  include GdsApi::TestHelpers::ContentStore
   include GovukContentSchemaExamples
 
   def stub_rummager_api_request
@@ -23,6 +21,13 @@ module DocumentHelper
 
   def content_store_has_mosw_reports_finder
     content_store_has_item('/mosw-reports', govuk_content_schema_example('finder').to_json)
+  end
+
+  def content_store_has_government_finder
+    base_path = '/government/policies/benefits-reform'
+    content_store_has_item(base_path,
+      govuk_content_schema_example('finder').merge('base_path' => base_path).to_json
+    )
   end
 
   def search_params(params = {})

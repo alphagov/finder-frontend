@@ -11,3 +11,7 @@ Feature: Filtering documents
     Given a collection of documents exist
     When I search documents by keyword
     Then I see all documents which contain the keywords
+
+  Scenario: Visit a government finder
+    Given a government finder exists
+    Then I can see the government header

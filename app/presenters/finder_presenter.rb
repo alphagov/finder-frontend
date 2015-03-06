@@ -54,6 +54,14 @@ class FinderPresenter
     facets.filters
   end
 
+  def government?
+    slug.starts_with?("/government")
+  end
+
+  def government_content_section
+    slug.split('/')[2]
+  end
+
   def metadata
     facets.metadata
   end
