@@ -48,4 +48,5 @@ group :test do
   gem 'rspec-rails'
   gem 'simplecov'
   gem 'webmock'
+  gem 'govuk-content-schema-test-helpers', '1.0.1'
 end
