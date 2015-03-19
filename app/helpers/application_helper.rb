@@ -16,4 +16,10 @@ module ApplicationHelper
   def absolute_url_for(path)
     URI.join(Plek.current.website_root, path)
   end
+
+  def arr_to_links(arr)
+    arr.map { |link|
+      link_to(link.title, link.web_url)
+    }
+  end
 end
