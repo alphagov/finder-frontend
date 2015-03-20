@@ -7,6 +7,8 @@ RSpec.describe FinderPresenter do
 
   let(:government_presenter) { described_class.new(government_finder_content_item) }
 
+  let(:minimal_policy_presenter) { described_class.new(minimal_policy_content_item) }
+
   let(:content_item) {
     dummy_http_response = double("net http response",
       code: 200,
@@ -19,7 +21,16 @@ RSpec.describe FinderPresenter do
   let(:government_finder_content_item) {
     dummy_http_response = double("net http response",
       code: 200,
-      body: govuk_content_schema_example('finder').merge("base_path" => "/government/policies/a-finder").to_json,
+      body: govuk_content_schema_example('policy_programme', 'policy').to_json,
+      headers: {}
+    )
+    GdsApi::Response.new(dummy_http_response).to_ostruct
+  }
+
+  let(:minimal_policy_content_item) {
+    dummy_http_response = double("net http response",
+      code: 200,
+      body: govuk_content_schema_example('minimal_policy_area', 'policy').to_json,
       headers: {}
     )
     GdsApi::Response.new(dummy_http_response).to_ostruct
@@ -60,6 +71,20 @@ RSpec.describe FinderPresenter do
     it "exposes the government_content_section" do
       government_presenter.government_content_section.should == "policies"
     end
+
+    it "has metadata" do
+      expect(government_presenter.page_metadata.any?).to be true
+    end
+
+    it "has people and organisations in the from metadata" do
+      from = government_presenter.page_metadata[:from].map(&:title)
+      expect(from).to include("George Dough", "Department for Work and Pensions")
+    end
   end
 
+  describe "a minimal policy content item" do
+    it "doesn't have any page meta data" do
+      expect(minimal_policy_presenter.page_metadata.any?).to be false
+    end
+  end
 end

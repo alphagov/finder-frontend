@@ -19,13 +19,10 @@
       context: finder.human_readable_finder_format,
       title: finder.name
     } %>
-
-    <% if finder.organisations.any? || finder.part_of.any? %>
+    <% if finder.page_metadata.any? %>
       <div class="metadata">
-        <%= render partial: 'govuk_component/metadata', locals: {
-          from:  arr_to_links(finder.organisations),
-          part_of: arr_to_links(finder.part_of),
-        } %>
+        <%= render partial: 'govuk_component/metadata',
+          locals: page_metadata_links(finder.page_metadata) %>
       </div>
     <% end %>
 
