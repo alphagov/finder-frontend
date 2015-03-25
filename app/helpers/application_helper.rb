@@ -16,4 +16,16 @@ module ApplicationHelper
   def absolute_url_for(path)
     URI.join(Plek.current.website_root, path)
   end
+
+  def page_metadata_links(metadata)
+    metadata.inject({}) do |memo, (type, links)|
+      memo.merge(type => arr_to_links(links))
+    end
+  end
+
+  def arr_to_links(arr)
+    arr.map { |link|
+      link_to(link.title, link.web_url)
+    }
+  end
 end

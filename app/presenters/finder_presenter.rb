@@ -86,16 +86,13 @@ class FinderPresenter
     content_item.details.show_summaries
   end
 
-  def organisations
-    content_item.links.organisations
-  end
+  def page_metadata
+    metadata = {
+      part_of: part_of,
+      from: from,
+    }
 
-  def part_of
-    @part_of = content_item.links.part_of || []
-  end
-
-  def primary_organisation
-    organisations.first
+    metadata.reject { |_, links| links.empty? }
   end
 
   def related
@@ -117,6 +114,22 @@ class FinderPresenter
 
 private
   attr_reader :content_item, :values
+
+  def part_of
+    content_item.links.part_of || []
+  end
+
+  def organisations
+    content_item.links.organisations || []
+  end
+
+  def people
+    content_item.links.people || []
+  end
+
+  def from
+    organisations + people
+  end
 
   def facet_search_params
     facets.values
