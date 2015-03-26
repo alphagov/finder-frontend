@@ -49,7 +49,7 @@ module DocumentHelper
       title
       link
       description
-      last_update
+      public_timestamp
       walk_type
       place_of_origin
       date_of_introduction
@@ -59,7 +59,7 @@ module DocumentHelper
 
   def rummager_all_documents_url
     params = {
-      "order" => "-last_update",
+      "order" => "-public_timestamp",
     }
 
     "#{Plek.current.find('search')}/unified_search.json?#{search_params(params)}"
@@ -68,7 +68,7 @@ module DocumentHelper
   def rummager_hopscotch_walks_url
     params = {
       "filter_walk_type[]" => "hopscotch",
-      "order" => "-last_update",
+      "order" => "-public_timestamp",
     }
 
     "#{Plek.current.find('search')}/unified_search.json?#{search_params(params)}"
@@ -87,7 +87,7 @@ module DocumentHelper
       "results": [
         {
           "title": "Acme keyword searchable walk",
-          "last_update": "2010-10-06",
+          "public_timestamp": "2010-10-06",
           "summary": "ACME researched a new type of silly walk",
           "document_type": "mosw_report",
           "walk_type": [{
@@ -116,7 +116,7 @@ module DocumentHelper
       "results": [
         {
           "title": "West London wobbley walk",
-          "last_update": "2014-11-25",
+          "public_timestamp": "2014-11-25",
           "summary": "MOSW researched a new type of silly walk",
           "document_type": "mosw_report",
           "walk_type": [{
@@ -134,7 +134,7 @@ module DocumentHelper
         },
         {
           "title": "The Gerry Anderson",
-          "last_update": "2010-10-06",
+          "public_timestamp": "2010-10-06",
           "summary": "Rhyming slang for Dander, an Irish colloquialism for walk",
           "document_type": "mosw_report",
           "walk_type": [{
@@ -163,7 +163,7 @@ module DocumentHelper
       "results": [
         {
           "title": "The Gerry Anderson",
-          "last_update": "2010-10-06",
+          "public_timestamp": "2010-10-06",
           "summary": "Rhyming slang for Dander, an Irish colloquialism for walk",
           "document_type": "mosw_report",
           "walk_type": [{
