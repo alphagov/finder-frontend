@@ -1,14 +1,14 @@
 class Document
-  attr_reader :title, :last_update
+  attr_reader :title, :public_timestamp
 
   def initialize(attrs, finder)
     attrs = attrs.with_indifferent_access
     @title = attrs.fetch(:title)
     @link = attrs.fetch(:link)
     @description = attrs.fetch(:description, nil)
-    @last_update = attrs.fetch(:last_update)
+    @public_timestamp = attrs.fetch(:public_timestamp)
 
-    @attrs = attrs.except(:title, :link, :description, :last_update)
+    @attrs = attrs.except(:title, :link, :description, :public_timestamp)
     @finder = finder
   end
 

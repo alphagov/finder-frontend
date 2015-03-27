@@ -32,7 +32,7 @@ module FinderFrontend
         title
         link
         description
-        last_update
+        public_timestamp
       )
     end
 
@@ -80,7 +80,7 @@ module FinderFrontend
       if params.has_key?("keywords")
         {}
       else
-        {"order" => "-last_update"}
+        {"order" => "-public_timestamp"}
       end
     end
 
