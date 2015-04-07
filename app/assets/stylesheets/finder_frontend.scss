@@ -60,6 +60,13 @@
       @include grid-column(2/3);
     }
 
+    a[rel="external"] {
+      @include external-link-12;
+      @include media(tablet) {
+        @include external-link-14;
+      }
+    }
+
     .summary {
       margin-top: $gutter;
     }
