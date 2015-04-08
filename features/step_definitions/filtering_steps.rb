@@ -54,3 +54,23 @@ Then(/^I can see documents which have government metadata$/) do
   page.should have_css('p.historic', count: 1)
   page.should have_content("2005 to 2010 Labour government")
 end
+
+Given(/^a collection of documents with bad metadata exist$/) do
+  content_store_has_mosw_reports_finder
+  stub_rummager_api_request_with_bad_data
+end
+
+Then(/^I can get a list of all documents with good metadata$/) do
+  visit finder_path('mosw-reports')
+  page.should have_css('.filtered-results .document', count: 2)
+
+  within '.filtered-results .document:nth-child(1)' do
+    page.should have_content('Backward')
+    page.should_not have_content('England')
+  end
+
+  within '.filtered-results .document:nth-child(2)' do
+    page.should have_content('Northern Ireland')
+    page.should_not have_content('Hopscotch')
+  end
+end
