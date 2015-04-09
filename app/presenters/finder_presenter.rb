@@ -1,4 +1,5 @@
 class FinderPresenter
+  include ActionView::Helpers::UrlHelper
 
   attr_reader :name, :slug, :organisations, :keywords
 
@@ -90,9 +91,10 @@ class FinderPresenter
     metadata = {
       part_of: part_of,
       from: from,
+      other: other,
     }
 
-    metadata.reject { |_, links| links.empty? }
+    metadata.reject { |_, links| links.blank? }
   end
 
   def related
@@ -129,6 +131,33 @@ private
 
   def from
     organisations + people
+  end
+
+  def other
+    if applicable_nations_html_fragment
+      { "Applies to" => applicable_nations_html_fragment }
+    end
+  end
+
+  def applicable_nations_html_fragment
+    nation_applicability = content_item.details.nation_applicability
+    if nation_applicability
+      applies_to = nation_applicability.applies_to.map(&:titlecase)
+      alternative_policies = nation_applicability.alternative_policies.map do |alternative|
+        link_to(alternative.nation.titlecase, alternative.alt_policy_url, ({rel: 'external'} if is_external?(alternative.alt_policy_url)))
+      end
+      if alternative_policies.any?
+        "#{applies_to.to_sentence} (see policy for #{alternative_policies.to_sentence})".html_safe
+      else
+        applies_to.to_sentence
+      end
+    end
+  end
+
+  def is_external?(href)
+    if host = URI.parse(href).host
+      "www.gov.uk" != host
+    end
   end
 
   def facet_search_params

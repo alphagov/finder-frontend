@@ -9,6 +9,10 @@ RSpec.describe FinderPresenter do
 
   let(:minimal_policy_presenter) { described_class.new(minimal_policy_content_item) }
 
+  let(:national_applicability_presenter) { described_class.new(national_applicability_content_item) }
+
+  let(:national_applicability_with_internal_policies_presenter) { described_class.new(national_applicability_with_internal_policies_content_item) }
+
   let(:content_item) {
     dummy_http_response = double("net http response",
       code: 200,
@@ -34,6 +38,51 @@ RSpec.describe FinderPresenter do
       headers: {}
     )
     GdsApi::Response.new(dummy_http_response).to_ostruct
+  }
+
+  let(:national_applicability_content_item) {
+    dummy_http_response = double("net http response",
+      code: 200,
+      body: govuk_content_schema_example('policy_with_inapplicable_nations', 'policy').to_json,
+      headers: {}
+    )
+    GdsApi::Response.new(dummy_http_response).to_ostruct
+  }
+
+  let(:internal_policies) {
+    {
+      details: OpenStruct.new(
+        facets: [],
+        nation_applicability: OpenStruct.new(
+          applies_to: [
+            "england",
+            "northern_ireland"
+          ],
+          alternative_policies: [
+            OpenStruct.new(
+              nation: "scotland",
+              alt_policy_url: "http://www.gov.uk/scottish-policy-url"
+            ),
+            OpenStruct.new(
+              nation: "wales",
+              alt_policy_url: "http://www.gov.uk/welsh-policy-url"
+            )
+          ]
+        )
+      )
+    }
+  }
+
+  let(:national_applicability_with_internal_policies_content_item) {
+    dummy_http_response = double("net http response",
+      code: 200,
+      body: govuk_content_schema_example('policy_with_inapplicable_nations', 'policy').to_json,
+      headers: {}
+    )
+    ostruct_hash = GdsApi::Response.new(dummy_http_response).to_ostruct.marshal_dump
+    OpenStruct.new(
+      ostruct_hash.merge(internal_policies)
+    )
   }
 
   describe "facets" do
@@ -79,6 +128,26 @@ RSpec.describe FinderPresenter do
     it "has people and organisations in the from metadata" do
       from = government_presenter.page_metadata[:from].map(&:title)
       expect(from).to include("George Dough", "Department for Work and Pensions")
+    end
+  end
+
+  describe "national applicability" do
+    it "has applicable nations in the metadata if it is only applicable to some nations" do
+      applies_to = national_applicability_presenter.page_metadata[:other]["Applies to"]
+      expect(applies_to).to include("England", "Northern Ireland", "Scotland", "Wales")
+    end
+
+    it "has no applicable nations in the metadata if it applies to all nations" do
+      metadata = government_presenter.page_metadata
+      expect(metadata).not_to have_key(:other)
+    end
+
+    it "sets rel='external' for an external link" do
+      expect(national_applicability_presenter.page_metadata[:other]["Applies to"].include?('rel="external"')).to be true
+    end
+
+    it "doesn't set rel='external' for an internal link" do
+      expect(national_applicability_with_internal_policies_presenter.page_metadata[:other]["Applies to"].include?('rel="external"')).to be false
     end
   end
 

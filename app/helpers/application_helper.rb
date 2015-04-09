@@ -17,9 +17,11 @@ module ApplicationHelper
     URI.join(Plek.current.website_root, path)
   end
 
-  def page_metadata_links(metadata)
-    metadata.inject({}) do |memo, (type, links)|
-      memo.merge(type => arr_to_links(links))
+  def page_metadata(metadata)
+    metadata.inject({}) do |memo, (type, data)|
+      memo.merge(type =>
+        data.is_a?(Array) ? arr_to_links(data) : data
+      )
     end
   end
 
