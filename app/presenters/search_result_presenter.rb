@@ -1,20 +1,13 @@
 class SearchResultPresenter
 
-  attr_reader :title,
-              :link,
-              :raw_metadata,
-              :summary,
-              :is_historic,
-              :government_name,
+  delegate :title,
+           :summary,
+           :is_historic,
+           :government_name,
+           to: :search_result
 
   def initialize(search_result)
-    @title = search_result.title
-    @link = search_result.path
-    @summary = search_result.summary
-
-    @raw_metadata = search_result.metadata
-    @is_historic = search_result.is_historic
-    @government_name = search_result.government_name
+    @search_result = search_result
   end
 
   def to_hash
@@ -26,6 +19,10 @@ class SearchResultPresenter
       government_name: government_name,
       metadata: metadata,
     }
+  end
+
+  def link
+    search_result.path
   end
 
   def metadata
@@ -55,5 +52,12 @@ class SearchResultPresenter
       machine_date: date.iso8601,
       human_date: date.strftime("%-d %B %Y"),
     }
+  end
+
+private
+  attr_reader :search_result
+
+  def raw_metadata
+    search_result.metadata
   end
 end
