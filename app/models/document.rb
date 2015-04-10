@@ -1,5 +1,5 @@
 class Document
-  attr_reader :title, :public_timestamp
+  attr_reader :title, :public_timestamp, :is_historic, :government_name
 
   def initialize(attrs, finder)
     attrs = attrs.with_indifferent_access
@@ -7,8 +7,18 @@ class Document
     @link = attrs.fetch(:link)
     @description = attrs.fetch(:description, nil)
     @public_timestamp = attrs.fetch(:public_timestamp)
+    @is_historic = attrs.fetch(:is_historic, false)
+    @government_name = attrs.fetch(:government_name, nil)
 
-    @attrs = attrs.except(:title, :link, :description, :public_timestamp)
+    @attrs = attrs.except(
+      :title,
+      :link,
+      :description,
+      :public_timestamp,
+      :is_historic,
+      :government_name,
+    )
+
     @finder = finder
   end
 
