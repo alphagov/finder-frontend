@@ -423,6 +423,12 @@
           @include inline-block;
         }
       }
+
+      p.historic {
+        @include core-14;
+        padding: 0 0 3px;
+        color: $secondary-text-colour;
+      }
     }
   }
 }

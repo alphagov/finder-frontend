@@ -23,6 +23,9 @@
           {{/is_date}}
         {{/metadata}}
       </dl>
+      {{#is_historic}}
+        <p class="historic">First published during the {{government_name}}</p>
+      {{/is_historic}}
     </li>
   {{/documents}}
 </ul>
