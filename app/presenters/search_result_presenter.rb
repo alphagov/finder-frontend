@@ -1,6 +1,11 @@
 class SearchResultPresenter
 
-  attr_reader :title, :link, :raw_metadata, :summary
+  attr_reader :title,
+              :link,
+              :raw_metadata,
+              :summary,
+              :is_historic,
+              :government_name,
 
   def initialize(search_result)
     @title = search_result.title
@@ -8,6 +13,8 @@ class SearchResultPresenter
     @summary = search_result.summary
 
     @raw_metadata = search_result.metadata
+    @is_historic = search_result.is_historic
+    @government_name = search_result.government_name
   end
 
   def to_hash
@@ -15,6 +22,8 @@ class SearchResultPresenter
       title: title,
       link: link,
       summary: summary,
+      is_historic: is_historic,
+      government_name: government_name,
       metadata: metadata,
     }
   end
