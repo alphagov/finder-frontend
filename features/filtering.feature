@@ -15,3 +15,4 @@ Feature: Filtering documents
   Scenario: Visit a government finder
     Given a government finder exists
     Then I can see the government header
+    And I can see documents which have government metadata

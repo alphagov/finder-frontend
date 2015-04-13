@@ -42,10 +42,15 @@ end
 
 Given(/^a government finder exists$/) do
   content_store_has_government_finder
-  stub_rummager_api_request
+  stub_rummager_api_request_with_government_results
 end
 
 Then(/^I can see the government header$/) do
   visit finder_path('government/policies/benefits-reform')
   page.should have_css(shared_component_selector('government_navigation'))
+end
+
+Then(/^I can see documents which have government metadata$/) do
+  page.should have_css('p.historic', count: 1)
+  page.should have_content("2005 to 2010 Labour government")
 end

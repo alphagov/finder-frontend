@@ -19,6 +19,12 @@ module DocumentHelper
     )
   end
 
+  def stub_rummager_api_request_with_government_results
+    stub_request(:get, rummager_all_documents_url).to_return(
+      body: government_documents_json,
+    )
+  end
+
   def content_store_has_mosw_reports_finder
     content_store_has_item('/mosw-reports', govuk_content_schema_example('finder').to_json)
   end
@@ -149,6 +155,39 @@ module DocumentHelper
           "date_of_introduction": "1914-08-28",
           "link": "mosw-reports/the-gerry-anderson",
           "_id": "mosw-reports/the-gerry-anderson"
+        }
+      ],
+      "total": 2,
+      "start": 0,
+      "facets": {},
+      "suggested_queries": []
+    }|
+  end
+
+  def government_documents_json
+    %|{
+      "results": [
+        {
+          "title": "Free computers for schools",
+          "summary": "Giving all children access to a computer",
+          "format": "news_article",
+          "creator": "Dale Cooper",
+          "public_timestamp": "2007-02-14T00:00:00.000+01:00",
+          "is_historic": true,
+          "government_name": "2005 to 2010 Labour government",
+          "link": "/government/policies/education/free-computers-for-schools",
+          "_id": "/government/policies/education/free-computers-for-schools"
+        },
+        {
+          "title": "An extra bank holiday per year",
+          "public_timestamp": "2015-03-14T00:00:00.000+01:00",
+          "summary": "We lost a day and found it again so everyone can get it off",
+          "format": "news_article",
+          "creator": "Dale Cooper",
+          "is_historic": false,
+          "government_name": "2010 to 2015 Conservative and Liberal Democrat Coalition government",
+          "link": "/government/policies/education/an-extra-bank-holiday-per-year",
+          "_id": "/government/policies/education/an-extra-bank-holiday-per-year"
         }
       ],
       "total": 2,
