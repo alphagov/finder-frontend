@@ -87,7 +87,7 @@
 
     .related-links {
       @include grid-column(1/3);
-      @include core-16;
+      @include bold-16;
       margin: $gutter 0;
       list-style:none;
 
@@ -95,6 +95,14 @@
         margin-bottom:4px;
         @include media(tablet) {
           margin-bottom:8px;
+        }
+
+        a:link,
+        a:visited {
+          text-decoration: none;
+        }
+        a:hover {
+          text-decoration: underline;
         }
       }
     }
