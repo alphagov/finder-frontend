@@ -25,6 +25,12 @@ module DocumentHelper
     )
   end
 
+  def stub_rummager_api_request_with_bad_data
+    stub_request(:get, rummager_all_documents_url).to_return(
+      body: documents_with_bad_data_json,
+    )
+  end
+
   def content_store_has_mosw_reports_finder
     content_store_has_item('/mosw-reports', govuk_content_schema_example('finder').to_json)
   end
@@ -188,6 +194,47 @@ module DocumentHelper
           "government_name": "2010 to 2015 Conservative and Liberal Democrat Coalition government",
           "link": "/government/policies/education/an-extra-bank-holiday-per-year",
           "_id": "/government/policies/education/an-extra-bank-holiday-per-year"
+        }
+      ],
+      "total": 2,
+      "start": 0,
+      "facets": {},
+      "suggested_queries": []
+    }|
+  end
+
+  def documents_with_bad_data_json
+    %|{
+      "results": [
+        {
+          "title": "West London wobbley walk",
+          "public_timestamp": "2014-11-25",
+          "summary": "MOSW researched a new type of silly walk",
+          "document_type": "mosw_report",
+          "walk_type": [{
+            "value": "backward",
+            "label": "Backward"
+          }],
+          "place_of_origin": [null],
+          "creator": "Road Runner",
+          "date_of_introduction": "2003-12-30",
+          "link": "mosw-reports/west-london-wobbley-walk",
+          "_id": "mosw-reports/west-london-wobbley-walk"
+        },
+        {
+          "title": "The Gerry Anderson",
+          "public_timestamp": "2010-10-06",
+          "summary": "Rhyming slang for Dander, an Irish colloquialism for walk",
+          "document_type": "mosw_report",
+          "walk_type": [null],
+          "place_of_origin": [{
+            "value": "northern-ireland",
+            "label": "Northern Ireland"
+          }],
+          "creator": "",
+          "date_of_introduction": "1914-08-28",
+          "link": "mosw-reports/the-gerry-anderson",
+          "_id": "mosw-reports/the-gerry-anderson"
         }
       ],
       "total": 2,

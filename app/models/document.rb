@@ -74,7 +74,7 @@ private
 
   def tag_labels_for(key)
     Array(attrs.fetch(key, []))
-      .map { |tag| tag.fetch("label") }
+      .map(&method(:get_metadata_label))
      .select(&:present?)
   end
 
@@ -102,5 +102,12 @@ private
     metadata_hash.merge(
       name: finder.label_for_metadata_key(metadata_hash.fetch(:name))
     )
+  end
+
+  def get_metadata_label(tag)
+    tag.fetch("label")
+  rescue => error
+    Airbrake.notify(error)
+    nil
   end
 end
