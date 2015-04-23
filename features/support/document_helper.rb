@@ -31,6 +31,12 @@ module DocumentHelper
     )
   end
 
+  def stub_rummager_api_request_with_policy_results
+    stub_request(:get, rummager_policy_search_url).to_return(
+      body: government_documents_json,
+    )
+  end
+
   def content_store_has_mosw_reports_finder
     content_store_has_item('/mosw-reports', govuk_content_schema_example('finder').to_json)
   end
@@ -39,6 +45,13 @@ module DocumentHelper
     base_path = '/government/policies/benefits-reform'
     content_store_has_item(base_path,
       govuk_content_schema_example('finder').merge('base_path' => base_path).to_json
+    )
+  end
+
+  def content_store_has_policy_finder
+    base_path = '/government/policies/benefits-reform'
+    content_store_has_item(base_path,
+      govuk_content_schema_example('policy_area', 'policy').to_json
     )
   end
 
@@ -92,6 +105,12 @@ module DocumentHelper
     }
 
     "#{Plek.current.find('search')}/unified_search.json?#{search_params(params)}"
+  end
+
+  def rummager_policy_search_url
+    # This is manual for now, as the stub URL helpers are deeply tied to mosw examples
+    # @TODO: Refactor the search_params/search_fields methods to be generic
+    "#{Plek.current.find('search')}/unified_search.json?count=1000&fields=title,link,description,public_timestamp,is_historic,government_name&filter_policies%5B0%5D=benefits-reform&order=-public_timestamp"
   end
 
   def keyword_search_results

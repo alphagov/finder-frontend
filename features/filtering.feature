@@ -17,6 +17,12 @@ Feature: Filtering documents
     Then I can see the government header
     And I can see documents which are marked as being in history mode
 
+  Scenario: Visit a policy finder
+    Given a policy finder exists
+    Then I can see the government header
+    And I can see documents which are marked as being in history mode
+    And I can see documents which have government metadata
+
   Scenario: Filters document with bad metadata
     Given a collection of documents with bad metadata exist
     Then I can get a list of all documents with good metadata

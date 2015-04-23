@@ -55,6 +55,14 @@ Then(/^I can see documents which are marked as being in history mode$/) do
   page.should have_content("2005 to 2010 Labour government")
 end
 
+
+Then(/^I can see documents which have government metadata$/) do
+  within '.filtered-results .document:nth-child(1)' do
+    page.should have_content('Updated:')
+    page.should have_css('dl time[datetime="2007-02-14"]')
+  end
+end
+
 Given(/^a collection of documents with bad metadata exist$/) do
   content_store_has_mosw_reports_finder
   stub_rummager_api_request_with_bad_data
@@ -73,4 +81,9 @@ Then(/^I can get a list of all documents with good metadata$/) do
     page.should have_content('Northern Ireland')
     page.should_not have_content('Hopscotch')
   end
+end
+
+Given(/^a policy finder exists$/) do
+  content_store_has_policy_finder
+  stub_rummager_api_request_with_policy_results
 end
