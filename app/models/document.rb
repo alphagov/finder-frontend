@@ -101,7 +101,11 @@ private
   end
 
   def get_metadata_label(tag)
-    tag.fetch("label")
+    if tag.respond_to? :fetch
+      tag.fetch("label")
+    else
+      tag
+    end
   rescue => error
     Airbrake.notify(error)
     nil

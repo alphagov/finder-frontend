@@ -110,7 +110,7 @@ module DocumentHelper
   def rummager_policy_search_url
     # This is manual for now, as the stub URL helpers are deeply tied to mosw examples
     # @TODO: Refactor the search_params/search_fields methods to be generic
-    "#{Plek.current.find('search')}/unified_search.json?count=1000&fields=title,link,description,public_timestamp,is_historic,government_name&filter_policies%5B0%5D=benefits-reform&order=-public_timestamp"
+    "#{Plek.current.find('search')}/unified_search.json?count=1000&fields=title,link,description,public_timestamp,is_historic,government_name,display_type&filter_policies%5B0%5D=benefits-reform&order=-public_timestamp"
   end
 
   def keyword_search_results
@@ -199,6 +199,7 @@ module DocumentHelper
           "creator": "Dale Cooper",
           "public_timestamp": "2007-02-14T00:00:00.000+01:00",
           "is_historic": true,
+          "display_type": "News Story",
           "government_name": "2005 to 2010 Labour government",
           "link": "/government/policies/education/free-computers-for-schools",
           "_id": "/government/policies/education/free-computers-for-schools"
@@ -210,6 +211,7 @@ module DocumentHelper
           "format": "news_article",
           "creator": "Dale Cooper",
           "is_historic": false,
+          "display_type": "News Story",
           "government_name": "2010 to 2015 Conservative and Liberal Democrat Coalition government",
           "link": "/government/policies/education/an-extra-bank-holiday-per-year",
           "_id": "/government/policies/education/an-extra-bank-holiday-per-year"

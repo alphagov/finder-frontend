@@ -60,6 +60,8 @@ Then(/^I can see documents which have government metadata$/) do
   within '.filtered-results .document:nth-child(1)' do
     page.should have_content('Updated:')
     page.should have_css('dl time[datetime="2007-02-14"]')
+
+    page.should have_content('News Story')
   end
 end
 
