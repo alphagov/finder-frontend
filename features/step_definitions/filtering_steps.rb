@@ -50,7 +50,7 @@ Then(/^I can see the government header$/) do
   page.should have_css(shared_component_selector('government_navigation'))
 end
 
-Then(/^I can see documents which have government metadata$/) do
+Then(/^I can see documents which are marked as being in history mode$/) do
   page.should have_css('p.historic', count: 1)
   page.should have_content("2005 to 2010 Labour government")
 end
