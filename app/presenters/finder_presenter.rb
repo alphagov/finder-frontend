@@ -23,10 +23,6 @@ class FinderPresenter
     content_item.details.beta
   end
 
-  def email_alert_signup_enabled?
-    content_item.details.email_signup_enabled
-  end
-
   def email_alert_signup
     if content_item.links.email_alert_signup
       content_item.links.email_alert_signup.first
@@ -39,7 +35,9 @@ class FinderPresenter
     if content_item.details.signup_link.present?
       content_item.details.signup_link
     else
-      email_alert_signup.web_url
+      if email_alert_signup
+        email_alert_signup.web_url
+      end
     end
   end
 
