@@ -145,7 +145,6 @@ A string. Required.
 
 Appended to the URL when the option is select. Usually a paramterized slug of the label, but it doesn't need to be a direct 1:1.
 
-
 # `routes`
 
 In order for a Finder to work as intended, the routes array needs to have 3 entries. One for the page, one for `.json` which is used to update the results and one for `.atom` which is used for the Atom feed. Example:

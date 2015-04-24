@@ -62,6 +62,8 @@ Then(/^I can see documents which have government metadata$/) do
     page.should have_css('dl time[datetime="2007-02-14"]')
 
     page.should have_content('News Story')
+
+    page.should have_content('Ministry of Justice')
   end
 end
 

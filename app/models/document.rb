@@ -70,7 +70,7 @@ private
 
   def tag_labels_for(key)
     Array(attrs.fetch(key, []))
-      .map(&method(:get_metadata_label))
+      .map { |label| get_metadata_label(key, label) }
      .select(&:present?)
   end
 
@@ -100,9 +100,9 @@ private
     )
   end
 
-  def get_metadata_label(tag)
+  def get_metadata_label(key, tag)
     if tag.respond_to? :fetch
-      tag.fetch("label")
+      tag.fetch(finder.display_key_for_metadata_key(key))
     else
       tag
     end
