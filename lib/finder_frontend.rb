@@ -37,7 +37,7 @@ module FinderFrontend
     end
 
     def return_fields
-      base_return_fields.concat(metadata_fields)
+      base_return_fields.concat(metadata_fields).uniq
     end
 
     def metadata_fields

@@ -114,6 +114,15 @@ class FinderPresenter
     facet.short_name || facet.key.humanize
   end
 
+  def display_key_for_metadata_key(key)
+    case key
+    when 'organisations'
+      'title'
+    else
+      'label'
+    end
+  end
+
 private
   attr_reader :content_item, :values
 

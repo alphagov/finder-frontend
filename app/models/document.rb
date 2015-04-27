@@ -10,16 +10,8 @@ class Document
     @is_historic = attrs.fetch(:is_historic, false)
     @government_name = attrs.fetch(:government_name, nil)
 
-    @attrs = attrs.except(
-      :title,
-      :link,
-      :description,
-      :public_timestamp,
-      :is_historic,
-      :government_name,
-    )
-
     @finder = finder
+    @attrs = attrs.slice(*metadata_keys)
   end
 
   def metadata
@@ -39,6 +31,10 @@ class Document
 
 private
   attr_reader :link, :attrs, :finder, :description
+
+  def metadata_keys
+    date_metadata_keys + tag_metadata_keys
+  end
 
   def date_metadata_keys
     finder.date_metadata_keys
@@ -74,7 +70,7 @@ private
 
   def tag_labels_for(key)
     Array(attrs.fetch(key, []))
-      .map(&method(:get_metadata_label))
+      .map { |label| get_metadata_label(key, label) }
      .select(&:present?)
   end
 
@@ -104,8 +100,12 @@ private
     )
   end
 
-  def get_metadata_label(tag)
-    tag.fetch("label")
+  def get_metadata_label(key, tag)
+    if tag.respond_to? :fetch
+      tag.fetch(finder.display_key_for_metadata_key(key))
+    else
+      tag
+    end
   rescue => error
     Airbrake.notify(error)
     nil
