@@ -110,7 +110,7 @@ module DocumentHelper
   def rummager_policy_search_url
     # This is manual for now, as the stub URL helpers are deeply tied to mosw examples
     # @TODO: Refactor the search_params/search_fields methods to be generic
-    "#{Plek.current.find('search')}/unified_search.json?count=1000&fields=title,link,description,public_timestamp,is_historic,government_name,organisations,display_type&filter_policies%5B0%5D=benefits-reform&order=-public_timestamp"
+    "#{Plek.current.find('search')}/unified_search.json?count=1000&fields=title,link,description,public_timestamp,is_historic,government_name,organisations,display_type&filter_policies%5B0%5D=benefits-reform&filter_public_timestamp=from%3A2015-05-08&order=-public_timestamp"
   end
 
   def keyword_search_results
