@@ -54,12 +54,13 @@ private
     # after date in the finder UI.
 
     # Needs updating if the government is not formed the day after polling
-    date_new_government_formed = "08/05/2015"
+    # set in the format of 'DD/MM/YYYY'
+    date_new_government_formed = nil
 
     is_policy_finder = finder_slug.starts_with?("government/policies/")
     has_date_param = params[:public_timestamp]
 
-    if is_policy_finder && !has_date_param
+    if date_new_government_formed && is_policy_finder && !has_date_param
       params[:public_timestamp] = {from: date_new_government_formed}
     end
   end
