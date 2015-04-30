@@ -7,6 +7,7 @@ class FinderPresenter
            :document_noun,
            :human_readable_finder_format,
            :filter,
+           :logo_path,
            :summary,
            to: :"content_item.details"
 

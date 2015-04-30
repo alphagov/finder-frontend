@@ -41,6 +41,12 @@
     <% end %>
   </div>
 
+  <% if finder.logo_path %>
+    <div class="logo">
+      <%= image_tag finder.logo_path, id: "logo-image" %>
+    </div>
+  <% end %>
+
   <% if finder.related.any? %>
     <div class='related-links'>
       <ul>
