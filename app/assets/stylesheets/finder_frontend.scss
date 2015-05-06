@@ -69,6 +69,7 @@
 
     .summary {
       margin-top: $gutter;
+      @include core-19;
     }
 
     .email-link {
