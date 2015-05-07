@@ -44,6 +44,10 @@ describe DateParser do
 
             # Future date
             '22/09/25' => Date.new(2025,9,22),
+
+            # Blank dates
+            "" => nil,
+            nil => nil,
           }
 
   dates.each_pair do | input, expected |
