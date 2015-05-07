@@ -1,7 +1,7 @@
 class DateParser
   def self.parse(date_string)
 
-    date_string = date_string.strip
+    date_string = date_string.to_s.strip
 
     # Catches if user inputs just year which Chronic would parse as a time. e.g. "2008" as "8:08pm"
     if date_string.match(/^\d{4}$/)
