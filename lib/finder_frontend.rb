@@ -20,11 +20,19 @@ module FinderFrontend
 
     attr_reader :params, :finder
 
+    def rummager_api
+      @rummager_api ||= GdsApi::Rummager.new(Plek.new.find('search'))
+    end
+
     def default_params
       {
         "count"  => "1000",
         "fields" => return_fields.join(","),
       }
+    end
+
+    def return_fields
+      base_return_fields.concat(metadata_fields).uniq
     end
 
     def base_return_fields
@@ -36,20 +44,12 @@ module FinderFrontend
       )
     end
 
-    def return_fields
-      base_return_fields.concat(metadata_fields).uniq
-    end
-
     def metadata_fields
       finder.facet_keys
     end
 
     def massaged_params
       ParamsMassager.new(params, finder).to_h
-    end
-
-    def rummager_api
-      @rummager_api ||= GdsApi::Rummager.new(Plek.new.find('search'))
     end
   end
 
