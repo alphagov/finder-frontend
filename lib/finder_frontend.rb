@@ -2,12 +2,19 @@ require 'gds_api/rummager'
 
 module FinderFrontend
   def self.get_documents(finder, params)
-    FindDocuments.new(finder, params).call
+    FindDocuments.new(
+      base_filter: finder.filter.to_h,
+      metadata_fields: finder.facet_keys,
+      default_order: finder.default_order,
+      params: params,
+    ).call
   end
 
   class FindDocuments
-    def initialize(finder, params)
-      @finder = finder
+    def initialize(base_filter:, metadata_fields:, default_order:, params:)
+      @base_filter = base_filter
+      @metadata_fields = metadata_fields
+      @default_order = default_order || "-public_timestamp"
       @params = params
     end
 
@@ -18,7 +25,7 @@ module FinderFrontend
 
   private
 
-    attr_reader :params, :finder
+    attr_reader :base_filter, :metadata_fields, :default_order, :params
 
     def rummager_api
       @rummager_api ||= GdsApi::Rummager.new(Plek.new.find('search'))
@@ -44,10 +51,6 @@ module FinderFrontend
       )
     end
 
-    def metadata_fields
-      finder.facet_keys
-    end
-
     def massaged_params
       keyword_param
         .merge(filter_params)
@@ -66,11 +69,7 @@ module FinderFrontend
       if params.has_key?("keywords")
         {}
       else
-        if finder.default_order
-          {"order" => finder.default_order}
-        else
-          {"order" => "-public_timestamp"}
-        end
+        {"order" => default_order}
       end
     end
 
@@ -81,10 +80,6 @@ module FinderFrontend
         .reduce({}) { |memo, (k,v)|
           memo.merge("filter_#{k}" => v)
         }
-    end
-
-    def base_filter
-      finder.filter.to_h
     end
   end
 end
