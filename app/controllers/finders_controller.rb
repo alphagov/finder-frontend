@@ -4,7 +4,7 @@ class FindersController < ApplicationController
   include GdsApi::Helpers
 
   def show
-    @results = ResultSetPresenter.new(finder, facet_params)
+    @results = ResultSetPresenter.new(finder)
 
     respond_to do |format|
       format.html

@@ -1,19 +1,18 @@
 class ResultSetPresenter
   include ERB::Util
 
-  attr_reader :finder, :document_noun, :params, :results, :total
+  attr_reader :finder, :document_noun, :results, :total
 
   delegate :document_noun,
            :filter_sentence_fragments,
            :keywords,
-           :slug,
+           :atom_url,
            to: :finder
 
-  def initialize(finder, facet_params)
+  def initialize(finder)
     @finder = finder
     @results = finder.results.documents
     @total = finder.results.total
-    @params = facet_params
   end
 
   def to_hash
@@ -69,9 +68,5 @@ class ResultSetPresenter
     results.map do |result|
       SearchResultPresenter.new(result).to_hash
     end
-  end
-
-  def atom_url
-    params.empty? ? "#{slug}.atom" : "#{slug}.atom?#{params.to_query}"
   end
 end

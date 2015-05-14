@@ -17,6 +17,7 @@ class FinderPresenter
     @name = content_item.title
     @slug = content_item.base_path
     @organisations = content_item.links.organisations
+    @values = values
     facets.values = values
     @keywords = keywords
   end
@@ -121,6 +122,10 @@ class FinderPresenter
     else
       'label'
     end
+  end
+
+  def atom_url
+    ["#{slug}.atom", values.to_query].reject(&:blank?).join("?")
   end
 
 private

@@ -2,9 +2,7 @@ require 'spec_helper'
 
 RSpec.describe ResultSetPresenter do
 
-  subject(:presenter) { ResultSetPresenter.new(finder, params)}
-
-  let(:params) {{}}
+  subject(:presenter) { ResultSetPresenter.new(finder)}
 
   let(:finder) do
     OpenStruct.new({
@@ -14,6 +12,7 @@ RSpec.describe ResultSetPresenter do
       total: 2,
       facets: [ a_facet, another_facet ],
       keywords: keywords,
+      atom_url: "/a-finder.atom",
     })
   end
 
@@ -222,27 +221,6 @@ RSpec.describe ResultSetPresenter do
       it 'creates a new document for each result' do
         search_result_objects = presenter.documents
         search_result_objects.count.should == 3
-      end
-    end
-  end
-
-  describe "#atom_url" do
-    context "with no params" do
-      it "returns the finder URL appended with .atom" do
-        presenter.atom_url.should == "/a-finder.atom"
-      end
-    end
-
-    context "with some params" do
-      let(:params) do
-        {
-          keyword: "legal",
-          format: "publication",
-          state: "open",
-        }
-      end
-      it "returns the finder URL appended with .atom and query params" do
-        presenter.atom_url.should == "/a-finder.atom?format=publication&keyword=legal&state=open"
       end
     end
   end

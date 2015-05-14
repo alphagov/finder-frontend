@@ -3,7 +3,7 @@ require 'spec_helper'
 RSpec.describe FinderPresenter do
   include GovukContentSchemaExamples
 
-  subject(:presenter) { described_class.new(content_item) }
+  subject(:presenter) { described_class.new(content_item, values) }
 
   let(:government_presenter) { described_class.new(government_finder_content_item) }
 
@@ -21,6 +21,8 @@ RSpec.describe FinderPresenter do
     )
     GdsApi::Response.new(dummy_http_response).to_ostruct
   }
+
+  let(:values) { {} }
 
   let(:government_finder_content_item) {
     dummy_http_response = double("net http response",
@@ -109,6 +111,28 @@ RSpec.describe FinderPresenter do
   describe "#label_for_metadata_key" do
     it "finds the correct key" do
       subject.label_for_metadata_key("date_of_introduction").should == "Introduced"
+    end
+  end
+
+  describe "#atom_url" do
+    context "with no values" do
+      it "returns the finder URL appended with .atom" do
+        presenter.atom_url.should == "/mosw-reports.atom"
+      end
+    end
+
+    context "with some values" do
+      let(:values) do
+        {
+          keyword: "legal",
+          format: "publication",
+          state: "open",
+        }
+      end
+
+      it "returns the finder URL appended with .atom and query params" do
+        presenter.atom_url.should == "/mosw-reports.atom?format=publication&keyword=legal&state=open"
+      end
     end
   end
 
