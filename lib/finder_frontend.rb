@@ -49,24 +49,10 @@ module FinderFrontend
     end
 
     def massaged_params
-      ParamsMassager.new(params, finder).to_h
-    end
-  end
-
-  class ParamsMassager
-    def initialize(params, finder)
-      @params = params
-      @finder = finder
-    end
-
-    def to_h
       keyword_param
         .merge(filter_params)
         .merge(order_param)
     end
-
-  private
-    attr_reader :params, :finder
 
     def keyword_param
       if params.has_key?("keywords")
