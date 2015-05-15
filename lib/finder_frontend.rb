@@ -80,7 +80,11 @@ module FinderFrontend
       if params.has_key?("keywords")
         {}
       else
-        {"order" => "-public_timestamp"}
+        if finder.default_order
+          {"order" => finder.default_order}
+        else
+          {"order" => "-public_timestamp"}
+        end
       end
     end
 

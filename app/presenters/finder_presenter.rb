@@ -4,6 +4,7 @@ class FinderPresenter
   attr_reader :name, :slug, :organisations, :keywords
 
   delegate :beta_message,
+           :default_order,
            :document_noun,
            :human_readable_finder_format,
            :filter,
