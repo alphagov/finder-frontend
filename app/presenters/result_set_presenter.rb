@@ -18,7 +18,7 @@ class ResultSetPresenter
       applied_filters: describe_filters_in_sentence,
       documents: documents,
       any_filters_applied: any_filters_applied?,
-      atom_url: atom_url
+      atom_url: finder.feed_disabled? ? nil : atom_url,
     }
   end
 

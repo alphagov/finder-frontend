@@ -14,6 +14,7 @@ RSpec.describe ResultSetPresenter do
       total: 2,
       facets: [ a_facet, another_facet ],
       keywords: keywords,
+      feed_disabled: false,
     })
   end
 
@@ -125,6 +126,11 @@ RSpec.describe ResultSetPresenter do
       allow(presenter).to receive(:documents)
       presenter.to_hash
       presenter.should have_received(:documents)
+    end
+
+    it 'returns no atom_url if it is disabled' do
+      finder.stub(:feed_disabled?).and_return(true)
+      presenter.to_hash[:atom_url].should == nil
     end
   end
 
