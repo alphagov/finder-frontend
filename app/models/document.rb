@@ -114,7 +114,7 @@ private
     # Finder at least allows us to know which Finder this is happening on
     Airbrake.notify(
       error,
-      url: finder.base_path,
+      url: finder.slug,
     )
     nil
   end
