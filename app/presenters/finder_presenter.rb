@@ -138,8 +138,12 @@ private
     content_item.links.people || []
   end
 
+  def working_groups
+    content_item.links.working_groups || []
+  end
+
   def from
-    organisations + people
+    organisations + people + working_groups
   end
 
   def other

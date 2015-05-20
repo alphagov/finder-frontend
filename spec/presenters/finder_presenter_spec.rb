@@ -125,9 +125,9 @@ RSpec.describe FinderPresenter do
       expect(government_presenter.page_metadata.any?).to be true
     end
 
-    it "has people and organisations in the from metadata" do
+    it "has people, organisations, and working groups in the from metadata" do
       from = government_presenter.page_metadata[:from].map(&:title)
-      expect(from).to include("George Dough", "Department for Work and Pensions")
+      expect(from).to include("George Dough", "Department for Work and Pensions", "Medical Advisory Group")
     end
   end
 
