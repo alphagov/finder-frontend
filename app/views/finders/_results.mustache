@@ -1,7 +1,9 @@
-<div class="feed">
-  <span>Get updates to this list</span>
-  <a href="{{atom_url}}">feed</a>
-</div>
+{{#atom_url}}
+  <div class="feed">
+    <span>Get updates to this list</span>
+    <a href="{{atom_url}}">feed</a>
+  </div>
+{{/atom_url}}
 
 <ul>
   {{#documents}}

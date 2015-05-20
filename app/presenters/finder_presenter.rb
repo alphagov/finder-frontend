@@ -55,6 +55,10 @@ class FinderPresenter
     facets.filters
   end
 
+  def feed_disabled?
+    content_item.details.feed_disabled || false
+  end
+
   def government?
     slug.starts_with?("/government")
   end
