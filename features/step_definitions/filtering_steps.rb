@@ -105,3 +105,15 @@ end
 Then(/^I only see documents with matching dates$/) do
   assert_cma_cases_are_filtered_by_date
 end
+
+Given(/^a finder with a dynamic filter exists$/) do
+  content_store_has_policies_finder
+  stub_rummager_api_request_with_policies_finder_results
+end
+
+Then(/^I can see filters based on the results$/) do
+  visit finder_path('government/policies')
+  within '.filtering .filter:nth-child(2)' do
+    page.should have_content('Ministry of Justice')
+  end
+end
