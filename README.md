@@ -34,11 +34,21 @@ If you are using the GDS development virtual machine then the application will b
 
 ##Running the test suite
 
+Before you can run the test suite you'll need the [govuk-content-schemas]
+repository locally. See
+[`lib/govuk_content_schema_examples.rb`][content_schema_examples] for more
+details.
+
+The default `rake` task runs all the tests:
+
 ```
 $ bundle exec rake
 ```
 
 The application has jasmine tests, which can be accessed at `/specs` when the application is running in development mode. These are also run when `rake`, above, is run.
+
+[govuk-content-schemas]: https://github.com/alphagov/govuk-content-schemas
+[content_schema_examples]: https://github.com/alphagov/finder-frontend/blob/master/lib/govuk_content_schema_examples.rb
 
 ##Making a new finder
 1. If required, add a schema to [alphagov/rummager](http://github.com/alphagov/rummager) describing your document type -- eg
