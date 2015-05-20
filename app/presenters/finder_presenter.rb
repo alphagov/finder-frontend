@@ -12,14 +12,14 @@ class FinderPresenter
            :summary,
            to: :"content_item.details"
 
-  def initialize(content_item, values = {}, keywords = nil)
+  def initialize(content_item, values = {})
     @content_item = content_item
     @name = content_item.title
     @slug = content_item.base_path
     @organisations = content_item.links.organisations
     @values = values
     facets.values = values
-    @keywords = keywords
+    @keywords = values["keywords"].presence
   end
 
   def beta?
