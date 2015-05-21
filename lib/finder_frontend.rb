@@ -2,15 +2,21 @@ require 'gds_api/rummager'
 
 module FinderFrontend
   def self.get_documents(finder, params)
-    FindDocuments.new(
+    query = SearchQueryBuilder.new(
       base_filter: finder.filter.to_h,
       metadata_fields: finder.facet_keys,
       default_order: finder.default_order,
       params: params,
     ).call
+
+    rummager_api.unified_search(query).to_hash
   end
 
-  class FindDocuments
+  def self.rummager_api
+    GdsApi::Rummager.new(Plek.find("search"))
+  end
+
+  class SearchQueryBuilder
     def initialize(base_filter:, metadata_fields:, default_order:, params:)
       @base_filter = base_filter
       @metadata_fields = metadata_fields
@@ -19,17 +25,12 @@ module FinderFrontend
     end
 
     def call
-      rummager_api.unified_search(default_params.merge(massaged_params))
-        .to_hash
+      default_params.merge(massaged_params)
     end
 
   private
 
     attr_reader :base_filter, :metadata_fields, :default_order, :params
-
-    def rummager_api
-      @rummager_api ||= GdsApi::Rummager.new(Plek.new.find('search'))
-    end
 
     def default_params
       {
