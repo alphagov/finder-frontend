@@ -22,11 +22,22 @@ class FindersController < ApplicationController
 private
   def finder
     @finder ||= FinderPresenter.new(
-      content_store.content_item!(finder_base_path),
+      raw_finder,
       facet_params,
     )
   end
   helper_method :finder
+
+  def raw_finder
+    finder_api.fetch(
+      finder_base_path,
+      facet_params,
+    )
+  end
+
+  def finder_api
+    FinderFrontend.finder_api
+  end
 
   def facet_params
     # TODO Use a whitelist based on the facets in the schema

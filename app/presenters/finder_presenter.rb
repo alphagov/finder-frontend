@@ -103,9 +103,9 @@ class FinderPresenter
   end
 
   def results
-    @results ||= ResultSet.get(
+    @results ||= ResultSetParser.parse(
+      content_item.results,
       self,
-      search_params,
     )
   end
 
@@ -130,6 +130,10 @@ class FinderPresenter
 
   def atom_url
     ["#{slug}.atom", values.to_query].reject(&:blank?).join("?") if atom_feed_enabled?
+  end
+
+  def search_params
+    facet_search_params.merge(keyword_search_params)
   end
 
 private
@@ -192,9 +196,5 @@ private
     else
       {}
     end
-  end
-
-  def search_params
-    facet_search_params.merge(keyword_search_params)
   end
 end
