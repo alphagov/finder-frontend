@@ -124,8 +124,12 @@ class FinderPresenter
     end
   end
 
+  def atom_feed_enabled?
+    !default_order.present?
+  end
+
   def atom_url
-    ["#{slug}.atom", values.to_query].reject(&:blank?).join("?")
+    ["#{slug}.atom", values.to_query].reject(&:blank?).join("?") if atom_feed_enabled?
   end
 
 private

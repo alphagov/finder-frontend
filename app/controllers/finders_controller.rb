@@ -11,8 +11,10 @@ class FindersController < ApplicationController
       format.json do
         render json: @results
       end
-      format.atom do
-        @feed = AtomPresenter.new(finder)
+      if finder.atom_feed_enabled?
+        format.atom do
+          @feed = AtomPresenter.new(finder)
+        end
       end
     end
   end

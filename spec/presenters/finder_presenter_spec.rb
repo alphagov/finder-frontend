@@ -13,6 +13,8 @@ RSpec.describe FinderPresenter do
 
   let(:national_applicability_with_internal_policies_presenter) { described_class.new(national_applicability_with_internal_policies_content_item) }
 
+  let(:policies_presenter) { described_class.new(policies_finder_content_item) }
+
   let(:content_item) {
     dummy_http_response = double("net http response",
       code: 200,
@@ -46,6 +48,15 @@ RSpec.describe FinderPresenter do
     dummy_http_response = double("net http response",
       code: 200,
       body: govuk_content_schema_example('policy_with_inapplicable_nations', 'policy').to_json,
+      headers: {}
+    )
+    GdsApi::Response.new(dummy_http_response).to_ostruct
+  }
+
+  let(:policies_finder_content_item) {
+    dummy_http_response = double("net http response",
+      code: 200,
+      body: govuk_content_schema_example('policies_finder', 'finder').to_json,
       headers: {}
     )
     GdsApi::Response.new(dummy_http_response).to_ostruct
@@ -132,6 +143,12 @@ RSpec.describe FinderPresenter do
 
       it "returns the finder URL appended with .atom and query params" do
         presenter.atom_url.should == "/mosw-reports.atom?format=publication&keyword=legal&state=open"
+      end
+    end
+
+    context "when the finder is ordered by title" do
+      it "atom_url is disabled" do
+        policies_presenter.atom_feed_enabled?.should == false
       end
     end
   end
