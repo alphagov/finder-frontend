@@ -4,7 +4,7 @@ class FindersController < ApplicationController
   include GdsApi::Helpers
 
   def show
-    @results = ResultSetPresenter.new(finder, facet_params)
+    @results = ResultSetPresenter.new(finder)
 
     respond_to do |format|
       format.html
@@ -22,7 +22,6 @@ private
     @finder ||= FinderPresenter.new(
       content_store.content_item!("/#{finder_slug}"),
       facet_params,
-      keywords,
     )
   end
   helper_method :finder
@@ -35,9 +34,5 @@ private
       :slug,
       :format,
     )
-  end
-
-  def keywords
-    params[:keywords] unless params[:keywords].blank?
   end
 end

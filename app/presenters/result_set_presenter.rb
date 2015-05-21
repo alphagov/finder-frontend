@@ -1,20 +1,24 @@
 class ResultSetPresenter
   include ERB::Util
 
-  attr_reader :finder, :documents_noun, :params, :results, :total
+  attr_reader :finder, :document_noun, :results, :total
 
-  def initialize(finder, facet_params)
+  delegate :document_noun,
+           :filter_sentence_fragments,
+           :keywords,
+           :atom_url,
+           to: :finder
+
+  def initialize(finder)
     @finder = finder
     @results = finder.results.documents
     @total = finder.results.total
-    @documents_noun = finder.document_noun
-    @params = facet_params
   end
 
   def to_hash
     {
       total: total > 1000 ? "1,000+" : total,
-      pluralised_document_noun: documents_noun.pluralize(total),
+      pluralised_document_noun: document_noun.pluralize(total),
       applied_filters: describe_filters_in_sentence,
       documents: documents,
       any_filters_applied: any_filters_applied?,
@@ -23,7 +27,7 @@ class ResultSetPresenter
   end
 
   def any_filters_applied?
-    finder.filter_sentence_fragments.length > 0 || finder.keywords.present?
+    filter_sentence_fragments.length > 0 || keywords.present?
   end
 
   def describe_filters_in_sentence
@@ -34,15 +38,15 @@ class ResultSetPresenter
   end
 
   def keywords_description
-    if finder.keywords.present?
-      "containing <strong>#{html_escape(finder.keywords)}</strong>"
+    if keywords.present?
+      "containing <strong>#{html_escape(keywords)}</strong>"
     else
       ""
     end
   end
 
   def selected_filter_descriptions
-    finder.filter_sentence_fragments.flat_map { |fragment|
+    filter_sentence_fragments.flat_map { |fragment|
       fragment_description(fragment)
     }.join(' ')
   end
@@ -64,9 +68,5 @@ class ResultSetPresenter
     results.map do |result|
       SearchResultPresenter.new(result).to_hash
     end
-  end
-
-  def atom_url
-    params.empty? ? "#{finder.slug}.atom" : "#{finder.slug}.atom?#{params.to_query}"
   end
 end
