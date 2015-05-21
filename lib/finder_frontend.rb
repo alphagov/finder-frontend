@@ -1,15 +1,16 @@
+require 'gds_api/content_store'
 require 'gds_api/rummager'
 
 module FinderFrontend
-  def self.get_documents(finder, params)
-    query = SearchQueryBuilder.new(
-      base_filter: finder.filter.to_h,
-      metadata_fields: finder.facet_keys,
-      default_order: finder.default_order,
-      params: params,
-    ).call
+  def self.finder_api
+    FinderApi.new(
+      content_api: content_store_api,
+      search_api: rummager_api,
+    )
+  end
 
-    rummager_api.unified_search(query).to_hash
+  def self.content_store_api
+    GdsApi::ContentStore.new(Plek.find("content-store"))
   end
 
   def self.rummager_api
