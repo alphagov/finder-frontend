@@ -34,7 +34,7 @@ private
   end
 
   def finder
-    FinderPresenter.new(content_store.content_item!("/#{finder_slug}"))
+    FinderPresenter.new(content_store.content_item!(finder_base_path))
   end
 
   def finder_format

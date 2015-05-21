@@ -14,6 +14,10 @@ private
     response.headers[Slimmer::Headers::TEMPLATE_HEADER] = "header_footer_only"
   end
 
+  def finder_base_path
+    "/#{finder_slug}"
+  end
+
   def finder_slug
     params[:slug]
   end
