@@ -1,8 +1,6 @@
 class SearchQueryBuilder
-  def initialize(base_filter:, metadata_fields:, default_order:, params:)
-    @base_filter = base_filter
-    @metadata_fields = metadata_fields
-    @default_order = default_order || "-public_timestamp"
+  def initialize(finder_content_item:, params: {})
+    @finder_content_item = finder_content_item
     @params = params
   end
 
@@ -11,9 +9,8 @@ class SearchQueryBuilder
   end
 
 private
-
-  attr_reader :base_filter, :metadata_fields, :default_order, :params
-
+  attr_reader :finder_content_item, :params
+  
   def default_params
     {
       "count"  => "1000",
@@ -34,34 +31,58 @@ private
     )
   end
 
+  def facets
+    @facets ||= FacetCollection.new(
+      finder_content_item.details.facets.map { |facet|
+        FacetParser.parse(facet)
+      }
+    ).tap { |collection| collection.values = params }
+  end
+
+  def metadata_fields
+    facets.to_a.map(&:key)
+  end
+
   def massaged_params
     keyword_param
       .merge(filter_params)
       .merge(order_param)
   end
 
+  def keywords
+    params["keywords"].presence
+  end
+
   def keyword_param
-    if params.has_key?("keywords")
-      {"q" => params.fetch("keywords")}
+    if keywords
+      {"q" => keywords}
     else
       {}
     end
   end
 
   def order_param
-    if params.has_key?("keywords")
+    if keywords
       {}
     else
       {"order" => default_order}
     end
   end
 
+  def default_order
+    finder_content_item.details.default_order || "-public_timestamp"
+  end
+
   def filter_params
-    params
-      .except("keywords")
+    facets
+      .values
       .merge(base_filter)
       .reduce({}) { |memo, (k,v)|
         memo.merge("filter_#{k}" => v)
       }
+  end
+
+  def base_filter
+    finder_content_item.details.filter.to_h
   end
 end
