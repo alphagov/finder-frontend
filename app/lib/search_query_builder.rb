@@ -5,15 +5,26 @@ class SearchQueryBuilder
   end
 
   def call
-    default_params.merge(massaged_params)
+    [
+      base_query,
+      return_fields_query,
+      keyword_query,
+      filter_query,
+      order_query,
+    ].reduce(&:merge)
   end
 
 private
   attr_reader :finder_content_item, :params
   
-  def default_params
+  def base_query
     {
-      "count"  => "1000",
+      "count" => "1000",
+    }
+  end
+
+  def return_fields_query
+    {
       "fields" => return_fields.join(","),
     }
   end
@@ -43,43 +54,40 @@ private
     facets.to_a.map(&:key)
   end
 
-  def massaged_params
-    keyword_param
-      .merge(filter_params)
-      .merge(order_param)
+  def order_query
+    keywords ? order_by_relevance_query : default_order_query
+  end
+
+  def order_by_relevance_query
+    {}
+  end
+
+  def default_order_query
+    {"order" => default_order}
+  end
+
+  def keyword_query
+    keywords ? {"q" => keywords} : {}
   end
 
   def keywords
     params["keywords"].presence
   end
 
-  def keyword_param
-    if keywords
-      {"q" => keywords}
-    else
-      {}
-    end
-  end
-
-  def order_param
-    if keywords
-      {}
-    else
-      {"order" => default_order}
-    end
-  end
-
   def default_order
     finder_content_item.details.default_order || "-public_timestamp"
   end
 
-  def filter_params
-    facets
-      .values
+  def filter_query
+    filter_params
       .merge(base_filter)
-      .reduce({}) { |memo, (k,v)|
-        memo.merge("filter_#{k}" => v)
+      .reduce({}) { |query, (k, v)|
+        query.merge("filter_#{k}" => v)
       }
+  end
+
+  def filter_params
+    facets.values
   end
 
   def base_filter
