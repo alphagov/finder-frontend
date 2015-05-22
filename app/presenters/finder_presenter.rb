@@ -80,10 +80,6 @@ class FinderPresenter
     filters.map(&:sentence_fragment).compact
   end
 
-  def facet_keys
-    facets.to_a.map(&:key)
-  end
-
   def show_summaries?
     content_item.details.show_summaries
   end
@@ -130,10 +126,6 @@ class FinderPresenter
 
   def atom_url
     ["#{slug}.atom", values.to_query].reject(&:blank?).join("?") if atom_feed_enabled?
-  end
-
-  def search_params
-    facet_search_params.merge(keyword_search_params)
   end
 
 private
@@ -183,18 +175,6 @@ private
   def is_external?(href)
     if host = URI.parse(href).host
       "www.gov.uk" != host
-    end
-  end
-
-  def facet_search_params
-    facets.values
-  end
-
-  def keyword_search_params
-    if keywords
-      { "keywords" => keywords }
-    else
-      {}
     end
   end
 end

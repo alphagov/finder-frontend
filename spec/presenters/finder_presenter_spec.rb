@@ -102,7 +102,6 @@ RSpec.describe FinderPresenter do
     it "returns the correct facets" do
       subject.facets.to_a.select{ |f| f.type == "date" }.length.should == 1
       subject.facets.to_a.select{ |f| f.type == "text" }.length.should == 3
-      subject.facet_keys.should =~ %w{place_of_origin date_of_introduction walk_type creator}
     end
 
     it "returns the correct filters" do
