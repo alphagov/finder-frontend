@@ -24,14 +24,9 @@ private
   end
 
   def fetch_search_results(content_item, params)
-    # TODO This is very temporary. The necessary functionality in
-    # `FinderPresenter` should be extracted and added to `SearchQueryBuilder`
-    finder = FinderPresenter.new(content_item, params)
     query = SearchQueryBuilder.new(
-      base_filter: finder.filter.to_h,
-      metadata_fields: finder.facet_keys,
-      default_order: finder.default_order,
-      params: finder.search_params,
+      finder_content_item: content_item,
+      params: params,
     ).call
 
     search_api.unified_search(query).to_hash
