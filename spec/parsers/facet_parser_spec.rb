@@ -9,7 +9,6 @@ describe FacetParser do
         display_as_result_metadata: true,
         name: "Case type",
         key: "case_type",
-        value: ["market-investigations"],
         preposition: "of type",
         filterable: true,
         allowed_values: [
@@ -33,7 +32,6 @@ describe FacetParser do
     specify { subject.should be_a SelectFacet }
     specify { subject.name.should == "Case type" }
     specify { subject.key.should == "case_type" }
-    specify { subject.value.should == ["market-investigations"] }
     specify { subject.preposition.should == "of type" }
 
     it "should build a list of allowed values" do
