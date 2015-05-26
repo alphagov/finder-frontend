@@ -7,12 +7,6 @@ class FacetCollection
     @facets = facets
   end
 
-  def values
-    filters.select { |f| f.value.present? }.each.with_object({}) do |facet, params|
-      params[facet.key] = facet.value
-    end
-  end
-
   def values=(value_hash)
     value_hash = value_hash.stringify_keys
     filters.each do |facet|
