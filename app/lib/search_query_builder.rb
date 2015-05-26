@@ -42,16 +42,16 @@ private
     )
   end
 
+  def metadata_fields
+    finder_content_item.details.facets.map(&:key)
+  end
+
   def facets
     @facets ||= FacetCollection.new(
       finder_content_item.details.facets.map { |facet|
         FacetParser.parse(facet)
       }
     ).tap { |collection| collection.values = params }
-  end
-
-  def metadata_fields
-    facets.to_a.map(&:key)
   end
 
   def order_query
