@@ -13,8 +13,8 @@ describe FacetCollection do
     context "with 3 facets" do
       let(:facets) { [:a_facet, :another_facet, :and_another_facet] }
 
-      specify { subject.to_a.should respond_to(:each) }
-      specify { subject.to_a.count.should == 3 }
+      specify { subject.should respond_to(:each) }
+      specify { subject.count.should == 3 }
     end
   end
 

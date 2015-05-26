@@ -3,6 +3,8 @@ class FacetCollection
 
   attr_reader :facets
 
+  delegate :each, to: :facets
+
   def initialize(facets)
     @facets = facets
   end
@@ -20,10 +22,6 @@ class FacetCollection
 
   def to_partial_path
     'facet_collection'
-  end
-
-  def to_a
-    facets
   end
 
   def filters
