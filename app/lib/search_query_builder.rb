@@ -46,14 +46,6 @@ private
     finder_content_item.details.facets.map(&:key)
   end
 
-  def facets
-    @facets ||= FacetCollection.new(
-      finder_content_item.details.facets.map { |facet|
-        FacetParser.parse(facet)
-      }
-    ).tap { |collection| collection.values = params }
-  end
-
   def order_query
     keywords ? order_by_relevance_query : default_order_query
   end
@@ -87,7 +79,10 @@ private
   end
 
   def filter_params
-    facets.values
+    @filter_params ||= FilterQueryBuilder.new(
+      facets: finder_content_item.details.facets,
+      user_params: params,
+    ).call
   end
 
   def base_filter
