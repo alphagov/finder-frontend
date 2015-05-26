@@ -16,10 +16,6 @@ class FacetCollection
     end
   end
 
-  def with_selected_values
-    filters.select { |f| f.selected_values.present? }
-  end
-
   def to_partial_path
     'facet_collection'
   end
