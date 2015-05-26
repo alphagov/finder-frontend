@@ -57,37 +57,7 @@ describe SelectFacet do
     end
   end
 
-  describe "#selected_values" do
-    context "permitted value" do
-      let(:value) { ["allowed-value-1"] }
-      
-      it "should return selected value object" do
-        subject.selected_values.length.should == 1
-        subject.selected_values[0].should == allowed_values[0]
-      end
-    end
-
-    context "multiple permitted values" do
-      let(:value) { ["allowed-value-1", "allowed-value-2"] }
-
-      it "should return selected value object" do
-        subject.selected_values.length.should == 2
-        subject.selected_values[0].should == allowed_values[0]
-        subject.selected_values[1].should == allowed_values[1]
-      end
-    end
-
-    context "non-permitted value" do
-      let(:value) { ["non-allowed-value"] }
-
-      it "should return no value objects" do
-        subject.selected_values.should == []
-      end
-    end
-  end
-
   describe "#sentence_fragment" do
-
     context "single value" do
       let(:value) { ["allowed-value-1"] }
 
@@ -112,6 +82,11 @@ describe SelectFacet do
         subject.sentence_fragment.values.last.parameter_key == "test_values"
         subject.sentence_fragment.values.last.other_params == ["allowed-value-1"]
       }
+    end
+
+    context "disallowed values" do
+      let(:value) { ["disallowed-value-1, disallowed-value-2"] }
+      specify { subject.sentence_fragment.should be_nil }
     end
   end
 end

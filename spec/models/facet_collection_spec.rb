@@ -46,17 +46,4 @@ describe FacetCollection do
       end
     end
   end
-
-  describe "#with_selected_values" do
-    context "with facets with values" do
-      let(:facets) { [
-          OpenStruct.new(key: "case_type", selected_values: "merger-investigations"),
-          OpenStruct.new(key: "decision_type", selected_values: nil)
-      ] }
-
-      it "should return the facets with selected values" do
-        subject.with_selected_values.should == [facets[0]]
-      end
-    end
-  end
 end

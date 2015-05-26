@@ -28,13 +28,6 @@ class SelectFacet < FilterableFacet
     @value = Array(new_value)
   end
 
-  def selected_values
-    return [] if @value.nil?
-    allowed_values.select { |option|
-      @value.include?(option.value)
-    }
-  end
-
   def sentence_fragment
     return nil unless selected_values.any?
 
@@ -59,5 +52,12 @@ private
     selected_values
       .map(&:value)
       .reject { |selected_value|  selected_value == v.value }
+  end
+
+  def selected_values
+    return [] if @value.nil?
+    allowed_values.select { |option|
+      @value.include?(option.value)
+    }
   end
 end

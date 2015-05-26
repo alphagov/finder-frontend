@@ -11,9 +11,4 @@ class FilterableFacet < Facet
   def to_partial_path
     self.class.name.underscore
   end
-
-  def selected_values
-    []
-  end
-
 end
