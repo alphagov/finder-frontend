@@ -1,5 +1,5 @@
 class FilterableFacet < Facet
-  attr_accessor :value
+  attr_writer :value
 
   delegate :preposition, to: :facet
 
