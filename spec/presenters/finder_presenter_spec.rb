@@ -100,8 +100,8 @@ RSpec.describe FinderPresenter do
 
   describe "facets" do
     it "returns the correct facets" do
-      subject.facets.to_a.select{ |f| f.type == "date" }.length.should == 1
-      subject.facets.to_a.select{ |f| f.type == "text" }.length.should == 3
+      subject.facets.select{ |f| f.type == "date" }.length.should == 1
+      subject.facets.select{ |f| f.type == "text" }.length.should == 3
     end
 
     it "returns the correct filters" do
