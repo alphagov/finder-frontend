@@ -30,7 +30,7 @@ private
   end
 
   def return_fields
-    base_return_fields.concat(metadata_fields).uniq
+    (base_return_fields + metadata_fields).uniq
   end
 
   def base_return_fields
