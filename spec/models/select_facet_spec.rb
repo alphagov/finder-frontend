@@ -34,29 +34,6 @@ describe SelectFacet do
     subject.value = value
   end
 
-  describe "#value" do
-
-    context "single permitted value" do
-      let(:value) { ["allowed-value-1"] }
-      specify { subject.value.should == ["allowed-value-1"] }
-    end
-
-    context "multiple permitted values" do
-      let(:value) { ["allowed-value-1", "allowed-value-2"] }
-      specify { subject.value.should == ["allowed-value-1", "allowed-value-2"] }
-    end
-
-    context "single disallowed value" do
-      let(:value) { ["non-allowed-value"] }
-      specify { subject.value.should == [] }
-    end
-
-    context "mix of permitted and disallowed values" do
-      let(:value) { ["allowed-value-1", "not-allowed-value"] }
-      specify { subject.value.should == ["allowed-value-1"] }
-    end
-  end
-
   describe "#sentence_fragment" do
     context "single value" do
       let(:value) { ["allowed-value-1"] }

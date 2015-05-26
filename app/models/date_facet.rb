@@ -1,8 +1,4 @@
 class DateFacet < FilterableFacet
-  def value
-    serialized_values.join(",")
-  end
-
   def sentence_fragment
     return nil unless present_values.any?
 
@@ -20,12 +16,6 @@ private
         parameter_key: key,
         other_params: present_values.reject { |key, _| key == k }
       )
-    }
-  end
-
-  def serialized_values
-    present_values.map { |key, date|
-      "#{key}:#{date.to_iso8601}"
     }
   end
 
