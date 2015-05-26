@@ -18,34 +18,31 @@ describe FacetCollection do
     end
   end
 
-  describe "#values" do
-    context "with facets with values" do
-      let(:facets) { [
-          OpenStruct.new(key: "case_type", value: "merger-investigations"),
-      ] }
-
-      it "should return a hash with the keys/values of facets with a non-blank value" do
-        subject.values.should == {"case_type" => "merger-investigations"}
-      end
-    end
-  end
-
   describe "#values=" do
     context "with facets with values" do
-      let(:facets) { [
-          OpenStruct.new(key: "case_type", value: nil),
-          OpenStruct.new(key: "decision_type", value: nil)
-      ] }
+      let(:facets) {
+        [
+          case_type_facet,
+          decision_type_facet,
+        ]
+      }
+
+      let(:case_type_facet) {
+        OpenStruct.new(key: "case_type", value: nil)
+      }
+
+      let(:decision_type_facet) {
+        OpenStruct.new(key: "decision_type", value: nil)
+      }
 
       it "should accept a hash of key/value pairs, and set the facet values for each" do
         subject.values = {
           "case_type" => "merger-investigations",
           decision_type: "catch-22"
         }
-        subject.values.should == {
-          "case_type" => "merger-investigations",
-          "decision_type" => "catch-22"
-        }
+
+        case_type_facet.value.should == "merger-investigations"
+        decision_type_facet.value.should == "catch-22"
       end
     end
   end
