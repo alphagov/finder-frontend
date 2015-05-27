@@ -150,8 +150,12 @@
     }
   }
 
+  .govuk-option-select,
   .filter {
     margin-bottom: $gutter;
+  }
+
+  .filter  {
     background-color:$grey-3;
     padding: 0 5px;
 
