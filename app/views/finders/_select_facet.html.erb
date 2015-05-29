@@ -1,21 +1,9 @@
-<div class="filter checkbox-filter js-openable-filter<%=' closed' unless facet_has_any_selected_values?(select_facet.key) %>" tabindex="0">
-  <div class="head">
-    <span class="legend"><%= select_facet.name %></span>
-    <div class="controls">
-      <a class="clear-selected<%=' js-hidden' unless facet_has_any_selected_values?(select_facet.key) %>">clear</a>
-      <div class="toggle"></div>
-    </div>
-  </div>
-  <div class="checkbox-container">
-    <div class='js-auto-height-inner'>
-    <% select_facet.allowed_values.each do | option | %>
-      <label for='<%= option['value']%>'>
-        <input type="checkbox" name="<%=select_facet.key%>[]" value="<%= option['value']%>" id="<%= option['value']%>" <%= input_checked(select_facet.key, option['value']) %> aria-controls="js-search-results-info">
-        <%= option['label']%>
-      </label>
-    <% end %>
-    </div>
-  </div>
-</div>
-
-
+<%= render partial: 'govuk_component/option_select', locals: {
+  :key => select_facet.key,
+  :title => select_facet.name,
+  :aria_controls_id => "js-search-results-info",
+  :options_container_id => select_facet.key,
+  :options => select_facet.options,
+  :closed_on_load => select_facet_counter > 0,
+}
+%>

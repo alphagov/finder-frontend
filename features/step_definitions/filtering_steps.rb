@@ -18,7 +18,7 @@ Then(/^I can get a list of all documents with matching metadata$/) do
     page.should have_content('Backward')
   end
 
-  select_filters('Walk type' => 'Hopscotch')
+  visit_filtered_finder('walk_type' => 'hopscotch')
 
   page.should have_content('1 report')
   page.should have_css('.filtered-results .document', count: 1)

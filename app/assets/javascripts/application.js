@@ -15,19 +15,10 @@
 //= require shared_mustache
 //= require templates
 //
-//= require checkbox_filter
 //= require live_search
 //= require govuk_toolkit
 
 jQuery(function($) {
-  var filters = $('.js-openable-filter').map(function(){
-    return new GOVUK.CheckboxFilter({el:$(this)});
-  });
-
-  if (filters.length > 0 && $('.js-openable-filter').not('.closed').length == 0) {
-    filters[0].open();
-  }
-
   var $form = $('.js-live-search-form'),
       $results = $('.js-live-search-results-block');
       $atomAutodiscoveryLink = $("link[type='application/atom+xml']").eq('0');
