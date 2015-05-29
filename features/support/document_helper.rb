@@ -308,13 +308,8 @@ module DocumentHelper
     }|
   end
 
-  def select_filters(facets = {})
-    within ".filter-form form" do
-      facets.values.each do |value|
-        check(value)
-      end
-      click_on "Filter results"
-    end
+  def visit_filtered_finder(facets = {})
+    visit finder_path("mosw-reports", facets)
   end
 end
 
