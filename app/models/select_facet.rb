@@ -1,10 +1,5 @@
 class SelectFacet < FilterableFacet
-  attr_reader :allowed_values
-
-  def initialize(facet)
-    super
-    @allowed_values = facet.allowed_values
-  end
+  delegate :allowed_values, to: :facet
 
   def options
     allowed_values.map do | allowed_value |
