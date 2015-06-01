@@ -16,43 +16,6 @@ describe DateFacet do
     subject.value = value
   end
 
-  describe "#value" do
-    context "single date value" do
-      let(:value) { { from: "22/09/1988" } }
-      specify { subject.value.should == "from:1988-09-22" }
-    end
-
-    context "multiple date values" do
-      let(:value) {
-        {
-          from: "22/09/1988",
-          to: "22/09/2014",
-        }
-      }
-      specify { subject.value.should == "from:1988-09-22,to:2014-09-22" }
-    end
-
-    context "non-date values" do
-      let(:value) {
-        {
-          from: "zig",
-          to: "zag",
-        }
-      }
-      specify { subject.value.should == "" }
-    end
-
-    context "mix of date and non-date values" do
-      let(:value) {
-        {
-          from: "22/09/1988",
-          to: "zag",
-        }
-      }
-      specify { subject.value.should == "from:1988-09-22" }
-    end
-  end
-
   describe "#sentence_fragment" do
 
     let(:value) { nil }

@@ -12,27 +12,13 @@ class SelectFacet < FilterableFacet
         "value" => allowed_value.value,
         "label" => allowed_value.label,
         "id" => allowed_value.value,
-        "checked" => value.include?(allowed_value.value),
+        "checked" => selected_values.include?(allowed_value),
       }
     end
   end
 
-  def value
-    return [] if @value.blank?
-
-    permitted_values = allowed_values.map(&:value)
-    @value.select {|v| permitted_values.include?(v) }
-  end
-
   def value=(new_value)
     @value = Array(new_value)
-  end
-
-  def selected_values
-    return [] if @value.nil?
-    allowed_values.select { |option|
-      @value.include?(option.value)
-    }
   end
 
   def sentence_fragment
@@ -59,5 +45,12 @@ private
     selected_values
       .map(&:value)
       .reject { |selected_value|  selected_value == v.value }
+  end
+
+  def selected_values
+    return [] if @value.nil?
+    allowed_values.select { |option|
+      @value.include?(option.value)
+    }
   end
 end
