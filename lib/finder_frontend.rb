@@ -7,17 +7,18 @@ module FinderFrontend
       metadata_fields: finder.facet_keys,
       default_order: finder.default_order,
       params: params,
-      facets: finder.faceted_filters
+      finder: finder,
     ).call
   end
 
   class FindDocuments
-    def initialize(base_filter:, metadata_fields:, default_order:, params:, facets:)
+    def initialize(base_filter:, metadata_fields:, default_order:, params:, finder:)
       @base_filter = base_filter
       @metadata_fields = metadata_fields
       @default_order = default_order || "-public_timestamp"
       @params = params
-      @facets = facets
+      @finder = finder
+      @facets = finder.faceted_filters
     end
 
     def call
@@ -27,7 +28,7 @@ module FinderFrontend
 
   private
 
-    attr_reader :base_filter, :metadata_fields, :default_order, :params, :facets
+    attr_reader :base_filter, :metadata_fields, :default_order, :params, :finder, :facets
 
     def rummager_api
       @rummager_api ||= GdsApi::Rummager.new(Plek.new.find('search'))
@@ -87,7 +88,7 @@ module FinderFrontend
 
     def facet_params
       facets.reduce({}) { |memo, (facet)|
-        memo.merge("facet_#{facet.key}" => "1000,order:value.title")
+        memo.merge("facet_#{facet.key}" => "1000,order:value.#{finder.display_key_for_metadata_key(facet.key)}")
       }
     end
   end
