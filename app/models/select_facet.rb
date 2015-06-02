@@ -36,7 +36,7 @@ class SelectFacet < FilterableFacet
   def selected_values
     return [] if @value.nil?
     options.select { |option|
-      @value.include?(option.value)
+      @value.include?(option['value'])
     }
   end
 
@@ -53,7 +53,7 @@ private
   def value_fragments
     selected_values.map { |v|
       OpenStruct.new(
-        label: v.label,
+        label: v['label'],
         parameter_key: key,
         other_params: other_params(v),
       )
@@ -62,7 +62,7 @@ private
 
   def other_params(v)
     selected_values
-      .map(&:value)
-      .reject { |selected_value|  selected_value == v.value }
+      .map { |selected_value| selected_value['value'] }
+      .reject { |selected_value|  selected_value == v['value'] }
   end
 end

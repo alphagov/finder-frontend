@@ -7,11 +7,11 @@ describe SelectFacet do
         label: "Airport price control reviews",
         value: "allowed-value-1"
       ),
-       OpenStruct.new(
+      OpenStruct.new(
         label: "Market investigations",
-        value: "allowed-value-2" 
+        value: "allowed-value-2"
       ),
-       OpenStruct.new(
+      OpenStruct.new(
         label: "Remittals",
         value: "remittals"
       )
@@ -60,10 +60,11 @@ describe SelectFacet do
   describe "#selected_values" do
     context "permitted value" do
       let(:value) { ["allowed-value-1"] }
-      
+
       it "should return selected value object" do
         subject.selected_values.length.should == 1
-        subject.selected_values[0].should == allowed_values[0]
+        subject.selected_values[0]["label"].should == allowed_values[0].label
+        subject.selected_values[0]["value"].should == allowed_values[0].value
       end
     end
 
@@ -72,8 +73,10 @@ describe SelectFacet do
 
       it "should return selected value object" do
         subject.selected_values.length.should == 2
-        subject.selected_values[0].should == allowed_values[0]
-        subject.selected_values[1].should == allowed_values[1]
+        subject.selected_values[0]["label"].should == allowed_values[0].label
+        subject.selected_values[0]["value"].should == allowed_values[0].value
+        subject.selected_values[1]["label"].should == allowed_values[1].label
+        subject.selected_values[1]["value"].should == allowed_values[1].value
       end
     end
 
