@@ -113,7 +113,9 @@ end
 
 Then(/^I can see filters based on the results$/) do
   visit finder_path('government/policies')
-  within '.filtering .filter:nth-child(2)' do
+
+  within shared_component_selector('option_select') do
+    page.should have_content('ministry-of-justice')
     page.should have_content('Ministry of Justice')
   end
 end
