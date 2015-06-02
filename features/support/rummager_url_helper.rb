@@ -19,6 +19,22 @@ module RummagerUrlHelper
     )
   end
 
+  def policy_search_params
+    base_search_params.merge(
+      "fields" => policy_search_fields.join(","),
+      "filter_policies" => ["benefits-reform"],
+    )
+  end
+
+  def policy_search_fields
+    base_search_fields + %w(
+      is_historic
+      government_name
+      organisations
+      display_type
+    )
+  end
+
   def base_search_params
     {
       "count" => "1000",

@@ -81,13 +81,10 @@ module DocumentHelper
   end
 
   def rummager_policy_search_url
-    # This is manual for now, as the stub URL helpers are deeply tied to mosw examples
-    # @TODO: Refactor the search_params/search_fields methods to be generic
     rummager_url(
-      "count" => "1000",
-      "fields" => "title,link,description,public_timestamp,is_historic,government_name,organisations,display_type",
-      "filter_policies" => ["benefits-reform"],
-      "order" => "-public_timestamp",
+      policy_search_params.merge(
+        "order" => "-public_timestamp",
+      )
     )
   end
 
