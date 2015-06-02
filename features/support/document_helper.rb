@@ -57,7 +57,7 @@ module DocumentHelper
 
   def rummager_all_documents_url
     rummager_url(
-      default_search_params.merge(
+      mosw_search_params.merge(
         "order" => "-public_timestamp",
       )
     )
@@ -65,7 +65,7 @@ module DocumentHelper
 
   def rummager_hopscotch_walks_url
     rummager_url(
-      default_search_params.merge(
+      mosw_search_params.merge(
         "filter_walk_type" => ["hopscotch"],
         "order" => "-public_timestamp",
       )
@@ -74,7 +74,7 @@ module DocumentHelper
 
   def rummager_keyword_search_url
     rummager_url(
-      default_search_params.merge(
+      mosw_search_params.merge(
         "q" => "keyword searchable",
       )
     )
