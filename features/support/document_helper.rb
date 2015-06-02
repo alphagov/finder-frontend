@@ -55,12 +55,6 @@ module DocumentHelper
     )
   end
 
-  def search_params(params = {})
-    default_search_params.merge(params).to_a.map { |tuple|
-      tuple.join("=")
-    }.join("&")
-  end
-
   def default_search_params
     {
       "count" => "1000",
@@ -83,34 +77,43 @@ module DocumentHelper
   end
 
   def rummager_all_documents_url
-    params = {
-      "order" => "-public_timestamp",
-    }
-
-    "#{Plek.current.find('search')}/unified_search.json?#{search_params(params)}"
+    rummager_url(
+      default_search_params.merge(
+        "order" => "-public_timestamp",
+      )
+    )
   end
 
   def rummager_hopscotch_walks_url
-    params = {
-      "filter_walk_type[]" => "hopscotch",
-      "order" => "-public_timestamp",
-    }
-
-    "#{Plek.current.find('search')}/unified_search.json?#{search_params(params)}"
+    rummager_url(
+      default_search_params.merge(
+        "filter_walk_type" => ["hopscotch"],
+        "order" => "-public_timestamp",
+      )
+    )
   end
 
   def rummager_keyword_search_url
-    params = {
-      "q" => "keyword%20searchable",
-    }
-
-    "#{Plek.current.find('search')}/unified_search.json?#{search_params(params)}"
+    rummager_url(
+      default_search_params.merge(
+        "q" => "keyword searchable",
+      )
+    )
   end
 
   def rummager_policy_search_url
     # This is manual for now, as the stub URL helpers are deeply tied to mosw examples
     # @TODO: Refactor the search_params/search_fields methods to be generic
-    "#{Plek.current.find('search')}/unified_search.json?count=1000&fields=title,link,description,public_timestamp,is_historic,government_name,organisations,display_type&filter_policies%5B0%5D=benefits-reform&order=-public_timestamp"
+    rummager_url(
+      "count" => "1000",
+      "fields" => "title,link,description,public_timestamp,is_historic,government_name,organisations,display_type",
+      "filter_policies" => ["benefits-reform"],
+      "order" => "-public_timestamp",
+    )
+  end
+
+  def rummager_url(params)
+    "#{Plek.current.find('search')}/unified_search.json?#{params.to_query}"
   end
 
   def keyword_search_results
