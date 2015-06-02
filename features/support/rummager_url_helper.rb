@@ -35,6 +35,24 @@ module RummagerUrlHelper
     )
   end
 
+  def cma_case_search_params
+    base_search_params.merge(
+      "fields" => cma_case_search_fields.join(","),
+      "filter_document_type" => "cma_case",
+    )
+  end
+
+  def cma_case_search_fields
+    base_search_fields + %w(
+      case_type
+      case_state
+      market_sector
+      outcome_type
+      opened_date
+      closed_date
+    )
+  end
+
   def base_search_params
     {
       "count" => "1000",

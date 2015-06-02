@@ -55,6 +55,25 @@ module DocumentHelper
     )
   end
 
+  def stub_content_store_with_cma_cases_finder
+    schema = govuk_content_schema_example("cma-cases", "finder")
+
+    content_store_has_item(
+      schema.fetch("base_path"),
+      schema.to_json,
+    )
+  end
+
+  def stub_rummager_with_cma_cases
+    stub_request(:get, rummager_all_cma_case_documents_url).to_return(
+      body: all_cma_case_documents_json,
+    )
+
+    stub_request(:get, rummager_filtered_cma_case_documents_url).to_return(
+      body: filtered_cma_case_documents_json,
+    )
+  end
+
   def rummager_all_documents_url
     rummager_url(
       mosw_search_params.merge(
@@ -83,6 +102,23 @@ module DocumentHelper
   def rummager_policy_search_url
     rummager_url(
       policy_search_params.merge(
+        "order" => "-public_timestamp",
+      )
+    )
+  end
+
+  def rummager_all_cma_case_documents_url
+    rummager_url(
+      cma_case_search_params.merge(
+        "order" => "-public_timestamp",
+      )
+    )
+  end
+
+  def rummager_filtered_cma_case_documents_url
+    rummager_url(
+      cma_case_search_params.merge(
+        "filter_opened_date" => "from:2015-02-02",
         "order" => "-public_timestamp",
       )
     )
@@ -283,8 +319,110 @@ module DocumentHelper
     }|
   end
 
+  def all_cma_case_documents_json
+    %|{
+      "results": [
+        {
+          "title": "Big Beer Co / Salty Snacks Ltd merger inquiry",
+          "public_timestamp": "2015-03-17T09:18:18+00:00",
+          "summary": "The CMA is investigating the merging of Big Beer Co and Salty Snacks Ltd.",
+          "document_type": "cma_case",
+          "case_type": [{
+            "value": "mergers",
+            "label": "Mergers"
+          }],
+          "case_state": [{
+            "value": "open",
+            "label": "Open"
+          }],
+          "market_sector": [{
+            "value": "food-manufacturing",
+            "label": "Food manufacturing"
+          }],
+          "opened_date": "2015-02-14",
+          "link": "cma-cases/big-beer-co-salty-snacks-ltd-merger",
+          "_id": "cma-cases/big-beer-co-salty-snacks-ltd-merger"
+        },
+        {
+          "title": "Bakery market investigation",
+          "public_timestamp": "2015-01-06T10:34:17+00:00",
+          "summary": "The CMA is investigation the supply and marketing of pizza-cakes in Great Britain.",
+          "document_type": "cma_case",
+          "case_type": [{
+            "value": "markets",
+            "label": "Markets"
+          }],
+          "case_state": [{
+            "value": "open",
+            "label": "Open"
+          }],
+          "market_sector": [{
+            "value": "food-manufacturing",
+            "label": "Food manufacturing"
+          }],
+          "opened_date": "2014-10-31",
+          "link": "cma-cases/bakery-market-investigation",
+          "_id": "cma-cases/bakery-market-investigation"
+        }
+      ],
+      "total": 2,
+      "start": 0,
+      "facets": {},
+      "suggested_queries": []
+    }|
+  end
+
+  def filtered_cma_case_documents_json
+    %|{
+      "results": [
+        {
+          "title": "Big Beer Co / Salty Snacks Ltd merger inquiry",
+          "public_timestamp": "2015-03-17T09:18:18+00:00",
+          "summary": "The CMA is investigating the merging of Big Beer Co and Salty Snacks Ltd.",
+          "document_type": "cma_case",
+          "case_type": [{
+            "value": "mergers",
+            "label": "Mergers"
+          }],
+          "case_state": [{
+            "value": "open",
+            "label": "Open"
+          }],
+          "market_sector": [{
+            "value": "food-manufacturing",
+            "label": "Food manufacturing"
+          }],
+          "opened_date": "2015-02-14",
+          "link": "cma-cases/big-beer-co-salty-snacks-ltd-merger",
+          "_id": "cma-cases/big-beer-co-salty-snacks-ltd-merger"
+        }
+      ],
+      "total": 1,
+      "start": 0,
+      "facets": {},
+      "suggested_queries": []
+    }|
+  end
+
   def visit_filtered_finder(facets = {})
     visit finder_path("mosw-reports", facets)
+  end
+
+  def visit_cma_cases_finder
+    visit finder_path("cma-cases")
+  end
+
+  def apply_date_filter
+    fill_in("Opened after", with: "2015-02-02")
+    click_on "Filter results"
+  end
+
+  def assert_cma_cases_are_filtered_by_date
+    page.should have_content("1 case opened after 2 February 2015")
+
+    within ".filtered-results .document:nth-child(1)" do
+      page.should have_content("Big Beer Co / Salty Snacks Ltd merger inquiry")
+    end
   end
 end
 
