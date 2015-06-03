@@ -56,6 +56,12 @@ class FinderPresenter
     facets.filters
   end
 
+  def faceted_filters
+    filters.select { |filter|
+      filter.type == 'text' && filter.allowed_values.nil?
+    }
+  end
+
   def government?
     slug.starts_with?("/government")
   end
@@ -107,6 +113,10 @@ class FinderPresenter
       self,
       search_params,
     )
+
+    facets.options = @results.facets
+
+    @results
   end
 
   def label_for_metadata_key(key)
