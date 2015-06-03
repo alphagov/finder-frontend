@@ -7,6 +7,11 @@ Feature: Filtering documents
     Given a collection of documents exist
     Then I can get a list of all documents with matching metadata
 
+  Scenario: Filter documents by date
+    Given a collection of documents that can be filtered by dates
+    When I use a date filter
+    Then I only see documents with matching dates
+
   Scenario: Filter document by keyword
     Given a collection of documents exist
     When I search documents by keyword

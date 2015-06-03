@@ -91,3 +91,17 @@ Given(/^a policy finder exists$/) do
   content_store_has_policy_finder
   stub_rummager_api_request_with_policy_results
 end
+
+Given(/^a collection of documents that can be filtered by dates$/) do
+  stub_content_store_with_cma_cases_finder
+  stub_rummager_with_cma_cases
+end
+
+When(/^I use a date filter$/) do
+  visit_cma_cases_finder
+  apply_date_filter
+end
+
+Then(/^I only see documents with matching dates$/) do
+  assert_cma_cases_are_filtered_by_date
+end
