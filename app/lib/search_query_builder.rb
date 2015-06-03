@@ -1,5 +1,6 @@
 class SearchQueryBuilder
-  def initialize(finder_content_item:, params: {})
+  def initialize(filter_query_builder:, finder_content_item:, params: {})
+    @filter_query_builder = filter_query_builder
     @finder_content_item = finder_content_item
     @params = params
   end
@@ -15,7 +16,7 @@ class SearchQueryBuilder
   end
 
 private
-  attr_reader :finder_content_item, :params
+  attr_reader :filter_query_builder, :finder_content_item, :params
   
   def base_query
     {
@@ -79,10 +80,10 @@ private
   end
 
   def filter_params
-    @filter_params ||= FilterQueryBuilder.new(
+    @filter_params ||= filter_query_builder.call(
       facets: finder_content_item.details.facets,
       user_params: params,
-    ).call
+    )
   end
 
   def base_filter
