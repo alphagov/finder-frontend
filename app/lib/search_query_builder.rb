@@ -1,6 +1,7 @@
 class SearchQueryBuilder
-  def initialize(filter_query_builder:, finder_content_item:, params: {})
+  def initialize(filter_query_builder:, facet_query_builder:, finder_content_item:, params: {})
     @filter_query_builder = filter_query_builder
+    @facet_query_builder = facet_query_builder
     @finder_content_item = finder_content_item
     @params = params
   end
@@ -12,12 +13,13 @@ class SearchQueryBuilder
       keyword_query,
       filter_query,
       order_query,
+      facet_query,
     ].reduce(&:merge)
   end
 
 private
-  attr_reader :filter_query_builder, :finder_content_item, :params
-  
+  attr_reader :filter_query_builder, :facet_query_builder, :finder_content_item, :params
+
   def base_query
     {
       "count" => "1000",
@@ -88,5 +90,17 @@ private
 
   def base_filter
     finder_content_item.details.filter.to_h
+  end
+
+  def facet_query
+    facet_params.reduce({}) { |query, (k, v)|
+      query.merge("facet_#{k}" => v)
+    }
+  end
+
+  def facet_params
+    @facet_params ||= facet_query_builder.call(
+      facets: finder_content_item.details.facets,
+    )
   end
 end
