@@ -53,6 +53,19 @@ module RummagerUrlHelper
     )
   end
 
+  def policies_search_params
+    base_search_params.merge(
+      "fields" => policies_search_fields.join(","),
+      "filter_document_type" => "policy",
+    )
+  end
+
+  def policies_search_fields
+    base_search_fields + %w(
+      organisations
+    )
+  end
+
   def base_search_params
     {
       "count" => "1000",

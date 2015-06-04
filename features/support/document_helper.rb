@@ -144,7 +144,12 @@ module DocumentHelper
   end
 
   def rummager_policies_finder_search_url
-    "#{Plek.current.find('search')}/unified_search.json?count=1000&facet_organisations=1000,order:value.title&fields=title,link,description,public_timestamp,organisations&filter_document_type=policy&order=-public_timestamp"
+    rummager_url(
+      policies_search_params.merge(
+        "facet_organisations" => "1000,order:value.title",
+        "order" => "title",
+      )
+    )
   end
 
   def keyword_search_results
