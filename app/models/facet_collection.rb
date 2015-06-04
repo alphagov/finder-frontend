@@ -3,14 +3,10 @@ class FacetCollection
 
   attr_reader :facets
 
+  delegate :each, to: :facets
+
   def initialize(facets)
     @facets = facets
-  end
-
-  def values
-    filters.select { |f| f.value.present? }.each.with_object({}) do |facet, params|
-      params[facet.key] = facet.value
-    end
   end
 
   def values=(value_hash)
@@ -20,16 +16,8 @@ class FacetCollection
     end
   end
 
-  def with_selected_values
-    filters.select { |f| f.selected_values.present? }
-  end
-
   def to_partial_path
     'facet_collection'
-  end
-
-  def to_a
-    facets
   end
 
   def filters
