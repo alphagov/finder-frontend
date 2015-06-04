@@ -100,7 +100,8 @@ class FinderPresenter
 
   def results
     @results ||= ResultSetParser.parse(
-      content_item.results,
+      content_item.details.results,
+      content_item.details.total_result_count,
       self,
     )
   end

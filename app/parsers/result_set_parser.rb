@@ -1,12 +1,11 @@
 module ResultSetParser
-  def self.parse(response, finder)
+  def self.parse(results, total, finder)
 
-    documents = response['results']
-      .map { |document| Document.new(document, finder) }
+    documents = results.map { |document| Document.new(document, finder) }
 
     ResultSet.new(
       documents,
-      response['total']
+      total,
     )
   end
 end
