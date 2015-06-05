@@ -81,15 +81,6 @@ private
 
   class TextFilter < Filter
     def value
-      allowed_values & user_values
-    end
-
-  private
-    def allowed_values
-      facet.allowed_values.map(&:value)
-    end
-
-    def user_values
       Array(params)
     end
   end

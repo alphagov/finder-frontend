@@ -8,16 +8,11 @@ describe ResultSetParser do
         :another_document_hash
       ]
     }
-    let(:response) {
-      {
-        total: 2,
-        results: results,
-      }.with_indifferent_access
-    }
+    let(:total) { 2 }
 
     let(:finder) { double(:finder) }
 
-    subject { ResultSetParser.parse(response, finder) }
+    subject { ResultSetParser.parse(results, total, finder) }
 
     before do
       Document.stub(:new).with(:a_document_hash, finder).and_return(:a_document_instance)

@@ -75,13 +75,7 @@ describe FilterQueryBuilder::TextFilter do
     FilterQueryBuilder::TextFilter.new(facet, params)
   }
 
-  let(:facet) {
-    double(
-      allowed_values: allowed_values,
-    )
-  }
-
-  let(:allowed_values) { [] }
+  let(:facet) { double }
   let(:params) { nil }
 
   describe "#active?" do
@@ -91,41 +85,8 @@ describe FilterQueryBuilder::TextFilter do
       end
     end
 
-    context "when both params and allowed values are empty" do
+    context "when params is empty" do
       let(:params) { [] }
-
-      it "should be false" do
-        expect(text_filter).not_to be_active
-      end
-    end
-
-    context "when allowed_values is not empty and params is empty" do
-      let(:allowed_values) {
-        [
-          double(value: :alpha),
-        ]
-      }
-
-      it "should be false" do
-        expect(text_filter).not_to be_active
-      end
-    end
-
-    context "when params is not empty and allowed_values is empty" do
-      let(:params) { [:alpha] }
-
-      it "should be false" do
-        expect(text_filter).not_to be_active
-      end
-    end
-
-    context "when params and allowed_values do not intersect" do
-      let(:params) { [:alpha] }
-      let(:allowed_values) {
-        [
-          double(value: :beta),
-        ]
-      }
 
       it "should be false" do
         expect(text_filter).not_to be_active
@@ -134,30 +95,11 @@ describe FilterQueryBuilder::TextFilter do
   end
 
   describe "#value" do
-    context "when params and allowed_values completely intersect" do
+    context "when params is present" do
       let(:params) { [:alpha] }
-      let(:allowed_values) {
-        [
-          double(value: :alpha),
-        ]
-      }
 
       it "should contain all values" do
         expect(text_filter.value).to eq([:alpha])
-      end
-    end
-
-    context "when params and allowed_values partially intersect" do
-      let(:params) { [:alpha, :beta] }
-      let(:allowed_values) {
-        [
-          double(value: :beta),
-          double(value: :gamma),
-        ]
-      }
-
-      it "should contain only common values" do
-        expect(text_filter.value).to eq([:beta])
       end
     end
   end

@@ -37,6 +37,12 @@ module DocumentHelper
     )
   end
 
+  def stub_rummager_api_request_with_policies_finder_results
+    stub_request(:get, rummager_policies_finder_search_url).to_return(
+      body: policies_documents_json,
+    )
+  end
+
   def content_store_has_mosw_reports_finder
     content_store_has_item('/mosw-reports', govuk_content_schema_example('finder').to_json)
   end
@@ -53,6 +59,19 @@ module DocumentHelper
     content_store_has_item(base_path,
       govuk_content_schema_example('policy_area', 'policy').to_json
     )
+  end
+
+  def content_store_has_policies_finder
+    base_path = '/government/policies'
+    content_store_has_item(base_path,
+      govuk_content_schema_example('policies_finder').to_json
+    )
+  end
+
+  def search_params(params = {})
+    default_search_params.merge(params).to_a.map { |tuple|
+      tuple.join("=")
+    }.join("&")
   end
 
   def stub_content_store_with_cma_cases_finder
@@ -120,6 +139,15 @@ module DocumentHelper
       cma_case_search_params.merge(
         "filter_opened_date" => "from:2015-02-02",
         "order" => "-public_timestamp",
+      )
+    )
+  end
+
+  def rummager_policies_finder_search_url
+    rummager_url(
+      policies_search_params.merge(
+        "facet_organisations" => "1000,order:value.title",
+        "order" => "title",
       )
     )
   end
@@ -245,6 +273,61 @@ module DocumentHelper
       "total": 2,
       "start": 0,
       "facets": {},
+      "suggested_queries": []
+    }|
+  end
+
+  def policies_documents_json
+    %|{
+      "results": [
+        {
+          "title": "Education",
+          "summary": "Education",
+          "format": "policy",
+          "creator": "Dale Cooper",
+          "public_timestamp": "2007-02-14T00:00:00.000+01:00",
+          "is_historic": true,
+          "display_type": "Policy",
+          "organisations": [{
+            "slug": "ministry-of-justice",
+            "link": "/government/organisations/ministry-of-justice",
+            "title": "Ministry of Justice",
+            "acronym": "MoJ",
+            "organisation_state": "live"
+          }],
+          "government_name": "2005 to 2010 Labour government",
+          "link": "/government/policies/education",
+          "_id": "/government/policies/education"
+        },
+        {
+          "title": "Afghanistan",
+          "public_timestamp": "2015-03-14T00:00:00.000+01:00",
+          "summary": "What the government is doing about Afghanistan",
+          "format": "policy",
+          "creator": "Dale Cooper",
+          "is_historic": false,
+          "organisations": [{
+            "slug": "ministry-of-justice",
+            "link": "/government/organisations/ministry-of-justice",
+            "title": "Ministry of Justice",
+            "acronym": "MoJ",
+            "organisation_state": "live"
+          }],
+          "display_type": "Policy",
+          "government_name": "2010 to 2015 Conservative and Liberal Democrat Coalition government",
+          "link": "/government/policies/afghanistan",
+          "_id": "/government/policies/afghanistan"
+        }
+      ],
+      "total": 2,
+      "start": 0,
+      "facets": {
+        "organisations": {
+          "options": [
+              {"value": {"title": "Ministry of Justice", "slug": "ministry-of-justice"}}
+          ]
+        }
+      },
       "suggested_queries": []
     }|
   end
