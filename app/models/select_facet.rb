@@ -4,10 +4,10 @@ class SelectFacet < FilterableFacet
   def options
     allowed_values.map do | allowed_value |
       {
-        "value" => allowed_value.value,
-        "label" => allowed_value.label,
-        "id" => allowed_value.value,
-        "checked" => selected_values.include?(allowed_value),
+        value: allowed_value.value,
+        label: allowed_value.label,
+        id: allowed_value.value,
+        checked: selected_values.include?(allowed_value),
       }
     end
   end
