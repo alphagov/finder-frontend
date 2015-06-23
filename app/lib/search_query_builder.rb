@@ -23,6 +23,7 @@ private
   def base_query
     {
       "count" => "1000",
+      "start" => "0",
     }
   end
 

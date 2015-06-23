@@ -69,6 +69,7 @@ module RummagerUrlHelper
   def base_search_params
     {
       "count" => "1000",
+      "start" => "0",
     }
   end
 
