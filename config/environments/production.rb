@@ -68,6 +68,7 @@ FinderFrontend::Application.configure do
     application-ie6.css
     application-ie7.css
     application-ie8.css
+    print.css
   )
 
   # Ignore bad email addresses and do not raise email delivery errors.
