@@ -68,6 +68,8 @@
       <div id='js-results'>
         <%= render_mustache('results', @results.to_hash) %>
       </div>
+
+      <%= render partial: 'govuk_component/previous_and_next_navigation', locals: finder.pagination if finder.pagination %>
     </div>
   </div>
 </div>

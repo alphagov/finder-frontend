@@ -129,6 +129,31 @@ class FinderPresenter
     ["#{slug}.atom", values.to_query].reject(&:blank?).join("?") if atom_feed_enabled?
   end
 
+  def pagination
+    return unless content_item.details.pagination
+
+    current_page = content_item.details.pagination.current_page
+    previous_page = current_page - 1 if current_page > 1
+    next_page = current_page + 1 if current_page < content_item.details.pagination.total_pages
+    results = {}
+    if previous_page
+      results[:previous_page] = {
+        url: [slug, values.merge({page: previous_page}).to_query].reject(&:blank?).join("?"),
+        title: "Previous page",
+        label: "#{previous_page} of #{content_item.details.pagination.total_pages}"
+      }
+    end
+
+    if next_page
+      results[:next_page] = {
+        url: [slug, values.merge({page: next_page}).to_query].reject(&:blank?).join("?"),
+        title: "Next page",
+        label: "#{next_page} of #{content_item.details.pagination.total_pages}"
+      }
+    end
+    results
+  end
+
 private
   attr_reader :content_item, :values
 
