@@ -8,7 +8,7 @@ class SearchQueryBuilder
 
   def call
     [
-      base_query,
+      pagination_query,
       return_fields_query,
       keyword_query,
       filter_query,
@@ -20,11 +20,23 @@ class SearchQueryBuilder
 private
   attr_reader :filter_query_builder, :facet_query_builder, :finder_content_item, :params
 
-  def base_query
+  def pagination_query
     {
-      "count" => "1000",
-      "start" => "0",
+      "count" => documents_per_page,
+      "start" => pagination_start,
     }
+  end
+
+  def pagination_start
+    documents_per_page * (current_page - 1) || 0
+  end
+
+  def current_page
+    params.fetch("page", 1).to_i
+  end
+
+  def documents_per_page
+    finder_content_item.details.documents_per_page || 1000
   end
 
   def return_fields_query

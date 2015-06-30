@@ -46,6 +46,12 @@ private
     content_item.details.results = search_response.fetch("results")
     content_item.details.total_result_count = search_response.fetch("total")
 
+    content_item.details.pagination = build_pagination(
+      content_item.details.documents_per_page,
+      search_response.fetch('start'),
+      search_response.fetch('total')
+    )
+
     search_response.fetch("facets", {}).each do |facet_key, facet_details|
       facet = content_item.details.facets.find { |f| f.key == facet_key }
       facet.allowed_values = allowed_values_for_facet_details(facet_details) if facet
@@ -63,5 +69,14 @@ private
         value: value.fetch("slug", ""),
       )
     }
+  end
+
+  def build_pagination(documents_per_page, start_offset, total_results)
+    if documents_per_page
+      OpenStruct.new(
+        current_page: (start_offset / documents_per_page) + 1,
+        total_pages: (total_results / documents_per_page.to_f).ceil,
+      )
+    end
   end
 end
