@@ -39,6 +39,7 @@ describe("liveSearch", function(){
 
     _supportHistory = GOVUK.support.history;
     GOVUK.support.history = function(){ return true; };
+    GOVUK.analytics = { trackPageview: function (){ } };
 
     liveSearch = new GOVUK.LiveSearch({$form: $form, $results: $results, $atomAutodiscoveryLink:$atomAutodiscoveryLink});
   });
@@ -175,6 +176,20 @@ describe("liveSearch", function(){
       expect(liveSearch.updateResults).toHaveBeenCalled();
       promise.done.calls.mostRecent().args[0]();
       //expect(liveSearch.pageTrack).toHaveBeenCalled();
+    });
+
+    it("should trigger analytics trackpage when checkbox is changed", function(){
+      var promise = jasmine.createSpyObj('promise', ['done']);
+      spyOn(liveSearch, 'updateResults').and.returnValue(promise);
+      spyOn(GOVUK.analytics, 'trackPageview');
+      liveSearch.state = [];
+
+      liveSearch.formChange();
+      promise.done.calls.mostRecent().args[0]();
+
+      expect(GOVUK.analytics.trackPageview).toHaveBeenCalled();
+      var trackArgs = GOVUK.analytics.trackPageview.calls.first().args[0];
+      expect(trackArgs.split('?')[1], 'field=sheep');
     });
 
     it("should do nothing if state hasn't changed when a checkbox is changed", function(){

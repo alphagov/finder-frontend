@@ -58,7 +58,11 @@
       pageUpdated = this.updateResults();
       pageUpdated.done(
         function(){
-          history.pushState(this.state, '', window.location.pathname + "?" + $.param(this.state));
+          var newPath = window.location.pathname + "?" + $.param(this.state);
+          history.pushState(this.state, '', newPath);
+          if (GOVUK.analytics && GOVUK.analytics.trackPageview) {
+            GOVUK.analytics.trackPageview(newPath);
+          }
         }.bind(this)
       );
     }
