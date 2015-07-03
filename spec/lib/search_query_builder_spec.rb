@@ -23,6 +23,7 @@ describe SearchQueryBuilder do
         facets: facets,
         filter: double(to_h: filter),
         default_order: default_order,
+        documents_per_page: nil,
       ),
     )
   }
@@ -34,7 +35,27 @@ describe SearchQueryBuilder do
   let(:params) { {} }
 
   it "should include a count" do
-    expect(query).to include("count" => "1000")
+    expect(query).to include("count" => 1000)
+  end
+
+  context "with pagination" do
+    let(:finder_content_item) {
+      double(
+        details: double(
+          facets: facets,
+          filter: double(to_h: filter),
+          default_order: default_order,
+          documents_per_page: 10
+        ),
+      )
+    }
+
+    it "should use documents_per_page from content item" do
+      expect(query).to include({
+          "count" => 10,
+          "start" => 0
+        })
+    end
   end
 
   context "without any facets" do

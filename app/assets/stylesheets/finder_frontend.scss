@@ -342,5 +342,10 @@
         color: $secondary-text-colour;
       }
     }
+
+    .govuk-previous-and-next-navigation {
+      margin-top: $gutter;
+    }
+
   }
 }

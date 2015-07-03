@@ -35,3 +35,8 @@ Feature: Filtering documents
   Scenario: Visit a finder with dynamic filter
     Given a finder with a dynamic filter exists
     Then I can see filters based on the results
+
+  Scenario: Visit a finder with paginated results
+    Given a finder with paginated results exists
+    Then I can see pagination
+    And I can browse to the next page
