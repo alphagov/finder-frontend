@@ -1,7 +1,7 @@
 class FinderPresenter
   include ActionView::Helpers::UrlHelper
 
-  attr_reader :name, :slug, :organisations, :keywords
+  attr_reader :name, :slug, :organisations, :keywords, :values
 
   delegate :beta_message,
            :default_order,
@@ -10,6 +10,7 @@ class FinderPresenter
            :filter,
            :logo_path,
            :summary,
+           :pagination,
            to: :"content_item.details"
 
   def initialize(content_item, values = {})
@@ -129,33 +130,8 @@ class FinderPresenter
     ["#{slug}.atom", values.to_query].reject(&:blank?).join("?") if atom_feed_enabled?
   end
 
-  def pagination
-    return unless content_item.details.pagination
-
-    current_page = content_item.details.pagination.current_page
-    previous_page = current_page - 1 if current_page > 1
-    next_page = current_page + 1 if current_page < content_item.details.pagination.total_pages
-    results = {}
-    if previous_page
-      results[:previous_page] = {
-        url: [slug, values.merge({page: previous_page}).to_query].reject(&:blank?).join("?"),
-        title: "Previous page",
-        label: "#{previous_page} of #{content_item.details.pagination.total_pages}"
-      }
-    end
-
-    if next_page
-      results[:next_page] = {
-        url: [slug, values.merge({page: next_page}).to_query].reject(&:blank?).join("?"),
-        title: "Next page",
-        label: "#{next_page} of #{content_item.details.pagination.total_pages}"
-      }
-    end
-    results
-  end
-
 private
-  attr_reader :content_item, :values
+  attr_reader :content_item
 
   def part_of
     content_item.links.part_of || []

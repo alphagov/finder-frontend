@@ -2,19 +2,29 @@ require 'spec_helper'
 
 RSpec.describe ResultSetPresenter do
 
-  subject(:presenter) { ResultSetPresenter.new(finder)}
+  subject(:presenter) { ResultSetPresenter.new(finder, view_context)}
 
   let(:finder) do
     OpenStruct.new({
       slug: "/a-finder",
       results: results,
       document_noun: document_noun,
-      total: 2,
+      total: 20,
       facets: [ a_facet, another_facet ],
       keywords: keywords,
       atom_url: "/a-finder.atom",
+      default_documents_per_page: 10,
+      values: {},
+      pagination: pagination,
     })
   end
+
+  let(:pagination) { double(:pagination, {
+    current_page: 1,
+    total_pages: 2,
+  })}
+
+  let(:view_context) { double(:view_context) }
 
   let(:a_facet) do
     OpenStruct.new(
@@ -73,10 +83,10 @@ RSpec.describe ResultSetPresenter do
 
   let(:keywords){ '' }
   let(:document_noun){ 'case' }
-  let(:total) { 2 }
+  let(:total) { 20 }
 
   let(:results) do
-    OpenStruct.new({ total: total, documents: [ document ] })
+    OpenStruct.new({ total: total, documents: (1..total).map {|n| document }})
   end
 
   let(:document) do
@@ -97,6 +107,7 @@ RSpec.describe ResultSetPresenter do
       presenter.stub(:describe_filters_in_sentence).and_return("a sentence summarising the selected filters")
       presenter.stub(:documents).and_return({ key: 'value' })
       presenter.stub(:any_filters_applied?).and_return(true)
+      view_context.stub(:render) { '<nav></nav>' }
     end
 
     it 'returns an appropriate hash' do
@@ -106,6 +117,7 @@ RSpec.describe ResultSetPresenter do
       presenter.to_hash[:applied_filters].present?.should == true
       presenter.to_hash[:any_filters_applied].present?.should == true
       presenter.to_hash[:atom_url].present?.should == true
+      presenter.to_hash[:next_and_prev_links].present?.should == true
     end
 
     it 'calls pluralize on the document noun with the results_count' do
