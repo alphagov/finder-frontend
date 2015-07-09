@@ -47,7 +47,7 @@ private
     content_item.details.total_result_count = search_response.fetch("total")
 
     content_item.details.pagination = build_pagination(
-      content_item.details.documents_per_page,
+      content_item.details.default_documents_per_page,
       search_response.fetch('start'),
       search_response.fetch('total')
     )

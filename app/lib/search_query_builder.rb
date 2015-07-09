@@ -36,7 +36,7 @@ private
   end
 
   def documents_per_page
-    finder_content_item.details.documents_per_page || 1000
+    finder_content_item.details.default_documents_per_page || 1000
   end
 
   def return_fields_query

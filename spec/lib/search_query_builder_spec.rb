@@ -23,7 +23,7 @@ describe SearchQueryBuilder do
         facets: facets,
         filter: double(to_h: filter),
         default_order: default_order,
-        documents_per_page: nil,
+        default_documents_per_page: nil,
       ),
     )
   }
@@ -45,7 +45,7 @@ describe SearchQueryBuilder do
           facets: facets,
           filter: double(to_h: filter),
           default_order: default_order,
-          documents_per_page: 10
+          default_documents_per_page: 10
         ),
       )
     }
