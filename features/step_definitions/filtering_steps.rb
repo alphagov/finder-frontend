@@ -119,3 +119,27 @@ Then(/^I can see filters based on the results$/) do
     page.should have_content('Ministry of Justice')
   end
 end
+
+Given(/^a finder with paginated results exists$/) do
+  content_store_has_policy_finder
+  stub_rummager_api_request_with_policy_results
+end
+
+Then(/^I can see pagination$/) do
+  visit finder_path('government/policies/benefits-reform')
+
+  within shared_component_selector('previous_and_next_navigation') do
+    page.should_not have_content('Previous page')
+    page.should have_content('Next page')
+  end
+end
+
+Then(/^I can browse to the next page$/) do
+  stub_rummager_api_request_with_page_2_policy_results
+  visit finder_path('government/policies/benefits-reform',  page: 2)
+
+  within shared_component_selector('previous_and_next_navigation') do
+    page.should have_content('Previous page')
+    page.should_not have_content('Next page')
+  end
+end
