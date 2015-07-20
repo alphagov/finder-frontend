@@ -37,6 +37,12 @@ module DocumentHelper
     )
   end
 
+  def stub_rummager_api_request_with_page_2_policy_results
+    stub_request(:get, rummager_policy_page_2_search_url).to_return(
+      body: government_documents_page_2_json,
+    )
+  end
+
   def stub_rummager_api_request_with_policies_finder_results
     stub_request(:get, rummager_policies_finder_search_url).to_return(
       body: policies_documents_json,
@@ -122,6 +128,18 @@ module DocumentHelper
     rummager_url(
       policy_search_params.merge(
         "order" => "-public_timestamp",
+        "count" => 10,
+        "start" => 0,
+      )
+    )
+  end
+
+  def rummager_policy_page_2_search_url
+    rummager_url(
+      policy_search_params.merge(
+        "order" => "-public_timestamp",
+        "count" => 10,
+        "start" => 10,
       )
     )
   end
@@ -230,51 +248,71 @@ module DocumentHelper
 
   def government_documents_json
     %|{
-      "results": [
-        {
-          "title": "Free computers for schools",
-          "summary": "Giving all children access to a computer",
-          "format": "news_article",
-          "creator": "Dale Cooper",
-          "public_timestamp": "2007-02-14T00:00:00.000+01:00",
-          "is_historic": true,
-          "display_type": "News Story",
-          "organisations": [{
-            "slug": "ministry-of-justice",
-            "link": "/government/organisations/ministry-of-justice",
-            "title": "Ministry of Justice",
-            "acronym": "MoJ",
-            "organisation_state": "live"
-          }],
-          "government_name": "2005 to 2010 Labour government",
-          "link": "/government/policies/education/free-computers-for-schools",
-          "_id": "/government/policies/education/free-computers-for-schools"
-        },
-        {
-          "title": "An extra bank holiday per year",
-          "public_timestamp": "2015-03-14T00:00:00.000+01:00",
-          "summary": "We lost a day and found it again so everyone can get it off",
-          "format": "news_article",
-          "creator": "Dale Cooper",
-          "is_historic": false,
-          "organisations": [{
-            "slug": "ministry-of-justice",
-            "link": "/government/organisations/ministry-of-justice",
-            "title": "Ministry of Justice",
-            "acronym": "MoJ",
-            "organisation_state": "live"
-          }],
-          "display_type": "News Story",
-          "government_name": "2010 to 2015 Conservative and Liberal Democrat Coalition government",
-          "link": "/government/policies/education/an-extra-bank-holiday-per-year",
-          "_id": "/government/policies/education/an-extra-bank-holiday-per-year"
-        }
-      ],
-      "total": 2,
+      "results": #{government_document_results_json.to_s},
+      "total": 20,
       "start": 0,
       "facets": {},
       "suggested_queries": []
     }|
+  end
+
+  def government_documents_page_2_json
+    %|{
+      "results": #{government_document_results_json(5).to_s},
+      "total": 20,
+      "start": 10,
+      "facets": {},
+      "suggested_queries": []
+    }|
+  end
+
+  def government_document_results_json(start_at = 0)
+    results = []
+
+    5.times do |n|
+      results << [
+        {
+          "title" => "Document #{n+start_at}",
+          "summary" => "Giving all children access to a computer",
+          "format" => "news_article",
+          "creator" => "Dale Cooper",
+          "public_timestamp" => "2007-02-14T00:00:00.000+01:00",
+          "is_historic" => true,
+          "display_type" => "News Story",
+          "organisations" => [{
+            "slug" => "ministry-of-justice",
+            "link" => "/government/organisations/ministry-of-justice",
+            "title" => "Ministry of Justice",
+            "acronym" => "MoJ",
+            "organisation_state" => "live"
+          }],
+          "government_name" => "2005 to 2010 Labour government",
+          "link" => "/government/policies/education/free-computers-for-schools",
+          "_id" => "/government/policies/education/free-computers-for-schools"
+        },
+        {
+          "title" => "Document #{n+1+start_at}",
+          "public_timestamp" => "2015-03-14T00:00:00.000+01:00",
+          "summary" => "We lost a day and found it again so everyone can get it off",
+          "format" => "news_article",
+          "creator" => "Dale Cooper",
+          "is_historic" => false,
+          "display_type" => "News Story",
+          "organisations" => [{
+            "slug" => "ministry-of-justice",
+            "link" => "/government/organisations/ministry-of-justice",
+            "title" => "Ministry of Justice",
+            "acronym" => "MoJ",
+            "organisation_state" => "live"
+          }],
+          "government_name" => "2010 to 2015 Conservative and Liberal Democrat Coalition government",
+          "link" => "/government/policies/education/an-extra-bank-holiday-per-year",
+          "_id" => "/government/policies/education/an-extra-bank-holiday-per-year"
+        }
+      ]
+    end
+
+    results.flatten.to_json
   end
 
   def policies_documents_json

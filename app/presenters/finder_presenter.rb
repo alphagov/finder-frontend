@@ -1,7 +1,7 @@
 class FinderPresenter
   include ActionView::Helpers::UrlHelper
 
-  attr_reader :name, :slug, :organisations, :keywords
+  attr_reader :name, :slug, :organisations, :keywords, :values
 
   delegate :beta_message,
            :default_order,
@@ -10,6 +10,7 @@ class FinderPresenter
            :filter,
            :logo_path,
            :summary,
+           :pagination,
            to: :"content_item.details"
 
   def initialize(content_item, values = {})
@@ -130,7 +131,7 @@ class FinderPresenter
   end
 
 private
-  attr_reader :content_item, :values
+  attr_reader :content_item
 
   def part_of
     content_item.links.part_of || []

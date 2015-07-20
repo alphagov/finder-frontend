@@ -29,7 +29,7 @@ describe FindersController do
             "suggested_queries": []
           }|
 
-        stub_request(:get, "#{Plek.current.find('search')}/unified_search.json?count=1000&fields=title,link,description,public_timestamp&order=-public_timestamp").to_return(:status => 200, :body => rummager_response, :headers => {})
+        stub_request(:get, "#{Plek.current.find('search')}/unified_search.json?count=1000&fields=title,link,description,public_timestamp&order=-public_timestamp&start=0").to_return(:status => 200, :body => rummager_response, :headers => {})
       end
 
       it "correctly renders a finder page" do
