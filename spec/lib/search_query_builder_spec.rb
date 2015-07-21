@@ -22,6 +22,7 @@ describe SearchQueryBuilder do
       details: double(
         facets: facets,
         filter: double(to_h: filter),
+        reject: double(to_h: reject),
         default_order: default_order,
         default_documents_per_page: nil,
       ),
@@ -30,6 +31,7 @@ describe SearchQueryBuilder do
 
   let(:facets) { [] }
   let(:filter) { {} }
+  let(:reject) { {} }
   let(:default_order) { nil }
 
   let(:params) { {} }
@@ -44,6 +46,7 @@ describe SearchQueryBuilder do
         details: double(
           facets: facets,
           filter: double(to_h: filter),
+          reject: double(to_h: reject),
           default_order: default_order,
           default_documents_per_page: 10
         ),
@@ -80,9 +83,22 @@ describe SearchQueryBuilder do
       ]
     }
 
+    let(:reject) {
+      {
+        alpha: "value"
+      }
+    }
+
     it "should include base and extra return fields" do
       expect(query).to include(
         "fields" => "title,link,description,public_timestamp,alpha,beta",
+      )
+    end
+
+    it "should include reject fields prefixed with reject_" do
+
+      expect(query).to include(
+        "reject_alpha" => "value",
       )
     end
 
