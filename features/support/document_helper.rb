@@ -155,7 +155,7 @@ module DocumentHelper
   def rummager_filtered_cma_case_documents_url
     rummager_url(
       cma_case_search_params.merge(
-        "filter_opened_date" => "from:2015-02-02",
+        "filter_closed_date" => "from:2015-11-01",
         "order" => "-public_timestamp",
       )
     )
@@ -453,14 +453,15 @@ module DocumentHelper
             "label": "Mergers"
           }],
           "case_state": [{
-            "value": "open",
-            "label": "Open"
+            "value": "closed",
+            "label": "Closed"
           }],
           "market_sector": [{
             "value": "food-manufacturing",
             "label": "Food manufacturing"
           }],
           "opened_date": "2015-02-14",
+          "closed_date": "2016-02-14",
           "link": "cma-cases/big-beer-co-salty-snacks-ltd-merger",
           "_id": "cma-cases/big-beer-co-salty-snacks-ltd-merger"
         },
@@ -474,14 +475,15 @@ module DocumentHelper
             "label": "Markets"
           }],
           "case_state": [{
-            "value": "open",
-            "label": "Open"
+            "value": "closed",
+            "label": "Closed"
           }],
           "market_sector": [{
             "value": "food-manufacturing",
             "label": "Food manufacturing"
           }],
           "opened_date": "2014-10-31",
+          "closed_date": "2015-10-31",
           "link": "cma-cases/bakery-market-investigation",
           "_id": "cma-cases/bakery-market-investigation"
         }
@@ -534,12 +536,12 @@ module DocumentHelper
   end
 
   def apply_date_filter
-    fill_in("Opened after", with: "2015-02-02")
+    fill_in("Closed after", with: "2015-11-01")
     click_on "Filter results"
   end
 
   def assert_cma_cases_are_filtered_by_date
-    page.should have_content("1 case opened after 2 February 2015")
+    page.should have_content("1 case closed after 1 November 2015")
 
     within ".filtered-results .document:nth-child(1)" do
       page.should have_content("Big Beer Co / Salty Snacks Ltd merger inquiry")
