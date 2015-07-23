@@ -12,6 +12,7 @@ class SearchQueryBuilder
       return_fields_query,
       keyword_query,
       filter_query,
+      reject_query,
       order_query,
       facet_query,
     ].reduce(&:merge)
@@ -94,6 +95,12 @@ private
       }
   end
 
+  def reject_query
+    base_reject.reduce({}) { |query, (k, v)|
+      query.merge("reject_#{k}" => v)
+    }
+  end
+
   def filter_params
     @filter_params ||= filter_query_builder.call(
       facets: finder_content_item.details.facets,
@@ -103,6 +110,10 @@ private
 
   def base_filter
     finder_content_item.details.filter.to_h
+  end
+
+  def base_reject
+    finder_content_item.details.reject.to_h
   end
 
   def facet_query
