@@ -1,7 +1,13 @@
 <% content_for :title, finder.name %>
 <% content_for :head, auto_discovery_link_tag(:atom, @results.atom_url) %>
 
-<% if finder.beta? %>
+<% if finder.alpha? %>
+  <% if finder.alpha_message %>
+    <%= render partial: 'govuk_component/alpha_label', locals: { message: finder.alpha_message } %>
+  <% else %>
+    <%= render partial: 'govuk_component/alpha_label' %>
+  <% end %>
+<% elsif finder.beta? %>
   <% if finder.beta_message %>
     <%= render partial: 'govuk_component/beta_label', locals: { message: finder.beta_message } %>
   <% else %>

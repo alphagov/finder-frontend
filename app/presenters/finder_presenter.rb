@@ -3,7 +3,8 @@ class FinderPresenter
 
   attr_reader :name, :slug, :organisations, :keywords, :values
 
-  delegate :beta_message,
+  delegate :alpha_message,
+           :beta_message,
            :default_order,
            :document_noun,
            :human_readable_finder_format,
@@ -21,6 +22,10 @@ class FinderPresenter
     @values = values
     facets.values = values
     @keywords = values["keywords"].presence
+  end
+
+  def alpha?
+    content_item.details.alpha
   end
 
   def beta?
