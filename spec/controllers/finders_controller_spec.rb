@@ -46,6 +46,39 @@ describe FindersController do
       end
     end
 
+    describe "a finder content item with a default order exists" do
+      before do
+        content_store_has_item('/lunch-finder',
+          {
+            base_path: '/lunch-finder',
+            title: 'Lunch Finder',
+            details: {
+              default_order: "-closing_date",
+              facets: [],
+            },
+            links: {
+              organisations: [],
+            },
+          }
+        )
+
+        rummager_response = %|{
+            "results": [],
+            "total": 0,
+            "start": 0,
+            "facets": {},
+            "suggested_queries": []
+          }|
+
+        stub_request(:get, "#{Plek.current.find('search')}/unified_search.json?count=1000&fields=title,link,description,public_timestamp&order=-closing_date&start=0").to_return(:status => 200, :body => rummager_response, :headers => {})
+      end
+
+      it "returns a 404 when requesting an atom feed, rather than a 500" do
+        get :show, format: :atom, slug: 'lunch-finder'
+        expect(response.status).to eq(404)
+      end
+    end
+
     describe "finder item doesn't exist" do
       it 'returns a 404, rather than 5xx' do
         content_store_does_not_have_item('/does-not-exist')

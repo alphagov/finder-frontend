@@ -11,9 +11,11 @@ class FindersController < ApplicationController
       format.json do
         render json: @results
       end
-      if finder.atom_feed_enabled?
-        format.atom do
+      format.atom do
+        if finder.atom_feed_enabled?
           @feed = AtomPresenter.new(finder)
+        else
+          render text: 'Not found', status: 404
         end
       end
     end
