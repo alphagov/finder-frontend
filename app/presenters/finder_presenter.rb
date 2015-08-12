@@ -25,11 +25,11 @@ class FinderPresenter
   end
 
   def alpha?
-    content_item.details.alpha
+    content_item.phase == 'alpha'
   end
 
   def beta?
-    content_item.details.beta
+    content_item.phase == 'beta'
   end
 
   def email_alert_signup
