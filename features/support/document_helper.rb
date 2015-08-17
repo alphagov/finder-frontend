@@ -99,6 +99,16 @@ module DocumentHelper
     )
   end
 
+  def stub_content_store_with_cma_cases_finder_with_description
+    schema = govuk_content_schema_example("cma-cases", "finder")
+              .merge("description" => "Find reports and updates on current and historical CMA investigations")
+
+    content_store_has_item(
+      schema.fetch("base_path"),
+      schema.to_json,
+    )
+  end
+
   def rummager_all_documents_url
     rummager_url(
       mosw_search_params.merge(

@@ -40,3 +40,7 @@ Feature: Filtering documents
     Given a finder with paginated results exists
     Then I can see pagination
     And I can browse to the next page
+
+  Scenario: Visit a finder with description
+    Given a finder with description exists
+    Then I can see that the description in the metadata is present

@@ -143,3 +143,16 @@ Then(/^I can browse to the next page$/) do
     page.should_not have_content('Next page')
   end
 end
+
+Given(/^a finder with description exists$/) do
+  stub_content_store_with_cma_cases_finder_with_description
+  stub_rummager_with_cma_cases
+end
+
+When(/I can see that the description in the metadata is present$/) do
+  visit "/cma-cases"
+
+  desc_text = "Find reports and updates on current and historical CMA investigations"
+  desc_tag = "meta[name='description'][content='#{desc_text}']"
+  expect(page).to have_css(desc_tag, visible: false)
+end

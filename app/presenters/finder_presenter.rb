@@ -135,6 +135,10 @@ class FinderPresenter
     ["#{slug}.atom", values.to_query].reject(&:blank?).join("?") if atom_feed_enabled?
   end
 
+  def description
+    content_item.description
+  end
+
 private
   attr_reader :content_item
 
