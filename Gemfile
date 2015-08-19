@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.2.2'
+gem 'rails', '4.2.3'
 gem 'slimmer', '8.2.1'
 gem 'gds-api-adapters', '20.1.1'
 gem 'exception_notification', '4.0.1'
