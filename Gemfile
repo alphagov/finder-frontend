@@ -3,8 +3,6 @@ source 'https://rubygems.org'
 gem 'rails', '4.2.3'
 gem 'slimmer', '~> 8.2.1'
 gem 'gds-api-adapters', '~> 20.1.1'
-gem 'exception_notification', '~> 4.0.1'
-gem 'aws-ses', '~> 0.5.0', require: 'aws/ses'
 gem 'unicorn', '~> 4.8.1'
 
 gem 'logstasher', '~> 0.4.8'
