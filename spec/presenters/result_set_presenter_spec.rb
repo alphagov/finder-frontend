@@ -10,7 +10,7 @@ RSpec.describe ResultSetPresenter do
       results: results,
       document_noun: document_noun,
       total: 20,
-      facets: [ a_facet, another_facet ],
+      facets: [ a_facet, another_facet, a_date_facet ],
       keywords: keywords,
       atom_url: "/a-finder.atom",
       default_documents_per_page: 10,
@@ -83,6 +83,37 @@ RSpec.describe ResultSetPresenter do
     )
   end
 
+  let(:a_date_facet) do
+    OpenStruct.new(
+      sentence_fragment: OpenStruct.new(
+        type: "date",
+        preposition: "closed between",
+        values: [
+          OpenStruct.new(
+            label: "22 June 1990",
+            parameter_key: "closed_date",
+            other_params: {
+              "to"=> OpenStruct.new(
+                original_input: "22 June 1994",
+                date: Date.new,
+              )
+            },
+          ),
+          OpenStruct.new(
+            label: "22 June 1994",
+            parameter_key: "closed_date",
+            other_params: {
+              "from" => OpenStruct.new(
+                original_input: "22 June 1990",
+                date: Date.new,
+              )
+            }
+          )
+        ]
+      )
+    )
+  end
+
   let(:keywords){ '' }
   let(:document_noun){ 'case' }
   let(:total) { 20 }
@@ -145,7 +176,7 @@ RSpec.describe ResultSetPresenter do
 
     before(:each) do
       presenter.stub(:link_without_facet_value)
-      finder.stub(:filter_sentence_fragments).and_return( [a_facet, another_facet].flat_map { |f| f.sentence_fragment }.compact )
+      finder.stub(:filter_sentence_fragments).and_return( [a_facet, another_facet, a_date_facet].flat_map { |f| f.sentence_fragment }.compact )
     end
 
     it 'calls selected_filter_descriptions' do
@@ -182,16 +213,13 @@ RSpec.describe ResultSetPresenter do
   describe '#facet_values_sentence' do
 
     before(:each) do
-      presenter.stub(:link_params_without_facet_value).and_return({})
-      finder.stub(:filter_sentence_fragments).and_return( [a_facet, another_facet].flat_map { |f| f.sentence_fragment }.compact )
+      finder.stub(:filter_sentence_fragments).and_return( [a_facet, another_facet, a_date_facet].flat_map { |f| f.sentence_fragment }.compact )
     end
 
+    let(:sentence) { presenter.selected_filter_descriptions }
 
     it 'returns a string with all the facets passed to it in strong tags' do
-      presenter.stub(:link_params_without_facet_value).and_return({param_1: 'one'})
-
-      sentence = presenter.selected_filter_descriptions
-      a_facet.sentence_fragment.values.each do | value |
+      finder.facets.flat_map(&:sentence_fragment).flat_map(&:values).flatten.each do | value |
         sentence.include?("<strong>#{value.label}").should == true
       end
     end
