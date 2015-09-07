@@ -184,25 +184,6 @@ RSpec.describe ResultSetPresenter do
       finder.stub(:filter_sentence_fragments).and_return( [a_facet, another_facet].flat_map { |f| f.sentence_fragment }.compact )
     end
 
-    let(:a_facet) do
-      OpenStruct.new(
-        sentence_fragment: OpenStruct.new(
-          preposition: 'about',
-          values: [
-            OpenStruct.new(
-              label: 'Farming',
-              parameter_key: 'key_1',
-              other_params: ['chemicals'],
-            ),
-            OpenStruct.new(
-              label: 'Chemicals',
-              parameter_key: 'key_1',
-              other_params: ['farming'],
-            ),
-          ]
-        )
-      )
-    end
 
     it 'returns a string with all the facets passed to it in strong tags' do
       presenter.stub(:link_params_without_facet_value).and_return({param_1: 'one'})
