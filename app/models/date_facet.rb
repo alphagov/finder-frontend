@@ -3,6 +3,7 @@ class DateFacet < FilterableFacet
     return nil unless present_values.any?
 
     OpenStruct.new(
+      type: "date",
       preposition: [preposition, additional_preposition].compact.join(' '),
       values: value_fragments,
     )

@@ -35,6 +35,7 @@ RSpec.describe ResultSetPresenter do
       ],
       sentence_fragment: [
         OpenStruct.new(
+        type: 'text',
           preposition: 'of type',
           values: [
             OpenStruct.new(
@@ -63,6 +64,7 @@ RSpec.describe ResultSetPresenter do
       ],
       sentence_fragment: [
         OpenStruct.new(
+          type: 'text',
           preposition: 'about',
           values: [
             OpenStruct.new(
