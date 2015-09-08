@@ -223,6 +223,14 @@ RSpec.describe ResultSetPresenter do
         sentence.include?("<strong>#{value.label}").should == true
       end
     end
+
+    it 'returns a string with the facet values joined correctly' do
+      text_values = another_facet.selected_values
+      sentence.include?("<strong>#{text_values.first.label}</strong> or <strong>#{text_values.last.label}</strong>").should == true
+
+      date_fragment = a_date_facet.sentence_fragment
+      sentence.include?("<strong>#{date_fragment.values.first.label}</strong> and <strong>#{date_fragment.values.last.label}</strong>").should == true
+    end
   end
 
   describe '#documents' do
