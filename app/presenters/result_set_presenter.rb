@@ -56,14 +56,20 @@ class ResultSetPresenter
   def fragment_description(fragment)
     [
       fragment.preposition,
-      fragment_values_to_s(fragment.values)
+      fragment_to_s(fragment),
     ]
   end
 
-  def fragment_values_to_s(values)
-    values.map { |value|
+  def fragment_to_s(fragment)
+    values = fragment.values.map { |value|
       "<strong>#{html_escape(value.label)}</strong>"
-    }.to_sentence(two_words_connector: ' or ', last_word_connector: ' or ')
+    }
+
+    if fragment.type == "text"
+      values.to_sentence(two_words_connector: ' or ', last_word_connector: ' or ')
+    elsif fragment.type == "date"
+      values.to_sentence(two_words_connector: ' and ')
+    end
   end
 
   def documents

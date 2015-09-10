@@ -20,6 +20,7 @@ class SelectFacet < FilterableFacet
     return nil unless selected_values.any?
 
     OpenStruct.new(
+      type: "text",
       preposition: preposition,
       values: value_fragments,
     )
