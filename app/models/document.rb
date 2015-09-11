@@ -115,6 +115,9 @@ private
     Airbrake.notify(
       error,
       url: finder.slug,
+      parameters: {
+        document: link,
+      },
     )
     nil
   end
