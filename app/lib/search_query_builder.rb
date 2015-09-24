@@ -33,7 +33,7 @@ private
   end
 
   def current_page
-    params.fetch("page", 1).to_i
+    [params["page"].to_i, 1].max
   end
 
   def documents_per_page

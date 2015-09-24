@@ -159,4 +159,45 @@ describe SearchQueryBuilder do
       expect(query).to include("filter_document_type" => "news_story")
     end
   end
+
+  describe '#start' do
+    it 'starts at zero by default' do
+      query = query_with_params({})
+
+      expect(query['start']).to eql(0)
+    end
+
+    it 'starts at zero when page param is zero' do
+      query = query_with_params({ "page" => 0 })
+
+      expect(query['start']).to eql(0)
+    end
+
+    it 'starts at zero when page param is nil' do
+      query = query_with_params({ "page" => nil })
+
+      expect(query['start']).to eql(0)
+    end
+
+    it 'starts at zero when page param is empty' do
+      query = query_with_params({ "page" => "" })
+
+      expect(query['start']).to eql(0)
+    end
+
+    it 'is paginated' do
+      query = query_with_params({ "page" => "10" })
+
+      expect(query['start']).to eql(9000)
+    end
+
+    def query_with_params(params)
+      SearchQueryBuilder.new(
+        filter_query_builder: filter_query_builder,
+        facet_query_builder: facet_query_builder,
+        finder_content_item: finder_content_item,
+        params: params
+      ).call
+    end
+  end
 end
