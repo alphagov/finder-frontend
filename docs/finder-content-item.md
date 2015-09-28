@@ -4,17 +4,17 @@ A Finder Content Item is a specialisation of the [Content Item](https://github.c
 
 # `details`
 
-## `beta`
+## `alpha_message`
 
-A boolean. Required.
+A string. Optional. Can be set to `null`.
 
-A flag used to decide if the Beta banner should be rendered.
+Can contain HTML. If `phase` is `alpha`, `alpha_message` will be passed to the alpha banner.
 
 ## `beta_message`
 
 A string. Optional. Can be set to `null`.
 
-Can contain HTML. If `beta` is true, `beta_message` will be passed to the beta banner.
+Can contain HTML. If `phase` is `beta`, `beta_message` will be passed to the beta banner.
 
 ## `document_noun`
 
@@ -24,13 +24,13 @@ The lowercase singular version of whatever format the Finder is using. For examp
 
 ## `filter`
 
-A hash. Required.
+A hash. Optional.
 
 Used to restrict the base search in Rummager. It can contain any key and value pair as long as the key is listed in `ALLOWED_FILTER_FIELDS` [in Rummager](https://github.com/alphagov/rummager/blob/be2ee6927eeab348c0bfc1e2b553c9c138a3ebc8/lib/search_parameter_parser.rb#L16).
 
 For example filtering all documents with a `contact` format from HM Revenue & Customs would need a hash like:
 
-```
+```json
 {
   "document_type": "contact",
   "organisations": [
@@ -39,11 +39,20 @@ For example filtering all documents with a `contact` format from HM Revenue & Cu
 }
 ```
 
-## `email_signup_enabled`
+## `reject`
 
-A boolean. Required.
+A hash. Optional.
 
-Used to decide if the link to the email alert signup page should be displayed
+Used to restrict the base search in Rummager. It can contain any key and value pair as long as the key is listed in `ALLOWED_FILTER_FIELDS` [in Rummager](https://github.com/alphagov/rummager/blob/be2ee6927eeab348c0bfc1e2b553c9c138a3ebc8/lib/search_parameter_parser.rb#L16). The `_MISSING` value is
+useful here if you find yourself chaining too many values in filter and running over the max URL length supported by `Net::HTTP`.
+
+For example, rejecting all documents which don't have a policy would need a hash like:
+
+```json
+{
+  "policy": "_MISSING"
+}
+```
 
 ## `format_name`
 
@@ -59,11 +68,17 @@ A string. Optional.
 
 Human readable version of the content format. Passed as the context to the [title](http://govuk-component-guide.herokuapp.com/component/title) component.
 
+## `default_documents_per_page`
+
+An integer. Optional.
+
+Used to build pagination when querying Rummager.
+
 ## `signup_link`
 
 A string. Optional.
 
-If `email_signup_enabled` is set to true, the link being displayed will point to `base_path/email-signup` where `base_path` is from the Finder object. `signup_link` allows you to point it at a different URL, [Drug Safety Update](https://www.gov.uk/drug-safety-update) and [Drug Device Alerts](https://www.gov.uk/drug-device-alerts) are the two which currently use this feature.
+If present in the links hash, the email alert signup link being displayed will point to `base_path/email-signup` where `base_path` is from the Finder object. `signup_link` allows you to point it at a different URL, [Drug Safety Update](https://www.gov.uk/drug-safety-update) and [Drug Device Alerts](https://www.gov.uk/drug-device-alerts) are the two which currently use this feature.
 
 ## `show_summaries`
 
