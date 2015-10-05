@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
-  include Slimmer::Headers
+  include Slimmer::Template
   include Slimmer::SharedTemplates
-  before_filter :set_slimmer_headers
+  slimmer_template "header_footer_only"
 
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
@@ -10,9 +10,6 @@ class ApplicationController < ActionController::Base
   rescue_from GdsApi::HTTPNotFound, with: :error_not_found
 
 private
-  def set_slimmer_headers
-    response.headers[Slimmer::Headers::TEMPLATE_HEADER] = "header_footer_only"
-  end
 
   def finder_base_path
     "/#{finder_slug}"
