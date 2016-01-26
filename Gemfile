@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.2.3'
-gem 'slimmer', '9.0.0'
+gem 'rails', '4.2.5.1'
+gem 'slimmer', '9.0.1'
 gem 'gds-api-adapters', '~> 20.1.1'
 gem 'unicorn', '~> 4.8.1'
 
@@ -20,7 +20,7 @@ group :assets do
     gem 'govuk_frontend_toolkit', '~> 3.1.0'
   end
   gem 'sass-rails', '~> 4.0.2'
-  gem 'uglifier', '>= 1.3.0'
+  gem 'uglifier', '~> 2.7', '>= 2.7.2'
 end
 
 group :doc do
