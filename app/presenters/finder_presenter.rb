@@ -101,7 +101,8 @@ class FinderPresenter
   end
 
   def related
-    content_item.links.related.sort_by(&:title)
+    related = content_item.links.related || []
+    related.sort_by(&:title)
   end
 
   def results
