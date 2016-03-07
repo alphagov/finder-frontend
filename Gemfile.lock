@@ -76,15 +76,15 @@ GEM
     debug_inspector (0.0.2)
     diff-lcs (1.2.5)
     docile (1.1.5)
-    domain_name (0.5.24)
+    domain_name (0.5.20160216)
       unf (>= 0.0.5, < 1.0.0)
     erubis (2.7.0)
     execjs (2.6.0)
-    gds-api-adapters (20.1.2)
+    gds-api-adapters (29.3.1)
       link_header
       lrucache (~> 0.1.1)
       null_logger
-      plek
+      plek (>= 1.9.0)
       rack-cache
       rest-client (~> 1.8.0)
     gherkin (2.12.2)
@@ -129,12 +129,12 @@ GEM
     multi_json (1.11.2)
     multi_test (0.1.2)
     mustache (0.99.8)
-    netrc (0.10.3)
+    netrc (0.11.0)
     nokogiri (1.6.7.2)
       mini_portile2 (~> 2.0.0.rc2)
     null_logger (0.0.1)
     phantomjs (1.9.8.0)
-    plek (1.11.0)
+    plek (1.12.0)
     pry (0.10.1)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -142,7 +142,7 @@ GEM
     quiet_assets (1.1.0)
       railties (>= 3.1, < 5.0)
     rack (1.6.4)
-    rack-cache (1.2)
+    rack-cache (1.6.1)
       rack (>= 0.4)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -236,7 +236,7 @@ GEM
       json (>= 1.8.0)
     unf (0.1.4)
       unf_ext
-    unf_ext (0.0.7.1)
+    unf_ext (0.0.7.2)
     unicorn (4.8.3)
       kgio (~> 2.6)
       rack
@@ -258,7 +258,7 @@ DEPENDENCIES
   byebug
   chronic (~> 0.10.2)
   cucumber-rails (~> 1.4.0)
-  gds-api-adapters (~> 20.1.1)
+  gds-api-adapters (~> 29.3)
   govuk-content-schema-test-helpers (~> 1.0.1)
   govuk_frontend_toolkit (~> 3.1.0)
   jasmine-rails (~> 0.6.0)
@@ -276,3 +276,6 @@ DEPENDENCIES
   uglifier (~> 2.7, >= 2.7.2)
   unicorn (~> 4.8.1)
   webmock (~> 1.17.1)
+
+BUNDLED WITH
+   1.11.2
