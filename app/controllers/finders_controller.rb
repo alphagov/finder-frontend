@@ -43,11 +43,13 @@ private
 
   def facet_params
     # TODO Use a whitelist based on the facets in the schema
-    params.except(
+    permitted_params = params.except(
       :controller,
       :action,
       :slug,
       :format,
     )
+
+    ParamsCleaner.new(permitted_params).cleaned
   end
 end
