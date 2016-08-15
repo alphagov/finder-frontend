@@ -18,6 +18,15 @@
   <% end %>
 <% end %>
 
+<%= render partial: 'govuk_component/breadcrumbs', locals: {
+  breadcrumbs: [
+    {
+      title: "Home",
+      url: "/"
+    },
+  ]
+} %>
+
 <% if finder.government? %>
   <%= render partial: 'govuk_component/government_navigation', locals: { active: finder.government_content_section } %>
 <% end %>
