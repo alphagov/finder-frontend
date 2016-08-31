@@ -31,7 +31,7 @@ private
       params: params,
     ).call
 
-    search_api.unified_search(query).to_hash
+    search_api.search(query).to_hash
   end
 
   def filter_query_builder

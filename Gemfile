@@ -2,15 +2,11 @@ source 'https://rubygems.org'
 
 gem 'rails', '4.2.7.1'
 gem 'slimmer', '9.0.1'
-gem 'gds-api-adapters', '~> 29.3'
+gem 'gds-api-adapters', '~> 34.1.0'
 gem 'unicorn', '~> 4.8.1'
-
 gem 'logstasher', '~> 0.4.8'
-
 gem 'shared_mustache', '~> 0.1.3'
-
 gem 'airbrake', '~> 4.0.0'
-
 gem 'chronic', '~> 0.10.2'
 
 group :assets do
@@ -35,7 +31,7 @@ group :development do
 end
 
 group :development, :test do
-  gem 'jasmine-rails', '~> 0.6.0'
+  gem 'jasmine-rails'
   gem 'awesome_print'
   gem 'byebug'
   gem 'pry'
