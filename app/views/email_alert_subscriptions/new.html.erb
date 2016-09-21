@@ -1,4 +1,7 @@
 <% content_for :title, @signup.page_title %>
+<% content_for :head do %>
+  <%= render 'email_alert_subscription_meta', email_alert_subscription: @signup %>
+<% end %>
 
 <% if @signup.beta? %>
   <%= render partial: 'govuk_component/beta_label' %>
