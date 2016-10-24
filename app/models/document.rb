@@ -1,17 +1,17 @@
 class Document
   attr_reader :title, :public_timestamp, :is_historic, :government_name
 
-  def initialize(attrs, finder)
-    attrs = attrs.with_indifferent_access
-    @title = attrs.fetch(:title)
-    @link = attrs.fetch(:link)
-    @description = attrs.fetch(:description, nil)
-    @public_timestamp = attrs.fetch(:public_timestamp)
-    @is_historic = attrs.fetch(:is_historic, false)
-    @government_name = attrs.fetch(:government_name, nil)
+  def initialize(rummager_document, finder)
+    rummager_document = rummager_document.with_indifferent_access
+    @title = rummager_document.fetch(:title)
+    @link = rummager_document.fetch(:link)
+    @description = rummager_document.fetch(:description, nil)
+    @public_timestamp = rummager_document.fetch(:public_timestamp, nil)
+    @is_historic = rummager_document.fetch(:is_historic, false)
+    @government_name = rummager_document.fetch(:government_name, nil)
 
     @finder = finder
-    @attrs = attrs.slice(*metadata_keys)
+    @rummager_document = rummager_document.slice(*metadata_keys)
   end
 
   def metadata
@@ -30,7 +30,7 @@ class Document
   end
 
 private
-  attr_reader :link, :attrs, :finder, :description
+  attr_reader :link, :rummager_document, :finder, :description
 
   def metadata_keys
     date_metadata_keys + tag_metadata_keys
@@ -57,7 +57,7 @@ private
   def build_date_metadata(key)
     {
       name: key,
-      value: attrs[key],
+      value: rummager_document[key],
       type: "date",
     }
   end
@@ -69,7 +69,7 @@ private
   end
 
   def tag_labels_for(key)
-    Array(attrs.fetch(key, []))
+    Array(rummager_document.fetch(key, []))
       .map { |label| get_metadata_label(key, label) }
      .select(&:present?)
   end
