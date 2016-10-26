@@ -1,5 +1,3 @@
-require 'delegate'
-
 class FinderApi
   def fetch(base_path, params)
     content_item = fetch_content_item(base_path)
