@@ -1,7 +1,14 @@
 class FinderApi
-  def fetch(base_path, params)
-    content_item = fetch_content_item(base_path)
-    search_response = fetch_search_response(content_item, params)
+  def initialize(base_path, filter_params)
+    @base_path = base_path
+    @filter_params = filter_params
+  end
+
+  # Returns the content item for the finder combined with the actual search
+  # results from rummager
+  def content_item_with_search_results
+    content_item = fetch_content_item
+    search_response = fetch_search_response(content_item)
 
     augment_content_item_with_results(
       content_item,
@@ -11,16 +18,18 @@ class FinderApi
 
 private
 
-  def fetch_content_item(base_path)
+  attr_reader :base_path, :filter_params
+
+  def fetch_content_item
     Services.content_store.content_item!(base_path)
   end
 
-  def fetch_search_response(content_item, params)
+  def fetch_search_response(content_item)
     query = SearchQueryBuilder.new(
       filter_query_builder: filter_query_builder,
       facet_query_builder: facet_query_builder,
       finder_content_item: content_item,
-      params: params,
+      params: filter_params,
     ).call
 
     Services.rummager.search(query).to_hash
