@@ -31,14 +31,7 @@ private
   helper_method :finder
 
   def raw_finder
-    finder_api.fetch(
-      finder_base_path,
-      facet_params,
-    )
-  end
-
-  def finder_api
-    FinderFrontend.finder_api
+    FinderApi.new.fetch(finder_base_path, facet_params)
   end
 
   def facet_params

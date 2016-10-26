@@ -1,11 +1,6 @@
 require 'delegate'
 
 class FinderApi
-  def initialize(content_store_api:, search_api:)
-    @content_store_api = content_store_api
-    @search_api = search_api
-  end
-
   def fetch(base_path, params)
     content_item = fetch_content_item(base_path)
     search_response = fetch_search_response(content_item, params)
@@ -17,10 +12,9 @@ class FinderApi
   end
 
 private
-  attr_reader :content_store_api, :search_api
 
   def fetch_content_item(base_path)
-    content_store_api.content_item!(base_path)
+    Services.content_store.content_item!(base_path)
   end
 
   def fetch_search_response(content_item, params)
@@ -31,7 +25,7 @@ private
       params: params,
     ).call
 
-    search_api.search(query).to_hash
+    Services.rummager.search(query).to_hash
   end
 
   def filter_query_builder
