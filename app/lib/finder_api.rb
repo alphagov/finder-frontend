@@ -26,21 +26,11 @@ private
 
   def fetch_search_response(content_item)
     query = SearchQueryBuilder.new(
-      filter_query_builder: filter_query_builder,
-      facet_query_builder: facet_query_builder,
       finder_content_item: content_item,
       params: filter_params,
     ).call
 
     Services.rummager.search(query).to_hash
-  end
-
-  def filter_query_builder
-    ->(**args) { FilterQueryBuilder.new(args).call }
-  end
-
-  def facet_query_builder
-    ->(**args) { FacetQueryBuilder.new(args).call }
   end
 
   def augment_content_item_with_results(content_item, search_response)

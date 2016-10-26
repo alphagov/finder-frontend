@@ -4,18 +4,10 @@ require "search_query_builder"
 describe SearchQueryBuilder do
   subject(:query) {
     SearchQueryBuilder.new(
-      filter_query_builder: filter_query_builder,
-      facet_query_builder: facet_query_builder,
       finder_content_item: finder_content_item,
       params: params,
     ).call
   }
-
-  # TODO assert the correct arguments are passed to this and that the response
-  # is merged into the returned query
-  let(:filter_query_builder) { double(call: {}) }
-
-  let(:facet_query_builder) { double(call: {}) }
 
   let(:finder_content_item) {
     double(
@@ -101,21 +93,6 @@ describe SearchQueryBuilder do
         "reject_alpha" => "value",
       )
     end
-
-    it "should include fields from filter_query_builder prefixed with filter_" do
-      expect(filter_query_builder).to receive(:call).with(
-        facets: facets,
-        user_params: params,
-      ).and_return(
-        "alpha" => "value",
-        "beta" => "another_value",
-      )
-
-      expect(query).to include(
-        "filter_alpha" => "value",
-        "filter_beta" => "another_value",
-      )
-    end
   end
 
   context "without keywords" do
@@ -193,8 +170,6 @@ describe SearchQueryBuilder do
 
     def query_with_params(params)
       SearchQueryBuilder.new(
-        filter_query_builder: filter_query_builder,
-        facet_query_builder: facet_query_builder,
         finder_content_item: finder_content_item,
         params: params
       ).call
