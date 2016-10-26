@@ -1,11 +1,11 @@
+# Facade that speaks to the content store and rummager. Returns a content
+# item for the finder combined with the actual search results from rummager.
 class FinderApi
   def initialize(base_path, filter_params)
     @base_path = base_path
     @filter_params = filter_params
   end
 
-  # Returns the content item for the finder combined with the actual search
-  # results from rummager
   def content_item_with_search_results
     content_item = fetch_content_item
     search_response = fetch_search_response(content_item)

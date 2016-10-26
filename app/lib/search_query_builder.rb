@@ -1,3 +1,5 @@
+# SearchQueryBuilder takes the content item for the finder and the query params
+# from the URL to generate a query for Rummager.
 class SearchQueryBuilder
   def initialize(finder_content_item:, params: {})
     @finder_content_item = finder_content_item
