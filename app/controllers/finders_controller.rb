@@ -25,23 +25,16 @@ private
   def finder
     @finder ||= FinderPresenter.new(
       raw_finder,
-      facet_params,
+      filter_params,
     )
   end
   helper_method :finder
 
   def raw_finder
-    finder_api.fetch(
-      finder_base_path,
-      facet_params,
-    )
+    FinderApi.new(finder_base_path, filter_params).content_item_with_search_results
   end
 
-  def finder_api
-    FinderFrontend.finder_api
-  end
-
-  def facet_params
+  def filter_params
     # TODO Use a whitelist based on the facets in the schema
     permitted_params = params.except(
       :controller,

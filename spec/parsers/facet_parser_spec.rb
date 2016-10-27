@@ -10,7 +10,6 @@ describe FacetParser do
         name: "Case type",
         key: "case_type",
         preposition: "of type",
-        filterable: true,
         allowed_values: [
            OpenStruct.new(
             label: "Airport price control reviews",

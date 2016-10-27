@@ -1,14 +1,14 @@
-require 'delegate'
-
+# Facade that speaks to the content store and rummager. Returns a content
+# item for the finder combined with the actual search results from rummager.
 class FinderApi
-  def initialize(content_store_api:, search_api:)
-    @content_store_api = content_store_api
-    @search_api = search_api
+  def initialize(base_path, filter_params)
+    @base_path = base_path
+    @filter_params = filter_params
   end
 
-  def fetch(base_path, params)
-    content_item = fetch_content_item(base_path)
-    search_response = fetch_search_response(content_item, params)
+  def content_item_with_search_results
+    content_item = fetch_content_item
+    search_response = fetch_search_response(content_item)
 
     augment_content_item_with_results(
       content_item,
@@ -17,29 +17,20 @@ class FinderApi
   end
 
 private
-  attr_reader :content_store_api, :search_api
 
-  def fetch_content_item(base_path)
-    content_store_api.content_item!(base_path)
+  attr_reader :base_path, :filter_params
+
+  def fetch_content_item
+    Services.content_store.content_item!(base_path)
   end
 
-  def fetch_search_response(content_item, params)
+  def fetch_search_response(content_item)
     query = SearchQueryBuilder.new(
-      filter_query_builder: filter_query_builder,
-      facet_query_builder: facet_query_builder,
       finder_content_item: content_item,
-      params: params,
+      params: filter_params,
     ).call
 
-    search_api.search(query).to_hash
-  end
-
-  def filter_query_builder
-    ->(**args) { FilterQueryBuilder.new(args).call }
-  end
-
-  def facet_query_builder
-    ->(**args) { FacetQueryBuilder.new(args).call }
+    Services.rummager.search(query).to_hash
   end
 
   def augment_content_item_with_results(content_item, search_response)
