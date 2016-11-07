@@ -7,7 +7,9 @@ class FindersController < ApplicationController
     @results = ResultSetPresenter.new(finder, view_context)
 
     respond_to do |format|
-      format.html
+      format.html do
+        @navigation_helpers = GovukNavigationHelpers::NavigationHelper.new(raw_finder)
+      end
       format.json do
         render json: @results
       end
