@@ -20,11 +20,13 @@ Feature: Filtering documents
   Scenario: Visit a government finder
     Given a government finder exists
     Then I can see the government header
+    And I can see the breadcrumbs
     And I can see documents which are marked as being in history mode
 
   Scenario: Visit a policy finder
     Given a policy finder exists
     Then I can see the government header
+    And I can see the breadcrumbs
     And I can see documents which are marked as being in history mode
     And I can see documents which have government metadata
 

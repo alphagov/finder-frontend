@@ -101,6 +101,7 @@ GEM
     govuk_frontend_toolkit (3.1.0)
       rails (>= 3.1.0)
       sass (>= 3.2.0)
+    govuk_navigation_helpers (2.0.0)
     hike (1.2.3)
     http-cookie (1.0.2)
       domain_name (~> 0.5)
@@ -270,6 +271,7 @@ DEPENDENCIES
   gds-api-adapters (~> 34.1.0)
   govuk-content-schema-test-helpers (~> 1.0.1)
   govuk_frontend_toolkit (~> 3.1.0)
+  govuk_navigation_helpers (~> 2.0.0)
   jasmine-rails
   launchy (~> 2.4.2)
   logstasher (~> 0.4.8)
@@ -287,4 +289,4 @@ DEPENDENCIES
   webmock (~> 1.17.1)
 
 BUNDLED WITH
-   1.11.2
+   1.12.5
