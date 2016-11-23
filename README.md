@@ -55,10 +55,23 @@ The application has jasmine tests, which can be accessed at `/specs` when the ap
 [content_schema_examples]: https://github.com/alphagov/finder-frontend/blob/master/lib/govuk_content_schema_examples.rb
 
 ##Making a new finder
-1. If required, add a schema to [alphagov/rummager](http://github.com/alphagov/rummager) describing your document type -- eg
-   [https://github.com/alphagov/rummager/blob/master/config/schema/default/doctypes/cma_case.json](https://github.com/alphagov/rummager/blob/master/config/schema/default/doctypes/cma_case.json)
+1. If required, add a schema to [alphagov/rummager](http://github.com/alphagov/rummager) describing your document type -- [example](https://github.com/alphagov/rummager/blob/master/config/schema/document_types/cma_case.json)
 2. Publish a Finder Content Item to the content store. See the doc for [Finder Content Item](https://github.com/alphagov/finder-frontend/blob/master/docs/finder-content-item.md) for more info.
 3. Ensure your documents are indexed in [alphagov/rummager](http://github.com/alphagov/rummager) correctly.
+
+### How to add a fixed filter?
+
+You can use [gov.uk/api/search.json?filter_link=](https://www.gov.uk/api/search.json?filter_link=) with the path of the page you looking for to migrate.
+
+For example, you want to filter by the field format on `/government/world/organisations`
+You can access the following: https://www.gov.uk/api/search.json?filter_link=/government/world/organisations/british-antarctic-territory
+You will be able to see inside results the field `format`
+
+You can double check the filter by performing the following search using rummager:
+
+http://rummager.dev.gov.uk/search.json?filter_NAME=VALUE
+
+For more information please refer to the [search api documentation](https://alphagov.github.io/rummager/search-api.html).
 
 ##Application structure
 * No data store -- all data comes via the APIs mentioned above.

@@ -68,6 +68,12 @@ A string. Optional.
 
 Human readable version of the content format. Passed as the context to the [title](http://govuk-component-guide.herokuapp.com/component/title) component.
 
+## `default_order`
+
+A string. Optional.
+
+- The key should be set to match the ordering of the old whitehall finder that you are replacing - you can use a minus (-) in front of the field to order in descending order (see [whitehall/lib/finders/case_studies.json](https://github.com/alphagov/whitehall/blob/master/lib/finders/case_studies.json#L12) for an example)
+
 ## `default_documents_per_page`
 
 An integer. Optional.
