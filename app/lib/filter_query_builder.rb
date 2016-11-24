@@ -23,6 +23,7 @@ private
     filter_class = {
       'date' => DateFilter,
       'text' => TextFilter,
+      'topical' => TopicalFilter,
     }.fetch(facet.type)
 
     params = user_params.fetch(facet.key, nil)
@@ -84,6 +85,43 @@ private
   class TextFilter < Filter
     def value
       Array(params)
+    end
+  end
+
+  class TopicalFilter < Filter
+    def value
+      return nil if params.blank?
+
+      user_has_selected_open = params.include?(facet.open_value.value)
+      user_has_selected_closed = params.include?(facet.closed_value.value)
+
+      if user_has_selected_open && !user_has_selected_closed
+        open_value
+      elsif user_has_selected_closed && !user_has_selected_open
+        closed_value
+      else
+        # with both or neither selected, the filter is not used
+        nil
+      end
+    end
+
+  private
+    # A thing is open when it ends on a future day
+    def open_value
+      "from:#{later_than_midnight_today}"
+    end
+
+    # A thing becomes closed when it ends today or before
+    def closed_value
+      "to:#{midnight_today}"
+    end
+
+    def midnight_today
+      Time.zone.now.beginning_of_day.utc
+    end
+
+    def later_than_midnight_today
+      Time.zone.now.beginning_of_day.change(sec: 1).utc
     end
   end
 end

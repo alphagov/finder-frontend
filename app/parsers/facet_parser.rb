@@ -4,6 +4,8 @@ module FacetParser
       case facet.type
       when 'text'
         SelectFacet.new(facet)
+      when 'topical'
+        TopicalFacet.new(facet)
       when 'date'
         DateFacet.new(facet)
       else
