@@ -42,7 +42,6 @@ describe SelectFacet do
         subject.sentence_fragment.preposition.should == "of value"
         subject.sentence_fragment.values.first.label == "Allowed value 1"
         subject.sentence_fragment.values.first.parameter_key == "test_values"
-        subject.sentence_fragment.values.first.other_params == []
       }
     end
 
@@ -53,11 +52,9 @@ describe SelectFacet do
         subject.sentence_fragment.preposition.should == "of value"
         subject.sentence_fragment.values.first.label.should == "Allowed value 1"
         subject.sentence_fragment.values.first.parameter_key.should == "test_values"
-        subject.sentence_fragment.values.first.other_params.should == ["allowed-value-2"]
 
         subject.sentence_fragment.values.last.label.should == "Allowed value 2"
         subject.sentence_fragment.values.last.parameter_key.should == "test_values"
-        subject.sentence_fragment.values.last.other_params.should == ["allowed-value-1"]
       }
     end
 

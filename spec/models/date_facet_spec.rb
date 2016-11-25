@@ -26,7 +26,6 @@ describe DateFacet do
         subject.sentence_fragment.preposition.should == "occurred after"
         subject.sentence_fragment.values.first.label == "22 September 1988"
         subject.sentence_fragment.values.first.parameter_key == "date_of_occurrence[from]"
-        subject.sentence_fragment.values.first.other_params == []
       }
     end
 
@@ -36,7 +35,6 @@ describe DateFacet do
         subject.sentence_fragment.preposition.should == "occurred before"
         subject.sentence_fragment.values.first.label == "22 September 2014"
         subject.sentence_fragment.values.first.parameter_key == "date_of_occurrence[to]"
-        subject.sentence_fragment.values.first.other_params == []
       }
     end
 
@@ -52,11 +50,9 @@ describe DateFacet do
 
         subject.sentence_fragment.values.first.label == "22 September 1988"
         subject.sentence_fragment.values.first.parameter_key == "date_of_occurrence[to]"
-        subject.sentence_fragment.values.first.other_params == ["to","22/09/2014"]
 
         subject.sentence_fragment.values.last.label == "22 September 2014"
         subject.sentence_fragment.values.last.parameter_key == "date_of_occurrence[from]"
-        subject.sentence_fragment.values.last.other_params == ["from","22/09/1988"]
       }
     end
   end

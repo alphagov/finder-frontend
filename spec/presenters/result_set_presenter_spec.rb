@@ -41,12 +41,10 @@ RSpec.describe ResultSetPresenter do
             OpenStruct.new(
               label: 'CA98 and civil cartels',
               parameter_key: 'key_1',
-              other_params: ['mergers'],
             ),
             OpenStruct.new(
               label: 'Mergers',
               parameter_key: 'key_1',
-              other_params: ['ca98-and-civil-cartels'],
             ),
           ]
         )
@@ -70,12 +68,10 @@ RSpec.describe ResultSetPresenter do
             OpenStruct.new(
               label: 'Farming',
               parameter_key: 'key_2',
-              other_params: ['chemicals'],
             ),
             OpenStruct.new(
               label: 'Chemicals',
               parameter_key: 'key_2',
-              other_params: ['farming'],
             ),
           ]
         )
@@ -92,22 +88,10 @@ RSpec.describe ResultSetPresenter do
           OpenStruct.new(
             label: "22 June 1990",
             parameter_key: "closed_date",
-            other_params: {
-              "to"=> OpenStruct.new(
-                original_input: "22 June 1994",
-                date: Date.new,
-              )
-            },
           ),
           OpenStruct.new(
             label: "22 June 1994",
             parameter_key: "closed_date",
-            other_params: {
-              "from" => OpenStruct.new(
-                original_input: "22 June 1990",
-                date: Date.new,
-              )
-            }
           )
         ]
       )
