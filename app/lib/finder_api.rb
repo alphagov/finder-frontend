@@ -20,6 +20,9 @@ private
 
   attr_reader :base_path, :filter_params
 
+  class EmptyFacetValueError < StandardError
+  end
+
   def fetch_content_item
     Services.content_store.content_item!(base_path)
   end
@@ -55,11 +58,23 @@ private
     values = facet_details.fetch("options", {}).map { |f| f.fetch("value", {}) }
 
     values.map { |value|
-      OpenStruct.new(
-        label: value.fetch("title", ""),
-        value: value.fetch("slug", ""),
-      )
-    }
+      if value.key?("title")
+        OpenStruct.new(
+          label: value.fetch("title", ""),
+          value: value.fetch("slug", ""),
+        )
+      else
+        # This is a facet value with a missing title because rummager
+        # data is not in sync. Hide this value from the facet and raise an
+        # error to surface the problem so that it can be fixed.
+        slug = value.fetch("slug", "")
+        Airbrake.notify(EmptyFacetValueError.new,
+          error_message: "The facet value with slug '#{slug}' does not have a title",
+          parameters: { base_path: @base_path }
+        )
+        nil
+      end
+    }.compact
   end
 
   def build_pagination(documents_per_page, start_offset, total_results)
