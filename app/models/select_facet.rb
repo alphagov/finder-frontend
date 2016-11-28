@@ -32,15 +32,8 @@ private
       OpenStruct.new(
         label: v.label,
         parameter_key: key,
-        other_params: other_params(v),
       )
     }
-  end
-
-  def other_params(v)
-    selected_values
-      .map(&:value)
-      .reject { |selected_value|  selected_value == v.value }
   end
 
   def selected_values

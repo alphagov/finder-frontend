@@ -4,11 +4,11 @@ describe SelectFacet do
   let(:allowed_values) {
     [
       OpenStruct.new(
-        label: "Airport price control reviews",
+        label: "Allowed value 1",
         value: "allowed-value-1"
       ),
        OpenStruct.new(
-        label: "Market investigations",
+        label: "Allowed value 2",
         value: "allowed-value-2" 
       ),
        OpenStruct.new(
@@ -42,7 +42,6 @@ describe SelectFacet do
         subject.sentence_fragment.preposition.should == "of value"
         subject.sentence_fragment.values.first.label == "Allowed value 1"
         subject.sentence_fragment.values.first.parameter_key == "test_values"
-        subject.sentence_fragment.values.first.other_params == []
       }
     end
 
@@ -51,13 +50,11 @@ describe SelectFacet do
 
       specify {
         subject.sentence_fragment.preposition.should == "of value"
-        subject.sentence_fragment.values.first.label == "Allowed value 1"
-        subject.sentence_fragment.values.first.parameter_key == "test_values"
-        subject.sentence_fragment.values.first.other_params == ["allowed-value-2"]
+        subject.sentence_fragment.values.first.label.should == "Allowed value 1"
+        subject.sentence_fragment.values.first.parameter_key.should == "test_values"
 
-        subject.sentence_fragment.values.last.label == "Allowed value 2"
-        subject.sentence_fragment.values.last.parameter_key == "test_values"
-        subject.sentence_fragment.values.last.other_params == ["allowed-value-1"]
+        subject.sentence_fragment.values.last.label.should == "Allowed value 2"
+        subject.sentence_fragment.values.last.parameter_key.should == "test_values"
       }
     end
 

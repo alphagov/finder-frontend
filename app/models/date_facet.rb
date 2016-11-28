@@ -15,7 +15,6 @@ private
       OpenStruct.new(
         label: date.date.strftime("%e %B %Y"),
         parameter_key: key,
-        other_params: present_values.reject { |key, _| key == k }
       )
     }
   end
