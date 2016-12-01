@@ -99,30 +99,176 @@ A string. Optional.
 Rendered in the header after the metadata. Can contain Govspeak and is rendered using the [Govspeak component](http://govuk-component-guide.herokuapp.com/component/govspeak).
 
 ## `facets`
-
 An array of hashes. Optional.
 
-Facets describe the metadata that the Finder deals with. They can contain several keys:
+Each facet corresponds to a document field that can take multiple values. Facets can be used to build user defined filters, and/or they can add metadata to search results.
 
-### `key`
+### Example: a filterable `Case type` facet
+
+```
+{
+  "key": "case_type",
+  "name": "Case type",
+  "type": "text",
+  "display_as_result_metadata": true,
+  "filterable": true,
+  "allowed_values": [...],
+  [...]
+}
+```
+<img alt="Filterable facets" src="./assets/filter.png" width="260" height="273">
+
+### Example: metadata for several facets
+<img alt="Facet metadata" src="./assets/metadata.png" width="402", height="66">
+
+### Types of facet
+The required keys for a facet hash depends on the
+value of `type` in the hash. Valid values are `date`, `text` or `topical`.
+
+#### Date Facets
+
+When a date facet is filterable, it's rendered as a text field that accepts various forms of dates such as `2020` and `2020-01-02`.
+
+When displayed as metadata, a date value takes the form `DD Month YYYY`.
+
+```
+{
+  "key": "date_of_occurrence",
+  "name": "Date of occurrence",
+  "short_name": "Occurred",
+  "type": "date",
+  "preposition": "occurred",
+  "display_as_result_metadata": true,
+  "filterable": true
+}
+```
+[https://www.gov.uk/aaib-reports]()
+
+#### Text Facets
+
+Text facets are used for faceting on a field that can take a number of different values. If filterable, a text facet is rendered as a group of checkboxes.
+
+```
+{
+  "key": "case_state",
+  "name": "Case state",
+  "type": "text",
+  "preposition": "which are",
+  "display_as_result_metadata": true,
+  "filterable": true,
+  "allowed_values": [
+    {
+      "label": "Open",
+      "value": "open"
+    },
+    {
+      "label": "Closed",
+      "value": "closed"
+    }
+  ]
+}
+```
+[https://www.gov.uk/cma-cases]()
+
+##### Predefined options using `allowed_values`
+
+The `allowed_values` fields is an array of hashes defining fixed options for the facet. It's only used if `filterable` is set to `true` and `type` is set to `text`.
+
+Each hash contains hashes with the following keys and values:
+
+- `label`: A string. Required.
+
+  Displayed as the label for the option in the `multi-select` Filter and as the label in the `sentence_fragment`.
+
+- `value`: A string. Required.
+
+  Appended to the URL when the option is selected. Usually a parameterised slug of the label, but it doesn't need to be a direct 1:1.
+
+##### Dynamically generated options
+If `allowed_values` is missing or empty, the values are dynamically generated based on the documents returned from the query.
+
+This is usually better than providing fixed values, because the user is not given options that filter out every document in their search.
+
+This behaviour is closer to what is meant by "facet" in the underlying  [search API](https://github.com/alphagov/rummager/blob/master/docs/search-api.md).
+
+The current implementation of dynamic facets always requests the facet from the search api using a particular ordering: `1000,order:value.title`. This means it won't work for all fields.
+
+```
+{
+  "key": "organisations",
+  "short_name": "From",
+  "type": "text",
+  "display_as_result_metadata": true,
+  "filterable": true,
+  "preposition": "from",
+  "name": "Organisation"
+}
+```
+[https://www.gov.uk/government/policies]()
+
+#### Topical Facets
+
+A `topical` facet is used for faceting on something that changes state on a particular date. The motivating example is a `Topical Event`, which transitions from
+`Current` to `Archived` on its `end_date`.
+
+```
+{
+  "key": "end_date",
+  "name": "Status",
+  "type": "topical",
+  "open_value": {
+    "label": "Current",
+    "value": "current"
+  },
+  "closed_value": {
+    "label": "Archived",
+    "value": "archived"
+  },
+  "preposition": "with status",
+  "display_as_result_metadata": false,
+  "filterable": true
+}
+```
+[https://www.gov.uk/government/topical-events]()
+
+
+##### The `open_value` and `closed_value` fields
+
+These fields are hashes containing a `label` key and a `value` key. Required only when `type` is set to
+`topical`.
+
+These customise the `label` shown for both possible facet values and the corresponding `value` used in URLs.
+
+`open_value` is the value that will be used when the `key` field is in the
+future, and `closed_value` is the value that will be used when the `key` field
+is in the past.
+
+For example, if a content item has its `key` field set to `2020-07-01`, then it
+will be considered `open` until midnight on the 1st July 2020, and `closed`
+from then onwards. Documents might show up as `open` for slightly
+longer than this due to page-level caching.
+
+### Fields common across all facet types
+
+#### `key`
 
 A string. Required.
 
 `snake_case` string which matches to the field being searched in Rummager.
 
-### `filterable`
+#### `filterable`
 
 A boolean. Required.
 
 Specifies if the facet should have a matching Filter for the results.
 
-### `display_as_result_metadata`
+#### `display_as_result_metadata`
 
 A boolean. Required.
 
 Specifies if the facet should be returned as metadata underneath each result.
 
-### `name`
+#### `name`
 
 A string. Required.
 
@@ -130,41 +276,18 @@ Used to label the filter panel for the facet.
 
 For date facets, it may be used to label the metadata shown for each result. (See also short_name)
 
-### `preposition`
+#### `preposition`
 
 A string. Required if `filterable` is set to `true`.
 
 Is prepended to the name of the Filter when constructing the `sentence_fragment` for that Filter.
 
-### `type`
 
-A string set to `date` or `text`. Required.
-
-If `filterable` is `true`, this generates a `date` or `multi-select` Filter respectively. If `display_as_result_metadata` is ` true` and this is set to `date`, it will present the date as `DD Month YYYY` under the result.
-
-### `short_name`
+#### `short_name`
 
 A string. Optional.
 
 For dates, the name of the Filter may be too long, such as `Date of occurrence`. The field lets you specify a short name. For the `Date of occurrence` example, the `short_name` would be `Occurred`.
-
-### `allowed_values`
-
-An array of hashes. Required if `filterable` is set to `true` and `type` is set to `text`.
-
-The `allowed_values` array contains hashes with the following keys and values:
-
-#### `label`
-
-A string. Required.
-
-Displayed as the label for the option in the `multi-select` Filter and as the label in the `sentence_fragment`.
-
-#### `value`
-
-A string. Required.
-
-Appended to the URL when the option is select. Usually a paramterized slug of the label, but it doesn't need to be a direct 1:1.
 
 # `routes`
 
