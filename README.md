@@ -63,7 +63,7 @@ The application has jasmine tests, which can be accessed at `/specs` when the ap
 
 You can use [gov.uk/api/search.json?filter_link=](https://www.gov.uk/api/search.json?filter_link=) with the path of the page you looking for to migrate.
 
-For example, you want to filter by the field format on `/government/world/organisations`
+For example, you want to filter by the field `link` on `/government/world/organisations`
 You can access the following: https://www.gov.uk/api/search.json?filter_link=/government/world/organisations/british-antarctic-territory
 You will be able to see inside results the field `format`
 
