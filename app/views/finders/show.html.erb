@@ -69,6 +69,10 @@
   <% end %>
 </header>
 
+<% if finder.summary %>
+  <div class="keyline"><!-- --></div>
+<% end %>
+
 <div class="filtering">
   <%= render finder.facets %>
   <div class='js-live-search-results-block'>

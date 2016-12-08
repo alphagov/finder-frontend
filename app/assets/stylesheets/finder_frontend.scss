@@ -106,6 +106,13 @@
     }
   }
 
+  .keyline {
+    height:1px;
+    line-height:1px;
+    background-color:$border-colour;
+    margin: 0 0 $gutter 0;
+  }
+
   .filtering {
     @extend %grid-row;
   }
