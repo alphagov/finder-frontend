@@ -80,7 +80,7 @@ private
   end
 
   def keywords
-    params["keywords"].presence
+    UTF8Cleaner.new(params["keywords"]).cleaned
   end
 
   def default_order
