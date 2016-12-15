@@ -72,7 +72,10 @@ Human readable version of the content format. Passed as the context to the [titl
 
 A string. Optional.
 
-- The key should be set to match the ordering of the old whitehall finder that you are replacing - you can use a minus (-) in front of the field to order in descending order (see [whitehall/lib/finders/case_studies.json](https://github.com/alphagov/whitehall/blob/master/lib/finders/case_studies.json#L12) for an example)
+You can use a minus (-) in front of the field to order in descending order (see [whitehall/lib/finders/case_studies.json](https://github.com/alphagov/whitehall/blob/master/lib/finders/case_studies.json#L12) for an example).
+
+Rummager must allow this field to be sorted on. At the time of writing [this
+was restricted to a couple of fields](https://github.com/alphagov/rummager/blob/ff35f2efb17d145f657cb520bc9892e64b713901/lib/parameter_parser/base_parameter_parser.rb#L10-L17).
 
 ## `default_documents_per_page`
 
