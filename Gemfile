@@ -36,6 +36,7 @@ group :development, :test do
   gem 'awesome_print'
   gem 'byebug'
   gem 'pry'
+  gem 'govuk-lint'
 end
 
 group :test do
