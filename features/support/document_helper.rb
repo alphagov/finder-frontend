@@ -55,21 +55,24 @@ module DocumentHelper
 
   def content_store_has_government_finder
     base_path = '/government/policies/benefits-reform'
-    content_store_has_item(base_path,
+    content_store_has_item(
+      base_path,
       govuk_content_schema_example('finder').merge('base_path' => base_path).to_json
     )
   end
 
   def content_store_has_policy_finder
     base_path = '/government/policies/benefits-reform'
-    content_store_has_item(base_path,
+    content_store_has_item(
+      base_path,
       govuk_content_schema_example('policy_area', 'policy').to_json
     )
   end
 
   def content_store_has_policies_finder
     base_path = '/government/policies'
-    content_store_has_item(base_path,
+    content_store_has_item(
+      base_path,
       govuk_content_schema_example('policies_finder').to_json
     )
   end
@@ -101,7 +104,7 @@ module DocumentHelper
 
   def stub_content_store_with_cma_cases_finder_with_description
     schema = govuk_content_schema_example("cma-cases", "finder")
-              .merge("description" => "Find reports and updates on current and historical CMA investigations")
+      .merge("description" => "Find reports and updates on current and historical CMA investigations")
 
     content_store_has_item(
       schema.fetch("base_path"),
@@ -258,7 +261,7 @@ module DocumentHelper
 
   def government_documents_json
     %|{
-      "results": #{government_document_results_json.to_s},
+      "results": #{government_document_results_json},
       "total": 20,
       "start": 0,
       "facets": {},
@@ -268,7 +271,7 @@ module DocumentHelper
 
   def government_documents_page_2_json
     %|{
-      "results": #{government_document_results_json(5).to_s},
+      "results": #{government_document_results_json(5)},
       "total": 20,
       "start": 10,
       "facets": {},
@@ -282,7 +285,7 @@ module DocumentHelper
     5.times do |n|
       results << [
         {
-          "title" => "Document #{n+start_at}",
+          "title" => "Document #{n + start_at}",
           "summary" => "Giving all children access to a computer",
           "format" => "news_article",
           "creator" => "Dale Cooper",
@@ -301,7 +304,7 @@ module DocumentHelper
           "_id" => "/government/policies/education/free-computers-for-schools"
         },
         {
-          "title" => "Document #{n+1+start_at}",
+          "title" => "Document #{n + 1 + start_at}",
           "public_timestamp" => "2015-03-14T00:00:00.000+01:00",
           "summary" => "We lost a day and found it again so everyone can get it off",
           "format" => "news_article",

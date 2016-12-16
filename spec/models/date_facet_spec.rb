@@ -17,24 +17,23 @@ describe DateFacet do
   end
 
   describe "#sentence_fragment" do
-
     let(:value) { nil }
 
     context "single date value" do
       let(:value) { { from: "22/09/1988" } }
       specify {
-        subject.sentence_fragment.preposition.should == "occurred after"
-        subject.sentence_fragment.values.first.label == "22 September 1988"
-        subject.sentence_fragment.values.first.parameter_key == "date_of_occurrence[from]"
+        subject.sentence_fragment.preposition.should eql("occurred after")
+        subject.sentence_fragment.values.first.label.should eql("22 September 1988")
+        subject.sentence_fragment.values.first.parameter_key.should eql("date_of_occurrence")
       }
     end
 
     context "6 digit date value" do
       let(:value) { { to: "22/09/14" } }
       specify {
-        subject.sentence_fragment.preposition.should == "occurred before"
-        subject.sentence_fragment.values.first.label == "22 September 2014"
-        subject.sentence_fragment.values.first.parameter_key == "date_of_occurrence[to]"
+        subject.sentence_fragment.preposition.should eql("occurred before")
+        subject.sentence_fragment.values.first.label.should eql("22 September 2014")
+        subject.sentence_fragment.values.first.parameter_key.should eql("date_of_occurrence")
       }
     end
 
@@ -46,13 +45,13 @@ describe DateFacet do
         }
       }
       specify {
-        subject.sentence_fragment.preposition.should == "occurred between"
+        subject.sentence_fragment.preposition.should eql("occurred between")
 
-        subject.sentence_fragment.values.first.label == "22 September 1988"
-        subject.sentence_fragment.values.first.parameter_key == "date_of_occurrence[to]"
+        subject.sentence_fragment.values.first.label.should eql("22 September 1988")
+        subject.sentence_fragment.values.first.parameter_key.should eql("date_of_occurrence")
 
-        subject.sentence_fragment.values.last.label == "22 September 2014"
-        subject.sentence_fragment.values.last.parameter_key == "date_of_occurrence[from]"
+        subject.sentence_fragment.values.last.label.should eql("22 September 2014")
+        subject.sentence_fragment.values.last.parameter_key.should eql("date_of_occurrence")
       }
     end
   end

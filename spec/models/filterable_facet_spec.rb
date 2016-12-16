@@ -14,13 +14,13 @@ describe FilterableFacet do
 
   describe "#to_partial_path" do
     context "with a Facet" do
-      specify { subject.to_partial_path.should == "filterable_facet" }
+      specify { subject.to_partial_path.should eql("filterable_facet") }
     end
 
     context "with another kind of facet" do
       class ExampleFacet < FilterableFacet; end
       let(:facet_class) { ExampleFacet }
-      specify { subject.to_partial_path.should == "example_facet" }
+      specify { subject.to_partial_path.should eql("example_facet") }
     end
   end
 end

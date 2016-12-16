@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'ostruct'
 
 describe FacetCollection do
-  let(:facets) {[]}
+  let(:facets) { [] }
   subject { FacetCollection.new(facets) }
 
   before do
@@ -14,7 +14,7 @@ describe FacetCollection do
       let(:facets) { [:a_facet, :another_facet, :and_another_facet] }
 
       specify { subject.should respond_to(:each) }
-      specify { subject.count.should == 3 }
+      specify { subject.count.should eql(3) }
     end
   end
 
@@ -41,8 +41,8 @@ describe FacetCollection do
           decision_type: "catch-22"
         }
 
-        case_type_facet.value.should == "merger-investigations"
-        decision_type_facet.value.should == "catch-22"
+        case_type_facet.value.should eql("merger-investigations")
+        decision_type_facet.value.should eql("catch-22")
       end
     end
   end

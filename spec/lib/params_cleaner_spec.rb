@@ -7,7 +7,7 @@ describe ParamsCleaner do
 
       cleaned = ParamsCleaner.new(params).cleaned
 
-      expect(cleaned).to eql("foo" => ["bar", "baz"])
+      expect(cleaned).to eql("foo" => %w(bar baz))
     end
 
     it "leaves normal params alone" do

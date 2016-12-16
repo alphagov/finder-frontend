@@ -21,12 +21,10 @@ describe EmailAlertSubscriptionsController do
     let(:alert_name) { double(:alert_name) }
     let(:alert_identifier) { double(:alert_identifier) }
     let(:delivery_api) { double(:delivery_api) }
-    let(:finder) { govuk_content_schema_example('finder').to_hash.merge({title: alert_name}) }
+    let(:finder) { govuk_content_schema_example('finder').to_hash.merge(title: alert_name) }
     let(:signup_finder) { cma_cases_signup_content_item }
     let(:signup_api_wrapper) {
-      double(:signup_api_wrapper,
-        signup_url: 'http://www.example.com'
-      )
+      double(:signup_api_wrapper, signup_url: 'http://www.example.com')
     }
 
     before do
@@ -41,5 +39,4 @@ describe EmailAlertSubscriptionsController do
       expect(subject).to redirect_to('http://www.example.com')
     end
   end
-
 end

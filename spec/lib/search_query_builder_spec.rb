@@ -46,10 +46,10 @@ describe SearchQueryBuilder do
     }
 
     it "should use documents_per_page from content item" do
-      expect(query).to include({
-          "count" => 10,
-          "start" => 0
-        })
+      expect(query).to include(
+        "count" => 10,
+        "start" => 0
+      )
     end
   end
 
@@ -88,7 +88,6 @@ describe SearchQueryBuilder do
     end
 
     it "should include reject fields prefixed with reject_" do
-
       expect(query).to include(
         "reject_alpha" => "value",
       )
@@ -145,25 +144,25 @@ describe SearchQueryBuilder do
     end
 
     it 'starts at zero when page param is zero' do
-      query = query_with_params({ "page" => 0 })
+      query = query_with_params("page" => 0)
 
       expect(query['start']).to eql(0)
     end
 
     it 'starts at zero when page param is nil' do
-      query = query_with_params({ "page" => nil })
+      query = query_with_params("page" => nil)
 
       expect(query['start']).to eql(0)
     end
 
     it 'starts at zero when page param is empty' do
-      query = query_with_params({ "page" => "" })
+      query = query_with_params("page" => "")
 
       expect(query['start']).to eql(0)
     end
 
     it 'is paginated' do
-      query = query_with_params({ "page" => "10" })
+      query = query_with_params("page" => "10")
 
       expect(query['start']).to eql(9000)
     end
