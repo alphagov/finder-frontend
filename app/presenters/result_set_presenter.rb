@@ -9,10 +9,11 @@ class ResultSetPresenter
            :atom_url,
            to: :finder
 
-  def initialize(finder, view_context)
+  def initialize(finder, filter_params, view_context)
     @finder = finder
     @results = finder.results.documents
     @total = finder.results.total
+    @filter_params = filter_params
     @view_context = view_context
   end
 
@@ -76,6 +77,14 @@ class ResultSetPresenter
     results.map do |result|
       SearchResultPresenter.new(result).to_hash
     end
+  end
+
+  def user_supplied_date(date_facet_key, date_facet_from_to)
+    @filter_params.fetch(date_facet_key, {}).fetch(date_facet_from_to, nil)
+  end
+
+  def user_supplied_keywords
+    @filter_params.fetch('keywords', '')
   end
 
 private
