@@ -21,6 +21,8 @@ class FindersController < ApplicationController
         end
       end
     end
+  rescue ActionController::UnknownFormat
+    render text: 'Not acceptable', status: 406
   end
 
 private
