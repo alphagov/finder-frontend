@@ -44,6 +44,12 @@ describe FindersController do
         expect(response.content_type).to eq("application/atom+xml")
         expect(response).to render_template("finders/show")
       end
+
+      it "returns a 406 if an invalid format is requested" do
+        request.headers["Accept"] = "text/plain"
+        get :show, slug: "lunch-finder"
+        expect(response.status).to eq(406)
+      end
     end
 
     describe "a finder content item with a default order exists" do
