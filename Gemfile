@@ -9,6 +9,7 @@ gem 'shared_mustache', '~> 0.1.3'
 gem 'airbrake', '~> 4.0.0'
 gem 'chronic', '~> 0.10.2'
 gem 'govuk_navigation_helpers', '~> 2.0.0'
+gem 'invalid_utf8_rejector', '~> 0.0.3'
 
 group :assets do
   if ENV['FRONTEND_TOOLKIT_DEV']
