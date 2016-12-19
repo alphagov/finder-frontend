@@ -21,7 +21,7 @@ module GovukContentSchemaExamples
     include GdsApi::TestHelpers::ContentStore
 
     # Returns a hash representing an finder content item from govuk-content-schemas
-    def govuk_content_schema_example(name, format='finder')
+    def govuk_content_schema_example(name, format = 'finder')
       string = GovukContentSchemaTestHelpers::Examples.new.get(format, name)
       JSON.parse(string)
     end

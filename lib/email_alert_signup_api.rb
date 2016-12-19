@@ -1,7 +1,6 @@
 require 'gds_api/gov_uk_delivery'
 
 class EmailAlertSignupAPI
-
   def initialize(dependencies = {})
     @email_alert_api = dependencies.fetch(:email_alert_api)
     @attributes = dependencies.fetch(:attributes)
@@ -18,6 +17,7 @@ class EmailAlertSignupAPI
   end
 
 private
+
   attr_reader :email_alert_api, :attributes, :subscription_list_title_prefix, :available_choices, :filter_key
 
   def subscriber_list
@@ -40,11 +40,11 @@ private
   end
 
   def topic_names
-    attributes.fetch("filter").collect {|x| choice_hash_by_key(x).topic_name }
+    attributes.fetch("filter").collect { |x| choice_hash_by_key(x).topic_name }
   end
 
   def choice_hash_by_key(key)
-    available_choices.select {|x| x.key == key}[0]
+    available_choices.select { |x| x.key == key }[0]
   end
 
   def massaged_attributes
@@ -67,7 +67,7 @@ private
     when 2
       "#{arr[0]} and #{arr[1]}"
     else
-      "#{arr[0...-1].join(", ")}, and #{arr[-1]}"
+      "#{arr[0...-1].join(', ')}, and #{arr[-1]}"
     end
   end
 

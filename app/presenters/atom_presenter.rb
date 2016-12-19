@@ -1,5 +1,4 @@
 class AtomPresenter
-
   def initialize(finder)
     @finder = finder
   end
@@ -19,6 +18,6 @@ class AtomPresenter
   end
 
 private
-  attr_reader :finder
 
+  attr_reader :finder
 end

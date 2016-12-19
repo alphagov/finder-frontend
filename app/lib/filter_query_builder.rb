@@ -1,5 +1,5 @@
 # Used by the SearchQueryBuilder to build the `filter` part of the Rummager
-# search query. This will determine the documents that are returned from rummager. 
+# search query. This will determine the documents that are returned from rummager.
 class FilterQueryBuilder
   def initialize(facets:, user_params:)
     @facets = facets
@@ -13,6 +13,7 @@ class FilterQueryBuilder
   end
 
 private
+
   attr_reader :facets, :user_params
 
   def filters
@@ -50,6 +51,7 @@ private
     end
 
   private
+
     attr_reader :facet, :params
   end
 
@@ -59,6 +61,7 @@ private
     end
 
   private
+
     def serialized_values
       present_values.map { |key, date|
         "#{key}:#{date.iso8601}"
@@ -95,17 +98,16 @@ private
       user_has_selected_open = params.include?(facet.open_value.value)
       user_has_selected_closed = params.include?(facet.closed_value.value)
 
+      # with both or neither selected, the filter is not used
       if user_has_selected_open && !user_has_selected_closed
         open_value
       elsif user_has_selected_closed && !user_has_selected_open
         closed_value
-      else
-        # with both or neither selected, the filter is not used
-        nil
       end
     end
 
   private
+
     # A thing is open when it ends on a future day
     def open_value
       "from:#{later_than_midnight_today}"

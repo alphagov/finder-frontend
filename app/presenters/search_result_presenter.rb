@@ -1,5 +1,4 @@
 class SearchResultPresenter
-
   delegate :title,
            :summary,
            :is_historic,
@@ -55,6 +54,7 @@ class SearchResultPresenter
   end
 
 private
+
   attr_reader :search_result
 
   def raw_metadata

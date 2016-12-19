@@ -19,8 +19,8 @@ module ApplicationHelper
 
   def page_metadata(metadata)
     metadata.inject({}) do |memo, (type, data)|
-      memo.merge(type =>
-        data.is_a?(Array) ? arr_to_links(data) : data
+      memo.merge(
+        type => data.is_a?(Array) ? arr_to_links(data) : data
       )
     end
   end

@@ -35,8 +35,6 @@ class FinderPresenter
   def email_alert_signup
     if content_item.links.email_alert_signup
       content_item.links.email_alert_signup.first
-    else
-      nil
     end
   end
 
@@ -75,11 +73,11 @@ class FinderPresenter
   end
 
   def date_metadata_keys
-    metadata.select{ |f| f.type == "date" }.map(&:key)
+    metadata.select { |f| f.type == "date" }.map(&:key)
   end
 
   def text_metadata_keys
-    metadata.select{ |f| f.type == "text" }.map(&:key)
+    metadata.select { |f| f.type == "text" }.map(&:key)
   end
 
   def filter_sentence_fragments
@@ -141,6 +139,7 @@ class FinderPresenter
   end
 
 private
+
   attr_reader :content_item
 
   def part_of
@@ -174,7 +173,7 @@ private
     if nation_applicability
       applies_to = nation_applicability.applies_to.map(&:titlecase)
       alternative_policies = nation_applicability.alternative_policies.map do |alternative|
-        link_to(alternative.nation.titlecase, alternative.alt_policy_url, ({rel: 'external'} if is_external?(alternative.alt_policy_url)))
+        link_to(alternative.nation.titlecase, alternative.alt_policy_url, ({ rel: 'external' } if is_external?(alternative.alt_policy_url)))
       end
       if alternative_policies.any?
         "#{applies_to.to_sentence} (see policy for #{alternative_policies.to_sentence})".html_safe

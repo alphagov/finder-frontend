@@ -19,6 +19,7 @@ class SearchQueryBuilder
   end
 
 private
+
   attr_reader :finder_content_item, :params
 
   def pagination_query
@@ -72,11 +73,11 @@ private
   end
 
   def default_order_query
-    {"order" => default_order}
+    { "order" => default_order }
   end
 
   def keyword_query
-    keywords ? {"q" => keywords} : {}
+    keywords ? { "q" => keywords } : {}
   end
 
   def keywords
