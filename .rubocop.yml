@@ -1,2 +1,6 @@
 AllCops:
   TargetRubyVersion: 2.3
+  Exclude:
+    # Exclude the UTF8Cleaner test because it includes invalid UTF-8 characters
+    # for testing purposes that rubocop chokes on.
+    - 'spec/lib/utf8_cleaner_spec.rb'

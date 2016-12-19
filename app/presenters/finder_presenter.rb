@@ -21,7 +21,7 @@ class FinderPresenter
     @organisations = content_item.links.organisations
     @values = values
     facets.values = values
-    @keywords = values["keywords"].presence
+    @keywords = UTF8Cleaner.new(values["keywords"]).cleaned
   end
 
   def alpha?
