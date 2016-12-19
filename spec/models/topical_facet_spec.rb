@@ -30,30 +30,30 @@ describe TopicalFacet do
 
   describe "#sentence_fragment" do
     context "single value" do
-      let(:value) { ["open"] }
+      let(:value) { %w(open) }
 
       specify {
-        subject.sentence_fragment.preposition.should == "of value"
-        subject.sentence_fragment.values.first.label == "Open"
-        subject.sentence_fragment.values.first.parameter_key == "end_date"
+        subject.sentence_fragment.preposition.should eql("of value")
+        subject.sentence_fragment.values.first.label.should eql("Open")
+        subject.sentence_fragment.values.first.parameter_key.should eql("end_date")
       }
     end
 
     context "multiple values" do
-      let(:value) { ["open", "closed"] }
+      let(:value) { %w(open closed) }
 
       specify {
-        subject.sentence_fragment.preposition.should == "of value"
-        subject.sentence_fragment.values.first.label.should == "Open"
-        subject.sentence_fragment.values.first.parameter_key.should == "end_date"
+        subject.sentence_fragment.preposition.should eql("of value")
+        subject.sentence_fragment.values.first.label.should eql("Open")
+        subject.sentence_fragment.values.first.parameter_key.should eql("end_date")
 
-        subject.sentence_fragment.values.last.label.should == "Closed"
-        subject.sentence_fragment.values.last.parameter_key.should == "end_date"
+        subject.sentence_fragment.values.last.label.should eql("Closed")
+        subject.sentence_fragment.values.last.parameter_key.should eql("end_date")
       }
     end
 
     context "disallowed values" do
-      let(:value) { ["disallowed-value-1, disallowed-value-2"] }
+      let(:value) { %w(disallowed-value-1 disallowed-value-2) }
       specify { subject.sentence_fragment.should be_nil }
     end
   end

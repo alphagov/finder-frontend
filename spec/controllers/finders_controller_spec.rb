@@ -5,11 +5,10 @@ include FixturesHelper
 
 describe FindersController do
   describe "GET show" do
-
     describe "a finder content item exists" do
       before do
-        content_store_has_item('/lunch-finder',
-          {
+        content_store_has_item(
+          '/lunch-finder',
             base_path: '/lunch-finder',
             title: 'Lunch Finder',
             details: {
@@ -18,7 +17,6 @@ describe FindersController do
             links: {
               organisations: [],
             },
-          }
         )
 
         rummager_response = %|{
@@ -29,7 +27,7 @@ describe FindersController do
             "suggested_queries": []
           }|
 
-        stub_request(:get, "#{Plek.current.find('search')}/search.json?count=1000&fields=title,link,description,public_timestamp&order=-public_timestamp&start=0").to_return(:status => 200, :body => rummager_response, :headers => {})
+        stub_request(:get, "#{Plek.current.find('search')}/search.json?count=1000&fields=title,link,description,public_timestamp&order=-public_timestamp&start=0").to_return(status: 200, body: rummager_response, headers: {})
       end
 
       it "correctly renders a finder page" do
@@ -54,8 +52,8 @@ describe FindersController do
 
     describe "a finder content item with a default order exists" do
       before do
-        content_store_has_item('/lunch-finder',
-          {
+        content_store_has_item(
+          '/lunch-finder',
             base_path: '/lunch-finder',
             title: 'Lunch Finder',
             details: {
@@ -65,7 +63,6 @@ describe FindersController do
             links: {
               organisations: [],
             },
-          }
         )
 
         rummager_response = %|{
@@ -76,7 +73,7 @@ describe FindersController do
             "suggested_queries": []
           }|
 
-        stub_request(:get, "#{Plek.current.find('search')}/search.json?count=1000&fields=title,link,description,public_timestamp&order=-closing_date&start=0").to_return(:status => 200, :body => rummager_response, :headers => {})
+        stub_request(:get, "#{Plek.current.find('search')}/search.json?count=1000&fields=title,link,description,public_timestamp&order=-closing_date&start=0").to_return(status: 200, body: rummager_response, headers: {})
       end
 
       it "returns a 404 when requesting an atom feed, rather than a 500" do

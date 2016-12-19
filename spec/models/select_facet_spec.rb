@@ -7,11 +7,11 @@ describe SelectFacet do
         label: "Allowed value 1",
         value: "allowed-value-1"
       ),
-       OpenStruct.new(
+      OpenStruct.new(
         label: "Allowed value 2",
-        value: "allowed-value-2" 
+        value: "allowed-value-2"
       ),
-       OpenStruct.new(
+      OpenStruct.new(
         label: "Remittals",
         value: "remittals"
       )
@@ -39,9 +39,9 @@ describe SelectFacet do
       let(:value) { ["allowed-value-1"] }
 
       specify {
-        subject.sentence_fragment.preposition.should == "of value"
-        subject.sentence_fragment.values.first.label == "Allowed value 1"
-        subject.sentence_fragment.values.first.parameter_key == "test_values"
+        subject.sentence_fragment.preposition.should eql("of value")
+        subject.sentence_fragment.values.first.label.should eql("Allowed value 1")
+        subject.sentence_fragment.values.first.parameter_key.should eql("test_values")
       }
     end
 
@@ -49,12 +49,12 @@ describe SelectFacet do
       let(:value) { ["allowed-value-1", "allowed-value-2"] }
 
       specify {
-        subject.sentence_fragment.preposition.should == "of value"
-        subject.sentence_fragment.values.first.label.should == "Allowed value 1"
-        subject.sentence_fragment.values.first.parameter_key.should == "test_values"
+        subject.sentence_fragment.preposition.should eql("of value")
+        subject.sentence_fragment.values.first.label.should eql("Allowed value 1")
+        subject.sentence_fragment.values.first.parameter_key.should eql("test_values")
 
-        subject.sentence_fragment.values.last.label.should == "Allowed value 2"
-        subject.sentence_fragment.values.last.parameter_key.should == "test_values"
+        subject.sentence_fragment.values.last.label.should eql("Allowed value 2")
+        subject.sentence_fragment.values.last.parameter_key.should eql("test_values")
       }
     end
 

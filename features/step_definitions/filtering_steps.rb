@@ -141,7 +141,7 @@ end
 
 Then(/^I can browse to the next page$/) do
   stub_rummager_api_request_with_page_2_policy_results
-  visit finder_path('government/policies/benefits-reform',  page: 2)
+  visit finder_path('government/policies/benefits-reform', page: 2)
 
   within shared_component_selector('previous_and_next_navigation') do
     page.should have_content('Previous page')

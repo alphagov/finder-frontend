@@ -11,15 +11,15 @@ describe FacetParser do
         key: "case_type",
         preposition: "of type",
         allowed_values: [
-           OpenStruct.new(
+          OpenStruct.new(
             label: "Airport price control reviews",
             value: "airport-price-control-reviews"
           ),
-           OpenStruct.new(
+          OpenStruct.new(
             label: "Market investigations",
             value: "market-investigations"
           ),
-           OpenStruct.new(
+          OpenStruct.new(
             label: "Remittals",
             value: "remittals"
           )
@@ -29,15 +29,15 @@ describe FacetParser do
     subject { FacetParser.parse(facet) }
 
     specify { subject.should be_a SelectFacet }
-    specify { subject.name.should == "Case type" }
-    specify { subject.key.should == "case_type" }
-    specify { subject.preposition.should == "of type" }
+    specify { subject.name.should eql("Case type") }
+    specify { subject.key.should eql("case_type") }
+    specify { subject.preposition.should eql("of type") }
 
     it "should build a list of allowed values" do
-      subject.allowed_values[0].label.should == "Airport price control reviews"
-      subject.allowed_values[0].value.should == "airport-price-control-reviews"
-      subject.allowed_values[2].label.should == "Remittals"
-      subject.allowed_values[2].value.should == "remittals"
+      subject.allowed_values[0].label.should eql("Airport price control reviews")
+      subject.allowed_values[0].value.should eql("airport-price-control-reviews")
+      subject.allowed_values[2].label.should eql("Remittals")
+      subject.allowed_values[2].value.should eql("remittals")
     end
   end
 end
