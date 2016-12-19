@@ -10,8 +10,9 @@ class DateFacet < FilterableFacet
   end
 
 private
+
   def value_fragments
-    present_values.map { |k, date|
+    present_values.map { |_, date|
       OpenStruct.new(
         label: date.date.strftime("%e %B %Y"),
         parameter_key: key,

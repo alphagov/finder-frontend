@@ -1,5 +1,4 @@
 class EntryPresenter
-
   delegate :title,
            :summary,
            :path,
@@ -18,6 +17,7 @@ class EntryPresenter
   end
 
 private
+
   attr_reader :entry
 
   def website_root
@@ -27,5 +27,4 @@ private
   def schema_date(schema)
     schema.instance_variable_get(:@feed_options)[:schema_date]
   end
-
 end

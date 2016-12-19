@@ -22,6 +22,7 @@ class FacetQueryBuilder
   end
 
 private
+
   attr_reader :facets
 
   def dynamic_facets

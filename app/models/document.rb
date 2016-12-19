@@ -30,6 +30,7 @@ class Document
   end
 
 private
+
   attr_reader :link, :rummager_document, :finder, :description
 
   def metadata_keys
@@ -71,7 +72,7 @@ private
   def tag_labels_for(key)
     Array(rummager_document.fetch(key, []))
       .map { |label| get_metadata_label(key, label) }
-     .select(&:present?)
+      .select(&:present?)
   end
 
   def build_tag_metadata(key)

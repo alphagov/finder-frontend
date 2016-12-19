@@ -2,7 +2,7 @@ class SelectFacet < FilterableFacet
   delegate :allowed_values, to: :facet
 
   def options
-    allowed_values.map do | allowed_value |
+    allowed_values.map do |allowed_value|
       {
         value: allowed_value.value,
         label: allowed_value.label,
@@ -27,6 +27,7 @@ class SelectFacet < FilterableFacet
   end
 
 private
+
   def value_fragments
     selected_values.map { |v|
       OpenStruct.new(

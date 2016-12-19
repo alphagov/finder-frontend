@@ -98,7 +98,7 @@ private
 
   def build_page_link(page_label, page)
     {
-      url: [finder.slug, finder.values.merge({page: page}).to_query].reject(&:blank?).join("?"),
+      url: [finder.slug, finder.values.merge(page: page).to_query].reject(&:blank?).join("?"),
       title: page_label,
       label: "#{page} of #{finder.pagination.total_pages}",
     }

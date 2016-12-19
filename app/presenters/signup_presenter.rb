@@ -36,6 +36,7 @@ class SignupPresenter < Struct.new(:content_item)
   end
 
 private
+
   def choice_data
     content_item.details["email_signup_choice"]
   end

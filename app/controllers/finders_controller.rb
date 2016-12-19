@@ -26,6 +26,7 @@ class FindersController < ApplicationController
   end
 
 private
+
   def finder
     @finder ||= FinderPresenter.new(
       raw_finder,
