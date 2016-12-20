@@ -81,7 +81,11 @@ private
     end
 
     def user_values
-      params || {}
+      if params.is_a?(Hash)
+        params
+      else
+        {}
+      end
     end
   end
 

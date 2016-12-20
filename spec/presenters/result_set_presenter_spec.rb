@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe ResultSetPresenter do
-  subject(:presenter) { ResultSetPresenter.new(finder, view_context) }
+  subject(:presenter) { ResultSetPresenter.new(finder, filter_params, view_context) }
 
   let(:finder) do
     OpenStruct.new(
@@ -19,6 +19,10 @@ RSpec.describe ResultSetPresenter do
   end
 
   let(:pagination) { double(:pagination, current_page: 1, total_pages: 2) }
+
+  let(:filter_params) { double(:filter_params, {
+    keywords: 'test'
+  })}
 
   let(:view_context) { double(:view_context) }
 

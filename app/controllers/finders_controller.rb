@@ -4,7 +4,7 @@ class FindersController < ApplicationController
   include GdsApi::Helpers
 
   def show
-    @results = ResultSetPresenter.new(finder, view_context)
+    @results = ResultSetPresenter.new(finder, filter_params, view_context)
 
     respond_to do |format|
       format.html do
@@ -48,6 +48,8 @@ private
       :format,
     )
 
-    ParamsCleaner.new(permitted_params).cleaned
+    cleaned_params = ParamsCleaner.new(permitted_params).cleaned
+
+    cleaned_params.delete_if { |_, value| value.blank? }
   end
 end
