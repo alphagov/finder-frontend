@@ -5,6 +5,8 @@ REPOSITORY = 'finder-frontend'
 node {
   def govuk = load '/var/lib/jenkins/groovy_scripts/govuk_jenkinslib.groovy'
 
+  DEFAULT_SCHEMA_BRANCH = 'deployed-to-production'
+
   properties([
     buildDiscarder(
       logRotator(
@@ -27,12 +29,22 @@ node {
           description: 'Identifies whether this build is being triggered to test a change to the content schemas'],
         [$class: 'StringParameterDefinition',
           name: 'SCHEMA_BRANCH',
-          defaultValue: 'deployed-to-production',
+          defaultValue: DEFAULT_SCHEMA_BRANCH,
           description: 'The branch of govuk-content-schemas to test against']]
     ]
   ])
 
   try {
+    // Ensure that the build parameters are set. For some unknown reason, these
+    // are NOT set the first time the build is run. They are set correctly on
+    // every subsequent build, whether it is triggered automatically by a branch
+    // push or manually in by a Jenkins user.
+    stage("Set up schema build parameter") {
+      if (env.SCHEMA_BRANCH == null) {
+        govuk.setEnvar("SCHEMA_BRANCH", DEFAULT_SCHEMA_BRANCH)
+      }
+    }
+
     if (env.BRANCH_NAME == 'deployed-to-production') {
       if (env.IS_SCHEMA_TEST == "true") {
         echo "Branch is 'deployed-to-production' and this is a schema test " +
