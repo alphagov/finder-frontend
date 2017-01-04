@@ -35,27 +35,13 @@ node {
   ])
 
   try {
-    // Ensure that the build parameters are set. For some unknown reason, these
-    // are NOT set the first time the build is run. They are set correctly on
-    // every subsequent build, whether it is triggered automatically by a branch
-    // push or manually in by a Jenkins user.
-    stage("Set up schema build parameter") {
-      if (env.SCHEMA_BRANCH == null) {
-        govuk.setEnvar("SCHEMA_BRANCH", DEFAULT_SCHEMA_BRANCH)
-      }
-    }
+    govuk.initializeParameters([
+      'IS_SCHEMA_TEST': 'false',
+      'SCHEMA_BRANCH': DEFAULT_SCHEMA_BRANCH,
+    ])
 
-    if (env.BRANCH_NAME == 'deployed-to-production') {
-      if (env.IS_SCHEMA_TEST == "true") {
-        echo "Branch is 'deployed-to-production' and this is a schema test " +
-          "build. Proceeding with build."
-      } else {
-        echo "Branch is 'deployed-to-production', but this is not marked as " +
-          "a schema test build. 'deployed-to-production' should only be " +
-          "built as part of a schema test, so this build will stop here."
-        currentBuild.result = "SUCCESS"
-        return
-      }
+    if (!govuk.isAllowedBranchBuild(env.BRANCH_NAME)) {
+      return
     }
 
     stage("Configure environment") {
