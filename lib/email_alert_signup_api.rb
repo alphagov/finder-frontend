@@ -34,9 +34,10 @@ private
       else
         plural_or_single = "plural"
       end
-      title = subscription_list_title_prefix[plural_or_single].to_s + to_sentence(topic_names)
+      title = (subscription_list_title_prefix[plural_or_single].to_s + topic_names.to_sentence).humanize
     end
-    force_capitalize(title)
+
+    title
   end
 
   def topic_names
@@ -55,24 +56,5 @@ private
       massaged_attributes[@filter_key] = massaged_attributes.delete("filter")
     end
     massaged_attributes
-  end
-
-  # Title string helpers
-  def to_sentence(arr)
-    case arr.length
-    when 0
-      ""
-    when 1
-      arr[0].to_s.dup
-    when 2
-      "#{arr[0]} and #{arr[1]}"
-    else
-      "#{arr[0...-1].join(', ')}, and #{arr[-1]}"
-    end
-  end
-
-  def force_capitalize(str)
-    str[0] = str[0].capitalize
-    str
   end
 end
