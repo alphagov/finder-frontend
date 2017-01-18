@@ -50,6 +50,7 @@ private
       email_alert_api: email_alert_api,
       attributes: email_signup_attributes,
       subscription_list_title_prefix: content.details.subscription_list_title_prefix,
+      email_filter_name: content.details.email_filter_name,
       available_choices: available_choices,
       filter_key: content.details.email_filter_by,
     )
