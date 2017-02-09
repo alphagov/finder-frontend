@@ -3,6 +3,6 @@ begin
 
   RSpec::Core::RakeTask.new(:spec)
 
-  task :default => :spec
+  task default: :spec
 rescue LoadError
 end
