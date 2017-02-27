@@ -1,7 +1,13 @@
 require 'spec_helper'
+require 'slimmer/test_helpers/govuk_components'
 
 RSpec.describe FinderPresenter do
   include GovukContentSchemaExamples
+  include Slimmer::TestHelpers::GovukComponents
+
+  before do
+    stub_shared_component_locales
+  end
 
   subject(:presenter) { described_class.new(content_item, values) }
 

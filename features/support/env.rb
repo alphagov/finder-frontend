@@ -11,9 +11,12 @@ require 'cucumber/rails'
 require 'webmock/cucumber'
 require 'slimmer/test'
 
-require 'slimmer/test_helpers/shared_templates'
-World(Slimmer::TestHelpers::SharedTemplates)
+require 'slimmer/test_helpers/govuk_components'
+World(Slimmer::TestHelpers::GovukComponents)
 
+Before do
+  stub_shared_component_locales
+end
 
 # Capybara defaults to CSS3 selectors rather than XPath.
 # If you'd prefer to use XPath, just uncomment this line and adjust any

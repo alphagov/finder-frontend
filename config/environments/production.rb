@@ -37,7 +37,6 @@ FinderFrontend::Application.configure do
 
   # Enable serving of images, stylesheets, and javascripts from an asset server
   config.action_controller.asset_host = ENV['GOVUK_ASSET_HOST']
-  config.slimmer.use_cache = true
   config.slimmer.asset_host = Plek.current.find('static')
 
   # Specifies the header that your server uses for sending files.

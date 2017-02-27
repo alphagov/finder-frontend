@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   include Slimmer::Template
-  include Slimmer::SharedTemplates
+  include Slimmer::GovukComponents
   slimmer_template "header_footer_only"
 
   # Prevent CSRF attacks by raising an exception.
