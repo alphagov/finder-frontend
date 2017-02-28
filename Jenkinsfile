@@ -46,8 +46,6 @@ node {
 
     stage("Configure environment") {
       govuk.setEnvar("RAILS_ENV", "test")
-      govuk.setEnvar("GOVUK_APP_DOMAIN", "test.gov.uk")
-      govuk.setEnvar("GOVUK_ASSET_ROOT", "http://static.test.gov.uk")
     }
 
     stage("Checkout") {
