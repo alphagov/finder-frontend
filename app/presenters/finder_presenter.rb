@@ -1,7 +1,7 @@
 class FinderPresenter
   include ActionView::Helpers::UrlHelper
 
-  attr_reader :name, :slug, :organisations, :keywords, :values
+  attr_reader :name, :slug, :organisations, :keywords, :values, :content_item
 
   delegate :alpha_message,
            :beta_message,
@@ -139,8 +139,6 @@ class FinderPresenter
   end
 
 private
-
-  attr_reader :content_item
 
   def part_of
     content_item.links.part_of || []
