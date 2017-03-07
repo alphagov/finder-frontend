@@ -1,6 +1,12 @@
 require 'spec_helper'
 
 RSpec.describe ResultSetPresenter do
+  include Slimmer::TestHelpers::GovukComponents
+
+  before do
+    stub_shared_component_locales
+  end
+
   subject(:presenter) { ResultSetPresenter.new(finder, filter_params, view_context) }
 
   let(:finder) do
