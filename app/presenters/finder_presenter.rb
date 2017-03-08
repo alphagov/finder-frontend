@@ -42,9 +42,7 @@ class FinderPresenter
     if content_item.details.signup_link.present?
       content_item.details.signup_link
     else
-      if email_alert_signup
-        email_alert_signup.web_url
-      end
+      email_alert_signup.web_url if email_alert_signup
     end
   end
 
@@ -182,8 +180,6 @@ private
   end
 
   def is_external?(href)
-    if host = URI.parse(href).host
-      "www.gov.uk" != host
-    end
+    URI.parse(href).host != "www.gov.uk"
   end
 end
