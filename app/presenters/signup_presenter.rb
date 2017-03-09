@@ -1,4 +1,10 @@
-class SignupPresenter < Struct.new(:content_item)
+class SignupPresenter
+  attr_reader :content_item
+
+  def initialize(content_item)
+    @content_item = content_item
+  end
+
   def page_title
     "#{name} emails"
   end
