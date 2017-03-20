@@ -8,6 +8,7 @@ require 'rspec/rails'
 require 'rspec/autorun'
 require 'webmock/rspec'
 require_relative '../lib/govuk_content_schema_examples'
+require 'slimmer/test_helpers/govuk_components'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
@@ -18,6 +19,11 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 ActiveRecord::Migration.check_pending! if defined?(ActiveRecord::Migration)
 
 RSpec.configure do |config|
+  include Slimmer::TestHelpers::GovukComponents
+
+  config.before do
+    stub_shared_component_locales
+  end
   # ## Mock Framework
   #
   # If you prefer to use mocha, flexmock or RR, uncomment the appropriate line:
