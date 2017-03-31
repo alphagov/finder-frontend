@@ -2,7 +2,5 @@
 
 node {
   def govuk = load '/var/lib/jenkins/groovy_scripts/govuk_jenkinslib.groovy'
-  govuk.buildProject(
-    false // disables the SASS linter.
-  )
+  govuk.buildProject(sassLint: false)
 }
