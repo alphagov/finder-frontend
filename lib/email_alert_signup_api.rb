@@ -29,11 +29,11 @@ private
     if available_choices.empty?
       title = subscription_list_title_prefix.to_s
     else
-      if attributes.fetch("filter").length == 1
-        plural_or_single = "singular"
-      else
-        plural_or_single = "plural"
-      end
+      plural_or_single = if attributes.fetch("filter").length == 1
+                           "singular"
+                         else
+                           "plural"
+                         end
       title = (subscription_list_title_prefix[plural_or_single].to_s + topic_names.to_sentence).humanize
     end
 

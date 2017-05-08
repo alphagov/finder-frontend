@@ -17,7 +17,7 @@ group :assets do
   else
     gem 'govuk_frontend_toolkit', '~> 3.1.0'
   end
-  gem 'sass-rails', '~> 4.0.2'
+  gem 'sass-rails', '~> 5.0'
   gem 'uglifier', '~> 2.7', '>= 2.7.2'
 end
 
@@ -37,7 +37,7 @@ group :development, :test do
   gem 'awesome_print'
   gem 'byebug'
   gem 'pry'
-  gem 'govuk-lint'
+  gem 'govuk-lint', "~> 2.1.0"
 end
 
 group :test do

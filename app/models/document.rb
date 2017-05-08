@@ -78,11 +78,11 @@ private
   def build_tag_metadata(key)
     labels = tag_labels_for(key)
 
-    if labels.count > 1
-      value = "#{labels.first} and #{labels.count - 1} others"
-    else
-      value = labels.first
-    end
+    value = if labels.count > 1
+              "#{labels.first} and #{labels.count - 1} others"
+            else
+              labels.first
+            end
 
     {
       name: key,
