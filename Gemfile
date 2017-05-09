@@ -1,15 +1,14 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.2.7.1'
-gem 'slimmer', '~> 10.1.3'
+gem 'rails', '~> 5.0.1'
+gem 'slimmer', '~> 10.1.4'
 gem 'gds-api-adapters', '~> 34.1.0'
 gem 'unicorn', '~> 4.8.1'
 gem 'logstasher', '~> 0.4.8'
 gem 'shared_mustache', '~> 0.1.3'
-gem 'airbrake', '~> 4.0.0'
+gem 'airbrake', github: 'alphagov/airbrake', branch: 'silence-dep-warnings-for-rails-5'
 gem 'chronic', '~> 0.10.2'
 gem 'govuk_navigation_helpers', '~> 2.0.0'
-gem 'invalid_utf8_rejector', '~> 0.0.3'
 
 group :assets do
   if ENV['FRONTEND_TOOLKIT_DEV']
@@ -29,12 +28,12 @@ end
 group :development do
   gem "better_errors"
   gem "binding_of_caller"
-  gem "quiet_assets"
 end
 
 group :development, :test do
   gem 'jasmine-rails'
   gem 'awesome_print'
+  gem 'rspec-rails', '~> 3.5.0'
   gem 'byebug'
   gem 'pry'
   gem 'govuk-lint', "~> 2.1.0"
@@ -43,8 +42,8 @@ end
 group :test do
   gem 'cucumber-rails', '~> 1.4.0', require: false
   gem 'launchy', '~> 2.4.2'
-  gem 'rspec-rails', '~> 2.14.1'
   gem 'simplecov', '~> 0.9.0'
   gem 'webmock', '~> 1.17.1'
+  gem 'rails-controller-testing'
   gem 'govuk-content-schema-test-helpers', '~> 1.0.1'
 end

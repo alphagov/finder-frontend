@@ -5,7 +5,6 @@ SimpleCov.start
 ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
-require 'rspec/autorun'
 require 'webmock/rspec'
 require_relative '../lib/govuk_content_schema_examples'
 require 'slimmer/test_helpers/govuk_components'
@@ -20,7 +19,7 @@ ActiveRecord::Migration.check_pending! if defined?(ActiveRecord::Migration)
 
 RSpec.configure do |config|
   include Slimmer::TestHelpers::GovukComponents
-
+  config.raise_errors_for_deprecations!
   config.before do
     stub_shared_component_locales
   end

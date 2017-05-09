@@ -77,7 +77,8 @@ describe DateParser do
 
     # Stub Time.now to a known date
     pretend_today = Time.new(year, 3, 11)
-    Time.stub(:now) { pretend_today }
+    allow(Time).to receive(:now).and_return(pretend_today)
+
 
     expect(DateParser.parse(date_to_parse)).to eql(expected_date)
   end

@@ -103,34 +103,35 @@ RSpec.describe FinderPresenter do
 
   describe "facets" do
     it "returns the correct facets" do
-      subject.facets.count { |f| f.type == "date" }.should eql(1)
-      subject.facets.count { |f| f.type == "text" }.should eql(3)
+      expect(subject.facets.count { |f| f.type == "date" }).to eql(1)
+      expect(subject.facets.count { |f| f.type == "text" }).to eql(3)
     end
 
     it "returns the correct filters" do
-      subject.filters.length.should eql(2)
+      expect(subject.filters.length).to eql(2)
     end
 
     it "returns the correct metadata" do
-      subject.metadata.length.should eql(3)
+      expect(subject.metadata.length).to eql(3)
     end
 
     it "returns correct keys for each facet type" do
-      subject.date_metadata_keys.should =~ %w{date_of_introduction}
-      subject.text_metadata_keys.should =~ %w{place_of_origin walk_type}
+      expect(subject.date_metadata_keys).to include("date_of_introduction")
+      expect(subject.text_metadata_keys).to include("place_of_origin")
+      expect(subject.text_metadata_keys).to include("walk_type")
     end
   end
 
   describe "#label_for_metadata_key" do
     it "finds the correct key" do
-      subject.label_for_metadata_key("date_of_introduction").should eql("Introduced")
+      expect(subject.label_for_metadata_key("date_of_introduction")).to eql("Introduced")
     end
   end
 
   describe "#atom_url" do
     context "with no values" do
       it "returns the finder URL appended with .atom" do
-        presenter.atom_url.should eql("/mosw-reports.atom")
+        expect(presenter.atom_url).to eql("/mosw-reports.atom")
       end
     end
 
@@ -144,28 +145,28 @@ RSpec.describe FinderPresenter do
       end
 
       it "returns the finder URL appended with .atom and query params" do
-        presenter.atom_url.should eql("/mosw-reports.atom?format=publication&keyword=legal&state=open")
+        expect(presenter.atom_url).to eql("/mosw-reports.atom?format=publication&keyword=legal&state=open")
       end
     end
 
     context "when the finder is ordered by title" do
       it "atom_url is disabled" do
-        policies_presenter.atom_feed_enabled?.should be_false
+        expect(policies_presenter.atom_feed_enabled?).to be_falsey
       end
     end
   end
 
   describe "a government finder" do
     it "sets the government flag" do
-      government_presenter.government?.should be_true
+      expect(government_presenter.government?).to be_truthy
     end
 
     it "exposes the government_content_section" do
-      government_presenter.government_content_section.should eql("policies")
+      expect(government_presenter.government_content_section).to eql("policies")
     end
 
     it "has metadata" do
-      expect(government_presenter.page_metadata.any?).to be_true
+      expect(government_presenter.page_metadata.any?).to be_truthy
     end
 
     it "has people, organisations, and working groups in the from metadata" do
@@ -186,17 +187,17 @@ RSpec.describe FinderPresenter do
     end
 
     it "sets rel='external' for an external link" do
-      expect(national_applicability_presenter.page_metadata[:other]["Applies to"].include?('rel="external"')).to be_true
+      expect(national_applicability_presenter.page_metadata[:other]["Applies to"].include?('rel="external"')).to be_truthy
     end
 
     it "doesn't set rel='external' for an internal link" do
-      expect(national_applicability_with_internal_policies_presenter.page_metadata[:other]["Applies to"].include?('rel="external"')).to be_false
+      expect(national_applicability_with_internal_policies_presenter.page_metadata[:other]["Applies to"].include?('rel="external"')).to be_falsey
     end
   end
 
   describe "a minimal policy content item" do
     it "doesn't have any page meta data" do
-      expect(minimal_policy_presenter.page_metadata.any?).to be_false
+      expect(minimal_policy_presenter.page_metadata.any?).to be_falsey
     end
   end
 end

@@ -554,10 +554,10 @@ module DocumentHelper
   end
 
   def assert_cma_cases_are_filtered_by_date
-    page.should have_content("1 case closed after 1 November 2015")
+    expect(page).to have_content("1 case closed after 1 November 2015")
 
     within ".filtered-results .document:nth-child(1)" do
-      page.should have_content("Big Beer Co / Salty Snacks Ltd merger inquiry")
+      expect(page).to have_content("Big Beer Co / Salty Snacks Ltd merger inquiry")
     end
   end
 end

@@ -20,6 +20,6 @@ private
   end
 
   def error_not_found
-    render status: :not_found, text: "404 error not found"
+    render status: :not_found, plain: "404 error not found"
   end
 end
