@@ -33,9 +33,9 @@ describe TopicalFacet do
       let(:value) { %w(open) }
 
       specify {
-        subject.sentence_fragment.preposition.should eql("of value")
-        subject.sentence_fragment.values.first.label.should eql("Open")
-        subject.sentence_fragment.values.first.parameter_key.should eql("end_date")
+        expect(subject.sentence_fragment.preposition).to eql("of value")
+        expect(subject.sentence_fragment.values.first.label).to eql("Open")
+        expect(subject.sentence_fragment.values.first.parameter_key).to eql("end_date")
       }
     end
 
@@ -43,18 +43,18 @@ describe TopicalFacet do
       let(:value) { %w(open closed) }
 
       specify {
-        subject.sentence_fragment.preposition.should eql("of value")
-        subject.sentence_fragment.values.first.label.should eql("Open")
-        subject.sentence_fragment.values.first.parameter_key.should eql("end_date")
+        expect(subject.sentence_fragment.preposition).to eql("of value")
+        expect(subject.sentence_fragment.values.first.label).to eql("Open")
+        expect(subject.sentence_fragment.values.first.parameter_key).to eql("end_date")
 
-        subject.sentence_fragment.values.last.label.should eql("Closed")
-        subject.sentence_fragment.values.last.parameter_key.should eql("end_date")
+        expect(subject.sentence_fragment.values.last.label).to eql("Closed")
+        expect(subject.sentence_fragment.values.last.parameter_key).to eql("end_date")
       }
     end
 
     context "disallowed values" do
       let(:value) { %w(disallowed-value-1 disallowed-value-2) }
-      specify { subject.sentence_fragment.should be_nil }
+      specify { expect(subject.sentence_fragment).to be_nil }
     end
   end
 end

@@ -24,7 +24,7 @@ RSpec.describe SearchResultPresenter do
 
   describe "#to_hash" do
     it "returns a hash" do
-      subject.to_hash.is_a?(Hash).should be_true
+      expect(subject.to_hash.is_a?(Hash)).to be_truthy
     end
 
     let(:formatted_metadata) {
@@ -37,15 +37,15 @@ RSpec.describe SearchResultPresenter do
 
     it "returns a hash of the data we need to show the document" do
       hash = subject.to_hash
-      hash[:title].should eql(title)
-      hash[:link].should eql(link)
-      hash[:metadata].should eql(formatted_metadata)
+      expect(hash[:title]).to eql(title)
+      expect(hash[:link]).to eql(link)
+      expect(hash[:metadata]).to eql(formatted_metadata)
     end
   end
 
   describe '#metadata' do
     it 'returns an array' do
-      subject.metadata.is_a?(Array).should be_true
+      expect(subject.metadata.is_a?(Array)).to be_truthy
     end
 
     it 'formats metadata' do
@@ -53,17 +53,17 @@ RSpec.describe SearchResultPresenter do
       allow(presenter).to receive(:build_date_metadata).and_call_original
 
       subject.metadata
-      subject.should have_received(:build_date_metadata).with(
+      expect(subject).to have_received(:build_date_metadata).with(
         name: "Opened date",
         value: "2006-7-14",
         type: "date"
       )
-      subject.should have_received(:build_text_metadata).with(
+      expect(subject).to have_received(:build_text_metadata).with(
         name: "Case state",
         value: "Open",
         type: "text"
       )
-      subject.should have_received(:build_text_metadata).with(
+      expect(subject).to have_received(:build_text_metadata).with(
         name: "Case state",
         value: "Open",
         type: "text"
@@ -76,10 +76,10 @@ RSpec.describe SearchResultPresenter do
       { name: 'some name', value: 'some value' }
     }
     it 'returns a hash' do
-      subject.build_text_metadata(data).is_a?(Hash).should be_true
+      expect(subject.build_text_metadata(data).is_a?(Hash)).to be_truthy
     end
     it 'sets the type to text' do
-      subject.build_text_metadata(data).fetch(:is_text).should be_true
+      expect(subject.build_text_metadata(data).fetch(:is_text)).to be_truthy
     end
   end
 
@@ -92,17 +92,17 @@ RSpec.describe SearchResultPresenter do
     let(:iso_date) { '2003-12-01' }
 
     it 'returns a hash' do
-      subject.build_date_metadata(data).is_a?(Hash).should be_true
+      expect(subject.build_date_metadata(data).is_a?(Hash)).to be_truthy
     end
 
     it 'sets the type to date' do
-      subject.build_date_metadata(data).fetch(:is_date).should be_true
+      expect(subject.build_date_metadata(data).fetch(:is_date)).to be_truthy
     end
 
     it 'formats the date' do
       date_metadata = subject.build_date_metadata(data)
-      date_metadata.fetch(:human_date).should eql(formatted_date)
-      date_metadata.fetch(:machine_date).should eql(iso_date)
+      expect(date_metadata.fetch(:human_date)).to eql(formatted_date)
+      expect(date_metadata.fetch(:machine_date)).to eql(iso_date)
     end
   end
 end

@@ -17,12 +17,12 @@ class FindersController < ApplicationController
         if finder.atom_feed_enabled?
           @feed = AtomPresenter.new(finder)
         else
-          render text: 'Not found', status: 404
+          render plain: 'Not found', status: 404
         end
       end
     end
   rescue ActionController::UnknownFormat
-    render text: 'Not acceptable', status: 406
+    render plain: 'Not acceptable', status: 406
   end
 
 private
@@ -41,7 +41,7 @@ private
 
   def filter_params
     # TODO Use a whitelist based on the facets in the schema
-    permitted_params = params.except(
+    permitted_params = params.to_unsafe_hash.except(
       :controller,
       :action,
       :slug,

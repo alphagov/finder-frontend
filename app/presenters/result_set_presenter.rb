@@ -30,7 +30,7 @@ class ResultSetPresenter
   end
 
   def any_filters_applied?
-    filter_sentence_fragments.length > 0 || keywords.present?
+    filter_sentence_fragments.length.positive? || keywords.present?
   end
 
   def describe_filters_in_sentence

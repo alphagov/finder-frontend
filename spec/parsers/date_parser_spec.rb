@@ -39,7 +39,7 @@ describe DateParser do
             "31/15/14" => nil,
 
             # Dates should be interpretted as UK not US
-            "01/11/2014" => Date.new(2014, 11, 01),
+            "01/11/2014" => Date.new(2014, 11, 1),
 
             # Future date
             '22/09/25' => Date.new(2025, 9, 22),
@@ -76,8 +76,9 @@ describe DateParser do
     expected_date = Date.new(year, 11, 26)
 
     # Stub Time.now to a known date
-    pretend_today = Time.new(year, 03, 11)
-    Time.stub(:now) { pretend_today }
+    pretend_today = Time.new(year, 3, 11)
+    allow(Time).to receive(:now).and_return(pretend_today)
+
 
     expect(DateParser.parse(date_to_parse)).to eql(expected_date)
   end

@@ -39,9 +39,9 @@ describe SelectFacet do
       let(:value) { ["allowed-value-1"] }
 
       specify {
-        subject.sentence_fragment.preposition.should eql("of value")
-        subject.sentence_fragment.values.first.label.should eql("Allowed value 1")
-        subject.sentence_fragment.values.first.parameter_key.should eql("test_values")
+        expect(subject.sentence_fragment.preposition).to eql("of value")
+        expect(subject.sentence_fragment.values.first.label).to eql("Allowed value 1")
+        expect(subject.sentence_fragment.values.first.parameter_key).to eql("test_values")
       }
     end
 
@@ -49,18 +49,18 @@ describe SelectFacet do
       let(:value) { ["allowed-value-1", "allowed-value-2"] }
 
       specify {
-        subject.sentence_fragment.preposition.should eql("of value")
-        subject.sentence_fragment.values.first.label.should eql("Allowed value 1")
-        subject.sentence_fragment.values.first.parameter_key.should eql("test_values")
+        expect(subject.sentence_fragment.preposition).to eql("of value")
+        expect(subject.sentence_fragment.values.first.label).to eql("Allowed value 1")
+        expect(subject.sentence_fragment.values.first.parameter_key).to eql("test_values")
 
-        subject.sentence_fragment.values.last.label.should eql("Allowed value 2")
-        subject.sentence_fragment.values.last.parameter_key.should eql("test_values")
+        expect(subject.sentence_fragment.values.last.label).to eql("Allowed value 2")
+        expect(subject.sentence_fragment.values.last.parameter_key).to eql("test_values")
       }
     end
 
     context "disallowed values" do
       let(:value) { ["disallowed-value-1, disallowed-value-2"] }
-      specify { subject.sentence_fragment.should be_nil }
+      specify { expect(subject.sentence_fragment).to be_nil }
     end
   end
 end

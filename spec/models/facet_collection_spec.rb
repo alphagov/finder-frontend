@@ -6,15 +6,15 @@ describe FacetCollection do
   subject { FacetCollection.new(facets) }
 
   before do
-    subject.stub(:filters) { facets }
+    allow(subject).to receive(:filters).and_return(facets)
   end
 
   describe "enumerability" do
     context "with 3 facets" do
       let(:facets) { [:a_facet, :another_facet, :and_another_facet] }
 
-      specify { subject.should respond_to(:each) }
-      specify { subject.count.should eql(3) }
+      specify { expect(subject).to respond_to(:each) }
+      specify { expect(subject.count).to eql(3) }
     end
   end
 
@@ -41,8 +41,8 @@ describe FacetCollection do
           decision_type: "catch-22"
         }
 
-        case_type_facet.value.should eql("merger-investigations")
-        decision_type_facet.value.should eql("catch-22")
+        expect(case_type_facet.value).to eql("merger-investigations")
+        expect(decision_type_facet.value).to eql("catch-22")
       end
     end
   end

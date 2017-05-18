@@ -3,7 +3,7 @@ require 'gds_api/test_helpers/content_store'
 include GdsApi::TestHelpers::ContentStore
 include FixturesHelper
 
-describe FindersController do
+describe FindersController, type: :controller do
   describe "GET show" do
     describe "a finder content item exists" do
       before do
@@ -31,13 +31,13 @@ describe FindersController do
       end
 
       it "correctly renders a finder page" do
-        get :show, slug: 'lunch-finder'
+        get :show, params: { slug: 'lunch-finder' }
         expect(response.status).to eq(200)
         expect(response).to render_template("finders/show")
       end
 
       it "can respond with an atom feed" do
-        get :show, slug: "lunch-finder", format: "atom"
+        get :show, params: { slug: "lunch-finder", format: "atom" }
         expect(response.status).to eq(200)
         expect(response.content_type).to eq("application/atom+xml")
         expect(response).to render_template("finders/show")
@@ -45,7 +45,7 @@ describe FindersController do
 
       it "returns a 406 if an invalid format is requested" do
         request.headers["Accept"] = "text/plain"
-        get :show, slug: "lunch-finder"
+        get :show, params: { slug: "lunch-finder" }
         expect(response.status).to eq(406)
       end
     end
@@ -77,7 +77,7 @@ describe FindersController do
       end
 
       it "returns a 404 when requesting an atom feed, rather than a 500" do
-        get :show, format: :atom, slug: 'lunch-finder'
+        get :show, params: { format: :atom, slug: 'lunch-finder' }
         expect(response.status).to eq(404)
       end
     end
@@ -86,7 +86,7 @@ describe FindersController do
       it 'returns a 404, rather than 5xx' do
         content_store_does_not_have_item('/does-not-exist')
 
-        get :show, slug: 'does-not-exist'
+        get :show, params: { slug: 'does-not-exist' }
         expect(response.status).to eq(404)
       end
     end

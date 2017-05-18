@@ -39,11 +39,10 @@ class FinderPresenter
   end
 
   def email_alert_signup_url
-    if content_item.details.signup_link.present?
-      content_item.details.signup_link
-    else
-      email_alert_signup.web_url if email_alert_signup
-    end
+    signup_link = content_item.details.signup_link
+    return signup_link if signup_link.present?
+
+    email_alert_signup.web_url if email_alert_signup
   end
 
   def facets

@@ -5,23 +5,24 @@ end
 
 Then(/^I can get a list of all documents with matching metadata$/) do
   visit finder_path('mosw-reports')
-  page.should_not have_content('2 reports')
-  page.should have_css('.filtered-results .document', count: 2)
-  page.should have_css(shared_component_selector('metadata'))
+
+  expect(page).not_to have_content('2 reports')
+  expect(page).to have_css('.filtered-results .document', count: 2)
+  expect(page).to have_css(shared_component_selector('metadata'))
 
   within '.filtered-results .document:nth-child(1)' do
-    page.should have_link(
+    expect(page).to have_link(
       'West London wobbley walk',
       href: '/mosw-reports/west-london-wobbley-walk',
     )
-    page.should have_content('30 December 2003')
-    page.should have_content('Backward')
+    expect(page).to have_content('30 December 2003')
+    expect(page).to have_content('Backward')
   end
 
   visit_filtered_finder('walk_type' => 'hopscotch')
 
-  page.should have_content('1 report')
-  page.should have_css('.filtered-results .document', count: 1)
+  expect(page).to have_content('1 report')
+  expect(page).to have_css('.filtered-results .document', count: 1)
 end
 
 When(/^I search documents by keyword$/) do
@@ -47,28 +48,28 @@ end
 
 Then(/^I can see the government header$/) do
   visit finder_path('government/policies/benefits-reform')
-  page.should have_css(shared_component_selector('government_navigation'))
+  expect(page).to have_css(shared_component_selector('government_navigation'))
 end
 
 Then(/^I can see the breadcrumbs$/) do
   visit finder_path('government/policies/benefits-reform')
-  page.should have_css(shared_component_selector('breadcrumbs'))
+  expect(page).to have_css(shared_component_selector('breadcrumbs'))
 end
 
 Then(/^I can see documents which are marked as being in history mode$/) do
-  page.should have_css('p.historic', count: 5)
-  page.should have_content("2005 to 2010 Labour government")
+  expect(page).to have_css('p.historic', count: 5)
+  expect(page).to have_content("2005 to 2010 Labour government")
 end
 
 
 Then(/^I can see documents which have government metadata$/) do
   within '.filtered-results .document:nth-child(1)' do
-    page.should have_content('Updated:')
-    page.should have_css('dl time[datetime="2007-02-14"]')
+    expect(page).to have_content('Updated:')
+    expect(page).to have_css('dl time[datetime="2007-02-14"]')
 
-    page.should have_content('News Story')
+    expect(page).to have_content('News Story')
 
-    page.should have_content('Ministry of Justice')
+    expect(page).to have_content('Ministry of Justice')
   end
 end
 
@@ -79,16 +80,16 @@ end
 
 Then(/^I can get a list of all documents with good metadata$/) do
   visit finder_path('mosw-reports')
-  page.should have_css('.filtered-results .document', count: 2)
+  expect(page).to have_css('.filtered-results .document', count: 2)
 
   within '.filtered-results .document:nth-child(1)' do
-    page.should have_content('Backward')
-    page.should_not have_content('England')
+    expect(page).to have_content('Backward')
+    expect(page).not_to have_content('England')
   end
 
   within '.filtered-results .document:nth-child(2)' do
-    page.should have_content('Northern Ireland')
-    page.should_not have_content('Hopscotch')
+    expect(page).to have_content('Northern Ireland')
+    expect(page).not_to have_content('Hopscotch')
   end
 end
 
@@ -120,8 +121,8 @@ Then(/^I can see filters based on the results$/) do
   visit finder_path('government/policies')
 
   within shared_component_selector('option_select') do
-    page.should have_content('ministry-of-justice')
-    page.should have_content('Ministry of Justice')
+    expect(page).to have_content('ministry-of-justice')
+    expect(page).to have_content('Ministry of Justice')
   end
 end
 
@@ -134,8 +135,8 @@ Then(/^I can see pagination$/) do
   visit finder_path('government/policies/benefits-reform')
 
   within shared_component_selector('previous_and_next_navigation') do
-    page.should_not have_content('Previous page')
-    page.should have_content('Next page')
+    expect(page).not_to have_content('Previous page')
+    expect(page).to have_content('Next page')
   end
 end
 
@@ -144,8 +145,8 @@ Then(/^I can browse to the next page$/) do
   visit finder_path('government/policies/benefits-reform', page: 2)
 
   within shared_component_selector('previous_and_next_navigation') do
-    page.should have_content('Previous page')
-    page.should_not have_content('Next page')
+    expect(page).to have_content('Previous page')
+    expect(page).not_to have_content('Next page')
   end
 end
 

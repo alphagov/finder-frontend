@@ -3,7 +3,7 @@ require 'gds_api/test_helpers/content_store'
 include GdsApi::TestHelpers::ContentStore
 include FixturesHelper
 
-describe EmailAlertSubscriptionsController do
+describe EmailAlertSubscriptionsController, type: :controller do
   include GovukContentSchemaExamples
 
   describe 'GET #new' do
@@ -11,7 +11,7 @@ describe EmailAlertSubscriptionsController do
       it 'returns a 404, rather than 5xx' do
         content_store_does_not_have_item('/does-not-exist/email-signup')
 
-        get :new, slug: 'does-not-exist'
+        get :new, params: { slug: 'does-not-exist' }
         expect(response.status).to eq(404)
       end
     end
@@ -35,7 +35,7 @@ describe EmailAlertSubscriptionsController do
     end
 
     it 'redirects to the correct email subscription url' do
-      post :create, slug: 'cma-cases'
+      post :create, params: { slug: 'cma-cases' }
       expect(subject).to redirect_to('http://www.example.com')
     end
   end

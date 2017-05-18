@@ -28,16 +28,16 @@ describe FacetParser do
     }
     subject { FacetParser.parse(facet) }
 
-    specify { subject.should be_a SelectFacet }
-    specify { subject.name.should eql("Case type") }
-    specify { subject.key.should eql("case_type") }
-    specify { subject.preposition.should eql("of type") }
+    specify { expect(subject).to be_a SelectFacet }
+    specify { expect(subject.name).to eql("Case type") }
+    specify { expect(subject.key).to eql("case_type") }
+    specify { expect(subject.preposition).to eql("of type") }
 
     it "should build a list of allowed values" do
-      subject.allowed_values[0].label.should eql("Airport price control reviews")
-      subject.allowed_values[0].value.should eql("airport-price-control-reviews")
-      subject.allowed_values[2].label.should eql("Remittals")
-      subject.allowed_values[2].value.should eql("remittals")
+      expect(subject.allowed_values[0].label).to eql("Airport price control reviews")
+      expect(subject.allowed_values[0].value).to eql("airport-price-control-reviews")
+      expect(subject.allowed_values[2].label).to eql("Remittals")
+      expect(subject.allowed_values[2].value).to eql("remittals")
     end
   end
 end

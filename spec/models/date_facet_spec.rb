@@ -22,18 +22,18 @@ describe DateFacet do
     context "single date value" do
       let(:value) { { from: "22/09/1988" } }
       specify {
-        subject.sentence_fragment.preposition.should eql("occurred after")
-        subject.sentence_fragment.values.first.label.should eql("22 September 1988")
-        subject.sentence_fragment.values.first.parameter_key.should eql("date_of_occurrence")
+        expect(subject.sentence_fragment.preposition).to eql("occurred after")
+        expect(subject.sentence_fragment.values.first.label).to eql("22 September 1988")
+        expect(subject.sentence_fragment.values.first.parameter_key).to eql("date_of_occurrence")
       }
     end
 
     context "6 digit date value" do
       let(:value) { { to: "22/09/14" } }
       specify {
-        subject.sentence_fragment.preposition.should eql("occurred before")
-        subject.sentence_fragment.values.first.label.should eql("22 September 2014")
-        subject.sentence_fragment.values.first.parameter_key.should eql("date_of_occurrence")
+        expect(subject.sentence_fragment.preposition).to eql("occurred before")
+        expect(subject.sentence_fragment.values.first.label).to eql("22 September 2014")
+        expect(subject.sentence_fragment.values.first.parameter_key).to eql("date_of_occurrence")
       }
     end
 
@@ -45,13 +45,13 @@ describe DateFacet do
         }
       }
       specify {
-        subject.sentence_fragment.preposition.should eql("occurred between")
+        expect(subject.sentence_fragment.preposition).to eql("occurred between")
 
-        subject.sentence_fragment.values.first.label.should eql("22 September 1988")
-        subject.sentence_fragment.values.first.parameter_key.should eql("date_of_occurrence")
+        expect(subject.sentence_fragment.values.first.label).to eql("22 September 1988")
+        expect(subject.sentence_fragment.values.first.parameter_key).to eql("date_of_occurrence")
 
-        subject.sentence_fragment.values.last.label.should eql("22 September 2014")
-        subject.sentence_fragment.values.last.parameter_key.should eql("date_of_occurrence")
+        expect(subject.sentence_fragment.values.last.label).to eql("22 September 2014")
+        expect(subject.sentence_fragment.values.last.parameter_key).to eql("date_of_occurrence")
       }
     end
   end
