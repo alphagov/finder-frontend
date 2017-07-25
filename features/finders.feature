@@ -46,3 +46,7 @@ Feature: Filtering documents
   Scenario: Visit a finder with description
     Given a finder with description exists
     Then I can see that the description in the metadata is present
+
+  Scenario:
+    Given a policy finder exists
+    Then the links on the page have tracking attributes

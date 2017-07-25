@@ -23,6 +23,8 @@ class ResultSetPresenter
       pluralised_document_noun: document_noun.pluralize(total),
       applied_filters: describe_filters_in_sentence,
       documents: documents,
+      page_count: documents.count,
+      finder_name: finder.name,
       any_filters_applied: any_filters_applied?,
       atom_url: atom_url,
       next_and_prev_links: next_and_prev_links,
@@ -74,8 +76,11 @@ class ResultSetPresenter
   end
 
   def documents
-    results.map do |result|
-      SearchResultPresenter.new(result).to_hash
+    results.each_with_index.map do |result, index|
+      {
+        document: SearchResultPresenter.new(result).to_hash,
+        document_index: index + 1,
+      }
     end
   end
 

@@ -6,6 +6,7 @@ RSpec.describe ResultSetPresenter do
   let(:finder) do
     OpenStruct.new(
       slug: "/a-finder",
+      name: 'A finder',
       results: results,
       document_noun: document_noun,
       total: 20,
@@ -144,6 +145,8 @@ RSpec.describe ResultSetPresenter do
       expect(presenter.to_hash[:total]).to eql(total)
       expect(presenter.to_hash[:pluralised_document_noun].present?).to be_truthy
       expect(presenter.to_hash[:documents].present?).to be_truthy
+      expect(presenter.to_hash[:page_count].present?).to be_truthy
+      expect(presenter.to_hash[:finder_name].present?).to be_truthy
       expect(presenter.to_hash[:applied_filters].present?).to be_truthy
       expect(presenter.to_hash[:any_filters_applied].present?).to be_truthy
       expect(presenter.to_hash[:atom_url].present?).to be_truthy
@@ -163,9 +166,9 @@ RSpec.describe ResultSetPresenter do
     end
 
     it 'calls documents' do
-      allow(presenter).to receive(:documents)
+      allow(presenter).to receive(:documents).and_return([double('document')])
       presenter.to_hash
-      expect(presenter).to have_received(:documents)
+      expect(presenter).to have_received(:documents).twice
     end
   end
 
