@@ -8,24 +8,27 @@ describe("liveSearch", function(){
     "atom_url": "http://an-atom-url.atom?some-query-param",
     "documents":[
       {
-        "title":"Test report",
-        "slug":"aaib-reports/test-report",
-        "metadata":[
-          {
-            "label":"Aircraft category",
-            "value":"General aviation - rotorcraft",
-            "is_text":true
-          },{
-            "label":"Report type",
-            "value":"Annual safety report",
-            "is_text":true
-          },{
-            "label":"Occurred",
-            "is_date":true,
-            "machine_date":"2013-11-03",
-            "human_date":"3 November 2013"
-          }
-        ]
+        "document": {
+          "title":"Test report",
+          "slug":"aaib-reports/test-report",
+          "metadata":[
+            {
+              "label":"Aircraft category",
+              "value":"General aviation - rotorcraft",
+              "is_text":true
+            },{
+              "label":"Report type",
+              "value":"Annual safety report",
+              "is_text":true
+            },{
+              "label":"Occurred",
+              "is_date":true,
+              "machine_date":"2013-11-03",
+              "human_date":"3 November 2013"
+            }
+          ]
+        },
+        "document_index": 1
       }
     ]
   };
@@ -203,7 +206,7 @@ describe("liveSearch", function(){
       liveSearch.resultCache["the=first"] = dummyResponse;
       liveSearch.state = { the: "first" };
       liveSearch.displayResults(dummyResponse, $.param(liveSearch.state));
-      expect($results.find('h3').text()).toBe('Test report');
+      expect($results.find('h3').text()).toMatch('Test report');
       expect($count.find('.result-count').text()).toMatch(/^\s*1\s*/);
     });
 

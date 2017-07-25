@@ -5,15 +5,22 @@
   </div>
 {{/atom_url}}
 
-<ul>
+<ul data-module="track-click">
   {{#documents}}
     <li class="document">
-      <h3><a href='{{link}}'>{{title}}</a></h3>
-      {{#summary}}
-        <p>{{summary}}</p>
-      {{/summary}}
+      <h3>
+        <a href='{{document.link}}'
+           data-track-category='navFinderLinkClicked'
+           data-track-action='{{finder_name}}.{{document_index}}'
+           data-track-label='{{document.link}}'
+           data-track-options='{"dimension28":"{{page_count}}","dimension29":"{{document.title}}"}'
+        >{{document.title}}</a>
+      </h3>
+      {{#document.summary}}
+        <p>{{document.summary}}</p>
+      {{/document.summary}}
       <dl>
-        {{#metadata}}
+        {{#document.metadata}}
           {{#is_text}}
             <dt class='metadata-text-label'>{{label}}:</dt>
             <dd class='metadata-text-value'>{{value}}</dd>
@@ -23,11 +30,11 @@
             <dt class='metadata-date-label'>{{label}}:</dt>
             <dd class='metadata-date-value'><time datetime='{{machine_date}}'>{{human_date}}</time></dd>
           {{/is_date}}
-        {{/metadata}}
+        {{/document.metadata}}
       </dl>
-      {{#is_historic}}
-        <p class="historic">First published during the {{government_name}}</p>
-      {{/is_historic}}
+      {{#document.is_historic}}
+        <p class="historic">First published during the {{document.government_name}}</p>
+      {{/document.is_historic}}
     </li>
   {{/documents}}
 </ul>
