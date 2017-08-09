@@ -16,6 +16,14 @@ private
   end
 
   def finder_slug
+    ab_test = GovukAbTesting::AbTest.new(
+      "PolicyFinderTest",
+      dimension: 65
+    )
+
+    @requested_variant = ab_test.requested_variant(request.headers)
+    @requested_variant.configure_response(response)
+
     params[:slug]
   end
 
