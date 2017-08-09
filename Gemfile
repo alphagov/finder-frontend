@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rails', '~> 5.0.1'
-gem 'slimmer', '~> 10.1.4'
+gem 'slimmer', '~> 11.0.0'
 gem 'gds-api-adapters', '~> 34.1.0'
 gem 'unicorn', '~> 4.8.1'
 gem 'logstasher', '~> 0.4.8'
