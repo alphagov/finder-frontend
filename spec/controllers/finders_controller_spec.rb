@@ -107,6 +107,18 @@ describe FindersController, type: :controller do
         )
 
         content_store_has_item(
+          '/government/policies/all',
+            base_path: '/government/policies/all',
+            title: 'All Policies',
+            details: {
+              facets: [],
+            },
+            links: {
+              organisations: [],
+            },
+        )
+
+        content_store_has_item(
           '/government/policies/child-policy',
             base_path: '/government/policies/child-policy',
             title: 'Child Policy',
@@ -139,14 +151,14 @@ describe FindersController, type: :controller do
         expect(finder_slug).to eq("/government/policies")
       end
 
-      it "directs users in group B to the normal policies finder" do
+      it "directs users in group B to the all policies finder" do
         setup_ab_variant("PolicyFinderTest", "B")
 
         get :show, params: { slug: 'government/policies' }
         finder_slug = subject.instance_variable_get(:@results).finder.slug
 
         expect(response.status).to eq(200)
-        expect(finder_slug).to eq("/government/policies")
+        expect(finder_slug).to eq("/government/policies/all")
       end
 
       it "directs all users to a finder that is not part of the A/B test" do

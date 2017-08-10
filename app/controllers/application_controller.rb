@@ -24,6 +24,10 @@ private
     @requested_variant = ab_test.requested_variant(request.headers)
     @requested_variant.configure_response(response)
 
+    if @requested_variant.variant?('B') && params[:slug] == "government/policies"
+      return params[:slug] + "/all"
+    end
+
     params[:slug]
   end
 
