@@ -50,3 +50,7 @@ RSpec.configure do |config|
   #     --seed 1234
   config.order = "random"
 end
+
+GovukAbTesting.configure do |config|
+  config.acceptance_test_framework = :active_support
+end
