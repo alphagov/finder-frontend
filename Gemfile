@@ -9,7 +9,6 @@ gem 'shared_mustache', '~> 0.1.3'
 gem 'airbrake', github: 'alphagov/airbrake', branch: 'silence-dep-warnings-for-rails-5'
 gem 'chronic', '~> 0.10.2'
 gem 'govuk_navigation_helpers', '~> 2.0.0'
-gem 'govuk_ab_testing', '~> 2.4.0'
 
 group :assets do
   if ENV['FRONTEND_TOOLKIT_DEV']
