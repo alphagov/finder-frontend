@@ -50,12 +50,12 @@ describe EmailAlertSignupAPI do
   end
 
   describe '#signup_url' do
-    it 'returns the url govuk_delivery gives back' do
+    it 'returns the url email-alert-api gives back' do
       expect(signup_api_wrapper.signup_url).to eql subscription_url
     end
 
     context 'with multiple choices selected and a title prefix' do
-      it 'asks govuk_delivery to find or create the subscriber list' do
+      it 'asks email-alert-api to find or create the subscriber list' do
         signup_api_wrapper.signup_url
 
         expect(email_alert_api).to have_received(:find_or_create_subscriber_list).with(
@@ -75,7 +75,7 @@ describe EmailAlertSignupAPI do
           "filter" => ["first"],
         }
       }
-      it 'asks govuk_delivery to find or create the subscriber list' do
+      it 'asks email-alert-api to find or create the subscriber list' do
         signup_api_wrapper.signup_url
 
         expect(email_alert_api).to have_received(:find_or_create_subscriber_list).with(
@@ -104,7 +104,7 @@ describe EmailAlertSignupAPI do
       let(:subscription_list_title_prefix) {
         {}
       }
-      it 'asks govuk_delivery to find or create the subscriber list' do
+      it 'asks email-alert-api to find or create the subscriber list' do
         signup_api_wrapper.signup_url
 
         expect(email_alert_api).to have_received(:find_or_create_subscriber_list).with(
@@ -126,7 +126,7 @@ describe EmailAlertSignupAPI do
       }
       let(:filter_key) { nil }
       let(:subscription_list_title_prefix) { "Format" }
-      it 'asks govuk_delivery to find or create the subscriber list' do
+      it 'asks email-alert-api to find or create the subscriber list' do
         signup_api_wrapper.signup_url
 
         expect(email_alert_api).to have_received(:find_or_create_subscriber_list).with(
