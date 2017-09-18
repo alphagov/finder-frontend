@@ -108,17 +108,10 @@ private
       tag
     end
   rescue => error
-    # TODO Pass the whole Rack env to Airbrake
-    # It would be nice to pass the entire Rack env to Airbrake but we don't
-    # have access to it here and it would require a lot of refactoring for
-    # this to happen so instead passing it at least the base_path of the
-    # Finder at least allows us to know which Finder this is happening on
-    Airbrake.notify(
+    GovukError.notify(
       error,
-      url: finder.slug,
-      parameters: {
-        document: link,
-      },
+      level: 'debug',
+      extra: { url: finder.slug, document: link }
     )
     nil
   end

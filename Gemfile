@@ -6,7 +6,7 @@ gem 'gds-api-adapters', '~> 48.0'
 gem 'unicorn', '~> 4.8.1'
 gem 'logstasher', '~> 0.4.8'
 gem 'shared_mustache', '~> 0.1.3'
-gem 'airbrake', github: 'alphagov/airbrake', branch: 'silence-dep-warnings-for-rails-5'
+gem 'govuk_app_config', '~> 0.2.0'
 gem 'chronic', '~> 0.10.2'
 gem 'govuk_navigation_helpers', '~> 2.0.0'
 
