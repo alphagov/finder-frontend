@@ -1,5 +1,3 @@
-require 'gds_api/gov_uk_delivery'
-
 class EmailAlertSignupAPI
   def initialize(dependencies = {})
     @email_alert_api = dependencies.fetch(:email_alert_api)
