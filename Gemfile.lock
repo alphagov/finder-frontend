@@ -90,7 +90,7 @@ GEM
     execjs (2.7.0)
     faraday (0.13.1)
       multipart-post (>= 1.2, < 3)
-    gds-api-adapters (48.0.0)
+    gds-api-adapters (34.1.0)
       link_header
       lrucache (~> 0.1.1)
       null_logger
@@ -303,7 +303,7 @@ DEPENDENCIES
   byebug
   chronic (~> 0.10.2)
   cucumber-rails (~> 1.4.0)
-  gds-api-adapters (~> 48.0)
+  gds-api-adapters (~> 34.1.0)
   govuk-content-schema-test-helpers (~> 1.0.1)
   govuk-lint (~> 2.1.0)
   govuk_app_config (~> 0.2.0)
