@@ -65,7 +65,7 @@ However there are edge cases where it's not the same such as `"Medical safety al
 
 A string. Optional.
 
-Human readable version of the content format. Passed as the context to the [title](http://govuk-component-guide.herokuapp.com/component/title) component.
+Human readable version of the content format. Passed as the context to the [title](http://govuk-static.herokuapp.com/component-guide/title) component.
 
 ## `default_order`
 
@@ -98,7 +98,7 @@ Used to decide if the summaries for Documents should be displayed in the results
 
 A string. Optional.
 
-Rendered in the header after the metadata. Can contain Govspeak and is rendered using the [Govspeak component](http://govuk-component-guide.herokuapp.com/component/govspeak).
+Rendered in the header after the metadata. Can contain Govspeak and is rendered using the [Govspeak component](http://govuk-static.herokuapp.com/component-guide/govspeak).
 
 ## `facets`
 An array of hashes. Optional.
