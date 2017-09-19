@@ -1,13 +1,3 @@
-GIT
-  remote: git://github.com/alphagov/airbrake.git
-  revision: ad9c926a56535c48f95c33824a76e10bc8f91179
-  branch: silence-dep-warnings-for-rails-5
-  specs:
-    airbrake (4.3.8)
-      builder
-      multi_json
-      rails (>= 5.0)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -98,7 +88,9 @@ GEM
     erubi (1.6.1)
     erubis (2.7.0)
     execjs (2.7.0)
-    gds-api-adapters (34.1.0)
+    faraday (0.13.1)
+      multipart-post (>= 1.2, < 3)
+    gds-api-adapters (48.0.0)
       link_header
       lrucache (~> 0.1.1)
       null_logger
@@ -113,6 +105,9 @@ GEM
     govuk-lint (2.1.0)
       rubocop (~> 0.43.0)
       scss_lint
+    govuk_app_config (0.2.0)
+      sentry-raven (~> 2.6.3)
+      statsd-ruby (~> 1.4.0)
     govuk_frontend_toolkit (7.0.1)
       railties (>= 3.1.0)
       sass (>= 3.2.0)
@@ -151,6 +146,7 @@ GEM
     minitest (5.10.3)
     multi_json (1.12.1)
     multi_test (0.1.2)
+    multipart-post (2.0.0)
     mustache (0.99.8)
     netrc (0.11.0)
     nio4r (2.1.0)
@@ -167,7 +163,7 @@ GEM
       method_source (~> 0.8.1)
       slop (~> 3.4)
     rack (2.0.3)
-    rack-cache (1.7.0)
+    rack-cache (1.7.1)
       rack (>= 0.4)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -245,6 +241,8 @@ GEM
     sdoc (0.4.2)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
+    sentry-raven (2.6.3)
+      faraday (>= 0.7.6, < 1.0)
     shared_mustache (0.1.3)
       execjs (>= 1.2.4)
       mustache (~> 0.99.4)
@@ -253,7 +251,7 @@ GEM
       multi_json (~> 1.0)
       simplecov-html (~> 0.9.0)
     simplecov-html (0.9.0)
-    slimmer (11.0.0)
+    slimmer (11.0.2)
       activesupport
       json
       nokogiri (~> 1.7)
@@ -269,6 +267,7 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
+    statsd-ruby (1.4.0)
     thor (0.19.4)
     thread_safe (0.3.6)
     tilt (2.0.8)
@@ -298,16 +297,16 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  airbrake!
   awesome_print
   better_errors
   binding_of_caller
   byebug
   chronic (~> 0.10.2)
   cucumber-rails (~> 1.4.0)
-  gds-api-adapters (~> 34.1.0)
+  gds-api-adapters (~> 48.0)
   govuk-content-schema-test-helpers (~> 1.0.1)
   govuk-lint (~> 2.1.0)
+  govuk_app_config (~> 0.2.0)
   govuk_frontend_toolkit (~> 7.0)
   govuk_navigation_helpers (~> 2.0.0)
   jasmine-rails
@@ -321,7 +320,7 @@ DEPENDENCIES
   sdoc
   shared_mustache (~> 0.1.3)
   simplecov (~> 0.9.0)
-  slimmer (~> 11.0.0)
+  slimmer (~> 11.0.2)
   uglifier (~> 2.7, >= 2.7.2)
   unicorn (~> 4.8.1)
   webmock (~> 1.17.1)

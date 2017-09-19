@@ -1,3 +1,4 @@
+require_relative './convert_api_responses_to_ostructs'
 require 'gds_api/content_store'
 require 'gds_api/rummager'
 
