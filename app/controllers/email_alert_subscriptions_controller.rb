@@ -1,8 +1,6 @@
 require 'email_alert_signup_api'
-require 'gds_api/helpers'
 
 class EmailAlertSubscriptionsController < ApplicationController
-  include GdsApi::Helpers
   protect_from_forgery except: :create
 
   def new
@@ -30,11 +28,11 @@ private
   end
 
   def content
-    @content ||= content_store.content_item(request.path).to_ostruct
+    @content ||= Services.content_store.content_item(request.path).to_ostruct
   end
 
   def finder
-    FinderPresenter.new(content_store.content_item(finder_base_path).to_ostruct)
+    FinderPresenter.new(Services.content_store.content_item(finder_base_path).to_ostruct)
   end
 
   def finder_format
