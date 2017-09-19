@@ -1,8 +1,6 @@
 require 'gds_api/helpers'
 
 class FindersController < ApplicationController
-  include GdsApi::Helpers
-
   def show
     @results = ResultSetPresenter.new(finder, filter_params, view_context)
 
