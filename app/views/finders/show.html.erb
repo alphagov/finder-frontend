@@ -3,7 +3,7 @@
   <%= auto_discovery_link_tag(:atom, @results.atom_url) %>
   <%= render 'finder_meta', finder: finder %>
   <%= render partial: 'govuk_component/analytics_meta_tags',
-      locals: { content_item: @finder.content_item } %>
+      locals: { content_item: @finder.content_item.to_h } %>
 <% end %>
 
 <% if finder.alpha? %>
