@@ -30,11 +30,11 @@ private
   end
 
   def content
-    @content ||= content_store.content_item(request.path).to_ostruct
+    @content ||= content_store.content_item!(request.path)
   end
 
   def finder
-    FinderPresenter.new(content_store.content_item(finder_base_path).to_ostruct)
+    FinderPresenter.new(content_store.content_item!(finder_base_path))
   end
 
   def finder_format

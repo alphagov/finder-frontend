@@ -11,8 +11,6 @@ require "sprockets/railtie"
 Bundler.require(:default, Rails.env)
 Bundler.require(*Rails.groups(assets: %w(development test)))
 
-require_relative '../app/lib/services'
-
 module FinderFrontend
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.

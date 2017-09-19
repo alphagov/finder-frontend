@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '~> 5.0.1'
 gem 'slimmer', '~> 11.0.2'
-gem 'gds-api-adapters', '~> 48.0'
+gem 'gds-api-adapters', '~> 34.1.0'
 gem 'unicorn', '~> 4.8.1'
 gem 'logstasher', '~> 0.4.8'
 gem 'shared_mustache', '~> 0.1.3'
