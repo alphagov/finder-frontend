@@ -45,5 +45,5 @@ group :test do
   gem 'simplecov', '~> 0.9.0'
   gem 'webmock', '~> 1.17.1'
   gem 'rails-controller-testing'
-  gem 'govuk-content-schema-test-helpers', '~> 1.0.1'
+  gem 'govuk-content-schema-test-helpers', '~> 1.5'
 end
