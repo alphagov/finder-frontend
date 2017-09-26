@@ -11,6 +11,10 @@ require "sprockets/railtie"
 Bundler.require(:default, Rails.env)
 Bundler.require(*Rails.groups(assets: %w(development test)))
 
+if !Rails.env.production? || ENV['HEROKU_APP_NAME'].present?
+  require 'govuk_publishing_components'
+end
+
 module FinderFrontend
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
