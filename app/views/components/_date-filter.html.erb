@@ -1,0 +1,40 @@
+<%
+  key ||= false
+  name ||= false
+  from_value ||= ""
+  to_value ||= ""
+  aria_controls_id ||= false
+%>
+<% if key && name %>
+  <div class="app-c-date-filter"<% if aria_controls_id %> data-module="enable-aria-controls"<% end %>>
+    <label
+      class="app-c-date-filter__label"
+      for="<%= key %>[from]">
+        <%= name %> after
+    </label>
+    <input
+      value="<%= from_value %>"
+      type="text"
+      name="<%= key %>[from]"
+      id="<%= key %>[from]"
+      <% if aria_controls_id %>data-aria-controls="<%= aria_controls_id %>"<% end %>
+      aria-describedby="date-help-text-<%= key %>"
+      class="app-c-date-filter__date" />
+    <label
+      class="app-c-date-filter__label"
+      for="<%= key %>[to]">
+      <%= name %> before
+    </label>
+    <input
+      value="<%= to_value %>"
+      type="text"
+      name="<%= key %>[to]"
+      id="<%= key %>[to]"
+      <% if aria_controls_id %>data-aria-controls="<%= aria_controls_id %>"<% end %>
+      aria-describedby="date-help-text-<%= key %>"
+      class="app-c-date-filter__date" />
+    <span id="date-help-text-<%= key %>" class="app-c-date-filter__help-text">
+      For example, 2005 or 21/11/2014
+    <span>
+  </div>
+<% end %>

@@ -1,8 +1,7 @@
-<div class="filter text-filter">
-  <label class="legend" for="<%= date_facet.key %>[from]"><%= date_facet.name %> after</label>
-  <input value="<%= @results.user_supplied_date(date_facet.key, 'from') %>" type="text" name="<%= date_facet.key %>[from]" id="<%= date_facet.key %>[from]" aria-controls="js-search-results-info" aria-describedby="date-help-text-<%= date_facet.key %>" class="text" />
-
-  <label class="legend" for="<%= date_facet.key %>[to]"><%= date_facet.name %> before</label>
-  <input value="<%= @results.user_supplied_date(date_facet.key, 'to') %>" type="text" name="<%= date_facet.key %>[to]" id="<%= date_facet.key %>[to]" aria-controls="js-search-results-info" class="text" aria-describedby="date-help-text-<%= date_facet.key %>"/>
-  <span id='date-help-text-<%= date_facet.key %>' class='help-text'>For example, 2005 or 21/11/2014<span>
-</div>
+<%= render "components/date-filter", {
+                                      name: date_facet.name,
+                                      key: date_facet.key,
+                                      from_value: @results.user_supplied_date(date_facet.key, 'from'),
+                                      to_value: @results.user_supplied_date(date_facet.key, 'to'),
+                                      aria_controls_id: "js-search-results-info"
+                                    } %>
