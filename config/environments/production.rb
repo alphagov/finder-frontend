@@ -17,4 +17,5 @@ FinderFrontend::Application.configure do
   config.logstasher.enabled = true
   config.logstasher.logger = Logger.new("#{Rails.root}/log/#{Rails.env}.json.log")
   config.logstasher.suppress_app_log = true
+  config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
 end

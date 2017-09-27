@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+ruby File.read(".ruby-version").strip
+
 gem 'rails', '~> 5.0.1'
 gem 'slimmer', '~> 11.0.2'
 gem 'gds-api-adapters', '~> 34.1.0'
