@@ -1,0 +1,29 @@
+.app-c-date-filter {
+  @include core-16;
+  background-color: $grey-3;
+  padding: 0 $gutter-one-third;
+  margin-bottom: $gutter;
+}
+
+.app-c-date-filter__label {
+  @include core-19;
+  display: inline-block;
+  font-weight: bold;
+  margin-right: $gutter-one-third;
+  padding-top: $gutter-one-third;
+}
+
+.app-c-date-filter__date {
+  background: $white;
+  border: 1px solid $border-colour;
+  width: $full-width;
+  margin-left: -1px;
+  padding: 5px 0;
+  text-indent: 5px;
+  margin-bottom: $gutter-one-third;
+}
+
+.app-c-date-filter__help-text {
+  display: block;
+  padding: $gutter-one-third 0;
+}

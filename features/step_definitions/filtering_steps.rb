@@ -31,7 +31,11 @@ When(/^I search documents by keyword$/) do
   visit finder_path('mosw-reports')
 
   @keyword_search = "keyword searchable"
-  fill_in("Search", with: @keyword_search)
+
+  within '.filtering' do
+    fill_in("Search", with: @keyword_search)
+  end
+
   click_on "Filter results"
 end
 

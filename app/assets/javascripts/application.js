@@ -17,6 +17,7 @@
 //
 //= require live_search
 //= require govuk_toolkit
+//= require_tree ./modules
 
 jQuery(function($) {
   var $form = $('.js-live-search-form'),
