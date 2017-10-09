@@ -6,12 +6,13 @@ class SearchController < ApplicationController
   before_filter :remove_search_box
 
   rescue_from GdsApi::BaseError, with: :error_503
-  layout 'without-id-application'
+  layout 'search-application'
 
   def index
     search_params = SearchParameters.new(params)
 
     @content_item = content_store.content_item("/search").to_hash
+    @navigation_helpers = GovukNavigationHelpers::NavigationHelper.new(@content_item)
     # Remove the organisations from the content item - this will prevent the
     # govuk:analytics:organisations meta tag from being generated until there is
     # a better way of doing this. This is so we don't add the tag to pages that
@@ -21,17 +22,17 @@ class SearchController < ApplicationController
     end
 
     if search_params.no_search? && params[:format] != "json"
-      render action: 'no_search_term' and return
+      render action: 'no_search_term' && return
     end
     search_response = SearchAPI.new(search_params).search
 
     @search_term = search_params.search_term
 
-    if (search_response["scope"].present?)
-      @results = ScopedSearchResultsPresenter.new(search_response, search_params)
-    else
-      @results = SearchResultsPresenter.new(search_response, search_params)
-    end
+    @results = if search_response["scope"].present?
+                 ScopedSearchResultsPresenter.new(search_response, search_params)
+               else
+                 SearchResultsPresenter.new(search_response, search_params)
+               end
 
     @facets = search_response["facets"]
     @spelling_suggestion = @results.spelling_suggestion
@@ -39,7 +40,7 @@ class SearchController < ApplicationController
     fill_in_slimmer_headers(@results.result_count)
 
     respond_to do |format|
-      format.html { render locals: { full_width: true } }
+      format.html
       format.json { render json: @results }
     end
   end

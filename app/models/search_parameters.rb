@@ -5,8 +5,8 @@ class SearchParameters
 
   DEFAULT_RESULTS_PER_PAGE = 20
   MAX_RESULTS_PER_PAGE = 100
-  ALWAYS_FACET_FIELDS = %w{organisations}
-  ALLOWED_FACET_FIELDS = %w{organisations manual}
+  ALWAYS_FACET_FIELDS = %w{organisations}.freeze
+  ALLOWED_FACET_FIELDS = %w{organisations manual}.freeze
 
   def initialize(params)
     @params = enforce_bounds(params)
@@ -101,7 +101,7 @@ private
 
   def check_start(params)
     start = (params[:start] || 0).to_i
-    if start < 0
+    if start.negative?
       0
     else
       start
@@ -131,7 +131,7 @@ private
     end
 
     # don't include the start parameter if it's zero
-    if combined_params[:start] == 0
+    if combined_params[:start].zero?
       combined_params.delete(:start)
     end
 
@@ -139,7 +139,7 @@ private
   end
 
   def custom_count_value?(count)
-    count != 0 &&
+    count.nonzero? &&
       count != DEFAULT_RESULTS_PER_PAGE
   end
 end

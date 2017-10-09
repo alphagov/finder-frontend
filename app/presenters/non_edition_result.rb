@@ -43,8 +43,8 @@ private
     orgs = Array(result["organisations"]).reject(&:blank?)
 
     org_titles = orgs.map { |org|
-      if org["acronym"] && org["acronym"] != org["title"]
-        "<abbr title='#{h(org["title"])}'>#{h(org["acronym"])}</abbr>"
+      if org['acronym'] && org['acronym'] != org['title']
+        "<abbr title='#{h(org['title'])}'>#{h(org['acronym'])}</abbr>"
       else
         org["title"] || org["slug"]
       end

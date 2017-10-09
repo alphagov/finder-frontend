@@ -17,7 +17,7 @@ class GovernmentResult < SearchResult
     out << public_timestamp if public_timestamp.present?
     if display_type.present?
       out << display_type
-    elsif %w{ corporate_information document_series }.include?(format)
+    elsif %w{corporate_information document_series}.include?(format)
       out << format.humanize
     end
     out << organisations if organisations.present?
@@ -77,12 +77,13 @@ private
   end
 
   def organisations
-    fetch_multi_valued_field("organisations").map do |organisation|
+    organisations = fetch_multi_valued_field("organisations").map do |organisation|
       if organisation["acronym"] && (organisation["acronym"] != organisation["title"])
-        "<abbr title='#{h(organisation["title"])}'>#{h(organisation["acronym"])}</abbr>"
+        "<abbr title='#{h(organisation['title'])}'>#{h(organisation['acronym'])}</abbr>"
       else
         organisation["title"] || organisation["slug"]
       end
-    end.join(", ")
+    end
+    organisations.join(", ")
   end
 end

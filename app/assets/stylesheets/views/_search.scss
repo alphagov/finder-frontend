@@ -11,6 +11,10 @@ main.search {
     padding-bottom: 10px;
   }
 
+  strong {
+    font-weight: 600;
+  }
+
   .search-header {
     position: relative;
     margin: 0;
@@ -43,6 +47,12 @@ main.search {
       height: 50px;
       width: 50px;
       overflow: visible;
+    }
+
+
+    input[type="search"] {
+      border: 1px solid #bbb;
+      min-width: 8em;
     }
 
     input {

@@ -82,6 +82,6 @@ protected
   end
 
   def humanized_name(name)
-    name.gsub('-', ' ').capitalize
+    name.tr('-', ' ').capitalize
   end
 end

@@ -5,7 +5,7 @@ class SearchResultsPresenter
 
   FACET_TITLES = {
     "organisations" => "Organisations",
-  }
+  }.freeze
 
   def initialize(search_response, search_parameters)
     @search_response = search_response
@@ -92,7 +92,7 @@ class SearchResultsPresenter
   end
 
   def has_previous_page?
-    search_parameters.start > 0
+    search_parameters.start.positive?
   end
 
   def next_page_link
@@ -136,20 +136,20 @@ private
   def previous_page_start
     if has_previous_page?
       start_at = search_parameters.start - search_parameters.count
-      start_at < 0 ? 0 : start_at
+      start_at.negative? ? 0 : start_at
     end
   end
 
   def total_pages
     # when count is zero, there would only ever be one page of results
-    return 1 if search_parameters.count == 0
+    return 1 if search_parameters.count.zero?
 
     (result_count.to_f / search_parameters.count.to_f).ceil
   end
 
   def current_page_number
     # if start is zero, then we must be on the first page
-    return 1 if search_parameters.start == 0
+    return 1 if search_parameters.start.zero?
 
     # eg. when start = 50 and count = 10:
     #          (50 / 10) + 1 = page 6

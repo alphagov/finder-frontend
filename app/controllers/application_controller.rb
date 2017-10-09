@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  include Slimmer::Headers
   include Slimmer::Template
   include Slimmer::GovukComponents
   slimmer_template "header_footer_only"

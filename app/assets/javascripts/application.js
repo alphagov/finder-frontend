@@ -16,6 +16,9 @@
 //= require templates
 //
 //= require live_search
+//= require checkbox-filter
+//= require live-site-search
+//= require search
 //= require govuk_toolkit
 //= require_tree ./modules
 
