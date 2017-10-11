@@ -121,8 +121,6 @@
     }
   };
 
-
-
   LiveSearch.prototype.restoreBooleans = function restoreBooleans(){
     var that = this;
     this.$form.find('input[type=checkbox], input[type=radio]').each(function(i, el){

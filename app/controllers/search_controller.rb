@@ -3,7 +3,7 @@ require 'gds_api/helpers'
 class SearchController < ApplicationController
   include GdsApi::Helpers
   # before_filter :set_expiry
-  before_filter :remove_search_box
+  before_action :remove_search_box
 
   rescue_from GdsApi::BaseError, with: :error_503
   layout 'search-application'
@@ -22,7 +22,7 @@ class SearchController < ApplicationController
     end
 
     if search_params.no_search? && params[:format] != "json"
-      render action: 'no_search_term' && return
+      render(action: 'no_search_term') && return
     end
     search_response = SearchAPI.new(search_params).search
 
@@ -38,7 +38,7 @@ class SearchController < ApplicationController
     @spelling_suggestion = @results.spelling_suggestion
 
     fill_in_slimmer_headers(@results.result_count)
-
+    response.headers['foo'] = 'bar'
     respond_to do |format|
       format.html
       format.json { render json: @results }

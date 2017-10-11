@@ -8,6 +8,7 @@ require 'simplecov'
 SimpleCov.start
 
 require 'cucumber/rails'
+require 'cucumber/rspec/doubles'
 require 'webmock/cucumber'
 require 'slimmer/test'
 

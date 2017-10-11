@@ -65,7 +65,6 @@ Then(/^I can see documents which are marked as being in history mode$/) do
   expect(page).to have_content("2005 to 2010 Labour government")
 end
 
-
 Then(/^I can see documents which have government metadata$/) do
   within '.filtered-results .document:nth-child(1)' do
     expect(page).to have_content('Updated:')
