@@ -19,6 +19,7 @@
 
 <body class="mainstream <%= yield :body_classes %>">
 <div id="wrapper">
+  <!-- TODO: review if breadcrumbs should be visible on the site -->
   <%= render partial: 'govuk_component/breadcrumbs', locals: {breadcrumbs: []}  %>
 
   <%= yield %>
