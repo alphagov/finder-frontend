@@ -6,9 +6,7 @@
   var $ = window.jQuery;
 
   var search = {
-    init: function () {
-      var $searchResults = $('#results .results-list');
-
+    init: function ($searchResults) {
       search.enableLiveSearchCheckbox($searchResults);
       search.trackSearchClicks($searchResults);
       search.trackSearchResultsAndSuggestions($searchResults);
@@ -135,6 +133,9 @@
     }
   };
 
-  GOVUK.search = search;
-  GOVUK.search.init();
+  var $searchResults = $('main.search #results .results-list');
+  if($searchResults.length > 0) {
+    GOVUK.search = search;
+    GOVUK.search.init($searchResults);
+  }
 }).call(this);

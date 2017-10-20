@@ -2,7 +2,6 @@ require 'gds_api/helpers'
 
 class SearchController < ApplicationController
   include GdsApi::Helpers
-  # before_filter :set_expiry
   before_action :remove_search_box
 
   rescue_from GdsApi::BaseError, with: :error_503
