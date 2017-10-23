@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  include Slimmer::Headers
   include Slimmer::Template
   include Slimmer::GovukComponents
   slimmer_template "header_footer_only"
@@ -10,6 +11,18 @@ class ApplicationController < ActionController::Base
   rescue_from GdsApi::HTTPNotFound, with: :error_not_found
 
 private
+
+  def error_503(e)
+    error(503, e)
+  end
+
+  def error(status_code, exception = nil)
+    if exception
+      GovukError.notify(exception)
+    end
+
+    render status: status_code, text: "#{status_code} error"
+  end
 
   def finder_base_path
     "/#{finder_slug}"

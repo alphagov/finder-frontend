@@ -8,6 +8,9 @@ src_dir: "app/assets/javascripts"
 src_files:
  - "../../../spec/javascripts/helpers/jquery-1.12.4.js"
  - "application.js"
+ - "checkbox-filter.js"
+ - "live-site-search.js"
+ - "search.js"
 
 # path to parent directory of spec_files
 # relative path from Rails.root

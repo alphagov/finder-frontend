@@ -186,6 +186,9 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
+    pry-byebug (3.4.2)
+      byebug (~> 9.0)
+      pry (~> 0.10)
     rack (2.0.3)
     rack-cache (1.7.1)
       rack (>= 0.4)
@@ -327,7 +330,6 @@ DEPENDENCIES
   awesome_print
   better_errors
   binding_of_caller
-  byebug
   chronic (~> 0.10.2)
   cucumber-rails (~> 1.4.0)
   gds-api-adapters (~> 34.1.0)
@@ -340,7 +342,7 @@ DEPENDENCIES
   jasmine-rails
   launchy (~> 2.4.2)
   logstasher (~> 0.4.8)
-  pry
+  pry-byebug
   rails (~> 5.0.1)
   rails-controller-testing
   rspec-rails (~> 3.5.0)
@@ -352,6 +354,9 @@ DEPENDENCIES
   uglifier (~> 2.7, >= 2.7.2)
   unicorn (~> 4.8.1)
   webmock (~> 1.17.1)
+
+RUBY VERSION
+   ruby 2.3.1p112
 
 BUNDLED WITH
    1.15.4
