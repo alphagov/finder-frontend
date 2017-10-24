@@ -5,7 +5,7 @@ FinderFrontend::Application.routes.draw do
   get "/search" => "search#index", as: :search
   get "/search/opensearch" => "search#opensearch"
 
-  if ENV['GOVUK_WEBSITE_ROOT'] =~ /integration/
+  if ENV['GOVUK_WEBSITE_ROOT'] =~ /integration/ || ENV['GOVUK_WEBSITE_ROOT'] =~ /staging/
     get "/test-search/search" => "search#index"
     get "/test-search/search/opensearch" => "search#opensearch"
   end

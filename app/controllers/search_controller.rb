@@ -2,6 +2,7 @@ require 'gds_api/helpers'
 
 class SearchController < ApplicationController
   include GdsApi::Helpers
+  before_action :set_expiry
   before_action :remove_search_box
 
   rescue_from GdsApi::BaseError, with: :error_503
@@ -45,6 +46,12 @@ class SearchController < ApplicationController
   end
 
 protected
+
+  def set_expiry(duration = 30.minutes)
+    unless Rails.env.development?
+      expires_in(duration, public: true)
+    end
+  end
 
   def remove_search_box
     set_slimmer_headers(remove_search: true)
