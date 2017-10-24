@@ -7,9 +7,10 @@ class SearchResultsPresenter
     "organisations" => "Organisations",
   }.freeze
 
-  def initialize(search_response, search_parameters)
+  def initialize(search_response, search_parameters, view_context)
     @search_response = search_response
     @search_parameters = search_parameters
+    @view_context = view_context
   end
 
   def to_hash
@@ -21,13 +22,8 @@ class SearchResultsPresenter
       results: results,
       filter_fields: filter_fields,
       debug_score: search_parameters.debug_score,
-      has_next_page?: has_next_page?,
-      has_previous_page?: has_previous_page?,
-      next_page_link: next_page_link,
-      next_page_label: next_page_label,
-      previous_page_link: previous_page_link,
-      previous_page_label: previous_page_label,
       first_result_number: (search_parameters.start + 1),
+      next_and_prev_links: next_and_prev_links,
     }
   end
 
@@ -86,58 +82,43 @@ class SearchResultsPresenter
     end
   end
 
-  def has_next_page?
-    (search_parameters.start +
-     search_parameters.count) < result_count
-  end
-
-  def has_previous_page?
-    search_parameters.start.positive?
-  end
-
-  def next_page_link
-    if has_next_page?
-      search_parameters.build_link(start: next_page_start)
-    end
-  end
-
-  def previous_page_link
-    if has_previous_page?
-      search_parameters.build_link(start: previous_page_start)
-    end
-  end
-
-  def next_page_label
-    if has_next_page?
-      "#{next_page_number} of #{total_pages}"
-    end
-  end
-
-  def previous_page_label
-    if has_previous_page?
-      "#{previous_page_number} of #{total_pages}"
-    end
-  end
-
   def show_organisations_filter?(facet)
     search_parameters.show_organisations_filter? || facet[:any?]
   end
 
+  def next_and_prev_links
+    pages = {}
+
+    if search_parameters.start.positive?
+      pages[:previous_page] = build_page_link("Previous page", previous_page_number, previous_page_start)
+    end
+
+    if (search_parameters.start + search_parameters.count) < result_count
+      pages[:next_page] = build_page_link("Next page", next_page_number, next_page_start)
+    end
+
+    view_context.render('govuk_component/previous_and_next_navigation', pages) if pages.any?
+  end
+
 private
 
-  attr_reader :search_parameters, :search_response
+  attr_reader :search_parameters, :search_response, :view_context
+
+  def build_page_link(page_label, page, page_start)
+    {
+      url: search_parameters.build_link(start: page_start),
+      title: page_label,
+      label: "#{page} of #{total_pages}",
+    }
+  end
 
   def next_page_start
-    if has_next_page?
-      search_parameters.start + search_parameters.count
-    end
+    search_parameters.start + search_parameters.count
   end
 
   def previous_page_start
-    if has_previous_page?
-      start_at = search_parameters.start - search_parameters.count
-      start_at.negative? ? 0 : start_at
-    end
+    start_at = search_parameters.start - search_parameters.count
+    start_at.negative? ? 0 : start_at
   end
 
   def total_pages

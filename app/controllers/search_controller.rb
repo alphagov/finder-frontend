@@ -28,9 +28,9 @@ class SearchController < ApplicationController
     @search_term = search_params.search_term
 
     @results = if search_response["scope"].present?
-                 ScopedSearchResultsPresenter.new(search_response, search_params)
+                 ScopedSearchResultsPresenter.new(search_response, search_params, view_context)
                else
-                 SearchResultsPresenter.new(search_response, search_params)
+                 SearchResultsPresenter.new(search_response, search_params, view_context)
                end
 
     @facets = search_response["facets"]

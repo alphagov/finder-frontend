@@ -1,6 +1,8 @@
 require "spec_helper"
 
 RSpec.describe ScopedSearchResultsPresenter do
+  let(:view_content) { double(:view_content, render: 'pagination_html') }
+
   before do
     @scope_title = double
     @unscoped_result_count = double
@@ -41,23 +43,23 @@ RSpec.describe ScopedSearchResultsPresenter do
   end
 
   it "return a hash that has is_scoped set to true" do
-    results = ScopedSearchResultsPresenter.new(@search_response, @search_parameters)
+    results = ScopedSearchResultsPresenter.new(@search_response, @search_parameters, view_content)
     expect(results.to_hash[:is_scoped?]).to eq(true)
   end
 
   it "return a hash with the scope_title set to the scope title from the @search_response" do
-    results = ScopedSearchResultsPresenter.new(@search_response, @search_parameters)
+    results = ScopedSearchResultsPresenter.new(@search_response, @search_parameters, view_content)
     expect(results.to_hash[:scope_title]).to eq(@scope_title)
   end
 
   it "return a hash result count set to the scope title from the @search_response" do
-    results = ScopedSearchResultsPresenter.new(@search_response, @search_parameters)
+    results = ScopedSearchResultsPresenter.new(@search_response, @search_parameters, view_content)
     expect(results.to_hash[:unscoped_result_count]).to eq("#{@unscoped_result_count} results")
   end
 
   context "presentable result list" do
     it "return all scoped results with unscoped results inserted at position 4" do
-      results = ScopedSearchResultsPresenter.new(@search_response, @search_parameters).to_hash
+      results = ScopedSearchResultsPresenter.new(@search_response, @search_parameters, view_content).to_hash
 
       ##
       # This test is asserting that the format of `presentable_list` is:
@@ -106,7 +108,7 @@ RSpec.describe ScopedSearchResultsPresenter do
     end
 
     it "not not include unscoped results in the presentable_list if there aren't any" do
-      results = ScopedSearchResultsPresenter.new(@search_response, @search_parameters).to_hash
+      results = ScopedSearchResultsPresenter.new(@search_response, @search_parameters, view_content).to_hash
 
       @scoped_results.each_with_index do |result, i|
         expect(results[:results][i][:title_with_highlighting]).to eq(result["title_with_highlighting"])
@@ -114,7 +116,7 @@ RSpec.describe ScopedSearchResultsPresenter do
     end
 
     it "not set unscoped_results_any? to false" do
-      results = ScopedSearchResultsPresenter.new(@search_response, @search_parameters).to_hash
+      results = ScopedSearchResultsPresenter.new(@search_response, @search_parameters, view_content).to_hash
       expect(results.to_hash[:unscoped_results_any?]).to be_falsy
     end
   end
