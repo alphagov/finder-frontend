@@ -1,12 +1,14 @@
 require "spec_helper"
 
 RSpec.describe SearchResultsPresenter do
+  let(:view_content) { double(:view_content, render: 'pagination_html') }
+
   it "return an appropriate hash" do
     results = SearchResultsPresenter.new({
       "total" => 1,
       "results" => [{ "index" => "mainstream" }],
       "facets" => {}
-    }, SearchParameters.new(q: 'my-query'))
+    }, SearchParameters.new(q: 'my-query'), view_content)
 
     expect(results.to_hash[:query]).to eq('my-query')
     expect(results.to_hash[:result_count]).to eq(1)
@@ -28,7 +30,7 @@ RSpec.describe SearchResultsPresenter do
           }]
         }
       }
-    }, SearchParameters.new(q: 'my-query'))
+    }, SearchParameters.new(q: 'my-query'), view_content)
 
     expect(results.to_hash[:filter_fields].length).to eq(1)
     expect(results.to_hash[:filter_fields][0][:field]).to eq("organisations")
@@ -39,102 +41,115 @@ RSpec.describe SearchResultsPresenter do
 
   context 'pagination' do
     it 'build a link to the next page' do
+      expect(view_content).to receive(:render).with(
+        "govuk_component/previous_and_next_navigation",
+        next_page: { url: "/search?count=50&q=my-query&start=50", title: "Next page", label: "2 of 4" },
+      )
+
       response = { 'total' => 200 }
       params = SearchParameters.new(q: 'my-query',
         count: 50,
         start: 0)
-      presenter = SearchResultsPresenter.new(response, params)
+      presenter = SearchResultsPresenter.new(response, params, view_content)
 
-      expect(presenter).to have_next_page
-      expect(presenter.next_page_link).to eq('/search?count=50&q=my-query&start=50')
-      expect(presenter.next_page_label).to eq('2 of 4')
+      presenter.next_and_prev_links
     end
 
     it 'not have a next page when start + count >= total' do
+      expect(view_content).to receive(:render).with(
+        "govuk_component/previous_and_next_navigation",
+        previous_page: { url: "/search?count=50&start=100", title: "Previous page", label: "3 of 4" },
+      )
+
       response = { 'total' => 200 }
       params = SearchParameters.new(count: 50,
         start: 150)
-      presenter = SearchResultsPresenter.new(response, params)
+      presenter = SearchResultsPresenter.new(response, params, view_content)
 
-      expect(presenter).not_to have_next_page
-      expect(presenter.next_page_link).to be_nil
+      presenter.next_and_prev_links
     end
 
     it 'build a link to the previous page' do
+      expect(view_content).to receive(:render).with(
+        "govuk_component/previous_and_next_navigation",
+        previous_page: { url: "/search?count=50&q=my-query&start=50", title: "Previous page", label: "2 of 4" },
+        next_page: { url: "/search?count=50&q=my-query&start=150", title: "Next page", label: "4 of 4" }
+      )
+
       response = { 'total' => 200 }
       params = SearchParameters.new(q: 'my-query',
         count: 50,
         start: 100)
-      presenter = SearchResultsPresenter.new(response, params)
+      presenter = SearchResultsPresenter.new(response, params, view_content)
 
-      expect(presenter).to have_previous_page
-      expect(presenter.previous_page_link).to eq('/search?count=50&q=my-query&start=50')
-      expect(presenter.previous_page_label).to eq('2 of 4')
+      presenter.next_and_prev_links
     end
 
     it 'not have a previous page when start = 0' do
+      expect(view_content).to receive(:render).with(
+        "govuk_component/previous_and_next_navigation",
+        next_page: { url: "/search?count=50&start=50", title: "Next page", label: "2 of 4" }
+      )
+
       response = { 'total' => 200 }
       params = SearchParameters.new(count: 50,
         start: 0)
-      presenter = SearchResultsPresenter.new(response, params)
+      presenter = SearchResultsPresenter.new(response, params, view_content)
 
-      expect(presenter).not_to have_previous_page
-      expect(presenter.previous_page_link).to be_nil
-      expect(presenter).to have_next_page
-      expect(presenter.next_page_link).to eq('/search?count=50&start=50')
-      expect(presenter.next_page_label).to eq('2 of 4')
+      presenter.next_and_prev_links
     end
 
     it 'link to a start_at value of 0 when less than zero' do
+      expect(view_content).to receive(:render).with(
+        "govuk_component/previous_and_next_navigation",
+        previous_page: { url: "/search?count=50&q=my-query", title: "Previous page", label: "1 of 4" },
+        next_page: { url: "/search?count=50&q=my-query&start=75", title: "Next page", label: "3 of 4" }
+      )
+
       response = { 'total' => 200 }
       params = SearchParameters.new(q: 'my-query',
         count: 50,
         start: 25)
-      presenter = SearchResultsPresenter.new(response, params)
+      presenter = SearchResultsPresenter.new(response, params, view_content)
 
-      # with a start value of 25 and a count of 50, this could incorrectly
-      # calculate 25-50 and link to 'start=-25'. here, we assert that start=0
-      # (so no start parameter is used).
-      expect(presenter).to have_previous_page
-      expect(presenter.previous_page_link).to eq('/search?count=50&q=my-query')
-      expect(presenter.previous_page_label).to eq('1 of 4')
+      presenter.next_and_prev_links
     end
 
     it 'not have a previous or next page when there are no results' do
+      expect(view_content).not_to receive(:render)
+
       response = { 'total' => 0 }
       params = SearchParameters.new(count: 50,
         start: 0)
-      presenter = SearchResultsPresenter.new(response, params)
+      presenter = SearchResultsPresenter.new(response, params, view_content)
 
-      expect(presenter).not_to have_previous_page
-      expect(presenter).not_to have_next_page
-
-      expect(presenter.previous_page_link).to be_nil
-      expect(presenter.next_page_link).to be_nil
+      presenter.next_and_prev_links
     end
 
     it 'not have a previous or next page when there are not enough results' do
+      expect(view_content).not_to receive(:render)
+
       response = { 'total' => 25 }
       params = SearchParameters.new(count: 50,
         start: 0)
-      presenter = SearchResultsPresenter.new(response, params)
+      presenter = SearchResultsPresenter.new(response, params, view_content)
 
-      expect(presenter).not_to have_previous_page
-      expect(presenter).not_to have_next_page
-
-      expect(presenter.previous_page_link).to be_nil
-      expect(presenter.next_page_link).to be_nil
+      presenter.next_and_prev_links
     end
 
     it 'include the count parameter in the url when not set to the default' do
+      expect(view_content).to receive(:render).with(
+        "govuk_component/previous_and_next_navigation",
+        next_page: { url: "/search?count=88&q=my-query&start=88", title: "Next page", label: "2 of 3" }
+      )
+
       response = { 'total' => 200 }
       params = SearchParameters.new(q: 'my-query',
         count: 88,
         start: 0)
-      presenter = SearchResultsPresenter.new(response, params)
+      presenter = SearchResultsPresenter.new(response, params, view_content)
 
-      expect(presenter).to have_next_page
-      expect(presenter.next_page_link).to eq('/search?count=88&q=my-query&start=88')
+      presenter.next_and_prev_links
     end
   end
 
@@ -144,7 +159,7 @@ RSpec.describe SearchResultsPresenter do
         "total" => 1,
         "results" => [{ "document_type" => "group" }],
         "facets" => {}
-      }, SearchParameters.new(q: 'my-query'))
+      }, SearchParameters.new(q: 'my-query'), view_content)
       rlist = results.to_hash[:results]
       expect(rlist.size).to eq(1)
       expect(rlist[0][:metadata]).to be_nil
