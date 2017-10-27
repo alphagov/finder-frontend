@@ -490,7 +490,7 @@ main.search {
   }
 }
 
-main.no-results-term {
+main.no-search-term {
   @include media(tablet) {
     h1 {
       @include core-48;
