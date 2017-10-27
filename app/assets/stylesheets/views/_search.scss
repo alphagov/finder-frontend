@@ -49,11 +49,6 @@ main.search {
       overflow: visible;
     }
 
-    input[type="search"] {
-      border: 1px solid #bbb;
-      min-width: 8em;
-    }
-
     input {
       -webkit-appearance: none;
       border-radius: 0;
@@ -64,9 +59,9 @@ main.search {
       padding: 0 0 0 10px;
       display: block;
       height: 50px;
-      border-color: $border-colour;
+      border: 1px solid $border-colour;
       border-right: none;
-      line-height: 48px!important;
+      line-height: 48px !important;
 
       @include ie-lte(7) {
         height: 48px;
