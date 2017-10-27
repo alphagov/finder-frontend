@@ -320,11 +320,23 @@ main.search {
 
     }
     .zero-results {
+      @include core-19;
+
       h2 {
+        margin-top: $gutter;
         @include bold-24;
       }
-      ul, p {
-        margin-top: 0;
+
+      ul,
+      p {
+        margin-top: $gutter-half;
+        margin-bottom: $gutter-half;
+      }
+
+      ul {
+        list-style: disc;
+        list-style-position: outside;
+        margin-left: $gutter-two-thirds;
       }
     }
   }
