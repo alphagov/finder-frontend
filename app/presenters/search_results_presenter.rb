@@ -24,6 +24,7 @@ class SearchResultsPresenter
       debug_score: search_parameters.debug_score,
       first_result_number: (search_parameters.start + 1),
       next_and_prev_links: next_and_prev_links,
+      search_fallback_button: search_fallback_button
     }
   end
 
@@ -84,6 +85,10 @@ class SearchResultsPresenter
 
   def show_organisations_filter?(facet)
     search_parameters.show_organisations_filter? || facet[:any?]
+  end
+
+  def search_fallback_button
+    view_context.render('govuk_component/button', text: 'Submit filters')
   end
 
   def next_and_prev_links
