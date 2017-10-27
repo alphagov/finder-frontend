@@ -1,20 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="utf-8" />
   <title><%= yield :title %> - GOV.UK</title>
-
   <link title="Search" rel="search" type="application/opensearchdescription+xml" href="/search/opensearch.xml"/>
-
   <!--[if gt IE 8]><!--><%= stylesheet_link_tag "application-site-search.css", integrity: true, crossorigin: 'anonymous' %><!--<![endif]-->
-  <!--[if IE 6]><%= stylesheet_link_tag "application-ie6.css" %><![endif]-->
-  <!--[if IE 7]><%= stylesheet_link_tag "application-ie7.css" %><![endif]-->
-  <!--[if IE 8]><%= stylesheet_link_tag "application-ie8.css" %><![endif]-->
+  <!--[if IE 6]><%= stylesheet_link_tag "application-site-search-ie6.css" %><![endif]-->
+  <!--[if IE 7]><%= stylesheet_link_tag "application-site-search-ie7.css" %><![endif]-->
+  <!--[if IE 8]><%= stylesheet_link_tag "application-site-search-ie8.css" %><![endif]-->
   <%= javascript_include_tag 'application-site-search', integrity: true, crossorigin: 'anonymous' %>
   <% if @content_item %>
     <%= render partial: 'govuk_component/analytics_meta_tags', locals: { content_item: @content_item } %>
   <% end %>
-
 </head>
 
 <body class="mainstream <%= yield :body_classes %>">
