@@ -11,6 +11,7 @@
   <% if @content_item %>
     <%= render partial: 'govuk_component/analytics_meta_tags', locals: { content_item: @content_item } %>
   <% end %>
+  <%= yield :extra_headers %>
 </head>
 
 <body class="mainstream <%= yield :body_classes %>">
