@@ -18,11 +18,11 @@ main.search {
   .search-header {
     position: relative;
     margin: 0;
-    padding: 10px 0 15px;
+    padding: $gutter 0 $gutter / 2;
     overflow: visible;
 
     @include media(tablet) {
-      padding: 20px 0 30px;
+      padding: ($gutter * 1.5) 0 $gutter;
       width: 66.666%;
     }
 
@@ -484,13 +484,7 @@ main.search {
 }
 
 main.no-results-term {
-  padding-top: 30px;
-  padding-bottom: 130px;
-
   @include media(tablet) {
-    padding-top: 40px;
-    padding-bottom: 300px;
-
     h1 {
       @include core-48;
       font-weight: bold;
