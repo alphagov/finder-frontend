@@ -68,6 +68,6 @@ Feature: Site search
     Then I should get a valid JSON response
 
   Scenario: Search API is down
-    Given the serach API returns an error state
+    Given the search API returns an error state
     When I search for "search-term"
     Then I should get an error page

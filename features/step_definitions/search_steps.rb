@@ -83,7 +83,7 @@ Given(/^external urls exist in the of search results$/) do
   content_store_has_item("/search", schema: 'special_route')
 end
 
-Given(/^the serach API returns an error state$/) do
+Given(/^the search API returns an error state$/) do
   allow(SearchAPI).to receive(:new).and_raise(GdsApi::BaseError)
   content_store_has_item("/search", schema: 'special_route')
 end
