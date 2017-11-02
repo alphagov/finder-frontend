@@ -18,11 +18,11 @@ main.search {
   .search-header {
     position: relative;
     margin: 0;
-    padding: 10px 0 15px;
+    padding: $gutter 0 $gutter / 2;
     overflow: visible;
 
     @include media(tablet) {
-      padding: 20px 0 30px;
+      padding: ($gutter * 1.5) 0 $gutter;
       width: 66.666%;
     }
 
@@ -49,11 +49,6 @@ main.search {
       overflow: visible;
     }
 
-    input[type="search"] {
-      border: 1px solid #bbb;
-      min-width: 8em;
-    }
-
     input {
       -webkit-appearance: none;
       border-radius: 0;
@@ -64,9 +59,9 @@ main.search {
       padding: 0 0 0 10px;
       display: block;
       height: 50px;
-      border-color: $border-colour;
+      border: 1px solid $border-colour;
       border-right: none;
-      line-height: 48px!important;
+      line-height: 48px !important;
 
       @include ie-lte(7) {
         height: 48px;
@@ -320,11 +315,23 @@ main.search {
 
     }
     .zero-results {
+      @include core-19;
+
       h2 {
+        margin-top: $gutter;
         @include bold-24;
       }
-      ul, p {
-        margin-top: 0;
+
+      ul,
+      p {
+        margin-top: $gutter-half;
+        margin-bottom: $gutter-half;
+      }
+
+      ul {
+        list-style: disc;
+        list-style-position: outside;
+        margin-left: $gutter-two-thirds;
       }
     }
   }
@@ -483,14 +490,8 @@ main.search {
   }
 }
 
-main.no-results-term {
-  padding-top: 30px;
-  padding-bottom: 130px;
-
+main.no-search-term {
   @include media(tablet) {
-    padding-top: 40px;
-    padding-bottom: 300px;
-
     h1 {
       @include core-48;
       font-weight: bold;
