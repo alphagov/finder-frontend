@@ -8,8 +8,7 @@ require "sprockets/railtie"
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
-Bundler.require(:default, Rails.env)
-Bundler.require(*Rails.groups(assets: %w(development test)))
+Bundler.require(*Rails.groups)
 
 if !Rails.env.production? || ENV['HEROKU_APP_NAME'].present?
   require 'govuk_publishing_components'
