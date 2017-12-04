@@ -37,7 +37,7 @@ end
 group :test do
   gem 'cucumber-rails', '~> 1.4.0', require: false
   gem 'launchy', '~> 2.4.2'
-  gem 'simplecov', '~> 0.9.0'
+  gem 'simplecov', '~> 0.15.0'
   gem 'webmock', '~> 2.3.0'
   gem 'rails-controller-testing'
   gem 'govuk-content-schema-test-helpers', '~> 1.5'
