@@ -99,9 +99,9 @@ private
   def next_and_prev_links
     return unless finder.pagination
 
-    current_page = finder.pagination.current_page
+    current_page = finder.pagination['current_page']
     previous_page = current_page - 1 if current_page > 1
-    next_page = current_page + 1 if current_page < finder.pagination.total_pages
+    next_page = current_page + 1 if current_page < finder.pagination['total_pages']
     pages = {}
 
     pages[:previous_page] = build_page_link("Previous page", previous_page) if previous_page
@@ -114,7 +114,7 @@ private
     {
       url: [finder.slug, finder.values.merge(page: page).to_query].reject(&:blank?).join("?"),
       title: page_label,
-      label: "#{page} of #{finder.pagination.total_pages}",
+      label: "#{page} of #{finder.pagination['total_pages']}",
     }
   end
 end

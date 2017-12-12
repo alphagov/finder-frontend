@@ -34,10 +34,10 @@ describe FacetParser do
     specify { expect(subject.preposition).to eql("of type") }
 
     it "should build a list of allowed values" do
-      expect(subject.allowed_values[0].label).to eql("Airport price control reviews")
-      expect(subject.allowed_values[0].value).to eql("airport-price-control-reviews")
-      expect(subject.allowed_values[2].label).to eql("Remittals")
-      expect(subject.allowed_values[2].value).to eql("remittals")
+      expect(subject.allowed_values[0]['label']).to eql("Airport price control reviews")
+      expect(subject.allowed_values[0]['value']).to eql("airport-price-control-reviews")
+      expect(subject.allowed_values[2]['label']).to eql("Remittals")
+      expect(subject.allowed_values[2]['value']).to eql("remittals")
     end
   end
 end

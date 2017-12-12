@@ -1,12 +1,14 @@
 class SelectFacet < FilterableFacet
-  delegate :allowed_values, to: :facet
+  def allowed_values
+    facet['allowed_values']
+  end
 
   def options
     allowed_values.map do |allowed_value|
       {
-        value: allowed_value.value,
-        label: allowed_value.label,
-        id: allowed_value.value,
+        value: allowed_value['value'],
+        label: allowed_value['label'],
+        id: allowed_value['value'],
         checked: selected_values.include?(allowed_value),
       }
     end
@@ -31,7 +33,7 @@ private
   def value_fragments
     selected_values.map { |v|
       OpenStruct.new(
-        label: v.label,
+        label: v['label'],
         parameter_key: key,
       )
     }
@@ -40,7 +42,7 @@ private
   def selected_values
     return [] if @value.nil?
     allowed_values.select { |option|
-      @value.include?(option.value)
+      @value.include?(option['value'])
     }
   end
 end

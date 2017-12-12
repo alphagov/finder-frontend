@@ -19,7 +19,7 @@ RSpec.describe ResultSetPresenter do
     )
   end
 
-  let(:pagination) { double(:pagination, current_page: 1, total_pages: 2) }
+  let(:pagination) { { 'current_page' => 1, 'total_pages' => 2 } }
 
   let(:filter_params) { double(:filter_params, keywords: 'test') }
 

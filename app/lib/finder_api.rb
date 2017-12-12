@@ -55,19 +55,19 @@ private
     values = facet_details.fetch("options", {}).map { |f| f.fetch("value", {}) }
 
     values.map { |value|
-      OpenStruct.new(
-        label: value.fetch("title", ""),
-        value: value.fetch("slug", ""),
-      )
+      {
+        'label' => value.fetch("title", ""),
+        'value' => value.fetch("slug", ""),
+      }
     }
   end
 
   def build_pagination(documents_per_page, start_offset, total_results)
     if documents_per_page
-      OpenStruct.new(
-        current_page: (start_offset / documents_per_page) + 1,
-        total_pages: (total_results / documents_per_page.to_f).ceil,
-      )
+      {
+        'current_page' => (start_offset / documents_per_page) + 1,
+        'total_pages' => (total_results / documents_per_page.to_f).ceil,
+      }
     end
   end
 end
