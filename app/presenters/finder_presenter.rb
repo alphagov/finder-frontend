@@ -3,51 +3,76 @@ class FinderPresenter
 
   attr_reader :name, :slug, :organisations, :keywords, :values, :content_item
 
-  delegate :alpha_message,
-           :beta_message,
-           :default_order,
-           :document_noun,
-           :human_readable_finder_format,
-           :filter,
-           :logo_path,
-           :summary,
-           :pagination,
-           to: :"content_item.details"
-
   def initialize(content_item, values = {})
     @content_item = content_item
-    @name = content_item.title
-    @slug = content_item.base_path
-    @organisations = content_item.links.organisations
+    @name = content_item['title']
+    @slug = content_item['base_path']
+    @organisations = content_item['links'].fetch(:organisations, [])
     @values = values
     facets.values = values
     @keywords = values["keywords"].presence
   end
 
+  def alpha_message
+    content_item['details']['alpha_message']
+  end
+
+  def beta_message
+    content_item['details']['beta_message']
+  end
+
+  def default_order
+    content_item['details']['default_order']
+  end
+
+  def document_noun
+    content_item['details']['document_noun']
+  end
+
+  def human_readable_finder_format
+    content_item['details']['human_readable_finder_format']
+  end
+
+  def filter
+    content_item['details']['filter']
+  end
+
+  def logo_path
+    content_item['details']['logo_path']
+  end
+
+  def summary
+    content_item['details']['summary']
+  end
+
+  def pagination
+    content_item['details']['pagination']
+  end
+
   def alpha?
-    content_item.phase == 'alpha'
+    content_item['phase'] == 'alpha'
   end
 
   def beta?
-    content_item.phase == 'beta'
+    content_item['phase'] == 'beta'
   end
 
   def email_alert_signup
-    if content_item.links.email_alert_signup
-      content_item.links.email_alert_signup.first
+    if content_item['links']['email_alert_signup']
+      content_item['links']['email_alert_signup'].first
     end
   end
 
   def email_alert_signup_url
-    signup_link = content_item.details.signup_link
+    signup_link = content_item['details']['signup_link']
     return signup_link if signup_link.present?
 
-    email_alert_signup.web_url if email_alert_signup
+    email_alert_signup['web_url'] if email_alert_signup
   end
 
   def facets
     @facets ||= FacetCollection.new(
-      content_item.details.facets.map { |facet|
+      content_item['details']['facets'].map { |facet|
         FacetParser.parse(facet)
       }
     )
@@ -82,7 +107,7 @@ class FinderPresenter
   end
 
   def show_summaries?
-    content_item.details.show_summaries
+    content_item['details']['show_summaries']
   end
 
   def page_metadata
@@ -96,14 +121,14 @@ class FinderPresenter
   end
 
   def related
-    related = content_item.links.related || []
-    related.sort_by(&:title)
+    related = content_item['links']['related'] || []
+    related.sort_by { |link| link['title'] }
   end
 
   def results
     @results ||= ResultSetParser.parse(
-      content_item.details.results,
-      content_item.details.total_result_count,
+      content_item['details']['results'],
+      content_item['details']['total_result_count'],
       self,
     )
   end
@@ -132,25 +157,25 @@ class FinderPresenter
   end
 
   def description
-    content_item.description
+    content_item['description']
   end
 
 private
 
   def part_of
-    content_item.links.part_of || []
+    content_item['links']['part_of'] || []
   end
 
   def organisations
-    content_item.links.organisations || []
+    content_item['links']['organisations'] || []
   end
 
   def people
-    content_item.links.people || []
+    content_item['links']['people'] || []
   end
 
   def working_groups
-    content_item.links.working_groups || []
+    content_item['links']['working_groups'] || []
   end
 
   def from
@@ -164,11 +189,11 @@ private
   end
 
   def applicable_nations_html_fragment
-    nation_applicability = content_item.details.nation_applicability
+    nation_applicability = content_item['details']['nation_applicability']
     if nation_applicability
-      applies_to = nation_applicability.applies_to.map(&:titlecase)
-      alternative_policies = nation_applicability.alternative_policies.map do |alternative|
-        link_to(alternative.nation.titlecase, alternative.alt_policy_url, ({ rel: 'external' } if is_external?(alternative.alt_policy_url)))
+      applies_to = nation_applicability['applies_to'].map(&:titlecase)
+      alternative_policies = nation_applicability['alternative_policies'].map do |alternative|
+        link_to(alternative['nation'].titlecase, alternative['alt_policy_url'], ({ rel: 'external' } if is_external?(alternative['alt_policy_url'])))
       end
       if alternative_policies.any?
         "#{applies_to.to_sentence} (see policy for #{alternative_policies.to_sentence})".html_safe

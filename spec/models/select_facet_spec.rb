@@ -3,32 +3,32 @@ require "spec_helper"
 describe SelectFacet do
   let(:allowed_values) {
     [
-      OpenStruct.new(
-        label: "Allowed value 1",
-        value: "allowed-value-1"
-      ),
-      OpenStruct.new(
-        label: "Allowed value 2",
-        value: "allowed-value-2"
-      ),
-      OpenStruct.new(
-        label: "Remittals",
-        value: "remittals"
-      )
+      {
+        'label' => "Allowed value 1",
+        'value' => "allowed-value-1"
+      },
+      {
+        'label' => "Allowed value 2",
+        'value' => "allowed-value-2"
+      },
+      {
+        'label' => "Remittals",
+        'value' => "remittals"
+      }
     ]
   }
 
-  let(:facet_struct) {
-    OpenStruct.new(
-      type: "multi-select",
-      name: "Test values",
-      key: "test_values",
-      preposition: "of value",
-      allowed_values: allowed_values,
-    )
+  let(:facet_data) {
+    {
+      'type' => "multi-select",
+      'name' => "Test values",
+      'key' => "test_values",
+      'preposition' => "of value",
+      'allowed_values' => allowed_values,
+    }
   }
 
-  subject { SelectFacet.new(facet_struct) }
+  subject { SelectFacet.new(facet_data) }
 
   before do
     subject.value = value

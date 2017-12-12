@@ -1,16 +1,30 @@
 class Facet
-  delegate :key, :name, :type, :short_name, to: :facet
-
   def initialize(facet)
     @facet = facet
   end
 
+  def key
+    facet['key']
+  end
+
+  def name
+    facet['name']
+  end
+
+  def type
+    facet['type']
+  end
+
+  def short_name
+    facet['short_name']
+  end
+
   def filterable?
-    facet.filterable
+    facet['filterable']
   end
 
   def metadata?
-    facet.display_as_result_metadata
+    facet['display_as_result_metadata']
   end
 
 private

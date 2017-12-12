@@ -1,16 +1,16 @@
 require 'spec_helper'
 
 describe FilterableFacet do
-  let(:facet_struct) {
-    OpenStruct.new(
-      key: "test_facet",
-      name: "Test facet",
-      preposition: "of value"
-    )
+  let(:facet_data) {
+    {
+      'key' => "test_facet",
+      'name' => "Test facet",
+      'preposition' => "of value"
+    }
   }
 
   let(:facet_class) { FilterableFacet }
-  subject { facet_class.new(facet_struct) }
+  subject { facet_class.new(facet_data) }
 
   describe "#to_partial_path" do
     context "with a Facet" do

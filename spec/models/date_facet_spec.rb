@@ -1,16 +1,16 @@
 require "spec_helper"
 
 describe DateFacet do
-  let(:facet_struct) {
-    OpenStruct.new(
-      type: "date",
-      name: "Occurred",
-      key: "date_of_occurrence",
-      preposition: "occurred",
-    )
+  let(:facet_data) {
+    {
+      'type' => "date",
+      'name' => "Occurred",
+      'key' => "date_of_occurrence",
+      'preposition' => "occurred",
+    }
   }
 
-  subject { DateFacet.new(facet_struct) }
+  subject { DateFacet.new(facet_data) }
 
   before do
     subject.value = value

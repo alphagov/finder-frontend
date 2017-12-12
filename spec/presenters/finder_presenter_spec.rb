@@ -22,7 +22,7 @@ RSpec.describe FinderPresenter do
         body: govuk_content_schema_example('finder').to_json,
         headers: {}
     )
-    GdsApi::Response.new(dummy_http_response).to_ostruct
+    GdsApi::Response.new(dummy_http_response).to_hash
   }
 
   let(:values) { {} }
@@ -34,7 +34,7 @@ RSpec.describe FinderPresenter do
         body: govuk_content_schema_example('policy_programme', 'policy').to_json,
         headers: {}
     )
-    GdsApi::Response.new(dummy_http_response).to_ostruct
+    GdsApi::Response.new(dummy_http_response).to_hash
   }
 
   let(:minimal_policy_content_item) {
@@ -44,7 +44,7 @@ RSpec.describe FinderPresenter do
         body: govuk_content_schema_example('minimal_policy_area', 'policy').to_json,
         headers: {}
     )
-    GdsApi::Response.new(dummy_http_response).to_ostruct
+    GdsApi::Response.new(dummy_http_response).to_hash
   }
 
   let(:national_applicability_content_item) {
@@ -54,7 +54,7 @@ RSpec.describe FinderPresenter do
         body: govuk_content_schema_example('policy_with_inapplicable_nations', 'policy').to_json,
         headers: {}
     )
-    GdsApi::Response.new(dummy_http_response).to_ostruct
+    GdsApi::Response.new(dummy_http_response).to_hash
   }
 
   let(:policies_finder_content_item) {
@@ -64,27 +64,27 @@ RSpec.describe FinderPresenter do
         body: govuk_content_schema_example('policies_finder', 'finder').to_json,
         headers: {}
     )
-    GdsApi::Response.new(dummy_http_response).to_ostruct
+    GdsApi::Response.new(dummy_http_response).to_hash
   }
 
   let(:internal_policies) {
     {
-      details: OpenStruct.new(
-        facets: [],
-        nation_applicability: OpenStruct.new(
-          applies_to: %w(england northern_ireland),
-          alternative_policies: [
-            OpenStruct.new(
-              nation: "scotland",
-              alt_policy_url: "http://www.gov.uk/scottish-policy-url"
-            ),
-            OpenStruct.new(
-              nation: "wales",
-              alt_policy_url: "http://www.gov.uk/welsh-policy-url"
-            )
+      'details' => {
+        'facets' => [],
+        'nation_applicability' => {
+          'applies_to' => %w(england northern_ireland),
+          'alternative_policies' => [
+            {
+              'nation' => "scotland",
+              'alt_policy_url' => "http://www.gov.uk/scottish-policy-url"
+            },
+            {
+              'nation' => "wales",
+              'alt_policy_url' => "http://www.gov.uk/welsh-policy-url"
+            }
           ]
-        )
-      )
+        }
+      }
     }
   }
 
@@ -95,10 +95,7 @@ RSpec.describe FinderPresenter do
         body: govuk_content_schema_example('policy_with_inapplicable_nations', 'policy').to_json,
         headers: {}
     )
-    ostruct_hash = GdsApi::Response.new(dummy_http_response).to_ostruct.marshal_dump
-    OpenStruct.new(
-      ostruct_hash.merge(internal_policies)
-    )
+    GdsApi::Response.new(dummy_http_response).to_hash.merge(internal_policies)
   }
 
   describe "facets" do
@@ -170,7 +167,7 @@ RSpec.describe FinderPresenter do
     end
 
     it "has people, organisations, and working groups in the from metadata" do
-      from = government_presenter.page_metadata[:from].map(&:title)
+      from = government_presenter.page_metadata[:from].map { |p| p['title'] }
       expect(from).to include("George Dough", "Department for Work and Pensions", "Medical Advisory Group")
     end
   end

@@ -34,18 +34,18 @@ private
   end
 
   def augment_content_item_with_results(content_item, search_response)
-    content_item.details.results = search_response.fetch("results")
-    content_item.details.total_result_count = search_response.fetch("total")
+    content_item['details']['results'] = search_response.fetch("results")
+    content_item['details']['total_result_count'] = search_response.fetch("total")
 
-    content_item.details.pagination = build_pagination(
-      content_item.details.default_documents_per_page,
+    content_item['details']['pagination'] = build_pagination(
+      content_item['details']['default_documents_per_page'],
       search_response.fetch('start'),
       search_response.fetch('total')
     )
 
     search_response.fetch("facets", {}).each do |facet_key, facet_details|
-      facet = content_item.details.facets.find { |f| f.key == facet_key }
-      facet.allowed_values = allowed_values_for_facet_details(facet_details) if facet
+      facet = content_item['details']['facets'].find { |f| f['key'] == facet_key }
+      facet['allowed_values'] = allowed_values_for_facet_details(facet_details) if facet
     end
 
     content_item

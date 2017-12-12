@@ -1,7 +1,7 @@
 module FacetParser
   def self.parse(facet)
-    if facet.filterable
-      case facet.type
+    if facet['filterable']
+      case facet['type']
       when 'text'
         SelectFacet.new(facet)
       when 'topical'
