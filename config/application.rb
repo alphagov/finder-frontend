@@ -30,5 +30,7 @@ module FinderFrontend
 
     # Path within public/ where assets are compiled to
     config.assets.prefix = '/finder-frontend'
+
+    config.action_controller.raise_on_unfiltered_parameters = true
   end
 end

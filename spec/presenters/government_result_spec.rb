@@ -2,37 +2,39 @@
 require "spec_helper"
 
 RSpec.describe GovernmentResult do
+  let(:search_params) { SearchParameters.new(ActionController::Parameters.new({})) }
+
   it "report a lack of location field as no locations" do
-    result = GovernmentResult.new(SearchParameters.new({}), {})
+    result = GovernmentResult.new(search_params, {})
     expect(result.metadata).to be_empty
   end
 
   it "report an empty list of locations as no locations" do
-    result = GovernmentResult.new(SearchParameters.new({}), "world_locations" => [])
+    result = GovernmentResult.new(search_params, "world_locations" => [])
     expect(result.metadata).to be_empty
   end
 
   it "display a single world location" do
     france = { "title" => "France", "slug" => "france" }
-    result = GovernmentResult.new(SearchParameters.new({}), "world_locations" => [france])
+    result = GovernmentResult.new(search_params, "world_locations" => [france])
     expect(result.metadata[0]).to eq("France")
   end
 
   it "not display individual locations when there are several" do
     france = { "title" => "France", "slug" => "france" }
     spain = { "title" => "Spain", "slug" => "spain" }
-    result = GovernmentResult.new(SearchParameters.new({}), "world_locations" => [france, spain])
+    result = GovernmentResult.new(search_params, "world_locations" => [france, spain])
     expect(result.metadata[0]).to eq("multiple locations")
   end
 
   it "not display locations when there is only a slug present" do
     united_kingdom = { "slug" => "united_kingdom" }
-    result = GovernmentResult.new(SearchParameters.new({}), "world_locations" => [united_kingdom])
+    result = GovernmentResult.new(search_params, "world_locations" => [united_kingdom])
     expect(result.metadata).to be_empty
   end
 
   it "return valid metadata" do
-    result = GovernmentResult.new(SearchParameters.new({}), "public_timestamp" => "2014-10-14",
+    result = GovernmentResult.new(search_params, "public_timestamp" => "2014-10-14",
       "display_type" => "my-display-type",
       "organisations" => [{ "slug" => "org-1" }],
       "world_locations" => [{ "title" => "France", "slug" => "france" }])
@@ -40,29 +42,28 @@ RSpec.describe GovernmentResult do
   end
 
   it "return format for corporate information pages in metadata" do
-    result = GovernmentResult.new(SearchParameters.new({}), "format" => "corporate_information")
+    result = GovernmentResult.new(search_params, "format" => "corporate_information")
     expect(result.metadata).to eq(['Corporate information'])
   end
 
   it "return only display type for corporate information pages if it is present in metadata" do
-    result = GovernmentResult.new(SearchParameters.new({}), "display_type" => "my-display-type",
+    result = GovernmentResult.new(search_params, "display_type" => "my-display-type",
       "format" => "corporate_information")
     expect(result.metadata).to eq(["my-display-type"])
   end
 
   it "not return sections for deputy prime ministers office" do
-    result = GovernmentResult.new(SearchParameters.new({}), "format" => "organisation",
+    result = GovernmentResult.new(search_params, "format" => "organisation",
       "link" => "/government/organisations/deputy-prime-ministers-office")
     expect(result.sections).to be_nil
   end
 
   it "return sections for some format types" do
-    params = SearchParameters.new({})
-    minister_results               = GovernmentResult.new(params, "format" => "minister")
-    organisation_results           = GovernmentResult.new(params, "format" => "organisation")
-    person_results                 = GovernmentResult.new(params, "format" => "person")
-    worldwide_organisation_results = GovernmentResult.new(params, "format" => "worldwide_organisation")
-    mainstream_results             = GovernmentResult.new(params, "format" => "mainstream")
+    minister_results               = GovernmentResult.new(search_params, "format" => "minister")
+    organisation_results           = GovernmentResult.new(search_params, "format" => "organisation")
+    person_results                 = GovernmentResult.new(search_params, "format" => "person")
+    worldwide_organisation_results = GovernmentResult.new(search_params, "format" => "worldwide_organisation")
+    mainstream_results             = GovernmentResult.new(search_params, "format" => "mainstream")
 
     expect(minister_results.sections.length).to eq(2)
     expect(organisation_results.sections).to be_nil
@@ -73,20 +74,20 @@ RSpec.describe GovernmentResult do
   end
 
   it "return sections in correct format" do
-    minister_results = GovernmentResult.new(SearchParameters.new({}), "format" => "minister")
+    minister_results = GovernmentResult.new(search_params, "format" => "minister")
 
     expect(minister_results.sections.first.keys).to eq([:hash, :title])
   end
 
   it "have a government name when in history mode" do
-    result = GovernmentResult.new(SearchParameters.new({}), "is_historic" => true,
+    result = GovernmentResult.new(search_params, "is_historic" => true,
       "government_name" => "XXXX to YYYY Example government")
     expect(result).to be_historic
     expect(result.government_name).to eq("XXXX to YYYY Example government")
   end
 
   it "have a government name when not in history mode" do
-    result = GovernmentResult.new(SearchParameters.new({}), "is_historic" => false,
+    result = GovernmentResult.new(search_params, "is_historic" => false,
       "government_name" => "XXXX to YYYY Example government")
     expect(result).not_to be_historic
     expect(result.government_name).to eq("XXXX to YYYY Example government")

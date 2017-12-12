@@ -3,12 +3,16 @@ require "spec_helper"
 RSpec.describe SearchResultsPresenter do
   let(:view_content) { double(:view_content, render: 'pagination_html') }
 
+  def search_params(params)
+    SearchParameters.new(ActionController::Parameters.new(params))
+  end
+
   it "return an appropriate hash" do
     results = SearchResultsPresenter.new({
       "total" => 1,
       "results" => [{ "index" => "mainstream" }],
       "facets" => {}
-    }, SearchParameters.new(q: 'my-query'), view_content)
+    }, search_params(q: 'my-query'), view_content)
 
     expect(results.to_hash[:query]).to eq('my-query')
     expect(results.to_hash[:result_count]).to eq(1)
@@ -30,7 +34,7 @@ RSpec.describe SearchResultsPresenter do
           }]
         }
       }
-    }, SearchParameters.new(q: 'my-query'), view_content)
+    }, search_params(q: 'my-query'), view_content)
 
     expect(results.to_hash[:filter_fields].length).to eq(1)
     expect(results.to_hash[:filter_fields][0][:field]).to eq("organisations")
@@ -47,7 +51,7 @@ RSpec.describe SearchResultsPresenter do
       )
 
       response = { 'total' => 200 }
-      params = SearchParameters.new(q: 'my-query',
+      params = search_params(q: 'my-query',
         count: 50,
         start: 0)
       presenter = SearchResultsPresenter.new(response, params, view_content)
@@ -62,7 +66,7 @@ RSpec.describe SearchResultsPresenter do
       )
 
       response = { 'total' => 200 }
-      params = SearchParameters.new(count: 50,
+      params = search_params(count: 50,
         start: 150)
       presenter = SearchResultsPresenter.new(response, params, view_content)
 
@@ -77,7 +81,7 @@ RSpec.describe SearchResultsPresenter do
       )
 
       response = { 'total' => 200 }
-      params = SearchParameters.new(q: 'my-query',
+      params = search_params(q: 'my-query',
         count: 50,
         start: 100)
       presenter = SearchResultsPresenter.new(response, params, view_content)
@@ -92,7 +96,7 @@ RSpec.describe SearchResultsPresenter do
       )
 
       response = { 'total' => 200 }
-      params = SearchParameters.new(count: 50,
+      params = search_params(count: 50,
         start: 0)
       presenter = SearchResultsPresenter.new(response, params, view_content)
 
@@ -107,7 +111,7 @@ RSpec.describe SearchResultsPresenter do
       )
 
       response = { 'total' => 200 }
-      params = SearchParameters.new(q: 'my-query',
+      params = search_params(q: 'my-query',
         count: 50,
         start: 25)
       presenter = SearchResultsPresenter.new(response, params, view_content)
@@ -119,7 +123,7 @@ RSpec.describe SearchResultsPresenter do
       expect(view_content).not_to receive(:render)
 
       response = { 'total' => 0 }
-      params = SearchParameters.new(count: 50,
+      params = search_params(count: 50,
         start: 0)
       presenter = SearchResultsPresenter.new(response, params, view_content)
 
@@ -130,7 +134,7 @@ RSpec.describe SearchResultsPresenter do
       expect(view_content).not_to receive(:render)
 
       response = { 'total' => 25 }
-      params = SearchParameters.new(count: 50,
+      params = search_params(count: 50,
         start: 0)
       presenter = SearchResultsPresenter.new(response, params, view_content)
 
@@ -144,7 +148,7 @@ RSpec.describe SearchResultsPresenter do
       )
 
       response = { 'total' => 200 }
-      params = SearchParameters.new(q: 'my-query',
+      params = search_params(q: 'my-query',
         count: 88,
         start: 0)
       presenter = SearchResultsPresenter.new(response, params, view_content)
@@ -159,7 +163,7 @@ RSpec.describe SearchResultsPresenter do
         "total" => 1,
         "results" => [{ "document_type" => "group" }],
         "facets" => {}
-      }, SearchParameters.new(q: 'my-query'), view_content)
+      }, search_params(q: 'my-query'), view_content)
       rlist = results.to_hash[:results]
       expect(rlist.size).to eq(1)
       expect(rlist[0][:metadata]).to be_nil
