@@ -1,5 +1,5 @@
 class FilterableFacet < Facet
-  attr_writer :value
+  attr_accessor :value
 
   def preposition
     facet['preposition']

@@ -4,7 +4,8 @@ RSpec.describe ResultSetPresenter do
   subject(:presenter) { ResultSetPresenter.new(finder, filter_params, view_context) }
 
   let(:finder) do
-    OpenStruct.new(
+    double(
+      FinderPresenter,
       slug: "/a-finder",
       name: 'A finder',
       results: results,
@@ -26,7 +27,8 @@ RSpec.describe ResultSetPresenter do
   let(:view_context) { double(:view_context) }
 
   let(:a_facet) do
-    OpenStruct.new(
+    double(
+      SelectFacet,
       key: 'key_1',
       selected_values: [
         {
@@ -56,7 +58,8 @@ RSpec.describe ResultSetPresenter do
   end
 
   let(:another_facet) do
-    OpenStruct.new(
+    double(
+      SelectFacet,
       key: 'key_2',
       preposition: 'about',
       selected_values: [
@@ -87,7 +90,8 @@ RSpec.describe ResultSetPresenter do
   end
 
   let(:a_date_facet) do
-    OpenStruct.new(
+    double(
+      SelectFacet,
       sentence_fragment: {
         'type' => "date",
         'preposition' => "closed between",
@@ -110,22 +114,25 @@ RSpec.describe ResultSetPresenter do
   let(:total) { 20 }
 
   let(:results) do
-    OpenStruct.new(
-      total: total,
-      documents: (1..total).map { document }
+    ResultSet.new(
+      (1..total).map { document },
+      total,
     )
   end
 
   let(:document) do
-    OpenStruct.new(
+    double(
+      Document,
       title: 'Investigation into the distribution of road fuels in parts of Scotland',
-      slug: 'slug-1',
-      metadata:
-        [
-          { name: 'Case state', value: 'Open', type: 'text' },
-          { name: 'Opened date', value: '2006-7-14', type: 'date' },
-          { name: 'Case type', value: 'CA98 and civil cartels', type: 'text' },
-        ]
+      path: 'slug-1',
+      metadata: [
+        { name: 'Case state', value: 'Open', type: 'text' },
+        { name: 'Opened date', value: '2006-7-14', type: 'date' },
+        { name: 'Case type', value: 'CA98 and civil cartels', type: 'text' },
+      ],
+      summary: 'I am a document',
+      is_historic: false,
+      government_name: 'The Government!',
     )
   end
 
@@ -229,25 +236,27 @@ RSpec.describe ResultSetPresenter do
   describe '#documents' do
     context "has one document" do
       let(:results) do
-        OpenStruct.new(
-          total: total,
-          documents: [document]
+        ResultSet.new(
+          [document],
+          total
         )
       end
+
       it 'creates a new search_result_presenter hash for each result' do
         search_result_objects = presenter.documents
         expect(search_result_objects.count).to eql(1)
-        expect(search_result_objects.first.is_a?(Hash)).to be_truthy
+        expect(search_result_objects.first).to be_a(Hash)
       end
     end
 
     context "has 3 documents" do
       let(:results) do
-        OpenStruct.new(
-          total: total,
-          documents: [document, document, document]
+        ResultSet.new(
+          [document, document, document],
+          total
         )
       end
+
       it 'creates a new document for each result' do
         search_result_objects = presenter.documents
         expect(search_result_objects.count).to eql(3)

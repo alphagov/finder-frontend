@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'ostruct'
 
 describe FacetCollection do
   let(:facets) { [] }
@@ -28,11 +27,11 @@ describe FacetCollection do
       }
 
       let(:case_type_facet) {
-        OpenStruct.new(key: "case_type", value: nil)
+        FilterableFacet.new('key' => "case_type")
       }
 
       let(:decision_type_facet) {
-        OpenStruct.new(key: "decision_type", value: nil)
+        FilterableFacet.new('key' => "decision_type")
       }
 
       it "should accept a hash of key/value pairs, and set the facet values for each" do
