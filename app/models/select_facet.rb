@@ -21,21 +21,21 @@ class SelectFacet < FilterableFacet
   def sentence_fragment
     return nil unless selected_values.any?
 
-    OpenStruct.new(
-      type: "text",
-      preposition: preposition,
-      values: value_fragments,
-    )
+    {
+      'type' => "text",
+      'preposition' => preposition,
+      'values' => value_fragments,
+    }
   end
 
 private
 
   def value_fragments
     selected_values.map { |v|
-      OpenStruct.new(
-        label: v['label'],
-        parameter_key: key,
-      )
+      {
+        'label' => v['label'],
+        'parameter_key' => key,
+      }
     }
   end
 

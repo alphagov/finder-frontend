@@ -29,31 +29,29 @@ RSpec.describe ResultSetPresenter do
     OpenStruct.new(
       key: 'key_1',
       selected_values: [
-        OpenStruct.new(
-          value: 'ca98-and-civil-cartels',
-          label: 'CA98 and civil cartels'
-        ),
-        OpenStruct.new(
-          value: 'mergers',
-          label: 'Mergers'
-        ),
+        {
+          'value' => 'ca98-and-civil-cartels',
+          'label' => 'CA98 and civil cartels'
+        },
+        {
+          'value' => 'mergers',
+          'label' => 'Mergers'
+        },
       ],
-      sentence_fragment: [
-        OpenStruct.new(
-          type: 'text',
-          preposition: 'of type',
-          values: [
-            OpenStruct.new(
-              label: 'CA98 and civil cartels',
-              parameter_key: 'key_1',
-            ),
-            OpenStruct.new(
-              label: 'Mergers',
-              parameter_key: 'key_1',
-            ),
-          ]
-        )
-      ],
+      sentence_fragment: {
+        'type' => 'text',
+        'preposition' => 'of type',
+        'values' => [
+          {
+            'label' => 'CA98 and civil cartels',
+            'parameter_key' => 'key_1',
+          },
+          {
+            'label' => 'Mergers',
+            'parameter_key' => 'key_1',
+          },
+        ]
+      }
     )
   end
 
@@ -62,50 +60,48 @@ RSpec.describe ResultSetPresenter do
       key: 'key_2',
       preposition: 'about',
       selected_values: [
-        OpenStruct.new(
-          value: 'farming',
-          label: 'Farming'
-        ),
-        OpenStruct.new(
-          value: 'chemicals',
-          label: 'Chemicals'
-        ),
+        {
+          'value' => 'farming',
+          'label' => 'Farming'
+        },
+        {
+          'value' => 'chemicals',
+          'label' => 'Chemicals'
+        },
       ],
-      sentence_fragment: [
-        OpenStruct.new(
-          type: 'text',
-          preposition: 'about',
-          values: [
-            OpenStruct.new(
-              label: 'Farming',
-              parameter_key: 'key_2',
-            ),
-            OpenStruct.new(
-              label: 'Chemicals',
-              parameter_key: 'key_2',
-            ),
-          ]
-        )
-      ],
+      sentence_fragment: {
+        'type' => 'text',
+        'preposition' => 'about',
+        'values' => [
+          {
+            'label' => 'Farming',
+            'parameter_key' => 'key_2',
+          },
+          {
+            'label' => 'Chemicals',
+            'parameter_key' => 'key_2',
+          },
+        ]
+      }
     )
   end
 
   let(:a_date_facet) do
     OpenStruct.new(
-      sentence_fragment: OpenStruct.new(
-        type: "date",
-        preposition: "closed between",
-        values: [
-          OpenStruct.new(
-            label: "22 June 1990",
-            parameter_key: "closed_date",
-          ),
-          OpenStruct.new(
-            label: "22 June 1994",
-            parameter_key: "closed_date",
-          )
+      sentence_fragment: {
+        'type' => "date",
+        'preposition' => "closed between",
+        'values' => [
+          {
+            'label' => "22 June 1990",
+            'parameter_key' => "closed_date",
+          },
+          {
+            'label' => "22 June 1994",
+            'parameter_key' => "closed_date",
+          }
         ]
-      )
+      }
     )
   end
 
@@ -187,7 +183,7 @@ RSpec.describe ResultSetPresenter do
     it 'includes prepositions for each facet' do
       sentence = presenter.describe_filters_in_sentence
       finder.filter_sentence_fragments.each do |fragment|
-        expect(sentence.include?(fragment[:preposition])).to be_truthy
+        expect(sentence).to include(fragment['preposition'])
       end
     end
 
@@ -216,17 +212,17 @@ RSpec.describe ResultSetPresenter do
     let(:sentence) { presenter.selected_filter_descriptions }
 
     it 'returns a string with all the facets passed to it in strong tags' do
-      finder.facets.flat_map(&:sentence_fragment).flat_map(&:values).flatten.each do |value|
-        expect(sentence.include?("<strong>#{value.label}")).to be_truthy
+      finder.facets.flat_map { |f| f.sentence_fragment['values'] }.each do |value|
+        expect(sentence).to include("<strong>#{value['label']}</strong>")
       end
     end
 
     it 'returns a string with the facet values joined correctly' do
       text_values = another_facet.selected_values
-      expect(sentence.include?("<strong>#{text_values.first.label}</strong> or <strong>#{text_values.last.label}</strong>")).to be_truthy
+      expect(sentence).to include("<strong>#{text_values.first['label']}</strong> or <strong>#{text_values.last['label']}</strong>")
 
       date_fragment = a_date_facet.sentence_fragment
-      expect(sentence.include?("<strong>#{date_fragment.values.first.label}</strong> and <strong>#{date_fragment.values.last.label}</strong>")).to be_truthy
+      expect(sentence).to include("<strong>#{date_fragment['values'].first['label']}</strong> and <strong>#{date_fragment['values'].last['label']}</strong>")
     end
   end
 
