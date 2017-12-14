@@ -4,6 +4,9 @@ class SelectFacet < FilterableFacet
   end
 
   def options
+    # NOTE: We use a symbol-based hash here unlike all our other hash
+    # data-structures because we pass this to a govuk_component partial
+    # that expects symbol keys, not strings
     allowed_values.map do |allowed_value|
       {
         value: allowed_value['value'],
