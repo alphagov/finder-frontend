@@ -5,6 +5,8 @@ include FixturesHelper
 
 describe EmailAlertSubscriptionsController, type: :controller do
   include GovukContentSchemaExamples
+  render_views
+  let(:signup_finder) { cma_cases_signup_content_item }
 
   describe 'GET #new' do
     describe "finder email signup item doesn't exist" do
@@ -15,6 +17,15 @@ describe EmailAlertSubscriptionsController, type: :controller do
         expect(response.status).to eq(404)
       end
     end
+
+    describe "finder email signup item does exist" do
+      it 'returns a success' do
+        content_store_has_item('/does-exist/email-signup', signup_finder)
+        get :new, params: { slug: 'does-exist' }
+
+        expect(response).to be_success
+      end
+    end
   end
 
   describe 'POST "#create"' do
@@ -22,7 +33,6 @@ describe EmailAlertSubscriptionsController, type: :controller do
     let(:alert_identifier) { double(:alert_identifier) }
     let(:delivery_api) { double(:delivery_api) }
     let(:finder) { govuk_content_schema_example('finder').to_hash.merge(title: alert_name) }
-    let(:signup_finder) { cma_cases_signup_content_item }
     let(:signup_api_wrapper) {
       double(:signup_api_wrapper, signup_url: 'http://www.example.com')
     }
