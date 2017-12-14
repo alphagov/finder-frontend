@@ -9,7 +9,20 @@ class SearchParameters
   ALLOWED_FACET_FIELDS = %w{organisations manual}.freeze
 
   def initialize(params)
-    @params = enforce_bounds(params)
+    @params = enforce_bounds(search_params(params))
+  end
+
+  def search_params(params)
+    params.
+      permit(:q, :show_organisations_filter, :start, :count,
+             :debug_score, :debug, :format,
+             # allow facets as array values like:
+             #     filter_foo[]=bar&filter_foo[]=baz
+             Hash[ALLOWED_FACET_FIELDS.map { |facet| [:"filter_#{facet}", []] }],
+             # and allow facets as single string values like
+             #     filter_foo=bar
+             *ALLOWED_FACET_FIELDS.map { |facet| :"filter_#{facet}" }).
+      to_h
   end
 
   def search_term

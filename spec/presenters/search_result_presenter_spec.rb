@@ -4,10 +4,14 @@ RSpec.describe SearchResultPresenter do
   subject(:presenter) { SearchResultPresenter.new(document) }
 
   let(:document) {
-    OpenStruct.new(
+    double(
+      Document,
       title: title,
       path: link,
       metadata: metadata,
+      summary: 'I am a document',
+      is_historic: false,
+      government_name: 'The Government!',
     )
   }
 

@@ -2,21 +2,21 @@ class DateFacet < FilterableFacet
   def sentence_fragment
     return nil unless present_values.any?
 
-    OpenStruct.new(
-      type: "date",
-      preposition: [preposition, additional_preposition].compact.join(' '),
-      values: value_fragments,
-    )
+    {
+      'type' => "date",
+      'preposition' => [preposition, additional_preposition].compact.join(' '),
+      'values' => value_fragments,
+    }
   end
 
 private
 
   def value_fragments
     present_values.map { |_, date|
-      OpenStruct.new(
-        label: date.date.strftime("%e %B %Y"),
-        parameter_key: key,
-      )
+      {
+        'label' => date.date.strftime("%e %B %Y"),
+        'parameter_key' => key,
+      }
     }
   end
 

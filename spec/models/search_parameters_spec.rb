@@ -1,21 +1,25 @@
 require "spec_helper"
 
 RSpec.describe SearchParameters do
+  def search_params(params = {})
+    described_class.new(ActionController::Parameters.new(params))
+  end
+
   context '#count' do
     it 'default to default page size' do
-      params = described_class.new({})
+      params = search_params
 
       expect(params.count).to eq(described_class::DEFAULT_RESULTS_PER_PAGE)
     end
 
     it 'default to default page size when count < 1' do
-      params = described_class.new(count: -50)
+      params = search_params(count: -50)
 
       expect(params.count).to eq(described_class::DEFAULT_RESULTS_PER_PAGE)
     end
 
     it 'allow at most a hundred results' do
-      params = described_class.new(count: 10_000)
+      params = search_params(count: 10_000)
 
       expect(params.count).to eq(100)
     end
@@ -23,7 +27,7 @@ RSpec.describe SearchParameters do
 
   context '#suggest' do
     it "requests the spelling suggester by default" do
-      params = described_class.new({})
+      params = search_params
 
       expect(params.rummager_parameters[:suggest]).to eq("spelling")
     end
@@ -31,7 +35,7 @@ RSpec.describe SearchParameters do
 
   context '#start' do
     it 'start at 0 if start < 1' do
-      params = described_class.new(start: -1)
+      params = search_params(start: -1)
 
       expect(params.start).to eq(0)
     end
@@ -39,13 +43,13 @@ RSpec.describe SearchParameters do
 
   context "#filter_organisations" do
     it "pass on filter_organisations" do
-      params = described_class.new("filter_organisations" => ['ministry-of-silly-walks'])
+      params = search_params("filter_organisations" => ['ministry-of-silly-walks'])
 
       expect(params.rummager_parameters[:filter_organisations]).to eq(['ministry-of-silly-walks'])
     end
 
     it "pass on filter_organisations as an array if provided as single value" do
-      params = described_class.new("filter_organisations" => 'ministry-of-silly-walks')
+      params = search_params("filter_organisations" => 'ministry-of-silly-walks')
 
       expect(params.rummager_parameters[:filter_organisations]).to eq(['ministry-of-silly-walks'])
     end

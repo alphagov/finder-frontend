@@ -39,11 +39,11 @@ private
   end
 
   def topic_names
-    attributes.fetch("filter").collect { |x| choice_hash_by_key(x).topic_name }
+    attributes.fetch("filter").collect { |x| choice_hash_by_key(x)['topic_name'] }
   end
 
   def choice_hash_by_key(key)
-    available_choices.select { |x| x.key == key }[0]
+    available_choices.select { |x| x['key'] == key }[0]
   end
 
   def massaged_attributes

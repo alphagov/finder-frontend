@@ -10,15 +10,15 @@ describe SearchQueryBuilder do
   }
 
   let(:finder_content_item) {
-    double(
-      details: double(
-        facets: facets,
-        filter: double(to_h: filter),
-        reject: double(to_h: reject),
-        default_order: default_order,
-        default_documents_per_page: nil,
-      ),
-    )
+    {
+      'details' => {
+        'facets' => facets,
+        'filter' => filter,
+        'reject' => reject,
+        'default_order' => default_order,
+        'default_documents_per_page' => nil,
+      }
+    }
   }
 
   let(:facets) { [] }
@@ -34,15 +34,15 @@ describe SearchQueryBuilder do
 
   context "with pagination" do
     let(:finder_content_item) {
-      double(
-        details: double(
-          facets: facets,
-          filter: double(to_h: filter),
-          reject: double(to_h: reject),
-          default_order: default_order,
-          default_documents_per_page: 10
-        ),
-      )
+      {
+        'details' => {
+          'facets' => facets,
+          'filter' => filter,
+          'reject' => reject,
+          'default_order' => default_order,
+          'default_documents_per_page' => 10
+        }
+      }
     }
 
     it "should use documents_per_page from content item" do
@@ -64,14 +64,14 @@ describe SearchQueryBuilder do
   context "with facets" do
     let(:facets) {
       [
-        double(
-          key: "alpha",
-          filterable: false,
-        ),
-        double(
-          key: "beta",
-          filterable: false,
-        ),
+        {
+          'key' => "alpha",
+          'filterable' => false,
+        },
+        {
+          'key' => "beta",
+          'filterable' => false,
+        },
       ]
     }
 

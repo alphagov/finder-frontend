@@ -38,7 +38,7 @@ private
   end
 
   def documents_per_page
-    finder_content_item.details.default_documents_per_page || 1000
+    finder_content_item['details']['default_documents_per_page'] || 1000
   end
 
   def return_fields_query
@@ -61,7 +61,7 @@ private
   end
 
   def metadata_fields
-    finder_content_item.details.facets.map(&:key)
+    finder_content_item['details']['facets'].map { |f| f['key'] }
   end
 
   def order_query
@@ -85,7 +85,7 @@ private
   end
 
   def default_order
-    finder_content_item.details.default_order || "-public_timestamp"
+    finder_content_item['details']['default_order'] || "-public_timestamp"
   end
 
   def filter_query
@@ -104,17 +104,17 @@ private
 
   def filter_params
     @filter_params ||= FilterQueryBuilder.new(
-      facets: finder_content_item.details.facets,
+      facets: finder_content_item['details']['facets'],
       user_params: params,
     ).call
   end
 
   def base_filter
-    finder_content_item.details.filter.to_h
+    finder_content_item['details']['filter'].to_h
   end
 
   def base_reject
-    finder_content_item.details.reject.to_h
+    finder_content_item['details']['reject'].to_h
   end
 
   def facet_query
@@ -125,7 +125,7 @@ private
 
   def facet_params
     @facet_params ||= FacetQueryBuilder.new(
-      facets: finder_content_item.details.facets,
+      facets: finder_content_item['details']['facets'],
     ).call
   end
 end

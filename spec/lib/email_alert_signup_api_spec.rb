@@ -11,18 +11,18 @@ describe EmailAlertSignupAPI do
   }
   let(:available_choices) {
     [
-      OpenStruct.new(
+      {
         "key" => "first",
         "radio_button_name" => "First thing",
         "topic_name" => "first thing",
         "prechecked" => false,
-      ),
-      OpenStruct.new(
+      },
+      {
         "key" => "second",
         "radio_button_name" => "Second thing",
         "topic_name" => "second thing",
         "prechecked" => false,
-      ),
+      },
     ]
   }
   let(:subscription_list_title_prefix) {

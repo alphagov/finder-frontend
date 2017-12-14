@@ -17,7 +17,7 @@ private
   attr_reader :facets, :user_params
 
   def filters
-    @filters ||= facets.select(&:filterable).map { |f| build_filter(f) }
+    @filters ||= facets.select { |f| f['filterable'] }.map { |f| build_filter(f) }
   end
 
   def build_filter(facet)
@@ -25,9 +25,9 @@ private
       'date' => DateFilter,
       'text' => TextFilter,
       'topical' => TopicalFilter,
-    }.fetch(facet.type)
+    }.fetch(facet['type'])
 
-    params = user_params.fetch(facet.key, nil)
+    params = user_params.fetch(facet['key'], nil)
 
     filter_class.new(facet, params)
   end
@@ -39,7 +39,7 @@ private
     end
 
     def key
-      facet.key
+      facet['key']
     end
 
     def active?
@@ -99,8 +99,8 @@ private
     def value
       return nil if params.blank?
 
-      user_has_selected_open = params.include?(facet.open_value.value)
-      user_has_selected_closed = params.include?(facet.closed_value.value)
+      user_has_selected_open = params.include?(facet['open_value']['value'])
+      user_has_selected_closed = params.include?(facet['closed_value']['value'])
 
       # with both or neither selected, the filter is not used
       if user_has_selected_open && !user_has_selected_closed

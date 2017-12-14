@@ -10,15 +10,15 @@ class SignupPresenter
   end
 
   def name
-    content_item.title
+    content_item['title']
   end
 
   def body
-    content_item.description
+    content_item['description']
   end
 
   def beta?
-    content_item.details.beta
+    content_item['details']['beta']
   end
 
   def choices?
@@ -44,6 +44,6 @@ class SignupPresenter
 private
 
   def choice_data
-    content_item.details["email_signup_choice"]
+    content_item['details']["email_signup_choice"]
   end
 end

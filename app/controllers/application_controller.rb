@@ -21,7 +21,7 @@ private
       GovukError.notify(exception)
     end
 
-    render status: status_code, text: "#{status_code} error"
+    render status: status_code, plain: "#{status_code} error"
   end
 
   def finder_base_path
