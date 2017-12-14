@@ -44,8 +44,17 @@ describe EmailAlertSubscriptionsController, type: :controller do
       allow(EmailAlertSignupAPI).to receive(:new).and_return(signup_api_wrapper)
     end
 
-    it 'redirects to the correct email subscription url' do
+    it "fails if the relevant filters are not provided" do
       post :create, params: { slug: 'cma-cases' }
+      expect(response).to be_success
+      expect(response).to render_template('new')
+    end
+
+    it 'redirects to the correct email subscription url' do
+      post :create, params: {
+        slug: 'cma-cases',
+        filter: { 'ca98-and-civil-cartels' => '1', 'competition-disqualification' => '0' }
+      }
       expect(subject).to redirect_to('http://www.example.com')
     end
   end

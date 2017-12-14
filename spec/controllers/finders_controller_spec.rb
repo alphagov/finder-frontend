@@ -1,33 +1,36 @@
 require 'spec_helper'
 require 'gds_api/test_helpers/content_store'
-include GdsApi::TestHelpers::ContentStore
-include FixturesHelper
 
 describe FindersController, type: :controller do
+  include GdsApi::TestHelpers::ContentStore
+  include FixturesHelper
+  include GovukContentSchemaExamples
+  render_views
+
   describe "GET show" do
+    let(:lunch_finder) {
+      govuk_content_schema_example('finder').to_hash.merge(
+        'title' => 'Lunch Finder',
+        'base_path' => '/lunch-finder'
+      )
+    }
     describe "a finder content item exists" do
       before do
         content_store_has_item(
           '/lunch-finder',
-            base_path: '/lunch-finder',
-            title: 'Lunch Finder',
-            details: {
-              facets: [],
-            },
-            links: {
-              organisations: [],
-            },
+          lunch_finder
         )
 
         rummager_response = %|{
-            "results": [],
-            "total": 0,
-            "start": 0,
-            "facets": {},
-            "suggested_queries": []
-          }|
+          "results": [],
+          "total": 0,
+          "start": 0,
+          "facets": {},
+          "suggested_queries": []
+        }|
 
-        stub_request(:get, "#{Plek.current.find('search')}/search.json?count=1000&fields=title,link,description,public_timestamp&order=-public_timestamp&start=0").to_return(status: 200, body: rummager_response, headers: {})
+        stub_request(:get, "#{Plek.current.find('search')}/search.json?count=1000&fields=title,link,description,public_timestamp,walk_type,place_of_origin,date_of_introduction,creator&filter_document_type=mosw_report&order=-public_timestamp&start=0").
+          to_return(status: 200, body: rummager_response, headers: {})
       end
 
       it "correctly renders a finder page" do
@@ -54,26 +57,21 @@ describe FindersController, type: :controller do
       before do
         content_store_has_item(
           '/lunch-finder',
-            base_path: '/lunch-finder',
-            title: 'Lunch Finder',
-            details: {
-              default_order: "-closing_date",
-              facets: [],
-            },
-            links: {
-              organisations: [],
-            },
+          lunch_finder.merge(
+            'details' => lunch_finder['details'].merge('default_order' => "-closing_date")
+          )
         )
 
         rummager_response = %|{
-            "results": [],
-            "total": 0,
-            "start": 0,
-            "facets": {},
-            "suggested_queries": []
-          }|
+          "results": [],
+          "total": 0,
+          "start": 0,
+          "facets": {},
+          "suggested_queries": []
+        }|
 
-        stub_request(:get, "#{Plek.current.find('search')}/search.json?count=1000&fields=title,link,description,public_timestamp&order=-closing_date&start=0").to_return(status: 200, body: rummager_response, headers: {})
+        stub_request(:get, "#{Plek.current.find('search')}/search.json?count=1000&fields=title,link,description,public_timestamp,walk_type,place_of_origin,date_of_introduction,creator&filter_document_type=mosw_report&order=-closing_date&start=0").
+          to_return(status: 200, body: rummager_response, headers: {})
       end
 
       it "returns a 404 when requesting an atom feed, rather than a 500" do
