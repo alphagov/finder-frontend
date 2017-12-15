@@ -1,11 +1,14 @@
 require 'spec_helper'
 require 'gds_api/test_helpers/content_store'
-include GdsApi::TestHelpers::ContentStore
-include FixturesHelper
+require 'gds_api/test_helpers/email_alert_api'
 
 describe EmailAlertSubscriptionsController, type: :controller do
+  include GdsApi::TestHelpers::ContentStore
+  include GdsApi::TestHelpers::EmailAlertApi
+  include FixturesHelper
   include GovukContentSchemaExamples
   render_views
+
   let(:signup_finder) { cma_cases_signup_content_item }
 
   describe 'GET #new' do
@@ -29,19 +32,11 @@ describe EmailAlertSubscriptionsController, type: :controller do
   end
 
   describe 'POST "#create"' do
-    let(:alert_name) { double(:alert_name) }
-    let(:alert_identifier) { double(:alert_identifier) }
-    let(:delivery_api) { double(:delivery_api) }
-    let(:finder) { govuk_content_schema_example('finder').to_hash.merge(title: alert_name) }
-    let(:signup_api_wrapper) {
-      double(:signup_api_wrapper, signup_url: 'http://www.example.com')
-    }
+    let(:finder) { govuk_content_schema_example('finder').to_hash.merge(title: 'alert-name') }
 
     before do
       content_store_has_item('/cma-cases', finder)
       content_store_has_item('/cma-cases/email-signup', signup_finder)
-      allow(controller).to receive(:email_alert_api).and_return(delivery_api)
-      allow(EmailAlertSignupAPI).to receive(:new).and_return(signup_api_wrapper)
     end
 
     it "fails if the relevant filters are not provided" do
@@ -51,9 +46,16 @@ describe EmailAlertSubscriptionsController, type: :controller do
     end
 
     it 'redirects to the correct email subscription url' do
+      email_alert_api_has_subscriber_list(
+        "tags" => {
+          "case_type" => ['ca98-and-civil-cartels'],
+          "format" => [finder.dig('details', 'filter', 'document_type')]
+        },
+        "subscription_url" => 'http://www.example.com'
+      )
       post :create, params: {
         slug: 'cma-cases',
-        filter: { 'ca98-and-civil-cartels' => '1', 'competition-disqualification' => '0' }
+        filter: ['ca98-and-civil-cartels']
       }
       expect(subject).to redirect_to('http://www.example.com')
     end
