@@ -26,7 +26,7 @@ class SearchParameters
   end
 
   def search_term
-    params[:q]
+    params[:q]&.strip&.gsub(/\s{2,}/, ' ')
   end
 
   def show_organisations_filter?
