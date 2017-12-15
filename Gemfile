@@ -35,7 +35,7 @@ group :development, :test do
 end
 
 group :test do
-  gem 'cucumber-rails', '~> 1.4.0', require: false
+  gem 'cucumber-rails', '~> 1.5.0', require: false
   gem 'launchy', '~> 2.4.2'
   gem 'simplecov', '~> 0.15.0'
   gem 'webmock', '~> 2.3.0'
