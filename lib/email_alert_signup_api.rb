@@ -11,7 +11,7 @@ class EmailAlertSignupAPI
   end
 
   def signup_url
-    subscriber_list.subscription_url
+    subscriber_list['subscription_url']
   end
 
 private
@@ -20,7 +20,7 @@ private
 
   def subscriber_list
     response = email_alert_api.find_or_create_subscriber_list("tags" => massaged_attributes, "title" => title)
-    response.subscriber_list
+    response['subscriber_list']
   end
 
   def title
