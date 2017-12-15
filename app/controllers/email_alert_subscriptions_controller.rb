@@ -54,7 +54,7 @@ private
   end
 
   def chosen_options
-    params["filter"]
+    params.permit("filter" => [])['filter']
   end
 
   def email_signup_attributes
