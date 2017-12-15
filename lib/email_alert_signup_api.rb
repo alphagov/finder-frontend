@@ -11,7 +11,7 @@ class EmailAlertSignupAPI
   end
 
   def signup_url
-    subscriber_list.subscription_url
+    subscriber_list['subscription_url']
   end
 
 private
@@ -20,7 +20,7 @@ private
 
   def subscriber_list
     response = email_alert_api.find_or_create_subscriber_list("tags" => massaged_attributes, "title" => title)
-    response.subscriber_list
+    response['subscriber_list']
   end
 
   def title
@@ -43,7 +43,7 @@ private
   end
 
   def choice_hash_by_key(key)
-    available_choices.select { |x| x['key'] == key }[0]
+    available_choices.detect { |x| x['key'] == key }
   end
 
   def massaged_attributes
