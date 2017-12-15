@@ -43,7 +43,7 @@ private
   end
 
   def choice_hash_by_key(key)
-    available_choices.select { |x| x['key'] == key }[0]
+    available_choices.detect { |x| x['key'] == key }
   end
 
   def massaged_attributes
