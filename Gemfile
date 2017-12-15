@@ -29,7 +29,7 @@ end
 group :development, :test do
   gem 'jasmine-rails'
   gem 'awesome_print'
-  gem 'rspec-rails', '~> 3.5.0'
+  gem 'rspec-rails', '~> 3.7.2'
   gem 'pry-byebug'
   gem 'govuk-lint', '~> 3.3.1'
 end
