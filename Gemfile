@@ -8,7 +8,7 @@ gem 'gds-api-adapters', '~> 50.0'
 gem 'shared_mustache', '~> 1.0.1'
 gem 'govuk_app_config', '~> 1.0.0'
 gem 'chronic', '~> 0.10.2'
-gem 'govuk_ab_testing', '~> 2.4.0'
+gem 'govuk_ab_testing', '~> 2.4.1'
 gem 'govuk_navigation_helpers', '~> 2.0.0'
 gem 'govuk_publishing_components', '~> 1.10.0', require: false
 
