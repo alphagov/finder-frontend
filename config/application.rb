@@ -28,6 +28,11 @@ module FinderFrontend
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
 
+    # Override Rails 4 default which restricts framing to SAMEORIGIN.
+    config.action_dispatch.default_headers = {
+      'X-Frame-Options' => 'ALLOWALL'
+    }
+
     # Path within public/ where assets are compiled to
     config.assets.prefix = '/finder-frontend'
 
