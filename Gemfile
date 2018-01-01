@@ -14,7 +14,7 @@ gem 'govuk_publishing_components', '~> 3.0.2', require: false
 
 gem 'govuk_frontend_toolkit', '~> 7.2'
 gem 'sass-rails', '~> 5.0'
-gem 'uglifier', '~> 2.7', '>= 2.7.2'
+gem 'uglifier', '~> 4.1'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
