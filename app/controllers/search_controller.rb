@@ -31,7 +31,7 @@ class SearchController < ApplicationController
     @spelling_suggestion = @results.spelling_suggestion
 
     fill_in_slimmer_headers(@results.result_count)
-    response.headers['foo'] = 'bar'
+
     respond_to do |format|
       format.html
       format.json { render json: @results }
