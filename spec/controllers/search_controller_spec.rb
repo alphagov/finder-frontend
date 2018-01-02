@@ -23,18 +23,4 @@ describe SearchController, type: :controller do
 
     stub_request(:get, /search.json/).to_return(status: 200, body: rummager_response, headers: {})
   end
-
-  context "Synonym A/B test" do
-    it "should set the correct A variant tags" do
-      with_variant SearchSynonyms: "A" do
-        get :index, params: { q: "cheese" }
-      end
-    end
-
-    it "should set the correct B variant tags" do
-      with_variant SearchSynonyms: "B" do
-        get :index, params: { q: "cheese" }
-      end
-    end
-  end
 end
