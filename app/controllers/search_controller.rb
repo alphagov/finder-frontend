@@ -5,13 +5,8 @@ class SearchController < ApplicationController
   before_action :set_expiry
   before_action :remove_search_box
 
-  helper_method :search_ab_test_variant
-  after_action :set_search_ab_test_response_header
-
   rescue_from GdsApi::BaseError, with: :error_503
   layout 'search-application'
-
-  SEARCH_AB_TEST_DIMENSION = 42
 
   def index
     search_params = SearchParameters.new(params)
@@ -22,8 +17,7 @@ class SearchController < ApplicationController
       render(action: 'no_search_term') && return
     end
 
-    variant = search_ab_test_variant.variant_name
-    search_response = SearchAPI.new(search_params, synonyms: variant).search
+    search_response = SearchAPI.new(search_params).search
 
     @search_term = search_params.search_term
 
@@ -42,22 +36,6 @@ class SearchController < ApplicationController
       format.html
       format.json { render json: @results }
     end
-  end
-
-  def search_ab_test
-    GovukAbTesting::AbTest.new(
-      "SearchSynonyms",
-      dimension: SEARCH_AB_TEST_DIMENSION
-    )
-  end
-
-  def search_ab_test_variant
-    @_search_ab_test_variant ||=
-      search_ab_test.requested_variant(request.headers)
-  end
-
-  def set_search_ab_test_response_header
-    search_ab_test_variant.configure_response(response)
   end
 
 protected
