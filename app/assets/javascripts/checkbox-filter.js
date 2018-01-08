@@ -18,6 +18,8 @@
     // setupHeight is called on open, but filters containing checked checkboxes will already be open
     if (this.isOpen() || !allowCollapsible) {
       this.setupHeight();
+    } else {
+      this.hideCheckboxesFromTabindex(true);
     }
 
     if(allowCollapsible){
@@ -50,12 +52,25 @@
   }
 
   CheckboxFilter.prototype.open = function open(){
+    this.hideCheckboxesFromTabindex(false);
     this.$filter.removeClass('closed');
     this.setupHeight();
   };
 
   CheckboxFilter.prototype.close = function close(){
+    this.hideCheckboxesFromTabindex(true);
     this.$filter.addClass('closed');
+  };
+
+  // allows keyboard users to reach search results without having to tab through approx 100 checkboxes
+  CheckboxFilter.prototype.hideCheckboxesFromTabindex = function hideCheckboxesFromTabindex(remove){
+    this.$checkboxes.each(function(){
+      if (remove) {
+        $(this).attr('tabindex','-1');
+      } else {
+        $(this).removeAttr('tabindex');
+      }
+    });
   };
 
   CheckboxFilter.prototype.listenForKeys = function listenForKeys(){
