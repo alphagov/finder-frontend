@@ -6,13 +6,13 @@ class ScopedSearchResultsPresenter < SearchResultsPresenter
       unscoped_result_count: result_count_string(unscoped_result_count))
   end
 
-private
-
-  attr_reader :unscoped_results
-
   def filter_fields
     []
   end
+
+private
+
+  attr_reader :unscoped_results
 
   def scope_title
     search_response["scope"]["title"]
