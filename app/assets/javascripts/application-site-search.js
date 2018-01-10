@@ -15,7 +15,6 @@
 //= require shared_mustache
 //= require templates
 //
-//= require checkbox-filter
 //= require live-site-search
 //= require search
 //= require govuk_toolkit

@@ -131,9 +131,6 @@
         liveSearch.$resultsBlock.find('.js-live-search-results-list').mustache('search/_results_list', results);
       } else {
         liveSearch.$resultsBlock.mustache('search/_results_block', results);
-        liveSearch.$resultsBlock.find('.js-openable-filter').each(function(){
-          new GOVUK.CheckboxFilter({el:$(this)});
-        })
       }
       liveSearch.updateAriaLiveCount();
     },

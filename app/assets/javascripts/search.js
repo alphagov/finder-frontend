@@ -30,11 +30,6 @@
       return searchResultData;
     },
     enableLiveSearchCheckbox: function ($searchResults) {
-      if($('.js-openable-filter input[type=checkbox]').length) {
-        $('.js-openable-filter').each(function(){
-          new GOVUK.CheckboxFilter({el:$(this)});
-        });
-      }
       GOVUK.liveSiteSearch.init();
     },
     extractSearchSuggestion: function () {
