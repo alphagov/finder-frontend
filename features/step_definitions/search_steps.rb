@@ -177,16 +177,19 @@ Then(/^I can see search suggestions$/) do
 end
 
 Then(/^Organisations filter should be expanded$/) do
-  expect(page).to have_css(".filter-form .filter")
-  expect(page).to have_no_css(".filter-form .filter.closed")
+  within shared_component_selector('option_select') do
+    expect(JSON.parse(page.text).fetch('closed_on_load')).to be false
+  end
 end
 
 Then(/^Organisations filter should not be expanded$/) do
-  expect(page).to have_css(".filter-form .filter.closed")
+  within shared_component_selector('option_select') do
+    expect(JSON.parse(page.text).fetch('closed_on_load')).to be true
+  end
 end
 
-Then(/^Organisations filter should not be display$/) do
-  expect(page).to have_no_css(".filter-form")
+Then(/^Organisations filter should not be displayed$/) do
+  expect(page).to have_no_css(shared_component_selector('option_select'))
 end
 
 Then /^I can see the search term$/ do

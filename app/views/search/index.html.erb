@@ -15,7 +15,33 @@
 
     <div id="results" class="js-live-search-results-block">
       <div aria-live="assertive" class='js-aria-live-count visuallyhidden'><%= @results.result_count %> found</div>
-      <%= render_mustache('filters', @results.to_hash) %>
+
+      <div class="filter-form">
+        <div class="inner-block">
+          <% @results.filter_fields.each do |filter| %>
+            <% filter_options = filter[:options][:options].map do |option|
+                option[:id] = option[:slug]
+                option[:value] = option[:slug]
+                option[:label] = "#{option[:title]} (#{option[:count]})"
+                option
+              end
+            %>
+
+            <%= render partial: 'govuk_component/option_select', locals: {
+              :key => "filter_#{filter[:field]}",
+              :title => filter[:field_title],
+              :aria_controls_id => "js-live-search-results",
+              :options_container_id => filter[:field],
+              :options => filter_options,
+              :closed_on_load => !filter[:show_organisations_filter],
+            }
+            %>
+          <% end %>
+          <div class="submit js-live-search-fallback">
+            <%= render 'govuk_component/button', text: 'Submit filters' %>
+          </div>
+        </div>
+      </div>
       <%= render_mustache('results_block', @results.to_hash) %>
     </div>
   </form>

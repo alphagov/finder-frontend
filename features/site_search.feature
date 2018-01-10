@@ -42,7 +42,7 @@ Feature: Site search
     When I search for "search-term" with show organisation flag
     Then Organisations filter should be expanded
     When I search for "search-term" with manuals filter
-    Then Organisations filter should not be display
+    Then Organisations filter should not be displayed
 
   Scenario: Pagination
     Given multiple pages of search results exists
