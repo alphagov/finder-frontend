@@ -20,7 +20,7 @@ Finder pages provide facetted searching over a collection of documents.
 * [gov.uk/government/case-studies](https://www.gov.uk/government/case-studies)
 * [gov.uk/government/groups](https://www.gov.uk/government/groups)
 * [gov.uk/government/people](https://www.gov.uk/government/people)
-* [gov.uk/government/world/organisations](https://www.gov.uk/government/world/organisations)
+* [gov.uk/world/organisations](https://www.gov.uk/world/organisations)
 * [gov.uk/international-development-funding](https://www.gov.uk/international-development-funding)
 * [gov.uk/maib-reports](https://www.gov.uk/maib-reports)
 * [gov.uk/raib-reports](https://www.gov.uk/raib-reports)
