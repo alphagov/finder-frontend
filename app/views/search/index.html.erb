@@ -28,7 +28,7 @@
                 end
               %>
 
-              <%= render partial: 'govuk_component/option_select', locals: {
+              <%= render partial: 'components/option-select', locals: {
                 :key => "filter_#{filter[:field]}",
                 :title => filter[:field_title],
                 :aria_controls_id => "js-live-search-results",

@@ -123,8 +123,8 @@ end
 Then(/^I can see filters based on the results$/) do
   visit finder_path('government/policies')
 
-  within shared_component_selector('option_select') do
-    expect(page).to have_content('ministry-of-justice')
+  within '.app-c-option-select' do
+    expect(page).to have_selector('input#organisations-ministry-of-justice')
     expect(page).to have_content('Ministry of Justice')
   end
 end
