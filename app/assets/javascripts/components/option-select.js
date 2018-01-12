@@ -191,7 +191,7 @@
   GOVUK.OptionSelect = OptionSelect;
 
   // Instantiate an option select for each one found on the page
-  var filters = $('.govuk-option-select').map(function(){
+  var filters = $('.app-c-option-select').map(function(){
     return new GOVUK.OptionSelect({$el:$(this)});
   });
 })(jQuery);

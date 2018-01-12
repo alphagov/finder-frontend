@@ -2,7 +2,7 @@ require 'govuk_component_test_helper'
 
 class OptionSelectTestCase < ComponentTestCase
   def component_name
-    "option_select"
+    "option-select"
   end
 
   def option_key
@@ -69,7 +69,7 @@ class OptionSelectTestCase < ComponentTestCase
     arguments[:closed_on_load] = true
     render_component(arguments)
 
-    assert_select '.govuk-option-select[data-closed-on-load="true"]'
+    assert_select '.app-c-option-select[data-closed-on-load="true"]'
   end
 
   def assert_label_and_checked_checkbox(label, id, value)

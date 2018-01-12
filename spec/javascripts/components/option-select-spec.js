@@ -4,7 +4,7 @@ describe('GOVUK.OptionSelect', function() {
 
   beforeEach(function(){
 
-    optionSelectFixture = '<div class="govuk-option-select">'+
+    optionSelectFixture = '<div class="app-c-option-select">'+
       '<div class="container-head js-container-head">'+
         '<div class="option-select-label">Market sector</div>'+
       '</div>'+
@@ -66,7 +66,7 @@ describe('GOVUK.OptionSelect', function() {
 
 
   it('instantiates a closed option-select if data-closed-on-load is true', function(){
-    closedOnLoadFixture = '<div class="govuk-option-select" data-closed-on-load=true>' +
+    closedOnLoadFixture = '<div class="app-c-option-select" data-closed-on-load=true>' +
                             '<div class="container-head js-container-head"></div>' +
                           '</div>';
     $closedOnLoadFixture = $(closedOnLoadFixture);
@@ -78,7 +78,7 @@ describe('GOVUK.OptionSelect', function() {
   });
 
   it('ignores aria-controls if the referenced element isn’t present', function(){
-    $fixture = $('<div class="govuk-option-select" data-input-aria-controls="element-missing">' +
+    $fixture = $('<div class="app-c-option-select" data-input-aria-controls="element-missing">' +
                     '<input type="checkbox">' +
                     '<input type="checkbox">' +
                   '</div>');
@@ -92,7 +92,7 @@ describe('GOVUK.OptionSelect', function() {
 
   it('adds aria-controls attributes to all checkboxes if the referenced element is on the page', function(){
     $controls = $('<div id="element-present"></div>');
-    $fixture = $('<div class="govuk-option-select" data-input-aria-controls="element-present">' +
+    $fixture = $('<div class="app-c-option-select" data-input-aria-controls="element-present">' +
                     '<input type="checkbox">' +
                     '<input type="checkbox">' +
                   '</div>');
@@ -107,7 +107,7 @@ describe('GOVUK.OptionSelect', function() {
   });
 
   it('instantiates an open option-select if data-closed-on-load is false', function(){
-    openOnLoadFixture = '<div class="govuk-option-select" data-closed-on-load=false>' +
+    openOnLoadFixture = '<div class="app-c-option-select" data-closed-on-load=false>' +
                             '<div class="container-head js-container-head"></div>' +
                           '</div>';
     $openOnLoadFixture = $(openOnLoadFixture);
@@ -119,7 +119,7 @@ describe('GOVUK.OptionSelect', function() {
   });
 
   it('instantiates an open option-select if data-closed-on-load is not present', function(){
-    openOnLoadFixture = '<div class="govuk-option-select">' +
+    openOnLoadFixture = '<div class="app-c-option-select">' +
                           '<div class="container-head js-container-head"></div>' +
                         '</div>';
     $openOnLoadFixture = $(openOnLoadFixture);
@@ -135,7 +135,7 @@ describe('GOVUK.OptionSelect', function() {
   });
 
   it ('doesn\'t set the height of the options container as part of initialisation if closed-on-load is true', function(){
-    closedOnLoadFixture = '<div class="govuk-option-select" data-closed-on-load=true>' +
+    closedOnLoadFixture = '<div class="app-c-option-select" data-closed-on-load=true>' +
                             '<div class="options-container"></div>' +
                           '</div>';
     $closedOnLoadFixture = $(closedOnLoadFixture);
