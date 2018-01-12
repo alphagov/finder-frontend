@@ -1,0 +1,134 @@
+.govuk-option-select {
+  background-color: $grey-3;
+  padding: 5px;
+  margin-bottom: $gutter;
+
+  @include media(desktop) {
+    // Redefine scrollbars on desktop where these lists are scrollable
+    // so they are always visible in option lists
+    ::-webkit-scrollbar {
+      -webkit-appearance: none;
+      width: 7px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      border-radius: 4px;
+
+      // scss-lint:disable ColorVariable
+      background-color: rgba(0, 0, 0, .5);
+      -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .5);
+    }
+  }
+
+  &:focus {
+    outline: 3px solid $yellow;
+  }
+
+  .container-head {
+    padding: 0 5px;
+  }
+
+  .option-select-label {
+    @include core-19;
+    margin-right: 40px;
+    font-weight: bold;
+    padding-top: 5px;
+  }
+
+  .options-container {
+    position: relative;
+    background-color: $page-colour;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    @include media(desktop) {
+      max-height: 200px;
+    }
+
+    label {
+      display: block;
+      padding: 7px 7px 7px 35px;
+      border-bottom: 1px solid $border-colour;
+      cursor: pointer;
+
+      @include media(desktop) {
+        // leave space to interact with the scroll bars on desktop
+        width: 90%;
+      }
+
+      &:hover {
+        background-color: $highlight-colour;
+      }
+    }
+
+    input {
+      float: left;
+      margin: 2px 0 0 -27px;
+      width: 20px;
+      height: 20px;
+
+      @include ie(8) {
+        width: auto;
+        height: auto;
+        margin-top: 0;
+      }
+    }
+  }
+
+  .js-enabled & {
+    padding: 0 0 1px;
+
+    .js-selected-counter {
+      @include core-14;
+    }
+
+    .options-container {
+      border: 5px solid $grey-3;
+    }
+
+    // styles for collapsibleness. .js-collapsible is added by the javascript if the browser is not ie6/7 in which case these don't collapse
+    &.js-collapsible {
+      button {
+        z-index: 100;
+        position: relative;
+        border: none;
+        display: block;
+        width: 100%;
+        text-align: left;
+        cursor: pointer;
+        margin-bottom: -1px;
+        padding: 5px 8px;
+        background: image-url('components/option-select-toggle-sprite.png') no-repeat right 5px;
+        background-color: $grey-3;
+
+        @include device-pixel-ratio() {
+          background-size: 32px 50px;
+          background: image-url('components/option-select-toggle-sprite.png') no-repeat right 5px;
+        }
+
+        &:hover {
+          background-color: $grey-2;
+        }
+
+        &:hover + .options-container {
+          border-color: $grey-2;
+        }
+
+        &[disabled] {
+          background-image: none;
+          color: inherit;
+        }
+      }
+
+      &.js-closed {
+        button {
+          background-position: right -75px;
+        }
+
+        .options-container {
+          display: none;
+        }
+      }
+    }
+  }
+}

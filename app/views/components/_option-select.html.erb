@@ -1,0 +1,28 @@
+<% title_id = "option-select-title-#{title.parameterize}" %>
+<div class="govuk-option-select"
+  <% if local_assigns.include?(:closed_on_load) && closed_on_load %>data-closed-on-load="true"<% end %>
+  <% if local_assigns.include?(:aria_controls_id) %>data-input-aria-controls="<%= aria_controls_id %>"<% end %>
+>
+  <div class="container-head js-container-head">
+    <div class="option-select-label" id="<%= title_id %>">
+      <%= title %>
+    </div>
+  </div>
+  <div role="group" aria-labelledby="<%= title_id %>" class="options-container" id="<%= options_container_id %>">
+    <div class="js-auto-height-inner">
+      <% options.each do | option |%>
+      <label for="<%= key %>-<%= option[:id] %>">
+        <input
+        name="<%= key %>[]"
+        value="<%= option[:value]%>"
+        id="<%= key %>-<%= option[:id]%>"
+        type="checkbox"
+        <% if option[:checked].present? %>checked="checked"<% end %>
+        >
+        <%= option[:label] %>
+        </label>
+      <% end %>
+    </div>
+
+  </div>
+</div>
