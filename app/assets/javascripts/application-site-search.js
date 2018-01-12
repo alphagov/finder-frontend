@@ -19,3 +19,4 @@
 //= require search
 //= require govuk_toolkit
 //= require_tree ./modules
+//= require_tree ./components
