@@ -177,15 +177,12 @@ Then(/^I can see search suggestions$/) do
 end
 
 Then(/^Organisations filter should be expanded$/) do
-  within shared_component_selector('option_select') do
-    expect(JSON.parse(page.text).fetch('closed_on_load')).to be false
-  end
+  expect(page).to have_css('.app-c-option-select input')
+  expect(page).to have_no_css('.app-c-option-select[data-closed-on-load="true"]')
 end
 
 Then(/^Organisations filter should not be expanded$/) do
-  within shared_component_selector('option_select') do
-    expect(JSON.parse(page.text).fetch('closed_on_load')).to be true
-  end
+  expect(page).to have_css('.app-c-option-select[data-closed-on-load="true"]')
 end
 
 Then(/^Organisations filter should not be displayed$/) do
