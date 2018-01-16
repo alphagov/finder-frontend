@@ -1,4 +1,4 @@
-FROM ruby:2.3.1
+FROM ruby:2.4.2
 RUN apt-get update -qq && apt-get upgrade -y
 
 RUN apt-get install -y build-essential nodejs && apt-get clean
@@ -17,4 +17,8 @@ RUN bundle install
 
 ADD . $APP_HOME
 
-CMD bash -c "bundle exec rails s -p $PORT -b '0.0.0.0'"
+RUN GOVUK_APP_DOMAIN=www.gov.uk RAILS_ENV=production bundle exec rails assets:precompile
+
+HEALTHCHECK CMD curl --silent --fail localhost:$PORT/healthcheck || exit 1
+
+CMD bash -c "bundle exec unicorn -p $PORT"
