@@ -12,7 +12,7 @@ gem 'govuk_ab_testing', '~> 2.4.1'
 gem 'govuk_navigation_helpers', '~> 7.3.0'
 gem 'govuk_publishing_components', '~> 4.1.1', require: false
 
-gem 'govuk_frontend_toolkit', '~> 7.2'
+gem 'govuk_frontend_toolkit', '~> 7.4'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '~> 4.1'
 
