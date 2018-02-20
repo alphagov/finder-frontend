@@ -66,9 +66,20 @@ The application has jasmine tests, which can be accessed at `/specs` when the ap
 [content_schema_examples]: https://github.com/alphagov/finder-frontend/blob/master/lib/govuk_content_schema_examples.rb
 
 ## Making a new finder
+
 1. If required, add a schema to [alphagov/rummager](http://github.com/alphagov/rummager) describing your document type -- [example](https://github.com/alphagov/rummager/blob/master/config/schema/elasticsearch_types/cma_case.json)
 2. Publish a Finder Content Item to the content store. See the doc for [Finder Content Item](https://github.com/alphagov/finder-frontend/blob/master/docs/finder-content-item.md) for more info.
 3. Ensure your documents are indexed in [alphagov/rummager](http://github.com/alphagov/rummager) correctly.
+
+### Developing a finder locally
+
+You can run this application with a local file so you can develop a finder without having to publish the content item to the publishing-api.
+
+For example:
+
+```
+DEVELOPMENT_FINDER_JSON=features/fixtures/aaib_reports_example.json ./startup.sh --live
+```
 
 ### How to add a fixed filter?
 

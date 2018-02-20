@@ -21,7 +21,11 @@ private
   attr_reader :base_path, :filter_params
 
   def fetch_content_item
-    Services.content_store.content_item(base_path)
+    if ENV["DEVELOPMENT_FINDER_JSON"]
+      JSON.parse(File.read(ENV["DEVELOPMENT_FINDER_JSON"]))
+    else
+      Services.content_store.content_item(base_path)
+    end
   end
 
   def fetch_search_response(content_item)
