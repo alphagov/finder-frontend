@@ -19,7 +19,7 @@ class ResultSetPresenter
 
   def to_hash
     {
-      total: total > 1000 ? "1,000+" : total,
+      total: total,
       pluralised_document_noun: document_noun.pluralize(total),
       applied_filters: describe_filters_in_sentence,
       documents: documents,
