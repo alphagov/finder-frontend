@@ -20,6 +20,7 @@
       <%= yield %>
     </div>
   </main>
+  <%= render 'govuk_publishing_components/components/feedback' %>
 </div>
 <%= render_mustache_templates if Rails.env.development? %>
 </body>
