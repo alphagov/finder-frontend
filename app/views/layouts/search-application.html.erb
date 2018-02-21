@@ -17,6 +17,7 @@
 <body class="mainstream <%= yield :body_classes %>">
 <div id="wrapper">
   <%= yield %>
+  <%= render 'govuk_publishing_components/components/feedback' %>
   <%= render_mustache_templates if Rails.env.development? %>
 </div>
 </body>
