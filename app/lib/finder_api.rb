@@ -21,6 +21,12 @@ private
   attr_reader :base_path, :filter_params
 
   def fetch_content_item
+    # Temporary override to make development easier. In the real world this comes
+    # from the content store, obvs.
+    unless Rails.env.test?
+      ENV["DEVELOPMENT_FINDER_JSON"] = "all-finder.json"
+    end
+
     if ENV["DEVELOPMENT_FINDER_JSON"]
       JSON.parse(File.read(ENV["DEVELOPMENT_FINDER_JSON"]))
     else

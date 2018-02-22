@@ -23,6 +23,7 @@ private
   def build_filter(facet)
     filter_class = {
       'date' => DateFilter,
+      'hidden' => HiddenFilter,
       'text' => TextFilter,
       'topical' => TopicalFilter,
     }.fetch(facet['type'])
@@ -86,6 +87,12 @@ private
       else
         {}
       end
+    end
+  end
+
+  class HiddenFilter < Filter
+    def value
+      params
     end
   end
 
