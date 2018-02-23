@@ -8,12 +8,17 @@ class FinderApi
 
   def content_item_with_search_results
     content_item = fetch_content_item
+    if filter_params['taxons']
+      taxon = fetch_taxon
+      filter_params['taxons'] = taxon['content_id']
+    end
     search_response = fetch_search_response(content_item)
-
-    augment_content_item_with_results(
+    res = augment_content_item_with_results(
       content_item,
       search_response,
+      taxon
     )
+    res
   end
 
 private
@@ -34,6 +39,10 @@ private
     end
   end
 
+  def fetch_taxon
+    Services.content_store.content_item(filter_params['taxons'])
+  end
+
   def fetch_search_response(content_item)
     query = SearchQueryBuilder.new(
       finder_content_item: content_item,
@@ -43,7 +52,7 @@ private
     Services.rummager.search(query).to_hash
   end
 
-  def augment_content_item_with_results(content_item, search_response)
+  def augment_content_item_with_results(content_item, search_response, taxon = nil)
     content_item['details']['results'] = search_response.fetch("results")
     content_item['details']['total_result_count'] = search_response.fetch("total")
 
@@ -56,6 +65,11 @@ private
     search_response.fetch("facets", {}).each do |facet_key, facet_details|
       facet = content_item['details']['facets'].find { |f| f['key'] == facet_key }
       facet['allowed_values'] = allowed_values_for_facet_details(facet_details) if facet
+    end
+
+    if taxon
+      facet = content_item['details']['facets'].find { |f| f['key'] == 'taxons' }
+      facet['allowed_values'] = [{'label' => taxon['title'], 'value' => taxon['base_path'] }]
     end
 
     content_item

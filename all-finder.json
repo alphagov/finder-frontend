@@ -47,18 +47,86 @@
             "key": "taxons",
             "name": "Taxonomy",
             "type": "hidden",
-          	"preposition": "about",
-            "display_as_result_metadata": false,
-            "filterable": true
+            "preposition": "about",
+            "display_as_result_metadata": true,
+            "filterable": true,
+            "allowed_values": [
+            ]
           },
-					{
-          	"key": "content_purpose_document_supertype",
-          	"name": "Publication type",
-          	"type": "hidden",
-          	"preposition": "of type",
-          	"display_as_result_metadata": false,
-          	"filterable": true
-					}
+          {
+            "key": "content_purpose_document_supertype",
+            "name": "Publication type",
+            "type": "hidden",
+            "preposition": "of type",
+            "display_as_result_metadata": true,
+            "filterable": true,
+            "allowed_values": [
+              {
+                "label": "News",
+                "value": "news"
+              },
+              {
+                "label": "Resources",
+                "value": "resources"
+              },
+              {
+                "label": "Speeches and statements",
+                "value": "speeches-and-statements"
+              },
+              {
+                "label": "Guidance",
+                "value": "guidance"
+              },
+              {
+                "label": "Updates and alerts",
+                "value": "updates-and-alerts"
+              },
+              {
+                "label": "Contacts",
+                "value": "contacts"
+              },
+              {
+                "label": "Transactions",
+                "value": "transactions"
+              },
+              {
+                "label": "Reports",
+                "value": "reports"
+              },
+              {
+                "label": "Decisions",
+                "value": "decisions"
+              },
+              {
+                "label": "Engagement activities",
+                "value": "engagement-activities"
+              },
+              {
+                "label": "Data",
+                "value": "data"
+              },
+              {
+                "label": "Organising entities",
+                "value": "organising-entities"
+              },
+              {
+                "label": "Navigation",
+                "value": "navigation"
+              },
+              {
+                "label": "Grants and funding",
+                "value": "grants-and-funding"
+              },
+              {
+                "label": "Corporate information",
+                "value": "corporate-info"
+              },
+              {
+                "label": "Service Manual",
+                "value": "service-manual"
+              }
+            ]
+          }
       ],
       "default_documents_per_page":20
    }
