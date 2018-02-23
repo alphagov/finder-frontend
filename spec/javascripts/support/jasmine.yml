@@ -7,6 +7,7 @@ src_dir: "app/assets/javascripts"
 # relative path from src_dir
 src_files:
  - "../../../spec/javascripts/helpers/jquery-1.12.4.js"
+ - "govuk_toolkit_for_tests.js" # this is provided by Static in production
  - "application.js"
  - "live-site-search.js"
  - "search.js"
