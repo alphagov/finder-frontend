@@ -7,7 +7,11 @@ class SelectFacet < FilterableFacet
     # NOTE: We use a symbol-based hash here unlike all our other hash
     # data-structures because we pass this to a govuk_component partial
     # that expects symbol keys, not strings
-    allowed_values.map do |allowed_value|
+    allowed_values_map = allowed_values.map do |allowed_value|
+      # When documents are tagged to a non-existing thing (person, org)
+      # the label will be blank. Filter them out here to avoid a weird UI.
+      next if allowed_value['label'].blank?
+
       {
         value: allowed_value['value'],
         label: allowed_value['label'],
@@ -15,6 +19,8 @@ class SelectFacet < FilterableFacet
         checked: selected_values.include?(allowed_value),
       }
     end
+
+    allowed_values_map.compact
   end
 
   def value=(new_value)

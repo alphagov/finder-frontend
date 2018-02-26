@@ -1,0 +1,177 @@
+{
+   "analytics_identifier":null,
+   "base_path":"/aaib-reports",
+   "content_id":"b7574bba-969f-4c49-855a-ae1586258ff6",
+   "content_purpose_document_supertype":"navigation",
+   "document_type":"finder",
+   "email_document_supertype":"other",
+   "first_published_at":"2015-09-03T14:47:48.000+00:00",
+   "government_document_supertype":"other",
+   "locale":"en",
+   "navigation_document_supertype":"other",
+   "need_ids":[
+
+   ],
+   "phase":"live",
+   "public_updated_at":"2018-01-24T09:55:35.000+00:00",
+   "publishing_app":"specialist-publisher",
+   "rendering_app":"finder-frontend",
+   "schema_name":"finder",
+   "search_user_need_document_supertype":"government",
+   "title":"Latest on GOV.UK",
+   "updated_at":"2018-01-24T09:56:39.528Z",
+   "user_journey_document_supertype":"finding",
+   "withdrawn_notice":{
+
+   },
+   "links":{
+      "available_translations":[
+         {
+            "title":"Air Accidents Investigation Branch reports",
+            "public_updated_at":"2018-01-24T09:55:35Z",
+            "document_type":"finder",
+            "schema_name":"finder",
+            "base_path":"/aaib-reports",
+            "description":"Find reports of AAIB investigations into air accidents and incidents",
+            "api_path":"/api/content/aaib-reports",
+            "withdrawn":false,
+            "content_id":"b7574bba-969f-4c49-855a-ae1586258ff6",
+            "locale":"en",
+            "api_url":"https://www.gov.uk/api/content/aaib-reports",
+            "web_url":"https://www.gov.uk/aaib-reports",
+            "links":{
+
+            }
+         }
+      ]
+   },
+   "description":"",
+   "details":{
+      "document_noun":"page",
+      "reject":{
+        "content_store_document_type": ["browse"]
+      },
+      "show_summaries":true,
+      "facets": [
+        {
+          "key": "content_purpose_document_supertype",
+          "name": "Publication type",
+          "type": "text",
+          "preposition": "of type",
+          "display_as_result_metadata": false,
+          "filterable": true,
+          "allowed_values": [
+            {
+              "label": "News",
+              "value": "news"
+            },
+            {
+              "label": "Resources",
+              "value": "resources"
+            },
+            {
+              "label": "Speeches and statements",
+              "value": "speeches-and-statements"
+            },
+            {
+              "label": "Guidance",
+              "value": "guidance"
+            },
+            {
+              "label": "Updates and alerts",
+              "value": "updates-and-alerts"
+            },
+            {
+              "label": "Contacts",
+              "value": "contacts"
+            },
+            {
+              "label": "Transactions",
+              "value": "transactions"
+            },
+            {
+              "label": "Reports",
+              "value": "reports"
+            },
+            {
+              "label": "Decisions",
+              "value": "decisions"
+            },
+            {
+              "label": "Engagement activities",
+              "value": "engagement-activities"
+            },
+            {
+              "label": "Data",
+              "value": "data"
+            },
+            {
+              "label": "Organising entities",
+              "value": "organising-entities"
+            },
+            {
+              "label": "Navigation",
+              "value": "navigation"
+            },
+            {
+              "label": "Grants and funding",
+              "value": "grants-and-funding"
+            },
+            {
+              "label": "Corporate information",
+              "value": "corporate-info"
+            },
+            {
+              "label": "Service Manual",
+              "value": "service-manual"
+            }
+          ]
+        },
+          {
+            "key": "organisations",
+            "name": "Organisation",
+            "type": "text",
+            "display_as_result_metadata": true,
+            "filterable": true
+          },
+          {
+            "key": "world_locations",
+            "name": "World location",
+            "type": "text",
+            "display_as_result_metadata": true,
+            "filterable": true
+          },
+          {
+            "key": "policy_areas",
+            "name": "Policy area",
+            "type": "text",
+            "display_as_result_metadata": true,
+            "filterable": true
+          },
+          {
+            "key": "people",
+            "name": "Person",
+            "type": "text",
+            "display_as_result_metadata": true,
+            "filterable": true
+          },
+          {
+            "key":"public_timestamp",
+            "name":"Publication date",
+            "short_name":"Published",
+            "type":"date",
+            "preposition":"published",
+            "display_as_result_metadata":true,
+            "filterable":true
+          },
+          {
+            "key": "taxons",
+            "name": "Taxonomy",
+            "type": "text",
+            "display_as_result_metadata": false,
+            "filterable": true
+          }
+      ],
+      "default_documents_per_page":20
+   }
+}
