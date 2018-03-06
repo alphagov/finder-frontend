@@ -35,7 +35,9 @@
         <% end %>
       <% end %>
 
-      <p><%= @signup.body %></p>
+      <%= render partial: 'govuk_component/govspeak', locals: {
+             content: @signup.body
+           } %>
       <%= submit_tag 'Create subscription', class: "button" %>
     <% end %>
 
