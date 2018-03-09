@@ -4,7 +4,7 @@ class FindersController < ApplicationController
   include GdsApi::Helpers
 
   def show
-    @results = ResultSetPresenter.new(finder, filter_params, view_context)
+    @results = result_set_presenter_class.new(finder, filter_params, view_context)
 
     respond_to do |format|
       format.html do
@@ -28,7 +28,7 @@ class FindersController < ApplicationController
 private
 
   def finder
-    @finder ||= FinderPresenter.new(
+    @finder ||= finder_presenter_class.new(
       raw_finder,
       filter_params,
     )
@@ -36,7 +36,7 @@ private
   helper_method :finder
 
   def raw_finder
-    FinderApi.new(finder_base_path, filter_params).content_item_with_search_results
+    finder_api_class.new(finder_base_path, filter_params).content_item_with_search_results
   end
 
   def filter_params
@@ -51,5 +51,17 @@ private
     cleaned_params = ParamsCleaner.new(permitted_params).cleaned
 
     cleaned_params.delete_if { |_, value| value.blank? }
+  end
+
+  def finder_presenter_class
+    FinderPresenter
+  end
+
+  def finder_api_class
+    FinderApi
+  end
+
+  def result_set_presenter_class
+    ResultSetPresenter
   end
 end

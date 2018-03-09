@@ -13,8 +13,10 @@ class AdvancedSearchFinderApi < FinderApi
   end
 
   def taxon
-    # TODO: Rescue 404s
-    @taxon ||= Services.content_store.content_item(filter_params["part_of_taxonomy_tree"])
+    @taxon ||= Services.content_store.content_item(filter_params[TAXON_SEARCH_FILTER])
+  rescue GdsApi::ContentStore::ItemNotFound
+    filter_params.delete(TAXON_SEARCH_FILTER)
+    nil
   end
 
 private

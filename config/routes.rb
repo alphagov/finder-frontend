@@ -15,5 +15,7 @@ FinderFrontend::Application.routes.draw do
   get '/*slug/email-signup' => 'email_alert_subscriptions#new', as: :new_email_alert_subscriptions
   post '/*slug/email-signup' => 'email_alert_subscriptions#create', as: :email_alert_subscriptions
 
+  get '/search/advanced' => 'advanced_search_finder#show'
+
   get '/*slug' => 'finders#show', as: :finder
 end
