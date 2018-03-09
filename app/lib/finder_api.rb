@@ -9,11 +9,7 @@ class FinderApi
   def content_item_with_search_results
     content_item = fetch_content_item
     search_response = fetch_search_response(content_item)
-
-    augment_content_item_with_results(
-      content_item,
-      search_response,
-    )
+    augment_content_item_with_results(content_item, search_response)
   end
 
 private
@@ -38,6 +34,12 @@ private
   end
 
   def augment_content_item_with_results(content_item, search_response)
+    content_item = augment_content_item_details_with_results(content_item, search_response)
+    augment_facets_with_dynamic_values(content_item, search_response)
+    content_item
+  end
+
+  def augment_content_item_details_with_results(content_item, search_response)
     content_item['details']['results'] = search_response.fetch("results")
     content_item['details']['total_result_count'] = search_response.fetch("total")
 
@@ -47,12 +49,14 @@ private
       search_response.fetch('total')
     )
 
+    content_item
+  end
+
+  def augment_facets_with_dynamic_values(content_item, search_response)
     search_response.fetch("facets", {}).each do |facet_key, facet_details|
       facet = content_item['details']['facets'].find { |f| f['key'] == facet_key }
       facet['allowed_values'] = allowed_values_for_facet_details(facet_details) if facet
     end
-
-    content_item
   end
 
   def allowed_values_for_facet_details(facet_details)
