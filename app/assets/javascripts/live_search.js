@@ -7,6 +7,7 @@
     this.state = false;
     this.previousState = false;
     this.resultCache =  {};
+    this.templateDir = options.templateDir || 'finders/';
 
     this.$form = options.$form;
     this.$resultsBlock = options.$results.find('#js-results');
@@ -115,8 +116,8 @@
     // As search is asynchronous, check that the action associated with these results is
     // still the latest to stop results being overwritten by stale data
     if(action == $.param(this.state)) {
-      this.$resultsBlock.mustache('finders/_results', results);
-      this.$countBlock.mustache('finders/_result_count', results);
+      this.$resultsBlock.mustache(this.templateDir + '_results', results);
+      this.$countBlock.mustache(this.templateDir + '_result_count', results);
       this.$atomAutodiscoveryLink.attr('href', results.atom_url);
     }
   };

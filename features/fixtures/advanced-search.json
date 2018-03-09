@@ -9,9 +9,7 @@
    "government_document_supertype":"other",
    "locale":"en",
    "navigation_document_supertype":"other",
-   "need_ids":[
-
-   ],
+   "need_ids":[],
    "phase":"live",
    "public_updated_at":"2018-01-24T09:55:35.000+00:00",
    "publishing_app":"finder-frontend",
@@ -29,7 +27,7 @@
    },
    "description":"",
    "details":{
-      "document_noun":"page",
+      "document_noun": "result",
       "reject":{
         "content_store_document_type": ["browse"]
       },
@@ -39,7 +37,7 @@
             "key": "content_purpose_subgroup",
             "name": "Publication type",
             "type": "text",
-            "preposition": "",
+            "preposition": "in",
             "display_as_result_metadata": false,
             "filterable": true,
             "allowed_values": []

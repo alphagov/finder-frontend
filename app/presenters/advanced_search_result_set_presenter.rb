@@ -8,12 +8,12 @@ class AdvancedSearchResultSetPresenter < ResultSetPresenter
   end
 
   def subgroups_as_sentence
-    finder.content_purpose_subgroups.to_sentence.downcase
+    "#{subgroup_facet.preposition} #{finder.content_purpose_subgroups.to_sentence.downcase}"
   end
 
   def fragment_to_s(fragment)
     values = fragment['values'].map { |value|
-      html_escape(value['label'])
+      html_escape(value['label'].downcase)
     }
 
     if fragment['type'] == "text"
@@ -29,5 +29,9 @@ class AdvancedSearchResultSetPresenter < ResultSetPresenter
     else
       describe_filters_in_sentence
     end
+  end
+
+  def subgroup_facet
+    finder.facets.find { |f| f.key == 'content_purpose_subgroup' }
   end
 end
