@@ -1,6 +1,12 @@
 #finder-frontend {
   header {
     margin: 0;
+
+    .title-and-metadata {
+      .taxon-link {
+        @include bold-24;
+      }
+    }
   }
 
   .advanced-search {
@@ -11,6 +17,7 @@
     }
   }
 }
+
 // scss-lint:disable IdSelector
 .full-width #wrapper {
   margin: 0;
