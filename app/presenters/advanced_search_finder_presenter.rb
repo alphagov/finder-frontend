@@ -23,6 +23,12 @@ class AdvancedSearchFinderPresenter < FinderPresenter
     link_to taxon['title'], taxon['base_path'], class: 'taxon-link'
   end
 
+  def breadcrumbs
+    @data ||= GovukNavigationHelpers::TaxonBreadcrumbs.new(content_item).breadcrumbs
+    filtered = @data[:breadcrumbs].reject { |bc| bc[:is_page_parent] || bc[:is_current_page] }
+    { breadcrumbs: filtered }
+  end
+
 private
 
   def content_purpose_supergroups_to_sentence
