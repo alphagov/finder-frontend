@@ -100,7 +100,7 @@ describe AdvancedSearchFinderApi do
     context "when content_purpose_supergroup has one subgroup" do
       let(:filter_params) {
         {
-          "part_of_taxonomy_tree" => "/education",
+          "taxons" => "/education",
           "content_purpose_supergroup" => "services"
         }
       }
@@ -115,7 +115,7 @@ describe AdvancedSearchFinderApi do
     context "when multiple supergroups are specified" do
       let(:filter_params) {
         {
-          "part_of_taxonomy_tree" => "/education",
+          "taxons" => "/education",
           "content_purpose_supergroup" => %w(news_and_communications services)
         }
       }

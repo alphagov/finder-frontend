@@ -52,7 +52,7 @@
             "filterable":true
           },
           {
-            "key": "part_of_taxonomy_tree",
+            "key": "taxons",
             "name": "Taxonomy",
             "type": "hidden",
             "preposition": "",

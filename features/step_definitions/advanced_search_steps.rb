@@ -11,7 +11,7 @@ Given(/^a collection of tagged documents(.*?)$/) do |categorisation|
     "count" => 20,
     "facet_content_purpose_subgroup" => "1000,order:value.title",
     "fields" => %w(title link description public_timestamp content_purpose_subgroup
-      part_of_taxonomy_tree content_purpose_supergroup).join(","),
+      taxons content_purpose_supergroup).join(","),
     "order" => "-public_timestamp",
     "reject_content_store_document_type" => ["browse"],
   )
@@ -43,18 +43,18 @@ Given(/^a collection of tagged documents(.*?)$/) do |categorisation|
 end
 
 When(/^I search by taxon$/) do
-  visit "/search/advanced?part_of_taxonomy_tree=/taxon"
+  visit "/search/advanced?taxons=/taxon"
 end
 
 When(/^I search by taxon and by supergroup$/) do
-  visit "/search/advanced?part_of_taxonomy_tree=/taxon&content_purpose_supergroup=news_and_communications"
+  visit "/search/advanced?taxons=/taxon&content_purpose_supergroup=news_and_communications"
 end
 
 When(/^I search by taxon, supergroup and subgroups$/) do
-  visit "/search/advanced?part_of_taxonomy_tree=/taxon&content_purpose_supergroup=news_and_communications&content_purpose_subgroup[]=news&content_purpose_subgroup[]=updates_and_alerts"
+  visit "/search/advanced?taxons=/taxon&content_purpose_supergroup=news_and_communications&content_purpose_subgroup[]=news&content_purpose_subgroup[]=updates_and_alerts"
 end
 
-Then(/^I only see documents tagged to the taxon tree$/) do
+Then(/^I only see documents tagged to the taxon$/) do
   @results.each do |result|
     expect(page).to have_title("Taxon - GOV.UK")
     expect(page).to have_link("Taxon", "/taxon")
@@ -62,7 +62,7 @@ Then(/^I only see documents tagged to the taxon tree$/) do
   end
 end
 
-Then(/^I only see documents tagged to the taxon tree within the supergroup$/) do
+Then(/^I only see documents tagged to the taxon within the supergroup$/) do
   @results.each do |result|
     expect(page).to have_title("News and communications - GOV.UK")
     expect(page).to have_link("Taxon", "/taxon")
@@ -71,7 +71,7 @@ Then(/^I only see documents tagged to the taxon tree within the supergroup$/) do
   end
 end
 
-Then(/^I only see documents tagged to the taxon tree within the supergroup and subgroups$/) do
+Then(/^I only see documents tagged to the taxon within the supergroup and subgroups$/) do
   @results.each do |result|
     expect(page).to have_title("News and communications - GOV.UK")
     expect(page).to have_link("Taxon", "/taxon")
