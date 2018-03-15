@@ -39,14 +39,8 @@ describe AdvancedSearchFinderApi do
         .with("/education")
         .and_return(taxon)
 
-      expect(Services.rummager).to receive(:search)
-        .and_return(
-          "results" => [],
-          "total" => 0,
-          "start" => 0,
-          "current_page" => 1,
-          "total_pages" => 1,
-        )
+      allow(Services.rummager).to receive(:search)
+        .and_return(search_results)
     end
 
     let(:composed_content_item) { instance.content_item_with_search_results }

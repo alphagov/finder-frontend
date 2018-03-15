@@ -4,7 +4,7 @@ class AdvancedSearchFinderApi < FinderApi
   attr_reader :content_item
 
   def content_item_with_search_results
-    filter_params[TAXON_SEARCH_FILTER] = taxon["content_id"]
+    filter_params[TAXON_SEARCH_FILTER] = taxon["content_id"] if taxon
 
     content_item = fetch_content_item
     search_response = fetch_search_response(content_item)
