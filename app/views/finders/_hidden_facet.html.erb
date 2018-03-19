@@ -1,0 +1,8 @@
+<%
+  key = hidden_facet.key
+  values = params[key]
+  key = "#{key}[]" if values.is_a?(Array)
+-%>
+<% [values].flatten.each do |value| -%>
+  <%= hidden_field_tag key, value %>
+<% end -%>

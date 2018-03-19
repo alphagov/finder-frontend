@@ -1,0 +1,70 @@
+<% content_for :title, finder.title %>
+<% content_for :head do %>
+  <%= auto_discovery_link_tag(:atom, @results.atom_url) %>
+  <%= render 'finder_meta', finder: finder %>
+  <%= render partial: 'govuk_component/analytics_meta_tags',
+      locals: { content_item: @finder.content_item } %>
+<% end %>
+
+<% if finder.alpha? %>
+  <% if finder.alpha_message %>
+    <%= render partial: 'govuk_component/alpha_label', locals: { message: finder.alpha_message } %>
+  <% else %>
+    <%= render partial: 'govuk_component/alpha_label' %>
+  <% end %>
+<% elsif finder.beta? %>
+  <% if finder.beta_message %>
+    <%= render partial: 'govuk_component/beta_label', locals: { message: finder.beta_message } %>
+  <% else %>
+    <%= render partial: 'govuk_component/beta_label' %>
+  <% end %>
+<% end %>
+
+<%= render "govuk_publishing_components/components/inverse_header", { full_width: true } do %>
+  <div class="full-page-width-wrapper">
+    <div class="breadcrumb-wrapper">
+      <%= render partial: 'govuk_component/breadcrumbs', locals: finder.breadcrumbs %>
+    </div>
+
+    <div class="title-and-metadata">
+      <%= finder.taxon_link %>
+      <%= render partial: 'govuk_component/title', locals: { title: finder.title } %>
+
+      <% if finder.email_alert_signup_url %>
+        <p class='email-link'>
+          <%= link_to "Subscribe to email alerts", finder.email_alert_signup_url %>
+        </p>
+      <% end %>
+    </div>
+
+    <% if finder.logo_path %>
+      <div class="logo">
+        <%= image_tag finder.logo_path, id: "logo-image" %>
+      </div>
+    <% end %>
+
+    <% if finder.related.any? %>
+      <div class='related-links'>
+        <ul>
+          <% finder.related.each do |link| %>
+            <li><%= link_to link['title'], link['web_url'] %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+
+<div class="filtering full-page-width-wrapper">
+  <%= render finder.facets %>
+  <div class='js-live-search-results-block'>
+    <div class="filtered-results">
+      <div aria-live='assertive' id='js-search-results-info'>
+        <%= render_mustache('result_count', @results.to_hash) %>
+      </div>
+      <div id='js-results'>
+        <%= render_mustache('results', @results.to_hash) %>
+      </div>
+    </div>
+  </div>
+</div>

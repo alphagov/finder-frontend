@@ -1,0 +1,49 @@
+// scss-lint:disable IdSelector
+#finder-frontend.advanced-search {
+  header {
+    margin: 0;
+    margin-bottom: $gutter * 2;
+  }
+
+  .title-and-metadata {
+    .taxon-link {
+      @include bold-24;
+    }
+
+    .pub-c-title {
+      margin-bottom: $gutter-half;
+      margin-top: $gutter-half;
+    }
+  }
+
+  .breadcrumb-wrapper {
+    padding: 0 $gutter-half;
+  }
+
+  .filtered-results {
+    .metadata-date-value {
+      @include core-14;
+    }
+
+    .result-info {
+      @include core-24;
+    }
+  }
+
+  .full-page-width-wrapper,
+  .filtering.full-page-width-wrapper {
+    margin: $gutter-half auto;
+    max-width: 960px;
+  }
+}
+
+.full-width #wrapper {
+  margin: 0;
+  max-width: 100%;
+  width: auto;
+}
+
+.full-width #global-header-bar {
+  display: none;
+}
+// scss-lint:enable IdSelector

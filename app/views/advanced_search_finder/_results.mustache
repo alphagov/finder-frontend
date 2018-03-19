@@ -1,0 +1,44 @@
+{{#atom_url}}
+  <div class="feed">
+    <span>Get updates to this list</span>
+    <a href="{{atom_url}}">feed</a>
+  </div>
+{{/atom_url}}
+
+<ul data-module="track-click">
+  {{#documents}}
+    <li class="document">
+      <h3>
+        <a href='{{document.link}}'
+           data-track-category='navFinderLinkClicked'
+           data-track-action='{{finder_name}}.{{document_index}}'
+           data-track-label='{{document.link}}'
+           data-track-options='{"dimension28":"{{page_count}}","dimension29":"{{document.title}}"}'
+        >{{document.title}}</a>
+      </h3>
+      {{#document.summary}}
+        <p>{{document.summary}}</p>
+      {{/document.summary}}
+      {{#show_document_metadata}}
+      <dl>
+        {{#document.metadata}}
+          {{#is_text}}
+            <dt class='metadata-text-label'>{{label}}:</dt>
+            <dd class='metadata-text-value'>{{value}}</dd>
+          {{/is_text}}
+        {{/document.metadata}}
+      </dl>
+      {{/show_document_metadata}}
+      {{#document.metadata}}
+        {{#is_date}}
+          <span class='metadata-date-value'><time datetime='{{machine_date}}'>{{human_date}}</time></span>
+        {{/is_date}}
+      {{/document.metadata}}
+      {{#document.is_historic}}
+        <p class="historic">First published during the {{document.government_name}}</p>
+      {{/document.is_historic}}
+    </li>
+  {{/documents}}
+</ul>
+
+{{{next_and_prev_links}}}

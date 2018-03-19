@@ -25,6 +25,9 @@
     },
     "HEROKU_APP_NAME": {
       "required": true
+    },
+    "DEVELOPMENT_FINDER_JSON": {
+      "value": "features/fixtures/advanced-search.json"
     }
   },
   "image": "heroku/ruby",

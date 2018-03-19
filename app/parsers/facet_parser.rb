@@ -8,6 +8,8 @@ module FacetParser
         TopicalFacet.new(facet)
       when 'date'
         DateFacet.new(facet)
+      when 'hidden'
+        HiddenFacet.new(facet)
       else
         raise ArgumentError.new("Unknown filterable facet type: #{facet.type}")
       end
