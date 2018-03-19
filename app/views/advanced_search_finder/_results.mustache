@@ -19,19 +19,21 @@
       {{#document.summary}}
         <p>{{document.summary}}</p>
       {{/document.summary}}
+      {{#show_document_metadata}}
       <dl>
         {{#document.metadata}}
           {{#is_text}}
             <dt class='metadata-text-label'>{{label}}:</dt>
             <dd class='metadata-text-value'>{{value}}</dd>
           {{/is_text}}
-
-          {{#is_date}}
-            <dt class='metadata-date-label'>{{label}}</dt>
-            <dd class='metadata-date-value'><time datetime='{{machine_date}}'>{{human_date}}</time></dd>
-          {{/is_date}}
         {{/document.metadata}}
       </dl>
+      {{/show_document_metadata}}
+      {{#document.metadata}}
+        {{#is_date}}
+          <span class='metadata-date-value'><time datetime='{{machine_date}}'>{{human_date}}</time></span>
+        {{/is_date}}
+      {{/document.metadata}}
       {{#document.is_historic}}
         <p class="historic">First published during the {{document.government_name}}</p>
       {{/document.is_historic}}
