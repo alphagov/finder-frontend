@@ -1,10 +1,15 @@
 #finder-frontend {
   header {
     margin: 0;
+    margin-bottom: $gutter * 2;
 
     .title-and-metadata {
       .taxon-link {
         @include bold-24;
+      }
+      .pub-c-title {
+        margin-bottom: $gutter-half;
+        margin-top: $gutter-half;
       }
     }
   }
