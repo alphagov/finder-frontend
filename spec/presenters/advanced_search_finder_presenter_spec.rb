@@ -60,8 +60,10 @@ describe AdvancedSearchFinderPresenter do
 
     context "without a supergroup" do
       let(:values) { { "taxons" => "/education" } }
-      it "presents the taxon title" do
-        expect(subject.title).to eq("Education, training and skills")
+      it "raises Supergroup::NotFound" do
+        expect {
+          subject.title
+        }.to raise_error(Supergroups::NotFound)
       end
     end
 

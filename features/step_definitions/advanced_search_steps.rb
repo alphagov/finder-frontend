@@ -42,15 +42,19 @@ Given(/^a collection of tagged documents(.*?)$/) do |categorisation|
                          title: "Taxon")
 end
 
-When(/^I search by taxon$/) do
+When(/^I filter by taxon alone$/) do
   visit "/search/advanced?taxons=/taxon"
 end
 
-When(/^I search by taxon and by supergroup$/) do
+When(/^I filter by content purpose supergroup alone$/) do
+  visit "/search/advanced?content_purpose_supergroup=news_and_communications"
+end
+
+When(/^I filter by taxon and by supergroup$/) do
   visit "/search/advanced?taxons=/taxon&content_purpose_supergroup=news_and_communications"
 end
 
-When(/^I search by taxon, supergroup and subgroups$/) do
+When(/^I filter by taxon, supergroup and subgroups$/) do
   visit "/search/advanced?taxons=/taxon&content_purpose_supergroup=news_and_communications&content_purpose_subgroup[]=news&content_purpose_subgroup[]=updates_and_alerts"
 end
 
@@ -78,4 +82,8 @@ Then(/^I only see documents tagged to the taxon within the supergroup and subgro
     expect(page).to have_text("1 result in updates and alerts or news")
     expect(page).to have_link(result["title_with_highlighting"], href: result["link"])
   end
+end
+
+Then(/^The page is not found$/) do
+  expect(page).to have_content("404 error not found")
 end

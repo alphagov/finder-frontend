@@ -1,5 +1,7 @@
 class AdvancedSearchFinderController < FindersController
   layout "advanced-search"
+  rescue_from AdvancedSearchFinderApi::TaxonNotFound,
+              Supergroups::NotFound, with: :error_not_found
 
 private
 
