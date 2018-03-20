@@ -15,7 +15,7 @@ describe AdvancedSearchFinderApi do
   let(:filter_params) {
     {
       "topic" => "/education",
-      "content_purpose_supergroup" => "news_and_communications"
+      "group" => "news_and_communications"
     }
   }
   let(:search_results) {
@@ -82,22 +82,22 @@ describe AdvancedSearchFinderApi do
     end
 
     it "adds dynamic facet values" do
-      facet = composed_content_item["details"]["facets"].find { |f| f["key"] == "content_purpose_subgroup" }
+      facet = composed_content_item["details"]["facets"].find { |f| f["key"] == "subgroup" }
       facet_labels = facet["allowed_values"].map { |v| v["label"] }
 
       expect(facet_labels).to include("Speeches and statements")
     end
 
-    context "when content_purpose_supergroup has one subgroup" do
+    context "when group has one subgroup" do
       let(:filter_params) {
         {
           "topic" => "/education",
-          "content_purpose_supergroup" => "services"
+          "group" => "services"
         }
       }
 
       it "hides the dynamic facet" do
-        facet = composed_content_item["details"]["facets"].find { |f| f["key"] == "content_purpose_subgroup" }
+        facet = composed_content_item["details"]["facets"].find { |f| f["key"] == "subgroup" }
         expect(facet["allowed_values"]).not_to be_empty
         expect(facet["type"]).to eq("hidden")
       end
@@ -107,11 +107,11 @@ describe AdvancedSearchFinderApi do
       let(:filter_params) {
         {
           "topic" => "/education",
-          "content_purpose_supergroup" => %w(news_and_communications services)
+          "group" => %w(news_and_communications services)
         }
       }
       it "returns a mixed list of subgroups" do
-        facet = composed_content_item["details"]["facets"].find { |f| f["key"] == "content_purpose_subgroup" }
+        facet = composed_content_item["details"]["facets"].find { |f| f["key"] == "subgroup" }
         facet_labels = facet["allowed_values"].map { |v| v["label"] }
         expected = ["Updates and alerts", "News", "Speeches and statements", "Transactions"]
         expect(facet_labels).to eq(expected)

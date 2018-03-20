@@ -34,7 +34,8 @@
       "show_summaries":true,
       "facets": [
           {
-            "key": "content_purpose_subgroup",
+            "filter_key": "content_purpose_subgroup",
+            "key": "subgroup",
             "name": "Publication type",
             "type": "text",
             "preposition": "in",
@@ -63,8 +64,9 @@
             ]
           },
           {
-            "key": "content_purpose_supergroup",
-            "name": "Content purpose supergroup",
+            "filter_key": "content_purpose_supergroup",
+            "key": "group",
+            "name": "Content group",
             "type": "hidden",
             "preposition": "",
             "display_as_result_metadata": false,

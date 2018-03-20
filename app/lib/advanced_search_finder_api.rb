@@ -1,4 +1,6 @@
 class AdvancedSearchFinderApi < FinderApi
+  GROUP_SEARCH_FILTER = "group".freeze
+  SUBGROUP_SEARCH_FILTER = "subgroup".freeze
   TAXON_SEARCH_FILTER = "topic".freeze
 
   attr_reader :content_item
@@ -32,14 +34,14 @@ private
 
   def augment_facets_with_dynamic_subgroups(content_item)
     subgroups = supergroups.map(&:subgroups_as_hash).flatten
-    facet = find_facet(content_item, "content_purpose_subgroup")
+    facet = find_facet(content_item, SUBGROUP_SEARCH_FILTER)
     return unless facet
     facet["allowed_values"] = subgroups
     facet["type"] = "hidden" if subgroups.size < 2
   end
 
   def supergroups
-    Supergroups.lookup(filter_params["content_purpose_supergroup"])
+    Supergroups.lookup(filter_params[GROUP_SEARCH_FILTER])
   end
 
   def find_facet(content_item, key)

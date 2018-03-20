@@ -26,7 +26,7 @@ describe AdvancedSearchFinderPresenter do
 
   let(:values) {
     {
-      "content_purpose_supergroup" => "news_and_communications",
+      "group" => "news_and_communications",
       "taxons" => "/education",
     }
   }
@@ -71,7 +71,7 @@ describe AdvancedSearchFinderPresenter do
       let(:values) {
         {
           "taxons" => "/education",
-          "content_purpose_supergroup" => %w(news_and_communications services)
+          "group" => %w(news_and_communications services)
         }
       }
       it "presents the supergroup labels in a sentence" do

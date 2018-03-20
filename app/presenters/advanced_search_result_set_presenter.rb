@@ -32,6 +32,6 @@ class AdvancedSearchResultSetPresenter < ResultSetPresenter
   end
 
   def subgroup_facet
-    finder.facets.find { |f| f.key == 'content_purpose_subgroup' }
+    finder.facets.find { |f| f.key == 'subgroup' }
   end
 end

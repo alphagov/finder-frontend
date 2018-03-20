@@ -6,7 +6,7 @@ class AdvancedSearchFinderPresenter < FinderPresenter
 
   def content_purpose_supergroups
     @content_purpose_supergroups ||=
-      Supergroups.lookup(values['content_purpose_supergroup'])
+      Supergroups.lookup(values['group'])
   end
 
   def content_purpose_subgroups

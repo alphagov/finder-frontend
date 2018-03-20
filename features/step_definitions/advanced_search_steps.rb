@@ -47,23 +47,15 @@ When(/^I filter by taxon alone$/) do
 end
 
 When(/^I filter by content purpose supergroup alone$/) do
-  visit "/search/advanced?content_purpose_supergroup=news_and_communications"
+  visit "/search/advanced?group=news_and_communications"
 end
 
 When(/^I filter by taxon and by supergroup$/) do
-  visit "/search/advanced?topic=/taxon&content_purpose_supergroup=news_and_communications"
+  visit "/search/advanced?topic=/taxon&group=news_and_communications"
 end
 
 When(/^I filter by taxon, supergroup and subgroups$/) do
-  visit "/search/advanced?topic=/taxon&content_purpose_supergroup=news_and_communications&content_purpose_subgroup[]=news&content_purpose_subgroup[]=updates_and_alerts"
-end
-
-Then(/^I only see documents tagged to the taxon$/) do
-  @results.each do |result|
-    expect(page).to have_title("Taxon - GOV.UK")
-    expect(page).to have_link("Taxon", "/taxon")
-    expect(page).to have_link(result["title_with_highlighting"], href: result["link"])
-  end
+  visit "/search/advanced?topic=/taxon&group=news_and_communications&subgroup[]=news&subgroup[]=updates_and_alerts"
 end
 
 Then(/^I only see documents tagged to the taxon within the supergroup$/) do
