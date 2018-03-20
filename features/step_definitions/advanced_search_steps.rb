@@ -43,7 +43,7 @@ Given(/^a collection of tagged documents(.*?)$/) do |categorisation|
 end
 
 When(/^I filter by taxon alone$/) do
-  visit "/search/advanced?taxons=/taxon"
+  visit "/search/advanced?topic=/taxon"
 end
 
 When(/^I filter by content purpose supergroup alone$/) do
@@ -51,11 +51,11 @@ When(/^I filter by content purpose supergroup alone$/) do
 end
 
 When(/^I filter by taxon and by supergroup$/) do
-  visit "/search/advanced?taxons=/taxon&content_purpose_supergroup=news_and_communications"
+  visit "/search/advanced?topic=/taxon&content_purpose_supergroup=news_and_communications"
 end
 
 When(/^I filter by taxon, supergroup and subgroups$/) do
-  visit "/search/advanced?taxons=/taxon&content_purpose_supergroup=news_and_communications&content_purpose_subgroup[]=news&content_purpose_subgroup[]=updates_and_alerts"
+  visit "/search/advanced?topic=/taxon&content_purpose_supergroup=news_and_communications&content_purpose_subgroup[]=news&content_purpose_subgroup[]=updates_and_alerts"
 end
 
 Then(/^I only see documents tagged to the taxon$/) do

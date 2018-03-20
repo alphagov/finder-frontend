@@ -52,7 +52,8 @@
             "filterable":true
           },
           {
-            "key": "taxons",
+            "filter_key": "taxons",
+            "key": "topic",
             "name": "Taxonomy",
             "type": "hidden",
             "preposition": "",

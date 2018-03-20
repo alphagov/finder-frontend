@@ -14,7 +14,7 @@ describe AdvancedSearchFinderApi do
   }
   let(:filter_params) {
     {
-      "taxons" => "/education",
+      "topic" => "/education",
       "content_purpose_supergroup" => "news_and_communications"
     }
   }
@@ -68,7 +68,7 @@ describe AdvancedSearchFinderApi do
         allow(Services.rummager).to receive(:search).and_return(search_results)
       end
 
-      let(:filter_params) { { "taxons" => "/doesnt-exist" } }
+      let(:filter_params) { { "topic" => "/doesnt-exist" } }
 
       it "raises GdsApi::ContentStore::ItemNotFound" do
         expect {
@@ -91,7 +91,7 @@ describe AdvancedSearchFinderApi do
     context "when content_purpose_supergroup has one subgroup" do
       let(:filter_params) {
         {
-          "taxons" => "/education",
+          "topic" => "/education",
           "content_purpose_supergroup" => "services"
         }
       }
@@ -106,7 +106,7 @@ describe AdvancedSearchFinderApi do
     context "when multiple supergroups are specified" do
       let(:filter_params) {
         {
-          "taxons" => "/education",
+          "topic" => "/education",
           "content_purpose_supergroup" => %w(news_and_communications services)
         }
       }

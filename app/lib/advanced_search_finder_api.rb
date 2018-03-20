@@ -1,5 +1,5 @@
 class AdvancedSearchFinderApi < FinderApi
-  TAXON_SEARCH_FILTER = "taxons".freeze
+  TAXON_SEARCH_FILTER = "topic".freeze
 
   attr_reader :content_item
 
