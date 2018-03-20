@@ -4,8 +4,9 @@ class AdvancedSearchFinderApi < FinderApi
   attr_reader :content_item
 
   def content_item_with_search_results
-    filter_params[TAXON_SEARCH_FILTER] = taxon["content_id"] if taxon
+    raise_on_missing_taxon_param
 
+    filter_params[TAXON_SEARCH_FILTER] = taxon["content_id"] if taxon
     content_item = fetch_content_item
     search_response = fetch_search_response(content_item)
     content_item = augment_content_item_links_with_taxon(content_item, taxon)
@@ -14,9 +15,8 @@ class AdvancedSearchFinderApi < FinderApi
 
   def taxon
     @taxon ||= Services.content_store.content_item(filter_params[TAXON_SEARCH_FILTER])
-  rescue GdsApi::ContentStore::ItemNotFound
-    filter_params.delete(TAXON_SEARCH_FILTER)
-    nil
+  rescue GdsApi::HTTPNotFound
+    raise_on_missing_taxon_at_path
   end
 
 private
@@ -45,4 +45,20 @@ private
   def find_facet(content_item, key)
     content_item["details"]["facets"].find { |f| f["key"] == key }
   end
+
+  def raise_on_missing_taxon_at_path
+    raise_taxon_not_found("No taxon found for path #{filter_params[TAXON_SEARCH_FILTER]}")
+  end
+
+  def raise_on_missing_taxon_param
+    unless filter_params.has_key?(TAXON_SEARCH_FILTER)
+      raise_taxon_not_found("#{TAXON_SEARCH_FILTER} param not present")
+    end
+  end
+
+  def raise_taxon_not_found(msg = nil)
+    raise TaxonNotFound.new(msg)
+  end
+
+  class TaxonNotFound < StandardError; end
 end

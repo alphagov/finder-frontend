@@ -70,13 +70,10 @@ describe AdvancedSearchFinderApi do
 
       let(:filter_params) { { "taxons" => "/doesnt-exist" } }
 
-      it "omits the taxon filter from search" do
+      it "raises GdsApi::ContentStore::ItemNotFound" do
         expect {
           instance.content_item_with_search_results
-        }.not_to raise_error
-
-        expect(Services.rummager).to have_received(:search)
-          .with(hash_excluding("filter_taxons" => taxon_content_id))
+        }.to raise_error(AdvancedSearchFinderApi::TaxonNotFound)
       end
     end
 
