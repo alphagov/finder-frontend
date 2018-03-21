@@ -27,7 +27,7 @@ describe AdvancedSearchFinderPresenter do
   let(:values) {
     {
       "group" => "news_and_communications",
-      "taxons" => "/education",
+      "topic" => "/education",
     }
   }
 
@@ -59,7 +59,7 @@ describe AdvancedSearchFinderPresenter do
     end
 
     context "without a supergroup" do
-      let(:values) { { "taxons" => "/education" } }
+      let(:values) { { "topic" => "/education" } }
       it "raises Supergroup::NotFound" do
         expect {
           subject.title
@@ -70,7 +70,7 @@ describe AdvancedSearchFinderPresenter do
     context "with multiple supergroups" do
       let(:values) {
         {
-          "taxons" => "/education",
+          "topic" => "/education",
           "group" => %w(news_and_communications services)
         }
       }

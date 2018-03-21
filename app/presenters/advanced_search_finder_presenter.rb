@@ -16,9 +16,7 @@ class AdvancedSearchFinderPresenter < FinderPresenter
   end
 
   def title
-    return content_purpose_supergroups_to_sentence if content_purpose_supergroups.any?
-    return taxon['title'] if taxon
-    content_item['title']
+    content_purpose_supergroups_to_sentence
   end
 
   def taxon_link
