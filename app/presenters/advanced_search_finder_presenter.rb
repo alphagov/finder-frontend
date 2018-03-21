@@ -1,4 +1,6 @@
 class AdvancedSearchFinderPresenter < FinderPresenter
+  include AdvancedSearchParams
+
   def taxon
     # FIXME: This is probably too simplistic.
     content_item['links']['taxons'].first
@@ -6,7 +8,7 @@ class AdvancedSearchFinderPresenter < FinderPresenter
 
   def content_purpose_supergroups
     @content_purpose_supergroups ||=
-      Supergroups.lookup(values['group'])
+      Supergroups.lookup(values[GROUP_SEARCH_FILTER])
   end
 
   def content_purpose_subgroups
