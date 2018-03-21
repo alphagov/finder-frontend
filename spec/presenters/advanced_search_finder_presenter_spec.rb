@@ -26,8 +26,8 @@ describe AdvancedSearchFinderPresenter do
 
   let(:values) {
     {
-      "content_purpose_supergroup" => "news_and_communications",
-      "taxons" => "/education",
+      "group" => "news_and_communications",
+      "topic" => "/education",
     }
   }
 
@@ -59,17 +59,19 @@ describe AdvancedSearchFinderPresenter do
     end
 
     context "without a supergroup" do
-      let(:values) { { "taxons" => "/education" } }
-      it "presents the taxon title" do
-        expect(subject.title).to eq("Education, training and skills")
+      let(:values) { { "topic" => "/education" } }
+      it "raises Supergroup::NotFound" do
+        expect {
+          subject.title
+        }.to raise_error(Supergroups::NotFound)
       end
     end
 
     context "with multiple supergroups" do
       let(:values) {
         {
-          "taxons" => "/education",
-          "content_purpose_supergroup" => %w(news_and_communications services)
+          "topic" => "/education",
+          "group" => %w(news_and_communications services)
         }
       }
       it "presents the supergroup labels in a sentence" do

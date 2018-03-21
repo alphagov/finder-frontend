@@ -94,6 +94,24 @@ describe FilterQueryBuilder::TextFilter do
     end
   end
 
+  describe "#key" do
+    context "when a filter_key is present" do
+      let(:facet) { { "filter_key" => "alpha", "key" => "beta" } }
+
+      it "returns filter_key" do
+        expect(text_filter.key).to eq("alpha")
+      end
+    end
+
+    context "when a filter_key is not present" do
+      let(:facet) { { "key" => "beta" } }
+
+      it "returns key" do
+        expect(text_filter.key).to eq("beta")
+      end
+    end
+  end
+
   describe "#value" do
     context "when params is present" do
       let(:params) { [:alpha] }

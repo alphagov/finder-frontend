@@ -13,8 +13,16 @@ describe Supergroups do
       expect(groups.last.label).to eq("Services")
     end
 
-    it "returns an empty array when a group isn't found" do
-      expect(Supergroups.lookup("foo")).to be_empty
+    it "raises Supergroup::NotFound when keys are empty" do
+      expect {
+        Supergroups.lookup(nil)
+      }.to raise_error(Supergroups::NotFound)
+    end
+
+    it "raises Supergroup::NotFound when a group isn't found" do
+      expect {
+        Supergroups.lookup("foo")
+      }.to raise_error(Supergroups::NotFound)
     end
 
     it "can expose subgroups as a hash" do

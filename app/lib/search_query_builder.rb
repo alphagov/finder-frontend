@@ -61,7 +61,7 @@ private
   end
 
   def metadata_fields
-    finder_content_item['details']['facets'].map { |f| f['key'] }
+    finder_content_item['details']['facets'].map { |f| (f['filter_key'] || f['key']) }
   end
 
   def order_query

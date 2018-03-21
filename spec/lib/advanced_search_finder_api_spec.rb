@@ -14,8 +14,8 @@ describe AdvancedSearchFinderApi do
   }
   let(:filter_params) {
     {
-      "taxons" => "/education",
-      "content_purpose_supergroup" => "news_and_communications"
+      "topic" => "/education",
+      "group" => "news_and_communications"
     }
   }
   let(:search_results) {
@@ -68,15 +68,12 @@ describe AdvancedSearchFinderApi do
         allow(Services.rummager).to receive(:search).and_return(search_results)
       end
 
-      let(:filter_params) { { "taxons" => "/doesnt-exist" } }
+      let(:filter_params) { { "topic" => "/doesnt-exist" } }
 
-      it "omits the taxon filter from search" do
+      it "raises GdsApi::ContentStore::ItemNotFound" do
         expect {
           instance.content_item_with_search_results
-        }.not_to raise_error
-
-        expect(Services.rummager).to have_received(:search)
-          .with(hash_excluding("filter_taxons" => taxon_content_id))
+        }.to raise_error(AdvancedSearchFinderApi::TaxonNotFound)
       end
     end
 
@@ -85,22 +82,22 @@ describe AdvancedSearchFinderApi do
     end
 
     it "adds dynamic facet values" do
-      facet = composed_content_item["details"]["facets"].find { |f| f["key"] == "content_purpose_subgroup" }
+      facet = composed_content_item["details"]["facets"].find { |f| f["key"] == "subgroup" }
       facet_labels = facet["allowed_values"].map { |v| v["label"] }
 
       expect(facet_labels).to include("Speeches and statements")
     end
 
-    context "when content_purpose_supergroup has one subgroup" do
+    context "when group has one subgroup" do
       let(:filter_params) {
         {
-          "taxons" => "/education",
-          "content_purpose_supergroup" => "services"
+          "topic" => "/education",
+          "group" => "services"
         }
       }
 
       it "hides the dynamic facet" do
-        facet = composed_content_item["details"]["facets"].find { |f| f["key"] == "content_purpose_subgroup" }
+        facet = composed_content_item["details"]["facets"].find { |f| f["key"] == "subgroup" }
         expect(facet["allowed_values"]).not_to be_empty
         expect(facet["type"]).to eq("hidden")
       end
@@ -109,12 +106,12 @@ describe AdvancedSearchFinderApi do
     context "when multiple supergroups are specified" do
       let(:filter_params) {
         {
-          "taxons" => "/education",
-          "content_purpose_supergroup" => %w(news_and_communications services)
+          "topic" => "/education",
+          "group" => %w(news_and_communications services)
         }
       }
       it "returns a mixed list of subgroups" do
-        facet = composed_content_item["details"]["facets"].find { |f| f["key"] == "content_purpose_subgroup" }
+        facet = composed_content_item["details"]["facets"].find { |f| f["key"] == "subgroup" }
         facet_labels = facet["allowed_values"].map { |v| v["label"] }
         expected = ["Updates and alerts", "News", "Speeches and statements", "Transactions"]
         expect(facet_labels).to eq(expected)

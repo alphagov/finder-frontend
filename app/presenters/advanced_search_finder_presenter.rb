@@ -1,4 +1,6 @@
 class AdvancedSearchFinderPresenter < FinderPresenter
+  include AdvancedSearchParams
+
   def taxon
     # FIXME: This is probably too simplistic.
     content_item['links']['taxons'].first
@@ -6,7 +8,7 @@ class AdvancedSearchFinderPresenter < FinderPresenter
 
   def content_purpose_supergroups
     @content_purpose_supergroups ||=
-      Supergroups.lookup(values['content_purpose_supergroup'])
+      Supergroups.lookup(values[GROUP_SEARCH_FILTER])
   end
 
   def content_purpose_subgroups
@@ -14,9 +16,7 @@ class AdvancedSearchFinderPresenter < FinderPresenter
   end
 
   def title
-    return content_purpose_supergroups_to_sentence if content_purpose_supergroups.any?
-    return taxon['title'] if taxon
-    content_item['title']
+    content_purpose_supergroups_to_sentence
   end
 
   def taxon_link

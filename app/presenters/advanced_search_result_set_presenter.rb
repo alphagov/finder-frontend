@@ -1,4 +1,6 @@
 class AdvancedSearchResultSetPresenter < ResultSetPresenter
+  include AdvancedSearchParams
+
   def to_hash
     super.merge(applied_filters: applied_filters_or_all_subgroups)
   end
@@ -32,6 +34,6 @@ class AdvancedSearchResultSetPresenter < ResultSetPresenter
   end
 
   def subgroup_facet
-    finder.facets.find { |f| f.key == 'content_purpose_subgroup' }
+    finder.facets.find { |f| f.key == SUBGROUP_SEARCH_FILTER }
   end
 end

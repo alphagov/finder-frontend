@@ -40,7 +40,7 @@ private
     end
 
     def key
-      facet['key']
+      facet['filter_key'] || facet['key']
     end
 
     def active?

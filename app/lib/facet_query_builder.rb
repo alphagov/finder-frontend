@@ -17,7 +17,8 @@ class FacetQueryBuilder
       # "1000,order:value.title" is specifying that we want 1000 results back
       # which are ordered by the title attribute of each value (option)
       # that is returned
-      query.merge(facet['key'] => "1000,order:value.title")
+      key = (facet['filter_key'] || facet['key'])
+      query.merge(key => "1000,order:value.title")
     }
   end
 

@@ -92,6 +92,18 @@ describe SearchQueryBuilder do
         "reject_alpha" => "value",
       )
     end
+
+    context "facets with filter_keys" do
+      before do
+        facets.first["filter_key"] = "zeta"
+      end
+
+      it "should use the filter value in fields" do
+        expect(query).to include(
+          "fields" => "title,link,description,public_timestamp,zeta,beta",
+        )
+      end
+    end
   end
 
   context "without keywords" do
