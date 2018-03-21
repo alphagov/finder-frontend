@@ -105,3 +105,4 @@ For more information please refer to the [search api documentation](https://alph
 * `app/presenters` contains objects which serialise the value objects to hashes
   for display via mustache.
 * `app/parsers` contains objects which transform API responses into models.
+
