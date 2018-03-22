@@ -99,5 +99,18 @@ describe AdvancedSearchFinderPresenter do
       expected = { breadcrumbs: [{ title: "Home", url: "/", is_page_parent: false }] }
       expect(subject.breadcrumbs).to eq(expected)
     end
+
+    context "for a root taxon" do
+      let(:breadcrumb_data) {
+        { breadcrumbs: [
+          { title: "Home", url: "/", is_page_parent: true },
+          { title: "Latest on GOV.UK", is_current_page: true },
+        ] }
+      }
+      it "always includes the Home breadcrumb" do
+        expect(subject.breadcrumbs[:breadcrumbs].first[:title]).to eq("Home")
+        expect(subject.breadcrumbs[:breadcrumbs].first[:url]).to eq("/")
+      end
+    end
   end
 end

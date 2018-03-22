@@ -25,11 +25,16 @@ class AdvancedSearchFinderPresenter < FinderPresenter
 
   def breadcrumbs
     @data ||= GovukNavigationHelpers::TaxonBreadcrumbs.new(content_item).breadcrumbs
-    filtered = @data[:breadcrumbs].reject { |bc| bc[:is_page_parent] || bc[:is_current_page] }
+    filtered = @data[:breadcrumbs].reject { |bc| exclude_breadcrumb?(bc) }
     { breadcrumbs: filtered }
   end
 
 private
+
+  def exclude_breadcrumb?(breadcrumb)
+    breadcrumb[:is_current_page] ||
+      (breadcrumb[:url] != "/" && breadcrumb[:is_page_parent])
+  end
 
   def content_purpose_supergroups_to_sentence
     content_purpose_supergroups.map(&:label).to_sentence
