@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ruby File.read(".ruby-version").strip
 
-gem 'rails', '~> 5.0.1'
+gem 'rails', '~> 5.1.5'
 gem 'slimmer', '~> 12.0.0'
 gem 'gds-api-adapters', '~> 52.2'
 gem 'shared_mustache', '~> 1.0.1'
