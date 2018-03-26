@@ -4,7 +4,16 @@ class AdvancedSearchResultSetPresenter < ResultSetPresenter
   def to_hash
     super
       .merge(applied_filters: applied_filters_or_all_subgroups)
-      .except(:atom_url)
+        .except(:atom_url)
+  end
+
+  def documents
+    results.each_with_index.map do |result, index|
+      {
+        document: AdvancedSearchResultPresenter.new(result).to_hash,
+        document_index: index + 1,
+      }
+    end
   end
 
   def any_filters_applied?
@@ -32,10 +41,7 @@ class AdvancedSearchResultSetPresenter < ResultSetPresenter
       if describe_filters_in_sentence.blank?
         subgroups_as_sentence
       elsif subgroup_facet.value.blank?
-        [
-          subgroups_as_sentence,
-          describe_filters_in_sentence
-        ].to_sentence
+        [subgroups_as_sentence, describe_filters_in_sentence].to_sentence
       else
         describe_filters_in_sentence
       end
