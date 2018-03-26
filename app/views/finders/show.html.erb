@@ -20,7 +20,7 @@
   <% end %>
 <% end %>
 
-<%= render partial: 'govuk_component/breadcrumbs', locals: @navigation_helpers.breadcrumbs %>
+<%= render 'govuk_publishing_components/components/contextual_breadcrumbs', content_item: @content_item %>
 
 <% if finder.government? %>
   <%= render partial: 'govuk_component/government_navigation', locals: { active: finder.government_content_section } %>
