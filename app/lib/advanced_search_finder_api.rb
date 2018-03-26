@@ -60,5 +60,9 @@ private
     raise TaxonNotFound.new(msg)
   end
 
+  def query_builder_class
+    AdvancedSearchQueryBuilder
+  end
+
   class TaxonNotFound < StandardError; end
 end
