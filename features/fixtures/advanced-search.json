@@ -46,7 +46,6 @@
           {
             "key":"public_timestamp",
             "name":"Publication date",
-            "short_name":"",
             "type":"date",
             "preposition":"published",
             "display_as_result_metadata":true,

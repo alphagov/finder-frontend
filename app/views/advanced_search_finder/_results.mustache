@@ -7,8 +7,8 @@
 
 <ul data-module="track-click">
   {{#documents}}
-    <li class="document">
-      <h3>
+    <li class="gem-c-document-list__item">
+      <h3 class="gem-c-document-list__item-title">
         <a href='{{document.link}}'
            data-track-category='navFinderLinkClicked'
            data-track-action='{{finder_name}}.{{document_index}}'
@@ -19,21 +19,25 @@
       {{#document.summary}}
         <p>{{document.summary}}</p>
       {{/document.summary}}
-      {{#show_document_metadata}}
-      <dl>
-        {{#document.metadata}}
-          {{#is_text}}
-            <dt class='metadata-text-label'>{{label}}:</dt>
-            <dd class='metadata-text-value'>{{value}}</dd>
-          {{/is_text}}
-        {{/document.metadata}}
-      </dl>
-      {{/show_document_metadata}}
-      {{#document.metadata}}
-        {{#is_date}}
-          <span class='metadata-date-value'><time datetime='{{machine_date}}'>{{human_date}}</time></span>
-        {{/is_date}}
-      {{/document.metadata}}
+      {{#document.show_metadata}}
+      <ul>
+        {{#document.publication_date}}
+        <li class="gem-c-document-list__attribute">
+          <time datetime="{{machine_date}}">{{human_date}}</time>
+        </li>
+        {{/document.publication_date}}
+        {{#document.organisations}}
+        <li class="gem-c-document-list__attribute">
+          {{document.organisations}}
+        </li>
+        {{/document.organisations}}
+        {{#document.document_type}}
+        <li class="gem-c-document-list__attribute">
+          {{document.document_type}}
+        </li>
+        {{/document.document_type}}
+      </ul>
+      {{/document.show_metadata}}
       {{#document.is_historic}}
         <p class="historic">First published during the {{document.government_name}}</p>
       {{/document.is_historic}}
