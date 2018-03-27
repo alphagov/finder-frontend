@@ -24,7 +24,7 @@ class AdvancedSearchFinderPresenter < FinderPresenter
   end
 
   def breadcrumbs
-    @data ||= GovukNavigationHelpers::TaxonBreadcrumbs.new(content_item).breadcrumbs
+    @data ||= GovukPublishingComponents::Presenters::TaxonBreadcrumbs.new(content_item).breadcrumbs
     filtered = @data[:breadcrumbs].reject { |bc| exclude_breadcrumb?(bc) }
     { breadcrumbs: filtered }
   end
