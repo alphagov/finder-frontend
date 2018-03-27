@@ -81,7 +81,7 @@ describe AdvancedSearchFinderPresenter do
   end
 
   describe "breadcrumbs" do
-    let(:helper) { instance_double("GovukNavigationHelpers::TaxonBreadcrumbs") }
+    let(:helper) { instance_double("GovukPublishingComponents::Presenters::TaxonBreadcrumbs") }
     let(:breadcrumb_data) {
       { breadcrumbs: [
         { title: "Home", url: "/", is_page_parent: false },
@@ -91,7 +91,7 @@ describe AdvancedSearchFinderPresenter do
     }
 
     before do
-      allow(GovukNavigationHelpers::TaxonBreadcrumbs).to receive(:new).and_return(helper)
+      allow(GovukPublishingComponents::Presenters::TaxonBreadcrumbs).to receive(:new).and_return(helper)
       allow(helper).to receive(:breadcrumbs).and_return(breadcrumb_data)
     end
 
