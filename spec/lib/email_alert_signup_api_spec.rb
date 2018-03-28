@@ -15,14 +15,14 @@ describe EmailAlertSignupAPI do
     [
       {
         "key" => "first",
-        "radio_button_name" => "First thing",
-        "topic_name" => "first thing",
+        "radio_button_name" => "First ABC thing",
+        "topic_name" => "first ABC thing",
         "prechecked" => false,
       },
       {
         "key" => "second",
-        "radio_button_name" => "Second thing",
-        "topic_name" => "second thing",
+        "radio_button_name" => "Second DEF thing",
+        "topic_name" => "second DEF thing",
         "prechecked" => false,
       },
     ]
@@ -81,7 +81,7 @@ describe EmailAlertSignupAPI do
             "format" => "test-reports",
             "alert_type" => %w(first second),
           },
-          "title" => "Format with report types: first thing and second thing",
+          "title" => "Format with report types: first ABC thing and second DEF thing",
         ).and_call_original
 
         signup_api_wrapper.signup_url
@@ -108,7 +108,7 @@ describe EmailAlertSignupAPI do
             "format" => "test-reports",
             "alert_type" => ["first"],
           },
-          "title" => "Format with report type: first thing",
+          "title" => "Format with report type: first ABC thing",
         ).and_call_original
 
         signup_api_wrapper.signup_url
@@ -144,7 +144,7 @@ describe EmailAlertSignupAPI do
             "format" => "test-reports",
             "alert_type" => %w(first second),
           },
-          "title" => "First thing and second thing",
+          "title" => "First ABC thing and second DEF thing",
         ).and_call_original
 
         signup_api_wrapper.signup_url
