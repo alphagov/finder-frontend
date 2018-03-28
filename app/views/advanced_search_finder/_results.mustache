@@ -7,6 +7,9 @@
 
 <ul data-module="track-click">
   {{#documents}}
+    {{! The following elements use BEM styles from the govuk_publishing_components/document-list component
+    for visual consistency, this might prove to be a maintenance headache in which case it would be better
+    to port the styles to the advanced-search sass file. }}
     <li class="gem-c-document-list__item">
       <h3 class="gem-c-document-list__item-title">
         <a href='{{document.link}}'
