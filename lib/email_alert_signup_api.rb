@@ -32,7 +32,7 @@ private
                          else
                            "plural"
                          end
-      title = (subscription_list_title_prefix[plural_or_single].to_s + topic_names.to_sentence).humanize
+      title = (subscription_list_title_prefix[plural_or_single].to_s + topic_names.to_sentence).upcase_first
     end
 
     title
