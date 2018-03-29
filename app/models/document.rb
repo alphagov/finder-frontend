@@ -1,5 +1,6 @@
 class Document
-  attr_reader :title, :public_timestamp, :is_historic, :government_name
+  attr_reader :title, :public_timestamp, :is_historic, :government_name,
+              :content_purpose_supergroup, :document_type, :organisations
 
   def initialize(rummager_document, finder)
     rummager_document = rummager_document.with_indifferent_access
@@ -7,9 +8,11 @@ class Document
     @link = rummager_document.fetch(:link)
     @description = rummager_document.fetch(:description, nil)
     @public_timestamp = rummager_document.fetch(:public_timestamp, nil)
+    @document_type = rummager_document.fetch(:content_store_document_type, nil)
+    @organisations = rummager_document.fetch(:organisations, [])
+    @content_purpose_supergroup = rummager_document.fetch(:content_purpose_supergroup, nil)
     @is_historic = rummager_document.fetch(:is_historic, false)
     @government_name = rummager_document.fetch(:government_name, nil)
-
     @finder = finder
     @rummager_document = rummager_document.slice(*metadata_keys)
   end

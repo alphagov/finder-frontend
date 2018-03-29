@@ -2,7 +2,6 @@ class AdvancedSearchFinderPresenter < FinderPresenter
   include AdvancedSearchParams
 
   def taxon
-    # FIXME: This is probably too simplistic.
     content_item['links']['taxons'].first
   end
 

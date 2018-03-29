@@ -25,7 +25,7 @@ private
   end
 
   def fetch_search_response(content_item)
-    query = SearchQueryBuilder.new(
+    query = query_builder_class.new(
       finder_content_item: content_item,
       params: filter_params,
     ).call
@@ -77,5 +77,9 @@ private
         'total_pages' => (total_results / documents_per_page.to_f).ceil,
       }
     end
+  end
+
+  def query_builder_class
+    SearchQueryBuilder
   end
 end
