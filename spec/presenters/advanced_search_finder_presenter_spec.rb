@@ -81,17 +81,17 @@ describe AdvancedSearchFinderPresenter do
   end
 
   describe "breadcrumbs" do
-    let(:helper) { instance_double("GovukPublishingComponents::Presenters::TaxonBreadcrumbs") }
+    let(:helper) { instance_double("GovukPublishingComponents::AppHelpers::TaxonBreadcrumbs") }
     let(:breadcrumb_data) {
-      { breadcrumbs: [
+      [
         { title: "Home", url: "/", is_page_parent: false },
         { title: "Education, training and skills", url: "/education", is_page_parent: true },
         { title: "Latest on GOV.UK", is_current_page: true }
-      ] }
+      ]
     }
 
     before do
-      allow(GovukPublishingComponents::Presenters::TaxonBreadcrumbs).to receive(:new).and_return(helper)
+      allow(GovukPublishingComponents::AppHelpers::TaxonBreadcrumbs).to receive(:new).and_return(helper)
       allow(helper).to receive(:breadcrumbs).and_return(breadcrumb_data)
     end
 
@@ -102,10 +102,10 @@ describe AdvancedSearchFinderPresenter do
 
     context "for a root taxon" do
       let(:breadcrumb_data) {
-        { breadcrumbs: [
+        [
           { title: "Home", url: "/", is_page_parent: true },
           { title: "Latest on GOV.UK", is_current_page: true },
-        ] }
+        ]
       }
       it "always includes the Home breadcrumb" do
         expect(subject.breadcrumbs[:breadcrumbs].first[:title]).to eq("Home")
