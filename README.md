@@ -25,6 +25,11 @@ Finder pages provide facetted searching over a collection of documents.
 * [gov.uk/maib-reports](https://www.gov.uk/maib-reports)
 * [gov.uk/raib-reports](https://www.gov.uk/raib-reports)
 
+The **advanced search** finder provides facetted searching of GOV.UK taxonomy and content types:
+* [gov.uk/search/advanced?group=guidance_and_regulation&topic=%2Fmoney](https://www.gov.uk/search/advanced?group=guidance_and_regulation&topic=%2Fmoney)
+
+[Read more about the advanced search finder](docs/advanced-search-finder.md)
+
 ![Finder frontend screenshot](docs/assets/page-screenshot.png)
 
 ## Nomenclature
