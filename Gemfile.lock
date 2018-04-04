@@ -377,7 +377,7 @@ DEPENDENCIES
   jasmine-rails
   launchy (~> 2.4.2)
   pry-byebug
-  rails (~> 5.1.5)
+  rails (~> 5.1.6)
   rails-controller-testing
   rspec-rails (~> 3.7.2)
   sass-rails (~> 5.0)
