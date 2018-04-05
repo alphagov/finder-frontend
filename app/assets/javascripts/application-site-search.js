@@ -19,4 +19,4 @@
 //= require search
 //= require_tree ./modules
 //= require_tree ./components
-//= require govuk_publishing_components/components/feedback
+//= require govuk_publishing_components/all_components
