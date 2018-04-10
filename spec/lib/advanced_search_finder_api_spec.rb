@@ -56,7 +56,7 @@ describe AdvancedSearchFinderApi do
       instance.content_item_with_search_results
 
       expect(Services.rummager).to have_received(:search)
-        .with(hash_including("filter_taxons" => taxon_content_id))
+        .with(hash_including("filter_part_of_taxonomy_tree" => taxon_content_id))
     end
 
     context "when an invalid taxon path is specified in params" do

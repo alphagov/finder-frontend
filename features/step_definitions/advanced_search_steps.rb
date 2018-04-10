@@ -25,7 +25,7 @@ Given(/^a collection of tagged documents(.*?)$/) do |categorisation|
       title link description public_timestamp
       content_purpose_supergroup
       content_store_document_type organisations
-      content_purpose_subgroup taxons
+      content_purpose_subgroup part_of_taxonomy_tree
     ).join(","),
     "order" => "-public_timestamp",
     "reject_content_store_document_type" => ["browse"],
@@ -73,7 +73,7 @@ When(/^I filter by taxon, supergroup and subgroups$/) do
   visit "/search/advanced?topic=/taxon&group=news_and_communications&subgroup[]=news&subgroup[]=updates_and_alerts"
 end
 
-Then(/^I only see documents tagged to the taxon within the supergroup$/) do
+Then(/^I only see documents tagged to the taxon tree within the supergroup$/) do
   @results.each do |result|
     expect(page).to have_title("News and communications - GOV.UK")
     expect(page).to have_link("Taxon", "/taxon")
@@ -82,7 +82,7 @@ Then(/^I only see documents tagged to the taxon within the supergroup$/) do
   end
 end
 
-Then(/^I only see documents tagged to the taxon within the supergroup and subgroups$/) do
+Then(/^I only see documents tagged to the taxon tree within the supergroup and subgroups$/) do
   @results.each do |result|
     expect(page).to have_title("News and communications - GOV.UK")
     expect(page).to have_link("Taxon", "/taxon")

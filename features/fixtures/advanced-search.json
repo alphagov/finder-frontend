@@ -52,7 +52,7 @@
             "filterable":true
           },
           {
-            "filter_key": "taxons",
+            "filter_key": "part_of_taxonomy_tree",
             "key": "topic",
             "name": "Taxonomy",
             "type": "hidden",
