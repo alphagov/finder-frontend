@@ -27,11 +27,13 @@ group :development do
 end
 
 group :development, :test do
-  gem 'jasmine-rails'
+  gem 'ci_reporter_test_unit'
+  gem 'jasmine', '~> 2.8'
   gem 'awesome_print'
   gem 'rspec-rails', '~> 3.7.2'
   gem 'pry-byebug'
   gem 'govuk-lint', '~> 3.8.0'
+  gem 'ci_reporter_rspec'
 end
 
 group :test do
