@@ -176,7 +176,7 @@ describe("liveSiteSearch", function(){
       expect(GOVUK.liveSiteSearch.state).toEqual([]);
       expect(GOVUK.liveSiteSearch.updateResults).toHaveBeenCalled();
       promise.done.calls.mostRecent().args[0]();
-      expect(GOVUK.liveSiteSearch.pageTrack).toHaveBeenCalled();
+      expect(GOVUK.liveSiteSearch.pageTrack).not.toHaveBeenCalled();
     });
 
     it("should do nothing if state hasn't changed when a checkbox is changed", function(){

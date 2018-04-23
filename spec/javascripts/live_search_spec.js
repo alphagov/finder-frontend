@@ -175,7 +175,7 @@ describe("liveSearch", function(){
       $form.find('input').prop('checked', false);
 
       liveSearch.formChange();
-      expect(liveSearch.state).toEqual([]);
+      expect(liveSearch.state).toEqual([1]);
       expect(liveSearch.updateResults).toHaveBeenCalled();
       promise.done.calls.mostRecent().args[0]();
       //expect(liveSearch.pageTrack).toHaveBeenCalled();
