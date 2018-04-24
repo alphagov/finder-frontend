@@ -1,6 +1,6 @@
 <%
   if @search_term.present?
-    label_text = "<h1>Search results for <span class=\"visuallyhidden\">&ldquo;#{@search_term}&rdquo;</span></h1>"
+    label_text = "<h1>Search results for <span class=\"visuallyhidden\">&ldquo;#{sanitize(@search_term)}&rdquo;</span></h1>"
   else
     label_text = "<h1>Search GOV.UK</h1>"
   end
