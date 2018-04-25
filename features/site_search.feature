@@ -18,6 +18,11 @@ Feature: Site search
     And I can see the search term
     And Analytics values are sent
 
+  Scenario: When search terms are entered
+    Given search results exist
+    When I search for "<script>XSS</script>"
+    Then the search term is escaped
+
   Scenario: When an invalid search is entered
     Given no search results exist
     When I search for "search-term"

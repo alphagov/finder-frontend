@@ -244,6 +244,10 @@ Then(/^I should get an error page$/) do
   expect(page.status_code).to eq(503)
 end
 
+Then("the search term is escaped") do
+  expect(page.body.to_s).not_to match("<script>XSS</script>")
+end
+
 module RummagerStubber
   def stub_rummager_results(results, _query = "search-term", suggestions = [], options = {})
     response_body = response(results, suggestions, options)
@@ -304,4 +308,5 @@ module RummagerStubber
     response([])
   end
 end
+
 World(RummagerStubber)
