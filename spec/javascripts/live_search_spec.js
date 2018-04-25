@@ -136,7 +136,7 @@ describe("liveSearch", function(){
   describe("should not display out of date results", function(){
 
     it('should not update the results if the state associated with these results is not the current state of the page', function(){
-      liveSearch.state = 'cma-cases.json?keywords=123'
+      liveSearch.state = 'cma-cases.json?keywords=123';
       spyOn(liveSearch.$resultsBlock, 'mustache');
       liveSearch.displayResults(dummyResponse, 'made up state');
       expect(liveSearch.$resultsBlock.mustache).not.toHaveBeenCalled();
