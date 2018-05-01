@@ -12,7 +12,7 @@ gem 'govuk_ab_testing', '~> 2.4.1'
 gem 'govuk_publishing_components', '~> 6.7.0'
 gem 'govuk_document_types', '~> 0.4.0'
 
-gem 'govuk_frontend_toolkit', '~> 7.4'
+gem 'govuk_frontend_toolkit', '~> 7.5'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '~> 4.1'
 
