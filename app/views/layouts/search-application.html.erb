@@ -9,7 +9,7 @@
   <!--[if IE 8]><%= stylesheet_link_tag "application-site-search-ie8.css" %><![endif]-->
   <%= javascript_include_tag 'application-site-search', integrity: true, crossorigin: 'anonymous' %>
   <% if @content_item %>
-    <%= render partial: 'govuk_component/analytics_meta_tags', locals: { content_item: @content_item } %>
+    <%= render 'govuk_publishing_components/components/meta_tags', content_item: @content_item %>
   <% end %>
   <%= yield :extra_headers %>
 </head>

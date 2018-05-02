@@ -2,3 +2,5 @@
   <meta name="description" content="<%= finder.description %>">
 <% end %>
 <link rel="alternate" type="application/json" href="/api/content<%= finder.slug %>">
+
+<%= render 'govuk_publishing_components/components/meta_tags', content_item: finder.content_item %>
