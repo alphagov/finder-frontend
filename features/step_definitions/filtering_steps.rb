@@ -55,11 +55,6 @@ Then(/^I can see the government header$/) do
   expect(page).to have_css(shared_component_selector('government_navigation'))
 end
 
-Then(/^I can see the breadcrumbs$/) do
-  visit finder_path('government/policies/benefits-reform')
-  expect(page).to have_css(shared_component_selector('breadcrumbs'))
-end
-
 Then(/^I can see documents which are marked as being in history mode$/) do
   expect(page).to have_css('p.historic', count: 5)
   expect(page).to have_content("2005 to 2010 Labour government")
