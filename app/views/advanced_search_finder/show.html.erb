@@ -26,7 +26,7 @@
 
     <div class="title-and-metadata">
       <%= finder.taxon_link %>
-      <%= render partial: 'govuk_component/title', locals: { title: finder.title } %>
+      <%= render partial: 'govuk_publishing_components/components/title', locals: { title: finder.title } %>
 
       <% if finder.email_alert_signup_url %>
         <p class='email-link'>
