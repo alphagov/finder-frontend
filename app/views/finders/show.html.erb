@@ -39,9 +39,7 @@
 
     <% if finder.summary %>
       <div class="summary">
-        <%= render partial: 'govuk_component/govspeak', locals: {
-            content: finder.summary
-          } %>
+        <%= render 'govuk_publishing_components/components/govspeak', content: finder.summary.html_safe %>
       </div>
     <% end %>
 
