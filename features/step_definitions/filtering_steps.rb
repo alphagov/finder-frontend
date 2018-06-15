@@ -132,20 +132,16 @@ end
 Then(/^I can see pagination$/) do
   visit finder_path('government/policies/benefits-reform')
 
-  within shared_component_selector('previous_and_next_navigation') do
-    expect(page).not_to have_content('Previous page')
-    expect(page).to have_content('Next page')
-  end
+  expect(page).not_to have_content('Previous page')
+  expect(page).to have_content('Next page')
 end
 
 Then(/^I can browse to the next page$/) do
   stub_rummager_api_request_with_page_2_policy_results
   visit finder_path('government/policies/benefits-reform', page: 2)
 
-  within shared_component_selector('previous_and_next_navigation') do
-    expect(page).to have_content('Previous page')
-    expect(page).not_to have_content('Next page')
-  end
+  expect(page).to have_content('Previous page')
+  expect(page).not_to have_content('Next page')
 end
 
 Given(/^a finder with description exists$/) do

@@ -113,9 +113,7 @@ When(/^I search for "([^"]*)" with show organisation flag$/) do |search_term|
 end
 
 When(/^I navigate to the next page$/) do
-  within shared_component_selector('previous_and_next_navigation') do
-    visit JSON.parse(page.text).dig('next_page', 'url')
-  end
+  click_on "Next page"
 end
 
 Then /^I am able to set search terms$/ do
@@ -194,15 +192,11 @@ Then /^I can see the search term$/ do
 end
 
 Then(/^I should see a link to the next page$/) do
-  within shared_component_selector('previous_and_next_navigation') do
-    expect(page).to have_content("Next page")
-  end
+  expect(page).to have_content("Next page")
 end
 
 Then(/^I should see a link to the previous page$/) do
-  within shared_component_selector('previous_and_next_navigation') do
-    expect(page).to have_content("Previous page")
-  end
+  expect(page).to have_content("Previous page")
 end
 
 Then(/^Analytics values are sent$/) do

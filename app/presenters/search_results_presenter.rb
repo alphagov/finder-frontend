@@ -97,7 +97,7 @@ class SearchResultsPresenter
       pages[:next_page] = build_page_link("Next page", next_page_number, next_page_start)
     end
 
-    view_context.render('govuk_component/previous_and_next_navigation', pages) if pages.any?
+    view_context.render(formats: ["html"], partial: 'govuk_publishing_components/components/previous_and_next_navigation', locals: pages) if pages.any?
   end
 
 private
