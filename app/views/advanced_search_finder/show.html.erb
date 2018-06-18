@@ -4,18 +4,8 @@
   <%= render 'finder_meta', finder: finder %>
 <% end %>
 
-<% if finder.alpha? %>
-  <% if finder.alpha_message %>
-    <%= render partial: 'govuk_component/alpha_label', locals: { message: finder.alpha_message } %>
-  <% else %>
-    <%= render partial: 'govuk_component/alpha_label' %>
-  <% end %>
-<% elsif finder.beta? %>
-  <% if finder.beta_message %>
-    <%= render partial: 'govuk_component/beta_label', locals: { message: finder.beta_message } %>
-  <% else %>
-    <%= render partial: 'govuk_component/beta_label' %>
-  <% end %>
+<% if finder.show_phase_banner? %>
+  <%= render 'govuk_publishing_components/components/phase_banner', phase: finder.phase, message: finder.phase_message%>
 <% end %>
 
 <%= render "govuk_publishing_components/components/inverse_header", { full_width: true } do %>

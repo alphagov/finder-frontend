@@ -13,12 +13,16 @@ class FinderPresenter
     @keywords = values["keywords"].presence
   end
 
-  def alpha_message
-    content_item['details']['alpha_message']
+  def phase_message
+    content_item['details']['beta_message'] || content_item['details']['alpha_message']
   end
 
-  def beta_message
-    content_item['details']['beta_message']
+  def phase
+    content_item['phase']
+  end
+
+  def show_phase_banner?
+    content_item['phase'].in?(%w[alpha beta])
   end
 
   def default_order
@@ -47,14 +51,6 @@ class FinderPresenter
 
   def pagination
     content_item['details']['pagination']
-  end
-
-  def alpha?
-    content_item['phase'] == 'alpha'
-  end
-
-  def beta?
-    content_item['phase'] == 'beta'
   end
 
   def email_alert_signup
