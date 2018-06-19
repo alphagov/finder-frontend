@@ -52,7 +52,7 @@ end
 
 Then(/^I can see the government header$/) do
   visit finder_path('government/policies/benefits-reform')
-  expect(page).to have_css(shared_component_selector('government_navigation'))
+  expect(page).to have_css('#proposition-menu')
 end
 
 Then(/^I can see documents which are marked as being in history mode$/) do
