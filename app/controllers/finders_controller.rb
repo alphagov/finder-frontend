@@ -3,6 +3,8 @@ require 'gds_api/helpers'
 class FindersController < ApplicationController
   include GdsApi::Helpers
 
+  ATOM_FEED_MAX_AGE = 300
+
   def show
     return redirect_to '/government/brexit' if finder_slug == 'government/policies/brexit'
 
@@ -17,6 +19,7 @@ class FindersController < ApplicationController
       end
       format.atom do
         if finder.atom_feed_enabled?
+          expires_in(ATOM_FEED_MAX_AGE, public: true)
           @feed = AtomPresenter.new(finder)
         else
           render plain: 'Not found', status: 404
