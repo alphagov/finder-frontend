@@ -44,6 +44,7 @@ describe FindersController, type: :controller do
         expect(response.status).to eq(200)
         expect(response.content_type).to eq("application/atom+xml")
         expect(response).to render_template("finders/show")
+        expect(response.headers['Cache-Control']).to eq("max-age=300, public")
       end
 
       it "returns a 406 if an invalid format is requested" do
