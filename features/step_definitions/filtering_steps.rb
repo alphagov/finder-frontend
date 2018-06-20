@@ -8,7 +8,7 @@ Then(/^I can get a list of all documents with matching metadata$/) do
 
   expect(page).not_to have_content('2 reports')
   expect(page).to have_css('.filtered-results .document', count: 2)
-  expect(page).to have_css(shared_component_selector('metadata'))
+  expect(page).to have_css('.gem-c-metadata')
 
   within '.filtered-results .document:nth-child(1)' do
     expect(page).to have_link(

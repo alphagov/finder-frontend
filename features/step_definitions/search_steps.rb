@@ -184,7 +184,7 @@ Then(/^Organisations filter should not be expanded$/) do
 end
 
 Then(/^Organisations filter should not be displayed$/) do
-  expect(page).to have_no_css(shared_component_selector('option_select'))
+  expect(page).to have_no_css('.app-c-option-select')
 end
 
 Then /^I can see the search term$/ do

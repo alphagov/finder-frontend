@@ -22,11 +22,8 @@ GovukAbTesting.configure do |config|
 end
 
 RSpec.configure do |config|
-  include Slimmer::TestHelpers::GovukComponents
   config.raise_errors_for_deprecations!
-  config.before do
-    stub_shared_component_locales
-  end
+
   # ## Mock Framework
   #
   # If you prefer to use mocha, flexmock or RR, uncomment the appropriate line:

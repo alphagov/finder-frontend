@@ -21,10 +21,7 @@
       title: finder.name
     } %>
     <% if finder.page_metadata.any? %>
-      <div class="metadata">
-        <%= render partial: 'govuk_component/metadata',
-          locals: page_metadata(finder.page_metadata) %>
-      </div>
+      <%= render 'govuk_publishing_components/components/metadata', page_metadata(finder.page_metadata) %>
     <% end %>
 
     <% if finder.summary %>
