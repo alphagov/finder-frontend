@@ -4,7 +4,7 @@
 <% end %>
 
 <% if @signup.beta? %>
-  <%= render partial: 'govuk_component/beta_label' %>
+  <%= render 'govuk_publishing_components/components/phase_banner', phase: "beta" %>
 <% end %>
 <header>
  <div class="title-and-metadata">
