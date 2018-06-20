@@ -8,12 +8,16 @@ describe FindersController, type: :controller do
   render_views
 
   describe "GET show" do
-    let(:lunch_finder) {
-      govuk_content_schema_example('finder').to_hash.merge(
+    let(:lunch_finder) do
+      finder = govuk_content_schema_example('finder').to_hash.merge(
         'title' => 'Lunch Finder',
-        'base_path' => '/lunch-finder'
+        'base_path' => '/lunch-finder',
       )
-    }
+
+      finder["details"]["default_documents_per_page"] = 10
+      finder
+    end
+
     describe "a finder content item exists" do
       before do
         content_store_has_item(
@@ -23,13 +27,13 @@ describe FindersController, type: :controller do
 
         rummager_response = %|{
           "results": [],
-          "total": 0,
+          "total": 11,
           "start": 0,
           "facets": {},
           "suggested_queries": []
         }|
 
-        stub_request(:get, "#{Plek.current.find('search')}/search.json?count=1000&fields=title,link,description,public_timestamp,walk_type,place_of_origin,date_of_introduction,creator&filter_document_type=mosw_report&order=-public_timestamp&start=0").
+        stub_request(:get, "#{Plek.current.find('search')}/search.json?count=10&fields=title,link,description,public_timestamp,walk_type,place_of_origin,date_of_introduction,creator&filter_document_type=mosw_report&order=-public_timestamp&start=0").
           to_return(status: 200, body: rummager_response, headers: {})
       end
 
@@ -44,6 +48,13 @@ describe FindersController, type: :controller do
         expect(response.status).to eq(200)
         expect(response.content_type).to eq("application/atom+xml")
         expect(response).to render_template("finders/show")
+      end
+
+      it "can respond with JSON" do
+        get :show, params: { slug: "lunch-finder", format: "json" }
+
+        expect(response.status).to eq(200)
+        expect(response.content_type).to eq("application/json")
       end
 
       it "returns a 406 if an invalid format is requested" do
@@ -70,7 +81,7 @@ describe FindersController, type: :controller do
           "suggested_queries": []
         }|
 
-        stub_request(:get, "#{Plek.current.find('search')}/search.json?count=1000&fields=title,link,description,public_timestamp,walk_type,place_of_origin,date_of_introduction,creator&filter_document_type=mosw_report&order=-closing_date&start=0").
+        stub_request(:get, "#{Plek.current.find('search')}/search.json?count=10&fields=title,link,description,public_timestamp,walk_type,place_of_origin,date_of_introduction,creator&filter_document_type=mosw_report&order=-closing_date&start=0").
           to_return(status: 200, body: rummager_response, headers: {})
       end
 
