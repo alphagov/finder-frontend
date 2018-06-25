@@ -137,7 +137,7 @@ GEM
       sentry-raven (~> 2.7.1)
       statsd-ruby (~> 1.4.0)
       unicorn (~> 5.4.0)
-    govuk_document_types (0.4.0)
+    govuk_document_types (0.5.0)
     govuk_frontend_toolkit (7.5.0)
       railties (>= 3.1.0)
       sass (>= 3.2.0)
@@ -378,7 +378,7 @@ DEPENDENCIES
   govuk-lint (~> 3.8.0)
   govuk_ab_testing (~> 2.4.1)
   govuk_app_config (~> 1.5.1)
-  govuk_document_types (~> 0.4.0)
+  govuk_document_types (~> 0.5.0)
   govuk_frontend_toolkit (~> 7.5)
   govuk_publishing_components (~> 9.3.1)
   jasmine-rails
