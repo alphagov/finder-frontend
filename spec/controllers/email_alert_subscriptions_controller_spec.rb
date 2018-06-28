@@ -26,7 +26,7 @@ describe EmailAlertSubscriptionsController, type: :controller do
         content_store_has_item('/does-exist/email-signup', signup_finder)
         get :new, params: { slug: 'does-exist' }
 
-        expect(response).to be_success
+        expect(response).to be_successful
       end
     end
   end
@@ -41,7 +41,7 @@ describe EmailAlertSubscriptionsController, type: :controller do
 
     it "fails if the relevant filters are not provided" do
       post :create, params: { slug: 'cma-cases' }
-      expect(response).to be_success
+      expect(response).to be_successful
       expect(response).to render_template('new')
     end
 
