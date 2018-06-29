@@ -14,11 +14,11 @@ class FacetQueryBuilder
       # TODO title will only work for Orgs, this key will need changed for
       # other dynamic facets
       #
-      # "1000,order:value.title" is specifying that we want 1000 results back
+      # "1500,order:value.title" is specifying that we want 1500 results back
       # which are ordered by the title attribute of each value (option)
       # that is returned
       key = (facet['filter_key'] || facet['key'])
-      query.merge(key => "1000,order:value.title")
+      query.merge(key => "1500,order:value.title")
     }
   end
 

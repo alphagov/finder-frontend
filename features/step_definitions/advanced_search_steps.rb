@@ -20,7 +20,7 @@ Given(/^a collection of tagged documents(.*?)$/) do |categorisation|
   @results = [@tagged_to_taxon, @guide_tagged_to_taxon]
   search_params = base_search_params.merge(
     "count" => 20,
-    "facet_content_purpose_subgroup" => "1000,order:value.title",
+    "facet_content_purpose_subgroup" => "1500,order:value.title",
     "fields" => %w(
       title link description public_timestamp
       content_purpose_supergroup

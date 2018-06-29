@@ -177,7 +177,7 @@ module DocumentHelper
   def rummager_policies_finder_search_url
     rummager_url(
       policies_search_params.merge(
-        "facet_organisations" => "1000,order:value.title",
+        "facet_organisations" => "1500,order:value.title",
         "order" => "title",
       )
     )

@@ -29,7 +29,7 @@ describe SearchQueryBuilder do
   let(:params) { {} }
 
   it "should include a count" do
-    expect(query).to include("count" => 1000)
+    expect(query).to include("count" => 1500)
   end
 
   context "with pagination" do
@@ -176,7 +176,7 @@ describe SearchQueryBuilder do
     it 'is paginated' do
       query = query_with_params("page" => "10")
 
-      expect(query['start']).to eql(9000)
+      expect(query['start']).to eql(13500)
     end
 
     def query_with_params(params)
