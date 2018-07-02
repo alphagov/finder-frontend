@@ -375,7 +375,8 @@ module DocumentHelper
       "facets": {
         "organisations": {
           "options": [
-              {"value": {"title": "Ministry of Justice", "slug": "ministry-of-justice"}}
+              {"value": {"title": "Ministry of Justice", "slug": "ministry-of-justice"}},
+              {"value": {"slug": "ministry-of-missing-spoons"}}
           ]
         }
       },
