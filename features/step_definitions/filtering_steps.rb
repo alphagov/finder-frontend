@@ -121,6 +121,7 @@ Then(/^I can see filters based on the results$/) do
   within '.app-c-option-select' do
     expect(page).to have_selector('input#organisations-ministry-of-justice')
     expect(page).to have_content('Ministry of Justice')
+    expect(page).to_not have_selector('input#organisations-ministry-of-missing-spoons')
   end
 end
 

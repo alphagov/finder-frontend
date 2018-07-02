@@ -60,7 +60,9 @@ private
   end
 
   def allowed_values_for_facet_details(facet_details)
-    values = facet_details.fetch("options", {}).map { |f| f.fetch("value", {}) }
+    values = facet_details.fetch("options", {})
+      .reject { |f| f.dig("value", "title").nil? }
+      .map { |f| f.fetch("value", {}) }
 
     values.map { |value|
       {
