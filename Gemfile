@@ -4,7 +4,7 @@ ruby File.read(".ruby-version").strip
 
 gem 'rails', '~> 5.2.0'
 gem 'slimmer', '~> 13.0.0'
-gem 'gds-api-adapters', '~> 52.6'
+gem 'gds-api-adapters', '~> 52.7'
 gem 'shared_mustache', '~> 1.0.1'
 gem 'govuk_app_config', '~> 1.7.0'
 gem 'chronic', '~> 0.10.2'
