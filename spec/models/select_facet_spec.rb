@@ -63,4 +63,30 @@ describe SelectFacet do
       specify { expect(subject.sentence_fragment).to be_nil }
     end
   end
+
+  describe "#close_facet?" do
+    context "small number of options" do
+      specify { expect(subject.close_facet?).to be false }
+    end
+
+    context "large number of options" do
+      let(:allowed_values) {
+        11.times.map { |i| { 'label' => "Label #{i}", 'value' => "allowed-value-#{i}" } }
+      }
+
+      let(:large_facet_data) {
+        {
+          'type' => "multi-select",
+          'name' => "Test values",
+          'key' => "test_values",
+          'preposition' => "of value",
+          'allowed_values' => allowed_values,
+        }
+      }
+
+      subject { SelectFacet.new(large_facet_data) }
+
+      specify { expect(subject.close_facet?).to be true }
+    end
+  end
 end
