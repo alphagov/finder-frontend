@@ -30,11 +30,11 @@ describe SelectFacet do
 
   subject { SelectFacet.new(facet_data) }
 
-  before do
-    subject.value = value
-  end
-
   describe "#sentence_fragment" do
+    before do
+      subject.value = value
+    end
+
     context "single value" do
       let(:value) { ["allowed-value-1"] }
 
