@@ -31,6 +31,10 @@ class SelectFacet < FilterableFacet
     }
   end
 
+  def close_facet?
+    allowed_values.count > 10
+  end
+
 private
 
   def value_fragments
