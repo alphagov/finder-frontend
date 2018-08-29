@@ -10,7 +10,7 @@ gem 'govuk_app_config', '~> 1.8.0'
 gem 'chronic', '~> 0.10.2'
 gem 'govuk_ab_testing', '~> 2.4.1'
 gem 'govuk_publishing_components', '~> 9.16.0'
-gem 'govuk_document_types', '~> 0.6.0'
+gem 'govuk_document_types', '~> 0.7.0'
 
 gem 'govuk_frontend_toolkit', '~> 7.6'
 gem 'sass-rails', '~> 5.0'
