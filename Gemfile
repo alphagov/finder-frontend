@@ -31,7 +31,7 @@ group :development, :test do
   gem 'awesome_print'
   gem 'rspec-rails', '~> 3.8.0'
   gem 'pry-byebug'
-  gem 'govuk-lint', '~> 3.8.0'
+  gem 'govuk-lint', '~> 3.9.0'
 end
 
 group :test do
