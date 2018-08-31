@@ -1,8 +1,8 @@
 require 'spec_helper'
 require 'gds_api/test_helpers/content_store'
-include GdsApi::TestHelpers::ContentStore
 
 describe SearchController, type: :controller do
+  include GdsApi::TestHelpers::ContentStore
   include GovukAbTesting::RspecHelpers
   render_views
 
