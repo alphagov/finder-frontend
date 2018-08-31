@@ -54,7 +54,7 @@ private
   end
 
   class DateInput
-    attr_reader :original_input, :date
+    attr_reader :original_input
 
     def initialize(date_string)
       @original_input = date_string

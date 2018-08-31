@@ -1,4 +1,5 @@
 # coding: utf-8
+
 require "spec_helper"
 
 RSpec.describe GovernmentResult do
@@ -76,7 +77,7 @@ RSpec.describe GovernmentResult do
   it "return sections in correct format" do
     minister_results = GovernmentResult.new(search_params, "format" => "minister")
 
-    expect(minister_results.sections.first.keys).to eq([:hash, :title])
+    expect(minister_results.sections.first.keys).to eq(%i[hash title])
   end
 
   it "have a government name when in history mode" do

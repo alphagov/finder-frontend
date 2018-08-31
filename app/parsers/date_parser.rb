@@ -3,10 +3,10 @@ class DateParser
     date_string = date_string.to_s.strip
 
     # Catches if user inputs just year which Chronic would parse as a time. e.g. "2008" as "8:08pm"
-    date_string = "01/01/#{date_string}" if date_string =~ /^\d{4}$/
+    date_string = "01/01/#{date_string}" if date_string.match?(/^\d{4}$/)
 
     # Catches fully padded dates without delimiters, eg 01012001
-    if date_string =~ /^\d{8}$/
+    if date_string.match?(/^\d{8}$/)
       date_string = date_string.gsub(/(\d{2})(\d{2})(\d{4})/, '\1/\2/\3')
     end
 

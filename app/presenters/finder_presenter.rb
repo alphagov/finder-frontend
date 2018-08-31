@@ -1,13 +1,13 @@
 class FinderPresenter
   include ActionView::Helpers::UrlHelper
 
-  attr_reader :name, :slug, :organisations, :keywords, :values, :content_item
+  attr_reader :content_item, :name, :slug, :organisations, :values, :keywords
 
   def initialize(content_item, values = {})
     @content_item = content_item
     @name = content_item['title']
     @slug = content_item['base_path']
-    @organisations = content_item['links'].fetch(:organisations, [])
+    @organisations = content_item['links'].fetch('organisations', [])
     @values = values
     facets.values = values
     @keywords = values["keywords"].presence
@@ -160,10 +160,6 @@ private
 
   def part_of
     content_item['links']['part_of'] || []
-  end
-
-  def organisations
-    content_item['links']['organisations'] || []
   end
 
   def people
