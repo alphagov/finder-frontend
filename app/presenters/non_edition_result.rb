@@ -23,7 +23,7 @@ class NonEditionResult < SearchResult
 private
 
   def formatted_public_timestamp
-    public_timestamp && public_timestamp.to_date.strftime("%e %B %Y")
+    public_timestamp && public_timestamp.to_date.strftime("%e %B %Y") # rubocop:disable Style/FormatStringToken
   end
 
   def display_type
