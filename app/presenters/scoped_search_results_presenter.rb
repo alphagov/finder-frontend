@@ -12,8 +12,6 @@ class ScopedSearchResultsPresenter < SearchResultsPresenter
 
 private
 
-  attr_reader :unscoped_results
-
   def scope_title
     search_response["scope"]["title"]
   end

@@ -1,8 +1,6 @@
 class SearchParameters
   include Rails.application.routes.url_helpers
 
-  attr_reader :start, :count
-
   DEFAULT_RESULTS_PER_PAGE = 20
   MAX_RESULTS_PER_PAGE = 100
   ALWAYS_FACET_FIELDS = %w{organisations}.freeze
