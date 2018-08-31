@@ -1,4 +1,5 @@
 # coding: utf-8
+
 class SearchResult
   include ActionView::Helpers::NumberHelper
   SCHEME_PATTERN = %r{^https?://}

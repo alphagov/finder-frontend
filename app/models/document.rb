@@ -110,7 +110,7 @@ private
     else
       tag
     end
-  rescue => error
+  rescue StandardError => error
     GovukError.notify(
       error,
       level: 'debug',

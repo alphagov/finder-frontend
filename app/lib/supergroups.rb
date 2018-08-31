@@ -32,7 +32,6 @@ class Supergroups
     def subgroups_as_hash
       subgroups.map { |sg| { "label" => sg.humanize, "value" => sg } }
     end
-
   end
 
   class NotFound < StandardError; end

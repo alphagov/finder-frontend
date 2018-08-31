@@ -1,7 +1,7 @@
 atom_feed do |feed|
   feed.title(@feed.title)
 
-  feed.updated(@feed.updated_at) if @feed.entries.length > 0
+  feed.updated(@feed.updated_at) if @feed.entries.present?
 
   feed.author do |author|
     author.name 'HM Government'

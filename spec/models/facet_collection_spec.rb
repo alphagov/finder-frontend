@@ -10,7 +10,7 @@ describe FacetCollection do
 
   describe "enumerability" do
     context "with 3 facets" do
-      let(:facets) { [:a_facet, :another_facet, :and_another_facet] }
+      let(:facets) { %i[a_facet another_facet and_another_facet] }
 
       specify { expect(subject).to respond_to(:each) }
       specify { expect(subject.count).to eql(3) }

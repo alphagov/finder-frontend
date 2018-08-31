@@ -50,7 +50,6 @@ class SearchResultsPresenter
         queries.first,
         search_parameters.build_link(
           q: queries.first,
-
           # Record original query, for analytics
           o: search_parameters.search_term,
         ),
