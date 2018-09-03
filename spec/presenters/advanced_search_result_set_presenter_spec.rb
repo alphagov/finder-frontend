@@ -49,7 +49,7 @@ RSpec.describe AdvancedSearchResultSetPresenter do
     end
 
     it "contains group filters in lower case" do
-      expected = "in updates and alerts, news, and speeches and statements"
+      expected = "in updates and alerts, news, speeches and statements, and decisions"
       expect(instance.to_hash[:applied_filters]).to eq(expected)
     end
 
@@ -63,7 +63,7 @@ RSpec.describe AdvancedSearchResultSetPresenter do
       }
 
       it "contains all subgroups and date filters" do
-        expected = "in updates and alerts, news, and speeches and statements and published after 1 February 2017"
+        expected = "in updates and alerts, news, speeches and statements, and decisions and published after 1 February 2017"
         expect(instance.to_hash[:applied_filters]).to eq(expected)
       end
     end
