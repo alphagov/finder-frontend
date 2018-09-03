@@ -77,7 +77,7 @@ Then(/^I only see documents tagged to the taxon tree within the supergroup$/) do
   @results.each do |result|
     expect(page).to have_title("News and communications - GOV.UK")
     expect(page).to have_link("Taxon", href: "/taxon")
-    expect(page).to have_text("2 results in updates and alerts, news, and speeches and statements")
+    expect(page).to have_text("2 results in updates and alerts, news, speeches and statements, and decisions")
     expect(page).to have_link(result["title_with_highlighting"], href: result["link"])
   end
 end

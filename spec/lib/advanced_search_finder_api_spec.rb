@@ -113,7 +113,7 @@ describe AdvancedSearchFinderApi do
       it "returns a mixed list of subgroups" do
         facet = composed_content_item["details"]["facets"].find { |f| f["key"] == "subgroup" }
         facet_labels = facet["allowed_values"].map { |v| v["label"] }
-        expected = ["Updates and alerts", "News", "Speeches and statements", "Transactions"]
+        expected = ["Updates and alerts", "News", "Speeches and statements", "Decisions", "Transactions"]
         expect(facet_labels).to eq(expected)
       end
     end

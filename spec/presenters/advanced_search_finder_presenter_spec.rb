@@ -48,7 +48,7 @@ describe AdvancedSearchFinderPresenter do
 
   describe "content_purpose_subgroups" do
     it "presents the correct subgroups for the supergroup" do
-      expected = ["Updates and alerts", "News", "Speeches and statements"]
+      expected = ["Updates and alerts", "News", "Speeches and statements", "Decisions"]
       expect(subject.content_purpose_subgroups).to eq(expected)
     end
   end
