@@ -1,6 +1,6 @@
 def finder_content_item
   @finder_content_item ||= JSON.parse(File.read(
-    Rails.root.join("features", "fixtures", "advanced-search.json")
+                                        Rails.root.join("features", "fixtures", "advanced-search.json")
   ))
 end
 
@@ -28,7 +28,7 @@ Given(/^a collection of tagged documents(.*?)$/) do |categorisation|
       content_purpose_subgroup part_of_taxonomy_tree
     ).join(","),
     "order" => "-public_timestamp",
-    "reject_content_store_document_type" => ["browse"],
+    "reject_content_store_document_type" => %w[browse],
   )
 
   case categorisation.strip

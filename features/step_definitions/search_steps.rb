@@ -268,8 +268,7 @@ module RummagerStubber
                   "organisation_type" => "Ministerial department",
                   "organisation_state" => "live"
                 },
-                "documents" => 12
-              }
+                "documents" => 12 }
             ],
           "documents_with_no_value" => 1619,
           "total_options" => 139,

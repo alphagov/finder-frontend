@@ -46,7 +46,7 @@ class GovernmentResult < SearchResult
   end
 
   def public_timestamp
-    result["public_timestamp"].to_date.strftime("%e %B %Y") if result["public_timestamp"] # rubocop:disable Style/FormatStringToken
+    result["public_timestamp"].to_date.strftime("%e %B %Y") if result["public_timestamp"]
   end
 
   def historic?

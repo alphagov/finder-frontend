@@ -2,7 +2,7 @@ FinderFrontend::Application.routes.draw do
   mount JasmineRails::Engine => '/specs' if defined?(JasmineRails)
   mount GovukPublishingComponents::Engine, at: "/component-guide"
 
-  get '/healthcheck', to: proc { [200, {}, ['OK']] }
+  get '/healthcheck', to: proc { [200, {}, %w[OK]] }
 
   get "/search" => "search#index", as: :search
   get "/search/opensearch" => "search#opensearch"
