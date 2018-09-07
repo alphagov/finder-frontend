@@ -13,7 +13,7 @@ class EntryPresenter
   end
 
   def updated_at
-    DateTime.parse(entry.public_timestamp)
+    Time.parse(entry.public_timestamp)
   end
 
 private

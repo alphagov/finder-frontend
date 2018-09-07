@@ -4,7 +4,7 @@ Then(/^the links on the page have tracking attributes$/) do
   expect(page).to have_selector('ul[data-module="track-click"]')
 
   document_links = page.all('li.document a')
-  expect(document_links.count).to be > 0
+  expect(document_links.count).to be_positive
 
   first_link = document_links.first
 

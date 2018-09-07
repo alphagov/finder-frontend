@@ -11,8 +11,8 @@ class ApplicationController < ActionController::Base
 
 private
 
-  def error_503(e)
-    error(503, e)
+  def error_503(exception)
+    error(503, exception)
   end
 
   def error(status_code, exception = nil)

@@ -107,7 +107,7 @@ private
     pages[:previous_page] = build_page_link("Previous page", previous_page) if previous_page
     pages[:next_page] = build_page_link("Next page", next_page) if next_page
 
-    view_context.render(formats: ["html"], partial: 'govuk_publishing_components/components/previous_and_next_navigation', locals: pages) if pages
+    view_context.render(formats: %w[html], partial: 'govuk_publishing_components/components/previous_and_next_navigation', locals: pages) if pages
   end
 
   def build_page_link(page_label, page)

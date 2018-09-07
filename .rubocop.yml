@@ -1,3 +1,12 @@
 AllCops:
   Exclude:
     - 'lib/tasks/cucumber.rake' # Automatically generated
+
+Lint/AmbiguousRegexpLiteral:
+  Exclude:
+    - 'features/**/*.rb'
+
+Metrics/BlockLength:
+  Exclude:
+    - 'features/**/*.rb'
+    - 'spec/**/*'

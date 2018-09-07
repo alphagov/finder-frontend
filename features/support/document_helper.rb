@@ -123,7 +123,7 @@ module DocumentHelper
   def rummager_hopscotch_walks_url
     rummager_url(
       mosw_search_params.merge(
-        "filter_walk_type" => ["hopscotch"],
+        "filter_walk_type" => %w[hopscotch],
         "order" => "-public_timestamp",
       )
     )

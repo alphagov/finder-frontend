@@ -26,7 +26,7 @@ private
     content_item
   end
 
-  def augment_facets_with_dynamic_values(content_item, _)
+  def augment_facets_with_dynamic_values(content_item, _search_response)
     augment_facets_with_dynamic_subgroups(content_item) if supergroups.any?
   end
 

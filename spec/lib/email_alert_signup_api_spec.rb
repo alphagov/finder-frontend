@@ -92,21 +92,21 @@ describe EmailAlertSignupAPI do
       let(:attributes) {
         {
           "format" => "test-reports",
-          "filter" => ["first"],
+          "filter" => %w[first],
         }
       }
       it 'asks email-alert-api to find or create the subscriber list' do
         email_alert_api_has_subscriber_list(
           "tags" => {
             "format" => "test-reports",
-            "alert_type" => ["first"],
+            "alert_type" => %w[first],
           },
           "subscription_url" => subscription_url
         )
         expect(Services.email_alert_api).to receive(:find_or_create_subscriber_list).with(
           "tags" => {
             "format" => "test-reports",
-            "alert_type" => ["first"],
+            "alert_type" => %w[first],
           },
           "title" => "Format with report type: first ABC thing",
         ).and_call_original
