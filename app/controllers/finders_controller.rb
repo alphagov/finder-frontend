@@ -1,6 +1,7 @@
 require 'gds_api/helpers'
 
 class FindersController < ApplicationController
+  layout "finder_layout"
   include GdsApi::Helpers
 
   ATOM_FEED_MAX_AGE = 300
