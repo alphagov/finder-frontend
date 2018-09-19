@@ -145,6 +145,16 @@ Then(/^I can browse to the next page$/) do
   expect(page).not_to have_content('Next page')
 end
 
+Then(/^I can see that Google won't index the page$/) do
+  tag = "meta[name='robots'][content='noindex']"
+  expect(page).to have_css(tag, visible: false)
+end
+
+Then(/^I can see that Google can index the page$/) do
+  tag = "meta[name='robots'][content='noindex']"
+  expect(page).not_to have_css(tag, visible: false)
+end
+
 Given(/^a finder with description exists$/) do
   stub_content_store_with_cma_cases_finder_with_description
   stub_rummager_with_cma_cases
