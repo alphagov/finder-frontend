@@ -12,7 +12,7 @@ gem 'rails', '~> 5.2.1'
 gem 'shared_mustache', '~> 1.0.1'
 gem 'slimmer', '~> 13.0.0'
 
-gem 'govuk_frontend_toolkit', '~> 7.6'
+gem 'govuk_frontend_toolkit', '~> 8.0'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '~> 4.1'
 
