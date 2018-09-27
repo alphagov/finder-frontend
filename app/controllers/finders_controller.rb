@@ -9,14 +9,13 @@ class FindersController < ApplicationController
   def show
     return redirect_to '/government/brexit' if finder_slug == 'government/policies/brexit'
 
-    @results = result_set_presenter_class.new(finder, filter_params, view_context)
-
     respond_to do |format|
       format.html do
+        @results = results
         @content_item = raw_finder
       end
       format.json do
-        render json: @results
+        render json: results
       end
       format.atom do
         if finder.atom_feed_enabled?
@@ -32,6 +31,10 @@ class FindersController < ApplicationController
   end
 
 private
+
+  def results
+    result_set_presenter_class.new(finder, filter_params, view_context)
+  end
 
   def finder
     @finder ||= finder_presenter_class.new(
