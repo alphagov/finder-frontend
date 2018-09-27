@@ -11,7 +11,10 @@ class AdvancedSearchFinderPresenter < FinderPresenter
   end
 
   def content_purpose_subgroups
-    content_purpose_supergroups.map { |g| g.subgroups.map(&:humanize) }.flatten
+    @content_purpose_subgroups ||=
+      content_purpose_supergroups
+        .map { |supergroup| supergroup.subgroups_as_hash.map { |subgroup| subgroup['label'] } }
+        .flatten
   end
 
   def title
@@ -36,6 +39,9 @@ private
   end
 
   def content_purpose_supergroups_to_sentence
-    content_purpose_supergroups.map(&:label).to_sentence
+    content_purpose_supergroups
+      .map(&:label)
+      .sort
+      .to_sentence
   end
 end

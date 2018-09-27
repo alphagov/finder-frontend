@@ -26,7 +26,7 @@ describe AdvancedSearchFinderPresenter do
 
   let(:values) {
     {
-      "group" => "news_and_communications",
+      "group" => "policy_and_engagement",
       "topic" => "/education",
     }
   }
@@ -41,21 +41,21 @@ describe AdvancedSearchFinderPresenter do
   describe "content_purpose_supergroups" do
     it "presents the correct supergroup" do
       expect(subject.content_purpose_supergroups.first.label).to eq(
-        "News and communications"
+        "Policy papers and consultations"
       )
     end
   end
 
   describe "content_purpose_subgroups" do
     it "presents the correct subgroups for the supergroup" do
-      expected = ["Updates and alerts", "News", "Speeches and statements", "Decisions"]
+      expected = ["Policy papers", "Consultations"]
       expect(subject.content_purpose_subgroups).to eq(expected)
     end
   end
 
   describe "title" do
     it "presents the supergroup label" do
-      expect(subject.title).to eq("News and communications")
+      expect(subject.title).to eq("Policy papers and consultations")
     end
 
     context "without a supergroup" do
@@ -71,11 +71,11 @@ describe AdvancedSearchFinderPresenter do
       let(:values) {
         {
           "topic" => "/education",
-          "group" => %w(news_and_communications services)
+          "group" => %w(policy_and_engagement services)
         }
       }
       it "presents the supergroup labels in a sentence" do
-        expect(subject.title).to eq("News and communications and Services")
+        expect(subject.title).to eq("Policy papers and consultations and Services")
       end
     end
   end
