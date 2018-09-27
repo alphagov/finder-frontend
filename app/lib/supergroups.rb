@@ -17,7 +17,7 @@ class Supergroups
 
     def initialize(hash)
       @value = hash["id"]
-      @label = value.humanize
+      @label = I18n.t(hash['id'], scope: 'content_purpose_supergroup', default: hash['id'].humanize)
       @subgroups = hash["subgroups"]
     end
 
@@ -30,7 +30,12 @@ class Supergroups
     end
 
     def subgroups_as_hash
-      subgroups.map { |sg| { "label" => sg.humanize, "value" => sg } }
+      subgroups.map do |subgroup|
+        {
+          'label' => I18n.t(subgroup, scope: 'content_purpose_subgroup', default: subgroup.humanize),
+          'value' => subgroup,
+        }
+      end
     end
   end
 
