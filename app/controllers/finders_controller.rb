@@ -18,7 +18,11 @@ class FindersController < ApplicationController
         render json: results
       end
       format.atom do
-        if finder.atom_feed_enabled?
+        if finder_api.content_item['document_type'] == 'redirect'
+          @redirect = finder_api.content_item.dig('redirects', 0, 'destination')
+          @finder_slug = finder_slug
+          render 'finders/show-redirect'
+        elsif finder.atom_feed_enabled?
           expires_in(ATOM_FEED_MAX_AGE, public: true)
           @feed = AtomPresenter.new(finder)
         else
