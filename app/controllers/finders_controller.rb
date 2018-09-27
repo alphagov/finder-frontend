@@ -44,11 +44,15 @@ private
   end
   helper_method :finder
 
-  def raw_finder
-    @raw_finder ||= finder_api_class.new(
+  def finder_api
+    @finder_api ||= finder_api_class.new(
       finder_base_path,
       filter_params
-    ).content_item_with_search_results
+    )
+  end
+
+  def raw_finder
+    @raw_finder ||= finder_api.content_item_with_search_results
   end
 
   def filter_params
