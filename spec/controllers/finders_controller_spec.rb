@@ -150,7 +150,7 @@ describe FindersController, type: :controller do
           get :show, params: { slug: "government/policies/cats", format: "atom" }
 
           expect(response.status).to eq(200)
-          expect(response.body).to include("Policy pages, and the corresponding atom feeds have been retired")
+          expect(response.body).to include("Policy pages and their atom feeds have been retired")
         end
       end
     end
