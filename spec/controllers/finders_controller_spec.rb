@@ -93,11 +93,65 @@ describe FindersController, type: :controller do
     end
 
     describe "finder item doesn't exist" do
-      it 'returns a 404, rather than 5xx' do
+      before do
         content_store_does_not_have_item('/does-not-exist')
+      end
 
+      it 'returns a 404, rather than 5xx' do
         get :show, params: { slug: 'does-not-exist' }
         expect(response.status).to eq(404)
+      end
+
+      it 'returns a 404, rather than 5xx for the atom feed' do
+        get :show, params: { slug: "does-not-exist", format: "atom" }
+
+        expect(response.status).to eq(404)
+      end
+    end
+
+    describe "finder item has been unpublished" do
+      before do
+        stub_request(:get, "#{Plek.find('content-store')}/content/unpublished-finder").to_return(
+          status: 200,
+          body: {
+            document_type: 'redirect',
+            schema_name: 'redirect',
+            redirects: [
+              { path: '/unpublished-finder', type: 'exact', destination: '/replacement' }
+            ]
+          }.to_json,
+          headers: {}
+        )
+      end
+
+      it 'returns a message indicating the atom feed has ended' do
+        get :show, params: { slug: "unpublished-finder", format: "atom" }
+
+        expect(response.status).to eq(200)
+        expect(response.body).to include("This feed no longer exists")
+      end
+
+      context "and it was a policy finder page" do
+        before do
+          stub_request(:get, "#{Plek.find('content-store')}/content/government/policies/cats").to_return(
+            status: 200,
+            body: {
+              document_type: 'redirect',
+              schema_name: 'redirect',
+              redirects: [
+                { path: '/government/policies/cats', type: 'exact', destination: '/cats' }
+              ]
+            }.to_json,
+            headers: {}
+          )
+        end
+
+        it 'returns a policy specific message indicating the atom feed has ended' do
+          get :show, params: { slug: "government/policies/cats", format: "atom" }
+
+          expect(response.status).to eq(200)
+          expect(response.body).to include("Policy pages, and the corresponding atom feeds have been retired")
+        end
       end
     end
   end

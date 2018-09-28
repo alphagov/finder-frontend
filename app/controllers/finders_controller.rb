@@ -9,17 +9,20 @@ class FindersController < ApplicationController
   def show
     return redirect_to '/government/brexit' if finder_slug == 'government/policies/brexit'
 
-    @results = result_set_presenter_class.new(finder, filter_params, view_context)
-
     respond_to do |format|
       format.html do
+        @results = results
         @content_item = raw_finder
       end
       format.json do
-        render json: @results
+        render json: results
       end
       format.atom do
-        if finder.atom_feed_enabled?
+        if finder_api.content_item['document_type'] == 'redirect'
+          @redirect = finder_api.content_item.dig('redirects', 0, 'destination')
+          @finder_slug = finder_slug
+          render 'finders/show-redirect'
+        elsif finder.atom_feed_enabled?
           expires_in(ATOM_FEED_MAX_AGE, public: true)
           @feed = AtomPresenter.new(finder)
         else
@@ -33,6 +36,10 @@ class FindersController < ApplicationController
 
 private
 
+  def results
+    result_set_presenter_class.new(finder, filter_params, view_context)
+  end
+
   def finder
     @finder ||= finder_presenter_class.new(
       raw_finder,
@@ -41,11 +48,15 @@ private
   end
   helper_method :finder
 
-  def raw_finder
-    @raw_finder ||= finder_api_class.new(
+  def finder_api
+    @finder_api ||= finder_api_class.new(
       finder_base_path,
       filter_params
-    ).content_item_with_search_results
+    )
+  end
+
+  def raw_finder
+    @raw_finder ||= finder_api.content_item_with_search_results
   end
 
   def filter_params

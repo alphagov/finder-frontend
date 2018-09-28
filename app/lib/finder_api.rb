@@ -6,8 +6,11 @@ class FinderApi
     @filter_params = filter_params
   end
 
+  def content_item
+    @content_item ||= fetch_content_item
+  end
+
   def content_item_with_search_results
-    content_item = fetch_content_item
     search_response = fetch_search_response(content_item)
     augment_content_item_with_results(content_item, search_response)
   end

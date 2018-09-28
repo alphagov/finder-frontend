@@ -97,5 +97,5 @@ Then(/^The correct metadata is displayed for the search results$/) do
 end
 
 Then(/^The page is not found$/) do
-  expect(page).to have_content("404 error not found")
+  expect(page.status_code).to eq(404)
 end
