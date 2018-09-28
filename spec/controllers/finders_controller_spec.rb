@@ -131,6 +131,13 @@ describe FindersController, type: :controller do
         expect(response.body).to include("This feed no longer exists")
       end
 
+      it 'returns a 404 for json responses' do
+        get :show, params: { slug: "unpublished-finder", format: "json" }
+
+        expect(response.status).to eq(404)
+        expect(response.content_type).to eq("application/json")
+      end
+
       context "and it was a policy finder page" do
         before do
           stub_request(:get, "#{Plek.find('content-store')}/content/government/policies/cats").to_return(

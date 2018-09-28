@@ -15,7 +15,11 @@ class FindersController < ApplicationController
         @content_item = raw_finder
       end
       format.json do
-        render json: results
+        if finder_api.content_item['document_type'] == 'finder'
+          render json: results
+        else
+          render json: {}, status: 404
+        end
       end
       format.atom do
         if finder_api.content_item['document_type'] == 'redirect'
