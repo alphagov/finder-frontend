@@ -60,8 +60,4 @@ private
   def raw_metadata
     search_result.metadata
   end
-
-  def supertypes
-    @supertypes ||= GovukDocumentTypes.supertypes(document_type: search_result.document_type)
-  end
 end
