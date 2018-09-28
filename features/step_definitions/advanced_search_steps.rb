@@ -33,10 +33,10 @@ Given(/^a collection of tagged documents(.*?)$/) do |categorisation|
 
   case categorisation.strip
   when /^in supergroup '(\w+)'$/
-    search_params["filter_content_store_document_type"] = GovukDocumentTypes.supergroup_document_types($1)
+    search_params["filter_content_purpose_supergroup"] = $1
   when /^in supergroup '(\w+)' and subgroups '([\w,]+)'$/
-    search_params["filter_content_store_document_type"] = GovukDocumentTypes.supergroup_document_types($1) +
-      GovukDocumentTypes.subgroup_document_types($2.split(","))
+    search_params["filter_content_purpose_supergroup"] = $1
+    search_params["filter_content_purpose_subgroup"] = $2.split(",")
   end
 
   rummager_advanced_search_url = rummager_url(search_params)

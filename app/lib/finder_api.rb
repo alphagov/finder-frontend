@@ -33,8 +33,6 @@ private
       params: filter_params,
     ).call
 
-    query = TranslateContentPurposeFields.new(query).call
-
     Services.rummager.search(query).to_hash
   end
 
