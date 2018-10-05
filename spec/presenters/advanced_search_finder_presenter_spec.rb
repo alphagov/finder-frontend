@@ -8,9 +8,14 @@ describe AdvancedSearchFinderPresenter do
   let(:finder_item) {
     JSON.parse(File.read(Rails.root.join("features", "fixtures", "advanced-search.json")))
   }
+  let(:taxon_content_id) { SecureRandom.uuid }
   let(:content_item) {
     finder_item.merge("links" => {
-      "taxons" => [{ "title" => "Education, training and skills", "base_path" => "/education" }]
+      "taxons" => [{
+        "base_path" => "/education",
+        "content_id" => taxon_content_id,
+        "title" => "Education, training and skills",
+      }]
     })
   }
 
@@ -30,6 +35,18 @@ describe AdvancedSearchFinderPresenter do
       "topic" => "/education",
     }
   }
+
+  describe "initialize" do
+    let(:values) { { "topic" => taxon_content_id } }
+
+    # The advanced search api rewrites the "topic" filter param with
+    # the taxon content id to make a valid rummager query.
+    # Pagination links from the result set presenter rely on the original
+    # filter params so we need to restore the original topic value (the taxon's base path).
+    it "replaces the taxon filter parameter with the taxon base path" do
+      expect(subject.values["topic"]).to eq("/education")
+    end
+  end
 
   describe "taxon_link" do
     it "builds a link to the taxon" do

@@ -4,11 +4,23 @@ RSpec.describe AdvancedSearchResultPresenter do
   let(:finder_content_item) {
     JSON.parse(File.read(Rails.root.join("features", "fixtures", "advanced-search.json")))
   }
-  let(:finder) { AdvancedSearchFinderPresenter.new(finder_content_item) }
+  let(:links) {
+    {
+      "links" => {
+        "taxons" => [{
+          "base_path" => "/education",
+          "content_id" => taxon_content_id,
+          "title" => "Education, training and skills",
+        }]
+      }
+    }
+  }
+  let(:finder) { AdvancedSearchFinderPresenter.new(finder_content_item.merge(links)) }
   let(:document_type) { "guidance" }
   let(:organisations) { [{ title: "Ministry of Defence" }] }
   let(:public_timestamp) { "2018-03-26" }
   let(:content_purpose_supergroup) { "news_and_communications" }
+  let(:taxon_content_id) { SecureRandom.uuid }
   let(:search_result) {
     Document.new({
       title: "Result",
