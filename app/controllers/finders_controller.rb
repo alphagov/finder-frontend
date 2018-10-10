@@ -13,7 +13,7 @@ class FindersController < ApplicationController
         @content_item = raw_finder
       end
       format.json do
-        if finder_api.content_item['document_type'] == 'finder'
+        if %w[finder search].include? finder_api.content_item['document_type']
           render json: results
         else
           render json: {}, status: 404
