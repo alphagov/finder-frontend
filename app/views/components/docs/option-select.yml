@@ -114,3 +114,36 @@ examples:
       - value: sombrero
         label: Sombrero
         id: sombrero
+  with_tracking:
+    data:
+      key: list_of_shoes
+      title: List of shoes
+      options_container_id: list_of_shoes
+      options:
+      - value: trainers
+        label: Trainers
+        id: trainers
+        data_attributes:
+          track_category: "filterClicked"
+          track_action: "List of shoes"
+          track_label: "trainers"
+          track_options:
+            dimension28: 1
+      - value: plimsolls
+        label: Plimsolls
+        id: plimsolls
+        data_attributes:
+          track_category: "filterClicked"
+          track_action: "List of shoes"
+          track_label: "plimsolls"
+          track_options:
+            dimension28: 1
+      - value: high_heels
+        label: High heels
+        id: high_heels
+        data_attributes:
+          track_category: "filterClicked"
+          track_action: "List of shoes"
+          track_label: "high_heels"
+          track_options:
+            dimension28: 1

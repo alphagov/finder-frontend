@@ -33,6 +33,42 @@ describe 'components/_option-select.html.erb', type: :view do
     }
   end
 
+  def option_select_with_tracking_arguments
+    {
+      key: option_key,
+      title: "Market sector",
+      options_container_id: "list-of-sectors",
+      options: [
+        {
+          value: "aerospace",
+          label: "Aerospace",
+          id: "aerospace",
+          data_attributes: {
+            track_category: "filterClicked",
+            track_action: "Market Sector",
+            track_label: "aerospace",
+            track_options: {
+              dimension28: 1
+            }
+          }
+        },
+        {
+          value: "value",
+          label: "Label",
+          id: "ID",
+          data_attributes: {
+            track_category: "filterClicked",
+            track_action: "Market Sector",
+            track_label: "value",
+            track_options: {
+              dimension28: 2
+            }
+          }
+        }
+      ]
+    }
+  end
+
   it "renders a heading for the option select box containing the title" do
     render_component(option_select_arguments)
     expect(rendered).to have_selector(".option-select-label", text: 'Market sector')
@@ -74,6 +110,14 @@ describe 'components/_option-select.html.erb', type: :view do
     render_component(arguments)
 
     expect(rendered).to have_selector('.app-c-option-select[data-closed-on-load="true"]')
+  end
+
+  it "adds data tracking attributes when provided" do
+    render_component(option_select_with_tracking_arguments)
+    expect(rendered).to have_selector(".app-c-option-select input[data-track-category='filterClicked']")
+    expect(rendered).to have_selector(".app-c-option-select input[data-track-action='Market Sector']")
+    expect(rendered).to have_selector(".app-c-option-select input[data-track-label='aerospace']")
+    expect(rendered).to have_selector(".app-c-option-select input[data-track-options='{\"dimension28\":1}']")
   end
 
   def expect_label_and_checked_checkbox(label, id, value)
