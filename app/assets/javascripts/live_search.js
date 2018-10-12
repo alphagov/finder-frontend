@@ -23,6 +23,7 @@
         function(e){
           if(e.keyCode == 13) {
             // 13 is the return key
+            LiveSearch.prototype.fireTextAnalyticsEvent(e);
             this.formChange();
             e.preventDefault();
           }
@@ -65,9 +66,25 @@
             GOVUK.analytics.trackPageview(newPath);
           }
         }.bind(this)
-      );
+      )
     }
   };
+
+  LiveSearch.prototype.fireTextAnalyticsEvent = function(event) {
+    if (GOVUK.analytics && GOVUK.analytics.trackPageview) {
+      var options = {transport: 'beacon'};
+      var category = "filterClicked";
+      var action = $('label[for="' + event.target.id + '"]')[0].innerText;
+
+      options.label = $(event.target)[0].value;
+
+      GOVUK.analytics.trackEvent(
+        category,
+        action,
+        options
+      );
+    }
+  }
 
   LiveSearch.prototype.cache = function cache(slug, data){
     if(typeof data === 'undefined'){
