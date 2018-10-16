@@ -11,12 +11,12 @@
 <%= render "govuk_publishing_components/components/inverse_header", { full_width: true } do %>
   <div class="full-page-width-wrapper">
     <div class="breadcrumb-wrapper">
-      <%= render 'govuk_publishing_components/components/breadcrumbs', finder.breadcrumbs %>
+      <%= render 'govuk_publishing_components/components/breadcrumbs', finder.breadcrumbs.merge(inverse: true) %>
     </div>
 
     <div class="title-and-metadata">
       <%= finder.taxon_link %>
-      <%= render partial: 'govuk_publishing_components/components/title', locals: { title: finder.title } %>
+      <%= render partial: 'govuk_publishing_components/components/title', locals: { title: finder.title, inverse: true } %>
 
       <% if finder.email_alert_signup_url %>
         <p class='email-link'>
