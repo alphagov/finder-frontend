@@ -65,15 +65,11 @@ private
   end
 
   def order_query
-    keywords ? order_by_relevance_query : default_order_query
-  end
-
-  def order_by_relevance_query
-    {}
-  end
-
-  def default_order_query
-    { "order" => default_order }
+    if keywords
+      {} # relevance query
+    else
+      { "order" => params["order"].presence || default_order }
+    end
   end
 
   def keyword_query
