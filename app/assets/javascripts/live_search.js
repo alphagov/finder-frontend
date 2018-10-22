@@ -17,14 +17,22 @@
 
     if(GOVUK.support.history()){
       this.saveState();
-      this.$form.on('change', 'input[type=checkbox], input[type=text], input[type=radio]', this.formChange.bind(this));
 
-      this.$form.find('input[type=text]').keypress(
-        function(e){
-          if(e.keyCode == 13) {
-            // 13 is the return key
+      this.$form.find('input[type=checkbox], input[type=text], input[type=radio]').on('change',
+        function(e) {
+          if (e.target.type == "text") {
             LiveSearch.prototype.fireTextAnalyticsEvent(e);
-            this.formChange();
+          }
+          this.formChange(e)
+        }.bind(this)
+      );
+
+      this.$form.find('input[type=text]').on('keypress',
+        function(e){
+          var ENTER_KEY = 13
+
+          if(e.keyCode == ENTER_KEY) {
+            this.formChange(e);
             e.preventDefault();
           }
         }.bind(this)
@@ -62,7 +70,7 @@
         function(){
           var newPath = window.location.pathname + "?" + $.param(this.state);
           history.pushState(this.state, '', newPath);
-          if (GOVUK.analytics && GOVUK.analytics.trackPageview) {
+          if (this.canTrackPageview()) {
             GOVUK.analytics.trackPageview(newPath);
           }
         }.bind(this)
@@ -71,12 +79,13 @@
   };
 
   LiveSearch.prototype.fireTextAnalyticsEvent = function(event) {
-    if (GOVUK.analytics && GOVUK.analytics.trackPageview) {
-      var options = {transport: 'beacon'};
+    if (this.canTrackPageview()) {
+      var options = {
+        transport: 'beacon',
+        label: $(event.target)[0].value
+      };
       var category = "filterClicked";
       var action = $('label[for="' + event.target.id + '"]')[0].innerText;
-
-      options.label = $(event.target)[0].value;
 
       GOVUK.analytics.trackEvent(
         category,
@@ -84,6 +93,10 @@
         options
       );
     }
+  }
+
+  LiveSearch.prototype.canTrackPageview = function() {
+    return GOVUK.analytics && GOVUK.analytics.trackPageview;
   }
 
   LiveSearch.prototype.cache = function cache(slug, data){
