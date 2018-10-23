@@ -1,12 +1,10 @@
 <div class="filter-form">
   <div class="inner-block">
-    <form method="get" action="<%=finder.slug%>" class="js-live-search-form">
-      <div class="filter text-filter">
-        <label class="legend" for="finder-keyword-search">Search</label>
-        <input value="<%= @results.user_supplied_keywords %>" type="text" name="keywords" id="finder-keyword-search" aria-controls="js-search-results-info" class='text'/>
-      </div>
-      <%= render facet_collection.filters %>
-      <input type="submit" value="Filter results" class="button js-live-search-fallback"/>
-    </form>
+    <div class="filter text-filter">
+      <label class="legend" for="finder-keyword-search">Search</label>
+      <input value="<%= @results.user_supplied_keywords %>" type="text" name="keywords" id="finder-keyword-search" aria-controls="js-search-results-info" class='text'/>
+    </div>
+    <%= render facet_collection.filters %>
+    <input type="submit" value="Filter results" class="button js-live-search-fallback"/>
   </div>
 </div>

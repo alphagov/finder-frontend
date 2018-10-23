@@ -59,19 +59,34 @@
 </header>
 
 <div class="filtering">
-  <%= render finder.facets %>
-  <div class='js-live-search-results-block'>
-    <div class="filtered-results">
-      <div aria-live='assertive' id='js-search-results-info'>
-        <% if finder.show_generic_description? %>
-          <%= render_mustache('result_count_generic', @results.to_hash) %>
-        <% else %>
-          <%= render_mustache('result_count', @results.to_hash) %>
-        <% end %>
+  <form method="get" action="<%= finder.slug %>" class="js-live-search-form">
+    <%= render finder.facets %>
+
+    <% if finder.sort.present? %>
+      <div class="filter-form">
+        <div class="govuk-form-group">
+          <%= label_tag 'order', 'Sort by', class: 'govuk-label' %>
+          <%= select_tag 'order', finder.sort_options,
+                         class: 'govuk-select js-order-results',
+                         data: { 'default-sort-option' => finder.default_sort_option,
+                                 'relevance-sort-option' => finder.relevance_sort_option } %>
+        </div>
       </div>
-      <div id='js-results'>
-        <%= render_mustache('results', @results.to_hash) %>
+    <% end %>
+
+    <div class='js-live-search-results-block'>
+      <div class="filtered-results">
+        <div aria-live='assertive' id='js-search-results-info'>
+          <% if finder.show_generic_description? %>
+            <%= render_mustache('result_count_generic', @results.to_hash) %>
+          <% else %>
+            <%= render_mustache('result_count', @results.to_hash) %>
+          <% end %>
+        </div>
+        <div id='js-results'>
+          <%= render_mustache('results', @results.to_hash) %>
+        </div>
       </div>
     </div>
-  </div>
+  </form>
 </div>

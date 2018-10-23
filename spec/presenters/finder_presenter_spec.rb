@@ -16,10 +16,13 @@ RSpec.describe FinderPresenter do
   let(:policies_presenter) { described_class.new(policies_finder_content_item) }
 
   let(:content_item) {
+    finder_example = govuk_content_schema_example('finder')
+    finder_example['details']['sort'] = nil
+
     dummy_http_response = double(
       "net http response",
         code: 200,
-        body: govuk_content_schema_example('finder').to_json,
+        body: finder_example.to_json,
         headers: {}
     )
     GdsApi::Response.new(dummy_http_response).to_hash

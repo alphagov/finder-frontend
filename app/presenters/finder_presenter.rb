@@ -1,4 +1,5 @@
 class FinderPresenter
+  include ActionView::Helpers::FormOptionsHelper
   include ActionView::Helpers::UrlHelper
 
   attr_reader :content_item, :name, :slug, :organisations, :values, :keywords
@@ -43,6 +44,10 @@ class FinderPresenter
 
   def filter
     content_item['details']['filter']
+  end
+
+  def sort
+    content_item['details']['sort']
   end
 
   def logo_path
@@ -102,6 +107,31 @@ class FinderPresenter
     metadata.select { |f| f.type == "text" }.map(&:key)
   end
 
+  def default_sort_option
+    sort
+      &.detect { |option| option['default'] }
+      &.dig('name')
+      &.parameterize
+  end
+
+  def relevance_sort_option
+    sort
+      &.detect { |option| %w(relevance -relevance).include?(option['key']) }
+      &.dig('name')
+      &.parameterize
+  end
+
+  def sort_options
+    return [] unless sort.present?
+
+    options = Hash[sort.collect { |option| [option['name'], option['name'].parameterize] }]
+
+    disabled_option = keywords.blank? ? relevance_sort_option : ''
+    selected_option = values['order'].presence || default_sort_option
+
+    options_for_select(options, disabled: disabled_option, selected: selected_option)
+  end
+
   def filter_sentence_fragments
     filters.map(&:sentence_fragment).compact
   end
@@ -149,7 +179,11 @@ class FinderPresenter
   end
 
   def atom_feed_enabled?
-    !default_order.present?
+    if sort_options.present?
+      default_sort_option.blank?
+    else
+      default_order.blank?
+    end
   end
 
   def atom_url

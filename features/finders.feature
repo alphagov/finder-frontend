@@ -77,3 +77,16 @@ Feature: Filtering documents
     Given a finder tagged to the topic taxonomy
     Then I can see taxonomy breadcrumbs
     And I can see a breadcrumb for home
+
+  Scenario: Sorting options
+    When I view a list of news and communications
+    Then I can sort by:
+      | Most viewed      |
+      | Relevance        |
+      | Updated (newest) |
+      | Updated (oldest) |
+
+  Scenario: Sorting news and communications by most viewed
+    When I view a list of news and communications
+    And I sort by most viewed
+    Then I see the most viewed articles first
