@@ -12,6 +12,11 @@ class SelectFacet < FilterableFacet
         value: allowed_value['value'],
         label: allowed_value['label'],
         id: allowed_value['value'],
+        data_attributes: {
+          track_category: "filterClicked",
+          track_action: name,
+          track_label: allowed_value['label'],
+        },
         checked: selected_values.include?(allowed_value),
       }
     end
