@@ -43,6 +43,10 @@ module DocumentHelper
     )
   end
 
+  def stub_rummager_api_request_with_422_response(page_number)
+    stub_request(:get, rummager_policy_other_page_search_url(page_number)).to_return(status: 422)
+  end
+
   def stub_rummager_api_request_with_policies_finder_results
     stub_request(:get, rummager_policies_finder_search_url).to_return(
       body: policies_documents_json,
@@ -153,6 +157,18 @@ module DocumentHelper
         "order" => "-public_timestamp",
         "count" => 10,
         "start" => 10,
+      )
+    )
+  end
+
+  def rummager_policy_other_page_search_url(page_number)
+    count_per_page = 10.freeze
+
+    rummager_url(
+      policy_search_params.merge(
+        "order" => "-public_timestamp",
+        "count" => count_per_page,
+        "start" => ((page_number -1) * count_per_page)
       )
     )
   end

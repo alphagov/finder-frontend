@@ -76,3 +76,8 @@ Feature: Site search
     Given the search API returns an error state
     When I search for "search-term"
     Then I should get an error page
+
+  Scenario: Search API refuses parameters
+    Given the search API returns an HTTP unprocessable entity error
+    When I search with bad parameters
+    Then I should get a bad request error

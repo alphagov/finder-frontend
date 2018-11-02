@@ -1,12 +1,7 @@
-require 'gds_api/helpers'
-
 class SearchController < ApplicationController
   layout "search_layout"
-  include GdsApi::Helpers
   before_action :set_expiry
   before_action :remove_search_box
-
-  rescue_from GdsApi::BaseError, with: :error_503
 
   def index
     search_params = SearchParameters.new(params)
