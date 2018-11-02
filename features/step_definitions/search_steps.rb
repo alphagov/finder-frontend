@@ -112,6 +112,10 @@ When(/^I search for "([^"]*)" with show organisation flag$/) do |search_term|
   visit "/search?q=#{search_term}&show_organisations_filter=true"
 end
 
+When(/^I search with bad parameters$/) do
+  visit "/search?q=search-term&start=999999"
+end
+
 When(/^I navigate to the next page$/) do
   click_on "Next page"
 end
@@ -197,6 +201,15 @@ end
 
 Then(/^I should see a link to the previous page$/) do
   expect(page).to have_content("Previous page")
+end
+
+Given(/^the search API returns an HTTP unprocessable entity error$/) do
+  allow(SearchAPI).to receive(:new).and_raise(GdsApi::HTTPUnprocessableEntity.new(422))
+  content_store_has_item("/search", schema: 'special_route')
+end
+
+Then(/^I should get a bad request error$/) do
+  expect(page.status_code).to eq(422)
 end
 
 Then(/^Analytics values are sent$/) do

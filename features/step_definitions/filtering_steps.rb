@@ -145,6 +145,13 @@ Then(/^I can browse to the next page$/) do
   expect(page).not_to have_content('Next page')
 end
 
+Then(/^I browse to a huge page number and get an appropriate error$/) do
+  stub_rummager_api_request_with_422_response(999999)
+  visit finder_path('government/policies/benefits-reform', page: 999999)
+
+  expect(page.status_code).to eq(422)
+end
+
 Then(/^I can see that Google won't index the page$/) do
   tag = "meta[name='robots'][content='noindex']"
   expect(page).to have_css(tag, visible: false)

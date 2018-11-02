@@ -42,11 +42,12 @@ Feature: Filtering documents
     And I can see that Google can index the page
     And I can browse to the next page
     And I can see that Google won't index the page
+    Then I browse to a huge page number and get an appropriate error
 
   Scenario: Visit a finder with description
     Given a finder with description exists
     Then I can see that the description in the metadata is present
 
-  Scenario:
+  Scenario: Link tracking
     Given a policy finder exists
     Then the links on the page have tracking attributes
