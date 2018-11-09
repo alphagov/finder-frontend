@@ -20,11 +20,20 @@ private
   attr_reader :base_path, :filter_params
 
   def fetch_content_item
-    if ENV["DEVELOPMENT_FINDER_JSON"]
-      JSON.parse(File.read(ENV["DEVELOPMENT_FINDER_JSON"]))
+    if development_env_finder_json
+      JSON.parse(File.read(development_env_finder_json))
     else
       Services.content_store.content_item(base_path)
     end
+  end
+
+  def development_env_finder_json
+    return news_and_communications_json if is_news_and_communications?
+    ENV["DEVELOPMENT_FINDER_JSON"]
+  end
+
+  def news_and_communications_json
+    ENV['NEWS_AND_COMMUNICATIONS_JSON']
   end
 
   def fetch_search_response(content_item)
@@ -88,5 +97,9 @@ private
 
   def query_builder_class
     SearchQueryBuilder
+  end
+
+  def is_news_and_communications?
+    news_and_communications_json && base_path == "/news-and-communications"
   end
 end

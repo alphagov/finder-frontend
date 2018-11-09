@@ -28,6 +28,9 @@
     },
     "DEVELOPMENT_FINDER_JSON": {
       "value": "features/fixtures/advanced-search.json"
+    },
+    "NEWS_AND_COMMUNICATIONS_JSON": {
+      "value": "features/fixtures/news_and_communications.json"
     }
   },
   "image": "heroku/ruby",
