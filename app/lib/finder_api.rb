@@ -33,7 +33,8 @@ private
   end
 
   def news_and_communications_json
-    ENV['NEWS_AND_COMMUNICATIONS_JSON']
+    # Hard coding this in during development
+    "features/fixtures/news_and_communications.json"
   end
 
   def fetch_search_response(content_item)
@@ -100,6 +101,6 @@ private
   end
 
   def is_news_and_communications?
-    news_and_communications_json && base_path == "/news-and-communications"
+    base_path == "/news-and-communications"
   end
 end
