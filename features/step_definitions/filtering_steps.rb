@@ -167,10 +167,52 @@ Given(/^a finder with description exists$/) do
   stub_rummager_with_cma_cases
 end
 
-When(/I can see that the description in the metadata is present$/) do
+When(/^I can see that the description in the metadata is present$/) do
   visit "/cma-cases"
 
   desc_text = "Find reports and updates on current and historical CMA investigations"
   desc_tag = "meta[name='description'][content='#{desc_text}']"
   expect(page).to have_css(desc_tag, visible: false)
+end
+
+Given(/^an organisation finder exists$/) do
+  content_store_has_government_finder
+  stub_rummager_api_request_with_government_results
+  content_store_has_attorney_general_organisation
+
+  visit finder_path('government/policies/benefits-reform', parent_path: '/government/organisations/attorney-generals-office')
+end
+
+Then(/^I can see a breadcrumb for home$/) do
+  expect(page).to have_link("Home", href: "/")
+  expect(page).to have_css("a[data-track-category='homeLinkClicked']", text: "Home")
+  expect(page).to have_css("a[data-track-action='homeBreadcrumb']", text: "Home")
+  expect(page).to have_css("a[data-track-label='']", text: "Home")
+  expect(page).to have_css("a[data-track-options='{}']", text: "Home")
+end
+
+Then(/^I can see a breadcrumb for all organisations$/) do
+  expect(page).to have_link("Organisations", href: "/government/organisations")
+  expect(page).to have_css("a[data-track-category='breadcrumbClicked']", text: "Organisations")
+  expect(page).to have_css("a[data-track-action='2']", text: "Organisations")
+  expect(page).to have_css("a[data-track-label='/government/organisations']", text: "Organisations")
+  expect(page).to have_css("a[data-track-options='{\"dimension28\":\"4\",\"dimension29\":\"Organisations\"}']", text: "Organisations")
+end
+
+Then(/^I can see a breadcrumb for the organisation$/) do
+  expect(page).to have_link("Attorney General's Office", href: "/government/organisations/attorney-generals-office")
+  expect(page).to have_css("a[data-track-category='breadcrumbClicked']", text: "Attorney General's Office")
+  expect(page).to have_css("a[data-track-action='3']", text: "Attorney General's Office")
+  expect(page).to have_css("a[data-track-label='/government/organisations/attorney-generals-office']", text: "Attorney General's Office")
+  expect(page).to have_css("a[data-track-options='{\"dimension28\":\"4\",\"dimension29\":\"Attorney General\\'s Office\"}']", text: "Attorney General's Office")
+end
+
+Then(/^I can see a breadcrumb that not a link for the finder$/) do
+  expect(page).to have_selector(".govuk-breadcrumbs__list-item", text: "Ministry of Silly Walks reports")
+end
+
+Then(/^I can only see home and finder breadcrumbs$/) do
+  visit finder_path('government/policies/benefits-reform')
+  expect(page).to have_selector(".govuk-breadcrumbs__list-item", text: "Benefits Reform")
+  expect(page.find_all(".govuk-breadcrumbs__list-item").count).to eql(2)
 end

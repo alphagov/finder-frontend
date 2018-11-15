@@ -8,7 +8,8 @@
   <%= render 'govuk_publishing_components/components/phase_banner', phase: finder.phase, message: finder.phase_message%>
 <% end %>
 
-<%= render 'govuk_publishing_components/components/contextual_breadcrumbs', content_item: @content_item %>
+<%= render 'govuk_publishing_components/components/breadcrumbs', breadcrumbs: @breadcrumbs.breadcrumbs %>
+
 
 <% if finder.government? %>
   <%= render 'govuk_publishing_components/components/government_navigation', active: finder.government_content_section %>

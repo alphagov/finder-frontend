@@ -32,6 +32,7 @@ group :development, :test do
   gem 'jasmine-rails'
   gem 'pry-byebug'
   gem 'rspec-rails', '~> 3.8.1'
+  gem 'govuk_schemas', '~> 3.2'
 end
 
 group :test do
