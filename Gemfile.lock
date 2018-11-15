@@ -151,6 +151,8 @@ GEM
       rake
       rouge
       sass-rails (>= 5.0.4)
+    govuk_schemas (3.2.0)
+      json-schema (~> 2.8.0)
     hashdiff (0.3.7)
     highline (2.0.0)
     htmlentities (4.3.4)
@@ -384,6 +386,7 @@ DEPENDENCIES
   govuk_document_types (~> 0.9.0)
   govuk_frontend_toolkit (~> 8.1)
   govuk_publishing_components (~> 12.7.1)
+  govuk_schemas (~> 3.2)
   jasmine-rails
   launchy (~> 2.4.2)
   pry-byebug

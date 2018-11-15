@@ -51,3 +51,15 @@ Feature: Filtering documents
   Scenario: Link tracking
     Given a policy finder exists
     Then the links on the page have tracking attributes
+
+  Scenario: Visit a finder from an organisation
+    Given an organisation finder exists
+    Then I can see a breadcrumb for home
+    And I can see a breadcrumb for all organisations
+    And I can see a breadcrumb for the organisation
+    And I can see a breadcrumb that not a link for the finder
+
+  Scenario: Visit a finder not from an organisation
+    Given a policy finder exists
+    Then I can only see home and finder breadcrumbs
+    And I can see a breadcrumb for home

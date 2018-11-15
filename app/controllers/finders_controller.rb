@@ -11,6 +11,7 @@ class FindersController < ApplicationController
       format.html do
         @results = results
         @content_item = raw_finder
+        fetch_breadcrumbs
       end
       format.json do
         if %w[finder search].include? finder_api.content_item['document_type']
@@ -61,6 +62,14 @@ private
     @raw_finder ||= finder_api.content_item_with_search_results
   end
 
+  def fetch_breadcrumbs
+    parent_content_item = {}
+    unless params.dig("parent_path").to_s.empty?
+      parent_content_item = Services.content_store.content_item(params["parent_path"])
+    end
+    @breadcrumbs = FinderBreadcrumbsPresenter.new(parent_content_item, @content_item)
+  end
+
   def filter_params
     # TODO Use a whitelist based on the facets in the schema
     @filter_params ||= begin
@@ -70,7 +79,7 @@ private
                              :controller,
                              :action,
                              :slug,
-                             :format,
+                             :format
                            )
 
       ParamsCleaner
