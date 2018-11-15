@@ -70,7 +70,7 @@ class ResultSetPresenter
 
     if fragment['type'] == "text"
       values.to_sentence(two_words_connector: ' or ', last_word_connector: ' or ')
-    elsif fragment['type'] == "date"
+    elsif fragment['type'] == "date" || fragment['type'] == "checkbox"
       values.to_sentence(two_words_connector: ' and ')
     end
   end

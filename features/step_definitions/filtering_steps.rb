@@ -221,3 +221,30 @@ Then(/^I can see taxonomy breadcrumbs$/) do
   expect(page).to have_selector(".govuk-breadcrumbs__list-item", text: "Competition Act and cartels")
   expect(page.find_all(".govuk-breadcrumbs__list-item").count).to eql(2)
 end
+
+Given(/^a collection of documents exist that can be filtered by checkbox$/) do
+  stub_content_store_with_cma_cases_finder_for_supergroup_checkbox_filter
+  stub_rummager_with_cma_cases_for_supergroups_checkbox
+  visit_cma_cases_finder
+end
+
+When(/^I use a checkbox filter$/) do
+  find("label", text: "Show open cases").click
+  click_on "Filter results"
+end
+
+Then(/^I only see documents that match the checkbox filter$/) do
+  expect(page).to have_content("1 case that is Open")
+
+  within ".filtered-results .document:nth-child(1)" do
+    expect(page).to have_content("Big Beer Co / Salty Snacks Ltd merger inquiry")
+    expect(page).to_not have_content("Bakery market investigation")
+  end
+end
+
+Then(/^The checkbox has the correct tracking data$/) do
+  expect(page).to have_css("input[type='checkbox'][data-track-category='filterClicked']")
+  expect(page).to have_css("input[type='checkbox'][data-track-action='checkboxFacet']")
+  expect(page).to have_css("input[type='checkbox'][data-track-label='Open']")
+  expect(page).to have_css("input[type='checkbox'][data-module='track-click']")
+end

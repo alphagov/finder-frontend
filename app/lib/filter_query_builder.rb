@@ -22,6 +22,7 @@ private
 
   def build_filter(facet)
     filter_class = {
+      'checkbox' => CheckboxFilter,
       'date' => DateFilter,
       'hidden' => HiddenFilter,
       'text' => TextFilter,
@@ -99,6 +100,12 @@ private
   class TextFilter < Filter
     def value
       Array(params)
+    end
+  end
+
+  class CheckboxFilter < Filter
+    def value
+      params
     end
   end
 

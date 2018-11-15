@@ -140,6 +140,10 @@
     }
   }
 
+  .govuk-checkboxes__item {
+    margin-bottom: $gutter;
+  }
+
   .app-c-option-select,
   .filter {
     margin-bottom: $gutter;

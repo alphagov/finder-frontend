@@ -151,6 +151,57 @@ module DocumentHelper
     )
   end
 
+  def stub_content_store_with_cma_cases_finder_for_supergroup_checkbox_filter
+    schema = govuk_content_schema_example("cma-cases", "finder")
+    schema["details"]["facets"].map! do |facet|
+      if facet["key"] == "case_state"
+        {
+          "key": "case_state",
+          "name": "case_state[]",
+          "short_name": "checkbox",
+          "type": "checkbox",
+          "display_as_result_metadata": false,
+          "filterable": true,
+          "preposition": "that is",
+          "checkboxes": [
+              {
+                  "label": "Open",
+                  "checkbox_label": "Show open cases",
+                  "value": "open"
+              },
+              {
+                  "label": "Closed",
+                  "checkbox_label": "Show closed cases",
+                  "value": "closed"
+              }
+          ]
+        }
+      else
+        facet
+      end
+    end
+    schema["details"]["facets"] << content_store_has_item(
+      schema.fetch("base_path"),
+      schema.to_json,
+    )
+  end
+
+  def stub_rummager_with_cma_cases_for_supergroups_checkbox
+    stub_request(:get, rummager_all_cma_case_documents_url).to_return(
+      body: all_cma_case_documents_json,
+    )
+    cma_case_documents_filtered_by_supergroup = rummager_url(
+        cma_case_search_params.merge(
+            "filter_case_state" => %w(open),
+            "order" => "-public_timestamp"
+            )
+         )
+
+    stub_request(:get, cma_case_documents_filtered_by_supergroup).to_return(
+      body: filtered_cma_case_documents_json,
+    )
+  end
+
   def rummager_all_documents_url
     rummager_url(
       mosw_search_params.merge(
