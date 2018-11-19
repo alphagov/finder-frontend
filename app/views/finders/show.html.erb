@@ -8,8 +8,11 @@
   <%= render 'govuk_publishing_components/components/phase_banner', phase: finder.phase, message: finder.phase_message%>
 <% end %>
 
-<%= render 'govuk_publishing_components/components/breadcrumbs', breadcrumbs: @breadcrumbs.breadcrumbs %>
-
+<% if @breadcrumbs.breadcrumbs %>
+  <%= render 'govuk_publishing_components/components/breadcrumbs', breadcrumbs: @breadcrumbs.breadcrumbs %>
+<% else %>
+  <%= render 'govuk_publishing_components/components/contextual_breadcrumbs', content_item: @content_item %>
+<% end %>
 
 <% if finder.government? %>
   <%= render 'govuk_publishing_components/components/government_navigation', active: finder.government_content_section %>

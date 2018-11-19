@@ -5,13 +5,12 @@ class FinderBreadcrumbsPresenter
   end
 
   def breadcrumbs
-    crumbs = [{ title: "Home", url: "/" }]
+    return nil unless @parent_content_item.dig("document_type") == "organisation"
 
-    if @parent_content_item.dig("document_type") == "organisation"
-      crumbs << { title: 'Organisations', url: '/government/organisations' }
-      if @parent_content_item.dig("title").present?
-        crumbs << { title: @parent_content_item.dig("title"), url: @parent_content_item.dig("base_path") }
-      end
+    crumbs = [{ title: "Home", url: "/" }]
+    crumbs << { title: 'Organisations', url: '/government/organisations' }
+    if @parent_content_item.dig("title").present?
+      crumbs << { title: @parent_content_item.dig("title"), url: @parent_content_item.dig("base_path") }
     end
 
     if @finder_name.present?
