@@ -19,7 +19,7 @@ RSpec.describe FinderBreadcrumbsPresenter do
     it "has no links to organisations when the document_type is not organisation" do
       instance = described_class.new(place_content_item, finder)
       expect(place_content_item["document_type"]).to_not eql("organisation")
-      expect(instance.breadcrumbs.second).to_not eql(title: "Organisations", url: "/government/organisations")
+      expect(instance.breadcrumbs).to be nil
     end
 
     it "has an organisation link when the parent content item has a title and the document_type is organisation" do

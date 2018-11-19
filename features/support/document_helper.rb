@@ -100,6 +100,37 @@ module DocumentHelper
     )
   end
 
+  def stub_content_store_with_a_taxon_tagged_finder
+    schema = govuk_content_schema_example("cma-cases", "finder").merge(
+      "links" => {
+        "taxons" => [
+          {
+            "api_path" => "/api/content/business/competition-competition-act-cartels",
+            "base_path" => "/business/competition-competition-act-cartels",
+            "content_id" => "900ee60d-32ed-4dba-9834-09f54de01d5d",
+            "document_type" => "taxon",
+            "locale" => "en",
+            "public_updated_at" => "2018-09-03T15:41:04Z",
+            "schema_name" => "taxon",
+            "title" => "Competition Act and cartels",
+            "withdrawn": false,
+            "details": {
+              "internal_name" => "Competition Act and cartels [T]",
+              "notes_for_editors" => "",
+              "visible_to_departmental_editors": false
+            },
+            "phase" => "live"
+         }
+        ]
+      })
+
+      content_store_has_item(
+        schema.fetch("base_path"),
+        schema.to_json,
+      )
+    end
+
+
   def stub_rummager_with_cma_cases
     stub_request(:get, rummager_all_cma_case_documents_url).to_return(
       body: all_cma_case_documents_json,

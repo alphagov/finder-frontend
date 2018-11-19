@@ -96,6 +96,11 @@ Given(/^a policy finder exists$/) do
   stub_rummager_api_request_with_policy_results
 end
 
+Given(/^a finder tagged to the topic taxonomy$/) do
+  stub_content_store_with_a_taxon_tagged_finder
+  stub_rummager_with_cma_cases
+end
+
 Given(/^a collection of documents that can be filtered by dates$/) do
   stub_content_store_with_cma_cases_finder
   stub_rummager_with_cma_cases
@@ -211,8 +216,8 @@ Then(/^I can see a breadcrumb that not a link for the finder$/) do
   expect(page).to have_selector(".govuk-breadcrumbs__list-item", text: "Ministry of Silly Walks reports")
 end
 
-Then(/^I can only see home and finder breadcrumbs$/) do
-  visit finder_path('government/policies/benefits-reform')
-  expect(page).to have_selector(".govuk-breadcrumbs__list-item", text: "Benefits Reform")
+Then(/^I can see taxonomy breadcrumbs$/) do
+  visit finder_path('cma-cases')
+  expect(page).to have_selector(".govuk-breadcrumbs__list-item", text: "Competition Act and cartels")
   expect(page.find_all(".govuk-breadcrumbs__list-item").count).to eql(2)
 end

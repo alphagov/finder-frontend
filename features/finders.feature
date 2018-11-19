@@ -60,6 +60,6 @@ Feature: Filtering documents
     And I can see a breadcrumb that not a link for the finder
 
   Scenario: Visit a finder not from an organisation
-    Given a policy finder exists
-    Then I can only see home and finder breadcrumbs
+    Given a finder tagged to the topic taxonomy
+    Then I can see taxonomy breadcrumbs
     And I can see a breadcrumb for home
