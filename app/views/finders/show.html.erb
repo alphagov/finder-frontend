@@ -68,6 +68,7 @@
           <%= label_tag 'order', 'Sort by', class: 'govuk-label' %>
           <%= select_tag 'order', finder.sort_options,
                          class: 'govuk-select js-order-results',
+                         'aria-controls': 'js-search-results-info',
                          data: { 'default-sort-option' => finder.default_sort_option,
                                  'relevance-sort-option' => finder.relevance_sort_option } %>
         </div>
