@@ -1,15 +1,15 @@
-<% content_for :title, @signup.page_title %>
+<% content_for :title, @signup_presenter.page_title %>
 <% content_for :head do %>
-  <%= render 'email_alert_subscription_meta', email_alert_subscription: @signup %>
+  <%= render 'email_alert_subscription_meta', email_alert_subscription: @signup_presenter %>
 <% end %>
 
-<% if @signup.beta? %>
+<% if @signup_presenter.beta? %>
   <%= render 'govuk_publishing_components/components/phase_banner', phase: "beta" %>
 <% end %>
 <header>
  <div class="title-and-metadata">
     <%= render partial: 'govuk_publishing_components/components/title', locals: {
-      title: @signup.name,
+      title: @signup_presenter.name,
       context: "Email alert subscription"
     } %>
   </div>
@@ -18,15 +18,18 @@
 <div class="outer-block">
   <div class="signup-content">
     <%= form_tag email_alert_subscriptions_path, class: 'signup-choices form' do %>
-      <% if @signup.choices? %>
+      <% if @signup_presenter.choices? %>
         <fieldset<%= ' class="invalid"'.html_safe if @error_message.present? %> aria-labelledby="fieldset-title">
           <p id="fieldset-title">
             Select the email alerts you need
           </p>
-          <% @signup.choices.each do |choice| %>
-            <%= label_tag "filter_#{choice['key']}", class: 'block-label' do %>
-              <%= check_box_tag "filter[]", choice['key'], choice['prechecked'], class: 'checkbox', id: "filter_#{choice['key']}" %>
+          <% @signup_presenter.choices.each do |facet| %>
+            <p><%= facet["facet_name"] %></p>
+            <% facet["facet_choices"].each do |choice| %>
+              <%= label_tag "filter_#{facet['facet_id']}_#{choice['key']}", class: 'block-label' do %>
+              <%= check_box_tag "filter[#{facet['facet_id']}][]", choice['key'], choice['prechecked'], class: 'checkbox', id: "filter_#{facet['facet_id']}_#{choice['key']}" %>
               <%= choice['radio_button_name'] %>
+              <% end %>
             <% end %>
           <% end %>
         </fieldset>
@@ -35,7 +38,7 @@
         <% end %>
       <% end %>
 
-      <%= render 'govuk_publishing_components/components/govspeak', content: @signup.body.html_safe %>
+      <%= render 'govuk_publishing_components/components/govspeak', content: @signup_presenter.body.html_safe %>
 
       <%= submit_tag 'Create subscription', class: "button" %>
     <% end %>
