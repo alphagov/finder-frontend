@@ -105,7 +105,7 @@ private
 
   def get_metadata_label(key, tag)
     if tag.respond_to? :fetch
-      tag.fetch(finder.display_key_for_metadata_key(key))
+      tag.fetch(finder.display_key_for_metadata_key(key), '')
     else
       tag
     end

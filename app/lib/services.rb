@@ -23,4 +23,8 @@ module Services
       bearer_token: ENV.fetch("EMAIL_ALERT_API_BEARER_TOKEN", "wubbalubbadubdub")
     )
   end
+
+  def self.worldwide_api
+    @worldwide_api ||= GdsApi::Worldwide.new(Plek.find('whitehall-admin'))
+  end
 end

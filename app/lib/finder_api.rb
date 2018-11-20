@@ -70,21 +70,33 @@ private
   def augment_facets_with_dynamic_values(content_item, search_response)
     search_response.fetch("facets", {}).each do |facet_key, facet_details|
       facet = content_item['details']['facets'].find { |f| f['key'] == facet_key }
-      facet['allowed_values'] = allowed_values_for_facet_details(facet_details) if facet
+      facet['allowed_values'] = allowed_values_for_facet_details(facet_key, facet_details) if facet
     end
   end
 
-  def allowed_values_for_facet_details(facet_details)
-    values = facet_details.fetch("options", {})
-      .reject { |f| f.dig("value", "title").nil? }
+  def allowed_values_for_facet_details(facet_key, facet_details)
+    facet_details.fetch("options", {})
       .map { |f| f.fetch("value", {}) }
+      .map { |value| present_facet_option(value, facet_key) }
+      .reject { |f| f["label"].blank? || f["value"].blank? }
+  end
 
-    values.map { |value|
-      {
-        'label' => value.fetch("title", ""),
-        'value' => value.fetch("slug", ""),
-      }
+  def present_facet_option(value, facet_key)
+    slug = value.fetch("slug", "")
+    label = value.fetch("title", find_facet_title_by_slug(slug, facet_key))
+
+    {
+      "label" => label,
+      "value" => slug,
     }
+  end
+
+  def find_facet_title_by_slug(slug, facet_key)
+    registry = registries.all[facet_key]
+    return "" if registry.nil?
+
+    item = registry[slug] || {}
+    item.fetch("title", "")
   end
 
   def build_pagination(documents_per_page, start_offset, total_results)
@@ -102,5 +114,9 @@ private
 
   def is_news_and_communications?
     base_path == "/news-and-communications"
+  end
+
+  def registries
+    @registries ||= Registries::BaseRegistries.new
   end
 end
