@@ -1,9 +1,15 @@
 <div class="filter-form">
   <div class="inner-block">
-    <div class="filter text-filter">
-      <label class="legend" for="finder-keyword-search">Search</label>
-      <input value="<%= @results.user_supplied_keywords %>" type="text" name="keywords" id="finder-keyword-search" aria-controls="js-search-results-info" class='text'/>
-    </div>
+    <%= render "govuk_publishing_components/components/input", {
+      label: {
+        text: "Search"
+      },
+      name: "keywords",
+      value: @results.user_supplied_keywords,
+      id: "finder-keyword-search",
+      controls: "js-search-results-info"
+    } %>
+
     <%= render facet_collection.filters %>
     <input type="submit" value="Filter results" class="button js-live-search-fallback"/>
   </div>

@@ -240,17 +240,6 @@
     }
   }
 
-  input.text {
-    @include core-16;
-    background: $white;
-    border: 1px solid $border-colour;
-    width: $full-width;
-    margin: 0 0 0 -1px;
-    padding: 5px 0;
-    margin-bottom: $gutter-one-third;
-    text-indent: 5px;
-  }
-
   .button {
     @include button($button-colour);
     width: auto;
