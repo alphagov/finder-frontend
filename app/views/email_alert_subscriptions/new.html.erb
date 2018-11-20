@@ -38,7 +38,9 @@
         <% end %>
       <% end %>
 
-      <%= render 'govuk_publishing_components/components/govspeak', content: @signup_presenter.body.html_safe %>
+      <% if @signup_presenter.body %>
+        <%= render 'govuk_publishing_components/components/govspeak', content: @signup_presenter.body.html_safe %>
+      <% end %>
 
       <%= submit_tag 'Create subscription', class: "button" %>
     <% end %>
