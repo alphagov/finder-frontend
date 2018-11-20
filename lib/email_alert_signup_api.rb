@@ -33,7 +33,9 @@ private
     attributes.dup.tap do |massaged_attributes|
       available_choices.each do |choice|
         facet_id = choice["facet_id"]
-        massaged_attributes[facet_id] = (massaged_attributes['filter'] || {})[facet_id]
+        value = (massaged_attributes['filter'] || {})[facet_id]
+        next unless value
+        massaged_attributes[facet_id] = value
       end
       massaged_attributes.delete("filter")
     end
