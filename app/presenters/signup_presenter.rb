@@ -29,6 +29,24 @@ class SignupPresenter
     multiple_facet_choice_data || single_facet_choice_data
   end
 
+  def choices_formatted
+    choices.map do |choice|
+      {
+        label: choice['facet_name'],
+        value: choice['facet_id'],
+        checked: choice['prechecked'],
+        items: choice['facet_choices'].map do |facet_choice|
+          {
+            name: "filter[#{choice['facet_id']}][]",
+            label: facet_choice['radio_button_name'],
+            value: facet_choice['key'],
+            checked: facet_choice['prechecked']
+          }
+        end
+      }
+    end
+  end
+
   def target
     "#"
   end
@@ -39,7 +57,7 @@ private
     [
       {
         "facet_id" => content_item['details']["email_filter_by"],
-        "facet_name" => single_facet_name,
+        "facet_name" => single_facet_name.capitalize,
         "facet_choices" => content_item['details']["email_signup_choice"]
       }
     ]
