@@ -25,6 +25,6 @@ module Services
   end
 
   def self.worldwide_api
-    @worldwide_api ||= GdsApi::Worldwide.new(Plek.find('whitehall-admin'))
+    @worldwide_api ||= GdsApi::Worldwide.new(Plek.new.website_root)
   end
 end
