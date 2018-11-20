@@ -1,0 +1,48 @@
+{
+  "base_path": "/cma-cases/email-signup",
+  "content_id": "43dd2b13-93ec-4ca6-a7a4-e2eb5f5d485a",
+  "document_type": "finder_email_signup",
+  "title": "Competition and Markets Authority cases",
+  "description": "You'll get an email each time a case is updated or a new case is published.",
+  "details": {
+    "email_filter_facets": [
+      {
+        "facet_id": "case_type",
+        "facet_name": "Case Type",
+        "facet_choices": [
+          {
+            "key": "ca98-and-civil-cartels",
+            "radio_button_name": "CA98 and civil cartels",
+            "topic_name": "CA98 and civil cartels",
+            "prechecked": false
+          },
+          {
+            "key": "competition-disqualification",
+            "radio_button_name": "Competition disqualification",
+            "topic_name": "competition disqualification",
+            "prechecked": false
+          }
+        ]
+      },
+      {
+        "facet_id": "case_state",
+        "facet_name": "Case State",
+        "facet_choices": [
+          {
+            "key": "open",
+            "radio_button_name": "Open",
+            "topic_name": "Open",
+            "prechecked": false
+          },
+          {
+            "key": "closed",
+            "radio_button_name": "Closed",
+            "topic_name": "closed",
+            "prechecked": false
+          }
+        ]
+      }
+    ],
+    "subscription_list_title_prefix": "CMA cases"
+  }
+}
