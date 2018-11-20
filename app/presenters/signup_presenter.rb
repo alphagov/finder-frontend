@@ -1,8 +1,9 @@
 class SignupPresenter
-  attr_reader :content_item
+  attr_reader :content_item, :params
 
-  def initialize(content_item)
+  def initialize(content_item, params)
     @content_item = content_item
+    @params = params
   end
 
   def page_title
@@ -40,7 +41,7 @@ class SignupPresenter
             name: "filter[#{choice['facet_id']}][]",
             label: facet_choice['radio_button_name'],
             value: facet_choice['key'],
-            checked: facet_choice['prechecked']
+            checked: facet_choice['prechecked'] || selected_choices.fetch(choice['facet_id'], []).include?(facet_choice['key'])
           }
         end
       }
@@ -52,6 +53,13 @@ class SignupPresenter
   end
 
 private
+
+  def selected_choices
+    facets_ids = choices.each_with_object({}) do |choice, hash|
+      hash[choice['facet_id'].to_sym] = []
+    end
+    params.permit(facets_ids).to_h
+  end
 
   def single_facet_choice_data
     [
