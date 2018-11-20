@@ -79,45 +79,12 @@ describe 'components/_option-select.html.erb', type: :view do
     expect(rendered).to have_selector("\#list-of-sectors.options-container")
   end
 
-  it "renders a list of checkboxes" do
-    render_component(option_select_arguments)
-
-    expect_label_and_checkbox("Aerospace", "aerospace", "aerospace")
-    expect_label_and_checkbox("Label", "ID", "value")
-  end
-
-  it "can set checkboxes to be pre-selected" do
-    arguments = option_select_arguments
-    arguments[:options][0][:checked] = true
-    arguments[:options][1][:checked] = true
-    render_component(arguments)
-
-    expect_label_and_checked_checkbox("Aerospace", "aerospace", "aerospace")
-    expect_label_and_checked_checkbox("Label", "ID", "value")
-  end
-
-  it "can indicate that the checkboxes control content displayed via aria-controls-id" do
-    arguments = option_select_arguments
-    arguments[:aria_controls_id] = "aria-controls-id"
-    render_component(arguments)
-
-    expect(rendered).to have_selector '[data-input-aria-controls="aria-controls-id"]', count: 1
-  end
-
   it "can begin with the options box closed on load" do
     arguments = option_select_arguments
     arguments[:closed_on_load] = true
     render_component(arguments)
 
     expect(rendered).to have_selector('.app-c-option-select[data-closed-on-load="true"]')
-  end
-
-  it "adds data tracking attributes when provided" do
-    render_component(option_select_with_tracking_arguments)
-    expect(rendered).to have_selector(".app-c-option-select input[data-track-category='filterClicked']")
-    expect(rendered).to have_selector(".app-c-option-select input[data-track-action='Market Sector']")
-    expect(rendered).to have_selector(".app-c-option-select input[data-track-label='aerospace']")
-    expect(rendered).to have_selector(".app-c-option-select input[data-track-options='{\"dimension28\":1}']")
   end
 
   def expect_label_and_checked_checkbox(label, id, value)

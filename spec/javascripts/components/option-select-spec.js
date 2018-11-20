@@ -10,60 +10,57 @@ describe('GOVUK.OptionSelect', function() {
       '</div>'+
       '<div class="options-container">'+
         '<div class="js-auto-height-inner">'+
-          '<label for="aerospace">'+
-            '<input name="market_sector[]" value="aerospace" id="aerospace" type="checkbox">'+
-            'Aerospace'+
-            '</label>'+
-          '<label for="agriculture-environment-and-natural-resources">'+
-            '<input name="market_sector[]" value="agriculture-environment-and-natural-resources" id="agriculture-environment-and-natural-resources" type="checkbox">'+
-            'Agriculture, environment, natural resources, agriculture, environment, natural resources, agriculture, environment, natural resources, agriculture, environment, natural resources, agriculture, environment, natural resources, agriculture, environment and natural resources.'+
-            '</label>'+
-          '<label for="building-and-construction">'+
-            '<input name="market_sector[]" value="building-and-construction" id="building-and-construction" type="checkbox">'+
-            'Building and construction'+
-            '</label>'+
-          '<label for="chemicals">'+
-            '<input name="market_sector[]" value="chemicals" id="chemicals" type="checkbox">'+
-            'Chemicals'+
-            '</label>'+
-          '<label for="clothing-footwear-and-fashion">'+
-            '<input name="market_sector[]" value="clothing-footwear-and-fashion" id="clothing-footwear-and-fashion" type="checkbox">'+
-            'Clothing, footwear and fashion'+
-            '</label>'+
-          '<label for="defence">'+
-            '<input name="market_sector[]" value="defence" id="defence" type="checkbox">'+
-            'Defence'+
-            '</label>'+
-          '<label for="distribution-and-service-industries">'+
-            '<input name="market_sector[]" value="distribution-and-service-industries" id="distribution-and-service-industries" type="checkbox">'+
-            'Distribution and Service Industries'+
-            '</label>'+
-          '<label for="electronics-industry">'+
-            '<input name="market_sector[]" value="electronics-industry" id="electronics-industry" type="checkbox">'+
-            'Electronics Industry'+
-            '</label>'+
-          '<label for="energy">'+
-            '<input name="market_sector[]" value="energy" id="energy" type="checkbox">'+
-            'Energy'+
-            '</label>'+
-          '<label for="engineering">'+
-            '<input name="market_sector[]" value="engineering" id="engineering" type="checkbox">'+
-            'Engineering'+
-            '</label>'+
+          '<div class="gem-c-checkbox govuk-checkboxes__item">'+
+            '<input name="market_sector[]" value="aerospace" id="aerospace" type="checkbox" class="govuk-checkboxes__input">'+
+            '<label class="govuk-label govuk-checkboxes__label" for="aerospace">Aerospace</label>'+
+          '</div>'+
+          '<div class="gem-c-checkbox govuk-checkboxes__item">'+
+            '<input name="market_sector[]" value="agriculture-environment-and-natural-resources" id="agriculture-environment-and-natural-resources" type="checkbox" class="govuk-checkboxes__input">'+
+            '<label class="govuk-label govuk-checkboxes__label" for="agriculture-environment-and-natural-resources">Agriculture, environment, natural resources, agriculture, environment, natural resources, agriculture, environment, natural resources, agriculture, environment, natural resources, agriculture, environment, natural resources, agriculture, environment and natural resources.</label>'+
+          '</div>'+
+          '<div class="gem-c-checkbox govuk-checkboxes__item">'+
+            '<input name="market_sector[]" value="building-and-construction" id="building-and-construction" type="checkbox" class="govuk-checkboxes__input">'+
+            '<label class="govuk-label govuk-checkboxes__label" for="building-and-construction">Building and construction</label>'+
+          '</div>'+
+          '<div class="gem-c-checkbox govuk-checkboxes__item">'+
+            '<input name="market_sector[]" value="chemicals" id="chemicals" type="checkbox" class="govuk-checkboxes__input">'+
+            '<label class="govuk-label govuk-checkboxes__label" for="chemicals">Chemicals</label>'+
+          '</div>'+
+          '<div class="gem-c-checkbox govuk-checkboxes__item">'+
+            '<input name="market_sector[]" value="clothing-footwear-and-fashion" id="clothing-footwear-and-fashion" type="checkbox" class="govuk-checkboxes__input">'+
+            '<label class="govuk-label govuk-checkboxes__label" for="clothing-footwear-and-fashion">Clothing, footwear and fashion</label>'+
+          '</div>'+
+          '<div class="gem-c-checkbox govuk-checkboxes__item">'+
+            '<input name="market_sector[]" value="defence" id="defence" type="checkbox" class="govuk-checkboxes__input">'+
+            '<label class="govuk-label govuk-checkboxes__label" for="defence">Defence</label>'+
+          '</div>'+
+          '<div class="gem-c-checkbox govuk-checkboxes__item">'+
+            '<input name="market_sector[]" value="distribution-and-service-industries" id="distribution-and-service-industries" type="checkbox" class="govuk-checkboxes__input">'+
+            '<label class="govuk-label govuk-checkboxes__label" for="distribution-and-service-industries">Distribution and Service Industries</label>'+
+          '</div>'+
+          '<div class="gem-c-checkbox govuk-checkboxes__item">'+
+            '<input name="market_sector[]" value="electronics-industry" id="electronics-industry" type="checkbox" class="govuk-checkboxes__input">'+
+            '<label class="govuk-label govuk-checkboxes__label" for="electronics-industry">Electronics Industry</label>'+
+          '</div>'+
+          '<div class="gem-c-checkbox govuk-checkboxes__item">'+
+            '<input name="market_sector[]" value="energy" id="energy" type="checkbox" class="govuk-checkboxes__input">'+
+            '<label class="govuk-label govuk-checkboxes__label" for="energy">Energy</label>'+
+          '</div>'+
+          '<div class="gem-c-checkbox govuk-checkboxes__item">'+
+            '<input name="market_sector[]" value="engineering" id="engineering" type="checkbox" class="govuk-checkboxes__input">'+
+            '<label class="govuk-label govuk-checkboxes__label" for="engineering">Engineering</label>'+
           '</div>'+
         '</div>'+
-      '</div>'
+      '</div>';
 
     $optionSelectHTML = $(optionSelectFixture);
     $('body').append($optionSelectHTML);
     optionSelect = new GOVUK.OptionSelect({$el:$optionSelectHTML});
-
   });
 
   afterEach(function(){
     $optionSelectHTML.remove();
   });
-
 
   it('instantiates a closed option-select if data-closed-on-load is true', function(){
     closedOnLoadFixture = '<div class="app-c-option-select" data-closed-on-load=true>' +
@@ -75,35 +72,6 @@ describe('GOVUK.OptionSelect', function() {
     optionSelect = new GOVUK.OptionSelect({$el:$closedOnLoadFixture});
     expect(optionSelect.isClosed()).toBe(true);
     expect($closedOnLoadFixture.find('button').attr('aria-expanded')).toBe('false');
-  });
-
-  it('ignores aria-controls if the referenced element isn’t present', function(){
-    $fixture = $('<div class="app-c-option-select" data-input-aria-controls="element-missing">' +
-                    '<input type="checkbox">' +
-                    '<input type="checkbox">' +
-                  '</div>');
-
-    $('body').append($fixture);
-    optionSelect = new GOVUK.OptionSelect({$el:$fixture});
-    expect($fixture.find('input[aria-controls]').length).toBe(0);
-
-    $fixture.remove();
-  });
-
-  it('adds aria-controls attributes to all checkboxes if the referenced element is on the page', function(){
-    $controls = $('<div id="element-present"></div>');
-    $fixture = $('<div class="app-c-option-select" data-input-aria-controls="element-present">' +
-                    '<input type="checkbox">' +
-                    '<input type="checkbox">' +
-                  '</div>');
-
-    $('body').append($controls).append($fixture);
-    optionSelect = new GOVUK.OptionSelect({$el:$fixture});
-    expect($fixture.find('input[aria-controls]').length).toBe(2);
-    expect($fixture.find('input[aria-controls]').attr('aria-controls')).toBe('element-present');
-
-    $fixture.remove();
-    $controls.remove();
   });
 
   it('instantiates an open option-select if data-closed-on-load is false', function(){
@@ -281,11 +249,10 @@ describe('GOVUK.OptionSelect', function() {
       visibleLabels = optionSelect.getVisibleLabels();
       expect(visibleLabels.length).toBeLessThan(optionSelect.$labels.length);
 
-      lastLabelForAttribute = optionSelect.$labels[optionSelect.$labels.length - 1].getAttribute("for");
-      lastVisibleLabelForAttribute = visibleLabels[visibleLabels.length - 1].getAttribute("for");
+      lastLabelForAttribute = optionSelect.$labels[optionSelect.$labels.length - 1].getElementsByClassName('govuk-label')[0].getAttribute("for");
+      lastVisibleLabelForAttribute = visibleLabels[visibleLabels.length - 1].getElementsByClassName('govuk-label')[0].getAttribute("for");
       expect(lastLabelForAttribute).not.toBe(lastVisibleLabelForAttribute);
     });
-
   });
 
   describe ('setupHeight', function(){
@@ -307,7 +274,6 @@ describe('GOVUK.OptionSelect', function() {
 
       $checkboxListInner = $checkboxList.find(' > .js-auto-height-inner');
       listItem = "<input type='checkbox' name='ca98'id='ca89'><label for='ca89'>CA89</label>";
-
     });
 
     it('expands the checkbox-container to fit checkbox list if the list is < 50px larger than the container', function(){

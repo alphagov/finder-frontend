@@ -86,7 +86,7 @@ examples:
     data:
       key: with_aria-control_set
       title: List of options (with aria controls)
-      aria_controls_id: js-update-region-id
+      aria_controls_id: wrapper
       options_container_id: list_of_countries
       options:
       - value: britain

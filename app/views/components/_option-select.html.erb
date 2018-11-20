@@ -12,18 +12,17 @@
   <div role="group" aria-labelledby="<%= title_id %>" class="options-container" id="<%= options_container_id %>">
     <div class="js-auto-height-inner">
       <% options.each do | option |%>
-        <label for="<%= key %>-<%= option[:id] %>">
-          <%= check_box_tag(
-            "#{key}[]",
-            option[:value],
-            option[:checked].present?,
-            {
-              id: "#{key}-#{option[:id]}",
-              data: option[:data_attributes]
-            }
-          ) %>
-          <%= option[:label] %>
-        </label>
+        <%= render "govuk_publishing_components/components/checkbox", {
+          name: "#{key}[]",
+          id: "#{key}-#{option[:id]}",
+          controls: local_assigns[:aria_controls_id] || nil,
+          item: {
+            label: option[:label],
+            value: option[:value],
+            checked: option[:checked].present?,
+            data_attributes: option[:data_attributes],
+          }
+        } %>
       <% end %>
     </div>
   </div>
