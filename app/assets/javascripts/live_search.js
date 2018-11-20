@@ -61,6 +61,8 @@
     }
   };
 
+  var currentEmailSignupPath = $("p.email-link a").attr('href')
+
   LiveSearch.prototype.formChange = function formChange(e){
     var pageUpdated;
     if(this.isNewState()){
@@ -69,6 +71,8 @@
       pageUpdated.done(
         function(){
           var newPath = window.location.pathname + "?" + $.param(this.state);
+          var newEmailSignupPath = currentEmailSignupPath + "?" + $.param(this.state);
+          $("p.email-link a").attr('href', newEmailSignupPath)
           history.pushState(this.state, '', newPath);
           if (this.canTrackPageview()) {
             GOVUK.analytics.trackPageview(newPath);
