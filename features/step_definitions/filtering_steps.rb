@@ -6,7 +6,7 @@ end
 Then(/^I can get a list of all documents with matching metadata$/) do
   visit finder_path('mosw-reports')
 
-  expect(page).not_to have_content('2 reports')
+  expect(page).to have_content('2 reports')
   expect(page).to have_css('.filtered-results .document', count: 2)
   expect(page).to have_css('.gem-c-metadata')
 
@@ -287,4 +287,6 @@ Then(/^I see the most viewed articles first$/) do
   within '.filtered-results .document:nth-child(2)' do
     expect(page).to have_content('16 November 2018')
   end
+
+  expect(page).to have_content('sorted by Most viewed')
 end
