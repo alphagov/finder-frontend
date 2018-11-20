@@ -43,6 +43,7 @@ private
   end
 
   def finder_format
+    return nil unless finder.filter
     finder.filter['document_type']
   end
 
@@ -56,9 +57,8 @@ private
   end
 
   def email_signup_attributes
-    {
-      "format" => [finder_format],
-      "filter" => chosen_options,
-    }
+    { "filter" => chosen_options }.tap do |hash|
+      hash["format"] = [finder_format] if finder_format
+    end
   end
 end
