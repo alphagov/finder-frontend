@@ -12,6 +12,15 @@ Feature: Filtering documents
     When I use a date filter
     Then I only see documents with matching dates
 
+  Scenario: Filter documents with checkbox
+    Given a collection of documents exist that can be filtered by checkbox
+    When I use a checkbox filter
+    Then I only see documents that match the checkbox filter
+
+  Scenario: A finder with a checkbox facet has tracking
+    Given a collection of documents exist that can be filtered by checkbox
+    Then The checkbox has the correct tracking data
+
   Scenario: Filter document by keyword
     Given a collection of documents exist
     When I search documents by keyword

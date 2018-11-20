@@ -10,6 +10,8 @@ module FacetParser
         DateFacet.new(facet)
       when 'hidden'
         HiddenFacet.new(facet)
+      when 'checkbox'
+        CheckboxFacet.new(facet)
       else
         raise ArgumentError.new("Unknown filterable facet type: #{facet.type}")
       end
