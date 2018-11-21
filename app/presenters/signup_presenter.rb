@@ -65,7 +65,7 @@ private
     [
       {
         "facet_id" => content_item['details']["email_filter_by"],
-        "facet_name" => single_facet_name.capitalize,
+        "facet_name" => single_facet_name,
         "facet_choices" => content_item['details']["email_signup_choice"]
       }
     ]
@@ -76,6 +76,9 @@ private
   end
 
   def single_facet_name
-    content_item['details']["email_filter_name"]["plural"] || content_item['details']["email_filter_name"]
+    email_filter_name = content_item["details"]["email_filter_name"]
+    return nil unless email_filter_name
+
+    (email_filter_name["plural"] || email_filter_name).capitalize
   end
 end
