@@ -23,7 +23,7 @@ private
   end
 
   def signup_presenter
-    @signup_presenter ||= SignupPresenter.new(content)
+    @signup_presenter ||= SignupPresenter.new(content, params)
   end
 
   def valid_choices?
