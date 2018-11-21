@@ -1,13 +1,11 @@
+require 'email_alert_title_builder'
+
 class EmailAlertSignupAPI
   def initialize(dependencies = {})
     @email_alert_api = dependencies.fetch(:email_alert_api)
     @attributes = dependencies.fetch(:attributes)
     @subscription_list_title_prefix = dependencies.fetch(:subscription_list_title_prefix)
     @available_choices = dependencies.fetch(:available_choices)
-    @filter_key = dependencies.fetch(:filter_key)
-    if attributes['filter'].blank? && !available_choices.blank?
-      raise ArgumentError, "User must choose at least one of the available options"
-    end
   end
 
   def signup_url
@@ -16,7 +14,7 @@ class EmailAlertSignupAPI
 
 private
 
-  attr_reader :email_alert_api, :attributes, :subscription_list_title_prefix, :available_choices, :filter_key
+  attr_reader :email_alert_api, :attributes, :subscription_list_title_prefix, :available_choices
 
   def subscriber_list
     response = email_alert_api.find_or_create_subscriber_list("tags" => massaged_attributes, "title" => title)
@@ -24,35 +22,22 @@ private
   end
 
   def title
-    if available_choices.empty?
-      title = subscription_list_title_prefix.to_s
-    else
-      plural_or_single = if attributes.fetch("filter").length == 1
-                           "singular"
-                         else
-                           "plural"
-                         end
-      title = (subscription_list_title_prefix[plural_or_single].to_s + topic_names.to_sentence).upcase_first
-    end
-
-    title
-  end
-
-  def topic_names
-    attributes.fetch("filter").collect { |x| choice_hash_by_key(x)['topic_name'] }
-  end
-
-  def choice_hash_by_key(key)
-    available_choices.detect { |x| x['key'] == key }
+    ::EmailAlertTitleBuilder.call(
+      filter: attributes['filter'] || {},
+      subscription_list_title_prefix: subscription_list_title_prefix,
+      facets: available_choices
+    )
   end
 
   def massaged_attributes
-    massaged_attributes = attributes.dup
-    if available_choices.empty?
+    attributes.dup.tap do |massaged_attributes|
+      available_choices.each do |choice|
+        facet_id = choice["facet_id"]
+        value = (massaged_attributes['filter'] || {})[facet_id]
+        next unless value
+        massaged_attributes[facet_id] = value
+      end
       massaged_attributes.delete("filter")
-    else
-      massaged_attributes[@filter_key] = massaged_attributes.delete("filter")
     end
-    massaged_attributes
   end
 end

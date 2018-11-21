@@ -55,9 +55,43 @@ describe EmailAlertSubscriptionsController, type: :controller do
       )
       post :create, params: {
         slug: 'cma-cases',
-        filter: ['ca98-and-civil-cartels']
+        filter: {
+          'case_type' => ['ca98-and-civil-cartels']
+        }
       }
       expect(subject).to redirect_to('http://www.example.com')
+    end
+  end
+
+  context "with a multi facet signup" do
+    let(:signup_finder) { cma_cases_with_multi_facets_signup_content_item }
+
+    describe 'POST "#create"' do
+      let(:finder) { govuk_content_schema_example('finder').to_hash.merge(title: 'alert-name') }
+
+      before do
+        content_store_has_item('/cma-cases', finder)
+        content_store_has_item('/cma-cases/email-signup', signup_finder)
+      end
+
+      it 'redirects to the correct email subscription url' do
+        email_alert_api_has_subscriber_list(
+          "tags" => {
+            "case_type" => ['ca98-and-civil-cartels'],
+            "case_state" => %w(open),
+            "format" => [finder.dig('details', 'filter', 'document_type')]
+          },
+          "subscription_url" => 'http://www.example.com'
+        )
+        post :create, params: {
+          slug: 'cma-cases',
+          filter: {
+            'case_type' => ['ca98-and-civil-cartels'],
+            'case_state' => %w(open),
+          }
+        }
+        expect(subject).to redirect_to('http://www.example.com')
+      end
     end
   end
 end

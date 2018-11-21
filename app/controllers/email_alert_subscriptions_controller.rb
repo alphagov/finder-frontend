@@ -3,16 +3,14 @@ require 'email_alert_signup_api'
 class EmailAlertSubscriptionsController < ApplicationController
   layout "finder_layout"
   protect_from_forgery except: :create
+  before_action :signup_presenter
 
-  def new
-    @signup = signup_presenter
-  end
+  def new; end
 
   def create
     if valid_choices?
       redirect_to email_alert_signup_api.signup_url
     else
-      @signup = signup_presenter
       @error_message = "Please choose an email alert"
       render action: :new
     end
@@ -20,16 +18,24 @@ class EmailAlertSubscriptionsController < ApplicationController
 
 private
 
-  def valid_choices?
-    available_choices.blank? || chosen_options.present?
+  def content
+    @content ||= Services.content_store.content_item(request.path)
   end
 
   def signup_presenter
     @signup_presenter ||= SignupPresenter.new(content)
   end
 
-  def content
-    @content ||= Services.content_store.content_item(request.path)
+  def valid_choices?
+    !signup_presenter.choices? || at_least_one_filter_chosen?
+  end
+
+  def at_least_one_filter_chosen?
+    chosen_options.any?(&:present?)
+  end
+
+  def chosen_options
+    params.permit("filter" => {})['filter'].to_h
   end
 
   def finder
@@ -37,11 +43,8 @@ private
   end
 
   def finder_format
+    return nil unless finder.filter
     finder.filter['document_type']
-  end
-
-  def available_choices
-    content['details']['email_signup_choice']
   end
 
   def email_alert_signup_api
@@ -49,19 +52,13 @@ private
       email_alert_api: Services.email_alert_api,
       attributes: email_signup_attributes,
       subscription_list_title_prefix: content['details']['subscription_list_title_prefix'],
-      available_choices: available_choices,
-      filter_key: content['details']['email_filter_by'],
+      available_choices: signup_presenter.choices,
     )
   end
 
-  def chosen_options
-    params.permit("filter" => [])['filter']
-  end
-
   def email_signup_attributes
-    {
-      "format" => [finder_format],
-      "filter" => chosen_options,
-    }
+    { "filter" => chosen_options }.tap do |hash|
+      hash["format"] = [finder_format] if finder_format
+    end
   end
 end

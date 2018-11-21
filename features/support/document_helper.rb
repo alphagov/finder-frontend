@@ -248,13 +248,13 @@ module DocumentHelper
   end
 
   def rummager_policy_other_page_search_url(page_number)
-    count_per_page = 10.freeze
+    count_per_page = 10
 
     rummager_url(
       policy_search_params.merge(
         "order" => "-public_timestamp",
         "count" => count_per_page,
-        "start" => ((page_number -1) * count_per_page)
+        "start" => ((page_number - 1) * count_per_page)
       )
     )
   end
