@@ -7,6 +7,17 @@
 %>
 <% if key && name %>
   <div class="app-c-date-filter"<% if aria_controls_id %> data-module="enable-aria-controls"<% end %>>
+    <%= render "govuk_publishing_components/components/input", {
+      label: {
+        text: name + " after"
+      },
+      name: key + "[from]",
+      id: key + "[from]",
+      value: from_value,
+      controls: aria_controls_id,
+      describedby: "date-help-text-" + key
+    } %>
+<% if false %>
     <label
       class="app-c-date-filter__label"
       for="<%= key %>[from]">
@@ -20,6 +31,20 @@
       <% if aria_controls_id %>data-aria-controls="<%= aria_controls_id %>"<% end %>
       aria-describedby="date-help-text-<%= key %>"
       class="app-c-date-filter__date" />
+<% end %>
+
+    <%= render "govuk_publishing_components/components/input", {
+      label: {
+        text: name + " before"
+      },
+      name: key + "[to]",
+      id: key + "[to]",
+      value: to_value,
+      controls: aria_controls_id,
+      describedby: "date-help-text-" + key
+    } %>
+
+<% if false %>
     <label
       class="app-c-date-filter__label"
       for="<%= key %>[to]">
@@ -33,6 +58,7 @@
       <% if aria_controls_id %>data-aria-controls="<%= aria_controls_id %>"<% end %>
       aria-describedby="date-help-text-<%= key %>"
       class="app-c-date-filter__date" />
+<% end %>
     <span id="date-help-text-<%= key %>" class="app-c-date-filter__help-text">
       For example, 2005 or 21/11/2014
     </span>
