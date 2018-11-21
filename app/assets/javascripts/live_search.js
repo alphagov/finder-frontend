@@ -115,6 +115,11 @@
     var searchState = $.param(this.state);
     var cachedResultData = this.cache(searchState);
     var liveSearch = this;
+
+    $("[data-finder]").each(function (i, el) {
+      $(el).attr('href', $(el).data('finder') + "/?" + $.param(liveSearch.state));
+    });
+
     if(typeof cachedResultData === 'undefined'){
       this.showLoadingIndicator();
       return $.ajax({

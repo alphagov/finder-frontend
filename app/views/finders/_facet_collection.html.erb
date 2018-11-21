@@ -8,5 +8,15 @@
       <%= render facet_collection.filters %>
       <input type="submit" value="Filter results" class="button js-live-search-fallback"/>
     </form>
+
+    <p>
+      <%= link_to 'News and communications',
+                  finder_path({ slug: 'news-and-communications' }.merge(request.query_parameters)),
+                  data: { finder: 'news-and-communications' } %>
+      <br>
+      <%= link_to 'Policy papers and consultations',
+                  finder_path({ slug: 'policy-papers-and-consultations' }.merge(request.query_parameters)),
+                  data: { finder: 'policy-papers-and-consultations' } %>
+    </p>
   </div>
 </div>

@@ -28,13 +28,23 @@ private
   end
 
   def development_env_finder_json
-    return news_and_communications_json if is_news_and_communications?
-    ENV["DEVELOPMENT_FINDER_JSON"]
+    if is_news_and_communications?
+      news_and_communications_json
+    elsif is_policy_papers_and_consultations?
+      policy_papers_and_consultations_json
+    else
+      ENV["DEVELOPMENT_FINDER_JSON"]
+    end
   end
 
   def news_and_communications_json
     # Hard coding this in during development
     "features/fixtures/news_and_communications.json"
+  end
+
+  def policy_papers_and_consultations_json
+    # Hard coding this in during development
+    "features/fixtures/policy_papers_and_consultations.json"
   end
 
   def fetch_search_response(content_item)
@@ -114,6 +124,10 @@ private
 
   def is_news_and_communications?
     base_path == "/news-and-communications"
+  end
+
+  def is_policy_papers_and_consultations?
+    base_path == "/policy-papers-and-consultations"
   end
 
   def registries
