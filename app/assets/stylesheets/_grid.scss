@@ -1,0 +1,10 @@
+.grid-row {
+  @extend %grid-row;
+
+  .column-third {
+    @include grid-column( 1/3 );
+  }
+  .column-two-thirds {
+    @include grid-column( 2/3 );
+  }
+}
