@@ -6,13 +6,18 @@ class CheckboxFacet < FilterableFacet
   end
 
   def sentence_fragment
-    return nil if selected_checkboxes.empty?
+    return nil unless has_filters?
 
     {
-      'type' => "text",
+      'key' => key,
       'preposition' => preposition,
       'values' => value_fragments,
+      'word_connectors' => and_word_connectors
     }
+  end
+
+  def has_filters?
+    selected_checkboxes.any?
   end
 
   def value
@@ -29,7 +34,8 @@ private
     selected_checkboxes.map { |checkbox|
       {
         'label' => checkbox.label,
-        'parameter_key' => key,
+        'parameter_key' => key,  # TODO I think we can get rid of this
+        'value' => checkbox.value
       }
     }
   end

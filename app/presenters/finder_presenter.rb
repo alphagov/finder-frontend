@@ -101,10 +101,10 @@ class FinderPresenter
   def text_metadata_keys
     metadata.select { |f| f.type == "text" }.map(&:key)
   end
-
-  def filter_sentence_fragments
-    filters.map(&:sentence_fragment).compact
-  end
+  #
+  # def filter_sentence_fragments
+  #   filters.map(&:sentence_fragment).compact
+  # end
 
   def show_summaries?
     content_item['details']['show_summaries']

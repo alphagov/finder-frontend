@@ -4,11 +4,11 @@ class ResultSetPresenter
   attr_reader :finder, :document_noun, :results, :total
 
   delegate :document_noun,
-           :filter_sentence_fragments,
+           :filters,
            :keywords,
            :atom_url,
            to: :finder
-
+  #
   def initialize(finder, filter_params, view_context)
     @finder = finder
     @results = finder.results.documents
@@ -33,7 +33,7 @@ class ResultSetPresenter
   end
 
   def any_filters_applied?
-    filter_sentence_fragments.length.positive? || keywords.present?
+    selected_filters.length.positive? || keywords.present?
   end
 
   def generic_description
@@ -57,35 +57,21 @@ class ResultSetPresenter
   end
 
   def selected_filter_descriptions
-    filter_sentence_fragments.flat_map { |fragment|
-      fragment_description(fragment)
-    }.join(' ')
-  end
-
-  def fragment_description(fragment)
-    [
-      fragment['preposition'],
-      fragment_to_s(fragment),
-    ]
-  end
-
-  def fragment_to_s(fragment)
-    values = fragment['values'].map { |value|
-      "<strong>#{html_escape(value['label'])}</strong>"
-    }
-
-    if fragment['type'] == "text"
-      values.to_sentence(two_words_connector: ' or ', last_word_connector: ' or ')
-    elsif fragment['type'] == "date" || fragment['type'] == "checkbox"
-      values.to_sentence(two_words_connector: ' and ')
+    all_filter_params = {}
+    selected_filters.each do |filter|
+      all_filter_params[filter.key] = filter.value
     end
+
+    selected_filters.map { |filter|
+      FacetFilterPresenter.new(filter, all_filter_params, finder.slug).present
+    }.join(' ')
   end
 
   def documents
     results.each_with_index.map do |result, index|
       {
         document: SearchResultPresenter.new(result).to_hash,
-        document_index: index + 1,
+        document_index: index + 1
       }
     end
   end
@@ -122,5 +108,9 @@ private
       title: page_label,
       label: "#{page} of #{finder.pagination['total_pages']}",
     }
+  end
+
+  def selected_filters
+    filters.select(&:has_filters?)
   end
 end

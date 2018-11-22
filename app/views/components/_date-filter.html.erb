@@ -6,7 +6,7 @@
   aria_controls_id ||= false
 %>
 <% if key && name %>
-  <div class="app-c-date-filter"<% if aria_controls_id %> data-module="enable-aria-controls"<% end %>>
+  <div class="app-c-date-filter" id="<%= key %>" <% if aria_controls_id %> data-module="enable-aria-controls"<% end %>>
     <label
       class="app-c-date-filter__label"
       for="<%= key %>[from]">

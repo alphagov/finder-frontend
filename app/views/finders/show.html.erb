@@ -75,3 +75,29 @@
     </div>
   </div>
 </div>
+
+
+<script>
+  $(document).on("click", ".remove-filter", function(e){
+    e.preventDefault();
+
+    var selector = "";
+    var name = $(this).data("name");
+    if(name.length > 0){
+        selector +=  " :input[name='" + name + "']";
+    } else {
+        var value = $(this).data("value");
+        selector += " :input[value='" + value + "']";
+    }
+
+    var facet = $(this).data("facet");
+    var $elem = $("#" + facet).find(selector);
+
+    var inputType = $elem.prop("type");
+    if(inputType == "checkbox"){
+        $elem.trigger("click");
+    } else {
+        $elem.val("").trigger("change");
+    }
+  });
+</script>

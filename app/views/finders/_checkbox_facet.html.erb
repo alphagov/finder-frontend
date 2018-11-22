@@ -1,4 +1,4 @@
-<div class="govuk-checkboxes">
+<div class="govuk-checkboxes" id="<%= checkbox_facet.key %>">
   <% checkbox_facet.checkboxes.each do |checkbox| %>
     <div class="govuk-checkboxes__item">
       <%= check_box_tag checkbox_facet.name, checkbox.value, checkbox_facet.checked?(checkbox), class: "govuk-checkboxes__input", id: checkbox.id, data: checkbox.data, aria_controls: "js-search-results-info" %>

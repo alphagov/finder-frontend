@@ -30,10 +30,23 @@ class SelectFacet < FilterableFacet
     return nil unless selected_values.any?
 
     {
-      'type' => "text",
+      'key' => key,
       'preposition' => preposition,
       'values' => value_fragments,
+      'word_connectors' => or_word_connectors
     }
+  end
+
+  def has_filters?
+    selected_values.any?
+  end
+
+  def description
+    return nil unless has_filters?
+    [
+      preposition,
+      description_sentence,
+    ]
   end
 
   def close_facet?
@@ -46,11 +59,16 @@ class SelectFacet < FilterableFacet
 
 private
 
+  def description_sentence
+    value_fragment_labels.to_sentence(two_words_connector: ' or ', last_word_connector: ' or ')
+  end
+
   def value_fragments
-    selected_values.map { |v|
+    selected_values.map { |value|
       {
-        'label' => v['label'],
-        'parameter_key' => key,
+        'label' => value['label'],
+        'value' => value['value'],
+        'parameter_key' => key, # TODO: I think we can get rid of this
       }
     }
   end

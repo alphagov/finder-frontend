@@ -24,6 +24,7 @@
       this.$form.find('input[type=checkbox], input[type=text], input[type=radio]').on('change',
         function(e) {
           if (e.target.type == "text") {
+            $(e.target).attr("value", e.target.value);
             LiveSearch.prototype.fireTextAnalyticsEvent(e);
           }
           this.formChange(e)

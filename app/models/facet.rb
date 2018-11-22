@@ -29,5 +29,17 @@ class Facet
 
 private
 
+  def and_word_connectors
+    { two_words_connector: ' and ' }
+  end
+
+  def or_word_connectors
+    { words_connector: ' or ', last_word_connector: ' or ' }
+  end
+
+  def value_fragments
+    raise NotImplementedError
+  end
+
   attr_reader :facet
 end
