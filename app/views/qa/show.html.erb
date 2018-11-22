@@ -1,0 +1,67 @@
+<% content_for :title, title %>
+
+<%= render 'govuk_publishing_components/components/breadcrumbs', breadcrumbs: breadcrumbs %>
+
+<form action="<%= next_page_url %>" method="get" id="finder-qa-facet-filter-selection" class="gem-c-title">
+  <%= render "govuk_publishing_components/components/title", {
+    title: current_facet["question"],
+  } %>
+  <%= render "govuk_publishing_components/components/govspeak", {
+    content: "<div class=\"summary\"><p>#{current_facet['description']}</p></div>".html_safe
+  } %>
+  <% if multiple_question? %>
+    <% filter_groups.each do |filter_group| %>
+      <%= render "govuk_publishing_components/components/checkboxes", {
+        name: "#{current_facet['facet']['key']}[]",
+        heading: filter_group["name"],
+        hint_text: "",
+        items: nested_options(filter_group)
+      } %>
+    <% end %>
+  <% elsif single_wrapped_question? %>
+    <% checkboxes = render "govuk_publishing_components/components/checkboxes", {
+      name: "#{current_facet['facet']['key']}[]",
+      items: options
+    } %>
+    <%= render "govuk_publishing_components/components/radio", {
+      name: "yes-no-choice",
+      items: [
+        {
+          value: "yes",
+          text: "Yes",
+          conditional: checkboxes
+        },
+        {
+          value: "no",
+          text: "No"
+        }
+      ]
+    } %>
+  <% else %>
+    <%= render "govuk_publishing_components/components/radio", {
+      name: "#{current_facet['facet']['key']}[]",
+      items: options
+    } %>
+  <% end %>
+  <% filtered_params.each_pair do |key, values| %>
+    <% values.each do |value| %>
+      <input type="hidden" name="<%= key %>[]" value="<%= value %>">
+    <% end %>
+  <% end %>
+  <% unless last_page? %>
+    <input type="hidden" name="page" value="<%= next_page %>">
+  <% end %>
+  <% unless current_facet["hint_text"].nil? || current_facet["hint_title"].nil? %>
+    <%= render "govuk_publishing_components/components/details", {
+      title: current_facet["hint_title"]
+    } do %>
+      <%= current_facet["hint_text"] %>
+    <% end %>
+  <% end %>
+  <div class="govuk-form-footer">
+    <%= render "govuk_publishing_components/components/button", {
+      text: "Next"
+    } %>
+    <a class="govuk-form-footer__alt-cta-link" href="<%= skip_link_url %>">Skip this question</a>
+  </div>
+</form>
