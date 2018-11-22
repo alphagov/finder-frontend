@@ -31,10 +31,15 @@ class SelectFacet < FilterableFacet
     return nil unless selected_values.any?
 
     {
-      'type' => "text",
+      'key' => key,
       'preposition' => preposition,
       'values' => value_fragments,
+      'word_connectors' => or_word_connectors
     }
+  end
+
+  def has_filters?
+    selected_values.any?
   end
 
   def close_facet?
@@ -48,10 +53,11 @@ class SelectFacet < FilterableFacet
 private
 
   def value_fragments
-    selected_values.map { |v|
+    selected_values.map { |value|
       {
-        'label' => v['label'],
-        'parameter_key' => key,
+        'label' => value['label'],
+        'value' => value['value'],
+        'parameter_key' => key
       }
     }
   end

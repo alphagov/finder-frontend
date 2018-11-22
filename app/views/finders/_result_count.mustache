@@ -1,8 +1,11 @@
-<p class="result-info">
+<div class="result-info">
   <span class="result-count">
-    {{total}}
+    {{total}} {{{pluralised_document_noun}}}
   </span>
-  {{{pluralised_document_noun}}}
-  {{{applied_filters}}}
+  <div class="filters">
+    {{#applied_filters}}
+        {{> finders/_applied_filter}}
+    {{/applied_filters}}
+  </div>
   {{{sort_options}}}
-</p>
+</div>

@@ -4,13 +4,18 @@ class HiddenFacet < FilterableFacet
   end
 
   def sentence_fragment
-    return nil unless value
+    return nil unless has_filters?
 
     {
-      'type' => 'text',
+      'key' => key,
       'preposition' => preposition,
-      'values' => value_fragments
+      'values' => value_fragments,
+      'word_connectors' => or_word_connectors
     }
+  end
+
+  def has_filters?
+    value.present?
   end
 
   def value_fragments

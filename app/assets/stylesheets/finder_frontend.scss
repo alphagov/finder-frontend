@@ -231,13 +231,88 @@
     .result-info {
       @include core-16;
       vertical-align: baseline;
-      border-bottom: solid 1px $border-colour;
       margin: 0 0 $gutter-half 0;
-      padding-bottom: $gutter-half;
 
       .result-count {
         @include bold-48;
         margin-right: $gutter-one-third / 2;
+      }
+    }
+
+    .filters {
+      margin-top: $gutter-one-third;
+      margin-bottom: $gutter;
+    }
+
+    .facet-tag-group {
+      padding: 5px;
+
+      &:nth-child(odd) {
+        background-color: $grey-4;
+      }
+
+      .facet-tag-wrapper {
+        vertical-align: middle;
+        margin: 5px 0;
+
+        @include media(tablet) {
+          display: inline-block;
+        }
+      }
+
+      .facet-tag-wrapper:first-of-type .facet-tag-preposition:first-of-type {
+        font-weight: bold;
+
+        &::first-letter {
+          text-transform: uppercase;
+        }
+      }
+
+      .facet-tag-preposition {
+        padding: 0 5px 0 2px;
+        vertical-align: middle;
+        text-transform: lowercase;
+
+        @include media(tablet) {
+          display: table-cell;
+        }
+      }
+
+      .facet-tag {
+        display: block;
+        position: relative;
+        padding: 5px;
+        border: 1px solid $grey-1;
+        border-radius: 5px;
+        background-color: $grey-4;
+
+        .js-enabled & {
+          padding: 5px 5px 5px $gutter-two-thirds;
+        }
+
+        @include media(tablet) {
+          display: table-cell;
+        }
+
+        .facet-tag-text {
+          display: inline-block;
+          margin-left: 5px;
+        }
+
+        .remove-filter {
+          display: none;
+          position: absolute;
+          top: 0;
+          left: 0;
+          padding: 5px;
+          font-weight: bold;
+          color: #000;
+          text-decoration: none;
+
+          .js-enabled & {
+            display: inline-block;
+          }
+        }
       }
     }
 
@@ -306,6 +381,88 @@
         padding: 0 0 3px;
         color: $secondary-text-colour;
       }
+    }
+  }
+
+  .facet-tags {
+    margin-top: $gutter-one-third;
+    margin-bottom: $gutter;
+  }
+
+  .facet-tags__group {
+    padding: 5px;
+
+    &:nth-child(odd) {
+      background-color: $grey-4;
+    }
+  }
+
+  .facet-tags__wrapper {
+    vertical-align: middle;
+    margin: 5px 0;
+
+    @include media(tablet) {
+      display: inline-block;
+    }
+  }
+
+  .facet-tags__wrapper:first-of-type .facet-tags__preposition:first-of-type {
+    font-weight: bold;
+
+    &::first-letter {
+      text-transform: uppercase;
+    }
+  }
+
+  .facet-tags__preposition {
+    padding: 0 5px 5px 2px;
+    vertical-align: middle;
+    text-transform: lowercase;
+
+    @include media(tablet) {
+      display: table-cell;
+      padding: 0 5px 0 2px;
+    }
+  }
+
+  .facet-tag {
+    display: block;
+    position: relative;
+    padding: 5px;
+    border: 1px solid $grey-1;
+    border-radius: 5px;
+    background-color: $grey-4;
+
+    .js-enabled & {
+      padding: 8px 7px 7px 23px;
+    }
+
+    @include media(tablet) {
+      display: table-cell;
+    }
+  }
+
+  .facet-tag__text {
+    display: inline-block;
+    margin-left: 0;
+
+    .js-enabled & {
+      margin-left: 5px;
+    }
+  }
+
+  .facet-tag__remove {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 8px;
+    font-weight: bold;
+    color: #000;
+    text-decoration: none;
+
+    .js-enabled & {
+      display: inline-block;
     }
   }
 }

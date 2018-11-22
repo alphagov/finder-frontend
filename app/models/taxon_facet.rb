@@ -19,7 +19,12 @@ class TaxonFacet < DropdownSelectFacet
       'type' => "taxon",
       'preposition' => preposition,
       'values' => value_fragments,
+      'word_connectors' => and_word_connectors
     }
+  end
+
+  def has_filters?
+    selected_level_one_value.present?
   end
 
 private
@@ -36,7 +41,8 @@ private
 
     {
       'label' => value[:text],
-      'parameter_key' => key
+      'parameter_key' => key,
+      'value' => value[:value]
     }
   end
 

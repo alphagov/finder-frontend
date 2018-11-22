@@ -145,10 +145,6 @@ class FinderPresenter
     options_for_select(options, disabled: disabled_option, selected: selected_option)
   end
 
-  def filter_sentence_fragments
-    filters.map(&:sentence_fragment).compact
-  end
-
   def show_keyword_search?
     keywords.present? || facets.any? || results.total.positive?
   end

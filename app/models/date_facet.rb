@@ -1,21 +1,28 @@
 class DateFacet < FilterableFacet
   def sentence_fragment
-    return nil unless present_values.any?
+    return nil unless has_filters?
 
     {
-      'type' => "date",
+      'key' => key,
       'preposition' => [preposition, additional_preposition].compact.join(' '),
       'values' => value_fragments,
+      'word_connectors' => and_word_connectors
     }
+  end
+
+  def has_filters?
+    present_values.any?
   end
 
 private
 
   def value_fragments
-    present_values.map { |_, date|
+    present_values.map { |name, date|
       {
         'label' => date.date.strftime("%e %B %Y"),
         'parameter_key' => key,
+        'value' => date.original_input,
+        'name' => "#{key}[#{name}]"
       }
     }
   end

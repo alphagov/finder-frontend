@@ -5,13 +5,19 @@ class CheckboxFacet < FilterableFacet
     return nil unless is_checked?
 
     {
-      'type' => "text",
+      'key' => key,
       'preposition' => preposition,
       'values' => [{
         'label' => label,
         'parameter_key' => key,
+        'value' => value
       }],
+      'word_connectors' => and_word_connectors
     }
+  end
+
+  def has_filters?
+    is_checked?
   end
 
   def value
