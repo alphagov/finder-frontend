@@ -1,0 +1,129 @@
+---
+base_path: "/prepare-business-uk-leaving-eu"
+finder_base_path: "/find-eu-exit-guidance-business"
+title: "Prepare your business for the UK leaving the EU"
+pages:
+  sector_business_area:
+    show_in_qa: true
+    question_type: "multiple"
+    question: "What does your business do?"
+    description: |
+      <p>Use this tool to find out:</p>
+      <ul>
+        <li>what your business will need to do to prepare for the UK leaving the EU</li>
+        <li>what’s changing in your industry</li>
+        <li>information on specific rules and regulations</li>
+      </ul>
+      <p>You’ll need to answer some simple questions to get guidance relevant to your business.</p>
+      <p>To start, choose all the sectors and areas that your business operate in.</p>
+    filter_groups:
+      - name: "Construction and infrastructure"
+        filters:
+          - "construction-contracting"
+      - name: "Consumer goods and retail"
+        filters:
+          - "accommodation-restaurants-and-catering-services"
+          - "furniture-and-other-manufacturing"
+          - "motor-trades"
+          - "retail"
+          - "textiles-and-clothing"
+          - "wholesale-excl-motor-vehicles"
+      - name: "Defence"
+        filters:
+          - "public-administration-and-defence"
+      - name: "Energy, environmental services and agriculture"
+        filters:
+          - "accommodation-restaurants-and-catering-services"
+          - "agriculture"
+          - "electricity"
+          - "environmental-services"
+          - "fisheries"
+          - "food-and-drink"
+          - "gas-markets"
+          - "oil-and-gas-production"
+      - name: "Financial, business and professional services"
+        filters:
+          - "ancillary-services"
+          - "banking-market-infrastructure"
+          - "imputed-rent"
+          - "insurance"
+          - "other-personal-services"
+          - "professional-and-business-services"
+          - "real-estate-excl-imputed-rent"
+      - name: "High-tech and mechanical manufacturing"
+        filters:
+          - "aerospace"
+          - "automotive"
+          - "electronics"
+          - "parts-and-machinery"
+      - name: "Higher education and research"
+        filters:
+          - "education"
+      - name: "Life sciences"
+        filters:
+          - "animal-health"
+          - "furniture-and-other-manufacturing"
+          - "medical-services"
+          - "pharmaceuticals"
+          - "social-work"
+      - name: "Materials"
+        filters:
+          - "chemicals"
+          - "steel-and-other-metals-commodities"
+      - name: "Media, technology and creative industries"
+        filters:
+          - "broadcasting"
+          - "computer-services"
+          - "professional-and-business-services"
+          - "telecoms"
+      - name: "Transport and tourism"
+        filters:
+          - "accommodation-restaurants-and-catering-services"
+          - "air-transport-aviation"
+          - "land-transport-excl-rail"
+          - "post"
+          - "rail"
+          - "warehousing-and-support-for-transportation"
+          - "water-transport-maritime-ports"
+  employ_eu_citizens:
+    show_in_qa: true
+    question_type: "single_wrapped"
+    question: "Do you employ anyone from another EU or EFTA country?"
+    description: |
+      <p>Check which <a href="/eu-eea">countries are in the EU</a>. EFTA countries also include Norway, Switzerland, Iceland and Liechtenstein.</p>
+      <p>Check <a href="/employment-status">who counts as an employee</a>.</p>
+  doing_business_in_the_eu:
+    show_in_qa: true
+    question_type: "single_wrapped"
+    question: "Do you import or do business abroad?"
+    description: |
+      <p>Doing business abroad includes going for meetings or taking goods to a trade fair.</p>
+  regulations_and_standards:
+    show_in_qa: true
+    question_type: "single_wrapped"
+    question: "Do you sell products and goods in the UK?"
+  personal_data:
+    show_in_qa: true
+    question_type: "single_wrapped"
+    question: "Do you use personal information that you store or get from the EU?"
+    description: |
+      <p>Personal information includes customers’ addresses, staff working hours or information you give to a delivery company.</p>
+      <p>Skip this question if you’re not sure how you deal with personal information.</p>
+  intellectual_property:
+    show_in_qa: true
+    question_type: "single_wrapped"
+    question: "Does your business use or rely on intellectual property (IP) protection?"
+    description: |
+      <p>Intellectual property protection includes copyright, trade marks and patents.</p>
+  receiving_eu_funding:
+    show_in_qa: true
+    question_type: "single_wrapped"
+    question: "Does your organisation get EU funding?"
+    description: |
+      <p>For example as part of the Creative Europe Fund or Horizon 2020 schemes.</p>
+  public_sector_procurement:
+    show_in_qa: true
+    question_type: "single_wrapped"
+    question: "Does your business sell to the public sector?"
+    description: |
+      <p>This includes if you sell products or services to organisations in central government, local government and some non-government organisations.</p>

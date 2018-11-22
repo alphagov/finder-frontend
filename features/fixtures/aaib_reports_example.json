@@ -158,6 +158,49 @@
         ]
       },
       {
+        "key":"fake_report_type",
+        "name":"Fake report type",
+        "type":"text",
+        "preposition":"of type",
+        "display_as_result_metadata":true,
+        "filterable":true,
+        "allowed_values":[
+          {
+            "label":"Annual safety report",
+            "value":"annual-safety-report"
+          },
+          {
+            "label":"Bulletin - Correspondence investigation",
+            "value":"correspondence-investigation"
+          },
+          {
+            "label":"Bulletin - Field investigation",
+            "value":"field-investigation"
+          },
+          {
+            "label":"Bulletin - Pre-1997 uncategorised monthly report",
+            "value":"pre-1997-monthly-report"
+          },
+          {
+            "label":"Foreign report",
+            "value":"foreign-report"
+          },
+          {
+            "label":"Formal report",
+            "value":"formal-report"
+          },
+          {
+            "label":"Special bulletin",
+            "value":"special-bulletin"
+          },
+          {
+            "label":"Safety study",
+            "value":"safety-study"
+          }
+        ]
+      },
+
+      {
         "key":"date_of_occurrence",
         "name":"Date of occurrence",
         "short_name":"Occurred",

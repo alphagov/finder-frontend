@@ -57,6 +57,7 @@ private
 
   def selected_values
     return [] if @value.nil?
+
     allowed_values.select { |option|
       @value.include?(option['value'])
     }

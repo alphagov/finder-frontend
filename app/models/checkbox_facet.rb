@@ -36,6 +36,7 @@ private
 
   def selected_checkboxes
     return [] unless @value && @value.any?
+
     checkboxes.select { |checkbox|
       @value.include?(checkbox.value)
     }

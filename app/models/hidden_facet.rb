@@ -5,6 +5,7 @@ class HiddenFacet < FilterableFacet
 
   def sentence_fragment
     return nil unless value
+
     {
       'type' => 'text',
       'preposition' => preposition,
@@ -23,6 +24,7 @@ class HiddenFacet < FilterableFacet
 
   def selected_values
     return [] if @value.nil?
+
     allowed_values.select { |option|
       @value.include?(option['value'])
     }

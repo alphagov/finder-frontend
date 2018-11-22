@@ -1,0 +1,16 @@
+.govuk-form-footer {
+  margin-bottom: govuk-spacing(9) * 2;
+}
+
+.govuk-form-footer__alt-cta-link {
+  @include govuk-font($size: 19);
+  display: block;
+  text-align: center;
+  padding: (govuk-spacing(2) - $govuk-border-width-form-element) govuk-spacing(2);  
+  margin-top: govuk-spacing(3);
+
+  @include media(tablet) {
+    display: inline-block;
+    margin-top: 0;
+  }
+}

@@ -1,0 +1,37 @@
+---
+base_path: "/aaib-reports-qa"
+finder_base_path: "/aaib-reports"
+title: "AAIB Reports Q&A"
+pages:
+  aircraft_category:
+    show_in_qa: true
+    question_type: "multiple"
+    question: "What is the aircraft category?"
+    description: "Description"
+    hint_title: "Click for a hint"
+    hint_text: "This is a hint"
+    filter_groups:
+      - name: "Commercial"
+        filters:
+          - "commercial-fixed-wing"
+          - "commercial-rotorcraft"
+      - name: "General aviation"
+        filters:
+          - "general-aviation-fixed-wing"
+          - "general-aviation-rotorcraft"
+      - name: "Other aviation"
+        filters:
+          - "sport-aviation-and-balloons"
+          - "unmanned-aircraft-systems"
+  report_type:
+    show_in_qa: true
+    question_type: "single_wrapped"
+    question: "What is the report type?"
+  fake_report_type:
+    show_in_qa: false
+    question_type: "single_wrapped"
+    question: "What is the fake report type?"
+  aircraft_type:
+    show_in_qa: true
+    question_type: "single_wrapped"
+    question: "What is the aircraft type?"
