@@ -1,14 +1,4 @@
 class DateFacet < FilterableFacet
-  # def sentence_fragment
-  #   return nil unless present_values.any?
-  #
-  #   {
-  #     'type' => "date",
-  #     'preposition' => [preposition, additional_preposition].compact.join(' '),
-  #     'values' => value_fragments,
-  #   }
-  # end
-
   def sentence_fragment
     return nil unless has_filters?
 

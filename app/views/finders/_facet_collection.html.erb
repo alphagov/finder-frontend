@@ -1,7 +1,7 @@
 <div class="filter-form">
   <div class="inner-block">
     <form method="get" action="<%=finder.slug%>" class="js-live-search-form">
-      <div class="filter text-filter">
+      <div class="filter text-filter" id="keywords">
         <label class="legend" for="finder-keyword-search">Search</label>
         <input value="<%= @results.user_supplied_keywords %>" type="text" name="keywords" id="finder-keyword-search" aria-controls="js-search-results-info" class='text'/>
       </div>

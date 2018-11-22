@@ -42,18 +42,12 @@ class ResultSetPresenter
   end
 
   def describe_filters_in_sentence
-    [
-      keywords_description,
-      selected_filter_descriptions
-    ].compact.join(' ')
-  end
+    # [
+    #   keywords_description,
+    #   selected_filter_descriptions
+    # ].compact
 
-  def keywords_description
-    if keywords.present?
-      "containing <strong>#{html_escape(keywords)}</strong>"
-    else
-      ""
-    end
+    selected_filter_descriptions
   end
 
   def selected_filter_descriptions
@@ -61,10 +55,10 @@ class ResultSetPresenter
     selected_filters.each do |filter|
       all_filter_params[filter.key] = filter.value
     end
-
-    selected_filters.map { |filter|
-      FacetFilterPresenter.new(filter, all_filter_params, finder.slug).present
-    }.join(' ')
+    # binding.pry
+    selected_filters.map do |filter|
+      FacetFilterPresenter.new(filter.sentence_fragment, all_filter_params, finder.slug).present
+    end
   end
 
   def documents
@@ -111,6 +105,6 @@ private
   end
 
   def selected_filters
-    filters.select(&:has_filters?)
+    (filters + [KeywordFacet.new(keywords)]).select(&:has_filters?)
   end
 end
