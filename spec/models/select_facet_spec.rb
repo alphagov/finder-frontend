@@ -89,4 +89,29 @@ describe SelectFacet do
       specify { expect(subject.close_facet?).to be true }
     end
   end
+
+  describe "#unselected?" do
+    context "no selected values" do
+      specify { expect(subject.unselected?).to be true }
+    end
+
+    context "some selected values" do
+      let(:facet_data) {
+        {
+          'type' => "multi-select",
+          'name' => "Test values",
+          'key' => "test_values",
+          'preposition' => "of value",
+          'allowed_values' => [{ 'label' => 'One', 'value' => '1' }],
+        }
+      }
+
+      subject { SelectFacet.new(facet_data) }
+
+      specify do
+        subject.value = "1"
+        expect(subject.unselected?).to be false
+      end
+    end
+  end
 end

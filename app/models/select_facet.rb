@@ -37,7 +37,11 @@ class SelectFacet < FilterableFacet
   end
 
   def close_facet?
-    allowed_values.count > 10
+    selected_values.empty? && allowed_values.count > 10
+  end
+
+  def unselected?
+    selected_values.empty?
   end
 
 private
