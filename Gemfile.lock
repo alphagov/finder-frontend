@@ -58,7 +58,7 @@ GEM
       debug_inspector (>= 0.0.1)
     builder (3.2.3)
     byebug (10.0.2)
-    capybara (3.11.1)
+    capybara (3.12.0)
       addressable
       mini_mime (>= 0.1.3)
       nokogiri (~> 1.8)
@@ -144,7 +144,7 @@ GEM
     govuk_frontend_toolkit (8.1.0)
       railties (>= 3.1.0)
       sass (>= 3.2.0)
-    govuk_publishing_components (12.15.0)
+    govuk_publishing_components (12.16.0)
       govspeak (>= 5.0.3)
       govuk_app_config
       govuk_frontend_toolkit
@@ -209,7 +209,7 @@ GEM
     nokogumbo (1.5.0)
       nokogiri
     null_logger (0.0.1)
-    oj (3.7.1)
+    oj (3.7.4)
     parallel (1.12.1)
     parser (2.5.3.0)
       ast (~> 2.4.0)
@@ -387,7 +387,7 @@ DEPENDENCIES
   govuk_app_config (~> 1.10.0)
   govuk_document_types (~> 0.9.0)
   govuk_frontend_toolkit (~> 8.1)
-  govuk_publishing_components (~> 12.15)
+  govuk_publishing_components (~> 12.16.0)
   govuk_schemas (~> 3.2)
   jasmine-rails
   launchy (~> 2.4.2)
@@ -407,4 +407,4 @@ RUBY VERSION
    ruby 2.5.3p105
 
 BUNDLED WITH
-   1.16.2
+   1.17.1
