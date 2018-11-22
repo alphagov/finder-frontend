@@ -27,6 +27,7 @@ private
       'hidden' => HiddenFilter,
       'text' => TextFilter,
       'topical' => TopicalFilter,
+      'taxon' => TaxonFilter,
     }.fetch(facet['type'])
 
     params = user_params.fetch(facet['key'], nil)
@@ -107,6 +108,9 @@ private
     def value
       params
     end
+  end
+
+  class TaxonFilter < TextFilter
   end
 
   class TopicalFilter < Filter

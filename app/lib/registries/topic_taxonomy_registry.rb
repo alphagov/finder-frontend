@@ -3,21 +3,21 @@ module Registries
     CACHE_KEY = "#{NAMESPACE}/topic_taxonomy".freeze
 
     def [](content_id)
-      cached_taxonomy_tree[content_id]
+      taxonomy_tree[content_id]
     end
 
-  private
-
-    def cached_taxonomy_tree
+    def taxonomy_tree
       Rails.cache.fetch(CACHE_KEY, expires_in: 1.hour) do
-        taxonomy_tree
+        taxonomy_tree_as_hash
       end
-    rescue GdsApi::HTTPServerError, GdsApi::HTTPBadGateway
+    rescue GdsApi::HTTPServerError
       GovukStatsd.increment("#{NAMESPACE}.topic_taxonomy_api_errors")
       {}
     end
 
-    def taxonomy_tree
+  private
+
+    def taxonomy_tree_as_hash
       fetch_level_one_taxons_from_api.each_with_object({}) { |taxon, taxonomy|
         taxonomy[taxon['content_id']] = format_taxon(taxon)
       }

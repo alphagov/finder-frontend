@@ -68,6 +68,15 @@
         ]
       },
       {
+        "key": "part_of_taxonomy_tree",
+        "name": "topic",
+        "short_name": "topic",
+        "type": "taxon",
+        "display_as_result_metadata": false,
+        "filterable": true,
+        "preposition": "about"
+      },
+      {
         "key": "people",
         "name": "People",
         "preposition": "from",

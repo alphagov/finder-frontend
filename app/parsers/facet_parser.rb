@@ -6,6 +6,8 @@ module FacetParser
         SelectFacet.new(facet)
       when 'topical'
         TopicalFacet.new(facet)
+      when 'taxon'
+        TaxonFacet.new(facet)
       when 'date'
         DateFacet.new(facet)
       when 'hidden'
