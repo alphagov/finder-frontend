@@ -21,6 +21,11 @@
         <% if @error_message.present? %>
           <p class="validation-message"><%= @error_message %></p>
         <% end %>
+      <% else %>
+        <%= render partial: 'govuk_publishing_components/components/title', locals: {
+          title: @signup_presenter.name,
+          context: "Email alert subscription"
+        } %>
       <% end %>
 
       <% if @signup_presenter.body %>
