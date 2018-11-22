@@ -44,6 +44,7 @@ private
 
   def finder_format
     return nil unless finder.filter
+
     finder.filter['document_type']
   end
 

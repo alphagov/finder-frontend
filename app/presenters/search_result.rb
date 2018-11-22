@@ -2,7 +2,7 @@
 
 class SearchResult
   include ActionView::Helpers::NumberHelper
-  SCHEME_PATTERN = %r{^https?://}
+  SCHEME_PATTERN = %r{^https?://}.freeze
 
   attr_accessor :result
 

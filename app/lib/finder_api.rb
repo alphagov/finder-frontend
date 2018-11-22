@@ -29,6 +29,7 @@ private
 
   def development_env_finder_json
     return news_and_communications_json if is_news_and_communications?
+
     ENV["DEVELOPMENT_FINDER_JSON"]
   end
 

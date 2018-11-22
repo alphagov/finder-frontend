@@ -34,6 +34,7 @@ private
     subgroups = supergroups.map(&:subgroups_as_hash).flatten
     facet = find_facet(content_item, SUBGROUP_SEARCH_FILTER)
     return unless facet
+
     facet["allowed_values"] = subgroups
     facet["type"] = "hidden" if subgroups.size < 2
   end

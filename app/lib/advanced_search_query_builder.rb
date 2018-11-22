@@ -10,6 +10,7 @@ class AdvancedSearchQueryBuilder < SearchQueryBuilder
 
   def default_order
     return '-popularity' if sort_by_popularity
+
     super
   end
 

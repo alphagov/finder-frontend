@@ -19,6 +19,7 @@ class ParamsCleaner
   def cleaned
     @params.each do |k, v|
       next unless v.is_a?(Hash) && v.keys.all? { |d| d.match(/\A\d+\Z/) }
+
       @params[k] = v.values
     end
 
