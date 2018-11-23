@@ -25,7 +25,7 @@
   "links":{},
   "description":"Find news and communications from government",
   "details":{
-    "document_noun":"document",
+    "document_noun":"result",
     "filter":{
       "content_purpose_supergroup":"news_and_communications"
     },

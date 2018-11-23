@@ -275,25 +275,44 @@
       font-weight: bold;
     }
 
-    div {
+    div.facet-tag-group {
       padding: 15px 10px;
-      p {
-        margin: auto 5px;
-        display: inline-block;
-        span {
-          border: 1px solid $grey-1;
-          padding: 5px;
-          border-radius: 5px;
-          background-color: $grey-4;
-        }
-        &:first-of-type {
-          border: 0;
-          font-weight: bold;
-        }
-      }
+
       &:nth-child(even) {
         background-color:$grey-3;
       }
+
+      .facet-tag {
+        display: inline-block;
+        margin-bottom: 10px;
+
+        p {
+          margin: auto 5px;
+          font-weight: bold;
+
+          a {
+            border: 1px solid $grey-1;
+            padding: 5px;
+            border-radius: 5px;
+            background-color: $grey-4;
+            font-weight: normal;
+
+            span {
+              text-decoration: none;
+              color: #000;
+            }
+          }
+        }
+
+
+      }
+
+      //span {
+      //  border: 1px solid $grey-1;
+      //  padding: 5px;
+      //  border-radius: 5px;
+      //  background-color: $grey-4;
+      //}
     }
 
     .feed {

@@ -1,12 +1,10 @@
 {{#any_filters_applied}}
 <p class="result-info">
   <span class="result-count">
-    {{total}}
+    {{total}} {{{pluralised_document_noun}}}
   </span>
-  {{{pluralised_document_noun}}}
-    {{#applied_filters}}
-        {{> finders/_applied_filter}}
-    {{/applied_filters}}
-
+	{{#applied_filters}}
+			{{> finders/_applied_filter}}
+	{{/applied_filters}}
 </p>
 {{/any_filters_applied}}
