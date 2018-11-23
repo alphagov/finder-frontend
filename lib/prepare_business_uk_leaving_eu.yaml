@@ -80,7 +80,7 @@ pages:
           - "water-transport-maritime-ports"
   doing_business_in_the_eu:
     show_in_qa: true
-    question_type: "single"
+    question_type: "single_wrapped"
     question: "Do you import or do business abroad?"
     description: |
       <p>Doing business abroad includes exporting and going for meetings or taking goods to a trade fair.</p>
@@ -98,7 +98,7 @@ pages:
       <p>Products and goods only include physical items that you sell or trade.</p>
   personal_data:
     show_in_qa: true
-    question_type: "single"
+    question_type: "single_wrapped"
     question: "Do you use personal information that you store or get from another EU country?"
     description: |
       <p>Personal information includes customers’ addresses, staff working hours or information you give to a delivery company.</p>
@@ -106,13 +106,13 @@ pages:
       <p>Skip this question if you’re not sure how you deal with personal information.</p>
   intellectual_property:
     show_in_qa: true
-    question_type: "single"
+    question_type: "single_wrapped"
     question: "Does your business use or rely on intellectual property (IP) protection?"
     description: |
       <p>Intellectual property protection includes copyright, trade marks and patents.</p>
   public_sector_procurement:
     show_in_qa: true
-    question_type: "single"
+    question_type: "single_wrapped"
     question: "Does your business sell to the public sector?"
     description: |
       <p>This includes if you sell products or services to organisations in central or local government, and some non-government organisations, such as hospitals or schools.</p>

@@ -33,5 +33,5 @@ pages:
     question: "What is the fake report type?"
   aircraft_type:
     show_in_qa: true
-    question_type: "single_wrapped"
+    question_type: "single"
     question: "What is the aircraft type?"
