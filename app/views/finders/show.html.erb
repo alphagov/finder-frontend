@@ -58,12 +58,14 @@
   <% end %>
 </header>
 
-<div class="filtering">
-  <form method="get" action="<%= finder.slug %>" class="js-live-search-form">
-    <%= render finder.facets %>
+<form method="get" action="<%= finder.slug %>" class="js-live-search-form">
+  <div class="grid-row">
+    <div class="column-third">
+      <%= render finder.facets %>
+    </div>
 
-    <% if finder.sort.present? %>
-      <div class="filter-form">
+    <div class="column-two-thirds">
+      <% if finder.sort.present? %>
         <div class="govuk-form-group">
           <%= label_tag 'order', 'Sort by', class: 'govuk-label' %>
           <%= select_tag 'order', finder.sort_options,
@@ -72,22 +74,22 @@
                          data: { 'default-sort-option' => finder.default_sort_option_value,
                                  'relevance-sort-option' => finder.relevance_sort_option_value } %>
         </div>
-      </div>
-    <% end %>
+      <% end %>
 
-    <div class='js-live-search-results-block'>
-      <div class="filtered-results">
-        <div aria-live='assertive' id='js-search-results-info'>
-          <% if finder.show_generic_description? %>
-            <%= render_mustache('result_count_generic', @results.to_hash) %>
-          <% else %>
-            <%= render_mustache('result_count', @results.to_hash) %>
-          <% end %>
-        </div>
-        <div id='js-results'>
-          <%= render_mustache('results', @results.to_hash) %>
+      <div class='js-live-search-results-block'>
+        <div class="filtered-results">
+          <div aria-live='assertive' id='js-search-results-info'>
+            <% if finder.show_generic_description? %>
+              <%= render_mustache('result_count_generic', @results.to_hash) %>
+            <% else %>
+              <%= render_mustache('result_count', @results.to_hash) %>
+            <% end %>
+          </div>
+          <div id='js-results'>
+            <%= render_mustache('results', @results.to_hash) %>
+          </div>
         </div>
       </div>
     </div>
-  </form>
-</div>
+  </div>
+</form>

@@ -59,7 +59,7 @@ When(/^I search documents by keyword$/) do
 
   @keyword_search = "keyword searchable"
 
-  within '.filtering' do
+  within '.filter-form' do
     fill_in("Search", with: @keyword_search)
   end
 

@@ -1,16 +1,14 @@
 <div class="filter-form">
-  <div class="inner-block">
-    <%= render "govuk_publishing_components/components/input", {
-      label: {
-        text: "Search"
-      },
-      name: "keywords",
-      value: @results.user_supplied_keywords,
-      id: "finder-keyword-search",
-      controls: "js-search-results-info"
-    } if finder.show_keyword_search? %>
+  <%= render "govuk_publishing_components/components/input", {
+    label: {
+      text: "Search"
+    },
+    name: "keywords",
+    value: @results.user_supplied_keywords,
+    id: "finder-keyword-search",
+    controls: "js-search-results-info"
+  } if finder.show_keyword_search? %>
 
-    <%= render facet_collection.filters %>
-    <input type="submit" value="Filter results" class="button js-live-search-fallback"/>
-  </div>
+  <%= render facet_collection.filters %>
+  <input type="submit" value="Filter results" class="button js-live-search-fallback"/>
 </div>
