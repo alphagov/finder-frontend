@@ -188,6 +188,14 @@ Given(/^an organisation finder exists$/) do
   visit finder_path('government/policies/benefits-reform', parent_path: '/government/organisations/attorney-generals-office')
 end
 
+Given(/^an organisation finder exists but a bad breadcrumb path is given$/) do
+  content_store_has_government_finder
+  stub_rummager_api_request_with_government_results
+  content_store_is_missing_path
+
+  visit finder_path('government/policies/benefits-reform', parent_path: '/bernard-cribbins')
+end
+
 Then(/^I can see a breadcrumb for home$/) do
   expect(page).to have_link("Home", href: "/")
   expect(page).to have_css("a[data-track-category='homeLinkClicked']", text: "Home")
@@ -202,6 +210,10 @@ Then(/^I can see a breadcrumb for all organisations$/) do
   expect(page).to have_css("a[data-track-action='2']", text: "Organisations")
   expect(page).to have_css("a[data-track-label='/government/organisations']", text: "Organisations")
   expect(page).to have_css("a[data-track-options='{\"dimension28\":\"4\",\"dimension29\":\"Organisations\"}']", text: "Organisations")
+end
+
+And(/^no breadcrumb for all organisations$/) do
+  expect(page).to_not have_link("Organisations", href: "/government/organisations")
 end
 
 Then(/^I can see a breadcrumb for the organisation$/) do

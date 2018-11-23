@@ -85,6 +85,10 @@ module DocumentHelper
     content_store_has_item('/government/organisations/attorney-generals-office', govuk_content_schema_example('attorney_general', 'organisation').to_json)
   end
 
+  def content_store_is_missing_path
+    content_store_does_not_have_item('/bernard-cribbins')
+  end
+
   def search_params(params = {})
     default_search_params.merge(params).to_a.map { |tuple|
       tuple.join("=")

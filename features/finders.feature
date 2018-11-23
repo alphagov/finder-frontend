@@ -68,6 +68,11 @@ Feature: Filtering documents
     And I can see a breadcrumb for the organisation
     And I can see a breadcrumb that not a link for the finder
 
+  Scenario: Visit a finder from an organisation handling breadcrumb failures
+    Given an organisation finder exists but a bad breadcrumb path is given
+    Then I can see a breadcrumb for home
+    And no breadcrumb for all organisations
+
   Scenario: Visit a finder not from an organisation
     Given a finder tagged to the topic taxonomy
     Then I can see taxonomy breadcrumbs
