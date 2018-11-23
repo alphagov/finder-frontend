@@ -282,7 +282,7 @@
     div.facet-tag-group {
       padding: 5px 10px 10px;
 
-      &:nth-child(even) {
+      &:nth-child(odd) {
         background-color:$grey-3;
       }
 
