@@ -2,14 +2,13 @@
 {{#.}}
 		<div class="facet-tag">
 			<p>{{{preposition}}}</p>
-
-
-					<a href="{{{link.href}}}"
-							class="remove-filter"
-							data-facet="{{{link.data.facet}}}"
-							data-value="{{{link.data.value}}}"
-							data-name="{{{link.data.name}}}"><span>{{{text}}}</span> X</a>
-
+			<p class="facet-tag">
+				{{{text}}}
+				<a href="{{{link.href}}}"
+					class="remove-filter"
+					data-facet="{{{link.data.facet}}}"
+					data-value="{{{link.data.value}}}"
+					data-name="{{{link.data.name}}}">x</a>
 			</p>
     </div>
 {{/.}}
