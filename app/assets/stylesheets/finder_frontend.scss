@@ -261,9 +261,7 @@
     .result-info {
       @include core-16;
       vertical-align: baseline;
-      border-bottom: solid 1px $border-colour;
       margin: 0 0 $gutter-half 0;
-      padding-bottom: $gutter-half;
 
       .result-count {
         @include bold-48;
