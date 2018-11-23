@@ -1,17 +1,16 @@
 class CheckboxFacet < FilterableFacet
   attr_writer :value
 
-  def checkboxes
-    @checkboxes ||= facet['checkboxes'].map { |checkbox| Checkbox.new(checkbox) }
-  end
-
   def sentence_fragment
-    return nil if selected_checkboxes.empty?
+    return nil unless is_checked?
 
     {
       'type' => "text",
       'preposition' => preposition,
-      'values' => value_fragments,
+      'values' => [{
+        'label' => label,
+        'parameter_key' => key,
+      }],
     }
   end
 
@@ -19,26 +18,28 @@ class CheckboxFacet < FilterableFacet
     facet['value']
   end
 
-  def checked?(checkbox)
-    @value && @value.include?(checkbox.value)
+  def is_checked?
+    !@value.nil? # nil if unchecked
   end
 
-private
-
-  def value_fragments
-    selected_checkboxes.map { |checkbox|
-      {
-        'label' => checkbox.label,
-        'parameter_key' => key,
-      }
-    }
+  def checkbox_label
+    facet["checkbox_label"] || label
   end
 
-  def selected_checkboxes
-    return [] unless @value && @value.any?
+  def label
+    facet["label"]
+  end
 
-    checkboxes.select { |checkbox|
-      @value.include?(checkbox.value)
+  def id
+    "checkbox_facet-#{label}_#{value}"
+  end
+
+  def data
+    {
+        track_category: "filterClicked",
+        track_action: "checkboxFacet",
+        track_label: label,
+        module: "track-click"
     }
   end
 end

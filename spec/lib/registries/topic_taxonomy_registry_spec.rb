@@ -33,7 +33,6 @@ RSpec.describe Registries::TopicTaxonomyRegistry do
     subject(:registry) { described_class.new }
 
     it "will provide the taxonomy tree" do
-      topic_one = registry.taxonomy_tree[content_id_one]
       expect(registry.taxonomy_tree.keys).to match_array([content_id_one, content_id_two])
     end
 

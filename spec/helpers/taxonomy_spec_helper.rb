@@ -1,6 +1,6 @@
 module TaxonomySpecHelper
-  CONTENT_ID_1 = "top-level-taxon-one"
-  CONTENT_ID_2 = "top-level-taxon-two"
+  CONTENT_ID_1 = "top-level-taxon-one".freeze
+  CONTENT_ID_2 = "top-level-taxon-two".freeze
 
   def topic_taxonomy_api_is_unavailable
     stub_request(:get, topic_taxonomy_endpoint).to_return(status: 500)

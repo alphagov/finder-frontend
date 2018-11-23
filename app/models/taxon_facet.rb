@@ -11,7 +11,7 @@ private
 
   def registry_values
     @registry_values ||= registry.taxonomy_tree.values.map { |v|
-      {'text' => v['title'], 'value' => v['content_id']}
+      { 'text' => v['title'], 'value' => v['content_id'] }
     }
   end
 

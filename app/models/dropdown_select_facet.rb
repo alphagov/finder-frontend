@@ -1,4 +1,6 @@
 class DropdownSelectFacet < FilterableFacet
+  attr_writer :value
+
   def allowed_values
     facet['allowed_values']
   end
@@ -15,10 +17,6 @@ class DropdownSelectFacet < FilterableFacet
 
   def name
     "Filter by #{facet['name']}"
-  end
-
-  def value=(new_value)
-    @value = new_value
   end
 
   def sentence_fragment
@@ -42,6 +40,7 @@ private
 
   def selected_value
     return {} if @value.nil?
+
     allowed_values.find { |option|
       @value == option['value']
     } || {}
