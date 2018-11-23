@@ -13,8 +13,6 @@ RSpec.describe ResultSetPresenter do
       total: 20,
       facets: [a_facet, another_facet, a_date_facet],
       keywords: keywords,
-      has_feed_url: true,
-      email_url: '/my-email-signup-link.html',
       atom_url: "/a-finder.atom",
       default_documents_per_page: 10,
       values: {},

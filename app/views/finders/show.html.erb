@@ -17,7 +17,7 @@
           },
           {
               title: 'Prepare for the UK leaving the EU',
-              url: 'https://citizens-in-the-uk.herokuapp.com/government/brexit/citizens-in-the-uk'
+              url: 'https://tiger-team-2-individual-ready.glitch.me/'
           },
           {
               title: finder.topic['title']
@@ -44,7 +44,9 @@
     } %>
 
     <%= render 'govuk_publishing_components/components/lead_paragraph', text: finder.description %>
-
+    <% if @results.results.empty? %>
+    <p class="gem-c-lead-paragraph">There's no EU Exit guidance on this topic yet - <%= link_to "sign up for updates about this", finder.email_alert_signup_url %>.</p>
+    <% end %>
     <% if finder.page_metadata.any? %>
       <%= render 'govuk_publishing_components/components/metadata', page_metadata(finder.page_metadata) %>
     <% end %>
@@ -53,6 +55,12 @@
       <div class="summary">
         <%= render 'govuk_publishing_components/components/govspeak', content: finder.summary.html_safe %>
       </div>
+    <% end %>
+
+    <% if finder.email_alert_signup_url && @results.results.any? %>
+      <p class='email-link'>
+        <%= link_to "Subscribe to email alerts", finder.email_alert_signup_url %>
+      </p>
     <% end %>
   </div>
 
