@@ -1,13 +1,15 @@
-<div>
+<div class="facet-tag-group">
 {{#.}}
-    {{{preposition}}}
-    {{{text}}}
-    <a href="{{{link.href}}}"
-        class="remove-filter"
-        data-facet="{{{link.data.facet}}}"
-        data-value="{{{link.data.value}}}"
-        data-name="{{{link.data.name}}}">
-    x
-    </a>
+		<div class="facet-tag-wrapper">
+			<p class="facet-tag-preposition">{{{preposition}}}</p>
+			<p class="facet-tag">
+				{{{text}}}
+				<a href="{{{link.href}}}"
+					class="remove-filter"
+					data-facet="{{{link.data.facet}}}"
+					data-value="{{{link.data.value}}}"
+					data-name="{{{link.data.name}}}">&#x2715;</a>
+			</p>
+    </div>
 {{/.}}
 </div>

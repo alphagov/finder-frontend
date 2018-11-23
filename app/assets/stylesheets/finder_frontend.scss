@@ -275,24 +275,47 @@
       font-weight: bold;
     }
 
-    div {
-      padding: 15px 10px;
-      p {
-        margin: auto 5px;
-        display: inline-block;
-        span {
-          border: 1px solid $grey-1;
-          padding: 5px;
-          border-radius: 5px;
-          background-color: $grey-4;
-        }
-        &:first-of-type {
-          border: 0;
-          font-weight: bold;
-        }
+    .filters {
+        margin-bottom: 30px;
+    }
+
+    .facet-tag-group {
+      padding: ($gutter-one-third / 2) $gutter-one-third $gutter-one-third;
+
+      &:nth-child(odd) {
+        background-color: $grey-4;
       }
-      &:nth-child(even) {
-        background-color:$grey-3;
+
+      .facet-tag-wrapper {
+        display: inline-block;
+        margin-top: $gutter-one-third;
+      }
+
+      .facet-tag-wrapper:first-of-type .facet-tag-preposition:first-of-type {
+        font-weight: bold;
+
+      }
+
+      .facet-tag-preposition {
+        display: inline-block;
+        margin-right: 5px;
+      }
+
+      .facet-tag {
+        display: inline-block;
+        border: 1px solid $grey-1;
+        padding: 5px;
+        border-radius: 5px;
+        background-color: $grey-4;
+        margin-right: 5px;
+
+        .remove-filter {
+          font-weight: bold;
+          color: #000;
+          text-decoration: none;
+          vertical-align: text-top;
+          margin-left: 5px;
+        }
       }
     }
 

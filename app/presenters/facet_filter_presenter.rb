@@ -57,7 +57,7 @@ class FacetFilterPresenter
     # binding.pry
     fragment['values'].each_with_index.map do |value, i|
       {
-        preposition: i == 0 ? fragment['preposition'].titlecase : fragment['word_connector'],
+        preposition: i == 0 ? fragment['preposition'].titlecase : fragment['word_connectors'][:words_connector],
         text: html_escape(value['label']),
         link: create_remove_filter_link(value)
       }
