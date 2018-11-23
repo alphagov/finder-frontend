@@ -14,6 +14,9 @@
     this.$countBlock = options.$results.find('#js-search-results-info');
     this.action = this.$form.attr('action') + '.json';
     this.$atomAutodiscoveryLink = options.$atomAutodiscoveryLink;
+    this.$emailLink = $("p.email-link a");
+
+    this.emailSignupHref = this.$emailLink.attr('href');
 
     if(GOVUK.support.history()){
       this.saveState();
@@ -50,6 +53,10 @@
     }
     this.previousState = this.state;
     this.state = state;
+
+    this.$emailLink.attr(
+      'href', this.emailSignupHref + "?" + $.param(this.state)
+    );
   };
 
   LiveSearch.prototype.popState = function popState(event){
@@ -61,8 +68,6 @@
     }
   };
 
-  var currentEmailSignupPath = $("p.email-link a").attr('href')
-
   LiveSearch.prototype.formChange = function formChange(e){
     var pageUpdated;
     if(this.isNewState()){
@@ -71,8 +76,6 @@
       pageUpdated.done(
         function(){
           var newPath = window.location.pathname + "?" + $.param(this.state);
-          var newEmailSignupPath = currentEmailSignupPath + "?" + $.param(this.state);
-          $("p.email-link a").attr('href', newEmailSignupPath)
           history.pushState(this.state, '', newPath);
           if (this.canTrackPageview()) {
             GOVUK.analytics.trackPageview(newPath);
