@@ -219,7 +219,7 @@ class FinderPresenter
 
   def name
     if prepare_uk_leaving_eu_finder?
-      "#{content_item['title']} about #{topic['title']}"
+      "#{topic['title']} - EU Exit guidance"
     else
       content_item['title']
     end
