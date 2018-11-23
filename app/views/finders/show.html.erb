@@ -63,7 +63,11 @@
   <div class='js-live-search-results-block'>
     <div class="filtered-results">
       <div aria-live='assertive' id='js-search-results-info'>
-        <%= render_mustache('result_count', @results.to_hash)%>
+        <% if finder.show_generic_description? %>
+          <%= render_mustache('result_count_generic', @results.to_hash) %>
+        <% else %>
+          <%= render_mustache('result_count', @results.to_hash) %>
+        <% end %>
       </div>
       <div id='js-results'>
         <%= render_mustache('results', @results.to_hash) %>

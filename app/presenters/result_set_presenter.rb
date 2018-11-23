@@ -20,6 +20,7 @@ class ResultSetPresenter
   def to_hash
     {
       total: total > 1000 ? "1,000+" : total,
+      generic_description: generic_description,
       pluralised_document_noun: document_noun.pluralize(total),
       applied_filters: describe_filters_in_sentence,
       documents: documents,
@@ -33,6 +34,11 @@ class ResultSetPresenter
 
   def any_filters_applied?
     filter_sentence_fragments.length.positive? || keywords.present?
+  end
+
+  def generic_description
+    publications = "publication".pluralize(total)
+    "#{publications} matched your criteria"
   end
 
   def describe_filters_in_sentence

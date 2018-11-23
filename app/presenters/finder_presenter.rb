@@ -25,6 +25,10 @@ class FinderPresenter
     content_item['phase'].in?(%w[alpha beta])
   end
 
+  def show_generic_description?
+    content_item['details']['generic_description']
+  end
+
   def default_order
     content_item['details']['default_order']
   end
