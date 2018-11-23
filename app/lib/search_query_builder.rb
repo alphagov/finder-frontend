@@ -99,9 +99,9 @@ private
 
     sort_option = if params['order']
                     sort_options.detect { |option| option['name'].parameterize == params['order'] }
-                  else
-                    sort_options.detect { |option| option['default'] } || { 'key' => default_order }
                   end
+
+    sort_option || sort_options.detect { |option| option['default'] } || { 'key' => default_order }
   end
 
   def keyword_query

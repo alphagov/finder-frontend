@@ -110,6 +110,10 @@ class FinderPresenter
   def default_sort_option
     sort
       &.detect { |option| option['default'] }
+  end
+
+  def default_sort_option_value
+    default_sort_option
       &.dig('name')
       &.parameterize
   end
@@ -117,6 +121,10 @@ class FinderPresenter
   def relevance_sort_option
     sort
       &.detect { |option| %w(relevance -relevance).include?(option['key']) }
+  end
+
+  def relevance_sort_option_value
+    relevance_sort_option
       &.dig('name')
       &.parameterize
   end
@@ -127,7 +135,12 @@ class FinderPresenter
     options = Hash[sort.collect { |option| [option['name'], option['name'].parameterize] }]
 
     disabled_option = keywords.blank? ? relevance_sort_option : ''
-    selected_option = values['order'].presence || default_sort_option
+
+    selected_option = if values['order']
+                        sort.detect { |option| option['name'].parameterize == values['order'] }
+                      end
+
+    selected_option ||= default_sort_option_value
 
     options_for_select(options, disabled: disabled_option, selected: selected_option)
   end
