@@ -8,7 +8,7 @@ class ResultSetPresenter
            :keywords,
            :atom_url,
            to: :finder
-  #
+
   def initialize(finder, filter_params, view_context)
     @finder = finder
     @results = finder.results.documents
