@@ -66,10 +66,10 @@ describe QaController, type: :controller do
       end
 
       context "on the last page" do
-        before { get:show, params: { page: 2 } }
+        before { get:show, params: { page: aaib_reports_finder_facets.count } }
 
-        it "renders the second facet's question" do
-          expect(response.body).to include(aaib_reports_qa_config_yaml["pages"][aaib_reports_finder_facets.second["key"]]["question"])
+        it "renders the last facet's question" do
+          expect(response.body).to include(aaib_reports_qa_config_yaml["pages"][aaib_reports_finder_facets.last["key"]]["question"])
         end
 
         it "does not render the description" do
@@ -81,8 +81,11 @@ describe QaController, type: :controller do
         end
 
         it "renders the yes and no radio buttons" do
-          expect(response.body).to have_css("form#finder-qa-facet-filter-selection input[type='radio'][value='yes']")
-          expect(response.body).to have_css("form#finder-qa-facet-filter-selection input[type='radio'][value='no']")
+          values = aaib_reports_finder_facets.last['allowed_values']
+          first_value = values.first['value']
+          last_value = values.last['value']
+          expect(response.body).to have_css("form#finder-qa-facet-filter-selection input[type='radio'][value='#{first_value}']")
+          expect(response.body).to have_css("form#finder-qa-facet-filter-selection input[type='radio'][value='#{last_value}']")
         end
 
         it "renders the correct filter options under the yes radio button" do
@@ -108,7 +111,7 @@ describe QaController, type: :controller do
 
         before do
           get :show
-          get :show, params: { page: 2, facet_key => [first_filter, last_filter] }
+          get :show, params: { page: aaib_reports_finder_facets.count, facet_key => [first_filter, last_filter] }
         end
 
         it "remembers previous selections on each page" do

@@ -4,7 +4,7 @@ module FixturesHelper
   end
 
   def aaib_reports_content_item
-    @content_item ||= JSON.parse(File.read(fixtures_path + "/aaib_reports_example.json"))
+    @aaib_reports_content_item ||= JSON.parse(File.read(fixtures_path + "/aaib_reports_example.json"))
   end
 
   def aaib_reports_qa_config
