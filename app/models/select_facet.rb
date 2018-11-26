@@ -43,6 +43,7 @@ class SelectFacet < FilterableFacet
 
   def description
     return nil unless has_filters?
+    
     [
       preposition,
       description_sentence,
