@@ -53,8 +53,34 @@ module DocumentHelper
     )
   end
 
+  def stub_aaib_reports_qa_endpoint
+      stub_request(:get, "http://content-store.dev.gov.uk/content/aaib-reports-qa").
+        with(
+          headers: {
+              'Accept'=>'application/json',
+              'Accept-Encoding'=>'gzip, deflate',
+              'Host'=>'content-store.dev.gov.uk',
+              'User-Agent'=>'gds-api-adapters/54.1.2 ()'
+          }).
+        to_return(status: 200, body: "", headers: {})
+  end
+
+  def stub_rummager_api_request_with_qa_finder_results
+    stub_request(:get, rummager_url({}) )
+      .with(
+        query: hash_including({})
+      ).to_return(
+         body: aaib_reports_content_item.to_json
+      )
+  end
+
   def content_store_has_mosw_reports_finder
     content_store_has_item('/mosw-reports', govuk_content_schema_example('finder').to_json)
+  end
+
+  def content_store_has_qa_finder
+    content_store_has_item('/aaib-reports', aaib_reports_content_item.to_json
+    )
   end
 
   def content_store_has_government_finder
