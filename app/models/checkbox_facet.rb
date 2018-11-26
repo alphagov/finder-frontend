@@ -34,7 +34,7 @@ private
     selected_checkboxes.map { |checkbox|
       {
         'label' => checkbox.label,
-        'parameter_key' => key,  # TODO I think we can get rid of this
+        'parameter_key' => key, # TODO I think we can get rid of this
         'value' => checkbox.value
       }
     }
