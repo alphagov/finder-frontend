@@ -1,5 +1,4 @@
 class KeywordFacet
-
   def initialize(keywords)
     @keywords = keywords
   end
@@ -27,17 +26,18 @@ class KeywordFacet
     [keywords]
   end
 
-  private
-    attr_reader :keywords
+private
 
-    def value_fragments
-      [
-        {
+  attr_reader :keywords
+
+  def value_fragments
+    [
+      {
         'label' => keywords,
         'key' => key,
         'name' => 'keywords',
         'value' => keywords
       }
-      ]
-    end
+    ]
+  end
 end
