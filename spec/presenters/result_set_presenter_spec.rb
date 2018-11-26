@@ -179,7 +179,7 @@ RSpec.describe ResultSetPresenter do
   describe '#describe_filters_in_sentence' do
     before(:each) do
       allow(presenter).to receive(:link_without_facet_value)
-      allow(finder).to receive(:filter_sentence_fragments).and_return([a_facet, another_facet, a_date_facet].flat_map(&:sentence_fragment).compact)
+      allow(finder).to receive(:filters).and_return([a_facet, another_facet, a_date_facet].flat_map(&:sentence_fragment).compact)
     end
 
     it 'calls selected_filter_descriptions' do
@@ -190,7 +190,7 @@ RSpec.describe ResultSetPresenter do
 
     it 'includes prepositions for each facet' do
       sentence = presenter.describe_filters_in_sentence
-      finder.filter_sentence_fragments.each do |fragment|
+      finder.filters.each do |fragment|
         expect(sentence).to include(fragment['preposition'])
       end
     end
@@ -214,7 +214,7 @@ RSpec.describe ResultSetPresenter do
 
   describe '#facet_values_sentence' do
     before(:each) do
-      allow(finder).to receive(:filter_sentence_fragments).and_return([a_facet, another_facet, a_date_facet].flat_map(&:sentence_fragment).compact)
+      allow(finder).to receive(:filters).and_return([a_facet, another_facet, a_date_facet].flat_map(&:sentence_fragment).compact)
     end
 
     let(:sentence) { presenter.selected_filter_descriptions }
