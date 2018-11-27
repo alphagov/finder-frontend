@@ -59,6 +59,6 @@ class AdvancedSearchResultSetPresenter < ResultSetPresenter
 private
 
   def filters_to_sentence(filters)
-    filters.flat_map {|filter| filter}.map { |filter| "#{filter[:preposition].downcase} #{filter[:text]}" }.join(' ')
+    filters.flat_map { |filter| filter }.map { |filter| "#{filter[:preposition].downcase} #{filter[:text]}" }.join(' ')
   end
 end

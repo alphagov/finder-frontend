@@ -57,7 +57,7 @@ RSpec.describe ResultSetPresenter do
       has_filters?: true,
       value: ['ca98-and-civil-cartels', 'mergers']
     )
-    end
+  end
 
   let(:a_facet_collection) do
     double(
@@ -96,7 +96,7 @@ RSpec.describe ResultSetPresenter do
         'word_connectors' => { words_connector: 'or' }
       },
       has_filters?: true,
-      value: ['farming', 'chemicals'],
+      value: %w[farming chemicals],
       'word_connectors' => { words_connector: 'or' }
     )
   end
@@ -194,7 +194,7 @@ RSpec.describe ResultSetPresenter do
       applied_filters = presenter.describe_filters_in_sentence.flat_map { |filter| filter }
       prepositions = applied_filters.flat_map { |filter| filter[:preposition] }.reject { |preposition| preposition == "or" }
 
-      finder.filters.reject {|filter| filter.sentence_fragment.nil? }.each do |fragment|
+      finder.filters.reject { |filter| filter.sentence_fragment.nil? }.each do |fragment|
         expect(prepositions).to include(fragment.sentence_fragment['preposition'])
       end
     end
@@ -230,7 +230,7 @@ RSpec.describe ResultSetPresenter do
     let(:applied_filters) { presenter.describe_filters_in_sentence.flat_map { |filter| filter } }
 
     it 'returns an array of hashes that can be used to construct facet tags' do
-      text_values = applied_filters.flat_map{|filter| filter[:text]}
+      text_values = applied_filters.flat_map { |filter| filter[:text] }
       finder.facets.filters.flat_map { |filter| filter.sentence_fragment.nil? ? nil : filter.sentence_fragment['values'] }.compact.each do |value|
         expect(text_values).to include(value['label'])
       end
