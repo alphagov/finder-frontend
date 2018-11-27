@@ -68,7 +68,6 @@ module DocumentHelper
 
   def content_store_has_qa_finder
     content_store_has_item('/aaib-reports', aaib_reports_content_item.to_json)
-    content_store_has_item('/aaib-reports-qa', aaib_reports_content_item.to_json)
   end
 
   def content_store_has_government_finder

@@ -2,9 +2,14 @@ require_relative '../../spec/support/fixtures_helper'
 
 module QAHelper
   include FixturesHelper
-    
+
   def stub_qa_config
     allow_any_instance_of(QaController).to receive(:qa_config).and_return(mock_qa_config)
+    allow_any_instance_of(QaController).to receive(:next_page_url).and_return(qa_path)
+  end
+
+  def stub_last_page_url
+    allow_any_instance_of(QaController).to receive(:next_page_url).and_return(mock_qa_config['finder_base_path'])
   end
 
   def qa_path
@@ -29,8 +34,8 @@ module QAHelper
     mock_qa_config["pages"].each_with_index do |(key, value), index|
       return index + 1 if value["question"] == question
     end
-  end 
-  
+  end
+
   def facets
     @facets ||= aaib_reports_content_item["details"]["facets"].select do |facet|
       facet["type"] == "text" && facet["filterable"] && mock_qa_config["pages"][facet["key"]]["show_in_qa"]
@@ -38,4 +43,4 @@ module QAHelper
   end
 end
 
-World(QAHelper) 
+World(QAHelper)
