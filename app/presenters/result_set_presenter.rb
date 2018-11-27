@@ -42,11 +42,6 @@ class ResultSetPresenter
   end
 
   def describe_filters_in_sentence
-    # [
-    #   keywords_description,
-    #   selected_filter_descriptions
-    # ].compact
-
     selected_filter_descriptions
   end
 
@@ -55,7 +50,8 @@ class ResultSetPresenter
     selected_filters.each do |filter|
       all_filter_params[filter.key] = filter.value
     end
-    # binding.pry
+
+    # TODO: Change to pass in only necessary filter_params (by key) rather than all_filter_params - this is wasteful
     selected_filters.map do |filter|
       FacetFilterPresenter.new(filter.sentence_fragment, all_filter_params, finder.slug).present
     end
@@ -105,6 +101,8 @@ private
   end
 
   def selected_filters
-    (filters + [KeywordFacet.new(keywords)]).select(&:has_filters?)
+    (filters + [KeywordFacet.new(keywords)]).select do |filter|
+      filter.has_filters?
+    end
   end
 end
