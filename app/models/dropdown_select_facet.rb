@@ -16,7 +16,7 @@ class DropdownSelectFacet < FilterableFacet
   end
 
   def name
-    "Filter by #{facet['name']}"
+    facet['name']
   end
 
   def sentence_fragment

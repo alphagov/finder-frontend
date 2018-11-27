@@ -1,5 +1,5 @@
 module Registries
-  NAMESPACE = Rails.env.test? ? 'test/registries' : 'registries'
+  NAMESPACE = 'registries'.freeze
 
   class BaseRegistries
     def all

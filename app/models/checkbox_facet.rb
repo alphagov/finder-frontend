@@ -19,7 +19,7 @@ class CheckboxFacet < FilterableFacet
   end
 
   def is_checked?
-    !@value.nil? # nil if unchecked
+    @value.present?
   end
 
   def checkbox_label

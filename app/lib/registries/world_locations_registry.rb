@@ -3,7 +3,12 @@ module Registries
     CACHE_KEY = "#{NAMESPACE}/world_locations".freeze
 
     def [](slug)
-      cached_locations[slug]
+      begin
+        cached_locations[slug]
+      rescue TypeError
+        # The cached data was at one point an array, this can be removed later.
+        retry if cached_locations.is_a?(Array) && uncache_locations
+      end
     end
 
   private
@@ -15,6 +20,10 @@ module Registries
     rescue GdsApi::HTTPServerError, GdsApi::HTTPBadGateway
       GovukStatsd.increment("#{NAMESPACE}.world_location_api_errors")
       {}
+    end
+
+    def uncache_locations
+      Rails.cache.delete(CACHE_KEY)
     end
 
     def locations

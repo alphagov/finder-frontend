@@ -16,14 +16,18 @@
 //= require templates
 //
 //= require live_search
+//= require taxonomy-select
 //= require_tree ./modules
 //= require_tree ./components
 //= require govuk_publishing_components/all_components
 
 jQuery(function($) {
   var $form = $('.js-live-search-form'),
-      $results = $('.js-live-search-results-block');
+      $results = $('.js-live-search-results-block'),
+      $elementsRequiringJavascript = $('.js-required'),
       $atomAutodiscoveryLink = $("link[type='application/atom+xml']").eq('0');
+
+  $elementsRequiringJavascript.show();
 
   if($form.length && $results.length){
     var templateDir = 'finders/';

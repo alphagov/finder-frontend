@@ -30,9 +30,7 @@ private
       'taxon' => Filters::TaxonFilter,
     }.fetch(facet['type'])
 
-    params = user_params.fetch(facet['key'], nil)
-
-    filter_class.new(facet, params)
+    filter_class.new(facet, params(facet))
   end
 
   def filter_value(query, filter)
@@ -41,5 +39,18 @@ private
     return Array(query[filter.key]) + Array(filter.value) if query[filter.key]
 
     filter.value
+  end
+
+  def params(facet)
+    facet_key = facet['key']
+    facet_keys = facet['keys']
+
+    if facet_keys
+      return facet_keys.each_with_object({}) { |key, result_hash|
+        result_hash[key] = user_params.fetch(key, nil)
+      }
+    end
+
+    user_params.fetch(facet_key, nil)
   end
 end

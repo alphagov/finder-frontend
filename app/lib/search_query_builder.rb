@@ -67,7 +67,15 @@ private
   end
 
   def metadata_fields
-    finder_content_item['details']['facets'].map { |f| (f['filter_key'] || f['key']) }
+    finder_content_item['details']['facets'].map { |f|
+      unfilterise(f['filter_key'] || f['key'])
+    }
+  end
+
+  def unfilterise(field = '')
+    # Removes filter-y prefixes from facet keys.
+    # For example, filter_x or filter_all_x will become x.
+    field.gsub(/^(?'full_name'(?'operation'filter|reject|any|all)_(?:(?'multivalue_query'any|all)_)?(?'name'.*))$/, '\k<name>')
   end
 
   def order_query

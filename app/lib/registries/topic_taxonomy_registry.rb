@@ -23,18 +23,19 @@ module Registries
       }
     end
 
-    def format_taxon(taxon)
+    def format_taxon(taxon, parent_id = nil)
       {
         'title' => taxon['title'],
         'content_id' => taxon['content_id'],
-        'children' => format_child_taxons(taxon)
+        'children' => format_child_taxons(taxon),
+        'parent' => parent_id
       }
     end
 
     def format_child_taxons(taxon)
       children = taxon.dig('links', 'child_taxons') || []
       children.map { |child_taxon|
-        format_taxon(child_taxon)
+        format_taxon(child_taxon, taxon['content_id'])
       }
     end
 

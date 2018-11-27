@@ -7,6 +7,10 @@ class Facet
     facet['key']
   end
 
+  def keys
+    facet['keys']
+  end
+
   def name
     facet['name']
   end

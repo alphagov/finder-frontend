@@ -1,16 +1,14 @@
 <div class="govuk-checkboxes">
-  <div class="govuk-checkboxes__item">
-    <%# <%= render "govuk_publishing_components/components/checkbox", {
-      name: checkbox_facet.name,
-      id: checkbox_facet.id,
-      controls: "js-search-results-info",
-      margin_bottom: true,
-      item: {
-        label: checkbox_facet.checkbox_label,
-        value: checkbox_facet.value,
-        checked: checkbox_facet.is_checked?,
-        data_attributes: checkbox_facet.data
-      }
-    } %> %>
-  </div>
+  <%= render "govuk_publishing_components/components/checkbox", {
+    name: checkbox_facet.name,
+    id: checkbox_facet.id,
+    controls: "js-search-results-info",
+    margin_bottom: true,
+    item: {
+      label: checkbox_facet.checkbox_label,
+      value: checkbox_facet.value,
+      checked: checkbox_facet.is_checked?,
+      data_attributes: checkbox_facet.data
+    }
+  } %>
 </div>

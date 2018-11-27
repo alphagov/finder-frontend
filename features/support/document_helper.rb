@@ -1,7 +1,9 @@
 require_relative '../../lib/govuk_content_schema_examples'
+require_relative "../../spec/helpers/taxonomy_spec_helper"
 
 module DocumentHelper
   include GovukContentSchemaExamples
+  include TaxonomySpecHelper
 
   def stub_rummager_api_request
     stub_request(:get, rummager_all_documents_url).to_return(
@@ -203,25 +205,16 @@ module DocumentHelper
     schema["details"]["facets"].map! do |facet|
       if facet["key"] == "case_state"
         {
+          "label": "Open",
+          "checkbox_label": "Show open cases",
+          "value": "open",
           "key": "case_state",
           "name": "case_state[]",
           "short_name": "checkbox",
           "type": "checkbox",
           "display_as_result_metadata": false,
           "filterable": true,
-          "preposition": "that is",
-          "checkboxes": [
-              {
-                  "label": "Open",
-                  "checkbox_label": "Show open cases",
-                  "value": "open"
-              },
-              {
-                  "label": "Closed",
-                  "checkbox_label": "Show closed cases",
-                  "value": "closed"
-              }
-          ]
+          "preposition": "that is"
         }
       else
         facet

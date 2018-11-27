@@ -1,16 +1,14 @@
 require "securerandom"
 require 'spec_helper'
-require "gds_api/test_helpers/content_store"
 require "helpers/taxonomy_spec_helper"
 
 RSpec.describe Registries::TopicTaxonomyRegistry do
-  include ::GdsApi::TestHelpers::ContentStore
   include TaxonomySpecHelper
 
-  let(:content_id_one) { "top-level-taxon-one" }
-  let(:content_id_two) { "top-level-taxon-two" }
-  let(:top_level_taxon_one) { top_level_taxon(content_id_one) }
-  let(:top_level_taxon_two) { top_level_taxon(content_id_two) }
+  let(:content_id_one) { SecureRandom.uuid }
+  let(:content_id_two) { SecureRandom.uuid }
+  let(:top_level_taxon_one) { level_one_taxon(content_id_one) }
+  let(:top_level_taxon_two) { level_one_taxon(content_id_two) }
 
   describe "when topic taxonomy API is unavailable" do
     it "will return an (uncached) empty hash" do
@@ -45,9 +43,5 @@ RSpec.describe Registries::TopicTaxonomyRegistry do
       expect(fetched_document['content_id']).to eq(content_id_two)
       expect(fetched_document['title']).to eq(top_level_taxon_two['title'])
     end
-  end
-
-  def topic_taxonomy_api_is_unavailable
-    stub_request(:get, topic_taxonomy_endpoint).to_return(status: 500)
   end
 end
