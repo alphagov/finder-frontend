@@ -9,13 +9,14 @@ class FacetFilterPresenter
 
   def present
     unless fragment.nil? || fragment['values'].nil?
-      fragment['values'].each_with_index.map do |value, i|
+      vals = fragment['values'].each_with_index.map do |value, i|
         {
           preposition: i.zero? ? fragment['preposition'].titlecase : fragment['word_connectors'][:words_connector],
           text: html_escape(value['label']),
           link: create_remove_filter_link(value)
         }
       end
+      vals
     else
       {}
     end
