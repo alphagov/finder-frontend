@@ -1,7 +1,7 @@
 <div class="facet-tag-group">
 {{#.}}
-		<div class="facet-tag">
-			<p>{{{preposition}}}</p>
+		<div class="facet-tag-wrapper">
+			<p class="facet-tag-preposition">{{{preposition}}}</p>
 			<p class="facet-tag">
 				{{{text}}}
 				<a href="{{{link.href}}}"
@@ -10,7 +10,7 @@
 					aria-label="Remove filter {{{text}}}"
 					data-facet="{{{link.data.facet}}}"
 					data-value="{{{link.data.value}}}"
-					data-name="{{{link.data.name}}}">x</a>
+					data-name="{{{link.data.name}}}">&#x2715;</a>
 			</p>
     </div>
 {{/.}}
