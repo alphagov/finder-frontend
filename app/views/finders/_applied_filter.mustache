@@ -2,8 +2,8 @@
 {{#.}}
 		<div class="facet-tag-wrapper">
 			<p class="facet-tag-preposition">{{{preposition}}}</p>
-			<p class="facet-tag">
-				{{{text}}}
+			<div class="facet-tag">
+				<p class="facet-tag-text">{{{text}}}</p>
 				<a href="{{{link.href}}}"
 					class="remove-filter"
 					role="button"
@@ -11,7 +11,7 @@
 					data-facet="{{{link.data.facet}}}"
 					data-value="{{{link.data.value}}}"
 					data-name="{{{link.data.name}}}">&#x2715;</a>
-			</p>
+			</div>
     </div>
 {{/.}}
 </div>
