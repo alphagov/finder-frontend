@@ -70,6 +70,7 @@ private
         'label' => value['label'],
         'value' => value['value'],
         'parameter_key' => key, # TODO: I think we can get rid of this
+        'key' => key, # TODO: I think we can get rid of this
       }
     }
   end
