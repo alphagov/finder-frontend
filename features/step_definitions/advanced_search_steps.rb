@@ -76,16 +76,19 @@ Then(/^I only see documents tagged to the taxon tree within the supergroup$/) do
   @results.each do |result|
     expect(page).to have_title("News and communications - GOV.UK")
     expect(page).to have_link("Taxon", href: "/taxon")
-    expect(page).to have_text("2 results in updates and alerts, news, speeches and statements, and decisions")
+    expect(page).to have_text("2 results")
+    # expect(page).to have_text("2 results in updates and alerts, news, speeches and statements, and decisions")
     expect(page).to have_link(result["title_with_highlighting"], href: result["link"])
   end
 end
 
 Then(/^I only see documents tagged to the taxon tree within the supergroup and subgroups$/) do
   @results.each do |result|
+    all_facet_tags = page.all(:css, "facet-tag")
     expect(page).to have_title("News and communications - GOV.UK")
     expect(page).to have_link("Taxon", href: "/taxon")
-    expect(page).to have_text("2 results in updates and alerts or news")
+    expect(page).to have_text("2 results")
+    # expect(page).to have_text("2 results in updates and alerts or news")
     expect(page).to have_link(result["title_with_highlighting"], href: result["link"])
   end
 end
