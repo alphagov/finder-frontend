@@ -33,7 +33,7 @@ private
     {
       href: "#{base_url}?#{Rack::Utils.build_nested_query(filtered_params)}",
       data: {
-        facet: value['key'],
+        facet: value['parameter_key'],
         name: value['name'],
         value: value['value']
       }
