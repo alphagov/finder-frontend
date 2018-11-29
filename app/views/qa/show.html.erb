@@ -4,13 +4,13 @@
 <div class="grid-row">
   <div class="column-two-thirds">
     <form action="<%= next_page_url %>" method="get" id="finder-qa-facet-filter-selection" class="gem-c-title" data-module="track-qa-choices">
-      <%= render "govuk_publishing_components/components/title", {
-        title: current_facet["question"],
-      } %>
-      <%= render "govuk_publishing_components/components/govspeak", {
-        content: "<div class=\"summary\"><p>#{current_facet['description']}</p></div>".html_safe
-      } %>
       <% if multiple_question? %>
+        <%= render "govuk_publishing_components/components/title", {
+          title: current_facet["question"],
+        } %>
+        <%= render "govuk_publishing_components/components/govspeak", {
+          content: "<div class=\"summary\"><p>#{current_facet['description']}</p></div>".html_safe
+        } %>
         <% filter_groups.each do |filter_group| %>
           <%= render "govuk_publishing_components/components/checkboxes", {
             name: "#{current_facet['facet']['key']}[]",
@@ -26,6 +26,8 @@
         } %>
         <%= render "govuk_publishing_components/components/radio", {
           name: "yes-no-choice",
+          heading: current_facet["question"],
+          is_page_heading: true,
           items: [
             {
               value: "yes",
@@ -41,6 +43,8 @@
       <% else %>
         <%= render "govuk_publishing_components/components/radio", {
           name: "#{current_facet['facet']['key']}[]",
+          heading: current_facet["question"],
+          is_page_heading: true,
           items: options
         } %>
       <% end %>
