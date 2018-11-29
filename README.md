@@ -86,7 +86,7 @@ For example:
 DEVELOPMENT_FINDER_JSON=features/fixtures/aaib_reports_example.json ./startup.sh --live
 ```
 
-### How to add a fixed filter?
+### How to add a fixed filter
 
 You can use [gov.uk/api/search.json?filter_link=](https://www.gov.uk/api/search.json?filter_link=) with the path of the page you looking for to migrate.
 
@@ -98,7 +98,11 @@ You can double check the filter by performing the following search using rummage
 
 http://rummager.dev.gov.uk/search.json?filter_NAME=VALUE
 
-For more information please refer to the [search api documentation](https://alphagov.github.io/rummager/search-api.html).
+For more information please refer to the [search api documentation](https://github.com/alphagov/rummager/blob/master/doc/search-api.md).
+
+## Adding a Q&A frontend to a finder
+
+See the [documentation on the Q&A frontend](docs/q-and-a.md) and how it relates to a finder.
 
 ## Application structure
 
