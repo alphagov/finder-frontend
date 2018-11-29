@@ -21,7 +21,7 @@ private
       {
         'label' => date.date.strftime("%e %B %Y"),
         'key' => key,
-        'parameter_key' => name,
+        'parameter_key' => key,
         'value' => date.original_input,
         'name' => "#{key}[#{name}]"
       }

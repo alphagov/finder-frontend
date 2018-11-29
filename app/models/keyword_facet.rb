@@ -35,6 +35,7 @@ private
       {
         'label' => keywords,
         'key' => key,
+        'parameter_key' => key,
         'name' => 'keywords',
         'value' => keywords
       }
