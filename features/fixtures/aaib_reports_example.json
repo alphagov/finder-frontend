@@ -214,7 +214,17 @@
         "name":"Aircraft type",
         "type":"text",
         "display_as_result_metadata":false,
-        "filterable":false
+        "filterable":true,
+        "allowed_values": [
+          {
+            "label": "Annual safety report",
+            "value": "annual-safety-report"
+          },
+          {
+            "label": "Bulletin - Correspondence investigation",
+            "value": "correspondence-investigation"
+          }
+        ]
       },
       {
         "key":"location",

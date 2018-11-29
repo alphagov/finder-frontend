@@ -25,10 +25,10 @@ pages:
           - "unmanned-aircraft-systems"
   report_type:
     show_in_qa: true
-    question_type: "single_wrapped"
-    question: "What is the report type?"
+    question_type: "single"
+    question: "What is the single report type?"
   fake_report_type:
-    show_in_qa: false
+    show_in_qa: true
     question_type: "single_wrapped"
     question: "What is the fake report type?"
   aircraft_type:
