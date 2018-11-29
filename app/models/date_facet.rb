@@ -20,7 +20,6 @@ private
     present_values.map { |name, date|
       {
         'label' => date.date.strftime("%e %B %Y"),
-        'key' => key,
         'parameter_key' => key,
         'value' => date.original_input,
         'name' => "#{key}[#{name}]"
