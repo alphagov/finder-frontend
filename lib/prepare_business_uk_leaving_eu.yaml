@@ -49,7 +49,7 @@ pages:
           - "automotive"
           - "electronics"
           - "parts-and-machinery"
-      - name: "Higher education and research"
+      - name: "Education and research"
         filters:
           - "education"
       - name: "Life sciences"
@@ -67,11 +67,9 @@ pages:
         filters:
           - "broadcasting"
           - "computer-services"
-          - "professional-and-business-services"
           - "telecoms"
       - name: "Transport and tourism"
         filters:
-          - "accommodation-restaurants-and-catering-services"
           - "air-transport-aviation"
           - "land-transport-excl-rail"
           - "post"
