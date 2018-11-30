@@ -15,6 +15,7 @@ describe FindersController, type: :controller do
       )
 
       finder["details"]["default_documents_per_page"] = 10
+      finder["details"]["sort"] = nil
       finder
     end
 
@@ -67,11 +68,11 @@ describe FindersController, type: :controller do
 
     describe "a finder content item with a default order exists" do
       before do
+        sort_options = [{ 'name' => 'Closing date', 'key' => '-closing_date', 'default' => true, }]
+
         content_store_has_item(
           '/lunch-finder',
-          lunch_finder.merge(
-            'details' => lunch_finder['details'].merge('default_order' => "-closing_date")
-          )
+          lunch_finder.merge('details' => lunch_finder['details'].merge('sort' => sort_options))
         )
 
         rummager_response = %|{

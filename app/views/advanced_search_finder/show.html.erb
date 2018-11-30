@@ -44,15 +44,17 @@
 <% end %>
 
 <div class="filtering full-page-width-wrapper">
-  <%= render finder.facets %>
-  <div class='js-live-search-results-block'>
-    <div class="filtered-results">
-      <div aria-live='assertive' id='js-search-results-info'>
-        <%= render_mustache('result_count', @results.to_hash) %>
-      </div>
-      <div id='js-results'>
-        <%= render_mustache('results', @results.to_hash) %>
+  <form method="get" action="<%= finder.slug %>" class="js-live-search-form">
+    <%= render finder.facets %>
+    <div class='js-live-search-results-block'>
+      <div class="filtered-results">
+        <div aria-live='assertive' id='js-search-results-info'>
+          <%= render_mustache('result_count', @results.to_hash) %>
+        </div>
+        <div id='js-results'>
+          <%= render_mustache('results', @results.to_hash) %>
+        </div>
       </div>
     </div>
-  </div>
+  </form>
 </div>

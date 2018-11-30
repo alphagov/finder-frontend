@@ -6,7 +6,7 @@ end
 Then(/^I can get a list of all documents with matching metadata$/) do
   visit finder_path('mosw-reports')
 
-  expect(page).not_to have_content('2 reports')
+  expect(page).to have_content('2 reports')
   expect(page).to have_css('.filtered-results .document', count: 2)
   expect(page).to have_css('.gem-c-metadata')
 
@@ -23,6 +23,14 @@ Then(/^I can get a list of all documents with matching metadata$/) do
 
   expect(page).to have_content('1 report')
   expect(page).to have_css('.filtered-results .document', count: 1)
+end
+
+When(/^I view a list of news and communications$/) do
+  content_store_has_news_and_communications_finder
+  stub_whitehall_api_world_location_request
+  stub_rummager_api_request_with_news_and_communication_results
+
+  visit finder_path('news-and-communications')
 end
 
 When(/^I search documents by keyword$/) do
@@ -259,4 +267,26 @@ Then(/^The checkbox has the correct tracking data$/) do
   expect(page).to have_css("input[type='checkbox'][data-track-action='checkboxFacet']")
   expect(page).to have_css("input[type='checkbox'][data-track-label='Open']")
   expect(page).to have_css("input[type='checkbox'][data-module='track-click']")
+end
+
+Then(/^I can sort by:$/) do |table|
+  expect(find_all('.js-order-results option').collect(&:text)).to eq(table.raw.flatten)
+end
+
+When(/^I sort by most viewed$/) do
+  select 'Most viewed', from: 'Sort by'
+  click_on 'Filter results'
+end
+
+Then(/^I see the most viewed articles first$/) do
+  within '.filtered-results .document:nth-child(1)' do
+    expect(page).to have_content('Press release from Hogwarts')
+    expect(page).to have_content('25 December 2017')
+  end
+
+  within '.filtered-results .document:nth-child(2)' do
+    expect(page).to have_content('16 November 2018')
+  end
+
+  expect(page).to have_content('sorted by Most viewed')
 end

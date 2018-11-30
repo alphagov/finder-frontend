@@ -17,6 +17,7 @@ RSpec.describe ResultSetPresenter do
       default_documents_per_page: 10,
       values: {},
       pagination: pagination,
+      sort: {},
     )
   end
 

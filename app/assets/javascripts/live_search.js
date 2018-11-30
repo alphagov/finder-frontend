@@ -18,10 +18,14 @@
 
     this.emailSignupHref = this.$emailLink.attr('href');
 
+    this.$orderSelect = this.$form.find('.js-order-results');
+    this.$relevanceOrderOption = this.$orderSelect.find('option[value=' + this.$orderSelect.data('relevance-sort-option') + ']');
+    this.$relevanceOrderOptionIndex = this.$relevanceOrderOption.index();
+
     if(GOVUK.support.history()){
       this.saveState();
 
-      this.$form.find('input[type=checkbox], input[type=text], input[type=radio]').on('change',
+      this.$form.find('input[type=checkbox], input[type=text], input[type=radio], select').on('change',
         function(e) {
           if (e.target.type == "text") {
             LiveSearch.prototype.fireTextAnalyticsEvent(e);
@@ -40,6 +44,8 @@
           }
         }.bind(this)
       );
+
+      this.updateOrder();
 
       $(window).on('popstate', this.popState.bind(this));
     } else {
@@ -62,6 +68,7 @@
   LiveSearch.prototype.popState = function popState(event){
     if(event.originalEvent.state){
       this.saveState(event.originalEvent.state);
+      this.updateOrder();
       this.updateResults();
       this.restoreBooleans();
       this.restoreTextInputs();
@@ -72,6 +79,7 @@
     var pageUpdated;
     if(this.isNewState()){
       this.saveState();
+      this.updateOrder();
       pageUpdated = this.updateResults();
       pageUpdated.done(
         function(){
@@ -116,6 +124,65 @@
 
   LiveSearch.prototype.isNewState = function isNewState(){
     return $.param(this.state) !== this.$form.serialize();
+  };
+
+  LiveSearch.prototype.updateOrder = function updateOrder() {
+    if (!this.$orderSelect.length) {
+      return
+    }
+
+    var liveSearch = this;
+
+    var keywords = this.getTextInputValue('keywords', this.state);
+    var previousKeywords = this.getTextInputValue('keywords', this.previousState);
+
+    var keywordsPresent = keywords !== "";
+    var keywordsBlank = !keywordsPresent;
+
+    var previousKeywordsPresent = previousKeywords !== "";
+    var previousKeywordsBlank = !previousKeywordsPresent;
+
+    var keywordsChanged = keywordsPresent && (previousKeywordsBlank || (keywords !== previousKeywords));
+    var keywordsCleared = keywordsBlank && previousKeywordsPresent;
+
+    if (keywordsPresent) {
+      liveSearch.insertRelevanceOption();
+    } else {
+      liveSearch.removeRelevanceOption();
+    }
+
+    if (keywordsCleared) {
+      liveSearch.selectDefaultSortOption();
+    }
+
+    if (keywordsChanged) {
+      liveSearch.selectRelevanceSortOption();
+    }
+  };
+
+  LiveSearch.prototype.selectDefaultSortOption = function selectDefaultSortOption() {
+    var defaultSortOption = this.$orderSelect.data('default-sort-option');
+
+    this.$orderSelect.val(defaultSortOption);
+    this.state = this.$form.serializeArray();
+  };
+
+  LiveSearch.prototype.selectRelevanceSortOption = function selectRelevanceSortOption() {
+    var relevanceSortOption = this.$orderSelect.data('relevance-sort-option');
+
+    this.$orderSelect.val(relevanceSortOption);
+    this.state = this.$form.serializeArray();
+  };
+
+  LiveSearch.prototype.insertRelevanceOption = function insertRelevanceOption() {
+    var adjacentOption = this.$orderSelect.children("option").eq(this.$relevanceOrderOptionIndex);
+
+    adjacentOption.before(this.$relevanceOrderOption);
+  };
+
+  LiveSearch.prototype.removeRelevanceOption = function removeRelevanceOption() {
+    this.$relevanceOrderOption.removeAttr('disabled');
+    this.$relevanceOrderOption.remove();
   };
 
   LiveSearch.prototype.updateResults = function updateResults(){
@@ -179,17 +246,17 @@
 
   LiveSearch.prototype.restoreTextInputs = function restoreTextInputs(){
     var that = this;
-    this.$form.find('input[type=text]').each(function(i, el){
+    this.$form.find('input[type=text], select').each(function(i, el){
       var $el = $(el);
-      $el.val(that.getTextInputValue($el.attr('name')));
+      $el.val(that.getTextInputValue($el.attr('name'), that.state));
     });
   };
 
-  LiveSearch.prototype.getTextInputValue = function getTextInputValue(name){
+  LiveSearch.prototype.getTextInputValue = function getTextInputValue(name, state){
     var i, _i;
-    for(i=0,_i=this.state.length; i<_i; i++){
-      if(this.state[i].name === name){
-        return this.state[i].value
+    for(i=0,_i=state.length; i<_i; i++){
+      if(state[i].name === name){
+        return state[i].value
       }
     }
     return '';

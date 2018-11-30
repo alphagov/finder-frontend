@@ -29,6 +29,7 @@ class ResultSetPresenter
       any_filters_applied: any_filters_applied?,
       atom_url: atom_url,
       next_and_prev_links: next_and_prev_links,
+      sort_options: sort_options
     }
   end
 
@@ -96,6 +97,18 @@ class ResultSetPresenter
 
   def user_supplied_keywords
     @filter_params.fetch('keywords', '')
+  end
+
+  def sort_options
+    return unless finder.sort.present?
+
+    sort_option = if @filter_params['order']
+                    finder.sort.detect { |option| option['name'].parameterize == @filter_params['order'] }
+                  end
+
+    sort_option ||= finder.default_sort_option
+
+    "sorted by <strong>" + sort_option['name'] + "</strong>" if sort_option.present?
   end
 
 private

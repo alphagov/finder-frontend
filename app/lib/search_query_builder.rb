@@ -65,15 +65,43 @@ private
   end
 
   def order_query
-    keywords ? order_by_relevance_query : default_order_query
+    if sort_option.present?
+      if %w(relevance -relevance).include?(sort_option['key'])
+        order_by_relevance_query
+      else
+        order_by_sort_option_query
+      end
+    elsif keywords.present?
+      order_by_relevance_query
+    else
+      order_by_default_order_query
+    end
   end
 
   def order_by_relevance_query
     {}
   end
 
-  def default_order_query
+  def order_by_default_order_query
     { "order" => default_order }
+  end
+
+  def order_by_sort_option_query
+    { 'order' => sort_option['key'] }
+  end
+
+  def sort_options
+    finder_content_item.dig('details', 'sort')
+  end
+
+  def sort_option
+    return unless sort_options.present?
+
+    sort_option = if params['order']
+                    sort_options.detect { |option| option['name'].parameterize == params['order'] }
+                  end
+
+    sort_option || sort_options.detect { |option| option['default'] } || { 'key' => default_order }
   end
 
   def keyword_query
