@@ -108,10 +108,10 @@ describe QaController, type: :controller do
         let(:filters)       { aaib_reports_finder_facets.first["allowed_values"] }
         let(:first_filter)  { filters.first["value"] }
         let(:last_filter)   { filters.last["value"] }
+        let(:params)        { { page: aaib_reports_finder_facets.count, facet_key => [first_filter, last_filter] } }
 
         before do
-          get :show
-          get :show, params: { page: aaib_reports_finder_facets.count, facet_key => [first_filter, last_filter] }
+          get :show, params: params
         end
 
         it "remembers previous selections on each page" do
@@ -122,6 +122,23 @@ describe QaController, type: :controller do
         it "sets the skip_url_link to the parent finder with the previous selections" do
           selection_params = "?#{facet_key}%5B%5D=#{first_filter}&#{facet_key}%5B%5D=#{last_filter}"
           expect(response.body).to have_link("Skip this question", href: finder_base_path + selection_params)
+        end
+
+        context "with a no radio button" do
+          let(:yesno_facet_key) { aaib_reports_finder_facets.second["key"] }
+          let(:params) do
+            {
+              page: aaib_reports_finder_facets.count,
+              facet_key => [first_filter, last_filter],
+              "#{yesno_facet_key}-yesno" => "no",
+              yesno_facet_key => [first_filter, last_filter]
+            }
+          end
+
+          it "doesn't include facets that are no" do
+            expect(response.body).not_to have_css("input[type='hidden'][name='#{yesno_facet_key}[]'][value='#{first_filter}']", visible: false)
+            expect(response.body).not_to have_css("input[type='hidden'][name='#{yesno_facet_key}[]'][value='#{last_filter}']", visible: false)
+          end
         end
       end
     end

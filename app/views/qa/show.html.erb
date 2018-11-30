@@ -29,7 +29,7 @@
           items: options
         } %>
         <%= render "govuk_publishing_components/components/radio", {
-          name: "yes-no-choice",
+          name: "#{current_facet['facet']['key']}-yesno",
           items: [
             {
               value: "yes",
@@ -48,9 +48,13 @@
           items: options
         } %>
       <% end %>
-      <% filtered_params.each_pair do |key, values| %>
-        <% values.each do |value| %>
-          <input type="hidden" name="<%= key %>[]" value="<%= value %>">
+      <% filtered_params.each_pair do |key, value| %>
+        <% if value.is_a?(Array) %>
+          <% value.each do |v| %>
+            <input type="hidden" name="<%= key %>[]" value="<%= v %>">
+          <% end %>
+        <% else %>
+          <input type="hidden" name="<%= key %>" value="<%= value %>">
         <% end %>
       <% end %>
       <% unless last_page? %>
