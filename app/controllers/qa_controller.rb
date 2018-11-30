@@ -120,10 +120,25 @@ private
   helper_method :skip_link_url
 
   def filtered_params
+    params = permitted_params
+
+    facet_keys = facets.map { |facet| facet["key"] }
+
+    rejected_keys = facet_keys.select do |facet_key|
+      params["#{facet_key}-yesno"] == "no"
+    end
+
+    params.except(*rejected_keys)
+  end
+  helper_method :filtered_params
+
+  def permitted_params
+    permitted_yesnos = facets.map { |facet| :"#{facet['key']}-yesno" }
+
     permitted_keys = facets.each_with_object({}) do |facet, keys|
       keys[facet["key"]] = []
     end
-    params.permit(permitted_keys)
+
+    params.permit(*permitted_yesnos, permitted_keys)
   end
-  helper_method :filtered_params
 end
