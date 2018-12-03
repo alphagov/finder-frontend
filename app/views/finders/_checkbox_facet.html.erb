@@ -1,10 +1,16 @@
 <div class="govuk-checkboxes">
   <% checkbox_facet.checkboxes.each do |checkbox| %>
-    <div class="govuk-checkboxes__item">
-      <%= check_box_tag checkbox_facet.name, checkbox.value, checkbox_facet.checked?(checkbox), class: "govuk-checkboxes__input", id: checkbox.id, data: checkbox.data, aria_controls: "js-search-results-info" %>
-      <label class="govuk-label govuk-checkboxes__label" for="<%= checkbox.id %>">
-        <%= checkbox.checkbox_label %>
-      </label>
-    </div>
+    <%= render "govuk_publishing_components/components/checkbox", {
+      name: checkbox_facet.name,
+      id: checkbox.id,
+      controls: "js-search-results-info",
+      margin_bottom: true,
+      item: {
+        label: checkbox.checkbox_label,
+        value: checkbox.value,
+        checked: checkbox_facet.checked?(checkbox),
+        data_attributes: checkbox.data
+      }
+    } %>
   <% end %>
 </div>

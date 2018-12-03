@@ -141,33 +141,11 @@
     }
   }
 
-  .govuk-checkboxes__item {
+  .app-c-option-select {
     margin-bottom: $gutter;
   }
 
-  .app-c-option-select,
-  .filter {
-    margin-bottom: $gutter;
-  }
-
-  .filter  {
-    background-color:$grey-3;
-    padding: 0 5px;
-
-    &:focus {
-      outline: 3px solid #ffbf47;
-    }
-
-    .legend {
-      @include core-19;
-      @include inline-block;
-      margin-right:40px;
-      font-weight:bold;
-      padding-top: $gutter-one-third;
-    }
-  }
-  .radio-filter,
-  .text-filter {
+  .radio-filter {
     padding: 0 $gutter-one-third;
 
     label {
@@ -238,17 +216,6 @@
         }
       }
     }
-  }
-
-  input.text {
-    @include core-16;
-    background: $white;
-    border: 1px solid $border-colour;
-    width: $full-width;
-    margin: 0 0 0 -1px;
-    padding: 5px 0;
-    margin-bottom: $gutter-one-third;
-    text-indent: 5px;
   }
 
   .button {

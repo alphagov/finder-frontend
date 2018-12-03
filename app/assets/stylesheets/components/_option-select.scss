@@ -37,41 +37,13 @@
 
   .options-container {
     position: relative;
+    padding: $gutter-one-quarter;
     background-color: $page-colour;
     overflow-y: auto;
     overflow-x: hidden;
 
     @include media(desktop) {
       max-height: 200px;
-    }
-
-    label {
-      display: block;
-      padding: 7px 7px 7px 35px;
-      border-bottom: 1px solid $border-colour;
-      cursor: pointer;
-
-      @include media(desktop) {
-        // leave space to interact with the scroll bars on desktop
-        width: 90%;
-      }
-
-      &:hover {
-        background-color: $highlight-colour;
-      }
-    }
-
-    input {
-      float: left;
-      margin: 2px 0 0 -27px;
-      width: 20px;
-      height: 20px;
-
-      @include ie(8) {
-        width: auto;
-        height: auto;
-        margin-top: 0;
-      }
     }
   }
 

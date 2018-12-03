@@ -18,13 +18,6 @@ describe 'components/_date-filter.html.erb', type: :view do
     expect(rendered).to have_selector("label[for='key\[from\]']", text: 'name after')
   end
 
-  it "adds aria-controls data attributes when specified" do
-    render partial: 'components/date-filter', locals: { aria_controls_id: 'controls', key: 'key', name: 'name' }
-
-    expect(rendered).to have_selector(".app-c-date-filter[data-module='enable-aria-controls']")
-    expect(rendered).to have_selector("[data-aria-controls='controls']", count: 2)
-  end
-
   it "prefills user values" do
     render partial: 'components/date-filter', locals: { from_value: 'user from', to_value: 'user to', key: 'key', name: 'name' }
 
