@@ -8,10 +8,28 @@
   <%= render 'govuk_publishing_components/components/phase_banner', phase: finder.phase, message: finder.phase_message%>
 <% end %>
 
-<% if @breadcrumbs.breadcrumbs %>
-  <%= render 'govuk_publishing_components/components/breadcrumbs', breadcrumbs: @breadcrumbs.breadcrumbs %>
+<% if finder.prepare_uk_leaving_eu_finder? %>
+  <%= render 'govuk_publishing_components/components/breadcrumbs', {
+      breadcrumbs: [
+          {
+              title: 'Prepare for EU Exit',
+              url: 'https://tiger-team-5-campaign-prepare.glitch.me/'
+          },
+          {
+              title: 'Prepare for the UK leaving the EU',
+              url: 'https://citizens-in-the-uk.herokuapp.com/government/brexit/citizens-in-the-uk'
+          },
+          {
+              title: finder.topic['title']
+          }
+      ]
+  } %>
 <% else %>
-  <%= render 'govuk_publishing_components/components/contextual_breadcrumbs', content_item: @content_item %>
+  <% if @breadcrumbs.breadcrumbs %>
+    <%= render 'govuk_publishing_components/components/breadcrumbs', breadcrumbs: @breadcrumbs.breadcrumbs %>
+  <% else %>
+    <%= render 'govuk_publishing_components/components/contextual_breadcrumbs', content_item: @content_item %>
+  <% end %>
 <% end %>
 
 <% if finder.government? %>
@@ -24,6 +42,9 @@
       context: finder.human_readable_finder_format,
       title: finder.name
     } %>
+
+    <%= render 'govuk_publishing_components/components/lead_paragraph', text: finder.description %>
+
     <% if finder.page_metadata.any? %>
       <%= render 'govuk_publishing_components/components/metadata', page_metadata(finder.page_metadata) %>
     <% end %>

@@ -61,7 +61,9 @@ private
   end
 
   def metadata_fields
-    finder_content_item['details']['facets'].map { |f| (f['filter_key'] || f['key']) }
+    finder_content_item['details']['facets'].map do |f|
+      (f['filter_key'] || f['key']).gsub(/^(?'full_name'(?'operation'filter|reject|any|all)_(?:(?'multivalue_query'any|all)_)?(?'name'.*))$/, '\k<name>')
+    end
   end
 
   def order_query
@@ -118,10 +120,8 @@ private
 
   def filter_query
     filter_params
-      .merge(base_filter)
-      .reduce({}) { |query, (k, v)|
-        query.merge("filter_#{k}" => v)
-      }
+      .merge(base_filter) { |_key, old_value, new_value| [old_value, new_value] }
+      .reduce({}) { |query, (k, v)| query.merge("filter_#{k}" => v) }
   end
 
   def reject_query

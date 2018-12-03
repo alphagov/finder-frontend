@@ -29,6 +29,7 @@ private
 
   def development_env_finder_json
     return news_and_communications_json if is_news_and_communications?
+    return eu_exit_individuals_json if is_eu_exit_individuals_json?
 
     ENV["DEVELOPMENT_FINDER_JSON"]
   end
@@ -38,10 +39,21 @@ private
     "features/fixtures/news_and_communications.json"
   end
 
+  def eu_exit_individuals_json
+    # Hard coding this in during development
+    "features/fixtures/eu_exit_individuals.json"
+  end
+
   def fetch_search_response(content_item)
+    query_filter_params = filter_params.dup
+
+    if query_filter_params.key?('topic')
+      query_filter_params['topic'] = Services.content_store.content_item(query_filter_params['topic'])['content_id']
+    end
+
     query = query_builder_class.new(
       finder_content_item: content_item,
-      params: filter_params,
+      params: query_filter_params,
     ).call
 
     query = TranslateContentPurposeFields.new(query).call
@@ -115,6 +127,10 @@ private
 
   def is_news_and_communications?
     base_path == "/news-and-communications"
+  end
+
+  def is_eu_exit_individuals_json?
+    base_path == "/prepare-individual-uk-leaving-eu"
   end
 
   def registries

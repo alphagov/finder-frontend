@@ -2,7 +2,7 @@ class FinderPresenter
   include ActionView::Helpers::FormOptionsHelper
   include ActionView::Helpers::UrlHelper
 
-  attr_reader :content_item, :name, :slug, :organisations, :values, :keywords
+  attr_reader :content_item, :slug, :organisations, :values, :keywords
 
   def initialize(content_item, values = {})
     @content_item = content_item
@@ -203,8 +203,30 @@ class FinderPresenter
     ["#{slug}.atom", values.to_query].reject(&:blank?).join("?") if atom_feed_enabled?
   end
 
+  def topic
+    return unless values.key?('topic')
+
+    @topic ||= Services.content_store.content_item(values['topic'])
+  end
+
+  def name
+    if prepare_uk_leaving_eu_finder?
+      "#{content_item['title']} about #{topic['title']}"
+    else
+      content_item['title']
+    end
+  end
+
   def description
-    content_item['description']
+    if prepare_uk_leaving_eu_finder?
+      topic['description']
+    else
+      content_item['description']
+    end
+  end
+
+  def prepare_uk_leaving_eu_finder?
+    content_item['content_id'] == 'd922d3cd-9775-46bd-ac6e-905084a28860'
   end
 
 private
