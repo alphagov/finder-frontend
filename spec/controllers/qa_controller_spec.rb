@@ -66,10 +66,16 @@ describe QaController, type: :controller do
       end
 
       context "on the last page" do
-        before { get:show, params: { page: aaib_reports_finder_facets.count } }
+        let(:last_facet_key)  { aaib_reports_finder_facets.last["key"] }
+        let(:last_filters)    { aaib_reports_finder_facets.last['allowed_values'] }
+        let(:first_filter)    { last_filters.first['value'] }
+        let(:last_filter)     { last_filters.last['value'] }
+        let(:params)          { { page: aaib_reports_finder_facets.count } }
+
+        before { get:show, params: params }
 
         it "renders the last facet's question" do
-          expect(response.body).to include(aaib_reports_qa_config_yaml["pages"][aaib_reports_finder_facets.last["key"]]["question"])
+          expect(response.body).to include(aaib_reports_qa_config_yaml["pages"][last_facet_key]["question"])
         end
 
         it "does not render the description" do
@@ -81,11 +87,8 @@ describe QaController, type: :controller do
         end
 
         it "renders the yes and no radio buttons" do
-          values = aaib_reports_finder_facets.last['allowed_values']
-          first_value = values.first['value']
-          last_value = values.last['value']
-          expect(response.body).to have_css("form#finder-qa-facet-filter-selection input[type='radio'][value='#{first_value}']")
-          expect(response.body).to have_css("form#finder-qa-facet-filter-selection input[type='radio'][value='#{last_value}']")
+          expect(response.body).to have_css("form#finder-qa-facet-filter-selection input[type='radio'][value='#{first_filter}']")
+          expect(response.body).to have_css("form#finder-qa-facet-filter-selection input[type='radio'][value='#{last_filter}']")
         end
 
         it "renders the correct filter options under the yes radio button" do
@@ -94,12 +97,21 @@ describe QaController, type: :controller do
           end
         end
 
-        it "sets next_page_url to the parent finder" do
-          expect(response.body).to have_css("form#finder-qa-facet-filter-selection[action='#{finder_base_path}']")
+        it "sets next_page_url to itself" do
+          expect(response.body).to have_css("form#finder-qa-facet-filter-selection[action='#{base_path}']")
         end
 
-        it "sets skips_url_link to the parent finder without a page param" do
-          expect(response.body).to have_link("Skip this question", href: "#{finder_base_path}?")
+        it "sets skips_url_link to itself with a page param beyond the facet length" do
+          expect(response.body).to have_link("Skip this question", href: "#{base_path}?page=#{aaib_reports_finder_facets.length + 1}")
+        end
+
+        context "submitting final selections to the Q&A" do
+          let(:params) { { page: aaib_reports_finder_facets.count + 1, last_facet_key => [first_filter, last_filter] } }
+
+          it "redirects to the finder page" do
+            expected_params = params.except(:page).to_query
+            expect(response).to redirect_to("#{finder_base_path}?#{expected_params}")
+          end
         end
       end
 
@@ -110,9 +122,7 @@ describe QaController, type: :controller do
         let(:last_filter)   { filters.last["value"] }
         let(:params)        { { page: aaib_reports_finder_facets.count, facet_key => [first_filter, last_filter] } }
 
-        before do
-          get :show, params: params
-        end
+        before { get :show, params: params }
 
         it "remembers previous selections on each page" do
           expect(response.body).to have_css("input[type='hidden'][name='#{facet_key}[]'][value='#{first_filter}']", visible: false)
@@ -121,7 +131,8 @@ describe QaController, type: :controller do
 
         it "sets the skip_url_link to the parent finder with the previous selections" do
           selection_params = "?#{facet_key}%5B%5D=#{first_filter}&#{facet_key}%5B%5D=#{last_filter}"
-          expect(response.body).to have_link("Skip this question", href: finder_base_path + selection_params)
+          page_param = "&page=#{aaib_reports_finder_facets.length + 1}"
+          expect(response.body).to have_link("Skip this question", href: base_path + selection_params + page_param)
         end
 
         context "with a no radio button" do
