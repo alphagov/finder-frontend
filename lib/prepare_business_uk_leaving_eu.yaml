@@ -79,7 +79,7 @@ pages:
   doing_business_in_the_eu:
     show_in_qa: true
     question_type: "single_wrapped"
-    question: "Do you import or do business abroad?"
+    question: "Do you sell goods in the UK, import or do business abroad?"
     description: |
       <p>Doing business abroad includes exporting and going for meetings or taking goods to a trade fair.</p>
   employ_eu_citizens:
@@ -88,12 +88,6 @@ pages:
     question: "Do you employ anyone from another European country?"
     description: |
       <p>This includes <a href="/eu-eea">countries that are in the EU</a> and Norway, Switzerland, Iceland and Liechtenstein.</p>
-  regulations_and_standards:
-    show_in_qa: true
-    question_type: "single"
-    question: "Do you sell products and goods in the UK?"
-    description: |
-      <p>Products and goods only include physical items that you sell or trade.</p>
   personal_data:
     show_in_qa: true
     question_type: "single_wrapped"
