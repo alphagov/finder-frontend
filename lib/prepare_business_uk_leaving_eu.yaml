@@ -75,7 +75,7 @@ pages:
           - "rail"
           - "warehousing-and-support-for-transportation"
           - "water-transport-maritime-ports"
-  doing_business_in_the_eu:
+  business_activity:
     show_in_qa: true
     question_type: "single_wrapped"
     question: "Do you sell goods in the UK, import or do business abroad?"
