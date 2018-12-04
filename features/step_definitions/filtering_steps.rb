@@ -99,11 +99,6 @@ Then(/^I can get a list of all documents with good metadata$/) do
   end
 end
 
-Given(/^a policy finder exists$/) do
-  content_store_has_policy_finder
-  stub_rummager_api_request_with_policy_results
-end
-
 Given(/^a finder tagged to the topic taxonomy$/) do
   stub_content_store_with_a_taxon_tagged_finder
   stub_rummager_with_cma_cases
@@ -124,23 +119,23 @@ Then(/^I only see documents with matching dates$/) do
 end
 
 Given(/^a finder with a dynamic filter exists$/) do
-  content_store_has_policies_finder
-  stub_rummager_api_request_with_policies_finder_results
+  content_store_has_mosw_reports_finder
+  stub_rummager_api_request
 end
 
 Then(/^I can see filters based on the results$/) do
-  visit finder_path('government/policies')
+  visit finder_path('mosw-reports')
 
-  within '.app-c-option-select' do
-    expect(page).to have_selector('input#organisations-ministry-of-justice')
-    expect(page).to have_content('Ministry of Justice')
-    expect(page).to_not have_selector('input#organisations-ministry-of-missing-spoons')
+  within first('.app-c-option-select') do
+    expect(page).to have_selector('input#walk_type-backward')
+    expect(page).to have_content('Hopscotch')
+    expect(page).to_not have_selector('input#organisations-ministry-of-silly-walks')
   end
 end
 
 Given(/^a finder with paginated results exists$/) do
-  content_store_has_policy_finder
-  stub_rummager_api_request_with_policy_results
+  content_store_has_government_finder_with_10_items
+  stub_rummager_api_request_with_10_government_results
 end
 
 Then(/^I can see pagination$/) do
@@ -151,7 +146,7 @@ Then(/^I can see pagination$/) do
 end
 
 Then(/^I can browse to the next page$/) do
-  stub_rummager_api_request_with_page_2_policy_results
+  stub_rummager_api_request_with_10_government_results_page_2
   visit finder_path('government/policies/benefits-reform', page: 2)
 
   expect(page).to have_content('Previous page')

@@ -9,7 +9,7 @@ Then(/^the links on the page have tracking attributes$/) do
   first_link = document_links.first
 
   expect(first_link['data-track-category']).to eq('navFinderLinkClicked')
-  expect(first_link['data-track-action']).to eq('Benefits Reform.1')
+  expect(first_link['data-track-action']).to eq('Ministry of Silly Walks reports.1')
   expect(first_link['data-track-label']).to eq(first_link['href'])
 
   options = JSON.parse(first_link['data-track-options'])

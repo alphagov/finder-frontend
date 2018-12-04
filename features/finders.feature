@@ -31,12 +31,6 @@ Feature: Filtering documents
     Then I can see the government header
     And I can see documents which are marked as being in history mode
 
-  Scenario: Visit a policy finder
-    Given a policy finder exists
-    Then I can see the government header
-    And I can see documents which are marked as being in history mode
-    And I can see documents which have government metadata
-
   Scenario: Filters document with bad metadata
     Given a collection of documents with bad metadata exist
     Then I can get a list of all documents with good metadata
@@ -58,7 +52,7 @@ Feature: Filtering documents
     Then I can see that the description in the metadata is present
 
   Scenario: Link tracking
-    Given a policy finder exists
+    Given a government finder exists
     Then the links on the page have tracking attributes
 
   Scenario: Visit a finder from an organisation
