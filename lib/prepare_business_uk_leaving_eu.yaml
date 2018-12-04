@@ -26,7 +26,6 @@ pages:
           - "public-administration-and-defence"
       - name: "Energy, environmental services and agriculture"
         filters:
-          - "accommodation-restaurants-and-catering-services"
           - "agriculture"
           - "electricity"
           - "environmental-services"
