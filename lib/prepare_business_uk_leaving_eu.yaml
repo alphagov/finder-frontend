@@ -108,9 +108,9 @@ pages:
     question: "Does your business sell to the public sector?"
     description: |
       <p>This includes if you sell products or services to organisations in central or local government, and some non-government organisations, such as hospitals or schools.</p>
-  receiving_eu_funding:
+  eu_uk_government_funding:
     show_in_qa: true
-    question_type: "single"
-    question: "Does your organisation get EU funding?"
+    question_type: "single_wrapped"
+    question: "Does your business get EU or UK government funding?"
     description: |
       <p>For example as part of the Creative Europe Fund or Horizon 2020 schemes.</p>
