@@ -25,20 +25,20 @@ module DocumentHelper
     )
   end
 
+  def stub_rummager_api_request_with_10_government_results
+    stub_request(:get, rummager_10_documents_url).to_return(
+      body: government_documents_json,
+    )
+  end
+
   def stub_rummager_api_request_with_bad_data
     stub_request(:get, rummager_all_documents_url).to_return(
       body: documents_with_bad_data_json,
     )
   end
 
-  def stub_rummager_api_request_with_policy_results
-    stub_request(:get, rummager_policy_search_url).to_return(
-      body: government_documents_json,
-    )
-  end
-
-  def stub_rummager_api_request_with_page_2_policy_results
-    stub_request(:get, rummager_policy_page_2_search_url).to_return(
+  def stub_rummager_api_request_with_10_government_results_page_2
+    stub_request(:get, rummager_10_documents_page_2_url).to_return(
       body: government_documents_page_2_json,
     )
   end
@@ -52,7 +52,7 @@ module DocumentHelper
   end
 
   def stub_rummager_api_request_with_422_response(page_number)
-    stub_request(:get, rummager_policy_other_page_search_url(page_number)).to_return(status: 422)
+    stub_request(:get, rummager_document_other_page_search_url(page_number)).to_return(status: 422)
   end
 
   def stub_rummager_api_request_with_policies_finder_results
@@ -98,12 +98,11 @@ module DocumentHelper
     )
   end
 
-  def content_store_has_policy_finder
+  def content_store_has_government_finder_with_10_items
     base_path = '/government/policies/benefits-reform'
-    content_store_has_item(
-      base_path,
-      govuk_content_schema_example('policy_area', 'policy').to_json
-    )
+    content_item = govuk_content_schema_example('finder').merge('base_path' => base_path)
+    content_item['details']['default_documents_per_page'] = 10
+    content_store_has_item(base_path, content_item.to_json)
   end
 
   def content_store_has_policies_finder
@@ -247,6 +246,25 @@ module DocumentHelper
     )
   end
 
+  def rummager_10_documents_url
+    rummager_url(
+      mosw_search_params.merge(
+        "order" => "-public_timestamp",
+        "count" => 10,
+      )
+    )
+  end
+
+  def rummager_10_documents_page_2_url
+    rummager_url(
+      mosw_search_params.merge(
+        "order" => "-public_timestamp",
+        "count" => 10,
+        "start" => 10,
+      )
+    )
+  end
+
   def rummager_hopscotch_walks_url
     rummager_url(
       mosw_search_params.merge(
@@ -303,21 +321,11 @@ module DocumentHelper
     )
   end
 
-  def rummager_policy_page_2_search_url
-    rummager_url(
-      policy_search_params.merge(
-        "order" => "-public_timestamp",
-        "count" => 10,
-        "start" => 10,
-      )
-    )
-  end
-
-  def rummager_policy_other_page_search_url(page_number)
+  def rummager_document_other_page_search_url(page_number)
     count_per_page = 10
 
     rummager_url(
-      policy_search_params.merge(
+      mosw_search_params.merge(
         "order" => "-public_timestamp",
         "count" => count_per_page,
         "start" => ((page_number - 1) * count_per_page)
