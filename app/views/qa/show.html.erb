@@ -10,7 +10,7 @@
 
       <% if current_facet["description"] %>
         <%= render "govuk_publishing_components/components/govspeak", {
-          content: "<div class=\"summary\"><p>#{current_facet['description']}</p></div>".html_safe
+          content: current_facet["description"].html_safe
         } %>
       <% end %>
 
