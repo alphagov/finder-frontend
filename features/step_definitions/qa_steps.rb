@@ -66,7 +66,7 @@ Given /^I am answering the final question/ do
   visit "#{qa_path}?page=#{page_number}"
 end
 
-Then /^submitting my answer will send me to the finder results page/ do
+Then /^I am redirected to the finder results page/ do
   finder_url = mock_qa_config['finder_base_path']+'?'
-  expect(page).to have_selector(:css, "a[href='#{finder_url}']")
+  expect(current_url).to match(finder_url)
 end

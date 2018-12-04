@@ -48,4 +48,5 @@ Feature: QA
 
     Scenario: Answering the final question
       Given I am answering the final question
-      Then submitting my answer will send me to the finder results page
+      When I submit my answer
+      Then I am redirected to the finder results page

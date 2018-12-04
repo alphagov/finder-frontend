@@ -57,9 +57,7 @@
           <input type="hidden" name="<%= key %>" value="<%= value %>">
         <% end %>
       <% end %>
-      <% unless last_page? %>
         <input type="hidden" name="page" value="<%= next_page %>">
-      <% end %>
       <% unless current_facet["hint_text"].nil? || current_facet["hint_title"].nil? %>
         <%= render "govuk_publishing_components/components/details", {
           title: current_facet["hint_title"]

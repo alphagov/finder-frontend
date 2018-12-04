@@ -7,6 +7,7 @@ class QaController < ApplicationController
   def show
     return error_not_found unless ENV["FINDER_FRONTEND_ENABLE_QA"]
 
+    redirect_to_finder if finder_page?
     raw_finder
   end
 
@@ -28,8 +29,7 @@ private
 
   def page
     params.permit(:page)
-    params[:page] = 1 if params[:page].nil?
-    params[:page].to_i.clamp(1, facets.length)
+    params[:page].to_i.clamp(1, facets.length + 1)
   end
 
   def question_type
@@ -96,25 +96,26 @@ private
   end
   helper_method :nested_options
 
-  def last_page?
-    page == facets.length
-  end
-  helper_method :last_page?
-
   def next_page
     page + 1
   end
   helper_method :next_page
 
-  def next_page_url
-    return qa_config["finder_base_path"] if last_page?
+  def finder_page?
+    page == facets.length + 1
+  end
 
+  def next_page_url
     qa_config["base_path"]
   end
   helper_method :next_page_url
 
+  def redirect_to_finder
+    redirect_to qa_config["finder_base_path"] + '?' + filtered_params.to_query
+  end
+
   def skip_link_url
-    page_number = { page: next_page } unless last_page?
+    page_number = { page: next_page }
     next_page_url + "?" + filtered_params.merge(page_number).to_query
   end
   helper_method :skip_link_url
