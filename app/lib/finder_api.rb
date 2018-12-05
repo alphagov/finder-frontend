@@ -15,7 +15,44 @@ class FinderApi
     augment_content_item_with_results(content_item, search_response)
   end
 
-private
+  private
+
+  BASE_PATHS = %w(
+    /government/publications/allocation-of-ecmt-haulage-permits-guidance-for-hauliers
+    /government/publications/aviation-safety-if-theres-no-brexit-deal
+    /government/publications/aviation-security-if-theres-no-brexit-deal
+    /government/publications/banking-insurance-and-other-financial-services-if-theres-no-brexit-deal
+    /government/publications/breeding-animals-if-theres-no-brexit-deal
+    /government/publications/broadcasting-and-video-on-demand-if-theres-no-brexit-deal
+    /government/publications/citizens-rights-uk-and-irish-nationals-in-the-common-travel-area
+    /government/publications/commercial-road-haulage-in-the-eu-if-theres-no-brexit-deal
+    /government/publications/consumer-rights-if-theres-no-brexit-deal--2
+    /government/publications/data-protection-if-theres-no-brexit-deal
+    /government/publications/driving-in-the-eu-if-theres-no-brexit-deal
+    /government/publications/erasmus-in-the-uk-if-theres-no-brexit-deal
+    /government/publications/flights-to-and-from-the-uk-if-theres-no-brexit-deal
+    /government/publications/geo-blocking-of-online-content-if-theres-no-brexit-deal
+    /government/publications/mobile-roaming-if-theres-no-brexit-deal
+    /government/publications/providing-services-including-those-of-a-qualified-professional-if-theres-no-brexit-deal
+    /government/publications/rail-transport-if-theres-no-brexit-deal
+    /government/publications/recognition-of-seafarer-certificates-of-competency-if-theres-no-brexit-deal
+    /government/publications/taking-horses-abroad-if-theres-no-brexit-deal--2
+    /government/publications/taking-your-pet-abroad-if-theres-no-brexit-deal
+    /government/publications/travelling-in-the-common-travel-area-if-theres-no-brexit-deal
+    /government/publications/travelling-to-the-eu-with-a-uk-passport-if-theres-no-brexit-deal
+    /government/publications/travelling-with-a-european-firearms-pass-if-theres-no-brexit-deal
+    /government/publications/uk-governments-preparations-for-a-no-deal-scenario
+    /government/publications/upholding-environmental-standards-if-theres-no-brexit-deal
+    /government/publications/vehicle-insurance-if-theres-no-brexit-deal
+    /government/publications/workplace-rights-if-theres-no-brexit-deal
+    /guidance/ecmt-international-road-haulage-permits
+    /guidance/eu-community-licences-for-international-road-haulage
+    /guidance/exiting-the-european-union
+    /guidance/international-authorisations-and-permits-for-road-haulage
+    /guidance/passport-rules-for-travel-to-europe-after-brexit
+    /guidance/pet-travel-to-europe-after-brexit
+    /guidance/prepare-to-drive-in-the-eu-after-brexit
+  )
 
   attr_reader :base_path, :filter_params
 
@@ -58,7 +95,10 @@ private
 
     query = TranslateContentPurposeFields.new(query).call
 
-    Services.rummager.search(query).to_hash
+    response = Services.rummager.search(query).to_hash
+    response['results'] = response['results'].select { |result| BASE_PATHS.include?(result['link']) }
+    response['total'] = response['results'].size
+    response
   end
 
   def augment_content_item_with_results(content_item, search_response)
