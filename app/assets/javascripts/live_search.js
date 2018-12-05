@@ -22,6 +22,8 @@
     this.$relevanceOrderOption = this.$orderSelect.find('option[value=' + this.$orderSelect.data('relevance-sort-option') + ']');
     this.$relevanceOrderOptionIndex = this.$relevanceOrderOption.index();
 
+    this.resultCountTemplate = this.setResultCountTemplate();
+
     if(GOVUK.support.history()){
       this.saveState();
 
@@ -50,6 +52,14 @@
       $(window).on('popstate', this.popState.bind(this));
     } else {
       this.$form.find('.js-live-search-fallback').show();
+    }
+  };
+
+  LiveSearch.prototype.setResultCountTemplate = function setResultCountTemplate(){
+    if (this.$countBlock.find('#generic').length == 1){
+      return '_result_count_generic';
+    } else {
+      return '_result_count';
     }
   };
 
@@ -221,7 +231,7 @@
     // still the latest to stop results being overwritten by stale data
     if(action == $.param(this.state)) {
       this.$resultsBlock.mustache(this.templateDir + '_results', results);
-      this.$countBlock.mustache(this.templateDir + '_result_count', results);
+      this.$countBlock.mustache(this.templateDir + this.resultCountTemplate, results);
       this.$atomAutodiscoveryLink.attr('href', results.atom_url);
     }
   };
