@@ -61,21 +61,6 @@
       @include core-19;
     }
 
-    .email-link {
-      margin-bottom: $gutter;
-
-      a {
-        @include bold-19;
-        text-decoration:none;
-        background: image-url('mail-icon.png') 0 40% no-repeat;
-        @include device-pixel-ratio(2.0) {
-          background-image: image-url('mail-icon-retina.png');
-          background-size: $gutter-two-thirds 14px;
-        }
-        padding-left: $gutter;
-      }
-    }
-
     .logo {
       @include grid-column(1/3);
       margin: $gutter 0;
@@ -246,10 +231,21 @@
         padding-right: $gutter-one-third / 2;
       }
       a {
-        background: image-url('feed-icon-black.png') 0 40% no-repeat;
         font-weight: bold;
         padding: 0 $gutter-one-third 0 $gutter-half;
         text-decoration: none;
+      }
+      .email-link {
+        background: image-url('mail-icon.png') 0 40% no-repeat;
+        padding-left: 22px;
+
+        @include device-pixel-ratio(2.0) {
+          background-image: image-url('mail-icon-retina.png');
+          background-size: $gutter-two-thirds 14px;
+        }
+      }
+      .atom-feed {
+        background: image-url('feed-icon-black.png') 0 40% no-repeat;
       }
     }
 
