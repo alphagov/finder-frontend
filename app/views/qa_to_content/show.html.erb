@@ -1,4 +1,8 @@
 <% content_for :title, title %>
+<% content_for :head do %>
+  <meta name="robots" content="noindex">
+<% end %>
+
 
 <%= render 'govuk_publishing_components/components/breadcrumbs', breadcrumbs: breadcrumbs %>
 <div class="grid-row">
