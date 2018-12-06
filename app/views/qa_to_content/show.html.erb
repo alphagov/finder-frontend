@@ -11,16 +11,16 @@
     <form action="" method="get">
 
       <%= render "govuk_publishing_components/components/title", {
-        title: first_question["question"],
+        title: question["question"],
         margin_bottom: 4
       } %>
       <%= render "govuk_publishing_components/components/hint", {
-        text: first_question["hint"].html_safe,
+        text: question["hint"].html_safe,
         classes: "govuk-!-padding-bottom-5"
       } %>
       <%= render "govuk_publishing_components/components/radio", {
-        name: first_question["id"],
-        items: format_options(first_question["options"])
+        name: question["id"],
+        items: format_options(question["options"])
       } %>
       <%= render "govuk_publishing_components/components/button", {
         text: "Next"
