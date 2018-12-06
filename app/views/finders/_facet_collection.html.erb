@@ -8,7 +8,7 @@
       value: @results.user_supplied_keywords,
       id: "finder-keyword-search",
       controls: "js-search-results-info"
-    } %>
+    } if @results.results.any? %>
 
     <%= render facet_collection.filters %>
     <input type="submit" value="Filter results" class="button js-live-search-fallback"/>
