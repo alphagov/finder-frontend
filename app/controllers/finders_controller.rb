@@ -4,6 +4,10 @@ class FindersController < ApplicationController
   layout "finder_layout"
   include GdsApi::Helpers
 
+  before_action do
+    expires_in(5.minutes, public: true)
+  end
+
   ATOM_FEED_MAX_AGE = 300
 
   def show
