@@ -7,8 +7,6 @@ class ResultSetPresenter
            :filter_sentence_fragments,
            :keywords,
            :atom_url,
-           :email_url,
-           :has_feed_url,
            to: :finder
 
   def initialize(finder, filter_params, view_context)
@@ -30,8 +28,6 @@ class ResultSetPresenter
       finder_name: finder.name,
       any_filters_applied: any_filters_applied?,
       atom_url: atom_url,
-      has_feed_url: has_feed_url,
-      email_url: email_url,
       next_and_prev_links: next_and_prev_links,
       sort_options: sort_options
     }

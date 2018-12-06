@@ -203,14 +203,6 @@ class FinderPresenter
     ["#{slug}.atom", values.to_query].reject(&:blank?).join("?") if atom_feed_enabled?
   end
 
-  def has_feed_url
-    atom_url.present? || email_alert_signup_url.present?
-  end
-
-  def email_url
-    [email_alert_signup_url, values.to_query].reject(&:blank?).join("?") if email_alert_signup_url.present?
-  end
-
   def topic
     return unless values.key?('topic')
 

@@ -1,14 +1,9 @@
-{{#has_feed_url}}
+{{#atom_url}}
   <div class="feed">
     <span>Get updates to this list</span>
-    {{#atom_url}}
-      <a class="atom-feed" href="{{atom_url}}">feed</a>
-    {{/atom_url}}
-    {{#email_url}}
-      <a class="email-link" href="{{email_url}}">email</a>
-    {{/email_url}}
+    <a href="{{atom_url}}">feed</a>
   </div>
-{{/has_feed_url}}
+{{/atom_url}}
 
 <ul data-module="track-click">
   {{#documents}}
