@@ -14,7 +14,7 @@
     this.$countBlock = options.$results.find('#js-search-results-info');
     this.action = this.$form.attr('action') + '.json';
     this.$atomAutodiscoveryLink = options.$atomAutodiscoveryLink;
-    this.$emailLink = $("p.email-link a");
+    this.$emailLink = $(".email-link");
 
     this.emailSignupHref = this.$emailLink.attr('href');
 
@@ -233,6 +233,7 @@
       this.$resultsBlock.mustache(this.templateDir + '_results', results);
       this.$countBlock.mustache(this.templateDir + this.resultCountTemplate, results);
       this.$atomAutodiscoveryLink.attr('href', results.atom_url);
+      this.$emailLink.attr('href', results.email_url);
     }
   };
 
