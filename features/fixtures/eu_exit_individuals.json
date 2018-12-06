@@ -43,7 +43,8 @@
     ],
     "links": {},
     "default_documents_per_page": 20,
-    "generic_description": true
+    "generic_description": true,
+    "signup_link": "https://www.gov.uk/email-signup"
   },
   "links": {
     "taxons": [
