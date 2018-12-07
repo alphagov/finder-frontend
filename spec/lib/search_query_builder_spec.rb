@@ -6,7 +6,7 @@ describe SearchQueryBuilder do
     SearchQueryBuilder.new(
       finder_content_item: finder_content_item,
       params: params,
-    ).call
+    ).call.first
   }
 
   let(:finder_content_item) {
@@ -183,7 +183,7 @@ describe SearchQueryBuilder do
       SearchQueryBuilder.new(
         finder_content_item: finder_content_item,
         params: params
-      ).call
+      ).call.first
     end
   end
 end

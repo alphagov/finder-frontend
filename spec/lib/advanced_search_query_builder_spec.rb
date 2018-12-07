@@ -30,34 +30,34 @@ RSpec.describe AdvancedSearchQueryBuilder do
 
   context 'without keywords' do
     it 'should not include a keyword query' do
-      expect(instance.call).not_to include("q")
+      expect(instance.call.first).not_to include("q")
     end
 
     context 'when guidance' do
       let(:params) { { 'group' => 'guidance_and_regulation' } }
       it "should include an order query" do
-        expect(instance.call).to include("order" => "-popularity")
+        expect(instance.call.first).to include("order" => "-popularity")
       end
     end
 
     context 'when services' do
       let(:params) { { 'group' => 'services' } }
       it "should include an order query" do
-        expect(instance.call).to include("order" => "-popularity")
+        expect(instance.call.first).to include("order" => "-popularity")
       end
     end
 
     context 'when not guidance or services' do
       let(:params) { {} }
       it "should include an order query" do
-        expect(instance.call).to include("order" => "-public_timestamp")
+        expect(instance.call.first).to include("order" => "-public_timestamp")
       end
 
       context "with a custom order" do
         let(:default_order) { "custom_field" }
 
         it "should include a custom order query" do
-          expect(instance.call).to include("order" => "custom_field")
+          expect(instance.call.first).to include("order" => "custom_field")
         end
       end
     end
@@ -71,11 +71,11 @@ RSpec.describe AdvancedSearchQueryBuilder do
     }
 
     it "should include a keyword query" do
-      expect(instance.call).to include("q" => "mangoes")
+      expect(instance.call.first).to include("q" => "mangoes")
     end
 
     it "should not include an order query" do
-      expect(instance.call).not_to include("order")
+      expect(instance.call.first).not_to include("order")
     end
   end
 end

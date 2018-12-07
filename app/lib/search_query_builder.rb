@@ -8,14 +8,16 @@ class SearchQueryBuilder
 
   def call
     [
-      pagination_query,
-      return_fields_query,
-      keyword_query,
-      filter_query,
-      reject_query,
-      order_query,
-      facet_query,
-    ].reduce(&:merge)
+      [
+        pagination_query,
+        return_fields_query,
+        keyword_query,
+        filter_query,
+        reject_query,
+        order_query,
+        facet_query,
+      ].reduce(&:merge)
+    ]
   end
 
 private

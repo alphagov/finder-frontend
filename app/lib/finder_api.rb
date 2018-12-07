@@ -61,17 +61,17 @@ private
   end
 
   def fetch_search_response(content_item)
-    query = query_builder_class.new(
+    queries = query_builder_class.new(
       finder_content_item: content_item,
       params: filter_params,
     ).call
 
-    query = TranslateContentPurposeFields.new(query).call
-
-    searches = [query]
+    queries = queries.map do |query|
+      TranslateContentPurposeFields.new(query).call
+    end
 
     merge_and_deduplicate(
-      Services.rummager.batch_search(searches).to_hash
+      Services.rummager.batch_search(queries).to_hash
     )
   end
 
