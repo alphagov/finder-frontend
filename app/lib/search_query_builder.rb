@@ -7,17 +7,19 @@ class SearchQueryBuilder
   end
 
   def call
-    [
-      [
-        pagination_query,
-        return_fields_query,
-        keyword_query,
-        filter_query,
-        reject_query,
-        order_query,
-        facet_query,
-      ].reduce(&:merge)
-    ]
+    base_query = [
+      pagination_query,
+      return_fields_query,
+      keyword_query,
+      filter_query,
+      reject_query,
+      order_query,
+      facet_query,
+    ].reduce(&:merge)
+
+    [base_query] + extra_filter_queries.map do |query|
+      base_query.clone.merge(query)
+    end
   end
 
 private
@@ -119,11 +121,18 @@ private
   end
 
   def filter_query
-    filter_params
+    @filter_query ||= filter_params(combine_mode: 'and')
       .merge(base_filter)
-      .reduce({}) { |query, (k, v)|
-        query.merge("filter_#{k}" => v)
+      .each_with_object({}) { |(k, v), query|
+        query["filter_#{k}"] = v
       }
+  end
+
+  def extra_filter_queries
+    @extra_filter_queries ||= filter_params(combine_mode: 'or')
+      .map do |k, v|
+        { "filter_#{k}" => v }
+      end
   end
 
   def reject_query
@@ -132,11 +141,22 @@ private
     }
   end
 
-  def filter_params
-    @filter_params ||= FilterQueryBuilder.new(
+  def all_filter_params
+    @all_filter_params ||= FilterQueryBuilder.new(
       facets: finder_content_item['details']['facets'],
       user_params: params,
     ).call
+  end
+
+  def facet_keys(combine_mode:)
+    facets = finder_content_item['details']['facets'].select do |facet|
+      facet.fetch('combine_mode', 'and') == combine_mode
+    end
+    facets.map { |facet| facet['filter_key'] || facet['key'] }
+  end
+
+  def filter_params(combine_mode:)
+    all_filter_params.slice(*facet_keys(combine_mode: combine_mode))
   end
 
   def base_filter
