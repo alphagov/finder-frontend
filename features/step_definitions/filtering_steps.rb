@@ -3,6 +3,24 @@ Given(/^a collection of documents exist$/) do
   stub_rummager_api_request
 end
 
+Given(/^no results$/) do
+  content_store_has_mosw_reports_finder_with_no_facets
+  stub_rummager_api_request_with_no_results
+end
+
+When(/^I view the finder with no keywords and no facets$/) do
+  visit finder_path('mosw-reports')
+end
+
+Then(/I see no results$/) do
+  expect(page).to have_content('0 reports')
+  expect(page).to have_css('.filtered-results .document', count: 0)
+end
+
+And(/there is no keyword search box$/) do
+  expect(page).to_not have_css('#finder-keyword-search')
+end
+
 Then(/^I can get a list of all documents with matching metadata$/) do
   visit finder_path('mosw-reports')
 

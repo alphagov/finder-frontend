@@ -51,6 +51,11 @@ module DocumentHelper
       .to_return(body: popular_news_and_communication_json)
   end
 
+  def stub_rummager_api_request_with_no_results
+    stub_request(:get, rummager_0_documents_url)
+      .to_return(body: %|{ "results": [], "total": 0, "start": 0}|)
+  end
+
   def stub_rummager_api_request_with_422_response(page_number)
     stub_request(:get, rummager_document_other_page_search_url(page_number)).to_return(status: 422)
   end
@@ -78,6 +83,12 @@ module DocumentHelper
 
   def content_store_has_mosw_reports_finder
     content_store_has_item('/mosw-reports', govuk_content_schema_example('finder').to_json)
+  end
+
+  def content_store_has_mosw_reports_finder_with_no_facets
+    finder = govuk_content_schema_example('finder')
+    finder["details"]["facets"] = []
+    content_store_has_item('/mosw-reports', finder.to_json)
   end
 
   def content_store_has_qa_finder
@@ -242,6 +253,15 @@ module DocumentHelper
     rummager_url(
       mosw_search_params.merge(
         "order" => "-public_timestamp",
+      )
+    )
+  end
+
+  def rummager_0_documents_url
+    rummager_url(
+      mosw_search_params_no_facets.merge(
+        "order" => "-public_timestamp",
+        "count" => 1500
       )
     )
   end
