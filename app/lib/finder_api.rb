@@ -50,7 +50,6 @@ private
 
     all_unique_results = results
       .flat_map { |hash| hash["results"] }
-      .sort_by { |hash| hash["es_score"] }.reverse
       .uniq { |hash| hash["_id"] }
 
     {

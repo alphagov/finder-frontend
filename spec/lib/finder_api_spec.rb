@@ -41,8 +41,8 @@ describe FinderApi do
 
     it "de-duplicates the content" do
       results = subject.fetch("details").fetch("results")
-      expect(results.first).to match(hash_including("_id" => "/hmrc"))
-      expect(results.second).to match(hash_including("_id" => "/register-to-vote"))
+      expect(results.first).to match(hash_including("_id" => "/register-to-vote"))
+      expect(results.second).to match(hash_including("_id" => "/hmrc"))
     end
   end
 end
