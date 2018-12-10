@@ -10,6 +10,13 @@ module RummagerUrlHelper
     )
   end
 
+  def mosw_search_params_no_facets
+    base_search_params.merge(
+      "fields" => base_search_fields.join(","),
+      "filter_document_type" => "mosw_report",
+    )
+  end
+
   def mosw_search_fields
     base_search_fields + %w(
       walk_type
