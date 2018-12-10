@@ -11,13 +11,15 @@ class SearchQueryBuilder
       pagination_query,
       return_fields_query,
       keyword_query,
-      filter_query,
+      base_filter_query,
       reject_query,
       order_query,
       facet_query,
     ].reduce(&:merge)
 
-    [base_query] + extra_filter_queries.map do |query|
+    return [base_query] if filter_queries.empty?
+
+    filter_queries.map do |query|
       base_query.clone.merge(query)
     end
   end
@@ -120,19 +122,28 @@ private
     finder_content_item['details']['default_order'] || "-public_timestamp"
   end
 
-  def filter_query
-    @filter_query ||= filter_params(combine_mode: 'and')
-      .merge(base_filter)
-      .each_with_object({}) { |(k, v), query|
-        query["filter_#{k}"] = v
-      }
+  def base_filter_query
+    @base_filter_query ||= base_filter.each_with_object({}) do |(k, v), query|
+      query["filter_#{k}"] = v
+    end
   end
 
-  def extra_filter_queries
-    @extra_filter_queries ||= filter_params(combine_mode: 'or')
+  def and_filter_query
+    @and_filter_query ||= filter_params(combine_mode: 'and')
+      .each_with_object({}) do |(k, v), query|
+        query["filter_#{k}"] = v
+      end
+  end
+
+  def or_filter_queries
+    @or_filter_queries ||= filter_params(combine_mode: 'or')
       .map do |k, v|
         { "filter_#{k}" => v }
       end
+  end
+
+  def filter_queries
+    (and_filter_query.empty? ? [] : [and_filter_query]) + or_filter_queries
   end
 
   def reject_query

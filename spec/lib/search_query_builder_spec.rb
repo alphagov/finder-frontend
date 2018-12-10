@@ -134,7 +134,7 @@ describe SearchQueryBuilder do
       end
 
       it "should filter on both alpha and beta in the second query" do
-        expect(queries.second["filter_alpha"]).to eq(%w(test))
+        expect(queries.second["filter_alpha"]).to be_nil
         expect(queries.second["filter_beta"]).to eq(%w(test))
       end
     end
