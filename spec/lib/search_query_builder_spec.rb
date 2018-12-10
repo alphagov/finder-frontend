@@ -2,12 +2,14 @@ require "spec_helper"
 require "search_query_builder"
 
 describe SearchQueryBuilder do
-  subject(:query) {
+  subject(:queries) do
     SearchQueryBuilder.new(
       finder_content_item: finder_content_item,
       params: params,
-    ).call.first
-  }
+    ).call
+  end
+
+  let(:query) { queries.first }
 
   let(:finder_content_item) {
     {
@@ -102,6 +104,38 @@ describe SearchQueryBuilder do
         expect(query).to include(
           "fields" => "title,link,description,public_timestamp,zeta,beta",
         )
+      end
+    end
+
+    context "facets with or combine_mode" do
+      before do
+        facets.first["filterable"] = true
+        facets.first["type"] = "text"
+
+        facets.second["filterable"] = true
+        facets.second["type"] = "text"
+        facets.second["combine_mode"] = "or"
+      end
+
+      let(:params) do
+        {
+          "alpha" => "test",
+          "beta" => "test",
+        }
+      end
+
+      it "should generate two queries" do
+        expect(queries.count).to eq(2)
+      end
+
+      it "should filter on just alpha in the first query" do
+        expect(queries.first["filter_alpha"]).to eq(%w(test))
+        expect(queries.first["filter_beta"]).to be_nil
+      end
+
+      it "should filter on both alpha and beta in the second query" do
+        expect(queries.second["filter_alpha"]).to eq(%w(test))
+        expect(queries.second["filter_beta"]).to eq(%w(test))
       end
     end
   end
