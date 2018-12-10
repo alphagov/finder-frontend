@@ -39,8 +39,8 @@ describe AdvancedSearchFinderApi do
         .with("/education")
         .and_return(taxon)
 
-      allow(Services.rummager).to receive(:search)
-        .and_return(search_results)
+      allow(Services.rummager).to receive(:batch_search)
+        .and_return("results" => [search_results])
     end
 
     let(:composed_content_item) { instance.content_item_with_search_results }
@@ -55,8 +55,8 @@ describe AdvancedSearchFinderApi do
     it "calls the search API with the taxon content_id" do
       instance.content_item_with_search_results
 
-      expect(Services.rummager).to have_received(:search)
-        .with(hash_including("filter_part_of_taxonomy_tree" => taxon_content_id))
+      expect(Services.rummager).to have_received(:batch_search)
+        .with([hash_including("filter_part_of_taxonomy_tree" => taxon_content_id)])
     end
 
     context "when an invalid taxon path is specified in params" do
@@ -65,7 +65,7 @@ describe AdvancedSearchFinderApi do
           .with("/doesnt-exist")
           .and_raise(GdsApi::ContentStore::ItemNotFound.new("ContentItem not found"))
 
-        allow(Services.rummager).to receive(:search).and_return(search_results)
+        allow(Services.rummager).to receive(:batch_search).and_return("results" => [search_results])
       end
 
       let(:filter_params) { { "topic" => "/doesnt-exist" } }

@@ -38,15 +38,41 @@ private
     "features/fixtures/news_and_communications.json"
   end
 
+  def merge_and_deduplicate(search_response)
+    results = search_response.fetch("results")
+
+    return results[0] if results.count == 1
+
+    # This currently doesn't handle more complex features such as pagination
+    # and ordering. The only finder where the facets work as an OR filter
+    # doesn't use pagination and there aren't enough documents for order to be
+    # important.
+
+    all_unique_results = results
+      .flat_map { |hash| hash["results"] }
+      .sort_by { |hash| hash["es_score"] }.reverse
+      .uniq { |hash| hash["_id"] }
+
+    {
+      "results" => all_unique_results,
+      "total" => all_unique_results.count,
+      "start" => 0,
+    }
+  end
+
   def fetch_search_response(content_item)
-    query = query_builder_class.new(
+    queries = query_builder_class.new(
       finder_content_item: content_item,
       params: filter_params,
     ).call
 
-    query = TranslateContentPurposeFields.new(query).call
+    queries = queries.map do |query|
+      TranslateContentPurposeFields.new(query).call
+    end
 
-    Services.rummager.search(query).to_hash
+    merge_and_deduplicate(
+      Services.rummager.batch_search(queries).to_hash
+    )
   end
 
   def augment_content_item_with_results(content_item, search_response)

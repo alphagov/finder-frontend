@@ -67,11 +67,11 @@ module DocumentHelper
   end
 
   def stub_rummager_api_request_with_qa_finder_results
-    stub_request(:get, rummager_url({}) )
+    stub_request(:get, rummager_url({}))
       .with(
         query: hash_including({})
       ).to_return(
-         body: aaib_reports_json
+         body: aaib_reports_search_results
       )
   end
 
@@ -383,32 +383,36 @@ module DocumentHelper
     "#{Plek.current.find('whitehall-admin')}/api/world-locations"
   end
 
-  def aaib_reports_json
+  def aaib_reports_search_results
     %|{
       "results": [
         {
-          "title": "Acme keyword searchable walk",
-          "public_timestamp": "2010-10-06",
-          "summary": "ACME researched a new type of silly walk",
-          "document_type": "mosw_report",
-          "walk_type": [{
-            "value": "backwards",
-            "label": "Backwards"
-          }],
-          "place_of_origin": [{
-            "value": "scotland",
-            "label": "Scotland"
-          }],
-          "creator": "Wile E Coyote",
-          "date_of_introduction": "2014-08-28",
-          "link": "mosw-reports/acme-keyword-searchable-walk",
-          "_id": "mosw-reports/acme-keyword-searchable-walk"
+          "results": [
+            {
+              "title": "Acme keyword searchable walk",
+              "public_timestamp": "2010-10-06",
+              "summary": "ACME researched a new type of silly walk",
+              "document_type": "mosw_report",
+              "walk_type": [{
+                "value": "backwards",
+                "label": "Backwards"
+              }],
+              "place_of_origin": [{
+                "value": "scotland",
+                "label": "Scotland"
+              }],
+              "creator": "Wile E Coyote",
+              "date_of_introduction": "2014-08-28",
+              "link": "mosw-reports/acme-keyword-searchable-walk",
+              "_id": "mosw-reports/acme-keyword-searchable-walk"
+            }
+          ],
+          "total": 1,
+          "start": 0,
+          "facets": {},
+          "suggested_queries": []
         }
-      ],
-      "total": 1,
-      "start": 0,
-      "facets": {},
-      "suggested_queries": []
+      ]
     }|
   end
 
@@ -416,28 +420,32 @@ module DocumentHelper
     %|{
       "results": [
         {
-          "title": "Acme keyword searchable walk",
-          "public_timestamp": "2010-10-06",
-          "summary": "ACME researched a new type of silly walk",
-          "document_type": "mosw_report",
-          "walk_type": [{
-            "value": "backwards",
-            "label": "Backwards"
-          }],
-          "place_of_origin": [{
-            "value": "scotland",
-            "label": "Scotland"
-          }],
-          "creator": "Wile E Coyote",
-          "date_of_introduction": "2014-08-28",
-          "link": "mosw-reports/acme-keyword-searchable-walk",
-          "_id": "mosw-reports/acme-keyword-searchable-walk"
+          "results": [
+            {
+              "title": "Acme keyword searchable walk",
+              "public_timestamp": "2010-10-06",
+              "summary": "ACME researched a new type of silly walk",
+              "document_type": "mosw_report",
+              "walk_type": [{
+                "value": "backwards",
+                "label": "Backwards"
+              }],
+              "place_of_origin": [{
+                "value": "scotland",
+                "label": "Scotland"
+              }],
+              "creator": "Wile E Coyote",
+              "date_of_introduction": "2014-08-28",
+              "link": "mosw-reports/acme-keyword-searchable-walk",
+              "_id": "mosw-reports/acme-keyword-searchable-walk"
+            }
+          ],
+          "total": 1,
+          "start": 0,
+          "facets": {},
+          "suggested_queries": []
         }
-      ],
-      "total": 1,
-      "start": 0,
-      "facets": {},
-      "suggested_queries": []
+      ]
     }|
   end
 
@@ -445,66 +453,78 @@ module DocumentHelper
     %|{
       "results": [
         {
-          "title": "West London wobbley walk",
-          "public_timestamp": "2014-11-25",
-          "summary": "MOSW researched a new type of silly walk",
-          "document_type": "mosw_report",
-          "walk_type": [{
-            "value": "backward",
-            "label": "Backward"
-          }],
-          "place_of_origin": [{
-            "value": "england",
-            "label": "England"
-          }],
-          "creator": "Road Runner",
-          "date_of_introduction": "2003-12-30",
-          "link": "mosw-reports/west-london-wobbley-walk",
-          "_id": "mosw-reports/west-london-wobbley-walk"
-        },
-        {
-          "title": "The Gerry Anderson",
-          "public_timestamp": "2010-10-06",
-          "summary": "Rhyming slang for Dander, an Irish colloquialism for walk",
-          "document_type": "mosw_report",
-          "walk_type": [{
-            "value": "hopscotch",
-            "label": "Hopscotch"
-          }],
-          "place_of_origin": [{
-            "value": "northern-ireland",
-            "label": "Northern Ireland"
-          }],
-          "creator": "",
-          "date_of_introduction": "1914-08-28",
-          "link": "mosw-reports/the-gerry-anderson",
-          "_id": "mosw-reports/the-gerry-anderson"
+          "results": [
+            {
+              "title": "West London wobbley walk",
+              "public_timestamp": "2014-11-25",
+              "summary": "MOSW researched a new type of silly walk",
+              "document_type": "mosw_report",
+              "walk_type": [{
+                "value": "backward",
+                "label": "Backward"
+              }],
+              "place_of_origin": [{
+                "value": "england",
+                "label": "England"
+              }],
+              "creator": "Road Runner",
+              "date_of_introduction": "2003-12-30",
+              "link": "mosw-reports/west-london-wobbley-walk",
+              "_id": "mosw-reports/west-london-wobbley-walk"
+            },
+            {
+              "title": "The Gerry Anderson",
+              "public_timestamp": "2010-10-06",
+              "summary": "Rhyming slang for Dander, an Irish colloquialism for walk",
+              "document_type": "mosw_report",
+              "walk_type": [{
+                "value": "hopscotch",
+                "label": "Hopscotch"
+              }],
+              "place_of_origin": [{
+                "value": "northern-ireland",
+                "label": "Northern Ireland"
+              }],
+              "creator": "",
+              "date_of_introduction": "1914-08-28",
+              "link": "mosw-reports/the-gerry-anderson",
+              "_id": "mosw-reports/the-gerry-anderson"
+            }
+          ],
+          "total": 2,
+          "start": 0,
+          "facets": {},
+          "suggested_queries": []
         }
-      ],
-      "total": 2,
-      "start": 0,
-      "facets": {},
-      "suggested_queries": []
+      ]
     }|
   end
 
   def government_documents_json
     %|{
-      "results": #{government_document_results_json},
-      "total": 20,
-      "start": 0,
-      "facets": {},
-      "suggested_queries": []
+      "results": [
+        {
+          "results": #{government_document_results_json},
+          "total": 20,
+          "start": 0,
+          "facets": {},
+          "suggested_queries": []
+        }
+      ]
     }|
   end
 
   def government_documents_page_2_json
     %|{
-      "results": #{government_document_results_json(5)},
-      "total": 20,
-      "start": 10,
-      "facets": {},
-      "suggested_queries": []
+      "results": [
+        {
+          "results": #{government_document_results_json(5)},
+          "total": 20,
+          "start": 10,
+          "facets": {},
+          "suggested_queries": []
+        }
+      ]
     }|
   end
 
@@ -561,55 +581,59 @@ module DocumentHelper
     %|{
       "results": [
         {
-          "title": "Education",
-          "summary": "Education",
-          "format": "policy",
-          "creator": "Dale Cooper",
-          "public_timestamp": "2007-02-14T00:00:00.000+01:00",
-          "is_historic": true,
-          "display_type": "Policy",
-          "organisations": [{
-            "slug": "ministry-of-justice",
-            "link": "/government/organisations/ministry-of-justice",
-            "title": "Ministry of Justice",
-            "acronym": "MoJ",
-            "organisation_state": "live"
-          }],
-          "government_name": "2005 to 2010 Labour government",
-          "link": "/government/policies/education",
-          "_id": "/government/policies/education"
-        },
-        {
-          "title": "Afghanistan",
-          "public_timestamp": "2015-03-14T00:00:00.000+01:00",
-          "summary": "What the government is doing about Afghanistan",
-          "format": "policy",
-          "creator": "Dale Cooper",
-          "is_historic": false,
-          "organisations": [{
-            "slug": "ministry-of-justice",
-            "link": "/government/organisations/ministry-of-justice",
-            "title": "Ministry of Justice",
-            "acronym": "MoJ",
-            "organisation_state": "live"
-          }],
-          "display_type": "Policy",
-          "government_name": "2010 to 2015 Conservative and Liberal Democrat Coalition government",
-          "link": "/government/policies/afghanistan",
-          "_id": "/government/policies/afghanistan"
+          "results": [
+            {
+              "title": "Education",
+              "summary": "Education",
+              "format": "policy",
+              "creator": "Dale Cooper",
+              "public_timestamp": "2007-02-14T00:00:00.000+01:00",
+              "is_historic": true,
+              "display_type": "Policy",
+              "organisations": [{
+                "slug": "ministry-of-justice",
+                "link": "/government/organisations/ministry-of-justice",
+                "title": "Ministry of Justice",
+                "acronym": "MoJ",
+                "organisation_state": "live"
+              }],
+              "government_name": "2005 to 2010 Labour government",
+              "link": "/government/policies/education",
+              "_id": "/government/policies/education"
+            },
+            {
+              "title": "Afghanistan",
+              "public_timestamp": "2015-03-14T00:00:00.000+01:00",
+              "summary": "What the government is doing about Afghanistan",
+              "format": "policy",
+              "creator": "Dale Cooper",
+              "is_historic": false,
+              "organisations": [{
+                "slug": "ministry-of-justice",
+                "link": "/government/organisations/ministry-of-justice",
+                "title": "Ministry of Justice",
+                "acronym": "MoJ",
+                "organisation_state": "live"
+              }],
+              "display_type": "Policy",
+              "government_name": "2010 to 2015 Conservative and Liberal Democrat Coalition government",
+              "link": "/government/policies/afghanistan",
+              "_id": "/government/policies/afghanistan"
+            }
+          ],
+          "total": 2,
+          "start": 0,
+          "facets": {
+            "organisations": {
+              "options": [
+                  {"value": {"title": "Ministry of Justice", "slug": "ministry-of-justice"}},
+                  {"value": {"slug": "ministry-of-missing-spoons"}}
+              ]
+            }
+          },
+          "suggested_queries": []
         }
-      ],
-      "total": 2,
-      "start": 0,
-      "facets": {
-        "organisations": {
-          "options": [
-              {"value": {"title": "Ministry of Justice", "slug": "ministry-of-justice"}},
-              {"value": {"slug": "ministry-of-missing-spoons"}}
-          ]
-        }
-      },
-      "suggested_queries": []
+      ]
     }|
   end
 
@@ -617,129 +641,133 @@ module DocumentHelper
     %|{
       "results": [
         {
-          "title": "News from Hogwarts",
-          "link": "/news-from-hogwarts",
-          "description": "Breaking wizard news from Hogwarts",
-          "public_timestamp": "2018-11-16T11:11:42Z",
-          "part_of_taxonomy_tree": [
-            "4bc72a8b-6011-457a-87e0-06dbb427cf36"
-          ],
-          "organisations": [
+          "results": [
             {
-              "organisation_crest": "single-identity",
-              "acronym": "MOM",
-              "link": "/organisations/ministry-of-magic",
-              "analytics_identifier": "MM1",
-              "public_timestamp": "2017-12-15T11:11:02.000+00:00",
-              "organisation_brand": "ministry-of-magic",
-              "logo_formatted_title": "Ministry of Magic",
-              "title": "Ministry of Magic",
-              "content_id": "92881ac6-2804-4522-bf48-cf8c781c98bf",
-              "slug": "ministry-of-magic",
-              "organisation_type": "other",
-              "organisation_state": "live"
+              "title": "News from Hogwarts",
+              "link": "/news-from-hogwarts",
+              "description": "Breaking wizard news from Hogwarts",
+              "public_timestamp": "2018-11-16T11:11:42Z",
+              "part_of_taxonomy_tree": [
+                "4bc72a8b-6011-457a-87e0-06dbb427cf36"
+              ],
+              "organisations": [
+                {
+                  "organisation_crest": "single-identity",
+                  "acronym": "MOM",
+                  "link": "/organisations/ministry-of-magic",
+                  "analytics_identifier": "MM1",
+                  "public_timestamp": "2017-12-15T11:11:02.000+00:00",
+                  "organisation_brand": "ministry-of-magic",
+                  "logo_formatted_title": "Ministry of Magic",
+                  "title": "Ministry of Magic",
+                  "content_id": "92881ac6-2804-4522-bf48-cf8c781c98bf",
+                  "slug": "ministry-of-magic",
+                  "organisation_type": "other",
+                  "organisation_state": "live"
+                }
+              ],
+              "index": "govuk",
+              "es_score": null,
+              "_id": "/news-from-hogwarts",
+              "elasticsearch_type": "news_article",
+              "document_type": "news_article"
+            },
+            {
+              "title": "Press release from Hogwarts",
+              "link": "/press-release-from-hogwarts",
+              "description": "An important press release from Hogwarts",
+              "public_timestamp": "2017-12-25T09:00:00Z",
+              "part_of_taxonomy_tree": [
+                "4bc72a8b-6011-457a-87e0-06dbb427cf36"
+              ],
+              "organisations": [
+                {
+                  "organisation_crest": "single-identity",
+                  "acronym": "MOM",
+                  "link": "/organisations/ministry-of-magic",
+                  "analytics_identifier": "MM1",
+                  "public_timestamp": "2017-12-15T11:11:02.000+00:00",
+                  "organisation_brand": "ministry-of-magic",
+                  "logo_formatted_title": "Ministry of Magic",
+                  "title": "Ministry of Magic",
+                  "content_id": "92881ac6-2804-4522-bf48-cf8c781c98bf",
+                  "slug": "ministry-of-magic",
+                  "organisation_type": "other",
+                  "organisation_state": "live"
+                }
+              ],
+              "index": "govuk",
+              "es_score": null,
+              "_id": "/press-release-from-hogwarts",
+              "elasticsearch_type": "press_release",
+              "document_type": "press_release"
             }
           ],
-          "index": "govuk",
-          "es_score": null,
-          "_id": "/news-from-hogwarts",
-          "elasticsearch_type": "news_article",
-          "document_type": "news_article"
-        },
-        {
-          "title": "Press release from Hogwarts",
-          "link": "/press-release-from-hogwarts",
-          "description": "An important press release from Hogwarts",
-          "public_timestamp": "2017-12-25T09:00:00Z",
-          "part_of_taxonomy_tree": [
-            "4bc72a8b-6011-457a-87e0-06dbb427cf36"
-          ],
-          "organisations": [
-            {
-              "organisation_crest": "single-identity",
-              "acronym": "MOM",
-              "link": "/organisations/ministry-of-magic",
-              "analytics_identifier": "MM1",
-              "public_timestamp": "2017-12-15T11:11:02.000+00:00",
-              "organisation_brand": "ministry-of-magic",
-              "logo_formatted_title": "Ministry of Magic",
-              "title": "Ministry of Magic",
-              "content_id": "92881ac6-2804-4522-bf48-cf8c781c98bf",
-              "slug": "ministry-of-magic",
-              "organisation_type": "other",
-              "organisation_state": "live"
+          "total": 2,
+          "start": 0,
+          "facets": {
+            "people": {
+              "options": [
+                {
+                  "value": {
+                    "slug": "harry-potter",
+                    "title": "Harry Potter",
+                    "content_id": "aca5d2de-1fef-45fe-a39d-6a779589d220",
+                    "link": "/people/harry-potter"
+                  },
+                  "documents": 2
+                }
+              ],
+              "documents_with_no_value": 0,
+              "total_options": 2,
+              "missing_options": 0,
+              "scope": "exclude_field_filter"
+            },
+            "organisations": {
+              "options": [
+                {
+                  "value": {
+                    "organisation_brand": "ministry-of-magic",
+                    "logo_formatted_title": "Ministry of Magic",
+                    "organisation_crest": "single-identity",
+                    "title": "Ministry of Magic",
+                    "content_id": "92881ac6-2804-4522-bf48-cf8c781c98bf",
+                    "link": "/organisations/academy-for-social-justice-commissioning",
+                    "analytics_identifier": "MM1",
+                    "slug": "ministry-of-magic",
+                    "public_timestamp": "2017-12-15T11:11:02.000+00:00",
+                    "organisation_type": "other",
+                    "organisation_state": "live"
+                  },
+                  "documents": 2
+                }
+              ],
+              "documents_with_no_value": 0,
+              "total_options": 2,
+              "missing_options": 0,
+              "scope": "exclude_field_filter"
+            },
+            "world_locations": {
+              "options": [
+                {
+                  "value": {
+                    "slug": "azkaban",
+                    "title": "Azkaban",
+                    "content_id": "db3c2a86-2060-4c37-b8a4-9e3c4e6c91e2",
+                    "link": "/world/azkaban"
+                  },
+                  "documents": 2
+                }
+              ],
+              "documents_with_no_value": 0,
+              "total_options": 2,
+              "missing_options": 0,
+              "scope": "exclude_field_filter"
             }
-          ],
-          "index": "govuk",
-          "es_score": null,
-          "_id": "/press-release-from-hogwarts",
-          "elasticsearch_type": "press_release",
-          "document_type": "press_release"
+          },
+          "suggested_queries": []
         }
-      ],
-      "total": 2,
-      "start": 0,
-      "facets": {
-        "people": {
-          "options": [
-            {
-              "value": {
-                "slug": "harry-potter",
-                "title": "Harry Potter",
-                "content_id": "aca5d2de-1fef-45fe-a39d-6a779589d220",
-                "link": "/people/harry-potter"
-              },
-              "documents": 2
-            }
-          ],
-          "documents_with_no_value": 0,
-          "total_options": 2,
-          "missing_options": 0,
-          "scope": "exclude_field_filter"
-        },
-        "organisations": {
-          "options": [
-            {
-              "value": {
-                "organisation_brand": "ministry-of-magic",
-                "logo_formatted_title": "Ministry of Magic",
-                "organisation_crest": "single-identity",
-                "title": "Ministry of Magic",
-                "content_id": "92881ac6-2804-4522-bf48-cf8c781c98bf",
-                "link": "/organisations/academy-for-social-justice-commissioning",
-                "analytics_identifier": "MM1",
-                "slug": "ministry-of-magic",
-                "public_timestamp": "2017-12-15T11:11:02.000+00:00",
-                "organisation_type": "other",
-                "organisation_state": "live"
-              },
-              "documents": 2
-            }
-          ],
-          "documents_with_no_value": 0,
-          "total_options": 2,
-          "missing_options": 0,
-          "scope": "exclude_field_filter"
-        },
-        "world_locations": {
-          "options": [
-            {
-              "value": {
-                "slug": "azkaban",
-                "title": "Azkaban",
-                "content_id": "db3c2a86-2060-4c37-b8a4-9e3c4e6c91e2",
-                "link": "/world/azkaban"
-              },
-              "documents": 2
-            }
-          ],
-          "documents_with_no_value": 0,
-          "total_options": 2,
-          "missing_options": 0,
-          "scope": "exclude_field_filter"
-        }
-      },
-      "suggested_queries": []
+      ]
     }|
   end
 
@@ -747,129 +775,133 @@ module DocumentHelper
     %|{
       "results": [
         {
-          "title": "Press release from Hogwarts",
-          "link": "/press-release-from-hogwarts",
-          "description": "An important press release from Hogwarts",
-          "public_timestamp": "2017-12-25T09:00:00Z",
-          "part_of_taxonomy_tree": [
-            "4bc72a8b-6011-457a-87e0-06dbb427cf36"
-          ],
-          "organisations": [
+          "results": [
             {
-              "organisation_crest": "single-identity",
-              "acronym": "MOM",
-              "link": "/organisations/ministry-of-magic",
-              "analytics_identifier": "MM1",
-              "public_timestamp": "2017-12-15T11:11:02.000+00:00",
-              "organisation_brand": "ministry-of-magic",
-              "logo_formatted_title": "Ministry of Magic",
-              "title": "Ministry of Magic",
-              "content_id": "92881ac6-2804-4522-bf48-cf8c781c98bf",
-              "slug": "ministry-of-magic",
-              "organisation_type": "other",
-              "organisation_state": "live"
+              "title": "Press release from Hogwarts",
+              "link": "/press-release-from-hogwarts",
+              "description": "An important press release from Hogwarts",
+              "public_timestamp": "2017-12-25T09:00:00Z",
+              "part_of_taxonomy_tree": [
+                "4bc72a8b-6011-457a-87e0-06dbb427cf36"
+              ],
+              "organisations": [
+                {
+                  "organisation_crest": "single-identity",
+                  "acronym": "MOM",
+                  "link": "/organisations/ministry-of-magic",
+                  "analytics_identifier": "MM1",
+                  "public_timestamp": "2017-12-15T11:11:02.000+00:00",
+                  "organisation_brand": "ministry-of-magic",
+                  "logo_formatted_title": "Ministry of Magic",
+                  "title": "Ministry of Magic",
+                  "content_id": "92881ac6-2804-4522-bf48-cf8c781c98bf",
+                  "slug": "ministry-of-magic",
+                  "organisation_type": "other",
+                  "organisation_state": "live"
+                }
+              ],
+              "index": "govuk",
+              "es_score": null,
+              "_id": "/press-release-from-hogwarts",
+              "elasticsearch_type": "press_release",
+              "document_type": "press_release"
+            },
+            {
+              "title": "News from Hogwarts",
+              "link": "/news-from-hogwarts",
+              "description": "Breaking wizard news from Hogwarts",
+              "public_timestamp": "2018-11-16T11:11:42Z",
+              "part_of_taxonomy_tree": [
+                "4bc72a8b-6011-457a-87e0-06dbb427cf36"
+              ],
+              "organisations": [
+                {
+                  "organisation_crest": "single-identity",
+                  "acronym": "MOM",
+                  "link": "/organisations/ministry-of-magic",
+                  "analytics_identifier": "MM1",
+                  "public_timestamp": "2017-12-15T11:11:02.000+00:00",
+                  "organisation_brand": "ministry-of-magic",
+                  "logo_formatted_title": "Ministry of Magic",
+                  "title": "Ministry of Magic",
+                  "content_id": "92881ac6-2804-4522-bf48-cf8c781c98bf",
+                  "slug": "ministry-of-magic",
+                  "organisation_type": "other",
+                  "organisation_state": "live"
+                }
+              ],
+              "index": "govuk",
+              "es_score": null,
+              "_id": "/news-from-hogwarts",
+              "elasticsearch_type": "news_article",
+              "document_type": "news_article"
             }
           ],
-          "index": "govuk",
-          "es_score": null,
-          "_id": "/press-release-from-hogwarts",
-          "elasticsearch_type": "press_release",
-          "document_type": "press_release"
-        },
-        {
-          "title": "News from Hogwarts",
-          "link": "/news-from-hogwarts",
-          "description": "Breaking wizard news from Hogwarts",
-          "public_timestamp": "2018-11-16T11:11:42Z",
-          "part_of_taxonomy_tree": [
-            "4bc72a8b-6011-457a-87e0-06dbb427cf36"
-          ],
-          "organisations": [
-            {
-              "organisation_crest": "single-identity",
-              "acronym": "MOM",
-              "link": "/organisations/ministry-of-magic",
-              "analytics_identifier": "MM1",
-              "public_timestamp": "2017-12-15T11:11:02.000+00:00",
-              "organisation_brand": "ministry-of-magic",
-              "logo_formatted_title": "Ministry of Magic",
-              "title": "Ministry of Magic",
-              "content_id": "92881ac6-2804-4522-bf48-cf8c781c98bf",
-              "slug": "ministry-of-magic",
-              "organisation_type": "other",
-              "organisation_state": "live"
+          "total": 2,
+          "start": 0,
+          "facets": {
+            "people": {
+              "options": [
+                {
+                  "value": {
+                    "slug": "harry-potter",
+                    "title": "Harry Potter",
+                    "content_id": "aca5d2de-1fef-45fe-a39d-6a779589d220",
+                    "link": "/people/harry-potter"
+                  },
+                  "documents": 2
+                }
+              ],
+              "documents_with_no_value": 0,
+              "total_options": 2,
+              "missing_options": 0,
+              "scope": "exclude_field_filter"
+            },
+            "organisations": {
+              "options": [
+                {
+                  "value": {
+                    "organisation_brand": "ministry-of-magic",
+                    "logo_formatted_title": "Ministry of Magic",
+                    "organisation_crest": "single-identity",
+                    "title": "Ministry of Magic",
+                    "content_id": "92881ac6-2804-4522-bf48-cf8c781c98bf",
+                    "link": "/organisations/academy-for-social-justice-commissioning",
+                    "analytics_identifier": "MM1",
+                    "slug": "ministry-of-magic",
+                    "public_timestamp": "2017-12-15T11:11:02.000+00:00",
+                    "organisation_type": "other",
+                    "organisation_state": "live"
+                  },
+                  "documents": 2
+                }
+              ],
+              "documents_with_no_value": 0,
+              "total_options": 2,
+              "missing_options": 0,
+              "scope": "exclude_field_filter"
+            },
+            "world_locations": {
+              "options": [
+                {
+                  "value": {
+                    "slug": "azkaban",
+                    "title": "Azkaban",
+                    "content_id": "db3c2a86-2060-4c37-b8a4-9e3c4e6c91e2",
+                    "link": "/world/azkaban"
+                  },
+                  "documents": 2
+                }
+              ],
+              "documents_with_no_value": 0,
+              "total_options": 2,
+              "missing_options": 0,
+              "scope": "exclude_field_filter"
             }
-          ],
-          "index": "govuk",
-          "es_score": null,
-          "_id": "/news-from-hogwarts",
-          "elasticsearch_type": "news_article",
-          "document_type": "news_article"
+          },
+          "suggested_queries": []
         }
-      ],
-      "total": 2,
-      "start": 0,
-      "facets": {
-        "people": {
-          "options": [
-            {
-              "value": {
-                "slug": "harry-potter",
-                "title": "Harry Potter",
-                "content_id": "aca5d2de-1fef-45fe-a39d-6a779589d220",
-                "link": "/people/harry-potter"
-              },
-              "documents": 2
-            }
-          ],
-          "documents_with_no_value": 0,
-          "total_options": 2,
-          "missing_options": 0,
-          "scope": "exclude_field_filter"
-        },
-        "organisations": {
-          "options": [
-            {
-              "value": {
-                "organisation_brand": "ministry-of-magic",
-                "logo_formatted_title": "Ministry of Magic",
-                "organisation_crest": "single-identity",
-                "title": "Ministry of Magic",
-                "content_id": "92881ac6-2804-4522-bf48-cf8c781c98bf",
-                "link": "/organisations/academy-for-social-justice-commissioning",
-                "analytics_identifier": "MM1",
-                "slug": "ministry-of-magic",
-                "public_timestamp": "2017-12-15T11:11:02.000+00:00",
-                "organisation_type": "other",
-                "organisation_state": "live"
-              },
-              "documents": 2
-            }
-          ],
-          "documents_with_no_value": 0,
-          "total_options": 2,
-          "missing_options": 0,
-          "scope": "exclude_field_filter"
-        },
-        "world_locations": {
-          "options": [
-            {
-              "value": {
-                "slug": "azkaban",
-                "title": "Azkaban",
-                "content_id": "db3c2a86-2060-4c37-b8a4-9e3c4e6c91e2",
-                "link": "/world/azkaban"
-              },
-              "documents": 2
-            }
-          ],
-          "documents_with_no_value": 0,
-          "total_options": 2,
-          "missing_options": 0,
-          "scope": "exclude_field_filter"
-        }
-      },
-      "suggested_queries": []
+      ]
     }|
   end
 
@@ -877,40 +909,44 @@ module DocumentHelper
     %|{
       "results": [
         {
-          "title": "West London wobbley walk",
-          "public_timestamp": "2014-11-25",
-          "summary": "MOSW researched a new type of silly walk",
-          "document_type": "mosw_report",
-          "walk_type": [{
-            "value": "backward",
-            "label": "Backward"
-          }],
-          "place_of_origin": [null],
-          "creator": "Road Runner",
-          "date_of_introduction": "2003-12-30",
-          "link": "mosw-reports/west-london-wobbley-walk",
-          "_id": "mosw-reports/west-london-wobbley-walk"
-        },
-        {
-          "title": "The Gerry Anderson",
-          "public_timestamp": "2010-10-06",
-          "summary": "Rhyming slang for Dander, an Irish colloquialism for walk",
-          "document_type": "mosw_report",
-          "walk_type": [null],
-          "place_of_origin": [{
-            "value": "northern-ireland",
-            "label": "Northern Ireland"
-          }],
-          "creator": "",
-          "date_of_introduction": "1914-08-28",
-          "link": "mosw-reports/the-gerry-anderson",
-          "_id": "mosw-reports/the-gerry-anderson"
+          "results": [
+            {
+              "title": "West London wobbley walk",
+              "public_timestamp": "2014-11-25",
+              "summary": "MOSW researched a new type of silly walk",
+              "document_type": "mosw_report",
+              "walk_type": [{
+                "value": "backward",
+                "label": "Backward"
+              }],
+              "place_of_origin": [null],
+              "creator": "Road Runner",
+              "date_of_introduction": "2003-12-30",
+              "link": "mosw-reports/west-london-wobbley-walk",
+              "_id": "mosw-reports/west-london-wobbley-walk"
+            },
+            {
+              "title": "The Gerry Anderson",
+              "public_timestamp": "2010-10-06",
+              "summary": "Rhyming slang for Dander, an Irish colloquialism for walk",
+              "document_type": "mosw_report",
+              "walk_type": [null],
+              "place_of_origin": [{
+                "value": "northern-ireland",
+                "label": "Northern Ireland"
+              }],
+              "creator": "",
+              "date_of_introduction": "1914-08-28",
+              "link": "mosw-reports/the-gerry-anderson",
+              "_id": "mosw-reports/the-gerry-anderson"
+            }
+          ],
+          "total": 2,
+          "start": 0,
+          "facets": {},
+          "suggested_queries": []
         }
-      ],
-      "total": 2,
-      "start": 0,
-      "facets": {},
-      "suggested_queries": []
+      ]
     }|
   end
 
@@ -918,28 +954,32 @@ module DocumentHelper
     %|{
       "results": [
         {
-          "title": "The Gerry Anderson",
-          "public_timestamp": "2010-10-06",
-          "summary": "Rhyming slang for Dander, an Irish colloquialism for walk",
-          "document_type": "mosw_report",
-          "walk_type": [{
-            "value": "hopscotch",
-            "label": "Hopscotch"
-          }],
-          "place_of_origin": [{
-            "value": "northern-ireland",
-            "label": "Northern Ireland"
-          }],
-          "creator": "",
-          "date_of_introduction": "1914-08-28",
-          "link": "mosw-reports/the-gerry-anderson",
-          "_id": "mosw-reports/the-gerry-anderson"
+          "results": [
+            {
+              "title": "The Gerry Anderson",
+              "public_timestamp": "2010-10-06",
+              "summary": "Rhyming slang for Dander, an Irish colloquialism for walk",
+              "document_type": "mosw_report",
+              "walk_type": [{
+                "value": "hopscotch",
+                "label": "Hopscotch"
+              }],
+              "place_of_origin": [{
+                "value": "northern-ireland",
+                "label": "Northern Ireland"
+              }],
+              "creator": "",
+              "date_of_introduction": "1914-08-28",
+              "link": "mosw-reports/the-gerry-anderson",
+              "_id": "mosw-reports/the-gerry-anderson"
+            }
+          ],
+          "total": 1,
+          "start": 0,
+          "facets": {},
+          "suggested_queries": []
         }
-      ],
-      "total": 1,
-      "start": 0,
-      "facets": {},
-      "suggested_queries": []
+      ]
     }|
   end
 
@@ -947,54 +987,58 @@ module DocumentHelper
     %|{
       "results": [
         {
-          "title": "Big Beer Co / Salty Snacks Ltd merger inquiry",
-          "public_timestamp": "2015-03-17T09:18:18+00:00",
-          "summary": "The CMA is investigating the merging of Big Beer Co and Salty Snacks Ltd.",
-          "document_type": "cma_case",
-          "case_type": [{
-            "value": "mergers",
-            "label": "Mergers"
-          }],
-          "case_state": [{
-            "value": "closed",
-            "label": "Closed"
-          }],
-          "market_sector": [{
-            "value": "food-manufacturing",
-            "label": "Food manufacturing"
-          }],
-          "opened_date": "2015-02-14",
-          "closed_date": "2016-02-14",
-          "link": "cma-cases/big-beer-co-salty-snacks-ltd-merger",
-          "_id": "cma-cases/big-beer-co-salty-snacks-ltd-merger"
-        },
-        {
-          "title": "Bakery market investigation",
-          "public_timestamp": "2015-01-06T10:34:17+00:00",
-          "summary": "The CMA is investigation the supply and marketing of pizza-cakes in Great Britain.",
-          "document_type": "cma_case",
-          "case_type": [{
-            "value": "markets",
-            "label": "Markets"
-          }],
-          "case_state": [{
-            "value": "closed",
-            "label": "Closed"
-          }],
-          "market_sector": [{
-            "value": "food-manufacturing",
-            "label": "Food manufacturing"
-          }],
-          "opened_date": "2014-10-31",
-          "closed_date": "2015-10-31",
-          "link": "cma-cases/bakery-market-investigation",
-          "_id": "cma-cases/bakery-market-investigation"
+          "results": [
+            {
+              "title": "Big Beer Co / Salty Snacks Ltd merger inquiry",
+              "public_timestamp": "2015-03-17T09:18:18+00:00",
+              "summary": "The CMA is investigating the merging of Big Beer Co and Salty Snacks Ltd.",
+              "document_type": "cma_case",
+              "case_type": [{
+                "value": "mergers",
+                "label": "Mergers"
+              }],
+              "case_state": [{
+                "value": "closed",
+                "label": "Closed"
+              }],
+              "market_sector": [{
+                "value": "food-manufacturing",
+                "label": "Food manufacturing"
+              }],
+              "opened_date": "2015-02-14",
+              "closed_date": "2016-02-14",
+              "link": "cma-cases/big-beer-co-salty-snacks-ltd-merger",
+              "_id": "cma-cases/big-beer-co-salty-snacks-ltd-merger"
+            },
+            {
+              "title": "Bakery market investigation",
+              "public_timestamp": "2015-01-06T10:34:17+00:00",
+              "summary": "The CMA is investigation the supply and marketing of pizza-cakes in Great Britain.",
+              "document_type": "cma_case",
+              "case_type": [{
+                "value": "markets",
+                "label": "Markets"
+              }],
+              "case_state": [{
+                "value": "closed",
+                "label": "Closed"
+              }],
+              "market_sector": [{
+                "value": "food-manufacturing",
+                "label": "Food manufacturing"
+              }],
+              "opened_date": "2014-10-31",
+              "closed_date": "2015-10-31",
+              "link": "cma-cases/bakery-market-investigation",
+              "_id": "cma-cases/bakery-market-investigation"
+            }
+          ],
+          "total": 2,
+          "start": 0,
+          "facets": {},
+          "suggested_queries": []
         }
-      ],
-      "total": 2,
-      "start": 0,
-      "facets": {},
-      "suggested_queries": []
+      ]
     }|
   end
 
@@ -1002,31 +1046,35 @@ module DocumentHelper
     %|{
       "results": [
         {
-          "title": "Big Beer Co / Salty Snacks Ltd merger inquiry",
-          "public_timestamp": "2015-03-17T09:18:18+00:00",
-          "summary": "The CMA is investigating the merging of Big Beer Co and Salty Snacks Ltd.",
-          "document_type": "cma_case",
-          "case_type": [{
-            "value": "mergers",
-            "label": "Mergers"
-          }],
-          "case_state": [{
-            "value": "open",
-            "label": "Open"
-          }],
-          "market_sector": [{
-            "value": "food-manufacturing",
-            "label": "Food manufacturing"
-          }],
-          "opened_date": "2015-02-14",
-          "link": "cma-cases/big-beer-co-salty-snacks-ltd-merger",
-          "_id": "cma-cases/big-beer-co-salty-snacks-ltd-merger"
+          "results": [
+            {
+              "title": "Big Beer Co / Salty Snacks Ltd merger inquiry",
+              "public_timestamp": "2015-03-17T09:18:18+00:00",
+              "summary": "The CMA is investigating the merging of Big Beer Co and Salty Snacks Ltd.",
+              "document_type": "cma_case",
+              "case_type": [{
+                "value": "mergers",
+                "label": "Mergers"
+              }],
+              "case_state": [{
+                "value": "open",
+                "label": "Open"
+              }],
+              "market_sector": [{
+                "value": "food-manufacturing",
+                "label": "Food manufacturing"
+              }],
+              "opened_date": "2015-02-14",
+              "link": "cma-cases/big-beer-co-salty-snacks-ltd-merger",
+              "_id": "cma-cases/big-beer-co-salty-snacks-ltd-merger"
+            }
+          ],
+          "total": 1,
+          "start": 0,
+          "facets": {},
+          "suggested_queries": []
         }
-      ],
-      "total": 1,
-      "start": 0,
-      "facets": {},
-      "suggested_queries": []
+      ]
     }|
   end
 
