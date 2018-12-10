@@ -61,7 +61,3 @@ ActionController::Base.allow_rescue = false
 # The :transaction strategy is faster, but might give you threading problems.
 # See https://github.com/cucumber/cucumber-rails/blob/master/features/choose_javascript_database_strategy.feature
 Cucumber::Rails::Database.javascript_strategy = :truncation
-
-ENV["FINDER_FRONTEND_ENABLE_QA"] = 'true'
-# A temporary environment variable acting as a feature flag. This can be removed when the corresponding
-# 'return error_not_found unless ENV["FINDER_FRONTEND_ENABLE_QA"]' is removed from the QAController
