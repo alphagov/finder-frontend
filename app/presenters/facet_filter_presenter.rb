@@ -1,9 +1,9 @@
 class FacetFilterPresenter
   include ERB::Util
 
-  def initialize(sentence_fragment, all_filter_params, base_url)
+  def initialize(sentence_fragment, filter_params, base_url)
     @fragment = sentence_fragment
-    @all_filter_params = all_filter_params
+    @filter_params = filter_params
     @base_url = base_url
   end
 
@@ -23,12 +23,11 @@ class FacetFilterPresenter
 
 private
 
-  attr_reader :fragment, :all_filter_params, :base_url
+  attr_reader :fragment, :filter_params, :base_url
 
   def create_remove_filter_link(value)
-    filtered_params = all_filter_params.deep_dup
-    values = filtered_params[fragment['key']] || []
-    filtered_params[fragment['key']] = filter_parameters(values, value)
+    values = filter_params.blank? ? [] : filter_params.deep_dup
+    filtered_params = filter_parameters(values, value)
 
     {
       href: "#{base_url}?#{Rack::Utils.build_nested_query(filtered_params)}",

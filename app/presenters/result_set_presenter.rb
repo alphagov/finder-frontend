@@ -53,7 +53,7 @@ class ResultSetPresenter
 
     # TODO: Change to pass in only necessary filter_params (by key) rather than all_filter_params - this is wasteful
     (selected_filters.map do |filter|
-      FacetFilterPresenter.new(filter.sentence_fragment, all_filter_params, finder.slug).present
+      FacetFilterPresenter.new(filter.sentence_fragment, all_filter_params[filter.key], finder.slug).present
     end).reject(&:empty?)
   end
 
