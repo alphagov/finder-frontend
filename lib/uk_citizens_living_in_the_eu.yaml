@@ -1,11 +1,11 @@
 ---
-base_path: "/uk-nationals-in-eu"
-title: UK nationals in the EU
+base_path: "/uk-citizens-in-eu"
+title: UK citizens in the EU
 questions:
   - id: where_do_you_live
     question: Where do you live?
     hint: |
-      Choose your country or <a href="https://www.gov.uk/guidance/advice-for-british-nationals-travelling-and-living-in-europe">check the guidance for all UK nationals living in the EU</a>.
+      Choose your country or <a href="https://www.gov.uk/guidance/advice-for-british-nationals-travelling-and-living-in-europe">check the guidance for all UK citizens living in the EU</a>.
     type: radio
     options:
       - text: Austria
