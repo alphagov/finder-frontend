@@ -289,8 +289,15 @@
       }
 
       .facet-tag-wrapper {
-        display: inline-block;
-        margin-top: $gutter-one-third;
+        display: block;
+        margin-top: 5px;
+
+        @include media(tablet) {
+          display: inline-block;
+          border-collapse: separate;
+          border-spacing: 5px;
+          margin-top: $gutter-one-third;
+        }
       }
 
       .facet-tag-wrapper:first-of-type .facet-tag-preposition:first-of-type {
@@ -299,19 +306,27 @@
       }
 
       .facet-tag-preposition {
-        display: inline-block;
+        display: block;
         margin-right: 5px;
         margin-bottom: 5px;
+
+        @include media(tablet) {
+          display: table-cell;
+        }
       }
 
       .facet-tag {
+        display: block;
         position: relative;
-        display: inline-block;
         padding: 5px 5px 5px $gutter-two-thirds;
         border: 1px solid $grey-1;
         border-radius: 5px;
         background-color: $grey-4;
         margin-right: 5px;
+
+        @include media(tablet) {
+          display: table-cell;
+        }
 
         .facet-tag-text {
           display: inline-block;
