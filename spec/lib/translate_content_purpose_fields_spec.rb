@@ -106,5 +106,26 @@ RSpec.describe TranslateContentPurposeFields do
         is_expected.to_not include('filter_content_purpose_subgroup', 'filter_content_purpose_supergroup')
       end
     end
+
+    context 'when it also includes content store document types' do
+      let(:query) do
+        {
+            'filter_content_purpose_subgroup' => 'policy',
+            'filter_content_purpose_supergroup' => 'transparency',
+            'filter_content_store_document_type' => %w(travel_advice_index case_study),
+            'foo' => 'bar',
+        }
+      end
+
+      it 'preserves original query fields' do
+        is_expected.to include('foo' => 'bar')
+      end
+
+      it 'includes the document types with the relevant translated supertypes' do
+        is_expected.to include('filter_content_store_document_type' => %w(case_study impact_assessment policy_paper travel_advice_index))
+
+        is_expected.to_not include('filter_content_purpose_subgroup', 'filter_content_purpose_supergroup')
+      end
+    end
   end
 end
