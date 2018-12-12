@@ -137,18 +137,30 @@ Then(/^I only see documents with matching dates$/) do
   assert_cma_cases_are_filtered_by_date
 end
 
-Given(/^a finder with a dynamic filter exists$/) do
+Given(/^a finder with autocomplete exists$/) do
   content_store_has_mosw_reports_finder
   stub_rummager_api_request
 end
 
-Then(/^I can see filters based on the results$/) do
+Then(/^I can filter based on the results$/) do
   visit finder_path('mosw-reports')
 
-  within first('.app-c-option-select') do
-    expect(page).to have_selector('input#walk_type-backward')
-    expect(page).to have_content('Hopscotch')
-    expect(page).to_not have_selector('input#organisations-ministry-of-silly-walks')
+  expect(page).to have_content("2 reports sorted by Recently published")
+  within ".filtered-results" do
+    expect(page).to have_content("West London wobbley walk")
+    expect(page).to have_content("The Gerry Anderson")
+  end
+
+  within first('.gem-c-accessible-autocomplete') do
+    expect(page).to have_selector('select#walk_type')
+    select("Hopscotch", from: "walk_type").select_option
+  end
+  click_on "Filter results"
+
+  expect(page).to have_content("1 report of type Hopscotch sorted by Recently published")
+  within ".filtered-results" do
+    expect(page).not_to have_content("West London wobbley walk")
+    expect(page).to have_content("The Gerry Anderson")
   end
 end
 

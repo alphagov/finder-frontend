@@ -3,24 +3,16 @@ class SelectFacet < FilterableFacet
     facet['allowed_values']
   end
 
-  def options(controls, key)
-    # NOTE: We use a symbol-based hash here unlike all our other hash
-    # data-structures because we pass this to a govuk_component partial
-    # that expects symbol keys, not strings
-    allowed_values.map do |allowed_value|
-      {
-        value: allowed_value['value'],
-        label: allowed_value['label'],
-        id: "#{key}-#{allowed_value['value']}",
-        data_attributes: {
-          track_category: "filterClicked",
-          track_action: name,
-          track_label: allowed_value['label'],
-        },
-        checked: selected_values.include?(allowed_value),
-        controls: controls || nil
-      }
-    end
+  def options
+    [["", ""]] + allowed_values.map { |allowed_value| [allowed_value['label'], allowed_value['value']] }
+  end
+
+  def data_attributes
+    {
+      track_category: "filterClicked",
+      track_action: "name",
+      track_label: "allowed_value['label']",
+    }
   end
 
   def value=(new_value)
@@ -46,8 +38,9 @@ class SelectFacet < FilterableFacet
     selected_values.empty? && allowed_values.count > 10
   end
 
-  def unselected?
-    selected_values.empty?
+  def selected_option
+    return nil unless selected_values.any?
+    selected_values.first.values
   end
 
 private

@@ -1,10 +1,11 @@
-<% close_facet = select_facet.unselected? && ((select_facet_counter > 0) || select_facet.close_facet?) %>
-<%= render partial: 'components/option-select', locals: {
-  :key => select_facet.key,
-  :title => select_facet.name,
-  :aria_controls_id => "js-search-results-info",
-  :options_container_id => select_facet.key,
-  :options => select_facet.options("js-search-results-info", select_facet.key),
-  :closed_on_load => close_facet,
-}
-%>
+<div class='select-filter'>
+  <%= render "govuk_publishing_components/components/accessible_autocomplete", {
+      id: select_facet.key,
+      label: {
+          text: select_facet.name
+      },
+      options: select_facet.options,
+      selected_option: select_facet.selected_option, # TODO: Make the component accept multiple
+      data_attributes: select_facet.data_attributes }
+  %>
+</div>

@@ -12,7 +12,7 @@ Feature: QA
       Given I am answering a single answer question
       Then I should see a collection of radio buttons
       When I select a radio button
-      When I select another radio button
+      When I select a radio button
       When I submit my answer
       Then my options are persisted as url params
 

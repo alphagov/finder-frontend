@@ -64,54 +64,34 @@ describe SelectFacet do
     end
   end
 
-  describe "#close_facet?" do
-    context "small number of options" do
-      specify { expect(subject.close_facet?).to be false }
-    end
-
-    context "large number of options" do
-      let(:allowed_values) {
-        11.times.map { |i| { 'label' => "Label #{i}", 'value' => "allowed-value-#{i}" } }
-      }
-
-      let(:large_facet_data) {
-        {
-          'type' => "multi-select",
-          'name' => "Test values",
-          'key' => "test_values",
-          'preposition' => "of value",
-          'allowed_values' => allowed_values,
-        }
-      }
-
-      subject { SelectFacet.new(large_facet_data) }
-
-      specify { expect(subject.close_facet?).to be true }
-    end
+  describe "#data_attributes" do
+    specify {
+      expect(subject.data_attributes[:track_category]).to eql('filterClicked')
+      expect(subject.data_attributes[:track_action]).to eql('name')
+      expect(subject.data_attributes[:track_label]).to eql("allowed_value['label']")
+    }
   end
 
-  describe "#unselected?" do
-    context "no selected values" do
-      specify { expect(subject.unselected?).to be true }
+
+  describe "#options" do
+    specify {
+      expect(subject.options).to eql([["", ""], ["Allowed value 1", "allowed-value-1"], ["Allowed value 2", "allowed-value-2"], %w(Remittals remittals)])
+    }
+  end
+
+  describe "#selected_options" do
+    before do
+      subject.value = value
     end
 
-    context "some selected values" do
-      let(:facet_data) {
-        {
-          'type' => "multi-select",
-          'name' => "Test values",
-          'key' => "test_values",
-          'preposition' => "of value",
-          'allowed_values' => [{ 'label' => 'One', 'value' => '1' }],
-        }
-      }
+    context "no selected values" do
+      let(:value) { [] }
+      specify { expect(subject.selected_option).to be_nil }
+    end
 
-      subject { SelectFacet.new(facet_data) }
-
-      specify do
-        subject.value = "1"
-        expect(subject.unselected?).to be false
-      end
+    context "selected values" do
+      let(:value) { %w(allowed-value-1 allowed-value-2) }
+      specify { expect(subject.selected_option).to eql(["Allowed value 1", "allowed-value-1"]) }
     end
   end
 end

@@ -1,5 +1,5 @@
 describe("liveSearch", function(){
-  var $form, $results, _supportHistory, liveSearch;
+  var $form, $results, _supportHistory, liveSearch, $autocompleteForm;
   var dummyResponse = {
     "total":1,
     "pluralised_document_noun":"reports",
@@ -296,5 +296,29 @@ describe("liveSearch", function(){
        expect(liveSearch.$form.find('#text_1').val()).toBe('Monday');
        expect(liveSearch.$form.find('#text_2').val()).toBe('');
      })
+  });
+
+  describe('accessibleAutocomplete', function() {
+    beforeEach(function(){
+      $autocompleteForm = $('<form action="/somewhere" class="js-live-search-form"><div class="select-filter"><label for="people" class="gem-c-label govuk-label ">Silly walks</label><div class="gem-c-accessible-autocomplete" data-module="accessible-autocomplete"><span><div class="autocomplete__wrapper" role="combobox" aria-expanded="false"><div aria-atomic="true" aria-live="polite" role="status">3 results are available. <span>,,</span></div><input aria-owns="silly_walks__listbox" autocomplete="off" class="autocomplete__input autocomplete__input--show-all-values" id="silly_walks" name="" placeholder="" type="text" role="textbox"><ul class="autocomplete__menu autocomplete__menu--inline autocomplete__menu--hidden" id="people__listbox" role="listbox"><li class="autocomplete__option" id="walk__option--0" role="option" tabindex="-1">Hopscotch</li><li class="autocomplete__option autocomplete__option--odd" id="walk__option--1" role="option" tabindex="-1">The West London Wobbly Walk</li><li class="autocomplete__option" id="walk__option--2" role="option" tabindex="-1">The Gerry Anderson</li></ul></div></span><select name="walk" id="walk-select" style="display: none;"><option value=""></option><option value="hopscotch">Hopscotch</option><option value="the-west-london-wobbly-walk">The West London Wobbly Walk</option><option value="the-gerry-anderson">The Gerry Anderson</option></select></div></div><input type="submit" value="Filter results" class="button js-live-search-fallback"/></form>');
+    });
+
+    it('updates an accessibleAutocomplete', function () {
+      liveSearch.$form = $autocompleteForm;
+      expect(liveSearch.$form.find("select").val()).toBe('');
+      $(document).trigger( "accessibleAutocompleteChanged", [liveSearch.$form.find(".gem-c-accessible-autocomplete"), 'hopscotch', "Hopscotch"] );
+      expect(liveSearch.$form.find("select").val()).toBe('hopscotch');
+    });
+
+    it('clears an accessibleAutocomplete if blur on an empty input', function() {
+      var autocompleteLiveSearch = new GOVUK.LiveSearch({$form: $autocompleteForm, $results: $results, $atomAutodiscoveryLink:$atomAutodiscoveryLink});
+      expect(autocompleteLiveSearch.$form.find("select").val()).toBe('');
+      $(document).trigger( "accessibleAutocompleteChanged", [autocompleteLiveSearch.$form.find(".gem-c-accessible-autocomplete"), 'hopscotch', "Hopscotch"] );
+      expect(autocompleteLiveSearch.$form.find("select").val()).toBe('hopscotch');
+
+      autocompleteLiveSearch.$form.find(".gem-c-accessible-autocomplete input[type='text']").val("");
+      autocompleteLiveSearch.$form.find(".gem-c-accessible-autocomplete input[type='text']").trigger("blur");
+      expect(autocompleteLiveSearch.$form.find("select").val()).toBe('');
+    });
   });
 });

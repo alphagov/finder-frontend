@@ -25,6 +25,16 @@
     this.resultCountTemplate = this.setResultCountTemplate();
     this.getTaxonomyFacet().update();
 
+    $(document).on("accessibleAutocompleteChanged", function(e, element, newVal, label){
+      element.find('select').val(newVal).trigger('change');
+    });
+
+    this.$form.on("blur", ".gem-c-accessible-autocomplete input[type='text']", function(){
+      if($(this).val().replace(/\s+/g, '') == ""){
+        $(this).parents(".gem-c-accessible-autocomplete").find("select").val("").trigger("change");
+      }
+    });
+
     if(GOVUK.support.history()){
       this.saveState();
 

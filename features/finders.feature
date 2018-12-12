@@ -41,9 +41,9 @@ Feature: Filtering documents
     Given a collection of documents with bad metadata exist
     Then I can get a list of all documents with good metadata
 
-  Scenario: Visit a finder with dynamic filter
-    Given a finder with a dynamic filter exists
-    Then I can see filters based on the results
+  Scenario: Visit a finder autocomplete
+    Given a finder with autocomplete exists
+    Then I can filter based on the results
 
   Scenario: Visit a finder with paginated results
     Given a finder with paginated results exists

@@ -23,7 +23,7 @@ Then /^I should see a collection of radio buttons/ do
   expect(page).to have_css('.govuk-radios')
 end
 
-When /^I select (.*?) radio button/ do |amount|
+When /^I select a radio button/ do
   button = find(:radio_button, checked: false, match: :first)
   button.set(true)
   @radio_params = "#{button[:name]}=#{button[:value]}"
@@ -37,8 +37,8 @@ When /^I select multiple checkboxes/ do
   @checkbox_params ||= ""
   checkboxes = find_all(:checkbox, visible: true)
   checkboxes.each do |ch|
-      ch.check
-      @checkbox_params << "#{ch[:name]}=#{ch[:value]}&"
+    ch.check
+    @checkbox_params << "#{ch[:name]}=#{ch[:value]}&"
   end
 end
 
@@ -67,6 +67,6 @@ Given /^I am answering the final question/ do
 end
 
 Then /^I am redirected to the finder results page/ do
-  finder_url = mock_qa_config['finder_base_path']+'?'
+  finder_url = mock_qa_config['finder_base_path'] + '?'
   expect(current_url).to match(finder_url)
 end
