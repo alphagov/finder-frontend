@@ -10,11 +10,9 @@ class QaToContentController < ApplicationController
   def show
     return error_not_found unless ENV["FINDER_FRONTEND_ENABLE_QA_TO_CONTENT"]
 
-    if params[first_question["id"]].present?
-      redirect_to_guidance params[first_question["id"]]
-    else
-      render 'qa_to_content/show'
-    end
+    return redirect_to content_url if redirect_to_content?
+
+    render "qa_to_content/show"
   end
 
 private
@@ -33,14 +31,14 @@ private
   end
   helper_method :breadcrumbs
 
-  def questions
-    @questions ||= qa_config["questions"]
+  def question
+    @question ||= qa_config["questions"].first
   end
+  helper_method :question
 
-  def first_question
-    questions.first
+  def content_url
+    @content_url ||= params[question["id"]]
   end
-  helper_method :first_question
 
   def format_options(options)
     options.map do |option|
@@ -51,20 +49,13 @@ private
   end
   helper_method :format_options
 
-  def is_a_permitted_destinations(url)
-    found = false
-    first_question["options"].each do |option|
-      if option["value"] == url
-        found = true
-        break
-      end
+  def content_url_valid?
+    question["options"].any? do |option|
+      option["value"] == content_url
     end
-    found
   end
 
-  def redirect_to_guidance(url)
-    if is_a_permitted_destinations(url)
-      redirect_to url
-    end
+  def redirect_to_content?
+    content_url.present? && content_url_valid?
   end
 end
