@@ -125,6 +125,11 @@
     .js-enabled & .button {
       display:none;
     }
+
+    .js-required {
+      display: none;
+    }
+
     p {
       max-width: $full-width;
       @include core-16;

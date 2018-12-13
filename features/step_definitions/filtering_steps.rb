@@ -44,6 +44,7 @@ Then(/^I can get a list of all documents with matching metadata$/) do
 end
 
 When(/^I view a list of news and communications$/) do
+  topic_taxonomy_has_taxons
   content_store_has_news_and_communications_finder
   stub_whitehall_api_world_location_request
   stub_rummager_api_request_with_news_and_communication_results

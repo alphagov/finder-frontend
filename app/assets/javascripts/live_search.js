@@ -23,6 +23,7 @@
     this.$relevanceOrderOptionIndex = this.$relevanceOrderOption.index();
 
     this.resultCountTemplate = this.setResultCountTemplate();
+    this.getTaxonomyFacet().update();
 
     if(GOVUK.support.history()){
       this.saveState();
@@ -63,6 +64,11 @@
     }
   };
 
+  LiveSearch.prototype.getTaxonomyFacet = function getTaxonomyFacet() {
+    this.taxonomy = this.taxonomy || new GOVUK.TaxonomySelect({ $el: $('.app-taxonomy-select') });
+    return this.taxonomy;
+  }
+
   LiveSearch.prototype.saveState = function saveState(state){
     if(typeof state === 'undefined'){
       state = this.$form.serializeArray();
@@ -88,6 +94,7 @@
   LiveSearch.prototype.formChange = function formChange(e){
     var pageUpdated;
     if(this.isNewState()){
+      this.getTaxonomyFacet().update();
       this.saveState();
       this.updateOrder();
       pageUpdated = this.updateResults();

@@ -1,6 +1,6 @@
 module RummagerUrlHelper
   def rummager_url(params)
-    query = { search: [{ 0 => params }] }.to_query
+    query = Rack::Utils.build_nested_query(search: [{ 0 => params }])
     "#{Plek.current.find('search')}/batch_search.json?#{query}"
   end
 
@@ -72,6 +72,7 @@ module RummagerUrlHelper
     base_search_params.merge(
       'fields' => news_and_communications_search_fields.join(','),
       'filter_content_store_document_type' => supergroup_document_types,
+      'filter_all_part_of_taxonomy_tree[]' => [nil, nil],
     )
   end
 

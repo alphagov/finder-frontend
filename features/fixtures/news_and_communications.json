@@ -52,20 +52,28 @@
     ],
     "facets":[
       {
-        "key": "part_of_taxonomy_tree",
-        "name": "part_of_taxonomy_tree[]",
-        "short_name": "checkbox",
+        "key": "related_to_brexit",
+        "filter_key": "all_part_of_taxonomy_tree",
+        "filter_value": "d6c2de5d-ef90-45d1-82d4-5f2438369eea",
+        "name": "related_to_brexit",
+        "short_name": "Brexit",
+        "label": "Brexit",
+        "checkbox_label": "Show only Brexit results",
+        "value": "true",
         "type": "checkbox",
         "display_as_result_metadata": false,
         "filterable": true,
-        "preposition": "about",
-        "checkboxes": [
-          {
-            "label": "Brexit",
-            "checkbox_label": "Show only Brexit results",
-            "value": "d6c2de5d-ef90-45d1-82d4-5f2438369eea"
-          }
-        ]
+        "preposition": "about"
+      },
+      {
+        "filter_key": "all_part_of_taxonomy_tree",
+        "keys": ["level_one_taxon", "level_two_taxon"],
+        "name": "topic",
+        "short_name": "topic",
+        "type": "taxon",
+        "display_as_result_metadata": false,
+        "filterable": true,
+        "preposition": "about"
       },
       {
         "key": "people",

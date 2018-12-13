@@ -5,6 +5,8 @@ require "gds_api/test_helpers/worldwide"
 RSpec.describe Registries::WorldLocationsRegistry do
   include GdsApi::TestHelpers::Worldwide
 
+  let(:slug) { 'privet-drive' }
+
   describe "when world locations api is available" do
     before do
       clear_cache
@@ -15,28 +17,11 @@ RSpec.describe Registries::WorldLocationsRegistry do
 
     subject(:registry) { described_class.new }
 
-    let(:slug) { 'privet-drive' }
-
     it "will fetch an expanded world location by slug" do
       fetched_document = registry[slug]
       expect(fetched_document).to eq(
         'title' => 'Privet Drive',
         'slug' => slug
-      )
-    end
-
-    it "will return all expanded world locations" do
-      expect(registry.all).to contain_exactly(
-        {
-          "slug" => "hogwarts",
-          "title" => "Hogwarts"
-        },
-        {
-          "slug" => "privet-drive",
-          "title" => "Privet Drive"
-        },
-         "slug" => "diagon-alley",
-         "title" => "Diagon Alley"
       )
     end
   end
@@ -45,7 +30,7 @@ RSpec.describe Registries::WorldLocationsRegistry do
     it "will return an (uncached) empty array" do
       clear_cache
       world_locations_api_is_unavailable
-      expect(described_class.new.all).to eql([])
+      expect(described_class.new[slug]).to be_nil
       expect(Rails.cache.fetch(described_class::CACHE_KEY)).to be_nil
     end
   end
