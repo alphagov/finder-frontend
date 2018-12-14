@@ -9,12 +9,13 @@
 
   function TaxonomySelect(options) {
     this.$el = options.$el;
+    this.options = this.instantiateOptions();
   }
 
   TaxonomySelect.prototype.update = function updateTaxonomyFacet(){
     this.disableSubTaxonFacet();
-    this.showRelevantSubTaxons();
     this.resetSubTaxonValue();
+    this.showRelevantSubTaxons();
   };
 
   TaxonomySelect.prototype.$topLevelTaxon = function $topLevelTaxon() {
@@ -31,17 +32,28 @@
   };
 
   TaxonomySelect.prototype.showRelevantSubTaxons = function showRelevantSubTaxons() {
-    var parentTaxon = this.$topLevelTaxon().val();
+    var taxons = this.options[this.$topLevelTaxon().val()],
+        subtaxon = this.$subTaxon();
+
+    subtaxon.find('option').each(function(){
+      if ($(this).val()) { $(this).remove(); }
+    })
+
+    subtaxon.append(taxons);
+  };
+
+  TaxonomySelect.prototype.instantiateOptions = function() {
+    var options = {};
 
     this.$subTaxon().find('option').each(function(){
-      var taxon = $(this),
-          isChildOfSelected = $(taxon).attr('data-topic-parent') === parentTaxon,
-          isDefaultOption = !$(taxon).val(),
-          shouldDisplay = isChildOfSelected || isDefaultOption;
+      var parent = $(this).attr('data-topic-parent');
 
-      $(taxon).toggle(shouldDisplay);
+      options[parent] = options[parent] || []
+      options[parent].push(this)
     });
-  };
+
+    return options;
+  }
 
   TaxonomySelect.prototype.resetSubTaxonValue = function resetSubTaxonValue() {
     var selected = this.$subTaxon().find(':selected'),
