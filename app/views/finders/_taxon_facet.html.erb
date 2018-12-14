@@ -1,23 +1,16 @@
 <div class="app-taxonomy-select">
   <%= render "govuk_publishing_components/components/select", {
     id: 'level_one_taxon',
-    label: "Filter by topic",
+    label: "Topic",
     options: taxon_facet.topics
   }
   %>
   <div class="js-required govuk-form-group gem-c-select">
-    <label class="govuk-label" for="level_two_taxon">
-     Filter by sub-topic
-    </label>
-    <select class="govuk-select" id="level_two_taxon" name="level_two_taxon">
-      <% taxon_facet.sub_topics.each do |topic| %>
-        <option
-          data-topic-parent="<%= topic[:parent] %>"
-          value="<%= topic[:value] %>"
-          <% if topic[:selected] %>selected<% end %>>
-          <%= topic[:text] %>
-        </option>
-      <% end %>
-    </select>
+    <%= render "govuk_publishing_components/components/select", {
+      id: 'level_two_taxon',
+      label: "Sub-topic",
+      options: taxon_facet.sub_topics
+    }
+    %>
   </div>
 </div>

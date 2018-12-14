@@ -60,7 +60,9 @@ private
         {
           text: v['title'],
           value: v['content_id'],
-          parent: v['parent'],
+          data_attributes: {
+            topic_parent: v['parent'],
+          },
           selected: v['content_id'] == @value[LEVEL_TWO_TAXON_KEY]
         }
       }
