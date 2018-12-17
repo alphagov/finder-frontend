@@ -103,4 +103,44 @@
       }
     }
   }
+
+  // This is a temporary overwrite for checkboxes
+  // These styles should be removed in favour of small checkboxes from the Design System
+  .govuk-checkboxes__item {
+    min-height: 26px;
+    margin-bottom: 10px;
+    padding: 0 0 0 30px;
+  }
+
+  .govuk-checkboxes__item:last-child,
+  .govuk-checkboxes__item:last-of-type {
+    margin-bottom: 0;
+  }
+
+  .govuk-checkboxes__input {
+    top: 5px;
+    left: 0;
+    width: 26px;
+    height: 26px;
+  }
+
+  .govuk-checkboxes__label {
+    padding: 8px 5px 2px;
+    font-size: 16px;
+  }
+
+  .govuk-checkboxes__input + .govuk-checkboxes__label::before {
+    top: 5px;
+    width: 26px;
+    height: 26px;
+  }
+
+  .govuk-checkboxes__input + .govuk-checkboxes__label::after {
+    top: 12px;
+    left: 5.5px;
+    width: 12px;
+    height: 5px;
+    border-width: 0 0 3px 3px;
+  }
+
 }
