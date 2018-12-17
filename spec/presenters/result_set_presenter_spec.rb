@@ -201,7 +201,7 @@ RSpec.describe ResultSetPresenter do
         applied_filters = presenter.selected_filter_descriptions.flat_map { |filter| filter }
         text_values = applied_filters.flat_map { |filter| filter[:text] }
 
-        expect(text_values).to include("my search term")
+        expect(text_values).to include("my", "search", "term")
       end
     end
 

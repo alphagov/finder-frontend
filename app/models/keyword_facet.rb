@@ -31,13 +31,18 @@ private
   attr_reader :keywords
 
   def value_fragments
-    [
-      {
-        'label' => keywords,
+    keyword_array = keywords.split(" ")
+    keyword_fragments = []
+
+    keyword_array.each do |keyword|
+      keyword_fragments << {
+        'label' => keyword,
         'parameter_key' => key,
         'name' => 'keywords',
-        'value' => keywords
+        'value' => keyword
       }
-    ]
+    end
+
+    keyword_fragments
   end
 end

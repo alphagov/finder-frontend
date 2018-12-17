@@ -22,30 +22,27 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
       var elementType = $input.prop('tagName');
       var inputType = $input.prop('type');
 
-      setInputState(elementType, inputType, $input);
+      setInputState(elementType, inputType, $input, removeFilterValue, removeFilterFacet);
     }
 
-    function setInputState(elementType, inputType, $input) {
-      if (inputType == "checkbox"){
+    function setInputState(elementType, inputType, $input, removeFilterValue, removeFilterFacet) {
+      if (inputType == "checkbox") {
         $input.trigger("click");
       }
       else if (inputType == "text") {
         var currentVal = $input.val();
-        var newVal = $.trim(currentVal.replace(value, ''));
+        var newVal = $.trim(currentVal.replace(removeFilterValue, ''));
 
         $input.val(newVal).trigger("change");
       }
-      else if (elementType == "INPUT") {
-        $input.val("").trigger("change");
-      }
       else if (elementType == "OPTION") {
-        $('#' + facet).val("").trigger("change");
+        $('#' + removeFilterFacet).val("").trigger("change");
       }
     };
 
     function getSelectorForInput(removeFilterName, removeFilterValue) {
       if (!!removeFilterName) {
-        return " :input[name='" + removeFilterName + "']";
+        return " input[name='" + removeFilterName + "']";
       } else {
         return " [value='" + removeFilterValue + "']";
       }
