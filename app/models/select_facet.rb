@@ -10,7 +10,7 @@ class SelectFacet < FilterableFacet
   def data_attributes
     {
       track_category: "filterClicked",
-      track_action: name
+      track_action: key
     }
   end
 

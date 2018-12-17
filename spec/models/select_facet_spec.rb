@@ -67,8 +67,7 @@ describe SelectFacet do
   describe "#data_attributes" do
     specify {
       expect(subject.data_attributes[:track_category]).to eql('filterClicked')
-      expect(subject.data_attributes[:track_action]).to eql('name')
-      expect(subject.data_attributes[:track_label]).to eql("allowed_value['label']")
+      expect(subject.data_attributes[:track_action]).to eql('test_values')
     }
   end
 

@@ -4,7 +4,6 @@ class SearchController < ApplicationController
   before_action :remove_search_box
 
   def index
-    binding.pry
     search_params = SearchParameters.new(params)
 
     @content_item = Services.content_store.content_item("/search").to_hash
