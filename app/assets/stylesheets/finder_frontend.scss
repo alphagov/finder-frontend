@@ -150,6 +150,12 @@
     margin-bottom: $gutter;
   }
 
+  .app-taxonomy-select {
+    .govuk-select {
+      width: 100%;
+    }
+  }
+
   .radio-filter {
     padding: 0 $gutter-one-third;
 

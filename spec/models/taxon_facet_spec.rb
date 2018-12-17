@@ -70,7 +70,7 @@ describe TaxonFacet do
       expect(sub_topic.keys).to contain_exactly(
         :value,
         :text,
-        :parent,
+        :data_attributes,
         :selected
       )
     end
