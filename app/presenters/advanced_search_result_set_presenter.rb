@@ -38,12 +38,12 @@ class AdvancedSearchResultSetPresenter < ResultSetPresenter
 
   def applied_filters_or_all_subgroups
     cleanup_whitespace(
-      if describe_filters_in_sentence.blank?
+      if selected_filter_descriptions.blank?
         subgroups_as_sentence
       elsif subgroup_facet.value.blank?
-        [subgroups_as_sentence, filters_to_sentence(describe_filters_in_sentence)].to_sentence
+        [subgroups_as_sentence, filters_to_sentence(selected_filter_descriptions)].to_sentence
       else
-        [filters_to_sentence(describe_filters_in_sentence)].to_sentence
+        [filters_to_sentence(selected_filter_descriptions)].to_sentence
       end
     )
   end

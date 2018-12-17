@@ -269,8 +269,8 @@ end
 
 Then(/^I only see documents that match the checkbox filter$/) do
   expect(page).to have_content("1 case")
-  expect(page).to have_css('.facet-tag-preposition', text: "That Is")
-  expect(page).to have_css('.facet-tag-text', text: "Open")
+  expect(page).to have_css('.facet-tags__preposition', text: "That Is")
+  expect(page).to have_css('.facet-tag__text', text: "Open")
 
   within ".filtered-results .document:nth-child(1)" do
     expect(page).to have_content("Big Beer Co / Salty Snacks Ltd merger inquiry")

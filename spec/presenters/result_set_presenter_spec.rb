@@ -141,7 +141,7 @@ RSpec.describe ResultSetPresenter do
 
   describe '#to_hash' do
     before(:each) do
-      allow(presenter).to receive(:describe_filters_in_sentence).and_return("a sentence summarising the selected filters")
+      allow(presenter).to receive(:selected_filter_descriptions).and_return("a sentence summarising the selected filters")
       allow(presenter).to receive(:documents).and_return(key: 'value')
       allow(presenter).to receive(:any_filters_applied?).and_return(true)
       allow(view_context).to receive(:render).and_return('<nav></nav>')
@@ -166,10 +166,10 @@ RSpec.describe ResultSetPresenter do
       expect(document_noun).to have_received(:pluralize).with(total)
     end
 
-    it 'calls describe_filters_in_sentence' do
-      allow(presenter).to receive(:describe_filters_in_sentence)
+    it 'calls selected_filter_descriptions' do
+      allow(presenter).to receive(:selected_filter_descriptions)
       presenter.to_hash
-      expect(presenter).to have_received(:describe_filters_in_sentence)
+      expect(presenter).to have_received(:selected_filter_descriptions)
     end
 
     it 'calls documents' do
@@ -179,20 +179,14 @@ RSpec.describe ResultSetPresenter do
     end
   end
 
-  describe '#describe_filters_in_sentence' do
+  describe '#selected_filter_descriptions' do
     before(:each) do
       allow(presenter).to receive(:link_without_facet_value)
       allow(finder).to receive(:filters).and_return([a_facet, another_facet, a_date_facet])
     end
 
-    it 'calls selected_filter_descriptions' do
-      allow(presenter).to receive(:selected_filter_descriptions)
-      presenter.describe_filters_in_sentence
-      expect(presenter).to have_received(:selected_filter_descriptions)
-    end
-
     it 'includes prepositions for each facet' do
-      applied_filters = presenter.describe_filters_in_sentence.flat_map { |filter| filter }
+      applied_filters = presenter.selected_filter_descriptions.flat_map { |filter| filter }
       prepositions = applied_filters.flat_map { |filter| filter[:preposition] }.reject { |preposition| preposition == "or" }
 
       finder.filters.reject { |filter| filter.sentence_fragment.nil? }.each do |fragment|
@@ -204,7 +198,7 @@ RSpec.describe ResultSetPresenter do
       let(:keywords) { "my search term" }
 
       it 'includes the keywords' do
-        applied_filters = presenter.describe_filters_in_sentence.flat_map { |filter| filter }
+        applied_filters = presenter.selected_filter_descriptions.flat_map { |filter| filter }
         text_values = applied_filters.flat_map { |filter| filter[:text] }
 
         expect(text_values).to include("my search term")
@@ -215,7 +209,7 @@ RSpec.describe ResultSetPresenter do
       let(:keywords) { '<script>alert("hello")</script>' }
 
       it 'escapes keywords appropriately' do
-        applied_filters = presenter.describe_filters_in_sentence.flat_map { |filter| filter }
+        applied_filters = presenter.selected_filter_descriptions.flat_map { |filter| filter }
         text_values = applied_filters.flat_map { |filter| filter[:text] }
 
         expect(text_values).to include('&lt;script&gt;alert(&quot;hello&quot;)&lt;/script&gt;')
@@ -228,7 +222,7 @@ RSpec.describe ResultSetPresenter do
       allow(finder).to receive(:filters).and_return([a_facet, another_facet, a_date_facet])
     end
 
-    let(:applied_filters) { presenter.describe_filters_in_sentence.flat_map { |filter| filter } }
+    let(:applied_filters) { presenter.selected_filter_descriptions.flat_map { |filter| filter } }
 
     it 'returns an array of hashes that can be used to construct facet tags' do
       text_values = applied_filters.flat_map { |filter| filter[:text] }

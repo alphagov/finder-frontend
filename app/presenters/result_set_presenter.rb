@@ -22,7 +22,7 @@ class ResultSetPresenter
       total: total > 1000 ? "1,000+" : total,
       generic_description: generic_description,
       pluralised_document_noun: document_noun.pluralize(total),
-      applied_filters: describe_filters_in_sentence,
+      applied_filters: selected_filter_descriptions,
       documents: documents,
       page_count: documents.count,
       finder_name: finder.name,
@@ -40,10 +40,6 @@ class ResultSetPresenter
   def generic_description
     publications = "publication".pluralize(total)
     "#{publications} matched your criteria"
-  end
-
-  def describe_filters_in_sentence
-    selected_filter_descriptions
   end
 
   def selected_filter_descriptions
