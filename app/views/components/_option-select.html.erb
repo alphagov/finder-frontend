@@ -1,6 +1,6 @@
 <% title_id = "option-select-title-#{title.parameterize}" %>
 <div class="app-c-option-select"
-  <% if  options.any? { |option| option[:data_attributes] } %>data-module="track-click"<% end %>
+  <% if options.any? { |option| option[:data_attributes] } %>data-module="track-click"<% end %>
   <% if local_assigns.include?(:closed_on_load) && closed_on_load %>data-closed-on-load="true"<% end %>
   <% if local_assigns.include?(:aria_controls_id) %>data-input-aria-controls="<%= aria_controls_id %>"<% end %>
 >
@@ -11,19 +11,13 @@
   </div>
   <div role="group" aria-labelledby="<%= title_id %>" class="options-container" id="<%= options_container_id %>">
     <div class="js-auto-height-inner">
-      <% options.each do | option |%>
-        <%= render "govuk_publishing_components/components/checkbox", {
-          name: "#{key}[]",
-          id: "#{key}-#{option[:id]}",
-          controls: local_assigns[:aria_controls_id] || nil,
-          item: {
-            label: option[:label],
-            value: option[:value],
-            checked: option[:checked].present?,
-            data_attributes: option[:data_attributes],
-          }
-        } %>
-      <% end %>
+      <%= render "govuk_publishing_components/components/checkboxes", {
+        name: "#{key}[]",
+        heading: "Please select all that apply",
+        visually_hide_heading: true,
+        no_hint_text: true,
+        items: options
+      } %>
     </div>
   </div>
 </div>

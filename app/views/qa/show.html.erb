@@ -19,13 +19,15 @@
           <%= render "govuk_publishing_components/components/checkboxes", {
             name: "#{current_facet['facet']['key']}[]",
             heading: filter_group["name"],
-            hint_text: "",
+            no_hint_text: true,
             items: nested_options(filter_group)
           } %>
         <% end %>
       <% elsif single_wrapped_question? %>
         <% checkboxes = render "govuk_publishing_components/components/checkboxes", {
           name: "#{current_facet['facet']['key']}[]",
+          heading: "Select all that apply",
+          visually_hide_heading: true,
           items: options
         } %>
         <%= render "govuk_publishing_components/components/radio", {
