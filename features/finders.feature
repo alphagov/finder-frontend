@@ -101,3 +101,13 @@ Feature: Filtering documents
     When I view a list of services
     And I sort by A-Z
     Then I see services in alphabetical order
+
+  Scenario: Subscribing to email alerts
+    Given a collection of documents exist that can be filtered by checkbox
+    When I use a checkbox filter
+    Then I can sign up to email alerts for allowed filters
+
+  Scenario: Subscribing to email alerts with disallowed facets
+    Given a collection of documents exist that can be filtered by checkbox
+    When I use a checkbox filter and another disallowed filter
+    Then I can sign up to email alerts for allowed filters

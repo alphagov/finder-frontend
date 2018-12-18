@@ -141,6 +141,11 @@ When(/^I use a date filter$/) do
   apply_date_filter
 end
 
+When(/^I use a a collection of documents exist that can be filtered by checkbox filter$/) do
+  visit_cma_cases_finder
+  apply_date_filter
+end
+
 Then(/^I only see documents with matching dates$/) do
   assert_cma_cases_are_filtered_by_date
 end
@@ -339,5 +344,33 @@ And(/^I see the facet tag$/) do
     expect(page).to have_css("a[data-track-label='Open']")
     expect(page).to have_css("a[data-track-action='That Is']")
     expect(page).to have_css("a[aria-label='Remove filter Open']")
+  end
+end
+
+When(/^I use a checkbox filter and another disallowed filter$/) do
+  find("label", text: "Show open cases").click
+  fill_in("closed_date[from]", with: "1st November 2015")
+  stub_rummager_with_cma_cases_for_supergroups_checkbox_and_date
+  click_on "Filter results"
+end
+
+Then(/^I can sign up to email alerts for allowed filters$/) do
+  email_alert_api_has_subscriber_list(
+    "tags"=>{"case_state"=>{"0"=>"open"}, "format"=>{"0"=>"cma_case"}},
+    'subscription_url' => 'http://www.rathergood.com'
+  )
+
+  signup_content_item = cma_cases_with_multi_facets_signup_content_item
+  signup_content_item['details']['email_filter_facets'] = [{ 'facet_id' => 'case_state', 'facet_name' => 'case_state'}]
+
+  content_store_has_item('/cma-cases/email-signup', signup_content_item)
+
+  click_link('Subscribe to email alerts')
+
+  begin
+    click_on('Create subscription')
+  rescue ActionController::RoutingError
+    expect(page.status_code).to eq(302)
+    expect(page.response_headers['Location']).to eql('http://www.rathergood.com')
   end
 end

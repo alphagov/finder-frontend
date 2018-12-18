@@ -71,10 +71,10 @@ describe EmailAlertSubscriptionsController, type: :controller do
 
       before do
         content_store_has_item('/cma-cases', finder)
-        content_store_has_item('/cma-cases/email-signup', signup_finder)
       end
 
       it 'redirects to the correct email subscription url' do
+        content_store_has_item('/cma-cases/email-signup', signup_finder)
         email_alert_api_has_subscriber_list(
           "tags" => {
             "case_type" => ['ca98-and-civil-cartels'],
@@ -85,6 +85,58 @@ describe EmailAlertSubscriptionsController, type: :controller do
         )
         post :create, params: {
           slug: 'cma-cases',
+          filter: {
+            'case_type' => ['ca98-and-civil-cartels'],
+            'case_state' => %w(open),
+          }
+        }
+        expect(subject).to redirect_to('http://www.example.com')
+      end
+
+      it 'redirects to the correct email subscription url with hidden_params' do
+        taxonomy_signup_finder = signup_finder.tap do |content_item|
+          content_item['details']['email_filter_facets'] << {
+            'facet_key' => 'filter_part_of_taxonomy_tree',
+            'facet_id' => 'filter_part_of_taxonomy_tree',
+            'facet_name' => 'Taxonomy'
+          }
+        end
+
+        content_store_has_item('/cma-cases/email-signup', taxonomy_signup_finder)
+        email_alert_api_has_subscriber_list(
+          'tags' => {
+            'case_type' => ['ca98-and-civil-cartels'],
+            'case_state' => %w(open),
+            'format' => [finder.dig('details', 'filter', 'document_type')],
+            'filter_part_of_taxonomy_tree[]' => ['some-taxon'],
+          },
+          'subscription_url' => 'http://www.example.com'
+        )
+        post :create, params: {
+          slug: 'cma-cases',
+          hidden_params: { filter_part_of_taxonomy_tree: %w(some-taxon) },
+          filter: {
+            'case_type' => ['ca98-and-civil-cartels'],
+            'case_state' => %w(open),
+          }
+        }
+        expect(subject).to redirect_to('http://www.example.com')
+      end
+
+
+      it 'will not include a facet that is not in the signup content item in the redirect' do
+        content_store_has_item('/cma-cases/email-signup', signup_finder)
+        email_alert_api_has_subscriber_list(
+          'tags' => {
+            'case_type' => ['ca98-and-civil-cartels'],
+            'case_state' => %w(open),
+            'format' => [finder.dig('details', 'filter', 'document_type')],
+          },
+          'subscription_url' => 'http://www.example.com'
+        )
+        post :create, params: {
+          slug: 'cma-cases',
+          hidden_params: { filter_part_of_taxonomy_tree: %w(some-taxon) },
           filter: {
             'case_type' => ['ca98-and-civil-cartels'],
             'case_state' => %w(open),

@@ -31,6 +31,10 @@ class Facet
     facet['display_as_result_metadata']
   end
 
+  def value
+    nil
+  end
+
 private
 
   def and_word_connectors

@@ -69,7 +69,7 @@ private
       begin
         parent_content_item = Services.content_store.content_item(params["parent_path"])
       rescue GdsApi::HTTPNotFound
-        #parent_path is user input so we don't mind if it's bad
+        # parent_path is user input so we don't mind if it's bad
         GovukStatsd.increment("breadcrumb.parent_path_not_found")
       end
     end

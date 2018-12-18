@@ -18,15 +18,19 @@ private
   attr_reader :filter, :subscription_list_title_prefix, :facets
 
   def topic_names(facet)
-    filter.fetch(facet["facet_id"], []).map { |key| choice_hash_by_key(facet, key)["topic_name"] }
+    filter.fetch(facet["facet_id"], []).map { |key| choice_by_key(facet, key) }
   end
 
   def topic_names_sentence(facet)
     topic_names(facet).to_sentence
   end
 
-  def choice_hash_by_key(facet, key)
-    facet["facet_choices"].detect { |choice| choice["key"] == key }
+  def choice_by_key(facet, key)
+    if facet.dig("facet_choices")
+      facet["facet_choices"].detect { |choice| choice["key"] == key }["topic_name"]
+    else
+      []
+    end
   end
 
   def selected_facets

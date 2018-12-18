@@ -1,9 +1,13 @@
 require_relative '../../lib/govuk_content_schema_examples'
 require_relative "../../spec/helpers/taxonomy_spec_helper"
+require 'gds_api/test_helpers/email_alert_api'
+require 'gds_api/test_helpers/content_store'
 
 module DocumentHelper
   include GovukContentSchemaExamples
   include TaxonomySpecHelper
+  include GdsApi::TestHelpers::EmailAlertApi
+  include GdsApi::TestHelpers::ContentStore
 
   def stub_rummager_api_request
     stub_request(:get, rummager_all_documents_url).to_return(
@@ -254,6 +258,23 @@ module DocumentHelper
     stub_request(:get, cma_case_documents_filtered_by_supergroup).to_return(
       body: filtered_cma_case_documents_json,
     )
+  end
+
+  def stub_rummager_with_cma_cases_for_supergroups_checkbox_and_date
+    stub_request(:get, rummager_all_cma_case_documents_url).to_return(
+        body: all_cma_case_documents_json,
+        )
+    cma_case_documents_filtered_by_supergroup = rummager_url(
+        cma_case_search_params.merge(
+            'filter_case_state' => %w(open),
+            'order' => '-public_timestamp',
+            'filter_closed_date' => 'from:2015-11-01'
+        )
+    )
+
+    stub_request(:get, cma_case_documents_filtered_by_supergroup).to_return(
+        body: filtered_cma_case_documents_json,
+        )
   end
 
   def rummager_all_documents_url

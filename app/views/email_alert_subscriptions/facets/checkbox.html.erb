@@ -1,0 +1,7 @@
+<%= render "govuk_publishing_components/components/checkboxes", {
+    name: nil,
+    heading: @signup_presenter.name,
+    hint_text: "Select the email alerts you need.",
+    items: @signup_presenter.choices_formatted,
+    is_page_heading: true,
+} %>

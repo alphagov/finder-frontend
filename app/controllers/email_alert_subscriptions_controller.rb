@@ -4,8 +4,7 @@ class EmailAlertSubscriptionsController < ApplicationController
   layout "finder_layout"
   protect_from_forgery except: :create
   before_action :signup_presenter
-
-  def new; end
+  helper_method :hidden_params
 
   def create
     if valid_choices?
@@ -19,11 +18,23 @@ class EmailAlertSubscriptionsController < ApplicationController
 private
 
   def content
-    @content ||= Services.content_store.content_item(request.path)
+    @content ||= fetch_content
+  end
+
+  def fetch_content
+    if development_env_finder_json
+      JSON.parse(File.read("features/fixtures/news_and_communications_signup_content_item.json"))
+    else
+      Services.content_store.content_item(request.path)
+    end
   end
 
   def signup_presenter
     @signup_presenter ||= SignupPresenter.new(content, params)
+  end
+
+  def hidden_params
+    SignupUrlHiddenParamsPresenter.new(content, view_context).hidden_params
   end
 
   def valid_choices?
@@ -35,11 +46,33 @@ private
   end
 
   def chosen_options
-    params.permit("filter" => {})['filter'].to_h
+    options = params.permit("filter" => {})['filter'].to_h
+    return options unless params[:hidden_params].present?
+
+    options.merge(params[:hidden_params].to_unsafe_hash)
   end
 
   def finder
-    FinderPresenter.new(Services.content_store.content_item(finder_base_path))
+    if development_env_finder_json
+      FinderPresenter.new(JSON.parse(File.read("features/fixtures/news_and_communications.json")))
+    else
+      FinderPresenter.new(Services.content_store.content_item(finder_base_path))
+    end
+  end
+
+  def development_env_finder_json
+    return news_and_communications_json if is_news_and_communications?
+
+    ENV["DEVELOPMENT_FINDER_JSON"]
+  end
+
+  def news_and_communications_json
+    # Hard coding this in during development
+    "features/fixtures/news_and_communications.json"
+  end
+
+  def is_news_and_communications?
+    finder_base_path == "/news-and-communications"
   end
 
   def finder_format

@@ -24,6 +24,7 @@
       "singular": "case type",
       "plural": "case types"
     },
+    "email_filter_facets": [],
     "subscription_list_title_prefix": {
       "singular": "CMA cases with the following case type: ",
       "plural": "CMA cases with the following case types: ",
