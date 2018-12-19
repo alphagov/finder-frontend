@@ -32,18 +32,6 @@ main.search {
   }
 
   #results {
-    @extend %contain-floats;
-
-    @include media(tablet){
-      margin: 0 -15px;
-    }
-
-    .inner-block {
-      @include media(tablet){
-        padding: 0 15px;
-      }
-    }
-
     .filter-form {
       .info {
         margin: 0 0 15px;
@@ -55,11 +43,6 @@ main.search {
       }
     }
     .results-block {
-      @include media(tablet){
-        float: left;
-        width: $two-thirds;
-      }
-
       mark {
         background-color: transparent;
         color: inherit;
@@ -100,7 +83,6 @@ main.search {
           }
         }
         li {
-          max-width: 32.5em;
           margin: 0;
           padding: 0 0 15px;
 
