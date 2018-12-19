@@ -5,8 +5,6 @@ class QaController < ApplicationController
   include GdsApi::Helpers
 
   def show
-    return error_not_found unless ENV["FINDER_FRONTEND_ENABLE_QA"]
-
     redirect_to_finder if finder_page?
     raw_finder
   end

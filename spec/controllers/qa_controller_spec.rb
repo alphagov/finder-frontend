@@ -6,7 +6,6 @@ describe QaController, type: :controller do
   include FixturesHelper
   include GovukContentSchemaExamples
   render_views
-  ENV["FINDER_FRONTEND_ENABLE_QA"] = "true"
 
   describe "GET show" do
     let(:aaib_reports_finder)         { aaib_reports_content_item }

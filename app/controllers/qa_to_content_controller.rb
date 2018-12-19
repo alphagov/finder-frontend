@@ -8,8 +8,6 @@ class QaToContentController < ApplicationController
   include GdsApi::Helpers
 
   def show
-    return error_not_found unless ENV["FINDER_FRONTEND_ENABLE_QA_TO_CONTENT"]
-
     return redirect_to content_url if redirect_to_content?
 
     render "qa_to_content/show"
