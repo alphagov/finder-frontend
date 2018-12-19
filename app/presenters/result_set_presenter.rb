@@ -1,5 +1,6 @@
 class ResultSetPresenter
   include ERB::Util
+  include ActionView::Helpers::NumberHelper
 
   attr_reader :finder, :document_noun, :results, :total
 
@@ -19,7 +20,7 @@ class ResultSetPresenter
 
   def to_hash
     {
-      total: total > 1000 ? "1,000+" : total,
+      total: number_with_delimiter(total, delimiter: ','),
       generic_description: generic_description,
       pluralised_document_noun: document_noun.pluralize(total),
       applied_filters: selected_filter_descriptions,
