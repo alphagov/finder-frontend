@@ -46,6 +46,11 @@ private
         value: v['content_id'],
         text: v['title'],
         sub_topics: v['children'],
+        data_attributes: {
+          track_category: "filterClicked",
+          track_action: "level_one_taxon",
+          track_label: v['title'],
+        },
         selected: v['content_id'] == @value[LEVEL_ONE_TAXON_KEY]
       }
     }
@@ -61,6 +66,9 @@ private
           text: v['title'],
           value: v['content_id'],
           data_attributes: {
+            track_category: "filterClicked",
+            track_action: "level_two_taxon",
+            track_label: v['title'],
             topic_parent: v['parent'],
           },
           selected: v['content_id'] == @value[LEVEL_TWO_TAXON_KEY]
