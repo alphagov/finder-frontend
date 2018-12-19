@@ -4,7 +4,6 @@ require 'gds_api/test_helpers/content_store'
 describe QaToContentController, type: :controller do
   include FixturesHelper
   render_views
-  ENV["FINDER_FRONTEND_ENABLE_QA_TO_CONTENT"] = "true"
 
   describe "GET show" do
     let(:uk_nationals_in_eu_yaml) { uk_nationals_in_eu_config }
