@@ -160,10 +160,6 @@
     width:14px;
   }
 
-  .select-filter {
-    margin-bottom: $gutter-one-third;
-  }
-
   .form {
     @include core-19;
     @include media(tablet) {

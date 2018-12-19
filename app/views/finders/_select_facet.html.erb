@@ -1,11 +1,9 @@
-<div class='select-filter'>
-  <%= render "govuk_publishing_components/components/accessible_autocomplete", {
-      id: select_facet.key,
-      label: {
-          text: select_facet.name
-      },
-      options: select_facet.options,
-      selected_option: select_facet.selected_option, # TODO: Make the component accept multiple
-      data_attributes: select_facet.data_attributes }
-  %>
-</div>
+<%= render "govuk_publishing_components/components/accessible_autocomplete", {
+    id: select_facet.key,
+    label: {
+        text: select_facet.name
+    },
+    options: select_facet.options,
+    selected_option: select_facet.selected_option, # TODO: Make the component accept multiple
+    data_attributes: select_facet.data_attributes }
+%>
