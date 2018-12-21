@@ -65,6 +65,21 @@ describe FindersController, type: :controller do
         expect(response.content_type).to eq("application/json")
       end
 
+      describe "canonical links" do
+        it "does not add a canonical link by default" do
+          get :show, params: { slug: "lunch-finder" }
+          expect(response.body).not_to include('<link rel="canonical"')
+        end
+
+        it "has a canonical link for the eu-exit-guidance-business finder" do
+          eu_exit_finder = '/find-eu-exit-guidance-business'
+          allow_any_instance_of(FinderPresenter).to receive(:slug).and_return(eu_exit_finder)
+          get :show, params: { slug: "lunch-finder" }
+
+          expect(response.body).to include("<link rel=\"canonical\" href=\"#{ENV['GOVUK_WEBSITE_ROOT']}#{eu_exit_finder}\">")
+        end
+      end
+
       it "returns a 406 if an invalid format is requested" do
         request.headers["Accept"] = "text/plain"
         get :show, params: { slug: "lunch-finder" }
