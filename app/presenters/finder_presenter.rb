@@ -211,8 +211,8 @@ class FinderPresenter
     content_item['description']
   end
 
-  def should_have_canonical_link?
-    slug == '/find-eu-exit-guidance-business'
+  def canonical_link?
+    content_item['details']['canonical_link']
   end
 
 private

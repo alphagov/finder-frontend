@@ -2,7 +2,7 @@
 <% content_for :head do %>
   <%= auto_discovery_link_tag(:atom, @results.atom_url) %>
   <%= render 'finder_meta', finder: finder %>
-  <% if finder.should_have_canonical_link? %>
+  <% if finder.canonical_link? %>
     <link rel="canonical" href="<%= ENV['GOVUK_WEBSITE_ROOT'] + finder.slug %>">
   <% end %>
 <% end %>

@@ -66,17 +66,34 @@ describe FindersController, type: :controller do
       end
 
       describe "canonical links" do
-        it "does not add a canonical link by default" do
+        let(:canonical_finder) do
+          finder = govuk_content_schema_example('finder').to_hash.merge(
+            'title' => 'Canonical Finder',
+            'base_path' => '/canonical-finder',
+          )
+
+          finder['details']['canonical_link'] = true
+          finder["details"]["default_documents_per_page"] = 10
+          finder["details"]["sort"] = nil
+          finder
+        end
+
+        before do
+          content_store_has_item(
+            '/canonical_finder',
+            canonical_finder
+          )
+        end
+
+        it "are not shown if the finder does not have a canonical_link field" do
           get :show, params: { slug: "lunch-finder" }
           expect(response.body).not_to include('<link rel="canonical"')
         end
 
-        it "has a canonical link for the eu-exit-guidance-business finder" do
-          eu_exit_finder = '/find-eu-exit-guidance-business'
-          allow_any_instance_of(FinderPresenter).to receive(:slug).and_return(eu_exit_finder)
-          get :show, params: { slug: "lunch-finder" }
+        it "are shown if the finder has a canonical_link field" do
+          get :show, params: { slug: "canonical_finder" }
 
-          expect(response.body).to include("<link rel=\"canonical\" href=\"#{ENV['GOVUK_WEBSITE_ROOT']}#{eu_exit_finder}\">")
+          expect(response.body).to include("<link rel=\"canonical\" href=\"#{ENV['GOVUK_WEBSITE_ROOT']}/canonical-finder\">")
         end
       end
 
