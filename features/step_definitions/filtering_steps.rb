@@ -145,7 +145,7 @@ end
 Then(/^I can filter based on the results$/) do
   visit finder_path('mosw-reports')
 
-  expect(page).to have_content("2 reports sorted by Recently published")
+  expect(page).to have_content("2 reports")
   within ".filtered-results" do
     expect(page).to have_content("West London wobbley walk")
     expect(page).to have_content("The Gerry Anderson")
@@ -157,7 +157,7 @@ Then(/^I can filter based on the results$/) do
   end
   click_on "Filter results"
 
-  expect(page).to have_content("1 report of type Hopscotch sorted by Recently published")
+  expect(page).to have_content("1 report of type Hopscotch")
   within ".filtered-results" do
     expect(page).not_to have_content("West London wobbley walk")
     expect(page).to have_content("The Gerry Anderson")
