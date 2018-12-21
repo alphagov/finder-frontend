@@ -86,12 +86,6 @@ RSpec.describe FinderPresenter do
       expect(presenter.sort_options).to eql([])
     end
 
-    it "returns sort options when sort is present" do
-      expected_options = "<option value=\"most-viewed\">Most viewed</option>\n<option value=\"updated-newest\">Updated (newest)</option>"
-
-      expect(presenter_with_sort.sort_options).to eql(expected_options)
-    end
-
     it "returns sort options without relevance when keywords is not present" do
       expected_options = "<option value=\"most-viewed\">Most viewed</option>\n<option value=\"updated-newest\">Updated (newest)</option>"
 
