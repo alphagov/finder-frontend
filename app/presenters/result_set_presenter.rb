@@ -80,7 +80,7 @@ class ResultSetPresenter
 
     sort_option ||= finder.default_sort_option
 
-    "sorted by <strong>" + sort_option['name'] + "</strong>" if sort_option.present?
+    "<span class='visually-hidden'>sorted by <strong>" + sort_option['name'] + "</strong></span>" if sort_option.present?
   end
 
 private
