@@ -42,5 +42,5 @@ group :test do
   gem 'launchy', '~> 2.4.2'
   gem 'rails-controller-testing'
   gem 'simplecov', '~> 0.16.1'
-  gem 'webmock', '~> 3.4.2'
+  gem 'webmock', '~> 3.5.0'
 end
