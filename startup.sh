@@ -11,5 +11,6 @@ if [[ $1 == "--live" ]] ; then
   PLEK_SERVICE_WHITEHALL_ADMIN_URI=https://www.gov.uk \
   bundle exec rails s -p 3062
 else
+  GOVUK_WEBSITE_ROOT=localhost:3062 \
   bundle exec rails s -p 3062
 fi

@@ -211,6 +211,10 @@ class FinderPresenter
     content_item['description']
   end
 
+  def canonical_link?
+    content_item['details']['canonical_link']
+  end
+
 private
 
   def part_of

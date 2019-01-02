@@ -38,6 +38,10 @@ describe QaController, type: :controller do
       context "on the first page" do
         before { get :show }
 
+        it "sets a robots no-index metatag" do
+          expect(response.body).to include('<meta name="robots" content="noindex">')
+        end
+
         it "renders the first facet's question" do
           expect(response.body).to include(aaib_reports_qa_config_yaml["pages"][aaib_reports_finder_facets.first["key"]]["question"])
         end
