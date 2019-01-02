@@ -4,7 +4,7 @@
   :title => select_facet.name,
   :aria_controls_id => "js-search-results-info",
   :options_container_id => select_facet.key,
-  :options => select_facet.options,
+  :options => select_facet.options("js-search-results-info", select_facet.key),
   :closed_on_load => close_facet,
 }
 %>

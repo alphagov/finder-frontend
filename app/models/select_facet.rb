@@ -3,7 +3,7 @@ class SelectFacet < FilterableFacet
     facet['allowed_values']
   end
 
-  def options
+  def options(controls, key)
     # NOTE: We use a symbol-based hash here unlike all our other hash
     # data-structures because we pass this to a govuk_component partial
     # that expects symbol keys, not strings
@@ -11,13 +11,14 @@ class SelectFacet < FilterableFacet
       {
         value: allowed_value['value'],
         label: allowed_value['label'],
-        id: allowed_value['value'],
+        id: "#{key}-#{allowed_value['value']}",
         data_attributes: {
           track_category: "filterClicked",
           track_action: name,
           track_label: allowed_value['label'],
         },
         checked: selected_values.include?(allowed_value),
+        controls: controls || nil
       }
     end
   end
