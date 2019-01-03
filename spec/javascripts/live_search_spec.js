@@ -108,7 +108,7 @@ describe("liveSearch", function(){
     liveSearch.updateResults();
     expect(jQuery.ajax).toHaveBeenCalledWith({url: '/somewhere.json', data: {not: "cached"}, searchState : 'not=cached'});
     expect(ajaxCallback.done).toHaveBeenCalled();
-    ajaxCallback.done.calls.mostRecent().args[0]('response data')
+    ajaxCallback.done.calls.mostRecent().args[0]('response data');
     expect(liveSearch.displayResults).toHaveBeenCalled();
     expect(liveSearch.resultCache['not=cached']).toBe('response data');
   });
@@ -122,7 +122,7 @@ describe("liveSearch", function(){
     spyOn(jQuery, 'ajax').and.returnValue(ajaxCallback);
 
     liveSearch.updateResults();
-    ajaxCallback.error.calls.mostRecent().args[0]()
+    ajaxCallback.error.calls.mostRecent().args[0]();
     expect(liveSearch.showErrorIndicator).toHaveBeenCalled();
   });
 
@@ -224,7 +224,7 @@ describe("liveSearch", function(){
       });
 
       it("should return the generic result count template", function () {
-        expect(liveSearch.setResultCountTemplate()).toEqual('_result_count_generic')
+        expect(liveSearch.setResultCountTemplate()).toEqual('_result_count_generic');
       });
     });
 
@@ -258,34 +258,34 @@ describe("liveSearch", function(){
 
   describe("restoreBooleans", function(){
     beforeEach(function(){
-      liveSearch.state = [{name:"list_1[]", value:"checkbox_1"}, {name:"list_1[]", value:"checkbox_2"}, {name:'list_2[]', value:"radio_1"}]
+      liveSearch.state = [{name:"list_1[]", value:"checkbox_1"}, {name:"list_1[]", value:"checkbox_2"}, {name:'list_2[]', value:"radio_1"}];
       liveSearch.$form = $('<form action="/somewhere" class="js-live-search-form"><input id="check_1" type="checkbox" name="list_1[]" value="checkbox_1"><input type="checkbox" id="check_2"  name="list_1[]" value="checkbox_2"><input type="radio" id="radio_1"  name="list_2[]" value="radio_1"><input type="radio" id="radio_2"  name="list_2[]" value="radio_2"><input type="submit"/></form>');
     });
 
     it("should check a checkbox if in the state it is checked in the history", function(){
-      expect(liveSearch.$form.find('input[type=checkbox]:checked').length).toBe(0)
+      expect(liveSearch.$form.find('input[type=checkbox]:checked').length).toBe(0);
       liveSearch.restoreBooleans();
-      expect(liveSearch.$form.find('input[type=checkbox]:checked').length).toBe(2)
+      expect(liveSearch.$form.find('input[type=checkbox]:checked').length).toBe(2);
     });
 
     it("should not check all the checkboxes if only one is checked", function(){
-      liveSearch.state = [{name:"list_1[]", value:"checkbox_2"}]
-      expect(liveSearch.$form.find('input[type=checkbox]:checked').length).toBe(0)
+      liveSearch.state = [{name:"list_1[]", value:"checkbox_2"}];
+      expect(liveSearch.$form.find('input[type=checkbox]:checked').length).toBe(0);
       liveSearch.restoreBooleans();
       expect(liveSearch.$form.find('input[type=checkbox]:checked')[0].id).toBe('check_2');
-      expect(liveSearch.$form.find('input[type=checkbox]:checked').length).toBe(1)
+      expect(liveSearch.$form.find('input[type=checkbox]:checked').length).toBe(1);
     });
 
     it("should pick a radiobox if in the state it is picked in the history", function(){
-      expect(liveSearch.$form.find('input[type=radio]:checked').length).toBe(0)
+      expect(liveSearch.$form.find('input[type=radio]:checked').length).toBe(0);
       liveSearch.restoreBooleans();
-      expect(liveSearch.$form.find('input[type=radio]:checked').length).toBe(1)
+      expect(liveSearch.$form.find('input[type=radio]:checked').length).toBe(1);
     });
   });
 
   describe("restoreKeywords", function(){
     beforeEach(function(){
-       liveSearch.state = [{name:"text_1", value:"Monday"}]
+       liveSearch.state = [{name:"text_1", value:"Monday"}];
        liveSearch.$form = $('<form action="/somewhere"><input id="text_1" type="text" name="text_1"><input id="text_2" type="text" name="text_2"></form>');
      });
 
@@ -295,20 +295,6 @@ describe("liveSearch", function(){
        liveSearch.restoreTextInputs();
        expect(liveSearch.$form.find('#text_1').val()).toBe('Monday');
        expect(liveSearch.$form.find('#text_2').val()).toBe('');
-     })
-  });
-
-  describe('accessibleAutocomplete', function() {
-    beforeEach(function(){
-      $autocompleteForm = $('<form action="/somewhere" class="js-live-search-form"><div class="select-filter"><label for="people" class="gem-c-label govuk-label ">Silly walks</label><div class="gem-c-accessible-autocomplete" data-module="accessible-autocomplete"><span><div class="autocomplete__wrapper" role="combobox" aria-expanded="false"><div aria-atomic="true" aria-live="polite" role="status">3 results are available. <span>,,</span></div><input aria-owns="silly_walks__listbox" autocomplete="off" class="autocomplete__input autocomplete__input--show-all-values" id="silly_walks" name="" placeholder="" type="text" role="textbox"><ul class="autocomplete__menu autocomplete__menu--inline autocomplete__menu--hidden" id="people__listbox" role="listbox"><li class="autocomplete__option" id="walk__option--0" role="option" tabindex="-1">Hopscotch</li><li class="autocomplete__option autocomplete__option--odd" id="walk__option--1" role="option" tabindex="-1">The West London Wobbly Walk</li><li class="autocomplete__option" id="walk__option--2" role="option" tabindex="-1">The Gerry Anderson</li></ul></div></span><select name="walk" id="walk-select" style="display: none;"><option value=""></option><option value="hopscotch">Hopscotch</option><option value="the-west-london-wobbly-walk">The West London Wobbly Walk</option><option value="the-gerry-anderson">The Gerry Anderson</option></select></div></div><input type="submit" value="Filter results" class="button js-live-search-fallback"/></form>');
-    });
-
-    it('clears an accessibleAutocomplete if blur on an empty input', function() {
-      var autocompleteLiveSearch = new GOVUK.LiveSearch({$form: $autocompleteForm, $results: $results, $atomAutodiscoveryLink:$atomAutodiscoveryLink});
-      autocompleteLiveSearch.$form.find("select").val("hopscotch").trigger("change");
-      autocompleteLiveSearch.$form.find(".gem-c-accessible-autocomplete input[type='text']").val("");
-      autocompleteLiveSearch.$form.find(".gem-c-accessible-autocomplete input[type='text']").trigger("blur");
-      expect(autocompleteLiveSearch.$form.find("select").val()).toBe('');
-    });
+     });
   });
 });
