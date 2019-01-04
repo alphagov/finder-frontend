@@ -5,7 +5,7 @@ ruby File.read(".ruby-version").strip
 gem 'chronic', '~> 0.10.2'
 gem 'gds-api-adapters', '~> 55.0'
 gem 'govuk_ab_testing', '~> 2.4.1'
-gem 'govuk_app_config', '~> 1.10.0'
+gem 'govuk_app_config', '~> 1.11.2'
 gem 'govuk_document_types', '~> 0.9.0'
 gem 'govuk_publishing_components', '~> 13.5.0'
 gem 'rails', '~> 5.2.2'
