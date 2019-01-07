@@ -90,8 +90,9 @@ pages:
   personal_data:
     show_in_qa: true
     question_type: "single_wrapped"
-    question: "Do you use personal data that you send, receive or store in another EU country?"
+    question: "Does your business exchange personal data with another organisation in Europe?"
     description: |
+      <p>This includes <a href="https://www.gov.uk/eu-eea">organisations located in the EU</a> and Norway, Iceland and Liechtenstein.</p>
       <p>Personal data includes customers’ addresses, staff working hours or information you give to a delivery company.</p>
       <p>Skip this question if you’re not sure how you deal with personal data.</p>
   intellectual_property:
