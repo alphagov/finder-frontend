@@ -1,11 +1,8 @@
-require 'gds_api/helpers'
-
 # This class currently supports only one question
 # If there is a need for multiple questions, this class needs to be modified
 
 class QaToContentController < ApplicationController
   layout "finder_layout"
-  include GdsApi::Helpers
 
   def show
     return redirect_to content_url if redirect_to_content?

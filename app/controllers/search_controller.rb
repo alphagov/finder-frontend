@@ -6,7 +6,7 @@ class SearchController < ApplicationController
   def index
     search_params = SearchParameters.new(params)
 
-    @content_item = content_store.content_item("/search").to_hash
+    @content_item = Services.content_store.content_item("/search").to_hash
     if search_params.no_search? && params[:format] != "json"
       render(action: 'no_search_term') && return
     end

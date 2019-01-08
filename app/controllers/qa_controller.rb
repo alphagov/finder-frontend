@@ -1,8 +1,5 @@
-require 'gds_api/helpers'
-
 class QaController < ApplicationController
   layout "finder_layout"
-  include GdsApi::Helpers
 
   def show
     redirect_to_finder if finder_page?
