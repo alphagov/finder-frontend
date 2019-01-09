@@ -1,7 +1,4 @@
-require 'gds_api/helpers'
-
 class ApplicationController < ActionController::Base
-  include GdsApi::Helpers
   include Slimmer::Headers
   include Slimmer::Template
   slimmer_template "header_footer_only"

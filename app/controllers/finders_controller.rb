@@ -1,8 +1,5 @@
-require 'gds_api/helpers'
-
 class FindersController < ApplicationController
   layout "finder_layout"
-  include GdsApi::Helpers
 
   before_action do
     expires_in(5.minutes, public: true)
