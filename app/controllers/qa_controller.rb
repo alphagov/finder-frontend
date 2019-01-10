@@ -12,8 +12,19 @@ private
     @qa_config ||= YAML.load_file("lib/#{request.path.tr('-', '_')}.yaml")
   end
 
+  def slug
+    qa_config["finder_base_path"]
+  end
+
   def raw_finder
-    @raw_finder ||= Services.content_store.content_item(qa_config["finder_base_path"])
+    # FIXME: stop caching this once the app has migrated to AWS
+    @raw_finder ||= begin
+      item_hash = Rails.cache.fetch("QaController/#{slug}", expires_in: 5.minutes) do
+        Services.content_store.content_item(slug).to_hash
+      end
+
+      item_hash.with_indifferent_access
+    end
   end
 
   def facets
