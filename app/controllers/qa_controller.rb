@@ -1,6 +1,10 @@
 class QaController < ApplicationController
   layout "finder_layout"
 
+  before_action do
+    expires_in(5.minutes, public: true)
+  end
+
   def show
     redirect_to_finder if finder_page?
     raw_finder
