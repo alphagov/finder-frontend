@@ -9,6 +9,12 @@
     controls: "js-search-results-info"
   } if finder.show_keyword_search? %>
 
-  <%= render facet_collection.filters %>
+  <button type="button" class="gem-c-button govuk-button progressive-disclosure js-toggle-progressive-disclosed-elements">
+    More search options
+  </button>
+
+  <div class="progressively-disclosed js-progressively-disclosed-facets">
+      <%= render facet_collection.filters %>
+  </div>
   <input type="submit" value="Filter results" class="button js-live-search-fallback"/>
 </div>

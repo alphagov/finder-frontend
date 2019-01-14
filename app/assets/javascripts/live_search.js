@@ -25,6 +25,8 @@
     this.resultCountTemplate = this.setResultCountTemplate();
     this.getTaxonomyFacet().update();
 
+    this.$form.find('.js-toggle-progressive-disclosed-elements').on('click', this.toggleProgressivelyDisclosedFacets.bind(this))
+
     if(GOVUK.support.history()){
       this.saveState();
 
@@ -63,6 +65,10 @@
       return '_result_count';
     }
   };
+
+  LiveSearch.prototype.toggleProgressivelyDisclosedFacets = function toggleProgressivelyDisclosedFacets() {
+    this.$form.find('.js-progressively-disclosed-facets').toggle();
+  }
 
   LiveSearch.prototype.getTaxonomyFacet = function getTaxonomyFacet() {
     this.taxonomy = this.taxonomy || new GOVUK.TaxonomySelect({ $el: $('.app-taxonomy-select') });

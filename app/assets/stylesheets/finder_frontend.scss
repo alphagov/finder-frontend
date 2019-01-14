@@ -129,6 +129,21 @@
     }
   }
 
+  .progressive-disclosure {
+    display: none;
+
+    @include media(mobile) {
+      display: block;
+      margin-bottom: $gutter-two-thirds;
+    }
+  }
+
+  .progressively-disclosed {
+    @include media(mobile) {
+      display: none;
+    }
+  }
+
   .help-text {
     @include core-14;
     display:block;
