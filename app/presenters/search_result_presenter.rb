@@ -16,6 +16,7 @@ class SearchResultPresenter
       summary: summary,
       is_historic: is_historic,
       government_name: government_name,
+      timestamp: search_result.public_timestamp,
       metadata: metadata,
     }
   end
