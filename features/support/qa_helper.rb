@@ -17,7 +17,7 @@ module QAHelper
   end
 
   def mock_qa_config
-    @config ||= YAML.load_file('./features/fixtures/aaib_reports_qa.yaml')
+    @mock_qa_config ||= YAML.load_file('./features/fixtures/aaib_reports_qa.yaml')
   end
 
   def first_question
@@ -25,13 +25,11 @@ module QAHelper
   end
 
   def get_question_by_type(type)
-    mock_qa_config["pages"].select do |key, value|
-      value["question_type"] == type
-    end.values.first['question']
+    mock_qa_config["pages"].select { |_key, value| value["question_type"] == type }.values.first['question']
   end
 
   def get_page_number(question)
-    mock_qa_config["pages"].each_with_index do |(key, value), index|
+    mock_qa_config["pages"].each_with_index do |(_key, value), index|
       return index + 1 if value["question"] == question
     end
   end

@@ -73,7 +73,7 @@ module DocumentHelper
       .with(
         query: hash_including({})
       ).to_return(
-         body: aaib_reports_search_results
+        body: aaib_reports_search_results
       )
   end
 
@@ -171,14 +171,14 @@ module DocumentHelper
             "phase" => "live"
          }
         ]
-      })
+      }
+    )
 
-      content_store_has_item(
-        schema.fetch("base_path"),
-        schema.to_json,
-      )
-    end
-
+    content_store_has_item(
+      schema.fetch("base_path"),
+      schema.to_json,
+    )
+  end
 
   def stub_rummager_with_cma_cases
     stub_request(:get, rummager_all_cma_case_documents_url).to_return(
@@ -231,11 +231,11 @@ module DocumentHelper
       body: all_cma_case_documents_json,
     )
     cma_case_documents_filtered_by_supergroup = rummager_url(
-        cma_case_search_params.merge(
-            "filter_case_state" => %w(open),
-            "order" => "-public_timestamp"
-            )
-         )
+      cma_case_search_params.merge(
+        "filter_case_state" => %w(open),
+        "order" => "-public_timestamp"
+      )
+    )
 
     stub_request(:get, cma_case_documents_filtered_by_supergroup).to_return(
       body: filtered_cma_case_documents_json,
