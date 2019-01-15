@@ -16,8 +16,12 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
       var removeFilterValue = $(this).data('value');
       var removeFilterFacet = $(this).data('facet');
 
-      var inputSelector = getSelectorForInput(removeFilterName, removeFilterValue);
-      var $input = $('#' + removeFilterFacet).find(inputSelector);
+      var $input = $('#' + removeFilterFacet)
+
+      if (!$input.is('input')) {
+        var inputSelector = getSelectorForInput(removeFilterName, removeFilterValue);
+        $input = $input.find(inputSelector);
+      }
 
       var elementType = $input.prop('tagName');
       var inputType = $input.prop('type');
@@ -33,7 +37,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
         var currentVal = $input.val();
         var newVal = $.trim(currentVal.replace(removeFilterValue, ''));
 
-        $input.val(newVal).trigger('change');
+        $input.val("").trigger('change');
       }
       else if (elementType == 'OPTION') {
         $('#' + removeFilterFacet).val("").trigger('change');
