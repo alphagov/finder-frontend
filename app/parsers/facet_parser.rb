@@ -8,12 +8,16 @@ module FacetParser
         TopicalFacet.new(facet)
       when 'taxon'
         TaxonFacet.new(facet)
+      when 'link'
+        LinkFacet.new(facet)
       when 'date'
         DateFacet.new(facet)
       when 'hidden'
         HiddenFacet.new(facet)
       when 'checkbox'
         CheckboxFacet.new(facet)
+      when 'dropdown_select'
+        DropdownSelectFacet.new(facet)
       else
         raise ArgumentError.new("Unknown filterable facet type: #{facet.type}")
       end

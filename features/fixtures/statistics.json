@@ -1,0 +1,116 @@
+{
+  "analytics_identifier":null,
+  "base_path":"/statistics",
+  "content_id":"8f827d53-9ad1-4b90-b6ae-2301c1ecdf02",
+  "content_purpose_document_supertype":"navigation",
+  "document_type":"finder",
+  "email_document_supertype":"other",
+  "first_published_at":"2019-01-15T14:47:48.000+00:00",
+  "government_document_supertype":"other",
+  "locale":"en",
+  "navigation_document_supertype":"other",
+  "phase":"alpha",
+  "public_updated_at":"2019-01-15T14:47:48.000+00:00",
+  "publishing_app":"finder-frontend",
+  "rendering_app":"finder-frontend",
+  "schema_name":"finder",
+  "search_user_need_document_supertype":"government",
+  "title":"Statistics",
+  "updated_at":"2019-01-15T14:47:48.000+00:00",
+  "user_journey_document_supertype":"finding",
+  "withdrawn_notice":{},
+  "publishing_request_id":"",
+  "links":{},
+  "description":"Find statistics from government",
+  "details":{
+    "document_noun":"statistic",
+    "filter":{
+    },
+    "format_name":"statistic",
+    "show_summaries":true,
+    "sort": [
+      {
+        "name": "Most viewed",
+        "key": "-popularity"
+      },
+      {
+        "name": "Relevance",
+        "key": "-relevance"
+      },
+      {
+        "name": "Updated (newest)",
+        "key": "-public_timestamp",
+        "default": true
+      },
+      {
+        "name": "Updated (oldest)",
+        "key": "public_timestamp"
+      },
+      {
+        "name": "Release date (latest)",
+        "key": "-release_timestamp"
+      },
+      {
+        "name": "Release date (oldest)",
+        "key": "release_timestamp"
+      }
+    ],
+    "facets":[
+      {
+        "filter_key": "all_part_of_taxonomy_tree",
+        "keys": ["level_one_taxon", "level_two_taxon"],
+        "name": "topic",
+        "short_name": "topic",
+        "type": "taxon",
+        "display_as_result_metadata": false,
+        "filterable": true,
+        "preposition": "about"
+      },
+      {
+        "key": "organisations",
+        "name": "Organisation",
+        "short_name": "From",
+        "preposition": "from",
+        "type": "text",
+        "display_as_result_metadata": true,
+        "filterable": true
+      },
+      {
+        "key": "world_locations",
+        "name": "World location",
+        "preposition": "in",
+        "type": "text",
+        "display_as_result_metadata": true,
+        "filterable": true
+      },
+      {
+        "key":"content_store_document_type",
+        "name":"Statistics",
+        "type":"dropdown_select",
+        "display_as_result_metadata":false,
+        "filterable":true,
+        "preposition": "that are",
+        "allowed_values": [
+          {
+            "text": "Published",
+            "value": "[\"statistics\",\"national_statistics\",\"statistical_data_set\",\"official_statistics\"]",
+            "default": true
+          },
+          {
+            "text": "Upcoming",
+            "value": "[\"statistics_announcement\",\"national_statistics_announcement\",\"official_statistics_announcement\"]"
+          }
+        ]
+      },
+      {
+        "key": "public_timestamp",
+        "short_name": "Updated",
+        "name": "Updated",
+        "type": "date",
+        "display_as_result_metadata": true,
+        "filterable": true
+      }
+    ],
+    "default_documents_per_page":20
+  }
+}
