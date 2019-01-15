@@ -81,7 +81,7 @@
 
       <div class='js-live-search-results-block'>
         <div class="filtered-results">
-          <div aria-live='assertive' id='js-search-results-info'>
+          <div aria-live='assertive' id='js-search-results-info' data-module="remove-filter">
             <% if finder.show_generic_description? %>
               <%= render_mustache('result_count_generic', @results.to_hash) %>
             <% else %>

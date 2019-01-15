@@ -4,7 +4,7 @@ class ResultSetPresenter
   attr_reader :finder, :document_noun, :results, :total
 
   delegate :document_noun,
-           :filter_sentence_fragments,
+           :filters,
            :keywords,
            :atom_url,
            to: :finder
@@ -22,7 +22,7 @@ class ResultSetPresenter
       total: total > 1000 ? "1,000+" : total,
       generic_description: generic_description,
       pluralised_document_noun: document_noun.pluralize(total),
-      applied_filters: describe_filters_in_sentence,
+      applied_filters: selected_filter_descriptions,
       documents: documents,
       page_count: documents.count,
       finder_name: finder.name,
@@ -34,7 +34,7 @@ class ResultSetPresenter
   end
 
   def any_filters_applied?
-    filter_sentence_fragments.length.positive? || keywords.present?
+    selected_filters.length.positive? || keywords.present?
   end
 
   def generic_description
@@ -42,51 +42,22 @@ class ResultSetPresenter
     "#{publications} matched your criteria"
   end
 
-  def describe_filters_in_sentence
-    [
-      keywords_description,
-      selected_filter_descriptions
-    ].compact.join(' ')
-  end
-
-  def keywords_description
-    if keywords.present?
-      "containing <strong>#{html_escape(keywords)}</strong>"
-    else
-      ""
-    end
-  end
-
   def selected_filter_descriptions
-    filter_sentence_fragments.flat_map { |fragment|
-      fragment_description(fragment)
-    }.join(' ')
-  end
-
-  def fragment_description(fragment)
-    [
-      fragment['preposition'],
-      fragment_to_s(fragment),
-    ]
-  end
-
-  def fragment_to_s(fragment)
-    values = fragment['values'].map { |value|
-      "<strong>#{html_escape(value['label'])}</strong>"
-    }
-
-    if fragment['type'] == "text"
-      values.to_sentence(two_words_connector: ' or ', last_word_connector: ' or ')
-    elsif fragment['type'] == "date" || fragment['type'] == "checkbox" || fragment['type'] == "taxon"
-      values.to_sentence(two_words_connector: ' and ')
+    all_filter_params = {}
+    selected_filters.each do |filter|
+      all_filter_params[filter.key] = filter.value
     end
+
+    (selected_filters.map do |filter|
+      FacetTagPresenter.new(filter.sentence_fragment, all_filter_params[filter.key], finder.slug).present
+    end).reject(&:empty?)
   end
 
   def documents
     results.each_with_index.map do |result, index|
       {
         document: SearchResultPresenter.new(result).to_hash,
-        document_index: index + 1,
+        document_index: index + 1
       }
     end
   end
@@ -135,5 +106,9 @@ private
       title: page_label,
       label: "#{page} of #{finder.pagination['total_pages']}",
     }
+  end
+
+  def selected_filters
+    (filters + [KeywordFacet.new(keywords)]).select(&:has_filters?)
   end
 end

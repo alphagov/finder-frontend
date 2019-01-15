@@ -11,7 +11,7 @@ RSpec.describe ResultSetPresenter do
       results: results,
       document_noun: document_noun,
       total: 20,
-      facets: [a_facet, another_facet, a_date_facet],
+      facets: a_facet_collection,
       keywords: keywords,
       atom_url: "/a-finder.atom",
       default_documents_per_page: 10,
@@ -42,19 +42,28 @@ RSpec.describe ResultSetPresenter do
         },
       ],
       sentence_fragment: {
+        'key' => 'key_1',
         'type' => 'text',
-        'preposition' => 'of type',
+        'preposition' => 'Of Type',
         'values' => [
           {
             'label' => 'CA98 and civil cartels',
-            'parameter_key' => 'key_1',
           },
           {
             'label' => 'Mergers',
-            'parameter_key' => 'key_1',
           },
-        ]
-      }
+        ],
+        'word_connectors' => { words_connector: 'or' }
+      },
+      has_filters?: true,
+      value: ['ca98-and-civil-cartels', 'mergers']
+    )
+  end
+
+  let(:a_facet_collection) do
+    double(
+      FacetCollection,
+      filters: [a_facet, another_facet, a_date_facet]
     )
   end
 
@@ -62,7 +71,7 @@ RSpec.describe ResultSetPresenter do
     double(
       SelectFacet,
       key: 'key_2',
-      preposition: 'about',
+      preposition: 'About',
       selected_values: [
         {
           'value' => 'farming',
@@ -74,39 +83,32 @@ RSpec.describe ResultSetPresenter do
         },
       ],
       sentence_fragment: {
+        'key' => 'key_2',
         'type' => 'text',
-        'preposition' => 'about',
+        'preposition' => 'About',
         'values' => [
           {
             'label' => 'Farming',
-            'parameter_key' => 'key_2',
           },
           {
             'label' => 'Chemicals',
-            'parameter_key' => 'key_2',
           },
-        ]
-      }
+        ],
+        'word_connectors' => { words_connector: 'or' }
+      },
+      has_filters?: true,
+      value: %w[farming chemicals],
+      'word_connectors' => { words_connector: 'or' }
     )
   end
 
   let(:a_date_facet) do
     double(
       SelectFacet,
-      sentence_fragment: {
-        'type' => "date",
-        'preposition' => "closed between",
-        'values' => [
-          {
-            'label' => "22 June 1990",
-            'parameter_key' => "closed_date",
-          },
-          {
-            'label' => "22 June 1994",
-            'parameter_key' => "closed_date",
-          }
-        ]
-      }
+      'key' => 'closed_date',
+      sentence_fragment: nil,
+      has_filters?: false,
+      'word_connectors' => { words_connector: 'or' }
     )
   end
 
@@ -139,7 +141,7 @@ RSpec.describe ResultSetPresenter do
 
   describe '#to_hash' do
     before(:each) do
-      allow(presenter).to receive(:describe_filters_in_sentence).and_return("a sentence summarising the selected filters")
+      allow(presenter).to receive(:selected_filter_descriptions).and_return("a sentence summarising the selected filters")
       allow(presenter).to receive(:documents).and_return(key: 'value')
       allow(presenter).to receive(:any_filters_applied?).and_return(true)
       allow(view_context).to receive(:render).and_return('<nav></nav>')
@@ -164,10 +166,10 @@ RSpec.describe ResultSetPresenter do
       expect(document_noun).to have_received(:pluralize).with(total)
     end
 
-    it 'calls describe_filters_in_sentence' do
-      allow(presenter).to receive(:describe_filters_in_sentence)
+    it 'calls selected_filter_descriptions' do
+      allow(presenter).to receive(:selected_filter_descriptions)
       presenter.to_hash
-      expect(presenter).to have_received(:describe_filters_in_sentence)
+      expect(presenter).to have_received(:selected_filter_descriptions)
     end
 
     it 'calls documents' do
@@ -177,22 +179,18 @@ RSpec.describe ResultSetPresenter do
     end
   end
 
-  describe '#describe_filters_in_sentence' do
+  describe '#selected_filter_descriptions' do
     before(:each) do
       allow(presenter).to receive(:link_without_facet_value)
-      allow(finder).to receive(:filter_sentence_fragments).and_return([a_facet, another_facet, a_date_facet].flat_map(&:sentence_fragment).compact)
-    end
-
-    it 'calls selected_filter_descriptions' do
-      allow(presenter).to receive(:selected_filter_descriptions)
-      presenter.describe_filters_in_sentence
-      expect(presenter).to have_received(:selected_filter_descriptions)
+      allow(finder).to receive(:filters).and_return([a_facet, another_facet, a_date_facet])
     end
 
     it 'includes prepositions for each facet' do
-      sentence = presenter.describe_filters_in_sentence
-      finder.filter_sentence_fragments.each do |fragment|
-        expect(sentence).to include(fragment['preposition'])
+      applied_filters = presenter.selected_filter_descriptions.flat_map { |filter| filter }
+      prepositions = applied_filters.flat_map { |filter| filter[:preposition] }.reject { |preposition| preposition == "or" }
+
+      finder.filters.reject { |filter| filter.sentence_fragment.nil? }.each do |fragment|
+        expect(prepositions).to include(fragment.sentence_fragment['preposition'])
       end
     end
 
@@ -200,7 +198,10 @@ RSpec.describe ResultSetPresenter do
       let(:keywords) { "my search term" }
 
       it 'includes the keywords' do
-        expect(presenter.describe_filters_in_sentence).to include("my search term")
+        applied_filters = presenter.selected_filter_descriptions.flat_map { |filter| filter }
+        text_values = applied_filters.flat_map { |filter| filter[:text] }
+
+        expect(text_values).to include("my", "search", "term")
       end
     end
 
@@ -208,30 +209,26 @@ RSpec.describe ResultSetPresenter do
       let(:keywords) { '<script>alert("hello")</script>' }
 
       it 'escapes keywords appropriately' do
-        expect(presenter.describe_filters_in_sentence).to include('&lt;script&gt;alert')
+        applied_filters = presenter.selected_filter_descriptions.flat_map { |filter| filter }
+        text_values = applied_filters.flat_map { |filter| filter[:text] }
+
+        expect(["script", "alert", "&quot;hello&quot;"].any? { |word| text_values.join(" ").include?(word) })
       end
     end
   end
 
   describe '#facet_values_sentence' do
     before(:each) do
-      allow(finder).to receive(:filter_sentence_fragments).and_return([a_facet, another_facet, a_date_facet].flat_map(&:sentence_fragment).compact)
+      allow(finder).to receive(:filters).and_return([a_facet, another_facet, a_date_facet])
     end
 
-    let(:sentence) { presenter.selected_filter_descriptions }
+    let(:applied_filters) { presenter.selected_filter_descriptions.flat_map { |filter| filter } }
 
-    it 'returns a string with all the facets passed to it in strong tags' do
-      finder.facets.flat_map { |f| f.sentence_fragment['values'] }.each do |value|
-        expect(sentence).to include("<strong>#{value['label']}</strong>")
+    it 'returns an array of hashes that can be used to construct facet tags' do
+      text_values = applied_filters.flat_map { |filter| filter[:text] }
+      finder.facets.filters.flat_map { |filter| filter.sentence_fragment.nil? ? nil : filter.sentence_fragment['values'] }.compact.each do |value|
+        expect(text_values).to include(value['label'])
       end
-    end
-
-    it 'returns a string with the facet values joined correctly' do
-      text_values = another_facet.selected_values
-      expect(sentence).to include("<strong>#{text_values.first['label']}</strong> or <strong>#{text_values.last['label']}</strong>")
-
-      date_fragment = a_date_facet.sentence_fragment
-      expect(sentence).to include("<strong>#{date_fragment['values'].first['label']}</strong> and <strong>#{date_fragment['values'].last['label']}</strong>")
     end
   end
 

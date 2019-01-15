@@ -79,7 +79,7 @@ RSpec.describe AdvancedSearchResultSetPresenter do
       }
 
       it "contains selected subgroups and date filters" do
-        expected = "in news published after 1 February 2017"
+        expected = "in News published after 1 February 2017"
         expect(instance.to_hash[:applied_filters]).to eq(expected)
       end
     end

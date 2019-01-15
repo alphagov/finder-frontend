@@ -38,12 +38,12 @@ class AdvancedSearchResultSetPresenter < ResultSetPresenter
 
   def applied_filters_or_all_subgroups
     cleanup_whitespace(
-      if describe_filters_in_sentence.blank?
+      if selected_filter_descriptions.blank?
         subgroups_as_sentence
       elsif subgroup_facet.value.blank?
-        [subgroups_as_sentence, describe_filters_in_sentence].to_sentence
+        [subgroups_as_sentence, filters_to_sentence(selected_filter_descriptions)].to_sentence
       else
-        describe_filters_in_sentence
+        [filters_to_sentence(selected_filter_descriptions)].to_sentence
       end
     )
   end
@@ -54,5 +54,11 @@ class AdvancedSearchResultSetPresenter < ResultSetPresenter
 
   def cleanup_whitespace(sentence)
     sentence.strip.gsub(/  /, " ")
+  end
+
+private
+
+  def filters_to_sentence(filters)
+    filters.flat_map { |filter| filter }.map { |filter| "#{filter[:preposition].downcase} #{filter[:text]}" }.join(' ')
   end
 end
