@@ -136,8 +136,11 @@ class FinderPresenter
 
     disabled_option = keywords.blank? ? relevance_sort_option_value : ''
 
-    selected_option = values['order'] unless values['order'].nil? || sort.detect { |option| option['name'].parameterize == values['order'] }.nil?
-    selected_option ||= default_sort_option_value
+    selected_option = if values['order'].present? && sort.any? { |option| option['name'].parameterize == values['order'] }
+                        values['order']
+                      else
+                        default_sort_option_value
+                      end
 
     options_for_select(options, selected: selected_option, disabled: disabled_option)
   end
