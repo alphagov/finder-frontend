@@ -52,6 +52,14 @@ When(/^I view a list of news and communications$/) do
   visit finder_path('news-and-communications')
 end
 
+When(/^I view a list of services$/) do
+  topic_taxonomy_has_taxons
+  content_store_has_services_finder
+  stub_rummager_api_request_with_services_results
+
+  visit finder_path('services')
+end
+
 When(/^I search documents by keyword$/) do
   stub_keyword_search_api_request
 
@@ -294,6 +302,11 @@ When(/^I sort by most viewed$/) do
   click_on 'Filter results'
 end
 
+When(/^I sort by A-Z$/) do
+  select 'A-Z', from: 'Sort by'
+  click_on 'Filter results'
+end
+
 Then(/^I see the most viewed articles first$/) do
   within '.filtered-results .document:nth-child(1)' do
     expect(page).to have_content('Press release from Hogwarts')
@@ -305,4 +318,16 @@ Then(/^I see the most viewed articles first$/) do
   end
 
   expect(page).to have_content('sorted by Most viewed')
+end
+
+Then(/^I see services in alphabetical order$/) do
+  within '.filtered-results .document:nth-child(1)' do
+    expect(page).to have_content('Apply for your full broomstick licence')
+  end
+
+  within '.filtered-results .document:nth-child(2)' do
+    expect(page).to have_content('Register a magical spell')
+  end
+
+  expect(page).to have_content('sorted by A-Z')
 end
