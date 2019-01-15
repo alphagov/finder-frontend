@@ -39,6 +39,7 @@ class SelectFacet < FilterableFacet
 
   def selected_option
     return nil unless selected_values.any?
+
     selected_values.first.values
   end
 
