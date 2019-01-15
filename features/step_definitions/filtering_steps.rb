@@ -157,7 +157,11 @@ Then(/^I can filter based on the results$/) do
   end
   click_on "Filter results"
 
-  expect(page).to have_content("1 report of type Hopscotch")
+  within(".result-info") do
+    expect(page).to have_content("1 report")
+    expect(page).to have_content("Of Type")
+    expect(page).to have_content("Hopscotch")
+  end
   within ".filtered-results" do
     expect(page).not_to have_content("West London wobbley walk")
     expect(page).to have_content("The Gerry Anderson")
