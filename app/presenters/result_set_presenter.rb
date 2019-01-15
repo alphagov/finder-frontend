@@ -1,6 +1,5 @@
 class ResultSetPresenter
   include ERB::Util
-  include ActionView::Helpers::NumberHelper
 
   attr_reader :finder, :document_noun, :results, :total
 
@@ -20,7 +19,7 @@ class ResultSetPresenter
 
   def to_hash
     {
-      total: number_with_delimiter(total, delimiter: ','),
+      total: total > 1000 ? "1,000+" : total,
       generic_description: generic_description,
       pluralised_document_noun: document_noun.pluralize(total),
       applied_filters: selected_filter_descriptions,
@@ -80,7 +79,7 @@ class ResultSetPresenter
 
     sort_option ||= finder.default_sort_option
 
-    "<span class='visually-hidden'>, sorted by <strong>" + sort_option['name'] + "</strong></span>" if sort_option.present?
+    "sorted by <strong>" + sort_option['name'] + "</strong>" if sort_option.present?
   end
 
 private

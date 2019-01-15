@@ -15,7 +15,7 @@
       id: key + "[from]",
       value: from_value,
       controls: aria_controls_id,
-      hint: "For example, 2005 or 21/11/2014"
+      describedby: "date-help-text-" + key
     } %>
 
     <%= render "govuk_publishing_components/components/input", {
@@ -26,7 +26,11 @@
       id: key + "[to]",
       value: to_value,
       controls: aria_controls_id,
-      hint: "For example, 2005 or 21/11/2014"
+      describedby: "date-help-text-" + key
     } %>
+
+    <span id="date-help-text-<%= key %>" class="app-c-date-filter__help-text">
+      For example, 2005 or 21/11/2014
+    </span>
   </div>
 <% end %>

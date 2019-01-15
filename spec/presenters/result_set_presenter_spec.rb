@@ -148,7 +148,7 @@ RSpec.describe ResultSetPresenter do
     end
 
     it 'returns an appropriate hash' do
-      expect(presenter.to_hash[:total]).to eql(total.to_s)
+      expect(presenter.to_hash[:total]).to eql(total)
       expect(presenter.to_hash[:generic_description].present?).to be_truthy
       expect(presenter.to_hash[:pluralised_document_noun].present?).to be_truthy
       expect(presenter.to_hash[:documents].present?).to be_truthy

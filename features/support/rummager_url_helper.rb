@@ -79,8 +79,8 @@ module RummagerUrlHelper
   def news_and_communications_search_fields
     base_search_fields + %w(
       part_of_taxonomy_tree
-      organisations
       people
+      organisations
       world_locations
     )
   end
