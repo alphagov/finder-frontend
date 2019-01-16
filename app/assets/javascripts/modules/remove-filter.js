@@ -27,7 +27,8 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
 
     function setInputState(elementType, inputType, $input, removeFilterValue, removeFilterFacet) {
       if (inputType == 'checkbox') {
-        $input.trigger('click');
+        $input.prop("checked", false);
+        $input.trigger('change');
       }
       else if (inputType == 'text' || inputType == 'search') {
         var currentVal = $input.val();
