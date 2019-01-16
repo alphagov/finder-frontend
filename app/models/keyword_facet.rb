@@ -10,7 +10,9 @@ class KeywordFacet
       'key' => key,
       'preposition' => 'containing',
       'values' => value_fragments,
-      'word_connectors' => {}
+      'word_connectors' => {
+        words_connector: ''
+      }
     }
   end
 

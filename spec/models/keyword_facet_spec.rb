@@ -17,6 +17,8 @@ describe KeywordFacet do
         expect(first_word['parameter_key']).to eql("keywords")
         expect(first_word['label']).to eql("Happy")
         expect(second_word['label']).to eql("Christmas")
+
+        expect(subject.sentence_fragment['word_connectors'][:words_connector]).to eql("")
       }
     end
 
