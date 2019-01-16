@@ -23,4 +23,21 @@ describe FilterableFacet do
       specify { expect(subject.to_partial_path).to eql("example_facet") }
     end
   end
+
+  describe '#preposition' do
+    let(:default_preposition) {
+      facet_class.new(
+        'key' => "test_facet",
+        'name' => "Facet without preposition"
+      )
+    }
+
+    it "has a default preposition" do
+      expect(default_preposition.preposition).to eq('related to')
+    end
+
+    it "has a preposition specified in the facet content" do
+      expect(subject.preposition).to eq(facet_data['preposition'])
+    end
+  end
 end
