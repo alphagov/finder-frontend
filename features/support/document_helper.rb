@@ -113,10 +113,12 @@ module DocumentHelper
 
   def content_store_has_government_finder
     base_path = '/government/policies/benefits-reform'
-    content_store_has_item(
-      base_path,
-      govuk_content_schema_example('finder').merge('base_path' => base_path).to_json
-    )
+    schema_example = govuk_content_schema_example('finder')
+
+    schema_example.merge!('base_path' => base_path)
+    schema_example['details'].merge!("signup_link" => "#{base_path}/email-signup")
+
+    content_store_has_item(base_path, schema_example.to_json)
   end
 
   def content_store_has_services_finder

@@ -18,11 +18,6 @@
       <%= finder.taxon_link %>
       <%= render partial: 'govuk_publishing_components/components/title', locals: { title: finder.title, inverse: true } %>
 
-      <% if finder.email_alert_signup_url %>
-        <p class='email-link'>
-          <%= link_to "Subscribe to email alerts", finder.email_alert_signup_url %>
-        </p>
-      <% end %>
     </div>
 
     <% if finder.logo_path %>

@@ -14,7 +14,7 @@
     this.$countBlock = options.$results.find('#js-search-results-info');
     this.action = this.$form.attr('action') + '.json';
     this.$atomAutodiscoveryLink = options.$atomAutodiscoveryLink;
-    this.$emailLink = $("p.email-link a");
+    this.$emailLink = $(".gem-c-subscription-links a");
 
     this.emailSignupHref = this.$emailLink.attr('href');
 
@@ -78,6 +78,9 @@
 
     this.$emailLink.attr(
       'href', this.emailSignupHref + "?" + $.param(this.state)
+    );
+    this.$emailLink.attr(
+      'data-track-action', this.$emailLink.attr('href')
     );
   };
 

@@ -17,3 +17,10 @@ Then(/^the links on the page have tracking attributes$/) do
   expect(options['dimension28']).to eq(document_links.count.to_s)
   expect(options['dimension29']).to eq(first_link.text)
 end
+
+Then(/^I see an email signup link$/) do
+  expect(page).to have_css(".gem-c-subscription-links", text: "Subscribe to email alerts")
+  expect(page).to have_css("a[data-track-category='emailAlertLinkClicked']")
+  expect(page).to have_css("a[data-track-action='/government/policies/benefits-reform/email-signup']")
+  expect(page).to have_css("a[data-track-label='Subscribe to email alerts']")
+end

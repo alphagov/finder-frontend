@@ -38,9 +38,16 @@
     <% end %>
 
     <% if finder.email_alert_signup_url %>
-      <p class='email-link'>
-        <%= link_to "Subscribe to email alerts", finder.email_alert_signup_url %>
-      </p>
+      <%= render "govuk_publishing_components/components/subscription-links", {
+          email_signup_link: finder.email_alert_signup_url,
+          email_signup_link_text: "Subscribe to email alerts",
+          email_signup_link_data_attributes: {
+            track_category: "emailAlertLinkClicked",
+            track_action: finder.email_alert_signup_url,
+            track_label: "Subscribe to email alerts"
+          }
+        }
+      %>
     <% end %>
   </div>
 

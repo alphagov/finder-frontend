@@ -60,6 +60,7 @@ Feature: Filtering documents
   Scenario: Link tracking
     Given a government finder exists
     Then the links on the page have tracking attributes
+    And I see an email signup link
 
   Scenario: Visit a finder from an organisation
     Given an organisation finder exists
