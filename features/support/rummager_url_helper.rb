@@ -76,12 +76,42 @@ module RummagerUrlHelper
     )
   end
 
+  def services_search_params
+    supergroup_document_types = %w(
+      answer
+      calculator
+      completed_transaction
+      form
+      guide
+      licence
+      local_transaction
+      place
+      simple_smart_answer
+      smart_answer
+      step_by_step_nav
+      transaction
+    )
+
+    base_search_params.merge(
+      'fields' => services_search_fields.join(','),
+      'filter_content_store_document_type' => supergroup_document_types,
+      'filter_all_part_of_taxonomy_tree[]' => [nil, nil],
+      )
+  end
+
   def news_and_communications_search_fields
     base_search_fields + %w(
       part_of_taxonomy_tree
       people
       organisations
       world_locations
+    )
+  end
+
+  def services_search_fields
+    base_search_fields + %w(
+      part_of_taxonomy_tree
+      organisations
     )
   end
 

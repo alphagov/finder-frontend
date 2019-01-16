@@ -31,6 +31,9 @@
     },
     "NEWS_AND_COMMUNICATIONS_JSON": {
       "value": "features/fixtures/news_and_communications.json"
+    },
+    "SERVICES_JSON": {
+      "value": "features/fixtures/services.json"
     }
   },
   "image": "heroku/ruby",

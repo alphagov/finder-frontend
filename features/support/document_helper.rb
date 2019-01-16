@@ -53,6 +53,14 @@ module DocumentHelper
       .to_return(body: popular_news_and_communication_json)
   end
 
+  def stub_rummager_api_request_with_services_results
+    stub_request(:get, rummager_alphabetical_services_url)
+      .to_return(body: alpabetical_services_json)
+
+    stub_request(:get, rummager_popular_services_url)
+      .to_return(body: popular_services_json)
+  end
+
   def stub_rummager_api_request_with_no_results
     stub_request(:get, rummager_0_documents_url)
       .to_return(body: %|{ "results": [], "total": 0, "start": 0}|)
@@ -109,6 +117,12 @@ module DocumentHelper
       base_path,
       govuk_content_schema_example('finder').merge('base_path' => base_path).to_json
     )
+  end
+
+  def content_store_has_services_finder
+    finder_fixture = File.read(Rails.root.join('features/fixtures/services.json'))
+
+    content_store_has_item('/services', finder_fixture)
   end
 
   def content_store_has_government_finder_with_10_items
@@ -321,6 +335,30 @@ module DocumentHelper
           'count' => 20,
           'start' => 0,
         )
+    )
+  end
+
+  def rummager_popular_services_url
+    rummager_url(
+      services_search_params
+        .merge(
+          'facet_organisations' => '1500,order:value.title',
+          'order' => '-popularity',
+          'count' => 20,
+          'start' => 0,
+          )
+    )
+  end
+
+  def rummager_alphabetical_services_url
+    rummager_url(
+      services_search_params
+        .merge(
+          'facet_organisations' => '1500,order:value.title',
+          'order' => '-title',
+          'count' => 20,
+          'start' => 0,
+          )
     )
   end
 
@@ -882,6 +920,206 @@ module DocumentHelper
                     "title": "Azkaban",
                     "content_id": "db3c2a86-2060-4c37-b8a4-9e3c4e6c91e2",
                     "link": "/world/azkaban"
+                  },
+                  "documents": 2
+                }
+              ],
+              "documents_with_no_value": 0,
+              "total_options": 2,
+              "missing_options": 0,
+              "scope": "exclude_field_filter"
+            }
+          },
+          "suggested_queries": []
+        }
+      ]
+    }|
+  end
+
+  def alpabetical_services_json
+    %|{
+      "results": [
+        {
+          "results": [
+            {
+              "title": "Apply for your full broomstick licence",
+              "link": "apply-for-your-full-broomstick-licence",
+              "description": "How to get your full broomstick licence once you've passed your broomstick test",
+              "public_timestamp": "2018-11-16T11:11:42Z",
+              "part_of_taxonomy_tree": [
+                "4bc72a8b-6011-457a-87e0-06dbb427cf36"
+              ],
+              "organisations": [
+                {
+                  "organisation_crest": "single-identity",
+                  "acronym": "MOM",
+                  "link": "/organisations/ministry-of-magic",
+                  "analytics_identifier": "MM1",
+                  "public_timestamp": "2017-12-15T11:11:02.000+00:00",
+                  "organisation_brand": "ministry-of-magic",
+                  "logo_formatted_title": "Ministry of Magic",
+                  "title": "Ministry of Magic",
+                  "content_id": "92881ac6-2804-4522-bf48-cf8c781c98bf",
+                  "slug": "ministry-of-magic",
+                  "organisation_type": "other",
+                  "organisation_state": "live"
+                }
+              ],
+              "index": "govuk",
+              "es_score": null,
+              "_id": "/news-from-hogwarts",
+              "elasticsearch_type": "transaction",
+              "document_type": "transaction"
+            },
+            {
+              "title": "Register a spell",
+              "link": "/register-a-spell",
+              "description": "Register a magical spell",
+              "public_timestamp": "2017-12-25T09:00:00Z",
+              "part_of_taxonomy_tree": [
+                "4bc72a8b-6011-457a-87e0-06dbb427cf36"
+              ],
+              "organisations": [
+                {
+                  "organisation_crest": "single-identity",
+                  "acronym": "MOM",
+                  "link": "/organisations/ministry-of-magic",
+                  "analytics_identifier": "MM1",
+                  "public_timestamp": "2017-12-15T11:11:02.000+00:00",
+                  "organisation_brand": "ministry-of-magic",
+                  "logo_formatted_title": "Ministry of Magic",
+                  "title": "Ministry of Magic",
+                  "content_id": "92881ac6-2804-4522-bf48-cf8c781c98bf",
+                  "slug": "ministry-of-magic",
+                  "organisation_type": "other",
+                  "organisation_state": "live"
+                }
+              ],
+              "index": "govuk",
+              "es_score": null,
+              "_id": "/register-a-spell",
+              "elasticsearch_type": "transaction",
+              "document_type": "transaction"
+            }
+          ],
+          "total": 2,
+          "start": 0,
+          "facets": {
+            "organisations": {
+              "options": [
+                {
+                  "value": {
+                    "organisation_brand": "ministry-of-magic",
+                    "logo_formatted_title": "Ministry of Magic",
+                    "organisation_crest": "single-identity",
+                    "title": "Ministry of Magic",
+                    "content_id": "92881ac6-2804-4522-bf48-cf8c781c98bf",
+                    "link": "/organisations/academy-for-social-justice-commissioning",
+                    "analytics_identifier": "MM1",
+                    "slug": "ministry-of-magic",
+                    "public_timestamp": "2017-12-15T11:11:02.000+00:00",
+                    "organisation_type": "other",
+                    "organisation_state": "live"
+                  },
+                  "documents": 2
+                }
+              ],
+              "documents_with_no_value": 0,
+              "total_options": 2,
+              "missing_options": 0,
+              "scope": "exclude_field_filter"
+            }
+          },
+          "suggested_queries": []
+        }
+      ]
+    }|
+  end
+
+  def popular_services_json
+    %|{
+      "results": [
+        {
+          "results": [
+            {
+              "title": "Register a spell",
+              "link": "/register-a-spell",
+              "description": "Register a magical spell",
+              "public_timestamp": "2017-12-25T09:00:00Z",
+              "part_of_taxonomy_tree": [
+                "4bc72a8b-6011-457a-87e0-06dbb427cf36"
+              ],
+              "organisations": [
+                {
+                  "organisation_crest": "single-identity",
+                  "acronym": "MOM",
+                  "link": "/organisations/ministry-of-magic",
+                  "analytics_identifier": "MM1",
+                  "public_timestamp": "2017-12-15T11:11:02.000+00:00",
+                  "organisation_brand": "ministry-of-magic",
+                  "logo_formatted_title": "Ministry of Magic",
+                  "title": "Ministry of Magic",
+                  "content_id": "92881ac6-2804-4522-bf48-cf8c781c98bf",
+                  "slug": "ministry-of-magic",
+                  "organisation_type": "other",
+                  "organisation_state": "live"
+                }
+              ],
+              "index": "govuk",
+              "es_score": null,
+              "_id": "/register-a-spell",
+              "elasticsearch_type": "transaction",
+              "document_type": "transaction"
+            },
+            {
+              "title": "Apply for your full broomstick licence",
+              "link": "apply-for-your-full-broomstick-licence",
+              "description": "How to get your full broomstick licence once you've passed your broomstick test",
+              "public_timestamp": "2018-11-16T11:11:42Z",
+              "part_of_taxonomy_tree": [
+                "4bc72a8b-6011-457a-87e0-06dbb427cf36"
+              ],
+              "organisations": [
+                {
+                  "organisation_crest": "single-identity",
+                  "acronym": "MOM",
+                  "link": "/organisations/ministry-of-magic",
+                  "analytics_identifier": "MM1",
+                  "public_timestamp": "2017-12-15T11:11:02.000+00:00",
+                  "organisation_brand": "ministry-of-magic",
+                  "logo_formatted_title": "Ministry of Magic",
+                  "title": "Ministry of Magic",
+                  "content_id": "92881ac6-2804-4522-bf48-cf8c781c98bf",
+                  "slug": "ministry-of-magic",
+                  "organisation_type": "other",
+                  "organisation_state": "live"
+                }
+              ],
+              "index": "govuk",
+              "es_score": null,
+              "_id": "/news-from-hogwarts",
+              "elasticsearch_type": "transaction",
+              "document_type": "transaction"
+            }
+          ],
+          "total": 2,
+          "start": 0,
+          "facets": {
+            "organisations": {
+              "options": [
+                {
+                  "value": {
+                    "organisation_brand": "ministry-of-magic",
+                    "logo_formatted_title": "Ministry of Magic",
+                    "organisation_crest": "single-identity",
+                    "title": "Ministry of Magic",
+                    "content_id": "92881ac6-2804-4522-bf48-cf8c781c98bf",
+                    "link": "/organisations/academy-for-social-justice-commissioning",
+                    "analytics_identifier": "MM1",
+                    "slug": "ministry-of-magic",
+                    "public_timestamp": "2017-12-15T11:11:02.000+00:00",
+                    "organisation_type": "other",
+                    "organisation_state": "live"
                   },
                   "documents": 2
                 }

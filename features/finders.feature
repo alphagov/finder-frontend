@@ -85,8 +85,18 @@ Feature: Filtering documents
       | Relevance        |
       | Updated (newest) |
       | Updated (oldest) |
+    When I view a list of services
+    Then I can sort by:
+      | A-Z         |
+      | Most viewed |
+      | Relevance   |
 
   Scenario: Sorting news and communications by most viewed
     When I view a list of news and communications
     And I sort by most viewed
     Then I see the most viewed articles first
+
+  Scenario: Sorting services A-Z
+    When I view a list of services
+    And I sort by A-Z
+    Then I see services in alphabetical order
