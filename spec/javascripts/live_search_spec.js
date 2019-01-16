@@ -1,5 +1,5 @@
 describe("liveSearch", function(){
-  var $form, $results, _supportHistory, liveSearch, $autocompleteForm;
+  var $form, $results, _supportHistory, liveSearch;
   var dummyResponse = {
     "total":1,
     "pluralised_document_noun":"reports",
@@ -108,7 +108,7 @@ describe("liveSearch", function(){
     liveSearch.updateResults();
     expect(jQuery.ajax).toHaveBeenCalledWith({url: '/somewhere.json', data: {not: "cached"}, searchState : 'not=cached'});
     expect(ajaxCallback.done).toHaveBeenCalled();
-    ajaxCallback.done.calls.mostRecent().args[0]('response data');
+    ajaxCallback.done.calls.mostRecent().args[0]('response data')
     expect(liveSearch.displayResults).toHaveBeenCalled();
     expect(liveSearch.resultCache['not=cached']).toBe('response data');
   });
@@ -122,7 +122,7 @@ describe("liveSearch", function(){
     spyOn(jQuery, 'ajax').and.returnValue(ajaxCallback);
 
     liveSearch.updateResults();
-    ajaxCallback.error.calls.mostRecent().args[0]();
+    ajaxCallback.error.calls.mostRecent().args[0]()
     expect(liveSearch.showErrorIndicator).toHaveBeenCalled();
   });
 
@@ -224,7 +224,7 @@ describe("liveSearch", function(){
       });
 
       it("should return the generic result count template", function () {
-        expect(liveSearch.setResultCountTemplate()).toEqual('_result_count_generic');
+        expect(liveSearch.setResultCountTemplate()).toEqual('_result_count_generic')
       });
     });
 
@@ -258,34 +258,34 @@ describe("liveSearch", function(){
 
   describe("restoreBooleans", function(){
     beforeEach(function(){
-      liveSearch.state = [{name:"list_1[]", value:"checkbox_1"}, {name:"list_1[]", value:"checkbox_2"}, {name:'list_2[]', value:"radio_1"}];
+      liveSearch.state = [{name:"list_1[]", value:"checkbox_1"}, {name:"list_1[]", value:"checkbox_2"}, {name:'list_2[]', value:"radio_1"}]
       liveSearch.$form = $('<form action="/somewhere" class="js-live-search-form"><input id="check_1" type="checkbox" name="list_1[]" value="checkbox_1"><input type="checkbox" id="check_2"  name="list_1[]" value="checkbox_2"><input type="radio" id="radio_1"  name="list_2[]" value="radio_1"><input type="radio" id="radio_2"  name="list_2[]" value="radio_2"><input type="submit"/></form>');
     });
 
     it("should check a checkbox if in the state it is checked in the history", function(){
-      expect(liveSearch.$form.find('input[type=checkbox]:checked').length).toBe(0);
+      expect(liveSearch.$form.find('input[type=checkbox]:checked').length).toBe(0)
       liveSearch.restoreBooleans();
-      expect(liveSearch.$form.find('input[type=checkbox]:checked').length).toBe(2);
+      expect(liveSearch.$form.find('input[type=checkbox]:checked').length).toBe(2)
     });
 
     it("should not check all the checkboxes if only one is checked", function(){
-      liveSearch.state = [{name:"list_1[]", value:"checkbox_2"}];
-      expect(liveSearch.$form.find('input[type=checkbox]:checked').length).toBe(0);
+      liveSearch.state = [{name:"list_1[]", value:"checkbox_2"}]
+      expect(liveSearch.$form.find('input[type=checkbox]:checked').length).toBe(0)
       liveSearch.restoreBooleans();
       expect(liveSearch.$form.find('input[type=checkbox]:checked')[0].id).toBe('check_2');
-      expect(liveSearch.$form.find('input[type=checkbox]:checked').length).toBe(1);
+      expect(liveSearch.$form.find('input[type=checkbox]:checked').length).toBe(1)
     });
 
     it("should pick a radiobox if in the state it is picked in the history", function(){
-      expect(liveSearch.$form.find('input[type=radio]:checked').length).toBe(0);
+      expect(liveSearch.$form.find('input[type=radio]:checked').length).toBe(0)
       liveSearch.restoreBooleans();
-      expect(liveSearch.$form.find('input[type=radio]:checked').length).toBe(1);
+      expect(liveSearch.$form.find('input[type=radio]:checked').length).toBe(1)
     });
   });
 
   describe("restoreKeywords", function(){
     beforeEach(function(){
-       liveSearch.state = [{name:"text_1", value:"Monday"}];
+       liveSearch.state = [{name:"text_1", value:"Monday"}]
        liveSearch.$form = $('<form action="/somewhere"><input id="text_1" type="text" name="text_1"><input id="text_2" type="text" name="text_2"></form>');
      });
 
@@ -295,6 +295,6 @@ describe("liveSearch", function(){
        liveSearch.restoreTextInputs();
        expect(liveSearch.$form.find('#text_1').val()).toBe('Monday');
        expect(liveSearch.$form.find('#text_2').val()).toBe('');
-     });
+     })
   });
 });

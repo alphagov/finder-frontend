@@ -5,3 +5,8 @@
     margin-bottom: $gutter;
   }
 }
+
+.app-c-date-filter__help-text {
+  @include core-16;
+  display: block;
+}
