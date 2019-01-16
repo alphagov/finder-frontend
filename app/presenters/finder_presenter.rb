@@ -134,15 +134,15 @@ class FinderPresenter
 
     options = Hash[sort.collect { |option| [option['name'], option['name'].parameterize] }]
 
-    disabled_option = keywords.blank? ? relevance_sort_option : ''
+    disabled_option = keywords.blank? ? relevance_sort_option_value : ''
 
-    selected_option = if values['order']
-                        sort.detect { |option| option['name'].parameterize == values['order'] }
+    selected_option = if values['order'].present? && sort.any? { |option| option['name'].parameterize == values['order'] }
+                        values['order']
+                      else
+                        default_sort_option_value
                       end
 
-    selected_option ||= default_sort_option_value
-
-    options_for_select(options, disabled: disabled_option, selected: selected_option)
+    options_for_select(options, selected: selected_option, disabled: disabled_option)
   end
 
   def show_keyword_search?
