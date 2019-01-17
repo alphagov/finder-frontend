@@ -29,6 +29,9 @@
     "HEROKU_APP_NAME": {
       "required": true
     },
+    "ALL_CONTENT_JSON": {
+      "value": "features/fixtures/all_content.json"
+    },
     "NEWS_AND_COMMUNICATIONS_JSON": {
       "value": "features/fixtures/news_and_communications.json"
     },
