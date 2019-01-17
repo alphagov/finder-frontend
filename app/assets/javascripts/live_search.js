@@ -102,13 +102,18 @@
         function(){
           var newPath = window.location.pathname + "?" + $.param(this.state);
           history.pushState(this.state, '', newPath);
-          if (this.canTrackPageview()) {
-            GOVUK.analytics.trackPageview(newPath);
-          }
         }.bind(this)
       )
     }
+    this.trackPageView();
   };
+
+  LiveSearch.prototype.trackPageView = function trackPageView() {
+    if (this.canTrackPageview()) {
+      var newPath = window.location.pathname + "?" + $.param(this.state);
+      GOVUK.analytics.trackPageview(newPath);
+    }
+  }
 
   LiveSearch.prototype.fireTextAnalyticsEvent = function(event) {
     if (this.canTrackPageview()) {
