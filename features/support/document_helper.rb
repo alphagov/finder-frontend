@@ -355,7 +355,7 @@ module DocumentHelper
       services_search_params
         .merge(
           'facet_organisations' => '1500,order:value.title',
-          'order' => '-title',
+          'order' => 'title',
           'count' => 20,
           'start' => 0,
           )
