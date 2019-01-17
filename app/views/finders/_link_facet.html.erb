@@ -1,0 +1,11 @@
+<div class="govuk-form-group gem-c-select">
+    <label class="govuk-label" for="statistics-options">
+      Supergroup!
+    </label>
+    <select id="statistics-options" onChange="window.location.href=this.value" class="govuk-select" style="width:100%;">
+        <% link_facet.options.each do |value| -%>
+          <option value="<%= value[:link] %>"><%= value[:label] %></option>
+        <% end -%>
+    </select>
+
+  </div>

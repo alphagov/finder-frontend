@@ -12,6 +12,8 @@ module FacetParser
         DateFacet.new(facet)
       when 'hidden'
         HiddenFacet.new(facet)
+      when 'link'
+        LinkFacet.new(facet)
       when 'checkbox'
         CheckboxFacet.new(facet)
       else
