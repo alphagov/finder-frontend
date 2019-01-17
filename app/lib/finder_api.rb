@@ -30,6 +30,7 @@ private
   def development_env_finder_json
     return news_and_communications_json if is_news_and_communications?
     return services_json if is_services?
+    return transparency_and_freedom_of_information_releases_json if is_transparency_and_freedom_of_information_releases?
 
     ENV["DEVELOPMENT_FINDER_JSON"]
   end
@@ -42,6 +43,11 @@ private
   def services_json
     # Hard coding this in during development
     "features/fixtures/services.json"
+  end
+
+  def transparency_and_freedom_of_information_releases_json
+    # Hard coding this in during development
+    "features/fixtures/transparency_and_freedom_of_information_releases.json"
   end
 
   def merge_and_deduplicate(search_response)
@@ -150,6 +156,10 @@ private
 
   def is_services?
     base_path == "/services"
+  end
+
+  def is_transparency_and_freedom_of_information_releases?
+    base_path == "/transparency-and-freedom-of-information-releases"
   end
 
   def registries
