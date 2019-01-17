@@ -34,6 +34,9 @@
     },
     "SERVICES_JSON": {
       "value": "features/fixtures/services.json"
+    },
+    "TRANSPARENCY_AND_FREEDOM_OF_INFORMATION_RELEASES": {
+      "value": "features/fixtures/transparency_and_freedom_of_information_releases.json"
     }
   },
   "image": "heroku/ruby",
