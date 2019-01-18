@@ -34,7 +34,7 @@
         "display_as_result_metadata": false,
         "filterable": true,
         "key": "people",
-        "name": "People",
+        "name": "Person",
         "preposition": "from",
         "type": "text"
       },
