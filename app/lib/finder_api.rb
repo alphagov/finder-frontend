@@ -28,11 +28,17 @@ private
   end
 
   def development_env_finder_json
+    return all_content_json if is_all_content?
     return news_and_communications_json if is_news_and_communications?
     return services_json if is_services?
     return transparency_and_freedom_of_information_releases_json if is_transparency_and_freedom_of_information_releases?
 
     ENV["DEVELOPMENT_FINDER_JSON"]
+  end
+
+  def all_content_json
+    # Hard coding this in during development
+    "features/fixtures/all_content.json"
   end
 
   def news_and_communications_json
@@ -148,6 +154,10 @@ private
 
   def query_builder_class
     SearchQueryBuilder
+  end
+
+  def is_all_content?
+    base_path == "/all-content"
   end
 
   def is_news_and_communications?
