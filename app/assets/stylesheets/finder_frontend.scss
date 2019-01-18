@@ -309,3 +309,26 @@
     }
   }
 }
+
+.facet-toggle {
+  display: none;
+}
+
+.js-enabled {
+  .facet-toggle {
+    display: inline-block;
+    margin-bottom: $gutter;
+
+    @include media(tablet) {
+      display: none;
+    }
+  }
+
+  .facet-toggle__content--hidden {
+    display: none;
+
+    @include media(tablet) {
+      display: block;
+    }
+  }
+}
