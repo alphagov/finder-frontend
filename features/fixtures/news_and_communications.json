@@ -77,7 +77,7 @@
       },
       {
         "key": "people",
-        "name": "People",
+        "name": "Person",
         "preposition": "from",
         "type": "text",
         "display_as_result_metadata": false,
