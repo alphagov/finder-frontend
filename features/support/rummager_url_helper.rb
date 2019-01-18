@@ -159,6 +159,7 @@ module RummagerUrlHelper
       link
       description
       public_timestamp
+      popularity
     )
   end
 end

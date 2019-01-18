@@ -38,7 +38,7 @@ describe FindersController, type: :controller do
           ]
         }|
 
-        url = "#{Plek.current.find('search')}/batch_search.json?search[][0][count]=10&search[][0][fields]=title,link,description,public_timestamp,walk_type,place_of_origin,date_of_introduction,creator&search[][0][filter_document_type]=mosw_report&search[][0][order]=-public_timestamp&search[][0][start]=0"
+        url = "#{Plek.current.find('search')}/batch_search.json?search[][0][count]=10&search[][0][fields]=title,link,description,public_timestamp,popularity,walk_type,place_of_origin,date_of_introduction,creator&search[][0][filter_document_type]=mosw_report&search[][0][order]=-public_timestamp&search[][0][start]=0"
 
         stub_request(:get, url)
           .to_return(status: 200, body: rummager_response, headers: {})
@@ -125,7 +125,7 @@ describe FindersController, type: :controller do
           ]
         }|
 
-        stub_request(:get, "#{Plek.current.find('search')}/batch_search.json?search[][0][count]=10&search[][0][fields]=title,link,description,public_timestamp,walk_type,place_of_origin,date_of_introduction,creator&search[][0][filter_document_type]=mosw_report&search[][0][order]=-closing_date&search[][0][start]=0").
+        stub_request(:get, "#{Plek.current.find('search')}/batch_search.json?search[][0][count]=10&search[][0][fields]=title,link,description,public_timestamp,popularity,walk_type,place_of_origin,date_of_introduction,creator&search[][0][filter_document_type]=mosw_report&search[][0][order]=-closing_date&search[][0][start]=0").
           to_return(status: 200, body: rummager_response, headers: {})
       end
 
