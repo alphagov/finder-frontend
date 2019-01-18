@@ -15,24 +15,25 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
       var removeFilterName = $(this).data('name');
       var removeFilterValue = $(this).data('value');
       var removeFilterFacet = $(this).data('facet');
-
-      var inputSelector = getSelectorForInput(removeFilterName, removeFilterValue);
-      var $input = $('#' + removeFilterFacet).find(inputSelector);
+      var removeFilterAutocomplete = !!$('#' + removeFilterFacet +'__listbox').length;
+      
+      var $input = getInput(removeFilterName, removeFilterValue, removeFilterFacet, removeFilterAutocomplete);
 
       var elementType = $input.prop('tagName');
       var inputType = $input.prop('type');
 
-      setInputState(elementType, inputType, $input, removeFilterValue, removeFilterFacet);
+      setInputState(elementType, inputType, $input, removeFilterValue, removeFilterFacet, removeFilterAutocomplete);
     }
 
-    function setInputState(elementType, inputType, $input, removeFilterValue, removeFilterFacet) {
+    function setInputState(elementType, inputType, $input, removeFilterValue, removeFilterFacet, removeFilterAutocomplete) {
       if (inputType == 'checkbox') {
         $input.prop("checked", false);
         $input.trigger('change');
       }
       else if (inputType == 'text' || inputType == 'search') {
         var currentVal = $input.val();
-        var newVal = $.trim(currentVal.replace(removeFilterValue, ''));
+        var valToReplace = removeFilterAutocomplete ? currentVal : removeFilterValue;
+        var newVal = $.trim(currentVal.replace(valToReplace, ''));
 
         $input.val(newVal).trigger('change');
       }
@@ -41,11 +42,14 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
       }
     };
 
-    function getSelectorForInput(removeFilterName, removeFilterValue) {
-      if (!!removeFilterName) {
-        return " input[name='" + removeFilterName + "']";
-      } else {
-        return " [value='" + removeFilterValue + "']";
+    function getInput(removeFilterName, removeFilterValue, removeFilterFacet, removeFilterAutocomplete) {
+      var selector = (!!removeFilterName) ? " input[name='" + removeFilterName + "']" : " [value='" + removeFilterValue + "']";
+
+      if (removeFilterAutocomplete) {
+        return $('#' + removeFilterFacet);
+      }
+      else {
+        return $('#' + removeFilterFacet).find(selector);
       }
     }
   }
