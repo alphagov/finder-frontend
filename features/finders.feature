@@ -16,6 +16,7 @@ Feature: Filtering documents
     Given a collection of documents exist that can be filtered by checkbox
     When I use a checkbox filter
     Then I only see documents that match the checkbox filter
+    And I see the facet tag
 
   Scenario: A finder with a checkbox facet has tracking
     Given a collection of documents exist that can be filtered by checkbox
