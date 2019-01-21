@@ -34,11 +34,12 @@ describe("liveSearch", function(){
   };
 
   beforeEach(function () {
+    $emailLink = $("<section class='gem-c-subscription-links'><a href='/subscribe/link'>Subscribe</a></section>")
     $form = $('<form action="/somewhere" class="js-live-search-form"><input type="checkbox" name="field" value="sheep" checked><input type="submit" value="Filter results" class="button js-live-search-fallback"/></form>');
     $results = $('<div class="js-live-search-results-block"></div>');
     $count = $('<div aria-live="assertive" id="js-search-results-info"><p class="result-info"></p></div>');
     $atomAutodiscoveryLink = $("<link href='http://an-atom-url.atom' rel='alternate' title='ATOM' type='application/atom+xml'>");
-    $('body').append($form).append($results).append($atomAutodiscoveryLink);
+    $('body').append($form).append($results).append($atomAutodiscoveryLink).append($emailLink);
 
     _supportHistory = GOVUK.support.history;
     GOVUK.support.history = function(){ return true; };
@@ -51,6 +52,12 @@ describe("liveSearch", function(){
     $form.remove();
     $results.remove();
     GOVUK.support.history = _supportHistory;
+  });
+
+  it("should update the subscription link with the current selected items", function(){
+    var emailLink = $(".gem-c-subscription-links a");
+    expect(emailLink.attr('href')).toEqual('/subscribe/link?field=sheep');
+    expect(emailLink.attr('data-track-action')).toEqual('/subscribe/link?field=sheep');
   });
 
   it("should save initial state", function(){

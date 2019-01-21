@@ -8,6 +8,11 @@ Given(/^no results$/) do
   stub_rummager_api_request_with_no_results
 end
 
+Given(/^a finder exists with an email signup link$/) do
+  content_store_has_mosw_reports_finder
+  stub_rummager_api_request
+end
+
 When(/^I view the finder with no keywords and no facets$/) do
   visit finder_path('mosw-reports')
 end
@@ -330,4 +335,10 @@ Then(/^I see services in alphabetical order$/) do
   end
 
   expect(page).to have_content('sorted by A-Z')
+end
+
+And(/^I can see an email alert signup$/) do
+  visit finder_path('mosw-reports')
+  expect(page).to have_link('Subscribe to email alerts', href: 'https://www.gov.uk/mosw-reports/email-signup')
+
 end

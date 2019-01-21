@@ -7,6 +7,10 @@ Feature: Filtering documents
     Given a collection of documents exist
     Then I can get a list of all documents with matching metadata
 
+  Scenario: Email alert signups
+    Given a finder exists with an email signup link
+    And I can see an email alert signup
+
   Scenario: Filter documents by date
     Given a collection of documents that can be filtered by dates
     When I use a date filter
