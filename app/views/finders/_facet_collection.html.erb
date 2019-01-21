@@ -9,6 +9,15 @@
     controls: "js-search-results-info"
   } if finder.show_keyword_search? %>
 
-  <%= render facet_collection.filters %>
+  <div data-module="gem-toggle" data-toggle-class="facet-toggle__content--hidden">
+    <a href="#" class="facet-toggle" data-controls="facet-wrapper" data-expanded="false" data-toggled-text="- <%= t("finders.facet_disclosure.fewer", default: "Show fewer search options") %>">
+      + <%= t("finders.facet_disclosure.more", default: "Show more search options") %>
+    </a>
+
+    <div id="facet-wrapper" class="facet-toggle__content--hidden">
+      <%= render facet_collection.filters %>
+    </div>
+  </div>
+
   <input type="submit" value="Filter results" class="button js-live-search-fallback"/>
 </div>
