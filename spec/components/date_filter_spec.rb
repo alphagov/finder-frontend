@@ -24,17 +24,4 @@ describe 'components/_date-filter.html.erb', type: :view do
     expect(rendered).to have_selector("input[name='key\[to\]'][value='user to']")
     expect(rendered).to have_selector("input[name='key\[from\]'][value='user from']")
   end
-
-  it "includes help text with unique ID based on key" do
-    render partial: 'components/date-filter', locals: { key: 'key', name: 'name' }
-
-    expect(rendered).to have_selector("#date-help-text-key")
-    expect(rendered).to have_selector("[aria-describedby='date-help-text-key']")
-  end
-
-  it "adds an id to the component based on key" do
-    render partial: 'components/date-filter', locals: { key: 'keyForId', name: 'name' }
-
-    expect(rendered).to have_selector(".app-c-date-filter#keyForId")
-  end
 end
