@@ -239,6 +239,10 @@
       }
     }
 
+    .govuk-checkboxes__conditional--hidden {
+      display: block;
+    }
+
     .feed {
       @include core-14;
       display: block;
