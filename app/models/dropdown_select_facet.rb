@@ -1,6 +1,4 @@
 class DropdownSelectFacet < FilterableFacet
-  attr_writer :value
-
   def allowed_values
     facet['allowed_values']
   end
@@ -29,6 +27,10 @@ class DropdownSelectFacet < FilterableFacet
     }
   end
 
+  def has_filters?
+    selected_value.any?
+  end
+
 private
 
   def value_fragment
@@ -39,10 +41,14 @@ private
   end
 
   def selected_value
-    return {} if @value.nil?
+    return default_value if @value.nil?
 
     allowed_values.find { |option|
       @value == option['value']
     } || {}
+  end
+
+  def default_value
+    allowed_values.find { |option| option['default'] } || {}
   end
 end

@@ -127,6 +127,10 @@
       @include core-16;
       margin-bottom: $gutter;
     }
+
+    .govuk-select {
+      width: 100%;
+    }
   }
 
   .help-text {
@@ -140,12 +144,6 @@
 
   .app-c-option-select {
     margin-bottom: $gutter;
-  }
-
-  .app-taxonomy-select {
-    .govuk-select {
-      width: 100%;
-    }
   }
 
   .radio-filter {

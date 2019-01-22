@@ -28,18 +28,6 @@
     },
     "HEROKU_APP_NAME": {
       "required": true
-    },
-    "ALL_CONTENT_JSON": {
-      "value": "features/fixtures/all_content.json"
-    },
-    "NEWS_AND_COMMUNICATIONS_JSON": {
-      "value": "features/fixtures/news_and_communications.json"
-    },
-    "SERVICES_JSON": {
-      "value": "features/fixtures/services.json"
-    },
-    "TRANSPARENCY_AND_FREEDOM_OF_INFORMATION_RELEASES": {
-      "value": "features/fixtures/transparency_and_freedom_of_information_releases.json"
     }
   },
   "image": "heroku/ruby",

@@ -27,35 +27,6 @@ private
     end
   end
 
-  def development_env_finder_json
-    return all_content_json if is_all_content?
-    return news_and_communications_json if is_news_and_communications?
-    return services_json if is_services?
-    return transparency_and_freedom_of_information_releases_json if is_transparency_and_freedom_of_information_releases?
-
-    ENV["DEVELOPMENT_FINDER_JSON"]
-  end
-
-  def all_content_json
-    # Hard coding this in during development
-    "features/fixtures/all_content.json"
-  end
-
-  def news_and_communications_json
-    # Hard coding this in during development
-    "features/fixtures/news_and_communications.json"
-  end
-
-  def services_json
-    # Hard coding this in during development
-    "features/fixtures/services.json"
-  end
-
-  def transparency_and_freedom_of_information_releases_json
-    # Hard coding this in during development
-    "features/fixtures/transparency_and_freedom_of_information_releases.json"
-  end
-
   def merge_and_deduplicate(search_response)
     results = search_response.fetch("results")
 
@@ -156,20 +127,27 @@ private
     SearchQueryBuilder
   end
 
-  def is_all_content?
-    base_path == "/all-content"
+  FINDERS_IN_DEVELOPMENT = {
+    "/news-and-communications" => "news_and_communications",
+    "/statistics" => "statistics",
+    "/services" => "services",
+    "/transparency-and-freedom-of-information-releases" => "transparency_and_freedom_of_information_releases",
+    "/all-content" => "all_content",
+  }.freeze
+
+  def development_env_finder_json
+    return development_json if is_development_json?
+
+    ENV["DEVELOPMENT_FINDER_JSON"]
   end
 
-  def is_news_and_communications?
-    base_path == "/news-and-communications"
+  def development_json
+    # Hard coding this in during development
+    "features/fixtures/#{FINDERS_IN_DEVELOPMENT[base_path]}.json"
   end
 
-  def is_services?
-    base_path == "/services"
-  end
-
-  def is_transparency_and_freedom_of_information_releases?
-    base_path == "/transparency-and-freedom-of-information-releases"
+  def is_development_json?
+    base_path.present? && FINDERS_IN_DEVELOPMENT[base_path].present?
   end
 
   def registries

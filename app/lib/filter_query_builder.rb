@@ -26,6 +26,7 @@ private
       'date' => Filters::DateFilter,
       'hidden' => Filters::HiddenFilter,
       'text' => Filters::TextFilter,
+      'dropdown_select' => Filters::DropdownSelectFilter,
       'topical' => Filters::TopicalFilter,
       'taxon' => Filters::TaxonFilter,
     }.fetch(facet['type'])
