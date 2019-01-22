@@ -127,3 +127,22 @@ Feature: Filtering documents
     When I view a list of services
     And I sort by A-Z
     Then I see services in alphabetical order
+
+   @javascript
+  Scenario Outline: Removing checkbox filter
+    When I view the news and communications finder
+    And I click button <filter> and select facet <facet>
+    And I click the <facet> remove link
+    Then The <checkbox_element> checkbox in deselected
+    Examples:
+      | facet              | filter           | checkbox_element                |
+      | Ministry of Magic  | "Organisation"   | organisations-ministry-of-magic |
+      | Harry Potter       | "Person"         | people-harry-potter             |
+      | Azkaban            | "World location" | world_locations-azkaban         |
+
+  @javascript
+  Scenario: Removing keyword filter
+    When I view the news and communications finder
+    And I fill in some keywords
+    And I click the Keyword1 remove link
+    Then The keyword textbox is empty
