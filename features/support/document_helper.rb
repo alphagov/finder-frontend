@@ -53,6 +53,12 @@ module DocumentHelper
       .to_return(body: popular_news_and_communication_json)
   end
 
+  def stub_all_rummager_api_requests_with_news_and_communication_results
+    stub_request(:get, "#{Plek.current.find('search')}/batch_search.json")
+        .with(query: hash_including({}))
+        .to_return(body: newest_news_and_communication_json)
+  end
+
   def stub_rummager_api_request_with_services_results
     stub_request(:get, rummager_alphabetical_services_url)
       .to_return(body: alpabetical_services_json)

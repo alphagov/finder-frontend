@@ -44,13 +44,21 @@ Then(/^I can get a list of all documents with matching metadata$/) do
 end
 
 When(/^I view a list of news and communications$/) do
-  topic_taxonomy_has_taxons
+  topic_taxonomy_has_taxons(%w[Taxon_1 Taxon_2])
   content_store_has_news_and_communications_finder
   stub_whitehall_api_world_location_request
   stub_rummager_api_request_with_news_and_communication_results
-
   visit finder_path('news-and-communications')
 end
+
+When(/^I view the news and communications finder$/) do
+  topic_taxonomy_has_taxons(%w[Taxon_1 Taxon_2])
+  content_store_has_news_and_communications_finder
+  stub_whitehall_api_world_location_request
+  stub_all_rummager_api_requests_with_news_and_communication_results
+  visit finder_path('news-and-communications')
+end
+
 
 When(/^I view a list of services$/) do
   topic_taxonomy_has_taxons
@@ -342,4 +350,34 @@ And(/^I see the facet tag$/) do
     expect(page).to have_css("a[data-track-action='That Is']")
     expect(page).to have_css("a[aria-label='Remove filter Open']")
   end
+end
+
+And(/^I select a taxon$/) do
+  select('Taxon_1', from: 'Topic')
+end
+
+And(/^I select a World Location$/) do
+  click_on('World location')
+  check('Azkaban')
+end
+
+And(/^I click button \"([^\"]*)\" and select facet (.*)$/) do |button, facet|
+  click_on(button)
+  find('label', text: facet).click
+end
+
+And(/^I click the (.*) remove link$/) do |filter|
+  find("p", text: filter).sibling('a').click
+end
+
+Then(/^The (.*) checkbox in deselected$/) do |checkbox|
+  expect(page.find("##{checkbox}", visible: :all)).to_not be_checked
+end
+
+And(/^I fill in some keywords$/) do
+  fill_in 'Search', with: "Keyword1 Keyword2\n"
+end
+
+Then(/^The keyword textbox is empty$/) do
+  expect(page).to have_field('Search', with: '')
 end
