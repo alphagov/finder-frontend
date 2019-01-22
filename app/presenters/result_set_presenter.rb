@@ -44,14 +44,9 @@ class ResultSetPresenter
   end
 
   def selected_filter_descriptions
-    all_filter_params = {}
-    selected_filters.each do |filter|
-      all_filter_params[filter.key] = filter.value
-    end
-
-    (selected_filters.map do |filter|
-      FacetTagPresenter.new(filter.sentence_fragment, all_filter_params[filter.key], finder.slug).present
-    end).reject(&:empty?)
+    selected_filters.map { |filter|
+      FacetTagPresenter.new(filter.sentence_fragment, filter.value, finder.slug).present
+    }.reject(&:empty?)
   end
 
   def documents
