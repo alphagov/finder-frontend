@@ -10,7 +10,7 @@ gem 'govuk_document_types', '~> 0.9.0'
 gem 'govuk_publishing_components', '~> 13.6.1'
 gem 'rails', '~> 5.2.2'
 gem 'shared_mustache', '~> 1.0.1'
-gem 'slimmer', '~> 13.0.0'
+gem 'slimmer', '~> 13.1.0'
 
 gem 'govuk_frontend_toolkit', '~> 8.1'
 gem 'sass-rails', '~> 5.0'
