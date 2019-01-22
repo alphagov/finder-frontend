@@ -25,6 +25,7 @@
   "details":{
     "document_noun":"statistic",
     "filter":{
+      "content_purpose_supergroup": "research_and_statistics"
     },
     "format_name":"statistic",
     "show_summaries":true,
@@ -92,9 +93,12 @@
         "preposition": "that are",
         "allowed_values": [
           {
+            "text": "Published and unpublished",
+            "value": ""
+          },
+          {
             "text": "Published",
-            "value": "[\"statistics\",\"national_statistics\",\"statistical_data_set\",\"official_statistics\"]",
-            "default": true
+            "value": "[\"statistics\",\"national_statistics\",\"statistical_data_set\",\"official_statistics\"]"
           },
           {
             "text": "Upcoming",

@@ -121,8 +121,8 @@ RSpec.describe TranslateContentPurposeFields do
         is_expected.to include('foo' => 'bar')
       end
 
-      it 'includes the document types with the relevant translated supertypes' do
-        is_expected.to include('filter_content_store_document_type' => %w(case_study impact_assessment policy_paper travel_advice_index))
+      it 'does not get included if relevant translated supertypes are already present' do
+        is_expected.to include('filter_content_store_document_type' => %w(case_study travel_advice_index))
 
         is_expected.to_not include('filter_content_purpose_subgroup', 'filter_content_purpose_supergroup')
       end
