@@ -92,11 +92,37 @@ Feature: Filtering documents
       | Most viewed |
       | Relevance   |
 
+  @javascript
+  Scenario: Live sorting options
+    When I view a list of news and communications
+    Then I can sort by:
+      | Most viewed      |
+      | Updated (newest) |
+      | Updated (oldest) |
+    When I view a list of services
+    Then I can sort by:
+      | A-Z         |
+      | Most viewed |
+
   Scenario: Sorting news and communications by most viewed
+    When I view a list of news and communications
+    And I sort by most viewed
+    And I filter the results
+    Then I see the most viewed articles first
+
+  @javascript
+  Scenario: Live sorting news and communications by most viewed
     When I view a list of news and communications
     And I sort by most viewed
     Then I see the most viewed articles first
 
+  Scenario: Live sorting services A-Z
+    When I view a list of services
+    And I sort by A-Z
+    And I filter the results
+    Then I see services in alphabetical order
+
+  @javascript
   Scenario: Sorting services A-Z
     When I view a list of services
     And I sort by A-Z

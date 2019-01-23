@@ -39,6 +39,7 @@ group :test do
   gem 'cucumber-rails', '~> 1.6.0', require: false
   gem 'dalli', '~> 2.7.9'
   gem 'govuk-content-schema-test-helpers', '~> 1.6'
+  gem 'govuk_test'
   gem 'launchy', '~> 2.4.2'
   gem 'rails-controller-testing'
   gem 'simplecov', '~> 0.16.1'

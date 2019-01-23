@@ -299,11 +299,13 @@ end
 
 When(/^I sort by most viewed$/) do
   select 'Most viewed', from: 'Sort by'
-  click_on 'Filter results'
 end
 
 When(/^I sort by A-Z$/) do
   select 'A-Z', from: 'Sort by'
+end
+
+When(/^I filter the results$/) do
   click_on 'Filter results'
 end
 
