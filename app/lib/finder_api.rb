@@ -153,6 +153,7 @@ private
 
   FINDERS_IN_DEVELOPMENT = {
     "/news-and-communications" => "news_and_communications",
+    "/guidance-and-regulation" => "guidance_and_regulation",
     "/statistics" => "statistics",
     "/services" => "services",
     "/transparency-and-freedom-of-information-releases" => "transparency_and_freedom_of_information_releases",
