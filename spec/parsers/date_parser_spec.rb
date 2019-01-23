@@ -76,7 +76,7 @@ describe DateParser do
     expected_date = Date.new(year, 11, 26)
 
     # Stub Time.now to a known date
-    pretend_today = Time.new(year, 3, 11)
+    pretend_today = Time.zone.local(year, 3, 11)
     allow(Time).to receive(:now).and_return(pretend_today)
 
 

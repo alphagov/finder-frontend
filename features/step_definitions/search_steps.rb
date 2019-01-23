@@ -134,6 +134,7 @@ Then(/^I am able to see organisations with abbreviations$/) do
   @results.each do |result|
     acronym = result.dig("organisations", 0, "acronym")
     next unless acronym
+
     org_title = result.dig('organisations', 0, 'title')
     if org_title != acronym
       within("ul.attributes li", text: acronym) do
@@ -147,6 +148,7 @@ Then(/^I am able to see organisations without abbreviations$/) do
   @results.each do |result|
     acronym = result.dig("organisations", 0, "acronym")
     next unless acronym
+
     org_title = result.dig('organisations', 0, 'title')
     if org_title == acronym
       within("ul.attributes li", text: acronym) do

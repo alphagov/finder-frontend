@@ -8,7 +8,7 @@ class TranslateContentPurposeFields
     translate_fields_with_prefix('filter')
     translate_fields_with_prefix('reject')
 
-    @query if @query.present?
+    @query.presence
   end
 
 private

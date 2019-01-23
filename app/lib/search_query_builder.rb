@@ -109,7 +109,7 @@ private
   end
 
   def sort_option
-    return unless sort_options.present?
+    return if sort_options.blank?
 
     sort_option = if params['order']
                     sort_options.detect { |option| option['name'].parameterize == params['order'] }

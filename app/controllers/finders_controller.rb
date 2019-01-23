@@ -18,7 +18,7 @@ class FindersController < ApplicationController
         if %w[finder search].include? finder_api.content_item['document_type']
           render json: results
         else
-          render json: {}, status: 404
+          render json: {}, status: :not_found
         end
       end
       format.atom do
@@ -30,12 +30,12 @@ class FindersController < ApplicationController
           expires_in(ATOM_FEED_MAX_AGE, public: true)
           @feed = AtomPresenter.new(finder)
         else
-          render plain: 'Not found', status: 404
+          render plain: 'Not found', status: :not_found
         end
       end
     end
   rescue ActionController::UnknownFormat
-    render plain: 'Not acceptable', status: 406
+    render plain: 'Not acceptable', status: :not_acceptable
   end
 
 private

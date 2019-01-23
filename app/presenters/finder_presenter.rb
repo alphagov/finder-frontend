@@ -130,7 +130,7 @@ class FinderPresenter
   end
 
   def sort_options
-    return [] unless sort.present?
+    return [] if sort.blank?
 
     options = Hash[sort.collect { |option| [option['name'], option['name'].parameterize] }]
 
