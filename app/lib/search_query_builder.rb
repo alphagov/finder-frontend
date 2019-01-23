@@ -63,6 +63,7 @@ private
       link
       description
       public_timestamp
+      popularity
     )
   end
 
