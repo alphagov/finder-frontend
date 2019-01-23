@@ -85,7 +85,6 @@ end
 
 Then(/^I only see documents tagged to the taxon tree within the supergroup and subgroups$/) do
   @results.each do |result|
-    all_facet_tags = page.all(:css, "facet-tag")
     expect(page).to have_title("News and communications - GOV.UK")
     expect(page).to have_link("Taxon", href: "/taxon")
     expect(page).to have_text("2 results")

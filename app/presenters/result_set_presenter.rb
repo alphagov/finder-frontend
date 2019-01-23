@@ -67,7 +67,7 @@ class ResultSetPresenter
   end
 
   def sort_options
-    return unless finder.sort.present?
+    return if finder.sort.blank?
 
     sort_option = if @filter_params['order']
                     finder.sort.detect { |option| option['name'].parameterize == @filter_params['order'] }

@@ -81,7 +81,7 @@ module DocumentHelper
       .with(
         query: hash_including({})
       ).to_return(
-         body: aaib_reports_search_results
+        body: aaib_reports_search_results
       )
   end
 
@@ -106,7 +106,7 @@ module DocumentHelper
   end
 
   def content_store_has_news_and_communications_finder
-    finder_fixture = File.read(Rails.root.join('features/fixtures/news_and_communications.json'))
+    finder_fixture = File.read(Rails.root.join('features', 'fixtures', 'news_and_communications.json'))
 
     content_store_has_item('/news-and-communications', finder_fixture)
   end
@@ -120,7 +120,7 @@ module DocumentHelper
   end
 
   def content_store_has_services_finder
-    finder_fixture = File.read(Rails.root.join('features/fixtures/services.json'))
+    finder_fixture = File.read(Rails.root.join('features', 'fixtures', 'services.json'))
 
     content_store_has_item('/services', finder_fixture)
   end
@@ -185,14 +185,14 @@ module DocumentHelper
             "phase" => "live"
          }
         ]
-      })
+      }
+)
 
-      content_store_has_item(
-        schema.fetch("base_path"),
-        schema.to_json,
-      )
-    end
-
+    content_store_has_item(
+      schema.fetch("base_path"),
+      schema.to_json,
+    )
+  end
 
   def stub_rummager_with_cma_cases
     stub_request(:get, rummager_all_cma_case_documents_url).to_return(
@@ -245,10 +245,10 @@ module DocumentHelper
       body: all_cma_case_documents_json,
     )
     cma_case_documents_filtered_by_supergroup = rummager_url(
-        cma_case_search_params.merge(
-            "filter_case_state" => %w(open),
-            "order" => "-public_timestamp"
-            )
+      cma_case_search_params.merge(
+        "filter_case_state" => %w(open),
+        "order" => "-public_timestamp"
+          )
          )
 
     stub_request(:get, cma_case_documents_filtered_by_supergroup).to_return(

@@ -7,7 +7,7 @@ module Filters
   private
 
     def parsed_value
-      return unless params.present?
+      return if params.blank?
 
       JSON.parse params
     rescue JSON::ParserError
