@@ -6,7 +6,7 @@ describe('remove-filter', function () {
   var GOVUK = window.GOVUK
   var timeout = 500;
   var removeFilter;
-
+  GOVUK.analytics = GOVUK.analytics || {}
   var $checkbox = $(
   '<div data-module="remove-filter">' +
     '<a href="/news-and-communications" class="remove-filter" role="button" aria-label="Remove filter Brexit" data-module="remove-filter-link" data-facet="related_to_brexit" data-value="true" data-name="">✕</a>' +
@@ -30,6 +30,18 @@ describe('remove-filter', function () {
     '</div>'
   );
 
+  var $facetTagOne = $(
+      '<div data-module="remove-filter">' +
+      '<a href="/news-and-communications?[][]=level_one_taxon&amp;[][]=ba3a9702-da22-487f-86c1-8334a730e559&amp;[][]=level_two_taxon&amp;[][]" class="remove-filter" role="button" aria-label="Remove filter" data-module="remove-filter-link" data-facet="level_one_taxon" data-value="aa3a9702-da22-487f-86c1-8334a730e558" data-name="">✕</a>' +
+      '</div>'
+  );
+
+  var $facetTagTwo = $(
+   '<div data-module="remove-filter">' +
+     '<a href="/news-and-communications?[][]=level_one_taxon&amp;[][]=ba3a9702-da22-487f-86c1-8334a730e559&amp;[][]=level_two_taxon&amp;[][]" class="remove-filter" role="button" aria-label="Remove filter" data-module="remove-filter-link" data-facet="level_two_taxon" data-value="bb3a9702-da22-487f-86c1-8334a730e559" data-name="">✕</a>' +
+   '</div>'
+  );
+
   var $facets =
     '<select id="level_one_taxon" name="level_one_taxon">' +
       '<option value="">All topics</option>' +
@@ -43,8 +55,14 @@ describe('remove-filter', function () {
     '</div>';
 
   beforeEach(function () {
+    GOVUK.analytics.trackEvent = function () {}
     $(document.body).append($facets);
     removeFilter = new GOVUK.Modules.RemoveFilter();
+    spyOn(GOVUK.analytics, 'trackEvent')
+  })
+
+  afterEach(function () {
+    GOVUK.analytics.trackEvent.calls.reset()
   })
 
   it('deselects a selected checkbox', function (done) {
@@ -110,6 +128,30 @@ describe('remove-filter', function () {
       done();
     }, timeout);
   })
+
+  describe('Clicking the "x" button in facet tags', function () {
+    it("triggers a google analytics custom event", function () {
+      removeFilter.start($facetTagOne);
+
+      triggerRemoveFilterClick($facetTagOne);
+
+      expect(GOVUK.analytics.trackEvent).toHaveBeenCalledWith('facetTagRemoved', 'level_one_taxon', {
+          label: 'aa3a9702-da22-487f-86c1-8334a730e558'
+      });
+    });
+
+    it("triggers a google analytics custom event when second facet tag removed", function () {
+      removeFilter.start($facetTagOne);
+      removeFilter.start($facetTagTwo);
+
+      triggerRemoveFilterClick($facetTagOne);
+      triggerRemoveFilterClick($facetTagTwo);
+
+      expect(GOVUK.analytics.trackEvent).toHaveBeenCalledWith('facetTagRemoved', 'level_two_taxon', {
+          label: 'bb3a9702-da22-487f-86c1-8334a730e559'
+      });
+    });
+  });
 });
 
 function triggerRemoveFilterClick(element) {
