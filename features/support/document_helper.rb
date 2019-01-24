@@ -196,7 +196,7 @@ module DocumentHelper
          }
         ]
       }
-)
+    )
 
     content_store_has_item(
       schema.fetch("base_path"),
