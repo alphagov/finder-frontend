@@ -1,0 +1,114 @@
+{
+  "analytics_identifier":null,
+  "base_path":"/policy-papers-and-consultations",
+  "content_id":"622e9691-4b4f-4e9c-bce1-098b0c4f5ee2",
+  "content_purpose_document_supertype":"navigation",
+  "document_type":"finder",
+  "email_document_supertype":"other",
+  "first_published_at":"2018-11-07T14:47:48.000+00:00",
+  "government_document_supertype":"other",
+  "locale":"en",
+  "navigation_document_supertype":"other",
+  "phase":"alpha",
+  "public_updated_at":"2018-11-07T14:47:48.000+00:00",
+  "publishing_app":"finder-frontend",
+  "rendering_app":"finder-frontend",
+  "schema_name":"finder",
+  "search_user_need_document_supertype":"government",
+  "title":"Policy papers and consultations",
+  "updated_at":"2018-11-07T14:47:48.000+00:00",
+  "user_journey_document_supertype":"finding",
+  "withdrawn_notice":{
+
+  },
+  "publishing_request_id":"",
+  "links":{},
+  "description":"Find policy papers and consultations from government",
+  "details":{
+    "document_noun":"result",
+    "filter":{
+    },
+    "format_name":"document",
+    "show_summaries":true,
+    "sort": [
+      {
+        "name": "Most viewed",
+        "key": "-popularity"
+      },
+      {
+        "name": "Relevance",
+        "key": "-relevance"
+      },
+      {
+        "name": "Updated (newest)",
+        "key": "-public_timestamp",
+        "default": true
+      },
+      {
+        "name": "Updated (oldest)",
+        "key": "public_timestamp"
+      }
+    ],
+    "facets":[
+      {
+        "filter_key": "all_part_of_taxonomy_tree",
+        "keys": ["level_one_taxon", "level_two_taxon"],
+        "name": "topic",
+        "short_name": "topic",
+        "type": "taxon",
+        "display_as_result_metadata": false,
+        "filterable": true,
+        "preposition": "about"
+      },
+      {
+        "key": "organisations",
+        "name": "Organisation",
+        "short_name": "From",
+        "preposition": "from",
+        "type": "text",
+        "display_as_result_metadata": true,
+        "filterable": true
+      },
+      {
+        "key": "world_locations",
+        "name": "World location",
+        "preposition": "in",
+        "type": "text",
+        "display_as_result_metadata": true,
+        "filterable": true
+      },
+      {
+        "key": "content_store_document_type",
+        "name": "Consultation status",
+        "preposition": "with consultation status",
+        "type":"dropdown_select",
+        "display_as_result_metadata": true,
+        "filterable": true,
+        "allowed_values": [
+          {
+            "text": "All consultations",
+            "value": "[\"open_consultation\",\"closed_consultation\",\"consultation_outcome\",\"impact_assessment\",\"case_study\",\"policy_paper\"]",
+            "default": true
+          },
+          {
+            "text": "Open consultation",
+            "value": "[\"open_consultation\"]"
+          },
+          {
+            "text": "Closed consultation",
+            "value": "[\"closed_consultation\",\"consultation_outcome\"]"
+          }
+        ]
+      },
+      {
+        "key": "public_timestamp",
+        "short_name": "Updated",
+        "name": "Updated",
+        "type": "date",
+        "display_as_result_metadata": true,
+        "filterable": true
+      }
+    ],
+    "default_documents_per_page":20
+  }
+}
