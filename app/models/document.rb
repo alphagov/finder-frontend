@@ -87,8 +87,10 @@ private
             end
 
     {
+      id: key,
       name: key,
       value: value,
+      labels: labels,
       type: "text",
     }
   end

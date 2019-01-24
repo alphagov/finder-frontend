@@ -2,10 +2,12 @@
   <span class="result-count">
     {{total}} {{{pluralised_document_noun}}}
   </span>
-  <div class="facet-tags" data-module="track-click">
-    {{#applied_filters}}
-        {{> finders/_applied_filter}}
-    {{/applied_filters}}
-  </div>
+  {{^display_as_topics}}
+    <div class="facet-tags" data-module="track-click">
+      {{#applied_filters}}
+          {{> finders/_applied_filter}}
+      {{/applied_filters}}
+    </div>
+  {{/display_as_topics}}
   {{{sort_options}}}
 </div>

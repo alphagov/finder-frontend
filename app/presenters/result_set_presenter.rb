@@ -24,13 +24,15 @@ class ResultSetPresenter
       generic_description: generic_description,
       pluralised_document_noun: document_noun.pluralize(total),
       applied_filters: selected_filter_descriptions,
+      documents_by_facits: documents_by_facits,
       documents: documents,
       page_count: documents.count,
       finder_name: finder.name,
       any_filters_applied: any_filters_applied?,
       atom_url: atom_url,
       next_and_prev_links: next_and_prev_links,
-      sort_options: sort_options
+      sort_options: sort_options,
+      display_as_topics: true #@filter_params[:order] === "most-relevant" # change to topic once this is available
     }
   end
 
@@ -47,6 +49,74 @@ class ResultSetPresenter
     selected_filters.map { |filter|
       FacetTagPresenter.new(filter.sentence_fragment, filter.value, finder.slug).present
     }.reject(&:empty?)
+  end
+
+  def documents_by_facits
+    facet_grouping = {
+      all_businesses: {
+        facet_key: "all_businesses",
+        facet_name: "all_businesses",
+        options: []
+      }
+    }
+
+    puts "==========="
+    puts @filter_params
+    puts "==========="
+
+    @filter_params.each do | key, options |
+      next unless options.is_a? Array
+
+      facet_options = {}
+      options.each do | option_key |
+        facet_options[option_key] = {
+          documents: []
+        }
+      end
+
+      facet_group = {
+        facet_key: key,
+        options: facet_options,
+      }
+
+      facet_grouping[key] = facet_options
+    end
+
+    displayed_docs = []
+
+    documents.each do | doc |
+      next unless doc[:document][:metadata].present?
+      doc[:document][:metadata].each do | metadata |
+        next unless facet_grouping[ metadata[:id] ]
+        facet_grouping[ metadata[:id] ][:facet_name] = metadata[:label] unless facet_grouping[ metadata[:id] ][:facet_name]
+        metadata[:labels].each do | value |
+          next if displayed_docs.include? doc[:document_index]
+          if facet_grouping[ metadata[:id] ][ value ]
+            facet_grouping[ metadata[:id] ][ value ][ :documents ] << doc
+            displayed_docs << doc[:document_index]
+          end
+        end 
+      end
+    end
+
+    return_data = [];
+    
+    facet_grouping.values.each do | group |
+      facet_data = {
+        facet_name: group[:facet_name],
+        documents: []
+      }
+
+      group.values.each do | facet_option |
+        next unless facet_option.is_a? Hash
+        facet_data[:documents].concat(facet_option[:documents])
+      end
+
+      return_data.push(facet_data)
+    end
+
+
+    return return_data;
   end
 
   def documents
