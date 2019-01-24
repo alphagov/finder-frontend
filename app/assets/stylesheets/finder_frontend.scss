@@ -262,8 +262,12 @@
       padding-left: 0;
     }
 
-    .filtered-results-group {
+    .filtered-results__group {
       margin-bottom: govuk-spacing(7);
+
+      .filtered-results__facet-heading {
+        @include govuk-font($size: 24, $weight: bold);
+      }
     }
 
     .document {
