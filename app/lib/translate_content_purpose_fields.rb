@@ -15,7 +15,7 @@ private
 
   def translate_fields_with_prefix(prefix)
     document_types = Array(content_store_document_types(prefix))
-    document_types += Array(subgroup_document_types(prefix) || supergroup_document_types(prefix))
+    document_types += Array(subgroup_document_types(prefix) || supergroup_document_types(prefix)) unless document_types.any?
 
     @query.delete("#{prefix}_content_purpose_subgroup")
     @query.delete("#{prefix}_content_purpose_supergroup")
