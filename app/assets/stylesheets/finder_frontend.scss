@@ -310,6 +310,30 @@
     }
   }
 
+  .feedback-form {
+    display: none;
+
+    .js-enabled & {
+      display: block;
+      background-color: $grey-3;
+      margin-top: govuk-spacing(6);
+      padding: govuk-spacing(4);
+    }
+
+    .feedback-form__question {
+      @include bold-19;
+    }
+
+    .feedback-form__option {
+      margin-right: govuk-spacing(2);
+    }
+
+    .feedback-form__message {
+      @include govuk-font($size: 19);
+      margin-bottom: govuk-spacing(4);
+    }
+  }
+
   .facet-tags {
     margin-top: $gutter-one-third;
     margin-bottom: $gutter;
