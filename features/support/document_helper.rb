@@ -186,7 +186,7 @@ module DocumentHelper
          }
         ]
       }
-)
+    )
 
     content_store_has_item(
       schema.fetch("base_path"),
@@ -248,8 +248,8 @@ module DocumentHelper
       cma_case_search_params.merge(
         "filter_case_state" => %w(open),
         "order" => "-public_timestamp"
-          )
-         )
+      )
+    )
 
     stub_request(:get, cma_case_documents_filtered_by_supergroup).to_return(
       body: filtered_cma_case_documents_json,
