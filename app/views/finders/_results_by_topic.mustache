@@ -1,0 +1,9 @@
+<div class="filtered-results-group">
+  <h2 class="govuk-heading-m">{{ facet_name }}</h2>
+  {{#pinned_document}}
+    {{> finders/_results_document  }}
+  {{/pinned_document}}
+  {{#documents}}
+    {{> finders/_results_document }}
+  {{/documents}}
+</div>

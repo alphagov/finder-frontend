@@ -24,13 +24,15 @@ class ResultSetPresenter
       generic_description: generic_description,
       pluralised_document_noun: document_noun.pluralize(total),
       applied_filters: selected_filter_descriptions,
+      documents_by_facits: documents_by_facits,
       documents: documents,
       page_count: documents.count,
       finder_name: finder.name,
       any_filters_applied: any_filters_applied?,
       atom_url: atom_url,
       next_and_prev_links: next_and_prev_links,
-      sort_options: sort_options
+      sort_options: sort_options,
+      display_as_topics: @filter_params[:order] === "most-relevant" # change to topic once this is available
     }
   end
 
@@ -47,6 +49,35 @@ class ResultSetPresenter
     selected_filters.map { |filter|
       FacetTagPresenter.new(filter.sentence_fragment, filter.value, finder.slug).present
     }.reject(&:empty?)
+  end
+
+  def documents_by_facits
+    [
+      {
+        facet_name: "Retail",
+        pinned_document: {
+          pinned: true,
+          document: {
+            title: "Retail sector guidance",
+            link: "/government/publications/plant-variety-rights-and-marketing-of-seed-and-propagating-material-if-theres-no-brexit-deal",
+            summary: "Guidance about retail section and how brexit affects it.",
+            is_historic: false,
+            government_name: nil,
+            metadata: [],
+          },
+          document_index: 8
+        },
+        documents: documents.take(3)
+      },
+      {
+        facet_name: "Who you employ",
+        documents: documents.take(2)
+      },
+      {
+        facet_name: "Personal data",
+        documents: documents.take(1)
+      }
+    ]
   end
 
   def documents

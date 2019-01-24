@@ -262,6 +262,10 @@
       padding-left: 0;
     }
 
+    .filtered-results-group {
+      margin-bottom: govuk-spacing(9);
+    }
+
     .document {
       border-bottom: solid 1px $border-colour;
       padding: $gutter-half 0;
@@ -276,7 +280,11 @@
         margin: 0;
 
         a {
-          text-decoration:none;
+          text-decoration: none;
+        }
+
+        &.document-heading--pinned {
+          @include govuk-font($size: 24, $weight: bold);
         }
       }
 
