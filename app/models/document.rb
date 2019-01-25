@@ -25,7 +25,7 @@ class Document
   end
 
   def summary
-    if finder.show_summaries? && description.present?
+    if description.present? && (finder.show_summaries? || promoted)
       # This truncates the description at the end of the first sentence
       description.gsub(/\.\s[A-Z].*/, '.')
     end

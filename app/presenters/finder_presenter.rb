@@ -2,7 +2,7 @@ class FinderPresenter
   include ActionView::Helpers::FormOptionsHelper
   include ActionView::Helpers::UrlHelper
 
-  attr_reader :content_item, :name, :slug, :organisations, :values, :keywords
+  attr_reader :content_item, :name, :slug, :organisations, :values, :keywords, :links
 
   MOST_RECENT_FIRST = "-public_timestamp".freeze
 
@@ -10,6 +10,7 @@ class FinderPresenter
     @content_item = content_item
     @name = content_item['title']
     @slug = content_item['base_path']
+    @links = content_item['links']
     @organisations = content_item['links'].fetch('organisations', [])
     @values = values
     facets.values = values

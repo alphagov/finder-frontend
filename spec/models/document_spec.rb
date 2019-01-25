@@ -8,7 +8,7 @@ describe Document do
         link: 'link.com'
       }
       finder = double(
-        'finder', date_metadata_keys: [], text_metadata_keys: []
+        'finder', date_metadata_keys: [], text_metadata_keys: [], links: {}
       )
       document = described_class.new(rummager_document, finder)
 
@@ -22,7 +22,6 @@ describe Document do
              date_metadata_keys: [],
              text_metadata_keys: [],
              links: {
-               ordered_related_items: [{ title: "Foo", base_path: "/foo" }]
                "ordered_related_items" => [{ "base_path" => "/foo" }]
              })
     end
@@ -32,7 +31,7 @@ describe Document do
     end
 
     it "is false when the finder links don't include a match" do
-      expect(described_class.new({ title: "Bar", link: "/foo" }, finder).promoted).to be false
+      expect(described_class.new({ title: "Bar", link: "/bar" }, finder).promoted).to be false
     end
   end
 end

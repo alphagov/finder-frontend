@@ -69,7 +69,7 @@ class ResultSetPresenter
     displayed_docs = []
 
     documents.each do | doc |
-      
+
       # return if there is no metadata
       next unless doc[:document][:metadata].present?
 
@@ -91,7 +91,7 @@ class ResultSetPresenter
         # if document already added then do not add to list to reduce duplicates
         next if doc[:document_index].in?(displayed_docs)
 
-        sector_business_activity = ( metadata[:id] === "sector_business_area" || metadata[:id] === "business_activity" ) 
+        sector_business_activity = ( metadata[:id] === "sector_business_area" || metadata[:id] === "business_activity" )
 
         # if the document belongs to all sectors then put it in all business sector
         if sector_business_activity && ( document_in_all_sectors(metadata) || !_filters[:sector_business_area])
@@ -112,11 +112,11 @@ class ResultSetPresenter
                 }
               end
               sector_facets[value][:documents] << doc
-            
+
             # if sector is set but not selected then put in all businesses
             elsif sector_business_activity
               all_businesses[:all_businesses][ :documents ] << doc
-            
+
             # other facets
             else
               unless other_facets[value]
@@ -155,8 +155,15 @@ class ResultSetPresenter
     @sector_key_map[sector_key]
   end
 
+  def sort_by_promoted(results)
+    results.sort do |x, y|
+      (x.promoted ? -1 : (y.promoted ? 1 : 0))
+    end
+  end
+
   def documents
-    results.each_with_index.map do |result, index|
+    sorted_results = sort_by_promoted(results)
+    sorted_results.each_with_index.map do |result, index|
       {
         document: SearchResultPresenter.new(result).to_hash,
         document_index: index + 1
