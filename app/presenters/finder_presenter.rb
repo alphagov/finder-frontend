@@ -132,7 +132,17 @@ class FinderPresenter
   def sort_options
     return [] if sort.blank?
 
-    options = Hash[sort.collect { |option| [option['name'], option['name'].parameterize] }]
+    options = sort.collect do |option|
+      [
+        option['name'],
+        option['name'].parameterize,
+        {
+          'data-track-category' => 'dropDownClicked',
+          'data-track-action' => 'clicked',
+          'data-track-label' => option['name']
+        }
+      ]
+    end
 
     disabled_option = keywords.blank? ? relevance_sort_option_value : ''
 

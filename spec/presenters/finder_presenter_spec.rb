@@ -82,18 +82,31 @@ RSpec.describe FinderPresenter do
   end
 
   describe "#sort_options" do
+    def sort_option(label, value, disabled: false, selected: false)
+      disabled_attr = disabled ? 'disabled="disabled" ' : ''
+      selected_attr = selected ? 'selected="selected" ' : ''
+      "<option data-track-category=\"dropDownClicked\" data-track-action=\"clicked\" data-track-label=\"#{label}\" #{disabled_attr}#{selected_attr}value=\"#{value}\">#{label}</option>"
+    end
+
     it "returns an empty array when sort is not present" do
       expect(presenter.sort_options).to eql([])
     end
 
     it "returns sort options without relevance when keywords is not present" do
-      expected_options = "<option value=\"most-viewed\">Most viewed</option>\n<option value=\"updated-newest\">Updated (newest)</option>"
+      expected_options = [
+        sort_option('Most viewed', 'most-viewed'),
+        sort_option('Updated (newest)', 'updated-newest')
+      ].join("\n")
 
       expect(presenter_with_sort.sort_options).to eql(expected_options)
     end
 
     it "returns sort options with relevance disabled when keywords is blank" do
-      expected_options = "<option value=\"most-viewed\">Most viewed</option>\n<option value=\"updated-newest\">Updated (newest)</option>\n<option disabled=\"disabled\" value=\"relevance\">Relevance</option>"
+      expected_options = [
+        sort_option('Most viewed', 'most-viewed'),
+        sort_option('Updated (newest)', 'updated-newest'),
+        sort_option('Relevance', 'relevance', disabled: true)
+      ].join("\n")
 
       presenter = described_class.new(content_item(sort_options_with_relevance), values)
 
@@ -101,7 +114,11 @@ RSpec.describe FinderPresenter do
     end
 
     it "returns sort options with relevance enabled when keywords is not blank" do
-      expected_options = "<option value=\"most-viewed\">Most viewed</option>\n<option value=\"updated-newest\">Updated (newest)</option>\n<option value=\"relevance\">Relevance</option>"
+      expected_options = [
+        sort_option('Most viewed', 'most-viewed'),
+        sort_option('Updated (newest)', 'updated-newest'),
+        sort_option('Relevance', 'relevance', disabled: false)
+      ].join("\n")
 
       presenter = described_class.new(content_item(sort_options_with_relevance), "keywords" => "something not blank")
 
@@ -109,7 +126,11 @@ RSpec.describe FinderPresenter do
     end
 
     it "returns sort options with no option selected when order is specified but does not exist in options" do
-      expected_options = "<option value=\"most-viewed\">Most viewed</option>\n<option value=\"updated-newest\">Updated (newest)</option>"
+      expected_options = [
+        sort_option('Most viewed', 'most-viewed'),
+        sort_option('Updated (newest)', 'updated-newest')
+      ].join("\n")
+
 
       presenter = described_class.new(content_item(sort_options_without_relevance), "order" => "option_that_does_not_exist")
 
@@ -117,7 +138,10 @@ RSpec.describe FinderPresenter do
     end
 
     it "returns sort options with default option selected when order is not specified and default option exists" do
-      expected_options = "<option value=\"most-viewed\">Most viewed</option>\n<option selected=\"selected\" value=\"updated-oldest\">Updated (oldest)</option>"
+      expected_options = [
+        sort_option('Most viewed', 'most-viewed'),
+        sort_option('Updated (oldest)', 'updated-oldest', selected: true)
+      ].join("\n")
 
       presenter = described_class.new(content_item(sort_options_with_default), values)
 
@@ -125,7 +149,10 @@ RSpec.describe FinderPresenter do
     end
 
     it "returns sort options with option selected when order is specified and exists in options" do
-      expected_options = "<option value=\"most-viewed\">Most viewed</option>\n<option selected=\"selected\" value=\"updated-newest\">Updated (newest)</option>"
+      expected_options = [
+        sort_option('Most viewed', 'most-viewed'),
+        sort_option('Updated (newest)', 'updated-newest', selected: true)
+      ].join("\n")
 
       presenter = described_class.new(content_item(sort_options_without_relevance), "order" => "updated-newest")
 
