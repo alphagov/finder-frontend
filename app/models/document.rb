@@ -31,6 +31,12 @@ class Document
     end
   end
 
+  def promoted
+    return false unless finder.links.has_key?("ordered_related_items")
+
+    finder.links["ordered_related_items"].any? { |item| item["base_path"] == path }
+  end
+
 private
 
   attr_reader :link, :rummager_document, :finder, :description

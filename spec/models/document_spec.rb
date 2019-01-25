@@ -15,4 +15,24 @@ describe Document do
       expect(document.public_timestamp).to be_nil
     end
   end
+
+  describe "promoted?" do
+    let(:finder) do
+      double(:finder,
+             date_metadata_keys: [],
+             text_metadata_keys: [],
+             links: {
+               ordered_related_items: [{ title: "Foo", base_path: "/foo" }]
+               "ordered_related_items" => [{ "base_path" => "/foo" }]
+             })
+    end
+
+    it "is true when the finder links contains a match" do
+      expect(described_class.new({ title: "Foo", link: "/foo" }, finder).promoted).to be true
+    end
+
+    it "is false when the finder links don't include a match" do
+      expect(described_class.new({ title: "Bar", link: "/foo" }, finder).promoted).to be false
+    end
+  end
 end
