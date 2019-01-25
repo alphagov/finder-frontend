@@ -156,7 +156,13 @@ class ResultSetPresenter
   end
 
   def documents
-    results.each_with_index.map do |result, index|
+    sorted_results = results.sort do |x, y|
+      return -1 if x.promoted
+
+      y.promoted ? -1 : 0
+    end
+
+    sorted_results.each_with_index.map do |result, index|
       {
         document: SearchResultPresenter.new(result).to_hash,
         document_index: index + 1
