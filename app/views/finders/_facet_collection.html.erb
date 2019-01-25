@@ -19,5 +19,10 @@
     </div>
   </div>
 
-  <input type="submit" value="Filter results" class="button js-live-search-fallback"/>
+  <div class="js-live-search-fallback button__wrapper">
+    <%= render "govuk_publishing_components/components/button", {
+      text: "Filter results",
+      margin_bottom: true
+    } %>
+  </div>
 </div>
