@@ -29,6 +29,7 @@ class Facet
 
   def metadata?
     facet['display_as_result_metadata']
+    true
   end
 
 private
