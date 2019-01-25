@@ -8,7 +8,7 @@
 <ul data-module="track-click">
   {{#documents}}
     <li class="document">
-      <h3>
+      <h3 {{#document.promoted}}class="document-heading--pinned"{{/document.promoted}}>
         <a href='{{document.link}}'
            data-track-category='navFinderLinkClicked'
            data-track-action='{{finder_name}}.{{document_index}}'

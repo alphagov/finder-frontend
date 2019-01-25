@@ -277,6 +277,10 @@
         a {
           text-decoration:none;
         }
+
+        &.document-heading--pinned {
+          @include govuk-font($size: 24, $weight: bold);
+        }
       }
 
       dl {
