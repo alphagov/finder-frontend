@@ -14,6 +14,13 @@ class Document
     @government_name = rummager_document.fetch(:government_name, nil)
     @finder = finder
     @rummager_document = rummager_document.slice(*metadata_keys)
+
+    # TODO: REMOVE ME
+    # This is POC data to demonstrate content promotion.
+    finder.links[:ordered_related_items] = [{
+      title: "Prepare to drive in the EU after Brexit",
+      base_path: "/government/publications/prepare-to-drive-in-the-eu-after-brexit",
+    }]
   end
 
   def metadata
@@ -29,6 +36,12 @@ class Document
       # This truncates the description at the end of the first sentence
       description.gsub(/\.\s[A-Z].*/, '.')
     end
+  end
+
+  def promoted
+    finder.links[:ordered_related_items].find { |item|
+      item[:title] == title && item[:base_path] == path
+    }.present?
   end
 
 private
