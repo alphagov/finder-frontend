@@ -337,9 +337,8 @@ end
 And(/^I see the facet tag$/) do
   within '.facet-tags' do
     expect(page).to have_link("✕")
-    expect(page).to have_css("a[data-track-category='facetTagRemoved']")
-    expect(page).to have_css("a[data-track-label='Open']")
-    expect(page).to have_css("a[data-track-action='That Is']")
+    expect(page).to have_content("Open")
+    expect(page).to have_css("a[data-module='remove-filter-link']")
     expect(page).to have_css("a[aria-label='Remove filter Open']")
   end
 end

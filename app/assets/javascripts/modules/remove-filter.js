@@ -23,6 +23,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
       var inputType = $input.prop('type');
 
       setInputState(elementType, inputType, $input, removeFilterValue, removeFilterFacet);
+      fireRemoveTagTrackingEvent(removeFilterValue, removeFilterFacet)
     }
 
     function setInputState(elementType, inputType, $input, removeFilterValue, removeFilterFacet) {
@@ -47,6 +48,18 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
       } else {
         return " [value='" + removeFilterValue + "']";
       }
+    }
+
+    function fireRemoveTagTrackingEvent(filterValue, filterFacet) {
+      var category = "facetTagRemoved";
+      var action = filterFacet;
+      var label = filterValue;
+
+      GOVUK.analytics.trackEvent(
+        category,
+        action,
+        { label: label }
+      );
     }
   }
 })(window, window.GOVUK);
