@@ -52,7 +52,18 @@ class ResultSetPresenter
   end
 
   def documents_by_facits
-    facet_grouping = {}
+    facet_grouping = {
+      all_businesses: {
+        facet_key: "all_businesses",
+        facet_name: "all_businesses",
+        options: []
+      }
+    }
+
+    puts "==========="
+    puts @filter_params
+    puts "==========="
+
     @filter_params.each do | key, options |
       next unless options.is_a? Array
 
@@ -96,9 +107,9 @@ class ResultSetPresenter
         documents: []
       }
 
-      group.values.each do | facet_value |
-        next unless facet_value.is_a? Hash
-        facet_data[:documents].concat(facet_value[:documents])
+      group.values.each do | facet_option |
+        next unless facet_option.is_a? Hash
+        facet_data[:documents].concat(facet_option[:documents])
       end
 
       return_data.push(facet_data)
