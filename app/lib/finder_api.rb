@@ -160,6 +160,7 @@ private
     "/transparency-and-freedom-of-information-releases" => "transparency_and_freedom_of_information_releases",
     "/all-content" => "all_content",
     "/policy-papers-and-consultations" => 'policy_and_engagement',
+    "/news-and-communications/email-signup" => 'news_and_communications_signup_content_item',
   }.freeze
 
   def development_env_finder_json
