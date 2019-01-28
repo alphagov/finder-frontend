@@ -127,6 +127,19 @@ describe EmailAlertTitleBuilder do
       end
     end
 
+    context 'when one dynamic facet is selected' do
+      let(:subscription_list_title_prefix) { 'Prefix ' }
+      let(:facets) do
+        [{ "facet_id" => "people", "facet_name" => "people" }]
+      end
+      let(:filter) do
+        { 'people' => %w(harry_potter ron_weasley) }
+      end
+
+      it { is_expected.to eq('Prefix with 2 people') }
+    end
+
+
     context 'when two facets are selected' do
       let(:filter) do
         {
@@ -137,5 +150,34 @@ describe EmailAlertTitleBuilder do
 
       it { is_expected.to eq('Prefix: with facet name one of topic name one and topic name two and facet name two of topic name three and topic name four') }
     end
+  end
+
+  context "when there are multiple facets with the same filter_key" do
+    let(:subscription_list_title_prefix) { 'News and communicatons ' }
+    let(:facets) do
+      [
+        { "facet_id" => "politicians", "facet_name" => "people", "filter_key" => "people" },
+        { "facet_id" => "people", "facet_name" => "people" },
+        { "facet_id" => "persons_of_interest", "facet_name" => "people", "filter_key" => "people" },
+        { "facet_id" => "organisations", "facet_name" => "organisations" },
+        { "facet_id" => "departments_of_interest", "facet_name" => "departments of interest", "filter_key" => "organisations" },
+        { "facet_id" => "document_type", "facet_name" => "document types" },
+        { "facet_id" => "world_locations", "facet_name" => "world locations" },
+        { "facet_id" => "level_one_taxon", "filter_key" => "part_of_taxonomy_tree", "facet_name" => "topics" },
+        { "facet_id" => "level_two_taxon", "filter_key" => "part_of_taxonomy_tree", "facet_name" => "topics" },
+        { "facet_id" => "related_to_brexit", "filter_key" => "part_of_taxonomy_tree", "filter_value" => "d6c2de5d-ef90-45d1-82d4-5f2438369eea", "facet_name" => "topics" },
+    ]
+    end
+    let(:filter) do
+      {
+        'people' => %w(harry_potter ron_weasley dumbledore cornelius_fudge rufus_scrimgeour),
+        'organisations' => %w(ministry_of_magic gringots hogwarts),
+        'part_of_taxonomy_tree' => %w(magical_education brexit education),
+      }
+    end
+
+    it {
+      is_expected.to eq('News and communicatons with 5 people, 3 organisations, and 3 topics')
+    }
   end
 end
