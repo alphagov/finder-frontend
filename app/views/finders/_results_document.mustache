@@ -11,7 +11,7 @@
     <p>{{document.summary}}</p>
   {{/document.summary}}
   <dl>
-    {{#document.metadata}}
+    {{#document.xmetadata}}
       {{#is_text}}
         <dt class='metadata-text-label'>{{label}}:</dt>
         <dd class='metadata-text-value'>{{value}}</dd>
@@ -21,7 +21,7 @@
         <dt class='metadata-date-label'>{{label}}:</dt>
         <dd class='metadata-date-value'><time datetime='{{machine_date}}'>{{human_date}}</time></dd>
       {{/is_date}}
-    {{/document.metadata}}
+    {{/document.xmetadata}}
   </dl>
   {{#document.is_historic}}
     <p class="historic">First published during the {{document.government_name}}</p>

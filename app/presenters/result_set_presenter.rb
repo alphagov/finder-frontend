@@ -52,7 +52,7 @@ class ResultSetPresenter
   end
 
   def document_in_all_sectors(metadata)
-    metadata[:id] === "sector_business_area" && metadata[:labels].count > 40
+    metadata[:id] === "sector_business_area" && metadata[:labels].count > 42
   end
 
   def documents_by_facits
@@ -121,17 +121,27 @@ class ResultSetPresenter
     end
 
     return_data = []
+
+    all_businesses_group = nil
     
     facet_grouping.each do | key, group |
 
       if key === "sector_business_area"
         group.each do | facet_key, facet_option |
           next unless facet_option.is_a? Hash
-          return_data.push({
-            facet_key: facet_key,
-            facet_name: get_sector_name(facet_key),
-            documents: facet_option[:documents]
-          })
+          if facet_key === :all_businesses
+            all_businesses_group = {
+              facet_key: facet_key,
+              facet_name: get_sector_name(facet_key),
+              documents: facet_option[:documents]
+            }
+          else
+            return_data.push({
+              facet_key: facet_key,
+              facet_name: get_sector_name(facet_key),
+              documents: facet_option[:documents]
+            })
+          end
         end
         next
       else
@@ -149,6 +159,8 @@ class ResultSetPresenter
 
       return_data.push(facet_data)
     end
+
+    return_data.push(all_businesses_group) if all_businesses_group
 
     return return_data;
   end
