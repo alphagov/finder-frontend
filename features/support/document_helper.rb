@@ -1,9 +1,15 @@
 require_relative '../../lib/govuk_content_schema_examples'
 require_relative "../../spec/helpers/taxonomy_spec_helper"
+require_relative "../../spec/helpers/validation_query_helper"
+require 'gds_api/test_helpers/email_alert_api'
+require 'gds_api/test_helpers/content_store'
 
 module DocumentHelper
   include GovukContentSchemaExamples
   include TaxonomySpecHelper
+  include ValidateQueryHelper
+  include GdsApi::TestHelpers::EmailAlertApi
+  include GdsApi::TestHelpers::ContentStore
 
   def stub_rummager_api_request
     stub_request(:get, rummager_all_documents_url).to_return(
@@ -225,14 +231,15 @@ module DocumentHelper
     schema["details"]["facets"].map! do |facet|
       if facet["key"] == "case_state"
         {
-          "filter_value": "open",
-          "key": "case_state",
-          "name": "Show open cases",
-          "short_name": "Open",
-          "type": "checkbox",
-          "display_as_result_metadata": false,
-          "filterable": true,
-          "preposition": "that is"
+          "value" => "open",
+          "filter_value" => "open",
+          "key" => "case_state",
+          "name" => "Show open cases",
+          "short_name" => "Open",
+          "type" => "checkbox",
+          "display_as_result_metadata" => false,
+          "filterable" => true,
+          "preposition" => "that is"
         }
       else
         facet
@@ -252,6 +259,31 @@ module DocumentHelper
       cma_case_search_params.merge(
         "filter_case_state" => "open",
         "order" => "-public_timestamp"
+      )
+    )
+
+    stub_request(:get, cma_case_documents_filtered_by_supergroup).to_return(
+      body: filtered_cma_case_documents_json,
+    )
+  end
+
+  def stub_rummager_with_query_validation_request
+    stub_validation_of_valid_query(
+      'filter_case_state[]' => 'open',
+      'filter_content_purpose_supergroup' => nil,
+      'filter_format[]' => 'cma_case',
+    )
+  end
+
+  def stub_rummager_with_cma_cases_for_supergroups_checkbox_and_date
+    stub_request(:get, rummager_all_cma_case_documents_url).to_return(
+      body: all_cma_case_documents_json,
+        )
+    cma_case_documents_filtered_by_supergroup = rummager_url(
+      cma_case_search_params.merge(
+        'filter_case_state' => "open",
+        'order' => '-public_timestamp',
+        'filter_closed_date' => 'from:2015-11-01'
       )
     )
 
