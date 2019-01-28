@@ -43,4 +43,23 @@ private
   def unprocessable_entity
     render status: :unprocessable_entity, plain: "422 error: unprocessable entity"
   end
+
+  def filter_params
+    # TODO Use a whitelist based on the facets in the schema
+    @filter_params ||= begin
+      permitted_params = params
+                           .to_unsafe_hash
+                           .except(
+                             :controller,
+                             :action,
+                             :slug,
+                             :format
+                           )
+
+      ParamsCleaner
+        .new(permitted_params)
+        .cleaned
+        .delete_if { |_, value| value.blank? }
+    end
+  end
 end
