@@ -96,9 +96,11 @@
     this.previousState = this.state;
     this.state = state;
 
-    this.$emailLink.attr(
-      'href', this.emailSignupHref + "?" + $.param(this.state)
-    );
+    if (this.emailSignupHref) {
+      this.$emailLink.attr(
+        'href', this.emailSignupHref.split('?')[0] + "?" + $.param(this.state)
+      );
+    }
   };
 
   LiveSearch.prototype.popState = function popState(event){

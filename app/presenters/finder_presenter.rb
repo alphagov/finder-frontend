@@ -83,7 +83,19 @@ class FinderPresenter
     signup_link = content_item['details']['signup_link']
     return signup_link if signup_link.present?
 
-    email_alert_signup['web_url'] if email_alert_signup
+    filtered_values = facets.each_with_object({}) do |facet, hash|
+      next unless facet.has_filters?
+
+      next if facet.value.nil?
+
+      next if facet.value.is_a?(Hash) && facet.value.values.all?(&:blank?)
+
+      next if facet.value.is_a?(Array) && facet.value.empty?
+
+      hash[facet.key] = facet.value
+    end
+
+    "#{email_alert_signup['web_url']}?#{filtered_values.to_query}" if email_alert_signup
   end
 
   def facets
