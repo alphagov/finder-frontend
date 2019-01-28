@@ -27,6 +27,10 @@ class Facet
     facet['filterable']
   end
 
+  def has_filters?
+    false
+  end
+
   def metadata?
     facet['display_as_result_metadata']
   end
