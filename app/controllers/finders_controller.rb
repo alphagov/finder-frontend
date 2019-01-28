@@ -69,31 +69,11 @@ private
       begin
         parent_content_item = Services.content_store.content_item(params["parent_path"])
       rescue GdsApi::HTTPNotFound
-        #parent_path is user input so we don't mind if it's bad
+        # parent_path is user input so we don't mind if it's bad
         GovukStatsd.increment("breadcrumb.parent_path_not_found")
       end
     end
     FinderBreadcrumbsPresenter.new(parent_content_item, @content_item)
-  end
-
-  def filter_params
-    # TODO Use a whitelist based on the facets in the schema
-    @filter_params ||= begin
-      permitted_params = params
-                           .to_unsafe_hash
-                           .except(
-                             :controller,
-                             :action,
-                             :slug,
-                             :format
-                           )
-      ParamsCleaner
-        .new(permitted_params)
-        .cleaned
-        .delete_if { |_, value| value.blank? }
-    end
-
-    @filter_params
   end
 
   def finder_presenter_class
