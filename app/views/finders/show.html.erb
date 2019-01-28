@@ -68,18 +68,6 @@
     </div>
 
     <div class="column-two-thirds">
-      <% if finder.sort.present? %>
-        <div class="govuk-form-group">
-          <%= label_tag 'order', 'Sort by', class: 'govuk-label' %>
-          <%= select_tag 'order', finder.sort_options,
-                         class: 'govuk-select js-order-results',
-                         'aria-controls': 'js-search-results-info',
-                         data: { 'default-sort-option' => finder.default_sort_option_value,
-                                 'relevance-sort-option' => finder.relevance_sort_option_value,
-                                 'module' => 'track-select-change'} %>
-        </div>
-      <% end %>
-
       <div class='js-live-search-results-block'>
         <div class="filtered-results">
           <div aria-live='assertive' id='js-search-results-info' data-module="remove-filter">
@@ -89,6 +77,19 @@
               <%= render_mustache('result_count', @results.to_hash) %>
             <% end %>
           </div>
+
+          <% if finder.sort.present? %>
+            <div class="govuk-form-group">
+              <%= label_tag 'order', 'Sort by', class: 'govuk-label' %>
+              <%= select_tag 'order', finder.sort_options,
+                             class: 'govuk-select js-order-results',
+                             'aria-controls': 'js-search-results-info',
+                             data: { 'default-sort-option' => finder.default_sort_option_value,
+                                     'relevance-sort-option' => finder.relevance_sort_option_value,
+                                     'module' => 'track-select-change'} %>
+            </div>
+          <% end %>
+
           <div id='js-results'>
             <%= render_mustache('results', @results.to_hash) %>
           </div>
