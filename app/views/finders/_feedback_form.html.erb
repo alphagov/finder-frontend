@@ -1,0 +1,48 @@
+<div class="feedback-form" data-module="business-finder-feedback">
+  <div class="js-prompt" data-module="track-click">
+    <a
+      class="feedback-form__option js-open-form"
+      href="/contact/govuk"
+      aria-expanded="false"
+      role="button"
+      aria-controls="business-finder-feedback"
+      data-track-category="businessFinderFeedback"
+      data-track-action="missingContentFeedback"><%= t('finders.feedback.did_you_find') %></a>
+  </div>
+
+  <form
+    action="/contact/govuk/content_improvement"
+    method="post"
+    id="business-finder-feedback"
+    tabindex="-1"
+    data-track-category="BusinessFinderFeedback"
+    data-track-action="GOV.UK Send Form"
+    class="js-hidden js-feedback-form">
+
+      <div class="js-hidden">
+        <%= render "govuk_publishing_components/components/error_summary", {
+          id: "feedback-error",
+          title: "Sorry, we’re unable to receive your message right now.",
+          description: finder.contact_form_link,
+        } %>
+      </div>
+
+      <%= render "govuk_publishing_components/components/textarea", {
+        label: {
+          text: t('finders.feedback.give_details')
+        },
+        name: "description"
+      } %>
+      <%= render "govuk_publishing_components/components/button", {
+        text: "Send"
+      } %>
+  </form>
+
+    <div class="js-submit-message js-hidden feedback-form__message-container" tabindex="-1">
+      <p class="feedback-form__message"><%= t('finders.feedback.success_message') %></p>
+      <p class="feedback-form__message email-link">
+        <%= link_to "Subscribe to receive email alerts", finder.email_alert_signup_url %>
+        when new information is published for your business area.
+    </p>
+  </div>
+</div>

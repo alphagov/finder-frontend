@@ -14,7 +14,7 @@ end
 
 Then(/I see no results$/) do
   expect(page).to have_content('0 reports')
-  expect(page).to have_css('.filtered-results .document', count: 0)
+  expect(page).to have_css('.results-info .document', count: 0)
 end
 
 And(/there is no keyword search box$/) do
@@ -25,10 +25,10 @@ Then(/^I can get a list of all documents with matching metadata$/) do
   visit finder_path('mosw-reports')
 
   expect(page).to have_content('2 reports')
-  expect(page).to have_css('.filtered-results .document', count: 2)
+  expect(page).to have_css('.results-info .document', count: 2)
   expect(page).to have_css('.gem-c-metadata')
 
-  within '.filtered-results .document:nth-child(1)' do
+  within '.results-info .document:nth-child(1)' do
     expect(page).to have_link(
       'West London wobbley walk',
       href: '/mosw-reports/west-london-wobbley-walk',
@@ -40,7 +40,7 @@ Then(/^I can get a list of all documents with matching metadata$/) do
   visit_filtered_finder('walk_type' => 'hopscotch')
 
   expect(page).to have_content('1 report')
-  expect(page).to have_css('.filtered-results .document', count: 1)
+  expect(page).to have_css('.results-info .document', count: 1)
 end
 
 When(/^I view a list of news and communications$/) do
@@ -75,7 +75,7 @@ When(/^I search documents by keyword$/) do
 end
 
 Then(/^I see all documents which contain the keywords$/) do
-  within ".filtered-results" do
+  within ".results-info" do
     expect(page).to have_css("a", text: @keyword_search)
   end
 end
@@ -96,7 +96,7 @@ Then(/^I can see documents which are marked as being in history mode$/) do
 end
 
 Then(/^I can see documents which have government metadata$/) do
-  within '.filtered-results .document:nth-child(1)' do
+  within '.results-info .document:nth-child(1)' do
     expect(page).to have_content('Updated:')
     expect(page).to have_css('dl time[datetime="2007-02-14"]')
 
@@ -113,14 +113,14 @@ end
 
 Then(/^I can get a list of all documents with good metadata$/) do
   visit finder_path('mosw-reports')
-  expect(page).to have_css('.filtered-results .document', count: 2)
+  expect(page).to have_css('.results-info .document', count: 2)
 
-  within '.filtered-results .document:nth-child(1)' do
+  within '.results-info .document:nth-child(1)' do
     expect(page).to have_content('Backward')
     expect(page).not_to have_content('England')
   end
 
-  within '.filtered-results .document:nth-child(2)' do
+  within '.results-info .document:nth-child(2)' do
     expect(page).to have_content('Northern Ireland')
     expect(page).not_to have_content('Hopscotch')
   end
@@ -280,7 +280,7 @@ Then(/^I only see documents that match the checkbox filter$/) do
   expect(page).to have_css('.facet-tags__preposition', text: "That Is")
   expect(page).to have_css('.facet-tag__text', text: "Open")
 
-  within ".filtered-results .document:nth-child(1)" do
+  within ".results-info .document:nth-child(1)" do
     expect(page).to have_content("Big Beer Co / Salty Snacks Ltd merger inquiry")
     expect(page).to_not have_content("Bakery market investigation")
   end
@@ -310,12 +310,12 @@ When(/^I filter the results$/) do
 end
 
 Then(/^I see the most viewed articles first$/) do
-  within '.filtered-results .document:nth-child(1)' do
+  within '.results-info .document:nth-child(1)' do
     expect(page).to have_content('Press release from Hogwarts')
     expect(page).to have_content('25 December 2017')
   end
 
-  within '.filtered-results .document:nth-child(2)' do
+  within '.results-info .document:nth-child(2)' do
     expect(page).to have_content('16 November 2018')
   end
 
@@ -324,11 +324,11 @@ Then(/^I see the most viewed articles first$/) do
 end
 
 Then(/^I see services in alphabetical order$/) do
-  within '.filtered-results .document:nth-child(1)' do
+  within '.results-info .document:nth-child(1)' do
     expect(page).to have_content('Apply for your full broomstick licence')
   end
 
-  within '.filtered-results .document:nth-child(2)' do
+  within '.results-info .document:nth-child(2)' do
     expect(page).to have_content('Register a magical spell')
   end
 

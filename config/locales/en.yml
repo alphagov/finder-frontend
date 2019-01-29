@@ -27,3 +27,7 @@ en:
     facet_disclosure:
       more: "Show more search options"
       fewer: "Show fewer search options"
+    feedback:
+      did_you_find: "Tell us if you can't find what you're looking for"
+      give_details: "What are you looking for?"
+      success_message: "Your message was sent."
