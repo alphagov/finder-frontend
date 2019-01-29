@@ -119,6 +119,33 @@ module DocumentHelper
     content_store_has_item('/mosw-reports', finder.to_json)
   end
 
+  def content_store_has_mosw_reports_finder_with_autocomplete_facet
+    finder = govuk_content_schema_example('finder')
+    finder["details"]["facets"][0] = {
+      "key": "walk_type",
+      "name": "Walk type",
+      "type": "autocomplete",
+      "preposition": "of type",
+      "display_as_result_metadata": true,
+      "filterable": true,
+      "allowed_values": [
+        {
+          "value": "backward",
+          "label": "Backward"
+        },
+        {
+          "value": "hopscotch",
+          "label": "Hopscotch"
+        },
+        {
+          "value": "start-and-stop",
+          "label": "Start-and-stop"
+        }
+      ]
+    }
+    content_store_has_item('/mosw-reports', finder.to_json)
+  end
+
   def content_store_has_qa_finder
     content_store_has_item('/aaib-reports', aaib_reports_content_item.to_json)
   end

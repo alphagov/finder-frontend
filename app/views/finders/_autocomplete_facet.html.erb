@@ -1,0 +1,9 @@
+<%= render "govuk_publishing_components/components/accessible_autocomplete", {
+    id: autocomplete_facet.key,
+    label: {
+        text: autocomplete_facet.name
+    },
+    options: autocomplete_facet.options,
+    selected_option: autocomplete_facet.selected_option, # TODO: Make the component accept multiple
+    data_attributes: autocomplete_facet.data_attributes }
+%>
