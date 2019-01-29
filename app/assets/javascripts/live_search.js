@@ -12,6 +12,7 @@
     this.$form = options.$form;
     this.$resultsBlock = options.$results.find('#js-results');
     this.$countBlock = options.$results.find('#js-search-results-info');
+    this.$resultsCount = options.$results.find('#result-count');
     this.action = this.$form.attr('action') + '.json';
     this.$atomAutodiscoveryLink = options.$atomAutodiscoveryLink;
     this.$emailLink = $("p.email-link a");
@@ -248,7 +249,8 @@
     // still the latest to stop results being overwritten by stale data
     if(action == $.param(this.state)) {
       this.$resultsBlock.mustache(this.templateDir + '_results', results);
-      this.$countBlock.mustache(this.templateDir + this.resultCountTemplate, results);
+      //this.$countBlock.mustache(this.templateDir + this.resultCountTemplate, results);
+      this.$resultsCount.text(`${results.total} ${results.pluralised_document_noun}`);
       this.$atomAutodiscoveryLink.attr('href', results.atom_url);
     }
   };

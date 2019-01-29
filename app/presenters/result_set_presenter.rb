@@ -22,7 +22,7 @@ class ResultSetPresenter
     {
       total: number_with_delimiter(total),
       generic_description: generic_description,
-      pluralised_document_noun: document_noun.pluralize(total),
+      pluralised_document_noun: "result".pluralize(total),
       applied_filters: selected_filter_descriptions,
       documents_by_facits: documents_by_facits,
       documents: documents,

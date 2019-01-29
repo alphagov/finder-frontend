@@ -70,17 +70,16 @@
     <div class="column-two-thirds">
       <div class='js-live-search-results-block'>
         <div class="filtered-results">
-          <div aria-live='assertive' id='js-search-results-info' data-module="remove-filter">
-            <% if finder.show_generic_description? %>
-              <%= render_mustache('result_count_generic', @results.to_hash) %>
-            <% else %>
-              <%= render_mustache('result_count', @results.to_hash) %>
-            <% end %>
+          <div aria-live='assertive' data-module="remove-filter">
+            <h1 class="govuk-heading-l">Results</h1>
           </div>
 
           <% if finder.sort.present? %>
             <div class="govuk-form-group">
-              <%= label_tag 'order', 'Sort by', class: 'govuk-label' %>
+              <%= label_tag 'order', "Sort <span id='result-count'>#{@results.to_hash[:total]} #{@results.to_hash[:pluralised_document_noun]}</span> by".html_safe, class: 'govuk-label' %>
+              <% tag.label 'order', class: 'govuk-label' do %>
+                hello
+              <% end %>
               <%= select_tag 'order', finder.sort_options,
                              class: 'govuk-select js-order-results',
                              'aria-controls': 'js-search-results-info',
