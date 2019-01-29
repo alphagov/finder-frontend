@@ -56,32 +56,15 @@ class ResultSetPresenter
   end
 
   def documents_by_facits
-    facet_grouping = {}
-    @filter_params.each do | key, options |
-      next unless options.is_a? Array
-
-      facet_options = {}
-      options.each do | option_key |
-        facet_options[option_key] = {
-          documents: []
-        }
-      end
-
-      if key === "sector_business_area"
-        facet_options[:all_businesses] = {
-          documents: []
-        }
-      end
-
-      facet_group = {
-        facet_key: key,
-        options: facet_options,
+    sector_facets = {}
+    all_businesses = {
+      all_businesses: {
+        facet_name: "All Businesses",
+        facet_key: "all_businesses",
+        documents: []
       }
-
-      facet_grouping[key] = facet_options
-    end
-
-    new_facet_grouping = {}
+    }
+    other_facets = {}
 
     displayed_docs = []
 
@@ -93,76 +76,59 @@ class ResultSetPresenter
       # Loop through each metadata to group against the filter params
       doc[:document][:metadata].each do | metadata |
         # next unless metadata is in the filter
-        next unless facet_grouping[ metadata[:id] ]
+        next unless @filter_params[ metadata[:id] ]
 
         # if document already added then do not add to list to reduce duplicates
-        next if displayed_docs.include? doc[:document_index]
+        next if doc[:document_index].in?(displayed_docs)
 
-        # if the facet group name is not set then set it
-        unless facet_grouping[ metadata[:id] ][:facet_name]
-          facet_grouping[ metadata[:id] ][:facet_name] = metadata[:label]
-        end
+        sector_business_activity = ( metadata[:id] === "sector_business_area" || metadata[:id] === "business_activity" ) 
 
         # if the document belongs to all sectors then put it in all business sector
-        if document_in_all_sectors(metadata)
-          facet_grouping[ metadata[:id] ][ :all_businesses ][ :documents ] << doc
+        if sector_business_activity && ( document_in_all_sectors(metadata) || !@filter_params[:sector_business_area])
+          all_businesses[:all_businesses][ :documents ] << doc
           displayed_docs << doc[:document_index]
         else
           # if not for all sectors then add to each sector
           metadata[:labels].each do | value |
             # if the documents has a facet that exists in the search then add doc to list
-            if facet_grouping[ metadata[:id] ][ value ]
-              facet_grouping[ metadata[:id] ][ value ][ :documents ] << doc
-              displayed_docs << doc[:document_index]
+
+            # if sector is chosen and in the list
+            if sector_business_activity && @filter_params[:sector_business_area] && value.in?(@filter_params[:sector_business_area])
+              unless sector_facets[value]
+                sector_facets[value] = {
+                  facet_key: value,
+                  facet_name: get_sector_name(value),
+                  documents: []
+                }
+              end
+              sector_facets[value][:documents] << doc
+            
+            # if sector is set but not selected then put in all businesses
+            elsif sector_business_activity
+              all_businesses[:all_businesses][ :documents ] << doc
+            
+            # other facets
+            else
+              unless other_facets[value]
+                other_facets[metadata[:id]] = {
+                  facet_key: metadata[:id],
+                  facet_name: metadata[:label],
+                  documents: []
+                }
+              end
+              other_facets[metadata[:id]][ :documents ] << doc
             end
+
+            # stop duplications
+            displayed_docs << doc[:document_index]
+            break;
           end
         end
       end
     end
 
-    return_data = []
-
-    all_businesses_group = nil
-    
-    facet_grouping.each do | key, group |
-
-      if key === "sector_business_area"
-        group.each do | facet_key, facet_option |
-          next unless facet_option.is_a? Hash
-          if facet_key === :all_businesses
-            all_businesses_group = {
-              facet_key: facet_key,
-              facet_name: get_sector_name(facet_key),
-              documents: facet_option[:documents]
-            }
-          else
-            return_data.push({
-              facet_key: facet_key,
-              facet_name: get_sector_name(facet_key),
-              documents: facet_option[:documents]
-            })
-          end
-        end
-        next
-      else
-        facet_data = {
-          facet_key: key,
-          facet_name: group[:facet_name],
-          documents: []
-        }
-        group.each do | facet_key, facet_option |
-          next unless facet_option.is_a? Hash
-          facet_data[:documents].concat(facet_option[:documents])
-        end
-        next if facet_data[:documents].count === 0
-      end
-
-      return_data.push(facet_data)
-    end
-
-    return_data.push(all_businesses_group) if all_businesses_group
-
-    return return_data;
+    # return merged results
+    [sector_facets, other_facets, all_businesses].inject(&:merge).values
   end
 
   def get_sector_name(sector_key)
