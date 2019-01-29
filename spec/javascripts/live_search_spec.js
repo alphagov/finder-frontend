@@ -185,11 +185,14 @@ describe("liveSearch", function(){
       var promise = jasmine.createSpyObj('promise', ['done']);
       spyOn(liveSearch, 'updateResults').and.returnValue(promise);
       spyOn(GOVUK.analytics, 'trackPageview');
+      spyOn(liveSearch, 'trackingInit');
+
       liveSearch.state = [];
 
       liveSearch.formChange();
       promise.done.calls.mostRecent().args[0]();
 
+      expect(liveSearch.trackingInit).toHaveBeenCalled();
       expect(GOVUK.analytics.trackPageview).toHaveBeenCalled();
       var trackArgs = GOVUK.analytics.trackPageview.calls.first().args[0];
       expect(trackArgs.split('?')[1], 'field=sheep');

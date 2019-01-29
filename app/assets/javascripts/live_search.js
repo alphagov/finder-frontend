@@ -102,11 +102,16 @@
         function(){
           var newPath = window.location.pathname + "?" + $.param(this.state);
           history.pushState(this.state, '', newPath);
+          this.trackingInit();
         }.bind(this)
       )
     }
     this.trackPageView();
   };
+
+  LiveSearch.prototype.trackingInit = function() {
+    GOVUK.modules.start($('.js-live-search-results-block'));
+  }
 
   LiveSearch.prototype.trackPageView = function trackPageView() {
     if (this.canTrackPageview()) {
