@@ -28,7 +28,7 @@
         "name": "Organisation",
         "preposition": "from",
         "short_name": "From",
-        "type": "text"
+        "type": "autocomplete"
       },
       {
         "display_as_result_metadata": true,
@@ -36,7 +36,7 @@
         "key": "world_locations",
         "name": "World location",
         "preposition": "in",
-        "type": "text"
+        "type": "autocomplete"
       },
       {
         "display_as_result_metadata": true,

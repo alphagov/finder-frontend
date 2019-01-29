@@ -145,8 +145,23 @@ Then(/^I only see documents with matching dates$/) do
   assert_cma_cases_are_filtered_by_date
 end
 
-Given(/^a finder with autocomplete exists$/) do
+Given(/^a finder with a dynamic filter exists$/) do
   content_store_has_mosw_reports_finder
+  stub_rummager_api_request
+end
+
+Then(/^I can see filters based on the results$/) do
+  visit finder_path('mosw-reports')
+
+  within first('.app-c-option-select') do
+    expect(page).to have_selector('input#walk_type-backward')
+    expect(page).to have_content('Hopscotch')
+    expect(page).to_not have_selector('input#organisations-ministry-of-silly-walks')
+  end
+end
+
+Given(/^a finder with autocomplete exists$/) do
+  content_store_has_mosw_reports_finder_with_autocomplete_facet
   stub_rummager_api_request
 end
 

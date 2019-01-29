@@ -18,6 +18,8 @@ module FacetParser
         CheckboxFacet.new(facet)
       when 'dropdown_select'
         DropdownSelectFacet.new(facet)
+      when 'autocomplete'
+        AutocompleteFacet.new(facet)
       else
         raise ArgumentError.new("Unknown filterable facet type: #{facet.type}")
       end
