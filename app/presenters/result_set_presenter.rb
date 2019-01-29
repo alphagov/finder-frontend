@@ -73,10 +73,20 @@ class ResultSetPresenter
       # return if there is no metadata
       next unless doc[:document][:metadata].present?
 
+      _filters = @filter_params.without('order','keywords')
+
+      # if no filters are selected then put in all business
+      if _filters.values.length == 0
+        all_businesses[:all_businesses][ :documents ] << doc
+        displayed_docs << doc[:document_index]
+        next
+      end
+
       # Loop through each metadata to group against the filter params
       doc[:document][:metadata].each do | metadata |
         # next unless metadata is in the filter
-        next unless @filter_params[ metadata[:id] ]
+        next unless _filters[ metadata[:id] ]
+
 
         # if document already added then do not add to list to reduce duplicates
         next if doc[:document_index].in?(displayed_docs)
@@ -84,7 +94,7 @@ class ResultSetPresenter
         sector_business_activity = ( metadata[:id] === "sector_business_area" || metadata[:id] === "business_activity" ) 
 
         # if the document belongs to all sectors then put it in all business sector
-        if sector_business_activity && ( document_in_all_sectors(metadata) || !@filter_params[:sector_business_area])
+        if sector_business_activity && ( document_in_all_sectors(metadata) || !_filters[:sector_business_area])
           all_businesses[:all_businesses][ :documents ] << doc
           displayed_docs << doc[:document_index]
         else
@@ -93,7 +103,7 @@ class ResultSetPresenter
             # if the documents has a facet that exists in the search then add doc to list
 
             # if sector is chosen and in the list
-            if sector_business_activity && @filter_params[:sector_business_area] && value.in?(@filter_params[:sector_business_area])
+            if sector_business_activity && _filters[:sector_business_area] && value.in?(_filters[:sector_business_area])
               unless sector_facets[value]
                 sector_facets[value] = {
                   facet_key: value,
