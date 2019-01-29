@@ -319,6 +319,7 @@ Then(/^I see the most viewed articles first$/) do
     expect(page).to have_content('16 November 2018')
   end
 
+  expect(page).to have_css("a[data-track-category='navFinderLinkClicked']")
   expect(page).to have_content('sorted by Most viewed')
 end
 
@@ -331,6 +332,7 @@ Then(/^I see services in alphabetical order$/) do
     expect(page).to have_content('Register a magical spell')
   end
 
+  expect(page).to have_css("a[data-track-category='navFinderLinkClicked']")
   expect(page).to have_content('sorted by A-Z')
 end
 
