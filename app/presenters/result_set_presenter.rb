@@ -137,6 +137,9 @@ class ResultSetPresenter
       end
     end
 
+    # dont show all businesses if there are no results
+    all_businesses = {} if all_businesses[:all_businesses][:documents].length == 0
+
     # return merged results
     [sector_facets, other_facets, all_businesses].inject(&:merge).values
   end
