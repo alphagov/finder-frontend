@@ -14,6 +14,14 @@ class FinderPresenter
     @keywords = values["keywords"].presence
   end
 
+  def show_feedback_form?
+    @slug.eql?('/find-eu-exit-guidance-business')
+  end
+
+  def contact_form_link
+    "If the problem persists, we have other ways for you to provide feedback on the <a href=\"/contact\">contact page</a>".html_safe
+  end
+
   def phase_message
     content_item['details']['beta_message'] || content_item['details']['alpha_message']
   end
