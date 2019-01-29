@@ -34,16 +34,17 @@ module Registries
 
     def format_child_taxons(taxon)
       children = taxon.dig('links', 'child_taxons') || []
-      children.map { |child_taxon|
+      formatted_children = children.map { |child_taxon|
         format_taxon(child_taxon, taxon['content_id'])
       }
+
+      formatted_children.sort_by { |child_taxon| child_taxon['title'] }
     end
 
     def fetch_level_one_taxons_from_api
       taxons = fetch_taxon.dig('links', 'level_one_taxons') || []
-      taxons.map { |taxon|
-        fetch_taxon(taxon['base_path'])
-      }
+      sorted = taxons.sort_by { |taxon| taxon['title'] }
+      sorted.map { |taxon| fetch_taxon(taxon['base_path']) }
     end
 
     def fetch_taxon(base_path = '/')
