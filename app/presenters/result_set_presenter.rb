@@ -155,13 +155,14 @@ class ResultSetPresenter
     @sector_key_map[sector_key]
   end
 
-  def documents
-    sorted_results = results.sort do |x, y|
-      return -1 if x.promoted
-
-      y.promoted ? -1 : 0
+  def sort_by_promoted(results)
+    results.sort do |x, y|
+      (x.promoted ? -1 : (y.promoted ? 1 : 0))
     end
+  end
 
+  def documents
+    sorted_results = sort_by_promoted(results)
     sorted_results.each_with_index.map do |result, index|
       {
         document: SearchResultPresenter.new(result).to_hash,

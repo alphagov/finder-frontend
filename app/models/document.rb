@@ -17,10 +17,20 @@ class Document
 
     # TODO: REMOVE ME
     # This is POC data to demonstrate content promotion.
-    finder.links[:ordered_related_items] = [{
-      title: "Prepare to drive in the EU after Brexit",
-      base_path: "/government/publications/prepare-to-drive-in-the-eu-after-brexit",
-    }]
+    finder.links[:ordered_related_items] = [
+      {
+        title: "Prepare to drive in the EU after Brexit",
+        base_path: "/government/publications/prepare-to-drive-in-the-eu-after-brexit",
+      },
+      {
+        title: "Customs procedures if the UK leaves the EU with no deal",
+        base_path: "/guidance/customs-procedures-if-the-uk-leaves-the-eu-with-no-deal",
+      },
+      {
+        title: "Accounting and audit if there’s no Brexit deal",
+        base_path: "/government/publications/accounting-and-audit-if-theres-no-brexit-deal",
+      },
+    ]
   end
 
   def metadata
