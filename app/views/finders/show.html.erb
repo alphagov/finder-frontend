@@ -73,25 +73,27 @@
           <div aria-live='assertive' id='js-search-results-info' data-module="remove-filter">
             <% if finder.show_generic_description? %>
               <%= render_mustache('result_count_generic', @results.to_hash) %>
+            <% elsif @results.grouped_display? %>
+              <%= render_mustache('grouped_heading') %>
             <% else %>
               <%= render_mustache('result_count', @results.to_hash) %>
             <% end %>
           </div>
 
-          <% if finder.sort.present? %>
-            <div class="govuk-form-group">
-              <%= label_tag 'order', 'Sort by', class: 'govuk-label' %>
-              <%= select_tag 'order', finder.sort_options,
-                             class: 'govuk-select js-order-results',
-                             'aria-controls': 'js-search-results-info',
-                             data: { 'default-sort-option' => finder.default_sort_option_value,
-                                     'relevance-sort-option' => finder.relevance_sort_option_value,
-                                     'module' => 'track-select-change'} %>
-            </div>
-          <% end %>
-
           <div id='js-results'>
             <%= render_mustache('results', @results.to_hash) %>
+            <span class="govuk-caption-m" id="live-search-loading-message"></span>
+            <% if finder.sort.present? %>
+              <div class="govuk-form-group">
+                <%= label_tag 'order', "Sort <strong id='result-count'>#{@results.to_hash[:total]} #{@results.to_hash[:pluralised_document_noun]}</strong> by".html_safe, class: 'govuk-label' %>
+                <%= select_tag 'order', finder.sort_options,
+                  class: 'govuk-select js-order-results',
+                  'aria-controls': 'js-search-results-info',
+                  data: { 'default-sort-option' => finder.default_sort_option_value,
+                          'relevance-sort-option' => finder.relevance_sort_option_value,
+                          'module' => 'track-select-change'} %>
+              </div>
+            <% end %>
           </div>
         </div>
       </div>
