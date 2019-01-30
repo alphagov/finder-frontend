@@ -32,6 +32,9 @@ Given(/^a collection of tagged documents(.*?)$/) do |categorisation|
   )
 
   case categorisation.strip
+  when /^with dates in supergroup '(\w+)'$/
+    search_params["filter_content_store_document_type"] = GovukDocumentTypes.supergroup_document_types($1)
+    search_params["filter_public_timestamp"] = "from:2005-01-01,to:2025-01-01"
   when /^in supergroup '(\w+)'$/
     search_params["filter_content_store_document_type"] = GovukDocumentTypes.supergroup_document_types($1)
   when /^in supergroup '(\w+)' and subgroups '([\w,]+)'$/
@@ -70,6 +73,10 @@ When(/^I filter by taxon and by supergroup$/) do
   visit "/search/advanced?topic=/taxon&group=news_and_communications"
 end
 
+When(/^I filter by taxon, supergroup and dates$/) do
+  visit "/search/advanced?topic=/taxon&group=news_and_communications&public_timestamp%5Bfrom%5D=2005&public_timestamp%5Bto%5D=2025"
+end
+
 When(/^I filter by taxon, supergroup and subgroups$/) do
   visit "/search/advanced?topic=/taxon&group=news_and_communications&subgroup[]=news&subgroup[]=updates_and_alerts"
 end
@@ -95,6 +102,12 @@ end
 Then(/^The correct metadata is displayed for the search results$/) do
   expect(page).to have_css(".gem-c-document-list__attribute", text: "Guidance")
   expect(page).not_to have_css(".gem-c-document-list__attribute", text: "Guide")
+end
+
+And(/^the correct metadata is displayed for the dates$/) do
+  within(".result-info") do
+    expect(page).to have_content("2 results in updates and alerts, news, speeches and statements, and decisions and published between 1 January 2005 and 1 January 2025")
+  end
 end
 
 Then(/^The page is not found$/) do

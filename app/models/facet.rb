@@ -34,7 +34,7 @@ class Facet
 private
 
   def and_word_connectors
-    { two_words_connector: ' and ' }
+    { words_connector: ' and ', two_words_connector: ' and ' }
   end
 
   def or_word_connectors
