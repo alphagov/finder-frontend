@@ -32,7 +32,7 @@ class ResultSetPresenter
       atom_url: atom_url,
       next_and_prev_links: next_and_prev_links,
       sort_options: sort_options,
-      display_as_topics: true #@filter_params[:order] === "most-relevant" # change to topic once this is available
+      display_as_topics: @filter_params[:order] == "topic"
     }
   end
 
@@ -52,7 +52,7 @@ class ResultSetPresenter
   end
 
   def document_in_all_sectors(metadata)
-    metadata[:id] === "sector_business_area" && metadata[:labels].count > 42
+    metadata[:id] == "sector_business_area" && metadata[:labels].count > 42
   end
 
   def documents_by_facits
@@ -84,7 +84,7 @@ class ResultSetPresenter
         # next unless metadata is in the filter
         next unless _filters[ metadata[:id] ]
 
-        sector_business_activity = ( metadata[:id] === "sector_business_area" || metadata[:id] === "business_activity" )
+        sector_business_activity = ( metadata[:id] == "sector_business_area" || metadata[:id] == "business_activity" )
 
         # if the document belongs to all sectors then put it in all business sector
         if sector_business_activity && ( document_in_all_sectors(metadata) || !_filters[:sector_business_area])
@@ -93,34 +93,22 @@ class ResultSetPresenter
 
           doc_inserted = false
 
-          # if not for all sectors then add to each sector
-          metadata[:labels].each do | value |
-            # if the documents has a facet that exists in the search then add doc to list
+          if sector_business_activity
+            # if not for all sectors then add to each sector
+            metadata[:labels].each do | value |
+              # if the documents has a facet that exists in the search then add doc to list
 
-            # if sector is chosen and in the list
-            if sector_business_activity && _filters[:sector_business_area] && (value.in?(_filters[:sector_business_area]) || _filters[:sector_business_area] === value)
-              unless sector_facets[value]
-                sector_facets[value] = {
-                  facet_key: value,
-                  facet_name: get_sector_name(value),
-                  documents: []
-                }
-              end
-              sector_facets[value][:documents] << doc
-
-            # if sector is set but not selected then put in all businesses
-            elsif sector_business_activity
-              all_businesses[:all_businesses][ :documents ] << doc
-              doc_inserted = true
-
-            # other facets
-            elsif !sector_business_activity
-              unless other_facets[value]
-                other_facets[metadata[:id]] = {
-                  facet_key: metadata[:id],
-                  facet_name: metadata[:label],
-                  documents: []
-                }
+              # if sector is chosen and in the list
+              if _filters[:sector_business_area] && (value.in?(_filters[:sector_business_area]) || _filters[:sector_business_area] == value)
+                unless sector_facets[value]
+                  sector_facets[value] = {
+                    facet_key: value,
+                    facet_name: get_sector_name(value),
+                    documents: []
+                  }
+                end
+                sector_facets[value][:documents] << doc
+                doc_inserted = true
               end
               other_facets[metadata[:id]][ :documents ] << doc
               doc_inserted = true
@@ -146,7 +134,7 @@ class ResultSetPresenter
   def get_sector_name(sector_key)
     unless @sector_key_map.present?
       @finder.filters.each do | facet |
-        next unless facet.key === 'sector_business_area'
+        next unless facet.key == 'sector_business_area'
         @sector_key_map = {:all_businesses => "All businesses"}
         facet.allowed_values.each do | facet_option |
           @sector_key_map[facet_option["value"]] = facet_option["label"]

@@ -141,6 +141,9 @@ class FinderPresenter
     return [] if sort.blank?
 
     options = sort.collect do |option|
+      # FIXME: prototype only
+      option['name'] = 'Topic' if option['name'] == 'Most relevant'
+
       [
         option['name'],
         option['name'].parameterize,
