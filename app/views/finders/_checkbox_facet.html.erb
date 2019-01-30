@@ -1,10 +1,10 @@
 <div class="govuk-checkboxes" id="<%= checkbox_facet.key %>">
   <%= render "govuk_publishing_components/components/checkboxes", {
-    name: checkbox_facet.name,
+    name: checkbox_facet.key,
     margin_bottom: true,
     items: [
       {
-        label: checkbox_facet.checkbox_label,
+        label: checkbox_facet.name,
         value: checkbox_facet.value,
         id: checkbox_facet.id,
         checked: checkbox_facet.is_checked?,

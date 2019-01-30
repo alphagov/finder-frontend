@@ -5,8 +5,8 @@ describe CheckboxFacet do
     {
       'type' => "checkbox",
       'key' => "show_extra_information",
-      'label' => "Show extra information",
-      'checkbox_label' => "Show extra information",
+      'name' => "Show extra information",
+      'short_name' => "Show more",
       'value' => "yes",
       'preposition' => "of value",
     }
@@ -24,7 +24,7 @@ describe CheckboxFacet do
 
       specify {
         expect(subject.sentence_fragment['preposition']).to eql("of value")
-        expect(subject.sentence_fragment['values'].first['label']).to eql("Show extra information")
+        expect(subject.sentence_fragment['values'].first['label']).to eql("Show more")
         expect(subject.sentence_fragment['values'].first['parameter_key']).to eql("show_extra_information")
       }
     end
