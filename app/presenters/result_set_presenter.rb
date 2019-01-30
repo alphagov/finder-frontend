@@ -66,8 +66,6 @@ class ResultSetPresenter
     }
     other_facets = {}
 
-    displayed_docs = []
-
     documents.each do | doc |
       
       # return if there is no metadata
@@ -78,7 +76,6 @@ class ResultSetPresenter
       # if no filters are selected then put in all business
       if _filters.values.length == 0
         all_businesses[:all_businesses][ :documents ] << doc
-        displayed_docs << doc[:document_index]
         next
       end
 
@@ -87,43 +84,37 @@ class ResultSetPresenter
         # next unless metadata is in the filter
         next unless _filters[ metadata[:id] ]
 
-        # if document already added then do not add to list to reduce duplicates
-        next if doc[:document_index].in?(displayed_docs)
-
         sector_business_activity = ( metadata[:id] === "sector_business_area" || metadata[:id] === "business_activity" ) 
 
         # if the document belongs to all sectors then put it in all business sector
         if sector_business_activity && ( document_in_all_sectors(metadata) || !_filters[:sector_business_area])
           all_businesses[:all_businesses][ :documents ] << doc
-          displayed_docs << doc[:document_index]
         else
 
           doc_inserted = false
           
-          # if not for all sectors then add to each sector
-          metadata[:labels].each do | value |
-            # if the documents has a facet that exists in the search then add doc to list
+          if sector_business_activity
+            # if not for all sectors then add to each sector
+            metadata[:labels].each do | value |
+              # if the documents has a facet that exists in the search then add doc to list
 
-            # if sector is chosen and in the list
-            if sector_business_activity && _filters[:sector_business_area] && (value.in?(_filters[:sector_business_area]) || _filters[:sector_business_area] === value)
-              unless sector_facets[value]
-                sector_facets[value] = {
-                  facet_key: value,
-                  facet_name: get_sector_name(value),
-                  documents: []
-                }
+              # if sector is chosen and in the list
+              if _filters[:sector_business_area] && (value.in?(_filters[:sector_business_area]) || _filters[:sector_business_area] === value)
+                unless sector_facets[value]
+                  sector_facets[value] = {
+                    facet_key: value,
+                    facet_name: get_sector_name(value),
+                    documents: []
+                  }
+                end
+                sector_facets[value][:documents] << doc
+                doc_inserted = true
               end
-              sector_facets[value][:documents] << doc
-              doc_inserted = true
-              displayed_docs << doc[:document_index] 
-              break;
-            end
-          end # end metadata labels loop
+            end # end metadata labels loop
 
-          # if sector is set but not selected then put in all businesses
-          if sector_business_activity && !doc_inserted
+          elsif sector_business_activity && !doc_inserted
             all_businesses[:all_businesses][ :documents ] << doc
-            displayed_docs << doc[:document_index]
+
           elsif !sector_business_activity && !doc_inserted
             unless other_facets[metadata[:id]]
               other_facets[metadata[:id]] = {
@@ -133,7 +124,6 @@ class ResultSetPresenter
               }
             end
             other_facets[metadata[:id]][ :documents ] << doc
-            displayed_docs << doc[:document_index]
           end
           
         end
