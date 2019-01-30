@@ -87,7 +87,6 @@ class ResultSetPresenter
         # next unless metadata is in the filter
         next unless _filters[ metadata[:id] ]
 
-
         # if document already added then do not add to list to reduce duplicates
         next if doc[:document_index].in?(displayed_docs)
 
@@ -98,12 +97,15 @@ class ResultSetPresenter
           all_businesses[:all_businesses][ :documents ] << doc
           displayed_docs << doc[:document_index]
         else
+
+          doc_inserted = false
+          
           # if not for all sectors then add to each sector
           metadata[:labels].each do | value |
             # if the documents has a facet that exists in the search then add doc to list
 
             # if sector is chosen and in the list
-            if sector_business_activity && _filters[:sector_business_area] && value.in?(_filters[:sector_business_area])
+            if sector_business_activity && _filters[:sector_business_area] && (value.in?(_filters[:sector_business_area]) || _filters[:sector_business_area] === value)
               unless sector_facets[value]
                 sector_facets[value] = {
                   facet_key: value,
@@ -112,13 +114,10 @@ class ResultSetPresenter
                 }
               end
               sector_facets[value][:documents] << doc
-            
-            # if sector is set but not selected then put in all businesses
-            elsif sector_business_activity
-              all_businesses[:all_businesses][ :documents ] << doc
-            
+              doc_inserted = true
+
             # other facets
-            else
+            elsif !sector_business_activity
               unless other_facets[value]
                 other_facets[metadata[:id]] = {
                   facet_key: metadata[:id],
@@ -127,12 +126,22 @@ class ResultSetPresenter
                 }
               end
               other_facets[metadata[:id]][ :documents ] << doc
+              doc_inserted = true
             end
 
             # stop duplications
+            if doc_inserted
+              displayed_docs << doc[:document_index] 
+              break;
+            end
+          end # end metadata labels loop
+
+          # if sector is set but not selected then put in all businesses
+          if sector_business_activity && !doc_inserted
+            all_businesses[:all_businesses][ :documents ] << doc
             displayed_docs << doc[:document_index]
-            break;
           end
+
         end
       end
     end
