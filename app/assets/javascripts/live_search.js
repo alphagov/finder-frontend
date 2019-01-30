@@ -12,6 +12,7 @@
     this.$form = options.$form;
     this.$resultsBlock = options.$results.find('#js-results');
     this.$countBlock = options.$results.find('#js-search-results-info');
+    this.$loadingBlock = options.$results.find('#live-search-loading-message');
     this.$resultsCount = options.$results.find('#result-count');
     this.action = this.$form.attr('action') + '.json';
     this.$atomAutodiscoveryLink = options.$atomAutodiscoveryLink;
@@ -237,11 +238,11 @@
   };
 
   LiveSearch.prototype.showLoadingIndicator = function showLoadingIndicator(){
-    this.$countBlock.text('Loading...');
+    this.$loadingBlock.text('Loading...').show();
   };
 
   LiveSearch.prototype.showErrorIndicator = function showErrorIndicator(){
-    this.$countBlock.text('Error. Please try modifying your search and trying again.');
+    this.$loadingBlock.text('Error. Please try modifying your search and trying again.');
   };
 
   LiveSearch.prototype.displayResults = function displayResults(results, action){
@@ -252,6 +253,7 @@
       //this.$countBlock.mustache(this.templateDir + this.resultCountTemplate, results);
       this.$resultsCount.text(results.total + " " + results.pluralised_document_noun);
       this.$atomAutodiscoveryLink.attr('href', results.atom_url);
+      this.$loadingBlock.text('').hide();
     }
   };
 

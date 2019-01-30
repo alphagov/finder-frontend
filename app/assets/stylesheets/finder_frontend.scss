@@ -230,6 +230,11 @@
     padding-bottom: govuk-spacing(4);
   }
 
+  #live-search-loading-message {
+    margin-bottom: govuk-spacing(4);
+    display: none;
+  }
+
   .filtered-results {
     .result-info {
       @include core-16;
