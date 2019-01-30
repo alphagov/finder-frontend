@@ -32,7 +32,7 @@ class ResultSetPresenter
       atom_url: atom_url,
       next_and_prev_links: next_and_prev_links,
       sort_options: sort_options,
-      display_as_topics: true #@filter_params[:order] === "most-relevant" # change to topic once this is available
+      display_as_topics: @filter_params[:order] === "topic" # change to topic once this is available
     }
   end
 
@@ -67,7 +67,7 @@ class ResultSetPresenter
     other_facets = {}
 
     documents.each do | doc |
-      
+
       # return if there is no metadata
       next unless doc[:document][:metadata].present?
 
@@ -84,7 +84,7 @@ class ResultSetPresenter
         # next unless metadata is in the filter
         next unless _filters[ metadata[:id] ]
 
-        sector_business_activity = ( metadata[:id] === "sector_business_area" || metadata[:id] === "business_activity" ) 
+        sector_business_activity = ( metadata[:id] === "sector_business_area" || metadata[:id] === "business_activity" )
 
         # if the document belongs to all sectors then put it in all business sector
         if sector_business_activity && ( document_in_all_sectors(metadata) || !_filters[:sector_business_area])
@@ -92,7 +92,7 @@ class ResultSetPresenter
         else
 
           doc_inserted = false
-          
+
           if sector_business_activity
             # if not for all sectors then add to each sector
             metadata[:labels].each do | value |
@@ -125,7 +125,7 @@ class ResultSetPresenter
             end
             other_facets[metadata[:id]][ :documents ] << doc
           end
-          
+
         end
       end
     end
