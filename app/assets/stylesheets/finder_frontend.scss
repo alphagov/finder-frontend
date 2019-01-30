@@ -225,6 +225,11 @@
     @include bold-24;
   }
 
+  .search-results-title {
+    border-bottom: 1px solid govuk-colour('black');
+    padding-bottom: govuk-spacing(4);
+  }
+
   .filtered-results {
     .result-info {
       @include core-16;
