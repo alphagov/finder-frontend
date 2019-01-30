@@ -32,7 +32,7 @@ class ResultSetPresenter
       atom_url: atom_url,
       next_and_prev_links: next_and_prev_links,
       sort_options: sort_options,
-      display_as_topics: @filter_params[:order] == "topic"
+      display_as_topics: @filter_params[:order] == "topic" || !@filter_params.has_key?(:order)
     }
   end
 
