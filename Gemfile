@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 ruby File.read(".ruby-version").strip
 
 gem 'chronic', '~> 0.10.2'
-gem 'gds-api-adapters', '~> 57.2'
+gem 'gds-api-adapters', '~> 57.3'
 gem 'govuk_ab_testing', '~> 2.4.1'
 gem 'govuk_app_config', '~> 1.11.2'
 gem 'govuk_document_types', '~> 0.9.0'
