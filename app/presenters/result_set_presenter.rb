@@ -66,8 +66,6 @@ class ResultSetPresenter
     }
     other_facets = {}
 
-    displayed_docs = []
-
     documents.each do | doc |
 
       # return if there is no metadata
@@ -78,7 +76,6 @@ class ResultSetPresenter
       # if no filters are selected then put in all business
       if _filters.values.length == 0
         all_businesses[:all_businesses][ :documents ] << doc
-        displayed_docs << doc[:document_index]
         next
       end
 
@@ -87,15 +84,11 @@ class ResultSetPresenter
         # next unless metadata is in the filter
         next unless _filters[ metadata[:id] ]
 
-        # if document already added then do not add to list to reduce duplicates
-        next if doc[:document_index].in?(displayed_docs)
-
         sector_business_activity = ( metadata[:id] === "sector_business_area" || metadata[:id] === "business_activity" )
 
         # if the document belongs to all sectors then put it in all business sector
         if sector_business_activity && ( document_in_all_sectors(metadata) || !_filters[:sector_business_area])
           all_businesses[:all_businesses][ :documents ] << doc
-          displayed_docs << doc[:document_index]
         else
 
           doc_inserted = false
@@ -139,23 +132,6 @@ class ResultSetPresenter
               break;
             end
           end # end metadata labels loop
-
-          # if sector is set but not selected then put in all businesses
-          if sector_business_activity && !doc_inserted
-            all_businesses[:all_businesses][ :documents ] << doc
-            displayed_docs << doc[:document_index]
-          elsif !sector_business_activity && !doc_inserted
-            unless other_facets[metadata[:id]]
-              other_facets[metadata[:id]] = {
-                facet_key: metadata[:id],
-                facet_name: metadata[:label],
-                documents: []
-              }
-            end
-            other_facets[metadata[:id]][ :documents ] << doc
-            displayed_docs << doc[:document_index]
-          end
-
         end
       end
     end
