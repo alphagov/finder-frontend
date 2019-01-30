@@ -225,12 +225,10 @@ module DocumentHelper
     schema["details"]["facets"].map! do |facet|
       if facet["key"] == "case_state"
         {
-          "label": "Open",
-          "checkbox_label": "Show open cases",
-          "value": "open",
+          "filter_value": "open",
           "key": "case_state",
-          "name": "case_state[]",
-          "short_name": "checkbox",
+          "name": "Show open cases",
+          "short_name": "Open",
           "type": "checkbox",
           "display_as_result_metadata": false,
           "filterable": true,
@@ -252,10 +250,10 @@ module DocumentHelper
     )
     cma_case_documents_filtered_by_supergroup = rummager_url(
       cma_case_search_params.merge(
-        "filter_case_state" => %w(open),
+        "filter_case_state" => "open",
         "order" => "-public_timestamp"
-          )
-         )
+      )
+    )
 
     stub_request(:get, cma_case_documents_filtered_by_supergroup).to_return(
       body: filtered_cma_case_documents_json,
