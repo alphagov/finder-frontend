@@ -8,7 +8,7 @@ class CheckboxFacet < FilterableFacet
       'key' => key,
       'preposition' => preposition,
       'values' => [{
-        'label' => label,
+        'label' => short_name,
         'parameter_key' => key,
         'value' => value
       }],
@@ -21,7 +21,7 @@ class CheckboxFacet < FilterableFacet
   end
 
   def value
-    facet['value']
+    facet['value'] || true
   end
 
   def is_checked?
@@ -29,22 +29,18 @@ class CheckboxFacet < FilterableFacet
   end
 
   def checkbox_label
-    facet["checkbox_label"] || label
-  end
-
-  def label
-    facet["label"]
+    facet["name"]
   end
 
   def id
-    "checkbox_facet-#{label}_#{value}"
+    "checkbox_facet-#{key}_#{value}"
   end
 
   def data
     {
         track_category: "filterClicked",
         track_action: "checkboxFacet",
-        track_label: label,
+        track_label: name,
         module: "track-click"
     }
   end
