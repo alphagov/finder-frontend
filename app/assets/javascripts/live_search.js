@@ -250,7 +250,7 @@
     if(action == $.param(this.state)) {
       this.$resultsBlock.mustache(this.templateDir + '_results', results);
       //this.$countBlock.mustache(this.templateDir + this.resultCountTemplate, results);
-      this.$resultsCount.text(`${results.total} ${results.pluralised_document_noun}`);
+      this.$resultsCount.text(results.total + " " + results.pluralised_document_noun);
       this.$atomAutodiscoveryLink.attr('href', results.atom_url);
     }
   };
