@@ -77,7 +77,7 @@
 
             <% if finder.sort.present? %>
               <div class="govuk-form-group">
-                <%= label_tag 'order', 'Sort by', class: 'govuk-label' %>
+                <%= label_tag 'order', "Sort <span id='result-count'>#{@results.to_hash[:total]} #{@results.to_hash[:pluralised_document_noun]}</span> by".html_safe, class: 'govuk-label' %>
                 <%= select_tag 'order', finder.sort_options,
                   class: 'govuk-select js-order-results',
                   'aria-controls': 'js-search-results-info',
