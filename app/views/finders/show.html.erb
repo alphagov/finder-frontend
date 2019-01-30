@@ -74,7 +74,7 @@
             <div aria-live='assertive' data-module="remove-filter">
               <h1 class="govuk-heading-l search-results-title">Results</h1>
             </div>
-            <span class="govuk-caption-m" id="live-search-loading-message"></span>
+            <div class="govuk-caption-l" id="live-search-loading-message"></div>
             <% if finder.sort.present? %>
               <div class="govuk-form-group">
                 <%= label_tag 'order', "Sort <strong id='result-count'>#{@results.to_hash[:total]} #{@results.to_hash[:pluralised_document_noun]}</strong> by".html_safe, class: 'govuk-label' %>
