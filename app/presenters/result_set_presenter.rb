@@ -115,22 +115,6 @@ class ResultSetPresenter
               end
               sector_facets[value][:documents] << doc
               doc_inserted = true
-
-            # other facets
-            elsif !sector_business_activity
-              unless other_facets[value]
-                other_facets[metadata[:id]] = {
-                  facet_key: metadata[:id],
-                  facet_name: metadata[:label],
-                  documents: []
-                }
-              end
-              other_facets[metadata[:id]][ :documents ] << doc
-              doc_inserted = true
-            end
-
-            # stop duplications
-            if doc_inserted
               displayed_docs << doc[:document_index] 
               break;
             end
@@ -140,8 +124,18 @@ class ResultSetPresenter
           if sector_business_activity && !doc_inserted
             all_businesses[:all_businesses][ :documents ] << doc
             displayed_docs << doc[:document_index]
+          elsif !sector_business_activity && !doc_inserted
+            unless other_facets[metadata[:id]]
+              other_facets[metadata[:id]] = {
+                facet_key: metadata[:id],
+                facet_name: metadata[:label],
+                documents: []
+              }
+            end
+            other_facets[metadata[:id]][ :documents ] << doc
+            displayed_docs << doc[:document_index]
           end
-
+          
         end
       end
     end
