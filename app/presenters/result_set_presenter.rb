@@ -24,7 +24,7 @@ class ResultSetPresenter
       generic_description: generic_description,
       pluralised_document_noun: document_noun.pluralize(total),
       applied_filters: selected_filter_descriptions,
-      documents_by_facits: documents_by_facits,
+      documents_by_facets: documents_by_facets,
       documents: documents,
       page_count: documents.count,
       finder_name: finder.name,
@@ -55,11 +55,13 @@ class ResultSetPresenter
     }.reject(&:empty?)
   end
 
+  # FIXME: This is a special case particular to one finder.
   def document_in_all_sectors(metadata)
     metadata[:id] == "sector_business_area" && metadata[:labels].count > 42
   end
 
-  def documents_by_facits
+  # FIXME: This should return an array in the same way other results do.
+  def documents_by_facets
     return {} unless grouped_display?
 
     sector_facets = {}
@@ -72,42 +74,45 @@ class ResultSetPresenter
     }
     other_facets = {}
 
+    business_sectors = %W(sector_business_area business_activity)
+
+    facet_filters = @filter_params.without('order','keywords')
+
     sorted_documents = documents.sort { |x, y| x[:document][:title] <=> y[:document][:title] }
     sorted_documents = sorted_documents.sort { |x, y| (x[:document][:promoted] ? -1 : (y[:document][:promoted] ? 1 : 0)) }
+
+    # TODO: This rule needs to be tested.
+    # If no filters are selected then put in all business
+    if facet_filters.values.length == 0
+      all_businesses[:all_businesses] = sorted_documents
+    end
+
     sorted_documents.each do | doc |
 
-      # return if there is no metadata
+      # next if there is no metadata
       next unless doc[:document][:metadata].present?
 
-      _filters = @filter_params.without('order','keywords')
-
-      # if no filters are selected then put in all business
-      if _filters.values.length == 0
-        all_businesses[:all_businesses][ :documents ] << doc
-        next
-      end
-
       # Loop through each metadata to group against the filter params
-      doc[:document][:metadata].each do | metadata |
+      doc[:document][:metadata].each do |metadata|
+        key = metadata[:id]
         # next unless metadata is in the filter
-        next unless _filters[ metadata[:id] ]
+        next unless facet_filters.has_key?(key)
 
-        sector_business_activity = ( metadata[:id] == "sector_business_area" || metadata[:id] == "business_activity" )
-
+        # TODO: Test this case
         # if the document belongs to all sectors then put it in all business sector
-        if sector_business_activity && ( document_in_all_sectors(metadata) || !_filters[:sector_business_area])
+        if business_sectors.include?(key) &&
+            (document_in_all_sectors(metadata) || !facet_filters[:sector_business_area])
           all_businesses[:all_businesses][ :documents ] << doc
         else
 
           doc_inserted = false
 
-          if sector_business_activity
+          if business_sectors.include?(key)
             # if not for all sectors then add to each sector
             metadata[:labels].each do | value |
               # if the documents has a facet that exists in the search then add doc to list
-
               # if sector is chosen and in the list
-              if _filters[:sector_business_area] && (value.in?(_filters[:sector_business_area]) || _filters[:sector_business_area] == value)
+              if facet_filters[:sector_business_area] && (value.in?(facet_filters[:sector_business_area]) || facet_filters[:sector_business_area] == value)
                 unless sector_facets[value]
                   sector_facets[value] = {
                     facet_key: value,
@@ -118,16 +123,28 @@ class ResultSetPresenter
                 sector_facets[value][:documents] << doc
                 doc_inserted = true
               end
-              other_facets[metadata[:id]][ :documents ] << doc
-              doc_inserted = true
+            end # end metadata labels loop
+
+            if !doc_inserted
+              all_businesses[:all_businesses][:documents] << doc
             end
 
-            # stop duplications
-            if doc_inserted
-              displayed_docs << doc[:document_index]
-              break;
+          else
+            unless other_facets[key]
+              other_facets[key] = {
+                facet_key: key,
+                facet_name: metadata[:label],
+                documents: []
+              }
             end
-          end # end metadata labels loop
+            other_facets[key][:documents] << doc
+          end
+
+          # stop duplications
+          if doc_inserted
+            displayed_docs << doc[:document_index]
+            break;
+          end
         end
       end
     end
@@ -136,7 +153,7 @@ class ResultSetPresenter
     all_businesses = {} if all_businesses[:all_businesses][:documents].length == 0
 
     # return merged results
-    [sector_facets.sort.to_h, other_facets, all_businesses].inject(&:merge).values
+    [sector_facets.sort.to_h, other_facets.sort.to_h, all_businesses].inject(&:merge).values
   end
 
   def get_sector_name(sector_key)
