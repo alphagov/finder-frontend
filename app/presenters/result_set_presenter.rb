@@ -76,92 +76,72 @@ class ResultSetPresenter
 
     business_sectors = %W(sector_business_area business_activity)
 
-    facet_filters = @filter_params.without('order','keywords')
+    facet_filters = @filter_params.without('order', 'keywords')
 
     sorted_documents = documents.sort { |x, y| x[:document][:title] <=> y[:document][:title] }
-    sorted_documents = sorted_documents.sort { |x, y| (x[:document][:promoted] ? -1 : (y[:document][:promoted] ? 1 : 0)) }
+    sorted_documents = sorted_documents.sort do |x, y|
+      return -1 if x[:document][:promoted]
+
+      y[:document][:promoted] ? 1 : 0
+    end
 
     # TODO: This rule needs to be tested.
     # If no filters are selected then put in all business
-    if facet_filters.values.length == 0
-      all_businesses[:all_businesses] = sorted_documents
+    if facet_filters.values.empty?
+      all_businesses[:all_businesses][:documents] = sorted_documents
     end
 
-    sorted_documents.each do | doc |
-
-      # next if there is no metadata
-      next unless doc[:document][:metadata].present?
+    sorted_documents.each do |item|
+      document_metadata = item[:document][:metadata]
+      next unless document_metadata.present?
 
       # Loop through each metadata to group against the filter params
-      doc[:document][:metadata].each do |metadata|
+      document_metadata.each do |metadata|
         key = metadata[:id]
-        # next unless metadata is in the filter
         next unless facet_filters.has_key?(key)
 
-        # TODO: Test this case
-        # if the document belongs to all sectors then put it in all business sector
-        if business_sectors.include?(key) &&
-            (document_in_all_sectors(metadata) || !facet_filters[:sector_business_area])
-          all_businesses[:all_businesses][ :documents ] << doc
-        else
-
-          doc_inserted = false
-
-          if business_sectors.include?(key)
-            # if not for all sectors then add to each sector
-            metadata[:labels].each do | value |
-              # if the documents has a facet that exists in the search then add doc to list
-              # if sector is chosen and in the list
-              if facet_filters[:sector_business_area] && (value.in?(facet_filters[:sector_business_area]) || facet_filters[:sector_business_area] == value)
-                unless sector_facets[value]
-                  sector_facets[value] = {
-                    facet_key: value,
-                    facet_name: get_sector_name(value),
-                    documents: []
-                  }
-                end
-                sector_facets[value][:documents] << doc
-                doc_inserted = true
-              end
-            end # end metadata labels loop
-
-            if !doc_inserted
-              all_businesses[:all_businesses][:documents] << doc
-            end
-
+        # Is this a business sector facet?
+        if business_sectors.include?(key)
+          # if the document is tagged to all sectors add to all businesses group
+          if document_in_all_sectors(metadata)
+            all_businesses[:all_businesses][:documents] << item
           else
-            unless other_facets[key]
-              other_facets[key] = {
-                facet_key: key,
-                facet_name: metadata[:label],
-                documents: []
-              }
+            # Match filters to metadata and group by value
+            (metadata[:labels] & facet_filters.fetch(:sector_business_area, [])).each do |value|
+              sector_facets[value] = empty_facet_group(value, get_sector_name(value)) unless sector_facets.has_key?(value)
+              sector_facets[value][:documents] << item
             end
-            other_facets[key][:documents] << doc
           end
-
-          # stop duplications
-          if doc_inserted
-            displayed_docs << doc[:document_index]
-            break;
-          end
+        else
+          # add the document to the appropriate other facet group
+          other_facets[key] = empty_facet_group(key, metadata[:label]) unless other_facets[key]
+          other_facets[key][:documents] << item
         end
       end
     end
 
     # dont show all businesses if there are no results
-    all_businesses = {} if all_businesses[:all_businesses][:documents].length == 0
+    all_businesses = {} if all_businesses[:all_businesses][:documents].empty?
 
     # return merged results
     [sector_facets.sort.to_h, other_facets.sort.to_h, all_businesses].inject(&:merge).values
   end
 
+  def metadata_for_filters(metadata, filters)
+    metadata.select { |m| filters.key?(m[:id]) }
+  end
+
+  def empty_facet_group(key, name)
+    { facet_key: key, facet_name: name, documents: [] }
+  end
+
   def get_sector_name(sector_key)
     unless @sector_key_map.present?
-      @finder.filters.each do | facet |
+      @finder.filters.each do |facet|
         next unless facet.key == 'sector_business_area'
-        @sector_key_map = {:all_businesses => "All businesses"}
-        facet.allowed_values.each do | facet_option |
+
+        @sector_key_map = { all_businesses: "All businesses" }
+        facet.allowed_values.each do |facet_option|
           @sector_key_map[facet_option["value"]] = facet_option["label"]
         end
         break
@@ -172,7 +152,9 @@ class ResultSetPresenter
 
   def sort_by_promoted(results)
     results.sort do |x, y|
-      (x.promoted ? -1 : (y.promoted ? 1 : 0))
+      return -1 if x.promoted
+
+      y.promoted ? 1 : 0
     end
   end
 

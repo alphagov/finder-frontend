@@ -34,4 +34,36 @@ describe Document do
       expect(described_class.new({ title: "Bar", link: "/bar" }, finder).promoted).to be false
     end
   end
+
+  describe "show_metadata" do
+    subject(:instance) { described_class.new({ title: "Y", link: "/y" }, finder) }
+
+    context "for EU Exit guidance finder" do
+      let(:finder) do
+        double(:finder,
+               date_metadata_keys: [],
+               text_metadata_keys: [],
+               slug: "/find-eu-exit-guidance-business")
+      end
+
+      it "is false" do
+        expect(instance.show_metadata).to be false
+      end
+    end
+
+    context "for a finder configured to show metadata" do
+      let(:finder) do
+        double(:finder,
+               date_metadata_keys: [:foo],
+               text_metadata_keys: [:bar],
+               "display_metadata?": true)
+      end
+
+
+      it "is false" do
+        allow(instance).to receive(:metadata).and_return([{ key: 'val' }])
+        expect(instance.show_metadata).to be true
+      end
+    end
+  end
 end

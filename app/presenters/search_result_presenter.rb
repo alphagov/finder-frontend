@@ -39,10 +39,10 @@ class SearchResultPresenter
 
   def build_text_metadata(data)
     {
-      id: data.fetch(:id),
+      id: data[:id],
       label: data.fetch(:name),
       value: data.fetch(:value),
-      labels: data.fetch(:labels),
+      labels: data[:labels],
       is_text: true,
     }
   end
