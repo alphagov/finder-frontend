@@ -134,7 +134,7 @@ class ResultSetPresenter
     all_businesses = {} if all_businesses[:all_businesses][:documents].length == 0
 
     # return merged results
-    [sector_facets, other_facets, all_businesses].inject(&:merge).values
+    [sector_facets.sort.to_h, other_facets, all_businesses].inject(&:merge).values
   end
 
   def get_sector_name(sector_key)
