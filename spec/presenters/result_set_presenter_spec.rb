@@ -129,13 +129,14 @@ RSpec.describe ResultSetPresenter do
       title: 'Investigation into the distribution of road fuels in parts of Scotland',
       path: 'slug-1',
       metadata: [
-        { name: 'Case state', value: 'Open', type: 'text' },
-        { name: 'Opened date', value: '2006-7-14', type: 'date' },
-        { name: 'Case type', value: 'CA98 and civil cartels', type: 'text' },
+        { id: 'case-state', name: 'Case state', value: 'Open', type: 'text', labels: %W(open) },
+        { id: 'opened-date', name: 'Opened date', value: '2006-7-14', type: 'date' },
+        { id: 'case-type', name: 'Case type', value: 'CA98 and civil cartels', type: 'text', labels: %W(ca98-and-civil-cartels) },
       ],
       summary: 'I am a document',
       is_historic: false,
       government_name: 'The Government!',
+      promoted: false,
     )
   end
 
@@ -144,6 +145,7 @@ RSpec.describe ResultSetPresenter do
       allow(presenter).to receive(:selected_filter_descriptions).and_return("a sentence summarising the selected filters")
       allow(presenter).to receive(:documents).and_return(key: 'value')
       allow(presenter).to receive(:any_filters_applied?).and_return(true)
+      allow(presenter).to receive(:grouped_display?).and_return(false)
       allow(view_context).to receive(:render).and_return('<nav></nav>')
     end
 
@@ -160,6 +162,7 @@ RSpec.describe ResultSetPresenter do
       expect(presenter.to_hash[:next_and_prev_links].present?).to be_truthy
     end
 
+    # FIXME: Behaviour has changed with grouping results
     it 'calls pluralize on the document noun with the results_count' do
       allow(document_noun).to receive(:pluralize)
       presenter.to_hash
