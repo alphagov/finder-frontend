@@ -66,7 +66,9 @@ class ResultSetPresenter
     }
     other_facets = {}
 
-    documents.each do | doc |
+    sorted_documents = documents.sort { |x, y| x[:document][:title] <=> y[:document][:title] }
+    sorted_documents = sorted_documents.sort { |x, y| (x[:document][:promoted] ? -1 : (y[:document][:promoted] ? 1 : 0)) }
+    sorted_documents.each do | doc |
 
       # return if there is no metadata
       next unless doc[:document][:metadata].present?
