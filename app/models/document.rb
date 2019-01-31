@@ -36,9 +36,7 @@ class Document
   end
 
   def promoted
-    finder.links[:ordered_related_items].find { |item|
-      item[:title] == title && item[:base_path] == path
-    }.present?
+    finder.links[:ordered_related_items].find { |item| item[:base_path] == path }.present?
   end
 
 private
@@ -133,60 +131,61 @@ private
   def ordered_related_items
     [
       {
-        title: 'Gas markets and preparing for EU Exit',
         base_path: '/guidance/gas-markets-and-preparing-for-eu-exit'
       },
       {
-        title: 'Oil and gas production and preparing for EU Exit',
         base_path: '/guidance/oil-and-gas-production-and-preparing-for-eu-exit'
       },
       {
-        title: 'The automotive sector and preparing for EU Exit',
         base_path: '/guidance/the-automotive-sector-and-preparing-for-eu-exit'
       },
       {
-        title: 'The chemicals sector and preparing for EU Exit',
         base_path: '/guidance/the-chemicals-sector-and-preparing-for-eu-exit'
       },
       {
-        title: 'The construction sector and preparing for EU Exit',
         base_path: '/guidance/the-construction-sector-and-preparing-for-eu-exit'
       },
       {
-        title: 'The electricty sector and preparing for EU Exit',
         base_path: '/guidance/the-electricty-sector-and-preparing-for-eu-exit'
       },
       {
-        title: 'The retail sector and preparing for EU Exit',
         base_path: '/guidance/the-retail-sector-and-preparing-for-eu-exit'
       },
       {
-        title: 'The aerospace sector and preparing for EU Exit',
         base_path: '/guidance/the-aerospace-sector-and-preparing-for-eu-exit'
       },
       {
-        title: 'Professional and business services and preparing for EU Exit',
         base_path: '/guidance/professional-and-business-services-and-preparing-for-eu-exit'
       },
       {
-        title: 'Broadcasting and preparing for EU Exit',
         base_path: '/guidance/broadcasting-and-preparing-for-eu-exit'
       },
       {
-        title: 'Computer services and preparing for EU Exit',
         base_path: '/guidance/computer-services-and-preparing-for-eu-exit'
       },
       {
-        title: 'Telecoms and preparing for EU Exit',
         base_path: '/guidance/telecoms-and-preparing-for-eu-exit'
       },
       {
-        title: 'Parts and machinery and preparing for EU Exit',
         base_path: '/guidance/parts-and-machinery-and-preparing-for-eu-exit'
       },
       {
-        title: 'Furniture and other manufacturing and preparing for EU Exit',
         base_path: '/guidance/furniture-and-other-manufacturing-and-preparing-for-eu-exit'
+      },
+      {
+        base_path: '/guidance/employing-eu-citizens-after-brexit'
+      },
+      {
+        base_path: '/guidance/using-personal-data-after-brexit'
+      },
+      {
+        base_path: '/guidance/intellectual-property-after-brexit'
+      },
+      {
+        base_path: '/guidance/european-and-domestic-support-after-brexit'
+      },
+      {
+        base_path: '/guidance/public-procurement-after-brexit'
       },
     ]
   end
