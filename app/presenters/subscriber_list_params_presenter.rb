@@ -1,11 +1,11 @@
-class SignupUrlHiddenParamsPresenter
+class SubscriberListParamsPresenter
   def initialize(content_item, params)
     @content_item = content_item
     @params = params
   end
 
-  def hidden_params
-    @hidden_params ||= filtered_params
+  def subscriber_list_params
+    @subscriber_list_params ||= filtered_params
   end
 
 private
@@ -13,13 +13,17 @@ private
   attr_reader :content_item, :params
 
   def filtered_params
-    facets.each_with_object(hash_with_default_as_array) { |facet, hash|
-      next unless params[facet['facet_id']].present?
-
+    used_facets.each_with_object(hash_with_default_as_array) { |facet, hash|
       key = facet_filter_key(facet)
       value = facet_filter_value(facet)
 
       hash[key].concat Array(value)
+    }
+  end
+
+  def used_facets
+    facets.select { |facet|
+      params[facet['facet_id']].present?
     }
   end
 

@@ -121,7 +121,7 @@ describe EmailAlertSubscriptionsController, type: :controller do
         expect(subject).to redirect_to('http://www.example.com')
       end
 
-      it 'redirects to the correct email subscription url with hidden_params' do
+      it 'redirects to the correct email subscription url with subscriber_list_params' do
         taxonomy_signup_finder = signup_finder.tap do |content_item|
           content_item['details']['email_filter_facets'] << {
             'facet_key' => 'part_of_taxonomy_tree',
@@ -151,7 +151,7 @@ describe EmailAlertSubscriptionsController, type: :controller do
 
         post :create, params: {
           slug: 'cma-cases',
-          hidden_params: { part_of_taxonomy_tree: %w(some-taxon) },
+          subscriber_list_params: { part_of_taxonomy_tree: %w(some-taxon) },
           filter: {
             'case_type' => ['ca98-and-civil-cartels'],
             'case_state' => %w(open),
@@ -181,7 +181,7 @@ describe EmailAlertSubscriptionsController, type: :controller do
 
         post :create, params: {
           slug: 'cma-cases',
-          hidden_params: { part_of_taxonomy_tree: %w(some-taxon) },
+          subscriber_list_params: { part_of_taxonomy_tree: %w(some-taxon) },
           filter: {
             'case_type' => ['ca98-and-civil-cartels'],
             'case_state' => %w(open),

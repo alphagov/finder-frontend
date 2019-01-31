@@ -41,9 +41,7 @@ class SignupPresenter
   end
 
   def choices_formatted
-    @choices_formatted ||= choices.map { |choice|
-      next unless choice['facet_choices'] && choice["facet_choices"].any?
-
+    @choices_formatted ||= facets_with_choicess.map { |choice|
       {
         label: choice['facet_name'],
         value: choice['facet_id'],
@@ -65,6 +63,12 @@ class SignupPresenter
   end
 
 private
+
+  def facets_with_choicess
+    choices.select { |choice|
+      choice['facet_choices'] && choice["facet_choices"].any?
+    }
+  end
 
   def selected_choices
     facets_ids = choices.each_with_object({}) do |choice, hash|

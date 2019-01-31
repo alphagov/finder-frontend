@@ -39,18 +39,21 @@ private
 
   def singular_suffix
     facet_key = facets.first['filter_key'] || facets.first['facet_id']
-    dynamic_suffix = dynamic_facet_sentence(facet_key, selected_facets.first)
-    return dynamic_suffix unless dynamic_suffix.nil?
+
+    if dynamic_filter_option?(facet_key)
+      return dynamic_facet_sentence(facet_key, selected_facets.first)
+    end
 
     topic_names_sentence(facets.first)
   end
 
   def multiple_facets_suffix
     grouped_facets.map { |facet_key, facet_group|
-      dynamic_suffix = dynamic_facet_sentence(facet_key, facet_group.first)
-      next dynamic_suffix unless dynamic_suffix.nil?
-
-      facet_group.map { |facet| facet["facet_name"] + " of " + topic_names_sentence(facet) }.to_sentence
+      if dynamic_filter_option?(facet_key)
+        dynamic_facet_sentence(facet_key, facet_group.first)
+      else
+        facet_group.map { |facet| facet["facet_name"] + " of " + topic_names_sentence(facet) }.to_sentence
+      end
     }.to_sentence
   end
 
@@ -73,8 +76,6 @@ private
   end
 
   def dynamic_facet_sentence(facet_key, facet)
-    return nil unless dynamic_filter_option?(facet_key)
-
     count = filter.fetch(facet_key, []).count
     word = count > 1 ? facet["facet_name"] : facet["facet_name"].singularize
     "#{count} #{word}"

@@ -4,7 +4,7 @@ class EmailAlertSubscriptionsController < ApplicationController
   layout "finder_layout"
   protect_from_forgery except: :create
   before_action :signup_presenter
-  helper_method :hidden_params
+  helper_method :subscriber_list_params
 
   def create
     error_message = email_alert_signup_api.validate!
@@ -27,8 +27,8 @@ private
     @signup_presenter ||= SignupPresenter.new(content, params)
   end
 
-  def hidden_params
-    SignupUrlHiddenParamsPresenter.new(content, filter_params).hidden_params
+  def subscriber_list_params
+    SubscriberListParamsPresenter.new(content, filter_params).subscriber_list_params
   end
 
   def valid_choices?
@@ -48,7 +48,7 @@ private
       .permit("filter" => {})['filter']
       .to_h
       .merge(
-        filter_params.fetch('hidden_params', {})
+        filter_params.fetch('subscriber_list_params', {})
       )
   end
 
