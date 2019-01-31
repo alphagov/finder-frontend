@@ -9,7 +9,7 @@
 
 <div class="outer-block">
   <div class="signup-content">
-    <%= form_tag email_alert_subscriptions_path(hidden_params: hidden_params), class: 'signup-choices form' do %>
+    <%= form_tag email_alert_subscriptions_path(subscriber_list_params: subscriber_list_params), class: 'signup-choices form' do %>
 
       <% if @signup_presenter.can_modify_choices? %>
         <%= render "govuk_publishing_components/components/checkboxes", {
