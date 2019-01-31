@@ -26,7 +26,14 @@ RSpec.describe FinderPresenter do
   let(:sort_options_with_default) {
     [
       { "name" => "Most viewed" },
-      { "name" => "Updated (oldest)", "default" => "Updated (oldest)" }
+      { "name" => "Updated (oldest)", "default" => true }
+    ]
+  }
+
+  let(:sort_options_with_public_timestamp_default) {
+    [
+      { "name" => "Most viewed" },
+      { "name" => "Updated (newest)", "key" => "-public_timestamp", "default" => true }
     ]
   }
 
@@ -77,6 +84,43 @@ RSpec.describe FinderPresenter do
 
       it "returns the finder URL appended with .atom and query params" do
         expect(presenter.atom_url).to eql("/mosw-reports.atom?format=publication&keyword=legal&state=open")
+      end
+    end
+  end
+
+  describe "#atom_feed_enabled?" do
+    context "with no sort options and no default sort" do
+      it "is true" do
+        presenter = described_class.new(content_item(no_sort_options), values)
+        expect(presenter.atom_feed_enabled?).to be true
+      end
+    end
+
+    context "with default sort option set to descending public_timestamp" do
+      it "is true" do
+        presenter = described_class.new(content_item(sort_options_with_public_timestamp_default), values)
+        expect(presenter.atom_feed_enabled?).to be true
+      end
+    end
+
+    context "with sort options but no default order" do
+      it "is true" do
+        presenter = described_class.new(content_item(sort_options_with_relevance), values)
+        expect(presenter.atom_feed_enabled?).to be true
+      end
+    end
+
+    context "with no sort options but a changeable default order" do
+      it "is false" do
+        presenter = described_class.new(content_item(no_sort_options, default_order: "relevance"), values)
+        expect(presenter.atom_feed_enabled?).to be false
+      end
+    end
+
+    context "with no sort options but a default order of most recent first" do
+      it "is true" do
+        presenter = described_class.new(content_item(no_sort_options, default_order: "-public_timestamp"), values)
+        expect(presenter.atom_feed_enabled?).to be true
       end
     end
   end
@@ -162,9 +206,10 @@ RSpec.describe FinderPresenter do
 
 private
 
-  def content_item(sort_options)
+  def content_item(sort_options, default_order: nil)
     finder_example = govuk_content_schema_example('finder')
     finder_example['details']['sort'] = sort_options
+    finder_example['details']['default_order'] = default_order if default_order
 
     dummy_http_response = double(
       "net http response",
