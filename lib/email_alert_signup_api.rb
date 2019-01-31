@@ -24,7 +24,7 @@ private
 
   def subscriber_list
     response = email_alert_api.find_or_create_subscriber_list(
-      "tags" => massaged_attributes,
+      "tags" => tags,
       "title" => title,
       "content_purpose_supergroup" => content_purpose_supergroup,
     )
@@ -41,6 +41,20 @@ private
 
   def content_purpose_supergroup
     massaged_attributes['content_purpose_supergroup'] || default_attributes['content_purpose_supergroup']
+  end
+
+  def tags
+    @tags ||= massaged_attributes.each_with_object({}) { |(key, value), hash|
+      if is_all_field?(key)
+        hash[key[4..-1]] = { all: value }
+      else
+        hash[key] = { any: value }
+      end
+    }
+  end
+
+  def is_all_field?(key)
+    key[0..3] == 'all_'
   end
 
   def massaged_attributes

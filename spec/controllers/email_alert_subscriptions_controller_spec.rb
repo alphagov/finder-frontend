@@ -60,8 +60,8 @@ describe EmailAlertSubscriptionsController, type: :controller do
     it 'redirects to the correct email subscription url' do
       email_alert_api_has_subscriber_list(
         "tags" => {
-          "case_type" => ['ca98-and-civil-cartels'],
-          "format" => [finder.dig('details', 'filter', 'document_type')]
+          "case_type" => { any: ['ca98-and-civil-cartels'] },
+          "format" => { any: [finder.dig('details', 'filter', 'document_type')] },
         },
         "subscription_url" => 'http://www.example.com'
       )
@@ -96,9 +96,9 @@ describe EmailAlertSubscriptionsController, type: :controller do
         content_store_has_item('/cma-cases/email-signup', signup_finder)
         email_alert_api_has_subscriber_list(
           "tags" => {
-            "case_type" => ['ca98-and-civil-cartels'],
-            "case_state" => %w(open),
-            "format" => [finder.dig('details', 'filter', 'document_type')]
+            "case_type" => { any: ['ca98-and-civil-cartels'] },
+            "case_state" => { any: %w(open) },
+            "format" => { any: [finder.dig('details', 'filter', 'document_type')] },
           },
           "subscription_url" => 'http://www.example.com'
         )
@@ -133,10 +133,10 @@ describe EmailAlertSubscriptionsController, type: :controller do
         content_store_has_item('/cma-cases/email-signup', taxonomy_signup_finder)
         email_alert_api_has_subscriber_list(
           'tags' => {
-            'case_type' => ['ca98-and-civil-cartels'],
-            'case_state' => %w(open),
-            'format' => [finder.dig('details', 'filter', 'document_type')],
-            'part_of_taxonomy_tree[]' => ['some-taxon'],
+            'case_type' => { any: ['ca98-and-civil-cartels'] },
+            'case_state' => { any: %w(open) },
+            'format' => { any: [finder.dig('details', 'filter', 'document_type')] },
+            'part_of_taxonomy_tree[]' => { any: ['some-taxon'] },
           },
           'subscription_url' => 'http://www.example.com'
         )
@@ -165,9 +165,9 @@ describe EmailAlertSubscriptionsController, type: :controller do
         content_store_has_item('/cma-cases/email-signup', signup_finder)
         email_alert_api_has_subscriber_list(
           'tags' => {
-            'case_type' => ['ca98-and-civil-cartels'],
-            'case_state' => %w(open),
-            'format' => [finder.dig('details', 'filter', 'document_type')],
+            'case_type' => { any: ['ca98-and-civil-cartels'] },
+            'case_state' => { any: %w(open) },
+            'format' => { any: [finder.dig('details', 'filter', 'document_type')] },
           },
           'subscription_url' => 'http://www.example.com'
         )
