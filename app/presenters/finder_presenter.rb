@@ -4,6 +4,8 @@ class FinderPresenter
 
   attr_reader :content_item, :name, :slug, :organisations, :values, :keywords, :links
 
+  MOST_RECENT_FIRST = "-public_timestamp".freeze
+
   def initialize(content_item, values = {})
     @content_item = content_item
     @name = content_item['title']
@@ -127,6 +129,11 @@ class FinderPresenter
       &.parameterize
   end
 
+  def default_sort_option_key
+    default_sort_option
+      &.dig('key')
+  end
+
   def relevance_sort_option
     sort
       &.detect { |option| %w(relevance -relevance).include?(option['key']) }
@@ -215,9 +222,9 @@ class FinderPresenter
 
   def atom_feed_enabled?
     if sort_options.present?
-      default_sort_option.blank?
+      default_sort_option.blank? || default_sort_option_key == MOST_RECENT_FIRST
     else
-      default_order.blank?
+      default_order.blank? || default_order == MOST_RECENT_FIRST
     end
   end
 
