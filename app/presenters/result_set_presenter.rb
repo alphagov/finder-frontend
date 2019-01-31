@@ -76,40 +76,41 @@ class ResultSetPresenter
 
     business_sectors = %W(sector_business_area business_activity)
 
-    facet_filters = @filter_params.without('order','keywords')
+    facet_filters = @filter_params.without('order', 'keywords')
 
     sorted_documents = documents.sort { |x, y| x[:document][:title] <=> y[:document][:title] }
-    sorted_documents = sorted_documents.sort { |x, y| (x[:document][:promoted] ? -1 : (y[:document][:promoted] ? 1 : 0)) }
+    sorted_documents = sorted_documents.sort do |x, y|
+      return -1 if x[:document][:promoted]
+
+      y[:document][:promoted] ? 1 : 0
+    end
 
     # TODO: This rule needs to be tested.
     # If no filters are selected then put in all business
-    if facet_filters.values.length == 0
+    if facet_filters.values.empty?
       all_businesses[:all_businesses][:documents] = sorted_documents
     end
 
     sorted_documents.each do |item|
       document_metadata = item[:document][:metadata]
-
-      # next if there is no metadata
       next unless document_metadata.present?
 
       # Loop through each metadata to group against the filter params
       document_metadata.each do |metadata|
         key = metadata[:id]
-        # next unless metadata is in the filter
         next unless facet_filters.has_key?(key)
 
         # Is this a business sector facet?
         if business_sectors.include?(key)
-          # if the document isn't tagged to all sectors
-          # if filters match any document metadata build groups for metadata
-          unless document_in_all_sectors(metadata)
+          # if the document is tagged to all sectors add to all businesses group
+          if document_in_all_sectors(metadata)
+            all_businesses[:all_businesses][:documents] << item
+          else
+            # Match filters to metadata and group by value
             (metadata[:labels] & facet_filters.fetch(:sector_business_area, [])).each do |value|
               sector_facets[value] = empty_facet_group(value, get_sector_name(value)) unless sector_facets.has_key?(value)
               sector_facets[value][:documents] << item
             end
-          else # add to all business group
-            all_businesses[:all_businesses][:documents] << item
           end
         else
           # add the document to the appropriate other facet group
@@ -132,10 +133,11 @@ class ResultSetPresenter
 
   def get_sector_name(sector_key)
     unless @sector_key_map.present?
-      @finder.filters.each do | facet |
+      @finder.filters.each do |facet|
         next unless facet.key == 'sector_business_area'
-        @sector_key_map = {:all_businesses => "All businesses"}
-        facet.allowed_values.each do | facet_option |
+
+        @sector_key_map = { all_businesses: "All businesses" }
+        facet.allowed_values.each do |facet_option|
           @sector_key_map[facet_option["value"]] = facet_option["label"]
         end
         break
@@ -146,7 +148,9 @@ class ResultSetPresenter
 
   def sort_by_promoted(results)
     results.sort do |x, y|
-      (x.promoted ? -1 : (y.promoted ? 1 : 0))
+      return -1 if x.promoted
+
+      y.promoted ? 1 : 0
     end
   end
 
