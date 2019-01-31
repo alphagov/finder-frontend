@@ -32,8 +32,12 @@ class ResultSetPresenter
       atom_url: atom_url,
       next_and_prev_links: next_and_prev_links,
       sort_options: sort_options,
-      display_as_topics: @filter_params[:order] == "topic" || !@filter_params.has_key?(:order)
+      display_as_topics: grouped_display?,
     }
+  end
+
+  def grouped_display?
+    @filter_params[:order] == "topic" || !@filter_params.has_key?(:order)
   end
 
   def any_filters_applied?
@@ -56,6 +60,8 @@ class ResultSetPresenter
   end
 
   def documents_by_facits
+    return {} unless grouped_display?
+
     sector_facets = {}
     all_businesses = {
       all_businesses: {
