@@ -12,6 +12,7 @@ RSpec.describe SearchResultPresenter do
       summary: 'I am a document',
       is_historic: false,
       government_name: 'The Government!',
+      promoted: false,
     )
   }
 
@@ -20,9 +21,9 @@ RSpec.describe SearchResultPresenter do
 
   let(:metadata) {
     [
-      { name: 'Case state', value: 'Open', type: 'text' },
-      { name: 'Opened date', value: '2006-7-14', type: 'date' },
-      { name: 'Case type', value: 'CA98 and civil cartels', type: 'text' },
+      { id: 'case-state', name: 'Case state', value: 'Open', type: 'text' },
+      { id: 'opened-date', name: 'Opened date', value: '2006-7-14', type: 'date' },
+      { id: 'case-type', name: 'Case type', value: 'CA98 and civil cartels', type: 'text' },
     ]
   }
 
@@ -33,9 +34,9 @@ RSpec.describe SearchResultPresenter do
 
     let(:formatted_metadata) {
       [
-        { label: "Case state", value: "Open", is_text: true },
+        { id: 'case-state', label: "Case state", value: "Open", is_text: true, labels: nil },
         { label: "Opened date", is_date: true, machine_date: "2006-07-14", human_date: "14 July 2006" },
-        { label: "Case type", value: "CA98 and civil cartels", is_text: true },
+        { id: 'case-type', label: "Case type", value: "CA98 and civil cartels", is_text: true, labels: nil },
       ]
     }
 
@@ -58,16 +59,19 @@ RSpec.describe SearchResultPresenter do
 
       subject.metadata
       expect(subject).to have_received(:build_date_metadata).with(
+        id: "opened-date",
         name: "Opened date",
         value: "2006-7-14",
         type: "date"
       )
       expect(subject).to have_received(:build_text_metadata).with(
+        id: "case-state",
         name: "Case state",
         value: "Open",
         type: "text"
       )
       expect(subject).to have_received(:build_text_metadata).with(
+        id: "case-state",
         name: "Case state",
         value: "Open",
         type: "text"
