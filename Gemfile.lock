@@ -399,7 +399,7 @@ DEPENDENCIES
   binding_of_caller
   chronic (~> 0.10.2)
   cucumber-rails (~> 1.6.0)
-  dalli (~> 2.7.9)
+  dalli
   gds-api-adapters (~> 57.3)
   govuk-content-schema-test-helpers (~> 1.6)
   govuk-lint (~> 3.10.0)
