@@ -41,7 +41,7 @@ RSpec.describe SubscriberListParamsPresenter do
           accelerated-access-review
         ),
         'people' => %w(sir-philip-jones mark-stanhope),
-        'part_of_taxonomy_tree' => %w(
+        'all_part_of_taxonomy_tree' => %w(
           c58fdadd-7743-46d6-9629-90bb3ccc4ef0
           d6c2de5d-ef90-45d1-82d4-5f2438369eea
         ),

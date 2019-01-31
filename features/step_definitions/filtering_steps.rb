@@ -398,7 +398,7 @@ end
 
 Then(/^I can sign up to email alerts for allowed filters$/) do
   email_alert_api_has_subscriber_list(
-    "tags" => { "case_state" => { "0" => "open" }, "format" => { "0" => "cma_case" } },
+    "tags" => { "case_state" => { any: { "0" => "open" } }, "format" => { any: { "0" => "cma_case" } } },
     'subscription_url' => 'http://www.rathergood.com'
   )
 
