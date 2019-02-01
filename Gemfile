@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 ruby File.read(".ruby-version").strip
 
 gem 'chronic', '~> 0.10.2'
+gem 'dalli'
 gem 'gds-api-adapters', '~> 57.3'
 gem 'govuk_ab_testing', '~> 2.4.1'
 gem 'govuk_app_config', '~> 1.11.2'
@@ -37,7 +38,6 @@ end
 
 group :test do
   gem 'cucumber-rails', '~> 1.6.0', require: false
-  gem 'dalli', '~> 2.7.9'
   gem 'govuk-content-schema-test-helpers', '~> 1.6'
   gem 'govuk_test'
   gem 'launchy', '~> 2.4.2'
