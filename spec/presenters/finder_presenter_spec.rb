@@ -43,7 +43,8 @@ RSpec.describe FinderPresenter do
     end
 
     it "returns the correct metadata" do
-      expect(subject.metadata.length).to eql(3)
+      # FIXME: This was previously expected to be 3 facets.
+      expect(subject.metadata.length).to eql(4)
     end
 
     it "returns correct keys for each facet type" do
