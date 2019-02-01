@@ -14,7 +14,7 @@ module Registries
   private
 
     def cached_locations
-      Rails.cache.fetch(CACHE_KEY, expires_in: 1.hour) do
+      @cached_locations ||= Rails.cache.fetch(CACHE_KEY, expires_in: 1.hour) do
         locations
       end
     rescue GdsApi::HTTPServerError, GdsApi::HTTPBadGateway

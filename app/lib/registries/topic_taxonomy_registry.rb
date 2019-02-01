@@ -7,7 +7,7 @@ module Registries
     end
 
     def taxonomy_tree
-      Rails.cache.fetch(CACHE_KEY, expires_in: 1.hour) do
+      @taxonomy_tree ||= Rails.cache.fetch(CACHE_KEY, expires_in: 1.hour) do
         taxonomy_tree_as_hash
       end
     rescue GdsApi::HTTPServerError
