@@ -4,6 +4,10 @@ module RummagerUrlHelper
     "#{Plek.current.find('search')}/batch_search.json?#{query}"
   end
 
+  def simple_rummager_url(params)
+    "#{Plek.current.find('search')}/search.json?#{params.to_query}"
+  end
+
   def mosw_search_params
     base_search_params.merge(
       "fields" => mosw_search_fields.join(","),
