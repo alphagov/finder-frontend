@@ -32,6 +32,8 @@ class Document
   end
 
   def promoted
+    return false unless finder.links.has_key?(:ordered_related_items)
+
     finder.links[:ordered_related_items].find { |item| item[:base_path] == path }.present?
   end
 
