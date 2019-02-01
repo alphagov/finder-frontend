@@ -226,17 +226,17 @@ end
 Given(/^an organisation finder exists$/) do
   content_store_has_government_finder
   stub_rummager_api_request_with_government_results
-  content_store_has_attorney_general_organisation
+  stub_rummager_api_request_with_organisation_links
 
-  visit finder_path('government/policies/benefits-reform', parent_path: '/government/organisations/attorney-generals-office')
+  visit finder_path('government/policies/benefits-reform', parent: 'attorney-generals-office')
 end
 
 Given(/^an organisation finder exists but a bad breadcrumb path is given$/) do
   content_store_has_government_finder
   stub_rummager_api_request_with_government_results
-  content_store_is_missing_path
+  stub_rummager_api_request_with_organisation_links
 
-  visit finder_path('government/policies/benefits-reform', parent_path: '/bernard-cribbins')
+  visit finder_path('government/policies/benefits-reform', parent: 'bernard-cribbins')
 end
 
 Then(/^I can see a breadcrumb for home$/) do
