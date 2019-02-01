@@ -8,9 +8,9 @@ class AtomPresenter
   end
 
   def entries
-    finder.results.documents.map { |d|
-      EntryPresenter.new(d)
-    }
+    finder.results.documents
+    .reject { |d| d.public_timestamp.blank? }
+    .map { |d| EntryPresenter.new(d) }
   end
 
   def updated_at
