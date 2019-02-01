@@ -14,10 +14,6 @@ class Document
     @government_name = rummager_document.fetch(:government_name, nil)
     @finder = finder
     @rummager_document = rummager_document.slice(*metadata_keys)
-
-    # TODO: REMOVE ME
-    # This is POC data to demonstrate content promotion.
-    finder.links[:ordered_related_items] = ordered_related_items
   end
 
   def metadata
@@ -126,67 +122,5 @@ private
       extra: { url: finder.slug, document: link }
     )
     nil
-  end
-
-  def ordered_related_items
-    [
-      {
-        base_path: '/guidance/gas-markets-and-preparing-for-eu-exit'
-      },
-      {
-        base_path: '/guidance/oil-and-gas-production-and-preparing-for-eu-exit'
-      },
-      {
-        base_path: '/guidance/the-automotive-sector-and-preparing-for-eu-exit'
-      },
-      {
-        base_path: '/guidance/the-chemicals-sector-and-preparing-for-eu-exit'
-      },
-      {
-        base_path: '/guidance/the-construction-sector-and-preparing-for-eu-exit'
-      },
-      {
-        base_path: '/guidance/the-electricty-sector-and-preparing-for-eu-exit'
-      },
-      {
-        base_path: '/guidance/the-retail-sector-and-preparing-for-eu-exit'
-      },
-      {
-        base_path: '/guidance/the-aerospace-sector-and-preparing-for-eu-exit'
-      },
-      {
-        base_path: '/guidance/professional-and-business-services-and-preparing-for-eu-exit'
-      },
-      {
-        base_path: '/guidance/broadcasting-and-preparing-for-eu-exit'
-      },
-      {
-        base_path: '/guidance/computer-services-and-preparing-for-eu-exit'
-      },
-      {
-        base_path: '/guidance/telecoms-and-preparing-for-eu-exit'
-      },
-      {
-        base_path: '/guidance/parts-and-machinery-and-preparing-for-eu-exit'
-      },
-      {
-        base_path: '/guidance/furniture-and-other-manufacturing-and-preparing-for-eu-exit'
-      },
-      {
-        base_path: '/guidance/employing-eu-citizens-after-brexit'
-      },
-      {
-        base_path: '/guidance/using-personal-data-after-brexit'
-      },
-      {
-        base_path: '/guidance/intellectual-property-after-brexit'
-      },
-      {
-        base_path: '/guidance/european-and-domestic-support-after-brexit'
-      },
-      {
-        base_path: '/guidance/public-procurement-after-brexit'
-      },
-    ]
   end
 end
