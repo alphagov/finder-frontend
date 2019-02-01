@@ -4,7 +4,7 @@ class AutocompleteFacet < SelectFacet
   end
 
   def options
-    [["", ""]] + allowed_values.map { |allowed_value| [allowed_value['label'], allowed_value['value']] }
+    allowed_values.map { |allowed_value| [allowed_value['label'], allowed_value['value']] }
   end
 
   def data_attributes

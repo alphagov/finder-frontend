@@ -19,7 +19,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
       var isAutoComplete = !!$('#' + removeFilterFacet +'-select').length;
 
       var $input = getInput(removeFilterName, removeFilterValue, removeFilterFacet, isAutoComplete);
-      clearFacet($input, isAutoComplete, removeFilterValue, removeFilterFacet);
+      clearFacet($input, isAutoComplete, removeFilterValue, removeFilterFacet, removeFilterName);
     }
 
     function clearFacet($input, isAutoComplete, removeFilterValue, removeFilterFacet) {
@@ -35,7 +35,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
         if (isAutoComplete) {
           var onConfirm = $('#' + $input.attr('id') + '-select').data('onconfirm'); // get the onConfirm function for the autocomplete
           $input.val('');
-          onConfirm('', true); // call autocomplete onConfirm to clear it and hide the suggestions menu
+          onConfirm('', removeFilterValue, true); // call autocomplete onConfirm to clear it and hide the suggestions menu
         } else {
           $input.val(currentVal.replace(removeFilterValue, '').replace(/\s+/g,' ').trim()).change();
         }
