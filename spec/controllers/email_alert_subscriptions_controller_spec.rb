@@ -48,7 +48,6 @@ describe EmailAlertSubscriptionsController, type: :controller do
 
     it "fails if the relevant filters are not provided" do
       stub_validation_of_valid_query(
-        'filter_content_purpose_supergroup' => nil,
         'filter_format[]' => 'mosw_report',
       )
 
@@ -68,7 +67,6 @@ describe EmailAlertSubscriptionsController, type: :controller do
 
       stub_validation_of_valid_query(
         'filter_case_type[]' => 'ca98-and-civil-cartels',
-        'filter_content_purpose_supergroup' => nil,
         'filter_format[]' => 'mosw_report',
       )
 
@@ -106,7 +104,6 @@ describe EmailAlertSubscriptionsController, type: :controller do
         stub_validation_of_valid_query(
           'filter_case_state[]' => 'open',
           'filter_case_type[]' => 'ca98-and-civil-cartels',
-          'filter_content_purpose_supergroup' => nil,
           'filter_format[]' => 'mosw_report',
         )
 
@@ -144,7 +141,6 @@ describe EmailAlertSubscriptionsController, type: :controller do
         stub_validation_of_valid_query(
           'filter_case_state[]' => 'open',
           'filter_case_type[]' => 'ca98-and-civil-cartels',
-          'filter_content_purpose_supergroup' => nil,
           'filter_format[]' => 'mosw_report',
           'filter_part_of_taxonomy_tree[]' => 'some-taxon'
         )
@@ -175,7 +171,6 @@ describe EmailAlertSubscriptionsController, type: :controller do
         stub_validation_of_valid_query(
           'filter_case_state[]' => 'open',
           'filter_case_type[]' => 'ca98-and-civil-cartels',
-          'filter_content_purpose_supergroup' => nil,
           'filter_format[]' => 'mosw_report',
         )
 

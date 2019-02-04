@@ -91,7 +91,6 @@ describe EmailAlertSignupAPI do
               "alert_type" => { any: %w(first second) },
             },
             "title" => "Format with report types: first ABC thing and second DEF thing",
-            "content_purpose_supergroup" => nil
           ).and_call_original
 
           signup_api_wrapper.signup_url
@@ -121,7 +120,6 @@ describe EmailAlertSignupAPI do
               "alert_type" => { any: %w[first] },
             },
             "title" => "Format with report type: first ABC thing",
-            "content_purpose_supergroup" => nil
           ).and_call_original
 
           signup_api_wrapper.signup_url
@@ -144,7 +142,6 @@ describe EmailAlertSignupAPI do
               "alert_type" => { any: %w(first second) },
             },
             "title" => "First ABC thing and second DEF thing",
-            "content_purpose_supergroup" => nil,
           ).and_call_original
 
           signup_api_wrapper.signup_url
@@ -171,7 +168,6 @@ describe EmailAlertSignupAPI do
               "format" => { any: "test-reports" },
             },
             "title" => "Format",
-            "content_purpose_supergroup" => nil,
           ).and_call_original
 
           signup_api_wrapper.signup_url
@@ -273,7 +269,6 @@ describe EmailAlertSignupAPI do
               "other_type" => { any: %w(third fourth) },
             },
             "title" => "Formats with alert type of first ABC thing and second DEF thing and other type of third GHI thing and fourth JKL thing",
-            "content_purpose_supergroup" => nil,
           ).and_call_original
 
           signup_api_wrapper.signup_url
@@ -306,7 +301,6 @@ describe EmailAlertSignupAPI do
               "other_type" => { any: %w[] },
             },
             "title" => "Formats with alert type of first ABC thing",
-            "content_purpose_supergroup" => nil,
           ).and_call_original
 
           signup_api_wrapper.signup_url
@@ -331,7 +325,6 @@ describe EmailAlertSignupAPI do
               "other_type" => { any: %w(third fourth) },
             },
             "title" => "Alert type of first ABC thing and second DEF thing and other type of third GHI thing and fourth JKL thing",
-            "content_purpose_supergroup" => nil,
           ).and_call_original
 
           signup_api_wrapper.signup_url
@@ -358,7 +351,6 @@ describe EmailAlertSignupAPI do
               "format" => { any: "test-reports" },
             },
             "title" => "Format",
-            "content_purpose_supergroup" => nil,
           ).and_call_original
 
           signup_api_wrapper.signup_url

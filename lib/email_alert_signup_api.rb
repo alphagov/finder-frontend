@@ -23,12 +23,18 @@ private
   attr_reader :email_alert_api, :attributes, :subscription_list_title_prefix, :available_choices, :default_attributes
 
   def subscriber_list
-    response = email_alert_api.find_or_create_subscriber_list(
+    response = email_alert_api.find_or_create_subscriber_list(subscriber_list_options)
+    response['subscriber_list']
+  end
+
+  def subscriber_list_options
+    options = {
       "tags" => tags,
       "title" => title,
-      "content_purpose_supergroup" => content_purpose_supergroup,
-    )
-    response['subscriber_list']
+    }
+
+    options["content_purpose_supergroup"] = content_purpose_supergroup if content_purpose_supergroup.present?
+    options
   end
 
   def title
@@ -71,10 +77,9 @@ private
   end
 
   def validater
-    @validater ||= ::ValidateQuery.new(
-      massaged_attributes.merge(
-        'content_purpose_supergroup' => content_purpose_supergroup
-      )
-    )
+    options = massaged_attributes
+    options["content_purpose_supergroup"] = content_purpose_supergroup if content_purpose_supergroup.present?
+
+    @validater ||= ::ValidateQuery.new(options)
   end
 end
