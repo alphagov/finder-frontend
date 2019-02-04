@@ -41,6 +41,16 @@ RSpec.describe ResultSetPresenter do
           'label' => 'Mergers'
         },
       ],
+      allowed_values: [
+        {
+          'value' => 'ca98-and-civil-cartels',
+          'label' => 'CA98 and civil cartels'
+        },
+        {
+          'value' => 'mergers',
+          'label' => 'Mergers'
+        },
+      ],
       sentence_fragment: {
         'key' => 'key_1',
         'type' => 'text',
@@ -340,6 +350,7 @@ RSpec.describe ResultSetPresenter do
 
         allow(finder).to receive(:filters).and_return([a_facet, another_facet, primary_facet])
         allow(a_facet_collection).to receive(:find)
+        allow(a_facet_collection).to receive(:map).and_return([[a_facet.allowed_values], [primary_facet.allowed_values]])
 
         expect(subject.documents_by_facets).to eq([
           {

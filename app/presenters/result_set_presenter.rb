@@ -110,7 +110,7 @@ class ResultSetPresenter
           else
             # Match filters to metadata and group by value
             (metadata[:labels] & facet_filters.fetch(:sector_business_area, [])).each do |value|
-              sector_facets[value] = empty_facet_group(value, get_sector_name(value)) unless sector_facets.has_key?(value)
+              sector_facets[value] = empty_facet_group(value, facet_label_for(value)) unless sector_facets.has_key?(value)
               sector_facets[value][:documents] << item
             end
           end
@@ -131,19 +131,10 @@ class ResultSetPresenter
     { facet_key: key, facet_name: name, documents: [] }
   end
 
-  def get_sector_name(sector_key)
-    unless @sector_key_map.present?
-      @finder.filters.each do |facet|
-        next unless facet.key == 'sector_business_area'
-
-        @sector_key_map = { all_businesses: "All businesses" }
-        facet.allowed_values.each do |facet_option|
-          @sector_key_map[facet_option["value"]] = facet_option["label"]
-        end
-        break
-      end
-    end
-    @sector_key_map[sector_key]
+  def facet_label_for(key)
+    allowed_values = finder.facets.map(&:allowed_values).flatten
+    facet = allowed_values.find { |v| v["value"] == key }
+    facet["label"] if facet
   end
 
   def sort_by_promoted(results)
