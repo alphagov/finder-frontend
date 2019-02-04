@@ -329,6 +329,7 @@ RSpec.describe ResultSetPresenter do
 
       it "groups all documents in the default group" do
         allow(a_facet_collection).to receive(:find)
+
         expect(subject.documents_by_facets).to eq([{
           facet_name: 'All Businesses',
           facet_key: 'all_businesses',
@@ -379,6 +380,7 @@ RSpec.describe ResultSetPresenter do
 
       it "groups the relevant documents in the other facets" do
         allow(a_facet_collection).to receive(:find)
+
         expect(subject.documents_by_facets).to eq([
           {
             facet_name: 'Case type',
