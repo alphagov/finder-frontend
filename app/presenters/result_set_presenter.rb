@@ -55,31 +55,28 @@ class ResultSetPresenter
     }.reject(&:empty?)
   end
 
-  def tagged_to_all(facet_key, metadata)
+  def tagged_to_all?(facet_key, metadata)
     facet = finder.facets.find { |f| f.key == facet_key }
-    return false unless facet && metadata[:labels]
+    facet_metadata = metadata.find { |m| m[:id] == facet_key }
+    return false unless facet && facet_metadata[:labels]
 
     values = facet.allowed_values.map { |v| v['value'] }
-    values & metadata[:labels] == values
+    values & facet_metadata[:labels] == values
   end
 
   def documents_by_facets
-    return {} unless grouped_display?
+    return [] unless grouped_display?
 
     sector_facets = {}
-    all_businesses = {
-      all_businesses: {
-        facet_name: "All Businesses",
-        facet_key: "all_businesses",
-        documents: []
-      }
-    }
+    # TODO: This doesn't follow the same naming convention as other groups.
+    all_businesses = { all_businesses: empty_facet_group("all_businesses", "All Businesses") }
     other_facets = {}
 
     business_sectors = %W(sector_business_area business_activity)
 
     facet_filters = @filter_params.without(:order, :keywords)
 
+    documents.select! { |d| d[:document][:metadata].present? }
     sorted_documents = documents.sort { |x, y| x[:document][:title] <=> y[:document][:title] }
     sorted_documents = sorted_documents.sort do |x, y|
       return -1 if x[:document][:promoted]
@@ -92,32 +89,31 @@ class ResultSetPresenter
       all_businesses[:all_businesses][:documents] = sorted_documents
     end
 
-    # TODO: Use Hash#group_by here to determine the groupings
     sorted_documents.each do |item|
       document_metadata = item[:document][:metadata]
-      next unless document_metadata.present?
+      if tagged_to_all?("sector_business_area", document_metadata)
+        all_businesses[:all_businesses][:documents] << item
+      else
+        # Loop through each metadata to group against the filter params
+        document_metadata.each do |metadata|
+          key = metadata[:id]
+          # TODO: Is this necessary? Could we ever return results
+          # which don't match a facet filter?
+          next unless key && facet_filters.has_key?(key.to_sym)
 
-      # Loop through each metadata to group against the filter params
-      document_metadata.each do |metadata|
-        key = metadata[:id]
-        next unless key && facet_filters.has_key?(key.to_sym)
-
-        # Is this a business sector facet?
-        if business_sectors.include?(key)
-          # If the document is tagged to all sectors add to all businesses group
-          if tagged_to_all("sector_business_area", metadata)
-            all_businesses[:all_businesses][:documents] << item
-          else
+          # Is this a business sector facet?
+          if business_sectors.include?(key)
+            # If the document is tagged to all sectors add to all businesses group
             # Match filters to metadata and group by value
             (metadata[:labels] & facet_filters.fetch(:sector_business_area, [])).each do |value|
-              sector_facets[value] = empty_facet_group(value, facet_label_for(value)) unless sector_facets.has_key?(value)
+              sector_facets[value] = empty_facet_group(value, facet_label_for(value)) unless sector_facets[value]
               sector_facets[value][:documents] << item
             end
+          else
+            # Add the document to the appropriate other facet group
+            other_facets[key] = empty_facet_group(key, metadata[:label]) unless other_facets[key]
+            other_facets[key][:documents] << item
           end
-        else
-          # Add the document to the appropriate other facet group
-          other_facets[key] = empty_facet_group(key, metadata[:label]) unless other_facets[key]
-          other_facets[key][:documents] << item
         end
       end
     end

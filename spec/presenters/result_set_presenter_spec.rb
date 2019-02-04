@@ -323,11 +323,21 @@ RSpec.describe ResultSetPresenter do
 
     let(:document_result) { SearchResultPresenter.new(document).to_hash }
 
+    context "when not grouping results" do
+      let(:filter_params) { { order: 'a-z' } }
+      let(:results) { ResultSet.new([document], total) }
+
+      it "returns an empty array" do
+        expect(subject.documents_by_facets).to eq([])
+      end
+    end
+
     context "when no filters have been selected" do
       let(:filter_params) { { order: 'topic' } }
       let(:results) { ResultSet.new([document], total) }
 
       it "groups all documents in the default group" do
+        allow(a_facet_collection).to receive(:find)
         expect(subject.documents_by_facets).to eq([{
           facet_name: 'All Businesses',
           facet_key: 'all_businesses',
@@ -378,6 +388,7 @@ RSpec.describe ResultSetPresenter do
       let(:results) { ResultSet.new([document, tagged_document], total) }
 
       it "groups the relevant documents in the other facets" do
+        allow(a_facet_collection).to receive(:find)
         expect(subject.documents_by_facets).to eq([
           {
             facet_name: 'Case type',
