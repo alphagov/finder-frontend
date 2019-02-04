@@ -270,7 +270,6 @@ module DocumentHelper
   def stub_rummager_with_query_validation_request
     stub_validation_of_valid_query(
       'filter_case_state[]' => 'open',
-      'filter_content_purpose_supergroup' => nil,
       'filter_format[]' => 'cma_case',
     )
   end
