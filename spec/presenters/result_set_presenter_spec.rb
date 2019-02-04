@@ -265,4 +265,151 @@ RSpec.describe ResultSetPresenter do
       end
     end
   end
+
+  describe "#documents_by_facets" do
+    let(:primary_facet) do
+      double(
+        SelectFacet,
+        key: 'sector_business_area',
+        allowed_values: [
+          { 'value' => 'aerospace', 'label' => 'Aerospace' },
+          { 'value' => 'agriculture', 'label' => 'Agriculture' },
+        ],
+        value: %W(aerospace agriculture),
+        labels: %W(aerospace agriculture),
+      )
+    end
+
+    let(:a_facet_collection) {
+      double(FacetCollection, filters: [a_facet, another_facet, primary_facet])
+    }
+
+    let(:tagging_metadata) {
+      [{
+        id: 'sector_business_area',
+        name: 'Business area',
+        value: 'Aerospace',
+        type: 'text',
+        labels: %W(aerospace)
+      }]
+    }
+
+    let(:tagged_document) {
+      double(
+        Document,
+        title: 'Tagged to a primary facet',
+        path: 'slug-3',
+        metadata: tagging_metadata,
+        summary: 'I am a document',
+        is_historic: false,
+        government_name: 'The Government',
+        promoted: false,
+      )
+    }
+
+    let(:primary_tagged_result) {
+      SearchResultPresenter.new(tagged_document).to_hash
+    }
+
+    let(:document_result) { SearchResultPresenter.new(document).to_hash }
+
+    context "when no filters have been selected" do
+      let(:filter_params) { { order: 'topic' } }
+      let(:results) { ResultSet.new([document], total) }
+
+      it "groups all documents in the default group" do
+        expect(subject.documents_by_facets).to eq([{
+          facet_name: 'All Businesses',
+          facet_key: 'all_businesses',
+          documents: subject.documents
+        }])
+      end
+    end
+
+    context "when primary facets have been selected" do
+      let(:filter_params) {
+        {
+          order: 'topic',
+          sector_business_area: %W(aerospace),
+          'case-type': %W(ca98-and-civil-cartels)
+        }
+      }
+      let(:results) { ResultSet.new([document, tagged_document], total) }
+
+      it "groups the relevant documents in the primary facets" do
+
+        allow(finder).to receive(:filters).and_return([a_facet, another_facet, primary_facet])
+        allow(a_facet_collection).to receive(:find)
+
+        expect(subject.documents_by_facets).to eq([
+          {
+            facet_name: 'Aerospace',
+            facet_key: 'aerospace',
+            documents: [{ document: primary_tagged_result, document_index: 2 }]
+          },
+          {
+            facet_name: 'Case type',
+            facet_key: 'case-type',
+            documents: [{ document: document_result, document_index: 1 }]
+          },
+        ])
+      end
+    end
+
+    context "when other facets have been selected" do
+      let(:filter_params) {
+        {
+          order: 'topic',
+          'case-type': %W(ca98-and-civil-cartels)
+        }
+      }
+
+      let(:results) { ResultSet.new([document, tagged_document], total) }
+
+      it "groups the relevant documents in the other facets" do
+        expect(subject.documents_by_facets).to eq([
+          {
+            facet_name: 'Case type',
+            facet_key: 'case-type',
+            documents: [{ document: document_result, document_index: 1 }]
+          }
+        ])
+      end
+    end
+
+    context "when a document is tagged to all primary facets" do
+      let(:tagging_metadata) {
+        [{
+          id: 'sector_business_area',
+          name: 'Business area',
+          value: 'Aerospace',
+          type: 'text',
+          labels: %W(aerospace agriculture)
+        }]
+      }
+
+      let(:filter_params) {
+        {
+          order: 'topic',
+          sector_business_area: %W(aerospace),
+          'case-type': %W(ca98-and-civil-cartels)
+        }
+      }
+
+      let(:results) { ResultSet.new([tagged_document], total) }
+
+      it "is grouped in the default set" do
+        allow(a_facet_collection).to receive(:find).and_return(primary_facet)
+        allow(finder).to receive(:filters).and_return([a_facet, another_facet, primary_facet])
+
+        expect(subject.documents_by_facets).to eq([
+          {
+            facet_name: 'All Businesses',
+            facet_key: 'all_businesses',
+            documents: [{ document: primary_tagged_result, document_index: 1 }]
+          }
+        ])
+      end
+    end
+  end
 end

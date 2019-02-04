@@ -55,12 +55,14 @@ class ResultSetPresenter
     }.reject(&:empty?)
   end
 
-  # FIXME: This is a special case particular to one finder.
-  def document_in_all_sectors(metadata)
-    metadata[:id] == "sector_business_area" && metadata[:labels].count > 42
+  def tagged_to_all(facet_key, metadata)
+    facet = finder.facets.find { |f| f.key == facet_key }
+    return false unless facet && metadata[:labels]
+
+    values = facet.allowed_values.map { |v| v['value'] }
+    values & metadata[:labels] == values
   end
 
-  # FIXME: This should return an array in the same way other results do.
   def documents_by_facets
     return {} unless grouped_display?
 
@@ -76,7 +78,7 @@ class ResultSetPresenter
 
     business_sectors = %W(sector_business_area business_activity)
 
-    facet_filters = @filter_params.without('order', 'keywords')
+    facet_filters = @filter_params.without(:order, :keywords)
 
     sorted_documents = documents.sort { |x, y| x[:document][:title] <=> y[:document][:title] }
     sorted_documents = sorted_documents.sort do |x, y|
@@ -85,12 +87,12 @@ class ResultSetPresenter
       y[:document][:promoted] ? 1 : 0
     end
 
-    # TODO: This rule needs to be tested.
     # If no filters are selected then put in all business
     if facet_filters.values.empty?
       all_businesses[:all_businesses][:documents] = sorted_documents
     end
 
+    # TODO: Use Hash#group_by here to determine the groupings
     sorted_documents.each do |item|
       document_metadata = item[:document][:metadata]
       next unless document_metadata.present?
@@ -98,12 +100,12 @@ class ResultSetPresenter
       # Loop through each metadata to group against the filter params
       document_metadata.each do |metadata|
         key = metadata[:id]
-        next unless facet_filters.has_key?(key)
+        next unless key && facet_filters.has_key?(key.to_sym)
 
         # Is this a business sector facet?
         if business_sectors.include?(key)
-          # if the document is tagged to all sectors add to all businesses group
-          if document_in_all_sectors(metadata)
+          # If the document is tagged to all sectors add to all businesses group
+          if tagged_to_all("sector_business_area", metadata)
             all_businesses[:all_businesses][:documents] << item
           else
             # Match filters to metadata and group by value
@@ -113,17 +115,15 @@ class ResultSetPresenter
             end
           end
         else
-          # add the document to the appropriate other facet group
+          # Add the document to the appropriate other facet group
           other_facets[key] = empty_facet_group(key, metadata[:label]) unless other_facets[key]
           other_facets[key][:documents] << item
         end
       end
     end
 
-    # dont show all businesses if there are no results
     all_businesses = {} if all_businesses[:all_businesses][:documents].empty?
 
-    # return merged results
     [sector_facets.sort.to_h, other_facets.sort.to_h, all_businesses].inject(&:merge).values
   end
 
