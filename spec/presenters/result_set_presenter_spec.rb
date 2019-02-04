@@ -41,6 +41,16 @@ RSpec.describe ResultSetPresenter do
           'label' => 'Mergers'
         },
       ],
+      allowed_values: [
+        {
+          'value' => 'ca98-and-civil-cartels',
+          'label' => 'CA98 and civil cartels'
+        },
+        {
+          'value' => 'mergers',
+          'label' => 'Mergers'
+        },
+      ],
       sentence_fragment: {
         'key' => 'key_1',
         'type' => 'text',
