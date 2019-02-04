@@ -24,6 +24,9 @@
       // Attach listener to update checked count
       this.$options.on('change', this.updateCheckedCount.bind(this));
 
+      // Attach listener to conditionally fire GA event
+      this.$options.on('change', this.fireChangedAnalyticsEvent.bind(this));
+
       // Replace div.container-head with a button
       this.replaceHeadWithButton();
 
@@ -76,6 +79,17 @@
 
   OptionSelect.prototype.updateCheckedCount = function updateCheckedCount(){
     this.$optionSelect.find('.js-selected-counter').text(this.checkedString());
+  };
+
+  OptionSelect.prototype.fireChangedAnalyticsEvent = function fireChangedAnalyticsEvent(event){
+    var $targetCheckbox = $(event.target);
+    if($targetCheckbox.is(':checked')){
+        var category = $targetCheckbox.data("track-category");
+        var action = $targetCheckbox.data("track-action");
+        var label = $targetCheckbox.data("track-label");
+        var value = $targetCheckbox.data("track-value");
+        GOVUK.analytics.trackEvent(category, action, { label: label, value: value });
+    }
   };
 
   OptionSelect.prototype.checkedString = function checkedString(){

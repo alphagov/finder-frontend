@@ -346,4 +346,34 @@ describe('GOVUK.OptionSelect', function() {
 
   });
 
+
+  describe('fireChangedAnalyticsEvent', function(){
+
+    beforeEach(function(){
+      GOVUK.analytics = {
+        trackEvent: function(){}
+      }
+
+      spyOn(GOVUK.analytics, 'trackEvent');
+    });
+
+    it('fires a Google Analytics event for the change event if the checkbox is checked', function(){
+      $optionSelectHTML.find(":input").trigger("click");
+      expect($optionSelectHTML.find(":input").is(":checked")).toBe(true);
+      expect(GOVUK.analytics.trackEvent).toHaveBeenCalled();
+    });
+
+    it('does not fire a Google Analytics event for the change event if the checkbox is unchecked', function(){
+      $optionSelectHTML.find(":input").trigger("click");
+      expect($optionSelectHTML.find(":input").is(":checked")).toBe(true);
+      expect(GOVUK.analytics.trackEvent).toHaveBeenCalled();
+
+      GOVUK.analytics.trackEvent.calls.reset();
+
+      $optionSelectHTML.find(":input").trigger("click");
+      expect($optionSelectHTML.find(":input").is(":checked")).toBe(false);
+      expect(GOVUK.analytics.trackEvent).toHaveBeenCalledTimes(0);
+    });
+  });
+
 });
