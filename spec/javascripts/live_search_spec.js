@@ -142,6 +142,11 @@ describe("liveSearch", function(){
       expect(liveSearch.$resultsBlock.mustache).not.toHaveBeenCalled();
     });
 
+    it('should have an order state selected when keywords are present', function(){
+      liveSearch.state = 'find-eu-exit-guidance-business.json?keywords=123';
+      expect(liveSearch.$orderSelect.val()).not.toBe(null);
+    });
+
     it('should update the results if the state of these results matches the state of the page', function(){
       liveSearch.state = {search: 'state'};
       spyOn(liveSearch.$resultsBlock, 'mustache');

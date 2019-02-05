@@ -350,6 +350,10 @@ Then(/^I see services in alphabetical order$/) do
   expect(page).to have_content('sorted by A-Z')
 end
 
+Then(/^I see most relevant order selected$/) do
+  expect(page).to have_select('order', selected: "Relevance")
+end
+
 And(/^I see the facet tag$/) do
   within '.facet-tags' do
     expect(page).to have_link("✕")

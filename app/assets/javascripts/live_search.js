@@ -199,8 +199,10 @@
   LiveSearch.prototype.selectRelevanceSortOption = function selectRelevanceSortOption() {
     var relevanceSortOption = this.$orderSelect.data('relevance-sort-option');
 
-    this.$orderSelect.val(relevanceSortOption);
-    this.state = this.$form.serializeArray();
+    if (relevanceSortOption) {
+      this.$orderSelect.val(relevanceSortOption);
+      this.state = this.$form.serializeArray();
+    }
   };
 
   LiveSearch.prototype.insertRelevanceOption = function insertRelevanceOption() {
