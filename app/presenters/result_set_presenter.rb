@@ -73,7 +73,8 @@ class ResultSetPresenter
     all_businesses = { all_businesses: empty_facet_group("all_businesses", "All Businesses") }
     other_facets = {}
 
-    business_sectors = %W(sector_business_area business_activity)
+    primary_facet = :sector_business_area
+    primary_facet_group = %W(sector_business_area business_activity)
 
     facet_filters = @filter_params.without(:order, :keywords)
 
@@ -92,7 +93,7 @@ class ResultSetPresenter
       sorted_documents.each do |item|
         document_metadata = item[:document][:metadata]
         # If the document is tagged to all sectors add to default group
-        if tagged_to_all?("sector_business_area", document_metadata)
+        if tagged_to_all?(primary_facet.to_s, document_metadata)
           all_businesses[:all_businesses][:documents] << item
         else
           # Loop through each metadata to group against the filter params
@@ -100,10 +101,13 @@ class ResultSetPresenter
             key = metadata[:id]
             next unless key && facet_filters.has_key?(key.to_sym)
 
-            # Is this a business sector facet?
-            if business_sectors.include?(key)
+            # Is this a business sector/activity facet?
+            # FIXME: There's an inconsistency here, an item which isn't tagged to the primary facet
+            # but tagged to the activity facet will not appear. In terms of the current metadata this
+            # doesn't happen, but as the results are metadata driven it _can_ happen.
+            if primary_facet_group.include?(key)
               # Match filters to metadata and group by value
-              (metadata[:labels] & facet_filters.fetch(:sector_business_area, [])).each do |value|
+              (metadata[:labels] & facet_filters.fetch(primary_facet, [])).each do |value|
                 sector_facets[value] = empty_facet_group(value, facet_label_for(value)) unless sector_facets[value]
                 sector_facets[value][:documents] << item
               end

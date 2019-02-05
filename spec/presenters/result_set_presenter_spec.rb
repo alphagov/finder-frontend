@@ -66,7 +66,8 @@ RSpec.describe ResultSetPresenter do
         'word_connectors' => { words_connector: 'or' }
       },
       has_filters?: true,
-      value: ['ca98-and-civil-cartels', 'mergers']
+      labels: %W(ca98-and-civil-cartels mergers),
+      value: %W(ca98-and-civil-cartels mergers)
     )
   end
 
