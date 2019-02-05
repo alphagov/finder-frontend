@@ -24,7 +24,9 @@ private
     if development_env_finder_json
       JSON.parse(File.read(development_env_finder_json))
     else
-      Services.content_store.content_item(base_path)
+      Rails.cache.fetch("finder_api#{base_path}", expires_in: 5.minutes) do
+        Services.content_store.content_item(base_path).to_h
+      end
     end
   end
 
