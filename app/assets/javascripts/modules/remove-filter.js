@@ -35,7 +35,10 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
         var currentVal = $input.val();
         var newVal = $.trim(currentVal.replace(removeFilterValue, ''));
 
-        $input.val(newVal).trigger('change');
+        $input.val(newVal).trigger({
+          type: "change",
+          suppressAnalytics: true
+        });
       }
       else if (elementType == 'OPTION') {
         $('#' + removeFilterFacet).val("").trigger('change');

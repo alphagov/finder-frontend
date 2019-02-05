@@ -30,7 +30,7 @@
 
       this.$form.find('input[type=checkbox], input[type=text], input[type=radio], select').on('change',
         function(e) {
-          if (e.target.type == "text") {
+          if (e.target.type == "text" && !e.suppressAnalytics) {
             LiveSearch.prototype.fireTextAnalyticsEvent(e);
           }
           this.formChange(e)

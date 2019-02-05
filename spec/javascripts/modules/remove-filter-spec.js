@@ -42,6 +42,12 @@ describe('remove-filter', function () {
    '</div>'
   );
 
+  var $facetTagDate = $(
+    '<div data-module="remove-filter">' +
+    '<a href="/news-and-communications?[][]=from&amp;[][]=2018&amp;[][]=to&amp;[][]=" class="remove-filter" role="button" aria-label="Remove filter  1 January 2018" data-module="remove-filter-link" data-facet="public_timestamp" data-value="2018" data-name="public_timestamp[from]">✕</a>' +
+    '</div>'
+  );
+
   var $facets =
     '<select id="level_one_taxon" name="level_one_taxon">' +
       '<option value="">All topics</option>' +
@@ -49,6 +55,9 @@ describe('remove-filter', function () {
     '</select>' +
     '<div id="keywords">'+
       '<input name="keywords" value="" id="finder-keyword-search" type="text">' +
+    '</div>' +
+    '<div>'+
+      '<input name="public_timestamp[from]" value="" id="public_timestamp[from]" type="text">' +
     '</div>' +
     '<div id="related_to_brexit">' +
       '<input type="checkbox" name="related_to_brexit" value="true" data-module="track-click">' +

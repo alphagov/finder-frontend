@@ -34,7 +34,12 @@ describe("liveSearch", function(){
   };
 
   beforeEach(function () {
-    $form = $('<form action="/somewhere" class="js-live-search-form"><input type="checkbox" name="field" value="sheep" checked><input type="submit" value="Filter results" class="button js-live-search-fallback"/></form>');
+    $form = $('<form action="/somewhere" class="js-live-search-form">' +
+                '<input type="checkbox" name="field" value="sheep" checked>' +
+                '<label for="published_at">Published at</label>' +
+                '<input type="text" name="published_at" value="2004" />' +
+                '<input type="submit" value="Filter results" class="button js-live-search-fallback"/>' +
+              '</form>');
     $results = $('<div class="js-live-search-results-block"></div>');
     $count = $('<div aria-live="assertive" id="js-search-results-info"><p class="result-info"></p></div>');
     $atomAutodiscoveryLink = $("<link href='http://an-atom-url.atom' rel='alternate' title='ATOM' type='application/atom+xml'>");
@@ -42,7 +47,7 @@ describe("liveSearch", function(){
 
     _supportHistory = GOVUK.support.history;
     GOVUK.support.history = function(){ return true; };
-    GOVUK.analytics = { trackPageview: function (){ } };
+    GOVUK.analytics = { trackPageview: function (){ }, trackEvent: function(){ } };
 
     liveSearch = new GOVUK.LiveSearch({$form: $form, $results: $results, $atomAutodiscoveryLink:$atomAutodiscoveryLink});
   });
@@ -54,25 +59,25 @@ describe("liveSearch", function(){
   });
 
   it("should save initial state", function(){
-    expect(liveSearch.state).toEqual([{name: 'field', value: 'sheep'}]);
+    expect(liveSearch.state).toEqual([{name: 'field', value: 'sheep'}, {name: 'published_at', value: '2004'}]);
   });
 
   it("should detect a new state", function(){
     expect(liveSearch.isNewState()).toBe(false);
-    $form.find('input').prop('checked', false);
+    $form.find('input[name="field"]').prop('checked', false);
     expect(liveSearch.isNewState()).toBe(true);
   });
 
   it("should update state to current state", function(){
-    expect(liveSearch.state).toEqual([{name: 'field', value: 'sheep'}]);
-    $form.find('input').prop('checked', false);
+    expect(liveSearch.state).toEqual([{name: 'field', value: 'sheep'}, {name: 'published_at', value: '2004'}]);
+    $form.find('input[name="field"]').prop('checked', false);
     liveSearch.saveState();
-    expect(liveSearch.state).toEqual([]);
+    expect(liveSearch.state).toEqual([{name: 'published_at', value: '2004'}]);
   });
 
   it("should update state to passed in state", function(){
-    expect(liveSearch.state).toEqual([{name: 'field', value: 'sheep'}]);
-    $form.find('input').prop('checked', false);
+    expect(liveSearch.state).toEqual([{name: 'field', value: 'sheep'}, {name: 'published_at', value: '2004'}]);
+    $form.find('input[name="field"]').prop('checked', false);
     liveSearch.saveState({ my: "new", state: "object"});
     expect(liveSearch.state).toEqual({ my: "new", state: "object"});
   });
@@ -166,10 +171,12 @@ describe("liveSearch", function(){
 
   describe('with relevant DOM nodes set', function(){
     beforeEach(function(){
+      GOVUK.analytics.trackEvent = function () {}
+
       liveSearch.$form = $form;
       liveSearch.$resultsBlock = $results;
       liveSearch.$countBlock = $count;
-      liveSearch.state = { field: "sheep" };
+      liveSearch.state = { field: "sheep", published_at: "2004" };
       liveSearch.$atomAutodiscoveryLink = $atomAutodiscoveryLink;
     });
 
@@ -177,10 +184,10 @@ describe("liveSearch", function(){
       var promise = jasmine.createSpyObj('promise', ['done']);
       spyOn(liveSearch, 'updateResults').and.returnValue(promise);
       //spyOn(liveSearch, 'pageTrack').and.returnValue(promise);
-      $form.find('input').prop('checked', false);
+      $form.find('input[name="field"]').prop('checked', false);
 
       liveSearch.formChange();
-      expect(liveSearch.state).toEqual([]);
+      expect(liveSearch.state).toEqual([{name: 'published_at', value: '2004'}]);
       expect(liveSearch.updateResults).toHaveBeenCalled();
       promise.done.calls.mostRecent().args[0]();
       //expect(liveSearch.pageTrack).toHaveBeenCalled();
@@ -205,9 +212,32 @@ describe("liveSearch", function(){
 
     it("should do nothing if state hasn't changed when a checkbox is changed", function(){
       spyOn(liveSearch, 'updateResults');
+
       liveSearch.formChange();
-      expect(liveSearch.state).toEqual({ field: 'sheep'});
+
+      expect(liveSearch.state).toEqual({ field: "sheep", published_at: "2004" });
       expect(liveSearch.updateResults).not.toHaveBeenCalled();
+    });
+
+    it("should trigger filterClicked custom event when input type is text and analytics are not suppressed", function() {
+      GOVUK.LiveSearch.prototype.fireTextAnalyticsEvent = function (event) {}
+      spyOn(GOVUK.LiveSearch.prototype, 'fireTextAnalyticsEvent')
+
+      $form.find('input[name="published_at"]').val('2005').trigger('change');
+
+      expect(GOVUK.LiveSearch.prototype.fireTextAnalyticsEvent).toHaveBeenCalledTimes(1);
+    });
+
+    it("should not trigger filterClicked custom event when input type is text and analytics are suppressed", function() {
+      GOVUK.LiveSearch.prototype.fireTextAnalyticsEvent = function (event) {}
+      spyOn(GOVUK.LiveSearch.prototype, 'fireTextAnalyticsEvent')
+
+      $form.find('input[name="published_at"]').val('2005').trigger({
+        type: 'change',
+        suppressAnalytics: true
+      });
+
+      expect(GOVUK.LiveSearch.prototype.fireTextAnalyticsEvent).toHaveBeenCalledTimes(0);
     });
 
     it("should display results from the cache", function(){
