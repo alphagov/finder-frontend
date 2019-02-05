@@ -64,16 +64,9 @@ private
   end
 
   def fetch_breadcrumbs
-    parent_content_item = {}
-    unless params.dig("parent_path").to_s.empty?
-      begin
-        parent_content_item = Services.content_store.content_item(params["parent_path"])
-      rescue GdsApi::HTTPNotFound
-        # parent_path is user input so we don't mind if it's bad
-        GovukStatsd.increment("breadcrumb.parent_path_not_found")
-      end
-    end
-    FinderBreadcrumbsPresenter.new(parent_content_item, @content_item)
+    parent_slug = params["parent"]
+    org_info = org_registry[parent_slug] if parent_slug.present?
+    FinderBreadcrumbsPresenter.new(org_info, @content_item)
   end
 
   def finder_presenter_class
@@ -86,5 +79,9 @@ private
 
   def result_set_presenter_class
     ResultSetPresenter
+  end
+
+  def org_registry
+    @org_registry ||= Registries::OrganisationsRegistry.new
   end
 end

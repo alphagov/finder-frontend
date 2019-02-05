@@ -2,34 +2,28 @@ require 'spec_helper'
 
 RSpec.describe FinderBreadcrumbsPresenter do
   let(:finder) { JSON.parse(File.read(Rails.root.join("features", "fixtures", "aaib_reports_example.json"))) }
-  let(:parent_content_item) { GovukSchemas::Example.find("organisation", example_name: "attorney_general") }
-  let(:place_content_item) { GovukSchemas::Example.find("place", example_name: "find-regional-passport-office") }
-  subject(:instance) { described_class.new(parent_content_item, finder) }
+  let(:org_breadcrumb_info) { { "title" => "Attorney General's Office", "slug" => "attorney-generals-office" } }
+  let(:empty_breadcrumb_info) { nil }
+  subject(:instance) { described_class.new(org_breadcrumb_info, finder) }
 
   describe "breadcrumbs" do
+    it "returns nil if there is no breadcrumb info" do
+      instance = described_class.new(empty_breadcrumb_info, finder)
+      expect(instance.breadcrumbs).to be nil
+    end
+
     it "has a link to home as the first entry" do
       expect(instance.breadcrumbs.first).to eql(title: "Home", url: "/")
     end
 
-    it "has a link to all organisations when the document_type is organisation" do
-      expect(parent_content_item["document_type"]).to eql("organisation")
+    it "has organisation breadcrumbs when the breadcrumb hash is populated" do
       expect(instance.breadcrumbs.second).to eql(title: "Organisations", url: "/government/organisations")
-    end
-
-    it "has no links to organisations when the document_type is not organisation" do
-      instance = described_class.new(place_content_item, finder)
-      expect(place_content_item["document_type"]).to_not eql("organisation")
-      expect(instance.breadcrumbs).to be nil
-    end
-
-    it "has an organisation link when the parent content item has a title and the document_type is organisation" do
-      expect(parent_content_item["document_type"]).to eql("organisation")
       expect(instance.breadcrumbs.third).to eql(title: "Attorney General's Office", url: "/government/organisations/attorney-generals-office")
     end
 
-    it "has no organisation link when the parent content item has no title and the document_type is organisation" do
-      parent_content_item["title"] = ""
-      instance = described_class.new(parent_content_item, finder)
+    it "has no organisation link when the breadcrumb hash is invalid" do
+      org_breadcrumb_info["title"] = ""
+      instance = described_class.new(org_breadcrumb_info, finder)
       urls = instance.breadcrumbs.map { |breadcrumb| breadcrumb[:url] }
       expect(urls).to_not include("/government/organisations/attorney-generals-office")
     end
@@ -40,7 +34,7 @@ RSpec.describe FinderBreadcrumbsPresenter do
 
     it "does not display a finder title when the finder has no title" do
       finder["title"] = ""
-      instance = described_class.new(parent_content_item, finder)
+      instance = described_class.new(org_breadcrumb_info, finder)
       titles = instance.breadcrumbs.map { |breadcrumb| breadcrumb[:title] }
       expect(titles).to_not include("Air Accidents Investigation Branch reports")
     end

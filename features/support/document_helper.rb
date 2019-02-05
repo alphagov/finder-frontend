@@ -27,6 +27,12 @@ module DocumentHelper
     )
   end
 
+  def stub_rummager_api_request_with_organisation_links
+    stub_request(:get, rummager_all_org_links_url).to_return(
+      body: organisation_link_results,
+    )
+  end
+
   def stub_rummager_api_request_with_government_results
     stub_request(:get, rummager_all_documents_url).to_return(
       body: government_documents_json,
@@ -150,14 +156,6 @@ module DocumentHelper
       base_path,
       govuk_content_schema_example('policies_finder').to_json
     )
-  end
-
-  def content_store_has_attorney_general_organisation
-    content_store_has_item('/government/organisations/attorney-generals-office', govuk_content_schema_example('attorney_general', 'organisation').to_json)
-  end
-
-  def content_store_is_missing_path
-    content_store_does_not_have_item('/bernard-cribbins')
   end
 
   def search_params(params = {})
@@ -288,6 +286,14 @@ module DocumentHelper
 
     stub_request(:get, cma_case_documents_filtered_by_supergroup).to_return(
       body: filtered_cma_case_documents_json,
+    )
+  end
+
+  def rummager_all_org_links_url
+    simple_rummager_url(
+      "count" => 1500,
+      "fields" => %w(slug title),
+      "filter_format" => "organisation"
     )
   end
 
@@ -447,6 +453,31 @@ module DocumentHelper
 
   def whitehall_admin_world_locations_api_url
     "#{Plek.current.find('whitehall-admin')}/api/world-locations"
+  end
+
+  def organisation_link_results
+    %|{
+      "results": [
+        {
+          "title": "HM Revenue & Customs",
+          "slug": "hm-revenue-customs",
+          "_id": "/government/organisations/hm-revenue-customs",
+          "elasticsearch_type": "edition",
+          "document_type": "edition"
+        },
+        {
+          "title": "Attorney General's Office",
+          "slug": "attorney-generals-office",
+          "_id": "/government/organisations/companies-house",
+          "elasticsearch_type": "edition",
+          "document_type": "edition"
+        }
+      ],
+      "total": 1072,
+      "start": 0,
+      "aggregates": {},
+      "suggested_queries": []
+    }|
   end
 
   def aaib_reports_search_results
