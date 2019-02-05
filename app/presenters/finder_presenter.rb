@@ -15,7 +15,7 @@ class FinderPresenter
     @keywords = values["keywords"].presence
   end
 
-  def show_feedback_form?
+  def is_business_finder?
     @slug.eql?('/find-eu-exit-guidance-business')
   end
 

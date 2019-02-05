@@ -67,7 +67,24 @@
         <%= render finder.facets %>
       </div>
 
-      <div class="column-two-thirds">
+      <div class="column-two-thirds business-finder-search">
+
+        <%
+          # Copying the search component here purely for prototype purposes
+          # TODO: adjust search component in govuk_publishing_components to meet our needs and use this.
+        %>
+        <% if finder.is_business_finder? && finder.show_keyword_search? %>
+          <div class="gem-c-search gem-c-search--on-white gem-c-search--separate-label" data-module="gem-toggle-input-class-on-focus">
+            <label for="finder-keyword-search" class="gem-c-search__label">Ask a question</label>
+            <div class="gem-c-search__item-wrapper">
+              <input type="search" value="<%= @results.user_supplied_keywords %>" id="finder-keyword-search" name="keywords" title="Search" class="gem-c-search__item gem-c-search__input js-class-toggle">
+              <div class="gem-c-search__item gem-c-search__submit-wrapper">
+                <button type="submit" class="gem-c-search__submit">Search</button>
+              </div>
+            </div>
+          </div>
+        <% end %>
+
         <div class='js-live-search-results-block'>
           <div class="filtered-results">
             <span id="js-search-results-info" style="display:none"></span>
@@ -98,7 +115,7 @@
         </div>
       </div>
     </div>
-    <% if finder.show_feedback_form? %>
+    <% if finder.is_business_finder? %>
       <%= render partial: 'feedback_form' %>
     <% end %>
   </div>
