@@ -74,7 +74,7 @@ class FinderPresenter
     signup_link = content_item['details']['signup_link']
     return signup_link if signup_link.present?
 
-    email_alert_signup['web_url'] if email_alert_signup
+    "#{email_alert_signup['web_url']}?#{email_alert_filter_query}" if email_alert_signup
   end
 
   def facets
@@ -269,5 +269,21 @@ private
 
   def is_external?(href)
     URI.parse(href).host != "www.gov.uk"
+  end
+
+  def email_alert_filter_query
+    facets_with_filters = facets.select(&:has_filters?)
+
+    facets_with_values = facets_with_filters.reject { |facet|
+      facet.value.nil? ||
+        facet.value.is_a?(Hash) && facet.value.values.all?(&:blank?) ||
+        facet.value.is_a?(Array) && facet.value.empty?
+    }
+
+    filtered_values = facets_with_values.each_with_object({}) { |facet, hash|
+      hash[facet.key] = facet.value
+    }
+
+    filtered_values.to_query
   end
 end

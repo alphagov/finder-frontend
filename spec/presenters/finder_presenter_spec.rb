@@ -3,8 +3,9 @@ require 'spec_helper'
 RSpec.describe FinderPresenter do
   include GovukContentSchemaExamples
 
-  subject(:presenter) { described_class.new(content_item(no_sort_options), values) }
-  subject(:presenter_with_sort) { described_class.new(content_item(sort_options_without_relevance), values) }
+  subject(:presenter) { described_class.new(content_item(sort_options: no_sort_options), values) }
+  subject(:presenter_with_sort) { described_class.new(content_item(sort_options: sort_options_without_relevance), values) }
+  subject(:presenter_with_email_signup) { described_class.new(content_item(email_alert_signup: email_alert_signup_options), values) }
 
   let(:no_sort_options) { nil }
 
@@ -37,6 +38,23 @@ RSpec.describe FinderPresenter do
     ]
   }
 
+  let(:email_alert_signup_options) {
+    {
+      "api_path": "/api/content/mosw-reports/email-signup",
+      "base_path": "/mosw-reports/email-signup",
+      "content_id": "12dd2b13-93ec-4ca6-a7a4-e2eb5f5d485a",
+      "document_type": "finder_email_signup",
+      "locale": "en",
+      "public_updated_at": "2019-01-24T10:22:17Z",
+      "schema_name": "finder_email_signup",
+      "title": "MOSW reports",
+      "withdrawn": false,
+      "links": {},
+      "api_url": "https://www.gov.uk/api/content/mosw-reports/email-signup",
+      "web_url": "/mosw-reports/email-signup"
+    }
+  }
+
   let(:values) { {} }
 
   describe "facets" do
@@ -66,6 +84,30 @@ RSpec.describe FinderPresenter do
     end
   end
 
+  describe "#email_alert_signup_url" do
+    context "with no values" do
+      it "returns the finder URL appended with /email-signup?" do
+        expect(presenter.email_alert_signup_url).to eql("https://www.gov.uk/mosw-reports/email-signup?")
+      end
+    end
+
+    context "with some values" do
+      let(:values) do
+        {
+          keyword: "legal",
+          place_of_origin: "england",
+          walk_type: "open",
+          creator: "Harry Potter",
+          unpermitted_facet: "blah_blah",
+        }
+      end
+
+      it "returns the finder URL appended with permitted query params" do
+        expect(presenter_with_email_signup.email_alert_signup_url).to eql("/mosw-reports/email-signup?place_of_origin%5B%5D=england")
+      end
+    end
+  end
+
   describe "#atom_url" do
     context "with no values" do
       it "returns the finder URL appended with .atom" do
@@ -91,35 +133,35 @@ RSpec.describe FinderPresenter do
   describe "#atom_feed_enabled?" do
     context "with no sort options and no default sort" do
       it "is true" do
-        presenter = described_class.new(content_item(no_sort_options), values)
+        presenter = described_class.new(content_item(sort_options: no_sort_options), values)
         expect(presenter.atom_feed_enabled?).to be true
       end
     end
 
     context "with default sort option set to descending public_timestamp" do
       it "is true" do
-        presenter = described_class.new(content_item(sort_options_with_public_timestamp_default), values)
+        presenter = described_class.new(content_item(sort_options: sort_options_with_public_timestamp_default), values)
         expect(presenter.atom_feed_enabled?).to be true
       end
     end
 
     context "with sort options but no default order" do
       it "is true" do
-        presenter = described_class.new(content_item(sort_options_with_relevance), values)
+        presenter = described_class.new(content_item(sort_options: sort_options_with_relevance), values)
         expect(presenter.atom_feed_enabled?).to be true
       end
     end
 
     context "with no sort options but a changeable default order" do
       it "is false" do
-        presenter = described_class.new(content_item(no_sort_options, default_order: "relevance"), values)
+        presenter = described_class.new(content_item(sort_options: no_sort_options, default_order: "relevance"), values)
         expect(presenter.atom_feed_enabled?).to be false
       end
     end
 
     context "with no sort options but a default order of most recent first" do
       it "is true" do
-        presenter = described_class.new(content_item(no_sort_options, default_order: "-public_timestamp"), values)
+        presenter = described_class.new(content_item(sort_options: no_sort_options, default_order: "-public_timestamp"), values)
         expect(presenter.atom_feed_enabled?).to be true
       end
     end
@@ -152,7 +194,7 @@ RSpec.describe FinderPresenter do
         sort_option('Relevance', 'relevance', disabled: true)
       ].join("\n")
 
-      presenter = described_class.new(content_item(sort_options_with_relevance), values)
+      presenter = described_class.new(content_item(sort_options: sort_options_with_relevance), values)
 
       expect(presenter.sort_options).to eql(expected_options)
     end
@@ -164,7 +206,7 @@ RSpec.describe FinderPresenter do
         sort_option('Relevance', 'relevance', disabled: false)
       ].join("\n")
 
-      presenter = described_class.new(content_item(sort_options_with_relevance), "keywords" => "something not blank")
+      presenter = described_class.new(content_item(sort_options: sort_options_with_relevance), "keywords" => "something not blank")
 
       expect(presenter.sort_options).to eql(expected_options)
     end
@@ -176,7 +218,7 @@ RSpec.describe FinderPresenter do
       ].join("\n")
 
 
-      presenter = described_class.new(content_item(sort_options_without_relevance), "order" => "option_that_does_not_exist")
+      presenter = described_class.new(content_item(sort_options: sort_options_without_relevance), "order" => "option_that_does_not_exist")
 
       expect(presenter.sort_options).to eql(expected_options)
     end
@@ -187,7 +229,7 @@ RSpec.describe FinderPresenter do
         sort_option('Updated (oldest)', 'updated-oldest', selected: true)
       ].join("\n")
 
-      presenter = described_class.new(content_item(sort_options_with_default), values)
+      presenter = described_class.new(content_item(sort_options: sort_options_with_default), values)
 
       expect(presenter.sort_options).to eql(expected_options)
     end
@@ -198,7 +240,7 @@ RSpec.describe FinderPresenter do
         sort_option('Updated (newest)', 'updated-newest', selected: true)
       ].join("\n")
 
-      presenter = described_class.new(content_item(sort_options_without_relevance), "order" => "updated-newest")
+      presenter = described_class.new(content_item(sort_options: sort_options_without_relevance), "order" => "updated-newest")
 
       expect(presenter.sort_options).to eql(expected_options)
     end
@@ -206,10 +248,12 @@ RSpec.describe FinderPresenter do
 
 private
 
-  def content_item(sort_options, default_order: nil)
+  def content_item(sort_options: nil, email_alert_signup: nil, default_order: nil)
     finder_example = govuk_content_schema_example('finder')
     finder_example['details']['sort'] = sort_options
+    finder_example['links']['email_alert_signup'] = [email_alert_signup] if email_alert_signup
     finder_example['details']['default_order'] = default_order if default_order
+
 
     dummy_http_response = double(
       "net http response",

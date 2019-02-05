@@ -22,7 +22,24 @@
 
   },
   "publishing_request_id":"",
-  "links":{},
+  "links": {
+    "email_alert_signup": [
+      {
+        "api_path": "/api/content/news-and-communications/email-signup",
+        "base_path": "/news-and-communications/email-signup",
+        "content_id": "43dd2b13-93ec-4ca6-a7a4-e2eb5f5d485a",
+        "document_type": "finder_email_signup",
+        "locale": "en",
+        "public_updated_at": "2018-12-17T10:22:17Z",
+        "schema_name": "finder_email_signup",
+        "title": "News and communications",
+        "withdrawn": false,
+        "links": {},
+        "api_url": "https://www.gov.uk/api/content/news-and-communications/email-signup",
+        "web_url": "/news-and-communications/email-signup"
+      }
+    ]
+  },
   "description":"Find news and communications from government",
   "details":{
     "document_noun":"result",

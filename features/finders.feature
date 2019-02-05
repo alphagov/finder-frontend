@@ -128,7 +128,7 @@ Feature: Filtering documents
     And I sort by A-Z
     Then I see services in alphabetical order
 
-   @javascript
+  @javascript
   Scenario Outline: Removing checkbox filter
     When I view the news and communications finder
     And I click button <filter> and select facet <facet>
@@ -146,3 +146,13 @@ Feature: Filtering documents
     And I fill in some keywords
     And I click the Keyword1 remove link
     Then The keyword textbox is empty
+
+  Scenario: Subscribing to email alerts
+    Given a collection of documents exist that can be filtered by checkbox
+    When I use a checkbox filter
+    Then I can sign up to email alerts for allowed filters
+
+  Scenario: Subscribing to email alerts with disallowed facets
+    Given a collection of documents exist that can be filtered by checkbox
+    When I use a checkbox filter and another disallowed filter
+    Then I can sign up to email alerts for allowed filters

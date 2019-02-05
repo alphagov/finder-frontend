@@ -57,8 +57,8 @@ describe EmailAlertSignupAPI do
     before do
       email_alert_api_has_subscriber_list(
         "tags" => {
-          "format" => "test-reports",
-          "alert_type" => %w(first second),
+          "format" => { any: "test-reports" },
+          "alert_type" => { any: %w(first second) },
         },
         "subscription_url" => subscription_url
       )
@@ -68,8 +68,8 @@ describe EmailAlertSignupAPI do
       it 'returns the url email-alert-api gives back' do
         email_alert_api_has_subscriber_list(
           "tags" => {
-            "format" => "test-reports",
-            "alert_type" => %w(first second),
+            "format" => { any: "test-reports" },
+            "alert_type" => { any: %w(first second) },
           },
           "subscription_url" => subscription_url
         )
@@ -80,15 +80,15 @@ describe EmailAlertSignupAPI do
         it 'asks email-alert-api to find or create the subscriber list' do
           email_alert_api_has_subscriber_list(
             "tags" => {
-              "format" => "test-reports",
-              "alert_type" => %w(first second),
+              "format" => { any: "test-reports" },
+              "alert_type" => { any: %w(first second) },
             },
             "subscription_url" => subscription_url
           )
           expect(Services.email_alert_api).to receive(:find_or_create_subscriber_list).with(
             "tags" => {
-              "format" => "test-reports",
-              "alert_type" => %w(first second),
+              "format" => { any: "test-reports" },
+              "alert_type" => { any: %w(first second) },
             },
             "title" => "Format with report types: first ABC thing and second DEF thing",
           ).and_call_original
@@ -109,15 +109,15 @@ describe EmailAlertSignupAPI do
         it 'asks email-alert-api to find or create the subscriber list' do
           email_alert_api_has_subscriber_list(
             "tags" => {
-              "format" => "test-reports",
-              "alert_type" => %w[first],
+              "format" => { any: "test-reports" },
+              "alert_type" => { any: %w[first] },
             },
             "subscription_url" => subscription_url
           )
           expect(Services.email_alert_api).to receive(:find_or_create_subscriber_list).with(
             "tags" => {
-              "format" => "test-reports",
-              "alert_type" => %w[first],
+              "format" => { any: "test-reports" },
+              "alert_type" => { any: %w[first] },
             },
             "title" => "Format with report type: first ABC thing",
           ).and_call_original
@@ -131,15 +131,15 @@ describe EmailAlertSignupAPI do
         it 'asks email-alert-api to find or create the subscriber list' do
           email_alert_api_has_subscriber_list(
             "tags" => {
-              "format" => "test-reports",
-              "alert_type" => %w(first second),
+              "format" => { any: "test-reports" },
+              "alert_type" => { any: %w(first second) },
             },
             "subscription_url" => subscription_url
           )
           expect(Services.email_alert_api).to receive(:find_or_create_subscriber_list).with(
             "tags" => {
-              "format" => "test-reports",
-              "alert_type" => %w(first second),
+              "format" => { any: "test-reports" },
+              "alert_type" => { any: %w(first second) },
             },
             "title" => "First ABC thing and second DEF thing",
           ).and_call_original
@@ -159,13 +159,13 @@ describe EmailAlertSignupAPI do
         it 'asks email-alert-api to find or create the subscriber list' do
           email_alert_api_has_subscriber_list(
             "tags" => {
-              "format" => "test-reports",
+              "format" => { any: "test-reports" },
             },
             "subscription_url" => subscription_url
           )
           expect(Services.email_alert_api).to receive(:find_or_create_subscriber_list).with(
             "tags" => {
-              "format" => "test-reports",
+              "format" => { any: "test-reports" },
             },
             "title" => "Format",
           ).and_call_original
@@ -232,9 +232,9 @@ describe EmailAlertSignupAPI do
     before do
       email_alert_api_has_subscriber_list(
         "tags" => {
-          "format" => "test-reports",
-          "alert_type" => %w(first second),
-          "other_type" => %w(third fourth)
+          "format" => { any: "test-reports" },
+          "alert_type" => { any: %w(first second) },
+          "other_type" => { any: %w(third fourth) },
         },
         "subscription_url" => subscription_url
       )
@@ -244,8 +244,8 @@ describe EmailAlertSignupAPI do
       it 'returns the url email-alert-api gives back' do
         email_alert_api_has_subscriber_list(
           "tags" => {
-            "format" => "test-reports",
-            "alert_type" => %w(first second),
+            "format" => { any: "test-reports" },
+            "alert_type" => { any: %w(first second) },
           },
           "subscription_url" => subscription_url
         )
@@ -256,17 +256,17 @@ describe EmailAlertSignupAPI do
         it 'asks email-alert-api to find or create the subscriber list' do
           email_alert_api_has_subscriber_list(
             "tags" => {
-              "format" => "test-reports",
-              "alert_type" => %w(first second),
-              "other_type" => %w(third fourth),
+              "format" => { any: "test-reports" },
+              "alert_type" => { any: %w(first second) },
+              "other_type" => { any: %w(third fourth) },
             },
             "subscription_url" => subscription_url
           )
           expect(Services.email_alert_api).to receive(:find_or_create_subscriber_list).with(
             "tags" => {
-              "format" => "test-reports",
-              "alert_type" => %w(first second),
-              "other_type" => %w(third fourth),
+              "format" => { any: "test-reports" },
+              "alert_type" => { any: %w(first second) },
+              "other_type" => { any: %w(third fourth) },
             },
             "title" => "Formats with alert type of first ABC thing and second DEF thing and other type of third GHI thing and fourth JKL thing",
           ).and_call_original
@@ -288,17 +288,17 @@ describe EmailAlertSignupAPI do
         it 'asks email-alert-api to find or create the subscriber list' do
           email_alert_api_has_subscriber_list(
             "tags" => {
-              "format" => "test-reports",
-              "alert_type" => %w[first],
-              "other_type" => %w[],
+              "format" => { any: "test-reports" },
+              "alert_type" => { any: %w[first] },
+              "other_type" => { any: %w[] },
             },
             "subscription_url" => subscription_url
           )
           expect(Services.email_alert_api).to receive(:find_or_create_subscriber_list).with(
             "tags" => {
-              "format" => "test-reports",
-              "alert_type" => %w[first],
-              "other_type" => %w[],
+              "format" => { any: "test-reports" },
+              "alert_type" => { any: %w[first] },
+              "other_type" => { any: %w[] },
             },
             "title" => "Formats with alert type of first ABC thing",
           ).and_call_original
@@ -312,17 +312,17 @@ describe EmailAlertSignupAPI do
         it 'asks email-alert-api to find or create the subscriber list' do
           email_alert_api_has_subscriber_list(
             "tags" => {
-              "format" => "test-reports",
-              "alert_type" => %w(first second),
-              "other_type" => %w(third fourth),
+              "format" => { any: "test-reports" },
+              "alert_type" => { any: %w(first second) },
+              "other_type" => { any: %w(third fourth) },
             },
             "subscription_url" => subscription_url
           )
           expect(Services.email_alert_api).to receive(:find_or_create_subscriber_list).with(
             "tags" => {
-              "format" => "test-reports",
-              "alert_type" => %w(first second),
-              "other_type" => %w(third fourth),
+              "format" => { any: "test-reports" },
+              "alert_type" => { any: %w(first second) },
+              "other_type" => { any: %w(third fourth) },
             },
             "title" => "Alert type of first ABC thing and second DEF thing and other type of third GHI thing and fourth JKL thing",
           ).and_call_original
@@ -342,13 +342,13 @@ describe EmailAlertSignupAPI do
         it 'asks email-alert-api to find or create the subscriber list' do
           email_alert_api_has_subscriber_list(
             "tags" => {
-              "format" => "test-reports",
+              "format" => { any: "test-reports" },
             },
             "subscription_url" => subscription_url
           )
           expect(Services.email_alert_api).to receive(:find_or_create_subscriber_list).with(
             "tags" => {
-              "format" => "test-reports",
+              "format" => { any: "test-reports" },
             },
             "title" => "Format",
           ).and_call_original

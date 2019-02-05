@@ -1,4 +1,6 @@
 class SignupPresenter
+  include ActionView::Helpers::UrlHelper
+  include ActionView::Helpers::CaptureHelper
   attr_reader :content_item, :params
 
   def initialize(content_item, params)
@@ -22,16 +24,24 @@ class SignupPresenter
     content_item['details']['beta']
   end
 
+  def can_modify_choices?
+    choices? && choices_formatted.any?
+  end
+
   def choices?
     multiple_facet_choice_data.present? || single_facet_choice_data[0]["facet_choices"].present?
   end
 
   def choices
-    multiple_facet_choice_data || single_facet_choice_data
+    if multiple_facet_choice_data.present? && multiple_facet_choice_data.any?
+      return multiple_facet_choice_data
+    end
+
+    single_facet_choice_data
   end
 
   def choices_formatted
-    choices.map do |choice|
+    @choices_formatted ||= facets_with_choicess.map { |choice|
       {
         label: choice['facet_name'],
         value: choice['facet_id'],
@@ -45,7 +55,7 @@ class SignupPresenter
           }
         end
       }
-    end
+    }.compact
   end
 
   def target
@@ -53,6 +63,12 @@ class SignupPresenter
   end
 
 private
+
+  def facets_with_choicess
+    choices.select { |choice|
+      choice['facet_choices'] && choice["facet_choices"].any?
+    }
+  end
 
   def selected_choices
     facets_ids = choices.each_with_object({}) do |choice, hash|
