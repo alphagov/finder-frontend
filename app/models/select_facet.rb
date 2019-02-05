@@ -14,6 +14,7 @@ class SelectFacet < FilterableFacet
         id: "#{key}-#{allowed_value['value']}",
         data_attributes: {
           track_category: "filterClicked",
+          uncheck_track_category: "filterRemoved",
           track_action: name,
           track_label: allowed_value['label'],
         },
