@@ -10,7 +10,7 @@ class EmailAlertTitleBuilder
   end
 
   def call
-    (prefix.to_s + suffix.to_s).upcase_first
+    "#{prefix.to_s.strip} #{suffix}".strip.upcase_first
   end
 
 private
@@ -23,7 +23,7 @@ private
     elsif selected_facets.empty?
       subscription_list_title_prefix.to_s
     elsif subscription_list_title_prefix
-      "#{subscription_list_title_prefix}with "
+      "#{subscription_list_title_prefix.strip} with"
     end
   end
 
