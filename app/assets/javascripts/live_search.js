@@ -30,16 +30,34 @@
     if(GOVUK.support.history()){
       this.saveState();
 
-      this.$form.find('input[type=checkbox], input[type=text], input[type=radio], select').on('change',
+      this.$form.find('input[type=checkbox], input[type=text], input[type=search], input[type=radio], select').on('change',
         function(e) {
           if (e.target.type == "text") {
+            LiveSearch.prototype.fireTextAnalyticsEvent(e);
+          }
+          if (e.target.type == "search") {
+            if (!e.target.value.trim()) {
+              $('.js-search-clear').addClass("js-hidden");
+            } else {
+              $('.js-search-clear').removeClass("js-hidden");
+            }
             LiveSearch.prototype.fireTextAnalyticsEvent(e);
           }
           this.formChange(e)
         }.bind(this)
       );
 
-      this.$form.find('input[type=text]').on('keypress',
+      this.$form.find('.js-search-clear').on('click', function(e) {
+        e.preventDefault();
+        $('.business-finder-search input[type=search]').val("").trigger('change');
+      });
+
+      this.$form.find('.js-finder-search-submit').on('click', function(e) {
+        e.preventDefault();
+        this.formChange(e);
+      });
+
+      this.$form.find('input[type=text], input[type=search]').on('keypress',
         function(e){
           var ENTER_KEY = 13
 
@@ -277,7 +295,7 @@
 
   LiveSearch.prototype.restoreTextInputs = function restoreTextInputs(){
     var that = this;
-    this.$form.find('input[type=text], select').each(function(i, el){
+    this.$form.find('input[type=text], input[type=search], select').each(function(i, el){
       var $el = $(el);
       $el.val(that.getTextInputValue($el.attr('name'), that.state));
     });

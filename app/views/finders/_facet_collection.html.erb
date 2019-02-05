@@ -7,7 +7,7 @@
     value: @results.user_supplied_keywords,
     id: "finder-keyword-search",
     controls: "js-search-results-info"
-  } if finder.show_keyword_search? %>
+  } if finder.show_keyword_search? && !finder.is_business_finder? %>
 
   <div data-module="gem-toggle" data-toggle-class="facet-toggle__content--hidden">
     <a href="#" class="facet-toggle" data-controls="facet-wrapper" data-expanded="false" data-toggled-text="- <%= t("finders.facet_disclosure.fewer", default: "Show fewer search options") %>">

@@ -226,8 +226,8 @@
   }
 
   .search-results-title {
-    border-bottom: 1px solid govuk-colour('black');
-    padding-bottom: govuk-spacing(4);
+    border-top: 1px solid govuk-colour('black');
+    padding-top: govuk-spacing(4);
   }
 
   #live-search-loading-message {
@@ -329,6 +329,25 @@
         padding: 0 0 3px;
         color: $secondary-text-colour;
       }
+    }
+  }
+
+  .business-finder-search {
+    // Overrides search component CSS. TODO: remove this and add options to the component itself.
+    .gem-c-search__input {
+      border-color: black;
+    }
+
+    .gem-c-search__label {
+      @include bold-19;
+      color: black;
+      float: left;
+      margin-bottom: $gutter-one-third;
+    }
+
+    .business-finder-search__clear {
+      float: right;
+      margin-bottom: $gutter-one-third;
     }
   }
 
