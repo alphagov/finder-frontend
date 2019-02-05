@@ -20,7 +20,7 @@ describe EmailAlertTitleBuilder do
 
   context 'when there is one facet' do
     let(:subscription_list_title_prefix) do
-      { 'singular' => 'Prefix: ', 'plural' => 'Prefixes: ' }
+      { 'singular' => 'Prefix:', 'plural' => 'Prefixes:' }
     end
     let(:facets) do
       [
@@ -48,7 +48,7 @@ describe EmailAlertTitleBuilder do
     context 'when no choice is selected' do
       let(:filter) { {} }
 
-      it { is_expected.to eq('Prefixes: ') }
+      it { is_expected.to eq('Prefixes:') }
     end
 
     context 'when one choice is selected' do
@@ -110,7 +110,7 @@ describe EmailAlertTitleBuilder do
     context 'when no choice is selected' do
       let(:filter) { {} }
 
-      it { is_expected.to eq('Prefix: ') }
+      it { is_expected.to eq('Prefix:') }
     end
 
     context 'when one facet is selected' do
