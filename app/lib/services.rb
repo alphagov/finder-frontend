@@ -4,17 +4,11 @@ require 'gds_api/email_alert_api'
 
 module Services
   def self.content_store
-    @content_store ||= GdsApi::ContentStore.new(
-      Plek.find("content-store"),
-      disable_cache: Rails.env.development?
-    )
+    @content_store ||= GdsApi::ContentStore.new(Plek.find("content-store"))
   end
 
   def self.rummager
-    @rummager ||= GdsApi::Rummager.new(
-      Plek.find("search"),
-      disable_cache: Rails.env.development?
-    )
+    @rummager ||= GdsApi::Rummager.new(Plek.find("search"))
   end
 
   def self.email_alert_api
