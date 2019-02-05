@@ -11,7 +11,7 @@ describe('GOVUK.OptionSelect', function() {
       '<div class="options-container">'+
         '<div class="js-auto-height-inner">'+
           '<div class="gem-c-checkbox govuk-checkboxes__item">'+
-            '<input name="market_sector[]" value="aerospace" id="aerospace" type="checkbox" class="govuk-checkboxes__input">'+
+            '<input name="market_sector[]" value="aerospace" id="aerospace" type="checkbox" class="govuk-checkboxes__input" data-track-action="market-sector" data-track-label="aerospace" data-track-value="1">'+
             '<label class="govuk-label govuk-checkboxes__label" for="aerospace">Aerospace</label>'+
           '</div>'+
           '<div class="gem-c-checkbox govuk-checkboxes__item">'+
@@ -355,24 +355,25 @@ describe('GOVUK.OptionSelect', function() {
       }
 
       spyOn(GOVUK.analytics, 'trackEvent');
+
+      $checkbox = $optionSelectHTML.find(":input#aerospace");
     });
 
-    it('fires a Google Analytics event for the change event if the checkbox is checked', function(){
-      $optionSelectHTML.find(":input").trigger("click");
-      expect($optionSelectHTML.find(":input").is(":checked")).toBe(true);
-      expect(GOVUK.analytics.trackEvent).toHaveBeenCalled();
+    it('fires a filterClicked Google Analytics event for the change event if the checkbox is checked', function(){
+      $checkbox.trigger("click");
+      expect($checkbox.is(":checked")).toBe(true);
+      expect(GOVUK.analytics.trackEvent).toHaveBeenCalledWith("filterClicked", "market-sector", { label: "aerospace", value: 1 });
     });
 
-    it('does not fire a Google Analytics event for the change event if the checkbox is unchecked', function(){
-      $optionSelectHTML.find(":input").trigger("click");
-      expect($optionSelectHTML.find(":input").is(":checked")).toBe(true);
-      expect(GOVUK.analytics.trackEvent).toHaveBeenCalled();
+    it('fires a filterRemoved Google Analytics event for the change event if the checkbox is unchecked', function(){
+      $checkbox.trigger("click");
+      expect($checkbox.is(":checked")).toBe(true);
 
       GOVUK.analytics.trackEvent.calls.reset();
 
-      $optionSelectHTML.find(":input").trigger("click");
-      expect($optionSelectHTML.find(":input").is(":checked")).toBe(false);
-      expect(GOVUK.analytics.trackEvent).toHaveBeenCalledTimes(0);
+      $checkbox.trigger("click");
+      expect($checkbox.is(":checked")).toBe(false);
+      expect(GOVUK.analytics.trackEvent).toHaveBeenCalledWith("filterRemoved", "market-sector", { label: "aerospace", value: 1 });
     });
   });
 

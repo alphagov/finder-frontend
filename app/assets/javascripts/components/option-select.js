@@ -83,13 +83,11 @@
 
   OptionSelect.prototype.fireChangedAnalyticsEvent = function fireChangedAnalyticsEvent(event){
     var $targetCheckbox = $(event.target);
-    if($targetCheckbox.is(':checked')){
-        var category = $targetCheckbox.data("track-category");
-        var action = $targetCheckbox.data("track-action");
-        var label = $targetCheckbox.data("track-label");
-        var value = $targetCheckbox.data("track-value");
-        GOVUK.analytics.trackEvent(category, action, { label: label, value: value });
-    }
+    var action = $targetCheckbox.data("track-action");
+    var label = $targetCheckbox.data("track-label");
+    var value = $targetCheckbox.data("track-value");
+    var category = $targetCheckbox.is(':checked') ? "filterClicked" : "filterRemoved";
+    GOVUK.analytics.trackEvent(category, action, { label: label, value: value });
   };
 
   OptionSelect.prototype.checkedString = function checkedString(){
