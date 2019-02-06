@@ -127,7 +127,7 @@ private
       filtered_keywords = remove_brexit_terms # TODO: Scope this to brexit finder only in future
     end
 
-    keywords ? { "q" => keywords } : {}
+    keywords ? { "q" => filtered_keywords } : {}
   end
 
   def remove_brexit_terms
