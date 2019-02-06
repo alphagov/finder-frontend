@@ -60,7 +60,7 @@ private
     EmailAlertSignupAPI.new(
       email_alert_api: Services.email_alert_api,
       attributes: email_signup_attributes,
-      default_attributes: default_filters,
+      default_attributes: { filter: default_filters, reject: default_rejects },
       subscription_list_title_prefix: content['details']['subscription_list_title_prefix'],
       available_choices: signup_presenter.choices,
     )
@@ -84,5 +84,9 @@ private
 
   def default_filters
     content['details'].fetch('filter', {})
+  end
+
+  def default_rejects
+    content['details'].fetch('reject', {})
   end
 end
