@@ -282,7 +282,7 @@
   // Display a predefined answer box when users search for specific keywords
   LiveSearch.prototype.displayAnswerBox = function (state) {
     // Get user's query (string of keywords)
-    var keywords = this.getTextInputValue('keywords', state)
+    var keywords = this.getTextInputValue('keywords', state).toLowerCase()
 
     // Prefedine a list of  keywords
     var predefinedKeywordsForPrototype = ['driving licence', 'drive', 'driving', 'licence']
