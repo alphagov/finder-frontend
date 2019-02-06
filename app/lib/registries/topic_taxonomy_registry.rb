@@ -48,7 +48,7 @@ module Registries
     end
 
     def fetch_taxon(base_path = '/')
-      GdsApi.content_store.content_item base_path
+      Services.cached_content_item(base_path)
     end
   end
 end

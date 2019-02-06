@@ -7,6 +7,12 @@ module Services
     @content_store ||= GdsApi::ContentStore.new(Plek.find("content-store"))
   end
 
+  def self.cached_content_item(base_path)
+    Rails.cache.fetch("finder-frontend_content_items#{base_path}", expires_in: 5.minutes) do
+      content_store.content_item(base_path).to_h
+    end
+  end
+
   def self.rummager
     @rummager ||= GdsApi::Rummager.new(Plek.find("search"))
   end
