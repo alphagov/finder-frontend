@@ -87,12 +87,13 @@ private
                              :slug,
                              :format
                            )
-
       ParamsCleaner
         .new(permitted_params)
         .cleaned
         .delete_if { |_, value| value.blank? }
     end
+
+    @filter_params
   end
 
   def finder_presenter_class
