@@ -127,16 +127,16 @@ private
       filtered_keywords = remove_brexit_terms # TODO: Scope this to brexit finder only in future
     end
 
-    keywords ? { "q" => filtered_keywords } : {}
+    keywords ? { "q" => keywords } : {}
   end
 
   def remove_brexit_terms
     refined_keywords = keywords.downcase
-    refinements = ["brexit", "eu", "exit", "after", "can i", "use", "my", "have", "i"]
+    refinements = [" brexit ", " eu ", " exit ", " after "]
     refinements.each {|refinement| refined_keywords.gsub!(refinement, "")}
 
     # Also make driving licence -> "driving licence"
-    refined_keywords = refined_keywords.gsub("driving licence", "\"driving licence\"")
+    #refined_keywords = refined_keywords.gsub("driving licence", "\"driving licence\"")
 
     refined_keywords.strip
   end
