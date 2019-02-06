@@ -131,7 +131,14 @@ private
   end
 
   def remove_brexit_terms
-    keywords.downcase.gsub("brexit", "").gsub("eu", "").gsub("exit", "").gsub("after", "").strip
+    refined_keywords = keywords.downcase
+    refinements = ["brexit", "eu", "exit", "after", "can i", "use", "my", "have", "i"]
+    refinements.each {|refinement| refined_keywords.gsub!(refinement, "")}
+
+    # Also make driving licence -> "driving licence"
+    refined_keywords = refined_keywords.gsub("driving licence", "\"driving licence\"")
+
+    refined_keywords.strip
   end
 
   def keywords
