@@ -69,6 +69,26 @@ private
     FinderBreadcrumbsPresenter.new(org_info, @content_item)
   end
 
+  def filter_params
+    # TODO Use a whitelist based on the facets in the schema
+    @filter_params ||= begin
+      permitted_params = params
+                           .to_unsafe_hash
+                           .except(
+                             :controller,
+                             :action,
+                             :slug,
+                             :format
+                           )
+      ParamsCleaner
+        .new(permitted_params)
+        .cleaned
+        .delete_if { |_, value| value.blank? }
+    end
+
+    @filter_params
+  end
+
   def finder_presenter_class
     FinderPresenter
   end
