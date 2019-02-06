@@ -205,6 +205,8 @@
     if (keywordsChanged) {
       liveSearch.selectRelevanceSortOption();
     }
+
+    LiveSearch.prototype.displayAnswerBox(this.state)
   };
 
   LiveSearch.prototype.selectDefaultSortOption = function selectDefaultSortOption() {
@@ -273,7 +275,32 @@
       this.$atomAutodiscoveryLink.attr('href', results.atom_url);
       this.$loadingBlock.text('').hide();
     }
+
+    LiveSearch.prototype.displayAnswerBox(this.state)
   };
+
+  // Display a predefined answer box when users search for specific keywords
+  LiveSearch.prototype.displayAnswerBox = function (state) {
+    // Get user's query (string of keywords)
+    var keywords = this.getTextInputValue('keywords', state)
+
+    // Prefedine a list of  keywords
+    var predefinedKeywordsForPrototype = ['driving licence', 'drive', 'driving', 'licence']
+
+    // Look for each predefined keyword to see if any of them are listed in the query
+    var keywordsMatch = false
+    predefinedKeywordsForPrototype.forEach(function (keyword) {
+      if (keywords.indexOf(keyword) >= 0) keywordsMatch = true
+    })
+
+    // If we have matches displat the first answer box
+    if (keywordsMatch) {
+      var element = document.querySelector('.document--answer')
+      if (element) {
+        element.style.display = 'block'
+      }
+    }
+  }
 
   LiveSearch.prototype.restoreBooleans = function restoreBooleans(){
     var that = this;
