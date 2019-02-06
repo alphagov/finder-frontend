@@ -121,6 +121,17 @@ private
 
   def keyword_query
     keywords ? { "q" => keywords } : {}
+
+    # Temporary fix to remove brexit terms from keyword search
+    if keywords
+      filtered_keywords = remove_brexit_terms # TODO: Scope this to brexit finder only in future
+    end
+
+    keywords ? { "q" => filtered_keywords } : {}
+  end
+
+  def remove_brexit_terms
+    keywords.downcase.gsub("brexit", "").gsub("eu", "").gsub("exit", "").gsub("after", "").strip
   end
 
   def keywords

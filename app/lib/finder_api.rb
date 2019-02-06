@@ -4,12 +4,6 @@ class FinderApi
   def initialize(base_path, filter_params)
     @base_path = base_path
     @filter_params = filter_params
-
-    # Temporary fix to remove brexit terms from keyword search
-    if @filter_params && @filter_params["keywords"]
-      @filter_params["keywords"] = remove_brexit_terms(@filter_params) # if brexit finder???
-    end
-
     @order = filter_params['order']
   end
 
@@ -32,14 +26,6 @@ private
     else
       Services.content_store.content_item(base_path)
     end
-  end
-
-  def remove_brexit_terms(filter_params)
-    keywords = filter_params["keywords"].downcase
-
-    filtered_keywords = keywords.gsub("brexit", "").gsub("eu", "").gsub("exit", "").gsub("after", "").strip
-
-    filtered_keywords
   end
 
   def merge_and_deduplicate(search_response)
@@ -87,9 +73,11 @@ private
   end
 
   def fetch_search_response(content_item)
+    new_filter_params = @filter_params
+
     queries = query_builder_class.new(
       finder_content_item: content_item,
-      params: filter_params,
+      params: new_filter_params,
     ).call
 
     queries = queries.map do |query|
