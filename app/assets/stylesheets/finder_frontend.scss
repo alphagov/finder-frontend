@@ -21,6 +21,21 @@
 #finder-frontend {
   margin-bottom: $gutter * 1.5;
 
+  .email-link {
+    margin-bottom: $gutter;
+
+    a {
+      @include bold-19;
+      text-decoration:none;
+      background: image-url('mail-icon.png') 0 40% no-repeat;
+      @include device-pixel-ratio(2.0) {
+        background-image: image-url('mail-icon-retina.png');
+        background-size: $gutter-two-thirds 14px;
+      }
+      padding-left: $gutter;
+    }
+  }
+
   .signup-content p {
     margin: $gutter-half 0;
     @include core-19;
@@ -59,21 +74,6 @@
     .summary {
       margin-bottom: $gutter;
       @include core-19;
-    }
-
-    .email-link {
-      margin-bottom: $gutter;
-
-      a {
-        @include bold-19;
-        text-decoration:none;
-        background: image-url('mail-icon.png') 0 40% no-repeat;
-        @include device-pixel-ratio(2.0) {
-          background-image: image-url('mail-icon-retina.png');
-          background-size: $gutter-two-thirds 14px;
-        }
-        padding-left: $gutter;
-      }
     }
 
     .logo {
@@ -230,6 +230,10 @@
     padding-top: govuk-spacing(4);
   }
 
+  .search-results-title--business {
+    border: 0;
+  }
+
   #live-search-loading-message {
     margin-bottom: govuk-spacing(4);
     display: none;
@@ -329,6 +333,21 @@
         padding: 0 0 3px;
         color: $secondary-text-colour;
       }
+    }
+  }
+
+  .business-finder__results {
+    border-top: 1px solid black;
+    overflow: hidden;
+
+    .search-results-title {
+      border: 0;
+      float: left;
+    }
+
+    .email-link {
+      float: right;
+      padding-top: 20px;
     }
   }
 

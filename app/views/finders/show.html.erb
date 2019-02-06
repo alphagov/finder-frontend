@@ -89,8 +89,13 @@
         <div class='js-live-search-results-block'>
           <div class="filtered-results">
             <span id="js-search-results-info" style="display:none"></span>
-            <div aria-live='assertive' data-module="remove-filter">
+            <div aria-live='assertive' data-module="remove-filter" class="business-finder__results">
               <h1 class="govuk-heading-l search-results-title">Results</h1>
+                <% if finder.email_alert_signup_url && finder.is_business_finder? %>
+                  <p class='email-link'>
+                    <%= link_to "Subscribe to email alerts", finder.email_alert_signup_url %>
+                  </p>
+                <% end %>
             </div>
             <div class="govuk-caption-l" id="live-search-loading-message"></div>
             <% if finder.sort.present? %>
