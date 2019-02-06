@@ -183,14 +183,11 @@ describe("liveSearch", function(){
     it("should update save state and update results when checkbox is changed", function(){
       var promise = jasmine.createSpyObj('promise', ['done']);
       spyOn(liveSearch, 'updateResults').and.returnValue(promise);
-      //spyOn(liveSearch, 'pageTrack').and.returnValue(promise);
       $form.find('input[name="field"]').prop('checked', false);
 
       liveSearch.formChange();
       expect(liveSearch.state).toEqual([{name: 'published_at', value: '2004'}]);
       expect(liveSearch.updateResults).toHaveBeenCalled();
-      promise.done.calls.mostRecent().args[0]();
-      //expect(liveSearch.pageTrack).toHaveBeenCalled();
     });
 
     it("should trigger analytics trackpage when checkbox is changed", function(){
