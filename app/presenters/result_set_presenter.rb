@@ -66,7 +66,11 @@ class ResultSetPresenter
     }
     other_facets = {}
 
-    sorted_documents = documents.sort { |x, y| x[:document][:title] <=> y[:document][:title] }
+    sorted_documents = documents
+
+    unless keywords.present?
+      sorted_documents = documents.sort { |x, y| x[:document][:title] <=> y[:document][:title] }
+    end
     sorted_documents = sorted_documents.sort { |x, y| (x[:document][:promoted] ? -1 : (y[:document][:promoted] ? 1 : 0)) }
     sorted_documents.each do | doc |
 
