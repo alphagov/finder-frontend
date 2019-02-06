@@ -37,7 +37,8 @@ class ResultSetPresenter
   end
 
   def grouped_display?
-    @filter_params[:order] == "topic" || !@filter_params.has_key?(:order)
+    sorts_by_topic = sort_option.present? && sort_option["key"] == "topic"
+    @filter_params[:order] == "topic" || (!@filter_params.has_key?(:order) && sorts_by_topic)
   end
 
   def any_filters_applied?
@@ -167,14 +168,6 @@ class ResultSetPresenter
   end
 
   def sort_options
-    return if finder.sort.blank?
-
-    sort_option = if @filter_params['order']
-                    finder.sort.detect { |option| option['name'].parameterize == @filter_params['order'] }
-                  end
-
-    sort_option ||= finder.default_sort_option
-
     "<span class='visually-hidden'>sorted by <strong>" + sort_option['name'] + "</strong></span>" if sort_option.present?
   end
 
@@ -206,5 +199,19 @@ private
 
   def selected_filters
     (filters + [KeywordFacet.new(keywords)]).select(&:has_filters?)
+  end
+
+  def sort_option
+    return if finder.sort.blank?
+
+    if @filter_params['order']
+      sort_option = finder.sort.detect { |option|
+        option['name'].parameterize == @filter_params['order']
+      }
+    end
+
+    sort_option ||= finder.default_sort_option
+
+    sort_option
   end
 end
