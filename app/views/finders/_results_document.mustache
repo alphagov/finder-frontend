@@ -10,6 +10,9 @@
   {{#document.summary}}
     <p>{{document.summary}}</p>
   {{/document.summary}}
+  {{#document.description_with_highlighting}}
+    <p>{{{document.description_with_highlighting}}}</p>
+  {{/document.description_with_highlighting}}
   <dl>
     {{#document.xmetadata}}
       {{#is_text}}

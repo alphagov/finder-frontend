@@ -61,7 +61,7 @@ private
     %w(
       title
       link
-      description
+      description_with_highlighting
       public_timestamp
       popularity
     )

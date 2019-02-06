@@ -2,6 +2,7 @@ class SearchResultPresenter
   delegate :title,
            :summary,
            :is_historic,
+           :description_with_highlighting,
            :promoted,
            :government_name,
            to: :search_result
@@ -19,6 +20,7 @@ class SearchResultPresenter
       government_name: government_name,
       metadata: metadata,
       promoted: promoted,
+      description_with_highlighting: description_with_highlighting
     }
   end
 
