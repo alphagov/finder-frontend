@@ -32,7 +32,7 @@ class ResultSetPresenter
       atom_url: atom_url,
       next_and_prev_links: next_and_prev_links,
       sort_options: sort_options,
-      display_as_topics: grouped_display?,
+      display_grouped_results: grouped_display?,
     }
   end
 

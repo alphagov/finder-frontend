@@ -6,18 +6,18 @@
 {{/atom_url}}
 
 <ul data-module="track-click">
-  
-  {{#display_as_topics }}
-    {{#documents_by_facets}}
-      {{> finders/_results_by_topic }}
-    {{/documents_by_facets}}
-  {{/display_as_topics}}
 
-  {{^display_as_topics}}
+  {{#display_grouped_results }}
+    {{#documents_by_facets}}
+      {{> finders/_grouped_results }}
+    {{/documents_by_facets}}
+  {{/display_grouped_results}}
+
+  {{^display_grouped_results}}
     {{#documents}}
       {{> finders/_results_document }}
     {{/documents}}
-  {{/display_as_topics}}
+  {{/display_grouped_results}}
 
 </ul>
 
