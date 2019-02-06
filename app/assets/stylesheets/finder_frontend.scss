@@ -334,6 +334,25 @@
         color: $secondary-text-colour;
       }
     }
+
+
+    .document--answer {
+      display: none;
+    }
+
+    .document__box {
+      border: 1px solid $border-colour;
+      padding: $gutter-half;
+      margin: $gutter-half auto;
+
+      .document__title {
+        margin-bottom: $gutter-half;
+      }
+
+      p {
+        margin-bottom: $gutter-half;
+      }
+    }
   }
 
   .business-finder__results {
@@ -348,6 +367,10 @@
     .email-link {
       float: right;
       padding-top: 20px;
+
+      span {
+        margin-right: 5px;
+      }
     }
   }
 
