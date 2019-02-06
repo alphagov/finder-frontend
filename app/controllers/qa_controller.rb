@@ -23,9 +23,7 @@ private
   def raw_finder
     # FIXME: stop caching this once the app has migrated to AWS
     @raw_finder ||= begin
-      item_hash = Rails.cache.fetch("QaController/#{slug}", expires_in: 5.minutes) do
-        Services.content_store.content_item(slug).to_hash
-      end
+      item_hash = Services.cached_content_item(slug)
 
       item_hash.with_indifferent_access
     end
