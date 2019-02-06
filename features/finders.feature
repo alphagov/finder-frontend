@@ -156,3 +156,10 @@ Feature: Filtering documents
     Given a collection of documents exist that can be filtered by checkbox
     When I use a checkbox filter and another disallowed filter
     Then I can sign up to email alerts for allowed filters
+
+  @javascript
+  Scenario: Filter documents by keywords and sort by most relevant
+    When I view the news and communications finder
+    And I fill in some keywords
+    Then I see most relevant order selected
+
