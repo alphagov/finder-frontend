@@ -374,6 +374,11 @@
     }
   }
 
+  #business-no-results {
+    list-style-type: initial;
+    padding-left: 30px;
+  }
+
   .business-finder-search {
     // Overrides search component CSS. TODO: remove this and add options to the component itself.
     .gem-c-search__input {
