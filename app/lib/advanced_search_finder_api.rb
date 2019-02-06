@@ -14,7 +14,7 @@ class AdvancedSearchFinderApi < FinderApi
   end
 
   def taxon
-    @taxon ||= Services.content_store.content_item(filter_params[TAXON_SEARCH_FILTER])
+    @taxon ||= Services.cached_content_item(filter_params[TAXON_SEARCH_FILTER])
   rescue GdsApi::HTTPNotFound
     raise_on_missing_taxon_at_path
   end
