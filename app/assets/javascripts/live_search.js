@@ -125,10 +125,10 @@
           var newPath = window.location.pathname + "?" + $.param(this.state);
           history.pushState(this.state, '', newPath);
           this.trackingInit();
+          this.trackPageView();
         }.bind(this)
       )
     }
-    this.trackPageView();
   };
 
   LiveSearch.prototype.trackingInit = function() {
