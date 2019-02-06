@@ -11,17 +11,19 @@
     <p>{{document.summary}}</p>
   {{/document.summary}}
   <dl>
-    {{#document.metadata}}
-      {{#is_text}}
-        <dt class='metadata-text-label'>{{label}}:</dt>
-        <dd class='metadata-text-value'>{{value}}</dd>
-      {{/is_text}}
+    {{#document.show_metadata}}
+      {{#document.metadata}}
+        {{#is_text}}
+          <dt class='metadata-text-label'>{{label}}:</dt>
+          <dd class='metadata-text-value'>{{value}}</dd>
+        {{/is_text}}
 
-      {{#is_date}}
-        <dt class='metadata-date-label'>{{label}}:</dt>
-        <dd class='metadata-date-value'><time datetime='{{machine_date}}'>{{human_date}}</time></dd>
-      {{/is_date}}
-    {{/document.metadata}}
+        {{#is_date}}
+          <dt class='metadata-date-label'>{{label}}:</dt>
+          <dd class='metadata-date-value'><time datetime='{{machine_date}}'>{{human_date}}</time></dd>
+        {{/is_date}}
+      {{/document.metadata}}
+    {{/document.show_metadata}}
   </dl>
   {{#document.is_historic}}
     <p class="historic">First published during the {{document.government_name}}</p>

@@ -13,6 +13,7 @@ RSpec.describe SearchResultPresenter do
       is_historic: false,
       government_name: 'The Government!',
       promoted: false,
+      show_metadata: false,
     )
   }
 
