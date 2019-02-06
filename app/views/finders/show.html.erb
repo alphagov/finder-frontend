@@ -37,7 +37,7 @@
       </div>
     <% end %>
 
-    <% if finder.email_alert_signup_url %>
+    <% if finder.email_alert_signup_url && !finder.is_business_finder? %>
       <p class='email-link'>
         <%= link_to "Subscribe to email alerts", finder.email_alert_signup_url %>
       </p>
@@ -93,7 +93,8 @@
               <h1 class="govuk-heading-l search-results-title">Results</h1>
                 <% if finder.email_alert_signup_url && finder.is_business_finder? %>
                   <p class='email-link'>
-                    <%= link_to "Subscribe to email alerts", finder.email_alert_signup_url %>
+                    <span>Get updates to this list</span>
+                    <%= link_to "email", finder.email_alert_signup_url %>
                   </p>
                 <% end %>
             </div>
