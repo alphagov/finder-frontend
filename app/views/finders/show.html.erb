@@ -86,7 +86,7 @@
           </div>
         <% end %>
 
-        <div class='js-live-search-results-block js-hidden'>
+        <div class='js-live-search-results-block <%= "js-hidden" if @results.to_hash[:total].eql?("0") %>'>
           <div class="filtered-results">
             <span id="js-search-results-info" style="display:none"></span>
             <div aria-live='assertive' data-module="remove-filter" class="business-finder__results js-results-header">
