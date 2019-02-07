@@ -41,6 +41,14 @@ class ResultSetPresenter
     @filter_params[:order] == "topic" || (!@filter_params.has_key?(:order) && sorts_by_topic)
   end
 
+  def sort_option_label_text
+    if grouped_display?
+      "Sort <strong id='result-count'>#{total} #{document_noun.pluralize(total)}</strong> by".html_safe
+    else
+      "Sort by"
+    end
+  end
+
   def any_filters_applied?
     selected_filters.length.positive? || keywords.present?
   end
