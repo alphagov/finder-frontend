@@ -151,15 +151,10 @@ private
     SearchQueryBuilder
   end
 
-  FINDERS_IN_DEVELOPMENT = {
-    "/guidance-and-regulation" => "guidance_and_regulation",
-    "/statistics" => "statistics",
-    "/services" => "services",
-    "/transparency-and-freedom-of-information-releases" => "transparency_and_freedom_of_information_releases",
-    "/all-content" => "all_content",
-    "/policy-papers-and-consultations" => 'policy_and_engagement',
-    "/news-and-communications/email-signup" => 'news_and_communications_signup_content_item',
-  }.freeze
+  # Add a finder with the base path as a key and the finder name
+  # without filetype as the value; example:
+  # "/guidance-and-regulation" => "guidance_and_regulation"
+  FINDERS_IN_DEVELOPMENT = {}.freeze
 
   def development_env_finder_json
     return development_json if is_development_json?
@@ -168,7 +163,6 @@ private
   end
 
   def development_json
-    # Hard coding this in during development
     "features/fixtures/#{FINDERS_IN_DEVELOPMENT[base_path]}.json"
   end
 
