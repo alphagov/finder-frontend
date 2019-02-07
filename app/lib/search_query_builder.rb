@@ -143,7 +143,7 @@ private
       themselves then there theres these they theyd theyll theyre theyve this those through
       to too under until up very was wasnt we wed well were weve were werent what
       whats when whens where wheres which while who whos whom why whys with wont would
-      wouldnt you youd youll youre youve your yours yourself yourselves brexit eu exit after can i use)
+      wouldnt you youd youll youre youve your yours yourself yourselves brexit eu exit uk after can i use)
 
     removed_punctuation = keywords.gsub(/[^a-z0-9\s]/i, '')
     filtered_keywords = ""
