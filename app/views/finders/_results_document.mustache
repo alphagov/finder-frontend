@@ -11,7 +11,7 @@
     <p>{{document.summary}}</p>
   {{/document.summary}}
   {{#document.description_with_highlighting}}
-    <p class="description">{{{document.description_with_highlighting}}}</p>
+    <p {{^document.promoted}}class="description"{{/document.promoted}}>{{{document.description_with_highlighting}}}</p>
   {{/document.description_with_highlighting}}
   <dl>
     {{#document.xmetadata}}
