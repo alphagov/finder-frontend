@@ -31,6 +31,8 @@
     if(GOVUK.support.history()){
       this.saveState();
 
+      this.hideDescriptionWhenKeywordsNotPresent();
+
       this.$form.find('input[type=checkbox], input[type=text], input[type=search], input[type=radio], select').on('change',
         function(e) {
           if (e.target.type == "text") {
@@ -74,6 +76,14 @@
       $(window).on('popstate', this.popState.bind(this));
     } else {
       this.$form.find('.js-live-search-fallback').show();
+    }
+  };
+
+  LiveSearch.prototype.hideDescriptionWhenKeywordsNotPresent = function hideDescriptionWhenKeywordsNotPresent() {
+    var keywords = this.getTextInputValue('keywords', this.state);
+
+    if(keywords == "") {
+      $(".description").addClass("js-hidden");
     }
   };
 
@@ -127,6 +137,7 @@
           history.pushState(this.state, '', newPath);
           this.trackingInit();
           this.trackPageView();
+          this.hideDescriptionWhenKeywordsNotPresent();
         }.bind(this)
       )
     }
