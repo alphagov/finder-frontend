@@ -91,11 +91,18 @@
             <span id="js-search-results-info" style="display:none"></span>
             <div aria-live='assertive' data-module="remove-filter" class="business-finder__results">
               <h1 class="govuk-heading-l search-results-title">Results</h1>
-                <% if finder.email_alert_signup_url && finder.is_business_finder? %>
-                  <p class='email-link'>
+                <% if finder.email_alert_signup_url && finder.atom_url && finder.is_business_finder? %>
+                  <div class='subscription-link-container'>
                     <span>Get updates to this list</span>
-                    <%= link_to "email", finder.email_alert_signup_url %>
-                  </p>
+                    <div class="subscription-links">
+                      <%= render "govuk_publishing_components/components/subscription-links", {
+                        email_signup_link: finder.email_alert_signup_url,
+                        email_signup_link_text: "email",
+                        feed_link: finder.atom_url,
+                        feed_link_text: "feed"
+                      } %>
+                    </div>
+                  </div>
                 <% end %>
             </div>
             <div class="govuk-caption-l" id="live-search-loading-message"></div>

@@ -364,12 +364,16 @@
       float: left;
     }
 
-    .email-link {
+    .subscription-link-container {
       float: right;
       padding-top: 20px;
 
       span {
         margin-right: 5px;
+      }
+
+      .subscription-links {
+        display: block;
       }
     }
   }
