@@ -1,6 +1,6 @@
 class SelectFacet < FilterableFacet
   def allowed_values
-    facet['allowed_values']
+    facet['allowed_values'] || []
   end
 
   def options(controls, key)
