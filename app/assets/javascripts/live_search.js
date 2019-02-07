@@ -300,20 +300,39 @@
     // Get user's query (string of keywords)
     var keywords = this.getTextInputValue('keywords', state).toLowerCase()
 
-    // Prefedine a list of  keywords
-    var predefinedKeywordsForPrototype = ['driving licence', 'drive', 'driving', 'licence']
+    // Prefedine a list of keywords grouped by topics
+    var predefinedKeywordsForPrototype = {
+      'drive': ['driving licence', 'drive', 'driving', 'licence'],
+      'work': ['workers', 'work', 'employing', 'citizens', 'nationals']
+    }
 
-    // Look for each predefined keyword to see if any of them are listed in the query
-    var keywordsMatch = false
-    predefinedKeywordsForPrototype.forEach(function (keyword) {
-      if (keywords.indexOf(keyword) >= 0) keywordsMatch = true
-    })
+    // Look for each predefined topic then each keyword to and store associated topics
+    var topicsMatched = []
+    for (var topic in predefinedKeywordsForPrototype) {
+      var keywordsByTopic = predefinedKeywordsForPrototype[topic]
+      keywordsByTopic.forEach(function (keyword) {
+        if (keywords.indexOf(keyword) >= 0) topicsMatched.push(topic)
+      })
+    }
 
-    // If we have matches displat the first answer box
-    if (keywordsMatch) {
-      var element = document.querySelector('.document--answer')
-      if (element) {
-        element.style.display = 'block'
+    // If we have matches display answer boxes in the first group
+    if (topicsMatched.length) {
+      var firstResultList = document.querySelector('.filtered-results__group')
+
+      // If not grouped, pick the main list
+      if (!firstResultList) {
+        firstResultList = document.querySelector('.filtered-results.results-info ul')
+      }
+
+      if (firstResultList) {
+        topicsMatched.forEach(function (topic) {
+          var elements = firstResultList.querySelectorAll('li[data-topic="' + topic + '"]')
+          if (elements.length) {
+            elements.forEach(function (e) {
+              e.style.display = 'block'
+            })
+          }
+        })
       }
     }
   }
