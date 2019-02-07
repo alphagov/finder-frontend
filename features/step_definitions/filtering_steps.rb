@@ -107,7 +107,7 @@ When(/^I search documents by keyword$/) do
 end
 
 Then(/^I see all documents which contain the keywords$/) do
-  within ".filtered-results:nth-child(1)" do
+  within ".filtered-results" do
     expect(page).to have_css("a", text: @keyword_search)
   end
 end
@@ -393,7 +393,7 @@ Then(/^I see the most viewed articles first$/) do
   end
 
   expect(page).to have_css("a[data-track-category='navFinderLinkClicked']")
-  expect(page).to have_content('sorted by Most viewed')
+  expect(page).to have_css("#order", text: "Most viewed")
 end
 
 Then(/^I see services in alphabetical order$/) do
@@ -406,7 +406,7 @@ Then(/^I see services in alphabetical order$/) do
   end
 
   expect(page).to have_css("a[data-track-category='navFinderLinkClicked']")
-  expect(page).to have_content('sorted by A-Z')
+  expect(page).to have_css("#order", text: "A-Z")
 end
 
 Then(/^I see most relevant order selected$/) do
