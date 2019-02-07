@@ -26,10 +26,7 @@ private
   attr_reader :fragment, :filter_params, :base_url
 
   def remove_filter_link(value)
-    filtered_params = filter_parameters(value)
-
     {
-      href: "#{base_url}?#{Rack::Utils.build_nested_query(filtered_params)}",
       data: {
         facet: value['parameter_key'],
         name: value['name'],

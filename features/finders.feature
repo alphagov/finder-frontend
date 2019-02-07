@@ -132,7 +132,7 @@ Feature: Filtering documents
   Scenario Outline: Removing checkbox filter
     When I view the news and communications finder
     And I click button <filter> and select facet <facet>
-    And I click the <facet> remove link
+    And I click the <facet> remove control
     Then The <checkbox_element> checkbox in deselected
     Examples:
       | facet              | filter           | checkbox_element                |
@@ -144,7 +144,7 @@ Feature: Filtering documents
   Scenario: Removing keyword filter
     When I view the news and communications finder
     And I fill in some keywords
-    And I click the Keyword1 remove link
+    And I click the Keyword1 remove control
     Then The keyword textbox is empty
 
   Scenario: Subscribing to email alerts

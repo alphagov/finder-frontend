@@ -356,10 +356,10 @@ end
 
 And(/^I see the facet tag$/) do
   within '.facet-tags' do
-    expect(page).to have_link("✕")
+    expect(page).to have_button("✕")
     expect(page).to have_content("Open")
-    expect(page).to have_css("a[data-module='remove-filter-link']")
-    expect(page).to have_css("a[aria-label='Remove filter Open']")
+    expect(page).to have_css("[data-module='remove-filter-link']")
+    expect(page).to have_css("[aria-label='Remove filter Open']")
   end
 end
 
@@ -377,8 +377,9 @@ And(/^I click button \"([^\"]*)\" and select facet (.*)$/) do |button, facet|
   find('label', text: facet).click
 end
 
-And(/^I click the (.*) remove link$/) do |filter|
-  find("p", text: filter).sibling('a').click
+And(/^I click the (.*) remove control$/) do |filter|
+  find("p", text: filter).sibling('button').click
+  expect(page).to_not have_selector(:css, "[aria-label='Remove filter #{filter}']")
 end
 
 Then(/^The (.*) checkbox in deselected$/) do |checkbox|

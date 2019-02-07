@@ -4,14 +4,13 @@
     <p class="facet-tags__preposition">{{{preposition}}}</p>
     <div class="facet-tag">
       <p class="facet-tag__text">{{{text}}}</p>
-      <a href="{{link.href}}"
+      <button type="button"
         class="facet-tag__remove"
-        role="button"
         aria-label="Remove filter {{{text}}}"
         data-module="remove-filter-link"
         data-facet="{{{link.data.facet}}}"
         data-value="{{{link.data.value}}}"
-        data-name="{{{link.data.name}}}">&#x2715;</a>
+        data-name="{{{link.data.name}}}">&#x2715;</button>
     </div>
   </div>
   {{/.}}
