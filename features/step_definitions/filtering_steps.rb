@@ -107,7 +107,7 @@ When(/^I search documents by keyword$/) do
 end
 
 Then(/^I see all documents which contain the keywords$/) do
-  within ".filtered-results" do
+  within ".filtered-results:nth-child(1)" do
     expect(page).to have_css("a", text: @keyword_search)
   end
 end

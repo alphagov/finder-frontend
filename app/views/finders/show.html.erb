@@ -93,6 +93,19 @@
             </div>
           <% end %>
         </div>
+
+        <div class="govuk-caption-l" id="live-search-loading-message"></div>
+        <% if finder.sort %>
+          <div class="govuk-form-group">
+            <%= label_tag 'order', "Sort <strong id='result-count'>#{@results.to_hash[:total]} #{@results.to_hash[:pluralised_document_noun]}</strong> by".html_safe, class: 'govuk-label' %>
+            <%= select_tag 'order', finder.sort_options,
+              class: 'govuk-select js-order-results',
+              'aria-controls': 'js-search-results-info',
+              data: { 'default-sort-option' => finder.default_sort_option_value,
+                      'relevance-sort-option' => finder.relevance_sort_option_value,
+                      'module' => 'track-select-change'} %>
+          </div>
+        <% end %>
       </div>
     </div>
   </form>
