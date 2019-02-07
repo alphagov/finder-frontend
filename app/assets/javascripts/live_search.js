@@ -277,10 +277,21 @@
       this.$resultsCount.text(results.total + " " + results.pluralised_document_noun);
       this.$atomAutodiscoveryLink.attr('href', results.atom_url);
       this.$loadingBlock.text('').hide();
+
+      if (results.total == 0) {
+        this.hideResultsHeader();
+      } else {
+        $('.js-results-header').removeClass('js-hidden');
+      }
     }
 
     LiveSearch.prototype.displayAnswerBox(this.state)
   };
+
+  // When we get 0 results back, we want to hide the results header as we show a '0 results' message instead
+  LiveSearch.prototype.hideResultsHeader = function () {
+    $('.js-results-header').addClass('js-hidden');
+  }
 
   // Display a predefined answer box when users search for specific keywords
   LiveSearch.prototype.displayAnswerBox = function (state) {

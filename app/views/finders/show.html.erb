@@ -89,7 +89,7 @@
         <div class='js-live-search-results-block'>
           <div class="filtered-results">
             <span id="js-search-results-info" style="display:none"></span>
-            <div aria-live='assertive' data-module="remove-filter" class="business-finder__results">
+            <div aria-live='assertive' data-module="remove-filter" class="business-finder__results js-results-header">
               <h1 class="govuk-heading-l search-results-title">Results</h1>
                 <% if finder.email_alert_signup_url && finder.atom_url && finder.is_business_finder? %>
                   <div class='subscription-link-container'>
@@ -107,7 +107,7 @@
             </div>
             <div class="govuk-caption-l" id="live-search-loading-message"></div>
             <% if finder.sort.present? %>
-              <div class="govuk-form-group">
+              <div class="govuk-form-group js-results-header">
                 <%= label_tag 'order', "Sort <strong id='result-count'>#{@results.to_hash[:total]} #{@results.to_hash[:pluralised_document_noun]}</strong> by".html_safe, class: 'govuk-label' %>
                 <%= select_tag 'order', finder.sort_options,
                   class: 'govuk-select js-order-results',
