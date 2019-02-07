@@ -11,6 +11,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
 
     function toggleFilter(e) {
       e.preventDefault();
+      e.stopPropagation();
 
       var removeFilterName = $(this).data('name');
       var removeFilterValue = $(this).data('value');
