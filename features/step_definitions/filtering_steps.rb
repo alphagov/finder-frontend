@@ -367,11 +367,11 @@ Then(/^I can sort by:$/) do |table|
 end
 
 When(/^I sort by most viewed$/) do
-  select 'Most viewed', from: 'Sort by'
+  select 'Most viewed', from: 'order'
 end
 
 When(/^I sort by A-Z$/) do
-  select 'A-Z', from: 'Sort by'
+  select 'A-Z', from: 'order'
 end
 
 When(/^I sort by most relevant$/) do
