@@ -315,7 +315,7 @@
 
     // Prefedine a list of keywords grouped by topics
     var predefinedKeywordsForPrototype = {
-      'drive': ['driving licence', 'drive', 'driving', 'licence'],
+      'drive': ['driving licence', 'drive', 'driving', 'licence', 'travel', 'traveling'],
       'work': ['workers', 'work', 'employing', 'citizens', 'nationals']
     }
 
