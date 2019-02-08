@@ -378,11 +378,23 @@ And(/^I click button \"([^\"]*)\" and select facet (.*)$/) do |button, facet|
 end
 
 And(/^I click the (.*) remove control$/) do |filter|
+  #expect(page).to have_css(".js-enabled")
+  page.execute_script("removeFilter = new GOVUK.Modules.RemoveFilter(); removeFilter.start();")
   find("p", text: filter).sibling('button').click
-  expect(page).to_not have_selector(:css, "[aria-label='Remove filter #{filter}']")
+
+  page.execute_script("$('[aria-label=\"Remove filter #{filter}\"]').click();")
+
+  check = page.evaluate_script("$('.facet-tags').html()")
+  #check = page.evaluate_script("$('body').attr('class')")
+  puts(check)
 end
 
 Then(/^The (.*) checkbox in deselected$/) do |checkbox|
+  #check = page.evaluate_script("$('##{checkbox}').parent().html();")
+  #puts(check)
+  #check = page.evaluate_script("document.getElementById('#{checkbox}').checked;")
+  #puts(check)
+
   expect(page.find("##{checkbox}", visible: :all)).to_not be_checked
 end
 
