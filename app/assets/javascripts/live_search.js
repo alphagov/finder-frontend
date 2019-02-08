@@ -290,15 +290,17 @@
       this.$atomAutodiscoveryLink.attr('href', results.atom_url);
       this.$loadingBlock.text('').hide();
 
-      this.hideResultsHeader();
+      this.hideResultsHeader(results);
     }
 
     LiveSearch.prototype.displayAnswerBox(this.state)
   };
 
   // When we get 0 results back, we want to hide the results header as we show a '0 results' message instead
-  LiveSearch.prototype.hideResultsHeader = function () {
-    if ($('#business-results').children().length == 0) {
+  LiveSearch.prototype.hideResultsHeader = function (results) {
+    console.log(results);
+    console.log("~~~~~")
+    if (results.total == "0") {
       $('.js-results-header').addClass('js-hidden');
     } else {
       $('.js-results-header').removeClass('js-hidden');
