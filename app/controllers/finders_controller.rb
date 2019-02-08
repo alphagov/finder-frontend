@@ -28,7 +28,7 @@ class FindersController < ApplicationController
           render 'finders/show-redirect'
         elsif finder.atom_feed_enabled?
           expires_in(ATOM_FEED_MAX_AGE, public: true)
-          @feed = AtomPresenter.new(finder)
+          @feed = AtomPresenter.new(finder, results)
         else
           render plain: 'Not found', status: :not_found
         end
@@ -41,7 +41,7 @@ class FindersController < ApplicationController
 private
 
   def results
-    result_set_presenter_class.new(finder, filter_params, view_context)
+    @results ||= result_set_presenter_class.new(finder, filter_params, view_context)
   end
 
   def finder
