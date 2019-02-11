@@ -9,9 +9,72 @@ describe EmailAlertSignupAPI do
     described_class.new(
       email_alert_api: Services.email_alert_api,
       attributes: attributes,
+      default_attributes: default_attributes,
       available_choices: available_choices,
       subscription_list_title_prefix: subscription_list_title_prefix,
     )
+  end
+
+  let(:default_attributes) do
+    { filter: {}, reject: {} }
+  end
+
+  describe "default_attributes" do
+    context "no default_attributes or attributes" do
+      describe "#signup_url" do
+        let(:subscription_url) { "http://gov.uk/email/news-and-comms-subscription" }
+        let(:attributes) { {} }
+        let(:available_choices) { {} }
+        let(:subscription_list_title_prefix) { "News and communications" }
+
+        it "returns the url email-alert-api gives back" do
+          email_alert_api_has_subscriber_list(
+            "tags" => {},
+            "subscription_url" => subscription_url
+          )
+
+          expect(Services.email_alert_api).to receive(:find_or_create_subscriber_list).with(
+            "tags" => {},
+            "title" => "News and communications",
+          ).and_call_original
+
+          expect(subject.signup_url).to eql subscription_url
+        end
+      end
+    end
+
+    context "default attributes provided" do
+      describe "#signup_url" do
+        let(:subscription_url) { "http://gov.uk/email" }
+        let(:attributes) { {} }
+        let(:available_choices) { {} }
+        let(:subscription_list_title_prefix) { "News and communications" }
+        let(:default_attributes) do
+          {
+            filter: { "content_purpose_supergroup" => 'news_and_communications' },
+            reject: { "content_purpose_supergroup" => 'other' }
+          }
+        end
+
+        it "will send email_alert_api the default attributes" do
+          email_alert_api_has_subscriber_list(
+            "tags" => {},
+            "subscription_url" => subscription_url,
+            "content_purpose_supergroup" => "news_and_communications",
+            "reject_content_purpose_supergroup" => "other",
+          )
+
+          expect(Services.email_alert_api).to receive(:find_or_create_subscriber_list).with(
+            "tags" => {},
+            "title" => "News and communications",
+            "content_purpose_supergroup" => "news_and_communications",
+            "reject_content_purpose_supergroup" => "other",
+          ).and_call_original
+
+          expect(subject.signup_url).to eql subscription_url
+        end
+      end
+    end
   end
 
   context "with a single facet finder" do

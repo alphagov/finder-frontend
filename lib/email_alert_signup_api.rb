@@ -7,7 +7,7 @@ class EmailAlertSignupAPI
     @attributes = dependencies.fetch(:attributes)
     @subscription_list_title_prefix = dependencies.fetch(:subscription_list_title_prefix)
     @available_choices = dependencies.fetch(:available_choices)
-    @default_attributes = dependencies.fetch(:default_attributes, {})
+    @default_attributes = dependencies.fetch(:default_attributes, filter: {}, reject: {})
   end
 
   def signup_url
@@ -34,6 +34,7 @@ private
     }
 
     options["content_purpose_supergroup"] = content_purpose_supergroup if content_purpose_supergroup.present?
+    options["reject_content_purpose_supergroup"] = reject_content_purpose_supergroup if reject_content_purpose_supergroup.present?
     options
   end
 
@@ -46,7 +47,11 @@ private
   end
 
   def content_purpose_supergroup
-    massaged_attributes['content_purpose_supergroup'] || default_attributes['content_purpose_supergroup']
+    massaged_attributes['content_purpose_supergroup'] || default_attributes[:filter]['content_purpose_supergroup']
+  end
+
+  def reject_content_purpose_supergroup
+    massaged_attributes['reject_content_purpose_supergroup'] || default_attributes[:reject]['content_purpose_supergroup']
   end
 
   def tags
