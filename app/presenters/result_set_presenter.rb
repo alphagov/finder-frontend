@@ -128,24 +128,6 @@ class ResultSetPresenter
     metadata.select { |m| filters.key?(m[:id]) }
   end
 
-  def empty_facet_group(key, name)
-    { facet_key: key, facet_name: name, documents: [] }
-  end
-
-  def facet_label_for(key)
-    allowed_values = finder.facets.map(&:allowed_values).flatten
-    facet = allowed_values.find { |v| v["value"] == key }
-    facet["label"] if facet
-  end
-
-  def sort_by_promoted(results)
-    results.sort do |x, y|
-      return -1 if x.promoted
-
-      y.promoted ? 1 : 0
-    end
-  end
-
   def documents
     sorted_results = sort_by_promoted(results)
     sorted_results.each_with_index.map do |result, index|
@@ -221,5 +203,23 @@ private
 
     values = facet.allowed_values.map { |v| v['value'] }
     values & facet_metadata[:labels] == values
+  end
+
+  def empty_facet_group(key, name)
+    { facet_key: key, facet_name: name, documents: [] }
+  end
+
+  def facet_label_for(key)
+    allowed_values = finder.facets.map(&:allowed_values).flatten
+    facet = allowed_values.find { |v| v["value"] == key }
+    facet["label"] if facet
+  end
+
+  def sort_by_promoted(results)
+    results.sort do |x, y|
+      return -1 if x.promoted
+
+      y.promoted ? 1 : 0
+    end
   end
 end
