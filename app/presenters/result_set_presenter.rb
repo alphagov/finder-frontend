@@ -160,7 +160,6 @@ class ResultSetPresenter
   def documents
     sorted_results = sort_by_promoted(results)
     sorted_results.each_with_index.map do |result, index|
-      binding.pry
       {
         document: SearchResultPresenter.new(result).to_hash,
         document_index: index + 1
