@@ -151,7 +151,7 @@ module DocumentHelper
   end
 
   def content_store_has_news_and_communications_finder
-    finder_fixture = File.read(Rails.root.join('features', 'fixtures', 'news_and_communications.json'))
+    finder_fixture = File.read(Rails.root.join('features', 'fixtures', 'news_and_communications_with_checkboxes.json'))
 
     content_store_has_item('/news-and-communications', finder_fixture)
   end
