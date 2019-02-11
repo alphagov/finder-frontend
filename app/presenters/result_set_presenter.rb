@@ -85,7 +85,7 @@ class ResultSetPresenter
     primary_facet = :sector_business_area
     primary_facet_group = %W(sector_business_area business_activity)
 
-    facet_filters = @filter_params.without(:order, :keywords)
+    facet_filters = @filter_params.without("order", "keywords")
 
     documents.select! { |d| d[:document][:metadata].present? }
     sorted_documents = documents.sort { |x, y| x[:document][:title] <=> y[:document][:title] }
@@ -160,6 +160,7 @@ class ResultSetPresenter
   def documents
     sorted_results = sort_by_promoted(results)
     sorted_results.each_with_index.map do |result, index|
+      binding.pry
       {
         document: SearchResultPresenter.new(result).to_hash,
         document_index: index + 1
