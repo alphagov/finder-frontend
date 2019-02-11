@@ -377,24 +377,16 @@ And(/^I click button \"([^\"]*)\" and select facet (.*)$/) do |button, facet|
   find('label', text: facet).click
 end
 
-And(/^I click the (.*) remove control$/) do |filter|
-  #expect(page).to have_css(".js-enabled")
-  page.execute_script("removeFilter = new GOVUK.Modules.RemoveFilter(); removeFilter.start();")
-  find("p", text: filter).sibling('button').click
+When(/^I click the (.*) remove control$/) do |filter|
+  expect(page).to have_css(".js-enabled")
 
-  page.execute_script("$('[aria-label=\"Remove filter #{filter}\"]').click();")
+  button = page.find("p[class='facet-tag__text']", text: filter).sibling("button[data-module='remove-filter-link']")
+  button.click
 
-  check = page.evaluate_script("$('.facet-tags').html()")
-  #check = page.evaluate_script("$('body').attr('class')")
-  puts(check)
+  expect(page).to_not have_selector("p[class='facet-tag__text']", text: filter)
 end
 
 Then(/^The (.*) checkbox in deselected$/) do |checkbox|
-  #check = page.evaluate_script("$('##{checkbox}').parent().html();")
-  #puts(check)
-  #check = page.evaluate_script("document.getElementById('#{checkbox}').checked;")
-  #puts(check)
-
   expect(page.find("##{checkbox}", visible: :all)).to_not be_checked
 end
 
@@ -404,6 +396,10 @@ end
 
 Then(/^The keyword textbox is empty$/) do
   expect(page).to have_field('Search', with: '')
+end
+
+Then(/^The keyword textbox only contains (.*)$/) do |filter|
+  expect(page).to have_field('Search', with: filter)
 end
 
 When(/^I use a checkbox filter and another disallowed filter$/) do

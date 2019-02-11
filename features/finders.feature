@@ -145,7 +145,7 @@ Feature: Filtering documents
     When I view the news and communications finder
     And I fill in some keywords
     And I click the Keyword1 remove control
-    Then The keyword textbox is empty
+    Then The keyword textbox only contains Keyword2
 
   Scenario: Subscribing to email alerts
     Given a collection of documents exist that can be filtered by checkbox
