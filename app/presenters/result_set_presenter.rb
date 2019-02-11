@@ -64,17 +64,6 @@ class ResultSetPresenter
     }.reject(&:empty?)
   end
 
-  def tagged_to_all?(facet_key, metadata)
-    return false unless metadata
-
-    facet = finder.facets.find { |f| f.key == facet_key }
-    facet_metadata = metadata.find { |m| m[:id] == facet_key }
-    return false unless facet && facet_metadata
-
-    values = facet.allowed_values.map { |v| v['value'] }
-    values & facet_metadata[:labels] == values
-  end
-
   def documents_by_facets
     return [] unless grouped_display?
 
@@ -221,5 +210,16 @@ private
     sort_option ||= finder.default_sort_option
 
     sort_option
+  end
+
+  def tagged_to_all?(facet_key, metadata)
+    return false unless metadata
+
+    facet = finder.facets.find { |f| f.key == facet_key }
+    facet_metadata = metadata.find { |m| m[:id] == facet_key }
+    return false unless facet && facet_metadata
+
+    values = facet.allowed_values.map { |v| v['value'] }
+    values & facet_metadata[:labels] == values
   end
 end
