@@ -84,13 +84,13 @@ class ResultSetPresenter
       y[:document][:promoted] ? 1 : 0
     end
 
-    # If no filters are selected then put in all business
+    # If no facets are selected, then put in All Businesses
     if facet_filters.values.empty?
       all_businesses[:all_businesses][:documents] = sorted_documents
     else
       sorted_documents.each do |item|
         document_metadata = item[:document][:metadata]
-        # If the document is tagged to all sectors add to default group
+        # If the document is tagged to all sectors, add to All Businesses
         if tagged_to_all?(primary_facet.to_s, document_metadata)
           all_businesses[:all_businesses][:documents] << item
         else
