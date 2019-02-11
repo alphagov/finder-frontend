@@ -12,8 +12,8 @@
     this.$form = options.$form;
     this.$resultsBlock = options.$results.find('#js-results');
     this.$countBlock = options.$results.find('#js-search-results-info');
-    this.$loadingBlock = options.$results.find('#live-search-loading-message');
-    this.$resultsCount = options.$results.find('#result-count');
+    this.$loadingBlock = options.$results.find('#js-loading-message');
+    this.$resultsCount = options.$results.find('#js-result-count');
     this.action = this.$form.attr('action') + '.json';
     this.$atomAutodiscoveryLink = options.$atomAutodiscoveryLink;
     this.$emailLink = $("p.email-link a");

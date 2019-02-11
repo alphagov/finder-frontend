@@ -43,7 +43,7 @@ class ResultSetPresenter
 
   def sort_option_label_text
     if grouped_display?
-      "Sort <strong id='result-count'>#{total} #{document_noun.pluralize(total)}</strong> by".html_safe
+      "Sort <strong id='js-result-count'>#{total} #{document_noun.pluralize(total)}</strong> by".html_safe
     else
       "Sort by"
     end
