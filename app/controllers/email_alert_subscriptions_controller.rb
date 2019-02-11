@@ -40,7 +40,7 @@ private
   end
 
   def has_default_filters?
-    default_filters.present? && default_filters.any?
+    default_filters.present? && default_filters.any? || default_rejects.present? && default_rejects.any?
   end
 
   def chosen_options

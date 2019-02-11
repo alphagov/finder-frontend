@@ -22,7 +22,9 @@ private
   end
 
   def rummager_params
-    default_params.merge(@query_params.transform_keys { |key| "filter_#{key}" })
+    default_params.merge(@query_params.transform_keys { |key|
+      key.start_with?("reject") ? key : "filter_#{key}"
+    })
   end
 
   def default_params

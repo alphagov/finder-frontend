@@ -84,6 +84,7 @@ private
   def validater
     options = massaged_attributes
     options["content_purpose_supergroup"] = content_purpose_supergroup if content_purpose_supergroup.present?
+    options["reject_content_purpose_supergroup"] = reject_content_purpose_supergroup if reject_content_purpose_supergroup.present?
 
     @validater ||= ::ValidateQuery.new(options)
   end
