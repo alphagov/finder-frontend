@@ -356,10 +356,10 @@ end
 
 And(/^I see the facet tag$/) do
   within '.facet-tags' do
-    expect(page).to have_link("✕")
+    expect(page).to have_button("✕")
     expect(page).to have_content("Open")
-    expect(page).to have_css("a[data-module='remove-filter-link']")
-    expect(page).to have_css("a[aria-label='Remove filter Open']")
+    expect(page).to have_css("[data-module='remove-filter-link']")
+    expect(page).to have_css("[aria-label='Remove filter Open']")
   end
 end
 
@@ -377,8 +377,13 @@ And(/^I click button \"([^\"]*)\" and select facet (.*)$/) do |button, facet|
   find('label', text: facet).click
 end
 
-And(/^I click the (.*) remove link$/) do |filter|
-  find("p", text: filter).sibling('a').click
+When(/^I click the (.*) remove control$/) do |filter|
+  expect(page).to have_css(".js-enabled")
+
+  button = page.find("p[class='facet-tag__text']", text: filter).sibling("button[data-module='remove-filter-link']")
+  button.click
+
+  expect(page).to_not have_selector("p[class='facet-tag__text']", text: filter)
 end
 
 Then(/^The (.*) checkbox in deselected$/) do |checkbox|
@@ -391,6 +396,10 @@ end
 
 Then(/^The keyword textbox is empty$/) do
   expect(page).to have_field('Search', with: '')
+end
+
+Then(/^The keyword textbox only contains (.*)$/) do |filter|
+  expect(page).to have_field('Search', with: filter)
 end
 
 When(/^I use a checkbox filter and another disallowed filter$/) do

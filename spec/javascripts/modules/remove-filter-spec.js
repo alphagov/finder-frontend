@@ -9,36 +9,36 @@ describe('remove-filter', function () {
   GOVUK.analytics = GOVUK.analytics || {}
   var $checkbox = $(
   '<div data-module="remove-filter">' +
-    '<a href="/news-and-communications" class="remove-filter" role="button" aria-label="Remove filter Brexit" data-module="remove-filter-link" data-facet="related_to_brexit" data-value="true" data-name="">✕</a>' +
+    '<button href="/news-and-communications" class="remove-filter" role="button" aria-label="Remove filter Brexit" data-module="remove-filter-link" data-facet="related_to_brexit" data-value="true" data-name="">✕</button>' +
   '</div>');
 
   var $oneTextQuery = $(
     '<div data-module="remove-filter">' +
-      '<a href="/news-and-communications?[]=education" class="remove-filter" role="button" aria-label="Remove filter education" data-module="remove-filter-link" data-facet="keywords" data-value="education" data-name="keywords">✕</a>' +
+      '<button href="/news-and-communications?[]=education" class="remove-filter" role="button" aria-label="Remove filter education" data-module="remove-filter-link" data-facet="keywords" data-value="education" data-name="keywords">✕</button>' +
     '</div>'
   );
 
   var $multipleTextQueries = $(
     '<div data-module="remove-filter">' +
-      '<a href="/news-and-communications?[]=education" class="remove-filter" role="button" aria-label="Remove filter education" data-module="remove-filter-link" data-facet="keywords" data-value="education" data-name="keywords">✕</a>' +
+      '<button href="/news-and-communications?[]=education" class="remove-filter" role="button" aria-label="Remove filter education" data-module="remove-filter-link" data-facet="keywords" data-value="education" data-name="keywords">✕</button>' +
     '</div>'
   );
 
   var $dropdown = $(
     '<div data-module="remove-filter">' +
-      '<a href="/news-and-communications?[][]=level_one_taxon&amp;[][]=ba3a9702-da22-487f-86c1-8334a730e559&amp;[][]=level_two_taxon&amp;[][]" class="remove-filter" role="button" aria-label="Remove filter Entering and staying in the UK" data-module="remove-filter-link" data-facet="level_one_taxon" data-value="ba3a9702-da22-487f-86c1-8334a730e559" data-name="">✕</a>' +
+      '<button href="/news-and-communications?[][]=level_one_taxon&amp;[][]=ba3a9702-da22-487f-86c1-8334a730e559&amp;[][]=level_two_taxon&amp;[][]" class="remove-filter" role="button" aria-label="Remove filter Entering and staying in the UK" data-module="remove-filter-link" data-facet="level_one_taxon" data-value="ba3a9702-da22-487f-86c1-8334a730e559" data-name="">✕</button>' +
     '</div>'
   );
 
   var $facetTagOne = $(
       '<div data-module="remove-filter">' +
-      '<a href="/news-and-communications?[][]=level_one_taxon&amp;[][]=ba3a9702-da22-487f-86c1-8334a730e559&amp;[][]=level_two_taxon&amp;[][]" class="remove-filter" role="button" aria-label="Remove filter" data-module="remove-filter-link" data-facet="level_one_taxon" data-value="aa3a9702-da22-487f-86c1-8334a730e558" data-name="">✕</a>' +
+      '<button href="/news-and-communications?[][]=level_one_taxon&amp;[][]=ba3a9702-da22-487f-86c1-8334a730e559&amp;[][]=level_two_taxon&amp;[][]" class="remove-filter" role="button" aria-label="Remove filter" data-module="remove-filter-link" data-facet="level_one_taxon" data-value="aa3a9702-da22-487f-86c1-8334a730e558" data-name="">✕</button>' +
       '</div>'
   );
 
   var $facetTagTwo = $(
    '<div data-module="remove-filter">' +
-     '<a href="/news-and-communications?[][]=level_one_taxon&amp;[][]=ba3a9702-da22-487f-86c1-8334a730e559&amp;[][]=level_two_taxon&amp;[][]" class="remove-filter" role="button" aria-label="Remove filter" data-module="remove-filter-link" data-facet="level_two_taxon" data-value="bb3a9702-da22-487f-86c1-8334a730e559" data-name="">✕</a>' +
+     '<button href="/news-and-communications?[][]=level_one_taxon&amp;[][]=ba3a9702-da22-487f-86c1-8334a730e559&amp;[][]=level_two_taxon&amp;[][]" class="remove-filter" role="button" aria-label="Remove filter" data-module="remove-filter-link" data-facet="level_two_taxon" data-value="bb3a9702-da22-487f-86c1-8334a730e559" data-name="">✕</button>' +
    '</div>'
   );
 
@@ -164,5 +164,5 @@ describe('remove-filter', function () {
 });
 
 function triggerRemoveFilterClick(element) {
-  element.find('a[data-module=remove-filter-link]').trigger('click');
+  element.find('button[data-module=remove-filter-link]').trigger('click');
 }
