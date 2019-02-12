@@ -67,54 +67,51 @@ class ResultSetPresenter
   def documents_by_facets
     return [] unless grouped_display?
 
-    sector_facets = {}
-    all_businesses = { all_businesses: empty_facet_group("all_businesses", "All Businesses") }
-    other_facets = {}
-
+    # TODO: These could live in a finder definition to make this finder-agnostic grouping.
+    default_group = "all_businesses"
     primary_facet = :sector_business_area
     primary_facet_group = %W(sector_business_area business_activity)
+    grouped_documents = { default_group => empty_facet_group(default_group, "All Businesses") }
 
     documents.select! { |d| d[:document][:metadata].present? }
     sorted_documents = sort_by_promoted_alphabetical(documents)
 
-    # If no facets are selected, then put in All Businesses
+    # With no facet filtering add all documents to default group
     if facet_filters.values.empty?
-      all_businesses[:all_businesses][:documents] = sorted_documents
+      grouped_documents[default_group][:documents] = sorted_documents
     else
       sorted_documents.each do |item|
         document_metadata = item[:document][:metadata]
-        # If the document is tagged to all sectors, add to All Businesses
+        # If the document is tagged to all primary facet values, add to default group
+        # otherwise it will be repeated for every primary facet value group.
         if tagged_to_all?(primary_facet.to_s, document_metadata)
-          all_businesses[:all_businesses][:documents] << item
+          grouped_documents[default_group][:documents] << item
         else
-          # Loop through each metadata to group against the filter params
           document_metadata.each do |metadata|
             key = metadata[:id]
             next unless key && facet_filters.has_key?(key.to_sym)
 
-            # Is this a business sector/activity facet?
             # FIXME: There's an inconsistency here, an item which isn't tagged to the primary facet
             # but tagged to the activity facet will not appear. In terms of the current metadata this
             # doesn't happen, but as the results are metadata driven it _can_ happen.
             if primary_facet_group.include?(key)
-              # Match filters to metadata and group by value
+              # Group by value for the primary facet
               (metadata[:labels] & facet_filters.fetch(primary_facet, [])).each do |value|
-                sector_facets[value] = empty_facet_group(value, facet_label_for(value)) unless sector_facets[value]
-                sector_facets[value][:documents] << item
+                grouped_documents[value] = empty_facet_group(value, facet_label_for(value)) unless grouped_documents[value]
+                grouped_documents[value][:documents] << item
               end
             else
-              # Add the document to the appropriate other facet group
-              other_facets[key] = empty_facet_group(key, metadata[:label]) unless other_facets[key]
-              other_facets[key][:documents] << item
+              # Group by facet name otherwise
+              grouped_documents[key] = empty_facet_group(key, metadata[:label]) unless grouped_documents[key]
+              grouped_documents[key][:documents] << item
             end
           end
         end
       end
-
-      all_businesses = {} if all_businesses[:all_businesses][:documents].empty?
     end
 
-    [sector_facets.sort.to_h, other_facets.sort.to_h, all_businesses].inject(&:merge).values
+    grouped_documents.reject! { |_, v| v[:documents].empty? }
+    grouped_documents.sort_by { |k, _| k }.to_h.values
   end
 
   def metadata_for_filters(metadata, filters)
