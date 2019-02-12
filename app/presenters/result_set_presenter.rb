@@ -74,15 +74,8 @@ class ResultSetPresenter
     primary_facet = :sector_business_area
     primary_facet_group = %W(sector_business_area business_activity)
 
-    facet_filters = @filter_params.without("order", "keywords")
-
     documents.select! { |d| d[:document][:metadata].present? }
-    sorted_documents = documents.sort { |x, y| x[:document][:title] <=> y[:document][:title] }
-    sorted_documents = sorted_documents.sort do |x, y|
-      return -1 if x[:document][:promoted]
-
-      y[:document][:promoted] ? 1 : 0
-    end
+    sorted_documents = sort_by_promoted_alphabetical(documents)
 
     # If no facets are selected, then put in All Businesses
     if facet_filters.values.empty?
@@ -129,13 +122,15 @@ class ResultSetPresenter
   end
 
   def documents
-    sorted_results = sort_by_promoted(results)
-    sorted_results.each_with_index.map do |result, index|
+    search_results = results.each_with_index.map do |result, index|
       {
         document: SearchResultPresenter.new(result).to_hash,
         document_index: index + 1
       }
     end
+
+    search_results = sort_by_promoted(search_results) if facet_filters.any?
+    search_results
   end
 
   def user_supplied_date(date_facet_key, date_facet_from_to)
@@ -217,9 +212,18 @@ private
 
   def sort_by_promoted(results)
     results.sort do |x, y|
-      return -1 if x.promoted
+      return -1 if x[:document][:promoted]
 
-      y.promoted ? 1 : 0
+      y[:document][:promoted] ? 1 : 0
     end
+  end
+
+  def sort_by_promoted_alphabetical(search_results)
+    sorted_results = search_results.sort { |x, y| x[:document][:title] <=> y[:document][:title] }
+    sort_by_promoted(sorted_results)
+  end
+
+  def facet_filters
+    @filter_params.symbolize_keys.without(:order, :keywords)
   end
 end
