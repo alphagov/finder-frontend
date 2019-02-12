@@ -61,8 +61,6 @@
   LiveSearch.prototype.setResultCountTemplate = function setResultCountTemplate(){
     if (this.$countBlock.find('#grouped-heading').length == 1) {
       return '_grouped_heading';
-    } else if (this.$countBlock.find('#generic').length == 1){
-      return '_result_count_generic';
     } else {
       return '_result_count';
     }

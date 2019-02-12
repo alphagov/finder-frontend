@@ -71,9 +71,7 @@
       <div class='js-live-search-results-block'>
         <div class="filtered-results">
           <div aria-live='assertive' id='js-search-results-info' data-module="remove-filter">
-            <% if finder.show_generic_description? %>
-              <%= render_mustache('result_count_generic', @results.to_hash) %>
-            <% elsif @results.grouped_display? %>
+            <% if @results.grouped_display? %>
               <%= render_mustache('grouped_heading') %>
             <% else %>
               <%= render_mustache('result_count', @results.to_hash) %>
