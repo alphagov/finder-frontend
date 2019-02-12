@@ -81,6 +81,15 @@ When(/^I view the news and communications finder$/) do
   visit finder_path('news-and-communications')
 end
 
+When(/^I view the business readiness finder$/) do
+  topic_taxonomy_has_taxons(%w[Taxon_1 Taxon_2])
+  content_store_has_business_readiness_finder
+  stub_whitehall_api_world_location_request
+  stub_rummager_api_request_with_business_readiness_results
+  stub_rummager_api_request_with_filtered_business_readiness_results
+
+  visit finder_path('find-eu-exit-guidance-business')
+end
 
 When(/^I view a list of services$/) do
   topic_taxonomy_has_taxons
@@ -486,5 +495,26 @@ Then(/^I can sign up to email alerts for allowed filters$/) do
   rescue ActionController::RoutingError
     expect(page.status_code).to eq(302)
     expect(page.response_headers['Location']).to eql('http://www.rathergood.com')
+  end
+end
+
+Then("I should see results in the default group") do
+  within("#js-results .filtered-results__group") do
+    expect(page).to have_css("h2.filtered-results__facet-heading", text: "All businesses")
+    expect(page.all("li.document").size).to eq(9) # 9 results in fixture
+  end
+end
+
+Then("I see results grouped by primary facet value") do
+  within("#js-results") do
+    expect(page.all(".filtered-results__group").size).to eq(2)
+
+    within(".filtered-results__group:nth-child(1)") do
+      expect(page).to have_css("h2.filtered-results__facet-heading", text: "Aerospace")
+    end
+
+    within(".filtered-results__group:nth-child(2)") do
+      expect(page).to have_css("h2.filtered-results__facet-heading", text: "All businesses")
+    end
   end
 end

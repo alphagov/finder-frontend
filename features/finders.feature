@@ -167,3 +167,13 @@ Feature: Filtering documents
     And I fill in some keywords
     And I sort by most relevant
     Then I see most relevant order selected
+
+  Scenario: Group documents by facets
+    When I view the business readiness finder
+    Then I should see results in the default group
+
+  @javascript
+  Scenario: Filter documents and group by facets
+    When I view the business readiness finder
+    And I click button "Sector / Business Area" and select facet Aerospace
+    Then I see results grouped by primary facet value

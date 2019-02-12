@@ -1,0 +1,410 @@
+{
+  "analytics_identifier": null,
+  "base_path": "/find-eu-exit-guidance-business",
+  "content_id": "42ce66de-04f3-4192-bf31-8394538e0734",
+  "document_type": "finder",
+  "first_published_at": "2018-12-19T14:33:59.000+00:00",
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2019-01-24T14:14:55.000+00:00",
+  "publishing_app": "rummager",
+  "publishing_scheduled_at": null,
+  "rendering_app": "finder-frontend",
+  "scheduled_publishing_delay_seconds": null,
+  "schema_name": "finder",
+  "title": "Find EU Exit guidance for your business",
+  "updated_at": "2019-01-24T16:42:49.904Z",
+  "withdrawn_notice": {},
+  "publishing_request_id": "19729-1548339296.557-10.3.3.1-388",
+  "links": {
+    "email_alert_signup": [
+      {
+        "api_path": "/api/content/find-eu-exit-guidance-business/email-signup",
+        "base_path": "/find-eu-exit-guidance-business/email-signup",
+        "content_id": "2818d67a-029a-4899-a438-a543d5c6a20d",
+        "document_type": "finder_email_signup",
+        "locale": "en",
+        "public_updated_at": "2019-01-24T14:14:55Z",
+        "schema_name": "finder_email_signup",
+        "title": "Find EU Exit guidance for your business",
+        "withdrawn": false,
+        "links": {},
+        "api_url": "https://www.gov.uk/api/content/find-eu-exit-guidance-business/email-signup",
+        "web_url": "https://www.gov.uk/find-eu-exit-guidance-business/email-signup"
+      }
+    ],
+    "available_translations": [
+      {
+        "title": "Find EU Exit guidance for your business",
+        "public_updated_at": "2019-01-24T14:14:55Z",
+        "document_type": "finder",
+        "schema_name": "finder",
+        "base_path": "/find-eu-exit-guidance-business",
+        "description": "This is the information that has been published so far for your business to prepare for EU exit. You can change what information you get using the checkboxes. Come back to this page regularly or sign up to receive emails when new information is published.",
+        "api_path": "/api/content/find-eu-exit-guidance-business",
+        "withdrawn": false,
+        "content_id": "42ce66de-04f3-4192-bf31-8394538e0734",
+        "locale": "en",
+        "api_url": "https://www.gov.uk/api/content/find-eu-exit-guidance-business",
+        "web_url": "https://www.gov.uk/find-eu-exit-guidance-business",
+        "links": {}
+      }
+    ]
+  },
+  "description": "This is the information that has been published so far for your business to prepare for EU exit. You can change what information you get using the checkboxes. Come back to this page regularly or sign up to receive emails when new information is published.",
+  "details": {
+    "beta": false,
+    "document_noun": "publication",
+    "summary": "This is the information that has been published so far for your business to prepare for EU exit. You can change what information you get using the checkboxes. Come back to this page regularly or sign up to receive emails when new information is published.",
+    "canonical_link": true,
+    "sort": [
+      {
+        "name": "Topic",
+        "key": "topic",
+        "default": true
+      },
+      {
+        "name": "Most viewed",
+        "key": "-popularity"
+      },
+      {
+        "name": "Most recent",
+        "key": "-public_timestamp"
+      },
+      {
+        "name": "A to Z",
+        "key": "title"
+      }
+    ],
+    "filter": {
+      "appear_in_find_eu_exit_guidance_business_finder": "yes"
+    },
+    "facets": [
+      {
+        "allowed_values": [
+          {
+            "label": "Accommodation, restaurants and catering services",
+            "value": "accommodation-restaurants-and-catering-services"
+          },
+          {
+            "label": "Aerospace",
+            "value": "aerospace"
+          },
+          {
+            "label": "Agriculture",
+            "value": "agriculture"
+          },
+          {
+            "label": "Air transport (aviation)",
+            "value": "air-transport-aviation"
+          },
+          {
+            "label": "Ancillary services",
+            "value": "ancillary-services"
+          },
+          {
+            "label": "Animal health",
+            "value": "animal-health"
+          },
+          {
+            "label": "Automotive",
+            "value": "automotive"
+          },
+          {
+            "label": "Banking, markets and infrastructure",
+            "value": "banking-market-infrastructure"
+          },
+          {
+            "label": "Broadcasting",
+            "value": "broadcasting"
+          },
+          {
+            "label": "Chemicals",
+            "value": "chemicals"
+          },
+          {
+            "label": "Computer services",
+            "value": "computer-services"
+          },
+          {
+            "label": "Construction and contracting",
+            "value": "construction-contracting"
+          },
+          {
+            "label": "Education",
+            "value": "education"
+          },
+          {
+            "label": "Electricity",
+            "value": "electricity"
+          },
+          {
+            "label": "Electronics",
+            "value": "electronics"
+          },
+          {
+            "label": "Environmental services",
+            "value": "environmental-services"
+          },
+          {
+            "label": "Fisheries",
+            "value": "fisheries"
+          },
+          {
+            "label": "Food and drink",
+            "value": "food-and-drink"
+          },
+          {
+            "label": "Furniture and other manufacturing",
+            "value": "furniture-and-other-manufacturing"
+          },
+          {
+            "label": "Gas markets",
+            "value": "gas-markets"
+          },
+          {
+            "label": "Imports",
+            "value": "imports"
+          },
+          {
+            "label": "Imputed rent",
+            "value": "imputed-rent"
+          },
+          {
+            "label": "Insurance",
+            "value": "insurance"
+          },
+          {
+            "label": "Land transport (excluding rail)",
+            "value": "land-transport-excl-rail"
+          },
+          {
+            "label": "Medical services",
+            "value": "medical-services"
+          },
+          {
+            "label": "Motor trades",
+            "value": "motor-trades"
+          },
+          {
+            "label": "Oil and gas production",
+            "value": "oil-and-gas-production"
+          },
+          {
+            "label": "Other personal services",
+            "value": "other-personal-services"
+          },
+          {
+            "label": "Parts and machinery",
+            "value": "parts-and-machinery"
+          },
+          {
+            "label": "Pharmaceuticals",
+            "value": "pharmaceuticals"
+          },
+          {
+            "label": "Post",
+            "value": "post"
+          },
+          {
+            "label": "Professional and business services",
+            "value": "professional-and-business-services"
+          },
+          {
+            "label": "Public administration and defence",
+            "value": "public-administration-and-defence"
+          },
+          {
+            "label": "Rail",
+            "value": "rail"
+          },
+          {
+            "label": "Real estate (excluding imputed rent)",
+            "value": "real-estate-excl-imputed-rent"
+          },
+          {
+            "label": "Retail",
+            "value": "retail"
+          },
+          {
+            "label": "Social work",
+            "value": "social-work"
+          },
+          {
+            "label": "Steel and other metals or commodities",
+            "value": "steel-and-other-metals-commodities"
+          },
+          {
+            "label": "Telecoms",
+            "value": "telecoms"
+          },
+          {
+            "label": "Textiles and clothing",
+            "value": "textiles-and-clothing"
+          },
+          {
+            "label": "Warehousing and support for transportation",
+            "value": "warehousing-and-support-for-transportation"
+          },
+          {
+            "label": "Water transport including maritime and ports",
+            "value": "water-transport-maritime-ports"
+          },
+          {
+            "label": "Wholesale (excluding motor vehicles)",
+            "value": "wholesale-excl-motor-vehicles"
+          }
+        ],
+        "display_as_result_metadata": true,
+        "filterable": true,
+        "combine_mode": "and",
+        "key": "sector_business_area",
+        "name": "Sector / Business Area",
+        "preposition": "your business is in",
+        "type": "text"
+      },
+      {
+        "allowed_values": [
+          {
+            "label": "Sell products or goods in the UK",
+            "value": "products-or-goods"
+          },
+          {
+            "label": "Buy products or goods from abroad",
+            "value": "buying"
+          },
+          {
+            "label": "Sell products or goods abroad",
+            "value": "selling"
+          },
+          {
+            "label": "Do other types of business in the EU",
+            "value": "other-eu"
+          },
+          {
+            "label": "Transport goods abroad",
+            "value": "transporting"
+          }
+        ],
+        "display_as_result_metadata": true,
+        "filterable": true,
+        "combine_mode": "and",
+        "key": "business_activity",
+        "name": "Business activity",
+        "preposition": "you",
+        "type": "text"
+      },
+      {
+        "allowed_values": [
+          {
+            "label": "EU citizens",
+            "value": "yes"
+          },
+          {
+            "label": "No EU citizens",
+            "value": "no"
+          }
+        ],
+        "display_as_result_metadata": true,
+        "filterable": true,
+        "combine_mode": "or",
+        "key": "employ_eu_citizens",
+        "name": "Who you employ",
+        "preposition": "you employ",
+        "type": "text"
+      },
+      {
+        "allowed_values": [
+          {
+            "label": "Processing personal data from Europe",
+            "value": "processing-personal-data"
+          },
+          {
+            "label": "Using websites or services hosted in Europe",
+            "value": "interacting-with-eea-website"
+          },
+          {
+            "label": "Providing digital services available to Europe",
+            "value": "digital-service-provider"
+          }
+        ],
+        "display_as_result_metadata": true,
+        "filterable": true,
+        "combine_mode": "or",
+        "key": "personal_data",
+        "name": "Personal data",
+        "preposition": "you exchange personal data by",
+        "type": "text"
+      },
+      {
+        "allowed_values": [
+          {
+            "label": "Copyright",
+            "value": "copyright"
+          },
+          {
+            "label": "Trade marks",
+            "value": "trademarks"
+          },
+          {
+            "label": "Designs",
+            "value": "designs"
+          },
+          {
+            "label": "Patents",
+            "value": "patents"
+          },
+          {
+            "label": "Exhaustion of rights",
+            "value": "exhaustion-of-rights"
+          }
+        ],
+        "display_as_result_metadata": true,
+        "filterable": true,
+        "combine_mode": "or",
+        "key": "intellectual_property",
+        "name": "Intellectual property",
+        "preposition": "you use or rely on",
+        "type": "text"
+      },
+      {
+        "allowed_values": [
+          {
+            "label": "EU funding",
+            "value": "receiving-eu-funding"
+          },
+          {
+            "label": "UK government funding",
+            "value": "receiving-uk-government-funding"
+          }
+        ],
+        "display_as_result_metadata": true,
+        "filterable": true,
+        "combine_mode": "or",
+        "key": "eu_uk_government_funding",
+        "name": "EU or UK government funding",
+        "preposition": "you get",
+        "type": "text"
+      },
+      {
+        "allowed_values": [
+          {
+            "label": "Civil government contracts",
+            "value": "civil-government-contracts"
+          },
+          {
+            "label": "Defence contracts",
+            "value": "defence-contracts"
+          }
+        ],
+        "display_as_result_metadata": true,
+        "filterable": true,
+        "combine_mode": "or",
+        "key": "public_sector_procurement",
+        "name": "Public sector procurement",
+        "preposition": "you apply for",
+        "type": "text"
+      }
+    ]
+  }
+}
