@@ -114,10 +114,6 @@ class ResultSetPresenter
     grouped_documents.sort_by { |k, _| k }.to_h.values
   end
 
-  def metadata_for_filters(metadata, filters)
-    metadata.select { |m| filters.key?(m[:id]) }
-  end
-
   def documents
     search_results = results.each_with_index.map do |result, index|
       {
