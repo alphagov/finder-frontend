@@ -1,12 +1,12 @@
-var $ = window.jQuery
+var $ = window.jQuery;
 
 describe('remove-filter', function () {
-  'use strict'
+  'use strict';
 
-  var GOVUK = window.GOVUK
+  var GOVUK = window.GOVUK;
   var timeout = 500;
   var removeFilter;
-  GOVUK.analytics = GOVUK.analytics || {}
+  GOVUK.analytics = GOVUK.analytics || {};
   var $checkbox = $(
   '<div data-module="remove-filter">' +
     '<button href="/news-and-communications" class="remove-filter" role="button" aria-label="Remove filter Brexit" data-module="remove-filter-link" data-facet="related_to_brexit" data-value="true" data-name="">✕</button>' +
@@ -64,15 +64,15 @@ describe('remove-filter', function () {
     '</div>';
 
   beforeEach(function () {
-    GOVUK.analytics.trackEvent = function () {}
+    GOVUK.analytics.trackEvent = function () {};
     $(document.body).append($facets);
     removeFilter = new GOVUK.Modules.RemoveFilter();
-    spyOn(GOVUK.analytics, 'trackEvent')
-  })
+    spyOn(GOVUK.analytics, 'trackEvent');
+  });
 
   afterEach(function () {
-    GOVUK.analytics.trackEvent.calls.reset()
-  })
+    GOVUK.analytics.trackEvent.calls.reset();
+  });
 
   it('deselects a selected checkbox', function (done) {
     var checkbox = $('input[name=related_to_brexit]')[0];
@@ -87,7 +87,7 @@ describe('remove-filter', function () {
       expect(checkbox.checked).toBe(false);
       done();
     }, timeout);
-  })
+  });
 
   it('clears the text search field if removing all text queries', function (done) {
     var searchField = $('input[name=keywords]')[0];
@@ -102,7 +102,7 @@ describe('remove-filter', function () {
       expect(searchField.value).toEqual("");
       done();
     }, timeout);
-  })
+  });
 
 
   it('removes one text query from the text search field if there are multiple', function (done) {
@@ -118,7 +118,7 @@ describe('remove-filter', function () {
       expect(searchField.value).toEqual("another search term");
       done();
     }, timeout);
-  })
+  });
 
 
   it('sets default state for dropdown', function (done) {
@@ -136,7 +136,7 @@ describe('remove-filter', function () {
       expect(dropdown.options[dropdown.selectedIndex].value).toEqual("");
       done();
     }, timeout);
-  })
+  });
 
   describe('Clicking the "x" button in facet tags', function () {
     it("triggers a google analytics custom event", function () {

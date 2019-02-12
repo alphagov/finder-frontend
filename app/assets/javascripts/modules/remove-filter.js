@@ -21,6 +21,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
 
       var $input = getInput(removeFilterName, removeFilterValue, removeFilterFacet, isAutoComplete);
       clearFacet($input, isAutoComplete, removeFilterValue, removeFilterFacet);
+      fireRemoveTagTrackingEvent(removeFilterValue, removeFilterFacet);
     }
 
     function clearFacet($input, isAutoComplete, removeFilterValue, removeFilterFacet) {
@@ -28,11 +29,6 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
       var inputType = $input.prop('type');
       var currentVal = $input.val();
 
-      setInputState(elementType, inputType, $input, removeFilterValue, removeFilterFacet, removeFilterAutocomplete);
-      fireRemoveTagTrackingEvent(removeFilterValue, removeFilterFacet);
-    }
-
-    function setInputState(elementType, inputType, $input, removeFilterValue, removeFilterFacet, removeFilterAutocomplete) {
       if (inputType == 'checkbox') {
         $input.prop("checked", false);
         $input.trigger('change');
@@ -41,14 +37,13 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
         if (isAutoComplete) {
           var onConfirm = $('#' + $input.attr('id') + '-select').data('onconfirm'); // get the onConfirm function for the autocomplete
           $input.val('');
-          onConfirm('', true); // call autocomplete onConfirm to clear it and hide the suggestions menu
+          onConfirm('', removeFilterValue, true); // call autocomplete onConfirm to clear it and hide the suggestions menu
         } else {
           $input.val(currentVal.replace(removeFilterValue, '').replace(/\s+/g,' ').trim()).trigger({
             type: "change",
             suppressAnalytics: true
           });
         }
-
       }
       else if (elementType == 'OPTION') {
         $('#' + removeFilterFacet).val('').trigger('change');
