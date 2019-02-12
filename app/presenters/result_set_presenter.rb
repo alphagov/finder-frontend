@@ -68,24 +68,26 @@ class ResultSetPresenter
     return [] unless grouped_display?
 
     # TODO: These could live in a finder definition to make this finder-agnostic grouping.
-    default_group = "all_businesses"
+    default_group_name = "all_businesses"
     primary_facet = :sector_business_area
     primary_facet_group = %W(sector_business_area business_activity)
-    grouped_documents = { default_group => empty_facet_group(default_group, "All Businesses") }
+    default_group = empty_facet_group(default_group_name, "All businesses")
+    primary_group = {}
+    secondary_group = {}
 
     documents.select! { |d| d[:document][:metadata].present? }
     sorted_documents = sort_by_promoted_alphabetical(documents)
 
     # With no facet filtering add all documents to default group
     if facet_filters.values.empty?
-      grouped_documents[default_group][:documents] = sorted_documents
+      default_group[:documents] = sorted_documents
     else
       sorted_documents.each do |item|
         document_metadata = item[:document][:metadata]
         # If the document is tagged to all primary facet values, add to default group
         # otherwise it will be repeated for every primary facet value group.
         if tagged_to_all?(primary_facet.to_s, document_metadata)
-          grouped_documents[default_group][:documents] << item
+          default_group[:documents] << item
         else
           document_metadata.each do |metadata|
             key = metadata[:id]
@@ -97,21 +99,20 @@ class ResultSetPresenter
             if primary_facet_group.include?(key)
               # Group by value for the primary facet
               (metadata[:labels] & facet_filters.fetch(primary_facet, [])).each do |value|
-                grouped_documents[value] = empty_facet_group(value, facet_label_for(value)) unless grouped_documents[value]
-                grouped_documents[value][:documents] << item
+                populate_group(primary_group, value, facet_label_for(value), item)
               end
             else
               # Group by facet name otherwise
-              grouped_documents[key] = empty_facet_group(key, metadata[:label]) unless grouped_documents[key]
-              grouped_documents[key][:documents] << item
+              populate_group(secondary_group, key, metadata[:label], item)
             end
           end
         end
       end
     end
 
-    grouped_documents.reject! { |_, v| v[:documents].empty? }
-    grouped_documents.sort_by { |k, _| k }.to_h.values
+    groups = [compact_and_sort(primary_group), compact_and_sort(secondary_group)].flatten
+    groups << default_group unless default_group[:documents].empty?
+    groups
   end
 
   def documents
@@ -141,6 +142,11 @@ class ResultSetPresenter
 private
 
   attr_reader :view_context
+
+  def populate_group(groups, key, label, item)
+    groups[key] = empty_facet_group(key, label) unless groups[key]
+    groups[key][:documents] << item
+  end
 
   def next_and_prev_links
     return unless finder.pagination
@@ -204,16 +210,17 @@ private
   end
 
   def sort_by_promoted(results)
-    results.sort do |x, y|
-      return -1 if x[:document][:promoted]
-
-      y[:document][:promoted] ? 1 : 0
-    end
+    results.sort_by { |r| r[:document][:promoted] ? 0 : 1 }
   end
 
   def sort_by_promoted_alphabetical(search_results)
-    sorted_results = search_results.sort { |x, y| x[:document][:title] <=> y[:document][:title] }
+    sorted_results = search_results.sort_by { |r| r[:document][:title] }
     sort_by_promoted(sorted_results)
+  end
+
+  def compact_and_sort(group)
+    group = group.reject { |_, v| v[:documents].empty? }
+    group.values.sort_by { |g| g[:facet_name] }
   end
 
   def facet_filters

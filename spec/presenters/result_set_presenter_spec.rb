@@ -343,7 +343,7 @@ RSpec.describe ResultSetPresenter do
         allow(a_facet_collection).to receive(:find)
 
         expect(subject.documents_by_facets).to eq([{
-          facet_name: 'All Businesses',
+          facet_name: 'All businesses',
           facet_key: 'all_businesses',
           documents: subject.documents
         }])
@@ -430,7 +430,7 @@ RSpec.describe ResultSetPresenter do
 
         expect(subject.documents_by_facets).to eq([
           {
-            facet_name: 'All Businesses',
+            facet_name: 'All businesses',
             facet_key: 'all_businesses',
             documents: [{ document: primary_tagged_result, document_index: 1 }]
           }
