@@ -7,7 +7,7 @@
 <%= render 'govuk_publishing_components/components/breadcrumbs', breadcrumbs: breadcrumbs %>
 <div class="grid-row">
   <div class="column-two-thirds">
-    
+
     <form action="" method="get">
 
       <%= render "govuk_publishing_components/components/title", {
@@ -16,7 +16,7 @@
       } %>
       <%= render "govuk_publishing_components/components/hint", {
         text: question["hint"].html_safe,
-        classes: "govuk-!-padding-bottom-5"
+        margin_bottom: 7
       } %>
       <%= render "govuk_publishing_components/components/radio", {
         name: question["id"],
