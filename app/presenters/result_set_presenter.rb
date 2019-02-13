@@ -29,7 +29,6 @@ class ResultSetPresenter
       page_count: documents.count,
       finder_name: finder.name,
       any_filters_applied: any_filters_applied?,
-      atom_url: atom_url,
       next_and_prev_links: next_and_prev_links,
       sort_options: sort_options,
     }
@@ -69,6 +68,14 @@ class ResultSetPresenter
 
   def sort_options
     "<span class='visually-hidden'>sorted by <strong>" + sort_option['name'] + "</strong></span>" if sort_option.present?
+  end
+
+  def has_email_signup_link?
+    signup_links.any?
+  end
+
+  def signup_links
+    @signup_links ||= fetch_signup_links
   end
 
 private
@@ -113,5 +120,63 @@ private
     sort_option ||= finder.default_sort_option
 
     sort_option
+  end
+
+  def tagged_to_all?(facet_key, metadata)
+    return false unless metadata
+
+    facet = finder.facets.find { |f| f.key == facet_key }
+    facet_metadata = metadata.find { |m| m[:id] == facet_key }
+    return false unless facet && facet_metadata
+
+    values = facet.allowed_values.map { |v| v['value'] }
+    values & facet_metadata[:labels] == values
+  end
+
+  def empty_facet_group(key, name)
+    { facet_key: key, facet_name: name, documents: [] }
+  end
+
+  def facet_label_for(key)
+    allowed_values = finder.facets.map(&:allowed_values).flatten
+    facet = allowed_values.find { |v| v["value"] == key }
+    facet["label"] if facet
+  end
+
+  def sort_by_promoted(results)
+    results.sort_by { |r| r[:document][:promoted] ? 0 : 1 }
+  end
+
+  def sort_by_promoted_alphabetical(search_results)
+    sorted_results = search_results.sort_by { |r| r[:document][:title] }
+    sort_by_promoted(sorted_results)
+  end
+
+  def compact_and_sort(group)
+    group = group.reject { |_, v| v[:documents].empty? }
+    group.values.sort_by { |g| g[:facet_name] }
+  end
+
+  def facet_filters
+    @filter_params.symbolize_keys.without(:order, :keywords)
+  end
+
+  def fetch_signup_links
+    links = {}
+    links[:email_signup_link] = email_signup_link if email_signup_link.present?
+    links[:feed_link] = feed_link if feed_link.present?
+    links
+  end
+
+  def email_signup_link
+    return '' unless finder.respond_to?(:email_alert_signup_url)
+
+    finder.email_alert_signup_url
+  end
+
+  def feed_link
+    return '' unless finder.respond_to?(:atom_url)
+
+    finder.atom_url
   end
 end

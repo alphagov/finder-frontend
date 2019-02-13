@@ -529,7 +529,7 @@ Then(/^I can sign up to email alerts for allowed filters$/) do
 
   content_store_has_item('/cma-cases/email-signup', signup_content_item)
 
-  click_link('Subscribe to email alerts')
+  click_link('Get email alerts')
 
   begin
     click_on('Create subscription')

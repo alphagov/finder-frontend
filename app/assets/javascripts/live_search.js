@@ -16,9 +16,6 @@
     this.$resultsCount = options.$results.find('#js-result-count');
     this.action = this.$form.attr('action') + '.json';
     this.$atomAutodiscoveryLink = options.$atomAutodiscoveryLink;
-    this.$emailLink = $("p.email-link a");
-
-    this.emailSignupHref = this.$emailLink.attr('href');
 
     this.$orderSelect = this.$form.find('.js-order-results');
     this.$relevanceOrderOption = this.$orderSelect.find('option[value=' + this.$orderSelect.data('relevance-sort-option') + ']');
@@ -69,12 +66,6 @@
     }
     this.previousState = this.state;
     this.state = state;
-
-    if (this.emailSignupHref) {
-      this.$emailLink.attr(
-        'href', this.emailSignupHref.split('?')[0] + "?" + $.param(this.state)
-      );
-    }
   };
 
   LiveSearch.prototype.popState = function popState(event){

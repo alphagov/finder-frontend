@@ -13,7 +13,6 @@ RSpec.describe ResultSetPresenter do
       total: 20,
       facets: a_facet_collection,
       keywords: keywords,
-      atom_url: "/a-finder.atom",
       default_documents_per_page: 10,
       values: {},
       pagination: pagination,
@@ -160,6 +159,9 @@ RSpec.describe ResultSetPresenter do
       allow(presenter).to receive(:any_filters_applied?).and_return(true)
       allow(presenter).to receive(:grouped_display?).and_return(false)
       allow(view_context).to receive(:render).and_return('<nav></nav>')
+
+      allow(finder).to receive(:atom_url).and_return("/finder.atom")
+      allow(finder).to receive(:email_alert_signup_url).and_return("/email_signup")
     end
 
     it 'returns an appropriate hash' do
@@ -171,7 +173,6 @@ RSpec.describe ResultSetPresenter do
       expect(presenter.to_hash[:finder_name].present?).to be_truthy
       expect(presenter.to_hash[:applied_filters].present?).to be_truthy
       expect(presenter.to_hash[:any_filters_applied].present?).to be_truthy
-      expect(presenter.to_hash[:atom_url].present?).to be_truthy
       expect(presenter.to_hash[:next_and_prev_links].present?).to be_truthy
     end
 
@@ -275,6 +276,254 @@ RSpec.describe ResultSetPresenter do
       it 'creates a new document for each result' do
         search_result_objects = presenter.documents
         expect(search_result_objects.count).to eql(3)
+      end
+    end
+  end
+
+  describe "#documents_by_facets" do
+    let(:primary_facet) do
+      double(
+        SelectFacet,
+        key: 'sector_business_area',
+        allowed_values: [
+          { 'value' => 'aerospace', 'label' => 'Aerospace' },
+          { 'value' => 'agriculture', 'label' => 'Agriculture' },
+        ],
+        value: %W(aerospace agriculture),
+        labels: %W(aerospace agriculture),
+      )
+    end
+
+    let(:a_facet_collection) {
+      double(FacetCollection, filters: [a_facet, primary_facet])
+    }
+
+    let(:tagging_metadata) {
+      [{
+        id: 'sector_business_area',
+        name: 'Business area',
+        value: 'Aerospace',
+        type: 'text',
+        labels: %W(aerospace)
+      }]
+    }
+
+    let(:tagged_document) {
+      double(
+        Document,
+        title: 'Tagged to a primary facet',
+        path: 'slug-3',
+        metadata: tagging_metadata,
+        summary: 'I am a document',
+        is_historic: false,
+        government_name: 'The Government',
+        promoted: false,
+        show_metadata: false,
+      )
+    }
+
+    let(:primary_tagged_result) {
+      SearchResultPresenter.new(tagged_document).to_hash
+    }
+
+    let(:document_result) { SearchResultPresenter.new(document).to_hash }
+
+    context "when not grouping results" do
+      let(:filter_params) { { order: 'a-z' } }
+      let(:results) { ResultSet.new([document], total) }
+
+      it "returns an empty array" do
+        expect(subject.documents_by_facets).to eq([])
+      end
+    end
+
+    context "when no filters have been selected" do
+      let(:filter_params) { { order: 'topic' } }
+      let(:results) { ResultSet.new([document], total) }
+
+      it "groups all documents in the default group" do
+        allow(a_facet_collection).to receive(:find)
+
+        expect(subject.documents_by_facets).to eq([{
+          facet_name: 'All businesses',
+          facet_key: 'all_businesses',
+          documents: subject.documents
+        }])
+      end
+    end
+
+    context "when primary facets have been selected" do
+      let(:filter_params) {
+        {
+          order: 'topic',
+          sector_business_area: %W(aerospace),
+          'case-type': %W(ca98-and-civil-cartels)
+        }
+      }
+      let(:results) { ResultSet.new([document, tagged_document], total) }
+
+      it "groups the relevant documents in the primary facets" do
+        allow(finder).to receive(:filters).and_return([a_facet, primary_facet])
+        allow(a_facet_collection).to receive(:find)
+        allow(a_facet_collection).to receive(:map).and_return([[a_facet.allowed_values], [primary_facet.allowed_values]])
+
+        expect(subject.documents_by_facets).to eq([
+          {
+            facet_name: 'Aerospace',
+            facet_key: 'aerospace',
+            documents: [{ document: primary_tagged_result, document_index: 2 }]
+          },
+          {
+            facet_name: 'Case type',
+            facet_key: 'case-type',
+            documents: [{ document: document_result, document_index: 1 }]
+          },
+        ])
+      end
+    end
+
+    context "when other facets have been selected" do
+      let(:filter_params) {
+        {
+          order: 'topic',
+          'case-type': %W(ca98-and-civil-cartels)
+        }
+      }
+
+      let(:results) { ResultSet.new([document, tagged_document], total) }
+
+      it "groups the relevant documents in the other facets" do
+        allow(a_facet_collection).to receive(:find)
+
+        expect(subject.documents_by_facets).to eq([
+          {
+            facet_name: 'Case type',
+            facet_key: 'case-type',
+            documents: [{ document: document_result, document_index: 1 }]
+          }
+        ])
+      end
+    end
+
+    context "when a document is tagged to all primary facets" do
+      let(:tagging_metadata) {
+        [{
+          id: 'sector_business_area',
+          name: 'Business area',
+          value: 'Aerospace',
+          type: 'text',
+          labels: %W(aerospace agriculture)
+        }]
+      }
+
+      let(:filter_params) {
+        {
+          order: 'topic',
+          sector_business_area: %W(aerospace),
+          'case-type': %W(ca98-and-civil-cartels)
+        }
+      }
+
+      let(:results) { ResultSet.new([tagged_document], total) }
+
+      it "is grouped in the default set" do
+        allow(a_facet_collection).to receive(:find).and_return(primary_facet)
+        allow(finder).to receive(:filters).and_return([a_facet, primary_facet])
+
+        expect(subject.documents_by_facets).to eq([
+          {
+            facet_name: 'All businesses',
+            facet_key: 'all_businesses',
+            documents: [{ document: primary_tagged_result, document_index: 1 }]
+          }
+        ])
+      end
+    end
+  end
+
+  describe "#grouped_display?" do
+    context "a finder does not sort by topic" do
+      let(:filter_params) { {} }
+      before { allow(finder).to receive(:default_sort_option) }
+      it "is false" do
+        allow(finder).to receive(:sort).and_return([])
+
+        expect(subject.grouped_display?).to be false
+      end
+    end
+
+    context "a finder sorts by topic" do
+      let(:topic_sort_option) { { 'name' => 'Topic', 'key' => 'topic' } }
+      before do
+        allow(finder).to receive(:default_sort_option).and_return(topic_sort_option)
+        allow(finder).to receive(:sort).and_return([topic_sort_option])
+      end
+      context "with no sort param" do
+        let(:filter_params) { {} }
+        it "is true" do
+          expect(subject.grouped_display?).to be true
+        end
+      end
+      context "with a 'topic' sort param" do
+        let(:filter_params) { { order: 'topic' } }
+        it "is true" do
+          expect(subject.grouped_display?).to be true
+        end
+      end
+      context "with a-z sort param" do
+        let(:filter_params) { { order: 'a-z' } }
+        it "is false" do
+          expect(subject.grouped_display?).to be false
+        end
+      end
+    end
+  end
+
+  describe '#signup_links' do
+    context 'has both signup links' do
+      before(:each) do
+        allow(finder).to receive(:atom_url).and_return("/finder.atom")
+        allow(finder).to receive(:email_alert_signup_url).and_return("/email_signup")
+      end
+
+      it 'returns both signup links' do
+        expect(presenter.signup_links).to eq(email_signup_link: "/email_signup", feed_link: "/finder.atom")
+      end
+    end
+
+    context 'has just has the atom signup link' do
+      before(:each) do
+        allow(finder).to receive(:atom_url).and_return("/finder.atom")
+        allow(finder).to receive(:email_alert_signup_url).and_return("")
+      end
+
+      it 'returns just the atom link' do
+        expect(presenter.signup_links).to eq(feed_link: "/finder.atom")
+      end
+    end
+  end
+
+
+  describe '#has_email_signup_link?' do
+    context 'has one signup link' do
+      before(:each) do
+        allow(finder).to receive(:atom_url).and_return("")
+        allow(finder).to receive(:email_alert_signup_url).and_return("/email_signup")
+      end
+
+      it 'returns true' do
+        expect(presenter.has_email_signup_link?).to eq(true)
+      end
+    end
+
+    context 'has no links' do
+      before(:each) do
+        allow(finder).to receive(:atom_url).and_return("")
+        allow(finder).to receive(:email_alert_signup_url).and_return("")
+      end
+
+      it 'returns false' do
+        expect(presenter.has_email_signup_link?).to eq(false)
       end
     end
   end
