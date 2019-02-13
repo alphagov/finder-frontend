@@ -165,5 +165,5 @@ Feature: Filtering documents
   Scenario: Filter documents by keywords and sort by most relevant
     When I view the news and communications finder
     And I fill in some keywords
+    And I sort by most relevant
     Then I see most relevant order selected
-

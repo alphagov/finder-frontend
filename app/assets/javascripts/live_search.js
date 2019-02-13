@@ -183,10 +183,6 @@
     if (keywordsCleared) {
       liveSearch.selectDefaultSortOption();
     }
-
-    if (keywordsChanged) {
-      liveSearch.selectRelevanceSortOption();
-    }
   };
 
   LiveSearch.prototype.selectDefaultSortOption = function selectDefaultSortOption() {
