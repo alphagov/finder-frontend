@@ -29,7 +29,7 @@ end
 
 group :development, :test do
   gem 'awesome_print'
-  gem 'govuk-lint', '~> 3.10.0'
+  gem 'govuk-lint', '~> 3.11.0'
   gem 'govuk_schemas', '~> 3.2'
   gem 'jasmine-rails'
   gem 'pry-byebug'
