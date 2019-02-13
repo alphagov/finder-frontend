@@ -12,45 +12,52 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
     function toggleFilter(e) {
       e.preventDefault();
       e.stopPropagation();
+      var $el = $(e.target);
 
-      var removeFilterName = $(this).data('name');
-      var removeFilterValue = $(this).data('value');
-      var removeFilterFacet = $(this).data('facet');
+      var removeFilterName = $el.data('name');
+      var removeFilterValue = $el.data('value');
+      var removeFilterFacet = $el.data('facet');
+      var isAutoComplete = !!$('#' + removeFilterFacet +'-select').length;
 
-      var inputSelector = getSelectorForInput(removeFilterName, removeFilterValue);
-      var $input = $('#' + removeFilterFacet).find(inputSelector);
-
-      var elementType = $input.prop('tagName');
-      var inputType = $input.prop('type');
-
-      setInputState(elementType, inputType, $input, removeFilterValue, removeFilterFacet);
+      var $input = getInput(removeFilterName, removeFilterValue, removeFilterFacet, isAutoComplete);
+      clearFacet($input, isAutoComplete, removeFilterValue, removeFilterFacet);
       fireRemoveTagTrackingEvent(removeFilterValue, removeFilterFacet);
     }
 
-    function setInputState(elementType, inputType, $input, removeFilterValue, removeFilterFacet) {
+    function clearFacet($input, isAutoComplete, removeFilterValue, removeFilterFacet) {
+      var elementType = $input.prop('tagName');
+      var inputType = $input.prop('type');
+      var currentVal = $input.val();
+
       if (inputType == 'checkbox') {
         $input.prop("checked", false);
         $input.trigger('change');
       }
       else if (inputType == 'text' || inputType == 'search') {
-        var currentVal = $input.val();
-        var newVal = $.trim(currentVal.replace(removeFilterValue, ''));
-
-        $input.val(newVal).trigger({
-          type: "change",
-          suppressAnalytics: true
-        });
+        if (isAutoComplete) {
+          var onConfirm = $('#' + $input.attr('id') + '-select').data('onconfirm'); // get the onConfirm function for the autocomplete
+          $input.val('');
+          onConfirm('', removeFilterValue, true); // call autocomplete onConfirm to clear it and hide the suggestions menu
+        } else {
+          $input.val(currentVal.replace(removeFilterValue, '').replace(/\s+/g,' ').trim()).trigger({
+            type: "change",
+            suppressAnalytics: true
+          });
+        }
       }
       else if (elementType == 'OPTION') {
-        $('#' + removeFilterFacet).val("").trigger('change');
+        $('#' + removeFilterFacet).val('').trigger('change');
       }
     }
 
-    function getSelectorForInput(removeFilterName, removeFilterValue) {
-      if (!!removeFilterName) {
-        return " input[name='" + removeFilterName + "']";
-      } else {
-        return " [value='" + removeFilterValue + "']";
+    function getInput(removeFilterName, removeFilterValue, removeFilterFacet, isAutoComplete) {
+      var selector = (!!removeFilterName) ? " input[name='" + removeFilterName + "']" : " [value='" + removeFilterValue + "']";
+
+      if (isAutoComplete) {
+        return $('#' + removeFilterFacet);
+      }
+      else {
+        return $('#' + removeFilterFacet).find(selector);
       }
     }
 
