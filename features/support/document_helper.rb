@@ -29,16 +29,12 @@ module DocumentHelper
     )
   end
 
-  def stub_rummager_api_request_with_organisation_links
-    stub_request(:get, rummager_all_org_links_url).to_return(
-      body: organisation_link_results,
-    )
-  end
-
   def stub_rummager_api_request_with_government_results
-    stub_request(:get, rummager_all_documents_url).to_return(
-      body: government_documents_json,
-    )
+    stub_request(:get, "#{Plek.current.find('search')}/batch_search.json")
+      .with(query: hash_including({}))
+      .to_return(
+        body: government_documents_json,
+      )
   end
 
   def stub_rummager_api_request_with_10_government_results
@@ -79,6 +75,12 @@ module DocumentHelper
         "filter_sector_business_area[0]" => "aerospace",
       )
     ).to_return(body: filtered_business_readiness_results_json)
+  end
+
+  def stub_all_rummager_api_requests_with_all_documents_results
+    stub_request(:get, "#{Plek.current.find('search')}/batch_search.json")
+        .with(query: hash_including({}))
+        .to_return(body: all_documents_json)
   end
 
   def stub_all_rummager_api_requests_with_news_and_communication_results
@@ -174,10 +176,20 @@ module DocumentHelper
 
   def content_store_has_government_finder
     base_path = '/government/policies/benefits-reform'
-    content_store_has_item(
-      base_path,
-      govuk_content_schema_example('finder').merge('base_path' => base_path).to_json
-    )
+    finder = govuk_content_schema_example('finder').merge('base_path' => base_path)
+    finder['details']["sort"] = [
+      {
+        "name": "Most viewed",
+        "key": "-popularity"
+      },
+      {
+        "name": "Relevance",
+        "key": "-relevance",
+        "default": true
+      }
+    ]
+
+    content_store_has_item(base_path, finder.to_json)
   end
 
   def content_store_has_services_finder

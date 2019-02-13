@@ -63,6 +63,7 @@
 
 <div class="grid-row">
   <form method="get" action="<%= finder.slug %>" class="js-live-search-form">
+    <input type="hidden" name="parent" value="<%= @parent %>">
     <div class="column-third">
       <%= render finder.facets %>
     </div>
