@@ -81,7 +81,7 @@ private
 
   def order_query
     if sort_option.present?
-      if %w(relevance -relevance).include?(sort_option['key'])
+      if order_by_relevance?(sort_option)
         order_by_relevance_query
       else
         order_by_sort_option_query
@@ -91,6 +91,10 @@ private
     else
       order_by_default_order_query
     end
+  end
+
+  def order_by_relevance?(sort_option)
+    %w(relevance -relevance topic -topic).include?(sort_option['key'])
   end
 
   def order_by_relevance_query
