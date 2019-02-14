@@ -44,18 +44,40 @@ Then(/^I can get a list of all documents with matching metadata$/) do
 end
 
 When(/^I view a list of news and communications$/) do
-  topic_taxonomy_has_taxons(%w[Taxon_1 Taxon_2])
+  topic_taxonomy_has_taxons([
+    {
+      content_id: "Taxon_1",
+      title: "Taxon_1"
+    },
+    {
+      content_id: "Taxon_2",
+      title: "Taxon_2"
+    }
+  ])
   content_store_has_news_and_communications_finder
   stub_whitehall_api_world_location_request
+  stub_people_registry_request
+  stub_organisations_registry_request
   stub_rummager_api_request_with_news_and_communication_results
   visit finder_path('news-and-communications')
 end
 
 When(/^I view the news and communications finder$/) do
-  topic_taxonomy_has_taxons(%w[Taxon_1 Taxon_2])
+  topic_taxonomy_has_taxons([
+    {
+      content_id: "Taxon_1",
+      title: "Taxon_1"
+    },
+    {
+      content_id: "Taxon_2",
+      title: "Taxon_2"
+    }
+  ])
   content_store_has_news_and_communications_finder
   stub_whitehall_api_world_location_request
   stub_all_rummager_api_requests_with_news_and_communication_results
+  stub_people_registry_request
+  stub_organisations_registry_request
   visit finder_path('news-and-communications')
 end
 
@@ -64,6 +86,8 @@ When(/^I view a list of services$/) do
   topic_taxonomy_has_taxons
   content_store_has_services_finder
   stub_rummager_api_request_with_services_results
+  stub_people_registry_request
+  stub_organisations_registry_request
 
   visit finder_path('services')
 end

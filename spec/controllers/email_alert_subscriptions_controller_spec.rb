@@ -1,4 +1,6 @@
 require 'spec_helper'
+require "helpers/taxonomy_spec_helper"
+require "helpers/registry_spec_helper"
 require 'gds_api/test_helpers/content_store'
 require 'gds_api/test_helpers/email_alert_api'
 require_relative "../helpers/validation_query_helper"
@@ -9,10 +11,32 @@ describe EmailAlertSubscriptionsController, type: :controller do
   include FixturesHelper
   include GovukContentSchemaExamples
   include ValidateQueryHelper
+  include TaxonomySpecHelper
+  include RegistrySpecHelper
 
   render_views
 
   let(:signup_finder) { cma_cases_signup_content_item }
+  let(:content_id_one) { "magical-education" }
+  let(:content_id_two) { "herbology" }
+  let(:top_level_taxon_one_title) { "Magical Education" }
+  let(:top_level_taxon_two_title) { "Herbology" }
+
+  before :each do
+    topic_taxonomy_has_taxons([
+      {
+        content_id: content_id_one,
+        title: top_level_taxon_one_title
+      },
+      {
+        content_id: content_id_two,
+        title: top_level_taxon_two_title
+      }
+    ])
+
+    stub_people_registry_request
+    stub_organisations_registry_request
+  end
 
   describe 'GET #new' do
     describe "finder email signup item doesn't exist" do

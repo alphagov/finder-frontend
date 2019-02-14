@@ -166,4 +166,3 @@ Feature: Filtering documents
     When I view the news and communications finder
     And I fill in some keywords
     Then I see most relevant order selected
-

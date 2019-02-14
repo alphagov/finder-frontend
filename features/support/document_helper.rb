@@ -1,12 +1,14 @@
 require_relative '../../lib/govuk_content_schema_examples'
 require_relative "../../spec/helpers/taxonomy_spec_helper"
 require_relative "../../spec/helpers/validation_query_helper"
+require_relative "../../spec/helpers/registry_spec_helper"
 require 'gds_api/test_helpers/email_alert_api'
 require 'gds_api/test_helpers/content_store'
 
 module DocumentHelper
   include GovukContentSchemaExamples
   include TaxonomySpecHelper
+  include RegistrySpecHelper
   include ValidateQueryHelper
   include GdsApi::TestHelpers::EmailAlertApi
   include GdsApi::TestHelpers::ContentStore

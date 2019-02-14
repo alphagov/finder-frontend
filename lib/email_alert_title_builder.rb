@@ -41,7 +41,7 @@ private
     facet_key = facets.first['filter_key'] || facets.first['facet_id']
 
     if dynamic_filter_option?(facet_key)
-      return dynamic_facet_sentence(facet_key, selected_facets.first)
+      return dynamic_facet_sentence(facet_key, selected_facets.first["facet_name"])
     end
 
     topic_names_sentence(facets.first)
@@ -50,7 +50,7 @@ private
   def multiple_facets_suffix
     grouped_facets.map { |facet_key, facet_group|
       if dynamic_filter_option?(facet_key)
-        dynamic_facet_sentence(facet_key, facet_group.first)
+        dynamic_facet_sentence(facet_key, facet_group.first["facet_name"])
       else
         facet_group.map { |facet| facet["facet_name"] + " of " + topic_names_sentence(facet) }.to_sentence
       end
@@ -75,10 +75,44 @@ private
     selected_facets.group_by { |facet| facet['filter_key'] || facet['facet_id'] }
   end
 
-  def dynamic_facet_sentence(facet_key, facet)
-    count = filter.fetch(facet_key, []).count
-    word = count > 1 ? facet["facet_name"] : facet["facet_name"].singularize
-    "#{count} #{word}"
+  def dynamic_facet_sentence(facet_key, facet_name)
+    registry              = registry(facet_key)
+    all_values            = filter_values(facet_key, registry)
+    values, blank_values  = all_values.partition(&:present?)
+    total_values          = all_values.count
+    word                  = total_values > 1 ? facet_name : facet_name.singularize
+
+    return "#{total_values} #{word}" if registry.nil? || values.count.zero?
+
+    return "#{word} of #{values.to_sentence}" if blank_values.count.zero?
+
+    other_word = blank_values.count > 1 ? facet_name : facet_name.singularize
+    values_with_unknown_others = values.concat(["#{blank_values.count} other #{other_word}"])
+
+    "#{word} of #{values_with_unknown_others.to_sentence}"
+  end
+
+  def filter_values(facet_key, registry)
+    filter.fetch(facet_key, []).map { |value|
+      find_title_by_slug(value, registry)
+    }
+  end
+
+  def find_title_by_slug(slug, registry)
+    return "" if registry.nil?
+
+    return "Brexit" if is_brexit?(registry, slug)
+
+    item = registry[slug] || {}
+    item.fetch("title", "")
+  end
+
+  def registry(facet_key)
+    registries.all[facet_key]
+  end
+
+  def registries
+    @registries ||= Registries::BaseRegistries.new
   end
 
   def dynamic_filter_option?(filter_key)
@@ -92,5 +126,9 @@ private
       all_part_of_taxonomy_tree
       document_type
     ).include?(filter_key)
+  end
+
+  def is_brexit?(registry, content_id)
+    registry.is_a?(Registries::TopicTaxonomyRegistry) && content_id == "d6c2de5d-ef90-45d1-82d4-5f2438369eea"
   end
 end
