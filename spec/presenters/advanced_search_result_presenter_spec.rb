@@ -19,11 +19,13 @@ RSpec.describe AdvancedSearchResultPresenter do
   let(:document_type) { "guidance" }
   let(:organisations) { [{ title: "Ministry of Defence" }] }
   let(:public_timestamp) { "2018-03-26" }
+  let(:content_purpose_supergroup) { "news_and_communications" }
   let(:taxon_content_id) { SecureRandom.uuid }
   let(:search_result) {
     Document.new({
       title: "Result",
       link: "/result",
+      content_purpose_supergroup: content_purpose_supergroup,
       content_store_document_type: document_type,
       organisations: organisations,
       public_timestamp: public_timestamp,
@@ -76,7 +78,7 @@ RSpec.describe AdvancedSearchResultPresenter do
     end
 
     context "for services content group" do
-      let(:document_type) { "transaction" }
+      let(:content_purpose_supergroup) { "services" }
 
       it "returns true for other document_types" do
         expect(instance.show_metadata?).to be false
