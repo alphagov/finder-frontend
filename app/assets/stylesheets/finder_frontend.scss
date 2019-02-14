@@ -277,6 +277,7 @@
 
       .filtered-results__facet-heading {
         @include govuk-font($size: 24, $weight: bold);
+        margin-bottom: $gutter-half;
       }
     }
 

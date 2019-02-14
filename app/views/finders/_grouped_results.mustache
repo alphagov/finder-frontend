@@ -1,9 +1,11 @@
-<div class="filtered-results__group">
+<li class="filtered-results__group">
   <h2 class="filtered-results__facet-heading">{{ facet_name }}</h2>
-  {{#pinned_document}}
-    {{> finders/_results_document  }}
-  {{/pinned_document}}
-  {{#documents}}
-    {{> finders/_results_document }}
-  {{/documents}}
-</div>
+  <ul>
+    {{#pinned_document}}
+      {{> finders/_results_document  }}
+    {{/pinned_document}}
+    {{#documents}}
+      {{> finders/_results_document }}
+    {{/documents}}
+  </ul>
+</li>
