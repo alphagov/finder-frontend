@@ -71,17 +71,13 @@
       <div class='js-live-search-results-block'>
         <div class="filtered-results">
           <div aria-live='assertive' id='js-search-results-info' data-module="remove-filter">
-            <% if @results.grouped_display? %>
-              <%= render_mustache('grouped_heading') %>
-            <% else %>
-              <%= render_mustache('result_count', @results.to_hash) %>
-            <% end %>
+            <%= render_mustache('result_count', @results.to_hash) %>
           </div>
 
           <div class="govuk-caption-l live-search-loading-message" id="js-loading-message"></div>
           <% if finder.sort %>
             <div class="govuk-form-group">
-              <%= label_tag 'order', @results.sort_option_label_text, class: 'govuk-label' %>
+              <%= label_tag 'order', 'Sort by', class: 'govuk-label' %>
               <%= select_tag 'order', finder.sort_options,
                 class: 'govuk-select js-order-results',
                 'aria-controls': 'js-search-results-info',
