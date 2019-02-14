@@ -74,7 +74,7 @@ describe AutocompleteFacet do
 
   describe "#options" do
     specify {
-      expect(subject.options).to eql([["", ""], ["Allowed value 1", "allowed-value-1"], ["Allowed value 2", "allowed-value-2"], %w(Remittals remittals)])
+      expect(subject.options).to eql([["Allowed value 1", "allowed-value-1"], ["Allowed value 2", "allowed-value-2"], %w(Remittals remittals)])
     }
   end
 
