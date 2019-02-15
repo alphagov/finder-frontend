@@ -6,7 +6,7 @@ FinderFrontend::Application.configure do
   end
 
   config.cache_classes = true
-  config.cache_store = :dalli_store, nil, { namespace: :finder_frontend, compress: true }
+  config.cache_store = :dalli_store, nil, { namespace: :finder_frontend, compress: true } unless ENV['HEROKU_APP_NAME']
   config.eager_load = true
   config.consider_all_requests_local = false
   config.action_controller.perform_caching = true
