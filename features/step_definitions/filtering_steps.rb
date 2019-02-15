@@ -350,6 +350,10 @@ When(/^I sort by A-Z$/) do
   select 'A-Z', from: 'Sort by'
 end
 
+When(/^I sort by most relevant$/) do
+  select 'Relevance', from: 'Sort by'
+end
+
 When(/^I filter the results$/) do
   click_on 'Filter results'
 end
