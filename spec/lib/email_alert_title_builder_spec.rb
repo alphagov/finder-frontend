@@ -1,13 +1,39 @@
 require 'spec_helper'
 require 'email_alert_title_builder'
+require "helpers/taxonomy_spec_helper"
+require "helpers/registry_spec_helper"
 
 describe EmailAlertTitleBuilder do
+  include TaxonomySpecHelper
+  include RegistrySpecHelper
+
   subject do
     described_class.call(
       filter: filter,
       subscription_list_title_prefix: subscription_list_title_prefix,
       facets: facets
     )
+  end
+
+  let(:content_id_one) { "magical-education" }
+  let(:content_id_two) { "herbology" }
+  let(:top_level_taxon_one_title) { "Magical Education" }
+  let(:top_level_taxon_two_title) { "Herbology" }
+
+  before :each do
+    topic_taxonomy_has_taxons([
+      {
+        content_id: content_id_one,
+        title: top_level_taxon_one_title
+      },
+      {
+        content_id: content_id_two,
+        title: top_level_taxon_two_title
+      }
+    ])
+
+    stub_people_registry_request
+    stub_organisations_registry_request
   end
 
   context 'when there are no facets' do
@@ -133,10 +159,10 @@ describe EmailAlertTitleBuilder do
         [{ "facet_id" => "people", "facet_name" => "people" }]
       end
       let(:filter) do
-        { 'people' => %w(harry_potter ron_weasley) }
+        { 'people' => %w(harry-potter ron-weasley) }
       end
 
-      it { is_expected.to eq('Prefix with 2 people') }
+      it { is_expected.to eq('Prefix with people of Harry Potter and Ron Weasley') }
     end
 
 
@@ -161,23 +187,24 @@ describe EmailAlertTitleBuilder do
         { "facet_id" => "persons_of_interest", "facet_name" => "people", "filter_key" => "people" },
         { "facet_id" => "organisations", "facet_name" => "organisations" },
         { "facet_id" => "departments_of_interest", "facet_name" => "departments of interest", "filter_key" => "organisations" },
-        { "facet_id" => "document_type", "facet_name" => "document types" },
         { "facet_id" => "world_locations", "facet_name" => "world locations" },
         { "facet_id" => "level_one_taxon", "filter_key" => "part_of_taxonomy_tree", "facet_name" => "topics" },
         { "facet_id" => "level_two_taxon", "filter_key" => "part_of_taxonomy_tree", "facet_name" => "topics" },
         { "facet_id" => "related_to_brexit", "filter_key" => "part_of_taxonomy_tree", "filter_value" => "d6c2de5d-ef90-45d1-82d4-5f2438369eea", "facet_name" => "topics" },
+        { "facet_id" => "document_type", "facet_name" => "document types" },
     ]
     end
     let(:filter) do
       {
-        'people' => %w(harry_potter ron_weasley dumbledore cornelius_fudge rufus_scrimgeour),
-        'organisations' => %w(ministry_of_magic gringots hogwarts),
-        'part_of_taxonomy_tree' => %w(magical_education brexit education),
+        'people' => %w(harry-potter ron-weasley albus-dumbledore cornelius-fudge rufus-scrimgeour),
+        'organisations' => %w(ministry-of-magic gringots hogwarts),
+        'part_of_taxonomy_tree' => %w(magical-education d6c2de5d-ef90-45d1-82d4-5f2438369eea herbology),
+        'document_type' => %w(OWL NEWT),
       }
     end
 
     it {
-      is_expected.to eq('News and communicatons with 5 people, 3 organisations, and 3 topics')
+      is_expected.to eq('News and communicatons with people of Harry Potter, Ron Weasley, Albus Dumbledore, Cornelius Fudge, and Rufus Scrimgeour, organisations of Ministry of Magic, Gringots, and 1 other organisation, topics of Magical Education, Brexit, and Herbology, and 2 document types')
     }
   end
 end

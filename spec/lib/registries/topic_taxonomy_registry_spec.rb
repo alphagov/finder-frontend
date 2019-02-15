@@ -7,8 +7,8 @@ RSpec.describe Registries::TopicTaxonomyRegistry do
 
   let(:content_id_one) { SecureRandom.uuid }
   let(:content_id_two) { SecureRandom.uuid }
-  let(:top_level_taxon_one) { level_one_taxon(content_id_one) }
-  let(:top_level_taxon_two) { level_one_taxon(content_id_two) }
+  let(:top_level_taxon_one) { level_one_taxon(content_id: content_id_one, title: content_id_one) }
+  let(:top_level_taxon_two) { level_one_taxon(content_id: content_id_two, title: content_id_two) }
 
   describe "when topic taxonomy API is unavailable" do
     it "will return an (uncached) empty hash" do
@@ -23,7 +23,16 @@ RSpec.describe Registries::TopicTaxonomyRegistry do
   describe "when topic taxonomy api is available" do
     before :each do
       clear_taxon_cache
-      topic_taxonomy_has_taxons([content_id_one, content_id_two])
+      topic_taxonomy_has_taxons([
+        {
+          content_id: content_id_one,
+          title: content_id_one
+        },
+        {
+          content_id: content_id_two,
+          title: content_id_two
+        }
+      ])
     end
 
     after { clear_taxon_cache }

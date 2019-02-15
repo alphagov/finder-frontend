@@ -5,7 +5,16 @@ describe TaxonFacet do
   include TaxonomySpecHelper
 
   before do
-    topic_taxonomy_has_taxons(%w(allowed-value-1 allowed-value-2))
+    topic_taxonomy_has_taxons([
+      {
+        content_id: "allowed-value-1",
+        title: "allowed-value-1"
+      },
+      {
+        content_id: "allowed-value-2",
+        title: "allowed-value-2"
+      }
+    ])
   end
 
   let(:allowed_values) {

@@ -6,20 +6,33 @@ module TaxonomySpecHelper
   CONTENT_ID_1 = SecureRandom.uuid.freeze
   CONTENT_ID_2 = SecureRandom.uuid.freeze
 
+  def default_taxons
+    [
+      {
+        content_id: CONTENT_ID_1,
+        title: 'Herbology',
+      },
+      {
+        content_id: CONTENT_ID_2,
+        title: 'Magical Education',
+      }
+    ]
+  end
+
   def topic_taxonomy_api_is_unavailable
     content_store_isnt_available
   end
 
-  def topic_taxonomy_has_taxons(taxon_ids = [CONTENT_ID_1, CONTENT_ID_2])
+  def topic_taxonomy_has_taxons(topics = default_taxons)
     clear_taxon_cache
 
     taxons = []
 
-    taxon_ids.map { |id|
-      taxon = level_one_taxon(id)
+    topics.map { |topic|
+      taxon = level_one_taxon(topic)
       taxons.unshift(taxon)
 
-      content_store_has_item("/#{id}", taxon)
+      content_store_has_item("/#{topic[:content_id]}", taxon)
     }
 
     content_store_has_item("/", root_taxon(taxons))
@@ -43,11 +56,11 @@ module TaxonomySpecHelper
     }
   end
 
-  def level_one_taxon(content_id)
+  def level_one_taxon(topic)
     {
-      'base_path' => "/#{content_id}",
-      'title' => content_id,
-      'content_id' => content_id,
+      'base_path' => "/#{topic[:content_id]}",
+      'title' => topic[:title],
+      'content_id' => topic[:content_id],
       'links' => {
         'child_taxons' => [{
           'base_path' => "/subtaxon",
