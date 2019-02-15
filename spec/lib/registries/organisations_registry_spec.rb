@@ -9,7 +9,8 @@ RSpec.describe Registries::OrganisationsRegistry do
     {
       "count" => 1500,
       "fields" => %w(slug title acronym),
-      "filter_format" => "organisation"
+      "filter_format" => "organisation",
+      "order" => 'title'
     }
   }
   let(:rummager_url) { "#{Plek.current.find('search')}/search.json?#{rummager_params.to_query}" }
@@ -27,6 +28,13 @@ RSpec.describe Registries::OrganisationsRegistry do
         'acronym' => 'MOM',
         'slug' => slug
       )
+    end
+
+    it "will return all organisations by title ascending" do
+      organisations = described_class.new.values
+
+      expect(organisations.length).to eql(3)
+      expect(organisations.keys).to eql(%w(department-of-mysteries gringots ministry-of-magic))
     end
   end
 
@@ -55,14 +63,14 @@ RSpec.describe Registries::OrganisationsRegistry do
     %|{
       "results": [
         {
-          "title": "Ministry of Magic",
-          "slug": "ministry-of-magic",
-          "_id": "a field that we're not using"
-        },
-        {
           "title": "Attorney General's Office",
           "slug": "attorney-generals-office",
           "_id": "/government/organisations/companies-house"
+        },
+        {
+          "title": "Ministry of Magic",
+          "slug": "ministry-of-magic",
+          "_id": "a field that we're not using"
         }
       ],
       "total": 2,

@@ -354,7 +354,8 @@ module DocumentHelper
     simple_rummager_url(
       "count" => 1500,
       "fields" => %w(slug title acronym),
-      "filter_format" => "organisation"
+      "filter_format" => "organisation",
+      "order" => 'title'
     )
   end
 
@@ -528,16 +529,16 @@ module DocumentHelper
     %|{
       "results": [
         {
-          "title": "HM Revenue & Customs",
-          "slug": "hm-revenue-customs",
-          "_id": "/government/organisations/hm-revenue-customs",
+          "title": "Attorney General's Office",
+          "slug": "attorney-generals-office",
+          "_id": "/government/organisations/companies-house",
           "elasticsearch_type": "edition",
           "document_type": "edition"
         },
         {
-          "title": "Attorney General's Office",
-          "slug": "attorney-generals-office",
-          "_id": "/government/organisations/companies-house",
+          "title": "HM Revenue & Customs",
+          "slug": "hm-revenue-customs",
+          "_id": "/government/organisations/hm-revenue-customs",
           "elasticsearch_type": "edition",
           "document_type": "edition"
         }
@@ -1448,12 +1449,28 @@ module DocumentHelper
     %|{
       "results": [
         {
+          "id": "https://www.gov.uk/api/world-locations/azkaban",
+          "title": "Azkaban",
+          "format": "World location",
+          "updated_at": "2018-04-27T14:41:52.000+01:00",
+          "web_url": "https://www.gov.uk/world/azkaban",
+          "analytics_identifier": "WL1",
+          "details": {
+            "slug": "azkaban",
+            "iso2": "AK"
+          },
+          "organisations": {
+            "id": "https://www.gov.uk/api/world-locations/azkaban/organisations",
+            "web_url": "https://www.gov.uk/world/azkaban#organisations"
+          }
+        },
+        {
           "id": "https://www.gov.uk/api/world-locations/tracy-island",
           "title": "Tracy Island",
           "format": "World location",
           "updated_at": "2018-04-27T14:41:52.000+01:00",
           "web_url": "https://www.gov.uk/world/tracy-island",
-          "analytics_identifier": "WL1",
+          "analytics_identifier": "WL2",
           "details": {
             "slug": "tracy-island",
             "iso2": "TI"

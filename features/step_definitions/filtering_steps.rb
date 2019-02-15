@@ -299,6 +299,7 @@ Given(/^an organisation finder exists$/) do
   content_store_has_government_finder
   stub_organisations_registry_request
   stub_rummager_api_request_with_government_results
+  stub_people_registry_request
 
   visit finder_path('government/policies/benefits-reform', parent: 'ministry-of-magic')
 end
@@ -307,6 +308,7 @@ Given(/^an organisation finder exists but a bad breadcrumb path is given$/) do
   content_store_has_government_finder
   stub_organisations_registry_request
   stub_rummager_api_request_with_government_results
+  stub_people_registry_request
 
   visit finder_path('government/policies/benefits-reform', parent: 'bernard-cribbins')
 end

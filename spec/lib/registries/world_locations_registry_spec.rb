@@ -24,6 +24,13 @@ RSpec.describe Registries::WorldLocationsRegistry do
         'slug' => slug
       )
     end
+
+    it "will return all world locations" do
+      world_locations = registry.values
+
+      expect(world_locations.length).to eql(3)
+      expect(world_locations.keys).to eql(%w(hogwarts privet-drive diagon-alley))
+    end
   end
 
   describe "when world locations API is unavailable" do

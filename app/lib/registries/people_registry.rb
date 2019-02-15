@@ -1,6 +1,6 @@
 module Registries
   class PeopleRegistry
-    CACHE_KEY = "registries/people".freeze
+    CACHE_KEY = "#{NAMESPACE}/people".freeze
 
     def [](slug)
       people[slug]
@@ -13,6 +13,10 @@ module Registries
     rescue GdsApi::HTTPServerError
       GovukStatsd.increment("registries.people_api_errors")
       {}
+    end
+
+    def values
+      people
     end
 
   private
@@ -30,7 +34,8 @@ module Registries
       params = {
         filter_format: 'person',
         fields: %w(title slug),
-        count: 1500
+        count: 1500,
+        order: 'title'
       }
       Services.rummager.search_enum(params, page_size: 1500)
     end
