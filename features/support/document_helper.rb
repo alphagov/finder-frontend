@@ -321,7 +321,7 @@ module DocumentHelper
   def rummager_all_org_links_url
     simple_rummager_url(
       "count" => 1500,
-      "fields" => %w(slug title),
+      "fields" => %w(slug title acronym),
       "filter_format" => "organisation"
     )
   end

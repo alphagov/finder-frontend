@@ -40,17 +40,19 @@ module RegistrySpecHelper
     stub_request(:get, "http://search.dev.gov.uk/search.json")
     .with(query: {
       count: 1500,
-      fields: %w(slug title),
+      fields: %w(slug title acronym),
       filter_format: %(organisation),
     })
     .to_return(body: { results: [
         {
           "title": "Ministry of Magic",
           "slug": "ministry-of-magic",
+          "acronym": "MOM",
           "_id": "a field that we're not using"
         },
         {
           "title": "Gringots",
+          "acronym": "GRI",
           "slug": "gringots",
           "_id": "/government/organisations/gringots"
         },
