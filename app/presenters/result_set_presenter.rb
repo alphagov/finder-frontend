@@ -26,6 +26,7 @@ class ResultSetPresenter
       applied_filters: selected_filter_descriptions,
       documents_by_facets: documents_by_facets,
       documents: documents,
+      zero_results: total.zero?,
       page_count: documents.count,
       finder_name: finder.name,
       any_filters_applied: any_filters_applied?,
