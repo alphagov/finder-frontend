@@ -25,6 +25,7 @@ class ResultSetPresenter
       pluralised_document_noun: document_noun.pluralize(total),
       applied_filters: selected_filter_descriptions,
       documents: documents,
+      zero_results: total.zero?,
       page_count: documents.count,
       finder_name: finder.name,
       any_filters_applied: any_filters_applied?,

@@ -26,12 +26,14 @@ Feature: Filtering documents
     Given a collection of documents exist
     When I search documents by keyword
     Then I see all documents which contain the keywords
+    And there is not a zero results message
 
   Scenario: Hiding keyword search
     Given no results
     When I view the finder with no keywords and no facets
     Then I see no results
     And there is no keyword search box
+    And there is a helpful message
 
   Scenario: Visit a government finder
     Given a government finder exists

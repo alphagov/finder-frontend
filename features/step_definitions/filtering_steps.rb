@@ -21,6 +21,14 @@ And(/there is no keyword search box$/) do
   expect(page).to_not have_css('#finder-keyword-search')
 end
 
+And(/there is a helpful message$/) do
+  expect(page).to have_content('no matching results')
+end
+
+And(/there is not a zero results message$/) do
+  expect(page).to_not have_content('no matching results')
+end
+
 Then(/^I can get a list of all documents with matching metadata$/) do
   visit finder_path('mosw-reports')
 
