@@ -190,3 +190,12 @@ Feature: Filtering documents
     Then I should see all people in the people facet
     And I should see all organisations in the organisation facet
     And I should see all world locations in the world location facet
+
+  @javascript
+  Scenario: Skip to results after inputing some keywords
+    When I view the news and communications finder
+    And I should not see a "Skip to results" link
+    And I fill in some keywords
+    And I press tab key to navigate
+    Then I should see a "Skip to results" link
+    And the page has results region
