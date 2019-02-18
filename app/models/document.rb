@@ -63,6 +63,8 @@ private
   end
 
   def date_metadata
+    return [] if @content_purpose_supergroup == 'services'
+
     date_metadata_keys
       .map(&method(:build_date_metadata))
       .select(&method(:metadata_value_present?))

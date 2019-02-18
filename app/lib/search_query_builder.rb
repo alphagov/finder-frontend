@@ -64,6 +64,7 @@ private
       description
       public_timestamp
       popularity
+      content_purpose_supergroup
     )
   end
 
