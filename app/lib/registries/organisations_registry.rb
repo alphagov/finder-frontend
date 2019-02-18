@@ -22,14 +22,14 @@ module Registries
         .reject { |result| result['slug'].empty? || result['title'].empty? }
         .each_with_object({}) { |result, orgs|
           slug = result['slug']
-          orgs[slug] = result.slice('title', 'slug')
+          orgs[slug] = result.slice('title', 'slug', 'acronym')
         }
     end
 
     def fetch_organisations_from_rummager
       params = {
         filter_format: 'organisation',
-        fields: %w(title slug),
+        fields: %w(title slug acronym),
         count: 1500
       }
       response = Services.rummager.search(params)

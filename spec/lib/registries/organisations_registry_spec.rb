@@ -1,11 +1,14 @@
 require 'spec_helper'
+require 'helpers/registry_spec_helper'
 
 RSpec.describe Registries::OrganisationsRegistry do
+  include RegistrySpecHelper
+
   let(:slug) { 'ministry-of-magic' }
   let(:rummager_params) {
     {
       "count" => 1500,
-      "fields" => %w(slug title),
+      "fields" => %w(slug title acronym),
       "filter_format" => "organisation"
     }
   }
@@ -13,14 +16,15 @@ RSpec.describe Registries::OrganisationsRegistry do
 
   describe "when rummager is available" do
     before do
-      stub_request(:get, rummager_url).to_return(body: rummager_results)
+      stub_organisations_registry_request
       clear_cache
     end
 
-    it "will fetch organisation breadcrumb information by slug" do
+    it "will fetch organisation information by slug" do
       organisation = described_class.new[slug]
       expect(organisation).to eq(
         'title' => 'Ministry of Magic',
+        'acronym' => 'MOM',
         'slug' => slug
       )
     end
