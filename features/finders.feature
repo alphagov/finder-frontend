@@ -33,7 +33,7 @@ Feature: Filtering documents
     When I view the finder with no keywords and no facets
     Then I see no results
     And there is no keyword search box
-    And there is a helpful message
+    And there is a zero results message
 
   Scenario: Visit a government finder
     Given a government finder exists
