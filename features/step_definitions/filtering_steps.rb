@@ -557,6 +557,7 @@ Then("I see results grouped by primary facet value") do
       expect(page).to have_css("h2.filtered-results__facet-heading", text: "All businesses")
     end
   end
+end
 
 And(/^I press (tab) key to navigate$/) do |key|
   find_field('Search').send_keys key.to_sym
