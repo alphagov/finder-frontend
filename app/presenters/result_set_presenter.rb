@@ -165,7 +165,7 @@ private
     links = {}
     links[:email_signup_link] = email_signup_link if email_signup_link.present?
     links[:feed_link] = feed_link if feed_link.present?
-    links[:margin_bottom] = 5 if email_signup_link.present? || feed_link.present?
+    links[:margin_bottom] = 3 if email_signup_link.present? || feed_link.present?
     links
   end
 

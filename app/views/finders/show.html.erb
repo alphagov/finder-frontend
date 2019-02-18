@@ -70,6 +70,9 @@
           </div>
 
           <div class="govuk-caption-l live-search-loading-message" id="js-loading-message"></div>
+          <% if @results.has_email_signup_link? %>
+            <%= render "govuk_publishing_components/components/subscription-links", @results.signup_links %>
+          <% end %>
           <% if finder.sort %>
             <div class="govuk-form-group">
               <%= label_tag 'order', 'Sort by', class: 'govuk-label' %>
@@ -80,10 +83,6 @@
                         'relevance-sort-option' => finder.relevance_sort_option_value,
                         'module' => 'track-select-change'} %>
             </div>
-          <% end %>
-
-          <% if @results.has_email_signup_link? %>
-            <%= render "govuk_publishing_components/components/subscription-links", @results.signup_links %>
           <% end %>
 
           <div id='js-results'>
