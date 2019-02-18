@@ -144,9 +144,28 @@ module RummagerUrlHelper
     )
   end
 
+  def business_readiness_params
+    base_search_params.merge(
+      "fields" => business_readiness_fields.join(","),
+      "filter_appear_in_find_eu_exit_guidance_business_finder" => "yes",
+    )
+  end
+
   def policies_search_fields
     base_search_fields + %w(
       organisations
+    )
+  end
+
+  def business_readiness_fields
+    base_search_fields + %w(
+      sector_business_area
+      business_activity
+      employ_eu_citizens
+      personal_data
+      intellectual_property
+      eu_uk_government_funding
+      public_sector_procurement
     )
   end
 

@@ -12,6 +12,8 @@
     this.$form = options.$form;
     this.$resultsBlock = options.$results.find('#js-results');
     this.$countBlock = options.$results.find('#js-search-results-info');
+    this.$loadingBlock = options.$results.find('#js-loading-message');
+    this.$resultsCount = options.$results.find('#js-result-count');
     this.action = this.$form.attr('action') + '.json';
     this.$atomAutodiscoveryLink = options.$atomAutodiscoveryLink;
     this.$emailLink = $("p.email-link a");
@@ -22,7 +24,6 @@
     this.$relevanceOrderOption = this.$orderSelect.find('option[value=' + this.$orderSelect.data('relevance-sort-option') + ']');
     this.$relevanceOrderOptionIndex = this.$relevanceOrderOption.index();
 
-    this.resultCountTemplate = this.setResultCountTemplate();
     this.getTaxonomyFacet().update();
 
     if(GOVUK.support.history()){
@@ -53,14 +54,6 @@
       $(window).on('popstate', this.popState.bind(this));
     } else {
       this.$form.find('.js-live-search-fallback').show();
-    }
-  };
-
-  LiveSearch.prototype.setResultCountTemplate = function setResultCountTemplate(){
-    if (this.$countBlock.find('#generic').length == 1){
-      return '_result_count_generic';
-    } else {
-      return '_result_count';
     }
   };
 
@@ -236,11 +229,11 @@
   };
 
   LiveSearch.prototype.showLoadingIndicator = function showLoadingIndicator(){
-    this.$countBlock.text('Loading...');
+    this.$loadingBlock.text('Loading...').show();
   };
 
   LiveSearch.prototype.showErrorIndicator = function showErrorIndicator(){
-    this.$countBlock.text('Error. Please try modifying your search and trying again.');
+    this.$loadingBlock.text('Error. Please try modifying your search and trying again.');
   };
 
   LiveSearch.prototype.displayResults = function displayResults(results, action){
@@ -248,8 +241,10 @@
     // still the latest to stop results being overwritten by stale data
     if(action == $.param(this.state)) {
       this.$resultsBlock.mustache(this.templateDir + '_results', results);
-      this.$countBlock.mustache(this.templateDir + this.resultCountTemplate, results);
+      this.$countBlock.mustache(this.templateDir + '_result_count', results);
+      this.$resultsCount.text(results.total + " " + results.pluralised_document_noun);
       this.$atomAutodiscoveryLink.attr('href', results.atom_url);
+      this.$loadingBlock.text('').hide();
     }
   };
 

@@ -67,6 +67,20 @@ module DocumentHelper
       .to_return(body: popular_news_and_communication_json)
   end
 
+  def stub_rummager_api_request_with_business_readiness_results
+    stub_request(:get, rummager_business_readiness_url)
+      .to_return(body: business_readiness_results_json)
+  end
+
+  def stub_rummager_api_request_with_filtered_business_readiness_results
+    stub_request(
+      :get,
+      rummager_filtered_business_readiness_url(
+        "filter_sector_business_area[0]" => "aerospace",
+      )
+    ).to_return(body: filtered_business_readiness_results_json)
+  end
+
   def stub_all_rummager_api_requests_with_news_and_communication_results
     stub_request(:get, "#{Plek.current.find('search')}/batch_search.json")
         .with(query: hash_including({}))
@@ -185,6 +199,12 @@ module DocumentHelper
       base_path,
       govuk_content_schema_example('policies_finder').to_json
     )
+  end
+
+  def content_store_has_business_readiness_finder
+    finder_fixture = File.read(Rails.root.join('features', 'fixtures', 'business_readiness.json'))
+
+    content_store_has_item('/find-eu-exit-guidance-business', finder_fixture)
   end
 
   def search_params(params = {})
@@ -482,6 +502,14 @@ module DocumentHelper
 
   def whitehall_admin_world_locations_api_url
     "#{Plek.current.find('whitehall-admin')}/api/world-locations"
+  end
+
+  def rummager_business_readiness_url
+    rummager_url(business_readiness_params)
+  end
+
+  def rummager_filtered_business_readiness_url(filter_params)
+    rummager_url(business_readiness_params.merge(filter_params))
   end
 
   def organisation_link_results
@@ -1439,6 +1467,16 @@ module DocumentHelper
         ]
       }
     }|
+  end
+
+  def business_readiness_results_json
+    @business_readiness_results_json ||=
+      File.read(Rails.root.join('features', 'fixtures', 'business_readiness_results.json'))
+  end
+
+  def filtered_business_readiness_results_json
+    @filtered_business_readiness_results_json ||=
+      File.read(Rails.root.join('features', 'fixtures', 'business_readiness_filtered_results.json'))
   end
 
   def visit_filtered_finder(facets = {})

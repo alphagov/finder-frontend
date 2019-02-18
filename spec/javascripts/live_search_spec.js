@@ -251,24 +251,6 @@ describe("liveSearch", function(){
     });
   });
 
-  describe("setResultCountTemplate", function(){
-    describe("finders with generic descriptions", function(){
-      beforeEach(function () {
-        $count = $('<div aria-live="assertive" id="js-search-results-info"><p class="result-info" id="generic"></p></div>');
-        liveSearch.$countBlock = $count;
-      });
-
-      it("should return the generic result count template", function () {
-        expect(liveSearch.setResultCountTemplate()).toEqual('_result_count_generic');
-      });
-    });
-
-    it("should return the default result count template", function(){
-      expect(liveSearch.setResultCountTemplate()).toEqual('_result_count');
-    });
-  });
-
-
   describe("popState", function(){
     var dummyHistoryState;
 

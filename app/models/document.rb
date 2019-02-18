@@ -20,15 +20,25 @@ class Document
     raw_metadata.map(&method(:humanize_metadata_name))
   end
 
+  def show_metadata
+    metadata.present? && finder.display_metadata?
+  end
+
   def path
     link.starts_with?("/") ? link : "/#{link}"
   end
 
   def summary
-    if finder.show_summaries? && description.present?
+    if description.present? && (finder.show_summaries? || promoted)
       # This truncates the description at the end of the first sentence
       description.gsub(/\.\s[A-Z].*/, '.')
     end
+  end
+
+  def promoted
+    return false unless finder.links.has_key?("ordered_related_items")
+
+    finder.links["ordered_related_items"].any? { |item| item["base_path"] == path }
   end
 
 private
@@ -87,8 +97,10 @@ private
             end
 
     {
+      id: key,
       name: key,
       value: value,
+      labels: labels,
       type: "text",
     }
   end
