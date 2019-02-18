@@ -48,57 +48,17 @@ module RummagerUrlHelper
   end
 
   def news_and_communications_search_params
-    supergroup_document_types = %w(
-      asylum_support_decision
-      authored_article
-      cma_case
-      correspondence
-      decision
-      drug_safety_update
-      employment_appeal_tribunal_decision
-      employment_tribunal_decision
-      fatality_notice
-      government_response
-      medical_safety_alert
-      news_article
-      news_story
-      oral_statement
-      press_release
-      service_standard_report
-      speech
-      tax_tribunal_decision
-      utaac_decision
-      world_location_news_article
-      world_news_story
-      written_statement
-    )
-
     base_search_params.merge(
       'fields' => news_and_communications_search_fields.join(','),
-      'filter_content_store_document_type' => supergroup_document_types,
+      'filter_content_purpose_supergroup' => 'news_and_communications',
       'filter_all_part_of_taxonomy_tree[]' => [nil, nil],
     )
   end
 
   def services_search_params
-    supergroup_document_types = %w(
-      answer
-      calculator
-      completed_transaction
-      form
-      guide
-      licence
-      local_transaction
-      place
-      simple_smart_answer
-      smart_answer
-      step_by_step_nav
-      transaction
-    )
-
     base_search_params.merge(
       'fields' => services_search_fields.join(','),
-      'filter_content_store_document_type' => supergroup_document_types,
+      'filter_content_purpose_supergroup' => 'services',
       'filter_all_part_of_taxonomy_tree[]' => [nil, nil],
       )
   end

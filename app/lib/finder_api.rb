@@ -78,10 +78,6 @@ private
       params: filter_params,
     ).call
 
-    queries = queries.map do |query|
-      TranslateContentPurposeFields.new(query).call
-    end
-
     merge_and_deduplicate(
       Services.rummager.batch_search(queries).to_hash
     )

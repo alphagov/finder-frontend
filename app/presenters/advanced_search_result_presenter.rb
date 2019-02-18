@@ -1,7 +1,7 @@
 class AdvancedSearchResultPresenter < SearchResultPresenter
   def to_hash
     super.merge(
-      content_purpose_supergroup: content_purpose_supergroup,
+      content_purpose_supergroup: search_result.content_purpose_supergroup,
       document_type: document_type,
       organisations: organisations,
       publication_date: publication_date,
@@ -28,15 +28,9 @@ class AdvancedSearchResultPresenter < SearchResultPresenter
   end
 
   def show_metadata?
-    return false if content_purpose_supergroup == "services"
+    return false if search_result.content_purpose_supergroup == "services"
     return false if search_result.document_type == "guide"
 
     true
-  end
-
-private
-
-  def content_purpose_supergroup
-    supertypes.fetch('content_purpose_supergroup')
   end
 end
