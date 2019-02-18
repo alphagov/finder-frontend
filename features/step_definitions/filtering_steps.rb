@@ -82,7 +82,6 @@ When(/^I view the news and communications finder$/) do
 end
 
 When(/^I view the business readiness finder$/) do
-  topic_taxonomy_has_taxons(%w[Taxon_1 Taxon_2])
   content_store_has_business_readiness_finder
   stub_whitehall_api_world_location_request
   stub_rummager_api_request_with_business_readiness_results
