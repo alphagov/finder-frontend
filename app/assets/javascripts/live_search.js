@@ -24,6 +24,8 @@
 
     this.$orderSelectWrapper = this.$form.find('.js-sort-button-wrapper');
     this.$orderSelect = this.$form.find('.js-order-results');
+    this.$keywordSearch = $('#finder-keyword-search');
+    this.$keywordResults = $('.js-question-results');
     this.$relevanceOrderOption = this.$orderSelect.find('option[value=' + this.$orderSelect.data('relevance-sort-option') + ']');
     this.$relevanceOrderOptionIndex = this.$relevanceOrderOption.index();
 
@@ -66,6 +68,7 @@
     }
 
     this.loadQuestionData();
+    this.setupSearch();
   };
 
   LiveSearch.prototype.loadQuestionData = function () {
@@ -74,6 +77,10 @@
     this.questionIndex = lunr(function () {
       this.ref('id');
       this.field('question');
+
+      // Remove stemmer
+      this.pipeline.remove(lunr.stemmer)
+      this.searchPipeline.remove(lunr.stemmer)
 
       // Alias this as this is refined inside $.each
       var searchIndex = this;
@@ -88,6 +95,50 @@
 
     this.questionData = questionData;
   };
+
+  LiveSearch.prototype.setupSearch = function () {
+    var that = this;
+    this.$keywordSearch.on('input', function () {
+      var searchTerms = $(this).val();
+
+      that.$keywordResults.empty();
+
+      if (searchTerms.length < 3) {
+        return;
+      }
+
+      var searchResults = that.search(searchTerms);
+
+      $.each(searchResults, function(_, result) {
+        that.$keywordResults.append($('<li>').append(result.question))
+      });
+    })
+  }
+
+  LiveSearch.prototype.search = function (keywords) {
+    var results = this.questionIndex.query(function (q) {
+      const tokens = lunr.tokenizer(keywords);
+      const last = tokens.pop();
+
+      if (tokens.length > 1) {
+        q.term(tokens);
+      }
+
+      q.term(last, {
+        wildcard: lunr.Query.wildcard.TRAILING
+      });
+    });
+
+    var that = this;
+
+    return $.map(results, function(result) {
+      return that.getResult(result.ref);
+    });
+  }
+
+  LiveSearch.prototype.getResult = function (id) {
+    return this.questionData[id];
+  }
 
   LiveSearch.prototype.getTaxonomyFacet = function getTaxonomyFacet() {
     this.taxonomy = this.taxonomy || new GOVUK.TaxonomySelect({ $el: $('.app-taxonomy-select') });

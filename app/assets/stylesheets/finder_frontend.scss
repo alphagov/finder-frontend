@@ -462,3 +462,35 @@
     }
   }
 }
+
+.search_results {
+  margin: 0;
+  margin-top: -2px;
+  padding: 0;
+  position: absolute;
+  left: 0;
+  right: 0;
+  background: govuk-colour('white');
+  border: 2px solid govuk-colour('black');
+  top: 100%;
+  z-index: 100000;
+  max-height: 60vh;
+  overflow-y: scroll;
+
+  li {
+    cursor: pointer;
+    padding: govuk-spacing(2);
+    @include govuk-font($size: 19);
+  }
+
+  a:link, a:visited {
+    display: block;
+    padding: 10px $govuk-gutter-half;
+    text-decoration: none;
+    color: $govuk-text-colour;
+  }
+
+  .active-result {
+    background: govuk-colour('yellow');
+  }
+}
