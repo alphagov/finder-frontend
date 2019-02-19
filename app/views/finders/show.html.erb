@@ -99,7 +99,7 @@
 
           <div class="govuk-caption-l live-search-loading-message" id="js-loading-message"></div>
           <% if finder.sort %>
-            <div class="govuk-form-group">
+            <div class="govuk-form-group <%= "js-hidden" if finder.hide_sort? %> js-sort-button-wrapper">
               <%= label_tag 'order', 'Sort by', class: 'govuk-label' %>
               <%= select_tag 'order', finder.sort_options,
                 class: 'govuk-select js-order-results',

@@ -163,6 +163,10 @@ class FinderPresenter
     options_for_select(options, selected: selected_option, disabled: disabled_option)
   end
 
+  def hide_sort?
+    keywords.present?
+  end
+
   def show_keyword_search?
     keywords.present? || facets.any? || results.total.positive?
   end
