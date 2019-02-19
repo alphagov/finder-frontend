@@ -78,9 +78,11 @@ private
       params: filter_params,
     ).call
 
-    merge_and_deduplicate(
-      Services.rummager.batch_search(queries).to_hash
-    )
+    GovukStatsd.time("rummager.finder_batch_search") do
+      merge_and_deduplicate(
+        Services.rummager.batch_search(queries).to_hash
+      )
+    end
   end
 
   def augment_content_item_with_results(content_item, search_response)
