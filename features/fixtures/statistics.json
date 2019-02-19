@@ -93,7 +93,7 @@
         "allowed_values": [
           {
             "text": "Published",
-            "value": "[\"statistics\",\"national_statistics\",\"statistical_data_set\",\"official_statistics\"]",
+            "value": "[\"statistics\",\"national_statistics\",\"statistical_data_set\",\"official_statistics\"]"
           },
           {
             "text": "Upcoming",
