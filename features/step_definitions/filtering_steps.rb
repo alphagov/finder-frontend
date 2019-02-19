@@ -453,6 +453,13 @@ When(/^I click the (.*) remove control$/) do |filter|
   expect(page).to_not have_selector("p[class='facet-tag__text']", text: filter)
 end
 
+Then(/^I can clear all facets$/) do
+  click_on "Clear all search options"
+
+  expect(page).to have_selector("[keywords][value='']")
+  #expect(page).to have_field('Your name', with: 'John')
+end
+
 Then(/^The (.*) checkbox in deselected$/) do |checkbox|
   expect(page.find("##{checkbox}", visible: :all)).to_not be_checked
 end

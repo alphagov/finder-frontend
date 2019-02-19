@@ -151,6 +151,14 @@ Feature: Filtering documents
     And I click the Keyword1 remove control
     Then The keyword textbox only contains Keyword2
 
+  @javascript
+  Scenario: Clearing all search facets
+    When I view the news and communications finder
+    And I fill in some keywords
+    And I use a checkbox filter
+    And I sort by most relevant
+    Then I can clear all facets
+
   Scenario: Subscribing to email alerts
     Given a collection of documents exist that can be filtered by checkbox
     When I use a checkbox filter
