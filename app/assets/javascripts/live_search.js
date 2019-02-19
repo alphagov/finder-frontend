@@ -8,6 +8,8 @@
     this.previousState = false;
     this.resultCache =  {};
     this.templateDir = options.templateDir || 'finders/';
+    this.questionData = false;
+    this.questionIndex = false;
 
     this.$form = options.$form;
     this.$resultsBlock = options.$results.find('#js-results');
@@ -62,6 +64,33 @@
     } else {
       this.$form.find('.js-live-search-fallback').show();
     }
+
+    this.loadQuestionData();
+  };
+
+  LiveSearch.prototype.loadQuestionData = function () {
+    var questionData = JSON.parse($('#faq-questions').text());
+
+    this.questionIndex = lunr(function () {
+      this.ref('id');
+      this.field('question');
+
+      // Alias this as this is refined inside $.each
+      var searchIndex = this;
+
+      $.each(questionData, function (id, question) {
+        searchIndex.add({
+          id: id,
+          question: question.question
+        });
+      });
+    });
+
+    this.questionData = questionData;
+  }
+
+  LiveSearch.prototype.questionSearchIndex = function () {
+    return this.questionIndex;
   };
 
   LiveSearch.prototype.getTaxonomyFacet = function getTaxonomyFacet() {

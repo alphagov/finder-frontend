@@ -17,6 +17,10 @@ class FinderPresenter
     @keywords = values["keywords"].presence
   end
 
+  def faq_questions
+    YAML.load_file("lib/questions.yml")
+  end
+
   def phase_message
     content_item['details']['beta_message'] || content_item['details']['alpha_message']
   end

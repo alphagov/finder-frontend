@@ -5,6 +5,7 @@
   <% if finder.canonical_link? %>
     <link rel="canonical" href="<%= "#{ENV['GOVUK_WEBSITE_ROOT']}#{finder.slug}" %>">
   <% end %>
+  <script src="https://unpkg.com/lunr/lunr.js"></script>
 <% end %>
 
 <% if finder.show_phase_banner? %>
@@ -118,3 +119,7 @@
     </div>
   </div>
 </form>
+
+<script type="application/json" id="faq-questions">
+  <%= JSON.pretty_generate(finder.faq_questions).html_safe %>
+</script>

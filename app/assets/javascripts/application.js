@@ -35,7 +35,7 @@ jQuery(function($) {
     if(location.pathname === '/search/advanced') {
       templateDir = 'advanced_search_finder/';
     }
-    new GOVUK.LiveSearch({
+    window.Search = new GOVUK.LiveSearch({
       $form:$form,
       $results:$results,
       $atomAutodiscoveryLink:$atomAutodiscoveryLink,
