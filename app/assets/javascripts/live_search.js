@@ -120,6 +120,7 @@
 
     this.$keywordResults.on('click', 'li', function () {
       that.showQuestion($(this).data('id'));
+      that.$keywordSearch.val($(this).text()).trigger('change');
     })
   };
 
