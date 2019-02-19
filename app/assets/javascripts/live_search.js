@@ -29,7 +29,7 @@
     if(GOVUK.support.history()){
       this.saveState();
 
-      this.$form.on('change', 'input[type=checkbox], input[type=text], input[type=radio], select',
+      this.$form.on('change', 'input[type=checkbox], input[type=text], input[type=search], input[type=radio], select',
         function(e) {
           if (e.target.type == "text" && !e.suppressAnalytics) {
             LiveSearch.prototype.fireTextAnalyticsEvent(e);
@@ -38,7 +38,7 @@
         }.bind(this)
       );
 
-      this.$form.on('keypress', 'input[type=text]',
+      this.$form.on('keypress', 'input[type=search]', 'input[type=text]',
         function(e){
           var ENTER_KEY = 13
 
@@ -48,6 +48,11 @@
           }
         }.bind(this)
       );
+
+      this.$form.find('.js-finder-search-submit').on('click', function(e) {
+        e.preventDefault();
+        this.formChange(e);
+      });
 
       this.updateOrder();
       this.indexTrackingData();
@@ -298,7 +303,7 @@
 
   LiveSearch.prototype.restoreTextInputs = function restoreTextInputs(){
     var that = this;
-    this.$form.find('input[type=text], select').each(function(i, el){
+    this.$form.find('input[type=text], input[type=search], select').each(function(i, el){
       var $el = $(el);
       $el.val(that.getTextInputValue($el.attr('name'), that.state));
     });

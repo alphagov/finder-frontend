@@ -61,8 +61,30 @@
   <% end %>
 </header>
 
-<div class="grid-row">
-  <form method="get" action="<%= finder.slug %>" class="js-live-search-form">
+<form method="get" action="<%= finder.slug %>" class="js-live-search-form">
+  <div class="grid-row">
+  <div class="column-two-thirds business-finder-search">
+
+    <%
+      # Copying the search component here purely for prototype purposes
+      # TODO: adjust search component in govuk_publishing_components to meet our needs and use this.
+    %>
+    <% if finder.eu_exit_finder && finder.show_keyword_search? %>
+      <div class="gem-c-search gem-c-search--on-white gem-c-search--separate-label" data-module="gem-toggle-input-class-on-focus">
+        <label for="finder-keyword-search" class="gem-c-search__label">Search guidance</label>
+        <a class="business-finder-search__clear js-search-clear <%= "js-hidden" if @results.user_supplied_keywords.empty? %>"  href="/">Clear search</a>
+        <div class="gem-c-search__item-wrapper">
+          <input type="search" value="<%= @results.user_supplied_keywords %>" id="finder-keyword-search" name="keywords" title="Search" class="gem-c-search__item gem-c-search__input js-class-toggle">
+          <div class="gem-c-search__item gem-c-search__submit-wrapper">
+            <button type="submit" class="gem-c-search__submit js-finder-search-submit">Search</button>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+  <div class="grid-row">
     <input type="hidden" name="parent" value="<%= @parent %>">
     <div class="column-third" role="search" aria-label="<%= finder.name %>">
       <%= render finder.facets %>
@@ -94,5 +116,5 @@
         </div>
       </div>
     </div>
-  </form>
-</div>
+  </div>
+</form>

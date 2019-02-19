@@ -229,6 +229,13 @@ class FinderPresenter
     content_item['details']['canonical_link']
   end
 
+
+  # FIXME: This should be removed once we have a way to determine
+  # whether to display metadata in the finder definition
+  def eu_exit_finder
+    slug == "/find-eu-exit-guidance-business"
+  end
+
 private
 
   def part_of
@@ -286,11 +293,5 @@ private
     }
 
     filtered_values.to_query
-  end
-
-  # FIXME: This should be removed once we have a way to determine
-  # whether to display metadata in the finder definition
-  def eu_exit_finder
-    slug == "/find-eu-exit-guidance-business"
   end
 end
