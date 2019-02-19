@@ -494,3 +494,32 @@
     background: govuk-colour('yellow');
   }
 }
+
+.faq {
+  border: 1px solid govuk-colour('grey-2');
+  padding: 30px;
+  margin-bottom: 50px;
+}
+
+.faq__question {
+  @include govuk-font($size: 19, $weight: bold);
+  margin-bottom: 20px;
+}
+
+.faq__link {
+  @include govuk-font($size: 19, $weight: bold);
+
+  &:link,
+  &:visited {
+    text-decoration: none;
+  }
+
+  &:hover,
+  &:active {
+    text-decoration: underline;
+  }
+}
+
+.faq__description {
+  @include govuk-font($size: 16);
+}

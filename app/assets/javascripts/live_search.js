@@ -110,9 +110,31 @@
       var searchResults = that.search(searchTerms);
 
       $.each(searchResults, function(_, result) {
-        that.$keywordResults.append($('<li>').append(result.question))
+        that.$keywordResults.append(
+            $('<li>')
+              .text(result.question)
+              .data({ id: result.id })
+        );
       });
+    });
+
+    this.$keywordResults.on('click', 'li', function () {
+      that.showQuestion($(this).data('id'));
     })
+  };
+
+  LiveSearch.prototype.showQuestion = function (id) {
+    var questionData = this.getResult(id);
+    var question = $('<div class="faq">');
+
+    $('.faq').remove();
+
+    question.append($('<p class="faq__question">').text(questionData.question));
+
+    question.append($('<a class="faq__link">').text(questionData.title).attr('href', questionData.link));
+    question.append($('<p class="faq_description">').text(questionData.description));
+
+    this.$resultsBlock.before(question)
   }
 
   LiveSearch.prototype.search = function (keywords) {
@@ -132,7 +154,10 @@
     var that = this;
 
     return $.map(results, function(result) {
-      return that.getResult(result.ref);
+      return $.extend(
+          that.getResult(result.ref),
+          { id: result.ref }
+      )
     });
   }
 
