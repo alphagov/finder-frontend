@@ -18,12 +18,14 @@ module Registries
   private
 
     def organisations_as_hash
-      fetch_organisations_from_rummager
-        .reject { |result| result['slug'].empty? || result['title'].empty? }
-        .each_with_object({}) { |result, orgs|
-          slug = result['slug']
-          orgs[slug] = result.slice('title', 'slug', 'acronym')
-        }
+      GovukStatsd.time("registries.organisations.request_time") do
+        fetch_organisations_from_rummager
+          .reject { |result| result['slug'].empty? || result['title'].empty? }
+          .each_with_object({}) { |result, orgs|
+            slug = result['slug']
+            orgs[slug] = result.slice('title', 'slug', 'acronym')
+          }
+      end
     end
 
     def fetch_organisations_from_rummager
