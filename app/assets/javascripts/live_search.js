@@ -87,10 +87,6 @@
     });
 
     this.questionData = questionData;
-  }
-
-  LiveSearch.prototype.questionSearchIndex = function () {
-    return this.questionIndex;
   };
 
   LiveSearch.prototype.getTaxonomyFacet = function getTaxonomyFacet() {
