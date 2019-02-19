@@ -16,6 +16,8 @@
     this.$resultsCount = options.$results.find('#js-result-count');
     this.action = this.$form.attr('action') + '.json';
     this.$atomAutodiscoveryLink = options.$atomAutodiscoveryLink;
+    this.$clearlink = $('.js-clear-facets');
+
     this.$emailLink = $("p.email-link a");
 
     this.emailSignupHref = this.$emailLink.attr('href');
@@ -46,6 +48,13 @@
             this.formChange(e);
             e.preventDefault();
           }
+        }.bind(this)
+      );
+
+      this.$clearlink.on('click',
+        function(e) {
+          e.preventDefault();
+          this.resetFacets();
         }.bind(this)
       );
 
@@ -102,6 +111,36 @@
         }.bind(this)
       )
     }
+  };
+
+  LiveSearch.prototype.resetFacets = function resetFacets() {
+    var facets = this.state.filter(function(item) { return item.value !== "" && item.name !== "order"; });
+
+    facets.forEach(function(facet) {
+      var $input = $("[name='" + facet.name + "']");
+      var inputType = $input.prop('type');
+      var inputId = $input.attr('id');
+      var isAutoComplete = !!$('#' + inputId).length;
+      var autocompleteId = inputId.replace('-select', ''); // autocompletes always have -select on the end
+
+      if (inputType == 'checkbox') {
+        $input.prop("checked", false);
+        $input.trigger('change');
+      }
+      else if (inputType == 'text' || inputType == 'search') {
+        $input.val('');
+      }
+      else {
+        if (isAutoComplete) {
+          setTimeout(function(){
+            $('#' + autocompleteId + '__list').html('');
+          },150);
+        }
+        $input.val('').change();
+      }
+    });
+
+    this.formChange();
   };
 
   LiveSearch.prototype.trackingInit = function() {

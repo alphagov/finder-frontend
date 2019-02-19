@@ -154,7 +154,7 @@ private
   # Add a finder with the base path as a key and the finder name
   # without filetype as the value; example:
   # "/guidance-and-regulation" => "guidance_and_regulation"
-  FINDERS_IN_DEVELOPMENT = {}.freeze
+  FINDERS_IN_DEVELOPMENT = {'/news-and-communications' => 'news_and_communications'}.freeze
 
   def development_env_finder_json
     return development_json if is_development_json?
