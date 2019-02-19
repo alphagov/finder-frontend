@@ -13,6 +13,7 @@ class FindersController < ApplicationController
         @results = results
         @content_item = raw_finder
         @breadcrumbs = fetch_breadcrumbs
+        @parent = parent
       end
       format.json do
         if %w[finder search].include? finder_api.content_item['document_type']
@@ -83,5 +84,9 @@ private
 
   def org_registry
     @org_registry ||= Registries::OrganisationsRegistry.new
+  end
+
+  def parent
+    params.fetch(:parent, '')
   end
 end

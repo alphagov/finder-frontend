@@ -131,6 +131,7 @@ end
 Given(/^a government finder exists$/) do
   content_store_has_government_finder
   stub_rummager_api_request_with_government_results
+  stub_organisations_registry_request
 end
 
 Then(/^I can see the government header$/) do
@@ -296,16 +297,16 @@ end
 
 Given(/^an organisation finder exists$/) do
   content_store_has_government_finder
+  stub_organisations_registry_request
   stub_rummager_api_request_with_government_results
-  stub_rummager_api_request_with_organisation_links
 
-  visit finder_path('government/policies/benefits-reform', parent: 'attorney-generals-office')
+  visit finder_path('government/policies/benefits-reform', parent: 'ministry-of-magic')
 end
 
 Given(/^an organisation finder exists but a bad breadcrumb path is given$/) do
   content_store_has_government_finder
+  stub_organisations_registry_request
   stub_rummager_api_request_with_government_results
-  stub_rummager_api_request_with_organisation_links
 
   visit finder_path('government/policies/benefits-reform', parent: 'bernard-cribbins')
 end
@@ -331,11 +332,11 @@ And(/^no breadcrumb for all organisations$/) do
 end
 
 Then(/^I can see a breadcrumb for the organisation$/) do
-  expect(page).to have_link("Attorney General's Office", href: "/government/organisations/attorney-generals-office")
-  expect(page).to have_css("a[data-track-category='breadcrumbClicked']", text: "Attorney General's Office")
-  expect(page).to have_css("a[data-track-action='3']", text: "Attorney General's Office")
-  expect(page).to have_css("a[data-track-label='/government/organisations/attorney-generals-office']", text: "Attorney General's Office")
-  expect(page).to have_css("a[data-track-options='{\"dimension28\":\"4\",\"dimension29\":\"Attorney General\\'s Office\"}']", text: "Attorney General's Office")
+  expect(page).to have_link("Ministry of Magic", href: "/government/organisations/ministry-of-magic")
+  expect(page).to have_css("a[data-track-category='breadcrumbClicked']", text: "Ministry of Magic")
+  expect(page).to have_css("a[data-track-action='3']", text: "Ministry of Magic")
+  expect(page).to have_css("a[data-track-label='/government/organisations/ministry-of-magic']", text: "Ministry of Magic")
+  expect(page).to have_css("a[data-track-options='{\"dimension28\":\"4\",\"dimension29\":\"Ministry of Magic\"}']", text: "Ministry of Magic")
 end
 
 Then(/^I can see a breadcrumb that not a link for the finder$/) do

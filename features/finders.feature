@@ -74,6 +74,9 @@ Feature: Filtering documents
     And I can see a breadcrumb for all organisations
     And I can see a breadcrumb for the organisation
     And I can see a breadcrumb that not a link for the finder
+    And I sort by most viewed
+    And I filter the results
+    Then I can see a breadcrumb for the organisation
 
   Scenario: Visit a finder from an organisation handling breadcrumb failures
     Given an organisation finder exists but a bad breadcrumb path is given
