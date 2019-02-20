@@ -10,6 +10,20 @@
     40: 'down'
   }
 
+  var stopWords = ['a', 'able', 'about', 'across', 'after', 'all', 'almost',
+  'also', 'am', 'among', 'an', 'and', 'any', 'are', 'as', 'at', 'be', 'because',
+  'been', 'but', 'by', 'can', 'cannot', 'could', 'dear', 'did', 'do', 'does',
+  'either', 'else', 'ever', 'every', 'for', 'from', 'get', 'got', 'had', 'has',
+  'have', 'he', 'her', 'hers', 'him', 'his', 'how', 'however', 'i', 'if', 'in',
+  'into', 'is', 'it', 'its', 'just', 'least', 'let', 'like', 'likely', 'may',
+  'me', 'might', 'most', 'must', 'my', 'neither', 'no', 'nor', 'not', 'of',
+  'off', 'often', 'on', 'only', 'or', 'other', 'our', 'own', 'rather', 'said',
+  'say', 'says', 'she', 'should', 'since', 'so', 'some', 'than', 'that', 'the',
+  'their', 'them', 'then', 'there', 'these', 'they', 'this', 'tis', 'to', 'too',
+  'twas', 'us', 'wants', 'was', 'we', 'were', 'what', 'when', 'where', 'which',
+  'while', 'who', 'whom', 'why', 'will', 'with', 'would', 'yet', 'you', 'your',
+  'eu', 'exit', 'uk', 'brexit', 'deal', 'both', 'up', 'e.g', 'use', 'each']
+
   function LiveSearch(options){
     this.state = false;
     this.previousState = false;
@@ -87,6 +101,16 @@
       this.pipeline.remove(lunr.stemmer)
       this.searchPipeline.remove(lunr.stemmer)
 
+      // Set up custom stop word filter
+      let customStopWordFilter = lunr.generateStopWordFilter(stopWords)
+
+      lunr.Pipeline.registerFunction(customStopWordFilter, 'customStopWordFilter')
+      this.pipeline.before(lunr.stopWordFilter, customStopWordFilter)
+      this.pipeline.remove(lunr.stopWordFilter)
+
+      // Custom separator to include slashes, brackets, question marks...
+      lunr.tokenizer.separator = /[\s\-\/\(\)\?]+/
+
       // Alias this as this is refined inside $.each
       var searchIndex = this;
 
@@ -110,7 +134,7 @@
       that.$keywordResults.empty();
 
       var searchResults = [];
-      if (searchTerms.length > 3) {
+      if (searchTerms.length >= 2) {
         searchResults = that.search(searchTerms);
       }
 
@@ -231,8 +255,13 @@
         q.term(tokens);
       }
 
+      var wildcard = lunr.Query.wildcard.NONE
+      if (last.toString().length > 3) {
+        wildcard = lunr.Query.wildcard.TRAILING
+      }
+
       q.term(last, {
-        wildcard: lunr.Query.wildcard.TRAILING
+        wildcard: wildcard
       });
     });
 
