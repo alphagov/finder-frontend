@@ -2,6 +2,7 @@ class SearchResultPresenter
   delegate :title,
            :summary,
            :is_historic,
+           :description_with_highlighting,
            :promoted,
            :promoted_summary,
            :show_metadata,
@@ -23,6 +24,7 @@ class SearchResultPresenter
       promoted: promoted,
       promoted_summary: promoted_summary,
       show_metadata: show_metadata,
+      description_with_highlighting: description_with_highlighting
     }
   end
 

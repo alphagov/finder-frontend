@@ -1,6 +1,6 @@
 class Document
   attr_reader :title, :public_timestamp, :is_historic, :government_name,
-              :content_purpose_supergroup, :document_type, :organisations
+              :content_purpose_supergroup, :document_type, :organisations, :description_with_highlighting
 
   def initialize(rummager_document, finder)
     rummager_document = rummager_document.with_indifferent_access
@@ -15,6 +15,7 @@ class Document
     @government_name = rummager_document.fetch(:government_name, nil)
     @finder = finder
     @rummager_document = rummager_document.slice(*metadata_keys)
+    @description_with_highlighting = rummager_document.fetch(:description_with_highlighting, nil)
   end
 
   def metadata

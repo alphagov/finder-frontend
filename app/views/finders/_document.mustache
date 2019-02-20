@@ -10,6 +10,11 @@
     <p>{{document.summary}}</p>
   {{/document.summary}}
   {{/display_grouped_results}}
+  {{^display_grouped_results}}
+    {{#document.description_with_highlighting}}
+      <p>{{{document.description_with_highlighting}}}</p>
+    {{/document.description_with_highlighting}}
+  {{/display_grouped_results}}
   <dl>
     {{#document.show_metadata}}
       {{#document.metadata}}
