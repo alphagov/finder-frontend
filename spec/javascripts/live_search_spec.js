@@ -241,7 +241,7 @@ describe("liveSearch", function(){
       liveSearch.resultCache["the=first"] = dummyResponse;
       liveSearch.state = { the: "first" };
       liveSearch.displayResults(dummyResponse, $.param(liveSearch.state));
-      expect($results.find('h3').text()).toMatch('Test report');
+      expect($results.find('a').text()).toMatch('Test report');
       expect($count.find('.result-count').text()).toMatch(/^\s*1\s*/);
     });
 
@@ -313,5 +313,87 @@ describe("liveSearch", function(){
        expect(liveSearch.$form.find('#text_1').val()).toBe('Monday');
        expect(liveSearch.$form.find('#text_2').val()).toBe('');
      });
+  });
+
+  describe("indexTrackingData", function(){
+    var groupedResponse = {
+      "total":4,
+      "finder_name":"foo",
+      "pluralised_document_noun":"things",
+      "applied_filters":" \u003Cstrong\u003ECommercial - rotorcraft \u003Ca href='?format=json\u0026keywords='\u003E×\u003C/a\u003E\u003C/strong\u003E",
+      "any_filters_applied":true,
+      "atom_url": "http://an-atom-url.atom?some-query-param",
+      "display_grouped_results": true,
+      "documents_by_facets": [
+        {
+          "facet_name": "Primary group",
+          "facet_key": "primary-group",
+          "documents": [
+            {
+              "document": {
+                "title":"Test report 1",
+                "link":"/reports/test-report-1",
+                "promoted": true,
+              },
+              "document_index": 1
+            },
+            {
+              "document": {
+                "title":"Test report 4",
+                "link":"/reports/test-report-4",
+              },
+              "document_index": 4
+            }
+          ]
+        },
+        {
+          "facet_name": "Default group",
+          "facet_key": "default-group",
+          "documents": [
+            {
+              "document": {
+                "title":"Test report 3",
+                "link":"/reports/test-report-3",
+              },
+              "document_index": 3
+            },
+            {
+              "document": {
+                "title":"Test report 2",
+                "link":"/reports/test-report-2",
+              },
+              "document_index": 2
+            }
+          ]
+        }
+      ]
+    };
+
+    beforeEach(function(){
+      GOVUK.analytics.trackEvent = function () {}
+      liveSearch.$form = $form;
+      liveSearch.$resultsBlock = $results;
+      liveSearch.state = { search: 'state'};
+      liveSearch.displayResults(groupedResponse, $.param(liveSearch.state));
+    });
+
+    it('is called by trackingInit()', function(){
+      spyOn(liveSearch, 'indexTrackingData');
+      liveSearch.trackingInit();
+      expect(liveSearch.indexTrackingData).toHaveBeenCalled()
+    })
+
+    it('re-indexes tracking actions for grouped items', function(){
+      liveSearch.indexTrackingData();
+
+      var $firstGroup = $results.find('.filtered-results__group:nth-child(1)');
+      var $defaultGroup = $results.find('.filtered-results__group:nth-child(2)');
+      expect($firstGroup.find('h2').text()).toMatch('Primary group');
+      expect($firstGroup.find('a[data-track-action="foo.1.1p"]').text()).toMatch('Test report 1')
+      expect($firstGroup.find('a[data-track-action="foo.1.2"]').text()).toMatch('Test report 4')
+      expect($defaultGroup.find('h2').text()).toMatch('Default group');
+      expect($defaultGroup.find('a[data-track-action="foo.2.1"]').text()).toMatch('Test report 3')
+      expect($defaultGroup.find('a[data-track-action="foo.2.2"]').text()).toMatch('Test report 2')
+    });
   });
 });

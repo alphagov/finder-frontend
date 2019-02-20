@@ -18,6 +18,54 @@
   @extend %site-width-container;
 }
 
+.document {
+  border-bottom: solid 1px $border-colour;
+  padding: $gutter-half 0;
+
+  &:first-child {
+    padding-top:0;
+    margin-top:-2px;
+  }
+
+  .document__link {
+    @include bold-19;
+    margin: 0;
+    text-decoration: none;
+
+    &.document-heading--pinned {
+      @include govuk-font($size: 24, $weight: bold);
+    }
+  }
+
+  dl {
+    margin: 0;
+
+    dt, dd {
+      @include core-14;
+      margin-left: 0;
+    }
+
+    dt {
+      display: none;
+
+      &.metadata-date-label {
+        @include inline-block;
+      }
+    }
+
+    dd {
+      margin-right: $gutter-one-third;
+      @include inline-block;
+    }
+  }
+
+  p.historic {
+    @include core-14;
+    padding: 0 0 3px;
+    color: $secondary-text-colour;
+  }
+}
+
 #finder-frontend {
   margin-bottom: $gutter * 1.5;
 
@@ -278,57 +326,6 @@
       .filtered-results__facet-heading {
         @include govuk-font($size: 24, $weight: bold);
         margin-bottom: $gutter-half;
-      }
-    }
-
-    .document {
-      border-bottom: solid 1px $border-colour;
-      padding: $gutter-half 0;
-
-      &:first-child {
-        padding-top:0;
-        margin-top:-2px;
-      }
-
-      h3 {
-        @include bold-19;
-        margin: 0;
-
-        a {
-          text-decoration: none;
-        }
-
-        &.document-heading--pinned {
-          @include govuk-font($size: 24, $weight: bold);
-        }
-      }
-
-      dl {
-        margin: 0;
-
-        dt, dd {
-          @include core-14;
-          margin-left: 0;
-        }
-
-        dt {
-          display: none;
-
-          &.metadata-date-label {
-            @include inline-block;
-          }
-        }
-
-        dd {
-          margin-right: $gutter-one-third;
-          @include inline-block;
-        }
-      }
-
-      p.historic {
-        @include core-14;
-        padding: 0 0 3px;
-        color: $secondary-text-colour;
       }
     }
   }
