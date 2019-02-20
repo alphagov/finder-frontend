@@ -62,7 +62,9 @@
           if (e.target.type == "text" && !e.suppressAnalytics) {
             LiveSearch.prototype.fireTextAnalyticsEvent(e);
           }
-          this.formChange(e)
+          if (!isClickingResult) {
+            this.formChange(e)
+          }
         }.bind(this)
       );
 
@@ -229,6 +231,7 @@
     })
 
     this.$keywordResults.on('click', 'li', function (e) {
+      isClickingResult = false;
       that.showQuestion($(this).data('id'));
       that.$keywordSearch.val($(this).text()).trigger('change');
       that.$keywordResults.addClass('js-hidden');
