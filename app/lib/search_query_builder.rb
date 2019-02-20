@@ -132,9 +132,7 @@ private
     if keywords
       filtered_keywords = remove_brexit_terms # TODO: Scope this to brexit finder only in future
     end
-
-    puts filtered_keywords
-
+    
     keywords ? { "q" => filtered_keywords } : {}
   end
 
