@@ -148,6 +148,7 @@ RSpec.describe ResultSetPresenter do
       is_historic: false,
       government_name: 'The Government!',
       promoted: false,
+      promoted_summary: nil,
       show_metadata: false,
     )
   end

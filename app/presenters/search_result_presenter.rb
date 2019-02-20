@@ -3,6 +3,7 @@ class SearchResultPresenter
            :summary,
            :is_historic,
            :promoted,
+           :promoted_summary,
            :show_metadata,
            :government_name,
            to: :search_result
@@ -20,6 +21,7 @@ class SearchResultPresenter
       government_name: government_name,
       metadata: metadata,
       promoted: promoted,
+      promoted_summary: promoted_summary,
       show_metadata: show_metadata,
     }
   end

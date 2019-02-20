@@ -324,7 +324,7 @@ describe("liveSearch", function(){
       "any_filters_applied":true,
       "atom_url": "http://an-atom-url.atom?some-query-param",
       "display_grouped_results": true,
-      "documents_by_facets": [
+      "grouped_documents": [
         {
           "facet_name": "Primary group",
           "facet_key": "primary-group",
@@ -334,6 +334,7 @@ describe("liveSearch", function(){
                 "title":"Test report 1",
                 "link":"/reports/test-report-1",
                 "promoted": true,
+                "promoted_summary": "This is important",
               },
               "document_index": 1
             },
@@ -374,7 +375,6 @@ describe("liveSearch", function(){
       liveSearch.$form = $form;
       liveSearch.$resultsBlock = $results;
       liveSearch.state = { search: 'state'};
-      liveSearch.displayResults(groupedResponse, $.param(liveSearch.state));
     });
 
     it('is called by trackingInit()', function(){
@@ -384,13 +384,16 @@ describe("liveSearch", function(){
     })
 
     it('re-indexes tracking actions for grouped items', function(){
+      liveSearch.displayResults(groupedResponse, $.param(liveSearch.state));
       liveSearch.indexTrackingData();
 
       var $firstGroup = $results.find('.filtered-results__group:nth-child(1)');
       var $defaultGroup = $results.find('.filtered-results__group:nth-child(2)');
+
       expect($firstGroup.find('h2').text()).toMatch('Primary group');
       expect($firstGroup.find('a[data-track-action="foo.1.1p"]').text()).toMatch('Test report 1')
       expect($firstGroup.find('a[data-track-action="foo.1.2"]').text()).toMatch('Test report 4')
+
       expect($defaultGroup.find('h2').text()).toMatch('Default group');
       expect($defaultGroup.find('a[data-track-action="foo.2.1"]').text()).toMatch('Test report 3')
       expect($defaultGroup.find('a[data-track-action="foo.2.2"]').text()).toMatch('Test report 2')
