@@ -127,6 +127,40 @@ private
 
   def keyword_query
     keywords ? { "q" => keywords } : {}
+
+    # Temporary fix to remove brexit terms from keyword search
+    if keywords
+      filtered_keywords = remove_brexit_terms # TODO: Scope this to brexit finder only in future
+    end
+
+    puts filtered_keywords
+
+    keywords ? { "q" => filtered_keywords } : {}
+  end
+
+  def remove_brexit_terms
+    # Borrowed from Oscar Wyatt's list of stop words in his search prototype PLUS some brexit-y terms
+    stop_words = %w(a about above after again against all am an and any are arent as at be
+      because been before being below between both business businesses but by cant cannot change changes could couldnt
+      deal did didnt do does doesnt doing dont down during each few for from further
+      had hadnt has hasnt have havent having he hed hell hes her here heres hers
+      herself him himself his how hows i id ill im ive if in informed into is isnt it
+      its its itself lets me more most mustnt my myself no nor not of off on
+      once only or other ought our oursourselves out over own same shant she shed
+      shell shes should shouldnt so some such than that thats the their theirs them
+      themselves then there theres these they theyd theyll theyre theyve this those through
+      to too under until up very was wasnt we wed well were weve were werent what
+      whats when whens where wheres which while who whos whom why whys will with wont would
+      wouldnt you youd youll youre youve your yours yourself yourselves brexit eu exit uk after can i use up company companies able access per eg e.g)
+
+    removed_punctuation = keywords.gsub(/[^a-z0-9\s]/i, '')
+    filtered_keywords = ""
+
+    removed_punctuation.downcase.split(" ").each do |word|
+      filtered_keywords << word + " " unless stop_words.include?(word)
+    end
+
+    filtered_keywords
   end
 
   def keywords
