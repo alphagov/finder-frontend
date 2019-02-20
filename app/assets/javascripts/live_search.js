@@ -24,6 +24,8 @@
   'while', 'who', 'whom', 'why', 'will', 'with', 'would', 'yet', 'you', 'your',
   'eu', 'exit', 'uk', 'brexit', 'deal', 'both', 'up', 'e.g', 'use', 'each']
 
+  var isClickingResult = true;
+
   function LiveSearch(options){
     this.state = false;
     this.previousState = false;
@@ -152,10 +154,10 @@
     // When you leave the search field, hide the result dropdown
     // Needs a timeout so that the result is still there when you try to click
     // on it...
-    this.$keywordSearch.on('blur', function () {
-      setTimeout(function () {
+    this.$keywordSearch.on('blur', function (e) {
+      if (!isClickingResult) {
         that.$keywordResults.addClass('js-hidden');
-      }, 100);
+      }
     })
 
     this.$keywordSearch.on('keydown', function (evt) {
@@ -219,9 +221,17 @@
     }
 
     // Handle actually clicking on results
-    this.$keywordResults.on('click', 'li', function () {
+    this.$keywordResults.on('mousedown', 'li', function (e) {
+      isClickingResult = true;
+      setTimeout(function () {
+        isClickingResult = false;
+      }, 250);
+    })
+
+    this.$keywordResults.on('click', 'li', function (e) {
       that.showQuestion($(this).data('id'));
       that.$keywordSearch.val($(this).text()).trigger('change');
+      that.$keywordResults.addClass('js-hidden');
     })
 
     // Handle hiding the question if it no longer matches
