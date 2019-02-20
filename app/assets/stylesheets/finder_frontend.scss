@@ -524,3 +524,8 @@
 .faq__description {
   @include govuk-font($size: 16);
 }
+
+mark {
+  font-weight: bold;
+  background-color: transparent;
+}
