@@ -8,7 +8,8 @@
     id: "finder-keyword-search",
     controls: "js-search-results-info"
   } if finder.show_keyword_search? %>
-  <div class="govuk-form-group">
+  <div class="govuk-form-group" data-module="track-click" data-track-category="filterClicked"
+      data-track-action="skip-Link" data-track-label="">
     <%= render "govuk_publishing_components/components/skip_link", {
       text: 'Skip to results',
       href: '#js-results'}
