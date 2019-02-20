@@ -378,7 +378,7 @@
     // As search is asynchronous, check that the action associated with these results is
     // still the latest to stop results being overwritten by stale data
     if(action == $.param(this.state)) {
-      this.$orderSelectWrapper.toggleClass("js-hidden", this.getTextInputValue("keywords", this.state));
+      this.$orderSelectWrapper.toggleClass("js-hidden", !!this.getTextInputValue("keywords", this.state));
       this.$resultsBlock.mustache(this.templateDir + '_results', results);
       this.$countBlock.mustache(this.templateDir + '_result_count', results);
       this.$resultsCount.text(results.total + " " + results.pluralised_document_noun);
