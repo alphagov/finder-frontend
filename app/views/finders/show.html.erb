@@ -110,6 +110,8 @@
                         'relevance-sort-option' => finder.relevance_sort_option_value,
                         'module' => 'track-select-change'} %>
             </div>
+
+            <p class="js-sorted-by-relevance govuk-body <%= "js-hidden" unless finder.hide_sort? %>">Sorted by relevance</p>
           <% end %>
 
           <div id='js-results'>
