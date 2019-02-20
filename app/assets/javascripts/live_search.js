@@ -24,7 +24,7 @@
   'while', 'who', 'whom', 'why', 'will', 'with', 'would', 'yet', 'you', 'your',
   'eu', 'exit', 'uk', 'brexit', 'deal', 'both', 'up', 'e.g', 'use', 'each']
 
-  var isClickingResult = true;
+  var isClickingResult = false;
 
   function LiveSearch(options){
     this.state = false;
@@ -64,6 +64,8 @@
           }
           if (!isClickingResult) {
             this.formChange(e)
+          } else {
+            console.log("no click result");
           }
         }.bind(this)
       );
