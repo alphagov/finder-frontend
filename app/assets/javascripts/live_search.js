@@ -199,6 +199,13 @@
       that.showQuestion($(this).data('id'));
       that.$keywordSearch.val($(this).text()).trigger('change');
     })
+
+    // Handle hiding the question if it no longer matches
+    this.$keywordSearch.on('change', function () {
+      if ($('.faq__question').text() !== $(this).val()) {
+        $('.faq').remove();
+      }
+    })
   };
 
   LiveSearch.prototype.showQuestion = function (id) {
