@@ -10,23 +10,23 @@ module RegistrySpecHelper
     })
     .to_return(body: { results: [
       {
-        "title": "Harry Potter",
-        "slug": "harry-potter",
-        "_id": "a field that we're not using"
-      },
-      {
         "title": "Albus Dumbledore",
         "slug": "albus-dumbledore",
         "_id": "a field that we're not using"
       },
       {
-        "title": "Ron Weasley",
-        "slug": "ron-weasley",
+        "title": "Cornelius Fudge",
+        "slug": "cornelius-fudge",
         "_id": "a field that we're not using"
       },
       {
-        "title": "Cornelius Fudge",
-        "slug": "cornelius-fudge",
+        "title": "Harry Potter",
+        "slug": "harry-potter",
+        "_id": "a field that we're not using"
+      },
+      {
+        "title": "Ron Weasley",
+        "slug": "ron-weasley",
         "_id": "a field that we're not using"
       },
       {

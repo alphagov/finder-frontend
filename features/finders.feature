@@ -182,3 +182,11 @@ Feature: Filtering documents
     When I view the business readiness finder
     And I click button "Sector / Business Area" and select facet Aerospace
     Then I see results grouped by primary facet value
+
+  Scenario: Dynamic facets continue to show all options on page reload
+    When I view the news and communications finder
+    And I select a Person
+    And I reload the page
+    Then I should see all people in the people facet
+    And I should see all organisations in the organisation facet
+    And I should see all world locations in the world location facet
