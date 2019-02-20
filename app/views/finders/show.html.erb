@@ -111,7 +111,7 @@
                         'module' => 'track-select-change'} %>
             </div>
 
-            <p class="js-sorted-by-relevance govuk-body <%= "js-hidden" unless finder.hide_sort? %>">Sorted by relevance</p>
+            <p class="js-sorted-by-relevance govuk-body <%= "js-hidden" unless finder.hide_sort? && !@results.to_hash[:zero_results] %>">Sorted by relevance</p>
           <% end %>
 
           <div id='js-results'>

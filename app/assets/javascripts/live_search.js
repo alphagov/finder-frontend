@@ -71,8 +71,6 @@
           }
           if (!isClickingResult) {
             this.formChange(e)
-          } else {
-            console.log("no click result");
           }
         }.bind(this)
       );
@@ -539,7 +537,7 @@
     // still the latest to stop results being overwritten by stale data
     if(action == $.param(this.state)) {
       this.$orderSelectWrapper.toggleClass("js-hidden", !!this.getTextInputValue("keywords", this.state));
-      $('.js-sorted-by-relevance').toggleClass("js-hidden", !this.getTextInputValue("keywords", this.state));
+      $('.js-sorted-by-relevance').toggleClass("js-hidden", (!this.getTextInputValue("keywords", this.state) || results.zero_results));
       this.$resultsBlock.mustache(this.templateDir + '_results', results);
       this.$countBlock.mustache(this.templateDir + '_result_count', results);
       this.$resultsCount.text(results.total + " " + results.pluralised_document_noun);
