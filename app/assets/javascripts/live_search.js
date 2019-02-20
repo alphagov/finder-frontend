@@ -92,6 +92,18 @@
 
     this.loadQuestionData();
     this.setupSearch();
+    this.showFaq();
+  };
+
+  LiveSearch.prototype.showFaq = function () {
+    var that = this;
+    var matchingQuestions = $.grep(this.questionData, function (question) {
+      return question.question == that.$keywordSearch.val();
+    })
+
+    if (matchingQuestions.length) {
+      that.showQuestion(matchingQuestions[0].id);
+    }
   };
 
   LiveSearch.prototype.loadQuestionData = function () {
@@ -119,6 +131,7 @@
       var searchIndex = this;
 
       $.each(questionData, function (id, question) {
+        questionData[id].id = id;
         searchIndex.add({
           id: id,
           question: question.question
