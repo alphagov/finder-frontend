@@ -224,8 +224,8 @@
 
   LiveSearch.prototype.search = function (keywords) {
     var results = this.questionIndex.query(function (q) {
-      const tokens = lunr.tokenizer(keywords);
-      const last = tokens.pop();
+      var tokens = lunr.tokenizer(keywords);
+      var last = tokens.pop();
 
       if (tokens.length > 1) {
         q.term(tokens);
