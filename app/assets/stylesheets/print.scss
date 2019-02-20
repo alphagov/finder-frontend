@@ -26,7 +26,7 @@ header {
   margin-top: 20px;
   clear: both;
 
-  h3, dl, dd, ul, li {
+  a, dl, dd, ul, li {
     margin: 0;
   }
   ul {
@@ -38,7 +38,8 @@ header {
     border-bottom: 1px solid $border-colour;
     list-style: none;
   }
-  h3 {
+  a {
+    font-weight: bold;
     margin-bottom: 5px;
   }
   dt {

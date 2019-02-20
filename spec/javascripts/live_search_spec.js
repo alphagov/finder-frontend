@@ -241,7 +241,7 @@ describe("liveSearch", function(){
       liveSearch.resultCache["the=first"] = dummyResponse;
       liveSearch.state = { the: "first" };
       liveSearch.displayResults(dummyResponse, $.param(liveSearch.state));
-      expect($results.find('h3').text()).toMatch('Test report');
+      expect($results.find('a').text()).toMatch('Test report');
       expect($count.find('.result-count').text()).toMatch(/^\s*1\s*/);
     });
 
