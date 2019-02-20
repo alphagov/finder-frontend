@@ -52,7 +52,7 @@
 
   <% if finder.related.any? %>
     <div class='related-links'>
-      <ul>
+      <ul class="finder-results">
         <% finder.related.each do |link| %>
           <li><%= link_to link['title'], link['web_url'] %></li>
         <% end %>
