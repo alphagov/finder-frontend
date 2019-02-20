@@ -25,6 +25,7 @@
   'eu', 'exit', 'uk', 'brexit', 'deal', 'both', 'up', 'e.g', 'use', 'each']
 
   var isClickingResult = false;
+  var enableStemming = true;
 
   function LiveSearch(options){
     this.state = false;
@@ -121,8 +122,10 @@
       this.field('question');
 
       // Remove stemmer
-      this.pipeline.remove(lunr.stemmer)
-      this.searchPipeline.remove(lunr.stemmer)
+      if (!enableStemming) {
+        this.pipeline.remove(lunr.stemmer)
+        this.searchPipeline.remove(lunr.stemmer)
+      }
 
       // Set up custom stop word filter
       var customStopWordFilter = lunr.generateStopWordFilter(stopWords)
@@ -286,21 +289,26 @@
 
   LiveSearch.prototype.search = function (keywords) {
     var results = this.questionIndex.query(function (q) {
-      var tokens = lunr.tokenizer(keywords);
-      var last = tokens.pop();
+      // Stemming doesn't play nicely with wildcards
+      if (enableStemming) {
+        q.term(lunr.tokenizer(keywords));
+      } else {
+        var tokens = lunr.tokenizer(keywords);
+        var last = tokens.pop();
 
-      if (tokens.length > 1) {
-        q.term(tokens);
+        if (tokens.length > 1) {
+          q.term(tokens);
+        }
+
+        var wildcard = lunr.Query.wildcard.NONE
+        if (last.toString().length > 3) {
+          wildcard = lunr.Query.wildcard.TRAILING
+        }
+
+        q.term(last, {
+          wildcard: wildcard
+        });
       }
-
-      var wildcard = lunr.Query.wildcard.NONE
-      if (last.toString().length > 3) {
-        wildcard = lunr.Query.wildcard.TRAILING
-      }
-
-      q.term(last, {
-        wildcard: wildcard
-      });
     });
 
     var that = this;
