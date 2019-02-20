@@ -256,6 +256,11 @@
         $('.faq').remove();
       }
     })
+
+    this.$form.find('.js-search-clear').on('click', function(e) {
+      e.preventDefault();
+      that.$keywordSearch.val("").trigger('change');
+    });
   };
 
   LiveSearch.prototype.showQuestion = function (id) {
