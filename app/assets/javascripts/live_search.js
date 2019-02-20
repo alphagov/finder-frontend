@@ -102,7 +102,7 @@
       this.searchPipeline.remove(lunr.stemmer)
 
       // Set up custom stop word filter
-      let customStopWordFilter = lunr.generateStopWordFilter(stopWords)
+      var customStopWordFilter = lunr.generateStopWordFilter(stopWords)
 
       lunr.Pipeline.registerFunction(customStopWordFilter, 'customStopWordFilter')
       this.pipeline.before(lunr.stopWordFilter, customStopWordFilter)
