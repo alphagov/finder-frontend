@@ -423,8 +423,9 @@
 
 .business-finder-search {
   // Overrides search component CSS. TODO: remove this and add options to the component itself.
-  .gem-c-search__input {
+  .gem-c-search__input[type="search"] {
     border-color: black;
+    border-width: 2px;
   }
 
   .gem-c-search--on-white .gem-c-search__label {
