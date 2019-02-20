@@ -103,11 +103,10 @@
 
       that.$keywordResults.empty();
 
-      if (searchTerms.length < 3) {
-        return;
+      var searchResults = [];
+      if (searchTerms.length > 3) {
+        searchResults = that.search(searchTerms);
       }
-
-      var searchResults = that.search(searchTerms);
 
       $.each(searchResults, function(_, result) {
         that.$keywordResults.append(
@@ -116,7 +115,15 @@
               .data({ id: result.id })
         );
       });
+
+      that.$keywordResults.toggleClass('js-hidden', searchResults.length == 0);
     });
+
+    this.$keywordSearch.on('blur', function () {
+      setTimeout(function () {
+        that.$keywordResults.addClass('js-hidden');
+      }, 100);
+    })
 
     this.$keywordResults.on('click', 'li', function () {
       that.showQuestion($(this).data('id'));
