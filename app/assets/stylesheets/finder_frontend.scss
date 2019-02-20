@@ -284,14 +284,21 @@
   }
 
   .filtered-results {
+    border-top: solid 1px govuk-colour("black");
+
     .result-info {
       @include core-16;
       vertical-align: baseline;
       margin: 0 0 $gutter 0;
-      border-bottom: solid 1px govuk-colour("black");
+
+      .result-count-heading {
+        @include bold-36;
+        margin-top: $gutter-one-third;
+        margin-bottom: $gutter-one-third;
+      }
 
       .result-count {
-        @include bold-27;
+        @include bold-19;
         margin-right: $gutter-one-third / 2;
       }
     }
