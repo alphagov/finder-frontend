@@ -491,6 +491,10 @@
     @include govuk-font($size: 19);
   }
 
+  li:hover {
+    background: govuk-colour('yellow');
+  }
+
   a:link, a:visited {
     display: block;
     padding: 10px $govuk-gutter-half;
