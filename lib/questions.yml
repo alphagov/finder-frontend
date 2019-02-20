@@ -1,12 +1,756 @@
-- question: Can I continue to place new chemicals on both the EU and UK markets after a no deal exit?
-  link: https://www.gov.uk/government/publications/regulating-chemicals-reach-if-theres-no-brexit-deal
-  title: Regulating chemicals (REACH) if there’s no Brexit deal
-  description: you must comply with both EU and UK REACH legislation.
-- question: Can I continue to sell new vehicle types in the EU after EU Exit?
-  link: https://www.gov.uk/government/publications/vehicle-type-approval-if-theres-no-brexit-deal
-  title: Vehicle type approval if there’s no Brexit deal
-  description: You will need to follow the existing process for getting a new EC type-approval.
-- question: Will the EU recognise assessments carried out by UK conformity assessment bodies after EU Exit?
-  link: https://www.gov.uk/government/publications/trading-goods-regulated-under-the-new-approach-if-theres-no-brexit-deal
-  title: Trading goods regulated under the ‘New Approach’ if there’s no Brexit deal
-  description: The EU will no longer recognise the results of conformity assessments carried out by UK conformity assessment bodies.
+---
+-
+    question: Will businesses remain bound by GDPR in the UK?
+    link: https://www.gov.uk/guidance/using-personal-data-after-brexit
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: How can businesses remain compliant with EU data protection law?
+    link: https://www.gov.uk/guidance/using-personal-data-after-brexit
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: Which businesses will need to take action to comply with EU data protection law?
+    link: https://www.gov.uk/guidance/using-personal-data-after-brexit
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: Where can businesses get support on data protection compliance?
+    link: https://www.gov.uk/guidance/using-personal-data-after-brexit
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: Which type of specific data transfer behaviours will be affected?
+    link: https://www.gov.uk/guidance/using-personal-data-after-brexit
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: ​Will EU geo-blocking regulations still apply to UK companies?
+    link: https://www.gov.uk/government/publications/geo-blocking-of-online-content-if-theres-no-brexit-deal
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: Will UK companies be able to access the full range of EU space data?
+    link: https://www.gov.uk/government/publications/satellites-and-space-programmes-if-theres-no-brexit-deal
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: What are the differences between open-source & paid user data from EU programmes?
+    link: https://www.gov.uk/government/publications/satellites-and-space-programmes-if-theres-no-brexit-deal
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: ​Will UK businesses still be able to trade in the EU ETS?
+    link: https://www.gov.uk/government/publications/meeting-climate-change-requirements-if-theres-no-brexit-deal
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: ​Will a UK carbon price still apply?
+    link: https://www.gov.uk/government/publications/meeting-climate-change-requirements-if-theres-no-brexit-deal
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: ​Will there be regulatory changes to the Internal Energy Market?
+    link: https://www.gov.uk/government/publications/trading-electricity-if-theres-no-brexit-deal
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: ​Will there be changes to Internal Energy Market licenses / industry codes?
+    link: https://www.gov.uk/government/publications/trading-electricity-if-theres-no-brexit-deal
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: ​Will Transmission System Operator certifications need reassessment? What steps are needed?
+    link: https://www.gov.uk/government/publications/trading-electricity-if-theres-no-brexit-deal
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: ​Will traders need a new REMIT registration with an EU regulatory authority?
+    link: https://www.gov.uk/government/publications/trading-electricity-if-theres-no-brexit-deal
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: ​What steps are recommended to adapt to the new Internal Energy Market regulatory regime?
+    link: https://www.gov.uk/government/publications/trading-electricity-if-theres-no-brexit-deal
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: ​Will NI Transmission System Operator certifications need reassessment? What steps are needed?
+    link: https://www.gov.uk/government/publications/trading-electricity-if-theres-no-brexit-deal
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: ​Will NI traders need a new REMIT registration with an EU regulatory authority?
+    link: https://www.gov.uk/government/publications/trading-electricity-if-theres-no-brexit-deal
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: Will UK firms be authorised to audit businesses with securities traded in EU markets?
+    link: https://www.gov.uk/government/publications/accounting-and-audit-if-theres-no-brexit-deal
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: ​Will businesses face new accounting/reporting standards to operate branches/subsidiaries in EU Member States?
+    link: https://www.gov.uk/government/publications/accounting-and-audit-if-theres-no-brexit-deal
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: ​Will businesses face discriminatory measures e.g. nationality/ownership restrictions to operate branches/subsidiaries in EU Member States?
+    link: https://www.gov.uk/government/publications/structuring-your-business-if-theres-no-brexit-deal--2
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: Will UK-EU cross-border mergers be recognised by EU states?
+    link: https://www.gov.uk/government/publications/structuring-your-business-if-theres-no-brexit-deal--2
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: ​Which changes to the organisational structures (e.g. ownership, nationality, headquarters) of EU-based subsidiaries will be required after Exit? [per service type, per MS]
+    link: https://www.gov.uk/government/publications/structuring-your-business-if-theres-no-brexit-deal--2
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: ​Which specific actions are required to ensure firms can operate in EEA / EU FTA countries? [per service type, per MS]
+    link: https://www.gov.uk/government/publications/structuring-your-business-if-theres-no-brexit-deal--2
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: ​How can firms avoid new regulatory requirements? e.g. re-locate corporate residency
+    link: https://www.gov.uk/government/publications/structuring-your-business-if-theres-no-brexit-deal--2
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: Will EU-members of UK-led consortia continue to receive Horizon 2020 funding?
+    link: https://www.gov.uk/government/publications/horizon-2020-funding-if-theres-no-brexit-deal
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: ​Who needs to register with the UKRI Horizon 2020 portal?
+    link: https://www.gov.uk/government/publications/horizon-2020-funding-if-theres-no-brexit-deal
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: Will UK businesses have access to Euratom Training & Research Programme funds post-EU Exit?
+    link: https://www.gov.uk/government/publications/nuclear-research-if-theres-no-brexit-deal
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: Will the UK Government provide an underwrite guarantee for organisations reliant on Euratom Training & Research Programme funds?
+    link: https://www.gov.uk/government/publications/nuclear-research-if-theres-no-brexit-deal
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: Will businesses need to do additional customs-related paperwork, including import and export declarations, when trading with the EU? 
+    link: https://www.gov.uk/guidance/exporting-and-importing-goods-if-the-uk-leaves-the-eu-with-no-deal
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: Will businesses need to pay VAT on goods at point of import?
+    link: https://www.gov.uk/guidance/declaring-your-goods-at-customs-if-the-uk-leaves-the-eu-with-no-deal
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: ​Will Low Value Consignment Relief apply to imports <£15 from the EU?
+    link: https://www.gov.uk/government/publications/vat-for-businesses-if-theres-no-brexit-deal
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: Will there be a postponed accounting / electronic VAT collection system?
+    link: https://www.gov.uk/government/publications/vat-for-businesses-if-theres-no-brexit-deal
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: Will the UK have access to EU-wide VAT IT systems?
+    link: https://www.gov.uk/guidance/vat-it-system-rules-and-processes-if-the-uk-leaves-the-eu-without-a-deal
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: Will there be new health and safety inspections at the UK or EU border?
+    link: https://www.gov.uk/government/publications/partnership-pack-preparing-for-a-no-deal-eu-exit
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: ​What are the changes to VAT & customs requirements for importers of EU goods in the UK?
+    link: https://www.gov.uk/guidance/customs-procedures-if-the-uk-leaves-the-eu-without-a-deal
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: What is the specific paperwork required in order to import or export UK goods? E.g. CN22/23 forms
+    link: https://www.gov.uk/guidance/exporting-and-importing-goods-if-the-uk-leaves-the-eu-with-no-deal
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: How can businesses access the electronic VAT collection system?
+    link: https://www.gov.uk/government/publications/vat-for-businesses-if-theres-no-brexit-deal
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: What can businesses do to reduce the burden, e.g. customs agents?
+    link: https://www.gov.uk/guidance/customs-procedures-if-the-uk-leaves-the-eu-without-a-deal
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: How can businesses prepare for the introduction of additional VAT and customs requirements?
+    link: https://www.gov.uk/guidance/customs-procedures-if-the-uk-leaves-the-eu-without-a-deal
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: Should businesses hire a customs broker, freight forwarder, or logistics provider to outsource customs bureaucracy?
+    link: https://www.gov.uk/government/publications/trading-with-the-eu-if-theres-no-brexit-deal
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: What support is available to businesses that need to comply with new paperwork?
+    link: https://www.gov.uk/government/publications/trading-with-the-eu-if-theres-no-brexit-deal
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: '​Will licenses be required to export to the EU from Day 1 of ''No Deal''?'
+    link: https://www.gov.uk/government/publications/exporting-controlled-goods-if-theres-no-brexit-deal
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: '​Will UK dual-use legislation diverge from the EU''s?'
+    link: https://www.gov.uk/government/publications/exporting-controlled-goods-if-theres-no-brexit-deal
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: ​Will there be new VAT & customs collection requirements for EU imports in advance of delivery?
+    link: https://www.gov.uk/guidance/customs-procedures-if-the-uk-leaves-the-eu-without-a-deal
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: ​What products will be subject to dual-use export controls to the EU?
+    link: https://www.gov.uk/government/publications/exporting-controlled-goods-if-theres-no-brexit-deal
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: ​What are the changes to VAT & customs requirements for importers of EU goods in the UK & how will these be paid & collected by PDS?
+    link: https://www.gov.uk/guidance/customs-procedures-if-the-uk-leaves-the-eu-without-a-deal
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: ​What are the changes to VAT & customs requirements for exporters of UK goods to the EU & how will these be collected by PDS abroad?
+    link: https://www.gov.uk/guidance/customs-procedures-if-the-uk-leaves-the-eu-without-a-deal
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: How can businesses secure dual use export licences?
+    link: https://www.gov.uk/government/publications/exporting-controlled-goods-if-theres-no-brexit-deal
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: What can businesses do to prepare to comply with dual-use export requirements?
+    link: https://www.gov.uk/government/publications/exporting-controlled-goods-if-theres-no-brexit-deal
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: Will goods be subject to new customs rules, procedures and inspections at the UK or EU border?
+    link: https://www.gov.uk/guidance/customs-procedures-if-the-uk-leaves-the-eu-without-a-deal
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: Will there be disruption to trade at the UK and EU borders?
+    link: https://www.gov.uk/guidance/exporting-and-importing-goods-if-the-uk-leaves-the-eu-with-no-deal
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: Will there be a shortage of international haulage permits?
+    link: https://www.gov.uk/guidance/ecmt-international-road-haulage-permits
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: How do businesses apply for Authorised Economic Operator status? What are the costs & benefits?
+    link: https://www.gov.uk/guidance/customs-procedures-if-the-uk-leaves-the-eu-without-a-deal
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: How do businesses comply with new customs rules, procedures and inspections at the UK and EU border?
+    link: https://www.gov.uk/guidance/customs-procedures-if-the-uk-leaves-the-eu-without-a-deal
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: What can businesses do reduce delay and uncertainty at the border?
+    link: https://www.gov.uk/guidance/customs-procedures-if-the-uk-leaves-the-eu-without-a-deal
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: Will imports of radioactive waste to the UK be permitted from EU Member States?
+    link: https://www.gov.uk/government/publications/civil-nuclear-regulation-if-theres-no-brexit-deal
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: Will exports to the EU be subject to tariffs in the future? 
+    link: https://www.gov.uk/government/publications/trading-with-the-eu-if-theres-no-brexit-deal
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: Will exports to countries with an EU FTA be subject to different tariffs in the future? 
+    link: https://www.gov.uk/government/publications/existing-free-trade-agreements-if-theres-no-brexit-deal/
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: What are the expected export tariffs by product and market for countries with EU FTAs?
+    link: https://www.gov.uk/government/publications/classifying-your-goods-in-the-uk-trade-tariff-if-theres-no-brexit-deal
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: How do businesses comply with new export tariffs?
+    link: https://www.gov.uk/guidance/exporting-goods-from-the-eu-to-a-third-country-outside-the-eu
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: What can businesses do to prepare for the imposition of tariffs?
+    link: https://www.gov.uk/guidance/exporting-goods-from-the-eu-to-a-third-country-outside-the-eu
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: Will imports from countries with an EU FTA be subject to different tariffs in the future? 
+    link: https://www.gov.uk/government/publications/classifying-your-goods-in-the-uk-trade-tariff-if-theres-no-brexit-deal
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: How do businesses comply with new import tariffs?
+    link: https://www.gov.uk/government/publications/classifying-your-goods-in-the-uk-trade-tariff-if-theres-no-brexit-deal
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: What can businesses do to prepare for the imposition of tariffs?
+    link: https://www.gov.uk/government/publications/classifying-your-goods-in-the-uk-trade-tariff-if-theres-no-brexit-deal
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: Will skilled workers from the EU be subject to visa restrictions after Exit?
+    link: https://www.gov.uk/guidance/european-temporary-leave-to-remain-in-the-uk
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: Will EU citizens already in the UK be subject to visa restrictions post Exit? 
+    link: https://www.gov.uk/guidance/european-temporary-leave-to-remain-in-the-uk
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: How do businesses/employees apply for skilled-work visas to the UK?
+    link: https://www.gov.uk/guidance/european-temporary-leave-to-remain-in-the-uk
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: How do EU citizens apply for skilled-work visas to the UK?
+    link: https://www.gov.uk/guidance/european-temporary-leave-to-remain-in-the-uk
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: What can businesses/EU citizens do now to apply for settled status?
+    link: https://www.gov.uk/settled-status-eu-citizens-families/applying-for-settled-status
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: Will there be exceptions to ensure [nuclear/aerospace/automotive/life sciences/construction] retains access to labour?
+    link: https://www.gov.uk/guidance/european-temporary-leave-to-remain-in-the-uk
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: Will unskilled workers from the EU be subject to visa restrictions after Exit?
+    link: https://www.gov.uk/guidance/european-temporary-leave-to-remain-in-the-uk
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: Will unskilled workers from the UK be subject to visa restrictions in the EU after Exit?
+    link: https://www.gov.uk/guidance/advice-for-british-nationals-travelling-and-living-in-europe
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: How do businesses/employees apply for unskilled-work visas to the UK?
+    link: https://www.gov.uk/guidance/european-temporary-leave-to-remain-in-the-uk
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: Will there be exceptions to ensure [nuclear/aerospace/life sciences/construction] retains access to labour?
+    link: https://www.gov.uk/guidance/european-temporary-leave-to-remain-in-the-uk
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: Will business be able to move skilled staff members between the UK and the EU in future? 
+    link: https://www.gov.uk/guidance/advice-for-british-nationals-travelling-and-living-in-europe
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: Will business travel between the UK and the EU involve further administration, costs or visas? 
+    link: https://www.gov.uk/guidance/passport-rules-for-travel-to-europe-after-brexit
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: What do businesses need to do to comply with new requirements for business travel between UK and EU?
+    link: https://www.gov.uk/guidance/passport-rules-for-travel-to-europe-after-brexit
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: How do businesses/employees apply for short-term visas to work in the UK?
+    link: https://www.gov.uk/guidance/european-temporary-leave-to-remain-in-the-uk
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: Will there be exceptions / fast-track procedures to accommodate essential maintenance in the [nuclear/aerospace/automotive/life sciences/chemicals] sector?
+    link: https://www.gov.uk/guidance/european-temporary-leave-to-remain-in-the-uk
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: ​Will there be new visa requirements for current EU citizens studying UK?
+    link: https://www.gov.uk/settled-status-eu-citizens-families
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: How do universities/students apply for short-term visas to study in the UK?
+    link: https://www.gov.uk/guidance/european-temporary-leave-to-remain-in-the-uk
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: ​Will EEA countries recognise UK law qualifications after Exit?
+    link: https://www.gov.uk/government/publications/providing-services-including-those-of-a-qualified-professional-if-theres-no-brexit-deal
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: Will UK lawyers be able to advise on EU law or represent clients in the ECJ?
+    link: https://www.gov.uk/government/publications/providing-services-including-those-of-a-qualified-professional-if-theres-no-brexit-deal
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: Will UK architects / accountants / auditors have their qualifications recognised in EEA countries after Exit?
+    link: https://www.gov.uk/government/publications/providing-services-including-those-of-a-qualified-professional-if-theres-no-brexit-deal
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: ​When should businesses assume each MS will stop recognising UK qualifications?
+    link: https://www.gov.uk/government/publications/providing-services-including-those-of-a-qualified-professional-if-theres-no-brexit-deal
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: ​When should businesses assume the UK will stop recognising EEA qualifications?
+    link: https://www.gov.uk/government/publications/providing-services-including-those-of-a-qualified-professional-if-theres-no-brexit-deal
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: ​Will EASA recognise CAA licenses after Exit?
+    link: https://www.gov.uk/guidance/the-aerospace-sector-and-preparing-for-eu-exit
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: ​Will the UK recognise EASA licenses after Exit?
+    link: https://www.gov.uk/guidance/the-aerospace-sector-and-preparing-for-eu-exit
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: What do businesses need to do to apply for duplicate licences from EASA?
+    link: https://www.gov.uk/guidance/the-aerospace-sector-and-preparing-for-eu-exit
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: ​Will the UK space sector be able bid for future EU space contracts?
+    link: https://www.gov.uk/government/publications/satellites-and-space-programmes-if-theres-no-brexit-deal/
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: ​Will EASA recognise CAA certificates?
+    link: https://www.gov.uk/guidance/the-aerospace-sector-and-preparing-for-eu-exit
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: Will the UK recognise EASA certificates? 
+    link: https://www.gov.uk/guidance/the-aerospace-sector-and-preparing-for-eu-exit
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: ​Are there plans to set up a domestic regime?
+    link: https://www.gov.uk/guidance/prepare-to-work-and-operate-in-the-european-aviation-sector-after-brexit
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: ​What are planning assumptions on plane & parts air-worthiness on Day 1?
+    link: https://www.gov.uk/guidance/prepare-to-work-and-operate-in-the-european-aviation-sector-after-brexit
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: ​What actions are recommended to maintain EASA recognition from Day 1?
+    link: https://www.gov.uk/guidance/the-aerospace-sector-and-preparing-for-eu-exit
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: ​What actions are required to comply with EASA regime?
+    link: https://www.gov.uk/guidance/the-aerospace-sector-and-preparing-for-eu-exit
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: ​Will the UK recognise ECWVTA certificates after Exit?
+    link: https://www.gov.uk/government/publications/vehicle-type-approval-if-theres-no-brexit-deal/
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: ​Will EU recognise VCA certificates after Exit?
+    link: https://www.gov.uk/government/publications/vehicle-type-approval-if-theres-no-brexit-deal/
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: ​What are implications on sale-worthiness of cars and car components to EU/RoW?
+    link: https://www.gov.uk/government/publications/vehicle-type-approval-if-theres-no-brexit-deal/
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: ​What actions are required to maintain ECWVTA recognition?
+    link: https://www.gov.uk/government/publications/vehicle-type-approval-if-theres-no-brexit-deal/
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: ​What actions are required to maintain VCA recognition?
+    link: https://www.gov.uk/government/publications/vehicle-type-approval-if-theres-no-brexit-deal/
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: ​What certification of exported products will the EU accept?
+    link: https://www.gov.uk/government/publications/trading-goods-regulated-under-the-new-approach-if-theres-no-brexit-deal/
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: ​Will harmonised goods no longer be recognised by the EU? E.g. toys
+    link: https://www.gov.uk/government/publications/trading-goods-regulated-under-the-new-approach-if-theres-no-brexit-deal/
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: ​Will non-harmonised goods require conformity assessment? E.g. furniture
+    link: https://www.gov.uk/government/publications/trading-goods-regulated-under-the-new-approach-if-theres-no-brexit-deal/
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: ​What are the due diligence requirements for imports of regulated products?
+    link: https://www.gov.uk/government/publications/trading-goods-regulated-under-the-new-approach-if-theres-no-brexit-deal/
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: ​Will the UK recognise EASA helicopter certifications after Exit?
+    link: https://www.gov.uk/guidance/prepare-to-work-and-operate-in-the-european-aviation-sector-after-brexit
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: ​Will EASA recognise CAA helicopter certifications after Exit?
+    link: https://www.gov.uk/guidance/prepare-to-work-and-operate-in-the-european-aviation-sector-after-brexit
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: ​What is the process to apply for duplicate EASA/CAA helicopter certifications?
+    link: https://www.gov.uk/guidance/prepare-to-work-and-operate-in-the-european-aviation-sector-after-brexit
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: ​Will the UK leave the Internal Energy Market?
+    link: https://www.gov.uk/government/publications/trading-gas-with-the-eu-if-theres-no-brexit-deal/
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: Is there a need to establish alternative trading arrangements with trading partners?
+    link: https://www.gov.uk/government/publications/trading-gas-with-the-eu-if-theres-no-brexit-deal/
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: Will TSO bundling and certification requirements continue?
+    link: https://www.gov.uk/government/publications/trading-gas-with-the-eu-if-theres-no-brexit-deal/
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: ​Will gas interconnectors have legal standing to continue operations?
+    link: https://www.gov.uk/government/publications/trading-gas-with-the-eu-if-theres-no-brexit-deal/
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: Will PRISMA still be accessible for cross-border gas trading?
+    link: https://www.gov.uk/government/publications/trading-gas-with-the-eu-if-theres-no-brexit-deal/
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: ​What actions are required for operators to maintain their legal standing to continue operations?
+    link: https://www.gov.uk/government/publications/trading-gas-with-the-eu-if-theres-no-brexit-deal/
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: ​Will the UK leave the Euratom Programme?
+    link: https://www.gov.uk/government/publications/civil-nuclear-regulation-if-theres-no-brexit-deal
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: ​Will the UK be able to maintain a relationship with Euratom after EU Exit?
+    link: https://www.gov.uk/government/publications/civil-nuclear-regulation-if-theres-no-brexit-deal
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: ​What steps are needed to re-approve contracts with Euratom?
+    link: https://www.gov.uk/government/publications/civil-nuclear-regulation-if-theres-no-brexit-deal
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: ​Are any reporting changes needed to comply with IAEA?
+    link: https://www.gov.uk/government/publications/civil-nuclear-regulation-if-theres-no-brexit-deal
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: What does reaching Euratom equivalence mean for operators?
+    link: https://www.gov.uk/government/publications/civil-nuclear-regulation-if-theres-no-brexit-deal
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: What will operators need to do to comply with the Nuclear Safeguards Regime?
+    link: https://www.gov.uk/government/publications/civil-nuclear-regulation-if-theres-no-brexit-deal
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: ​What arrangements will be in place for radioactive waste?
+    link: https://www.gov.uk/government/publications/civil-nuclear-regulation-if-theres-no-brexit-deal
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: ​What will new arrangements be for shipping radioactive sources to the EU?
+    link: https://www.gov.uk/government/publications/civil-nuclear-regulation-if-theres-no-brexit-deal
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: Do medical products need to be registered with Competent Authorities in the UK & EU?
+    link: https://www.gov.uk/government/publications/how-medicines-medical-devices-and-clinical-trials-would-be-regulated-if-theres-no-brexit-deal
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: Are Authorised Representatives needed in both the UK & EU?
+    link: https://www.gov.uk/government/publications/how-medicines-medical-devices-and-clinical-trials-would-be-regulated-if-theres-no-brexit-deal
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: What operational facilities are required to market products in the UK?
+    link: https://www.gov.uk/government/publications/how-medicines-medical-devices-and-clinical-trials-would-be-regulated-if-theres-no-brexit-deal
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: ​Will the UK continue to recognise EU batch testing, batch release, and Good Manufacturing Practice inspections in the long term?
+    link: https://www.gov.uk/government/publications/batch-testing-medicines-if-theres-no-brexit-deal
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: ​Will the UK have access to Falsified Medicines Directive database?
+    link: https://www.gov.uk/government/publications/how-medicines-medical-devices-and-clinical-trials-would-be-regulated-if-theres-no-brexit-deal
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: ​Will there be regulatory changes in chemical manufacture & trade?
+    link: https://www.gov.uk/government/publications/regulating-chemicals-reach-if-theres-no-brexit-deal/
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: What action must be taken in relation to REACH registrations & authorisations, CLP notifications and Biocidal Product authorisations to maintain EEA and UK market access?
+    link: https://www.gov.uk/government/publications/regulating-chemicals-reach-if-theres-no-brexit-deal
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: ​What are the business requirements of the new UK-REACH regulatory regime?
+    link: https://www.gov.uk/government/publications/regulating-chemicals-reach-if-theres-no-brexit-deal/
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: ​How will Biocidal Product Regulation authorisations change?
+    link: https://www.gov.uk/government/publications/regulating-biocidal-products-if-theres-no-brexit-deal/
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: ​How will Classification, Labelling, and Packaging regulations change for chemical products?
+    link: https://www.gov.uk/government/publications/classifying-labelling-and-packaging-chemicals-if-theres-no-brexit-deal
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: How will all downstream users of chemicals imported from the EU be informed of their new responsibilities under UK REACH?
+    link: https://www.gov.uk/government/publications/regulating-chemicals-reach-if-theres-no-brexit-deal
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: ​What are the business requirements of the new UK-FLEGT regulatory regime?
+    link: https://www.gov.uk/government/publications/buying-and-selling-timber-if-theres-no-brexit-deal
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: What is the finalised carbon tax?
+    link: https://www.gov.uk/government/publications/meeting-climate-change-requirements-if-theres-no-brexit-deal
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: Will the UK remove the EU ETS cross-sectoral correlation factor from carbon price benchmark calculations?
+    link: https://www.gov.uk/government/publications/meeting-climate-change-requirements-if-theres-no-brexit-deal
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: Will UK hauliers be permitted to drive in the EU?
+    link: https://www.gov.uk/guidance/prepare-to-drive-in-the-eu-after-brexit-lorry-and-goods-vehicle-drivers
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: ​How will Plant Protection Products regulations change?
+    link: https://www.gov.uk/government/publications/regulating-pesticides-if-theres-no-brexit-deal
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: What is the deadline to apply for settled status?
+    link: https://www.gov.uk/settled-status-eu-citizens-families/when-to-apply
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: What is the eligibility criteria to apply for settled status?
+    link: https://www.gov.uk/settled-status-eu-citizens-families/eligibility
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: Will transient or frontier workers be eligible for settled status?
+    link: https://www.gov.uk/settled-status-eu-citizens-families/eligibility
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: What steps do businesses need to take in order to access EU personal data?
+    link: https://www.gov.uk/guidance/using-personal-data-after-brexit
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: Will my business have to pay mobile roaming charges in the EU after Exit?
+    link: https://www.gov.uk/government/publications/mobile-roaming-if-theres-no-brexit-deal/
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: How will the replacement for ESIF funds work?
+    link: https://www.gov.uk/government/publications/european-social-fund-esf-grants-if-theres-no-brexit-deal/
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: How can my company apply for opportunities to access ESIF funds?
+    link: https://www.gov.uk/government/publications/european-social-fund-esf-grants-if-theres-no-brexit-deal/
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: Will I need to VAT register in every EU member state where my firm has clients?
+    link: https://www.gov.uk/guidance/customs-procedures-if-the-uk-leaves-the-eu-without-a-deal
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: Who will adjudicate over transnational disputes across EU MS?
+    link: https://www.gov.uk/government/publications/handling-civil-legal-cases-that-involve-eu-countries-if-theres-no-brexit-deal
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: What is the process of redress for transnational disputes across EU MS?
+    link: https://www.gov.uk/government/publications/handling-civil-legal-cases-that-involve-eu-countries-if-theres-no-brexit-deal
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: 'Will my business be able to become a ''Trusted Trader''?'
+    link: https://www.gov.uk/guidance/customs-procedures-if-the-uk-leaves-the-eu-without-a-deal
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: Will EU accountants have their qualifications recognised in the UK after Exit?
+    link: https://www.gov.uk/government/publications/providing-services-including-those-of-a-qualified-professional-if-theres-no-brexit-deal
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
+-
+    question: Will EU auditors have their qualifications recognised in the UK after Exit?
+    link: https://www.gov.uk/government/publications/providing-services-including-those-of-a-qualified-professional-if-theres-no-brexit-deal/
+    title: Find out more
+    description: Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo.
