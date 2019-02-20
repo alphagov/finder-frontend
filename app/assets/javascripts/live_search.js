@@ -3,6 +3,13 @@
 
   window.GOVUK = window.GOVUK || {};
 
+  var KEYS = {
+    13: 'enter',
+    27: 'escape',
+    38: 'up',
+    40: 'down'
+  }
+
   function LiveSearch(options){
     this.state = false;
     this.previousState = false;
@@ -45,9 +52,7 @@
 
       this.$form.on('keypress', 'input[type=search]', 'input[type=text]',
         function(e){
-          var ENTER_KEY = 13
-
-          if(e.keyCode == ENTER_KEY) {
+          if(KEYS[e.keyCode] == 'enter') {
             this.formChange(e);
             e.preventDefault();
           }
@@ -57,7 +62,7 @@
       this.$form.find('.js-finder-search-submit').on('click', function(e) {
         e.preventDefault();
         this.formChange(e);
-      });
+      }.bind(this));
 
       this.updateOrder();
       this.indexTrackingData();
@@ -98,6 +103,7 @@
 
   LiveSearch.prototype.setupSearch = function () {
     var that = this;
+    // Update results when the text in the input changes
     this.$keywordSearch.on('input', function () {
       var searchTerms = $(this).val();
 
@@ -119,12 +125,76 @@
       that.$keywordResults.toggleClass('js-hidden', searchResults.length == 0);
     });
 
+    // When you leave the search field, hide the result dropdown
+    // Needs a timeout so that the result is still there when you try to click
+    // on it...
     this.$keywordSearch.on('blur', function () {
       setTimeout(function () {
         that.$keywordResults.addClass('js-hidden');
       }, 100);
     })
 
+    this.$keywordSearch.on('keydown', function (evt) {
+      switch (KEYS[evt.keyCode]) {
+        case 'up':
+          handleUpArrow(evt)
+          break
+        case 'down':
+          handleDownArrow(evt)
+          break
+        case 'enter':
+          handleEnter(evt)
+          break
+        case 'escape':
+          that.keywordResults.css('display', 'none')
+          break
+        default:
+          break
+      }
+    })
+
+    function getActiveResultPosition () {
+      return $('.active-result', that.$keywordResults).index()
+    }
+
+    function handleUpArrow(event) {
+      if (getActiveResultPosition() == 0) {
+        $('.active-result').removeClass('active-result')
+      } else {
+        var $prevElement = $('.active-result').prev()
+
+        $('li', that.$keywordResults).removeClass('active-result')
+        $prevElement.addClass('active-result')
+      }
+
+      event.preventDefault()
+    }
+
+    function handleDownArrow(event) {
+      if (getActiveResultPosition() === -1) {
+        var $nextElement = $('li', that.$keywordResults).first()
+      } else {
+        var $nextElement = $('li.active-result', that.$keywordResults).next()
+      }
+
+      if ($nextElement.length) {
+        $('li', that.$keywordResults).removeClass('active-result')
+        $nextElement.addClass('active-result')
+      }
+
+      event.preventDefault()
+    }
+
+    function handleEnter (event) {
+      var result = $('.active-result')
+      if (result.length) {
+        that.$keywordSearch.val($(result).text()).trigger('change');
+        that.showQuestion($(result).data('id'));
+      }
+      that.$keywordResults.addClass('js-hidden');
+    }
+
+    // Handle actually clicking on results
     this.$keywordResults.on('click', 'li', function () {
       that.showQuestion($(this).data('id'));
       that.$keywordSearch.val($(this).text()).trigger('change');
