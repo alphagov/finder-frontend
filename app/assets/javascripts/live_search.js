@@ -62,6 +62,11 @@
           if (e.target.type == "text" && !e.suppressAnalytics) {
             LiveSearch.prototype.fireTextAnalyticsEvent(e);
           }
+          if (!this.$keywordSearch.val()) {
+            $('.js-search-clear').addClass("js-hidden");
+          } else {
+            $('.js-search-clear').removeClass("js-hidden");
+          }
           if (!isClickingResult) {
             this.formChange(e)
           } else {
