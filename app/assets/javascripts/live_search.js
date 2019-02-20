@@ -22,7 +22,8 @@
   'their', 'them', 'then', 'there', 'these', 'they', 'this', 'tis', 'to', 'too',
   'twas', 'us', 'wants', 'was', 'we', 'were', 'what', 'when', 'where', 'which',
   'while', 'who', 'whom', 'why', 'will', 'with', 'would', 'yet', 'you', 'your',
-  'eu', 'exit', 'uk', 'brexit', 'deal', 'both', 'up', 'e.g', 'use', 'each']
+  'eu', 'exit', 'uk', 'brexit', 'deal', 'both', 'up', 'e.g', 'use', 'each',
+  'business', 'businesses', 'company', 'companies']
 
   var isClickingResult = false;
   var enableStemming = true;
