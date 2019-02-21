@@ -571,3 +571,11 @@ end
 Then(/^the page has results region$/) do
   expect(page).to have_css('[id="js-results"]')
 end
+
+Then(/^the page has a landmark to the search results$/) do
+  expect(page).to have_css('[class="column-two-thirds"][role="region"][aria-label$="search results"]')
+end
+
+Then(/^the page has a landmark to the search filters$/) do
+  expect(page).to have_css('.column-third[role="search"][aria-label]')
+end
