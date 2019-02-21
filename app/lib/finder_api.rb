@@ -105,7 +105,12 @@ private
   def augment_facets_with_dynamic_values(content_item, search_response)
     search_response.fetch("facets", {}).each do |facet_key, facet_details|
       facet = content_item['details']['facets'].find { |f| f['key'] == facet_key }
-      facet['allowed_values'] = allowed_values_for_facet_details(facet_key, facet_details) if facet
+
+      if registries.all.has_key?(facet_key) && facet
+        facet['allowed_values'] = allowed_values_from_registry(facet_key)
+      elsif facet
+        facet['allowed_values'] = allowed_values_for_facet_details(facet_key, facet_details)
+      end
     end
   end
 
@@ -113,6 +118,12 @@ private
     facet_details.fetch("options", {})
       .map { |f| f.fetch("value", {}) }
       .map { |value| present_facet_option(value, facet_key) }
+      .reject { |f| f["label"].blank? || f["value"].blank? }
+  end
+
+  def allowed_values_from_registry(facet_key)
+    registries.all[facet_key].values
+      .map { |_, results| present_facet_option(results, facet_key) }
       .reject { |f| f["label"].blank? || f["value"].blank? }
   end
 

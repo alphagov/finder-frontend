@@ -11,6 +11,10 @@ module Registries
       end
     end
 
+    def values
+      cached_locations
+    end
+
   private
 
     def cached_locations

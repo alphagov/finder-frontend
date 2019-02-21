@@ -6,7 +6,8 @@ RSpec.describe Registries::PeopleRegistry do
     {
       "count" => 1500,
       "fields" => %w(slug title),
-      "filter_format" => "person"
+      "filter_format" => "person",
+      "order" => 'title'
     }
   }
   let(:rummager_params) { default_rummager_params.merge("start" => 0) }
@@ -27,6 +28,13 @@ RSpec.describe Registries::PeopleRegistry do
         'title' => 'Cornelius Fudge',
         'slug' => slug
       )
+    end
+
+    it "will return all people ordered by title ascending" do
+      people = described_class.new.values
+
+      expect(people.length).to eql(2)
+      expect(people.keys).to eql(%w(cornelius-fudge rufus-scrimgeour))
     end
   end
 

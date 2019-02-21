@@ -13,6 +13,8 @@ RSpec.describe Registries::BaseRegistries do
   it "fetches all registries" do
     expect(subject.all).to have_key('world_locations')
     expect(subject.all).to have_key('part_of_taxonomy_tree')
+    expect(subject.all).to have_key('organisations')
+    expect(subject.all).to have_key('people')
   end
 
   it "provides world_locations registry" do

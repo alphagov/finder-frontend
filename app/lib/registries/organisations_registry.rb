@@ -15,6 +15,10 @@ module Registries
       {}
     end
 
+    def values
+      organisations
+    end
+
   private
 
     def organisations_as_hash
@@ -30,7 +34,8 @@ module Registries
       params = {
         filter_format: 'organisation',
         fields: %w(title slug acronym),
-        count: 1500
+        count: 1500,
+        order: 'title'
       }
       response = Services.rummager.search(params)
       response['results']

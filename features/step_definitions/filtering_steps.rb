@@ -299,6 +299,7 @@ Given(/^an organisation finder exists$/) do
   content_store_has_government_finder
   stub_organisations_registry_request
   stub_rummager_api_request_with_government_results
+  stub_people_registry_request
 
   visit finder_path('government/policies/benefits-reform', parent: 'ministry-of-magic')
 end
@@ -307,6 +308,7 @@ Given(/^an organisation finder exists but a bad breadcrumb path is given$/) do
   content_store_has_government_finder
   stub_organisations_registry_request
   stub_rummager_api_request_with_government_results
+  stub_people_registry_request
 
   visit finder_path('government/policies/benefits-reform', parent: 'bernard-cribbins')
 end
@@ -441,6 +443,36 @@ end
 
 And(/^I select a taxon$/) do
   select('Taxon_1', from: 'Topic')
+end
+
+And(/^I select a Person$/) do
+  check('Rufus Scrimgeour')
+end
+
+And(/^I reload the page$/) do
+  visit [current_path, page.driver.request.env['QUERY_STRING']].reject(&:blank?).join('?')
+end
+
+Then(/^I should see all people in the people facet$/) do
+  expect(page).to have_css('input[id^="people-"]', count: 5)
+  find('label', text: 'Albus Dumbledore')
+  find('label', text: 'Cornelius Fudge')
+  find('label', text: 'Harry Potter')
+  find('label', text: 'Ron Weasley')
+  find('label', text: 'Rufus Scrimgeour')
+end
+
+And(/^I should see all organisations in the organisation facet$/) do
+  expect(page).to have_css('input[id^="organisations-"]', count: 3)
+  find('label', text: 'Department of Mysteries')
+  find('label', text: 'Gringots')
+  find('label', text: 'Ministry of Magic')
+end
+
+Then(/^I should see all world locations in the world location facet$/) do
+  expect(page).to have_css('input[id^="world_locations-"]', count: 2)
+  find('label', text: 'Azkaban')
+  find('label', text: 'Tracy Island')
 end
 
 And(/^I select a World Location$/) do
