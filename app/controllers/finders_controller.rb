@@ -79,6 +79,8 @@ private
   end
 
   def result_set_presenter_class
+    return GroupedResultSetPresenter if grouped_display?
+
     ResultSetPresenter
   end
 
@@ -88,5 +90,9 @@ private
 
   def parent
     params.fetch(:parent, '')
+  end
+
+  def grouped_display?
+    params["order"] == "topic" || finder.default_sort_option_key == "topic"
   end
 end

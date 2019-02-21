@@ -30,10 +30,11 @@ class Document
   end
 
   def summary
-    if description.present? && (finder.show_summaries? || promoted)
-      # This truncates the description at the end of the first sentence
-      description.gsub(/\.\s[A-Z].*/, '.')
-    end
+    truncated_description if description.present? && finder.show_summaries?
+  end
+
+  def promoted_summary
+    truncated_description if description.present? && promoted
   end
 
   def promoted
@@ -45,6 +46,11 @@ class Document
 private
 
   attr_reader :link, :rummager_document, :finder, :description
+
+  def truncated_description
+    # This truncates the description at the end of the first sentence
+    description.gsub(/\.\s[A-Z].*/, '.')
+  end
 
   def metadata_keys
     date_metadata_keys + tag_metadata_keys
