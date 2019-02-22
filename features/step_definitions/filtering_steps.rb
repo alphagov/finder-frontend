@@ -558,3 +558,16 @@ Then("I see results grouped by primary facet value") do
     end
   end
 end
+
+And(/^I press (tab) key to navigate$/) do |key|
+  find_field('Search').send_keys key.to_sym
+end
+
+Then(/^I should (see|not see) a "Skip to results" link$/) do |can_be_seen|
+  visibility = can_be_seen == 'see'
+  expect(page).to have_css('[href="#js-results"]', visible: visibility)
+end
+
+Then(/^the page has results region$/) do
+  expect(page).to have_css('[id="js-results"]')
+end
