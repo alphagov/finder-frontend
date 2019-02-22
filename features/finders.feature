@@ -199,3 +199,8 @@ Feature: Filtering documents
     And I press tab key to navigate
     Then I should see a "Skip to results" link
     And the page has results region
+
+  Scenario: Results should be a landmark to allow screenreaders to jump to it quickly
+    When I view the news and communications finder
+    Then the page has a landmark to the search results
+    And the page has a landmark to the search filters

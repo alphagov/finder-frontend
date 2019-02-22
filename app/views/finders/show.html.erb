@@ -64,11 +64,11 @@
 <div class="grid-row">
   <form method="get" action="<%= finder.slug %>" class="js-live-search-form">
     <input type="hidden" name="parent" value="<%= @parent %>">
-    <div class="column-third">
+    <div class="column-third" role="search" aria-label="<%= finder.name %>">
       <%= render finder.facets %>
     </div>
 
-    <div class="column-two-thirds">
+    <div class="column-two-thirds" role="region" aria-label="<%= finder.name %> search results">
       <div class='js-live-search-results-block'>
         <div class="filtered-results">
           <div aria-live='assertive' id='js-search-results-info' data-module="remove-filter">
