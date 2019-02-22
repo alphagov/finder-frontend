@@ -20,6 +20,10 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
+  components:
+    option_select:
+      found_single: "option found"
+      found_multiple: "options found"
   time:
     formats:
       as_date: "%d %B %Y"

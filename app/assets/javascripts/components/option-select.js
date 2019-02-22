@@ -13,6 +13,9 @@
     this.$labels = this.$optionSelect.find(".govuk-checkboxes__item");
     this.$optionsContainer = this.$optionSelect.find('.options-container');
     this.$optionList = this.$optionsContainer.children('.js-auto-height-inner');
+    this.$allCheckboxes = this.$optionsContainer.find('.govuk-checkboxes__item');
+    this.$filter = this.$optionsContainer.find('input[name="filter"]');
+    this.checkedCheckboxes = [];
 
     this.attachCheckedCounter();
 
@@ -33,14 +36,71 @@
       // Add open/close listeners
       this.$optionSelect.find('.js-container-head').on('click', this.toggleOptionSelect.bind(this));
 
-      if (this.$optionSelect.data('closed-on-load') == true) {
+      if (this.$optionSelect.data('closed-on-load') === true) {
         this.close();
       }
       else {
         this.setupHeight();
       }
     }
+
+    if (this.$filter.length) {
+      this.$filterCount = $('#' + this.$filter.attr('aria-describedby'));
+      this.filterTextSingle = ' ' + this.$filterCount.data('single');
+      this.filterTextMultiple = ' ' + this.$filterCount.data('multiple');
+      this.checkboxLabels = [];
+      this.filterTimeout = 0;
+      var that = this;
+
+      this.getAllCheckedCheckboxes();
+      this.$allCheckboxes.each(function() {
+        that.checkboxLabels.push(that.cleanString($(this).text()));
+      });
+
+      this.$filter.on('keyup', function(e) {
+        clearTimeout(that.filterTimeout);
+        that.filterTimeout = setTimeout(function(obj){
+          that.doFilter(obj);
+        }, 300, that);
+      });
+    }
   }
+
+  OptionSelect.prototype.cleanString = function cleanString(text) {
+    text = text.replace(/&/g, 'and');
+    text = text.replace(/[’',:–-]/g,''); // remove punctuation characters
+    return text.trim().replace(/\s\s+/g, ' ').toLowerCase(); // replace multiple spaces with one
+  };
+
+  OptionSelect.prototype.getAllCheckedCheckboxes = function getAllCheckedCheckboxes() {
+    this.checkedCheckboxes = [];
+    var that = this;
+
+    this.$allCheckboxes.each(function(i) {
+      if ($(this).find('input[type=checkbox]').is(':checked')) {
+        that.checkedCheckboxes.push(i);
+      }
+    });
+  };
+
+  OptionSelect.prototype.doFilter = function doFilter(obj){
+    var filterBy = obj.cleanString(obj.$filter.val());
+    var showCheckboxes = obj.checkedCheckboxes.slice();
+
+    for (var i = 0; i < obj.$allCheckboxes.length; i++) {
+      if (showCheckboxes.indexOf(i) == -1 && obj.checkboxLabels[i].search(filterBy) !== -1) {
+        showCheckboxes.push(i);
+      }
+    }
+
+    obj.$allCheckboxes.hide();
+    for (var j = 0; j < showCheckboxes.length; j++) {
+      obj.$allCheckboxes.eq(showCheckboxes[j]).show();
+    }
+
+    var len = showCheckboxes.length || 0;
+    obj.$filterCount.html(len + (len == 1 ? obj.filterTextSingle : obj.filterTextMultiple));
+  };
 
   OptionSelect.prototype.replaceHeadWithButton = function replaceHeadWithButton(){
     /* Replace the div at the head with a button element. This is based on feedback from Léonie Watson.
@@ -72,7 +132,8 @@
   };
 
   OptionSelect.prototype.checkedString = function checkedString(){
-    var count = this.$options.filter(":checked").size();
+    this.getAllCheckedCheckboxes();
+    var count = this.checkedCheckboxes.length;
     var checkedString = "";
     if (count > 0){
       checkedString = count+" selected";
