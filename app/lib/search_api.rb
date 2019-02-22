@@ -15,7 +15,7 @@ private
   attr_reader :params, :ab_tests
 
   def search_results
-    Services.rummager.search(rummager_params).to_hash
+    run_search(rummager_params).to_hash
   end
 
   # If the user is in scoped-search mode inside a manual, then return the manual
@@ -38,7 +38,7 @@ private
   end
 
   def scoped_manual
-    @scoped_manual ||= Services.rummager.search(filter_link: manual_link, count: "1", fields: %w{title})
+    @scoped_manual ||= run_search(filter_link: manual_link, count: "1", fields: %w{title})
     @scoped_manual.to_hash.fetch("results", []).first
   end
 
@@ -51,10 +51,16 @@ private
   end
 
   def unscoped_results
-    @unscoped_results ||= Services.rummager.search(unscoped_rummager_request).to_hash
+    @unscoped_results ||= run_search(unscoped_rummager_request).to_hash
   end
 
   def unscoped_rummager_request
     rummager_params.except(:filter_manual).merge(count: "3", reject_manual: manual_link)
+  end
+
+  def run_search(query_params)
+    GovukStatsd.time("rummager.site_search") do
+      Services.rummager.search(query_params)
+    end
   end
 end

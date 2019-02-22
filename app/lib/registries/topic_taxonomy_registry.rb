@@ -18,9 +18,11 @@ module Registries
   private
 
     def taxonomy_tree_as_hash
-      fetch_level_one_taxons_from_api.each_with_object({}) { |taxon, taxonomy|
-        taxonomy[taxon['content_id']] = format_taxon(taxon)
-      }
+      GovukStatsd.time("registries.topic_taxonomy.request_time") do
+        fetch_level_one_taxons_from_api.each_with_object({}) { |taxon, taxonomy|
+          taxonomy[taxon['content_id']] = format_taxon(taxon)
+        }
+      end
     end
 
     def format_taxon(taxon, parent_id = nil)
