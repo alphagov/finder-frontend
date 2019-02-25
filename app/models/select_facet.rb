@@ -7,7 +7,7 @@ class SelectFacet < FilterableFacet
     # NOTE: We use a symbol-based hash here unlike all our other hash
     # data-structures because we pass this to a govuk_component partial
     # that expects symbol keys, not strings
-    allowed_values.map do |allowed_value|
+    @options ||= allowed_values.map do |allowed_value|
       {
         value: allowed_value['value'],
         label: allowed_value['label'],
@@ -54,7 +54,7 @@ class SelectFacet < FilterableFacet
 private
 
   def value_fragments
-    selected_values.map { |value|
+    @value_fragments ||= selected_values.map { |value|
       {
         'label' => value['label'],
         'value' => value['value'],
@@ -64,10 +64,12 @@ private
   end
 
   def selected_values
-    return [] if @value.nil?
+    @selected_values ||= begin
+      return [] if @value.nil?
 
-    allowed_values.select { |option|
-      @value.include?(option['value'])
-    }
+      allowed_values.select { |option|
+        @value.include?(option['value'])
+      }
+    end
   end
 end
