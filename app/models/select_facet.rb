@@ -44,11 +44,19 @@ class SelectFacet < FilterableFacet
   end
 
   def close_facet?
-    selected_values.empty? && allowed_values.count > 10
+    unselected? && allowed_values.count > 10
   end
 
   def unselected?
     selected_values.empty?
+  end
+
+  def cacheable?
+    unselected? || selected_values.one?
+  end
+
+  def cache_key
+    { selected: selected_values, allowed: allowed_values }
   end
 
 private
