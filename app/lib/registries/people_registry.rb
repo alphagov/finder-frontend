@@ -23,23 +23,22 @@ module Registries
 
     def people_as_hash
       GovukStatsd.time("registries.people.request_time") do
-        fetch_people_from_rummager
-          .reject { |result| result['slug'].empty? || result['title'].empty? }
+        people = fetch_people_from_rummager || {}
+
+        people.reject { |result| result.dig('value', 'slug').empty? || result.dig('value', 'title').empty? }
           .each_with_object({}) { |result, orgs|
-            slug = result['slug']
-            orgs[slug] = result.slice('title', 'slug')
+            slug = result['value']['slug']
+            orgs[slug] = result['value'].slice('title', 'slug')
           }
       end
     end
 
     def fetch_people_from_rummager
       params = {
-        filter_format: 'person',
-        fields: %w(title slug),
-        count: 1500,
-        order: 'title'
+        facet_people: '1500,examples:0,order:value.title',
+        count: 0,
       }
-      Services.rummager.search_enum(params, page_size: 1500)
+      Services.rummager.search(params).dig('facets', 'people', 'options')
     end
   end
 end

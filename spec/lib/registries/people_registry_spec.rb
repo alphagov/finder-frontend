@@ -2,27 +2,21 @@ require 'spec_helper'
 
 RSpec.describe Registries::PeopleRegistry do
   let(:slug) { 'cornelius-fudge' }
-  let(:default_rummager_params) {
+  let(:rummager_params) {
     {
-      "count" => 1500,
-      "fields" => %w(slug title),
-      "filter_format" => "person",
-      "order" => 'title'
+      count: 0,
+      facet_people: '1500,examples:0,order:value.title'
     }
   }
-  let(:rummager_params) { default_rummager_params.merge("start" => 0) }
-  let(:second_rummager_params) { default_rummager_params.merge("start" => 1) }
   let(:rummager_url) { "#{Plek.current.find('search')}/search.json?#{rummager_params.to_query}" }
-  let(:second_rummager_url) { "#{Plek.current.find('search')}/search.json?#{second_rummager_params.to_query}" }
 
   describe "when rummager is available" do
     before do
       stub_request(:get, rummager_url).to_return(body: rummager_results)
-      stub_request(:get, second_rummager_url).to_return(body: { "results": [] }.to_json)
       clear_cache
     end
 
-    it "will fetch person breadcrumb information by slug" do
+    it "will fetch person information by slug" do
       person = described_class.new[slug]
       expect(person).to eq(
         'title' => 'Cornelius Fudge',
@@ -30,7 +24,7 @@ RSpec.describe Registries::PeopleRegistry do
       )
     end
 
-    it "will return all people ordered by title ascending" do
+    it "will return all people associated with documents ascending by name" do
       people = described_class.new.values
 
       expect(people.length).to eql(2)
@@ -61,21 +55,29 @@ RSpec.describe Registries::PeopleRegistry do
 
   def rummager_results
     %|{
-      "results": [
-        {
-          "title": "Cornelius Fudge",
-          "slug": "cornelius-fudge",
-          "_id": "a field that we're not using"
-        },
-        {
-          "title": "Rufus Scrimgeour",
-          "slug": "rufus-scrimgeour",
-          "_id": "/government/people/companies-house"
-        }
-      ],
-      "total": 2,
+      "results": [],
+      "total": 394075,
       "start": 0,
-      "aggregates": {},
+      "facets": {
+        "people": {
+          "options": [{
+            "value": {
+              "title": "Cornelius Fudge",
+              "slug": "cornelius-fudge",
+              "_id": "a field that we're not using"
+            },
+            "documents": 5
+          },
+          {
+            "value": {
+              "title": "Rufus Scrimgeour",
+              "slug": "rufus-scrimgeour",
+              "_id": "/government/people/companies-house"
+            },
+            "documents": 6
+          }]
+        }
+      },
       "suggested_queries": []
     }|
   end
