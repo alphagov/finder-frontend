@@ -58,7 +58,7 @@ class GroupedResultSetPresenter < ResultSetPresenter
       end
     end
 
-    groups = [compact_and_sort(primary_group), compact_and_sort(secondary_group)].flatten
+    groups = [compact_and_sort(primary_group), compact_and_sort(secondary_group, true)].flatten
     groups << default_group unless default_group[:documents].empty?
     groups
   end
@@ -100,9 +100,22 @@ private
     sort_by_promoted(sorted_results)
   end
 
-  def compact_and_sort(group)
+  def compact_and_sort(group, order_by_facet = false)
     group = group.reject { |_, v| v[:documents].empty? }
-    group.values.sort_by { |g| g[:facet_name] }
+
+    if order_by_facet
+      sort_by_facet(group)
+    else
+      group.values.sort_by { |g| g[:facet_name] }
+    end
+  end
+
+  def sort_by_facet(group)
+    results_with_nils = @finder.filters.map do |filter|
+      group[filter.key]
+    end
+
+    results_with_nils.compact
   end
 
   def facet_filters

@@ -30,7 +30,7 @@ RSpec.describe GroupedResultSetPresenter do
   let(:a_facet) do
     double(
       SelectFacet,
-      key: 'key_1',
+      key: 'case-type',
       selected_values: [
         {
           'value' => 'ca98-and-civil-cartels',
@@ -52,7 +52,7 @@ RSpec.describe GroupedResultSetPresenter do
         },
       ],
       sentence_fragment: {
-        'key' => 'key_1',
+        'key' => 'case-type',
         'type' => 'text',
         'preposition' => 'Of Type',
         'values' => [
@@ -68,6 +68,50 @@ RSpec.describe GroupedResultSetPresenter do
       has_filters?: true,
       labels: %W(ca98-and-civil-cartels mergers),
       value: %W(ca98-and-civil-cartels mergers)
+    )
+  end
+
+  let(:b_facet) do
+    double(
+      SelectFacet,
+      key: 'personal-data',
+      selected_values: [
+          {
+              'value' => 'personal-digital-data',
+              'label' => 'personal-digital-data'
+          },
+          {
+              'value' => 'personal-digital-data-private',
+              'label' => 'personal-digital-data-private'
+          },
+      ],
+      allowed_values: [
+          {
+              'value' => 'personal-digital-data',
+              'label' => 'personal-digital-data'
+          },
+          {
+              'value' => 'personal-digital-data-private',
+              'label' => 'personal-digital-data-private'
+          },
+      ],
+      sentence_fragment: {
+          'key' => 'personal-data',
+          'type' => 'text',
+          'preposition' => 'Of Type',
+          'values' => [
+              {
+                  'label' => 'personal-digital-data',
+              },
+              {
+                  'label' => 'personal-digital-data-private',
+              },
+          ],
+          'word_connectors' => { words_connector: 'or' }
+      },
+      has_filters?: true,
+      labels: %W(personal-digital-data personal-digital-data-private),
+      value: %W(personal-digital-data personal-digital-data-private)
     )
   end
 
@@ -87,6 +131,7 @@ RSpec.describe GroupedResultSetPresenter do
         { id: 'case-state', name: 'Case state', value: 'Open', type: 'text', labels: %W(open) },
         { id: 'opened-date', name: 'Opened date', value: '2006-7-14', type: 'date' },
         { id: 'case-type', name: 'Case type', value: 'CA98 and civil cartels', type: 'text', labels: %W(ca98-and-civil-cartels) },
+        { id: 'personal-data', name: 'personal-data', value: 'personal-digital-data', type: 'text', labels: %W(personal-digital-data) },
       ],
       summary: 'I am a document',
       is_historic: false,
@@ -179,6 +224,7 @@ RSpec.describe GroupedResultSetPresenter do
       let(:results) { ResultSet.new([document], total) }
 
       it "groups all documents in the default group" do
+        allow(finder).to receive(:filters).and_return([a_facet, primary_facet])
         allow(a_facet_collection).to receive(:find)
 
         expect(subject.grouped_documents).to eq([{
@@ -219,17 +265,56 @@ RSpec.describe GroupedResultSetPresenter do
       end
     end
 
+    context "when primary and other facets have been selected" do
+      let(:filter_params) {
+        {
+            order: 'topic',
+            sector_business_area: %W(aerospace),
+            'case-type': %W(ca98-and-civil-cartels),
+            'personal-data': %W(personal-digital-data)
+        }
+      }
+
+      let(:results) { ResultSet.new([document, tagged_document], total) }
+
+      it "orders the groups by facets in the other facets" do
+        allow(finder).to receive(:filters).and_return([primary_facet, a_facet, b_facet])
+        allow(a_facet_collection).to receive(:find)
+        allow(a_facet_collection).to receive(:map).and_return([[a_facet.allowed_values], [b_facet.allowed_values], [primary_facet.allowed_values]])
+
+        expect(subject.grouped_documents).to eq([
+          {
+            facet_name: 'Aerospace',
+            facet_key: 'aerospace',
+            documents: [{ document: primary_tagged_result, document_index: 2 }]
+          },
+          {
+            facet_name: 'Case type',
+            facet_key: 'case-type',
+            documents: [{ document: document_result, document_index: 1 }]
+          },
+          {
+              facet_name: 'personal-data',
+              facet_key: 'personal-data',
+              documents: [{ document: document_result, document_index: 1 }]
+          }
+        ])
+      end
+    end
+
     context "when other facets have been selected" do
       let(:filter_params) {
         {
           order: 'topic',
-          'case-type': %W(ca98-and-civil-cartels)
+          'case-type': %W(ca98-and-civil-cartels),
+          'personal-data': %W(digital-services)
         }
       }
 
       let(:results) { ResultSet.new([document, tagged_document], total) }
 
       it "groups the relevant documents in the other facets" do
+        allow(finder).to receive(:filters).and_return([a_facet, primary_facet])
         allow(a_facet_collection).to receive(:find)
 
         expect(subject.grouped_documents).to eq([
