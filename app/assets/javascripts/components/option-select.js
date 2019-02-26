@@ -33,9 +33,6 @@
       // Add open/close listeners
       this.$optionSelect.find('.js-container-head').on('click', this.toggleOptionSelect.bind(this));
 
-      // Add a listener to the checkboxes so if you navigate to them with the keyboard you can definitely see them
-      this.$optionSelect.on('focus', "input[type='checkbox']", this.open.bind(this));
-
       if (this.$optionSelect.data('closed-on-load') == true) {
         this.close();
       }
