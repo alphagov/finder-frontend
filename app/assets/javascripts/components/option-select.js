@@ -22,7 +22,7 @@
     if(allowCollapsible){
 
       // Attach listener to update checked count
-      this.$options.on('change', this.updateCheckedCount.bind(this));
+      this.$optionSelect.on('change', "input[type='checkbox']", this.updateCheckedCount.bind(this));
 
       // Replace div.container-head with a button
       this.replaceHeadWithButton();
@@ -38,7 +38,7 @@
       this.$optionSelect.on('blur', this.stopListeningForKeys.bind(this));
 
       // Add a listener to the checkboxes so if you navigate to them with the keyboard you can definitely see them
-      this.$options.on('focus', this.open.bind(this));
+      this.$optionSelect.on('focus', "input[type='checkbox']", this.open.bind(this));
 
       if (this.$optionSelect.data('closed-on-load') == true) {
         this.close();
