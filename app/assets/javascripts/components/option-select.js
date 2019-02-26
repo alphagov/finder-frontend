@@ -33,10 +33,6 @@
       // Add open/close listeners
       this.$optionSelect.find('.js-container-head').on('click', this.toggleOptionSelect.bind(this));
 
-      // Add key listeners the option-select is fully usable with a keyboard
-      this.$optionSelect.on('focus', this.listenForKeys.bind(this));
-      this.$optionSelect.on('blur', this.stopListeningForKeys.bind(this));
-
       // Add a listener to the checkboxes so if you navigate to them with the keyboard you can definitely see them
       this.$optionSelect.on('focus', "input[type='checkbox']", this.open.bind(this));
 
@@ -160,22 +156,6 @@
 
     this.setContainerHeight(position + topBorder + topPadding + (lineHeight / 2));
 
-  };
-
-  OptionSelect.prototype.listenForKeys = function listenForKeys(){
-    this.$optionSelect.keypress(this.checkForSpecialKeys.bind(this));
-  };
-
-  OptionSelect.prototype.checkForSpecialKeys = function checkForSpecialKeys(e){
-    if(e.keyCode == 13) {
-
-      // keyCode 13 is the return key.
-      this.toggleOptionSelect();
-    }
-  };
-
-  OptionSelect.prototype.stopListeningForKeys = function stopListeningForKeys(){
-    this.$optionSelect.unbind('keypress');
   };
 
   GOVUK.OptionSelect = OptionSelect;
