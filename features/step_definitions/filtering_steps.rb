@@ -463,10 +463,11 @@ Then(/^I should see all people in the people facet$/) do
 end
 
 And(/^I should see all organisations in the organisation facet$/) do
-  expect(page).to have_css('input[id^="organisations-"]', count: 3)
+  expect(page).to have_css('input[id^="organisations-"]', count: 4)
   find('label', text: 'Department of Mysteries')
   find('label', text: 'Gringots')
   find('label', text: 'Ministry of Magic')
+  find('label', text: 'Closed organisation: Death Eaters')
 end
 
 Then(/^I should see all world locations in the world location facet$/) do

@@ -25,6 +25,7 @@ module Registries
       GovukStatsd.time("registries.organisations.request_time") do
         fetch_organisations_from_rummager
           .reject { |result| result['slug'].empty? || result['title'].empty? }
+          .sort_by { |result| result['title'].sub("Closed organisation: ", "ZZ").upcase }
           .each_with_object({}) { |result, orgs|
             slug = result['slug']
             orgs[slug] = result.slice('title', 'slug', 'acronym')

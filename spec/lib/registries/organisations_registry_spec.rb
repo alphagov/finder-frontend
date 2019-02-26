@@ -30,11 +30,11 @@ RSpec.describe Registries::OrganisationsRegistry do
       )
     end
 
-    it "will return all organisations by title ascending" do
+    it "will return organisations sorted by title with closed orgs at the end" do
       organisations = described_class.new.values
 
-      expect(organisations.length).to eql(3)
-      expect(organisations.keys).to eql(%w(department-of-mysteries gringots ministry-of-magic))
+      expect(organisations.length).to eql(4)
+      expect(organisations.keys).to eql(%w(department-of-mysteries gringots ministry-of-magic death-eaters))
     end
   end
 
