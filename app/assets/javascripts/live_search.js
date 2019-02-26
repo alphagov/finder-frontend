@@ -29,7 +29,7 @@
     if(GOVUK.support.history()){
       this.saveState();
 
-      this.$form.find('input[type=checkbox], input[type=text], input[type=radio], select').on('change',
+      this.$form.on('change', 'input[type=checkbox], input[type=text], input[type=radio], select',
         function(e) {
           if (e.target.type == "text" && !e.suppressAnalytics) {
             LiveSearch.prototype.fireTextAnalyticsEvent(e);
@@ -38,7 +38,7 @@
         }.bind(this)
       );
 
-      this.$form.find('input[type=text]').on('keypress',
+      this.$form.on('keypress', 'input[type=text]',
         function(e){
           var ENTER_KEY = 13
 
