@@ -174,7 +174,7 @@ private
   FINDERS_IN_DEVELOPMENT = {
     "/search/policy-papers-and-consultations" => 'policy_and_engagement',
     "/search/policy-papers-and-consultations/email-signup" => 'policy_and_engagement_email_signup',
-    "/search/statistics" => "statistics"
+    "/search/statistics" =>  "statistics"
   }.freeze
 
   def development_env_finder_json
