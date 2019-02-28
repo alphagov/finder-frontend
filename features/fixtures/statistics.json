@@ -129,12 +129,16 @@
         "preposition": "that are",
         "allowed_values": [
           {
-            "text": "Published",
+            "text": "Statistics (Published)",
             "value": "[\"statistics\",\"national_statistics\",\"statistical_data_set\",\"official_statistics\"]"
           },
           {
-            "text": "Upcoming",
+            "text": "Statistics (Upcoming)",
             "value": "[\"statistics_announcement\",\"national_statistics_announcement\",\"official_statistics_announcement\"]"
+          },
+          {
+            "text": "Research",
+            "value": "[\"dfid_research_output\",\"independent_report\",\"research\"]"
           }
         ]
       },
