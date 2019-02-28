@@ -61,6 +61,11 @@ module RegistrySpecHelper
     })
     .to_return(body: { results: [
       {
+        "title": "Closed organisation: Death Eaters",
+        "slug": "death-eaters",
+        "_id": "/government/organisations/death-eaters"
+      },
+      {
         "title": "Department of Mysteries",
         "slug": "department-of-mysteries",
         "_id": "/government/organisations/department-of-mysteries"
