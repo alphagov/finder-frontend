@@ -42,7 +42,4 @@ jQuery(function($) {
       templateDir: templateDir
     });
   }
-
-  var $buttons = $("label.block-label input[type='checkbox']");
-  new GOVUK.SelectionButtons($buttons);
 });
