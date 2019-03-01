@@ -51,6 +51,12 @@ Then(/^I can get a list of all documents with matching metadata$/) do
   expect(page).to have_css('.filtered-results .document', count: 1)
 end
 
+
+# And("I see email and feed sign up links") do
+#     expect(page).to have_link('Get email alerts', href: /gov\.uk\/.*\/email-signup\?level_one_taxon/i)
+#     expect(page).to have_link('Subscribe to feed', href: /gov\.uk\/.*\.atom\?level_one_taxon/i)
+# end
+
 When(/^I view a list of news and communications$/) do
   topic_taxonomy_has_taxons([
     {

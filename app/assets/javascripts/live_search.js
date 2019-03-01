@@ -16,7 +16,10 @@
     this.$resultsCount = options.$results.find('#js-result-count');
     this.action = this.$form.attr('action') + '.json';
     this.$atomAutodiscoveryLink = options.$atomAutodiscoveryLink;
-
+    this.$emailLink = $('a[href*="email-signup"]');
+    this.emailSignupHref = this.$emailLink.attr('href');
+    this.$atomLink = $('a[href*=".atom"]');
+    this.atomHref = this.$atomLink.attr('href');
     this.$orderSelect = this.$form.find('.js-order-results');
     this.$relevanceOrderOption = this.$orderSelect.find('option[value=' + this.$orderSelect.data('relevance-sort-option') + ']');
     this.$relevanceOrderOptionIndex = this.$relevanceOrderOption.index();
@@ -84,6 +87,7 @@
       this.getTaxonomyFacet().update();
       this.saveState();
       this.updateOrder();
+      this.updateLinks();
       pageUpdated = this.updateResults();
       pageUpdated.done(
         function(){
@@ -248,6 +252,12 @@
       return out.resolve();
     }
   };
+
+  LiveSearch.prototype.updateLinks = function updateLinks() {
+    var searchState = "?" + $.param(this.state);
+    this.$emailLink.attr('href', this.emailSignupHref.split('?')[0] + searchState);
+    this.$atomLink.attr('href', this.atomHref.split('?')[0] + searchState);
+  }
 
   LiveSearch.prototype.showLoadingIndicator = function showLoadingIndicator(){
     this.$loadingBlock.text('Loading...').show();
