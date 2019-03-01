@@ -30,6 +30,7 @@
 
   .option-select-label {
     @include core-19;
+    position: relative;
     margin-right: 40px;
     font-weight: bold;
     padding-top: 5px;
@@ -70,7 +71,6 @@
     &.js-collapsible {
       button {
         z-index: 100;
-        position: relative;
         border: none;
         display: block;
         width: 100%;
@@ -78,13 +78,7 @@
         cursor: pointer;
         margin-bottom: -1px;
         padding: 5px 8px;
-        background: image-url('components/option-select-toggle-sprite.png') no-repeat right 5px;
         background-color: $grey-3;
-
-        @include device-pixel-ratio() {
-          background-size: 32px 50px;
-          background: image-url('components/option-select-toggle-sprite.png') no-repeat right 5px;
-        }
 
         &:hover {
           background-color: $grey-2;
@@ -156,5 +150,29 @@
     width: 12px;
     height: 5px;
     border-width: 0 0 3px 3px;
+  }
+}
+
+.app-c-option-select__icon {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: -40px;
+  width: 30px;
+  height: 100%;
+  fill: currentColor;
+}
+
+.js-enabled .app-c-option-select__icon--up {
+  display: block;
+}
+
+.js-closed {
+  .app-c-option-select__icon--up {
+    display: none;
+  }
+
+  .app-c-option-select__icon--down {
+    display: block;
   }
 }
