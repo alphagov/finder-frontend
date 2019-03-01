@@ -1,3 +1,7 @@
+@import "govuk-frontend/helpers/focusable";
+@import "govuk-frontend/settings/measurements";
+@import "govuk-frontend/settings/colours-applied";
+
 .app-c-option-select {
   background-color: $grey-3;
   padding: 5px;
@@ -69,7 +73,8 @@
 
     // styles for collapsibleness. .js-collapsible is added by the javascript if the browser is not ie6/7 in which case these don't collapse
     &.js-collapsible {
-      button {
+      .app-c-option-select__button {
+        position: relative;
         z-index: 100;
         border: none;
         display: block;
@@ -91,6 +96,10 @@
         &[disabled] {
           background-image: none;
           color: inherit;
+        }
+
+        &:focus {
+          @include govuk-focusable;
         }
       }
 

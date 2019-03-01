@@ -113,7 +113,7 @@
 
     // Create button and replace the preexisting html with the button.
     var $button = $('<button>');
-    $button.addClass('js-container-head');
+    $button.addClass('js-container-head app-c-option-select__button');
     //Add type button to override default type submit when this component is used within a form
     $button.attr('type', 'button');
     $button.attr('aria-expanded', true);
