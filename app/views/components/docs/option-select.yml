@@ -13,6 +13,14 @@ accessibility_criteria: |
   - have a margin to the right when the box is scrollable so that users can interact with a scrollbar without accidentally clicking an option
   - only include an `aria-controls` attribute if an element with the ID specified exists on the page
   - be [grouped with a label](https://www.w3.org/WAI/GL/wiki/Using_grouping_roles_to_identify_related_form_controls)
+
+  The option select filter must:
+
+  - be focusable with a keyboard
+  - indicate when it has keyboard focus
+  - inform the user that is it an editable field
+  - inform the user when there are matches, or if there are no matches
+  - inform the user as the number of matches changes
 examples:
   default:
     data:
@@ -70,7 +78,6 @@ examples:
       options:
       - value: potatoes
         label: Potatoes
-        name: potatoes
         checked: true
       - value: carrots
         label: Carrots
@@ -147,3 +154,97 @@ examples:
           track_label: "high_heels"
           track_options:
             dimension28: 1
+  with_filter:
+    description: Adds a filter to allow users to narrow the checkboxes down. Checkboxes will only show if they match what the user has typed, or if they are already checked. The filter is case insensitive and strips out punctuation characters and duplicate whitespace, and sees '&' and 'and' as the same, to make filtering easier.
+    data:
+      key: filter_demo
+      title: Countries
+      options_container_id: list_of_countries_to_filter
+      show_filter: true
+      options:
+      - value: afghanistan
+        label: Afghanistan
+        id: afghanistan
+      - value: albania
+        label: Albania
+        id: albania
+      - value: algeria
+        label: Algeria
+        id: algeria
+        checked: true
+      - value: american_samoa
+        label: American Samoa
+        id: american_samoa
+      - value: andorra
+        label: Andorra
+        id: andorra
+        checked: true
+      - value: angola
+        label: Angola
+        id: angola
+      - value: anguilla
+        label: Anguilla
+        id: anguilla
+      - value: antigua_and_barbuda
+        label: Antigua and Barbuda
+        id: antigua_and_barbuda
+      - value: argentina
+        label: Argentina
+        id: argentina
+      - value: armenia
+        label: Armenia
+        id: armenia
+      - value: aruba
+        label: Aruba
+        id: aruba
+      - value: australia
+        label: Australia
+        id: australia
+      - value: austria
+        label: Austria
+        id: austria
+      - value: azerbaijan
+        label: Azerbaijan
+        id: azerbaijan
+      - value: bahamas
+        label: Bahamas
+        id: bahamas
+      - value: bahrain
+        label: Bahrain
+        id: bahrain
+      - value: bangladesh
+        label: Bangladesh
+        id: bangladesh
+      - value: barbados
+        label: Barbados
+        id: barbados
+      - value: belarus
+        label: Belarus
+        id: belarus
+      - value: belgium
+        label: Belgium
+        id: belgium
+      - value: belize
+        label: Belize
+        id: belize
+      - value: benin
+        label: Benin
+        id: benin
+      - value: bermuda
+        label: Bermuda
+        id: bermuda
+      - value: bhutan
+        label: Bhutan
+        id: bhutan
+      - value: bolivia
+        label: Bolivia
+        id: bolivia
+      - value: cote
+        label: Cote d’Ivoire
+        id: cote
+      - value: sthelena
+        label: St Helena, Ascension and Tristan da Cunha
+        id: sthelena
+      - value: trinidad
+        label: Trinidad & Tobago
+        id: trinidad

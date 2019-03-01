@@ -10,45 +10,84 @@ describe('GOVUK.OptionSelect', function() {
       '</div>'+
       '<div class="options-container">'+
         '<div class="js-auto-height-inner">'+
-          '<div class="gem-c-checkbox govuk-checkboxes__item">'+
-            '<input name="market_sector[]" value="aerospace" id="aerospace" type="checkbox" class="govuk-checkboxes__input">'+
-            '<label class="govuk-label govuk-checkboxes__label" for="aerospace">Aerospace</label>'+
-          '</div>'+
-          '<div class="gem-c-checkbox govuk-checkboxes__item">'+
-            '<input name="market_sector[]" value="agriculture-environment-and-natural-resources" id="agriculture-environment-and-natural-resources" type="checkbox" class="govuk-checkboxes__input">'+
-            '<label class="govuk-label govuk-checkboxes__label" for="agriculture-environment-and-natural-resources">Agriculture, environment, natural resources, agriculture, environment, natural resources, agriculture, environment, natural resources, agriculture, environment, natural resources, agriculture, environment, natural resources, agriculture, environment and natural resources.</label>'+
-          '</div>'+
-          '<div class="gem-c-checkbox govuk-checkboxes__item">'+
-            '<input name="market_sector[]" value="building-and-construction" id="building-and-construction" type="checkbox" class="govuk-checkboxes__input">'+
-            '<label class="govuk-label govuk-checkboxes__label" for="building-and-construction">Building and construction</label>'+
-          '</div>'+
-          '<div class="gem-c-checkbox govuk-checkboxes__item">'+
-            '<input name="market_sector[]" value="chemicals" id="chemicals" type="checkbox" class="govuk-checkboxes__input">'+
-            '<label class="govuk-label govuk-checkboxes__label" for="chemicals">Chemicals</label>'+
-          '</div>'+
-          '<div class="gem-c-checkbox govuk-checkboxes__item">'+
-            '<input name="market_sector[]" value="clothing-footwear-and-fashion" id="clothing-footwear-and-fashion" type="checkbox" class="govuk-checkboxes__input">'+
-            '<label class="govuk-label govuk-checkboxes__label" for="clothing-footwear-and-fashion">Clothing, footwear and fashion</label>'+
-          '</div>'+
-          '<div class="gem-c-checkbox govuk-checkboxes__item">'+
-            '<input name="market_sector[]" value="defence" id="defence" type="checkbox" class="govuk-checkboxes__input">'+
-            '<label class="govuk-label govuk-checkboxes__label" for="defence">Defence</label>'+
-          '</div>'+
-          '<div class="gem-c-checkbox govuk-checkboxes__item">'+
-            '<input name="market_sector[]" value="distribution-and-service-industries" id="distribution-and-service-industries" type="checkbox" class="govuk-checkboxes__input">'+
-            '<label class="govuk-label govuk-checkboxes__label" for="distribution-and-service-industries">Distribution and Service Industries</label>'+
-          '</div>'+
-          '<div class="gem-c-checkbox govuk-checkboxes__item">'+
-            '<input name="market_sector[]" value="electronics-industry" id="electronics-industry" type="checkbox" class="govuk-checkboxes__input">'+
-            '<label class="govuk-label govuk-checkboxes__label" for="electronics-industry">Electronics Industry</label>'+
-          '</div>'+
-          '<div class="gem-c-checkbox govuk-checkboxes__item">'+
-            '<input name="market_sector[]" value="energy" id="energy" type="checkbox" class="govuk-checkboxes__input">'+
-            '<label class="govuk-label govuk-checkboxes__label" for="energy">Energy</label>'+
-          '</div>'+
-          '<div class="gem-c-checkbox govuk-checkboxes__item">'+
-            '<input name="market_sector[]" value="engineering" id="engineering" type="checkbox" class="govuk-checkboxes__input">'+
-            '<label class="govuk-label govuk-checkboxes__label" for="engineering">Engineering</label>'+
+          '<div id="checkboxes-9b7ecc25" class="gem-c-checkboxes govuk-form-group" data-module="checkboxes">'+
+            '<fieldset class="govuk-fieldset">'+
+              '<legend class="govuk-fieldset__legend govuk-fieldset__legend--m gem-c-checkboxes__legend--hidden">Please select all that apply</legend>'+
+              '<ul class="govuk-checkboxes gem-c-checkboxes__list">'+
+                '<li class="gem-c-checkboxes__list-item">'+
+                  '<div class="gem-c-checkbox govuk-checkboxes__item">'+
+                    '<input type="checkbox" name="market_sector[]" id="aerospace" value="aerospace" class="govuk-checkboxes__input" />'+
+                    '<label for="aerospace" class="govuk-label govuk-checkboxes__label">Aerospace</label>'+
+                  '</div>'+
+                '</li>'+
+                '<li class="gem-c-checkboxes__list-item">'+
+                  '<div class="gem-c-checkbox govuk-checkboxes__item">'+
+                    '<input type="checkbox" name="market_sector[]" id="agriculture-environment-and-natural-resources" value="agriculture-environment-and-natural-resources" class="govuk-checkboxes__input" />'+
+                    '<label for="agriculture-environment-and-natural-resources" class="govuk-label govuk-checkboxes__label">Agriculture, environment, natural resources, agriculture, environment, natural resources, agriculture, environment, natural resources, agriculture, environment, natural resources, agriculture, environment, natural resources, agriculture, environment and natural resources.</label>'+
+                  '</div>'+
+                '</li>'+
+                '<li class="gem-c-checkboxes__list-item">'+
+                  '<div class="gem-c-checkbox govuk-checkboxes__item">'+
+                    '<input type="checkbox" name="market_sector[]" id="building-and-construction" value="building-and-construction" class="govuk-checkboxes__input" />'+
+                    '<label for="building-and-construction" class="govuk-label govuk-checkboxes__label">Building and construction</label>'+
+                  '</div>'+
+                '</li>'+
+                '<li class="gem-c-checkboxes__list-item">'+
+                  '<div class="gem-c-checkbox govuk-checkboxes__item">'+
+                    '<input type="checkbox" name="market_sector[]" id="chemicals" value="chemicals" class="govuk-checkboxes__input" />'+
+                    '<label for="chemicals" class="govuk-label govuk-checkboxes__label">Chemicals</label>'+
+                  '</div>'+
+                '</li>'+
+                '<li class="gem-c-checkboxes__list-item">'+
+                  '<div class="gem-c-checkbox govuk-checkboxes__item">'+
+                    '<input type="checkbox" name="market_sector[]" id="clothing-footwear-and-fashion" value="clothing-footwear-and-fashion" class="govuk-checkboxes__input" />'+
+                    '<label for="clothing-footwear-and-fashion" class="govuk-label govuk-checkboxes__label">Clothing, footwear and fashion</label>'+
+                  '</div>'+
+                '</li>'+
+                '<li class="gem-c-checkboxes__list-item">'+
+                  '<div class="gem-c-checkbox govuk-checkboxes__item">'+
+                    '<input type="checkbox" name="market_sector[]" id="defence" value="defence" class="govuk-checkboxes__input" />'+
+                    '<label for="defence" class="govuk-label govuk-checkboxes__label">Defence</label>'+
+                  '</div>'+
+                '</li>'+
+                '<li class="gem-c-checkboxes__list-item">'+
+                  '<div class="gem-c-checkbox govuk-checkboxes__item">'+
+                    '<input type="checkbox" name="market_sector[]" id="distribution-and-service-industries" value="distribution-and-service-industries" class="govuk-checkboxes__input" />'+
+                    '<label for="distribution-and-service-industries" class="govuk-label govuk-checkboxes__label">Distribution &amp; Service Industries</label>'+
+                  '</div>'+
+                '</li>'+
+                '<li class="gem-c-checkboxes__list-item">'+
+                  '<div class="gem-c-checkbox govuk-checkboxes__item">'+
+                    '<input type="checkbox" name="market_sector[]" id="electronics-industry" value="electronics-industry" class="govuk-checkboxes__input" />'+
+                    '<label for="electronics-industry" class="govuk-label govuk-checkboxes__label">Electronics Industry</label>'+
+                  '</div>'+
+                '</li>'+
+                '<li class="gem-c-checkboxes__list-item">'+
+                  '<div class="gem-c-checkbox govuk-checkboxes__item">'+
+                    '<input type="checkbox" name="market_sector[]" id="energy" value="energy" class="govuk-checkboxes__input" />'+
+                    '<label for="energy" class="govuk-label govuk-checkboxes__label">Energy</label>'+
+                  '</div>'+
+                '</li>'+
+                '<li class="gem-c-checkboxes__list-item">'+
+                  '<div class="gem-c-checkbox govuk-checkboxes__item">'+
+                    '<input type="checkbox" name="market_sector[]" id="engineering" value="engineering" class="govuk-checkboxes__input" />'+
+                    '<label for="engineering" class="govuk-label govuk-checkboxes__label">Engineering</label>'+
+                  '</div>'+
+                '</li>'+
+                '<li class="gem-c-checkboxes__list-item">'+
+                  '<div class="gem-c-checkbox govuk-checkboxes__item">'+
+                    '<input type="checkbox" name="market_sector[]" id="thatdepartment" value="thatdepartment" class="govuk-checkboxes__input" />'+
+                    '<label for="thatdepartment" class="govuk-label govuk-checkboxes__label">Closed organisation: Department for Fisheries, War Widows\' pay, Farmers’ rights - sheep and goats, Farmer\'s rights – cows & llamas</label>'+
+                  '</div>'+
+                '</li>'+
+                '<li class="gem-c-checkboxes__list-item">'+
+                  '<div class="gem-c-checkbox govuk-checkboxes__item">'+
+                    '<input type="checkbox" name="market_sector[]" id="militarycourts" value="militarycourts" class="govuk-checkboxes__input" />'+
+                    '<label for="militarycourts" class="govuk-label govuk-checkboxes__label">1st and 2nd Military Courts</label>'+
+                  '</div>'+
+                '</li>'+
+              '</ul>'+
+            '</fieldset>'+
           '</div>'+
         '</div>'+
       '</div>';
@@ -294,7 +333,144 @@ describe('GOVUK.OptionSelect', function() {
       // Wrapping HTML should not stretch as 251px is too big.
       expect($checkboxList.height()).toBeGreaterThan(100);
     });
-
   });
 
+  describe('filtering checkboxes', function(){
+    beforeEach(function(){
+      var filterMarkup =
+        '<div class="app-c-option-select__filter">'+
+          '<div class="govuk-form-group">'+
+            '<label for="input-b7f768b7" class="gem-c-label govuk-label">'+
+              'Filter Countries'+
+            '</label>'+
+            '<input name="filter" class="gem-c-input govuk-input" id="input-b7f768b7" type="text" aria-describedby="checkboxes-9b7ecc25-count" aria-controls="checkboxes-9b7ecc25">'+
+          '</div>'+
+          '<span id="checkboxes-9b7ecc25-count" class="app-c-option-select__count govuk-visually-hidden" aria-live="polite" data-single="option found" data-multiple="options found"></span>'+
+        '</div>';
+
+      $('body').find('.gem-c-checkboxes').prepend($(filterMarkup));
+      optionSelect = new GOVUK.OptionSelect({$el:$optionSelectHTML});
+
+      var timerCallback = jasmine.createSpy("timerCallback");
+      jasmine.clock().install();
+    });
+
+    afterEach(function() {
+      jasmine.clock().uninstall();
+    });
+
+    it('filters the checkboxes and updates the filter count correctly', function(){
+      var $count = $('#checkboxes-9b7ecc25-count');
+      expect($('.govuk-checkboxes__input:visible').length).toBe(12);
+
+      $optionSelectHTML.find('[name="filter"]').val('in').keyup();
+      jasmine.clock().tick(400);
+      expect($('.govuk-checkboxes__input:visible').length).toBe(5);
+      expect($count.text()).toBe('5 options found');
+
+      $optionSelectHTML.find('[name="filter"]').val('ind').keyup();
+      jasmine.clock().tick(400);
+      expect($('.govuk-checkboxes__input:visible').length).toBe(2);
+      expect($count.html()).toBe('2 options found');
+
+      $optionSelectHTML.find('[name="filter"]').val('shouldnotmatchanything').keyup();
+      jasmine.clock().tick(400);
+      expect($('.govuk-checkboxes__input:visible').length).toBe(0);
+      expect($count.html()).toBe('0 options found');
+    });
+
+    it('shows checked checkboxes regardless of whether they match the filter', function(){
+      var $count = $('#checkboxes-9b7ecc25-count');
+      $('#building-and-construction').prop('checked', true).change();
+      $('#chemicals').prop('checked', true).change();
+      jasmine.clock().tick(100);
+
+      $optionSelectHTML.find('[name="filter"]').val('electronics').keyup();
+      jasmine.clock().tick(400);
+      expect($('.govuk-checkboxes__input:visible').length).toBe(3);
+      expect($count.html()).toBe('3 options found');
+
+      $optionSelectHTML.find('[name="filter"]').val('shouldnotmatchanything').keyup();
+      jasmine.clock().tick(400);
+      expect($('.govuk-checkboxes__input:visible').length).toBe(2);
+      expect($count.html()).toBe('2 options found');
+    });
+
+    it('matches a filter regardless of text case', function(){
+      var $count = $('#checkboxes-9b7ecc25-count');
+      $optionSelectHTML.find('[name="filter"]').val('electroNICS industry').keyup();
+      jasmine.clock().tick(400);
+      expect($('.govuk-checkboxes__input:visible').length).toBe(1);
+      expect($count.html()).toBe('1 option found');
+
+      $optionSelectHTML.find('[name="filter"]').val('Building and construction').keyup();
+      jasmine.clock().tick(400);
+      expect($('.govuk-checkboxes__input:visible').length).toBe(1);
+      expect($count.html()).toBe('1 option found');
+    });
+
+    it('matches ampersands correctly', function(){
+      var $count = $('#checkboxes-9b7ecc25-count');
+      $optionSelectHTML.find('[name="filter"]').val('Distribution & Service Industries').keyup();
+      jasmine.clock().tick(400);
+      expect($('.govuk-checkboxes__input:visible').length).toBe(1);
+      expect($count.html()).toBe('1 option found');
+
+      $optionSelectHTML.find('[name="filter"]').val('Distribution &amp; Service Industries').keyup();
+      jasmine.clock().tick(400);
+      expect($('.govuk-checkboxes__input:visible').length).toBe(0);
+      expect($count.html()).toBe('0 options found');
+    });
+
+    it('ignores whitespace around the user input', function(){
+      var $count = $('#checkboxes-9b7ecc25-count');
+      $optionSelectHTML.find('[name="filter"]').val('   Clothing, footwear and fashion    ').keyup();
+      jasmine.clock().tick(400);
+      expect($('.govuk-checkboxes__input:visible').length).toBe(1);
+      expect($count.html()).toBe('1 option found');
+    });
+
+    it('ignores duplicate whitespace in the user input', function(){
+      var $count = $('#checkboxes-9b7ecc25-count');
+      $optionSelectHTML.find('[name="filter"]').val('Clothing,     footwear      and      fashion').keyup();
+      jasmine.clock().tick(400);
+      expect($('.govuk-checkboxes__input:visible').length).toBe(1);
+      expect($count.html()).toBe('1 option found');
+    });
+
+    it('ignores common punctuation characters', function(){
+      var $count = $('#checkboxes-9b7ecc25-count');
+      $optionSelectHTML.find('[name="filter"]').val('closed organisation department for Fisheries War Widows pay Farmers rights sheep and goats Farmers rights cows & llamas').keyup();
+      jasmine.clock().tick(400);
+      expect($('.govuk-checkboxes__input:visible').length).toBe(1);
+      expect($count.html()).toBe('1 option found');
+    });
+
+    it('normalises & and and', function(){
+      var $count = $('#checkboxes-9b7ecc25-count');
+      $optionSelectHTML.find('[name="filter"]').val('cows & llamas').keyup();
+      jasmine.clock().tick(400);
+      expect($('.govuk-checkboxes__input:visible').length).toBe(1);
+      expect($count.html()).toBe('1 option found');
+
+      $optionSelectHTML.find('[name="filter"]').val('cows and llamas').keyup();
+      jasmine.clock().tick(400);
+      expect($('.govuk-checkboxes__input:visible').length).toBe(1);
+      expect($count.html()).toBe('1 option found');
+    });
+
+    // there was a bug in cleanString() where numbers were being ignored
+    it('does not strip out numbers', function(){
+      var $count = $('#checkboxes-9b7ecc25-count');
+      $optionSelectHTML.find('[name="filter"]').val('1st and 2nd Military Courts').keyup();
+      jasmine.clock().tick(400);
+      expect($('.govuk-checkboxes__input:visible').length).toBe(1);
+      expect($count.html()).toBe('1 option found');
+
+      $optionSelectHTML.find('[name="filter"]').val('footwear and f23907234973204723094ashion').keyup();
+      jasmine.clock().tick(400);
+      expect($('.govuk-checkboxes__input:visible').length).toBe(0);
+      expect($count.html()).toBe('0 options found');
+    });
+  });
 });

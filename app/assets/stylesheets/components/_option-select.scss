@@ -47,6 +47,14 @@
     }
   }
 
+  .app-c-option-select__filter {
+    display: none;
+
+    .govuk-form-group {
+      margin-bottom: $gutter-one-third;
+    }
+  }
+
   .js-enabled & {
     padding: 0 0 1px;
 
@@ -102,6 +110,10 @@
         }
       }
     }
+
+    .app-c-option-select__filter {
+      display: block;
+    }
   }
 
   // This is a temporary overwrite for checkboxes
@@ -124,9 +136,12 @@
     height: 26px;
   }
 
+  .govuk-label {
+    font-size: 16px;
+  }
+
   .govuk-checkboxes__label {
     padding: 8px 5px 2px 9px;
-    font-size: 16px;
   }
 
   .govuk-checkboxes__input + .govuk-checkboxes__label::before {
@@ -142,5 +157,4 @@
     height: 5px;
     border-width: 0 0 3px 3px;
   }
-
 }

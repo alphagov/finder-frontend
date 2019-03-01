@@ -10,8 +10,26 @@
   </div>
   <div role="group" aria-labelledby="<%= title_id %>" class="options-container" id="<%= options_container_id %>">
     <div class="js-auto-height-inner">
+      <%
+        checkboxes_id = "checkboxes-#{SecureRandom.hex(4)}"
+        checkboxes_count_id = checkboxes_id + "-count"
+      %>
+      <% if local_assigns.include?(:show_filter) %>
+        <div class="app-c-option-select__filter">
+          <%= render "govuk_publishing_components/components/input", {
+            label: {
+              text: "Filter " + title
+            },
+            name: "filter",
+            controls: checkboxes_id,
+            describedby: checkboxes_count_id
+          } %>
+          <span id="<%= checkboxes_count_id %>" class="app-c-option-select__count govuk-visually-hidden" aria-live="polite" data-single="<%= t('components.option_select.found_single') %>" data-multiple="<%= t('components.option_select.found_multiple') %>"></span>
+        </div>
+      <% end %>
       <%= render "govuk_publishing_components/components/checkboxes", {
         name: "#{key}[]",
+        id: checkboxes_id,
         heading: "Please select all that apply",
         visually_hide_heading: true,
         no_hint_text: true,
