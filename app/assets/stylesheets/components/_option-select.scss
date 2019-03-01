@@ -46,10 +46,7 @@
     background-color: $page-colour;
     overflow-y: auto;
     overflow-x: hidden;
-
-    @include media(desktop) {
-      max-height: 200px;
-    }
+    max-height: 200px;
   }
 
   .app-c-option-select__filter {

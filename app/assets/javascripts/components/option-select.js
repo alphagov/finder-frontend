@@ -10,7 +10,6 @@
 
     this.$optionSelect = options.$el;
     this.$options = this.$optionSelect.find("input[type='checkbox']");
-    this.$labels = this.$optionSelect.find(".govuk-checkboxes__item");
     this.$optionsContainer = this.$optionSelect.find('.options-container');
     this.$optionList = this.$optionsContainer.children('.js-auto-height-inner');
     this.$allCheckboxes = this.$optionsContainer.find('.govuk-checkboxes__item');
@@ -173,47 +172,47 @@
 
   OptionSelect.prototype.setContainerHeight = function setContainerHeight(height){
     this.$optionsContainer.css({
-      'max-height': 'none', // Have to clear the 'max-height' set by the CSS in order for 'height' to be applied
       'height': height
     });
   };
 
-  OptionSelect.prototype.isLabelVisible = function isLabelVisible(index, option){
-    var $label = $(option);
+  OptionSelect.prototype.isCheckboxVisible = function isCheckboxVisible(index, option){
+    var $checkbox = $(option);
     var initialOptionContainerHeight = this.$optionsContainer.height();
     var optionListOffsetTop = this.$optionList.offset().top;
-    var distanceFromTopOfContainer = $label.offset().top - optionListOffsetTop;
+    var distanceFromTopOfContainer = $checkbox.offset().top - optionListOffsetTop;
     return distanceFromTopOfContainer < initialOptionContainerHeight;
   };
 
-  OptionSelect.prototype.getVisibleLabels = function getVisibleLabels(){
-    return this.$labels.filter(this.isLabelVisible.bind(this));
+  OptionSelect.prototype.getVisibleCheckboxes = function getVisibleCheckboxes(){
+    return this.$options.filter(this.isCheckboxVisible.bind(this));
   };
 
   OptionSelect.prototype.setupHeight = function setupHeight(){
     var initialOptionContainerHeight = this.$optionsContainer.height();
     var height = this.$optionList.height();
-    var lastVisibleLabel, position, topBorder, topPadding, lineHeight;
 
+    // check whether this is hidden by progressive disclosure on mobile,
+    // because height calculations won't work
+    if (this.$optionsContainer[0].offsetParent === null) {
+      initialOptionContainerHeight = 200;
+      height = 200;
+    }
+
+
+    // Resize if the list is only slightly bigger than its container
     if (height < initialOptionContainerHeight + 50) {
-      // Resize if the list is only slightly bigger than its container
       this.setContainerHeight(height);
       return;
     }
 
     // Resize to cut last item cleanly in half
-    lastVisibleLabel = this.getVisibleLabels().last();
-    position = lastVisibleLabel.position().top;
-    topBorder = parseInt(lastVisibleLabel.css('border-top-width'), 10);
-    topPadding = parseInt(lastVisibleLabel.css('padding-top'), 10);
-    if ("normal" == lastVisibleLabel.css('line-height')) {
-      lineHeight = parseInt(lastVisibleLabel.css('font-size'), 10);
-    } else {
-      lineHeight = parseInt(lastVisibleLabel.css('line-height'), 10);
-    }
+    var lastVisibleCheckbox, position, topPadding;
+    lastVisibleCheckbox = this.getVisibleCheckboxes().last();
+    position = lastVisibleCheckbox.parent().position().top; // parent element is relative
+    topPadding = parseInt(this.$optionList.css('padding-top'), 10);
 
-    this.setContainerHeight(position + topBorder + topPadding + (lineHeight / 2));
-
+    this.setContainerHeight(position + topPadding + lastVisibleCheckbox.height() / 2);
   };
 
   GOVUK.OptionSelect = OptionSelect;
