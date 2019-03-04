@@ -204,3 +204,9 @@ Feature: Filtering documents
     When I view the news and communications finder
     Then the page has a landmark to the search results
     And the page has a landmark to the search filters
+
+  @javascript
+  Scenario: Policy papers should have three options
+    When I view the policy papers and consultations finder
+    And I select some document types
+    Then I should see results for scoped by the selected document type

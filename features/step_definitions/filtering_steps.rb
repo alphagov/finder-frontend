@@ -98,6 +98,25 @@ When(/^I view the business readiness finder$/) do
   visit finder_path('find-eu-exit-guidance-business')
 end
 
+When(/^I view the policy papers and consultations finder$/) do
+  topic_taxonomy_has_taxons([
+    {
+      content_id: "Taxon_1",
+      title: "Taxon_1"
+    },
+    {
+      content_id: "Taxon_2",
+      title: "Taxon_2"
+    }
+  ])
+  content_store_has_policy_and_engagement_finder
+  stub_whitehall_api_world_location_request
+  stub_rummager_api_request_with_policy_papers_results
+  stub_rummager_api_request_with_filtered_policy_papers_results
+
+  visit finder_path('policy-papers-and-consultations')
+end
+
 When(/^I view a list of services$/) do
   topic_taxonomy_has_taxons
   content_store_has_services_finder
@@ -449,6 +468,12 @@ And(/^I select a Person$/) do
   check('Rufus Scrimgeour')
 end
 
+And(/^I select some document types$/) do
+  click_on('Document type')
+  find('.govuk-label', text: 'Policy papers').click
+  find('.govuk-label', text: 'Consultations (closed)').click
+end
+
 And(/^I reload the page$/) do
   visit [current_path, page.driver.request.env['QUERY_STRING']].reject(&:blank?).join('?')
 end
@@ -543,6 +568,17 @@ Then("I should see results in the default group") do
   within("#js-results .filtered-results__group") do
     expect(page).to have_css("h2.filtered-results__facet-heading", text: "All businesses")
     expect(page.all("li.document").size).to eq(9) # 9 results in fixture
+  end
+end
+
+Then("I should see results for scoped by the selected document type") do
+  within("#js-results") do
+    expect(page.all("li.document").size).to eq(3) # 3 results in fixture
+    expect(page).to have_link('Restrictions on usage of spells within school grounds')
+    expect(page).to have_link('New platform at Hogwarts for the express train')
+    expect(page).to have_link('Installation of double glazing at Hogwarts')
+
+    expect(page).to have_no_link('Proposed changes to magic tournaments')
   end
 end
 
