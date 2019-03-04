@@ -37,4 +37,8 @@ describe RedirectionController, type: :controller do
     get :announcements, params: { to_date: '01/01/2014' }
     expect(response).to redirect_to finder_path('news-and-communications', params: { public_timestamp: { to: '01/01/2014' } })
   end
+  it 'redirects to the atom feed' do
+    get :announcements, params: { keywords: %w[one two] }, format: :atom
+    expect(response).to redirect_to finder_path('news-and-communications', format: :atom, params: { keywords: %w[one two] })
+  end
 end

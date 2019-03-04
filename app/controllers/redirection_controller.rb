@@ -7,6 +7,9 @@ class RedirectionController < ApplicationController
                   organisations: params['departments'],
                   world_locations: params['world_locations'],
                   public_timestamp: { from: params['from_date'], to: params['to_date'] }.compact.presence }
-    redirect_to(finder_path('news-and-communications', params: parameters))
+    respond_to do |format|
+      format.html { redirect_to(finder_path('news-and-communications', params: parameters)) }
+      format.atom { redirect_to(finder_path('news-and-communications', params: parameters, format: :atom)) }
+    end
   end
 end
