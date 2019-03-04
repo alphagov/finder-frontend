@@ -16,6 +16,9 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
 
       var removeFilterName = $el.data('name');
       var removeFilterValue = $el.data('value');
+      if (removeFilterValue.length) {
+        removeFilterValue = removeFilterValue.replace(/'/g, '"');
+      }
       var removeFilterFacet = $el.data('facet');
       var isAutoComplete = !!$('#' + removeFilterFacet +'-select').length;
 
