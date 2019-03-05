@@ -432,6 +432,10 @@ Then(/^I see most relevant order selected$/) do
   expect(page).to have_select('order', selected: "Relevance")
 end
 
+Then(/^I see updated newest order selected$/) do
+  expect(page).to have_select('order', selected: "Updated (newest)")
+end
+
 And(/^I see the facet tag$/) do
   within '.facet-tags' do
     expect(page).to have_button("✕")
