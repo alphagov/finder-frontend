@@ -255,8 +255,12 @@
 
   LiveSearch.prototype.updateLinks = function updateLinks() {
     var searchState = "?" + $.param(this.state);
-    this.$emailLink.attr('href', this.emailSignupHref.split('?')[0] + searchState);
-    this.$atomLink.attr('href', this.atomHref.split('?')[0] + searchState);
+    if (typeof(this.emailSignupHref)!='undefined' && this.emailSignupHref!=null) {
+      this.$emailLink.attr('href', this.emailSignupHref.split('?')[0] + searchState);
+    }
+    if (typeof(this.atomHref)!='undefined' && this.atomHref!=null) {
+      this.$atomLink.attr('href', this.atomHref.split('?')[0] + searchState);
+    }
   }
 
   LiveSearch.prototype.showLoadingIndicator = function showLoadingIndicator(){
