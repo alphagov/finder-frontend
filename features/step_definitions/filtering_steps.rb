@@ -141,6 +141,21 @@ When(/^I search documents by keyword$/) do
   click_on "Filter results"
 end
 
+When(/^I search documents by keyword for business finder$/) do
+  content_store_has_business_readiness_finder
+  stub_keyword_business_readiness_search_api_request
+
+  visit finder_path('find-eu-exit-guidance-business')
+
+  @keyword_search = "keyword searchable"
+
+  within '.filter-form' do
+    fill_in("Search", with: @keyword_search)
+  end
+
+  click_on "Filter results"
+end
+
 Then(/^I see all documents which contain the keywords$/) do
   within ".filtered-results" do
     expect(page).to have_css("a", text: @keyword_search)

@@ -85,6 +85,10 @@
         "key": "-popularity"
       },
       {
+        "name": "Relevance",
+        "key": "-relevance"
+      },
+      {
         "name": "Most recent",
         "key": "-public_timestamp"
       },

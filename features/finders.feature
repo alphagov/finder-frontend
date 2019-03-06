@@ -100,6 +100,13 @@ Feature: Filtering documents
       | A-Z         |
       | Most viewed |
       | Relevance   |
+    When I view the business readiness finder
+    Then I can sort by:
+      | Topic         |
+      | Most viewed   |
+      | Relevance     |
+      | Most recent   |
+      | A to Z        |
 
   @javascript
   Scenario: Live sorting options
@@ -186,6 +193,12 @@ Feature: Filtering documents
   Scenario: Filter documents by keywords and sort by most relevant
     When I view the news and communications finder
     And I fill in some keywords
+    And I sort by most relevant
+    Then I see most relevant order selected
+
+  Scenario: Filter documents by keywords and sort by most relevant for business finder
+    When I view the business readiness finder
+    And I search documents by keyword for business finder
     And I sort by most relevant
     Then I see most relevant order selected
 
