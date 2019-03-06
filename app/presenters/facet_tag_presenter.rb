@@ -1,13 +1,16 @@
 class FacetTagPresenter
   include ERB::Util
 
-  def initialize(sentence_fragment, filter_params, base_url)
+  def initialize(sentence_fragment, filter_params, base_url, hide_facet_tag)
     @fragment = sentence_fragment
     @filter_params = filter_params
     @base_url = base_url
+    @hide_facet_tag = hide_facet_tag
   end
 
   def present
+    return {} if @hide_facet_tag
+
     if fragment.nil? || fragment['values'].nil?
       {}
     end

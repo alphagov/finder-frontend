@@ -126,6 +126,7 @@
         "type":"dropdown_select",
         "display_as_result_metadata":false,
         "filterable":true,
+        "hide_facet_tag":true,
         "preposition": "that are",
         "allowed_values": [
           {
