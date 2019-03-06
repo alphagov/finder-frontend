@@ -49,7 +49,6 @@
         }.bind(this)
       );
 
-      this.updateOrder();
       this.indexTrackingData();
 
       $(window).on('popstate', this.popState.bind(this));
@@ -184,21 +183,18 @@
     }
 
     var liveSearch = this;
-
     var keywords = this.getTextInputValue('keywords', this.state);
     var previousKeywords = this.getTextInputValue('keywords', this.previousState);
 
     var keywordsPresent = keywords !== "";
-    var keywordsBlank = !keywordsPresent;
-
     var previousKeywordsPresent = previousKeywords !== "";
-    var previousKeywordsBlank = !previousKeywordsPresent;
-
-    var keywordsChanged = keywordsPresent && (previousKeywordsBlank || (keywords !== previousKeywords));
-    var keywordsCleared = keywordsBlank && previousKeywordsPresent;
+    var keywordsCleared = !keywordsPresent && previousKeywordsPresent;
 
     if (keywordsPresent) {
       liveSearch.insertRelevanceOption();
+      if(!previousKeywordsPresent){
+        liveSearch.selectRelevanceSortOption();
+      }
     } else {
       liveSearch.removeRelevanceOption();
     }

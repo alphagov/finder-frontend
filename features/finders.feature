@@ -106,12 +106,14 @@ Feature: Filtering documents
     When I view a list of news and communications
     Then I can sort by:
       | Most viewed      |
+      | Relevance        |
       | Updated (newest) |
       | Updated (oldest) |
     When I view a list of services
     Then I can sort by:
       | A-Z         |
       | Most viewed |
+      | Relevance   |
 
   Scenario: Sorting news and communications by most viewed
     When I view a list of news and communications
@@ -152,9 +154,23 @@ Feature: Filtering documents
   @javascript
   Scenario: Removing keyword filter
     When I view the news and communications finder
+    Then I see updated newest order selected
     And I fill in some keywords
+    Then I see most relevant order selected
     And I click the Keyword1 remove control
     Then The keyword textbox only contains Keyword2
+    And I see most relevant order selected
+    And I click the Keyword2 remove control
+    Then The keyword textbox is empty
+    And I see updated newest order selected
+
+  @javascript
+  Scenario: Adding keyword filter
+    When I view the news and communications finder
+    Then I see updated newest order selected
+    And I fill in some keywords
+    And I press tab key to navigate
+    Then I see most relevant order selected
 
   Scenario: Subscribing to email alerts
     Given a collection of documents exist that can be filtered by checkbox
