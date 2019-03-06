@@ -66,7 +66,8 @@ RSpec.describe ResultSetPresenter do
       },
       has_filters?: true,
       labels: %W(ca98-and-civil-cartels mergers),
-      value: %W(ca98-and-civil-cartels mergers)
+      value: %W(ca98-and-civil-cartels mergers),
+      hide_facet_tag: false
     )
   end
 
@@ -108,7 +109,8 @@ RSpec.describe ResultSetPresenter do
       },
       has_filters?: true,
       value: %w[farming chemicals],
-      'word_connectors' => { words_connector: 'or' }
+      'word_connectors' => { words_connector: 'or' },
+      hide_facet_tag: false
     )
   end
 
@@ -118,7 +120,8 @@ RSpec.describe ResultSetPresenter do
       'key' => 'closed_date',
       sentence_fragment: nil,
       has_filters?: false,
-      'word_connectors' => { words_connector: 'or' }
+      'word_connectors' => { words_connector: 'or' },
+      hide_facet_tag: false
     )
   end
 

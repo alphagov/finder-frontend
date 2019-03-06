@@ -39,7 +39,8 @@ RSpec.describe AtomPresenter do
         'word_connectors' => { words_connector: 'and' }
       },
       has_filters?: true,
-      value: ['brexit', 'harry-potter']
+      value: ['brexit', 'harry-potter'],
+      hide_facet_tag: false
     )
   end
 
@@ -57,7 +58,8 @@ RSpec.describe AtomPresenter do
       'key' => 'closed_date',
       sentence_fragment: nil,
       has_filters?: false,
-      'word_connectors' => { words_connector: 'or' }
+      'word_connectors' => { words_connector: 'or' },
+      hide_facet_tag: false
     )
   end
 
@@ -79,7 +81,8 @@ RSpec.describe AtomPresenter do
       },
       has_filters?: true,
       value: %w[farming chemicals],
-      'word_connectors' => { words_connector: 'or' }
+      'word_connectors' => { words_connector: 'or' },
+      hide_facet_tag: false
     )
   end
 

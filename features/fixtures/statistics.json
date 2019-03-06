@@ -25,6 +25,9 @@
   "details":{
     "document_noun":"statistic",
     "filter":{
+      "content_store_document_type": [
+        "statistics","national_statistics","statistical_data_set","official_statistics"
+      ]
     },
     "format_name":"statistic",
     "show_summaries":true,
@@ -123,7 +126,7 @@
       {
         "key":"content_store_document_type",
         "name":"Statistics",
-        "type":"dropdown_select",
+        "type":"radio",
         "display_as_result_metadata":false,
         "filterable":true,
         "hide_facet_tag":true,
@@ -131,7 +134,8 @@
         "allowed_values": [
           {
             "text": "Statistics (Published)",
-            "value": "[\"statistics\",\"national_statistics\",\"statistical_data_set\",\"official_statistics\"]"
+            "value": "[\"statistics\",\"national_statistics\",\"statistical_data_set\",\"official_statistics\"]",
+            "default": true
           },
           {
             "text": "Statistics (Upcoming)",
