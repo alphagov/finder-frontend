@@ -165,7 +165,7 @@ private
   # "/guidance-and-regulation" => "guidance_and_regulation"
   FINDERS_IN_DEVELOPMENT = {
     "/policy-papers-and-consultations" => 'policy_and_engagement',
-    "/statistics" => "statistics"
+    "/statistics" => "statistics",
   }.freeze
 
   def development_env_finder_json
