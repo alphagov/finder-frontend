@@ -27,6 +27,7 @@
   "details":{
     "document_noun":"result",
     "filter":{
+      "content_purpose_supergroup":"policy_and_engagement"
     },
     "format_name":"document",
     "show_summaries":true,
@@ -61,11 +62,38 @@
         "preposition": "about"
       },
       {
+        "key": "content_store_document_type",
+        "name": "Document type",
+        "preposition": "with document type",
+        "type":"text",
+        "display_as_result_metadata": true,
+        "filterable": true,
+        "option_lookup": {
+          "policy_papers": ["impact_assessment", "case_study", "policy_paper"],
+          "open_consultations": ["open_consultation"],
+          "closed_consultations": ["closed_consultation", "consultation_outcome"]
+        },
+        "allowed_values": [
+          {
+            "label": "Policy papers",
+            "value": "policy_papers"
+          },
+          {
+            "label": "Consultations (open)",
+            "value": "open_consultations"
+          },
+          {
+            "label": "Consultations (closed)",
+            "value": "closed_consultations"
+          }
+        ]
+      },
+      {
         "key": "organisations",
         "name": "Organisation",
         "short_name": "From",
         "preposition": "from",
-        "type": "autocomplete",
+        "type": "text",
         "display_as_result_metadata": true,
         "filterable": true
       },
@@ -73,32 +101,9 @@
         "key": "world_locations",
         "name": "World location",
         "preposition": "in",
-        "type": "autocomplete",
+        "type": "text",
         "display_as_result_metadata": true,
         "filterable": true
-      },
-      {
-        "key": "content_store_document_type",
-        "name": "Consultation status",
-        "preposition": "with consultation status",
-        "type":"dropdown_select",
-        "display_as_result_metadata": true,
-        "filterable": true,
-        "allowed_values": [
-          {
-            "text": "All consultations",
-            "value": "[\"open_consultation\",\"closed_consultation\",\"consultation_outcome\",\"impact_assessment\",\"case_study\",\"policy_paper\"]",
-            "default": true
-          },
-          {
-            "text": "Open consultation",
-            "value": "[\"open_consultation\"]"
-          },
-          {
-            "text": "Closed consultation",
-            "value": "[\"closed_consultation\",\"consultation_outcome\"]"
-          }
-        ]
       },
       {
         "key": "public_timestamp",
