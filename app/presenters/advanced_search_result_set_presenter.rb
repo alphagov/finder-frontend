@@ -4,6 +4,7 @@ class AdvancedSearchResultSetPresenter < ResultSetPresenter
   def to_hash
     super
       .merge(applied_filters: applied_filters_or_all_subgroups)
+        .except(:atom_url)
   end
 
   def documents

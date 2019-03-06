@@ -199,7 +199,7 @@ describe("liveSearch", function(){
       liveSearch.formChange();
       expect(liveSearch.state).toEqual([{name: 'published_at', value: '2004'}]);
       expect(liveSearch.updateLinks).toHaveBeenCalled();
-    })
+    });
 
     it("should trigger analytics trackpage when checkbox is changed", function(){
       var promise = jasmine.createSpyObj('promise', ['done']);
