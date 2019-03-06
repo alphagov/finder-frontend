@@ -3,7 +3,6 @@ describe('GOVUK.OptionSelect', function() {
   var $optionSelectHTML, optionSelect;
 
   beforeEach(function(){
-
     optionSelectFixture = '<div class="app-c-option-select">'+
       '<div class="container-head js-container-head">'+
         '<div class="option-select-label">Market sector</div>'+
@@ -14,77 +13,53 @@ describe('GOVUK.OptionSelect', function() {
             '<fieldset class="govuk-fieldset">'+
               '<legend class="govuk-fieldset__legend govuk-fieldset__legend--m gem-c-checkboxes__legend--hidden">Please select all that apply</legend>'+
               '<ul class="govuk-checkboxes gem-c-checkboxes__list">'+
-                '<li class="gem-c-checkboxes__list-item">'+
-                  '<div class="gem-c-checkbox govuk-checkboxes__item">'+
-                    '<input type="checkbox" name="market_sector[]" id="aerospace" value="aerospace" class="govuk-checkboxes__input" />'+
-                    '<label for="aerospace" class="govuk-label govuk-checkboxes__label">Aerospace</label>'+
-                  '</div>'+
+                '<li class="govuk-checkboxes__item">'+
+                  '<input type="checkbox" name="market_sector[]" id="aerospace" value="aerospace" class="govuk-checkboxes__input" />'+
+                  '<label for="aerospace" class="govuk-label govuk-checkboxes__label">Aerospace</label>'+
                 '</li>'+
-                '<li class="gem-c-checkboxes__list-item">'+
-                  '<div class="gem-c-checkbox govuk-checkboxes__item">'+
-                    '<input type="checkbox" name="market_sector[]" id="agriculture-environment-and-natural-resources" value="agriculture-environment-and-natural-resources" class="govuk-checkboxes__input" />'+
-                    '<label for="agriculture-environment-and-natural-resources" class="govuk-label govuk-checkboxes__label">Agriculture, environment, natural resources, agriculture, environment, natural resources, agriculture, environment, natural resources, agriculture, environment, natural resources, agriculture, environment, natural resources, agriculture, environment and natural resources.</label>'+
-                  '</div>'+
+                '<li class="govuk-checkboxes__item">'+
+                  '<input type="checkbox" name="market_sector[]" id="agriculture-environment-and-natural-resources" value="agriculture-environment-and-natural-resources" class="govuk-checkboxes__input" />'+
+                  '<label for="agriculture-environment-and-natural-resources" class="govuk-label govuk-checkboxes__label">Agriculture, environment, natural resources, agriculture, environment, natural resources, agriculture, environment, natural resources, agriculture, environment, natural resources, agriculture, environment, natural resources, agriculture, environment and natural resources.</label>'+
                 '</li>'+
-                '<li class="gem-c-checkboxes__list-item">'+
-                  '<div class="gem-c-checkbox govuk-checkboxes__item">'+
-                    '<input type="checkbox" name="market_sector[]" id="building-and-construction" value="building-and-construction" class="govuk-checkboxes__input" />'+
-                    '<label for="building-and-construction" class="govuk-label govuk-checkboxes__label">Building and construction</label>'+
-                  '</div>'+
+                '<li class="govuk-checkboxes__item">'+
+                  '<input type="checkbox" name="market_sector[]" id="building-and-construction" value="building-and-construction" class="govuk-checkboxes__input" />'+
+                  '<label for="building-and-construction" class="govuk-label govuk-checkboxes__label">Building and construction</label>'+
                 '</li>'+
-                '<li class="gem-c-checkboxes__list-item">'+
-                  '<div class="gem-c-checkbox govuk-checkboxes__item">'+
-                    '<input type="checkbox" name="market_sector[]" id="chemicals" value="chemicals" class="govuk-checkboxes__input" />'+
-                    '<label for="chemicals" class="govuk-label govuk-checkboxes__label">Chemicals</label>'+
-                  '</div>'+
+                '<li class="govuk-checkboxes__item">'+
+                  '<input type="checkbox" name="market_sector[]" id="chemicals" value="chemicals" class="govuk-checkboxes__input" />'+
+                  '<label for="chemicals" class="govuk-label govuk-checkboxes__label">Chemicals</label>'+
                 '</li>'+
-                '<li class="gem-c-checkboxes__list-item">'+
-                  '<div class="gem-c-checkbox govuk-checkboxes__item">'+
-                    '<input type="checkbox" name="market_sector[]" id="clothing-footwear-and-fashion" value="clothing-footwear-and-fashion" class="govuk-checkboxes__input" />'+
-                    '<label for="clothing-footwear-and-fashion" class="govuk-label govuk-checkboxes__label">Clothing, footwear and fashion</label>'+
-                  '</div>'+
+                '<li class="govuk-checkboxes__item">'+
+                  '<input type="checkbox" name="market_sector[]" id="clothing-footwear-and-fashion" value="clothing-footwear-and-fashion" class="govuk-checkboxes__input" />'+
+                  '<label for="clothing-footwear-and-fashion" class="govuk-label govuk-checkboxes__label">Clothing, footwear and fashion</label>'+
                 '</li>'+
-                '<li class="gem-c-checkboxes__list-item">'+
-                  '<div class="gem-c-checkbox govuk-checkboxes__item">'+
-                    '<input type="checkbox" name="market_sector[]" id="defence" value="defence" class="govuk-checkboxes__input" />'+
-                    '<label for="defence" class="govuk-label govuk-checkboxes__label">Defence</label>'+
-                  '</div>'+
+                '<li class="govuk-checkboxes__item">'+
+                  '<input type="checkbox" name="market_sector[]" id="defence" value="defence" class="govuk-checkboxes__input" />'+
+                  '<label for="defence" class="govuk-label govuk-checkboxes__label">Defence</label>'+
                 '</li>'+
-                '<li class="gem-c-checkboxes__list-item">'+
-                  '<div class="gem-c-checkbox govuk-checkboxes__item">'+
-                    '<input type="checkbox" name="market_sector[]" id="distribution-and-service-industries" value="distribution-and-service-industries" class="govuk-checkboxes__input" />'+
-                    '<label for="distribution-and-service-industries" class="govuk-label govuk-checkboxes__label">Distribution &amp; Service Industries</label>'+
-                  '</div>'+
+                '<li class="govuk-checkboxes__item">'+
+                  '<input type="checkbox" name="market_sector[]" id="distribution-and-service-industries" value="distribution-and-service-industries" class="govuk-checkboxes__input" />'+
+                  '<label for="distribution-and-service-industries" class="govuk-label govuk-checkboxes__label">Distribution &amp; Service Industries</label>'+
                 '</li>'+
-                '<li class="gem-c-checkboxes__list-item">'+
-                  '<div class="gem-c-checkbox govuk-checkboxes__item">'+
-                    '<input type="checkbox" name="market_sector[]" id="electronics-industry" value="electronics-industry" class="govuk-checkboxes__input" />'+
-                    '<label for="electronics-industry" class="govuk-label govuk-checkboxes__label">Electronics Industry</label>'+
-                  '</div>'+
+                '<li class="govuk-checkboxes__item">'+
+                  '<input type="checkbox" name="market_sector[]" id="electronics-industry" value="electronics-industry" class="govuk-checkboxes__input" />'+
+                  '<label for="electronics-industry" class="govuk-label govuk-checkboxes__label">Electronics Industry</label>'+
                 '</li>'+
-                '<li class="gem-c-checkboxes__list-item">'+
-                  '<div class="gem-c-checkbox govuk-checkboxes__item">'+
-                    '<input type="checkbox" name="market_sector[]" id="energy" value="energy" class="govuk-checkboxes__input" />'+
-                    '<label for="energy" class="govuk-label govuk-checkboxes__label">Energy</label>'+
-                  '</div>'+
+                '<li class="govuk-checkboxes__item">'+
+                  '<input type="checkbox" name="market_sector[]" id="energy" value="energy" class="govuk-checkboxes__input" />'+
+                  '<label for="energy" class="govuk-label govuk-checkboxes__label">Energy</label>'+
                 '</li>'+
-                '<li class="gem-c-checkboxes__list-item">'+
-                  '<div class="gem-c-checkbox govuk-checkboxes__item">'+
-                    '<input type="checkbox" name="market_sector[]" id="engineering" value="engineering" class="govuk-checkboxes__input" />'+
-                    '<label for="engineering" class="govuk-label govuk-checkboxes__label">Engineering</label>'+
-                  '</div>'+
+                '<li class="govuk-checkboxes__item">'+
+                  '<input type="checkbox" name="market_sector[]" id="engineering" value="engineering" class="govuk-checkboxes__input" />'+
+                  '<label for="engineering" class="govuk-label govuk-checkboxes__label">Engineering</label>'+
                 '</li>'+
-                '<li class="gem-c-checkboxes__list-item">'+
-                  '<div class="gem-c-checkbox govuk-checkboxes__item">'+
-                    '<input type="checkbox" name="market_sector[]" id="thatdepartment" value="thatdepartment" class="govuk-checkboxes__input" />'+
-                    '<label for="thatdepartment" class="govuk-label govuk-checkboxes__label">Closed organisation: Department for Fisheries, War Widows\' pay, Farmers’ rights - sheep and goats, Farmer\'s rights – cows & llamas</label>'+
-                  '</div>'+
+                '<li class="govuk-checkboxes__item">'+
+                  '<input type="checkbox" name="market_sector[]" id="thatdepartment" value="thatdepartment" class="govuk-checkboxes__input" />'+
+                  '<label for="thatdepartment" class="govuk-label govuk-checkboxes__label">Closed organisation: Department for Fisheries, War Widows\' pay, Farmers’ rights - sheep and goats, Farmer\'s rights – cows & llamas</label>'+
                 '</li>'+
-                '<li class="gem-c-checkboxes__list-item">'+
-                  '<div class="gem-c-checkbox govuk-checkboxes__item">'+
-                    '<input type="checkbox" name="market_sector[]" id="militarycourts" value="militarycourts" class="govuk-checkboxes__input" />'+
-                    '<label for="militarycourts" class="govuk-label govuk-checkboxes__label">1st and 2nd Military Courts</label>'+
-                  '</div>'+
+                '<li class="govuk-checkboxes__item">'+
+                  '<input type="checkbox" name="market_sector[]" id="militarycourts" value="militarycourts" class="govuk-checkboxes__input" />'+
+                  '<label for="militarycourts" class="govuk-label govuk-checkboxes__label">1st and 2nd Military Courts</label>'+
                 '</li>'+
               '</ul>'+
             '</fieldset>'+
@@ -104,6 +79,7 @@ describe('GOVUK.OptionSelect', function() {
   it('instantiates a closed option-select if data-closed-on-load is true', function(){
     closedOnLoadFixture = '<div class="app-c-option-select" data-closed-on-load=true>' +
                             '<div class="container-head js-container-head"></div>' +
+                            '<div class="options-container"></div>'+
                           '</div>';
     $closedOnLoadFixture = $(closedOnLoadFixture);
 
@@ -116,6 +92,7 @@ describe('GOVUK.OptionSelect', function() {
   it('instantiates an open option-select if data-closed-on-load is false', function(){
     openOnLoadFixture = '<div class="app-c-option-select" data-closed-on-load=false>' +
                             '<div class="container-head js-container-head"></div>' +
+                            '<div class="options-container"></div>'+
                           '</div>';
     $openOnLoadFixture = $(openOnLoadFixture);
 
@@ -128,6 +105,7 @@ describe('GOVUK.OptionSelect', function() {
   it('instantiates an open option-select if data-closed-on-load is not present', function(){
     openOnLoadFixture = '<div class="app-c-option-select">' +
                           '<div class="container-head js-container-head"></div>' +
+                            '<div class="options-container"></div>'+
                         '</div>';
     $openOnLoadFixture = $(openOnLoadFixture);
 
@@ -155,7 +133,7 @@ describe('GOVUK.OptionSelect', function() {
   describe('replaceHeadWithButton', function(){
     it ("replaces the `div.container-head` with a button", function(){
       expect($optionSelectHTML.find('button')).toBeDefined();
-    })
+    });
   });
 
   describe('toggleOptionSelect', function(){
@@ -240,56 +218,48 @@ describe('GOVUK.OptionSelect', function() {
   });
 
   describe ('setContainerHeight', function(){
-
     it('can have its height set', function(){
       optionSelect.setContainerHeight(200);
       expect(optionSelect.$optionsContainer.height()).toBe(200);
     });
-
-    it('still works even if the container has a max-height', function(){
-      optionSelect.$optionsContainer.css("max-height", 100);
-      expect(optionSelect.$optionsContainer.height()).toBeLessThan(101);
-      optionSelect.setContainerHeight(200);
-      expect(optionSelect.$optionsContainer.height()).toBe(200);
-    });
   });
 
-  describe ('isLabelVisible', function(){
-    var firstLabel, lastLabel;
+  describe ('isCheckboxVisible', function(){
+    var firstCheckbox, lastCheckbox;
 
     beforeEach(function(){
       optionSelect.setContainerHeight(100);
       optionSelect.$optionsContainer.width(100);
-      firstLabel = optionSelect.$labels[0];
-      lastLabel = optionSelect.$labels[optionSelect.$labels.length -1];
+      firstCheckbox = optionSelect.$allCheckboxes[0];
+      lastCheckbox = optionSelect.$allCheckboxes[optionSelect.$allCheckboxes.length -1];
     });
 
     it('returns true if a label is visible', function(){
-      expect(optionSelect.isLabelVisible.call(optionSelect, 0, firstLabel)).toBe(true);
+      expect(optionSelect.isCheckboxVisible.call(optionSelect, 0, firstCheckbox)).toBe(true);
     });
 
     it('returns true if a label is outside its container', function(){
-      expect(optionSelect.isLabelVisible.call(optionSelect, 0, lastLabel)).toBe(false);
+      expect(optionSelect.isCheckboxVisible.call(optionSelect, 0, lastCheckbox)).toBe(false);
     });
 
   });
 
-  describe ('getVisibleLabels', function(){
-    var visibleLabels, lastLabelForAttribute, lastVisibleLabelForAttribute;
+  describe ('getvisibleCheckboxes', function(){
+    var visibleCheckboxes, lastLabelForAttribute, lastVisibleLabelForAttribute;
 
-    it('returns all the labels if the container doesn\'t overflow', function(){
-      expect(optionSelect.$labels.length).toBe(optionSelect.getVisibleLabels().length);
+    it('returns all the checkboxes if the container doesn\'t overflow', function(){
+      expect(optionSelect.$allCheckboxes.length).toBe(optionSelect.getVisibleCheckboxes().length);
     });
 
-    it('only returns some of the first labels if the container\'s dimensions are constricted', function(){
+    it('only returns some of the first checkboxes if the container\'s dimensions are constricted', function(){
       optionSelect.setContainerHeight(100);
       optionSelect.$optionsContainer.width(100);
 
-      visibleLabels = optionSelect.getVisibleLabels();
-      expect(visibleLabels.length).toBeLessThan(optionSelect.$labels.length);
+      visibleCheckboxes = optionSelect.getVisibleCheckboxes();
+      expect(visibleCheckboxes.length).toBeLessThan(optionSelect.$allCheckboxes.length);
 
-      lastLabelForAttribute = optionSelect.$labels[optionSelect.$labels.length - 1].getElementsByClassName('govuk-label')[0].getAttribute("for");
-      lastVisibleLabelForAttribute = visibleLabels[visibleLabels.length - 1].getElementsByClassName('govuk-label')[0].getAttribute("for");
+      lastLabelForAttribute = optionSelect.$allCheckboxes[optionSelect.$allCheckboxes.length - 1].getElementsByClassName('govuk-checkboxes__input')[0].getAttribute("id");
+      lastVisibleLabelForAttribute = visibleCheckboxes[visibleCheckboxes.length - 1].getAttribute("id");
       expect(lastLabelForAttribute).not.toBe(lastVisibleLabelForAttribute);
     });
   });
@@ -298,7 +268,6 @@ describe('GOVUK.OptionSelect', function() {
     var checkboxContainerHeight, stretchMargin;
 
     beforeEach(function(){
-
       // Set some visual properties which are done in the CSS IRL
       $checkboxList = $optionSelectHTML.find('.options-container');
       $checkboxList.css({
@@ -332,6 +301,47 @@ describe('GOVUK.OptionSelect', function() {
 
       // Wrapping HTML should not stretch as 251px is too big.
       expect($checkboxList.height()).toBeGreaterThan(100);
+    });
+  });
+
+  describe('initialising when the parent is hidden', function(){
+    beforeEach(function(){
+      $('body').find('.app-c-option-select').remove();
+      var wrapper = $('<div/>').hide().html($optionSelectHTML);
+      $('body').append(wrapper);
+      optionSelect = new GOVUK.OptionSelect({$el:$optionSelectHTML});
+    });
+
+    afterEach(function(){
+      $('.wrapper').remove();
+    });
+
+    it('sets the height of the container sensibly', function(){
+      var containerHeight = $('.options-container').height();
+      expect(containerHeight).toBe(200);
+    });
+  });
+
+  describe('initialising when the parent is hidden and data-closed-on-load is true', function(){
+    beforeEach(function(){
+      $('body').find('.app-c-option-select').remove();
+      $optionSelectHTML.attr('data-closed-on-load', true);
+      var wrapper = $('<div/>').hide().html($optionSelectHTML);
+      $('body').append(wrapper);
+      optionSelect = new GOVUK.OptionSelect({$el:$optionSelectHTML});
+    });
+
+    afterEach(function(){
+      $('.wrapper').remove();
+    });
+
+    it('sets the height of the container sensibly when the option select is opened', function(){
+      $('.wrapper').show();
+      $optionSelectHTML.find('button').click();
+
+      var containerHeight = $('.options-container').height();
+      expect(containerHeight).toBeGreaterThan(200);
+      expect(containerHeight).toBeLessThan(500);
     });
   });
 
