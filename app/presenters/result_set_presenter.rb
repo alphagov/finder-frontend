@@ -122,45 +122,6 @@ private
     sort_option
   end
 
-  def tagged_to_all?(facet_key, metadata)
-    return false unless metadata
-
-    facet = finder.facets.find { |f| f.key == facet_key }
-    facet_metadata = metadata.find { |m| m[:id] == facet_key }
-    return false unless facet && facet_metadata
-
-    values = facet.allowed_values.map { |v| v['value'] }
-    values & facet_metadata[:labels] == values
-  end
-
-  def empty_facet_group(key, name)
-    { facet_key: key, facet_name: name, documents: [] }
-  end
-
-  def facet_label_for(key)
-    allowed_values = finder.facets.map(&:allowed_values).flatten
-    facet = allowed_values.find { |v| v["value"] == key }
-    facet["label"] if facet
-  end
-
-  def sort_by_promoted(results)
-    results.sort_by { |r| r[:document][:promoted] ? 0 : 1 }
-  end
-
-  def sort_by_promoted_alphabetical(search_results)
-    sorted_results = search_results.sort_by { |r| r[:document][:title] }
-    sort_by_promoted(sorted_results)
-  end
-
-  def compact_and_sort(group)
-    group = group.reject { |_, v| v[:documents].empty? }
-    group.values.sort_by { |g| g[:facet_name] }
-  end
-
-  def facet_filters
-    @filter_params.symbolize_keys.without(:order, :keywords)
-  end
-
   def fetch_signup_links
     links = {}
     links[:email_signup_link] = email_signup_link if email_signup_link.present?
