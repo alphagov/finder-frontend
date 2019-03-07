@@ -131,19 +131,24 @@
         "filterable":true,
         "hide_facet_tag":true,
         "preposition": "that are",
+        "option_lookup": {
+          "statistics_published": ["statistics", "national_statistics", "statistical_data_set", "official_statistics"],
+          "statistics_upcoming": ["statistics_announcement", "national_statistics_announcement", "official_statistics_announcement"],
+          "research": ["dfid_research_output", "independent_report", "research"]
+        },
         "allowed_values": [
           {
-            "text": "Statistics (Published)",
-            "value": "[\"statistics\",\"national_statistics\",\"statistical_data_set\",\"official_statistics\"]",
+            "label": "Statistics (published)",
+            "value": "statistics_published",
             "default": true
           },
           {
-            "text": "Statistics (Upcoming)",
-            "value": "[\"statistics_announcement\",\"national_statistics_announcement\",\"official_statistics_announcement\"]"
+            "label": "Statistics (upcoming)",
+            "value": "statistics_upcoming"
           },
           {
-            "text": "Research",
-            "value": "[\"dfid_research_output\",\"independent_report\",\"research\"]"
+            "label": "Research",
+            "value": "research"
           }
         ]
       },

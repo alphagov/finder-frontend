@@ -7,7 +7,7 @@ class RadioFacet < FilterableFacet
     allowed_values.map do |allowed_value|
       {
         value: allowed_value['value'],
-        text: allowed_value['text'],
+        text: allowed_value['label'],
         checked: selected_value == allowed_value,
       }
     end

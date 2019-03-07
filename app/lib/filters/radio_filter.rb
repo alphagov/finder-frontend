@@ -9,9 +9,19 @@ module Filters
     def parsed_value
       return if params.blank?
 
-      JSON.parse params
-    rescue JSON::ParserError
-      params
+      if multi_value?
+        option_lookup.select { |key, _| params.include? key }.values.flatten
+      else
+        params
+      end
+    end
+
+    def multi_value?
+      facet.has_key?('option_lookup')
+    end
+
+    def option_lookup
+      @option_lookup ||= facet['option_lookup']
     end
   end
 end
