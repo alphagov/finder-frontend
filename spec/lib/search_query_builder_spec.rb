@@ -138,6 +138,59 @@ describe SearchQueryBuilder do
         expect(queries.second["filter_beta"]).to eq(%w(test))
       end
     end
+
+    context "of 'content_id' type" do
+      let(:allowed_values) do
+        [
+          { "label" => "EU citizens", "value" => "yes", "content_id" => "yes-cont-id" },
+          { "label" => "No EU citizens", "value" => "no", "content_id" => "no-cont-id" }
+        ]
+      end
+
+      let(:intellectual_property_allowed_values) do
+        [
+          { "label" => "Copyright", "value" => "copyright", "content_id" => "copyright-cont-id" },
+          { "label" => "Patents", "value" => "patents", "content_id" => "patents-cont-id" }
+        ]
+      end
+
+      before do
+        facets.first["filterable"] = true
+        facets.first["type"] = "content_id"
+        facets.first["key"] = "employ_eu_citizens"
+        facets.first["filter_key"] = "any_facet_values"
+        facets.first["allowed_values"] = allowed_values
+        facets.second["filterable"] = true
+        facets.second["type"] = "content_id"
+        facets.second["key"] = "intellectual_property"
+        facets.second["filter_key"] = "any_facet_values"
+        facets.second["allowed_values"] = intellectual_property_allowed_values
+      end
+
+      let(:params) do
+        {
+          "employ_eu_citizens" => "yes",
+          "intellectual_property" => %w[copyright patents]
+        }
+      end
+
+      context 'with `and` combine_mode' do
+        it 'adds a `filter_facet_values` filter with the content_id' do
+          expect(query["filter_any_facet_values"]).to eq(["yes-cont-id", "copyright-cont-id", "patents-cont-id"])
+        end
+      end
+
+      context 'with `or` combine_mode' do
+        before do
+          facets.second["combine_mode"] = 'or'
+        end
+
+        it 'sends the correct `filter_any_facet_values` to each query' do
+          expect(queries.first["filter_any_facet_values"]).to eq(["yes-cont-id"])
+          expect(queries.second["filter_any_facet_values"]).to eq(["copyright-cont-id", "patents-cont-id"])
+        end
+      end
+    end
   end
 
   context "without keywords" do

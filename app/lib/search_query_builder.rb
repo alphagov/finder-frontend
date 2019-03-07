@@ -143,17 +143,43 @@ private
   end
 
   def and_filter_query
-    @and_filter_query ||= filter_params(combine_mode: 'and')
+    @and_filter_query ||= and_filter_params
       .each_with_object({}) do |(k, v), query|
         query["filter_#{k}"] = v
       end
   end
 
+  def and_filter_params
+    @and_filter_params ||= FilterQueryBuilder.new(
+      facets: and_facets,
+      user_params: params
+    ).call
+  end
+
+  def and_facets
+    finder_content_item['details']['facets'].select do |facet|
+      facet.fetch('combine_mode', 'and') == 'and'
+    end
+  end
+
   def or_filter_queries
-    @or_filter_queries ||= filter_params(combine_mode: 'or')
+    @or_filter_queries ||= or_filter_params
       .map do |k, v|
         { "filter_#{k}" => v }
       end
+  end
+
+  def or_filter_params
+    @or_filter_params ||= FilterQueryBuilder.new(
+      facets: or_facets,
+      user_params: params
+    ).call
+  end
+
+  def or_facets
+    finder_content_item['details']['facets'].select do |facet|
+      facet.fetch('combine_mode', 'and') == 'or'
+    end
   end
 
   def filter_queries

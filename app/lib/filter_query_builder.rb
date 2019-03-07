@@ -29,7 +29,8 @@ private
       'dropdown_select' => Filters::DropdownSelectFilter,
       'topical' => Filters::TopicalFilter,
       'taxon' => Filters::TaxonFilter,
-      'radio' => Filters::RadioFilter
+      'radio' => Filters::RadioFilter,
+      'content_id' => Filters::ContentIdFilter
     }.fetch(facet['type'])
 
     filter_class.new(facet, params(facet))
