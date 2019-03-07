@@ -83,6 +83,12 @@ module DocumentHelper
     ).to_return(body: filtered_business_readiness_results_json)
   end
 
+  def stub_all_rummager_api_requests_with_business_finder_results
+    stub_request(:get, "#{Plek.current.find('search')}/batch_search.json")
+      .with(query: hash_including({}))
+      .to_return(body: business_readiness_results_json)
+  end
+
   def stub_rummager_api_request_with_policy_papers_results
     stub_request(:get, rummager_policy_papers_url({}))
       .to_return(body: policy_and_engagement_results_json)

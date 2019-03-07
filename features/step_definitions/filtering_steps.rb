@@ -470,6 +470,10 @@ Then(/^I see updated newest order selected$/) do
   expect(page).to have_select('order', selected: "Updated (newest)")
 end
 
+Then(/^I see topic order selected$/) do
+  expect(page).to have_select('order', selected: "Topic")
+end
+
 And(/^I see the facet tag$/) do
   within '.facet-tags' do
     expect(page).to have_button("✕")
@@ -544,6 +548,8 @@ Then(/^The (.*) checkbox in deselected$/) do |checkbox|
 end
 
 And(/^I fill in some keywords$/) do
+  stub_all_rummager_api_requests_with_business_finder_results
+
   fill_in 'Search', with: "Keyword1 Keyword2\n"
 end
 

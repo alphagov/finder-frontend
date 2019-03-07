@@ -179,6 +179,37 @@ Feature: Filtering documents
     And I press tab key to navigate
     Then I see most relevant order selected
 
+  @javascript
+  Scenario: Removing keyword filter in business finder
+    When I view the business readiness finder
+    Then I see topic order selected
+    And I fill in some keywords
+    Then I see most relevant order selected
+    And I click the Keyword1 remove control
+    Then The keyword textbox only contains Keyword2
+    And I see most relevant order selected
+    And I click the Keyword2 remove control
+    Then The keyword textbox is empty
+    And I see topic order selected
+
+  @javascript
+  Scenario: Adding keyword filter in business finder
+    When I view the business readiness finder
+    Then I see topic order selected
+    And I fill in some keywords
+    And I press tab key to navigate
+    Then I see most relevant order selected
+
+  @javascript
+  Scenario: Adding keyword filter to facet search in business finder
+    When I view the business readiness finder
+    Then I see topic order selected
+    And I click button "Sector / Business Area" and select facet Aerospace
+    Then I see results grouped by primary facet value
+    And I fill in some keywords
+    And I press tab key to navigate
+    Then I see most relevant order selected
+
   Scenario: Subscribing to email alerts
     Given a collection of documents exist that can be filtered by checkbox
     When I use a checkbox filter
