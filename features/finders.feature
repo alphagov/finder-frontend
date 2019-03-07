@@ -206,9 +206,11 @@ Feature: Filtering documents
     Then I see topic order selected
     And I click button "Sector / Business Area" and select facet Aerospace
     Then I see results grouped by primary facet value
+    And I see results with pinned items
     And I fill in some keywords
     And I press tab key to navigate
     Then I see most relevant order selected
+    And I do not see results with pinned items
 
   Scenario: Subscribing to email alerts
     Given a collection of documents exist that can be filtered by checkbox

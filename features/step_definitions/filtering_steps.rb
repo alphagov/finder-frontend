@@ -621,6 +621,18 @@ Then("I see results grouped by primary facet value") do
   end
 end
 
+Then("I see results with pinned items") do
+  within("#js-results") do
+    expect(page.all(".document-heading--pinned").length).to eq(1)
+  end
+end
+
+Then("I do not see results with pinned items") do
+  within("#js-results") do
+    expect(page.all(".document-heading--pinned").length).to eq(0)
+  end
+end
+
 And(/^I press (tab) key to navigate$/) do |key|
   find_field('Search').send_keys key.to_sym
 end
