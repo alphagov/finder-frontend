@@ -19,6 +19,10 @@ class Facet
     facet['type']
   end
 
+  def show_option_select_filter
+    facet['show_option_select_filter']
+  end
+
   def short_name
     facet['short_name']
   end

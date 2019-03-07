@@ -96,6 +96,15 @@ describe 'components/_option-select.html.erb', type: :view do
     expect(rendered).to have_selector('.app-c-option-select__count')
   end
 
+  it "does not show a filter control" do
+    arguments = option_select_arguments
+    arguments[:show_filter] = false
+    render_component(arguments)
+
+    expect(rendered).to have_no_selector('.app-c-option-select .gem-c-input[name="option-select-filter"]')
+    expect(rendered).to have_no_selector('.app-c-option-select__count')
+  end
+
   def expect_label_and_checked_checkbox(label, id, value)
     expect_label_and_checkbox(label, id, value, true)
   end

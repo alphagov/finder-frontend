@@ -2,7 +2,7 @@
   title_id = "option-select-title-#{title.parameterize}"
   checkboxes_id = "checkboxes-#{SecureRandom.hex(4)}"
   checkboxes_count_id = checkboxes_id + "-count"
-  show_filter = local_assigns.include?(:show_filter)
+  show_filter ||= false
 
   if show_filter
     filter_element = ActionController::Base.new.render_to_string(:partial => "govuk_publishing_components/components/input", :locals => {
