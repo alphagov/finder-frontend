@@ -91,10 +91,14 @@ class FinderPresenter
 
   def facets
     @facets ||= FacetCollection.new(
-      content_item['details']['facets'].map { |facet|
+      raw_facets.map do |facet|
         FacetParser.parse(facet)
-      }
+      end
     )
+  end
+
+  def raw_facets
+    @raw_facets ||= FacetExtractor.new(content_item).extract
   end
 
   def filters
