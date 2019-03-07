@@ -39,7 +39,7 @@ describe RedirectionController, type: :controller do
       expect(response).to redirect_to finder_path('all-content')
     end
     it 'passes on a set of params' do
-      get :announcements, params: {
+      get :publications, params: {
         keywords: %w[one two],
         taxons: %w[one],
         subtaxons: %w[two],
@@ -48,7 +48,7 @@ describe RedirectionController, type: :controller do
         from_date: '01/01/2014',
         to_date: '01/01/2014'
       }
-      expect(response).to redirect_to finder_path('news-and-communications', params: {
+      expect(response).to redirect_to finder_path('all-content', params: {
         keywords: %w[one two],
         level_one_taxon: 'one',
         level_two_taxon: 'two',
