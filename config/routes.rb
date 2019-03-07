@@ -25,5 +25,7 @@ FinderFrontend::Application.routes.draw do
 
   get '/redirect/announcements' => 'redirection#announcements'
 
+  get '/redirect/publications' => 'redirection#publications'
+
   get '/*slug' => 'finders#show', as: :finder
 end
