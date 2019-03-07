@@ -10,7 +10,7 @@
     },
     "email_filter_by": null,
     "email_filter_name": null,
-    "subscription_list_title_prefix": "Policy papers and consultations ",
+    "subscription_list_title_prefix": "Policy papers and consultations",
     "email_filter_facets": [
       {
         "facet_id": "people",
