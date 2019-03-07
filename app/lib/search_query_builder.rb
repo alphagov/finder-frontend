@@ -192,24 +192,6 @@ private
     }
   end
 
-  def all_filter_params
-    @all_filter_params ||= FilterQueryBuilder.new(
-      facets: finder_content_item['details']['facets'],
-      user_params: params,
-    ).call
-  end
-
-  def facet_keys(combine_mode:)
-    facets = finder_content_item['details']['facets'].select do |facet|
-      facet.fetch('combine_mode', 'and') == combine_mode
-    end
-    facets.map { |facet| facet['filter_key'] || facet['key'] }
-  end
-
-  def filter_params(combine_mode:)
-    all_filter_params.slice(*facet_keys(combine_mode: combine_mode))
-  end
-
   def base_filter
     finder_content_item['details']['filter'].to_h
   end
