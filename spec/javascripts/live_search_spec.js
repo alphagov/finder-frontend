@@ -34,10 +34,12 @@ describe("liveSearch", function(){
   };
 
   beforeEach(function () {
+    sortList = '<select id="order" class="js-order-results" data-relevance-sort-option="relevance"><option>Test 1</option><option value="relevance" disabled>Relevance</option>';
     $form = $('<form action="/somewhere" class="js-live-search-form">' +
                 '<input type="checkbox" name="field" value="sheep" checked>' +
                 '<label for="published_at">Published at</label>' +
                 '<input type="text" name="published_at" value="2004" />' +
+                sortList +
                 '<input type="submit" value="Filter results" class="button js-live-search-fallback"/>' +
               '</form>');
     $results = $('<div class="js-live-search-results-block"></div>');
@@ -423,4 +425,14 @@ describe("liveSearch", function(){
     expect(liveSearch.$atomLink.attr('href')).toBe("http://an-atom-url.atom?published_at=2004");
     expect(liveSearch.$atomAutodiscoveryLink.attr('href')).toBe("http://an-atom-url.atom?published_at=2004");
   });
+
+  describe('insertRelevanceOption', function(){
+    it('adds "Relevance" to the Sort select list and should not be disabled', function(){
+      // Relevance option should initially be disabled when js is disabled
+      expect($('#order option:disabled').length).toBe(1);
+      //When we insert it again disabled attribute should be removed
+      liveSearch.insertRelevanceOption();
+      expect($('#order option:disabled').length).toBe(0);
+    })
+  })
 });
