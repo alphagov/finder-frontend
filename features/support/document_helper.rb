@@ -29,6 +29,12 @@ module DocumentHelper
     )
   end
 
+  def stub_keyword_business_readiness_search_api_request
+    stub_request(:get, rummager_keyword_business_readiness_search_url).to_return(
+      body: keyword_search_results,
+    )
+  end
+
   def stub_rummager_api_request_with_government_results
     stub_request(:get, "#{Plek.current.find('search')}/batch_search.json")
       .with(query: hash_including({}))
@@ -75,6 +81,12 @@ module DocumentHelper
         "filter_sector_business_area[0]" => "aerospace",
       )
     ).to_return(body: filtered_business_readiness_results_json)
+  end
+
+  def stub_all_rummager_api_requests_with_business_finder_results
+    stub_request(:get, "#{Plek.current.find('search')}/batch_search.json")
+      .with(query: hash_including({}))
+      .to_return(body: business_readiness_results_json)
   end
 
   def stub_rummager_api_request_with_policy_papers_results
@@ -436,6 +448,14 @@ module DocumentHelper
       mosw_search_params.merge(
         "q" => "keyword searchable",
         "order" => "-public_timestamp",
+      )
+    )
+  end
+
+  def rummager_keyword_business_readiness_search_url
+    rummager_url(
+      business_readiness_params.merge(
+        "q" => "keyword searchable"
       )
     )
   end

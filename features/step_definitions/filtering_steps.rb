@@ -141,6 +141,21 @@ When(/^I search documents by keyword$/) do
   click_on "Filter results"
 end
 
+When(/^I search documents by keyword for business finder$/) do
+  content_store_has_business_readiness_finder
+  stub_keyword_business_readiness_search_api_request
+
+  visit finder_path('find-eu-exit-guidance-business')
+
+  @keyword_search = "keyword searchable"
+
+  within '.filter-form' do
+    fill_in("Search", with: @keyword_search)
+  end
+
+  click_on "Filter results"
+end
+
 Then(/^I see all documents which contain the keywords$/) do
   within ".filtered-results" do
     expect(page).to have_css("a", text: @keyword_search)
@@ -455,6 +470,10 @@ Then(/^I see updated newest order selected$/) do
   expect(page).to have_select('order', selected: "Updated (newest)")
 end
 
+Then(/^I see topic order selected$/) do
+  expect(page).to have_select('order', selected: "Topic")
+end
+
 And(/^I see the facet tag$/) do
   within '.facet-tags' do
     expect(page).to have_button("✕")
@@ -529,6 +548,8 @@ Then(/^The (.*) checkbox in deselected$/) do |checkbox|
 end
 
 And(/^I fill in some keywords$/) do
+  stub_all_rummager_api_requests_with_business_finder_results
+
   fill_in 'Search', with: "Keyword1 Keyword2\n"
 end
 
@@ -597,6 +618,18 @@ Then("I see results grouped by primary facet value") do
     within(".filtered-results__group:nth-child(2)") do
       expect(page).to have_css("h2.filtered-results__facet-heading", text: "All businesses")
     end
+  end
+end
+
+Then("I see results with pinned items") do
+  within("#js-results") do
+    expect(page.all(".document-heading--pinned").length).to eq(1)
+  end
+end
+
+Then("I do not see results with pinned items") do
+  within("#js-results") do
+    expect(page.all(".document-heading--pinned").length).to eq(0)
   end
 end
 
