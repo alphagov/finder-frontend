@@ -16,7 +16,26 @@ RSpec.describe ResultSetPresenter do
       default_documents_per_page: 10,
       values: {},
       pagination: pagination,
-      sort: {},
+      sort: [
+        {
+          "name" => "Most viewed",
+          "key" => "-popularity"
+        },
+        {
+          "name" => "Relevance",
+          "key" => "-relevance"
+        },
+        {
+          "name" => "Updated (newest)",
+          "key" => "-public_timestamp",
+          "default" => true
+        }
+      ],
+      default_sort_option: {
+        "name" => "Updated (newest)",
+        "key" => "-public_timestamp",
+      },
+      filters: {}
     )
   end
 
@@ -152,6 +171,38 @@ RSpec.describe ResultSetPresenter do
       promoted: false,
       promoted_summary: nil,
       show_metadata: false,
+    )
+  end
+
+  let(:a_facet_without_facet_tags) do
+    double(
+      RadioFacet,
+      key: 'key_3',
+      preposition: 'that are',
+      allowed_values: [
+        {
+          'value' => 'statistics_published',
+          'label' => 'Statistics (published)',
+          'default' => true
+        },
+        {
+          'value' => 'statistics_upcoming',
+          'label' => 'Statistics (upcoming)'
+        },
+        {
+          'value' => 'research',
+          'label' => 'Research'
+        },
+      ],
+      has_filters?: true,
+      hide_facet_tag: true,
+      value: "something",
+      sort: [
+        {
+          'value' => 'most-viewed',
+          'name' => 'Most viewed'
+        }
+      ]
     )
   end
 
@@ -344,6 +395,16 @@ RSpec.describe ResultSetPresenter do
       it 'returns false' do
         expect(presenter.has_email_signup_link?).to eq(false)
       end
+    end
+  end
+
+  describe '#hidden_text' do
+    before(:each) do
+      allow(finder).to receive(:filters).and_return([a_facet, another_facet, a_date_facet, a_facet_without_facet_tags])
+    end
+
+    it 'creates appropriate hidden text for the facet without a facet tag' do
+      expect(presenter.hidden_text).to eql("<span class='visually-hidden'>, that are Statistics (published) , sorted by Updated (newest)</span>")
     end
   end
 end

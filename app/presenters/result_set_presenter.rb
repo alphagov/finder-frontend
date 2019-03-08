@@ -30,7 +30,7 @@ class ResultSetPresenter
       finder_name: finder.name,
       any_filters_applied: any_filters_applied?,
       next_and_prev_links: next_and_prev_links,
-      sort_options: sort_options,
+      sort_options: hidden_text,
     }
   end
 
@@ -66,8 +66,8 @@ class ResultSetPresenter
     @filter_params.fetch('keywords', '')
   end
 
-  def sort_options
-    "<span class='visually-hidden'>sorted by <strong>" + sort_option['name'] + "</strong></span>" if sort_option.present?
+  def hidden_text
+    "<span class='visually-hidden'>#{facets_without_tags} #{sort_options}</span>"
   end
 
   def has_email_signup_link?
@@ -81,6 +81,41 @@ class ResultSetPresenter
 private
 
   attr_reader :view_context
+
+  def facets_without_tags
+    facet_description = ""
+
+    if filters.present?
+      filters.each { |filter|
+        if filter.hide_facet_tag
+          filter_label = ""
+          if filter.respond_to?(:allowed_values) && filter.allowed_values.present?
+            filter.allowed_values.each { |allowed|
+              filter_label = allowed['label'] if filter.value == allowed['value']
+            }
+          end
+
+          if filter_label.empty?
+            filter_label = facet_without_tag_default_option(filter)
+          end
+
+          facet_description << ", #{filter.preposition} #{filter_label}" unless filter_label.empty?
+        end
+      }
+    end
+
+    facet_description
+  end
+
+  def facet_without_tag_default_option(filter)
+    label = filter.allowed_values
+      &.detect { |option| option['default'] }
+    label['label']
+  end
+
+  def sort_options
+    ", sorted by " + sort_option['name'] if sort_option.present?
+  end
 
   def next_and_prev_links
     return unless finder.pagination

@@ -11,7 +11,6 @@ class FacetTagPresenter
   def present
     return {} if @hide_facet_tag
 
-    # what does this do???
     if fragment.nil? || fragment['values'].nil?
       {}
     end

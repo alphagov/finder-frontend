@@ -105,24 +105,6 @@
         "filterable": true,
         "preposition": "about"
       },
-
-      {
-        "key": "organisations",
-        "name": "Organisation",
-        "short_name": "Organisation",
-        "preposition": "from",
-        "type": "text",
-        "display_as_result_metadata": true,
-        "filterable": true
-      },
-      {
-        "key": "world_locations",
-        "name": "World location",
-        "preposition": "in",
-        "type": "text",
-        "display_as_result_metadata": true,
-        "filterable": true
-      },
       {
         "key":"content_store_document_type",
         "name":"Statistics",
@@ -151,6 +133,23 @@
             "value": "research"
           }
         ]
+      },
+      {
+        "key": "organisations",
+        "name": "Organisation",
+        "short_name": "Organisation",
+        "preposition": "from",
+        "type": "text",
+        "display_as_result_metadata": true,
+        "filterable": true
+      },
+      {
+        "key": "world_locations",
+        "name": "World location",
+        "preposition": "in",
+        "type": "text",
+        "display_as_result_metadata": true,
+        "filterable": true
       },
       {
         "key": "public_timestamp",
