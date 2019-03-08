@@ -192,7 +192,7 @@ describe("liveSearch", function(){
       expect(liveSearch.updateResults).toHaveBeenCalled();
     });
 
-    it("should update email and atom subscription links when checkbox is changed", function(){
+    it("should call updateLinks function when a facet is changed", function(){
       spyOn(liveSearch, 'updateLinks');
       $form.find('input[name="field"]').prop('checked', false);
 
