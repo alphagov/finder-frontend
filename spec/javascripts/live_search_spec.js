@@ -415,10 +415,12 @@ describe("liveSearch", function(){
     liveSearch.updateLinks();
     expect(liveSearch.$emailLink.attr('href')).toBe("https://a-url/email-signup?field=sheep&published_at=2004");
     expect(liveSearch.$atomLink.attr('href')).toBe("http://an-atom-url.atom?field=sheep&published_at=2004");
+    expect(liveSearch.$atomAutodiscoveryLink.attr('href')).toBe("http://an-atom-url.atom?field=sheep&published_at=2004");
     $form.find('input[name="field"]').prop('checked', false);
     liveSearch.saveState();
     liveSearch.updateLinks();
     expect(liveSearch.$emailLink.attr('href')).toBe("https://a-url/email-signup?published_at=2004");
     expect(liveSearch.$atomLink.attr('href')).toBe("http://an-atom-url.atom?published_at=2004");
+    expect(liveSearch.$atomAutodiscoveryLink.attr('href')).toBe("http://an-atom-url.atom?published_at=2004");
   });
 });

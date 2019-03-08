@@ -260,6 +260,7 @@
     }
     if (typeof(this.atomHref)!='undefined' && this.atomHref!=null) {
       this.$atomLink.attr('href', this.atomHref.split('?')[0] + searchState);
+      this.$atomAutodiscoveryLink.attr('href', this.atomHref.split('?')[0] + searchState);
     }
   }
 
