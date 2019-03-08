@@ -125,6 +125,7 @@ private
       part_of_taxonomy_tree
       all_part_of_taxonomy_tree
       document_type
+      content_store_document_type
     ).include?(filter_key)
   end
 

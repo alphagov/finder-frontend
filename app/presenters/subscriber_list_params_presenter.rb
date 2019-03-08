@@ -44,6 +44,16 @@ private
   end
 
   def facet_filter_value(facet)
-    facet['filter_value'] || params[facet['facet_id']]
+    return facet['filter_value'] if facet['filter_value'].present?
+
+    values = Array(params[facet['facet_id']])
+
+    return facet_option_lookup_values(values, facet) if facet['option_lookup'].present?
+
+    values
+  end
+
+  def facet_option_lookup_values(values, facet)
+    facet['option_lookup'].select { |key, _| values.include? key }.values.flatten
   end
 end
