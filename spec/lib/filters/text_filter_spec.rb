@@ -43,11 +43,39 @@ describe Filters::TextFilter do
   end
 
   describe "#value" do
-    context "when params is present" do
-      let(:params) { [:alpha] }
+    context "when params is present and option_lookup is absent" do
+      let(:params) { %w(alpha) }
+      let(:facet) { {} }
 
       it "should contain all values" do
-        expect(text_filter.value).to eq([:alpha])
+        expect(text_filter.value).to eq(%w(alpha))
+      end
+    end
+
+    context "when params is present and option_lookup is empty" do
+      let(:params) { %w(does_not_exist) }
+      let(:facet) { { "option_lookup" => { "policy_papers" => %w(guidance) } } }
+
+      it "should contain no values" do
+        expect(text_filter.value).to eq([])
+      end
+    end
+
+    context "when params is present and option_lookup is present" do
+      let(:params) { %w(policy_papers) }
+      let(:facet) { { "option_lookup" => { "policy_papers" => %w(guidance) } } }
+
+      it "should contain all values" do
+        expect(text_filter.value).to eq(%w(guidance))
+      end
+    end
+
+    context "when params has multiple values and option_lookup is present" do
+      let(:params) { %w(policy_papers does_not_exist consultations) }
+      let(:facet) { { "option_lookup" => { "consultations" => %w(open closed), "policy_papers" => %w(guidance) } } }
+
+      it "should contain all values" do
+        expect(text_filter.value).to eq(%w(open closed guidance))
       end
     end
   end

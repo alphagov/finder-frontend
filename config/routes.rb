@@ -23,5 +23,9 @@ FinderFrontend::Application.routes.draw do
 
   get '/search/advanced' => 'advanced_search_finder#show'
 
+  get '/redirect/announcements' => 'redirection#announcements'
+
+  get '/redirect/publications' => 'redirection#publications'
+
   get '/*slug' => 'finders#show', as: :finder
 end

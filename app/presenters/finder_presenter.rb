@@ -107,7 +107,7 @@ class FinderPresenter
   end
 
   def text_metadata_keys
-    metadata.select { |f| f.type == "text" }.map(&:key)
+    metadata.select { |f| %w[text autocomplete].include?(f.type) }.map(&:key)
   end
 
   def default_sort_option
@@ -201,8 +201,7 @@ class FinderPresenter
   end
 
   def display_key_for_metadata_key(key)
-    case key
-    when 'organisations'
+    if %w[organisations document_collections].include?(key)
       'title'
     else
       'label'

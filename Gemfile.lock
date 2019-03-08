@@ -114,7 +114,7 @@ GEM
     faraday (0.15.4)
       multipart-post (>= 1.2, < 3)
     ffi (1.10.0)
-    gds-api-adapters (57.4.1)
+    gds-api-adapters (57.4.2)
       addressable
       link_header
       null_logger
@@ -142,7 +142,7 @@ GEM
       rubocop-rspec (~> 1.28)
       scss_lint
     govuk_ab_testing (2.4.1)
-    govuk_app_config (1.11.3)
+    govuk_app_config (1.12.0)
       aws-xray-sdk (~> 0.10.0)
       logstasher (~> 1.2.2)
       sentry-raven (~> 2.7.1)
@@ -239,7 +239,7 @@ GEM
     public_suffix (3.0.3)
     puma (3.12.0)
     rack (2.0.6)
-    rack-cache (1.8.0)
+    rack-cache (1.9.0)
       rack (>= 0.4)
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
@@ -404,7 +404,7 @@ DEPENDENCIES
   govuk-content-schema-test-helpers (~> 1.6)
   govuk-lint (~> 3.11.0)
   govuk_ab_testing (~> 2.4.1)
-  govuk_app_config (~> 1.11.3)
+  govuk_app_config (~> 1.12.0)
   govuk_document_types (~> 0.9.0)
   govuk_frontend_toolkit (~> 8.1)
   govuk_publishing_components (~> 16.3.0)

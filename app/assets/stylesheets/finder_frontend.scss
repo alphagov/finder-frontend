@@ -48,7 +48,7 @@
     dt {
       display: none;
 
-      &.metadata-date-label {
+      &.metadata-label {
         @include inline-block;
       }
     }
@@ -232,38 +232,6 @@
       padding: $gutter-half;
       margin-left: -$gutter-half - 4;
       border-left: solid 4px $error-colour;
-    }
-
-    .block-label {
-      display: block;
-      clear: left;
-      position: relative;
-      background: $panel-colour;
-      border: 1px solid $panel-colour;
-      padding: 18px $gutter $gutter-half 45px;
-      margin: 5px 0;
-      cursor: pointer;
-
-      @include media(tablet) {
-        float: left;
-      }
-
-      &:hover {
-        border-color: $black;
-      }
-
-      &.selected {
-        background: $white;
-        border-color: $black;
-      }
-
-      &.focused {
-        outline: 3px solid $yellow;
-
-        input[type=checkbox]:focus {
-          outline: none;
-        }
-      }
     }
   }
 

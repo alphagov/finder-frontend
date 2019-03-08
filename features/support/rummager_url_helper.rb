@@ -63,6 +63,18 @@ module RummagerUrlHelper
       )
   end
 
+  def policy_papers_params
+    base_search_params.merge(
+      'fields' => policy_papers_search_fields.join(','),
+      'filter_content_purpose_supergroup' => 'policy_and_engagement',
+      'filter_all_part_of_taxonomy_tree[]' => [nil, nil],
+      'facet_organisations' => '1500,order:value.title',
+      'facet_world_locations' => '1500,order:value.title',
+      'count' => 20,
+      'order' => '-public_timestamp',
+    )
+  end
+
   def news_and_communications_search_fields
     base_search_fields + %w(
       part_of_taxonomy_tree
@@ -76,6 +88,15 @@ module RummagerUrlHelper
     base_search_fields + %w(
       part_of_taxonomy_tree
       organisations
+    )
+  end
+
+  def policy_papers_search_fields
+    base_search_fields + %w(
+      part_of_taxonomy_tree
+      content_store_document_type
+      organisations
+      world_locations
     )
   end
 

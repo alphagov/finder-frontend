@@ -113,6 +113,25 @@ When(/^I view the business readiness finder$/) do
   visit finder_path('find-eu-exit-guidance-business')
 end
 
+When(/^I view the policy papers and consultations finder$/) do
+  topic_taxonomy_has_taxons([
+    {
+      content_id: "Taxon_1",
+      title: "Taxon_1"
+    },
+    {
+      content_id: "Taxon_2",
+      title: "Taxon_2"
+    }
+  ])
+  content_store_has_policy_and_engagement_finder
+  stub_whitehall_api_world_location_request
+  stub_rummager_api_request_with_policy_papers_results
+  stub_rummager_api_request_with_filtered_policy_papers_results
+
+  visit finder_path('policy-papers-and-consultations')
+end
+
 When(/^I view a list of services$/) do
   topic_taxonomy_has_taxons
   content_store_has_services_finder
@@ -127,6 +146,21 @@ When(/^I search documents by keyword$/) do
   stub_keyword_search_api_request
 
   visit finder_path('mosw-reports')
+
+  @keyword_search = "keyword searchable"
+
+  within '.filter-form' do
+    fill_in("Search", with: @keyword_search)
+  end
+
+  click_on "Filter results"
+end
+
+When(/^I search documents by keyword for business finder$/) do
+  content_store_has_business_readiness_finder
+  stub_keyword_business_readiness_search_api_request
+
+  visit finder_path('find-eu-exit-guidance-business')
 
   @keyword_search = "keyword searchable"
 
@@ -447,6 +481,14 @@ Then(/^I see most relevant order selected$/) do
   expect(page).to have_select('order', selected: "Relevance")
 end
 
+Then(/^I see updated newest order selected$/) do
+  expect(page).to have_select('order', selected: "Updated (newest)")
+end
+
+Then(/^I see topic order selected$/) do
+  expect(page).to have_select('order', selected: "Topic")
+end
+
 And(/^I see the facet tag$/) do
   within '.facet-tags' do
     expect(page).to have_button("✕")
@@ -462,6 +504,12 @@ end
 
 And(/^I select a Person$/) do
   check('Rufus Scrimgeour')
+end
+
+And(/^I select some document types$/) do
+  click_on('Document type')
+  find('.govuk-label', text: 'Policy papers').click
+  find('.govuk-label', text: 'Consultations (closed)').click
 end
 
 And(/^I reload the page$/) do
@@ -515,6 +563,8 @@ Then(/^The (.*) checkbox in deselected$/) do |checkbox|
 end
 
 And(/^I fill in some keywords$/) do
+  stub_all_rummager_api_requests_with_business_finder_results
+
   fill_in 'Search', with: "Keyword1 Keyword2\n"
 end
 
@@ -561,6 +611,17 @@ Then("I should see results in the default group") do
   end
 end
 
+Then("I should see results for scoped by the selected document type") do
+  within("#js-results") do
+    expect(page.all("li.document").size).to eq(3) # 3 results in fixture
+    expect(page).to have_link('Restrictions on usage of spells within school grounds')
+    expect(page).to have_link('New platform at Hogwarts for the express train')
+    expect(page).to have_link('Installation of double glazing at Hogwarts')
+
+    expect(page).to have_no_link('Proposed changes to magic tournaments')
+  end
+end
+
 Then("I see results grouped by primary facet value") do
   within("#js-results") do
     expect(page.all(".filtered-results__group").size).to eq(2)
@@ -572,6 +633,18 @@ Then("I see results grouped by primary facet value") do
     within(".filtered-results__group:nth-child(2)") do
       expect(page).to have_css("h2.filtered-results__facet-heading", text: "All businesses")
     end
+  end
+end
+
+Then("I see results with pinned items") do
+  within("#js-results") do
+    expect(page.all(".document-heading--pinned").length).to eq(1)
+  end
+end
+
+Then("I do not see results with pinned items") do
+  within("#js-results") do
+    expect(page.all(".document-heading--pinned").length).to eq(0)
   end
 end
 
