@@ -1,8 +1,4 @@
-class OptionSelectFacet < FilterableFacet
-  def allowed_values
-    facet['allowed_values'] || []
-  end
-
+class SelectFacet < FilterableFacet
   def options(controls, key)
     # NOTE: We use a symbol-based hash here unlike all our other hash
     # data-structures because we pass this to a govuk_component partial

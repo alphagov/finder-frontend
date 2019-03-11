@@ -43,6 +43,10 @@ class Facet
     facet['display_as_result_metadata']
   end
 
+  def allowed_values
+    facet['allowed_values'] || []
+  end
+
 private
 
   def and_word_connectors

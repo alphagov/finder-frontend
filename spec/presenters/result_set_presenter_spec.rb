@@ -403,8 +403,35 @@ RSpec.describe ResultSetPresenter do
       allow(finder).to receive(:filters).and_return([a_facet, another_facet, a_date_facet, a_facet_without_facet_tags])
     end
 
-    it 'creates appropriate hidden text for the facet without a facet tag' do
-      expect(presenter.hidden_text).to eql("<span class='visually-hidden'>, that are Statistics (published) , sorted by Updated (newest)</span>")
+    it 'creates appropriate hidden text for the facet without a facet tag for a default value' do
+      expect(presenter.hidden_text).to eql("<span class='visually-hidden'>that are Statistics (published), sorted by Updated (newest)</span>")
+    end
+
+    it 'creates appropriate hidden text for the facet without a facet tag for a non default value' do
+      allow(a_facet_without_facet_tags).to receive(:value).and_return("research")
+      expect(presenter.hidden_text).to eql("<span class='visually-hidden'>that are Research, sorted by Updated (newest)</span>")
+    end
+
+    it 'will not include a facet without a facet tag if there is no selected value or default value' do
+      allow(a_facet_without_facet_tags).to receive(:value).and_return("")
+      allow(a_facet_without_facet_tags).to receive(:allowed_values).and_return(
+        [
+          {
+              'value' => 'statistics_published',
+              'label' => 'Statistics (published)'
+          },
+          {
+              'value' => 'statistics_upcoming',
+              'label' => 'Statistics (upcoming)'
+          },
+          {
+              'value' => 'research',
+              'label' => 'Research'
+          },
+        ]
+      )
+
+      expect(presenter.hidden_text).to eql("<span class='visually-hidden'>sorted by Updated (newest)</span>")
     end
   end
 end

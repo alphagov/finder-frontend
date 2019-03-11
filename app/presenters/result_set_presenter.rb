@@ -67,7 +67,8 @@ class ResultSetPresenter
   end
 
   def hidden_text
-    "<span class='visually-hidden'>#{facets_without_tags} #{sort_options}</span>"
+    text = (facets_without_tags + sort_options).compact.join(", ")
+    "<span class='visually-hidden'>#{text}</span>"
   end
 
   def has_email_signup_link?
@@ -83,38 +84,42 @@ private
   attr_reader :view_context
 
   def facets_without_tags
-    facet_description = ""
+    return [] unless filters.any?
 
-    if filters.present?
-      filters.each { |filter|
-        if filter.hide_facet_tag
-          filter_label = ""
-          if filter.respond_to?(:allowed_values) && filter.allowed_values.present?
-            filter.allowed_values.each { |allowed|
-              filter_label = allowed['label'] if filter.value == allowed['value']
-            }
-          end
+    facet_description = []
+    filters.each do |filter|
+      if filter.hide_facet_tag
+        filter_label = facet_without_tag_selected_option(filter)
 
-          if filter_label.empty?
-            filter_label = facet_without_tag_default_option(filter)
-          end
-
-          facet_description << ", #{filter.preposition} #{filter_label}" unless filter_label.empty?
+        if filter_label.empty?
+          filter_label = facet_without_tag_default_option(filter)
         end
-      }
+
+        facet_description << "#{filter.preposition} #{filter_label}" unless filter_label.empty?
+      end
     end
 
-    facet_description
+    facet_description.compact
+  end
+
+  def facet_without_tag_selected_option(filter)
+    filter.allowed_values.each do |allowed_value|
+      if filter.value == allowed_value['value']
+        return allowed_value['label']
+      end
+    end
+    ""
   end
 
   def facet_without_tag_default_option(filter)
-    label = filter.allowed_values
-      &.detect { |option| option['default'] }
-    label['label']
+    default_option = filter.allowed_values
+                &.detect { |option| option['default'] }
+    return '' if default_option.nil?
+    default_option.fetch('label', '')
   end
 
   def sort_options
-    ", sorted by " + sort_option['name'] if sort_option.present?
+    sort_option.present? ? ["sorted by #{sort_option['name']}"] : []
   end
 
   def next_and_prev_links
