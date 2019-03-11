@@ -217,7 +217,7 @@
 
   LiveSearch.prototype.insertRelevanceOption = function insertRelevanceOption() {
     var adjacentOption = this.$orderSelect.children("option").eq(this.$relevanceOrderOptionIndex);
-
+    this.$relevanceOrderOption.removeAttr('disabled');
     adjacentOption.before(this.$relevanceOrderOption);
   };
 
