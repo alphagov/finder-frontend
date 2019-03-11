@@ -1,4 +1,4 @@
-class AutocompleteFacet < SelectFacet
+class AutocompleteFacet < OptionSelectFacet
   def to_partial_path
     "autocomplete_facet"
   end

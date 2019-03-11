@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe SelectFacet do
+describe OptionSelectFacet do
   let(:allowed_values) {
     [
       {
@@ -28,7 +28,7 @@ describe SelectFacet do
     }
   }
 
-  subject { SelectFacet.new(facet_data) }
+  subject { OptionSelectFacet.new(facet_data) }
 
   describe "#sentence_fragment" do
     before do
@@ -84,7 +84,7 @@ describe SelectFacet do
         }
       }
 
-      subject { SelectFacet.new(large_facet_data) }
+      subject { OptionSelectFacet.new(large_facet_data) }
 
       specify { expect(subject.close_facet?).to be true }
     end
@@ -106,7 +106,7 @@ describe SelectFacet do
         }
       }
 
-      subject { SelectFacet.new(facet_data) }
+      subject { OptionSelectFacet.new(facet_data) }
 
       specify do
         subject.value = "1"

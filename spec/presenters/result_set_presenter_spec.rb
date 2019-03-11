@@ -28,7 +28,7 @@ RSpec.describe ResultSetPresenter do
 
   let(:a_facet) do
     double(
-      SelectFacet,
+      OptionSelectFacet,
       key: 'key_1',
       selected_values: [
         {
@@ -79,7 +79,7 @@ RSpec.describe ResultSetPresenter do
 
   let(:another_facet) do
     double(
-      SelectFacet,
+      OptionSelectFacet,
       key: 'key_2',
       preposition: 'About',
       selected_values: [
@@ -114,7 +114,7 @@ RSpec.describe ResultSetPresenter do
 
   let(:a_date_facet) do
     double(
-      SelectFacet,
+      OptionSelectFacet,
       'key' => 'closed_date',
       sentence_fragment: nil,
       has_filters?: false,
@@ -283,7 +283,7 @@ RSpec.describe ResultSetPresenter do
   describe "#documents_by_facets" do
     let(:primary_facet) do
       double(
-        SelectFacet,
+        OptionSelectFacet,
         key: 'sector_business_area',
         allowed_values: [
           { 'value' => 'aerospace', 'label' => 'Aerospace' },

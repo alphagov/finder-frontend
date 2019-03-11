@@ -1,4 +1,4 @@
-class SelectFacet < FilterableFacet
+class OptionSelectFacet < FilterableFacet
   def allowed_values
     facet['allowed_values'] || []
   end
