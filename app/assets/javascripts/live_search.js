@@ -33,25 +33,25 @@
 
       this.$form.on('change', 'input[type=checkbox], input[type=radio], select',
         function(e) {
-          if (e.target.type == "text" && !e.suppressAnalytics) {
+          if (!e.suppressAnalytics) {
             LiveSearch.prototype.fireTextAnalyticsEvent(e);
           }
-          this.formChange(e)
+          this.formChange(e);
         }.bind(this)
       );
 
-      this.$form.on('change keypress', 'input[type=text]',
+      this.$form.on('change keypress', 'input[type=text][name!="option-select-filter"]',
         function(e){
-          var ENTER_KEY = 13
+          var ENTER_KEY = 13;
 
           if(e.keyCode == ENTER_KEY || e.type == "change") {
             if (e.currentTarget.value != this.previousSearchTerm) {
-              if (e.target.type == "text" && !e.suppressAnalytics) {
+              if (!e.suppressAnalytics) {
                 LiveSearch.prototype.fireTextAnalyticsEvent(e);
               }
             }
-              this.formChange(e);
-              this.previousSearchTerm = $(e.currentTarget).val();
+            this.formChange(e);
+            this.previousSearchTerm = e.currentTarget.value;
             e.preventDefault();
           }
         }.bind(this)
@@ -63,16 +63,21 @@
     } else {
       this.$form.find('.js-live-search-fallback').show();
     }
-  };
+  }
 
   LiveSearch.prototype.getTaxonomyFacet = function getTaxonomyFacet() {
     this.taxonomy = this.taxonomy || new GOVUK.TaxonomySelect({ $el: $('.app-taxonomy-select') });
     return this.taxonomy;
-  }
+  };
+
+  LiveSearch.prototype.getSerializeForm = function getSerializeForm(){
+    var uncleanState = this.$form.serializeArray();
+    return uncleanState.filter(function(field){ return field.name !== 'option-select-filter'; });
+  };
 
   LiveSearch.prototype.saveState = function saveState(state){
     if(typeof state === 'undefined'){
-      state = this.$form.serializeArray();
+      state = this.getSerializeForm();
     }
     this.previousState = this.state;
     this.state = state;
@@ -103,21 +108,21 @@
           this.trackingInit();
           this.trackPageView();
         }.bind(this)
-      )
+      );
     }
   };
 
   LiveSearch.prototype.trackingInit = function() {
     GOVUK.modules.start($('.js-live-search-results-block'));
     this.indexTrackingData();
-  }
+  };
 
   LiveSearch.prototype.trackPageView = function trackPageView() {
     if (this.canTrackPageview()) {
       var newPath = window.location.pathname + "?" + $.param(this.state);
       GOVUK.analytics.trackPageview(newPath);
     }
-  }
+  };
 
   /**
    * Results grouped by facet and facet value do not have an accurate document index
@@ -142,10 +147,10 @@
             trackingAction += 'p';
           }
           $documentLink.attr('data-track-action', trackingAction);
-        })
-      })
+        });
+      });
     }
-  }
+  };
 
   LiveSearch.prototype.fireTextAnalyticsEvent = function(event) {
     if (this.canTrackPageview()) {
@@ -162,11 +167,11 @@
         options
       );
     }
-  }
+  };
 
   LiveSearch.prototype.canTrackPageview = function() {
     return GOVUK.analytics && GOVUK.analytics.trackPageview;
-  }
+  };
 
   LiveSearch.prototype.cache = function cache(slug, data){
     if(typeof data === 'undefined'){
@@ -177,12 +182,12 @@
   };
 
   LiveSearch.prototype.isNewState = function isNewState(){
-    return $.param(this.state) !== this.$form.serialize();
+    return $.param(this.state) !== $.param(this.getSerializeForm());
   };
 
   LiveSearch.prototype.updateOrder = function updateOrder() {
     if (!this.$orderSelect.length) {
-      return
+      return;
     }
 
     var liveSearch = this;
@@ -211,7 +216,7 @@
     var defaultSortOption = this.$orderSelect.data('default-sort-option');
 
     this.$orderSelect.val(defaultSortOption);
-    this.state = this.$form.serializeArray();
+    this.state = this.getSerializeForm();
   };
 
   LiveSearch.prototype.selectRelevanceSortOption = function selectRelevanceSortOption() {
@@ -219,7 +224,7 @@
 
     if (relevanceSortOption) {
       this.$orderSelect.val(relevanceSortOption);
-      this.state = this.$form.serializeArray();
+      this.state = this.getSerializeForm();
     }
   };
 
@@ -252,7 +257,7 @@
       });
     } else {
       this.displayResults(cachedResultData, searchState);
-      var out = new $.Deferred()
+      var out = new $.Deferred();
       return out.resolve();
     }
   };
@@ -266,7 +271,7 @@
       this.$atomLink.attr('href', this.atomHref.split('?')[0] + searchState);
       this.$atomAutodiscoveryLink.attr('href', this.atomHref.split('?')[0] + searchState);
     }
-  }
+  };
 
   LiveSearch.prototype.showLoadingIndicator = function showLoadingIndicator(){
     this.$loadingBlock.text('Loading...').show();
@@ -318,7 +323,7 @@
     var i, _i;
     for(i=0,_i=state.length; i<_i; i++){
       if(state[i].name === name){
-        return state[i].value
+        return state[i].value;
       }
     }
     return '';

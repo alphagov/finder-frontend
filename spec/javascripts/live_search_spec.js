@@ -39,6 +39,7 @@ describe("liveSearch", function(){
                 '<input type="checkbox" name="field" value="sheep" checked>' +
                 '<label for="published_at">Published at</label>' +
                 '<input type="text" name="published_at" value="2004" />' +
+                '<input type="text" name="option-select-filter" value="notincluded"/>' +
                 sortList +
                 '<input type="submit" value="Filter results" class="button js-live-search-fallback"/>' +
               '</form>');
@@ -64,6 +65,7 @@ describe("liveSearch", function(){
 
   it("should save initial state", function(){
     expect(liveSearch.state).toEqual([{name: 'field', value: 'sheep'}, {name: 'published_at', value: '2004'}]);
+    expect(liveSearch.state).not.toEqual([{name: 'field', value: 'sheep'}, {name: 'published_at', value: '2004'}, {name: 'option-select-filter', value: 'notincluded'}]);
   });
 
   it("should detect a new state", function(){
