@@ -263,6 +263,14 @@ Then(/^I can see filters based on the results$/) do
   end
 end
 
+And(/^filters are wrapped in a progressive disclosure element$/) do
+  expect(page).to have_selector('#facet-wrapper')
+end
+
+And(/^filters are not wrapped in a progressive disclosure element$/) do
+  expect(page).not_to have_selector('#facet-wrapper')
+end
+
 Given(/^a finder with autocomplete exists$/) do
   content_store_has_mosw_reports_finder_with_autocomplete_facet
   stub_rummager_api_request

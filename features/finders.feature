@@ -47,6 +47,12 @@ Feature: Filtering documents
   Scenario: Visit a finder with dynamic filter
     Given a finder with a dynamic filter exists
     Then I can see filters based on the results
+    And filters are wrapped in a progressive disclosure element
+
+  Scenario: Visit a finder with no facets
+    Given no results
+    When I view the finder with no keywords and no facets
+    And filters are not wrapped in a progressive disclosure element
 
   Scenario: Visit a finder autocomplete
     Given a finder with autocomplete exists
@@ -280,7 +286,7 @@ Feature: Filtering documents
     Then I see email and feed sign up links
     And I click button "Person" and select facet Rufus Scrimgeour
     Then I see email and feed sign up links with filters applied with extra empty filters
-    
+
   @javascript
   Scenario: Policy papers should have three options
     When I view the policy papers and consultations finder
