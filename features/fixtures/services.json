@@ -28,7 +28,7 @@
         "name": "Organisation",
         "preposition": "from",
         "short_name": "From",
-        "type": "autocomplete"
+        "type": "text"
       }
     ],
     "filter": {
