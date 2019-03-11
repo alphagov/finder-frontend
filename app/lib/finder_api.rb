@@ -131,12 +131,20 @@ private
 
   def present_facet_option(value, facet_key)
     slug = value.fetch("slug", "")
-    label = value.fetch("title", find_facet_title_by_slug(slug, facet_key))
+    title = value.fetch("title", find_facet_title_by_slug(slug, facet_key))
+    label = generate_label(value, title)
 
     {
       "label" => label,
       "value" => slug,
     }
+  end
+
+  def generate_label(value, title)
+    acronym = value.fetch("acronym", "")
+    return title if acronym.blank? || acronym == title
+
+    title + " (" + acronym + ")"
   end
 
   def find_facet_title_by_slug(slug, facet_key)
