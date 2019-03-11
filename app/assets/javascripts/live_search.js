@@ -17,6 +17,8 @@
     this.action = this.$form.attr('action') + '.json';
     this.$atomAutodiscoveryLink = options.$atomAutodiscoveryLink;
     this.$emailLink = $('a[href*="email-signup"]');
+    this.previousSearchTerm = '';
+
     this.emailSignupHref = this.$emailLink.attr('href');
     this.$atomLink = $('a[href*=".atom"]');
     this.atomHref = this.$atomLink.attr('href');
@@ -29,7 +31,7 @@
     if(GOVUK.support.history()){
       this.saveState();
 
-      this.$form.on('change', 'input[type=checkbox], input[type=text], input[type=radio], select',
+      this.$form.on('change', 'input[type=checkbox], input[type=radio], select',
         function(e) {
           if (e.target.type == "text" && !e.suppressAnalytics) {
             LiveSearch.prototype.fireTextAnalyticsEvent(e);
@@ -38,12 +40,18 @@
         }.bind(this)
       );
 
-      this.$form.on('keypress', 'input[type=text]',
+      this.$form.on('change keypress', 'input[type=text]',
         function(e){
           var ENTER_KEY = 13
 
-          if(e.keyCode == ENTER_KEY) {
-            this.formChange(e);
+          if(e.keyCode == ENTER_KEY || e.type == "change") {
+            if (e.currentTarget.value != this.previousSearchTerm) {
+              if (e.target.type == "text" && !e.suppressAnalytics) {
+                LiveSearch.prototype.fireTextAnalyticsEvent(e);
+              }
+            }
+              this.formChange(e);
+              this.previousSearchTerm = $(e.currentTarget).val();
             e.preventDefault();
           }
         }.bind(this)

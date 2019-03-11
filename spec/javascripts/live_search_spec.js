@@ -238,6 +238,33 @@ describe("liveSearch", function(){
       expect(GOVUK.LiveSearch.prototype.fireTextAnalyticsEvent).toHaveBeenCalledTimes(1);
     });
 
+    it("should trigger filterClicked for both change and enter key events on text input", function() {
+      GOVUK.LiveSearch.prototype.fireTextAnalyticsEvent = function (event) {}
+      spyOn(GOVUK.LiveSearch.prototype, 'fireTextAnalyticsEvent')
+
+      $form.find('input[name="published_at"]').val('searchChange').trigger('change');
+
+      expect(GOVUK.LiveSearch.prototype.fireTextAnalyticsEvent).toHaveBeenCalledTimes(1);
+
+      var enterKeyPress = $.Event( "keypress", { keyCode: 13 } );
+      $form.find('input[name="published_at"]').val('searchEnter').trigger(enterKeyPress);
+
+      expect(GOVUK.LiveSearch.prototype.fireTextAnalyticsEvent).toHaveBeenCalledTimes(2);
+    });
+
+    it("should not trigger multiple tracking events if the search term stays the same", function() {
+      GOVUK.LiveSearch.prototype.fireTextAnalyticsEvent = function (event) {}
+      spyOn(GOVUK.LiveSearch.prototype, 'fireTextAnalyticsEvent')
+
+      $form.find('input[name="published_at"]').val('same term').trigger('change');
+      $form.find('input[name="published_at"]').val('same term').trigger('change');
+
+      var enterKeyPress = $.Event( "keypress", { keyCode: 13 } );
+      $form.find('input[name="published_at"]').val('same term').trigger(enterKeyPress);
+
+      expect(GOVUK.LiveSearch.prototype.fireTextAnalyticsEvent).toHaveBeenCalledTimes(1);
+    });
+
     it("should not trigger filterClicked custom event when input type is text and analytics are suppressed", function() {
       GOVUK.LiveSearch.prototype.fireTextAnalyticsEvent = function (event) {}
       spyOn(GOVUK.LiveSearch.prototype, 'fireTextAnalyticsEvent')
