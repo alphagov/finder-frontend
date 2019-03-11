@@ -1,4 +1,5 @@
-<li class="document">
+<li class="document{{#document.top_result}} document--top{{/document.top_result}}">
+  <p>{{#document.top_result}}Most relevant result{{/document.top_result}}</p>
   <a href='{{document.link}}'
       class="document__link"
       data-track-category='navFinderLinkClicked'
