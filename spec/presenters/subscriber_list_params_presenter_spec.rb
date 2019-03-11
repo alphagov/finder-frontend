@@ -85,5 +85,32 @@ RSpec.describe SubscriberListParamsPresenter do
       presenter = described_class.new(signup_finder_content_item, params)
       expect(presenter.subscriber_list_params).to eql('a_filter_key_rummager_can_filter_by' => %w(some-taxon))
     end
+
+    it "translates option_lookup values into a filter key if they are present" do
+      signup_finder_content_item = signup_finder.tap do |content_item|
+        content_item['details']['email_filter_facets'] = [
+          {
+            "facet_id" => "content_store_document_type",
+            "facet_name" => "document types",
+            "option_lookup" => {
+              "policy_papers" => %w(impact_assessment case_study policy_paper),
+              "open_consultations" => %w(open_consultation),
+              "closed_consultations" => %w(closed_consultation consultation_outcome)
+            }
+          }
+        ]
+      end
+
+      params = { 'content_store_document_type' => %w(policy_papers open_consultations) }
+      presenter = described_class.new(signup_finder_content_item, params)
+      expect(presenter.subscriber_list_params).to eql(
+        'content_store_document_type' => %w(
+          impact_assessment
+          case_study
+          policy_paper
+          open_consultation
+        )
+      )
+    end
   end
 end
