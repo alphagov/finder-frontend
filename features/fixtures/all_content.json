@@ -28,7 +28,8 @@
         "name": "Organisation",
         "preposition": "from",
         "short_name": "From",
-        "type": "text"
+        "type": "text",
+        "show_option_select_filter": true
       },
       {
         "display_as_result_metadata": false,
@@ -36,7 +37,8 @@
         "key": "people",
         "name": "Person",
         "preposition": "from",
-        "type": "text"
+        "type": "text",
+        "show_option_select_filter": true
       },
       {
         "display_as_result_metadata": true,
@@ -44,7 +46,8 @@
         "key": "world_locations",
         "name": "World location",
         "preposition": "in",
-        "type": "text"
+        "type": "text",
+        "show_option_select_filter": true
       },
       {
         "display_as_result_metadata": true,

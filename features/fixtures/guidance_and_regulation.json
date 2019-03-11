@@ -66,7 +66,8 @@
         "preposition": "from",
         "type": "text",
         "display_as_result_metadata": true,
-        "filterable": true
+        "filterable": true,
+        "show_option_select_filter": true
       },
       {
         "key": "world_locations",
@@ -74,7 +75,8 @@
         "preposition": "in",
         "type": "text",
         "display_as_result_metadata": true,
-        "filterable": true
+        "filterable": true,
+        "show_option_select_filter": true
       },
       {
         "key": "public_timestamp",
