@@ -361,6 +361,158 @@ RSpec.describe GroupedResultSetPresenter do
         ])
       end
     end
+
+    context "when no filters have been selected" do
+      let(:filter_params) { { order: 'topic' } }
+      let(:results) { ResultSet.new([document], total) }
+
+      it "groups all documents in the default group" do
+        allow(finder).to receive(:filters).and_return([])
+        allow(a_facet_collection).to receive(:find)
+
+        expect(subject.grouped_documents).to eq([{
+          facet_name: 'All businesses',
+          facet_key: 'all_businesses',
+          documents: subject.documents
+        }])
+      end
+    end
+
+    context "when primary facets have been selected" do
+      let(:filter_params) {
+        {
+          order: 'topic',
+          sector_business_area: %W(aerospace),
+          'case-type': %W(ca98-and-civil-cartels)
+        }
+      }
+      let(:results) { ResultSet.new([document, tagged_document], total) }
+
+      it "groups the relevant documents in the primary facets" do
+        allow(finder).to receive(:filters).and_return([a_facet, primary_facet])
+        allow(a_facet_collection).to receive(:find)
+        allow(a_facet_collection).to receive(:map).and_return([[a_facet.allowed_values], [primary_facet.allowed_values]])
+
+        expect(subject.grouped_documents).to eq([
+          {
+            facet_name: 'Aerospace',
+            facet_key: 'aerospace',
+            documents: [{ document: primary_tagged_result, document_index: 2 }]
+          },
+          {
+            facet_name: 'Case type',
+            facet_key: 'case-type',
+            documents: [{ document: document_result, document_index: 1 }]
+          },
+        ])
+      end
+    end
+
+    context "when other facets have been selected" do
+      let(:filter_params) {
+        {
+          order: 'topic',
+          'case-type': %W(ca98-and-civil-cartels)
+        }
+      }
+
+      let(:results) { ResultSet.new([document, tagged_document], total) }
+
+      it "groups the relevant documents in the other facets" do
+        allow(finder).to receive(:filters).and_return([a_facet, primary_facet])
+        allow(a_facet_collection).to receive(:find)
+
+        expect(subject.grouped_documents).to eq([
+          {
+            facet_name: 'Case type',
+            facet_key: 'case-type',
+            documents: [{ document: document_result, document_index: 1 }]
+          }
+        ])
+      end
+    end
+
+    context "when a document is tagged to all primary facets" do
+      let(:tagging_metadata) {
+        [{
+          id: 'sector_business_area',
+          name: 'Business area',
+          value: 'Aerospace',
+          type: 'text',
+          labels: %W(aerospace agriculture)
+        }]
+      }
+
+      let(:filter_params) {
+        {
+          order: 'topic',
+          sector_business_area: %W(aerospace),
+          'case-type': %W(ca98-and-civil-cartels)
+        }
+      }
+
+      let(:results) { ResultSet.new([tagged_document], total) }
+
+      it "is grouped in the default set" do
+        allow(a_facet_collection).to receive(:find).and_return(primary_facet)
+        allow(finder).to receive(:filters).and_return([a_facet, primary_facet])
+
+        expect(subject.grouped_documents).to eq([
+          {
+            facet_name: 'All businesses',
+            facet_key: 'all_businesses',
+            documents: [{ document: primary_tagged_result, document_index: 1 }]
+          }
+        ])
+      end
+    end
+  end
+
+  describe "#grouped_display?" do
+    context "a finder does not sort by topic" do
+      let(:filter_params) { {} }
+      before { allow(finder).to receive(:default_sort_option) }
+      it "is false" do
+        allow(finder).to receive(:sort).and_return([])
+
+        expect(subject.grouped_display?).to be false
+      end
+    end
+
+    context "a finder sorts by topic" do
+      let(:topic_sort_option) { { 'name' => 'Topic', 'key' => 'topic' } }
+      before do
+        allow(finder).to receive(:default_sort_option).and_return(topic_sort_option)
+        allow(finder).to receive(:sort).and_return([topic_sort_option])
+      end
+      context "with no sort param" do
+        let(:filter_params) { {} }
+        it "is true" do
+          expect(subject.grouped_display?).to be true
+        end
+      end
+      context "with a 'topic' sort param" do
+        let(:filter_params) { { order: 'topic' } }
+        it "is true" do
+          expect(subject.grouped_display?).to be true
+        end
+      end
+      context "with a-z sort param" do
+        let(:filter_params) { { order: 'a-z' } }
+        it "is false" do
+          expect(subject.grouped_display?).to be false
+        end
+      end
+    end
+  end
+
+  context "when not grouping results" do
+    let(:filter_params) { { order: 'a-z' } }
+    let(:results) { ResultSet.new([document], total) }
+
+    it "returns an empty array" do
+      expect(subject.grouped_documents).to eq([])
+    end
   end
 
   describe "#grouped_display?" do

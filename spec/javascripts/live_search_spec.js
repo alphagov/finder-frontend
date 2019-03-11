@@ -43,7 +43,9 @@ describe("liveSearch", function(){
     $results = $('<div class="js-live-search-results-block"></div>');
     $count = $('<div aria-live="assertive" id="js-search-results-info"><p class="result-info"></p></div>');
     $atomAutodiscoveryLink = $("<link href='http://an-atom-url.atom' rel='alternate' title='ATOM' type='application/atom+xml'>");
-    $('body').append($form).append($results).append($atomAutodiscoveryLink);
+    $emailSubscriptionLinks = $("<a href='https://a-url/email-signup?query_param=something'>");
+    $feedSubscriptionLinks = $("<a href='http://an-atom-url.atom?query_param=something'>");
+    $('body').append($form).append($results).append($atomAutodiscoveryLink).append($feedSubscriptionLinks).append($emailSubscriptionLinks);
 
     _supportHistory = GOVUK.support.history;
     GOVUK.support.history = function(){ return true; };
@@ -188,6 +190,15 @@ describe("liveSearch", function(){
       liveSearch.formChange();
       expect(liveSearch.state).toEqual([{name: 'published_at', value: '2004'}]);
       expect(liveSearch.updateResults).toHaveBeenCalled();
+    });
+
+    it("should call updateLinks function when a facet is changed", function(){
+      spyOn(liveSearch, 'updateLinks');
+      $form.find('input[name="field"]').prop('checked', false);
+
+      liveSearch.formChange();
+      expect(liveSearch.state).toEqual([{name: 'published_at', value: '2004'}]);
+      expect(liveSearch.updateLinks).toHaveBeenCalled();
     });
 
     it("should trigger analytics trackpage when checkbox is changed", function(){
@@ -398,5 +409,18 @@ describe("liveSearch", function(){
       expect($defaultGroup.find('a[data-track-action="foo.2.1"]').text()).toMatch('Test report 3')
       expect($defaultGroup.find('a[data-track-action="foo.2.2"]').text()).toMatch('Test report 2')
     });
+  });
+
+  it("should replace links with new links when state changes", function(){
+    liveSearch.updateLinks();
+    expect(liveSearch.$emailLink.attr('href')).toBe("https://a-url/email-signup?field=sheep&published_at=2004");
+    expect(liveSearch.$atomLink.attr('href')).toBe("http://an-atom-url.atom?field=sheep&published_at=2004");
+    expect(liveSearch.$atomAutodiscoveryLink.attr('href')).toBe("http://an-atom-url.atom?field=sheep&published_at=2004");
+    $form.find('input[name="field"]').prop('checked', false);
+    liveSearch.saveState();
+    liveSearch.updateLinks();
+    expect(liveSearch.$emailLink.attr('href')).toBe("https://a-url/email-signup?published_at=2004");
+    expect(liveSearch.$atomLink.attr('href')).toBe("http://an-atom-url.atom?published_at=2004");
+    expect(liveSearch.$atomAutodiscoveryLink.attr('href')).toBe("http://an-atom-url.atom?published_at=2004");
   });
 });

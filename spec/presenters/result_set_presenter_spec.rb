@@ -13,7 +13,6 @@ RSpec.describe ResultSetPresenter do
       total: 20,
       facets: a_facet_collection,
       keywords: keywords,
-      atom_url: "/a-finder.atom",
       default_documents_per_page: 10,
       values: {},
       pagination: pagination,
@@ -160,6 +159,9 @@ RSpec.describe ResultSetPresenter do
       allow(presenter).to receive(:any_filters_applied?).and_return(true)
       allow(presenter).to receive(:grouped_display?).and_return(false)
       allow(view_context).to receive(:render).and_return('<nav></nav>')
+
+      allow(finder).to receive(:atom_url).and_return("/finder.atom")
+      allow(finder).to receive(:email_alert_signup_url).and_return("/email_signup")
     end
 
     it 'returns an appropriate hash' do
@@ -171,7 +173,6 @@ RSpec.describe ResultSetPresenter do
       expect(presenter.to_hash[:finder_name].present?).to be_truthy
       expect(presenter.to_hash[:applied_filters].present?).to be_truthy
       expect(presenter.to_hash[:any_filters_applied].present?).to be_truthy
-      expect(presenter.to_hash[:atom_url].present?).to be_truthy
       expect(presenter.to_hash[:next_and_prev_links].present?).to be_truthy
     end
 
@@ -275,6 +276,70 @@ RSpec.describe ResultSetPresenter do
       it 'creates a new document for each result' do
         search_result_objects = presenter.documents
         expect(search_result_objects.count).to eql(3)
+      end
+    end
+  end
+
+  describe "#documents_by_facets" do
+    let(:primary_facet) do
+      double(
+        SelectFacet,
+        key: 'sector_business_area',
+        allowed_values: [
+          { 'value' => 'aerospace', 'label' => 'Aerospace' },
+          { 'value' => 'agriculture', 'label' => 'Agriculture' },
+        ],
+        value: %W(aerospace agriculture),
+        labels: %W(aerospace agriculture),
+      )
+    end
+  end
+
+  describe '#signup_links' do
+    context 'has both signup links' do
+      before(:each) do
+        allow(finder).to receive(:atom_url).and_return("/finder.atom")
+        allow(finder).to receive(:email_alert_signup_url).and_return("/email_signup")
+      end
+
+      it 'returns both signup links' do
+        expect(presenter.signup_links).to eq(email_signup_link: "/email_signup", feed_link: "/finder.atom", margin_bottom: 3)
+      end
+    end
+
+    context 'has just has the atom signup link' do
+      before(:each) do
+        allow(finder).to receive(:atom_url).and_return("/finder.atom")
+        allow(finder).to receive(:email_alert_signup_url).and_return("")
+      end
+
+      it 'returns just the atom link' do
+        expect(presenter.signup_links).to eq(feed_link: "/finder.atom", margin_bottom: 3)
+      end
+    end
+  end
+
+
+  describe '#has_email_signup_link?' do
+    context 'has one signup link' do
+      before(:each) do
+        allow(finder).to receive(:atom_url).and_return("")
+        allow(finder).to receive(:email_alert_signup_url).and_return("/email_signup")
+      end
+
+      it 'returns true' do
+        expect(presenter.has_email_signup_link?).to eq(true)
+      end
+    end
+
+    context 'has no links' do
+      before(:each) do
+        allow(finder).to receive(:atom_url).and_return("")
+        allow(finder).to receive(:email_alert_signup_url).and_return("")
+      end
+
+      it 'returns false' do
+        expect(presenter.has_email_signup_link?).to eq(false)
       end
     end
   end

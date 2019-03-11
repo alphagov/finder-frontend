@@ -267,6 +267,20 @@ Feature: Filtering documents
     Then the page has a landmark to the search results
     And the page has a landmark to the search filters
 
+  Scenario: Email links
+    When I view the news and communications finder
+    Then I see email and feed sign up links
+    And I select a Person
+    And I filter the results
+    Then I see email and feed sign up links with filters applied
+
+  @javascript
+  Scenario: Email links
+    When I view the news and communications finder
+    Then I see email and feed sign up links
+    And I click button "Person" and select facet Rufus Scrimgeour
+    Then I see email and feed sign up links with filters applied with extra empty filters
+    
   @javascript
   Scenario: Policy papers should have three options
     When I view the policy papers and consultations finder

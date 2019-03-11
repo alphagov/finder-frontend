@@ -29,7 +29,6 @@ class ResultSetPresenter
       page_count: documents.count,
       finder_name: finder.name,
       any_filters_applied: any_filters_applied?,
-      atom_url: atom_url,
       next_and_prev_links: next_and_prev_links,
       sort_options: sort_options,
     }
@@ -69,6 +68,14 @@ class ResultSetPresenter
 
   def sort_options
     "<span class='visually-hidden'>sorted by <strong>" + sort_option['name'] + "</strong></span>" if sort_option.present?
+  end
+
+  def has_email_signup_link?
+    signup_links.any?
+  end
+
+  def signup_links
+    @signup_links ||= fetch_signup_links
   end
 
 private
@@ -113,5 +120,25 @@ private
     sort_option ||= finder.default_sort_option
 
     sort_option
+  end
+
+  def fetch_signup_links
+    links = {}
+    links[:email_signup_link] = email_signup_link if email_signup_link.present?
+    links[:feed_link] = feed_link if feed_link.present?
+    links[:margin_bottom] = 3 if email_signup_link.present? || feed_link.present?
+    links
+  end
+
+  def email_signup_link
+    return '' unless finder.respond_to?(:email_alert_signup_url)
+
+    finder.email_alert_signup_url
+  end
+
+  def feed_link
+    return '' unless finder.respond_to?(:atom_url)
+
+    finder.atom_url
   end
 end

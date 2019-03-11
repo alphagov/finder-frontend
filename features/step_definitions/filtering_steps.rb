@@ -51,6 +51,21 @@ Then(/^I can get a list of all documents with matching metadata$/) do
   expect(page).to have_css('.filtered-results .document', count: 1)
 end
 
+And("I see email and feed sign up links") do
+  expect(page).to have_css('a[href="/news-and-communications/email-signup?"]')
+  expect(page).to have_css('a[href="/news-and-communications.atom"]')
+end
+
+And("I see email and feed sign up links with filters applied") do
+  expect(page).to have_css('a[href="/news-and-communications/email-signup?people%5B%5D=rufus-scrimgeour"]')
+  expect(page).to have_css('a[href="/news-and-communications.atom?order=updated-newest&people%5B%5D=rufus-scrimgeour&public_timestamp%5Bfrom%5D=&public_timestamp%5Bto%5D="]')
+end
+
+And("I see email and feed sign up links with filters applied with extra empty filters") do
+  expect(page).to have_css('a[href="/news-and-communications/email-signup?parent=&keywords=&level_one_taxon=&people%5B%5D=rufus-scrimgeour&public_timestamp%5Bfrom%5D=&public_timestamp%5Bto%5D=&order=updated-newest"]')
+  expect(page).to have_css('a[href="/news-and-communications.atom?parent=&keywords=&level_one_taxon=&people%5B%5D=rufus-scrimgeour&public_timestamp%5Bfrom%5D=&public_timestamp%5Bto%5D=&order=updated-newest"]')
+end
+
 When(/^I view a list of news and communications$/) do
   topic_taxonomy_has_taxons([
     {
@@ -579,7 +594,7 @@ Then(/^I can sign up to email alerts for allowed filters$/) do
 
   content_store_has_item('/cma-cases/email-signup', signup_content_item)
 
-  click_link('Subscribe to email alerts')
+  click_link('Get email alerts')
 
   begin
     click_on('Create subscription')
