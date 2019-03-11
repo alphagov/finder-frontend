@@ -92,7 +92,7 @@ describe 'components/_option-select.html.erb', type: :view do
     arguments[:show_filter] = true
     render_component(arguments)
 
-    expect(rendered).to have_selector('.app-c-option-select .gem-c-input[name="filter"]')
+    expect(rendered).to have_selector('.app-c-option-select[data-filter-element]')
     expect(rendered).to have_selector('.app-c-option-select__count')
   end
 
