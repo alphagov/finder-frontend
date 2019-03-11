@@ -115,6 +115,7 @@ private
     default_option = filter.allowed_values
                 &.detect { |option| option['default'] }
     return '' if default_option.nil?
+
     default_option.fetch('label', '')
   end
 

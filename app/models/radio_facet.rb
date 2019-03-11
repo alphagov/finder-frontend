@@ -1,5 +1,4 @@
 class RadioFacet < FilterableFacet
-
   def options
     allowed_values.map do |allowed_value|
       {
