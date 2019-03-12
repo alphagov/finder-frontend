@@ -5,7 +5,7 @@ RSpec.describe ScreenReaderFilterDescriptionPresenter do
 
   let(:a_facet) do
     double(
-      SelectFacet,
+      OptionSelectFacet,
       key: 'key_1',
       selected_values: [
           {

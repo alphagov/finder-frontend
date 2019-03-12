@@ -5,7 +5,7 @@ class ScreenReaderFilterDescriptionPresenter
   end
 
   def present
-    text = (facets_without_tags + sort_options).compact.join(", ")
+    text = (facets_without_tags + sort_options).join(", ")
     "<span class='visually-hidden'>#{text}</span>"
   end
 
@@ -14,35 +14,21 @@ private
   attr_reader :filters, :sort_options
 
   def facets_without_tags
-    description = filters.each_with_object([]) do |filter, facets_description|
-      if filter.hide_facet_tag?
-        filter_label = facet_without_tag_selected_option(filter)
-
-        if filter_label.empty?
-          filter_label = facet_without_tag_default_option(filter)
-        end
-
-        facets_description << "#{filter.preposition} #{filter_label}" unless filter_label.empty?
-      end
+    description = filters.select(&:hide_facet_tag?).each_with_object([]) do |filter, facets_description|
+      label = filter_label(filter)
+      facets_description << "#{filter.preposition} #{label}" unless label.nil?
     end
 
     description.compact
   end
 
-  def facet_without_tag_selected_option(filter)
-    filter.allowed_values.each do |allowed_value|
-      if filter.value == allowed_value['value']
-        return allowed_value['label']
-      end
-    end
-    ""
-  end
+  def filter_label(filter)
+    selected_option = filter.allowed_values.find { |option| option['value'] == filter.value }
+    return selected_option['label'] unless selected_option.nil?
 
-  def facet_without_tag_default_option(filter)
-    default_option = filter.allowed_values
-                         &.detect { |option| option['default'] }
-    return '' if default_option.nil?
+    default_option = filter.allowed_values.find { |option| option['default'] }
+    return default_option['label'] unless default_option.nil?
 
-    default_option.fetch('label', '')
+    nil
   end
 end
