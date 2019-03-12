@@ -114,4 +114,36 @@ describe Document do
       end
     end
   end
+
+  describe "#metadata" do
+    subject { described_class.new(result_hash, finder) }
+
+    let(:finder) do
+      double(:finder,
+        date_metadata_keys: [],
+        label_for_metadata_key: 'Tag values',
+        text_metadata_keys: [:tag_values],
+        "display_metadata?": true)
+    end
+
+    context 'metadata in the result hash' do
+      let(:result_hash) do
+        {
+          title: 'the title',
+          link: '/the/link',
+          tag_values: ['some-value', 'another-value']
+        }
+      end
+
+      it 'returns the metadata from the result hash' do
+        expect(subject.metadata).to include(
+          id: :tag_values,
+          labels: ["some-value", "another-value"],
+          name: "Tag values",
+          type: "text",
+          value: "some-value and 1 others"
+        )
+      end
+    end
+  end
 end
