@@ -140,6 +140,7 @@
         "short_name": "Organisation",
         "preposition": "from",
         "type": "text",
+        "show_option_select_filter": true,
         "display_as_result_metadata": true,
         "filterable": true
       },
@@ -148,6 +149,7 @@
         "name": "World location",
         "preposition": "in",
         "type": "text",
+        "show_option_select_filter": true,
         "display_as_result_metadata": true,
         "filterable": true
       },
