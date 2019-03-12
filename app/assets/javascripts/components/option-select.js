@@ -13,7 +13,7 @@
     this.$optionsContainer = this.$optionSelect.find('.options-container');
     this.$optionList = this.$optionsContainer.children('.js-auto-height-inner');
     this.$allCheckboxes = this.$optionsContainer.find('.govuk-checkboxes__item');
-    this.$filter = this.$optionsContainer.find('input[name="filter"]');
+    this.hasFilter = this.$optionSelect.data('filter-element') || "";
     this.checkedCheckboxes = [];
 
     this.attachCheckedCounter();
@@ -43,7 +43,15 @@
       }
     }
 
-    if (this.$filter.length) {
+    if (this.hasFilter.length) {
+      var filterEl = document.createElement('div');
+      filterEl.innerHTML = this.hasFilter;
+
+      $('<div class="app-c-option-select__filter"/>')
+        .html(filterEl.childNodes[0].nodeValue)
+        .prependTo(this.$optionList);
+
+      this.$filter = this.$optionsContainer.find('input[name="option-select-filter"]');
       this.$filterCount = $('#' + this.$filter.attr('aria-describedby'));
       this.filterTextSingle = ' ' + this.$filterCount.data('single');
       this.filterTextMultiple = ' ' + this.$filterCount.data('multiple');
@@ -56,11 +64,18 @@
         that.checkboxLabels.push(that.cleanString($(this).text()));
       });
 
-      this.$filter.on('keyup', function(e) {
-        clearTimeout(that.filterTimeout);
-        that.filterTimeout = setTimeout(function(obj){
-          that.doFilter(obj);
-        }, 300, that);
+      this.$filter.on('change keypress', function(e) {
+        e.stopPropagation();
+        var ENTER_KEY = 13;
+
+        if(e.keyCode !== ENTER_KEY) {
+          clearTimeout(that.filterTimeout);
+          that.filterTimeout = setTimeout(function(obj){
+            that.doFilter(obj);
+          }, 300, that);
+        } else {
+          e.preventDefault(); // prevents finder forms from being submitted when user presses ENTER
+        }
       });
     }
   }

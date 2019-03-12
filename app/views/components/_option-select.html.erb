@@ -1,7 +1,27 @@
-<% title_id = "option-select-title-#{title.parameterize}" %>
+<%
+  title_id = "option-select-title-#{title.parameterize}"
+  checkboxes_id = "checkboxes-#{SecureRandom.hex(4)}"
+  checkboxes_count_id = checkboxes_id + "-count"
+  show_filter = local_assigns.include?(:show_filter)
+
+  if show_filter
+    filter_element = ActionController::Base.new.render_to_string(:partial => "govuk_publishing_components/components/input", :locals => {
+      label: {
+        text: "Filter " + title
+      },
+      name: "option-select-filter",
+      controls: checkboxes_id,
+      describedby: checkboxes_count_id
+    })
+
+    filter_element = CGI::escapeHTML(filter_element)
+  end
+%>
+
 <div class="app-c-option-select"
   <% if local_assigns.include?(:closed_on_load) && closed_on_load %>data-closed-on-load="true"<% end %>
   <% if local_assigns.include?(:aria_controls_id) %>data-input-aria-controls="<%= aria_controls_id %>"<% end %>
+  <% if show_filter %>data-filter-element="<%= filter_element %>"<% end %>
 >
   <div class="container-head js-container-head">
     <div class="option-select-label" id="<%= title_id %>">
@@ -12,22 +32,8 @@
   </div>
   <div role="group" aria-labelledby="<%= title_id %>" class="options-container" id="<%= options_container_id %>">
     <div class="js-auto-height-inner">
-      <%
-        checkboxes_id = "checkboxes-#{SecureRandom.hex(4)}"
-        checkboxes_count_id = checkboxes_id + "-count"
-      %>
-      <% if local_assigns.include?(:show_filter) %>
-        <div class="app-c-option-select__filter">
-          <%= render "govuk_publishing_components/components/input", {
-            label: {
-              text: "Filter " + title
-            },
-            name: "filter",
-            controls: checkboxes_id,
-            describedby: checkboxes_count_id
-          } %>
-          <span id="<%= checkboxes_count_id %>" class="app-c-option-select__count govuk-visually-hidden" aria-live="polite" data-single="<%= t('components.option_select.found_single') %>" data-multiple="<%= t('components.option_select.found_multiple') %>"></span>
-        </div>
+      <% if show_filter %>
+        <span id="<%= checkboxes_count_id %>" class="app-c-option-select__count govuk-visually-hidden" aria-live="polite" data-single="<%= t('components.option_select.found_single') %>" data-multiple="<%= t('components.option_select.found_multiple') %>"></span>
       <% end %>
       <%= render "govuk_publishing_components/components/checkboxes", {
         name: "#{key}[]",
