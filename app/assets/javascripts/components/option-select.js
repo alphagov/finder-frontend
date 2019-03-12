@@ -64,11 +64,18 @@
         that.checkboxLabels.push(that.cleanString($(this).text()));
       });
 
-      this.$filter.on('keyup', function(e) {
-        clearTimeout(that.filterTimeout);
-        that.filterTimeout = setTimeout(function(obj){
-          that.doFilter(obj);
-        }, 300, that);
+      this.$filter.on('change keypress', function(e) {
+        e.stopPropagation();
+        var ENTER_KEY = 13;
+
+        if(e.keyCode !== ENTER_KEY) {
+          clearTimeout(that.filterTimeout);
+          that.filterTimeout = setTimeout(function(obj){
+            that.doFilter(obj);
+          }, 300, that);
+        } else {
+          e.preventDefault(); // prevents finder forms from being submitted when user presses ENTER
+        }
       });
     }
   }

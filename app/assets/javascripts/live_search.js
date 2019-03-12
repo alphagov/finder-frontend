@@ -40,7 +40,7 @@
         }.bind(this)
       );
 
-      this.$form.on('change keypress', 'input[type=text][name!="option-select-filter"]',
+      this.$form.on('change keypress', 'input[type=text]',
         function(e){
           var ENTER_KEY = 13;
 
