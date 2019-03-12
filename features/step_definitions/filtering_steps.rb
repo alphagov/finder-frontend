@@ -132,7 +132,6 @@ When(/^I view the policy papers and consultations finder$/) do
   visit finder_path('search/policy-papers-and-consultations')
 end
 
-
 When(/^I view the research and statistics finder$/) do
   topic_taxonomy_has_taxons([
                                 {
@@ -151,8 +150,6 @@ When(/^I view the research and statistics finder$/) do
 
   visit finder_path('statistics')
 end
-
-
 
 When(/^I view a list of services$/) do
   topic_taxonomy_has_taxons

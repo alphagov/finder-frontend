@@ -27,7 +27,7 @@ class Facet
     facet['short_name']
   end
 
-  def hide_facet_tag
+  def hide_facet_tag?
     facet['hide_facet_tag']
   end
 

@@ -28,7 +28,7 @@ class KeywordFacet
     [keywords]
   end
 
-  def hide_facet_tag
+  def hide_facet_tag?
     false
   end
 

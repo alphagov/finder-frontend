@@ -50,43 +50,43 @@ RSpec.describe ResultSetPresenter do
       OptionSelectFacet,
       key: 'key_1',
       selected_values: [
-        {
-          'value' => 'ca98-and-civil-cartels',
-          'label' => 'CA98 and civil cartels'
-        },
-        {
-          'value' => 'mergers',
-          'label' => 'Mergers'
-        },
-      ],
-      allowed_values: [
-        {
-          'value' => 'ca98-and-civil-cartels',
-          'label' => 'CA98 and civil cartels'
-        },
-        {
-          'value' => 'mergers',
-          'label' => 'Mergers'
-        },
-      ],
-      sentence_fragment: {
-        'key' => 'key_1',
-        'type' => 'text',
-        'preposition' => 'Of Type',
-        'values' => [
-          {
-            'label' => 'CA98 and civil cartels',
-          },
-          {
-            'label' => 'Mergers',
-          },
-        ],
-        'word_connectors' => { words_connector: 'or' }
+      {
+        'value' => 'ca98-and-civil-cartels',
+        'label' => 'CA98 and civil cartels'
       },
+      {
+        'value' => 'mergers',
+        'label' => 'Mergers'
+      },
+    ],
+      allowed_values: [
+      {
+        'value' => 'ca98-and-civil-cartels',
+        'label' => 'CA98 and civil cartels'
+      },
+      {
+        'value' => 'mergers',
+        'label' => 'Mergers'
+      },
+    ],
+      sentence_fragment: {
+      'key' => 'key_1',
+      'type' => 'text',
+      'preposition' => 'Of Type',
+      'values' => [
+        {
+          'label' => 'CA98 and civil cartels',
+        },
+        {
+          'label' => 'Mergers',
+        },
+      ],
+      'word_connectors' => { words_connector: 'or' }
+    },
       has_filters?: true,
       labels: %W(ca98-and-civil-cartels mergers),
       value: %W(ca98-and-civil-cartels mergers),
-      hide_facet_tag: false
+      hide_facet_tag?: false
     )
   end
 
@@ -103,33 +103,33 @@ RSpec.describe ResultSetPresenter do
       key: 'key_2',
       preposition: 'About',
       selected_values: [
+      {
+        'value' => 'farming',
+        'label' => 'Farming'
+      },
+      {
+        'value' => 'chemicals',
+        'label' => 'Chemicals'
+      },
+    ],
+      sentence_fragment: {
+      'key' => 'key_2',
+      'type' => 'text',
+      'preposition' => 'About',
+      'values' => [
         {
-          'value' => 'farming',
-          'label' => 'Farming'
+          'label' => 'Farming',
         },
         {
-          'value' => 'chemicals',
-          'label' => 'Chemicals'
+          'label' => 'Chemicals',
         },
       ],
-      sentence_fragment: {
-        'key' => 'key_2',
-        'type' => 'text',
-        'preposition' => 'About',
-        'values' => [
-          {
-            'label' => 'Farming',
-          },
-          {
-            'label' => 'Chemicals',
-          },
-        ],
-        'word_connectors' => { words_connector: 'or' }
-      },
+      'word_connectors' => { words_connector: 'or' }
+    },
       has_filters?: true,
       value: %w[farming chemicals],
       'word_connectors' => { words_connector: 'or' },
-      hide_facet_tag: false
+      hide_facet_tag?: false
     )
   end
 
@@ -140,7 +140,7 @@ RSpec.describe ResultSetPresenter do
       sentence_fragment: nil,
       has_filters?: false,
       'word_connectors' => { words_connector: 'or' },
-      hide_facet_tag: false
+      hide_facet_tag?: false
     )
   end
 
@@ -180,29 +180,29 @@ RSpec.describe ResultSetPresenter do
       key: 'key_3',
       preposition: 'that are',
       allowed_values: [
-        {
-          'value' => 'statistics_published',
-          'label' => 'Statistics (published)',
-          'default' => true
-        },
-        {
-          'value' => 'statistics_upcoming',
-          'label' => 'Statistics (upcoming)'
-        },
-        {
-          'value' => 'research',
-          'label' => 'Research'
-        },
-      ],
+      {
+        'value' => 'statistics_published',
+        'label' => 'Statistics (published)',
+        'default' => true
+      },
+      {
+        'value' => 'statistics_upcoming',
+        'label' => 'Statistics (upcoming)'
+      },
+      {
+        'value' => 'research',
+        'label' => 'Research'
+      },
+    ],
       has_filters?: true,
-      hide_facet_tag: true,
+      hide_facet_tag?: true,
       value: "something",
       sort: [
-        {
-          'value' => 'most-viewed',
-          'name' => 'Most viewed'
-        }
-      ]
+      {
+        'value' => 'most-viewed',
+        'name' => 'Most viewed'
+      }
+    ]
     )
   end
 
@@ -395,43 +395,6 @@ RSpec.describe ResultSetPresenter do
       it 'returns false' do
         expect(presenter.has_email_signup_link?).to eq(false)
       end
-    end
-  end
-
-  describe '#hidden_text' do
-    before(:each) do
-      allow(finder).to receive(:filters).and_return([a_facet, another_facet, a_date_facet, a_facet_without_facet_tags])
-    end
-
-    it 'creates appropriate hidden text for the facet without a facet tag for a default value' do
-      expect(presenter.hidden_text).to eql("<span class='visually-hidden'>that are Statistics (published), sorted by Updated (newest)</span>")
-    end
-
-    it 'creates appropriate hidden text for the facet without a facet tag for a non default value' do
-      allow(a_facet_without_facet_tags).to receive(:value).and_return("research")
-      expect(presenter.hidden_text).to eql("<span class='visually-hidden'>that are Research, sorted by Updated (newest)</span>")
-    end
-
-    it 'will not include a facet without a facet tag if there is no selected value or default value' do
-      allow(a_facet_without_facet_tags).to receive(:value).and_return("")
-      allow(a_facet_without_facet_tags).to receive(:allowed_values).and_return(
-        [
-          {
-              'value' => 'statistics_published',
-              'label' => 'Statistics (published)'
-          },
-          {
-              'value' => 'statistics_upcoming',
-              'label' => 'Statistics (upcoming)'
-          },
-          {
-              'value' => 'research',
-              'label' => 'Research'
-          },
-        ]
-      )
-
-      expect(presenter.hidden_text).to eql("<span class='visually-hidden'>sorted by Updated (newest)</span>")
     end
   end
 end

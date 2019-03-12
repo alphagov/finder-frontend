@@ -9,10 +9,6 @@ class RadioFacet < FilterableFacet
     end
   end
 
-  def name
-    facet['name']
-  end
-
 private
 
   def selected_value

@@ -30,7 +30,7 @@ class ResultSetPresenter
       finder_name: finder.name,
       any_filters_applied: any_filters_applied?,
       next_and_prev_links: next_and_prev_links,
-      sort_options: hidden_text,
+      screen_reader_filter_description: ScreenReaderFilterDescriptionPresenter.new(filters, sort_option).present,
     }
   end
 
@@ -45,7 +45,7 @@ class ResultSetPresenter
 
   def selected_filter_descriptions
     selected_filters.map { |filter|
-      FacetTagPresenter.new(filter.sentence_fragment, filter.value, finder.slug, filter.hide_facet_tag).present
+      FacetTagPresenter.new(filter.sentence_fragment, filter.value, finder.slug, filter.hide_facet_tag?).present
     }.reject(&:empty?)
   end
 
@@ -66,11 +66,6 @@ class ResultSetPresenter
     @filter_params.fetch('keywords', '')
   end
 
-  def hidden_text
-    text = (facets_without_tags + sort_options).compact.join(", ")
-    "<span class='visually-hidden'>#{text}</span>"
-  end
-
   def has_email_signup_link?
     signup_links.any?
   end
@@ -82,46 +77,6 @@ class ResultSetPresenter
 private
 
   attr_reader :view_context
-
-  def facets_without_tags
-    return [] unless filters.any?
-
-    facet_description = []
-    filters.each do |filter|
-      if filter.hide_facet_tag
-        filter_label = facet_without_tag_selected_option(filter)
-
-        if filter_label.empty?
-          filter_label = facet_without_tag_default_option(filter)
-        end
-
-        facet_description << "#{filter.preposition} #{filter_label}" unless filter_label.empty?
-      end
-    end
-
-    facet_description.compact
-  end
-
-  def facet_without_tag_selected_option(filter)
-    filter.allowed_values.each do |allowed_value|
-      if filter.value == allowed_value['value']
-        return allowed_value['label']
-      end
-    end
-    ""
-  end
-
-  def facet_without_tag_default_option(filter)
-    default_option = filter.allowed_values
-                &.detect { |option| option['default'] }
-    return '' if default_option.nil?
-
-    default_option.fetch('label', '')
-  end
-
-  def sort_options
-    sort_option.present? ? ["sorted by #{sort_option['name']}"] : []
-  end
 
   def next_and_prev_links
     return unless finder.pagination

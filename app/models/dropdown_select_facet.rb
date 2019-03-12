@@ -33,7 +33,7 @@ private
     {
       'label' => selected_value['text'],
       'parameter_key' => key,
-      'value' => selected_value['value'].tr('"', "'")
+      'value' => selected_value['value']
     }
   end
 
