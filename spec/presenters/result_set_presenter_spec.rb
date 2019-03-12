@@ -149,6 +149,7 @@ RSpec.describe ResultSetPresenter do
       promoted: false,
       promoted_summary: nil,
       show_metadata: false,
+      es_score: nil
     )
   end
 
