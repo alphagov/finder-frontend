@@ -273,16 +273,19 @@ RSpec.describe FinderPresenter do
       it 'returns a hash of content_ids to facet details' do
         expected = {
           '14d51311-d182-40d0-85ea-8927d8b9bc91' => {
+            id: 'sector_business_area',
             key: 'sector_business_area',
             name: 'Sector / Business area',
             type: 'content_id',
           },
           'ab38336f-09b9-4765-88f9-12c3fbebd20d' => {
+            id: 'sector_business_area',
             key: 'sector_business_area',
             name: 'Sector / Business area',
             type: 'content_id',
           },
           '56dbec9a-1efd-4471-9f1d-51fcfd19e2db' => {
+            id: 'intellectual_property',
             key: 'intellectual_property',
             name: 'Intellectual property',
             type: 'content_id',

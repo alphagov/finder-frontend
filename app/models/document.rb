@@ -16,11 +16,12 @@ class Document
     @is_historic = rummager_document.fetch(:is_historic, false)
     @government_name = rummager_document.fetch(:government_name, nil)
     @finder = finder
+    @facet_content_ids = rummager_document.fetch(:facet_values, [])
     @rummager_document = rummager_document.slice(*metadata_keys)
   end
 
   def metadata
-    raw_metadata.map(&method(:humanize_metadata_name))
+    raw_metadata.map(&method(:humanize_metadata_name)) + link_metadata
   end
 
   def show_metadata
@@ -47,7 +48,7 @@ class Document
 
 private
 
-  attr_reader :link, :rummager_document, :finder, :description
+  attr_reader :link, :rummager_document, :finder, :description, :facet_content_ids
 
   def is_mainstream_content?
     %w(completed_transaction
@@ -109,6 +110,26 @@ private
       .select(&method(:metadata_value_present?))
   end
 
+  def link_metadata
+    facet_content_ids
+      .group_by(&method(:facet_details_for_content_id))
+      .map do |k, v|
+        labels = map_content_ids_to_values(v)
+        k.merge(
+          labels: labels,
+          value: format_value(labels)
+        )
+      end
+  end
+
+  def facet_details_for_content_id(content_id)
+    finder.facet_details_lookup[content_id]
+  end
+
+  def map_content_ids_to_values(content_ids)
+    content_ids.map { |id| finder.facet_value_lookup[id] }
+  end
+
   def tag_labels_for(key)
     Array(rummager_document.fetch(key, []))
       .map { |label| get_metadata_label(key, label) }
@@ -117,12 +138,7 @@ private
 
   def build_tag_metadata(key)
     labels = tag_labels_for(key)
-
-    value = if labels.count > 1
-              "#{labels.first} and #{labels.count - 1} others"
-            else
-              labels.first
-            end
+    value = format_value(labels)
 
     {
       id: key,
@@ -131,6 +147,14 @@ private
       labels: labels,
       type: "text",
     }
+  end
+
+  def format_value(labels)
+    if labels.count > 1
+      "#{labels.first} and #{labels.count - 1} others"
+    else
+      labels.first
+    end
   end
 
   def metadata_value_present?(metadata_hash)
