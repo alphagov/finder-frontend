@@ -6,16 +6,16 @@
   "first_published_at": "2018-12-19T14:33:59.000+00:00",
   "locale": "en",
   "phase": "live",
-  "public_updated_at": "2019-01-24T14:14:55.000+00:00",
+  "public_updated_at": "2019-03-13T14:09:10.000+00:00",
   "publishing_app": "rummager",
   "publishing_scheduled_at": null,
   "rendering_app": "finder-frontend",
   "scheduled_publishing_delay_seconds": null,
   "schema_name": "finder",
   "title": "Find EU Exit guidance for your business",
-  "updated_at": "2019-01-24T16:42:49.904Z",
+  "updated_at": "2019-03-13T14:32:53.922Z",
   "withdrawn_notice": {},
-  "publishing_request_id": "19729-1548339296.557-10.3.3.1-388",
+  "publishing_request_id": "12923-1552486150.950-10.1.6.163-499",
   "links": {
     "email_alert_signup": [
       {
@@ -24,16 +24,883 @@
         "content_id": "2818d67a-029a-4899-a438-a543d5c6a20d",
         "document_type": "finder_email_signup",
         "locale": "en",
-        "public_updated_at": "2019-01-24T14:14:55Z",
+        "public_updated_at": "2019-03-13T14:09:10Z",
         "schema_name": "finder_email_signup",
         "title": "Find EU Exit guidance for your business",
         "withdrawn": false,
         "links": {},
-        "api_url": "https://www.gov.uk/api/content/find-eu-exit-guidance-business/email-signup",
-        "web_url": "https://www.gov.uk/find-eu-exit-guidance-business/email-signup"
+        "api_url": "https://www.integration.publishing.service.gov.uk/api/content/find-eu-exit-guidance-business/email-signup",
+        "web_url": "https://www.integration.publishing.service.gov.uk/find-eu-exit-guidance-business/email-signup"
+      }
+    ],
+    "facet_group": [
+      {
+        "content_id": "52435175-82ed-4a04-adef-74c0199d0f46",
+        "title": "Find EU Exit guidance business",
+        "schema_name": "facet_group",
+        "details": {
+          "name": "Find EU Exit guidance business",
+          "description": "Facets for use with content relating to EU Exit business guidance."
+        },
+        "links": {
+          "facets": [
+            {
+              "content_id": "b2f525e8-ba7d-4737-a8b2-e4168c138aea",
+              "title": "Sector / Business area",
+              "schema_name": "facet",
+              "details": {
+                "key": "sector_business_area"
+              },
+              "links": {
+                "facet_values": [
+                  {
+                    "content_id": "894a7c88-40bb-4ba6-a234-b7e15d8a0c21",
+                    "title": "Accommodation, restaurants and catering services",
+                    "schema_name": "facet_value",
+                    "details": {
+                      "label": "Accommodation, restaurants and catering services",
+                      "value": "accommodation-restaurants-and-catering-services"
+                    },
+                    "links": {}
+                  },
+                  {
+                    "content_id": "24fd50fa-6619-46ca-96cd-8ce90fa076ce",
+                    "title": "Aerospace",
+                    "schema_name": "facet_value",
+                    "details": {
+                      "label": "Aerospace",
+                      "value": "aerospace"
+                    },
+                    "links": {}
+                  },
+                  {
+                    "content_id": "94b3cfe2-af89-4744-b8d7-7fc79edcbc85",
+                    "title": "Agriculture",
+                    "schema_name": "facet_value",
+                    "details": {
+                      "label": "Agriculture",
+                      "value": "agriculture"
+                    },
+                    "links": {}
+                  },
+                  {
+                    "content_id": "43d328b3-59ee-4d5d-bda0-7c7d4bb301be",
+                    "title": "Air transport (aviation)",
+                    "schema_name": "facet_value",
+                    "details": {
+                      "label": "Air transport (aviation)",
+                      "value": "air-transport-aviation"
+                    },
+                    "links": {}
+                  },
+                  {
+                    "content_id": "5faa1741-fc55-4110-b342-de92f6324118",
+                    "title": "Ancillary services",
+                    "schema_name": "facet_value",
+                    "details": {
+                      "label": "Ancillary services",
+                      "value": "ancillary-services"
+                    },
+                    "links": {}
+                  },
+                  {
+                    "content_id": "05334231-9be3-4670-a2f5-84bef7e3badd",
+                    "title": "Animal health",
+                    "schema_name": "facet_value",
+                    "details": {
+                      "label": "Animal health",
+                      "value": "animal-health"
+                    },
+                    "links": {
+                      
+                    }
+                  },
+                  {
+                    "content_id": "e53e578a-01d2-4844-b52b-fd375ee4c4b9",
+                    "title": "Automotive",
+                    "schema_name": "facet_value",
+                    "details": {
+                      "label": "Automotive",
+                      "value": "automotive"
+                    },
+                    "links": {
+                      
+                    }
+                  },
+                  {
+                    "content_id": "3880f354-3d74-4441-b40f-d808933a14be",
+                    "title": "Banking, markets and infrastructure",
+                    "schema_name": "facet_value",
+                    "details": {
+                      "label": "Banking, markets and infrastructure",
+                      "value": "banking-market-infrastructure"
+                    },
+                    "links": {
+                      
+                    }
+                  },
+                  {
+                    "content_id": "4c7a04d8-02b8-430c-bfec-f1e1f475ff98",
+                    "title": "Broadcasting",
+                    "schema_name": "facet_value",
+                    "details": {
+                      "label": "Broadcasting",
+                      "value": "broadcasting"
+                    },
+                    "links": {
+                      
+                    }
+                  },
+                  {
+                    "content_id": "7620da7a-0427-4b3c-9498-db9dc25209b0",
+                    "title": "Chemicals",
+                    "schema_name": "facet_value",
+                    "details": {
+                      "label": "Chemicals",
+                      "value": "chemicals"
+                    },
+                    "links": {
+                      
+                    }
+                  },
+                  {
+                    "content_id": "70e6087f-714e-4922-8e06-72cfff997785",
+                    "title": "Computer services",
+                    "schema_name": "facet_value",
+                    "details": {
+                      "label": "Computer services",
+                      "value": "computer-services"
+                    },
+                    "links": {
+                      
+                    }
+                  },
+                  {
+                    "content_id": "9eb88205-118b-4f0b-abd9-ac6b469054c5",
+                    "title": "Construction and contracting",
+                    "schema_name": "facet_value",
+                    "details": {
+                      "label": "Construction and contracting",
+                      "value": "construction-contracting"
+                    },
+                    "links": {
+                      
+                    }
+                  },
+                  {
+                    "content_id": "7c980b5d-a7ea-4d6e-aad1-e80e882566c4",
+                    "title": "Education",
+                    "schema_name": "facet_value",
+                    "details": {
+                      "label": "Education",
+                      "value": "education"
+                    },
+                    "links": {
+                      
+                    }
+                  },
+                  {
+                    "content_id": "14d13ea1-db43-4b35-9cc2-3808d4ff731d",
+                    "title": "Electricity",
+                    "schema_name": "facet_value",
+                    "details": {
+                      "label": "Electricity",
+                      "value": "electricity"
+                    },
+                    "links": {
+                      
+                    }
+                  },
+                  {
+                    "content_id": "01b51981-1ad6-4e45-9b14-b8a57fcb4204",
+                    "title": "Electronics",
+                    "schema_name": "facet_value",
+                    "details": {
+                      "label": "Electronics",
+                      "value": "electronics"
+                    },
+                    "links": {
+                      
+                    }
+                  },
+                  {
+                    "content_id": "3a8f00ff-f098-4fd1-81bc-7914e963f842",
+                    "title": "Environmental services",
+                    "schema_name": "facet_value",
+                    "details": {
+                      "label": "Environmental services",
+                      "value": "environmental-services"
+                    },
+                    "links": {
+                      
+                    }
+                  },
+                  {
+                    "content_id": "c5e26d37-def8-40aa-8b46-d9a23ffaceb1",
+                    "title": "Fisheries",
+                    "schema_name": "facet_value",
+                    "details": {
+                      "label": "Fisheries",
+                      "value": "fisheries"
+                    },
+                    "links": {
+                      
+                    }
+                  },
+                  {
+                    "content_id": "53f9ce4c-7cbb-447f-bdf1-a9b022896d3a",
+                    "title": "Food and drink",
+                    "schema_name": "facet_value",
+                    "details": {
+                      "label": "Food and drink",
+                      "value": "food-and-drink"
+                    },
+                    "links": {
+                      
+                    }
+                  },
+                  {
+                    "content_id": "040649fc-4e2c-4028-b846-77fe3eebd1f7",
+                    "title": "Furniture and other manufacturing",
+                    "schema_name": "facet_value",
+                    "details": {
+                      "label": "Furniture and other manufacturing",
+                      "value": "furniture-and-other-manufacturing"
+                    },
+                    "links": {
+                      
+                    }
+                  },
+                  {
+                    "content_id": "bc7ac405-cc71-4507-9550-57ba5b78bfb2",
+                    "title": "Gas markets",
+                    "schema_name": "facet_value",
+                    "details": {
+                      "label": "Gas markets",
+                      "value": "gas-markets"
+                    },
+                    "links": {
+                      
+                    }
+                  },
+                  {
+                    "content_id": "b38b45c4-48dd-4307-ae45-8acf7d5929a7",
+                    "title": "Imports",
+                    "schema_name": "facet_value",
+                    "details": {
+                      "label": "Imports",
+                      "value": "imports"
+                    },
+                    "links": {
+                      
+                    }
+                  },
+                  {
+                    "content_id": "34f45412-89d0-46fe-8004-b61c0c152d06",
+                    "title": "Imputed rent",
+                    "schema_name": "facet_value",
+                    "details": {
+                      "label": "Imputed rent",
+                      "value": "imputed-rent"
+                    },
+                    "links": {
+                      
+                    }
+                  },
+                  {
+                    "content_id": "d6cdac38-eab5-4915-8917-b328c18957d8",
+                    "title": "Insurance",
+                    "schema_name": "facet_value",
+                    "details": {
+                      "label": "Insurance",
+                      "value": "insurance"
+                    },
+                    "links": {
+                      
+                    }
+                  },
+                  {
+                    "content_id": "b13198f2-775e-4067-858b-93a10b3f9ea1",
+                    "title": "Land transport (excluding rail)",
+                    "schema_name": "facet_value",
+                    "details": {
+                      "label": "Land transport (excluding rail)",
+                      "value": "land-transport-excl-rail"
+                    },
+                    "links": {
+                      
+                    }
+                  },
+                  {
+                    "content_id": "6e019777-9029-414b-b81e-ccb955669f86",
+                    "title": "Medical services",
+                    "schema_name": "facet_value",
+                    "details": {
+                      "label": "Medical services",
+                      "value": "medical-services"
+                    },
+                    "links": {
+                      
+                    }
+                  },
+                  {
+                    "content_id": "c366fc8d-03d6-417c-9a23-6f1bce72db5c",
+                    "title": "Motor trades",
+                    "schema_name": "facet_value",
+                    "details": {
+                      "label": "Motor trades",
+                      "value": "motor-trades"
+                    },
+                    "links": {
+                      
+                    }
+                  },
+                  {
+                    "content_id": "46ad5a1d-fc2d-4065-a34f-3f7b2fea8e81",
+                    "title": "Oil and gas production",
+                    "schema_name": "facet_value",
+                    "details": {
+                      "label": "Oil and gas production",
+                      "value": "oil-and-gas-production"
+                    },
+                    "links": {
+                      
+                    }
+                  },
+                  {
+                    "content_id": "d9da7c7b-b0c9-4757-aa45-9c70dd78df62",
+                    "title": "Other personal services",
+                    "schema_name": "facet_value",
+                    "details": {
+                      "label": "Other personal services",
+                      "value": "other-personal-services"
+                    },
+                    "links": {
+                      
+                    }
+                  },
+                  {
+                    "content_id": "9c0d1627-0423-4159-a947-e6abab0d0afd",
+                    "title": "Parts and machinery",
+                    "schema_name": "facet_value",
+                    "details": {
+                      "label": "Parts and machinery",
+                      "value": "parts-and-machinery"
+                    },
+                    "links": {
+                      
+                    }
+                  },
+                  {
+                    "content_id": "93f5c156-2449-4e52-9e92-aefc73586ffd",
+                    "title": "Pharmaceuticals",
+                    "schema_name": "facet_value",
+                    "details": {
+                      "label": "Pharmaceuticals",
+                      "value": "pharmaceuticals"
+                    },
+                    "links": {
+                      
+                    }
+                  },
+                  {
+                    "content_id": "16a9ce39-7786-4ae2-8289-93d924c958a5",
+                    "title": "Post",
+                    "schema_name": "facet_value",
+                    "details": {
+                      "label": "Post",
+                      "value": "post"
+                    },
+                    "links": {
+                      
+                    }
+                  },
+                  {
+                    "content_id": "f07527f1-e6de-4fe8-b7d9-b197769e1f1f",
+                    "title": "Professional and business services",
+                    "schema_name": "facet_value",
+                    "details": {
+                      "label": "Professional and business services",
+                      "value": "professional-and-business-services"
+                    },
+                    "links": {
+                      
+                    }
+                  },
+                  {
+                    "content_id": "091c0e83-bb54-4727-9b2c-a919510e1e79",
+                    "title": "Public administration and defence",
+                    "schema_name": "facet_value",
+                    "details": {
+                      "label": "Public administration and defence",
+                      "value": "public-administration-and-defence"
+                    },
+                    "links": {
+                      
+                    }
+                  },
+                  {
+                    "content_id": "53bcfcf0-e22a-416d-91ac-2661e1d6ed04",
+                    "title": "Rail",
+                    "schema_name": "facet_value",
+                    "details": {
+                      "label": "Rail",
+                      "value": "rail"
+                    },
+                    "links": {
+                      
+                    }
+                  },
+                  {
+                    "content_id": "dba1b198-1ead-4de4-a961-b11d71fc6f20",
+                    "title": "Real estate (excluding imputed rent)",
+                    "schema_name": "facet_value",
+                    "details": {
+                      "label": "Real estate (excluding imputed rent)",
+                      "value": "real-estate-excl-imputed-rent"
+                    },
+                    "links": {
+                      
+                    }
+                  },
+                  {
+                    "content_id": "34a6edd0-46ea-4a76-ae80-8c96709d4f59",
+                    "title": "Retail",
+                    "schema_name": "facet_value",
+                    "details": {
+                      "label": "Retail",
+                      "value": "retail"
+                    },
+                    "links": {
+                      
+                    }
+                  },
+                  {
+                    "content_id": "a9736af7-4e8b-4b1f-9a4b-9482252f4a4f",
+                    "title": "Social work",
+                    "schema_name": "facet_value",
+                    "details": {
+                      "label": "Social work",
+                      "value": "social-work"
+                    },
+                    "links": {
+                      
+                    }
+                  },
+                  {
+                    "content_id": "99eeb13a-ce9d-49f6-aa5b-68d0e4a45358",
+                    "title": "Steel and other metals or commodities",
+                    "schema_name": "facet_value",
+                    "details": {
+                      "label": "Steel and other metals or commodities",
+                      "value": "steel-and-other-metals-commodities"
+                    },
+                    "links": {
+                      
+                    }
+                  },
+                  {
+                    "content_id": "f4e525fd-3f56-47c7-b4b7-d9c7664027ee",
+                    "title": "Telecoms",
+                    "schema_name": "facet_value",
+                    "details": {
+                      "label": "Telecoms",
+                      "value": "telecoms"
+                    },
+                    "links": {
+                      
+                    }
+                  },
+                  {
+                    "content_id": "268d0c41-579c-4bc8-9f1c-7deb1f57352a",
+                    "title": "Textiles and clothing",
+                    "schema_name": "facet_value",
+                    "details": {
+                      "label": "Textiles and clothing",
+                      "value": "textiles-and-clothing"
+                    },
+                    "links": {
+                      
+                    }
+                  },
+                  {
+                    "content_id": "15ad9a45-5536-4323-97f9-ed470cdf1e3b",
+                    "title": "Warehousing and support for transportation",
+                    "schema_name": "facet_value",
+                    "details": {
+                      "label": "Warehousing and support for transportation",
+                      "value": "warehousing-and-support-for-transportation"
+                    },
+                    "links": {
+                      
+                    }
+                  },
+                  {
+                    "content_id": "66c14974-d67e-4361-a14a-01804351ebd7",
+                    "title": "Water transport including maritime and ports",
+                    "schema_name": "facet_value",
+                    "details": {
+                      "label": "Water transport including maritime and ports",
+                      "value": "water-transport-maritime-ports"
+                    },
+                    "links": {
+                      
+                    }
+                  },
+                  {
+                    "content_id": "a788c432-0daa-4514-ab5b-777d013354d6",
+                    "title": "Wholesale (excluding motor vehicles)",
+                    "schema_name": "facet_value",
+                    "details": {
+                      "label": "Wholesale (excluding motor vehicles)",
+                      "value": "wholesale-excl-motor-vehicles"
+                    },
+                    "links": {
+                      
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "content_id": "e2febfa3-eac9-430b-bc6e-b0dff8876b1f",
+              "title": "Business activity",
+              "schema_name": "facet",
+              "details": {
+                "key": "business_activity"
+              },
+              "links": {
+                "facet_values": [
+                  {
+                    "content_id": "a55f04df-3877-4c73-bbfe-ad7339cdfccf",
+                    "title": "Sell products or goods in the UK",
+                    "schema_name": "facet_value",
+                    "details": {
+                      "label": "Sell products or goods in the UK",
+                      "value": "products-or-goods"
+                    },
+                    "links": {
+                      
+                    }
+                  },
+                  {
+                    "content_id": "d422aa2e-59ad-4986-8ef0-973959878912",
+                    "title": "Buy products or goods from abroad",
+                    "schema_name": "facet_value",
+                    "details": {
+                      "label": "Buy products or goods from abroad",
+                      "value": "buying"
+                    },
+                    "links": {
+                      
+                    }
+                  },
+                  {
+                    "content_id": "7283b8e1-840f-49da-967f-c0a512a3f531",
+                    "title": "Sell products or goods abroad",
+                    "schema_name": "facet_value",
+                    "details": {
+                      "label": "Sell products or goods abroad",
+                      "value": "selling"
+                    },
+                    "links": {
+                      
+                    }
+                  },
+                  {
+                    "content_id": "7ae8e57c-ea7a-42de-84fc-a084b5f64bca",
+                    "title": "Do other types of business in the EU",
+                    "schema_name": "facet_value",
+                    "details": {
+                      "label": "Do other types of business in the EU",
+                      "value": "other-eu"
+                    },
+                    "links": {
+                      
+                    }
+                  },
+                  {
+                    "content_id": "07398027-ee4d-4bda-b53e-2dc655734049",
+                    "title": "Transport goods abroad",
+                    "schema_name": "facet_value",
+                    "details": {
+                      "label": "Transport goods abroad",
+                      "value": "transporting"
+                    },
+                    "links": {
+                      
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "content_id": "b2716a1e-dc24-4566-b8ed-f3ee23a994ec",
+              "title": "Who you employ",
+              "schema_name": "facet",
+              "details": {
+                "key": "employ_eu_citizens"
+              },
+              "links": {
+                "facet_values": [
+                  {
+                    "content_id": "5476f0c7-d029-459b-8a17-196374ae3366",
+                    "title": "EU citizens",
+                    "schema_name": "facet_value",
+                    "details": {
+                      "label": "EU citizens",
+                      "value": "yes"
+                    },
+                    "links": {
+                      
+                    }
+                  },
+                  {
+                    "content_id": "bbdbda71-b1ec-46b8-a5b8-931d933288e9",
+                    "title": "No EU citizens",
+                    "schema_name": "facet_value",
+                    "details": {
+                      "label": "No EU citizens",
+                      "value": "no"
+                    },
+                    "links": {
+                      
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "content_id": "6cdb57df-3216-423c-9b7a-b1bde6b65d36",
+              "title": "Personal data",
+              "schema_name": "facet",
+              "details": {
+                "key": "personal_data"
+              },
+              "links": {
+                "facet_values": [
+                  {
+                    "content_id": "c9aa5056-77d7-4bdb-af4f-7679dd1d6a2a",
+                    "title": "Processing personal data from Europe",
+                    "schema_name": "facet_value",
+                    "details": {
+                      "label": "Processing personal data from Europe",
+                      "value": "processing-personal-data"
+                    },
+                    "links": {
+                      
+                    }
+                  },
+                  {
+                    "content_id": "af6c860e-6d0e-4045-a66a-b14040d63a20",
+                    "title": "Using websites or services hosted in Europe",
+                    "schema_name": "facet_value",
+                    "details": {
+                      "label": "Using websites or services hosted in Europe",
+                      "value": "interacting-with-eea-website"
+                    },
+                    "links": {
+                      
+                    }
+                  },
+                  {
+                    "content_id": "855757bc-c578-4b78-9dfa-a75e2ae70eaa",
+                    "title": "Providing digital services available to Europe",
+                    "schema_name": "facet_value",
+                    "details": {
+                      "label": "Providing digital services available to Europe",
+                      "value": "digital-service-provider"
+                    },
+                    "links": {
+                      
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "content_id": "a076c93a-cb66-4256-97d3-d038bce60e6a",
+              "title": "Intellectual property",
+              "schema_name": "facet",
+              "details": {
+                "key": "intellectual_property"
+              },
+              "links": {
+                "facet_values": [
+                  {
+                    "content_id": "c308aa59-c234-48d4-885d-5d964e710bd1",
+                    "title": "Copyright",
+                    "schema_name": "facet_value",
+                    "details": {
+                      "label": "Copyright",
+                      "value": "copyright"
+                    },
+                    "links": {
+                      
+                    }
+                  },
+                  {
+                    "content_id": "231e7512-8054-41c6-80c5-9d353c7f1c52",
+                    "title": "Trade marks",
+                    "schema_name": "facet_value",
+                    "details": {
+                      "label": "Trade marks",
+                      "value": "trademarks"
+                    },
+                    "links": {
+                      
+                    }
+                  },
+                  {
+                    "content_id": "4be67a27-0d5a-444b-9379-9161365206f7",
+                    "title": "Designs",
+                    "schema_name": "facet_value",
+                    "details": {
+                      "label": "Designs",
+                      "value": "designs"
+                    },
+                    "links": {
+                      
+                    }
+                  },
+                  {
+                    "content_id": "ed2109a5-5bc1-40f1-af71-3657263fd4e0",
+                    "title": "Patents",
+                    "schema_name": "facet_value",
+                    "details": {
+                      "label": "Patents",
+                      "value": "patents"
+                    },
+                    "links": {
+                      
+                    }
+                  },
+                  {
+                    "content_id": "32282878-5d75-42be-911d-ef7ba102bc7f",
+                    "title": "Exhaustion of rights",
+                    "schema_name": "facet_value",
+                    "details": {
+                      "label": "Exhaustion of rights",
+                      "value": "exhaustion-of-rights"
+                    },
+                    "links": {
+                      
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "content_id": "805ab0e4-baf4-49ab-80ff-9ae7e472b074",
+              "title": "EU or UK government funding",
+              "schema_name": "facet",
+              "details": {
+                "key": "eu_uk_government_funding"
+              },
+              "links": {
+                "facet_values": [
+                  {
+                    "content_id": "c1fcd375-897f-4a57-88e6-49d5b9a6799d",
+                    "title": "EU funding",
+                    "schema_name": "facet_value",
+                    "details": {
+                      "label": "EU funding",
+                      "value": "receiving-eu-funding"
+                    },
+                    "links": {
+                      
+                    }
+                  },
+                  {
+                    "content_id": "4dd0faa0-29e0-4be8-bb7d-88dc53bf9682",
+                    "title": "UK government funding",
+                    "schema_name": "facet_value",
+                    "details": {
+                      "label": "UK government funding",
+                      "value": "receiving-uk-government-funding"
+                    },
+                    "links": {
+                      
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "content_id": "8152d139-0ccd-46c2-bdb5-4f0771fd3903",
+              "title": "Public sector procurement",
+              "schema_name": "facet",
+              "details": {
+                "key": "public_sector_procurement"
+              },
+              "links": {
+                "facet_values": [
+                  {
+                    "content_id": "f165dc7c-7cef-446a-bdfd-8a1ca685d091",
+                    "title": "Civil government contracts",
+                    "schema_name": "facet_value",
+                    "details": {
+                      "label": "Civil government contracts",
+                      "value": "civil-government-contracts"
+                    },
+                    "links": {
+                      
+                    }
+                  },
+                  {
+                    "content_id": "33fc20d7-6a45-40c9-b31f-e4678f962ff1",
+                    "title": "Defence contracts",
+                    "schema_name": "facet_value",
+                    "details": {
+                      "label": "Defence contracts",
+                      "value": "defence-contracts"
+                    },
+                    "links": {
+                      
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
       }
     ],
     "ordered_related_items": [
+      {
+        "api_path": "/api/content/guidance/the-food-and-drink-sector-and-preparing-for-eu-exit",
+        "base_path": "/guidance/the-food-and-drink-sector-and-preparing-for-eu-exit",
+        "content_id": "705ff357-7e3a-49ae-823e-5d6c7078d350",
+        "description": "If the UK leaves the EU without a Brexit deal on 29 March, there will be changes that affect your food and drink business. Find out how you can prepare.",
+        "document_type": "detailed_guide",
+        "locale": "en",
+        "public_updated_at": "2019-03-05T16:38:15Z",
+        "schema_name": "detailed_guide",
+        "title": "The food and drink sector and preparing for EU Exit",
+        "withdrawn": false,
+        "links": {
+          
+        },
+        "api_url": "https://www.integration.publishing.service.gov.uk/api/content/guidance/the-food-and-drink-sector-and-preparing-for-eu-exit",
+        "web_url": "https://www.integration.publishing.service.gov.uk/guidance/the-food-and-drink-sector-and-preparing-for-eu-exit"
+      },
+      {
+        "api_path": "/api/content/guidance/european-and-domestic-funding-after-brexit",
+        "base_path": "/guidance/european-and-domestic-funding-after-brexit",
+        "content_id": "e9bf1cbb-fcba-485a-8e1b-bf36d195c7b1",
+        "description": "When the UK leaves the EU there may be changes to how UK organisations, such as charities, businesses and universities are funded.",
+        "document_type": "detailed_guide",
+        "locale": "en",
+        "public_updated_at": "2019-02-01T17:47:00Z",
+        "schema_name": "detailed_guide",
+        "title": "European and domestic funding after Brexit",
+        "withdrawn": false,
+        "links": {
+          
+        },
+        "api_url": "https://www.integration.publishing.service.gov.uk/api/content/guidance/european-and-domestic-funding-after-brexit",
+        "web_url": "https://www.integration.publishing.service.gov.uk/guidance/european-and-domestic-funding-after-brexit"
+      },
       {
         "api_path": "/api/content/guidance/regulations-and-standards-after-brexit",
         "base_path": "/guidance/regulations-and-standards-after-brexit",
@@ -45,15 +912,391 @@
         "schema_name": "detailed_guide",
         "title": "Regulations and standards after Brexit",
         "withdrawn": false,
-        "links": {},
-        "api_url": "https://www.gov.uk/api/content/guidance/regulations-and-standards-after-brexit",
-        "web_url": "https://www.gov.uk/guidance/regulations-and-standards-after-brexit"
+        "links": {
+          
+        },
+        "api_url": "https://www.integration.publishing.service.gov.uk/api/content/guidance/regulations-and-standards-after-brexit",
+        "web_url": "https://www.integration.publishing.service.gov.uk/guidance/regulations-and-standards-after-brexit"
+      },
+      {
+        "api_path": "/api/content/guidance/intellectual-property-after-brexit",
+        "base_path": "/guidance/intellectual-property-after-brexit",
+        "content_id": "b0a8b221-b2cb-434c-abb8-1a7323fd1e05",
+        "description": "Parts of UK intellectual property (IP) law will change when the UK leaves the EU.",
+        "document_type": "detailed_guide",
+        "locale": "en",
+        "public_updated_at": "2019-02-01T17:46:00Z",
+        "schema_name": "detailed_guide",
+        "title": "Intellectual property after Brexit",
+        "withdrawn": false,
+        "links": {
+          
+        },
+        "api_url": "https://www.integration.publishing.service.gov.uk/api/content/guidance/intellectual-property-after-brexit",
+        "web_url": "https://www.integration.publishing.service.gov.uk/guidance/intellectual-property-after-brexit"
+      },
+      {
+        "api_path": "/api/content/guidance/the-chemicals-sector-and-preparing-for-eu-exit",
+        "base_path": "/guidance/the-chemicals-sector-and-preparing-for-eu-exit",
+        "content_id": "d2c7d17e-adf5-4ea1-b16b-4db9f922190a",
+        "description": "If the UK leaves the EU without a deal, and you are a company that makes, supplies or uses chemicals, there may be changes that affect your business.",
+        "document_type": "detailed_guide",
+        "locale": "en",
+        "public_updated_at": "2019-02-13T14:36:00Z",
+        "schema_name": "detailed_guide",
+        "title": "The chemicals sector and preparing for EU Exit",
+        "withdrawn": false,
+        "links": {
+          
+        },
+        "api_url": "https://www.integration.publishing.service.gov.uk/api/content/guidance/the-chemicals-sector-and-preparing-for-eu-exit",
+        "web_url": "https://www.integration.publishing.service.gov.uk/guidance/the-chemicals-sector-and-preparing-for-eu-exit"
+      },
+      {
+        "api_path": "/api/content/guidance/oil-and-gas-production-and-preparing-for-eu-exit",
+        "base_path": "/guidance/oil-and-gas-production-and-preparing-for-eu-exit",
+        "content_id": "a5d2f87c-06ae-4cf0-bea7-3fc9746eddd9",
+        "description": "If the UK leaves the EU without a deal, there may be changes that affect your business.",
+        "document_type": "detailed_guide",
+        "locale": "en",
+        "public_updated_at": "2019-02-01T18:44:00Z",
+        "schema_name": "detailed_guide",
+        "title": "Oil and gas production and preparing for EU Exit",
+        "withdrawn": false,
+        "links": {
+          
+        },
+        "api_url": "https://www.integration.publishing.service.gov.uk/api/content/guidance/oil-and-gas-production-and-preparing-for-eu-exit",
+        "web_url": "https://www.integration.publishing.service.gov.uk/guidance/oil-and-gas-production-and-preparing-for-eu-exit"
+      },
+      {
+        "api_path": "/api/content/guidance/the-aerospace-sector-and-preparing-for-eu-exit",
+        "base_path": "/guidance/the-aerospace-sector-and-preparing-for-eu-exit",
+        "content_id": "fae745d3-c5a5-4505-aa59-d257e4e938c1",
+        "description": "If the UK leaves the EU without a deal, there may be changes that affect your business.",
+        "document_type": "detailed_guide",
+        "locale": "en",
+        "public_updated_at": "2019-02-01T18:42:00Z",
+        "schema_name": "detailed_guide",
+        "title": "The aerospace sector and preparing for EU Exit",
+        "withdrawn": false,
+        "links": {
+          
+        },
+        "api_url": "https://www.integration.publishing.service.gov.uk/api/content/guidance/the-aerospace-sector-and-preparing-for-eu-exit",
+        "web_url": "https://www.integration.publishing.service.gov.uk/guidance/the-aerospace-sector-and-preparing-for-eu-exit"
+      },
+      {
+        "api_path": "/api/content/guidance/the-construction-sector-and-preparing-for-eu-exit",
+        "base_path": "/guidance/the-construction-sector-and-preparing-for-eu-exit",
+        "content_id": "27952a1b-702d-4166-bd62-6538892f73c3",
+        "description": "If the UK leaves the EU without a deal, there may be changes that affect your business.",
+        "document_type": "detailed_guide",
+        "locale": "en",
+        "public_updated_at": "2019-02-01T18:43:00Z",
+        "schema_name": "detailed_guide",
+        "title": "The construction sector and preparing for EU Exit",
+        "withdrawn": false,
+        "links": {
+          
+        },
+        "api_url": "https://www.integration.publishing.service.gov.uk/api/content/guidance/the-construction-sector-and-preparing-for-eu-exit",
+        "web_url": "https://www.integration.publishing.service.gov.uk/guidance/the-construction-sector-and-preparing-for-eu-exit"
+      },
+      {
+        "api_path": "/api/content/guidance/the-automotive-sector-and-preparing-for-eu-exit",
+        "base_path": "/guidance/the-automotive-sector-and-preparing-for-eu-exit",
+        "content_id": "88ad2f6e-fb1e-47c9-8201-fdb02f90542c",
+        "description": "If the UK leaves the EU without a deal, there may be changes that affect your business.",
+        "document_type": "detailed_guide",
+        "locale": "en",
+        "public_updated_at": "2019-02-01T18:42:00Z",
+        "schema_name": "detailed_guide",
+        "title": "The automotive sector and preparing for EU Exit",
+        "withdrawn": false,
+        "links": {
+          
+        },
+        "api_url": "https://www.integration.publishing.service.gov.uk/api/content/guidance/the-automotive-sector-and-preparing-for-eu-exit",
+        "web_url": "https://www.integration.publishing.service.gov.uk/guidance/the-automotive-sector-and-preparing-for-eu-exit"
+      },
+      {
+        "api_path": "/api/content/guidance/operating-in-the-eu-after-brexit",
+        "base_path": "/guidance/operating-in-the-eu-after-brexit",
+        "content_id": "7dd1f3ec-04a9-4954-b7c1-b7fd531daafc",
+        "description": "When the UK leaves the EU, the way businesses both offer services in the EU and operate will change. ",
+        "document_type": "detailed_guide",
+        "locale": "en",
+        "public_updated_at": "2019-02-01T17:46:00Z",
+        "schema_name": "detailed_guide",
+        "title": "Operating in the EU after Brexit",
+        "withdrawn": false,
+        "links": {
+          
+        },
+        "api_url": "https://www.integration.publishing.service.gov.uk/api/content/guidance/operating-in-the-eu-after-brexit",
+        "web_url": "https://www.integration.publishing.service.gov.uk/guidance/operating-in-the-eu-after-brexit"
+      },
+      {
+        "api_path": "/api/content/guidance/public-sector-procurement-after-brexit",
+        "base_path": "/guidance/public-sector-procurement-after-brexit",
+        "content_id": "b1194956-d0dd-4353-a835-5c4650528e74",
+        "description": "When the UK leaves the EU, there may be changes to how you sell goods or services to the UK public sector.",
+        "document_type": "detailed_guide",
+        "locale": "en",
+        "public_updated_at": "2019-02-01T17:46:00Z",
+        "schema_name": "detailed_guide",
+        "title": "Public sector procurement after Brexit",
+        "withdrawn": false,
+        "links": {
+          
+        },
+        "api_url": "https://www.integration.publishing.service.gov.uk/api/content/guidance/public-sector-procurement-after-brexit",
+        "web_url": "https://www.integration.publishing.service.gov.uk/guidance/public-sector-procurement-after-brexit"
+      },
+      {
+        "api_path": "/api/content/guidance/the-retail-sector-and-preparing-for-eu-exit",
+        "base_path": "/guidance/the-retail-sector-and-preparing-for-eu-exit",
+        "content_id": "f896235a-0cf0-4047-af75-926df45e1aa6",
+        "description": "If the UK leaves the EU without a deal, there may be changes that affect your business.",
+        "document_type": "detailed_guide",
+        "locale": "en",
+        "public_updated_at": "2019-02-01T18:43:00Z",
+        "schema_name": "detailed_guide",
+        "title": "The retail sector and preparing for EU Exit",
+        "withdrawn": false,
+        "links": {
+          
+        },
+        "api_url": "https://www.integration.publishing.service.gov.uk/api/content/guidance/the-retail-sector-and-preparing-for-eu-exit",
+        "web_url": "https://www.integration.publishing.service.gov.uk/guidance/the-retail-sector-and-preparing-for-eu-exit"
+      },
+      {
+        "api_path": "/api/content/guidance/gas-markets-and-preparing-for-eu-exit",
+        "base_path": "/guidance/gas-markets-and-preparing-for-eu-exit",
+        "content_id": "1ecf3661-4bf0-4776-9cd6-7ecd5cffac2e",
+        "description": "If the UK leaves the EU without a deal, there may be changes that affect your business.",
+        "document_type": "detailed_guide",
+        "locale": "en",
+        "public_updated_at": "2019-02-12T16:18:00Z",
+        "schema_name": "detailed_guide",
+        "title": "Gas markets and preparing for EU Exit",
+        "withdrawn": false,
+        "links": {
+          
+        },
+        "api_url": "https://www.integration.publishing.service.gov.uk/api/content/guidance/gas-markets-and-preparing-for-eu-exit",
+        "web_url": "https://www.integration.publishing.service.gov.uk/guidance/gas-markets-and-preparing-for-eu-exit"
+      },
+      {
+        "api_path": "/api/content/guidance/using-personal-data-after-brexit",
+        "base_path": "/guidance/using-personal-data-after-brexit",
+        "content_id": "2f6219da-6453-494f-bd5e-2e599642612d",
+        "description": "When the UK leaves the EU there may be changes to the rules governing the use of personal data.",
+        "document_type": "detailed_guide",
+        "locale": "en",
+        "public_updated_at": "2019-03-13T14:32:53Z",
+        "schema_name": "detailed_guide",
+        "title": "Using personal data after Brexit",
+        "withdrawn": false,
+        "links": {
+          
+        },
+        "api_url": "https://www.integration.publishing.service.gov.uk/api/content/guidance/using-personal-data-after-brexit",
+        "web_url": "https://www.integration.publishing.service.gov.uk/guidance/using-personal-data-after-brexit"
+      },
+      {
+        "api_path": "/api/content/guidance/energy-and-climate-after-brexit",
+        "base_path": "/guidance/energy-and-climate-after-brexit",
+        "content_id": "54b2b1e7-68a1-4df9-a9e4-70bcd0bcde71",
+        "description": "When the UK leaves the EU there may be changes to areas including energy renewables, the nuclear industry and regulated carbon emissions.",
+        "document_type": "detailed_guide",
+        "locale": "en",
+        "public_updated_at": "2019-02-06T15:10:00Z",
+        "schema_name": "detailed_guide",
+        "title": "Energy and climate after Brexit",
+        "withdrawn": false,
+        "links": {
+          
+        },
+        "api_url": "https://www.integration.publishing.service.gov.uk/api/content/guidance/energy-and-climate-after-brexit",
+        "web_url": "https://www.integration.publishing.service.gov.uk/guidance/energy-and-climate-after-brexit"
+      },
+      {
+        "api_path": "/api/content/guidance/importing-exporting-and-transporting-products-or-goods-after-brexit",
+        "base_path": "/guidance/importing-exporting-and-transporting-products-or-goods-after-brexit",
+        "content_id": "aff1b568-e23b-464b-bd24-5c0a0cd9bf27",
+        "description": "When the UK leaves the EU there may be changes to UK-EU trade at the UK border including on customs, tariffs, VAT, safety and security, documentation, vehicle standards, and controlled products.",
+        "document_type": "detailed_guide",
+        "locale": "en",
+        "public_updated_at": "2019-02-22T16:04:52Z",
+        "schema_name": "detailed_guide",
+        "title": "Importing, exporting and transporting products or goods after Brexit",
+        "withdrawn": false,
+        "links": {
+          
+        },
+        "api_url": "https://www.integration.publishing.service.gov.uk/api/content/guidance/importing-exporting-and-transporting-products-or-goods-after-brexit",
+        "web_url": "https://www.integration.publishing.service.gov.uk/guidance/importing-exporting-and-transporting-products-or-goods-after-brexit"
+      },
+      {
+        "api_path": "/api/content/guidance/the-professional-and-business-services-sector-and-preparing-for-eu-exit",
+        "base_path": "/guidance/the-professional-and-business-services-sector-and-preparing-for-eu-exit",
+        "content_id": "b7b029ef-a1a5-4d87-9e21-3b7409baf77c",
+        "description": "If the UK leaves the EU without a deal, there may be changes that affect your business.",
+        "document_type": "detailed_guide",
+        "locale": "en",
+        "public_updated_at": "2019-02-13T15:09:00Z",
+        "schema_name": "detailed_guide",
+        "title": "The professional and business services sector and preparing for EU Exit",
+        "withdrawn": false,
+        "links": {
+          
+        },
+        "api_url": "https://www.integration.publishing.service.gov.uk/api/content/guidance/the-professional-and-business-services-sector-and-preparing-for-eu-exit",
+        "web_url": "https://www.integration.publishing.service.gov.uk/guidance/the-professional-and-business-services-sector-and-preparing-for-eu-exit"
+      },
+      {
+        "api_path": "/api/content/guidance/the-farming-sector-and-preparing-for-eu-exit",
+        "base_path": "/guidance/the-farming-sector-and-preparing-for-eu-exit",
+        "content_id": "4cc71bfd-4a2b-4bb0-b3b2-de9a9909ab53",
+        "description": "If the UK leaves the EU on 29 March without a Brexit deal, there may be changes that affect your arable, livestock or horticulture farming business.",
+        "document_type": "detailed_guide",
+        "locale": "en",
+        "public_updated_at": "2019-03-07T15:47:09Z",
+        "schema_name": "detailed_guide",
+        "title": "The farming sector and preparing for EU Exit",
+        "withdrawn": false,
+        "links": {
+          
+        },
+        "api_url": "https://www.integration.publishing.service.gov.uk/api/content/guidance/the-farming-sector-and-preparing-for-eu-exit",
+        "web_url": "https://www.integration.publishing.service.gov.uk/guidance/the-farming-sector-and-preparing-for-eu-exit"
+      },
+      {
+        "api_path": "/api/content/guidance/the-electronics-machinery-and-parts-sector-and-preparing-for-eu-exit",
+        "base_path": "/guidance/the-electronics-machinery-and-parts-sector-and-preparing-for-eu-exit",
+        "content_id": "7567f8d9-ac09-47ed-aa89-cd51e56d72b1",
+        "description": "If the UK leaves the EU without a deal, there may be changes that affect your business.",
+        "document_type": "detailed_guide",
+        "locale": "en",
+        "public_updated_at": "2019-02-13T14:37:00Z",
+        "schema_name": "detailed_guide",
+        "title": "The electronics, machinery and parts sector and preparing for EU Exit",
+        "withdrawn": false,
+        "links": {
+          
+        },
+        "api_url": "https://www.integration.publishing.service.gov.uk/api/content/guidance/the-electronics-machinery-and-parts-sector-and-preparing-for-eu-exit",
+        "web_url": "https://www.integration.publishing.service.gov.uk/guidance/the-electronics-machinery-and-parts-sector-and-preparing-for-eu-exit"
+      },
+      {
+        "api_path": "/api/content/guidance/the-electricity-sector-and-preparing-for-eu-exit",
+        "base_path": "/guidance/the-electricity-sector-and-preparing-for-eu-exit",
+        "content_id": "f0dcee7c-97f2-47da-9727-1f4fb1bf0578",
+        "description": "If the UK leaves the EU without a deal, there may be changes that affect your business.",
+        "document_type": "detailed_guide",
+        "locale": "en",
+        "public_updated_at": "2019-02-12T16:20:00Z",
+        "schema_name": "detailed_guide",
+        "title": "The electricity sector and preparing for EU Exit",
+        "withdrawn": false,
+        "links": {
+          
+        },
+        "api_url": "https://www.integration.publishing.service.gov.uk/api/content/guidance/the-electricity-sector-and-preparing-for-eu-exit",
+        "web_url": "https://www.integration.publishing.service.gov.uk/guidance/the-electricity-sector-and-preparing-for-eu-exit"
+      },
+      {
+        "api_path": "/api/content/guidance/the-space-sector-and-preparing-for-eu-exit",
+        "base_path": "/guidance/the-space-sector-and-preparing-for-eu-exit",
+        "content_id": "e5b88fc9-60c5-4747-a9a1-263db349605b",
+        "description": "If the UK leaves the EU without a deal, there may be changes that affect your business.",
+        "document_type": "detailed_guide",
+        "locale": "en",
+        "public_updated_at": "2019-02-13T15:54:00Z",
+        "schema_name": "detailed_guide",
+        "title": "The space sector and preparing for EU Exit",
+        "withdrawn": false,
+        "links": {
+          
+        },
+        "api_url": "https://www.integration.publishing.service.gov.uk/api/content/guidance/the-space-sector-and-preparing-for-eu-exit",
+        "web_url": "https://www.integration.publishing.service.gov.uk/guidance/the-space-sector-and-preparing-for-eu-exit"
+      },
+      {
+        "api_path": "/api/content/guidance/the-consumer-goods-sector-and-preparing-for-eu-exit",
+        "base_path": "/guidance/the-consumer-goods-sector-and-preparing-for-eu-exit",
+        "content_id": "4645a471-468e-4634-be0c-f63668d57626",
+        "description": "If the UK leaves the EU without a deal, there may be changes that affect your business.",
+        "document_type": "detailed_guide",
+        "locale": "en",
+        "public_updated_at": "2019-02-13T16:50:00Z",
+        "schema_name": "detailed_guide",
+        "title": "The consumer goods sector and preparing for EU Exit",
+        "withdrawn": false,
+        "links": {
+          
+        },
+        "api_url": "https://www.integration.publishing.service.gov.uk/api/content/guidance/the-consumer-goods-sector-and-preparing-for-eu-exit",
+        "web_url": "https://www.integration.publishing.service.gov.uk/guidance/the-consumer-goods-sector-and-preparing-for-eu-exit"
+      },
+      {
+        "api_path": "/api/content/guidance/the-life-sciences-sector-and-preparing-for-eu-exit",
+        "base_path": "/guidance/the-life-sciences-sector-and-preparing-for-eu-exit",
+        "content_id": "9aa99522-bab7-4176-811a-82b104710e3f",
+        "description": "If the UK leaves the EU without a deal, there may be changes that affect your business.",
+        "document_type": "detailed_guide",
+        "locale": "en",
+        "public_updated_at": "2019-02-28T17:14:23Z",
+        "schema_name": "detailed_guide",
+        "title": "The life sciences sector and preparing for EU Exit",
+        "withdrawn": false,
+        "links": {
+          
+        },
+        "api_url": "https://www.integration.publishing.service.gov.uk/api/content/guidance/the-life-sciences-sector-and-preparing-for-eu-exit",
+        "web_url": "https://www.integration.publishing.service.gov.uk/guidance/the-life-sciences-sector-and-preparing-for-eu-exit"
+      },
+      {
+        "api_path": "/api/content/guidance/air-services-from-the-eu-to-the-uk-in-the-event-of-no-deal",
+        "base_path": "/guidance/air-services-from-the-eu-to-the-uk-in-the-event-of-no-deal",
+        "content_id": "0246736f-ef09-4d45-ba2d-cd10dc80b82b",
+        "description": "UK position on reciprocity of rights for airlines from EU countries, and the basis on which flights will continue in the event of ‘no deal’.",
+        "document_type": "detailed_guide",
+        "locale": "en",
+        "public_updated_at": "2019-03-07T09:40:00Z",
+        "schema_name": "detailed_guide",
+        "title": "Air services from the EU to the UK in the event of ‘no deal’",
+        "withdrawn": false,
+        "links": {
+          
+        },
+        "api_url": "https://www.integration.publishing.service.gov.uk/api/content/guidance/air-services-from-the-eu-to-the-uk-in-the-event-of-no-deal",
+        "web_url": "https://www.integration.publishing.service.gov.uk/guidance/air-services-from-the-eu-to-the-uk-in-the-event-of-no-deal"
+      },
+      {
+        "api_path": "/api/content/guidance/the-veterinary-sector-and-preparing-for-eu-exit",
+        "base_path": "/guidance/the-veterinary-sector-and-preparing-for-eu-exit",
+        "content_id": "5e017fbd-e165-43a1-8a16-57edf9f527b0",
+        "description": "If the UK leaves the EU on 29 March without a deal, there may be changes that affect private, official or abattoir veterinarians.\r\n",
+        "document_type": "detailed_guide",
+        "locale": "en",
+        "public_updated_at": "2019-03-07T15:21:40Z",
+        "schema_name": "detailed_guide",
+        "title": "The veterinary sector and preparing for EU Exit",
+        "withdrawn": false,
+        "links": {
+          
+        },
+        "api_url": "https://www.integration.publishing.service.gov.uk/api/content/guidance/the-veterinary-sector-and-preparing-for-eu-exit",
+        "web_url": "https://www.integration.publishing.service.gov.uk/guidance/the-veterinary-sector-and-preparing-for-eu-exit"
       }
     ],
     "available_translations": [
       {
         "title": "Find EU Exit guidance for your business",
-        "public_updated_at": "2019-01-24T14:14:55Z",
+        "public_updated_at": "2019-03-13T14:09:10Z",
         "document_type": "finder",
         "schema_name": "finder",
         "base_path": "/find-eu-exit-guidance-business",
@@ -62,9 +1305,11 @@
         "withdrawn": false,
         "content_id": "42ce66de-04f3-4192-bf31-8394538e0734",
         "locale": "en",
-        "api_url": "https://www.gov.uk/api/content/find-eu-exit-guidance-business",
-        "web_url": "https://www.gov.uk/find-eu-exit-guidance-business",
-        "links": {}
+        "api_url": "https://www.integration.publishing.service.gov.uk/api/content/find-eu-exit-guidance-business",
+        "web_url": "https://www.integration.publishing.service.gov.uk/find-eu-exit-guidance-business",
+        "links": {
+          
+        }
       }
     ]
   },
@@ -85,10 +1330,6 @@
         "key": "-popularity"
       },
       {
-        "name": "Relevance",
-        "key": "-relevance"
-      },
-      {
         "name": "Most recent",
         "key": "-public_timestamp"
       },
@@ -99,333 +1340,6 @@
     ],
     "filter": {
       "appear_in_find_eu_exit_guidance_business_finder": "yes"
-    },
-    "facets": [
-      {
-        "allowed_values": [
-          {
-            "label": "Accommodation, restaurants and catering services",
-            "value": "accommodation-restaurants-and-catering-services"
-          },
-          {
-            "label": "Aerospace",
-            "value": "aerospace"
-          },
-          {
-            "label": "Agriculture",
-            "value": "agriculture"
-          },
-          {
-            "label": "Air transport (aviation)",
-            "value": "air-transport-aviation"
-          },
-          {
-            "label": "Ancillary services",
-            "value": "ancillary-services"
-          },
-          {
-            "label": "Animal health",
-            "value": "animal-health"
-          },
-          {
-            "label": "Automotive",
-            "value": "automotive"
-          },
-          {
-            "label": "Banking, markets and infrastructure",
-            "value": "banking-market-infrastructure"
-          },
-          {
-            "label": "Broadcasting",
-            "value": "broadcasting"
-          },
-          {
-            "label": "Chemicals",
-            "value": "chemicals"
-          },
-          {
-            "label": "Computer services",
-            "value": "computer-services"
-          },
-          {
-            "label": "Construction and contracting",
-            "value": "construction-contracting"
-          },
-          {
-            "label": "Education",
-            "value": "education"
-          },
-          {
-            "label": "Electricity",
-            "value": "electricity"
-          },
-          {
-            "label": "Electronics",
-            "value": "electronics"
-          },
-          {
-            "label": "Environmental services",
-            "value": "environmental-services"
-          },
-          {
-            "label": "Fisheries",
-            "value": "fisheries"
-          },
-          {
-            "label": "Food and drink",
-            "value": "food-and-drink"
-          },
-          {
-            "label": "Furniture and other manufacturing",
-            "value": "furniture-and-other-manufacturing"
-          },
-          {
-            "label": "Gas markets",
-            "value": "gas-markets"
-          },
-          {
-            "label": "Imports",
-            "value": "imports"
-          },
-          {
-            "label": "Imputed rent",
-            "value": "imputed-rent"
-          },
-          {
-            "label": "Insurance",
-            "value": "insurance"
-          },
-          {
-            "label": "Land transport (excluding rail)",
-            "value": "land-transport-excl-rail"
-          },
-          {
-            "label": "Medical services",
-            "value": "medical-services"
-          },
-          {
-            "label": "Motor trades",
-            "value": "motor-trades"
-          },
-          {
-            "label": "Oil and gas production",
-            "value": "oil-and-gas-production"
-          },
-          {
-            "label": "Other personal services",
-            "value": "other-personal-services"
-          },
-          {
-            "label": "Parts and machinery",
-            "value": "parts-and-machinery"
-          },
-          {
-            "label": "Pharmaceuticals",
-            "value": "pharmaceuticals"
-          },
-          {
-            "label": "Post",
-            "value": "post"
-          },
-          {
-            "label": "Professional and business services",
-            "value": "professional-and-business-services"
-          },
-          {
-            "label": "Public administration and defence",
-            "value": "public-administration-and-defence"
-          },
-          {
-            "label": "Rail",
-            "value": "rail"
-          },
-          {
-            "label": "Real estate (excluding imputed rent)",
-            "value": "real-estate-excl-imputed-rent"
-          },
-          {
-            "label": "Retail",
-            "value": "retail"
-          },
-          {
-            "label": "Social work",
-            "value": "social-work"
-          },
-          {
-            "label": "Steel and other metals or commodities",
-            "value": "steel-and-other-metals-commodities"
-          },
-          {
-            "label": "Telecoms",
-            "value": "telecoms"
-          },
-          {
-            "label": "Textiles and clothing",
-            "value": "textiles-and-clothing"
-          },
-          {
-            "label": "Warehousing and support for transportation",
-            "value": "warehousing-and-support-for-transportation"
-          },
-          {
-            "label": "Water transport including maritime and ports",
-            "value": "water-transport-maritime-ports"
-          },
-          {
-            "label": "Wholesale (excluding motor vehicles)",
-            "value": "wholesale-excl-motor-vehicles"
-          }
-        ],
-        "display_as_result_metadata": true,
-        "filterable": true,
-        "combine_mode": "and",
-        "key": "sector_business_area",
-        "name": "Sector / Business Area",
-        "preposition": "your business is in",
-        "type": "text"
-      },
-      {
-        "allowed_values": [
-          {
-            "label": "Sell products or goods in the UK",
-            "value": "products-or-goods"
-          },
-          {
-            "label": "Buy products or goods from abroad",
-            "value": "buying"
-          },
-          {
-            "label": "Sell products or goods abroad",
-            "value": "selling"
-          },
-          {
-            "label": "Do other types of business in the EU",
-            "value": "other-eu"
-          },
-          {
-            "label": "Transport goods abroad",
-            "value": "transporting"
-          }
-        ],
-        "display_as_result_metadata": true,
-        "filterable": true,
-        "combine_mode": "and",
-        "key": "business_activity",
-        "name": "Business activity",
-        "preposition": "you",
-        "type": "text"
-      },
-      {
-        "allowed_values": [
-          {
-            "label": "EU citizens",
-            "value": "yes"
-          },
-          {
-            "label": "No EU citizens",
-            "value": "no"
-          }
-        ],
-        "display_as_result_metadata": true,
-        "filterable": true,
-        "combine_mode": "or",
-        "key": "employ_eu_citizens",
-        "name": "Who you employ",
-        "preposition": "you employ",
-        "type": "text"
-      },
-      {
-        "allowed_values": [
-          {
-            "label": "Processing personal data from Europe",
-            "value": "processing-personal-data"
-          },
-          {
-            "label": "Using websites or services hosted in Europe",
-            "value": "interacting-with-eea-website"
-          },
-          {
-            "label": "Providing digital services available to Europe",
-            "value": "digital-service-provider"
-          }
-        ],
-        "display_as_result_metadata": true,
-        "filterable": true,
-        "combine_mode": "or",
-        "key": "personal_data",
-        "name": "Personal data",
-        "preposition": "you exchange personal data by",
-        "type": "text"
-      },
-      {
-        "allowed_values": [
-          {
-            "label": "Copyright",
-            "value": "copyright"
-          },
-          {
-            "label": "Trade marks",
-            "value": "trademarks"
-          },
-          {
-            "label": "Designs",
-            "value": "designs"
-          },
-          {
-            "label": "Patents",
-            "value": "patents"
-          },
-          {
-            "label": "Exhaustion of rights",
-            "value": "exhaustion-of-rights"
-          }
-        ],
-        "display_as_result_metadata": true,
-        "filterable": true,
-        "combine_mode": "or",
-        "key": "intellectual_property",
-        "name": "Intellectual property",
-        "preposition": "you use or rely on",
-        "type": "text"
-      },
-      {
-        "allowed_values": [
-          {
-            "label": "EU funding",
-            "value": "receiving-eu-funding"
-          },
-          {
-            "label": "UK government funding",
-            "value": "receiving-uk-government-funding"
-          }
-        ],
-        "display_as_result_metadata": true,
-        "filterable": true,
-        "combine_mode": "or",
-        "key": "eu_uk_government_funding",
-        "name": "EU or UK government funding",
-        "preposition": "you get",
-        "type": "text"
-      },
-      {
-        "allowed_values": [
-          {
-            "label": "Civil government contracts",
-            "value": "civil-government-contracts"
-          },
-          {
-            "label": "Defence contracts",
-            "value": "defence-contracts"
-          }
-        ],
-        "display_as_result_metadata": true,
-        "filterable": true,
-        "combine_mode": "or",
-        "key": "public_sector_procurement",
-        "name": "Public sector procurement",
-        "preposition": "you apply for",
-        "type": "text"
-      }
-    ]
+    }
   }
 }

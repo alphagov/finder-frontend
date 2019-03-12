@@ -18,7 +18,8 @@
           "es_score": null,
           "_id": "/guidance/food-labelling-changes-after-brexit",
           "elasticsearch_type": "edition",
-          "document_type": "edition"
+          "document_type": "edition",
+          "facet_values": [ "6a3c7b28-48d4-472e-b2d9-38e76a31d195" ]
         },
         {
           "title": "Protecting food and drink names if there's no Brexit deal",

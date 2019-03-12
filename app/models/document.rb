@@ -111,6 +111,8 @@ private
   end
 
   def link_metadata
+    return [] if facet_content_ids.empty?
+
     facet_content_ids
       .group_by(&method(:facet_details_for_content_id))
       .map do |k, v|
