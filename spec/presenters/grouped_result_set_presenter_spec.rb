@@ -29,7 +29,7 @@ RSpec.describe GroupedResultSetPresenter do
 
   let(:a_facet) do
     double(
-      SelectFacet,
+      OptionSelectFacet,
       key: 'case-type',
       selected_values: [
         {
@@ -73,7 +73,7 @@ RSpec.describe GroupedResultSetPresenter do
 
   let(:b_facet) do
     double(
-      SelectFacet,
+      OptionSelectFacet,
       key: 'personal-data',
       selected_values: [
           {
@@ -152,7 +152,7 @@ RSpec.describe GroupedResultSetPresenter do
 
   let(:primary_facet) do
     double(
-      SelectFacet,
+      OptionSelectFacet,
       key: 'sector_business_area',
       allowed_values: [
         { 'value' => 'aerospace', 'label' => 'Aerospace' },

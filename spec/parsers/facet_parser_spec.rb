@@ -28,7 +28,7 @@ describe FacetParser do
     }
     subject { FacetParser.parse(facet_definition) }
 
-    specify { expect(subject).to be_a SelectFacet }
+    specify { expect(subject).to be_a OptionSelectFacet }
     specify { expect(subject.name).to eql("Case type") }
     specify { expect(subject.key).to eql("case_type") }
     specify { expect(subject.preposition).to eql("of type") }

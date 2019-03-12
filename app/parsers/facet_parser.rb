@@ -3,7 +3,7 @@ module FacetParser
     if facet['filterable']
       case facet['type']
       when 'text'
-        SelectFacet.new(facet)
+        OptionSelectFacet.new(facet)
       when 'topical'
         TopicalFacet.new(facet)
       when 'taxon'

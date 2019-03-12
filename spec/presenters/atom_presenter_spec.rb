@@ -29,7 +29,7 @@ RSpec.describe AtomPresenter do
 
   let(:a_facet) do
     double(
-      SelectFacet,
+      OptionSelectFacet,
       key: 'key_1',
       sentence_fragment: {
         'key' => 'key_1',
@@ -53,7 +53,7 @@ RSpec.describe AtomPresenter do
 
   let(:a_date_facet) do
     double(
-      SelectFacet,
+      OptionSelectFacet,
       'key' => 'closed_date',
       sentence_fragment: nil,
       has_filters?: false,
@@ -67,7 +67,7 @@ RSpec.describe AtomPresenter do
 
   let(:another_facet) do
     double(
-      SelectFacet,
+      OptionSelectFacet,
       key: 'key_2',
       preposition: 'About',
       sentence_fragment: {
@@ -84,7 +84,7 @@ RSpec.describe AtomPresenter do
   end
 
   let(:a_date_facet) do
-    double(SelectFacet, has_filters?: false)
+    double(OptionSelectFacet, has_filters?: false)
   end
 
   let(:a_facet_collection) do
