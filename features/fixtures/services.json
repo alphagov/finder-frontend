@@ -1,6 +1,6 @@
 {
   "analytics_identifier": null,
-  "base_path": "/services",
+  "base_path": "/search/services",
   "content_id": "642caf21-e071-472e-9ea0-82d3c797dd64",
   "content_purpose_document_supertype": "navigation",
   "description": "Find services from government",
