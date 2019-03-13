@@ -431,7 +431,7 @@ describe EmailAlertSignupAPI do
       let(:attributes) { {} }
       let(:available_choices) { {} }
       let(:subscription_url) { "http://gov.uk/email/business-readiness-subscription" }
-      let(:signup_content_id) { "2818d67a-029a-4899-a438-a543d5c6a20d" }
+      let(:signup_content_id) { described_class::BUSINESS_READINESS_SIGNUP_CONTENT_ID }
 
       it "will send email_alert_api the business_readiness_tags" do
         email_alert_api_has_subscriber_list(

@@ -2,6 +2,8 @@ require 'email_alert_title_builder'
 require 'validate_query'
 
 class EmailAlertSignupAPI
+  BUSINESS_READINESS_SIGNUP_CONTENT_ID = "2818d67a-029a-4899-a438-a543d5c6a20d".freeze
+
   def initialize(dependencies = {})
     @email_alert_api = dependencies.fetch(:email_alert_api)
     @attributes = dependencies.fetch(:attributes)
@@ -97,6 +99,6 @@ private
   end
 
   def business_readiness_signup?
-    signup_content_id == "2818d67a-029a-4899-a438-a543d5c6a20d"
+    signup_content_id == BUSINESS_READINESS_SIGNUP_CONTENT_ID
   end
 end
