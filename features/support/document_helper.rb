@@ -74,11 +74,11 @@ module DocumentHelper
       .to_return(body: business_readiness_results_json)
   end
 
-  def stub_rummager_api_request_with_filtered_business_readiness_results
+  def stub_rummager_api_request_with_filtered_business_readiness_results(filter_params)
     stub_request(
       :get,
       rummager_filtered_business_readiness_url(
-        "filter_sector_business_area[0]" => "aerospace",
+        filter_params
       )
     ).to_return(body: filtered_business_readiness_results_json)
   end
