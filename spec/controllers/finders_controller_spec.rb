@@ -19,6 +19,16 @@ describe FindersController, type: :controller do
       finder
     end
 
+    let(:all_content_finder) do
+      finder = govuk_content_schema_example('finder').to_hash.merge(
+        'base_path' => '/all-content',
+      )
+
+      finder["details"]["default_documents_per_page"] = 10
+      finder["details"]["sort"] = nil
+      finder
+    end
+
     describe "a finder content item exists" do
       before do
         content_store_has_item(
@@ -202,6 +212,38 @@ describe FindersController, type: :controller do
           expect(response.status).to eq(200)
           expect(response.body).to include("Policy pages and their atom feeds have been retired")
         end
+      end
+    end
+
+    describe "Show/Hiding site search form" do
+      before do
+        content_store_has_item('/all-content', all_content_finder)
+        content_store_has_item('/lunch-finder', lunch_finder)
+
+        rummager_response = %|{
+            "results": [
+              {
+                "results": [],
+                "total": 0,
+                "start": 0,
+                "facets": {},
+                "suggested_queries": []
+              }
+            ]
+          }|
+
+        stub_request(:get, "#{Plek.current.find('search')}/batch_search.json?search%5B%5D%5B0%5D%5Bcount%5D=10&search%5B%5D%5B0%5D%5Bfields%5D=title,link,description,public_timestamp,popularity,content_purpose_supergroup,walk_type,place_of_origin,date_of_introduction,creator&search%5B%5D%5B0%5D%5Bfilter_document_type%5D=mosw_report&search%5B%5D%5B0%5D%5Border%5D=-public_timestamp&search%5B%5D%5B0%5D%5Bstart%5D=0").
+            to_return(status: 200, body: rummager_response, headers: {})
+      end
+
+      it 'all content finder tells Slimmer to hide the form' do
+        get :show, params: { slug: 'all-content' }
+        expect(response.headers["X-Slimmer-Remove-Search"]).to eq("true")
+      end
+
+      it 'any other finder does not tell Slimmer to hide the form' do
+        get :show, params: { slug: 'lunch-finder' }
+        expect(response.headers).not_to include("X-Slimmer-Remove-Search")
       end
     end
   end
