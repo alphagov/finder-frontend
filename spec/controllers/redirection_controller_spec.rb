@@ -34,9 +34,9 @@ describe RedirectionController, type: :controller do
   end
 
   describe '#publications' do
-    it "redirects to the all-content page" do
+    it "redirects to the all page" do
       get :publications
-      expect(response).to redirect_to finder_path('search/all-content')
+      expect(response).to redirect_to finder_path('search/all')
     end
     it 'passes on a set of params' do
       get :publications, params: {
@@ -48,7 +48,7 @@ describe RedirectionController, type: :controller do
         from_date: '01/01/2014',
         to_date: '01/01/2014'
       }
-      expect(response).to redirect_to finder_path('search/all-content', params: {
+      expect(response).to redirect_to finder_path('search/all', params: {
         keywords: %w[one two],
         level_one_taxon: 'one',
         level_two_taxon: 'two',
@@ -59,7 +59,7 @@ describe RedirectionController, type: :controller do
     end
     it 'redirects to the atom feed' do
       get :publications, params: { keywords: %w[one two] }, format: :atom
-      expect(response).to redirect_to finder_path('search/all-content', format: :atom, params: { keywords: %w[one two] })
+      expect(response).to redirect_to finder_path('search/all', format: :atom, params: { keywords: %w[one two] })
     end
   end
 end
