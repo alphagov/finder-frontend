@@ -28,6 +28,12 @@ Feature: Filtering documents
     Then I see all documents which contain the keywords
     And there is not a zero results message
 
+  Scenario: Filter document by keyword with q parameter
+    Given a collection of documents exist
+    When I visit a finder by keyword with q parameter
+    Then I see all documents which contain the keywords
+    And there is not a zero results message
+
   Scenario: Hiding keyword search
     Given no results
     When I view the finder with no keywords and no facets
