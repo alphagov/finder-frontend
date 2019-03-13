@@ -28,97 +28,6 @@
     outline: 3px solid $yellow;
   }
 
-  .container-head {
-    padding: 0 5px;
-  }
-
-  .option-select-label {
-    @include core-19;
-    position: relative;
-    margin-right: 40px;
-    font-weight: bold;
-    padding-top: 5px;
-  }
-
-  .options-container {
-    position: relative;
-    height: 200px;
-    background-color: $page-colour;
-    overflow-y: auto;
-    overflow-x: hidden;
-  }
-
-  .options-container__inner {
-    padding: $gutter-one-quarter;
-  }
-
-  .app-c-option-select__filter {
-    display: none;
-
-    .govuk-form-group {
-      margin-bottom: $gutter-one-third;
-    }
-  }
-
-  .js-enabled & {
-    padding: 0 0 1px;
-
-    .js-selected-counter {
-      @include core-14;
-    }
-
-    .options-container {
-      border: 5px solid $grey-3;
-    }
-
-    // styles for collapsibleness. .js-collapsible is added by the javascript if the browser is not ie6/7 in which case these don't collapse
-    &.js-collapsible {
-      .app-c-option-select__button {
-        position: relative;
-        z-index: 100;
-        border: none;
-        display: block;
-        width: 100%;
-        text-align: left;
-        cursor: pointer;
-        margin-bottom: -1px;
-        padding: 5px 8px;
-        background-color: $grey-3;
-
-        &:hover {
-          background-color: $grey-2;
-        }
-
-        &:hover + .options-container {
-          border-color: $grey-2;
-        }
-
-        &[disabled] {
-          background-image: none;
-          color: inherit;
-        }
-
-        &:focus {
-          @include govuk-focusable;
-        }
-      }
-
-      &.js-closed {
-        button {
-          background-position: right -73px;
-        }
-
-        .options-container {
-          display: none;
-        }
-      }
-    }
-
-    .app-c-option-select__filter {
-      display: block;
-    }
-  }
-
   // This is a temporary overwrite for checkboxes
   // These styles should be removed in favour of small checkboxes from the Design System
   .govuk-checkboxes__item {
@@ -166,6 +75,18 @@
   }
 }
 
+.app-c-option-select__container-head {
+  padding: 0 5px;
+}
+
+.app-c-option-select__label {
+  @include core-19;
+  position: relative;
+  margin-right: 40px;
+  font-weight: bold;
+  padding-top: 5px;
+}
+
 .app-c-option-select__icon {
   display: none;
   position: absolute;
@@ -176,16 +97,87 @@
   fill: currentColor;
 }
 
-.js-enabled .app-c-option-select__icon--up {
-  display: block;
+.app-c-option-select__container {
+  position: relative;
+  height: 200px;
+  background-color: $page-colour;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
-.js-closed {
-  .app-c-option-select__icon--up {
-    display: none;
+.app-c-option-select__container-inner {
+  padding: $gutter-one-quarter;
+}
+
+.app-c-option-select__filter {
+  display: none;
+
+  .govuk-form-group {
+    margin-bottom: $gutter-one-third;
+  }
+}
+
+.js-enabled {
+  .app-c-option-select {
+    padding: 0 0 1px;
   }
 
-  .app-c-option-select__icon--down {
+  .app-c-option-select__container {
+    border: 5px solid $grey-3;
+  }
+
+  .app-c-option-select__filter {
     display: block;
+  }
+
+  .app-c-option-select__icon--up {
+    display: block;
+  }
+}
+
+// styles for collapsibleness. .js-collapsible is added by the javascript if the browser is not ie6/7 in which case these don't collapse
+.js-collapsible {
+  .app-c-option-select__button {
+    position: relative;
+    z-index: 100;
+    border: none;
+    display: block;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    margin-bottom: -1px;
+    padding: 5px 8px;
+    background-color: $grey-3;
+
+    &:hover {
+      background-color: $grey-2;
+    }
+
+    &:hover + .app-c-option-select__container {
+      border-color: $grey-2;
+    }
+
+    &[disabled] {
+      background-image: none;
+      color: inherit;
+    }
+
+    &:focus {
+      @include govuk-focusable;
+    }
+  }
+
+  &.js-closed {
+    .app-c-option-select__container {
+      display: none;
+    }
+
+    .app-c-option-select__icon--up {
+      display: none;
+    }
+
+    .app-c-option-select__icon--down {
+      display: block;
+    }
   }
 }

@@ -4,10 +4,10 @@ describe('GOVUK.OptionSelect', function() {
 
   beforeEach(function(){
     optionSelectFixture = '<div class="app-c-option-select">'+
-      '<div class="container-head js-container-head">'+
-        '<div class="option-select-label">Market sector</div>'+
+      '<div class="app-c-option-select__container-head js-container-head">'+
+        '<div class="app-c-option-select__label">Market sector</div>'+
       '</div>'+
-      '<div class="options-container">'+
+      '<div class="app-c-option-select__container js-options-container">'+
         '<div class="js-auto-height-inner">'+
           '<div id="checkboxes-9b7ecc25" class="gem-c-checkboxes govuk-form-group" data-module="checkboxes">'+
             '<fieldset class="govuk-fieldset">'+
@@ -78,8 +78,8 @@ describe('GOVUK.OptionSelect', function() {
 
   it('instantiates a closed option-select if data-closed-on-load is true', function(){
     closedOnLoadFixture = '<div class="app-c-option-select" data-closed-on-load=true>' +
-                            '<div class="container-head js-container-head"></div>' +
-                            '<div class="options-container"></div>'+
+                            '<div class="app-c-option-select__container-head js-container-head"></div>' +
+                            '<div class="app-c-option-select__container js-options-container"></div>'+
                           '</div>';
     $closedOnLoadFixture = $(closedOnLoadFixture);
 
@@ -91,8 +91,8 @@ describe('GOVUK.OptionSelect', function() {
 
   it('instantiates an open option-select if data-closed-on-load is false', function(){
     openOnLoadFixture = '<div class="app-c-option-select" data-closed-on-load=false>' +
-                            '<div class="container-head js-container-head"></div>' +
-                            '<div class="options-container"></div>'+
+                            '<div class="app-c-option-select__container-head js-container-head"></div>' +
+                            '<div class="app-c-option-select__container js-options-container"></div>'+
                           '</div>';
     $openOnLoadFixture = $(openOnLoadFixture);
 
@@ -104,8 +104,8 @@ describe('GOVUK.OptionSelect', function() {
 
   it('instantiates an open option-select if data-closed-on-load is not present', function(){
     openOnLoadFixture = '<div class="app-c-option-select">' +
-                          '<div class="container-head js-container-head"></div>' +
-                            '<div class="options-container"></div>'+
+                          '<div class="app-c-option-select__container-head js-container-head"></div>' +
+                            '<div class="app-c-option-select__container js-options-container"></div>'+
                         '</div>';
     $openOnLoadFixture = $(openOnLoadFixture);
 
@@ -116,22 +116,22 @@ describe('GOVUK.OptionSelect', function() {
   });
 
   it ('sets the height of the options container as part of initialisation', function(){
-    expect($optionSelectHTML.find('.options-container').attr('style')).toContain('height');
+    expect($optionSelectHTML.find('.js-options-container').attr('style')).toContain('height');
   });
 
   it ('doesn\'t set the height of the options container as part of initialisation if closed-on-load is true', function(){
     closedOnLoadFixture = '<div class="app-c-option-select" data-closed-on-load=true>' +
-                            '<div class="options-container"></div>' +
+                            '<div class="app-c-option-select__container js-options-container"></div>' +
                           '</div>';
     $closedOnLoadFixture = $(closedOnLoadFixture);
 
     $('body').append($closedOnLoadFixture);
     optionSelect = new GOVUK.OptionSelect({$el:$closedOnLoadFixture});
-    expect($closedOnLoadFixture.find('.options-container').attr('style')).not.toContain('height');
+    expect($closedOnLoadFixture.find('.js-options-container').attr('style')).not.toContain('height');
   });
 
   describe('replaceHeadWithButton', function(){
-    it ("replaces the `div.container-head` with a button", function(){
+    it ("replaces the `div.app-c-option-select__container-head` with a button", function(){
       expect($optionSelectHTML.find('button')).toBeDefined();
     });
   });
@@ -169,7 +169,7 @@ describe('GOVUK.OptionSelect', function() {
     });
 
     it ('calls setupHeight() if a height has not been set', function(){
-      $optionSelectHTML.find('.options-container').attr('style', '');
+      $optionSelectHTML.find('.js-options-container').attr('style', '');
       spyOn(optionSelect, "setupHeight");
       optionSelect.open();
       expect(optionSelect.setupHeight.calls.count()).toBe(1);
@@ -269,7 +269,7 @@ describe('GOVUK.OptionSelect', function() {
 
     beforeEach(function(){
       // Set some visual properties which are done in the CSS IRL
-      $checkboxList = $optionSelectHTML.find('.options-container');
+      $checkboxList = $optionSelectHTML.find('.js-options-container');
       $checkboxList.css({
         'height': 200,
         'position': 'relative',
@@ -318,7 +318,7 @@ describe('GOVUK.OptionSelect', function() {
     });
 
     it('sets the height of the container sensibly', function(){
-      var containerHeight = $('.options-container').height();
+      var containerHeight = $('.js-options-container').height();
       expect(containerHeight).toBe(201);
     });
   });
@@ -340,7 +340,7 @@ describe('GOVUK.OptionSelect', function() {
       $('.wrapper').show();
       $optionSelectHTML.find('button').click();
 
-      var containerHeight = $('.options-container').height();
+      var containerHeight = $('.js-options-container').height();
       expect(containerHeight).toBeGreaterThan(200);
       expect(containerHeight).toBeLessThan(500);
     });

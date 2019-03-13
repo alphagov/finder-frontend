@@ -10,7 +10,7 @@
 
     this.$optionSelect = options.$el;
     this.$options = this.$optionSelect.find("input[type='checkbox']");
-    this.$optionsContainer = this.$optionSelect.find('.options-container');
+    this.$optionsContainer = this.$optionSelect.find('.js-options-container');
     this.$optionList = this.$optionsContainer.children('.js-auto-height-inner');
     this.$allCheckboxes = this.$optionsContainer.find('.govuk-checkboxes__item');
     this.hasFilter = this.$optionSelect.data('filter-element') || "";
@@ -131,14 +131,14 @@
     //Add type button to override default type submit when this component is used within a form
     $button.attr('type', 'button');
     $button.attr('aria-expanded', true);
-    $button.attr('aria-controls', this.$optionSelect.find('.options-container').attr('id'));
+    $button.attr('aria-controls', this.$optionsContainer.attr('id'));
     $button.html(jsContainerHeadHTML);
     $containerHead.replaceWith($button);
 
   };
 
   OptionSelect.prototype.attachCheckedCounter = function attachCheckedCounter(){
-    this.$optionSelect.find('.js-container-head').append('<div class="js-selected-counter">'+this.checkedString()+'</div>');
+    this.$optionSelect.find('.js-container-head').append('<div class="govuk-!-font-size-14 js-selected-counter">'+this.checkedString()+'</div>');
   };
 
   OptionSelect.prototype.updateCheckedCount = function updateCheckedCount(){

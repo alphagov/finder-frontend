@@ -71,12 +71,12 @@ describe 'components/_option-select.html.erb', type: :view do
 
   it "renders a heading for the option select box containing the title" do
     render_component(option_select_arguments)
-    expect(rendered).to have_selector(".option-select-label", text: 'Market sector')
+    expect(rendered).to have_selector(".app-c-option-select__label", text: 'Market sector')
   end
 
   it "renders a container with the id passed in" do
     render_component(option_select_arguments)
-    expect(rendered).to have_selector("\#list-of-sectors.options-container")
+    expect(rendered).to have_selector("\#list-of-sectors.app-c-option-select__container")
   end
 
   it "can begin with the options box closed on load" do
