@@ -42,11 +42,14 @@
 
   .options-container {
     position: relative;
-    padding: $gutter-one-quarter;
+    height: 200px;
     background-color: $page-colour;
     overflow-y: auto;
     overflow-x: hidden;
-    max-height: 200px;
+  }
+
+  .options-container__inner {
+    padding: $gutter-one-quarter;
   }
 
   .app-c-option-select__filter {
@@ -156,6 +159,10 @@
     width: 12px;
     height: 5px;
     border-width: 0 0 3px 3px;
+  }
+
+  .gem-c-checkboxes {
+    margin: 0;
   }
 }
 

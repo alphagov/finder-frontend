@@ -289,7 +289,8 @@ describe('GOVUK.OptionSelect', function() {
       optionSelect.setupHeight();
 
       // Wrapping HTML should adjust to fit inner height
-      expect($checkboxList.height()).toBe($checkboxListInner.height());
+      // but we add 1px because some browsers still add a scrollbar
+      expect($checkboxList.height()).toBe($checkboxListInner.height() + 1);
     });
 
     it('expands the checkbox-container just enough to cut the last visible item in half horizontally, if there are many items', function(){
@@ -318,7 +319,7 @@ describe('GOVUK.OptionSelect', function() {
 
     it('sets the height of the container sensibly', function(){
       var containerHeight = $('.options-container').height();
-      expect(containerHeight).toBe(200);
+      expect(containerHeight).toBe(201);
     });
   });
 

@@ -16,33 +16,6 @@
     this.hasFilter = this.$optionSelect.data('filter-element') || "";
     this.checkedCheckboxes = [];
 
-    this.attachCheckedCounter();
-
-    // Performance in ie 6/7 is not good enough to support animating the opening/closing
-    // so do not allow option-selects to be collapsible in this case
-    var allowCollapsible = (typeof ieVersion == "undefined" || ieVersion > 7) ? true : false;
-    if(allowCollapsible){
-
-      // Attach listener to update checked count
-      this.$optionSelect.on('change', "input[type='checkbox']", this.updateCheckedCount.bind(this));
-
-      // Replace div.container-head with a button
-      this.replaceHeadWithButton();
-
-      // Add js-collapsible class to parent for CSS
-      this.$optionSelect.addClass('js-collapsible');
-
-      // Add open/close listeners
-      this.$optionSelect.find('.js-container-head').on('click', this.toggleOptionSelect.bind(this));
-
-      if (this.$optionSelect.data('closed-on-load') === true) {
-        this.close();
-      }
-      else {
-        this.setupHeight();
-      }
-    }
-
     if (this.hasFilter.length) {
       var filterEl = document.createElement('div');
       filterEl.innerHTML = this.hasFilter;
@@ -77,6 +50,33 @@
           e.preventDefault(); // prevents finder forms from being submitted when user presses ENTER
         }
       });
+    }
+
+    this.attachCheckedCounter();
+
+    // Performance in ie 6/7 is not good enough to support animating the opening/closing
+    // so do not allow option-selects to be collapsible in this case
+    var allowCollapsible = (typeof ieVersion == "undefined" || ieVersion > 7) ? true : false;
+    if(allowCollapsible){
+
+      // Attach listener to update checked count
+      this.$optionSelect.on('change', "input[type='checkbox']", this.updateCheckedCount.bind(this));
+
+      // Replace div.container-head with a button
+      this.replaceHeadWithButton();
+
+      // Add js-collapsible class to parent for CSS
+      this.$optionSelect.addClass('js-collapsible');
+
+      // Add open/close listeners
+      this.$optionSelect.find('.js-container-head').on('click', this.toggleOptionSelect.bind(this));
+
+      if (this.$optionSelect.data('closed-on-load') === true) {
+        this.close();
+      }
+      else {
+        this.setupHeight();
+      }
     }
   }
 
@@ -200,34 +200,33 @@
   };
 
   OptionSelect.prototype.getVisibleCheckboxes = function getVisibleCheckboxes(){
-    return this.$options.filter(this.isCheckboxVisible.bind(this));
+    var visibleCheckboxes = this.$options.filter(this.isCheckboxVisible.bind(this));
+    // add an extra checkbox, if the label of the first is too long it collapses onto itself
+    visibleCheckboxes = visibleCheckboxes.add(this.$options[visibleCheckboxes.length]);
+    return visibleCheckboxes;
   };
 
   OptionSelect.prototype.setupHeight = function setupHeight(){
     var initialOptionContainerHeight = this.$optionsContainer.height();
-    var height = this.$optionList.height();
+    var height = this.$optionList.outerHeight(true);
 
-    // check whether this is hidden by progressive disclosure on mobile,
+    // check whether this is hidden by progressive disclosure,
     // because height calculations won't work
     if (this.$optionsContainer[0].offsetParent === null) {
       initialOptionContainerHeight = 200;
       height = 200;
     }
 
-
     // Resize if the list is only slightly bigger than its container
     if (height < initialOptionContainerHeight + 50) {
-      this.setContainerHeight(height);
+      this.setContainerHeight(height + 1);
       return;
     }
 
     // Resize to cut last item cleanly in half
-    var lastVisibleCheckbox, position, topPadding;
-    lastVisibleCheckbox = this.getVisibleCheckboxes().last();
-    position = lastVisibleCheckbox.parent().position().top; // parent element is relative
-    topPadding = parseInt(this.$optionList.css('padding-top'), 10);
-
-    this.setContainerHeight(position + topPadding + lastVisibleCheckbox.height() / 2);
+    var lastVisibleCheckbox = this.getVisibleCheckboxes().last();
+    var position = lastVisibleCheckbox.parent().position().top; // parent element is relative
+    this.setContainerHeight(position + (lastVisibleCheckbox.height() / 1.5));
   };
 
   GOVUK.OptionSelect = OptionSelect;
