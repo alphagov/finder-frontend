@@ -56,6 +56,8 @@ private
   end
 
   def tags
+    return business_readiness_tags if business_readiness_signup?
+
     @tags ||= massaged_attributes.each_with_object({}) { |(key, value), hash|
       if is_all_field?(key)
         hash[key[4..-1]] = { all: value }
@@ -88,5 +90,13 @@ private
     options["reject_content_purpose_supergroup"] = reject_content_purpose_supergroup if reject_content_purpose_supergroup.present?
 
     @validater ||= ::ValidateQuery.new(options)
+  end
+
+  def business_readiness_tags
+    { "appear_in_find_eu_exit_guidance_business_finder" => { "any" => %W(yes) } }
+  end
+
+  def business_readiness_signup?
+    signup_content_id == "2818d67a-029a-4899-a438-a543d5c6a20d"
   end
 end

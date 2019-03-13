@@ -424,4 +424,50 @@ describe EmailAlertSignupAPI do
       end
     end
   end
+
+  describe "business readiness tags" do
+    context "business readiness finder signup page" do
+      let(:subscription_list_title_prefix) { "Business readiness" }
+      let(:attributes) { {} }
+      let(:available_choices) { {} }
+      let(:subscription_url) { "http://gov.uk/email/business-readiness-subscription" }
+      let(:signup_content_id) { "2818d67a-029a-4899-a438-a543d5c6a20d" }
+
+      it "will send email_alert_api the business_readiness_tags" do
+        email_alert_api_has_subscriber_list(
+          "tags" => { "appear_in_find_eu_exit_guidance_business_finder" => { "any" => %W(yes) } },
+          "subscription_url" => subscription_url,
+        )
+
+        expect(Services.email_alert_api).to receive(:find_or_create_subscriber_list).with(
+          "tags" => { "appear_in_find_eu_exit_guidance_business_finder" => { "any" => %W(yes) } },
+          "title" => "Business readiness",
+        ).and_call_original
+
+        expect(subject.signup_url).to eql subscription_url
+      end
+    end
+
+    context "other finder signup pages" do
+      let(:subscription_list_title_prefix) { "Other finder" }
+      let(:attributes) { {} }
+      let(:available_choices) { {} }
+      let(:subscription_url) { "http://gov.uk/email/business-readiness-subscription" }
+      let(:signup_content_id) { "not-the-business-readiness-signup-content-id" }
+
+      it "will not send email_alert_api the business_readiness_tags" do
+        email_alert_api_has_subscriber_list(
+          "tags" => {},
+          "subscription_url" => subscription_url,
+        )
+
+        expect(Services.email_alert_api).to receive(:find_or_create_subscriber_list).with(
+          "tags" => {},
+          "title" => "Other finder",
+        ).and_call_original
+
+        expect(subject.signup_url).to eql subscription_url
+      end
+    end
+  end
 end
