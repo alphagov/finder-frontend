@@ -51,7 +51,9 @@ class ResultSetPresenter
 
   def is_top_result?(result)
     ## Logic here that compares all the results and decides if a result is the top one.
-    true
+    if ((finder.slug == "/find-eu-exit-guidance-business") && result.es_score > 0.00030543795)
+      true
+    end
   end
 
   def documents

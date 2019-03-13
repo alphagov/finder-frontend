@@ -7,6 +7,7 @@ class SearchResultPresenter
            :show_metadata,
            :government_name,
            :es_score,
+           :top_result,
            to: :search_result
 
   def initialize(search_result, is_top_result)
