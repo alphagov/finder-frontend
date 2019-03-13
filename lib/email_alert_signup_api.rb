@@ -8,6 +8,7 @@ class EmailAlertSignupAPI
     @subscription_list_title_prefix = dependencies.fetch(:subscription_list_title_prefix)
     @available_choices = dependencies.fetch(:available_choices)
     @default_attributes = dependencies.fetch(:default_attributes, filter: {}, reject: {})
+    @signup_content_id = dependencies.fetch(:signup_content_id)
   end
 
   def signup_url
@@ -20,7 +21,7 @@ class EmailAlertSignupAPI
 
 private
 
-  attr_reader :email_alert_api, :attributes, :subscription_list_title_prefix, :available_choices, :default_attributes
+  attr_reader :email_alert_api, :attributes, :subscription_list_title_prefix, :available_choices, :default_attributes, :signup_content_id
 
   def subscriber_list
     response = email_alert_api.find_or_create_subscriber_list(subscriber_list_options)

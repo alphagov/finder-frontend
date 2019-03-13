@@ -12,12 +12,15 @@ describe EmailAlertSignupAPI do
       default_attributes: default_attributes,
       available_choices: available_choices,
       subscription_list_title_prefix: subscription_list_title_prefix,
+      signup_content_id: signup_content_id,
     )
   end
 
   let(:default_attributes) do
     { filter: {}, reject: {} }
   end
+
+  let(:signup_content_id) { SecureRandom.uuid }
 
   describe "default_attributes" do
     context "no default_attributes or attributes" do

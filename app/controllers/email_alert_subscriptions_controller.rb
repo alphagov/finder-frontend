@@ -63,6 +63,7 @@ private
       default_attributes: { filter: default_filters, reject: default_rejects },
       subscription_list_title_prefix: content['details']['subscription_list_title_prefix'],
       available_choices: signup_presenter.choices,
+      signup_content_id: signup_content_id,
     )
   end
 
@@ -88,5 +89,9 @@ private
 
   def default_rejects
     content['details'].fetch('reject', {})
+  end
+
+  def signup_content_id
+    content['content_id']
   end
 end
