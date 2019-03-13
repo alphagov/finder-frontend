@@ -49,10 +49,15 @@ class ResultSetPresenter
     }.reject(&:empty?)
   end
 
+  def is_top_result?(result)
+    ## Logic here that compares all the results and decides if a result is the top one.
+    true
+  end
+
   def documents
     results.each_with_index.map do |result, index|
       {
-        document: SearchResultPresenter.new(result).to_hash,
+        document: SearchResultPresenter.new(result, is_top_result?(result)).to_hash,
         document_index: index + 1
       }
     end

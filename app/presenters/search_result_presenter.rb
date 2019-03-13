@@ -9,8 +9,9 @@ class SearchResultPresenter
            :es_score,
            to: :search_result
 
-  def initialize(search_result)
+  def initialize(search_result, is_top_result)
     @search_result = search_result
+    @top_result = is_top_result
   end
 
   def to_hash
@@ -24,7 +25,8 @@ class SearchResultPresenter
       promoted: promoted,
       promoted_summary: promoted_summary,
       show_metadata: show_metadata,
-      es_score: es_score
+      es_score: es_score,
+      top_result: @top_result
     }
   end
 
