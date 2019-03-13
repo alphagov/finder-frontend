@@ -50,9 +50,11 @@ class ResultSetPresenter
   end
 
   def is_top_result?(result)
-    ## Logic here that compares all the results and decides if a result is the top one.
-    if ((finder.slug == "/find-eu-exit-guidance-business") && result.es_score > 0.00030543795)
-      true
+    if sort_option["key"].eql?("-relevance")
+      ## Logic here that compares all the results and decides if a result is the top one.
+      if ((finder.slug == "/find-eu-exit-guidance-business") && result.es_score >= 0.1)
+        true
+      end
     end
   end
 
