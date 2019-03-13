@@ -8,7 +8,7 @@ RSpec.describe AtomPresenter do
   let(:finder) do
     double(
       FinderPresenter,
-      slug: "/news-and-communications",
+      slug: "/search/news-and-communications",
       name: 'News and communications',
       results: result_set,
       document_noun: 'case',

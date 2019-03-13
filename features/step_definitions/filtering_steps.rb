@@ -52,18 +52,18 @@ Then(/^I can get a list of all documents with matching metadata$/) do
 end
 
 And("I see email and feed sign up links") do
-  expect(page).to have_css('a[href="/news-and-communications/email-signup?"]')
-  expect(page).to have_css('a[href="/news-and-communications.atom"]')
+  expect(page).to have_css('a[href="/search/news-and-communications/email-signup?"]')
+  expect(page).to have_css('a[href="/search/news-and-communications.atom"]')
 end
 
 And("I see email and feed sign up links with filters applied") do
-  expect(page).to have_css('a[href="/news-and-communications/email-signup?people%5B%5D=rufus-scrimgeour"]')
-  expect(page).to have_css('a[href="/news-and-communications.atom?order=updated-newest&people%5B%5D=rufus-scrimgeour&public_timestamp%5Bfrom%5D=&public_timestamp%5Bto%5D="]')
+  expect(page).to have_css('a[href="/search/news-and-communications/email-signup?people%5B%5D=rufus-scrimgeour"]')
+  expect(page).to have_css('a[href="/search/news-and-communications.atom?order=updated-newest&people%5B%5D=rufus-scrimgeour&public_timestamp%5Bfrom%5D=&public_timestamp%5Bto%5D="]')
 end
 
 And("I see email and feed sign up links with filters applied with extra empty filters") do
-  expect(page).to have_css('a[href="/news-and-communications/email-signup?parent=&keywords=&level_one_taxon=&people%5B%5D=rufus-scrimgeour&public_timestamp%5Bfrom%5D=&public_timestamp%5Bto%5D=&order=updated-newest"]')
-  expect(page).to have_css('a[href="/news-and-communications.atom?parent=&keywords=&level_one_taxon=&people%5B%5D=rufus-scrimgeour&public_timestamp%5Bfrom%5D=&public_timestamp%5Bto%5D=&order=updated-newest"]')
+  expect(page).to have_css('a[href="/search/news-and-communications/email-signup?parent=&keywords=&level_one_taxon=&people%5B%5D=rufus-scrimgeour&public_timestamp%5Bfrom%5D=&public_timestamp%5Bto%5D=&order=updated-newest"]')
+  expect(page).to have_css('a[href="/search/news-and-communications.atom?parent=&keywords=&level_one_taxon=&people%5B%5D=rufus-scrimgeour&public_timestamp%5Bfrom%5D=&public_timestamp%5Bto%5D=&order=updated-newest"]')
 end
 
 When(/^I view a list of news and communications$/) do
@@ -82,7 +82,7 @@ When(/^I view a list of news and communications$/) do
   stub_people_registry_request
   stub_organisations_registry_request
   stub_rummager_api_request_with_news_and_communication_results
-  visit finder_path('news-and-communications')
+  visit finder_path('search/news-and-communications')
 end
 
 When(/^I view the news and communications finder$/) do
@@ -101,7 +101,7 @@ When(/^I view the news and communications finder$/) do
   stub_all_rummager_api_requests_with_news_and_communication_results
   stub_people_registry_request
   stub_organisations_registry_request
-  visit finder_path('news-and-communications')
+  visit finder_path('search/news-and-communications')
 end
 
 When(/^I view the business readiness finder$/) do
@@ -129,7 +129,7 @@ When(/^I view the policy papers and consultations finder$/) do
   stub_rummager_api_request_with_policy_papers_results
   stub_rummager_api_request_with_filtered_policy_papers_results
 
-  visit finder_path('policy-papers-and-consultations')
+  visit finder_path('search/policy-papers-and-consultations')
 end
 
 When(/^I view a list of services$/) do
@@ -139,7 +139,7 @@ When(/^I view a list of services$/) do
   stub_people_registry_request
   stub_organisations_registry_request
 
-  visit finder_path('services')
+  visit finder_path('search/services')
 end
 
 When(/^I search documents by keyword$/) do

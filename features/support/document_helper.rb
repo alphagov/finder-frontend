@@ -204,7 +204,7 @@ module DocumentHelper
   def content_store_has_news_and_communications_finder
     finder_fixture = File.read(Rails.root.join('features', 'fixtures', 'news_and_communications_with_checkboxes.json'))
 
-    content_store_has_item('/news-and-communications', finder_fixture)
+    content_store_has_item('/search/news-and-communications', finder_fixture)
   end
 
   def content_store_has_government_finder
@@ -228,7 +228,7 @@ module DocumentHelper
   def content_store_has_services_finder
     finder_fixture = File.read(Rails.root.join('features', 'fixtures', 'services.json'))
 
-    content_store_has_item('/services', finder_fixture)
+    content_store_has_item('/search/services', finder_fixture)
   end
 
   def content_store_has_government_finder_with_10_items
@@ -249,7 +249,7 @@ module DocumentHelper
   def content_store_has_policy_and_engagement_finder
     finder_fixture = File.read(Rails.root.join('features', 'fixtures', 'policy_and_engagement.json'))
 
-    content_store_has_item('/policy-papers-and-consultations', finder_fixture)
+    content_store_has_item('/search/policy-papers-and-consultations', finder_fixture)
   end
 
   def content_store_has_business_readiness_finder

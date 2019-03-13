@@ -1,6 +1,6 @@
 {
   "analytics_identifier":null,
-  "base_path":"/news-and-communications",
+  "base_path":"/search/news-and-communications",
   "content_id":"622e9691-4b4f-4e9c-bce1-098b0c4f5ee2",
   "content_purpose_document_supertype":"navigation",
   "document_type":"finder",
@@ -25,8 +25,8 @@
   "links": {
     "email_alert_signup": [
       {
-        "api_path": "/api/content/news-and-communications/email-signup",
-        "base_path": "/news-and-communications/email-signup",
+        "api_path": "/api/content/search/news-and-communications/email-signup",
+        "base_path": "/search/news-and-communications/email-signup",
         "content_id": "43dd2b13-93ec-4ca6-a7a4-e2eb5f5d485a",
         "document_type": "finder_email_signup",
         "locale": "en",
@@ -35,8 +35,8 @@
         "title": "News and communications",
         "withdrawn": false,
         "links": {},
-        "api_url": "https://www.gov.uk/api/content/news-and-communications/email-signup",
-        "web_url": "/news-and-communications/email-signup"
+        "api_url": "https://www.gov.uk/api/content/search/news-and-communications/email-signup",
+        "web_url": "/search/news-and-communications/email-signup"
       }
     ]
   },
