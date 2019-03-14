@@ -177,6 +177,12 @@ Then(/^I see all documents which contain the keywords$/) do
   end
 end
 
+When(/^I visit a finder by keyword with q parameter$/) do
+  stub_keyword_search_api_request
+
+  visit finder_path('mosw-reports', q: @keyword_search)
+end
+
 Given(/^a government finder exists$/) do
   content_store_has_government_finder
   stub_rummager_api_request_with_government_results
