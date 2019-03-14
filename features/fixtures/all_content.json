@@ -22,7 +22,7 @@
         "type": "taxon"
       },
       {
-        "display_as_result_metadata": true,
+        "display_as_result_metadata": false,
         "filterable": true,
         "key": "organisations",
         "name": "Organisation",
