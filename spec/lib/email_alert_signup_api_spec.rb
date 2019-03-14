@@ -61,14 +61,12 @@ describe EmailAlertSignupAPI do
             "tags" => {},
             "subscription_url" => subscription_url,
             "content_purpose_supergroup" => "news_and_communications",
-            "reject_content_purpose_supergroup" => "other",
           )
 
           expect(Services.email_alert_api).to receive(:find_or_create_subscriber_list).with(
             "tags" => {},
             "title" => "News and communications",
             "content_purpose_supergroup" => "news_and_communications",
-            "reject_content_purpose_supergroup" => "other",
           ).and_call_original
 
           expect(subject.signup_url).to eql subscription_url

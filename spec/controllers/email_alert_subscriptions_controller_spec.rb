@@ -82,13 +82,11 @@ describe EmailAlertSubscriptionsController, type: :controller do
           "tags" => {
             "format" => { any: %w(mosw_report) },
           },
-          "reject_content_purpose_supergroup" => 'other',
           "subscription_url" => 'http://www.example.com',
         )
 
         stub_validation_of_valid_query(
           'filter_format[]' => 'mosw_report',
-          'reject_content_purpose_supergroup' => 'other',
         )
 
         post :create, params: { slug: 'cma-cases' }

@@ -34,7 +34,6 @@ private
     }
 
     options["content_purpose_supergroup"] = content_purpose_supergroup if content_purpose_supergroup.present?
-    options["reject_content_purpose_supergroup"] = reject_content_purpose_supergroup if reject_content_purpose_supergroup.present?
     options
   end
 
@@ -48,10 +47,6 @@ private
 
   def content_purpose_supergroup
     massaged_attributes['content_purpose_supergroup'] || default_attributes[:filter]['content_purpose_supergroup']
-  end
-
-  def reject_content_purpose_supergroup
-    massaged_attributes['reject_content_purpose_supergroup'] || default_attributes[:reject]['content_purpose_supergroup']
   end
 
   def tags
@@ -84,7 +79,6 @@ private
   def validater
     options = massaged_attributes
     options["content_purpose_supergroup"] = content_purpose_supergroup if content_purpose_supergroup.present?
-    options["reject_content_purpose_supergroup"] = reject_content_purpose_supergroup if reject_content_purpose_supergroup.present?
 
     @validater ||= ::ValidateQuery.new(options)
   end
