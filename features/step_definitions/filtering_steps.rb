@@ -132,6 +132,25 @@ When(/^I view the policy papers and consultations finder$/) do
   visit finder_path('search/policy-papers-and-consultations')
 end
 
+When(/^I view the research and statistics finder$/) do
+  topic_taxonomy_has_taxons([
+                                {
+                                    content_id: "Taxon_1",
+                                    title: "Taxon_1"
+                                },
+                                {
+                                    content_id: "Taxon_2",
+                                    title: "Taxon_2"
+                                }
+                            ])
+  content_store_has_statistics_finder
+  stub_whitehall_api_world_location_request
+  stub_rummager_api_request_with_research_and_statistics_results
+  stub_rummager_api_request_with_filtered_research_and_statistics_results
+
+  visit finder_path('statistics')
+end
+
 When(/^I view a list of services$/) do
   topic_taxonomy_has_taxons
   content_store_has_services_finder
@@ -526,6 +545,11 @@ And(/^I select some document types$/) do
   find('.govuk-label', text: 'Consultations (closed)').click
 end
 
+And(/^I select upcoming statistics$/) do
+  find('.govuk-label', text: 'Statistics (upcoming)').click
+  click_on "Filter results"
+end
+
 And(/^I reload the page$/) do
   visit [current_path, page.driver.request.env['QUERY_STRING']].reject(&:blank?).join('?')
 end
@@ -662,6 +686,17 @@ Then("I do not see results with pinned items") do
   end
 end
 
+Then("I should see upcoming statistics") do
+  within("#js-results") do
+    expect(page.all("li.document").size).to eq(1)
+    expect(page).to have_link('Restrictions on usage of spells within school grounds')
+    expect(page).to have_no_link('New platform at Hogwarts for the express train')
+    expect(page).to have_no_link('Installation of double glazing at Hogwarts')
+
+    expect(page).to have_no_link('Proposed changes to magic tournaments')
+  end
+end
+
 And(/^I press (tab) key to navigate$/) do |key|
   find_field('Search').send_keys key.to_sym
 end
@@ -681,4 +716,8 @@ end
 
 Then(/^the page has a landmark to the search filters$/) do
   expect(page).to have_css('.column-third[role="search"][aria-label]')
+end
+
+And(/^I should not see an upcoming statistics facet tag$/) do
+  expect(page).to_not have_css("p.facet-tag__text", text: "Upcoming statistics")
 end

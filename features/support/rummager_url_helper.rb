@@ -75,6 +75,18 @@ module RummagerUrlHelper
     )
   end
 
+  def research_and_statistics_params
+    base_search_params.merge(
+      'facet_organisations' => '1500,order:value.title',
+      'facet_world_locations' => '1500,order:value.title',
+      'filter_all_part_of_taxonomy_tree[]' => [nil, nil],
+      'fields' => research_and_statistics_search_fields.join(','),
+      'filter_content_store_document_type' => %w(statistics national_statistics statistical_data_set official_statistics),
+      'count' => 20,
+      'order' => '-public_timestamp',
+    )
+  end
+
   def news_and_communications_search_fields
     base_search_fields + %w(
       part_of_taxonomy_tree
@@ -93,6 +105,19 @@ module RummagerUrlHelper
 
   def policy_papers_search_fields
     base_search_fields + %w(
+      part_of_taxonomy_tree
+      content_store_document_type
+      organisations
+      world_locations
+    )
+  end
+
+  def research_and_statistics_search_fields
+    base_search_fields + %w(
+      release_timestamp
+      statistics_announcement_state
+      display_type
+      document_collections
       part_of_taxonomy_tree
       content_store_document_type
       organisations

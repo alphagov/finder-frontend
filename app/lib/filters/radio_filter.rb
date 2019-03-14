@@ -1,5 +1,5 @@
 module Filters
-  class TextFilter < Filter
+  class RadioFilter < Filter
     def value
       parsed_value
     end

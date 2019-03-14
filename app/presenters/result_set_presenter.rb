@@ -30,7 +30,7 @@ class ResultSetPresenter
       finder_name: finder.name,
       any_filters_applied: any_filters_applied?,
       next_and_prev_links: next_and_prev_links,
-      sort_options: sort_options,
+      screen_reader_filter_description: ScreenReaderFilterDescriptionPresenter.new(filters, sort_option).present,
     }
   end
 
@@ -45,7 +45,7 @@ class ResultSetPresenter
 
   def selected_filter_descriptions
     selected_filters.map { |filter|
-      FacetTagPresenter.new(filter.sentence_fragment, filter.value, finder.slug).present
+      FacetTagPresenter.new(filter.sentence_fragment, filter.value, finder.slug, filter.hide_facet_tag?).present
     }.reject(&:empty?)
   end
 
@@ -64,10 +64,6 @@ class ResultSetPresenter
 
   def user_supplied_keywords
     @filter_params.fetch('keywords', '')
-  end
-
-  def sort_options
-    "<span class='visually-hidden'>sorted by <strong>" + sort_option['name'] + "</strong></span>" if sort_option.present?
   end
 
   def has_email_signup_link?

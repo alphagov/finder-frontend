@@ -24,6 +24,7 @@ RSpec.describe GroupedResultSetPresenter do
       values: {},
       pagination: pagination,
       sort: {},
+      filters: {}
     )
   end
 

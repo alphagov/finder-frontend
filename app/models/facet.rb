@@ -27,8 +27,12 @@ class Facet
     facet['short_name']
   end
 
+  def hide_facet_tag?
+    facet['hide_facet_tag'] || false
+  end
+
   def filterable?
-    facet['filterable']
+    facet['filterable'] || false
   end
 
   def has_filters?
@@ -36,7 +40,11 @@ class Facet
   end
 
   def metadata?
-    facet['display_as_result_metadata']
+    facet['display_as_result_metadata'] || false
+  end
+
+  def allowed_values
+    facet['allowed_values'] || []
   end
 
 private

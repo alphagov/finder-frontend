@@ -16,7 +16,26 @@ RSpec.describe ResultSetPresenter do
       default_documents_per_page: 10,
       values: {},
       pagination: pagination,
-      sort: {},
+      sort: [
+        {
+          "name" => "Most viewed",
+          "key" => "-popularity"
+        },
+        {
+          "name" => "Relevance",
+          "key" => "-relevance"
+        },
+        {
+          "name" => "Updated (newest)",
+          "key" => "-public_timestamp",
+          "default" => true
+        }
+      ],
+      default_sort_option: {
+        "name" => "Updated (newest)",
+        "key" => "-public_timestamp",
+      },
+      filters: {}
     )
   end
 
@@ -31,42 +50,43 @@ RSpec.describe ResultSetPresenter do
       OptionSelectFacet,
       key: 'key_1',
       selected_values: [
-        {
-          'value' => 'ca98-and-civil-cartels',
-          'label' => 'CA98 and civil cartels'
-        },
-        {
-          'value' => 'mergers',
-          'label' => 'Mergers'
-        },
-      ],
-      allowed_values: [
-        {
-          'value' => 'ca98-and-civil-cartels',
-          'label' => 'CA98 and civil cartels'
-        },
-        {
-          'value' => 'mergers',
-          'label' => 'Mergers'
-        },
-      ],
-      sentence_fragment: {
-        'key' => 'key_1',
-        'type' => 'text',
-        'preposition' => 'Of Type',
-        'values' => [
-          {
-            'label' => 'CA98 and civil cartels',
-          },
-          {
-            'label' => 'Mergers',
-          },
-        ],
-        'word_connectors' => { words_connector: 'or' }
+      {
+        'value' => 'ca98-and-civil-cartels',
+        'label' => 'CA98 and civil cartels'
       },
+      {
+        'value' => 'mergers',
+        'label' => 'Mergers'
+      },
+    ],
+      allowed_values: [
+      {
+        'value' => 'ca98-and-civil-cartels',
+        'label' => 'CA98 and civil cartels'
+      },
+      {
+        'value' => 'mergers',
+        'label' => 'Mergers'
+      },
+    ],
+      sentence_fragment: {
+      'key' => 'key_1',
+      'type' => 'text',
+      'preposition' => 'Of Type',
+      'values' => [
+        {
+          'label' => 'CA98 and civil cartels',
+        },
+        {
+          'label' => 'Mergers',
+        },
+      ],
+      'word_connectors' => { words_connector: 'or' }
+    },
       has_filters?: true,
       labels: %W(ca98-and-civil-cartels mergers),
-      value: %W(ca98-and-civil-cartels mergers)
+      value: %W(ca98-and-civil-cartels mergers),
+      hide_facet_tag?: false
     )
   end
 
@@ -83,32 +103,33 @@ RSpec.describe ResultSetPresenter do
       key: 'key_2',
       preposition: 'About',
       selected_values: [
+      {
+        'value' => 'farming',
+        'label' => 'Farming'
+      },
+      {
+        'value' => 'chemicals',
+        'label' => 'Chemicals'
+      },
+    ],
+      sentence_fragment: {
+      'key' => 'key_2',
+      'type' => 'text',
+      'preposition' => 'About',
+      'values' => [
         {
-          'value' => 'farming',
-          'label' => 'Farming'
+          'label' => 'Farming',
         },
         {
-          'value' => 'chemicals',
-          'label' => 'Chemicals'
+          'label' => 'Chemicals',
         },
       ],
-      sentence_fragment: {
-        'key' => 'key_2',
-        'type' => 'text',
-        'preposition' => 'About',
-        'values' => [
-          {
-            'label' => 'Farming',
-          },
-          {
-            'label' => 'Chemicals',
-          },
-        ],
-        'word_connectors' => { words_connector: 'or' }
-      },
+      'word_connectors' => { words_connector: 'or' }
+    },
       has_filters?: true,
       value: %w[farming chemicals],
-      'word_connectors' => { words_connector: 'or' }
+      'word_connectors' => { words_connector: 'or' },
+      hide_facet_tag?: false
     )
   end
 
@@ -118,7 +139,8 @@ RSpec.describe ResultSetPresenter do
       'key' => 'closed_date',
       sentence_fragment: nil,
       has_filters?: false,
-      'word_connectors' => { words_connector: 'or' }
+      'word_connectors' => { words_connector: 'or' },
+      hide_facet_tag?: false
     )
   end
 
@@ -149,6 +171,38 @@ RSpec.describe ResultSetPresenter do
       promoted: false,
       promoted_summary: nil,
       show_metadata: false,
+    )
+  end
+
+  let(:a_facet_without_facet_tags) do
+    double(
+      RadioFacet,
+      key: 'key_3',
+      preposition: 'that are',
+      allowed_values: [
+      {
+        'value' => 'statistics_published',
+        'label' => 'Statistics (published)',
+        'default' => true
+      },
+      {
+        'value' => 'statistics_upcoming',
+        'label' => 'Statistics (upcoming)'
+      },
+      {
+        'value' => 'research',
+        'label' => 'Research'
+      },
+    ],
+      has_filters?: true,
+      hide_facet_tag?: true,
+      value: "something",
+      sort: [
+      {
+        'value' => 'most-viewed',
+        'name' => 'Most viewed'
+      }
+    ]
     )
   end
 

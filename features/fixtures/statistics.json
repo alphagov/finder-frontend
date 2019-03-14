@@ -25,6 +25,9 @@
   "details":{
     "document_noun":"statistic",
     "filter":{
+      "content_store_document_type": [
+        "statistics","national_statistics","statistical_data_set","official_statistics"
+      ]
     },
     "format_name":"statistic",
     "show_summaries":true,
@@ -103,11 +106,41 @@
         "preposition": "about"
       },
       {
+        "key":"content_store_document_type",
+        "name":"Statistics",
+        "type":"radio",
+        "display_as_result_metadata":false,
+        "filterable":true,
+        "hide_facet_tag":true,
+        "preposition": "that are",
+        "option_lookup": {
+          "statistics_published": ["statistics", "national_statistics", "statistical_data_set", "official_statistics"],
+          "statistics_upcoming": ["statistics_announcement", "national_statistics_announcement", "official_statistics_announcement"],
+          "research": ["dfid_research_output", "independent_report", "research"]
+        },
+        "allowed_values": [
+          {
+            "label": "Statistics (published)",
+            "value": "statistics_published",
+            "default": true
+          },
+          {
+            "label": "Statistics (upcoming)",
+            "value": "statistics_upcoming"
+          },
+          {
+            "label": "Research",
+            "value": "research"
+          }
+        ]
+      },
+      {
         "key": "organisations",
         "name": "Organisation",
         "short_name": "Organisation",
         "preposition": "from",
         "type": "text",
+        "show_option_select_filter": true,
         "display_as_result_metadata": true,
         "filterable": true
       },
@@ -116,26 +149,9 @@
         "name": "World location",
         "preposition": "in",
         "type": "text",
+        "show_option_select_filter": true,
         "display_as_result_metadata": true,
         "filterable": true
-      },
-      {
-        "key":"content_store_document_type",
-        "name":"Statistics",
-        "type":"dropdown_select",
-        "display_as_result_metadata":false,
-        "filterable":true,
-        "preposition": "that are",
-        "allowed_values": [
-          {
-            "text": "Published",
-            "value": "[\"statistics\",\"national_statistics\",\"statistical_data_set\",\"official_statistics\"]"
-          },
-          {
-            "text": "Upcoming",
-            "value": "[\"statistics_announcement\",\"national_statistics_announcement\",\"official_statistics_announcement\"]"
-          }
-        ]
       },
       {
         "key": "public_timestamp",

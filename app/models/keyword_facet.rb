@@ -28,6 +28,10 @@ class KeywordFacet
     [keywords]
   end
 
+  def hide_facet_tag?
+    false
+  end
+
 private
 
   attr_reader :keywords

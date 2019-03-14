@@ -194,18 +194,6 @@
     margin-bottom: $gutter;
   }
 
-  .radio-filter {
-    padding: 0 $gutter-one-third;
-
-    label {
-      margin-right:$gutter-one-third;
-      @include inline-block;
-    }
-  }
-  .radio-filter input {
-    width:14px;
-  }
-
   .form {
     @include core-19;
     @include media(tablet) {

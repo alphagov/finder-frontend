@@ -32,14 +32,15 @@ RSpec.describe AtomPresenter do
       OptionSelectFacet,
       key: 'key_1',
       sentence_fragment: {
-        'key' => 'key_1',
-        'type' => 'text',
-        'preposition' => 'About',
-        'values' => first_facet_values,
-        'word_connectors' => { words_connector: 'and' }
+      'key' => 'key_1',
+      'type' => 'text',
+      'preposition' => 'About',
+      'values' => first_facet_values,
+      'word_connectors' => { words_connector: 'and' }
       },
-      has_filters?: true,
-      value: ['brexit', 'harry-potter']
+        has_filters?: true,
+        value: ['brexit', 'harry-potter'],
+        hide_facet_tag?: false
     )
   end
 
@@ -57,7 +58,8 @@ RSpec.describe AtomPresenter do
       'key' => 'closed_date',
       sentence_fragment: nil,
       has_filters?: false,
-      'word_connectors' => { words_connector: 'or' }
+      'word_connectors' => { words_connector: 'or' },
+      hide_facet_tag?: false
     )
   end
 
@@ -71,15 +73,16 @@ RSpec.describe AtomPresenter do
       key: 'key_2',
       preposition: 'About',
       sentence_fragment: {
-        'key' => 'key_2',
-        'type' => 'text',
-        'preposition' => 'Related to',
-        'values' => second_facet_values,
-        'word_connectors' => { words_connector: 'or' }
-      },
-      has_filters?: true,
-      value: %w[farming chemicals],
+      'key' => 'key_2',
+      'type' => 'text',
+      'preposition' => 'Related to',
+      'values' => second_facet_values,
       'word_connectors' => { words_connector: 'or' }
+      },
+        has_filters?: true,
+        value: %w[farming chemicals],
+        'word_connectors' => { words_connector: 'or' },
+        hide_facet_tag?: false
     )
   end
 

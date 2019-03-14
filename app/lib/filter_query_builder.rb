@@ -30,6 +30,7 @@ private
       'dropdown_select' => Filters::DropdownSelectFilter,
       'topical' => Filters::TopicalFilter,
       'taxon' => Filters::TaxonFilter,
+      'radio' => Filters::RadioFilter
     }.fetch(facet['type'])
 
     filter_class.new(facet, params(facet))

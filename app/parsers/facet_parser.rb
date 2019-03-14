@@ -20,6 +20,8 @@ module FacetParser
         DropdownSelectFacet.new(facet)
       when 'autocomplete'
         AutocompleteFacet.new(facet)
+      when 'radio'
+        RadioFacet.new(facet)
       else
         raise ArgumentError.new("Unknown filterable facet type: #{facet.type}")
       end

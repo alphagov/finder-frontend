@@ -1,8 +1,4 @@
 class DropdownSelectFacet < FilterableFacet
-  def allowed_values
-    facet['allowed_values']
-  end
-
   def options
     allowed_values.map do |allowed_value|
       {
@@ -37,6 +33,7 @@ private
     {
       'label' => selected_value['text'],
       'parameter_key' => key,
+      'value' => selected_value['value']
     }
   end
 

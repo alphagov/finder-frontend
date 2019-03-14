@@ -110,6 +110,20 @@ module DocumentHelper
     ).to_return(body: policy_and_engagement_results_for_policy_papers_and_closed_consultations_json)
   end
 
+  def stub_rummager_api_request_with_research_and_statistics_results
+    stub_request(:get, rummager_research_and_statistics_url({}))
+        .to_return(body: statistics_results_for_statistics_json)
+  end
+
+  def stub_rummager_api_request_with_filtered_research_and_statistics_results
+    stub_request(
+      :get,
+      rummager_research_and_statistics_url(
+        'filter_content_store_document_type' => %w(statistics_announcement national_statistics_announcement official_statistics_announcement)
+      )
+    ).to_return(body: upcoming_statistics_results_for_statistics_json)
+  end
+
   def stub_all_rummager_api_requests_with_all_documents_results
     stub_request(:get, "#{Plek.current.find('search')}/batch_search.json")
         .with(query: hash_including({}))
@@ -244,6 +258,12 @@ module DocumentHelper
       base_path,
       govuk_content_schema_example('policies_finder').to_json
     )
+  end
+
+  def content_store_has_statistics_finder
+    finder_fixture = File.read(Rails.root.join('features', 'fixtures', 'statistics.json'))
+
+    content_store_has_item('/statistics', finder_fixture)
   end
 
   def content_store_has_policy_and_engagement_finder
@@ -574,6 +594,10 @@ module DocumentHelper
 
   def rummager_policy_papers_url(filters)
     rummager_url(policy_papers_params.merge(filters))
+  end
+
+  def rummager_research_and_statistics_url(filters)
+    rummager_url(research_and_statistics_params.merge(filters))
   end
 
   def organisation_link_results
@@ -1824,6 +1848,154 @@ module DocumentHelper
             }
           ],
           "total": 3,
+          "start": 0,
+          "suggested_queries": []
+        }
+      ]
+    }|
+  end
+
+  def statistics_results_for_statistics_json
+    %|{
+      "results": [
+        {
+          "results": [
+            {
+              "title": "Restrictions on usage of spells within school grounds",
+              "link": "/restrictions-on-usage-of-spells-within-school-grounds",
+              "description": "Restrictions on usage of spells within school grounds",
+              "public_timestamp": "2017-12-30T10:00:00Z",
+              "part_of_taxonomy_tree": [
+                "622e9691-4b4f-4e9c-bce1-098b0c4f5ee2"
+              ],
+              "organisations": [
+                {
+                  "organisation_crest": "single-identity",
+                  "acronym": "MOM",
+                  "link": "/organisations/ministry-of-magic",
+                  "analytics_identifier": "MM1",
+                  "public_timestamp": "2017-12-15T11:11:02.000+00:00",
+                  "organisation_brand": "ministry-of-magic",
+                  "logo_formatted_title": "Ministry of Magic",
+                  "title": "Ministry of Magic",
+                  "content_id": "92881ac6-2804-4522-bf48-cf8c781c98bf",
+                  "slug": "ministry-of-magic",
+                  "organisation_type": "other",
+                  "organisation_state": "live"
+                }
+              ],
+              "index": "govuk",
+              "es_score": null,
+              "_id": "/restrictions-on-usage-of-spells-within-school-grounds",
+              "elasticsearch_type": "policy_paper",
+              "document_type": "policy_paper"
+            },
+            {
+              "title": "New platform at Hogwarts for the express train",
+              "link": "new-platform-at-hogwarts-for-the-express-train",
+              "description": "New platform at Hogwarts for the express train",
+              "public_timestamp": "2018-11-16T11:11:42Z",
+              "part_of_taxonomy_tree": [
+                "622e9691-4b4f-4e9c-bce1-098b0c4f5ee2"
+              ],
+              "organisations": [
+                {
+                  "organisation_crest": "single-identity",
+                  "acronym": "MOM",
+                  "link": "/organisations/ministry-of-magic",
+                  "analytics_identifier": "MM1",
+                  "public_timestamp": "2017-12-15T11:11:02.000+00:00",
+                  "organisation_brand": "ministry-of-magic",
+                  "logo_formatted_title": "Ministry of Magic",
+                  "title": "Ministry of Magic",
+                  "content_id": "92881ac6-2804-4522-bf48-cf8c781c98bf",
+                  "slug": "ministry-of-magic",
+                  "organisation_type": "other",
+                  "organisation_state": "live"
+                }
+              ],
+              "index": "govuk",
+              "es_score": null,
+              "_id": "/new-platform-at-hogwarts-for-the-express-train",
+              "elasticsearch_type": "closed_consultation",
+              "document_type": "closed_consultation"
+            },
+            {
+              "title": "Installation of double glazing at Hogwarts",
+              "link": "installation-of-double-glazing-at-hogwarts",
+              "description": "Installation of double glazing at Hogwarts",
+              "public_timestamp": "2018-11-16T11:11:42Z",
+              "part_of_taxonomy_tree": [
+                "622e9691-4b4f-4e9c-bce1-098b0c4f5ee2"
+              ],
+              "organisations": [
+                {
+                  "organisation_crest": "single-identity",
+                  "acronym": "MOM",
+                  "link": "/organisations/ministry-of-magic",
+                  "analytics_identifier": "MM1",
+                  "public_timestamp": "2017-12-15T11:11:02.000+00:00",
+                  "organisation_brand": "ministry-of-magic",
+                  "logo_formatted_title": "Ministry of Magic",
+                  "title": "Ministry of Magic",
+                  "content_id": "92881ac6-2804-4522-bf48-cf8c781c98bf",
+                  "slug": "ministry-of-magic",
+                  "organisation_type": "other",
+                  "organisation_state": "live"
+                }
+              ],
+              "index": "govuk",
+              "es_score": null,
+              "_id": "/installation-of-double-glazing-at-hogwarts",
+              "elasticsearch_type": "consultation_outcome",
+              "document_type": "consultation_outcome"
+            }
+          ],
+          "total": 3,
+          "start": 0,
+          "suggested_queries": []
+        }
+      ]
+    }|
+  end
+
+  def upcoming_statistics_results_for_statistics_json
+    %|{
+      "results": [
+        {
+          "results": [
+            {
+              "title": "Restrictions on usage of spells within school grounds",
+              "link": "/restrictions-on-usage-of-spells-within-school-grounds",
+              "description": "Restrictions on usage of spells within school grounds",
+              "public_timestamp": "2017-12-30T10:00:00Z",
+              "part_of_taxonomy_tree": [
+                "622e9691-4b4f-4e9c-bce1-098b0c4f5ee2"
+              ],
+              "organisations": [
+                {
+                  "organisation_crest": "single-identity",
+                  "acronym": "MOM",
+                  "link": "/organisations/ministry-of-magic",
+                  "analytics_identifier": "MM1",
+                  "public_timestamp": "2017-12-15T11:11:02.000+00:00",
+                  "organisation_brand": "ministry-of-magic",
+                  "logo_formatted_title": "Ministry of Magic",
+                  "title": "Ministry of Magic",
+                  "content_id": "92881ac6-2804-4522-bf48-cf8c781c98bf",
+                  "slug": "ministry-of-magic",
+                  "organisation_type": "other",
+                  "organisation_state": "live"
+                }
+              ],
+              "index": "govuk",
+              "es_score": null,
+              "_id": "/restrictions-on-usage-of-spells-within-school-grounds",
+              "elasticsearch_type": "policy_paper",
+              "document_type": "policy_paper"
+            }
+          ],
+          "total": 1,
           "start": 0,
           "suggested_queries": []
         }

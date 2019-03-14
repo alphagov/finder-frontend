@@ -282,17 +282,6 @@ main.search {
         font-weight:bold;
       }
     }
-    .radio-filter {
-      padding: $gutter-one-third;
-
-      label {
-        margin-right:$gutter-one-third;
-        @include inline-block;
-      }
-      input {
-        width:14px;
-      }
-    }
   }
 }
 
