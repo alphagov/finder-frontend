@@ -108,7 +108,19 @@ When(/^I view the business readiness finder$/) do
   content_store_has_business_readiness_finder
   stub_whitehall_api_world_location_request
   stub_rummager_api_request_with_business_readiness_results
-  stub_rummager_api_request_with_filtered_business_readiness_results
+  stub_rummager_api_request_with_filtered_business_readiness_results(
+    "q" => 'Keyword2'
+  )
+  stub_rummager_api_request_with_filtered_business_readiness_results(
+    "q" => 'Keyword1 Keyword2'
+  )
+  stub_rummager_api_request_with_filtered_business_readiness_results(
+    "filter_sector_business_area[0]" => "aerospace"
+  )
+  stub_rummager_api_request_with_filtered_business_readiness_results(
+    "filter_sector_business_area[0]" => "aerospace",
+    "q" => 'Keyword1 Keyword2'
+  )
 
   visit finder_path('find-eu-exit-guidance-business')
 end
@@ -601,8 +613,6 @@ Then(/^The (.*) checkbox in deselected$/) do |checkbox|
 end
 
 And(/^I fill in some keywords$/) do
-  stub_all_rummager_api_requests_with_business_finder_results
-
   fill_in 'Search', with: "Keyword1 Keyword2\n"
 end
 
