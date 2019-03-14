@@ -68,7 +68,12 @@ private
   end
 
   def selected_facets
-    facets.select { |facet| filter[facet["facet_id"]].present? || filter[facet["filter_key"]].present? }
+    facets.select do |facet|
+      (
+        filter[facet["facet_id"]].present? && !ignore_facet?(facet["facet_id"])
+      ) ||
+        filter[facet["filter_key"]].present?
+    end
   end
 
   def grouped_facets
@@ -131,5 +136,9 @@ private
 
   def is_brexit?(registry, content_id)
     registry.is_a?(Registries::TopicTaxonomyRegistry) && content_id == "d6c2de5d-ef90-45d1-82d4-5f2438369eea"
+  end
+
+  def ignore_facet?(facet_id)
+    %W(appear_in_find_eu_exit_guidance_business_finder).include?(facet_id)
   end
 end
