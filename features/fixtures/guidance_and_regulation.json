@@ -64,17 +64,19 @@
         "name": "Organisation",
         "short_name": "From",
         "preposition": "from",
-        "type": "autocomplete",
+        "type": "text",
         "display_as_result_metadata": true,
-        "filterable": true
+        "filterable": true,
+        "show_option_select_filter": true
       },
       {
         "key": "world_locations",
         "name": "World location",
         "preposition": "in",
-        "type": "autocomplete",
+        "type": "text",
         "display_as_result_metadata": true,
-        "filterable": true
+        "filterable": true,
+        "show_option_select_filter": true
       },
       {
         "key": "public_timestamp",

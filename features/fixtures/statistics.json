@@ -70,7 +70,7 @@
         "name": "State",
         "short_name": "State",
         "preposition": "from",
-        "type": "autocomplete",
+        "type": "text",
         "display_as_result_metadata": true,
         "filterable": false
       },
@@ -79,7 +79,7 @@
         "name": "content_store_document_type",
         "short_name": "Document type",
         "preposition": "from",
-        "type": "autocomplete",
+        "type": "text",
         "display_as_result_metadata": true,
         "filterable": false
       },
@@ -88,7 +88,7 @@
         "name": "document_collections",
         "short_name": "Part of a collection",
         "preposition": "from",
-        "type": "autocomplete",
+        "type": "text",
         "display_as_result_metadata": true,
         "filterable": false
       },
@@ -107,7 +107,7 @@
         "name": "Organisation",
         "short_name": "Organisation",
         "preposition": "from",
-        "type": "autocomplete",
+        "type": "text",
         "display_as_result_metadata": true,
         "filterable": true
       },
@@ -115,7 +115,7 @@
         "key": "world_locations",
         "name": "World location",
         "preposition": "in",
-        "type": "autocomplete",
+        "type": "text",
         "display_as_result_metadata": true,
         "filterable": true
       },
