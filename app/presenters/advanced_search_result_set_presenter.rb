@@ -10,7 +10,7 @@ class AdvancedSearchResultSetPresenter < ResultSetPresenter
   def documents
     results.each_with_index.map do |result, index|
       {
-        document: AdvancedSearchResultPresenter.new(result).to_hash,
+        document: AdvancedSearchResultPresenter.new(result, false).to_hash,
         document_index: index + 1,
       }
     end

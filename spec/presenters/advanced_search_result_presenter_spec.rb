@@ -32,7 +32,7 @@ RSpec.describe AdvancedSearchResultPresenter do
     }, finder)
   }
 
-  subject(:instance) { described_class.new(search_result) }
+  subject(:instance) { described_class.new(search_result, false) }
 
   describe "#to_hash" do
     it "includes document_type, organisations and publication_date" do
