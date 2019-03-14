@@ -21,8 +21,8 @@ class RedirectionController < ApplicationController
                   world_locations: params['world_locations'],
                   public_timestamp: { from: params['from_date'], to: params['to_date'] }.compact.presence }
     respond_to do |format|
-      format.html { redirect_to(finder_path('search/all-content', params: parameters)) }
-      format.atom { redirect_to(finder_path('search/all-content', params: parameters, format: :atom)) }
+      format.html { redirect_to(finder_path('search/all', params: parameters)) }
+      format.atom { redirect_to(finder_path('search/all', params: parameters, format: :atom)) }
     end
   end
 end
