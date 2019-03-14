@@ -98,7 +98,7 @@ private
   end
 
   def remove_search_box
-    hide_site_serch = params['slug'] == 'all-content'
+    hide_site_serch = params['slug'] == 'search/all'
     set_slimmer_headers(remove_search: hide_site_serch)
   end
 end

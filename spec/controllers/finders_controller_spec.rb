@@ -217,7 +217,7 @@ describe FindersController, type: :controller do
 
     describe "Show/Hiding site search form" do
       before do
-        content_store_has_item('/all-content', all_content_finder)
+        content_store_has_item('/search/all', all_content_finder)
         content_store_has_item('/lunch-finder', lunch_finder)
 
         rummager_response = %|{
@@ -237,7 +237,7 @@ describe FindersController, type: :controller do
       end
 
       it 'all content finder tells Slimmer to hide the form' do
-        get :show, params: { slug: 'all-content' }
+        get :show, params: { slug: 'search/all' }
         expect(response.headers["X-Slimmer-Remove-Search"]).to eq("true")
       end
 
