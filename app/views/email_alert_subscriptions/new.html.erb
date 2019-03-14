@@ -10,8 +10,15 @@
 <div class="outer-block">
   <div class="signup-content">
     <%= form_tag email_alert_subscriptions_path(subscriber_list_params: subscriber_list_params), class: 'signup-choices form' do %>
-
-      <% if @signup_presenter.can_modify_choices? %>
+      <% if @signup_presenter.hidden_choices.any? %>
+        <%= render partial: 'govuk_publishing_components/components/title', locals: {
+          title: @signup_presenter.name,
+          context: "Email alert subscription"
+        } %>
+        <% @signup_presenter.hidden_choices.each do |hidden_choice| %>
+          <%= hidden_field_tag hidden_choice[:name], hidden_choice[:value] %>
+        <% end %>
+      <% elsif @signup_presenter.can_modify_choices? %>
         <%= render "govuk_publishing_components/components/checkboxes", {
           name: nil,
           heading: @signup_presenter.name,

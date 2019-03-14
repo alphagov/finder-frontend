@@ -662,6 +662,10 @@ Then("I see the email subscription page") do
   expect(page).to have_button("Create subscription")
 end
 
+Then("I cannot select any filters") do
+  find("input[name='filter[appear_in_find_eu_exit_guidance_business_finder][]']", visible: false)
+end
+
 Then("I should see results in the default group") do
   within("#js-results .filtered-results__group") do
     expect(page).to have_css("h2.filtered-results__facet-heading", text: "All businesses")
