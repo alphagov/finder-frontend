@@ -106,6 +106,7 @@ end
 
 When(/^I view the business readiness finder$/) do
   content_store_has_business_readiness_finder
+  content_store_has_business_readiness_email_signup
   stub_whitehall_api_world_location_request
   stub_rummager_api_request_with_business_readiness_results
   stub_rummager_api_request_with_filtered_business_readiness_results(
@@ -650,6 +651,15 @@ Then(/^I can sign up to email alerts for allowed filters$/) do
     expect(page.status_code).to eq(302)
     expect(page.response_headers['Location']).to eql('http://www.rathergood.com')
   end
+end
+
+When("I create an email subscription") do
+  click_link('Get email alerts')
+end
+
+Then("I see the email subscription page") do
+  visit finder_path('find-eu-exit-guidance-business/email-signup')
+  expect(page).to have_button("Create subscription")
 end
 
 Then("I should see results in the default group") do

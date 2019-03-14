@@ -278,6 +278,12 @@ module DocumentHelper
     content_store_has_item('/find-eu-exit-guidance-business', finder_fixture)
   end
 
+  def content_store_has_business_readiness_email_signup
+    finder_fixture = File.read(Rails.root.join('features', 'fixtures', 'business_readiness_email_signup.json'))
+
+    content_store_has_item('/find-eu-exit-guidance-business/email-signup', finder_fixture)
+  end
+
   def search_params(params = {})
     default_search_params.merge(params).to_a.map { |tuple|
       tuple.join("=")
