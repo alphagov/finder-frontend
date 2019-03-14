@@ -30,7 +30,7 @@ module Filters
     end
 
     def param_is_part_of_allowed_values
-      facet['allowed_values'].find { |option| option['value'] == params }.present?
+      facet['allowed_values'].any? { |option| option['value'] == params }
     end
   end
 end

@@ -86,8 +86,8 @@ RSpec.describe FinderPresenter do
 
   describe "#email_alert_signup_url" do
     context "with no values" do
-      it "returns the finder URL appended with /email-signup?" do
-        expect(presenter.email_alert_signup_url).to eql("https://www.gov.uk/mosw-reports/email-signup?")
+      it "returns the finder URL appended with /email-signup" do
+        expect(presenter.email_alert_signup_url).to eql("https://www.gov.uk/mosw-reports/email-signup")
       end
     end
 
@@ -119,13 +119,15 @@ RSpec.describe FinderPresenter do
       let(:values) do
         {
           keyword: "legal",
-          format: "publication",
-          state: "open",
+          place_of_origin: "england",
+          walk_type: "open",
+          creator: "Harry Potter",
+          unpermitted_facet: "blah_blah",
         }
       end
 
-      it "returns the finder URL appended with .atom and query params" do
-        expect(presenter.atom_url).to eql("/mosw-reports.atom?format=publication&keyword=legal&state=open")
+      it "returns the finder URL appended with permitted query params" do
+        expect(presenter.atom_url).to eql("/mosw-reports.atom?place_of_origin%5B%5D=england")
       end
     end
   end
