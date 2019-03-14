@@ -12,11 +12,7 @@ class RadioFacet < FilterableFacet
 private
 
   def selected_value
-    return default_value if @value.nil?
-
-    allowed_values.find { |option|
-      @value == option['value']
-    } || {}
+    allowed_values.find { |option| @value == option['value'] } || default_value
   end
 
   def default_value
