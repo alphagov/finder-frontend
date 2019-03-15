@@ -163,6 +163,16 @@ When(/^I view the research and statistics finder$/) do
   visit finder_path('statistics')
 end
 
+When(/^I view the all content finder$/) do
+  topic_taxonomy_has_taxons
+  content_store_has_all_content_finder
+  stub_whitehall_api_world_location_request
+  stub_people_registry_request
+  stub_rummager_api_request_with_all_content_results
+
+  visit finder_path('search/all-content')
+end
+
 When(/^I view a list of services$/) do
   topic_taxonomy_has_taxons
   content_store_has_services_finder
@@ -714,6 +724,11 @@ end
 Then(/^I should (see|not see) a "Skip to results" link$/) do |can_be_seen|
   visibility = can_be_seen == 'see'
   expect(page).to have_css('[href="#js-results"]', visible: visibility)
+end
+
+Then(/^I should (see|not see) a "Show more search options" link$/) do |can_be_seen|
+  visibility = can_be_seen == 'see'
+  expect(page).to have_css('.facet-toggle', visible: visibility)
 end
 
 Then(/^the page has results region$/) do

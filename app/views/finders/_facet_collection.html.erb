@@ -17,9 +17,7 @@
   </div>
 
   <% if facet_collection.filters.any? %>
-    <% facet_toggle_only_on_mobile = true %>
-
-    <div data-module="gem-toggle" data-toggle-class="facet-toggle__content--hide" <%= "class=facet-toggle--only-on-mobile" if facet_toggle_only_on_mobile %>>
+    <div data-module="gem-toggle" data-toggle-class="facet-toggle__content--hide" <%= "class=facet-toggle--only-on-mobile" unless finder.hide_facets_by_default %>>
       <a href="#" class="facet-toggle" data-controls="facet-wrapper" data-expanded="false" data-toggled-text="- <%= t("finders.facet_disclosure.fewer", default: "Show fewer search options") %>">
         + <%= t("finders.facet_disclosure.more", default: "Show more search options") %>
       </a>
