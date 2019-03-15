@@ -11,6 +11,8 @@ module Filters
   private
 
     def default_value
+      return [] if default_allowed_value.blank?
+
       return option_lookup_values(default_allowed_value) if multi_value?
 
       Array(default_allowed_value)

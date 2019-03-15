@@ -151,8 +151,19 @@ describe Filters::RadioFilter do
 
       context "when a disallowed value is provided" do
         let(:params) { "does_not_exist" }
-        it "should return the corresponding default values from the option_lookup" do
-          expect(radio_filter.value).to eq(%w(guidance))
+
+        context "when a default value is set" do
+          it "should return the corresponding default values from the option_lookup" do
+            expect(radio_filter.value).to eq(%w(guidance))
+          end
+        end
+
+        context "when a default value is not set" do
+          let(:allowed_values) { [] }
+
+          it "should return an empty array" do
+            expect(radio_filter.value).to eq([])
+          end
         end
       end
 
