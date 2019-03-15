@@ -1,5 +1,6 @@
 class FindersController < ApplicationController
   layout "finder_layout"
+  before_action :remove_search_box
 
   before_action do
     expires_in(5.minutes, public: true)
@@ -94,5 +95,10 @@ private
 
   def grouped_display?
     params["order"] == "topic" || finder.default_sort_option_key == "topic"
+  end
+
+  def remove_search_box
+    hide_site_serch = params['slug'] == 'search/all'
+    set_slimmer_headers(remove_search: hide_site_serch)
   end
 end
