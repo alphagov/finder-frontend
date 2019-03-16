@@ -5,12 +5,8 @@ class AdvancedSearchFinderApi < FinderApi
     raise_on_missing_taxon_param
 
     filter_params[TAXON_SEARCH_FILTER] = taxon["content_id"] if taxon
-    search_response = fetch_search_response(content_item)
-    content_item_with_taxon_links = augment_content_item_links_with_taxon(
-      content_item,
-      taxon
-    )
-    augment_content_item_with_results(content_item_with_taxon_links, search_response)
+    content_item_with_results = augment_content_item_with_results
+    augment_content_item_links_with_taxon(content_item_with_results, taxon)
   end
 
   def taxon

@@ -1,9 +1,12 @@
 require "spec_helper"
 
 RSpec.describe AdvancedSearchResultSetPresenter do
+  let(:content_item) {
+    JSON.parse(File.read(Rails.root.join("features", "fixtures", "advanced-search.json")))
+  }
   let(:finder_api) do
     AdvancedSearchFinderApi.new(
-      "/search/advanced",
+      content_item,
       filter_params
     ).content_item_with_search_results
   end
@@ -32,10 +35,10 @@ RSpec.describe AdvancedSearchResultSetPresenter do
   subject(:instance) { described_class.new(finder, filter_params, view_context) }
 
   before do
-    allow(Services.content_store).to receive(:content_item)
-      .and_return(
-        JSON.parse(File.read(Rails.root.join("features", "fixtures", "advanced-search.json")))
-      )
+    # allow(Services.content_store).to receive(:content_item)
+    #   .and_return(
+    #     JSON.parse(File.read(Rails.root.join("features", "fixtures", "advanced-search.json")))
+    #   )
     allow(Services.content_store).to receive(:content_item)
       .with("/education")
       .and_return(taxon)

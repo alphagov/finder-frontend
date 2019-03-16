@@ -28,13 +28,10 @@ describe AdvancedSearchFinderApi do
     }
   }
 
-  subject(:instance) { described_class.new("/search/advanced", filter_params) }
+  subject(:instance) { described_class.new(finder_item, filter_params) }
 
   describe "content_item_with_search_results" do
     before do
-      allow(Services.content_store).to receive(:content_item)
-        .and_return(finder_item)
-
       allow(Services.content_store).to receive(:content_item)
         .with("/education")
         .and_return(taxon)

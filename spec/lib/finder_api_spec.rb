@@ -1,6 +1,14 @@
 require "spec_helper"
 
 describe FinderApi do
+  let(:content_item) {
+    {
+      "details" => {
+        "facets" => []
+      },
+    }
+  }
+
   context "when merging, de-duplicating and sorting" do
     def result_item(id, title, score:, popularity:, updated:)
       {
@@ -12,19 +20,9 @@ describe FinderApi do
       }
     end
 
-    before do
-      allow(Services.content_store).to receive(:content_item)
-        .with("/finder")
-        .and_return(
-          "details" => {
-            "facets" => []
-          },
-        )
-    end
-
     shared_examples 'sorts by other fields' do
       context 'most-recent' do
-        subject { described_class.new("/finder", 'order' => 'most-recent').content_item_with_search_results }
+        subject { described_class.new(content_item, 'order' => 'most-recent').content_item_with_search_results }
 
         it "de-duplicates and sorts by public_updated descending" do
           results = subject.fetch("details").fetch("results")
@@ -34,7 +32,7 @@ describe FinderApi do
       end
 
       context 'most-viewed' do
-        subject { described_class.new("/finder", 'order' => 'most-viewed').content_item_with_search_results }
+        subject { described_class.new(content_item, 'order' => 'most-viewed').content_item_with_search_results }
 
         it "de-duplicates and sorts by popularity descending" do
           results = subject.fetch("details").fetch("results")
@@ -44,7 +42,7 @@ describe FinderApi do
       end
 
       context 'a-to-z' do
-        subject { described_class.new("/finder", 'order' => 'a-to-z').content_item_with_search_results }
+        subject { described_class.new(content_item, 'order' => 'a-to-z').content_item_with_search_results }
 
         it "de-duplicates and sorts by title descending" do
           results = subject.fetch("details").fetch("results")
@@ -77,7 +75,7 @@ describe FinderApi do
       it_behaves_like 'sorts by other fields'
 
       context 'default' do
-        subject { described_class.new("/finder", {}).content_item_with_search_results }
+        subject { described_class.new(content_item, {}).content_item_with_search_results }
 
         it "de-duplicates and returns in the order rummager returns" do
           results = subject.fetch("details").fetch("results")
@@ -87,7 +85,7 @@ describe FinderApi do
       end
 
       context 'most-relevant' do
-        subject { described_class.new("/finder", 'order' => 'most-relevant').content_item_with_search_results }
+        subject { described_class.new(content_item, 'order' => 'most-relevant').content_item_with_search_results }
 
         it "de-duplicates and returns in the order rummager returns" do
           results = subject.fetch("details").fetch("results")
@@ -120,7 +118,7 @@ describe FinderApi do
       it_behaves_like 'sorts by other fields'
 
       context 'default' do
-        subject { described_class.new("/finder", {}).content_item_with_search_results }
+        subject { described_class.new(content_item, {}).content_item_with_search_results }
 
         it "de-duplicates and sorts by es_score descending" do
           results = subject.fetch("details").fetch("results")
@@ -130,7 +128,7 @@ describe FinderApi do
       end
 
       context 'most-relevant' do
-        subject { described_class.new("/finder", 'order' => 'most-relevant').content_item_with_search_results }
+        subject { described_class.new(content_item, 'order' => 'most-relevant').content_item_with_search_results }
 
         it "de-duplicates and sorts by es_score descending" do
           results = subject.fetch("details").fetch("results")

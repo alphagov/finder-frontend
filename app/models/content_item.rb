@@ -40,7 +40,10 @@ private
   # without filetype as the value; example:
   # "/guidance-and-regulation" => "guidance_and_regulation"
   FINDERS_IN_DEVELOPMENT = {
-    "/search/statistics" => "statistics"
+    "/search/policy-papers-and-consultations" => 'policy_and_engagement',
+    "/search/policy-papers-and-consultations/email-signup" => 'policy_and_engagement_email_signup',
+    "/search/statistics" => "statistics",
+    "/search/statistics/email-signup" => "statistics_email_signup",
   }.freeze
 
   def development_env_finder_json

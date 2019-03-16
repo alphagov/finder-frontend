@@ -1,32 +1,21 @@
-# Facade that speaks to the content store and rummager. Returns a content
-# item for the finder combined with the actual search results from rummager.
+# Facade that speaks to rummager. Combines a content item with
+# search results from rummager.
 class FinderApi
-  def initialize(base_path, filter_params)
-    @base_path = base_path
+  attr_reader :content_item
+
+  def initialize(content_item, filter_params)
+    @content_item = content_item
     @filter_params = filter_params
     @order = filter_params['order']
   end
 
-  def content_item
-    @content_item ||= fetch_content_item
-  end
-
   def content_item_with_search_results
-    search_response = fetch_search_response(content_item)
-    augment_content_item_with_results(content_item, search_response)
+    augment_content_item_with_results
   end
 
 private
 
-  attr_reader :base_path, :filter_params
-
-  def fetch_content_item
-    if development_env_finder_json
-      JSON.parse(File.read(development_env_finder_json))
-    else
-      Services.cached_content_item(base_path)
-    end
-  end
+  attr_reader :filter_params
 
   def merge_and_deduplicate(search_response)
     results = search_response.fetch("results")
@@ -72,7 +61,7 @@ private
     results.all? { |result| result['es_score'].present? }
   end
 
-  def fetch_search_response(content_item)
+  def fetch_search_response
     queries = query_builder_class.new(
       finder_content_item: content_item,
       params: filter_params,
@@ -85,28 +74,32 @@ private
     end
   end
 
-  def augment_content_item_with_results(content_item, search_response)
-    content_item = augment_content_item_details_with_results(content_item, search_response)
-    augment_facets_with_dynamic_values(content_item, search_response)
-    content_item
+  def augment_content_item_with_results
+    item_hash = content_item
+    search_response = fetch_search_response
+
+    item_hash = augment_content_item_details_with_results(item_hash, search_response)
+    augment_facets_with_dynamic_values(item_hash, search_response)
+
+    item_hash
   end
 
-  def augment_content_item_details_with_results(content_item, search_response)
-    content_item['details']['results'] = search_response.fetch("results")
-    content_item['details']['total_result_count'] = search_response.fetch("total")
+  def augment_content_item_details_with_results(item_hash, search_response)
+    item_hash['details']['results'] = search_response.fetch("results")
+    item_hash['details']['total_result_count'] = search_response.fetch("total")
 
-    content_item['details']['pagination'] = build_pagination(
-      content_item['details']['default_documents_per_page'],
+    item_hash['details']['pagination'] = build_pagination(
+      item_hash['details']['default_documents_per_page'],
       search_response.fetch('start'),
       search_response.fetch('total')
     )
 
-    content_item
+    item_hash
   end
 
-  def augment_facets_with_dynamic_values(content_item, search_response)
+  def augment_facets_with_dynamic_values(item, search_response)
     search_response.fetch("facets", {}).each do |facet_key, facet_details|
-      facet = content_item['details']['facets'].find { |f| f['key'] == facet_key }
+      facet = item['details']['facets'].find { |f| f['key'] == facet_key }
 
       if registries.all.has_key?(facet_key) && facet
         facet['allowed_values'] = allowed_values_from_registry(facet_key)
@@ -166,30 +159,6 @@ private
 
   def query_builder_class
     SearchQueryBuilder
-  end
-
-  # Add a finder with the base path as a key and the finder name
-  # without filetype as the value; example:
-  # "/guidance-and-regulation" => "guidance_and_regulation"
-  FINDERS_IN_DEVELOPMENT = {
-    "/search/policy-papers-and-consultations" => 'policy_and_engagement',
-    "/search/policy-papers-and-consultations/email-signup" => 'policy_and_engagement_email_signup',
-    "/search/statistics" => "statistics",
-    "/search/statistics/email-signup" => "statistics_email_signup"
-  }.freeze
-
-  def development_env_finder_json
-    return development_json if is_development_json?
-
-    ENV["DEVELOPMENT_FINDER_JSON"]
-  end
-
-  def development_json
-    "features/fixtures/#{FINDERS_IN_DEVELOPMENT[base_path]}.json"
-  end
-
-  def is_development_json?
-    base_path.present? && FINDERS_IN_DEVELOPMENT[base_path].present?
   end
 
   def registries
