@@ -26,7 +26,7 @@ describe ContentItem do
     end
 
     context "when document_type is search" do
-      let(:finder_content_item) { news_and_communications.merge({ "document_type" => 'search' }) }
+      let(:finder_content_item) { news_and_communications.merge("document_type" => 'search') }
       it "returns true when document_type is search" do
         expect(subject.is_search?).to be true
       end
@@ -39,7 +39,7 @@ describe ContentItem do
     end
 
     context "when document_type is not a finder" do
-      let(:finder_content_item) { news_and_communications.merge({ "document_type" => 'search' }) }
+      let(:finder_content_item) { news_and_communications.merge("document_type" => 'search') }
       it "returns false when document_type is finder" do
         expect(subject.is_finder?).to be false
       end
@@ -52,7 +52,7 @@ describe ContentItem do
     end
 
     context "when document_type is redirect" do
-      let(:finder_content_item) { news_and_communications.merge({ "document_type" => 'redirect' }) }
+      let(:finder_content_item) { news_and_communications.merge("document_type" => 'redirect') }
       it "returns true when document_type is redirect" do
         expect(subject.is_redirect?).to be true
       end

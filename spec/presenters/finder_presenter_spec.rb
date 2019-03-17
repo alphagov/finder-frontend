@@ -3,9 +3,9 @@ require 'spec_helper'
 RSpec.describe FinderPresenter do
   include GovukContentSchemaExamples
 
-  subject(:presenter) { described_class.new(content_item(sort_options: no_sort_options), values) }
-  subject(:presenter_with_sort) { described_class.new(content_item(sort_options: sort_options_without_relevance), values) }
-  subject(:presenter_with_email_signup) { described_class.new(content_item(email_alert_signup: email_alert_signup_options), values) }
+  subject(:presenter) { described_class.new(content_item(sort_options: no_sort_options), {}, values) }
+  subject(:presenter_with_sort) { described_class.new(content_item(sort_options: sort_options_without_relevance), {}, values) }
+  subject(:presenter_with_email_signup) { described_class.new(content_item(email_alert_signup: email_alert_signup_options), {}, values) }
 
   let(:no_sort_options) { nil }
 
@@ -196,7 +196,7 @@ RSpec.describe FinderPresenter do
         sort_option('Relevance', 'relevance', disabled: true)
       ].join("\n")
 
-      presenter = described_class.new(content_item(sort_options: sort_options_with_relevance), values)
+      presenter = described_class.new(content_item(sort_options: sort_options_with_relevance), {}, values)
 
       expect(presenter.sort_options).to eql(expected_options)
     end
@@ -208,7 +208,7 @@ RSpec.describe FinderPresenter do
         sort_option('Relevance', 'relevance', disabled: false)
       ].join("\n")
 
-      presenter = described_class.new(content_item(sort_options: sort_options_with_relevance), "keywords" => "something not blank")
+      presenter = described_class.new(content_item(sort_options: sort_options_with_relevance), {}, "keywords" => "something not blank")
 
       expect(presenter.sort_options).to eql(expected_options)
     end
@@ -242,7 +242,7 @@ RSpec.describe FinderPresenter do
         sort_option('Updated (newest)', 'updated-newest', selected: true)
       ].join("\n")
 
-      presenter = described_class.new(content_item(sort_options: sort_options_without_relevance), "order" => "updated-newest")
+      presenter = described_class.new(content_item(sort_options: sort_options_without_relevance), {}, "order" => "updated-newest")
 
       expect(presenter.sort_options).to eql(expected_options)
     end

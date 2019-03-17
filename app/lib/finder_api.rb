@@ -9,8 +9,13 @@ class FinderApi
     @order = filter_params['order']
   end
 
+  def search_results
+    @search_results ||= fetch_search_response(content_item)
+  end
+
   def content_item_with_search_results
     augment_content_item_with_results
+    content_item
   end
 
 private
@@ -61,7 +66,7 @@ private
     results.all? { |result| result['es_score'].present? }
   end
 
-  def fetch_search_response
+  def fetch_search_response(content_item)
     queries = query_builder_class.new(
       finder_content_item: content_item,
       params: filter_params,
@@ -75,31 +80,12 @@ private
   end
 
   def augment_content_item_with_results
-    item_hash = content_item
-    search_response = fetch_search_response
-
-    item_hash = augment_content_item_details_with_results(item_hash, search_response)
-    augment_facets_with_dynamic_values(item_hash, search_response)
-
-    item_hash
+    augment_facets_with_dynamic_values(content_item)
   end
 
-  def augment_content_item_details_with_results(item_hash, search_response)
-    item_hash['details']['results'] = search_response.fetch("results")
-    item_hash['details']['total_result_count'] = search_response.fetch("total")
-
-    item_hash['details']['pagination'] = build_pagination(
-      item_hash['details']['default_documents_per_page'],
-      search_response.fetch('start'),
-      search_response.fetch('total')
-    )
-
-    item_hash
-  end
-
-  def augment_facets_with_dynamic_values(item, search_response)
-    search_response.fetch("facets", {}).each do |facet_key, facet_details|
-      facet = item['details']['facets'].find { |f| f['key'] == facet_key }
+  def augment_facets_with_dynamic_values(content_item_hash)
+    search_results.fetch("facets", {}).each do |facet_key, facet_details|
+      facet = content_item_hash['details']['facets'].find { |f| f['key'] == facet_key }
 
       if registries.all.has_key?(facet_key) && facet
         facet['allowed_values'] = allowed_values_from_registry(facet_key)
@@ -146,15 +132,6 @@ private
 
     item = registry[slug] || {}
     item.fetch("title", "")
-  end
-
-  def build_pagination(documents_per_page, start_offset, total_results)
-    if documents_per_page
-      {
-        'current_page' => (start_offset / documents_per_page) + 1,
-        'total_pages' => (total_results / documents_per_page.to_f).ceil,
-      }
-    end
   end
 
   def query_builder_class

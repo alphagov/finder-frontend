@@ -53,6 +53,7 @@ private
   def finder
     @finder ||= finder_presenter_class.new(
       raw_finder,
+      finder_api.search_results,
       filter_params,
     )
   end

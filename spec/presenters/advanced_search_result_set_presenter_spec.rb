@@ -10,9 +10,10 @@ RSpec.describe AdvancedSearchResultSetPresenter do
       filter_params
     ).content_item_with_search_results
   end
-  let(:finder) { AdvancedSearchFinderPresenter.new(finder_api, filter_params) }
+
   let(:group) { "news_and_communications" }
   let(:filter_params) { { "topic" => "/education", "group" => group } }
+  let(:finder) { AdvancedSearchFinderPresenter.new(finder_api, search_results, filter_params) }
   let(:view_context) { double(:view_context, render: nil) }
   let(:taxon_content_id) { SecureRandom.uuid }
   let(:taxon) {
@@ -35,10 +36,6 @@ RSpec.describe AdvancedSearchResultSetPresenter do
   subject(:instance) { described_class.new(finder, filter_params, view_context) }
 
   before do
-    # allow(Services.content_store).to receive(:content_item)
-    #   .and_return(
-    #     JSON.parse(File.read(Rails.root.join("features", "fixtures", "advanced-search.json")))
-    #   )
     allow(Services.content_store).to receive(:content_item)
       .with("/education")
       .and_return(taxon)

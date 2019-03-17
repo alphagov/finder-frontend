@@ -6,8 +6,9 @@ class FinderPresenter
 
   MOST_RECENT_FIRST = "-public_timestamp".freeze
 
-  def initialize(content_item, values = {})
+  def initialize(content_item, search_results, values = {})
     @content_item = content_item
+    @search_results = search_results
     @name = content_item['title']
     @slug = content_item['base_path']
     @links = content_item['links']
@@ -62,7 +63,17 @@ class FinderPresenter
   end
 
   def pagination
-    content_item['details']['pagination']
+    documents_per_page = content_item['details']['default_documents_per_page']
+
+    return nil unless documents_per_page
+
+    start_offset = search_results['start']
+    total_results = search_results['total']
+
+    {
+      'current_page' => (start_offset / documents_per_page) + 1,
+      'total_pages' => (total_results / documents_per_page.to_f).ceil,
+    }
   end
 
   def email_alert_signup
@@ -192,8 +203,8 @@ class FinderPresenter
 
   def results
     @results ||= ResultSetParser.parse(
-      content_item['details']['results'],
-      content_item['details']['total_result_count'],
+      search_results.fetch("results"),
+      search_results.fetch("total"),
       self,
     )
   end
@@ -233,6 +244,8 @@ class FinderPresenter
   end
 
 private
+
+  attr_reader :search_results
 
   def part_of
     content_item['links']['part_of'] || []

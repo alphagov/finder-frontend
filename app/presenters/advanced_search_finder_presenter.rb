@@ -1,8 +1,8 @@
 class AdvancedSearchFinderPresenter < FinderPresenter
   include AdvancedSearchParams
 
-  def initialize(content_item, values = {})
-    super(content_item, values)
+  def initialize(content_item, search_results, values = {})
+    super(content_item, search_results, values)
     # Restore the original topic param value as this is used in pagination links.
     @values[TAXON_SEARCH_FILTER] = taxon['base_path']
   end

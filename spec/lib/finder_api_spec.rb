@@ -22,30 +22,30 @@ describe FinderApi do
 
     shared_examples 'sorts by other fields' do
       context 'most-recent' do
-        subject { described_class.new(content_item, 'order' => 'most-recent').content_item_with_search_results }
+        subject { described_class.new(content_item, 'order' => 'most-recent').search_results }
 
         it "de-duplicates and sorts by public_updated descending" do
-          results = subject.fetch("details").fetch("results")
+          results = subject.fetch("results")
           expect(results.first).to match(hash_including("_id" => "/register-to-vote"))
           expect(results.second).to match(hash_including("_id" => "/hmrc"))
         end
       end
 
       context 'most-viewed' do
-        subject { described_class.new(content_item, 'order' => 'most-viewed').content_item_with_search_results }
+        subject { described_class.new(content_item, 'order' => 'most-viewed').search_results }
 
         it "de-duplicates and sorts by popularity descending" do
-          results = subject.fetch("details").fetch("results")
+          results = subject.fetch("results")
           expect(results.first).to match(hash_including("_id" => "/register-to-vote"))
           expect(results.second).to match(hash_including("_id" => "/hmrc"))
         end
       end
 
       context 'a-to-z' do
-        subject { described_class.new(content_item, 'order' => 'a-to-z').content_item_with_search_results }
+        subject { described_class.new(content_item, 'order' => 'a-to-z').search_results }
 
         it "de-duplicates and sorts by title descending" do
-          results = subject.fetch("details").fetch("results")
+          results = subject.fetch("results")
           expect(results.first).to match(hash_including("title" => "HMRC"))
           expect(results.second).to match(hash_including("title" => "Register to Vote"))
         end
@@ -75,20 +75,20 @@ describe FinderApi do
       it_behaves_like 'sorts by other fields'
 
       context 'default' do
-        subject { described_class.new(content_item, {}).content_item_with_search_results }
+        subject { described_class.new(content_item, {}).search_results }
 
         it "de-duplicates and returns in the order rummager returns" do
-          results = subject.fetch("details").fetch("results")
+          results = subject.fetch("results")
           expect(results.first).to match(hash_including("_id" => "/register-to-vote"))
           expect(results.second).to match(hash_including("_id" => "/hmrc"))
         end
       end
 
       context 'most-relevant' do
-        subject { described_class.new(content_item, 'order' => 'most-relevant').content_item_with_search_results }
+        subject { described_class.new(content_item, 'order' => 'most-relevant').search_results }
 
         it "de-duplicates and returns in the order rummager returns" do
-          results = subject.fetch("details").fetch("results")
+          results = subject.fetch("results")
           expect(results.first).to match(hash_including("_id" => "/register-to-vote"))
           expect(results.second).to match(hash_including("_id" => "/hmrc"))
         end
@@ -118,20 +118,20 @@ describe FinderApi do
       it_behaves_like 'sorts by other fields'
 
       context 'default' do
-        subject { described_class.new(content_item, {}).content_item_with_search_results }
+        subject { described_class.new(content_item, {}).search_results }
 
         it "de-duplicates and sorts by es_score descending" do
-          results = subject.fetch("details").fetch("results")
+          results = subject.fetch("results")
           expect(results.first).to match(hash_including("title" => "HMRC"))
           expect(results.second).to match(hash_including("title" => "Register to Vote"))
         end
       end
 
       context 'most-relevant' do
-        subject { described_class.new(content_item, 'order' => 'most-relevant').content_item_with_search_results }
+        subject { described_class.new(content_item, 'order' => 'most-relevant').search_results }
 
         it "de-duplicates and sorts by es_score descending" do
-          results = subject.fetch("details").fetch("results")
+          results = subject.fetch("results")
           expect(results.first).to match(hash_including("title" => "HMRC"))
           expect(results.second).to match(hash_including("title" => "Register to Vote"))
         end

@@ -23,6 +23,10 @@ private
     @content ||= fetch_content_item(request.path)
   end
 
+  def finder_content_item
+    @finder_content_item ||= fetch_content_item(finder_base_path)
+  end
+
   def signup_presenter
     @signup_presenter ||= SignupPresenter.new(content, params)
   end
@@ -66,14 +70,8 @@ private
     )
   end
 
-  def finder
-    @finder ||= FinderPresenter.new(fetch_content_item(finder_base_path))
-  end
-
   def finder_format
-    return nil unless finder.filter
-
-    finder.filter['document_type']
+    finder_content_item.dig('details', 'filter', 'document_type')
   end
 
   def email_signup_attributes
