@@ -185,15 +185,7 @@ module RummagerUrlHelper
   end
 
   def business_readiness_fields
-    base_search_fields + %w(
-      sector_business_area
-      business_activity
-      employ_eu_citizens
-      personal_data
-      intellectual_property
-      eu_uk_government_funding
-      public_sector_procurement
-    )
+    base_search_fields + %w(facet_values)
   end
 
   def base_search_params

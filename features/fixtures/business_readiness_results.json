@@ -19,7 +19,10 @@
           "_id": "/guidance/food-labelling-changes-after-brexit",
           "elasticsearch_type": "edition",
           "document_type": "edition",
-          "facet_values": [ "6a3c7b28-48d4-472e-b2d9-38e76a31d195" ]
+          "facet_values": [
+            "53f9ce4c-7cbb-447f-bdf1-a9b022896d3a",
+            "a55f04df-3877-4c73-bbfe-ad7339cdfccf"
+          ]
         },
         {
           "title": "Protecting food and drink names if there's no Brexit deal",
@@ -38,7 +41,12 @@
           "es_score": null,
           "_id": "/guidance/protecting-food-and-drink-names-if-theres-no-brexit-deal",
           "elasticsearch_type": "edition",
-          "document_type": "edition"
+          "document_type": "edition",
+          "facet_values": [
+            "94b3cfe2-af89-4744-b8d7-7fc79edcbc85",
+            "53f9ce4c-7cbb-447f-bdf1-a9b022896d3a",
+            "a55f04df-3877-4c73-bbfe-ad7339cdfccf"
+          ]
         },
         {
           "title": "Prepare to drive in the EU after Brexit",
@@ -57,7 +65,12 @@
           "es_score": null,
           "_id": "/guidance/prepare-to-drive-in-the-eu-after-brexit",
           "elasticsearch_type": "edition",
-          "document_type": "edition"
+          "document_type": "edition",
+          "facet_values": [
+              "b13198f2-775e-4067-858b-93a10b3f9ea1",
+              "07398027-ee4d-4bda-b53e-2dc655734049",
+              "7ae8e57c-ea7a-42de-84fc-a084b5f64bca"
+          ]
         },
         {
           "title": "EU Settlement Scheme employer toolkit: Welsh materials",
@@ -72,7 +85,10 @@
           "es_score": null,
           "_id": "/government/publications/eu-settlement-scheme-employer-toolkit-welsh-materials",
           "elasticsearch_type": "edition",
-          "document_type": "edition"
+          "document_type": "edition",
+          "facet_values": [
+              "5476f0c7-d029-459b-8a17-196374ae3366"
+          ]
         },
         {
           "title": "IP and Brexit: the facts",
@@ -91,7 +107,14 @@
           "es_score": null,
           "_id": "/government/publications/ip-and-brexit-the-facts",
           "elasticsearch_type": "edition",
-          "document_type": "edition"
+          "document_type": "edition",
+          "facet_values": [
+              "c308aa59-c234-48d4-885d-5d964e710bd1",
+              "231e7512-8054-41c6-80c5-9d353c7f1c52",
+              "4be67a27-0d5a-444b-9379-9161365206f7",
+              "ed2109a5-5bc1-40f1-af71-3657263fd4e0",
+              "32282878-5d75-42be-911d-ef7ba102bc7f"
+          ]
         },
         {
           "title": "Exporting and importing fish if there’s no Brexit deal",
@@ -111,7 +134,13 @@
           "es_score": null,
           "_id": "/guidance/exporting-and-importing-fish-if-theres-no-brexit-deal",
           "elasticsearch_type": "edition",
-          "document_type": "edition"
+          "document_type": "edition",
+          "facet_values": [
+              "c5e26d37-def8-40aa-8b46-d9a23ffaceb1",
+              "d422aa2e-59ad-4986-8ef0-973959878912",
+              "7283b8e1-840f-49da-967f-c0a512a3f531",
+              "07398027-ee4d-4bda-b53e-2dc655734049"
+          ]
         },
         {
           "title": "Moving goods to and from the EU through roll on roll off ports or the Channel Tunnel",
@@ -171,7 +200,11 @@
           "es_score": null,
           "_id": "/guidance/moving-goods-to-and-from-the-eu-through-roll-on-roll-off-locations-including-eurotunnel",
           "elasticsearch_type": "edition",
-          "document_type": "edition"
+          "document_type": "edition",
+          "facet_values": [
+              "24fd50fa-6619-46ca-96cd-8ce90fa076ce",
+              "07398027-ee4d-4bda-b53e-2dc655734049"
+          ]
         },
         {
           "title": "Prepare to use the UKCA mark after Brexit",
@@ -191,7 +224,14 @@
           "es_score": null,
           "_id": "/government/publications/prepare-to-use-the-ukca-mark-after-brexit",
           "elasticsearch_type": "edition",
-          "document_type": "edition"
+          "document_type": "edition",
+          "facet_values": [
+              "01b51981-1ad6-4e45-9b14-b8a57fcb4204",
+              "9c0d1627-0423-4159-a947-e6abab0d0afd",
+              "a55f04df-3877-4c73-bbfe-ad7339cdfccf",
+              "07398027-ee4d-4bda-b53e-2dc655734049"
+
+          ]
         },
         {
           "title": "Oil and gas production and preparing for EU Exit",
@@ -213,7 +253,15 @@
           "es_score": null,
           "_id": "/guidance/oil-and-gas-production-and-preparing-for-eu-exit",
           "elasticsearch_type": "edition",
-          "document_type": "edition"
+          "document_type": "edition",
+          "facet_values": [
+              "46ad5a1d-fc2d-4065-a34f-3f7b2fea8e81",
+              "46ad5a1d-fc2d-4065-a34f-3f7b2fea8e81",
+              "7283b8e1-840f-49da-967f-c0a512a3f531",
+              "07398027-ee4d-4bda-b53e-2dc655734049",
+              "7ae8e57c-ea7a-42de-84fc-a084b5f64bca",
+              "a55f04df-3877-4c73-bbfe-ad7339cdfccf"
+          ]
         }
       ],
       "total": 9,
