@@ -3,7 +3,7 @@
     <div id="keywords">
       <%= render "govuk_publishing_components/components/input", {
         label: {
-          text: "Search"
+          text: "Search <span class=\"govuk-visually-hidden\">#{finder.name}</span>".html_safe
         },
         name: "keywords",
         value: @results.user_supplied_keywords,
