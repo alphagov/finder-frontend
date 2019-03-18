@@ -69,9 +69,13 @@ private
   end
 
   def metadata_fields
-    finder_content_item['details']['facets'].map { |f|
+    raw_facets.map { |f|
       unfilterise(f['filter_key'] || f['key'])
     }
+  end
+
+  def raw_facets
+    @raw_facets ||= FacetExtractor.for(finder_content_item).extract
   end
 
   def unfilterise(field = '')
@@ -157,7 +161,7 @@ private
   end
 
   def and_facets
-    finder_content_item['details']['facets'].select do |facet|
+    raw_facets.select do |facet|
       facet.fetch('combine_mode', 'and') == 'and'
     end
   end
@@ -177,7 +181,7 @@ private
   end
 
   def or_facets
-    finder_content_item['details']['facets'].select do |facet|
+    raw_facets.select do |facet|
       facet.fetch('combine_mode', 'and') == 'or'
     end
   end
@@ -208,7 +212,7 @@ private
 
   def facet_params
     @facet_params ||= FacetQueryBuilder.new(
-      facets: finder_content_item['details']['facets'],
+      facets: raw_facets,
     ).call
   end
 end
