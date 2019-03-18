@@ -50,6 +50,7 @@ RSpec.describe SearchResultPresenter do
       expect(hash[:link]).to eql(link)
       expect(hash[:metadata]).to eql(formatted_metadata)
       expect(hash[:es_score]).to eql(0.005)
+      expect(hash[:top_result]).to eql(false)
     end
   end
 

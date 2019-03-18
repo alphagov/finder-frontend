@@ -6,7 +6,8 @@ describe Document do
       rummager_document = {
         title: 'A title',
         link: 'link.com',
-        es_score: 0.005
+        es_score: 0.005,
+        top_result: false
       }
       finder = double(
         'finder', date_metadata_keys: [], text_metadata_keys: [], links: {}
@@ -111,6 +112,26 @@ describe Document do
 
     it "es_score is 0.005" do
       expect(instance.es_score).to eq 0.005
+    end
+  end
+
+  describe "top_result" do
+    let(:finder) do
+      double(:finder,
+             date_metadata_keys: [:foo],
+             text_metadata_keys: [:bar],
+             "display_metadata?": true)
+    end
+
+    subject(:instance) { described_class.new({ title: "Y", link: "/y", es_score: 0.005, top_result: false }, finder) }
+    subject(:instance_with_top_result) { described_class.new({ title: "Y", link: "/y", es_score: 0.005, top_result: true }, finder) }
+
+    it "top_result is false" do
+      expect(instance.top_result).to eq false
+    end
+
+    it "top_result is true" do
+      expect(instance_with_top_result.top_result).to eq true
     end
   end
 end

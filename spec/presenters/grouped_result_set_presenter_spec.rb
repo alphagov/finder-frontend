@@ -140,7 +140,7 @@ RSpec.describe GroupedResultSetPresenter do
       promoted_summary: nil,
       show_metadata: false,
       es_score: nil,
-      top_result: nil
+      top_result: false
     )
   end
 
@@ -204,15 +204,15 @@ RSpec.describe GroupedResultSetPresenter do
         promoted_summary: nil,
         show_metadata: false,
         es_score: nil,
-        top_result: nil
+        top_result: false
       )
     }
 
     let(:primary_tagged_result) {
-      SearchResultPresenter.new(tagged_document, nil).to_hash
+      SearchResultPresenter.new(tagged_document, false).to_hash
     }
 
-    let(:document_result) { SearchResultPresenter.new(document, nil).to_hash }
+    let(:document_result) { SearchResultPresenter.new(document, false).to_hash }
 
     context "when not grouping results" do
       let(:filter_params) { { order: 'a-z' } }
