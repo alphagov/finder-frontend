@@ -1,4 +1,8 @@
 class RadioFacet < FilterableFacet
+  def value
+    @value || default_value['value']
+  end
+
   def options
     allowed_values.map do |allowed_value|
       {
@@ -9,17 +13,21 @@ class RadioFacet < FilterableFacet
     end
   end
 
+  def has_filters?
+    selected_value.present?
+  end
+
+  def sentence_fragment
+    return nil if hide_facet_tag?
+  end
+
 private
 
   def selected_value
-    return default_value if @value.nil?
-
-    allowed_values.find { |option|
-      @value == option['value']
-    } || {}
+    allowed_values.find { |option| @value == option['value'] } || default_value
   end
 
   def default_value
-    allowed_values.find { |option| option['default'] } || {}
+    @default_value ||= allowed_values.find { |option| option['default'] } || {}
   end
 end

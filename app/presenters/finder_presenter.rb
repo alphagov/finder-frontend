@@ -71,7 +71,7 @@ class FinderPresenter
     signup_link = content_item['details']['signup_link']
     return signup_link if signup_link.present?
 
-    "#{email_alert_signup['web_url']}?#{email_alert_filter_query}" if email_alert_signup
+    "#{email_alert_signup['web_url']}#{alert_query_string}" if email_alert_signup
   end
 
   def facets
@@ -217,7 +217,7 @@ class FinderPresenter
   end
 
   def atom_url
-    ["#{slug}.atom", values.to_query].reject(&:blank?).join("?") if atom_feed_enabled?
+    "#{slug}.atom#{alert_query_string}" if atom_feed_enabled?
   end
 
   def description
@@ -271,7 +271,7 @@ private
     URI.parse(href).host != "www.gov.uk"
   end
 
-  def email_alert_filter_query
+  def alert_query_string
     facets_with_filters = facets.select(&:has_filters?)
 
     facets_with_values = facets_with_filters.reject { |facet|
@@ -284,7 +284,8 @@ private
       hash[facet.key] = facet.value
     }
 
-    filtered_values.to_query
+    query_string = filtered_values.to_query
+    query_string.blank? ? query_string : "?#{query_string}"
   end
 
   # FIXME: This should be removed once we have a way to determine

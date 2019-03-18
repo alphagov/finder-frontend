@@ -5,28 +5,74 @@ describe Filters::RadioFilter do
     Filters::RadioFilter.new(facet, params)
   }
 
-  let(:facet) { double }
+  let(:facet) { { "allowed_values" => allowed_values } }
   let(:params) { nil }
+  let(:default_value) { %w(policy_papers) }
+  let(:option_lookup) {
+    { "open_consultations" => %w(open closed), "policy_papers" => %w(guidance) }
+  }
+  let(:allowed_values) {
+    [
+      {
+        "label" => "Policy papers",
+        "value" => "policy_papers",
+        "default" => true
+      },
+      {
+        "label" => "Consultations (open)",
+        "value" => "open_consultations"
+      },
+      {
+        "label" => "Consultations (closed)",
+        "value" => "closed_consultations"
+      }
+    ]
+  }
 
   describe "#active?" do
-    context "when params is nil" do
-      it "should be false" do
-        expect(radio_filter).not_to be_active
+    context "when no default allowed value is set" do
+      let(:allowed_values) { [] }
+
+      context "when params is nil" do
+        it "should be false" do
+          expect(radio_filter).not_to be_active
+        end
+      end
+
+      context "when params is empty" do
+        let(:params) { [] }
+
+        it "should be false" do
+          expect(radio_filter).not_to be_active
+        end
       end
     end
 
-    context "when params is empty" do
-      let(:params) { [] }
+    context "when a default allowed value is set" do
+      context "when params is nil" do
+        it "should be true" do
+          expect(radio_filter).to be_active
+        end
+      end
 
-      it "should be false" do
-        expect(radio_filter).not_to be_active
+      context "when params is an array" do
+        let(:params) { [] }
+
+        it "should be true" do
+          expect(radio_filter).to be_active
+        end
       end
     end
   end
 
   describe "#key" do
     context "when a filter_key is present" do
-      let(:facet) { { "filter_key" => "alpha", "key" => "beta" } }
+      let(:facet) {
+        {
+          "filter_key" => "alpha", "key" => "beta",
+          "allowed_values" => allowed_values
+        }
+      }
 
       it "returns filter_key" do
         expect(radio_filter.key).to eq("alpha")
@@ -34,7 +80,12 @@ describe Filters::RadioFilter do
     end
 
     context "when a filter_key is not present" do
-      let(:facet) { { "key" => "beta" } }
+      let(:facet) {
+        {
+          "key" => "beta",
+          "allowed_values" => allowed_values
+        }
+      }
 
       it "returns key" do
         expect(radio_filter.key).to eq("beta")
@@ -43,39 +94,84 @@ describe Filters::RadioFilter do
   end
 
   describe "#value" do
-    context "when params is present and option_lookup is absent" do
-      let(:params) { %w(alpha) }
-      let(:facet) { {} }
+    context "without option lookup" do
+      context "when an allowed option is provided" do
+        let(:params) { "open_consultations" }
 
-      it "should contain all values" do
-        expect(radio_filter.value).to eq(%w(alpha))
+        it "should return the option as an array" do
+          expect(radio_filter.value).to eq(%w(open_consultations))
+        end
+      end
+
+      context "when no option is provided and a default value is set" do
+        it "should return the default value" do
+          expect(radio_filter.value).to eq(default_value)
+        end
+      end
+
+      context "when the option is not a string and a default value is set" do
+        let(:params) { [] }
+
+        it "should return the default value" do
+          expect(radio_filter.value).to eq(default_value)
+        end
+      end
+
+      context "when a disallowed param is provided" do
+        let(:params) { "does_not_exist" }
+
+        context "a default option is set" do
+          it "should return the default value" do
+            expect(radio_filter.value).to eq(default_value)
+          end
+        end
+
+        context "a default option is NOT provided" do
+          let(:allowed_values) { [] }
+          it "should return an empty array" do
+            expect(radio_filter.value).to eq([])
+          end
+        end
       end
     end
 
-    context "when params is present and option_lookup is empty" do
-      let(:params) { %w(does_not_exist) }
-      let(:facet) { { "option_lookup" => { "policy_papers" => %w(guidance) } } }
+    context "with option lookup" do
+      let(:facet) {
+        {
+          "option_lookup" => option_lookup,
+          "allowed_values" => allowed_values
+        }
+      }
 
-      it "should contain no values" do
-        expect(radio_filter.value).to eq([])
+      context "when no option is selected" do
+        it "should return the corresponding default values from the option_lookup" do
+          expect(radio_filter.value).to eq(%w(guidance))
+        end
       end
-    end
 
-    context "when params is present and option_lookup is present" do
-      let(:params) { %w(policy_papers) }
-      let(:facet) { { "option_lookup" => { "policy_papers" => %w(guidance) } } }
+      context "when a disallowed value is provided" do
+        let(:params) { "does_not_exist" }
 
-      it "should contain all values" do
-        expect(radio_filter.value).to eq(%w(guidance))
+        context "when a default value is set" do
+          it "should return the corresponding default values from the option_lookup" do
+            expect(radio_filter.value).to eq(%w(guidance))
+          end
+        end
+
+        context "when a default value is not set" do
+          let(:allowed_values) { [] }
+
+          it "should return an empty array" do
+            expect(radio_filter.value).to eq([])
+          end
+        end
       end
-    end
 
-    context "when params has multiple values and option_lookup is present" do
-      let(:params) { %w(policy_papers does_not_exist consultations) }
-      let(:facet) { { "option_lookup" => { "consultations" => %w(open closed), "policy_papers" => %w(guidance) } } }
-
-      it "should contain all values" do
-        expect(radio_filter.value).to eq(%w(open closed guidance))
+      context "when an allowed option is selected" do
+        let(:params) { "open_consultations" }
+        it "should return the corresponding values from the option_lookup" do
+          expect(radio_filter.value).to eq(%w(open closed))
+        end
       end
     end
   end

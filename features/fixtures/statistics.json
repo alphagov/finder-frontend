@@ -20,15 +20,28 @@
   "user_journey_document_supertype":"finding",
   "withdrawn_notice":{},
   "publishing_request_id":"",
-  "links":{},
+  "links":{
+    "email_alert_signup": [
+      {
+        "api_path": "/api/content/search/statistics/email-signup",
+        "base_path": "/search/statistics/email-signup",
+        "content_id": "119db584-0ae7-45e4-8f3a-fd79316c6921",
+        "document_type": "finder_email_signup",
+        "locale": "en",
+        "public_updated_at": "2019-03-14T10:22:17Z",
+        "schema_name": "finder_email_signup",
+        "title": "Statistics",
+        "withdrawn": false,
+        "links": {},
+        "api_url": "https://www.gov.uk/api/content/policy-papers-and-consultations/email-signup",
+        "web_url": "/search/statistics/email-signup"
+      }
+    ]
+  },
   "description":"Find statistics from government",
   "details":{
     "document_noun":"statistic",
-    "filter":{
-      "content_store_document_type": [
-        "statistics","national_statistics","statistical_data_set","official_statistics"
-      ]
-    },
+    "filter":{},
     "format_name":"statistic",
     "show_summaries":true,
     "sort": [
