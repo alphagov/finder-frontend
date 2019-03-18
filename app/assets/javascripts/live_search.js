@@ -33,7 +33,8 @@
 
       this.$form.on('change', 'input[type=checkbox], input[type=radio], select',
         function(e) {
-          if (!e.suppressAnalytics) {
+          // Checkboxes fire their own GA tracking
+          if (!e.suppressAnalytics && $(e.target).attr("type") !== "checkbox") {
             LiveSearch.prototype.fireTextAnalyticsEvent(e);
           }
           this.formChange(e);
