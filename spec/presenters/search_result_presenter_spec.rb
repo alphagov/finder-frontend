@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe SearchResultPresenter do
-  subject(:presenter) { SearchResultPresenter.new(document, false) }
+  subject(:presenter) { SearchResultPresenter.new(document) }
 
   let(:document) {
     double(

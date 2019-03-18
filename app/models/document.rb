@@ -1,6 +1,7 @@
 class Document
   attr_reader :title, :public_timestamp, :is_historic, :government_name,
-              :content_purpose_supergroup, :document_type, :organisations, :es_score, :top_result
+              :content_purpose_supergroup, :document_type, :organisations, :es_score, :top_result,
+              :description
 
   def initialize(rummager_document, finder)
     rummager_document = rummager_document.with_indifferent_access
@@ -47,7 +48,7 @@ class Document
 
 private
 
-  attr_reader :link, :rummager_document, :finder, :description
+  attr_reader :link, :rummager_document, :finder
 
   def truncated_description
     # This truncates the description at the end of the first sentence

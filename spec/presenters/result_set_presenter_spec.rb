@@ -287,7 +287,7 @@ RSpec.describe ResultSetPresenter do
     let(:filter_params) { { keywords: 'test', order: '-relevance' } }
     let(:results) do
       ResultSet.new(
-        (1..total).map { document_with_high_es_score },
+        (1..total).map { document },
         total,
         )
     end
@@ -309,23 +309,40 @@ RSpec.describe ResultSetPresenter do
         )
     end
 
-    let(:document_with_high_es_score) do
+    let(:document_with_higher_es_score) do
       double(
         Document,
         title: 'Investigation into the distribution of road fuels in parts of Scotland',
-        path: 'slug-2',
+        description: "Some description",
+        path: 'slug-1',
         metadata: [
-          { id: 'case-state', name: 'Case state', value: 'Open', type: 'text', labels: %W(open) },
-          { id: 'opened-date', name: 'Opened date', value: '2006-7-14', type: 'date' },
-          { id: 'case-type', name: 'Case type', value: 'CA98 and civil cartels', type: 'text', labels: %W(ca98-and-civil-cartels) },
+          { id: 'case-type', name: 'Case type', value: 'CA98 and civil cartels', type: 'text', labels: %W(ca98-and-civil-cartels) }
         ],
-        summary: 'I am a document',
+        summary: 'Higher score',
         is_historic: false,
         government_name: 'The Government!',
         promoted: false,
         promoted_summary: nil,
         show_metadata: false,
-        es_score: 0.1,
+        es_score: 1000.0,
+        )
+    end
+
+    let(:document_with_lower_es_score) do
+      double(
+        Document,
+        title: 'Investigation into the distribution of road fuels in parts of Scotland',
+        path: 'slug-2',
+        metadata: [
+          { id: 'case-type', name: 'Case type', value: 'CA98 and civil cartels', type: 'text', labels: %W(ca98-and-civil-cartels) }
+        ],
+        summary: 'Lower score',
+        is_historic: false,
+        government_name: 'The Government!',
+        promoted: false,
+        promoted_summary: nil,
+        show_metadata: false,
+        es_score: 900.0,
         )
     end
 
@@ -336,7 +353,7 @@ RSpec.describe ResultSetPresenter do
     context "has top result true" do
       let(:results) do
         ResultSet.new(
-          [document_with_high_es_score],
+          [document_with_higher_es_score, document_with_lower_es_score],
           total
         )
       end

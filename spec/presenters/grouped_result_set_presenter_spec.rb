@@ -209,10 +209,10 @@ RSpec.describe GroupedResultSetPresenter do
     }
 
     let(:primary_tagged_result) {
-      SearchResultPresenter.new(tagged_document, false).to_hash
+      SearchResultPresenter.new(tagged_document).to_hash
     }
 
-    let(:document_result) { SearchResultPresenter.new(document, false).to_hash }
+    let(:document_result) { SearchResultPresenter.new(document).to_hash }
 
     context "when not grouping results" do
       let(:filter_params) { { order: 'a-z' } }

@@ -49,23 +49,25 @@ class ResultSetPresenter
     }.reject(&:empty?)
   end
 
-  def is_top_result?(result)
-    if sort_option && sort_option["key"].eql?("-relevance") && result.es_score
-      ## Logic here that compares all the results and decides if a result is the top one.
-      if ((finder.slug == "/find-eu-exit-guidance-business") && result.es_score >= 0.008)
-        return true
-      end
-    end
-    false
+  def is_top_result?(score_a, score_b)
+    (score_a / score_b) > 1
+  end
+
+  def get_documents_with_top_result(documents = [])
+    return documents if no_top_results(documents)
+
+    with_top_result(documents)
   end
 
   def documents
-    results.each_with_index.map do |result, index|
+    documents = results.each_with_index.map do |result, index|
       {
-        document: SearchResultPresenter.new(result, is_top_result?(result)).to_hash,
+        document: SearchResultPresenter.new(result).to_hash,
         document_index: index + 1
       }
     end
+
+    get_documents_with_top_result(documents)
   end
 
   def user_supplied_date(date_facet_key, date_facet_from_to)
@@ -89,6 +91,22 @@ class ResultSetPresenter
   end
 
 private
+
+  def no_top_results(documents)
+    documents.length < 2 ||
+      !sort_option ||
+      !sort_option["key"].eql?("-relevance") ||
+      finder.slug != "/find-eu-exit-guidance-business"
+  end
+
+  def with_top_result(documents)
+    if (documents[0][:document][:es_score].present? && documents[1][:document][:es_score].present?)
+      documents[0][:document][:top_result] = is_top_result?(documents[0][:document][:es_score], documents[1][:document][:es_score])
+      documents[0][:document][:summary] = results[0].description if documents[0][:document][:top_result]
+    end
+
+    documents
+  end
 
   attr_reader :view_context
 
