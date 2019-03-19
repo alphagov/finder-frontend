@@ -274,6 +274,13 @@ Feature: Filtering documents
     Then I should see a "Skip to results" link
     And the page has results region
 
+  @javascript
+  Scenario: Facets should be hidden by default on finders except all content
+    When I view the research and statistics finder
+    And I should not see a "Show more search options" link
+    Then I view the all content finder
+    And I should see a "Show more search options" link
+
   Scenario: Results should be a landmark to allow screenreaders to jump to it quickly
     When I view the news and communications finder
     Then the page has a landmark to the search results

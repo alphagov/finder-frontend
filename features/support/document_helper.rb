@@ -94,6 +94,11 @@ module DocumentHelper
       .to_return(body: policy_and_engagement_results_json)
   end
 
+  def stub_rummager_api_request_with_all_content_results
+    stub_request(:get, all_content_url({}))
+      .to_return(body: all_content_results_json)
+  end
+
   def stub_rummager_api_request_with_filtered_policy_papers_results
     stub_request(
       :get,
@@ -264,6 +269,12 @@ module DocumentHelper
     finder_fixture = File.read(Rails.root.join('features', 'fixtures', 'statistics.json'))
 
     content_store_has_item('/statistics', finder_fixture)
+  end
+
+  def content_store_has_all_content_finder
+    finder_fixture = File.read(Rails.root.join('features', 'fixtures', 'all_content.json'))
+
+    content_store_has_item('/search/all-content', finder_fixture)
   end
 
   def content_store_has_policy_and_engagement_finder
@@ -594,6 +605,10 @@ module DocumentHelper
 
   def rummager_policy_papers_url(filters)
     rummager_url(policy_papers_params.merge(filters))
+  end
+
+  def all_content_url(filters)
+    rummager_url(all_content_params.merge(filters))
   end
 
   def rummager_research_and_statistics_url(filters)
@@ -1960,6 +1975,50 @@ module DocumentHelper
   end
 
   def upcoming_statistics_results_for_statistics_json
+    %|{
+      "results": [
+        {
+          "results": [
+            {
+              "title": "Restrictions on usage of spells within school grounds",
+              "link": "/restrictions-on-usage-of-spells-within-school-grounds",
+              "description": "Restrictions on usage of spells within school grounds",
+              "public_timestamp": "2017-12-30T10:00:00Z",
+              "part_of_taxonomy_tree": [
+                "622e9691-4b4f-4e9c-bce1-098b0c4f5ee2"
+              ],
+              "organisations": [
+                {
+                  "organisation_crest": "single-identity",
+                  "acronym": "MOM",
+                  "link": "/organisations/ministry-of-magic",
+                  "analytics_identifier": "MM1",
+                  "public_timestamp": "2017-12-15T11:11:02.000+00:00",
+                  "organisation_brand": "ministry-of-magic",
+                  "logo_formatted_title": "Ministry of Magic",
+                  "title": "Ministry of Magic",
+                  "content_id": "92881ac6-2804-4522-bf48-cf8c781c98bf",
+                  "slug": "ministry-of-magic",
+                  "organisation_type": "other",
+                  "organisation_state": "live"
+                }
+              ],
+              "index": "govuk",
+              "es_score": null,
+              "_id": "/restrictions-on-usage-of-spells-within-school-grounds",
+              "elasticsearch_type": "policy_paper",
+              "document_type": "policy_paper"
+            }
+          ],
+          "total": 1,
+          "start": 0,
+          "suggested_queries": []
+        }
+      ]
+    }|
+  end
+
+  def all_content_results_json
     %|{
       "results": [
         {

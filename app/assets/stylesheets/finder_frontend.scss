@@ -379,23 +379,34 @@
 
 .facet-toggle {
   display: none;
+  margin-bottom: $gutter;
 }
 
 .js-enabled {
   .facet-toggle {
     display: inline-block;
-    margin-bottom: $gutter;
+  }
 
-    @include media(tablet) {
+  .facet-toggle__content {
+    display: block;
+
+    &.facet-toggle__content--hide {
       display: none;
     }
   }
 
-  .facet-toggle__content--hidden {
-    display: none;
+  .facet-toggle--only-on-mobile {
+    .facet-toggle {
+      @include media(tablet) {
+        display: none;
+      }
+    }
 
-    @include media(tablet) {
-      display: block;
+    .facet-toggle__content.facet-toggle__content--hide {
+      @include media(tablet) {
+        display: block;
+      }
     }
   }
 }
+
