@@ -31,7 +31,7 @@ private
   end
 
   def text_facets
-    filterable_facets.select { |f| %w(autocomplete text).include? f['type'] }
+    filterable_facets.select { |f| %w(text).include? f['type'] }
   end
 
   def filterable_facets

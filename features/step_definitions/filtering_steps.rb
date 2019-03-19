@@ -318,37 +318,6 @@ And(/^filters are not wrapped in a progressive disclosure element$/) do
   expect(page).not_to have_selector('#facet-wrapper')
 end
 
-Given(/^a finder with autocomplete exists$/) do
-  content_store_has_mosw_reports_finder_with_autocomplete_facet
-  stub_rummager_api_request
-end
-
-Then(/^I can filter based on the results$/) do
-  visit finder_path('mosw-reports')
-
-  expect(page).to have_content("2 reports")
-  within ".filtered-results" do
-    expect(page).to have_content("West London wobbley walk")
-    expect(page).to have_content("The Gerry Anderson")
-  end
-
-  within first('.gem-c-accessible-autocomplete') do
-    expect(page).to have_selector('select#walk_type')
-    select("Hopscotch", from: "walk_type").select_option
-  end
-  click_on "Filter results"
-
-  within(".result-info") do
-    expect(page).to have_content("1 report")
-    expect(page).to have_content("Of Type")
-    expect(page).to have_content("Hopscotch")
-  end
-  within ".filtered-results" do
-    expect(page).not_to have_content("West London wobbley walk")
-    expect(page).to have_content("The Gerry Anderson")
-  end
-end
-
 Given(/^a finder with paginated results exists$/) do
   content_store_has_government_finder_with_10_items
   stub_rummager_api_request_with_10_government_results

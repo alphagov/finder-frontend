@@ -18,8 +18,6 @@ module FacetParser
         CheckboxFacet.new(facet)
       when 'dropdown_select'
         DropdownSelectFacet.new(facet)
-      when 'autocomplete'
-        AutocompleteFacet.new(facet)
       when 'radio'
         RadioFacet.new(facet)
       else
