@@ -21,43 +21,62 @@
   <%= render 'govuk_publishing_components/components/government_navigation', active: finder.government_content_section %>
 <% end %>
 
-<header>
-  <div class="title-and-metadata">
-    <%= render partial: 'govuk_publishing_components/components/title', locals: {
-      context: finder.human_readable_finder_format,
-      title: finder.name
-    } %>
-    <% if finder.page_metadata.any? %>
-      <%= render 'govuk_publishing_components/components/metadata', page_metadata(finder.page_metadata) %>
-    <% end %>
+<form method="get" action="<%= finder.slug %>" class="js-live-search-form">
+  <input type="hidden" name="parent" value="<%= @parent %>">
 
-    <% if finder.summary %>
-      <div class="summary">
-        <%= render 'govuk_publishing_components/components/govspeak', content: finder.summary.html_safe %>
+  <header>
+    <div class="title-and-metadata">
+      <% if finder.all_content_finder? %>
+        <% label_text = capture do %>
+          <h1 class="app-c-search-page-heading">Search<span class="govuk-visually-hidden"> all content</span></h1>
+        <% end %>
+        <div id="keywords">
+          <%= render "govuk_publishing_components/components/search", {
+              inline_label: false,
+              label_text: label_text,
+              name: "keywords",
+              hide_search_button: true,
+              value: @results.user_supplied_keywords,
+              id: "finder-keyword-search",
+              controls: "js-search-results-info"
+          } %>
+        </div>
+      <% else %>
+        <%= render partial: 'govuk_publishing_components/components/title', locals: {
+            context: finder.human_readable_finder_format,
+            title: finder.name
+        } %>
+      <% end %>
+
+      <% if finder.page_metadata.any? %>
+        <%= render 'govuk_publishing_components/components/metadata', page_metadata(finder.page_metadata) %>
+      <% end %>
+
+      <% if finder.summary %>
+        <div class="summary">
+          <%= render 'govuk_publishing_components/components/govspeak', content: finder.summary.html_safe %>
+        </div>
+      <% end %>
+    </div>
+
+    <% if finder.logo_path %>
+      <div class="logo">
+        <%= image_tag finder.logo_path, id: "logo-image" %>
       </div>
     <% end %>
-  </div>
 
-  <% if finder.logo_path %>
-    <div class="logo">
-      <%= image_tag finder.logo_path, id: "logo-image" %>
-    </div>
-  <% end %>
+    <% if finder.related.any? %>
+      <div class="related-links">
+        <ul class="finder-results">
+          <% finder.related.each do |link| %>
+            <li><%= link_to link['title'], link['web_url'] %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+  </header>
 
-  <% if finder.related.any? %>
-    <div class='related-links'>
-      <ul class="finder-results">
-        <% finder.related.each do |link| %>
-          <li><%= link_to link['title'], link['web_url'] %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-</header>
-
-<div class="grid-row">
-  <form method="get" action="<%= finder.slug %>" class="js-live-search-form">
-    <input type="hidden" name="parent" value="<%= @parent %>">
+  <div class="grid-row">
     <div class="column-third" role="search" aria-label="<%= finder.name %>">
       <%= render finder.facets %>
     </div>
@@ -91,5 +110,5 @@
         </div>
       </div>
     </div>
-  </form>
-</div>
+  </div>
+</form>

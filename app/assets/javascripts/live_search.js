@@ -40,7 +40,7 @@
         }.bind(this)
       );
 
-      this.$form.on('change keypress', 'input[type=text]',
+      this.$form.on('change keypress', 'input[type=text],input[type=search]',
         function(e){
           var ENTER_KEY = 13;
 
@@ -313,7 +313,7 @@
 
   LiveSearch.prototype.restoreTextInputs = function restoreTextInputs(){
     var that = this;
-    this.$form.find('input[type=text], select').each(function(i, el){
+    this.$form.find('input[type=text], input[type=search], select').each(function(i, el){
       var $el = $(el);
       $el.val(that.getTextInputValue($el.attr('name'), that.state));
     });
