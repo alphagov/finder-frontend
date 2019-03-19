@@ -241,13 +241,13 @@ module DocumentHelper
   def content_store_has_statistics_finder
     finder_fixture = File.read(Rails.root.join('features', 'fixtures', 'statistics.json'))
 
-    content_store_has_item('/statistics', finder_fixture)
+    content_store_has_item('/research-and-statistics', finder_fixture)
   end
 
   def content_store_has_all_content_finder
     finder_fixture = File.read(Rails.root.join('features', 'fixtures', 'all_content.json'))
 
-    content_store_has_item('/search/all-content', finder_fixture)
+    content_store_has_item('/search/all', finder_fixture)
   end
 
   def content_store_has_policy_and_engagement_finder

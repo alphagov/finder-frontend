@@ -161,7 +161,7 @@ When(/^I view the research and statistics finder$/) do
   stub_rummager_api_request_with_research_and_statistics_results
   stub_rummager_api_request_with_filtered_research_and_statistics_results
 
-  visit finder_path('statistics')
+  visit finder_path('research-and-statistics')
 end
 
 When(/^I view the all content finder$/) do
@@ -171,7 +171,7 @@ When(/^I view the all content finder$/) do
   stub_people_registry_request
   stub_rummager_api_request_with_all_content_results
 
-  visit finder_path('search/all-content')
+  visit finder_path('search/all')
 end
 
 When(/^I view a list of services$/) do

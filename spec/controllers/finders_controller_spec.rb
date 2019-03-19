@@ -21,7 +21,7 @@ describe FindersController, type: :controller do
 
     let(:all_content_finder) do
       finder = govuk_content_schema_example('finder').to_hash.merge(
-        'base_path' => '/all-content',
+        'base_path' => '/search/all',
       )
 
       finder["details"]["default_documents_per_page"] = 10
@@ -232,7 +232,20 @@ describe FindersController, type: :controller do
             ]
           }|
 
-        stub_request(:get, "#{Plek.current.find('search')}/batch_search.json?search%5B%5D%5B0%5D%5Bcount%5D=10&search%5B%5D%5B0%5D%5Bfields%5D=title,link,description,public_timestamp,popularity,content_purpose_supergroup,walk_type,place_of_origin,date_of_introduction,creator&search%5B%5D%5B0%5D%5Bfilter_document_type%5D=mosw_report&search%5B%5D%5B0%5D%5Border%5D=-public_timestamp&search%5B%5D%5B0%5D%5Bstart%5D=0").
+        stub_request(:get, "#{Plek.current.find('search')}/batch_search.json").
+            with(query: {
+              "search" => [
+                {
+                  "0" => {
+                    "count" => "10",
+                    "fields" => "title,link,description,public_timestamp,popularity,content_purpose_supergroup,walk_type,place_of_origin,date_of_introduction,creator",
+                    "filter_document_type" => "mosw_report",
+                    "order" => "-public_timestamp",
+                    "start" => "0"
+                  }
+                }
+              ]
+            }).
             to_return(status: 200, body: rummager_response, headers: {})
       end
 
