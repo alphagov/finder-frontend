@@ -15,7 +15,7 @@ class EntryPresenter
   end
 
   def updated_at
-    Time.zone.parse(entry.public_timestamp)
+    Time.zone.parse(entry.public_timestamp || entry.release_timestamp)
   end
 
   def self.feed_ended_id(schema, base_path)
