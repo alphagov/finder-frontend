@@ -165,6 +165,10 @@ RSpec.describe GroupedResultSetPresenter do
     )
   end
 
+  before(:each) do
+    allow(finder).to receive(:eu_exit_finder?).and_return(false)
+  end
+
   describe '#to_hash' do
     before(:each) do
       allow(presenter).to receive(:selected_filter_descriptions)

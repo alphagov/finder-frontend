@@ -47,9 +47,14 @@ class Document
     finder.links["ordered_related_items"].any? { |item| item["base_path"] == path }
   end
 
+  def truncated_description
+    # This truncates the description at the end of the first sentence
+    description.gsub(/\.\s[A-Z].*/, '.') if description.present?
+  end
+
 private
 
-  attr_reader :link, :rummager_document, :finder, :description, :facet_content_ids
+  attr_reader :link, :rummager_document, :finder, :facet_content_ids, :description
 
   def is_mainstream_content?
     %w(completed_transaction
@@ -63,11 +68,6 @@ private
        transaction
        answer
        guide).include?(@document_type)
-  end
-
-  def truncated_description
-    # This truncates the description at the end of the first sentence
-    description.gsub(/\.\s[A-Z].*/, '.')
   end
 
   def metadata_keys

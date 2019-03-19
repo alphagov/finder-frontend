@@ -141,7 +141,7 @@ class FinderPresenter
   end
 
   def display_metadata?
-    !eu_exit_finder
+    !eu_exit_finder?
   end
 
   def metadata
@@ -278,6 +278,12 @@ class FinderPresenter
     self.content_item['content_id'] == 'dd395436-9b40-41f3-8157-740a453ac972'
   end
 
+  # FIXME: This should be removed once we have a way to determine
+  # whether to display metadata in the finder definition
+  def eu_exit_finder?
+    self.content_item['content_id'] == "42ce66de-04f3-4192-bf31-8394538e0734"
+  end
+
 private
 
   attr_reader :search_results
@@ -338,11 +344,5 @@ private
 
     query_string = filtered_values.to_query
     query_string.blank? ? query_string : "?#{query_string}"
-  end
-
-  # FIXME: This should be removed once we have a way to determine
-  # whether to display metadata in the finder definition
-  def eu_exit_finder
-    slug == "/find-eu-exit-guidance-business"
   end
 end

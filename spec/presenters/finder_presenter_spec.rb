@@ -322,6 +322,17 @@ RSpec.describe FinderPresenter do
     end
   end
 
+  describe "#eu_exit_finder?" do
+    it 'returns true if finder is eu_exit_finder' do
+      subject.content_item["content_id"] = "42ce66de-04f3-4192-bf31-8394538e0734"
+      expect(subject.eu_exit_finder?).to eq true
+    end
+
+    it 'returns false if finder is not eu_exit_finder' do
+      expect(subject.eu_exit_finder?).to eq false
+    end
+  end
+
 private
 
   def content_item(sort_options: nil, email_alert_signup: nil, default_order: nil, facets: nil)
