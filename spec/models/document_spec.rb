@@ -5,7 +5,8 @@ describe Document do
     it 'defaults to nil without a public timestamp' do
       rummager_document = {
         title: 'A title',
-        link: 'link.com'
+        link: 'link.com',
+        es_score: 0.005
       }
       finder = double(
         'finder', date_metadata_keys: [], text_metadata_keys: [], links: {}
@@ -207,6 +208,20 @@ describe Document do
           value: 'other-value-1'
         )
       end
+    end
+  end
+
+  describe "es_score" do
+    let(:finder) do
+      double(:finder,
+             date_metadata_keys: [:foo],
+             text_metadata_keys: [:bar],
+             "display_metadata?": true)
+    end
+    subject(:instance) { described_class.new({ title: "Y", link: "/y", es_score: 0.005 }, finder) }
+
+    it "es_score is 0.005" do
+      expect(instance.es_score).to eq 0.005
     end
   end
 end

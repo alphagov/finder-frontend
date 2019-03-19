@@ -6,6 +6,7 @@ class SearchResultPresenter
            :promoted_summary,
            :show_metadata,
            :government_name,
+           :es_score,
            to: :search_result
 
   def initialize(search_result)
@@ -23,6 +24,7 @@ class SearchResultPresenter
       promoted: promoted,
       promoted_summary: promoted_summary,
       show_metadata: show_metadata,
+      es_score: es_score,
     }
   end
 
