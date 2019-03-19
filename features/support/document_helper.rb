@@ -77,9 +77,7 @@ module DocumentHelper
   def stub_rummager_api_request_with_filtered_business_readiness_results(filter_params)
     stub_request(
       :get,
-      rummager_filtered_business_readiness_url(
-        filter_params
-      )
+      rummager_filtered_business_readiness_url(filter_params)
     ).to_return(body: filtered_business_readiness_results_json)
   end
 
@@ -254,6 +252,10 @@ module DocumentHelper
     finder_fixture = File.read(Rails.root.join('features', 'fixtures', 'policy_and_engagement.json'))
 
     content_store_has_item('/search/policy-papers-and-consultations', finder_fixture)
+  end
+
+  def content_store_has_business_finder_qa
+    content_store_has_item(mock_bus_finder_qa_config['base_path'], mock_bus_finder_qa_config)
   end
 
   def content_store_has_business_readiness_finder

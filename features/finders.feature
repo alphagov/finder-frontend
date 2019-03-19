@@ -220,6 +220,16 @@ Feature: Filtering documents
     Then I see most relevant order selected
     And I do not see results with pinned items
 
+  Scenario: Arrive at the business finder through Q&A
+    When I visit the business finder Q&A
+    And I select choice "Aerospace"
+    And I submit my answer
+    And I choose 'Yes' and select choice "Sell products or goods in the UK"
+    And I submit my answer
+    And I skip the rest of the questions
+    Then I should be on the business finder page
+    And the correct facets have been pre-selected
+
   Scenario: Subscribing to email alerts
     Given a collection of documents exist that can be filtered by checkbox
     When I use a checkbox filter
