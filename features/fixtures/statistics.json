@@ -40,7 +40,7 @@
   },
   "description":"Find statistics from government",
   "details":{
-    "document_noun":"statistic",
+    "document_noun":"result",
     "filter":{},
     "format_name":"statistic",
     "show_summaries":true,
