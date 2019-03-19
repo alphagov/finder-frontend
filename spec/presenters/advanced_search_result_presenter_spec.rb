@@ -15,7 +15,7 @@ RSpec.describe AdvancedSearchResultPresenter do
       }
     }
   }
-  let(:finder) { AdvancedSearchFinderPresenter.new(finder_content_item.merge(links)) }
+  let(:finder) { AdvancedSearchFinderPresenter.new(finder_content_item.merge(links), {}, {}) }
   let(:document_type) { "guidance" }
   let(:organisations) { [{ title: "Ministry of Defence" }] }
   let(:public_timestamp) { "2018-03-26" }

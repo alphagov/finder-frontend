@@ -5,12 +5,9 @@ class AdvancedSearchFinderApi < FinderApi
     raise_on_missing_taxon_param
 
     filter_params[TAXON_SEARCH_FILTER] = taxon["content_id"] if taxon
-    search_response = fetch_search_response(content_item)
-    content_item_with_taxon_links = augment_content_item_links_with_taxon(
-      content_item,
-      taxon
-    )
-    augment_content_item_with_results(content_item_with_taxon_links, search_response)
+    augment_content_item_with_results
+    augment_content_item_links_with_taxon(content_item, taxon)
+    content_item
   end
 
   def taxon
@@ -23,16 +20,20 @@ private
 
   def augment_content_item_links_with_taxon(content_item, taxon)
     content_item["links"]["taxons"] = [taxon]
-    content_item
   end
 
-  def augment_facets_with_dynamic_values(content_item, _search_response)
-    augment_facets_with_dynamic_subgroups(content_item) if supergroups.any?
+  def augment_content_item_with_results
+    content_item['details']['results'] = search_results.fetch("results")
+    augment_facets_with_dynamic_values(content_item)
   end
 
-  def augment_facets_with_dynamic_subgroups(content_item)
+  def augment_facets_with_dynamic_values(content_item_hash)
+    augment_facets_with_dynamic_subgroups(content_item_hash) if supergroups.any?
+  end
+
+  def augment_facets_with_dynamic_subgroups(content_item_hash)
     subgroups = supergroups.map(&:subgroups_as_hash).flatten
-    facet = find_facet(content_item, SUBGROUP_SEARCH_FILTER)
+    facet = find_facet(content_item_hash, SUBGROUP_SEARCH_FILTER)
     return unless facet
 
     facet["allowed_values"] = subgroups
@@ -43,8 +44,8 @@ private
     Supergroups.lookup(filter_params[GROUP_SEARCH_FILTER])
   end
 
-  def find_facet(content_item, key)
-    content_item["details"]["facets"].find { |f| f["key"] == key }
+  def find_facet(content_item_hash, key)
+    content_item_hash["details"]["facets"].find { |f| f["key"] == key }
   end
 
   def raise_on_missing_taxon_at_path

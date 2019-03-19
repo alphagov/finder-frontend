@@ -12,20 +12,20 @@ class FindersController < ApplicationController
     respond_to do |format|
       format.html do
         @results = results
-        @content_item = raw_finder
+        @raw_content_item = content_item.as_hash
         @breadcrumbs = fetch_breadcrumbs
         @parent = parent
       end
       format.json do
-        if %w[finder search].include? finder_api.content_item['document_type']
+        if content_item.is_search? || content_item.is_finder?
           render json: results
         else
           render json: {}, status: :not_found
         end
       end
       format.atom do
-        if finder_api.content_item['document_type'] == 'redirect'
-          @redirect = finder_api.content_item.dig('redirects', 0, 'destination')
+        if content_item.is_redirect?
+          @redirect = content_item.as_hash.dig('redirects', 0, 'destination')
           @finder_slug = finder_slug
           render 'finders/show-redirect'
         elsif finder.atom_feed_enabled?
@@ -42,6 +42,10 @@ class FindersController < ApplicationController
 
 private
 
+  def content_item
+    @content_item ||= ContentItem.new(finder_base_path)
+  end
+
   def results
     @results ||= result_set_presenter_class.new(finder, filter_params, view_context)
   end
@@ -49,16 +53,14 @@ private
   def finder
     @finder ||= finder_presenter_class.new(
       raw_finder,
+      finder_api.search_results,
       filter_params,
     )
   end
   helper_method :finder
 
   def finder_api
-    @finder_api ||= finder_api_class.new(
-      finder_base_path,
-      filter_params
-    )
+    @finder_api ||= finder_api_class.new(content_item.as_hash, filter_params)
   end
 
   def raw_finder
@@ -68,7 +70,7 @@ private
   def fetch_breadcrumbs
     parent_slug = params["parent"]
     org_info = org_registry[parent_slug] if parent_slug.present?
-    FinderBreadcrumbsPresenter.new(org_info, @content_item)
+    FinderBreadcrumbsPresenter.new(org_info, content_item.as_hash)
   end
 
   def finder_presenter_class
