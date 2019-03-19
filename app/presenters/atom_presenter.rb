@@ -18,7 +18,7 @@ class AtomPresenter
 
   def entries
     finder.results.documents
-    .reject { |d| d.public_timestamp.blank? }
+    .reject { |d| d.public_timestamp.blank? && d.release_timestamp.blank? }
     .map { |d| EntryPresenter.new(d) }
   end
 

@@ -87,6 +87,18 @@ module RummagerUrlHelper
     )
   end
 
+  def all_content_params
+    base_search_params.merge(
+      'facet_organisations' => '1500,order:value.title',
+      'facet_people' => '1500,order:value.title',
+      'facet_world_locations' => '1500,order:value.title',
+      'filter_all_part_of_taxonomy_tree[]' => [nil, nil],
+      'fields' => all_content_search_fields.join(','),
+      'count' => 20,
+      'order' => '-public_timestamp',
+    )
+  end
+
   def news_and_communications_search_fields
     base_search_fields + %w(
       part_of_taxonomy_tree
@@ -121,6 +133,15 @@ module RummagerUrlHelper
       part_of_taxonomy_tree
       content_store_document_type
       organisations
+      world_locations
+    )
+  end
+
+  def all_content_search_fields
+    base_search_fields + %w(
+      part_of_taxonomy_tree
+      organisations
+      people
       world_locations
     )
   end

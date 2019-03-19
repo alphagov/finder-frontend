@@ -1,6 +1,7 @@
 class Document
   attr_reader :title, :public_timestamp, :is_historic, :government_name,
-              :content_purpose_supergroup, :document_type, :organisations
+              :content_purpose_supergroup, :document_type, :organisations,
+              :release_timestamp
 
   def initialize(rummager_document, finder)
     rummager_document = rummager_document.with_indifferent_access
@@ -8,6 +9,7 @@ class Document
     @link = rummager_document.fetch(:link)
     @description = rummager_document.fetch(:description, nil)
     @public_timestamp = rummager_document.fetch(:public_timestamp, nil)
+    @release_timestamp = rummager_document.fetch(:release_timestamp, nil)
     @document_type = rummager_document.fetch(:content_store_document_type, nil)
     @organisations = rummager_document.fetch(:organisations, [])
     @content_purpose_supergroup = rummager_document.fetch(:content_purpose_supergroup, nil)
@@ -47,6 +49,20 @@ private
 
   attr_reader :link, :rummager_document, :finder, :description
 
+  def is_mainstream_content?
+    %w(completed_transaction
+       local_transaction
+       calculator
+       smart_answer
+       simple_smart_answer
+       place
+       licence
+       step_by_step
+       transaction
+       answer
+       guide).include?(@document_type)
+  end
+
   def truncated_description
     # This truncates the description at the end of the first sentence
     description.gsub(/\.\s[A-Z].*/, '.')
@@ -61,7 +77,10 @@ private
   end
 
   def tag_metadata_keys
-    finder.text_metadata_keys
+    keys = finder.text_metadata_keys
+    keys.reject do |key|
+      key == :organisations && is_mainstream_content?
+    end
   end
 
   def raw_metadata

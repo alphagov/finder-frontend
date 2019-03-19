@@ -37,6 +37,10 @@ class FinderPresenter
     content_item['details']['document_noun']
   end
 
+  def hide_facets_by_default
+    content_item['details']['hide_facets_by_default'] || false
+  end
+
   def human_readable_finder_format
     content_item['details']['human_readable_finder_format']
   end

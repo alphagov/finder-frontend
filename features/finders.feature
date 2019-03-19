@@ -235,6 +235,13 @@ Feature: Filtering documents
     Then I can sign up to email alerts for allowed filters
 
   @javascript
+  Scenario: Subscribing to email alerts for business readiness finder
+    When I view the business readiness finder
+    And I create an email subscription
+    Then I see the email subscription page
+    And I cannot select any filters
+
+  @javascript
   Scenario: Filter documents by keywords and sort by most relevant
     When I view the news and communications finder
     And I fill in some keywords
@@ -273,6 +280,13 @@ Feature: Filtering documents
     And I press tab key to navigate
     Then I should see a "Skip to results" link
     And the page has results region
+
+  @javascript
+  Scenario: Facets should be hidden by default on finders except all content
+    When I view the research and statistics finder
+    And I should not see a "Show more search options" link
+    Then I view the all content finder
+    And I should see a "Show more search options" link
 
   Scenario: Results should be a landmark to allow screenreaders to jump to it quickly
     When I view the news and communications finder

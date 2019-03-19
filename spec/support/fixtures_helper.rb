@@ -30,4 +30,8 @@ module FixturesHelper
   def cma_cases_with_multi_facets_signup_content_item
     JSON.parse(File.read(fixtures_path + "/cma_cases_with_multi_facets_signup_content_item.json"))
   end
+
+  def business_readiness_signup_content_item
+    JSON.parse(File.read(fixtures_path + "/business_readiness_email_signup.json"))
+  end
 end

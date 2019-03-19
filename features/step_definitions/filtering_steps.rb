@@ -106,6 +106,7 @@ end
 
 When(/^I view the business readiness finder$/) do
   content_store_has_business_readiness_finder
+  content_store_has_business_readiness_email_signup
   stub_whitehall_api_world_location_request
   stub_rummager_api_request_with_business_readiness_results
   stub_rummager_api_request_with_filtered_business_readiness_results(
@@ -161,6 +162,16 @@ When(/^I view the research and statistics finder$/) do
   stub_rummager_api_request_with_filtered_research_and_statistics_results
 
   visit finder_path('statistics')
+end
+
+When(/^I view the all content finder$/) do
+  topic_taxonomy_has_taxons
+  content_store_has_all_content_finder
+  stub_whitehall_api_world_location_request
+  stub_people_registry_request
+  stub_rummager_api_request_with_all_content_results
+
+  visit finder_path('search/all-content')
 end
 
 When(/^I view a list of services$/) do
@@ -652,6 +663,19 @@ Then(/^I can sign up to email alerts for allowed filters$/) do
   end
 end
 
+When("I create an email subscription") do
+  click_link('Get email alerts')
+end
+
+Then("I see the email subscription page") do
+  visit finder_path('find-eu-exit-guidance-business/email-signup')
+  expect(page).to have_button("Create subscription")
+end
+
+Then("I cannot select any filters") do
+  find("input[name='filter[appear_in_find_eu_exit_guidance_business_finder][]']", visible: false)
+end
+
 Then("I should see results in the default group") do
   within("#js-results .filtered-results__group") do
     expect(page).to have_css("h2.filtered-results__facet-heading", text: "All businesses")
@@ -714,6 +738,11 @@ end
 Then(/^I should (see|not see) a "Skip to results" link$/) do |can_be_seen|
   visibility = can_be_seen == 'see'
   expect(page).to have_css('[href="#js-results"]', visible: visibility)
+end
+
+Then(/^I should (see|not see) a "Show more search options" link$/) do |can_be_seen|
+  visibility = can_be_seen == 'see'
+  expect(page).to have_css('.facet-toggle', visible: visibility)
 end
 
 Then(/^the page has results region$/) do

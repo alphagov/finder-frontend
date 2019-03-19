@@ -175,7 +175,7 @@ private
     "/search/policy-papers-and-consultations" => 'policy_and_engagement',
     "/search/policy-papers-and-consultations/email-signup" => 'policy_and_engagement_email_signup',
     "/search/statistics" => "statistics",
-    "/search/statistics/email-signup" => "statistics_email_signup",
+    "/search/statistics/email-signup" => "statistics_email_signup"
   }.freeze
 
   def development_env_finder_json
