@@ -13,6 +13,7 @@
           "_id": "/guidance/passport-rules-for-travel-to-europe-after-brexit",
           "elasticsearch_type": "edition",
           "document_type": "edition",
+          "facet_groups": ["52435175-82ed-4a04-adef-74c0199d0f46"],
           "facet_values": [
               "894a7c88-40bb-4ba6-a234-b7e15d8a0c21",
               "24fd50fa-6619-46ca-96cd-8ce90fa076ce",
@@ -72,6 +73,7 @@
           "_id": "/guidance/regulations-and-standards-after-brexit",
           "elasticsearch_type": "edition",
           "document_type": "edition",
+          "facet_groups": ["52435175-82ed-4a04-adef-74c0199d0f46"],
           "facet_values": [
               "894a7c88-40bb-4ba6-a234-b7e15d8a0c21",
               "24fd50fa-6619-46ca-96cd-8ce90fa076ce",
@@ -130,6 +132,7 @@
           "_id": "/government/publications/industrial-emissions-standards-best-available-techniques-if-theres-no-brexit-deal",
           "elasticsearch_type": "edition",
           "document_type": "edition",
+          "facet_groups": ["52435175-82ed-4a04-adef-74c0199d0f46"],
           "facet_values": [
               "24fd50fa-6619-46ca-96cd-8ce90fa076ce",
               "94b3cfe2-af89-4744-b8d7-7fc79edcbc85",
