@@ -64,7 +64,7 @@
         that.checkboxLabels.push(that.cleanString($(this).text()));
       });
 
-      this.$filter.on('change keypress', function(e) {
+      this.$filter.on('change keyup', function(e) {
         e.stopPropagation();
         var ENTER_KEY = 13;
 
