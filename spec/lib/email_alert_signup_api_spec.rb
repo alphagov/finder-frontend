@@ -419,4 +419,47 @@ describe EmailAlertSignupAPI do
       end
     end
   end
+
+  describe "business readiness tags" do
+    context "with the tags done right" do
+      let(:attributes) do
+        {
+          "filter" => {
+              "appear_in_find_eu_exit_guidance_business_finder" => %w(yes),
+          },
+        }
+      end
+      let(:subscription_list_title_prefix) { "Business readiness" }
+      let(:available_choices) do
+        [
+          {
+            "facet_id" => "appear_in_find_eu_exit_guidance_business_finder",
+            "facet_name" => "appear_in_find_eu_exit_guidance_business_finder",
+          }
+        ]
+      end
+      let(:subscription_url) { "http://gov.uk/email/business-readiness-subscription" }
+      let(:signup_content_id) { "not-the-business-readiness-signup-content-id" }
+
+      before do
+        email_alert_api_has_subscriber_list(
+          "tags" => {
+            "appear_in_find_eu_exit_guidance_business_finder" => { any: %w(yes) },
+          },
+          "subscription_url" => subscription_url
+        )
+      end
+
+      it 'asks email-alert-api to find or create the subscriber list' do
+        expect(Services.email_alert_api).to receive(:find_or_create_subscriber_list).with(
+          "tags" => {
+            "appear_in_find_eu_exit_guidance_business_finder" => { any: %w(yes) },
+          },
+          "title" => "Business readiness",
+        ).and_call_original
+
+        expect(subject.signup_url).to eql subscription_url
+      end
+    end
+  end
 end

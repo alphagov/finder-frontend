@@ -28,6 +28,20 @@ class SignupPresenter
     choices? && choices_formatted.any?
   end
 
+  def hidden_choices
+    hidden_choices = choices.map do |choice|
+      if ignore_facet?(choice["facet_id"])
+        choice['facet_choices'].map do |facet_choice|
+          {
+            name: "filter[#{choice['facet_id']}][]",
+            value: facet_choice["key"],
+          }
+        end
+      end
+    end
+    hidden_choices.flatten
+  end
+
   def choices?
     multiple_facet_choice_data.present? || single_facet_choice_data[0]["facet_choices"].present?
   end
@@ -96,5 +110,9 @@ private
     return nil unless email_filter_name
 
     (email_filter_name["plural"] || email_filter_name).capitalize
+  end
+
+  def ignore_facet?(facet_id)
+    %W(appear_in_find_eu_exit_guidance_business_finder).include?(facet_id)
   end
 end

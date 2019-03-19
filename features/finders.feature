@@ -235,6 +235,13 @@ Feature: Filtering documents
     Then I can sign up to email alerts for allowed filters
 
   @javascript
+  Scenario: Subscribing to email alerts for business readiness finder
+    When I view the business readiness finder
+    And I create an email subscription
+    Then I see the email subscription page
+    And I cannot select any filters
+
+  @javascript
   Scenario: Filter documents by keywords and sort by most relevant
     When I view the news and communications finder
     And I fill in some keywords
