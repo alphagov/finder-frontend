@@ -49,6 +49,20 @@ private
 
   attr_reader :link, :rummager_document, :finder, :description
 
+  def is_mainstream_content?
+    %w(completed_transaction
+       local_transaction
+       calculator
+       smart_answer
+       simple_smart_answer
+       place
+       licence
+       step_by_step
+       transaction
+       answer
+       guide).include?(@document_type)
+  end
+
   def truncated_description
     # This truncates the description at the end of the first sentence
     description.gsub(/\.\s[A-Z].*/, '.')
@@ -63,7 +77,10 @@ private
   end
 
   def tag_metadata_keys
-    finder.text_metadata_keys
+    keys = finder.text_metadata_keys
+    keys.reject do |key|
+      key == :organisations && is_mainstream_content?
+    end
   end
 
   def raw_metadata
