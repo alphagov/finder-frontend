@@ -68,33 +68,49 @@ describe Document do
   end
 
   describe "show_metadata" do
-    subject(:instance) { described_class.new({ title: "Y", link: "/y" }, finder) }
+    let(:organisations) {
+      [
+          {
+              'title' => 'org',
+              'name' => 'org'
+          }
+      ]
+    }
+    subject(:non_mainstream_document) { described_class.new({ title: "Y", link: "/y", content_store_document_type: 'employment_tribunal_decision', organisations: organisations }, finder) }
+    subject(:mainstream_document) { described_class.new({ title: "Y", link: "/y", content_store_document_type: 'simple_smart_answer', organisations: organisations }, finder) }
+
+    let(:finder) do
+      double(:finder,
+             date_metadata_keys: [:foo],
+             text_metadata_keys: [:organisations],
+             "display_metadata?": true,
+             display_key_for_metadata_key: 'title')
+    end
 
     context "for EU Exit guidance finder" do
-      let(:finder) do
-        double(:finder,
-               date_metadata_keys: [],
-               text_metadata_keys: [],
-               slug: "/find-eu-exit-guidance-business")
+      before :each do
+        allow(finder).to receive(:slug).and_return "/find-eu-exit-guidance-business"
       end
 
       it "is false" do
-        expect(instance.show_metadata).to be false
+        expect(mainstream_document.show_metadata).to be false
       end
     end
 
     context "for a finder configured to show metadata" do
-      let(:finder) do
-        double(:finder,
-               date_metadata_keys: [:foo],
-               text_metadata_keys: [:bar],
-               "display_metadata?": true)
-      end
-
-
       it "is false" do
-        allow(instance).to receive(:metadata).and_return([{ key: 'val' }])
-        expect(instance.show_metadata).to be true
+        allow(mainstream_document).to receive(:metadata).and_return([{ key: 'val' }])
+        expect(mainstream_document.show_metadata).to be true
+      end
+    end
+
+    context "There is an organisations metadata key" do
+      before :each do
+        allow(finder).to receive(:label_for_metadata_key).with(:organisations).and_return('org_label')
+      end
+      it "Remove organisations metadata for mainstream content only" do
+        expect(mainstream_document.metadata).to be_empty
+        expect(non_mainstream_document.metadata).to match_array(include(name: 'org_label'))
       end
     end
   end
