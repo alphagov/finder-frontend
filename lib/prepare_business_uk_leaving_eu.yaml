@@ -1,14 +1,14 @@
 ---
 base_path: "/prepare-business-uk-leaving-eu"
 finder_base_path: "/find-eu-exit-guidance-business"
-title: "Prepare your business for the UK leaving the EU"
+title: "Prepare your business or organisation for the UK leaving the EU"
 pages:
   sector_business_area:
     show_in_qa: true
     question_type: "multiple"
-    question: "What does your business do?"
+    question: "What does your business or organisation do?"
     description: |
-      <p>Choose all the sectors and areas that your business operates in.</p>
+      <p>Choose all the sectors and areas that your business or organisation operates in.</p>
     filter_groups:
       - name: "Construction and infrastructure"
         filters:
@@ -90,7 +90,7 @@ pages:
   personal_data:
     show_in_qa: true
     question_type: "single_wrapped"
-    question: "Does your business exchange personal data with another organisation in Europe?"
+    question: "Do you exchange personal data with another organisation in Europe?"
     description: |
       <p>This includes <a href="/eu-eea">organisations located in the EU</a> and Norway, Iceland and Liechtenstein.</p>
       <p>Personal data includes customers’ addresses, staff working hours or information you give to a delivery company.</p>
@@ -98,18 +98,18 @@ pages:
   intellectual_property:
     show_in_qa: true
     question_type: "single_wrapped"
-    question: "Does your business use or rely on intellectual property (IP) protection?"
+    question: "Do you use or rely on intellectual property (IP) protection?"
     description: |
       <p>Intellectual property protection includes copyright, trade marks and patents.</p>
   public_sector_procurement:
     show_in_qa: true
     question_type: "single_wrapped"
-    question: "Does your business sell to the public sector?"
+    question: "Do you sell to the public sector?"
     description: |
       <p>This includes if you sell products or services to organisations in central or local government, and some non-government organisations, such as hospitals or schools.</p>
   eu_uk_government_funding:
     show_in_qa: true
     question_type: "single_wrapped"
-    question: "Does your business get EU or UK government funding?"
+    question: "Do you get EU or UK government funding?"
     description: |
       <p>EU funding includes the Creative Europe Fund or Horizon 2020 scheme.</p>
