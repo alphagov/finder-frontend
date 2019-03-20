@@ -683,6 +683,12 @@ Then("I see results with pinned items") do
   end
 end
 
+Then("I see results with top result") do
+  within("#js-results") do
+    expect(page.all(".document--top").length).to eq(1)
+  end
+end
+
 Then("I do not see results with pinned items") do
   within("#js-results") do
     expect(page.all(".document-heading--pinned").length).to eq(0)
@@ -745,4 +751,8 @@ end
 
 And(/^I should not see an upcoming statistics facet tag$/) do
   expect(page).to_not have_css("p.facet-tag__text", text: "Upcoming statistics")
+end
+
+And(/^The top result has the correct tracking data$/) do
+  expect(page).to have_css("a[data-track-category='navFinderLinkClicked']")
 end

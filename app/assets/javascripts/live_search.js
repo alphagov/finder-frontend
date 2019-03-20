@@ -150,6 +150,18 @@
         });
       });
     }
+
+    var $results = $('.finder-results');
+    if ($results.length > 0) {
+      var $mostRelevantDocumentLink = $results.find('.document__link--top');
+
+      if ($mostRelevantDocumentLink.length == 1) {
+        var trackingAction = $mostRelevantDocumentLink.attr('data-track-action');
+        trackingAction += 'r';
+        $mostRelevantDocumentLink.attr('data-track-action', trackingAction);
+      }
+    }
+
   };
 
   LiveSearch.prototype.fireTextAnalyticsEvent = function(event) {

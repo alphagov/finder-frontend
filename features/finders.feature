@@ -230,6 +230,14 @@ Feature: Filtering documents
     Then I should be on the business finder page
     And the correct facets have been pre-selected
 
+  @javascript
+  Scenario: Adding top result in business finder
+    When I view the business readiness finder
+    And I fill in some keywords
+    Then I see most relevant order selected
+    And I see results with top result
+    And The top result has the correct tracking data
+
   Scenario: Subscribing to email alerts
     Given a collection of documents exist that can be filtered by checkbox
     When I use a checkbox filter
