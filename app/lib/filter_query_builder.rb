@@ -22,7 +22,6 @@ private
 
   def build_filter(facet)
     filter_class = {
-      'autocomplete' => Filters::TextFilter,
       'checkbox' => Filters::CheckboxFilter,
       'date' => Filters::DateFilter,
       'hidden' => Filters::HiddenFilter,

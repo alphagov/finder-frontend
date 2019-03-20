@@ -122,7 +122,7 @@ class FinderPresenter
   end
 
   def text_metadata_keys
-    metadata.select { |f| %w[text autocomplete].include?(f.type) }.map(&:key)
+    metadata.select { |f| f.type == "text" }.map(&:key)
   end
 
   def default_sort_option

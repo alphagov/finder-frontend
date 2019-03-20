@@ -1,5 +1,5 @@
 describe("liveSearch", function(){
-  var $form, $results, _supportHistory, liveSearch, $autocompleteForm;
+  var $form, $results, _supportHistory, liveSearch;
   var dummyResponse = {
     "total":1,
     "pluralised_document_noun":"reports",

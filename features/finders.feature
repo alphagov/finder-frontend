@@ -60,10 +60,6 @@ Feature: Filtering documents
     When I view the finder with no keywords and no facets
     And filters are not wrapped in a progressive disclosure element
 
-  Scenario: Visit a finder autocomplete
-    Given a finder with autocomplete exists
-    Then I can filter based on the results
-
   Scenario: Visit a finder with paginated results
     Given a finder with paginated results exists
     Then I can see pagination

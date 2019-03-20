@@ -17,14 +17,13 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
       var removeFilterName = $el.data('name');
       var removeFilterValue = $el.data('value');
       var removeFilterFacet = $el.data('facet');
-      var isAutoComplete = !!$('#' + removeFilterFacet +'-select').length;
 
-      var $input = getInput(removeFilterName, removeFilterValue, removeFilterFacet, isAutoComplete);
-      clearFacet($input, isAutoComplete, removeFilterValue, removeFilterFacet);
+      var $input = getInput(removeFilterName, removeFilterValue, removeFilterFacet);
+      clearFacet($input, removeFilterValue, removeFilterFacet);
       fireRemoveTagTrackingEvent(removeFilterValue, removeFilterFacet);
     }
 
-    function clearFacet($input, isAutoComplete, removeFilterValue, removeFilterFacet) {
+    function clearFacet($input, removeFilterValue, removeFilterFacet) {
       var elementType = $input.prop('tagName');
       var inputType = $input.prop('type');
       var currentVal = $input.val();
@@ -34,31 +33,20 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
         $input.trigger('change');
       }
       else if (inputType == 'text' || inputType == 'search') {
-        if (isAutoComplete) {
-          var onConfirm = $('#' + $input.attr('id') + '-select').data('onconfirm'); // get the onConfirm function for the autocomplete
-          $input.val('');
-          onConfirm('', removeFilterValue, true); // call autocomplete onConfirm to clear it and hide the suggestions menu
-        } else {
-          $input.val(currentVal.replace(removeFilterValue, '').replace(/\s+/g,' ').trim()).trigger({
-            type: "change",
-            suppressAnalytics: true
-          });
-        }
+        $input.val(currentVal.replace(removeFilterValue, '').replace(/\s+/g,' ').trim()).trigger({
+          type: "change",
+          suppressAnalytics: true
+        });
       }
       else if (elementType == 'OPTION') {
         $('#' + removeFilterFacet).val('').trigger('change');
       }
     }
 
-    function getInput(removeFilterName, removeFilterValue, removeFilterFacet, isAutoComplete) {
+    function getInput(removeFilterName, removeFilterValue, removeFilterFacet) {
       var selector = (!!removeFilterName) ? " input[name='" + removeFilterName + "']" : " [value='" + removeFilterValue + "']";
 
-      if (isAutoComplete) {
-        return $('#' + removeFilterFacet);
-      }
-      else {
-        return $('#' + removeFilterFacet).find(selector);
-      }
+      return $('#' + removeFilterFacet).find(selector);
     }
 
     function fireRemoveTagTrackingEvent(filterValue, filterFacet) {
