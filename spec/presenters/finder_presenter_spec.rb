@@ -292,7 +292,7 @@ RSpec.describe FinderPresenter do
           }
         }
 
-        presenter = described_class.new(content_item(facets: facets))
+        presenter = described_class.new(content_item(facets: facets), [])
         expect(presenter.facet_details_lookup).to eq(expected)
       end
     end
@@ -305,7 +305,7 @@ RSpec.describe FinderPresenter do
           '56dbec9a-1efd-4471-9f1d-51fcfd19e2db' => 'copyright'
         }
 
-        presenter = described_class.new(content_item(facets: facets))
+        presenter = described_class.new(content_item(facets: facets), [])
         expect(presenter.facet_value_lookup).to eq(expected)
       end
     end

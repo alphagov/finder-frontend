@@ -29,8 +29,8 @@
         "title": "Find EU Exit guidance for your business",
         "withdrawn": false,
         "links": {},
-        "api_url": "https://www.integration.publishing.service.gov.uk/api/content/find-eu-exit-guidance-business/email-signup",
-        "web_url": "https://www.integration.publishing.service.gov.uk/find-eu-exit-guidance-business/email-signup"
+        "api_url": "https://www.gov.uk/api/content/find-eu-exit-guidance-business/email-signup",
+        "web_url": "https://www.gov.uk/find-eu-exit-guidance-business/email-signup"
       }
     ],
     "facet_group": [
@@ -816,8 +816,8 @@
         "title": "The food and drink sector and preparing for EU Exit",
         "withdrawn": false,
         "links": {},
-        "api_url": "https://www.integration.publishing.service.gov.uk/api/content/guidance/the-food-and-drink-sector-and-preparing-for-eu-exit",
-        "web_url": "https://www.integration.publishing.service.gov.uk/guidance/the-food-and-drink-sector-and-preparing-for-eu-exit"
+        "api_url": "https://www.gov.uk/api/content/guidance/the-food-and-drink-sector-and-preparing-for-eu-exit",
+        "web_url": "https://www.gov.uk/guidance/the-food-and-drink-sector-and-preparing-for-eu-exit"
       },
       {
         "api_path": "/api/content/guidance/european-and-domestic-funding-after-brexit",
@@ -831,8 +831,8 @@
         "title": "European and domestic funding after Brexit",
         "withdrawn": false,
         "links": {},
-        "api_url": "https://www.integration.publishing.service.gov.uk/api/content/guidance/european-and-domestic-funding-after-brexit",
-        "web_url": "https://www.integration.publishing.service.gov.uk/guidance/european-and-domestic-funding-after-brexit"
+        "api_url": "https://www.gov.uk/api/content/guidance/european-and-domestic-funding-after-brexit",
+        "web_url": "https://www.gov.uk/guidance/european-and-domestic-funding-after-brexit"
       },
       {
         "api_path": "/api/content/guidance/regulations-and-standards-after-brexit",
@@ -846,8 +846,8 @@
         "title": "Regulations and standards after Brexit",
         "withdrawn": false,
         "links": {},
-        "api_url": "https://www.integration.publishing.service.gov.uk/api/content/guidance/regulations-and-standards-after-brexit",
-        "web_url": "https://www.integration.publishing.service.gov.uk/guidance/regulations-and-standards-after-brexit"
+        "api_url": "https://www.gov.uk/api/content/guidance/regulations-and-standards-after-brexit",
+        "web_url": "https://www.gov.uk/guidance/regulations-and-standards-after-brexit"
       },
       {
         "api_path": "/api/content/guidance/intellectual-property-after-brexit",
@@ -861,8 +861,8 @@
         "title": "Intellectual property after Brexit",
         "withdrawn": false,
         "links": {},
-        "api_url": "https://www.integration.publishing.service.gov.uk/api/content/guidance/intellectual-property-after-brexit",
-        "web_url": "https://www.integration.publishing.service.gov.uk/guidance/intellectual-property-after-brexit"
+        "api_url": "https://www.gov.uk/api/content/guidance/intellectual-property-after-brexit",
+        "web_url": "https://www.gov.uk/guidance/intellectual-property-after-brexit"
       },
       {
         "api_path": "/api/content/guidance/the-chemicals-sector-and-preparing-for-eu-exit",
@@ -876,8 +876,8 @@
         "title": "The chemicals sector and preparing for EU Exit",
         "withdrawn": false,
         "links": {},
-        "api_url": "https://www.integration.publishing.service.gov.uk/api/content/guidance/the-chemicals-sector-and-preparing-for-eu-exit",
-        "web_url": "https://www.integration.publishing.service.gov.uk/guidance/the-chemicals-sector-and-preparing-for-eu-exit"
+        "api_url": "https://www.gov.uk/api/content/guidance/the-chemicals-sector-and-preparing-for-eu-exit",
+        "web_url": "https://www.gov.uk/guidance/the-chemicals-sector-and-preparing-for-eu-exit"
       },
       {
         "api_path": "/api/content/guidance/oil-and-gas-production-and-preparing-for-eu-exit",
@@ -891,8 +891,8 @@
         "title": "Oil and gas production and preparing for EU Exit",
         "withdrawn": false,
         "links": {},
-        "api_url": "https://www.integration.publishing.service.gov.uk/api/content/guidance/oil-and-gas-production-and-preparing-for-eu-exit",
-        "web_url": "https://www.integration.publishing.service.gov.uk/guidance/oil-and-gas-production-and-preparing-for-eu-exit"
+        "api_url": "https://www.gov.uk/api/content/guidance/oil-and-gas-production-and-preparing-for-eu-exit",
+        "web_url": "https://www.gov.uk/guidance/oil-and-gas-production-and-preparing-for-eu-exit"
       },
       {
         "api_path": "/api/content/guidance/the-aerospace-sector-and-preparing-for-eu-exit",
@@ -906,8 +906,8 @@
         "title": "The aerospace sector and preparing for EU Exit",
         "withdrawn": false,
         "links": {},
-        "api_url": "https://www.integration.publishing.service.gov.uk/api/content/guidance/the-aerospace-sector-and-preparing-for-eu-exit",
-        "web_url": "https://www.integration.publishing.service.gov.uk/guidance/the-aerospace-sector-and-preparing-for-eu-exit"
+        "api_url": "https://www.gov.uk/api/content/guidance/the-aerospace-sector-and-preparing-for-eu-exit",
+        "web_url": "https://www.gov.uk/guidance/the-aerospace-sector-and-preparing-for-eu-exit"
       },
       {
         "api_path": "/api/content/guidance/the-construction-sector-and-preparing-for-eu-exit",
@@ -921,8 +921,8 @@
         "title": "The construction sector and preparing for EU Exit",
         "withdrawn": false,
         "links": {},
-        "api_url": "https://www.integration.publishing.service.gov.uk/api/content/guidance/the-construction-sector-and-preparing-for-eu-exit",
-        "web_url": "https://www.integration.publishing.service.gov.uk/guidance/the-construction-sector-and-preparing-for-eu-exit"
+        "api_url": "https://www.gov.uk/api/content/guidance/the-construction-sector-and-preparing-for-eu-exit",
+        "web_url": "https://www.gov.uk/guidance/the-construction-sector-and-preparing-for-eu-exit"
       },
       {
         "api_path": "/api/content/guidance/the-automotive-sector-and-preparing-for-eu-exit",
@@ -936,8 +936,8 @@
         "title": "The automotive sector and preparing for EU Exit",
         "withdrawn": false,
         "links": {},
-        "api_url": "https://www.integration.publishing.service.gov.uk/api/content/guidance/the-automotive-sector-and-preparing-for-eu-exit",
-        "web_url": "https://www.integration.publishing.service.gov.uk/guidance/the-automotive-sector-and-preparing-for-eu-exit"
+        "api_url": "https://www.gov.uk/api/content/guidance/the-automotive-sector-and-preparing-for-eu-exit",
+        "web_url": "https://www.gov.uk/guidance/the-automotive-sector-and-preparing-for-eu-exit"
       },
       {
         "api_path": "/api/content/guidance/operating-in-the-eu-after-brexit",
@@ -951,8 +951,8 @@
         "title": "Operating in the EU after Brexit",
         "withdrawn": false,
         "links": {},
-        "api_url": "https://www.integration.publishing.service.gov.uk/api/content/guidance/operating-in-the-eu-after-brexit",
-        "web_url": "https://www.integration.publishing.service.gov.uk/guidance/operating-in-the-eu-after-brexit"
+        "api_url": "https://www.gov.uk/api/content/guidance/operating-in-the-eu-after-brexit",
+        "web_url": "https://www.gov.uk/guidance/operating-in-the-eu-after-brexit"
       },
       {
         "api_path": "/api/content/guidance/public-sector-procurement-after-brexit",
@@ -966,8 +966,8 @@
         "title": "Public sector procurement after Brexit",
         "withdrawn": false,
         "links": {},
-        "api_url": "https://www.integration.publishing.service.gov.uk/api/content/guidance/public-sector-procurement-after-brexit",
-        "web_url": "https://www.integration.publishing.service.gov.uk/guidance/public-sector-procurement-after-brexit"
+        "api_url": "https://www.gov.uk/api/content/guidance/public-sector-procurement-after-brexit",
+        "web_url": "https://www.gov.uk/guidance/public-sector-procurement-after-brexit"
       },
       {
         "api_path": "/api/content/guidance/the-retail-sector-and-preparing-for-eu-exit",
@@ -981,8 +981,8 @@
         "title": "The retail sector and preparing for EU Exit",
         "withdrawn": false,
         "links": {},
-        "api_url": "https://www.integration.publishing.service.gov.uk/api/content/guidance/the-retail-sector-and-preparing-for-eu-exit",
-        "web_url": "https://www.integration.publishing.service.gov.uk/guidance/the-retail-sector-and-preparing-for-eu-exit"
+        "api_url": "https://www.gov.uk/api/content/guidance/the-retail-sector-and-preparing-for-eu-exit",
+        "web_url": "https://www.gov.uk/guidance/the-retail-sector-and-preparing-for-eu-exit"
       },
       {
         "api_path": "/api/content/guidance/gas-markets-and-preparing-for-eu-exit",
@@ -996,8 +996,8 @@
         "title": "Gas markets and preparing for EU Exit",
         "withdrawn": false,
         "links": {},
-        "api_url": "https://www.integration.publishing.service.gov.uk/api/content/guidance/gas-markets-and-preparing-for-eu-exit",
-        "web_url": "https://www.integration.publishing.service.gov.uk/guidance/gas-markets-and-preparing-for-eu-exit"
+        "api_url": "https://www.gov.uk/api/content/guidance/gas-markets-and-preparing-for-eu-exit",
+        "web_url": "https://www.gov.uk/guidance/gas-markets-and-preparing-for-eu-exit"
       },
       {
         "api_path": "/api/content/guidance/using-personal-data-after-brexit",
@@ -1011,8 +1011,8 @@
         "title": "Using personal data after Brexit",
         "withdrawn": false,
         "links": {},
-        "api_url": "https://www.integration.publishing.service.gov.uk/api/content/guidance/using-personal-data-after-brexit",
-        "web_url": "https://www.integration.publishing.service.gov.uk/guidance/using-personal-data-after-brexit"
+        "api_url": "https://www.gov.uk/api/content/guidance/using-personal-data-after-brexit",
+        "web_url": "https://www.gov.uk/guidance/using-personal-data-after-brexit"
       },
       {
         "api_path": "/api/content/guidance/energy-and-climate-after-brexit",
@@ -1026,8 +1026,8 @@
         "title": "Energy and climate after Brexit",
         "withdrawn": false,
         "links": {},
-        "api_url": "https://www.integration.publishing.service.gov.uk/api/content/guidance/energy-and-climate-after-brexit",
-        "web_url": "https://www.integration.publishing.service.gov.uk/guidance/energy-and-climate-after-brexit"
+        "api_url": "https://www.gov.uk/api/content/guidance/energy-and-climate-after-brexit",
+        "web_url": "https://www.gov.uk/guidance/energy-and-climate-after-brexit"
       },
       {
         "api_path": "/api/content/guidance/importing-exporting-and-transporting-products-or-goods-after-brexit",
@@ -1041,8 +1041,8 @@
         "title": "Importing, exporting and transporting products or goods after Brexit",
         "withdrawn": false,
         "links": {},
-        "api_url": "https://www.integration.publishing.service.gov.uk/api/content/guidance/importing-exporting-and-transporting-products-or-goods-after-brexit",
-        "web_url": "https://www.integration.publishing.service.gov.uk/guidance/importing-exporting-and-transporting-products-or-goods-after-brexit"
+        "api_url": "https://www.gov.uk/api/content/guidance/importing-exporting-and-transporting-products-or-goods-after-brexit",
+        "web_url": "https://www.gov.uk/guidance/importing-exporting-and-transporting-products-or-goods-after-brexit"
       },
       {
         "api_path": "/api/content/guidance/the-professional-and-business-services-sector-and-preparing-for-eu-exit",
@@ -1056,8 +1056,8 @@
         "title": "The professional and business services sector and preparing for EU Exit",
         "withdrawn": false,
         "links": {},
-        "api_url": "https://www.integration.publishing.service.gov.uk/api/content/guidance/the-professional-and-business-services-sector-and-preparing-for-eu-exit",
-        "web_url": "https://www.integration.publishing.service.gov.uk/guidance/the-professional-and-business-services-sector-and-preparing-for-eu-exit"
+        "api_url": "https://www.gov.uk/api/content/guidance/the-professional-and-business-services-sector-and-preparing-for-eu-exit",
+        "web_url": "https://www.gov.uk/guidance/the-professional-and-business-services-sector-and-preparing-for-eu-exit"
       },
       {
         "api_path": "/api/content/guidance/the-farming-sector-and-preparing-for-eu-exit",
@@ -1071,8 +1071,8 @@
         "title": "The farming sector and preparing for EU Exit",
         "withdrawn": false,
         "links": {},
-        "api_url": "https://www.integration.publishing.service.gov.uk/api/content/guidance/the-farming-sector-and-preparing-for-eu-exit",
-        "web_url": "https://www.integration.publishing.service.gov.uk/guidance/the-farming-sector-and-preparing-for-eu-exit"
+        "api_url": "https://www.gov.uk/api/content/guidance/the-farming-sector-and-preparing-for-eu-exit",
+        "web_url": "https://www.gov.uk/guidance/the-farming-sector-and-preparing-for-eu-exit"
       },
       {
         "api_path": "/api/content/guidance/the-electronics-machinery-and-parts-sector-and-preparing-for-eu-exit",
@@ -1086,8 +1086,8 @@
         "title": "The electronics, machinery and parts sector and preparing for EU Exit",
         "withdrawn": false,
         "links": {},
-        "api_url": "https://www.integration.publishing.service.gov.uk/api/content/guidance/the-electronics-machinery-and-parts-sector-and-preparing-for-eu-exit",
-        "web_url": "https://www.integration.publishing.service.gov.uk/guidance/the-electronics-machinery-and-parts-sector-and-preparing-for-eu-exit"
+        "api_url": "https://www.gov.uk/api/content/guidance/the-electronics-machinery-and-parts-sector-and-preparing-for-eu-exit",
+        "web_url": "https://www.gov.uk/guidance/the-electronics-machinery-and-parts-sector-and-preparing-for-eu-exit"
       },
       {
         "api_path": "/api/content/guidance/the-electricity-sector-and-preparing-for-eu-exit",
@@ -1101,8 +1101,8 @@
         "title": "The electricity sector and preparing for EU Exit",
         "withdrawn": false,
         "links": {},
-        "api_url": "https://www.integration.publishing.service.gov.uk/api/content/guidance/the-electricity-sector-and-preparing-for-eu-exit",
-        "web_url": "https://www.integration.publishing.service.gov.uk/guidance/the-electricity-sector-and-preparing-for-eu-exit"
+        "api_url": "https://www.gov.uk/api/content/guidance/the-electricity-sector-and-preparing-for-eu-exit",
+        "web_url": "https://www.gov.uk/guidance/the-electricity-sector-and-preparing-for-eu-exit"
       },
       {
         "api_path": "/api/content/guidance/the-space-sector-and-preparing-for-eu-exit",
@@ -1116,8 +1116,8 @@
         "title": "The space sector and preparing for EU Exit",
         "withdrawn": false,
         "links": {},
-        "api_url": "https://www.integration.publishing.service.gov.uk/api/content/guidance/the-space-sector-and-preparing-for-eu-exit",
-        "web_url": "https://www.integration.publishing.service.gov.uk/guidance/the-space-sector-and-preparing-for-eu-exit"
+        "api_url": "https://www.gov.uk/api/content/guidance/the-space-sector-and-preparing-for-eu-exit",
+        "web_url": "https://www.gov.uk/guidance/the-space-sector-and-preparing-for-eu-exit"
       },
       {
         "api_path": "/api/content/guidance/the-consumer-goods-sector-and-preparing-for-eu-exit",
@@ -1131,8 +1131,8 @@
         "title": "The consumer goods sector and preparing for EU Exit",
         "withdrawn": false,
         "links": {},
-        "api_url": "https://www.integration.publishing.service.gov.uk/api/content/guidance/the-consumer-goods-sector-and-preparing-for-eu-exit",
-        "web_url": "https://www.integration.publishing.service.gov.uk/guidance/the-consumer-goods-sector-and-preparing-for-eu-exit"
+        "api_url": "https://www.gov.uk/api/content/guidance/the-consumer-goods-sector-and-preparing-for-eu-exit",
+        "web_url": "https://www.gov.uk/guidance/the-consumer-goods-sector-and-preparing-for-eu-exit"
       },
       {
         "api_path": "/api/content/guidance/the-life-sciences-sector-and-preparing-for-eu-exit",
@@ -1146,8 +1146,8 @@
         "title": "The life sciences sector and preparing for EU Exit",
         "withdrawn": false,
         "links": {},
-        "api_url": "https://www.integration.publishing.service.gov.uk/api/content/guidance/the-life-sciences-sector-and-preparing-for-eu-exit",
-        "web_url": "https://www.integration.publishing.service.gov.uk/guidance/the-life-sciences-sector-and-preparing-for-eu-exit"
+        "api_url": "https://www.gov.uk/api/content/guidance/the-life-sciences-sector-and-preparing-for-eu-exit",
+        "web_url": "https://www.gov.uk/guidance/the-life-sciences-sector-and-preparing-for-eu-exit"
       },
       {
         "api_path": "/api/content/guidance/air-services-from-the-eu-to-the-uk-in-the-event-of-no-deal",
@@ -1161,8 +1161,8 @@
         "title": "Air services from the EU to the UK in the event of ‘no deal’",
         "withdrawn": false,
         "links": {},
-        "api_url": "https://www.integration.publishing.service.gov.uk/api/content/guidance/air-services-from-the-eu-to-the-uk-in-the-event-of-no-deal",
-        "web_url": "https://www.integration.publishing.service.gov.uk/guidance/air-services-from-the-eu-to-the-uk-in-the-event-of-no-deal"
+        "api_url": "https://www.gov.uk/api/content/guidance/air-services-from-the-eu-to-the-uk-in-the-event-of-no-deal",
+        "web_url": "https://www.gov.uk/guidance/air-services-from-the-eu-to-the-uk-in-the-event-of-no-deal"
       },
       {
         "api_path": "/api/content/guidance/the-veterinary-sector-and-preparing-for-eu-exit",
@@ -1176,8 +1176,8 @@
         "title": "The veterinary sector and preparing for EU Exit",
         "withdrawn": false,
         "links": {},
-        "api_url": "https://www.integration.publishing.service.gov.uk/api/content/guidance/the-veterinary-sector-and-preparing-for-eu-exit",
-        "web_url": "https://www.integration.publishing.service.gov.uk/guidance/the-veterinary-sector-and-preparing-for-eu-exit"
+        "api_url": "https://www.gov.uk/api/content/guidance/the-veterinary-sector-and-preparing-for-eu-exit",
+        "web_url": "https://www.gov.uk/guidance/the-veterinary-sector-and-preparing-for-eu-exit"
       }
     ],
     "available_translations": [
@@ -1192,8 +1192,8 @@
         "withdrawn": false,
         "content_id": "42ce66de-04f3-4192-bf31-8394538e0734",
         "locale": "en",
-        "api_url": "https://www.integration.publishing.service.gov.uk/api/content/find-eu-exit-guidance-business",
-        "web_url": "https://www.integration.publishing.service.gov.uk/find-eu-exit-guidance-business",
+        "api_url": "https://www.gov.uk/api/content/find-eu-exit-guidance-business",
+        "web_url": "https://www.gov.uk/find-eu-exit-guidance-business",
         "links": {}
       }
     ]
