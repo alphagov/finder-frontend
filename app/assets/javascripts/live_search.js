@@ -33,9 +33,6 @@
 
       this.$form.on('change', 'input[type=checkbox], input[type=radio], select',
         function(e) {
-          if (!e.suppressAnalytics) {
-            LiveSearch.prototype.fireTextAnalyticsEvent(e);
-          }
           this.formChange(e);
         }.bind(this)
       );
@@ -45,10 +42,8 @@
           var ENTER_KEY = 13;
 
           if(e.keyCode == ENTER_KEY || e.type == "change") {
-            if (e.currentTarget.value != this.previousSearchTerm) {
-              if (!e.suppressAnalytics) {
-                LiveSearch.prototype.fireTextAnalyticsEvent(e);
-              }
+            if (e.currentTarget.value != this.previousSearchTerm && !e.suppressAnalytics ) {
+              LiveSearch.prototype.fireTextAnalyticsEvent(e);
             }
             this.formChange(e);
             this.previousSearchTerm = e.currentTarget.value;
