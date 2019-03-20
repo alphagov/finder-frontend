@@ -15,6 +15,7 @@
           "document_type": "edition",
           "facet_groups": ["52435175-82ed-4a04-adef-74c0199d0f46"],
           "facet_values": [
+            "9f3476e1-8ff0-455d-a14e-003236b2797c",
             "53f9ce4c-7cbb-447f-bdf1-a9b022896d3a",
             "a55f04df-3877-4c73-bbfe-ad7339cdfccf"
           ]
@@ -33,6 +34,7 @@
           "facet_groups": ["52435175-82ed-4a04-adef-74c0199d0f46"],
           "facet_values": [
             "94b3cfe2-af89-4744-b8d7-7fc79edcbc85",
+            "9f3476e1-8ff0-455d-a14e-003236b2797c",
             "53f9ce4c-7cbb-447f-bdf1-a9b022896d3a",
             "a55f04df-3877-4c73-bbfe-ad7339cdfccf"
           ]
@@ -50,9 +52,8 @@
           "document_type": "edition",
           "facet_groups": ["52435175-82ed-4a04-adef-74c0199d0f46"],
           "facet_values": [
-              "b13198f2-775e-4067-858b-93a10b3f9ea1",
-              "07398027-ee4d-4bda-b53e-2dc655734049",
-              "7ae8e57c-ea7a-42de-84fc-a084b5f64bca"
+            "6f5f8dbb-3cd3-475d-8f3a-ed6e22d370be",
+            "a55f04df-3877-4c73-bbfe-ad7339cdfccf"
           ]
         },
         {
@@ -71,7 +72,7 @@
           "document_type": "edition",
           "facet_groups": ["52435175-82ed-4a04-adef-74c0199d0f46"],
           "facet_values": [
-              "5476f0c7-d029-459b-8a17-196374ae3366"
+            "5476f0c7-d029-459b-8a17-196374ae3366"
           ]
         },
         {
@@ -114,10 +115,10 @@
           "document_type": "edition",
           "facet_groups": ["52435175-82ed-4a04-adef-74c0199d0f46"],
           "facet_values": [
-              "c5e26d37-def8-40aa-8b46-d9a23ffaceb1",
-              "d422aa2e-59ad-4986-8ef0-973959878912",
-              "7283b8e1-840f-49da-967f-c0a512a3f531",
-              "07398027-ee4d-4bda-b53e-2dc655734049"
+            "c5e26d37-def8-40aa-8b46-d9a23ffaceb1",
+            "d422aa2e-59ad-4986-8ef0-973959878912",
+            "7283b8e1-840f-49da-967f-c0a512a3f531",
+            "07398027-ee4d-4bda-b53e-2dc655734049"
           ]
         },
         {
@@ -151,7 +152,6 @@
           "facet_groups": ["52435175-82ed-4a04-adef-74c0199d0f46"],
           "facet_values": [
               "01b51981-1ad6-4e45-9b14-b8a57fcb4204",
-              "9c0d1627-0423-4159-a947-e6abab0d0afd",
               "a55f04df-3877-4c73-bbfe-ad7339cdfccf",
               "07398027-ee4d-4bda-b53e-2dc655734049"
 
