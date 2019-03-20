@@ -2,8 +2,8 @@
   "base_path": "/search/statistics/email-signup",
   "content_id": "119db584-0ae7-45e4-8f3a-fd79316c6921",
   "document_type": "finder_email_signup",
-  "title": "Statistics",
-  "description": "You'll get an email each time statistics are published.",
+  "title": "Research and statistics",
+  "description": "You'll get an email each time content is published.",
   "details": {
     "filter": {},
     "email_filter_by": null,
