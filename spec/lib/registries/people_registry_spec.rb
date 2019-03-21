@@ -32,6 +32,22 @@ RSpec.describe Registries::PeopleRegistry do
     end
   end
 
+  describe 'there is no slug or title' do
+    it 'will remove those results' do
+      stub_request(:get, rummager_url).to_return(
+        body: {
+          "facets": {
+            "people": {
+              "options": [{ "value": {} }]
+            }
+          }
+        }.to_json
+)
+      clear_cache
+      expect(described_class.new.values).to be_empty
+    end
+  end
+
   describe "when rummager is unavailable" do
     before do
       rummager_is_unavailable
