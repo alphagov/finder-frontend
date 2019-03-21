@@ -172,6 +172,19 @@ describe SearchQueryBuilder do
     it "should not include an order query" do
       expect(query).not_to include("order")
     end
+
+    context "with stopwords" do
+      let(:params) {
+        {
+          "keywords" => "a mango"
+        }
+      }
+
+      it "should not include stopwords" do
+        expect(query).to include("q" => "mango")
+        expect(query).not_to include("q" => "a mango")
+      end
+    end
   end
 
   context "with a base filter" do
