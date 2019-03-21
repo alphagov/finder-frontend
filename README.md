@@ -66,8 +66,7 @@ $ bundle exec rake
 ```
 
 The application has jasmine tests, which can be accessed at `/specs` when the application is running in development mode. These are also run when `rake`, above, is run.
-To run JavaScript tests separately: 
-`bundle exec rake jasmine:test`
+To run JavaScript tests separately: `bundle exec rake spec:javascript`
 
 [govuk-content-schemas]: https://github.com/alphagov/govuk-content-schemas
 [content_schema_examples]: https://github.com/alphagov/finder-frontend/blob/master/lib/govuk_content_schema_examples.rb
