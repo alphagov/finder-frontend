@@ -20,7 +20,7 @@ describe('remove-filter', function () {
 
   var $multipleTextQueries = $(
     '<div data-module="remove-filter">' +
-      '<button href="/search/news-and-communications?[]=education" class="remove-filter" role="button" aria-label="Remove filter education" data-module="remove-filter-link" data-facet="keywords" data-value="education" data-name="keywords">✕</button>' +
+      '<button href="/search/news-and-communications?[]=education" class="remove-filter" role="button" aria-label="Remove filter the" data-module="remove-filter-link" data-facet="keywords" data-value="the" data-name="keywords">✕</button>' +
     '</div>'
   );
 
@@ -107,15 +107,15 @@ describe('remove-filter', function () {
 
   it('removes one text query from the text search field if there are multiple', function (done) {
     var searchField = $('input[name=keywords]')[0];
-    searchField.value = "education another search term";
+    searchField.value = "therefore the search term";
     removeFilter.start($multipleTextQueries);
 
-    expect(searchField.value).toContain("education");
+    expect(searchField.value).toContain("the");
 
     triggerRemoveFilterClick($multipleTextQueries);
 
     setTimeout(function() {
-      expect(searchField.value).toEqual("another search term");
+      expect(searchField.value).toEqual("therefore search term");
       done();
     }, timeout);
   });

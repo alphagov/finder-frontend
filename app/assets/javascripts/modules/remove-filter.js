@@ -33,7 +33,18 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
         $input.trigger('change');
       }
       else if (inputType == 'text' || inputType == 'search') {
-        $input.val(currentVal.replace(removeFilterValue, '').replace(/\s+/g,' ').trim()).trigger({
+        var splitKeywords = currentVal.split(" ");
+
+        for (var i = 0; splitKeywords.length; i++) {
+          if (splitKeywords[i].toString() === removeFilterValue.toString()) {
+            splitKeywords.splice(i, 1);
+            break;
+          }
+        }
+
+        var newVal = splitKeywords.join(" ").trim();
+
+        $input.val(newVal).trigger({
           type: "change",
           suppressAnalytics: true
         });
