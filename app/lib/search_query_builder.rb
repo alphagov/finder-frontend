@@ -213,7 +213,7 @@ private
   end
 
   def stopwords
-    %w(
+    generic_stopwords = %w(
      a about above after again against all am an and any are arent as at
      be because been before being below between both but by
      cant cannot could couldnt
@@ -232,5 +232,9 @@ private
      was wasnt we wed well were werent weve what whats when whens where wheres which while who whos whom why whys with wont would wouldnt
      you youd youll youre youve your yours yourself yourselves
     )
+
+    brexit_stopwords = %w(abroad brexit eu europe european exit leave union)
+
+    (generic_stopwords + brexit_stopwords).uniq
   end
 end
