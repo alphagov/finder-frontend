@@ -1,0 +1,22 @@
+{
+  "base_path": "/prepare-eu-exit/all/email-signup",
+  "content_id": "54fa4dca-4dfb-40a5-b860-127716f02e75",
+  "document_type": "finder_email_signup",
+  "title": "Detailed EU Exit guidance",
+  "description": "You'll get an email each time content is published.",
+  "details": {
+    "filter":{
+      "all_part_of_taxonomy_tree": "d7bdaee2-8ea5-460e-b00d-6e9382eb6b61"
+    },
+    "email_filter_by": null,
+    "email_filter_name": null,
+    "subscription_list_title_prefix": "Detailed EU Exit guidance ",
+    "email_filter_facets": [
+      {
+        "facet_id": "topics",
+        "filter_key": "any_part_of_taxonomy_tree",
+        "facet_name": "topics"
+      }
+    ]
+  }
+}

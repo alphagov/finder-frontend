@@ -40,6 +40,8 @@ private
   # without filetype as the value; example:
   # "/guidance-and-regulation" => "guidance_and_regulation"
   FINDERS_IN_DEVELOPMENT = {
+    "/prepare-eu-exit/all" => "citizen_readiness",
+    "/prepare-eu-exit/all/email-signup" => "citizen_readiness_signup",
     "/search/policy-papers-and-consultations" => 'policy_and_engagement',
     "/search/policy-papers-and-consultations/email-signup" => 'policy_and_engagement_email_signup',
     "/search/research-and-statistics" => "statistics",
