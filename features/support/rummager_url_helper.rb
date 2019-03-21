@@ -89,6 +89,7 @@ module RummagerUrlHelper
 
   def all_content_params
     base_search_params.merge(
+      'facet_manual' => '1500,order:value.title',
       'facet_organisations' => '1500,order:value.title',
       'facet_people' => '1500,order:value.title',
       'facet_world_locations' => '1500,order:value.title',
@@ -140,6 +141,7 @@ module RummagerUrlHelper
   def all_content_search_fields
     base_search_fields + %w(
       part_of_taxonomy_tree
+      manual
       organisations
       people
       world_locations
