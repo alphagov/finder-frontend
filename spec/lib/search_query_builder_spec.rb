@@ -13,6 +13,7 @@ describe SearchQueryBuilder do
 
   let(:finder_content_item) {
     {
+      'base_path' => '/finder-path',
       'details' => {
         'facets' => facets,
         'filter' => filter,
@@ -173,14 +174,42 @@ describe SearchQueryBuilder do
       expect(query).not_to include("order")
     end
 
-    context "with stopwords" do
+    context "without stopwords" do
       let(:params) {
         {
           "keywords" => "a mango"
         }
       }
 
-      it "should not include stopwords" do
+      it "should include stopwords in search" do
+        expect(query).to include("q" => "a mango")
+      end
+    end
+
+    context "with stopwords" do
+      let(:finder_content_item) {
+        {
+          'base_path' => '/find-eu-exit-guidance-business',
+          'details' => {
+            'facets' => facets,
+            'filter' => filter,
+            'reject' => reject,
+            'default_order' => default_order,
+            'default_documents_per_page' => 10
+          }
+        }
+      }
+
+      it "should not include stopwords in search" do
+        params = {
+          "keywords" => "a mango"
+        }
+
+        query = SearchQueryBuilder.new(
+          finder_content_item: finder_content_item,
+          params: params
+        ).call.first
+
         expect(query).to include("q" => "mango")
         expect(query).not_to include("q" => "a mango")
       end

@@ -129,7 +129,13 @@ private
   end
 
   def keywords
-    remove_stopwords if params["keywords"].present?
+    return remove_stopwords if remove_stopwords?
+
+    params["keywords"].presence
+  end
+
+  def remove_stopwords?
+    params["keywords"].present? && ["/find-eu-exit-guidance-business"].include?(finder_content_item["base_path"])
   end
 
   def remove_stopwords
