@@ -141,7 +141,7 @@ private
   def remove_stopwords
     keywords = params["keywords"].split(' ')
     keywords.delete_if do |keyword|
-      stopwords.include?(keyword)
+      stopwords.include?(keyword.gsub(/\W/, ''))
     end
     keywords.join(' ')
   end

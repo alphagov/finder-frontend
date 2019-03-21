@@ -213,6 +213,33 @@ describe SearchQueryBuilder do
         expect(query).to include("q" => "mango")
         expect(query).not_to include("q" => "a mango")
       end
+
+      it "strips punctuation from stopword check" do
+        params = {
+          "keywords" => "a, isn't a mango is it?"
+        }
+
+        query = SearchQueryBuilder.new(
+          finder_content_item: finder_content_item,
+          params: params
+        ).call.first
+
+        expect(query).to include("q" => "mango")
+        expect(query).not_to include("q" => "a, isn't a mango is it?")
+      end
+
+      it "does not strip numbers from search" do
+        params = {
+          "keywords" => "50"
+        }
+
+        query = SearchQueryBuilder.new(
+          finder_content_item: finder_content_item,
+          params: params
+        ).call.first
+
+        expect(query).to include("q" => "50")
+      end
     end
   end
 
