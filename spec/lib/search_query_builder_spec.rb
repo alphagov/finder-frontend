@@ -228,6 +228,20 @@ describe SearchQueryBuilder do
         expect(query).not_to include("q" => "a, isn't a mango is it?")
       end
 
+      it "ignores case of keywords" do
+        params = {
+          "keywords" => "A mango"
+        }
+
+        query = SearchQueryBuilder.new(
+          finder_content_item: finder_content_item,
+          params: params
+        ).call.first
+
+        expect(query).to include("q" => "mango")
+        expect(query).not_to include("q" => "A mango")
+      end
+
       it "does not strip numbers from search" do
         params = {
           "keywords" => "50"
