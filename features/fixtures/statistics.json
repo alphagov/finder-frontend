@@ -1,6 +1,6 @@
 {
   "analytics_identifier":null,
-  "base_path":"/search/statistics",
+  "base_path":"/search/research-and-statistics",
   "content_id":"8f827d53-9ad1-4b90-b6ae-2301c1ecdf02",
   "content_purpose_document_supertype":"navigation",
   "document_type":"finder",
@@ -23,8 +23,8 @@
   "links":{
     "email_alert_signup": [
       {
-        "api_path": "/api/content/search/statistics/email-signup",
-        "base_path": "/search/statistics/email-signup",
+        "api_path": "/api/content/search/research-and-statistics/email-signup",
+        "base_path": "/search/research-and-statistics/email-signup",
         "content_id": "119db584-0ae7-45e4-8f3a-fd79316c6921",
         "document_type": "finder_email_signup",
         "locale": "en",
@@ -34,7 +34,7 @@
         "withdrawn": false,
         "links": {},
         "api_url": "https://www.gov.uk/api/content/policy-papers-and-consultations/email-signup",
-        "web_url": "/search/statistics/email-signup"
+        "web_url": "/search/research-and-statistics/email-signup"
       }
     ]
   },
