@@ -35,7 +35,7 @@ class SearchResultPresenter
       case datum.fetch(:type)
       when 'date'
         build_date_metadata(datum)
-      when 'text'
+      when 'text', 'content_id'
         build_text_metadata(datum)
       end
     }

@@ -110,17 +110,17 @@ When(/^I view the business readiness finder$/) do
   stub_whitehall_api_world_location_request
   stub_rummager_api_request_with_business_readiness_results
   stub_rummager_api_request_with_filtered_business_readiness_results(
-    "q" => 'Keyword2'
+    'q' => 'Keyword2'
   )
   stub_rummager_api_request_with_filtered_business_readiness_results(
-    "q" => 'Keyword1 Keyword2'
+    'q' => 'Keyword1 Keyword2'
   )
   stub_rummager_api_request_with_filtered_business_readiness_results(
-    "filter_sector_business_area[0]" => "aerospace"
+    'filter_any_facet_values[0]' => '24fd50fa-6619-46ca-96cd-8ce90fa076ce'
   )
   stub_rummager_api_request_with_filtered_business_readiness_results(
-    "filter_sector_business_area[0]" => "aerospace",
-    "q" => 'Keyword1 Keyword2'
+    'filter_any_facet_values[0]' => '24fd50fa-6619-46ca-96cd-8ce90fa076ce',
+    'q' => 'Keyword1 Keyword2'
   )
 
   visit finder_path('find-eu-exit-guidance-business')

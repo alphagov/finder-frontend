@@ -30,9 +30,13 @@ private
   end
 
   def facets
-    @facets ||= raw_finder["details"]["facets"].select do |facet|
-      facet["type"] == "text" && facet["filterable"] && qa_config["pages"][facet["key"]]["show_in_qa"]
+    @facets ||= raw_facets.select do |facet|
+      %w[text content_id].include?(facet["type"]) && facet["filterable"] && qa_config["pages"][facet["key"]]["show_in_qa"]
     end
+  end
+
+  def raw_facets
+    @raw_facets ||= FacetExtractor.for(raw_finder).extract
   end
 
   def page

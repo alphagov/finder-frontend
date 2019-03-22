@@ -2,7 +2,7 @@ module FacetParser
   def self.parse(facet)
     if facet['filterable']
       case facet['type']
-      when 'text'
+      when 'text', 'content_id'
         OptionSelectFacet.new(facet)
       when 'topical'
         TopicalFacet.new(facet)
@@ -21,7 +21,7 @@ module FacetParser
       when 'radio'
         RadioFacet.new(facet)
       else
-        raise ArgumentError.new("Unknown filterable facet type: #{facet.type}")
+        raise ArgumentError.new("Unknown filterable facet type: #{facet['type']}")
       end
     else
       Facet.new(facet)
