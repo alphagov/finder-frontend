@@ -1,6 +1,6 @@
 class FacetsFromFacetGroupExtractor
-  def initialize(content_item)
-    @facets = content_item['links']['facet_group'].first['links']['facets']
+  def initialize(facet_group)
+    @facets = facet_group.dig('links', 'facets') || []
   end
 
   def extract
