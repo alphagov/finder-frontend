@@ -1,6 +1,4 @@
 class FilterableFacet < Facet
-  attr_accessor :value
-
   DEFAULT_PREPOSITION = 'related to'.freeze
 
   def preposition
