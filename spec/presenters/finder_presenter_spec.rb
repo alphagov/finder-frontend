@@ -311,6 +311,17 @@ RSpec.describe FinderPresenter do
     end
   end
 
+  describe "#all_content_finder?" do
+    it 'returns true if finder is "All Content"' do
+      subject.content_item["content_id"] = 'dd395436-9b40-41f3-8157-740a453ac972'
+      expect(subject.all_content_finder?).to eq true
+    end
+
+    it 'returns false if finder is not "All Content"' do
+      expect(subject.all_content_finder?).to eq false
+    end
+  end
+
 private
 
   def content_item(sort_options: nil, email_alert_signup: nil, default_order: nil, facets: nil)

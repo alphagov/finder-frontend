@@ -274,6 +274,10 @@ class FinderPresenter
     content_item['details']['canonical_link']
   end
 
+  def all_content_finder?
+    self.content_item['content_id'] == 'dd395436-9b40-41f3-8157-740a453ac972'
+  end
+
 private
 
   attr_reader :search_results

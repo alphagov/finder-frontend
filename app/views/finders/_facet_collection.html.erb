@@ -1,13 +1,18 @@
-<div class="filter-form" id="keywords">
-  <%= render "govuk_publishing_components/components/input", {
-    label: {
-      text: "Search"
-    },
-    name: "keywords",
-    value: @results.user_supplied_keywords,
-    id: "finder-keyword-search",
-    controls: "js-search-results-info"
-  } if finder.show_keyword_search? %>
+<div class="filter-form">
+  <% if finder.show_keyword_search? and !finder.all_content_finder? %>
+    <div id="keywords">
+      <%= render "govuk_publishing_components/components/input", {
+        label: {
+          text: "Search"
+        },
+        name: "keywords",
+        value: @results.user_supplied_keywords,
+        id: "finder-keyword-search",
+        controls: "js-search-results-info"
+      }  %>
+    </div>
+  <% end %>
+
   <div class="govuk-form-group" data-module="track-click" data-track-category="filterClicked"
       data-track-action="skip-Link" data-track-label="">
     <%= render "govuk_publishing_components/components/skip_link", {

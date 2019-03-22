@@ -410,3 +410,12 @@
   }
 }
 
+.finder-frontend-content {
+  .app-c-search-page-heading {
+    @include govuk-font(48, $weight: bold);
+    @include govuk-responsive-margin(2, "top");
+    @include govuk-responsive-margin(4, "bottom");
+    color: govuk-colour("black");
+  }
+}
+
