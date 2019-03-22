@@ -8,7 +8,13 @@ policy_summary = <<~SUMMARY
   </p>
 
   <p>
-    You might want to subscribe to <a href="#{absolute_url_for('/government/publications')}">publications</a> or <a href="#{absolute_url_for('/government/announcements')}">announcements</a> feeds.
+    You might want to subscribe to any of the following feeds:
+    <ul>
+      <li><a href="#{absolute_url_for('/search/transparency-and-freedom-of-information-releases')}">Transparency and freedom of information releases</a></li>
+      <li><a href="#{absolute_url_for('/search/research-and-statistics')}">Research and statistics</a></li>
+      <li><a href="#{absolute_url_for('/search/policy-papers-and-consultations')}">Policy papers and consultations</a></li>
+      <li><a href="#{absolute_url_for('/search/news-and-communications')}">News and communications</a></li>
+    </ul>
   </p>
 SUMMARY
 
@@ -18,7 +24,13 @@ generic_summary = <<~SUMMARY
   </p>
 
   <p>
-    You might want to subscribe to <a href="#{absolute_url_for('/government/publications')}">publications</a> or <a href="#{absolute_url_for('/government/announcements')}">announcements</a> feeds.
+    You might want to subscribe to any of the following feeds:
+    <ul>
+      <li><a href="#{absolute_url_for('/search/transparency-and-freedom-of-information-releases')}">Transparency and freedom of information releases</a></li>
+      <li><a href="#{absolute_url_for('/search/research-and-statistics')}">Research and statistics</a></li>
+      <li><a href="#{absolute_url_for('/search/policy-papers-and-consultations')}">Policy papers and consultations</a></li>
+      <li><a href="#{absolute_url_for('/search/news-and-communications')}">News and communications</a></li>
+    </ul>
   </p>
 SUMMARY
 
