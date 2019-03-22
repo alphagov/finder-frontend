@@ -36,6 +36,6 @@ private
       organisations: params['departments'] || params['organisations'],
       people: params['people'],
       world_locations: params['world_locations'],
-      public_timestamp: { from: params['from_date'], to: params['to_date'] }.compact.presence }
+      public_timestamp: { from: params['from_date'], to: params['to_date'] }.compact.presence }.compact
   end
 end
