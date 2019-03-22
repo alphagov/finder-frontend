@@ -30,8 +30,11 @@ private
   end
 
   def facets
-    @facets ||= raw_facets.select do |facet|
-      %w[text content_id].include?(facet["type"]) && facet["filterable"] && qa_config["pages"][facet["key"]]["show_in_qa"]
+    @facets ||= begin
+      valid_types = %w[text content_id]
+      raw_facets.select do |facet|
+        valid_types.include?(facet["type"]) && facet["filterable"] && qa_config["pages"][facet["key"]]["show_in_qa"]
+      end
     end
   end
 
