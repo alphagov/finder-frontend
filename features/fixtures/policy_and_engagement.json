@@ -81,7 +81,7 @@
       {
         "key": "content_store_document_type",
         "name": "Document type",
-        "preposition": "with document type",
+        "preposition": "of type",
         "type":"text",
         "display_as_result_metadata": false,
         "filterable": true,
