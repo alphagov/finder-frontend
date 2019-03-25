@@ -6,7 +6,7 @@ main.search {
   }
 
   h1 {
-    @include core-24;
+    @include govuk-font(24);
     font-weight: bold;
     padding-bottom: 10px;
   }
@@ -104,7 +104,7 @@ main.search {
               padding: 0 0 15px;
 
               p {
-                @include core-14;
+                @include govuk-font(14);
               }
 
             }
@@ -115,7 +115,7 @@ main.search {
           }
 
           h4 {
-            @include core-14;
+            @include govuk-font(14);
             margin: 0;
 
             a {
@@ -140,7 +140,7 @@ main.search {
           margin-bottom: $gutter;
 
           .descope-message {
-            @include core-16;
+            @include govuk-font(16);
           }
 
           ol {
@@ -149,7 +149,7 @@ main.search {
         }
 
         h3 {
-          @include core-24;
+          @include govuk-font(24);
           margin: 0;
           padding-bottom: 2px;
 
@@ -170,7 +170,7 @@ main.search {
         }
 
         .sections {
-          @include core-16;
+          @include govuk-font(16);
           margin: 0;
           padding: 0;
           overflow: hidden;
@@ -187,7 +187,7 @@ main.search {
         }
 
         .attributes {
-          @include core-14;
+          @include govuk-font(14);
           color: $govuk-secondary-text-colour;
           padding: 0 0 3px;
           margin: 0;
@@ -209,13 +209,13 @@ main.search {
         }
 
         p {
-          @include core-16;
+          @include govuk-font(16);
           margin: 0;
           padding: 0;
 
           &.historic,
           &.meta {
-            @include core-14;
+            @include govuk-font(14);
             padding: 0 0 3px;
             word-wrap: break-word;
             color: $govuk-secondary-text-colour;
@@ -225,11 +225,11 @@ main.search {
 
     }
     .zero-results {
-      @include core-19;
+      @include govuk-font(19);
 
       h2 {
         margin-top: $gutter;
-        @include bold-24;
+        @include govuk-font(24, $weight: bold);
       }
 
       ul,
@@ -262,7 +262,7 @@ main.search {
 
   .filter-form {
     p {
-      @include core-16;
+      @include govuk-font(16);
       margin-bottom: $gutter;
     }
 
@@ -276,7 +276,7 @@ main.search {
       }
 
       .legend {
-        @include core-19;
+        @include govuk-font(19);
         @include inline-block;
         margin-right:40px;
         font-weight:bold;
@@ -288,8 +288,7 @@ main.search {
 main.no-search-term {
   @include media(tablet) {
     h1 {
-      @include core-48;
-      font-weight: bold;
+      @include govuk-font(48, $weight: bold);
       padding-bottom: 15px;
     }
   }

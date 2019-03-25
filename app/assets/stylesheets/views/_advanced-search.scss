@@ -11,7 +11,7 @@
   }
 
   .taxon-link {
-    @include bold-24;
+    @include govuk-font(24, $weight: bold);
   }
 
   .pub-c-title {
@@ -21,11 +21,11 @@
 
   .filtered-results {
     .metadata-date-value {
-      @include core-14;
+      @include govuk-font(14);
     }
 
     .result-info {
-      @include core-24;
+      @include govuk-font(24);
     }
   }
 
