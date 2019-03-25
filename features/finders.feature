@@ -288,11 +288,22 @@ Feature: Filtering documents
     And the page has results region
 
   @javascript
-  Scenario: Facets should be hidden by default on finders except all content
+  Scenario: Facets should not be hidden by default on finders except all content
     When I view the research and statistics finder
     And I should not see a "Show more search options" link
     Then I view the all content finder
     And I should see a "Show more search options" link
+
+  @javascript
+  Scenario: Facets should expand when clicking on the "Show more search options" link on all content
+    When I view the all content finder
+    And I should see a "Show more search options" link
+    And I should not see a "Show fewer search options" link
+    And Facets should be hidden
+    Then I click "Show more search options" to expand all facets
+    And I should see a "Show fewer search options" link
+    And I should not see a "Show more search options" link
+    And Facets should be visible
 
   Scenario: Results should be a landmark to allow screenreaders to jump to it quickly
     When I view the news and communications finder
