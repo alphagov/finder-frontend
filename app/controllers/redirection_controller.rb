@@ -1,4 +1,9 @@
+require 'publications_routes'
+
 class RedirectionController < ApplicationController
+  include PublicationsRoutes
+  DEFAULT_PUBLICATIONS_PATH = 'search/all'.freeze
+
   def announcements
     respond_to do |format|
       format.html { redirect_to(finder_path('search/news-and-communications', params: convert_common_parameters)) }
@@ -8,8 +13,8 @@ class RedirectionController < ApplicationController
 
   def publications
     respond_to do |format|
-      format.html { redirect_to(finder_path('search/all', params: convert_common_parameters)) }
-      format.atom { redirect_to(finder_path('search/all', params: convert_common_parameters, format: :atom)) }
+      format.html { redirect_to(finder_path(publications_base_path, params: convert_common_parameters.merge(content_store_document_type: set_document_type).compact)) }
+      format.atom { redirect_to(finder_path(publications_base_path, params: convert_common_parameters.merge(content_store_document_type: set_document_type).compact, format: :atom)) }
     end
   end
 
@@ -28,6 +33,15 @@ class RedirectionController < ApplicationController
   end
 
 private
+
+  def publications_base_path
+    base_path = PUBLICATIONS_ROUTES.dig(params[:publication_filter_option], :base_path)
+    base_path || DEFAULT_PUBLICATIONS_PATH
+  end
+
+  def set_document_type
+    PUBLICATIONS_ROUTES.dig(params[:publication_filter_option], :special_params, :content_store_document_type)
+  end
 
   def convert_common_parameters
     { keywords: params['keywords'],
