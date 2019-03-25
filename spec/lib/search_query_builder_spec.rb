@@ -13,6 +13,7 @@ describe SearchQueryBuilder do
 
   let(:finder_content_item) {
     {
+      'base_path' => '/finder-path',
       'details' => {
         'facets' => facets,
         'filter' => filter,
@@ -224,6 +225,88 @@ describe SearchQueryBuilder do
 
     it "should not include an order query" do
       expect(query).not_to include("order")
+    end
+
+    context "without stopwords" do
+      let(:params) {
+        {
+          "keywords" => "a mango"
+        }
+      }
+
+      it "should include stopwords in search" do
+        expect(query).to include("q" => "a mango")
+      end
+    end
+
+    context "with stopwords" do
+      let(:finder_content_item) {
+        {
+          'base_path' => '/find-eu-exit-guidance-business',
+          'details' => {
+            'facets' => facets,
+            'filter' => filter,
+            'reject' => reject,
+            'default_order' => default_order,
+            'default_documents_per_page' => 10
+          }
+        }
+      }
+
+      it "should not include stopwords in search" do
+        params = {
+          "keywords" => "a mango"
+        }
+
+        query = SearchQueryBuilder.new(
+          finder_content_item: finder_content_item,
+          params: params
+        ).call.first
+
+        expect(query).to include("q" => "mango")
+        expect(query).not_to include("q" => "a mango")
+      end
+
+      it "strips punctuation from stopword check" do
+        params = {
+          "keywords" => "a, isn't a mango is it?"
+        }
+
+        query = SearchQueryBuilder.new(
+          finder_content_item: finder_content_item,
+          params: params
+        ).call.first
+
+        expect(query).to include("q" => "mango")
+        expect(query).not_to include("q" => "a, isn't a mango is it?")
+      end
+
+      it "ignores case of keywords" do
+        params = {
+          "keywords" => "A mango"
+        }
+
+        query = SearchQueryBuilder.new(
+          finder_content_item: finder_content_item,
+          params: params
+        ).call.first
+
+        expect(query).to include("q" => "mango")
+        expect(query).not_to include("q" => "A mango")
+      end
+
+      it "does not strip numbers from search" do
+        params = {
+          "keywords" => "50"
+        }
+
+        query = SearchQueryBuilder.new(
+          finder_content_item: finder_content_item,
+          params: params
+        ).call.first
+
+        expect(query).to include("q" => "50")
+      end
     end
   end
 
