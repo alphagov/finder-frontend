@@ -1,5 +1,5 @@
 .app-c-option-select {
-  background-color: $grey-3;
+  background-color: govuk-colour("grey-3");
   padding: 5px;
   margin-bottom: $gutter;
 
@@ -95,7 +95,7 @@
 .app-c-option-select__container {
   position: relative;
   height: 200px;
-  background-color: $page-colour;
+  background-color: govuk-colour("white");
   overflow-y: auto;
   overflow-x: hidden;
 }

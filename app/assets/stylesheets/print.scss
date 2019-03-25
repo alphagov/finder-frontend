@@ -1,4 +1,3 @@
-@import "colours";
 @import "shims";
 @import "govuk_publishing_components/all_components_print";
 
@@ -35,7 +34,7 @@ header {
   .document {
     margin: 10px 0;
     padding-bottom: 10px;
-    border-bottom: 1px solid $border-colour;
+    border-bottom: 1px solid $govuk-border-colour;
     list-style: none;
   }
   a {

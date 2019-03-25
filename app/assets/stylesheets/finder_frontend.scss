@@ -2,7 +2,6 @@
 @import "typography";
 @import "measurements";
 @import "grid_layout";
-@import "colours";
 @import "shims";
 @import "css3";
 @import "design-patterns/buttons";
@@ -19,7 +18,7 @@
 }
 
 .document {
-  border-bottom: solid 1px $border-colour;
+  border-bottom: solid 1px $govuk-border-colour;
   padding: $gutter-half 0;
 
   &:first-child {
@@ -62,7 +61,7 @@
   p.historic {
     @include core-14;
     padding: 0 0 3px;
-    color: $secondary-text-colour;
+    color: $govuk-secondary-text-colour;
   }
 }
 
@@ -80,7 +79,7 @@
   }
 
   legend {
-    color:$text-colour;
+    color: $govuk-text-colour;
     margin-bottom: $gutter-half;
     @include media(tablet) {
       margin-bottom: $gutter-two-thirds;
@@ -92,7 +91,7 @@
   }
 
   a.button, input.button {
-    @include button($button-colour);
+    @include button(govuk-colour("green"));
     width: auto;
     @include bold-24;
   }
@@ -209,22 +208,22 @@
     }
 
     fieldset.invalid {
-      border-left: solid 4px $error-colour;
+      border-left: solid 4px $govuk-error-colour;
       padding-left: $gutter-half;
       margin-left: -$gutter-half - 4;
     }
 
     .validation-message {
-      color: $error-colour;
+      color: $govuk-error-colour;
       font-weight: bold;
       padding: $gutter-half;
       margin-left: -$gutter-half - 4;
-      border-left: solid 4px $error-colour;
+      border-left: solid 4px $govuk-error-colour;
     }
   }
 
   .button {
-    @include button($button-colour);
+    @include button(govuk-colour("green"));
     width: auto;
     @include bold-24;
   }
@@ -295,7 +294,7 @@
     padding: 5px;
 
     &:nth-child(odd) {
-      background-color: $grey-4;
+      background-color: govuk-colour("grey-4");
     }
   }
 
@@ -331,9 +330,9 @@
     display: block;
     position: relative;
     padding: 5px;
-    border: 1px solid $grey-1;
+    border: 1px solid govuk-colour("grey-1");
     border-radius: 5px;
-    background-color: $grey-4;
+    background-color: govuk-colour("grey-4");
 
     .js-enabled & {
       padding: 8px 7px 7px 23px;
