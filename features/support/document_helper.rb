@@ -1,6 +1,5 @@
 require_relative '../../lib/govuk_content_schema_examples'
 require_relative "../../spec/helpers/taxonomy_spec_helper"
-require_relative "../../spec/helpers/validation_query_helper"
 require_relative "../../spec/helpers/registry_spec_helper"
 require 'gds_api/test_helpers/email_alert_api'
 require 'gds_api/test_helpers/content_store'
@@ -9,7 +8,6 @@ module DocumentHelper
   include GovukContentSchemaExamples
   include TaxonomySpecHelper
   include RegistrySpecHelper
-  include ValidateQueryHelper
   include GdsApi::TestHelpers::EmailAlertApi
   include GdsApi::TestHelpers::ContentStore
 
@@ -374,13 +372,6 @@ module DocumentHelper
 
     stub_request(:get, cma_case_documents_filtered_by_supergroup).to_return(
       body: filtered_cma_case_documents_json,
-    )
-  end
-
-  def stub_rummager_with_query_validation_request
-    stub_validation_of_valid_query(
-      'filter_case_state[]' => 'open',
-      'filter_format[]' => 'cma_case',
     )
   end
 

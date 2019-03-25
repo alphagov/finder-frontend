@@ -1,5 +1,4 @@
 require 'email_alert_title_builder'
-require 'validate_query'
 
 class EmailAlertSignupAPI
   def initialize(dependencies = {})
@@ -12,10 +11,6 @@ class EmailAlertSignupAPI
 
   def signup_url
     subscriber_list['subscription_url']
-  end
-
-  def validate!
-    validater.validate
   end
 
 private
@@ -74,12 +69,5 @@ private
       end
       massaged_attributes.delete("filter")
     end
-  end
-
-  def validater
-    options = massaged_attributes
-    options["content_purpose_supergroup"] = content_purpose_supergroup if content_purpose_supergroup.present?
-
-    @validater ||= ::ValidateQuery.new(options)
   end
 end

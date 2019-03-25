@@ -3,14 +3,12 @@ require "helpers/taxonomy_spec_helper"
 require "helpers/registry_spec_helper"
 require 'gds_api/test_helpers/content_store'
 require 'gds_api/test_helpers/email_alert_api'
-require_relative "../helpers/validation_query_helper"
 
 describe EmailAlertSubscriptionsController, type: :controller do
   include GdsApi::TestHelpers::ContentStore
   include GdsApi::TestHelpers::EmailAlertApi
   include FixturesHelper
   include GovukContentSchemaExamples
-  include ValidateQueryHelper
   include TaxonomySpecHelper
   include RegistrySpecHelper
 
@@ -42,10 +40,7 @@ describe EmailAlertSubscriptionsController, type: :controller do
     describe "finder email signup item doesn't exist" do
       it 'returns a 404, rather than 5xx' do
         content_store_does_not_have_item('/does-not-exist/email-signup')
-
-        params = { slug: 'does-not-exist' }
-        stub_validation_of_valid_query(params)
-        get :new, params: params
+        get :new, params: { slug: 'does-not-exist' }
         expect(response.status).to eq(404)
       end
     end
@@ -53,9 +48,7 @@ describe EmailAlertSubscriptionsController, type: :controller do
     describe "finder email signup item does exist" do
       it 'returns a success' do
         content_store_has_item('/does-exist/email-signup', signup_finder)
-        params = { slug: 'does-exist' }
-        stub_validation_of_valid_query(params)
-        get :new, params: params
+        get :new, params: { slug: 'does-exist' }
 
         expect(response).to be_successful
       end
@@ -85,10 +78,6 @@ describe EmailAlertSubscriptionsController, type: :controller do
           "subscription_url" => 'http://www.example.com',
         )
 
-        stub_validation_of_valid_query(
-          'filter_format[]' => 'mosw_report',
-        )
-
         post :create, params: { slug: 'cma-cases' }
         expect(subject).to redirect_to('http://www.example.com')
       end
@@ -110,11 +99,6 @@ describe EmailAlertSubscriptionsController, type: :controller do
           "subscription_url" => 'http://www.example.com',
         )
 
-        stub_validation_of_valid_query(
-          'filter_format[]' => 'mosw_report',
-          'filter_content_purpose_supergroup' => 'news-and-communications',
-        )
-
         post :create, params: { slug: 'cma-cases' }
         expect(subject).to redirect_to('http://www.example.com')
       end
@@ -122,10 +106,6 @@ describe EmailAlertSubscriptionsController, type: :controller do
 
 
     it "fails if the relevant filters are not provided" do
-      stub_validation_of_valid_query(
-        'filter_format[]' => 'mosw_report',
-      )
-
       post :create, params: { slug: 'cma-cases' }
       expect(response).to be_successful
       expect(response).to render_template('new')
@@ -138,11 +118,6 @@ describe EmailAlertSubscriptionsController, type: :controller do
           "format" => { any: [finder.dig('details', 'filter', 'document_type')] },
         },
         "subscription_url" => 'http://www.example.com'
-      )
-
-      stub_validation_of_valid_query(
-        'filter_case_type[]' => 'ca98-and-civil-cartels',
-        'filter_format[]' => 'mosw_report',
       )
 
       post :create, params: {
@@ -176,12 +151,6 @@ describe EmailAlertSubscriptionsController, type: :controller do
           "subscription_url" => 'http://www.example.com'
         )
 
-        stub_validation_of_valid_query(
-          'filter_case_state[]' => 'open',
-          'filter_case_type[]' => 'ca98-and-civil-cartels',
-          'filter_format[]' => 'mosw_report',
-        )
-
         post :create, params: {
           slug: 'cma-cases',
           filter: {
@@ -213,13 +182,6 @@ describe EmailAlertSubscriptionsController, type: :controller do
           'subscription_url' => 'http://www.example.com'
         )
 
-        stub_validation_of_valid_query(
-          'filter_case_state[]' => 'open',
-          'filter_case_type[]' => 'ca98-and-civil-cartels',
-          'filter_format[]' => 'mosw_report',
-          'filter_part_of_taxonomy_tree[]' => 'some-taxon'
-        )
-
         post :create, params: {
           slug: 'cma-cases',
           subscriber_list_params: { part_of_taxonomy_tree: %w(some-taxon) },
@@ -241,12 +203,6 @@ describe EmailAlertSubscriptionsController, type: :controller do
             'format' => { any: [finder.dig('details', 'filter', 'document_type')] },
           },
           'subscription_url' => 'http://www.example.com'
-        )
-
-        stub_validation_of_valid_query(
-          'filter_case_state[]' => 'open',
-          'filter_case_type[]' => 'ca98-and-civil-cartels',
-          'filter_format[]' => 'mosw_report',
         )
 
         post :create, params: {

@@ -7,12 +7,10 @@ class EmailAlertSubscriptionsController < ApplicationController
   helper_method :subscriber_list_params
 
   def create
-    error_message = email_alert_signup_api.validate!
-
-    if error_message.nil? && valid_choices?
+    if valid_choices?
       redirect_to email_alert_signup_api.signup_url
     else
-      @error_message = error_message || "Please choose an email alert"
+      @error_message = "Please choose an email alert"
       render action: :new
     end
   end
