@@ -18,11 +18,11 @@ main.search {
   .search-header {
     position: relative;
     margin: 0;
-    padding: $gutter 0 $gutter / 2;
+    padding: govuk-spacing(6) 0 govuk-spacing(3);
     overflow: visible;
 
     @include media(tablet) {
-      padding: ($gutter * 1.5) 0 $gutter;
+      padding: govuk-spacing(8) 0 govuk-spacing(6);
       width: 66.666%;
     }
 
@@ -136,15 +136,15 @@ main.search {
 
         li.descoped-results {
           border-left: 4px solid $govuk-blue;
-          padding: $gutter-half 0 0 $gutter-half;
-          margin-bottom: $gutter;
+          padding: govuk-spacing(3) 0 0 govuk-spacing(3);
+          margin-bottom: govuk-spacing(6);
 
           .descope-message {
             @include govuk-font(16);
           }
 
           ol {
-            padding: $gutter-half 0 0;
+            padding: govuk-spacing(3) 0 0;
           }
         }
 
@@ -228,20 +228,20 @@ main.search {
       @include govuk-font(19);
 
       h2 {
-        margin-top: $gutter;
+        margin-top: govuk-spacing(6);
         @include govuk-font(24, $weight: bold);
       }
 
       ul,
       p {
-        margin-top: $gutter-half;
-        margin-bottom: $gutter-half;
+        margin-top: govuk-spacing(3);
+        margin-bottom: govuk-spacing(3);
       }
 
       ul {
         list-style: disc;
         list-style-position: outside;
-        margin-left: $gutter-two-thirds;
+        margin-left: govuk-spacing(4);
       }
     }
   }
@@ -263,11 +263,11 @@ main.search {
   .filter-form {
     p {
       @include govuk-font(16);
-      margin-bottom: $gutter;
+      margin-bottom: govuk-spacing(6);
     }
 
     .filter {
-      margin-bottom: $gutter-one-third;
+      margin-bottom: govuk-spacing(2);
       background-color: govuk-colour("grey-3");
       padding:5px;
 
