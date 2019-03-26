@@ -6,7 +6,7 @@ main.search {
   }
 
   h1 {
-    @include core-24;
+    @include govuk-font(24);
     font-weight: bold;
     padding-bottom: 10px;
   }
@@ -18,16 +18,16 @@ main.search {
   .search-header {
     position: relative;
     margin: 0;
-    padding: $gutter 0 $gutter / 2;
+    padding: govuk-spacing(6) 0 govuk-spacing(3);
     overflow: visible;
 
     @include media(tablet) {
-      padding: ($gutter * 1.5) 0 $gutter;
+      padding: govuk-spacing(8) 0 govuk-spacing(6);
       width: 66.666%;
     }
 
     h1 {
-      color: $black;
+      color: govuk-colour("black");
     }
   }
 
@@ -104,7 +104,7 @@ main.search {
               padding: 0 0 15px;
 
               p {
-                @include core-14;
+                @include govuk-font(14);
               }
 
             }
@@ -115,7 +115,7 @@ main.search {
           }
 
           h4 {
-            @include core-14;
+            @include govuk-font(14);
             margin: 0;
 
             a {
@@ -123,7 +123,7 @@ main.search {
               text-decoration: none;
 
               &:hover, &:focus {
-                color: $link-colour;
+                color: $govuk-link-colour;
                 text-decoration: underline;
               }
             }
@@ -136,20 +136,20 @@ main.search {
 
         li.descoped-results {
           border-left: 4px solid $govuk-blue;
-          padding: $gutter-half 0 0 $gutter-half;
-          margin-bottom: $gutter;
+          padding: govuk-spacing(3) 0 0 govuk-spacing(3);
+          margin-bottom: govuk-spacing(6);
 
           .descope-message {
-            @include core-16;
+            @include govuk-font(16);
           }
 
           ol {
-            padding: $gutter-half 0 0;
+            padding: govuk-spacing(3) 0 0;
           }
         }
 
         h3 {
-          @include core-24;
+          @include govuk-font(24);
           margin: 0;
           padding-bottom: 2px;
 
@@ -158,19 +158,19 @@ main.search {
             text-decoration: none;
 
             &:visited mark {
-              color: $link-visited-colour;
+              color: $govuk-link-visited-colour;
             }
 
             &:hover, &:focus,
             &:hover mark, &:focus mark {
-              color: $link-colour;
+              color: $govuk-link-colour;
               text-decoration: underline;
             }
           }
         }
 
         .sections {
-          @include core-16;
+          @include govuk-font(16);
           margin: 0;
           padding: 0;
           overflow: hidden;
@@ -187,8 +187,8 @@ main.search {
         }
 
         .attributes {
-          @include core-14;
-          color: $secondary-text-colour;
+          @include govuk-font(14);
+          color: $govuk-secondary-text-colour;
           padding: 0 0 3px;
           margin: 0;
 
@@ -209,39 +209,39 @@ main.search {
         }
 
         p {
-          @include core-16;
+          @include govuk-font(16);
           margin: 0;
           padding: 0;
 
           &.historic,
           &.meta {
-            @include core-14;
+            @include govuk-font(14);
             padding: 0 0 3px;
             word-wrap: break-word;
-            color: $secondary-text-colour;
+            color: $govuk-secondary-text-colour;
           }
         }
       }
 
     }
     .zero-results {
-      @include core-19;
+      @include govuk-font(19);
 
       h2 {
-        margin-top: $gutter;
-        @include bold-24;
+        margin-top: govuk-spacing(6);
+        @include govuk-font(24, $weight: bold);
       }
 
       ul,
       p {
-        margin-top: $gutter-half;
-        margin-bottom: $gutter-half;
+        margin-top: govuk-spacing(3);
+        margin-bottom: govuk-spacing(3);
       }
 
       ul {
         list-style: disc;
         list-style-position: outside;
-        margin-left: $gutter-two-thirds;
+        margin-left: govuk-spacing(4);
       }
     }
   }
@@ -262,13 +262,13 @@ main.search {
 
   .filter-form {
     p {
-      @include core-16;
-      margin-bottom: $gutter;
+      @include govuk-font(16);
+      margin-bottom: govuk-spacing(6);
     }
 
     .filter {
-      margin-bottom: $gutter-one-third;
-      background-color:$grey-3;
+      margin-bottom: govuk-spacing(2);
+      background-color: govuk-colour("grey-3");
       padding:5px;
 
       &:focus {
@@ -276,7 +276,7 @@ main.search {
       }
 
       .legend {
-        @include core-19;
+        @include govuk-font(19);
         @include inline-block;
         margin-right:40px;
         font-weight:bold;
@@ -288,8 +288,7 @@ main.search {
 main.no-search-term {
   @include media(tablet) {
     h1 {
-      @include core-48;
-      font-weight: bold;
+      @include govuk-font(48, $weight: bold);
       padding-bottom: 15px;
     }
   }

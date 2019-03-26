@@ -1,7 +1,7 @@
 .app-c-option-select {
-  background-color: $grey-3;
+  background-color: govuk-colour("grey-3");
   padding: 5px;
-  margin-bottom: $gutter;
+  margin-bottom: govuk-spacing(6);
 
   @include media(desktop) {
     // Redefine scrollbars on desktop where these lists are scrollable
@@ -95,13 +95,13 @@
 .app-c-option-select__container {
   position: relative;
   height: 200px;
-  background-color: $page-colour;
+  background-color: govuk-colour("white");
   overflow-y: auto;
   overflow-x: hidden;
 }
 
 .app-c-option-select__container-inner {
-  padding: $gutter-one-quarter;
+  padding: govuk-spacing(2);
   padding-top: govuk-spacing(1);
 }
 
@@ -110,7 +110,7 @@
 
   .govuk-form-group {
     padding-top: govuk-spacing(2);
-    margin-bottom: $gutter-one-third;
+    margin-bottom: govuk-spacing(2);
   }
 }
 

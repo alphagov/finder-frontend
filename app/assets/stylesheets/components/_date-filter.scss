@@ -1,7 +1,7 @@
 .app-c-date-filter {
-  margin-bottom: $gutter-two-thirds;
+  margin-bottom: govuk-spacing(4);
 
   @include media(tablet) {
-    margin-bottom: $gutter;
+    margin-bottom: govuk-spacing(6);
   }
 }
