@@ -9,48 +9,52 @@
 <% end %>
 
 <%= render "govuk_publishing_components/components/inverse_header", { full_width: true } do %>
-  <div class="full-page-width-wrapper">
-    <div class="breadcrumb-wrapper">
-      <%= render 'govuk_publishing_components/components/breadcrumbs', finder.breadcrumbs.merge(inverse: true) %>
+  <div class="govuk-width-container">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        <%= render 'govuk_publishing_components/components/breadcrumbs', finder.breadcrumbs.merge(inverse: true) %>
+      </div>
     </div>
 
-    <div class="title-and-metadata">
-      <%= finder.taxon_link %>
-      <%= render partial: 'govuk_publishing_components/components/title', locals: { title: finder.title, inverse: true } %>
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        <%= finder.taxon_link %>
+        <%= render partial: 'govuk_publishing_components/components/title', locals: { title: finder.title, inverse: true } %>
 
-      <% if finder.email_alert_signup_url %>
-        <p class='email-link'>
-          <%= link_to "Subscribe to email alerts", finder.email_alert_signup_url %>
-        </p>
+        <% if finder.email_alert_signup_url %>
+          <p class='email-link'>
+            <%= link_to "Subscribe to email alerts", finder.email_alert_signup_url %>
+          </p>
+        <% end %>
+      </div>
+
+      <% if finder.logo_path %>
+        <div class="logo govuk-grid-column-one-third">
+          <%= image_tag finder.logo_path, id: "logo-image" %>
+        </div>
+      <% end %>
+
+      <% if finder.related.any? %>
+        <div class="related-links govuk-grid-column-one-third">
+          <ul>
+            <% finder.related.each do |link| %>
+              <li><%= link_to link['title'], link['web_url'] %></li>
+            <% end %>
+          </ul>
+        </div>
       <% end %>
     </div>
-
-    <% if finder.logo_path %>
-      <div class="logo">
-        <%= image_tag finder.logo_path, id: "logo-image" %>
-      </div>
-    <% end %>
-
-    <% if finder.related.any? %>
-      <div class='related-links'>
-        <ul>
-          <% finder.related.each do |link| %>
-            <li><%= link_to link['title'], link['web_url'] %></li>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
   </div>
 <% end %>
 
-<div class="filtering full-page-width-wrapper">
+<div class="govuk-width-container">
   <form method="get" action="<%= finder.slug %>" class="js-live-search-form">
-    <div class="grid-row">
-      <div class="column-third">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-one-third">
         <%= render finder.facets %>
       </div>
 
-      <div class="column-two-thirds">
+      <div class="govuk-grid-column-two-thirds">
         <div class='js-live-search-results-block'>
           <div class="filtered-results">
             <div aria-live='assertive' id='js-search-results-info'>

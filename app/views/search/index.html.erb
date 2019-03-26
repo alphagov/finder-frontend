@@ -16,9 +16,9 @@
     <div id="results" class="js-live-search-results-block">
       <div aria-live="assertive" class='js-aria-live-count visuallyhidden'><%= @results.result_count %> found</div>
 
-      <div class="grid-row">
+      <div class="govuk-grid-row">
         <% if @results.filter_fields.any? %>
-          <div class="column-third">
+          <div class="govuk-grid-column-one-third">
             <div class="filter-form">
               <% @results.filter_fields.each do |filter| %>
                 <% filter_options = filter[:options][:options].map do |option|
@@ -47,7 +47,7 @@
           </div>
         <% end %>
 
-        <div class="column-two-thirds">
+        <div class="govuk-grid-column-two-thirds">
           <%= render_mustache('results_block', @results.to_hash) %>
         </div>
       </div>

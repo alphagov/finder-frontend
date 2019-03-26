@@ -5,11 +5,6 @@
     margin-bottom: govuk-spacing(9);
   }
 
-  .breadcrumb-wrapper,
-  .title-and-metadata {
-    padding-left: 0;
-  }
-
   .taxon-link {
     @include govuk-font(24, $weight: bold);
   }
@@ -27,11 +22,6 @@
     .result-info {
       @include govuk-font(24);
     }
-  }
-
-  .full-page-width-wrapper,
-  .filtering.full-page-width-wrapper {
-    @extend %site-width-container;
   }
 }
 

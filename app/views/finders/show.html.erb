@@ -24,8 +24,8 @@
 <form method="get" action="<%= finder.slug %>" class="js-live-search-form">
   <input type="hidden" name="parent" value="<%= @parent %>">
 
-  <header>
-    <div class="title-and-metadata">
+  <header class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
       <% if finder.all_content_finder? %>
         <% label_text = capture do %>
           <h1 class="app-c-search-page-heading">Search<span class="govuk-visually-hidden"> all content</span></h1>
@@ -60,13 +60,13 @@
     </div>
 
     <% if finder.logo_path %>
-      <div class="logo">
+      <div class="logo govuk-grid-column-one-third">
         <%= image_tag finder.logo_path, id: "logo-image" %>
       </div>
     <% end %>
 
     <% if finder.related.any? %>
-      <div class="related-links">
+      <div class="related-links govuk-grid-column-one-third">
         <ul class="finder-results">
           <% finder.related.each do |link| %>
             <li><%= link_to link['title'], link['web_url'] %></li>
@@ -76,12 +76,12 @@
     <% end %>
   </header>
 
-  <div class="grid-row">
-    <div class="column-third" role="search" aria-label="<%= finder.name %>">
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-third" role="search" aria-label="<%= finder.name %>">
       <%= render finder.facets %>
     </div>
 
-    <div class="column-two-thirds" role="region" aria-label="<%= finder.name %> search results">
+    <div class="govuk-grid-column-two-thirds" role="region" aria-label="<%= finder.name %> search results">
       <div class='js-live-search-results-block'>
         <div class="filtered-results">
           <div aria-live='assertive' id='js-search-results-info' data-module="remove-filter">
