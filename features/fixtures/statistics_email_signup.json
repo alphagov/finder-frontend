@@ -12,12 +12,23 @@
     "email_filter_facets": [
       {
         "facet_id": "content_store_document_type",
-        "facet_name": "document types",
-        "option_lookup": {
-          "statistics_published": ["statistics", "national_statistics", "statistical_data_set", "official_statistics"],
-          "statistics_upcoming": ["statistics_announcement", "national_statistics_announcement", "official_statistics_announcement"],
-          "research": ["dfid_research_output", "independent_report", "research"]
-        }
+        "facet_name": "Document types",
+        "facet_choices": [
+          {
+            "key": "statistics_published",
+            "filter_values": ["statistics", "national_statistics", "statistical_data_set", "official_statistics"],
+            "radio_button_name": "Statistics (published)",
+            "topic_name": "Statistics (published)",
+            "prechecked": false
+          },
+          {
+            "key": "research",
+            "filter_values": ["dfid_research_output", "independent_report", "research"],
+            "radio_button_name": "Research",
+            "topic_name": "Research",
+            "prechecked": false
+          }
+        ]
       },
       {
         "facet_id": "organisations",
