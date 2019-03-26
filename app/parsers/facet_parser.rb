@@ -20,6 +20,8 @@ module FacetParser
         DropdownSelectFacet.new(facet)
       when 'radio'
         RadioFacet.new(facet)
+      when 'hidden_clearable'
+        HiddenClearableFacet.new(facet)
       else
         raise ArgumentError.new("Unknown filterable facet type: #{facet['type']}")
       end

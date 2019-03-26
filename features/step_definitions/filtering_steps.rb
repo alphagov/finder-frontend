@@ -164,6 +164,24 @@ When(/^I view the research and statistics finder$/) do
   visit finder_path('research-and-statistics')
 end
 
+When(/^I view the all content finder with a manual filter$/) do
+  topic_taxonomy_has_taxons
+  content_store_has_all_content_finder
+  stub_whitehall_api_world_location_request
+  stub_people_registry_request
+  stub_manuals_registry_request
+  stub_request(:get,
+    all_content_url(
+      filter_manual: '/guidance/care-and-use-of-a-nimbus-2000',
+      q: 'Replacing bristles'
+    )).to_return(body: all_content_manuals_results_json)
+
+  stub_request(:get, all_content_url(q: 'Replacing bristles'))
+    .to_return(body: all_content_results_json)
+
+  visit finder_path('search/all', manual: '/guidance/care-and-use-of-a-nimbus-2000', q: 'Replacing bristles')
+end
+
 When(/^I view the all content finder$/) do
   topic_taxonomy_has_taxons
   content_store_has_all_content_finder
@@ -755,4 +773,22 @@ end
 
 And(/^The top result has the correct tracking data$/) do
   expect(page).to have_css("a[data-track-category='navFinderLinkClicked']")
+end
+
+Then(/^I can see results filtered by that manual$/) do
+  expect(page).to have_css('.filtered-results .document', count: 1)
+
+  within '.filtered-results .document:nth-child(1)' do
+    expect(page).to_not have_content('Restrictions on usage of spells within school grounds')
+    expect(page).to have_content('Replacing bristles in your Nimbus 2000')
+  end
+end
+
+Then(/^I see all content results$/) do
+  expect(page).to have_css('.filtered-results .document', count: 1)
+
+  within '.filtered-results .document:nth-child(1)' do
+    expect(page).to have_content('Restrictions on usage of spells within school grounds')
+    expect(page).to_not have_content('Replacing bristles in your Nimbus 2000')
+  end
 end

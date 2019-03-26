@@ -30,7 +30,8 @@ private
       'topical' => Filters::TopicalFilter,
       'taxon' => Filters::TaxonFilter,
       'radio' => Filters::RadioFilter,
-      'content_id' => Filters::ContentIdFilter
+      'content_id' => Filters::ContentIdFilter,
+      'hidden_clearable' => Filters::HiddenClearableFilter
     }.fetch(facet['type'])
 
     filter_class.new(facet, params(facet))
