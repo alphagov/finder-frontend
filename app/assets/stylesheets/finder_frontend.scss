@@ -387,3 +387,8 @@
 .govspeak-wrapper {
   @include govuk-responsive-margin(4, "bottom");
 }
+
+.govuk-label--inline {
+  @include govuk-responsive-padding(1, "right");
+  display: inline-block;
+}

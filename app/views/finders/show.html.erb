@@ -95,12 +95,14 @@
           </div>
 
           <div class="govuk-caption-l live-search-loading-message" id="js-loading-message"></div>
+
           <% if @results.has_email_signup_link? %>
             <%= render "govuk_publishing_components/components/subscription-links", @results.signup_links %>
           <% end %>
+
           <% if finder.sort %>
-            <div class="govuk-form-group">
-              <%= label_tag 'order', 'Sort by', class: 'govuk-label' %>
+            <div class="govuk-form-group govuk-form-group--inline">
+              <%= label_tag 'order', 'Sort by', class: 'govuk-label govuk-label--inline' %>
               <%= select_tag 'order', finder.sort_options,
                 class: 'govuk-select js-order-results',
                 'aria-controls': 'js-search-results-info',
