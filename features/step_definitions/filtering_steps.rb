@@ -533,8 +533,8 @@ end
 
 And(/^I select some document types$/) do
   click_on('Document type')
-  find('.govuk-label', text: 'Policy papers').click
-  find('.govuk-label', text: 'Consultations (closed)').click
+  find('.govuk-checkboxes__item .govuk-label', text: 'Policy papers').click
+  find('.govuk-checkboxes__item .govuk-label', text: 'Consultations (closed)').click
 end
 
 And(/^I select upcoming statistics$/) do
