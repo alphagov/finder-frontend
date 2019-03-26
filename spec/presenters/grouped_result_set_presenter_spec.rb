@@ -140,6 +140,7 @@ RSpec.describe GroupedResultSetPresenter do
       promoted: false,
       promoted_summary: nil,
       show_metadata: false,
+      es_score: nil
     )
   end
 
@@ -162,6 +163,10 @@ RSpec.describe GroupedResultSetPresenter do
       value: %W(aerospace agriculture),
       labels: %W(aerospace agriculture),
     )
+  end
+
+  before(:each) do
+    allow(finder).to receive(:eu_exit_finder?).and_return(false)
   end
 
   describe '#to_hash' do
@@ -202,6 +207,7 @@ RSpec.describe GroupedResultSetPresenter do
         promoted: false,
         promoted_summary: nil,
         show_metadata: false,
+        es_score: nil
       )
     }
 

@@ -171,6 +171,7 @@ RSpec.describe ResultSetPresenter do
       promoted: false,
       promoted_summary: nil,
       show_metadata: false,
+      es_score: 0.005
     )
   end
 
@@ -204,6 +205,10 @@ RSpec.describe ResultSetPresenter do
       }
     ]
     )
+  end
+
+  before(:each) do
+    allow(finder).to receive(:eu_exit_finder?).and_return(false)
   end
 
   describe '#to_hash' do
@@ -330,6 +335,76 @@ RSpec.describe ResultSetPresenter do
       it 'creates a new document for each result' do
         search_result_objects = presenter.documents
         expect(search_result_objects.count).to eql(3)
+      end
+    end
+
+    context 'check top result' do
+      before(:each) do
+        allow(finder).to receive(:eu_exit_finder?).and_return(true)
+        allow(presenter).to receive(:sort_option).and_return("key" => "-relevance")
+        allow(document_with_higher_es_score).to receive(:truncated_description).and_return("Some description about the Department")
+      end
+
+      let(:document_with_higher_es_score) do
+        double(
+          Document,
+          title: 'Investigation into the distribution of road fuels in parts of Scotland',
+          description: "Some description about the Department",
+          path: 'slug-1',
+          metadata: [],
+          summary: 'Higher score',
+          is_historic: false,
+          government_name: 'The Government!',
+          promoted: false,
+          promoted_summary: nil,
+          show_metadata: false,
+          es_score: 1000.0,
+          )
+      end
+
+      let(:document_with_lower_es_score) do
+        double(
+          Document,
+          title: 'Investigation into the distribution of road fuels in parts of Scotland',
+          path: 'slug-2',
+          metadata: [],
+          summary: 'Lower score',
+          is_historic: false,
+          government_name: 'The Government!',
+          promoted: false,
+          promoted_summary: nil,
+          show_metadata: false,
+          es_score: 100.0,
+          )
+      end
+
+      context 'top result set if best bet' do
+        let(:results) do
+          ResultSet.new(
+            [document_with_higher_es_score, document_with_lower_es_score],
+            total
+          )
+        end
+
+        it 'has top result true' do
+          search_result_objects = presenter.documents
+          expect(search_result_objects[0][:document][:top_result]).to eql(true)
+          expect(search_result_objects[0][:document][:summary]).to eql("Some description about the Department")
+        end
+      end
+
+      context 'top result not set if no best bet' do
+        let(:results) do
+          ResultSet.new(
+            [document, document],
+            total
+          )
+        end
+
+        it 'has no top result' do
+          search_result_objects = presenter.documents
+          expect(search_result_objects[0][:document][:top_result]).to_not eql(true)
+        end
       end
     end
   end

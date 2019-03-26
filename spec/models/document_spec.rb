@@ -5,7 +5,8 @@ describe Document do
     it 'defaults to nil without a public timestamp' do
       rummager_document = {
         title: 'A title',
-        link: 'link.com'
+        link: 'link.com',
+        es_score: 0.005
       }
       finder = double(
         'finder', date_metadata_keys: [], text_metadata_keys: [], links: {}
@@ -206,6 +207,47 @@ describe Document do
           type: 'content_id',
           value: 'other-value-1'
         )
+      end
+    end
+  end
+
+  describe "es_score" do
+    let(:finder) do
+      double(:finder,
+             date_metadata_keys: [:foo],
+             text_metadata_keys: [:bar],
+             "display_metadata?": true)
+    end
+    subject(:instance) { described_class.new({ title: "Y", link: "/y", es_score: 0.005 }, finder) }
+
+    it "es_score is 0.005" do
+      expect(instance.es_score).to eq 0.005
+    end
+  end
+
+  describe '#truncated_description' do
+    context 'shows truncated description when description is present' do
+      let(:finder) do
+        double(:finder,
+               date_metadata_keys: [],
+               text_metadata_keys: [],
+               links: {
+                 "ordered_related_items" => [{ "base_path" => "/foo" }]
+               })
+      end
+
+      description = "The government has many departments. These departments are part of the government."
+      truncated_description = "The government has many departments."
+
+      subject(:instance_with_description) { described_class.new({ title: "Y", link: "/y", description: description }, finder) }
+      subject(:instance_without_description) { described_class.new({ title: "Y", link: "/y" }, finder) }
+
+      it 'should have truncated description' do
+        expect(instance_with_description.truncated_description).to eq(truncated_description)
+      end
+
+      it 'should not have truncated description' do
+        expect(instance_without_description.truncated_description).to eq(nil)
       end
     end
   end

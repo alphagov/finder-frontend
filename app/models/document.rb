@@ -1,7 +1,7 @@
 class Document
   attr_reader :title, :public_timestamp, :is_historic, :government_name,
               :content_purpose_supergroup, :document_type, :organisations,
-              :release_timestamp
+              :release_timestamp, :es_score
 
   def initialize(rummager_document, finder)
     rummager_document = rummager_document.with_indifferent_access
@@ -15,6 +15,7 @@ class Document
     @content_purpose_supergroup = rummager_document.fetch(:content_purpose_supergroup, nil)
     @is_historic = rummager_document.fetch(:is_historic, false)
     @government_name = rummager_document.fetch(:government_name, nil)
+    @es_score = rummager_document.fetch(:es_score, nil)
     @finder = finder
     @facet_content_ids = rummager_document.fetch(:facet_values, [])
     @rummager_document = rummager_document.slice(*metadata_keys)
@@ -46,9 +47,14 @@ class Document
     finder.links["ordered_related_items"].any? { |item| item["base_path"] == path }
   end
 
+  def truncated_description
+    # This truncates the description at the end of the first sentence
+    description.gsub(/\.\s[A-Z].*/, '.') if description.present?
+  end
+
 private
 
-  attr_reader :link, :rummager_document, :finder, :description, :facet_content_ids
+  attr_reader :link, :rummager_document, :finder, :facet_content_ids, :description
 
   def is_mainstream_content?
     %w(completed_transaction
@@ -62,11 +68,6 @@ private
        transaction
        answer
        guide).include?(@document_type)
-  end
-
-  def truncated_description
-    # This truncates the description at the end of the first sentence
-    description.gsub(/\.\s[A-Z].*/, '.')
   end
 
   def metadata_keys

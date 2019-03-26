@@ -51,8 +51,13 @@ class ResultSetPresenter
 
   def documents
     results.each_with_index.map do |result, index|
+      doc = SearchResultPresenter.new(result).to_hash
+      if  index === 0 && highlight_top_result?
+        doc[:top_result] = true
+        doc[:summary] = result.truncated_description
+      end
       {
-        document: SearchResultPresenter.new(result).to_hash,
+        document: doc,
         document_index: index + 1
       }
     end
@@ -77,6 +82,21 @@ class ResultSetPresenter
 private
 
   attr_reader :view_context
+
+  def highlight_top_result?
+    finder.eu_exit_finder? &&
+      results.length >= 2 &&
+      sort_option &&
+      sort_option["key"].eql?("-relevance") &&
+      best_bet?
+  end
+
+  def best_bet?
+    # We found the average score on the top 500 searches and found that 7 was the most suitable number
+    if results[0].es_score && results[1].es_score
+      (results[0].es_score / results[1].es_score) > 7
+    end
+  end
 
   def next_and_prev_links
     return unless finder.pagination
