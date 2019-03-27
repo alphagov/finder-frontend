@@ -6,8 +6,8 @@
 <% end %>
 
 <%= render 'govuk_publishing_components/components/breadcrumbs', breadcrumbs: breadcrumbs %>
-<div class="grid-row">
-  <div class="column-two-thirds">
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
     <form action="<%= next_page_url %>" method="get" id="finder-qa-facet-filter-selection" class="gem-c-title" data-module="track-qa-choices">
       <%= render "govuk_publishing_components/components/title", {
         title: current_facet["question"],
