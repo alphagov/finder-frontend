@@ -64,6 +64,11 @@
   margin-bottom: govuk-spacing(3);
 }
 
+.document__heading--top {
+  @include govuk-font(16, $weight: bold);
+  margin-bottom: govuk-spacing(3);
+}
+
 .document__link--top {
   @include govuk-font(24, $weight: bold);
   display: block;
