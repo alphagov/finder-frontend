@@ -3,20 +3,31 @@
   checkboxes_id = "checkboxes-#{SecureRandom.hex(4)}"
   checkboxes_count_id = checkboxes_id + "-count"
   show_filter ||= false
-
-  if show_filter
-    filter_element = ActionController::Base.new.render_to_string(:partial => "govuk_publishing_components/components/input", :locals => {
-      label: {
-        text: "Filter " + title
-      },
-      name: "option-select-filter",
-      controls: checkboxes_id,
-      describedby: checkboxes_count_id
-    })
-
-    filter_element = CGI::escapeHTML(filter_element)
-  end
 %>
+
+<% if show_filter %>
+  <%
+    filter_id ||= "input-#{SecureRandom.hex(4)}"
+  %>
+  <% filter = capture do %>
+    <%= tag.label for: filter_id, class: "govuk-label govuk-visually-hidden" do %>
+      Filter <%= title %>
+    <% end %>
+
+    <%= tag.input name: "option-select-filter",
+      id: filter_id,
+      class: "app-c-option-select__filter-input govuk-input",
+      type: "text",
+      aria: {
+        describedby: checkboxes_count_id,
+        controls: checkboxes_id
+      }
+    %>
+  <% end %>
+  <%
+    filter_element = CGI::escapeHTML(filter)
+  %>
+<% end %>
 
 <div class="app-c-option-select"
   <% if local_assigns.include?(:closed_on_load) && closed_on_load %>data-closed-on-load="true"<% end %>
