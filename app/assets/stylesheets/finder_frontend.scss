@@ -206,15 +206,9 @@
 
   .filtered-results {
     .result-info {
-      @include govuk-font(16);
       vertical-align: baseline;
-      margin: 0 0 govuk-spacing(6) 0;
+      margin: 0 0 govuk-spacing(4) 0;
       border-bottom: solid 1px govuk-colour("black");
-
-      .result-count {
-        @include govuk-font(27, $weight: bold);
-        margin-right: govuk-spacing(2) / 2;
-      }
     }
 
     .govuk-checkboxes__conditional--hidden {
@@ -252,8 +246,6 @@
   }
 
   .facet-tags {
-    margin-top: govuk-spacing(2);
-    margin-bottom: govuk-spacing(6);
   }
 
   .facet-tags__group {
@@ -391,4 +383,19 @@
 .govuk-label--inline {
   @include govuk-responsive-padding(1, "right");
   display: inline-block;
+.result-count{
+  white-space: nowrap;
+}
+
+.result-info {
+  margin-bottom: govuk-spacing(2);
+  .govuk-grid-column-two-thirds {
+    text-align: right;
+    white-space: nowrap;
+
+    @include govuk-media-query($from: mobile, $until: tablet) {
+      text-align: left;
+    }
+
+  }
 }

@@ -89,14 +89,22 @@
 
     <div class="govuk-grid-column-two-thirds js-live-search-results-block filtered-results" role="region" aria-label="<%= finder.name %> search results">
       <div aria-live="assertive" id="js-search-results-info" data-module="remove-filter">
-        <%= render_mustache('result_count', @results.to_hash) %>
+        <div class="result-info">
+          <div class="govuk-grid-row">
+            <div class="govuk-grid-column-one-third">
+              <%= render_mustache('result_count', @results.to_hash) %>
+            </div>
+            <% if @results.has_email_signup_link? %>
+              <div class="govuk-grid-column-two-thirds">
+                <%= render "govuk_publishing_components/components/subscription-links", @results.signup_links %>
+              </div>
+            <% end %>
+          </div>
+          <%= render_mustache('result_facet_tags', @results.to_hash) %>
+        </div>
       </div>
 
       <div class="govuk-caption-l live-search-loading-message" id="js-loading-message"></div>
-
-      <% if @results.has_email_signup_link? %>
-        <%= render "govuk_publishing_components/components/subscription-links", @results.signup_links %>
-      <% end %>
 
       <% if finder.sort %>
         <div class="govuk-form-group govuk-form-group--inline">
