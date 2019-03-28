@@ -12,15 +12,11 @@ describe CheckboxFacet do
     }
   }
 
-  subject { CheckboxFacet.new(facet_data) }
+
 
   describe "#sentence_fragment" do
-    before do
-      subject.value = value
-    end
-
     context "single value" do
-      let(:value) { "yes" }
+      subject { CheckboxFacet.new(facet_data, "yes") }
 
       specify {
         expect(subject.sentence_fragment['preposition']).to eql("of value")
@@ -31,7 +27,7 @@ describe CheckboxFacet do
 
     context "when multiple values are provided" do
       context "when a value is provided" do
-        let(:value) { true }
+        subject { CheckboxFacet.new(facet_data, true) }
 
         specify {
           expect(subject.sentence_fragment['preposition']).to eql("of value")
@@ -41,26 +37,22 @@ describe CheckboxFacet do
       end
 
       context "when no value is provided" do
-        let(:value) { nil }
+        subject { CheckboxFacet.new(facet_data, nil) }
         specify { expect(subject.sentence_fragment).to be_nil }
       end
     end
   end
 
   describe "#checked?" do
-    before do
-      subject.value = value
-    end
-
     context "checkbox is selected" do
-      let(:value) { "yes" }
+      subject { CheckboxFacet.new(facet_data, "yes") }
       specify {
         expect(subject.is_checked?).to eql(true)
       }
     end
 
     context "checkbox is not selected" do
-      let(:value) { nil }
+      subject { CheckboxFacet.new(facet_data, nil) }
       specify {
         expect(subject.is_checked?).to eql(false)
       }

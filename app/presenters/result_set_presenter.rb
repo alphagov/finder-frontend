@@ -45,7 +45,7 @@ class ResultSetPresenter
 
   def selected_filter_descriptions
     selected_filters.map { |filter|
-      FacetTagPresenter.new(filter.sentence_fragment, filter.value, finder.slug, filter.hide_facet_tag?).present
+      FacetTagPresenter.new(filter.sentence_fragment, filter.hide_facet_tag?).present
     }.reject(&:empty?)
   end
 

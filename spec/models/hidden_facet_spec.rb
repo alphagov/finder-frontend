@@ -10,7 +10,7 @@ describe HiddenFacet do
   }
 
   let(:facet_class) { HiddenFacet }
-  subject { facet_class.new(facet_data) }
+  subject { facet_class.new(facet_data, nil) }
 
   describe "#to_partial_path" do
     context "with a Facet" do

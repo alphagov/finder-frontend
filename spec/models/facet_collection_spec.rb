@@ -1,48 +1,44 @@
 require 'spec_helper'
+require "helpers/taxonomy_spec_helper"
 
 describe FacetCollection do
-  let(:facets) { [] }
-  subject { FacetCollection.new(facets) }
+  include TaxonomySpecHelper
 
   before do
-    allow(subject).to receive(:filters).and_return(facets)
+    topic_taxonomy_has_taxons([
+                                {
+                                  content_id: "123",
+                                  title: "transport"
+                                }
+                              ])
   end
 
-  describe "enumerability" do
-    context "with 3 facets" do
-      let(:facets) { %i[a_facet another_facet and_another_facet] }
+  context "with facets with values" do
+    it "should accept a hash of key/value pairs, and set the facet values for each" do
+      facet_hashes = [
+        {
+          "key" => "organisations",
+          "name" => "Organisation",
+          "type" => "text",
+          "filterable" => true,
+        },
+        {
+          "keys" => %w[level_one_taxon level_two_taxon],
+          "name" => "topic",
+          "type" => "taxon",
+          "filterable" => true,
+        },
+      ]
 
-      specify { expect(subject).to respond_to(:each) }
-      specify { expect(subject.count).to eql(3) }
-    end
-  end
-
-  describe "#values=" do
-    context "with facets with values" do
-      let(:facets) {
-        [
-          case_type_facet,
-          decision_type_facet,
-        ]
+      values = {
+        organisations: "org",
+        "level_one_taxon" => "transport"
       }
-
-      let(:case_type_facet) {
-        FilterableFacet.new('key' => "case_type")
-      }
-
-      let(:decision_type_facet) {
-        FilterableFacet.new('key' => "decision_type")
-      }
-
-      it "should accept a hash of key/value pairs, and set the facet values for each" do
-        subject.values = {
-          "case_type" => "merger-investigations",
-          decision_type: "catch-22"
-        }
-
-        expect(case_type_facet.value).to eql("merger-investigations")
-        expect(decision_type_facet.value).to eql("catch-22")
-      end
+      collection = FacetCollection.new(facet_hashes, values)
+      expect(collection.facets).to match_array [be_instance_of(OptionSelectFacet), be_instance_of(TaxonFacet)]
+      expect(collection.facets.first.value).to eq(%w[org])
+      expect(collection.facets.second.topics).to match_array([include(text: "transport"),
+                                                              include(text: 'All topics')])
     end
   end
 end

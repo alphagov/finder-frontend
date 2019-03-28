@@ -1,4 +1,11 @@
 class OptionSelectFacet < FilterableFacet
+  attr_reader :value
+
+  def initialize(facet, values)
+    @value = Array(values)
+    super(facet)
+  end
+
   def options(controls, key)
     # NOTE: We use a symbol-based hash here unlike all our other hash
     # data-structures because we pass this to a govuk_component partial
@@ -18,10 +25,6 @@ class OptionSelectFacet < FilterableFacet
         controls: controls || nil
       }
     end
-  end
-
-  def value=(new_value)
-    @value = Array(new_value)
   end
 
   def sentence_fragment
