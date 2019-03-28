@@ -30,7 +30,7 @@ class Document
   end
 
   def path
-    link.starts_with?("/") ? link : "/#{link}"
+    link
   end
 
   def summary
