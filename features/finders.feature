@@ -27,6 +27,7 @@ Feature: Filtering documents
     When I search documents by keyword
     Then I see all documents which contain the keywords
     And there is not a zero results message
+    And the page title is updated
 
   Scenario: Filter document by keyword with q parameter
     Given a collection of documents exist

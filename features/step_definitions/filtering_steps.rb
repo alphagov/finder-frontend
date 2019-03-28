@@ -41,6 +41,10 @@ And(/the page title contains no keywords$/) do
   expect(page).to have_title "News and communications - GOV.UK"
 end
 
+And(/the page title is updated$/) do
+  expect(page).to have_title "keyword searchable - Ministry of Silly Walks reports - GOV.UK"
+end
+
 Then(/^I can get a list of all documents with matching metadata$/) do
   visit finder_path('mosw-reports')
 

@@ -16,7 +16,7 @@
     this.$resultsCount = options.$results.find('#js-result-count');
     this.action = this.$form.attr('action') + '.json';
     this.$atomAutodiscoveryLink = options.$atomAutodiscoveryLink;
-    this.title = document.title;
+    this.baseTitle = $("meta[name='govuk\:base_title']").attr("content");
     this.$emailLink = $('a[href*="email-signup"]');
     this.previousSearchTerm = '';
 
@@ -204,9 +204,9 @@
     var keywordsPresent = keywords !== "";
 
     if (keywordsPresent) {
-      document.title = keywords + " - " + this.title
+      document.title = keywords + " - " + this.baseTitle;
     }  else {
-      document.title = this.title
+      document.title = this.baseTitle;
     }
   };
 
