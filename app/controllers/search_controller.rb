@@ -7,29 +7,14 @@ class SearchController < ApplicationController
     search_params = SearchParameters.new(params)
 
     @content_item = Services.cached_content_item("/search")
-    if search_params.no_search? && params[:format] != "json"
-      render(action: 'no_search_term') && return
+
+    # Redirect all requests to all content finder, where either search params have been supplied or the user is
+    # requesting the JSON endpoint.
+    if !search_params.no_search? || params[:format] == "json"
+      redirect_to_all_content_finder(search_params) && return
     end
 
-    search_response = SearchAPI.new(search_params).search
-
-    @search_term = search_params.search_term
-
-    @results = if search_response["scope"].present?
-                 ScopedSearchResultsPresenter.new(search_response, search_params, view_context)
-               else
-                 SearchResultsPresenter.new(search_response, search_params, view_context)
-               end
-
-    @facets = search_response["facets"]
-    @spelling_suggestion = @results.spelling_suggestion
-
-    fill_in_slimmer_headers(@results.result_count)
-
-    respond_to do |format|
-      format.html
-      format.json { render json: @results }
-    end
+    render(action: 'no_search_term') && return
   end
 
 protected
@@ -49,5 +34,16 @@ protected
       result_count: result_count,
       section:      "search",
     )
+  end
+
+  def redirect_to_all_content_finder(search_params)
+    all_content_params = {
+      keywords: search_params.search_term,
+      organisations: params['filter_organisations'],
+      manual: params['filter_manual'],
+      format: params['format']
+    }.compact
+
+    redirect_to(finder_path('search/all', params: all_content_params), status: 301)
   end
 end
