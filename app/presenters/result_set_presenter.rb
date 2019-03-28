@@ -10,12 +10,13 @@ class ResultSetPresenter
            :atom_url,
            to: :finder
 
-  def initialize(finder, filter_params, view_context)
+  def initialize(finder, filter_params, view_context, show_top_result = false)
     @finder = finder
     @results = finder.results.documents
     @total = finder.results.total
     @filter_params = filter_params
     @view_context = view_context
+    @show_top_result = show_top_result
   end
 
   def to_hash
@@ -84,7 +85,8 @@ private
   attr_reader :view_context
 
   def highlight_top_result?
-    finder.eu_exit_finder? &&
+    @show_top_result &&
+      finder.eu_exit_finder? &&
       results.length >= 2 &&
       sort_option &&
       sort_option["key"].eql?("-relevance") &&

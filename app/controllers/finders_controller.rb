@@ -1,4 +1,6 @@
 class FindersController < ApplicationController
+  include FinderTopResultAbTestable
+
   layout "finder_layout"
   before_action :remove_search_box
 
@@ -47,7 +49,7 @@ private
   end
 
   def results
-    @results ||= result_set_presenter_class.new(finder, filter_params, view_context)
+    @results ||= result_set_presenter_class.new(finder, filter_params, view_context, show_top_result?)
   end
 
   def finder
