@@ -435,8 +435,7 @@ RSpec.describe ResultSetPresenter do
         expect(presenter.signup_links).to eq(email_signup_link: "/email_signup",
                                              feed_link: "/finder.atom",
                                              hide_heading: true,
-                                             small_form: true,
-                                             margin_bottom: 0)
+                                             small_form: true)
       end
     end
 
@@ -448,8 +447,7 @@ RSpec.describe ResultSetPresenter do
 
       it 'returns just the atom link' do
         expect(presenter.signup_links).to eq(feed_link: "/finder.atom", hide_heading: true,
-                                             small_form: true,
-                                             margin_bottom: 0)
+                                             small_form: true)
       end
     end
   end

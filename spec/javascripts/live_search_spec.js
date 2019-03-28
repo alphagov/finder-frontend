@@ -285,7 +285,7 @@ describe("liveSearch", function(){
       liveSearch.state = { the: "first" };
       liveSearch.displayResults(dummyResponse, $.param(liveSearch.state));
       expect($results.find('a').text()).toMatch('Test report');
-      expect($count.find('.result-count').text()).toMatch(/^\s*1\s*/);
+      expect($count.text()).toMatch(/^\s*1\s*/);
     });
 
     it("should update the Atom autodiscovery link", function(){

@@ -246,6 +246,7 @@
   }
 
   .facet-tags {
+    padding-bottom: govuk-spacing(1);
   }
 
   .facet-tags__group {
@@ -380,22 +381,29 @@
   @include govuk-responsive-margin(4, "bottom");
 }
 
-.govuk-label--inline {
-  @include govuk-responsive-padding(1, "right");
-  display: inline-block;
-.result-count{
+.result-region-header__counter {
   white-space: nowrap;
+}
+
+.result-region-header__sort-label {
+  @include govuk-responsive-padding(1, "right");
+  @include govuk-font(16);
+  display: inline-block;
+  margin-bottom: govuk-spacing(3);
+}
+
+.result-region-header__sort-select {
+  @include govuk-font(16);
+  height: govuk-spacing(6);
 }
 
 .result-info {
   margin-bottom: govuk-spacing(2);
+
   .govuk-grid-column-two-thirds {
-    text-align: right;
-    white-space: nowrap;
-
-    @include govuk-media-query($from: mobile, $until: tablet) {
-      text-align: left;
+    text-align: left;
+    @include govuk-media-query($from: tablet) {
+      text-align: right;
     }
-
   }
 }

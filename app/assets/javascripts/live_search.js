@@ -11,7 +11,7 @@
 
     this.$form = options.$form;
     this.$resultsBlock = options.$results.find('#js-results');
-    this.$countBlock = options.$results.find('#js-search-results-info h2.govuk-body');
+    this.$countBlock = options.$results.find('.result-region-header__counter');
     this.$facetTagBlock = options.$results.find('.js-facet-tag-wrapper');
     this.$loadingBlock = options.$results.find('#js-loading-message');
     this.$resultsCount = options.$results.find('#js-result-count');
