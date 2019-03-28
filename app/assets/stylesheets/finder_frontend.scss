@@ -1,7 +1,4 @@
-// govuk_frontend_toolkit helpers
-@import "design-patterns/buttons";
 @import "not-ie-conditional";
-
 @import "reset";
 @import "govuk_publishing_components/all_components";
 @import "components/*";
@@ -89,12 +86,6 @@
 
   strong {
     font-weight: 600;
-  }
-
-  a.button, input.button {
-    @include button(govuk-colour("green"));
-    width: auto;
-    @include govuk-font(24, $weight: bold);
   }
 
   header {
@@ -188,10 +179,6 @@
       max-width: $two-thirds;
     }
 
-    input.button[type=submit] {
-      margin-top: govuk-spacing(2);
-    }
-
     p {
       max-width: $full-width;
     }
@@ -209,12 +196,6 @@
       margin-left: -govuk-spacing(3) - 4;
       border-left: solid 4px $govuk-error-colour;
     }
-  }
-
-  .button {
-    @include button(govuk-colour("green"));
-    width: auto;
-    @include govuk-font(24, $weight: bold);
   }
 
   .search-results-title {
@@ -407,3 +388,6 @@
   }
 }
 
+.govspeak-wrapper {
+  @include govuk-responsive-margin(4, "bottom");
+}
