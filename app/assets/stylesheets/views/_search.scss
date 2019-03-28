@@ -277,7 +277,7 @@ main.search {
 
       .legend {
         @include govuk-font(19);
-        @include inline-block;
+        display: inline-block;
         margin-right:40px;
         font-weight:bold;
       }

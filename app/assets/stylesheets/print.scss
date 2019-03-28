@@ -7,7 +7,7 @@
   display: none;
 }
 header {
-  @extend %contain-floats;
+  @include govuk-clearfix;
 
   dt {
     float: left;
