@@ -707,8 +707,8 @@ module DocumentHelper
               }],
               "creator": "Road Runner",
               "date_of_introduction": "2003-12-30",
-              "link": "mosw-reports/west-london-wobbley-walk",
-              "_id": "mosw-reports/west-london-wobbley-walk"
+              "link": "/mosw-reports/west-london-wobbley-walk",
+              "_id": "/mosw-reports/west-london-wobbley-walk"
             },
             {
               "title": "The Gerry Anderson",
@@ -725,8 +725,8 @@ module DocumentHelper
               }],
               "creator": "",
               "date_of_introduction": "1914-08-28",
-              "link": "mosw-reports/the-gerry-anderson",
-              "_id": "mosw-reports/the-gerry-anderson"
+              "link": "/mosw-reports/the-gerry-anderson",
+              "_id": "/mosw-reports/the-gerry-anderson"
             }
           ],
           "total": 2,

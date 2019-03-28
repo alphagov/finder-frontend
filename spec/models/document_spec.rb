@@ -15,6 +15,19 @@ describe Document do
 
       expect(document.public_timestamp).to be_nil
     end
+
+    it 'does not break external links' do
+      rummager_document = {
+        title: 'A title',
+        link: 'https://link.com/mature-cheeses'
+      }
+      finder = double(
+        'finder', date_metadata_keys: [], text_metadata_keys: [], links: {}
+      )
+      document = described_class.new(rummager_document, finder)
+
+      expect(document.path).to eq("https://link.com/mature-cheeses")
+    end
   end
 
   describe "#promoted" do
