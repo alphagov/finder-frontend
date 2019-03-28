@@ -169,10 +169,6 @@
     }
   }
 
-  .app-c-option-select {
-    margin-bottom: govuk-spacing(6);
-  }
-
   .form {
     @include govuk-font(19);
     @include media(tablet) {
