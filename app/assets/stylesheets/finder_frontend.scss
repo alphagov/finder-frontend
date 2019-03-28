@@ -1,5 +1,4 @@
 // govuk_frontend_toolkit helpers
-@import "shims";
 @import "design-patterns/buttons";
 @import "not-ie-conditional";
 
@@ -33,13 +32,13 @@
       display: none;
 
       &.metadata-label {
-        @include inline-block;
+        display: inline-block;
       }
     }
 
     dd {
       margin-right: govuk-spacing(2);
-      @include inline-block;
+      display: inline-block;
     }
   }
 
