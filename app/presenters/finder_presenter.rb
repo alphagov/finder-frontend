@@ -102,29 +102,29 @@ class FinderPresenter
   end
 
   def facet_details_lookup
-    return @facet_details_lookup if @facet_details_lookup
-
-    facet_hases = raw_facets.map do |facet|
-      facet_name = facet['name']
-      facet_key = facet['key']
-      facet.fetch('allowed_values', []).to_h do |value|
-        [value['content_id'], {
-          id: facet_key,
-          name: facet_name,
-          key: facet_key,
-          type: 'content_id'
-        }]
+    @facet_details_lookup ||= begin
+      facet_hashes = raw_facets.map do |facet|
+        facet_name = facet['name']
+        facet_key = facet['key']
+        facet.fetch('allowed_values', []).to_h do |value|
+          [value['content_id'], {
+            id: facet_key,
+            name: facet_name,
+            key: facet_key,
+            type: 'content_id'
+          }]
+        end
       end
+      facet_hashes.reduce({}, :merge)
     end
-    @facet_details_lookup = facet_hases.reduce({}, :merge)
   end
 
   def facet_value_lookup
-    return @facet_value_lookup if @facet_value_lookup
-
-    facet_values = raw_facets.map { |f| f['allowed_values'] || [] }
-    @facet_value_lookup = facet_values.flatten.to_h do |val|
-      [val['content_id'], val['value']]
+    @facet_value_lookup ||= begin
+      facet_values = raw_facets.map { |f| f['allowed_values'] || [] }
+      @facet_value_lookup = facet_values.flatten.to_h do |val|
+        [val['content_id'], val['value']]
+      end
     end
   end
 
