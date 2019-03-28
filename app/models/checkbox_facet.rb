@@ -1,8 +1,5 @@
 class CheckboxFacet < FilterableFacet
-  def initialize(facet, checked)
-    @checked = checked
-    super(facet)
-  end
+  attr_writer :value
 
   def sentence_fragment
     return nil unless is_checked?
@@ -28,7 +25,7 @@ class CheckboxFacet < FilterableFacet
   end
 
   def is_checked?
-    @checked.present?
+    @value.present?
   end
 
   def checkbox_label

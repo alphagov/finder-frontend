@@ -28,10 +28,15 @@ describe DropdownSelectFacet do
     }
   }
 
+  subject { DropdownSelectFacet.new(facet_data) }
 
   describe "#sentence_fragment" do
+    before do
+      subject.value = value
+    end
+
     context "allowed value selected" do
-      subject { DropdownSelectFacet.new(facet_data, "allowed-value-1") }
+      let(:value) { "allowed-value-1" }
 
       specify {
         expect(subject.sentence_fragment['preposition']).to eql("of value")
@@ -41,7 +46,7 @@ describe DropdownSelectFacet do
     end
 
     context "disallowed value selected" do
-      subject { DropdownSelectFacet.new(facet_data, "disallowed-value-1") }
+      let(:value) { "disallowed-value-1" }
       specify { expect(subject.sentence_fragment).to be_nil }
     end
   end

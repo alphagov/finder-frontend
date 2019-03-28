@@ -1,11 +1,4 @@
 class DropdownSelectFacet < FilterableFacet
-  attr_reader :value
-
-  def initialize(facet, value)
-    @value = value
-    super(facet)
-  end
-
   def options
     allowed_values.map do |allowed_value|
       {
@@ -47,9 +40,9 @@ private
   def selected_value
     return default_value if @value.nil?
 
-    allowed_values.find(-> { {} }) { |option|
+    allowed_values.find { |option|
       @value == option['value']
-    }
+    } || {}
   end
 
   def default_value
