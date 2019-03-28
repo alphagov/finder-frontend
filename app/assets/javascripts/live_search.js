@@ -16,6 +16,7 @@
     this.$resultsCount = options.$results.find('#js-result-count');
     this.action = this.$form.attr('action') + '.json';
     this.$atomAutodiscoveryLink = options.$atomAutodiscoveryLink;
+    this.title = document.title;
     this.$emailLink = $('a[href*="email-signup"]');
     this.previousSearchTerm = '';
 
@@ -100,6 +101,7 @@
       this.saveState();
       this.updateOrder();
       this.updateLinks();
+      this.updateTitle();
       pageUpdated = this.updateResults();
       pageUpdated.done(
         function(){
@@ -195,6 +197,17 @@
 
   LiveSearch.prototype.isNewState = function isNewState(){
     return $.param(this.state) !== $.param(this.getSerializeForm());
+  };
+
+  LiveSearch.prototype.updateTitle = function updateTitle() {
+    var keywords = this.getTextInputValue('keywords', this.state);
+    var keywordsPresent = keywords !== "";
+
+    if (keywordsPresent) {
+      document.title = keywords + " - " + this.title
+    }  else {
+      document.title = this.title
+    }
   };
 
   LiveSearch.prototype.updateOrder = function updateOrder() {

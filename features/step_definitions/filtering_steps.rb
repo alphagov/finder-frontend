@@ -29,6 +29,18 @@ And(/there is not a zero results message$/) do
   expect(page).to_not have_content('no matching results')
 end
 
+And(/the page title contains both keywords$/) do
+  expect(page).to have_title "Keyword1 Keyword2 - News and communications - GOV.UK"
+end
+
+And(/the page title contains only Keyword2$/) do
+  expect(page).to have_title "Keyword2 - News and communications - GOV.UK"
+end
+
+And(/the page title contains no keywords$/) do
+  expect(page).to have_title "News and communications - GOV.UK"
+end
+
 Then(/^I can get a list of all documents with matching metadata$/) do
   visit finder_path('mosw-reports')
 
