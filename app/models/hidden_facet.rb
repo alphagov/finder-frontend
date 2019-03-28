@@ -1,11 +1,4 @@
 class HiddenFacet < FilterableFacet
-  attr_reader :value
-
-  def initialize(facet, value)
-    @value = value
-    super(facet)
-  end
-
   def allowed_values
     facet['allowed_values']
   end
@@ -24,8 +17,6 @@ class HiddenFacet < FilterableFacet
   def has_filters?
     value.present?
   end
-
-private
 
   def value_fragments
     selected_values.map { |v|

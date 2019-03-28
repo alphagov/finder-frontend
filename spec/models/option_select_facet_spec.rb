@@ -28,10 +28,15 @@ describe OptionSelectFacet do
     }
   }
 
+  subject { OptionSelectFacet.new(facet_data) }
 
   describe "#sentence_fragment" do
+    before do
+      subject.value = value
+    end
+
     context "single value" do
-      subject { OptionSelectFacet.new(facet_data, ["allowed-value-1"]) }
+      let(:value) { ["allowed-value-1"] }
 
       specify {
         expect(subject.sentence_fragment['preposition']).to eql("of value")
@@ -41,7 +46,7 @@ describe OptionSelectFacet do
     end
 
     context "multiple values" do
-      subject { OptionSelectFacet.new(facet_data, ["allowed-value-1", "allowed-value-2"]) }
+      let(:value) { ["allowed-value-1", "allowed-value-2"] }
 
       specify {
         expect(subject.sentence_fragment['preposition']).to eql("of value")
@@ -54,14 +59,12 @@ describe OptionSelectFacet do
     end
 
     context "disallowed values" do
-      subject { OptionSelectFacet.new(facet_data, ["disallowed-value-1, disallowed-value-2"]) }
+      let(:value) { ["disallowed-value-1, disallowed-value-2"] }
       specify { expect(subject.sentence_fragment).to be_nil }
     end
   end
 
   describe "#close_facet?" do
-    subject { OptionSelectFacet.new(facet_data, []) }
-
     context "small number of options" do
       specify { expect(subject.close_facet?).to be false }
     end
@@ -81,15 +84,13 @@ describe OptionSelectFacet do
         }
       }
 
-      subject { OptionSelectFacet.new(large_facet_data, {}) }
+      subject { OptionSelectFacet.new(large_facet_data) }
 
       specify { expect(subject.close_facet?).to be true }
     end
   end
 
   describe "#unselected?" do
-    subject { OptionSelectFacet.new(facet_data, ["disallowed-value-1, disallowed-value-2"]) }
-
     context "no selected values" do
       specify { expect(subject.unselected?).to be true }
     end
@@ -105,9 +106,10 @@ describe OptionSelectFacet do
         }
       }
 
-      subject { OptionSelectFacet.new(facet_data, '1') }
+      subject { OptionSelectFacet.new(facet_data) }
 
       specify do
+        subject.value = "1"
         expect(subject.unselected?).to be false
       end
     end

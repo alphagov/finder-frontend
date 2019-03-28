@@ -1,15 +1,6 @@
-class TaxonFacet < FilterableFacet
+class TaxonFacet < DropdownSelectFacet
   LEVEL_ONE_TAXON_KEY = 'level_one_taxon'.freeze
   LEVEL_TWO_TAXON_KEY = 'level_two_taxon'.freeze
-
-  def initialize(facet, value_hash)
-    @value_hash = value_hash
-    super(facet)
-  end
-
-  def name
-    facet['name']
-  end
 
   def topics
     level_one_taxons.unshift(default_topic_value)
@@ -66,7 +57,7 @@ private
           track_action: "level_one_taxon",
           track_label: v['title'],
         },
-        selected: v['content_id'] == @value_hash[LEVEL_ONE_TAXON_KEY]
+        selected: v['content_id'] == @value[LEVEL_ONE_TAXON_KEY]
       }
     }
   end
@@ -86,20 +77,20 @@ private
             track_label: v['title'],
             topic_parent: v['parent'],
           },
-          selected: v['content_id'] == @value_hash[LEVEL_TWO_TAXON_KEY]
+          selected: v['content_id'] == @value[LEVEL_TWO_TAXON_KEY]
         }
       }
   end
 
   def selected_level_two_value
     @selected_level_two_value ||= level_two_taxons.find { |v|
-      v[:value] == @value_hash[LEVEL_TWO_TAXON_KEY]
+      v[:value] == @value[LEVEL_TWO_TAXON_KEY]
     }
   end
 
   def selected_level_one_value
     @selected_level_one_value ||= level_one_taxons.find { |v|
-      v[:value] == @value_hash[LEVEL_ONE_TAXON_KEY]
+      v[:value] == @value[LEVEL_ONE_TAXON_KEY]
     }
   end
 
