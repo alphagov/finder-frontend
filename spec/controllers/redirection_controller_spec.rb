@@ -34,12 +34,8 @@ describe RedirectionController, type: :controller do
   end
 
   describe '#publications' do
-    it "redirects to the all page" do
-      get :publications
-      expect(response).to redirect_to finder_path('search/all')
-    end
-    it 'passes on a set of params' do
-      get :publications, params: {
+    let(:received_params) {
+      {
         keywords: %w[one two],
         taxons: %w[one],
         subtaxons: %w[two],
@@ -48,14 +44,96 @@ describe RedirectionController, type: :controller do
         from_date: '01/01/2014',
         to_date: '01/01/2014'
       }
-      expect(response).to redirect_to finder_path('search/all', params: {
+    }
+
+    let(:converted_params) {
+      {
         keywords: %w[one two],
         level_one_taxon: 'one',
         level_two_taxon: 'two',
         organisations: %w[one two],
         world_locations: %w[one two],
         public_timestamp: { from: '01/01/2014', to: '01/01/2014' }
-      })
+      }
+    }
+
+    it "redirects to the all page by default" do
+      get :publications
+      expect(response).to redirect_to finder_path('search/all')
+    end
+    it 'passes on a set of params' do
+      get :publications, params: received_params
+      expect(response).to redirect_to finder_path('search/all', params: converted_params)
+    end
+    it 'redirects when consultations is selected' do
+      get :publications, params: received_params.merge(publication_filter_option: 'consultations')
+      expect(response).to redirect_to finder_path(
+        'search/policy-papers-and-consultations',
+        params: converted_params.merge(content_store_document_type: %w[open_consultations closed_consultations])
+      )
+    end
+    it 'redirects when closed-consultations is selected' do
+      get :publications, params: received_params.merge(publication_filter_option: 'closed-consultations')
+      expect(response).to redirect_to finder_path(
+        'search/policy-papers-and-consultations',
+        params: converted_params.merge(content_store_document_type: 'closed_consultations')
+      )
+    end
+    it 'redirects when open-consultations is selected' do
+      get :publications, params: received_params.merge(publication_filter_option: 'open-consultations')
+      expect(response).to redirect_to finder_path(
+        'search/policy-papers-and-consultations',
+        params: converted_params.merge(content_store_document_type: 'open_consultations')
+      )
+    end
+    it 'redirects when foi-releases is selected' do
+      get :publications, params: received_params.merge(publication_filter_option: 'foi-releases')
+      expect(response).to redirect_to finder_path(
+        'search/transparency-and-freedom-of-information-releases',
+        params: converted_params
+      )
+    end
+    it 'redirects when transparency-data is selected' do
+      get :publications, params: received_params.merge(publication_filter_option: 'transparency-data')
+      expect(response).to redirect_to finder_path(
+        'search/transparency-and-freedom-of-information-releases',
+        params: converted_params
+      )
+    end
+    it 'redirects when guidance is selected' do
+      get :publications, params: received_params.merge(publication_filter_option: 'guidance')
+      expect(response).to redirect_to finder_path(
+        'search/guidance-and-regulation',
+        params: converted_params
+      )
+    end
+    it 'redirects when policy-papers is selected' do
+      get :publications, params: received_params.merge(publication_filter_option: 'policy-papers')
+      expect(response).to redirect_to finder_path(
+        'search/policy-papers-and-consultations',
+        params: converted_params.merge(content_store_document_type: 'policy_papers')
+      )
+    end
+    it 'redirects when forms is selected' do
+      get :publications, params: received_params.merge(publication_filter_option: 'forms')
+      expect(response).to redirect_to finder_path(
+        'search/services',
+        params: converted_params
+      )
+    end
+    it 'redirects when research-and-analysis is selected' do
+      get :publications, params: received_params.merge(publication_filter_option: 'research-and-analysis')
+      expect(response).to redirect_to finder_path(
+        'search/research-and-statistics',
+        params: converted_params.merge(content_store_document_type: 'research')
+      )
+    end
+    it 'redirects when statistics is selected' do
+      get :publications, params: received_params.merge(publication_filter_option: 'statistics')
+      expect(response).to redirect_to finder_path(
+        'search/research-and-statistics',
+        params: converted_params
+      )
     end
     it 'redirects to the atom feed' do
       get :publications, params: { keywords: %w[one two] }, format: :atom
