@@ -27,6 +27,7 @@ Feature: Filtering documents
     When I search documents by keyword
     Then I see all documents which contain the keywords
     And there is not a zero results message
+    And the page title is updated
 
   Scenario: Filter document by keyword with q parameter
     Given a collection of documents exist
@@ -172,12 +173,15 @@ Feature: Filtering documents
     Then I see updated newest order selected
     And I fill in some keywords
     Then I see most relevant order selected
+    And the page title contains both keywords
     And I click the Keyword1 remove control
     Then The keyword textbox only contains Keyword2
     And I see most relevant order selected
+    And the page title contains only Keyword2
     And I click the Keyword2 remove control
     Then The keyword textbox is empty
     And I see updated newest order selected
+    And the page title contains no keywords
 
   @javascript
   Scenario: Adding keyword filter

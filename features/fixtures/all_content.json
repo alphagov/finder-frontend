@@ -104,7 +104,7 @@
   "rendering_app": "finder-frontend",
   "schema_name": "finder",
   "search_user_need_document_supertype": "government",
-  "title": "All content",
+  "title": "Search",
   "updated_at": "2019-01-17T13:00:00.000+00:00",
   "user_journey_document_supertype": "finding"
 }

@@ -44,12 +44,13 @@ describe("liveSearch", function(){
                 '<input type="submit" value="Filter results" class="button js-live-search-fallback"/>' +
               '</form>');
     $results = $('<div class="js-live-search-results-block"></div>');
+    $head = $('<meta name="govuk:base_title" content="All Content - GOV.UK">');
     $count = $('<div aria-live="assertive" id="js-search-results-info"><p class="result-info"></p></div>');
     $atomAutodiscoveryLink = $("<link href='http://an-atom-url.atom' rel='alternate' title='ATOM' type='application/atom+xml'>");
     $emailSubscriptionLinks = $("<a href='https://a-url/email-signup?query_param=something'>");
     $feedSubscriptionLinks = $("<a href='http://an-atom-url.atom?query_param=something'>");
     $('body').append($form).append($results).append($atomAutodiscoveryLink).append($feedSubscriptionLinks).append($emailSubscriptionLinks);
-
+    $('head').append('<meta name="govuk:base_title" content="All Content - GOV.UK">');
     _supportHistory = GOVUK.support.history;
     GOVUK.support.history = function(){ return true; };
     GOVUK.analytics = { trackPageview: function (){ }, trackEvent: function(){ } };
