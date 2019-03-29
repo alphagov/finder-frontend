@@ -38,10 +38,14 @@ private
 
   # Add a finder with the base path as a key and the finder name
   # without filetype as the value; example:
-  # "/guidance-and-regulation" => "guidance_and_regulation"
+  # "/review-search/guidance-and-regulation" => "guidance_and_regulation"
+  # This allows easy development of finders within finder-frontend
+  # *************************************
+  # *** THESE SHOULD NOT BE LIVE URLS ***
+  # *** AS THEY WILL TAKE PRECEDENCE  ***
+  # ***  OVER CONTENT STORE REQUESTS  ***
+  # *************************************
   FINDERS_IN_DEVELOPMENT = {
-    "/search/research-and-statistics" => "statistics",
-    "/search/research-and-statistics/email-signup" => "statistics_email_signup",
     "/review-search/all" => 'all_content'
   }.freeze
 
