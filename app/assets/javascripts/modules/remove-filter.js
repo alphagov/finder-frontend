@@ -5,6 +5,11 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
   'use strict';
 
   GOVUK.Modules.RemoveFilter = function () {
+    var onChangeSuppressAnalytics = {
+      type: "change",
+      suppressAnalytics: true
+    }
+
     this.start = function (element) {
       $(element).on('click', '[data-module="remove-filter-link"]', toggleFilter);
     };
@@ -19,8 +24,8 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
       var removeFilterFacet = $el.data('facet');
 
       var $input = getInput(removeFilterName, removeFilterValue, removeFilterFacet);
-      clearFacet($input, removeFilterValue, removeFilterFacet);
       fireRemoveTagTrackingEvent(removeFilterValue, removeFilterFacet);
+      clearFacet($input, removeFilterValue, removeFilterFacet);
     }
 
     function clearFacet($input, removeFilterValue, removeFilterFacet) {
@@ -30,7 +35,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
 
       if (inputType == 'checkbox') {
         $input.prop("checked", false);
-        $input.trigger('change');
+        $input.trigger(onChangeSuppressAnalytics);
       }
       else if (inputType == 'text' || inputType == 'search') {
         var splitKeywords = currentVal.split(" ");
@@ -44,13 +49,10 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
 
         var newVal = splitKeywords.join(" ").trim();
 
-        $input.val(newVal).trigger({
-          type: "change",
-          suppressAnalytics: true
-        });
+        $input.val(newVal).trigger(onChangeSuppressAnalytics);
       }
       else if (elementType == 'OPTION') {
-        $('#' + removeFilterFacet).val('').trigger('change');
+        $('#' + removeFilterFacet).val('').trigger(onChangeSuppressAnalytics);
       }
     }
 
