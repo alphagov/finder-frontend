@@ -358,7 +358,7 @@ describe('GOVUK.OptionSelect', function() {
           '&lt;/div&gt;'+
         '&lt;/div&gt;';
 
-      var filterSpan = '<span id="checkboxes-9b7ecc25-count" class="app-c-option-select__count govuk-visually-hidden" aria-live="polite" data-single="option found" data-multiple="options found"></span>';
+      var filterSpan = '<span id="checkboxes-9b7ecc25-count" class="app-c-option-select__count govuk-visually-hidden" aria-live="polite" data-single="option found" data-multiple="options found" data-selected="selected"></span>';
 
       $('body').find('.app-c-option-select').attr('data-filter-element', filterMarkup);
       $('body').find('.gem-c-checkboxes').prepend($(filterSpan));
@@ -380,17 +380,17 @@ describe('GOVUK.OptionSelect', function() {
       $filterInput.val('in').keyup();
       jasmine.clock().tick(400);
       expect($('.govuk-checkboxes__input:visible').length).toBe(5);
-      expect($count.text()).toBe('5 options found');
+      expect($count.text()).toBe('5 options found, 0 selected');
 
       $filterInput.val('ind').keyup();
       jasmine.clock().tick(400);
       expect($('.govuk-checkboxes__input:visible').length).toBe(2);
-      expect($count.html()).toBe('2 options found');
+      expect($count.html()).toBe('2 options found, 0 selected');
 
       $filterInput.val('shouldnotmatchanything').keyup();
       jasmine.clock().tick(400);
       expect($('.govuk-checkboxes__input:visible').length).toBe(0);
-      expect($count.html()).toBe('0 options found');
+      expect($count.html()).toBe('0 options found, 0 selected');
     });
 
     it('does not propagate keypresses up', function(){
@@ -412,12 +412,12 @@ describe('GOVUK.OptionSelect', function() {
       $filterInput.val('electronics').keyup();
       jasmine.clock().tick(400);
       expect($('.govuk-checkboxes__input:visible').length).toBe(3);
-      expect($count.html()).toBe('3 options found');
+      expect($count.html()).toBe('3 options found, 2 selected');
 
       $filterInput.val('shouldnotmatchanything').keyup();
       jasmine.clock().tick(400);
       expect($('.govuk-checkboxes__input:visible').length).toBe(2);
-      expect($count.html()).toBe('2 options found');
+      expect($count.html()).toBe('2 options found, 2 selected');
     });
 
     it('matches a filter regardless of text case', function(){
@@ -426,12 +426,12 @@ describe('GOVUK.OptionSelect', function() {
       $filterInput.val('electroNICS industry').keyup();
       jasmine.clock().tick(400);
       expect($('.govuk-checkboxes__input:visible').length).toBe(1);
-      expect($count.html()).toBe('1 option found');
+      expect($count.html()).toBe('1 option found, 0 selected');
 
       $filterInput.val('Building and construction').keyup();
       jasmine.clock().tick(400);
       expect($('.govuk-checkboxes__input:visible').length).toBe(1);
-      expect($count.html()).toBe('1 option found');
+      expect($count.html()).toBe('1 option found, 0 selected');
     });
 
     it('matches ampersands correctly', function(){
@@ -440,12 +440,12 @@ describe('GOVUK.OptionSelect', function() {
       $filterInput.val('Distribution & Service Industries').keyup();
       jasmine.clock().tick(400);
       expect($('.govuk-checkboxes__input:visible').length).toBe(1);
-      expect($count.html()).toBe('1 option found');
+      expect($count.html()).toBe('1 option found, 0 selected');
 
       $filterInput.val('Distribution &amp; Service Industries').keyup();
       jasmine.clock().tick(400);
       expect($('.govuk-checkboxes__input:visible').length).toBe(0);
-      expect($count.html()).toBe('0 options found');
+      expect($count.html()).toBe('0 options found, 0 selected');
     });
 
     it('ignores whitespace around the user input', function(){
@@ -454,7 +454,7 @@ describe('GOVUK.OptionSelect', function() {
       $filterInput.val('   Clothing, footwear and fashion    ').keyup();
       jasmine.clock().tick(400);
       expect($('.govuk-checkboxes__input:visible').length).toBe(1);
-      expect($count.html()).toBe('1 option found');
+      expect($count.html()).toBe('1 option found, 0 selected');
     });
 
     it('ignores duplicate whitespace in the user input', function(){
@@ -463,7 +463,7 @@ describe('GOVUK.OptionSelect', function() {
       $filterInput.val('Clothing,     footwear      and      fashion').keyup();
       jasmine.clock().tick(400);
       expect($('.govuk-checkboxes__input:visible').length).toBe(1);
-      expect($count.html()).toBe('1 option found');
+      expect($count.html()).toBe('1 option found, 0 selected');
     });
 
     it('ignores common punctuation characters', function(){
@@ -472,7 +472,7 @@ describe('GOVUK.OptionSelect', function() {
       $filterInput.val('closed organisation department for Fisheries War Widows pay Farmers rights sheep and goats Farmers rights cows & llamas').keyup();
       jasmine.clock().tick(400);
       expect($('.govuk-checkboxes__input:visible').length).toBe(1);
-      expect($count.html()).toBe('1 option found');
+      expect($count.html()).toBe('1 option found, 0 selected');
     });
 
     it('normalises & and and', function(){
@@ -481,12 +481,12 @@ describe('GOVUK.OptionSelect', function() {
       $filterInput.val('cows & llamas').keyup();
       jasmine.clock().tick(400);
       expect($('.govuk-checkboxes__input:visible').length).toBe(1);
-      expect($count.html()).toBe('1 option found');
+      expect($count.html()).toBe('1 option found, 0 selected');
 
       $filterInput.val('cows and llamas').keyup();
       jasmine.clock().tick(400);
       expect($('.govuk-checkboxes__input:visible').length).toBe(1);
-      expect($count.html()).toBe('1 option found');
+      expect($count.html()).toBe('1 option found, 0 selected');
     });
 
     // there was a bug in cleanString() where numbers were being ignored
@@ -496,12 +496,12 @@ describe('GOVUK.OptionSelect', function() {
       $filterInput.val('1st and 2nd Military Courts').keyup();
       jasmine.clock().tick(400);
       expect($('.govuk-checkboxes__input:visible').length).toBe(1);
-      expect($count.html()).toBe('1 option found');
+      expect($count.html()).toBe('1 option found, 0 selected');
 
       $filterInput.val('footwear and f23907234973204723094ashion').keyup();
       jasmine.clock().tick(400);
       expect($('.govuk-checkboxes__input:visible').length).toBe(0);
-      expect($count.html()).toBe('0 options found');
+      expect($count.html()).toBe('0 options found, 0 selected');
     });
   });
 });

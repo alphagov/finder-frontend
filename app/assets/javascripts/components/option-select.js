@@ -28,6 +28,7 @@
       this.$filterCount = $('#' + this.$filter.attr('aria-describedby'));
       this.filterTextSingle = ' ' + this.$filterCount.data('single');
       this.filterTextMultiple = ' ' + this.$filterCount.data('multiple');
+      this.filterTextSelected = ' ' + this.$filterCount.data('selected');
       this.checkboxLabels = [];
       this.filterTimeout = 0;
       var that = this;
@@ -113,7 +114,8 @@
     }
 
     var len = showCheckboxes.length || 0;
-    obj.$filterCount.html(len + (len == 1 ? obj.filterTextSingle : obj.filterTextMultiple));
+    var lenChecked = obj.$optionsContainer.find('.govuk-checkboxes__input:checked').length;
+    obj.$filterCount.html(len + (len == 1 ? obj.filterTextSingle : obj.filterTextMultiple) + ", " + lenChecked + obj.filterTextSelected);
   };
 
   OptionSelect.prototype.replaceHeadWithButton = function replaceHeadWithButton(){
