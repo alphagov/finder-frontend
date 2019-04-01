@@ -53,8 +53,6 @@
       });
     }
 
-    this.attachCheckedCounter();
-
     // Performance in ie 6/7 is not good enough to support animating the opening/closing
     // so do not allow option-selects to be collapsible in this case
     var allowCollapsible = (typeof ieVersion == "undefined" || ieVersion > 7) ? true : false;
@@ -79,6 +77,8 @@
         this.setupHeight();
       }
     }
+
+    this.attachCheckedCounter();
   }
 
   OptionSelect.prototype.cleanString = function cleanString(text) {
@@ -136,11 +136,11 @@
     $button.attr('aria-controls', this.$optionsContainer.attr('id'));
     $button.html(jsContainerHeadHTML);
     $containerHead.replaceWith($button);
-
   };
 
   OptionSelect.prototype.attachCheckedCounter = function attachCheckedCounter(){
-    this.$optionSelect.find('.js-container-head').append('<div class="govuk-!-font-size-14 js-selected-counter">'+this.checkedString()+'</div>');
+    this.$optionSelect.find('.js-container-head')
+      .after('<div class="govuk-!-font-size-14 app-c-option-select__selected-counter js-selected-counter">'+this.checkedString()+'</div>');
   };
 
   OptionSelect.prototype.updateCheckedCount = function updateCheckedCount(){
