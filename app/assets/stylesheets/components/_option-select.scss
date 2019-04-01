@@ -79,7 +79,6 @@
   @include govuk-font(19, $weight: bold);
   position: relative;
   margin-right: 40px;
-  padding-top: 5px;
 }
 
 .app-c-option-select__icon {
@@ -149,8 +148,7 @@
     width: 100%;
     text-align: left;
     cursor: pointer;
-    margin-bottom: -1px;
-    padding: 5px 8px;
+    padding: 10px 8px 5px 8px;
     background-color: govuk-colour("grey-3");
 
     &:hover,
