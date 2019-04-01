@@ -37,10 +37,15 @@
       <% end %>
 
       <% if @signup_presenter.body %>
-        <%= render 'govuk_publishing_components/components/govspeak', content: @signup_presenter.body.html_safe %>
+        <div class="govspeak-wrapper">
+          <%= render 'govuk_publishing_components/components/govspeak', content: @signup_presenter.body.html_safe %>
+        </div>
       <% end %>
 
-      <%= submit_tag 'Create subscription', class: "button" %>
+      <%= render "govuk_publishing_components/components/button", {
+        text: "Create subscription",
+        margin_bottom: true
+      } %>
     <% end %>
 
   </div>
