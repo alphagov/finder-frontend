@@ -339,6 +339,8 @@ RSpec.describe ResultSetPresenter do
     end
 
     context 'check top result' do
+      subject(:presenter) { ResultSetPresenter.new(finder, filter_params, view_context, true) }
+
       before(:each) do
         allow(finder).to receive(:eu_exit_finder?).and_return(true)
         allow(presenter).to receive(:sort_option).and_return("key" => "-relevance")
@@ -400,6 +402,15 @@ RSpec.describe ResultSetPresenter do
             total
           )
         end
+
+        it 'has no top result' do
+          search_result_objects = presenter.documents
+          expect(search_result_objects[0][:document][:top_result]).to_not eql(true)
+        end
+      end
+
+      context 'top result not set if show top result is false' do
+        subject(:presenter) { ResultSetPresenter.new(finder, filter_params, view_context, false) }
 
         it 'has no top result' do
           search_result_objects = presenter.documents
