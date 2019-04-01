@@ -9,6 +9,8 @@
 //
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
+//= require govuk_publishing_components/dependencies
+//= require govuk_publishing_components/all_components
 //
 //= require support
 //
@@ -19,4 +21,3 @@
 //= require search
 //= require_tree ./modules
 //= require_tree ./components
-//= require govuk_publishing_components/all_components
