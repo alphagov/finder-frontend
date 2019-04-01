@@ -346,6 +346,7 @@ describe EmailAlertSignupAPI do
             },
           }
         end
+
         it 'asks email-alert-api to find or create the subscriber list' do
           email_alert_api_has_subscriber_list(
             "tags" => {
@@ -460,6 +461,58 @@ describe EmailAlertSignupAPI do
 
         expect(subject.signup_url).to eql subscription_url
       end
+    end
+  end
+
+  context "when choices have filter_values" do
+    let(:subscription_url) { "http://gov.uk/email/news-and-comms-subscription" }
+    let(:attributes) do
+      {
+        "filter" => {
+            "persons" => %w(people_named_harry people_named_john),
+        },
+      }
+    end
+    let(:available_choices) do
+      [
+        {
+          "facet_id" => "persons",
+          "facet_name" => "persons",
+          "facet_choices" => [
+            {
+              "key" => "people_named_harry",
+              "filter_values" => %w(harry_potter harry),
+              "topic_name" => "people named Harry",
+            },
+            {
+              "key" => "people_named_john",
+              "filter_values" => %w(john),
+              "topic_name" => "John",
+            }
+          ]
+        }
+      ]
+    end
+    let(:subscription_list_title_prefix) { "News and communications" }
+
+    before do
+      email_alert_api_has_subscriber_list(
+        "tags" => {
+          "persons" => { any: %w(harry_potter harry john) },
+        },
+        "subscription_url" => subscription_url
+      )
+    end
+
+    it 'asks email-alert-api to find or create the subscriber list' do
+      expect(Services.email_alert_api).to receive(:find_or_create_subscriber_list).with(
+        "tags" => {
+          "persons" => { any: %w(harry_potter harry john) },
+        },
+        "title" => "News and communications with people named Harry and John",
+      ).and_call_original
+
+      expect(subject.signup_url).to eql subscription_url
     end
   end
 end

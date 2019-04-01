@@ -444,7 +444,6 @@ end
 Given(/^a collection of documents exist that can be filtered by checkbox$/) do
   stub_content_store_with_cma_cases_finder_for_supergroup_checkbox_filter
   stub_rummager_with_cma_cases_for_supergroups_checkbox
-  stub_rummager_with_query_validation_request
   visit_cma_cases_finder
 end
 

@@ -1,5 +1,4 @@
 require 'email_alert_title_builder'
-require 'validate_query'
 
 class EmailAlertSignupAPI
   def initialize(dependencies = {})
@@ -12,10 +11,6 @@ class EmailAlertSignupAPI
 
   def signup_url
     subscriber_list['subscription_url']
-  end
-
-  def validate!
-    validater.validate
   end
 
 private
@@ -67,19 +62,26 @@ private
     @massaged_attributes ||= attributes.dup.tap do |massaged_attributes|
       available_choices.each do |choice|
         key = choice["filter_key"] || choice["facet_id"]
-        value = (massaged_attributes['filter'] || {})[key]
-        next unless value
+        value = massaged_attributes.dig('filter', key)
+        next if value.nil?
 
-        massaged_attributes[key] = value
+        massaged_attributes[key] = parsed_filter_value(choice, value)
       end
       massaged_attributes.delete("filter")
     end
   end
 
-  def validater
-    options = massaged_attributes
-    options["content_purpose_supergroup"] = content_purpose_supergroup if content_purpose_supergroup.present?
+  def parsed_filter_value(choice, value)
+    chosen_options = Array(value)
+    # filter_values can be set if we want to send an array of values to
+    # the email-alert-api. E.g. document group: research, translates to
+    # to several document types being sent to rummager / email-alert-api.
+    chosen_facet_choices = choice.fetch('facet_choices', []).select { |option|
+      chosen_options.include?(option['key'])
+    }
 
-    @validater ||= ::ValidateQuery.new(options)
+    chosen_facet_choice_values = chosen_facet_choices.map { |option| option['filter_values'] }.flatten
+
+    chosen_facet_choice_values.any? ? chosen_facet_choice_values : value
   end
 end
