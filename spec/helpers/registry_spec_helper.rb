@@ -1,54 +1,54 @@
 module RegistrySpecHelper
   def stub_people_registry_request
     stub_request(:get, "http://search.dev.gov.uk/search.json")
-    .with(query: {
-      count: 0,
-      facet_people: '1500,examples:0,order:value.title'
-    })
-    .to_return(body: {
-      results: [],
-      facets: {
-        people: {
-          options: [
-            {
-              value: {
-                title: "Albus Dumbledore",
-                slug: "albus-dumbledore",
-                _id: "a field that we're not using"
-              }
-            },
-            {
-              value: {
-                title: "Cornelius Fudge",
-                slug: "cornelius-fudge",
-                _id: "a field that we're not using"
-              }
-            },
-            {
-              value: {
-                title: "Harry Potter",
-                slug: "harry-potter",
-                _id: "a field that we're not using"
-              }
-            },
-            {
-              value: {
-                title: "Ron Weasley",
-                slug: "ron-weasley",
-                _id: "a field that we're not using"
-              }
-            },
-            {
-              value: {
-                title: "Rufus Scrimgeour",
-                slug: "rufus-scrimgeour",
-                _id: "/government/people/rufus-scrimgeour"
-              }
+        .with(query: {
+            count: 0,
+            facet_people: '1500,examples:0,order:value.title'
+        })
+        .to_return(body: {
+            results: [],
+            facets: {
+                people: {
+                    options: [
+                        {
+                            value: {
+                                title: "Albus Dumbledore",
+                                slug: "albus-dumbledore",
+                                _id: "a field that we're not using"
+                            }
+                        },
+                        {
+                            value: {
+                                title: "Cornelius Fudge",
+                                slug: "cornelius-fudge",
+                                _id: "a field that we're not using"
+                            }
+                        },
+                        {
+                            value: {
+                                title: "Harry Potter",
+                                slug: "harry-potter",
+                                _id: "a field that we're not using"
+                            }
+                        },
+                        {
+                            value: {
+                                title: "Ron Weasley",
+                                slug: "ron-weasley",
+                                _id: "a field that we're not using"
+                            }
+                        },
+                        {
+                            value: {
+                                title: "Rufus Scrimgeour",
+                                slug: "rufus-scrimgeour",
+                                _id: "/government/people/rufus-scrimgeour"
+                            }
+                        }
+                    ]
+                }
             }
-          ]
-        }
-      }
-    }.to_json)
+        }.to_json)
   end
 
   def stub_organisations_registry_request
@@ -83,5 +83,26 @@ module RegistrySpecHelper
         "_id": "a field that we're not using"
       }
     ] }.to_json)
+  end
+
+  def stub_manuals_registry_request
+    stub_request(:get, "http://search.dev.gov.uk/search.json")
+      .with(query: {
+          filter_document_type: 'manual',
+          fields: %w(title),
+          count: 1500,
+      })
+      .to_return(body: {
+        results: [
+          {
+              title: "Replacing bristles in your Nimbus 2000",
+              _id: "/guidance/care-and-use-of-a-nimbus-2000"
+          },
+          {
+              title: "Upgrading the baud rate on the Floo Network",
+              _id: "upgrading-baud-rate-on-the-floo-network"
+          }
+        ]
+      }.to_json)
   end
 end

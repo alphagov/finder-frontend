@@ -27,11 +27,11 @@ private
   attr_reader :facets
 
   def dynamic_facets
-    text_facets.select { |f| f['allowed_values'].blank? }
+    facets_that_could_be_dynamic.select { |f| f['allowed_values'].blank? }
   end
 
-  def text_facets
-    filterable_facets.select { |f| %w(text).include? f['type'] }
+  def facets_that_could_be_dynamic
+    filterable_facets.select { |f| %w(text hidden_clearable).include? f['type'] }
   end
 
   def filterable_facets

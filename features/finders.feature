@@ -347,3 +347,10 @@ Feature: Filtering documents
     And I select upcoming statistics
     Then I should see upcoming statistics
     And I should not see an upcoming statistics facet tag
+
+  @javascript
+  Scenario: Finder has a clearable hidden input
+    When I view the all content finder with a manual filter
+    Then I can see results filtered by that manual
+    And I click the Replacing bristles in your Nimbus 2000 remove control
+    Then I see all content results

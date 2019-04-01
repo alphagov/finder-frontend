@@ -9,6 +9,7 @@ module Registries
         'part_of_taxonomy_tree' => topic_taxonomy,
         'people' => people,
         'organisations' => organisations,
+        'manual' => manuals,
       }
     end
 
@@ -28,6 +29,10 @@ module Registries
 
     def organisations
       @organisations ||= OrganisationsRegistry.new
+    end
+
+    def manuals
+      @manuals ||= ManualsRegistry.new
     end
   end
 end
