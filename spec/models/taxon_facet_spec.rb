@@ -110,4 +110,26 @@ describe TaxonFacet do
       specify { expect(subject.sentence_fragment).to be_nil }
     end
   end
+
+  describe "#has_value?" do
+    context "value is nil" do
+      subject { TaxonFacet.new(facet_data, nil) }
+      specify { expect(subject.has_value?).to be false }
+    end
+
+    context "value is empty hash" do
+      subject { TaxonFacet.new(facet_data, {}) }
+      specify { expect(subject.has_value?).to be false }
+    end
+
+    context "value is hash with key and nil values" do
+      subject { TaxonFacet.new(facet_data, "level_one_taxon" => nil, "level_two_taxon" => nil) }
+      specify { expect(subject.has_value?).to be false }
+    end
+
+    context "value is has been selected" do
+      subject { TaxonFacet.new(facet_data, allowed_values) }
+      specify { expect(subject.has_value?).to be true }
+    end
+  end
 end

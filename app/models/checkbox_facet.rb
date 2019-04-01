@@ -20,6 +20,10 @@ class CheckboxFacet < FilterableFacet
     is_checked?
   end
 
+  def has_value?
+    is_checked?
+  end
+
   def value
     facet['value'] || true
   end

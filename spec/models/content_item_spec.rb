@@ -58,4 +58,17 @@ describe ContentItem do
       end
     end
   end
+
+  describe "has_value?" do
+    it "returns false when document_type is not redirect" do
+      expect(subject.is_redirect?).to be false
+    end
+
+    context "when document_type is redirect" do
+      let(:finder_content_item) { news_and_communications.merge("document_type" => 'redirect') }
+      it "returns true when document_type is redirect" do
+        expect(subject.is_redirect?).to be true
+      end
+    end
+  end
 end

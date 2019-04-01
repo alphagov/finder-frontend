@@ -55,6 +55,10 @@ class OptionSelectFacet < FilterableFacet
     { selected: selected_values, allowed: allowed_values }
   end
 
+  def has_value?
+    value && value.any?
+  end
+
 private
 
   def value_fragments

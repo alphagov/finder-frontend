@@ -66,4 +66,21 @@ describe CheckboxFacet do
       }
     end
   end
+
+
+  describe "#has_value?" do
+    context "true if checkbox is selected" do
+      subject { CheckboxFacet.new(facet_data, "yes") }
+      specify {
+        expect(subject.has_value?).to eql(true)
+      }
+    end
+
+    context "checkbox is not selected" do
+      subject { CheckboxFacet.new(facet_data, nil) }
+      specify {
+        expect(subject.has_value?).to eql(false)
+      }
+    end
+  end
 end

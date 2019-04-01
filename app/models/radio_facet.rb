@@ -21,6 +21,10 @@ class RadioFacet < FilterableFacet
     return nil if hide_facet_tag?
   end
 
+  def has_value?
+    @value.present?
+  end
+
 private
 
   def selected_value

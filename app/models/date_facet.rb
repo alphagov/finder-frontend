@@ -14,6 +14,10 @@ class DateFacet < FilterableFacet
     present_values.any?
   end
 
+  def has_value?
+    value.present? && value.values.any?(&:present?)
+  end
+
 private
 
   def value_fragments

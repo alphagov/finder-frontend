@@ -330,16 +330,10 @@ private
   end
 
   def alert_query_string
-    facets_with_filters = facets.select(&:has_filters?)
-
-    facets_with_values = facets_with_filters.reject { |facet|
-      facet.value.nil? ||
-        facet.value.is_a?(Hash) && facet.value.values.all?(&:blank?) ||
-        facet.value.is_a?(Array) && facet.value.empty?
-    }
-
-    filtered_values = facets_with_values.each_with_object({}) { |facet, hash|
-      hash[facet.key] = facet.value
+    filtered_values = facets.each_with_object({}) { |facet, hash|
+      if facet.has_filters? && facet.has_value?
+        hash[facet.key] = facet.value
+      end
     }
 
     query_string = filtered_values.to_query

@@ -47,6 +47,10 @@ class Facet
     facet['allowed_values'] || []
   end
 
+  def has_value?
+    raise NotImplementedError
+  end
+
 private
 
   def and_word_connectors

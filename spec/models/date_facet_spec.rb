@@ -52,4 +52,41 @@ describe DateFacet do
       }
     end
   end
+
+  describe "#has_value?" do
+    context "value is nil" do
+      let(:value) { nil }
+      subject { DateFacet.new(facet_data, value) }
+
+      specify {
+        expect(subject.has_value?).to eql(false)
+      }
+    end
+
+    context "value has a nil value" do
+      let(:value) {
+        {
+          "from" => nil
+        }
+      }
+      subject { DateFacet.new(facet_data, value) }
+
+      specify {
+        expect(subject.has_value?).to eql(false)
+      }
+    end
+
+    context "value has a value" do
+      let(:value) {
+        {
+            "from" => "24/11/1990"
+        }
+      }
+      subject { DateFacet.new(facet_data, value) }
+
+      specify {
+        expect(subject.has_value?).to eql(true)
+      }
+    end
+  end
 end

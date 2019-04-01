@@ -50,4 +50,22 @@ describe DropdownSelectFacet do
       specify { expect(subject.sentence_fragment).to be_nil }
     end
   end
+
+  describe "#has_value?" do
+    context "value is nil" do
+      subject { DropdownSelectFacet.new(facet_data, nil) }
+
+      specify {
+        expect(subject.has_value?).to eql(false)
+      }
+    end
+
+    context "value is present" do
+      subject { DropdownSelectFacet.new(facet_data, "allowed-value-1") }
+
+      specify {
+        expect(subject.has_value?).to eql(true)
+      }
+    end
+  end
 end

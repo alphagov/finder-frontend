@@ -28,6 +28,10 @@ class KeywordFacet
     [keywords]
   end
 
+  def has_value?
+    keywords.present?
+  end
+
   def hide_facet_tag?
     false
   end

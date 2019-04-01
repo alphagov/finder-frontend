@@ -18,6 +18,12 @@ class HiddenFacet < FilterableFacet
     value.present?
   end
 
+  def has_value?
+    value.present?
+  end
+
+private
+
   def value_fragments
     selected_values.map { |v|
       {

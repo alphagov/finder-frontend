@@ -114,4 +114,30 @@ describe OptionSelectFacet do
       end
     end
   end
+
+  describe "#has_value?" do
+    context "value is empty" do
+      subject { OptionSelectFacet.new(facet_data, []) }
+
+      specify do
+        expect(subject.has_value?).to be false
+      end
+    end
+
+    context "value is nil" do
+      subject { OptionSelectFacet.new(facet_data, nil) }
+
+      specify do
+        expect(subject.has_value?).to be false
+      end
+    end
+
+    context "value has entries" do
+      subject { OptionSelectFacet.new(facet_data, %w(allowed-value-1 allowed-value-2)) }
+
+      specify do
+        expect(subject.has_value?).to be true
+      end
+    end
+  end
 end

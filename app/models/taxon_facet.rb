@@ -27,6 +27,10 @@ class TaxonFacet < DropdownSelectFacet
     selected_level_one_value.present?
   end
 
+  def has_value?
+    @value_hash.present? && @value_hash.values.any?(&:present?)
+  end
+
 private
 
   def value_fragments

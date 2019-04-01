@@ -50,4 +50,30 @@ describe KeywordFacet do
       }
     end
   end
+
+  describe "#has_value?" do
+    context "value is nil" do
+      subject { KeywordFacet.new(nil) }
+
+      specify {
+        expect(subject.has_value?).to eql(false)
+      }
+    end
+
+    context "value is a single keyword" do
+      subject { KeywordFacet.new(query) }
+
+      specify {
+        expect(subject.has_value?).to eql(true)
+      }
+    end
+
+    context "value has multiple quotes" do
+      subject { KeywordFacet.new(query_with_multiple_quotes) }
+
+      specify {
+        expect(subject.has_value?).to eql(true)
+      }
+    end
+  end
 end

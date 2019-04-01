@@ -27,6 +27,10 @@ class DropdownSelectFacet < FilterableFacet
     selected_value.any?
   end
 
+  def has_value?
+    value.present?
+  end
+
 private
 
   def value_fragment
@@ -38,7 +42,7 @@ private
   end
 
   def selected_value
-    return default_value if @value.nil?
+    return default_value if value.nil?
 
     allowed_values.find { |option|
       @value == option['value']
