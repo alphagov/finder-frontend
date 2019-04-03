@@ -9,6 +9,11 @@
   <% if finder.canonical_link? %>
     <link rel="canonical" href="<%= "#{ENV['GOVUK_WEBSITE_ROOT']}#{finder.slug}" %>">
   <% end %>
+
+  <% if @results.to_hash[:documents].present? && @results.to_hash[:documents].first[:document][:top_result] %>
+    <meta name="govuk:relevant-result-shown" content="yes">
+  <% end %>
+
 <% end %>
 
 <% content_for :meta_title, finder.name %>
