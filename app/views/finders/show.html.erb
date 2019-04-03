@@ -91,7 +91,7 @@
       <div aria-live="assertive" id="js-search-results-info" data-module="remove-filter">
         <div class="result-info">
           <div class="govuk-grid-row">
-            <div class="govuk-grid-column-one-third result-region-header__counter">
+            <div class="govuk-grid-column-one-third">
               <%= render_mustache('result_count', @results.to_hash) %>
             </div>
             <% if @results.has_email_signup_link? %>
@@ -108,9 +108,9 @@
 
       <% if finder.sort %>
         <div class="govuk-form-group">
-          <%= label_tag 'order', 'Sort by', class: 'result-region-header__sort-label' %>
+          <%= label_tag 'order', 'Sort by', class: 'result-region-header__sort-label govuk-label' %>
           <%= select_tag 'order', finder.sort_options,
-            class: 'js-order-results result-region-header__sort-select',
+            class: 'js-order-results govuk-select',
             'aria-controls': 'js-search-results-info',
             data: { 'default-sort-option' => finder.default_sort_option_value,
                     'relevance-sort-option' => finder.relevance_sort_option_value,

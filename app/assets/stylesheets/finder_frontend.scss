@@ -382,19 +382,19 @@
 }
 
 .result-region-header__counter {
+  @include govuk-font(19);
   white-space: nowrap;
+  margin-bottom: govuk-spacing(4);
+
+  @include govuk-media-query($from: tablet) {
+    margin-bottom: govuk-spacing(2);
+  }
 }
 
 .result-region-header__sort-label {
   @include govuk-responsive-padding(1, "right");
-  @include govuk-font(16);
   display: inline-block;
   margin-bottom: govuk-spacing(3);
-}
-
-.result-region-header__sort-select {
-  @include govuk-font(16);
-  height: govuk-spacing(6);
 }
 
 .result-info {
@@ -402,6 +402,7 @@
 
   .govuk-grid-column-two-thirds {
     text-align: left;
+
     @include govuk-media-query($from: tablet) {
       text-align: right;
     }
