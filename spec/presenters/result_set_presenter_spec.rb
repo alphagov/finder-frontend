@@ -432,7 +432,10 @@ RSpec.describe ResultSetPresenter do
       end
 
       it 'returns both signup links' do
-        expect(presenter.signup_links).to eq(email_signup_link: "/email_signup", feed_link: "/finder.atom", margin_bottom: 3)
+        expect(presenter.signup_links).to eq(email_signup_link: "/email_signup",
+                                             feed_link: "/finder.atom",
+                                             hide_heading: true,
+                                             small_form: true)
       end
     end
 
@@ -443,7 +446,8 @@ RSpec.describe ResultSetPresenter do
       end
 
       it 'returns just the atom link' do
-        expect(presenter.signup_links).to eq(feed_link: "/finder.atom", margin_bottom: 3)
+        expect(presenter.signup_links).to eq(feed_link: "/finder.atom", hide_heading: true,
+                                             small_form: true)
       end
     end
   end

@@ -775,7 +775,7 @@ Then(/^the page has results region$/) do
 end
 
 Then(/^the page has a landmark to the search results$/) do
-  expect(page).to have_css('[class="govuk-grid-column-two-thirds"][role="region"][aria-label$="search results"]')
+  expect(page).to have_css('[class="govuk-grid-column-two-thirds js-live-search-results-block filtered-results"][role="region"][aria-label$="search results"]')
 end
 
 Then(/^the page has a landmark to the search filters$/) do

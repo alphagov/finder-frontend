@@ -11,7 +11,8 @@
 
     this.$form = options.$form;
     this.$resultsBlock = options.$results.find('#js-results');
-    this.$countBlock = options.$results.find('#js-search-results-info');
+    this.$countBlock = options.$results.find('.result-region-header__counter');
+    this.$facetTagBlock = options.$results.find('.js-facet-tag-wrapper');
     this.$loadingBlock = options.$results.find('#js-loading-message');
     this.$resultsCount = options.$results.find('#js-result-count');
     this.action = this.$form.attr('action') + '.json';
@@ -307,6 +308,7 @@
     if(action == $.param(this.state)) {
       this.$resultsBlock.mustache(this.templateDir + '_results', results);
       this.$countBlock.mustache(this.templateDir + '_result_count', results);
+      this.$facetTagBlock.mustache(this.templateDir + '_result_facet_tags', results);
       this.$resultsCount.text(results.total + " " + results.pluralised_document_noun);
       this.$atomAutodiscoveryLink.attr('href', results.atom_url);
       this.$loadingBlock.text('').hide();
