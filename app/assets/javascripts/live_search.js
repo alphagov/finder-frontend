@@ -103,11 +103,18 @@
           var newPath = window.location.pathname + "?" + $.param(this.state);
           history.pushState(this.state, '', newPath);
           this.trackingInit();
+          this.setRelevantResultCustomDimension();
           this.trackPageView();
         }.bind(this)
       );
     }
   };
+
+  LiveSearch.prototype.setRelevantResultCustomDimension = function() {
+    var $mostRelevantDocumentLink = $('.finder-results').find('.document__link--top');
+    var dimensionValue = $mostRelevantDocumentLink.length ? "yes" : "no";
+    GOVUK.analytics.setDimension(83, dimensionValue);
+  }
 
   LiveSearch.prototype.trackingInit = function() {
     GOVUK.modules.start($('.js-live-search-results-block'));
