@@ -73,6 +73,10 @@ Feature: Filtering documents
     Given a finder with description exists
     Then I can see that the description in the metadata is present
 
+  Scenario: Visit a finder with noindex
+    Given a finder with a no_index property exists
+    Then I can see that the noindex tag is is present in the metadata
+
   Scenario: Link tracking
     Given a government finder exists
     Then the links on the page have tracking attributes

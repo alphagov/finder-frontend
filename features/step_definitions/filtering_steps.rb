@@ -402,12 +402,24 @@ Given(/^a finder with description exists$/) do
   stub_rummager_with_cma_cases
 end
 
+Given(/^a finder with a no_index property exists$/) do
+  stub_content_store_with_cma_cases_finder_with_no_index
+  stub_rummager_with_cma_cases
+end
+
 When(/^I can see that the description in the metadata is present$/) do
   visit "/cma-cases"
 
   desc_text = "Find reports and updates on current and historical CMA investigations"
   desc_tag = "meta[name='description'][content='#{desc_text}']"
   expect(page).to have_css(desc_tag, visible: false)
+end
+
+When(/^I can see that the noindex tag is is present in the metadata$/) do
+  visit "/cma-cases"
+
+  noindex_tag = "meta[name='robots'][content='noindex']"
+  expect(page).to have_css(noindex_tag, visible: false)
 end
 
 Given(/^an organisation finder exists$/) do

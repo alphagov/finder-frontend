@@ -334,6 +334,16 @@ module DocumentHelper
     )
   end
 
+  def stub_content_store_with_cma_cases_finder_with_no_index
+    schema = govuk_content_schema_example("cma-cases", "finder")
+    schema["details"]["no_index"] = true
+
+    content_store_has_item(
+      schema.fetch("base_path"),
+      schema.to_json,
+    )
+  end
+
   def stub_content_store_with_cma_cases_finder_for_supergroup_checkbox_filter
     schema = govuk_content_schema_example("cma-cases", "finder")
     schema["details"]["facets"].map! do |facet|
