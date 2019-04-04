@@ -120,7 +120,7 @@ module DocumentHelper
     stub_request(
       :get,
       rummager_research_and_statistics_url(
-        'filter_content_store_document_type' => %w(statistics_announcement national_statistics_announcement official_statistics_announcement)
+        'filter_research_and_statistics[]' => %w(upcoming_statistics)
       )
     ).to_return(body: upcoming_statistics_results_for_statistics_json)
   end

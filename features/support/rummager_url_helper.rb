@@ -81,7 +81,7 @@ module RummagerUrlHelper
       'facet_world_locations' => '1500,order:value.title',
       'filter_all_part_of_taxonomy_tree[]' => [nil, nil],
       'fields' => research_and_statistics_search_fields.join(','),
-      'filter_content_store_document_type' => %w(statistics national_statistics statistical_data_set official_statistics),
+      'filter_research_and_statistics[]' => %w(published_statistics),
       'count' => 20,
       'order' => '-public_timestamp',
     )
@@ -132,7 +132,7 @@ module RummagerUrlHelper
       display_type
       document_collections
       part_of_taxonomy_tree
-      content_store_document_type
+      research_and_statistics
       organisations
       world_locations
     )
