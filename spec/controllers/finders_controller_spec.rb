@@ -1,24 +1,28 @@
 require 'spec_helper'
 require 'gds_api/test_helpers/content_store'
+require 'gds_api/test_helpers/rummager'
 
 describe FindersController, type: :controller do
   include GdsApi::TestHelpers::ContentStore
   include FixturesHelper
   include GovukContentSchemaExamples
+  include GdsApi::TestHelpers::Rummager
+  include GovukAbTesting::RspecHelpers
+
   render_views
 
+  let(:lunch_finder) do
+    finder = govuk_content_schema_example('finder').to_hash.merge(
+      'title' => 'Lunch Finder',
+      'base_path' => '/lunch-finder',
+    )
+
+    finder["details"]["default_documents_per_page"] = 10
+    finder["details"]["sort"] = nil
+    finder
+  end
+
   describe "GET show" do
-    let(:lunch_finder) do
-      finder = govuk_content_schema_example('finder').to_hash.merge(
-        'title' => 'Lunch Finder',
-        'base_path' => '/lunch-finder',
-      )
-
-      finder["details"]["default_documents_per_page"] = 10
-      finder["details"]["sort"] = nil
-      finder
-    end
-
     let(:all_content_finder) do
       finder = govuk_content_schema_example('finder').to_hash.merge(
         'base_path' => '/search/all',
@@ -259,5 +263,43 @@ describe FindersController, type: :controller do
         expect(response.headers).not_to include("X-Slimmer-Remove-Search")
       end
     end
+  end
+
+  describe "Business finder top results AB tests" do
+    let(:filter_params) { double(:filter_params, keywords: '') }
+    let(:view_context) { double(:view_context) }
+    let(:finder_presenter) { FinderPresenter.new(lunch_finder, {}, filter_params) }
+
+    before do
+      content_store_has_item(lunch_finder['base_path'], lunch_finder)
+      rummager_response = %|{
+        "results": [],
+        "total": 0,
+        "start": 0,
+        "facets": {},
+        "suggested_queries": []
+      }|
+      stub_request(:get, /search.json/).to_return(status: 200, body: rummager_response, headers: {})
+    end
+
+    it "Finder variant A does not set show_top_result" do
+      with_variant FinderAnswerABTest: "A" do
+        get :show, params: { slug: path_for(lunch_finder) }
+        expect(subject.show_top_result?).to eq(false)
+      end
+    end
+
+    it "Finder variant B does set show_top_result" do
+      with_variant FinderAnswerABTest: "B" do
+        get :show, params: { slug: path_for(lunch_finder) }
+        expect(subject.show_top_result?).to eq(true)
+      end
+    end
+  end
+
+  def path_for(content_item, locale = nil)
+    base_path = content_item['base_path'].sub(/^\//, '')
+    base_path.gsub!(/\.#{locale}$/, '') if locale
+    base_path
   end
 end

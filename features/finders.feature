@@ -235,9 +235,11 @@ Feature: Filtering documents
     And the correct facets have been pre-selected
 
   @javascript
-  Scenario: Adding top result in business finder
+  Scenario: Showing top result in business finder
+    Given I am in the variant B control group
     When I view the business readiness finder
     And I fill in some keywords
+    And I submit the form
     Then I see most relevant order selected
     And I see results with top result
     And The top result has the correct tracking data

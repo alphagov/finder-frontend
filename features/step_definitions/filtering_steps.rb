@@ -120,6 +120,13 @@ When(/^I view the news and communications finder$/) do
   visit finder_path('search/news-and-communications')
 end
 
+Given(/^I am in the variant B control group$/) do
+  ab_test_variant = double(:variant, variant_name: "B", analytics_meta_tag: "")
+  allow(ab_test_variant).to receive(:variant?).with("B").and_return(true)
+  allow(ab_test_variant).to receive(:configure_response)
+  allow_any_instance_of(FindersController).to receive(:finder_top_result_variant).and_return(ab_test_variant)
+end
+
 When(/^I view the business readiness finder$/) do
   content_store_has_business_readiness_finder
   content_store_has_business_readiness_email_signup
@@ -627,6 +634,10 @@ end
 
 And(/^I fill in some keywords$/) do
   fill_in 'Search', with: "Keyword1 Keyword2\n"
+end
+
+And(/^I submit the form$/) do
+  page.execute_script("$('form.js-live-search-form').submit()")
 end
 
 Then(/^The keyword textbox is empty$/) do
