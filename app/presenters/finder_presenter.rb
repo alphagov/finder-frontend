@@ -198,15 +198,14 @@ class FinderPresenter
       ]
     end
 
-    disabled_option = keywords.blank? ? relevance_sort_option_value : ''
+    disabled_options = []
+    disabled_options << relevance_sort_option_value if keywords.blank?
+    disabled_options << 'updated-newest' if content_document_type == 'statistics_upcoming'
+    disabled_options << 'updated-oldest' if content_document_type == 'statistics_upcoming'
 
-    selected_option = if values['order'].present? && sort.any? { |option| option['name'].parameterize == values['order'] }
-                        values['order']
-                      else
-                        default_sort_option_value
-                      end
+    selected_option = selected_sort_option(disabled_options)
 
-    options_for_select(options, selected: selected_option, disabled: disabled_option)
+    options_for_select(options, selected: selected_option, disabled: disabled_options)
   end
 
   def show_keyword_search?
@@ -288,9 +287,27 @@ class FinderPresenter
     self.content_item['content_id'] == "42ce66de-04f3-4192-bf31-8394538e0734"
   end
 
+  def content_document_type
+    document_type = filters.find { |f| f.key == 'content_store_document_type' }
+    document_type.value if document_type.present?
+  end
+
 private
 
   attr_reader :search_results
+
+  def selected_sort_option(disabled_options)
+    unless values['order'].present? || sort.any? { |option| option['name'].parameterize == values['order'] }
+      return default_sort_option_value
+    end
+
+    if disabled_options.include?(values['order'])
+      sort_order = content_document_type == 'statistics_upcoming' ? 'release-date-latest' : default_sort_option
+      return sort_order
+    end
+
+    values['order']
+  end
 
   def part_of
     content_item['links']['part_of'] || []
