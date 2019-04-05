@@ -1,4 +1,5 @@
 require 'email_alert_signup_api'
+require 'email_alert_title_builder'
 
 class EmailAlertSubscriptionsController < ApplicationController
   layout "finder_layout"
@@ -38,16 +39,17 @@ private
   end
 
   def at_least_one_filter_chosen?
-    chosen_options.any?(&:present?)
+    applied_filters.any?(&:present?)
   end
 
   def has_default_filters?
-    default_filters.present? && default_filters.any? || default_rejects.present? && default_rejects.any?
+    default_filters.present? && default_filters.any?
   end
 
-  def chosen_options
+  def applied_filters
     params
-      .permit("filter" => {})['filter']
+      .permit("filter" => {})
+      .dig('filter')
       .to_h
       .merge(
         filter_params.fetch('subscriber_list_params', {})
@@ -60,29 +62,27 @@ private
 
   def email_alert_signup_api
     EmailAlertSignupAPI.new(
-      email_alert_api: Services.email_alert_api,
-      attributes: email_signup_attributes,
-      default_attributes: { filter: default_filters, reject: default_rejects },
-      subscription_list_title_prefix: content['details']['subscription_list_title_prefix'],
-      available_choices: signup_presenter.choices,
+      applied_filters: applied_filters,
+      default_filters: default_filters,
+      facets: signup_presenter.choices,
+      finder_format: finder_format,
+      subscriber_list_title: subscriber_list_title,
     )
   end
 
-  def finder_format
-    finder_content_item.dig('details', 'filter', 'document_type')
-  end
-
-  def email_signup_attributes
-    { "filter" => chosen_options }.tap do |hash|
-      hash["format"] = [finder_format] if finder_format
-    end
+  def subscriber_list_title
+    EmailAlertTitleBuilder.call(
+      filter: applied_filters,
+      subscription_list_title_prefix: content.dig('details', 'subscription_list_title_prefix'),
+      facets: signup_presenter.choices
+    )
   end
 
   def default_filters
     content['details'].fetch('filter', {})
   end
 
-  def default_rejects
-    content['details'].fetch('reject', {})
+  def finder_format
+    finder_content_item.dig('details', 'filter', 'document_type')
   end
 end
