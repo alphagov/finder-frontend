@@ -26,7 +26,11 @@
     this.atomHref = this.$atomLink.attr('href');
     this.$orderSelect = this.$form.find('.js-order-results');
     this.$relevanceOrderOption = this.$orderSelect.find('option[value=' + this.$orderSelect.data('relevance-sort-option') + ']');
+    this.$updatedNewestOrderOption = this.$orderSelect.find('option[value=updated-newest]');
+    this.$updatedOldestOrderOption = this.$orderSelect.find('option[value=updated-oldest]');
+    this.$releaseDateLatestOrderOption = this.$orderSelect.find('option[value=release-date-latest]');
     this.$relevanceOrderOptionIndex = this.$relevanceOrderOption.index();
+    this.$updatedNewestOrderOptionIndex = this.$updatedNewestOrderOption.index();
 
     this.getTaxonomyFacet().update();
 
@@ -55,6 +59,7 @@
       );
 
       this.indexTrackingData();
+      this.updateOrder();
 
       $(window).on('popstate', this.popState.bind(this));
     } else {
@@ -232,6 +237,23 @@
     var previousKeywordsPresent = previousKeywords !== "";
     var keywordsCleared = !keywordsPresent && previousKeywordsPresent;
 
+    var selectedSortOption = this.getTextInputValue('order', this.state);
+
+    var contentStoreDocumentType = this.getTextInputValue('content_store_document_type', this.state);
+    var previousContentStoreDocumentType = this.getTextInputValue('content_store_document_type', this.previousState);
+    var upcomingStatisticsSelected = contentStoreDocumentType == "statistics_upcoming";
+    var previousUpcomingStatisticsSelected = previousContentStoreDocumentType == "statistics_upcoming";
+
+    if (upcomingStatisticsSelected) {
+      if (selectedSortOption == this.$updatedNewestOrderOption.val() || selectedSortOption == this.$updatedOldestOrderOption.val()) {
+        liveSearch.selectOption(this.$releaseDateLatestOrderOption.val());
+      }
+
+      liveSearch.removeUpdatedOptions();
+    } else if (previousUpcomingStatisticsSelected) {
+      liveSearch.insertUpdatedOptions();
+    }
+
     if (keywordsPresent) {
       liveSearch.insertRelevanceOption();
       if(!previousKeywordsPresent){
@@ -241,8 +263,12 @@
       liveSearch.removeRelevanceOption();
     }
 
-    if (keywordsCleared) {
+    if (keywordsCleared && !upcomingStatisticsSelected) {
+      console.log('Keywords cleared, upcoming not selected: selecting default sort option');
       liveSearch.selectDefaultSortOption();
+    } else if (keywordsCleared && upcomingStatisticsSelected) {
+      console.log('Keywords cleared, upcoming selected: selecting release date latest sort option');
+      liveSearch.selectOption(this.$releaseDateLatestOrderOption.val());
     }
   };
 
@@ -262,6 +288,11 @@
     }
   };
 
+  LiveSearch.prototype.selectOption = function selectOption(option) {
+    this.$orderSelect.val(option);
+    this.state = this.getSerializeForm();
+  }
+
   LiveSearch.prototype.insertRelevanceOption = function insertRelevanceOption() {
     var adjacentOption = this.$orderSelect.children("option").eq(this.$relevanceOrderOptionIndex);
     this.$relevanceOrderOption.removeAttr('disabled');
@@ -271,6 +302,22 @@
   LiveSearch.prototype.removeRelevanceOption = function removeRelevanceOption() {
     this.$relevanceOrderOption.removeAttr('disabled');
     this.$relevanceOrderOption.remove();
+  };
+
+  LiveSearch.prototype.insertUpdatedOptions = function insertUpdatedOptions() {
+    console.log('inserting updated options');
+
+    var adjacentOption = this.$orderSelect.children("option").eq(this.$relevanceOrderOptionIndex);
+    this.$updatedNewestOrderOption.removeAttr('disabled');
+    this.$updatedOldestOrderOption.removeAttr('disabled');
+    adjacentOption.before(this.$updatedNewestOrderOption, this.$updatedOldestOrderOption);
+  };
+
+  LiveSearch.prototype.removeUpdatedOptions = function removeUpdatedOptions() {
+    this.$updatedNewestOrderOption.removeAttr('disabled');
+    this.$updatedOldestOrderOption.removeAttr('disabled');
+    this.$updatedNewestOrderOption.remove();
+    this.$updatedOldestOrderOption.remove();
   };
 
   LiveSearch.prototype.updateResults = function updateResults(){
