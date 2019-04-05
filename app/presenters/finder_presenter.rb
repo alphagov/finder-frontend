@@ -270,6 +270,10 @@ class FinderPresenter
     content_item['description']
   end
 
+  def no_index?
+    !!content_item["details"]["no_index"]
+  end
+
   def canonical_link?
     content_item['details']['canonical_link']
   end
