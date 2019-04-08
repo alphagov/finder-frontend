@@ -6,6 +6,7 @@ class HiddenFacet < FilterableFacet
 
   def sentence_fragment
     return nil unless has_filters?
+
     {
       'key' => key,
       'preposition' => preposition,
@@ -19,13 +20,13 @@ class HiddenFacet < FilterableFacet
   end
 
   def query_params
-    {key => selected_values.map {|value| value['value']}}
+    { key => selected_values.map { |value| value['value'] } }
   end
 
-  private
+private
 
   def value_fragments
-    selected_values.map {|value|
+    selected_values.map { |value|
       {
           'label' => value['label'],
           'parameter_key' => key,

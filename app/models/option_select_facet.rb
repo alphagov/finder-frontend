@@ -58,6 +58,10 @@ class OptionSelectFacet < FilterableFacet
     { selected: selected_values, allowed: allowed_values }
   end
 
+  def query_params
+    { key => selected_values.map { |value| value['value'] } }
+  end
+
 private
 
   def value_fragments

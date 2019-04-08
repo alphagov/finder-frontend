@@ -32,6 +32,12 @@ class KeywordFacet
     false
   end
 
+  def query_params
+    {
+      key => value
+    }
+  end
+
 private
 
   attr_reader :keywords

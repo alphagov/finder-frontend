@@ -21,6 +21,12 @@ class DateFacet < FilterableFacet
     present_values.any?
   end
 
+  def query_params
+    {
+      key => @value
+    }
+  end
+
 private
 
   def value_fragments

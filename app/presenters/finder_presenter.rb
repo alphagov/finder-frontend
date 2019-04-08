@@ -324,18 +324,8 @@ private
 
   def alert_query_string
     facets_with_filters = facets.select(&:has_filters?)
-
-    facets_with_values = facets_with_filters.reject { |facet|
-      facet.value.nil? ||
-        facet.value.is_a?(Hash) && facet.value.values.all?(&:blank?) ||
-        facet.value.is_a?(Array) && facet.value.empty?
-    }
-
-    filtered_values = facets_with_values.each_with_object({}) { |facet, hash|
-      hash[facet.key] = facet.value
-    }
-
-    query_string = filtered_values.to_query
+    query_params_array = facets_with_filters.map(&:query_params)
+    query_string = query_params_array.inject({}, :merge).to_query
     query_string.blank? ? query_string : "?#{query_string}"
   end
 

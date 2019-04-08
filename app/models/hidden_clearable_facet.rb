@@ -6,6 +6,7 @@ class HiddenClearableFacet < FilterableFacet
 
   def sentence_fragment
     return nil unless selected_values.any?
+
     {
         'key' => key,
         'preposition' => preposition,
@@ -16,6 +17,10 @@ class HiddenClearableFacet < FilterableFacet
 
   def has_filters?
     selected_values.any?
+  end
+
+  def query_params
+    { key => selected_values.map { |value| value['value'] } }
   end
 
 private

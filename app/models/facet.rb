@@ -47,6 +47,10 @@ class Facet
     facet['allowed_values'] || []
   end
 
+  def query_params
+    {}
+  end
+
 private
 
   def and_word_connectors

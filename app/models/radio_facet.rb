@@ -23,7 +23,11 @@ class RadioFacet < FilterableFacet
   end
 
   def sentence_fragment
-    return nil if hide_facet_tag?
+    nil
+  end
+
+  def query_params
+    { key => selected_value['value'] }
   end
 
 private

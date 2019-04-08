@@ -57,4 +57,20 @@ describe CheckboxFacet do
       }
     end
   end
+
+  describe "#query_params" do
+    context "checkbox is selected" do
+      subject { CheckboxFacet.new(facet_data, "yes") }
+      specify {
+        expect(subject.query_params).to eql("show_extra_information" => "selectedvalue")
+      }
+    end
+
+    context "checkbox is not selected" do
+      subject { CheckboxFacet.new(facet_data, nil) }
+      specify {
+        expect(subject.query_params).to eql({})
+      }
+    end
+  end
 end

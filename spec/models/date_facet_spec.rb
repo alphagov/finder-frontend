@@ -50,4 +50,23 @@ describe DateFacet do
       }
     end
   end
+
+  describe "#query_params" do
+    context "multiple date values" do
+      let(:value) {
+        {
+          "from" => "22/09/1988",
+          "to" => "22/09/2014",
+        }
+      }
+      subject { DateFacet.new(facet_data, value) }
+      specify {
+        expect(subject.query_params).to eql(
+          "date_of_occurrence" =>
+            { "from" => "22/09/1988",
+             "to" => "22/09/2014" }
+                                          )
+      }
+    end
+  end
 end

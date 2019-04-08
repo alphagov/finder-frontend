@@ -18,4 +18,13 @@ describe HiddenFacet do
       specify { expect(subject.to_partial_path).to eql("hidden_facet") }
     end
   end
+
+  describe "#query_params" do
+    context "value selected" do
+      subject { HiddenFacet.new(facet_data, "hidden_value") }
+      specify {
+        expect(subject.query_params).to eql("test_facet" => %w[hidden_value])
+      }
+    end
+  end
 end

@@ -87,6 +87,15 @@ describe OptionSelectFacet do
     end
   end
 
+  describe "#query_params" do
+    context "value selected" do
+      subject { OptionSelectFacet.new(facet_data, "allowed-value-1") }
+      specify {
+        expect(subject.query_params).to eql("test_values" => ["allowed-value-1"])
+      }
+    end
+  end
+
   describe "#unselected?" do
     subject { OptionSelectFacet.new(facet_data, ["disallowed-value-1, disallowed-value-2"]) }
 

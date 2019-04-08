@@ -36,6 +36,13 @@ class TaxonFacet < FilterableFacet
     selected_level_one_value.present?
   end
 
+  def query_params
+    {
+      LEVEL_ONE_TAXON_KEY => (selected_level_one_value || {})[:value],
+      LEVEL_TWO_TAXON_KEY => (selected_level_two_value || {})[:value]
+    }
+  end
+
 private
 
   def value_fragments

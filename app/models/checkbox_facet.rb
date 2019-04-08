@@ -47,4 +47,8 @@ class CheckboxFacet < FilterableFacet
         track_label: name
     }
   end
+
+  def query_params
+    @checked ? { key => value } : {}
+  end
 end

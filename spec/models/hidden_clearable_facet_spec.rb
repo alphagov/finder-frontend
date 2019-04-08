@@ -31,7 +31,6 @@ describe HiddenClearableFacet do
 
 
   describe "#sentence_fragment" do
-
     context "single value" do
       subject { facet_class.new(facet_data, ["allowed-value-1"]) }
 
@@ -63,7 +62,6 @@ describe HiddenClearableFacet do
   end
 
   describe "#has_filters?" do
-
     context "no value" do
       subject { facet_class.new(facet_data, nil) }
 
@@ -77,6 +75,15 @@ describe HiddenClearableFacet do
 
       specify {
         expect(subject.has_filters?).to eql(true)
+      }
+    end
+  end
+
+  describe "#query_params" do
+    context "value selected" do
+      subject { HiddenClearableFacet.new(facet_data, "allowed-value-1") }
+      specify {
+        expect(subject.query_params).to eql("test_facet" => ["allowed-value-1"])
       }
     end
   end
