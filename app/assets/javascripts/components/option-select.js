@@ -28,6 +28,7 @@
       this.$filterCount = $('#' + this.$filter.attr('aria-describedby'));
       this.filterTextSingle = ' ' + this.$filterCount.data('single');
       this.filterTextMultiple = ' ' + this.$filterCount.data('multiple');
+      this.filterTextSelected = ' ' + this.$filterCount.data('selected');
       this.checkboxLabels = [];
       this.filterTimeout = 0;
       var that = this;
@@ -37,7 +38,7 @@
         that.checkboxLabels.push(that.cleanString($(this).text()));
       });
 
-      this.$filter.on('change keyup', function(e) {
+      this.$filter.on('keyup', function(e) {
         e.stopPropagation();
         var ENTER_KEY = 13;
 
@@ -51,8 +52,6 @@
         }
       });
     }
-
-    this.attachCheckedCounter();
 
     // Performance in ie 6/7 is not good enough to support animating the opening/closing
     // so do not allow option-selects to be collapsible in this case
@@ -78,6 +77,8 @@
         this.setupHeight();
       }
     }
+
+    this.attachCheckedCounter();
   }
 
   OptionSelect.prototype.cleanString = function cleanString(text) {
@@ -113,7 +114,8 @@
     }
 
     var len = showCheckboxes.length || 0;
-    obj.$filterCount.html(len + (len == 1 ? obj.filterTextSingle : obj.filterTextMultiple));
+    var lenChecked = obj.$optionsContainer.find('.govuk-checkboxes__input:checked').length;
+    obj.$filterCount.html(len + (len == 1 ? obj.filterTextSingle : obj.filterTextMultiple) + ", " + lenChecked + obj.filterTextSelected);
   };
 
   OptionSelect.prototype.replaceHeadWithButton = function replaceHeadWithButton(){
@@ -134,11 +136,11 @@
     $button.attr('aria-controls', this.$optionsContainer.attr('id'));
     $button.html(jsContainerHeadHTML);
     $containerHead.replaceWith($button);
-
   };
 
   OptionSelect.prototype.attachCheckedCounter = function attachCheckedCounter(){
-    this.$optionSelect.find('.js-container-head').append('<div class="govuk-!-font-size-14 js-selected-counter">'+this.checkedString()+'</div>');
+    this.$optionSelect.find('.js-container-head')
+      .after('<div class="govuk-!-font-size-14 app-c-option-select__selected-counter js-selected-counter">'+this.checkedString()+'</div>');
   };
 
   OptionSelect.prototype.updateCheckedCount = function updateCheckedCount(){

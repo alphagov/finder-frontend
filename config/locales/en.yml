@@ -24,6 +24,7 @@ en:
     option_select:
       found_single: "option found"
       found_multiple: "options found"
+      selected: "selected"
   time:
     formats:
       as_date: "%d %B %Y"
