@@ -1,7 +1,9 @@
 require 'spec_helper'
+require "helpers/taxonomy_spec_helper"
 
 RSpec.describe FinderPresenter do
   include GovukContentSchemaExamples
+  include TaxonomySpecHelper
 
   subject(:presenter) { described_class.new(content_item(sort_options: no_sort_options), {}, values) }
   subject(:presenter_with_sort) { described_class.new(content_item(sort_options: sort_options_without_relevance), {}, values) }
@@ -128,6 +130,91 @@ RSpec.describe FinderPresenter do
 
       it "returns the finder URL appended with permitted query params" do
         expect(presenter.atom_url).to eql("/mosw-reports.atom?place_of_origin%5B%5D=england")
+      end
+    end
+
+    context "with all facet types" do
+      it 'returns all relevant query parameters' do
+        option_select_facet_hash =   {
+          "filterable": true,
+          "key": "people",
+          "type": "text",
+          "allowed_values": [{ "value" => "me" }, { "value" => "you" }]
+        }
+        taxon_facet_hash = {
+          "key": "_unused",
+          "keys": %w[
+            level_one_taxon
+            level_two_taxon
+          ],
+          "type": "taxon",
+          "filterable": true
+        }
+        date_facet_hash = {
+          "filterable": true,
+          "key": "public_timestamp",
+          "type": "date"
+        }
+        hidden_facet_hash = {
+          "filter_key": "hidden",
+          "key": "topic",
+          "type": "hidden",
+          "filterable": true,
+          "allowed_values": [{ "value" => "hiding" }]
+        }
+        checkbox_facet_hash = {
+          "key": "checkbox",
+          "filter_key": "checkbox",
+          "filter_value": "filter_value",
+          "type": "checkbox",
+          "filterable": true,
+        }
+        radio_facet_hash = {
+          "key": "content_store_document_type",
+          "type": "radio",
+          "filterable": true,
+          "option_lookup": {
+            "statistics_published": %w[
+              statistics
+            ]
+          },
+          "allowed_values": [
+            { "value": "statistics_published" }
+          ]
+        }
+        hidden_clearable_facet_hash = {
+          "filterable": true,
+          "key": "manual",
+          "type": "hidden_clearable",
+          "allowed_values": [{ "value" => "my_manual" }]
+        }
+
+        topic_taxonomy_has_taxons([{ content_id: "taxon", title: "taxon" }])
+
+        presenter = FinderPresenter.new(content_item(facets: [taxon_facet_hash,
+                                                              checkbox_facet_hash,
+                                                              radio_facet_hash,
+                                                              date_facet_hash,
+                                                              option_select_facet_hash,
+                                                              hidden_facet_hash,
+                                                              hidden_clearable_facet_hash]),
+                                        [],
+                                         'level_one_taxon' => "taxon",
+                                          "checkbox" => true,
+                                          "content_store_document_type" => "type",
+                                          "public_timestamp" => { "from" => "21/11/2014", "to" => "21/11/2019" },
+                                          "keywords" => "keyword",
+                                          "people" => %w[me you],
+                                          "topic" => "hiding",
+                                          "manual" => "my_manual")
+        query_params = Rack::Utils.parse_nested_query URI.parse(presenter.atom_url).query
+        expect(query_params).to eq("checkbox" => "filter_value",
+                                   "level_one_taxon" => "taxon",
+                                   "level_two_taxon" => "",
+                                   "public_timestamp" => { "from" => "21/11/2014", "to" => "21/11/2019" },
+                                   "people" => %w[me you],
+                                   "topic" => %w[hiding],
+                                   "manual" => %w[my_manual])
       end
     end
   end

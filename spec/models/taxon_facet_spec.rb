@@ -35,12 +35,9 @@ describe TaxonFacet do
     }
   }
 
-  subject { TaxonFacet.new(facet_data) }
 
   describe "#topics" do
-    before do
-      subject.value = allowed_values
-    end
+    subject { TaxonFacet.new(facet_data, allowed_values) }
 
     it "will return an array of topics" do
       expect(subject.topics).to be_an(Array)
@@ -66,9 +63,7 @@ describe TaxonFacet do
   end
 
   describe "#sub_topics" do
-    before do
-      subject.value = allowed_values
-    end
+    subject { TaxonFacet.new(facet_data, allowed_values) }
 
     it "will return an array of sub-topics" do
       expect(subject.sub_topics).to be_an(Array)
@@ -91,12 +86,8 @@ describe TaxonFacet do
   end
 
   describe "#sentence_fragment" do
-    before do
-      subject.value = value
-    end
-
     context "allowed value selected" do
-      let(:value) { allowed_values }
+      subject { TaxonFacet.new(facet_data, allowed_values) }
 
       specify {
         expect(subject.sentence_fragment['preposition']).to eql("of value")
@@ -106,7 +97,13 @@ describe TaxonFacet do
     end
 
     context "disallowed value selected" do
-      let(:value) { "disallowed-value-1" }
+      let(:disallowed_values) {
+        {
+          "level_one_taxon" => "disallowed-value-1",
+          "level_two_taxon" => "disallowed-value-2",
+        }
+      }
+      subject { TaxonFacet.new(facet_data, disallowed_values) }
       specify { expect(subject.sentence_fragment).to be_nil }
     end
   end

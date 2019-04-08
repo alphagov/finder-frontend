@@ -50,4 +50,12 @@ describe KeywordFacet do
       }
     end
   end
+  describe "#query_params" do
+    context "value selected" do
+      subject { KeywordFacet.new("keyword") }
+      specify {
+        expect(subject.query_params).to eql("keywords" => %w[keyword])
+      }
+    end
+  end
 end

@@ -28,16 +28,11 @@ describe HiddenClearableFacet do
   }
 
   let(:facet_class) { HiddenClearableFacet }
-  subject { facet_class.new(facet_data) }
 
 
   describe "#sentence_fragment" do
-    before do
-      subject.value = value
-    end
-
     context "single value" do
-      let(:value) { ["allowed-value-1"] }
+      subject { facet_class.new(facet_data, ["allowed-value-1"]) }
 
       specify {
         expect(subject.sentence_fragment['preposition']).to eql("of value")
@@ -47,7 +42,7 @@ describe HiddenClearableFacet do
     end
 
     context "multiple values" do
-      let(:value) { ["allowed-value-1", "allowed-value-2"] }
+      subject { facet_class.new(facet_data, ["allowed-value-1", "allowed-value-2"]) }
 
       specify {
         expect(subject.sentence_fragment['preposition']).to eql("of value")
@@ -60,18 +55,15 @@ describe HiddenClearableFacet do
     end
 
     context "disallowed values" do
-      let(:value) { ["disallowed-value-1, disallowed-value-2"] }
+      subject { facet_class.new(facet_data, ["disallowed-value-1, disallowed-value-2"]) }
+
       specify { expect(subject.sentence_fragment).to be_nil }
     end
   end
 
   describe "#has_filters?" do
-    before do
-      subject.value = value
-    end
-
     context "no value" do
-      let(:value) { nil }
+      subject { facet_class.new(facet_data, nil) }
 
       specify {
         expect(subject.has_filters?).to eql(false)
@@ -79,10 +71,19 @@ describe HiddenClearableFacet do
     end
 
     context "has a value" do
-      let(:value) { ["allowed-value-1"] }
+      subject { facet_class.new(facet_data, ["allowed-value-1"]) }
 
       specify {
         expect(subject.has_filters?).to eql(true)
+      }
+    end
+  end
+
+  describe "#query_params" do
+    context "value selected" do
+      subject { HiddenClearableFacet.new(facet_data, "allowed-value-1") }
+      specify {
+        expect(subject.query_params).to eql("test_facet" => ["allowed-value-1"])
       }
     end
   end

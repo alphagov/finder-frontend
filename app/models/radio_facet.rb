@@ -1,4 +1,9 @@
 class RadioFacet < FilterableFacet
+  def initialize(facet, value)
+    @value = value
+    super(facet)
+  end
+
   def value
     @value || default_value['value']
   end
@@ -18,7 +23,11 @@ class RadioFacet < FilterableFacet
   end
 
   def sentence_fragment
-    return nil if hide_facet_tag?
+    nil
+  end
+
+  def query_params
+    { key => selected_value['value'] }
   end
 
 private

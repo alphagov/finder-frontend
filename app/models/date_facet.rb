@@ -1,4 +1,11 @@
 class DateFacet < FilterableFacet
+  attr_reader :value
+
+  def initialize(facet, value_hash)
+    @value = value_hash
+    super(facet)
+  end
+
   def sentence_fragment
     return nil unless has_filters?
 
@@ -12,6 +19,12 @@ class DateFacet < FilterableFacet
 
   def has_filters?
     present_values.any?
+  end
+
+  def query_params
+    {
+      key => @value
+    }
   end
 
 private
