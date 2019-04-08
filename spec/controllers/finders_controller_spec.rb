@@ -266,12 +266,24 @@ describe FindersController, type: :controller do
   end
 
   describe "Business finder top results AB tests" do
+    let(:breakfast_finder) do
+      finder = govuk_content_schema_example('finder').to_hash.merge(
+        'title' => 'Breakfast Finder',
+        'base_path' => '/breakfast-finder',
+        'content_id' => '42ce66de-04f3-4192-bf31-8394538e0734' #business finder id
+      )
+
+      finder["details"]["default_documents_per_page"] = 10
+      finder["details"]["sort"] = nil
+      finder
+    end
+
     let(:filter_params) { double(:filter_params, keywords: '') }
     let(:view_context) { double(:view_context) }
-    let(:finder_presenter) { FinderPresenter.new(lunch_finder, {}, filter_params) }
+    let(:finder_presenter) { FinderPresenter.new(breakfast_finder, {}, filter_params) }
 
     before do
-      content_store_has_item(lunch_finder['base_path'], lunch_finder)
+      content_store_has_item(breakfast_finder['base_path'], breakfast_finder)
       rummager_response = %|{
         "results": [],
         "total": 0,
@@ -284,14 +296,14 @@ describe FindersController, type: :controller do
 
     it "Finder variant A does not set show_top_result" do
       with_variant FinderAnswerABTest: "A" do
-        get :show, params: { slug: path_for(lunch_finder) }
+        get :show, params: { slug: path_for(breakfast_finder) }
         expect(subject.show_top_result?).to eq(false)
       end
     end
 
     it "Finder variant B does set show_top_result" do
       with_variant FinderAnswerABTest: "B" do
-        get :show, params: { slug: path_for(lunch_finder) }
+        get :show, params: { slug: path_for(breakfast_finder) }
         expect(subject.show_top_result?).to eq(true)
       end
     end
