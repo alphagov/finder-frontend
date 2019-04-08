@@ -16,16 +16,6 @@ class FacetCollection
     'facet_collection'
   end
 
-  def facet_values(value_hash, facet)
-    if facet.keys
-      return facet.keys.each_with_object({}) { |key, result_hash|
-        result_hash[key] = value_hash[key]
-      }
-    end
-
-    value_hash[facet.key]
-  end
-
   def filters
     facets.select(&:filterable?)
   end

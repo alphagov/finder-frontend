@@ -338,4 +338,15 @@ private
     query_string = filtered_values.to_query
     query_string.blank? ? query_string : "?#{query_string}"
   end
+
+  def facet_hashes(content_item_hash)
+    FacetExtractor.for(content_item_hash).extract
+  end
+
+  def facet_collection(facet_hashes, value_hashes)
+    FacetCollection.new(
+      facet_hashes,
+      value_hashes
+    )
+  end
 end
