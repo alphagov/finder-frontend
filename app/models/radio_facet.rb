@@ -1,4 +1,9 @@
 class RadioFacet < FilterableFacet
+  def initialize(facet, value)
+    @value = value
+    super(facet)
+  end
+
   def value
     @value || default_value['value']
   end

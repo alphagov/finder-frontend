@@ -1,11 +1,11 @@
 class HiddenFacet < FilterableFacet
-  def allowed_values
-    facet['allowed_values']
+  def initialize(facet, value)
+    @value = Array(value)
+    super(facet)
   end
 
   def sentence_fragment
     return nil unless has_filters?
-
     {
       'key' => key,
       'preposition' => preposition,
@@ -15,14 +15,20 @@ class HiddenFacet < FilterableFacet
   end
 
   def has_filters?
-    value.present?
+    @value.present?
   end
 
+  def query_params
+    {key => selected_values.map {|value| value['value']}}
+  end
+
+  private
+
   def value_fragments
-    selected_values.map { |v|
+    selected_values.map {|value|
       {
-        'label' => v['label'],
-        'parameter_key' => key,
+          'label' => value['label'],
+          'parameter_key' => key,
       }
     }
   end

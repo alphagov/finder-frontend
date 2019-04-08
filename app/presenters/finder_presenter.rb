@@ -2,7 +2,7 @@ class FinderPresenter
   include ActionView::Helpers::FormOptionsHelper
   include ActionView::Helpers::UrlHelper
 
-  attr_reader :content_item, :name, :slug, :organisations, :values, :keywords, :links
+  attr_reader :content_item, :name, :slug, :organisations, :values, :keywords, :links, :facets
 
   MOST_RECENT_FIRST = "-public_timestamp".freeze
 
@@ -14,7 +14,8 @@ class FinderPresenter
     @links = content_item['links']
     @organisations = content_item['links'].fetch('organisations', [])
     @values = values
-    facets.values = values
+    @facet_hashes = facet_hashes(@content_item)
+    @facets = facet_collection(@facet_hashes, @values)
     @keywords = values["keywords"].presence
   end
 
@@ -89,21 +90,9 @@ class FinderPresenter
     "#{email_alert_signup['web_url']}#{alert_query_string}" if email_alert_signup
   end
 
-  def facets
-    @facets ||= FacetCollection.new(
-      raw_facets.map do |facet|
-        FacetParser.parse(facet)
-      end
-    )
-  end
-
-  def raw_facets
-    @raw_facets ||= FacetExtractor.for(content_item).extract
-  end
-
   def facet_details_lookup
     @facet_details_lookup ||= begin
-      facet_hashes = raw_facets.map do |facet|
+      result_hashes = @facet_hashes.map do |facet|
         facet_name = facet['name']
         facet_key = facet['key']
         facet.fetch('allowed_values', []).to_h do |value|
@@ -115,13 +104,13 @@ class FinderPresenter
           }]
         end
       end
-      facet_hashes.reduce({}, :merge)
+      result_hashes.reduce({}, :merge)
     end
   end
 
   def facet_value_lookup
     @facet_value_lookup ||= begin
-      facet_values = raw_facets.map { |f| f['allowed_values'] || [] }
+      facet_values = @facet_hashes.map { |f| f['allowed_values'] || [] }
       @facet_value_lookup = facet_values.flatten.to_h do |val|
         [val['content_id'], val['value']]
       end

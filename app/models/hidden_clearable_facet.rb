@@ -1,11 +1,11 @@
 class HiddenClearableFacet < FilterableFacet
-  def value=(new_value)
-    @value = Array(new_value)
+  def initialize(facet, value_hash)
+    @value = Array(value_hash)
+    super(facet)
   end
 
   def sentence_fragment
     return nil unless selected_values.any?
-
     {
         'key' => key,
         'preposition' => preposition,
@@ -21,7 +21,7 @@ class HiddenClearableFacet < FilterableFacet
 private
 
   def value_fragments
-    @value_fragments ||= selected_values.map { |value|
+    selected_values.map { |value|
       {
           'label' => value['label'],
           'value' => value['value'],

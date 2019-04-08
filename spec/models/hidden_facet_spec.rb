@@ -5,12 +5,13 @@ describe HiddenFacet do
     {
       'key' => "test_facet",
       'name' => "Test facet",
-      'preposition' => "of value"
+      'preposition' => "of value",
+      'allowed_values' => [{ "value" => "hidden_value" }]
     }
   }
 
   let(:facet_class) { HiddenFacet }
-  subject { facet_class.new(facet_data) }
+  subject { facet_class.new(facet_data, nil) }
 
   describe "#to_partial_path" do
     context "with a Facet" do
