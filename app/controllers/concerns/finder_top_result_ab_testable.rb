@@ -23,7 +23,11 @@ module FinderTopResultAbTestable
   end
 
   def set_test_response_header
-    finder_top_result_variant.configure_response(response)
+    finder_top_result_variant.configure_response(response) if test_in_scope?
+  end
+
+  def test_in_scope?
+    content_item.is_finder? && finder.eu_exit_finder?
   end
 
   def show_top_result?
