@@ -40,7 +40,7 @@ class AdvancedSearchResultSetPresenter < ResultSetPresenter
     cleanup_whitespace(
       if selected_filter_descriptions.blank?
         subgroups_as_sentence
-      elsif subgroup_facet.value.blank?
+      elsif !subgroup_facet.has_filters?
         [subgroups_as_sentence, filters_to_sentence(selected_filter_descriptions)].to_sentence
       else
         [filters_to_sentence(selected_filter_descriptions)].to_sentence
