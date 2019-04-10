@@ -95,26 +95,6 @@ module DocumentHelper
       .to_return(body: all_content_results_json)
   end
 
-  def stub_rummager_api_request_with_organisation_filter_all_content_results
-    stub_request(
-      :get,
-      all_content_url(
-        "q" => "search-term",
-        "filter_organisations[]" => %w(ministry-of-magic)
-      )
-    ).to_return(body: filtered_by_organisation_all_content_results_json)
-  end
-
-  def stub_rummager_api_request_with_manual_filter_all_content_results
-    stub_request(
-      :get,
-      all_content_url(
-        "q" => "search-term",
-        "filter_manual[]" => %w(how-to-be-a-wizard)
-      )
-    ).to_return(body: filtered_by_manual_all_content_results_json)
-  end
-
   def stub_rummager_api_request_with_filtered_policy_papers_results
     stub_request(
       :get,
@@ -2101,103 +2081,24 @@ module DocumentHelper
             }
           ],
         "facets": {
-          "manual": [
-            {
-              "title": "Replacing bristles in your Nimbus 2000",
-              "_id": "/guidance/care-and-use-of-a-nimbus-2000"
-            },
-            {
-              "title": "Upgrading the baud rate on the Floo Network",
-              "_id": "upgrading-baud-rate-on-the-floo-network"
-            }
-          ],
-          "documents_with_no_value": 0,
-          "total_options": 2,
-          "missing_options": 0,
-          "scope": "exclude_field_filter"
-        },
-        "total": 1,
-        "start": 0,
-        "suggested_queries": []
-        }
-      ]
-    }|
-  end
-
-  def filtered_by_organisation_all_content_results_json
-    %|{
-      "results": [
-        {
-          "results": [
-            {
-              "title": "Restrictions on usage of spells within school grounds",
-              "link": "/restrictions-on-usage-of-spells-within-school-grounds",
-              "description": "Restrictions on usage of spells within school grounds",
-              "public_timestamp": "2017-12-30T10:00:00Z",
-              "part_of_taxonomy_tree": [
-                "622e9691-4b4f-4e9c-bce1-098b0c4f5ee2"
-              ],
-              "organisations": [
-                {
-                  "organisation_crest": "single-identity",
-                  "acronym": "MOM",
-                  "link": "/organisations/ministry-of-magic",
-                  "analytics_identifier": "MM1",
-                  "public_timestamp": "2017-12-15T11:11:02.000+00:00",
-                  "organisation_brand": "ministry-of-magic",
-                  "logo_formatted_title": "Ministry of Magic",
-                  "title": "Ministry of Magic",
-                  "content_id": "92881ac6-2804-4522-bf48-cf8c781c98bf",
-                  "slug": "ministry-of-magic",
-                  "organisation_type": "other",
-                  "organisation_state": "live"
-                }
-              ],
-              "index": "govuk",
-              "es_score": null,
-              "_id": "/restrictions-on-usage-of-spells-within-school-grounds",
-              "elasticsearch_type": "policy_paper",
-              "document_type": "policy_paper"
-            }
-          ],
-          "total": 1,
-          "start": 0,
-          "suggested_queries": [],
-          "facets": {
-            "organisations": {
-              "options": [
-                {"value": {"title": "Ministry of Magic", "slug": "ministry-of-magic"}}
-              ]
-            }
-          }
-        }
-      ]
-    }|
-  end
-
-  def filtered_by_manual_all_content_results_json
-    %|{
-      "results": [
-        {
-          "results": [
-            {
-              "title": "Choosing your wand",
-              "link": "/choosing-your-wand",
-              "description": "Choosing your wand - a practical guide",
-              "_id": "/choosing-your-wand"
-            }
-          ],
-          "total": 1,
-          "start": 0,
-          "suggested_queries": [],
-          "facets": {
             "manual": [
-              {
-                "title": "Choosing your wand",
-                "_id": "/choosing-your-wand"
-              }
-            ]
-          }
+                {
+                    "title": "Replacing bristles in your Nimbus 2000",
+                    "_id": "/guidance/care-and-use-of-a-nimbus-2000"
+                },
+                {
+                    "title": "Upgrading the baud rate on the Floo Network",
+                    "_id": "upgrading-baud-rate-on-the-floo-network"
+                }
+            ],
+            "documents_with_no_value": 0,
+            "total_options": 2,
+            "missing_options": 0,
+            "scope": "exclude_field_filter"
+          },
+          "total": 1,
+          "start": 0,
+          "suggested_queries": []
         }
       ]
     }|
