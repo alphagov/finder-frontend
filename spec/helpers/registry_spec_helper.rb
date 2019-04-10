@@ -101,10 +101,6 @@ module RegistrySpecHelper
           {
               title: "Upgrading the baud rate on the Floo Network",
               _id: "upgrading-baud-rate-on-the-floo-network"
-          },
-          {
-            title: "How to be a Wizard",
-            _id: "how-to-be-a-wizard"
           }
         ]
       }.to_json)
