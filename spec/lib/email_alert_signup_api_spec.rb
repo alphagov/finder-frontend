@@ -7,25 +7,24 @@ describe EmailAlertSignupAPI do
 
   subject(:signup_api_wrapper) do
     described_class.new(
-      email_alert_api: Services.email_alert_api,
-      attributes: attributes,
-      default_attributes: default_attributes,
-      available_choices: available_choices,
-      subscription_list_title_prefix: subscription_list_title_prefix,
+      applied_filters: applied_filters,
+      default_filters: default_filters,
+      facets: facets,
+      subscriber_list_title: subscriber_list_title,
+      finder_format: finder_format,
     )
   end
 
-  let(:default_attributes) do
-    { filter: {}, reject: {} }
-  end
+  let(:default_filters) { {} }
+  let(:applied_filters) { {} }
+  let(:facets) { [] }
+  let(:subscriber_list_title) { "Subscriber list title" }
+  let(:finder_format) {}
 
   describe "default_attributes" do
     context "no default_attributes or attributes" do
       describe "#signup_url" do
-        let(:subscription_url) { "http://gov.uk/email/news-and-comms-subscription" }
-        let(:attributes) { {} }
-        let(:available_choices) { {} }
-        let(:subscription_list_title_prefix) { "News and communications" }
+        let(:subscription_url) { "http://gov.uk/email" }
 
         it "returns the url email-alert-api gives back" do
           email_alert_api_has_subscriber_list(
@@ -35,7 +34,7 @@ describe EmailAlertSignupAPI do
 
           expect(Services.email_alert_api).to receive(:find_or_create_subscriber_list).with(
             "tags" => {},
-            "title" => "News and communications",
+            "title" => subscriber_list_title,
           ).and_call_original
 
           expect(subject.signup_url).to eql subscription_url
@@ -45,28 +44,20 @@ describe EmailAlertSignupAPI do
 
     context "default attributes provided" do
       describe "#signup_url" do
-        let(:subscription_url) { "http://gov.uk/email" }
-        let(:attributes) { {} }
-        let(:available_choices) { {} }
-        let(:subscription_list_title_prefix) { "News and communications" }
-        let(:default_attributes) do
-          {
-            filter: { "content_purpose_supergroup" => 'news_and_communications' },
-            reject: { "content_purpose_supergroup" => 'other' }
-          }
+        let(:subscription_url) { "http://www.example.org/news_and_comms/signup" }
+        let(:default_filters) do
+          { "content_purpose_supergroup" => 'news_and_communications' }
         end
 
         it "will send email_alert_api the default attributes" do
           email_alert_api_has_subscriber_list(
-            "tags" => {},
+            "tags" => { content_purpose_supergroup: { any: %w(news_and_communications) } },
             "subscription_url" => subscription_url,
-            "content_purpose_supergroup" => "news_and_communications",
           )
 
           expect(Services.email_alert_api).to receive(:find_or_create_subscriber_list).with(
-            "tags" => {},
-            "title" => "News and communications",
-            "content_purpose_supergroup" => "news_and_communications",
+            "tags" => { content_purpose_supergroup: { any: %w(news_and_communications) } },
+            "title" => subscriber_list_title,
           ).and_call_original
 
           expect(subject.signup_url).to eql subscription_url
@@ -76,15 +67,11 @@ describe EmailAlertSignupAPI do
   end
 
   context "with a single facet finder" do
-    let(:attributes) do
-      {
-        "format" => "test-reports",
-        "filter" => {
-            "alert_type" => %w(first second)
-          },
-      }
+    let(:finder_format) { "test-reports" }
+    let(:applied_filters) do
+      { "alert_type" => %w(first second) }
     end
-    let(:available_choices) do
+    let(:facets) do
       [
         {
           "facet_id" => "alert_type",
@@ -106,20 +93,14 @@ describe EmailAlertSignupAPI do
         },
       ]
     end
-    let(:subscription_list_title_prefix) do
-      {
-        "singular" => "Format with report type: ",
-        "plural" => "Format with report types: ",
-      }
-    end
 
     let(:subscription_url) { "http://www.example.org/list-id/signup" }
 
     before do
       email_alert_api_has_subscriber_list(
         "tags" => {
-          "format" => { any: "test-reports" },
-          "alert_type" => { any: %w(first second) },
+          format: { any: %w(test-reports) },
+          alert_type: { any: %w(first second) },
         },
         "subscription_url" => subscription_url
       )
@@ -129,8 +110,8 @@ describe EmailAlertSignupAPI do
       it 'returns the url email-alert-api gives back' do
         email_alert_api_has_subscriber_list(
           "tags" => {
-            "format" => { any: "test-reports" },
-            "alert_type" => { any: %w(first second) },
+            format: { any: %w(test-reports) },
+            alert_type: { any: %w(first second) },
           },
           "subscription_url" => subscription_url
         )
@@ -141,17 +122,17 @@ describe EmailAlertSignupAPI do
         it 'asks email-alert-api to find or create the subscriber list' do
           email_alert_api_has_subscriber_list(
             "tags" => {
-              "format" => { any: "test-reports" },
-              "alert_type" => { any: %w(first second) },
+              format: { any: %w(test-reports) },
+              alert_type: { any: %w(first second) },
             },
             "subscription_url" => subscription_url
           )
           expect(Services.email_alert_api).to receive(:find_or_create_subscriber_list).with(
             "tags" => {
-              "format" => { any: "test-reports" },
-              "alert_type" => { any: %w(first second) },
+              format: { any: %w(test-reports) },
+              alert_type: { any: %w(first second) },
             },
-            "title" => "Format with report types: first ABC thing and second DEF thing",
+            "title" => subscriber_list_title,
           ).and_call_original
 
           signup_api_wrapper.signup_url
@@ -159,28 +140,26 @@ describe EmailAlertSignupAPI do
       end
 
       context 'with one choice selected and a title prefix' do
-        let(:attributes) do
+        let(:applied_filters) do
           {
-            "format" => "test-reports",
-            "filter" => {
-              "alert_type" => %w[first],
-            },
+            format: { any: %w(test-reports) },
+            alert_type: %w[first],
           }
         end
         it 'asks email-alert-api to find or create the subscriber list' do
           email_alert_api_has_subscriber_list(
             "tags" => {
-              "format" => { any: "test-reports" },
-              "alert_type" => { any: %w[first] },
+              format: { any: %w(test-reports) },
+              alert_type: { any: %w[first] },
             },
             "subscription_url" => subscription_url
           )
           expect(Services.email_alert_api).to receive(:find_or_create_subscriber_list).with(
             "tags" => {
-              "format" => { any: "test-reports" },
-              "alert_type" => { any: %w[first] },
+              format: { any: %w(test-reports) },
+              alert_type: { any: %w[first] },
             },
-            "title" => "Format with report type: first ABC thing",
+            "title" => subscriber_list_title,
           ).and_call_original
 
           signup_api_wrapper.signup_url
@@ -188,21 +167,20 @@ describe EmailAlertSignupAPI do
       end
 
       context 'without a title prefix' do
-        let(:subscription_list_title_prefix) { {} }
         it 'asks email-alert-api to find or create the subscriber list' do
           email_alert_api_has_subscriber_list(
             "tags" => {
-              "format" => { any: "test-reports" },
-              "alert_type" => { any: %w(first second) },
+              format: { any: %w(test-reports) },
+              alert_type: { any: %w(first second) },
             },
             "subscription_url" => subscription_url
           )
           expect(Services.email_alert_api).to receive(:find_or_create_subscriber_list).with(
             "tags" => {
-              "format" => { any: "test-reports" },
-              "alert_type" => { any: %w(first second) },
+              format: { any: %w(test-reports) },
+              alert_type: { any: %w(first second) },
             },
-            "title" => "First ABC thing and second DEF thing",
+            "title" => subscriber_list_title,
           ).and_call_original
 
           signup_api_wrapper.signup_url
@@ -210,25 +188,21 @@ describe EmailAlertSignupAPI do
       end
 
       context 'no options available' do
-        let(:available_choices) { [] }
-        let(:attributes) do
-          {
-            "format" => "test-reports",
-          }
-        end
-        let(:subscription_list_title_prefix) { "Format" }
+        let(:facets) { [] }
+        let(:finder_format) { "test-reports" }
+
         it 'asks email-alert-api to find or create the subscriber list' do
           email_alert_api_has_subscriber_list(
             "tags" => {
-              "format" => { any: "test-reports" },
+              format: { any: %w(test-reports) },
             },
             "subscription_url" => subscription_url
           )
           expect(Services.email_alert_api).to receive(:find_or_create_subscriber_list).with(
             "tags" => {
-              "format" => { any: "test-reports" },
+              format: { any: %w(test-reports) },
             },
-            "title" => "Format",
+            "title" => subscriber_list_title,
           ).and_call_original
 
           signup_api_wrapper.signup_url
@@ -238,16 +212,14 @@ describe EmailAlertSignupAPI do
   end
 
   context "with a multi facet finder" do
-    let(:attributes) do
+    let(:finder_format) { "test-reports" }
+    let(:applied_filters) do
       {
-        "format" => "test-reports",
-        "filter" => {
-            "alert_type" => %w(first second),
-            "other_type" => %w(third fourth)
-          },
+        "alert_type" => %w(first second),
+        "other_type" => %w(third fourth)
       }
     end
-    let(:available_choices) do
+    let(:facets) do
       [
         {
           "facet_id" => "alert_type",
@@ -287,15 +259,14 @@ describe EmailAlertSignupAPI do
         },
       ]
     end
-    let(:subscription_list_title_prefix) { "Formats " }
     let(:subscription_url) { "http://www.example.org/list-id/signup" }
 
     before do
       email_alert_api_has_subscriber_list(
         "tags" => {
-          "format" => { any: "test-reports" },
-          "alert_type" => { any: %w(first second) },
-          "other_type" => { any: %w(third fourth) },
+          format: { any: %w(test-reports) },
+          alert_type: { any: %w(first second) },
+          other_type: { any: %w(third fourth) },
         },
         "subscription_url" => subscription_url
       )
@@ -305,8 +276,8 @@ describe EmailAlertSignupAPI do
       it 'returns the url email-alert-api gives back' do
         email_alert_api_has_subscriber_list(
           "tags" => {
-            "format" => { any: "test-reports" },
-            "alert_type" => { any: %w(first second) },
+            format: { any: %w(test-reports) },
+            alert_type: { any: %w(first second) },
           },
           "subscription_url" => subscription_url
         )
@@ -317,19 +288,19 @@ describe EmailAlertSignupAPI do
         it 'asks email-alert-api to find or create the subscriber list' do
           email_alert_api_has_subscriber_list(
             "tags" => {
-              "format" => { any: "test-reports" },
-              "alert_type" => { any: %w(first second) },
-              "other_type" => { any: %w(third fourth) },
+              format: { any: %w(test-reports) },
+              alert_type: { any: %w(first second) },
+              other_type: { any: %w(third fourth) },
             },
             "subscription_url" => subscription_url
           )
           expect(Services.email_alert_api).to receive(:find_or_create_subscriber_list).with(
             "tags" => {
-              "format" => { any: "test-reports" },
-              "alert_type" => { any: %w(first second) },
-              "other_type" => { any: %w(third fourth) },
+              format: { any: %w(test-reports) },
+              alert_type: { any: %w(first second) },
+              other_type: { any: %w(third fourth) },
             },
-            "title" => "Formats with alert type of first ABC thing and second DEF thing and other type of third GHI thing and fourth JKL thing",
+            "title" => subscriber_list_title,
           ).and_call_original
 
           signup_api_wrapper.signup_url
@@ -337,32 +308,30 @@ describe EmailAlertSignupAPI do
       end
 
       context 'with one choice selected and a title prefix' do
-        let(:attributes) do
+        let(:finder_format) { "test-reports" }
+        let(:applied_filters) do
           {
-            "format" => "test-reports",
-            "filter" => {
-              "alert_type" => %w[first],
-              "other_type" => %w[],
-            },
+            "alert_type" => %w[first],
+            "other_type" => %w[],
           }
         end
 
         it 'asks email-alert-api to find or create the subscriber list' do
           email_alert_api_has_subscriber_list(
             "tags" => {
-              "format" => { any: "test-reports" },
-              "alert_type" => { any: %w[first] },
-              "other_type" => { any: %w[] },
+              format: { any: %w(test-reports) },
+              alert_type: { any: %w[first] },
+              other_type: { any: %w[] },
             },
             "subscription_url" => subscription_url
           )
           expect(Services.email_alert_api).to receive(:find_or_create_subscriber_list).with(
             "tags" => {
-              "format" => { any: "test-reports" },
-              "alert_type" => { any: %w[first] },
-              "other_type" => { any: %w[] },
+              format: { any: %w(test-reports) },
+              alert_type: { any: %w[first] },
+              other_type: { any: %w[] },
             },
-            "title" => "Formats with alert type of first ABC thing",
+            "title" => subscriber_list_title,
           ).and_call_original
 
           signup_api_wrapper.signup_url
@@ -370,23 +339,22 @@ describe EmailAlertSignupAPI do
       end
 
       context 'without a title prefix' do
-        let(:subscription_list_title_prefix) { nil }
         it 'asks email-alert-api to find or create the subscriber list' do
           email_alert_api_has_subscriber_list(
             "tags" => {
-              "format" => { any: "test-reports" },
-              "alert_type" => { any: %w(first second) },
-              "other_type" => { any: %w(third fourth) },
+              format: { any: %w(test-reports) },
+              alert_type: { any: %w(first second) },
+              other_type: { any: %w(third fourth) },
             },
             "subscription_url" => subscription_url
           )
           expect(Services.email_alert_api).to receive(:find_or_create_subscriber_list).with(
             "tags" => {
-              "format" => { any: "test-reports" },
-              "alert_type" => { any: %w(first second) },
-              "other_type" => { any: %w(third fourth) },
+              format: { any: %w(test-reports) },
+              alert_type: { any: %w(first second) },
+              other_type: { any: %w(third fourth) },
             },
-            "title" => "Alert type of first ABC thing and second DEF thing and other type of third GHI thing and fourth JKL thing",
+            "title" => subscriber_list_title,
           ).and_call_original
 
           signup_api_wrapper.signup_url
@@ -394,25 +362,21 @@ describe EmailAlertSignupAPI do
       end
 
       context 'no options available' do
-        let(:available_choices) { [] }
-        let(:attributes) do
-          {
-            "format" => "test-reports",
-          }
-        end
-        let(:subscription_list_title_prefix) { "Format" }
+        let(:facets) { [] }
+        let(:finder_format) { "test-reports" }
+
         it 'asks email-alert-api to find or create the subscriber list' do
           email_alert_api_has_subscriber_list(
             "tags" => {
-              "format" => { any: "test-reports" },
+              format: { any: %w(test-reports) },
             },
             "subscription_url" => subscription_url
           )
           expect(Services.email_alert_api).to receive(:find_or_create_subscriber_list).with(
             "tags" => {
-              "format" => { any: "test-reports" },
+              format: { any: %w(test-reports) },
             },
-            "title" => "Format",
+            "title" => subscriber_list_title,
           ).and_call_original
 
           signup_api_wrapper.signup_url
@@ -423,15 +387,12 @@ describe EmailAlertSignupAPI do
 
   describe "business readiness tags" do
     context "with the tags done right" do
-      let(:attributes) do
+      let(:applied_filters) do
         {
-          "filter" => {
-              "appear_in_find_eu_exit_guidance_business_finder" => %w(yes),
-          },
+          "appear_in_find_eu_exit_guidance_business_finder" => %w(yes),
         }
       end
-      let(:subscription_list_title_prefix) { "Business readiness" }
-      let(:available_choices) do
+      let(:facets) do
         [
           {
             "facet_id" => "appear_in_find_eu_exit_guidance_business_finder",
@@ -445,7 +406,7 @@ describe EmailAlertSignupAPI do
       before do
         email_alert_api_has_subscriber_list(
           "tags" => {
-            "appear_in_find_eu_exit_guidance_business_finder" => { any: %w(yes) },
+            appear_in_find_eu_exit_guidance_business_finder: { any: %w(yes) },
           },
           "subscription_url" => subscription_url
         )
@@ -454,9 +415,9 @@ describe EmailAlertSignupAPI do
       it 'asks email-alert-api to find or create the subscriber list' do
         expect(Services.email_alert_api).to receive(:find_or_create_subscriber_list).with(
           "tags" => {
-            "appear_in_find_eu_exit_guidance_business_finder" => { any: %w(yes) },
+            appear_in_find_eu_exit_guidance_business_finder: { any: %w(yes) },
           },
-          "title" => "Business readiness",
+          "title" => subscriber_list_title,
         ).and_call_original
 
         expect(subject.signup_url).to eql subscription_url
@@ -466,14 +427,10 @@ describe EmailAlertSignupAPI do
 
   context "when choices have filter_values" do
     let(:subscription_url) { "http://gov.uk/email/news-and-comms-subscription" }
-    let(:attributes) do
-      {
-        "filter" => {
-            "persons" => %w(people_named_harry people_named_john),
-        },
-      }
+    let(:applied_filters) do
+      { "persons" => %w(people_named_harry people_named_john) }
     end
-    let(:available_choices) do
+    let(:facets) do
       [
         {
           "facet_id" => "persons",
@@ -493,12 +450,11 @@ describe EmailAlertSignupAPI do
         }
       ]
     end
-    let(:subscription_list_title_prefix) { "News and communications" }
 
     before do
       email_alert_api_has_subscriber_list(
         "tags" => {
-          "persons" => { any: %w(harry_potter harry john) },
+          persons: { any: %w(harry_potter harry john) },
         },
         "subscription_url" => subscription_url
       )
@@ -507,9 +463,9 @@ describe EmailAlertSignupAPI do
     it 'asks email-alert-api to find or create the subscriber list' do
       expect(Services.email_alert_api).to receive(:find_or_create_subscriber_list).with(
         "tags" => {
-          "persons" => { any: %w(harry_potter harry john) },
+          persons: { any: %w(harry_potter harry john) },
         },
-        "title" => "News and communications with people named Harry and John",
+        "title" => subscriber_list_title,
       ).and_call_original
 
       expect(subject.signup_url).to eql subscription_url

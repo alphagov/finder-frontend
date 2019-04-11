@@ -1,12 +1,10 @@
-require 'email_alert_title_builder'
-
 class EmailAlertSignupAPI
-  def initialize(dependencies = {})
-    @email_alert_api = dependencies.fetch(:email_alert_api)
-    @attributes = dependencies.fetch(:attributes)
-    @subscription_list_title_prefix = dependencies.fetch(:subscription_list_title_prefix)
-    @available_choices = dependencies.fetch(:available_choices)
-    @default_attributes = dependencies.fetch(:default_attributes, filter: {}, reject: {})
+  def initialize(applied_filters:, default_filters:, facets:, subscriber_list_title:, finder_format:)
+    @applied_filters = applied_filters.deep_symbolize_keys
+    @default_filters = default_filters.deep_symbolize_keys
+    @facets = facets
+    @subscriber_list_title = subscriber_list_title
+    @finder_format = finder_format
   end
 
   def signup_url
@@ -15,73 +13,65 @@ class EmailAlertSignupAPI
 
 private
 
-  attr_reader :email_alert_api, :attributes, :subscription_list_title_prefix, :available_choices, :default_attributes
+  attr_reader :applied_filters, :default_filters, :facets, :subscriber_list_title, :finder_format
 
   def subscriber_list
-    response = email_alert_api.find_or_create_subscriber_list(subscriber_list_options)
-    response['subscriber_list']
+    Services.email_alert_api.find_or_create_subscriber_list(subscriber_list_options).dig('subscriber_list')
   end
 
   def subscriber_list_options
-    options = {
+    {
       "tags" => tags,
-      "title" => title,
+      "title" => subscriber_list_title,
     }
-
-    options["content_purpose_supergroup"] = content_purpose_supergroup if content_purpose_supergroup.present?
-    options
-  end
-
-  def title
-    ::EmailAlertTitleBuilder.call(
-      filter: attributes['filter'] || {},
-      subscription_list_title_prefix: subscription_list_title_prefix,
-      facets: available_choices
-    )
-  end
-
-  def content_purpose_supergroup
-    massaged_attributes['content_purpose_supergroup'] || default_attributes[:filter]['content_purpose_supergroup']
   end
 
   def tags
-    @tags ||= massaged_attributes.each_with_object({}) { |(key, value), hash|
-      if is_all_field?(key)
-        hash[key[4..-1]] = { all: value }
-      else
-        hash[key] = { any: value }
-      end
+    return filters_to_tags unless finder_format.present?
+
+    filters_to_tags.merge(format: { any: [finder_format] })
+  end
+
+  def filters_to_tags
+    @filters_to_tags ||= filter_keys.each_with_object({}) { |key, tags_hash|
+      values = values_for_key(key)
+      any_or_all = is_all_field?(key) ? :all : :any
+      tag = is_all_field?(key) ? key[4..-1] : key
+
+      tags_hash[tag] ||= {}
+      tags_hash[tag][any_or_all] ||= []
+      tags_hash[tag][any_or_all] = tags_hash.dig(tag, any_or_all).concat(values).uniq
     }
+  end
+
+  def filter_keys
+    applied_filter_keys = applied_filters.keys.reject { |key| facet_by_key(key).nil? }
+    applied_filter_keys.concat(default_filters.keys).uniq
+  end
+
+  def values_for_key(key)
+    applied_values = Array(applied_filters[key])
+    default_values = Array(default_filters[key])
+    facet = facet_by_key(key) || {}
+
+    facet_choice_values = facet_choice_filter_values(facet, applied_values)
+    values = facet_choice_values.any? ? facet_choice_values : applied_values
+
+    values.concat(default_values)
+  end
+
+  def facet_choice_filter_values(facet, values)
+    facet
+      .fetch('facet_choices', [])
+      .select { |option| values.include?(option['key']) }
+      .flat_map { |option| option['filter_values'] }
+  end
+
+  def facet_by_key(key)
+    facets.find { |facet| [facet["filter_key"], facet["facet_id"]].include?(key.to_s) }
   end
 
   def is_all_field?(key)
     key[0..3] == 'all_'
-  end
-
-  def massaged_attributes
-    @massaged_attributes ||= attributes.dup.tap do |massaged_attributes|
-      available_choices.each do |choice|
-        key = choice["filter_key"] || choice["facet_id"]
-        value = massaged_attributes.dig('filter', key)
-        next if value.nil?
-
-        massaged_attributes[key] = parsed_filter_value(choice, value)
-      end
-      massaged_attributes.delete("filter")
-    end
-  end
-
-  def parsed_filter_value(choice, value)
-    chosen_options = Array(value)
-    # filter_values can be set if we want to send an array of values to
-    # the email-alert-api. E.g. document group: research, translates to
-    # to several document types being sent to rummager / email-alert-api.
-    chosen_facet_choices = choice.fetch('facet_choices', []).select { |option|
-      chosen_options.include?(option['key'])
-    }
-
-    chosen_facet_choice_values = chosen_facet_choices.map { |option| option['filter_values'] }.flatten
-
-    chosen_facet_choice_values.any? ? chosen_facet_choice_values : value
   end
 end

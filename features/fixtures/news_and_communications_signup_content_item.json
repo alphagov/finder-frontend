@@ -6,7 +6,7 @@
   "description": "You'll get an email each time news or communications are published.",
   "details": {
     "filter": {
-      "content_purpose_supergroup": "news_and_communications"
+      "content_purpose_subgroup": ["news", "speeches_and_statements"]
     },
     "email_filter_by": null,
     "email_filter_name": null,
