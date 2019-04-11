@@ -48,7 +48,7 @@ RSpec.describe AdvancedSearchResultSetPresenter do
     allow(Services.content_store).to receive(:content_item)
       .with("/education")
       .and_return(taxon)
-    allow(Services.rummager).to receive(:batch_search)
-      .and_return("results" => [search_results])
+    allow(Services.rummager).to receive(:search)
+      .and_return("results" => search_results)
   end
 end

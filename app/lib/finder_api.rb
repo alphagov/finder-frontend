@@ -72,10 +72,16 @@ private
       params: filter_params,
     ).call
 
-    GovukStatsd.time("rummager.finder_batch_search") do
-      merge_and_deduplicate(
-        Services.rummager.batch_search(queries).to_hash
-      )
+    if queries.one?
+      GovukStatsd.time("rummager.finder_search") do
+        Services.rummager.search(queries.first).to_hash
+      end
+    else
+      GovukStatsd.time("rummager.finder_batch_search") do
+        merge_and_deduplicate(
+          Services.rummager.batch_search(queries).to_hash
+        )
+      end
     end
   end
 
