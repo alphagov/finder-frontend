@@ -17,7 +17,7 @@
     this.$resultsCount = options.$results.find('#js-result-count');
     this.action = this.$form.attr('action') + '.json';
     this.$atomAutodiscoveryLink = options.$atomAutodiscoveryLink;
-    this.baseTitle = $("meta[name='govuk\:base_title']").attr("content");
+    this.baseTitle = $("meta[name='govuk\:base_title']").attr("content") || document.title;
     this.$emailLink = $('a[href*="email-signup"]');
     this.previousSearchTerm = '';
 
