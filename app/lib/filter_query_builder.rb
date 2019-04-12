@@ -7,17 +7,19 @@ class FilterQueryBuilder
   end
 
   def call
-    filters.select(&:active?).reduce({}) { |query, filter|
-      query.merge(filter.key => filter_value(query, filter))
-    }
+    filters.select(&:active?).map(&:query_hash).inject({}) do |query, filter_hash|
+      query.merge(filter_hash) { |_, v1, v2| Array(v1) + Array(v2) }
+    end
   end
+
+
 
 private
 
   attr_reader :facets, :user_params
 
   def filters
-    @filters ||= facets.select { |f| f['filterable'] }.map { |f| build_filter(f) }
+    facets.select { |f| f['filterable'] }.map { |f| build_filter(f) }
   end
 
   def build_filter(facet)

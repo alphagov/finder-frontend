@@ -5,7 +5,7 @@ describe Filters::DateFilter do
     Filters::DateFilter.new(facet, params)
   }
 
-  let(:facet) { double }
+  let(:facet) { { "key" => "date_key" } }
   let(:params) { nil }
 
   describe "#active?" do
@@ -29,7 +29,7 @@ describe Filters::DateFilter do
     end
   end
 
-  describe "#value" do
+  describe "#query_hash" do
     context "when to date is provided" do
       let(:params) {
         {
@@ -38,7 +38,7 @@ describe Filters::DateFilter do
       }
 
       it "include the to date" do
-        expect(date_filter.value).to eq("to:2015-06-27")
+        expect(date_filter.query_hash).to eq("date_key" => "to:2015-06-27")
       end
     end
 
@@ -50,7 +50,7 @@ describe Filters::DateFilter do
       }
 
       it "include the from date" do
-        expect(date_filter.value).to eq("from:2015-05-11")
+        expect(date_filter.query_hash).to eq("date_key" => "from:2015-05-11")
       end
     end
 
@@ -63,7 +63,7 @@ describe Filters::DateFilter do
       }
 
       it "include both to and from dates" do
-        expect(date_filter.value).to eq("to:2015-06-27,from:2015-05-11")
+        expect(date_filter.query_hash).to eq("date_key" => "to:2015-06-27,from:2015-05-11")
       end
     end
   end

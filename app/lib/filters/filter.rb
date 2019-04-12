@@ -13,13 +13,17 @@ module Filters
       value.present?
     end
 
-    def value
-      raise NotImplementedError
+    def query_hash
+      { key => value }
     end
 
   private
 
     attr_reader :facet, :params
+
+    def value
+      raise NotImplementedError
+    end
 
     def parsed_value
       return [] if params.blank?
