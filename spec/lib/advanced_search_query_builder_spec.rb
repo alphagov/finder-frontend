@@ -77,5 +77,17 @@ RSpec.describe AdvancedSearchQueryBuilder do
     it "should not include an order query" do
       expect(instance.call.first).not_to include("order")
     end
+
+    context "longer than the maximum query length" do
+      let(:params) {
+        {
+          "keywords" => "a" * 1024
+        }
+      }
+
+      it "should include a truncated" do
+        expect(instance.call.first).to include("q" => "a" * SearchQueryBuilder::MAX_QUERY_LENGTH)
+      end
+    end
   end
 end
