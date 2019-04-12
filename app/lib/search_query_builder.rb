@@ -1,6 +1,16 @@
 # SearchQueryBuilder takes the content item for the finder and the query params
 # from the URL to generate a query for Rummager.
 class SearchQueryBuilder
+  # search-api rejects queries which are longer than this, but an
+  # error page isn't a good experience for users.  There are some
+  # legitimate queries over this length (people typing a length
+  # question into the search box), so rather than give them an error
+  # page just give them (probably unhelpful) results.  At some point
+  # we shall do UI work to direct people who enter a long query to the
+  # contact form, as even an untruncated long query isn't going to
+  # find anything useful, too much noise.
+  MAX_QUERY_LENGTH = 512
+
   def initialize(finder_content_item:, params: {})
     @finder_content_item = finder_content_item
     @params = params
@@ -129,7 +139,7 @@ private
   end
 
   def keyword_query
-    keywords ? { "q" => keywords } : {}
+    keywords ? { "q" => keywords[0, MAX_QUERY_LENGTH] } : {}
   end
 
   def keywords
