@@ -21,10 +21,11 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
 
       var removeFilterName = $el.data('name');
       var removeFilterValue = $el.data('value');
+      var removeFilterLabel = $el.data('track-label');
       var removeFilterFacet = $el.data('facet');
 
       var $input = getInput(removeFilterName, removeFilterValue, removeFilterFacet);
-      fireRemoveTagTrackingEvent(removeFilterValue, removeFilterFacet);
+      fireRemoveTagTrackingEvent(removeFilterLabel, removeFilterFacet);
       clearFacet($input, removeFilterValue, removeFilterFacet);
     }
 
