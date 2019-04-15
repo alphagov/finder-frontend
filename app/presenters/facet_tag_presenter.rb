@@ -15,7 +15,8 @@ class FacetTagPresenter
         text: html_escape(value['label']),
         data_facet: value['parameter_key'],
         data_name: value['name'],
-        data_value: value['value']
+        data_value: value['value'],
+        data_track_label: value['label'],
       }
     end
   end
