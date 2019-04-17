@@ -105,6 +105,14 @@ describe 'components/_option-select.html.erb', type: :view do
     expect(rendered).to have_no_selector('.app-c-option-select__count')
   end
 
+  it "adds alternative styling" do
+    arguments = option_select_arguments
+    arguments[:expander_style] = true
+    render_component(arguments)
+
+    expect(rendered).to have_selector('.app-c-option-select.app-c-option-select--expander')
+  end
+
   def expect_label_and_checked_checkbox(label, id, value)
     expect_label_and_checkbox(label, id, value, true)
   end

@@ -153,3 +153,64 @@
     }
   }
 }
+
+.app-c-option-select--expander {
+  padding: 0;
+  margin: 0;
+  background: none;
+  border-bottom: solid 1px govuk-colour("black");
+
+  .app-c-option-select__container-inner {
+  }
+
+  .app-c-option-select__container-head {
+    padding: 0;
+  }
+
+  .app-c-option-select__container {
+    border: 0;
+    padding: 0 govuk-spacing(2);
+    margin: 0 0 0 -10px;
+  }
+
+  .app-c-option-select__container-inner {
+    padding: govuk-spacing(1) 0;
+  }
+
+  .app-c-option-select__button {
+    @include govuk-font(19, $weight: bold);
+    position: relative;
+    padding: govuk-spacing(2) govuk-spacing(6) govuk-spacing(2) 0;
+    background: none;
+
+    &:hover {
+      background: none;
+
+      & + .app-c-option-select__selected-counter {
+        background: none;
+      }
+    }
+  }
+
+  .app-c-option-select__selected-counter {
+    padding: govuk-spacing(1) 0 0 0;
+  }
+
+  .app-c-option-select__label {
+    position: static;
+    padding: 0;
+    margin: 0;
+  }
+
+  .app-c-option-select__icon {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 30px;
+    height: 100%;
+  }
+
+  .app-c-option-select__filter {
+    padding-top: 0;
+  }
+}

@@ -3,6 +3,7 @@
   checkboxes_id = "checkboxes-#{SecureRandom.hex(4)}"
   checkboxes_count_id = checkboxes_id + "-count"
   show_filter ||= false
+  expander_style ||= false
 %>
 
 <% if show_filter %>
@@ -27,7 +28,7 @@
   <% filter_element = CGI::escapeHTML(filter) %>
 <% end %>
 
-<div class="app-c-option-select"
+<div class="app-c-option-select <% if expander_style %>app-c-option-select--expander<% end %>"
   <% if local_assigns.include?(:closed_on_load) && closed_on_load %>data-closed-on-load="true"<% end %>
   <% if local_assigns.include?(:aria_controls_id) %>data-input-aria-controls="<%= aria_controls_id %>"<% end %>
   <% if show_filter %>data-filter-element="<%= filter_element %>"<% end %>

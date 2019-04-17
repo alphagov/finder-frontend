@@ -251,3 +251,30 @@ examples:
       - value: trinidad
         label: Trinidad & Tobago
         id: trinidad
+  expander_style:
+    description: Changes the appearance of the component.
+    data:
+      key: filter_demo
+      title: Cartoon characters
+      expander_style: true
+      options_container_id: list_of_cartoon_characters_to_filter
+      show_filter: true
+      options:
+      - value: bartsimpson
+        label: Bart Simpson
+        id: bartsimpson
+      - value: brucesato
+        label: Bruce Sato
+        id: brucesato
+      - value: donaldduck
+        label: Donald Duck
+        id: donaldduck
+      - value: panthro
+        label: Panthro
+        id: panthro
+      - value: quickkick
+        label: Quick Kick
+        id: quickkick
+      - value: wheeljack
+        label: Wheeljack
+        id: wheeljack
