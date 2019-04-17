@@ -12,8 +12,6 @@ class FilterQueryBuilder
     end
   end
 
-
-
 private
 
   attr_reader :facets, :user_params
@@ -33,18 +31,11 @@ private
       'taxon' => Filters::TaxonFilter,
       'radio' => Filters::RadioFilter,
       'content_id' => Filters::ContentIdFilter,
-      'hidden_clearable' => Filters::HiddenClearableFilter
+      'hidden_clearable' => Filters::HiddenClearableFilter,
+      'research_and_statistics' => Filters::ResearchAndStatisticsFilter
     }.fetch(facet['type'])
 
     filter_class.new(facet, params(facet))
-  end
-
-  def filter_value(query, filter)
-    # If the same filter key is provided multiple times, provide an array
-    # of all values for that filter key
-    return Array(query[filter.key]) + Array(filter.value) if query[filter.key]
-
-    filter.value
   end
 
   def params(facet)
