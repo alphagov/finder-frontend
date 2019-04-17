@@ -20,10 +20,29 @@ private
   end
 
   def subscriber_list_options
-    {
-      "tags" => tags,
-      "title" => subscriber_list_title,
-    }
+    options = if facet_groups?
+                {
+                  "links" => facet_groups,
+                }
+              else
+                {
+                  "tags" => tags,
+                }
+              end
+
+    options.merge("title" => subscriber_list_title)
+  end
+
+  def facet_groups?
+    facets.any? { |facet| facet["facet_id"] == "facet_groups" }
+  end
+
+  def facet_groups
+    facet_groups = facets.map do |facet|
+      facet["facet_choices"]["key"]
+    end
+
+    { "facet_groups" => { any: facet_groups } }
   end
 
   def tags
