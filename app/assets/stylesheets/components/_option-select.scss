@@ -116,6 +116,7 @@
       background-color: govuk-colour("grey-2");
     }
 
+    &:hover + .app-c-option-select__container,
     &:hover + .app-c-option-select__selected-counter + .app-c-option-select__container {
       border-color: govuk-colour("grey-2");
     }

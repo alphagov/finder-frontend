@@ -79,7 +79,10 @@
       }
     }
 
-    this.attachCheckedCounter();
+    var checkedString = this.checkedString();
+    if (checkedString) {
+      this.attachCheckedCounter(checkedString);
+    }
   }
 
   OptionSelect.prototype.cleanString = function cleanString(text) {
@@ -139,21 +142,34 @@
     $containerHead.replaceWith($button);
   };
 
-  OptionSelect.prototype.attachCheckedCounter = function attachCheckedCounter(){
+  OptionSelect.prototype.attachCheckedCounter = function attachCheckedCounter(checkedString){
     this.$optionSelect.find('.js-container-head')
-      .after('<div class="govuk-!-font-size-14 app-c-option-select__selected-counter js-selected-counter">'+this.checkedString()+'</div>');
+      .after('<div class="govuk-!-font-size-14 app-c-option-select__selected-counter js-selected-counter">' + checkedString + '</div>');
   };
 
   OptionSelect.prototype.updateCheckedCount = function updateCheckedCount(){
-    this.$optionSelect.find('.js-selected-counter').text(this.checkedString());
+    var checkedString = this.checkedString();
+    var checkedStringElement = this.$optionSelect.find('.js-selected-counter');
+
+    if (checkedString) {
+      if (checkedStringElement.length) {
+        checkedStringElement.text(checkedString);
+      } else {
+        this.attachCheckedCounter(checkedString);
+      }
+    } else {
+      checkedStringElement.remove();
+    }
+
+    //this.$optionSelect.find('.js-selected-counter').text(this.checkedString());
   };
 
   OptionSelect.prototype.checkedString = function checkedString(){
     this.getAllCheckedCheckboxes();
     var count = this.checkedCheckboxes.length;
-    var checkedString = "";
+    var checkedString = false;
     if (count > 0){
-      checkedString = count+" selected";
+      checkedString = count + " selected";
     }
 
     return checkedString;
