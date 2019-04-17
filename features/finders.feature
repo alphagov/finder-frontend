@@ -348,7 +348,15 @@ Feature: Filtering documents
     And I select some document types
     Then I should see results for scoped by the selected document type
 
-  Scenario: Choosing between document types with a radio button facet with hidden facet tag
+  Scenario: Choosing between document types with a research and statistics facet - no facet tag
+    When I view the research and statistics finder
+    And I select upcoming statistics
+    And I click filter results
+    Then I should see upcoming statistics
+    And I should not see an upcoming statistics facet tag
+
+  @javascript
+  Scenario: Choosing between document types research and statistics - no facet tag; javascript version
     When I view the research and statistics finder
     And I select upcoming statistics
     Then I should see upcoming statistics

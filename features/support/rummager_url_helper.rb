@@ -75,18 +75,6 @@ module RummagerUrlHelper
     )
   end
 
-  def research_and_statistics_params
-    base_search_params.merge(
-      'facet_organisations' => '1500,order:value.title',
-      'facet_world_locations' => '1500,order:value.title',
-      'filter_all_part_of_taxonomy_tree[]' => [nil, nil],
-      'fields' => research_and_statistics_search_fields.join(','),
-      'filter_research_and_statistics[]' => %w(published_statistics),
-      'count' => 20,
-      'order' => '-public_timestamp',
-    )
-  end
-
   def all_content_params
     base_search_params.merge(
       'facet_manual' => '1500,order:value.title',
