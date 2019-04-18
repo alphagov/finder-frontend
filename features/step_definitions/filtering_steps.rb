@@ -183,7 +183,6 @@ When(/^I view the research and statistics finder$/) do
   stub_whitehall_api_world_location_request
   stub_rummager_api_request_with_research_and_statistics_results
   stub_rummager_api_request_with_filtered_research_and_statistics_results
-
   visit finder_path('search/research-and-statistics')
 end
 
@@ -591,6 +590,9 @@ end
 
 And(/^I select upcoming statistics$/) do
   find('.govuk-label', text: 'Statistics (upcoming)').click
+end
+
+And(/^I click filter results$/) do
   click_on "Filter results"
 end
 
@@ -709,6 +711,7 @@ Then("I should see results in the default group") do
 end
 
 Then("I should see results for scoped by the selected document type") do
+  expect(page).to have_text('3 results')
   within("#js-results") do
     expect(page.all("li.document").size).to eq(3) # 3 results in fixture
     expect(page).to have_link('Restrictions on usage of spells within school grounds')
@@ -752,12 +755,12 @@ Then("I do not see results with pinned items") do
 end
 
 Then("I should see upcoming statistics") do
+  expect(page).to have_text('1 result')
   within("#js-results") do
     expect(page.all("li.document").size).to eq(1)
     expect(page).to have_link('Restrictions on usage of spells within school grounds')
     expect(page).to have_no_link('New platform at Hogwarts for the express train')
     expect(page).to have_no_link('Installation of double glazing at Hogwarts')
-
     expect(page).to have_no_link('Proposed changes to magic tournaments')
   end
 end

@@ -1,6 +1,12 @@
 module Filters
   class TopicalFilter < Filter
+  private
+
     def value
+      @value ||= fetch_value
+    end
+
+    def fetch_value
       return nil if params.blank?
 
       user_has_selected_open = params.include?(facet['open_value']['value'])
@@ -13,8 +19,6 @@ module Filters
         closed_value
       end
     end
-
-  private
 
     # A thing is open when it ends on a future day
     def open_value

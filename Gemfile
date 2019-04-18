@@ -43,5 +43,6 @@ group :test do
   gem 'launchy', '~> 2.4.2'
   gem 'rails-controller-testing'
   gem 'simplecov', '~> 0.16.1'
+  gem "timecop"
   gem 'webmock', '~> 3.5.1'
 end

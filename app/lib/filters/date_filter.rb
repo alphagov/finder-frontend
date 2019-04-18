@@ -1,10 +1,10 @@
 module Filters
   class DateFilter < Filter
-    def value
-      serialized_values.join(",")
-    end
-
   private
+
+    def value
+      @value ||= serialized_values.join(",")
+    end
 
     def serialized_values
       present_values.map { |key, date|

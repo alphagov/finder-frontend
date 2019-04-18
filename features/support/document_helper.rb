@@ -132,17 +132,24 @@ module DocumentHelper
   end
 
   def stub_rummager_api_request_with_research_and_statistics_results
-    stub_request(:get, rummager_research_and_statistics_url({}))
+    stub_request(:get, "#{Plek.current.find('search')}/batch_search.json")
+        .with(query: batch_search_includes("filter_content_store_document_type" => hash_including("0" => 'statistics',
+                                                                                                "1" => "national_statistics",
+                                                                                                "2" => "statistical_data_set",
+                                                                                                "3" => "official_statistics")))
         .to_return(body: statistics_results_for_statistics_json)
   end
 
   def stub_rummager_api_request_with_filtered_research_and_statistics_results
-    stub_request(
-      :get,
-      rummager_research_and_statistics_url(
-        'filter_research_and_statistics[]' => %w(upcoming_statistics)
-      )
-    ).to_return(body: upcoming_statistics_results_for_statistics_json)
+    Timecop.freeze(Time.local("2019-01-01"))
+    stub_request(:get, "#{Plek.current.find('search')}/batch_search.json")
+      .with(query: batch_search_includes("filter_format" => hash_including("0" => "statistics_announcement"),
+                                         "filter_release_timestamp" => "from:2019-01-01"))
+      .to_return(body: upcoming_statistics_results_for_statistics_json)
+  end
+
+  def batch_search_includes(query_hash)
+    hash_including('search' => include("0" => hash_including(query_hash)))
   end
 
   def stub_all_rummager_api_requests_with_all_documents_results
@@ -611,10 +618,6 @@ module DocumentHelper
 
   def all_content_url(filters)
     rummager_url(all_content_params.merge(filters))
-  end
-
-  def rummager_research_and_statistics_url(filters)
-    rummager_url(research_and_statistics_params.merge(filters))
   end
 
   def organisation_link_results

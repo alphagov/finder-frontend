@@ -1,10 +1,10 @@
 module Filters
   class DropdownSelectFilter < Filter
-    def value
-      Array(parsed_value)
-    end
-
   private
+
+    def value
+      @value ||= Array(parsed_value)
+    end
 
     def parsed_value
       return if params.blank?
