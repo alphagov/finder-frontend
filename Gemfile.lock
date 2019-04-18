@@ -51,7 +51,7 @@ GEM
     awesome_print (1.8.0)
     aws-xray-sdk (0.10.2)
       oj (~> 3.0)
-    backports (3.11.4)
+    backports (3.13.0)
     better_errors (2.5.1)
       coderay (>= 1.0.0)
       erubi (>= 1.0.0)
@@ -93,12 +93,12 @@ GEM
       cucumber-tag_expressions (~> 1.1.0)
       gherkin (~> 5.0)
     cucumber-expressions (6.0.1)
-    cucumber-rails (1.6.0)
-      capybara (>= 1.1.2, < 4)
+    cucumber-rails (1.7.0)
+      capybara (>= 2.3.0, < 4)
       cucumber (>= 3.0.2, < 4)
       mime-types (>= 1.17, < 4)
       nokogiri (~> 1.8)
-      railties (>= 4, < 6)
+      railties (>= 4.2, < 7)
     cucumber-tag_expressions (1.1.1)
     cucumber-wire (0.0.1)
     dalli (2.7.10)
@@ -396,7 +396,7 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   chronic (~> 0.10.2)
-  cucumber-rails (~> 1.6.0)
+  cucumber-rails (~> 1.7.0)
   dalli
   gds-api-adapters (~> 59.1)
   govuk-content-schema-test-helpers (~> 1.6)
