@@ -91,7 +91,7 @@ module DocumentHelper
   end
 
   def stub_rummager_api_request_with_all_content_results
-    stub_request(:get, all_content_url({}))
+    stub_request(:get, all_content_url(order: '-public_timestamp'))
       .to_return(body: all_content_results_json)
   end
 
