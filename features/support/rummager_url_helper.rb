@@ -84,7 +84,6 @@ module RummagerUrlHelper
       'filter_all_part_of_taxonomy_tree[]' => [nil, nil],
       'fields' => all_content_search_fields.join(','),
       'count' => 20,
-      'order' => '-public_timestamp',
     )
   end
 

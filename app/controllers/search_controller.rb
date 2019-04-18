@@ -41,7 +41,8 @@ protected
       keywords: search_params.search_term,
       organisations: params['filter_organisations'],
       manual: params['filter_manual'],
-      format: params['format']
+      format: params['format'],
+      order: 'relevance'
     }.compact
 
     redirect_to(finder_path('search/all', params: all_content_params), status: 301)

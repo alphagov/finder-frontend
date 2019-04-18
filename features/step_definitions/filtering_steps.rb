@@ -195,10 +195,11 @@ When(/^I view the all content finder with a manual filter$/) do
   stub_request(:get,
     all_content_url(
       filter_manual: '/guidance/care-and-use-of-a-nimbus-2000',
-      q: 'Replacing bristles'
+      q: 'Replacing bristles',
+      order: '-public_timestamp',
     )).to_return(body: all_content_manuals_results_json)
 
-  stub_request(:get, all_content_url(q: 'Replacing bristles'))
+  stub_request(:get, all_content_url(q: 'Replacing bristles', order: '-public_timestamp'))
     .to_return(body: all_content_results_json)
 
   visit finder_path('search/all', manual: '/guidance/care-and-use-of-a-nimbus-2000', q: 'Replacing bristles')
