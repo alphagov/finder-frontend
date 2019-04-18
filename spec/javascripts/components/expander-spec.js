@@ -15,7 +15,7 @@ describe('An expander module', function () {
       </div>\
     </div>';
 
-  describe("a normal expander", function () {
+  describe("in default mode", function () {
     beforeEach(function () {
       expander = new GOVUK.Modules.Expander();
       $element = $(html);
@@ -27,7 +27,7 @@ describe('An expander module', function () {
     });
 
     it("collapses the content on page load", function () {
-      expect($element.find('.app-c-expander__content').css('display')).toBe('none');
+      expect($element.find('.app-c-expander__content').is(':visible')).toBe(false);
     });
 
     it("replaces the title with a button and sets correct aria attributes", function () {
@@ -43,11 +43,11 @@ describe('An expander module', function () {
       var $button = $element.find('.app-c-expander__button');
 
       $button.click();
-      expect($element.find('.app-c-expander__content').css('display')).toBe('block');
+      expect($element.find('.app-c-expander__content').hasClass('app-c-expander__content--visible')).toBe(true);
       expect($element.find('.app-c-expander__button').attr('aria-expanded')).toBe('true');
 
       $button.click();
-      expect($element.find('.app-c-expander__content').css('display')).toBe('none');
+      expect($element.find('.app-c-expander__content').hasClass('app-c-expander__content--visible')).toBe(false);
       expect($element.find('.app-c-expander__button').attr('aria-expanded')).toBe('false');
     });
   });
@@ -57,6 +57,7 @@ describe('An expander module', function () {
       expander = new GOVUK.Modules.Expander();
       $element = $(html);
       $element.attr('data-open-on-load', true)
+      $element.find('.js-content').addClass('app-c-expander__content--visible');
       expander.start($element);
     });
 
@@ -65,7 +66,9 @@ describe('An expander module', function () {
     });
 
     it("does not collapse the content on page load", function () {
-      expect($element.find('.app-c-expander__content').css('display')).not.toBe('none');
+      expect($element.find('.app-c-expander__content').hasClass('app-c-expander__content--visible')).toBe(true);
+      $element.find('.app-c-expander__button').click();
+      expect($element.find('.app-c-expander__content').hasClass('app-c-expander__content--visible')).toBe(false);
     });
 
     it("sets correct aria attributes on the button", function () {

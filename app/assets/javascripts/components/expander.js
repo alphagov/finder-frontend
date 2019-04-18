@@ -11,9 +11,6 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}; // if this ; is omitted, none
 
     var openOnLoad = this.$module.getAttribute('data-open-on-load') === 'true' ? true : false
 
-    if (!openOnLoad) {
-      this.collapseContent()
-    }
     this.replaceTitleWithButton(openOnLoad)
 
     this.$module.toggleContent = this.toggleContent.bind(this)
@@ -40,12 +37,12 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}; // if this ; is omitted, none
   }
 
   Expander.prototype.toggleContent = function (e) {
-    if (this.$content.style.display === 'none') {
+    if (this.$toggleButton.getAttribute('aria-expanded') === 'false') {
       this.$toggleButton.setAttribute('aria-expanded', true)
-      this.$content.style.display = 'block'
+      this.$content.classList.add('app-c-expander__content--visible')
     } else {
       this.$toggleButton.setAttribute('aria-expanded', false)
-      this.$content.style.display = 'none'
+      this.$content.classList.remove('app-c-expander__content--visible')
     }
   }
 
