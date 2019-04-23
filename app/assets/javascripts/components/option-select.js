@@ -22,9 +22,9 @@
 
       $('<div class="app-c-option-select__filter"/>')
         .html(filterEl.childNodes[0].nodeValue)
-        .prependTo(this.$optionList);
+        .insertBefore(this.$optionsContainer)
 
-      this.$filter = this.$optionsContainer.find('input[name="option-select-filter"]');
+      this.$filter = this.$optionSelect.find('input[name="option-select-filter"]');
       this.$filterCount = $('#' + this.$filter.attr('aria-describedby'));
       this.filterTextSingle = ' ' + this.$filterCount.data('single');
       this.filterTextMultiple = ' ' + this.$filterCount.data('multiple');
@@ -145,6 +145,8 @@
 
   OptionSelect.prototype.updateCheckedCount = function updateCheckedCount(){
     this.$optionSelect.find('.js-selected-counter').text(this.checkedString());
+
+    this.doFilter(this);
   };
 
   OptionSelect.prototype.checkedString = function checkedString(){
