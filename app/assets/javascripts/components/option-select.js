@@ -146,8 +146,6 @@
 
   OptionSelect.prototype.updateCheckedCount = function updateCheckedCount(){
     this.$optionSelect.find('.js-selected-counter').text(this.checkedString());
-
-    this.doFilter(this);
   };
 
   OptionSelect.prototype.checkedString = function checkedString(){

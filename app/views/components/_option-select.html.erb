@@ -24,9 +24,7 @@
       }
     %>
   <% end %>
-  <% # NOTE - could this be achieved with a <template> instead of putting it into a data attribute? Or by putting the filter_id into a data attribute to us?
-    filter_element = CGI::escapeHTML(filter)
-  %>
+  <% filter_element = CGI::escapeHTML(filter) %>
 <% end %>
 
 <div class="app-c-option-select"
