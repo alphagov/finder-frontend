@@ -98,7 +98,7 @@ private
   end
 
   def grouped_display?
-    params["order"] == "topic" || finder.default_sort_option_key == "topic"
+    params["order"] == "topic" || finder.sort_options.default_option.try(:key) == "topic"
   end
 
   def remove_search_box

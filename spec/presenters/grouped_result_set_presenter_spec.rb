@@ -16,6 +16,7 @@ RSpec.describe GroupedResultSetPresenter do
       name: 'A finder',
       results: results,
       document_noun: document_noun,
+      sort_options: sort_presenter_without_options,
       total: 20,
       facets: a_facet_collection,
       keywords: keywords,
@@ -120,6 +121,20 @@ RSpec.describe GroupedResultSetPresenter do
     ResultSet.new(
       (1..total).map { document },
       total,
+    )
+  end
+
+  let(:sort_presenter_without_options) do
+    double(
+      SortPresenter,
+      has_options?: false,
+    )
+  end
+
+  let(:sort_presenter_with_options) do
+    double(
+      SortPresenter,
+      has_options?: true,
     )
   end
 
@@ -504,17 +519,18 @@ RSpec.describe GroupedResultSetPresenter do
       let(:filter_params) { {} }
       before { allow(finder).to receive(:default_sort_option) }
       it "is false" do
-        allow(finder).to receive(:sort).and_return([])
+        allow(finder).to receive(:sort_options).and_return(sort_presenter_without_options)
 
         expect(subject.grouped_display?).to be false
       end
     end
 
     context "a finder sorts by topic" do
-      let(:topic_sort_option) { { 'name' => 'Topic', 'key' => 'topic' } }
+      let(:topic_sort_option) { SortOptionPresenter.new(label: 'Topic', key: 'topic') }
       before do
-        allow(finder).to receive(:default_sort_option).and_return(topic_sort_option)
-        allow(finder).to receive(:sort).and_return([topic_sort_option])
+        allow(finder).to receive(:sort_options).and_return(sort_presenter_with_options)
+        allow(finder).to receive(:sort_option).and_return(topic_sort_option)
+        allow(sort_presenter_with_options).to receive(:default_option).and_return(topic_sort_option)
       end
       context "with no sort param" do
         let(:filter_params) { {} }
@@ -558,10 +574,11 @@ RSpec.describe GroupedResultSetPresenter do
     end
 
     context "a finder sorts by topic" do
-      let(:topic_sort_option) { { 'name' => 'Topic', 'key' => 'topic' } }
+      let(:topic_sort_option) { SortOptionPresenter.new(label: 'Topic', key: 'topic') }
       before do
-        allow(finder).to receive(:default_sort_option).and_return(topic_sort_option)
-        allow(finder).to receive(:sort).and_return([topic_sort_option])
+        allow(finder).to receive(:sort_options).and_return(sort_presenter_with_options)
+        allow(finder).to receive(:sort_option).and_return(topic_sort_option)
+        allow(sort_presenter_with_options).to receive(:default_option).and_return(topic_sort_option)
       end
       context "with no sort param" do
         let(:filter_params) { {} }

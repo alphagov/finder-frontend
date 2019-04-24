@@ -1,7 +1,7 @@
 class ScreenReaderFilterDescriptionPresenter
   def initialize(filters, sort_option)
     @filters = filters
-    @sort_options = sort_option.present? ? ["sorted by #{sort_option['name']}"] : []
+    @sort_options = sort_option.present? ? ["sorted by #{sort_option.label}"] : []
   end
 
   def present

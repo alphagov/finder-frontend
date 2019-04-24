@@ -51,10 +51,6 @@ class FinderPresenter
     content_item['details']['filter']
   end
 
-  def sort
-    content_item['details']['sort']
-  end
-
   def logo_path
     content_item['details']['logo_path']
   end
@@ -145,57 +141,8 @@ class FinderPresenter
     metadata.select { |f| f.type == "text" }.map(&:key)
   end
 
-  def default_sort_option
-    sort
-      &.detect { |option| option['default'] }
-  end
-
-  def default_sort_option_value
-    default_sort_option
-      &.dig('name')
-      &.parameterize
-  end
-
-  def default_sort_option_key
-    default_sort_option
-      &.dig('key')
-  end
-
-  def relevance_sort_option
-    sort
-      &.detect { |option| %w(relevance -relevance).include?(option['key']) }
-  end
-
-  def relevance_sort_option_value
-    relevance_sort_option
-      &.dig('name')
-      &.parameterize
-  end
-
   def sort_options
-    return [] if sort.blank?
-
-    options = sort.collect do |option|
-      [
-        option['name'],
-        option['name'].parameterize,
-        {
-          'data-track-category' => 'dropDownClicked',
-          'data-track-action' => 'clicked',
-          'data-track-label' => option['name']
-        }
-      ]
-    end
-
-    disabled_option = keywords.blank? ? relevance_sort_option_value : ''
-
-    selected_option = if values['order'].present? && sort.any? { |option| option['name'].parameterize == values['order'] }
-                        values['order']
-                      else
-                        default_sort_option_value
-                      end
-
-    options_for_select(options, selected: selected_option, disabled: disabled_option)
+    @sort_options ||= SortPresenter.new(content_item, values)
   end
 
   def show_keyword_search?
@@ -244,8 +191,8 @@ class FinderPresenter
   end
 
   def atom_feed_enabled?
-    if sort_options.present?
-      default_sort_option.blank? || default_sort_option_key == MOST_RECENT_FIRST
+    if sort_options.has_options?
+      sort_options.default_option.blank? || sort_options.default_option.key == MOST_RECENT_FIRST
     else
       default_order.blank? || default_order == MOST_RECENT_FIRST
     end

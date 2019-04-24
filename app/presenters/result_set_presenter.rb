@@ -89,7 +89,7 @@ private
       finder.eu_exit_finder? &&
       results.length >= 2 &&
       sort_option &&
-      sort_option["key"].eql?("-relevance") &&
+      sort_option.key.eql?("-relevance") &&
       best_bet?
   end
 
@@ -127,15 +127,13 @@ private
   end
 
   def sort_option
-    return if finder.sort.blank?
+    return unless finder.sort_options.has_options?
 
     if @filter_params['order']
-      sort_option = finder.sort.detect { |option|
-        option['name'].parameterize == @filter_params['order']
-      }
+      sort_option = finder.sort_options.find_by_value(@filter_params['order'])
     end
 
-    sort_option ||= finder.default_sort_option
+    sort_option ||= finder.sort_options.default_option
 
     sort_option
   end

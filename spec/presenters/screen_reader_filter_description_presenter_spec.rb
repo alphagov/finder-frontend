@@ -1,8 +1,9 @@
 require 'spec_helper'
 
 RSpec.describe ScreenReaderFilterDescriptionPresenter do
-  subject(:presenter) { ScreenReaderFilterDescriptionPresenter.new([a_facet, a_facet_without_facet_tags], 'name' => 'Updated (newest)') }
+  subject(:presenter) { ScreenReaderFilterDescriptionPresenter.new([a_facet, a_facet_without_facet_tags], sort_option) }
 
+  let(:sort_option) { SortOptionPresenter.new(label: 'Updated (newest)', key: 'Updated (newest)'.pluralize, default: false) }
   let(:a_facet) do
     double(
       OptionSelectFacet,

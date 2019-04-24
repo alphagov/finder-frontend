@@ -263,8 +263,8 @@ RSpec.describe FinderPresenter do
       "<option data-track-category=\"dropDownClicked\" data-track-action=\"clicked\" data-track-label=\"#{label}\" #{disabled_attr}#{selected_attr}value=\"#{value}\">#{label}</option>"
     end
 
-    it "returns an empty array when sort is not present" do
-      expect(presenter.sort_options).to eql([])
+    it "returns an empty string when sort is not present" do
+      expect(presenter.sort_options.for_select).to eql("")
     end
 
     it "returns sort options without relevance when keywords is not present" do
@@ -273,7 +273,7 @@ RSpec.describe FinderPresenter do
         sort_option('Updated (newest)', 'updated-newest')
       ].join("\n")
 
-      expect(presenter_with_sort.sort_options).to eql(expected_options)
+      expect(presenter_with_sort.sort_options.for_select).to eql(expected_options)
     end
 
     it "returns sort options with relevance disabled when keywords is blank" do
@@ -285,7 +285,7 @@ RSpec.describe FinderPresenter do
 
       presenter = described_class.new(content_item(sort_options: sort_options_with_relevance), {}, values)
 
-      expect(presenter.sort_options).to eql(expected_options)
+      expect(presenter.sort_options.for_select).to eql(expected_options)
     end
 
     it "returns sort options with relevance enabled when keywords is not blank" do
@@ -297,7 +297,7 @@ RSpec.describe FinderPresenter do
 
       presenter = described_class.new(content_item(sort_options: sort_options_with_relevance), {}, "keywords" => "something not blank")
 
-      expect(presenter.sort_options).to eql(expected_options)
+      expect(presenter.sort_options.for_select).to eql(expected_options)
     end
 
     it "returns sort options with no option selected when order is specified but does not exist in options" do
@@ -309,7 +309,7 @@ RSpec.describe FinderPresenter do
 
       presenter = described_class.new(content_item(sort_options: sort_options_without_relevance), "order" => "option_that_does_not_exist")
 
-      expect(presenter.sort_options).to eql(expected_options)
+      expect(presenter.sort_options.for_select).to eql(expected_options)
     end
 
     it "returns sort options with default option selected when order is not specified and default option exists" do
@@ -320,7 +320,7 @@ RSpec.describe FinderPresenter do
 
       presenter = described_class.new(content_item(sort_options: sort_options_with_default), values)
 
-      expect(presenter.sort_options).to eql(expected_options)
+      expect(presenter.sort_options.for_select).to eql(expected_options)
     end
 
     it "returns sort options with option selected when order is specified and exists in options" do
@@ -331,7 +331,7 @@ RSpec.describe FinderPresenter do
 
       presenter = described_class.new(content_item(sort_options: sort_options_without_relevance), {}, "order" => "updated-newest")
 
-      expect(presenter.sort_options).to eql(expected_options)
+      expect(presenter.sort_options.for_select).to eql(expected_options)
     end
   end
 
