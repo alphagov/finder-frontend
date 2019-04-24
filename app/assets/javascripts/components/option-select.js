@@ -44,9 +44,10 @@
 
         if(e.keyCode !== ENTER_KEY) {
           clearTimeout(that.filterTimeout);
-          that.filterTimeout = setTimeout(function(obj){
-            that.doFilter(obj);
-          }, 300, that);
+          that.filterTimeout = setTimeout(
+            function(){ this.doFilter(this) }.bind(that),
+            300
+          );
         } else {
           e.preventDefault(); // prevents finder forms from being submitted when user presses ENTER
         }
