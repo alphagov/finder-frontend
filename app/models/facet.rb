@@ -51,6 +51,10 @@ class Facet
     {}
   end
 
+  def open_on_load?
+    true
+  end
+
 private
 
   def and_word_connectors

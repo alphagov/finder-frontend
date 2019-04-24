@@ -21,10 +21,7 @@ class FacetCollection
   end
 
   def ensure_minimum_one_open_facet(facets_to_ensure)
-    at_least_one_facet_selected = (facets_to_ensure.map { |f|
-      # TODO figure out where to move this method so that it only applies to `OptionSelectFacet`. Then can remove the `defined?` check.
-      (defined? f.close_facet?) ? !f.close_facet? : false
-    }).any?
+    at_least_one_facet_selected = facets_to_ensure.any?(&:open_on_load?)
     unless at_least_one_facet_selected
       facets_to_ensure.first.open_facet!
     end

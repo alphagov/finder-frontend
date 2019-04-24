@@ -59,12 +59,12 @@ describe OptionSelectFacet do
     end
   end
 
-  describe "#close_facet?" do
+  describe "#open_on_load?" do
     describe "with a small number of options" do
       subject { OptionSelectFacet.new(facet_data, []) }
 
       context "should not be closed" do
-        specify { expect(subject.close_facet?).to be false }
+        specify { expect(subject.open_on_load?).to be true }
       end
     end
 
@@ -86,13 +86,13 @@ describe OptionSelectFacet do
       subject { OptionSelectFacet.new(large_facet_data, {}) }
 
       context "should be closed" do
-        specify { expect(subject.close_facet?).to be true }
+        specify { expect(subject.open_on_load?).to be false }
       end
 
       context "can force open with #open_facet!" do
         specify {
           subject.open_facet!
-          expect(subject.close_facet?).to be false
+          expect(subject.open_on_load?).to be true
         }
       end
     end

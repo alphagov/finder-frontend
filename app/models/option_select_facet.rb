@@ -47,14 +47,8 @@ class OptionSelectFacet < FilterableFacet
     @facet_forced_open = true
   end
 
-  def close_facet?
-    if @facet_forced_open
-      false
-    elsif unselected? || allowed_values.count > 10
-      true
-    else
-      false
-    end
+  def open_on_load?
+    @facet_forced_open || !unselected?
   end
 
   def unselected?
