@@ -63,26 +63,6 @@ describe EmailAlertSubscriptionsController, type: :controller do
       content_store_has_item('/cma-cases/email-signup', signup_finder)
     end
 
-    context "finder has default rejects" do
-      let(:signup_finder) {
-        cma_cases_signup_content_item.to_hash.merge("details" => {
-          "reject" => { "content_purpose_supergroup" => 'other' },
-        })
-      }
-
-      it "does not fail if no other attributes are provided" do
-        email_alert_api_has_subscriber_list(
-          "tags" => {
-            "format" => { any: %w(mosw_report) },
-          },
-          "subscription_url" => 'http://www.example.com',
-        )
-
-        post :create, params: { slug: 'cma-cases' }
-        expect(subject).to redirect_to('http://www.example.com')
-      end
-    end
-
     context "finder has default filters" do
       let(:signup_finder) {
         cma_cases_signup_content_item.to_hash.merge("details" => {
@@ -94,8 +74,8 @@ describe EmailAlertSubscriptionsController, type: :controller do
         email_alert_api_has_subscriber_list(
           "tags" => {
             "format" => { any: %w(mosw_report) },
+            "content_purpose_supergroup" => { any: %w(news-and-communications) },
           },
-          "content_purpose_supergroup" => 'news-and-communications',
           "subscription_url" => 'http://www.example.com',
         )
 

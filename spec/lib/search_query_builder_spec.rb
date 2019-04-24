@@ -227,6 +227,18 @@ describe SearchQueryBuilder do
       expect(query).not_to include("order")
     end
 
+    context "longer than the maximum query length" do
+      let(:params) {
+        {
+          "keywords" => "a" * 1024
+        }
+      }
+
+      it "should include a truncated" do
+        expect(query).to include("q" => "a" * SearchQueryBuilder::MAX_QUERY_LENGTH)
+      end
+    end
+
     context "without stopwords" do
       let(:params) {
         {

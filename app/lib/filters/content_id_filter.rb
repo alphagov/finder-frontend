@@ -1,10 +1,10 @@
 module Filters
   class ContentIdFilter < Filter
-    def value
-      Array(params).map(&method(:content_id_for))
-    end
-
   private
+
+    def value
+      @value ||= Array(params).map(&method(:content_id_for))
+    end
 
     def content_id_for(value)
       content_id_map[value]

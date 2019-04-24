@@ -1,14 +1,16 @@
 module Filters
   class RadioFilter < Filter
-    def value
-      return default_value unless acceptable_param?
-
-      return option_lookup_values(params) if multi_value?
-
-      Array(params)
-    end
-
   private
+
+    def value
+      @value ||= if !acceptable_param?
+                   default_value
+                 elsif multi_value?
+                   option_lookup_values(params)
+                 else
+                   Array(params)
+                 end
+    end
 
     def default_value
       return [] if default_allowed_value.blank?

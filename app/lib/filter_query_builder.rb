@@ -7,9 +7,9 @@ class FilterQueryBuilder
   end
 
   def call
-    filters.select(&:active?).reduce({}) { |query, filter|
-      query.merge(filter.key => filter_value(query, filter))
-    }
+    filters.select(&:active?).map(&:query_hash).inject({}) do |query, filter_hash|
+      query.merge(filter_hash) { |_, v1, v2| Array(v1) + Array(v2) }
+    end
   end
 
 private
@@ -17,7 +17,7 @@ private
   attr_reader :facets, :user_params
 
   def filters
-    @filters ||= facets.select { |f| f['filterable'] }.map { |f| build_filter(f) }
+    facets.select { |f| f['filterable'] }.map { |f| build_filter(f) }
   end
 
   def build_filter(facet)
@@ -31,18 +31,11 @@ private
       'taxon' => Filters::TaxonFilter,
       'radio' => Filters::RadioFilter,
       'content_id' => Filters::ContentIdFilter,
-      'hidden_clearable' => Filters::HiddenClearableFilter
+      'hidden_clearable' => Filters::HiddenClearableFilter,
+      'research_and_statistics' => Filters::ResearchAndStatisticsFilter
     }.fetch(facet['type'])
 
     filter_class.new(facet, params(facet))
-  end
-
-  def filter_value(query, filter)
-    # If the same filter key is provided multiple times, provide an array
-    # of all values for that filter key
-    return Array(query[filter.key]) + Array(filter.value) if query[filter.key]
-
-    filter.value
   end
 
   def params(facet)

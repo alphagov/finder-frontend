@@ -183,7 +183,6 @@ When(/^I view the research and statistics finder$/) do
   stub_whitehall_api_world_location_request
   stub_rummager_api_request_with_research_and_statistics_results
   stub_rummager_api_request_with_filtered_research_and_statistics_results
-
   visit finder_path('search/research-and-statistics')
 end
 
@@ -196,10 +195,11 @@ When(/^I view the all content finder with a manual filter$/) do
   stub_request(:get,
     all_content_url(
       filter_manual: '/guidance/care-and-use-of-a-nimbus-2000',
-      q: 'Replacing bristles'
+      q: 'Replacing bristles',
+      order: '-public_timestamp',
     )).to_return(body: all_content_manuals_results_json)
 
-  stub_request(:get, all_content_url(q: 'Replacing bristles'))
+  stub_request(:get, all_content_url(q: 'Replacing bristles', order: '-public_timestamp'))
     .to_return(body: all_content_results_json)
 
   visit finder_path('search/all', manual: '/guidance/care-and-use-of-a-nimbus-2000', q: 'Replacing bristles')
@@ -591,6 +591,9 @@ end
 
 And(/^I select upcoming statistics$/) do
   find('.govuk-label', text: 'Statistics (upcoming)').click
+end
+
+And(/^I click filter results$/) do
   click_on "Filter results"
 end
 
@@ -709,6 +712,7 @@ Then("I should see results in the default group") do
 end
 
 Then("I should see results for scoped by the selected document type") do
+  expect(page).to have_text('3 results')
   within("#js-results") do
     expect(page.all("li.document").size).to eq(3) # 3 results in fixture
     expect(page).to have_link('Restrictions on usage of spells within school grounds')
@@ -752,12 +756,12 @@ Then("I do not see results with pinned items") do
 end
 
 Then("I should see upcoming statistics") do
+  expect(page).to have_text('1 result')
   within("#js-results") do
     expect(page.all("li.document").size).to eq(1)
     expect(page).to have_link('Restrictions on usage of spells within school grounds')
     expect(page).to have_no_link('New platform at Hogwarts for the express train')
     expect(page).to have_no_link('Installation of double glazing at Hogwarts')
-
     expect(page).to have_no_link('Proposed changes to magic tournaments')
   end
 end

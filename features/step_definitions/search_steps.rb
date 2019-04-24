@@ -5,12 +5,6 @@ Given /^no search results exist$/ do
 end
 
 Given /^search results exist$/ do
-  @results = [
-    { "title_with_highlighting" => "document-title", "link" => "/document-slug" },
-    result_with_organisation("CO", "Cabinet Office", "cabinet-office"),
-    result_with_organisation("Home Office", "Home Office", "home-office")
-  ]
-  stub_rummager_results(@results, "search-term", ["searching-term"])
   content_store_has_item("/search", schema: 'special_route')
 end
 
@@ -97,15 +91,15 @@ When(/^I search for "([^"]*)"$/) do |search_term|
 end
 
 When(/^I search for "([^"]*)" from "([^"]*)"$/) do |search_term, organisation|
-  visit "/search?q=#{search_term}&filter_organisations=#{organisation}"
+  visit "/search?q=#{search_term}&filter_organisations[]=#{organisation}"
 end
 
-When(/^I search for "([^"]*)" on the json endpoint$/) do |search_term|
-  visit "/search.json?q=#{search_term}"
+When(/^I search for "([^"]*)" in manual "([^"]*)"$/) do |search_term, manual|
+  visit "/search?q=#{search_term}&filter_manual[]=#{manual}"
 end
 
-When(/^I search for "([^"]*)" with manuals filter$/) do |search_term|
-  visit "/search.json?q=#{search_term}filter_manual[]=manual-to-filter-on"
+When(/^I search for "([^"]*)" from "(.*)" on the json endpoint$/) do |search_term, organisation|
+  visit "/search.json?q=#{search_term}&filter_organisations[]=#{organisation}"
 end
 
 When(/^I search for "([^"]*)" with show organisation flag$/) do |search_term|
@@ -128,6 +122,27 @@ Then(/^I am able to see the document in the search results$/) do
   @results.each do |result|
     expect(page).to have_link(result["title_with_highlighting"], href: result["link"])
   end
+end
+
+Given(/^the all content finder exists$/) do
+  topic_taxonomy_has_taxons
+  content_store_has_all_content_finder
+  stub_whitehall_api_world_location_request
+  stub_people_registry_request
+  stub_organisations_registry_request
+  stub_manuals_registry_request
+
+  stub_rummager_api_request_with_organisation_filter_all_content_results
+  stub_rummager_api_request_with_manual_filter_all_content_results
+end
+
+Then(/^I am redirected to the (html|json) all content finder results page$/) do |format|
+  expect(page).to have_current_path(finder_path('search/all'), ignore_query: true)
+  expect(page.response_headers['Content-Type']).to include(format)
+end
+
+Then(/^results are filtered with a facet tag of (.*)/) do |text|
+  expect(page).to have_selector("p[class='facet-tag__text']", text: text)
 end
 
 Then(/^I am able to see organisations with abbreviations$/) do

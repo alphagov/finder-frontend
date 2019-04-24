@@ -54,4 +54,13 @@ RSpec.describe SearchParameters do
       expect(params.rummager_parameters[:filter_organisations]).to eq(['ministry-of-silly-walks'])
     end
   end
+
+  context "#search_term" do
+    it "truncates a too-long search query" do
+      max_length = SearchQueryBuilder::MAX_QUERY_LENGTH
+      long_query = "a" * max_length
+      params = search_params("q" => "#{long_query}1234567890")
+      expect(params.rummager_parameters[:q]).to eq(long_query)
+    end
+  end
 end

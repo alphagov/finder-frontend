@@ -4,11 +4,11 @@ ruby File.read(".ruby-version").strip
 
 gem 'chronic', '~> 0.10.2'
 gem 'dalli'
-gem 'gds-api-adapters', '~> 59.0'
+gem 'gds-api-adapters', '~> 59.1'
 gem 'govuk_ab_testing', '~> 2.4.1'
-gem 'govuk_app_config', '~> 1.13.1'
+gem 'govuk_app_config', '~> 1.15.1'
 gem 'govuk_document_types', '~> 0.9.0'
-gem 'govuk_publishing_components', '~> 16.9.2'
+gem 'govuk_publishing_components', '~> 16.11.0'
 gem 'rails', '~> 5.2.3'
 gem 'shared_mustache', '~> 1.0.1'
 gem 'slimmer', '~> 13.1.0'
@@ -37,11 +37,12 @@ group :development, :test do
 end
 
 group :test do
-  gem 'cucumber-rails', '~> 1.6.0', require: false
+  gem 'cucumber-rails', '~> 1.7.0', require: false
   gem 'govuk-content-schema-test-helpers', '~> 1.6'
   gem 'govuk_test'
   gem 'launchy', '~> 2.4.2'
   gem 'rails-controller-testing'
   gem 'simplecov', '~> 0.16.1'
+  gem "timecop"
   gem 'webmock', '~> 3.5.1'
 end
