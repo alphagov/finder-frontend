@@ -127,7 +127,13 @@ Given(/^I am in the variant B control group$/) do
   allow_any_instance_of(FindersController).to receive(:finder_top_result_variant).and_return(ab_test_variant)
 end
 
+When(/^I view the business readiness finder with no preselected facets$/) do
+  step "I view the business readiness finder"
+end
+
 When(/^I view the business readiness finder$/) do
+  id_of_option_aerospace = '24fd50fa-6619-46ca-96cd-8ce90fa076ce'
+
   content_store_has_business_readiness_finder
   content_store_has_business_readiness_email_signup
   stub_whitehall_api_world_location_request
@@ -139,14 +145,32 @@ When(/^I view the business readiness finder$/) do
     'q' => 'Keyword1 Keyword2'
   )
   stub_rummager_api_request_with_filtered_business_readiness_results(
-    'filter_any_facet_values[0]' => '24fd50fa-6619-46ca-96cd-8ce90fa076ce'
+    'filter_any_facet_values[0]' => id_of_option_aerospace
   )
   stub_rummager_api_request_with_filtered_business_readiness_results(
-    'filter_any_facet_values[0]' => '24fd50fa-6619-46ca-96cd-8ce90fa076ce',
+    'filter_any_facet_values[0]' => id_of_option_aerospace,
     'q' => 'Keyword1 Keyword2'
   )
 
   visit finder_path('find-eu-exit-guidance-business')
+end
+
+When(/^I view the business readiness finder with a preselected facet$/) do
+  url_params = '?business_activity=buying'
+  id_of_option_buying = 'd422aa2e-59ad-4986-8ef0-973959878912'
+
+  content_store_has_business_readiness_finder
+  content_store_has_business_readiness_finder url_params
+  content_store_has_business_readiness_email_signup
+  stub_whitehall_api_world_location_request
+  stub_rummager_api_request_with_business_readiness_results
+  stub_rummager_api_request_with_filtered_business_readiness_results(
+    "filter_any_facet_values[0]" => id_of_option_buying
+  )
+
+  # `finder_path` outputs "?" as "%3F", so URL params wouldn't otherwise get applied, so we need to `sub!`
+  # if we try `visit`ing the URL directly (rather than through `finder_path`) we get an empty page body.
+  visit finder_path('find-eu-exit-guidance-business?business_activity=buying').sub! '%3F', '?'
 end
 
 When(/^I view the policy papers and consultations finder$/) do
@@ -636,6 +660,19 @@ end
 
 And(/^I select facet (.*) in the already expanded \"([^\"]*)\" section$/) do |facet, _button|
   find('label', text: facet).click
+end
+
+$selected_facet = nil # code smell - but means we can write nice, declarative features
+Then(/^only the (first|selected) facet should be expanded$/) do |first_or_selected|
+  $selected_facet = first_or_selected == 'first' ? 1 : 2
+  facet = find("#facet-wrapper .app-c-option-select:nth-child(#{$selected_facet})")
+  expect(facet.find('button')[:'aria-expanded']).to eql 'true'
+end
+
+Then(/^all other facets should be closed by default$/) do
+  all("#facet-wrapper .app-c-option-select:not(:nth-child(#{$selected_facet}))").each do |facet|
+    expect(facet.find('button')[:'aria-expanded']).to eql 'false'
+  end
 end
 
 When(/^I click the (.*) remove control$/) do |filter|

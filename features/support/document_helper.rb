@@ -283,10 +283,10 @@ module DocumentHelper
     content_store_has_item(mock_bus_finder_qa_config['base_path'], mock_bus_finder_qa_config)
   end
 
-  def content_store_has_business_readiness_finder
+  def content_store_has_business_readiness_finder(params = '')
     finder_fixture = File.read(Rails.root.join('features', 'fixtures', 'business_readiness.json'))
 
-    content_store_has_item('/find-eu-exit-guidance-business', finder_fixture)
+    content_store_has_item("/find-eu-exit-guidance-business#{params}", finder_fixture)
   end
 
   def content_store_has_business_readiness_email_signup

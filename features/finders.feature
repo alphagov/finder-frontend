@@ -297,6 +297,18 @@ Feature: Filtering documents
     And I should see all world locations in the world location facet
 
   @javascript
+  Scenario: Business readiness finder with no facets selected
+    When I view the business readiness finder with no preselected facets
+    Then only the first facet should be expanded
+    And all other facets should be closed by default
+
+  @javascript
+  Scenario: Business readiness finder with one facet selected
+    When I view the business readiness finder with a preselected facet
+    Then only the selected facet should be expanded
+    And all other facets should be closed by default
+
+  @javascript
   Scenario: Skip to results after inputing some keywords
     When I view the news and communications finder
     And I should not see a "Skip to results" link
