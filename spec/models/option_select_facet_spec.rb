@@ -60,41 +60,23 @@ describe OptionSelectFacet do
   end
 
   describe "#open_on_load?" do
-    describe "with a small number of options" do
-      subject { OptionSelectFacet.new(facet_data, []) }
-
-      context "should not be closed" do
-        specify { expect(subject.open_on_load?).to be true }
-      end
+    context "when a facet is selected" do
+      subject { OptionSelectFacet.new(facet_data, "allowed-value-1") }
+      specify { expect(subject.open_on_load?).to be true }
     end
 
-    describe "with a large number of options" do
-      let(:allowed_values) {
-        11.times.map { |i| { 'label' => "Label #{i}", 'value' => "allowed-value-#{i}" } }
+    context "when NO facet is selected" do
+      subject { OptionSelectFacet.new(facet_data, []) }
+      specify { expect(subject.open_on_load?).to be false }
+    end
+
+    context "when NO facet is selected but we have called `open_facet!`" do
+      subject {
+        facet = OptionSelectFacet.new(facet_data, [])
+        facet.open_facet!
+        facet
       }
-
-      let(:large_facet_data) {
-        {
-          'type' => "multi-select",
-          'name' => "Test values",
-          'key' => "test_values",
-          'preposition' => "of value",
-          'allowed_values' => allowed_values,
-        }
-      }
-
-      subject { OptionSelectFacet.new(large_facet_data, {}) }
-
-      context "should be closed" do
-        specify { expect(subject.open_on_load?).to be false }
-      end
-
-      context "can force open with #open_facet!" do
-        specify {
-          subject.open_facet!
-          expect(subject.open_on_load?).to be true
-        }
-      end
+      specify { expect(subject.open_on_load?).to be true }
     end
   end
 
