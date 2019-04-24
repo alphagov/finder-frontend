@@ -3,6 +3,7 @@ class OptionSelectFacet < FilterableFacet
 
   def initialize(facet, values)
     @value = Array(values)
+    @facet_forced_open = false
     super(facet)
   end
 
@@ -42,8 +43,18 @@ class OptionSelectFacet < FilterableFacet
     selected_values.any?
   end
 
+  def open_facet!
+    @facet_forced_open = true
+  end
+
   def close_facet?
-    unselected? && allowed_values.count > 10
+    if @facet_forced_open
+      false
+    elsif unselected? || allowed_values.count > 10
+      true
+    else
+      false
+    end
   end
 
   def unselected?

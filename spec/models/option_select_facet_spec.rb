@@ -60,13 +60,15 @@ describe OptionSelectFacet do
   end
 
   describe "#close_facet?" do
-    subject { OptionSelectFacet.new(facet_data, []) }
+    describe "with a small number of options" do
+      subject { OptionSelectFacet.new(facet_data, []) }
 
-    context "small number of options" do
-      specify { expect(subject.close_facet?).to be false }
+      context "should not be closed" do
+        specify { expect(subject.close_facet?).to be false }
+      end
     end
 
-    context "large number of options" do
+    describe "with a large number of options" do
       let(:allowed_values) {
         11.times.map { |i| { 'label' => "Label #{i}", 'value' => "allowed-value-#{i}" } }
       }
@@ -83,7 +85,16 @@ describe OptionSelectFacet do
 
       subject { OptionSelectFacet.new(large_facet_data, {}) }
 
-      specify { expect(subject.close_facet?).to be true }
+      context "should be closed" do
+        specify { expect(subject.close_facet?).to be true }
+      end
+
+      context "can force open with #open_facet!" do
+        specify {
+          subject.open_facet!
+          expect(subject.close_facet?).to be false
+        }
+      end
     end
   end
 
