@@ -32,6 +32,7 @@ class ResultSetPresenter
       any_filters_applied: any_filters_applied?,
       next_and_prev_links: next_and_prev_links,
       screen_reader_filter_description: ScreenReaderFilterDescriptionPresenter.new(filters, sort_option).present,
+      sort_options: finder.sort_options.to_hash,
     }
   end
 
@@ -88,8 +89,7 @@ private
     @show_top_result &&
       finder.eu_exit_finder? &&
       results.length >= 2 &&
-      sort_option &&
-      sort_option.key.eql?("-relevance") &&
+      sort_option.dig('key').eql?("-relevance") &&
       best_bet?
   end
 
@@ -127,15 +127,7 @@ private
   end
 
   def sort_option
-    return unless finder.sort_options.has_options?
-
-    if @filter_params['order']
-      sort_option = finder.sort_options.find_by_value(@filter_params['order'])
-    end
-
-    sort_option ||= finder.sort_options.default_option
-
-    sort_option
+    finder.sort_options.selected_option || {}
   end
 
   def fetch_signup_links

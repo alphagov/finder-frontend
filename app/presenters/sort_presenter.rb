@@ -4,64 +4,86 @@ class SortPresenter
   def initialize(content_item, filter_params)
     @user_selected_order = filter_params['order']
     @keywords = filter_params["keywords"]
-    @sort_options = (content_item['details']['sort'] || []).map do |option|
-      SortOptionPresenter.new(
-        label: option['name'],
-        key: option['key'],
-        default: option['default']
-      )
-    end
+    @content_item_sort_options = content_item['details']['sort'] || []
   end
 
   def has_options?
-    sort_options.any?
+    content_item_sort_options.any?
   end
 
   def has_default_option?
     default_option.present?
   end
 
-  def for_select
-    options_for_select(all_options, selected: selected_option, disabled: disabled_option)
-  end
-
-  def default_option
-    sort_options.find(&:default?)
-  end
-
-  def default_value
-    default_option.try(:value)
+  def to_hash
+    {
+      options: options_as_hashes,
+      default_value: default_value,
+      relevance_value: relevance_value,
+    }
   end
 
   def relevance_value
-    relevance_option.try(:value)
+    option_value(relevance_option)
   end
 
-  def find_by_value(value)
-    sort_options.find { |option| option.value == value }
+  def presented_sort_options
+    @presented_sort_options ||= content_item_sort_options.map do |option|
+      SortOptionPresenter.new(
+        label: option['name'],
+        key: option['key'],
+        default: option['default'],
+        selected: option_value(option) == option_value(selected_option),
+        disabled: option_value(option) == disabled_option_value,
+      )
+    end
+  end
+
+  def presented_default_option
+    presented_sort_options.find(&:default?)
+  end
+
+  def default_value
+    presented_default_option.try(:value)
+  end
+
+  def selected_option
+    user_selected_option || default_option
   end
 
 private
 
-  attr_reader :sort_options, :user_selected_order, :keywords
+  attr_reader :user_selected_order, :keywords, :content_item_sort_options
 
-  def all_options
-    sort_options.collect { |option| option.to_select_format }
+  RELEVANCE_OPTION_TYPES = %w(relevance -relevance).freeze
+
+  def options_as_hashes
+    presented_sort_options.map(&:to_hash)
   end
 
-  def selected_option
-    has_select_valid_option? ? user_selected_order : default_option.try(:value)
+  def user_selected_option
+    content_item_sort_options.find { |option|
+      option_value(option) == user_selected_order
+    }
   end
 
-  def has_select_valid_option?
-    sort_options.any? { |option| option.value == user_selected_order }
+  def disabled_option_value
+    keywords.blank? && relevance_option.present? ? option_value(relevance_option) : ''
   end
 
-  def disabled_option
-    keywords.blank? ? relevance_option.try(:value) : ''
+  def default_option
+    content_item_sort_options.find { |option| option['default'] }
   end
 
   def relevance_option
-    sort_options.find(&:relevance?)
+    content_item_sort_options.find { |option|
+      RELEVANCE_OPTION_TYPES.include?(option['key'])
+    }
+  end
+
+  def option_value(option)
+    return if option.nil?
+
+    option.fetch('name', '').parameterize
   end
 end

@@ -1,30 +1,34 @@
 class SortOptionPresenter
   attr_reader :value, :key, :label
 
-  def initialize(label: label, key: key, default: false)
+  def initialize(label:, key:, default: false, disabled: false, selected: false)
     @label = label
     @value = label.parameterize
     @key = key
     @default = default
+    @disabled = disabled
+    @selected = selected
   end
 
   def default?
     default.present? && default
   end
 
-  def relevance?
-    RELEVANCE_OPTION_TYPES.include?(key)
-  end
-
-  def to_select_format
-    [ label, value, tracking_attributes ]
+  def to_hash
+    {
+      label: label,
+      value: value,
+      data_track_category: 'dropDownClicked',
+      data_track_action: 'clicked',
+      data_track_label: label,
+      selected: selected,
+      disabled: disabled,
+    }
   end
 
 private
 
-  attr_reader :default
-
-  RELEVANCE_OPTION_TYPES = %w(relevance -relevance).freeze
+  attr_reader :default, :selected, :disabled
 
   def tracking_attributes
     {

@@ -33,6 +33,33 @@ describe("liveSearch", function(){
     ]
   };
 
+  var responseWithSortOptions = {
+    sort_options: {
+      options: [
+        {
+          label: 'relevance',
+          value: 'option-val',
+          data_track_category: 'option-data_track_category',
+          data_track_action: 'option-data_track_action',
+          data_track_label: 'option-data_track_label',
+          selected: true,
+          disabled: false,
+        },
+        {
+          label: 'most viewed',
+          value: 'option-val-2',
+          data_track_category: 'option-data_track_category-2',
+          data_track_action: 'option-data_track_action-2',
+          data_track_label: 'option-data_track_label-2',
+          selected: false,
+          disabled: true,
+        }
+      ],
+      relevance_value: 'option-val-1',
+      default_value: 'option-val-2'
+    }
+  }
+
   beforeEach(function () {
     sortList = '<select id="order" class="js-order-results" data-relevance-sort-option="relevance"><option>Test 1</option><option value="relevance" disabled>Relevance</option>';
     $form = $('<form action="/somewhere" class="js-live-search-form">' +
@@ -456,13 +483,20 @@ describe("liveSearch", function(){
     expect(liveSearch.$atomAutodiscoveryLink.attr('href')).toBe("http://an-atom-url.atom?published_at=2004");
   });
 
-  describe('insertRelevanceOption', function(){
-    it('adds "Relevance" to the Sort select list and should not be disabled', function(){
-      // Relevance option should initially be disabled when js is disabled
+  describe('updateSortOptions', function() {
+    it('replaces the sort options with new data', function() {
+      liveSearch.$form = $form;
+      liveSearch.$resultsBlock = $results;
+      liveSearch.state = { search: 'state'};
+
+      expect($('#order option').length).toBe(2);
+      $('#order option').remove() // Delete all the options
+      expect($('#order option').length).toBe(0);
+      // We receive new data, which adds the sort options to the DOM.
+      liveSearch.updateSortOptions(responseWithSortOptions, $.param(liveSearch.state));
+      expect($('#order option').length).toBe(2);
       expect($('#order option:disabled').length).toBe(1);
-      //When we insert it again disabled attribute should be removed
-      liveSearch.insertRelevanceOption();
-      expect($('#order option:disabled').length).toBe(0);
+      expect($('#order option:selected').length).toBe(1);
     })
   })
 });

@@ -192,7 +192,7 @@ class FinderPresenter
 
   def atom_feed_enabled?
     if sort_options.has_options?
-      sort_options.default_option.blank? || sort_options.default_option.key == MOST_RECENT_FIRST
+      sort_options.presented_default_option.blank? || sort_options.presented_default_option.key == MOST_RECENT_FIRST
     else
       default_order.blank? || default_order == MOST_RECENT_FIRST
     end

@@ -263,75 +263,186 @@ RSpec.describe FinderPresenter do
       "<option data-track-category=\"dropDownClicked\" data-track-action=\"clicked\" data-track-label=\"#{label}\" #{disabled_attr}#{selected_attr}value=\"#{value}\">#{label}</option>"
     end
 
-    it "returns an empty string when sort is not present" do
-      expect(presenter.sort_options.for_select).to eql("")
+    it "returns an empty array when sort is not present" do
+      expect(presenter.sort_options.to_hash[:options]).to eql([])
     end
 
     it "returns sort options without relevance when keywords is not present" do
       expected_options = [
-        sort_option('Most viewed', 'most-viewed'),
-        sort_option('Updated (newest)', 'updated-newest')
-      ].join("\n")
+        {
+          data_track_action: "clicked",
+          data_track_category: "dropDownClicked",
+          data_track_label: "Most viewed",
+          disabled: false,
+          label: "Most viewed",
+          selected: false,
+          value: "most-viewed"
+        },
+        {
+          data_track_action: "clicked",
+          data_track_category: "dropDownClicked",
+          data_track_label: "Updated (newest)",
+          disabled: false,
+          label: "Updated (newest)",
+          selected: false,
+          value: "updated-newest",
+        }
+      ]
 
-      expect(presenter_with_sort.sort_options.for_select).to eql(expected_options)
+      expect(presenter_with_sort.sort_options.to_hash[:options]).to eql(expected_options)
     end
 
     it "returns sort options with relevance disabled when keywords is blank" do
       expected_options = [
-        sort_option('Most viewed', 'most-viewed'),
-        sort_option('Updated (newest)', 'updated-newest'),
-        sort_option('Relevance', 'relevance', disabled: true)
-      ].join("\n")
+        {
+          data_track_action: "clicked",
+          data_track_category: "dropDownClicked",
+          data_track_label: "Most viewed",
+          disabled: false,
+          label: "Most viewed",
+          selected: false,
+          value: "most-viewed"
+        },
+        {
+          data_track_action: "clicked",
+          data_track_category: "dropDownClicked",
+          data_track_label: "Updated (newest)",
+          disabled: false,
+          label: "Updated (newest)",
+          selected: false,
+          value: "updated-newest"
+        },
+        {
+          data_track_action: "clicked",
+          data_track_category: "dropDownClicked",
+          data_track_label: "Relevance",
+          disabled: true,
+          label: "Relevance",
+          selected: false,
+          value: "relevance"
+        }
+      ]
 
       presenter = described_class.new(content_item(sort_options: sort_options_with_relevance), {}, values)
 
-      expect(presenter.sort_options.for_select).to eql(expected_options)
+      expect(presenter.sort_options.to_hash[:options]).to eql(expected_options)
     end
 
     it "returns sort options with relevance enabled when keywords is not blank" do
       expected_options = [
-        sort_option('Most viewed', 'most-viewed'),
-        sort_option('Updated (newest)', 'updated-newest'),
-        sort_option('Relevance', 'relevance', disabled: false)
-      ].join("\n")
+        {
+          data_track_action: "clicked",
+          data_track_category: "dropDownClicked",
+          data_track_label: "Most viewed",
+          disabled: false,
+          label: "Most viewed",
+          selected: false,
+          value: "most-viewed"
+        },
+        {
+          data_track_action: "clicked",
+          data_track_category: "dropDownClicked",
+          data_track_label: "Updated (newest)",
+          disabled: false,
+          label: "Updated (newest)",
+          selected: false,
+          value: "updated-newest"
+        },
+        {
+          data_track_action: "clicked",
+          data_track_category: "dropDownClicked",
+          data_track_label: "Relevance",
+          disabled: false,
+          label: "Relevance",
+          selected: false,
+          value: "relevance"
+        }
+      ]
 
       presenter = described_class.new(content_item(sort_options: sort_options_with_relevance), {}, "keywords" => "something not blank")
 
-      expect(presenter.sort_options.for_select).to eql(expected_options)
+      expect(presenter.sort_options.to_hash[:options]).to eql(expected_options)
     end
 
     it "returns sort options with no option selected when order is specified but does not exist in options" do
       expected_options = [
-        sort_option('Most viewed', 'most-viewed'),
-        sort_option('Updated (newest)', 'updated-newest')
-      ].join("\n")
-
+        {
+          data_track_action: "clicked",
+          data_track_category: "dropDownClicked",
+          data_track_label: "Most viewed",
+          disabled: false,
+          label: "Most viewed",
+          selected: false,
+          value: "most-viewed"
+        },
+        {
+          data_track_action: "clicked",
+          data_track_category: "dropDownClicked",
+          data_track_label: "Updated (newest)",
+          disabled: false,
+          label: "Updated (newest)",
+          selected: false,
+          value: "updated-newest"
+        }
+      ]
 
       presenter = described_class.new(content_item(sort_options: sort_options_without_relevance), "order" => "option_that_does_not_exist")
 
-      expect(presenter.sort_options.for_select).to eql(expected_options)
+      expect(presenter.sort_options.to_hash[:options]).to eql(expected_options)
     end
 
     it "returns sort options with default option selected when order is not specified and default option exists" do
       expected_options = [
-        sort_option('Most viewed', 'most-viewed'),
-        sort_option('Updated (oldest)', 'updated-oldest', selected: true)
-      ].join("\n")
+        {
+          data_track_action: "clicked",
+          data_track_category: "dropDownClicked",
+          data_track_label: "Most viewed",
+          disabled: false,
+          label: "Most viewed",
+          selected: false,
+          value: "most-viewed"
+        },
+        {
+          data_track_action: "clicked",
+          data_track_category: "dropDownClicked",
+          data_track_label: "Updated (oldest)",
+          disabled: false,
+          label: "Updated (oldest)",
+          selected: true,
+          value: "updated-oldest"
+        }
+      ]
 
       presenter = described_class.new(content_item(sort_options: sort_options_with_default), values)
 
-      expect(presenter.sort_options.for_select).to eql(expected_options)
+      expect(presenter.sort_options.to_hash[:options]).to eql(expected_options)
     end
 
     it "returns sort options with option selected when order is specified and exists in options" do
       expected_options = [
-        sort_option('Most viewed', 'most-viewed'),
-        sort_option('Updated (newest)', 'updated-newest', selected: true)
-      ].join("\n")
+        {
+          data_track_action: "clicked",
+          data_track_category: "dropDownClicked",
+          data_track_label: "Most viewed",
+          disabled: false,
+          label: "Most viewed",
+          selected: false,
+          value: "most-viewed"
+        },
+        {
+          data_track_action: "clicked",
+          data_track_category: "dropDownClicked",
+          data_track_label: "Updated (newest)",
+          disabled: false,
+          label: "Updated (newest)",
+          selected: true,
+          value: "updated-newest"
+        }
+      ]
 
       presenter = described_class.new(content_item(sort_options: sort_options_without_relevance), {}, "order" => "updated-newest")
 
-      expect(presenter.sort_options.for_select).to eql(expected_options)
+      expect(presenter.sort_options.to_hash[:options]).to eql(expected_options)
     end
   end
 

@@ -128,6 +128,12 @@ RSpec.describe GroupedResultSetPresenter do
     double(
       SortPresenter,
       has_options?: false,
+      selected_option: nil,
+      to_hash: {
+        options: [],
+        default_value: nil,
+        relevance_value: nil,
+      }
     )
   end
 
@@ -135,6 +141,22 @@ RSpec.describe GroupedResultSetPresenter do
     double(
       SortPresenter,
       has_options?: true,
+      selected_option: { "name" => 'Relevance', "key" => '-relevance' },
+      to_hash: {
+        options: [
+          {
+            data_track_category: 'dropDownClicked',
+            data_track_action: 'clicked',
+            data_track_label: "Relevance",
+            label: "Relevance",
+            value: "relevance",
+            disabled: false,
+            selected: true,
+          }
+        ],
+        default_value: nil,
+        relevance_value: nil,
+      },
     )
   end
 
@@ -526,11 +548,10 @@ RSpec.describe GroupedResultSetPresenter do
     end
 
     context "a finder sorts by topic" do
-      let(:topic_sort_option) { SortOptionPresenter.new(label: 'Topic', key: 'topic') }
+      let(:topic_sort_option) { { 'key' => 'topic', 'name' => 'Topic' } }
       before do
         allow(finder).to receive(:sort_options).and_return(sort_presenter_with_options)
-        allow(finder).to receive(:sort_option).and_return(topic_sort_option)
-        allow(sort_presenter_with_options).to receive(:default_option).and_return(topic_sort_option)
+        allow(sort_presenter_with_options).to receive(:selected_option).and_return(topic_sort_option)
       end
       context "with no sort param" do
         let(:filter_params) { {} }
@@ -565,7 +586,7 @@ RSpec.describe GroupedResultSetPresenter do
   describe "#grouped_display?" do
     context "a finder does not sort by topic" do
       let(:filter_params) { {} }
-      before { allow(finder).to receive(:default_sort_option) }
+      before { allow(finder).to receive(:presented_default_option) }
       it "is false" do
         allow(finder).to receive(:sort).and_return([])
 
@@ -574,11 +595,10 @@ RSpec.describe GroupedResultSetPresenter do
     end
 
     context "a finder sorts by topic" do
-      let(:topic_sort_option) { SortOptionPresenter.new(label: 'Topic', key: 'topic') }
+      let(:topic_sort_option) { { 'key' => 'topic', 'name' => 'Topic' } }
       before do
         allow(finder).to receive(:sort_options).and_return(sort_presenter_with_options)
-        allow(finder).to receive(:sort_option).and_return(topic_sort_option)
-        allow(sort_presenter_with_options).to receive(:default_option).and_return(topic_sort_option)
+        allow(sort_presenter_with_options).to receive(:selected_option).and_return(topic_sort_option)
       end
       context "with no sort param" do
         let(:filter_params) { {} }

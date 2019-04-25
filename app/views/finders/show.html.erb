@@ -112,17 +112,7 @@
 
       <div class="govuk-caption-l live-search-loading-message" id="js-loading-message"></div>
 
-      <% if finder.sort_options.has_options? %>
-        <div class="govuk-form-group">
-          <%= label_tag 'order', 'Sort by', class: 'result-region-header__sort-label govuk-label' %>
-          <%= select_tag 'order', finder.sort_options.for_select,
-            class: 'js-order-results govuk-select',
-            'aria-controls': 'js-search-results-info',
-            data: { 'default-sort-option' => finder.sort_options.default_value,
-                    'relevance-sort-option' => finder.sort_options.relevance_value,
-                    'module' => 'track-select-change'} %>
-        </div>
-      <% end %>
+      <%= render_mustache('sort_options', @results.to_hash) %>
 
       <div id="js-results">
         <%= render_mustache('results', @results.to_hash) %>

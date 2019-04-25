@@ -180,6 +180,22 @@ RSpec.describe ResultSetPresenter do
     double(
       SortPresenter,
       has_options?: false,
+      selected_option: { "name" => 'Relevance', "key" => '-relevance' },
+      to_hash: {
+        options: [
+          {
+            data_track_category: 'dropDownClicked',
+            data_track_action: 'clicked',
+            data_track_label: "Relevance",
+            label: "Relevance",
+            value: "relevance",
+            disabled: false,
+            selected: true,
+          }
+        ],
+        default_value: nil,
+        relevance_value: nil,
+      },
     )
   end
 
@@ -351,7 +367,7 @@ RSpec.describe ResultSetPresenter do
 
       before(:each) do
         allow(finder).to receive(:eu_exit_finder?).and_return(true)
-        allow(presenter).to receive(:sort_option).and_return(SortOptionPresenter.new(label: "Inverse relevance", key: "-relevance"))
+        allow(presenter).to receive(:sort_option).and_return("key" => "-relevance", "name" => "Relevance")
         allow(document_with_higher_es_score).to receive(:truncated_description).and_return("Some description about the Department")
       end
 

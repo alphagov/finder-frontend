@@ -8,6 +8,13 @@ RSpec.describe SortPresenter do
   subject(:presenter_without_sort) { described_class.new(content_item(sort_options: no_sort_options), {}) }
   subject(:presenter_with_sort) { described_class.new(content_item(sort_options: sort_options_without_relevance), {}) }
   subject(:presenter_with_default) { described_class.new(content_item(sort_options: sort_options_with_default), {}) }
+  subject(:presenter_with_relevance) { described_class.new(content_item(sort_options: sort_options_with_relevance), {}) }
+  subject(:presenter_with_relevance_selected) {
+    described_class.new(
+      content_item(sort_options: sort_options_with_relevance),
+      "keywords" => "cats", "order" => "relevance"
+    )
+  }
 
   let(:no_sort_options) { nil }
 
@@ -40,82 +47,59 @@ RSpec.describe SortPresenter do
     ]
   }
 
-  describe "#for_select" do
-    def sort_option(label, value, disabled: false, selected: false)
-      disabled_attr = disabled ? 'disabled="disabled" ' : ''
-      selected_attr = selected ? 'selected="selected" ' : ''
-      "<option data-track-category=\"dropDownClicked\" data-track-action=\"clicked\" data-track-label=\"#{label}\" #{disabled_attr}#{selected_attr}value=\"#{value}\">#{label}</option>"
+  describe "#to_hash" do
+    it "returns a hash containing options, default_value, and relevance_value" do
+      expect(presenter_with_sort.to_hash).to eq(
+        options: [
+          {
+            data_track_category: 'dropDownClicked',
+            data_track_action: 'clicked',
+            data_track_label: "Most viewed",
+            label: "Most viewed",
+            value: "most-viewed",
+            disabled: false,
+            selected: false,
+          },
+          {
+            data_track_category: 'dropDownClicked',
+            data_track_action: 'clicked',
+            data_track_label: "Updated (newest)",
+            label: "Updated (newest)",
+            value: "updated-newest",
+            disabled: false,
+            selected: false,
+          }
+        ],
+        default_value: nil,
+        relevance_value: nil,
+      )
     end
 
-    it "returns an empty string when sort is not present" do
-      expect(presenter_without_sort.for_select).to eql("")
+    it "provides a default option if one is specified" do
+      expect(presenter_with_default.to_hash[:default_value]).to eq("updated-oldest")
     end
 
-    it "returns sort options without relevance when keywords is not present" do
-      expected_options = [
-        sort_option('Most viewed', 'most-viewed'),
-        sort_option('Updated (newest)', 'updated-newest')
-      ].join("\n")
-
-      expect(presenter_with_sort.for_select).to eql(expected_options)
+    it "provides a relevance option if one is specified" do
+      expect(presenter_with_relevance.to_hash[:relevance_value]).to eq("relevance")
     end
 
-    it "returns sort options with relevance disabled when keywords is blank" do
-      expected_options = [
-        sort_option('Most viewed', 'most-viewed'),
-        sort_option('Updated (newest)', 'updated-newest'),
-        sort_option('Relevance', 'relevance', disabled: true)
-      ].join("\n")
-
-      presenter = described_class.new(content_item(sort_options: sort_options_with_relevance), {})
-
-      expect(presenter.for_select).to eql(expected_options)
+    it "sets an option as selected if a valid order is provided by the user" do
+      expect(presenter_with_relevance_selected.to_hash[:options].find { |o| o[:selected] }).
+        to eq(
+          data_track_category: 'dropDownClicked',
+          data_track_action: 'clicked',
+          data_track_label: "Relevance",
+          label: "Relevance",
+          value: "relevance",
+          disabled: false,
+          selected: true,
+        )
     end
 
-    it "returns sort options with relevance enabled when keywords is not blank" do
-      expected_options = [
-        sort_option('Most viewed', 'most-viewed'),
-        sort_option('Updated (newest)', 'updated-newest'),
-        sort_option('Relevance', 'relevance', disabled: false)
-      ].join("\n")
-
-      presenter = described_class.new(content_item(sort_options: sort_options_with_relevance), "keywords" => "something not blank")
-
-      expect(presenter.for_select).to eql(expected_options)
-    end
-
-    it "returns sort options with no option selected when order is specified but does not exist in options" do
-      expected_options = [
-        sort_option('Most viewed', 'most-viewed'),
-        sort_option('Updated (newest)', 'updated-newest')
-      ].join("\n")
-
-
-      presenter = described_class.new(content_item(sort_options: sort_options_without_relevance), "order" => "option_that_does_not_exist")
-
-      expect(presenter.for_select).to eql(expected_options)
-    end
-
-    it "returns sort options with default option selected when order is not specified and default option exists" do
-      expected_options = [
-        sort_option('Most viewed', 'most-viewed'),
-        sort_option('Updated (oldest)', 'updated-oldest', selected: true)
-      ].join("\n")
-
-      presenter = described_class.new(content_item(sort_options: sort_options_with_default), {})
-
-      expect(presenter.for_select).to eql(expected_options)
-    end
-
-    it "returns sort options with option selected when order is specified and exists in options" do
-      expected_options = [
-        sort_option('Most viewed', 'most-viewed'),
-        sort_option('Updated (newest)', 'updated-newest', selected: true)
-      ].join("\n")
-
-      presenter = described_class.new(content_item(sort_options: sort_options_without_relevance), "order" => "updated-newest")
-
-      expect(presenter.for_select).to eql(expected_options)
+    it "should disable the relevance option if keywords are not present" do
+      expect(presenter_with_relevance.to_hash[:options].find { |o|
+        o[:value] == 'relevance'
+      }[:disabled]).to be true
     end
   end
 
@@ -149,25 +133,58 @@ RSpec.describe SortPresenter do
     end
   end
 
-  describe "#default_option" do
-    it "returns a default SortOptionPresenter if there is a default option specified in the content item" do
-      expect(presenter_with_default.default_option).to be_instance_of(SortOptionPresenter)
-      expect(presenter_with_default.default_option.label).to eq("Updated (oldest)")
+  describe "#default_value" do
+    it "returns a default_value if there is a default option specified in the content item" do
+      expect(presenter_with_default.default_value).to eq("updated-oldest")
     end
 
     it "returns nil if there is not a default option specified in the content item" do
-      expect(presenter_with_sort.default_option).to be nil
+      expect(presenter_with_sort.default_value).to be nil
     end
   end
 
-  describe "#find_by_value" do
-    it "returns a SortOptionPresenter if there is an option with that value" do
-      expect(presenter_with_default.find_by_value("updated-oldest")).to be_instance_of(SortOptionPresenter)
-      expect(presenter_with_default.find_by_value("updated-oldest").label).to eq("Updated (oldest)")
+  describe "#selected_option" do
+    context "an option is selected by the user" do
+      it "returns a selected content item sort option" do
+        expect(presenter_with_relevance_selected.selected_option).to eq(
+          "key" => "relevance", "name" => "Relevance"
+        )
+      end
     end
 
-    it "returns nil if there is no option with that value" do
-      expect(presenter_with_sort.find_by_value("blah blah blah")).to be nil
+    context "no option is selected by the user" do
+      it "returns a default content item sort option" do
+        expect(presenter_with_default.selected_option).to eq(
+          "default" => true, "name" => "Updated (oldest)"
+        )
+      end
+    end
+
+    context "no default or selected option is available" do
+      it "returns nil" do
+        expect(presenter_with_relevance.selected_option).to be nil
+      end
+    end
+  end
+
+  describe "#presented_default_option" do
+    context "a default option is specified in the content item" do
+      it "returns the default SortOptionPresenter" do
+        expect(presenter_with_default.presented_default_option).to be_instance_of(SortOptionPresenter)
+        expect(presenter_with_default.presented_default_option.label).to eq('Updated (oldest)')
+      end
+    end
+
+    context "no default option is specified in the content item" do
+      it "returns nil" do
+        expect(presenter_with_relevance.presented_default_option).to be nil
+      end
+    end
+  end
+
+  describe "#presented_sort_options" do
+    it "returns an array of SortOptionPresenter instances" do
+      expect(presenter_with_default.presented_sort_options.first).to be_instance_of(SortOptionPresenter)
     end
   end
 
