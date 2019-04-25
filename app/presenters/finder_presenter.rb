@@ -16,7 +16,7 @@ class FinderPresenter
     @values = values
     @facet_hashes = facet_hashes(@content_item)
     @facets = facet_collection(@facet_hashes, @values)
-    @keywords = values["keywords"].presence
+    @keywords = values["q"].presence
   end
 
   def phase_message

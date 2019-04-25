@@ -145,15 +145,15 @@ private
   def keywords
     return remove_stopwords if remove_stopwords?
 
-    params["keywords"].presence
+    params["q"].presence
   end
 
   def remove_stopwords?
-    params["keywords"].present? && ["/find-eu-exit-guidance-business"].include?(finder_content_item["base_path"])
+    params["q"].present? && ["/find-eu-exit-guidance-business"].include?(finder_content_item["base_path"])
   end
 
   def remove_stopwords
-    keywords = params["keywords"].split(' ')
+    keywords = params["q"].split(' ')
     keywords.delete_if do |keyword|
       stopwords.include?(keyword.downcase.gsub(/\W/, ''))
     end

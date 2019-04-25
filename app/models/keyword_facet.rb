@@ -21,7 +21,7 @@ class KeywordFacet
   end
 
   def key
-    'keywords'
+    'q'
   end
 
   def value
@@ -51,7 +51,7 @@ private
         keyword_fragments << {
           'label' => keyword,
           'parameter_key' => key,
-          'name' => 'keywords',
+          'name' => 'q',
           'value' => keyword.gsub('"', "&quot;")
         }
       end

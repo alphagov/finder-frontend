@@ -119,6 +119,6 @@ private
   end
 
   def facet_filters
-    @filter_params.symbolize_keys.without(:order, :keywords)
+    @filter_params.symbolize_keys.without(:order, :q)
   end
 end

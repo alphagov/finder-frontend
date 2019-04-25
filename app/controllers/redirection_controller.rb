@@ -44,7 +44,7 @@ private
   end
 
   def convert_common_parameters
-    { keywords: params['keywords'],
+    { q: params['keywords'],
       level_one_taxon: params['taxons'].try(:first) || params['topics'].try(:first),
       level_two_taxon: params['subtaxons'].try(:first),
       organisations: params['departments'] || params['organisations'],

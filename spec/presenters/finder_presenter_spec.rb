@@ -96,7 +96,7 @@ RSpec.describe FinderPresenter do
     context "with some values" do
       let(:values) do
         {
-          keyword: "legal",
+          q: "legal",
           place_of_origin: "england",
           walk_type: "open",
           creator: "Harry Potter",
@@ -120,7 +120,7 @@ RSpec.describe FinderPresenter do
     context "with some values" do
       let(:values) do
         {
-          keyword: "legal",
+          q: "legal",
           place_of_origin: "england",
           walk_type: "open",
           creator: "Harry Potter",
@@ -203,7 +203,7 @@ RSpec.describe FinderPresenter do
                                           "checkbox" => true,
                                           "content_store_document_type" => "type",
                                           "public_timestamp" => { "from" => "21/11/2014", "to" => "21/11/2019" },
-                                          "keywords" => "keyword",
+                                          "q" => "keyword",
                                           "people" => %w[me you],
                                           "topic" => "hiding",
                                           "manual" => "my_manual")
@@ -295,7 +295,7 @@ RSpec.describe FinderPresenter do
         sort_option('Relevance', 'relevance', disabled: false)
       ].join("\n")
 
-      presenter = described_class.new(content_item(sort_options: sort_options_with_relevance), {}, "keywords" => "something not blank")
+      presenter = described_class.new(content_item(sort_options: sort_options_with_relevance), {}, "q" => "something not blank")
 
       expect(presenter.sort_options).to eql(expected_options)
     end

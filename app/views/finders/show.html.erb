@@ -42,11 +42,11 @@
         <% label_text = capture do %>
           <h1 class="app-c-search-page-heading">Search<span class="govuk-visually-hidden"> all content</span></h1>
         <% end %>
-        <div id="keywords">
+        <div id="q">
           <%= render "govuk_publishing_components/components/search", {
               inline_label: false,
               label_text: label_text,
-              name: "keywords",
+              name: "q",
               hide_search_button: true,
               value: @results.user_supplied_keywords,
               id: "finder-keyword-search",

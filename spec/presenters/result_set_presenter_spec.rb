@@ -41,7 +41,7 @@ RSpec.describe ResultSetPresenter do
 
   let(:pagination) { { 'current_page' => 1, 'total_pages' => 2 } }
 
-  let(:filter_params) { { keywords: 'test' } }
+  let(:filter_params) { { q: 'test' } }
 
   let(:view_context) { double(:view_context) }
 

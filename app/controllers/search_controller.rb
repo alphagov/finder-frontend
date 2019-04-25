@@ -38,7 +38,7 @@ protected
 
   def redirect_to_all_content_finder(search_params)
     all_content_params = {
-      keywords: search_params.search_term,
+      q: search_params.search_term,
       organisations: params['filter_organisations'],
       manual: params['filter_manual'],
       format: params['format'],

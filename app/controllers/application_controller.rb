@@ -56,9 +56,9 @@ private
                              :format
                            )
 
-      # Convert a query with 'q=search_term' into 'keywords=search_term'
-      if permitted_params.has_key?("q")
-        permitted_params["keywords"] = permitted_params.delete("q")
+      # Convert a query with 'keywords=search_term' into 'q=search_term'
+      if permitted_params.has_key?("keywords")
+        permitted_params["q"] = permitted_params.delete("keywords")
       end
 
       ParamsCleaner

@@ -1,6 +1,6 @@
 <div class="filter-form">
   <% if finder.show_keyword_search? and !finder.all_content_finder? %>
-    <div id="keywords">
+    <div id="q">
       <% label_text = capture do %>
         Search <span class="govuk-visually-hidden"><%= finder.name %></span>
       <% end %>
@@ -8,7 +8,7 @@
         label: {
           text: label_text
         },
-        name: "keywords",
+        name: "q",
         value: @results.user_supplied_keywords,
         id: "finder-keyword-search",
         controls: "js-search-results-info"

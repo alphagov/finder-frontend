@@ -3,7 +3,7 @@ describe("liveSearch", function(){
   var dummyResponse = {
     "total":1,
     "pluralised_document_noun":"reports",
-    "applied_filters":" \u003Cstrong\u003ECommercial - rotorcraft \u003Ca href='?format=json\u0026keywords='\u003E×\u003C/a\u003E\u003C/strong\u003E",
+    "applied_filters":" \u003Cstrong\u003ECommercial - rotorcraft \u003Ca href='?format=json\u0026q='\u003E×\u003C/a\u003E\u003C/strong\u003E",
     "any_filters_applied":true,
     "atom_url": "http://an-atom-url.atom?some-query-param",
     "documents":[
@@ -148,14 +148,14 @@ describe("liveSearch", function(){
   describe("should not display out of date results", function(){
 
     it('should not update the results if the state associated with these results is not the current state of the page', function(){
-      liveSearch.state = 'cma-cases.json?keywords=123';
+      liveSearch.state = 'cma-cases.json?q=123';
       spyOn(liveSearch.$resultsBlock, 'mustache');
       liveSearch.displayResults(dummyResponse, 'made up state');
       expect(liveSearch.$resultsBlock.mustache).not.toHaveBeenCalled();
     });
 
     it('should have an order state selected when keywords are present', function(){
-      liveSearch.state = 'find-eu-exit-guidance-business.json?keywords=123';
+      liveSearch.state = 'find-eu-exit-guidance-business.json?q=123';
       expect(liveSearch.$orderSelect.val()).not.toBe(null);
     });
 
@@ -363,7 +363,7 @@ describe("liveSearch", function(){
       "total":4,
       "finder_name":"foo",
       "pluralised_document_noun":"things",
-      "applied_filters":" \u003Cstrong\u003ECommercial - rotorcraft \u003Ca href='?format=json\u0026keywords='\u003E×\u003C/a\u003E\u003C/strong\u003E",
+      "applied_filters":" \u003Cstrong\u003ECommercial - rotorcraft \u003Ca href='?format=json\u0026q='\u003E×\u003C/a\u003E\u003C/strong\u003E",
       "any_filters_applied":true,
       "atom_url": "http://an-atom-url.atom?some-query-param",
       "display_grouped_results": true,

@@ -18,7 +18,7 @@ describe RedirectionController, type: :controller do
         to_date: '01/01/2014'
       }
       expect(response).to redirect_to finder_path('search/news-and-communications', params: {
-        keywords: %w[one two],
+        q: %w[one two],
         level_one_taxon: 'one',
         level_two_taxon: 'two',
         people: %w[one two],
@@ -29,7 +29,7 @@ describe RedirectionController, type: :controller do
     end
     it 'redirects to the atom feed' do
       get :announcements, params: { keywords: %w[one two] }, format: :atom
-      expect(response).to redirect_to finder_path('search/news-and-communications', format: :atom, params: { keywords: %w[one two] })
+      expect(response).to redirect_to finder_path('search/news-and-communications', format: :atom, params: { q: %w[one two] })
     end
   end
 
@@ -48,7 +48,7 @@ describe RedirectionController, type: :controller do
 
     let(:converted_params) {
       {
-        keywords: %w[one two],
+        q: %w[one two],
         level_one_taxon: 'one',
         level_two_taxon: 'two',
         organisations: %w[one two],
@@ -137,7 +137,7 @@ describe RedirectionController, type: :controller do
     end
     it 'redirects to the atom feed' do
       get :publications, params: { keywords: %w[one two] }, format: :atom
-      expect(response).to redirect_to finder_path('search/all', format: :atom, params: { keywords: %w[one two] })
+      expect(response).to redirect_to finder_path('search/all', format: :atom, params: { q: %w[one two] })
     end
   end
 
@@ -155,7 +155,7 @@ describe RedirectionController, type: :controller do
         to_date: '01/01/2014'
       }
       expect(response).to redirect_to finder_path('search/statistics', params: {
-        keywords: %w[one two],
+        q: %w[one two],
         level_one_taxon: 'one',
         organisations: %w[one two],
         public_timestamp: { from: '01/01/2014', to: '01/01/2014' }
@@ -163,7 +163,7 @@ describe RedirectionController, type: :controller do
     end
     it 'redirects to the atom feed' do
       get :published_statistics, params: { keywords: %w[one two] }, format: :atom
-      expect(response).to redirect_to finder_path('search/statistics', format: :atom, params: { keywords: %w[one two] })
+      expect(response).to redirect_to finder_path('search/statistics', format: :atom, params: { q: %w[one two] })
     end
   end
 
@@ -181,7 +181,7 @@ describe RedirectionController, type: :controller do
         to_date: '01/01/2014'
       }
       expect(response).to redirect_to finder_path('search/statistics', params: {
-        keywords: %w[one two],
+        q: %w[one two],
         level_one_taxon: 'one',
         organisations: %w[one two],
         content_store_document_type: :statistics_upcoming,
@@ -190,7 +190,7 @@ describe RedirectionController, type: :controller do
     end
     it 'redirects to the atom feed' do
       get :upcoming_statistics, params: { keywords: %w[one two] }, format: :atom
-      expect(response).to redirect_to finder_path('search/statistics', format: :atom, params: { keywords: %w[one two], content_store_document_type: :statistics_upcoming })
+      expect(response).to redirect_to finder_path('search/statistics', format: :atom, params: { q: %w[one two], content_store_document_type: :statistics_upcoming })
     end
   end
 end

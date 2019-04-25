@@ -66,7 +66,7 @@ RSpec.describe AdvancedSearchQueryBuilder do
   context "with keywords" do
     let(:params) {
       {
-        "keywords" => "mangoes",
+        "q" => "mangoes",
       }
     }
 
@@ -81,7 +81,7 @@ RSpec.describe AdvancedSearchQueryBuilder do
     context "longer than the maximum query length" do
       let(:params) {
         {
-          "keywords" => "a" * 1024
+          "q" => "a" * 1024
         }
       }
 

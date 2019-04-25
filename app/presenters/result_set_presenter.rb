@@ -69,7 +69,7 @@ class ResultSetPresenter
   end
 
   def user_supplied_keywords
-    @filter_params.fetch('keywords', '')
+    @filter_params.fetch('q', '')
   end
 
   def has_email_signup_link?

@@ -14,13 +14,13 @@ describe('remove-filter', function () {
 
   var $oneTextQuery = $(
     '<div data-module="remove-filter">' +
-      '<button href="/search/news-and-communications?[]=education" class="remove-filter" role="button" aria-label="Remove filter education" data-module="remove-filter-link" data-facet="keywords" data-value="education" data-track-label="Education" data-name="keywords">✕</button>' +
+      '<button href="/search/news-and-communications?[]=education" class="remove-filter" role="button" aria-label="Remove filter education" data-module="remove-filter-link" data-facet="q" data-value="education" data-track-label="Education" data-name="q">✕</button>' +
     '</div>'
   );
 
   var $multipleTextQueries = $(
     '<div data-module="remove-filter">' +
-      '<button href="/search/news-and-communications?[]=education" class="remove-filter" role="button" aria-label="Remove filter the" data-module="remove-filter-link" data-facet="keywords" data-value="the" data-track-label="the" data-name="keywords">✕</button>' +
+      '<button href="/search/news-and-communications?[]=education" class="remove-filter" role="button" aria-label="Remove filter the" data-module="remove-filter-link" data-facet="q" data-value="the" data-track-label="the" data-name="q">✕</button>' +
     '</div>'
   );
 
@@ -53,8 +53,8 @@ describe('remove-filter', function () {
       '<option value="">All topics</option>' +
       '<option value="ba3a9702-da22-487f-86c1-8334a730e559">Entering and staying in the UK</option>' +
     '</select>' +
-    '<div id="keywords">'+
-      '<input name="keywords" value="" id="finder-keyword-search" type="text">' +
+    '<div id="q">'+
+      '<input name="q" value="" id="finder-keyword-search" type="text">' +
     '</div>' +
     '<div>'+
       '<input name="public_timestamp[from]" value="" id="public_timestamp[from]" type="text">' +
@@ -90,7 +90,7 @@ describe('remove-filter', function () {
   });
 
   it('clears the text search field if removing all text queries', function (done) {
-    var searchField = $('input[name=keywords]')[0];
+    var searchField = $('input[name=q]')[0];
     searchField.value = "education";
     removeFilter.start($oneTextQuery);
 
@@ -106,7 +106,7 @@ describe('remove-filter', function () {
 
 
   it('removes one text query from the text search field if there are multiple', function (done) {
-    var searchField = $('input[name=keywords]')[0];
+    var searchField = $('input[name=q]')[0];
     searchField.value = "therefore the search term";
     removeFilter.start($multipleTextQueries);
 

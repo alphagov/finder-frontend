@@ -215,7 +215,7 @@ describe SearchQueryBuilder do
   context "with keywords" do
     let(:params) {
       {
-        "keywords" => "mangoes",
+        "q" => "mangoes",
       }
     }
 
@@ -230,7 +230,7 @@ describe SearchQueryBuilder do
     context "longer than the maximum query length" do
       let(:params) {
         {
-          "keywords" => "a" * 1024
+          "q" => "a" * 1024
         }
       }
 
@@ -242,7 +242,7 @@ describe SearchQueryBuilder do
     context "without stopwords" do
       let(:params) {
         {
-          "keywords" => "a mango"
+          "q" => "a mango"
         }
       }
 
@@ -267,7 +267,7 @@ describe SearchQueryBuilder do
 
       it "should not include stopwords in search" do
         params = {
-          "keywords" => "a mango"
+          "q" => "a mango"
         }
 
         query = SearchQueryBuilder.new(
@@ -281,7 +281,7 @@ describe SearchQueryBuilder do
 
       it "strips punctuation from stopword check" do
         params = {
-          "keywords" => "a, isn't a mango is it?"
+          "q" => "a, isn't a mango is it?"
         }
 
         query = SearchQueryBuilder.new(
@@ -295,7 +295,7 @@ describe SearchQueryBuilder do
 
       it "ignores case of keywords" do
         params = {
-          "keywords" => "A mango"
+          "q" => "A mango"
         }
 
         query = SearchQueryBuilder.new(
@@ -309,7 +309,7 @@ describe SearchQueryBuilder do
 
       it "does not strip numbers from search" do
         params = {
-          "keywords" => "50"
+          "q" => "50"
         }
 
         query = SearchQueryBuilder.new(

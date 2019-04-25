@@ -209,7 +209,7 @@
   };
 
   LiveSearch.prototype.updateTitle = function updateTitle() {
-    var keywords = this.getTextInputValue('keywords', this.state);
+    var keywords = this.getTextInputValue('q', this.state);
     var keywordsPresent = keywords !== "";
 
     if (keywordsPresent) {
@@ -225,8 +225,8 @@
     }
 
     var liveSearch = this;
-    var keywords = this.getTextInputValue('keywords', this.state);
-    var previousKeywords = this.getTextInputValue('keywords', this.previousState);
+    var keywords = this.getTextInputValue('q', this.state);
+    var previousKeywords = this.getTextInputValue('q', this.previousState);
 
     var keywordsPresent = keywords !== "";
     var previousKeywordsPresent = previousKeywords !== "";

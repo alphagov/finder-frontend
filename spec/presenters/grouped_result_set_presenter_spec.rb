@@ -5,7 +5,7 @@ RSpec.describe GroupedResultSetPresenter do
 
   let(:pagination) { { 'current_page' => 1, 'total_pages' => 2 } }
 
-  let(:filter_params) { { keywords: 'test' } }
+  let(:filter_params) { { q: 'test' } }
 
   let(:view_context) { double(:view_context) }
 
@@ -18,7 +18,7 @@ RSpec.describe GroupedResultSetPresenter do
       document_noun: document_noun,
       total: 20,
       facets: a_facet_collection,
-      keywords: keywords,
+      q: keywords,
       atom_url: "/a-finder.atom",
       default_documents_per_page: 10,
       values: {},

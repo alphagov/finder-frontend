@@ -14,7 +14,7 @@ describe KeywordFacet do
 
       specify {
         expect(subject.sentence_fragment['preposition']).to eql("containing")
-        expect(first_word['parameter_key']).to eql("keywords")
+        expect(first_word['parameter_key']).to eql("q")
         expect(first_word['label']).to eql("Happy")
         expect(second_word['label']).to eql("Christmas")
 
@@ -54,7 +54,7 @@ describe KeywordFacet do
     context "value selected" do
       subject { KeywordFacet.new("keyword") }
       specify {
-        expect(subject.query_params).to eql("keywords" => %w[keyword])
+        expect(subject.query_params).to eql("q" => %w[keyword])
       }
     end
   end
