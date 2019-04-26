@@ -41,7 +41,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
       else if (inputType == 'text' || inputType == 'search') {
         var splitKeywords = currentVal.split(" ");
 
-        for (var i = 0; splitKeywords.length; i++) {
+        for (var i = 0; i < splitKeywords.length; i++) {
           if (splitKeywords[i].toString() === removeFilterValue.toString()) {
             splitKeywords.splice(i, 1);
             break;
