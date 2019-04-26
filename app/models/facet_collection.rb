@@ -21,13 +21,16 @@ class FacetCollection
   end
 
   def ensure_minimum_one_open_facet(facets_to_ensure)
-    at_least_one_facet_selected = facets_to_ensure.any?(&:open_on_load?)
-    unless at_least_one_facet_selected
+    unless at_least_one_facet_selected? facets_to_ensure
       if defined? facets_to_ensure.first.open_facet!
         facets_to_ensure.first.open_facet!
       end
     end
     facets_to_ensure
+  end
+
+  def at_least_one_facet_selected?(facets_to_ensure)
+    facets_to_ensure.any?(&:open_on_load?)
   end
 
   def metadata
