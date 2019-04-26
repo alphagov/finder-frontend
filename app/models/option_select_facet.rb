@@ -48,7 +48,15 @@ class OptionSelectFacet < FilterableFacet
   end
 
   def open_on_load?
-    @facet_forced_open || !unselected?
+    @facet_forced_open || selected?
+  end
+
+  def closed_on_load?
+    !open_on_load?
+  end
+
+  def selected?
+    !unselected?
   end
 
   def unselected?
