@@ -1,4 +1,5 @@
 .app-c-option-select {
+  position: relative;
   padding: 0 0 1px;
   background-color: govuk-colour("grey-3");
   margin-bottom: govuk-spacing(6);
@@ -27,8 +28,8 @@
 
 .app-c-option-select__title {
   @include govuk-font(19, $weight: bold);
-  padding: 10px 8px 5px 15px;
-  position: relative;
+  padding: 10px 8px 5px 16px;
+  margin: 0;
 }
 
 .app-c-option-select__button {
@@ -46,7 +47,7 @@
   top: 0;
   right: govuk-spacing(2);
   width: 30px;
-  height: 100%;
+  height: 40px;
   fill: currentColor;
 }
 
@@ -55,8 +56,8 @@
   max-height: 200px;
   overflow-y: auto;
   overflow-x: hidden;
-  background-color: govuk-colour("white");
   border: govuk-spacing(1) solid govuk-colour("grey-3");
+  background-color: govuk-colour("white");
 }
 
 .app-c-option-select__container-inner {
@@ -99,16 +100,34 @@
 .js-collapsible {
   .app-c-option-select__button {
     z-index: 100;
-    @include govuk-focusable;
 
     &:hover,
     &:hover + .app-c-option-select__selected-counter {
       background-color: govuk-colour("grey-2");
     }
 
-    &:hover + .app-c-option-select__container,
-    &:hover + .app-c-option-select__selected-counter + .app-c-option-select__container {
+    &:hover ~ .app-c-option-select__container,
+    &:hover ~ .app-c-option-select__selected-counter,
+    &:hover ~ .app-c-option-select__filter {
       border-color: govuk-colour("grey-2");
+    }
+
+    &::-moz-focus-inner {
+      border: 0;
+    }
+
+    &:focus {
+      outline: none;
+
+      &:after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        outline: solid 3px govuk-colour('yellow');
+      }
     }
 
     &[disabled] {
@@ -118,7 +137,8 @@
   }
 
   .app-c-option-select__selected-counter {
-    padding: 3px 8px 0px 17px;
+    margin-top: -3px;
+    padding: 0 8px 3px 18px;
   }
 
   &.js-closed {
@@ -150,6 +170,7 @@
     border: 0;
     padding: 0 govuk-spacing(2);
     margin: 0 0 0 -10px;
+    background: none;
   }
 
   .app-c-option-select__container-inner {
@@ -161,6 +182,8 @@
   }
 
   .app-c-option-select__button {
+    position: relative;
+
     &:hover {
       background: none;
 
@@ -171,7 +194,9 @@
   }
 
   .app-c-option-select__selected-counter {
-    padding: govuk-spacing(1) 0 0 0;
+    padding-top: 3px;
+    padding-left: 0;
+    padding-right: 0;
   }
 
   .app-c-option-select__icon {
@@ -180,6 +205,7 @@
 
   .app-c-option-select__filter {
     padding: 0;
+    padding-top: 3px;
     padding-bottom: govuk-spacing(2);
     border: 0;
   }
