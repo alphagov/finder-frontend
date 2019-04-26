@@ -99,7 +99,9 @@
         <div class="result-info">
           <div class="govuk-grid-row">
             <div class="govuk-grid-column-one-third">
-              <%= render_mustache('result_count', @results.to_hash) %>
+              <h2 class="result-region-header__counter" id="f-result-count">
+                <%= number_with_delimiter(@results.total, :delimiter => ',') %> <%= @results.pluralised_document_noun %>
+              </h2>
             </div>
             <% if @results.has_email_signup_link? %>
               <div class="govuk-grid-column-two-thirds">
@@ -107,7 +109,8 @@
               </div>
             <% end %>
           </div>
-          <%= render_mustache('result_facet_tags', @results.to_hash) %>
+          <%#= render_mustache('result_facet_tags', @results.to_hash) %>
+          <%= render "facet_tags", @results.to_hash %>
         </div>
       </div>
 
@@ -116,7 +119,8 @@
       <%= render_mustache('sort_options', @results.to_hash) %>
 
       <div id="js-results">
-        <%= render_mustache('results', @results.to_hash) %>
+        <%#= render_mustache('results', @results.to_hash) %>
+        <%= render "search_results", @results.to_hash %>
       </div>
 
     </div>

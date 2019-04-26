@@ -57,7 +57,7 @@
       <div class="govuk-grid-column-two-thirds">
         <div class='js-live-search-results-block'>
           <div class="filtered-results">
-            <div aria-live='assertive' id='js-search-results-info'>
+            <div aria-live='assertive' id='js-result-count'>
               <%= render_mustache('result_count', @results.to_hash) %>
             </div>
             <div id='js-results'>

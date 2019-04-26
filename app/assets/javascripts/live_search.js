@@ -1,5 +1,4 @@
 /* eslint-env jquery */
-
 (function () {
   'use strict'
 
@@ -14,10 +13,9 @@
 
     this.$form = options.$form
     this.$resultsBlock = options.$results.find('#js-results')
-    this.$countBlock = options.$results.find('.result-region-header__counter')
+    this.$countBlock = options.$results.find('#f-result-count')
     this.$facetTagBlock = options.$results.find('.js-facet-tag-wrapper')
     this.$loadingBlock = options.$results.find('#js-loading-message')
-    this.$resultsCount = options.$results.find('#js-result-count')
     this.action = this.$form.attr('action') + '.json'
     this.$atomAutodiscoveryLink = options.$atomAutodiscoveryLink
     this.baseTitle = $("meta[name='govuk:base_title']").attr('content') || document.title
@@ -311,14 +309,17 @@
     this.$loadingBlock.text('Error. Please try modifying your search and trying again.')
   }
 
+  LiveSearch.prototype.updateElement = function updateElement (element, content){
+    element.html(content)
+  }
+
   LiveSearch.prototype.displayResults = function displayResults (results, action) {
     // As search is asynchronous, check that the action associated with these results is
     // still the latest to stop results being overwritten by stale data
     if (action === $.param(this.state)) {
-      this.$resultsBlock.mustache(this.templateDir + '_results', results)
-      this.$countBlock.mustache(this.templateDir + '_result_count', results)
-      this.$facetTagBlock.mustache(this.templateDir + '_result_facet_tags', results)
-      this.$resultsCount.text(results.total + ' ' + results.pluralised_document_noun)
+      this.updateElement(this.$resultsBlock, results.search_results)
+      this.updateElement(this.$facetTagBlock, results.facet_tags)
+      this.updateElement(this.$countBlock, results.total + " " + results.pluralised_document_noun)
       this.$atomAutodiscoveryLink.attr('href', results.atom_url)
       this.$loadingBlock.text('').hide()
     }
