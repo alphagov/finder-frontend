@@ -38,6 +38,10 @@ private
 
   attr_reader :finder_content_item, :params
 
+  def order_query_builder_class
+    OrderQueryBuilder
+  end
+
   def pagination_query
     {
       "count" => documents_per_page,
@@ -95,47 +99,7 @@ private
   end
 
   def order_query
-    if sort_option.present?
-      if order_by_relevance?(sort_option)
-        order_by_relevance_query
-      else
-        order_by_sort_option_query
-      end
-    elsif keywords.present?
-      order_by_relevance_query
-    else
-      order_by_default_order_query
-    end
-  end
-
-  def order_by_relevance?(sort_option)
-    %w(relevance -relevance topic -topic).include?(sort_option['key'])
-  end
-
-  def order_by_relevance_query
-    {}
-  end
-
-  def order_by_default_order_query
-    { "order" => default_order }
-  end
-
-  def order_by_sort_option_query
-    { 'order' => sort_option['key'] }
-  end
-
-  def sort_options
-    finder_content_item.dig('details', 'sort')
-  end
-
-  def sort_option
-    return if sort_options.blank?
-
-    sort_option = if params['order']
-                    sort_options.detect { |option| option['name'].parameterize == params['order'] }
-                  end
-
-    sort_option || sort_options.detect { |option| option['default'] } || { 'key' => default_order }
+    order_query_builder_class.new(finder_content_item, keywords, params).call
   end
 
   def keyword_query
@@ -158,10 +122,6 @@ private
       stopwords.include?(keyword.downcase.gsub(/\W/, ''))
     end
     keywords.join(' ')
-  end
-
-  def default_order
-    finder_content_item['details']['default_order'] || "-public_timestamp"
   end
 
   def base_filter_query

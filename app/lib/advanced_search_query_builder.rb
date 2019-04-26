@@ -8,13 +8,9 @@ class AdvancedSearchQueryBuilder < SearchQueryBuilder
     )
   end
 
-  def default_order
-    return '-popularity' if sort_by_popularity
+private
 
-    super
-  end
-
-  def sort_by_popularity
-    %w[services guidance_and_regulation].include? params[GROUP_SEARCH_FILTER]
+  def order_query_builder_class
+    AdvancedSearchOrderQueryBuilder
   end
 end

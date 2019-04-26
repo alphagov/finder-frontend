@@ -13,7 +13,7 @@ RSpec.describe AdvancedSearchResultSetPresenter do
 
   let(:group) { "news_and_communications" }
   let(:filter_params) { { "topic" => "/education", "group" => group } }
-  let(:finder) { AdvancedSearchFinderPresenter.new(finder_api, search_results, filter_params) }
+  let(:finder) { AdvancedSearchFinderPresenter.new(finder_api, search_results, SortPresenter, filter_params) }
   let(:view_context) { double(:view_context, render: nil) }
   let(:taxon_content_id) { SecureRandom.uuid }
   let(:taxon) {

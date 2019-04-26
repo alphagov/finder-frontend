@@ -174,58 +174,58 @@ Feature: Filtering documents
   @javascript
   Scenario: Removing keyword filter
     When I view the news and communications finder
-    Then I see updated newest order selected
+    Then I see Updated (newest) order selected
     And I fill in some keywords
-    Then I see most relevant order selected
+    Then I see Relevance order selected
     And the page title contains both keywords
     And I click the Keyword1 remove control
     Then The keyword textbox only contains Keyword2
-    And I see most relevant order selected
+    And I see Relevance order selected
     And the page title contains only Keyword2
     And I click the Keyword2 remove control
     Then The keyword textbox is empty
-    And I see updated newest order selected
+    And I see Updated (newest) order selected
     And the page title contains no keywords
 
   @javascript
   Scenario: Adding keyword filter
     When I view the news and communications finder
-    Then I see updated newest order selected
+    Then I see Updated (newest) order selected
     And I fill in some keywords
     And I press tab key to navigate
-    Then I see most relevant order selected
+    Then I see Relevance order selected
 
   @javascript
   Scenario: Removing keyword filter in business finder
     When I view the business readiness finder
-    Then I see topic order selected
+    Then I see Topic order selected
     And I fill in some keywords
-    Then I see most relevant order selected
+    Then I see Relevance order selected
     And I click the Keyword1 remove control
     Then The keyword textbox only contains Keyword2
-    And I see most relevant order selected
+    And I see Relevance order selected
     And I click the Keyword2 remove control
     Then The keyword textbox is empty
-    And I see topic order selected
+    And I see Topic order selected
 
   @javascript
   Scenario: Adding keyword filter in business finder
     When I view the business readiness finder
-    Then I see topic order selected
+    Then I see Topic order selected
     And I fill in some keywords
     And I press tab key to navigate
-    Then I see most relevant order selected
+    Then I see Relevance order selected
 
   @javascript
   Scenario: Adding keyword filter to facet search in business finder
     When I view the business readiness finder
-    Then I see topic order selected
+    Then I see Topic order selected
     And I select facet Aerospace in the already expanded "Sector / Business Area" section
     Then I see results grouped by primary facet value
     And I see results with pinned items
     And I fill in some keywords
     And I press tab key to navigate
-    Then I see most relevant order selected
+    Then I see Relevance order selected
     And I do not see results with pinned items
 
   Scenario: Arrive at the business finder through Q&A
@@ -244,7 +244,7 @@ Feature: Filtering documents
     When I view the business readiness finder
     And I fill in some keywords
     And I submit the form
-    Then I see most relevant order selected
+    Then I see Relevance order selected
     And I see results with top result
     And The top result has the correct tracking data
 
@@ -270,13 +270,13 @@ Feature: Filtering documents
     When I view the news and communications finder
     And I fill in some keywords
     And I sort by most relevant
-    Then I see most relevant order selected
+    Then I see Relevance order selected
 
   Scenario: Filter documents by keywords and sort by most relevant for business finder
     When I view the business readiness finder
     And I search documents by keyword for business finder
     And I sort by most relevant
-    Then I see most relevant order selected
+    Then I see Relevance order selected
 
   Scenario: Group documents by facets
     When I view the business readiness finder
@@ -348,19 +348,46 @@ Feature: Filtering documents
     And I select some document types
     Then I should see results for scoped by the selected document type
 
-  Scenario: Choosing between document types with a research and statistics facet - no facet tag
+  Scenario: Choosing between document types with a research and statistics facet
     When I view the research and statistics finder
     And I select upcoming statistics
     And I click filter results
     Then I should see upcoming statistics
+    And I see Release date (latest) order selected
+    And I can sort by:
+      | Most viewed           |
+      | Relevance             |
+      | Release date (latest) |
+      | Release date (oldest) |
     And I should not see an upcoming statistics facet tag
+    Then I select published statistics
+    And I click filter results
+    Then I see Updated (newest) order selected
+    And I can sort by:
+      | Most viewed           |
+      | Relevance             |
+      | Updated (newest)      |
+      | Updated (oldest)      |
 
   @javascript
   Scenario: Choosing between document types research and statistics - no facet tag; javascript version
     When I view the research and statistics finder
     And I select upcoming statistics
     Then I should see upcoming statistics
+    And I see Release date (latest) order selected
+    And I can sort by:
+      | Most viewed           |
+      | Relevance             |
+      | Release date (latest) |
+      | Release date (oldest) |
     And I should not see an upcoming statistics facet tag
+    Then I select published statistics
+    Then I see Updated (newest) order selected
+    And I can sort by:
+      | Most viewed           |
+      | Relevance             |
+      | Updated (newest)      |
+      | Updated (oldest)      |
 
   @javascript
   Scenario: Finder has a clearable hidden input

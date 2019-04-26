@@ -586,7 +586,7 @@ RSpec.describe GroupedResultSetPresenter do
   describe "#grouped_display?" do
     context "a finder does not sort by topic" do
       let(:filter_params) { {} }
-      before { allow(finder).to receive(:presented_default_option) }
+      before { allow(finder).to receive(:default_option) }
       it "is false" do
         allow(finder).to receive(:sort).and_return([])
 

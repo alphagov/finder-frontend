@@ -5,9 +5,9 @@ RSpec.describe FinderPresenter do
   include GovukContentSchemaExamples
   include TaxonomySpecHelper
 
-  subject(:presenter) { described_class.new(content_item(sort_options: no_sort_options), {}, values) }
-  subject(:presenter_with_sort) { described_class.new(content_item(sort_options: sort_options_without_relevance), {}, values) }
-  subject(:presenter_with_email_signup) { described_class.new(content_item(email_alert_signup: email_alert_signup_options), {}, values) }
+  subject(:presenter) { described_class.new(content_item(sort_options: no_sort_options), {}, SortPresenter, values) }
+  subject(:presenter_with_sort) { described_class.new(content_item(sort_options: sort_options_without_relevance), {}, SortPresenter, values) }
+  subject(:presenter_with_email_signup) { described_class.new(content_item(email_alert_signup: email_alert_signup_options), {}, SortPresenter, values) }
 
   let(:no_sort_options) { nil }
 
@@ -199,6 +199,7 @@ RSpec.describe FinderPresenter do
                                                               hidden_facet_hash,
                                                               hidden_clearable_facet_hash]),
                                         [],
+                                        SortPresenter,
                                          'level_one_taxon' => "taxon",
                                           "checkbox" => true,
                                           "content_store_document_type" => "type",
@@ -222,35 +223,35 @@ RSpec.describe FinderPresenter do
   describe "#atom_feed_enabled?" do
     context "with no sort options and no default sort" do
       it "is true" do
-        presenter = described_class.new(content_item(sort_options: no_sort_options), values)
+        presenter = described_class.new(content_item(sort_options: no_sort_options), values, SortPresenter)
         expect(presenter.atom_feed_enabled?).to be true
       end
     end
 
     context "with default sort option set to descending public_timestamp" do
       it "is true" do
-        presenter = described_class.new(content_item(sort_options: sort_options_with_public_timestamp_default), values)
+        presenter = described_class.new(content_item(sort_options: sort_options_with_public_timestamp_default), values, SortPresenter)
         expect(presenter.atom_feed_enabled?).to be true
       end
     end
 
     context "with sort options but no default order" do
       it "is true" do
-        presenter = described_class.new(content_item(sort_options: sort_options_with_relevance), values)
+        presenter = described_class.new(content_item(sort_options: sort_options_with_relevance), values, SortPresenter)
         expect(presenter.atom_feed_enabled?).to be true
       end
     end
 
     context "with no sort options but a changeable default order" do
       it "is false" do
-        presenter = described_class.new(content_item(sort_options: no_sort_options, default_order: "relevance"), values)
+        presenter = described_class.new(content_item(sort_options: no_sort_options, default_order: "relevance"), values, SortPresenter)
         expect(presenter.atom_feed_enabled?).to be false
       end
     end
 
     context "with no sort options but a default order of most recent first" do
       it "is true" do
-        presenter = described_class.new(content_item(sort_options: no_sort_options, default_order: "-public_timestamp"), values)
+        presenter = described_class.new(content_item(sort_options: no_sort_options, default_order: "-public_timestamp"), values, SortPresenter)
         expect(presenter.atom_feed_enabled?).to be true
       end
     end
@@ -323,7 +324,7 @@ RSpec.describe FinderPresenter do
         }
       ]
 
-      presenter = described_class.new(content_item(sort_options: sort_options_with_relevance), {}, values)
+      presenter = described_class.new(content_item(sort_options: sort_options_with_relevance), {}, SortPresenter, values)
 
       expect(presenter.sort_options.to_hash[:options]).to eql(expected_options)
     end
@@ -359,7 +360,7 @@ RSpec.describe FinderPresenter do
         }
       ]
 
-      presenter = described_class.new(content_item(sort_options: sort_options_with_relevance), {}, "keywords" => "something not blank")
+      presenter = described_class.new(content_item(sort_options: sort_options_with_relevance), {}, SortPresenter, "keywords" => "something not blank")
 
       expect(presenter.sort_options.to_hash[:options]).to eql(expected_options)
     end
@@ -386,7 +387,7 @@ RSpec.describe FinderPresenter do
         }
       ]
 
-      presenter = described_class.new(content_item(sort_options: sort_options_without_relevance), "order" => "option_that_does_not_exist")
+      presenter = described_class.new(content_item(sort_options: sort_options_without_relevance), {}, SortPresenter, "order" => "option_that_does_not_exist")
 
       expect(presenter.sort_options.to_hash[:options]).to eql(expected_options)
     end
@@ -413,7 +414,7 @@ RSpec.describe FinderPresenter do
         }
       ]
 
-      presenter = described_class.new(content_item(sort_options: sort_options_with_default), values)
+      presenter = described_class.new(content_item(sort_options: sort_options_with_default), {}, SortPresenter, values)
 
       expect(presenter.sort_options.to_hash[:options]).to eql(expected_options)
     end
@@ -440,7 +441,7 @@ RSpec.describe FinderPresenter do
         }
       ]
 
-      presenter = described_class.new(content_item(sort_options: sort_options_without_relevance), {}, "order" => "updated-newest")
+      presenter = described_class.new(content_item(sort_options: sort_options_without_relevance), {}, SortPresenter, "order" => "updated-newest")
 
       expect(presenter.sort_options.to_hash[:options]).to eql(expected_options)
     end
@@ -490,7 +491,7 @@ RSpec.describe FinderPresenter do
           }
         }
 
-        presenter = described_class.new(content_item(facets: facets), [])
+        presenter = described_class.new(content_item(facets: facets), SortPresenter, [])
         expect(presenter.facet_details_lookup).to eq(expected)
       end
 
@@ -524,7 +525,7 @@ RSpec.describe FinderPresenter do
           '56dbec9a-1efd-4471-9f1d-51fcfd19e2db' => 'copyright'
         }
 
-        presenter = described_class.new(content_item(facets: facets), [])
+        presenter = described_class.new(content_item(facets: facets), SortPresenter, [])
         expect(presenter.facet_value_lookup).to eq(expected)
       end
     end

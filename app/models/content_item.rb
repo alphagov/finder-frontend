@@ -20,9 +20,19 @@ class ContentItem
     document_type == 'redirect'
   end
 
+  def sorter_class
+    return StatisticsSortPresenter if is_research_and_statistics?
+
+    SortPresenter
+  end
+
 private
 
   attr_reader :base_path
+
+  def is_research_and_statistics?
+    base_path == '/search/research-and-statistics'
+  end
 
   def document_type
     @content_item['document_type']

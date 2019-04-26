@@ -56,6 +56,7 @@ private
     @finder ||= finder_presenter_class.new(
       raw_finder,
       finder_api.search_results,
+      content_item.sorter_class,
       filter_params,
     )
   end

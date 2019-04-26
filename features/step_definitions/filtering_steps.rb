@@ -523,6 +523,8 @@ When(/^I sort by most relevant$/) do
   select 'Relevance', from: 'Sort by'
 end
 
+
+
 When(/^I filter the results$/) do
   click_on 'Filter results'
 end
@@ -558,13 +560,17 @@ Then(/^I see most relevant order selected$/) do
   expect(page).to have_select('order', selected: "Relevance")
 end
 
-Then(/^I see updated newest order selected$/) do
-  expect(page).to have_select('order', selected: "Updated (newest)")
+# Then(/^I see updated newest order selected$/) do
+#   expect(page).to have_select('order', selected: "Updated (newest)")
+# end
+
+Then(/^I see (.*) order selected$/) do |label|
+  expect(page).to have_select('order', selected: label)
 end
 
-Then(/^I see topic order selected$/) do
-  expect(page).to have_select('order', selected: "Topic")
-end
+# Then(/^I see topic order selected$/) do
+#   expect(page).to have_select('order', selected: "Topic")
+# end
 
 And(/^I see the facet tag$/) do
   within '.facet-tags' do
@@ -591,6 +597,10 @@ end
 
 And(/^I select upcoming statistics$/) do
   find('.govuk-label', text: 'Statistics (upcoming)').click
+end
+
+And(/^I select published statistics$/) do
+  find('.govuk-label', text: 'Statistics (published)').click
 end
 
 And(/^I click filter results$/) do

@@ -113,26 +113,6 @@ RSpec.describe SortPresenter do
     end
   end
 
-  describe "#has_default_option?" do
-    it "returns true if there is a default option specified in the content item" do
-      expect(presenter_with_default.has_default_option?).to be true
-    end
-
-    it "returns false if there is not a default option specified in the content item" do
-      expect(presenter_with_sort.has_default_option?).to be false
-    end
-  end
-
-  describe "#has_default_option?" do
-    it "returns true if there is a default option specified in the content item" do
-      expect(presenter_with_default.has_default_option?).to be true
-    end
-
-    it "returns false if there is not a default option specified in the content item" do
-      expect(presenter_with_sort.has_default_option?).to be false
-    end
-  end
-
   describe "#default_value" do
     it "returns a default_value if there is a default option specified in the content item" do
       expect(presenter_with_default.default_value).to eq("updated-oldest")
@@ -167,24 +147,18 @@ RSpec.describe SortPresenter do
     end
   end
 
-  describe "#presented_default_option" do
+  describe "#default_option" do
     context "a default option is specified in the content item" do
       it "returns the default SortOptionPresenter" do
-        expect(presenter_with_default.presented_default_option).to be_instance_of(SortOptionPresenter)
-        expect(presenter_with_default.presented_default_option.label).to eq('Updated (oldest)')
+        expect(presenter_with_default.default_option).to be_instance_of(SortOptionPresenter)
+        expect(presenter_with_default.default_option.label).to eq('Updated (oldest)')
       end
     end
 
     context "no default option is specified in the content item" do
       it "returns nil" do
-        expect(presenter_with_relevance.presented_default_option).to be nil
+        expect(presenter_with_relevance.default_option).to be nil
       end
-    end
-  end
-
-  describe "#presented_sort_options" do
-    it "returns an array of SortOptionPresenter instances" do
-      expect(presenter_with_default.presented_sort_options.first).to be_instance_of(SortOptionPresenter)
     end
   end
 
