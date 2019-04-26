@@ -46,13 +46,11 @@ Given(/^a collection of tagged documents(.*?)$/) do |categorisation|
 
   stub_request(:get, rummager_advanced_search_url).to_return(
     body: {
-      results: [
-        results: @results,
-        total: 200,
-        start: 0,
-        facets: {},
-        suggested_queries: []
-      ]
+      results: @results,
+      total: 200,
+      start: 0,
+      facets: {},
+      suggested_queries: []
     }.to_json
   )
   content_store_has_item("/search/advanced", finder_content_item)

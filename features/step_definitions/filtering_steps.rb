@@ -192,15 +192,17 @@ When(/^I view the all content finder with a manual filter$/) do
   stub_whitehall_api_world_location_request
   stub_people_registry_request
   stub_manuals_registry_request
-  stub_request(:get,
-               all_content_url(
-                 filter_manual: '/guidance/care-and-use-of-a-nimbus-2000',
-                 q: 'Replacing bristles',
-                 order: '-public_timestamp',
-                )).to_return(body: all_content_manuals_results_json)
 
-  stub_request(:get, all_content_url(q: 'Replacing bristles', order: '-public_timestamp'))
-    .to_return(body: all_content_results_json)
+  stub_request(:get, DocumentHelper::SEARCH_ENDPOINT).
+    with(query: hash_including(q: 'Replacing bristles', order: '-public_timestamp')).
+    to_return(body: all_content_results_json)
+
+  stub_request(:get, DocumentHelper::SEARCH_ENDPOINT).
+    with(query: hash_including(
+      filter_manual: '/guidance/care-and-use-of-a-nimbus-2000',
+      q: 'Replacing bristles',
+      order: '-public_timestamp'
+    )).to_return(body: all_content_manuals_results_json)
 
   visit finder_path('search/all', manual: '/guidance/care-and-use-of-a-nimbus-2000', q: 'Replacing bristles')
 end
@@ -436,8 +438,8 @@ end
 
 Given(/^an organisation finder exists$/) do
   content_store_has_government_finder
-  stub_organisations_registry_request
   stub_rummager_api_request_with_government_results
+  stub_organisations_registry_request
   stub_people_registry_request
 
   visit finder_path('government/policies/benefits-reform', parent: 'ministry-of-magic')
@@ -445,8 +447,8 @@ end
 
 Given(/^an organisation finder exists but a bad breadcrumb path is given$/) do
   content_store_has_government_finder
-  stub_organisations_registry_request
   stub_rummager_api_request_with_government_results
+  stub_organisations_registry_request
   stub_people_registry_request
 
   visit finder_path('government/policies/benefits-reform', parent: 'bernard-cribbins')
