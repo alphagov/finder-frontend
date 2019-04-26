@@ -65,12 +65,12 @@ describe OptionSelectFacet do
       specify { expect(subject.open_on_load?).to be true }
     end
 
-    context "when NO facet is selected" do
+    context "when no facet is selected" do
       subject { OptionSelectFacet.new(facet_data, []) }
       specify { expect(subject.open_on_load?).to be false }
     end
 
-    context "when NO facet is selected but we have called `open_facet!`" do
+    context "when no facet is selected but we have called `open_facet!`" do
       subject {
         facet = OptionSelectFacet.new(facet_data, [])
         facet.open_facet!
