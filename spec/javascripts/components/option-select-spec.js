@@ -349,14 +349,10 @@ describe('GOVUK.OptionSelect', function() {
   describe('filtering checkboxes', function(){
     beforeEach(function(){
       var filterMarkup =
-        '&lt;div class=&quot;app-c-option-select__filter&quot;&gt;'+
-          '&lt;div class=&quot;govuk-form-group&quot;&gt;'+
             '&lt;label for=&quot;input-b7f768b7&quot; class=&quot;gem-c-label govuk-label&quot;&gt;'+
               'Filter Countries'+
             '&lt;/label&gt;'+
-            '&lt;input name=&quot;option-select-filter&quot; class=&quot;gem-c-input govuk-input&quot; id=&quot;input-b7f768b7&quot; type=&quot;text&quot; aria-describedby=&quot;checkboxes-9b7ecc25-count&quot; aria-controls=&quot;checkboxes-9b7ecc25&quot;&gt;'+
-          '&lt;/div&gt;'+
-        '&lt;/div&gt;';
+            '&lt;input name=&quot;option-select-filter&quot; class=&quot;gem-c-input app-c-option-select__filter-input govuk-input&quot; id=&quot;input-b7f768b7&quot; type=&quot;text&quot; aria-describedby=&quot;checkboxes-9b7ecc25-count&quot; aria-controls=&quot;checkboxes-9b7ecc25&quot;&gt;'
 
       var filterSpan = '<span id="checkboxes-9b7ecc25-count" class="app-c-option-select__count govuk-visually-hidden" aria-live="polite" data-single="option found" data-multiple="options found" data-selected="selected"></span>';
 

@@ -62,9 +62,11 @@
 }
 
 .app-c-option-select__filter {
+  background: govuk-colour('white');
+  border-left: govuk-spacing(1) solid govuk-colour("grey-3");
+  border-right: govuk-spacing(1) solid govuk-colour("grey-3");
   display: none;
-  padding-top: govuk-spacing(2);
-  margin-bottom: govuk-spacing(2);
+  padding: govuk-spacing(2) 8px govuk-spacing(2) 8px;
 }
 
 .app-c-option-select__filter-input {
@@ -83,7 +85,8 @@
   }
 
   .app-c-option-select__container {
-    border: 5px solid govuk-colour("grey-3");
+    border: govuk-spacing(1) solid govuk-colour("grey-3");
+    border-top: 0;
   }
 
   .app-c-option-select__filter {
@@ -132,6 +135,11 @@
   }
 
   &.js-closed {
+
+    .app-c-option-select__filter {
+      display: none;
+    }
+
     .app-c-option-select__container {
       display: none;
     }

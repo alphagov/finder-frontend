@@ -22,9 +22,9 @@
 
       $('<div class="app-c-option-select__filter"/>')
         .html(filterEl.childNodes[0].nodeValue)
-        .prependTo(this.$optionList);
+        .insertBefore(this.$optionsContainer)
 
-      this.$filter = this.$optionsContainer.find('input[name="option-select-filter"]');
+      this.$filter = this.$optionSelect.find('input[name="option-select-filter"]');
       this.$filterCount = $('#' + this.$filter.attr('aria-describedby'));
       this.filterTextSingle = ' ' + this.$filterCount.data('single');
       this.filterTextMultiple = ' ' + this.$filterCount.data('multiple');
@@ -44,9 +44,10 @@
 
         if(e.keyCode !== ENTER_KEY) {
           clearTimeout(that.filterTimeout);
-          that.filterTimeout = setTimeout(function(obj){
-            that.doFilter(obj);
-          }, 300, that);
+          that.filterTimeout = setTimeout(
+            function(){ this.doFilter(this) }.bind(that),
+            300
+          );
         } else {
           e.preventDefault(); // prevents finder forms from being submitted when user presses ENTER
         }
