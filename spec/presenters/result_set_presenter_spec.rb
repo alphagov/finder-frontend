@@ -38,7 +38,7 @@ RSpec.describe ResultSetPresenter do
         "name" => "Updated (newest)",
         "key" => "-public_timestamp",
       },
-      filters: {}
+      filters: a_facet_collection.filters
     )
   end
 
@@ -239,8 +239,8 @@ RSpec.describe ResultSetPresenter do
 
   describe '#to_hash' do
     before(:each) do
-      allow(presenter).to receive(:selected_filter_descriptions).and_return("a sentence summarising the selected filters")
-      allow(presenter).to receive(:documents).and_return(key: 'value')
+      #allow(presenter).to receive(:selected_filter_descriptions).and_return("a sentence summarising the selected filters")
+      #allow(presenter).to receive(:documents).and_return(key: 'value')
       allow(presenter).to receive(:any_filters_applied?).and_return(true)
       allow(presenter).to receive(:grouped_display?).and_return(false)
       allow(view_context).to receive(:render).and_return('<nav></nav>')
@@ -266,18 +266,6 @@ RSpec.describe ResultSetPresenter do
       allow(document_noun).to receive(:pluralize)
       presenter.to_hash
       expect(document_noun).to have_received(:pluralize).with(total)
-    end
-
-    it 'calls selected_filter_descriptions' do
-      allow(presenter).to receive(:selected_filter_descriptions)
-      presenter.to_hash
-      expect(presenter).to have_received(:selected_filter_descriptions)
-    end
-
-    it 'calls documents' do
-      allow(presenter).to receive(:documents).and_return([double('document')])
-      presenter.to_hash
-      expect(presenter).to have_received(:documents).twice
     end
   end
 

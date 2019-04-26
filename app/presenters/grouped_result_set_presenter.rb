@@ -2,7 +2,14 @@ class GroupedResultSetPresenter < ResultSetPresenter
   def to_hash
     super.merge(
       grouped_documents: grouped_documents,
-      display_grouped_results: grouped_display?,
+      display_grouped_results: grouped_display?
+    )
+  end
+
+  def search_results_markup_data
+    super.merge(
+      grouped_documents: grouped_documents,
+      display_grouped_results: grouped_display?
     )
   end
 

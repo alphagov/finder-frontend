@@ -2,7 +2,7 @@ class ResultSetPresenter
   include ERB::Util
   include ActionView::Helpers::NumberHelper
 
-  attr_reader :finder, :document_noun, :results, :total
+  attr_reader :finder, :document_noun, :results, :total, :pluralised_document_noun
 
   delegate :document_noun,
            :filters,
@@ -14,12 +14,15 @@ class ResultSetPresenter
     @finder = finder
     @results = finder.results.documents
     @total = finder.results.total
+    @pluralised_document_noun = document_noun.pluralize(total)
     @filter_params = filter_params
     @view_context = view_context
     @sort_presenter = sort_presenter
     @show_top_result = show_top_result
     @metadata_presenter_class = metadata_presenter_class
   end
+
+  # FIXME to remove: applied_filters, documents, zero_results, page_count, finder_name, screen_reader_filter_description
 
   def to_hash
     {
@@ -34,8 +37,30 @@ class ResultSetPresenter
       any_filters_applied: any_filters_applied?,
       next_and_prev_links: next_and_prev_links,
       screen_reader_filter_description: ScreenReaderFilterDescriptionPresenter.new(filters, sort_option).present,
-      sort_options: sort_presenter.to_hash,
+      facet_tags: facet_tags_markup,
+      search_results: search_results_markup
     }
+  end
+
+  def search_results_markup_data
+    {
+      documents: documents,
+      zero_results: total.zero?,
+      finder_name: finder.name,
+      page_count: documents.count
+    }
+  end
+
+  def search_results_markup
+    ApplicationController.render(partial: "finders/search_results", locals: search_results_markup_data)
+  end
+
+  def facet_tags_markup
+    locals = {
+      applied_filters: selected_filter_descriptions,
+      screen_reader_filter_description: ScreenReaderFilterDescriptionPresenter.new(filters, sort_option).present
+    }
+    ApplicationController.render(partial: "finders/facet_tags", locals: locals)
   end
 
   def any_filters_applied?

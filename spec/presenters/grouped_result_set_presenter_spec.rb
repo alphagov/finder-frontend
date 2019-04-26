@@ -171,7 +171,7 @@ RSpec.describe GroupedResultSetPresenter do
       allow(presenter).to receive(:any_filters_applied?).and_return(true)
       allow(view_context).to receive(:render)
       allow(presenter).to receive(:grouped_display?).and_return(true)
-      allow(presenter).to receive(:grouped_documents).and_return(key: 'value')
+      #allow(presenter).to receive(:grouped_documents).and_return(key: 'value')
     end
 
     it 'returns an appropriate hash' do

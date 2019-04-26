@@ -74,7 +74,7 @@ describe('liveSearch', function () {
                 '<input type="submit" value="Filter results" class="button js-live-search-fallback"/>' +
               '</form>')
     $results = $('<div class="js-live-search-results-block"></div>')
-    $count = $('<div aria-live="assertive" id="js-search-results-info"><p class="result-info"></p></div>')
+    $count = $('<div aria-live="assertive" id="js-search-results-info"><h2 class="result-region-header__counter" id="f-result-count"></h2></div>')
     $atomAutodiscoveryLink = $("<link href='http://an-atom-url.atom' rel='alternate' title='ATOM' type='application/atom+xml'>")
     var $emailSubscriptionLinks = $("<a href='https://a-url/email-signup?query_param=something'>")
     var $feedSubscriptionLinks = $("<a href='http://an-atom-url.atom?query_param=something'>")
