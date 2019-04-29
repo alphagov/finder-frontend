@@ -39,10 +39,11 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
         $input.trigger(onChangeSuppressAnalytics);
       }
       else if (inputType == 'text' || inputType == 'search') {
+        var needle = decodeEntities(removeFilterValue.toString());
         var splitKeywords = currentVal.split(" ");
 
-        for (var i = 0; splitKeywords.length; i++) {
-          if (splitKeywords[i].toString() === removeFilterValue.toString()) {
+        for (var i = 0; i < splitKeywords.length; i++) {
+          if (splitKeywords[i].toString() === needle) {
             splitKeywords.splice(i, 1);
             break;
           }
@@ -73,6 +74,11 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
         action,
         { label: label }
       );
+    }
+
+    function decodeEntities(string) {
+      return string
+        .replace(/&quot;/g, '"');
     }
   };
 })(window, window.GOVUK);
