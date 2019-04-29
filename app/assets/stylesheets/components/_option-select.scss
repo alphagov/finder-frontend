@@ -1,6 +1,7 @@
 .app-c-option-select {
+  position: relative;
+  padding: 0 0 1px;
   background-color: govuk-colour("grey-3");
-  padding: 5px;
   margin-bottom: govuk-spacing(6);
 
   @include media(desktop) {
@@ -20,41 +21,43 @@
     }
   }
 
-  &:focus {
-    outline: 3px solid $yellow;
-  }
-
   .gem-c-checkboxes {
     margin: 0;
   }
 }
 
-.app-c-option-select__container-head {
-  padding: 0 5px;
+.app-c-option-select__title {
+  @include govuk-font(19, $weight: bold);
+  padding: 10px 8px 5px 16px;
+  margin: 0;
 }
 
-.app-c-option-select__label {
-  @include govuk-font(19, $weight: bold);
-  position: relative;
-  margin-right: 40px;
+.app-c-option-select__button {
+  padding-right: 40px;
+  width: 100%;
+  background: none;
+  border: 0;
+  text-align: left;
+  cursor: pointer;
 }
 
 .app-c-option-select__icon {
   display: none;
   position: absolute;
   top: 0;
-  right: -40px;
+  right: govuk-spacing(2);
   width: 30px;
-  height: 100%;
+  height: 40px;
   fill: currentColor;
 }
 
 .app-c-option-select__container {
   position: relative;
-  height: 200px;
-  background-color: govuk-colour("white");
+  max-height: 200px;
   overflow-y: auto;
   overflow-x: hidden;
+  border: govuk-spacing(1) solid govuk-colour("grey-3");
+  background-color: govuk-colour("white");
 }
 
 .app-c-option-select__container-inner {
@@ -65,14 +68,13 @@
   background: govuk-colour('white');
   border-left: govuk-spacing(1) solid govuk-colour("grey-3");
   border-right: govuk-spacing(1) solid govuk-colour("grey-3");
-  display: none;
-  padding: govuk-spacing(2) 8px govuk-spacing(2) 8px;
+  padding: 13px 13px govuk-spacing(2) 13px;
 }
 
 .app-c-option-select__filter-input {
+  @include govuk-font(19);
   padding-left: 33px;
   background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36' width='40' height='40'%3E%3Cpath d='M25.7 24.8L21.9 21c.7-1 1.1-2.2 1.1-3.5 0-3.6-2.9-6.5-6.5-6.5S10 13.9 10 17.5s2.9 6.5 6.5 6.5c1.6 0 3-.6 4.1-1.5l3.7 3.7 1.4-1.4zM12 17.5c0-2.5 2-4.5 4.5-4.5s4.5 2 4.5 4.5-2 4.5-4.5 4.5-4.5-2-4.5-4.5z' fill='currentColor'%3E%3C/path%3E%3C/svg%3E") govuk-colour("white") no-repeat -5px -3px;
-  @include govuk-font(19);
 
   @include govuk-media-query($from: tablet) {
     @include govuk-font(16);
@@ -80,62 +82,66 @@
 }
 
 .js-enabled {
-  .app-c-option-select {
-    padding: 0 0 1px;
-  }
-
   .app-c-option-select__container {
     border: govuk-spacing(1) solid govuk-colour("grey-3");
     border-top: 0;
   }
 
-  .app-c-option-select__filter {
+  .app-c-option-select__icon--up {
     display: block;
   }
 
-  .app-c-option-select__icon--up {
-    display: block;
+  .app-c-option-select__container {
+    height: 200px;
   }
 }
 
 // styles for collapsibleness. .js-collapsible is added by the javascript if the browser is not ie6/7 in which case these don't collapse
 .js-collapsible {
   .app-c-option-select__button {
-    position: relative;
     z-index: 100;
-    border: none;
-    display: block;
-    width: 100%;
-    text-align: left;
-    cursor: pointer;
-    padding: 10px 8px 5px 8px;
-    background-color: govuk-colour("grey-3");
 
     &:hover,
     &:hover + .app-c-option-select__selected-counter {
       background-color: govuk-colour("grey-2");
     }
 
-    &:hover + .app-c-option-select__selected-counter + .app-c-option-select__container {
+    &:hover ~ .app-c-option-select__container,
+    &:hover ~ .app-c-option-select__selected-counter,
+    &:hover ~ .app-c-option-select__filter {
       border-color: govuk-colour("grey-2");
+    }
+
+    &::-moz-focus-inner {
+      border: 0;
+    }
+
+    &:focus {
+      outline: none;
+
+      &:after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        outline: solid 3px govuk-colour('yellow');
+      }
     }
 
     &[disabled] {
       background-image: none;
       color: inherit;
     }
-
-    &:focus {
-      @include govuk-focusable;
-    }
   }
 
   .app-c-option-select__selected-counter {
-    padding: 3px 8px 0px 8px;
+    margin-top: -3px;
+    padding: 0 8px 3px 18px;
   }
 
   &.js-closed {
-
     .app-c-option-select__filter {
       display: none;
     }
@@ -151,5 +157,56 @@
     .app-c-option-select__icon--down {
       display: block;
     }
+  }
+}
+
+.app-c-option-select--expander {
+  padding: 0;
+  margin: 0;
+  background: none;
+  border-bottom: solid 1px govuk-colour("black");
+
+  .app-c-option-select__container {
+    border: 0;
+    padding: 0 govuk-spacing(2);
+    margin: 0 0 0 -10px;
+    background: none;
+  }
+
+  .app-c-option-select__container-inner {
+    padding: govuk-spacing(1) 0;
+  }
+
+  .app-c-option-select__title {
+    padding: govuk-spacing(2) govuk-spacing(6) govuk-spacing(2) 0;
+  }
+
+  .app-c-option-select__button {
+    position: relative;
+
+    &:hover {
+      background: none;
+
+      & + .app-c-option-select__selected-counter {
+        background: none;
+      }
+    }
+  }
+
+  .app-c-option-select__selected-counter {
+    padding-top: 3px;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .app-c-option-select__icon {
+    right: 0;
+  }
+
+  .app-c-option-select__filter {
+    padding: 0;
+    padding-top: 3px;
+    padding-bottom: govuk-spacing(2);
+    border: 0;
   }
 }

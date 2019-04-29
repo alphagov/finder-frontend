@@ -4,11 +4,11 @@ describe('GOVUK.OptionSelect', function() {
 
   beforeEach(function(){
     optionSelectFixture = '<div class="app-c-option-select">'+
-      '<div class="app-c-option-select__container-head js-container-head">'+
-        '<div class="app-c-option-select__label">Market sector</div>'+
+      '<div class="app-c-option-select__title js-container-head">'+
+        'Market sector'+
       '</div>'+
       '<div class="app-c-option-select__container js-options-container">'+
-        '<div class="js-auto-height-inner">'+
+        '<div class="app-c-option-select__container-inner js-auto-height-inner">'+
           '<div id="checkboxes-9b7ecc25" class="gem-c-checkboxes govuk-form-group" data-module="checkboxes">'+
             '<fieldset class="govuk-fieldset">'+
               '<legend class="govuk-fieldset__legend govuk-fieldset__legend--m gem-c-checkboxes__legend--hidden">Please select all that apply</legend>'+

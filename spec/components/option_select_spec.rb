@@ -71,7 +71,7 @@ describe 'components/_option-select.html.erb', type: :view do
 
   it "renders a heading for the option select box containing the title" do
     render_component(option_select_arguments)
-    expect(rendered).to have_selector(".app-c-option-select__label", text: 'Market sector')
+    expect(rendered).to have_selector(".app-c-option-select__title", text: 'Market sector')
   end
 
   it "renders a container with the id passed in" do
@@ -103,6 +103,14 @@ describe 'components/_option-select.html.erb', type: :view do
 
     expect(rendered).to have_no_selector('.app-c-option-select .gem-c-input[name="option-select-filter"]')
     expect(rendered).to have_no_selector('.app-c-option-select__count')
+  end
+
+  it "adds alternative styling" do
+    arguments = option_select_arguments
+    arguments[:expander_style] = true
+    render_component(arguments)
+
+    expect(rendered).to have_selector('.app-c-option-select.app-c-option-select--expander')
   end
 
   def expect_label_and_checked_checkbox(label, id, value)

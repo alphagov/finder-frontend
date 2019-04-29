@@ -5,12 +5,22 @@
 .app-c-expander__title {
   @include govuk-font(19, $weight: bold);
   position: relative;
-  padding: govuk-spacing(2) 0 0 0;
+  padding: govuk-spacing(2) 0;
   cursor: pointer;
 }
 
 .app-c-expander__content {
   padding: govuk-spacing(2) 0;
+}
+
+.js-enabled {
+  .app-c-expander__content {
+    display: none;
+  }
+
+  .app-c-expander__content--visible {
+    display: block;
+  }
 }
 
 .app-c-expander__icon {
