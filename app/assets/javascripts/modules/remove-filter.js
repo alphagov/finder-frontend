@@ -39,17 +39,9 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
         $input.trigger(onChangeSuppressAnalytics);
       }
       else if (inputType == 'text' || inputType == 'search') {
-        var needle = decodeEntities(removeFilterValue.toString());
-        var splitKeywords = currentVal.split(" ");
-
-        for (var i = 0; i < splitKeywords.length; i++) {
-          if (splitKeywords[i].toString() === needle) {
-            splitKeywords.splice(i, 1);
-            break;
-          }
-        }
-
-        var newVal = splitKeywords.join(" ").trim();
+        var haystack = ' ' + currentVal.trim() + ' ';
+        var needle = ' ' + decodeEntities(removeFilterValue.toString()) + ' ';
+        var newVal = haystack.replace(needle, ' ').replace(/  /g, ' ').trim();
 
         $input.val(newVal).trigger(onChangeSuppressAnalytics);
       }
