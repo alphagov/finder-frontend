@@ -58,6 +58,10 @@
   overflow-x: hidden;
   border: govuk-spacing(1) solid govuk-colour("grey-3");
   background-color: govuk-colour("white");
+
+  &:focus {
+    outline: 0;
+  }
 }
 
 .app-c-option-select__container-inner {
