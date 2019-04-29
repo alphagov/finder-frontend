@@ -382,6 +382,27 @@ RSpec.describe FinderPresenter do
         presenter = described_class.new(content_item(facets: facets), [])
         expect(presenter.facet_details_lookup).to eq(expected)
       end
+
+      context 'when a facet contains a short_name attribute' do
+        let(:more_facets) do
+          facets <<
+            {
+              'key' => 'employ_eu_citizens',
+              'name' => 'Who you employ',
+              'short_name' => 'Employing EU citizens',
+              'allowed_values' => [
+                { 'label' => 'EU citizens', 'value' => 'yes', 'content_id' => '5476f0c7-d029-459b-8a17-196374ae3366' }
+              ]
+            }
+        end
+
+        it 'overrides the facet name in the details lookup' do
+          presenter = described_class.new(content_item(facets: more_facets), [])
+          expect(presenter.facet_details_lookup["5476f0c7-d029-459b-8a17-196374ae3366"]).to eq(
+            id: "employ_eu_citizens", key: "employ_eu_citizens", name: "Employing EU citizens", type: "content_id"
+          )
+        end
+      end
     end
 
     describe '#facet_value_lookup' do

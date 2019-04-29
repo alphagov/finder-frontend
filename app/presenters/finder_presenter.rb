@@ -93,7 +93,7 @@ class FinderPresenter
   def facet_details_lookup
     @facet_details_lookup ||= begin
       result_hashes = @facet_hashes.map do |facet|
-        facet_name = facet['name']
+        facet_name = facet.fetch('short_name', facet['name'])
         facet_key = facet['key']
         facet.fetch('allowed_values', []).to_h do |value|
           [value['content_id'], {
