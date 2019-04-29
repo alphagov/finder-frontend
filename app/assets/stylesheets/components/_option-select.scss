@@ -69,6 +69,7 @@
 }
 
 .app-c-option-select__filter {
+  position: relative;
   background: govuk-colour('white');
   border-left: govuk-spacing(1) solid govuk-colour("grey-3");
   border-right: govuk-spacing(1) solid govuk-colour("grey-3");
