@@ -1,16 +1,20 @@
-<div class="app-taxonomy-select">
-  <%= render "govuk_publishing_components/components/select", {
-    id: 'level_one_taxon',
-    label: "Topic",
-    options: taxon_facet.topics
-  }
-  %>
-  <div class="js-required govuk-form-group gem-c-select">
+<%= render "components/expander", {
+  title: "Organisation"
+} do %>
+  <div class="app-taxonomy-select">
     <%= render "govuk_publishing_components/components/select", {
-      id: 'level_two_taxon',
-      label: "Sub-topic",
-      options: taxon_facet.sub_topics
+      id: 'level_one_taxon',
+      label: "Topic",
+      options: taxon_facet.topics
     }
     %>
+    <div class="js-required govuk-form-group gem-c-select">
+      <%= render "govuk_publishing_components/components/select", {
+        id: 'level_two_taxon',
+        label: "Sub-topic",
+        options: taxon_facet.sub_topics
+      }
+      %>
+    </div>
   </div>
-</div>
+<% end %>

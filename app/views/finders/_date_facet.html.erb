@@ -1,7 +1,12 @@
-<%= render "components/date-filter", {
-                                      name: date_facet.name,
-                                      key: date_facet.key,
-                                      from_value: @results.user_supplied_date(date_facet.key, 'from'),
-                                      to_value: @results.user_supplied_date(date_facet.key, 'to'),
-                                      aria_controls_id: "js-search-results-info"
-                                    } %>
+<%= render "components/expander", {
+  title: "Organisation"
+} do %>
+  <%= render "components/date-filter", {
+    name: date_facet.name,
+    key: date_facet.key,
+    from_value: @results.user_supplied_date(date_facet.key, 'from'),
+    to_value: @results.user_supplied_date(date_facet.key, 'to'),
+    aria_controls_id: "js-search-results-info"
+  } %>
+<% end %>
+
