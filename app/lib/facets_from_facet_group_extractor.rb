@@ -15,6 +15,7 @@ private
     facet_details = facet['details']
     {
       'name' => facet_details['name'],
+      'short_name' => facet_details['short_name'],
       'key' => facet_details['key'],
       'display_as_result_metadata' => facet_details['display_as_result_metadata'],
       'filterable' => facet_details['filterable'],
