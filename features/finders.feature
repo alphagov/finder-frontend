@@ -220,7 +220,7 @@ Feature: Filtering documents
   Scenario: Adding keyword filter to facet search in business finder
     When I view the business readiness finder
     Then I see topic order selected
-    And I click button "Sector / Business Area" and select facet Aerospace
+    And I select facet Aerospace in the already expanded "Sector / Business Area" section
     Then I see results grouped by primary facet value
     And I see results with pinned items
     And I fill in some keywords
@@ -285,7 +285,7 @@ Feature: Filtering documents
   @javascript
   Scenario: Filter documents and group by facets
     When I view the business readiness finder
-    And I click button "Sector / Business Area" and select facet Aerospace
+    And I select facet Aerospace in the already expanded "Sector / Business Area" section
     Then I see results grouped by primary facet value
 
   Scenario: Dynamic facets continue to show all options on page reload
