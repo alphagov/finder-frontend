@@ -59,34 +59,6 @@ describe OptionSelectFacet do
     end
   end
 
-  describe "#close_facet?" do
-    subject { OptionSelectFacet.new(facet_data, []) }
-
-    context "small number of options" do
-      specify { expect(subject.close_facet?).to be false }
-    end
-
-    context "large number of options" do
-      let(:allowed_values) {
-        11.times.map { |i| { 'label' => "Label #{i}", 'value' => "allowed-value-#{i}" } }
-      }
-
-      let(:large_facet_data) {
-        {
-          'type' => "multi-select",
-          'name' => "Test values",
-          'key' => "test_values",
-          'preposition' => "of value",
-          'allowed_values' => allowed_values,
-        }
-      }
-
-      subject { OptionSelectFacet.new(large_facet_data, {}) }
-
-      specify { expect(subject.close_facet?).to be true }
-    end
-  end
-
   describe "#query_params" do
     context "value selected" do
       subject { OptionSelectFacet.new(facet_data, "allowed-value-1") }
