@@ -32,6 +32,14 @@
 
       <div id="facet-wrapper" class="facet-toggle__content facet-toggle__content--hide">
         <%= render facet_collection.filters %>
+        <%=
+          # Change `@results.form_clear_slug` to `@results.form_clear_slug_with_keywords`
+          # to include the search terms.
+          # TODO: When GOV.UK Frontend is updated to 2.11.0, remove `app-c-button--secondary`
+          # and replace with `govuk-button--secondary`; and remove `app-c-button--secondary`
+          # styles from `finder_frontend.scss`.
+          link_to 'Clear all filters', @results.form_clear_slug, class: 'govuk-button app-c-button--secondary'
+        %>
       </div>
     </div>
   <% end %>

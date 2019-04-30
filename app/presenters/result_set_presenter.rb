@@ -80,6 +80,22 @@ class ResultSetPresenter
     @signup_links ||= fetch_signup_links
   end
 
+  def user_supplied_keywords_present?
+    user_supplied_keywords != ''
+  end
+
+  def user_supplied_keywords_slug
+    user_supplied_keywords_present? ? "?keywords=#{user_supplied_keywords}" : ''
+  end
+
+  def form_clear_slug_with_keywords
+    finder.slug + user_supplied_keywords_slug
+  end
+
+  def form_clear_slug
+    finder.slug
+  end
+
 private
 
   attr_reader :view_context
