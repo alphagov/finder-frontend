@@ -10,7 +10,7 @@ class ResultSetPresenter
            :atom_url,
            to: :finder
 
-  def initialize(finder, filter_params, view_context, sort_presenter, show_top_result = false)
+  def initialize(finder, filter_params, view_context, sort_presenter, metadata_presenter_class, show_top_result = false)
     @finder = finder
     @results = finder.results.documents
     @total = finder.results.total
@@ -19,6 +19,7 @@ class ResultSetPresenter
     @view_context = view_context
     @sort_presenter = sort_presenter
     @show_top_result = show_top_result
+    @metadata_presenter_class = metadata_presenter_class
   end
 
   def to_hash
@@ -82,7 +83,8 @@ class ResultSetPresenter
 
   def documents
     results.each_with_index.map do |result, index|
-      doc = SearchResultPresenter.new(result).to_hash
+      metadata = metadata_presenter_class.new(result.metadata).present
+      doc = SearchResultPresenter.new(result, metadata).to_hash
       if  index === 0 && highlight_top_result?
         doc[:top_result] = true
         doc[:summary] = result.truncated_description
@@ -128,7 +130,7 @@ class ResultSetPresenter
 
 private
 
-  attr_reader :view_context, :sort_presenter
+  attr_reader :view_context, :metadata_presenter_class
 
   def highlight_top_result?
     @show_top_result &&

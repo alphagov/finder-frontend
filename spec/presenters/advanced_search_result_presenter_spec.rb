@@ -31,14 +31,15 @@ RSpec.describe AdvancedSearchResultPresenter do
       public_timestamp: public_timestamp,
     }, finder)
   }
+  let(:formatted_metadata) { [{ label: "Public timestamp", is_date: true, machine_date: "2006-07-14", human_date: "14 July 2006" }] }
 
-  subject(:instance) { described_class.new(search_result) }
+  subject(:instance) { described_class.new(search_result, formatted_metadata) }
 
   describe "#to_hash" do
     it "includes document_type, organisations and publication_date" do
       expect(instance.to_hash[:document_type]).to eq("Guidance")
       expect(instance.to_hash[:organisations]).to eq("Ministry of Defence")
-      expect(instance.to_hash[:publication_date][:machine_date]).to eq("2018-03-26")
+      expect(instance.to_hash[:publication_date][:machine_date]).to eq("2006-07-14")
     end
   end
 
