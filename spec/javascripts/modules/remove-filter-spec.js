@@ -30,6 +30,12 @@ describe('remove-filter', function () {
     '</div>'
   );
 
+  var $quotedTextQuerySpaces = $(
+    '<div data-module="remove-filter">' +
+      '<button type="button" class="facet-tag__remove" aria-label="Remove filter &amp;quot;fee fi fo&amp;quot;" data-module="remove-filter-link" data-track-label="&quot;fee fi fo&quot;" data-facet="keywords" data-value="&amp;quot;fee fi fo&amp;quot;" data-name="keywords">✕</button>' +
+    '</div>'
+  );
+
   var $dropdown = $(
     '<div data-module="remove-filter">' +
       '<button href="/search/news-and-communications?[][]=level_one_taxon&amp;[][]=ba3a9702-da22-487f-86c1-8334a730e559&amp;[][]=level_two_taxon&amp;[][]" class="remove-filter" role="button" aria-label="Remove filter Entering and staying in the UK" data-module="remove-filter-link" data-facet="level_one_taxon" data-value="ba3a9702-da22-487f-86c1-8334a730e559" data-track-label="Entering and staying in the UK" data-name="">✕</button>' +
@@ -141,6 +147,20 @@ describe('remove-filter', function () {
     }, timeout);
   });
 
+  it('removes text queries with multiple words inside quotes from the text search field', function (done) {
+    var searchField = $('input[name=keywords]')[0];
+    searchField.value = '"fee fi fo" fum';
+    removeFilter.start($quotedTextQuerySpaces);
+
+    expect(searchField.value).toContain('"fee fi fo"');
+
+    triggerRemoveFilterClick($quotedTextQuerySpaces);
+
+    setTimeout(function() {
+      expect(searchField.value).toEqual("fum");
+      done();
+    }, timeout);
+  });
 
   it('sets default state for dropdown', function (done) {
     var dropdown = $('select[name=level_one_taxon]')[0];

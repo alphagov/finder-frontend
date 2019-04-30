@@ -39,17 +39,25 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
         $input.trigger(onChangeSuppressAnalytics);
       }
       else if (inputType == 'text' || inputType == 'search') {
-        var needle = decodeEntities(removeFilterValue.toString());
-        var splitKeywords = currentVal.split(" ");
-
-        for (var i = 0; i < splitKeywords.length; i++) {
-          if (splitKeywords[i].toString() === needle) {
-            splitKeywords.splice(i, 1);
-            break;
-          }
-        }
-
-        var newVal = splitKeywords.join(" ").trim();
+        /* By padding the haystack with spaces, we can remove the
+         * first instance of " $needle ", and this will catch it in
+         * the middle of the haystack, at the ends, and when the
+         * needle is the haystack; without needing to consider these
+         * boundary conditions explicitly.
+         *
+         * The only caveat is that the matched needle needs replacing
+         * with " ", to avoid merging adjacent keywords when it was in
+         * the middle of the string, eg:
+         *
+         * needle = "beta"
+         * haystack = "alpha beta gamma"
+         *
+         * Just removing " beta " from the haystack would result in
+         * "alphagamma", which is wrong.
+         */
+        var haystack = ' ' + currentVal.trim() + ' ';
+        var needle = ' ' + decodeEntities(removeFilterValue.toString()) + ' ';
+        var newVal = haystack.replace(needle, ' ').replace(/  /g, ' ').trim();
 
         $input.val(newVal).trigger(onChangeSuppressAnalytics);
       }
