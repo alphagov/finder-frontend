@@ -83,7 +83,7 @@ describe('GOVUK.OptionSelect', function() {
   });
 
   it('instantiates a closed option-select if data-closed-on-load is true', function(){
-    $closedOnLoadFixture = $(optionSelectWithAttrs('data-closed-on-load=true'));
+    var $closedOnLoadFixture = $(optionSelectWithAttrs('data-closed-on-load=true'));
 
     $('body').append($closedOnLoadFixture);
     optionSelect = new GOVUK.OptionSelect({$el:$closedOnLoadFixture});
@@ -92,7 +92,7 @@ describe('GOVUK.OptionSelect', function() {
   });
 
   it('instantiates an open option-select if data-closed-on-load is false', function(){
-    $openOnLoadFixture = $(optionSelectWithAttrs('data-closed-on-load=false'));
+    var $openOnLoadFixture = $(optionSelectWithAttrs('data-closed-on-load=false'));
 
     $('body').append($openOnLoadFixture);
     optionSelect = new GOVUK.OptionSelect({$el:$openOnLoadFixture});
@@ -101,7 +101,7 @@ describe('GOVUK.OptionSelect', function() {
   });
 
   it('instantiates an open option-select if data-closed-on-load is not present', function(){
-    $openOnLoadFixture = $(optionSelectWithAttrs(''));
+    var $openOnLoadFixture = $(optionSelectWithAttrs(''));
 
     $('body').append($openOnLoadFixture);
     optionSelect = new GOVUK.OptionSelect({$el:$openOnLoadFixture});
@@ -114,7 +114,7 @@ describe('GOVUK.OptionSelect', function() {
   });
 
   it ('doesn\'t set the height of the options container as part of initialisation if closed-on-load is true', function(){
-    $closedOnLoadFixture = $(optionSelectWithAttrs('data-closed-on-load=true'));
+    var $closedOnLoadFixture = $(optionSelectWithAttrs('data-closed-on-load=true'));
 
     $('body').append($closedOnLoadFixture);
     optionSelect = new GOVUK.OptionSelect({$el:$closedOnLoadFixture});
@@ -246,7 +246,7 @@ describe('GOVUK.OptionSelect', function() {
       optionSelect.setContainerHeight(100);
       optionSelect.$optionsContainer.width(100);
 
-      visibleCheckboxes = optionSelect.getVisibleCheckboxes();
+      var visibleCheckboxes = optionSelect.getVisibleCheckboxes();
       expect(visibleCheckboxes.length).toBeLessThan(optionSelect.$allCheckboxes.length);
 
       lastLabelForAttribute = optionSelect.$allCheckboxes[optionSelect.$allCheckboxes.length - 1].getElementsByClassName('govuk-checkboxes__input')[0].getAttribute("id");
@@ -256,7 +256,7 @@ describe('GOVUK.OptionSelect', function() {
   });
 
   describe ('setupHeight', function(){
-    var checkboxContainerHeight, stretchMargin;
+    var $checkboxList, $checkboxListInner;
 
     beforeEach(function(){
       // Set some visual properties which are done in the CSS IRL
@@ -266,13 +266,11 @@ describe('GOVUK.OptionSelect', function() {
         'position': 'relative',
         'overflow': 'scroll'
       });
-      $listItems = $checkboxList.find('label');
-      $listItems.css({
+      $checkboxList.find('label').css({
         'display': 'block'
       });
 
       $checkboxListInner = $checkboxList.find(' > .js-auto-height-inner');
-      listItem = "<input type='checkbox' name='ca98'id='ca89'><label for='ca89'>CA89</label>";
     });
 
     it('expands the checkbox-container to fit checkbox list if the list is < 50px larger than the container', function(){
@@ -351,7 +349,7 @@ describe('GOVUK.OptionSelect', function() {
       $('body').find('.gem-c-checkboxes').prepend($(filterSpan));
       optionSelect = new GOVUK.OptionSelect({$el:$optionSelectHTML});
 
-      var timerCallback = jasmine.createSpy("timerCallback");
+      jasmine.createSpy("timerCallback");
       jasmine.clock().install();
     });
 
