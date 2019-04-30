@@ -1,4 +1,4 @@
-describe('GOVUK.OptionSelect', function() {
+describe('GOVUK.OptionSelect', function () {
 
   var $optionSelectHTML, optionSelect;
 
@@ -9,7 +9,7 @@ describe('GOVUK.OptionSelect', function() {
     '</div>';
   }
 
-  beforeEach(function(){
+  beforeEach(function () {
     $optionSelectHTML = $('<div class="app-c-option-select">'+
       '<div class="app-c-option-select__title js-container-head">'+
         'Market sector'+
@@ -75,190 +75,188 @@ describe('GOVUK.OptionSelect', function() {
       '</div>'
     );
     $('body').append($optionSelectHTML);
-    optionSelect = new GOVUK.OptionSelect({$el:$optionSelectHTML});
+    optionSelect = new GOVUK.OptionSelect({ $el: $optionSelectHTML });
   });
 
-  afterEach(function(){
+  afterEach(function () {
     $optionSelectHTML.remove();
   });
 
-  it('instantiates a closed option-select if data-closed-on-load is true', function(){
+  it('instantiates a closed option-select if data-closed-on-load is true', function () {
     var $closedOnLoadFixture = $(optionSelectWithAttrs('data-closed-on-load=true'));
 
     $('body').append($closedOnLoadFixture);
-    optionSelect = new GOVUK.OptionSelect({$el:$closedOnLoadFixture});
+    optionSelect = new GOVUK.OptionSelect({ $el: $closedOnLoadFixture });
     expect(optionSelect.isClosed()).toBe(true);
     expect($closedOnLoadFixture.find('button').attr('aria-expanded')).toBe('false');
   });
 
-  it('instantiates an open option-select if data-closed-on-load is false', function(){
+  it('instantiates an open option-select if data-closed-on-load is false', function () {
     var $openOnLoadFixture = $(optionSelectWithAttrs('data-closed-on-load=false'));
 
     $('body').append($openOnLoadFixture);
-    optionSelect = new GOVUK.OptionSelect({$el:$openOnLoadFixture});
+    optionSelect = new GOVUK.OptionSelect({ $el: $openOnLoadFixture });
     expect(optionSelect.isClosed()).toBe(false);
     expect($openOnLoadFixture.find('button').attr('aria-expanded')).toBe('true');
   });
 
-  it('instantiates an open option-select if data-closed-on-load is not present', function(){
+  it('instantiates an open option-select if data-closed-on-load is not present', function () {
     var $openOnLoadFixture = $(optionSelectWithAttrs(''));
 
     $('body').append($openOnLoadFixture);
-    optionSelect = new GOVUK.OptionSelect({$el:$openOnLoadFixture});
+    optionSelect = new GOVUK.OptionSelect({ $el: $openOnLoadFixture });
     expect(optionSelect.isClosed()).toBe(false);
     expect($openOnLoadFixture.find('button').attr('aria-expanded')).toBe('true');
   });
 
-  it ('sets the height of the options container as part of initialisation', function(){
+  it('sets the height of the options container as part of initialisation', function () {
     expect($optionSelectHTML.find('.js-options-container').attr('style')).toContain('height');
   });
 
-  it ('doesn\'t set the height of the options container as part of initialisation if closed-on-load is true', function(){
+  it('doesn\'t set the height of the options container as part of initialisation if closed-on-load is true', function () {
     var $closedOnLoadFixture = $(optionSelectWithAttrs('data-closed-on-load=true'));
 
     $('body').append($closedOnLoadFixture);
-    optionSelect = new GOVUK.OptionSelect({$el:$closedOnLoadFixture});
+    optionSelect = new GOVUK.OptionSelect({ $el: $closedOnLoadFixture });
     expect($closedOnLoadFixture.find('.js-options-container').attr('style')).not.toContain('height');
   });
 
-  describe('replaceHeadWithButton', function(){
-    it ("replaces the `div.app-c-option-select__container-head` with a button", function(){
+  describe('replaceHeadWithButton', function () {
+    it('replaces the `div.app-c-option-select__container-head` with a button', function () {
       expect($optionSelectHTML.find('button')).toBeDefined();
     });
   });
 
-  describe('toggleOptionSelect', function(){
-    it("calls optionSelect.close() if the optionSelect is currently open", function(){
+  describe('toggleOptionSelect', function () {
+    it('calls optionSelect.close() if the optionSelect is currently open', function () {
       $optionSelectHTML.removeClass('js-closed');
-      spyOn(optionSelect, "close");
-      optionSelect.toggleOptionSelect(jQuery.Event("click"));
+      spyOn(optionSelect, 'close');
+      optionSelect.toggleOptionSelect(jQuery.Event('click'));
       expect(optionSelect.close.calls.count()).toBe(1);
     });
 
-    it("calls optionSelect.open() if the optionSelect is currently closed", function(){
+    it('calls optionSelect.open() if the optionSelect is currently closed', function () {
       $optionSelectHTML.addClass('js-closed');
-      spyOn(optionSelect, "open");
-      optionSelect.toggleOptionSelect(jQuery.Event("click"));
+      spyOn(optionSelect, 'open');
+      optionSelect.toggleOptionSelect(jQuery.Event('click'));
       expect(optionSelect.open.calls.count()).toBe(1);
     });
   });
 
-  describe('open', function(){
-    beforeEach(function(){
-      spyOn(optionSelect, "isClosed").and.returnValue(true);
+  describe('open', function () {
+    beforeEach(function () {
+      spyOn(optionSelect, 'isClosed').and.returnValue(true);
     });
 
-    it ('calls isClosed() and opens if isClosed is true', function(){
+    it('calls isClosed() and opens if isClosed is true', function () {
       optionSelect.open();
       expect(optionSelect.isClosed.calls.count()).toBe(1);
       expect($optionSelectHTML.hasClass('js-closed')).toBe(false);
     });
 
-    it('opens the option-select', function(){
+    it('opens the option-select', function () {
       optionSelect.open();
       expect($optionSelectHTML.hasClass('js-closed')).toBe(false);
     });
 
-    it ('calls setupHeight() if a height has not been set', function(){
+    it('calls setupHeight() if a height has not been set', function () {
       $optionSelectHTML.find('.js-options-container').attr('style', '');
-      spyOn(optionSelect, "setupHeight");
+      spyOn(optionSelect, 'setupHeight');
       optionSelect.open();
       expect(optionSelect.setupHeight.calls.count()).toBe(1);
     });
 
-    it ('doesn\'t call setupHeight() if a height has already been set', function(){
+    it('doesn\'t call setupHeight() if a height has already been set', function () {
       optionSelect.setContainerHeight(100);
-      spyOn(optionSelect, "setupHeight");
+      spyOn(optionSelect, 'setupHeight');
       optionSelect.open();
       expect(optionSelect.setupHeight.calls.count()).toBe(0);
     });
 
-    it ('updates aria-expanded to true', function(){
+    it('updates aria-expanded to true', function () {
       $optionSelectHTML.find('button').attr('aria-expanded', 'false');
       optionSelect.open();
       expect($optionSelectHTML.find('button').attr('aria-expanded')).toBe('true');
     });
-
   });
 
-  describe('close', function(){
-    it('closes the option-select', function(){
+  describe('close', function () {
+    it('closes the option-select', function () {
       optionSelect.open();
       expect(optionSelect.isClosed()).toBe(false);
       optionSelect.close();
       expect(optionSelect.isClosed()).toBe(true);
     });
 
-    it ('updates aria-expanded to false', function(){
+    it('updates aria-expanded to false', function () {
       $optionSelectHTML.find('button').attr('aria-expanded', 'true');
       optionSelect.close();
       expect($optionSelectHTML.find('button').attr('aria-expanded')).toBe('false');
     });
   });
 
-  describe('isClosed', function(){
-    it('returns true if the optionSelect has the class `.js-closed`', function(){
+  describe('isClosed', function () {
+    it('returns true if the optionSelect has the class `.js-closed`', function () {
       $optionSelectHTML.addClass('js-closed');
       expect(optionSelect.isClosed()).toBe(true);
     });
 
-    it('returns false if the optionSelect doesnt have the class `.js-closed`', function(){
+    it('returns false if the optionSelect doesnt have the class `.js-closed`', function () {
       $optionSelectHTML.removeClass('js-closed');
       expect(optionSelect.isClosed()).toBe(false);
     });
   });
 
-  describe ('setContainerHeight', function(){
-    it('can have its height set', function(){
+  describe ('setContainerHeight', function () {
+    it('can have its height set', function () {
       optionSelect.setContainerHeight(200);
       expect(optionSelect.$optionsContainer.height()).toBe(200);
     });
   });
 
-  describe ('isCheckboxVisible', function(){
+  describe ('isCheckboxVisible', function () {
     var firstCheckbox, lastCheckbox;
 
-    beforeEach(function(){
+    beforeEach(function () {
       optionSelect.setContainerHeight(100);
       optionSelect.$optionsContainer.width(100);
       firstCheckbox = optionSelect.$allCheckboxes[0];
       lastCheckbox = optionSelect.$allCheckboxes[optionSelect.$allCheckboxes.length -1];
     });
 
-    it('returns true if a label is visible', function(){
+    it('returns true if a label is visible', function () {
       expect(optionSelect.isCheckboxVisible.call(optionSelect, 0, firstCheckbox)).toBe(true);
     });
 
-    it('returns true if a label is outside its container', function(){
+    it('returns true if a label is outside its container', function () {
       expect(optionSelect.isCheckboxVisible.call(optionSelect, 0, lastCheckbox)).toBe(false);
     });
-
   });
 
-  describe ('getvisibleCheckboxes', function(){
-    var visibleCheckboxes, lastLabelForAttribute, lastVisibleLabelForAttribute;
+  describe ('getvisibleCheckboxes', function () {
+    var lastLabelForAttribute, lastVisibleLabelForAttribute;
 
-    it('returns all the checkboxes if the container doesn\'t overflow', function(){
+    it('returns all the checkboxes if the container doesn\'t overflow', function () {
       expect(optionSelect.$allCheckboxes.length).toBe(optionSelect.getVisibleCheckboxes().length);
     });
 
-    it('only returns some of the first checkboxes if the container\'s dimensions are constricted', function(){
+    it('only returns some of the first checkboxes if the container\'s dimensions are constricted', function () {
       optionSelect.setContainerHeight(100);
       optionSelect.$optionsContainer.width(100);
 
       var visibleCheckboxes = optionSelect.getVisibleCheckboxes();
       expect(visibleCheckboxes.length).toBeLessThan(optionSelect.$allCheckboxes.length);
 
-      lastLabelForAttribute = optionSelect.$allCheckboxes[optionSelect.$allCheckboxes.length - 1].getElementsByClassName('govuk-checkboxes__input')[0].getAttribute("id");
-      lastVisibleLabelForAttribute = visibleCheckboxes[visibleCheckboxes.length - 1].getAttribute("id");
+      lastLabelForAttribute = optionSelect.$allCheckboxes[optionSelect.$allCheckboxes.length - 1].getElementsByClassName('govuk-checkboxes__input')[0].getAttribute('id');
+      lastVisibleLabelForAttribute = visibleCheckboxes[visibleCheckboxes.length - 1].getAttribute('id');
       expect(lastLabelForAttribute).not.toBe(lastVisibleLabelForAttribute);
     });
   });
 
-  describe ('setupHeight', function(){
+  describe ('setupHeight', function () {
     var $checkboxList, $checkboxListInner;
 
-    beforeEach(function(){
+    beforeEach(function () {
       // Set some visual properties which are done in the CSS IRL
       $checkboxList = $optionSelectHTML.find('.js-options-container');
       $checkboxList.css({
@@ -273,7 +271,7 @@ describe('GOVUK.OptionSelect', function() {
       $checkboxListInner = $checkboxList.find(' > .js-auto-height-inner');
     });
 
-    it('expands the checkbox-container to fit checkbox list if the list is < 50px larger than the container', function(){
+    it('expands the checkbox-container to fit checkbox list if the list is < 50px larger than the container', function () {
       $checkboxListInner.height(201);
       optionSelect.setupHeight();
 
@@ -282,10 +280,10 @@ describe('GOVUK.OptionSelect', function() {
       expect($checkboxList.height()).toBe($checkboxListInner.height() + 1);
     });
 
-    it('expands the checkbox-container just enough to cut the last visible item in half horizontally, if there are many items', function(){
+    it('expands the checkbox-container just enough to cut the last visible item in half horizontally, if there are many items', function () {
       $checkboxList.css({
-        "max-height": 200,
-        "width": 600
+        'max-height': 200,
+        'width': 600
       });
       optionSelect.setupHeight();
 
@@ -294,38 +292,38 @@ describe('GOVUK.OptionSelect', function() {
     });
   });
 
-  describe('initialising when the parent is hidden', function(){
-    beforeEach(function(){
+  describe('initialising when the parent is hidden', function () {
+    beforeEach(function () {
       $('body').find('.app-c-option-select').remove();
       var wrapper = $('<div/>').hide().html($optionSelectHTML);
       $('body').append(wrapper);
-      optionSelect = new GOVUK.OptionSelect({$el:$optionSelectHTML});
+      optionSelect = new GOVUK.OptionSelect({ $el: $optionSelectHTML });
     });
 
-    afterEach(function(){
+    afterEach(function () {
       $('.wrapper').remove();
     });
 
-    it('sets the height of the container sensibly', function(){
+    it('sets the height of the container sensibly', function () {
       var containerHeight = $('.js-options-container').height();
       expect(containerHeight).toBe(201);
     });
   });
 
-  describe('initialising when the parent is hidden and data-closed-on-load is true', function(){
-    beforeEach(function(){
+  describe('initialising when the parent is hidden and data-closed-on-load is true', function () {
+    beforeEach(function () {
       $('body').find('.app-c-option-select').remove();
       $optionSelectHTML.attr('data-closed-on-load', true);
       var wrapper = $('<div/>').hide().html($optionSelectHTML);
       $('body').append(wrapper);
-      optionSelect = new GOVUK.OptionSelect({$el:$optionSelectHTML});
+      optionSelect = new GOVUK.OptionSelect({ $el: $optionSelectHTML });
     });
 
-    afterEach(function(){
+    afterEach(function () {
       $('.wrapper').remove();
     });
 
-    it('sets the height of the container sensibly when the option select is opened', function(){
+    it('sets the height of the container sensibly when the option select is opened', function () {
       $('.wrapper').show();
       $optionSelectHTML.find('button').click();
 
@@ -335,10 +333,10 @@ describe('GOVUK.OptionSelect', function() {
     });
   });
 
-  describe('filtering checkboxes', function(){
+  describe('filtering checkboxes', function () {
     var $filterInput, $count;
 
-    beforeEach(function(){
+    beforeEach(function () {
       var filterMarkup =
             '&lt;label for=&quot;input-b7f768b7&quot; class=&quot;gem-c-label govuk-label&quot;&gt;'+
               'Filter Countries'+
@@ -349,18 +347,18 @@ describe('GOVUK.OptionSelect', function() {
 
       $('body').find('.app-c-option-select').attr('data-filter-element', filterMarkup);
       $('body').find('.gem-c-checkboxes').prepend($(filterSpan));
-      optionSelect = new GOVUK.OptionSelect({$el:$optionSelectHTML});
+      optionSelect = new GOVUK.OptionSelect({ $el: $optionSelectHTML });
 
       jasmine.clock().install();
       $filterInput = $optionSelectHTML.find('[name="option-select-filter"]');
       $count = $('#checkboxes-9b7ecc25-count');
     });
 
-    afterEach(function() {
+    afterEach(function () {
       jasmine.clock().uninstall();
     });
 
-    it('filters the checkboxes and updates the filter count correctly', function(){
+    it('filters the checkboxes and updates the filter count correctly', function () {
       expect($('.govuk-checkboxes__input:visible').length).toBe(12);
 
       $filterInput.val('in').keyup();
@@ -379,14 +377,14 @@ describe('GOVUK.OptionSelect', function() {
       expect($count.html()).toBe('0 options found, 0 selected');
     });
 
-    it('does not propagate keypresses up', function(){
-      var e = jQuery.Event("keyup", { keyCode: 13 }); // enter
+    it('does not propagate keypresses up', function () {
+      var e = jQuery.Event('keyup', { keyCode: 13 }); // enter
       $filterInput.trigger(e);
 
       expect(e.isDefaultPrevented()).toBe(true);
     });
 
-    it('shows checked checkboxes regardless of whether they match the filter', function(){
+    it('shows checked checkboxes regardless of whether they match the filter', function () {
       $('#building-and-construction').prop('checked', true).change();
       $('#chemicals').prop('checked', true).change();
       jasmine.clock().tick(100);
@@ -402,7 +400,7 @@ describe('GOVUK.OptionSelect', function() {
       expect($count.html()).toBe('2 options found, 2 selected');
     });
 
-    it('matches a filter regardless of text case', function(){
+    it('matches a filter regardless of text case', function () {
       $filterInput.val('electroNICS industry').keyup();
       jasmine.clock().tick(400);
       expect($('.govuk-checkboxes__input:visible').length).toBe(1);
@@ -414,7 +412,7 @@ describe('GOVUK.OptionSelect', function() {
       expect($count.html()).toBe('1 option found, 0 selected');
     });
 
-    it('matches ampersands correctly', function(){
+    it('matches ampersands correctly', function () {
       $filterInput.val('Distribution & Service Industries').keyup();
       jasmine.clock().tick(400);
       expect($('.govuk-checkboxes__input:visible').length).toBe(1);
@@ -426,28 +424,28 @@ describe('GOVUK.OptionSelect', function() {
       expect($count.html()).toBe('0 options found, 0 selected');
     });
 
-    it('ignores whitespace around the user input', function(){
+    it('ignores whitespace around the user input', function () {
       $filterInput.val('   Clothing, footwear and fashion    ').keyup();
       jasmine.clock().tick(400);
       expect($('.govuk-checkboxes__input:visible').length).toBe(1);
       expect($count.html()).toBe('1 option found, 0 selected');
     });
 
-    it('ignores duplicate whitespace in the user input', function(){
+    it('ignores duplicate whitespace in the user input', function () {
       $filterInput.val('Clothing,     footwear      and      fashion').keyup();
       jasmine.clock().tick(400);
       expect($('.govuk-checkboxes__input:visible').length).toBe(1);
       expect($count.html()).toBe('1 option found, 0 selected');
     });
 
-    it('ignores common punctuation characters', function(){
+    it('ignores common punctuation characters', function () {
       $filterInput.val('closed organisation department for Fisheries War Widows pay Farmers rights sheep and goats Farmers rights cows & llamas').keyup();
       jasmine.clock().tick(400);
       expect($('.govuk-checkboxes__input:visible').length).toBe(1);
       expect($count.html()).toBe('1 option found, 0 selected');
     });
 
-    it('normalises & and and', function(){
+    it('normalises & and and', function () {
       $filterInput.val('cows & llamas').keyup();
       jasmine.clock().tick(400);
       expect($('.govuk-checkboxes__input:visible').length).toBe(1);
@@ -460,7 +458,7 @@ describe('GOVUK.OptionSelect', function() {
     });
 
     // there was a bug in cleanString() where numbers were being ignored
-    it('does not strip out numbers', function(){
+    it('does not strip out numbers', function () {
       $filterInput.val('1st and 2nd Military Courts').keyup();
       jasmine.clock().tick(400);
       expect($('.govuk-checkboxes__input:visible').length).toBe(1);
