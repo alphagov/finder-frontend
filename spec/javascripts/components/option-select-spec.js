@@ -351,7 +351,6 @@ describe('GOVUK.OptionSelect', function() {
       $('body').find('.gem-c-checkboxes').prepend($(filterSpan));
       optionSelect = new GOVUK.OptionSelect({$el:$optionSelectHTML});
 
-      jasmine.createSpy("timerCallback");
       jasmine.clock().install();
       $filterInput = $optionSelectHTML.find('[name="option-select-filter"]');
       $count = $('#checkboxes-9b7ecc25-count');
