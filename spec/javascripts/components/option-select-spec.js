@@ -2,6 +2,13 @@ describe('GOVUK.OptionSelect', function() {
 
   var $optionSelectHTML, optionSelect;
 
+  function optionSelectWithAttrs(attrs) {
+    return '<div class="app-c-option-select" ' + attrs + '>' +
+      '<div class="app-c-option-select__container-head js-container-head"></div>' +
+      '<div class="app-c-option-select__container js-options-container"></div>'+
+    '</div>';
+  }
+
   beforeEach(function(){
     optionSelectFixture = '<div class="app-c-option-select">'+
       '<div class="app-c-option-select__title js-container-head">'+
@@ -77,10 +84,7 @@ describe('GOVUK.OptionSelect', function() {
   });
 
   it('instantiates a closed option-select if data-closed-on-load is true', function(){
-    closedOnLoadFixture = '<div class="app-c-option-select" data-closed-on-load=true>' +
-                            '<div class="app-c-option-select__container-head js-container-head"></div>' +
-                            '<div class="app-c-option-select__container js-options-container"></div>'+
-                          '</div>';
+    closedOnLoadFixture = optionSelectWithAttrs('data-closed-on-load=true');
     $closedOnLoadFixture = $(closedOnLoadFixture);
 
     $('body').append($closedOnLoadFixture);
@@ -90,10 +94,7 @@ describe('GOVUK.OptionSelect', function() {
   });
 
   it('instantiates an open option-select if data-closed-on-load is false', function(){
-    openOnLoadFixture = '<div class="app-c-option-select" data-closed-on-load=false>' +
-                            '<div class="app-c-option-select__container-head js-container-head"></div>' +
-                            '<div class="app-c-option-select__container js-options-container"></div>'+
-                          '</div>';
+    openOnLoadFixture = optionSelectWithAttrs('data-closed-on-load=false');
     $openOnLoadFixture = $(openOnLoadFixture);
 
     $('body').append($openOnLoadFixture);
@@ -103,10 +104,7 @@ describe('GOVUK.OptionSelect', function() {
   });
 
   it('instantiates an open option-select if data-closed-on-load is not present', function(){
-    openOnLoadFixture = '<div class="app-c-option-select">' +
-                          '<div class="app-c-option-select__container-head js-container-head"></div>' +
-                            '<div class="app-c-option-select__container js-options-container"></div>'+
-                        '</div>';
+    openOnLoadFixture = optionSelectWithAttrs('');
     $openOnLoadFixture = $(openOnLoadFixture);
 
     $('body').append($openOnLoadFixture);
@@ -120,9 +118,7 @@ describe('GOVUK.OptionSelect', function() {
   });
 
   it ('doesn\'t set the height of the options container as part of initialisation if closed-on-load is true', function(){
-    closedOnLoadFixture = '<div class="app-c-option-select" data-closed-on-load=true>' +
-                            '<div class="app-c-option-select__container js-options-container"></div>' +
-                          '</div>';
+    closedOnLoadFixture = optionSelectWithAttrs('data-closed-on-load=true');
     $closedOnLoadFixture = $(closedOnLoadFixture);
 
     $('body').append($closedOnLoadFixture);
