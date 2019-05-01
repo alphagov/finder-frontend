@@ -634,6 +634,10 @@ And(/^I click button \"([^\"]*)\" and select facet (.*)$/) do |button, facet|
   find('label', text: facet).click
 end
 
+And(/^I select facet (.*) in the already expanded \"([^\"]*)\" section$/) do |facet, _button|
+  find('label', text: facet).click
+end
+
 When(/^I click the (.*) remove control$/) do |filter|
   expect(page).to have_css(".js-enabled")
 

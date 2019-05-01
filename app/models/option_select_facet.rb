@@ -42,10 +42,6 @@ class OptionSelectFacet < FilterableFacet
     selected_values.any?
   end
 
-  def close_facet?
-    unselected? && allowed_values.count > 10
-  end
-
   def unselected?
     selected_values.empty?
   end
