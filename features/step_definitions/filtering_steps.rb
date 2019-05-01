@@ -478,6 +478,14 @@ Then(/^I can see taxonomy breadcrumbs$/) do
   expect(page.find_all(".govuk-breadcrumbs__list-item").count).to eql(2)
 end
 
+
+Then(/^I can see Brexit taxonomy breadcrumbs$/) do
+  expect(page.find_all(".govuk-breadcrumbs__list-item").count).to eql(3)
+  expect(page).to have_selector(".govuk-breadcrumbs__list-item", text: "Home")
+  expect(page).to have_selector(".govuk-breadcrumbs__list-item", text: "Government")
+  expect(page).to have_selector(".govuk-breadcrumbs__list-item", text: "Brexit")
+end
+
 Given(/^a collection of documents exist that can be filtered by checkbox$/) do
   stub_content_store_with_cma_cases_finder_for_supergroup_checkbox_filter
   stub_rummager_with_cma_cases_for_supergroups_checkbox

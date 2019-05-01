@@ -96,6 +96,10 @@ Feature: Filtering documents
     Then I can see a breadcrumb for home
     And no breadcrumb for all organisations
 
+  Scenario: Business readiness finder has taxon
+    When I view the business readiness finder
+    Then I can see Brexit taxonomy breadcrumbs
+
   Scenario: Visit a finder not from an organisation
     Given a finder tagged to the topic taxonomy
     Then I can see taxonomy breadcrumbs
