@@ -367,40 +367,6 @@ RSpec.describe GroupedResultSetPresenter do
         ])
       end
     end
-
-    context "when a document is tagged to all primary facets" do
-      let(:tagging_metadata) {
-        [{
-          id: 'sector_business_area',
-          name: 'Business area',
-          value: 'Aerospace',
-          type: 'text',
-          labels: %W(aerospace agriculture)
-        }]
-      }
-
-      let(:filter_params) {
-        {
-          order: 'topic',
-          sector_business_area: %W(aerospace),
-          'case-type': %W(ca98-and-civil-cartels)
-        }
-      }
-
-      let(:results) { ResultSet.new([tagged_document], total) }
-
-      it "is grouped in the default set" do
-        allow(a_facet_collection).to receive(:find).and_return(sector_facet)
-
-        expect(subject.grouped_documents).to eq([
-          {
-            facet_name: 'All businesses',
-            facet_key: 'all_businesses',
-            documents: [{ document: primary_tagged_result, document_index: 1 }]
-          }
-        ])
-      end
-    end
   end
 
   describe "#grouped_display?" do
