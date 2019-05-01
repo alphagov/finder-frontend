@@ -16,7 +16,6 @@ class GroupedResultSetPresenter < ResultSetPresenter
 
     # TODO: These could live in a finder definition to make this finder-agnostic grouping.
     default_group_name = "all_businesses"
-    primary_facet = :sector_business_area
     default_group = empty_facet_group(default_group_name, "All businesses")
 
     primary_group = {}
@@ -31,18 +30,19 @@ class GroupedResultSetPresenter < ResultSetPresenter
     else
       sorted_documents.each do |item|
         document_metadata = item[:document][:metadata]
-        # If the document is tagged to all primary facet values, add to default group
-        # otherwise it will be repeated for every primary facet value group.
-        if tagged_to_all?(primary_facet.to_s, document_metadata)
+        # If the document is tagged to all primary facet values, and we are filtering
+        # by the primary facet, then add the document to default group to prevent
+        # duplication in every primary facet value grouping.
+        if filtered_by_primary_facet? && tagged_to_all?(primary_facet_key, document_metadata)
           default_group[:documents] << item
         else
           document_metadata.each do |metadata|
             key = metadata[:id]
             next unless key && facet_filters.has_key?(key.to_sym)
 
-            if primary_facet.to_s == key
+            if primary_facet_key == key
               # Group by value for the primary facet
-              (metadata[:labels] & facet_filters[primary_facet]).each do |value|
+              (metadata[:labels] & facet_filters[primary_facet_key.to_sym]).each do |value|
                 populate_group(primary_group, value, facet_label_for(value), item)
               end
             else
@@ -60,6 +60,14 @@ class GroupedResultSetPresenter < ResultSetPresenter
   end
 
 private
+
+  def primary_facet_key
+    finder.facets.first.key
+  end
+
+  def filtered_by_primary_facet?
+    facet_filters.key?(primary_facet_key.to_sym)
+  end
 
   def populate_group(groups, key, label, item)
     groups[key] = empty_facet_group(key, label) unless groups[key]
