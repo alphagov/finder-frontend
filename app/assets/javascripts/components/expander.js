@@ -18,10 +18,6 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}; // if this ; is omitted, none
     this.$toggleButton.addEventListener('click', this.$module.toggleContent)
   }
 
-  Expander.prototype.collapseContent = function () {
-    this.$content.style.display = 'none'
-  }
-
   Expander.prototype.replaceTitleWithButton = function (expanded) {
     var toggleHtml = this.$toggle.innerHTML
     var $button = document.createElement('button')
