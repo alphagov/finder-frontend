@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe GroupedResultSetPresenter do
-  subject(:presenter) { GroupedResultSetPresenter.new(finder, filter_params, view_context) }
+  subject(:presenter) { GroupedResultSetPresenter.new(finder, filter_params, view_context, sort_presenter) }
 
   let(:pagination) { { 'current_page' => 1, 'total_pages' => 2 } }
 
@@ -28,6 +28,8 @@ RSpec.describe GroupedResultSetPresenter do
       filters: {}
     )
   end
+
+  let(:sort_presenter) { sort_presenter_without_options }
 
   let(:a_facet) do
     double(
@@ -539,9 +541,10 @@ RSpec.describe GroupedResultSetPresenter do
   describe "#grouped_display?" do
     context "a finder does not sort by topic" do
       let(:filter_params) { {} }
+      let(:sort_presenter) { sort_presenter_without_options }
       before { allow(finder).to receive(:default_sort_option) }
       it "is false" do
-        allow(finder).to receive(:sort_options).and_return(sort_presenter_without_options)
+        # allow(finder).to receive(:sort_options).and_return(sort_presenter_without_options)
 
         expect(subject.grouped_display?).to be false
       end
@@ -549,9 +552,11 @@ RSpec.describe GroupedResultSetPresenter do
 
     context "a finder sorts by topic" do
       let(:topic_sort_option) { { 'key' => 'topic', 'name' => 'Topic' } }
+      let(:sort_presenter) { sort_presenter_with_options }
+
       before do
-        allow(finder).to receive(:sort_options).and_return(sort_presenter_with_options)
-        allow(sort_presenter_with_options).to receive(:selected_option).and_return(topic_sort_option)
+        # allow(finder).to receive(:sort_options).and_return(sort_presenter_with_options)
+        allow(sort_presenter).to receive(:selected_option).and_return(topic_sort_option)
       end
       context "with no sort param" do
         let(:filter_params) { {} }
@@ -597,11 +602,11 @@ RSpec.describe GroupedResultSetPresenter do
     context "a finder sorts by topic" do
       let(:topic_sort_option) { { 'key' => 'topic', 'name' => 'Topic' } }
       before do
-        allow(finder).to receive(:sort_options).and_return(sort_presenter_with_options)
-        allow(sort_presenter_with_options).to receive(:selected_option).and_return(topic_sort_option)
+        allow(sort_presenter).to receive(:selected_option).and_return(topic_sort_option)
       end
       context "with no sort param" do
         let(:filter_params) { {} }
+        let(:sort_presenter) { sort_presenter_with_options }
         it "is true" do
           expect(subject.grouped_display?).to be true
         end

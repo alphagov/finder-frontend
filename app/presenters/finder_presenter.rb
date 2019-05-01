@@ -6,7 +6,7 @@ class FinderPresenter
 
   MOST_RECENT_FIRST = "-public_timestamp".freeze
 
-  def initialize(content_item, search_results, sorter, values = {})
+  def initialize(content_item, search_results, sort_presenter, values = {})
     @content_item = content_item
     @search_results = search_results
     @name = content_item['title']
@@ -17,7 +17,7 @@ class FinderPresenter
     @facet_hashes = facet_hashes(@content_item)
     @facets = facet_collection(@facet_hashes, @values)
     @keywords = values["keywords"].presence
-    @sorter = sorter
+    @sort_presenter = sort_presenter
   end
 
   def phase_message
@@ -142,10 +142,6 @@ class FinderPresenter
     metadata.select { |f| f.type == "text" }.map(&:key)
   end
 
-  def sort_options
-    @sort_options ||= sorter.new(content_item, values)
-  end
-
   def show_keyword_search?
     keywords.present? || facets.any? || results.total.positive?
   end
@@ -192,8 +188,8 @@ class FinderPresenter
   end
 
   def atom_feed_enabled?
-    if sort_options.has_options?
-      sort_options.default_option.blank? || sort_options.default_option.key == MOST_RECENT_FIRST
+    if sort_presenter.has_options?
+      sort_presenter.default_option.blank? || sort_presenter.default_option.key == MOST_RECENT_FIRST
     else
       default_order.blank? || default_order == MOST_RECENT_FIRST
     end
@@ -227,7 +223,7 @@ class FinderPresenter
 
 private
 
-  attr_reader :search_results, :sorter
+  attr_reader :search_results, :sort_presenter
 
   def part_of
     content_item['links']['part_of'] || []

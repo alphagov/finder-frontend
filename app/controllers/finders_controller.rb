@@ -49,14 +49,14 @@ private
   end
 
   def results
-    @results ||= result_set_presenter_class.new(finder, filter_params, view_context, show_top_result?)
+    @results ||= result_set_presenter_class.new(finder, filter_params, view_context, sort_presenter, show_top_result?)
   end
 
   def finder
     @finder ||= finder_presenter_class.new(
       raw_finder,
       finder_api.search_results,
-      content_item.sorter_class,
+      sort_presenter,
       filter_params,
     )
   end
@@ -90,6 +90,10 @@ private
     ResultSetPresenter
   end
 
+  def sort_presenter
+    @sort_presenter ||= content_item.sorter_class.new(content_item.as_hash, filter_params)
+  end
+
   def org_registry
     @org_registry ||= Registries::OrganisationsRegistry.new
   end
@@ -99,7 +103,7 @@ private
   end
 
   def grouped_display?
-    params["order"] == "topic" || finder.sort_options.default_value == "topic"
+    params["order"] == "topic" || sort_presenter.default_value == "topic"
   end
 
   def remove_search_box

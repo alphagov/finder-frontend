@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe ResultSetPresenter do
-  subject(:presenter) { ResultSetPresenter.new(finder, filter_params, view_context) }
+  subject(:presenter) { ResultSetPresenter.new(finder, filter_params, view_context, sort_presenter) }
 
   let(:finder) do
     double(
@@ -363,11 +363,10 @@ RSpec.describe ResultSetPresenter do
     end
 
     context 'check top result' do
-      subject(:presenter) { ResultSetPresenter.new(finder, filter_params, view_context, true) }
+      subject(:presenter) { ResultSetPresenter.new(finder, filter_params, view_context, sort_presenter, true) }
 
       before(:each) do
         allow(finder).to receive(:eu_exit_finder?).and_return(true)
-        allow(presenter).to receive(:sort_option).and_return("key" => "-relevance", "name" => "Relevance")
         allow(document_with_higher_es_score).to receive(:truncated_description).and_return("Some description about the Department")
       end
 

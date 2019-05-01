@@ -4,17 +4,18 @@ require "helpers/taxonomy_spec_helper"
 RSpec.describe SortPresenter do
   include GovukContentSchemaExamples
 
-  subject(:presenter) { described_class.new(content_item(sort_options: no_sort_options), {}) }
-  subject(:presenter_without_sort) { described_class.new(content_item(sort_options: no_sort_options), {}) }
-  subject(:presenter_with_sort) { described_class.new(content_item(sort_options: sort_options_without_relevance), {}) }
-  subject(:presenter_with_default) { described_class.new(content_item(sort_options: sort_options_with_default), {}) }
-  subject(:presenter_with_relevance) { described_class.new(content_item(sort_options: sort_options_with_relevance), {}) }
+  subject(:presenter_without_sort) { described_class.new(content_item(sort_options: no_sort_options), values) }
+  subject(:presenter_with_sort) { described_class.new(content_item(sort_options: sort_options_without_relevance), values) }
+  subject(:presenter_with_default) { described_class.new(content_item(sort_options: sort_options_with_default), values) }
+  subject(:presenter_with_relevance) { described_class.new(content_item(sort_options: sort_options_with_relevance), values) }
   subject(:presenter_with_relevance_selected) {
     described_class.new(
       content_item(sort_options: sort_options_with_relevance),
       "keywords" => "cats", "order" => "relevance"
     )
   }
+
+  let(:values) { {} }
 
   let(:no_sort_options) { nil }
 
@@ -100,6 +101,41 @@ RSpec.describe SortPresenter do
       expect(presenter_with_relevance.to_hash[:options].find { |o|
         o[:value] == 'relevance'
       }[:disabled]).to be true
+    end
+
+    context "keywords are not blank" do
+      let(:values) { { "keywords" => "something not blank" } }
+
+      it "should not disable relevance" do
+        expect(presenter_with_relevance.to_hash[:options].find { |o|
+          o[:value] == 'relevance'
+        }[:disabled]).to be false
+      end
+    end
+
+    it "returns an empty array when sort is not present" do
+      expect(presenter_without_sort.to_hash[:options]).to eql([])
+    end
+
+    context "an unacceptable order is provided" do
+      let(:values) { { "order" => "option_that_does_not_exist" } }
+      it "no option is selected" do
+        expect(presenter_with_sort.to_hash[:options].find { |o| o[:selected] }).to be nil
+      end
+    end
+
+    context "order is not specified and default option exists" do
+      it "returns sort options with default option selected" do
+        expect(presenter_with_default.to_hash[:options].find { |o| o[:selected] }).to eql(
+          data_track_action: "clicked",
+          data_track_category: "dropDownClicked",
+          data_track_label: "Updated (oldest)",
+          disabled: false,
+          label: "Updated (oldest)",
+          selected: true,
+          value: "updated-oldest"
+        )
+      end
     end
   end
 

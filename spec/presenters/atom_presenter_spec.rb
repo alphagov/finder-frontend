@@ -3,7 +3,7 @@ require 'spec_helper'
 RSpec.describe AtomPresenter do
   subject(:instance) { described_class.new(finder, results) }
 
-  let(:results) { ResultSetPresenter.new(finder, filter_params, view_context) }
+  let(:results) { ResultSetPresenter.new(finder, filter_params, view_context, sort_presenter) }
 
   let(:finder) do
     double(
@@ -26,6 +26,7 @@ RSpec.describe AtomPresenter do
 
   let(:filter_params) { double(:filter_params, keywords: '') }
   let(:view_context) { double(:view_context) }
+  let(:sort_presenter) { double(:sort_presenter) }
 
   let(:a_facet) do
     double(

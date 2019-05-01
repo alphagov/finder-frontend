@@ -5,18 +5,10 @@ RSpec.describe FinderPresenter do
   include GovukContentSchemaExamples
   include TaxonomySpecHelper
 
-  subject(:presenter) { described_class.new(content_item(sort_options: no_sort_options), {}, SortPresenter, values) }
-  subject(:presenter_with_sort) { described_class.new(content_item(sort_options: sort_options_without_relevance), {}, SortPresenter, values) }
-  subject(:presenter_with_email_signup) { described_class.new(content_item(email_alert_signup: email_alert_signup_options), {}, SortPresenter, values) }
-
-  let(:no_sort_options) { nil }
-
-  let(:sort_options_without_relevance) {
-    [
-      { "name" => "Most viewed" },
-      { "name" => "Updated (newest)" }
-    ]
-  }
+  subject(:presenter) { described_class.new(content_item, {}, sort_presenter, values) }
+  let(:sort_presenter) { SortPresenter.new(content_item, values) }
+  let(:content_item) { create_content_item }
+  let(:values) { {} }
 
   let(:sort_options_with_relevance) {
     [
@@ -26,38 +18,12 @@ RSpec.describe FinderPresenter do
     ]
   }
 
-  let(:sort_options_with_default) {
+  let(:sort_without_relevance) {
     [
       { "name" => "Most viewed" },
-      { "name" => "Updated (oldest)", "default" => true }
+      { "name" => "Updated (newest)" }
     ]
   }
-
-  let(:sort_options_with_public_timestamp_default) {
-    [
-      { "name" => "Most viewed" },
-      { "name" => "Updated (newest)", "key" => "-public_timestamp", "default" => true }
-    ]
-  }
-
-  let(:email_alert_signup_options) {
-    {
-      "api_path": "/api/content/mosw-reports/email-signup",
-      "base_path": "/mosw-reports/email-signup",
-      "content_id": "12dd2b13-93ec-4ca6-a7a4-e2eb5f5d485a",
-      "document_type": "finder_email_signup",
-      "locale": "en",
-      "public_updated_at": "2019-01-24T10:22:17Z",
-      "schema_name": "finder_email_signup",
-      "title": "MOSW reports",
-      "withdrawn": false,
-      "links": {},
-      "api_url": "https://www.gov.uk/api/content/mosw-reports/email-signup",
-      "web_url": "/mosw-reports/email-signup"
-    }
-  }
-
-  let(:values) { {} }
 
   describe "facets" do
     it "returns the correct facets" do
@@ -89,11 +55,32 @@ RSpec.describe FinderPresenter do
   describe "#email_alert_signup_url" do
     context "with no values" do
       it "returns the finder URL appended with /email-signup" do
-        expect(presenter.email_alert_signup_url).to eql("https://www.gov.uk/mosw-reports/email-signup")
+        expect(subject.email_alert_signup_url).to eql("https://www.gov.uk/mosw-reports/email-signup")
       end
     end
 
     context "with some values" do
+      let(:email_alert_signup_options) {
+        {
+          "api_path": "/api/content/mosw-reports/email-signup",
+          "base_path": "/mosw-reports/email-signup",
+          "content_id": "12dd2b13-93ec-4ca6-a7a4-e2eb5f5d485a",
+          "document_type": "finder_email_signup",
+          "locale": "en",
+          "public_updated_at": "2019-01-24T10:22:17Z",
+          "schema_name": "finder_email_signup",
+          "title": "MOSW reports",
+          "withdrawn": false,
+          "links": {},
+          "api_url": "https://www.gov.uk/api/content/mosw-reports/email-signup",
+          "web_url": "/mosw-reports/email-signup"
+        }
+      }
+
+      let(:content_item) {
+        create_content_item(email_alert_signup: email_alert_signup_options)
+      }
+
       let(:values) do
         {
           keyword: "legal",
@@ -105,7 +92,7 @@ RSpec.describe FinderPresenter do
       end
 
       it "returns the finder URL appended with permitted query params" do
-        expect(presenter_with_email_signup.email_alert_signup_url).to eql("/mosw-reports/email-signup?place_of_origin%5B%5D=england")
+        expect(subject.email_alert_signup_url).to eql("/mosw-reports/email-signup?place_of_origin%5B%5D=england")
       end
     end
   end
@@ -113,7 +100,7 @@ RSpec.describe FinderPresenter do
   describe "#atom_url" do
     context "with no values" do
       it "returns the finder URL appended with .atom" do
-        expect(presenter.atom_url).to eql("/mosw-reports.atom")
+        expect(subject.atom_url).to eql("/mosw-reports.atom")
       end
     end
 
@@ -129,19 +116,21 @@ RSpec.describe FinderPresenter do
       end
 
       it "returns the finder URL appended with permitted query params" do
-        expect(presenter.atom_url).to eql("/mosw-reports.atom?place_of_origin%5B%5D=england")
+        expect(subject.atom_url).to eql("/mosw-reports.atom?place_of_origin%5B%5D=england")
       end
     end
 
     context "with all facet types" do
-      it 'returns all relevant query parameters' do
-        option_select_facet_hash =   {
+      let(:option_select_facet_hash) {
+        {
           "filterable": true,
           "key": "people",
           "type": "text",
           "allowed_values": [{ "value" => "me" }, { "value" => "you" }]
         }
-        taxon_facet_hash = {
+      }
+      let(:taxon_facet_hash) {
+        {
           "key": "_unused",
           "keys": %w[
             level_one_taxon
@@ -150,26 +139,34 @@ RSpec.describe FinderPresenter do
           "type": "taxon",
           "filterable": true
         }
-        date_facet_hash = {
+      }
+      let(:date_facet_hash) {
+        {
           "filterable": true,
           "key": "public_timestamp",
           "type": "date"
         }
-        hidden_facet_hash = {
+      }
+      let(:hidden_facet_hash) {
+        {
           "filter_key": "hidden",
           "key": "topic",
           "type": "hidden",
           "filterable": true,
           "allowed_values": [{ "value" => "hiding" }]
         }
-        checkbox_facet_hash = {
+      }
+      let(:checkbox_facet_hash) {
+        {
           "key": "checkbox",
           "filter_key": "checkbox",
           "filter_value": "filter_value",
           "type": "checkbox",
           "filterable": true,
         }
-        radio_facet_hash = {
+      }
+      let(:radio_facet_hash) {
+        {
           "key": "content_store_document_type",
           "type": "radio",
           "filterable": true,
@@ -182,33 +179,48 @@ RSpec.describe FinderPresenter do
             { "value": "statistics_published" }
           ]
         }
-        hidden_clearable_facet_hash = {
+      }
+      let(:hidden_clearable_facet_hash) {
+        {
           "filterable": true,
           "key": "manual",
           "type": "hidden_clearable",
           "allowed_values": [{ "value" => "my_manual" }]
         }
+      }
 
+      let(:content_item) {
+        create_content_item(
+          facets: [
+            taxon_facet_hash,
+            checkbox_facet_hash,
+            radio_facet_hash,
+            date_facet_hash,
+            option_select_facet_hash,
+            hidden_facet_hash,
+            hidden_clearable_facet_hash
+          ],
+          sort_options: sort_without_relevance
+        )
+      }
+
+      let(:values) {
+        {
+          'level_one_taxon' => "taxon",
+          "checkbox" => true,
+           "content_store_document_type" => "type",
+           "public_timestamp" => { "from" => "21/11/2014", "to" => "21/11/2019" },
+           "keywords" => "keyword",
+           "people" => %w[me you],
+           "topic" => "hiding",
+           "manual" => "my_manual"
+         }
+      }
+
+      it 'returns all relevant query parameters' do
         topic_taxonomy_has_taxons([{ content_id: "taxon", title: "taxon" }])
 
-        presenter = FinderPresenter.new(content_item(facets: [taxon_facet_hash,
-                                                              checkbox_facet_hash,
-                                                              radio_facet_hash,
-                                                              date_facet_hash,
-                                                              option_select_facet_hash,
-                                                              hidden_facet_hash,
-                                                              hidden_clearable_facet_hash]),
-                                        [],
-                                        SortPresenter,
-                                         'level_one_taxon' => "taxon",
-                                          "checkbox" => true,
-                                          "content_store_document_type" => "type",
-                                          "public_timestamp" => { "from" => "21/11/2014", "to" => "21/11/2019" },
-                                          "keywords" => "keyword",
-                                          "people" => %w[me you],
-                                          "topic" => "hiding",
-                                          "manual" => "my_manual")
-        query_params = Rack::Utils.parse_nested_query URI.parse(presenter.atom_url).query
+        query_params = Rack::Utils.parse_nested_query URI.parse(subject.atom_url).query
         expect(query_params).to eq("checkbox" => "filter_value",
                                    "level_one_taxon" => "taxon",
                                    "level_two_taxon" => "",
@@ -222,234 +234,55 @@ RSpec.describe FinderPresenter do
 
   describe "#atom_feed_enabled?" do
     context "with no sort options and no default sort" do
+      let(:content_item) { create_content_item(sort_options: nil) }
       it "is true" do
-        presenter = described_class.new(content_item(sort_options: no_sort_options), values, SortPresenter)
-        expect(presenter.atom_feed_enabled?).to be true
+        expect(subject.atom_feed_enabled?).to be true
       end
     end
 
     context "with default sort option set to descending public_timestamp" do
+      let(:content_item) {
+        create_content_item(sort_options: [
+          { "name" => "Most viewed" },
+          { "name" => "Updated (newest)", "key" => "-public_timestamp", "default" => true }
+        ])
+      }
       it "is true" do
-        presenter = described_class.new(content_item(sort_options: sort_options_with_public_timestamp_default), values, SortPresenter)
-        expect(presenter.atom_feed_enabled?).to be true
+        expect(subject.atom_feed_enabled?).to be true
       end
     end
 
     context "with sort options but no default order" do
+      let(:content_item) {
+        create_content_item(sort_options: sort_options_with_relevance)
+      }
       it "is true" do
-        presenter = described_class.new(content_item(sort_options: sort_options_with_relevance), values, SortPresenter)
-        expect(presenter.atom_feed_enabled?).to be true
+        expect(subject.atom_feed_enabled?).to be true
       end
     end
 
     context "with no sort options but a changeable default order" do
+      let(:content_item) {
+        create_content_item(sort_options: nil, default_order: "relevance")
+      }
       it "is false" do
-        presenter = described_class.new(content_item(sort_options: no_sort_options, default_order: "relevance"), values, SortPresenter)
-        expect(presenter.atom_feed_enabled?).to be false
+        expect(subject.atom_feed_enabled?).to be false
       end
     end
 
     context "with no sort options but a default order of most recent first" do
+      let(:content_item) {
+        create_content_item(sort_options: nil, default_order: "-public_timestamp")
+      }
       it "is true" do
-        presenter = described_class.new(content_item(sort_options: no_sort_options, default_order: "-public_timestamp"), values, SortPresenter)
-        expect(presenter.atom_feed_enabled?).to be true
+        expect(subject.atom_feed_enabled?).to be true
       end
     end
   end
 
-  describe "#sort_options" do
-    def sort_option(label, value, disabled: false, selected: false)
-      disabled_attr = disabled ? 'disabled="disabled" ' : ''
-      selected_attr = selected ? 'selected="selected" ' : ''
-      "<option data-track-category=\"dropDownClicked\" data-track-action=\"clicked\" data-track-label=\"#{label}\" #{disabled_attr}#{selected_attr}value=\"#{value}\">#{label}</option>"
-    end
-
-    it "returns an empty array when sort is not present" do
-      expect(presenter.sort_options.to_hash[:options]).to eql([])
-    end
-
-    it "returns sort options without relevance when keywords is not present" do
-      expected_options = [
-        {
-          data_track_action: "clicked",
-          data_track_category: "dropDownClicked",
-          data_track_label: "Most viewed",
-          disabled: false,
-          label: "Most viewed",
-          selected: false,
-          value: "most-viewed"
-        },
-        {
-          data_track_action: "clicked",
-          data_track_category: "dropDownClicked",
-          data_track_label: "Updated (newest)",
-          disabled: false,
-          label: "Updated (newest)",
-          selected: false,
-          value: "updated-newest",
-        }
-      ]
-
-      expect(presenter_with_sort.sort_options.to_hash[:options]).to eql(expected_options)
-    end
-
-    it "returns sort options with relevance disabled when keywords is blank" do
-      expected_options = [
-        {
-          data_track_action: "clicked",
-          data_track_category: "dropDownClicked",
-          data_track_label: "Most viewed",
-          disabled: false,
-          label: "Most viewed",
-          selected: false,
-          value: "most-viewed"
-        },
-        {
-          data_track_action: "clicked",
-          data_track_category: "dropDownClicked",
-          data_track_label: "Updated (newest)",
-          disabled: false,
-          label: "Updated (newest)",
-          selected: false,
-          value: "updated-newest"
-        },
-        {
-          data_track_action: "clicked",
-          data_track_category: "dropDownClicked",
-          data_track_label: "Relevance",
-          disabled: true,
-          label: "Relevance",
-          selected: false,
-          value: "relevance"
-        }
-      ]
-
-      presenter = described_class.new(content_item(sort_options: sort_options_with_relevance), {}, SortPresenter, values)
-
-      expect(presenter.sort_options.to_hash[:options]).to eql(expected_options)
-    end
-
-    it "returns sort options with relevance enabled when keywords is not blank" do
-      expected_options = [
-        {
-          data_track_action: "clicked",
-          data_track_category: "dropDownClicked",
-          data_track_label: "Most viewed",
-          disabled: false,
-          label: "Most viewed",
-          selected: false,
-          value: "most-viewed"
-        },
-        {
-          data_track_action: "clicked",
-          data_track_category: "dropDownClicked",
-          data_track_label: "Updated (newest)",
-          disabled: false,
-          label: "Updated (newest)",
-          selected: false,
-          value: "updated-newest"
-        },
-        {
-          data_track_action: "clicked",
-          data_track_category: "dropDownClicked",
-          data_track_label: "Relevance",
-          disabled: false,
-          label: "Relevance",
-          selected: false,
-          value: "relevance"
-        }
-      ]
-
-      presenter = described_class.new(content_item(sort_options: sort_options_with_relevance), {}, SortPresenter, "keywords" => "something not blank")
-
-      expect(presenter.sort_options.to_hash[:options]).to eql(expected_options)
-    end
-
-    it "returns sort options with no option selected when order is specified but does not exist in options" do
-      expected_options = [
-        {
-          data_track_action: "clicked",
-          data_track_category: "dropDownClicked",
-          data_track_label: "Most viewed",
-          disabled: false,
-          label: "Most viewed",
-          selected: false,
-          value: "most-viewed"
-        },
-        {
-          data_track_action: "clicked",
-          data_track_category: "dropDownClicked",
-          data_track_label: "Updated (newest)",
-          disabled: false,
-          label: "Updated (newest)",
-          selected: false,
-          value: "updated-newest"
-        }
-      ]
-
-      presenter = described_class.new(content_item(sort_options: sort_options_without_relevance), {}, SortPresenter, "order" => "option_that_does_not_exist")
-
-      expect(presenter.sort_options.to_hash[:options]).to eql(expected_options)
-    end
-
-    it "returns sort options with default option selected when order is not specified and default option exists" do
-      expected_options = [
-        {
-          data_track_action: "clicked",
-          data_track_category: "dropDownClicked",
-          data_track_label: "Most viewed",
-          disabled: false,
-          label: "Most viewed",
-          selected: false,
-          value: "most-viewed"
-        },
-        {
-          data_track_action: "clicked",
-          data_track_category: "dropDownClicked",
-          data_track_label: "Updated (oldest)",
-          disabled: false,
-          label: "Updated (oldest)",
-          selected: true,
-          value: "updated-oldest"
-        }
-      ]
-
-      presenter = described_class.new(content_item(sort_options: sort_options_with_default), {}, SortPresenter, values)
-
-      expect(presenter.sort_options.to_hash[:options]).to eql(expected_options)
-    end
-
-    it "returns sort options with option selected when order is specified and exists in options" do
-      expected_options = [
-        {
-          data_track_action: "clicked",
-          data_track_category: "dropDownClicked",
-          data_track_label: "Most viewed",
-          disabled: false,
-          label: "Most viewed",
-          selected: false,
-          value: "most-viewed"
-        },
-        {
-          data_track_action: "clicked",
-          data_track_category: "dropDownClicked",
-          data_track_label: "Updated (newest)",
-          disabled: false,
-          label: "Updated (newest)",
-          selected: true,
-          value: "updated-newest"
-        }
-      ]
-
-      presenter = described_class.new(content_item(sort_options: sort_options_without_relevance), {}, SortPresenter, "order" => "updated-newest")
-
-      expect(presenter.sort_options.to_hash[:options]).to eql(expected_options)
-    end
-  end
-
   context 'facets with content_ids' do
-    let(:facets) do
-      [
+    let(:content_item) {
+      create_content_item(facets: [
         {
           'name' => 'Sector / Business area',
           'key' => 'sector_business_area',
@@ -465,8 +298,8 @@ RSpec.describe FinderPresenter do
             { 'label' => 'Copyright', 'value' => 'copyright', 'content_id' => '56dbec9a-1efd-4471-9f1d-51fcfd19e2db' }
           ]
         }
-      ]
-    end
+      ])
+    }
 
     describe '#facet_details_lookup' do
       it 'returns a hash of content_ids to facet details' do
@@ -491,8 +324,7 @@ RSpec.describe FinderPresenter do
           }
         }
 
-        presenter = described_class.new(content_item(facets: facets), SortPresenter, [])
-        expect(presenter.facet_details_lookup).to eq(expected)
+        expect(subject.facet_details_lookup).to eq(expected)
       end
 
       context 'when a facet contains a short_name attribute' do
@@ -525,42 +357,50 @@ RSpec.describe FinderPresenter do
           '56dbec9a-1efd-4471-9f1d-51fcfd19e2db' => 'copyright'
         }
 
-        presenter = described_class.new(content_item(facets: facets), SortPresenter, [])
-        expect(presenter.facet_value_lookup).to eq(expected)
+        expect(subject.facet_value_lookup).to eq(expected)
       end
     end
   end
 
   describe "#all_content_finder?" do
-    it 'returns true if finder is "All Content"' do
-      subject.content_item["content_id"] = 'dd395436-9b40-41f3-8157-740a453ac972'
-      expect(subject.all_content_finder?).to eq true
+    it 'returns false by default' do
+      expect(subject.all_content_finder?).to eq false
     end
 
-    it 'returns false if finder is not "All Content"' do
-      expect(subject.all_content_finder?).to eq false
+    context "is all content finder" do
+      let(:content_item) {
+        create_content_item(content_id: "dd395436-9b40-41f3-8157-740a453ac972")
+      }
+      it 'returns true' do
+        expect(subject.all_content_finder?).to eq true
+      end
     end
   end
 
   describe "#eu_exit_finder?" do
-    it 'returns true if finder is eu_exit_finder' do
-      subject.content_item["content_id"] = "42ce66de-04f3-4192-bf31-8394538e0734"
-      expect(subject.eu_exit_finder?).to eq true
+    it 'returns false by default' do
+      expect(subject.eu_exit_finder?).to eq false
     end
 
-    it 'returns false if finder is not eu_exit_finder' do
-      expect(subject.eu_exit_finder?).to eq false
+    context "is EU Exit finder" do
+      let(:content_item) {
+        create_content_item(content_id: "42ce66de-04f3-4192-bf31-8394538e0734")
+      }
+      it 'returns true' do
+        expect(subject.eu_exit_finder?).to eq true
+      end
     end
   end
 
 private
 
-  def content_item(sort_options: nil, email_alert_signup: nil, default_order: nil, facets: nil)
+  def create_content_item(sort_options: nil, email_alert_signup: nil, default_order: nil, facets: nil, content_id: nil)
     finder_example = govuk_content_schema_example('finder')
     finder_example['details']['sort'] = sort_options
     finder_example['details']['facets'] = facets if facets
     finder_example['links']['email_alert_signup'] = [email_alert_signup] if email_alert_signup
     finder_example['details']['default_order'] = default_order if default_order
+    finder_example['content_id'] = content_id if content_id
 
 
     dummy_http_response = double(
