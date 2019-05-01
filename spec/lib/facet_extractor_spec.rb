@@ -86,6 +86,7 @@ describe FacetExtractor do
                 {
                   details: {
                     name: 'Who you employ',
+                    short_name: 'Employing EU citizens',
                     key: 'employ_eu_citizens',
                     filter_key: 'any_facet_values',
                     filterable: true,
@@ -129,6 +130,7 @@ describe FacetExtractor do
         },
         {
           name: 'Who you employ',
+          short_name: 'Employing EU citizens',
           key: 'employ_eu_citizens',
           filterable: true,
           filter_key: 'any_facet_values',
