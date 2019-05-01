@@ -28,7 +28,9 @@
   <% filter_element = CGI::escapeHTML(filter) %>
 <% end %>
 
-<div class="app-c-option-select <% if expander_style %>app-c-option-select--expander<% end %>"
+<div
+  class="app-c-option-select <% if expander_style %>app-c-option-select--expander<% end %>"
+  data-module="option-select"
   <% if local_assigns.include?(:closed_on_load) && closed_on_load %>data-closed-on-load="true"<% end %>
   <% if local_assigns.include?(:aria_controls_id) %>data-input-aria-controls="<%= aria_controls_id %>"<% end %>
   <% if show_filter %>data-filter-element="<%= filter_element %>"<% end %>

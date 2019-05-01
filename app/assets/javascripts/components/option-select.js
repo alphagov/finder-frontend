@@ -1,14 +1,15 @@
-(function ($) {
-  "use strict";
-  window.GOVUK = window.GOVUK || {};
+window.GOVUK = window.GOVUK || {};
+window.GOVUK.Modules = window.GOVUK.Modules || {};
 
-  function OptionSelect(options){
-    /* This JavaScript provides two functional enhancements to option-select components:
-      1) A count that shows how many results have been checked in the option-container
-      2) Open/closing of the list of checkboxes - this is not provided for ie6 and 7 as the performance is too janky.
-    */
+(function (Modules) {
+  function OptionSelect () {}
 
-    this.$optionSelect = options.$el;
+  /* This JavaScript provides two functional enhancements to option-select components:
+    1) A count that shows how many results have been checked in the option-container
+    2) Open/closing of the list of checkboxes - this is not provided for ie6 and 7 as the performance is too janky.
+  */
+  OptionSelect.prototype.start = function ($module) {
+    this.$optionSelect = $module;
     this.$options = this.$optionSelect.find("input[type='checkbox']");
     this.$optionsContainer = this.$optionSelect.find('.js-options-container');
     this.$optionList = this.$optionsContainer.children('.js-auto-height-inner');
@@ -245,14 +246,9 @@
 
     // Resize to cut last item cleanly in half
     var lastVisibleCheckbox = this.getVisibleCheckboxes().last();
-    var position = lastVisibleCheckbox.parent().position().top; // parent element is relative
+    var position = lastVisibleCheckbox.parent()[0].offsetTop; // parent element is relative
     this.setContainerHeight(position + (lastVisibleCheckbox.height() / 1.5));
   };
 
-  GOVUK.OptionSelect = OptionSelect;
-
-  // Instantiate an option select for each one found on the page
-  var filters = $('.app-c-option-select').map(function(){
-    return new GOVUK.OptionSelect({$el:$(this)});
-  });
-})(jQuery);
+  Modules.OptionSelect = OptionSelect;
+})(window.GOVUK.Modules);
