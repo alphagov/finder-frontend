@@ -187,7 +187,8 @@
   }
 
   .app-c-option-select__selected-counter {
-    padding-top: 3px;
+    margin: 0;
+    padding-top: govuk-spacing(1);
     padding-left: 0;
     padding-right: 0;
   }
@@ -198,7 +199,7 @@
 
   .app-c-option-select__filter {
     padding: 0;
-    padding-top: 3px;
+    padding-top: govuk-spacing(1);
     padding-bottom: govuk-spacing(2);
     border: 0;
   }
