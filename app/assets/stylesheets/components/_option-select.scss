@@ -21,6 +21,18 @@
     }
   }
 
+  &.js-closed {
+    .app-c-option-select__filter,
+    .app-c-option-select__container,
+    .app-c-option-select__icon--up {
+      display: none;
+    }
+
+    .app-c-option-select__icon--down {
+      display: block;
+    }
+  }
+
   .gem-c-checkboxes {
     margin: 0;
   }
@@ -33,12 +45,47 @@
 }
 
 .app-c-option-select__button {
+  z-index: 100;
   padding-right: 40px;
   width: 100%;
   background: none;
   border: 0;
   text-align: left;
   cursor: pointer;
+
+  &:hover,
+  &:hover + .app-c-option-select__selected-counter {
+    background-color: govuk-colour("grey-2");
+  }
+
+  &:hover ~ .app-c-option-select__container,
+  &:hover ~ .app-c-option-select__selected-counter,
+  &:hover ~ .app-c-option-select__filter {
+    border-color: govuk-colour("grey-2");
+  }
+
+  &::-moz-focus-inner {
+    border: 0;
+  }
+
+  &:focus {
+    outline: none;
+
+    &:after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      outline: solid 3px govuk-colour('yellow');
+    }
+  }
+
+  &[disabled] {
+    background-image: none;
+    color: inherit;
+  }
 }
 
 .app-c-option-select__icon {
@@ -101,68 +148,9 @@
   }
 }
 
-// styles for collapsibleness. .js-collapsible is added by the javascript if the browser is not ie6/7 in which case these don't collapse
-.js-collapsible {
-  .app-c-option-select__button {
-    z-index: 100;
-
-    &:hover,
-    &:hover + .app-c-option-select__selected-counter {
-      background-color: govuk-colour("grey-2");
-    }
-
-    &:hover ~ .app-c-option-select__container,
-    &:hover ~ .app-c-option-select__selected-counter,
-    &:hover ~ .app-c-option-select__filter {
-      border-color: govuk-colour("grey-2");
-    }
-
-    &::-moz-focus-inner {
-      border: 0;
-    }
-
-    &:focus {
-      outline: none;
-
-      &:after {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        outline: solid 3px govuk-colour('yellow');
-      }
-    }
-
-    &[disabled] {
-      background-image: none;
-      color: inherit;
-    }
-  }
-
-  .app-c-option-select__selected-counter {
-    margin-top: -3px;
-    padding: 0 8px 3px 18px;
-  }
-
-  &.js-closed {
-    .app-c-option-select__filter {
-      display: none;
-    }
-
-    .app-c-option-select__container {
-      display: none;
-    }
-
-    .app-c-option-select__icon--up {
-      display: none;
-    }
-
-    .app-c-option-select__icon--down {
-      display: block;
-    }
-  }
+.app-c-option-select__selected-counter {
+  margin-top: -3px;
+  padding: 0 8px 3px 18px;
 }
 
 .app-c-option-select--expander {

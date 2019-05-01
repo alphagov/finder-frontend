@@ -6,7 +6,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
 
   /* This JavaScript provides two functional enhancements to option-select components:
     1) A count that shows how many results have been checked in the option-container
-    2) Open/closing of the list of checkboxes - this is not provided for ie6 and 7 as the performance is too janky.
+    2) Open/closing of the list of checkboxes
   */
   OptionSelect.prototype.start = function ($module) {
     this.$optionSelect = $module;
@@ -55,29 +55,23 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
       });
     }
 
-    // Performance in ie 6/7 is not good enough to support animating the opening/closing
-    // so do not allow option-selects to be collapsible in this case
-    var allowCollapsible = (typeof ieVersion == "undefined" || ieVersion > 7) ? true : false;
-    if(allowCollapsible){
+    // Attach listener to update checked count
+    this.$optionSelect.on('change', "input[type='checkbox']", this.updateCheckedCount.bind(this));
 
-      // Attach listener to update checked count
-      this.$optionSelect.on('change', "input[type='checkbox']", this.updateCheckedCount.bind(this));
+    // Replace div.container-head with a button
+    this.replaceHeadWithButton();
 
-      // Replace div.container-head with a button
-      this.replaceHeadWithButton();
+    // Add js-collapsible class to parent for CSS
+    this.$optionSelect.addClass('js-collapsible');
 
-      // Add js-collapsible class to parent for CSS
-      this.$optionSelect.addClass('js-collapsible');
+    // Add open/close listeners
+    this.$optionSelect.find('.js-container-head').on('click', this.toggleOptionSelect.bind(this));
 
-      // Add open/close listeners
-      this.$optionSelect.find('.js-container-head').on('click', this.toggleOptionSelect.bind(this));
-
-      if (this.$optionSelect.data('closed-on-load') === true) {
-        this.close();
-      }
-      else {
-        this.setupHeight();
-      }
+    if (this.$optionSelect.data('closed-on-load') === true) {
+      this.close();
+    }
+    else {
+      this.setupHeight();
     }
 
     var checkedString = this.checkedString();
