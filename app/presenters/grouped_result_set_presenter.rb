@@ -17,7 +17,6 @@ class GroupedResultSetPresenter < ResultSetPresenter
     # TODO: These could live in a finder definition to make this finder-agnostic grouping.
     default_group_name = "all_businesses"
     primary_facet = :sector_business_area
-    primary_facet_group = %W(sector_business_area business_activity)
     default_group = empty_facet_group(default_group_name, "All businesses")
 
     primary_group = {}
@@ -41,12 +40,9 @@ class GroupedResultSetPresenter < ResultSetPresenter
             key = metadata[:id]
             next unless key && facet_filters.has_key?(key.to_sym)
 
-            # FIXME: There's an inconsistency here, an item which isn't tagged to the primary facet
-            # but tagged to the activity facet will not appear. In terms of the current metadata this
-            # doesn't happen, but as the results are metadata driven it _can_ happen.
-            if primary_facet_group.include?(key)
+            if primary_facet.to_s == key
               # Group by value for the primary facet
-              (metadata[:labels] & facet_filters.fetch(primary_facet, [])).each do |value|
+              (metadata[:labels] & facet_filters[primary_facet]).each do |value|
                 populate_group(primary_group, value, facet_label_for(value), item)
               end
             else
