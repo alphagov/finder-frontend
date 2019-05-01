@@ -3,7 +3,6 @@
 var $ = window.jQuery
 
 describe('QA choices tracker', function () {
-
   var GOVUK = window.GOVUK || {}
   var tracker
   var $element

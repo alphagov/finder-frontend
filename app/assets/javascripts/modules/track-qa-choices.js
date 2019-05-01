@@ -17,7 +17,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
         var $submittedForm = $(event.target)
         var $checkedOptions = $submittedForm.find('input:checked')
 
-        $checkedOptions.each(function(index) {
+        $checkedOptions.each(function (index) {
           $checkedOption = $(this)
           eventLabel = $checkedOption.attr('name').replace('[]', '')
           options = { transport: 'beacon', label: eventLabel }
@@ -27,4 +27,4 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
       })
     }
   }
-})(window, window.GOVUK);
+})(window, window.GOVUK)

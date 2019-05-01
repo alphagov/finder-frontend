@@ -22,24 +22,29 @@
 //= require_tree ./modules
 //= require_tree ./components
 
-jQuery(function($) {
-  var $form = $('.js-live-search-form'),
-      $results = $('.js-live-search-results-block'),
-      $elementsRequiringJavascript = $('.js-required'),
-      $atomAutodiscoveryLink = $("link[type='application/atom+xml']").eq('0');
+jQuery(function ($) {
+  var $form = $('.js-live-search-form')
 
-  $elementsRequiringJavascript.show();
+  var $results = $('.js-live-search-results-block')
 
-  if($form.length && $results.length){
-    var templateDir = 'finders/';
-    if(location.pathname === '/search/advanced') {
-      templateDir = 'advanced_search_finder/';
+  var $elementsRequiringJavascript = $('.js-required')
+
+  var $atomAutodiscoveryLink = $("link[type='application/atom+xml']").eq('0')
+
+  $elementsRequiringJavascript.show()
+
+  if ($form.length && $results.length) {
+    var templateDir = 'finders/'
+    if (window.location.pathname === '/search/advanced') {
+      templateDir = 'advanced_search_finder/'
     }
+
+    // eslint-disable-next-line
     new GOVUK.LiveSearch({
-      $form:$form,
-      $results:$results,
-      $atomAutodiscoveryLink:$atomAutodiscoveryLink,
+      $form: $form,
+      $results: $results,
+      $atomAutodiscoveryLink: $atomAutodiscoveryLink,
       templateDir: templateDir
-    });
+    })
   }
-});
+})
