@@ -139,6 +139,6 @@ private
   end
 
   def ignore_facet?(facet_id)
-    %W(appear_in_find_eu_exit_guidance_business_finder).include?(facet_id)
+    %W(facet_groups).include?(facet_id)
   end
 end
