@@ -705,6 +705,7 @@ Then("I see the email subscription page") do
 end
 
 Then("I cannot select any filters") do
+  find("input[name='filter[appear_in_find_eu_exit_guidance_business_finder][]']", visible: false)
   find("input[name='filter[facet_groups][]']", visible: false)
 end
 
