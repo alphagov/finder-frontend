@@ -24,7 +24,7 @@ RSpec.describe GroupedResultSetPresenter do
       values: {},
       pagination: pagination,
       sort: {},
-      filters: {}
+      filters: facet_filters
     )
   end
 
@@ -32,16 +32,6 @@ RSpec.describe GroupedResultSetPresenter do
     double(
       OptionSelectFacet,
       key: 'case-type',
-      selected_values: [
-        {
-          'value' => 'ca98-and-civil-cartels',
-          'label' => 'CA98 and civil cartels'
-        },
-        {
-          'value' => 'mergers',
-          'label' => 'Mergers'
-        },
-      ],
       allowed_values: [
         {
           'value' => 'ca98-and-civil-cartels',
@@ -52,67 +42,7 @@ RSpec.describe GroupedResultSetPresenter do
           'label' => 'Mergers'
         },
       ],
-      sentence_fragment: {
-        'key' => 'case-type',
-        'type' => 'text',
-        'preposition' => 'Of Type',
-        'values' => [
-          {
-            'label' => 'CA98 and civil cartels',
-          },
-          {
-            'label' => 'Mergers',
-          },
-        ],
-        'word_connectors' => { words_connector: 'or' }
-      },
-      has_filters?: true,
-      labels: %W(ca98-and-civil-cartels mergers),
-      value: %W(ca98-and-civil-cartels mergers)
-    )
-  end
-
-  let(:b_facet) do
-    double(
-      OptionSelectFacet,
-      key: 'personal-data',
-      selected_values: [
-          {
-              'value' => 'personal-digital-data',
-              'label' => 'personal-digital-data'
-          },
-          {
-              'value' => 'personal-digital-data-private',
-              'label' => 'personal-digital-data-private'
-          },
-      ],
-      allowed_values: [
-          {
-              'value' => 'personal-digital-data',
-              'label' => 'personal-digital-data'
-          },
-          {
-              'value' => 'personal-digital-data-private',
-              'label' => 'personal-digital-data-private'
-          },
-      ],
-      sentence_fragment: {
-          'key' => 'personal-data',
-          'type' => 'text',
-          'preposition' => 'Of Type',
-          'values' => [
-              {
-                  'label' => 'personal-digital-data',
-              },
-              {
-                  'label' => 'personal-digital-data-private',
-              },
-          ],
-          'word_connectors' => { words_connector: 'or' }
-      },
-      has_filters?: true,
-      labels: %W(personal-digital-data personal-digital-data-private),
-      value: %W(personal-digital-data personal-digital-data-private)
+      hide_facet_tag?: false,
     )
   end
 
@@ -148,9 +78,16 @@ RSpec.describe GroupedResultSetPresenter do
   let(:document_noun) { 'case' }
   let(:total) { 20 }
 
-  let(:a_facet_collection) {
-    double(FacetCollection, filters: [a_facet, sector_facet])
-  }
+  let(:facet_filters) { [sector_facet, activity_facet, a_facet] }
+  let(:a_facet_collection) do
+    double(
+      FacetCollection,
+      filters: facet_filters,
+      first: facet_filters.first,
+      find: nil,
+      map: facet_filters.map { |f| [f.allowed_values] },
+    )
+  end
 
   let(:sector_facet) do
     double(
@@ -159,7 +96,8 @@ RSpec.describe GroupedResultSetPresenter do
       allowed_values: [
         { 'value' => 'aerospace', 'label' => 'Aerospace' },
         { 'value' => 'agriculture', 'label' => 'Agriculture' },
-      ]
+      ],
+      hide_facet_tag?: false,
     )
   end
 
@@ -170,11 +108,12 @@ RSpec.describe GroupedResultSetPresenter do
       allowed_values: [
         { 'value' => 'products-or-goods', 'label' => 'Products or goods' },
         { 'value' => 'buying', 'label' => 'Buying' },
-      ]
+      ],
+      hide_facet_tag?: false,
     )
   end
 
-  before(:each) do
+  before do
     allow(finder).to receive(:eu_exit_finder?).and_return(false)
   end
 
@@ -249,43 +188,33 @@ RSpec.describe GroupedResultSetPresenter do
       let(:results) { ResultSet.new([document], total) }
 
       it "groups all documents in the default group" do
-        allow(finder).to receive(:filters).and_return([a_facet, sector_facet])
-        allow(a_facet_collection).to receive(:find)
-
         expect(subject.grouped_documents).to eq([{
-          facet_name: 'All businesses',
           facet_key: 'all_businesses',
           documents: subject.documents
         }])
       end
+
+      it "does not populate the facet name for the group" do
+        expect(subject.grouped_documents.first).not_to have_key(:facet_name)
+      end
     end
 
-    context "when the primary facet has been selected" do
+    context "when only the primary facet has been selected" do
       let(:filter_params) {
         {
           order: 'topic',
           sector_business_area: %W(aerospace),
-          'case-type': %W(ca98-and-civil-cartels)
         }
       }
       let(:results) { ResultSet.new([document, tagged_document], total) }
 
       it "groups the relevant documents by the primary facet" do
-        allow(finder).to receive(:filters).and_return([a_facet, sector_facet])
-        allow(a_facet_collection).to receive(:find)
-        allow(a_facet_collection).to receive(:map).and_return([[a_facet.allowed_values], [sector_facet.allowed_values]])
-
         expect(subject.grouped_documents).to eq([
           {
             facet_name: 'Aerospace',
             facet_key: 'aerospace',
             documents: [{ document: primary_tagged_result, document_index: 2 }]
-          },
-          {
-            facet_name: 'Case type',
-            facet_key: 'case-type',
-            documents: [{ document: document_result, document_index: 1 }]
-          },
+          }
         ])
       end
     end
@@ -293,23 +222,17 @@ RSpec.describe GroupedResultSetPresenter do
     context "when primary and other facets have been selected" do
       let(:filter_params) {
         {
-            order: 'topic',
-            sector_business_area: %W(aerospace),
-            'case-type': %W(ca98-and-civil-cartels),
-            'organisation_activity': %W(buying)
+          order: 'topic',
+          sector_business_area: %W(aerospace),
+          'case-type': %W(ca98-and-civil-cartels),
+          'organisation_activity': %W(buying)
         }
       }
 
       let(:results) { ResultSet.new([document, tagged_document], total) }
-      let(:filter_facets) { [sector_facet, a_facet, b_facet, activity_facet] }
+      let(:facet_filters) { [sector_facet, a_facet, activity_facet] }
 
       it "orders the groups by facets in the other facets" do
-        allow(finder).to receive(:filters).and_return(filter_facets)
-        allow(a_facet_collection).to receive(:find)
-        allow(a_facet_collection).to receive(:map).and_return(
-          filter_facets.map { |f| [f.allowed_values] }
-        )
-
         expect(subject.grouped_documents).to eq([
           {
             facet_name: 'Aerospace',
@@ -342,12 +265,6 @@ RSpec.describe GroupedResultSetPresenter do
       let(:results) { ResultSet.new([document, tagged_document], total) }
 
       it "groups the relevant documents in the other facets" do
-        allow(finder).to receive(:filters).and_return([a_facet, sector_facet, activity_facet])
-        allow(a_facet_collection).to receive(:find)
-        allow(a_facet_collection).to receive(:map).and_return([
-          [a_facet.allowed_values], [b_facet.allowed_values], [activity_facet.allowed_values]
-        ])
-
         expect(subject.grouped_documents).to eq([
           {
             facet_name: 'Organisation activity',
@@ -381,7 +298,6 @@ RSpec.describe GroupedResultSetPresenter do
 
       it "is grouped in the default set" do
         allow(a_facet_collection).to receive(:find).and_return(sector_facet)
-        allow(finder).to receive(:filters).and_return([a_facet, sector_facet])
 
         expect(subject.grouped_documents).to eq([
           {
@@ -390,22 +306,6 @@ RSpec.describe GroupedResultSetPresenter do
             documents: [{ document: primary_tagged_result, document_index: 1 }]
           }
         ])
-      end
-    end
-
-    context "when no filters have been selected" do
-      let(:filter_params) { { order: 'topic' } }
-      let(:results) { ResultSet.new([document], total) }
-
-      it "groups all documents in the default group" do
-        allow(finder).to receive(:filters).and_return([])
-        allow(a_facet_collection).to receive(:find)
-
-        expect(subject.grouped_documents).to eq([{
-          facet_name: 'All businesses',
-          facet_key: 'all_businesses',
-          documents: subject.documents
-        }])
       end
     end
 
@@ -420,10 +320,6 @@ RSpec.describe GroupedResultSetPresenter do
       let(:results) { ResultSet.new([document, tagged_document], total) }
 
       it "groups the relevant documents in the primary facets" do
-        allow(finder).to receive(:filters).and_return([a_facet, sector_facet])
-        allow(a_facet_collection).to receive(:find)
-        allow(a_facet_collection).to receive(:map).and_return([[a_facet.allowed_values], [sector_facet.allowed_values]])
-
         expect(subject.grouped_documents).to eq([
           {
             facet_name: 'Aerospace',
@@ -450,49 +346,11 @@ RSpec.describe GroupedResultSetPresenter do
       let(:results) { ResultSet.new([document, tagged_document], total) }
 
       it "groups the relevant documents in the other facets" do
-        allow(finder).to receive(:filters).and_return([a_facet, sector_facet])
-        allow(a_facet_collection).to receive(:find)
-
         expect(subject.grouped_documents).to eq([
           {
             facet_name: 'Case type',
             facet_key: 'case-type',
             documents: [{ document: document_result, document_index: 1 }]
-          }
-        ])
-      end
-    end
-
-    context "when a document is tagged to all primary facets" do
-      let(:tagging_metadata) {
-        [{
-          id: 'sector_business_area',
-          name: 'Business area',
-          value: 'Aerospace',
-          type: 'text',
-          labels: %W(aerospace agriculture)
-        }]
-      }
-
-      let(:filter_params) {
-        {
-          order: 'topic',
-          sector_business_area: %W(aerospace),
-          'case-type': %W(ca98-and-civil-cartels)
-        }
-      }
-
-      let(:results) { ResultSet.new([tagged_document], total) }
-
-      it "is grouped in the default set" do
-        allow(a_facet_collection).to receive(:find).and_return(sector_facet)
-        allow(finder).to receive(:filters).and_return([a_facet, sector_facet])
-
-        expect(subject.grouped_documents).to eq([
-          {
-            facet_name: 'All businesses',
-            facet_key: 'all_businesses',
-            documents: [{ document: primary_tagged_result, document_index: 1 }]
           }
         ])
       end

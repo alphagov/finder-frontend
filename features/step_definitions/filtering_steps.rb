@@ -710,7 +710,6 @@ end
 
 Then("I should see results in the default group") do
   within("#js-results .filtered-results__group") do
-    expect(page).to have_css("h2.filtered-results__facet-heading", text: "All businesses")
     expect(page.all("li.document").size).to eq(9) # 9 results in fixture
   end
 end
