@@ -1,5 +1,7 @@
 <li class="filtered-results__group">
-  <h2 class="filtered-results__facet-heading">{{ facet_name }}</h2>
+  {{#facet_name}}
+    <h2 class="filtered-results__facet-heading">{{ facet_name }}</h2>
+  {{/facet_name}}
   <ul class="finder-results">
     {{#documents}}
       {{> finders/_grouped_document }}

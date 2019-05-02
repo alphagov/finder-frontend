@@ -26,6 +26,7 @@ class GroupedResultSetPresenter < ResultSetPresenter
 
     # With no facet filtering add all documents to default group
     if facet_filters.values.empty?
+      default_group.delete(:facet_name) # Remove heading when no other groups exist.
       default_group[:documents] = sorted_documents
     else
       sorted_documents.each do |item|
