@@ -1,7 +1,10 @@
+/* eslint-env jquery */
+
 (function () {
   'use strict'
 
   window.GOVUK = window.GOVUK || {}
+  var GOVUK = window.GOVUK
 
   function LiveSearch (options) {
     this.state = false

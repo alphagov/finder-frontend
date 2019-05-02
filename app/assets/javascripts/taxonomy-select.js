@@ -1,3 +1,5 @@
+/* eslint-env jquery */
+
 //
 // TaxonomySelect adds interactivity to the topic taxonomy facet.
 //
@@ -6,6 +8,7 @@
   'use strict'
 
   window.GOVUK = window.GOVUK || {}
+  var GOVUK = window.GOVUK
 
   function TaxonomySelect (options) {
     this.$el = options.$el

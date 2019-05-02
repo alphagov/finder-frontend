@@ -1,4 +1,4 @@
-/* global $ */
+/* eslint-env jquery */
 window.GOVUK = window.GOVUK || {}
 window.GOVUK.Modules = window.GOVUK.Modules || {};
 

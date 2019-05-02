@@ -1,3 +1,6 @@
+/* eslint-env jasmine, jquery */
+/* global GOVUK */
+
 describe('liveSearch', function () {
   var $form, $results, _supportHistory, liveSearch, $atomAutodiscoveryLink, $count
   var dummyResponse = {

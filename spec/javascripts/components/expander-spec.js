@@ -1,3 +1,6 @@
+/* eslint-env jasmine, jquery */
+/* global GOVUK */
+
 describe('An expander module', function () {
   'use strict'
 

@@ -1,3 +1,6 @@
+/* eslint-env jasmine, jquery */
+/* global GOVUK */
+
 describe('TaxonomySelect', function () {
   var $facet, taxonomySelect
 

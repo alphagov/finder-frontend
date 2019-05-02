@@ -22,6 +22,8 @@
 //= require_tree ./modules
 //= require_tree ./components
 
+/* eslint-env jquery */
+
 jQuery(function ($) {
   var $form = $('.js-live-search-form')
 

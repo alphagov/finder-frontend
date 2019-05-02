@@ -1,3 +1,5 @@
+/* eslint-env jasmine, jquery */
+
 var $ = window.jQuery
 
 describe('remove-filter', function () {
