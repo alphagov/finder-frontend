@@ -189,10 +189,13 @@ RSpec.describe GroupedResultSetPresenter do
 
       it "groups all documents in the default group" do
         expect(subject.grouped_documents).to eq([{
-          facet_name: 'All businesses',
           facet_key: 'all_businesses',
           documents: subject.documents
         }])
+      end
+
+      it "does not populate the facet name for the group" do
+        expect(subject.grouped_documents.first).not_to have_key(:facet_name)
       end
     end
 
@@ -303,21 +306,6 @@ RSpec.describe GroupedResultSetPresenter do
             documents: [{ document: primary_tagged_result, document_index: 1 }]
           }
         ])
-      end
-    end
-
-    context "when no filters have been selected" do
-      let(:filter_params) { { order: 'topic' } }
-      let(:results) { ResultSet.new([document], total) }
-
-      it "groups all documents in the default group" do
-        allow(finder).to receive(:filters).and_return([])
-
-        expect(subject.grouped_documents).to eq([{
-          facet_name: 'All businesses',
-          facet_key: 'all_businesses',
-          documents: subject.documents
-        }])
       end
     end
 
