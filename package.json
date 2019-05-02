@@ -5,7 +5,7 @@
   "author": "Government Digital Service",
   "license": "MIT",
   "scripts": {
-    "lint": "standard app/javascripts/{*.js,**/*.js} spec/javascripts/{*.js,**/*.js}",
+    "lint": "standard app/assets/javascripts/{*.js,**/*.js} spec/javascripts/{*.js,**/*.js}",
     "lint:fix": "yarn run lint --fix"
   },
   "devDependencies": {
