@@ -560,17 +560,9 @@ Then(/^I see most relevant order selected$/) do
   expect(page).to have_select('order', selected: "Relevance")
 end
 
-# Then(/^I see updated newest order selected$/) do
-#   expect(page).to have_select('order', selected: "Updated (newest)")
-# end
-
 Then(/^I see (.*) order selected$/) do |label|
   expect(page).to have_select('order', selected: label)
 end
-
-# Then(/^I see topic order selected$/) do
-#   expect(page).to have_select('order', selected: "Topic")
-# end
 
 And(/^I see the facet tag$/) do
   within '.facet-tags' do

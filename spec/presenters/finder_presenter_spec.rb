@@ -281,8 +281,8 @@ RSpec.describe FinderPresenter do
   end
 
   context 'facets with content_ids' do
-    let(:content_item) {
-      create_content_item(facets: [
+    let(:facets) {
+      [
         {
           'name' => 'Sector / Business area',
           'key' => 'sector_business_area',
@@ -298,7 +298,10 @@ RSpec.describe FinderPresenter do
             { 'label' => 'Copyright', 'value' => 'copyright', 'content_id' => '56dbec9a-1efd-4471-9f1d-51fcfd19e2db' }
           ]
         }
-      ])
+      ]
+    }
+    let(:content_item) {
+      create_content_item(facets: facets)
     }
 
     describe '#facet_details_lookup' do
@@ -328,6 +331,7 @@ RSpec.describe FinderPresenter do
       end
 
       context 'when a facet contains a short_name attribute' do
+        let(:content_item) { create_content_item(facets: more_facets) }
         let(:more_facets) do
           facets <<
             {
@@ -341,8 +345,7 @@ RSpec.describe FinderPresenter do
         end
 
         it 'overrides the facet name in the details lookup' do
-          presenter = described_class.new(content_item(facets: more_facets), [])
-          expect(presenter.facet_details_lookup["5476f0c7-d029-459b-8a17-196374ae3366"]).to eq(
+          expect(subject.facet_details_lookup["5476f0c7-d029-459b-8a17-196374ae3366"]).to eq(
             id: "employ_eu_citizens", key: "employ_eu_citizens", name: "Employing EU citizens", type: "content_id"
           )
         end

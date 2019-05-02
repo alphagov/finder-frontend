@@ -1,4 +1,4 @@
-class SortPresenter < BaseSortPresenter
+class SortPresenter
   def initialize(content_item, filter_params)
     @user_selected_order = filter_params['order']
     @keywords = filter_params["keywords"]
@@ -36,15 +36,23 @@ private
   RELEVANCE_OPTION_TYPES = %w(relevance -relevance).freeze
 
   def presented_sort_options
-    @presented_sort_options ||= content_item_sort_options.map do |option|
+    @presented_sort_options ||= sort_options.map do |option|
       SortOptionPresenter.new(
         label: option['name'],
         key: option['key'],
-        default: option['default'],
+        default: is_default?(option),
         selected: option_value(option) == option_value(selected_option),
         disabled: option_value(option) == disabled_option_value,
       )
     end
+  end
+
+  def is_default?(option)
+    option['default']
+  end
+
+  def sort_options
+    content_item_sort_options
   end
 
   def options_as_hashes
@@ -52,9 +60,7 @@ private
   end
 
   def user_selected_option
-    content_item_sort_options.find { |option|
-      option_value(option) == user_selected_order
-    }
+    sort_options.find { |option| option_value(option) == user_selected_order }
   end
 
   def disabled_option_value
@@ -62,13 +68,11 @@ private
   end
 
   def raw_default_option
-    content_item_sort_options.find { |option| option['default'] }
+    sort_options.find { |option| option['default'] }
   end
 
   def relevance_option
-    content_item_sort_options.find { |option|
-      RELEVANCE_OPTION_TYPES.include?(option['key'])
-    }
+    sort_options.find { |option| RELEVANCE_OPTION_TYPES.include?(option['key']) }
   end
 
   def option_value(option)
