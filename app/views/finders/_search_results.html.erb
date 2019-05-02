@@ -2,7 +2,9 @@
   <% if local_assigns[:display_grouped_results] %>
     <% local_assigns[:grouped_documents].each do |group| %>
       <li class="filtered-results__group">
-        <h2 class="filtered-results__facet-heading"><%= group[:facet_name] %></h2>
+        <% if group[:facet_name] %>
+          <h2 class="filtered-results__facet-heading"><%= group[:facet_name] %></h2>
+        <% end %>
         <ul class="finder-results">
           <% group[:documents].each do |document| %>
             <% result = document[:document] %>
