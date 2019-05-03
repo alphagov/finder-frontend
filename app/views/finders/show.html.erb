@@ -43,13 +43,12 @@
           <h1 class="app-c-search-page-heading">Search<span class="govuk-visually-hidden"> all content</span></h1>
         <% end %>
         <div id="keywords" class="app-patch--search-input-override">
-          <%= render "govuk_publishing_components/components/label", {
-            html_for: "finder-keyword-search",
-            text: label_text,
-          } %>
           <%= render "govuk_publishing_components/components/input", {
             controls: "js-search-results-info",
             id: "finder-keyword-search",
+            label: {
+              text: label_text,
+            },
             name: "keywords",
             search_icon: true,
             type: 'search',
