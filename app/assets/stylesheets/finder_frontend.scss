@@ -408,3 +408,8 @@
     }
   }
 }
+
+// NOTE: Reset from element level styles inherited from the deprecated `govuk-template`.
+.app-patch--search-input-override input[type="search"] {
+  box-sizing: border-box;
+}
