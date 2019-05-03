@@ -9,6 +9,7 @@ class EmailAlertSubscriptionsController < ApplicationController
 
   def create
     if valid_choices?
+      puts "_Actually_ redirecting to #{signup_url}"
       redirect_to signup_url
     else
       @error_message = "Please choose an email alert"
@@ -20,8 +21,10 @@ private
 
   def signup_url
     if params[:default_frequency]
+      puts "default_frequency param detected, so should be redirecting to #{email_alert_signup_api.signup_url}&default_frequency=#{params[:default_frequency]}"
       "#{email_alert_signup_api.signup_url}&default_frequency=#{params[:default_frequency]}"
     end
+    puts "No params detected, so should be redirecting to #{email_alert_signup_api.signup_url}"
     email_alert_signup_api.signup_url
   end
 
