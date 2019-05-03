@@ -9,7 +9,7 @@ class EmailAlertSubscriptionsController < ApplicationController
 
   def create
     if valid_choices?
-      redirect_to email_alert_signup_api.signup_url
+      redirect_to signup_url
     else
       @error_message = "Please choose an email alert"
       render action: :new
@@ -17,6 +17,13 @@ class EmailAlertSubscriptionsController < ApplicationController
   end
 
 private
+
+  def signup_url
+    if params[:default_frequency]
+      "#{email_alert_signup_api.signup_url}&default_frequency=#{params[:default_frequency]}"
+    end
+    email_alert_signup_api.signup_url
+  end
 
   def content
     @content ||= fetch_content_item(request.path)

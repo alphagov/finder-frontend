@@ -39,6 +39,10 @@ class SignupPresenter
         end
       end
     end
+    hidden_choices.append(
+      name: "default_frequency",
+      value: "daily"
+    )
     hidden_choices.flatten
   end
 
