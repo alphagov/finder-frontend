@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe GroupedResultSetPresenter do
-  subject(:presenter) { GroupedResultSetPresenter.new(finder, filter_params, view_context) }
+  subject(:presenter) { GroupedResultSetPresenter.new(finder, filter_params, view_context, sort_presenter) }
 
   let(:pagination) { { 'current_page' => 1, 'total_pages' => 2 } }
 
@@ -16,6 +16,7 @@ RSpec.describe GroupedResultSetPresenter do
       name: 'A finder',
       results: results,
       document_noun: document_noun,
+      sort_options: sort_presenter_without_options,
       total: 20,
       facets: a_facet_collection,
       keywords: keywords,
@@ -27,6 +28,8 @@ RSpec.describe GroupedResultSetPresenter do
       filters: facet_filters
     )
   end
+
+  let(:sort_presenter) { sort_presenter_without_options }
 
   let(:a_facet) do
     double(
@@ -50,6 +53,42 @@ RSpec.describe GroupedResultSetPresenter do
     ResultSet.new(
       (1..total).map { document },
       total,
+    )
+  end
+
+  let(:sort_presenter_without_options) do
+    double(
+      SortPresenter,
+      has_options?: false,
+      selected_option: nil,
+      to_hash: {
+        options: [],
+        default_value: nil,
+        relevance_value: nil,
+      }
+    )
+  end
+
+  let(:sort_presenter_with_options) do
+    double(
+      SortPresenter,
+      has_options?: true,
+      selected_option: { "name" => 'Relevance', "key" => '-relevance' },
+      to_hash: {
+        options: [
+          {
+            data_track_category: 'dropDownClicked',
+            data_track_action: 'clicked',
+            data_track_label: "Relevance",
+            label: "Relevance",
+            value: "relevance",
+            disabled: false,
+            selected: true,
+          }
+        ],
+        default_value: nil,
+        relevance_value: nil,
+      },
     )
   end
 
@@ -360,19 +399,22 @@ RSpec.describe GroupedResultSetPresenter do
   describe "#grouped_display?" do
     context "a finder does not sort by topic" do
       let(:filter_params) { {} }
+      let(:sort_presenter) { sort_presenter_without_options }
       before { allow(finder).to receive(:default_sort_option) }
       it "is false" do
-        allow(finder).to receive(:sort).and_return([])
+        # allow(finder).to receive(:sort_options).and_return(sort_presenter_without_options)
 
         expect(subject.grouped_display?).to be false
       end
     end
 
     context "a finder sorts by topic" do
-      let(:topic_sort_option) { { 'name' => 'Topic', 'key' => 'topic' } }
+      let(:topic_sort_option) { { 'key' => 'topic', 'name' => 'Topic' } }
+      let(:sort_presenter) { sort_presenter_with_options }
+
       before do
-        allow(finder).to receive(:default_sort_option).and_return(topic_sort_option)
-        allow(finder).to receive(:sort).and_return([topic_sort_option])
+        # allow(finder).to receive(:sort_options).and_return(sort_presenter_with_options)
+        allow(sort_presenter).to receive(:selected_option).and_return(topic_sort_option)
       end
       context "with no sort param" do
         let(:filter_params) { {} }
@@ -407,7 +449,7 @@ RSpec.describe GroupedResultSetPresenter do
   describe "#grouped_display?" do
     context "a finder does not sort by topic" do
       let(:filter_params) { {} }
-      before { allow(finder).to receive(:default_sort_option) }
+      before { allow(finder).to receive(:default_option) }
       it "is false" do
         allow(finder).to receive(:sort).and_return([])
 
@@ -416,13 +458,13 @@ RSpec.describe GroupedResultSetPresenter do
     end
 
     context "a finder sorts by topic" do
-      let(:topic_sort_option) { { 'name' => 'Topic', 'key' => 'topic' } }
+      let(:topic_sort_option) { { 'key' => 'topic', 'name' => 'Topic' } }
       before do
-        allow(finder).to receive(:default_sort_option).and_return(topic_sort_option)
-        allow(finder).to receive(:sort).and_return([topic_sort_option])
+        allow(sort_presenter).to receive(:selected_option).and_return(topic_sort_option)
       end
       context "with no sort param" do
         let(:filter_params) { {} }
+        let(:sort_presenter) { sort_presenter_with_options }
         it "is true" do
           expect(subject.grouped_display?).to be true
         end

@@ -10,12 +10,13 @@ class ResultSetPresenter
            :atom_url,
            to: :finder
 
-  def initialize(finder, filter_params, view_context, show_top_result = false)
+  def initialize(finder, filter_params, view_context, sort_presenter, show_top_result = false)
     @finder = finder
     @results = finder.results.documents
     @total = finder.results.total
     @filter_params = filter_params
     @view_context = view_context
+    @sort_presenter = sort_presenter
     @show_top_result = show_top_result
   end
 
@@ -32,6 +33,7 @@ class ResultSetPresenter
       any_filters_applied: any_filters_applied?,
       next_and_prev_links: next_and_prev_links,
       screen_reader_filter_description: ScreenReaderFilterDescriptionPresenter.new(filters, sort_option).present,
+      sort_options: sort_presenter.to_hash,
     }
   end
 
@@ -82,14 +84,13 @@ class ResultSetPresenter
 
 private
 
-  attr_reader :view_context
+  attr_reader :view_context, :sort_presenter
 
   def highlight_top_result?
     @show_top_result &&
       finder.eu_exit_finder? &&
       results.length >= 2 &&
-      sort_option &&
-      sort_option["key"].eql?("-relevance") &&
+      sort_option.dig('key').eql?("-relevance") &&
       best_bet?
   end
 
@@ -127,17 +128,7 @@ private
   end
 
   def sort_option
-    return if finder.sort.blank?
-
-    if @filter_params['order']
-      sort_option = finder.sort.detect { |option|
-        option['name'].parameterize == @filter_params['order']
-      }
-    end
-
-    sort_option ||= finder.default_sort_option
-
-    sort_option
+    sort_presenter.selected_option || {}
   end
 
   def fetch_signup_links

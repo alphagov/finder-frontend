@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe ResultSetPresenter do
-  subject(:presenter) { ResultSetPresenter.new(finder, filter_params, view_context) }
+  subject(:presenter) { ResultSetPresenter.new(finder, filter_params, view_context, sort_presenter) }
 
   let(:finder) do
     double(
@@ -10,6 +10,7 @@ RSpec.describe ResultSetPresenter do
       name: 'A finder',
       results: results,
       document_noun: document_noun,
+      sort_options: sort_presenter,
       total: 20,
       facets: a_facet_collection,
       keywords: keywords,
@@ -172,6 +173,29 @@ RSpec.describe ResultSetPresenter do
       promoted_summary: nil,
       show_metadata: false,
       es_score: 0.005
+    )
+  end
+
+  let(:sort_presenter) do
+    double(
+      SortPresenter,
+      has_options?: false,
+      selected_option: { "name" => 'Relevance', "key" => '-relevance' },
+      to_hash: {
+        options: [
+          {
+            data_track_category: 'dropDownClicked',
+            data_track_action: 'clicked',
+            data_track_label: "Relevance",
+            label: "Relevance",
+            value: "relevance",
+            disabled: false,
+            selected: true,
+          }
+        ],
+        default_value: nil,
+        relevance_value: nil,
+      },
     )
   end
 
@@ -339,11 +363,10 @@ RSpec.describe ResultSetPresenter do
     end
 
     context 'check top result' do
-      subject(:presenter) { ResultSetPresenter.new(finder, filter_params, view_context, true) }
+      subject(:presenter) { ResultSetPresenter.new(finder, filter_params, view_context, sort_presenter, true) }
 
       before(:each) do
         allow(finder).to receive(:eu_exit_finder?).and_return(true)
-        allow(presenter).to receive(:sort_option).and_return("key" => "-relevance")
         allow(document_with_higher_es_score).to receive(:truncated_description).and_return("Some description about the Department")
       end
 

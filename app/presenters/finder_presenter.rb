@@ -6,7 +6,7 @@ class FinderPresenter
 
   MOST_RECENT_FIRST = "-public_timestamp".freeze
 
-  def initialize(content_item, search_results, values = {})
+  def initialize(content_item, search_results, sort_presenter, values = {})
     @content_item = content_item
     @search_results = search_results
     @name = content_item['title']
@@ -17,6 +17,7 @@ class FinderPresenter
     @facet_hashes = facet_hashes(@content_item)
     @facets = facet_collection(@facet_hashes, @values)
     @keywords = values["keywords"].presence
+    @sort_presenter = sort_presenter
   end
 
   def phase_message
@@ -49,10 +50,6 @@ class FinderPresenter
 
   def filter
     content_item['details']['filter']
-  end
-
-  def sort
-    content_item['details']['sort']
   end
 
   def logo_path
@@ -145,59 +142,6 @@ class FinderPresenter
     metadata.select { |f| f.type == "text" }.map(&:key)
   end
 
-  def default_sort_option
-    sort
-      &.detect { |option| option['default'] }
-  end
-
-  def default_sort_option_value
-    default_sort_option
-      &.dig('name')
-      &.parameterize
-  end
-
-  def default_sort_option_key
-    default_sort_option
-      &.dig('key')
-  end
-
-  def relevance_sort_option
-    sort
-      &.detect { |option| %w(relevance -relevance).include?(option['key']) }
-  end
-
-  def relevance_sort_option_value
-    relevance_sort_option
-      &.dig('name')
-      &.parameterize
-  end
-
-  def sort_options
-    return [] if sort.blank?
-
-    options = sort.collect do |option|
-      [
-        option['name'],
-        option['name'].parameterize,
-        {
-          'data-track-category' => 'dropDownClicked',
-          'data-track-action' => 'clicked',
-          'data-track-label' => option['name']
-        }
-      ]
-    end
-
-    disabled_option = keywords.blank? ? relevance_sort_option_value : ''
-
-    selected_option = if values['order'].present? && sort.any? { |option| option['name'].parameterize == values['order'] }
-                        values['order']
-                      else
-                        default_sort_option_value
-                      end
-
-    options_for_select(options, selected: selected_option, disabled: disabled_option)
-  end
-
   def show_keyword_search?
     keywords.present? || facets.any? || results.total.positive?
   end
@@ -244,8 +188,8 @@ class FinderPresenter
   end
 
   def atom_feed_enabled?
-    if sort_options.present?
-      default_sort_option.blank? || default_sort_option_key == MOST_RECENT_FIRST
+    if sort_presenter.has_options?
+      sort_presenter.default_option.blank? || sort_presenter.default_option.key == MOST_RECENT_FIRST
     else
       default_order.blank? || default_order == MOST_RECENT_FIRST
     end
@@ -279,7 +223,7 @@ class FinderPresenter
 
 private
 
-  attr_reader :search_results
+  attr_reader :search_results, :sort_presenter
 
   def part_of
     content_item['links']['part_of'] || []

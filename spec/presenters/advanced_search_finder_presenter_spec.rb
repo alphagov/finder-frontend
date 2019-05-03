@@ -3,7 +3,7 @@ require "spec_helper"
 describe AdvancedSearchFinderPresenter do
   include ActionView::Helpers::UrlHelper
 
-  subject(:presenter) { described_class.new(content_item_response, search_results, values) }
+  subject(:presenter) { described_class.new(content_item_response, search_results, SortPresenter, values) }
 
   let(:finder_item) {
     JSON.parse(File.read(Rails.root.join("features", "fixtures", "advanced-search.json")))
