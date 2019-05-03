@@ -12,6 +12,11 @@
         "key": "yes",
         "radio_button_name": "yes",
         "prechecked": true
+      },
+      {
+        "key": "default_frequency",
+        "radio_button_name": "daily",
+        "prechecked": true
       }
     ],
     "subscription_list_title_prefix": "Find EU Exit guidance for your business"
