@@ -17,7 +17,5 @@
 //= require shared_mustache
 //= require templates
 //
-//= require live-site-search
-//= require search
 //= require_tree ./modules
 //= require_tree ./components
