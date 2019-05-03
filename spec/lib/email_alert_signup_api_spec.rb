@@ -397,11 +397,13 @@ describe EmailAlertSignupAPI do
           {
             "facet_id" => "facet_groups",
             "facet_name" => "facet_groups",
-            "facet_choices" => {
-               "key" => "52435175-82ed-4a04-adef-74c0199d0f46",
-               "radio_button_name" => "52435175-82ed-4a04-adef-74c0199d0f46",
-               "prechecked" => true
-            },
+            "facet_choices" => [
+              {
+                "key" => "52435175-82ed-4a04-adef-74c0199d0f46",
+                "radio_button_name" => "52435175-82ed-4a04-adef-74c0199d0f46",
+                "prechecked" => true
+              },
+            ]
           }
         ]
       end

@@ -39,10 +39,12 @@ private
 
   def facet_groups
     facet_groups = facets.map do |facet|
-      facet["facet_choices"]["key"]
+      facet["facet_choices"].map do |facet_choice|
+        facet_choice["key"]
+      end
     end
 
-    { "facet_groups" => { any: facet_groups } }
+    { "facet_groups" => { any: facet_groups.flatten } }
   end
 
   def tags
