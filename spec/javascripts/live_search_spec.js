@@ -33,35 +33,41 @@ describe('liveSearch', function () {
         },
         'document_index': 1
       }
-    ]
-  }
+    ],
+    "search_results": "<ul class=\"finder-results\" data-module=\"track-click\">" +
+      "<li class=\"document\">" +
+        "<a href='aaib-reports/test-report' class=\"document__link\" data-track-category='navFinderLinkClicked' data-track-action='' data-track-label=''>Test report</a>" +
+        "<p></p>" +
+        "<dl>" +
+          "<dt class='metadata-label'>Aircraft category:</dt>" +
+          "<dd class='metadata-text-value'>General aviation - rotorcraft</dd>" +
+          "<dt class='metadata-label'>Report type:</dt>" +
+          "<dd class='metadata-text-value'>Annual safety report</dd>" +
+          "<dt class='metadata-label'>Occurred:</dt>" +
+          "<dd class='metadata-date-value'><time datetime='2013-11-03'>3 November 2013</time></dd>" +
+        "</dl>" +
+      "</li>" +
+    "</ul>"
+  };
 
   var responseWithSortOptions = {
-    sort_options: {
-      options: [
-        {
-          label: 'relevance',
-          value: 'option-val',
-          data_track_category: 'option-data_track_category',
-          data_track_action: 'option-data_track_action',
-          data_track_label: 'option-data_track_label',
-          selected: true,
-          disabled: false
-        },
-        {
-          label: 'most viewed',
-          value: 'option-val-2',
-          data_track_category: 'option-data_track_category-2',
-          data_track_action: 'option-data_track_action-2',
-          data_track_label: 'option-data_track_label-2',
-          selected: false,
-          disabled: true
-        }
-      ],
-      relevance_value: 'option-val-1',
-      default_value: 'option-val-2'
-    }
-  }
+    'sort_options' : '<select id="order">' +
+      '<option ' +
+        'value="option-val" '+
+        'data_track_category="option-data_track_category"' +
+        'data_track_action="option-data_track_action"' +
+        'data_track_label="option-data_track_label"' +
+        'selected' +
+        '/>' +
+      '<option ' +
+        'value="option-val-2" '+
+        'data_track_category="option-data_track_category-2"' +
+        'data_track_action="option-data_track_action-2"' +
+        'data_track_label="option-data_track_label-2"' +
+        'disabled' +
+        '/>' +
+    '</select>'
+  };
 
   beforeEach(function () {
     var sortList = '<select id="order" class="js-order-results" data-relevance-sort-option="relevance"><option>Test 1</option><option value="relevance" disabled>Relevance</option>'
@@ -70,10 +76,9 @@ describe('liveSearch', function () {
                 '<label for="published_at">Published at</label>' +
                 '<input type="text" name="published_at" value="2004" />' +
                 '<input type="text" name="option-select-filter" value="notincluded"/>' +
-                sortList +
                 '<input type="submit" value="Filter results" class="button js-live-search-fallback"/>' +
               '</form>')
-    $results = $('<div class="js-live-search-results-block"></div>')
+    $results = $('<div class="js-live-search-results-block"><div id="js-sort-options">' + sortList + '</div></div>')
     $count = $('<div aria-live="assertive" id="js-search-results-info"><h2 class="result-region-header__counter" id="f-result-count"></h2></div>')
     $atomAutodiscoveryLink = $("<link href='http://an-atom-url.atom' rel='alternate' title='ATOM' type='application/atom+xml'>")
     var $emailSubscriptionLinks = $("<a href='https://a-url/email-signup?query_param=something'>")
@@ -177,9 +182,9 @@ describe('liveSearch', function () {
   describe('should not display out of date results', function () {
     it('should not update the results if the state associated with these results is not the current state of the page', function () {
       liveSearch.state = 'cma-cases.json?keywords=123'
-      spyOn(liveSearch.$resultsBlock, 'mustache')
+      spyOn(liveSearch, 'updateElement')
       liveSearch.displayResults(dummyResponse, 'made up state')
-      expect(liveSearch.$resultsBlock.mustache).not.toHaveBeenCalled()
+      expect(liveSearch.updateElement).not.toHaveBeenCalled()
     })
 
     it('should have an order state selected when keywords are present', function () {
@@ -189,9 +194,9 @@ describe('liveSearch', function () {
 
     it('should update the results if the state of these results matches the state of the page', function () {
       liveSearch.state = { search: 'state' }
-      spyOn(liveSearch.$resultsBlock, 'mustache')
+      spyOn(liveSearch, 'updateElement')
       liveSearch.displayResults(dummyResponse, $.param(liveSearch.state))
-      expect(liveSearch.$resultsBlock.mustache).toHaveBeenCalled()
+      expect(liveSearch.updateElement).toHaveBeenCalled()
     })
   })
 
@@ -386,60 +391,39 @@ describe('liveSearch', function () {
     })
   })
 
-  describe('indexTrackingData', function () {
+  // FIXME - this needs to be replaced with a chunk of markup
+  describe("indexTrackingData", function () {
     var groupedResponse = {
-      'total': 4,
-      'finder_name': 'foo',
-      'pluralised_document_noun': 'things',
-      'applied_filters': " \u003Cstrong\u003ECommercial - rotorcraft \u003Ca href='?format=json\u0026keywords='\u003E×\u003C/a\u003E\u003C/strong\u003E",
-      'any_filters_applied': true,
-      'atom_url': 'http://an-atom-url.atom?some-query-param',
-      'display_grouped_results': true,
-      'grouped_documents': [
-        {
-          'facet_name': 'Primary group',
-          'facet_key': 'primary-group',
-          'documents': [
-            {
-              'document': {
-                'title': 'Test report 1',
-                'link': '/reports/test-report-1',
-                'promoted': true,
-                'promoted_summary': 'This is important'
-              },
-              'document_index': 1
-            },
-            {
-              'document': {
-                'title': 'Test report 4',
-                'link': '/reports/test-report-4'
-              },
-              'document_index': 4
-            }
-          ]
-        },
-        {
-          'facet_name': 'Default group',
-          'facet_key': 'default-group',
-          'documents': [
-            {
-              'document': {
-                'title': 'Test report 3',
-                'link': '/reports/test-report-3'
-              },
-              'document_index': 3
-            },
-            {
-              'document': {
-                'title': 'Test report 2',
-                'link': '/reports/test-report-2'
-              },
-              'document_index': 2
-            }
-          ]
-        }
-      ]
-    }
+      'search_results':
+        '<ul class="finder-results" data-module="track-click">' +
+          '<li class="filtered-results__group">' +
+            '<h2 class="filtered-results__facet-heading">Primary group</h2>' +
+            '<ul class="finder-results">' +
+              '<li class="document">' +
+                '<a href="/reports/test-report-1" class="document-heading--pinned document__link" data-track-category="navFinderLinkClicked" data-track-action="foo" data-track-label="">Test report 1</a>' +
+                '<p>This is important</p>' +
+              '</li>' +
+              '<li class="document">' +
+                '<a href="/reports/test-report-4" class="document__link" data-track-category="navFinderLinkClicked" data-track-action="foo" data-track-label="">Test report 4</a>' +
+                '<p>This is important</p>' +
+              '</li>' +
+            '</ul>' +
+          '</li>' +
+          '<li class="filtered-results__group">' +
+            '<h2 class="filtered-results__facet-heading">Default group</h2>' +
+            '<ul class="finder-results">' +
+              '<li class="document">' +
+                '<a href="/reports/test-report-3" class="document__link" data-track-category="navFinderLinkClicked" data-track-action="foo" data-track-label="">Test report 3</a>' +
+                '<p>This is important</p>' +
+              '</li>' +
+              '<li class="document">' +
+                '<a href="/reports/test-report-2" class="document__link" data-track-category="navFinderLinkClicked" data-track-action="foo" data-track-label="">Test report 2</a>' +
+                '<p>This is important</p>' +
+              '</li>' +
+            '</ul>' +
+          '</li>' +
+        '</ul>'
+    };
 
     beforeEach(function () {
       GOVUK.analytics.trackEvent = function () {}
@@ -491,7 +475,7 @@ describe('liveSearch', function () {
       liveSearch.state = { search: 'state' }
 
       expect($('#order option').length).toBe(2)
-      $('#order option').remove() // Delete all the options
+      $('#order').remove() // Delete all the options
       expect($('#order option').length).toBe(0)
       // We receive new data, which adds the sort options to the DOM.
       liveSearch.updateSortOptions(responseWithSortOptions, $.param(liveSearch.state))

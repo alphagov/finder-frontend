@@ -13,9 +13,10 @@
 
     this.$form = options.$form
     this.$resultsBlock = options.$results.find('#js-results')
-    this.$countBlock = options.$results.find('#f-result-count')
+    this.$countBlock = options.$results.find('#js-result-count')
     this.$facetTagBlock = options.$results.find('.js-facet-tag-wrapper')
     this.$loadingBlock = options.$results.find('#js-loading-message')
+    this.$sortBlock = options.$results.find('#js-sort-options')
     this.action = this.$form.attr('action') + '.json'
     this.$atomAutodiscoveryLink = options.$atomAutodiscoveryLink
     this.baseTitle = $("meta[name='govuk:base_title']").attr('content') || document.title
@@ -218,7 +219,7 @@
 
   LiveSearch.prototype.updateSortOptions = function updateSortOptions (results, action) {
     if (action !== $.param(this.state)) { return }
-    this.$orderSelect.mustache(this.templateDir + '_sort_options', results)
+    this.updateElement(this.$sortBlock, results.sort_options)
     this.bindSortElements()
   }
 

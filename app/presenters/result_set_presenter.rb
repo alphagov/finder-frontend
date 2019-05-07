@@ -38,7 +38,8 @@ class ResultSetPresenter
       next_and_prev_links: next_and_prev_links,
       screen_reader_filter_description: ScreenReaderFilterDescriptionPresenter.new(filters, sort_option).present,
       facet_tags: facet_tags_markup,
-      search_results: search_results_markup
+      search_results: search_results_markup,
+      sort_options: sort_options_markup
     }
   end
 
@@ -61,6 +62,18 @@ class ResultSetPresenter
       screen_reader_filter_description: ScreenReaderFilterDescriptionPresenter.new(filters, sort_option).present
     }
     ApplicationController.render(partial: "finders/facet_tags", locals: locals)
+  end
+
+  def sort_options_markup
+    ApplicationController.render(partial: "finders/sort_options", locals: sort_presenter.to_hash)
+  end
+
+  def sort_options
+    sort_presenter.to_hash
+  end
+
+  def applied_filters
+    selected_filter_descriptions
   end
 
   def any_filters_applied?
