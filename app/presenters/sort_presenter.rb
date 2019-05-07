@@ -10,6 +10,8 @@ class SortPresenter
   end
 
   def to_hash
+    return nil unless has_options?
+
     {
       options: options_as_hashes,
       default_value: default_value,
