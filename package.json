@@ -1,0 +1,14 @@
+{
+  "name": "finder-frontend",
+  "description": "Finder Frontend renders search (and other pages) on GOV.UK",
+  "private": true,
+  "author": "Government Digital Service",
+  "license": "MIT",
+  "scripts": {
+    "lint": "standard app/assets/javascripts/{*.js,**/*.js} spec/javascripts/{*.js,**/*.js}",
+    "lint:fix": "yarn run lint --fix"
+  },
+  "devDependencies": {
+    "standard": "^12.0.1"
+  }
+}

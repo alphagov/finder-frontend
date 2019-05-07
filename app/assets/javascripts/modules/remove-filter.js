@@ -1,44 +1,45 @@
-window.GOVUK = window.GOVUK || {};
+/* eslint-env jquery */
+
+window.GOVUK = window.GOVUK || {}
 window.GOVUK.Modules = window.GOVUK.Modules || {};
 
 (function (global, GOVUK) {
-  'use strict';
+  'use strict'
 
   GOVUK.Modules.RemoveFilter = function () {
     var onChangeSuppressAnalytics = {
-      type: "change",
+      type: 'change',
       suppressAnalytics: true
     }
 
     this.start = function (element) {
-      $(element).on('click', '[data-module="remove-filter-link"]', toggleFilter);
-    };
-
-    function toggleFilter(e) {
-      e.preventDefault();
-      e.stopPropagation();
-      var $el = $(e.target);
-
-      var removeFilterName = $el.data('name');
-      var removeFilterValue = $el.data('value');
-      var removeFilterLabel = $el.data('track-label');
-      var removeFilterFacet = $el.data('facet');
-
-      var $input = getInput(removeFilterName, removeFilterValue, removeFilterFacet);
-      fireRemoveTagTrackingEvent(removeFilterLabel, removeFilterFacet);
-      clearFacet($input, removeFilterValue, removeFilterFacet);
+      $(element).on('click', '[data-module="remove-filter-link"]', toggleFilter)
     }
 
-    function clearFacet($input, removeFilterValue, removeFilterFacet) {
-      var elementType = $input.prop('tagName');
-      var inputType = $input.prop('type');
-      var currentVal = $input.val();
+    function toggleFilter (e) {
+      e.preventDefault()
+      e.stopPropagation()
+      var $el = $(e.target)
 
-      if (inputType == 'checkbox') {
-        $input.prop("checked", false);
-        $input.trigger(onChangeSuppressAnalytics);
-      }
-      else if (inputType == 'text' || inputType == 'search') {
+      var removeFilterName = $el.data('name')
+      var removeFilterValue = $el.data('value')
+      var removeFilterLabel = $el.data('track-label')
+      var removeFilterFacet = $el.data('facet')
+
+      var $input = getInput(removeFilterName, removeFilterValue, removeFilterFacet)
+      fireRemoveTagTrackingEvent(removeFilterLabel, removeFilterFacet)
+      clearFacet($input, removeFilterValue, removeFilterFacet)
+    }
+
+    function clearFacet ($input, removeFilterValue, removeFilterFacet) {
+      var elementType = $input.prop('tagName')
+      var inputType = $input.prop('type')
+      var currentVal = $input.val()
+
+      if (inputType === 'checkbox') {
+        $input.prop('checked', false)
+        $input.trigger(onChangeSuppressAnalytics)
+      } else if (inputType === 'text' || inputType === 'search') {
         /* By padding the haystack with spaces, we can remove the
          * first instance of " $needle ", and this will catch it in
          * the middle of the haystack, at the ends, and when the
@@ -55,38 +56,37 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
          * Just removing " beta " from the haystack would result in
          * "alphagamma", which is wrong.
          */
-        var haystack = ' ' + currentVal.trim() + ' ';
-        var needle = ' ' + decodeEntities(removeFilterValue.toString()) + ' ';
-        var newVal = haystack.replace(needle, ' ').replace(/  /g, ' ').trim();
+        var haystack = ' ' + currentVal.trim() + ' '
+        var needle = ' ' + decodeEntities(removeFilterValue.toString()) + ' '
+        var newVal = haystack.replace(needle, ' ').replace(/ {2}/g, ' ').trim()
 
-        $input.val(newVal).trigger(onChangeSuppressAnalytics);
-      }
-      else if (elementType == 'OPTION') {
-        $('#' + removeFilterFacet).val('').trigger(onChangeSuppressAnalytics);
+        $input.val(newVal).trigger(onChangeSuppressAnalytics)
+      } else if (elementType === 'OPTION') {
+        $('#' + removeFilterFacet).val('').trigger(onChangeSuppressAnalytics)
       }
     }
 
-    function getInput(removeFilterName, removeFilterValue, removeFilterFacet) {
-      var selector = (!!removeFilterName) ? " input[name='" + removeFilterName + "']" : " [value='" + removeFilterValue + "']";
+    function getInput (removeFilterName, removeFilterValue, removeFilterFacet) {
+      var selector = (removeFilterName) ? " input[name='" + removeFilterName + "']" : " [value='" + removeFilterValue + "']"
 
-      return $('#' + removeFilterFacet).find(selector);
+      return $('#' + removeFilterFacet).find(selector)
     }
 
-    function fireRemoveTagTrackingEvent(filterValue, filterFacet) {
-      var category = "facetTagRemoved";
-      var action = filterFacet;
-      var label = filterValue;
+    function fireRemoveTagTrackingEvent (filterValue, filterFacet) {
+      var category = 'facetTagRemoved'
+      var action = filterFacet
+      var label = filterValue
 
       GOVUK.analytics.trackEvent(
         category,
         action,
         { label: label }
-      );
+      )
     }
 
-    function decodeEntities(string) {
+    function decodeEntities (string) {
       return string
-        .replace(/&quot;/g, '"');
+        .replace(/&quot;/g, '"')
     }
-  };
-})(window, window.GOVUK);
+  }
+})(window, window.GOVUK)

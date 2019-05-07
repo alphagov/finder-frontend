@@ -1,4 +1,4 @@
-/* global describe beforeEach it expect */
+/* eslint-env jasmine, jquery */
 
 var $ = window.jQuery
 

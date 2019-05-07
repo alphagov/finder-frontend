@@ -9,7 +9,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}; // if this ; is omitted, none
     this.$toggle = this.$module.querySelector('.js-toggle')
     this.$content = this.$module.querySelector('.js-content')
 
-    var openOnLoad = this.$module.getAttribute('data-open-on-load') === 'true' ? true : false
+    var openOnLoad = this.$module.getAttribute('data-open-on-load') === 'true'
 
     this.replaceTitleWithButton(openOnLoad)
 

@@ -9,3 +9,4 @@
 /doc/
 /public/finder-frontend/
 /coverage/*
+node_modules
