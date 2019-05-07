@@ -17,6 +17,71 @@
   "withdrawn_notice": {},
   "publishing_request_id": "12923-1552486150.950-10.1.6.163-499",
   "links": {
+    "taxons": [
+      {
+        "api_path": "/api/content/government/brexit",
+        "base_path": "/government/brexit",
+        "content_id": "d6c2de5d-ef90-45d1-82d4-5f2438369eea",
+        "description": "Information about EU Exit including the article 50 process, negotiations, and announcements about policy changes as a result of EU Exit",
+        "document_type": "taxon",
+        "locale": "en",
+        "public_updated_at": "2018-09-07T07:55:41Z",
+        "schema_name": "taxon",
+        "title": "Brexit",
+        "withdrawn": false,
+        "details": {
+          "internal_name": "Brexit [P]",
+          "notes_for_editors": "",
+          "visible_to_departmental_editors": false
+        },
+        "phase": "live",
+        "links": {
+          "parent_taxons": [
+            {
+              "api_path": "/api/content/government/all",
+              "base_path": "/government/all",
+              "content_id": "e48ab80a-de80-4e83-bf59-26316856a5f9",
+              "description": "",
+              "document_type": "taxon",
+              "locale": "en",
+              "public_updated_at": "2018-09-16T20:29:39Z",
+              "schema_name": "taxon",
+              "title": "Government",
+              "withdrawn": false,
+              "details": {
+                "internal_name": "Government",
+                "notes_for_editors": "",
+                "visible_to_departmental_editors": true
+              },
+              "phase": "live",
+              "links": {
+                "root_taxon": [
+                  {
+                    "api_path": "/api/content/",
+                    "base_path": "/",
+                    "content_id": "f3bbdec2-0e62-4520-a7fd-6ffd5d36e03a",
+                    "description": "",
+                    "document_type": "homepage",
+                    "locale": "en",
+                    "public_updated_at": "2018-06-12T15:28:48Z",
+                    "schema_name": "homepage",
+                    "title": "GOV.UK homepage",
+                    "withdrawn": false,
+                    "links": {},
+                    "api_url": "https://www.gov.uk/api/content/",
+                    "web_url": "https://www.gov.uk/"
+                  }
+                ]
+              },
+              "api_url": "https://www.gov.uk/api/content/government/all",
+              "web_url": "https://www.gov.uk/government/all"
+            }
+          ]
+        },
+        "api_url": "https://www.gov.uk/api/content/government/brexit",
+        "web_url": "https://www.gov.uk/government/brexit"
+      }
+    ],
     "email_alert_signup": [
       {
         "api_path": "/api/content/find-eu-exit-guidance-business/email-signup",
