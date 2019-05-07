@@ -113,8 +113,8 @@ RSpec.describe SortPresenter do
       end
     end
 
-    it "returns an empty array when sort is not present" do
-      expect(presenter_without_sort.to_hash[:options]).to eql([])
+    it "returns nil when the finder doesn't have sort options" do
+      expect(presenter_without_sort.to_hash).to eql(nil)
     end
 
     context "an unacceptable order is provided" do
