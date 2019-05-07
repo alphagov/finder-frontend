@@ -1,0 +1,28 @@
+<% if local_assigns[:options] %>
+  <div class="govuk-form-group">
+    <label for="order" class="result-region-header__sort-label govuk-label">Sort by</label>
+    <select
+      class="js-order-results govuk-select"
+      name="order"
+      id="order"
+      aria-controls="js-search-results-info"
+      data-default-sort-option="<%= local_assigns[:default_value] %>"
+      data-relevance-sort-option="<%= local_assigns[:relevance_value] %>"
+      data-module='track-select-change'>
+      <% local_assigns[:options].each do |option| %>
+        <option
+          value='<%= option[:value] %>'
+          <% if option[:disabled] %>
+            disabled
+          <% end %>
+          <% if option[:selected] %>
+            selected
+          <% end %>
+          data-track-category='<%= option[:data_track_category] %>'
+          data-track-action='<%= option[:data_track_action] %>'
+          data-track-label='<%= option[:data_track_label] %>'
+          ><%= option[:label] %></option>
+      <% end %>
+    </select>
+  </div>
+<% end %>

@@ -99,7 +99,7 @@
         <div class="result-info">
           <div class="govuk-grid-row">
             <div class="govuk-grid-column-one-third">
-              <h2 class="result-region-header__counter" id="f-result-count">
+              <h2 class="result-region-header__counter" id="js-result-count">
                 <%= number_with_delimiter(@results.total, :delimiter => ',') %> <%= @results.pluralised_document_noun %>
               </h2>
             </div>
@@ -109,20 +109,21 @@
               </div>
             <% end %>
           </div>
-          <%#= render_mustache('result_facet_tags', @results.to_hash) %>
-          <%= render "facet_tags", @results.to_hash %>
+          <div id="js-facet-tag-wrapper">
+            <%= render "facet_tags", @results.to_hash %>
+          </div>
         </div>
       </div>
 
       <div class="govuk-caption-l live-search-loading-message" id="js-loading-message"></div>
 
-      <%= render_mustache('sort_options', @results.to_hash) %>
-
-      <div id="js-results">
-        <%#= render_mustache('results', @results.to_hash) %>
-        <%= render "search_results", @results.to_hash %>
+      <div id="js-sort-options">
+        <%= render "sort_options", @results.sort_options %>
       </div>
 
+      <div id="js-results">
+        <%= render "search_results", @results.to_hash %>
+      </div>
     </div>
   </div>
 </form>
