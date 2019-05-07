@@ -1,19 +1,31 @@
 class EmailAlertSignupAPI
-  def initialize(applied_filters:, default_filters:, facets:, subscriber_list_title:, finder_format:)
+  def initialize(applied_filters:, default_filters:, facets:, subscriber_list_title:, finder_format:, default_frequency: nil)
     @applied_filters = applied_filters.deep_symbolize_keys
     @default_filters = default_filters.deep_symbolize_keys
     @facets = facets
     @subscriber_list_title = subscriber_list_title
     @finder_format = finder_format
+    @default_frequency = default_frequency
   end
 
   def signup_url
-    subscriber_list['subscription_url']
+    if @default_frequency
+      add_url_param(subscriber_list['subscription_url'], default_frequency: @default_frequency)
+    else
+      subscriber_list['subscription_url']
+    end
   end
 
 private
 
   attr_reader :applied_filters, :default_filters, :facets, :subscriber_list_title, :finder_format
+
+  def add_url_param(url, param)
+    # this method safely adds a URL parameter using the correct one of '?' or '&'
+    parsed_uri = Addressable::URI.parse(url)
+    parsed_uri.query_values = (parsed_uri.query_values || {}).merge(param)
+    parsed_uri.to_s
+  end
 
   def subscriber_list
     Services.email_alert_api.find_or_create_subscriber_list(subscriber_list_options).dig('subscriber_list')
