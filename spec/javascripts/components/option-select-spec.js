@@ -299,8 +299,8 @@ describe('An option select component', function () {
     beforeEach(function () {
       $element = $(html)
       $element.attr('data-closed-on-load', true)
-      var wrapper = $('<div/>').addClass('wrapper').hide().html($element)
-      $('body').append(wrapper)
+      var $wrapper = $('<div/>').addClass('wrapper').hide().html($element)
+      $('body').append($wrapper)
       optionSelect.start($element)
     })
 
