@@ -55,11 +55,6 @@ RSpec.describe AdvancedSearchResultSetPresenter do
       expect(instance.to_hash.keys).not_to include(:atom_url)
     end
 
-    it "contains group filters in lower case" do
-      expected = "in updates and alerts, news, speeches and statements, and decisions"
-      expect(instance.to_hash[:applied_filters]).to eq(expected)
-    end
-
     context "applied filters, filtered with dates" do
       let(:filter_params) {
         {
@@ -70,7 +65,14 @@ RSpec.describe AdvancedSearchResultSetPresenter do
       }
 
       it "contains all subgroups and date filters" do
-        expected = "in updates and alerts, news, speeches and statements, and decisions and published after 1 February 2017"
+        expected = [[{
+          data_facet: "public_timestamp",
+          data_name: "public_timestamp[from]",
+          data_track_label: " 1 February 2017",
+          data_value: "02-2017",
+          preposition: "Published After",
+          text: " 1 February 2017"
+        }]]
         expect(instance.to_hash[:applied_filters]).to eq(expected)
       end
     end
@@ -86,7 +88,24 @@ RSpec.describe AdvancedSearchResultSetPresenter do
       }
 
       it "contains selected subgroups and date filters" do
-        expected = "in News published after 1 February 2017"
+        expected = [
+          [{
+            data_facet: "subgroup",
+            data_name: nil,
+            data_track_label: "News",
+            data_value: "news",
+            preposition: "In",
+            text: "News"
+          }],
+          [{
+            data_facet: "public_timestamp",
+            data_name: "public_timestamp[from]",
+            data_track_label: " 1 February 2017",
+            data_value: "02-2017",
+            preposition: "Published After",
+            text: " 1 February 2017"
+          }]
+        ]
         expect(instance.to_hash[:applied_filters]).to eq(expected)
       end
     end

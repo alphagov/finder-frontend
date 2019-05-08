@@ -3,7 +3,7 @@ class AdvancedSearchResultSetPresenter < ResultSetPresenter
 
   def to_hash
     super
-      .merge(applied_filters: applied_filters_or_all_subgroups)
+      .merge(applied_filters: selected_filter_descriptions)
         .except(:atom_url)
   end
 
