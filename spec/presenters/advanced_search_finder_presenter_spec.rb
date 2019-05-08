@@ -23,9 +23,9 @@ describe AdvancedSearchFinderPresenter do
   let(:content_item_response) {
     dummy_http_response = double(
       "net http response",
-        code: 200,
-        body: content_item.to_json,
-        headers: {}
+      code: 200,
+      body: content_item.to_json,
+      headers: {}
     )
     GdsApi::Response.new(dummy_http_response).to_hash
   }

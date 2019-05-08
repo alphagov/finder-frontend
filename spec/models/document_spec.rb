@@ -134,10 +134,10 @@ describe Document do
 
     let(:finder) do
       double(:finder,
-        date_metadata_keys: [],
-        label_for_metadata_key: 'Tag values',
-        text_metadata_keys: [:tag_values],
-        "display_metadata?": true)
+             date_metadata_keys: [],
+             label_for_metadata_key: 'Tag values',
+             text_metadata_keys: [:tag_values],
+             "display_metadata?": true)
     end
 
     context 'metadata in the result hash' do
