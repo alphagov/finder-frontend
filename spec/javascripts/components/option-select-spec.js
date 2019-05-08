@@ -297,6 +297,7 @@ describe('An option select component', function () {
 
   describe('initialising when the parent is hidden and data-closed-on-load is true', function () {
     beforeEach(function () {
+      $element = $(html)
       $element.attr('data-closed-on-load', true)
       var wrapper = $('<div/>').addClass('wrapper').hide().html($element)
       $('body').append(wrapper)
