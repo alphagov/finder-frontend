@@ -176,9 +176,9 @@ private
     else
       tag
     end
-  rescue StandardError => error
+  rescue StandardError => e
     GovukError.notify(
-      error,
+      e,
       level: 'debug',
       extra: { url: finder.slug, document: link }
     )

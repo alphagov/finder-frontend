@@ -1,6 +1,6 @@
 module Filters
   class RadioFilter < Filter
-  private
+  private # rubocop:disable Layout/IndentationWidth
 
     def value
       @value ||= if !acceptable_param?

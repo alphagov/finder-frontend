@@ -1,6 +1,6 @@
 module Filters
   class ContentIdFilter < Filter
-  private
+  private # rubocop:disable Layout/IndentationWidth
 
     def value
       @value ||= Array(params).map(&method(:content_id_for))

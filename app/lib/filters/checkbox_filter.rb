@@ -1,6 +1,6 @@
 module Filters
   class CheckboxFilter < Filter
-  private
+  private # rubocop:disable Layout/IndentationWidth
 
     def value
       # 'params' for a checkbox should be true or false. the value
