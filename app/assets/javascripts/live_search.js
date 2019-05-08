@@ -14,7 +14,7 @@
     this.$form = options.$form
     this.$resultsBlock = options.$results.find('#js-results')
     this.$countBlock = options.$results.find('#js-result-count')
-    this.$facetTagBlock = options.$results.find('.js-facet-tag-wrapper')
+    this.$facetTagBlock = options.$results.find('#js-facet-tag-wrapper')
     this.$loadingBlock = options.$results.find('#js-loading-message')
     this.$sortBlock = options.$results.find('#js-sort-options')
     this.action = this.$form.attr('action') + '.json'
@@ -310,7 +310,7 @@
     this.$loadingBlock.text('Error. Please try modifying your search and trying again.')
   }
 
-  LiveSearch.prototype.updateElement = function updateElement (element, content){
+  LiveSearch.prototype.updateElement = function updateElement (element, content) {
     element.html(content)
   }
 
@@ -320,7 +320,7 @@
     if (action === $.param(this.state)) {
       this.updateElement(this.$resultsBlock, results.search_results)
       this.updateElement(this.$facetTagBlock, results.facet_tags)
-      this.updateElement(this.$countBlock, results.total + " " + results.pluralised_document_noun)
+      this.updateElement(this.$countBlock, results.total + ' ' + results.pluralised_document_noun)
       this.$atomAutodiscoveryLink.attr('href', results.atom_url)
       this.$loadingBlock.text('').hide()
     }

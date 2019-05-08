@@ -101,13 +101,15 @@ Then(/^I only see documents tagged to the taxon tree within the supergroup and s
 end
 
 Then(/^The correct metadata is displayed for the search results$/) do
-  expect(page).to have_css(".gem-c-document-list__attribute", text: "Guidance")
-  expect(page).not_to have_css(".gem-c-document-list__attribute", text: "Guide")
+  expect(page).to have_css(".metadata-text-value", text: "Guidance")
+  expect(page).not_to have_css(".metadata-text-value", text: "Guide")
 end
 
 And(/^the correct metadata is displayed for the dates$/) do
   within(".result-info") do
-    expect(page).to have_content("2 results in updates and alerts, news, speeches and statements, and decisions and published between 1 January 2005 and 1 January 2025")
+    expect(page).to have_content("2 results")
+    expect(page).to have_content("1 January 2005")
+    expect(page).to have_content("1 January 2025")
   end
 end
 

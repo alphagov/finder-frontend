@@ -6,6 +6,7 @@ class AdvancedSearchResultPresenter < SearchResultPresenter
       organisations: organisations,
       publication_date: publication_date,
       show_metadata: show_metadata?,
+      metadata: metadata_bundle,
     )
   end
 
@@ -32,5 +33,41 @@ class AdvancedSearchResultPresenter < SearchResultPresenter
     return false if search_result.document_type == "guide"
 
     true
+  end
+
+  def metadata_bundle
+    return unless show_metadata?
+
+    metadata_to_return = Array.new
+
+    if publication_date.is_a?(Hash) && publication_date.has_key?(:label)
+      metadata_to_return.push(
+        is_date: publication_date[:is_date],
+        label: publication_date[:label],
+        hide_label: true,
+        machine_date: publication_date[:machine_date],
+        human_date: publication_date[:human_date],
+      )
+    end
+
+    if organisations.is_a? String
+      metadata_to_return.push(
+        is_text: true,
+        value: organisations,
+        label: 'Organisation',
+        hide_label: true,
+      )
+    end
+
+    if document_type.is_a? String
+      metadata_to_return.push(
+        is_text: true,
+        value: document_type,
+        label: 'Document type',
+        hide_label: true,
+      )
+    end
+
+    metadata_to_return
   end
 end

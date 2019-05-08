@@ -34,40 +34,40 @@ describe('liveSearch', function () {
         'document_index': 1
       }
     ],
-    "search_results": "<ul class=\"finder-results\" data-module=\"track-click\">" +
-      "<li class=\"document\">" +
-        "<a href='aaib-reports/test-report' class=\"document__link\" data-track-category='navFinderLinkClicked' data-track-action='' data-track-label=''>Test report</a>" +
-        "<p></p>" +
-        "<dl>" +
-          "<dt class='metadata-label'>Aircraft category:</dt>" +
-          "<dd class='metadata-text-value'>General aviation - rotorcraft</dd>" +
-          "<dt class='metadata-label'>Report type:</dt>" +
-          "<dd class='metadata-text-value'>Annual safety report</dd>" +
-          "<dt class='metadata-label'>Occurred:</dt>" +
-          "<dd class='metadata-date-value'><time datetime='2013-11-03'>3 November 2013</time></dd>" +
-        "</dl>" +
-      "</li>" +
-    "</ul>"
-  };
+    'search_results': '<ul class="finder-results" data-module="track-click">' +
+      '<li class="document">' +
+        '<a href="aaib-reports/test-report" class="document__link" data-track-category="navFinderLinkClicked" data-track-action="" data-track-label="">Test report</a>' +
+        '<p></p>' +
+        '<dl>' +
+          '<dt class="metadata-label">Aircraft category:</dt>' +
+          '<dd class="metadata-text-value">General aviation - rotorcraft</dd>' +
+          '<dt class="metadata-label">Report type:</dt>' +
+          '<dd class="metadata-text-value">Annual safety report</dd>' +
+          '<dt class="metadata-label">Occurred:</dt>' +
+          '<dd class="metadata-date-value"><time datetime="2013-11-03">3 November 2013</time></dd>' +
+        '</dl>' +
+      '</li>' +
+    '</ul>'
+  }
 
   var responseWithSortOptions = {
-    'sort_options' : '<select id="order">' +
+    'sort_options': '<select id="order">' +
       '<option ' +
-        'value="option-val" '+
+        'value="option-val" ' +
         'data_track_category="option-data_track_category"' +
         'data_track_action="option-data_track_action"' +
         'data_track_label="option-data_track_label"' +
         'selected' +
         '/>' +
       '<option ' +
-        'value="option-val-2" '+
+        'value="option-val-2" ' +
         'data_track_category="option-data_track_category-2"' +
         'data_track_action="option-data_track_action-2"' +
         'data_track_label="option-data_track_label-2"' +
         'disabled' +
         '/>' +
     '</select>'
-  };
+  }
 
   beforeEach(function () {
     var sortList = '<select id="order" class="js-order-results" data-relevance-sort-option="relevance"><option>Test 1</option><option value="relevance" disabled>Relevance</option>'
@@ -392,7 +392,7 @@ describe('liveSearch', function () {
   })
 
   // FIXME - this needs to be replaced with a chunk of markup
-  describe("indexTrackingData", function () {
+  describe('indexTrackingData', function () {
     var groupedResponse = {
       'search_results':
         '<ul class="finder-results" data-module="track-click">' +
@@ -423,7 +423,7 @@ describe('liveSearch', function () {
             '</ul>' +
           '</li>' +
         '</ul>'
-    };
+    }
 
     beforeEach(function () {
       GOVUK.analytics.trackEvent = function () {}
