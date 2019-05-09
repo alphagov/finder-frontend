@@ -86,7 +86,7 @@ class ResultSetPresenter
 
 private
 
-  attr_reader :view_context, :metadata_presenter_class
+  attr_reader :view_context, :metadata_presenter_class, :sort_presenter
 
   def highlight_top_result?
     @show_top_result &&

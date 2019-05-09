@@ -43,7 +43,7 @@ RSpec.describe AdvancedSearchResultSetPresenter do
     MetadataPresenter
   end
 
-  subject(:instance) { described_class.new(finder, filter_params, view_context, metadata_presenter_class) }
+  subject(:instance) { described_class.new(finder, filter_params, view_context, sort_presenter, metadata_presenter_class) }
 
   before do
     allow(Services.content_store).to receive(:content_item)
