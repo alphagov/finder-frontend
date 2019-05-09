@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe GroupedResultSetPresenter do
-  subject(:presenter) { GroupedResultSetPresenter.new(finder, filter_params, view_context, metadata_presenter_class) }
+  subject(:presenter) { GroupedResultSetPresenter.new(finder, filter_params, view_context, sort_presenter, metadata_presenter_class) }
   let(:metadata_presenter_class) do
     MetadataPresenter
   end
@@ -10,7 +10,7 @@ RSpec.describe GroupedResultSetPresenter do
       { id: 'case-state', name: 'Case state', value: 'Open', type: 'text', labels: %W(open) },
       { id: 'opened-date', name: 'Opened date', value: '2006-7-14', type: 'date' },
       { id: 'case-type', name: 'Case type', value: 'CA98 and civil cartels', type: 'text', labels: %W(ca98-and-civil-cartels) },
-      { id: 'personal-data', name: 'personal-data', value: 'personal-digital-data', type: 'text', labels: %W(personal-digital-data) },
+      { id: 'organisation_activity', name: 'Organisation activity', value: 'buying', type: 'text', labels: %W(buying) }
     ]
   end
   let(:formatted_metadata) do
@@ -111,16 +111,7 @@ RSpec.describe GroupedResultSetPresenter do
       Document,
       title: 'Investigation into the distribution of road fuels in parts of Scotland',
       path: 'slug-1',
-<<<<<<< HEAD
-      metadata: [
-        { id: 'case-state', name: 'Case state', value: 'Open', type: 'text', labels: %W(open) },
-        { id: 'opened-date', name: 'Opened date', value: '2006-7-14', type: 'date' },
-        { id: 'case-type', name: 'Case type', value: 'CA98 and civil cartels', type: 'text', labels: %W(ca98-and-civil-cartels) },
-        { id: 'organisation_activity', name: 'Organisation activity', value: 'buying', type: 'text', labels: %W(buying) },
-      ],
-=======
       metadata: metadata,
->>>>>>> Refactor to use MetadataPresenter for search results
       summary: 'I am a document',
       is_historic: false,
       government_name: 'The Government!',

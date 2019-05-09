@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe ResultSetPresenter do
-  subject(:presenter) { ResultSetPresenter.new(finder, filter_params, view_context, metadata_presenter_class) }
+  subject(:presenter) { ResultSetPresenter.new(finder, filter_params, view_context, sort_presenter, metadata_presenter_class) }
   let(:metadata_presenter_class) do
     MetadataPresenter
   end
@@ -345,11 +345,7 @@ RSpec.describe ResultSetPresenter do
     end
 
     context 'check top result' do
-<<<<<<< HEAD
-      subject(:presenter) { ResultSetPresenter.new(finder, filter_params, view_context, sort_presenter, true) }
-=======
-      subject(:presenter) { ResultSetPresenter.new(finder, filter_params, view_context, metadata_presenter_class, true) }
->>>>>>> Refactor to use MetadataPresenter for search results
+      subject(:presenter) { ResultSetPresenter.new(finder, filter_params, view_context, sort_presenter, metadata_presenter_class, true) }
 
       before(:each) do
         allow(finder).to receive(:eu_exit_finder?).and_return(true)
@@ -419,7 +415,7 @@ RSpec.describe ResultSetPresenter do
       end
 
       context 'top result not set if show top result is false' do
-        subject(:presenter) { ResultSetPresenter.new(finder, filter_params, view_context, metadata_presenter_class, false) }
+        subject(:presenter) { ResultSetPresenter.new(finder, filter_params, view_context, sort_presenter, metadata_presenter_class, false) }
 
         it 'has no top result' do
           search_result_objects = presenter.documents
