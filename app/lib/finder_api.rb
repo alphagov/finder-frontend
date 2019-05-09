@@ -34,8 +34,12 @@ private
     # sorted by Rummager within the results of each query.
 
     all_unique_results = results
-      .flat_map { |hash| hash["results"] }
-      .uniq { |hash| hash["_id"] }
+      .map { |hash| hash["results"] }
+      .inject do |intersection, results|
+        intersected_ids = intersection.map { |h| h["_id"] } & results.map { |h| h["_id"] }
+        results.select { |r| intersected_ids.include?(r["_id"]) }
+      end
+
     {
       "results" => sort_batch_results(all_unique_results),
       "total" => all_unique_results.count,
@@ -71,6 +75,10 @@ private
       finder_content_item: content_item,
       params: filter_params,
     ).call
+
+    puts ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+    puts queries
+    puts "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
 
     GovukStatsd.time("rummager.finder_batch_search") do
       merge_and_deduplicate(

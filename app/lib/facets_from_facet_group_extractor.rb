@@ -19,8 +19,8 @@ private
       'key' => facet_details['key'],
       'display_as_result_metadata' => facet_details['display_as_result_metadata'],
       'filterable' => facet_details['filterable'],
-      'filter_key' => facet_details['filter_key'],
-      'combine_mode' => facet_details['combine_mode'] || 'and',
+      'filter_key' => 'facet_values',
+      'combine_mode' => 'and', # facet_details['combine_mode'] || 'and',
       'preposition' => facet_details['preposition'],
       'type' => facet_details['type'],
       'allowed_values' => facet['links']['facet_values'].map(&method(:extract_allowed_values))

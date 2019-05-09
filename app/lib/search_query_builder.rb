@@ -130,15 +130,15 @@ private
     end
   end
 
-  def and_filter_query
-    @and_filter_query ||= and_filter_params
-      .each_with_object({}) do |(k, v), query|
-        query["filter_#{k}"] = v
+  def and_filter_queries
+    @and_filter_queries ||= and_filter_params
+      .each_with_object([]) do | hash, query|
+        hash.each { |k, v| query << { "filter_#{k}" => v } }
       end
   end
 
   def and_filter_params
-    @and_filter_params ||= FilterQueryBuilder.new(
+    @and_filter_params ||= AndFilterQueryBuilder.new(
       facets: and_facets,
       user_params: params
     ).call
@@ -171,7 +171,7 @@ private
   end
 
   def filter_queries
-    (and_filter_query.empty? ? [] : [and_filter_query]) + or_filter_queries
+    and_filter_queries + or_filter_queries
   end
 
   def reject_query
