@@ -25,8 +25,8 @@
 
 <% if @breadcrumbs.breadcrumbs %>
   <%= render 'govuk_publishing_components/components/breadcrumbs', breadcrumbs: @breadcrumbs.breadcrumbs %>
-<% else %>
-  <%= render 'govuk_publishing_components/components/contextual_breadcrumbs', content_item: @raw_content_item, prioritise_taxon_breadcrumbs: finder.eu_exit_finder?  %>
+<% elsif finder.eu_exit_finder? %>
+  <%= render 'govuk_publishing_components/components/contextual_breadcrumbs', content_item: @raw_content_item %>
 <% end %>
 
 <% if finder.government? %>
