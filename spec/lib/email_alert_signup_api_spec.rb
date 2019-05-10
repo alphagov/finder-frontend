@@ -12,6 +12,7 @@ describe EmailAlertSignupAPI do
       facets: facets,
       subscriber_list_title: subscriber_list_title,
       finder_format: finder_format,
+      default_frequency: default_frequency,
     )
   end
 
@@ -20,6 +21,19 @@ describe EmailAlertSignupAPI do
   let(:facets) { [] }
   let(:subscriber_list_title) { "Subscriber list title" }
   let(:finder_format) {}
+  let(:default_frequency) { nil }
+
+  def init_simple_email_alert_api(subscription_url)
+    email_alert_api_has_subscriber_list(
+      "tags" => {},
+      "subscription_url" => subscription_url
+    )
+
+    expect(Services.email_alert_api).to receive(:find_or_create_subscriber_list).with(
+      "tags" => {},
+      "title" => subscriber_list_title,
+    ).and_call_original
+  end
 
   describe "default_attributes" do
     context "no default_attributes or attributes" do
@@ -27,15 +41,7 @@ describe EmailAlertSignupAPI do
         let(:subscription_url) { "http://gov.uk/email" }
 
         it "returns the url email-alert-api gives back" do
-          email_alert_api_has_subscriber_list(
-            "tags" => {},
-            "subscription_url" => subscription_url
-          )
-
-          expect(Services.email_alert_api).to receive(:find_or_create_subscriber_list).with(
-            "tags" => {},
-            "title" => subscriber_list_title,
-          ).and_call_original
+          init_simple_email_alert_api(subscription_url)
 
           expect(subject.signup_url).to eql subscription_url
         end
@@ -63,6 +69,23 @@ describe EmailAlertSignupAPI do
           expect(subject.signup_url).to eql subscription_url
         end
       end
+    end
+  end
+
+  context "when a default_frequency is provided" do
+    let(:default_frequency) { "daily" }
+
+    it "returns the url email-alert-api gives back, and appends the default_frequency param" do
+      subscription_url = "http://gov.uk/email/some-subscription"
+      init_simple_email_alert_api(subscription_url)
+      expect(subject.signup_url).to eql "http://gov.uk/email/some-subscription?default_frequency=daily"
+    end
+
+    it "appends the default_frequency param with an ampersand if other URL parameters exist" do
+      subscription_url = "http://gov.uk/email/some-subscription?foo=bar"
+      init_simple_email_alert_api(subscription_url)
+      url_params = Rack::Utils.parse_query(URI.parse(subject.signup_url).query)
+      expect(url_params).to eq("foo" => "bar", "default_frequency" => "daily")
     end
   end
 

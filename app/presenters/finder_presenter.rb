@@ -218,7 +218,7 @@ class FinderPresenter
   # FIXME: This should be removed once we have a way to determine
   # whether to display metadata in the finder definition
   def eu_exit_finder?
-    self.content_item['content_id'] == "42ce66de-04f3-4192-bf31-8394538e0734"
+    EuExitFinderHelper.eu_exit_finder? self.content_item['content_id']
   end
 
 private
