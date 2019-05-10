@@ -1,3 +1,5 @@
+require 'addressable/uri'
+
 class EmailAlertSignupAPI
   def initialize(applied_filters:, default_filters:, facets:, subscriber_list_title:, finder_format:, default_frequency: nil)
     @applied_filters = applied_filters.deep_symbolize_keys
