@@ -65,20 +65,6 @@ class ResultSetPresenter
     @signup_links ||= fetch_signup_links
   end
 
-  def next_and_prev_links
-    return unless finder.pagination
-
-    current_page = finder.pagination['current_page']
-    previous_page = current_page - 1 if current_page > 1
-    next_page = current_page + 1 if current_page < finder.pagination['total_pages']
-    pages = {}
-
-    pages[:previous_page] = build_page_link("Previous page", previous_page) if previous_page
-    pages[:next_page] = build_page_link("Next page", next_page) if next_page
-
-    pages
-  end
-
 private
 
   attr_reader :metadata_presenter_class, :sort_presenter, :total
@@ -96,14 +82,6 @@ private
     if results[0].es_score && results[1].es_score
       (results[0].es_score / results[1].es_score) > 7
     end
-  end
-
-  def build_page_link(page_label, page)
-    {
-      url: [finder.slug, finder.values.merge(page: page).to_query].reject(&:blank?).join("?"),
-      title: page_label,
-      label: "#{page} of #{finder.pagination['total_pages']}",
-    }
   end
 
   def sort_option

@@ -247,7 +247,6 @@ describe FindersController, type: :controller do
     end
 
     let(:filter_params) { double(:filter_params, keywords: '') }
-    let(:view_context) { double(:view_context) }
     let(:finder_presenter) { FinderPresenter.new(breakfast_finder, {}, filter_params) }
 
     before do
