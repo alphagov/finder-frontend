@@ -14,7 +14,7 @@ RSpec.describe AdvancedSearchResultSetPresenter do
   let(:group) { "news_and_communications" }
   let(:filter_params) { { "topic" => "/education", "group" => group } }
   let(:finder) { AdvancedSearchFinderPresenter.new(finder_api, search_results, sort_presenter, filter_params) }
-  let(:view_context) { double(:view_context, render: nil) }
+  let(:next_and_prev_links) { double(:next_and_prev_links) }
   let(:sort_presenter) {
     double(
       SortPresenter,
@@ -40,7 +40,7 @@ RSpec.describe AdvancedSearchResultSetPresenter do
     }
   }
 
-  subject(:instance) { described_class.new(finder, filter_params, view_context, sort_presenter) }
+  subject(:instance) { described_class.new(finder, filter_params, sort_presenter, next_and_prev_links) }
 
   before do
     allow(Services.content_store).to receive(:content_item)
@@ -88,42 +88,6 @@ RSpec.describe AdvancedSearchResultSetPresenter do
       it "contains selected subgroups and date filters" do
         expected = "in News published after 1 February 2017"
         expect(instance.to_hash[:applied_filters]).to eq(expected)
-      end
-    end
-
-    context "next and previous links" do
-      let(:search_results) {
-        {
-          "results" => [],
-          "total" => 30,
-          "start" => 0,
-          "current_page" => 1,
-          "total_pages" => 2,
-        }
-      }
-      let(:view_context) { ActionView::Base.new }
-      let(:filter_params) {
-        {
-          "topic" => "/education",
-          "group" => "news_and_communications",
-        }
-      }
-
-      it "contains valid topic (base_path) filtering params" do
-        expect(view_context).to receive(:render)
-          .with(
-            formats: %w(html),
-            partial: 'govuk_publishing_components/components/previous_and_next_navigation',
-            locals: {
-              next_page: {
-                label: "2 of 2",
-                title: "Next page",
-                url: "/search/advanced?group=news_and_communications&page=2&topic=%2Feducation"
-              }
-            }
-          )
-
-        instance.to_hash
       end
     end
   end

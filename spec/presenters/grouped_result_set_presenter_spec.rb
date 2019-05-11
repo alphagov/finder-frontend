@@ -1,13 +1,11 @@
 require 'spec_helper'
 
 RSpec.describe GroupedResultSetPresenter do
-  subject(:presenter) { GroupedResultSetPresenter.new(finder, filter_params, view_context, sort_presenter) }
-
-  let(:pagination) { { 'current_page' => 1, 'total_pages' => 2 } }
+  subject(:presenter) { GroupedResultSetPresenter.new(finder, filter_params, sort_presenter, next_and_prev_links) }
 
   let(:filter_params) { { keywords: 'test' } }
 
-  let(:view_context) { double(:view_context) }
+  let(:next_and_prev_links) { double(:next_and_prev_links) }
 
   let(:finder) do
     double(
@@ -23,7 +21,6 @@ RSpec.describe GroupedResultSetPresenter do
       atom_url: "/a-finder.atom",
       default_documents_per_page: 10,
       values: {},
-      pagination: pagination,
       sort: {},
       filters: facet_filters
     )
@@ -160,7 +157,7 @@ RSpec.describe GroupedResultSetPresenter do
     before(:each) do
       allow(presenter).to receive(:selected_filter_descriptions)
       allow(presenter).to receive(:any_filters_applied?).and_return(true)
-      allow(view_context).to receive(:render)
+      allow(presenter).to receive(:next_and_prev_links)
       allow(presenter).to receive(:grouped_display?).and_return(true)
       allow(presenter).to receive(:grouped_documents).and_return(key: 'value')
     end

@@ -1,4 +1,6 @@
 class ContentItem
+  attr_reader :base_path
+
   def initialize(base_path)
     @base_path = base_path
     @content_item = fetch_content_item
@@ -26,16 +28,20 @@ class ContentItem
     SortPresenter
   end
 
+  def default_documents_per_page
+    content_item.dig('details', 'default_documents_per_page')
+  end
+
 private
 
-  attr_reader :base_path
+  attr_reader :content_item
 
   def is_research_and_statistics?
     base_path == '/search/research-and-statistics'
   end
 
   def document_type
-    @content_item['document_type']
+    content_item['document_type']
   end
 
   def fetch_content_item

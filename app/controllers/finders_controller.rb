@@ -1,5 +1,6 @@
 class FindersController < ApplicationController
   include FinderTopResultAbTestable
+  include PublishingComponentsHelper
 
   layout "finder_layout"
   before_action :remove_search_box
@@ -49,13 +50,19 @@ private
   end
 
   def results
-    @results ||= result_set_presenter_class.new(finder, filter_params, view_context, sort_presenter, show_top_result?)
+    @results ||= result_set_presenter_class.new(
+      finder,
+      filter_params,
+      sort_presenter,
+      next_and_prev_links,
+      show_top_result?
+    )
   end
 
   def finder
     @finder ||= finder_presenter_class.new(
       raw_finder,
-      finder_api.search_results,
+      search_results,
       sort_presenter,
       filter_params,
     )
@@ -96,6 +103,30 @@ private
 
   def org_registry
     @org_registry ||= Registries::OrganisationsRegistry.new
+  end
+
+  def next_and_prev_links
+    component_to_html(
+      component: 'govuk_publishing_components/components/previous_and_next_navigation',
+      locals: pagination_presenter.next_and_prev_links
+    )
+  end
+
+  def pagination_presenter
+    PaginationPresenter.new(
+      per_page: content_item.default_documents_per_page,
+      start_offset: search_results.dig('start'),
+      total_results: search_results.dig('total'),
+      url_builder: finder_url_builder,
+    )
+  end
+
+  def search_results
+    finder_api.search_results
+  end
+
+  def finder_url_builder
+    UrlBuilder.new(content_item.base_path, filter_params)
   end
 
   def parent

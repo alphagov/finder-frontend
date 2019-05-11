@@ -3,7 +3,7 @@ require 'spec_helper'
 RSpec.describe AtomPresenter do
   subject(:instance) { described_class.new(finder, results) }
 
-  let(:results) { ResultSetPresenter.new(finder, filter_params, view_context, sort_presenter) }
+  let(:results) { ResultSetPresenter.new(finder, filter_params, sort_presenter, next_and_prev_links) }
 
   let(:finder) do
     double(
@@ -19,13 +19,12 @@ RSpec.describe AtomPresenter do
       atom_url: "/a-finder.atom",
       default_documents_per_page: 10,
       values: {},
-      pagination: { 'current_page' => 1, 'total_pages' => 2 },
       sort: {},
     )
   end
 
   let(:filter_params) { double(:filter_params, keywords: '') }
-  let(:view_context) { double(:view_context) }
+  let(:next_and_prev_links) { double(:next_and_prev_links) }
   let(:sort_presenter) { double(:sort_presenter) }
 
   let(:a_facet) do

@@ -10,14 +10,14 @@ class ResultSetPresenter
            :atom_url,
            to: :finder
 
-  def initialize(finder, filter_params, view_context, sort_presenter, show_top_result = false)
+  def initialize(finder, filter_params, sort_presenter, next_and_prev_links, show_top_result = false)
     @finder = finder
     @results = finder.results.documents
     @total = finder.results.total
     @filter_params = filter_params
-    @view_context = view_context
     @sort_presenter = sort_presenter
     @show_top_result = show_top_result
+    @next_and_prev_links = next_and_prev_links
   end
 
   def to_hash
@@ -84,7 +84,7 @@ class ResultSetPresenter
 
 private
 
-  attr_reader :view_context, :sort_presenter
+  attr_reader :sort_presenter, :next_and_prev_links
 
   def highlight_top_result?
     @show_top_result &&
@@ -99,28 +99,6 @@ private
     if results[0].es_score && results[1].es_score
       (results[0].es_score / results[1].es_score) > 7
     end
-  end
-
-  def next_and_prev_links
-    return unless finder.pagination
-
-    current_page = finder.pagination['current_page']
-    previous_page = current_page - 1 if current_page > 1
-    next_page = current_page + 1 if current_page < finder.pagination['total_pages']
-    pages = {}
-
-    pages[:previous_page] = build_page_link("Previous page", previous_page) if previous_page
-    pages[:next_page] = build_page_link("Next page", next_page) if next_page
-
-    view_context.render(formats: %w[html], partial: 'govuk_publishing_components/components/previous_and_next_navigation', locals: pages) if pages
-  end
-
-  def build_page_link(page_label, page)
-    {
-      url: [finder.slug, finder.values.merge(page: page).to_query].reject(&:blank?).join("?"),
-      title: page_label,
-      label: "#{page} of #{finder.pagination['total_pages']}",
-    }
   end
 
   def selected_filters
