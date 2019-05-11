@@ -154,7 +154,6 @@ class FinderPresenter
     metadata = {
       part_of: part_of,
       from: from,
-      other: other,
     }
 
     metadata.reject { |_, links| links.blank? }
@@ -239,27 +238,6 @@ private
 
   def from
     organisations + people + working_groups
-  end
-
-  def other
-    if applicable_nations_html_fragment
-      { "Applies to" => applicable_nations_html_fragment }
-    end
-  end
-
-  def applicable_nations_html_fragment
-    nation_applicability = content_item['details']['nation_applicability']
-    if nation_applicability
-      applies_to = nation_applicability['applies_to'].map(&:titlecase)
-      alternative_policies = nation_applicability['alternative_policies'].map do |alternative|
-        link_to(alternative['nation'].titlecase, alternative['alt_policy_url'], ({ rel: 'external' } if is_external?(alternative['alt_policy_url'])))
-      end
-      if alternative_policies.any?
-        "#{applies_to.to_sentence} (see policy for #{alternative_policies.to_sentence})".html_safe
-      else
-        applies_to.to_sentence
-      end
-    end
   end
 
   def is_external?(href)
