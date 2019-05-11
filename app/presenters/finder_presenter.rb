@@ -148,8 +148,7 @@ class FinderPresenter
 
   def page_metadata
     metadata = {
-      part_of: part_of,
-      from: from,
+      from: organisations,
     }
 
     metadata.reject { |_, links| links.blank? }
@@ -219,22 +218,6 @@ class FinderPresenter
 private
 
   attr_reader :search_results, :sort_presenter
-
-  def part_of
-    content_item['links']['part_of'] || []
-  end
-
-  def people
-    content_item['links']['people'] || []
-  end
-
-  def working_groups
-    content_item['links']['working_groups'] || []
-  end
-
-  def from
-    organisations + people + working_groups
-  end
 
   def is_external?(href)
     URI.parse(href).host != "www.gov.uk"
