@@ -391,7 +391,6 @@ describe('liveSearch', function () {
     })
   })
 
-  // FIXME - this needs to be replaced with a chunk of markup
   describe('indexTrackingData', function () {
     var groupedResponse = {
       'search_results':
@@ -475,7 +474,7 @@ describe('liveSearch', function () {
       liveSearch.state = { search: 'state' }
 
       expect($('#order option').length).toBe(2)
-      $('#order').remove() // Delete all the options
+      $('#order').remove()
       expect($('#order option').length).toBe(0)
       // We receive new data, which adds the sort options to the DOM.
       liveSearch.updateSortOptions(responseWithSortOptions, $.param(liveSearch.state))

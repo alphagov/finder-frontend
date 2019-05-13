@@ -82,12 +82,12 @@ RSpec.describe ScreenReaderFilterDescriptionPresenter do
   end
   describe '#hidden_text' do
     it 'creates appropriate hidden text for the facet without a facet tag for a default value' do
-      expect(presenter.present).to eql("<span class='visually-hidden'>that are Statistics (published), sorted by Updated (newest)</span>")
+      expect(presenter.present).to eql("that are Statistics (published), sorted by Updated (newest)")
     end
 
     it 'creates appropriate hidden text for the facet without a facet tag for a non default value' do
       allow(a_facet_without_facet_tags).to receive(:value).and_return("research")
-      expect(presenter.present).to eql("<span class='visually-hidden'>that are Research, sorted by Updated (newest)</span>")
+      expect(presenter.present).to eql("that are Research, sorted by Updated (newest)")
     end
 
     it 'will not include a facet without a facet tag if there is no selected value or default value' do
@@ -109,7 +109,7 @@ RSpec.describe ScreenReaderFilterDescriptionPresenter do
         ]
       )
 
-      expect(presenter.present).to eql("<span class='visually-hidden'>sorted by Updated (newest)</span>")
+      expect(presenter.present).to eql("sorted by Updated (newest)")
     end
   end
 end

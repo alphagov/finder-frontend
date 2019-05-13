@@ -165,21 +165,6 @@ RSpec.describe GroupedResultSetPresenter do
     allow(finder).to receive(:eu_exit_finder?).and_return(false)
   end
 
-  describe '#to_hash' do
-    before(:each) do
-      allow(presenter).to receive(:selected_filter_descriptions)
-      allow(presenter).to receive(:any_filters_applied?).and_return(true)
-      allow(view_context).to receive(:render)
-      allow(presenter).to receive(:grouped_display?).and_return(true)
-      #allow(presenter).to receive(:grouped_documents).and_return(key: 'value')
-    end
-
-    it 'returns an appropriate hash' do
-      expect(presenter.to_hash[:display_grouped_results]).to be true
-      expect(presenter.to_hash[:grouped_documents].present?).to be_truthy
-    end
-  end
-
   describe "#grouped_documents" do
     let(:tagging_metadata) {
       [

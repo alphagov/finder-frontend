@@ -5,8 +5,7 @@ class ScreenReaderFilterDescriptionPresenter
   end
 
   def present
-    text = (facets_without_tags + sort_options).join(", ")
-    "<span class='visually-hidden'>#{text}</span>"
+    (facets_without_tags + sort_options).join(", ")
   end
 
 private

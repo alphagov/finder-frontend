@@ -23,4 +23,7 @@
   </div>
 <% end %>
 
-<%= local_assigns[:screen_reader_filter_description].html_safe %>
+<% if local_assigns[:screen_reader_filter_description] %>
+  <span class="visually-hidden"><%= local_assigns[:screen_reader_filter_description] %></span>
+<% end %>
+
