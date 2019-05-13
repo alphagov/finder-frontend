@@ -54,10 +54,13 @@ If you are using the GDS development virtual machine then the application will b
 
 ## Running the test suite
 
-Before you can run the test suite you'll need the [govuk-content-schemas]
-repository locally. See
-[`lib/govuk_content_schema_examples.rb`][content_schema_examples] for more
-details.
+Before you can run the test suite you'll need the [govuk-content-schemas] repository locally. See [`lib/govuk_content_schema_examples.rb`][content_schema_examples] for more details.
+
+The StandardJS JavaScript linter needs to be installed separately before running the default `rake` task. To make sure that it's been installed run:
+
+```sh
+$ yarn install
+```
 
 The default `rake` task runs all the tests:
 
@@ -66,6 +69,7 @@ $ bundle exec rake
 ```
 
 The application has jasmine tests, which can be accessed at `/specs` when the application is running in development mode. These are also run when `rake`, above, is run.
+
 To run JavaScript tests separately: `bundle exec rake spec:javascript`
 
 [govuk-content-schemas]: https://github.com/alphagov/govuk-content-schemas
@@ -112,6 +116,4 @@ See the [documentation on the Q&A frontend](docs/q-and-a.md) and how it relates 
   1. Value objects used to wrap up responses from API calls.
   2. Facet objects which wrap up the behaviour of different types of facet --
      eg radios, selects, etc.
-* `app/presenters` contains objects which serialise the value objects to hashes
-  for display via mustache.
 * `app/parsers` contains objects which transform API responses into models.
