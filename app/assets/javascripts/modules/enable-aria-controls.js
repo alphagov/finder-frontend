@@ -6,7 +6,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
 (function (GOVUK) {
   'use strict'
 
-  GOVUK.Modules.EnableAriaControls = function () {
+  GOVUK.Modules.EnableAriaControls = function EnableAriaControls () {
     this.start = function (element) {
       element.find('[data-aria-controls]').each(enableAriaControls)
 
