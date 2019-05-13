@@ -14,7 +14,6 @@
 //
 //= require support
 //
-//= require shared_mustache
 //= require templates
 //
 //= require live_search

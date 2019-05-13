@@ -112,6 +112,4 @@ See the [documentation on the Q&A frontend](docs/q-and-a.md) and how it relates 
   1. Value objects used to wrap up responses from API calls.
   2. Facet objects which wrap up the behaviour of different types of facet --
      eg radios, selects, etc.
-* `app/presenters` contains objects which serialise the value objects to hashes
-  for display via mustache.
 * `app/parsers` contains objects which transform API responses into models.
