@@ -1,3 +1,4 @@
+@wip
 Feature: Site search
   In order to find relevant documents,
   As a user

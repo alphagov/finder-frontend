@@ -1,3 +1,4 @@
+@wip
 Feature: Advanced Search
   Scenario: Without content purpose supergroup parameter
     Given a collection of tagged documents
