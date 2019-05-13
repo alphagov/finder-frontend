@@ -14,9 +14,6 @@
 //
 //= require support
 //
-//= require shared_mustache
-//= require templates
-//
 //= require live_search
 //= require taxonomy-select
 //= require_tree ./modules
