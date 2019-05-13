@@ -11,7 +11,7 @@ RSpec.describe ResultSetPresenter do
       results: results,
       document_noun: document_noun,
       sort_options: sort_presenter,
-      total: 20,
+      total: '20 cases',
       facets: a_facet_collection,
       keywords: keywords,
       default_documents_per_page: 10,
@@ -237,8 +237,6 @@ RSpec.describe ResultSetPresenter do
 
   describe '#to_hash' do
     before(:each) do
-      #allow(presenter).to receive(:selected_filter_descriptions).and_return("a sentence summarising the selected filters")
-      #allow(presenter).to receive(:documents).and_return(key: 'value')
       allow(presenter).to receive(:any_filters_applied?).and_return(true)
       allow(presenter).to receive(:grouped_display?).and_return(false)
       allow(view_context).to receive(:render).and_return('<nav></nav>')
@@ -248,13 +246,7 @@ RSpec.describe ResultSetPresenter do
     end
 
     it 'returns an appropriate hash' do
-      expect(presenter.to_hash[:total]).to eql(total.to_s)
-      expect(presenter.to_hash[:generic_description].present?).to be_truthy
-      expect(presenter.to_hash[:pluralised_document_noun].present?).to be_truthy
-      expect(presenter.to_hash[:documents].present?).to be_truthy
-      expect(presenter.to_hash[:page_count].present?).to be_truthy
-      expect(presenter.to_hash[:finder_name].present?).to be_truthy
-      expect(presenter.to_hash[:applied_filters].present?).to be_truthy
+      expect(presenter.to_hash[:total]).to eql("#{total} cases")
       expect(presenter.to_hash[:any_filters_applied].present?).to be_truthy
       expect(presenter.to_hash[:next_and_prev_links].present?).to be_truthy
     end

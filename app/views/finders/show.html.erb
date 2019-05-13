@@ -110,7 +110,7 @@
             <% end %>
           </div>
           <div id="js-facet-tag-wrapper">
-            <%= render "facet_tags", @results.to_hash %>
+            <%= render "facet_tags", @results.facet_tags_content %>
           </div>
         </div>
       </div>
@@ -118,11 +118,15 @@
       <div class="govuk-caption-l live-search-loading-message" id="js-loading-message"></div>
 
       <div id="js-sort-options">
-        <%= render "sort_options", @results.sort_options %>
+        <%= render "sort_options", @results.sort_options_content %>
       </div>
 
       <div id="js-results">
-        <%= render "search_results", @results.to_hash %>
+        <%= render "search_results", @results.search_results_content %>
+      </div>
+
+      <div id="js-pagination">
+        <%= @results.next_and_prev_links.html_safe if @results.next_and_prev_links %>
       </div>
     </div>
   </div>

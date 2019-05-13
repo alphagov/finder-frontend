@@ -17,6 +17,7 @@
     this.$facetTagBlock = options.$results.find('#js-facet-tag-wrapper')
     this.$loadingBlock = options.$results.find('#js-loading-message')
     this.$sortBlock = options.$results.find('#js-sort-options')
+    this.$paginationBlock = options.$results.find('#js-pagination')
     this.action = this.$form.attr('action') + '.json'
     this.$atomAutodiscoveryLink = options.$atomAutodiscoveryLink
     this.baseTitle = $("meta[name='govuk:base_title']").attr('content') || document.title
@@ -320,7 +321,8 @@
     if (action === $.param(this.state)) {
       this.updateElement(this.$resultsBlock, results.search_results)
       this.updateElement(this.$facetTagBlock, results.facet_tags)
-      this.updateElement(this.$countBlock, results.total + ' ' + results.pluralised_document_noun)
+      this.updateElement(this.$countBlock, results.total)
+      this.updateElement(this.$paginationBlock, results.next_and_prev_links)
       this.$atomAutodiscoveryLink.attr('href', results.atom_url)
       this.$loadingBlock.text('').hide()
     }

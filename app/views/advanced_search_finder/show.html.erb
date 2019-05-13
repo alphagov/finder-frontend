@@ -62,11 +62,16 @@
                 <%= number_with_delimiter(@results.total, :delimiter => ',') %> <%= @results.pluralised_document_noun %>
               </h2>
               <div id="js-facet-tag-wrapper">
-                <%= render 'finders/facet_tags', @results.to_hash %>
+                <%= render 'finders/facet_tags', @results.facet_tags_content %>
               </div>
             </div>
+
             <div id="js-results">
-              <%= render 'finders/search_results', @results.to_hash %>
+              <%= render 'finders/search_results', @results.search_results_content %>
+            </div>
+
+            <div id="js-pagination">
+              <%= @results.next_and_prev_links.html_safe if @results.next_and_prev_links %>
             </div>
           </div>
         </div>

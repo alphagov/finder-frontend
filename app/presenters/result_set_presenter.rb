@@ -21,64 +21,54 @@ class ResultSetPresenter
     @show_top_result = show_top_result
   end
 
-  # FIXME to remove: applied_filters, documents, zero_results, page_count, finder_name, screen_reader_filter_description
-
   def to_hash
     {
-      total: number_with_delimiter(total),
-      generic_description: generic_description,
-      pluralised_document_noun: document_noun.pluralize(total),
-      applied_filters: selected_filter_descriptions,
-      documents: documents,
-      zero_results: total.zero?,
-      page_count: documents.count,
-      finder_name: finder.name,
+      total: "#{number_with_delimiter(total)} #{document_noun.pluralize(total)}",
       any_filters_applied: any_filters_applied?,
       next_and_prev_links: next_and_prev_links,
-      screen_reader_filter_description: ScreenReaderFilterDescriptionPresenter.new(filters, sort_option).present,
       facet_tags: facet_tags_markup,
       search_results: search_results_markup,
       sort_options: sort_options_markup
     }
   end
 
-  def search_results_markup_data
+  def search_results_content
     {
       documents: documents,
       zero_results: total.zero?,
-      finder_name: finder.name,
-      page_count: documents.count
+      page_count: documents.count,
+      finder_name: finder.name
     }
   end
 
   def search_results_markup
-    ApplicationController.render(partial: "finders/search_results", locals: search_results_markup_data)
+    ApplicationController.render(partial: "finders/search_results", locals: search_results_content).squish
   end
 
-  def facet_tags_markup
-    locals = {
+  def facet_tags_content
+    {
       applied_filters: selected_filter_descriptions,
       screen_reader_filter_description: ScreenReaderFilterDescriptionPresenter.new(filters, sort_option).present
     }
-    ApplicationController.render(partial: "finders/facet_tags", locals: locals)
   end
 
-  def sort_options_markup
-    ApplicationController.render(partial: "finders/sort_options", locals: sort_presenter.to_hash)
+  def facet_tags_markup
+    ApplicationController.render(partial: "finders/facet_tags", locals: facet_tags_content).squish
   end
 
-  def sort_options
+  def sort_options_content
     sort_presenter.to_hash
   end
 
-  def applied_filters
-    selected_filter_descriptions
+  def sort_options_markup
+    ApplicationController.render(partial: "finders/sort_options", locals: sort_options_content).squish
   end
 
   def any_filters_applied?
     selected_filters.length.positive? || keywords.present?
   end
 
+  # FIXME is this needed?
   def generic_description
     publications = "publication".pluralize(total)
     "#{publications} matched your criteria"
@@ -120,6 +110,22 @@ class ResultSetPresenter
     @signup_links ||= fetch_signup_links
   end
 
+  def next_and_prev_links
+    return unless finder.pagination
+
+    current_page = finder.pagination['current_page']
+    previous_page = current_page - 1 if current_page > 1
+    next_page = current_page + 1 if current_page < finder.pagination['total_pages']
+    pages = {}
+
+    pages[:previous_page] = build_page_link("Previous page", previous_page) if previous_page
+    pages[:next_page] = build_page_link("Next page", next_page) if next_page
+
+    markup = ""
+    markup = view_context.render(formats: %w[html], partial: 'govuk_publishing_components/components/previous_and_next_navigation', locals: pages) if pages
+    markup.squish unless markup.blank?
+  end
+
 private
 
   attr_reader :view_context, :sort_presenter
@@ -137,20 +143,6 @@ private
     if results[0].es_score && results[1].es_score
       (results[0].es_score / results[1].es_score) > 7
     end
-  end
-
-  def next_and_prev_links
-    return unless finder.pagination
-
-    current_page = finder.pagination['current_page']
-    previous_page = current_page - 1 if current_page > 1
-    next_page = current_page + 1 if current_page < finder.pagination['total_pages']
-    pages = {}
-
-    pages[:previous_page] = build_page_link("Previous page", previous_page) if previous_page
-    pages[:next_page] = build_page_link("Next page", next_page) if next_page
-
-    view_context.render(formats: %w[html], partial: 'govuk_publishing_components/components/previous_and_next_navigation', locals: pages) if pages
   end
 
   def build_page_link(page_label, page)
