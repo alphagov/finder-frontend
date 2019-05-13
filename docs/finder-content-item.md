@@ -67,12 +67,6 @@ A boolean. Optional.
 
 Used to decide whether a generic description of "X publications matched your critera" should be displayed in place of the normal filter description which concatenates all selected filters into a sentence (for example, X documents of type Y for organisation Z).
 
-## `human_readable_finder_format`
-
-A string. Optional.
-
-Human readable version of the content format. Passed as the context to the [title](http://govuk-static.herokuapp.com/component-guide/title) component.
-
 ## `default_order`
 
 A string. Optional.
