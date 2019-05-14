@@ -1,7 +1,21 @@
 require 'spec_helper'
 
 RSpec.describe GroupedResultSetPresenter do
-  subject(:presenter) { GroupedResultSetPresenter.new(finder, filter_params, view_context, sort_presenter) }
+  subject(:presenter) { GroupedResultSetPresenter.new(finder, filter_params, view_context, sort_presenter, metadata_presenter_class) }
+  let(:metadata_presenter_class) do
+    MetadataPresenter
+  end
+  let(:metadata) do
+    [
+      { id: 'case-state', name: 'Case state', value: 'Open', type: 'text', labels: %W(open) },
+      { id: 'opened-date', name: 'Opened date', value: '2006-7-14', type: 'date' },
+      { id: 'case-type', name: 'Case type', value: 'CA98 and civil cartels', type: 'text', labels: %W(ca98-and-civil-cartels) },
+      { id: 'organisation_activity', name: 'Organisation activity', value: 'buying', type: 'text', labels: %W(buying) }
+    ]
+  end
+  let(:formatted_metadata) do
+    metadata_presenter_class.new(metadata).present
+  end
 
   let(:pagination) { { 'current_page' => 1, 'total_pages' => 2 } }
 
@@ -97,12 +111,7 @@ RSpec.describe GroupedResultSetPresenter do
       Document,
       title: 'Investigation into the distribution of road fuels in parts of Scotland',
       path: 'slug-1',
-      metadata: [
-        { id: 'case-state', name: 'Case state', value: 'Open', type: 'text', labels: %W(open) },
-        { id: 'opened-date', name: 'Opened date', value: '2006-7-14', type: 'date' },
-        { id: 'case-type', name: 'Case type', value: 'CA98 and civil cartels', type: 'text', labels: %W(ca98-and-civil-cartels) },
-        { id: 'organisation_activity', name: 'Organisation activity', value: 'buying', type: 'text', labels: %W(buying) },
-      ],
+      metadata: metadata,
       summary: 'I am a document',
       is_historic: false,
       government_name: 'The Government!',
@@ -191,6 +200,10 @@ RSpec.describe GroupedResultSetPresenter do
       ]
     }
 
+    let(:formatted_tagged_metadata) {
+      metadata_presenter_class.new(tagging_metadata).present
+    }
+
     let(:tagged_document) {
       double(
         Document,
@@ -208,10 +221,10 @@ RSpec.describe GroupedResultSetPresenter do
     }
 
     let(:primary_tagged_result) {
-      SearchResultPresenter.new(tagged_document).to_hash
+      SearchResultPresenter.new(tagged_document, formatted_tagged_metadata).to_hash
     }
 
-    let(:document_result) { SearchResultPresenter.new(document).to_hash }
+    let(:document_result) { SearchResultPresenter.new(document, formatted_metadata).to_hash }
 
     context "when not grouping results" do
       let(:filter_params) { { order: 'a-z' } }

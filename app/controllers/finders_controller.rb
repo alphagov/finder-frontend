@@ -49,7 +49,9 @@ private
   end
 
   def results
-    @results ||= result_set_presenter_class.new(finder, filter_params, view_context, sort_presenter, show_top_result?)
+    @results ||= result_set_presenter_class.new(
+      finder, filter_params, view_context, sort_presenter, content_item.metadata_class, show_top_result?
+    )
   end
 
   def finder

@@ -9,8 +9,9 @@ class SearchResultPresenter
            :es_score,
            to: :search_result
 
-  def initialize(search_result)
+  def initialize(search_result, metadata)
     @search_result = search_result
+    @metadata = metadata
   end
 
   def to_hash
@@ -32,42 +33,7 @@ class SearchResultPresenter
     search_result.path
   end
 
-  def metadata
-    raw_metadata.map { |datum|
-      case datum.fetch(:type)
-      when 'date'
-        build_date_metadata(datum)
-      when 'text', 'content_id'
-        build_text_metadata(datum)
-      end
-    }
-  end
-
-  def build_text_metadata(data)
-    {
-      id: data[:id],
-      label: data.fetch(:name),
-      value: data.fetch(:value),
-      labels: data[:labels],
-      is_text: true,
-    }
-  end
-
-  def build_date_metadata(data)
-    date = Date.parse(data.fetch(:value))
-    {
-      label: data.fetch(:name),
-      is_date: true,
-      machine_date: date.iso8601,
-      human_date: date.strftime("%-d %B %Y"),
-    }
-  end
-
 private
 
-  attr_reader :search_result
-
-  def raw_metadata
-    search_result.metadata
-  end
+  attr_reader :search_result, :metadata
 end

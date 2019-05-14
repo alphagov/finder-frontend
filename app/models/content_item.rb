@@ -26,6 +26,12 @@ class ContentItem
     SortPresenter
   end
 
+  def metadata_class
+    return StatisticsMetadataPresenter if is_research_and_statistics?
+
+    MetadataPresenter
+  end
+
 private
 
   attr_reader :base_path

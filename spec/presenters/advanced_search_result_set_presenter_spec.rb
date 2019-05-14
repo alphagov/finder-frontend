@@ -39,8 +39,11 @@ RSpec.describe AdvancedSearchResultSetPresenter do
       "total_pages" => 1,
     }
   }
+  let(:metadata_presenter_class) do
+    MetadataPresenter
+  end
 
-  subject(:instance) { described_class.new(finder, filter_params, view_context, sort_presenter) }
+  subject(:instance) { described_class.new(finder, filter_params, view_context, sort_presenter, metadata_presenter_class) }
 
   before do
     allow(Services.content_store).to receive(:content_item)
