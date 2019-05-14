@@ -1,6 +1,8 @@
 /* eslint-env jasmine, jquery */
 /* global GOVUK */
 
+require('../support/govuk.js')
+
 describe('An option select component', function () {
   'use strict'
 

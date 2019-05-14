@@ -1,5 +1,6 @@
 /* eslint-env jasmine, jquery */
 
+require('../support/govuk.js')
 var $ = window.jQuery
 
 describe('QA choices tracker', function () {
