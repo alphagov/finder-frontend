@@ -10,6 +10,9 @@ node {
         sh("yarn")
         sh("yarn run lint")
       }
+      stage("Test Javascript") {
+        sh("yarn test")
+      }
     },
     sassLint: false,
     publishingE2ETests: true,
