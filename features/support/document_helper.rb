@@ -41,6 +41,14 @@ module DocumentHelper
       )
   end
 
+  def stub_rummager_api_request_with_query_param_no_results(query)
+    stub_request(:get, "#{Plek.current.find('search')}/batch_search.json")
+      .with(query: batch_search_includes('q' => query))
+      .to_return(
+        body: no_results_json,
+      )
+  end
+
   def stub_rummager_api_request_with_10_government_results
     stub_request(:get, rummager_10_documents_url).to_return(
       body: government_documents_json,
@@ -754,6 +762,20 @@ module DocumentHelper
             }
           ],
           "total": 2,
+          "start": 0,
+          "facets": {},
+          "suggested_queries": []
+        }
+      ]
+    }|
+  end
+
+  def no_results_json
+    %|{
+      "results": [
+        {
+          "results": [],
+          "total": 0,
           "start": 0,
           "facets": {},
           "suggested_queries": []
