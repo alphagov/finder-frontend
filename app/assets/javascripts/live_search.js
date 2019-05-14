@@ -120,7 +120,7 @@
   }
 
   LiveSearch.prototype.trackingInit = function () {
-    GOVUK.modules.start($('.js-live-search-results-block'))
+    new GOVUK.Modules.TrackQaChoices().start($('.js-live-search-results-block'))
     this.indexTrackingData()
   }
 
