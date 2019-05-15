@@ -1,5 +1,6 @@
 #!/bin/bash
 
+yarn install
 bundle check || bundle install
 
 if [[ $1 == "--live" ]] ; then
