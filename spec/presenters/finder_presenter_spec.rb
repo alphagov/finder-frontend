@@ -395,16 +395,34 @@ RSpec.describe FinderPresenter do
     end
   end
 
-private
+  describe "#document_noun" do
+    context "when is nil in content_item" do
+      it "should return a string" do
+        expect(subject.document_noun).to eq("")
+      end
+    end
 
-  def create_content_item(sort_options: nil, email_alert_signup: nil, default_order: nil, facets: nil, content_id: nil)
+    context "when is set in content_item" do
+      let(:content_item) {
+        create_content_item(document_noun: "publication")
+      }
+
+      it "should return the content item string" do
+        expect(subject.document_noun).to eq("publication")
+      end
+    end
+  end
+
+  private
+
+  def create_content_item(sort_options: nil, email_alert_signup: nil, default_order: nil, facets: nil, content_id: nil, document_noun: nil)
     finder_example = govuk_content_schema_example('finder')
     finder_example['details']['sort'] = sort_options
     finder_example['details']['facets'] = facets if facets
     finder_example['links']['email_alert_signup'] = [email_alert_signup] if email_alert_signup
     finder_example['details']['default_order'] = default_order if default_order
     finder_example['content_id'] = content_id if content_id
-
+    finder_example['details']['document_noun'] = document_noun
 
     dummy_http_response = double(
       "net http response",
