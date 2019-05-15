@@ -14,4 +14,9 @@ FinderFrontend::Application.configure do
   config.action_dispatch.show_exceptions = false
   config.action_controller.allow_forgery_protection = false
   config.active_support.deprecation = :stderr
+
+  # Set a css_compressor so SassC Rails does not overwrite the compressor when
+  # running the tests. See https://github.com/sass/sassc-rails/issues/93 for
+  # more information.
+  config.assets.css_compressor = nil
 end
