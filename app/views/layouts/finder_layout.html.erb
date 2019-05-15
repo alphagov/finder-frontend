@@ -11,7 +11,7 @@
     <%= csrf_meta_tags %>
     <%= yield :head %>
 
-    <% if params[:page] %>
+    <% if params[:page] || params[:keywords] || params[:q] %>
       <meta name="robots" content="noindex">
     <% end %>
     <meta name="govuk:base_title" content="<%= yield :meta_title %> - GOV.UK">
