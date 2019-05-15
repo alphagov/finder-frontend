@@ -6,7 +6,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
 (function (global, GOVUK) {
   'use strict'
 
-  GOVUK.Modules.RemoveFilter = function () {
+  GOVUK.Modules.RemoveFilter = function RemoveFilter () {
     var onChangeSuppressAnalytics = {
       type: 'change',
       suppressAnalytics: true

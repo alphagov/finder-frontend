@@ -46,7 +46,7 @@
     subtaxon.append(taxons)
   }
 
-  TaxonomySelect.prototype.instantiateOptions = function () {
+  TaxonomySelect.prototype.instantiateOptions = function instantiateOptions () {
     var options = {}
 
     this.$subTaxon().find('option').each(function () {

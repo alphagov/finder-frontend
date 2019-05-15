@@ -111,7 +111,7 @@
     }
   }
 
-  LiveSearch.prototype.setRelevantResultCustomDimension = function () {
+  LiveSearch.prototype.setRelevantResultCustomDimension = function setRelevantResultCustomDimension () {
     if (this.canSetCustomDimension()) {
       var $mostRelevantDocumentLink = $('.finder-results').find('.document__link--top')
       var dimensionValue = $mostRelevantDocumentLink.length ? 'yes' : 'no'
@@ -119,7 +119,7 @@
     }
   }
 
-  LiveSearch.prototype.trackingInit = function () {
+  LiveSearch.prototype.trackingInit = function trackingInit () {
     GOVUK.modules.start($('.js-live-search-results-block'))
     this.indexTrackingData()
   }
@@ -170,7 +170,7 @@
     }
   }
 
-  LiveSearch.prototype.fireTextAnalyticsEvent = function (event) {
+  LiveSearch.prototype.fireTextAnalyticsEvent = function fireTextAnalyticsEvent (event) {
     if (this.canTrackPageview()) {
       var options = {
         transport: 'beacon',
@@ -187,11 +187,11 @@
     }
   }
 
-  LiveSearch.prototype.canTrackPageview = function () {
+  LiveSearch.prototype.canTrackPageview = function canTrackPageview () {
     return GOVUK.analytics && GOVUK.analytics.trackPageview
   }
 
-  LiveSearch.prototype.canSetCustomDimension = function () {
+  LiveSearch.prototype.canSetCustomDimension = function canSetCustomDimension () {
     return GOVUK.analytics && GOVUK.analytics.setDimension
   }
 
