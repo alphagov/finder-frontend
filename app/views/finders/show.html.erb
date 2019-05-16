@@ -99,7 +99,9 @@
         <div class="result-info">
           <div class="govuk-grid-row">
             <div class="govuk-grid-column-one-third">
-              <%= render_mustache('result_count', @results.to_hash) %>
+              <h2 class="result-region-header__counter" id="js-result-count">
+                <%= @results.to_hash[:total] %>
+              </h2>
             </div>
             <% if @results.has_email_signup_link? %>
               <div class="govuk-grid-column-two-thirds">
@@ -107,18 +109,25 @@
               </div>
             <% end %>
           </div>
-          <%= render_mustache('result_facet_tags', @results.to_hash) %>
+          <div id="js-facet-tag-wrapper">
+            <%= render "facet_tags", @results.facet_tags_content %>
+          </div>
         </div>
       </div>
 
       <div class="govuk-caption-l live-search-loading-message" id="js-loading-message"></div>
 
-      <%= render_mustache('sort_options', @results.to_hash) %>
-
-      <div id="js-results">
-        <%= render_mustache('results', @results.to_hash) %>
+      <div id="js-sort-options">
+        <%= render "sort_options", @results.sort_options_content %>
       </div>
 
+      <div id="js-results">
+        <%= render "search_results", @results.search_results_content %>
+      </div>
+
+      <div id="js-pagination">
+        <%= @results.next_and_prev_links %>
+      </div>
     </div>
   </div>
 </form>

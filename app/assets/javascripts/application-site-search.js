@@ -14,8 +14,5 @@
 //
 //= require support
 //
-//= require shared_mustache
-//= require templates
-//
 //= require_tree ./modules
 //= require_tree ./components

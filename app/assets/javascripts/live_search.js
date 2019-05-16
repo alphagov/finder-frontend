@@ -1,5 +1,4 @@
 /* eslint-env jquery */
-
 (function () {
   'use strict'
 
@@ -14,10 +13,11 @@
 
     this.$form = options.$form
     this.$resultsBlock = options.$results.find('#js-results')
-    this.$countBlock = options.$results.find('.result-region-header__counter')
-    this.$facetTagBlock = options.$results.find('.js-facet-tag-wrapper')
+    this.$countBlock = options.$results.find('#js-result-count')
+    this.$facetTagBlock = options.$results.find('#js-facet-tag-wrapper')
     this.$loadingBlock = options.$results.find('#js-loading-message')
-    this.$resultsCount = options.$results.find('#js-result-count')
+    this.$sortBlock = options.$results.find('#js-sort-options')
+    this.$paginationBlock = options.$results.find('#js-pagination')
     this.action = this.$form.attr('action') + '.json'
     this.$atomAutodiscoveryLink = options.$atomAutodiscoveryLink
     this.baseTitle = $("meta[name='govuk:base_title']").attr('content') || document.title
@@ -220,7 +220,7 @@
 
   LiveSearch.prototype.updateSortOptions = function updateSortOptions (results, action) {
     if (action !== $.param(this.state)) { return }
-    this.$orderSelect.mustache(this.templateDir + '_sort_options', results)
+    this.updateElement(this.$sortBlock, results.sort_options_markup)
     this.bindSortElements()
   }
 
@@ -280,13 +280,11 @@
       }).done(function (response) {
         liveSearch.cache($.param(liveSearch.state), response)
         liveSearch.displayResults(response, this.searchState)
-        liveSearch.updateSortOptions(response, this.searchState)
       }).error(function () {
         liveSearch.showErrorIndicator()
       })
     } else {
       this.displayResults(cachedResultData, searchState)
-      this.updateSortOptions(cachedResultData, searchState)
       var out = new $.Deferred()
       return out.resolve()
     }
@@ -311,14 +309,19 @@
     this.$loadingBlock.text('Error. Please try modifying your search and trying again.')
   }
 
+  LiveSearch.prototype.updateElement = function updateElement (element, content) {
+    element.html(content)
+  }
+
   LiveSearch.prototype.displayResults = function displayResults (results, action) {
     // As search is asynchronous, check that the action associated with these results is
     // still the latest to stop results being overwritten by stale data
     if (action === $.param(this.state)) {
-      this.$resultsBlock.mustache(this.templateDir + '_results', results)
-      this.$countBlock.mustache(this.templateDir + '_result_count', results)
-      this.$facetTagBlock.mustache(this.templateDir + '_result_facet_tags', results)
-      this.$resultsCount.text(results.total + ' ' + results.pluralised_document_noun)
+      this.updateElement(this.$resultsBlock, results.search_results)
+      this.updateElement(this.$facetTagBlock, results.facet_tags)
+      this.updateElement(this.$countBlock, results.total)
+      this.updateElement(this.$paginationBlock, results.next_and_prev_links)
+      this.updateSortOptions(results, action)
       this.$atomAutodiscoveryLink.attr('href', results.atom_url)
       this.$loadingBlock.text('').hide()
     }

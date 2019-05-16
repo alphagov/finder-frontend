@@ -37,7 +37,7 @@ class FinderPresenter
   end
 
   def document_noun
-    content_item['details']['document_noun']
+    content_item['details']['document_noun'] || ""
   end
 
   def hide_facets_by_default

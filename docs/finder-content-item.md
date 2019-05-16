@@ -61,12 +61,6 @@ A string. Optional.
 Not specifically used by the Finder. Usually a singularised version of the title of the Finder - `"Competition and Markets Authority case"` for [`/cma-cases`](https://www.gov.uk/cma-cases) for example.
 However there are edge cases where it's not the same such as `"Medical safety alert"` for [Alerts and recalls for drugs and medical devices](https://www.gov.uk/drug-device-alerts).
 
-## `generic_description`
-
-A boolean. Optional.
-
-Used to decide whether a generic description of "X publications matched your critera" should be displayed in place of the normal filter description which concatenates all selected filters into a sentence (for example, X documents of type Y for organisation Z).
-
 ## `default_order`
 
 A string. Optional.
