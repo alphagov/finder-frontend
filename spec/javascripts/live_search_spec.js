@@ -51,7 +51,7 @@ describe('liveSearch', function () {
   }
 
   var responseWithSortOptions = {
-    'sort_options': '<select id="order">' +
+    'sort_options_markup': '<select id="order">' +
       '<option ' +
         'value="option-val" ' +
         'data_track_category="option-data_track_category"' +

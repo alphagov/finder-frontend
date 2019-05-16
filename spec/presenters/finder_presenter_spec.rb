@@ -413,7 +413,7 @@ RSpec.describe FinderPresenter do
     end
   end
 
-  private
+private
 
   def create_content_item(sort_options: nil, email_alert_signup: nil, default_order: nil, facets: nil, content_id: nil, document_noun: nil)
     finder_example = govuk_content_schema_example('finder')

@@ -34,8 +34,16 @@ class ResultSetPresenter
       next_and_prev_links: next_and_prev_links,
       facet_tags: facet_tags_markup,
       search_results: search_results_markup,
-      sort_options: sort_options_markup
-    }
+      sort_options_markup: sort_options_markup,
+    }.merge(legacy_attributes)
+  end
+
+  # Provided for backwards compatibility
+  def legacy_attributes
+    {
+      pluralised_document_noun: pluralised_document_noun,
+      sort_options: sort_options_content,
+    }.merge(facet_tags_content).merge(search_results_content)
   end
 
   def search_results_content
@@ -69,17 +77,19 @@ class ResultSetPresenter
   end
 
   def documents
-    results.each_with_index.map do |result, index|
-      metadata = metadata_presenter_class.new(result.metadata).present
-      doc = SearchResultPresenter.new(result, metadata).to_hash
-      if  index === 0 && highlight_top_result?
-        doc[:top_result] = true
-        doc[:summary] = result.truncated_description
+    @documents ||= begin
+      results.each_with_index.map do |result, index|
+        metadata = metadata_presenter_class.new(result.metadata).present
+        doc = SearchResultPresenter.new(result, metadata).to_hash
+        if  index === 0 && highlight_top_result?
+          doc[:top_result] = true
+          doc[:summary] = result.truncated_description
+        end
+        {
+          document: doc,
+          document_index: index + 1
+        }
       end
-      {
-        document: doc,
-        document_index: index + 1
-      }
     end
   end
 

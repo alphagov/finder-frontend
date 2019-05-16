@@ -220,7 +220,7 @@
 
   LiveSearch.prototype.updateSortOptions = function updateSortOptions (results, action) {
     if (action !== $.param(this.state)) { return }
-    this.updateElement(this.$sortBlock, results.sort_options)
+    this.updateElement(this.$sortBlock, results.sort_options_markup)
     this.bindSortElements()
   }
 
