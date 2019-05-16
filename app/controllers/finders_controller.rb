@@ -50,7 +50,7 @@ private
 
   def results
     @results ||= result_set_presenter_class.new(
-      finder, filter_params, view_context, sort_presenter, content_item.metadata_class, show_top_result?
+      finder, filter_params, view_context, sort_presenter, content_item.metadata_class, show_top_result?, debug_score?
     )
   end
 
@@ -111,5 +111,9 @@ private
   def remove_search_box
     hide_site_serch = params['slug'] == 'search/all'
     set_slimmer_headers(remove_search: hide_site_serch)
+  end
+
+  def debug_score?
+    params[:debug_score]
   end
 end

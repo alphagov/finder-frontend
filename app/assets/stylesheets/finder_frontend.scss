@@ -233,6 +233,18 @@
     .finder-results {
       list-style-type: none;
       padding-left: 0;
+
+      .debug-link {
+        color: green;
+        word-wrap: break-word;
+      }
+      .debug-info {
+        color: red;
+        span {
+          display: block;
+          min-width: 150px;
+        }
+      }
     }
 
     .filtered-results__group {

@@ -79,6 +79,7 @@ private
       public_timestamp
       popularity
       content_purpose_supergroup
+      format
     )
   end
 

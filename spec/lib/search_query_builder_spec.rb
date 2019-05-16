@@ -59,7 +59,7 @@ describe SearchQueryBuilder do
   context "without any facets" do
     it "should include base return fields" do
       expect(query).to include(
-        "fields" => "title,link,description,public_timestamp,popularity,content_purpose_supergroup",
+        "fields" => "title,link,description,public_timestamp,popularity,content_purpose_supergroup,format",
       )
     end
   end
@@ -86,7 +86,7 @@ describe SearchQueryBuilder do
 
     it "should include base and extra return fields" do
       expect(query).to include(
-        "fields" => "title,link,description,public_timestamp,popularity,content_purpose_supergroup,alpha,beta",
+        "fields" => "title,link,description,public_timestamp,popularity,content_purpose_supergroup,format,alpha,beta",
       )
     end
 
@@ -103,7 +103,7 @@ describe SearchQueryBuilder do
 
       it "should use the filter value in fields" do
         expect(query).to include(
-          "fields" => "title,link,description,public_timestamp,popularity,content_purpose_supergroup,zeta,beta",
+          "fields" => "title,link,description,public_timestamp,popularity,content_purpose_supergroup,format,zeta,beta",
         )
       end
     end

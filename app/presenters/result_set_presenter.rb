@@ -2,14 +2,14 @@ class ResultSetPresenter
   include ERB::Util
   include ActionView::Helpers::NumberHelper
 
-  attr_reader :finder, :results, :total, :pluralised_document_noun
+  attr_reader :finder, :results, :total, :pluralised_document_noun, :debug_score
 
   delegate :filters,
            :keywords,
            :atom_url,
            to: :finder
 
-  def initialize(finder, filter_params, view_context, sort_presenter, metadata_presenter_class, show_top_result = false)
+  def initialize(finder, filter_params, view_context, sort_presenter, metadata_presenter_class, show_top_result = false, debug_score = false)
     @finder = finder
     @results = finder.results.documents
     @total = finder.results.total
@@ -19,6 +19,7 @@ class ResultSetPresenter
     @sort_presenter = sort_presenter
     @show_top_result = show_top_result
     @metadata_presenter_class = metadata_presenter_class
+    @debug_score = debug_score
   end
 
   def to_hash
@@ -51,7 +52,8 @@ class ResultSetPresenter
       documents: documents,
       zero_results: total.zero?,
       page_count: documents.count,
-      finder_name: finder.name
+      finder_name: finder.name,
+      debug_score: debug_score,
     }
   end
 

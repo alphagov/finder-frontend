@@ -118,6 +118,7 @@ RSpec.describe GroupedResultSetPresenter do
       promoted: false,
       promoted_summary: nil,
       show_metadata: false,
+      format: 'transaction',
       es_score: nil
     )
   end
@@ -201,6 +202,7 @@ RSpec.describe GroupedResultSetPresenter do
         promoted: false,
         promoted_summary: nil,
         show_metadata: false,
+        format: 'transaction',
         es_score: nil
       )
     }
