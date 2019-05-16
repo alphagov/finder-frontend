@@ -21,4 +21,5 @@ FinderFrontend::Application.configure do
   config.i18n.fallbacks = true
   config.active_support.deprecation = :notify
   config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
+  config.assets.css_compressor = nil
 end
