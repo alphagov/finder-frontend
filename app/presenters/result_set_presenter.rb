@@ -35,15 +35,7 @@ class ResultSetPresenter
       facet_tags: facet_tags_markup,
       search_results: search_results_markup,
       sort_options_markup: sort_options_markup,
-    }.merge(legacy_attributes)
-  end
-
-  # Provided for backwards compatibility
-  def legacy_attributes
-    {
-      pluralised_document_noun: pluralised_document_noun,
-      sort_options: sort_options_content,
-    }.merge(facet_tags_content).merge(search_results_content)
+    }
   end
 
   def search_results_content
