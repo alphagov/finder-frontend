@@ -322,6 +322,24 @@ describe SearchQueryBuilder do
     end
   end
 
+  context "with debug parameters" do
+    let(:params) {
+      {
+        "debug" => "yes",
+      }
+    }
+
+    it "should include a debug query" do
+      expect(query).to include("debug" => "yes")
+    end
+  end
+
+  context "without debug parameters" do
+    it "should not include a debug query" do
+      expect(query).not_to include("debug")
+    end
+  end
+
   context "with a base filter" do
     let(:filter) { { "document_type" => "news_story" } }
 

@@ -25,6 +25,7 @@ class SearchQueryBuilder
       reject_query,
       order_query,
       facet_query,
+      debug_query,
     ].reduce(&:merge)
 
     return [base_query] if filter_queries.empty?
@@ -199,6 +200,12 @@ private
     @facet_params ||= FacetQueryBuilder.new(
       facets: raw_facets,
     ).call
+  end
+
+  def debug_query
+    {
+      "debug" => params["debug"],
+    }.compact
   end
 
   def stopwords
