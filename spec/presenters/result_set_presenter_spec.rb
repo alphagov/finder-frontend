@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe ResultSetPresenter do
-  subject(:presenter) { ResultSetPresenter.new(finder, filter_params, view_context, sort_presenter, metadata_presenter_class) }
+  subject(:presenter) { ResultSetPresenter.new(finder, filter_params, sort_presenter, metadata_presenter_class) }
   let(:metadata_presenter_class) do
     MetadataPresenter
   end
@@ -45,8 +45,6 @@ RSpec.describe ResultSetPresenter do
   let(:pagination) { { 'current_page' => 1, 'total_pages' => 2 } }
 
   let(:filter_params) { { keywords: 'test' } }
-
-  let(:view_context) { double(:view_context) }
 
   let(:a_facet) do
     double(
@@ -238,18 +236,9 @@ RSpec.describe ResultSetPresenter do
     allow(finder).to receive(:eu_exit_finder?).and_return(false)
   end
 
-  describe '#to_hash' do
-    before(:each) do
-      allow(presenter).to receive(:grouped_display?).and_return(false)
-      allow(view_context).to receive(:render).and_return('<nav></nav>')
-
-      allow(finder).to receive(:atom_url).and_return("/finder.atom")
-      allow(finder).to receive(:email_alert_signup_url).and_return("/email_signup")
-    end
-
-    it 'returns an appropriate hash' do
-      expect(presenter.to_hash[:total]).to eql("#{total} cases")
-      expect(presenter.to_hash[:next_and_prev_links].present?).to be_truthy
+  describe "#displayed_total" do
+    it 'combines total with document noun' do
+      expect(presenter.displayed_total).to eql("#{total} cases")
     end
   end
 
@@ -337,7 +326,7 @@ RSpec.describe ResultSetPresenter do
     end
 
     context 'check top result' do
-      subject(:presenter) { ResultSetPresenter.new(finder, filter_params, view_context, sort_presenter, metadata_presenter_class, true) }
+      subject(:presenter) { ResultSetPresenter.new(finder, filter_params, sort_presenter, metadata_presenter_class, true) }
 
       before(:each) do
         allow(finder).to receive(:eu_exit_finder?).and_return(true)
@@ -409,7 +398,7 @@ RSpec.describe ResultSetPresenter do
       end
 
       context 'top result not set if show top result is false' do
-        subject(:presenter) { ResultSetPresenter.new(finder, filter_params, view_context, sort_presenter, metadata_presenter_class, false) }
+        subject(:presenter) { ResultSetPresenter.new(finder, filter_params, sort_presenter, metadata_presenter_class, false) }
 
         it 'has no top result' do
           search_result_objects = presenter.documents

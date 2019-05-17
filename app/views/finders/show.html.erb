@@ -10,7 +10,7 @@
     <link rel="canonical" href="<%= "#{ENV['GOVUK_WEBSITE_ROOT']}#{finder.slug}" %>">
   <% end %>
 
-  <% if @results.to_hash[:documents].present? && @results.to_hash[:documents].first[:document][:top_result] %>
+  <% if @results.documents.present? && @results.documents.first[:document][:top_result] %>
     <meta name="govuk:relevant-result-shown" content="yes">
   <% end %>
 
@@ -100,7 +100,7 @@
           <div class="govuk-grid-row">
             <div class="govuk-grid-column-one-third">
               <h2 class="result-region-header__counter" id="js-result-count">
-                <%= @results.to_hash[:total] %>
+                <%= @results.displayed_total %>
               </h2>
             </div>
             <% if @results.has_email_signup_link? %>
@@ -118,7 +118,7 @@
       <div class="govuk-caption-l live-search-loading-message" id="js-loading-message"></div>
 
       <div id="js-sort-options">
-        <%= render "sort_options", @results.sort_options_content %>
+        <%= render "sort_options", @sort_presenter.to_hash %>
       </div>
 
       <div id="js-results">
@@ -126,7 +126,7 @@
       </div>
 
       <div id="js-pagination">
-        <%= @results.next_and_prev_links %>
+        <%= render "govuk_publishing_components/components/previous_and_next_navigation", @results.next_and_prev_links %>
       </div>
     </div>
   </div>

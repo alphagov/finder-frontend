@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe GroupedResultSetPresenter do
-  subject(:presenter) { GroupedResultSetPresenter.new(finder, filter_params, view_context, sort_presenter, metadata_presenter_class) }
+  subject(:presenter) { GroupedResultSetPresenter.new(finder, filter_params, sort_presenter, metadata_presenter_class) }
   let(:metadata_presenter_class) do
     MetadataPresenter
   end
@@ -20,8 +20,6 @@ RSpec.describe GroupedResultSetPresenter do
   let(:pagination) { { 'current_page' => 1, 'total_pages' => 2 } }
 
   let(:filter_params) { { keywords: 'test' } }
-
-  let(:view_context) { double(:view_context) }
 
   let(:finder) do
     double(

@@ -59,7 +59,7 @@
           <div class="filtered-results">
             <div class="result-info">
               <h2 class="result-region-header__counter" id="js-result-count">
-                <%= @results.to_hash[:total] %>
+                <%= @results.displayed_total %>
               </h2>
               <div id="js-facet-tag-wrapper">
                 <%= render 'finders/facet_tags', @results.facet_tags_content %>

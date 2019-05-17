@@ -1,10 +1,9 @@
 class AdvancedSearchResultSetPresenter < ResultSetPresenter
   include AdvancedSearchParams
 
-  def to_hash
+  def facet_tags_content
     super
       .merge(applied_filters: selected_filter_descriptions)
-        .except(:atom_url)
   end
 
   def documents

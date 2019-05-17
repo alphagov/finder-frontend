@@ -17,10 +17,17 @@ class FindersController < ApplicationController
         @raw_content_item = content_item.as_hash
         @breadcrumbs = fetch_breadcrumbs
         @parent = parent
+        @sort_presenter = sort_presenter
       end
       format.json do
         if content_item.is_search? || content_item.is_finder?
-          render json: results
+          render json: {
+            total: results.displayed_total,
+            facet_tags: render_component("facet_tags", results.facet_tags_content),
+            search_results: render_component("finders/search_results", results.search_results_content),
+            sort_options_markup: render_component("finders/sort_options", sort_presenter.to_hash),
+            next_and_prev_links: render_component("govuk_publishing_components/components/previous_and_next_navigation", results.next_and_prev_links),
+          }
         else
           render json: {}, status: :not_found
         end
@@ -44,13 +51,22 @@ class FindersController < ApplicationController
 
 private
 
+  def render_component(partial, locals)
+    (render_to_string(formats: %w[html], partial: partial, locals: locals) || "").squish
+  end
+
   def content_item
     @content_item ||= ContentItem.new(finder_base_path)
   end
 
   def results
     @results ||= result_set_presenter_class.new(
-      finder, filter_params, view_context, sort_presenter, content_item.metadata_class, show_top_result?, debug_score?
+      finder,
+      filter_params,
+      sort_presenter,
+      content_item.metadata_class,
+      show_top_result?,
+      debug_score?,
     )
   end
 
