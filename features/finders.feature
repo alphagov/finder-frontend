@@ -65,6 +65,7 @@ Feature: Filtering documents
   Scenario: Visit a finder with paginated results
     Given a finder with paginated results exists
     Then I can see pagination
+    And there is machine readable information
     And I can see that Google can index the page
     And I can browse to the next page
     And I can see that Google won't index the page

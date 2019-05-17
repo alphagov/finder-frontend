@@ -388,6 +388,17 @@ Then(/^I browse to a huge page number and get an appropriate error$/) do
   expect(page.status_code).to eq(422)
 end
 
+And("there is machine readable information") do
+  schema_sections = page.find_all("script[type='application/ld+json']", visible: false)
+  schemas = schema_sections.map { |section| JSON.parse(section.text(:all)) }
+
+  org_schema = schemas.detect { |schema| schema["@type"] == "SearchResultsPage" }
+  expect(org_schema["name"]).to eq @title
+
+  tag = "link[rel='canonical']"
+  expect(page).to have_css(tag, visible: false)
+end
+
 Then(/^I can see that Google won't index the page$/) do
   tag = "meta[name='robots'][content='noindex']"
   expect(page).to have_css(tag, visible: false)
