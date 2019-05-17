@@ -62,7 +62,7 @@
                 <%= @results.displayed_total %>
               </h2>
               <div id="js-facet-tag-wrapper">
-                <%= render 'finders/facet_tags', @results.facet_tags_content %>
+                <%= render 'finders/facet_tags', facet_tags.present %>
               </div>
             </div>
 

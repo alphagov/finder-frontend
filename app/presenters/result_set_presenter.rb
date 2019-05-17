@@ -4,10 +4,7 @@ class ResultSetPresenter
 
   attr_reader :finder, :results, :pluralised_document_noun, :debug_score
 
-  delegate :filters,
-           :keywords,
-           :atom_url,
-           to: :finder
+  delegate :atom_url, to: :finder
 
   def initialize(finder, filter_params, sort_presenter, metadata_presenter_class, show_top_result = false, debug_score = false)
     @finder = finder
@@ -33,19 +30,6 @@ class ResultSetPresenter
       finder_name: finder.name,
       debug_score: debug_score,
     }
-  end
-
-  def facet_tags_content
-    {
-      applied_filters: selected_filter_descriptions,
-      screen_reader_filter_description: ScreenReaderFilterDescriptionPresenter.new(filters, sort_option).present
-    }
-  end
-
-  def selected_filter_descriptions
-    selected_filters.map { |filter|
-      FacetTagPresenter.new(filter.sentence_fragment, filter.hide_facet_tag?).present
-    }.reject(&:empty?)
   end
 
   def documents
@@ -120,10 +104,6 @@ private
       title: page_label,
       label: "#{page} of #{finder.pagination['total_pages']}",
     }
-  end
-
-  def selected_filters
-    (filters + [KeywordFacet.new(keywords)]).select(&:has_filters?)
   end
 
   def sort_option
