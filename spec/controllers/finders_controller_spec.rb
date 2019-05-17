@@ -79,38 +79,6 @@ describe FindersController, type: :controller do
         expect(response.content_type).to eq("application/json")
       end
 
-      describe "canonical links" do
-        let(:canonical_finder) do
-          finder = govuk_content_schema_example('finder').to_hash.merge(
-            'title' => 'Canonical Finder',
-            'base_path' => '/canonical-finder',
-          )
-
-          finder['details']['canonical_link'] = true
-          finder["details"]["default_documents_per_page"] = 10
-          finder["details"]["sort"] = nil
-          finder
-        end
-
-        before do
-          content_store_has_item(
-            '/canonical_finder',
-            canonical_finder
-          )
-        end
-
-        it "are not shown if the finder does not have a canonical_link field" do
-          get :show, params: { slug: "lunch-finder" }
-          expect(response.body).not_to include('<link rel="canonical"')
-        end
-
-        it "are shown if the finder has a canonical_link field" do
-          get :show, params: { slug: "canonical_finder" }
-
-          expect(response.body).to include("<link rel=\"canonical\" href=\"#{ENV['GOVUK_WEBSITE_ROOT']}/canonical-finder\">")
-        end
-      end
-
       it "returns a 406 if an invalid format is requested" do
         request.headers["Accept"] = "text/plain"
         get :show, params: { slug: "lunch-finder" }

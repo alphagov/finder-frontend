@@ -7,3 +7,6 @@
 <link rel="alternate" type="application/json" href="/api/content<%= finder.slug %>">
 
 <%= render 'govuk_publishing_components/components/meta_tags', content_item: finder.content_item %>
+<%= render 'govuk_publishing_components/components/machine_readable_metadata',
+           schema: :search_results_page,
+           content_item: finder.content_item %>
