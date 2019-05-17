@@ -56,26 +56,18 @@
   margin-top: govuk-spacing(2);
 }
 
+.signup-content p {
+  margin: govuk-spacing(3) 0;
+  @include govuk-font(19);
+
+  @include media(tablet) {
+    margin: govuk-spacing(6) 0;
+    max-width: $two-thirds;
+  }
+}
+
 #finder-frontend {
   margin-bottom: govuk-spacing(8);
-
-  .signup-content p {
-    margin: govuk-spacing(3) 0;
-    @include govuk-font(19);
-
-    @include media(tablet) {
-      margin: govuk-spacing(6) 0;
-      max-width: $two-thirds;
-    }
-  }
-
-  legend {
-    color: $govuk-text-colour;
-    margin-bottom: govuk-spacing(3);
-    @include media(tablet) {
-      margin-bottom: govuk-spacing(4);
-    }
-  }
 
   strong {
     font-weight: 600;
