@@ -240,7 +240,6 @@ RSpec.describe ResultSetPresenter do
 
   describe '#to_hash' do
     before(:each) do
-      allow(presenter).to receive(:any_filters_applied?).and_return(true)
       allow(presenter).to receive(:grouped_display?).and_return(false)
       allow(view_context).to receive(:render).and_return('<nav></nav>')
 
@@ -250,7 +249,6 @@ RSpec.describe ResultSetPresenter do
 
     it 'returns an appropriate hash' do
       expect(presenter.to_hash[:total]).to eql("#{total} cases")
-      expect(presenter.to_hash[:any_filters_applied].present?).to be_truthy
       expect(presenter.to_hash[:next_and_prev_links].present?).to be_truthy
     end
   end

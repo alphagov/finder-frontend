@@ -17,10 +17,6 @@ class AdvancedSearchResultSetPresenter < ResultSetPresenter
     end
   end
 
-  def any_filters_applied?
-    finder.taxon.present? || finder.content_purpose_subgroups.any?
-  end
-
   def subgroups_as_sentence
     "#{subgroup_facet.preposition} #{finder.content_purpose_subgroups.to_sentence.downcase}"
   end

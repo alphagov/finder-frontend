@@ -31,7 +31,6 @@ class ResultSetPresenter
   def to_hash_data
     {
       total: "#{number_with_delimiter(total)} #{pluralised_document_noun}",
-      any_filters_applied: any_filters_applied?,
       next_and_prev_links: next_and_prev_links,
       facet_tags: facet_tags_markup,
       search_results: search_results_markup,
@@ -58,10 +57,6 @@ class ResultSetPresenter
 
   def sort_options_content
     sort_presenter.to_hash
-  end
-
-  def any_filters_applied?
-    selected_filters.length.positive? || keywords.present?
   end
 
   def selected_filter_descriptions

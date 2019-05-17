@@ -7,7 +7,6 @@ describe('liveSearch', function () {
     'total': 1,
     'pluralised_document_noun': 'reports',
     'applied_filters': " \u003Cstrong\u003ECommercial - rotorcraft \u003Ca href='?format=json\u0026keywords='\u003E×\u003C/a\u003E\u003C/strong\u003E",
-    'any_filters_applied': true,
     'atom_url': 'http://an-atom-url.atom?some-query-param',
     'documents': [
       {
