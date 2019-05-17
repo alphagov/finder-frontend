@@ -6,44 +6,37 @@
 .document {
   border-bottom: solid 1px $govuk-border-colour;
   padding: govuk-spacing(3) 0;
+}
 
-  .document__link {
-    @include govuk-font(19, $weight: bold);
-    margin: 0;
-    text-decoration: none;
+.document__link {
+  @include govuk-font(19, $weight: bold);
+  margin: 0;
+  text-decoration: none;
 
-    &.document-heading--pinned {
-      @include govuk-font($size: 24, $weight: bold);
-    }
+  &.document-heading--pinned {
+    @include govuk-font($size: 24, $weight: bold);
   }
+}
 
-  dl {
-    margin: 0;
+.historic {
+  @include govuk-font(14);
+  padding: 0 0 3px;
+  color: $govuk-secondary-text-colour;
+}
 
-    dt, dd {
-      @include govuk-font(14);
-      margin-left: 0;
-    }
+.document-metadata {
+  margin: 0;
+}
 
-    dt {
-      display: none;
+.document-metadata__label,
+.document-metadata__value {
+  @include govuk-font(14);
+  display: inline-block;
+  margin-left: 0;
+}
 
-      &.metadata-label {
-        display: inline-block;
-      }
-    }
-
-    dd {
-      margin-right: govuk-spacing(2);
-      display: inline-block;
-    }
-  }
-
-  p.historic {
-    @include govuk-font(14);
-    padding: 0 0 3px;
-    color: $govuk-secondary-text-colour;
-  }
+.document-metadata__value {
+  margin-right: govuk-spacing(2);
 }
 
 .document--top {

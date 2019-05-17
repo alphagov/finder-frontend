@@ -5,26 +5,27 @@
 .feed {
   display: none;
 }
-header {
-  @include govuk-clearfix;
 
-  dt {
-    float: left;
-    clear: left;
-    width: auto;
-    min-width: 40px;
-    padding-right: 10px;
-  }
-  dd {
-    float: left;
-    width: 70%;
-  }
+header,
+.document-metadata {
+  @include govuk-clearfix;
 }
+
+.document-metadata__label {
+  display: none;
+}
+
+.document-metadata__value {
+  display: inline-block;
+  margin-left: 0;
+  margin-right: 10px;
+}
+
 .filtered-results {
   margin-top: 20px;
   clear: both;
 
-  a, dl, dd, ul, li {
+  a, dl, ul, li {
     margin: 0;
   }
   ul {
@@ -39,12 +40,5 @@ header {
   a {
     font-weight: bold;
     margin-bottom: 5px;
-  }
-  dt {
-    display: none;
-  }
-  dd {
-    margin-right: 10px;
-    display: inline-block;
   }
 }

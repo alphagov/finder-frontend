@@ -101,8 +101,8 @@ Then(/^I only see documents tagged to the taxon tree within the supergroup and s
 end
 
 Then(/^The correct metadata is displayed for the search results$/) do
-  expect(page).to have_css(".metadata-text-value", text: "Guidance")
-  expect(page).not_to have_css(".metadata-text-value", text: "Guide")
+  expect(page).to have_css(".document-metadata__value", text: "Guidance")
+  expect(page).not_to have_css(".document-metadata__value", text: "Guide")
 end
 
 And(/^the correct metadata is displayed for the dates$/) do
