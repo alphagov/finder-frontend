@@ -174,6 +174,7 @@ RSpec.describe ResultSetPresenter do
       promoted: false,
       promoted_summary: nil,
       show_metadata: false,
+      format: 'transaction',
       es_score: 0.005
     )
   end
@@ -358,6 +359,7 @@ RSpec.describe ResultSetPresenter do
           promoted: false,
           promoted_summary: nil,
           show_metadata: false,
+          format: 'transaction',
           es_score: 1000.0,
           )
       end
@@ -374,6 +376,7 @@ RSpec.describe ResultSetPresenter do
           promoted: false,
           promoted_summary: nil,
           show_metadata: false,
+          format: 'transaction',
           es_score: 100.0,
           )
       end

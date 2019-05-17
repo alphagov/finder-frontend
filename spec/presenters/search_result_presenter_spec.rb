@@ -15,6 +15,7 @@ RSpec.describe SearchResultPresenter do
       promoted: false,
       promoted_summary: 'I am a document',
       show_metadata: false,
+      format: 'cake',
       es_score: 0.005
     )
   }
@@ -40,6 +41,7 @@ RSpec.describe SearchResultPresenter do
       expect(hash[:title]).to eql(title)
       expect(hash[:link]).to eql(link)
       expect(hash[:metadata]).to eql(metadata)
+      expect(hash[:format]).to eql('cake')
       expect(hash[:es_score]).to eql(0.005)
     end
   end

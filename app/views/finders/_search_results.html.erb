@@ -22,6 +22,14 @@
               <% if result[:is_historic] %>
                 <p class="historic">First published during the <%= result[:government_name] %></p>
               <% end %>
+
+              <% if debug_score %>
+                <p class="debug-link"><%= result[:link] %></p>
+                <p class="debug-info">
+                  <span>Score: <%= result[:es_score] || "no score (sort by relevance)" %></span>
+                  <span>Format: <%= result[:format] %></span>
+                </p>
+              <% end %>
             </li>
           <% end %>
         </ul>
@@ -60,6 +68,14 @@
         <% end %>
         <% if result[:is_historic] %>
           <p class="historic">First published during the <%= result[:government_name] %></p>
+        <% end %>
+
+        <% if debug_score %>
+          <p class="debug-link"><%= result[:link] %></p>
+          <p class="debug-info">
+            <span>Score: <%= result[:es_score] || "no score (sort by relevance)" %></span>
+            <span>Format: <%= result[:format] %></span>
+          </p>
         <% end %>
       </li>
     <% end %>

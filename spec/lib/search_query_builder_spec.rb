@@ -59,7 +59,7 @@ describe SearchQueryBuilder do
   context "without any facets" do
     it "should include base return fields" do
       expect(query).to include(
-        "fields" => "title,link,description,public_timestamp,popularity,content_purpose_supergroup",
+        "fields" => "title,link,description,public_timestamp,popularity,content_purpose_supergroup,format",
       )
     end
   end
@@ -86,7 +86,7 @@ describe SearchQueryBuilder do
 
     it "should include base and extra return fields" do
       expect(query).to include(
-        "fields" => "title,link,description,public_timestamp,popularity,content_purpose_supergroup,alpha,beta",
+        "fields" => "title,link,description,public_timestamp,popularity,content_purpose_supergroup,format,alpha,beta",
       )
     end
 
@@ -103,7 +103,7 @@ describe SearchQueryBuilder do
 
       it "should use the filter value in fields" do
         expect(query).to include(
-          "fields" => "title,link,description,public_timestamp,popularity,content_purpose_supergroup,zeta,beta",
+          "fields" => "title,link,description,public_timestamp,popularity,content_purpose_supergroup,format,zeta,beta",
         )
       end
     end
@@ -319,6 +319,24 @@ describe SearchQueryBuilder do
 
         expect(query).to include("q" => "50")
       end
+    end
+  end
+
+  context "with debug parameters" do
+    let(:params) {
+      {
+        "debug" => "yes",
+      }
+    }
+
+    it "should include a debug query" do
+      expect(query).to include("debug" => "yes")
+    end
+  end
+
+  context "without debug parameters" do
+    it "should not include a debug query" do
+      expect(query).not_to include("debug")
     end
   end
 
