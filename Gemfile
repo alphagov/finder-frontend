@@ -15,6 +15,7 @@ gem 'slimmer', '~> 13.1.0'
 gem 'govuk_frontend_toolkit', '~> 8.2'
 gem 'sassc-rails', '>= 2.1.1'
 gem 'uglifier', '~> 4.1'
+gem 'yui-compressor', '~> 0.12.0'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
