@@ -78,7 +78,7 @@ RSpec.describe FinderPresenter do
       }
 
       let(:content_item) {
-        create_content_item(email_alert_signup: email_alert_signup_options)
+        create_content_item("links" => { "email_alert_signup" => [email_alert_signup_options] })
       }
 
       let(:values) do
@@ -93,6 +93,32 @@ RSpec.describe FinderPresenter do
 
       it "returns the finder URL appended with permitted query params" do
         expect(subject.email_alert_signup_url).to eql("/mosw-reports/email-signup?place_of_origin%5B%5D=england")
+      end
+    end
+  end
+
+  describe "#phase_message" do
+    let(:message) { "Text with link <a href='https://gov.uk'>GOV.UK</a>" }
+
+    context "phase is not set" do
+      it "returns an empty string" do
+        expect(subject.phase_message).to eql ""
+      end
+    end
+
+    context "alpha message is set" do
+      let(:content_item) { create_content_item("details" => { "alpha_message" => message }) }
+      it "returns html_safe alpha message " do
+        expect(subject.phase_message).to eql message
+        expect(subject.phase_message.html_safe?).to be true
+      end
+    end
+
+    context "beta message is set" do
+      let(:content_item) { create_content_item("phase" => 'beta', "details" => { "beta_message" => message }) }
+      it "returns html_safe beta message" do
+        expect(subject.phase_message).to eql message
+        expect(subject.phase_message.html_safe?).to be true
       end
     end
   end
@@ -191,16 +217,18 @@ RSpec.describe FinderPresenter do
 
       let(:content_item) {
         create_content_item(
-          facets: [
-            taxon_facet_hash,
-            checkbox_facet_hash,
-            radio_facet_hash,
-            date_facet_hash,
-            option_select_facet_hash,
-            hidden_facet_hash,
-            hidden_clearable_facet_hash
-          ],
-          sort_options: sort_without_relevance
+          "details" => {
+            "facets" => [
+              taxon_facet_hash,
+              checkbox_facet_hash,
+              radio_facet_hash,
+              date_facet_hash,
+              option_select_facet_hash,
+              hidden_facet_hash,
+              hidden_clearable_facet_hash
+            ],
+            "sort" => sort_without_relevance
+          }
         )
       }
 
@@ -234,7 +262,7 @@ RSpec.describe FinderPresenter do
 
   describe "#atom_feed_enabled?" do
     context "with no sort options and no default sort" do
-      let(:content_item) { create_content_item(sort_options: nil) }
+      let(:content_item) { create_content_item(details: { sort: nil }) }
       it "is true" do
         expect(subject.atom_feed_enabled?).to be true
       end
@@ -254,7 +282,7 @@ RSpec.describe FinderPresenter do
 
     context "with sort options but no default order" do
       let(:content_item) {
-        create_content_item(sort_options: sort_options_with_relevance)
+        create_content_item(details: { sort: sort_options_with_relevance })
       }
       it "is true" do
         expect(subject.atom_feed_enabled?).to be true
@@ -263,7 +291,7 @@ RSpec.describe FinderPresenter do
 
     context "with no sort options but a changeable default order" do
       let(:content_item) {
-        create_content_item(sort_options: nil, default_order: "relevance")
+        create_content_item(details: { sort: nil, default_order: "relevance" })
       }
       it "is false" do
         expect(subject.atom_feed_enabled?).to be false
@@ -272,7 +300,7 @@ RSpec.describe FinderPresenter do
 
     context "with no sort options but a default order of most recent first" do
       let(:content_item) {
-        create_content_item(sort_options: nil, default_order: "-public_timestamp")
+        create_content_item(details: { sort: nil, default_order: "-public_timestamp" })
       }
       it "is true" do
         expect(subject.atom_feed_enabled?).to be true
@@ -301,7 +329,7 @@ RSpec.describe FinderPresenter do
       ]
     }
     let(:content_item) {
-      create_content_item(facets: facets)
+      create_content_item("details" => { "facets" => facets })
     }
 
     describe '#facet_details_lookup' do
@@ -331,7 +359,7 @@ RSpec.describe FinderPresenter do
       end
 
       context 'when a facet contains a short_name attribute' do
-        let(:content_item) { create_content_item(facets: more_facets) }
+        let(:content_item) { create_content_item("details" => { "facets" => more_facets }) }
         let(:more_facets) do
           facets <<
             {
@@ -397,6 +425,9 @@ RSpec.describe FinderPresenter do
 
   describe "#document_noun" do
     context "when is nil in content_item" do
+      let(:content_item) {
+        create_content_item("details" => { "document_noun" => nil })
+      }
       it "should return a string" do
         expect(subject.document_noun).to eq("")
       end
@@ -404,7 +435,7 @@ RSpec.describe FinderPresenter do
 
     context "when is set in content_item" do
       let(:content_item) {
-        create_content_item(document_noun: "publication")
+        create_content_item("details" => { "document_noun" => "publication" })
       }
 
       it "should return the content item string" do
@@ -415,14 +446,8 @@ RSpec.describe FinderPresenter do
 
 private
 
-  def create_content_item(sort_options: nil, email_alert_signup: nil, default_order: nil, facets: nil, content_id: nil, document_noun: nil)
-    finder_example = govuk_content_schema_example('finder')
-    finder_example['details']['sort'] = sort_options
-    finder_example['details']['facets'] = facets if facets
-    finder_example['links']['email_alert_signup'] = [email_alert_signup] if email_alert_signup
-    finder_example['details']['default_order'] = default_order if default_order
-    finder_example['content_id'] = content_id if content_id
-    finder_example['details']['document_noun'] = document_noun
+  def create_content_item(options = {})
+    finder_example = govuk_content_schema_example('finder').merge(options)
 
     dummy_http_response = double(
       "net http response",

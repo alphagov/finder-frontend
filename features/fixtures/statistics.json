@@ -9,7 +9,7 @@
   "government_document_supertype":"other",
   "locale":"en",
   "navigation_document_supertype":"other",
-  "phase":"alpha",
+  "phase":"beta",
   "public_updated_at":"2019-01-15T14:47:48.000+00:00",
   "publishing_app":"finder-frontend",
   "rendering_app":"finder-frontend",
@@ -40,6 +40,7 @@
   },
   "description":"Find statistics from government",
   "details":{
+    "beta_message": "This is in beta. Please take our <a href='https://www.gov.uk'>survey</a>.",
     "document_noun":"result",
     "filter":{},
     "format_name":"statistic",

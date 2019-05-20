@@ -64,6 +64,7 @@ private
   FINDERS_IN_DEVELOPMENT = {
     "/review-search/all" => 'all_content',
     "/review-search/news-and-communications" => 'news_and_communications',
+    "/review-search/research-and-statistics" => 'statistics',
   }.freeze
 
   def development_env_finder_json
