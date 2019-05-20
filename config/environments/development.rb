@@ -22,8 +22,6 @@ FinderFrontend::Application.configure do
   # number of complex assets.
   config.assets.debug = false
 
-  config.assets.css_compressor = nil
-
   if ENV['GOVUK_ASSET_ROOT'].present?
     config.asset_host = ENV['GOVUK_ASSET_ROOT']
   end
