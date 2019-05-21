@@ -314,7 +314,7 @@ describe('An option select component', function () {
 
       var containerHeight = $('.js-options-container').height()
       expect(containerHeight).toBeGreaterThan(200)
-      expect(containerHeight).toBeLessThan(500)
+      expect(containerHeight).toBeLessThan(550)
     })
   })
 
