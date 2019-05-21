@@ -2,41 +2,24 @@ class ResultSetPresenter
   include ERB::Util
   include ActionView::Helpers::NumberHelper
 
-  attr_reader :finder, :results, :total, :pluralised_document_noun, :debug_score
+  attr_reader :finder, :results, :pluralised_document_noun, :debug_score
 
-  delegate :filters,
-           :keywords,
-           :atom_url,
-           to: :finder
+  delegate :atom_url, to: :finder
 
-  def initialize(finder, filter_params, view_context, sort_presenter, metadata_presenter_class, show_top_result = false, debug_score = false)
+  def initialize(finder, filter_params, sort_presenter, metadata_presenter_class, show_top_result = false, debug_score = false)
     @finder = finder
     @results = finder.results.documents
     @total = finder.results.total
     @pluralised_document_noun = finder.document_noun.pluralize(total)
     @filter_params = filter_params
-    @view_context = view_context
     @sort_presenter = sort_presenter
     @show_top_result = show_top_result
     @metadata_presenter_class = metadata_presenter_class
     @debug_score = debug_score
   end
 
-  def to_hash
-    @to_hash ||= begin
-      to_hash_data
-    end
-  end
-
-  def to_hash_data
-    {
-      total: "#{number_with_delimiter(total)} #{pluralised_document_noun}",
-      any_filters_applied: any_filters_applied?,
-      next_and_prev_links: next_and_prev_links,
-      facet_tags: facet_tags_markup,
-      search_results: search_results_markup,
-      sort_options_markup: sort_options_markup,
-    }
+  def displayed_total
+    "#{number_with_delimiter(total)} #{pluralised_document_noun}"
   end
 
   def search_results_content
@@ -47,27 +30,6 @@ class ResultSetPresenter
       finder_name: finder.name,
       debug_score: debug_score,
     }
-  end
-
-  def facet_tags_content
-    {
-      applied_filters: selected_filter_descriptions,
-      screen_reader_filter_description: ScreenReaderFilterDescriptionPresenter.new(filters, sort_option).present
-    }
-  end
-
-  def sort_options_content
-    sort_presenter.to_hash
-  end
-
-  def any_filters_applied?
-    selected_filters.length.positive? || keywords.present?
-  end
-
-  def selected_filter_descriptions
-    selected_filters.map { |filter|
-      FacetTagPresenter.new(filter.sentence_fragment, filter.hide_facet_tag?).present
-    }.reject(&:empty?)
   end
 
   def documents
@@ -114,24 +76,12 @@ class ResultSetPresenter
     pages[:previous_page] = build_page_link("Previous page", previous_page) if previous_page
     pages[:next_page] = build_page_link("Next page", next_page) if next_page
 
-    (view_context.render(formats: %w[html], partial: 'govuk_publishing_components/components/previous_and_next_navigation', locals: pages) || "").squish.html_safe
+    pages
   end
 
 private
 
-  attr_reader :view_context, :metadata_presenter_class, :sort_presenter
-
-  def search_results_markup
-    ApplicationController.render(partial: "finders/search_results", locals: search_results_content).squish
-  end
-
-  def facet_tags_markup
-    ApplicationController.render(partial: "finders/facet_tags", locals: facet_tags_content).squish
-  end
-
-  def sort_options_markup
-    ApplicationController.render(partial: "finders/sort_options", locals: sort_options_content).squish
-  end
+  attr_reader :metadata_presenter_class, :sort_presenter, :total
 
   def highlight_top_result?
     @show_top_result &&
@@ -154,10 +104,6 @@ private
       title: page_label,
       label: "#{page} of #{finder.pagination['total_pages']}",
     }
-  end
-
-  def selected_filters
-    (filters + [KeywordFacet.new(keywords)]).select(&:has_filters?)
   end
 
   def sort_option

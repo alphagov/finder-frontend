@@ -1,7 +1,10 @@
 require 'spec_helper'
+require_relative './helpers/facets_helper'
 
 RSpec.describe ResultSetPresenter do
-  subject(:presenter) { ResultSetPresenter.new(finder, filter_params, view_context, sort_presenter, metadata_presenter_class) }
+  include FacetsHelper
+
+  subject(:presenter) { ResultSetPresenter.new(finder, filter_params, sort_presenter, metadata_presenter_class) }
   let(:metadata_presenter_class) do
     MetadataPresenter
   end
@@ -46,104 +49,10 @@ RSpec.describe ResultSetPresenter do
 
   let(:filter_params) { { keywords: 'test' } }
 
-  let(:view_context) { double(:view_context) }
-
-  let(:a_facet) do
-    double(
-      OptionSelectFacet,
-      key: 'key_1',
-      selected_values: [
-      {
-        'value' => 'ca98-and-civil-cartels',
-        'label' => 'CA98 and civil cartels'
-      },
-      {
-        'value' => 'mergers',
-        'label' => 'Mergers'
-      },
-    ],
-      allowed_values: [
-      {
-        'value' => 'ca98-and-civil-cartels',
-        'label' => 'CA98 and civil cartels'
-      },
-      {
-        'value' => 'mergers',
-        'label' => 'Mergers'
-      },
-    ],
-      sentence_fragment: {
-      'key' => 'key_1',
-      'type' => 'text',
-      'preposition' => 'Of Type',
-      'values' => [
-        {
-          'label' => 'CA98 and civil cartels',
-        },
-        {
-          'label' => 'Mergers',
-        },
-      ],
-      'word_connectors' => { words_connector: 'or' }
-    },
-      has_filters?: true,
-      labels: %W(ca98-and-civil-cartels mergers),
-      value: %W(ca98-and-civil-cartels mergers),
-      hide_facet_tag?: false
-    )
-  end
-
   let(:a_facet_collection) do
     double(
       FacetCollection,
       filters: [a_facet, another_facet, a_date_facet]
-    )
-  end
-
-  let(:another_facet) do
-    double(
-      OptionSelectFacet,
-      key: 'key_2',
-      preposition: 'About',
-      selected_values: [
-      {
-        'value' => 'farming',
-        'label' => 'Farming'
-      },
-      {
-        'value' => 'chemicals',
-        'label' => 'Chemicals'
-      },
-    ],
-      sentence_fragment: {
-      'key' => 'key_2',
-      'type' => 'text',
-      'preposition' => 'About',
-      'values' => [
-        {
-          'label' => 'Farming',
-        },
-        {
-          'label' => 'Chemicals',
-        },
-      ],
-      'word_connectors' => { words_connector: 'or' }
-    },
-      has_filters?: true,
-      value: %w[farming chemicals],
-      'word_connectors' => { words_connector: 'or' },
-      hide_facet_tag?: false
-    )
-  end
-
-  let(:a_date_facet) do
-    double(
-      OptionSelectFacet,
-      'key' => 'closed_date',
-      sentence_fragment: nil,
-      has_filters?: false,
-      'word_connectors' => { words_connector: 'or' },
-      hide_facet_tag?: false
     )
   end
 
@@ -202,109 +111,13 @@ RSpec.describe ResultSetPresenter do
     )
   end
 
-  let(:a_facet_without_facet_tags) do
-    double(
-      RadioFacet,
-      key: 'key_3',
-      preposition: 'that are',
-      allowed_values: [
-      {
-        'value' => 'statistics_published',
-        'label' => 'Statistics (published)',
-        'default' => true
-      },
-      {
-        'value' => 'statistics_upcoming',
-        'label' => 'Statistics (upcoming)'
-      },
-      {
-        'value' => 'research',
-        'label' => 'Research'
-      },
-    ],
-      has_filters?: true,
-      hide_facet_tag?: true,
-      value: "something",
-      sort: [
-      {
-        'value' => 'most-viewed',
-        'name' => 'Most viewed'
-      }
-    ]
-    )
-  end
-
   before(:each) do
     allow(finder).to receive(:eu_exit_finder?).and_return(false)
   end
 
-  describe '#to_hash' do
-    before(:each) do
-      allow(presenter).to receive(:any_filters_applied?).and_return(true)
-      allow(presenter).to receive(:grouped_display?).and_return(false)
-      allow(view_context).to receive(:render).and_return('<nav></nav>')
-
-      allow(finder).to receive(:atom_url).and_return("/finder.atom")
-      allow(finder).to receive(:email_alert_signup_url).and_return("/email_signup")
-    end
-
-    it 'returns an appropriate hash' do
-      expect(presenter.to_hash[:total]).to eql("#{total} cases")
-      expect(presenter.to_hash[:any_filters_applied].present?).to be_truthy
-      expect(presenter.to_hash[:next_and_prev_links].present?).to be_truthy
-    end
-  end
-
-  describe '#selected_filter_descriptions' do
-    before(:each) do
-      allow(presenter).to receive(:link_without_facet_value)
-      allow(finder).to receive(:filters).and_return([a_facet, another_facet, a_date_facet])
-    end
-
-    it 'includes prepositions for each facet' do
-      applied_filters = presenter.selected_filter_descriptions.flat_map { |filter| filter }
-      prepositions = applied_filters.flat_map { |filter| filter[:preposition] }.reject { |preposition| preposition == "or" }
-
-      finder.filters.reject { |filter| filter.sentence_fragment.nil? }.each do |fragment|
-        expect(prepositions).to include(fragment.sentence_fragment['preposition'])
-      end
-    end
-
-    context 'when keywords have been searched for' do
-      let(:keywords) { "my search term" }
-
-      it 'includes the keywords' do
-        applied_filters = presenter.selected_filter_descriptions.flat_map { |filter| filter }
-        text_values = applied_filters.flat_map { |filter| filter[:text] }
-
-        expect(text_values).to include("my", "search", "term")
-      end
-    end
-
-    context 'when XSS attack keywords have been searched for' do
-      let(:keywords) { '<script>alert("hello")</script>' }
-
-      it 'escapes keywords appropriately' do
-        applied_filters = presenter.selected_filter_descriptions.flat_map { |filter| filter }
-        text_values = applied_filters.flat_map { |filter| filter[:text] }
-
-        expect(["script", "alert", "&quot;hello&quot;"].any? { |word| text_values.join(" ").include?(word) })
-      end
-    end
-  end
-
-  describe '#facet_values_sentence' do
-    before(:each) do
-      allow(finder).to receive(:filters).and_return([a_facet, another_facet, a_date_facet])
-    end
-
-    let(:applied_filters) { presenter.selected_filter_descriptions.flat_map { |filter| filter } }
-
-    it 'returns an array of hashes that can be used to construct facet tags' do
-      text_values = applied_filters.flat_map { |filter| filter[:text] }
-      finder.facets.filters.flat_map { |filter| filter.sentence_fragment.nil? ? nil : filter.sentence_fragment['values'] }.compact.each do |value|
-        expect(text_values).to include(value['label'])
-      end
+  describe "#displayed_total" do
+    it 'combines total with document noun' do
+      expect(presenter.displayed_total).to eql("#{total} cases")
     end
   end
 
@@ -339,7 +152,7 @@ RSpec.describe ResultSetPresenter do
     end
 
     context 'check top result' do
-      subject(:presenter) { ResultSetPresenter.new(finder, filter_params, view_context, sort_presenter, metadata_presenter_class, true) }
+      subject(:presenter) { ResultSetPresenter.new(finder, filter_params, sort_presenter, metadata_presenter_class, true) }
 
       before(:each) do
         allow(finder).to receive(:eu_exit_finder?).and_return(true)
@@ -411,7 +224,7 @@ RSpec.describe ResultSetPresenter do
       end
 
       context 'top result not set if show top result is false' do
-        subject(:presenter) { ResultSetPresenter.new(finder, filter_params, view_context, sort_presenter, metadata_presenter_class, false) }
+        subject(:presenter) { ResultSetPresenter.new(finder, filter_params, sort_presenter, metadata_presenter_class, false) }
 
         it 'has no top result' do
           search_result_objects = presenter.documents

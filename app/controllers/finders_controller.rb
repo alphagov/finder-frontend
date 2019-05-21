@@ -17,22 +17,21 @@ class FindersController < ApplicationController
         @raw_content_item = content_item.as_hash
         @breadcrumbs = fetch_breadcrumbs
         @parent = parent
+        @sort_presenter = sort_presenter
       end
       format.json do
         if content_item.is_search? || content_item.is_finder?
-          render json: results
+          render json: json_response
         else
           render json: {}, status: :not_found
         end
       end
       format.atom do
         if content_item.is_redirect?
-          @redirect = content_item.as_hash.dig('redirects', 0, 'destination')
-          @finder_slug = finder_slug
-          render 'finders/show-redirect'
+          redirect_to_destination
         elsif finder.atom_feed_enabled?
           expires_in(ATOM_FEED_MAX_AGE, public: true)
-          @feed = AtomPresenter.new(finder, results)
+          @feed = AtomPresenter.new(finder, results, facet_tags)
         else
           render plain: 'Not found', status: :not_found
         end
@@ -44,13 +43,40 @@ class FindersController < ApplicationController
 
 private
 
+  helper_method :finder, :facet_tags
+
+  def redirect_to_destination
+    @redirect = content_item.as_hash.dig('redirects', 0, 'destination')
+    @finder_slug = finder_slug
+    render 'finders/show-redirect'
+  end
+
+  def json_response
+    {
+      total: results.displayed_total,
+      facet_tags: render_component("facet_tags", facet_tags.present),
+      search_results: render_component("finders/search_results", results.search_results_content),
+      sort_options_markup: render_component("finders/sort_options", sort_presenter.to_hash),
+      next_and_prev_links: render_component("govuk_publishing_components/components/previous_and_next_navigation", results.next_and_prev_links),
+    }
+  end
+
+  def render_component(partial, locals)
+    (render_to_string(formats: %w[html], partial: partial, locals: locals) || "").squish
+  end
+
   def content_item
     @content_item ||= ContentItem.new(finder_base_path)
   end
 
   def results
     @results ||= result_set_presenter_class.new(
-      finder, filter_params, view_context, sort_presenter, content_item.metadata_class, show_top_result?, debug_score?
+      finder,
+      filter_params,
+      sort_presenter,
+      content_item.metadata_class,
+      show_top_result?,
+      debug_score?,
     )
   end
 
@@ -62,7 +88,6 @@ private
       filter_params,
     )
   end
-  helper_method :finder
 
   def finder_api
     @finder_api ||= finder_api_class.new(content_item.as_hash, filter_params)
@@ -102,6 +127,10 @@ private
 
   def parent
     params.fetch(:parent, '')
+  end
+
+  def facet_tags
+    @facet_tags ||= FacetTagsPresenter.new(finder, sort_presenter)
   end
 
   def grouped_display?

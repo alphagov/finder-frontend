@@ -1,7 +1,8 @@
 class AtomPresenter
-  def initialize(finder, results)
+  def initialize(finder, results, facet_tags)
     @finder = finder
     @results = results
+    @filter_descriptions = facet_tags.selected_filter_descriptions
   end
 
   def title
@@ -11,7 +12,7 @@ class AtomPresenter
   end
 
   def filters_applied
-    @filters_applied ||= results.selected_filter_descriptions.map { |filters|
+    @filters_applied ||= filter_descriptions.map { |filters|
       filters.map { |filter| "#{filter[:preposition].downcase} #{filter[:text]}" }
     }.flatten
   end
@@ -28,5 +29,5 @@ class AtomPresenter
 
 private
 
-  attr_reader :finder, :results
+  attr_reader :finder, :results, :filter_descriptions
 end
