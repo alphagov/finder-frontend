@@ -8,7 +8,7 @@ gem 'gds-api-adapters', '~> 59.2'
 gem 'govuk_ab_testing', '~> 2.4.1'
 gem 'govuk_app_config', '~> 1.16.1'
 gem 'govuk_document_types', '~> 0.9.0'
-gem 'govuk_publishing_components', '~> 16.20.0'
+gem 'govuk_publishing_components', '~> 16.22.0'
 gem 'rails', '~> 5.2.3'
 gem 'slimmer', '~> 13.1.0'
 
