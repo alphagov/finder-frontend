@@ -4,7 +4,7 @@ RSpec.describe Registries::ManualsRegistry do
   let(:slug) { '/guidance/care-and-use-of-a-nimbus-2000' }
   let(:rummager_params) {
     {
-      filter_document_type: 'manual',
+      filter_document_type: %w(manual service_manual_homepage service_manual_guide),
       fields: %w(title),
       count: 1500
     }
@@ -29,6 +29,11 @@ RSpec.describe Registries::ManualsRegistry do
               'slug' => slug
            }
        )
+    end
+
+    it "will fetch the correct types of document" do
+      described_class.new[slug]
+      assert_requested :get, rummager_url
     end
   end
 
