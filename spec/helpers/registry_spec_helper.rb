@@ -88,7 +88,7 @@ module RegistrySpecHelper
   def stub_manuals_registry_request
     stub_request(:get, "http://search.dev.gov.uk/search.json")
       .with(query: {
-          filter_document_type: 'manual',
+          filter_document_type: %w(manual service_manual_homepage service_manual_guide),
           fields: %w(title),
           count: 1500,
       })

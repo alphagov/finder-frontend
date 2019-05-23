@@ -33,7 +33,7 @@ module Registries
 
     def fetch_manuals_from_rummager
       params = {
-          filter_document_type: 'manual',
+          filter_document_type: %w(manual service_manual_homepage service_manual_guide),
           fields: %w(title),
           count: 1500,
       }
