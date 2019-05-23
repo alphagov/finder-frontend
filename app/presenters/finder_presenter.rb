@@ -21,7 +21,9 @@ class FinderPresenter
   end
 
   def phase_message
-    content_item['details']['beta_message'] || content_item['details']['alpha_message']
+    message = content_item['details']['beta_message'] || content_item['details']['alpha_message'] || ""
+
+    message.html_safe
   end
 
   def phase
