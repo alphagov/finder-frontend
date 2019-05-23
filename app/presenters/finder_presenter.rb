@@ -56,20 +56,6 @@ class FinderPresenter
     content_item['details']['summary']
   end
 
-  def pagination
-    documents_per_page = content_item['details']['default_documents_per_page']
-
-    return nil unless documents_per_page
-
-    start_offset = search_results['start']
-    total_results = search_results['total']
-
-    {
-      'current_page' => (start_offset / documents_per_page) + 1,
-      'total_pages' => (total_results / documents_per_page.to_f).ceil,
-    }
-  end
-
   def email_alert_signup
     if content_item['links']['email_alert_signup']
       content_item['links']['email_alert_signup'].first

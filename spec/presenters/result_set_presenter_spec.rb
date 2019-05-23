@@ -21,7 +21,6 @@ RSpec.describe ResultSetPresenter do
       keywords: keywords,
       default_documents_per_page: 10,
       values: {},
-      pagination: pagination,
       sort: [
         {
           "name" => "Most viewed",
@@ -44,8 +43,6 @@ RSpec.describe ResultSetPresenter do
       filters: a_facet_collection.filters
     )
   end
-
-  let(:pagination) { { 'current_page' => 1, 'total_pages' => 2 } }
 
   let(:filter_params) { { keywords: 'test' } }
 

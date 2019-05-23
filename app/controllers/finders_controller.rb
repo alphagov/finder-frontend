@@ -18,6 +18,7 @@ class FindersController < ApplicationController
         @breadcrumbs = fetch_breadcrumbs
         @parent = parent
         @sort_presenter = sort_presenter
+        @pagination = pagination_presenter
       end
       format.json do
         if content_item.is_search? || content_item.is_finder?
@@ -57,7 +58,7 @@ private
       facet_tags: render_component("facet_tags", facet_tags.present),
       search_results: render_component("finders/search_results", results.search_results_content),
       sort_options_markup: render_component("finders/sort_options", sort_presenter.to_hash),
-      next_and_prev_links: render_component("govuk_publishing_components/components/previous_and_next_navigation", results.next_and_prev_links),
+      next_and_prev_links: render_component("govuk_publishing_components/components/previous_and_next_navigation", pagination_presenter.next_and_prev_links),
     }
   end
 
@@ -83,7 +84,7 @@ private
   def finder
     @finder ||= finder_presenter_class.new(
       raw_finder,
-      finder_api.search_results,
+      search_results,
       sort_presenter,
       filter_params,
     )
@@ -123,6 +124,23 @@ private
 
   def org_registry
     @org_registry ||= Registries::OrganisationsRegistry.new
+  end
+
+  def pagination_presenter
+    PaginationPresenter.new(
+      per_page: content_item.default_documents_per_page,
+      start_offset: search_results.dig('start'),
+      total_results: search_results.dig('total'),
+      url_builder: finder_url_builder,
+    )
+  end
+
+  def search_results
+    finder_api.search_results
+  end
+
+  def finder_url_builder
+    UrlBuilder.new(content_item.base_path, filter_params)
   end
 
   def parent

@@ -17,8 +17,6 @@ RSpec.describe GroupedResultSetPresenter do
     metadata_presenter_class.new(metadata).present
   end
 
-  let(:pagination) { { 'current_page' => 1, 'total_pages' => 2 } }
-
   let(:filter_params) { { keywords: 'test' } }
 
   let(:finder) do
@@ -35,7 +33,6 @@ RSpec.describe GroupedResultSetPresenter do
       atom_url: "/a-finder.atom",
       default_documents_per_page: 10,
       values: {},
-      pagination: pagination,
       sort: {},
       filters: facet_filters
     )
