@@ -54,7 +54,8 @@ private
     {
       title: page_label,
       label: "#{page} of #{total_pages}",
-      url: url_builder.url(page: page),
+      # FIXME - This is horrible. Fix this properly when Bill is back from holiday.
+      url: url_builder.url(page: page).sub('advanced.json', 'advanced'),
     }
   end
 end
