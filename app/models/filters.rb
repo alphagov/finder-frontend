@@ -26,4 +26,33 @@ module Filters
       }
     ]
   end
+
+  def self.official_documents_filters
+    [
+      {
+        'key' => 'command_or_act_papers',
+        'label' => 'Command or act papers',
+        'filter' => {
+          'has_official_document' => true
+        },
+          'default' => true
+      },
+      {
+        'key' => 'command_papers',
+        'label' => 'Command papers only',
+        'filter' => {
+          'has_command_paper' => true,
+          'has_act_paper' => false
+        }
+      },
+      {
+        'key' => 'act_papers',
+        'label' => 'Act papers only',
+        'filter' => {
+          'has_act_paper' => true,
+          'has_command_paper' => false
+        }
+      }
+    ]
+  end
 end

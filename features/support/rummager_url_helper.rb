@@ -125,6 +125,19 @@ module RummagerUrlHelper
     )
   end
 
+  def official_documents_search_fields
+    base_search_fields + %w(
+      release_timestamp
+      command_papers
+      act_papers
+      command_or_act_papers
+      display_type
+      document_collections
+      part_of_taxonomy_tree
+      organisations
+    )
+  end
+
   def all_content_search_fields
     base_search_fields + %w(
       part_of_taxonomy_tree
