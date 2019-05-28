@@ -94,21 +94,6 @@
       @include govuk-font(19);
     }
 
-    .email-link {
-      margin-bottom: govuk-spacing(6);
-
-      a {
-        @include govuk-font(19, $weight: bold);
-        text-decoration:none;
-        background: image-url('mail-icon.png') 0 40% no-repeat;
-        @include device-pixel-ratio(2.0) {
-          background-image: image-url('mail-icon-retina.png');
-          background-size: govuk-spacing(4) 14px;
-        }
-        padding-left: govuk-spacing(6);
-      }
-    }
-
     .logo {
       margin: govuk-spacing(6) 0;
     }
