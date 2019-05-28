@@ -66,15 +66,15 @@
   }
 }
 
+.metadata-summary {
+  @include govuk-font(19);
+  margin-bottom: govuk-spacing(6);
+}
+
 #finder-frontend {
   margin-bottom: govuk-spacing(8);
 
   header {
-    .summary {
-      margin-bottom: govuk-spacing(6);
-      @include govuk-font(19);
-    }
-
     .logo {
       margin: govuk-spacing(6) 0;
     }
