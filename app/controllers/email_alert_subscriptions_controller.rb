@@ -68,6 +68,7 @@ private
       finder_format: finder_format,
       subscriber_list_title: subscriber_list_title,
       default_frequency: signup_presenter.default_frequency,
+      combine_mode: signup_presenter.combine_mode,
     )
   end
 

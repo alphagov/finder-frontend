@@ -30,6 +30,10 @@ class SignupPresenter
     content_item['details']['beta']
   end
 
+  def combine_mode
+    content_item['details'].fetch('combine_mode', nil)
+  end
+
   def can_modify_choices?
     choices? && choices_formatted.any?
   end
