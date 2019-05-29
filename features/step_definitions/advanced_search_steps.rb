@@ -48,7 +48,7 @@ Given(/^a collection of tagged documents(.*?)$/) do |categorisation|
     body: {
       results: [
         results: @results,
-        total: 2,
+        total: 200,
         start: 0,
         facets: {},
         suggested_queries: []
@@ -86,7 +86,7 @@ Then(/^I only see documents tagged to the taxon tree within the supergroup$/) do
   @results.each do |result|
     expect(page).to have_title("News and communications - GOV.UK")
     expect(page).to have_link("Taxon", href: "/taxon")
-    expect(page).to have_text("2 results")
+    expect(page).to have_text("200 results")
     expect(page).to have_link(result["title_with_highlighting"], href: result["link"])
   end
 end
@@ -95,7 +95,7 @@ Then(/^I only see documents tagged to the taxon tree within the supergroup and s
   @results.each do |result|
     expect(page).to have_title("News and communications - GOV.UK")
     expect(page).to have_link("Taxon", href: "/taxon")
-    expect(page).to have_text("2 results")
+    expect(page).to have_text("200 results")
     expect(page).to have_link(result["title_with_highlighting"], href: result["link"])
   end
 end
@@ -107,7 +107,7 @@ end
 
 And(/^the correct metadata is displayed for the dates$/) do
   within(".result-info") do
-    expect(page).to have_content("2 results")
+    expect(page).to have_content("200 results")
     expect(page).to have_content("1 January 2005")
     expect(page).to have_content("1 January 2025")
   end
@@ -115,4 +115,16 @@ end
 
 Then(/^The page is not found$/) do
   expect(page.status_code).to eq(404)
+end
+
+And(/^I enter a search query$/) do
+  within '#keywords' do
+    fill_in("Search", with: "harry potter")
+  end
+end
+
+Then(/^the pagination links have been updated correctly$/) do
+  within("#js-pagination") do
+    expect(page).to have_link("Next page", href: "/search/advanced?group=news_and_communications&page=2&topic=%2Ftaxon")
+  end
 end

@@ -15,6 +15,13 @@ Feature: Advanced Search
     Then I only see documents tagged to the taxon tree within the supergroup
     And The correct metadata is displayed for the search results
 
+  @javascript
+  Scenario: Permits pagination
+    Given a collection of tagged documents in supergroup 'news_and_communications'
+    When I filter by taxon and by supergroup
+    And I enter a search query
+    Then the pagination links have been updated correctly
+
   Scenario: Filters documents by taxon, supergroup and dates
     Given a collection of tagged documents with dates in supergroup 'news_and_communications'
     When I filter by taxon, supergroup and dates

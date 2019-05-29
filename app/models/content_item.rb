@@ -1,8 +1,6 @@
 class ContentItem
-  attr_reader :base_path
-
-  def initialize(base_path)
-    @base_path = base_path
+  def initialize(request_path)
+    @request_path = request_path
     @content_item = fetch_content_item
   end
 
@@ -38,9 +36,13 @@ class ContentItem
     content_item.dig('details', 'default_documents_per_page')
   end
 
+  def base_path
+    content_item.dig('base_path')
+  end
+
 private
 
-  attr_reader :content_item
+  attr_reader :content_item, :request_path
 
   def is_research_and_statistics?
     base_path == '/search/research-and-statistics'
@@ -54,7 +56,7 @@ private
     if development_env_finder_json
       JSON.parse(File.read(development_env_finder_json))
     else
-      Services.cached_content_item(base_path)
+      Services.cached_content_item(request_path)
     end
   end
 
@@ -80,10 +82,10 @@ private
   end
 
   def development_json
-    "features/fixtures/#{FINDERS_IN_DEVELOPMENT[base_path]}.json"
+    "features/fixtures/#{FINDERS_IN_DEVELOPMENT[request_path]}.json"
   end
 
   def is_development_json?
-    base_path.present? && FINDERS_IN_DEVELOPMENT[base_path].present?
+    request_path.present? && FINDERS_IN_DEVELOPMENT[request_path].present?
   end
 end
