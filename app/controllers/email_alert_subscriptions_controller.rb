@@ -19,7 +19,8 @@ class EmailAlertSubscriptionsController < ApplicationController
 private
 
   def content
-    @content ||= fetch_content_item(request.path)
+    JSON.parse(File.read("features/fixtures/business_readiness_email_signup.json"))
+    # @content ||= fetch_content_item(request.path)
   end
 
   def finder_content_item
@@ -75,7 +76,8 @@ private
     EmailAlertTitleBuilder.call(
       filter: applied_filters,
       subscription_list_title_prefix: content.dig('details', 'subscription_list_title_prefix'),
-      facets: signup_presenter.choices
+      facets: signup_presenter.choices,
+      join_facets_with: signup_presenter.join_facets_with
     )
   end
 

@@ -3,10 +3,11 @@ class EmailAlertTitleBuilder
     new(*args).call
   end
 
-  def initialize(filter:, subscription_list_title_prefix:, facets:)
+  def initialize(filter:, subscription_list_title_prefix:, facets:, join_facets_with:)
     @filter = filter
     @subscription_list_title_prefix = subscription_list_title_prefix
     @facets = facets
+    @join_facets_with = join_facets_with
   end
 
   def call
