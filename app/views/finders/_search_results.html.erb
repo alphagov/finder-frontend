@@ -49,23 +49,35 @@
             data-track-label='<%= result[:link] %>'
             data-track-options='{"dimension28":"<%= page_count %>","dimension29":"<%= result[:title] %>"}'
         ><%= result[:title] %></a>
+
         <% if result[:summary] %>
           <p><%= result[:summary] %></p>
         <% end %>
+
         <% if result[:show_metadata] %>
-          <dl class="metadata-wrapper">
+          <dl class="document-metadata">
             <% result[:metadata].each do |metadata| %>
               <% if metadata[:is_text] %>
-                <dt class="metadata-label<%= ' govuk-visually-hidden' if metadata[:hide_label] %>"><%= metadata[:label] %>:</dt>
-                <dd class='metadata-text-value'><%= metadata[:value] %></dd>
+                <dt class="document-metadata__label<%= ' govuk-visually-hidden' if metadata[:hide_label] %>">
+                  <%= metadata[:label] %>:
+                </dt>
+                <dd class='document-metadata__value'>
+                  <%= metadata[:value] %>
+                </dd>
               <% end %>
+
               <% if metadata[:is_date] %>
-                <dt class="metadata-label<%= ' govuk-visually-hidden' if metadata[:hide_label] %>"><%= metadata[:label] %>:</dt>
-                <dd class='metadata-date-value'><time datetime='<%= metadata[:machine_date] %>'><%= metadata[:human_date] %></time></dd>
+                <dt class="document-metadata__label<%= ' govuk-visually-hidden' if metadata[:hide_label] %>">
+                  <%= metadata[:label] %>:
+                </dt>
+                <dd class='document-metadata__value'>
+                  <time datetime='<%= metadata[:machine_date] %>'><%= metadata[:human_date] %></time>
+                </dd>
               <% end %>
             <% end %>
-            </dl>
+          </dl>
         <% end %>
+
         <% if result[:is_historic] %>
           <p class="historic">First published during the <%= result[:government_name] %></p>
         <% end %>

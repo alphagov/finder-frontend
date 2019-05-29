@@ -38,12 +38,12 @@ describe('liveSearch', function () {
         '<a href="aaib-reports/test-report" class="document__link" data-track-category="navFinderLinkClicked" data-track-action="" data-track-label="">Test report</a>' +
         '<p></p>' +
         '<dl>' +
-          '<dt class="metadata-label">Aircraft category:</dt>' +
-          '<dd class="metadata-text-value">General aviation - rotorcraft</dd>' +
-          '<dt class="metadata-label">Report type:</dt>' +
-          '<dd class="metadata-text-value">Annual safety report</dd>' +
-          '<dt class="metadata-label">Occurred:</dt>' +
-          '<dd class="metadata-date-value"><time datetime="2013-11-03">3 November 2013</time></dd>' +
+          '<dt class="document-metadata__label">Aircraft category:</dt>' +
+          '<dd class="document-metadata__value">General aviation - rotorcraft</dd>' +
+          '<dt class="document-metadata__label">Report type:</dt>' +
+          '<dd class="document-metadata__value">Annual safety report</dd>' +
+          '<dt class="document-metadata__label">Occurred:</dt>' +
+          '<dd class="document-metadata__value"><time datetime="2013-11-03">3 November 2013</time></dd>' +
         '</dl>' +
       '</li>' +
     '</ul>'

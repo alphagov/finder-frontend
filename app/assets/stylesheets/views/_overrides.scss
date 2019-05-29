@@ -1,8 +1,0 @@
-/* Overrides styling of legends in finder-frontend.scss */
-legend.gem-c-title--margin-bottom-5 {
-  margin-bottom: govuk-spacing(3) !important;
-
-  @include media(tablet) {
-    margin-bottom: govuk-spacing(8) !important;
-  }
-}
