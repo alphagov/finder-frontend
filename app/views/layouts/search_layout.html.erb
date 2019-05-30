@@ -3,11 +3,11 @@
   <head>
     <title><%= yield :title %> - GOV.UK</title>
     <link title="Search" rel="search" type="application/opensearchdescription+xml" href="/search/opensearch.xml"/>
-    <!--[if gt IE 8]><!--><%= stylesheet_link_tag "application-site-search.css", integrity: true, crossorigin: 'anonymous' %><!--<![endif]-->
-    <!--[if IE 6]><%= stylesheet_link_tag "application-site-search-ie6.css" %><![endif]-->
-    <!--[if IE 7]><%= stylesheet_link_tag "application-site-search-ie7.css" %><![endif]-->
-    <!--[if IE 8]><%= stylesheet_link_tag "application-site-search-ie8.css" %><![endif]-->
-    <%= javascript_include_tag 'application-site-search', integrity: true, crossorigin: 'anonymous' %>
+    <!--[if gt IE 8]><!--><%= stylesheet_link_tag "application.css", integrity: true, crossorigin: 'anonymous' %><!--<![endif]-->
+    <!--[if IE 6]><%= stylesheet_link_tag "application-ie6.css" %><![endif]-->
+    <!--[if IE 7]><%= stylesheet_link_tag "application-ie7.css" %><![endif]-->
+    <!--[if IE 8]><%= stylesheet_link_tag "application-ie8.css" %><![endif]-->
+    <%= javascript_include_tag 'application', integrity: true, crossorigin: 'anonymous' %>
     <% if @content_item %>
       <%= render 'govuk_publishing_components/components/meta_tags', content_item: @content_item %>
     <% end %>
