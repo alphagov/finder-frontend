@@ -306,40 +306,42 @@
           ]
         },
         {
-          "facet_id": "doing_business_in_the_eu",
-          "facet_name": "Doing business in the EU",
-          "facet_choices": [
-            {
-              "key": "do-business-in-the-eu",
-              "radio_button_name": "Do business in the EU",
-              "topic_name": "Do business in the EU",
-              "prechecked": false
-            },
-            {
-              "key": "buying",
-              "radio_button_name": "Buying",
-              "topic_name": "Buying",
-              "prechecked": false
-            },
-            {
-              "key": "selling",
-              "radio_button_name": "Selling",
-              "topic_name": "Selling",
-              "prechecked": false
-            },
-            {
-              "key": "transporting",
-              "radio_button_name": "Transporting",
-              "topic_name": "Transporting",
-              "prechecked": false
-            },
-            {
-              "key": "other-eu",
-              "radio_button_name": "Other business in the EU",
-              "topic_name": "Other business in the EU",
-              "prechecked": false
-            }
-          ]
+          "facet_id": "business_activity",
+          "facet_name": "Business activity",
+          "links": {
+            "facet_values": [
+              {
+                "key": "products-or-goods",
+                "radio_button_name": "Sell products or goods in the UK",
+                "topic_name": "Sell products or goods in the UK",
+                "prechecked": false
+              },
+              {
+                "key": "buying",
+                "radio_button_name": "Buy products or goods from abroad",
+                "topic_name": "Buy products or goods from abroad",
+                "prechecked": false
+              },
+              {
+                "key": "selling",
+                "radio_button_name": "Sell products or goods from abroad",
+                "topic_name": "Sell products or goods from abroad",
+                "prechecked": false
+              },
+              {
+                "key": "other-eu",
+                "radio_button_name": "Do other types of business in the EU",
+                "topic_name": "Do other types of business in the EU",
+                "prechecked": false
+              },
+              {
+                "key": "transporting",
+                "radio_button_name": "Transport goods abroad",
+                "topic_name": "Transport goods abroad",
+                "prechecked": false
+              }
+            ]
+          }
         },
         {
           "facet_id": "employ_eu_citizens",
