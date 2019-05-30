@@ -12,7 +12,6 @@ describe EmailAlertTitleBuilder do
       filter: filter,
       subscription_list_title_prefix: subscription_list_title_prefix,
       facets: facets,
-      join_facets_with: 'OR'
     )
   end
 
@@ -221,8 +220,8 @@ describe EmailAlertTitleBuilder do
           "facet_choices"=> [
             {
               "key"=> "banking-market-infrastructure",
-              "radio_button_name"=> "Banking, market infrastructure",
-              "topic_name"=> "Banking, market infrastructure",
+              "radio_button_name"=> "Banking, markets and infrastructure",
+              "topic_name"=> "Banking, markets and infrastructure",
               "prechecked"=> false
             },
             {
@@ -244,6 +243,30 @@ describe EmailAlertTitleBuilder do
               "prechecked" => false
             },
           ]
+        },
+        {
+            "facet_id"=> "business_activity",
+            "facet_name"=> "Business activity",
+            "facet_choices" => [
+                {
+                    "key"=> "sell-uk",
+                    "radio_button_name"=> "I sell products or goods in the UK",
+                    "topic_name"=> "I sell products or goods in the UK",
+                    "prechecked"=> false
+                },
+                {
+                    "key"=> "buying",
+                    "radio_button_name"=> "I buy products or goods from abroad",
+                    "topic_name"=> "I buy products or goods from abroad",
+                    "prechecked"=> false
+                },
+                {
+                    "key"=> "selling",
+                    "radio_button_name"=> "I sell products or goods abroad",
+                    "topic_name"=> "I sell products or goods abroad",
+                    "prechecked"=> false
+                },
+            ]
         },
         {
           "facet_id"=> "employ_eu_citizens",
@@ -269,34 +292,26 @@ describe EmailAlertTitleBuilder do
             },
           ]
         },
-        {
-          "facet_id"=> "business_activity",
-          "facet_name"=> "Business activity",
-          "facet_choices" => [
-            {
-              "key"=> "buying",
-              "radio_button_name"=> "Buy products or goods from abroad",
-              "topic_name"=> "Buy products or goods from abroad",
-              "prechecked"=> false
-            },
-            {
-              "key"=> "selling",
-              "radio_button_name"=> "Sell products or goods from abroad",
-              "topic_name"=> "Sell products or goods from abroad",
-              "prechecked"=> false
-            },
-          ]
-        }
+
       ]
     end
 
     let(:filter) do
       {
         'sector_business_area' => %w(banking-market-infrastructure electronics imports retail),
-        'business_activity' => %w(buying selling),
+        'business_activity' => %w(sell-uk buying selling),
         'employ_eu_citizens' => %w(no),
         'intellectual_property' => %w(trademarks)
       }
+    end
+
+    subject do
+      described_class.call(
+          filter: filter,
+          subscription_list_title_prefix: subscription_list_title_prefix,
+          facets: facets,
+          join_facets_with: "or"
+          )
     end
 
     it {
