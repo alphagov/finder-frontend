@@ -119,15 +119,6 @@
 #finder-frontend {
   margin-bottom: govuk-spacing(8);
 
-  .help-text {
-    @include govuk-font(14);
-    display:block;
-    padding: govuk-spacing(2)/2 0;
-    @include media(tablet) {
-      padding: govuk-spacing(2) 0;
-    }
-  }
-
   .form {
     @include govuk-font(19);
     @include media(tablet) {
