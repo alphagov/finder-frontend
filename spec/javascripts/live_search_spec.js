@@ -33,7 +33,7 @@ describe('liveSearch', function () {
         'document_index': 1
       }
     ],
-    'search_results': '<ul class="finder-results" data-module="track-click">' +
+    'search_results': '<ul class="finder-results js-finder-results" data-module="track-click">' +
       '<li class="document">' +
         '<a href="aaib-reports/test-report" class="document__link" data-track-category="navFinderLinkClicked" data-track-action="" data-track-label="">Test report</a>' +
         '<p></p>' +
@@ -393,10 +393,10 @@ describe('liveSearch', function () {
   describe('indexTrackingData', function () {
     var groupedResponse = {
       'search_results':
-        '<ul class="finder-results" data-module="track-click">' +
+        '<ul class="finder-results js-finder-results" data-module="track-click">' +
           '<li class="filtered-results__group">' +
             '<h2 class="filtered-results__facet-heading">Primary group</h2>' +
-            '<ul class="finder-results">' +
+            '<ul class="finder-results js-finder-results">' +
               '<li class="document">' +
                 '<a href="/reports/test-report-1" class="document-heading--pinned document__link" data-track-category="navFinderLinkClicked" data-track-action="foo" data-track-label="">Test report 1</a>' +
                 '<p>This is important</p>' +
@@ -409,7 +409,7 @@ describe('liveSearch', function () {
           '</li>' +
           '<li class="filtered-results__group">' +
             '<h2 class="filtered-results__facet-heading">Default group</h2>' +
-            '<ul class="finder-results">' +
+            '<ul class="finder-results js-finder-results">' +
               '<li class="document">' +
                 '<a href="/reports/test-report-3" class="document__link" data-track-category="navFinderLinkClicked" data-track-action="foo" data-track-label="">Test report 3</a>' +
                 '<p>This is important</p>' +

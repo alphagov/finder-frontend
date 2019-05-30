@@ -79,32 +79,31 @@
   max-width: 100%;
 }
 
+.related-links {
+  margin-top: govuk-spacing(8);
+  margin-bottom: govuk-spacing(8);
+}
+
+.related-links__item {
+  margin-bottom: 4px;
+  list-style: none;
+
+  @include media(tablet) {
+    margin-bottom: 8px;
+  }
+}
+
+.related-links__link {
+  @include govuk-font(16, $weight: bold);
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
 #finder-frontend {
   margin-bottom: govuk-spacing(8);
-
-  header {
-    .related-links {
-      @include govuk-font(16, $weight: bold);
-      margin-top: govuk-spacing(8);
-      margin-bottom: govuk-spacing(8);
-      list-style:none;
-
-      li {
-        margin-bottom:4px;
-        @include media(tablet) {
-          margin-bottom:8px;
-        }
-
-        a:link,
-        a:visited {
-          text-decoration: none;
-        }
-        a:hover {
-          text-decoration: underline;
-        }
-      }
-    }
-  }
 
   .filter-form {
     .js-enabled & .button__wrapper {

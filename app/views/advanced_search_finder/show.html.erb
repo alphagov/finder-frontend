@@ -32,7 +32,9 @@
         <div class="related-links govuk-grid-column-one-third">
           <ul>
             <% finder.related.each do |link| %>
-              <li><%= link_to link['title'], link['web_url'] %></li>
+              <li class="related-links__item">
+                <%= link_to link['title'], link['web_url'], class: "related-links__link" %>
+              </li>
             <% end %>
           </ul>
         </div>
