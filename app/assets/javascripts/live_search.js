@@ -9,7 +9,6 @@
     this.state = false
     this.previousState = false
     this.resultCache = {}
-    this.templateDir = options.templateDir || 'finders/'
 
     this.$form = options.$form
     this.$resultsBlock = options.$results.find('#js-results')
