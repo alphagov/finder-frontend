@@ -71,18 +71,18 @@
   margin-bottom: govuk-spacing(6);
 }
 
+.finder-logo {
+  margin: govuk-spacing(6) 0;
+}
+
+.finder-logo__image {
+  max-width: 100%;
+}
+
 #finder-frontend {
   margin-bottom: govuk-spacing(8);
 
   header {
-    .logo {
-      margin: govuk-spacing(6) 0;
-    }
-
-    #logo-image{
-      max-width: 100%
-    }
-
     .related-links {
       @include govuk-font(16, $weight: bold);
       margin-top: govuk-spacing(8);
