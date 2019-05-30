@@ -102,28 +102,22 @@
   }
 }
 
+.filter-form {
+  .js-enabled & .button__wrapper {
+    display:none;
+  }
+
+  .js-required {
+    display: none;
+  }
+
+  .govuk-select {
+    width: 100%;
+  }
+}
+
 #finder-frontend {
   margin-bottom: govuk-spacing(8);
-
-  .filter-form {
-    .js-enabled & .button__wrapper {
-      display:none;
-    }
-
-    .js-required {
-      display: none;
-    }
-
-    p {
-      max-width: $full-width;
-      @include govuk-font(16);
-      margin-bottom: govuk-spacing(6);
-    }
-
-    .govuk-select {
-      width: 100%;
-    }
-  }
 
   .help-text {
     @include govuk-font(14);
