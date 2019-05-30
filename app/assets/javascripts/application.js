@@ -33,17 +33,11 @@ jQuery(function ($) {
   $elementsRequiringJavascript.show()
 
   if ($form.length && $results.length) {
-    var templateDir = 'finders/'
-    if (window.location.pathname === '/search/advanced') {
-      templateDir = 'advanced_search_finder/'
-    }
-
     // eslint-disable-next-line
     new GOVUK.LiveSearch({
       $form: $form,
       $results: $results,
-      $atomAutodiscoveryLink: $atomAutodiscoveryLink,
-      templateDir: templateDir
+      $atomAutodiscoveryLink: $atomAutodiscoveryLink
     })
   }
 })
