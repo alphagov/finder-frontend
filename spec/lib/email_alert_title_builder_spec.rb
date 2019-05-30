@@ -11,7 +11,8 @@ describe EmailAlertTitleBuilder do
     described_class.call(
       filter: filter,
       subscription_list_title_prefix: subscription_list_title_prefix,
-      facets: facets
+      facets: facets,
+      join_facets_with: 'OR'
     )
   end
 
@@ -205,6 +206,108 @@ describe EmailAlertTitleBuilder do
 
     it {
       is_expected.to eq('News and communicatons with people of Harry Potter, Ron Weasley, Albus Dumbledore, Cornelius Fudge, and Rufus Scrimgeour, organisations of Ministry of Magic, Gringots, and 1 other organisation, topics of Magical Education, Brexit, and Herbology, and 2 document types')
+    }
+  end
+
+  context "business finder specific snowflakey test" do
+    # TODO - import these fixtures from features/fixtures/business_readiness_email_signup.json
+
+    let(:subscription_list_title_prefix) { 'Find EU Exit guidance for your business ' }
+    let(:facets) do
+      [
+        {
+          "facet_id" => "sector_business_area",
+          "facet_name"=> "Sector / Business Area",
+          "facet_choices"=> [
+            {
+              "key"=> "banking-market-infrastructure",
+              "radio_button_name"=> "Banking, market infrastructure",
+              "topic_name"=> "Banking, market infrastructure",
+              "prechecked"=> false
+            },
+            {
+              "key"=> "electronics",
+              "radio_button_name"=> "Electronics",
+              "topic_name"=> "Electronics",
+              "prechecked"=> false
+            },
+            {
+              "key"=> "imports",
+              "radio_button_name"=> "Imports",
+              "topic_name"=> "Imports",
+              "prechecked"=> false
+            },
+            {
+              "key" => "retail",
+              "radio_button_name" => "Retail",
+              "topic_name" => "Retail",
+              "prechecked" => false
+            },
+          ]
+        },
+        {
+          "facet_id"=> "employ_eu_citizens",
+          "facet_name"=> "Employ EU citizens",
+          "facet_choices"=> [
+            {
+              "key"=> "no",
+              "radio_button_name"=> "No",
+              "topic_name"=> "No",
+              "prechecked"=> false
+            },
+          ]
+        },
+        {
+          "facet_id"=> "intellectual_property",
+          "facet_name"=> "Intellectual property",
+          "facet_choices"=> [
+            {
+              "key"=> "trademarks",
+              "radio_button_name"=> "Trade marks",
+              "topic_name"=> "Trade marks",
+              "prechecked"=> false
+            },
+          ]
+        },
+        {
+          "facet_id"=> "business_activity",
+          "facet_name"=> "Business activity",
+          "facet_choices" => [
+            {
+              "key"=> "buying",
+              "radio_button_name"=> "Buy products or goods from abroad",
+              "topic_name"=> "Buy products or goods from abroad",
+              "prechecked"=> false
+            },
+            {
+              "key"=> "selling",
+              "radio_button_name"=> "Sell products or goods from abroad",
+              "topic_name"=> "Sell products or goods from abroad",
+              "prechecked"=> false
+            },
+          ]
+        }
+      ]
+    end
+
+    let(:filter) do
+      {
+        'sector_business_area' => %w(banking-market-infrastructure electronics imports retail),
+        'business_activity' => %w(buying selling),
+        'employ_eu_citizens' => %w(no),
+        'intellectual_property' => %w(trademarks)
+      }
+    end
+
+    it {
+      # TODO - get this test passing, as this is what we're expecting at the moment.
+      # Then rewrite the test to assert against the value we WANT - talk to a content designer
+      # to find out what that is.
+      expected_val = 'Find EU Exit guidance for your business with Sector / Business Area of Banking, markets and infrastructure, Electronics, Imports, and Retail, Business activity of I sell products or goods in the UK, I buy products or goods from abroad, and I sell products or goods abroad, Employ EU citizens of No, and Intellectual property of Trade marks'
+      puts ""
+      puts "EXPECTED #{expected_val}"
+      puts "ACTUAL #{subject}"
+      is_expected.to eq(expected_val)
     }
   end
 end
