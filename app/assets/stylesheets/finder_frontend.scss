@@ -129,13 +129,13 @@
   border-left: solid 4px $govuk-error-colour;
 }
 
+.live-search-loading-message {
+  margin-bottom: govuk-spacing(4);
+  display: none;
+}
+
 #finder-frontend {
   margin-bottom: govuk-spacing(8);
-
-  .live-search-loading-message {
-    margin-bottom: govuk-spacing(4);
-    display: none;
-  }
 
   .filtered-results {
     .result-info {
