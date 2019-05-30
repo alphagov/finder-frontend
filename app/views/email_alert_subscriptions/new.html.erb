@@ -7,46 +7,41 @@
   <%= render 'govuk_publishing_components/components/phase_banner', phase: "beta" %>
 <% end %>
 
-<div class="outer-block">
-  <div class="signup-content">
-    <%= form_tag email_alert_subscriptions_path(subscriber_list_params: subscriber_list_params), class: 'signup-choices form' do %>
-      <% if @signup_presenter.hidden_choices.any? %>
-        <%= render partial: 'govuk_publishing_components/components/title', locals: {
-          title: @signup_presenter.name,
-          context: "Email alert subscription"
-        } %>
-        <% @signup_presenter.hidden_choices.each do |hidden_choice| %>
-          <%= hidden_field_tag hidden_choice[:name], hidden_choice[:value] %>
-        <% end %>
-      <% elsif @signup_presenter.can_modify_choices? %>
-        <%= render "govuk_publishing_components/components/checkboxes", {
-          name: nil,
-          heading: @signup_presenter.name,
-          hint_text: "Select the email alerts you need.",
-          items: @signup_presenter.choices_formatted,
-          is_page_heading: true,
-        } %>
-        <% if @error_message.present? %>
-          <p class="validation-message"><%= @error_message %></p>
-        <% end %>
-      <% else %>
-        <%= render partial: 'govuk_publishing_components/components/title', locals: {
-          title: @signup_presenter.name,
-          context: "Email alert subscription"
-        } %>
-      <% end %>
-
-      <% if @signup_presenter.body %>
-        <div class="govspeak-wrapper">
-          <%= render 'govuk_publishing_components/components/govspeak', content: @signup_presenter.body.html_safe %>
-        </div>
-      <% end %>
-
-      <%= render "govuk_publishing_components/components/button", {
-        text: "Create subscription",
-        margin_bottom: true
-      } %>
+<%= form_tag email_alert_subscriptions_path(subscriber_list_params: subscriber_list_params), class: 'signup-choices' do %>
+  <% if @signup_presenter.hidden_choices.any? %>
+    <%= render partial: 'govuk_publishing_components/components/title', locals: {
+      title: @signup_presenter.name,
+      context: "Email alert subscription"
+    } %>
+    <% @signup_presenter.hidden_choices.each do |hidden_choice| %>
+      <%= hidden_field_tag hidden_choice[:name], hidden_choice[:value] %>
     <% end %>
+  <% elsif @signup_presenter.can_modify_choices? %>
+    <%= render "govuk_publishing_components/components/checkboxes", {
+      name: nil,
+      heading: @signup_presenter.name,
+      hint_text: "Select the email alerts you need.",
+      items: @signup_presenter.choices_formatted,
+      is_page_heading: true,
+    } %>
+    <% if @error_message.present? %>
+      <p class="signup-choices__message"><%= @error_message %></p>
+    <% end %>
+  <% else %>
+    <%= render partial: 'govuk_publishing_components/components/title', locals: {
+      title: @signup_presenter.name,
+      context: "Email alert subscription"
+    } %>
+  <% end %>
 
-  </div>
-</div>
+  <% if @signup_presenter.body %>
+    <div class="govspeak-wrapper">
+      <%= render 'govuk_publishing_components/components/govspeak', content: @signup_presenter.body.html_safe %>
+    </div>
+  <% end %>
+
+  <%= render "govuk_publishing_components/components/button", {
+    text: "Create subscription",
+    margin_bottom: true
+  } %>
+<% end %>

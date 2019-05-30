@@ -56,16 +56,6 @@
   margin-top: govuk-spacing(2);
 }
 
-.signup-content p {
-  margin: govuk-spacing(3) 0;
-  @include govuk-font(19);
-
-  @include media(tablet) {
-    margin: govuk-spacing(6) 0;
-    max-width: $two-thirds;
-  }
-}
-
 .metadata-summary {
   @include govuk-font(19);
   margin-bottom: govuk-spacing(6);
@@ -116,33 +106,31 @@
   }
 }
 
+.signup-choices {
+  @include govuk-font(19);
+  margin-top: 50px;
+
+  @include media(tablet) {
+    max-width: $two-thirds;
+  }
+
+  fieldset.invalid {
+    border-left: solid 4px $govuk-error-colour;
+    padding-left: govuk-spacing(3);
+    margin-left: -govuk-spacing(3) - 4;
+  }
+}
+
+.signup-choices__message {
+  margin-bottom: govuk-spacing(3);
+  padding: govuk-spacing(3);
+  color: $govuk-error-colour;
+  font-weight: bold;
+  border-left: solid 4px $govuk-error-colour;
+}
+
 #finder-frontend {
   margin-bottom: govuk-spacing(8);
-
-  .form {
-    @include govuk-font(19);
-    @include media(tablet) {
-      max-width: $two-thirds;
-    }
-
-    p {
-      max-width: $full-width;
-    }
-
-    fieldset.invalid {
-      border-left: solid 4px $govuk-error-colour;
-      padding-left: govuk-spacing(3);
-      margin-left: -govuk-spacing(3) - 4;
-    }
-
-    .validation-message {
-      color: $govuk-error-colour;
-      font-weight: bold;
-      padding: govuk-spacing(3);
-      margin-left: -govuk-spacing(3) - 4;
-      border-left: solid 4px $govuk-error-colour;
-    }
-  }
 
   .search-results-title {
     border-bottom: 1px solid govuk-colour('black');
