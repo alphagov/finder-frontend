@@ -73,7 +73,8 @@ private
   end
 
   def subscriber_list_title
-    EmailAlertTitleBuilder.call(
+    title_builder = signup_presenter.combine_mode == "or" ? EmailAlertListTitleBuilder : EmailAlertTitleBuilder
+    title_builder.call(
       filter: applied_filters,
       subscription_list_title_prefix: content.dig('details', 'subscription_list_title_prefix'),
       facets: signup_presenter.choices

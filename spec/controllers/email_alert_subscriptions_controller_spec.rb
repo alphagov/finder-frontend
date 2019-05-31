@@ -197,4 +197,74 @@ describe EmailAlertSubscriptionsController, type: :controller do
       end
     end
   end
+
+  context "with combine_mode set to 'or'" do
+    describe 'POST "#create"' do
+      let(:finder) { govuk_content_schema_example('finder') }
+      let(:signup_finder) { business_readiness_signup_content_item }
+
+      before do
+        content_store_has_item('/find-eu-exit-guidance-business', finder)
+      end
+
+      it "should call EmailAlertListTitleBuilder instead of EmailAlertTitleBuilder" do
+        content_store_has_item('/find-eu-exit-guidance-business/email-signup', signup_finder)
+        email_alert_api_has_subscriber_list(
+          'tags' => {
+            'format' => { any: %w(mosw_report) },
+            'sector_business_area' => { any: %w(aerospace) },
+          },
+          'subscription_url' => 'http://www.itstartshear.com'
+        )
+
+        allow(EmailAlertListTitleBuilder).to receive(:call)
+
+        post :create, params: {
+          slug: 'find-eu-exit-guidance-business',
+          filter: {
+            'sector_business_area' => %w(aerospace),
+          }
+        }
+
+        expect(EmailAlertListTitleBuilder).to have_received(:call)
+      end
+    end
+  end
+
+  context "with blank combine_mode" do
+    describe 'POST "#create"' do
+      let(:finder) { govuk_content_schema_example('finder') }
+      let(:signup_finder) {
+        cma_cases_signup_content_item.to_hash.merge("details" => {
+          "filter" => { "content_purpose_supergroup" => 'news-and-communications' },
+        })
+      }
+
+      before do
+        content_store_has_item('/find-eu-exit-guidance-business', finder)
+      end
+
+      it "should call EmailAlertListTitleBuilder instead of EmailAlertTitleBuilder" do
+        content_store_has_item('/find-eu-exit-guidance-business/email-signup', signup_finder)
+        email_alert_api_has_subscriber_list(
+          'tags' => {
+            'format' => { any: %w(mosw_report) },
+            'content_purpose_supergroup' => { any: %w(news-and-communications) },
+          },
+          'subscription_url' => 'http://www.itstartshear.com'
+        )
+
+        allow(EmailAlertTitleBuilder).to receive(:call)
+
+        post :create, params: {
+          slug: 'find-eu-exit-guidance-business',
+          filter: {
+            'sector_business_area' => %w(aerospace),
+          }
+        }
+
+        expect(EmailAlertTitleBuilder).to have_received(:call)
+      end
+    end
+  end
 end
