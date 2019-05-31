@@ -16,7 +16,7 @@ module Services
   end
 
   def self.rummager
-    @rummager ||= GdsApi::Rummager.new(Plek.find("search"))
+    @rummager ||= GdsApi::Search.new(Plek.find("search"))
   end
 
   def self.email_alert_api
