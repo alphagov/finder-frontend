@@ -49,7 +49,7 @@ class SignupPresenter
         end
       end
     end
-    hidden_choices.flatten
+    hidden_choices.flatten.compact
   end
 
   def choices?
@@ -90,7 +90,7 @@ private
 
   def facets_with_choicess
     choices.select { |choice|
-      choice['facet_choices'] && choice["facet_choices"].any?
+      choice['facet_choices'] && choice["facet_choices"].any? && !ignore_facet?(choice["facet_id"])
     }
   end
 

@@ -469,7 +469,7 @@ describe EmailAlertSignupAPI do
       it 'asks email-alert-api to find or create the subscriber list' do
         expect(Services.email_alert_api).to receive(:find_or_create_subscriber_list).with(
           "links" => {
-            "facet_groups" => { any: %w(52435175-82ed-4a04-adef-74c0199d0f46) },
+            facet_groups: { any: %w(52435175-82ed-4a04-adef-74c0199d0f46) },
           },
           "title" => subscriber_list_title,
         ).and_call_original

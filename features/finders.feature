@@ -279,7 +279,7 @@ Feature: Filtering documents
     When I view the business readiness finder
     And I create an email subscription
     Then I see the email subscription page
-    And I cannot select any filters
+    And I can see the business finder filters
 
   @javascript
   Scenario: Filter documents by keywords and sort by most relevant
