@@ -69,7 +69,7 @@ class SignupPresenter
   end
 
   def choices_formatted
-    @choices_formatted ||= facets_with_choicess.map { |choice|
+    @choices_formatted ||= facets_with_choices.map { |choice|
       {
         label: choice['facet_name'],
         value: choice['facet_id'],
@@ -92,7 +92,7 @@ class SignupPresenter
 
 private
 
-  def facets_with_choicess
+  def facets_with_choices
     choices.select { |choice|
       choice['facet_choices'] && choice["facet_choices"].any? && !ignore_facet?(choice["facet_id"])
     }
