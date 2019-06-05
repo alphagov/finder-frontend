@@ -1,6 +1,6 @@
-class ResearchAndStatisticsFacet < FilterableFacet
-  def initialize(facet, value)
-    @filter_hashes = ::Filters.research_and_statistics_filters
+class RadioFacetForMultipleFilters < FilterableFacet
+  def initialize(facet, value, filter_hashes)
+    @filter_hashes = filter_hashes
     @value = validated_value(value, @filter_hashes)
     super(facet)
   end
@@ -32,6 +32,8 @@ class ResearchAndStatisticsFacet < FilterableFacet
   end
 
 private
+
+  attr_reader :filter_hashes
 
   def validated_value(value, filter_hashes)
     filter_hashes.map { |f| f['key'] }.include?(value) ? value : default_value

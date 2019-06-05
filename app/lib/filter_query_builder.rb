@@ -32,7 +32,8 @@ private
       'radio' => Filters::RadioFilter,
       'content_id' => Filters::ContentIdFilter,
       'hidden_clearable' => Filters::HiddenClearableFilter,
-      'research_and_statistics' => Filters::ResearchAndStatisticsFilter
+      'research_and_statistics' => Filters::ResearchAndStatisticsFilter,
+      'official_documents' => Filters::OfficialDocumentsFilter
     }.fetch(facet['type'])
 
     filter_class.new(facet, params(facet))

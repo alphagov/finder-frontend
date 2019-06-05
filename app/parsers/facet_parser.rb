@@ -19,7 +19,9 @@ module FacetParser
       when 'hidden_clearable'
         HiddenClearableFacet.new(facet, value_hash[facet['key']])
       when 'research_and_statistics'
-        ResearchAndStatisticsFacet.new(facet, value_hash[facet['key']])
+        RadioFacetForMultipleFilters.new(facet, value_hash[facet['key']], ::Filters::ResearchAndStatsHashes.new.call)
+      when 'official_documents'
+        RadioFacetForMultipleFilters.new(facet, value_hash[facet['key']], ::Filters::OfficialDocumentsHashes.new.call)
       else
         raise ArgumentError.new("Unknown filterable facet type: #{facet['type']}")
       end
