@@ -1,11 +1,11 @@
-<ul class="finder-results" data-module="track-click">
+<ul class="finder-results js-finder-results" data-module="track-click">
   <% if local_assigns[:display_grouped_results] %>
     <% local_assigns[:grouped_documents].each do |group| %>
       <li class="filtered-results__group">
         <% if group[:facet_name] %>
           <h2 class="filtered-results__facet-heading"><%= group[:facet_name] %></h2>
         <% end %>
-        <ul class="finder-results">
+        <ul class="finder-results js-finder-results">
           <% group[:documents].each do |document| %>
             <% result = document[:document] %>
             <li class="document">

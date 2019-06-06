@@ -112,7 +112,7 @@
 
   LiveSearch.prototype.setRelevantResultCustomDimension = function setRelevantResultCustomDimension () {
     if (this.canSetCustomDimension()) {
-      var $mostRelevantDocumentLink = $('.finder-results').find('.document__link--top')
+      var $mostRelevantDocumentLink = $('.js-finder-results').find('.document__link--top')
       var dimensionValue = $mostRelevantDocumentLink.length ? 'yes' : 'no'
       GOVUK.analytics.setDimension(83, dimensionValue)
     }
@@ -157,7 +157,7 @@
       })
     }
 
-    var $results = $('.finder-results')
+    var $results = $('.js-finder-results')
     if ($results.length > 0) {
       var $mostRelevantDocumentLink = $results.find('.document__link--top')
 

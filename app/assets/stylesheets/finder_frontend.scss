@@ -56,119 +56,86 @@
   margin-top: govuk-spacing(2);
 }
 
-.signup-content p {
-  margin: govuk-spacing(3) 0;
-  @include govuk-font(19);
-
-  @include media(tablet) {
-    margin: govuk-spacing(6) 0;
-    max-width: $two-thirds;
-  }
-}
-
 .metadata-summary {
   @include govuk-font(19);
   margin-bottom: govuk-spacing(6);
 }
 
-#finder-frontend {
+.finder-logo {
+  margin: govuk-spacing(6) 0;
+}
+
+.finder-logo__image {
+  max-width: 100%;
+}
+
+.related-links {
+  margin-top: govuk-spacing(8);
   margin-bottom: govuk-spacing(8);
+}
 
-  header {
-    .logo {
-      margin: govuk-spacing(6) 0;
-    }
+.related-links__item {
+  margin-bottom: 4px;
+  list-style: none;
 
-    #logo-image{
-      max-width: 100%
-    }
+  @include media(tablet) {
+    margin-bottom: 8px;
+  }
+}
 
-    .related-links {
-      @include govuk-font(16, $weight: bold);
-      margin-top: govuk-spacing(8);
-      margin-bottom: govuk-spacing(8);
-      list-style:none;
+.related-links__link {
+  @include govuk-font(16, $weight: bold);
+  text-decoration: none;
 
-      li {
-        margin-bottom:4px;
-        @include media(tablet) {
-          margin-bottom:8px;
-        }
+  &:hover {
+    text-decoration: underline;
+  }
+}
 
-        a:link,
-        a:visited {
-          text-decoration: none;
-        }
-        a:hover {
-          text-decoration: underline;
-        }
-      }
-    }
+.filter-form {
+  .js-enabled & .button__wrapper {
+    display:none;
   }
 
-  .filter-form {
-    .js-enabled & .button__wrapper {
-      display:none;
-    }
-
-    .js-required {
-      display: none;
-    }
-
-    p {
-      max-width: $full-width;
-      @include govuk-font(16);
-      margin-bottom: govuk-spacing(6);
-    }
-
-    .govuk-select {
-      width: 100%;
-    }
-  }
-
-  .help-text {
-    @include govuk-font(14);
-    display:block;
-    padding: govuk-spacing(2)/2 0;
-    @include media(tablet) {
-      padding: govuk-spacing(2) 0;
-    }
-  }
-
-  .form {
-    @include govuk-font(19);
-    @include media(tablet) {
-      max-width: $two-thirds;
-    }
-
-    p {
-      max-width: $full-width;
-    }
-
-    fieldset.invalid {
-      border-left: solid 4px $govuk-error-colour;
-      padding-left: govuk-spacing(3);
-      margin-left: -govuk-spacing(3) - 4;
-    }
-
-    .validation-message {
-      color: $govuk-error-colour;
-      font-weight: bold;
-      padding: govuk-spacing(3);
-      margin-left: -govuk-spacing(3) - 4;
-      border-left: solid 4px $govuk-error-colour;
-    }
-  }
-
-  .search-results-title {
-    border-bottom: 1px solid govuk-colour('black');
-    padding-bottom: govuk-spacing(4);
-  }
-
-  .live-search-loading-message {
-    margin-bottom: govuk-spacing(4);
+  .js-required {
     display: none;
   }
+
+  .govuk-select {
+    width: 100%;
+  }
+}
+
+.signup-choices {
+  @include govuk-font(19);
+  margin-top: 50px;
+
+  @include media(tablet) {
+    max-width: $two-thirds;
+  }
+
+  fieldset.invalid {
+    border-left: solid 4px $govuk-error-colour;
+    padding-left: govuk-spacing(3);
+    margin-left: -govuk-spacing(3) - 4;
+  }
+}
+
+.signup-choices__message {
+  margin-bottom: govuk-spacing(3);
+  padding: govuk-spacing(3);
+  color: $govuk-error-colour;
+  font-weight: bold;
+  border-left: solid 4px $govuk-error-colour;
+}
+
+.live-search-loading-message {
+  margin-bottom: govuk-spacing(4);
+  display: none;
+}
+
+#finder-frontend {
+  margin-bottom: govuk-spacing(8);
 
   .filtered-results {
     .result-info {
