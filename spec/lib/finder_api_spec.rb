@@ -4,25 +4,65 @@ describe FinderApi do
   let(:content_item) {
     {
       "details" => {
-        "facets" => []
+        "facets" => facets,
       },
     }
   }
 
-  context "when merging, de-duplicating and sorting" do
-    def result_item(id, title, score:, popularity:, updated:)
+  let(:facets) {
+    [
       {
-        "_id" => id,
-        "title" => title,
-        "es_score" => score,
-        "popularity" => popularity,
-        "public_timestamp" => updated
-      }
+        'key' => "alpha",
+        'filterable' => true,
+        'type' => "text"
+      },
+      {
+        'key' => "beta",
+        'filterable' => true,
+        'type' => "text",
+        'combine_mode' => "or"
+      },
+    ]
+  }
+  let(:filter_params) { { 'alpha' => 'foo' } }
+  let(:batch_search_filter_params) { { 'alpha' => 'foo', 'beta' => 'bar' } }
+
+  def result_item(id, title, score:, popularity:, updated:)
+    {
+      "_id" => id,
+      "title" => title,
+      "es_score" => score,
+      "popularity" => popularity,
+      "public_timestamp" => updated
+    }
+  end
+
+  context "when searching using a single query" do
+    subject { described_class.new(content_item, filter_params).search_results }
+
+    before do
+      allow(Services.rummager).to receive(:search)
+      .and_return(
+        "results" => [
+          result_item("/register-to-vote", "Register to Vote", score: nil, updated: "14-12-19", popularity: 3),
+          result_item("/hmrc", "HMRC", score: nil, updated: "14-12-18", popularity: 2),
+          result_item("/own-a-micro-pig", "Owning a micro-pig", score: nil, updated: "14-12-19", popularity: 1),
+        ]
+      )
     end
 
+    it "uses the standard search endpoint" do
+      results = subject.fetch("results")
+      expect(results.length).to eq(3)
+      expect(results.first).to match(hash_including("_id" => "/register-to-vote"))
+      expect(results.last).to match(hash_including("_id" => "/own-a-micro-pig"))
+    end
+  end
+
+  context "when merging, de-duplicating and sorting" do
     shared_examples 'sorts by other fields' do
       context 'most-recent' do
-        subject { described_class.new(content_item, 'order' => 'most-recent').search_results }
+        subject { described_class.new(content_item, batch_search_filter_params.merge('order' => 'most-recent')).search_results }
 
         it "de-duplicates and sorts by public_updated descending" do
           results = subject.fetch("results")
@@ -32,7 +72,7 @@ describe FinderApi do
       end
 
       context 'most-viewed' do
-        subject { described_class.new(content_item, 'order' => 'most-viewed').search_results }
+        subject { described_class.new(content_item, batch_search_filter_params.merge('order' => 'most-viewed')).search_results }
 
         it "de-duplicates and sorts by popularity descending" do
           results = subject.fetch("results")
@@ -42,7 +82,7 @@ describe FinderApi do
       end
 
       context 'a-to-z' do
-        subject { described_class.new(content_item, 'order' => 'a-to-z').search_results }
+        subject { described_class.new(content_item, batch_search_filter_params.merge('order' => 'a-to-z')).search_results }
 
         it "de-duplicates and sorts by title descending" do
           results = subject.fetch("results")
@@ -69,13 +109,13 @@ describe FinderApi do
                 ],
               },
             ]
-        )
+          )
       end
 
       it_behaves_like 'sorts by other fields'
 
       context 'default' do
-        subject { described_class.new(content_item, {}).search_results }
+        subject { described_class.new(content_item, batch_search_filter_params).search_results }
 
         it "de-duplicates and returns in the order rummager returns" do
           results = subject.fetch("results")
@@ -85,7 +125,7 @@ describe FinderApi do
       end
 
       context 'most-relevant' do
-        subject { described_class.new(content_item, 'order' => 'most-relevant').search_results }
+        subject { described_class.new(content_item, batch_search_filter_params.merge('order' => 'most-relevant')).search_results }
 
         it "de-duplicates and returns in the order rummager returns" do
           results = subject.fetch("results")
@@ -112,13 +152,13 @@ describe FinderApi do
                 ],
               },
             ]
-        )
+          )
       end
 
       it_behaves_like 'sorts by other fields'
 
       context 'default' do
-        subject { described_class.new(content_item, {}).search_results }
+        subject { described_class.new(content_item, batch_search_filter_params).search_results }
 
         it "de-duplicates and sorts by es_score descending" do
           results = subject.fetch("results")
@@ -128,7 +168,7 @@ describe FinderApi do
       end
 
       context 'most-relevant' do
-        subject { described_class.new(content_item, 'order' => 'most-relevant').search_results }
+        subject { described_class.new(content_item, batch_search_filter_params.merge('order' => 'most-relevant')).search_results }
 
         it "de-duplicates and sorts by es_score descending" do
           results = subject.fetch("results")

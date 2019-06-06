@@ -11,20 +11,22 @@ module DocumentHelper
   include GdsApi::TestHelpers::EmailAlertApi
   include GdsApi::TestHelpers::ContentStore
 
-  def stub_rummager_api_request
-    stub_request(:get, rummager_all_documents_url).to_return(
-      body: all_documents_json,
-    )
+  SEARCH_ENDPOINT = "#{Plek.current.find('search')}/search.json".freeze
 
-    stub_request(:get, rummager_hopscotch_walks_url).to_return(
-      body: hopscotch_reports_json,
-    )
+  def stub_rummager_api_request
+    stub_request(:get, SEARCH_ENDPOINT).
+      with(query: hash_including(rummager_all_documents_params)).
+      to_return(body: all_documents_json)
+
+    stub_request(:get, SEARCH_ENDPOINT).
+      with(query: rummager_hopscotch_walks_params).
+      to_return(body: hopscotch_reports_json)
   end
 
   def stub_keyword_search_api_request
-    stub_request(:get, rummager_keyword_search_url).to_return(
-      body: keyword_search_results,
-    )
+    stub_request(:get, SEARCH_ENDPOINT).
+      with(query: rummager_keyword_search_params).
+      to_return(body: keyword_search_results)
   end
 
   def stub_keyword_business_readiness_search_api_request
@@ -34,7 +36,7 @@ module DocumentHelper
   end
 
   def stub_rummager_api_request_with_government_results
-    stub_request(:get, "#{Plek.current.find('search')}/batch_search.json")
+    stub_request(:get, SEARCH_ENDPOINT)
       .with(query: hash_including({}))
       .to_return(
         body: government_documents_json,
@@ -42,37 +44,39 @@ module DocumentHelper
   end
 
   def stub_rummager_api_request_with_query_param_no_results(query)
-    stub_request(:get, "#{Plek.current.find('search')}/batch_search.json")
-      .with(query: batch_search_includes('q' => query))
+    stub_request(:get, SEARCH_ENDPOINT)
+      .with(query: hash_including('q' => query))
       .to_return(
         body: no_results_json,
       )
   end
 
   def stub_rummager_api_request_with_10_government_results
-    stub_request(:get, rummager_10_documents_url).to_return(
-      body: government_documents_json,
-    )
+    stub_request(:get, SEARCH_ENDPOINT).
+      with(query: rummager_10_documents_params).
+      to_return(body: government_documents_json)
   end
 
   def stub_rummager_api_request_with_bad_data
-    stub_request(:get, rummager_all_documents_url).to_return(
-      body: documents_with_bad_data_json,
-    )
+    stub_request(:get, SEARCH_ENDPOINT).
+      with(query: rummager_all_documents_params).
+      to_return(body: documents_with_bad_data_json)
   end
 
   def stub_rummager_api_request_with_10_government_results_page_2
-    stub_request(:get, rummager_10_documents_page_2_url).to_return(
-      body: government_documents_page_2_json,
-    )
+    stub_request(:get, SEARCH_ENDPOINT).
+      with(query: rummager_10_documents_page_2_params).
+      to_return(body: government_documents_page_2_json)
   end
 
   def stub_rummager_api_request_with_news_and_communication_results
-    stub_request(:get, rummager_newest_news_and_communications_url)
-      .to_return(body: newest_news_and_communication_json)
+    stub_request(:get, SEARCH_ENDPOINT).
+      with(query: hash_including(rummager_newest_news_and_communications_params)).
+      to_return(body: newest_news_and_communication_json)
 
-    stub_request(:get, rummager_popular_news_and_communications_url)
-      .to_return(body: popular_news_and_communication_json)
+    stub_request(:get, SEARCH_ENDPOINT).
+      with(query: hash_including(rummager_popular_news_and_communications_params)).
+      to_return(body: popular_news_and_communication_json)
   end
 
   def stub_rummager_api_request_with_business_readiness_results
@@ -94,109 +98,101 @@ module DocumentHelper
   end
 
   def stub_rummager_api_request_with_policy_papers_results
-    stub_request(:get, rummager_policy_papers_url({}))
-      .to_return(body: policy_and_engagement_results_json)
+    stub_request(:get, SEARCH_ENDPOINT).
+      with(query: hash_including(policy_papers_params)).
+      to_return(body: policy_and_engagement_results_json)
   end
 
   def stub_rummager_api_request_with_all_content_results
-    stub_request(:get, all_content_url(order: '-public_timestamp'))
-      .to_return(body: all_content_results_json)
+    stub_request(:get, SEARCH_ENDPOINT).
+      with(query: hash_including(all_content_params.merge(order: '-public_timestamp'))).
+      to_return(body: all_content_results_json)
   end
 
   def stub_rummager_api_request_with_organisation_filter_all_content_results
-    stub_request(
-      :get,
-      all_content_url(
-        "q" => "search-term",
-        "filter_organisations[]" => %w(ministry-of-magic)
-      )
-    ).to_return(body: filtered_by_organisation_all_content_results_json)
+    stub_request(:get, SEARCH_ENDPOINT).
+      with(query: hash_including("q" => "search-term", "filter_organisations" => %w(ministry-of-magic))).
+      to_return(body: filtered_by_organisation_all_content_results_json)
   end
 
   def stub_rummager_api_request_with_manual_filter_all_content_results
-    stub_request(
-      :get,
-      all_content_url(
-        "q" => "search-term",
-        "filter_manual[]" => %w(how-to-be-a-wizard)
-      )
-    ).to_return(body: filtered_by_manual_all_content_results_json)
+    stub_request(:get, SEARCH_ENDPOINT).
+      with(query: hash_including("q" => "search-term", "filter_manual" => %w(how-to-be-a-wizard))).
+      to_return(body: filtered_by_manual_all_content_results_json)
   end
 
   def stub_rummager_api_request_with_filtered_policy_papers_results
-    stub_request(
-      :get,
-      rummager_policy_papers_url(
-        "filter_content_store_document_type[]" => %w(impact_assessment case_study policy_paper)
-      )
-    ).to_return(body: policy_and_engagement_results_for_policy_papers_json)
+    stub_request(:get, SEARCH_ENDPOINT).
+      with(query: hash_including(policy_papers_params.merge("filter_content_store_document_type" => %w(case_study impact_assessment policy_paper)))).
+      to_return(body: policy_and_engagement_results_for_policy_papers_json)
 
-    stub_request(
-      :get,
-      rummager_policy_papers_url(
-        "filter_content_store_document_type[]" => %w(impact_assessment case_study policy_paper closed_consultation consultation_outcome),
-      )
-    ).to_return(body: policy_and_engagement_results_for_policy_papers_and_closed_consultations_json)
+    stub_request(:get, SEARCH_ENDPOINT).
+      with(query: hash_including(
+        policy_papers_params.merge(
+          "filter_content_store_document_type" => %w(case_study closed_consultation consultation_outcome impact_assessment policy_paper)
+        )
+      )).
+      to_return(body: policy_and_engagement_results_for_policy_papers_and_closed_consultations_json)
   end
 
   def stub_rummager_api_request_with_research_and_statistics_results
-    stub_request(:get, "#{Plek.current.find('search')}/batch_search.json")
-        .with(query: batch_search_includes("filter_content_store_document_type" => hash_including("0" => 'statistics',
-                                                                                                "1" => "national_statistics",
-                                                                                                "2" => "statistical_data_set",
-                                                                                                "3" => "official_statistics")))
-        .to_return(body: statistics_results_for_statistics_json)
+    stub_request(:get, SEARCH_ENDPOINT)
+      .with(query: hash_including(
+        "filter_content_store_document_type" => %w(national_statistics official_statistics statistical_data_set statistics)
+      ))
+      .to_return(body: statistics_results_for_statistics_json)
   end
 
   def stub_rummager_api_request_with_filtered_research_and_statistics_results
     Timecop.freeze(Time.local("2019-01-01"))
-    stub_request(:get, "#{Plek.current.find('search')}/batch_search.json")
-      .with(query: batch_search_includes("filter_format" => hash_including("0" => "statistics_announcement"),
-                                         "filter_release_timestamp" => "from:2019-01-01"))
+    stub_request(:get, "#{Plek.current.find('search')}/search.json")
+      .with(query: hash_including("filter_format" => %w(statistics_announcement),
+                                  "filter_release_timestamp" => "from:2019-01-01"))
       .to_return(body: upcoming_statistics_results_for_statistics_json)
   end
 
-  def batch_search_includes(query_hash)
-    hash_including('search' => include("0" => hash_including(query_hash)))
-  end
-
   def stub_all_rummager_api_requests_with_all_documents_results
-    stub_request(:get, "#{Plek.current.find('search')}/batch_search.json")
-        .with(query: hash_including({}))
-        .to_return(body: all_documents_json)
+    stub_request(:get, SEARCH_ENDPOINT)
+      .with(query: hash_including({}))
+      .to_return(body: all_documents_json)
   end
 
   def stub_all_rummager_api_requests_with_news_and_communication_results
-    stub_request(:get, "#{Plek.current.find('search')}/batch_search.json")
-        .with(query: hash_including({}))
-        .to_return(body: newest_news_and_communication_json)
+    stub_request(:get, SEARCH_ENDPOINT)
+      .with(query: hash_including({}))
+      .to_return(body: newest_news_and_communication_json)
   end
 
   def stub_rummager_api_request_with_services_results
-    stub_request(:get, rummager_alphabetical_services_url)
-      .to_return(body: alpabetical_services_json)
+    stub_request(:get, SEARCH_ENDPOINT).
+      with(query: hash_including(rummager_alphabetical_services_params)).
+      to_return(body: alpabetical_services_json)
 
-    stub_request(:get, rummager_popular_services_url)
-      .to_return(body: popular_services_json)
+    stub_request(:get, SEARCH_ENDPOINT).
+      with(query: hash_including(rummager_popular_services_params)).
+      to_return(body: popular_services_json)
   end
 
   def stub_rummager_api_request_with_no_results
-    stub_request(:get, rummager_0_documents_url)
-      .to_return(body: %|{ "results": [], "total": 0, "start": 0}|)
+    stub_request(:get, SEARCH_ENDPOINT).
+      with(query: rummager_0_documents_params).
+      to_return(body: %|{ "results": [], "total": 0, "start": 0}|)
   end
 
   def stub_rummager_api_request_with_422_response(page_number)
-    stub_request(:get, rummager_document_other_page_search_url(page_number)).to_return(status: 422)
+    stub_request(:get, SEARCH_ENDPOINT).
+      with(query: rummager_document_other_page_search_params(page_number)).
+      to_return(status: 422)
   end
 
   def stub_rummager_api_request_with_policies_finder_results
-    stub_request(:get, rummager_policies_finder_search_url).to_return(
-      body: policies_documents_json,
-    )
+    stub_request(:get, SEARCH_ENDPOINT).
+      with(query: hash_including(rummager_policies_finder_search_params)).
+      to_return(body: policies_documents_json)
   end
 
   def stub_rummager_api_request_with_qa_finder_results
-    stub_request(:get, rummager_url({}))
+    stub_request(:get, SEARCH_ENDPOINT)
       .with(
         query: hash_including({})
       ).to_return(
@@ -350,13 +346,13 @@ module DocumentHelper
   end
 
   def stub_rummager_with_cma_cases
-    stub_request(:get, rummager_all_cma_case_documents_url).to_return(
-      body: all_cma_case_documents_json,
-    )
+    stub_request(:get, SEARCH_ENDPOINT).
+      with(query: rummager_all_cma_case_documents_params).
+      to_return(body: all_cma_case_documents_json)
 
-    stub_request(:get, rummager_filtered_cma_case_documents_url).to_return(
-      body: filtered_cma_case_documents_json,
-    )
+    stub_request(:get, SEARCH_ENDPOINT).
+      with(query: rummager_filtered_cma_case_documents_params).
+      to_return(body: filtered_cma_case_documents_json)
   end
 
   def stub_content_store_with_cma_cases_finder_with_description
@@ -405,40 +401,39 @@ module DocumentHelper
   end
 
   def stub_rummager_with_cma_cases_for_supergroups_checkbox
-    stub_request(:get, rummager_all_cma_case_documents_url).to_return(
-      body: all_cma_case_documents_json,
-    )
-    cma_case_documents_filtered_by_supergroup = rummager_url(
+    stub_request(:get, SEARCH_ENDPOINT).
+      with(query: hash_including(rummager_all_cma_case_documents_params)).
+      to_return(body: all_cma_case_documents_json)
+
+    open_cma_case_documents_params =
       cma_case_search_params.merge(
         "filter_case_state" => "open",
         "order" => "-public_timestamp"
       )
-    )
 
-    stub_request(:get, cma_case_documents_filtered_by_supergroup).to_return(
-      body: filtered_cma_case_documents_json,
-    )
+    stub_request(:get, SEARCH_ENDPOINT).
+      with(query: hash_including(open_cma_case_documents_params)).
+      to_return(body: filtered_cma_case_documents_json)
   end
 
   def stub_rummager_with_cma_cases_for_supergroups_checkbox_and_date
-    stub_request(:get, rummager_all_cma_case_documents_url).to_return(
-      body: all_cma_case_documents_json,
-        )
-    cma_case_documents_filtered_by_supergroup = rummager_url(
-      cma_case_search_params.merge(
-        'filter_case_state' => "open",
-        'order' => '-public_timestamp',
-        'filter_closed_date' => 'from:2015-11-01'
-      )
+    stub_request(:get, SEARCH_ENDPOINT).
+      with(query: hash_including(rummager_all_cma_case_documents_params)).
+      to_return(body: all_cma_case_documents_json)
+
+    open_cma_case_documents_params = cma_case_search_params.merge(
+      'filter_case_state' => "open",
+      'order' => '-public_timestamp',
+      'filter_closed_date' => 'from:2015-11-01'
     )
 
-    stub_request(:get, cma_case_documents_filtered_by_supergroup).to_return(
-      body: filtered_cma_case_documents_json,
-    )
+    stub_request(:get, SEARCH_ENDPOINT).
+      with(query: hash_including(open_cma_case_documents_params)).
+      to_return(body: filtered_cma_case_documents_json)
   end
 
   def rummager_all_org_links_url
-    simple_rummager_url(
+    rummager_url(
       "count" => 1500,
       "fields" => %w(slug title acronym),
       "filter_format" => "organisation",
@@ -446,57 +441,43 @@ module DocumentHelper
     )
   end
 
-  def rummager_all_documents_url
-    rummager_url(
-      mosw_search_params.merge(
-        "order" => "-public_timestamp",
-      )
+  def rummager_all_documents_params
+    mosw_search_params.merge("order" => "-public_timestamp")
+  end
+
+  def rummager_0_documents_params
+    mosw_search_params_no_facets.merge(
+      "order" => "-public_timestamp",
+      "count" => 1500
     )
   end
 
-  def rummager_0_documents_url
-    rummager_url(
-      mosw_search_params_no_facets.merge(
-        "order" => "-public_timestamp",
-        "count" => 1500
-      )
+  def rummager_10_documents_params
+    mosw_search_params.merge(
+      "order" => "-public_timestamp",
+      "count" => 10,
     )
   end
 
-  def rummager_10_documents_url
-    rummager_url(
-      mosw_search_params.merge(
-        "order" => "-public_timestamp",
-        "count" => 10,
-      )
+  def rummager_10_documents_page_2_params
+    mosw_search_params.merge(
+      "order" => "-public_timestamp",
+      "count" => 10,
+      "start" => 10,
     )
   end
 
-  def rummager_10_documents_page_2_url
-    rummager_url(
-      mosw_search_params.merge(
-        "order" => "-public_timestamp",
-        "count" => 10,
-        "start" => 10,
-      )
+  def rummager_hopscotch_walks_params
+    mosw_search_params.merge(
+      "filter_walk_type" => %w[hopscotch],
+      "order" => "-public_timestamp",
     )
   end
 
-  def rummager_hopscotch_walks_url
-    rummager_url(
-      mosw_search_params.merge(
-        "filter_walk_type" => %w[hopscotch],
-        "order" => "-public_timestamp",
-      )
-    )
-  end
-
-  def rummager_keyword_search_url
-    rummager_url(
-      mosw_search_params.merge(
-        "q" => "keyword searchable",
-        "order" => "-public_timestamp",
-      )
+  def rummager_keyword_search_params
+    mosw_search_params.merge(
+      "q" => "keyword searchable",
+      "order" => "-public_timestamp",
     )
   end
 
@@ -508,103 +489,63 @@ module DocumentHelper
     )
   end
 
-  def rummager_newest_news_and_communications_url
-    rummager_url(
-      news_and_communications_search_params
-        .merge(
-          'facet_organisations' => '1500,order:value.title',
-          'facet_people' => '1500,order:value.title',
-          'facet_world_locations' => '1500,order:value.title',
-          'order' => '-public_timestamp',
-          'count' => 20,
-          'start' => 0,
-        )
+  def rummager_newest_news_and_communications_params
+    news_and_communications_search_params.merge(
+      'order' => '-public_timestamp',
+      'count' => "20",
     )
   end
 
-  def rummager_popular_news_and_communications_url
-    rummager_url(
-      news_and_communications_search_params
-        .merge(
-          'facet_organisations' => '1500,order:value.title',
-          'facet_people' => '1500,order:value.title',
-          'facet_world_locations' => '1500,order:value.title',
-          'order' => '-popularity',
-          'count' => 20,
-          'start' => 0,
-        )
+  def rummager_popular_news_and_communications_params
+    news_and_communications_search_params.merge(
+      'order' => '-popularity',
+      'count' => "20",
     )
   end
 
-  def rummager_popular_services_url
-    rummager_url(
-      services_search_params
-        .merge(
-          'facet_organisations' => '1500,order:value.title',
-          'order' => '-popularity',
-          'count' => 20,
-          'start' => 0,
-          )
+  def rummager_popular_services_params
+    services_search_params.merge(
+      'order' => '-popularity',
+      'count' => "20",
     )
   end
 
-  def rummager_alphabetical_services_url
-    rummager_url(
-      services_search_params
-        .merge(
-          'facet_organisations' => '1500,order:value.title',
-          'order' => 'title',
-          'count' => 20,
-          'start' => 0,
-          )
+  def rummager_alphabetical_services_params
+    services_search_params.merge(
+      'order' => 'title',
+      'count' => "20",
     )
   end
 
-  def rummager_policy_search_url
-    rummager_url(
-      policy_search_params.merge(
-        "order" => "-public_timestamp",
-        "count" => 10,
-        "start" => 0,
-      )
-    )
+  def rummager_policy_search_params
+    policy_search_params.merge("order" => "-public_timestamp")
   end
 
-  def rummager_document_other_page_search_url(page_number)
+  def rummager_document_other_page_search_params(page_number)
     count_per_page = 10
 
-    rummager_url(
-      mosw_search_params.merge(
-        "order" => "-public_timestamp",
-        "count" => count_per_page,
-        "start" => ((page_number - 1) * count_per_page)
-      )
+    mosw_search_params.merge(
+      "order" => "-public_timestamp",
+      "count" => count_per_page,
+      "start" => ((page_number - 1) * count_per_page)
     )
   end
 
-  def rummager_all_cma_case_documents_url
-    rummager_url(
-      cma_case_search_params.merge(
-        "order" => "-public_timestamp",
-      )
+  def rummager_all_cma_case_documents_params
+    cma_case_search_params.merge("order" => "-public_timestamp")
+  end
+
+  def rummager_filtered_cma_case_documents_params
+    cma_case_search_params.merge(
+      "filter_closed_date" => "from:2015-11-01",
+      "order" => "-public_timestamp",
     )
   end
 
-  def rummager_filtered_cma_case_documents_url
-    rummager_url(
-      cma_case_search_params.merge(
-        "filter_closed_date" => "from:2015-11-01",
-        "order" => "-public_timestamp",
-      )
-    )
-  end
-
-  def rummager_policies_finder_search_url
-    rummager_url(
-      policies_search_params.merge(
-        "facet_organisations" => "1500,order:value.title",
-        "order" => "title",
-      )
+  def rummager_policies_finder_search_params
+    policies_search_params.merge(
+      "facet_organisations" => "1500,order:value.title",
+      "order" => "title",
     )
   end
 
@@ -618,14 +559,6 @@ module DocumentHelper
 
   def rummager_filtered_business_readiness_url(filter_params)
     rummager_url(business_readiness_params.merge(filter_params))
-  end
-
-  def rummager_policy_papers_url(filters)
-    rummager_url(policy_papers_params.merge(filters))
-  end
-
-  def all_content_url(filters)
-    rummager_url(all_content_params.merge(filters))
   end
 
   def organisation_link_results
@@ -657,32 +590,28 @@ module DocumentHelper
     %|{
       "results": [
         {
-          "results": [
-            {
-              "title": "Acme keyword searchable walk",
-              "public_timestamp": "2010-10-06",
-              "summary": "ACME researched a new type of silly walk",
-              "document_type": "mosw_report",
-              "walk_type": [{
-                "value": "backwards",
-                "label": "Backwards"
-              }],
-              "place_of_origin": [{
-                "value": "scotland",
-                "label": "Scotland"
-              }],
-              "creator": "Wile E Coyote",
-              "date_of_introduction": "2014-08-28",
-              "link": "mosw-reports/acme-keyword-searchable-walk",
-              "_id": "mosw-reports/acme-keyword-searchable-walk"
-            }
-          ],
-          "total": 1,
-          "start": 0,
-          "facets": {},
-          "suggested_queries": []
+          "title": "Acme keyword searchable walk",
+          "public_timestamp": "2010-10-06",
+          "summary": "ACME researched a new type of silly walk",
+          "document_type": "mosw_report",
+          "walk_type": [{
+            "value": "backwards",
+            "label": "Backwards"
+          }],
+          "place_of_origin": [{
+            "value": "scotland",
+            "label": "Scotland"
+          }],
+          "creator": "Wile E Coyote",
+          "date_of_introduction": "2014-08-28",
+          "link": "mosw-reports/acme-keyword-searchable-walk",
+          "_id": "mosw-reports/acme-keyword-searchable-walk"
         }
-      ]
+      ],
+      "total": 1,
+      "start": 0,
+      "facets": {},
+      "suggested_queries": []
     }|
   end
 
@@ -690,32 +619,28 @@ module DocumentHelper
     %|{
       "results": [
         {
-          "results": [
-            {
-              "title": "Acme keyword searchable walk",
-              "public_timestamp": "2010-10-06",
-              "summary": "ACME researched a new type of silly walk",
-              "document_type": "mosw_report",
-              "walk_type": [{
-                "value": "backwards",
-                "label": "Backwards"
-              }],
-              "place_of_origin": [{
-                "value": "scotland",
-                "label": "Scotland"
-              }],
-              "creator": "Wile E Coyote",
-              "date_of_introduction": "2014-08-28",
-              "link": "mosw-reports/acme-keyword-searchable-walk",
-              "_id": "mosw-reports/acme-keyword-searchable-walk"
-            }
-          ],
-          "total": 1,
-          "start": 0,
-          "facets": {},
-          "suggested_queries": []
+          "title": "Acme keyword searchable walk",
+          "public_timestamp": "2010-10-06",
+          "summary": "ACME researched a new type of silly walk",
+          "document_type": "mosw_report",
+          "walk_type": [{
+            "value": "backwards",
+            "label": "Backwards"
+          }],
+          "place_of_origin": [{
+            "value": "scotland",
+            "label": "Scotland"
+          }],
+          "creator": "Wile E Coyote",
+          "date_of_introduction": "2014-08-28",
+          "link": "mosw-reports/acme-keyword-searchable-walk",
+          "_id": "mosw-reports/acme-keyword-searchable-walk"
         }
-      ]
+      ],
+      "total": 1,
+      "start": 0,
+      "facets": {},
+      "suggested_queries": []
     }|
   end
 
@@ -723,92 +648,76 @@ module DocumentHelper
     %|{
       "results": [
         {
-          "results": [
-            {
-              "title": "West London wobbley walk",
-              "public_timestamp": "2014-11-25",
-              "summary": "MOSW researched a new type of silly walk",
-              "document_type": "mosw_report",
-              "walk_type": [{
-                "value": "backward",
-                "label": "Backward"
-              }],
-              "place_of_origin": [{
-                "value": "england",
-                "label": "England"
-              }],
-              "creator": "Road Runner",
-              "date_of_introduction": "2003-12-30",
-              "link": "/mosw-reports/west-london-wobbley-walk",
-              "_id": "/mosw-reports/west-london-wobbley-walk"
-            },
-            {
-              "title": "The Gerry Anderson",
-              "public_timestamp": "2010-10-06",
-              "summary": "Rhyming slang for Dander, an Irish colloquialism for walk",
-              "document_type": "mosw_report",
-              "walk_type": [{
-                "value": "hopscotch",
-                "label": "Hopscotch"
-              }],
-              "place_of_origin": [{
-                "value": "northern-ireland",
-                "label": "Northern Ireland"
-              }],
-              "creator": "",
-              "date_of_introduction": "1914-08-28",
-              "link": "/mosw-reports/the-gerry-anderson",
-              "_id": "/mosw-reports/the-gerry-anderson"
-            }
-          ],
-          "total": 2,
-          "start": 0,
-          "facets": {},
-          "suggested_queries": []
+          "title": "West London wobbley walk",
+          "public_timestamp": "2014-11-25",
+          "summary": "MOSW researched a new type of silly walk",
+          "document_type": "mosw_report",
+          "walk_type": [{
+            "value": "backward",
+            "label": "Backward"
+          }],
+          "place_of_origin": [{
+            "value": "england",
+            "label": "England"
+          }],
+          "creator": "Road Runner",
+          "date_of_introduction": "2003-12-30",
+          "link": "/mosw-reports/west-london-wobbley-walk",
+          "_id": "/mosw-reports/west-london-wobbley-walk"
+        },
+        {
+          "title": "The Gerry Anderson",
+          "public_timestamp": "2010-10-06",
+          "summary": "Rhyming slang for Dander, an Irish colloquialism for walk",
+          "document_type": "mosw_report",
+          "walk_type": [{
+            "value": "hopscotch",
+            "label": "Hopscotch"
+          }],
+          "place_of_origin": [{
+            "value": "northern-ireland",
+            "label": "Northern Ireland"
+          }],
+          "creator": "",
+          "date_of_introduction": "1914-08-28",
+          "link": "/mosw-reports/the-gerry-anderson",
+          "_id": "/mosw-reports/the-gerry-anderson"
         }
-      ]
+      ],
+      "total": 2,
+      "start": 0,
+      "facets": {},
+      "suggested_queries": []
     }|
   end
 
   def no_results_json
     %|{
-      "results": [
-        {
-          "results": [],
-          "total": 0,
-          "start": 0,
-          "facets": {},
-          "suggested_queries": []
-        }
-      ]
+      "results": [],
+      "total": 0,
+      "start": 0,
+      "facets": {},
+      "suggested_queries": []
     }|
   end
 
   def government_documents_json
     %|{
-      "results": [
-        {
-          "results": #{government_document_results_json},
-          "total": 20,
-          "start": 0,
-          "facets": {},
-          "suggested_queries": []
-        }
-      ]
+      "results": #{government_document_results_json},
+      "total": 20,
+      "start": 0,
+      "facets": {},
+      "suggested_queries": []
     }|
   end
 
   def government_documents_page_2_json
     %|{
-      "results": [
-        {
-          "results": #{government_document_results_json(5)},
-          "total": 20,
-          "start": 10,
-          "facets": {},
-          "suggested_queries": []
-        }
-      ]
+      "results": #{government_document_results_json(5)},
+      "total": 20,
+      "start": 10,
+      "facets": {},
+      "suggested_queries": []
     }|
   end
 
@@ -865,59 +774,55 @@ module DocumentHelper
     %|{
       "results": [
         {
-          "results": [
-            {
-              "title": "Education",
-              "summary": "Education",
-              "format": "policy",
-              "creator": "Dale Cooper",
-              "public_timestamp": "2007-02-14T00:00:00.000+01:00",
-              "is_historic": true,
-              "display_type": "Policy",
-              "organisations": [{
-                "slug": "ministry-of-justice",
-                "link": "/government/organisations/ministry-of-justice",
-                "title": "Ministry of Justice",
-                "acronym": "MoJ",
-                "organisation_state": "live"
-              }],
-              "government_name": "2005 to 2010 Labour government",
-              "link": "/government/policies/education",
-              "_id": "/government/policies/education"
-            },
-            {
-              "title": "Afghanistan",
-              "public_timestamp": "2015-03-14T00:00:00.000+01:00",
-              "summary": "What the government is doing about Afghanistan",
-              "format": "policy",
-              "creator": "Dale Cooper",
-              "is_historic": false,
-              "organisations": [{
-                "slug": "ministry-of-justice",
-                "link": "/government/organisations/ministry-of-justice",
-                "title": "Ministry of Justice",
-                "acronym": "MoJ",
-                "organisation_state": "live"
-              }],
-              "display_type": "Policy",
-              "government_name": "2010 to 2015 Conservative and Liberal Democrat Coalition government",
-              "link": "/government/policies/afghanistan",
-              "_id": "/government/policies/afghanistan"
-            }
-          ],
-          "total": 2,
-          "start": 0,
-          "facets": {
-            "organisations": {
-              "options": [
-                  {"value": {"title": "Ministry of Justice", "slug": "ministry-of-justice"}},
-                  {"value": {"slug": "ministry-of-missing-spoons"}}
-              ]
-            }
-          },
-          "suggested_queries": []
+          "title": "Education",
+          "summary": "Education",
+          "format": "policy",
+          "creator": "Dale Cooper",
+          "public_timestamp": "2007-02-14T00:00:00.000+01:00",
+          "is_historic": true,
+          "display_type": "Policy",
+          "organisations": [{
+            "slug": "ministry-of-justice",
+            "link": "/government/organisations/ministry-of-justice",
+            "title": "Ministry of Justice",
+            "acronym": "MoJ",
+            "organisation_state": "live"
+          }],
+          "government_name": "2005 to 2010 Labour government",
+          "link": "/government/policies/education",
+          "_id": "/government/policies/education"
+        },
+        {
+          "title": "Afghanistan",
+          "public_timestamp": "2015-03-14T00:00:00.000+01:00",
+          "summary": "What the government is doing about Afghanistan",
+          "format": "policy",
+          "creator": "Dale Cooper",
+          "is_historic": false,
+          "organisations": [{
+            "slug": "ministry-of-justice",
+            "link": "/government/organisations/ministry-of-justice",
+            "title": "Ministry of Justice",
+            "acronym": "MoJ",
+            "organisation_state": "live"
+          }],
+          "display_type": "Policy",
+          "government_name": "2010 to 2015 Conservative and Liberal Democrat Coalition government",
+          "link": "/government/policies/afghanistan",
+          "_id": "/government/policies/afghanistan"
         }
-      ]
+      ],
+      "total": 2,
+      "start": 0,
+      "facets": {
+        "organisations": {
+          "options": [
+              {"value": {"title": "Ministry of Justice", "slug": "ministry-of-justice"}},
+              {"value": {"slug": "ministry-of-missing-spoons"}}
+          ]
+        }
+      },
+      "suggested_queries": []
     }|
   end
 
@@ -925,133 +830,129 @@ module DocumentHelper
     %|{
       "results": [
         {
-          "results": [
+          "title": "News from Hogwarts",
+          "link": "/news-from-hogwarts",
+          "description": "Breaking wizard news from Hogwarts",
+          "public_timestamp": "2018-11-16T11:11:42Z",
+          "part_of_taxonomy_tree": [
+            "4bc72a8b-6011-457a-87e0-06dbb427cf36"
+          ],
+          "organisations": [
             {
-              "title": "News from Hogwarts",
-              "link": "/news-from-hogwarts",
-              "description": "Breaking wizard news from Hogwarts",
-              "public_timestamp": "2018-11-16T11:11:42Z",
-              "part_of_taxonomy_tree": [
-                "4bc72a8b-6011-457a-87e0-06dbb427cf36"
-              ],
-              "organisations": [
-                {
-                  "organisation_crest": "single-identity",
-                  "acronym": "MOM",
-                  "link": "/organisations/ministry-of-magic",
-                  "analytics_identifier": "MM1",
-                  "public_timestamp": "2017-12-15T11:11:02.000+00:00",
-                  "organisation_brand": "ministry-of-magic",
-                  "logo_formatted_title": "Ministry of Magic",
-                  "title": "Ministry of Magic",
-                  "content_id": "92881ac6-2804-4522-bf48-cf8c781c98bf",
-                  "slug": "ministry-of-magic",
-                  "organisation_type": "other",
-                  "organisation_state": "live"
-                }
-              ],
-              "index": "govuk",
-              "es_score": null,
-              "_id": "/news-from-hogwarts",
-              "elasticsearch_type": "news_article",
-              "document_type": "news_article"
-            },
-            {
-              "title": "Press release from Hogwarts",
-              "link": "/press-release-from-hogwarts",
-              "description": "An important press release from Hogwarts",
-              "public_timestamp": "2017-12-25T09:00:00Z",
-              "part_of_taxonomy_tree": [
-                "4bc72a8b-6011-457a-87e0-06dbb427cf36"
-              ],
-              "organisations": [
-                {
-                  "organisation_crest": "single-identity",
-                  "acronym": "MOM",
-                  "link": "/organisations/ministry-of-magic",
-                  "analytics_identifier": "MM1",
-                  "public_timestamp": "2017-12-15T11:11:02.000+00:00",
-                  "organisation_brand": "ministry-of-magic",
-                  "logo_formatted_title": "Ministry of Magic",
-                  "title": "Ministry of Magic",
-                  "content_id": "92881ac6-2804-4522-bf48-cf8c781c98bf",
-                  "slug": "ministry-of-magic",
-                  "organisation_type": "other",
-                  "organisation_state": "live"
-                }
-              ],
-              "index": "govuk",
-              "es_score": null,
-              "_id": "/press-release-from-hogwarts",
-              "elasticsearch_type": "press_release",
-              "document_type": "press_release"
+              "organisation_crest": "single-identity",
+              "acronym": "MOM",
+              "link": "/organisations/ministry-of-magic",
+              "analytics_identifier": "MM1",
+              "public_timestamp": "2017-12-15T11:11:02.000+00:00",
+              "organisation_brand": "ministry-of-magic",
+              "logo_formatted_title": "Ministry of Magic",
+              "title": "Ministry of Magic",
+              "content_id": "92881ac6-2804-4522-bf48-cf8c781c98bf",
+              "slug": "ministry-of-magic",
+              "organisation_type": "other",
+              "organisation_state": "live"
             }
           ],
-          "total": 2,
-          "start": 0,
-          "facets": {
-            "people": {
-              "options": [
-                {
-                  "value": {
-                    "slug": "harry-potter",
-                    "title": "Harry Potter",
-                    "content_id": "aca5d2de-1fef-45fe-a39d-6a779589d220",
-                    "link": "/people/harry-potter"
-                  },
-                  "documents": 2
-                }
-              ],
-              "documents_with_no_value": 0,
-              "total_options": 2,
-              "missing_options": 0,
-              "scope": "exclude_field_filter"
-            },
-            "organisations": {
-              "options": [
-                {
-                  "value": {
-                    "organisation_brand": "ministry-of-magic",
-                    "logo_formatted_title": "Ministry of Magic",
-                    "organisation_crest": "single-identity",
-                    "title": "Ministry of Magic",
-                    "content_id": "92881ac6-2804-4522-bf48-cf8c781c98bf",
-                    "link": "/organisations/academy-for-social-justice-commissioning",
-                    "analytics_identifier": "MM1",
-                    "slug": "ministry-of-magic",
-                    "public_timestamp": "2017-12-15T11:11:02.000+00:00",
-                    "organisation_type": "other",
-                    "organisation_state": "live"
-                  },
-                  "documents": 2
-                }
-              ],
-              "documents_with_no_value": 0,
-              "total_options": 2,
-              "missing_options": 0,
-              "scope": "exclude_field_filter"
-            },
-            "world_locations": {
-              "options": [
-                {
-                  "value": {
-                    "slug": "azkaban",
-                    "title": "Azkaban",
-                    "content_id": "db3c2a86-2060-4c37-b8a4-9e3c4e6c91e2",
-                    "link": "/world/azkaban"
-                  },
-                  "documents": 2
-                }
-              ],
-              "documents_with_no_value": 0,
-              "total_options": 2,
-              "missing_options": 0,
-              "scope": "exclude_field_filter"
+          "index": "govuk",
+          "es_score": null,
+          "_id": "/news-from-hogwarts",
+          "elasticsearch_type": "news_article",
+          "document_type": "news_article"
+        },
+        {
+          "title": "Press release from Hogwarts",
+          "link": "/press-release-from-hogwarts",
+          "description": "An important press release from Hogwarts",
+          "public_timestamp": "2017-12-25T09:00:00Z",
+          "part_of_taxonomy_tree": [
+            "4bc72a8b-6011-457a-87e0-06dbb427cf36"
+          ],
+          "organisations": [
+            {
+              "organisation_crest": "single-identity",
+              "acronym": "MOM",
+              "link": "/organisations/ministry-of-magic",
+              "analytics_identifier": "MM1",
+              "public_timestamp": "2017-12-15T11:11:02.000+00:00",
+              "organisation_brand": "ministry-of-magic",
+              "logo_formatted_title": "Ministry of Magic",
+              "title": "Ministry of Magic",
+              "content_id": "92881ac6-2804-4522-bf48-cf8c781c98bf",
+              "slug": "ministry-of-magic",
+              "organisation_type": "other",
+              "organisation_state": "live"
             }
-          },
-          "suggested_queries": []
+          ],
+          "index": "govuk",
+          "es_score": null,
+          "_id": "/press-release-from-hogwarts",
+          "elasticsearch_type": "press_release",
+          "document_type": "press_release"
         }
-      ]
+      ],
+      "total": 2,
+      "start": 0,
+      "facets": {
+        "people": {
+          "options": [
+            {
+              "value": {
+                "slug": "harry-potter",
+                "title": "Harry Potter",
+                "content_id": "aca5d2de-1fef-45fe-a39d-6a779589d220",
+                "link": "/people/harry-potter"
+              },
+              "documents": 2
+            }
+          ],
+          "documents_with_no_value": 0,
+          "total_options": 2,
+          "missing_options": 0,
+          "scope": "exclude_field_filter"
+        },
+        "organisations": {
+          "options": [
+            {
+              "value": {
+                "organisation_brand": "ministry-of-magic",
+                "logo_formatted_title": "Ministry of Magic",
+                "organisation_crest": "single-identity",
+                "title": "Ministry of Magic",
+                "content_id": "92881ac6-2804-4522-bf48-cf8c781c98bf",
+                "link": "/organisations/academy-for-social-justice-commissioning",
+                "analytics_identifier": "MM1",
+                "slug": "ministry-of-magic",
+                "public_timestamp": "2017-12-15T11:11:02.000+00:00",
+                "organisation_type": "other",
+                "organisation_state": "live"
+              },
+              "documents": 2
+            }
+          ],
+          "documents_with_no_value": 0,
+          "total_options": 2,
+          "missing_options": 0,
+          "scope": "exclude_field_filter"
+        },
+        "world_locations": {
+          "options": [
+            {
+              "value": {
+                "slug": "azkaban",
+                "title": "Azkaban",
+                "content_id": "db3c2a86-2060-4c37-b8a4-9e3c4e6c91e2",
+                "link": "/world/azkaban"
+              },
+              "documents": 2
+            }
+          ],
+          "documents_with_no_value": 0,
+          "total_options": 2,
+          "missing_options": 0,
+          "scope": "exclude_field_filter"
+        }
+      },
+      "suggested_queries": []
     }|
   end
 
@@ -1059,133 +960,129 @@ module DocumentHelper
     %|{
       "results": [
         {
-          "results": [
+          "title": "Press release from Hogwarts",
+          "link": "/press-release-from-hogwarts",
+          "description": "An important press release from Hogwarts",
+          "public_timestamp": "2017-12-25T09:00:00Z",
+          "part_of_taxonomy_tree": [
+            "4bc72a8b-6011-457a-87e0-06dbb427cf36"
+          ],
+          "organisations": [
             {
-              "title": "Press release from Hogwarts",
-              "link": "/press-release-from-hogwarts",
-              "description": "An important press release from Hogwarts",
-              "public_timestamp": "2017-12-25T09:00:00Z",
-              "part_of_taxonomy_tree": [
-                "4bc72a8b-6011-457a-87e0-06dbb427cf36"
-              ],
-              "organisations": [
-                {
-                  "organisation_crest": "single-identity",
-                  "acronym": "MOM",
-                  "link": "/organisations/ministry-of-magic",
-                  "analytics_identifier": "MM1",
-                  "public_timestamp": "2017-12-15T11:11:02.000+00:00",
-                  "organisation_brand": "ministry-of-magic",
-                  "logo_formatted_title": "Ministry of Magic",
-                  "title": "Ministry of Magic",
-                  "content_id": "92881ac6-2804-4522-bf48-cf8c781c98bf",
-                  "slug": "ministry-of-magic",
-                  "organisation_type": "other",
-                  "organisation_state": "live"
-                }
-              ],
-              "index": "govuk",
-              "es_score": null,
-              "_id": "/press-release-from-hogwarts",
-              "elasticsearch_type": "press_release",
-              "document_type": "press_release"
-            },
-            {
-              "title": "News from Hogwarts",
-              "link": "/news-from-hogwarts",
-              "description": "Breaking wizard news from Hogwarts",
-              "public_timestamp": "2018-11-16T11:11:42Z",
-              "part_of_taxonomy_tree": [
-                "4bc72a8b-6011-457a-87e0-06dbb427cf36"
-              ],
-              "organisations": [
-                {
-                  "organisation_crest": "single-identity",
-                  "acronym": "MOM",
-                  "link": "/organisations/ministry-of-magic",
-                  "analytics_identifier": "MM1",
-                  "public_timestamp": "2017-12-15T11:11:02.000+00:00",
-                  "organisation_brand": "ministry-of-magic",
-                  "logo_formatted_title": "Ministry of Magic",
-                  "title": "Ministry of Magic",
-                  "content_id": "92881ac6-2804-4522-bf48-cf8c781c98bf",
-                  "slug": "ministry-of-magic",
-                  "organisation_type": "other",
-                  "organisation_state": "live"
-                }
-              ],
-              "index": "govuk",
-              "es_score": null,
-              "_id": "/news-from-hogwarts",
-              "elasticsearch_type": "news_article",
-              "document_type": "news_article"
+              "organisation_crest": "single-identity",
+              "acronym": "MOM",
+              "link": "/organisations/ministry-of-magic",
+              "analytics_identifier": "MM1",
+              "public_timestamp": "2017-12-15T11:11:02.000+00:00",
+              "organisation_brand": "ministry-of-magic",
+              "logo_formatted_title": "Ministry of Magic",
+              "title": "Ministry of Magic",
+              "content_id": "92881ac6-2804-4522-bf48-cf8c781c98bf",
+              "slug": "ministry-of-magic",
+              "organisation_type": "other",
+              "organisation_state": "live"
             }
           ],
-          "total": 2,
-          "start": 0,
-          "facets": {
-            "people": {
-              "options": [
-                {
-                  "value": {
-                    "slug": "harry-potter",
-                    "title": "Harry Potter",
-                    "content_id": "aca5d2de-1fef-45fe-a39d-6a779589d220",
-                    "link": "/people/harry-potter"
-                  },
-                  "documents": 2
-                }
-              ],
-              "documents_with_no_value": 0,
-              "total_options": 2,
-              "missing_options": 0,
-              "scope": "exclude_field_filter"
-            },
-            "organisations": {
-              "options": [
-                {
-                  "value": {
-                    "organisation_brand": "ministry-of-magic",
-                    "logo_formatted_title": "Ministry of Magic",
-                    "organisation_crest": "single-identity",
-                    "title": "Ministry of Magic",
-                    "content_id": "92881ac6-2804-4522-bf48-cf8c781c98bf",
-                    "link": "/organisations/academy-for-social-justice-commissioning",
-                    "analytics_identifier": "MM1",
-                    "slug": "ministry-of-magic",
-                    "public_timestamp": "2017-12-15T11:11:02.000+00:00",
-                    "organisation_type": "other",
-                    "organisation_state": "live"
-                  },
-                  "documents": 2
-                }
-              ],
-              "documents_with_no_value": 0,
-              "total_options": 2,
-              "missing_options": 0,
-              "scope": "exclude_field_filter"
-            },
-            "world_locations": {
-              "options": [
-                {
-                  "value": {
-                    "slug": "azkaban",
-                    "title": "Azkaban",
-                    "content_id": "db3c2a86-2060-4c37-b8a4-9e3c4e6c91e2",
-                    "link": "/world/azkaban"
-                  },
-                  "documents": 2
-                }
-              ],
-              "documents_with_no_value": 0,
-              "total_options": 2,
-              "missing_options": 0,
-              "scope": "exclude_field_filter"
+          "index": "govuk",
+          "es_score": null,
+          "_id": "/press-release-from-hogwarts",
+          "elasticsearch_type": "press_release",
+          "document_type": "press_release"
+        },
+        {
+          "title": "News from Hogwarts",
+          "link": "/news-from-hogwarts",
+          "description": "Breaking wizard news from Hogwarts",
+          "public_timestamp": "2018-11-16T11:11:42Z",
+          "part_of_taxonomy_tree": [
+            "4bc72a8b-6011-457a-87e0-06dbb427cf36"
+          ],
+          "organisations": [
+            {
+              "organisation_crest": "single-identity",
+              "acronym": "MOM",
+              "link": "/organisations/ministry-of-magic",
+              "analytics_identifier": "MM1",
+              "public_timestamp": "2017-12-15T11:11:02.000+00:00",
+              "organisation_brand": "ministry-of-magic",
+              "logo_formatted_title": "Ministry of Magic",
+              "title": "Ministry of Magic",
+              "content_id": "92881ac6-2804-4522-bf48-cf8c781c98bf",
+              "slug": "ministry-of-magic",
+              "organisation_type": "other",
+              "organisation_state": "live"
             }
-          },
-          "suggested_queries": []
+          ],
+          "index": "govuk",
+          "es_score": null,
+          "_id": "/news-from-hogwarts",
+          "elasticsearch_type": "news_article",
+          "document_type": "news_article"
         }
-      ]
+      ],
+      "total": 2,
+      "start": 0,
+      "facets": {
+        "people": {
+          "options": [
+            {
+              "value": {
+                "slug": "harry-potter",
+                "title": "Harry Potter",
+                "content_id": "aca5d2de-1fef-45fe-a39d-6a779589d220",
+                "link": "/people/harry-potter"
+              },
+              "documents": 2
+            }
+          ],
+          "documents_with_no_value": 0,
+          "total_options": 2,
+          "missing_options": 0,
+          "scope": "exclude_field_filter"
+        },
+        "organisations": {
+          "options": [
+            {
+              "value": {
+                "organisation_brand": "ministry-of-magic",
+                "logo_formatted_title": "Ministry of Magic",
+                "organisation_crest": "single-identity",
+                "title": "Ministry of Magic",
+                "content_id": "92881ac6-2804-4522-bf48-cf8c781c98bf",
+                "link": "/organisations/academy-for-social-justice-commissioning",
+                "analytics_identifier": "MM1",
+                "slug": "ministry-of-magic",
+                "public_timestamp": "2017-12-15T11:11:02.000+00:00",
+                "organisation_type": "other",
+                "organisation_state": "live"
+              },
+              "documents": 2
+            }
+          ],
+          "documents_with_no_value": 0,
+          "total_options": 2,
+          "missing_options": 0,
+          "scope": "exclude_field_filter"
+        },
+        "world_locations": {
+          "options": [
+            {
+              "value": {
+                "slug": "azkaban",
+                "title": "Azkaban",
+                "content_id": "db3c2a86-2060-4c37-b8a4-9e3c4e6c91e2",
+                "link": "/world/azkaban"
+              },
+              "documents": 2
+            }
+          ],
+          "documents_with_no_value": 0,
+          "total_options": 2,
+          "missing_options": 0,
+          "scope": "exclude_field_filter"
+        }
+      },
+      "suggested_queries": []
     }|
   end
 
@@ -1193,99 +1090,95 @@ module DocumentHelper
     %|{
       "results": [
         {
-          "results": [
+          "title": "Apply for your full broomstick licence",
+          "link": "apply-for-your-full-broomstick-licence",
+          "description": "How to get your full broomstick licence once you've passed your broomstick test",
+          "public_timestamp": "2018-11-16T11:11:42Z",
+          "part_of_taxonomy_tree": [
+            "4bc72a8b-6011-457a-87e0-06dbb427cf36"
+          ],
+          "organisations": [
             {
-              "title": "Apply for your full broomstick licence",
-              "link": "apply-for-your-full-broomstick-licence",
-              "description": "How to get your full broomstick licence once you've passed your broomstick test",
-              "public_timestamp": "2018-11-16T11:11:42Z",
-              "part_of_taxonomy_tree": [
-                "4bc72a8b-6011-457a-87e0-06dbb427cf36"
-              ],
-              "organisations": [
-                {
-                  "organisation_crest": "single-identity",
-                  "acronym": "MOM",
-                  "link": "/organisations/ministry-of-magic",
-                  "analytics_identifier": "MM1",
-                  "public_timestamp": "2017-12-15T11:11:02.000+00:00",
-                  "organisation_brand": "ministry-of-magic",
-                  "logo_formatted_title": "Ministry of Magic",
-                  "title": "Ministry of Magic",
-                  "content_id": "92881ac6-2804-4522-bf48-cf8c781c98bf",
-                  "slug": "ministry-of-magic",
-                  "organisation_type": "other",
-                  "organisation_state": "live"
-                }
-              ],
-              "index": "govuk",
-              "es_score": null,
-              "_id": "/news-from-hogwarts",
-              "elasticsearch_type": "transaction",
-              "document_type": "transaction"
-            },
-            {
-              "title": "Register a spell",
-              "link": "/register-a-spell",
-              "description": "Register a magical spell",
-              "public_timestamp": "2017-12-25T09:00:00Z",
-              "part_of_taxonomy_tree": [
-                "4bc72a8b-6011-457a-87e0-06dbb427cf36"
-              ],
-              "organisations": [
-                {
-                  "organisation_crest": "single-identity",
-                  "acronym": "MOM",
-                  "link": "/organisations/ministry-of-magic",
-                  "analytics_identifier": "MM1",
-                  "public_timestamp": "2017-12-15T11:11:02.000+00:00",
-                  "organisation_brand": "ministry-of-magic",
-                  "logo_formatted_title": "Ministry of Magic",
-                  "title": "Ministry of Magic",
-                  "content_id": "92881ac6-2804-4522-bf48-cf8c781c98bf",
-                  "slug": "ministry-of-magic",
-                  "organisation_type": "other",
-                  "organisation_state": "live"
-                }
-              ],
-              "index": "govuk",
-              "es_score": null,
-              "_id": "/register-a-spell",
-              "elasticsearch_type": "transaction",
-              "document_type": "transaction"
+              "organisation_crest": "single-identity",
+              "acronym": "MOM",
+              "link": "/organisations/ministry-of-magic",
+              "analytics_identifier": "MM1",
+              "public_timestamp": "2017-12-15T11:11:02.000+00:00",
+              "organisation_brand": "ministry-of-magic",
+              "logo_formatted_title": "Ministry of Magic",
+              "title": "Ministry of Magic",
+              "content_id": "92881ac6-2804-4522-bf48-cf8c781c98bf",
+              "slug": "ministry-of-magic",
+              "organisation_type": "other",
+              "organisation_state": "live"
             }
           ],
-          "total": 2,
-          "start": 0,
-          "facets": {
-            "organisations": {
-              "options": [
-                {
-                  "value": {
-                    "organisation_brand": "ministry-of-magic",
-                    "logo_formatted_title": "Ministry of Magic",
-                    "organisation_crest": "single-identity",
-                    "title": "Ministry of Magic",
-                    "content_id": "92881ac6-2804-4522-bf48-cf8c781c98bf",
-                    "link": "/organisations/academy-for-social-justice-commissioning",
-                    "analytics_identifier": "MM1",
-                    "slug": "ministry-of-magic",
-                    "public_timestamp": "2017-12-15T11:11:02.000+00:00",
-                    "organisation_type": "other",
-                    "organisation_state": "live"
-                  },
-                  "documents": 2
-                }
-              ],
-              "documents_with_no_value": 0,
-              "total_options": 2,
-              "missing_options": 0,
-              "scope": "exclude_field_filter"
+          "index": "govuk",
+          "es_score": null,
+          "_id": "/news-from-hogwarts",
+          "elasticsearch_type": "transaction",
+          "document_type": "transaction"
+        },
+        {
+          "title": "Register a spell",
+          "link": "/register-a-spell",
+          "description": "Register a magical spell",
+          "public_timestamp": "2017-12-25T09:00:00Z",
+          "part_of_taxonomy_tree": [
+            "4bc72a8b-6011-457a-87e0-06dbb427cf36"
+          ],
+          "organisations": [
+            {
+              "organisation_crest": "single-identity",
+              "acronym": "MOM",
+              "link": "/organisations/ministry-of-magic",
+              "analytics_identifier": "MM1",
+              "public_timestamp": "2017-12-15T11:11:02.000+00:00",
+              "organisation_brand": "ministry-of-magic",
+              "logo_formatted_title": "Ministry of Magic",
+              "title": "Ministry of Magic",
+              "content_id": "92881ac6-2804-4522-bf48-cf8c781c98bf",
+              "slug": "ministry-of-magic",
+              "organisation_type": "other",
+              "organisation_state": "live"
             }
-          },
-          "suggested_queries": []
+          ],
+          "index": "govuk",
+          "es_score": null,
+          "_id": "/register-a-spell",
+          "elasticsearch_type": "transaction",
+          "document_type": "transaction"
         }
-      ]
+      ],
+      "total": 2,
+      "start": 0,
+      "facets": {
+        "organisations": {
+          "options": [
+            {
+              "value": {
+                "organisation_brand": "ministry-of-magic",
+                "logo_formatted_title": "Ministry of Magic",
+                "organisation_crest": "single-identity",
+                "title": "Ministry of Magic",
+                "content_id": "92881ac6-2804-4522-bf48-cf8c781c98bf",
+                "link": "/organisations/academy-for-social-justice-commissioning",
+                "analytics_identifier": "MM1",
+                "slug": "ministry-of-magic",
+                "public_timestamp": "2017-12-15T11:11:02.000+00:00",
+                "organisation_type": "other",
+                "organisation_state": "live"
+              },
+              "documents": 2
+            }
+          ],
+          "documents_with_no_value": 0,
+          "total_options": 2,
+          "missing_options": 0,
+          "scope": "exclude_field_filter"
+        }
+      },
+      "suggested_queries": []
     }|
   end
 
@@ -1293,99 +1186,95 @@ module DocumentHelper
     %|{
       "results": [
         {
-          "results": [
+          "title": "Register a spell",
+          "link": "/register-a-spell",
+          "description": "Register a magical spell",
+          "public_timestamp": "2017-12-25T09:00:00Z",
+          "part_of_taxonomy_tree": [
+            "4bc72a8b-6011-457a-87e0-06dbb427cf36"
+          ],
+          "organisations": [
             {
-              "title": "Register a spell",
-              "link": "/register-a-spell",
-              "description": "Register a magical spell",
-              "public_timestamp": "2017-12-25T09:00:00Z",
-              "part_of_taxonomy_tree": [
-                "4bc72a8b-6011-457a-87e0-06dbb427cf36"
-              ],
-              "organisations": [
-                {
-                  "organisation_crest": "single-identity",
-                  "acronym": "MOM",
-                  "link": "/organisations/ministry-of-magic",
-                  "analytics_identifier": "MM1",
-                  "public_timestamp": "2017-12-15T11:11:02.000+00:00",
-                  "organisation_brand": "ministry-of-magic",
-                  "logo_formatted_title": "Ministry of Magic",
-                  "title": "Ministry of Magic",
-                  "content_id": "92881ac6-2804-4522-bf48-cf8c781c98bf",
-                  "slug": "ministry-of-magic",
-                  "organisation_type": "other",
-                  "organisation_state": "live"
-                }
-              ],
-              "index": "govuk",
-              "es_score": null,
-              "_id": "/register-a-spell",
-              "elasticsearch_type": "transaction",
-              "document_type": "transaction"
-            },
-            {
-              "title": "Apply for your full broomstick licence",
-              "link": "apply-for-your-full-broomstick-licence",
-              "description": "How to get your full broomstick licence once you've passed your broomstick test",
-              "public_timestamp": "2018-11-16T11:11:42Z",
-              "part_of_taxonomy_tree": [
-                "4bc72a8b-6011-457a-87e0-06dbb427cf36"
-              ],
-              "organisations": [
-                {
-                  "organisation_crest": "single-identity",
-                  "acronym": "MOM",
-                  "link": "/organisations/ministry-of-magic",
-                  "analytics_identifier": "MM1",
-                  "public_timestamp": "2017-12-15T11:11:02.000+00:00",
-                  "organisation_brand": "ministry-of-magic",
-                  "logo_formatted_title": "Ministry of Magic",
-                  "title": "Ministry of Magic",
-                  "content_id": "92881ac6-2804-4522-bf48-cf8c781c98bf",
-                  "slug": "ministry-of-magic",
-                  "organisation_type": "other",
-                  "organisation_state": "live"
-                }
-              ],
-              "index": "govuk",
-              "es_score": null,
-              "_id": "/news-from-hogwarts",
-              "elasticsearch_type": "transaction",
-              "document_type": "transaction"
+              "organisation_crest": "single-identity",
+              "acronym": "MOM",
+              "link": "/organisations/ministry-of-magic",
+              "analytics_identifier": "MM1",
+              "public_timestamp": "2017-12-15T11:11:02.000+00:00",
+              "organisation_brand": "ministry-of-magic",
+              "logo_formatted_title": "Ministry of Magic",
+              "title": "Ministry of Magic",
+              "content_id": "92881ac6-2804-4522-bf48-cf8c781c98bf",
+              "slug": "ministry-of-magic",
+              "organisation_type": "other",
+              "organisation_state": "live"
             }
           ],
-          "total": 2,
-          "start": 0,
-          "facets": {
-            "organisations": {
-              "options": [
-                {
-                  "value": {
-                    "organisation_brand": "ministry-of-magic",
-                    "logo_formatted_title": "Ministry of Magic",
-                    "organisation_crest": "single-identity",
-                    "title": "Ministry of Magic",
-                    "content_id": "92881ac6-2804-4522-bf48-cf8c781c98bf",
-                    "link": "/organisations/academy-for-social-justice-commissioning",
-                    "analytics_identifier": "MM1",
-                    "slug": "ministry-of-magic",
-                    "public_timestamp": "2017-12-15T11:11:02.000+00:00",
-                    "organisation_type": "other",
-                    "organisation_state": "live"
-                  },
-                  "documents": 2
-                }
-              ],
-              "documents_with_no_value": 0,
-              "total_options": 2,
-              "missing_options": 0,
-              "scope": "exclude_field_filter"
+          "index": "govuk",
+          "es_score": null,
+          "_id": "/register-a-spell",
+          "elasticsearch_type": "transaction",
+          "document_type": "transaction"
+        },
+        {
+          "title": "Apply for your full broomstick licence",
+          "link": "apply-for-your-full-broomstick-licence",
+          "description": "How to get your full broomstick licence once you've passed your broomstick test",
+          "public_timestamp": "2018-11-16T11:11:42Z",
+          "part_of_taxonomy_tree": [
+            "4bc72a8b-6011-457a-87e0-06dbb427cf36"
+          ],
+          "organisations": [
+            {
+              "organisation_crest": "single-identity",
+              "acronym": "MOM",
+              "link": "/organisations/ministry-of-magic",
+              "analytics_identifier": "MM1",
+              "public_timestamp": "2017-12-15T11:11:02.000+00:00",
+              "organisation_brand": "ministry-of-magic",
+              "logo_formatted_title": "Ministry of Magic",
+              "title": "Ministry of Magic",
+              "content_id": "92881ac6-2804-4522-bf48-cf8c781c98bf",
+              "slug": "ministry-of-magic",
+              "organisation_type": "other",
+              "organisation_state": "live"
             }
-          },
-          "suggested_queries": []
+          ],
+          "index": "govuk",
+          "es_score": null,
+          "_id": "/news-from-hogwarts",
+          "elasticsearch_type": "transaction",
+          "document_type": "transaction"
         }
-      ]
+      ],
+      "total": 2,
+      "start": 0,
+      "facets": {
+        "organisations": {
+          "options": [
+            {
+              "value": {
+                "organisation_brand": "ministry-of-magic",
+                "logo_formatted_title": "Ministry of Magic",
+                "organisation_crest": "single-identity",
+                "title": "Ministry of Magic",
+                "content_id": "92881ac6-2804-4522-bf48-cf8c781c98bf",
+                "link": "/organisations/academy-for-social-justice-commissioning",
+                "analytics_identifier": "MM1",
+                "slug": "ministry-of-magic",
+                "public_timestamp": "2017-12-15T11:11:02.000+00:00",
+                "organisation_type": "other",
+                "organisation_state": "live"
+              },
+              "documents": 2
+            }
+          ],
+          "documents_with_no_value": 0,
+          "total_options": 2,
+          "missing_options": 0,
+          "scope": "exclude_field_filter"
+        }
+      },
+      "suggested_queries": []
     }|
   end
 
@@ -1393,44 +1282,40 @@ module DocumentHelper
     %|{
       "results": [
         {
-          "results": [
-            {
-              "title": "West London wobbley walk",
-              "public_timestamp": "2014-11-25",
-              "summary": "MOSW researched a new type of silly walk",
-              "document_type": "mosw_report",
-              "walk_type": [{
-                "value": "backward",
-                "label": "Backward"
-              }],
-              "place_of_origin": [null],
-              "creator": "Road Runner",
-              "date_of_introduction": "2003-12-30",
-              "link": "mosw-reports/west-london-wobbley-walk",
-              "_id": "mosw-reports/west-london-wobbley-walk"
-            },
-            {
-              "title": "The Gerry Anderson",
-              "public_timestamp": "2010-10-06",
-              "summary": "Rhyming slang for Dander, an Irish colloquialism for walk",
-              "document_type": "mosw_report",
-              "walk_type": [null],
-              "place_of_origin": [{
-                "value": "northern-ireland",
-                "label": "Northern Ireland"
-              }],
-              "creator": "",
-              "date_of_introduction": "1914-08-28",
-              "link": "mosw-reports/the-gerry-anderson",
-              "_id": "mosw-reports/the-gerry-anderson"
-            }
-          ],
-          "total": 2,
-          "start": 0,
-          "facets": {},
-          "suggested_queries": []
+          "title": "West London wobbley walk",
+          "public_timestamp": "2014-11-25",
+          "summary": "MOSW researched a new type of silly walk",
+          "document_type": "mosw_report",
+          "walk_type": [{
+            "value": "backward",
+            "label": "Backward"
+          }],
+          "place_of_origin": [null],
+          "creator": "Road Runner",
+          "date_of_introduction": "2003-12-30",
+          "link": "mosw-reports/west-london-wobbley-walk",
+          "_id": "mosw-reports/west-london-wobbley-walk"
+        },
+        {
+          "title": "The Gerry Anderson",
+          "public_timestamp": "2010-10-06",
+          "summary": "Rhyming slang for Dander, an Irish colloquialism for walk",
+          "document_type": "mosw_report",
+          "walk_type": [null],
+          "place_of_origin": [{
+            "value": "northern-ireland",
+            "label": "Northern Ireland"
+          }],
+          "creator": "",
+          "date_of_introduction": "1914-08-28",
+          "link": "mosw-reports/the-gerry-anderson",
+          "_id": "mosw-reports/the-gerry-anderson"
         }
-      ]
+      ],
+      "total": 2,
+      "start": 0,
+      "facets": {},
+      "suggested_queries": []
     }|
   end
 
@@ -1438,32 +1323,28 @@ module DocumentHelper
     %|{
       "results": [
         {
-          "results": [
-            {
-              "title": "The Gerry Anderson",
-              "public_timestamp": "2010-10-06",
-              "summary": "Rhyming slang for Dander, an Irish colloquialism for walk",
-              "document_type": "mosw_report",
-              "walk_type": [{
-                "value": "hopscotch",
-                "label": "Hopscotch"
-              }],
-              "place_of_origin": [{
-                "value": "northern-ireland",
-                "label": "Northern Ireland"
-              }],
-              "creator": "",
-              "date_of_introduction": "1914-08-28",
-              "link": "mosw-reports/the-gerry-anderson",
-              "_id": "mosw-reports/the-gerry-anderson"
-            }
-          ],
-          "total": 1,
-          "start": 0,
-          "facets": {},
-          "suggested_queries": []
+          "title": "The Gerry Anderson",
+          "public_timestamp": "2010-10-06",
+          "summary": "Rhyming slang for Dander, an Irish colloquialism for walk",
+          "document_type": "mosw_report",
+          "walk_type": [{
+            "value": "hopscotch",
+            "label": "Hopscotch"
+          }],
+          "place_of_origin": [{
+            "value": "northern-ireland",
+            "label": "Northern Ireland"
+          }],
+          "creator": "",
+          "date_of_introduction": "1914-08-28",
+          "link": "mosw-reports/the-gerry-anderson",
+          "_id": "mosw-reports/the-gerry-anderson"
         }
-      ]
+      ],
+      "total": 1,
+      "start": 0,
+      "facets": {},
+      "suggested_queries": []
     }|
   end
 
@@ -1471,58 +1352,54 @@ module DocumentHelper
     %|{
       "results": [
         {
-          "results": [
-            {
-              "title": "Big Beer Co / Salty Snacks Ltd merger inquiry",
-              "public_timestamp": "2015-03-17T09:18:18+00:00",
-              "summary": "The CMA is investigating the merging of Big Beer Co and Salty Snacks Ltd.",
-              "document_type": "cma_case",
-              "case_type": [{
-                "value": "mergers",
-                "label": "Mergers"
-              }],
-              "case_state": [{
-                "value": "closed",
-                "label": "Closed"
-              }],
-              "market_sector": [{
-                "value": "food-manufacturing",
-                "label": "Food manufacturing"
-              }],
-              "opened_date": "2015-02-14",
-              "closed_date": "2016-02-14",
-              "link": "cma-cases/big-beer-co-salty-snacks-ltd-merger",
-              "_id": "cma-cases/big-beer-co-salty-snacks-ltd-merger"
-            },
-            {
-              "title": "Bakery market investigation",
-              "public_timestamp": "2015-01-06T10:34:17+00:00",
-              "summary": "The CMA is investigation the supply and marketing of pizza-cakes in Great Britain.",
-              "document_type": "cma_case",
-              "case_type": [{
-                "value": "markets",
-                "label": "Markets"
-              }],
-              "case_state": [{
-                "value": "closed",
-                "label": "Closed"
-              }],
-              "market_sector": [{
-                "value": "food-manufacturing",
-                "label": "Food manufacturing"
-              }],
-              "opened_date": "2014-10-31",
-              "closed_date": "2015-10-31",
-              "link": "cma-cases/bakery-market-investigation",
-              "_id": "cma-cases/bakery-market-investigation"
-            }
-          ],
-          "total": 2,
-          "start": 0,
-          "facets": {},
-          "suggested_queries": []
+          "title": "Big Beer Co / Salty Snacks Ltd merger inquiry",
+          "public_timestamp": "2015-03-17T09:18:18+00:00",
+          "summary": "The CMA is investigating the merging of Big Beer Co and Salty Snacks Ltd.",
+          "document_type": "cma_case",
+          "case_type": [{
+            "value": "mergers",
+            "label": "Mergers"
+          }],
+          "case_state": [{
+            "value": "closed",
+            "label": "Closed"
+          }],
+          "market_sector": [{
+            "value": "food-manufacturing",
+            "label": "Food manufacturing"
+          }],
+          "opened_date": "2015-02-14",
+          "closed_date": "2016-02-14",
+          "link": "cma-cases/big-beer-co-salty-snacks-ltd-merger",
+          "_id": "cma-cases/big-beer-co-salty-snacks-ltd-merger"
+        },
+        {
+          "title": "Bakery market investigation",
+          "public_timestamp": "2015-01-06T10:34:17+00:00",
+          "summary": "The CMA is investigation the supply and marketing of pizza-cakes in Great Britain.",
+          "document_type": "cma_case",
+          "case_type": [{
+            "value": "markets",
+            "label": "Markets"
+          }],
+          "case_state": [{
+            "value": "closed",
+            "label": "Closed"
+          }],
+          "market_sector": [{
+            "value": "food-manufacturing",
+            "label": "Food manufacturing"
+          }],
+          "opened_date": "2014-10-31",
+          "closed_date": "2015-10-31",
+          "link": "cma-cases/bakery-market-investigation",
+          "_id": "cma-cases/bakery-market-investigation"
         }
-      ]
+      ],
+      "total": 2,
+      "start": 0,
+      "facets": {},
+      "suggested_queries": []
     }|
   end
 
@@ -1530,35 +1407,31 @@ module DocumentHelper
     %|{
       "results": [
         {
-          "results": [
-            {
-              "title": "Big Beer Co / Salty Snacks Ltd merger inquiry",
-              "public_timestamp": "2015-03-17T09:18:18+00:00",
-              "summary": "The CMA is investigating the merging of Big Beer Co and Salty Snacks Ltd.",
-              "document_type": "cma_case",
-              "case_type": [{
-                "value": "mergers",
-                "label": "Mergers"
-              }],
-              "case_state": [{
-                "value": "open",
-                "label": "Open"
-              }],
-              "market_sector": [{
-                "value": "food-manufacturing",
-                "label": "Food manufacturing"
-              }],
-              "opened_date": "2015-02-14",
-              "link": "cma-cases/big-beer-co-salty-snacks-ltd-merger",
-              "_id": "cma-cases/big-beer-co-salty-snacks-ltd-merger"
-            }
-          ],
-          "total": 1,
-          "start": 0,
-          "facets": {},
-          "suggested_queries": []
+          "title": "Big Beer Co / Salty Snacks Ltd merger inquiry",
+          "public_timestamp": "2015-03-17T09:18:18+00:00",
+          "summary": "The CMA is investigating the merging of Big Beer Co and Salty Snacks Ltd.",
+          "document_type": "cma_case",
+          "case_type": [{
+            "value": "mergers",
+            "label": "Mergers"
+          }],
+          "case_state": [{
+            "value": "open",
+            "label": "Open"
+          }],
+          "market_sector": [{
+            "value": "food-manufacturing",
+            "label": "Food manufacturing"
+          }],
+          "opened_date": "2015-02-14",
+          "link": "cma-cases/big-beer-co-salty-snacks-ltd-merger",
+          "_id": "cma-cases/big-beer-co-salty-snacks-ltd-merger"
         }
-      ]
+      ],
+      "total": 1,
+      "start": 0,
+      "facets": {},
+      "suggested_queries": []
     }|
   end
 
@@ -1619,133 +1492,129 @@ module DocumentHelper
     %|{
       "results": [
         {
-          "results": [
+          "title": "Restrictions on usage of spells within school grounds",
+          "link": "/restrictions-on-usage-of-spells-within-school-grounds",
+          "description": "Restrictions on usage of spells within school grounds",
+          "public_timestamp": "2017-12-30T10:00:00Z",
+          "part_of_taxonomy_tree": [
+            "622e9691-4b4f-4e9c-bce1-098b0c4f5ee2"
+          ],
+          "organisations": [
             {
-              "title": "Restrictions on usage of spells within school grounds",
-              "link": "/restrictions-on-usage-of-spells-within-school-grounds",
-              "description": "Restrictions on usage of spells within school grounds",
-              "public_timestamp": "2017-12-30T10:00:00Z",
-              "part_of_taxonomy_tree": [
-                "622e9691-4b4f-4e9c-bce1-098b0c4f5ee2"
-              ],
-              "organisations": [
-                {
-                  "organisation_crest": "single-identity",
-                  "acronym": "MOM",
-                  "link": "/organisations/ministry-of-magic",
-                  "analytics_identifier": "MM1",
-                  "public_timestamp": "2017-12-15T11:11:02.000+00:00",
-                  "organisation_brand": "ministry-of-magic",
-                  "logo_formatted_title": "Ministry of Magic",
-                  "title": "Ministry of Magic",
-                  "content_id": "92881ac6-2804-4522-bf48-cf8c781c98bf",
-                  "slug": "ministry-of-magic",
-                  "organisation_type": "other",
-                  "organisation_state": "live"
-                }
-              ],
-              "index": "govuk",
-              "es_score": null,
-              "_id": "/restrictions-on-usage-of-spells-within-school-grounds",
-              "elasticsearch_type": "policy_paper",
-              "document_type": "policy_paper"
-            },
-            {
-              "title": "Proposed changes to magic tournaments",
-              "link": "proposed-changes-to-magic-tournaments",
-              "description": "Proposed changes to magic tournaments",
-              "public_timestamp": "2018-11-16T11:11:42Z",
-              "part_of_taxonomy_tree": [
-                "622e9691-4b4f-4e9c-bce1-098b0c4f5ee2"
-              ],
-              "organisations": [
-                {
-                  "organisation_crest": "single-identity",
-                  "acronym": "MOM",
-                  "link": "/organisations/ministry-of-magic",
-                  "analytics_identifier": "MM1",
-                  "public_timestamp": "2017-12-15T11:11:02.000+00:00",
-                  "organisation_brand": "ministry-of-magic",
-                  "logo_formatted_title": "Ministry of Magic",
-                  "title": "Ministry of Magic",
-                  "content_id": "92881ac6-2804-4522-bf48-cf8c781c98bf",
-                  "slug": "ministry-of-magic",
-                  "organisation_type": "other",
-                  "organisation_state": "live"
-                }
-              ],
-              "index": "govuk",
-              "es_score": null,
-              "_id": "/proposed-changes-to-magic-tournaments",
-              "elasticsearch_type": "open_consultation",
-              "document_type": "open_consultation"
-            },
-            {
-              "title": "New platform at Hogwarts for the express train",
-              "link": "new-platform-at-hogwarts-for-the-express-train",
-              "description": "New platform at Hogwarts for the express train",
-              "public_timestamp": "2018-11-16T11:11:42Z",
-              "part_of_taxonomy_tree": [
-                "622e9691-4b4f-4e9c-bce1-098b0c4f5ee2"
-              ],
-              "organisations": [
-                {
-                  "organisation_crest": "single-identity",
-                  "acronym": "MOM",
-                  "link": "/organisations/ministry-of-magic",
-                  "analytics_identifier": "MM1",
-                  "public_timestamp": "2017-12-15T11:11:02.000+00:00",
-                  "organisation_brand": "ministry-of-magic",
-                  "logo_formatted_title": "Ministry of Magic",
-                  "title": "Ministry of Magic",
-                  "content_id": "92881ac6-2804-4522-bf48-cf8c781c98bf",
-                  "slug": "ministry-of-magic",
-                  "organisation_type": "other",
-                  "organisation_state": "live"
-                }
-              ],
-              "index": "govuk",
-              "es_score": null,
-              "_id": "/new-platform-at-hogwarts-for-the-express-train",
-              "elasticsearch_type": "closed_consultation",
-              "document_type": "closed_consultation"
-            },
-            {
-              "title": "Installation of double glazing at Hogwarts",
-              "link": "installation-of-double-glazing-at-hogwarts",
-              "description": "Installation of double glazing at Hogwarts",
-              "public_timestamp": "2018-11-16T11:11:42Z",
-              "part_of_taxonomy_tree": [
-                "622e9691-4b4f-4e9c-bce1-098b0c4f5ee2"
-              ],
-              "organisations": [
-                {
-                  "organisation_crest": "single-identity",
-                  "acronym": "MOM",
-                  "link": "/organisations/ministry-of-magic",
-                  "analytics_identifier": "MM1",
-                  "public_timestamp": "2017-12-15T11:11:02.000+00:00",
-                  "organisation_brand": "ministry-of-magic",
-                  "logo_formatted_title": "Ministry of Magic",
-                  "title": "Ministry of Magic",
-                  "content_id": "92881ac6-2804-4522-bf48-cf8c781c98bf",
-                  "slug": "ministry-of-magic",
-                  "organisation_type": "other",
-                  "organisation_state": "live"
-                }
-              ],
-              "index": "govuk",
-              "es_score": null,
-              "_id": "/installation-of-double-glazing-at-hogwarts",
-              "elasticsearch_type": "consultation_outcome",
-              "document_type": "consultation_outcome"
+              "organisation_crest": "single-identity",
+              "acronym": "MOM",
+              "link": "/organisations/ministry-of-magic",
+              "analytics_identifier": "MM1",
+              "public_timestamp": "2017-12-15T11:11:02.000+00:00",
+              "organisation_brand": "ministry-of-magic",
+              "logo_formatted_title": "Ministry of Magic",
+              "title": "Ministry of Magic",
+              "content_id": "92881ac6-2804-4522-bf48-cf8c781c98bf",
+              "slug": "ministry-of-magic",
+              "organisation_type": "other",
+              "organisation_state": "live"
             }
           ],
-          "total": 4,
-          "start": 0,
-          "suggested_queries": []
+          "index": "govuk",
+          "es_score": null,
+          "_id": "/restrictions-on-usage-of-spells-within-school-grounds",
+          "elasticsearch_type": "policy_paper",
+          "document_type": "policy_paper"
+        },
+        {
+          "title": "Proposed changes to magic tournaments",
+          "link": "proposed-changes-to-magic-tournaments",
+          "description": "Proposed changes to magic tournaments",
+          "public_timestamp": "2018-11-16T11:11:42Z",
+          "part_of_taxonomy_tree": [
+            "622e9691-4b4f-4e9c-bce1-098b0c4f5ee2"
+          ],
+          "organisations": [
+            {
+              "organisation_crest": "single-identity",
+              "acronym": "MOM",
+              "link": "/organisations/ministry-of-magic",
+              "analytics_identifier": "MM1",
+              "public_timestamp": "2017-12-15T11:11:02.000+00:00",
+              "organisation_brand": "ministry-of-magic",
+              "logo_formatted_title": "Ministry of Magic",
+              "title": "Ministry of Magic",
+              "content_id": "92881ac6-2804-4522-bf48-cf8c781c98bf",
+              "slug": "ministry-of-magic",
+              "organisation_type": "other",
+              "organisation_state": "live"
+            }
+          ],
+          "index": "govuk",
+          "es_score": null,
+          "_id": "/proposed-changes-to-magic-tournaments",
+          "elasticsearch_type": "open_consultation",
+          "document_type": "open_consultation"
+        },
+        {
+          "title": "New platform at Hogwarts for the express train",
+          "link": "new-platform-at-hogwarts-for-the-express-train",
+          "description": "New platform at Hogwarts for the express train",
+          "public_timestamp": "2018-11-16T11:11:42Z",
+          "part_of_taxonomy_tree": [
+            "622e9691-4b4f-4e9c-bce1-098b0c4f5ee2"
+          ],
+          "organisations": [
+            {
+              "organisation_crest": "single-identity",
+              "acronym": "MOM",
+              "link": "/organisations/ministry-of-magic",
+              "analytics_identifier": "MM1",
+              "public_timestamp": "2017-12-15T11:11:02.000+00:00",
+              "organisation_brand": "ministry-of-magic",
+              "logo_formatted_title": "Ministry of Magic",
+              "title": "Ministry of Magic",
+              "content_id": "92881ac6-2804-4522-bf48-cf8c781c98bf",
+              "slug": "ministry-of-magic",
+              "organisation_type": "other",
+              "organisation_state": "live"
+            }
+          ],
+          "index": "govuk",
+          "es_score": null,
+          "_id": "/new-platform-at-hogwarts-for-the-express-train",
+          "elasticsearch_type": "closed_consultation",
+          "document_type": "closed_consultation"
+        },
+        {
+          "title": "Installation of double glazing at Hogwarts",
+          "link": "installation-of-double-glazing-at-hogwarts",
+          "description": "Installation of double glazing at Hogwarts",
+          "public_timestamp": "2018-11-16T11:11:42Z",
+          "part_of_taxonomy_tree": [
+            "622e9691-4b4f-4e9c-bce1-098b0c4f5ee2"
+          ],
+          "organisations": [
+            {
+              "organisation_crest": "single-identity",
+              "acronym": "MOM",
+              "link": "/organisations/ministry-of-magic",
+              "analytics_identifier": "MM1",
+              "public_timestamp": "2017-12-15T11:11:02.000+00:00",
+              "organisation_brand": "ministry-of-magic",
+              "logo_formatted_title": "Ministry of Magic",
+              "title": "Ministry of Magic",
+              "content_id": "92881ac6-2804-4522-bf48-cf8c781c98bf",
+              "slug": "ministry-of-magic",
+              "organisation_type": "other",
+              "organisation_state": "live"
+            }
+          ],
+          "index": "govuk",
+          "es_score": null,
+          "_id": "/installation-of-double-glazing-at-hogwarts",
+          "elasticsearch_type": "consultation_outcome",
+          "document_type": "consultation_outcome"
         }
-      ]
+      ],
+      "total": 4,
+      "start": 0,
+      "suggested_queries": []
     }|
   end
 
@@ -1753,43 +1622,39 @@ module DocumentHelper
     %|{
       "results": [
         {
-          "results": [
+          "title": "Restrictions on usage of spells within school grounds",
+          "link": "/restrictions-on-usage-of-spells-within-school-grounds",
+          "description": "Restrictions on usage of spells within school grounds",
+          "public_timestamp": "2017-12-30T10:00:00Z",
+          "part_of_taxonomy_tree": [
+            "622e9691-4b4f-4e9c-bce1-098b0c4f5ee2"
+          ],
+          "organisations": [
             {
-              "title": "Restrictions on usage of spells within school grounds",
-              "link": "/restrictions-on-usage-of-spells-within-school-grounds",
-              "description": "Restrictions on usage of spells within school grounds",
-              "public_timestamp": "2017-12-30T10:00:00Z",
-              "part_of_taxonomy_tree": [
-                "622e9691-4b4f-4e9c-bce1-098b0c4f5ee2"
-              ],
-              "organisations": [
-                {
-                  "organisation_crest": "single-identity",
-                  "acronym": "MOM",
-                  "link": "/organisations/ministry-of-magic",
-                  "analytics_identifier": "MM1",
-                  "public_timestamp": "2017-12-15T11:11:02.000+00:00",
-                  "organisation_brand": "ministry-of-magic",
-                  "logo_formatted_title": "Ministry of Magic",
-                  "title": "Ministry of Magic",
-                  "content_id": "92881ac6-2804-4522-bf48-cf8c781c98bf",
-                  "slug": "ministry-of-magic",
-                  "organisation_type": "other",
-                  "organisation_state": "live"
-                }
-              ],
-              "index": "govuk",
-              "es_score": null,
-              "_id": "/restrictions-on-usage-of-spells-within-school-grounds",
-              "elasticsearch_type": "policy_paper",
-              "document_type": "policy_paper"
+              "organisation_crest": "single-identity",
+              "acronym": "MOM",
+              "link": "/organisations/ministry-of-magic",
+              "analytics_identifier": "MM1",
+              "public_timestamp": "2017-12-15T11:11:02.000+00:00",
+              "organisation_brand": "ministry-of-magic",
+              "logo_formatted_title": "Ministry of Magic",
+              "title": "Ministry of Magic",
+              "content_id": "92881ac6-2804-4522-bf48-cf8c781c98bf",
+              "slug": "ministry-of-magic",
+              "organisation_type": "other",
+              "organisation_state": "live"
             }
           ],
-          "total": 1,
-          "start": 0,
-          "suggested_queries": []
+          "index": "govuk",
+          "es_score": null,
+          "_id": "/restrictions-on-usage-of-spells-within-school-grounds",
+          "elasticsearch_type": "policy_paper",
+          "document_type": "policy_paper"
         }
-      ]
+      ],
+      "total": 1,
+      "start": 0,
+      "suggested_queries": []
     }|
   end
 
@@ -1797,103 +1662,99 @@ module DocumentHelper
     %|{
       "results": [
         {
-          "results": [
+          "title": "Restrictions on usage of spells within school grounds",
+          "link": "/restrictions-on-usage-of-spells-within-school-grounds",
+          "description": "Restrictions on usage of spells within school grounds",
+          "public_timestamp": "2017-12-30T10:00:00Z",
+          "part_of_taxonomy_tree": [
+            "622e9691-4b4f-4e9c-bce1-098b0c4f5ee2"
+          ],
+          "organisations": [
             {
-              "title": "Restrictions on usage of spells within school grounds",
-              "link": "/restrictions-on-usage-of-spells-within-school-grounds",
-              "description": "Restrictions on usage of spells within school grounds",
-              "public_timestamp": "2017-12-30T10:00:00Z",
-              "part_of_taxonomy_tree": [
-                "622e9691-4b4f-4e9c-bce1-098b0c4f5ee2"
-              ],
-              "organisations": [
-                {
-                  "organisation_crest": "single-identity",
-                  "acronym": "MOM",
-                  "link": "/organisations/ministry-of-magic",
-                  "analytics_identifier": "MM1",
-                  "public_timestamp": "2017-12-15T11:11:02.000+00:00",
-                  "organisation_brand": "ministry-of-magic",
-                  "logo_formatted_title": "Ministry of Magic",
-                  "title": "Ministry of Magic",
-                  "content_id": "92881ac6-2804-4522-bf48-cf8c781c98bf",
-                  "slug": "ministry-of-magic",
-                  "organisation_type": "other",
-                  "organisation_state": "live"
-                }
-              ],
-              "index": "govuk",
-              "es_score": null,
-              "_id": "/restrictions-on-usage-of-spells-within-school-grounds",
-              "elasticsearch_type": "policy_paper",
-              "document_type": "policy_paper"
-            },
-            {
-              "title": "New platform at Hogwarts for the express train",
-              "link": "new-platform-at-hogwarts-for-the-express-train",
-              "description": "New platform at Hogwarts for the express train",
-              "public_timestamp": "2018-11-16T11:11:42Z",
-              "part_of_taxonomy_tree": [
-                "622e9691-4b4f-4e9c-bce1-098b0c4f5ee2"
-              ],
-              "organisations": [
-                {
-                  "organisation_crest": "single-identity",
-                  "acronym": "MOM",
-                  "link": "/organisations/ministry-of-magic",
-                  "analytics_identifier": "MM1",
-                  "public_timestamp": "2017-12-15T11:11:02.000+00:00",
-                  "organisation_brand": "ministry-of-magic",
-                  "logo_formatted_title": "Ministry of Magic",
-                  "title": "Ministry of Magic",
-                  "content_id": "92881ac6-2804-4522-bf48-cf8c781c98bf",
-                  "slug": "ministry-of-magic",
-                  "organisation_type": "other",
-                  "organisation_state": "live"
-                }
-              ],
-              "index": "govuk",
-              "es_score": null,
-              "_id": "/new-platform-at-hogwarts-for-the-express-train",
-              "elasticsearch_type": "closed_consultation",
-              "document_type": "closed_consultation"
-            },
-            {
-              "title": "Installation of double glazing at Hogwarts",
-              "link": "installation-of-double-glazing-at-hogwarts",
-              "description": "Installation of double glazing at Hogwarts",
-              "public_timestamp": "2018-11-16T11:11:42Z",
-              "part_of_taxonomy_tree": [
-                "622e9691-4b4f-4e9c-bce1-098b0c4f5ee2"
-              ],
-              "organisations": [
-                {
-                  "organisation_crest": "single-identity",
-                  "acronym": "MOM",
-                  "link": "/organisations/ministry-of-magic",
-                  "analytics_identifier": "MM1",
-                  "public_timestamp": "2017-12-15T11:11:02.000+00:00",
-                  "organisation_brand": "ministry-of-magic",
-                  "logo_formatted_title": "Ministry of Magic",
-                  "title": "Ministry of Magic",
-                  "content_id": "92881ac6-2804-4522-bf48-cf8c781c98bf",
-                  "slug": "ministry-of-magic",
-                  "organisation_type": "other",
-                  "organisation_state": "live"
-                }
-              ],
-              "index": "govuk",
-              "es_score": null,
-              "_id": "/installation-of-double-glazing-at-hogwarts",
-              "elasticsearch_type": "consultation_outcome",
-              "document_type": "consultation_outcome"
+              "organisation_crest": "single-identity",
+              "acronym": "MOM",
+              "link": "/organisations/ministry-of-magic",
+              "analytics_identifier": "MM1",
+              "public_timestamp": "2017-12-15T11:11:02.000+00:00",
+              "organisation_brand": "ministry-of-magic",
+              "logo_formatted_title": "Ministry of Magic",
+              "title": "Ministry of Magic",
+              "content_id": "92881ac6-2804-4522-bf48-cf8c781c98bf",
+              "slug": "ministry-of-magic",
+              "organisation_type": "other",
+              "organisation_state": "live"
             }
           ],
-          "total": 3,
-          "start": 0,
-          "suggested_queries": []
+          "index": "govuk",
+          "es_score": null,
+          "_id": "/restrictions-on-usage-of-spells-within-school-grounds",
+          "elasticsearch_type": "policy_paper",
+          "document_type": "policy_paper"
+        },
+        {
+          "title": "New platform at Hogwarts for the express train",
+          "link": "new-platform-at-hogwarts-for-the-express-train",
+          "description": "New platform at Hogwarts for the express train",
+          "public_timestamp": "2018-11-16T11:11:42Z",
+          "part_of_taxonomy_tree": [
+            "622e9691-4b4f-4e9c-bce1-098b0c4f5ee2"
+          ],
+          "organisations": [
+            {
+              "organisation_crest": "single-identity",
+              "acronym": "MOM",
+              "link": "/organisations/ministry-of-magic",
+              "analytics_identifier": "MM1",
+              "public_timestamp": "2017-12-15T11:11:02.000+00:00",
+              "organisation_brand": "ministry-of-magic",
+              "logo_formatted_title": "Ministry of Magic",
+              "title": "Ministry of Magic",
+              "content_id": "92881ac6-2804-4522-bf48-cf8c781c98bf",
+              "slug": "ministry-of-magic",
+              "organisation_type": "other",
+              "organisation_state": "live"
+            }
+          ],
+          "index": "govuk",
+          "es_score": null,
+          "_id": "/new-platform-at-hogwarts-for-the-express-train",
+          "elasticsearch_type": "closed_consultation",
+          "document_type": "closed_consultation"
+        },
+        {
+          "title": "Installation of double glazing at Hogwarts",
+          "link": "installation-of-double-glazing-at-hogwarts",
+          "description": "Installation of double glazing at Hogwarts",
+          "public_timestamp": "2018-11-16T11:11:42Z",
+          "part_of_taxonomy_tree": [
+            "622e9691-4b4f-4e9c-bce1-098b0c4f5ee2"
+          ],
+          "organisations": [
+            {
+              "organisation_crest": "single-identity",
+              "acronym": "MOM",
+              "link": "/organisations/ministry-of-magic",
+              "analytics_identifier": "MM1",
+              "public_timestamp": "2017-12-15T11:11:02.000+00:00",
+              "organisation_brand": "ministry-of-magic",
+              "logo_formatted_title": "Ministry of Magic",
+              "title": "Ministry of Magic",
+              "content_id": "92881ac6-2804-4522-bf48-cf8c781c98bf",
+              "slug": "ministry-of-magic",
+              "organisation_type": "other",
+              "organisation_state": "live"
+            }
+          ],
+          "index": "govuk",
+          "es_score": null,
+          "_id": "/installation-of-double-glazing-at-hogwarts",
+          "elasticsearch_type": "consultation_outcome",
+          "document_type": "consultation_outcome"
         }
-      ]
+      ],
+      "total": 3,
+      "start": 0,
+      "suggested_queries": []
     }|
   end
 
@@ -1901,103 +1762,99 @@ module DocumentHelper
     %|{
       "results": [
         {
-          "results": [
+          "title": "Restrictions on usage of spells within school grounds",
+          "link": "/restrictions-on-usage-of-spells-within-school-grounds",
+          "description": "Restrictions on usage of spells within school grounds",
+          "public_timestamp": "2017-12-30T10:00:00Z",
+          "part_of_taxonomy_tree": [
+            "622e9691-4b4f-4e9c-bce1-098b0c4f5ee2"
+          ],
+          "organisations": [
             {
-              "title": "Restrictions on usage of spells within school grounds",
-              "link": "/restrictions-on-usage-of-spells-within-school-grounds",
-              "description": "Restrictions on usage of spells within school grounds",
-              "public_timestamp": "2017-12-30T10:00:00Z",
-              "part_of_taxonomy_tree": [
-                "622e9691-4b4f-4e9c-bce1-098b0c4f5ee2"
-              ],
-              "organisations": [
-                {
-                  "organisation_crest": "single-identity",
-                  "acronym": "MOM",
-                  "link": "/organisations/ministry-of-magic",
-                  "analytics_identifier": "MM1",
-                  "public_timestamp": "2017-12-15T11:11:02.000+00:00",
-                  "organisation_brand": "ministry-of-magic",
-                  "logo_formatted_title": "Ministry of Magic",
-                  "title": "Ministry of Magic",
-                  "content_id": "92881ac6-2804-4522-bf48-cf8c781c98bf",
-                  "slug": "ministry-of-magic",
-                  "organisation_type": "other",
-                  "organisation_state": "live"
-                }
-              ],
-              "index": "govuk",
-              "es_score": null,
-              "_id": "/restrictions-on-usage-of-spells-within-school-grounds",
-              "elasticsearch_type": "policy_paper",
-              "document_type": "policy_paper"
-            },
-            {
-              "title": "New platform at Hogwarts for the express train",
-              "link": "new-platform-at-hogwarts-for-the-express-train",
-              "description": "New platform at Hogwarts for the express train",
-              "public_timestamp": "2018-11-16T11:11:42Z",
-              "part_of_taxonomy_tree": [
-                "622e9691-4b4f-4e9c-bce1-098b0c4f5ee2"
-              ],
-              "organisations": [
-                {
-                  "organisation_crest": "single-identity",
-                  "acronym": "MOM",
-                  "link": "/organisations/ministry-of-magic",
-                  "analytics_identifier": "MM1",
-                  "public_timestamp": "2017-12-15T11:11:02.000+00:00",
-                  "organisation_brand": "ministry-of-magic",
-                  "logo_formatted_title": "Ministry of Magic",
-                  "title": "Ministry of Magic",
-                  "content_id": "92881ac6-2804-4522-bf48-cf8c781c98bf",
-                  "slug": "ministry-of-magic",
-                  "organisation_type": "other",
-                  "organisation_state": "live"
-                }
-              ],
-              "index": "govuk",
-              "es_score": null,
-              "_id": "/new-platform-at-hogwarts-for-the-express-train",
-              "elasticsearch_type": "closed_consultation",
-              "document_type": "closed_consultation"
-            },
-            {
-              "title": "Installation of double glazing at Hogwarts",
-              "link": "installation-of-double-glazing-at-hogwarts",
-              "description": "Installation of double glazing at Hogwarts",
-              "public_timestamp": "2018-11-16T11:11:42Z",
-              "part_of_taxonomy_tree": [
-                "622e9691-4b4f-4e9c-bce1-098b0c4f5ee2"
-              ],
-              "organisations": [
-                {
-                  "organisation_crest": "single-identity",
-                  "acronym": "MOM",
-                  "link": "/organisations/ministry-of-magic",
-                  "analytics_identifier": "MM1",
-                  "public_timestamp": "2017-12-15T11:11:02.000+00:00",
-                  "organisation_brand": "ministry-of-magic",
-                  "logo_formatted_title": "Ministry of Magic",
-                  "title": "Ministry of Magic",
-                  "content_id": "92881ac6-2804-4522-bf48-cf8c781c98bf",
-                  "slug": "ministry-of-magic",
-                  "organisation_type": "other",
-                  "organisation_state": "live"
-                }
-              ],
-              "index": "govuk",
-              "es_score": null,
-              "_id": "/installation-of-double-glazing-at-hogwarts",
-              "elasticsearch_type": "consultation_outcome",
-              "document_type": "consultation_outcome"
+              "organisation_crest": "single-identity",
+              "acronym": "MOM",
+              "link": "/organisations/ministry-of-magic",
+              "analytics_identifier": "MM1",
+              "public_timestamp": "2017-12-15T11:11:02.000+00:00",
+              "organisation_brand": "ministry-of-magic",
+              "logo_formatted_title": "Ministry of Magic",
+              "title": "Ministry of Magic",
+              "content_id": "92881ac6-2804-4522-bf48-cf8c781c98bf",
+              "slug": "ministry-of-magic",
+              "organisation_type": "other",
+              "organisation_state": "live"
             }
           ],
-          "total": 3,
-          "start": 0,
-          "suggested_queries": []
+          "index": "govuk",
+          "es_score": null,
+          "_id": "/restrictions-on-usage-of-spells-within-school-grounds",
+          "elasticsearch_type": "policy_paper",
+          "document_type": "policy_paper"
+        },
+        {
+          "title": "New platform at Hogwarts for the express train",
+          "link": "new-platform-at-hogwarts-for-the-express-train",
+          "description": "New platform at Hogwarts for the express train",
+          "public_timestamp": "2018-11-16T11:11:42Z",
+          "part_of_taxonomy_tree": [
+            "622e9691-4b4f-4e9c-bce1-098b0c4f5ee2"
+          ],
+          "organisations": [
+            {
+              "organisation_crest": "single-identity",
+              "acronym": "MOM",
+              "link": "/organisations/ministry-of-magic",
+              "analytics_identifier": "MM1",
+              "public_timestamp": "2017-12-15T11:11:02.000+00:00",
+              "organisation_brand": "ministry-of-magic",
+              "logo_formatted_title": "Ministry of Magic",
+              "title": "Ministry of Magic",
+              "content_id": "92881ac6-2804-4522-bf48-cf8c781c98bf",
+              "slug": "ministry-of-magic",
+              "organisation_type": "other",
+              "organisation_state": "live"
+            }
+          ],
+          "index": "govuk",
+          "es_score": null,
+          "_id": "/new-platform-at-hogwarts-for-the-express-train",
+          "elasticsearch_type": "closed_consultation",
+          "document_type": "closed_consultation"
+        },
+        {
+          "title": "Installation of double glazing at Hogwarts",
+          "link": "installation-of-double-glazing-at-hogwarts",
+          "description": "Installation of double glazing at Hogwarts",
+          "public_timestamp": "2018-11-16T11:11:42Z",
+          "part_of_taxonomy_tree": [
+            "622e9691-4b4f-4e9c-bce1-098b0c4f5ee2"
+          ],
+          "organisations": [
+            {
+              "organisation_crest": "single-identity",
+              "acronym": "MOM",
+              "link": "/organisations/ministry-of-magic",
+              "analytics_identifier": "MM1",
+              "public_timestamp": "2017-12-15T11:11:02.000+00:00",
+              "organisation_brand": "ministry-of-magic",
+              "logo_formatted_title": "Ministry of Magic",
+              "title": "Ministry of Magic",
+              "content_id": "92881ac6-2804-4522-bf48-cf8c781c98bf",
+              "slug": "ministry-of-magic",
+              "organisation_type": "other",
+              "organisation_state": "live"
+            }
+          ],
+          "index": "govuk",
+          "es_score": null,
+          "_id": "/installation-of-double-glazing-at-hogwarts",
+          "elasticsearch_type": "consultation_outcome",
+          "document_type": "consultation_outcome"
         }
-      ]
+      ],
+      "total": 3,
+      "start": 0,
+      "suggested_queries": []
     }|
   end
 
@@ -2005,43 +1862,39 @@ module DocumentHelper
     %|{
       "results": [
         {
-          "results": [
+          "title": "Restrictions on usage of spells within school grounds",
+          "link": "/restrictions-on-usage-of-spells-within-school-grounds",
+          "description": "Restrictions on usage of spells within school grounds",
+          "public_timestamp": "2017-12-30T10:00:00Z",
+          "part_of_taxonomy_tree": [
+            "622e9691-4b4f-4e9c-bce1-098b0c4f5ee2"
+          ],
+          "organisations": [
             {
-              "title": "Restrictions on usage of spells within school grounds",
-              "link": "/restrictions-on-usage-of-spells-within-school-grounds",
-              "description": "Restrictions on usage of spells within school grounds",
-              "public_timestamp": "2017-12-30T10:00:00Z",
-              "part_of_taxonomy_tree": [
-                "622e9691-4b4f-4e9c-bce1-098b0c4f5ee2"
-              ],
-              "organisations": [
-                {
-                  "organisation_crest": "single-identity",
-                  "acronym": "MOM",
-                  "link": "/organisations/ministry-of-magic",
-                  "analytics_identifier": "MM1",
-                  "public_timestamp": "2017-12-15T11:11:02.000+00:00",
-                  "organisation_brand": "ministry-of-magic",
-                  "logo_formatted_title": "Ministry of Magic",
-                  "title": "Ministry of Magic",
-                  "content_id": "92881ac6-2804-4522-bf48-cf8c781c98bf",
-                  "slug": "ministry-of-magic",
-                  "organisation_type": "other",
-                  "organisation_state": "live"
-                }
-              ],
-              "index": "govuk",
-              "es_score": null,
-              "_id": "/restrictions-on-usage-of-spells-within-school-grounds",
-              "elasticsearch_type": "policy_paper",
-              "document_type": "policy_paper"
+              "organisation_crest": "single-identity",
+              "acronym": "MOM",
+              "link": "/organisations/ministry-of-magic",
+              "analytics_identifier": "MM1",
+              "public_timestamp": "2017-12-15T11:11:02.000+00:00",
+              "organisation_brand": "ministry-of-magic",
+              "logo_formatted_title": "Ministry of Magic",
+              "title": "Ministry of Magic",
+              "content_id": "92881ac6-2804-4522-bf48-cf8c781c98bf",
+              "slug": "ministry-of-magic",
+              "organisation_type": "other",
+              "organisation_state": "live"
             }
           ],
-          "total": 1,
-          "start": 0,
-          "suggested_queries": []
+          "index": "govuk",
+          "es_score": null,
+          "_id": "/restrictions-on-usage-of-spells-within-school-grounds",
+          "elasticsearch_type": "policy_paper",
+          "document_type": "policy_paper"
         }
-      ]
+      ],
+      "total": 1,
+      "start": 0,
+      "suggested_queries": []
     }|
   end
 
@@ -2049,43 +1902,39 @@ module DocumentHelper
     %|{
       "results": [
         {
-          "results": [
+          "title": "Restrictions on usage of spells within school grounds",
+          "link": "/restrictions-on-usage-of-spells-within-school-grounds",
+          "description": "Restrictions on usage of spells within school grounds",
+          "public_timestamp": "2017-12-30T10:00:00Z",
+          "part_of_taxonomy_tree": [
+            "622e9691-4b4f-4e9c-bce1-098b0c4f5ee2"
+          ],
+          "organisations": [
             {
-              "title": "Restrictions on usage of spells within school grounds",
-              "link": "/restrictions-on-usage-of-spells-within-school-grounds",
-              "description": "Restrictions on usage of spells within school grounds",
-              "public_timestamp": "2017-12-30T10:00:00Z",
-              "part_of_taxonomy_tree": [
-                "622e9691-4b4f-4e9c-bce1-098b0c4f5ee2"
-              ],
-              "organisations": [
-                {
-                  "organisation_crest": "single-identity",
-                  "acronym": "MOM",
-                  "link": "/organisations/ministry-of-magic",
-                  "analytics_identifier": "MM1",
-                  "public_timestamp": "2017-12-15T11:11:02.000+00:00",
-                  "organisation_brand": "ministry-of-magic",
-                  "logo_formatted_title": "Ministry of Magic",
-                  "title": "Ministry of Magic",
-                  "content_id": "92881ac6-2804-4522-bf48-cf8c781c98bf",
-                  "slug": "ministry-of-magic",
-                  "organisation_type": "other",
-                  "organisation_state": "live"
-                }
-              ],
-              "index": "govuk",
-              "es_score": null,
-              "_id": "/restrictions-on-usage-of-spells-within-school-grounds",
-              "elasticsearch_type": "policy_paper",
-              "document_type": "policy_paper"
+              "organisation_crest": "single-identity",
+              "acronym": "MOM",
+              "link": "/organisations/ministry-of-magic",
+              "analytics_identifier": "MM1",
+              "public_timestamp": "2017-12-15T11:11:02.000+00:00",
+              "organisation_brand": "ministry-of-magic",
+              "logo_formatted_title": "Ministry of Magic",
+              "title": "Ministry of Magic",
+              "content_id": "92881ac6-2804-4522-bf48-cf8c781c98bf",
+              "slug": "ministry-of-magic",
+              "organisation_type": "other",
+              "organisation_state": "live"
             }
           ],
-          "total": 1,
-          "start": 0,
-          "suggested_queries": []
+          "index": "govuk",
+          "es_score": null,
+          "_id": "/restrictions-on-usage-of-spells-within-school-grounds",
+          "elasticsearch_type": "policy_paper",
+          "document_type": "policy_paper"
         }
-      ]
+      ],
+      "total": 1,
+      "start": 0,
+      "suggested_queries": []
     }|
   end
 
@@ -2093,59 +1942,55 @@ module DocumentHelper
     %|{
       "results": [
         {
-          "results": [
+          "title": "Replacing bristles in your Nimbus 2000",
+          "link": "/replacing-bristles-nimbus-2000",
+          "description": "Replacing bristles in your Nimbus 2000",
+          "public_timestamp": "2017-12-30T10:00:00Z",
+          "part_of_taxonomy_tree": [
+            "622e9691-4b4f-4e9c-bce1-098b0c4f5ee2"
+          ],
+          "organisations": [
             {
-              "title": "Replacing bristles in your Nimbus 2000",
-              "link": "/replacing-bristles-nimbus-2000",
-              "description": "Replacing bristles in your Nimbus 2000",
-              "public_timestamp": "2017-12-30T10:00:00Z",
-              "part_of_taxonomy_tree": [
-                "622e9691-4b4f-4e9c-bce1-098b0c4f5ee2"
-              ],
-              "organisations": [
-                {
-                  "organisation_crest": "single-identity",
-                  "acronym": "MOM",
-                  "link": "/organisations/ministry-of-magic",
-                  "analytics_identifier": "MM1",
-                  "public_timestamp": "2017-12-15T11:11:02.000+00:00",
-                  "organisation_brand": "ministry-of-magic",
-                  "logo_formatted_title": "Ministry of Magic",
-                  "title": "Ministry of Magic",
-                  "content_id": "92881ac6-2804-4522-bf48-cf8c781c98bf",
-                  "slug": "ministry-of-magic",
-                  "organisation_type": "other",
-                  "organisation_state": "live"
-                }
-              ],
-              "index": "govuk",
-              "es_score": null,
-              "_id": "/replacing-bristles-nimbus-2000",
-              "elasticsearch_type": "manual",
-              "document_type": "manual"
+              "organisation_crest": "single-identity",
+              "acronym": "MOM",
+              "link": "/organisations/ministry-of-magic",
+              "analytics_identifier": "MM1",
+              "public_timestamp": "2017-12-15T11:11:02.000+00:00",
+              "organisation_brand": "ministry-of-magic",
+              "logo_formatted_title": "Ministry of Magic",
+              "title": "Ministry of Magic",
+              "content_id": "92881ac6-2804-4522-bf48-cf8c781c98bf",
+              "slug": "ministry-of-magic",
+              "organisation_type": "other",
+              "organisation_state": "live"
             }
           ],
-        "facets": {
-          "manual": [
-            {
-              "title": "Replacing bristles in your Nimbus 2000",
-              "_id": "/guidance/care-and-use-of-a-nimbus-2000"
-            },
-            {
-              "title": "Upgrading the baud rate on the Floo Network",
-              "_id": "upgrading-baud-rate-on-the-floo-network"
-            }
-          ],
-          "documents_with_no_value": 0,
-          "total_options": 2,
-          "missing_options": 0,
-          "scope": "exclude_field_filter"
-        },
-        "total": 1,
-        "start": 0,
-        "suggested_queries": []
+          "index": "govuk",
+          "es_score": null,
+          "_id": "/replacing-bristles-nimbus-2000",
+          "elasticsearch_type": "manual",
+          "document_type": "manual"
         }
-      ]
+      ],
+    "facets": {
+      "manual": [
+        {
+          "title": "Replacing bristles in your Nimbus 2000",
+          "_id": "/guidance/care-and-use-of-a-nimbus-2000"
+        },
+        {
+          "title": "Upgrading the baud rate on the Floo Network",
+          "_id": "upgrading-baud-rate-on-the-floo-network"
+        }
+      ],
+      "documents_with_no_value": 0,
+      "total_options": 2,
+      "missing_options": 0,
+      "scope": "exclude_field_filter"
+    },
+    "total": 1,
+    "start": 0,
+    "suggested_queries": []
     }|
   end
 
@@ -2153,50 +1998,46 @@ module DocumentHelper
     %|{
       "results": [
         {
-          "results": [
+          "title": "Restrictions on usage of spells within school grounds",
+          "link": "/restrictions-on-usage-of-spells-within-school-grounds",
+          "description": "Restrictions on usage of spells within school grounds",
+          "public_timestamp": "2017-12-30T10:00:00Z",
+          "part_of_taxonomy_tree": [
+            "622e9691-4b4f-4e9c-bce1-098b0c4f5ee2"
+          ],
+          "organisations": [
             {
-              "title": "Restrictions on usage of spells within school grounds",
-              "link": "/restrictions-on-usage-of-spells-within-school-grounds",
-              "description": "Restrictions on usage of spells within school grounds",
-              "public_timestamp": "2017-12-30T10:00:00Z",
-              "part_of_taxonomy_tree": [
-                "622e9691-4b4f-4e9c-bce1-098b0c4f5ee2"
-              ],
-              "organisations": [
-                {
-                  "organisation_crest": "single-identity",
-                  "acronym": "MOM",
-                  "link": "/organisations/ministry-of-magic",
-                  "analytics_identifier": "MM1",
-                  "public_timestamp": "2017-12-15T11:11:02.000+00:00",
-                  "organisation_brand": "ministry-of-magic",
-                  "logo_formatted_title": "Ministry of Magic",
-                  "title": "Ministry of Magic",
-                  "content_id": "92881ac6-2804-4522-bf48-cf8c781c98bf",
-                  "slug": "ministry-of-magic",
-                  "organisation_type": "other",
-                  "organisation_state": "live"
-                }
-              ],
-              "index": "govuk",
-              "es_score": null,
-              "_id": "/restrictions-on-usage-of-spells-within-school-grounds",
-              "elasticsearch_type": "policy_paper",
-              "document_type": "policy_paper"
+              "organisation_crest": "single-identity",
+              "acronym": "MOM",
+              "link": "/organisations/ministry-of-magic",
+              "analytics_identifier": "MM1",
+              "public_timestamp": "2017-12-15T11:11:02.000+00:00",
+              "organisation_brand": "ministry-of-magic",
+              "logo_formatted_title": "Ministry of Magic",
+              "title": "Ministry of Magic",
+              "content_id": "92881ac6-2804-4522-bf48-cf8c781c98bf",
+              "slug": "ministry-of-magic",
+              "organisation_type": "other",
+              "organisation_state": "live"
             }
           ],
-          "total": 1,
-          "start": 0,
-          "suggested_queries": [],
-          "facets": {
-            "organisations": {
-              "options": [
-                {"value": {"title": "Ministry of Magic", "slug": "ministry-of-magic"}}
-              ]
-            }
-          }
+          "index": "govuk",
+          "es_score": null,
+          "_id": "/restrictions-on-usage-of-spells-within-school-grounds",
+          "elasticsearch_type": "policy_paper",
+          "document_type": "policy_paper"
         }
-      ]
+      ],
+      "total": 1,
+      "start": 0,
+      "suggested_queries": [],
+      "facets": {
+        "organisations": {
+          "options": [
+            {"value": {"title": "Ministry of Magic", "slug": "ministry-of-magic"}}
+          ]
+        }
+      }
     }|
   end
 
@@ -2204,27 +2045,23 @@ module DocumentHelper
     %|{
       "results": [
         {
-          "results": [
-            {
-              "title": "Choosing your wand",
-              "link": "/choosing-your-wand",
-              "description": "Choosing your wand - a practical guide",
-              "_id": "/choosing-your-wand"
-            }
-          ],
-          "total": 1,
-          "start": 0,
-          "suggested_queries": [],
-          "facets": {
-            "manual": [
-              {
-                "title": "Choosing your wand",
-                "_id": "/choosing-your-wand"
-              }
-            ]
-          }
+          "title": "Choosing your wand",
+          "link": "/choosing-your-wand",
+          "description": "Choosing your wand - a practical guide",
+          "_id": "/choosing-your-wand"
         }
-      ]
+      ],
+      "total": 1,
+      "start": 0,
+      "suggested_queries": [],
+      "facets": {
+        "manual": [
+          {
+            "title": "Choosing your wand",
+            "_id": "/choosing-your-wand"
+          }
+        ]
+      }
     }|
   end
 

@@ -1,10 +1,5 @@
 module RummagerUrlHelper
   def rummager_url(params)
-    query = Rack::Utils.build_nested_query(search: [{ 0 => params }])
-    "#{Plek.current.find('search')}/batch_search.json?#{query}"
-  end
-
-  def simple_rummager_url(params)
     "#{Plek.current.find('search')}/search.json?#{params.to_query}"
   end
 
@@ -49,41 +44,27 @@ module RummagerUrlHelper
 
   def news_and_communications_search_params
     base_search_params.merge(
-      'fields' => news_and_communications_search_fields.join(','),
-      'filter_content_purpose_supergroup' => 'news_and_communications',
-      'filter_all_part_of_taxonomy_tree[]' => [nil, nil],
+      'filter_content_purpose_supergroup' => 'news_and_communications'
     )
   end
 
   def services_search_params
     base_search_params.merge(
-      'fields' => services_search_fields.join(','),
       'filter_content_purpose_supergroup' => 'services',
-      'filter_all_part_of_taxonomy_tree[]' => [nil, nil],
-      )
+    )
   end
 
   def policy_papers_params
     base_search_params.merge(
-      'fields' => policy_papers_search_fields.join(','),
       'filter_content_purpose_supergroup' => 'policy_and_engagement',
-      'filter_all_part_of_taxonomy_tree[]' => [nil, nil],
-      'facet_organisations' => '1500,order:value.title',
-      'facet_world_locations' => '1500,order:value.title',
-      'count' => 20,
+      'count' => "20",
       'order' => '-public_timestamp',
     )
   end
 
   def all_content_params
     base_search_params.merge(
-      'facet_manual' => '1500,order:value.title',
-      'facet_organisations' => '1500,order:value.title',
-      'facet_people' => '1500,order:value.title',
-      'facet_world_locations' => '1500,order:value.title',
-      'filter_all_part_of_taxonomy_tree[]' => [nil, nil],
-      'fields' => all_content_search_fields.join(','),
-      'count' => 20,
+      'count' => "20",
     )
   end
 

@@ -41,20 +41,25 @@ describe FindersController, type: :controller do
         )
 
         rummager_response = %|{
-          "results": [
-            {
-              "results": [],
-              "total": 11,
-              "start": 0,
-              "facets": {},
-              "suggested_queries": []
-            }
-          ]
+          "results": [],
+          "total": 11,
+          "start": 0,
+          "facets": {},
+          "suggested_queries": []
         }|
 
-        url = "#{Plek.current.find('search')}/batch_search.json?search[][0][count]=10&search[][0][fields]=title,link,description,public_timestamp,popularity,content_purpose_supergroup,format,walk_type,place_of_origin,date_of_introduction,creator&search[][0][filter_document_type]=mosw_report&search[][0][order]=-public_timestamp&search[][0][start]=0"
+        url = "#{Plek.current.find('search')}/search.json"
 
         stub_request(:get, url)
+          .with(
+            query: {
+              count: 10,
+              fields: "title,link,description,public_timestamp,popularity,content_purpose_supergroup,format,walk_type,place_of_origin,date_of_introduction,creator",
+              filter_document_type: "mosw_report",
+              order: "-public_timestamp",
+              start: 0
+            }
+          )
           .to_return(status: 200, body: rummager_response, headers: {})
       end
 
@@ -96,19 +101,24 @@ describe FindersController, type: :controller do
         )
 
         rummager_response = %|{
-          "results": [
-            {
-              "results": [],
-              "total": 0,
-              "start": 0,
-              "facets": {},
-              "suggested_queries": []
-            }
-          ]
+          "results": [],
+          "total": 0,
+          "start": 0,
+          "facets": {},
+          "suggested_queries": []
         }|
 
-        stub_request(:get, "#{Plek.current.find('search')}/batch_search.json?search[][0][count]=10&search[][0][fields]=title,link,description,public_timestamp,popularity,content_purpose_supergroup,format,walk_type,place_of_origin,date_of_introduction,creator&search[][0][filter_document_type]=mosw_report&search[][0][order]=-closing_date&search[][0][start]=0").
-          to_return(status: 200, body: rummager_response, headers: {})
+        stub_request(:get, "#{Plek.current.find('search')}/search.json")
+          .with(
+            query: {
+              count: 10,
+              fields: "title,link,description,public_timestamp,popularity,content_purpose_supergroup,format,walk_type,place_of_origin,date_of_introduction,creator",
+              filter_document_type: "mosw_report",
+              order: "-closing_date",
+              start: 0
+            }
+          )
+          .to_return(status: 200, body: rummager_response, headers: {})
       end
 
       it "returns a 404 when requesting an atom feed, rather than a 500" do
@@ -193,32 +203,24 @@ describe FindersController, type: :controller do
         content_store_has_item('/lunch-finder', lunch_finder)
 
         rummager_response = %|{
-            "results": [
-              {
-                "results": [],
-                "total": 0,
-                "start": 0,
-                "facets": {},
-                "suggested_queries": []
-              }
-            ]
-          }|
+          "results": [],
+          "total": 0,
+          "start": 0,
+          "facets": {},
+          "suggested_queries": []
+        }|
 
-        stub_request(:get, "#{Plek.current.find('search')}/batch_search.json").
-            with(query: {
-              "search" => [
-                {
-                  "0" => {
-                    "count" => "10",
-                    "fields" => "title,link,description,public_timestamp,popularity,content_purpose_supergroup,format,walk_type,place_of_origin,date_of_introduction,creator",
-                    "filter_document_type" => "mosw_report",
-                    "order" => "-public_timestamp",
-                    "start" => "0"
-                  }
-                }
-              ]
-            }).
-            to_return(status: 200, body: rummager_response, headers: {})
+        stub_request(:get, "#{Plek.current.find('search')}/search.json")
+          .with(
+            query: {
+              count: 10,
+              fields: "title,link,description,public_timestamp,popularity,content_purpose_supergroup,format,walk_type,place_of_origin,date_of_introduction,creator",
+              filter_document_type: "mosw_report",
+              order: "-public_timestamp",
+              start: 0
+            }
+          )
+          .to_return(status: 200, body: rummager_response, headers: {})
       end
 
       it 'all content finder tells Slimmer to hide the form' do
