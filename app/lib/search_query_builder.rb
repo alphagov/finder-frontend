@@ -191,8 +191,13 @@ private
   end
 
   def facet_query
-    facet_params.reduce({}) { |query, (k, v)|
-      query.merge("facet_#{k}" => v)
+    count_dynamic_facets(facet_params.keys)
+    facet_params.reduce({}) { |query, (k, v)| query.merge("facet_#{k}" => v) }
+  end
+
+  def count_dynamic_facets(facet_names)
+    facet_names.each { |name|
+      GovukStatsd.increment "search_with_#{name}_facet"
     }
   end
 
