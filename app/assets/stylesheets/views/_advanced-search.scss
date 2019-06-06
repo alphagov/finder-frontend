@@ -9,11 +9,6 @@
     @include govuk-font(24, $weight: bold);
   }
 
-  .pub-c-title {
-    margin-bottom: govuk-spacing(3);
-    margin-top: govuk-spacing(3);
-  }
-
   .filtered-results {
     .metadata-date-value {
       @include govuk-font(14);
