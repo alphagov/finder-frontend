@@ -148,21 +148,6 @@
       display: block;
     }
 
-    .feed {
-      @include govuk-font(14);
-      display: block;
-      margin-bottom: govuk-spacing(6);
-      span {
-        padding-right: govuk-spacing(2) / 2;
-      }
-      a {
-        background: image-url('feed-icon-black.png') 0 40% no-repeat;
-        font-weight: bold;
-        padding: 0 govuk-spacing(2) 0 govuk-spacing(3);
-        text-decoration: none;
-      }
-    }
-
     .finder-results {
       list-style-type: none;
       padding-left: 0;
