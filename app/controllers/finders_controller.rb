@@ -15,12 +15,18 @@ class FindersController < ApplicationController
     ab_test = GovukAbTesting::AbTest.new(
       "SearchClusterABTest",
       dimension: 24601, # todo: talk to a PA
-      allowed_variants: %w(A B),
-      control_variant: 'A'
+      allowed_variants: %w(A B C),
+      control_variant: 'B'
     )
     @requested_variant = ab_test.requested_variant(request.headers)
     @requested_variant.configure_response(response)
-    @ab_params = { cluster: @requested_variant.variant_name }
+
+    @ab_params =
+      if @requested_variant.variant?('A') || @requested_variant.variant?('B')
+        { cluster: 'A' }
+      else
+        { cluster: 'B' }
+      end
 
     respond_to do |format|
       format.html do
