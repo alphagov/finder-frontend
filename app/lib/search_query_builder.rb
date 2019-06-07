@@ -191,8 +191,14 @@ private
   end
 
   def facet_query
-    count_dynamic_facets(facet_params.keys)
-    facet_params.reduce({}) { |query, (k, v)| query.merge("facet_#{k}" => v) }
+    dynamic_facet_params = facets_not_overridden_by_registries(facet_params)
+    count_dynamic_facets(dynamic_facet_params.keys)
+
+    dynamic_facet_params.reduce({}) { |query, (k, v)| query.merge("facet_#{k}" => v) }
+  end
+
+  def facets_not_overridden_by_registries(facet_params)
+    facet_params.reject { |k, _v| Services.registries.all.has_key?(k) }
   end
 
   def count_dynamic_facets(facet_names)

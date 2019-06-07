@@ -161,6 +161,7 @@ When(/^I view the policy papers and consultations finder$/) do
     }
   ])
   content_store_has_policy_and_engagement_finder
+  stub_organisations_registry_request
   stub_whitehall_api_world_location_request
   stub_rummager_api_request_with_policy_papers_results
   stub_rummager_api_request_with_filtered_policy_papers_results
@@ -180,6 +181,8 @@ When(/^I view the research and statistics finder$/) do
                                 }
                             ])
   content_store_has_statistics_finder
+  stub_organisations_registry_request
+  stub_manuals_registry_request
   stub_whitehall_api_world_location_request
   stub_rummager_api_request_with_research_and_statistics_results
   stub_rummager_api_request_with_filtered_research_and_statistics_results
@@ -189,6 +192,7 @@ end
 When(/^I view the all content finder with a manual filter$/) do
   topic_taxonomy_has_taxons
   content_store_has_all_content_finder
+  stub_organisations_registry_request
   stub_whitehall_api_world_location_request
   stub_people_registry_request
   stub_manuals_registry_request
@@ -210,8 +214,10 @@ end
 When(/^I view the all content finder$/) do
   topic_taxonomy_has_taxons
   content_store_has_all_content_finder
+  stub_organisations_registry_request
   stub_whitehall_api_world_location_request
   stub_people_registry_request
+  stub_manuals_registry_request
   stub_rummager_api_request_with_all_content_results
 
   visit finder_path('search/all')

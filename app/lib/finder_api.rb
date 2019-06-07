@@ -90,15 +90,21 @@ private
   end
 
   def augment_facets_with_dynamic_values(content_item_hash)
-    search_results.fetch("facets", {}).each do |facet_key, facet_details|
-      facet = content_item_hash['details']['facets'].find { |f| f['key'] == facet_key }
+    facets = content_item_hash['details']['facets']
+    return unless facets.present?
 
-      if registries.all.has_key?(facet_key) && facet
-        facet['allowed_values'] = allowed_values_from_registry(facet_key)
-      elsif facet
-        facet['allowed_values'] = allowed_values_for_facet_details(facet_key, facet_details)
+    # for each facet in the content item
+    # if it's in the registry, let's use that
+    # otherwise, get it from the search result
+    facets.select { |facet| facet['allowed_values'].blank? }
+      .each do |facet|
+        facet_key = facet["key"]
+        if registries.all.has_key?(facet_key)
+          facet['allowed_values'] = allowed_values_from_registry(facet_key)
+        elsif (facet_details = search_results.dig("facets", facet_key))
+          facet['allowed_values'] = allowed_values_for_facet_details(facet_key, facet_details)
+        end
       end
-    end
   end
 
   def allowed_values_for_facet_details(facet_key, facet_details)
