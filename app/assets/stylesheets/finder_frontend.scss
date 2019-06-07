@@ -1,8 +1,3 @@
-@import "not-ie-conditional";
-@import "reset";
-@import "govuk_publishing_components/all_components";
-@import "components/*";
-
 .document {
   border-bottom: solid 1px $govuk-border-colour;
   padding: govuk-spacing(3) 0;
