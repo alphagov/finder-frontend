@@ -85,6 +85,7 @@ module RummagerUrlHelper
     {
       "count" => "1500",
       "start" => "0",
+      "cluster" => 'A',
     }
   end
 

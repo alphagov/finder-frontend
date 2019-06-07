@@ -1,3 +1,5 @@
+<%= @requested_variant.analytics_meta_tag.html_safe %>
+
 <% if @results.user_supplied_keywords.length > 0 %>
   <% content_for :title, "#{@results.user_supplied_keywords} - #{finder.name}" %>
 <% else %>

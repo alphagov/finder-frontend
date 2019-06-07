@@ -63,6 +63,7 @@ describe FindersController, type: :controller do
               fields: "title,link,description,public_timestamp,popularity,content_purpose_supergroup,content_store_document_type,format,walk_type,place_of_origin,date_of_introduction,creator",
               filter_document_type: "mosw_report",
               order: "-public_timestamp",
+              cluster: 'A',
               start: 0
             }
           )
@@ -121,6 +122,7 @@ describe FindersController, type: :controller do
               fields: "title,link,description,public_timestamp,popularity,content_purpose_supergroup,content_store_document_type,format,walk_type,place_of_origin,date_of_introduction,creator",
               filter_document_type: "mosw_report",
               order: "-public_timestamp",
+              cluster: 'A',
               start: 0
             }
           )
@@ -222,6 +224,7 @@ describe FindersController, type: :controller do
               fields: "title,link,description,public_timestamp,popularity,content_purpose_supergroup,content_store_document_type,format,walk_type,place_of_origin,date_of_introduction,creator",
               filter_document_type: "mosw_report",
               order: "-public_timestamp",
+              cluster: 'A',
               start: 0
             }
           )
@@ -280,6 +283,79 @@ describe FindersController, type: :controller do
         get :show, params: { slug: path_for(breakfast_finder) }
         expect(subject.show_top_result?).to eq(true)
       end
+    end
+  end
+
+  describe "Search cluster A/B test" do
+    before do
+      content_store_has_item(
+        '/lunch-finder',
+        lunch_finder
+      )
+    end
+
+    it "A variant should make a request to the A cluster" do
+      rummager_response = %|{
+        "results": [],
+        "total": 11,
+        "start": 0,
+        "facets": {},
+        "suggested_queries": []
+      }|
+
+      url = "#{Plek.current.find('search')}/search.json"
+
+      stub = stub_request(:get, url)
+        .with(
+          query: {
+            count: 10,
+            fields: "title,link,description,public_timestamp,popularity,content_purpose_supergroup,format,walk_type,place_of_origin,date_of_introduction,creator",
+            filter_document_type: "mosw_report",
+            order: "-public_timestamp",
+            cluster: 'A',
+            start: 0
+          }
+        )
+        .to_return(status: 200, body: rummager_response, headers: {})
+
+      with_variant SearchClusterABTest: 'A' do
+        get :show, params: { slug: 'lunch-finder' }
+      end
+
+      expect(response.status).to eq(200)
+      assert_requested stub
+    end
+
+    it "B variant should make a request to the B cluster" do
+      rummager_response = %|{
+        "results": [],
+        "total": 11,
+        "start": 0,
+        "facets": {},
+        "suggested_queries": []
+      }|
+
+      url = "#{Plek.current.find('search')}/search.json"
+
+      stub = stub_request(:get, url)
+        .with(
+          query: {
+            count: 10,
+            fields: "title,link,description,public_timestamp,popularity,content_purpose_supergroup,format,walk_type,place_of_origin,date_of_introduction,creator",
+            filter_document_type: "mosw_report",
+            order: "-public_timestamp",
+            cluster: 'B',
+            start: 0
+          }
+        )
+        .to_return(status: 200, body: rummager_response, headers: {})
+
+      with_variant SearchClusterABTest: 'B' do
+        get :show, params: { slug: 'lunch-finder' }
+      end
+
+      expect(response.status).to eq(200)
+      assert_requested stub
     end
   end
 

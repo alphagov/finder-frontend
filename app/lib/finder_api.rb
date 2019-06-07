@@ -3,9 +3,10 @@
 class FinderApi
   attr_reader :content_item
 
-  def initialize(content_item, filter_params, override_sort_for_feed: false)
+  def initialize(content_item, filter_params, ab_params: {}, override_sort_for_feed: false)
     @content_item = content_item
     @filter_params = filter_params
+    @ab_params = ab_params
     @override_sort_for_feed = override_sort_for_feed
     @order =
       if override_sort_for_feed
@@ -26,7 +27,7 @@ class FinderApi
 
 private
 
-  attr_reader :filter_params, :override_sort_for_feed
+  attr_reader :ab_params, :filter_params, :override_sort_for_feed
 
   def merge_and_deduplicate(search_response)
     results = search_response.fetch("results")
@@ -75,6 +76,7 @@ private
   def fetch_search_response(content_item)
     queries = query_builder_class.new(
       finder_content_item: content_item,
+      ab_params: ab_params,
       params: filter_params,
       override_sort_for_feed: override_sort_for_feed,
     ).call

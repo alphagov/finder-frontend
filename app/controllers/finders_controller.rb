@@ -12,6 +12,16 @@ class FindersController < ApplicationController
 
   # rubocop:disable Metrics/BlockLength
   def show
+    ab_test = GovukAbTesting::AbTest.new(
+      "SearchClusterABTest",
+      dimension: 24601, # todo: talk to a PA
+      allowed_variants: %w(A B),
+      control_variant: 'A'
+    )
+    @requested_variant = ab_test.requested_variant(request.headers)
+    @requested_variant.configure_response(response)
+    @ab_params = { cluster: @requested_variant.variant_name }
+
     respond_to do |format|
       format.html do
         @finder_api = initialise_finder_api
@@ -98,6 +108,7 @@ private
     finder_api_class.new(
       content_item.as_hash,
       filter_params,
+      ab_params: @ab_params,
       override_sort_for_feed: is_for_feed,
     )
   end

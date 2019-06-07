@@ -11,9 +11,10 @@ class SearchQueryBuilder
   # find anything useful, too much noise.
   MAX_QUERY_LENGTH = 512
 
-  def initialize(finder_content_item:, params: {}, override_sort_for_feed: false)
+  def initialize(finder_content_item:, params: {}, ab_params: {}, override_sort_for_feed: false)
     @finder_content_item = finder_content_item
     @params = params
+    @ab_params = ab_params
     @override_sort_for_feed = override_sort_for_feed
   end
 
@@ -27,6 +28,7 @@ class SearchQueryBuilder
       order_query,
       facet_query,
       debug_query,
+      ab_params,
     ].reduce(&:merge)
 
     return [base_query] if filter_queries.empty?
@@ -38,7 +40,7 @@ class SearchQueryBuilder
 
 private
 
-  attr_reader :finder_content_item, :params, :override_sort_for_feed
+  attr_reader :finder_content_item, :params, :ab_params, :override_sort_for_feed
 
   def order_query_builder_class
     OrderQueryBuilder
