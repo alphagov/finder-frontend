@@ -340,6 +340,24 @@ describe SearchQueryBuilder do
     end
   end
 
+  context "with cluster parameters" do
+    let(:params) {
+      {
+        "cluster" => "B",
+      }
+    }
+
+    it "should include a cluster query" do
+      expect(query).to include("cluster" => "B")
+    end
+  end
+
+  context "without cluster parameters" do
+    it "should not include a cluster query" do
+      expect(query).not_to include("cluster")
+    end
+  end
+
   context "with a base filter" do
     let(:filter) { { "document_type" => "news_story" } }
 

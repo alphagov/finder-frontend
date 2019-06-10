@@ -26,6 +26,7 @@ class SearchQueryBuilder
       order_query,
       facet_query,
       debug_query,
+      cluster_query,
     ].reduce(&:merge)
 
     return [base_query] if filter_queries.empty?
@@ -217,6 +218,10 @@ private
     {
       "debug" => params["debug"],
     }.compact
+  end
+
+  def cluster_query
+    { "cluster" => params["cluster"] }.compact
   end
 
   def stopwords
