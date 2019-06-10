@@ -14,6 +14,7 @@
         "prechecked": true
       }
     ],
-    "subscription_list_title_prefix": "Find EU Exit guidance for your business"
+    "subscription_list_title_prefix": "Find EU Exit guidance for your business",
+    "combine_mode": "or"
   }
 }
