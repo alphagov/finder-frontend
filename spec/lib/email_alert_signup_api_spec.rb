@@ -99,7 +99,8 @@ describe EmailAlertSignupAPI do
 
       email_alert_api_has_subscriber_list(
         "tags" => {},
-        "subscription_url" => subscription_url
+        "subscription_url" => subscription_url,
+        "combine_mode" => combine_mode
       )
 
       expect(Services.email_alert_api).to receive(:find_or_create_subscriber_list).with(

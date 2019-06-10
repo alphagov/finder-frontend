@@ -214,7 +214,8 @@ describe EmailAlertSubscriptionsController, type: :controller do
             'format' => { any: %w(mosw_report) },
             'sector_business_area' => { any: %w(aerospace) },
           },
-          'subscription_url' => 'http://www.itstartshear.com'
+          'subscription_url' => 'http://www.itstartshear.com',
+          'combine_mode' => 'or'
         )
 
         allow(EmailAlertListTitleBuilder).to receive(:call)
