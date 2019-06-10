@@ -8,29 +8,29 @@
 <% end %>
 
 <%= form_tag email_alert_subscriptions_path(subscriber_list_params: subscriber_list_params), class: 'signup-choices' do %>
+  <%= render partial: 'govuk_publishing_components/components/title', locals: {
+    title: @signup_presenter.name,
+    context: "Email alert subscription"
+  } %>
+
   <% if @signup_presenter.can_modify_choices? %>
     <%= render "govuk_publishing_components/components/checkboxes", {
       name: nil,
       heading: @signup_presenter.name,
       hint_text: "Choose the email alerts you need.",
       items: @signup_presenter.choices_formatted,
-      is_page_heading: true,
+      visually_hide_heading: true
     } %>
     <% if @error_message.present? %>
       <p class="signup-choices__message"><%= @error_message %></p>
     <% end %>
-  <% else %>
-    <%= render partial: 'govuk_publishing_components/components/title', locals: {
-      title: @signup_presenter.name,
-      context: "Email alert subscription"
-    } %>
   <% end %>
 
   <% @signup_presenter.hidden_choices.each do |hidden_choice| %>
     <%= hidden_field_tag hidden_choice[:name], hidden_choice[:value] %>
   <% end %>
 
-  <% if @signup_presenter.body %>
+  <% if @signup_presenter.body && !@signup_presenter.can_modify_choices? %>
     <div class="govspeak-wrapper">
       <%= render 'govuk_publishing_components/components/govspeak', content: @signup_presenter.body.html_safe %>
     </div>
