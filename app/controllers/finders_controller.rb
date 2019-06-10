@@ -30,11 +30,9 @@ class FindersController < ApplicationController
       format.atom do
         if content_item.is_redirect?
           redirect_to_destination
-        elsif finder.atom_feed_enabled?
+        else
           expires_in(ATOM_FEED_MAX_AGE, public: true)
           @feed = AtomPresenter.new(finder, results, facet_tags)
-        else
-          render plain: 'Not found', status: :not_found
         end
       end
     end
@@ -85,7 +83,6 @@ private
     @finder ||= finder_presenter_class.new(
       raw_finder,
       search_results,
-      sort_presenter,
       filter_params,
     )
   end

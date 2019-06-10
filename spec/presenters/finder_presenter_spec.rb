@@ -5,8 +5,7 @@ RSpec.describe FinderPresenter do
   include GovukContentSchemaExamples
   include TaxonomySpecHelper
 
-  subject(:presenter) { described_class.new(content_item, {}, sort_presenter, values) }
-  let(:sort_presenter) { SortPresenter.new(content_item, values) }
+  subject(:presenter) { described_class.new(content_item, {}, values) }
   let(:content_item) { create_content_item }
   let(:values) { {} }
 
@@ -256,54 +255,6 @@ RSpec.describe FinderPresenter do
                                    "people" => %w[me you],
                                    "topic" => %w[hiding],
                                    "manual" => %w[my_manual])
-      end
-    end
-  end
-
-  describe "#atom_feed_enabled?" do
-    context "with no sort options and no default sort" do
-      let(:content_item) { create_content_item(details: { sort: nil }) }
-      it "is true" do
-        expect(subject.atom_feed_enabled?).to be true
-      end
-    end
-
-    context "with default sort option set to descending public_timestamp" do
-      let(:content_item) {
-        create_content_item(sort_options: [
-          { "name" => "Most viewed" },
-          { "name" => "Updated (newest)", "key" => "-public_timestamp", "default" => true }
-        ])
-      }
-      it "is true" do
-        expect(subject.atom_feed_enabled?).to be true
-      end
-    end
-
-    context "with sort options but no default order" do
-      let(:content_item) {
-        create_content_item(details: { sort: sort_options_with_relevance })
-      }
-      it "is true" do
-        expect(subject.atom_feed_enabled?).to be true
-      end
-    end
-
-    context "with no sort options but a changeable default order" do
-      let(:content_item) {
-        create_content_item(details: { sort: nil, default_order: "relevance" })
-      }
-      it "is false" do
-        expect(subject.atom_feed_enabled?).to be false
-      end
-    end
-
-    context "with no sort options but a default order of most recent first" do
-      let(:content_item) {
-        create_content_item(details: { sort: nil, default_order: "-public_timestamp" })
-      }
-      it "is true" do
-        expect(subject.atom_feed_enabled?).to be true
       end
     end
   end
