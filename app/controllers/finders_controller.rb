@@ -14,7 +14,7 @@ class FindersController < ApplicationController
   def show
     respond_to do |format|
       format.html do
-        finder_api
+        @finder_api = initialise_finder_api
         @results = results
         @raw_content_item = content_item.as_hash
         @breadcrumbs = fetch_breadcrumbs
@@ -23,7 +23,7 @@ class FindersController < ApplicationController
         @pagination = pagination_presenter
       end
       format.json do
-        finder_api
+        @finder_api = initialise_finder_api
         if content_item.is_search? || content_item.is_finder?
           render json: json_response
         else
@@ -31,7 +31,7 @@ class FindersController < ApplicationController
         end
       end
       format.atom do
-        finder_api(is_for_feed: true)
+        @finder_api = initialise_finder_api(is_for_feed: true)
         if content_item.is_redirect?
           redirect_to_destination
         else
@@ -46,6 +46,8 @@ class FindersController < ApplicationController
   # rubocop:enable Metrics/BlockLength
 
 private
+
+  attr_accessor :finder_api
 
   helper_method :finder, :facet_tags
 
@@ -92,8 +94,8 @@ private
     )
   end
 
-  def finder_api(is_for_feed: false)
-    @finder_api ||= finder_api_class.new(
+  def initialise_finder_api(is_for_feed: false)
+    finder_api_class.new(
       content_item.as_hash,
       filter_params,
       override_sort_for_feed: is_for_feed,
