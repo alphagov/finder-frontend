@@ -12,7 +12,7 @@ node {
       }
     },
     sassLint: false,
-    publishingE2ETests: true,
+    publishingE2ETests: false,
     brakeman: true,
     rubyLintDiff: false
   )
