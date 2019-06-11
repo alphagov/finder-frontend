@@ -92,7 +92,7 @@ describe FindersController, type: :controller do
     end
 
     describe "a finder content item with a default order exists" do
-      before do
+      it "sorts the finder results by public timestamp" do
         sort_options = [{ 'name' => 'Closing date', 'key' => '-closing_date', 'default' => true, }]
 
         content_store_has_item(
@@ -108,22 +108,21 @@ describe FindersController, type: :controller do
           "suggested_queries": []
         }|
 
-        stub_request(:get, "#{Plek.current.find('search')}/search.json")
+        stub = stub_request(:get, "#{Plek.current.find('search')}/search.json")
           .with(
             query: {
               count: 10,
               fields: "title,link,description,public_timestamp,popularity,content_purpose_supergroup,format,walk_type,place_of_origin,date_of_introduction,creator",
               filter_document_type: "mosw_report",
-              order: "-closing_date",
+              order: "-public_timestamp",
               start: 0
             }
           )
           .to_return(status: 200, body: rummager_response, headers: {})
-      end
 
-      it "returns a 404 when requesting an atom feed, rather than a 500" do
         get :show, params: { format: :atom, slug: 'lunch-finder' }
-        expect(response.status).to eq(404)
+        expect(stub).to have_been_requested
+        expect(response.status).to eq(200)
       end
     end
 

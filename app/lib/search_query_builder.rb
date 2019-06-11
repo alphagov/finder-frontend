@@ -11,9 +11,10 @@ class SearchQueryBuilder
   # find anything useful, too much noise.
   MAX_QUERY_LENGTH = 512
 
-  def initialize(finder_content_item:, params: {})
+  def initialize(finder_content_item:, params: {}, override_sort_for_feed: false)
     @finder_content_item = finder_content_item
     @params = params
+    @override_sort_for_feed = override_sort_for_feed
   end
 
   def call
@@ -37,7 +38,7 @@ class SearchQueryBuilder
 
 private
 
-  attr_reader :finder_content_item, :params
+  attr_reader :finder_content_item, :params, :override_sort_for_feed
 
   def order_query_builder_class
     OrderQueryBuilder
@@ -101,7 +102,12 @@ private
   end
 
   def order_query
-    order_query_builder_class.new(finder_content_item, keywords, params).call
+    order_query_builder_class.new(
+      finder_content_item,
+      keywords,
+      params,
+      override_sort_for_feed: override_sort_for_feed,
+    ).call
   end
 
   def keyword_query

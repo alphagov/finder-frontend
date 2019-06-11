@@ -10,9 +10,11 @@ class FindersController < ApplicationController
 
   ATOM_FEED_MAX_AGE = 300
 
+  # rubocop:disable Metrics/BlockLength
   def show
     respond_to do |format|
       format.html do
+        finder_api
         @results = results
         @raw_content_item = content_item.as_hash
         @breadcrumbs = fetch_breadcrumbs
@@ -21,6 +23,7 @@ class FindersController < ApplicationController
         @pagination = pagination_presenter
       end
       format.json do
+        finder_api
         if content_item.is_search? || content_item.is_finder?
           render json: json_response
         else
@@ -28,6 +31,7 @@ class FindersController < ApplicationController
         end
       end
       format.atom do
+        finder_api(is_for_feed: true)
         if content_item.is_redirect?
           redirect_to_destination
         else
@@ -39,6 +43,7 @@ class FindersController < ApplicationController
   rescue ActionController::UnknownFormat
     render plain: 'Not acceptable', status: :not_acceptable
   end
+  # rubocop:enable Metrics/BlockLength
 
 private
 
@@ -87,8 +92,12 @@ private
     )
   end
 
-  def finder_api
-    @finder_api ||= finder_api_class.new(content_item.as_hash, filter_params)
+  def finder_api(is_for_feed: false)
+    @finder_api ||= finder_api_class.new(
+      content_item.as_hash,
+      filter_params,
+      override_sort_for_feed: is_for_feed,
+    )
   end
 
   def raw_finder
