@@ -22,6 +22,10 @@ describe FindersController, type: :controller do
     finder
   end
 
+  before do
+    content_store_has_item("/", "links" => { "level_one_taxons" => [] })
+  end
+
   describe "GET show" do
     let(:all_content_finder) do
       finder = govuk_content_schema_example('finder').to_hash.merge(

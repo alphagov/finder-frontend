@@ -13,6 +13,10 @@ module DocumentHelper
 
   SEARCH_ENDPOINT = "#{Plek.current.find('search')}/search.json".freeze
 
+  def stub_taxonomy_api_request
+    content_store_has_item("/", "links" => { "level_one_taxons" => [] })
+  end
+
   def stub_rummager_api_request
     stub_request(:get, SEARCH_ENDPOINT).
       with(query: hash_including(rummager_all_documents_params)).

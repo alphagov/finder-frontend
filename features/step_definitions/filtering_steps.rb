@@ -1,11 +1,13 @@
 Given(/^a collection of documents exist$/) do
   content_store_has_mosw_reports_finder
   stub_rummager_api_request
+  stub_taxonomy_api_request
 end
 
 Given(/^no results$/) do
   content_store_has_mosw_reports_finder_with_no_facets
   stub_rummager_api_request_with_no_results
+  stub_taxonomy_api_request
 end
 
 When(/^I view the finder with no keywords and no facets$/) do
