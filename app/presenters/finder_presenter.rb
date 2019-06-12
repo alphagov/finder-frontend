@@ -4,9 +4,7 @@ class FinderPresenter
 
   attr_reader :content_item, :name, :slug, :organisations, :values, :keywords, :links, :facets
 
-  MOST_RECENT_FIRST = "-public_timestamp".freeze
-
-  def initialize(content_item, search_results, sort_presenter, values = {})
+  def initialize(content_item, search_results, values = {})
     @content_item = content_item
     @search_results = search_results
     @name = content_item['title']
@@ -17,7 +15,6 @@ class FinderPresenter
     @facet_hashes = facet_hashes(@content_item)
     @facets = facet_collection(@facet_hashes, @values)
     @keywords = values["keywords"].presence
-    @sort_presenter = sort_presenter
   end
 
   def phase_message
@@ -169,16 +166,8 @@ class FinderPresenter
     end
   end
 
-  def atom_feed_enabled?
-    if sort_presenter.has_options?
-      sort_presenter.default_option.blank? || sort_presenter.default_option.key == MOST_RECENT_FIRST
-    else
-      default_order.blank? || default_order == MOST_RECENT_FIRST
-    end
-  end
-
   def atom_url
-    "#{slug}.atom#{alert_query_string}" if atom_feed_enabled?
+    "#{slug}.atom#{alert_query_string}"
   end
 
   def description
@@ -205,7 +194,7 @@ class FinderPresenter
 
 private
 
-  attr_reader :search_results, :sort_presenter
+  attr_reader :search_results
 
   def is_external?(href)
     URI.parse(href).host != "www.gov.uk"
