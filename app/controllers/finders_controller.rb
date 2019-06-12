@@ -49,7 +49,7 @@ private
 
   attr_accessor :finder_api
 
-  helper_method :finder, :facet_tags
+  helper_method :finder, :facet_tags, :i_am_a_topic_page_finder
 
   def redirect_to_destination
     @redirect = content_item.as_hash.dig('redirects', 0, 'destination')
@@ -166,6 +166,10 @@ private
   def remove_search_box
     hide_site_serch = params['slug'] == 'search/all'
     set_slimmer_headers(remove_search: hide_site_serch)
+  end
+
+  def i_am_a_topic_page_finder
+    @i_am_a_topic_page_finder ||= Services.full_topic_taxonomy.taxonomy.key? parent
   end
 
   def debug_score?
