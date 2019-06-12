@@ -295,9 +295,7 @@ module DocumentHelper
 
   def content_store_has_business_readiness_email_signup
     finder_fixture = File.read(Rails.root.join('features', 'fixtures', 'business_readiness_email_signup.json'))
-    finder_fixture_without_facets = JSON.parse(finder_fixture)
-    finder_fixture_without_facets['details']['email_filter_facets'] = []
-    finder_fixture = finder_fixture_without_facets.to_json
+
     content_store_has_item('/find-eu-exit-guidance-business/email-signup', finder_fixture)
   end
 
