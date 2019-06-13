@@ -34,6 +34,10 @@ class SignupPresenter
     content_item['details'].fetch('combine_mode', nil)
   end
 
+  def email_filter_by
+    content_item['details'].fetch('email_filter_by', nil)
+  end
+
   def can_modify_choices?
     choices? && choices_formatted.any?
   end
@@ -49,7 +53,7 @@ class SignupPresenter
         end
       end
     end
-    hidden_choices.flatten
+    hidden_choices.flatten.compact
   end
 
   def choices?
@@ -90,7 +94,7 @@ private
 
   def facets_with_choicess
     choices.select { |choice|
-      choice['facet_choices'] && choice["facet_choices"].any?
+      choice['facet_choices'] && choice["facet_choices"].any? && !ignore_facet?(choice["facet_id"])
     }
   end
 

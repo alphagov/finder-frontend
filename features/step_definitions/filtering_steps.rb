@@ -738,8 +738,14 @@ Then("I see the email subscription page") do
   expect(page).to have_button("Create subscription")
 end
 
-Then("I cannot select any filters") do
-  find("input[name='filter[facet_groups][]']", visible: false)
+And("I can see the business finder filters") do
+  expect(page).to have_css(".govuk-checkboxes__label", text: "Sector / Business area")
+  expect(page).to have_css(".govuk-checkboxes__label", text: "Organisation activity")
+  expect(page).to have_css(".govuk-checkboxes__label", text: "Who you employ")
+  expect(page).to have_css(".govuk-checkboxes__label", text: "Personal data")
+  expect(page).to have_css(".govuk-checkboxes__label", text: "Intellectual property")
+  expect(page).to have_css(".govuk-checkboxes__label", text: "EU or UK government funding")
+  expect(page).to have_css(".govuk-checkboxes__label", text: "Public sector procurement")
 end
 
 Then("I should see results in the default group") do
