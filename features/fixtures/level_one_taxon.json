@@ -1,0 +1,116 @@
+[
+  {
+    "base_path": "/environment",
+    "content_id": "3cf97f69-84de-41ae-bc7b-7e2cc238fa58",
+    "title": "Environment",
+    "links": {
+      "child_taxons": [
+        {
+          "base_path": "/environment/food-and-farming",
+          "content_id": "52ff5c99-a17b-42c4-a9d7-2cc92cccca39",
+          "title": "Food and farming",
+          "links": {
+            "child_taxons": [
+              {
+                "base_path": "/environment/farming-food-grants-payments",
+                "content_id": "2368b8b1-9405-4e66-b396-a5d54b777a0a",
+                "title": "Farming and food grants and payments",
+                "links": {
+                  "child_taxons": [
+                    {
+                      "base_path": "/environment/farming-food-grants-payments-rural-grants-payments",
+                      "content_id": "8d99749f-e2c5-43a3-a283-0faef4ee8a5d",
+                      "title": "Rural grants and payments",
+                      "links": {
+                        "child_taxons": [
+                          {
+                            "base_path": "/environment/countryside-stewardship",
+                            "content_id": "013fc5e0-280c-4f73-9598-47de68f13dcd",
+                            "title": "Countryside stewardship",
+                            "links": {}
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+        "base_path": "/environment/chemicals",
+        "content_id": "22ad4441-9fb5-447b-950c-bf33466b31bb",
+        "title": "Chemicals",
+        "links": {
+          "child_taxons": [
+            {
+              "base_path": "/environment/environmental-management-chemicals-reach-regulations",
+              "content_id": "3deb7ca6-27ad-4aa1-b1b2-e9187c601740",
+              "title": "REACH regulations",
+              "links": {}
+            }
+          ]
+        }
+        }
+      ]
+    }
+  },
+  {
+    "base_path": "/education",
+    "content_id": "3cf97f69-84de-41ae-bc7b-7e2cc238f123",
+    "title": "Education",
+    "links": {
+      "child_taxons": [
+        {
+          "base_path": "/education/education-and-farming",
+          "content_id": "52ff5c99-a17b-42c4-a9d7-2cc92cccc123",
+          "title": "Education and farming",
+          "links": {
+            "child_taxons": [
+              {
+                "base_path": "/education/farming-education-grants-payments",
+                "content_id": "2368b8b1-9405-4e66-b396-a5d54b777123",
+                "title": "Education and food grants and payments",
+                "links": {
+                  "child_taxons": [
+                    {
+                      "base_path": "/education/farming-food-grants-payments-rural-grants-payments",
+                      "content_id": "8d99749f-e2c5-43a3-a283-0faef4ee8123",
+                      "title": "Education grants and payments",
+                      "links": {
+                        "child_taxons": [
+                          {
+                            "base_path": "/education/countryside-stewardship",
+                            "content_id": "013fc5e0-280c-4f73-9598-47de68f13123",
+                            "title": "Education stewardship",
+                            "links": {}
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+        "base_path": "/education/chemicals",
+        "content_id": "22ad4441-9fb5-447b-950c-bf33466b3123",
+        "title": "Chemicals",
+        "links": {
+          "child_taxons": [
+            {
+              "base_path": "/education/educational-management-chemicals-reach-regulations",
+              "content_id": "3deb7ca6-27ad-4aa1-b1b2-e9187c601123",
+              "title": "REACH regulations",
+              "links": {}
+            }
+          ]
+        }
+        }
+      ]
+    }
+  }
+]

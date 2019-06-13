@@ -10,10 +10,15 @@ module Registries
         'people' => people,
         'organisations' => organisations,
         'manual' => manuals,
+        'full_topic_taxonomy' => full_topic_taxonomy
       }
     end
 
   private
+
+    def full_topic_taxonomy
+      @full_topic_taxonomy ||= FullTopicTaxonomyRegistry.new
+    end
 
     def world_locations
       @world_locations ||= WorldLocationsRegistry.new
