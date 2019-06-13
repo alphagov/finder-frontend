@@ -14,6 +14,14 @@ module Registries
       }
     end
 
+    def refresh_cache
+      all.values.each { |registry|
+        if registry.respond_to?(:refresh_cache)
+          registry.refresh_cache
+        end
+      }
+    end
+
   private
 
     def full_topic_taxonomy
@@ -40,4 +48,6 @@ module Registries
       @manuals ||= ManualsRegistry.new
     end
   end
+
+  class RefreshOperationFailed < StandardError; end
 end
