@@ -13,6 +13,9 @@ describe FacetCollection do
                               ])
   end
 
+  before { Rails.cache.clear }
+  after { Rails.cache.clear }
+
   context "with facets with values" do
     it "should accept a hash of key/value pairs, and set the facet values for each" do
       facet_hashes = [

@@ -20,6 +20,9 @@ describe EmailAlertSubscriptionsController, type: :controller do
   let(:top_level_taxon_one_title) { "Magical Education" }
   let(:top_level_taxon_two_title) { "Herbology" }
 
+  before { Rails.cache.clear }
+  after { Rails.cache.clear }
+
   before :each do
     topic_taxonomy_has_taxons([
       {

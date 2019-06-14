@@ -16,7 +16,11 @@ describe QaController, type: :controller do
       end
     end
 
-    before { allow_any_instance_of(QaController).to receive(:qa_config).and_return(aaib_reports_qa_config_yaml) }
+    before {
+      Rails.cache.clear
+      allow_any_instance_of(QaController).to receive(:qa_config).and_return(aaib_reports_qa_config_yaml)
+    }
+    after { Rails.cache.clear }
 
     describe "a finder content item exists" do
       let(:base_path)        { aaib_reports_qa_config_yaml["base_path"] }

@@ -24,6 +24,9 @@ RSpec.describe FinderPresenter do
     ]
   }
 
+  before { Rails.cache.clear }
+  after { Rails.cache.clear }
+
   describe "facets" do
     it "returns the correct facets" do
       expect(subject.facets.count { |f| f.type == "date" }).to eql(1)
