@@ -16,7 +16,7 @@ module Registries
 
     def refresh_cache
       all.values.each { |registry|
-        if registry.respond_to?(:refresh_cache)
+        if registry.can_refresh_cache?
           registry.refresh_cache
         end
       }

@@ -66,7 +66,7 @@ RSpec.describe Registries::ManualsRegistry do
     it "will return an (uncached) empty hash" do
       manual = described_class.new[slug]
       expect(manual).to be_nil
-      expect(Rails.cache.fetch(described_class::CACHE_KEY)).to be_nil
+      expect(Rails.cache.fetch(described_class.new.cache_key)).to be_nil
     end
   end
 
@@ -75,7 +75,7 @@ RSpec.describe Registries::ManualsRegistry do
   end
 
   def clear_cache
-    Rails.cache.delete(described_class::CACHE_KEY)
+    Rails.cache.delete(described_class.new.cache_key)
   end
 
   def rummager_results

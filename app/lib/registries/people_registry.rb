@@ -1,13 +1,11 @@
 module Registries
-  class PeopleRegistry
-    CACHE_KEY = "#{NAMESPACE}/people".freeze
-
+  class PeopleRegistry < Registry
     def [](slug)
       people[slug]
     end
 
     def people
-      @people ||= Rails.cache.fetch(CACHE_KEY, expires_in: 1.hour) do
+      @people ||= Rails.cache.fetch(cache_key) do
         people_as_hash
       end
     rescue GdsApi::HTTPServerError
@@ -19,7 +17,15 @@ module Registries
       people
     end
 
+    def cache_key
+      "#{NAMESPACE}/people"
+    end
+
   private
+
+    def cacheable_data
+      people_as_hash
+    end
 
     def people_as_hash
       GovukStatsd.time("registries.people.request_time") do

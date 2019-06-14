@@ -1,28 +1,29 @@
 module Registries
-  class FullTopicTaxonomyRegistry
-    CACHE_KEY = "registries/full_topic_taxonomy".freeze
+  class FullTopicTaxonomyRegistry < Registry
+    include CacheableRegistry
 
     def [](base_path)
       taxonomy[base_path]
     end
 
-    def refresh_cache
-      Rails.cache.write(CACHE_KEY, taxonomy_hash)
-    rescue GdsApi::HTTPServerError
-      report_error
-      raise RefreshOperationFailed, "Could not update #{CACHE_KEY} cache due to HTTPServerError"
-    end
-
     def taxonomy
-      @taxonomy ||= Rails.cache.fetch(CACHE_KEY) do
-        taxonomy_hash
+      @taxonomy ||= Rails.cache.fetch(cache_key) do
+        cacheable_data
       end
     rescue GdsApi::HTTPServerError
       report_error
       {}
     end
 
+    def cache_key
+      "registries/full_topic_taxonomy"
+    end
+
   private
+
+    def cacheable_data
+      taxonomy_hash
+    end
 
     def report_error
       GovukStatsd.increment("#{NAMESPACE}.full_topic_taxonomy_api_errors")

@@ -1,7 +1,5 @@
 module Registries
-  class ManualsRegistry
-    CACHE_KEY = 'registries/manuals'.freeze
-
+  class ManualsRegistry < Registry
     def [](base_url)
       manuals[base_url]
     end
@@ -10,10 +8,14 @@ module Registries
       manuals
     end
 
+    def cache_key
+      'registries/manuals'
+    end
+
   private
 
     def manuals
-      @manuals ||= Rails.cache.fetch(CACHE_KEY, expires_in: 1.hour) do
+      @manuals ||= Rails.cache.fetch(cache_key, expires_in: 1.hour) do
         manuals_as_hash
       end
     rescue GdsApi::HTTPServerError

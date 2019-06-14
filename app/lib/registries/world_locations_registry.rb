@@ -1,6 +1,6 @@
 module Registries
-  class WorldLocationsRegistry
-    CACHE_KEY = "#{NAMESPACE}/world_locations".freeze
+  class WorldLocationsRegistry < Registry
+    include CacheableRegistry
 
     def [](slug)
       begin
@@ -15,19 +15,31 @@ module Registries
       cached_locations
     end
 
+    def cache_key
+      "#{NAMESPACE}/world_locations"
+    end
+
   private
 
+    def cacheable_data
+      locations
+    end
+
+    def report_error
+      GovukStatsd.increment("#{NAMESPACE}.world_location_api_errors")
+    end
+
     def cached_locations
-      @cached_locations ||= Rails.cache.fetch(CACHE_KEY, expires_in: 1.hour) do
-        locations
+      @cached_locations ||= Rails.cache.fetch(cache_key) do
+        cacheable_data
       end
     rescue GdsApi::HTTPServerError, GdsApi::HTTPBadGateway
-      GovukStatsd.increment("#{NAMESPACE}.world_location_api_errors")
+      report_error
       {}
     end
 
     def uncache_locations
-      Rails.cache.delete(CACHE_KEY)
+      Rails.cache.delete(cache_key)
     end
 
     def locations

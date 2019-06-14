@@ -1,13 +1,11 @@
 module Registries
-  class OrganisationsRegistry
-    CACHE_KEY = "registries/organisations".freeze
-
+  class OrganisationsRegistry < Registry
     def [](slug)
       organisations[slug]
     end
 
     def organisations
-      @organisations ||= Rails.cache.fetch(CACHE_KEY, expires_in: 1.hour) do
+      @organisations ||= Rails.cache.fetch(cache_key, expires_in: 1.hour) do
         organisations_as_hash
       end
     rescue GdsApi::HTTPServerError
@@ -17,6 +15,10 @@ module Registries
 
     def values
       organisations
+    end
+
+    def cache_key
+      "registries/organisations"
     end
 
   private

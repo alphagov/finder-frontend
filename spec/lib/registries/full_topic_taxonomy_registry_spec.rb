@@ -23,7 +23,7 @@ RSpec.describe Registries::FullTopicTaxonomyRegistry do
       topic_taxonomy_api_is_unavailable
       expect(described_class.new[base_path]).to be_nil
       expect(described_class.new.taxonomy).to eql({})
-      expect(Rails.cache.fetch(described_class::CACHE_KEY)).to be_nil
+      expect(Rails.cache.fetch(described_class.new.cache_key)).to be_nil
     end
   end
 

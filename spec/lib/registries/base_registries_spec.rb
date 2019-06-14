@@ -65,7 +65,7 @@ RSpec.describe Registries::BaseRegistries do
         registry.respond_to? :refresh_cache
       }
 
-      registries.map { |registry| registry.class::CACHE_KEY }
+      registries.map { |registry| registry.class.new.cache_key }
     end
   end
 end
