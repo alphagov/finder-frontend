@@ -42,6 +42,7 @@ RSpec.describe Registries::BaseRegistries do
       stub_root_taxon(level_one_taxons)
       full_topic_taxonomy_has_taxons(level_one_taxons)
       stub_people_registry_request
+      stub_manuals_registry_request
     end
     after { clear_cache }
 

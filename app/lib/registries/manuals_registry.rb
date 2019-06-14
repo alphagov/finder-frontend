@@ -1,5 +1,7 @@
 module Registries
   class ManualsRegistry < Registry
+    include CacheableRegistry
+
     def [](base_url)
       manuals[base_url]
     end
@@ -14,9 +16,13 @@ module Registries
 
   private
 
+    def cacheable_data
+      manuals_as_hash
+    end
+
     def manuals
-      @manuals ||= Rails.cache.fetch(cache_key, expires_in: 1.hour) do
-        manuals_as_hash
+      @manuals ||= Rails.cache.fetch(cache_key) do
+        cacheable_data
       end
     rescue GdsApi::HTTPServerError
       GovukStatsd.increment('registries.manuals_api_errors')
