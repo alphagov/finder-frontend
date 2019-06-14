@@ -14,7 +14,7 @@ class GroupedResultSetPresenter < ResultSetPresenter
   def grouped_documents
     return [] unless grouped_display?
 
-    documents_with_metadata = documents.select { |document| document[:document][:metadata].present? }
+    documents_with_metadata = documents.select { |document| document[:metadata_raw].present? }
     sorted_documents = sort_by_alphabetical(documents_with_metadata)
 
     # Without facet filtering return all documents without grouping
@@ -102,7 +102,7 @@ private
   end
 
   def sort_by_alphabetical(search_results)
-    search_results.sort_by { |r| r[:document][:title] }
+    search_results.sort_by { |r| r[:link][:text] }
   end
 
   def secondary_facets
