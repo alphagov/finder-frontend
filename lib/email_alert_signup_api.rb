@@ -1,7 +1,7 @@
 require 'addressable/uri'
 
 class EmailAlertSignupAPI
-  def initialize(applied_filters:, default_filters:, facets:, subscriber_list_title:, finder_format:, default_frequency: nil, combine_mode: nil)
+  def initialize(applied_filters:, default_filters:, facets:, subscriber_list_title:, finder_format:, default_frequency: nil, combine_mode: nil, email_filter_by: nil)
     @applied_filters = applied_filters.deep_symbolize_keys
     @default_filters = default_filters.deep_symbolize_keys
     @facets = facets
@@ -9,6 +9,7 @@ class EmailAlertSignupAPI
     @finder_format = finder_format
     @default_frequency = default_frequency
     @combine_mode = combine_mode
+    @email_filter_by = email_filter_by
   end
 
   def signup_url
@@ -21,7 +22,7 @@ class EmailAlertSignupAPI
 
 private
 
-  attr_reader :applied_filters, :default_filters, :facets, :subscriber_list_title, :finder_format, :combine_mode
+  attr_reader :applied_filters, :default_filters, :facets, :subscriber_list_title, :finder_format, :combine_mode, :email_filter_by
 
   def add_url_param(url, param)
     # this method safely adds a URL parameter using the correct one of '?' or '&'
@@ -39,6 +40,8 @@ private
     options["combine_mode"] = combine_mode if combine_mode
     if facet_groups?
       options["links"] = facet_groups
+    elsif facet_values?
+      options["links"] = facet_values
     else
       options["tags"] = tags
     end
@@ -57,6 +60,19 @@ private
     end
 
     { "facet_groups" => { any: facet_groups.flatten } }
+  end
+
+  def facet_values?
+    email_filter_by == 'facet_values'
+  end
+
+  def facet_values
+    @facet_values ||= filter_keys.each_with_object({}) { |key, links_hash|
+      values = values_for_key(key)
+      links_hash['facet_values'] ||= {}
+      links_hash['facet_values'][:any] ||= []
+      links_hash['facet_values'][:any] = links_hash.dig('facet_values', :any).concat(values).uniq
+    }
   end
 
   def tags

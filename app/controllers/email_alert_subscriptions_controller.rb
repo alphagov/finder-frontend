@@ -69,6 +69,7 @@ private
       subscriber_list_title: subscriber_list_title,
       default_frequency: signup_presenter.default_frequency,
       combine_mode: signup_presenter.combine_mode,
+      email_filter_by: signup_presenter.email_filter_by,
     )
   end
 

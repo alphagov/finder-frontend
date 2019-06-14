@@ -200,7 +200,7 @@ describe EmailAlertSubscriptionsController, type: :controller do
 
   context "with combine_mode set to 'or'" do
     describe 'POST "#create"' do
-      let(:finder) { govuk_content_schema_example('finder') }
+      let(:finder) { business_readiness_content_item }
       let(:signup_finder) { business_readiness_signup_content_item }
 
       before do
@@ -210,9 +210,8 @@ describe EmailAlertSubscriptionsController, type: :controller do
       it "should call EmailAlertListTitleBuilder instead of EmailAlertTitleBuilder" do
         content_store_has_item('/find-eu-exit-guidance-business/email-signup', signup_finder)
         email_alert_api_has_subscriber_list(
-          'tags' => {
-            'format' => { any: %w(mosw_report) },
-            'sector_business_area' => { any: %w(aerospace) },
+          'links' => {
+            'facet_values' => { any: %w(aerospace) },
           },
           'subscription_url' => 'http://www.itstartshear.com',
           'combine_mode' => 'or'
@@ -245,7 +244,7 @@ describe EmailAlertSubscriptionsController, type: :controller do
         content_store_has_item('/find-eu-exit-guidance-business', finder)
       end
 
-      it "should call EmailAlertListTitleBuilder instead of EmailAlertTitleBuilder" do
+      it "should not call EmailAlertListTitleBuilder instead of EmailAlertTitleBuilder" do
         content_store_has_item('/find-eu-exit-guidance-business/email-signup', signup_finder)
         email_alert_api_has_subscriber_list(
           'tags' => {

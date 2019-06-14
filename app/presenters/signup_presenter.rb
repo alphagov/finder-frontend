@@ -34,6 +34,10 @@ class SignupPresenter
     content_item['details'].fetch('combine_mode', nil)
   end
 
+  def email_filter_by
+    content_item['details'].fetch('email_filter_by', nil)
+  end
+
   def can_modify_choices?
     choices? && choices_formatted.any?
   end
@@ -49,7 +53,7 @@ class SignupPresenter
         end
       end
     end
-    hidden_choices.flatten
+    hidden_choices.flatten.compact
   end
 
   def choices?
@@ -65,7 +69,7 @@ class SignupPresenter
   end
 
   def choices_formatted
-    @choices_formatted ||= facets_with_choicess.map { |choice|
+    @choices_formatted ||= facets_with_choices.map { |choice|
       {
         label: choice['facet_name'],
         value: choice['facet_id'],
@@ -74,7 +78,7 @@ class SignupPresenter
           {
             name: "filter[#{choice['facet_id']}][]",
             label: facet_choice['radio_button_name'],
-            value: facet_choice['key'],
+            value: facet_choice.fetch('content_id', nil) || facet_choice['key'],
             checked: facet_choice['prechecked'] || selected_choices.fetch(choice['facet_id'], []).include?(facet_choice['key'])
           }
         end
@@ -88,9 +92,9 @@ class SignupPresenter
 
 private
 
-  def facets_with_choicess
+  def facets_with_choices
     choices.select { |choice|
-      choice['facet_choices'] && choice["facet_choices"].any?
+      choice['facet_choices'] && choice["facet_choices"].any? && !ignore_facet?(choice["facet_id"])
     }
   end
 

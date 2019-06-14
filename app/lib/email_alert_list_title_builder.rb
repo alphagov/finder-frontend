@@ -44,19 +44,19 @@ private
   def fetch_facet_choice_name_from_data(selected_facet_id, selected_facet_choice_key)
     facets.detect { |facet| facet["facet_id"] == selected_facet_id }
       .fetch("facet_choices")
-      .detect { |choice| choice["key"] == selected_facet_choice_key }
+      .detect { |choice| choice["content_id"] == selected_facet_choice_key }
       .fetch("topic_name")
   end
 
   def facet_name_overrides
     {
       "employ_eu_citizens" => {
-        "yes" => "Employing EU citizens",
-        "no" => "Employing non-EU citizens"
+        "5476f0c7-d029-459b-8a17-196374ae3366" => "Employing EU citizens",
+        "bbdbda71-b1ec-46b8-a5b8-931d933288e9" => "Employing non-EU citizens"
       },
       "public_sector_procurement" => {
-        "civil-government-contracts" => "Public sector procurement - civil government contracts",
-        "defence-contracts" => "Public sector procurement - defence contracts"
+        "f165dc7c-7cef-446a-bdfd-8a1ca685d091" => "Public sector procurement - civil government contracts",
+        "33fc20d7-6a45-40c9-b31f-e4678f962ff1" => "Public sector procurement - defence contracts"
       }
     }
   end
