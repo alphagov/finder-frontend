@@ -1,18 +1,14 @@
 module Registries
-  class RefreshOperationFailed < StandardError; end
-
   module CacheableRegistry
     def can_refresh_cache?
       true
     end
 
     def refresh_cache
-      success = Rails.cache.write(cache_key, cacheable_data)
-
-      raise RefreshOperationFailed unless success
-    rescue GdsApi::HTTPServerError, GdsApi::HTTPBadGateway, RefreshOperationFailed
+      Rails.cache.write(cache_key, cacheable_data)
+    rescue GdsApi::HTTPServerError, GdsApi::HTTPBadGateway
       report_error
-      raise RefreshOperationFailed
+      false
     end
 
     def cacheable_data
