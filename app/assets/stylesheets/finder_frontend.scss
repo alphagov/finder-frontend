@@ -327,3 +327,18 @@
 .app-patch--search-input-override input[type="search"] {
   box-sizing: border-box;
 }
+
+.debug-results {
+  @include govuk-font(16);
+  display: block;
+  margin: govuk-spacing(1) 0 0 0;
+  word-wrap: break-word;
+}
+
+.debug-results--link {
+  color: govuk-colour("green");
+}
+
+.debug-results--meta {
+  color: govuk-colour("bright-red");
+}

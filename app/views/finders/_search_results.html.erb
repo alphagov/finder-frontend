@@ -37,6 +37,22 @@
     <% end %>
 
   <% else %>
+    <li>
+      <%#= local_assigns[:document_list_documents][0] %>
+      <%
+        first = [
+          local_assigns[:document_list_documents][0],
+          #local_assigns[:document_list_documents][1],
+        ]
+      %>
+
+      <%= render "govuk_publishing_components/components/document_list", {
+        items: first
+      } %>
+
+      <%#= local_assigns[:documents][0] %>
+    </li>
+
     <% local_assigns[:documents].each do |document| %>
       <% result = document[:document] %>
 
