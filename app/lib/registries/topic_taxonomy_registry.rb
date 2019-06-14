@@ -1,6 +1,6 @@
 module Registries
   class TopicTaxonomyRegistry
-    CACHE_KEY = "#{NAMESPACE}/topic_taxonomy".freeze
+    CACHE_KEY = "registries/topic_taxonomy".freeze
 
     def [](content_id)
       taxonomy_tree[content_id]
@@ -11,7 +11,7 @@ module Registries
         taxonomy_tree_as_hash
       end
     rescue GdsApi::HTTPServerError
-      GovukStatsd.increment("#{NAMESPACE}.topic_taxonomy_api_errors")
+      GovukStatsd.increment("registries.topic_taxonomy_api_errors")
       {}
     end
 
