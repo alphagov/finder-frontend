@@ -43,6 +43,7 @@ RSpec.describe Registries::BaseRegistries do
       full_topic_taxonomy_has_taxons(level_one_taxons)
       stub_people_registry_request
       stub_manuals_registry_request
+      stub_organisations_registry_request
     end
     after { clear_cache }
 
@@ -65,11 +66,7 @@ RSpec.describe Registries::BaseRegistries do
 
   def registry_cache_keys
     @registry_cache_keys ||= begin
-      registries = described_class.new.all.values.select { |registry|
-        registry.respond_to? :refresh_cache
-      }
-
-      registries.map { |registry| registry.class.new.cache_key }
+      described_class.new.all.values.map(&:cache_key)
     end
   end
 end
