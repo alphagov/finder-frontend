@@ -48,6 +48,4 @@ module Registries
       @manuals ||= ManualsRegistry.new
     end
   end
-
-  class RefreshOperationFailed < StandardError; end
 end

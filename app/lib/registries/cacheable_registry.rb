@@ -1,4 +1,6 @@
 module Registries
+  class RefreshOperationFailed < StandardError; end
+
   module CacheableRegistry
     def can_refresh_cache?
       true
