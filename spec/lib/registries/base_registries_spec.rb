@@ -1,12 +1,14 @@
 require 'spec_helper'
 require "gds_api/test_helpers/worldwide"
 require "helpers/taxonomy_spec_helper"
+require "helpers/registry_spec_helper"
 
 RSpec.describe Registries::BaseRegistries do
   include GdsApi::TestHelpers::Worldwide
   include TaxonomySpecHelper
   include GdsApi::TestHelpers::ContentStore
   include GovukContentSchemaExamples
+  include RegistrySpecHelper
 
   before do
     worldwide_api_has_locations %w(hogwarts privet-drive diagon-alley)
@@ -39,6 +41,7 @@ RSpec.describe Registries::BaseRegistries do
       clear_cache
       stub_root_taxon(level_one_taxons)
       full_topic_taxonomy_has_taxons(level_one_taxons)
+      stub_people_registry_request
     end
     after { clear_cache }
 
