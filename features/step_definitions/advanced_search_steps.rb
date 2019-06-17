@@ -24,6 +24,7 @@ Given(/^a collection of tagged documents(.*?)$/) do |categorisation|
     "fields" => %w(
       title link description public_timestamp popularity
       content_purpose_supergroup content_store_document_type format
+      is_historic government_name
       organisations content_purpose_subgroup part_of_taxonomy_tree
     ).join(","),
     "order" => "-public_timestamp",
