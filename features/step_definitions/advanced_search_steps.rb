@@ -23,9 +23,8 @@ Given(/^a collection of tagged documents(.*?)$/) do |categorisation|
     "facet_content_purpose_subgroup" => "1500,order:value.title",
     "fields" => %w(
       title link description public_timestamp popularity
-      content_purpose_supergroup format
-      content_store_document_type organisations
-      content_purpose_subgroup part_of_taxonomy_tree
+      content_purpose_supergroup content_store_document_type format
+      organisations content_purpose_subgroup part_of_taxonomy_tree
     ).join(","),
     "order" => "-public_timestamp",
     "reject_content_store_document_type" => %w[browse],

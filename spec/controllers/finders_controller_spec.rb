@@ -58,7 +58,7 @@ describe FindersController, type: :controller do
           .with(
             query: {
               count: 10,
-              fields: "title,link,description,public_timestamp,popularity,content_purpose_supergroup,format,walk_type,place_of_origin,date_of_introduction,creator",
+              fields: "title,link,description,public_timestamp,popularity,content_purpose_supergroup,content_store_document_type,format,walk_type,place_of_origin,date_of_introduction,creator",
               filter_document_type: "mosw_report",
               order: "-public_timestamp",
               start: 0
@@ -116,7 +116,7 @@ describe FindersController, type: :controller do
           .with(
             query: {
               count: 10,
-              fields: "title,link,description,public_timestamp,popularity,content_purpose_supergroup,format,walk_type,place_of_origin,date_of_introduction,creator",
+              fields: "title,link,description,public_timestamp,popularity,content_purpose_supergroup,content_store_document_type,format,walk_type,place_of_origin,date_of_introduction,creator",
               filter_document_type: "mosw_report",
               order: "-public_timestamp",
               start: 0
@@ -217,7 +217,7 @@ describe FindersController, type: :controller do
           .with(
             query: {
               count: 10,
-              fields: "title,link,description,public_timestamp,popularity,content_purpose_supergroup,format,walk_type,place_of_origin,date_of_introduction,creator",
+              fields: "title,link,description,public_timestamp,popularity,content_purpose_supergroup,content_store_document_type,format,walk_type,place_of_origin,date_of_introduction,creator",
               filter_document_type: "mosw_report",
               order: "-public_timestamp",
               start: 0
