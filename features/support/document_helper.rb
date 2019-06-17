@@ -95,12 +95,6 @@ module DocumentHelper
     ).to_return(body: filtered_business_readiness_results_json)
   end
 
-  def stub_all_rummager_api_requests_with_business_finder_results
-    stub_request(:get, "#{Plek.current.find('search')}/batch_search.json")
-      .with(query: hash_including({}))
-      .to_return(body: business_readiness_results_json)
-  end
-
   def stub_rummager_api_request_with_policy_papers_results
     stub_request(:get, SEARCH_ENDPOINT).
       with(query: hash_including(policy_papers_params)).
@@ -155,12 +149,6 @@ module DocumentHelper
       .to_return(body: upcoming_statistics_results_for_statistics_json)
   end
 
-  def stub_all_rummager_api_requests_with_all_documents_results
-    stub_request(:get, SEARCH_ENDPOINT)
-      .with(query: hash_including({}))
-      .to_return(body: all_documents_json)
-  end
-
   def stub_all_rummager_api_requests_with_news_and_communication_results
     stub_request(:get, SEARCH_ENDPOINT)
       .with(query: hash_including({}))
@@ -187,12 +175,6 @@ module DocumentHelper
     stub_request(:get, SEARCH_ENDPOINT).
       with(query: rummager_document_other_page_search_params(page_number)).
       to_return(status: 422)
-  end
-
-  def stub_rummager_api_request_with_policies_finder_results
-    stub_request(:get, SEARCH_ENDPOINT).
-      with(query: hash_including(rummager_policies_finder_search_params)).
-      to_return(body: policies_documents_json)
   end
 
   def stub_rummager_api_request_with_qa_finder_results
@@ -259,14 +241,6 @@ module DocumentHelper
     content_item = govuk_content_schema_example('finder').merge('base_path' => base_path)
     content_item['details']['default_documents_per_page'] = 10
     content_store_has_item(base_path, content_item.to_json)
-  end
-
-  def content_store_has_policies_finder
-    base_path = '/government/policies'
-    content_store_has_item(
-      base_path,
-      govuk_content_schema_example('policies_finder').to_json
-    )
   end
 
   def content_store_has_statistics_finder
@@ -436,15 +410,6 @@ module DocumentHelper
       to_return(body: filtered_cma_case_documents_json)
   end
 
-  def rummager_all_org_links_url
-    rummager_url(
-      "count" => 1500,
-      "fields" => %w(slug title acronym),
-      "filter_format" => "organisation",
-      "order" => 'title'
-    )
-  end
-
   def rummager_all_documents_params
     mosw_search_params.merge("order" => "-public_timestamp")
   end
@@ -521,10 +486,6 @@ module DocumentHelper
     )
   end
 
-  def rummager_policy_search_params
-    policy_search_params.merge("order" => "-public_timestamp")
-  end
-
   def rummager_document_other_page_search_params(page_number)
     count_per_page = 10
 
@@ -546,13 +507,6 @@ module DocumentHelper
     )
   end
 
-  def rummager_policies_finder_search_params
-    policies_search_params.merge(
-      "facet_organisations" => "1500,order:value.title",
-      "order" => "title",
-    )
-  end
-
   def whitehall_admin_world_locations_api_url
     "#{Plek.current.find('whitehall-admin')}/api/world-locations"
   end
@@ -563,31 +517,6 @@ module DocumentHelper
 
   def rummager_filtered_business_readiness_url(filter_params)
     rummager_url(business_readiness_params.merge(filter_params))
-  end
-
-  def organisation_link_results
-    %|{
-      "results": [
-        {
-          "title": "Attorney General's Office",
-          "slug": "attorney-generals-office",
-          "_id": "/government/organisations/companies-house",
-          "elasticsearch_type": "edition",
-          "document_type": "edition"
-        },
-        {
-          "title": "HM Revenue & Customs",
-          "slug": "hm-revenue-customs",
-          "_id": "/government/organisations/hm-revenue-customs",
-          "elasticsearch_type": "edition",
-          "document_type": "edition"
-        }
-      ],
-      "total": 1072,
-      "start": 0,
-      "aggregates": {},
-      "suggested_queries": []
-    }|
   end
 
   def aaib_reports_search_results
@@ -772,62 +701,6 @@ module DocumentHelper
     end
 
     results.flatten.to_json
-  end
-
-  def policies_documents_json
-    %|{
-      "results": [
-        {
-          "title": "Education",
-          "summary": "Education",
-          "format": "policy",
-          "creator": "Dale Cooper",
-          "public_timestamp": "2007-02-14T00:00:00.000+01:00",
-          "is_historic": true,
-          "display_type": "Policy",
-          "organisations": [{
-            "slug": "ministry-of-justice",
-            "link": "/government/organisations/ministry-of-justice",
-            "title": "Ministry of Justice",
-            "acronym": "MoJ",
-            "organisation_state": "live"
-          }],
-          "government_name": "2005 to 2010 Labour government",
-          "link": "/government/policies/education",
-          "_id": "/government/policies/education"
-        },
-        {
-          "title": "Afghanistan",
-          "public_timestamp": "2015-03-14T00:00:00.000+01:00",
-          "summary": "What the government is doing about Afghanistan",
-          "format": "policy",
-          "creator": "Dale Cooper",
-          "is_historic": false,
-          "organisations": [{
-            "slug": "ministry-of-justice",
-            "link": "/government/organisations/ministry-of-justice",
-            "title": "Ministry of Justice",
-            "acronym": "MoJ",
-            "organisation_state": "live"
-          }],
-          "display_type": "Policy",
-          "government_name": "2010 to 2015 Conservative and Liberal Democrat Coalition government",
-          "link": "/government/policies/afghanistan",
-          "_id": "/government/policies/afghanistan"
-        }
-      ],
-      "total": 2,
-      "start": 0,
-      "facets": {
-        "organisations": {
-          "options": [
-              {"value": {"title": "Ministry of Justice", "slug": "ministry-of-justice"}},
-              {"value": {"slug": "ministry-of-missing-spoons"}}
-          ]
-        }
-      },
-      "suggested_queries": []
-    }|
   end
 
   def newest_news_and_communication_json
