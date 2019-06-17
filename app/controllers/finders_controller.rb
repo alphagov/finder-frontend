@@ -49,7 +49,7 @@ private
 
   attr_accessor :finder_api
 
-  helper_method :finder, :facet_tags
+  helper_method :finder, :facet_tags, :i_am_a_topic_page_finder
 
   def redirect_to_destination
     @redirect = content_item.as_hash.dig('redirects', 0, 'destination')
@@ -108,7 +108,7 @@ private
 
   def fetch_breadcrumbs
     parent_slug = params["parent"]
-    org_info = org_registry[parent_slug] if parent_slug.present?
+    org_info = organisation_registry[parent_slug] if parent_slug.present?
     FinderBreadcrumbsPresenter.new(org_info, content_item.as_hash)
   end
 
@@ -128,10 +128,6 @@ private
 
   def sort_presenter
     @sort_presenter ||= content_item.sorter_class.new(content_item.as_hash, filter_params)
-  end
-
-  def org_registry
-    @org_registry ||= Registries::OrganisationsRegistry.new
   end
 
   def pagination_presenter
@@ -156,7 +152,11 @@ private
   end
 
   def facet_tags
-    @facet_tags ||= FacetTagsPresenter.new(finder, sort_presenter)
+    @facet_tags ||= FacetTagsPresenter.new(
+      finder,
+      sort_presenter,
+      i_am_a_topic_page_finder: i_am_a_topic_page_finder,
+    )
   end
 
   def grouped_display?
@@ -166,6 +166,18 @@ private
   def remove_search_box
     hide_site_serch = params['slug'] == 'search/all'
     set_slimmer_headers(remove_search: hide_site_serch)
+  end
+
+  def i_am_a_topic_page_finder
+    @i_am_a_topic_page_finder ||= taxonomy_registry.taxonomy.key? parent
+  end
+
+  def taxonomy_registry
+    Services.registries.all['full_topic_taxonomy']
+  end
+
+  def organisation_registry
+    Services.registries.all['organisations']
   end
 
   def debug_score?

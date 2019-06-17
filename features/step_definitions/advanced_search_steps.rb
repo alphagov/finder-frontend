@@ -58,6 +58,7 @@ Given(/^a collection of tagged documents(.*?)$/) do |categorisation|
                          schema: "special_route",
                          base_path: "/taxon",
                          title: "Taxon")
+  stub_taxonomy_api_request
 end
 
 When(/^I filter by taxon alone$/) do
