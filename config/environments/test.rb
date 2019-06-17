@@ -4,7 +4,7 @@ FinderFrontend::Application.configure do
   #
   # More details:
   # https://guides.rubyonrails.org/caching_with_rails.html#activesupport-cache-memcachestore
-  config.cache_store = :mem_cache_store
+  config.cache_store = :dalli_store, nil, { namespace: :finder_frontend, compress: true }
 
   config.cache_classes = true
   config.eager_load = false

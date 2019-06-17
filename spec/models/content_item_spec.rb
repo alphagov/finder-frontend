@@ -14,6 +14,14 @@ describe ContentItem do
       .and_return(finder_content_item)
   end
 
+  before :each do
+    Rails.cache.clear
+  end
+
+  after :each do
+    Rails.cache.clear
+  end
+
   describe "as_hash" do
     it "returns a content item as a hash" do
       expect(subject.as_hash).to eql(finder_content_item)

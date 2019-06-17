@@ -1,25 +1,32 @@
 module Registries
-  class OrganisationsRegistry
-    CACHE_KEY = "registries/organisations".freeze
+  class OrganisationsRegistry < Registry
+    include CacheableRegistry
 
     def [](slug)
       organisations[slug]
     end
 
     def organisations
-      @organisations ||= Rails.cache.fetch(CACHE_KEY, expires_in: 1.hour) do
-        organisations_as_hash
-      end
-    rescue GdsApi::HTTPServerError
-      GovukStatsd.increment("registries.organisations_api_errors")
-      {}
+      @organisations ||= fetch_from_cache
     end
 
     def values
       organisations
     end
 
+    def cache_key
+      "registries/organisations"
+    end
+
   private
+
+    def report_error
+      GovukStatsd.increment("registries.organisations_api_errors")
+    end
+
+    def cacheable_data
+      organisations_as_hash
+    end
 
     def organisations_as_hash
       GovukStatsd.time("registries.organisations.request_time") do

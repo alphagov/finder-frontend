@@ -1,6 +1,6 @@
 module Registries
-  class ManualsRegistry
-    CACHE_KEY = 'registries/manuals'.freeze
+  class ManualsRegistry < Registry
+    include CacheableRegistry
 
     def [](base_url)
       manuals[base_url]
@@ -10,15 +10,22 @@ module Registries
       manuals
     end
 
+    def cache_key
+      'registries/manuals'
+    end
+
   private
 
+    def cacheable_data
+      manuals_as_hash
+    end
+
     def manuals
-      @manuals ||= Rails.cache.fetch(CACHE_KEY, expires_in: 1.hour) do
-        manuals_as_hash
-      end
-    rescue GdsApi::HTTPServerError
+      @manuals ||= fetch_from_cache
+    end
+
+    def report_error
       GovukStatsd.increment('registries.manuals_api_errors')
-      {}
     end
 
     def manuals_as_hash

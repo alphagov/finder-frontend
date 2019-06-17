@@ -57,7 +57,7 @@ RSpec.describe Registries::PeopleRegistry do
     it "will return an (uncached) empty hash" do
       person = described_class.new[slug]
       expect(person).to be_nil
-      expect(Rails.cache.fetch(described_class::CACHE_KEY)).to be_nil
+      expect(Rails.cache.fetch(described_class.new.cache_key)).to be_nil
     end
   end
 
@@ -66,7 +66,7 @@ RSpec.describe Registries::PeopleRegistry do
   end
 
   def clear_cache
-    Rails.cache.delete(described_class::CACHE_KEY)
+    Rails.cache.delete(described_class.new.cache_key)
   end
 
   def rummager_results

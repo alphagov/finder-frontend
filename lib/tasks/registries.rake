@@ -7,7 +7,7 @@ namespace :registries do
   "
   task cache_refresh: :environment do
     puts "Refreshing registry cache..."
-    # TODO: refresh caches.
+    Registries::BaseRegistries.new.refresh_cache
     puts "Finished refreshing registry cache."
   end
 end

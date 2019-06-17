@@ -5,6 +5,7 @@ describe TaxonFacet do
   include TaxonomySpecHelper
 
   before do
+    Rails.cache.clear
     topic_taxonomy_has_taxons([
       {
         content_id: "allowed-value-1",
@@ -15,6 +16,10 @@ describe TaxonFacet do
         title: "allowed-value-2"
       }
     ])
+  end
+
+  after do
+    Rails.cache.clear
   end
 
   let(:allowed_values) {

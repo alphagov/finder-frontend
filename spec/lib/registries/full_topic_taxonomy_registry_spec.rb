@@ -10,24 +10,28 @@ RSpec.describe Registries::FullTopicTaxonomyRegistry do
 
   let(:base_path) { "/basepath" }
 
+  before :each do
+    clear_cache
+  end
+
+  after :each do
+    clear_cache
+  end
+
   describe "when topic taxonomy API is unavailable" do
     it "will return an (uncached) empty hash" do
-      clear_full_taxon_cache
       topic_taxonomy_api_is_unavailable
       expect(described_class.new[base_path]).to be_nil
       expect(described_class.new.taxonomy).to eql({})
-      expect(Rails.cache.fetch(taxon_cache_key)).to be_nil
+      expect(Rails.cache.fetch(described_class.new.cache_key)).to be_nil
     end
   end
 
   describe "when topic taxonomy api is available" do
     before :each do
-      clear_full_taxon_cache
       stub_root_taxon(level_one_taxons)
       full_topic_taxonomy_has_taxons(level_one_taxons)
     end
-
-    after { clear_full_taxon_cache }
 
     let(:registry) { described_class.new }
     let(:child_base_path) { "/environment/countryside-stewardship" }
@@ -44,5 +48,9 @@ RSpec.describe Registries::FullTopicTaxonomyRegistry do
       fetched_document = registry[first_level_base_path]
       expect(fetched_document['content_id']).to eq(first_level_content_id)
     end
+  end
+
+  def clear_cache
+    Rails.cache.clear
   end
 end

@@ -26,13 +26,10 @@ module TaxonomySpecHelper
   def topic_taxonomy_has_taxons(topics = default_taxons)
     clear_taxon_cache
 
-    taxons = []
-
-    topics.map { |topic|
+    taxons = topics.map { |topic|
       taxon = level_one_taxon(topic)
-      taxons.unshift(taxon)
-
       content_store_has_item("/#{topic[:content_id]}", taxon)
+      taxon
     }
 
     content_store_has_item("/", root_taxon(taxons))
@@ -58,11 +55,11 @@ module TaxonomySpecHelper
   end
 
   def clear_full_taxon_cache
-    Rails.cache.delete('test/registries/full_topic_taxonomy')
+    Rails.cache.delete('registries/full_topic_taxonomy')
   end
 
   def taxon_cache_key
-    'test/registries/topic_taxonomy'
+    'registries/topic_taxonomy'
   end
 
   def root_taxon(taxons)

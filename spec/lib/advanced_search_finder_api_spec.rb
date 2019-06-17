@@ -30,6 +30,9 @@ describe AdvancedSearchFinderApi do
 
   subject(:instance) { described_class.new(finder_item, filter_params) }
 
+  before { Rails.cache.clear }
+  after { Rails.cache.clear }
+
   describe "content_item_with_search_results" do
     before do
       allow(Services.content_store).to receive(:content_item)

@@ -23,8 +23,10 @@ describe FindersController, type: :controller do
   end
 
   before do
+    Rails.cache.clear
     content_store_has_item("/", "links" => { "level_one_taxons" => [] })
   end
+  after { Rails.cache.clear }
 
   describe "GET show" do
     let(:all_content_finder) do

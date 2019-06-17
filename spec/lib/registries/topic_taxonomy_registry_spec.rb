@@ -10,9 +10,16 @@ RSpec.describe Registries::TopicTaxonomyRegistry do
   let(:top_level_taxon_one) { level_one_taxon(content_id: content_id_one, title: content_id_one) }
   let(:top_level_taxon_two) { level_one_taxon(content_id: content_id_two, title: content_id_two) }
 
+  before :each do
+    Rails.cache.clear
+  end
+
+  after :each do
+    Rails.cache.clear
+  end
+
   describe "when topic taxonomy API is unavailable" do
     it "will return an (uncached) empty hash" do
-      clear_taxon_cache
       topic_taxonomy_api_is_unavailable
       expect(described_class.new[content_id_one]).to be_nil
       expect(described_class.new.taxonomy_tree).to eql({})
@@ -22,7 +29,6 @@ RSpec.describe Registries::TopicTaxonomyRegistry do
 
   describe "when topic taxonomy api is available" do
     before :each do
-      clear_taxon_cache
       topic_taxonomy_has_taxons([
         {
           content_id: content_id_one,
@@ -34,8 +40,6 @@ RSpec.describe Registries::TopicTaxonomyRegistry do
         }
       ])
     end
-
-    after { clear_taxon_cache }
 
     subject(:registry) { described_class.new }
 

@@ -38,7 +38,7 @@ RSpec.describe Registries::WorldLocationsRegistry do
       clear_cache
       world_locations_api_is_unavailable
       expect(described_class.new[slug]).to be_nil
-      expect(Rails.cache.fetch(described_class::CACHE_KEY)).to be_nil
+      expect(Rails.cache.fetch(described_class.new.cache_key)).to be_nil
     end
   end
 
@@ -48,6 +48,6 @@ RSpec.describe Registries::WorldLocationsRegistry do
   end
 
   def clear_cache
-    Rails.cache.delete(described_class::CACHE_KEY)
+    Rails.cache.delete(described_class.new.cache_key)
   end
 end

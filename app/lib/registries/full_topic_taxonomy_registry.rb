@@ -1,21 +1,28 @@
 module Registries
-  class FullTopicTaxonomyRegistry
-    CACHE_KEY = "#{NAMESPACE}/full_topic_taxonomy".freeze
+  class FullTopicTaxonomyRegistry < Registry
+    include CacheableRegistry
 
     def [](base_path)
       taxonomy[base_path]
     end
 
     def taxonomy
-      @taxonomy ||= Rails.cache.fetch(CACHE_KEY, expires_in: 1.hour) do
-        taxonomy_hash
-      end
-    rescue GdsApi::HTTPServerError
-      GovukStatsd.increment("#{NAMESPACE}.full_topic_taxonomy_api_errors")
-      {}
+      @taxonomy ||= fetch_from_cache
+    end
+
+    def cache_key
+      "registries/full_topic_taxonomy"
     end
 
   private
+
+    def cacheable_data
+      taxonomy_hash
+    end
+
+    def report_error
+      GovukStatsd.increment("#{NAMESPACE}.full_topic_taxonomy_api_errors")
+    end
 
     def format_taxon(taxon)
       {
