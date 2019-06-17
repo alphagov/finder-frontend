@@ -7,12 +7,7 @@ module Registries
     end
 
     def taxonomy_tree
-      @taxonomy_tree ||= Rails.cache.fetch(cache_key) do
-        cacheable_data
-      end
-    rescue GdsApi::HTTPServerError
-      GovukStatsd.increment("registries.topic_taxonomy_api_errors")
-      {}
+      @taxonomy_tree ||= fetch_from_cache
     end
 
     def cache_key
@@ -20,6 +15,10 @@ module Registries
     end
 
   private
+
+    def report_error
+      GovukStatsd.increment("registries.topic_taxonomy_api_errors")
+    end
 
     def cacheable_data
       taxonomy_tree_as_hash

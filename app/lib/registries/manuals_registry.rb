@@ -21,12 +21,11 @@ module Registries
     end
 
     def manuals
-      @manuals ||= Rails.cache.fetch(cache_key) do
-        cacheable_data
-      end
-    rescue GdsApi::HTTPServerError
+      @manuals ||= fetch_from_cache
+    end
+
+    def report_error
       GovukStatsd.increment('registries.manuals_api_errors')
-      {}
     end
 
     def manuals_as_hash

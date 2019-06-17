@@ -7,12 +7,7 @@ module Registries
     end
 
     def taxonomy
-      @taxonomy ||= Rails.cache.fetch(cache_key) do
-        cacheable_data
-      end
-    rescue GdsApi::HTTPServerError
-      report_error
-      {}
+      @taxonomy ||= fetch_from_cache
     end
 
     def cache_key

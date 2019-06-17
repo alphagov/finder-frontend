@@ -3,12 +3,7 @@ module Registries
     include CacheableRegistry
 
     def [](slug)
-      begin
-        cached_locations[slug]
-      rescue TypeError
-        # The cached data was at one point an array, this can be removed later.
-        retry if cached_locations.is_a?(Array) && uncache_locations
-      end
+      cached_locations[slug]
     end
 
     def values
@@ -30,16 +25,7 @@ module Registries
     end
 
     def cached_locations
-      @cached_locations ||= Rails.cache.fetch(cache_key) do
-        cacheable_data
-      end
-    rescue GdsApi::HTTPServerError, GdsApi::HTTPBadGateway
-      report_error
-      {}
-    end
-
-    def uncache_locations
-      Rails.cache.delete(cache_key)
+      @cached_locations ||= fetch_from_cache
     end
 
     def locations

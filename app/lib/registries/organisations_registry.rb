@@ -7,12 +7,7 @@ module Registries
     end
 
     def organisations
-      @organisations ||= Rails.cache.fetch(cache_key) do
-        organisations_as_hash
-      end
-    rescue GdsApi::HTTPServerError
-      GovukStatsd.increment("registries.organisations_api_errors")
-      {}
+      @organisations ||= fetch_from_cache
     end
 
     def values
@@ -24,6 +19,10 @@ module Registries
     end
 
   private
+
+    def report_error
+      GovukStatsd.increment("registries.organisations_api_errors")
+    end
 
     def cacheable_data
       organisations_as_hash

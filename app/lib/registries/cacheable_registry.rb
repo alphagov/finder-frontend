@@ -11,6 +11,15 @@ module Registries
       false
     end
 
+    def fetch_from_cache
+      Rails.cache.fetch(cache_key) do
+        cacheable_data
+      end
+    rescue GdsApi::HTTPServerError, GdsApi::HTTPBadGateway
+      report_error
+      {}
+    end
+
     def cacheable_data
       raise NotImplementedError, "Please supply a cacheable_data method"
     end
