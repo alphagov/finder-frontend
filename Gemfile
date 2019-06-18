@@ -15,7 +15,7 @@ gem 'slimmer', '~> 13.1.0'
 gem 'govuk_frontend_toolkit', '~> 8.2'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '~> 4.1'
-gem 'whenever', "~> 0.11.0"
+gem 'whenever', "~> 1.0.0"
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
