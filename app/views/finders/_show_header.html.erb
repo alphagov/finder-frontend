@@ -1,0 +1,81 @@
+<div class="govuk-width-container">
+  <% if finder.show_phase_banner? %>
+    <%= render 'govuk_publishing_components/components/phase_banner', phase: finder.phase, message: finder.phase_message%>
+  <% end %>
+
+  <% if @breadcrumbs.breadcrumbs %>
+    <%= render 'govuk_publishing_components/components/breadcrumbs', breadcrumbs: @breadcrumbs.breadcrumbs %>
+  <% else %>
+    <%= render 'govuk_publishing_components/components/contextual_breadcrumbs', content_item: @raw_content_item, prioritise_taxon_breadcrumbs: finder.eu_exit_finder?, inverse: inverse %>
+  <% end %>
+
+  <% if finder.government? %>
+    <%= render 'govuk_publishing_components/components/government_navigation', active: finder.government_content_section %>
+  <% end %>
+</div>
+
+<header class="govuk-width-container">
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <% if finder.all_content_finder? %>
+        <% label_text = capture do %>
+          <h1 class="app-c-search-page-heading">Search<span class="govuk-visually-hidden"> all content</span></h1>
+        <% end %>
+        <div id="keywords" class="app-patch--search-input-override">
+          <%= render "govuk_publishing_components/components/input", {
+            controls: "js-search-results-info",
+            id: "finder-keyword-search",
+            label: {
+              text: label_text,
+            },
+            name: "keywords",
+            search_icon: true,
+            type: 'search',
+            value: @results.user_supplied_keywords,
+          } %>
+        </div>
+      <% elsif finder.topic_finder? %>
+        <%= link_to 'thing', 'thing2', class: 'topic-finder__taxon-link' %>
+
+        <%= render partial: 'govuk_publishing_components/components/title', locals: {
+          title: finder.name,
+          inverse: true,
+        } %>
+      <% else %>
+        <%= render partial: 'govuk_publishing_components/components/title', locals: {
+          title: finder.name
+        } %>
+      <% end %>
+
+      <div class="govuk-grid-column-two-thirds">
+        <% if finder.page_metadata.any? %>
+          <%= render 'govuk_publishing_components/components/metadata', page_metadata(finder.page_metadata) %>
+        <% end %>
+
+        <% if finder.summary %>
+          <div class="metadata-summary">
+            <%= render 'govuk_publishing_components/components/govspeak', content: finder.summary.html_safe %>
+          </div>
+        <% end %>
+      </div>
+
+      <% if finder.logo_path %>
+        <div class="finder-logo govuk-grid-column-one-third">
+          <%= image_tag finder.logo_path, class: "finder-logo__image" %>
+        </div>
+      <% end %>
+
+      <% if finder.related.any? %>
+        <div class="related-links govuk-grid-column-one-third">
+          <ul class="js-finder-results">
+            <% finder.related.each do |link| %>
+              <li class="related-links__item">
+                <%= link_to link['title'], link['web_url'], class: "related-links__link" %>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</header>

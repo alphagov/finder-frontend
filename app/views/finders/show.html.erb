@@ -16,116 +16,58 @@
 
 <% content_for :meta_title, finder.name %>
 
-<% if finder.show_phase_banner? %>
-  <%= render 'govuk_publishing_components/components/phase_banner', phase: finder.phase, message: finder.phase_message%>
-<% end %>
-
-<% if @breadcrumbs.breadcrumbs %>
-  <%= render 'govuk_publishing_components/components/breadcrumbs', breadcrumbs: @breadcrumbs.breadcrumbs %>
-<% else %>
-  <%= render 'govuk_publishing_components/components/contextual_breadcrumbs', content_item: @raw_content_item, prioritise_taxon_breadcrumbs: finder.eu_exit_finder?  %>
-<% end %>
-
-<% if finder.government? %>
-  <%= render 'govuk_publishing_components/components/government_navigation', active: finder.government_content_section %>
+<% if finder.topic_finder? %>
+  <% content_for :body_classes, "full-width" %>
+  <% inverse = true %>
 <% end %>
 
 <form method="get" action="<%= finder.slug %>" class="js-live-search-form">
   <input type="hidden" name="parent" value="<%= @parent %>">
 
-  <header class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
-      <% if finder.all_content_finder? %>
-        <% label_text = capture do %>
-          <h1 class="app-c-search-page-heading">Search<span class="govuk-visually-hidden"> all content</span></h1>
-        <% end %>
-        <div id="keywords" class="app-patch--search-input-override">
-          <%= render "govuk_publishing_components/components/input", {
-            controls: "js-search-results-info",
-            id: "finder-keyword-search",
-            label: {
-              text: label_text,
-            },
-            name: "keywords",
-            search_icon: true,
-            type: 'search',
-            value: @results.user_supplied_keywords,
-          } %>
-        </div>
-      <% else %>
-        <%= render partial: 'govuk_publishing_components/components/title', locals: {
-            title: finder.name
-        } %>
-      <% end %>
+  <div class="<%= "gem-c-inverse-header gem-c-inverse-header--full-width gem-c-inverse-header--padding-top" if finder.topic_finder? %>">
+    <%= render partial: 'show_header', locals: { inverse: inverse } %>
+  </div>
 
-      <% if finder.page_metadata.any? %>
-        <%= render 'govuk_publishing_components/components/metadata', page_metadata(finder.page_metadata) %>
-      <% end %>
-
-      <% if finder.summary %>
-        <div class="metadata-summary">
-          <%= render 'govuk_publishing_components/components/govspeak', content: finder.summary.html_safe %>
-        </div>
-      <% end %>
-    </div>
-
-    <% if finder.logo_path %>
-      <div class="finder-logo govuk-grid-column-one-third">
-        <%= image_tag finder.logo_path, class: "finder-logo__image" %>
+  <div class="govuk-width-container">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-one-third" role="search" aria-label="<%= finder.name %>">
+        <%= render finder.facets %>
       </div>
-    <% end %>
 
-    <% if finder.related.any? %>
-      <div class="related-links govuk-grid-column-one-third">
-        <ul class="js-finder-results">
-          <% finder.related.each do |link| %>
-            <li class="related-links__item">
-              <%= link_to link['title'], link['web_url'], class: "related-links__link" %>
-            </li>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
-  </header>
-
-  <div class="govuk-grid-row">
-    <div class="govuk-grid-column-one-third" role="search" aria-label="<%= finder.name %>">
-      <%= render finder.facets %>
-    </div>
-
-    <div class="govuk-grid-column-two-thirds js-live-search-results-block filtered-results" role="region" aria-label="<%= finder.name %> search results">
-      <div aria-live="assertive" id="js-search-results-info" data-module="remove-filter">
-        <div class="result-info">
-          <div class="govuk-grid-row">
-            <div class="govuk-grid-column-one-third">
-              <h2 class="result-region-header__counter" id="js-result-count">
-                <%= @results.displayed_total %>
-              </h2>
-            </div>
-            <% if @results.has_email_signup_link? %>
-              <div class="govuk-grid-column-two-thirds">
-                <%= render "govuk_publishing_components/components/subscription-links", @results.signup_links %>
+      <div class="govuk-grid-column-two-thirds js-live-search-results-block filtered-results" role="region" aria-label="<%= finder.name %> search results">
+        <div aria-live="assertive" id="js-search-results-info" data-module="remove-filter">
+          <div class="result-info">
+            <div class="govuk-grid-row">
+              <div class="govuk-grid-column-one-third">
+                <h2 class="result-region-header__counter" id="js-result-count">
+                  <%= @results.displayed_total %>
+                </h2>
               </div>
-            <% end %>
-          </div>
-          <div id="js-facet-tag-wrapper">
-            <%= render "facet_tags", facet_tags.present %>
+              <% if @results.has_email_signup_link? %>
+                <div class="govuk-grid-column-two-thirds">
+                  <%= render "govuk_publishing_components/components/subscription-links", @results.signup_links %>
+                </div>
+              <% end %>
+            </div>
+            <div id="js-facet-tag-wrapper">
+              <%= render "facet_tags", facet_tags.present %>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="govuk-caption-l live-search-loading-message" id="js-loading-message"></div>
+        <div class="govuk-caption-l live-search-loading-message" id="js-loading-message"></div>
 
-      <div id="js-sort-options">
-        <%= render "sort_options", @sort_presenter.to_hash %>
-      </div>
+        <div id="js-sort-options">
+          <%= render "sort_options", @sort_presenter.to_hash %>
+        </div>
 
-      <div id="js-results">
-        <%= render "search_results", @results.search_results_content %>
-      </div>
+        <div id="js-results">
+          <%= render "search_results", @results.search_results_content %>
+        </div>
 
-      <div id="js-pagination">
-        <%= render "govuk_publishing_components/components/previous_and_next_navigation", @pagination.next_and_prev_links %>
+        <div id="js-pagination">
+          <%= render "govuk_publishing_components/components/previous_and_next_navigation", @pagination.next_and_prev_links %>
+        </div>
       </div>
     </div>
   </div>

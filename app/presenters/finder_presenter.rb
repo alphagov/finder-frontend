@@ -186,6 +186,10 @@ class FinderPresenter
     self.content_item['content_id'] == 'dd395436-9b40-41f3-8157-740a453ac972'
   end
 
+  def topic_finder?
+    values.include?('topic-finder')
+  end
+
   # FIXME: This should be removed once we have a way to determine
   # whether to display metadata in the finder definition
   def eu_exit_finder?
