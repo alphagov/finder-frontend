@@ -134,9 +134,7 @@
    * Results grouped by facet and facet value do not have an accurate document index
    * due to the post-search sorting and grouping which the presenter performs.
    * In this case (ie. sorted by 'Topic' which actually means group by facet, facet value),
-   * rewrite the appropriate tracking data attribute to delineate the group and document index
-   * and also whether the document is promoted to the top of the group.
-   * eg. data-track-action='Some magic finder.0.1p' is the 2nd pinned document in the first group.
+   * rewrite the appropriate tracking data attribute to delineate the group and document index.
    */
   LiveSearch.prototype.indexTrackingData = function indexTrackingData () {
     var $groupEls = $('.filtered-results__group')
@@ -149,9 +147,6 @@
           var trackingAction = $documentLink.attr('data-track-action')
           trackingAction = trackingAction.replace(/\.\d+$/, '')
           trackingAction = [trackingAction, groupIndex + 1, documentIndex + 1].join('.')
-          if ($document.find('.document-heading--pinned').length === 1) {
-            trackingAction += 'p'
-          }
           $documentLink.attr('data-track-action', trackingAction)
         })
       })

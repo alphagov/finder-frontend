@@ -22,7 +22,7 @@ class GroupedResultSetPresenter < ResultSetPresenter
     secondary_group = {}
 
     documents.select! { |d| d[:document][:metadata].present? }
-    sorted_documents = sort_by_promoted_alphabetical(documents)
+    sorted_documents = sort_by_alphabetical(documents)
 
     # With no facet filtering add all documents to default group
     if facet_filters.values.empty?
@@ -96,13 +96,8 @@ private
     facet["label"] if facet
   end
 
-  def sort_by_promoted(results)
-    results.sort_by { |r| r[:document][:promoted] ? 0 : 1 }
-  end
-
-  def sort_by_promoted_alphabetical(search_results)
-    sorted_results = search_results.sort_by { |r| r[:document][:title] }
-    sort_by_promoted(sorted_results)
+  def sort_by_alphabetical(search_results)
+    search_results.sort_by { |r| r[:document][:title] }
   end
 
   def compact_and_sort(group, order_by_facet = false)

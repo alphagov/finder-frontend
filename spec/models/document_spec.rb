@@ -30,57 +30,6 @@ describe Document do
     end
   end
 
-  describe "#promoted" do
-    let(:finder) do
-      double(:finder,
-             date_metadata_keys: [],
-             text_metadata_keys: [],
-             links: {
-               "ordered_related_items" => [{ "base_path" => "/foo" }]
-             })
-    end
-
-    it "is true when the finder links contains a match" do
-      expect(described_class.new({ title: "Foo", link: "/foo" }, finder).promoted).to be true
-    end
-
-    it "is false when the finder links don't include a match" do
-      expect(described_class.new({ title: "Bar", link: "/bar" }, finder).promoted).to be false
-    end
-
-    describe "promoted_summary" do
-      context "when the document is promoted" do
-        subject(:promoted_document) {
-          described_class.new({ title: "Foo", link: "/foo", description: "foo" }, finder)
-        }
-
-        it "returns the truncated description" do
-          expect(promoted_document.promoted_summary).to eq("foo")
-        end
-      end
-
-      context "when the document isn't promoted" do
-        subject(:document) {
-          described_class.new({ title: "Bar", link: "/bar", description: "bar" }, finder)
-        }
-
-        it "returns nil" do
-          expect(document.promoted_summary).to be nil
-        end
-      end
-
-      context "with no description" do
-        subject(:document) {
-          described_class.new({ title: "Foo", link: "/foo" }, finder)
-        }
-
-        it "returns nil" do
-          expect(document.promoted_summary).to be nil
-        end
-      end
-    end
-  end
-
   describe "show_metadata" do
     let(:organisations) {
       [
