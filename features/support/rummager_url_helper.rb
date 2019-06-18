@@ -98,6 +98,8 @@ module RummagerUrlHelper
       content_purpose_supergroup
       content_store_document_type
       format
+      is_historic
+      government_name
     )
   end
 end
