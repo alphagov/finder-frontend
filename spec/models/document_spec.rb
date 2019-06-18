@@ -95,8 +95,8 @@ describe Document do
 
     let(:finder) do
       double(:finder,
-             date_metadata_keys: [:foo],
-             text_metadata_keys: [:organisations],
+             date_metadata_keys: %w[foo],
+             text_metadata_keys: %w[organisations],
              "display_metadata?": true,
              display_key_for_metadata_key: 'title')
     end
@@ -120,7 +120,7 @@ describe Document do
 
     context "There is an organisations metadata key" do
       before :each do
-        allow(finder).to receive(:label_for_metadata_key).with(:organisations).and_return('org_label')
+        allow(finder).to receive(:label_for_metadata_key).with('organisations').and_return('org_label')
       end
       it "Remove organisations metadata for mainstream content only" do
         expect(mainstream_document.metadata).to be_empty

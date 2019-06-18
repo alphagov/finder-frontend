@@ -96,6 +96,7 @@ module RummagerUrlHelper
       public_timestamp
       popularity
       content_purpose_supergroup
+      content_store_document_type
       format
     )
   end

@@ -82,7 +82,7 @@ private
   def tag_metadata_keys
     keys = finder.text_metadata_keys
     keys.reject do |key|
-      key == :organisations && is_mainstream_content?
+      key == 'organisations' && is_mainstream_content?
     end
   end
 
