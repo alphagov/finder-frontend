@@ -201,7 +201,7 @@ describe EmailAlertSubscriptionsController, type: :controller do
     end
   end
 
-  context "with combine_mode set to 'or'" do
+  context "with email_filter_by set to 'facet_values'" do
     describe 'POST "#create"' do
       let(:finder) { business_readiness_content_item }
       let(:signup_finder) { business_readiness_signup_content_item }
@@ -217,7 +217,7 @@ describe EmailAlertSubscriptionsController, type: :controller do
             'facet_values' => { any: %w(aerospace) },
           },
           'subscription_url' => 'http://www.itstartshear.com',
-          'combine_mode' => 'or'
+          'email_filter_by' => 'facet_values'
         )
 
         allow(EmailAlertListTitleBuilder).to receive(:call)
@@ -234,7 +234,7 @@ describe EmailAlertSubscriptionsController, type: :controller do
     end
   end
 
-  context "with blank combine_mode" do
+  context "with blank email_filter_by" do
     describe 'POST "#create"' do
       let(:finder) { govuk_content_schema_example('finder') }
       let(:signup_finder) {
