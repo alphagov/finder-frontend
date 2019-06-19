@@ -68,13 +68,12 @@ private
       finder_format: finder_format,
       subscriber_list_title: subscriber_list_title,
       default_frequency: signup_presenter.default_frequency,
-      combine_mode: signup_presenter.combine_mode,
       email_filter_by: signup_presenter.email_filter_by,
     )
   end
 
   def subscriber_list_title
-    title_builder = signup_presenter.combine_mode == "or" ? EmailAlertListTitleBuilder : EmailAlertTitleBuilder
+    title_builder = signup_presenter.email_filter_by == "facet_values" ? EmailAlertListTitleBuilder : EmailAlertTitleBuilder
     title_builder.call(
       filter: applied_filters,
       subscription_list_title_prefix: content.dig('details', 'subscription_list_title_prefix'),

@@ -1,14 +1,13 @@
 require 'addressable/uri'
 
 class EmailAlertSignupAPI
-  def initialize(applied_filters:, default_filters:, facets:, subscriber_list_title:, finder_format:, default_frequency: nil, combine_mode: nil, email_filter_by: nil)
+  def initialize(applied_filters:, default_filters:, facets:, subscriber_list_title:, finder_format:, default_frequency: nil, email_filter_by: nil)
     @applied_filters = applied_filters.deep_symbolize_keys
     @default_filters = default_filters.deep_symbolize_keys
     @facets = facets
     @subscriber_list_title = subscriber_list_title
     @finder_format = finder_format
     @default_frequency = default_frequency
-    @combine_mode = combine_mode
     @email_filter_by = email_filter_by
   end
 
@@ -22,7 +21,7 @@ class EmailAlertSignupAPI
 
 private
 
-  attr_reader :applied_filters, :default_filters, :facets, :subscriber_list_title, :finder_format, :combine_mode, :email_filter_by
+  attr_reader :applied_filters, :default_filters, :facets, :subscriber_list_title, :finder_format, :email_filter_by
 
   def add_url_param(url, param)
     # this method safely adds a URL parameter using the correct one of '?' or '&'
@@ -37,7 +36,6 @@ private
 
   def subscriber_list_options
     options = { "title" => subscriber_list_title }
-    options["combine_mode"] = combine_mode if combine_mode
     if facet_groups?
       options["links"] = facet_groups
     elsif facet_values?

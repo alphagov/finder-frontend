@@ -13,7 +13,6 @@ describe EmailAlertSignupAPI do
       subscriber_list_title: subscriber_list_title,
       finder_format: finder_format,
       default_frequency: default_frequency,
-      combine_mode: combine_mode,
     )
   end
 
@@ -23,7 +22,6 @@ describe EmailAlertSignupAPI do
   let(:subscriber_list_title) { "Subscriber list title" }
   let(:finder_format) {}
   let(:default_frequency) { nil }
-  let(:combine_mode) { nil }
 
   def init_simple_email_alert_api(subscription_url)
     email_alert_api_has_subscriber_list(
@@ -88,28 +86,6 @@ describe EmailAlertSignupAPI do
       init_simple_email_alert_api(subscription_url)
       url_params = Rack::Utils.parse_query(URI.parse(subject.signup_url).query)
       expect(url_params).to eq("foo" => "bar", "default_frequency" => "daily")
-    end
-  end
-
-  context "when combine_mode is provided" do
-    let(:combine_mode) { "or" }
-
-    it "returns the url email-alert-api gives back, and appends the combine_mode param" do
-      subscription_url = "http://gov.uk/email/some-subscription"
-
-      email_alert_api_has_subscriber_list(
-        "tags" => {},
-        "subscription_url" => subscription_url,
-        "combine_mode" => combine_mode
-      )
-
-      expect(Services.email_alert_api).to receive(:find_or_create_subscriber_list).with(
-        "tags" => {},
-        "title" => subscriber_list_title,
-        "combine_mode" => combine_mode
-        ).and_call_original
-
-      expect(subject.signup_url).to eql "http://gov.uk/email/some-subscription"
     end
   end
 
