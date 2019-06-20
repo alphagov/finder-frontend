@@ -24,9 +24,15 @@
 <form method="get" action="<%= finder.slug %>" class="js-live-search-form">
   <input type="hidden" name="parent" value="<%= @parent %>">
 
-  <div class="<%= "gem-c-inverse-header gem-c-inverse-header--full-width gem-c-inverse-header--padding-top" if finder.topic_finder? %>">
+  <% if finder.topic_finder? %>
+    <%= render "govuk_publishing_components/components/inverse_header", {
+      full_width: true
+    } do %>
+      <%= render partial: 'show_header', locals: { inverse: inverse } %>
+    <% end %>
+  <% else %>
     <%= render partial: 'show_header', locals: { inverse: inverse } %>
-  </div>
+  <% end %>
 
   <div class="govuk-width-container">
     <div class="govuk-grid-row">
@@ -35,23 +41,21 @@
       </div>
 
       <div class="govuk-grid-column-two-thirds js-live-search-results-block filtered-results" role="region" aria-label="<%= finder.name %> search results">
-        <div aria-live="assertive" id="js-search-results-info" data-module="remove-filter">
-          <div class="result-info">
-            <div class="govuk-grid-row">
-              <div class="govuk-grid-column-one-third">
-                <h2 class="result-region-header__counter" id="js-result-count">
-                  <%= @results.displayed_total %>
-                </h2>
+        <div aria-live="assertive" id="js-search-results-info" data-module="remove-filter" class="result-info">
+          <div class="govuk-grid-row">
+            <div class="govuk-grid-column-one-third">
+              <h2 class="result-region-header__counter" id="js-result-count">
+                <%= @results.displayed_total %>
+              </h2>
+            </div>
+            <% if @results.has_email_signup_link? %>
+              <div class="govuk-grid-column-two-thirds">
+                <%= render "govuk_publishing_components/components/subscription-links", @results.signup_links %>
               </div>
-              <% if @results.has_email_signup_link? %>
-                <div class="govuk-grid-column-two-thirds">
-                  <%= render "govuk_publishing_components/components/subscription-links", @results.signup_links %>
-                </div>
-              <% end %>
-            </div>
-            <div id="js-facet-tag-wrapper">
-              <%= render "facet_tags", facet_tags.present %>
-            </div>
+            <% end %>
+          </div>
+          <div id="js-facet-tag-wrapper">
+            <%= render "facet_tags", facet_tags.present %>
           </div>
         </div>
 
