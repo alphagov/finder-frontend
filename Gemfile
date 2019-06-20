@@ -17,6 +17,10 @@ gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '~> 4.1'
 gem 'whenever', "~> 1.0.0"
 
+# Type checks with sorbet https://github.com/sorbet/sorbet
+gem 'sorbet', :group => :development
+gem 'sorbet-runtime'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
