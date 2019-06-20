@@ -1,3 +1,4 @@
+# typed: true
 class TaxonFacet < FilterableFacet
   LEVEL_ONE_TAXON_KEY = 'level_one_taxon'.freeze
   LEVEL_TWO_TAXON_KEY = 'level_two_taxon'.freeze

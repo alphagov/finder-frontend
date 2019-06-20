@@ -1,3 +1,4 @@
+# typed: true
 class ResultSet
   attr_reader :documents, :total
 

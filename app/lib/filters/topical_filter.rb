@@ -1,3 +1,4 @@
+# typed: true
 module Filters
   class TopicalFilter < Filter
   private # rubocop:disable Layout/IndentationWidth

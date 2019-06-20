@@ -1,3 +1,4 @@
+# typed: false
 require "spec_helper"
 require "search_query_builder"
 

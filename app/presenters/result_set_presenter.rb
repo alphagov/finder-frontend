@@ -1,3 +1,4 @@
+# typed: true
 class ResultSetPresenter
   include ERB::Util
   include ActionView::Helpers::NumberHelper

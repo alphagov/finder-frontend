@@ -1,3 +1,4 @@
+# typed: false
 FinderFrontend::Application.configure do
   # We use the non-default in memory cache store for development purposes.
   # It assumes memcached is running on localhost on the default port.

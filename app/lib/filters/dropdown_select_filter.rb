@@ -1,3 +1,4 @@
+# typed: true
 module Filters
   class DropdownSelectFilter < Filter
   private # rubocop:disable Layout/IndentationWidth

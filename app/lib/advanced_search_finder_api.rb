@@ -1,3 +1,4 @@
+# typed: true
 class AdvancedSearchFinderApi < FinderApi
   include AdvancedSearchParams
 

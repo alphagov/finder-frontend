@@ -1,3 +1,4 @@
+# typed: false
 # Load the Rails application.
 require File.expand_path('application', __dir__)
 

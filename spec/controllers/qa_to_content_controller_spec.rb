@@ -1,3 +1,4 @@
+# typed: false
 require 'spec_helper'
 require 'gds_api/test_helpers/content_store'
 

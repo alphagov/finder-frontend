@@ -1,3 +1,4 @@
+# typed: true
 class RadioFacetForMultipleFilters < FilterableFacet
   def initialize(facet, value, filter_hashes)
     @filter_hashes = filter_hashes

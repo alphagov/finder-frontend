@@ -1,3 +1,4 @@
+# typed: true
 module PublicationsRoutes
   PUBLICATIONS_ROUTES = {
     'consultations' => {

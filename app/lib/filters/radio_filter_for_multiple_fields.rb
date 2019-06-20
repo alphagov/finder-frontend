@@ -1,3 +1,4 @@
+# typed: true
 module Filters
   class RadioFilterForMultipleFields < Filter
     def query_hash

@@ -1,3 +1,4 @@
+# typed: false
 class Document
   attr_reader :title, :public_timestamp, :is_historic, :government_name,
               :content_purpose_supergroup, :document_type, :organisations,

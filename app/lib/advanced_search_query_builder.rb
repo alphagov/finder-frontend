@@ -1,3 +1,4 @@
+# typed: true
 class AdvancedSearchQueryBuilder < SearchQueryBuilder
   include AdvancedSearchParams
   def base_return_fields

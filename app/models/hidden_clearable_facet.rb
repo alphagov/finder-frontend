@@ -1,3 +1,4 @@
+# typed: true
 class HiddenClearableFacet < FilterableFacet
   def initialize(facet, value_hash)
     @value = Array(value_hash)

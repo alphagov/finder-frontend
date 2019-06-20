@@ -1,3 +1,4 @@
+# typed: true
 class AtomPresenter
   def initialize(finder, results, facet_tags)
     @finder = finder

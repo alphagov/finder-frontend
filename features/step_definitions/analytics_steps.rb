@@ -1,3 +1,4 @@
+# typed: false
 Then(/^the links on the page have tracking attributes$/) do
   visit finder_path('government/policies/benefits-reform')
 

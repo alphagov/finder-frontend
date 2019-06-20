@@ -1,3 +1,4 @@
+# typed: false
 require 'spec_helper'
 require 'email_alert_title_builder'
 require "helpers/taxonomy_spec_helper"

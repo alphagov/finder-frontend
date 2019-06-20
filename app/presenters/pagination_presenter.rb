@@ -1,3 +1,4 @@
+# typed: true
 # The PaginationPresenter class is responsible for creating the next and
 # previous links to be displayed on finders.
 class PaginationPresenter

@@ -1,3 +1,4 @@
+# typed: false
 class FindersController < ApplicationController
   include FinderTopResultAbTestable
 

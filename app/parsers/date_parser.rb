@@ -1,3 +1,4 @@
+# typed: true
 class DateParser
   def self.parse(date_string)
     date_string = date_string.to_s.strip

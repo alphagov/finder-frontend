@@ -1,3 +1,4 @@
+# typed: true
 class FacetsFromFacetGroupExtractor
   def initialize(facet_group)
     @facets = facet_group.dig('links', 'facets') || []

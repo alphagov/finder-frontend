@@ -1,3 +1,4 @@
+# typed: true
 class AdvancedSearchResultSetPresenter < ResultSetPresenter
   include AdvancedSearchParams
 

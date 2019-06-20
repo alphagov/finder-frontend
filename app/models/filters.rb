@@ -1,3 +1,4 @@
+# typed: true
 module Filters
   class ResearchAndStatsHashes
     def call

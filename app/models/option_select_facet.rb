@@ -1,3 +1,4 @@
+# typed: true
 class OptionSelectFacet < FilterableFacet
   attr_reader :value
 

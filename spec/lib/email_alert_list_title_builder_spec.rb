@@ -1,3 +1,4 @@
+# typed: false
 require "spec_helper"
 require "email_alert_list_title_builder"
 

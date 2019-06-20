@@ -1,3 +1,4 @@
+# typed: ignore
 class SearchParameters
   include Rails.application.routes.url_helpers
 

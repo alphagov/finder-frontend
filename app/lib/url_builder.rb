@@ -1,3 +1,4 @@
+# typed: true
 # The UrlBuilder class is responsible for creating URLs to be rendered as
 # HTML links.
 class UrlBuilder

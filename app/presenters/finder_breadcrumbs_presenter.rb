@@ -1,3 +1,4 @@
+# typed: false
 class FinderBreadcrumbsPresenter
   attr_reader :organisation, :finder_name
 

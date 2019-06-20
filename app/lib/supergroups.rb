@@ -1,3 +1,4 @@
+# typed: true
 class Supergroups
   def self.lookup(keys)
     raise_not_found(nil) unless keys

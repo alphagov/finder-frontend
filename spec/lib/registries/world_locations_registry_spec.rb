@@ -1,3 +1,4 @@
+# typed: false
 require "securerandom"
 require 'spec_helper'
 require "gds_api/test_helpers/worldwide"

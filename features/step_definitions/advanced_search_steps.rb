@@ -1,3 +1,4 @@
+# typed: false
 def finder_content_item
   @finder_content_item ||= JSON.parse(File.read(
                                         Rails.root.join("features", "fixtures", "advanced-search.json")

@@ -1,3 +1,4 @@
+# typed: false
 require_relative '../../lib/govuk_content_schema_examples'
 require_relative "../../spec/helpers/taxonomy_spec_helper"
 require_relative "../../spec/helpers/registry_spec_helper"

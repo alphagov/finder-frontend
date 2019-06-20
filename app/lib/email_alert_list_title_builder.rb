@@ -1,3 +1,4 @@
+# typed: false
 class EmailAlertListTitleBuilder
   def self.call(*args)
     new(*args).call

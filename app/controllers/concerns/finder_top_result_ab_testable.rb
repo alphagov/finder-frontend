@@ -1,3 +1,4 @@
+# typed: false
 module FinderTopResultAbTestable
   CUSTOM_DIMENSION = 69
 

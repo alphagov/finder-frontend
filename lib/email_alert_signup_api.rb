@@ -1,3 +1,4 @@
+# typed: true
 require 'addressable/uri'
 
 class EmailAlertSignupAPI

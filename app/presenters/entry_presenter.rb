@@ -1,3 +1,4 @@
+# typed: true
 class EntryPresenter
   delegate :title,
            :summary,

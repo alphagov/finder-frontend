@@ -1,3 +1,4 @@
+# typed: true
 class FacetTagsPresenter
   def initialize(finder_presenter, sort_presenter, i_am_a_topic_page_finder: false)
     @filters = finder_presenter.filters

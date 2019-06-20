@@ -1,3 +1,4 @@
+# typed: true
 class SortOptionPresenter
   attr_reader :value, :key, :label
 

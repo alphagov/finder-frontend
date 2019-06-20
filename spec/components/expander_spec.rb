@@ -1,3 +1,4 @@
+# typed: false
 require 'spec_helper'
 
 describe "expander", type: :view do

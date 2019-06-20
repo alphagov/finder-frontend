@@ -1,3 +1,4 @@
+# typed: true
 class ContentItem
   def initialize(request_path)
     @request_path = request_path

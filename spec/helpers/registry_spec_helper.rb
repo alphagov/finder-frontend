@@ -1,3 +1,4 @@
+# typed: false
 module RegistrySpecHelper
   def stub_people_registry_request
     stub_request(:get, "http://search.dev.gov.uk/search.json")

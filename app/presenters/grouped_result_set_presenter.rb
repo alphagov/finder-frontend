@@ -1,3 +1,4 @@
+# typed: true
 class GroupedResultSetPresenter < ResultSetPresenter
   def search_results_content
     super.merge(

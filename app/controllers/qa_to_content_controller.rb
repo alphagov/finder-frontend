@@ -1,3 +1,4 @@
+# typed: true
 # This class currently supports only one question
 # If there is a need for multiple questions, this class needs to be modified
 

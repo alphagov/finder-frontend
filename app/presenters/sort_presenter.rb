@@ -1,3 +1,4 @@
+# typed: true
 class SortPresenter
   def initialize(content_item, filter_params)
     @user_selected_order = filter_params['order']

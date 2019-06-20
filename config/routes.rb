@@ -1,3 +1,4 @@
+# typed: false
 FinderFrontend::Application.routes.draw do
   mount JasmineRails::Engine => '/specs' if defined?(JasmineRails)
   mount GovukPublishingComponents::Engine, at: "/component-guide"

@@ -1,3 +1,4 @@
+# typed: false
 class ApplicationController < ActionController::Base
   include Slimmer::Headers
   include Slimmer::Template

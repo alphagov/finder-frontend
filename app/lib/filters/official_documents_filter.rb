@@ -1,3 +1,4 @@
+# typed: true
 module Filters
   class OfficialDocumentsFilter < RadioFilterForMultipleFields
     def filter_hashes

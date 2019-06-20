@@ -1,3 +1,4 @@
+# typed: true
 # Facade that speaks to rummager. Combines a content item with
 # search results from rummager.
 class FinderApi

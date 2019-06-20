@@ -1,3 +1,4 @@
+# typed: true
 module FixturesHelper
   def fixtures_path
     File.expand_path(Rails.root + "features/fixtures")

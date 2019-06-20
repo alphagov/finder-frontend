@@ -1,3 +1,4 @@
+# typed: true
 class AdvancedSearchResultPresenter < SearchResultPresenter
   def to_hash
     super.merge(

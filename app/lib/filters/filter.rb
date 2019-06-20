@@ -1,3 +1,4 @@
+# typed: true
 module Filters
   class Filter
     def initialize(facet, params)

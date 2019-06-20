@@ -1,3 +1,4 @@
+# typed: false
 module RummagerUrlHelper
   def rummager_url(params)
     "#{Plek.current.find('search')}/search.json?#{params.to_query}"

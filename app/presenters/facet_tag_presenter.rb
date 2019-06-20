@@ -1,3 +1,4 @@
+# typed: false
 class FacetTagPresenter
   include ERB::Util
 

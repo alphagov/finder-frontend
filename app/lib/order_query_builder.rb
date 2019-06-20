@@ -1,3 +1,4 @@
+# typed: true
 class OrderQueryBuilder
   def initialize(content_item, keywords, params, override_sort_for_feed: false)
     @content_item = content_item

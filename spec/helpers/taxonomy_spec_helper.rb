@@ -1,3 +1,4 @@
+# typed: true
 require "gds_api/test_helpers/content_store"
 
 module TaxonomySpecHelper

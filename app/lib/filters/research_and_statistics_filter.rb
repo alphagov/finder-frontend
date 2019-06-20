@@ -1,3 +1,4 @@
+# typed: true
 module Filters
   class ResearchAndStatisticsFilter < RadioFilterForMultipleFields
     def filter_hashes

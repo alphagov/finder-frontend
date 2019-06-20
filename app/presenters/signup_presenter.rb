@@ -1,3 +1,4 @@
+# typed: true
 class SignupPresenter
   include ActionView::Helpers::UrlHelper
   include ActionView::Helpers::CaptureHelper

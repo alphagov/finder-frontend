@@ -1,3 +1,4 @@
+# typed: true
 # In some cases requests come in to this app with a mangled query string in
 # this form:
 #

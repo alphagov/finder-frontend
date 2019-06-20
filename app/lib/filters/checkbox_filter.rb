@@ -1,3 +1,4 @@
+# typed: true
 module Filters
   class CheckboxFilter < Filter
   private # rubocop:disable Layout/IndentationWidth

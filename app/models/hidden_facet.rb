@@ -1,3 +1,4 @@
+# typed: true
 class HiddenFacet < FilterableFacet
   def initialize(facet, value)
     @value = Array(value)

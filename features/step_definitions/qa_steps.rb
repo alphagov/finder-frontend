@@ -1,3 +1,4 @@
+# typed: false
 Given /^a QA finder exists/ do
   stub_qa_config
   content_store_has_qa_finder

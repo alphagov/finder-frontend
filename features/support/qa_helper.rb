@@ -1,3 +1,4 @@
+# typed: false
 require_relative '../../spec/support/fixtures_helper'
 
 module QAHelper

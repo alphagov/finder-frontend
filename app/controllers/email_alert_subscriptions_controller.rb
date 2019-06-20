@@ -1,3 +1,4 @@
+# typed: true
 require 'email_alert_signup_api'
 require 'email_alert_title_builder'
 

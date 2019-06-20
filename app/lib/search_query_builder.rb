@@ -1,3 +1,4 @@
+# typed: true
 # SearchQueryBuilder takes the content item for the finder and the query params
 # from the URL to generate a query for Rummager.
 class SearchQueryBuilder

@@ -1,3 +1,4 @@
+# typed: true
 class FinderPresenter
   include ActionView::Helpers::FormOptionsHelper
   include ActionView::Helpers::UrlHelper

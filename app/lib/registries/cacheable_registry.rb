@@ -1,3 +1,4 @@
+# typed: false
 module Registries
   module CacheableRegistry
     def can_refresh_cache?

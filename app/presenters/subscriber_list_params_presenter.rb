@@ -1,3 +1,4 @@
+# typed: true
 class SubscriberListParamsPresenter
   def initialize(content_item, params)
     @content_item = content_item

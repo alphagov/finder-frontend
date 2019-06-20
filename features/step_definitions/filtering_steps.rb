@@ -1,3 +1,4 @@
+# typed: false
 Given(/^a collection of documents exist$/) do
   content_store_has_mosw_reports_finder
   stub_rummager_api_request

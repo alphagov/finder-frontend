@@ -1,3 +1,4 @@
+# typed: false
 require 'spec_helper'
 
 describe 'components/_date-filter.html.erb', type: :view do

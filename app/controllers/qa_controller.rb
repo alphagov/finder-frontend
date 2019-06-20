@@ -1,3 +1,4 @@
+# typed: false
 class QaController < ApplicationController
   layout "finder_layout"
 

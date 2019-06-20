@@ -1,3 +1,4 @@
+# typed: strict
 require File.expand_path('boot', __dir__)
 
 # Pick the frameworks you want:

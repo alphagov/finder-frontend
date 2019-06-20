@@ -1,3 +1,4 @@
+# typed: true
 class ScreenReaderFilterDescriptionPresenter
   def initialize(filters, sort_option)
     @filters = filters

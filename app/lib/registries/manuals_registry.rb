@@ -1,3 +1,4 @@
+# typed: true
 module Registries
   class ManualsRegistry < Registry
     include CacheableRegistry

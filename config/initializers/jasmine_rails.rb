@@ -1,3 +1,4 @@
+# typed: true
 if defined?(JasmineRails)
   module JasmineRails
     class ApplicationController < ActionController::Base

@@ -1,3 +1,4 @@
+# typed: false
 require 'publications_routes'
 
 class RedirectionController < ApplicationController

@@ -1,3 +1,4 @@
+# typed: false
 class SearchController < ApplicationController
   layout "search_layout"
   before_action :set_expiry

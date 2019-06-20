@@ -1,3 +1,4 @@
+# typed: true
 class AdvancedSearchFinderController < FindersController
   layout "advanced_search_layout"
   rescue_from AdvancedSearchFinderApi::TaxonNotFound,

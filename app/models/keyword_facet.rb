@@ -1,3 +1,4 @@
+# typed: true
 class KeywordFacet
   def initialize(keywords = "")
     @keywords = keywords

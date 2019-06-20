@@ -1,3 +1,4 @@
+# typed: true
 module Registries
   class WorldLocationsRegistry < Registry
     include CacheableRegistry

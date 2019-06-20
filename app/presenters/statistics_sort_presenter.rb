@@ -1,3 +1,4 @@
+# typed: true
 class StatisticsSortPresenter < SortPresenter
   def initialize(content_item, filter_params)
     @stats_grouping = filter_params['content_store_document_type']

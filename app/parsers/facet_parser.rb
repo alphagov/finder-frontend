@@ -1,3 +1,4 @@
+# typed: true
 module FacetParser
   def self.parse(facet, value_hash)
     if facet['filterable']

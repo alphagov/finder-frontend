@@ -1,3 +1,4 @@
+# typed: true
 # Used by the SearchQueryBuilder to build the `facet` part of the Rummager
 # search query. This will determine the "facets" Rummager returns.
 #

@@ -1,3 +1,4 @@
+# typed: true
 class RadioFacet < FilterableFacet
   def initialize(facet, value)
     @value = value

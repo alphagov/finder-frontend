@@ -1,3 +1,4 @@
+# typed: true
 class Facet
   def initialize(facet)
     @facet = facet

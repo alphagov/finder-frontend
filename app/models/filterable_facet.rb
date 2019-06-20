@@ -1,3 +1,4 @@
+# typed: false
 class FilterableFacet < Facet
   DEFAULT_PREPOSITION = 'related to'.freeze
 

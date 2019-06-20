@@ -1,3 +1,4 @@
+# typed: true
 class AdvancedSearchOrderQueryBuilder < OrderQueryBuilder
   include AdvancedSearchParams
 

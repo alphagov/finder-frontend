@@ -1,3 +1,4 @@
+# typed: false
 module ApplicationHelper
   def input_checked(key, value)
     if facet_has_any_selected_values?(key)

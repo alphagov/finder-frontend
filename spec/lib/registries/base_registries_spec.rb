@@ -1,3 +1,4 @@
+# typed: false
 require 'spec_helper'
 require "gds_api/test_helpers/worldwide"
 require "helpers/taxonomy_spec_helper"

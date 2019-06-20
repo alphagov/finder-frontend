@@ -1,3 +1,4 @@
+# typed: true
 class FacetExtractor
   attr_reader :content_item
 

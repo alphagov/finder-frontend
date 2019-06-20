@@ -1,3 +1,4 @@
+# typed: false
 FinderFrontend::Application.configure do
   # Set GOVUK_ASSET_ROOT for heroku - for review apps we have the hostname set
   # at the time of the app being built so can't be set up in the app.json

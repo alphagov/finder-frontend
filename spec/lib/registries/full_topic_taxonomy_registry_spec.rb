@@ -1,3 +1,4 @@
+# typed: false
 require "securerandom"
 require 'spec_helper'
 require "helpers/taxonomy_spec_helper"

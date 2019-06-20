@@ -1,3 +1,4 @@
+# typed: true
 module Filters
   class DateFilter < Filter
   private # rubocop:disable Layout/IndentationWidth

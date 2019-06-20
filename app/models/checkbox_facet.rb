@@ -1,3 +1,4 @@
+# typed: true
 class CheckboxFacet < FilterableFacet
   def initialize(facet, checked)
     @checked = checked

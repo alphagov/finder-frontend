@@ -1,3 +1,4 @@
+# typed: true
 class SearchResultPresenter
   delegate :title,
            :summary,

@@ -1,3 +1,4 @@
+# typed: true
 module Registries
   class OrganisationsRegistry < Registry
     include CacheableRegistry

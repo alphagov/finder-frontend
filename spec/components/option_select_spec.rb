@@ -1,3 +1,4 @@
+# typed: false
 require 'spec_helper'
 
 describe 'components/_option-select.html.erb', type: :view do

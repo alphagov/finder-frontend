@@ -1,3 +1,4 @@
+# typed: true
 class MetadataPresenter
   def initialize(raw_metadata)
     @raw_metadata = raw_metadata

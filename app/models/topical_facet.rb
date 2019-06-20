@@ -1,3 +1,4 @@
+# typed: true
 class TopicalFacet < OptionSelectFacet
   def allowed_values
     [facet['open_value'], facet['closed_value']]

@@ -1,3 +1,4 @@
+# typed: true
 module Healthchecks
   class RegistriesCache
     def name

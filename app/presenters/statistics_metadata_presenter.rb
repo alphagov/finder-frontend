@@ -1,3 +1,4 @@
+# typed: true
 class StatisticsMetadataPresenter < MetadataPresenter
   def present
     formatted_metadata =

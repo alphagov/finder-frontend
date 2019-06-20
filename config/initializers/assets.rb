@@ -1,3 +1,4 @@
+# typed: strict
 Rails.application.config.assets.precompile += [
   "application-ie6.css",
   "application-ie7.css",

@@ -1,3 +1,4 @@
+# typed: true
 class DateFacet < FilterableFacet
   attr_reader :value
 
