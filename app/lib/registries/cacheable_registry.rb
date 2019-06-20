@@ -1,6 +1,8 @@
-# typed: false
+# typed: true
 module Registries
   module CacheableRegistry
+    include Kernel
+
     def can_refresh_cache?
       true
     end
