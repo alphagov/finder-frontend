@@ -199,7 +199,28 @@
           }
         ]
       },
-
+      {
+        "key":"multiple_report_type",
+        "name":"Multiple report type",
+        "type":"text",
+        "preposition":"of type",
+        "display_as_result_metadata":true,
+        "filterable":true,
+        "allowed_values":[
+          {
+            "label":"Annual safety report",
+            "value":"annual-safety-report"
+          },
+          {
+            "label":"Bulletin - Correspondence investigation",
+            "value":"correspondence-investigation"
+          },
+          {
+            "label":"Safety study",
+            "value":"safety-study"
+          }
+        ]
+      },
       {
         "key":"date_of_occurrence",
         "name":"Date of occurrence",

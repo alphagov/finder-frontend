@@ -79,6 +79,11 @@ private
   end
   helper_method :single_wrapped_question?
 
+  def multiple_grouped_question?
+    question_type == "multiple_grouped"
+  end
+  helper_method :multiple_grouped_question?
+
   def multiple_question?
     question_type == "multiple"
   end

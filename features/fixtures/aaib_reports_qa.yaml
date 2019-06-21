@@ -5,7 +5,7 @@ title: "AAIB Reports Q&A"
 pages:
   aircraft_category:
     show_in_qa: true
-    question_type: "multiple"
+    question_type: "multiple_grouped"
     question: "What is the aircraft category?"
     description: "Description"
     hint_title: "Click for a hint"
@@ -31,6 +31,10 @@ pages:
     show_in_qa: true
     question_type: "single_wrapped"
     question: "What is the fake report type?"
+  multiple_report_type:
+    show_in_qa: true
+    question_type: "multiple"
+    question: "What is the multiple report type?"
   aircraft_type:
     show_in_qa: true
     question_type: "single"

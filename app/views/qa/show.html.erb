@@ -19,7 +19,7 @@
         } %>
       <% end %>
 
-      <% if multiple_question? %>
+      <% if multiple_grouped_question? %>
         <% filter_groups.each do |filter_group| %>
           <%= render "govuk_publishing_components/components/checkboxes", {
             name: "#{current_facet['facet']['key']}[]",
@@ -28,6 +28,13 @@
             items: nested_options(filter_group)
           } %>
         <% end %>
+      <% elsif multiple_question? %>
+        <%= render "govuk_publishing_components/components/checkboxes", {
+          name: "#{current_facet['facet']['key']}[]",
+          heading: "Select all that apply",
+          visually_hide_heading: true,
+          items: options
+        } %>
       <% elsif single_wrapped_question? %>
         <% checkboxes = render "govuk_publishing_components/components/checkboxes", {
           name: "#{current_facet['facet']['key']}[]",

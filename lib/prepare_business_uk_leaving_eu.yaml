@@ -5,7 +5,7 @@ title: "Prepare your business or organisation for the UK leaving the EU"
 pages:
   sector_business_area:
     show_in_qa: true
-    question_type: "multiple"
+    question_type: "multiple_grouped"
     question: "What does your business or organisation do?"
     description: |
       <p>Choose all the sectors and areas that your business or organisation operates in.</p>
