@@ -42,7 +42,7 @@ The **advanced search** finder provides facetted searching of GOV.UK taxonomy an
 
 * [alphagov/static](http://github.com/alphagov/static): provides static assets (JS/CSS) and provides the GOV.UK templates.
 * [alphagov/content-store](http://github.com/alphagov/content-store): provides the content items for the finder itself -- containing the finder title, tagged organisations and related links
-* [alphagov/rummager](http://github.com/alphagov/rummager): provides search results
+* [alphagov/search-api](http://github.com/alphagov/search-api): provides search results
 
 ## Running the application
 
@@ -77,9 +77,9 @@ To run JavaScript tests separately: `bundle exec rake spec:javascript`
 
 ## Making a new finder
 
-1. If required, add a schema to [alphagov/rummager](http://github.com/alphagov/rummager) describing your document type -- [example](https://github.com/alphagov/rummager/blob/master/config/schema/elasticsearch_types/cma_case.json)
+1. If required, add a schema to [alphagov/search-api](http://github.com/alphagov/search-api) describing your document type -- [example](https://github.com/alphagov/search-api/blob/master/config/schema/elasticsearch_types/cma_case.json)
 2. Publish a Finder Content Item to the content store. See the doc for [Finder Content Item](https://github.com/alphagov/finder-frontend/blob/master/docs/finder-content-item.md) for more info.
-3. Ensure your documents are indexed in [alphagov/rummager](http://github.com/alphagov/rummager) correctly.
+3. Ensure your documents are indexed in [alphagov/search-api](http://github.com/alphagov/search-api) correctly.
 
 ### Developing a finder locally
 
@@ -99,11 +99,11 @@ For example, you want to filter by the field `link` on `/government/world/organi
 You can access the following: https://www.gov.uk/api/search.json?filter_link=/government/world/organisations/british-antarctic-territory
 You will be able to see inside results the field `format`
 
-You can double check the filter by performing the following search using rummager:
+You can double check the filter by performing the following search using search-api:
 
-http://rummager.dev.gov.uk/search.json?filter_NAME=VALUE
+http://search-api.dev.gov.uk/search.json?filter_NAME=VALUE
 
-For more information please refer to the [search api documentation](https://github.com/alphagov/rummager/blob/master/doc/search-api.md).
+For more information please refer to the [search api documentation](https://github.com/alphagov/search-api/blob/master/doc/search-api.md).
 
 ## Adding a Q&A frontend to a finder
 
