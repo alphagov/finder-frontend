@@ -102,7 +102,7 @@ RSpec.describe ResultSetPresenter do
       metadata: {
         "Case state" => "Case state: Open",
         "Case type" => "Case type: CA98 and civil cartels",
-        "Opened date" => "Opened date: <time datetime='2006-07-14'>14 July 2006</time>"
+        "Opened date" => "Opened date: <time datetime=\"2006-07-14\">14 July 2006</time>"
       },
       metadata_raw: [
         {
@@ -124,8 +124,8 @@ RSpec.describe ResultSetPresenter do
           value: "CA98 and civil cartels"
         }
       ],
-      subtext: "<span class='published-by'>First published during the The Government!</span>",
-      highlight: nil,
+      subtext: "<span class=\"published-by\">First published during the The Government!</span>",
+      highlight: false,
       highlight_text: nil
     }
   end
@@ -211,7 +211,7 @@ RSpec.describe ResultSetPresenter do
       subject(:presenter) { ResultSetPresenter.new(finder, filter_params, sort_presenter, metadata_presenter_class, false, true) }
 
       let(:expected_document_content_with_debug) do
-        "<span class='published-by'>First published during the The Government!</span><span class='debug-results debug-results--link'>slug-1</span><span class='debug-results debug-results--meta'>Score: 0.005</span><span class='debug-results debug-results--meta'>Format: transaction</span>"
+        "<span class=\"published-by\">First published during the The Government!</span><span class=\"debug-results debug-results--link\">slug-1</span><span class=\"debug-results debug-results--meta\">Score: 0.005</span><span class=\"debug-results debug-results--meta\">Format: transaction</span>"
       end
 
       it 'shows debug metadata' do

@@ -36,68 +36,9 @@ class ResultSetPresenter
     @documents ||= begin
       results.each_with_index.map do |result, index|
         metadata = metadata_presenter_class.new(result.metadata).present
-        doc = SearchResultPresenter.new(result, metadata).to_hash
-        structure_document_content(doc, result, index, results.count)
+        SearchResultPresenter.new(search_result: result, metadata: metadata, doc_index: index, doc_count: results.count, finder_name: finder_presenter.name, debug_score: debug_score, highlight: highlight(index)).to_hash
       end
     end
-  end
-
-  def structure_document_content(doc, result, index, count)
-    component_metadata = {}
-
-    if index === 0 && highlight_top_result?
-      doc[:top_result] = true
-      doc[:summary] = result.truncated_description
-      highlight_text = "Most relevant result"
-    end
-
-    # The logic for showing or not showing metadata used to be in the view
-    # moving it here and simply not including it seemed logical but
-    # the grouped presenter relies on the metadata to do something
-    # so we need a way of having the metadata available for that but not then
-    # passing it to the component if we're not supposed to
-
-    if doc[:show_metadata]
-      doc[:metadata].each do |meta|
-        label = meta[:hide_label] ? "<span class='govuk-visually-hidden'>#{meta[:label]}:</span>" : "#{meta[:label]}:"
-
-        if meta[:is_date]
-          value = "<time datetime='#{meta[:machine_date]}'>#{meta[:human_date]}</time>"
-        else
-          value = meta[:value]
-        end
-
-        component_metadata[meta[:label]] = "#{label} #{value}".html_safe
-      end
-    end
-
-    published_text = "<span class='published-by'>First published during the #{doc[:government_name]}</span>" if doc[:is_historic]
-    debug_text = "<span class='debug-results debug-results--link'>#{doc[:link]}</span>"\
-                 "<span class='debug-results debug-results--meta'>Score: #{doc[:es_score] || "no score (sort by relevance)"}</span>"\
-                 "<span class='debug-results debug-results--meta'>Format: #{doc[:format]}</span>" if debug_score
-    subtext = "#{published_text}#{debug_text}".html_safe if published_text || debug_text
-
-    {
-      link: {
-        text: doc[:title],
-        path: doc[:link],
-        description: doc[:summary],
-        data_attributes: {
-          track_category: "navFinderLinkClicked",
-          track_action: "#{finder.name}.#{index + 1}",
-          track_label: doc[:link],
-          track_options: {
-            dimension28: count,
-            dimension29: doc[:title]
-          }
-        }
-      },
-      metadata: component_metadata,
-      metadata_raw: doc[:metadata],
-      subtext: subtext,
-      highlight: doc[:top_result],
-      highlight_text: highlight_text
-    }
   end
 
   def user_supplied_date(date_facet_key, date_facet_from_to)
@@ -126,6 +67,10 @@ private
       results.length >= 2 &&
       sort_option.dig('key').eql?("-relevance") &&
       best_bet?
+  end
+
+  def highlight(index)
+    index === 0 && highlight_top_result?
   end
 
   def best_bet?

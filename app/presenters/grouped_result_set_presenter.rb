@@ -56,13 +56,13 @@ private
   def label_from_metadata(document, key)
     return if document.nil?
 
-    metadata = document[:document][:metadata].find { |m| m[:id] == key }
+    metadata = document[:metadata_raw].find { |m| m[:id] == key }
     metadata[:label]
   end
 
   def documents_tagged_to_primary_facet_value(documents, selected_value)
     documents.select do |document|
-      document[:document][:metadata].any? do |metadata|
+      document[:metadata_raw].any? do |metadata|
         metadata[:id] == primary_facet_key &&
           metadata[:labels].include?(selected_value)
       end
@@ -71,7 +71,7 @@ private
 
   def documents_tagged_to_secondary_facet(documents, secondary_group_name)
     documents.select do |document|
-      document[:document][:metadata].any? { |metadata| metadata[:id] == secondary_group_name }
+      document[:metadata_raw].any? { |metadata| metadata[:id] == secondary_group_name }
     end
   end
 
@@ -84,7 +84,7 @@ private
   end
 
   def tagged_to_all?(facet_key, document)
-    metadata = document.dig(:document, :metadata)
+    metadata = document.dig(:metadata_raw)
     return false unless metadata
 
     facet = finder_presenter.facets.find { |f| f.key == facet_key }

@@ -19,11 +19,13 @@ RSpec.describe GroupedResultSetPresenter do
 
   let(:filter_params) { { keywords: 'test' } }
 
+  let(:finder_name) { 'A finder' }
+
   let(:finder) do
     double(
       FinderPresenter,
       slug: "/a-finder",
-      name: 'A finder',
+      name: finder_name,
       results: results,
       document_noun: document_noun,
       sort_options: sort_presenter_without_options,
@@ -193,10 +195,16 @@ RSpec.describe GroupedResultSetPresenter do
     }
 
     let(:primary_tagged_result) {
-      SearchResultPresenter.new(tagged_document, formatted_tagged_metadata).to_hash
+      SearchResultPresenter.new(search_result: tagged_document, metadata: formatted_tagged_metadata, doc_index: 1, doc_count: 2, finder_name: finder_name, debug_score: false, highlight: false).to_hash
     }
 
-    let(:document_result) { SearchResultPresenter.new(document, formatted_metadata).to_hash }
+    let(:primary_tagged_result_with_one_document) {
+      SearchResultPresenter.new(search_result: tagged_document, metadata: formatted_tagged_metadata, doc_index: 0, doc_count: 1, finder_name: finder_name, debug_score: false, highlight: false).to_hash
+    }
+
+    let(:document_result) {
+      SearchResultPresenter.new(search_result: document, metadata: formatted_metadata, doc_index: 0, doc_count: 2, finder_name: finder_name, debug_score: false, highlight: false).to_hash
+    }
 
     context "when not grouping results" do
       let(:filter_params) { { order: 'a-z' } }
@@ -235,7 +243,7 @@ RSpec.describe GroupedResultSetPresenter do
         expect(subject.grouped_documents).to eq([
           {
             group_name: 'Aerospace',
-            documents: [{ document: primary_tagged_result, document_index: 2 }]
+            documents: [primary_tagged_result]
           }
         ])
       end
@@ -251,22 +259,22 @@ RSpec.describe GroupedResultSetPresenter do
         }
       }
 
-      let(:results) { ResultSet.new([document, tagged_document], total) }
+      let(:results) { ResultSet.new([document, tagged_document], 2) }
       let(:facet_filters) { [sector_facet, a_facet, activity_facet] }
 
       it "orders the groups by facets in the other facets" do
         expect(subject.grouped_documents).to eq([
           {
             group_name: 'Aerospace',
-            documents: [{ document: primary_tagged_result, document_index: 2 }]
+            documents: [primary_tagged_result]
           },
           {
             group_name: 'Case type',
-            documents: [{ document: document_result, document_index: 1 }]
+            documents: [document_result]
           },
           {
             group_name: 'Organisation activity',
-            documents: [{ document: document_result, document_index: 1 }]
+            documents: [document_result]
           },
         ])
       end
@@ -287,7 +295,7 @@ RSpec.describe GroupedResultSetPresenter do
         expect(subject.grouped_documents).to eq([
           {
             group_name: 'Organisation activity',
-            documents: [{ document: document_result, document_index: 1 }]
+            documents: [document_result]
           }
         ])
       end
@@ -320,7 +328,7 @@ RSpec.describe GroupedResultSetPresenter do
         expect(subject.grouped_documents).to eq([
           {
             group_name: 'All businesses',
-            documents: [{ document: primary_tagged_result, document_index: 1 }]
+            documents: [primary_tagged_result_with_one_document]
           }
         ])
       end
@@ -340,11 +348,11 @@ RSpec.describe GroupedResultSetPresenter do
         expect(subject.grouped_documents).to eq([
           {
             group_name: 'Aerospace',
-            documents: [{ document: primary_tagged_result, document_index: 2 }]
+            documents: [primary_tagged_result]
           },
           {
             group_name: 'Case type',
-            documents: [{ document: document_result, document_index: 1 }]
+            documents: [document_result]
           },
         ])
       end
@@ -364,7 +372,7 @@ RSpec.describe GroupedResultSetPresenter do
         expect(subject.grouped_documents).to eq([
           {
             group_name: 'Case type',
-            documents: [{ document: document_result, document_index: 1 }]
+            documents: [document_result]
           }
         ])
       end

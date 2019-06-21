@@ -1,15 +1,13 @@
 <% if local_assigns[:display_grouped_results] %>
   <ul class="finder-results js-finder-results" data-module="track-click">
     <% local_assigns[:grouped_documents].each do |group| %>
-      <%= group %>
-
       <li class="filtered-results__group">
         <% if group[:group_name] %>
           <h2 class="filtered-results__facet-heading"><%= group[:group_name] %></h2>
         <% end %>
 
         <%= render "govuk_publishing_components/components/document_list", {
-          items: local_assigns[:documents]
+          items: group[:documents]
         } %>
       </li>
     <% end %>
