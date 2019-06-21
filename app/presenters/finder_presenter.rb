@@ -187,7 +187,13 @@ class FinderPresenter
   end
 
   def topic_finder?
-    values.include?('topic-finder')
+    values.include?('parent') && topic_finder_parent_name.present?
+  end
+
+  def topic_finder_parent_name
+    registry = Registries::FullTopicTaxonomyRegistry.new
+    parent_address = values['parent']
+    registry[parent_address].nil? ? '' : registry[parent_address]['title']
   end
 
   # FIXME: This should be removed once we have a way to determine
