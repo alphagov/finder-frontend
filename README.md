@@ -30,6 +30,12 @@ The **advanced search** finder provides facetted searching of GOV.UK taxonomy an
 
 [Read more about the advanced search finder](docs/advanced-search-finder.md)
 
+The EU exit business readiness finder ('business finder') provides a links-based facetted search of GOV.UK Brexit-related content for businesses:
+
+* [gov.uk/find-eu-exit-guidance-business](https://www.gov.uk/find-eu-exit-guidance-business)
+
+Read more about [how links-based facets are handled](docs/finder-facets-links.md) and the [business finder email signup](docs/business-finder-email-signup.md).
+
 ![Finder frontend screenshot](docs/assets/page-screenshot.png)
 
 ## Nomenclature
