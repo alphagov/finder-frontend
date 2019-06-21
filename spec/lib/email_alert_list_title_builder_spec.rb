@@ -37,7 +37,7 @@ describe EmailAlertListTitleBuilder do
     end
 
     it "will join one choice from multiple facets in a list, separated with commas" do
-      is_expected.to eq("EU Exit guidance in the following categories: 'Agriculture and forestry (including wholesale)', 'Buy products or goods from abroad'")
+      is_expected.to eq("EU Exit guidance in the following categories: 'Agriculture and forestry (including wholesale)', 'Import from the EU'")
     end
   end
 
@@ -78,7 +78,7 @@ describe EmailAlertListTitleBuilder do
     end
 
     it "will join multiple choices from multiple facets in a list, separated with commas" do
-      is_expected.to eq("EU Exit guidance in the following categories: 'Agriculture and forestry (including wholesale)', 'Electronics, parts and machinery', 'Buy products or goods from abroad', 'Sell products or goods abroad'")
+      is_expected.to eq("EU Exit guidance in the following categories: 'Agriculture and forestry (including wholesale)', 'Electronics, parts and machinery', 'Import from the EU', 'Export to the EU'")
     end
   end
 end

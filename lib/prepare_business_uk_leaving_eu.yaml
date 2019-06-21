@@ -111,10 +111,10 @@ pages:
           - "warehouses-services-pipelines"
   business_activity:
     show_in_qa: true
-    question_type: "single_wrapped"
-    question: "Do you sell goods in the UK, import or do business abroad?"
+    question_type: "multiple"
+    question: "Does your business do any of the following activities?"
     description: |
-      <p>Doing business abroad includes exporting and going for meetings or taking goods to a trade fair.</p>
+      <p>Importing and exporting includes temporarily taking goods across the EU border, for example to a trade fair.</p>
   employ_eu_citizens:
     show_in_qa: true
     question_type: "single"
