@@ -782,21 +782,9 @@ Then("I see results grouped by primary facet value") do
   end
 end
 
-Then("I see results with pinned items") do
-  within("#js-results") do
-    expect(page.all(".document-heading--pinned").length).to eq(1)
-  end
-end
-
 Then("I see results with top result") do
   within("#js-results") do
     expect(page.all(".document--top").length).to eq(1)
-  end
-end
-
-Then("I do not see results with pinned items") do
-  within("#js-results") do
-    expect(page.all(".document-heading--pinned").length).to eq(0)
   end
 end
 

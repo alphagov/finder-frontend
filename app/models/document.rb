@@ -38,16 +38,6 @@ class Document
     truncated_description if description.present? && finder.show_summaries?
   end
 
-  def promoted_summary
-    truncated_description if description.present? && promoted
-  end
-
-  def promoted
-    return false unless finder.links.has_key?("ordered_related_items")
-
-    finder.links["ordered_related_items"].any? { |item| item["base_path"] == path }
-  end
-
   def truncated_description
     # This truncates the description at the end of the first sentence
     description.gsub(/\.\s[A-Z].*/, '.') if description.present?

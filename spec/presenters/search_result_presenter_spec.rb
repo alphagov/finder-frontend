@@ -12,8 +12,6 @@ RSpec.describe SearchResultPresenter do
       summary: 'I am a document',
       is_historic: false,
       government_name: 'The Government!',
-      promoted: false,
-      promoted_summary: 'I am a document',
       show_metadata: false,
       format: 'cake',
       es_score: 0.005

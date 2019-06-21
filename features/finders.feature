@@ -238,11 +238,9 @@ Feature: Filtering documents
     Then I see Topic order selected
     And I select facet Aerospace in the already expanded "Sector / Business Area" section
     Then I see results grouped by primary facet value
-    And I see results with pinned items
     And I fill in some keywords
     And I press tab key to navigate
     Then I see Relevance order selected
-    And I do not see results with pinned items
 
   Scenario: Arrive at the business finder through Q&A
     When I visit the business finder Q&A

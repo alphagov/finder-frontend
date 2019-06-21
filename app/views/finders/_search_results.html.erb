@@ -10,15 +10,12 @@
             <% result = document[:document] %>
             <li class="document">
               <a href='<%= result[:link] %>'
-                  class="<% if result[:promoted] %>document-heading--pinned<% end %> document__link"
+                  class="document__link"
                   data-track-category='navFinderLinkClicked'
                   data-track-action='<%= finder_name %><%= result[:document_index] %>'
                   data-track-label='<%= result[:link] %>'
                   data-track-options='{"dimension28":"<%= result[:page_count] %>","dimension29":"<%= result[:title] %>"}'
               ><%= result[:title] %></a>
-              <% if result[:promoted_summary] %>
-                <p><%= result[:promoted_summary] %></p>
-              <% end %>
               <% if result[:is_historic] %>
                 <p class="historic">First published during the <%= result[:government_name] %></p>
               <% end %>

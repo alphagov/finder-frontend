@@ -110,8 +110,6 @@ RSpec.describe GroupedResultSetPresenter do
       summary: 'I am a document',
       is_historic: false,
       government_name: 'The Government!',
-      promoted: false,
-      promoted_summary: nil,
       show_metadata: false,
       format: 'transaction',
       es_score: nil
@@ -194,8 +192,6 @@ RSpec.describe GroupedResultSetPresenter do
         summary: 'I am a document',
         is_historic: false,
         government_name: 'The Government',
-        promoted: false,
-        promoted_summary: nil,
         show_metadata: false,
         format: 'transaction',
         es_score: nil
