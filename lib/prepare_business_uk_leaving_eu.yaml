@@ -18,13 +18,12 @@ pages:
           - "installation-servicing-repair"
           - "marine"
           - "rail"
-          - "space"
-          - "other-advanced-manufacturing"
       - name: "Agriculture, animals, fisheries and forestry"
         filters:
-          - "agriculture"
+          - "agriculture-and-farming"
+          - "animals-and-animal-products"
           - "fisheries"
-          - "food-and-drink"
+          - "plants-and-forestry"
           - "veterinary"
       - name: "Business and personal services"
         filters:
@@ -56,7 +55,6 @@ pages:
           - "arts-culture-heritage"
       - name: "Finance, insurance and real estate"
         filters:
-          - "auxiliary-activities"
           - "financial-services"
           - "insurance"
           - "real-estate-excl-imputed-rent"
@@ -72,12 +70,10 @@ pages:
       - name: "Manufacturing"
         filters:
           - "clothing-consumer-goods-manufacturing"
-          - "furniture-manufacture"
-          - "repair-of-computers-consumer-goods"
-          - "other-manufacturing"
       - name: "Materials and mining"
         filters:
           - "chemicals"
+          - "diamonds"
           - "metals-manufacture"
           - "mining"
           - "non-metal-materials-manufacture"
@@ -91,10 +87,9 @@ pages:
           - "research"
       - name: "Retail, wholesale and consumer goods"
         filters:
-          - "clothing-consumer-goods"
-          - "food-drink-tobacco"
+          - "food-and-drink"
           - "motor-trades"
-          - retail
+          - "retail"
       - name: "Tourism and hospitality"
         filters:
           - "accommodation"
@@ -103,7 +98,6 @@ pages:
       - name: "Transport and logistics"
         filters:
           - "air-freight-air-passenger-services"
-          - "marine-transport"
           - "ports-airports"
           - "postal-courier-services"
           - "rail-passenger-freight"
