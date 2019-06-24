@@ -1,4 +1,6 @@
 class SearchResultPresenter
+  include ActionView::Helpers::SanitizeHelper
+
   delegate :title,
            :summary,
            :is_historic,
@@ -49,27 +51,23 @@ class SearchResultPresenter
   def structure_metadata
     return {} unless show_metadata
 
-    if show_metadata
-      metadata.each_with_object({}) do |meta, component_metadata|
-        label = meta[:hide_label] ? "<span class='govuk-visually-hidden'>#{meta[:label]}:</span>" : "#{meta[:label]}:"
+    metadata.each_with_object({}) do |meta, component_metadata|
+      label = meta[:hide_label] ? "<span class='govuk-visually-hidden'>#{meta[:label]}:</span>" : "#{meta[:label]}:"
+      value = meta[:is_date] ? "<time datetime='#{meta[:machine_date]}'>#{meta[:human_date]}</time>" : meta[:value]
 
-        if meta[:is_date]
-          value = "<time datetime='#{meta[:machine_date]}'>#{meta[:human_date]}</time>"
-        else
-          value = meta[:value]
-        end
-
-        component_metadata[meta[:label]] = "#{label} #{value}".html_safe
-      end
+      component_metadata[meta[:label]] = sanitize("#{label} #{value}", tags: %w(time span))
     end
   end
 
   def subtext
-    published_text = "<span class='published-by'>First published during the #{government_name}</span>" if is_historic
-    debug_text = "<span class='debug-results debug-results--link'>#{link}</span>"\
-                 "<span class='debug-results debug-results--meta'>Score: #{es_score || "no score (sort by relevance)"}</span>"\
-                 "<span class='debug-results debug-results--meta'>Format: #{format}</span>" if @debug_score
-    "#{published_text}#{debug_text}".html_safe if published_text || debug_text
+    published_text = "<span class='published-by'>#{I18n.t('finders.first_published_during')} #{government_name}</span>" if is_historic
+    if @debug_score
+      debug_text = "<span class='debug-results debug-results--link'>#{link}</span>"\
+                   "<span class='debug-results debug-results--meta'>Score: #{es_score || 'no score (sort by relevance)'}</span>"\
+                   "<span class='debug-results debug-results--meta'>Format: #{format}</span>"
+    end
+
+    sanitize("#{published_text}#{debug_text}") if published_text || debug_text
   end
 
   def summary_text
@@ -77,7 +75,7 @@ class SearchResultPresenter
   end
 
   def highlight_text
-    "Most relevant result" if @highlight
+    I18n.t('finders.most_relevant') if @highlight
   end
 
 private
