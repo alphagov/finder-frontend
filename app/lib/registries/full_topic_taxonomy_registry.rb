@@ -26,8 +26,11 @@ module Registries
 
     def format_taxon(taxon)
       {
-        'title' => taxon['title'],
-        'base_path' => taxon['base_path']
+        taxon['content_id'] =>
+        {
+          'title' => taxon['title'],
+          'base_path' => taxon['base_path']
+        }
       }
     end
 
@@ -35,20 +38,22 @@ module Registries
       @level_one_taxons ||= fetch_level_one_taxons_from_api
     end
 
-    def flatten_taxonomy(taxons, output_hash)
-      taxons.each do |taxon|
-        output_hash[taxon['content_id']] = format_taxon(taxon)
-        unless taxon.dig('links', 'child_taxons').nil?
-          flatten_taxonomy(taxon['links']['child_taxons'], output_hash)
-        end
+    def flatten_taxonomy(taxons)
+      return {} if taxons.empty?
+
+      taxons.inject({}) do |result, taxon|
+        child_taxons = taxon.dig('links', 'child_taxons') || []
+
+        taxon_hash = format_taxon(taxon)
+        child_taxon_hashes = flatten_taxonomy(child_taxons)
+
+        result.merge(taxon_hash).merge(child_taxon_hashes)
       end
     end
 
     def taxonomy_hash
       GovukStatsd.time("registries.full_topic_taxonomy.request_time") do
-        output_hash = {}
-        flatten_taxonomy(level_one_taxons, output_hash)
-        output_hash
+        flatten_taxonomy(level_one_taxons)
       end
     end
 
