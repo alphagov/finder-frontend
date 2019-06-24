@@ -7,16 +7,14 @@ module Registries
     end
 
     def find_parent_by_id id
-      topic = taxonomy.select { |_, value|
+      topic = taxonomy.find { |_, value|
         value['content_id'] == id
       }
 
-      path = topic.keys[0]
+      title = topic.second['title']
+      path = topic.first
 
-      {
-        path: path,
-        title: topic[path]['title'],
-      }
+      title.nil? ? nil : {path: path, title: title}
     end
 
     def taxonomy

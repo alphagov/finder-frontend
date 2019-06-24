@@ -34,6 +34,7 @@ RSpec.describe Registries::FullTopicTaxonomyRegistry do
     end
 
     let(:registry) { described_class.new }
+    let(:taxon_title) { "Countryside stewardship" }
     let(:child_base_path) { "/environment/countryside-stewardship" }
     let(:first_level_base_path) { "/environment" }
     let(:child_content_id) { "013fc5e0-280c-4f73-9598-47de68f13dcd" }
@@ -47,6 +48,12 @@ RSpec.describe Registries::FullTopicTaxonomyRegistry do
     it "can look up a level one taxon by basepath" do
       fetched_document = registry[first_level_content_id]
       expect(fetched_document['base_path']).to eq(first_level_base_path)
+    end
+
+    it "can look up a taxon from the id" do
+      fetched_document = registry.find_parent_by_id(child_content_id)
+      expect(fetched_document[:path]).to eq(child_base_path)
+      expect(fetched_document[:title]).to eq(taxon_title)
     end
   end
 
