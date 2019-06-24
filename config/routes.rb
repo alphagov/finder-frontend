@@ -24,7 +24,7 @@ FinderFrontend::Application.routes.draw do
   # Q&A frontend for "UK Nationals in the EU" (www.gov.uk/uk-nationals-in-the-eu)
   get '/uk-nationals-living-eu' => 'qa_to_content#show'
 
-  get '/search/advanced' => 'advanced_search_finder#show'
+  get '/search/advanced' => 'redirection#advanced_search'
 
   get '/redirect/announcements' => 'redirection#announcements'
 

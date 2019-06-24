@@ -46,14 +46,14 @@ class RedirectionController < ApplicationController
     error_not_found && return if group.nil?
 
     topic = params['topic']
-    params = if topic.present?
-               registry = Services.registries.all['full_topic_taxonomy']
-               content_id = (registry[topic] || {})['content_id']
-               { topic: content_id }
-             else
-               {}
-             end
-    redirect_to(finder_path("/search/#{group}", params: params))
+    url_params = if topic.present?
+                   registry = Services.registries.all['full_topic_taxonomy']
+                   content_id, = registry.taxonomy.find { |_, hash| hash["base_path"] == topic }
+                   { topic: content_id }
+                 else
+                   {}
+                 end
+    redirect_to(finder_path("search/#{group}", params: url_params))
   end
 
 private
