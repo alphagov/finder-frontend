@@ -85,16 +85,7 @@ And("I see email and feed sign up links with filters applied with extra empty fi
 end
 
 When(/^I view a list of news and communications$/) do
-  topic_taxonomy_has_taxons([
-    {
-      content_id: "Taxon_1",
-      title: "Taxon_1"
-    },
-    {
-      content_id: "Taxon_2",
-      title: "Taxon_2"
-    }
-  ])
+  topic_taxonomy_has_taxons
   content_store_has_news_and_communications_finder
   stub_whitehall_api_world_location_request
   stub_people_registry_request
@@ -104,16 +95,7 @@ When(/^I view a list of news and communications$/) do
 end
 
 When(/^I view the news and communications finder$/) do
-  topic_taxonomy_has_taxons([
-    {
-      content_id: "Taxon_1",
-      title: "Taxon_1"
-    },
-    {
-      content_id: "Taxon_2",
-      title: "Taxon_2"
-    }
-  ])
+  topic_taxonomy_has_taxons
   content_store_has_news_and_communications_finder
   stub_whitehall_api_world_location_request
   stub_all_rummager_api_requests_with_news_and_communication_results
@@ -152,16 +134,7 @@ When(/^I view the business readiness finder$/) do
 end
 
 When(/^I view the policy papers and consultations finder$/) do
-  topic_taxonomy_has_taxons([
-    {
-      content_id: "Taxon_1",
-      title: "Taxon_1"
-    },
-    {
-      content_id: "Taxon_2",
-      title: "Taxon_2"
-    }
-  ])
+  topic_taxonomy_has_taxons
   content_store_has_policy_and_engagement_finder
   stub_organisations_registry_request
   stub_whitehall_api_world_location_request
@@ -172,16 +145,7 @@ When(/^I view the policy papers and consultations finder$/) do
 end
 
 When(/^I view the research and statistics finder$/) do
-  topic_taxonomy_has_taxons([
-                                {
-                                    content_id: "Taxon_1",
-                                    title: "Taxon_1"
-                                },
-                                {
-                                    content_id: "Taxon_2",
-                                    title: "Taxon_2"
-                                }
-                            ])
+  topic_taxonomy_has_taxons
   content_store_has_statistics_finder
   stub_organisations_registry_request
   stub_manuals_registry_request

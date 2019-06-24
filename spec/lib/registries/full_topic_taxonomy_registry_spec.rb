@@ -1,6 +1,7 @@
 require "securerandom"
 require 'spec_helper'
 require "helpers/taxonomy_spec_helper"
+require "registries/base_registries"
 
 RSpec.describe Registries::FullTopicTaxonomyRegistry do
   include TaxonomySpecHelper
@@ -29,8 +30,7 @@ RSpec.describe Registries::FullTopicTaxonomyRegistry do
 
   describe "when topic taxonomy api is available" do
     before :each do
-      stub_root_taxon(level_one_taxons)
-      full_topic_taxonomy_has_taxons(level_one_taxons)
+      topic_taxonomy_has_taxons(level_one_taxons)
     end
 
     let(:registry) { described_class.new }

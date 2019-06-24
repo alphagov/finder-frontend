@@ -5,12 +5,7 @@ describe FacetCollection do
   include TaxonomySpecHelper
 
   before do
-    topic_taxonomy_has_taxons([
-                                {
-                                  content_id: "123",
-                                  title: "transport"
-                                }
-                              ])
+    topic_taxonomy_has_taxons([FactoryBot.build(:level_one_taxon_hash, content_id: "123", title: "transport")])
   end
 
   before { Rails.cache.clear }

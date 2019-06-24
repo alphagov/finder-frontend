@@ -248,7 +248,7 @@ RSpec.describe FinderPresenter do
       }
 
       it 'returns all relevant query parameters' do
-        topic_taxonomy_has_taxons([{ content_id: "taxon", title: "taxon" }])
+        topic_taxonomy_has_taxons([FactoryBot.build(:level_one_taxon_hash, content_id: 'taxon', title: 'taxon')])
 
         query_params = Rack::Utils.parse_nested_query URI.parse(subject.atom_url).query
         expect(query_params).to eq("checkbox" => "filter_value",
