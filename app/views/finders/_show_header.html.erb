@@ -33,14 +33,14 @@
           } %>
         </div>
       <% elsif finder.topic_finder? %>
-        <%= link_to finder.topic_finder_parent_name, finder.values['parent'], class: 'topic-finder__taxon-link' %>
+        <%= link_to finder.topic_finder_parent[:title], finder.topic_finder_parent[:path], class: 'topic-finder__taxon-link' %>
         <%= render partial: 'govuk_publishing_components/components/title', locals: {
           title: finder.name,
           inverse: true,
         } %>
       <% else %>
         <%= render partial: 'govuk_publishing_components/components/title', locals: {
-          title: finder.name
+          title: finder.name,
         } %>
       <% end %>
 

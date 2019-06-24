@@ -6,6 +6,19 @@ module Registries
       taxonomy[base_path]
     end
 
+    def find_parent_by_id id
+      topic = taxonomy.select { |_, value|
+        value['content_id'] == id
+      }
+
+      path = topic.keys[0]
+
+      {
+        path: path,
+        title: topic[path]['title'],
+      }
+    end
+
     def taxonomy
       @taxonomy ||= fetch_from_cache
     end

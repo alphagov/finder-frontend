@@ -323,3 +323,15 @@
 .app-patch--search-input-override input[type="search"] {
   box-sizing: border-box;
 }
+
+// NOTE: Used to remove the blue global header bar for the topic finder header.
+
+// scss-lint:disable IdSelector
+.full-width #global-header-bar {
+  display: none;
+}
+// scss-lint:enable IdSelector
+
+.topic-finder__taxon-link {
+    @include govuk-font(24, $weight: bold);
+}
