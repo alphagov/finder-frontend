@@ -134,6 +134,7 @@ class FinderPresenter
   def page_metadata
     metadata = {
       from: organisations,
+      inverse: true,
     }
 
     metadata.reject { |_, links| links.blank? }

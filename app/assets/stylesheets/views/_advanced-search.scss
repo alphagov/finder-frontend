@@ -21,12 +21,3 @@
   max-width: 100%;
   width: auto;
 }
-
-.full-width #global-header-bar {
-  display: none;
-}
-// scss-lint:enable IdSelector
-
-.topic-finder__taxon-link {
-    @include govuk-font(24, $weight: bold);
-}

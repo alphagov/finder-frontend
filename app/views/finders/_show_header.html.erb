@@ -1,6 +1,6 @@
 <div class="govuk-width-container">
   <% if finder.show_phase_banner? %>
-    <%= render 'govuk_publishing_components/components/phase_banner', phase: finder.phase, message: finder.phase_message%>
+    <%= render 'govuk_publishing_components/components/phase_banner', phase: finder.phase, message: finder.phase_message, inverse: inverse %>
   <% end %>
 
   <% if @breadcrumbs.breadcrumbs %>
@@ -44,17 +44,18 @@
         } %>
       <% end %>
 
-      <div class="govuk-grid-column-two-thirds">
-        <% if finder.page_metadata.any? %>
-          <%= render 'govuk_publishing_components/components/metadata', page_metadata(finder.page_metadata) %>
-        <% end %>
+      <% if finder.page_metadata.any? %>
+        <%= render 'govuk_publishing_components/components/metadata', page_metadata(finder.page_metadata) %>
+      <% end %>
+    </div>
 
-        <% if finder.summary %>
-          <div class="metadata-summary">
+      <% if finder.summary %>
+        <div class="govuk-grid-column-two-thirds">
+          <div class="metadata-summary ">
             <%= render 'govuk_publishing_components/components/govspeak', content: finder.summary.html_safe %>
           </div>
-        <% end %>
-      </div>
+        </div>
+      <% end %>
 
       <% if finder.logo_path %>
         <div class="finder-logo govuk-grid-column-one-third">

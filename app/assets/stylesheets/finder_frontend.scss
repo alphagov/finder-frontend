@@ -335,3 +335,11 @@
 .topic-finder__taxon-link {
     @include govuk-font(24, $weight: bold);
 }
+
+// NOTE: used to override govspeak component when it's used on an inverse header
+
+.gem-c-inverse-header {
+  .gem-c-govspeak {
+    color: govuk-colour("white");
+  }
+}

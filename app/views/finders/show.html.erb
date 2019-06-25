@@ -16,7 +16,7 @@
 
 <% content_for :meta_title, finder.name %>
 
-<% if finder.topic_finder? %>
+<% if finder.topic_finder? && !finder.all_content_finder? %>
   <% content_for :body_classes, "full-width" %>
   <% inverse = true %>
 <% end %>
@@ -24,7 +24,7 @@
 <form method="get" action="<%= finder.slug %>" class="js-live-search-form">
   <input type="hidden" name="parent" value="<%= @parent %>">
 
-  <% if finder.topic_finder? %>
+  <% if finder.topic_finder? && !finder.all_content_finder? %>
     <%= render "govuk_publishing_components/components/inverse_header", {
       full_width: true
     } do %>
