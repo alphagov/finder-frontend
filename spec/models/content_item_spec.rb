@@ -1,6 +1,9 @@
 require "spec_helper"
+require "gds_api/test_helpers/content_store"
 
 describe ContentItem do
+  include ::GdsApi::TestHelpers::ContentStore
+
   subject { described_class.new(base_path) }
   let(:base_path) { "/search/news-and-communications" }
   let(:finder_content_item) { news_and_communications }
@@ -9,16 +12,10 @@ describe ContentItem do
   }
 
   before do
-    allow(Services.content_store).to receive(:content_item)
-      .with(base_path)
-      .and_return(finder_content_item)
+    content_store_has_item(base_path, finder_content_item)
   end
 
   before :each do
-    Rails.cache.clear
-  end
-
-  after :each do
     Rails.cache.clear
   end
 

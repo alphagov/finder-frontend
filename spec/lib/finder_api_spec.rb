@@ -1,6 +1,14 @@
 require "spec_helper"
 
 describe FinderApi do
+  def stub_search
+    stub_request(:get, %r{#{Plek.find("search")}/search.json})
+  end
+
+  def stub_batch_search
+    stub_request(:get, %r{#{Plek.find("search")}/batch_search.json})
+  end
+
   let(:content_item) {
     {
       "details" => {
@@ -40,15 +48,14 @@ describe FinderApi do
   context "when searching using a single query" do
     subject { described_class.new(content_item, filter_params).search_results }
 
-    before do
-      allow(Services.rummager).to receive(:search)
-      .and_return(
+    before :each do
+      stub_search.to_return(body: {
         "results" => [
           result_item("/register-to-vote", "Register to Vote", score: nil, updated: "14-12-19", popularity: 3),
           result_item("/hmrc", "HMRC", score: nil, updated: "14-12-18", popularity: 2),
           result_item("/own-a-micro-pig", "Owning a micro-pig", score: nil, updated: "14-12-19", popularity: 1),
         ]
-      )
+      }.to_json)
     end
 
     it "uses the standard search endpoint" do
@@ -94,8 +101,8 @@ describe FinderApi do
 
     context 'when keywords are not used' do #Rummager returns nil for es_score
       before do
-        allow(Services.rummager).to receive(:batch_search)
-          .and_return(
+        stub_batch_search.to_return(body:
+          {
             "results" => [
               {
                 "results" => [
@@ -109,7 +116,7 @@ describe FinderApi do
                 ],
               },
             ]
-          )
+          }.to_json)
       end
 
       it_behaves_like 'sorts by other fields'
@@ -137,22 +144,22 @@ describe FinderApi do
 
     context 'when keywords exist in search' do
       before do
-        allow(Services.rummager).to receive(:batch_search)
-          .and_return(
-            "results" => [
-              {
-                "results" => [
-                  result_item("/register-to-vote", "Register to Vote", score: 1, updated: "14-12-19", popularity: 3),
-                ],
-              },
-              {
-                "results" => [
-                  result_item("/hmrc", "HMRC", score: 10, updated: "14-12-18", popularity: 2),
-                  result_item("/register-to-vote", "Register to Vote", score: 2, updated: "14-12-19", popularity: 3),
-                ],
-              },
-            ]
-          )
+        stub_batch_search.to_return(body:
+        {
+         "results" => [
+           {
+             "results" => [
+               result_item("/register-to-vote", "Register to Vote", score: 1, updated: "14-12-19", popularity: 3),
+             ],
+           },
+           {
+             "results" => [
+               result_item("/hmrc", "HMRC", score: 10, updated: "14-12-18", popularity: 2),
+               result_item("/register-to-vote", "Register to Vote", score: 2, updated: "14-12-19", popularity: 3),
+             ],
+           },
+         ]
+       }.to_json)
       end
 
       it_behaves_like 'sorts by other fields'
