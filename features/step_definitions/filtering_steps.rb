@@ -20,7 +20,7 @@ end
 
 Then(/I see no results$/) do
   expect(page).to have_content('0 reports')
-  expect(page).to have_css('.filtered-results .document', count: 0)
+  expect(page).to have_css('.filtered-results .gem-c-document-list__item', count: 0)
 end
 
 And(/there is no keyword search box$/) do
@@ -55,10 +55,10 @@ Then(/^I can get a list of all documents with matching metadata$/) do
   visit finder_path('mosw-reports')
 
   expect(page).to have_content('2 reports')
-  expect(page).to have_css('.filtered-results .document', count: 2)
+  expect(page).to have_css('.finder-results .gem-c-document-list__item', count: 2)
   expect(page).to have_css('.gem-c-metadata')
 
-  within '.filtered-results .document:nth-child(1)' do
+  within '.finder-results .gem-c-document-list__item:nth-child(1)' do
     expect(page).to have_link(
       'West London wobbley walk',
       href: '/mosw-reports/west-london-wobbley-walk',
@@ -70,7 +70,7 @@ Then(/^I can get a list of all documents with matching metadata$/) do
   visit_filtered_finder('walk_type' => 'hopscotch')
 
   expect(page).to have_content('1 report')
-  expect(page).to have_css('.filtered-results .document', count: 1)
+  expect(page).to have_css('.finder-results .gem-c-document-list__item', count: 1)
 end
 
 And("I see email and feed sign up links") do
@@ -281,12 +281,12 @@ Then(/^I should see a blue banner$/) do
 end
 
 Then(/^I can see documents which are marked as being in history mode$/) do
-  expect(page).to have_css('p.historic', count: 5)
+  expect(page).to have_css('.published-by', count: 5)
   expect(page).to have_content("2005 to 2010 Labour government")
 end
 
 Then(/^I can see documents which have government metadata$/) do
-  within '.filtered-results .document:nth-child(1)' do
+  within '.finder-results .gem-c-document-list__item:nth-child(1)' do
     expect(page).to have_content('Updated:')
     expect(page).to have_css('dl time[datetime="2007-02-14"]')
 
@@ -304,14 +304,14 @@ end
 
 Then(/^I can get a list of all documents with good metadata$/) do
   visit finder_path('mosw-reports')
-  expect(page).to have_css('.filtered-results .document', count: 2)
+  expect(page).to have_css('.finder-results .gem-c-document-list__item', count: 2)
 
-  within '.filtered-results .document:nth-child(1)' do
+  within '.finder-results .gem-c-document-list__item:nth-child(1)' do
     expect(page).to have_content('Backward')
     expect(page).not_to have_content('England')
   end
 
-  within '.filtered-results .document:nth-child(2)' do
+  within '.finder-results .gem-c-document-list__item:nth-child(2)' do
     expect(page).to have_content('Northern Ireland')
     expect(page).not_to have_content('Hopscotch')
   end
@@ -529,7 +529,7 @@ Then(/^I only see documents that match the checkbox filter$/) do
   expect(page).to have_css('.facet-tags__preposition', text: "That Is")
   expect(page).to have_css('.facet-tag__text', text: "Open")
 
-  within ".filtered-results .document:nth-child(1)" do
+  within ".finder-results .gem-c-document-list__item:nth-child(1)" do
     expect(page).to have_content("Big Beer Co / Salty Snacks Ltd merger inquiry")
     expect(page).to_not have_content("Bakery market investigation")
   end
@@ -565,12 +565,12 @@ When(/^I filter the results$/) do
 end
 
 Then(/^I see the most viewed articles first$/) do
-  within '.filtered-results .document:nth-child(1)' do
+  within '.finder-results .gem-c-document-list__item:nth-child(1)' do
     expect(page).to have_content('Press release from Hogwarts')
     expect(page).to have_content('25 December 2017')
   end
 
-  within '.filtered-results .document:nth-child(2)' do
+  within '.finder-results .gem-c-document-list__item:nth-child(2)' do
     expect(page).to have_content('16 November 2018')
   end
 
@@ -579,11 +579,11 @@ Then(/^I see the most viewed articles first$/) do
 end
 
 Then(/^I see services in alphabetical order$/) do
-  within '.filtered-results .document:nth-child(1)' do
+  within '.finder-results .gem-c-document-list__item:nth-child(1)' do
     expect(page).to have_content('Apply for your full broomstick licence')
   end
 
-  within '.filtered-results .document:nth-child(2)' do
+  within '.finder-results .gem-c-document-list__item:nth-child(2)' do
     expect(page).to have_content('Register a magical spell')
   end
 
@@ -757,14 +757,14 @@ end
 
 Then("I should see results in the default group") do
   within("#js-results .filtered-results__group") do
-    expect(page.all("li.document").size).to eq(9) # 9 results in fixture
+    expect(page.all(".gem-c-document-list__item").size).to eq(9) # 9 results in fixture
   end
 end
 
 Then("I should see results for scoped by the selected document type") do
   expect(page).to have_text('3 results')
   within("#js-results") do
-    expect(page.all("li.document").size).to eq(3) # 3 results in fixture
+    expect(page.all(".gem-c-document-list__item").size).to eq(3) # 3 results in fixture
     expect(page).to have_link('Restrictions on usage of spells within school grounds')
     expect(page).to have_link('New platform at Hogwarts for the express train')
     expect(page).to have_link('Installation of double glazing at Hogwarts')
@@ -789,14 +789,14 @@ end
 
 Then("I see results with top result") do
   within("#js-results") do
-    expect(page.all(".document--top").length).to eq(1)
+    expect(page.all(".gem-c-document-list__item--highlight").length).to eq(1)
   end
 end
 
 Then("I should see upcoming statistics") do
   expect(page).to have_text('1 result')
   within("#js-results") do
-    expect(page.all("li.document").size).to eq(1)
+    expect(page.all(".gem-c-document-list__item").size).to eq(1)
     expect(page).to have_link('Restrictions on usage of spells within school grounds')
     expect(page).to have_no_link('New platform at Hogwarts for the express train')
     expect(page).to have_no_link('Installation of double glazing at Hogwarts')
@@ -872,18 +872,18 @@ And(/^The top result has the correct tracking data$/) do
 end
 
 Then(/^I can see results filtered by that manual$/) do
-  expect(page).to have_css('.filtered-results .document', count: 1)
+  expect(page).to have_css('.finder-results .gem-c-document-list__item', count: 1)
 
-  within '.filtered-results .document:nth-child(1)' do
+  within '.finder-results .gem-c-document-list__item:nth-child(1)' do
     expect(page).to_not have_content('Restrictions on usage of spells within school grounds')
     expect(page).to have_content('Replacing bristles in your Nimbus 2000')
   end
 end
 
 Then(/^I see all content results$/) do
-  expect(page).to have_css('.filtered-results .document', count: 1)
+  expect(page).to have_css('.finder-results .gem-c-document-list__item', count: 1)
 
-  within '.filtered-results .document:nth-child(1)' do
+  within '.finder-results .gem-c-document-list__item:nth-child(1)' do
     expect(page).to have_content('Restrictions on usage of spells within school grounds')
     expect(page).to_not have_content('Replacing bristles in your Nimbus 2000')
   end
