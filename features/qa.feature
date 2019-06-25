@@ -12,8 +12,8 @@ Feature: QA
       Given I am answering a single answer question
       Then I should see a collection of radio buttons
       When I select a radio button
-      When I select another radio button
-      When I submit my answer
+      And I select another radio button
+      And I submit my answer
       Then my options are persisted as url params
 
     Scenario: Answering a single_wrapped option question
@@ -22,31 +22,31 @@ Feature: QA
       When I select a radio button
       Then I should see a collection of checkboxes
       When I select multiple checkboxes
-      When I submit my answer
+      And I submit my answer
       Then my options are persisted as url params
 
     Scenario: Answering a multiple_grouped option question
       Given I am answering a multiple_grouped answer question
       Then I should see a collection of checkboxes
       When I select multiple checkboxes
-      When I submit my answer
+      And I submit my answer
       Then my options are persisted as url params
 
     Scenario: Answering a multiple option question
       Given I am answering a multiple answer question
       Then I should see a collection of checkboxes
       When I select multiple checkboxes
-      When I submit my answer
+      And I submit my answer
       Then my options are persisted as url params
 
     Scenario: Answering multiple questions
       Given I am answering a single answer question
       Then I should see a collection of radio buttons
       When I select a radio button
-      When I submit my answer
+      And I submit my answer
       Then I should see a collection of checkboxes
       When I select multiple checkboxes
-      When I submit my answer
+      And I submit my answer
       Then my options are persisted as url params
 
     Scenario: Skipping a question
@@ -55,5 +55,5 @@ Feature: QA
 
     Scenario: Answering the final question
       Given I am answering the final question
-      When I submit my answer
+      And I submit my answer
       Then I am redirected to the finder results page
