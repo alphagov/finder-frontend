@@ -49,31 +49,30 @@
       <% end %>
     </div>
 
-      <% if finder.summary %>
-        <div class="govuk-grid-column-two-thirds">
-          <div class="metadata-summary ">
-            <%= render 'govuk_publishing_components/components/govspeak', content: finder.summary.html_safe %>
-          </div>
+    <% if finder.summary %>
+      <div class="govuk-grid-column-two-thirds">
+        <div class="metadata-summary ">
+          <%= render 'govuk_publishing_components/components/govspeak', content: finder.summary.html_safe %>
         </div>
-      <% end %>
+      </div>
+    <% end %>
 
-      <% if finder.logo_path %>
-        <div class="finder-logo govuk-grid-column-one-third">
-          <%= image_tag finder.logo_path, class: "finder-logo__image" %>
-        </div>
-      <% end %>
+    <% if finder.logo_path %>
+      <div class="finder-logo govuk-grid-column-one-third">
+        <%= image_tag finder.logo_path, class: "finder-logo__image" %>
+      </div>
+    <% end %>
 
-      <% if finder.related.any? %>
-        <div class="related-links govuk-grid-column-one-third">
-          <ul class="js-finder-results">
-            <% finder.related.each do |link| %>
-              <li class="related-links__item">
-                <%= link_to link['title'], link['web_url'], class: "related-links__link" %>
-              </li>
-            <% end %>
-          </ul>
-        </div>
-      <% end %>
-    </div>
+    <% if finder.related.any? %>
+      <div class="related-links govuk-grid-column-one-third">
+        <ul class="js-finder-results">
+          <% finder.related.each do |link| %>
+            <li class="related-links__item">
+              <%= link_to link['title'], link['web_url'], class: "related-links__link" %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
   </div>
 </div>

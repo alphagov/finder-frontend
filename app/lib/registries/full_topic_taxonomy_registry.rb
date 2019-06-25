@@ -11,10 +11,10 @@ module Registries
         value['content_id'] == id
       }
 
-      title = topic.second['title']
-      path = topic.first
+      title = topic.nil? ? nil : topic[1]['title']
+      path = topic.nil? ? nil : topic[0]
 
-      title.nil? ? nil : {path: path, title: title}
+      title.nil? ? nil : { path: path, title: title }
     end
 
     def taxonomy
