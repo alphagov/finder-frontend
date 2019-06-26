@@ -169,7 +169,7 @@ private
   end
 
   def i_am_a_topic_page_finder
-    @i_am_a_topic_page_finder ||= taxonomy_registry.taxonomy.key? parent
+    @i_am_a_topic_page_finder ||= taxonomy_registry.taxonomy.key? params[:topic]
   end
 
   def taxonomy_registry
