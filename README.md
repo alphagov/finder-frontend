@@ -56,6 +56,8 @@ Read more about [how links-based facets are handled](docs/finder-facets-links.md
 $ ./startup.sh
 ```
 
+You can optionally add the `--live` flag to use live search data.
+
 If you are using the GDS development virtual machine then the application will be available on the host at [http://finder-frontend.dev.gov.uk/](http://finder-frontend.dev.gov.uk/)
 
 ## Running the test suite
@@ -74,9 +76,11 @@ The default `rake` task runs all the tests:
 $ bundle exec rake
 ```
 
-The application has jasmine tests, which can be accessed at `/specs` when the application is running in development mode. These are also run when `rake`, above, is run.
+The application has Jasmine tests, which can be accessed at `/specs` when the application is running in development mode. These are also run when `rake`, above, is run.
 
-To run JavaScript tests separately: `bundle exec rake spec:javascript`
+To run the Jasmine tests separately: `bundle exec cucumber`
+
+To run the JavaScript Jasmine tests separately: `bundle exec rake spec:javascript`
 
 [govuk-content-schemas]: https://github.com/alphagov/govuk-content-schemas
 [content_schema_examples]: https://github.com/alphagov/finder-frontend/blob/master/lib/govuk_content_schema_examples.rb
