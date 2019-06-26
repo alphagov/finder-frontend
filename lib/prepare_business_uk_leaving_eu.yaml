@@ -132,9 +132,9 @@ pages:
   public_sector_procurement:
     show_in_qa: true
     question_type: "single_wrapped"
-    question: "Do you sell to the public sector?"
+    question: "Do you sell your products or services to the public sector?"
     description: |
-      <p>This includes if you sell products or services to organisations in central or local government, and some non-government organisations, such as hospitals or schools.</p>
+      <p>This includes non-government organisations, such as hospitals and schools, and central or local government organisations.</p>
   eu_uk_government_funding:
     show_in_qa: true
     question_type: "single_wrapped"
