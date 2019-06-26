@@ -327,6 +327,11 @@ Feature: Filtering documents
     And I should see a "Show more search options" link
 
   @javascript
+  Scenario: A Blue Banner should be displayed when navigating from a topic page
+    When I view the research and statistics finder with a topic param set
+    Then I should see a blue banner
+
+  @javascript
   Scenario: Facets should expand when clicking on the "Show more search options" link on all content
     When I view the all content finder
     And I should see a "Show more search options" link

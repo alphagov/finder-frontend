@@ -156,6 +156,23 @@ When(/^I view the research and statistics finder$/) do
   visit finder_path('search/research-and-statistics')
 end
 
+When(/^I view the research and statistics finder with a topic param set$/) do
+  topic_taxonomy_has_taxons([
+                              FactoryBot.build(
+                                :level_one_taxon_hash,
+                                content_id: "c58fdadd-7743-46d6-9629-90bb3ccc4ef0",
+                                title: "Education, training and skills"
+                              )
+                            ])
+  content_store_has_statistics_finder
+  stub_organisations_registry_request
+  stub_manuals_registry_request
+  stub_whitehall_api_world_location_request
+  stub_rummager_api_request_with_research_and_statistics_results
+  stub_rummager_api_request_with_filtered_research_and_statistics_results
+  visit finder_path('search/research-and-statistics', topic: 'c58fdadd-7743-46d6-9629-90bb3ccc4ef0')
+end
+
 When(/^I view the all content finder with a manual filter$/) do
   topic_taxonomy_has_taxons
   content_store_has_all_content_finder
@@ -251,6 +268,11 @@ end
 Then(/^I can see the government header$/) do
   visit finder_path('government/policies/benefits-reform')
   expect(page).to have_css('#proposition-menu')
+end
+
+Then(/^I should see a blue banner$/) do
+  expect(page).to have_css('.gem-c-inverse-header')
+  expect(page).to have_content('Education, training and skills')
 end
 
 Then(/^I can see documents which are marked as being in history mode$/) do
