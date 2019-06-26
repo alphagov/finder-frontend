@@ -40,13 +40,13 @@ RSpec.describe Registries::FullTopicTaxonomyRegistry do
     let(:first_level_content_id) { "3cf97f69-84de-41ae-bc7b-7e2cc238fa58" }
 
     it "can look up a child taxon by basepath" do
-      fetched_document = registry[child_base_path]
-      expect(fetched_document['content_id']).to eq(child_content_id)
+      fetched_document = registry[child_content_id]
+      expect(fetched_document['base_path']).to eq(child_base_path)
     end
 
     it "can look up a level one taxon by basepath" do
-      fetched_document = registry[first_level_base_path]
-      expect(fetched_document['content_id']).to eq(first_level_content_id)
+      fetched_document = registry[first_level_content_id]
+      expect(fetched_document['base_path']).to eq(first_level_base_path)
     end
   end
 

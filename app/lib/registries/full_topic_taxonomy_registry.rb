@@ -21,13 +21,13 @@ module Registries
     end
 
     def report_error
-      GovukStatsd.increment("#{NAMESPACE}.full_topic_taxonomy_api_errors")
+      GovukStatsd.increment("registries.full_topic_taxonomy_api_errors")
     end
 
     def format_taxon(taxon)
       {
         'title' => taxon['title'],
-        'content_id' => taxon['content_id']
+        'base_path' => taxon['base_path']
       }
     end
 
@@ -37,7 +37,7 @@ module Registries
 
     def flatten_taxonomy(taxons, output_hash)
       taxons.each do |taxon|
-        output_hash[taxon['base_path']] = format_taxon(taxon)
+        output_hash[taxon['content_id']] = format_taxon(taxon)
         unless taxon.dig('links', 'child_taxons').nil?
           flatten_taxonomy(taxon['links']['child_taxons'], output_hash)
         end
