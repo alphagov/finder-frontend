@@ -98,7 +98,7 @@ private
 
   def augment_facets_with_dynamic_values(content_item_hash)
     facets = content_item_hash['details']['facets']
-    return unless facets.present?
+    return if facets.blank?
 
     # for each facet in the content item
     # if it's in the registry, let's use that

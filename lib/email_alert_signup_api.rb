@@ -74,7 +74,7 @@ private
   end
 
   def tags
-    return filters_to_tags unless finder_format.present?
+    return filters_to_tags if finder_format.blank?
 
     filters_to_tags.merge(format: { any: [finder_format] })
   end

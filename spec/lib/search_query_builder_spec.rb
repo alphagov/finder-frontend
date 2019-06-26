@@ -177,7 +177,7 @@ describe SearchQueryBuilder do
 
       context 'with `and` combine_mode' do
         it 'adds a `filter_facet_values` filter with the content_id' do
-          expect(query["filter_any_facet_values"]).to eq(["yes-cont-id", "copyright-cont-id", "patents-cont-id"])
+          expect(query["filter_any_facet_values"]).to eq(%w[yes-cont-id copyright-cont-id patents-cont-id])
         end
       end
 
@@ -187,8 +187,8 @@ describe SearchQueryBuilder do
         end
 
         it 'sends the correct `filter_any_facet_values` to each query' do
-          expect(queries.first["filter_any_facet_values"]).to eq(["yes-cont-id"])
-          expect(queries.second["filter_any_facet_values"]).to eq(["copyright-cont-id", "patents-cont-id"])
+          expect(queries.first["filter_any_facet_values"]).to eq(%w[yes-cont-id])
+          expect(queries.second["filter_any_facet_values"]).to eq(%w[copyright-cont-id patents-cont-id])
         end
       end
     end

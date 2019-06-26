@@ -104,7 +104,7 @@ Then /^I should be on the business finder page/ do
 end
 
 Then /^the correct facets have been pre-selected/ do
-  ['aerospace', 'products-or-goods'].each do |value|
+  %w(aerospace products-or-goods).each do |value|
     expect(find("input[value=#{value}]", visible: false).checked?).to eq(true)
   end
 end

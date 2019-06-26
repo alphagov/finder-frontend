@@ -7,7 +7,7 @@ class FinderBreadcrumbsPresenter
   end
 
   def breadcrumbs
-    return nil unless organisation.present?
+    return nil if organisation.blank?
 
     crumbs = [{ title: "Home", url: "/" }]
     crumbs << { title: 'Organisations', url: '/government/organisations' }
