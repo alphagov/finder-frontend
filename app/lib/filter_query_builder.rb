@@ -1,4 +1,4 @@
-# Used by the SearchQueryBuilder to build the `filter` part of the Rummager
+# Used by by Search::QueryBuilder to build the `filter` part of the Rummager
 # search query. This will determine the documents that are returned from rummager.
 class FilterQueryBuilder
   def initialize(facets:, user_params:)

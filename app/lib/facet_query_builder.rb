@@ -1,4 +1,4 @@
-# Used by the SearchQueryBuilder to build the `facet` part of the Rummager
+# Used by Search::QueryBuilder to build the `facet` part of the Rummager
 # search query. This will determine the "facets" Rummager returns.
 #
 # For more on facetting, see the Rummager docs:

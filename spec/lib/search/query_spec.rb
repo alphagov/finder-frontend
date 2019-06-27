@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe FinderApi do
+describe Search::Query do
   def stub_search
     stub_request(:get, %r{#{Plek.find("search")}/search.json})
   end
