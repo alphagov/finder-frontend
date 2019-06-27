@@ -1,5 +1,4 @@
 require "spec_helper"
-# require "search/query_builder"
 
 describe Search::QueryBuilder do
   subject(:queries) do
