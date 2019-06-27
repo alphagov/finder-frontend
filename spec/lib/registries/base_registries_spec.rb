@@ -39,8 +39,7 @@ RSpec.describe Registries::BaseRegistries do
   describe "#refresh_cache" do
     before do
       clear_cache
-      stub_root_taxon(level_one_taxons)
-      full_topic_taxonomy_has_taxons(level_one_taxons)
+      topic_taxonomy_has_taxons(level_one_taxons)
       stub_people_registry_request
       stub_manuals_registry_request
       stub_organisations_registry_request

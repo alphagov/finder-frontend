@@ -61,6 +61,7 @@ Then /^my options are persisted as url params/ do
 end
 
 Given /^I am answering the final question/ do
+  stub_taxonomy_api_request
   stub_last_page_url
   page_number = facets.length
   visit "#{qa_path}?page=#{page_number}"
@@ -72,6 +73,7 @@ Then /^I am redirected to the finder results page/ do
 end
 
 When /^I visit the business finder Q&A/ do
+  stub_taxonomy_api_request
   content_store_has_business_finder_qa
   content_store_has_business_readiness_finder
   stub_rummager_api_request_with_filtered_business_readiness_results(

@@ -25,14 +25,8 @@ describe EmailAlertSubscriptionsController, type: :controller do
 
   before :each do
     topic_taxonomy_has_taxons([
-      {
-        content_id: content_id_one,
-        title: top_level_taxon_one_title
-      },
-      {
-        content_id: content_id_two,
-        title: top_level_taxon_two_title
-      }
+      FactoryBot.build(:level_one_taxon_hash, content_id: content_id_one, title: top_level_taxon_one_title),
+      FactoryBot.build(:level_one_taxon_hash, content_id: content_id_two, title: top_level_taxon_two_title),
     ])
 
     stub_people_registry_request

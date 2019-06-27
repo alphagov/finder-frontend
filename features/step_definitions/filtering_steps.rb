@@ -85,16 +85,7 @@ And("I see email and feed sign up links with filters applied with extra empty fi
 end
 
 When(/^I view a list of news and communications$/) do
-  topic_taxonomy_has_taxons([
-    {
-      content_id: "Taxon_1",
-      title: "Taxon_1"
-    },
-    {
-      content_id: "Taxon_2",
-      title: "Taxon_2"
-    }
-  ])
+  topic_taxonomy_has_taxons
   content_store_has_news_and_communications_finder
   stub_whitehall_api_world_location_request
   stub_people_registry_request
@@ -104,16 +95,7 @@ When(/^I view a list of news and communications$/) do
 end
 
 When(/^I view the news and communications finder$/) do
-  topic_taxonomy_has_taxons([
-    {
-      content_id: "Taxon_1",
-      title: "Taxon_1"
-    },
-    {
-      content_id: "Taxon_2",
-      title: "Taxon_2"
-    }
-  ])
+  topic_taxonomy_has_taxons
   content_store_has_news_and_communications_finder
   stub_whitehall_api_world_location_request
   stub_all_rummager_api_requests_with_news_and_communication_results
@@ -130,6 +112,7 @@ Given(/^I am in the variant B control group$/) do
 end
 
 When(/^I view the business readiness finder$/) do
+  stub_taxonomy_api_request
   content_store_has_business_readiness_finder
   content_store_has_business_readiness_email_signup
   stub_whitehall_api_world_location_request
@@ -152,16 +135,7 @@ When(/^I view the business readiness finder$/) do
 end
 
 When(/^I view the policy papers and consultations finder$/) do
-  topic_taxonomy_has_taxons([
-    {
-      content_id: "Taxon_1",
-      title: "Taxon_1"
-    },
-    {
-      content_id: "Taxon_2",
-      title: "Taxon_2"
-    }
-  ])
+  topic_taxonomy_has_taxons
   content_store_has_policy_and_engagement_finder
   stub_organisations_registry_request
   stub_whitehall_api_world_location_request
@@ -172,16 +146,7 @@ When(/^I view the policy papers and consultations finder$/) do
 end
 
 When(/^I view the research and statistics finder$/) do
-  topic_taxonomy_has_taxons([
-                                {
-                                    content_id: "Taxon_1",
-                                    title: "Taxon_1"
-                                },
-                                {
-                                    content_id: "Taxon_2",
-                                    title: "Taxon_2"
-                                }
-                            ])
+  topic_taxonomy_has_taxons
   content_store_has_statistics_finder
   stub_organisations_registry_request
   stub_manuals_registry_request
@@ -277,6 +242,7 @@ When(/^I visit a finder by keyword with q parameter$/) do
 end
 
 Given(/^a government finder exists$/) do
+  stub_taxonomy_api_request
   content_store_has_government_finder
   stub_rummager_api_request_with_government_results
   stub_organisations_registry_request
@@ -304,6 +270,7 @@ Then(/^I can see documents which have government metadata$/) do
 end
 
 Given(/^a collection of documents with bad metadata exist$/) do
+  stub_taxonomy_api_request
   content_store_has_mosw_reports_finder
   stub_rummager_api_request_with_bad_data
 end
@@ -324,11 +291,13 @@ Then(/^I can get a list of all documents with good metadata$/) do
 end
 
 Given(/^a finder tagged to the topic taxonomy$/) do
+  stub_taxonomy_api_request
   stub_content_store_with_a_taxon_tagged_finder
   stub_rummager_with_cma_cases
 end
 
 Given(/^a collection of documents that can be filtered by dates$/) do
+  stub_taxonomy_api_request
   stub_content_store_with_cma_cases_finder
   stub_rummager_with_cma_cases
 end
@@ -348,6 +317,7 @@ Then(/^I only see documents with matching dates$/) do
 end
 
 Given(/^a finder with a dynamic filter exists$/) do
+  stub_taxonomy_api_request
   content_store_has_mosw_reports_finder
   stub_rummager_api_request
 end
@@ -371,6 +341,7 @@ And(/^filters are not wrapped in a progressive disclosure element$/) do
 end
 
 Given(/^a finder with paginated results exists$/) do
+  stub_taxonomy_api_request
   content_store_has_government_finder_with_10_items
   stub_rummager_api_request_with_10_government_results
   stub_rummager_api_request_with_query_param_no_results('xxxxxxxxxxxxxxYYYYYYYYYYYxxxxxxxxxxxxxxx')
@@ -420,11 +391,13 @@ Then(/^I can see that Google can index the page$/) do
 end
 
 Given(/^a finder with description exists$/) do
+  stub_taxonomy_api_request
   stub_content_store_with_cma_cases_finder_with_description
   stub_rummager_with_cma_cases
 end
 
 Given(/^a finder with a no_index property exists$/) do
+  stub_taxonomy_api_request
   stub_content_store_with_cma_cases_finder_with_no_index
   stub_rummager_with_cma_cases
 end
@@ -445,6 +418,7 @@ When(/^I can see that the noindex tag is is present in the metadata$/) do
 end
 
 Given(/^an organisation finder exists$/) do
+  stub_taxonomy_api_request
   content_store_has_government_finder
   stub_rummager_api_request_with_government_results
   stub_organisations_registry_request
@@ -454,6 +428,7 @@ Given(/^an organisation finder exists$/) do
 end
 
 Given(/^an organisation finder exists but a bad breadcrumb path is given$/) do
+  stub_taxonomy_api_request
   content_store_has_government_finder
   stub_rummager_api_request_with_government_results
   stub_organisations_registry_request
@@ -509,6 +484,7 @@ Then(/^I can see Brexit taxonomy breadcrumbs$/) do
 end
 
 Given(/^a collection of documents exist that can be filtered by checkbox$/) do
+  stub_taxonomy_api_request
   stub_content_store_with_cma_cases_finder_for_supergroup_checkbox_filter
   stub_rummager_with_cma_cases_for_supergroups_checkbox
   visit_cma_cases_finder

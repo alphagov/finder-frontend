@@ -21,6 +21,9 @@ GovukAbTesting.configure do |config|
   config.acceptance_test_framework = :active_support
 end
 
+FactoryBot.definition_file_paths = %w{./spec/factories}
+FactoryBot.find_definitions
+
 RSpec.configure do |config|
   config.raise_errors_for_deprecations!
 

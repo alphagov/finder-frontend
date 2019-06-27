@@ -7,14 +7,10 @@ RSpec.describe Registries::TopicTaxonomyRegistry do
 
   let(:content_id_one) { SecureRandom.uuid }
   let(:content_id_two) { SecureRandom.uuid }
-  let(:top_level_taxon_one) { level_one_taxon(content_id: content_id_one, title: content_id_one) }
-  let(:top_level_taxon_two) { level_one_taxon(content_id: content_id_two, title: content_id_two) }
+  let(:top_level_taxon_one) { FactoryBot.build(:level_one_taxon_hash, content_id: content_id_one, title: content_id_one) }
+  let(:top_level_taxon_two) { FactoryBot.build(:level_one_taxon_hash, content_id: content_id_two, title: content_id_two) }
 
   before :each do
-    Rails.cache.clear
-  end
-
-  after :each do
     Rails.cache.clear
   end
 
@@ -23,22 +19,13 @@ RSpec.describe Registries::TopicTaxonomyRegistry do
       topic_taxonomy_api_is_unavailable
       expect(described_class.new[content_id_one]).to be_nil
       expect(described_class.new.taxonomy_tree).to eql({})
-      expect(Rails.cache.fetch(taxon_cache_key)).to be_nil
+      expect(Rails.cache.fetch(::Registries::TopicTaxonomyRegistry.new.cache_key)).to be_nil
     end
   end
 
   describe "when topic taxonomy api is available" do
     before :each do
-      topic_taxonomy_has_taxons([
-        {
-          content_id: content_id_one,
-          title: content_id_one
-        },
-        {
-          content_id: content_id_two,
-          title: content_id_two
-        }
-      ])
+      topic_taxonomy_has_taxons([top_level_taxon_one, top_level_taxon_two])
     end
 
     subject(:registry) { described_class.new }

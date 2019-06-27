@@ -4,22 +4,12 @@ require "helpers/taxonomy_spec_helper"
 describe TaxonFacet do
   include TaxonomySpecHelper
 
-  before do
+  before :each do
     Rails.cache.clear
     topic_taxonomy_has_taxons([
-      {
-        content_id: "allowed-value-1",
-        title: "allowed-value-1"
-      },
-      {
-        content_id: "allowed-value-2",
-        title: "allowed-value-2"
-      }
+      FactoryBot.build(:level_one_taxon_hash, content_id: 'allowed-value-1', title: 'allowed-value-1', number_of_children: 1),
+      FactoryBot.build(:level_one_taxon_hash, content_id: 'allowed-value-2', title: 'allowed-value-2', number_of_children: 1),
     ])
-  end
-
-  after do
-    Rails.cache.clear
   end
 
   let(:allowed_values) {

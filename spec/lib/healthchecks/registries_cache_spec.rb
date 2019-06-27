@@ -21,7 +21,7 @@ RSpec.describe Healthchecks::RegistriesCache do
   context "All Registries have cached data" do
     before do
       worldwide_api_has_locations %w(hogwarts privet-drive diagon-alley)
-      stub_root_taxon(topic_taxonomy_has_taxons)
+      topic_taxonomy_has_taxons
       stub_people_registry_request
       stub_manuals_registry_request
       stub_organisations_registry_request

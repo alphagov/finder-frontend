@@ -38,6 +38,7 @@ end
 
 group :test do
   gem 'cucumber-rails', '~> 1.7.0', require: false
+  gem 'factory_bot'
   gem 'govuk-content-schema-test-helpers', '~> 1.6'
   gem 'govuk_test'
   gem 'launchy', '~> 2.4.2'
