@@ -17,8 +17,8 @@
     <meta name="govuk:base_title" content="<%= yield :meta_title %> - GOV.UK">
   </head>
 
-  <body>
-    <div id="wrapper" class="govuk-width-container">
+  <body class="<%= yield :body_classes %>">
+    <div id="wrapper">
       <main id="content" role="main" class="finder-frontend-content">
         <div id="finder-frontend">
           <%= yield %>

@@ -20,11 +20,14 @@ RSpec.describe Registries::FullTopicTaxonomyRegistry do
   end
 
   describe "when topic taxonomy API is unavailable" do
+    let(:registry) { described_class.new }
+
     it "will return an (uncached) empty hash" do
       topic_taxonomy_api_is_unavailable
       expect(described_class.new[base_path]).to be_nil
       expect(described_class.new.taxonomy).to eql({})
       expect(Rails.cache.fetch(described_class.new.cache_key)).to be_nil
+      expect(registry["013fc5e0-280c-4f73-9598-47de68f13dcd"]).to be_nil
     end
   end
 
@@ -34,6 +37,7 @@ RSpec.describe Registries::FullTopicTaxonomyRegistry do
     end
 
     let(:registry) { described_class.new }
+    let(:taxon_title) { "Countryside stewardship" }
     let(:child_base_path) { "/environment/countryside-stewardship" }
     let(:first_level_base_path) { "/environment" }
     let(:child_content_id) { "013fc5e0-280c-4f73-9598-47de68f13dcd" }
