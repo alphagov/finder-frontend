@@ -86,8 +86,14 @@ private
     )
   end
 
+  def result_set_presenter_class
+    return GroupedResultSetPresenter if grouped_display?
+
+    ResultSetPresenter
+  end
+
   def finder
-    @finder ||= finder_presenter_class.new(
+    @finder ||= FinderPresenter.new(
       raw_finder,
       search_results,
       filter_params,
@@ -95,7 +101,7 @@ private
   end
 
   def initialise_finder_api(is_for_feed: false)
-    finder_api_class.new(
+    FinderApi.new(
       content_item.as_hash,
       filter_params,
       override_sort_for_feed: is_for_feed,
@@ -110,20 +116,6 @@ private
     parent_slug = params["parent"]
     org_info = organisation_registry[parent_slug] if parent_slug.present?
     FinderBreadcrumbsPresenter.new(org_info, content_item.as_hash)
-  end
-
-  def finder_presenter_class
-    FinderPresenter
-  end
-
-  def finder_api_class
-    FinderApi
-  end
-
-  def result_set_presenter_class
-    return GroupedResultSetPresenter if grouped_display?
-
-    ResultSetPresenter
   end
 
   def sort_presenter
