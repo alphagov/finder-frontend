@@ -32,6 +32,30 @@ class RedirectionController < ApplicationController
     end
   end
 
+  def advanced_search
+    conversion_hash =
+      {
+          'services' => 'services',
+          'guidance_and_regulation' => 'guidance-and-regulation',
+          'news_and_communications' => 'news-and-communications',
+          'research_and_statistics' => 'research-and-statistics',
+          'policy_and_engagement' => 'policy-papers-and-consultations',
+          'transparency' => 'transparency-and-freedom-of-information-releases'
+      }
+    group = conversion_hash[params['group']]
+    error_not_found && return if group.nil?
+
+    topic = params['topic']
+    url_params = if topic.present?
+                   registry = Services.registries.all['full_topic_taxonomy']
+                   content_id, = registry.taxonomy.find { |_, hash| hash["base_path"] == topic }
+                   { topic: content_id }
+                 else
+                   {}
+                 end
+    redirect_to(finder_path("search/#{group}", params: url_params))
+  end
+
 private
 
   def publications_base_path
