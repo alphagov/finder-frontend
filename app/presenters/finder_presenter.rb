@@ -134,7 +134,6 @@ class FinderPresenter
   def page_metadata
     metadata = {
       from: organisations,
-      inverse: true,
     }
 
     metadata.reject { |_, links| links.blank? }
@@ -185,14 +184,6 @@ class FinderPresenter
 
   def all_content_finder?
     self.content_item['content_id'] == 'dd395436-9b40-41f3-8157-740a453ac972'
-  end
-
-  def topic_finder?
-    values.include?('topic') && topic_finder_parent.present?
-  end
-
-  def topic_finder_parent
-    Services.registries.all['full_topic_taxonomy'][values['topic']]
   end
 
   # FIXME: This should be removed once we have a way to determine

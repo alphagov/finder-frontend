@@ -21,3 +21,8 @@
   max-width: 100%;
   width: auto;
 }
+
+.full-width #global-header-bar {
+  display: none;
+}
+// scss-lint:enable IdSelector
