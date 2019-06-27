@@ -112,7 +112,6 @@ RSpec.describe FinderPresenter do
       let(:content_item) { create_content_item("details" => { "alpha_message" => message }) }
       it "returns html_safe alpha message " do
         expect(subject.phase_message).to eql message
-        expect(subject.phase_message.html_safe?).to be true
       end
     end
 
@@ -120,7 +119,6 @@ RSpec.describe FinderPresenter do
       let(:content_item) { create_content_item("phase" => 'beta', "details" => { "beta_message" => message }) }
       it "returns html_safe beta message" do
         expect(subject.phase_message).to eql message
-        expect(subject.phase_message.html_safe?).to be true
       end
     end
   end

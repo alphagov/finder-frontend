@@ -44,7 +44,7 @@ RSpec.describe AtomPresenter do
       'word_connectors' => { words_connector: 'and' }
       },
         has_filters?: true,
-        value: ['brexit', 'harry-potter'],
+        value: %w[brexit harry-potter],
         hide_facet_tag?: false
     )
   end

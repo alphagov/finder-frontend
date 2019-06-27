@@ -28,9 +28,9 @@ RSpec.describe SubscriberListParamsPresenter do
 
     it "returns hash with values if they are dynamic attributes" do
       params = {
-        'organisations' => ["academy-for-social-justice-commissioning", "accelerated-access-review"],
-        'people' => ["sir-philip-jones", "mark-stanhope"],
-        'level_one_taxon' => ["c58fdadd-7743-46d6-9629-90bb3ccc4ef0"],
+        'organisations' => %w[academy-for-social-justice-commissioning accelerated-access-review],
+        'people' => %w[sir-philip-jones mark-stanhope],
+        'level_one_taxon' => %w[c58fdadd-7743-46d6-9629-90bb3ccc4ef0],
         'related_to_brexit' => 'true'
       }
 

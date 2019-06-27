@@ -43,15 +43,15 @@ RSpec.describe SearchParameters do
 
   context "#filter_organisations" do
     it "pass on filter_organisations" do
-      params = search_params("filter_organisations" => ['ministry-of-silly-walks'])
+      params = search_params("filter_organisations" => %w[ministry-of-silly-walks])
 
-      expect(params.rummager_parameters[:filter_organisations]).to eq(['ministry-of-silly-walks'])
+      expect(params.rummager_parameters[:filter_organisations]).to eq(%w[ministry-of-silly-walks])
     end
 
     it "pass on filter_organisations as an array if provided as single value" do
       params = search_params("filter_organisations" => 'ministry-of-silly-walks')
 
-      expect(params.rummager_parameters[:filter_organisations]).to eq(['ministry-of-silly-walks'])
+      expect(params.rummager_parameters[:filter_organisations]).to eq(%w[ministry-of-silly-walks])
     end
   end
 

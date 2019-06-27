@@ -6,7 +6,7 @@ module Filters
           'key' => 'upcoming_statistics',
           'label' => 'Statistics (upcoming)',
           'filter' => {
-            'release_timestamp' => "from:#{Date.today.iso8601}",
+            'release_timestamp' => "from:#{Time.zone.today}",
             'format' => %w(statistics_announcement)
           }
         },

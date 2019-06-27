@@ -45,6 +45,6 @@ protected
       order: 'relevance'
     }.compact
 
-    redirect_to(finder_path('search/all', params: all_content_params), status: 301)
+    redirect_to(finder_path('search/all', params: all_content_params), status: :moved_permanently)
   end
 end

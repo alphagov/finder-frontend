@@ -17,9 +17,9 @@ describe UrlBuilder do
             from: 2005,
             to: 2015,
           },
-          organisations: [
-            'ministry-of-magic',
-            'hogwarts',
+          organisations: %w[
+            ministry-of-magic
+            hogwarts
           ]
         }
       }

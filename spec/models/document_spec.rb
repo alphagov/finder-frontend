@@ -94,14 +94,14 @@ describe Document do
         {
           title: 'the title',
           link: '/the/link',
-          tag_values: ['some-value', 'another-value']
+          tag_values: %w[some-value another-value]
         }
       end
 
       it 'returns the metadata from the result hash' do
         expect(subject.metadata).to include(
           id: :tag_values,
-          labels: ["some-value", "another-value"],
+          labels: %w[some-value another-value],
           name: "Tag values",
           type: "text",
           value: "some-value and 1 others"
@@ -114,10 +114,10 @@ describe Document do
         {
           title: 'the title',
           link: '/the/link',
-          facet_values: [
-            'afda44ba-bcb9-42de-87de-6207a8912cbc',
-            'daff3e98-ac54-44c1-aadb-9efe276dd74b',
-            '3dfb99d0-3753-483a-842c-2b724474f349'
+          facet_values: %w[
+            afda44ba-bcb9-42de-87de-6207a8912cbc
+            daff3e98-ac54-44c1-aadb-9efe276dd74b
+            3dfb99d0-3753-483a-842c-2b724474f349
           ]
 
         }
@@ -154,7 +154,7 @@ describe Document do
       it 'returns the mapped metadata for `Link values`' do
         expect(subject.metadata[0]).to eq(
           id: :link_values,
-          labels: ['link-val-1', 'link-val-2'],
+          labels: %w[link-val-1 link-val-2],
           name: 'Link values',
           type: 'content_id',
           value: 'link-val-1 and 1 others'
@@ -164,7 +164,7 @@ describe Document do
       it 'returns the mapped metadata for `Other link values`' do
         expect(subject.metadata[1]).to eq(
           id: :other_link_values,
-          labels: ['other-value-1'],
+          labels: %w[other-value-1],
           name: 'Other link values',
           type: 'content_id',
           value: 'other-value-1'

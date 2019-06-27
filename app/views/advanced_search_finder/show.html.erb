@@ -5,7 +5,7 @@
 <% end %>
 
 <% if finder.show_phase_banner? %>
-  <%= render 'govuk_publishing_components/components/phase_banner', phase: finder.phase, message: finder.phase_message%>
+  <%= render 'govuk_publishing_components/components/phase_banner', phase: finder.phase, message: sanitize(finder.phase_message) %>
 <% end %>
 
 <%= render "govuk_publishing_components/components/inverse_header", { full_width: true } do %>
