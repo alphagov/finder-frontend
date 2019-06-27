@@ -222,6 +222,24 @@
         ]
       },
       {
+        "key":"report_with_custom_labels",
+        "name":"Reports with custom labels",
+        "type":"text",
+        "preposition":"reports",
+        "display_as_result_metadata":true,
+        "filterable":true,
+        "allowed_values":[
+          {
+            "label":"Report A",
+            "value":"report_a"
+          },
+          {
+            "label":"Report B",
+            "value":"report_b"
+          }
+        ]
+      },
+      {
         "key":"date_of_occurrence",
         "name":"Date of occurrence",
         "short_name":"Occurred",

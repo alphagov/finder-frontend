@@ -31,6 +31,13 @@ module QAHelper
     selected_questions.values.first['question']
   end
 
+  def get_question_with_custom_options
+    selected_questions = mock_qa_config["pages"].select do |_key, value|
+      value["question_type"] == "single" && value["custom_options"].present?
+    end
+    selected_questions.values.first['question']
+  end
+
   def get_page_number(question)
     mock_qa_config["pages"].each_with_index do |(_key, value), index|
       return index + 1 if value["question"] == question

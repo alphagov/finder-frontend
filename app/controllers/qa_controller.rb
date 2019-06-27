@@ -64,13 +64,16 @@ private
   def current_facet
     current_facet = facets[page - 1]
     current_facet_config = qa_config["pages"][current_facet["key"]]
-    {
+    config = {
       "question" => current_facet_config["question"],
       "description" => current_facet_config["description"],
       "hint_title" => current_facet_config["hint_title"],
       "hint_text" => current_facet_config["hint_text"],
       "facet" => current_facet
     }
+    config.merge!("custom_options" => current_facet_config["custom_options"]) if current_facet_config["custom_options"].present?
+
+    config
   end
   helper_method :current_facet
 
@@ -93,7 +96,16 @@ private
     @facet_grouped_allowed_values ||= current_facet["facet"]["allowed_values"].group_by { |filter| filter["value"] }
   end
 
+  def custom_options?
+    question_type == "single" && current_facet['custom_options'].present?
+  end
+
   def options
+    if custom_options?
+      return current_facet["custom_options"].map do |option|
+        { label: option["label"], text: option["label"], value: option["value"] }
+      end
+    end
     allowed_values = current_facet["facet"]["allowed_values"]
     allowed_values.map do |option|
       { label: option["label"], text: option["label"], value: option["value"] }
