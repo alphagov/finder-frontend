@@ -192,8 +192,7 @@ class FinderPresenter
   end
 
   def topic_finder_parent
-    registry = Services.registries.all['full_topic_taxonomy']
-    registry.find_parent_by_id values['topic']
+    Services.registries.all['full_topic_taxonomy'][values['topic']]
   end
 
   # FIXME: This should be removed once we have a way to determine

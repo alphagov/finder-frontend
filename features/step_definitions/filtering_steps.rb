@@ -273,6 +273,7 @@ end
 Then(/^I should see a blue banner$/) do
   expect(page).to have_css('.gem-c-inverse-header')
   expect(page).to have_content('Education, training and skills')
+  expect(page).to_not have_css('.app-taxonomy-select')
 end
 
 Then(/^I can see documents which are marked as being in history mode$/) do

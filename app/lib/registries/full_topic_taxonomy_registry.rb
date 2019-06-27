@@ -6,17 +6,6 @@ module Registries
       taxonomy[base_path]
     end
 
-    def find_parent_by_id id
-      topic = taxonomy.find { |_, value|
-        value['content_id'] == id
-      }
-
-      title = topic.nil? ? nil : topic[1]['title']
-      path = topic.nil? ? nil : topic[0]
-
-      title.nil? ? nil : { path: path, title: title }
-    end
-
     def taxonomy
       @taxonomy ||= fetch_from_cache
     end
