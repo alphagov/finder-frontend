@@ -4,7 +4,7 @@
   <% end %>
 
   <% if @breadcrumbs.breadcrumbs %>
-    <%= render 'govuk_publishing_components/components/breadcrumbs', breadcrumbs: @breadcrumbs.breadcrumbs %>
+    <%= render 'govuk_publishing_components/components/breadcrumbs', breadcrumbs: @breadcrumbs.breadcrumbs, inverse: inverse %>
   <% else %>
     <%= render 'govuk_publishing_components/components/contextual_breadcrumbs', content_item: @raw_content_item, prioritise_taxon_breadcrumbs: finder.eu_exit_finder?, inverse: inverse %>
   <% end %>
