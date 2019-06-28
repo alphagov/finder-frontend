@@ -10,6 +10,10 @@ Given(/^no results$/) do
   stub_taxonomy_api_request
 end
 
+Given /^the business finder QA exists/ do
+  stub_business_finder_qa_config
+end
+
 When(/^I view the finder with no keywords and no facets$/) do
   visit finder_path('mosw-reports')
 end

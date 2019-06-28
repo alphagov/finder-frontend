@@ -80,7 +80,7 @@ When /^I visit the business finder Q&A/ do
     "filter_any_facet_values[0]" => "24fd50fa-6619-46ca-96cd-8ce90fa076ce",
     "filter_any_facet_values[1]" => "a55f04df-3877-4c73-bbfe-ad7339cdfccf"
   )
-  qa_url = mock_bus_finder_qa_config['base_path']
+  qa_url = business_readiness_qa_config['base_path']
   visit qa_url
 end
 

@@ -243,10 +243,11 @@ Feature: Filtering documents
     Then I see Relevance order selected
 
   Scenario: Arrive at the business finder through Q&A
+    Given the business finder QA exists
     When I visit the business finder Q&A
     And I select choice "Aerospace"
     And I submit my answer
-    And I choose 'Yes' and select choice "Sell products or goods in the UK"
+    And I select choice "Sell goods or provide services in the UK"
     And I submit my answer
     And I skip the rest of the questions
     Then I should be on the business finder page

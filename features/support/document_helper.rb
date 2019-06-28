@@ -1,10 +1,12 @@
 require_relative '../../lib/govuk_content_schema_examples'
 require_relative "../../spec/helpers/taxonomy_spec_helper"
 require_relative "../../spec/helpers/registry_spec_helper"
+require_relative '../../spec/support/fixtures_helper'
 require 'gds_api/test_helpers/email_alert_api'
 require 'gds_api/test_helpers/content_store'
 
 module DocumentHelper
+  include FixturesHelper
   include GovukContentSchemaExamples
   include TaxonomySpecHelper
   include RegistrySpecHelper
@@ -12,6 +14,10 @@ module DocumentHelper
   include GdsApi::TestHelpers::ContentStore
 
   SEARCH_ENDPOINT = "#{Plek.current.find('search')}/search.json".freeze
+
+  def stub_business_finder_qa_config
+    allow_any_instance_of(QaController).to receive(:qa_config).and_return(business_readiness_qa_config)
+  end
 
   def stub_taxonomy_api_request
     content_store_has_item("/", "links" => { "level_one_taxons" => [] })
@@ -262,7 +268,7 @@ module DocumentHelper
   end
 
   def content_store_has_business_finder_qa
-    content_store_has_item(mock_bus_finder_qa_config['base_path'], mock_bus_finder_qa_config)
+    content_store_has_item(business_readiness_qa_config['base_path'], business_readiness_qa_config)
   end
 
   def content_store_has_business_readiness_finder

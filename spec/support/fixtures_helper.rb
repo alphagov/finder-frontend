@@ -38,4 +38,8 @@ module FixturesHelper
   def business_readiness_signup_content_item
     JSON.parse(File.read(fixtures_path + "/business_readiness_email_signup.json"))
   end
+
+  def business_readiness_qa_config
+    YAML.load_file(fixtures_path + "/prepare_business_uk_leaving_eu.yaml")
+  end
 end

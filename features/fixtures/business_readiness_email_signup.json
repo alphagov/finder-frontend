@@ -461,36 +461,36 @@
           {
             "key": "products-or-goods",
             "content_id": "a55f04df-3877-4c73-bbfe-ad7339cdfccf",
-            "radio_button_name": "Sell products or goods in the UK",
-            "topic_name": "Sell products or goods in the UK",
+            "radio_button_name": "Sell goods or provide services in the UK ",
+            "topic_name": "Sell goods or provide services in the UK ",
             "prechecked": false
           },
           {
             "key": "buying",
             "content_id": "d422aa2e-59ad-4986-8ef0-973959878912",
-            "radio_button_name": "Buy products or goods from abroad",
-            "topic_name": "Buy products or goods from abroad",
+            "radio_button_name": "Import from the EU",
+            "topic_name": "Import from the EU",
             "prechecked": false
           },
           {
             "key": "selling",
             "content_id": "7283b8e1-840f-49da-967f-c0a512a3f531",
-            "radio_button_name": "Sell products or goods abroad",
-            "topic_name": "Sell products or goods abroad",
+            "radio_button_name": "Export to the EU",
+            "topic_name": "Export to the EU",
             "prechecked": false
           },
           {
             "key": "other-eu",
             "content_id": "7ae8e57c-ea7a-42de-84fc-a084b5f64bca",
-            "radio_button_name": "Do other types of business in the EU",
-            "topic_name": "Do other types of business in the EU",
+            "radio_button_name": "Provide services or do business in the EU",
+            "topic_name": "Provide services or do business in the EU",
             "prechecked": false
           },
           {
             "key": "transporting",
             "content_id": "07398027-ee4d-4bda-b53e-2dc655734049",
-            "radio_button_name": "Transport goods abroad",
-            "topic_name": "Transport goods abroad",
+            "radio_button_name": "Haulage of goods across EU borders",
+            "topic_name": "Haulage of goods across EU borders",
             "prechecked": false
           }
         ]
