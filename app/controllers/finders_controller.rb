@@ -14,7 +14,7 @@ class FindersController < ApplicationController
   def show
     respond_to do |format|
       format.html do
-        @finder_api = initialise_finder_api
+        @search_query = initialize_search_query
         @results = results
         @raw_content_item = content_item.as_hash
         @breadcrumbs = fetch_breadcrumbs
@@ -23,7 +23,7 @@ class FindersController < ApplicationController
         @pagination = pagination_presenter
       end
       format.json do
-        @finder_api = initialise_finder_api
+        @search_query = initialize_search_query
         if content_item.is_search? || content_item.is_finder?
           render json: json_response
         else
@@ -31,7 +31,7 @@ class FindersController < ApplicationController
         end
       end
       format.atom do
-        @finder_api = initialise_finder_api(is_for_feed: true)
+        @search_query = initialize_search_query(is_for_feed: true)
         if content_item.is_redirect?
           redirect_to_destination
         else
@@ -47,7 +47,7 @@ class FindersController < ApplicationController
 
 private
 
-  attr_accessor :finder_api
+  attr_accessor :search_query
 
   helper_method :finder, :facet_tags, :i_am_a_topic_page_finder
 
@@ -86,16 +86,22 @@ private
     )
   end
 
+  def result_set_presenter_class
+    return GroupedResultSetPresenter if grouped_display?
+
+    ResultSetPresenter
+  end
+
   def finder
-    @finder ||= finder_presenter_class.new(
+    @finder ||= FinderPresenter.new(
       raw_finder,
       search_results,
       filter_params,
     )
   end
 
-  def initialise_finder_api(is_for_feed: false)
-    finder_api_class.new(
+  def initialize_search_query(is_for_feed: false)
+    Search::Query.new(
       content_item.as_hash,
       filter_params,
       override_sort_for_feed: is_for_feed,
@@ -103,27 +109,13 @@ private
   end
 
   def raw_finder
-    @raw_finder ||= finder_api.content_item_with_search_results
+    @raw_finder ||= search_query.content_item_with_search_results
   end
 
   def fetch_breadcrumbs
     parent_slug = params["parent"]
     org_info = organisation_registry[parent_slug] if parent_slug.present?
     FinderBreadcrumbsPresenter.new(org_info, content_item.as_hash)
-  end
-
-  def finder_presenter_class
-    FinderPresenter
-  end
-
-  def finder_api_class
-    FinderApi
-  end
-
-  def result_set_presenter_class
-    return GroupedResultSetPresenter if grouped_display?
-
-    ResultSetPresenter
   end
 
   def sort_presenter
@@ -140,7 +132,7 @@ private
   end
 
   def search_results
-    finder_api.search_results
+    search_query.search_results
   end
 
   def finder_url_builder

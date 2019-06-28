@@ -1,9 +1,8 @@
 require "spec_helper"
-require "search_query_builder"
 
-describe SearchQueryBuilder do
+describe Search::QueryBuilder do
   subject(:queries) do
-    SearchQueryBuilder.new(
+    described_class.new(
       finder_content_item: finder_content_item,
       params: params,
     ).call
@@ -235,7 +234,7 @@ describe SearchQueryBuilder do
       }
 
       it "should include a truncated" do
-        expect(query).to include("q" => "a" * SearchQueryBuilder::MAX_QUERY_LENGTH)
+        expect(query).to include("q" => "a" * described_class::MAX_QUERY_LENGTH)
       end
     end
 
@@ -270,7 +269,7 @@ describe SearchQueryBuilder do
           "keywords" => "a mango"
         }
 
-        query = SearchQueryBuilder.new(
+        query = described_class.new(
           finder_content_item: finder_content_item,
           params: params
         ).call.first
@@ -284,7 +283,7 @@ describe SearchQueryBuilder do
           "keywords" => "a, isn't a mango is it?"
         }
 
-        query = SearchQueryBuilder.new(
+        query = described_class.new(
           finder_content_item: finder_content_item,
           params: params
         ).call.first
@@ -298,7 +297,7 @@ describe SearchQueryBuilder do
           "keywords" => "A mango"
         }
 
-        query = SearchQueryBuilder.new(
+        query = described_class.new(
           finder_content_item: finder_content_item,
           params: params
         ).call.first
@@ -312,7 +311,7 @@ describe SearchQueryBuilder do
           "keywords" => "50"
         }
 
-        query = SearchQueryBuilder.new(
+        query = described_class.new(
           finder_content_item: finder_content_item,
           params: params
         ).call.first
@@ -380,7 +379,7 @@ describe SearchQueryBuilder do
     end
 
     def query_with_params(params)
-      SearchQueryBuilder.new(
+      described_class.new(
         finder_content_item: finder_content_item,
         params: params
       ).call.first
