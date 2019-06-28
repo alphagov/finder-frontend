@@ -1,6 +1,6 @@
 <div class="govuk-width-container">
   <% if finder.show_phase_banner? %>
-    <%= render 'govuk_publishing_components/components/phase_banner', phase: finder.phase, message: finder.phase_message, inverse: inverse %>
+    <%= render 'govuk_publishing_components/components/phase_banner', phase: finder.phase, message: sanitize(finder.phase_message), inverse: inverse %>
   <% end %>
 
   <% if @breadcrumbs.breadcrumbs %>
