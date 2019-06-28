@@ -57,15 +57,18 @@ RSpec.describe ScreenReaderFilterDescriptionPresenter do
       allowed_values: [
           {
               'value' => 'statistics_published',
+              'key' => 'statistics_published',
               'label' => 'Statistics (published)',
               'default' => true
           },
           {
               'value' => 'statistics_upcoming',
+              'key' => 'statistics_upcoming',
               'label' => 'Statistics (upcoming)'
           },
           {
               'value' => 'research',
+              'key' => 'research',
               'label' => 'Research'
           },
       ],

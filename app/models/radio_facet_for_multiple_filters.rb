@@ -1,4 +1,5 @@
 class RadioFacetForMultipleFilters < FilterableFacet
+  attr_reader :value
   def initialize(facet, value, filter_hashes)
     @filter_hashes = filter_hashes
     @value = validated_value(value, @filter_hashes)
@@ -29,6 +30,10 @@ class RadioFacetForMultipleFilters < FilterableFacet
 
   def to_partial_path
     "radio_facet"
+  end
+
+  def allowed_values
+    @filter_hashes
   end
 
 private

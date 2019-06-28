@@ -42,7 +42,7 @@
       </div>
 
       <div class="govuk-grid-column-two-thirds js-live-search-results-block filtered-results" role="region" aria-label="<%= finder_presenter.name %> search results">
-        <div aria-live="assertive" id="js-search-results-info" data-module="remove-filter" class="result-info">
+        <div id="js-search-results-info" data-module="remove-filter" class="result-info">
           <div class="govuk-grid-row">
             <div class="govuk-grid-column-one-third">
               <h2 class="result-region-header__counter" id="js-result-count">
@@ -55,7 +55,7 @@
               </div>
             <% end %>
           </div>
-          <div id="js-facet-tag-wrapper">
+          <div id="js-facet-tag-wrapper" aria-live="assertive">
             <%= render "facet_tags", facet_tags.present %>
           </div>
         </div>

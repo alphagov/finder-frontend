@@ -4,6 +4,7 @@ module Filters
       [
         {
           'key' => 'upcoming_statistics',
+          'value' => 'upcoming_statistics',
           'label' => 'Statistics (upcoming)',
           'filter' => {
             'release_timestamp' => "from:#{Time.zone.today}",
@@ -12,6 +13,7 @@ module Filters
         },
         {
           'key' => 'published_statistics',
+          'value' => 'published_statistics',
           'label' => 'Statistics (published)',
           'filter' => {
             'content_store_document_type' => %w(statistics national_statistics statistical_data_set official_statistics)
@@ -20,6 +22,7 @@ module Filters
         },
         {
           'key' => 'research',
+          'value' => 'research',
           'label' => 'Research',
           'filter' => {
             'content_store_document_type' => %w(dfid_research_output independent_report research)
@@ -34,6 +37,7 @@ module Filters
       [
         {
           'key' => 'command_or_act_papers',
+          'value' => 'command_or_act_papers',
           'label' => 'Command or act papers',
           'filter' => {
             'has_official_document' => true
@@ -42,6 +46,7 @@ module Filters
         },
         {
           'key' => 'command_papers',
+          'value' => 'command_papers',
           'label' => 'Command papers only',
           'filter' => {
             'has_command_paper' => true,
@@ -50,6 +55,7 @@ module Filters
         },
         {
           'key' => 'act_papers',
+          'value' => 'act_papers',
           'label' => 'Act papers only',
           'filter' => {
             'has_act_paper' => true,
