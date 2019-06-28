@@ -114,7 +114,12 @@ pages:
     question_type: "single"
     question: "Do you employ anyone from another European country?"
     description: |
-      <p>This includes <a href="/eu-eea">countries that are in the EU</a> and Norway, Switzerland, Iceland and Liechtenstein.</p>
+      <p>This includes <a href="/eu-eea">countries in the EU</a> and Norway, Switzerland, Iceland and Liechtenstein.</p>
+    custom_options:
+      - label: "Yes"
+        value: "yes"
+      - label: "No"
+        value: "no"
   personal_data:
     show_in_qa: true
     question_type: "single_wrapped"

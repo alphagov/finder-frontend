@@ -16,6 +16,14 @@ Feature: QA
       And I submit my answer
       Then my options are persisted as url params
 
+    Scenario: Answering a single option question with custom options
+      Given I am on a single answer question with custom options
+      Then I should see a collection of radio buttons
+      When I select a radio button
+      And I select another radio button
+      And I submit my answer
+      Then my options are persisted as url params
+
     Scenario: Answering a single_wrapped option question
       Given I am answering a single_wrapped answer question
       Then I should see a collection of radio buttons

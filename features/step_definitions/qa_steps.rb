@@ -12,6 +12,13 @@ Then /^I should see the first question/ do
   expect(page).to have_content(first_question)
 end
 
+Given /^I am on a single answer question with custom options/ do
+  question = get_question_with_custom_options
+  page_number = get_page_number(question)
+  visit "#{qa_path}?page=#{page_number}"
+  expect(page).to have_content(question)
+end
+
 Given /^I am answering a (.*?) answer question/ do |type|
   question = get_question_by_type(type)
   page_number = get_page_number(question)
