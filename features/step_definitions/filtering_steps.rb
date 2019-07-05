@@ -99,7 +99,7 @@ When(/^I view a list of news and communications$/) do
 end
 
 When(/^I view the news and communications finder$/) do
-  topic_taxonomy_has_taxons
+  stub_taxonomy_api_request
   content_store_has_news_and_communications_finder
   stub_whitehall_api_world_location_request
   stub_all_rummager_api_requests_with_news_and_communication_results
