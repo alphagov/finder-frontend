@@ -14,68 +14,77 @@ class GroupedResultSetPresenter < ResultSetPresenter
   def grouped_documents
     return [] unless grouped_display?
 
-    # TODO: These could live in a finder definition to make this finder-agnostic grouping.
-    default_group_name = "all_businesses"
-    default_group = empty_facet_group(default_group_name, "All businesses")
+    documents_with_metadata = documents.select { |document| document[:document][:metadata].present? }
+    sorted_documents = sort_by_alphabetical(documents_with_metadata)
 
-    primary_group = {}
-    secondary_group = {}
+    # Without facet filtering return all documents without grouping
+    return [{ documents: sorted_documents }] if facet_filters.values.empty?
 
-    documents.select! { |d| d[:document][:metadata].present? }
-    sorted_documents = sort_by_alphabetical(documents)
-
-    # With no facet filtering add all documents to default group
-    if facet_filters.values.empty?
-      default_group.delete(:facet_name) # Remove heading when no other groups exist.
-      default_group[:documents] = sorted_documents
-    else
-      sorted_documents.each do |item|
-        document_metadata = item[:document][:metadata]
-        # If the document is tagged to all primary facet values, and we are filtering
-        # by the primary facet, then add the document to default group to prevent
-        # duplication in every primary facet value grouping.
-        if filtered_by_primary_facet? && tagged_to_all?(primary_facet_key, document_metadata)
-          default_group[:documents] << item
-        else
-          document_metadata.each do |metadata|
-            key = metadata[:id]
-            next unless key && facet_filters.has_key?(key.to_sym)
-
-            if primary_facet_key == key
-              # Group by value for the primary facet
-              (metadata[:labels] & facet_filters[primary_facet_key.to_sym]).each do |value|
-                populate_group(primary_group, value, facet_label_for(value), item)
-              end
-            else
-              # Group by facet name otherwise
-              populate_group(secondary_group, key, metadata[:label], item)
-            end
-          end
-        end
-      end
+    # If the document is tagged to all primary facet values, and we are filtering
+    # by the primary facet, then add the document to default group to prevent
+    # duplication in every primary facet value grouping.
+    default_documents, other_documents = sorted_documents.partition do |document|
+      selected_values_in_primary_facet.present? && tagged_to_all?(primary_facet_key, document)
     end
 
-    groups = [compact_and_sort(primary_group), compact_and_sort(secondary_group, true)].flatten
-    groups << default_group unless default_group[:documents].empty?
-    groups
+    default_group = [{ group_name: "All businesses", documents: default_documents }]
+
+    unsorted_primary_group = selected_values_in_primary_facet.map do |selected_value|
+      documents = documents_tagged_to_primary_facet_value(other_documents, selected_value)
+      {
+        group_name: label_for_facet_value(selected_value),
+        documents: documents
+      }
+    end
+
+    primary_group = unsorted_primary_group.sort_by { |group| group[:group_name] }
+
+    secondary_group = secondary_facets.map do |secondary_facet|
+      documents = documents_tagged_to_secondary_facet(other_documents, secondary_facet.key)
+      {
+        group_name: label_from_metadata(documents.first, secondary_facet.key),
+        documents: documents
+      }
+    end
+
+    results = primary_group + secondary_group + default_group
+    results.reject { |result| result[:documents].empty? }
   end
 
 private
+
+  def label_from_metadata(document, key)
+    return if document.nil?
+
+    metadata = document[:document][:metadata].find { |m| m[:id] == key }
+    metadata[:label]
+  end
+
+  def documents_tagged_to_primary_facet_value(documents, selected_value)
+    documents.select do |document|
+      document[:document][:metadata].any? do |metadata|
+        metadata[:id] == primary_facet_key &&
+          metadata[:labels].include?(selected_value)
+      end
+    end
+  end
+
+  def documents_tagged_to_secondary_facet(documents, secondary_group_name)
+    documents.select do |document|
+      document[:document][:metadata].any? { |metadata| metadata[:id] == secondary_group_name }
+    end
+  end
 
   def primary_facet_key
     finder.facets.first.key
   end
 
-  def filtered_by_primary_facet?
-    facet_filters.key?(primary_facet_key.to_sym)
+  def selected_values_in_primary_facet
+    facet_filters[primary_facet_key.to_sym] || []
   end
 
-  def populate_group(groups, key, label, item)
-    groups[key] = empty_facet_group(key, label) unless groups[key]
-    groups[key][:documents] << item
-  end
-
-  def tagged_to_all?(facet_key, metadata)
+  def tagged_to_all?(facet_key, document)
+    metadata = document.dig(:document, :metadata)
     return false unless metadata
 
     facet = finder.facets.find { |f| f.key == facet_key }
@@ -86,36 +95,18 @@ private
     values & facet_metadata[:labels] == values
   end
 
-  def empty_facet_group(key, name)
-    { facet_key: key, facet_name: name, documents: [] }
-  end
-
-  def facet_label_for(key)
-    allowed_values = finder.facets.map(&:allowed_values).flatten
-    facet = allowed_values.find { |v| v["value"] == key }
-    facet["label"] if facet
+  def label_for_facet_value(key)
+    allowed_values = finder.facets.flat_map(&:allowed_values)
+    allowed_value = allowed_values.find(-> { {} }) { |v| v["value"] == key }
+    allowed_value.fetch("label", '')
   end
 
   def sort_by_alphabetical(search_results)
     search_results.sort_by { |r| r[:document][:title] }
   end
 
-  def compact_and_sort(group, order_by_facet = false)
-    group = group.reject { |_, v| v[:documents].empty? }
-
-    if order_by_facet
-      sort_by_facet(group)
-    else
-      group.values.sort_by { |g| g[:facet_name] }
-    end
-  end
-
-  def sort_by_facet(group)
-    results_with_nils = @finder.filters.map do |filter|
-      group[filter.key]
-    end
-
-    results_with_nils.compact
+  def secondary_facets
+    finder.facets.filters[1..-1].select { |f| facet_filters.keys.include?(f.key.to_sym) }
   end
 
   def facet_filters

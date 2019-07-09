@@ -122,13 +122,7 @@ RSpec.describe GroupedResultSetPresenter do
 
   let(:facet_filters) { [sector_facet, activity_facet, a_facet] }
   let(:a_facet_collection) do
-    double(
-      FacetCollection,
-      filters: facet_filters,
-      first: facet_filters.first,
-      find: nil,
-      map: facet_filters.map { |f| [f.allowed_values] },
-    )
+    facet_filters.tap { |f| allow(f).to receive(:filters).and_return(facet_filters) }
   end
 
   let(:sector_facet) do
@@ -219,13 +213,12 @@ RSpec.describe GroupedResultSetPresenter do
 
       it "groups all documents in the default group" do
         expect(subject.grouped_documents).to eq([{
-          facet_key: 'all_businesses',
           documents: subject.documents
         }])
       end
 
       it "does not populate the facet name for the group" do
-        expect(subject.grouped_documents.first).not_to have_key(:facet_name)
+        expect(subject.grouped_documents.first).not_to have_key(:group_name)
       end
     end
 
@@ -241,8 +234,7 @@ RSpec.describe GroupedResultSetPresenter do
       it "groups the relevant documents by the primary facet" do
         expect(subject.grouped_documents).to eq([
           {
-            facet_name: 'Aerospace',
-            facet_key: 'aerospace',
+            group_name: 'Aerospace',
             documents: [{ document: primary_tagged_result, document_index: 2 }]
           }
         ])
@@ -265,18 +257,15 @@ RSpec.describe GroupedResultSetPresenter do
       it "orders the groups by facets in the other facets" do
         expect(subject.grouped_documents).to eq([
           {
-            facet_name: 'Aerospace',
-            facet_key: 'aerospace',
+            group_name: 'Aerospace',
             documents: [{ document: primary_tagged_result, document_index: 2 }]
           },
           {
-            facet_name: 'Case type',
-            facet_key: 'case-type',
+            group_name: 'Case type',
             documents: [{ document: document_result, document_index: 1 }]
           },
           {
-            facet_name: 'Organisation activity',
-            facet_key: 'organisation_activity',
+            group_name: 'Organisation activity',
             documents: [{ document: document_result, document_index: 1 }]
           },
         ])
@@ -297,8 +286,7 @@ RSpec.describe GroupedResultSetPresenter do
       it "groups the relevant documents in the other facets" do
         expect(subject.grouped_documents).to eq([
           {
-            facet_name: 'Organisation activity',
-            facet_key: 'organisation_activity',
+            group_name: 'Organisation activity',
             documents: [{ document: document_result, document_index: 1 }]
           }
         ])
@@ -331,8 +319,7 @@ RSpec.describe GroupedResultSetPresenter do
 
         expect(subject.grouped_documents).to eq([
           {
-            facet_name: 'All businesses',
-            facet_key: 'all_businesses',
+            group_name: 'All businesses',
             documents: [{ document: primary_tagged_result, document_index: 1 }]
           }
         ])
@@ -352,13 +339,11 @@ RSpec.describe GroupedResultSetPresenter do
       it "groups the relevant documents in the primary facets" do
         expect(subject.grouped_documents).to eq([
           {
-            facet_name: 'Aerospace',
-            facet_key: 'aerospace',
+            group_name: 'Aerospace',
             documents: [{ document: primary_tagged_result, document_index: 2 }]
           },
           {
-            facet_name: 'Case type',
-            facet_key: 'case-type',
+            group_name: 'Case type',
             documents: [{ document: document_result, document_index: 1 }]
           },
         ])
@@ -378,8 +363,7 @@ RSpec.describe GroupedResultSetPresenter do
       it "groups the relevant documents in the other facets" do
         expect(subject.grouped_documents).to eq([
           {
-            facet_name: 'Case type',
-            facet_key: 'case-type',
+            group_name: 'Case type',
             documents: [{ document: document_result, document_index: 1 }]
           }
         ])
