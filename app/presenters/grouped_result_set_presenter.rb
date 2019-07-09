@@ -14,10 +14,6 @@ class GroupedResultSetPresenter < ResultSetPresenter
   def grouped_documents
     return [] unless grouped_display?
 
-    # TODO: These could live in a finder definition to make this finder-agnostic grouping.
-    default_group_name = "all_businesses"
-    default_group = empty_facet_group(default_group_name, "All businesses")
-
     primary_group = {}
     secondary_group = {}
 
@@ -27,34 +23,34 @@ class GroupedResultSetPresenter < ResultSetPresenter
     # Without facet filtering return all documents without grouping
     return [{ facet_key: "all_businesses", documents: sorted_documents }] if facet_filters.values.empty?
 
-    sorted_documents.each do |item|
-      document_metadata = item[:document][:metadata]
-      # If the document is tagged to all primary facet values, and we are filtering
-      # by the primary facet, then add the document to default group to prevent
-      # duplication in every primary facet value grouping.
-      if filtered_by_primary_facet? && tagged_to_all?(primary_facet_key, document_metadata)
-        default_group[:documents] << item
-      else
-        document_metadata.each do |metadata|
-          key = metadata[:id]
-          next unless key && facet_filters.has_key?(key.to_sym)
+    # If the document is tagged to all primary facet values, and we are filtering
+    # by the primary facet, then add the document to default group to prevent
+    # duplication in every primary facet value grouping.
+    default_documents, other_documents = sorted_documents.partition do |document|
+      filtered_by_primary_facet? && tagged_to_all?(primary_facet_key, document)
+    end
 
-          if primary_facet_key == key
-            # Group by value for the primary facet
-            (metadata[:labels] & facet_filters[primary_facet_key.to_sym]).each do |value|
-              populate_group(primary_group, value, facet_label_for(value), item)
-            end
-          else
-            # Group by facet name otherwise
-            populate_group(secondary_group, key, metadata[:label], item)
+    default_group = default_documents.empty? ? [] : [{ facet_key: "all_businesses", facet_name: "All businesses", documents: default_documents }]
+
+    other_documents.each do |item|
+      document_metadata = item[:document][:metadata]
+      document_metadata.each do |metadata|
+        key = metadata[:id]
+        next unless key && facet_filters.has_key?(key.to_sym)
+
+        if primary_facet_key == key
+          # Group by value for the primary facet
+          (metadata[:labels] & facet_filters[primary_facet_key.to_sym]).each do |value|
+            populate_group(primary_group, value, facet_label_for(value), item)
           end
+        else
+          # Group by facet name otherwise
+          populate_group(secondary_group, key, metadata[:label], item)
         end
       end
     end
 
-    groups = [compact_and_sort(primary_group), compact_and_sort(secondary_group, true)].flatten
-    groups << default_group unless default_group[:documents].empty?
-    groups
+    compact_and_sort(primary_group) + compact_and_sort(secondary_group, true) + default_group
   end
 
 private
@@ -72,7 +68,8 @@ private
     groups[key][:documents] << item
   end
 
-  def tagged_to_all?(facet_key, metadata)
+  def tagged_to_all?(facet_key, document)
+    metadata = document.dig(:document, :metadata)
     return false unless metadata
 
     facet = finder.facets.find { |f| f.key == facet_key }
