@@ -122,13 +122,7 @@ RSpec.describe GroupedResultSetPresenter do
 
   let(:facet_filters) { [sector_facet, activity_facet, a_facet] }
   let(:a_facet_collection) do
-    double(
-      FacetCollection,
-      filters: facet_filters,
-      first: facet_filters.first,
-      find: nil,
-      map: facet_filters.map { |f| [f.allowed_values] },
-    )
+    facet_filters.tap { |f| allow(f).to receive(:filters).and_return(facet_filters) }
   end
 
   let(:sector_facet) do
