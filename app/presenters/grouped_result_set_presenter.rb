@@ -18,7 +18,7 @@ class GroupedResultSetPresenter < ResultSetPresenter
     sorted_documents = sort_by_alphabetical(documents_with_metadata)
 
     # Without facet filtering return all documents without grouping
-    return [{ facet_key: "all_businesses", documents: sorted_documents }] if facet_filters.values.empty?
+    return [{ documents: sorted_documents }] if facet_filters.values.empty?
 
     # If the document is tagged to all primary facet values, and we are filtering
     # by the primary facet, then add the document to default group to prevent
@@ -27,13 +27,12 @@ class GroupedResultSetPresenter < ResultSetPresenter
       selected_values_in_primary_facet.present? && tagged_to_all?(primary_facet_key, document)
     end
 
-    default_group = default_documents.empty? ? [] : [{ facet_key: "all_businesses", facet_name: "All businesses", documents: default_documents }]
+    default_group = default_documents.empty? ? [] : [{ group_name: "All businesses", documents: default_documents }]
 
     unsorted_primary_group = selected_values_in_primary_facet.map do |selected_value|
       documents = documents_tagged_to_primary_facet_value(other_documents, selected_value)
       {
-        facet_key: selected_value,
-        facet_name: label_for_facet_value(selected_value),
+        group_name: label_for_facet_value(selected_value),
         documents: documents
       }
     end
@@ -43,8 +42,7 @@ class GroupedResultSetPresenter < ResultSetPresenter
     secondary_group = secondary_facets.map do |secondary_facet|
       documents = documents_tagged_to_secondary_facet(other_documents, secondary_facet.key)
       {
-        facet_key: secondary_facet.key,
-        facet_name: label_from_metadata(documents.first, secondary_facet.key),
+        group_name: label_from_metadata(documents.first, secondary_facet.key),
         documents: documents
       }
     end
