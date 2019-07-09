@@ -27,7 +27,7 @@ class GroupedResultSetPresenter < ResultSetPresenter
       selected_values_in_primary_facet.present? && tagged_to_all?(primary_facet_key, document)
     end
 
-    default_group = default_documents.empty? ? [] : [{ group_name: "All businesses", documents: default_documents }]
+    default_group = [{ group_name: "All businesses", documents: default_documents }]
 
     unsorted_primary_group = selected_values_in_primary_facet.map do |selected_value|
       documents = documents_tagged_to_primary_facet_value(other_documents, selected_value)
