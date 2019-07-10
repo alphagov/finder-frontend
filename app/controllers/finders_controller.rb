@@ -94,7 +94,7 @@ private
 
   def finder_presenter
     @finder_presenter ||= FinderPresenter.new(
-      raw_finder,
+      content_item_with_search_results,
       search_results,
       filter_params,
     )
@@ -108,8 +108,8 @@ private
     )
   end
 
-  def raw_finder
-    @raw_finder ||= search_query.content_item_with_search_results
+  def content_item_with_search_results
+    @content_item_with_search_results ||= search_query.content_item_with_search_results
   end
 
   def fetch_breadcrumbs
