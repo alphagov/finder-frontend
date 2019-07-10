@@ -36,7 +36,7 @@ class FindersController < ApplicationController
           redirect_to_destination
         else
           expires_in(ATOM_FEED_MAX_AGE, public: true)
-          @feed = AtomPresenter.new(finder, results, facet_tags)
+          @feed = AtomPresenter.new(finder_presenter, results, facet_tags)
         end
       end
     end
@@ -49,7 +49,7 @@ private
 
   attr_accessor :search_query
 
-  helper_method :finder, :facet_tags, :i_am_a_topic_page_finder
+  helper_method :finder_presenter, :facet_tags, :i_am_a_topic_page_finder
 
   def redirect_to_destination
     @redirect = content_item.as_hash.dig('redirects', 0, 'destination')
@@ -77,7 +77,7 @@ private
 
   def results
     @results ||= result_set_presenter_class.new(
-      finder,
+      finder_presenter,
       filter_params,
       sort_presenter,
       content_item.metadata_class,
@@ -92,8 +92,8 @@ private
     ResultSetPresenter
   end
 
-  def finder
-    @finder ||= FinderPresenter.new(
+  def finder_presenter
+    @finder_presenter ||= FinderPresenter.new(
       raw_finder,
       search_results,
       filter_params,
@@ -145,7 +145,7 @@ private
 
   def facet_tags
     @facet_tags ||= FacetTagsPresenter.new(
-      finder,
+      finder_presenter,
       sort_presenter,
       i_am_a_topic_page_finder: i_am_a_topic_page_finder,
     )

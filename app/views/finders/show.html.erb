@@ -1,30 +1,30 @@
 <% if @results.user_supplied_keywords.length > 0 %>
-  <% content_for :title, "#{@results.user_supplied_keywords} - #{finder.name}" %>
+  <% content_for :title, "#{@results.user_supplied_keywords} - #{finder_presenter.name}" %>
 <% else %>
-  <% content_for :title, finder.name %>
+  <% content_for :title, finder_presenter.name %>
 <% end %>
 <% content_for :head do %>
   <%= auto_discovery_link_tag(:atom, @results.signup_links[:feed_link]) %>
-  <%= render 'finder_meta', finder: finder %>
+  <%= render 'finder_meta', finder_presenter: finder_presenter %>
 
   <% if @results.documents.present? && @results.documents.first[:document][:top_result] %>
     <meta name="govuk:relevant-result-shown" content="yes">
   <% end %>
 
-  <%= finder_top_result_variant.analytics_meta_tag.html_safe if finder.eu_exit_finder? %>
+  <%= finder_top_result_variant.analytics_meta_tag.html_safe if finder_presenter.eu_exit_finder? %>
 <% end %>
 
-<% content_for :meta_title, finder.name %>
+<% content_for :meta_title, finder_presenter.name %>
 
-<% if finder.topic_finder? && !finder.all_content_finder? %>
+<% if finder_presenter.topic_finder? && !finder_presenter.all_content_finder? %>
   <% content_for :body_classes, "full-width" %>
   <% inverse = true %>
 <% end %>
 
-<form method="get" action="<%= finder.slug %>" class="js-live-search-form">
+<form method="get" action="<%= finder_presenter.slug %>" class="js-live-search-form">
   <input type="hidden" name="parent" value="<%= @parent %>">
 
-  <% if finder.topic_finder? && !finder.all_content_finder? %>
+  <% if finder_presenter.topic_finder? && !finder_presenter.all_content_finder? %>
     <%= render "govuk_publishing_components/components/inverse_header", {
       full_width: true
     } do %>
@@ -36,11 +36,11 @@
 
   <div class="govuk-width-container">
     <div class="govuk-grid-row">
-      <div class="govuk-grid-column-one-third" role="search" aria-label="<%= finder.name %>">
-        <%= render finder.facets %>
+      <div class="govuk-grid-column-one-third" role="search" aria-label="<%= finder_presenter.name %>">
+        <%= render finder_presenter.facets %>
       </div>
 
-      <div class="govuk-grid-column-two-thirds js-live-search-results-block filtered-results" role="region" aria-label="<%= finder.name %> search results">
+      <div class="govuk-grid-column-two-thirds js-live-search-results-block filtered-results" role="region" aria-label="<%= finder_presenter.name %> search results">
         <div aria-live="assertive" id="js-search-results-info" data-module="remove-filter" class="result-info">
           <div class="govuk-grid-row">
             <div class="govuk-grid-column-one-third">

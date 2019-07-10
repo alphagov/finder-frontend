@@ -1,21 +1,21 @@
 <div class="govuk-width-container">
-  <% if finder.show_phase_banner? %>
-    <%= render 'govuk_publishing_components/components/phase_banner', phase: finder.phase, message: sanitize(finder.phase_message), inverse: inverse %>
+  <% if finder_presenter.show_phase_banner? %>
+    <%= render 'govuk_publishing_components/components/phase_banner', phase: finder_presenter.phase, message: sanitize(finder_presenter.phase_message), inverse: inverse %>
   <% end %>
 
   <% if @breadcrumbs.breadcrumbs %>
     <%= render 'govuk_publishing_components/components/breadcrumbs', breadcrumbs: @breadcrumbs.breadcrumbs, inverse: inverse %>
   <% else %>
-    <%= render 'govuk_publishing_components/components/contextual_breadcrumbs', content_item: @raw_content_item, prioritise_taxon_breadcrumbs: finder.eu_exit_finder?, inverse: inverse %>
+    <%= render 'govuk_publishing_components/components/contextual_breadcrumbs', content_item: @raw_content_item, prioritise_taxon_breadcrumbs: finder_presenter.eu_exit_finder?, inverse: inverse %>
   <% end %>
 
-  <% if finder.government? %>
-    <%= render 'govuk_publishing_components/components/government_navigation', active: finder.government_content_section %>
+  <% if finder_presenter.government? %>
+    <%= render 'govuk_publishing_components/components/government_navigation', active: finder_presenter.government_content_section %>
   <% end %>
 
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-      <% if finder.all_content_finder? %>
+      <% if finder_presenter.all_content_finder? %>
         <% label_text = capture do %>
           <h1 class="app-c-search-page-heading">Search<span class="govuk-visually-hidden"> all content</span></h1>
         <% end %>
@@ -32,41 +32,41 @@
             value: @results.user_supplied_keywords,
           } %>
         </div>
-      <% elsif finder.topic_finder? %>
-        <%= link_to finder.topic_finder_parent['title'], finder.topic_finder_parent['base_path'], class: 'topic-finder__taxon-link' %>
+      <% elsif finder_presenter.topic_finder? %>
+        <%= link_to finder_presenter.topic_finder_parent['title'], finder_presenter.topic_finder_parent['base_path'], class: 'topic-finder__taxon-link' %>
         <%= render partial: 'govuk_publishing_components/components/title', locals: {
-          title: finder.name,
+          title: finder_presenter.name,
           inverse: true,
         } %>
       <% else %>
         <%= render partial: 'govuk_publishing_components/components/title', locals: {
-          title: finder.name,
+          title: finder_presenter.name,
         } %>
       <% end %>
 
-      <% if finder.page_metadata.any? %>
-        <%= render 'govuk_publishing_components/components/metadata', page_metadata(finder.page_metadata) %>
+      <% if finder_presenter.page_metadata.any? %>
+        <%= render 'govuk_publishing_components/components/metadata', page_metadata(finder_presenter.page_metadata) %>
       <% end %>
     </div>
 
-    <% if finder.summary %>
+    <% if finder_presenter.summary %>
       <div class="govuk-grid-column-two-thirds">
         <div class="metadata-summary ">
-          <%= render 'govuk_publishing_components/components/govspeak', content: finder.summary.html_safe %>
+          <%= render 'govuk_publishing_components/components/govspeak', content: finder_presenter.summary.html_safe %>
         </div>
       </div>
     <% end %>
 
-    <% if finder.logo_path %>
+    <% if finder_presenter.logo_path %>
       <div class="finder-logo govuk-grid-column-one-third">
-        <%= image_tag finder.logo_path, class: "finder-logo__image" %>
+        <%= image_tag finder_presenter.logo_path, class: "finder-logo__image" %>
       </div>
     <% end %>
 
-    <% if finder.related.any? %>
+    <% if finder_presenter.related.any? %>
       <div class="related-links govuk-grid-column-one-third">
         <ul class="js-finder-results">
-          <% finder.related.each do |link| %>
+          <% finder_presenter.related.each do |link| %>
             <li class="related-links__item">
               <%= link_to link['title'], link['web_url'], class: "related-links__link" %>
             </li>
