@@ -76,7 +76,7 @@ private
   end
 
   def primary_facet_key
-    finder.facets.first.key
+    finder_presenter.facets.first.key
   end
 
   def selected_values_in_primary_facet
@@ -87,7 +87,7 @@ private
     metadata = document.dig(:document, :metadata)
     return false unless metadata
 
-    facet = finder.facets.find { |f| f.key == facet_key }
+    facet = finder_presenter.facets.find { |f| f.key == facet_key }
     facet_metadata = metadata.find { |m| m[:id] == facet_key }
     return false unless facet && facet_metadata
 
@@ -96,7 +96,7 @@ private
   end
 
   def label_for_facet_value(key)
-    allowed_values = finder.facets.flat_map(&:allowed_values)
+    allowed_values = finder_presenter.facets.flat_map(&:allowed_values)
     allowed_value = allowed_values.find(-> { {} }) { |v| v["value"] == key }
     allowed_value.fetch("label", '')
   end
@@ -106,7 +106,7 @@ private
   end
 
   def secondary_facets
-    finder.facets.filters[1..-1].select { |f| facet_filters.keys.include?(f.key.to_sym) }
+    finder_presenter.facets.filters[1..-1].select { |f| facet_filters.keys.include?(f.key.to_sym) }
   end
 
   def facet_filters

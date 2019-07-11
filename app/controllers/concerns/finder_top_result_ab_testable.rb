@@ -27,7 +27,7 @@ module FinderTopResultAbTestable
   end
 
   def test_in_scope?
-    content_item.is_finder? && search_query && finder.eu_exit_finder?
+    content_item.is_finder? && search_query && finder_presenter.eu_exit_finder?
   end
 
   def show_top_result?

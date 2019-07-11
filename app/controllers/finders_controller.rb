@@ -9,13 +9,10 @@ class FindersController < ApplicationController
   end
 
   ATOM_FEED_MAX_AGE = 300
-
-  # rubocop:disable Metrics/BlockLength
   def show
     respond_to do |format|
       format.html do
         @search_query = initialize_search_query
-        @results = results
         @raw_content_item = content_item.as_hash
         @breadcrumbs = fetch_breadcrumbs
         @parent = parent
@@ -36,20 +33,19 @@ class FindersController < ApplicationController
           redirect_to_destination
         else
           expires_in(ATOM_FEED_MAX_AGE, public: true)
-          @feed = AtomPresenter.new(finder, results, facet_tags)
+          @feed = AtomPresenter.new(finder_presenter, result_set_presenter, facet_tags)
         end
       end
     end
   rescue ActionController::UnknownFormat
     render plain: 'Not acceptable', status: :not_acceptable
   end
-  # rubocop:enable Metrics/BlockLength
 
 private
 
   attr_accessor :search_query
 
-  helper_method :finder, :facet_tags, :i_am_a_topic_page_finder
+  helper_method :finder_presenter, :facet_tags, :i_am_a_topic_page_finder, :result_set_presenter
 
   def redirect_to_destination
     @redirect = content_item.as_hash.dig('redirects', 0, 'destination')
@@ -59,9 +55,9 @@ private
 
   def json_response
     {
-      total: results.displayed_total,
+      total: result_set_presenter.displayed_total,
       facet_tags: render_component("facet_tags", facet_tags.present),
-      search_results: render_component("finders/search_results", results.search_results_content),
+      search_results: render_component("finders/search_results", result_set_presenter.search_results_content),
       sort_options_markup: render_component("finders/sort_options", sort_presenter.to_hash),
       next_and_prev_links: render_component("govuk_publishing_components/components/previous_and_next_navigation", pagination_presenter.next_and_prev_links),
     }
@@ -75,9 +71,9 @@ private
     @content_item ||= ContentItem.new(finder_base_path)
   end
 
-  def results
-    @results ||= result_set_presenter_class.new(
-      finder,
+  def result_set_presenter
+    @result_set_presenter ||= result_set_presenter_class.new(
+      finder_presenter,
       filter_params,
       sort_presenter,
       content_item.metadata_class,
@@ -92,9 +88,9 @@ private
     ResultSetPresenter
   end
 
-  def finder
-    @finder ||= FinderPresenter.new(
-      raw_finder,
+  def finder_presenter
+    @finder_presenter ||= FinderPresenter.new(
+      content_item_with_search_results,
       search_results,
       filter_params,
     )
@@ -108,8 +104,8 @@ private
     )
   end
 
-  def raw_finder
-    @raw_finder ||= search_query.content_item_with_search_results
+  def content_item_with_search_results
+    @content_item_with_search_results ||= search_query.content_item_with_search_results
   end
 
   def fetch_breadcrumbs
@@ -145,7 +141,7 @@ private
 
   def facet_tags
     @facet_tags ||= FacetTagsPresenter.new(
-      finder,
+      finder_presenter,
       sort_presenter,
       i_am_a_topic_page_finder: i_am_a_topic_page_finder,
     )
