@@ -12,7 +12,7 @@
   "rendering_app": "finder-frontend",
   "scheduled_publishing_delay_seconds": null,
   "schema_name": "finder",
-  "title": "Find EU Exit guidance for your business",
+  "title": "Find Brexit guidance for your business",
   "updated_at": "2019-03-13T14:32:53.922Z",
   "withdrawn_notice": {},
   "publishing_request_id": "12923-1552486150.950-10.1.6.163-499",
@@ -91,7 +91,7 @@
         "locale": "en",
         "public_updated_at": "2019-03-13T14:09:10Z",
         "schema_name": "finder_email_signup",
-        "title": "Find EU Exit guidance for your business",
+        "title": "Find Brexit guidance for your business",
         "withdrawn": false,
         "links": {},
         "api_url": "https://www.gov.uk/api/content/find-eu-exit-guidance-business/email-signup",
@@ -1447,12 +1447,12 @@
     ],
     "available_translations": [
       {
-        "title": "Find EU Exit guidance for your business",
+        "title": "Find Brexit guidance for your business",
         "public_updated_at": "2019-03-13T14:09:10Z",
         "document_type": "finder",
         "schema_name": "finder",
         "base_path": "/find-eu-exit-guidance-business",
-        "description": "This is the information that has been published so far for your business to prepare for EU exit. You can change what information you get using the checkboxes. Come back to this page regularly or sign up to receive emails when new information is published.",
+        "description": "This is the information that has been published so far for your business to prepare for Brexit. You can change what information you get using the checkboxes. Come back to this page regularly or sign up to receive emails when new information is published.",
         "api_path": "/api/content/find-eu-exit-guidance-business",
         "withdrawn": false,
         "content_id": "42ce66de-04f3-4192-bf31-8394538e0734",
@@ -1463,11 +1463,11 @@
       }
     ]
   },
-  "description": "This is the information that has been published so far for your business to prepare for EU exit. You can change what information you get using the checkboxes. Come back to this page regularly or sign up to receive emails when new information is published.",
+  "description": "This is the information that has been published so far for your business to prepare for Brexit. You can change what information you get using the checkboxes. Come back to this page regularly or sign up to receive emails when new information is published.",
   "details": {
     "beta": false,
     "document_noun": "publication",
-    "summary": "This is the information that has been published so far for your business to prepare for EU exit. You can change what information you get using the checkboxes. Come back to this page regularly or sign up to receive emails when new information is published.",
+    "summary": "This is the information that has been published so far for your business to prepare for Brexit. You can change what information you get using the checkboxes. Come back to this page regularly or sign up to receive emails when new information is published.",
     "canonical_link": true,
     "sort": [
       {
