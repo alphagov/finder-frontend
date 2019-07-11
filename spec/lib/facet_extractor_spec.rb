@@ -2,7 +2,7 @@ require 'spec_helper'
 
 
 describe FacetExtractor do
-  let(:facets) { described_class.for(finder).extract }
+  let(:facets) { described_class.new(finder).extract }
 
   context 'with facets in details' do
     let(:finder) do

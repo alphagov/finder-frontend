@@ -39,7 +39,7 @@ private
   end
 
   def raw_facets
-    @raw_facets ||= FacetExtractor.for(raw_finder).extract
+    @raw_facets ||= FacetExtractor.new(raw_finder).extract
   end
 
   def page
