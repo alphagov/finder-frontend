@@ -2,15 +2,15 @@ class ResultSetPresenter
   include ERB::Util
   include ActionView::Helpers::NumberHelper
 
-  attr_reader :finder, :results, :pluralised_document_noun, :debug_score
+  attr_reader :results, :pluralised_document_noun, :debug_score
 
-  delegate :atom_url, to: :finder
+  delegate :atom_url, to: :finder_presenter
 
-  def initialize(finder, filter_params, sort_presenter, metadata_presenter_class, show_top_result = false, debug_score = false)
-    @finder = finder
-    @results = finder.results.documents
-    @total = finder.results.total
-    @pluralised_document_noun = finder.document_noun.pluralize(total)
+  def initialize(finder_presenter, filter_params, sort_presenter, metadata_presenter_class, show_top_result = false, debug_score = false)
+    @finder_presenter = finder_presenter
+    @results = finder_presenter.results.documents
+    @total = finder_presenter.results.total
+    @pluralised_document_noun = finder_presenter.document_noun.pluralize(total)
     @filter_params = filter_params
     @sort_presenter = sort_presenter
     @show_top_result = show_top_result
@@ -27,7 +27,7 @@ class ResultSetPresenter
       documents: documents,
       zero_results: total.zero?,
       page_count: documents.count,
-      finder_name: finder.name,
+      finder_name: finder_presenter.name,
       debug_score: debug_score,
     }
   end
@@ -67,11 +67,11 @@ class ResultSetPresenter
 
 private
 
-  attr_reader :metadata_presenter_class, :sort_presenter, :total
+  attr_reader :metadata_presenter_class, :sort_presenter, :total, :finder_presenter
 
   def highlight_top_result?
     @show_top_result &&
-      finder.eu_exit_finder? &&
+      finder_presenter.eu_exit_finder? &&
       results.length >= 2 &&
       sort_option.dig('key').eql?("-relevance") &&
       best_bet?
@@ -100,14 +100,14 @@ private
   end
 
   def email_signup_link
-    return '' unless finder.respond_to?(:email_alert_signup_url)
+    return '' unless finder_presenter.respond_to?(:email_alert_signup_url)
 
-    finder.email_alert_signup_url
+    finder_presenter.email_alert_signup_url
   end
 
   def feed_link
-    return '' unless finder.respond_to?(:atom_url)
+    return '' unless finder_presenter.respond_to?(:atom_url)
 
-    finder.atom_url
+    finder_presenter.atom_url
   end
 end
