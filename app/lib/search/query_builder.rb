@@ -43,9 +43,6 @@ module Search
 
     attr_reader :finder_content_item, :params, :ab_params, :override_sort_for_feed
 
-    def order_query_builder_class
-      OrderQueryBuilder
-    end
 
     def pagination_query
       {
@@ -108,7 +105,7 @@ module Search
     end
 
     def order_query
-      order_query_builder_class.new(
+      OrderQueryBuilder.new(
         finder_content_item,
         keywords,
         params,
