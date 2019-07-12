@@ -10,11 +10,11 @@ describe Search::Query do
   end
 
   let(:content_item) {
-    {
+    ContentItem.new(
       "details" => {
         "facets" => facets,
       },
-    }
+    )
   }
 
   let(:facets) {
