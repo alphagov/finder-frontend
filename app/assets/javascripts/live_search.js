@@ -54,11 +54,18 @@
       )
 
       this.indexTrackingData()
+      this.startEnhancedEcommerceTracking()
 
       $(window).on('popstate', this.popState.bind(this))
     } else {
       this.$form.find('.js-live-search-fallback').show()
     }
+  }
+
+  LiveSearch.prototype.startEnhancedEcommerceTracking = function startEnhancedEcommerceTracking () {
+    this.$form.attr('data-search-query', this.currentKeywords())
+    if (!GOVUK.Ecommerce || GOVUK.Ecommerce.ecLoaded) { return }
+    GOVUK.Ecommerce.start()
   }
 
   LiveSearch.prototype.getTaxonomyFacet = function getTaxonomyFacet () {
@@ -121,6 +128,7 @@
   LiveSearch.prototype.trackingInit = function trackingInit () {
     GOVUK.modules.start($('.js-live-search-results-block'))
     this.indexTrackingData()
+    this.startEnhancedEcommerceTracking()
   }
 
   LiveSearch.prototype.trackPageView = function trackPageView () {
@@ -202,7 +210,7 @@
   }
 
   LiveSearch.prototype.updateTitle = function updateTitle () {
-    var keywords = this.getTextInputValue('keywords', this.state)
+    var keywords = this.currentKeywords()
     var keywordsPresent = keywords !== ''
 
     if (keywordsPresent) {
@@ -224,12 +232,16 @@
     this.$relevanceOrderOptionIndex = this.$relevanceOrderOption.index()
   }
 
+  LiveSearch.prototype.currentKeywords = function currentKeywords () {
+    return this.getTextInputValue('keywords', this.state)
+  }
+
   LiveSearch.prototype.updateOrder = function updateOrder () {
     if (!this.$orderSelect.length) {
       return
     }
 
-    var keywords = this.getTextInputValue('keywords', this.state)
+    var keywords = this.currentKeywords()
     var previousKeywords = this.getTextInputValue('keywords', this.previousState)
 
     var keywordsPresent = keywords !== ''

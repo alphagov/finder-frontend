@@ -17,3 +17,24 @@ Then(/^the links on the page have tracking attributes$/) do
   expect(options['dimension28']).to eq(document_links.count)
   expect(options['dimension29']).to eq(first_link.text)
 end
+
+# TODO live update of tracking tags
+
+Then(/^the ecommerce tracking tags are present$/) do
+  visit finder_path('search/all', q: 'breakfast')
+
+  expect(page).to have_selector('form[data-analytics-ecommerce]')
+
+  form = page.find('form[data-analytics-ecommerce]')
+  expect(form['data-ecommerce-start-index']).to eq("0")
+  expect(form['data-list-title']).to eq('Search')
+  expect(form['data-search-query']).to eq('breakfast')
+
+  results = page.all('a[data-ecommerce-row]')
+  expect(results.count).to be_positive
+
+  first_link = results.first
+
+  expect(first_link['data-ecommerce-path']).to eq('/restrictions-on-usage-of-spells-within-school-grounds')
+  expect(first_link['data-ecommerce-content-id']).to eq('1234')
+end

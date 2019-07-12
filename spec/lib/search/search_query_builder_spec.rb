@@ -58,7 +58,7 @@ describe Search::QueryBuilder do
   context "without any facets" do
     it "should include base return fields" do
       expect(query).to include(
-        "fields" => "title,link,description,public_timestamp,popularity,content_purpose_supergroup,content_store_document_type,format,is_historic,government_name",
+        "fields" => "title,link,description,public_timestamp,popularity,content_purpose_supergroup,content_store_document_type,format,is_historic,government_name,content_id",
       )
     end
   end
@@ -85,7 +85,7 @@ describe Search::QueryBuilder do
 
     it "should include base and extra return fields" do
       expect(query).to include(
-        "fields" => "title,link,description,public_timestamp,popularity,content_purpose_supergroup,content_store_document_type,format,is_historic,government_name,alpha,beta",
+        "fields" => "title,link,description,public_timestamp,popularity,content_purpose_supergroup,content_store_document_type,format,is_historic,government_name,content_id,alpha,beta",
       )
     end
 
@@ -102,7 +102,7 @@ describe Search::QueryBuilder do
 
       it "should use the filter value in fields" do
         expect(query).to include(
-          "fields" => "title,link,description,public_timestamp,popularity,content_purpose_supergroup,content_store_document_type,format,is_historic,government_name,zeta,beta",
+          "fields" => "title,link,description,public_timestamp,popularity,content_purpose_supergroup,content_store_document_type,format,is_historic,government_name,content_id,zeta,beta",
         )
       end
     end

@@ -1,12 +1,13 @@
 class Document
   attr_reader :title, :public_timestamp, :is_historic, :government_name,
               :content_purpose_supergroup, :document_type, :organisations,
-              :release_timestamp, :es_score, :format
+              :release_timestamp, :es_score, :format, :content_id
 
   def initialize(rummager_document, finder)
     rummager_document = rummager_document.with_indifferent_access
     @title = rummager_document.fetch(:title)
     @link = rummager_document.fetch(:link)
+    @content_id = rummager_document.fetch(:content_id, nil)
     @description = rummager_document.fetch(:description, nil)
     @public_timestamp = rummager_document.fetch(:public_timestamp, nil)
     @release_timestamp = rummager_document.fetch(:release_timestamp, nil)
