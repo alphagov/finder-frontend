@@ -3,7 +3,7 @@ class FinderBreadcrumbsPresenter
 
   def initialize(organisation, finder_content_item)
     @organisation = organisation
-    @finder_name = finder_content_item.dig("title")
+    @finder_name = finder_content_item.title
   end
 
   def breadcrumbs

@@ -113,7 +113,7 @@ private
   def fetch_breadcrumbs
     parent_slug = params["parent"]
     org_info = organisation_registry[parent_slug] if parent_slug.present?
-    FinderBreadcrumbsPresenter.new(org_info, content_item.as_hash)
+    FinderBreadcrumbsPresenter.new(org_info, content_item)
   end
 
   def sort_presenter

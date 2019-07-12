@@ -24,6 +24,26 @@ class ContentItem
     document_type == 'redirect'
   end
 
+  def title
+    content_item_hash['title']
+  end
+
+  def filter
+    content_item_hash.dig('details', 'filter') || {}
+  end
+
+  def reject
+    content_item_hash.dig('details', 'reject') || {}
+  end
+
+  def sort_options
+    content_item_hash.dig('details', 'sort')
+  end
+
+  def default_order
+    content_item_hash['details']['default_order'] || "-public_timestamp"
+  end
+
   def sorter_class
     return StatisticsSortPresenter if is_research_and_statistics?
 
@@ -37,7 +57,7 @@ class ContentItem
   end
 
   def default_documents_per_page
-    content_item_hash.dig('details', 'default_documents_per_page')
+    content_item_hash.dig('details', 'default_documents_per_page') || 1500
   end
 
   def base_path

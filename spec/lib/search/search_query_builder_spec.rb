@@ -11,7 +11,7 @@ describe Search::QueryBuilder do
   let(:query) { queries.first }
 
   let(:finder_content_item) {
-    {
+    ContentItem.new(
       'base_path' => '/finder-path',
       'details' => {
         'facets' => facets,
@@ -20,7 +20,7 @@ describe Search::QueryBuilder do
         'default_order' => default_order,
         'default_documents_per_page' => nil,
       }
-    }
+)
   }
 
   let(:facets) { [] }
@@ -36,7 +36,7 @@ describe Search::QueryBuilder do
 
   context "with pagination" do
     let(:finder_content_item) {
-      {
+      ContentItem.new(
         'details' => {
           'facets' => facets,
           'filter' => filter,
@@ -44,7 +44,7 @@ describe Search::QueryBuilder do
           'default_order' => default_order,
           'default_documents_per_page' => 10
         }
-      }
+)
     }
 
     it "should use documents_per_page from content item" do
@@ -252,7 +252,7 @@ describe Search::QueryBuilder do
 
     context "with stopwords" do
       let(:finder_content_item) {
-        {
+        ContentItem.new(
           'base_path' => '/find-eu-exit-guidance-business',
           'details' => {
             'facets' => facets,
@@ -261,7 +261,7 @@ describe Search::QueryBuilder do
             'default_order' => default_order,
             'default_documents_per_page' => 10
           }
-        }
+)
       }
 
       it "should not include stopwords in search" do

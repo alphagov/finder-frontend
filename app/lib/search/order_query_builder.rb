@@ -69,7 +69,7 @@ module Search
     end
 
     def sort_options
-      content_item.dig('details', 'sort')
+      content_item.sort_options
     end
 
     def sort_option
@@ -83,7 +83,7 @@ module Search
     end
 
     def default_order
-      content_item['details']['default_order'] || "-public_timestamp"
+      content_item.default_order
     end
   end
 end
