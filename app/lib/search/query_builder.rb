@@ -95,7 +95,7 @@ module Search
     end
 
     def raw_facets
-      @raw_facets ||= FacetExtractor.new(finder_content_item.as_hash).extract
+      finder_content_item.raw_facets
     end
 
     def unfilterise(field = '')

@@ -14,7 +14,6 @@ class FindersController < ApplicationController
     respond_to do |format|
       format.html do
         @search_query = initialize_search_query
-        @raw_content_item = content_item.as_hash
         @breadcrumbs = fetch_breadcrumbs
         @parent = parent
         @sort_presenter = sort_presenter
@@ -46,10 +45,10 @@ private
 
   attr_accessor :search_query
 
-  helper_method :finder_presenter, :facet_tags, :i_am_a_topic_page_finder, :result_set_presenter
+  helper_method :finder_presenter, :facet_tags, :i_am_a_topic_page_finder, :result_set_presenter, :content_item
 
   def redirect_to_destination
-    @redirect = content_item.as_hash.dig('redirects', 0, 'destination')
+    @redirect = content_item.redirect
     @finder_slug = finder_slug
     render 'finders/show-redirect'
   end
@@ -117,7 +116,7 @@ private
   end
 
   def sort_presenter
-    @sort_presenter ||= content_item.sorter_class.new(content_item.as_hash, filter_params)
+    @sort_presenter ||= content_item.sorter_class.new(content_item, filter_params)
   end
 
   def pagination_presenter

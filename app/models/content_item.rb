@@ -37,7 +37,7 @@ class ContentItem
   end
 
   def sort_options
-    content_item_hash.dig('details', 'sort')
+    content_item_hash.dig('details', 'sort') || []
   end
 
   def default_order
@@ -62,6 +62,14 @@ class ContentItem
 
   def base_path
     content_item_hash.dig('base_path')
+  end
+
+  def raw_facets
+    @raw_facets ||= FacetExtractor.new(content_item_hash).extract
+  end
+
+  def redirect
+    content_item_hash.dig('redirects', 0, 'destination')
   end
 
 private
