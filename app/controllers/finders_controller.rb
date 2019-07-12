@@ -69,7 +69,7 @@ private
   end
 
   def content_item
-    @content_item ||= ContentItem.new(finder_base_path)
+    @content_item ||= ContentItem.from_content_store(finder_base_path)
   end
 
   def result_set_presenter

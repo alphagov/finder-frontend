@@ -57,7 +57,7 @@ private
   end
 
   def fetch_content_item(content_item_path)
-    ContentItem.new(content_item_path).as_hash
+    ContentItem.from_content_store(content_item_path).as_hash
   end
 
   def email_alert_signup_api

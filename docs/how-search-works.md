@@ -33,7 +33,7 @@ Pretty much the first thing finder-frontend does when you make a request is
 get hold of the content item for the finder.
 
 ```ruby
-ContentItem.new('/search/services') # gets content item (from memcached / API)
+ContentItem.from_content_store('/search/services') # gets content item (from memcached / API)
 ```
 
 We call the Content Store to get the content item. Like the majority of pages on GOV.UK, all search pages have an associated [content item](docs/finder-content-item.md).
