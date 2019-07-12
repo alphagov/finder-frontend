@@ -240,12 +240,12 @@ describe FindersController, type: :controller do
     end
   end
 
-  describe "Business finder top results AB tests" do
+  describe "Search cluster AB tests" do
     let(:breakfast_finder) do
       finder = govuk_content_schema_example('finder').to_hash.merge(
         'title' => 'Breakfast Finder',
         'base_path' => '/breakfast-finder',
-        'content_id' => '42ce66de-04f3-4192-bf31-8394538e0734' #business finder id
+        'content_id' => '42ce66de-04f3-4192-bf31-8394538e0734'
       )
 
       finder["details"]["default_documents_per_page"] = 10
@@ -268,17 +268,27 @@ describe FindersController, type: :controller do
       stub_request(:get, /search.json/).to_return(status: 200, body: rummager_response, headers: {})
     end
 
-    it "Finder variant A does not set show_top_result" do
-      with_variant FinderAnswerABTest: "A" do
+    it "Variant Default sets use_default_cluster? and not use_b_cluster?" do
+      with_variant SearchClusterABTest: 'Default' do
         get :show, params: { slug: path_for(breakfast_finder) }
-        expect(subject.show_top_result?).to eq(false)
+        expect(subject.use_default_cluster?).to eq(true)
+        expect(subject.use_b_cluster?).to eq(false)
       end
     end
 
-    it "Finder variant B does set show_top_result" do
-      with_variant FinderAnswerABTest: "B" do
+    it "Variant A does not set use_default_cluster? or use_b_cluster?" do
+      with_variant SearchClusterABTest: 'A' do
         get :show, params: { slug: path_for(breakfast_finder) }
-        expect(subject.show_top_result?).to eq(true)
+        expect(subject.use_default_cluster?).to eq(false)
+        expect(subject.use_b_cluster?).to eq(false)
+      end
+    end
+
+    it "Variant 'B' sets use_b_cluster? and not use_default_cluster?" do
+      with_variant SearchClusterABTest: 'B' do
+        get :show, params: { slug: path_for(breakfast_finder) }
+        expect(subject.use_default_cluster?).to eq(false)
+        expect(subject.use_b_cluster?).to eq(true)
       end
     end
   end
