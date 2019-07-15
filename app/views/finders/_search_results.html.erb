@@ -7,7 +7,8 @@
         <% end %>
 
         <%= render "govuk_publishing_components/components/document_list", {
-          items: group[:documents]
+          items: group[:documents],
+          remove_underline: true
         } %>
       </li>
     <% end %>
@@ -15,7 +16,8 @@
 <% else %>
   <div class="finder-results js-finder-results" data-module="track-click">
     <%= render "govuk_publishing_components/components/document_list", {
-      items: local_assigns[:documents]
+      items: local_assigns[:documents],
+      remove_underline: true
     } %>
   </div>
 <% end %>
