@@ -26,7 +26,7 @@ Then(/^the ecommerce tracking tags are present$/) do
   expect(page).to have_selector('form[data-analytics-ecommerce]')
 
   form = page.find('form[data-analytics-ecommerce]')
-  expect(form['data-ecommerce-start-index']).to eq("0")
+  expect(form['data-ecommerce-start-index']).to eq("1")
   expect(form['data-list-title']).to eq('Search')
   expect(form['data-search-query']).to eq('breakfast')
 
