@@ -12,6 +12,7 @@
   <% end %>
 
   <%= finder_top_result_variant.analytics_meta_tag.html_safe if finder_presenter.eu_exit_finder? %>
+  <%= search_cluster_variant.analytics_meta_tag.html_safe %>
 <% end %>
 
 <% content_for :meta_title, finder_presenter.name %>

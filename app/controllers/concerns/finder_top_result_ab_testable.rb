@@ -6,7 +6,7 @@ module FinderTopResultAbTestable
       :finder_top_result_variant,
       :show_top_result?
     )
-    base.after_action :set_test_response_header
+    base.after_action :set_finder_top_result_response_header
   end
 
   def finder_top_result_test
@@ -22,11 +22,11 @@ module FinderTopResultAbTestable
     @finder_top_result_variant ||= finder_top_result_test.requested_variant(request.headers)
   end
 
-  def set_test_response_header
-    finder_top_result_variant.configure_response(response) if test_in_scope?
+  def set_finder_top_result_response_header
+    finder_top_result_variant.configure_response(response) if finder_top_result_test_in_scope?
   end
 
-  def test_in_scope?
+  def finder_top_result_test_in_scope?
     content_item.is_finder? && search_query && finder_presenter.eu_exit_finder?
   end
 

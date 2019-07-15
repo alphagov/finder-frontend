@@ -4,9 +4,10 @@ module Search
   class Query
     attr_reader :content_item
 
-    def initialize(content_item, filter_params, override_sort_for_feed: false)
+    def initialize(content_item, filter_params, ab_params: {}, override_sort_for_feed: false)
       @content_item = content_item
       @filter_params = filter_params
+      @ab_params = ab_params
       @override_sort_for_feed = override_sort_for_feed
       @order =
         if override_sort_for_feed
@@ -27,7 +28,7 @@ module Search
 
   private
 
-    attr_reader :filter_params, :override_sort_for_feed
+    attr_reader :ab_params, :filter_params, :override_sort_for_feed
 
     def merge_and_deduplicate(search_response)
       results = search_response.fetch("results")
@@ -77,6 +78,7 @@ module Search
       queries = QueryBuilder.new(
         finder_content_item: content_item,
         params: filter_params,
+        ab_params: ab_params,
         override_sort_for_feed: override_sort_for_feed,
       ).call
 

@@ -1,5 +1,6 @@
 class FindersController < ApplicationController
   include FinderTopResultAbTestable
+  include SearchClusterABTestable
 
   layout "finder_layout"
   before_action :remove_search_box
@@ -101,6 +102,7 @@ private
       content_item.as_hash,
       filter_params,
       override_sort_for_feed: is_for_feed,
+      ab_params: search_cluster_ab_params,
     )
   end
 

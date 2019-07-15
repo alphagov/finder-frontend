@@ -12,9 +12,10 @@ module Search
     # find anything useful, too much noise.
     MAX_QUERY_LENGTH = 512
 
-    def initialize(finder_content_item:, params: {}, override_sort_for_feed: false)
+    def initialize(finder_content_item:, params: {}, ab_params: {}, override_sort_for_feed: false)
       @finder_content_item = finder_content_item
       @params = params
+      @ab_params = ab_params
       @override_sort_for_feed = override_sort_for_feed
     end
 
@@ -28,6 +29,7 @@ module Search
         order_query,
         facet_query,
         debug_query,
+        ab_query,
       ].reduce(&:merge)
 
       return [base_query] if filter_queries.empty?
@@ -39,7 +41,7 @@ module Search
 
   private
 
-    attr_reader :finder_content_item, :params, :override_sort_for_feed
+    attr_reader :finder_content_item, :params, :ab_params, :override_sort_for_feed
 
     def order_query_builder_class
       OrderQueryBuilder
@@ -227,6 +229,10 @@ module Search
       {
         "debug" => params["debug"],
       }.compact
+    end
+
+    def ab_query
+      ab_params.any? ? { 'ab_tests' => ab_params.map { |k, v| "#{k}:#{v}" }.join(',') } : {}
     end
 
     def stopwords

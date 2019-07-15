@@ -339,6 +339,24 @@ describe Search::QueryBuilder do
     end
   end
 
+  context "with A/B parameters" do
+    let(:ab_params) {
+      {
+        test_one: 'a',
+        test_two: 'b',
+      }
+    }
+
+    it "should include an A/B query" do
+      query = described_class.new(
+        finder_content_item: finder_content_item,
+        ab_params: ab_params,
+      ).call.first
+
+      expect(query).to include("ab_tests" => "test_one:a,test_two:b")
+    end
+  end
+
   context "with a base filter" do
     let(:filter) { { "document_type" => "news_story" } }
 
