@@ -78,13 +78,13 @@ RSpec.describe SearchResultPresenter do
     }
   }
 
-  describe "#to_hash" do
+  describe "#govuk_component_data" do
     it "returns a hash" do
-      expect(subject.to_hash.is_a?(Hash)).to be_truthy
+      expect(subject.govuk_component_data.is_a?(Hash)).to be_truthy
     end
 
     it "returns a hash of the data we need to show the document" do
-      hash = subject.to_hash
+      hash = subject.govuk_component_data
 
       expect(hash).to eql(expected_document)
     end

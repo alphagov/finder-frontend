@@ -195,15 +195,15 @@ RSpec.describe GroupedResultSetPresenter do
     }
 
     let(:primary_tagged_result) {
-      SearchResultPresenter.new(search_result: tagged_document, metadata: formatted_tagged_metadata, doc_index: 1, doc_count: 2, finder_name: finder_name, debug_score: false, highlight: false).to_hash
+      SearchResultPresenter.new(search_result: tagged_document, metadata: formatted_tagged_metadata, doc_index: 1, doc_count: 2, finder_name: finder_name, debug_score: false, highlight: false).govuk_component_data
     }
 
     let(:primary_tagged_result_with_one_document) {
-      SearchResultPresenter.new(search_result: tagged_document, metadata: formatted_tagged_metadata, doc_index: 0, doc_count: 1, finder_name: finder_name, debug_score: false, highlight: false).to_hash
+      SearchResultPresenter.new(search_result: tagged_document, metadata: formatted_tagged_metadata, doc_index: 0, doc_count: 1, finder_name: finder_name, debug_score: false, highlight: false).govuk_component_data
     }
 
     let(:document_result) {
-      SearchResultPresenter.new(search_result: document, metadata: formatted_metadata, doc_index: 0, doc_count: 2, finder_name: finder_name, debug_score: false, highlight: false).to_hash
+      SearchResultPresenter.new(search_result: document, metadata: formatted_metadata, doc_index: 0, doc_count: 2, finder_name: finder_name, debug_score: false, highlight: false).govuk_component_data
     }
 
     context "when not grouping results" do

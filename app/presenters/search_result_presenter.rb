@@ -20,7 +20,7 @@ class SearchResultPresenter
     @highlight = data[:highlight]
   end
 
-  def to_hash
+  def govuk_component_data
     {
       link: {
         text: title,

@@ -36,7 +36,7 @@ class ResultSetPresenter
     @documents ||= begin
       results.each_with_index.map do |result, index|
         metadata = metadata_presenter_class.new(result.metadata).present
-        SearchResultPresenter.new(search_result: result, metadata: metadata, doc_index: index, doc_count: results.count, finder_name: finder_presenter.name, debug_score: debug_score, highlight: highlight(index)).to_hash
+        SearchResultPresenter.new(search_result: result, metadata: metadata, doc_index: index, doc_count: results.count, finder_name: finder_presenter.name, debug_score: debug_score, highlight: highlight(index)).govuk_component_data
       end
     end
   end
