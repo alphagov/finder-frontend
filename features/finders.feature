@@ -81,6 +81,14 @@ Feature: Filtering documents
     And I click the xxxxxxxxxxxxxxYYYYYYYYYYYxxxxxxxxxxxxxxx remove control
     Then I should see results and pagination
 
+  Scenario: Visit a finder with metadata
+    Given a finder with metadata exists
+    Then I can see that the finder metadata is present
+
+  Scenario: Visit a finder with metadata with a topic param set
+    When I view the aaib reports finder with a topic param set
+    Then I can see that the finder metadata is present and inverted
+
   Scenario: Visit a finder with description
     Given a finder with description exists
     Then I can see that the description in the metadata is present

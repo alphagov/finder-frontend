@@ -155,6 +155,12 @@ module DocumentHelper
       .to_return(body: upcoming_statistics_results_for_statistics_json)
   end
 
+  def stub_rummager_api_request_with_aaib_reports_results
+    stub_request(:get, SEARCH_ENDPOINT)
+      .with(query: hash_including({}))
+      .to_return(body: %|{ "results": [], "total": 0, "start": 0}|)
+  end
+
   def stub_all_rummager_api_requests_with_news_and_communication_results
     stub_request(:get, SEARCH_ENDPOINT)
       .with(query: hash_including({}))
@@ -255,6 +261,12 @@ module DocumentHelper
     content_store_has_item('/search/research-and-statistics', finder_fixture)
   end
 
+  def content_store_has_aaib_reports_finder
+    finder_fixture = File.read(Rails.root.join('features', 'fixtures', 'aaib_reports_example.json'))
+
+    content_store_has_item('/aaib-reports', finder_fixture)
+  end
+
   def content_store_has_all_content_finder
     finder_fixture = File.read(Rails.root.join('features', 'fixtures', 'all_content.json'))
 
@@ -352,6 +364,27 @@ module DocumentHelper
   def stub_content_store_with_cma_cases_finder_with_no_index
     schema = govuk_content_schema_example("cma-cases", "finder")
     schema["details"]["no_index"] = true
+
+    content_store_has_item(
+      schema.fetch("base_path"),
+      schema.to_json,
+    )
+  end
+
+  def stub_content_store_with_cma_cases_finder_with_metadata
+    schema = govuk_content_schema_example("cma-cases", "finder")
+      .merge("from" => "An authority")
+
+    content_store_has_item(
+      schema.fetch("base_path"),
+      schema.to_json,
+    )
+  end
+
+  def stub_content_store_with_cma_cases_finder_with_metadata_with_topic_param
+    schema = govuk_content_schema_example("cma-cases", "finder")
+      .merge("from" => "An authority")
+    schema["content_id"] = "c58fdadd-7743-46d6-9629-90bb3ccc4ef0"
 
     content_store_has_item(
       schema.fetch("base_path"),
