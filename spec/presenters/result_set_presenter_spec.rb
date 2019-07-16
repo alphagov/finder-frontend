@@ -75,12 +75,59 @@ RSpec.describe ResultSetPresenter do
         { id: 'case-type', name: 'Case type', value: 'CA98 and civil cartels', type: 'text', labels: %W(ca98-and-civil-cartels) },
       ],
       summary: 'I am a document',
-      is_historic: false,
+      is_historic: true,
       government_name: 'The Government!',
-      show_metadata: false,
+      show_metadata: true,
       format: 'transaction',
       es_score: 0.005
     )
+  end
+
+  let(:expected_document_content) do
+    {
+      link: {
+        text: 'Investigation into the distribution of road fuels in parts of Scotland',
+        path: 'slug-1',
+        description: 'I am a document',
+        data_attributes: {
+          track_category: 'navFinderLinkClicked',
+          track_action: 'A finder.1',
+          track_label: 'slug-1',
+          track_options: {
+            dimension28: 1,
+            dimension29: 'Investigation into the distribution of road fuels in parts of Scotland'
+          }
+        }
+      },
+      metadata: {
+        "Case state" => "Case state: Open",
+        "Case type" => "Case type: CA98 and civil cartels",
+        "Opened date" => "Opened date: <time datetime=\"2006-07-14\">14 July 2006</time>"
+      },
+      metadata_raw: [
+        {
+          id: "case-state",
+          is_text: true,
+          label: "Case state",
+          labels: %w(open),
+          value: "Open"
+        }, {
+          human_date: "14 July 2006",
+          is_date: true,
+          label: "Opened date",
+          machine_date: "2006-07-14"
+        }, {
+          id: "case-type",
+          is_text: true,
+          label: "Case type",
+          labels: %w(ca98-and-civil-cartels),
+          value: "CA98 and civil cartels"
+        }
+      ],
+      subtext: "<span class=\"published-by\">First published during the The Government!</span>",
+      highlight: false,
+      highlight_text: nil
+    }
   end
 
   let(:sort_presenter) do
@@ -146,12 +193,39 @@ RSpec.describe ResultSetPresenter do
       end
     end
 
+    context "returns data in the required format for the document list component" do
+      let(:results) do
+        ResultSet.new(
+          [document],
+          total
+        )
+      end
+
+      it 'has the right data' do
+        search_result_objects = presenter.documents
+        expect(search_result_objects.first).to eql(expected_document_content)
+      end
+    end
+
+    context "with &debug_score=1" do
+      subject(:presenter) { ResultSetPresenter.new(finder, filter_params, sort_presenter, metadata_presenter_class, false, true) }
+
+      let(:expected_document_content_with_debug) do
+        "<span class=\"published-by\">First published during the The Government!</span><span class=\"debug-results debug-results--link\">slug-1</span><span class=\"debug-results debug-results--meta\">Score: 0.005</span><span class=\"debug-results debug-results--meta\">Format: transaction</span>"
+      end
+
+      it 'shows debug metadata' do
+        search_result_objects = presenter.documents
+        expect(search_result_objects.first[:subtext]).to eql(expected_document_content_with_debug)
+      end
+    end
+
     context 'check top result' do
       subject(:presenter) { ResultSetPresenter.new(finder, filter_params, sort_presenter, metadata_presenter_class, true) }
 
       before(:each) do
         allow(finder).to receive(:eu_exit_finder?).and_return(true)
-        allow(document_with_higher_es_score).to receive(:truncated_description).and_return("Some description about the Department")
+        allow(document_with_higher_es_score).to receive(:truncated_description).and_return("A truncated description")
       end
 
       let(:document_with_higher_es_score) do
@@ -167,7 +241,7 @@ RSpec.describe ResultSetPresenter do
           show_metadata: false,
           format: 'transaction',
           es_score: 1000.0,
-          )
+        )
       end
 
       let(:document_with_lower_es_score) do
@@ -182,7 +256,7 @@ RSpec.describe ResultSetPresenter do
           show_metadata: false,
           format: 'transaction',
           es_score: 100.0,
-          )
+        )
       end
 
       context 'top result set if best bet' do
@@ -195,8 +269,9 @@ RSpec.describe ResultSetPresenter do
 
         it 'has top result true' do
           search_result_objects = presenter.documents
-          expect(search_result_objects[0][:document][:top_result]).to eql(true)
-          expect(search_result_objects[0][:document][:summary]).to eql("Some description about the Department")
+          expect(search_result_objects[0][:highlight]).to eql(true)
+          expect(search_result_objects[0][:highlight_text]).to eql("Most relevant result")
+          expect(search_result_objects[0][:link][:description]).to eql("A truncated description")
         end
       end
 
@@ -210,7 +285,7 @@ RSpec.describe ResultSetPresenter do
 
         it 'has no top result' do
           search_result_objects = presenter.documents
-          expect(search_result_objects[0][:document][:top_result]).to_not eql(true)
+          expect(search_result_objects[0][:highlight]).to_not eql(true)
         end
       end
 
@@ -219,7 +294,7 @@ RSpec.describe ResultSetPresenter do
 
         it 'has no top result' do
           search_result_objects = presenter.documents
-          expect(search_result_objects[0][:document][:top_result]).to_not eql(true)
+          expect(search_result_objects[0][:highlight]).to_not eql(true)
         end
       end
     end

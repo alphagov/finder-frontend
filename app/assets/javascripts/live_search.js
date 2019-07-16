@@ -112,7 +112,7 @@
 
   LiveSearch.prototype.setRelevantResultCustomDimension = function setRelevantResultCustomDimension () {
     if (this.canSetCustomDimension()) {
-      var $mostRelevantDocumentLink = $('.js-finder-results').find('.document__link--top')
+      var $mostRelevantDocumentLink = $('.js-finder-results').find('.gem-c-document-list__item--highlight')
       var dimensionValue = $mostRelevantDocumentLink.length ? 'yes' : 'no'
       GOVUK.analytics.setDimension(83, dimensionValue)
     }
@@ -140,10 +140,10 @@
     var $groupEls = $('.filtered-results__group')
     if ($groupEls.length > 0) {
       $groupEls.each(function (groupIndex) {
-        var $resultEls = $(this).find('.document')
+        var $resultEls = $(this).find('.gem-c-document-list__item')
         $resultEls.each(function (documentIndex) {
           var $document = $(this)
-          var $documentLink = $document.find('a')
+          var $documentLink = $document.find('.gem-c-document-list__item-title')
           var trackingAction = $documentLink.attr('data-track-action')
           trackingAction = trackingAction.replace(/\.\d+$/, '')
           trackingAction = [trackingAction, groupIndex + 1, documentIndex + 1].join('.')
@@ -154,7 +154,7 @@
 
     var $results = $('.js-finder-results')
     if ($results.length > 0) {
-      var $mostRelevantDocumentLink = $results.find('.document__link--top')
+      var $mostRelevantDocumentLink = $results.find('.gem-c-document-list__item--highlight')
 
       if ($mostRelevantDocumentLink.length === 1) {
         var trackingAction = $mostRelevantDocumentLink.attr('data-track-action')

@@ -1,95 +1,26 @@
-<ul class="finder-results js-finder-results" data-module="track-click">
-  <% if local_assigns[:display_grouped_results] %>
+<% if local_assigns[:display_grouped_results] %>
+  <ul class="finder-results js-finder-results" data-module="track-click">
     <% local_assigns[:grouped_documents].each do |group| %>
       <li class="filtered-results__group">
         <% if group[:group_name] %>
           <h2 class="filtered-results__facet-heading"><%= group[:group_name] %></h2>
         <% end %>
-        <ul class="finder-results js-finder-results">
-          <% group[:documents].each do |document| %>
-            <% result = document[:document] %>
-            <li class="document">
-              <a href='<%= result[:link] %>'
-                  class="document__link"
-                  data-track-category='navFinderLinkClicked'
-                  data-track-action='<%= finder_name %><%= result[:document_index] %>'
-                  data-track-label='<%= result[:link] %>'
-                  data-track-options='{"dimension28":"<%= result[:page_count] %>","dimension29":"<%= result[:title] %>"}'
-              ><%= result[:title] %></a>
-              <% if result[:is_historic] %>
-                <p class="historic">First published during the <%= result[:government_name] %></p>
-              <% end %>
 
-              <% if debug_score %>
-                <p class="debug-link"><%= result[:link] %></p>
-                <p class="debug-info">
-                  <span>Score: <%= result[:es_score] || "no score (sort by relevance)" %></span>
-                  <span>Format: <%= result[:format] %></span>
-                </p>
-              <% end %>
-            </li>
-          <% end %>
-        </ul>
+        <%= render "govuk_publishing_components/components/document_list", {
+          items: group[:documents],
+          remove_underline: true
+        } %>
       </li>
     <% end %>
-
-  <% else %>
-    <% local_assigns[:documents].each do |document| %>
-      <% result = document[:document] %>
-
-      <li class="document<% if result[:top_result] %> document--top<% end %>">
-          <% if result[:top_result] %><p class="document__heading--top">Most relevant result</p><% end %>
-        <a href='<%= result[:link] %>'
-            class="document__link<% if result[:top_result] %> document__link--top<% end %>"
-            data-track-category='navFinderLinkClicked'
-            data-track-action='<%= finder_name %>.<%= document[:document_index] %>'
-            data-track-label='<%= result[:link] %>'
-            data-track-options='{"dimension28":"<%= page_count %>","dimension29":"<%= result[:title] %>"}'
-        ><%= result[:title] %></a>
-
-        <% if result[:summary] %>
-          <p><%= result[:summary] %></p>
-        <% end %>
-
-        <% if result[:show_metadata] %>
-          <dl class="document-metadata">
-            <% result[:metadata].each do |metadata| %>
-              <% if metadata[:is_text] %>
-                <dt class="document-metadata__label<%= ' govuk-visually-hidden' if metadata[:hide_label] %>">
-                  <%= metadata[:label] %>:
-                </dt>
-                <dd class='document-metadata__value'>
-                  <%= metadata[:value] %>
-                </dd>
-              <% end %>
-
-              <% if metadata[:is_date] %>
-                <dt class="document-metadata__label<%= ' govuk-visually-hidden' if metadata[:hide_label] %>">
-                  <%= metadata[:label] %>:
-                </dt>
-                <dd class='document-metadata__value'>
-                  <time datetime='<%= metadata[:machine_date] %>'><%= metadata[:human_date] %></time>
-                </dd>
-              <% end %>
-            <% end %>
-          </dl>
-        <% end %>
-
-        <% if result[:is_historic] %>
-          <p class="historic">First published during the <%= result[:government_name] %></p>
-        <% end %>
-
-        <% if debug_score %>
-          <p class="debug-link"><%= result[:link] %></p>
-          <p class="debug-info">
-            <span>Score: <%= result[:es_score] || "no score (sort by relevance)" %></span>
-            <span>Format: <%= result[:format] %></span>
-          </p>
-        <% end %>
-      </li>
-    <% end %>
-  <% end %>
-</ul>
+  </ul>
+<% else %>
+  <div class="finder-results js-finder-results" data-module="track-click">
+    <%= render "govuk_publishing_components/components/document_list", {
+      items: local_assigns[:documents],
+      remove_underline: true
+    } %>
+  </div>
+<% end %>
 
 <% if local_assigns[:zero_results] %>
   <div class='no-results govuk-!-font-size-19'>

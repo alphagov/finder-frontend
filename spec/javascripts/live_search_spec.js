@@ -33,20 +33,28 @@ describe('liveSearch', function () {
         'document_index': 1
       }
     ],
-    'search_results': '<ul class="finder-results js-finder-results" data-module="track-click">' +
-      '<li class="document">' +
-        '<a href="aaib-reports/test-report" class="document__link" data-track-category="navFinderLinkClicked" data-track-action="" data-track-label="">Test report</a>' +
-        '<p></p>' +
-        '<dl>' +
-          '<dt class="document-metadata__label">Aircraft category:</dt>' +
-          '<dd class="document-metadata__value">General aviation - rotorcraft</dd>' +
-          '<dt class="document-metadata__label">Report type:</dt>' +
-          '<dd class="document-metadata__value">Annual safety report</dd>' +
-          '<dt class="document-metadata__label">Occurred:</dt>' +
-          '<dd class="document-metadata__value"><time datetime="2013-11-03">3 November 2013</time></dd>' +
-        '</dl>' +
-      '</li>' +
-    '</ul>'
+    'search_results': '<div class="finder-results js-finder-results" data-module="track-click">' +
+      '<ol class="gem-c-document-list">' +
+        '<li class="gem-c-document-list__item">' +
+          '<a data-track-category="navFinderLinkClicked" data-track-action="" data-track-label="" class="gem-c-document-list__item-title" href="aaib-reports/test-report">Test report</a>' +
+            '<p class="gem-c-document-list__item-description">The English business survey will provide Ministers and officials with information about the current economic and business conditions across</p>' +
+            '<ul class="gem-c-document-list__item-metadata">' +
+                '<li class="gem-c-document-list__attribute">' +
+                    'Document type: Official Statistics' +
+                '</li>' +
+                '<li class="gem-c-document-list__attribute">' +
+                    'Part of a collection: English business survey' +
+                '</li>' +
+                '<li class="gem-c-document-list__attribute">' +
+                    'Organisation: Closed organisation: Department for Business, Innovation &amp; Skills' +
+                '</li>' +
+                '<li class="gem-c-document-list__attribute">' +
+                    'Updated: <time datetime="2012-12-21">21 December 2012</time>' +
+                '</li>' +
+            '</ul>' +
+        '</li>' +
+      '</ol>' +
+    '</div>'
   }
 
   var responseWithSortOptions = {
@@ -396,29 +404,29 @@ describe('liveSearch', function () {
         '<ul class="finder-results js-finder-results" data-module="track-click">' +
           '<li class="filtered-results__group">' +
             '<h2 class="filtered-results__facet-heading">Primary group</h2>' +
-            '<ul class="finder-results js-finder-results">' +
-              '<li class="document">' +
-                '<a href="/reports/test-report-1" class="document__link" data-track-category="navFinderLinkClicked" data-track-action="foo" data-track-label="">Test report 1</a>' +
-                '<p>This is important</p>' +
+            '<ol class="gem-c-document-list">' +
+              '<li class="gem-c-document-list__item ">' +
+                '<a data-track-category="navFinderLinkClicked" data-track-action="foo" data-track-label="" class="gem-c-document-list__item-title " href="/reports/test-report-1">Test report 1</a>' +
+                '<ul class="gem-c-document-list__item-metadata"></ul>' +
               '</li>' +
-              '<li class="document">' +
-                '<a href="/reports/test-report-4" class="document__link" data-track-category="navFinderLinkClicked" data-track-action="foo" data-track-label="">Test report 4</a>' +
-                '<p>This is important</p>' +
+              '<li class="gem-c-document-list__item ">' +
+                '<a data-track-category="navFinderLinkClicked" data-track-action="foo" data-track-label="" class="gem-c-document-list__item-title " href="/reports/test-report-4">Test report 4</a>' +
+                '<ul class="gem-c-document-list__item-metadata"></ul>' +
               '</li>' +
-            '</ul>' +
+            '</ol>' +
           '</li>' +
           '<li class="filtered-results__group">' +
             '<h2 class="filtered-results__facet-heading">Default group</h2>' +
-            '<ul class="finder-results js-finder-results">' +
-              '<li class="document">' +
-                '<a href="/reports/test-report-3" class="document__link" data-track-category="navFinderLinkClicked" data-track-action="foo" data-track-label="">Test report 3</a>' +
-                '<p>This is important</p>' +
+            '<ol class="gem-c-document-list">' +
+              '<li class="gem-c-document-list__item ">' +
+                '<a data-track-category="navFinderLinkClicked" data-track-action="foo" data-track-label="" class="gem-c-document-list__item-title " href="/reports/test-report-3">Test report 3</a>' +
+                '<ul class="gem-c-document-list__item-metadata"></ul>' +
               '</li>' +
-              '<li class="document">' +
-                '<a href="/reports/test-report-2" class="document__link" data-track-category="navFinderLinkClicked" data-track-action="foo" data-track-label="">Test report 2</a>' +
-                '<p>This is important</p>' +
+              '<li class="gem-c-document-list__item ">' +
+                '<a data-track-category="navFinderLinkClicked" data-track-action="foo" data-track-label="" class="gem-c-document-list__item-title " href="/reports/test-report-2">Test report 2</a>' +
+                '<ul class="gem-c-document-list__item-metadata"></ul>' +
               '</li>' +
-            '</ul>' +
+            '</ol>' +
           '</li>' +
         '</ul>'
     }

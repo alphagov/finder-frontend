@@ -28,7 +28,7 @@ class ResultSetPresenter
       zero_results: total.zero?,
       page_count: documents.count,
       finder_name: finder_presenter.name,
-      debug_score: debug_score,
+      debug_score: debug_score
     }
   end
 
@@ -36,15 +36,7 @@ class ResultSetPresenter
     @documents ||= begin
       results.each_with_index.map do |result, index|
         metadata = metadata_presenter_class.new(result.metadata).present
-        doc = SearchResultPresenter.new(result, metadata).to_hash
-        if  index === 0 && highlight_top_result?
-          doc[:top_result] = true
-          doc[:summary] = result.truncated_description
-        end
-        {
-          document: doc,
-          document_index: index + 1
-        }
+        SearchResultPresenter.new(search_result: result, metadata: metadata, doc_index: index, doc_count: results.count, finder_name: finder_presenter.name, debug_score: debug_score, highlight: highlight(index)).govuk_component_data
       end
     end
   end
@@ -75,6 +67,10 @@ private
       results.length >= 2 &&
       sort_option.dig('key').eql?("-relevance") &&
       best_bet?
+  end
+
+  def highlight(index)
+    index === 0 && highlight_top_result?
   end
 
   def best_bet?
