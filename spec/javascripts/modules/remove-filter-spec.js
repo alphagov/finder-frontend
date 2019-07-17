@@ -8,7 +8,6 @@ describe('remove-filter', function () {
   var GOVUK = window.GOVUK
   var timeout = 500
   var removeFilter
-  GOVUK.analytics = GOVUK.analytics || {}
   var $checkbox = $(
     '<div data-module="remove-filter">' +
     '<button href="/search/news-and-communications" class="remove-filter" role="button" aria-label="Remove filter Brexit" data-module="remove-filter-link" data-facet="related_to_brexit" data-value="true" data-track-label="Brexit" data-name="">✕</button>' +
@@ -72,14 +71,13 @@ describe('remove-filter', function () {
     '</div>'
 
   beforeEach(function () {
-    GOVUK.analytics.trackEvent = function () {}
     $(document.body).append($facets)
     removeFilter = new GOVUK.Modules.RemoveFilter()
-    spyOn(GOVUK.analytics, 'trackEvent')
+    spyOn(GOVUK.SearchAnalytics, 'trackEvent')
   })
 
   afterEach(function () {
-    GOVUK.analytics.trackEvent.calls.reset()
+    GOVUK.SearchAnalytics.trackEvent.calls.reset()
   })
 
   it('deselects a selected checkbox', function (done) {
@@ -180,7 +178,7 @@ describe('remove-filter', function () {
 
       triggerRemoveFilterClick($facetTagOne)
 
-      expect(GOVUK.analytics.trackEvent).toHaveBeenCalledWith('facetTagRemoved', 'level_one_taxon', {
+      expect(GOVUK.SearchAnalytics.trackEvent).toHaveBeenCalledWith('facetTagRemoved', 'level_one_taxon', {
         label: 'A level one taxon'
       })
     })
@@ -192,7 +190,7 @@ describe('remove-filter', function () {
       triggerRemoveFilterClick($facetTagOne)
       triggerRemoveFilterClick($facetTagTwo)
 
-      expect(GOVUK.analytics.trackEvent).toHaveBeenCalledWith('facetTagRemoved', 'level_two_taxon', {
+      expect(GOVUK.SearchAnalytics.trackEvent).toHaveBeenCalledWith('facetTagRemoved', 'level_two_taxon', {
         label: 'Sub taxon'
       })
     })

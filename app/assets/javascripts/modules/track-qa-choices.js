@@ -22,7 +22,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
           eventLabel = $checkedOption.attr('name').replace('[]', '')
           options = { transport: 'beacon', label: eventLabel }
 
-          GOVUK.analytics.trackEvent('QA option chosen', $checkedOption.val(), options)
+          GOVUK.SearchAnalytics.trackEvent('QA option chosen', $checkedOption.val(), options)
         })
       })
     }

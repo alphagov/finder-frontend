@@ -7,11 +7,8 @@ describe('QA choices tracker', function () {
   var tracker
   var $element
 
-  GOVUK.analytics = GOVUK.analytics || {}
-
   beforeEach(function () {
-    GOVUK.analytics.trackEvent = function () {}
-    spyOn(GOVUK.analytics, 'trackEvent')
+    spyOn(GOVUK.SearchAnalytics, 'trackEvent')
 
     $element = $(
       '<div>' +
@@ -29,7 +26,7 @@ describe('QA choices tracker', function () {
   })
 
   afterEach(function () {
-    GOVUK.analytics.trackEvent.calls.reset()
+    GOVUK.SearchAnalytics.trackEvent.calls.reset()
   })
 
   it('tracks checked checkboxes when clicking submit', function () {
@@ -37,10 +34,10 @@ describe('QA choices tracker', function () {
     $element.find('input[value="construction"]').trigger('click')
     $element.find('form').trigger('submit')
 
-    expect(GOVUK.analytics.trackEvent).toHaveBeenCalledWith(
+    expect(GOVUK.SearchAnalytics.trackEvent).toHaveBeenCalledWith(
       'QA option chosen', 'accommodation', { transport: 'beacon', label: 'sector_business_area' }
     )
-    expect(GOVUK.analytics.trackEvent).toHaveBeenCalledWith(
+    expect(GOVUK.SearchAnalytics.trackEvent).toHaveBeenCalledWith(
       'QA option chosen', 'construction', { transport: 'beacon', label: 'sector_business_area' }
     )
   })
@@ -48,6 +45,6 @@ describe('QA choices tracker', function () {
   it('does not track events when no choice is made', function () {
     $element.find('form').trigger('submit')
 
-    expect(GOVUK.analytics.trackEvent).not.toHaveBeenCalled()
+    expect(GOVUK.SearchAnalytics.trackEvent).not.toHaveBeenCalled()
   })
 })

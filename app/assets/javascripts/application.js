@@ -15,6 +15,7 @@
 //= require support
 //
 //= require live_search
+//= require search-analytics
 //= require taxonomy-select
 //= require_tree ./modules
 //= require_tree ./components
