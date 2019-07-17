@@ -77,11 +77,13 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
       var action = filterFacet
       var label = filterValue
 
-      GOVUK.analytics.trackEvent(
-        category,
-        action,
-        { label: label }
-      )
+      if (GOVUK.hasOwnProperty('analytics')) {
+        GOVUK.analytics.trackEvent(
+          category,
+          action,
+          { label: label }
+        )
+      }
     }
 
     function decodeEntities (string) {
