@@ -131,10 +131,10 @@ class FinderPresenter
 
   def page_metadata
     metadata = {
-      from: organisations,
-      inverse: true,
+      from: organisations
     }
 
+    metadata[:inverse] = true if topic_finder?
     metadata.reject { |_, links| links.blank? }
   end
 

@@ -177,6 +177,22 @@ When(/^I view the research and statistics finder with a topic param set$/) do
   visit finder_path('search/research-and-statistics', topic: 'c58fdadd-7743-46d6-9629-90bb3ccc4ef0')
 end
 
+When(/^I view the aaib reports finder with a topic param set$/) do
+  topic_taxonomy_has_taxons([
+                              FactoryBot.build(
+                                :level_one_taxon_hash,
+                                content_id: "c58fdadd-7743-46d6-9629-90bb3ccc4ef0",
+                                title: "Education, training and skills"
+                              )
+                            ])
+  content_store_has_aaib_reports_finder
+  stub_organisations_registry_request
+  stub_manuals_registry_request
+  stub_whitehall_api_world_location_request
+  stub_rummager_api_request_with_aaib_reports_results
+  visit finder_path('aaib-reports', topic: 'c58fdadd-7743-46d6-9629-90bb3ccc4ef0')
+end
+
 When(/^I view the all content finder with a manual filter$/) do
   topic_taxonomy_has_taxons
   content_store_has_all_content_finder
@@ -427,6 +443,30 @@ Given(/^a finder with a no_index property exists$/) do
   stub_taxonomy_api_request
   stub_content_store_with_cma_cases_finder_with_no_index
   stub_rummager_with_cma_cases
+end
+
+Given(/^a finder with metadata exists$/) do
+  stub_taxonomy_api_request
+  stub_content_store_with_cma_cases_finder_with_metadata
+  stub_rummager_with_cma_cases
+end
+
+Given(/^a finder with metadata with a topic param set exists$/) do
+  stub_taxonomy_api_request
+  stub_content_store_with_cma_cases_finder_with_metadata_with_topic_param
+  stub_rummager_with_cma_cases
+end
+
+When(/^I can see that the finder metadata is present$/) do
+  visit "/cma-cases"
+
+  expect(page).to have_css(".gem-c-metadata")
+  expect(page).to_not have_css(".gem-c-metadata.gem-c-metadata--inverse")
+end
+
+When(/^I can see that the finder metadata is present and inverted$/) do
+  expect(page).to have_css(".gem-c-metadata")
+  expect(page).to have_css(".gem-c-metadata.gem-c-metadata--inverse")
 end
 
 When(/^I can see that the description in the metadata is present$/) do

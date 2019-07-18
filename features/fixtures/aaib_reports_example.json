@@ -52,6 +52,23 @@
         "web_url":"https://www.gov.uk/government/organisations/air-accidents-investigation-branch"
       }
     ],
+    "related": [
+      {
+        "api_path": "/api/content/drug-safety-update",
+        "base_path": "/drug-safety-update",
+        "content_id": "602be505-4cf4-4f8c-8bfc-7bc4b63a7f47",
+        "description": "Find drug safety updates issued by MHRA",
+        "document_type": "finder",
+        "locale": "en",
+        "public_updated_at": "2019-06-26T13:50:02Z",
+        "schema_name": "finder",
+        "title": "Drug Safety Update",
+        "withdrawn": false,
+        "links": {},
+        "api_url": "https://www.gov.uk/api/content/drug-safety-update",
+        "web_url": "https://www.gov.uk/drug-safety-update"
+      }
+    ],
     "available_translations":[
       {
         "title":"Air Accidents Investigation Branch reports",
