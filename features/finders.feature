@@ -360,7 +360,7 @@ Feature: Filtering documents
     When I view the news and communications finder
     Then I see email and feed sign up links
     And I click button "Person" and select facet Rufus Scrimgeour
-    Then I see email and feed sign up links with filters applied with extra empty filters
+    Then I see email and feed sign up links with filters and order applied
 
   @javascript
   Scenario: Policy papers should have three options
