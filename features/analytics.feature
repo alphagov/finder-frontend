@@ -7,6 +7,9 @@ Feature: Analytics
   Scenario: Ecommerce tracking
     When I view the all content finder
     Then the ecommerce tracking tags are present
+    And I search for lunch
+    And I submit the form
+    Then the data-search-query has been updated to lunch
 
   Scenario: Link tracking
     Given a government finder exists

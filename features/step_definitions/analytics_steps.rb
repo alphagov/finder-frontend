@@ -18,8 +18,6 @@ Then(/^the links on the page have tracking attributes$/) do
   expect(options['dimension29']).to eq(first_link.text)
 end
 
-# TODO live update of tracking tags
-
 Then(/^the ecommerce tracking tags are present$/) do
   visit finder_path('search/all', q: 'breakfast')
 
@@ -37,4 +35,15 @@ Then(/^the ecommerce tracking tags are present$/) do
 
   expect(first_link['data-ecommerce-path']).to eq('/restrictions-on-usage-of-spells-within-school-grounds')
   expect(first_link['data-ecommerce-content-id']).to eq('1234')
+end
+
+And(/^I search for lunch$/) do
+  stub_rummager_api_request_with_query_param_no_results('lunch')
+
+  fill_in 'Search', with: "lunch"
+end
+
+Then(/^the data-search-query has been updated to (.*)$/) do |query|
+  form = page.find('form[data-analytics-ecommerce]')
+  expect(form['data-search-query']).to eq(query)
 end
