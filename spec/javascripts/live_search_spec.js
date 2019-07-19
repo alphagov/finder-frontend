@@ -95,7 +95,6 @@ describe('liveSearch', function () {
     $('head').append('<meta name="govuk:base_title" content="All Content - GOV.UK">')
     _supportHistory = GOVUK.support.history
     GOVUK.support.history = function () { return true }
-    GOVUK.analytics = { trackPageview: function () { }, trackEvent: function () { } }
 
     liveSearch = new GOVUK.LiveSearch({ $form: $form, $results: $results, $atomAutodiscoveryLink: $atomAutodiscoveryLink })
   })
@@ -218,8 +217,6 @@ describe('liveSearch', function () {
 
   describe('with relevant DOM nodes set', function () {
     beforeEach(function () {
-      GOVUK.analytics.trackEvent = function () {}
-
       liveSearch.$form = $form
       liveSearch.$resultsBlock = $results
       liveSearch.$countBlock = $count
@@ -249,7 +246,7 @@ describe('liveSearch', function () {
     it('should trigger analytics trackpage when checkbox is changed', function () {
       var promise = jasmine.createSpyObj('promise', ['done'])
       spyOn(liveSearch, 'updateResults').and.returnValue(promise)
-      spyOn(GOVUK.analytics, 'trackPageview')
+      spyOn(GOVUK.SearchAnalytics, 'trackPageview')
       spyOn(liveSearch, 'trackingInit')
 
       liveSearch.state = []
@@ -258,8 +255,8 @@ describe('liveSearch', function () {
       promise.done.calls.mostRecent().args[0]()
 
       expect(liveSearch.trackingInit).toHaveBeenCalled()
-      expect(GOVUK.analytics.trackPageview).toHaveBeenCalled()
-      var trackArgs = GOVUK.analytics.trackPageview.calls.first().args[0]
+      expect(GOVUK.SearchAnalytics.trackPageview).toHaveBeenCalled()
+      var trackArgs = GOVUK.SearchAnalytics.trackPageview.calls.first().args[0]
       expect(trackArgs.split('?')[1], 'field=sheep')
     })
 
@@ -432,7 +429,6 @@ describe('liveSearch', function () {
     }
 
     beforeEach(function () {
-      GOVUK.analytics.trackEvent = function () {}
       liveSearch.$form = $form
       liveSearch.$resultsBlock = $results
       liveSearch.state = { search: 'state' }

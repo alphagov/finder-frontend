@@ -114,11 +114,9 @@
   }
 
   LiveSearch.prototype.setRelevantResultCustomDimension = function setRelevantResultCustomDimension () {
-    if (this.canSetCustomDimension()) {
-      var $mostRelevantDocumentLink = $('.js-finder-results').find('.gem-c-document-list__item--highlight')
-      var dimensionValue = $mostRelevantDocumentLink.length ? 'yes' : 'no'
-      GOVUK.analytics.setDimension(83, dimensionValue)
-    }
+    var $mostRelevantDocumentLink = $('.js-finder-results').find('.gem-c-document-list__item--highlight')
+    var dimensionValue = $mostRelevantDocumentLink.length ? 'yes' : 'no'
+    GOVUK.SearchAnalytics.setDimension(83, dimensionValue)
   }
 
   LiveSearch.prototype.trackingInit = function trackingInit () {
@@ -127,10 +125,8 @@
   }
 
   LiveSearch.prototype.trackPageView = function trackPageView () {
-    if (this.canTrackPageview()) {
-      var newPath = window.location.pathname + '?' + $.param(this.state)
-      GOVUK.analytics.trackPageview(newPath)
-    }
+    var newPath = window.location.pathname + '?' + $.param(this.state)
+    GOVUK.SearchAnalytics.trackPageview(newPath)
   }
 
   /**
@@ -168,28 +164,18 @@
   }
 
   LiveSearch.prototype.fireTextAnalyticsEvent = function fireTextAnalyticsEvent (event) {
-    if (this.canTrackPageview()) {
-      var options = {
-        transport: 'beacon',
-        label: $(event.target)[0].value
-      }
-      var category = 'filterClicked'
-      var action = $('label[for="' + event.target.id + '"]')[0].innerText
-
-      GOVUK.analytics.trackEvent(
-        category,
-        action,
-        options
-      )
+    var options = {
+      transport: 'beacon',
+      label: $(event.target)[0].value
     }
-  }
+    var category = 'filterClicked'
+    var action = $('label[for="' + event.target.id + '"]')[0].innerText
 
-  LiveSearch.prototype.canTrackPageview = function canTrackPageview () {
-    return GOVUK.analytics && GOVUK.analytics.trackPageview
-  }
-
-  LiveSearch.prototype.canSetCustomDimension = function canSetCustomDimension () {
-    return GOVUK.analytics && GOVUK.analytics.setDimension
+    GOVUK.SearchAnalytics.trackEvent(
+      category,
+      action,
+      options
+    )
   }
 
   LiveSearch.prototype.cache = function cache (slug, data) {

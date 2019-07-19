@@ -77,7 +77,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
       var action = filterFacet
       var label = filterValue
 
-      GOVUK.analytics.trackEvent(
+      GOVUK.SearchAnalytics.trackEvent(
         category,
         action,
         { label: label }
