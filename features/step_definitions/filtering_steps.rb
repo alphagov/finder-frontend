@@ -83,9 +83,9 @@ And("I see email and feed sign up links with filters applied") do
   expect(page).to have_css('a[href="/search/news-and-communications.atom?people%5B%5D=rufus-scrimgeour"]')
 end
 
-And("I see email and feed sign up links with filters applied with extra empty filters") do
-  expect(page).to have_css('a[href="/search/news-and-communications/email-signup?parent=&keywords=&level_one_taxon=&people%5B%5D=rufus-scrimgeour&public_timestamp%5Bfrom%5D=&public_timestamp%5Bto%5D=&order=updated-newest"]')
-  expect(page).to have_css('a[href="/search/news-and-communications.atom?parent=&keywords=&level_one_taxon=&people%5B%5D=rufus-scrimgeour&public_timestamp%5Bfrom%5D=&public_timestamp%5Bto%5D=&order=updated-newest"]')
+And("I see email and feed sign up links with filters and order applied") do
+  expect(page).to have_css('a[href="/search/news-and-communications/email-signup?people%5B%5D=rufus-scrimgeour&order=updated-newest"]')
+  expect(page).to have_css('a[href="/search/news-and-communications.atom?people%5B%5D=rufus-scrimgeour&order=updated-newest"]')
 end
 
 When(/^I view a list of news and communications$/) do

@@ -83,6 +83,7 @@ describe('liveSearch', function () {
                 '<label for="published_at">Published at</label>' +
                 '<input type="text" name="published_at" value="2004" />' +
                 '<input type="text" name="option-select-filter" value="notincluded"/>' +
+                '<input type="text" name="unused_facet"/>' +
                 '<input type="submit" value="Filter results" class="button js-live-search-fallback"/>' +
               '</form>')
     $results = $('<div class="js-live-search-results-block"><div id="js-sort-options">' + sortList + '</div></div>')
@@ -105,9 +106,8 @@ describe('liveSearch', function () {
     GOVUK.support.history = _supportHistory
   })
 
-  it('should save initial state', function () {
+  it('should save initial state (serialized and compacted)', function () {
     expect(liveSearch.state).toEqual([{ name: 'field', value: 'sheep' }, { name: 'published_at', value: '2004' }])
-    expect(liveSearch.state).not.toEqual([{ name: 'field', value: 'sheep' }, { name: 'published_at', value: '2004' }, { name: 'option-select-filter', value: 'notincluded' }])
   })
 
   it('should detect a new state', function () {

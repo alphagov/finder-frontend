@@ -67,8 +67,11 @@
   }
 
   LiveSearch.prototype.getSerializeForm = function getSerializeForm () {
-    var uncleanState = this.$form.serializeArray()
-    return uncleanState.filter(function (field) { return field.name !== 'option-select-filter' })
+    var serialized = this.$form.serializeArray()
+    var filtered = serialized.filter(function (field) {
+      return field.value !== '' && field.name !== 'option-select-filter'
+    })
+    return filtered
   }
 
   LiveSearch.prototype.saveState = function saveState (state) {
