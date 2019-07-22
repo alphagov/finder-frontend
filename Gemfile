@@ -4,7 +4,7 @@ ruby File.read(".ruby-version").strip
 
 gem 'chronic', '~> 0.10.2'
 gem 'dalli'
-gem 'gds-api-adapters', '~> 59.5'
+gem 'gds-api-adapters', '~> 59.6'
 gem 'govuk_ab_testing', '~> 2.4.1'
 gem 'govuk_app_config', '~> 1.20.1'
 gem 'govuk_document_types', '~> 0.9.2'
