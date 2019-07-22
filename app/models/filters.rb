@@ -3,7 +3,6 @@ module Filters
     def call
       [
         {
-          'key' => 'upcoming_statistics',
           'value' => 'upcoming_statistics',
           'label' => 'Statistics (upcoming)',
           'filter' => {
@@ -12,7 +11,6 @@ module Filters
           }
         },
         {
-          'key' => 'published_statistics',
           'value' => 'published_statistics',
           'label' => 'Statistics (published)',
           'filter' => {
@@ -21,7 +19,6 @@ module Filters
           'default' => true
         },
         {
-          'key' => 'research',
           'value' => 'research',
           'label' => 'Research',
           'filter' => {
@@ -36,7 +33,6 @@ module Filters
     def call
       [
         {
-          'key' => 'command_or_act_papers',
           'value' => 'command_or_act_papers',
           'label' => 'Command or act papers',
           'filter' => {
@@ -45,7 +41,6 @@ module Filters
             'default' => true
         },
         {
-          'key' => 'command_papers',
           'value' => 'command_papers',
           'label' => 'Command papers only',
           'filter' => {
@@ -54,7 +49,6 @@ module Filters
           }
         },
         {
-          'key' => 'act_papers',
           'value' => 'act_papers',
           'label' => 'Act papers only',
           'filter' => {

@@ -6,14 +6,14 @@ describe Filters::RadioFilterForMultipleFields do
     def filter_hashes
       [
         {
-          'key' => 'key_1',
+          'value' => 'value_1',
           'label' => 'label_1',
           'filter' => {
             'field' => 'value_1',
           }
         },
         {
-          'key' => 'default_key',
+          'value' => 'default_value',
           'label' => 'default_label',
           'filter' => {
             'field' => 'default_value'
@@ -53,7 +53,7 @@ describe Filters::RadioFilterForMultipleFields do
     end
 
     context 'valid parameter' do
-      let(:params_value) { "key_1" }
+      let(:params_value) { "value_1" }
 
       it 'returns valid query hash' do
         expect(filter.query_hash).to eq('field' => 'value_1')
