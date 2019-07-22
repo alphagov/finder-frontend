@@ -23,6 +23,10 @@ module FixturesHelper
     JSON.parse(File.read(fixtures_path + "/cma_cases_signup_content_item.json"))
   end
 
+  def news_and_communications_content_item
+    JSON.parse(File.read(fixtures_path + "/news_and_communications.json"))
+  end
+
   def news_and_communications_signup_content_item
     JSON.parse(File.read(fixtures_path + "/news_and_communications_signup_content_item.json"))
   end
