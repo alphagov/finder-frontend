@@ -35,7 +35,7 @@ module Registries
         people.reject { |result| result.dig('value', 'slug').blank? || result.dig('value', 'title').blank? }
           .each_with_object({}) { |result, orgs|
             slug = result['value']['slug']
-            orgs[slug] = result['value'].slice('title', 'slug')
+            orgs[slug] = result['value'].slice('title', 'slug', 'content_id')
           }
       end
     end

@@ -8,9 +8,9 @@ RSpec.describe Registries::OrganisationsRegistry do
   let(:rummager_params) {
     {
       "count" => 1500,
-      "fields" => %w(slug title acronym),
+      "fields" => %w(slug title acronym content_id),
       "filter_format" => "organisation",
-      "order" => 'title'
+      "order" => 'title',
     }
   }
   let(:rummager_url) { "#{Plek.current.find('search')}/search.json?#{rummager_params.to_query}" }
@@ -26,7 +26,8 @@ RSpec.describe Registries::OrganisationsRegistry do
       expect(organisation).to eq(
         'title' => 'Ministry of Magic',
         'acronym' => 'MOM',
-        'slug' => slug
+        'slug' => slug,
+        'content_id' => 'content_id_for_ministry-of-magic'
       )
     end
 
@@ -57,26 +58,5 @@ RSpec.describe Registries::OrganisationsRegistry do
 
   def clear_cache
     Rails.cache.delete(described_class.new.cache_key)
-  end
-
-  def rummager_results
-    %|{
-      "results": [
-        {
-          "title": "Attorney General's Office",
-          "slug": "attorney-generals-office",
-          "_id": "/government/organisations/companies-house"
-        },
-        {
-          "title": "Ministry of Magic",
-          "slug": "ministry-of-magic",
-          "_id": "a field that we're not using"
-        }
-      ],
-      "total": 2,
-      "start": 0,
-      "aggregates": {},
-      "suggested_queries": []
-    }|
   end
 end

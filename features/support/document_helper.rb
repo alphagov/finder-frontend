@@ -1368,7 +1368,8 @@ module DocumentHelper
           "organisations": {
             "id": "https://www.gov.uk/api/world-locations/azkaban/organisations",
             "web_url": "https://www.gov.uk/world/azkaban#organisations"
-          }
+          },
+          "content_id": "azkaban-id"
         },
         {
           "id": "https://www.gov.uk/api/world-locations/tracy-island",
@@ -1384,7 +1385,8 @@ module DocumentHelper
           "organisations": {
             "id": "https://www.gov.uk/api/world-locations/tracy-island/organisations",
             "web_url": "https://www.gov.uk/world/tracy-island#organisations"
-          }
+          },
+          "content_id": "tracy-island-id"
         }
       ],
       "current_page": 1,
