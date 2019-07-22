@@ -1,9 +1,11 @@
 require 'spec_helper'
 require 'email_alert_signup_api'
 require 'gds_api/test_helpers/email_alert_api'
+require 'helpers/registry_spec_helper'
 
 describe EmailAlertSignupAPI do
   include GdsApi::TestHelpers::EmailAlertApi
+  include RegistrySpecHelper
 
   subject(:signup_api_wrapper) do
     described_class.new(
@@ -418,6 +420,109 @@ describe EmailAlertSignupAPI do
 
       expect(subject.signup_url).to eql subscription_url
       assert_requested(req)
+    end
+  end
+
+  context "Create link based subscriber lists" do
+    let(:subscription_url) { "http://gov.uk/email/news-and-comms-subscription" }
+    describe 'organisation facet' do
+      let(:applied_filters) do
+        { "organisations" => %w(death-eaters ministry-of-magic) }
+      end
+      let(:facets) do
+        [
+          {
+            "facet_id" => "organisations",
+            "facet_name" => "Organisations"
+          }
+        ]
+      end
+      before :each do
+        stub_organisations_registry_request
+      end
+      it 'asks email-alert-api to find or create the subscriber list' do
+        req = email_alert_api_has_subscriber_list(
+          "links" => {
+            organisations: { any: %w(content_id_for_death-eaters content_id_for_ministry-of-magic) },
+          },
+          "subscription_url" => subscription_url
+        )
+        expect(subject.signup_url).to eql subscription_url
+        assert_requested(req)
+      end
+    end
+
+    describe 'world facet' do
+      let(:applied_filters) do
+        { "world_locations" => %w(location_1 location_2) }
+      end
+      let(:facets) do
+        [
+          {
+            "facet_id" => "world_locations",
+            "facet_name" => "world locations"
+          }
+        ]
+      end
+      before :each do
+        world_locations = {
+          "results": [
+            {
+              "content_id": 'location_id_1',
+              "details": {
+                "slug": "location_1",
+              }
+            },
+            {
+              "content_id": 'location_id_2',
+              "details": {
+                "slug": "location_2",
+              },
+            }
+          ]
+        }
+        stub_request(:get, "#{Plek.current.find('whitehall-admin')}/api/world-locations")
+          .with(query: hash_including({}))
+          .to_return(body: world_locations.to_json)
+      end
+
+      it 'asks email-alert-api to find or create the subscriber list' do
+        req = email_alert_api_has_subscriber_list(
+          "links" => {
+            world_locations: { any: %w(location_id_1 location_id_2) },
+          },
+          "subscription_url" => subscription_url
+        )
+        expect(subject.signup_url).to eql subscription_url
+        assert_requested(req)
+      end
+    end
+    describe 'people facet' do
+      let(:applied_filters) do
+        { "people" => %w(albus-dumbledore ron-weasley) }
+      end
+      let(:facets) do
+        [
+          {
+            "facet_id" => "people",
+            "facet_name" => "people"
+          }
+        ]
+      end
+      before :each do
+        stub_people_registry_request
+      end
+
+      it 'asks email-alert-api to find or create the subscriber list' do
+        req = email_alert_api_has_subscriber_list(
+          "links" => {
+            people: { any: %w(content_id_for_albus-dumbledore content_id_for_ron-weasley) },
+          },
+          "subscription_url" => subscription_url
+        )
+        expect(subject.signup_url).to eql subscription_url
+        assert_requested(req)
+      end
     end
   end
 end

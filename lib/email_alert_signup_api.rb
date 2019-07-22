@@ -36,14 +36,49 @@ private
 
   def subscriber_list_options
     options = { "title" => subscriber_list_title }
-    if facet_groups?
+    if facet_groups? #business readiness legacy
       options["links"] = facet_groups
-    elsif facet_values?
+    elsif facet_values? #business readiness
       options["links"] = facet_values
+    elsif link_based_subscriber_list?
+      options["links"] = links
     else
       options["tags"] = tags
     end
     options
+  end
+
+  def link_based_subscriber_list?
+    content_types = %w[organisations people world_locations part_of_taxonomy_tree]
+    keys = facet_filter_keys.map { |key| key.gsub(/^(all_|any_)/, '') }
+    (keys & content_types).present?
+  end
+
+  def links
+    selected_keys = applied_filters.keys.map(&:to_s) & facet_filter_keys
+    selected_keys.each_with_object({}) do |full_key, result|
+      operator, key = split_key(full_key)
+      values = applied_filters[full_key.to_sym]
+      result[key] ||= {}
+      result[key][operator] = to_content_ids(key, values)
+    end
+  end
+
+  def split_key(full_key)
+    matches = full_key.match(/^((?<operator>any|all)_)?(?<key>.*)$/)
+    operator = matches[:operator] || 'any'
+    [operator, matches[:key]]
+  end
+
+  def to_content_ids(key, values)
+    return values if key == 'part_of_taxonomy_tree'
+
+    registry = Registries::BaseRegistries.new.all[key]
+    values.map { |value| registry[value]['content_id'] }
+  end
+
+  def facet_filter_keys
+    @facet_filter_keys ||= facets.map { |f| f['filter_key'] || f['facet_id'] }
   end
 
   def facet_groups?
