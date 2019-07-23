@@ -27,6 +27,9 @@ class SearchResultPresenter
         path: link,
         description: summary_text,
         data_attributes: {
+          ecommerce_path: link,
+          ecommerce_content_id: search_result.content_id,
+          ecommerce_row: 1,
           track_category: "navFinderLinkClicked",
           track_action: "#{@finder_name}.#{@index}",
           track_label: link,

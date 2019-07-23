@@ -27,7 +27,8 @@ RSpec.describe SearchResultPresenter do
       government_name: 'Government!',
       show_metadata: false,
       format: 'cake',
-      es_score: 0.005
+      es_score: 0.005,
+      content_id: 'content_id'
     )
   }
 
@@ -61,6 +62,9 @@ RSpec.describe SearchResultPresenter do
         path: link,
         description: summary,
         data_attributes: {
+          ecommerce_path: link,
+          ecommerce_content_id: 'content_id',
+          ecommerce_row: 1,
           track_category: "navFinderLinkClicked",
           track_action: "#{finder_name}.1",
           track_label: link,

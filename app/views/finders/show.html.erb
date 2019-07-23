@@ -22,7 +22,11 @@
   <% inverse = true %>
 <% end %>
 
-<form method="get" action="<%= finder_presenter.slug %>" class="js-live-search-form">
+<form method="get" action="<%= finder_presenter.slug %>" class="js-live-search-form"
+  data-analytics-ecommerce
+  data-ecommerce-start-index="<%= finder_presenter.start_offset %>"
+  data-list-title="<%= finder_presenter.name %>"
+  data-search-query="<%= result_set_presenter.user_supplied_keywords %>">
   <input type="hidden" name="parent" value="<%= @parent %>">
 
   <% if finder_presenter.topic_finder? && !finder_presenter.all_content_finder? %>
