@@ -430,6 +430,30 @@ describe EmailAlertSignupAPI do
         "content_purpose_subgroup": %w[news speeches_and_statements]
       }
     }
+    describe 'part_of_taxonomy_tree facet' do
+      let(:applied_filters) do
+        { "all_part_of_taxonomy_tree" => %w(content_id_1 content_id_2) }
+      end
+      let(:facets) do
+        [
+          {
+            "facet_id" => "all_part_of_taxonomy_tree",
+            "facet_name" => "Taxon"
+          }
+        ]
+      end
+      it 'translates all_part_of_taxonomy_tree to taxon_tree and does not convert values' do
+        req = email_alert_api_has_subscriber_list(
+          "links" => {
+            taxon_tree: { all: %w(content_id_1 content_id_2) },
+            content_purpose_subgroup: { any: %w[news speeches_and_statements] }
+          },
+          "subscription_url" => subscription_url
+        )
+        expect(subject.signup_url).to eql subscription_url
+        assert_requested(req)
+      end
+    end
     describe 'organisation facet' do
       let(:applied_filters) do
         { "organisations" => %w(death-eaters ministry-of-magic) }

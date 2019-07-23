@@ -72,11 +72,12 @@ private
   def split_key(full_key)
     matches = full_key.match(/^((?<operator>any|all)_)?(?<key>.*)$/)
     operator = matches[:operator] || 'any'
-    [operator, matches[:key]]
+    key = matches[:key] == 'part_of_taxonomy_tree' ? 'taxon_tree' : matches[:key]
+    [operator, key]
   end
 
   def to_content_ids(key, values)
-    return values if key == 'part_of_taxonomy_tree'
+    return values if key == 'taxon_tree'
 
     registry = Registries::BaseRegistries.new.all[key]
     values.map { |value| registry[value]['content_id'] }
