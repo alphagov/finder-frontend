@@ -1820,7 +1820,6 @@ module DocumentHelper
         {
           "title": "Restrictions on usage of spells within school grounds",
           "link": "/restrictions-on-usage-of-spells-within-school-grounds",
-          "content_id": "1234",
           "description": "Restrictions on usage of spells within school grounds",
           "public_timestamp": "2017-12-30T10:00:00Z",
           "part_of_taxonomy_tree": [

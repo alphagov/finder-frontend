@@ -151,10 +151,6 @@ class FinderPresenter
     )
   end
 
-  def start_offset
-    search_results.fetch('start', 0) + 1
-  end
-
   def label_for_metadata_key(key)
     facet = metadata.find { |f| f.key == key }
 

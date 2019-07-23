@@ -97,6 +97,10 @@ Feature: Filtering documents
     Given a finder with a no_index property exists
     Then I can see that the noindex tag is is present in the metadata
 
+  Scenario: Link tracking
+    Given a government finder exists
+    Then the links on the page have tracking attributes
+
   Scenario: Visit a finder from an organisation
     Given an organisation finder exists
     Then I can see a breadcrumb for home
