@@ -15,15 +15,15 @@ module Filters
     end
 
     def default_value
-      filter_hashes.find { |filter| filter['default'] }.fetch('key')
+      filter_hashes.find { |filter| filter['default'] }.fetch('value')
     end
 
     def validated_value(value)
-      filter_hashes.map { |filter| filter['key'] }.include?(value) ? value : default_value
+      filter_hashes.map { |filter| filter['value'] }.include?(value) ? value : default_value
     end
 
-    def find_filter(key)
-      filter_hashes.find { |filter| filter['key'] == key }
+    def find_filter(value)
+      filter_hashes.find { |filter| filter['value'] == value }
     end
   end
 end

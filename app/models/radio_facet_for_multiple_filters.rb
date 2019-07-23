@@ -1,4 +1,5 @@
 class RadioFacetForMultipleFilters < FilterableFacet
+  attr_reader :value
   def initialize(facet, value, filter_hashes)
     @filter_hashes = filter_hashes
     @value = validated_value(value, @filter_hashes)
@@ -8,9 +9,9 @@ class RadioFacetForMultipleFilters < FilterableFacet
   def options
     @filter_hashes.map do |filter_hash|
       {
-        value: filter_hash['key'],
+        value: filter_hash['value'],
         text: filter_hash['label'],
-        checked: @value == filter_hash['key'],
+        checked: @value == filter_hash['value'],
       }
     end
   end
@@ -31,15 +32,19 @@ class RadioFacetForMultipleFilters < FilterableFacet
     "radio_facet"
   end
 
+  def allowed_values
+    @filter_hashes
+  end
+
 private
 
   attr_reader :filter_hashes
 
   def validated_value(value, filter_hashes)
-    filter_hashes.map { |f| f['key'] }.include?(value) ? value : default_value
+    filter_hashes.map { |f| f['value'] }.include?(value) ? value : default_value
   end
 
   def default_value
-    @filter_hashes.find { |hash_hash| hash_hash['default'] }.fetch('key')
+    @filter_hashes.find { |hash_hash| hash_hash['default'] }.fetch('value')
   end
 end
