@@ -56,12 +56,17 @@ private
 
   def links
     selected_keys = applied_filters.keys.map(&:to_s) & facet_filter_keys
-    selected_keys.each_with_object({}) do |full_key, result|
+    filter_links = selected_keys.each_with_object({}) do |full_key, result|
       operator, key = split_key(full_key)
       values = applied_filters[full_key.to_sym]
       result[key] ||= {}
       result[key][operator] = to_content_ids(key, values)
     end
+    filter_links.merge(default_links)
+  end
+
+  def default_links
+    default_filters.transform_values { |value| { any: value } }
   end
 
   def split_key(full_key)

@@ -425,6 +425,11 @@ describe EmailAlertSignupAPI do
 
   context "Create link based subscriber lists" do
     let(:subscription_url) { "http://gov.uk/email/news-and-comms-subscription" }
+    let(:default_filters) {
+      {
+        "content_purpose_subgroup": %w[news speeches_and_statements]
+      }
+    }
     describe 'organisation facet' do
       let(:applied_filters) do
         { "organisations" => %w(death-eaters ministry-of-magic) }
@@ -444,6 +449,7 @@ describe EmailAlertSignupAPI do
         req = email_alert_api_has_subscriber_list(
           "links" => {
             organisations: { any: %w(content_id_for_death-eaters content_id_for_ministry-of-magic) },
+            content_purpose_subgroup: { any: %w[news speeches_and_statements] }
           },
           "subscription_url" => subscription_url
         )
@@ -490,6 +496,7 @@ describe EmailAlertSignupAPI do
         req = email_alert_api_has_subscriber_list(
           "links" => {
             world_locations: { any: %w(location_id_1 location_id_2) },
+            content_purpose_subgroup: { any: %w[news speeches_and_statements] }
           },
           "subscription_url" => subscription_url
         )
@@ -517,6 +524,7 @@ describe EmailAlertSignupAPI do
         req = email_alert_api_has_subscriber_list(
           "links" => {
             people: { any: %w(content_id_for_albus-dumbledore content_id_for_ron-weasley) },
+            content_purpose_subgroup: { any: %w[news speeches_and_statements] }
           },
           "subscription_url" => subscription_url
         )
