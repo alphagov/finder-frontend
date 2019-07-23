@@ -21,7 +21,6 @@ RSpec.describe ResultSetPresenter do
       keywords: keywords,
       default_documents_per_page: 10,
       values: {},
-      start_offset: 1,
       sort: [
         {
           "name" => "Most viewed",
@@ -80,8 +79,7 @@ RSpec.describe ResultSetPresenter do
       government_name: 'The Government!',
       show_metadata: true,
       format: 'transaction',
-      es_score: 0.005,
-      content_id: 'content_id',
+      es_score: 0.005
     )
   end
 
@@ -92,9 +90,6 @@ RSpec.describe ResultSetPresenter do
         path: 'slug-1',
         description: 'I am a document',
         data_attributes: {
-          ecommerce_path: 'slug-1',
-          ecommerce_content_id: 'content_id',
-          ecommerce_row: 1,
           track_category: 'navFinderLinkClicked',
           track_action: 'A finder.1',
           track_label: 'slug-1',
@@ -246,7 +241,6 @@ RSpec.describe ResultSetPresenter do
           show_metadata: false,
           format: 'transaction',
           es_score: 1000.0,
-          content_id: 'content_id',
         )
       end
 
@@ -262,7 +256,6 @@ RSpec.describe ResultSetPresenter do
           show_metadata: false,
           format: 'transaction',
           es_score: 100.0,
-          content_id: 'content_id',
         )
       end
 
