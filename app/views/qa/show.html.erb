@@ -5,23 +5,26 @@
   <% end %>
 <% end %>
 
+<%
+  formatted_description = nil
+  if current_facet["description"]
+    formatted_description = render("govuk_publishing_components/components/govspeak", {
+      content: current_facet["description"].html_safe
+    })
+  end
+%>
+
 <div class="govuk-width-container">
   <%= render 'govuk_publishing_components/components/breadcrumbs', breadcrumbs: breadcrumbs %>
 
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-      <form action="<%= next_page_url %>" method="get" id="finder-qa-facet-filter-selection" class="gem-c-title" data-module="track-qa-choices">
-        <%= render "govuk_publishing_components/components/title", {
-          title: current_facet["question"],
-        } %>
-
-        <% if current_facet["description"] %>
-          <%= render "govuk_publishing_components/components/govspeak", {
-            content: current_facet["description"].html_safe
-          } %>
-        <% end %>
-
+      <form action="<%= next_page_url %>" method="get" id="finder-qa-facet-filter-selection" data-module="track-qa-choices">
         <% if multiple_grouped_question? %>
+          <%= render "govuk_publishing_components/components/title", {
+            title: current_facet["question"],
+          } %>
+          <%= formatted_description %>
           <% filter_groups.each do |filter_group| %>
             <%= render "govuk_publishing_components/components/checkboxes", {
               name: "#{current_facet['facet']['key']}[]",
@@ -31,38 +34,54 @@
             } %>
           <% end %>
         <% elsif multiple_question? %>
-          <%= render "govuk_publishing_components/components/checkboxes", {
-            name: "#{current_facet['facet']['key']}[]",
-            heading: "Select all that apply",
-            visually_hide_heading: true,
-            items: options
-          } %>
+          <div class="govuk-!-margin-top-8">
+            <%= render "govuk_publishing_components/components/checkboxes", {
+              name: "#{current_facet['facet']['key']}[]",
+              heading: current_facet["question"],
+              description: formatted_description,
+              hint_text: current_facet["hint_title"],
+              is_page_heading: true,
+              items: options
+            } %>
+          </div>
         <% elsif single_wrapped_question? %>
           <% checkboxes = render "govuk_publishing_components/components/checkboxes", {
             name: "#{current_facet['facet']['key']}[]",
-            heading: "Select all that apply",
+            heading: current_facet["question"],
             visually_hide_heading: true,
             items: options
           } %>
-          <%= render "govuk_publishing_components/components/radio", {
-            name: "#{current_facet['facet']['key']}-yesno",
-            items: [
-              {
-                value: "yes",
-                text: "Yes",
-                conditional: checkboxes
-              },
-              {
-                value: "no",
-                text: "No"
-              }
-            ]
-          } %>
+          <div class="govuk-!-margin-top-8">
+            <%= render "govuk_publishing_components/components/radio", {
+              name: "#{current_facet['facet']['key']}-yesno",
+              heading: current_facet["question"],
+              description: formatted_description,
+              hint_text: current_facet["hint_title"],
+              is_page_heading: true,
+              items: [
+                {
+                  value: "yes",
+                  text: "Yes",
+                  conditional: checkboxes
+                },
+                {
+                  value: "no",
+                  text: "No"
+                }
+              ]
+            } %>
+          </div>
         <% else %>
-          <%= render "govuk_publishing_components/components/radio", {
-            name: "#{current_facet['facet']['key']}[]",
-            items: options
-          } %>
+          <div class="govuk-!-margin-top-8">
+            <%= render "govuk_publishing_components/components/radio", {
+              name: "#{current_facet['facet']['key']}[]",
+              heading: current_facet["question"],
+              description: formatted_description,
+              hint_text: current_facet["hint_title"],
+              is_page_heading: true,
+              items: options
+            } %>
+          </div>
         <% end %>
         <% filtered_params.each_pair do |key, value| %>
           <% if value.is_a?(Array) %>
