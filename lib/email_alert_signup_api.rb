@@ -77,7 +77,7 @@ private
   end
 
   def to_content_ids(key, values)
-    return values if key == 'taxon_tree'
+    return values unless %w[organisations people world_locations].include?(key)
 
     registry = Registries::BaseRegistries.new.all[key]
     values.map { |value| registry[value]['content_id'] }

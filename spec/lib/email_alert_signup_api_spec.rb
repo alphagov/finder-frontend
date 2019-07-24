@@ -454,6 +454,34 @@ describe EmailAlertSignupAPI do
         assert_requested(req)
       end
     end
+    describe 'content_store_document_type' do
+      let(:applied_filters) do
+        { "content_store_document_type" => %w(document_type_1 document_type_2) }
+      end
+      let(:facets) do
+        [
+          {
+            "facet_id" => "content_store_document_type",
+            "facet_name" => "Document Type"
+          },
+          {
+            "facet_id" => "organisations",
+            "facet_name" => "Organisations"
+          }
+        ]
+      end
+      it 'It does not convert values' do
+        req = email_alert_api_has_subscriber_list(
+          "links" => {
+            content_store_document_type: { any: %w(document_type_1 document_type_2) },
+            content_purpose_subgroup: { any: %w[news speeches_and_statements] }
+          },
+          "subscription_url" => subscription_url
+        )
+        expect(subject.signup_url).to eql subscription_url
+        assert_requested(req)
+      end
+    end
     describe 'organisation facet' do
       let(:applied_filters) do
         { "organisations" => %w(death-eaters ministry-of-magic) }
