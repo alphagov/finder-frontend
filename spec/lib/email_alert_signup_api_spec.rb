@@ -481,6 +481,22 @@ describe EmailAlertSignupAPI do
         expect(subject.signup_url).to eql subscription_url
         assert_requested(req)
       end
+      describe 'handling default values' do
+        let(:default_filters) do
+          { "content_purpose_subgroup" => 'one_thing' }
+        end
+        it 'it converting scalar values to arrays' do
+          req = email_alert_api_has_subscriber_list(
+            "links" => {
+              content_store_document_type: { any: %w(document_type_1 document_type_2) },
+              content_purpose_subgroup: { any: %w[one_thing] }
+            },
+            "subscription_url" => subscription_url
+          )
+          expect(subject.signup_url).to eql subscription_url
+          assert_requested(req)
+        end
+      end
     end
     describe 'organisation facet' do
       let(:applied_filters) do
