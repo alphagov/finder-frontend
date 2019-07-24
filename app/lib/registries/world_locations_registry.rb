@@ -40,7 +40,8 @@ module Registries
       fetch_locations_from_worldwide_api.map { |result|
         {
           'title' => result['title'],
-          'slug' => result.dig('details', 'slug')
+          'slug' => result.dig('details', 'slug'),
+          'content_id' => result['content_id']
         }
       }
     end

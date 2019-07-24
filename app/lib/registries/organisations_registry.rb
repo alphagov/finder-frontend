@@ -35,7 +35,7 @@ module Registries
           .sort_by { |result| result['title'].sub("Closed organisation: ", "ZZ").upcase }
           .each_with_object({}) { |result, orgs|
             slug = result['slug']
-            orgs[slug] = result.slice('title', 'slug', 'acronym')
+            orgs[slug] = result.slice('title', 'slug', 'acronym', 'content_id')
           }
       end
     end
@@ -43,7 +43,7 @@ module Registries
     def fetch_organisations_from_rummager
       params = {
         filter_format: 'organisation',
-        fields: %w(title slug acronym),
+        fields: %w(title slug acronym content_id),
         count: 1500,
         order: 'title'
       }

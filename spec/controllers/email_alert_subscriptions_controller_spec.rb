@@ -53,77 +53,49 @@ describe EmailAlertSubscriptionsController, type: :controller do
   end
 
   describe 'POST "#create"' do
-    let(:finder) { govuk_content_schema_example('finder').to_hash.merge(title: 'alert-name') }
-
     before do
-      content_store_has_item('/cma-cases', finder)
-      content_store_has_item('/cma-cases/email-signup', signup_finder)
+      content_store_has_item('/cma-cases', cma_cases_content_item)
+      content_store_has_item('/cma-cases/email-signup', cma_cases_signup_content_item)
     end
 
     context "finder has default filters" do
-      let(:signup_finder) {
-        cma_cases_signup_content_item.to_hash.merge("details" => {
-          "filter" => { "content_purpose_supergroup" => 'news-and-communications' },
-        })
-      }
+      it "fails if the relevant filters are not provided" do
+        post :create, params: { slug: 'cma-cases' }
+        expect(response).to be_successful
+        expect(response).to render_template('new')
+      end
 
-      it "does not fail if no other attributes are provided" do
+      it 'redirects to the correct email subscription url' do
         email_alert_api_has_subscriber_list(
           "tags" => {
-            "format" => { any: %w(mosw_report) },
-            "content_purpose_supergroup" => { any: %w(news-and-communications) },
+            "case_type" => { any: %w[ca98-and-civil-cartels] },
+            "format" => { any: %w[cma_case] },
           },
-          "subscription_url" => 'http://www.example.com',
+          "subscription_url" => 'http://www.example.com'
         )
 
-        post :create, params: { slug: 'cma-cases' }
+        post :create, params: {
+          slug: 'cma-cases',
+          filter: {
+            'case_type' => %w[ca98-and-civil-cartels]
+          }
+        }
         expect(subject).to redirect_to('http://www.example.com')
       end
-    end
-
-
-    it "fails if the relevant filters are not provided" do
-      post :create, params: { slug: 'cma-cases' }
-      expect(response).to be_successful
-      expect(response).to render_template('new')
-    end
-
-    it 'redirects to the correct email subscription url' do
-      email_alert_api_has_subscriber_list(
-        "tags" => {
-          "case_type" => { any: %w[ca98-and-civil-cartels] },
-          "format" => { any: [finder.dig('details', 'filter', 'document_type')] },
-        },
-        "subscription_url" => 'http://www.example.com'
-      )
-
-      post :create, params: {
-        slug: 'cma-cases',
-        filter: {
-          'case_type' => %w[ca98-and-civil-cartels]
-        }
-      }
-      expect(subject).to redirect_to('http://www.example.com')
     end
   end
 
   context "with a multi facet signup" do
-    let(:signup_finder) { cma_cases_with_multi_facets_signup_content_item }
-
     describe 'POST "#create"' do
-      let(:finder) { govuk_content_schema_example('finder').to_hash.merge(title: 'alert-name') }
-
-      before do
-        content_store_has_item('/cma-cases', finder)
-      end
-
       it 'redirects to the correct email subscription url' do
-        content_store_has_item('/cma-cases/email-signup', signup_finder)
+        content_store_has_item('/cma-cases', cma_cases_content_item)
+        content_store_has_item('/cma-cases/email-signup', cma_cases_with_multi_facets_signup_content_item)
+
         email_alert_api_has_subscriber_list(
           "tags" => {
             "case_type" => { any: %w[ca98-and-civil-cartels] },
             "case_state" => { any: %w(open) },
-            "format" => { any: [finder.dig('details', 'filter', 'document_type')] },
+            "format" => { any: %w[cma_case] },
           },
           "subscription_url" => 'http://www.example.com'
         )
@@ -140,44 +112,34 @@ describe EmailAlertSubscriptionsController, type: :controller do
       end
 
       it 'redirects to the correct email subscription url with subscriber_list_params' do
-        taxonomy_signup_finder = signup_finder.tap do |content_item|
-          content_item['details']['email_filter_facets'] << {
-            'facet_key' => 'part_of_taxonomy_tree',
-            'facet_id' => 'part_of_taxonomy_tree',
-            'facet_name' => 'Taxonomy'
-          }
-        end
+        content_store_has_item('/news-and-communications', news_and_communications_content_item)
+        content_store_has_item('/news-and-communications/email-signup', news_and_communications_signup_content_item)
 
-        content_store_has_item('/cma-cases/email-signup', taxonomy_signup_finder)
         email_alert_api_has_subscriber_list(
-          'tags' => {
-            'case_type' => { any: %w[ca98-and-civil-cartels] },
-            'case_state' => { any: %w(open) },
-            'format' => { any: [finder.dig('details', 'filter', 'document_type')] },
-            'part_of_taxonomy_tree[]' => { any: %w[some-taxon] },
+          'links' => {
+            "content_purpose_subgroup" =>
+              {
+                "any" => %w[news speeches_and_statements]
+              }
           },
           'subscription_url' => 'http://www.example.com'
         )
 
         post :create, params: {
-          slug: 'cma-cases',
-          subscriber_list_params: { part_of_taxonomy_tree: %w(some-taxon) },
-          filter: {
-            'case_type' => %w[ca98-and-civil-cartels],
-            'case_state' => %w(open),
-          }
+          slug: 'news-and-communications',
+          subscriber_list_params: {},
         }
         expect(subject).to redirect_to('http://www.example.com')
       end
 
 
       it 'will not include a facet that is not in the signup content item in the redirect' do
-        content_store_has_item('/cma-cases/email-signup', signup_finder)
+        content_store_has_item('/cma-cases', cma_cases_content_item)
+        content_store_has_item('/cma-cases/email-signup', cma_cases_signup_content_item)
         email_alert_api_has_subscriber_list(
           'tags' => {
             'case_type' => { any: %w[ca98-and-civil-cartels] },
-            'case_state' => { any: %w(open) },
-            'format' => { any: [finder.dig('details', 'filter', 'document_type')] },
+            'format' => { any: %w[cma_case] },
           },
           'subscription_url' => 'http://www.example.com'
         )
@@ -197,15 +159,12 @@ describe EmailAlertSubscriptionsController, type: :controller do
 
   context "with email_filter_by set to 'facet_values'" do
     describe 'POST "#create"' do
-      let(:finder) { business_readiness_content_item }
-      let(:signup_finder) { business_readiness_signup_content_item }
-
       before do
-        content_store_has_item('/find-eu-exit-guidance-business', finder)
+        content_store_has_item('/find-eu-exit-guidance-business', business_readiness_content_item)
+        content_store_has_item('/find-eu-exit-guidance-business/email-signup', business_readiness_signup_content_item)
       end
 
       it "should call EmailAlertListTitleBuilder instead of EmailAlertTitleBuilder" do
-        content_store_has_item('/find-eu-exit-guidance-business/email-signup', signup_finder)
         email_alert_api_has_subscriber_list(
           'links' => {
             'facet_values' => { any: %w(aerospace) },
@@ -230,33 +189,24 @@ describe EmailAlertSubscriptionsController, type: :controller do
 
   context "with blank email_filter_by" do
     describe 'POST "#create"' do
-      let(:finder) { govuk_content_schema_example('finder') }
-      let(:signup_finder) {
-        cma_cases_signup_content_item.to_hash.merge("details" => {
-          "filter" => { "content_purpose_supergroup" => 'news-and-communications' },
-        })
-      }
-
-      before do
-        content_store_has_item('/find-eu-exit-guidance-business', finder)
-      end
-
       it "should not call EmailAlertListTitleBuilder instead of EmailAlertTitleBuilder" do
-        content_store_has_item('/find-eu-exit-guidance-business/email-signup', signup_finder)
+        content_store_has_item('/cma_cases', cma_cases_content_item)
+        content_store_has_item('/cma_cases/email-signup', cma_cases_signup_content_item)
+
         email_alert_api_has_subscriber_list(
           'tags' => {
-            'format' => { any: %w(mosw_report) },
-            'content_purpose_supergroup' => { any: %w(news-and-communications) },
+            'format' => { any: %w[cma_case] },
+            'case_type' => { any: %w[markets] }
           },
-          'subscription_url' => 'http://www.itstartshear.com'
+          "subscription_url" => "http://www.gov.uk",
         )
 
         allow(EmailAlertTitleBuilder).to receive(:call)
 
         post :create, params: {
-          slug: 'find-eu-exit-guidance-business',
+          slug: 'cma_cases',
           filter: {
-            'sector_business_area' => %w(aerospace),
+            'case_type' => %w[markets],
           }
         }
 

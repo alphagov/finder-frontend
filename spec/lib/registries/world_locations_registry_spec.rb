@@ -21,7 +21,8 @@ RSpec.describe Registries::WorldLocationsRegistry do
       fetched_document = registry[slug]
       expect(fetched_document).to eq(
         'title' => 'Privet Drive',
-        'slug' => slug
+        'slug' => slug,
+        'content_id' => 'content_id_for_privet-drive'
       )
     end
 

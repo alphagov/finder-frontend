@@ -1,10 +1,96 @@
 {
+  "analytics_identifier": null,
   "base_path": "/cma-cases/email-signup",
   "content_id": "43dd2b13-93ec-4ca6-a7a4-e2eb5f5d485a",
   "document_type": "finder_email_signup",
+  "first_published_at": "2015-08-17T13:28:37.000+00:00",
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2019-06-26T13:50:02.000+00:00",
+  "publishing_app": "specialist-publisher",
+  "publishing_scheduled_at": null,
+  "rendering_app": "finder-frontend",
+  "scheduled_publishing_delay_seconds": null,
+  "schema_name": "finder_email_signup",
   "title": "Competition and Markets Authority cases",
+  "updated_at": "2019-07-19T11:59:45.822Z",
+  "withdrawn_notice": {
+
+  },
+  "publishing_request_id": "18907-1561557105.583-10.3.3.1-400",
+  "links": {
+    "organisations": [
+      {
+        "analytics_identifier": "D550",
+        "api_path": "/api/content/government/organisations/competition-and-markets-authority",
+        "base_path": "/government/organisations/competition-and-markets-authority",
+        "content_id": "957eb4ec-089b-4f71-ba2a-dc69ac8919ea",
+        "description": "We work to promote competition for the benefit of consumers, both within and outside the UK. We have staff in London, Edinburgh, Belfast and Cardiff. CMA is a non-ministerial department.",
+        "document_type": "organisation",
+        "locale": "en",
+        "schema_name": "organisation",
+        "title": "Competition and Markets Authority",
+        "withdrawn": false,
+        "details": {
+          "logo": {
+            "formatted_title": "Competition and <br/>Markets Authority",
+            "image": {
+              "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/organisation/logo/550/CMA_Logo_01.png",
+              "alt_text": "Competition and Markets Authority"
+            }
+          },
+          "brand": "department-for-business-innovation-skills",
+          "default_news_image": null
+        },
+        "links": {
+
+        },
+        "api_url": "https://www.gov.uk/api/content/government/organisations/competition-and-markets-authority",
+        "web_url": "https://www.gov.uk/government/organisations/competition-and-markets-authority"
+      }
+    ],
+    "related": [
+      {
+        "api_path": "/api/content/cma-cases",
+        "base_path": "/cma-cases",
+        "content_id": "fef4ac7c-024a-4943-9f19-e85a8369a1f3",
+        "description": "Find reports and updates on current and historical CMA investigations",
+        "document_type": "finder",
+        "locale": "en",
+        "public_updated_at": "2019-06-26T13:50:02Z",
+        "schema_name": "finder",
+        "title": "Competition and Markets Authority cases",
+        "withdrawn": false,
+        "links": {
+
+        },
+        "api_url": "https://www.gov.uk/api/content/cma-cases",
+        "web_url": "https://www.gov.uk/cma-cases"
+      }
+    ],
+    "available_translations": [
+      {
+        "title": "Competition and Markets Authority cases",
+        "public_updated_at": "2019-06-26T13:50:02Z",
+        "document_type": "finder_email_signup",
+        "schema_name": "finder_email_signup",
+        "base_path": "/cma-cases/email-signup",
+        "description": "You'll get an email each time a case is updated or a new case is published.",
+        "api_path": "/api/content/cma-cases/email-signup",
+        "withdrawn": false,
+        "content_id": "43dd2b13-93ec-4ca6-a7a4-e2eb5f5d485a",
+        "locale": "en",
+        "api_url": "https://www.gov.uk/api/content/cma-cases/email-signup",
+        "web_url": "https://www.gov.uk/cma-cases/email-signup",
+        "links": {
+
+        }
+      }
+    ]
+  },
   "description": "You'll get an email each time a case is updated or a new case is published.",
   "details": {
+    "beta": false,
     "email_signup_choice": [
       {
         "key": "ca98-and-civil-cartels",
@@ -16,6 +102,42 @@
         "key": "competition-disqualification",
         "radio_button_name": "Competition disqualification",
         "topic_name": "competition disqualification",
+        "prechecked": false
+      },
+      {
+        "key": "criminal-cartels",
+        "radio_button_name": "Criminal cartels",
+        "topic_name": "criminal cartels",
+        "prechecked": false
+      },
+      {
+        "key": "markets",
+        "radio_button_name": "Markets",
+        "topic_name": "markets",
+        "prechecked": false
+      },
+      {
+        "key": "mergers",
+        "radio_button_name": "Mergers",
+        "topic_name": "mergers",
+        "prechecked": false
+      },
+      {
+        "key": "consumer-enforcement",
+        "radio_button_name": "Consumer enforcement",
+        "topic_name": "consumer enforcement",
+        "prechecked": false
+      },
+      {
+        "key": "regulatory-references-and-appeals",
+        "radio_button_name": "Regulatory references and appeals",
+        "topic_name": "regulatory references and appeals",
+        "prechecked": false
+      },
+      {
+        "key": "review-of-orders-and-undertakings",
+        "radio_button_name": "Reviews of orders and undertakings",
+        "topic_name": "reviews of orders and undertakings",
         "prechecked": false
       }
     ],

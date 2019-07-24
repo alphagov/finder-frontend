@@ -14,35 +14,41 @@ module RegistrySpecHelper
                             value: {
                                 title: "Albus Dumbledore",
                                 slug: "albus-dumbledore",
-                                _id: "a field that we're not using"
+                                _id: "a field that we're not using",
+                                content_id: "content_id_for_albus-dumbledore"
                             }
                         },
                         {
                             value: {
                                 title: "Cornelius Fudge",
                                 slug: "cornelius-fudge",
-                                _id: "a field that we're not using"
+                                _id: "a field that we're not using",
+                                content_id: "content_id_for_cornelius-fudge"
+
                             }
                         },
                         {
                             value: {
                                 title: "Harry Potter",
                                 slug: "harry-potter",
-                                _id: "a field that we're not using"
+                                _id: "a field that we're not using",
+                                content_id: "content_id_for_harry-potter"
                             }
                         },
                         {
                             value: {
                                 title: "Ron Weasley",
                                 slug: "ron-weasley",
-                                _id: "a field that we're not using"
+                                _id: "a field that we're not using",
+                                content_id: "content_id_for_ron-weasley"
                             }
                         },
                         {
                             value: {
                                 title: "Rufus Scrimgeour",
                                 slug: "rufus-scrimgeour",
-                                _id: "/government/people/rufus-scrimgeour"
+                                _id: "/government/people/rufus-scrimgeour",
+                                content_id: "content_id_for_rufus-scrimgeour"
                             }
                         }
                     ]
@@ -55,7 +61,7 @@ module RegistrySpecHelper
     stub_request(:get, "http://search.dev.gov.uk/search.json")
     .with(query: {
       count: 1500,
-      fields: %w(slug title acronym),
+      fields: %w(slug title acronym content_id),
       filter_format: %(organisation),
       order: 'title'
     })
@@ -63,24 +69,28 @@ module RegistrySpecHelper
       {
         "title": "Closed organisation: Death Eaters",
         "slug": "death-eaters",
-        "_id": "/government/organisations/death-eaters"
+        "_id": "/government/organisations/death-eaters",
+        "content_id": "content_id_for_death-eaters"
       },
       {
         "title": "Department of Mysteries",
         "slug": "department-of-mysteries",
-        "_id": "/government/organisations/department-of-mysteries"
+        "_id": "/government/organisations/department-of-mysteries",
+        "content_id": "content_id_for_department-of-mysteries"
       },
       {
         "title": "Gringots",
         "acronym": "GRI",
         "slug": "gringots",
-        "_id": "/government/organisations/gringots"
+        "_id": "/government/organisations/gringots",
+        "content_id": "content_id_for_gringots"
       },
       {
         "title": "Ministry of Magic",
         "slug": "ministry-of-magic",
         "acronym": "MOM",
-        "_id": "a field that we're not using"
+        "_id": "a field that we're not using",
+        "content_id": "content_id_for_ministry-of-magic"
       }
     ] }.to_json)
   end
