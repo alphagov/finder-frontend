@@ -5,7 +5,6 @@
         <% if group[:group_name] %>
           <h2 class="filtered-results__facet-heading"><%= group[:group_name] %></h2>
         <% end %>
-
         <%= render "govuk_publishing_components/components/document_list", {
           items: group[:documents],
           remove_underline: true
