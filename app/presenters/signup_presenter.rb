@@ -53,7 +53,7 @@ class SignupPresenter
   end
 
   def choices?
-    multiple_facet_choice_data.present? || single_facet_choice_data[0]["facet_choices"].present?
+    multiple_facet_choice_data.present? || single_facet_choice_data.dig(0, "facet_choices").present?
   end
 
   def choices
