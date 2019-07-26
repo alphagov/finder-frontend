@@ -102,9 +102,13 @@ private
   end
 
   def single_facet_choice_data
+    facet_id = content_item.dig('details', "email_filter_by")
+
+    return [] if facet_id.nil?
+
     [
       {
-        "facet_id" => content_item['details']["email_filter_by"],
+        "facet_id" => facet_id,
         "facet_name" => single_facet_name,
         "facet_choices" => content_item['details']["email_signup_choice"]
       }
