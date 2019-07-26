@@ -54,7 +54,6 @@
       )
 
       this.indexTrackingData()
-      this.startEnhancedEcommerceTracking()
 
       $(window).on('popstate', this.popState.bind(this))
     } else {
@@ -64,8 +63,7 @@
 
   LiveSearch.prototype.startEnhancedEcommerceTracking = function startEnhancedEcommerceTracking () {
     this.$form.attr('data-search-query', this.currentKeywords())
-    if (!GOVUK.Ecommerce || GOVUK.Ecommerce.ecLoaded) { return }
-    GOVUK.Ecommerce.start()
+    if (GOVUK.Ecommerce) { GOVUK.Ecommerce.start() }
   }
 
   LiveSearch.prototype.getTaxonomyFacet = function getTaxonomyFacet () {
