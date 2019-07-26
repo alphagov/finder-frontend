@@ -20,7 +20,8 @@ class HiddenFacet < FilterableFacet
   end
 
   def query_params
-    { key => selected_values.map { |value| value['value'] } }
+    values = allowed_values.empty? ? @value : selected_values.map { |value| value['value'] }
+    { key => values }
   end
 
 private
