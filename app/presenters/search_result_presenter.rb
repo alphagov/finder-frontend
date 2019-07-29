@@ -8,19 +8,19 @@ class SearchResultPresenter
            :government_name,
            :format,
            :es_score,
-           to: :search_result
+           to: :document
 
-  def initialize(data = {})
-    @search_result = data[:search_result]
-    @metadata = data[:metadata]
-    @index = data[:doc_index] + 1
-    @count = data[:doc_count]
-    @finder_name = data[:finder_name]
-    @debug_score = data[:debug_score]
-    @highlight = data[:highlight]
+  def initialize(document:, metadata:, doc_index:, doc_count:, finder_name:, debug_score:, highlight:)
+    @document = document
+    @metadata = metadata
+    @index = doc_index + 1
+    @count = doc_count
+    @finder_name = finder_name
+    @debug_score = debug_score
+    @highlight = highlight
   end
 
-  def govuk_component_data
+  def document_list_component_data
     {
       link: {
         text: title,
@@ -45,7 +45,7 @@ class SearchResultPresenter
   end
 
   def link
-    search_result.path
+    document.path
   end
 
   def structure_metadata
@@ -71,7 +71,7 @@ class SearchResultPresenter
   end
 
   def summary_text
-    @highlight ? search_result.truncated_description : summary
+    @highlight ? document.truncated_description : summary
   end
 
   def highlight_text
@@ -80,5 +80,5 @@ class SearchResultPresenter
 
 private
 
-  attr_reader :search_result, :metadata
+  attr_reader :document, :metadata
 end

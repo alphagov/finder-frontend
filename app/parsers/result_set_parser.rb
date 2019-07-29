@@ -1,6 +1,6 @@
 module ResultSetParser
-  def self.parse(results, total, finder)
-    documents = results.map { |document| Document.new(document, finder) }
+  def self.parse(results, total, finder_presenter)
+    documents = results.map { |document| Document.new(document, finder_presenter) }
 
     ResultSet.new(
       documents,

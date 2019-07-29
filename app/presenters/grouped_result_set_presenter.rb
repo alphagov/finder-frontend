@@ -1,7 +1,7 @@
 class GroupedResultSetPresenter < ResultSetPresenter
   def search_results_content
     super.merge(
-      grouped_documents: grouped_documents,
+      grouped_document_list_component_data: grouped_document_list_component_data,
       display_grouped_results: grouped_display?
     )
   end
@@ -11,10 +11,10 @@ class GroupedResultSetPresenter < ResultSetPresenter
     @filter_params[:order] == "topic" || (!@filter_params.has_key?(:order) && sorts_by_topic)
   end
 
-  def grouped_documents
+  def grouped_document_list_component_data
     return [] unless grouped_display?
 
-    documents_with_metadata = documents.select { |document| document[:metadata_raw].present? }
+    documents_with_metadata = document_list_component_data.select { |document| document[:metadata_raw].present? }
     sorted_documents = sort_by_alphabetical(documents_with_metadata)
 
     # Without facet filtering return all documents without grouping
