@@ -2,13 +2,13 @@ class ResultSetPresenter
   include ERB::Util
   include ActionView::Helpers::NumberHelper
 
-  attr_reader :results, :pluralised_document_noun, :debug_score
+  attr_reader :pluralised_document_noun, :debug_score
 
   delegate :atom_url, to: :finder_presenter
 
   def initialize(finder_presenter, filter_params, sort_presenter, metadata_presenter_class, show_top_result = false, debug_score = false)
     @finder_presenter = finder_presenter
-    @results = finder_presenter.results.documents
+    @documents = finder_presenter.results.documents
     @total = finder_presenter.results.total
     @pluralised_document_noun = finder_presenter.document_noun.pluralize(total)
     @filter_params = filter_params
@@ -24,19 +24,19 @@ class ResultSetPresenter
 
   def search_results_content
     {
-      documents: documents,
+      document_list_component_data: document_list_component_data,
       zero_results: total.zero?,
-      page_count: documents.count,
+      page_count: document_list_component_data.count,
       finder_name: finder_presenter.name,
       debug_score: debug_score
     }
   end
 
-  def documents
-    @documents ||= begin
-      results.each_with_index.map do |result, index|
-        metadata = metadata_presenter_class.new(result.metadata).present
-        SearchResultPresenter.new(search_result: result, metadata: metadata, doc_index: index, doc_count: results.count, finder_name: finder_presenter.name, debug_score: debug_score, highlight: highlight(index)).govuk_component_data
+  def document_list_component_data
+    @document_list_component_data ||= begin
+      documents.each_with_index.map do |document, index|
+        metadata = metadata_presenter_class.new(document.metadata).present
+        SearchResultPresenter.new(document: document, metadata: metadata, doc_index: index, doc_count: documents.count, finder_name: finder_presenter.name, debug_score: debug_score, highlight: highlight(index)).document_list_component_data
       end
     end
   end
@@ -59,12 +59,12 @@ class ResultSetPresenter
 
 private
 
-  attr_reader :metadata_presenter_class, :sort_presenter, :total, :finder_presenter
+  attr_reader :metadata_presenter_class, :sort_presenter, :total, :finder_presenter, :documents
 
   def highlight_top_result?
     @show_top_result &&
       finder_presenter.eu_exit_finder? &&
-      results.length >= 2 &&
+      documents.length >= 2 &&
       sort_option.dig('key').eql?("-relevance") &&
       best_bet?
   end
@@ -75,8 +75,8 @@ private
 
   def best_bet?
     # We found the average score on the top 500 searches and found that 7 was the most suitable number
-    if results[0].es_score && results[1].es_score
-      (results[0].es_score / results[1].es_score) > 7
+    if documents[0].es_score && documents[1].es_score
+      (documents[0].es_score / documents[1].es_score) > 7
     end
   end
 
