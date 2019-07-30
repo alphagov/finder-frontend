@@ -2,10 +2,10 @@ require 'spec_helper'
 
 RSpec.describe StatisticsSortPresenter do
   let(:stats_finder) {
-    JSON.parse(File.read(Rails.root.join("features", "fixtures", "statistics.json")))
+    ContentItem.new(JSON.parse(File.read(Rails.root.join("features", "fixtures", "statistics.json"))))
   }
 
-  subject(:presenter_without_sort) { described_class.new({ "details" => { "sort_options" => [] } }, {}) }
+  subject(:presenter_without_sort) { described_class.new(ContentItem.new("details" => { "sort_options" => [] }), {}) }
   subject(:presenter) { described_class.new(stats_finder, query) }
   let(:query) { {} }
 

@@ -203,13 +203,6 @@ private
   def content_item(sort_options: nil)
     finder_example = govuk_content_schema_example('finder')
     finder_example['details']['sort'] = sort_options
-
-    dummy_http_response = double(
-      "net http response",
-      code: 200,
-      body: finder_example.to_json,
-      headers: {}
-    )
-    GdsApi::Response.new(dummy_http_response).to_hash
+    ContentItem.new(finder_example)
   end
 end

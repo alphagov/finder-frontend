@@ -2,7 +2,7 @@ class SortPresenter
   def initialize(content_item, filter_params)
     @user_selected_order = filter_params['order']
     @keywords = filter_params["keywords"]
-    @content_item_sort_options = content_item['details']['sort'] || []
+    @content_item_sort_options = content_item.sort_options
   end
 
   def has_options?

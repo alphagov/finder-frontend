@@ -2,8 +2,6 @@
 # search results from rummager.
 module Search
   class Query
-    attr_reader :content_item
-
     def initialize(content_item, filter_params, ab_params: {}, override_sort_for_feed: false)
       @content_item = content_item
       @filter_params = filter_params
@@ -23,12 +21,12 @@ module Search
 
     def content_item_with_search_results
       augment_content_item_with_results
-      content_item
+      content_item.as_hash
     end
 
   private
 
-    attr_reader :ab_params, :filter_params, :override_sort_for_feed
+    attr_reader :ab_params, :filter_params, :override_sort_for_feed, :content_item
 
     def merge_and_deduplicate(search_response)
       results = search_response.fetch("results")
@@ -99,8 +97,8 @@ module Search
       augment_facets_with_dynamic_values(content_item)
     end
 
-    def augment_facets_with_dynamic_values(content_item_hash)
-      facets = content_item_hash['details']['facets']
+    def augment_facets_with_dynamic_values(content_item)
+      facets = content_item.as_hash['details']['facets']
       return if facets.blank?
 
       # for each facet in the content item

@@ -1,7 +1,8 @@
 require 'spec_helper'
 
 RSpec.describe FinderBreadcrumbsPresenter do
-  let(:finder) { JSON.parse(File.read(Rails.root.join("features", "fixtures", "aaib_reports_example.json"))) }
+  let(:finder_hash) { JSON.parse(File.read(Rails.root.join("features", "fixtures", "aaib_reports_example.json"))) }
+  let(:finder) { ContentItem.new(finder_hash) }
   let(:org_breadcrumb_info) { { "title" => "Attorney General's Office", "slug" => "attorney-generals-office" } }
   let(:empty_breadcrumb_info) { nil }
   subject(:instance) { described_class.new(org_breadcrumb_info, finder) }
@@ -33,7 +34,7 @@ RSpec.describe FinderBreadcrumbsPresenter do
     end
 
     it "does not display a finder title when the finder has no title" do
-      finder["title"] = ""
+      finder_hash["title"] = ""
       instance = described_class.new(org_breadcrumb_info, finder)
       titles = instance.breadcrumbs.map { |breadcrumb| breadcrumb[:title] }
       expect(titles).to_not include("Air Accidents Investigation Branch reports")

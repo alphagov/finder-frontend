@@ -4,19 +4,18 @@ require "gds_api/test_helpers/content_store"
 describe ContentItem do
   include ::GdsApi::TestHelpers::ContentStore
 
-  subject { described_class.new(base_path) }
-  let(:base_path) { "/search/news-and-communications" }
-  let(:finder_content_item) { news_and_communications }
-  let(:news_and_communications) {
+  subject { described_class.new(finder_content_item) }
+  let(:finder_content_item) {
     JSON.parse(File.read(Rails.root.join("features", "fixtures", "news_and_communications.json")))
   }
 
-  before do
-    content_store_has_item(base_path, finder_content_item)
-  end
+  describe "load a content item from the content store" do
+    let(:base_path) { "/search/news-and-communications" }
 
-  before :each do
-    Rails.cache.clear
+    it "returns a content item as a hash" do
+      content_store_has_item(base_path, finder_content_item)
+      expect(ContentItem.from_content_store(base_path).as_hash).to eql(finder_content_item)
+    end
   end
 
   describe "as_hash" do
@@ -31,8 +30,8 @@ describe ContentItem do
     end
 
     context "when document_type is search" do
-      let(:finder_content_item) { news_and_communications.merge("document_type" => 'search') }
       it "returns true when document_type is search" do
+        finder_content_item.merge!("document_type" => 'search')
         expect(subject.is_search?).to be true
       end
     end
@@ -44,8 +43,8 @@ describe ContentItem do
     end
 
     context "when document_type is not a finder" do
-      let(:finder_content_item) { news_and_communications.merge("document_type" => 'search') }
       it "returns false when document_type is finder" do
+        finder_content_item.merge!("document_type" => 'search')
         expect(subject.is_finder?).to be false
       end
     end
@@ -57,8 +56,8 @@ describe ContentItem do
     end
 
     context "when document_type is redirect" do
-      let(:finder_content_item) { news_and_communications.merge("document_type" => 'redirect') }
       it "returns true when document_type is redirect" do
+        finder_content_item.merge!("document_type" => 'redirect')
         expect(subject.is_redirect?).to be true
       end
     end

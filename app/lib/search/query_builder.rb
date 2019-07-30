@@ -43,9 +43,6 @@ module Search
 
     attr_reader :finder_content_item, :params, :ab_params, :override_sort_for_feed
 
-    def order_query_builder_class
-      OrderQueryBuilder
-    end
 
     def pagination_query
       {
@@ -63,7 +60,7 @@ module Search
     end
 
     def documents_per_page
-      finder_content_item['details']['default_documents_per_page'] || 1500
+      finder_content_item.default_documents_per_page
     end
 
     def return_fields_query
@@ -98,7 +95,7 @@ module Search
     end
 
     def raw_facets
-      @raw_facets ||= FacetExtractor.new(finder_content_item).extract
+      finder_content_item.raw_facets
     end
 
     def unfilterise(field = '')
@@ -108,7 +105,7 @@ module Search
     end
 
     def order_query
-      order_query_builder_class.new(
+      OrderQueryBuilder.new(
         finder_content_item,
         keywords,
         params,
@@ -127,7 +124,7 @@ module Search
     end
 
     def remove_stopwords?
-      params["keywords"].present? && ["/find-eu-exit-guidance-business"].include?(finder_content_item["base_path"])
+      params["keywords"].present? && ["/find-eu-exit-guidance-business"].include?(finder_content_item.base_path)
     end
 
     def remove_stopwords
@@ -195,11 +192,11 @@ module Search
     end
 
     def base_filter
-      finder_content_item['details']['filter'].to_h
+      finder_content_item.filter
     end
 
     def base_reject
-      finder_content_item['details']['reject'].to_h
+      finder_content_item.reject
     end
 
     def facet_query

@@ -14,7 +14,6 @@ class FindersController < ApplicationController
     respond_to do |format|
       format.html do
         @search_query = initialize_search_query
-        @raw_content_item = content_item.as_hash
         @breadcrumbs = fetch_breadcrumbs
         @parent = parent
         @sort_presenter = sort_presenter
@@ -46,10 +45,10 @@ private
 
   attr_accessor :search_query
 
-  helper_method :finder_presenter, :facet_tags, :i_am_a_topic_page_finder, :result_set_presenter
+  helper_method :finder_presenter, :facet_tags, :i_am_a_topic_page_finder, :result_set_presenter, :content_item
 
   def redirect_to_destination
-    @redirect = content_item.as_hash.dig('redirects', 0, 'destination')
+    @redirect = content_item.redirect
     @finder_slug = finder_slug
     render 'finders/show-redirect'
   end
@@ -69,7 +68,7 @@ private
   end
 
   def content_item
-    @content_item ||= ContentItem.new(finder_base_path)
+    @content_item ||= ContentItem.from_content_store(finder_base_path)
   end
 
   def result_set_presenter
@@ -99,7 +98,7 @@ private
 
   def initialize_search_query(is_for_feed: false)
     Search::Query.new(
-      content_item.as_hash,
+      content_item,
       filter_params,
       override_sort_for_feed: is_for_feed,
       ab_params: search_cluster_ab_params,
@@ -113,11 +112,11 @@ private
   def fetch_breadcrumbs
     parent_slug = params["parent"]
     org_info = organisation_registry[parent_slug] if parent_slug.present?
-    FinderBreadcrumbsPresenter.new(org_info, content_item.as_hash)
+    FinderBreadcrumbsPresenter.new(org_info, content_item)
   end
 
   def sort_presenter
-    @sort_presenter ||= content_item.sorter_class.new(content_item.as_hash, filter_params)
+    @sort_presenter ||= content_item.sorter_class.new(content_item, filter_params)
   end
 
   def pagination_presenter
