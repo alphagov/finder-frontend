@@ -92,13 +92,13 @@ RSpec.describe SearchResultPresenter do
 
   describe "structure_metadata" do
     it "returns nothing unless show_metadata" do
-      expect(subject.structure_metadata).to eql({})
+      expect(subject.document_list_component_data[:metadata]).to eql({})
     end
 
     it "returns structured data if show_metadata is true" do
       with_metadata = SearchResultPresenter.new(document: document_with_metadata, metadata: metadata, doc_index: doc_index, doc_count: doc_count, finder_name: finder_name, debug_score: debug_score, highlight: highlight)
 
-      expect(with_metadata.structure_metadata).to eql(
+      expect(with_metadata.document_list_component_data[:metadata]).to eql(
         "Case state" => "Case state: Open",
         "Case type" => "<span class=\"govuk-visually-hidden\">Case type:</span> CA98 and civil cartels",
         "Opened date" => "Opened date: <time datetime=\"2006-07-14\">14 July 2006</time>"
@@ -111,25 +111,25 @@ RSpec.describe SearchResultPresenter do
     let(:debug_subtext) { "<span class=\"debug-results debug-results--link\">link-1</span><span class=\"debug-results debug-results--meta\">Score: 0.005</span><span class=\"debug-results debug-results--meta\">Format: cake</span>" }
 
     it "returns nothing unless is_historic or debug_score" do
-      expect(subject.subtext).to eql(nil)
+      expect(subject.document_list_component_data[:subtext]).to eql(nil)
     end
 
     it "returns 'Published by' text if is_historic is true" do
       with_historic = SearchResultPresenter.new(document: document_with_metadata, metadata: metadata, doc_index: doc_index, doc_count: doc_count, finder_name: finder_name, debug_score: debug_score, highlight: highlight)
 
-      expect(with_historic.subtext).to eql(historic_subtext)
+      expect(with_historic.document_list_component_data[:subtext]).to eql(historic_subtext)
     end
 
     it "returns debug metadata if debug_score" do
       with_debug = SearchResultPresenter.new(document: document, metadata: metadata, doc_index: doc_index, doc_count: doc_count, finder_name: finder_name, debug_score: 1, highlight: highlight)
 
-      expect(with_debug.subtext).to eql(debug_subtext)
+      expect(with_debug.document_list_component_data[:subtext]).to eql(debug_subtext)
     end
 
     it "returns 'Published by' and debug metadata together" do
       with_all = SearchResultPresenter.new(document: document_with_metadata, metadata: metadata, doc_index: doc_index, doc_count: doc_count, finder_name: finder_name, debug_score: 1, highlight: highlight)
 
-      expect(with_all.subtext).to eql("#{historic_subtext}#{debug_subtext}")
+      expect(with_all.document_list_component_data[:subtext]).to eql("#{historic_subtext}#{debug_subtext}")
     end
   end
 
@@ -137,13 +137,13 @@ RSpec.describe SearchResultPresenter do
     it "returns summary if not highlighted" do
       no_highlight = SearchResultPresenter.new(document: document, metadata: metadata, doc_index: doc_index, doc_count: doc_count, finder_name: finder_name, debug_score: debug_score, highlight: false)
 
-      expect(no_highlight.summary_text).to eql(summary)
+      expect(no_highlight.document_list_component_data[:link][:description]).to eql(summary)
     end
 
     it "returns truncated summary if highlighted" do
       with_highlight = SearchResultPresenter.new(document: document, metadata: metadata, doc_index: doc_index, doc_count: doc_count, finder_name: finder_name, debug_score: debug_score, highlight: true)
 
-      expect(with_highlight.summary_text).to eql("I am a document.")
+      expect(with_highlight.document_list_component_data[:link][:description]).to eql("I am a document.")
     end
   end
 
@@ -151,13 +151,13 @@ RSpec.describe SearchResultPresenter do
     it "returns nothing if not highlight" do
       no_highlight = SearchResultPresenter.new(document: document, metadata: metadata, doc_index: doc_index, doc_count: doc_count, finder_name: finder_name, debug_score: debug_score, highlight: false)
 
-      expect(no_highlight.highlight_text).to eql(nil)
+      expect(no_highlight.document_list_component_data[:highlight_text]).to eql(nil)
     end
 
     it "returns 'Most relevant result' if highlight" do
       no_highlight = SearchResultPresenter.new(document: document, metadata: metadata, doc_index: doc_index, doc_count: doc_count, finder_name: finder_name, debug_score: debug_score, highlight: true)
 
-      expect(no_highlight.highlight_text).to eql("Most relevant result")
+      expect(no_highlight.document_list_component_data[:highlight_text]).to eql("Most relevant result")
     end
   end
 end
