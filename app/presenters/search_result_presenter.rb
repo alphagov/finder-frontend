@@ -10,9 +10,9 @@ class SearchResultPresenter
            :es_score,
            to: :document
 
-  def initialize(document:, metadata:, doc_index:, doc_count:, finder_name:, debug_score:, highlight:)
+  def initialize(document:, metadata_presenter_class:, doc_index:, doc_count:, finder_name:, debug_score:, highlight:)
     @document = document
-    @metadata = metadata
+    @metadata = metadata_presenter_class.new(document.metadata).present
     @index = doc_index + 1
     @count = doc_count
     @finder_name = finder_name
@@ -44,19 +44,18 @@ class SearchResultPresenter
     }
   end
 
+private
+
   def link
     document.path
   end
 
-  def structure_metadata
-    return {} unless show_metadata
+  def summary_text
+    @highlight ? document.truncated_description : summary
+  end
 
-    metadata.each_with_object({}) do |meta, component_metadata|
-      label = meta[:hide_label] ? "<span class='govuk-visually-hidden'>#{meta[:label]}:</span>" : "#{meta[:label]}:"
-      value = meta[:is_date] ? "<time datetime='#{meta[:machine_date]}'>#{meta[:human_date]}</time>" : meta[:value]
-
-      component_metadata[meta[:label]] = sanitize("#{label} #{value}", tags: %w(time span))
-    end
+  def highlight_text
+    I18n.t('finders.most_relevant') if @highlight
   end
 
   def subtext
@@ -70,15 +69,17 @@ class SearchResultPresenter
     sanitize("#{published_text}#{debug_text}") if published_text || debug_text
   end
 
-  def summary_text
-    @highlight ? document.truncated_description : summary
+  def structure_metadata
+    return {} unless show_metadata
+
+    metadata.each_with_object({}) do |meta, component_metadata|
+      label = meta[:hide_label] ? "<span class='govuk-visually-hidden'>#{meta[:label]}:</span>" : "#{meta[:label]}:"
+      value = meta[:is_date] ? "<time datetime='#{meta[:machine_date]}'>#{meta[:human_date]}</time>" : meta[:value]
+
+      component_metadata[meta[:label]] = sanitize("#{label} #{value}", tags: %w(time span))
+    end
   end
 
-  def highlight_text
-    I18n.t('finders.most_relevant') if @highlight
-  end
-
-private
 
   attr_reader :document, :metadata
 end
