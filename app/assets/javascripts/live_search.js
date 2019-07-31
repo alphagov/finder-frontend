@@ -29,6 +29,12 @@
     this.bindSortElements()
     this.getTaxonomyFacet().update()
 
+    if (window.ga) {
+      // Use navigator.sendBeacon
+      // https://developers.google.com/analytics/devguides/collection/analyticsjs/sending-hits#specifying_different_transport_mechanisms
+      window.ga('set', 'transport', 'beacon')
+    }
+
     if (GOVUK.support.history()) {
       this.saveState()
 
