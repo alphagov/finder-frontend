@@ -17,7 +17,7 @@ RSpec.describe ResultSetPresenter do
       document_noun: document_noun,
       sort_options: sort_presenter,
       total: '20 cases',
-      facets: a_facet_collection,
+      facets: [a_facet, another_facet, a_date_facet],
       keywords: keywords,
       default_documents_per_page: 10,
       values: {},
@@ -41,18 +41,11 @@ RSpec.describe ResultSetPresenter do
         "name" => "Updated (newest)",
         "key" => "-public_timestamp",
       },
-      filters: a_facet_collection.filters
+      filters: [a_facet, another_facet, a_date_facet]
     )
   end
 
   let(:filter_params) { { keywords: 'test' } }
-
-  let(:a_facet_collection) do
-    double(
-      FacetCollection,
-      filters: [a_facet, another_facet, a_date_facet]
-    )
-  end
 
   let(:keywords) { '' }
   let(:document_noun) { 'case' }

@@ -24,13 +24,12 @@ class FinderPresenter
            :eu_exit_finder?, to: :content_item
 
 
-  def initialize(content_item, search_results, values = {})
+  def initialize(content_item, facets, search_results, values = {})
     @content_item = content_item
     @search_results = search_results
     @organisations = content_item.links.fetch('organisations', [])
     @values = values
-    @facet_hashes = facet_hashes(@content_item)
-    @facets = facet_collection(@facet_hashes, @values)
+    @facets = facets
     @keywords = values["keywords"].presence
   end
 
@@ -44,33 +43,32 @@ class FinderPresenter
 
   def facet_details_lookup
     @facet_details_lookup ||= begin
-      result_hashes = @facet_hashes.map do |facet|
-        facet_name = facet.fetch('short_name', facet['name'])
-        facet_key = facet['key']
-        facet.fetch('allowed_values', []).to_h do |value|
-          [value['content_id'], {
+      facets.each_with_object({}) do |facet, result|
+        facet_name = facet.short_name || facet.name
+        facet_key = facet.key
+        facet.allowed_values.each do |allowed_value|
+          result[allowed_value['content_id']] = {
             id: facet_key,
             name: facet_name,
             key: facet_key,
             type: 'content_id'
-          }]
+          }
         end
       end
-      result_hashes.reduce({}, :merge)
     end
   end
 
   def facet_value_lookup
     @facet_value_lookup ||= begin
-      facet_values = @facet_hashes.map { |f| f['allowed_values'] || [] }
-      @facet_value_lookup = facet_values.flatten.to_h do |val|
+      facet_values = facets.flat_map(&:allowed_values)
+      facet_values.to_h do |val|
         [val['content_id'], val['value']]
       end
     end
   end
 
   def filters
-    facets.filters
+    facets.select(&:filterable?)
   end
 
   def government?
@@ -86,7 +84,7 @@ class FinderPresenter
   end
 
   def metadata
-    facets.metadata
+    facets.select(&:metadata?)
   end
 
   def date_metadata_keys
@@ -168,16 +166,5 @@ private
     query_params_array = facets_with_filters.map(&:query_params)
     query_string = query_params_array.inject({}, :merge).to_query
     query_string.blank? ? query_string : "?#{query_string}"
-  end
-
-  def facet_hashes(content_item)
-    FacetExtractor.new(content_item).extract
-  end
-
-  def facet_collection(facet_hashes, value_hashes)
-    FacetCollection.new(
-      facet_hashes,
-      value_hashes
-    )
   end
 end
