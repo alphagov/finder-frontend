@@ -95,7 +95,8 @@ describe('liveSearch', function () {
     $('head').append('<meta name="govuk:base_title" content="All Content - GOV.UK">')
     _supportHistory = GOVUK.support.history
     GOVUK.support.history = function () { return true }
-
+    window.ga = function () {}
+    spyOn(window, 'ga')
     liveSearch = new GOVUK.LiveSearch({ $form: $form, $results: $results, $atomAutodiscoveryLink: $atomAutodiscoveryLink })
   })
 
@@ -103,6 +104,10 @@ describe('liveSearch', function () {
     $form.remove()
     $results.remove()
     GOVUK.support.history = _supportHistory
+  })
+
+  it('sets the GA transport to beacon', function () {
+    expect(window.ga).toHaveBeenCalledWith('set', 'transport', 'beacon')
   })
 
   it('should save initial state (serialized and compacted)', function () {

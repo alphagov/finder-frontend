@@ -36,7 +36,8 @@ RSpec.describe GroupedResultSetPresenter do
       default_documents_per_page: 10,
       values: {},
       sort: {},
-      filters: facet_filters
+      filters: facet_filters,
+      start_offset: 0,
     )
   end
 
@@ -114,7 +115,8 @@ RSpec.describe GroupedResultSetPresenter do
       government_name: 'The Government!',
       show_metadata: false,
       format: 'transaction',
-      es_score: nil
+      es_score: nil,
+      content_id: 'content_id',
     )
   end
 
@@ -186,7 +188,8 @@ RSpec.describe GroupedResultSetPresenter do
         government_name: 'The Government',
         show_metadata: false,
         format: 'transaction',
-        es_score: nil
+        es_score: nil,
+        content_id: 'content_id',
       )
     }
 

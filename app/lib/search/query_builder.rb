@@ -85,6 +85,7 @@ module Search
         format
         is_historic
         government_name
+        content_id
       )
     end
 
