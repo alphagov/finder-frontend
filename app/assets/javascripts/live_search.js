@@ -73,7 +73,7 @@
   }
 
   LiveSearch.prototype.getTaxonomyFacet = function getTaxonomyFacet () {
-    this.taxonomy = this.taxonomy || new GOVUK.TaxonomySelect({ $el: $('.app-taxonomy-select') })
+    this.taxonomy = this.taxonomy || new GOVUK.TaxonomySelect({ $el: $('.js-taxonomy-select') })
     return this.taxonomy
   }
 
