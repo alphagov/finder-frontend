@@ -407,6 +407,7 @@ private
       body: finder_example.to_json,
       headers: {}
     )
-    GdsApi::Response.new(dummy_http_response).to_hash
+    content_item_hash = GdsApi::Response.new(dummy_http_response).to_hash
+    ContentItem.new(content_item_hash)
   end
 end

@@ -2,68 +2,44 @@ class FinderPresenter
   include ActionView::Helpers::FormOptionsHelper
   include ActionView::Helpers::UrlHelper
 
-  attr_reader :content_item, :name, :slug, :organisations, :values, :keywords, :links, :facets
+  attr_reader :content_item, :organisations, :values, :keywords, :links, :facets
+
+  delegate :hide_facets_by_default,
+           :show_summaries?,
+           :document_noun,
+           :default_order,
+           :show_phase_banner?,
+           :links,
+           :phase_message,
+           :phase,
+           :filter,
+           :logo_path,
+           :related,
+           :summary,
+           :email_alert_signup,
+           :description,
+           :no_index?,
+           :canonical_link?,
+           :all_content_finder?,
+           :eu_exit_finder?, to: :content_item
+
 
   def initialize(content_item, search_results, values = {})
     @content_item = content_item
     @search_results = search_results
-    @name = content_item['title']
-    @slug = content_item['base_path']
-    @links = content_item['links']
-    @organisations = content_item['links'].fetch('organisations', [])
+    @organisations = content_item.links.fetch('organisations', [])
     @values = values
     @facet_hashes = facet_hashes(@content_item)
     @facets = facet_collection(@facet_hashes, @values)
     @keywords = values["keywords"].presence
   end
 
-  def phase_message
-    content_item['details']['beta_message'] || content_item['details']['alpha_message'] || ""
+  def name
+    content_item.title
   end
 
-  def phase
-    content_item['phase']
-  end
-
-  def show_phase_banner?
-    content_item['phase'].in?(%w[alpha beta])
-  end
-
-  def default_order
-    content_item['details']['default_order']
-  end
-
-  def document_noun
-    content_item['details']['document_noun'] || ""
-  end
-
-  def hide_facets_by_default
-    content_item['details']['hide_facets_by_default'] || false
-  end
-
-  def filter
-    content_item['details']['filter']
-  end
-
-  def logo_path
-    content_item['details']['logo_path']
-  end
-
-  def summary
-    content_item['details']['summary']
-  end
-
-  def email_alert_signup
-    if content_item['links']['email_alert_signup']
-      content_item['links']['email_alert_signup'].first
-    end
-  end
-
-  def email_alert_signup_url
-    signup_link = content_item['details']['signup_link']
-    return signup_link if signup_link.present?
-
-    "#{email_alert_signup['web_url']}#{alert_query_string}" if email_alert_signup
+  def slug
+    content_item.base_path
   end
 
   def facet_details_lookup
@@ -125,10 +101,6 @@ class FinderPresenter
     keywords.present? || facets.any? || results.total.positive?
   end
 
-  def show_summaries?
-    content_item['details']['show_summaries']
-  end
-
   def page_metadata
     metadata = {
       from: organisations
@@ -136,11 +108,6 @@ class FinderPresenter
 
     metadata[:inverse] = true if topic_finder?
     metadata.reject { |_, links| links.blank? }
-  end
-
-  def related
-    related = content_item['links']['related'] || []
-    related.sort_by { |link| link['title'] }
   end
 
   def results
@@ -173,20 +140,11 @@ class FinderPresenter
     "#{slug}.atom#{alert_query_string}"
   end
 
-  def description
-    content_item['description']
-  end
+  def email_alert_signup_url
+    signup_link = content_item.signup_link
+    return signup_link if signup_link.present?
 
-  def no_index?
-    !!content_item["details"]["no_index"]
-  end
-
-  def canonical_link?
-    content_item['details']['canonical_link']
-  end
-
-  def all_content_finder?
-    self.content_item['content_id'] == 'dd395436-9b40-41f3-8157-740a453ac972'
+    "#{email_alert_signup['web_url']}#{alert_query_string}" if email_alert_signup
   end
 
   def topic_finder?
@@ -195,12 +153,6 @@ class FinderPresenter
 
   def topic_finder_parent
     Services.registries.all['full_topic_taxonomy'][values['topic']]
-  end
-
-  # FIXME: This should be removed once we have a way to determine
-  # whether to display metadata in the finder definition
-  def eu_exit_finder?
-    EuExitFinderHelper.eu_exit_finder? self.content_item['content_id']
   end
 
 private
@@ -218,8 +170,8 @@ private
     query_string.blank? ? query_string : "?#{query_string}"
   end
 
-  def facet_hashes(content_item_hash)
-    FacetExtractor.new(ContentItem.new(content_item_hash)).extract
+  def facet_hashes(content_item)
+    FacetExtractor.new(content_item).extract
   end
 
   def facet_collection(facet_hashes, value_hashes)
