@@ -1,6 +1,6 @@
 class ContentItem
   def initialize(content_item_hash)
-    @content_item_hash = content_item_hash
+    @content_item_hash = content_item_hash.freeze
   end
 
   def self.from_content_store(base_path)
@@ -65,7 +65,7 @@ class ContentItem
   end
 
   def raw_facets
-    @raw_facets ||= FacetExtractor.new(content_item_hash).extract
+    @raw_facets ||= FacetExtractor.new(self).extract
   end
 
   def redirect

@@ -219,7 +219,7 @@ private
   end
 
   def facet_hashes(content_item_hash)
-    FacetExtractor.new(content_item_hash).extract
+    FacetExtractor.new(ContentItem.new(content_item_hash)).extract
   end
 
   def facet_collection(facet_hashes, value_hashes)
