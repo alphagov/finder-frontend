@@ -269,7 +269,7 @@ describe FindersController, type: :controller do
     end
 
     it "Variant Default sets use_default_cluster? and not use_b_cluster?" do
-      with_variant SearchClusterABTest: 'Default' do
+      with_variant SearchClusterQueryABTest: 'Default' do
         get :show, params: { slug: path_for(breakfast_finder) }
         expect(subject.use_default_cluster?).to eq(true)
         expect(subject.use_b_cluster?).to eq(false)
@@ -277,7 +277,7 @@ describe FindersController, type: :controller do
     end
 
     it "Variant A does not set use_default_cluster? or use_b_cluster?" do
-      with_variant SearchClusterABTest: 'A' do
+      with_variant SearchClusterQueryABTest: 'A' do
         get :show, params: { slug: path_for(breakfast_finder) }
         expect(subject.use_default_cluster?).to eq(false)
         expect(subject.use_b_cluster?).to eq(false)
@@ -285,7 +285,7 @@ describe FindersController, type: :controller do
     end
 
     it "Variant 'B' sets use_b_cluster? and not use_default_cluster?" do
-      with_variant SearchClusterABTest: 'B' do
+      with_variant SearchClusterQueryABTest: 'B' do
         get :show, params: { slug: path_for(breakfast_finder) }
         expect(subject.use_default_cluster?).to eq(false)
         expect(subject.use_b_cluster?).to eq(true)
