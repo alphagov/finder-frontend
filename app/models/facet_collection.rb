@@ -12,10 +12,6 @@ class FacetCollection
     }
   end
 
-  def to_partial_path
-    'facet_collection'
-  end
-
   def filters
     facets.select(&:filterable?)
   end
