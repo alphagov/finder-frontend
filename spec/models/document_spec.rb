@@ -124,50 +124,42 @@ describe Document do
       end
 
       before do
-        allow(finder).to receive(:facet_details_lookup)
-          .and_return(
-            'afda44ba-bcb9-42de-87de-6207a8912cbc' => {
-              id: :link_values,
-              name: 'Link values',
-              type: 'content_id',
-            },
-            'daff3e98-ac54-44c1-aadb-9efe276dd74b' => {
-              id: :link_values,
-              name: 'Link values',
-              type: 'content_id',
-            },
-            '3dfb99d0-3753-483a-842c-2b724474f349' => {
-              id: :other_link_values,
-              name: 'Other link values',
-              type: 'content_id',
-            }
-          )
+        facet1 = Facet.new('key' => :link_values, 'name' => 'Link values')
+        facet2 = Facet.new('key' => :other_link_values, 'name' => 'Other link values')
+        allow(finder).to receive(:facet_for_content_id).
+          with('afda44ba-bcb9-42de-87de-6207a8912cbc').
+          and_return facet1
+        allow(finder).to receive(:facet_for_content_id).
+          with('daff3e98-ac54-44c1-aadb-9efe276dd74b').
+          and_return facet1
+        allow(finder).to receive(:facet_for_content_id).
+          with('3dfb99d0-3753-483a-842c-2b724474f349').
+          and_return facet2
 
-        allow(finder).to receive(:facet_value_lookup)
-          .and_return(
-            'afda44ba-bcb9-42de-87de-6207a8912cbc' => 'link-val-1',
-            'daff3e98-ac54-44c1-aadb-9efe276dd74b' => 'link-val-2',
-            '3dfb99d0-3753-483a-842c-2b724474f349' => 'other-value-1'
-          )
+        allow(finder).to receive(:value_for_content_id).
+          with('afda44ba-bcb9-42de-87de-6207a8912cbc').
+          and_return('link-val-1')
+        allow(finder).to receive(:value_for_content_id).
+          with('daff3e98-ac54-44c1-aadb-9efe276dd74b').
+          and_return('link-val-2')
+        allow(finder).to receive(:value_for_content_id).
+          with('3dfb99d0-3753-483a-842c-2b724474f349').
+          and_return('other-value-1')
       end
 
-      it 'returns the mapped metadata for `Link values`' do
-        expect(subject.metadata[0]).to eq(
-          id: :link_values,
+      it 'returns facet data' do
+        expect(subject.linked_facet_data[0]).to eq(
+          key: :link_values,
           labels: %w[link-val-1 link-val-2],
           name: 'Link values',
-          type: 'content_id',
-          value: 'link-val-1 and 1 others'
         )
       end
 
-      it 'returns the mapped metadata for `Other link values`' do
-        expect(subject.metadata[1]).to eq(
-          id: :other_link_values,
+      it 'returns facet data for `Other link values`' do
+        expect(subject.linked_facet_data[1]).to eq(
+          key: :other_link_values,
           labels: %w[other-value-1],
           name: 'Other link values',
-          type: 'content_id',
-          value: 'other-value-1'
         )
       end
     end

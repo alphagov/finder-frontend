@@ -1,7 +1,7 @@
 class Document
   attr_reader :title, :public_timestamp, :is_historic, :government_name,
               :content_purpose_supergroup, :document_type, :organisations,
-              :release_timestamp, :es_score, :format, :content_id, :index
+              :release_timestamp, :es_score, :format, :content_id, :index, :linked_facet_data
 
   def initialize(rummager_document, finder, index)
     rummager_document = rummager_document.with_indifferent_access
@@ -21,11 +21,12 @@ class Document
     @finder = finder
     @facet_content_ids = rummager_document.fetch(:facet_values, [])
     @rummager_document = rummager_document.slice(*metadata_keys)
+    @linked_facet_data = fetch_linked_facet_data
     @index = index
   end
 
   def metadata
-    raw_metadata.map(&method(:humanize_metadata_name)) + link_metadata
+    raw_metadata.map(&method(:humanize_metadata_name))
   end
 
   def show_metadata
@@ -48,6 +49,21 @@ class Document
 private
 
   attr_reader :link, :rummager_document, :finder, :facet_content_ids, :description
+
+  def fetch_linked_facet_data
+    return [] if facet_content_ids.empty?
+
+    facet_content_ids
+      .group_by { |content_id| finder.facet_for_content_id(content_id) }
+      .map do |facet, content_ids|
+      labels = content_ids.map { |content_id| finder.value_for_content_id(content_id) }
+      {
+        key: facet.key,
+        name: facet.short_name || facet.name,
+        labels: labels,
+      }
+    end
+  end
 
   def is_mainstream_content?
     %w(completed_transaction
@@ -102,28 +118,6 @@ private
     tag_metadata_keys
       .map(&method(:build_tag_metadata))
       .select(&method(:metadata_value_present?))
-  end
-
-  def link_metadata
-    return [] if facet_content_ids.empty?
-
-    facet_content_ids
-      .group_by(&method(:facet_details_for_content_id))
-      .map do |k, v|
-        labels = map_content_ids_to_values(v)
-        k.merge(
-          labels: labels,
-          value: format_value(labels)
-        )
-      end
-  end
-
-  def facet_details_for_content_id(content_id)
-    finder.facet_details_lookup[content_id]
-  end
-
-  def map_content_ids_to_values(content_ids)
-    content_ids.map { |id| finder.facet_value_lookup[id] }
   end
 
   def tag_labels_for(key)

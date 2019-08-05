@@ -18,7 +18,7 @@ private
   def grouped_documents
     return [] unless grouped_display?
 
-    documents_with_facet_data = documents.select { |document| document.metadata.present? }
+    documents_with_facet_data = documents.select { |document| document.linked_facet_data.present? }
     sorted_documents = sort_by_alphabetical(documents_with_facet_data)
 
     # Without facet filtering return all documents without grouping
@@ -58,22 +58,22 @@ private
   def label_from_metadata(document, key)
     return if document.nil?
 
-    metadata = document.metadata.find { |m| m[:id] == key }
-    metadata[:name]
+    datum = document.linked_facet_data.find { |d| d[:key] == key }
+    datum[:name]
   end
 
   def documents_tagged_to_primary_facet_value(documents, selected_value)
     documents.select do |document|
-      document.metadata.any? do |metadata|
-        metadata[:id] == primary_facet_key &&
-          metadata[:labels].include?(selected_value)
+      document.linked_facet_data.any? do |datum|
+        datum[:key] == primary_facet_key &&
+          datum[:labels].include?(selected_value)
       end
     end
   end
 
   def documents_tagged_to_secondary_facet(documents, secondary_group_name)
     documents.select do |document|
-      document.metadata.any? { |metadata| metadata[:id] == secondary_group_name }
+      document.linked_facet_data.any? { |datum| datum[:key] == secondary_group_name }
     end
   end
 
@@ -90,8 +90,8 @@ private
   end
 
   def tagged_to_all_primary_facet_values?(document)
-    document_metadata = document.metadata
-    facet_datum = document_metadata.find { |m| m[:id] == primary_facet_key }
+    document_facet_data = document.linked_facet_data
+    facet_datum = document_facet_data.find { |m| m[:key] == primary_facet_key }
     return false unless primary_facet && facet_datum
 
     all_primary_facet_values = primary_facet.allowed_values.map { |v| v['value'] }

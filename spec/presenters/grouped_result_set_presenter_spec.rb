@@ -5,12 +5,12 @@ RSpec.describe GroupedResultSetPresenter do
   let(:metadata_presenter_class) do
     MetadataPresenter
   end
-  let(:metadata) do
+  let(:linked_facet_data) do
     [
-      { id: 'case-state', name: 'Case state', value: 'Open', type: 'text', labels: %W(open) },
-      { id: 'opened-date', name: 'Opened date', value: '2006-7-14', type: 'date' },
-      { id: 'case-type', name: 'Case type', value: 'CA98 and civil cartels', type: 'text', labels: %W(ca98-and-civil-cartels) },
-      { id: 'organisation_activity', name: 'Organisation activity', value: 'buying', type: 'text', labels: %W(buying) }
+      { key: 'case-state', name: 'Case state', value: 'Open', labels: %W(open) },
+      { key: 'opened-date', name: 'Opened date', value: '2006-7-14', type: 'date' },
+      { key: 'case-type', name: 'Case type', value: 'CA98 and civil cartels', labels: %W(ca98-and-civil-cartels) },
+      { key: 'organisation_activity', name: 'Organisation activity', value: 'buying', labels: %W(buying) }
     ]
   end
   let(:formatted_metadata) do
@@ -30,13 +30,13 @@ RSpec.describe GroupedResultSetPresenter do
       document_noun: document_noun,
       sort_options: sort_presenter_without_options,
       total: 20,
-      facets: a_facet_collection,
+      facets: facet_filters,
+      filters: facet_filters,
       keywords: keywords,
       atom_url: "/a-finder.atom",
       default_documents_per_page: 10,
       values: {},
       sort: {},
-      filters: facet_filters,
       start_offset: 0,
     )
   end
@@ -109,7 +109,8 @@ RSpec.describe GroupedResultSetPresenter do
       Document,
       title: 'Investigation into the distribution of road fuels in parts of Scotland',
       path: 'slug-1',
-      metadata: metadata,
+      linked_facet_data: linked_facet_data,
+      metadata: [],
       index: 1,
       summary: 'I am a document',
       is_historic: false,
@@ -126,9 +127,6 @@ RSpec.describe GroupedResultSetPresenter do
   let(:total) { 20 }
 
   let(:facet_filters) { [sector_facet, activity_facet, a_facet] }
-  let(:a_facet_collection) do
-    facet_filters.tap { |f| allow(f).to receive(:filters).and_return(facet_filters) }
-  end
 
   let(:sector_facet) do
     double(
@@ -159,20 +157,18 @@ RSpec.describe GroupedResultSetPresenter do
   end
 
   describe "#grouped_documents" do
-    let(:tagging_metadata) {
+    let(:tagging_facet_data) {
       [
         {
-          id: 'sector_business_area',
+          key: 'sector_business_area',
           name: 'Sector / Organisation area',
           value: 'Aerospace',
-          type: 'text',
           labels: %W(aerospace)
         },
         {
-          id: 'business_activity',
+          key: 'business_activity',
           name: 'Organisation activity',
           value: 'Buying',
-          type: 'text',
           labels: %W(buying)
         },
       ]
@@ -183,7 +179,8 @@ RSpec.describe GroupedResultSetPresenter do
         Document,
         title: 'Tagged to a primary facet',
         path: 'slug-3',
-        metadata: tagging_metadata,
+        linked_facet_data: tagging_facet_data,
+        metadata: [],
         index: 1,
         summary: 'I am a document',
         is_historic: false,
@@ -194,18 +191,14 @@ RSpec.describe GroupedResultSetPresenter do
         content_id: 'content_id',
       )
     }
-
-    let(:primary_tagged_result) {
-      SearchResultPresenter.new(document: tagged_document, metadata_presenter_class: metadata_presenter_class, doc_count: 2, finder_name: finder_name, debug_score: false, highlight: false).document_list_component_data
-    }
-
-    let(:primary_tagged_result_with_one_document) {
-      SearchResultPresenter.new(document: tagged_document, metadata_presenter_class: metadata_presenter_class, doc_count: 1, finder_name: finder_name, debug_score: false, highlight: false).document_list_component_data
-    }
-
-    let(:document_result) {
-      SearchResultPresenter.new(document: document, metadata_presenter_class: metadata_presenter_class, doc_count: 2, finder_name: finder_name, debug_score: false, highlight: false).document_list_component_data
-    }
+    def build_document_list_component(document, all_documents_count)
+      SearchResultPresenter.new(document: document,
+                                metadata_presenter_class: metadata_presenter_class,
+                                doc_count: all_documents_count,
+                                finder_name: finder_name,
+                                debug_score: false,
+                                highlight: false).document_list_component_data
+    end
 
     context "when not grouping results" do
       let(:filter_params) { { order: 'a-z' } }
@@ -244,7 +237,7 @@ RSpec.describe GroupedResultSetPresenter do
         expect(subject.search_results_content[:grouped_document_list_component_data]).to eq([
           {
             group_name: 'Aerospace',
-            documents: [primary_tagged_result]
+            documents: [build_document_list_component(tagged_document, 2)]
           }
         ])
       end
@@ -267,15 +260,15 @@ RSpec.describe GroupedResultSetPresenter do
         expect(subject.search_results_content[:grouped_document_list_component_data]).to eq([
           {
             group_name: 'Aerospace',
-            documents: [primary_tagged_result]
+            documents: [build_document_list_component(tagged_document, 2)]
           },
           {
             group_name: 'Case type',
-            documents: [document_result]
+            documents: [build_document_list_component(document, 2)]
           },
           {
             group_name: 'Organisation activity',
-            documents: [document_result]
+            documents: [build_document_list_component(document, 2)]
           },
         ])
       end
@@ -296,19 +289,18 @@ RSpec.describe GroupedResultSetPresenter do
         expect(subject.search_results_content[:grouped_document_list_component_data]).to eq([
           {
             group_name: 'Organisation activity',
-            documents: [document_result]
+            documents: [build_document_list_component(document, 2)]
           }
         ])
       end
     end
 
     context "when a document is tagged to all primary facets" do
-      let(:tagging_metadata) {
+      let(:tagging_facet_data) {
         [{
-          id: 'sector_business_area',
+          key: 'sector_business_area',
           name: 'Business area',
           value: 'Aerospace',
-          type: 'text',
           labels: %W(aerospace agriculture)
         }]
       }
@@ -322,12 +314,11 @@ RSpec.describe GroupedResultSetPresenter do
       }
 
       let(:results) { ResultSet.new([tagged_document], total) }
-
       it "is grouped in the default set" do
         expect(subject.search_results_content[:grouped_document_list_component_data]).to eq([
           {
             group_name: 'All businesses',
-            documents: [primary_tagged_result_with_one_document]
+            documents: [build_document_list_component(tagged_document, 1)]
           }
         ])
       end
@@ -347,11 +338,11 @@ RSpec.describe GroupedResultSetPresenter do
         expect(subject.search_results_content[:grouped_document_list_component_data]).to eq([
           {
             group_name: 'Aerospace',
-            documents: [primary_tagged_result]
+            documents: [build_document_list_component(tagged_document, 2)]
           },
           {
             group_name: 'Case type',
-            documents: [document_result]
+            documents: [build_document_list_component(document, 2)]
           },
         ])
       end
@@ -371,7 +362,7 @@ RSpec.describe GroupedResultSetPresenter do
         expect(subject.search_results_content[:grouped_document_list_component_data]).to eq([
           {
             group_name: 'Case type',
-            documents: [document_result]
+            documents: [build_document_list_component(document, 2)]
           }
         ])
       end
