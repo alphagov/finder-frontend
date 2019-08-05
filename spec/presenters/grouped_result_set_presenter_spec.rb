@@ -110,6 +110,7 @@ RSpec.describe GroupedResultSetPresenter do
       title: 'Investigation into the distribution of road fuels in parts of Scotland',
       path: 'slug-1',
       metadata: metadata,
+      index: 1,
       summary: 'I am a document',
       is_historic: false,
       government_name: 'The Government!',
@@ -183,6 +184,7 @@ RSpec.describe GroupedResultSetPresenter do
         title: 'Tagged to a primary facet',
         path: 'slug-3',
         metadata: tagging_metadata,
+        index: 1,
         summary: 'I am a document',
         is_historic: false,
         government_name: 'The Government',
@@ -194,15 +196,15 @@ RSpec.describe GroupedResultSetPresenter do
     }
 
     let(:primary_tagged_result) {
-      SearchResultPresenter.new(document: tagged_document, metadata_presenter_class: metadata_presenter_class, doc_index: 1, doc_count: 2, finder_name: finder_name, debug_score: false, highlight: false).document_list_component_data
+      SearchResultPresenter.new(document: tagged_document, metadata_presenter_class: metadata_presenter_class, doc_count: 2, finder_name: finder_name, debug_score: false, highlight: false).document_list_component_data
     }
 
     let(:primary_tagged_result_with_one_document) {
-      SearchResultPresenter.new(document: tagged_document, metadata_presenter_class: metadata_presenter_class, doc_index: 0, doc_count: 1, finder_name: finder_name, debug_score: false, highlight: false).document_list_component_data
+      SearchResultPresenter.new(document: tagged_document, metadata_presenter_class: metadata_presenter_class, doc_count: 1, finder_name: finder_name, debug_score: false, highlight: false).document_list_component_data
     }
 
     let(:document_result) {
-      SearchResultPresenter.new(document: document, metadata_presenter_class: metadata_presenter_class, doc_index: 0, doc_count: 2, finder_name: finder_name, debug_score: false, highlight: false).document_list_component_data
+      SearchResultPresenter.new(document: document, metadata_presenter_class: metadata_presenter_class, doc_count: 2, finder_name: finder_name, debug_score: false, highlight: false).document_list_component_data
     }
 
     context "when not grouping results" do

@@ -34,8 +34,8 @@ class ResultSetPresenter
 
   def document_list_component_data
     @document_list_component_data ||= begin
-      documents.each_with_index.map do |document, index|
-        SearchResultPresenter.new(document: document, metadata_presenter_class: metadata_presenter_class, doc_index: index, doc_count: documents.count, finder_name: finder_presenter.name, debug_score: debug_score, highlight: highlight(index)).document_list_component_data
+      documents.map do |document|
+        SearchResultPresenter.new(document: document, metadata_presenter_class: metadata_presenter_class, doc_count: documents.count, finder_name: finder_presenter.name, debug_score: debug_score, highlight: highlight(document.index)).document_list_component_data
       end
     end
   end
@@ -69,7 +69,7 @@ private
   end
 
   def highlight(index)
-    index === 0 && highlight_top_result?
+    index === 1 && highlight_top_result?
   end
 
   def best_bet?

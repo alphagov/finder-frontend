@@ -1,9 +1,9 @@
 class Document
   attr_reader :title, :public_timestamp, :is_historic, :government_name,
               :content_purpose_supergroup, :document_type, :organisations,
-              :release_timestamp, :es_score, :format, :content_id
+              :release_timestamp, :es_score, :format, :content_id, :index
 
-  def initialize(rummager_document, finder)
+  def initialize(rummager_document, finder, index)
     rummager_document = rummager_document.with_indifferent_access
     @title = rummager_document.fetch(:title)
     @link = rummager_document.fetch(:link)
@@ -21,6 +21,7 @@ class Document
     @finder = finder
     @facet_content_ids = rummager_document.fetch(:facet_values, [])
     @rummager_document = rummager_document.slice(*metadata_keys)
+    @index = index
   end
 
   def metadata

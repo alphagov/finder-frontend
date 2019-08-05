@@ -11,7 +11,7 @@ describe Document do
       finder = double(
         'finder', date_metadata_keys: [], text_metadata_keys: [], links: {}
       )
-      document = described_class.new(rummager_document, finder)
+      document = described_class.new(rummager_document, finder, 0)
 
       expect(document.public_timestamp).to be_nil
     end
@@ -24,7 +24,7 @@ describe Document do
       finder = double(
         'finder', date_metadata_keys: [], text_metadata_keys: [], links: {}
       )
-      document = described_class.new(rummager_document, finder)
+      document = described_class.new(rummager_document, finder, 0)
 
       expect(document.path).to eq("https://link.com/mature-cheeses")
     end
@@ -39,8 +39,8 @@ describe Document do
           }
       ]
     }
-    subject(:non_mainstream_document) { described_class.new({ title: "Y", link: "/y", content_store_document_type: 'employment_tribunal_decision', organisations: organisations }, finder) }
-    subject(:mainstream_document) { described_class.new({ title: "Y", link: "/y", content_store_document_type: 'simple_smart_answer', organisations: organisations }, finder) }
+    subject(:non_mainstream_document) { described_class.new({ title: "Y", link: "/y", content_store_document_type: 'employment_tribunal_decision', organisations: organisations }, finder, 0) }
+    subject(:mainstream_document) { described_class.new({ title: "Y", link: "/y", content_store_document_type: 'simple_smart_answer', organisations: organisations }, finder, 0) }
 
     let(:finder) do
       double(:finder,
@@ -79,7 +79,7 @@ describe Document do
   end
 
   describe "#metadata" do
-    subject { described_class.new(result_hash, finder) }
+    subject { described_class.new(result_hash, finder, 0) }
 
     let(:finder) do
       double(:finder,
@@ -180,7 +180,7 @@ describe Document do
              text_metadata_keys: [:bar],
              "display_metadata?": true)
     end
-    subject(:instance) { described_class.new({ title: "Y", link: "/y", es_score: 0.005 }, finder) }
+    subject(:instance) { described_class.new({ title: "Y", link: "/y", es_score: 0.005 }, finder, 0) }
 
     it "es_score is 0.005" do
       expect(instance.es_score).to eq 0.005
@@ -201,8 +201,8 @@ describe Document do
       description = "The government has many departments. These departments are part of the government."
       truncated_description = "The government has many departments."
 
-      subject(:instance_with_description) { described_class.new({ title: "Y", link: "/y", description: description }, finder) }
-      subject(:instance_without_description) { described_class.new({ title: "Y", link: "/y" }, finder) }
+      subject(:instance_with_description) { described_class.new({ title: "Y", link: "/y", description: description }, finder, 0) }
+      subject(:instance_without_description) { described_class.new({ title: "Y", link: "/y" }, finder, 0) }
 
       it 'should have truncated description' do
         expect(instance_with_description.truncated_description).to eq(truncated_description)

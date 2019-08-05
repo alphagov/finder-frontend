@@ -10,8 +10,8 @@ describe ResultSetParser do
     subject { ResultSetParser.parse(results, total, finder) }
 
     before do
-      allow(Document).to receive(:new).with(:a_document_hash, finder).and_return(:a_document_instance)
-      allow(Document).to receive(:new).with(:another_document_hash, finder).and_return(:another_document_instance)
+      allow(Document).to receive(:new).with(:a_document_hash, finder, 1).and_return(:a_document_instance)
+      allow(Document).to receive(:new).with(:another_document_hash, finder, 2).and_return(:another_document_instance)
     end
 
     specify { expect(subject.documents).to eql(%i[a_document_instance another_document_instance]) }
