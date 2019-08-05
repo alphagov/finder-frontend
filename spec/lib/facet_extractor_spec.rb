@@ -5,7 +5,8 @@ describe FacetExtractor do
   let(:facets) { described_class.new(finder).extract }
 
   context 'with facets in details' do
-    let(:finder) do
+    let(:finder) { ContentItem.new(finder_hash) }
+    let(:finder_hash) do
       {
         details: {
           facets: [
@@ -61,8 +62,8 @@ describe FacetExtractor do
         }
       ]
     end
-
-    let(:finder) do
+    let(:finder) { ContentItem.new(finder_hash) }
+    let(:finder_hash) do
       {
         links: {
           facet_group: [{

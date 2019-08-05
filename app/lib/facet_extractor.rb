@@ -2,7 +2,7 @@ class FacetExtractor
   attr_reader :content_item
 
   def initialize(content_item)
-    @content_item = content_item
+    @content_item = content_item.as_hash
   end
 
   def extract
@@ -10,6 +10,8 @@ class FacetExtractor
     facets_in_details = content_item.dig('details', 'facets') || []
     facets_in_details + facets_in_links.map { |facet_in_link| transform_hash(facet_in_link) }
   end
+
+private
 
   def transform_hash(facet_in_links)
     facet_details = facet_in_links['details']

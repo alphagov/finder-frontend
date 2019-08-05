@@ -19,11 +19,6 @@ module Search
       @search_results ||= fetch_search_response(content_item)
     end
 
-    def content_item_with_search_results
-      augment_content_item_with_results
-      content_item.as_hash
-    end
-
   private
 
     attr_reader :ab_params, :filter_params, :override_sort_for_feed, :content_item
@@ -91,71 +86,6 @@ module Search
           )
         end
       end
-    end
-
-    def augment_content_item_with_results
-      augment_facets_with_dynamic_values(content_item)
-    end
-
-    def augment_facets_with_dynamic_values(content_item)
-      facets = content_item.as_hash['details']['facets']
-      return if facets.blank?
-
-      # for each facet in the content item
-      # if it's in the registry, let's use that
-      # otherwise, get it from the search result
-      facets.select { |facet| facet['allowed_values'].blank? }
-        .each do |facet|
-          facet_key = facet["key"]
-          if registries.all.has_key?(facet_key)
-            facet['allowed_values'] = allowed_values_from_registry(facet_key)
-          elsif (facet_details = search_results.dig("facets", facet_key))
-            facet['allowed_values'] = allowed_values_for_facet_details(facet_key, facet_details)
-          end
-        end
-    end
-
-    def allowed_values_for_facet_details(facet_key, facet_details)
-      facet_details.fetch("options", {})
-        .map { |f| f.fetch("value", {}) }
-        .map { |value| present_facet_option(value, facet_key) }
-        .reject { |f| f["label"].blank? || f["value"].blank? }
-    end
-
-    def allowed_values_from_registry(facet_key)
-      registries.all[facet_key].values
-        .map { |_, results| present_facet_option(results, facet_key) }
-        .reject { |f| f["label"].blank? || f["value"].blank? }
-    end
-
-    def present_facet_option(value, facet_key)
-      slug = value.fetch("slug", "")
-      title = value.fetch("title", find_facet_title_by_slug(slug, facet_key))
-      label = generate_label(value, title)
-
-      {
-        "label" => label,
-        "value" => slug,
-      }
-    end
-
-    def generate_label(value, title)
-      acronym = value.fetch("acronym", "")
-      return title if acronym.blank? || acronym == title
-
-      title + " (" + acronym + ")"
-    end
-
-    def find_facet_title_by_slug(slug, facet_key)
-      registry = registries.all[facet_key]
-      return "" if registry.nil?
-
-      item = registry[slug] || {}
-      item.fetch("title", "")
-    end
-
-    def registries
-      @registries ||= Registries::BaseRegistries.new
     end
   end
 end

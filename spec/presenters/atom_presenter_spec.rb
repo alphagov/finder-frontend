@@ -15,8 +15,8 @@ RSpec.describe AtomPresenter do
       results: result_set,
       document_noun: 'case',
       total: 20,
-      filters: a_facet_collection.filters,
-      facets: a_facet_collection,
+      filters: [a_facet, another_facet, a_date_facet],
+      facets: [a_facet, another_facet, a_date_facet],
       keywords: '',
       atom_url: "/a-finder.atom",
       default_documents_per_page: 10,
@@ -93,13 +93,6 @@ RSpec.describe AtomPresenter do
 
   let(:a_date_facet) do
     double(OptionSelectFacet, has_filters?: false)
-  end
-
-  let(:a_facet_collection) do
-    double(
-      FacetCollection,
-      filters: [a_facet, another_facet, a_date_facet]
-    )
   end
 
   let(:document) do

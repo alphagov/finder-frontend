@@ -88,9 +88,14 @@ private
     ResultSetPresenter
   end
 
+  def facets
+    @facets ||= FacetsBuilder.new(content_item: content_item, search_results: search_results, value_hash: filter_params).facets
+  end
+
   def finder_presenter
     @finder_presenter ||= FinderPresenter.new(
-      content_item_with_search_results,
+      content_item,
+      facets,
       search_results,
       filter_params,
     )
