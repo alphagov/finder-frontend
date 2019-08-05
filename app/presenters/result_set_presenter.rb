@@ -56,10 +56,6 @@ class ResultSetPresenter
     @signup_links ||= fetch_signup_links
   end
 
-private
-
-  attr_reader :metadata_presenter_class, :sort_presenter, :total, :finder_presenter, :documents
-
   def highlight_top_result?
     @show_top_result &&
       finder_presenter.eu_exit_finder? &&
@@ -67,6 +63,10 @@ private
       sort_option.dig('key').eql?("-relevance") &&
       best_bet?
   end
+
+private
+
+  attr_reader :metadata_presenter_class, :sort_presenter, :total, :finder_presenter, :documents
 
   def highlight(index)
     index === 1 && highlight_top_result?
