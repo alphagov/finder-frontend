@@ -212,7 +212,7 @@ RSpec.describe GroupedResultSetPresenter do
       let(:results) { ResultSet.new([document], total) }
 
       it "returns an empty array" do
-        expect(subject.grouped_document_list_component_data).to eq([])
+        expect(subject.search_results_content[:grouped_document_list_component_data]).to eq([])
       end
     end
 
@@ -221,13 +221,13 @@ RSpec.describe GroupedResultSetPresenter do
       let(:results) { ResultSet.new([document], total) }
 
       it "groups all documents in the default group" do
-        expect(subject.grouped_document_list_component_data).to eq([{
+        expect(subject.search_results_content[:grouped_document_list_component_data]).to eq([{
           documents: subject.search_results_content[:document_list_component_data]
         }])
       end
 
       it "does not populate the facet name for the group" do
-        expect(subject.grouped_document_list_component_data.first).not_to have_key(:group_name)
+        expect(subject.search_results_content[:grouped_document_list_component_data].first).not_to have_key(:group_name)
       end
     end
 
@@ -241,7 +241,7 @@ RSpec.describe GroupedResultSetPresenter do
       let(:results) { ResultSet.new([document, tagged_document], total) }
 
       it "groups the relevant documents by the primary facet" do
-        expect(subject.grouped_document_list_component_data).to eq([
+        expect(subject.search_results_content[:grouped_document_list_component_data]).to eq([
           {
             group_name: 'Aerospace',
             documents: [primary_tagged_result]
@@ -264,7 +264,7 @@ RSpec.describe GroupedResultSetPresenter do
       let(:facet_filters) { [sector_facet, a_facet, activity_facet] }
 
       it "orders the groups by facets in the other facets" do
-        expect(subject.grouped_document_list_component_data).to eq([
+        expect(subject.search_results_content[:grouped_document_list_component_data]).to eq([
           {
             group_name: 'Aerospace',
             documents: [primary_tagged_result]
@@ -293,7 +293,7 @@ RSpec.describe GroupedResultSetPresenter do
       let(:results) { ResultSet.new([document, tagged_document], total) }
 
       it "groups the relevant documents in the other facets" do
-        expect(subject.grouped_document_list_component_data).to eq([
+        expect(subject.search_results_content[:grouped_document_list_component_data]).to eq([
           {
             group_name: 'Organisation activity',
             documents: [document_result]
@@ -324,9 +324,7 @@ RSpec.describe GroupedResultSetPresenter do
       let(:results) { ResultSet.new([tagged_document], total) }
 
       it "is grouped in the default set" do
-        allow(a_facet_collection).to receive(:find).and_return(sector_facet)
-
-        expect(subject.grouped_document_list_component_data).to eq([
+        expect(subject.search_results_content[:grouped_document_list_component_data]).to eq([
           {
             group_name: 'All businesses',
             documents: [primary_tagged_result_with_one_document]
@@ -346,7 +344,7 @@ RSpec.describe GroupedResultSetPresenter do
       let(:results) { ResultSet.new([document, tagged_document], total) }
 
       it "groups the relevant documents in the primary facets" do
-        expect(subject.grouped_document_list_component_data).to eq([
+        expect(subject.search_results_content[:grouped_document_list_component_data]).to eq([
           {
             group_name: 'Aerospace',
             documents: [primary_tagged_result]
@@ -370,7 +368,7 @@ RSpec.describe GroupedResultSetPresenter do
       let(:results) { ResultSet.new([document, tagged_document], total) }
 
       it "groups the relevant documents in the other facets" do
-        expect(subject.grouped_document_list_component_data).to eq([
+        expect(subject.search_results_content[:grouped_document_list_component_data]).to eq([
           {
             group_name: 'Case type',
             documents: [document_result]
@@ -426,7 +424,7 @@ RSpec.describe GroupedResultSetPresenter do
     let(:results) { ResultSet.new([document], total) }
 
     it "returns an empty array" do
-      expect(subject.grouped_document_list_component_data).to eq([])
+      expect(subject.search_results_content[:grouped_document_list_component_data]).to eq([])
     end
   end
 

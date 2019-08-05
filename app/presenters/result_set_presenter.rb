@@ -60,11 +60,9 @@ private
 
   attr_reader :metadata_presenter_class, :sort_presenter, :total, :finder_presenter, :documents
 
-  def document_list_component_data
-    @document_list_component_data ||= begin
-      documents.map do |document|
-        SearchResultPresenter.new(document: document, metadata_presenter_class: metadata_presenter_class, doc_count: documents.count, finder_name: finder_presenter.name, debug_score: debug_score, highlight: highlight(document.index)).document_list_component_data
-      end
+  def document_list_component_data(documents_to_convert: documents)
+    documents_to_convert.map do |document|
+      SearchResultPresenter.new(document: document, metadata_presenter_class: metadata_presenter_class, doc_count: documents.count, finder_name: finder_presenter.name, debug_score: debug_score, highlight: highlight(document.index)).document_list_component_data
     end
   end
 
