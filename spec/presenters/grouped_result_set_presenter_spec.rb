@@ -222,7 +222,7 @@ RSpec.describe GroupedResultSetPresenter do
 
       it "groups all documents in the default group" do
         expect(subject.grouped_document_list_component_data).to eq([{
-          documents: subject.document_list_component_data
+          documents: subject.search_results_content[:document_list_component_data]
         }])
       end
 

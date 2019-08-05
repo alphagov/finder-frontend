@@ -32,14 +32,6 @@ class ResultSetPresenter
     }
   end
 
-  def document_list_component_data
-    @document_list_component_data ||= begin
-      documents.map do |document|
-        SearchResultPresenter.new(document: document, metadata_presenter_class: metadata_presenter_class, doc_count: documents.count, finder_name: finder_presenter.name, debug_score: debug_score, highlight: highlight(document.index)).document_list_component_data
-      end
-    end
-  end
-
   def user_supplied_date(date_facet_key, date_facet_from_to)
     @filter_params.fetch(date_facet_key, {}).fetch(date_facet_from_to, nil)
   end
@@ -67,6 +59,14 @@ class ResultSetPresenter
 private
 
   attr_reader :metadata_presenter_class, :sort_presenter, :total, :finder_presenter, :documents
+
+  def document_list_component_data
+    @document_list_component_data ||= begin
+      documents.map do |document|
+        SearchResultPresenter.new(document: document, metadata_presenter_class: metadata_presenter_class, doc_count: documents.count, finder_name: finder_presenter.name, debug_score: debug_score, highlight: highlight(document.index)).document_list_component_data
+      end
+    end
+  end
 
   def highlight(index)
     index === 1 && highlight_top_result?

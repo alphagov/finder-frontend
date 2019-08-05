@@ -271,7 +271,7 @@ RSpec.describe ResultSetPresenter do
         end
 
         it 'has top result true' do
-          search_result_objects = presenter.document_list_component_data
+          search_result_objects = presenter.search_results_content[:document_list_component_data]
           expect(search_result_objects[0][:highlight]).to eql(true)
           expect(search_result_objects[0][:highlight_text]).to eql("Most relevant result")
           expect(search_result_objects[0][:link][:description]).to eql("A truncated description")
@@ -287,7 +287,7 @@ RSpec.describe ResultSetPresenter do
         end
 
         it 'has no top result' do
-          search_result_objects = presenter.document_list_component_data
+          search_result_objects = presenter.search_results_content[:document_list_component_data]
           expect(search_result_objects[0][:highlight]).to_not eql(true)
         end
       end
@@ -296,7 +296,7 @@ RSpec.describe ResultSetPresenter do
         subject(:presenter) { ResultSetPresenter.new(finder, filter_params, sort_presenter, metadata_presenter_class, false) }
 
         it 'has no top result' do
-          search_result_objects = presenter.document_list_component_data
+          search_result_objects = presenter.search_results_content[:document_list_component_data]
           expect(search_result_objects[0][:highlight]).to_not eql(true)
         end
       end
