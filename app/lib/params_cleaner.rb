@@ -11,6 +11,10 @@
 #
 #   foo: ["bar", "baz"]
 #
+# We also sometimes get parameters with leading or trailing whitespace
+# in facet values (trailing whitespace in the last facet is common for
+# the business readiness finder), strip those so that searches work.
+#
 class ParamsCleaner
   def initialize(params)
     @params = params
@@ -18,9 +22,13 @@ class ParamsCleaner
 
   def cleaned
     @params.each do |k, v|
-      next unless v.is_a?(Hash) && v.keys.all? { |d| d.match(/\A\d+\Z/) }
-
-      @params[k] = v.values
+      if v.is_a?(String)
+        @params[k] = v.strip
+      elsif v.is_a?(Array)
+        @params[k] = v.map { |x| x.is_a?(String) ? x.strip : x }
+      elsif v.is_a?(Hash) && v.keys.all? { |d| d.match(/\A\d+\Z/) }
+        @params[k] = v.values
+      end
     end
 
     @params
