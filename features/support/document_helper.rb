@@ -151,7 +151,7 @@ module DocumentHelper
     Timecop.freeze(Time.local("2019-01-01").utc)
     stub_request(:get, "#{Plek.current.find('search')}/search.json")
       .with(query: hash_including("filter_format" => %w(statistics_announcement),
-                                  "filter_release_timestamp" => "from:2019-01-01"))
+                                  "filter_release_timestamp" => "from:2018-12-01"))
       .to_return(body: upcoming_statistics_results_for_statistics_json)
   end
 

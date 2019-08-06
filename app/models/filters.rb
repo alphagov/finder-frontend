@@ -6,8 +6,11 @@ module Filters
           'value' => 'upcoming_statistics',
           'label' => 'Statistics (upcoming)',
           'filter' => {
-            'release_timestamp' => "from:#{Time.zone.today}",
+            'release_timestamp' => "from:#{Time.zone.today - 1.month}",
             'format' => %w(statistics_announcement)
+          },
+          'reject' => {
+            'statistics_announcement_state' => 'statistics_published'
           }
         },
         {
