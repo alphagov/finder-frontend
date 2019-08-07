@@ -3,6 +3,14 @@ module Filters
     def call
       [
         {
+          'value' => 'published_statistics',
+          'label' => 'Statistics (published)',
+          'filter' => {
+            'content_store_document_type' => %w(statistics national_statistics statistical_data_set official_statistics)
+          },
+          'default' => true
+        },
+        {
           'value' => 'upcoming_statistics',
           'label' => 'Statistics (upcoming)',
           'filter' => {
@@ -11,12 +19,11 @@ module Filters
           }
         },
         {
-          'value' => 'published_statistics',
-          'label' => 'Statistics (published)',
+          'value' => 'cancelled_statistics',
+          'label' => 'Statistics (cancelled)',
           'filter' => {
-            'content_store_document_type' => %w(statistics national_statistics statistical_data_set official_statistics)
-          },
-          'default' => true
+              'statistics_announcement_state' => 'cancelled'
+            }
         },
         {
           'value' => 'research',
