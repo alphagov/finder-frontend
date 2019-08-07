@@ -1,25 +1,25 @@
 class StatisticsSortPresenter < SortPresenter
   def initialize(content_item, filter_params)
-    @stats_grouping = filter_params['content_store_document_type']
+    @doc_type = filter_params['content_store_document_type']
     super(content_item, filter_params)
   end
 
 private
 
-  attr_reader :stats_grouping, :user_selected_order, :keywords, :content_item_sort_options
+  attr_reader :doc_type, :user_selected_order, :keywords, :content_item_sort_options
 
   RELEVANCE_OPTION_TYPES = %w(relevance -relevance).freeze
   EXCLUDED_OPTIONS = {
-    published: %w(-release_timestamp release_timestamp),
-    upcoming: %w(-public_timestamp public_timestamp),
+    public: %w(-release_timestamp release_timestamp),
+    release: %w(-public_timestamp public_timestamp)
   }.freeze
   DEFAULT_KEY = {
-    published: '-public_timestamp',
-    upcoming: '-release_timestamp',
+    public: '-public_timestamp',
+    release: '-release_timestamp'
   }.freeze
 
   def default_key
-    DEFAULT_KEY[group]
+    DEFAULT_KEY[sort_type]
   end
 
   def is_default?(option)
@@ -28,7 +28,7 @@ private
 
   def sort_options
     content_item_sort_options.reject { |option|
-      EXCLUDED_OPTIONS[group].include? option['key']
+      EXCLUDED_OPTIONS[sort_type].include? option['key']
     }
   end
 
@@ -36,7 +36,16 @@ private
     sort_options.find { |option| option['key'] == default_key }
   end
 
-  def group
-    stats_grouping == 'upcoming_statistics' ? :upcoming : :published
+  def sort_type
+    case doc_type
+    when 'upcoming_statistics'
+      :release
+    when 'published_statistics'
+      :public
+    when 'cancelled_statistics'
+      :release
+    else
+      :public
+    end
   end
 end

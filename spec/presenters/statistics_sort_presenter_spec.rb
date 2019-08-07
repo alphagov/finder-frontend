@@ -27,6 +27,10 @@ RSpec.describe StatisticsSortPresenter do
     { "content_store_document_type" => "research" }
   end
 
+  let(:cancelled_statistics_query) do
+    { "content_store_document_type" => "cancelled_statistics" }
+  end
+
   let(:default_option) {
     {
       "default" => true,
@@ -77,6 +81,13 @@ RSpec.describe StatisticsSortPresenter do
       end
     end
 
+    context "when cancelled_statistics is selected" do
+      let(:query) { cancelled_statistics_query }
+      it "returns release timestamp" do
+        expect_default('Release date (latest)', 'release-date-latest')
+      end
+    end
+
     context "when no value is selected" do
       it "returns updated newest as the default" do
         expect_default('Updated (newest)', 'updated-newest')
@@ -120,6 +131,16 @@ RSpec.describe StatisticsSortPresenter do
 
       context "upcoming statistics is selected" do
         let(:query) { order.merge(upcoming_statistics_query) }
+        it "returns Release date (latest)" do
+          returns_the_default_option(
+            "key" => "-release_timestamp",
+            "name" => "Release date (latest)",
+          )
+        end
+      end
+
+      context "cancelled statistics is selected" do
+        let(:query) { order.merge(cancelled_statistics_query) }
         it "returns Release date (latest)" do
           returns_the_default_option(
             "key" => "-release_timestamp",
