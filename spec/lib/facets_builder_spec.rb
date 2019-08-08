@@ -70,8 +70,18 @@ describe FacetsBuilder do
       "allowed_values": [{ "value" => "my_manual" }]
     }
   }
+  let(:related_to_brexit_facet_hash) {
+    {
+      "key": "related_to_brexit",
+      "filter_key": "all_part_of_taxonomy_tree",
+      "filter_value": "d6c2de5d-ef90-45d1-82d4-5f2438369eea",
+      "name": "Show only Brexit results",
+      "type": "checkbox",
+      "filterable": true
+    }
+  }
 
-  let(:detail_hashes) {
+  let(:detail_hash) {
     {
       "details" => {
         "facets" => [
@@ -95,6 +105,44 @@ describe FacetsBuilder do
   let(:content_item) {
     ContentItem.new(content_item_hash)
   }
+
+  describe 'Remove brexit checkbox filter' do
+    subject(:facets) do
+      FacetsBuilder.new(content_item: content_item, search_results: {}, value_hash: value_hash).facets
+    end
+    let(:detail_hash) {
+      {
+        "details" => {
+          "facets" => [
+            taxon_facet_hash,
+            checkbox_facet_hash,
+            radio_facet_hash,
+            related_to_brexit_facet_hash
+          ]
+        }
+      }
+    }
+    context 'The page is filtered on the brexit topic' do
+      let(:value_hash) {
+        {
+          'topic' => ContentItem::BREXIT_CONTENT_ID
+        }
+      }
+      it 'contains no related to brexit taxon' do
+        expect(facets).to_not include(an_object_satisfying { |facet| facet.key == 'related_to_brexit' })
+      end
+    end
+    context 'The page is not filtered on the brexit topic' do
+      let(:value_hash) {
+        {
+          related_to_brexit: ContentItem::BREXIT_CONTENT_ID
+        }
+      }
+      it 'contains a related to brexit taxon' do
+        expect(facets).to include(an_object_satisfying { |facet| facet.key == 'related_to_brexit' })
+      end
+    end
+  end
 
   describe 'facets' do
     subject(:facet) do
