@@ -1,4 +1,6 @@
 class ContentItem
+  BREXIT_CONTENT_ID = 'd6c2de5d-ef90-45d1-82d4-5f2438369eea'.freeze
+
   def initialize(content_item_hash)
     @content_item_hash = content_item_hash.freeze
   end

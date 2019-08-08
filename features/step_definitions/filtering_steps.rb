@@ -108,6 +108,25 @@ When(/^I view the news and communications finder$/) do
   visit finder_path('search/news-and-communications')
 end
 
+When(/^I view the news and communications finder filtered on the brexit topic$/) do
+  stub_taxonomy_api_request
+  content_store_has_news_and_communications_finder
+  stub_whitehall_api_world_location_request
+  stub_all_rummager_api_requests_with_news_and_communication_results
+  stub_people_registry_request
+  stub_organisations_registry_request
+  visit finder_path('search/news-and-communications', topic: 'd6c2de5d-ef90-45d1-82d4-5f2438369eea')
+end
+
+Then(/^I (can|cannot) see the "show only brexit results" checkbox$/) do |can_or_cannot|
+  have_clause = have_css(".govuk-checkboxes__label", text: "Show only Brexit results")
+  if can_or_cannot == 'can'
+    expect(page).to have_clause
+  else
+    expect(page).to_not have_clause
+  end
+end
+
 Given(/^I am in the variant B control group$/) do
   ab_test_variant = double(:variant, variant_name: "B", analytics_meta_tag: "")
   allow(ab_test_variant).to receive(:variant?).with("B").and_return(true)
