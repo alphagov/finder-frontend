@@ -77,14 +77,14 @@ RSpec.describe StatisticsSortPresenter do
     context "when upcoming_statistics is selected" do
       let(:query) { upcoming_statistics_query }
       it "returns release timestamp" do
-        expect_default('Release date (latest)', 'release-date-latest')
+        expect_default('Release date (oldest)', 'release-date-oldest')
       end
     end
 
     context "when cancelled_statistics is selected" do
       let(:query) { cancelled_statistics_query }
       it "returns release timestamp" do
-        expect_default('Release date (latest)', 'release-date-latest')
+        expect_default('Release date (oldest)', 'release-date-oldest')
       end
     end
 
@@ -133,8 +133,8 @@ RSpec.describe StatisticsSortPresenter do
         let(:query) { order.merge(upcoming_statistics_query) }
         it "returns Release date (latest)" do
           returns_the_default_option(
-            "key" => "-release_timestamp",
-            "name" => "Release date (latest)",
+            "key" => "release_timestamp",
+            "name" => "Release date (oldest)",
           )
         end
       end
@@ -143,8 +143,8 @@ RSpec.describe StatisticsSortPresenter do
         let(:query) { order.merge(cancelled_statistics_query) }
         it "returns Release date (latest)" do
           returns_the_default_option(
-            "key" => "-release_timestamp",
-            "name" => "Release date (latest)",
+            "key" => "release_timestamp",
+            "name" => "Release date (oldest)",
           )
         end
       end
@@ -167,7 +167,7 @@ RSpec.describe StatisticsSortPresenter do
 
       context "upcoming statistics is selected" do
         let(:query) { order.merge(upcoming_statistics_query) }
-        it "returns Release date (latest) as the default" do
+        it "returns Release date (latest)" do
           returns_the_default_option(
             "key" => "-release_timestamp",
             "name" => "Release date (latest)",
@@ -188,10 +188,10 @@ RSpec.describe StatisticsSortPresenter do
 
         context "upcoming statistics is selected" do
           let(:query) { order.merge(upcoming_statistics_query) }
-          it "returns Release date (latest) as the default" do
+          it "returns Release date (oldest) as the default" do
             returns_the_default_option(
-              "key" => "-release_timestamp",
-              "name" => "Release date (latest)",
+              "key" => "release_timestamp",
+              "name" => "Release date (oldest)",
             )
           end
         end
@@ -346,7 +346,7 @@ RSpec.describe StatisticsSortPresenter do
 
     context "upcoming_statistics is selected" do
       let(:query) { upcoming_statistics_query }
-      it "sets default_value" do default_value_is("release-date-latest"); end
+      it "sets default_value" do default_value_is("release-date-oldest"); end
       it "sets relevance_value" do relevance_value_is_set; end
       it "has 4 options" do has_four_options; end
 

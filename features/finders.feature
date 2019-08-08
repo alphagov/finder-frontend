@@ -377,7 +377,7 @@ Feature: Filtering documents
     And I select upcoming statistics
     And I click filter results
     Then I should see upcoming statistics
-    And I see Release date (latest) order selected
+    And I see Release date (oldest) order selected
     And I can sort by:
       | Most viewed           |
       | Relevance             |
@@ -398,7 +398,7 @@ Feature: Filtering documents
     When I view the research and statistics finder
     And I select upcoming statistics
     Then I should see upcoming statistics
-    And I see Release date (latest) order selected
+    And I see Release date (oldest) order selected
     And I can sort by:
       | Most viewed           |
       | Relevance             |
