@@ -15,7 +15,7 @@ private
   }.freeze
   DEFAULT_KEY = {
     public: '-public_timestamp',
-    release: 'release_timestamp'
+    release: '-release_timestamp'
   }.freeze
 
   def default_key
