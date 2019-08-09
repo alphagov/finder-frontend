@@ -83,8 +83,8 @@ RSpec.describe StatisticsSortPresenter do
 
     context "when cancelled_statistics is selected" do
       let(:query) { cancelled_statistics_query }
-      it "returns release timestamp" do
-        expect_default('Release date (latest)', 'release-date-latest')
+      it "returns public timestamp" do
+        expect_default('Updated (newest)', 'updated-newest')
       end
     end
 
@@ -141,10 +141,11 @@ RSpec.describe StatisticsSortPresenter do
 
       context "cancelled statistics is selected" do
         let(:query) { order.merge(cancelled_statistics_query) }
-        it "returns Release date (latest)" do
+        it "returns Updated (newest)" do
           returns_the_default_option(
-            "key" => "-release_timestamp",
-            "name" => "Release date (latest)",
+            "default" => true,
+            "key" => "-public_timestamp",
+            "name" => "Updated (newest)",
           )
         end
       end

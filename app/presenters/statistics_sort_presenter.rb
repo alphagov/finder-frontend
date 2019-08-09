@@ -10,10 +10,12 @@ private
 
   RELEVANCE_OPTION_TYPES = %w(relevance -relevance).freeze
   EXCLUDED_OPTIONS = {
+    any: [],
     public: %w(-release_timestamp release_timestamp),
     release: %w(-public_timestamp public_timestamp)
   }.freeze
   DEFAULT_KEY = {
+    any: '-public_timestamp',
     public: '-public_timestamp',
     release: '-release_timestamp'
   }.freeze
@@ -43,7 +45,7 @@ private
     when 'published_statistics'
       :public
     when 'cancelled_statistics'
-      :release
+      :any
     else
       :public
     end
