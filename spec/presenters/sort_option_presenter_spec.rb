@@ -3,12 +3,20 @@ require "helpers/taxonomy_spec_helper"
 
 RSpec.describe SortOptionPresenter do
   subject(:sort_option) { described_class.new(label: "Updated (newest)", key: "-public_timestamp") }
+  subject(:sort_option_with_value) { described_class.new(label: "Updated (newest)", value: "frogs-frogs-frogs", key: "-public_timestamp") }
   subject(:default_sort_option) { described_class.new(label: "Most viewed", key: "most-viewed", default: true) }
   subject(:relevance_sort_option) { described_class.new(label: "Show least relevant", key: "-relevance",) }
 
   describe "#value" do
-    it "returns label parameterized" do
-      expect(sort_option.value).to eq("updated-newest")
+    context "a value is provided" do
+      it "returns the given value" do
+        expect(sort_option_with_value.value).to eq("frogs-frogs-frogs")
+      end
+    end
+    context "a value is not provided" do
+      it "returns label parameterized" do
+        expect(sort_option.value).to eq("updated-newest")
+      end
     end
   end
 

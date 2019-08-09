@@ -387,10 +387,10 @@ Feature: Filtering documents
     Then I should see upcoming statistics
     And I see Release date (latest) order selected
     And I can sort by:
-      | Most viewed           |
-      | Relevance             |
-      | Release date (latest) |
-      | Release date (oldest) |
+      | Most viewed            |
+      | Relevance              |
+      | Release date (latest)  |
+      | Release date (soonest) |
     And I should not see an upcoming statistics facet tag
     Then I select published statistics
     And I click filter results
@@ -408,10 +408,10 @@ Feature: Filtering documents
     Then I should see upcoming statistics
     And I see Release date (latest) order selected
     And I can sort by:
-      | Most viewed           |
-      | Relevance             |
-      | Release date (latest) |
-      | Release date (oldest) |
+      | Most viewed            |
+      | Relevance              |
+      | Release date (latest)  |
+      | Release date (soonest) |
     And I should not see an upcoming statistics facet tag
     Then I select published statistics
     Then I see Updated (newest) order selected

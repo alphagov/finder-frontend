@@ -197,6 +197,31 @@ RSpec.describe StatisticsSortPresenter do
         end
       end
     end
+
+    context "Sort option release-date-oldest is selected by the user" do
+      let(:order) { { 'order' => 'release-date-oldest' } }
+
+      context "upcoming statistics is selected" do
+        let(:query) { order.merge(upcoming_statistics_query) }
+        it "returns Release date (soonest) as the default" do
+          returns_the_default_option(
+            "key" => "release_timestamp",
+            "name" => "Release date (soonest)",
+            "value" => "release-date-oldest",
+          )
+        end
+      end
+
+      context "cancelled statistics statistics is selected" do
+        let(:query) { order.merge(cancelled_statistics_query) }
+        it "returns Release date (oldest) as the default" do
+          returns_the_default_option(
+            "key" => "release_timestamp",
+            "name" => "Release date (oldest)",
+          )
+        end
+      end
+    end
   end
 
   describe "#to_hash" do
