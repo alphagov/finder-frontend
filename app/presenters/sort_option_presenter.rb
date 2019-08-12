@@ -1,9 +1,9 @@
 class SortOptionPresenter
   attr_reader :value, :key, :label
 
-  def initialize(label:, key:, default: false, disabled: false, selected: false)
+  def initialize(label:, value: nil, key:, default: false, disabled: false, selected: false)
     @label = label
-    @value = label.parameterize
+    @value = value || label.parameterize
     @key = key
     @default = default
     @disabled = disabled

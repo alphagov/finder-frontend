@@ -41,6 +41,7 @@ private
     @presented_sort_options ||= sort_options.map do |option|
       SortOptionPresenter.new(
         label: option['name'],
+        value: option_value(option),
         key: option['key'],
         default: is_default?(option),
         selected: option_value(option) == option_value(selected_option),
@@ -80,6 +81,6 @@ private
   def option_value(option)
     return if option.nil?
 
-    option.fetch('name', '').parameterize
+    option.fetch('value', option.fetch('name', '').parameterize)
   end
 end
