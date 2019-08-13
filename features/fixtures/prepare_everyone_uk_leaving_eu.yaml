@@ -1,0 +1,29 @@
+---
+base_path: "/prepare-everyone-uk-leaving-eu"
+result_base_path: "/find-eu-exit-guidance-business"
+title: "Prepare yourself, your family and your business or organisation for the UK leaving the EU"
+questions:
+  - key: business_activity
+    question_type: "multiple"
+    question: "Does your business do any of the following activities?"
+    description: "Importing and exporting includes temporarily taking goods across the EU border, for example to a trade fair."
+    hint_text: "Select all that apply"
+    options:
+      - label: "Sell goods or provide services in the UK"
+        value: "products-or-goods"
+      - label: "Import from the EU"
+        value: "buying"
+      - label: "Export to the EU"
+        value: "selling"
+      - label: "Provide services or do business in the EU"
+        value: "other-eu"
+      - label: "Transporting goods across EU borders"
+        value: "transporting"
+  - key: eu_national_in_uk
+    question_type: "single"
+    question: "Are you an EU national living in the UK?"
+    options:
+      - label: "Yes"
+        value: "yes"
+      - label: "No"
+        value: "no"

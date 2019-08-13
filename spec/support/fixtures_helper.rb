@@ -15,6 +15,10 @@ module FixturesHelper
     YAML.load_file(fixtures_path + "/uk_nationals_in_eu.yaml")
   end
 
+  def prepare_everyone_uk_leaving_eu_config
+    YAML.load_file(fixtures_path + "/prepare_everyone_uk_leaving_eu.yaml")
+  end
+
   def cma_cases_content_item
     JSON.parse(File.read(fixtures_path + "/cma_cases_content_item.json"))
   end
