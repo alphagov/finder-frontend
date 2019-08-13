@@ -9,6 +9,7 @@ class ActionListController < ApplicationController
   end
 
 private
+
   def title
     "Prepare for Brexit action list"
   end
@@ -23,7 +24,7 @@ private
   helper_method :breadcrumbs
 
   ###
-  # Q&A 
+  # Q&A
   ###
   def qa_config
     @qa_config ||= YAML.load_file("lib/#{request.path.tr('-', '_').chomp('/actions')}.yaml")
@@ -43,7 +44,7 @@ private
               answers.push(
                 label: option["label"],
                 value: option["value"],
-                readable_text: "#{question["readable_pretext"]} #{option["readable_text"]}"
+                readable_text: "#{question['readable_pretext']} #{option['readable_text']}"
               )
             end
           end
