@@ -1,6 +1,8 @@
 ---
 base_path: "/prepare-everyone-uk-leaving-eu"
 result_base_path: "/prepare-everyone-uk-leaving-eu/actions"
+email_alerts_base_path: "/prepare-everyone-uk-leaving-eu/actions/email-signup"
+feed_base_path: "/prepare-everyone-uk-leaving-eu/actions/feed"
 title: "Prepare yourself, your family and your business or organisation for the UK leaving the EU"
 questions:
   - key: business_activity

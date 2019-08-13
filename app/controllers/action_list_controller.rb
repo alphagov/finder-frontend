@@ -63,4 +63,13 @@ private
   end
   helper_method :qa_path
 
+  def email_signup_path
+    qa_config['email_alerts_base_path'] + "?" + filtered_params.to_query
+  end
+  helper_method :email_signup_path
+
+  def feed_path
+    qa_config['feed_base_path'] + "?" + filtered_params.to_query
+  end
+  helper_method :feed_path
 end
