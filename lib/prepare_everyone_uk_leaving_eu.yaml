@@ -1,6 +1,6 @@
 ---
 base_path: "/prepare-everyone-uk-leaving-eu"
-result_base_path: "/find-eu-exit-guidance-business"
+result_base_path: "/prepare-everyone-uk-leaving-eu/actions"
 title: "Prepare yourself, your family and your business or organisation for the UK leaving the EU"
 questions:
   - key: business_activity
