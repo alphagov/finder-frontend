@@ -59,7 +59,7 @@ private
       "hint_title" => current_question["hint_title"],
       "hint_text" => current_question["hint_text"],
       "options" => current_question["options"],
-      "question_type" => current_question["question_type"]
+      "type" => current_question["question_type"]
     }
   end
   helper_method :current_question
@@ -88,7 +88,7 @@ private
   ###
 
   def question_type
-    @question_type ||= current_question["question_type"]
+    @question_type ||= current_question["type"]
   end
 
   def single_wrapped_question?
