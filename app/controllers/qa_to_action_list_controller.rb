@@ -113,7 +113,8 @@ private
   def options
     allowed_values = current_question["options"]
     allowed_values.map do |option|
-      { label: option["label"], text: option["label"], value: option["value"] }
+      checked = filtered_params[current_question["key"]].present? && filtered_params[current_question["key"]].include?(option["value"])
+      { label: option["label"], text: option["label"], value: option["value"], checked: checked }
     end
   end
   helper_method :options

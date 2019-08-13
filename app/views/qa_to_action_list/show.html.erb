@@ -71,11 +71,11 @@
           </div>
         <% end %>
         <% filtered_params.each_pair do |key, value| %>
-          <% if value.is_a?(Array) %>
+          <% if value.is_a?(Array) && key != current_question["key"] %>
             <% value.each do |v| %>
               <input type="hidden" name="<%= key %>[]" value="<%= v %>">
             <% end %>
-          <% else %>
+          <% elsif key != current_question["key"] %>
             <input type="hidden" name="<%= key %>" value="<%= value %>">
           <% end %>
         <% end %>
