@@ -17,8 +17,50 @@ private
   def breadcrumbs
     [
       { title: "Home", url: "/" },
-      { title: "Prepare for Brexit", url: prepare_everyone_uk_leaving_eu_path }
+      { title: "Prepare for Brexit", url: qa_path }
     ]
   end
   helper_method :breadcrumbs
+
+  ###
+  # Q&A 
+  ###
+  def qa_config
+    @qa_config ||= YAML.load_file("lib/#{request.path.tr('-', '_').chomp('/actions')}.yaml")
+  end
+
+  def questions
+    @questions ||= qa_config["questions"]
+  end
+
+  def answers
+    @answers ||= begin
+      answers = []
+      questions.each do |question|
+        if filtered_params[question["key"]].present?
+          question["options"].each do |option|
+            if filtered_params[question["key"]].include? option["value"]
+              answers.push(
+                label: option["label"],
+                value: option["value"],
+                readable_text: "#{question["readable_pretext"]} #{option["readable_text"]}"
+              )
+            end
+          end
+        end
+      end
+      answers
+    end
+  end
+  helper_method :answers
+
+  def filtered_params
+    request.query_parameters.except(:page)
+  end
+
+  def qa_path
+    prepare_everyone_uk_leaving_eu_path + "?" + filtered_params.to_query
+  end
+  helper_method :qa_path
+
 end

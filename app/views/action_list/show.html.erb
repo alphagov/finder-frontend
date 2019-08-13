@@ -5,13 +5,85 @@
   <% end %>
 <% end %>
 
+<style>
+  .app-c-banner {
+    background-color: #035ea5;
+    padding: 1px 25px 50px;
+    color: #fff;
+  }
+
+  .app-c-banner--dark {
+    background-color: #004c85;
+    padding: 30px 25px 10px;
+  }
+
+  .app-c-banner--dark .gem-c-subscription-links,
+  .app-c-banner--dark .gem-c-subscription-links__link,
+  .app-c-banner--dark .gem-c-subscription-links__link:active,
+  .app-c-banner--dark .gem-c-subscription-links__link:link,
+  .app-c-banner--dark .gem-c-subscription-links__link:visited {
+    color: #fff;
+  }
+
+  .app-c-banner__title,
+  .app-c-banner__body {
+    color: inherit;
+  }
+
+  .app-c-banner__body--strong {
+    font-weight: bold;
+  }
+
+  .govuk-list--checked {
+    list-style: none;
+  }
+
+  .govuk-list--checked li:before {
+    content: '✔';
+    padding-right: 10px;
+    color: #badfff;
+    font-family: "nta", Arial, sans-serif;
+  }
+</style>
+
 
 <div class="govuk-width-container">
-  <%= render 'govuk_publishing_components/components/breadcrumbs', breadcrumbs: breadcrumbs %>
 
   <div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
-      <h1 class="govuk-heading-xl">Hello! I'm the actions list!</h1>
+    <div class="govuk-grid-column-full">
+      <div class="app-c-banner">
+        <%= render "govuk_publishing_components/components/title", {
+          title: "Important things you may need to do for Brexit",
+          inverse: true,
+          margin_bottom: 4
+        } %>
+
+        <% if answers.present? %>
+          <p class="govuk-body app-c-banner__body">Based on your answers, we know:</p>
+          <ul class="govuk-list govuk-!-margin-top-3 govuk-list--checked app-c-banner__body--strong" style="color: white">
+            <% answers.each do |answer| %>
+              <li><%= answer[:readable_text] %></li>
+            <% end %>
+          </ul>
+        <% else %>
+          <p class="govuk-body app-c-banner__body">You didn't answer any questions. So we cannot give you any information.</p>
+        <% end %>
+
+        <p class="govuk-body govuk-!-margin-top-4 app-c-banner__body">
+          <span class="app-c-banner__body--strong">If your circumstances have changed</span>, update your answers to get more relevant results.
+        </p>
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Update answers",
+          href: qa_path,
+          start: true
+        } %>
+      </div>
+      <div class="app-c-banner app-c-banner--dark">
+        <%= render "govuk_publishing_components/components/subscription-links", {
+          email_signup_link: "/foreign-travel-advice/singapore/email-signup",
+          feed_link: "/foreign-travel-advice/singapore.atom"
+        } %>
+      </div>
     </div>
   </div>
 </div>
