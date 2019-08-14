@@ -44,6 +44,30 @@
     color: #badfff;
     font-family: "nta", Arial, sans-serif;
   }
+
+  .gem-c-document-list__attribute {
+    font-size: 14px;
+    line-height: 1;
+    display: inline-block;
+    outline: 2px solid transparent;
+    outline-offset: -2px;
+    color: #0b0c0c;
+    background-color: #ffdd00;
+    letter-spacing: 1px;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: 700;
+    line-height: 1;
+    padding-top: 5px;
+    padding-right: 8px;
+    padding-bottom: 4px;
+    padding-left: 8px;
+  }
+
+  .topic-guidance__section {
+    border-top: 10px solid #035ea5;
+    padding-top: 20px;
+  }
 </style>
 
 
@@ -51,6 +75,7 @@
 
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
+      <!-- START BANNER -->
       <div class="app-c-banner">
         <%= render "govuk_publishing_components/components/title", {
           title: "Important things you may need to do for Brexit",
@@ -85,5 +110,28 @@
         } %>
       </div>
     </div>
+    <!-- END BANNER -->
   </div>
+
+
+  <% topic_search_results.each do |topic| %>
+    <div class="govuk-grid-row govuk-!-margin-top-6">
+      <div class="govuk-grid-column-full">
+        <h2 class="govuk-heading-l"><%= topic[:label] %></h2>
+      </div>
+      <div class="govuk-grid-column-two-thirds">
+        <%= render "govuk_publishing_components/components/document_list", {
+          items: topic[:results]
+        } %>
+      </div>
+      <div class="govuk-grid-column-one-third">
+        <div class="topic-guidance__section">
+          <%= render "govuk_publishing_components/components/govspeak", {
+          } do %>
+            <%= sanitize(topic[:guidance]) %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% end %>
 </div>

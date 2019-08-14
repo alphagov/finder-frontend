@@ -1,5 +1,6 @@
 ---
 base_path: "/prepare-everyone-uk-leaving-eu"
+finder_base_path: "/find-eu-exit-guidance-business"
 result_base_path: "/prepare-everyone-uk-leaving-eu/actions"
 email_alerts_base_path: "/prepare-everyone-uk-leaving-eu/actions/email-signup"
 feed_base_path: "/prepare-everyone-uk-leaving-eu/actions/feed"
@@ -37,4 +38,35 @@ questions:
       - label: "No"
         value: "no"
         readable_text: "not an EU national living in the UK"
+results_page_config:
+  topics:
+    - label: "You and your family"
+      guidance: |
+        <p class="govuk-body">This is a list of tasks that may need to complete based the answers you have given.</p>
+        <a class="govuk-link" href="/guidance/advice-for-british-nationals-travelling-and-living-in-europe">
+          View more guidance for you and your family
+        </a>
+      query_params:
+        - key: user_type
+          value: 
+            - individuals_and_families
+        - key: employ_eu_citizens
+          value:
+            - "yes"
+    - label: "Your business"
+      guidance: |
+        <p class="govuk-body">Contact the Business Support Helpline</p>
+        <ul class="govuk-list govuk-list--bullet">
+          <li><a rel="external" class="govuk-link govuk-link--no-visited-state" href="https://lc.chat/now/10701242/">Web chat</a></li>
+          <li><a rel="external" class="govuk-link govuk-link--no-visited-state" href="https://twitter.com/BusinessGov">Twitter</a></li>
+          <li><a rel="external" class="govuk-link govuk-link--no-visited-state" href="https://www.facebook.com/BusinessSupportGov">Facebook</a></li>
+          <li><a rel="external" class="govuk-link govuk-link--no-visited-state" href="https://www.youtube.com/user/BusinessSupportGov">YouTube</a></li>
+        </ul>
+        <a href="https://www.gov.uk/business-support-helpline" class="govuk-body govuk-link govuk-link--no-visited-state">
+          Get help and support for your business
+        </a>
+      query_params:
+        - key: user_type
+          value: 
+            - businesses
 
