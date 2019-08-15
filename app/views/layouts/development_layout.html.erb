@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= yield :title %> - GOV.UK</title>
+    <!--[if gt IE 8]><!--><%= stylesheet_link_tag "application", integrity: true, crossorigin: "anonymous" %><!--<![endif]-->
+    <%= javascript_include_tag "application", integrity: true, crossorigin: "anonymous" %>
+    <meta name="robots" content="noindex">
+  </head>
+
+  <body>
+    <div id="wrapper">
+      <div class="govuk-width-container">
+        <div class="govuk-grid-row">
+          <div class="govuk-grid-column-full">
+            <%= yield %>
+         </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
