@@ -6,10 +6,11 @@ describe ChecklistController, type: :controller do
 
   describe "GET show" do
     let(:find_brexit_guidance_yaml) { find_brexit_guidance_config }
-    let(:questions)                           { find_brexit_guidance_yaml["questions"] }
-    let(:current_question)                    { questions.first }
-    let(:params)                              { {} }
-    let(:base_path) { request.path }
+    let(:questions)                 { find_brexit_guidance_yaml["questions"] }
+    let(:current_question)          { questions.first }
+    let(:params)                    { {} }
+    let(:base_path)                 { find_brexit_guidance_path }
+    let(:results_page_base_path)    { find_brexit_guidance_results_path }
 
     before do
       allow_any_instance_of(ChecklistController).to receive(:qa_config).and_return(find_brexit_guidance_yaml)
@@ -47,10 +48,11 @@ describe ChecklistController, type: :controller do
       end
 
       context "submitting final selections to the Q&A" do
-        let(:params) { { page: questions.count + 1 } }
+        let(:params) { { page: questions.count + 1, last_facet_key: %w(first_filter last_filter) } }
 
-        it "shows the action list page" do
-          expect(response.body).to include("This is the actions page")
+        it "redirects to the results page" do
+          expected_params = params.except(:page).to_query
+          expect(response).to redirect_to("#{results_page_base_path}?#{expected_params}")
         end
       end
     end

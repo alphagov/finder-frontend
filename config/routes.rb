@@ -26,6 +26,7 @@ FinderFrontend::Application.routes.draw do
   get '/prepare-business-uk-leaving-eu' => 'qa#show'
 
   # Q&A checklist frontend for brexit guidance
+  get '/find-brexit-guidance/results' => 'checklist#results'
   get '/find-brexit-guidance' => 'checklist#show'
 
   # Q&A frontend for "UK Nationals in the EU" (www.gov.uk/uk-nationals-in-the-eu)

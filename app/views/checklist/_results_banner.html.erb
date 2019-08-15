@@ -1,0 +1,36 @@
+<div class="app-c-banner">
+  <%= render "govuk_publishing_components/components/title", {
+    title: "Important things you may need to do for Brexit",
+    inverse: true,
+    margin_bottom: 4
+  } %>
+
+  <% if answers.present? %>
+    <p class="govuk-body app-c-banner__body">Based on your answers, we know:</p>
+    <ul class="govuk-list govuk-!-margin-top-3 govuk-list--checked app-c-banner__body--strong" style="color: white">
+      <% answers.each do |answer| %>
+        <li><%= answer[:readable_text] %></li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p class="govuk-body app-c-banner__body">You didn't answer any questions. So we cannot give you any information.</p>
+  <% end %>
+
+  <p class="govuk-body govuk-!-margin-top-4 app-c-banner__body">
+    <span class="app-c-banner__body--strong">If your circumstances have changed</span>, update your answers to get more relevant results.
+  </p>
+
+  <%= render "govuk_publishing_components/components/button", {
+    text: "Update answers",
+    href: qa_path,
+    start: true
+  } %>
+</div>
+
+<div class="app-c-banner app-c-banner--dark">
+  <%= render "govuk_publishing_components/components/subscription-links", {
+    email_signup_link: email_signup_path,
+    feed_link: feed_path
+  } %>
+</div>
+

@@ -1,0 +1,20 @@
+<% content_for :title, title %>
+<% content_for :head do %>
+  <% unless params[:page] %>
+    <meta name="robots" content="noindex">
+  <% end %>
+<% end %>
+
+<div class="govuk-width-container checklist-results-page">
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+      <%= render 'results_banner' %>
+    </div>
+  </div>
+  <%= render "govuk_publishing_components/components/title", {
+    context: "Based on your answers",
+    title: "Actions you may need to complete"
+  } %>
+  <%= render 'results_actions' %>
+</div>
+

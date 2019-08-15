@@ -1,0 +1,28 @@
+<% if topic_search_results.any? %>
+  <% topic_search_results.each do |topic| %>
+    <div class="govuk-grid-row govuk-!-margin-top-6">
+      <div class="govuk-grid-column-full">
+        <h2 class="govuk-heading-l"><%= topic[:label] %></h2>
+      </div>
+      <div class="govuk-grid-column-two-thirds">
+        <%= render "govuk_publishing_components/components/document_list", {
+          items: topic[:results]
+        } %>
+      </div>
+      <div class="govuk-grid-column-one-third">
+        <div class="topic-guidance__section">
+          <%= render "govuk_publishing_components/components/govspeak", {
+          } do %>
+            <%= sanitize(topic[:guidance]) %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<% else %>
+  <div class="govuk-grid-row govuk-!-margin-top-6">
+    <div class="govuk-grid-column-full">
+      <%= sanitize(no_results_text) %>
+    </div>
+  </div>
+<% end %>

@@ -9,10 +9,14 @@ class ChecklistController < ApplicationController
     end
   end
 
+  def results
+    render "checklist/results"
+  end
+
 private
 
   def qa_config
-    @qa_config ||= YAML.load_file("lib/#{request.path.tr('-', '_')}.yaml")
+    @qa_config ||= YAML.load_file("lib/find_brexit_guidance.yaml")
   end
 
   ###
@@ -125,11 +129,114 @@ private
   end
 
   def redirect_to_result_page
-    render "checklist/action_list"
+    redirect_to find_brexit_guidance_results_path + "?" + filtered_params.to_query
   end
 
   def filtered_params
     request.query_parameters.except(:page)
   end
   helper_method :filtered_params
+
+  ########################################
+  #   RESULTS PAGE
+  ########################################
+
+  ###
+  # Answers
+  ###
+
+  def answers
+    @answers ||= begin
+      answers = []
+      questions.each do |question|
+        if filtered_params[question["key"]].present?
+          question["options"].each do |option|
+            if filtered_params[question["key"]].include? option["value"]
+              answers.push(
+                label: option["label"],
+                value: option["value"],
+                readable_text: "#{question['readable_pretext']} #{option['readable_text']}"
+              )
+            end
+          end
+        end
+      end
+      answers
+    end
+  end
+  helper_method :answers
+
+  ###
+  # Paths
+  ###
+
+  def qa_path
+    find_brexit_guidance_path + "?" + filtered_params.to_query
+  end
+  helper_method :qa_path
+
+  def email_signup_path
+    find_brexit_guidance_path + "/email-signup?" + filtered_params.to_query
+  end
+  helper_method :email_signup_path
+
+  def feed_path
+    find_brexit_guidance_path + "/feed?" + filtered_params.to_query
+  end
+  helper_method :feed_path
+
+  ###
+  # Search
+  ###
+
+  def finder_content_item
+    @finder_content_item ||= ContentItem.from_content_store('/find-eu-exit-guidance-business') # THIS NEEDS TO BE UPDATED
+  end
+
+  def initialize_search_query(topic_filter = {})
+    search_params = filter_params.merge(topic_filter)
+    Search::Query.new(
+      finder_content_item,
+      search_params
+    )
+  end
+
+  def formatted_topic_search_results(search_results)
+    search_results.map do |result|
+      {
+        link: {
+          text: result["title"],
+          path: result["link"]
+        },
+        metadata: { # THIS NEEDS TO BE UPDATED
+          due_date: ("Due by 31 October 2019" if result["facet_values"].include? "7283b8e1-840f-49da-967f-c0a512a3f531")
+        }
+      }
+    end
+  end
+
+  def topic_search_results
+    @topic_search_results ||= begin
+      results = []
+      qa_config['results_page_config']['topics'].each do |topic|
+        topic_query_params = {}
+        topic['query_params'].each do |query|
+          topic_query_params[query["key"]] = query["value"]
+        end
+        search_results = initialize_search_query(topic_query_params).search_results
+        results.push(
+          label: topic["label"],
+          guidance: topic["guidance"],
+          results: formatted_topic_search_results(search_results["results"])
+        )
+      end
+      results
+    end
+  end
+  helper_method :topic_search_results
+
+  def no_results_text
+    qa_config['results_page_config']['no_results_text']
+  end
+  helper_method :no_results_text
 end
