@@ -1,5 +1,5 @@
 ---
-base_path: "/uk-nationals-eu"
+base_path: "/uk-nationals-living-eu"
 title: UK nationals in the EU
 questions:
   - id: where_do_you_live
