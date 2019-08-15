@@ -1,0 +1,56 @@
+<% content_for :title, title %>
+<% content_for :head do %>
+  <% unless params[:page] %>
+    <meta name="robots" content="noindex">
+  <% end %>
+<% end %>
+
+<%
+  formatted_description = nil
+  if current_question["description"]
+    formatted_description = render("govuk_publishing_components/components/govspeak", {
+      content: current_question["description"].html_safe
+    })
+  end
+%>
+
+<div class="govuk-width-container">
+  <%= render 'govuk_publishing_components/components/breadcrumbs', breadcrumbs: breadcrumbs %>
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <form action="<%= next_page_url %>" method="get" id="finder-qa-facet-filter-selection" data-module="track-qa-choices">
+        <% if multiple_question? %>
+          <div class="govuk-!-margin-top-8">
+            <%= render 'question_multiple_choice', {
+              current_question: current_question,
+              formatted_description: formatted_description
+            } %>
+          </div>
+        <% elsif single_wrapped_question? %>
+          <div class="govuk-!-margin-top-8">
+            <%= render 'question_single_wrapped_choice', {
+              current_question: current_question,
+              formatted_description: formatted_description
+            } %>
+          </div>
+        <% else %>
+          <div class="govuk-!-margin-top-8">
+            <%= render 'question_single_choice', {
+              current_question: current_question,
+              formatted_description: formatted_description
+            } %>
+          </div>
+        <% end %>
+        <%= render 'form_data' %>
+        <%= render 'hint_text' %>
+        <div class="govuk-form-footer">
+          <%= render "govuk_publishing_components/components/button", {
+            text: "Next"
+          } %>
+          <a class="govuk-form-footer__alt-cta-link" href="<%= skip_link_url %>">Skip this question</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
