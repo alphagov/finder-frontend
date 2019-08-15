@@ -140,7 +140,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
 
   OptionSelect.prototype.attachCheckedCounter = function attachCheckedCounter (checkedString) {
     this.$optionSelect.find('.js-container-head')
-      .after('<div class="govuk-!-font-size-14 app-c-option-select__selected-counter js-selected-counter">' + checkedString + '</div>')
+      .after('<div class="app-c-option-select__selected-counter js-selected-counter">' + checkedString + '</div>')
   }
 
   OptionSelect.prototype.updateCheckedCount = function updateCheckedCount () {
