@@ -1,0 +1,24 @@
+<% checkboxes = render "govuk_publishing_components/components/checkboxes", {
+  name: "#{current_question['key']}[]",
+  heading: current_question["question"],
+  visually_hide_heading: true,
+  items: options
+} %>
+<%= render "govuk_publishing_components/components/radio", {
+  name: "#{current_question['key']}-yesno",
+  heading: current_question["question"],
+  description: formatted_description,
+  hint_text: current_question["hint_title"],
+  is_page_heading: true,
+  items: [
+    {
+      value: "yes",
+      text: "Yes",
+      conditional: checkboxes
+    },
+    {
+      value: "no",
+      text: "No"
+    }
+  ]
+} %>
