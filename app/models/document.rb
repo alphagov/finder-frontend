@@ -33,10 +33,6 @@ class Document
     link
   end
 
-  def summary
-    truncated_description if description.present? && finder.show_summaries?
-  end
-
   def truncated_description
     # This truncates the description at the end of the first sentence
     description.gsub(/\.\s[A-Z].*/, '.') if description.present?

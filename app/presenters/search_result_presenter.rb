@@ -2,7 +2,6 @@ class SearchResultPresenter
   include ActionView::Helpers::SanitizeHelper
 
   delegate :title,
-           :summary,
            :is_historic,
            :government_name,
            :format,
@@ -52,7 +51,7 @@ private
   end
 
   def summary_text
-    @highlight ? document.truncated_description : summary
+    document.truncated_description if @highlight || @finder_presenter.show_summaries?
   end
 
   def highlight_text
