@@ -50,23 +50,6 @@ describe Document do
              display_key_for_metadata_key: 'title')
     end
 
-    context "for EU Exit guidance finder" do
-      before :each do
-        allow(finder).to receive(:slug).and_return "/find-eu-exit-guidance-business"
-      end
-
-      it "is false" do
-        expect(mainstream_document.show_metadata).to be false
-      end
-    end
-
-    context "for a finder configured to show metadata" do
-      it "is false" do
-        allow(mainstream_document).to receive(:metadata).and_return([{ key: 'val' }])
-        expect(mainstream_document.show_metadata).to be true
-      end
-    end
-
     context "There is an organisations metadata key" do
       before :each do
         allow(finder).to receive(:label_for_metadata_key).with('organisations').and_return('org_label')

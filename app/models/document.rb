@@ -29,10 +29,6 @@ class Document
     raw_metadata.map(&method(:humanize_metadata_name))
   end
 
-  def show_metadata
-    metadata.present? && finder.display_metadata?
-  end
-
   def path
     link
   end

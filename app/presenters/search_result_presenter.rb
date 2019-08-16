@@ -4,19 +4,18 @@ class SearchResultPresenter
   delegate :title,
            :summary,
            :is_historic,
-           :show_metadata,
            :government_name,
            :format,
            :es_score,
            to: :document
 
-  def initialize(document:, metadata_presenter_class:, doc_count:, finder_name:, debug_score:, highlight:)
+  def initialize(document:, metadata_presenter_class:, doc_count:, finder_presenter:, debug_score:, highlight:)
     @document = document
     @metadata = metadata_presenter_class.new(document.metadata).present
     @count = doc_count
-    @finder_name = finder_name
     @debug_score = debug_score
     @highlight = highlight
+    @finder_presenter = finder_presenter
   end
 
   def document_list_component_data
@@ -30,7 +29,7 @@ class SearchResultPresenter
           ecommerce_content_id: document.content_id,
           ecommerce_row: 1,
           track_category: "navFinderLinkClicked",
-          track_action: "#{@finder_name}.#{document.index}",
+          track_action: "#{@finder_presenter.name}.#{document.index}",
           track_label: link,
           track_options: {
             dimension28: @count,
@@ -72,7 +71,7 @@ private
   end
 
   def structure_metadata
-    return {} unless show_metadata
+    return {} unless @finder_presenter.display_metadata?
 
     metadata.each_with_object({}) do |meta, component_metadata|
       label = meta[:hide_label] ? "<span class='govuk-visually-hidden'>#{meta[:label]}:</span>" : "#{meta[:label]}:"

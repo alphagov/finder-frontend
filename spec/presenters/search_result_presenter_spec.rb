@@ -23,7 +23,7 @@ RSpec.describe SearchResultPresenter do
     SearchResultPresenter.new(document: document,
                               metadata_presenter_class: MetadataPresenter,
                               doc_count: 10,
-                              finder_name: finder_presenter.name,
+                              finder_presenter: finder_presenter,
                               debug_score: debug_score,
                               highlight: highlight)
   }
