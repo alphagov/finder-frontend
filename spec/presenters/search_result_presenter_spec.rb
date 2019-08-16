@@ -41,7 +41,6 @@ RSpec.describe SearchResultPresenter do
                      es_score: 0.005,
                      content_id: 'content_id',
                      filter_key: 'filter_value',
-                     finder: finder_presenter,
                      index: 1)
   }
 
@@ -99,7 +98,7 @@ RSpec.describe SearchResultPresenter do
     context 'A text based facet and a document tagged to the key of the facet' do
       let(:facets) { [FactoryBot.build(:option_select_facet, key: 'a_key_to_filter_on')] }
       let(:document) {
-        FactoryBot.build(:document, a_key_to_filter_on: 'a_filter_value', finder: finder_presenter, index: 1)
+        FactoryBot.build(:document, a_key_to_filter_on: 'a_filter_value', index: 1)
       }
       it 'displays text based metadata' do
         expect(presenter.document_list_component_data[:metadata]).to eq("A key to filter on" => "A key to filter on: a_filter_value")
@@ -108,7 +107,7 @@ RSpec.describe SearchResultPresenter do
     context 'A date based facet and a document tagged to the key of the facet' do
       let(:facets) { [FactoryBot.build(:date_facet, 'key' => 'a_key_to_filter_on')] }
       let(:document) {
-        FactoryBot.build(:document, a_key_to_filter_on: '10-10-2009', finder: finder_presenter, index: 1)
+        FactoryBot.build(:document, a_key_to_filter_on: '10-10-2009', index: 1)
       }
       it 'displays date based metadata' do
         expect(presenter.document_list_component_data[:metadata]).

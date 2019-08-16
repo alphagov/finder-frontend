@@ -4,7 +4,7 @@ class Document
               :release_timestamp, :es_score, :format, :content_id, :index,
               :facet_content_ids, :description
 
-  def initialize(document_hash, finder, index)
+  def initialize(document_hash, index)
     document_hash = document_hash.with_indifferent_access
     @title = document_hash.fetch(:title)
     @link = document_hash.fetch(:link)
@@ -19,14 +19,13 @@ class Document
     @government_name = document_hash.fetch(:government_name, nil)
     @es_score = document_hash.fetch(:es_score, nil)
     @format = document_hash.fetch(:format, nil)
-    @finder = finder
     @facet_content_ids = document_hash.fetch(:facet_values, [])
     @document_hash = document_hash
     @index = index
   end
 
-  def metadata
-    all_metadata.map(&method(:humanize_metadata_name))
+  def metadata(finder)
+    all_metadata(finder).map { |metadata| humanize_metadata_name(finder, metadata) }
   end
 
   def path
@@ -56,33 +55,33 @@ private
        guide).include?(@document_type)
   end
 
-  def metadata_keys
-    date_metadata_keys + text_metadata_keys
+  def metadata_keys(finder)
+    date_metadata_keys(finder) + text_metadata_keys(finder)
   end
 
-  def date_metadata_keys
-    metadata_facets.select { |f| f.type == "date" }.map(&:key)
+  def date_metadata_keys(finder)
+    metadata_facets(finder).select { |f| f.type == "date" }.map(&:key)
   end
 
-  def text_metadata_keys
-    keys = metadata_facets.select { |f| f.type == "text" }.map(&:key)
+  def text_metadata_keys(finder)
+    keys = metadata_facets(finder).select { |f| f.type == "text" }.map(&:key)
     keys.reject do |key|
       key == 'organisations' && is_mainstream_content?
     end
   end
 
-  def metadata_facets
+  def metadata_facets(finder)
     finder.facets.select(&:metadata?)
   end
 
-  def all_metadata
-    text_metadata + date_metadata
+  def all_metadata(finder)
+    text_metadata(finder) + date_metadata(finder)
   end
 
-  def date_metadata
+  def date_metadata(finder)
     return [] if @content_purpose_supergroup == 'services'
 
-    date_metadata_keys
+    date_metadata_keys(finder)
       .map(&method(:build_date_metadata))
       .select(&method(:metadata_value_present?))
   end
@@ -95,8 +94,8 @@ private
     }
   end
 
-  def text_metadata
-    text_metadata_keys
+  def text_metadata(finder)
+    text_metadata_keys(finder)
       .map(&method(:build_text_metadata))
       .select(&method(:metadata_value_present?))
   end
@@ -132,14 +131,14 @@ private
     metadata_hash.fetch(:value).present?
   end
 
-  def humanize_metadata_name(metadata_hash)
+  def humanize_metadata_name(finder, metadata_hash)
     metadata_hash.merge(
-      name: label_for_metadata_key(metadata_hash.fetch(:name))
+      name: label_for_metadata_key(finder, metadata_hash.fetch(:name))
     )
   end
 
-  def label_for_metadata_key(key)
-    facet = metadata_facets.find { |f| f.key == key }
+  def label_for_metadata_key(finder, key)
+    facet = metadata_facets(finder).find { |f| f.key == key }
 
     facet.short_name || facet.key.humanize
   end

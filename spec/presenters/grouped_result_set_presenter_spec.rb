@@ -144,7 +144,7 @@ RSpec.describe GroupedResultSetPresenter do
       }
 
       let(:document) {
-        Document.new(document_hash, finder_presenter, 1)
+        Document.new(document_hash, 1)
       }
 
       it "groups the relevant documents by the primary facet" do
@@ -180,10 +180,10 @@ RSpec.describe GroupedResultSetPresenter do
         }
       }
       let(:tagged_to_first_facet_document) {
-        Document.new(tagged_to_first_facet_document_hash, finder_presenter, 1)
+        Document.new(tagged_to_first_facet_document_hash, 1)
       }
       let(:tagged_to_second_and_third_facet_document) {
-        Document.new(tagged_to_second_and_third_facet_document_hash, finder_presenter, 2)
+        Document.new(tagged_to_second_and_third_facet_document_hash, 2)
       }
 
       let(:filter_params) {
@@ -235,7 +235,7 @@ RSpec.describe GroupedResultSetPresenter do
         }
       }
       let(:document) {
-        Document.new(document_hash, finder_presenter, 1)
+        Document.new(document_hash, 1)
       }
 
       it "is grouped in the default set" do

@@ -69,8 +69,7 @@ class FinderPresenter
   def results
     @results ||= ResultSetParser.parse(
       search_results.fetch("results"),
-      search_results.fetch("total"),
-      self,
+      search_results.fetch("total")
     )
   end
 
