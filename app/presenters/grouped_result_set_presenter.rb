@@ -21,8 +21,10 @@ private
   end
 
   def grouped_display?
-    sorts_by_topic = sort_option.dig('key') == 'topic'
-    @filter_params[:order] == "topic" || (!@filter_params.has_key?(:order) && sorts_by_topic)
+    @grouped_display ||= begin
+      sorts_by_topic = sort_option.dig('key') == 'topic'
+      @filter_params[:order] == "topic" || (!@filter_params.has_key?(:order) && sorts_by_topic)
+    end
   end
 
   def linked_facet_data(document)
