@@ -150,13 +150,6 @@ private
     else
       tag
     end
-  rescue StandardError => e
-    GovukError.notify(
-      e,
-      level: 'debug',
-      extra: { url: finder.slug, document: link }
-    )
-    nil
   end
 
   def display_key_for_metadata_key(key)
