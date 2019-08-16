@@ -49,10 +49,6 @@ class ResultSetPresenter
     @filter_params.fetch('keywords', '')
   end
 
-  def has_email_signup_link?
-    signup_links.any?
-  end
-
   def signup_links
     @signup_links ||= fetch_signup_links
   end
@@ -83,25 +79,19 @@ private
   end
 
   def fetch_signup_links
-    links = {}
-    links[:email_signup_link] = email_signup_link if email_signup_link.present?
-    links[:feed_link] = feed_link if feed_link.present?
-    if email_signup_link.present? || feed_link.present?
-      links[:hide_heading] = true
-      links[:small_form] = true
-    end
-    links
+    {
+       feed_link: feed_link,
+       hide_heading: true,
+       small_form: true,
+       email_signup_link: (email_signup_link if email_signup_link.present?)
+    }.compact
   end
 
   def email_signup_link
-    return '' unless finder_presenter.respond_to?(:email_alert_signup_url)
-
     finder_presenter.email_alert_signup_url
   end
 
   def feed_link
-    return '' unless finder_presenter.respond_to?(:atom_url)
-
     finder_presenter.atom_url
   end
 end
