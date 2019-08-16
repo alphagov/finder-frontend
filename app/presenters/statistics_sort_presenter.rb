@@ -12,12 +12,12 @@ private
   EXCLUDED_OPTIONS = {
     any: [],
     public: %w(-release_timestamp release_timestamp),
-    release: %w(-public_timestamp public_timestamp)
+    upcoming: %w(-public_timestamp public_timestamp)
   }.freeze
   DEFAULT_KEY = {
     any: '-public_timestamp',
     public: '-public_timestamp',
-    release: '-release_timestamp'
+    upcoming: 'release_timestamp'
   }.freeze
   RENAMED_OPTIONS = {
     'upcoming_statistics' => {
@@ -60,7 +60,7 @@ private
   def sort_type
     case doc_type
     when 'upcoming_statistics'
-      :release
+      :upcoming
     when 'published_statistics'
       :public
     when 'cancelled_statistics'
