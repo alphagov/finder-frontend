@@ -73,10 +73,8 @@ private
     return {} unless @finder_presenter.display_metadata?
 
     metadata.each_with_object({}) do |meta, component_metadata|
-      label = meta[:hide_label] ? "<span class='govuk-visually-hidden'>#{meta[:label]}:</span>" : "#{meta[:label]}:"
       value = meta[:is_date] ? "<time datetime='#{meta[:machine_date]}'>#{meta[:human_date]}</time>" : meta[:value]
-
-      component_metadata[meta[:label]] = sanitize("#{label} #{value}", tags: %w(time span))
+      component_metadata[meta[:label]] = sanitize("#{meta[:label]}: #{value}", tags: %w(time span))
     end
   end
 
