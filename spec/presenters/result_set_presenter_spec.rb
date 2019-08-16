@@ -4,343 +4,230 @@ require_relative './helpers/facets_helper'
 RSpec.describe ResultSetPresenter do
   include FacetsHelper
 
-  subject(:presenter) { ResultSetPresenter.new(finder, filter_params, sort_presenter, metadata_presenter_class) }
-  let(:metadata_presenter_class) do
-    MetadataPresenter
-  end
-  let(:finder) do
-    double(
-      FinderPresenter,
-      slug: "/a-finder",
-      name: 'A finder',
-      results: results,
-      document_noun: document_noun,
-      display_metadata?: true,
-      sort_options: sort_presenter,
-      total: '20 cases',
-      facets: [a_facet, another_facet, a_date_facet],
-      keywords: keywords,
-      show_summaries?: true,
-      default_documents_per_page: 10,
-      values: {},
-      start_offset: 1,
-      sort: [
-        {
-          "name" => "Most viewed",
-          "key" => "-popularity"
-        },
-        {
-          "name" => "Relevance",
-          "key" => "-relevance"
-        },
-        {
-          "name" => "Updated (newest)",
-          "key" => "-public_timestamp",
-          "default" => true
-        }
-      ],
-      default_sort_option: {
-        "name" => "Updated (newest)",
-        "key" => "-public_timestamp",
-      },
-      filters: [a_facet, another_facet, a_date_facet]
-    )
-  end
+  subject(:subject) {
+    ResultSetPresenter.new(finder_presenter,
+                           filter_params,
+                           sort_presenter,
+                           metadata_presenter_class,
+                           show_top_result,
+                           debug_score)
+  }
 
-  let(:filter_params) { { keywords: 'test' } }
+  let(:show_top_result) { false }
+  let(:debug_score) { false }
 
-  let(:keywords) { '' }
-  let(:document_noun) { 'case' }
-  let(:total) { 20 }
+  let(:finder_presenter) { FinderPresenter.new(content_item, facets, search_results) }
 
-  let(:results) do
-    ResultSet.new(
-      (1..total).map { document },
-      total,
-    )
-  end
+  let(:finder_content_id) { 'content_id' }
 
-  let(:document) do
-    double(
-      Document,
-      title: 'Investigation into the distribution of road fuels in parts of Scotland',
-      path: 'slug-1',
-      metadata: [
-        { id: 'case-state', name: 'Case state', value: 'Open', type: 'text', labels: %W(open) },
-        { id: 'opened-date', name: 'Opened date', value: '2006-7-14', type: 'date' },
-        { id: 'case-type', name: 'Case type', value: 'CA98 and civil cartels', type: 'text', labels: %W(ca98-and-civil-cartels) },
-      ],
-      truncated_description: 'I am a document',
-      is_historic: true,
-      government_name: 'The Government!',
-      format: 'transaction',
-      index: 1,
-      es_score: 0.005,
-      content_id: 'content_id',
-    )
-  end
+  let(:content_item) {
+    FactoryBot.build(:content_item,
+                     content_id: finder_content_id,
+                     base_path: "/a-finder",
+                     title: 'A finder',
+                     links: {
+                       email_alert_signup: Array.wrap(email_signup_hash)
+                     },
+                     details: {
+                       show_summaries: true,
+                       document_noun: "case",
+                       sort: [
+                         {
+                           "name" => "Most viewed",
+                           "key" => "-popularity"
+                         },
+                         {
+                           "name" => "Relevance",
+                           "key" => "-relevance"
+                         },
+                         {
+                           "name" => "Updated (newest)",
+                           "key" => "-public_timestamp",
+                           "default" => true
+                         }
+                       ],
+                       default_sort_option: {
+                         "name" => "Relevance",
+                         "key" => "-relevance",
+                       },
+                     })
+  }
 
-  let(:expected_document_content) do
+  let(:email_signup_hash) { nil }
+
+  let(:facets) { [FactoryBot.build(:option_select_facet)] }
+
+  let(:search_results) do
     {
-      link: {
-        text: 'Investigation into the distribution of road fuels in parts of Scotland',
-        path: 'slug-1',
-        description: 'I am a document',
-        data_attributes: {
-          ecommerce_path: 'slug-1',
-          ecommerce_content_id: 'content_id',
-          ecommerce_row: 1,
-          track_category: 'navFinderLinkClicked',
-          track_action: 'A finder.1',
-          track_label: 'slug-1',
-          track_options: {
-            dimension28: 1,
-            dimension29: 'Investigation into the distribution of road fuels in parts of Scotland'
-          }
-        }
-      },
-      metadata: {
-        "Case state" => "Case state: Open",
-        "Case type" => "Case type: CA98 and civil cartels",
-        "Opened date" => "Opened date: <time datetime=\"2006-07-14\">14 July 2006</time>"
-      },
-      metadata_raw: [
-        {
-          id: "case-state",
-          is_text: true,
-          label: "Case state",
-          labels: %w(open),
-          value: "Open"
-        }, {
-          human_date: "14 July 2006",
-          is_date: true,
-          label: "Opened date",
-          machine_date: "2006-07-14"
-        }, {
-          id: "case-type",
-          is_text: true,
-          label: "Case type",
-          labels: %w(ca98-and-civil-cartels),
-          value: "CA98 and civil cartels"
-        }
-      ],
-      subtext: "<span class=\"published-by\">First published during the The Government!</span>",
-      highlight: false,
-      highlight_text: nil
+      'results' => results.map(&:deep_stringify_keys),
+      'total' => total_number_of_results
     }
   end
 
-  let(:sort_presenter) do
-    double(
-      SortPresenter,
-      has_options?: false,
-      selected_option: { "name" => 'Relevance', "key" => '-relevance' },
-      to_hash: {
-        options: [
-          {
-            data_track_category: 'dropDownClicked',
-            data_track_action: 'clicked',
-            data_track_label: "Relevance",
-            label: "Relevance",
-            value: "relevance",
-            disabled: false,
-            selected: true,
-          }
-        ],
-        default_value: nil,
-        relevance_value: nil,
-      },
-    )
-  end
+  let(:results) {
+    (1..total_number_of_results).map { FactoryBot.build(:document_hash) }
+  }
 
-  before(:each) do
-    allow(finder).to receive(:eu_exit_finder?).and_return(false)
+  let(:total_number_of_results) { 5 }
+
+  let(:filter_params) { {} }
+
+  let(:sort_presenter) { SortPresenter.new(content_item, filter_params) }
+
+  let(:metadata_presenter_class) do
+    MetadataPresenter
   end
 
   describe "#displayed_total" do
-    it 'combines total with document noun' do
-      expect(presenter.displayed_total).to eql("#{total} cases")
+    it 'displays the total and the document noun' do
+      FactoryBot.build(:option_select_facet, values: [1, 2, 3])
+      expect(subject.displayed_total).to eql("#{total_number_of_results} cases")
     end
   end
 
   describe '#documents' do
-    context "has one document" do
-      let(:results) do
-        ResultSet.new(
-          [document],
-          total
-        )
-      end
+    context "there is one document in the results" do
+      let(:total_number_of_results) { 1 }
 
       it 'creates a new search_result_presenter hash for each result' do
-        search_result_objects = presenter.search_results_content[:document_list_component_data]
-        expect(search_result_objects.count).to eql(1)
+        search_result_objects = subject.search_results_content[:document_list_component_data]
+        expect(search_result_objects.count).to eql(total_number_of_results)
         expect(search_result_objects.first).to be_a(Hash)
       end
     end
 
-    context "has 3 documents" do
-      let(:results) do
-        ResultSet.new(
-          [document, document, document],
-          total
-        )
-      end
+    context "there are 3 documents in the results" do
+      let(:total_number_of_results) { 3 }
 
       it 'creates a new document for each result' do
-        search_result_objects = presenter.search_results_content[:document_list_component_data]
-        expect(search_result_objects.count).to eql(3)
+        search_result_objects = subject.search_results_content[:document_list_component_data]
+        expect(search_result_objects.count).to eql(total_number_of_results)
       end
     end
 
-    context "returns data in the required format for the document list component" do
-      let(:results) do
-        ResultSet.new(
-          [document],
-          total
-        )
-      end
-
+    describe "#search_results_content[:document_list_component_data]" do
+      let(:results) {
+        [FactoryBot.build(:document_hash,
+                          content_id: "content_id",
+                          link: "/path/to/doc",
+                          title: 'document_title',
+                          description: 'document_description')]
+      }
       it 'has the right data' do
-        search_result_objects = presenter.search_results_content[:document_list_component_data]
-        expect(search_result_objects.first).to eql(expected_document_content)
+        expected_hash = {
+          link: {
+            text: "document_title",
+            path: "/path/to/doc",
+            description: "document_description",
+            data_attributes: {
+              ecommerce_path: "/path/to/doc",
+              ecommerce_content_id: 'content_id',
+              ecommerce_row: 1,
+              track_category: "navFinderLinkClicked",
+              track_action: "A finder.1",
+              track_label: "/path/to/doc",
+              track_options: {
+                dimension28: 1,
+                dimension29: "document_title"
+              }
+            }
+          },
+          metadata: {
+            "Organisations" => "Organisations: Department for Work and Pensions"
+          },
+          metadata_raw: [
+            {
+              id: "organisations",
+              label: "Organisations",
+              value: "Department for Work and Pensions",
+              labels: ["Department for Work and Pensions"],
+              is_text: true
+            }
+          ],
+          subtext: nil,
+          highlight: false,
+          highlight_text: nil
+        }
+
+        search_result_objects = subject.search_results_content[:document_list_component_data]
+        expect(search_result_objects.first).to eql(expected_hash)
       end
     end
 
     context "with &debug_score=1" do
-      subject(:presenter) { ResultSetPresenter.new(finder, filter_params, sort_presenter, metadata_presenter_class, false, true) }
-
+      let(:debug_score) { true }
+      let(:results) {
+        [FactoryBot.build(:document_hash, is_historic: true, es_score: 0.005, link: '/path/to/doc')]
+      }
       let(:expected_document_content_with_debug) do
-        "<span class=\"published-by\">First published during the The Government!</span><span class=\"debug-results debug-results--link\">slug-1</span><span class=\"debug-results debug-results--meta\">Score: 0.005</span><span class=\"debug-results debug-results--meta\">Format: transaction</span>"
+        "<span class=\"published-by\">First published during the 2015 Conservative government</span><span class=\"debug-results debug-results--link\">/path/to/doc</span><span class=\"debug-results debug-results--meta\">Score: 0.005</span><span class=\"debug-results debug-results--meta\">Format: answer</span>"
       end
 
       it 'shows debug metadata' do
-        search_result_objects = presenter.search_results_content[:document_list_component_data]
+        search_result_objects = subject.search_results_content[:document_list_component_data]
         expect(search_result_objects.first[:subtext]).to eql(expected_document_content_with_debug)
       end
     end
 
     context 'check top result' do
-      subject(:presenter) { ResultSetPresenter.new(finder, filter_params, sort_presenter, metadata_presenter_class, true) }
-
-      before(:each) do
-        allow(finder).to receive(:eu_exit_finder?).and_return(true)
-        allow(document_with_higher_es_score).to receive(:truncated_description).and_return("A truncated description")
+      let(:finder_content_id) { "42ce66de-04f3-4192-bf31-8394538e0734" } #brexit finder
+      let(:show_top_result) { true }
+      let(:filter_params) { { 'order' => 'relevance' } }
+      let(:results) do
+        [FactoryBot.build(:document_hash, es_score: 1.0, description: "A description. With more text"),
+         FactoryBot.build(:document_hash, es_score: 0.1, description: "Another description")]
       end
 
-      let(:document_with_higher_es_score) do
-        double(
-          Document,
-          title: 'Investigation into the distribution of road fuels in parts of Scotland',
-          description: "Some description about the Department",
-          path: 'slug-1',
-          metadata: [],
-          summary: 'Higher score',
-          is_historic: false,
-          government_name: 'The Government!',
-          format: 'transaction',
-          es_score: 1000.0,
-          content_id: 'content_id',
-          index: 1
-        )
-      end
-
-      let(:document_with_lower_es_score) do
-        double(
-          Document,
-          title: 'Investigation into the distribution of road fuels in parts of Scotland',
-          path: 'slug-2',
-          metadata: [],
-          truncated_description: 'Lower score',
-          is_historic: false,
-          government_name: 'The Government!',
-          format: 'transaction',
-          es_score: 100.0,
-          content_id: 'content_id',
-          index: 2
-        )
-      end
-
-      context 'top result set if best bet' do
-        let(:results) do
-          ResultSet.new(
-            [document_with_higher_es_score, document_with_lower_es_score],
-            total
-          )
-        end
-
+      context 'top result set if best bet (score > 7*other)' do
         it 'has top result true' do
-          search_result_objects = presenter.search_results_content[:document_list_component_data]
-          expect(search_result_objects[0][:highlight]).to eql(true)
+          search_result_objects = subject.search_results_content[:document_list_component_data]
+          expect(search_result_objects[0][:highlight]).to be true
           expect(search_result_objects[0][:highlight_text]).to eql("Most relevant result")
-          expect(search_result_objects[0][:link][:description]).to eql("A truncated description")
+          expect(search_result_objects[0][:link][:description]).to eql("A description.")
         end
       end
 
-      context 'top result not set if no best bet' do
+      context 'top result not set if no best bet (score < 7*other)' do
         let(:results) do
-          ResultSet.new(
-            [document, document],
-            total
-          )
+          [FactoryBot.build(:document_hash, es_score: 1.0, description: "A description. With more text"),
+           FactoryBot.build(:document_hash, es_score: 0.5, description: "Another description")]
         end
-
         it 'has no top result' do
-          search_result_objects = presenter.search_results_content[:document_list_component_data]
+          search_result_objects = subject.search_results_content[:document_list_component_data]
           expect(search_result_objects[0][:highlight]).to_not eql(true)
         end
       end
 
       context 'top result not set if show top result is false' do
-        subject(:presenter) { ResultSetPresenter.new(finder, filter_params, sort_presenter, metadata_presenter_class, false) }
-
+        let(:show_top_result) { false }
         it 'has no top result' do
-          search_result_objects = presenter.search_results_content[:document_list_component_data]
+          search_result_objects = subject.search_results_content[:document_list_component_data]
           expect(search_result_objects[0][:highlight]).to_not eql(true)
         end
       end
     end
   end
 
-  describe "#documents_by_facets" do
-    let(:primary_facet) do
-      double(
-        OptionSelectFacet,
-        key: 'sector_business_area',
-        allowed_values: [
-          { 'value' => 'aerospace', 'label' => 'Aerospace' },
-          { 'value' => 'agriculture', 'label' => 'Agriculture' },
-        ],
-        value: %W(aerospace agriculture),
-        labels: %W(aerospace agriculture),
-      )
-    end
-  end
-
   describe '#signup_links' do
     context 'has both signup links' do
-      before(:each) do
-        allow(finder).to receive(:atom_url).and_return("/finder.atom")
-        allow(finder).to receive(:email_alert_signup_url).and_return("/email_signup")
-      end
-
+      let(:email_signup_hash) {
+        {
+          web_url: "/email_signup"
+        }
+      }
       it 'returns both signup links' do
-        expect(presenter.signup_links).to eq(email_signup_link: "/email_signup",
-                                             feed_link: "/finder.atom",
+        expect(subject.signup_links).to eq(email_signup_link: "/email_signup",
+                                             feed_link: "/a-finder.atom",
                                              hide_heading: true,
                                              small_form: true)
       end
     end
 
     context 'has just has the atom signup link' do
-      before(:each) do
-        allow(finder).to receive(:atom_url).and_return("/finder.atom")
-        allow(finder).to receive(:email_alert_signup_url).and_return("")
-      end
-
       it 'returns just the atom link' do
-        expect(presenter.signup_links).to eq(feed_link: "/finder.atom", hide_heading: true,
-                                             small_form: true)
+        expect(subject.signup_links).to eq(feed_link: "/a-finder.atom",
+                                           hide_heading: true,
+                                           small_form: true)
       end
     end
   end
