@@ -57,22 +57,6 @@ class FinderPresenter
     !eu_exit_finder?
   end
 
-  def metadata
-    facets.select(&:metadata?)
-  end
-
-  def date_metadata_keys
-    metadata.select { |f| f.type == "date" }.map(&:key)
-  end
-
-  def text_metadata_keys
-    metadata.select { |f| f.type == "text" }.map(&:key)
-  end
-
-  def show_keyword_search?
-    keywords.present? || facets.any? || results.total.positive?
-  end
-
   def page_metadata
     metadata = {
       from: organisations
@@ -90,22 +74,12 @@ class FinderPresenter
     )
   end
 
+  def show_keyword_search?
+    keywords.present? || facets.any? || results.total.positive?
+  end
+
   def start_offset
     search_results.fetch('start', 0) + 1
-  end
-
-  def label_for_metadata_key(key)
-    facet = metadata.find { |f| f.key == key }
-
-    facet.short_name || facet.key.humanize
-  end
-
-  def display_key_for_metadata_key(key)
-    if %w[organisations document_collections].include?(key)
-      'title'
-    else
-      'label'
-    end
   end
 
   def atom_url
