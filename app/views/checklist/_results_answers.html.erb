@@ -1,0 +1,16 @@
+<div class="checklist-results-answers">
+  <% if answers.present? %>
+    <p class="govuk-body govuk-!-font-weight-bold">Based on your answers, we know:</p>
+    <ul class="govuk-list govuk-!-margin-top-3 govuk-!-font-size-16 govuk-list--checked">
+      <% answers.each do |answer| %>
+        <li><%= answer[:readable_text] %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <%# render "govuk_publishing_components/components/button", {
+    text: "Update answers",
+    href: qa_path,
+    start: true
+  } %>
+</div>

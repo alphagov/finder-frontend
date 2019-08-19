@@ -16,8 +16,12 @@ class ChecklistAnswers
               path: "/government/publications/alternative-provision"
             },
             metadata: {
-              public_updated_at: Date.parse("2016-06-27 10:29:44 +0000"),
-              document_type: "Statutory guidance"
+              due_date: "12 AUG 2019",
+              description: "This is really important",
+              additional_guidance: {
+                text: "More guidance on brexit",
+                path: "/government/publications/behaviour-and-discipline-in-schools-guidance-for-governing-bodies"
+              }
             }
           },
           {
@@ -26,8 +30,8 @@ class ChecklistAnswers
               path: "/government/publications/behaviour-and-discipline-in-schools-guidance-for-governing-bodies"
             },
             metadata: {
-              public_updated_at: Date.parse("2015-09-24 16:42:48 +0000"),
-              document_type: "Statutory guidance"
+              due_date: "12 SEPT 2019",
+              description: "This is something that needs to be done ASAP!!"
             }
           },
         ]
