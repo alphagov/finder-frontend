@@ -9,10 +9,15 @@ class ChecklistController < ApplicationController
     end
   end
 
+  def results
+    @checklist = ChecklistAnswers.new(request.query_parameters.except(:page))
+    render "checklist/results"
+  end
+
 private
 
   def qa_config
-    @qa_config ||= YAML.load_file("lib/#{request.path.tr('-', '_')}.yaml")
+    @qa_config ||= YAML.load_file("lib/find_brexit_guidance.yaml")
   end
 
   ###
@@ -125,7 +130,7 @@ private
   end
 
   def redirect_to_result_page
-    render "checklist/action_list"
+    redirect_to find_brexit_guidance_results_path(filtered_params)
   end
 
   def filtered_params

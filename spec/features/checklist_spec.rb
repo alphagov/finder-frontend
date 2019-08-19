@@ -23,6 +23,6 @@ RSpec.feature "Checklists", type: :feature do
   end
 
   def then_i_should_see_the_results_page
-    expect(page).to have_content "This is the actions page"
+    expect(page).to have_content "Your business sells goods or provides services in the UK"
   end
 end
