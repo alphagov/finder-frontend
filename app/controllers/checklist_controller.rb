@@ -48,12 +48,36 @@ private
   ###
 
   def page
-    params.permit(:page)
-    params[:page].to_i.clamp(1, questions.length + 1)
+    @page ||= begin
+      params.permit(:page)
+      params[:page].to_i.clamp(1, questions.length + 1)
+    end
+  end
+
+  def current_question_index
+    page - 1
+  end
+
+  def show_question(index)
+    condition = questions[index]["conditionally_show_based_on"]
+    return true unless condition.present?
+
+    filtered_params[condition["key"]].include? condition["value"]
+  end
+
+  def get_question
+    question_index = current_question_index
+    while question_index <= questions.length
+      break if show_question(question_index)
+
+      question_index += 1
+    end
+    @page = question_index + 1 if question_index != current_question_index
+    questions[question_index]
   end
 
   def current_question
-    current_question = questions[page - 1]
+    current_question = get_question
     {
       "key" => current_question["key"],
       "question" => current_question["question"],
