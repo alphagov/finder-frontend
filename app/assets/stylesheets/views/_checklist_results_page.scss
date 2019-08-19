@@ -4,9 +4,12 @@
   }
 
   .govuk-list--checked li:before {
-    content: '✓';
-    padding-right: govuk-spacing(2);
-    color: govuk-colour('green');
+    width: 1em;
+    height: 1em;
+    content: '';
+    display: inline-block;
+    margin-right: govuk-spacing(2);
+    background-image: image-url('check.svg');
   }
 
   .govuk-tag--muted {
