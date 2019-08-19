@@ -1,18 +1,19 @@
 <% if topic_search_results.any? %>
   <% topic_search_results.each do |topic| %>
-    <div class="govuk-grid-row govuk-!-margin-top-6">
+    <div class="govuk-grid-row govuk-!-margin-bottom-6">
       <div class="govuk-grid-column-full">
-        <h2 class="govuk-heading-l"><%= topic[:label] %></h2>
+        <h2 class="govuk-heading-m"><%= topic[:label] %></h2>
+        <hr class="govuk-section-break govuk-section-break--s govuk-section-break--visible">
       </div>
-      <div class="govuk-grid-column-two-thirds">
-        <%= render "govuk_publishing_components/components/document_list", {
+      <div class="govuk-grid-column-full">
+        <%= render "results_actions_list", {
           items: topic[:results]
         } %>
       </div>
     </div>
   <% end %>
 <% else %>
-  <div class="govuk-grid-row govuk-!-margin-top-6">
+  <div class="govuk-grid-row govuk-!-margin-bottom-6">
     <div class="govuk-grid-column-full">
       <p class="govuk-body">Based on your answers, we were not able to determine suitable actions for you.</p>
       <p class="govuk-body">

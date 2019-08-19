@@ -1,63 +1,16 @@
 .checklist-results-page {
-  .app-c-banner {
-    background-color: govuk-colour('blue');
-    padding: govuk-spacing(1) govuk-spacing(5) govuk-spacing(5);
-    color: govuk-colour('white');
-  }
-
-  .app-c-banner--dark {
-    background-color: govuk-colour('blue');
-    padding: govuk-spacing(6) govuk-spacing(5) govuk-spacing(2);
-  }
-
-  .app-c-banner--dark .gem-c-subscription-links,
-  .app-c-banner--dark .gem-c-subscription-links__link,
-  .app-c-banner--dark .gem-c-subscription-links__link:active,
-  .app-c-banner--dark .gem-c-subscription-links__link:link,
-  .app-c-banner--dark .gem-c-subscription-links__link:visited {
-    color: govuk-colour('white');
-  }
-
-  .app-c-banner__title,
-  .app-c-banner__body {
-    color: inherit;
-  }
-
-  .app-c-banner__body--strong {
-    font-weight: bold;
-  }
-
   .govuk-list--checked {
     list-style: none;
   }
 
   .govuk-list--checked li:before {
-    content: '✔';
+    content: '✓';
     padding-right: govuk-spacing(2);
-    color: govuk-colour('white');
+    color: govuk-colour('green');
   }
 
-  .gem-c-document-list__attribute {
-    @include govuk-font(14);
-    line-height: 1;
-    display: inline-block;
-    outline: 2px solid transparent;
-    outline-offset: -2px;
-    color: govuk-colour('white');
-    background-color: govuk-colour('red');
-    letter-spacing: 1px;
-    text-decoration: none;
-    text-transform: uppercase;
-    font-weight: 700;
-    line-height: 1;
-    padding-top: 5px;
-    padding-right: 8px;
-    padding-bottom: 4px;
-    padding-left: 8px;
-  }
-
-  .topic-guidance__section {
-    border-top: 10px solid govuk-colour('blue');
-    padding-top: 20px;
+  .govuk-tag--muted {
+    background-color: govuk-colour('grey-4');
+    color: govuk-colour('black');
   }
 }
