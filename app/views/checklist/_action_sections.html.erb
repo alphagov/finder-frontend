@@ -1,13 +1,13 @@
-<% if topic_search_results.any? %>
-  <% topic_search_results.each do |topic| %>
+<% if sections.any? %>
+  <% sections.each do |section| %>
     <div class="govuk-grid-row govuk-!-margin-bottom-6">
       <div class="govuk-grid-column-full">
-        <h2 class="govuk-heading-m"><%= topic[:label] %></h2>
+        <h2 class="govuk-heading-m"><%= section[:label] %></h2>
         <hr class="govuk-section-break govuk-section-break--s govuk-section-break--visible">
       </div>
       <div class="govuk-grid-column-full">
-        <%= render "results_actions_list", {
-          items: topic[:results]
+        <%= render "action_list", {
+          items: section[:results]
         } %>
       </div>
     </div>

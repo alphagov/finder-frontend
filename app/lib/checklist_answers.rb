@@ -5,7 +5,7 @@ class ChecklistAnswers
     @filtered_params = filtered_params
   end
 
-  def topic_search_results
+  def action_sections
     [
       {
         label: "Some category",
