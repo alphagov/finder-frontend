@@ -8,9 +8,9 @@
     </ul>
   <% end %>
 
-  <%# render "govuk_publishing_components/components/button", {
-    text: "Update answers",
-    href: qa_path,
-    start: true
-  } %>
+  <p class="govuk-body govuk-!-font-weight-bold govuk-!-font-size-16">
+    <a href="<%= find_brexit_guidance_path(filtered_params) %>" class="govuk-link">
+      Change your answers
+    </a>
+  </p>
 </div>
