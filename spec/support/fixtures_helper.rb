@@ -46,8 +46,4 @@ module FixturesHelper
   def business_readiness_qa_config
     YAML.load_file(fixtures_path + "/prepare_business_uk_leaving_eu.yaml")
   end
-
-  def find_brexit_guidance_config
-    YAML.load_file(Rails.root + "lib/find_brexit_guidance.yaml")
-  end
 end
