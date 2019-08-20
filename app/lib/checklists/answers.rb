@@ -39,6 +39,6 @@ private
   attr_reader :filtered_params, :actions
 
   def qa_config
-    @qa_config ||= YAML.load_file("lib/find_brexit_guidance.yaml")
+    @qa_config ||= YAML.load_file("lib/checklists/questions.yaml")
   end
 end
