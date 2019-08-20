@@ -19,7 +19,7 @@ class ChecklistController < ApplicationController
 private
 
   def qa_config
-    @qa_config ||= YAML.load_file("lib/find_brexit_guidance.yaml")
+    @qa_config ||= YAML.load_file("lib/checklists/questions.yaml")
   end
 
   ###
@@ -54,13 +54,8 @@ private
   helper_method :filtered_params
 
   ###
-  # Page title and breadcrumbs
+  # Breadcrumbs
   ###
-
-  def title
-    qa_config["title"]
-  end
-  helper_method :title
 
   def breadcrumbs
     [{ title: "Home", url: "/" }]
