@@ -1,4 +1,4 @@
-class ChecklistAction
+class Checklists::Action
   attr_accessor :title, :description, :path, :due_date
 
   def initialize(params)

@@ -1,4 +1,4 @@
-class ChecklistAnswers
+class Checklists::Answers
   def initialize(filtered_params, actions)
     @filtered_params = filtered_params
     @actions = actions

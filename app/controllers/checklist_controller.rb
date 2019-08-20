@@ -11,8 +11,8 @@ class ChecklistController < ApplicationController
   end
 
   def results
-    actions = ChecklistAction.all
-    @checklist = ChecklistAnswers.new(request.query_parameters.except(:page), actions)
+    actions = Checklists::Action.all
+    @checklist = Checklists::Answers.new(request.query_parameters.except(:page), actions)
     render "checklist/results"
   end
 
@@ -74,7 +74,7 @@ private
   def questions
     @questions ||= begin
       qa_config["questions"].map do |question|
-        ChecklistQuestion.new(question)
+        Checklists::Question.new(question)
       end
     end
   end
