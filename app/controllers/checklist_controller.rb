@@ -5,7 +5,12 @@ class ChecklistController < ApplicationController
     if redirect_to_results?
       redirect_to_result_page
     else
-      render "checklist/show"
+      @checklist_questions = ChecklistQuestionsPresenter.new(page, filtered_params, questions)
+      if @checklist_questions.get_next_page != page
+        redirect_to find_brexit_guidance_path(filtered_params.merge(page: @checklist_questions.get_next_page))
+      else
+        render "checklist/show"
+      end
     end
   end
 
@@ -58,38 +63,6 @@ private
     page - 1
   end
 
-  def show_question(index)
-    condition = questions[index]["conditionally_show_based_on"]
-    return true unless condition.present?
-
-    filtered_params[condition["key"]].include? condition["value"]
-  end
-
-  def get_question
-    question_index = current_question_index
-    while question_index <= questions.length
-      break if show_question(question_index)
-
-      question_index += 1
-    end
-    @page = question_index + 1 if question_index != current_question_index
-    questions[question_index]
-  end
-
-  def current_question
-    current_question = get_question
-    {
-      "key" => current_question["key"],
-      "question" => current_question["question"],
-      "description" => current_question["description"],
-      "hint_title" => current_question["hint_title"],
-      "hint_text" => current_question["hint_text"],
-      "options" => current_question["options"],
-      "type" => current_question["question_type"]
-    }
-  end
-  helper_method :current_question
-
   ###
   # Navigation
   ###
@@ -114,7 +87,7 @@ private
   ###
 
   def question_type
-    @question_type ||= current_question["type"]
+    @question_type ||= @checklist_questions.current_question["type"]
   end
 
   def single_wrapped_question?
@@ -137,9 +110,9 @@ private
   ###
 
   def options
-    allowed_values = current_question["options"]
+    allowed_values = @checklist_questions.current_question["options"]
     allowed_values.map do |option|
-      checked = filtered_params[current_question["key"]].present? && filtered_params[current_question["key"]].include?(option["value"])
+      checked = filtered_params[@checklist_questions.current_question["key"]].present? && filtered_params[@checklist_questions.current_question["key"]].include?(option["value"])
       { label: option["label"], text: option["label"], value: option["value"], checked: checked }
     end
   end

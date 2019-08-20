@@ -7,9 +7,9 @@
 
 <%
   formatted_description = nil
-  if current_question["description"]
+  if @checklist_questions.current_question["description"]
     formatted_description = render("govuk_publishing_components/components/govspeak", {
-      content: current_question["description"].html_safe
+      content: @checklist_questions.current_question["description"].html_safe
     })
   end
 %>
@@ -23,27 +23,27 @@
         <% if multiple_question? %>
           <div class="govuk-!-margin-top-8">
             <%= render 'question_multiple_choice', {
-              current_question: current_question,
+              current_question: @checklist_questions.current_question,
               formatted_description: formatted_description
             } %>
           </div>
         <% elsif single_wrapped_question? %>
           <div class="govuk-!-margin-top-8">
             <%= render 'question_single_wrapped_choice', {
-              current_question: current_question,
+              current_question: @checklist_questions.current_question,
               formatted_description: formatted_description
             } %>
           </div>
         <% else %>
           <div class="govuk-!-margin-top-8">
             <%= render 'question_single_choice', {
-              current_question: current_question,
+              current_question: @checklist_questions.current_question,
               formatted_description: formatted_description
             } %>
           </div>
         <% end %>
-        <%= render 'form_data' %>
-        <%= render 'hint_text' %>
+        <%= render 'form_data', current_question: @checklist_questions.current_question %>
+        <%= render 'hint_text', current_question: @checklist_questions.current_question %>
         <div class="govuk-form-footer">
           <%= render "govuk_publishing_components/components/button", {
             text: "Next"
