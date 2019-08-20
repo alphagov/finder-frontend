@@ -2,16 +2,12 @@ class ChecklistController < ApplicationController
   layout "finder_layout"
 
   def show
-    if redirect_to_results?
-      redirect_to_result_page
-    else
-      @checklist_questions = ChecklistQuestionsPresenter.new(page, filtered_params, questions)
-      if @checklist_questions.get_next_page != page
-        redirect_to find_brexit_guidance_path(filtered_params.merge(page: @checklist_questions.get_next_page))
-      else
-        render "checklist/show"
-      end
-    end
+    return redirect_to_result_page if redirect_to_results?
+
+    @checklist_questions = ChecklistQuestionsPresenter.new(page, filtered_params, questions)
+    return redirect_to_next_question if redirect_to_next_question?
+
+    render "checklist/show"
   end
 
   def results
@@ -24,6 +20,37 @@ private
   def qa_config
     @qa_config ||= YAML.load_file("lib/find_brexit_guidance.yaml")
   end
+
+  ###
+  # Redirect
+  ###
+
+  def redirect_to_next_question?
+    @checklist_questions.get_next_page != page
+  end
+
+  def redirect_to_next_question
+    redirect_to find_brexit_guidance_path(filtered_params.merge(
+                                            page: @checklist_questions.get_next_page
+                                          ))
+  end
+
+  def redirect_to_results?
+    page == questions.length + 1
+  end
+
+  def redirect_to_result_page
+    redirect_to find_brexit_guidance_results_path(filtered_params)
+  end
+
+  ###
+  # Filtered params
+  ###
+
+  def filtered_params
+    request.query_parameters.except(:page)
+  end
+  helper_method :filtered_params
 
   ###
   # Page title and breadcrumbs
@@ -80,21 +107,4 @@ private
     next_page_url + "?" + filtered_params.merge(page_number).to_query
   end
   helper_method :skip_link_url
-
-  ###
-  # Redirect
-  ###
-
-  def redirect_to_results?
-    page == questions.length + 1
-  end
-
-  def redirect_to_result_page
-    redirect_to find_brexit_guidance_results_path(filtered_params)
-  end
-
-  def filtered_params
-    request.query_parameters.except(:page)
-  end
-  helper_method :filtered_params
 end
