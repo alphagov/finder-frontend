@@ -146,22 +146,6 @@ describe Document do
           with('3dfb99d0-3753-483a-842c-2b724474f349').
           and_return('other-value-1')
       end
-
-      it 'returns facet data' do
-        expect(subject.linked_facet_data[0]).to eq(
-          key: :link_values,
-          labels: %w[link-val-1 link-val-2],
-          name: 'Link values',
-        )
-      end
-
-      it 'returns facet data for `Other link values`' do
-        expect(subject.linked_facet_data[1]).to eq(
-          key: :other_link_values,
-          labels: %w[other-value-1],
-          name: 'Other link values',
-        )
-      end
     end
   end
 

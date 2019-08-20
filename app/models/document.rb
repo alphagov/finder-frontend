@@ -1,7 +1,8 @@
 class Document
   attr_reader :title, :public_timestamp, :is_historic, :government_name,
               :content_purpose_supergroup, :document_type, :organisations,
-              :release_timestamp, :es_score, :format, :content_id, :index, :linked_facet_data
+              :release_timestamp, :es_score, :format, :content_id, :index,
+              :facet_content_ids, :description
 
   def initialize(rummager_document, finder, index)
     rummager_document = rummager_document.with_indifferent_access
@@ -21,7 +22,6 @@ class Document
     @finder = finder
     @facet_content_ids = rummager_document.fetch(:facet_values, [])
     @rummager_document = rummager_document.slice(*metadata_keys)
-    @linked_facet_data = fetch_linked_facet_data
     @index = index
   end
 
@@ -48,22 +48,7 @@ class Document
 
 private
 
-  attr_reader :link, :rummager_document, :finder, :facet_content_ids, :description
-
-  def fetch_linked_facet_data
-    return [] if facet_content_ids.empty?
-
-    facet_content_ids
-      .group_by { |content_id| finder.facet_for_content_id(content_id) }
-      .map do |facet, content_ids|
-      labels = content_ids.map { |content_id| finder.value_for_content_id(content_id) }
-      {
-        key: facet.key,
-        name: facet.short_name || facet.name,
-        labels: labels,
-      }
-    end
-  end
+  attr_reader :link, :rummager_document, :finder
 
   def is_mainstream_content?
     %w(completed_transaction
