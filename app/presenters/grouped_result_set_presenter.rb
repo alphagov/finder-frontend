@@ -1,9 +1,7 @@
 class GroupedResultSetPresenter < ResultSetPresenter
   def search_results_content
     super.merge(
-      grouped_document_list_component_data: grouped_documents.map do |group_hash|
-        group_hash.merge(documents: document_list_component_data(documents_to_convert: group_hash[:documents]))
-      end,
+      grouped_document_list_component_data: grouped_document_list_component_data,
       display_grouped_results: grouped_display?
     )
   end
@@ -14,6 +12,18 @@ class GroupedResultSetPresenter < ResultSetPresenter
   end
 
 private
+
+  def grouped_document_list_component_data
+    grouped_documents.map do |name_documents_hash|
+      group_name = name_documents_hash[:group_name]
+      documents = name_documents_hash[:documents]
+      document_hashes = document_list_component_data(documents_to_convert: documents)
+      {
+        group_name: group_name,
+        documents: document_hashes
+      }.compact
+    end
+  end
 
   def grouped_documents
     return [] unless grouped_display?
