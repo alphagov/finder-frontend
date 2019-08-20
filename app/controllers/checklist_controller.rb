@@ -18,10 +18,6 @@ class ChecklistController < ApplicationController
 
 private
 
-  def qa_config
-    @qa_config ||= YAML.load_file("lib/checklists/questions.yaml")
-  end
-
   ###
   # Redirect
   ###
@@ -67,11 +63,7 @@ private
   ###
 
   def questions
-    @questions ||= begin
-      qa_config["questions"].map do |question|
-        Checklists::Question.new(question)
-      end
-    end
+    @questions ||= Checklists::Question.load_all
   end
 
   ###
