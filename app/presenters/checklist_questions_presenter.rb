@@ -1,9 +1,9 @@
 class ChecklistQuestionsPresenter
-  attr_reader :page, :filtered_params, :questions
+  attr_reader :page, :criteria, :questions
 
-  def initialize(page, filtered_params, questions)
+  def initialize(page, criteria, questions)
     @page = page
-    @filtered_params = filtered_params
+    @criteria = criteria
     @questions = questions
   end
 
@@ -15,7 +15,7 @@ class ChecklistQuestionsPresenter
     @get_next_page ||= begin
       question_index = page - 1
       while question_index <= questions.length
-        break if questions[question_index].show?(filtered_params)
+        break if questions[question_index].show?(criteria)
 
         question_index += 1
       end

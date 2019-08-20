@@ -4,7 +4,7 @@ class ChecklistController < ApplicationController
   def show
     return redirect_to_result_page if redirect_to_results?
 
-    @checklist_questions = ChecklistQuestionsPresenter.new(page, filtered_params, questions)
+    @checklist_questions = ChecklistQuestionsPresenter.new(page, criteria, questions)
     return redirect_to_next_question if redirect_to_next_question?
 
     render "checklist/show"
@@ -12,7 +12,8 @@ class ChecklistController < ApplicationController
 
   def results
     actions = Checklists::Action.all
-    @checklist = Checklists::Answers.new(request.query_parameters.except(:page), actions)
+    @checklist = Checklists::Answers.new(criteria, actions)
+
     render "checklist/results"
   end
 
@@ -48,6 +49,10 @@ private
     request.query_parameters.except(:page)
   end
   helper_method :filtered_params
+
+  def criteria
+    filtered_params.values.flatten
+  end
 
   ###
   # Breadcrumbs

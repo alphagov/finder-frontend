@@ -1,6 +1,6 @@
 class Checklists::Question
   attr_reader :key, :text, :description, :hint_title, :hint_text,
-              :options, :type, :show_condition
+              :options, :type, :depends_on
 
   def initialize(params)
     @key            = params['key']
@@ -10,13 +10,11 @@ class Checklists::Question
     @hint_text      = params['hint_text']
     @options        = params['options']
     @type           = params['question_type']
-    @show_condition = params['conditionally_show_based_on']
+    @depends_on     = params['depends_on']
   end
 
-  def show?(filtered_params)
-    return true unless show_condition.present?
-
-    filtered_params[show_condition["key"]].include? show_condition["value"]
+  def show?(criteria)
+    depends_on.blank? || (depends_on - criteria).empty?
   end
 
   def formatted_options(filtered_params)
@@ -25,10 +23,6 @@ class Checklists::Question
       { label: option["label"], text: option["label"], value: option["value"], checked: checked }
     end
   end
-
-  ###
-  # Question types
-  ###
 
   def single_wrapped?
     type == "single_wrapped"

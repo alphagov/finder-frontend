@@ -1,27 +1,13 @@
 class Checklists::Answers
-  def initialize(filtered_params, actions)
-    @filtered_params = filtered_params
+  attr_reader :criteria_keys
+
+  def initialize(criteria_keys, actions)
+    @criteria_keys = criteria_keys
     @actions = actions
   end
 
   def answers
-    @answers ||= begin
-      answers = []
-      qa_config["questions"].each do |question|
-        if filtered_params[question["key"]].present?
-          question["options"].each do |option|
-            if filtered_params[question["key"]].include? option["value"]
-              answers.push(
-                label: option["label"],
-                value: option["value"],
-                readable_text: "#{question['readable_pretext']} #{option['readable_text']}"
-              )
-            end
-          end
-        end
-      end
-      answers
-    end
+    @answers ||= criteria.map { |c| { readable_text: c.text } }
   end
 
   def action_sections
@@ -36,9 +22,9 @@ class Checklists::Answers
 
 private
 
-  attr_reader :filtered_params, :actions
+  attr_reader :actions
 
-  def qa_config
-    @qa_config ||= YAML.load_file("lib/checklists/questions.yaml")
+  def criteria
+    @criteria ||= Checklists::Criterion.load(criteria_keys)
   end
 end
