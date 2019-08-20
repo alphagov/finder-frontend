@@ -1,0 +1,23 @@
+<div class="govuk-summary-list">
+  <% items.each do | action | %>
+    <div class="govuk-summary-list__row">
+      <div class="govuk-summary-list__value">
+        <p class="govuk-body govuk-!-font-weight-bold">
+          <a href="<%= action.path %>" class="govuk-link"><%= action.title %></a>
+        </p>
+        <% if action.description.present? %>
+          <p class="govuk-body govuk-!-font-size-16">
+            <%= action.description %>
+          </p>
+        <% end %>
+      </div>
+      <div class="govuk-summary-list__actions">
+        <% if action.due_date.present? %>
+          <div class="govuk-tag govuk-tag--muted govuk-!-font-size-14">
+            DUE BY <%= action.due_date %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>

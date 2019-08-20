@@ -1,0 +1,12 @@
+actions:
+  - title: 'Get an EORI number that starts with GB to move goods in or out of the UK'
+    description: |
+      If you do not get one, you may have increased costs and delays. For example, if HM Revenue and Customs (HMRC) cannot clear your goods you may have to pay storage fees.
+    path: '/eori' 
+    due_date: 2019-10-31
+  - title: 'Get a new passport'
+    description: |
+      If you do not get one, you will not be able to travel.
+    path: '/apply-renew-passport' 
+    due_date: 2019-10-31
+

@@ -47,4 +47,8 @@ RSpec.feature "Checklists", type: :feature do
   def then_i_should_see_the_results_page
     expect(page).to have_content "Actions you may need to do for Brexit"
   end
+
+  def and_i_should_see_the_related_actions
+    expect(page).to have_content "Get a new passport"
+  end
 end
