@@ -19,7 +19,7 @@
 
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-      <form action="<%= next_page_url %>" method="get" id="finder-qa-facet-filter-selection" data-module="track-qa-choices">
+      <form action="<%= find_brexit_guidance_path %>" method="get" id="finder-qa-facet-filter-selection" data-module="track-qa-choices">
         <% if @checklist_questions.current_question.multiple? %>
           <div class="govuk-!-margin-top-8">
             <%= render 'question_multiple_choice', {

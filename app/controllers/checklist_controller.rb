@@ -98,14 +98,9 @@ private
   end
   helper_method :next_page
 
-  def next_page_url
-    request.path
-  end
-  helper_method :next_page_url
-
   def skip_link_url
     page_number = { page: next_page }
-    next_page_url + "?" + filtered_params.merge(page_number).to_query
+    find_brexit_guidance_path(filtered_params.merge(page_number))
   end
   helper_method :skip_link_url
 end
