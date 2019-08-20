@@ -1,45 +1,9 @@
 class ChecklistAnswers
-  attr_reader :filtered_params
-
-  def initialize(filtered_params)
+  def initialize(filtered_params, actions)
     @filtered_params = filtered_params
+    @actions = actions
   end
 
-  def action_sections
-    [
-      {
-        label: "Some category",
-        results: [
-          {
-            link: {
-              text: "Alternative provision",
-              path: "/government/publications/alternative-provision"
-            },
-            metadata: {
-              due_date: "12 AUG 2019",
-              description: "This is really important",
-              additional_guidance: {
-                text: "More guidance on brexit",
-                path: "/government/publications/behaviour-and-discipline-in-schools-guidance-for-governing-bodies"
-              }
-            }
-          },
-          {
-            link: {
-              text: "Behaviour and discipline in schools: guide for governing bodies",
-              path: "/government/publications/behaviour-and-discipline-in-schools-guidance-for-governing-bodies"
-            },
-            metadata: {
-              due_date: "12 SEPT 2019",
-              description: "This is something that needs to be done ASAP!!"
-            }
-          },
-        ]
-      }
-    ]
-  end
-
-  # TODO: refactor
   def answers
     @answers ||= begin
       answers = []
@@ -59,6 +23,20 @@ class ChecklistAnswers
       answers
     end
   end
+
+  def action_sections
+    [
+      {
+        heading: "Some category",
+        actions: actions
+      }
+    ]
+  end
+
+
+private
+
+  attr_reader :filtered_params, :actions
 
   def qa_config
     @qa_config ||= YAML.load_file("lib/find_brexit_guidance.yaml")

@@ -10,7 +10,8 @@ class ChecklistController < ApplicationController
   end
 
   def results
-    @checklist = ChecklistAnswers.new(request.query_parameters.except(:page))
+    actions = ChecklistAction.all
+    @checklist = ChecklistAnswers.new(request.query_parameters.except(:page), actions)
     render "checklist/results"
   end
 

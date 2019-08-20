@@ -1,25 +1,22 @@
 <div class="govuk-summary-list">
-  <% items.each do | item | %>
+  <% items.each do | action | %>
     <div class="govuk-summary-list__row">
       <div class="govuk-summary-list__value">
         <p class="govuk-body govuk-!-font-weight-bold">
-          <a href="<%= item[:link][:path] %>" class="govuk-link"><%= item[:link][:text] %></a>
+          <a href="<%= action.path %>" class="govuk-link"><%= action.title %></a>
         </p>
-        <% if item[:metadata][:description].present? %>
+        <% if action.description.present? %>
           <p class="govuk-body govuk-!-font-size-16">
-            <%= item[:metadata][:description] %>
-          </p>
-        <% end %>
-        <% if item[:metadata][:additional_guidance].present? %>
-          <p class="govuk-body govuk-!-font-size-16">
-            <a href="<%= item[:metadata][:additional_guidance][:path] %>" class="govuk-link"><%= item[:metadata][:additional_guidance][:text] %></a>
+            <%= action.description %>
           </p>
         <% end %>
       </div>
       <div class="govuk-summary-list__actions">
-        <div class="govuk-tag govuk-tag--muted govuk-!-font-size-14">
-          DUE BY <%= item[:metadata][:due_date] %>
-        </div>
+        <% if action.due_date.present? %>
+          <div class="govuk-tag govuk-tag--muted govuk-!-font-size-14">
+            DUE BY <%= action.due_date %>
+          </div>
+        <% end %>
       </div>
     </div>
   <% end %>
