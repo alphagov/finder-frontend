@@ -104,8 +104,8 @@ private
     facet_datum = document_facet_data.find { |m| m[:key] == primary_facet_key }
     return false unless primary_facet && facet_datum
 
-    all_primary_facet_values = primary_facet.allowed_values.map { |v| v['value'] }
-    all_primary_facet_values & facet_datum[:labels] == all_primary_facet_values
+    allowed_values = primary_facet.allowed_values.map { |v| v['value'] }
+    facet_datum[:labels].to_set.superset? allowed_values.to_set
   end
 
   def label_for_facet_value(key)
