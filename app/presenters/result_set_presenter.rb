@@ -23,21 +23,22 @@ class ResultSetPresenter
   end
 
   def search_results_content
+    component_data = document_list_component_data(documents_to_convert: documents)
     {
-      document_list_component_data: document_list_component_data,
+      document_list_component_data: component_data,
       zero_results: total.zero?,
-      page_count: document_list_component_data.count,
+      page_count: component_data.count,
       finder_name: finder_presenter.name,
       debug_score: debug_score
     }
   end
 
-  def document_list_component_data
-    @document_list_component_data ||= begin
-      documents.each_with_index.map do |document, index|
-        SearchResultPresenter.new(document: document, metadata_presenter_class: metadata_presenter_class, doc_index: index, doc_count: documents.count, finder_name: finder_presenter.name, debug_score: debug_score, highlight: highlight(index)).document_list_component_data
-      end
-    end
+  def highlight_top_result?
+    @show_top_result &&
+      finder_presenter.eu_exit_finder? &&
+      documents.length >= 2 &&
+      sort_option.dig('key').eql?("-relevance") &&
+      best_bet?
   end
 
   def user_supplied_date(date_facet_key, date_facet_from_to)
@@ -60,16 +61,14 @@ private
 
   attr_reader :metadata_presenter_class, :sort_presenter, :total, :finder_presenter, :documents
 
-  def highlight_top_result?
-    @show_top_result &&
-      finder_presenter.eu_exit_finder? &&
-      documents.length >= 2 &&
-      sort_option.dig('key').eql?("-relevance") &&
-      best_bet?
+  def document_list_component_data(documents_to_convert:)
+    documents_to_convert.map do |document|
+      SearchResultPresenter.new(document: document, metadata_presenter_class: metadata_presenter_class, doc_count: documents.count, finder_name: finder_presenter.name, debug_score: debug_score, highlight: highlight(document.index)).document_list_component_data
+    end
   end
 
   def highlight(index)
-    index === 0 && highlight_top_result?
+    index === 1 && highlight_top_result?
   end
 
   def best_bet?

@@ -313,72 +313,29 @@ RSpec.describe FinderPresenter do
         ]
       }
     }
+    let(:facet1) {
+      OptionSelectFacet.new(facet_hash_1, {})
+    }
+    let(:facet2) {
+      OptionSelectFacet.new(facet_hash_2, {})
+    }
     let(:facets) {
-      [OptionSelectFacet.new(facet_hash_1, {}), OptionSelectFacet.new(facet_hash_2, {})]
+      [facet1, facet2]
     }
 
-    describe '#facet_details_lookup' do
-      it 'returns a hash of content_ids to facet details' do
-        expected = {
-          '14d51311-d182-40d0-85ea-8927d8b9bc91' => {
-            id: 'sector_business_area',
-            key: 'sector_business_area',
-            name: 'Sector / Business area',
-            type: 'content_id',
-          },
-          'ab38336f-09b9-4765-88f9-12c3fbebd20d' => {
-            id: 'sector_business_area',
-            key: 'sector_business_area',
-            name: 'Sector / Business area',
-            type: 'content_id',
-          },
-          '56dbec9a-1efd-4471-9f1d-51fcfd19e2db' => {
-            id: 'intellectual_property',
-            key: 'intellectual_property',
-            name: 'Intellectual property',
-            type: 'content_id',
-          }
-        }
-
-        expect(subject.facet_details_lookup).to eq(expected)
-      end
-
-      context 'when a facet contains a short_name attribute' do
-        let(:facet_hash_3) {
-          {
-            'key' => 'employ_eu_citizens',
-            'name' => 'Who you employ',
-            'short_name' => 'Employing EU citizens',
-            'allowed_values' => [
-              { 'label' => 'EU citizens', 'value' => 'yes', 'content_id' => '5476f0c7-d029-459b-8a17-196374ae3366' }
-            ]
-          }
-        }
-        let(:facets) {
-          [
-         OptionSelectFacet.new(facet_hash_1, {}),
-         OptionSelectFacet.new(facet_hash_2, {}),
-         OptionSelectFacet.new(facet_hash_3, {})
-                ]
-        }
-
-        it 'overrides the facet name in the details lookup' do
-          expect(subject.facet_details_lookup["5476f0c7-d029-459b-8a17-196374ae3366"]).to eq(
-            id: "employ_eu_citizens", key: "employ_eu_citizens", name: "Employing EU citizens", type: "content_id"
-                                                                                          )
-        end
+    describe '#facet_for_content_id' do
+      it 'returns the facet for a content_id' do
+        expect(subject.facet_for_content_id('14d51311-d182-40d0-85ea-8927d8b9bc91')).to eq(facet1)
+        expect(subject.facet_for_content_id('ab38336f-09b9-4765-88f9-12c3fbebd20d')).to eq(facet1)
+        expect(subject.facet_for_content_id('56dbec9a-1efd-4471-9f1d-51fcfd19e2db')).to eq(facet2)
       end
     end
 
     describe '#facet_value_lookup' do
-      it 'returns a hash of content_ids to facet values' do
-        expected = {
-          '14d51311-d182-40d0-85ea-8927d8b9bc91' => 'aerospace',
-          'ab38336f-09b9-4765-88f9-12c3fbebd20d' => 'agriculture',
-          '56dbec9a-1efd-4471-9f1d-51fcfd19e2db' => 'copyright'
-        }
-
-        expect(subject.facet_value_lookup).to eq(expected)
+      it 'returns a value for content id, looking up the relation in the allowed values' do
+        expect(subject.value_for_content_id('14d51311-d182-40d0-85ea-8927d8b9bc91')).to eq('aerospace')
+        expect(subject.value_for_content_id('ab38336f-09b9-4765-88f9-12c3fbebd20d')).to eq('agriculture')
+        expect(subject.value_for_content_id('56dbec9a-1efd-4471-9f1d-51fcfd19e2db')).to eq('copyright')
       end
     end
   end
