@@ -1,7 +1,21 @@
 ---
 title: "Prepare yourself, your family and your business or organisation for the UK leaving the EU"
 questions:
+  - key: do_you_own_a_business
+    question_type: "single"
+    question: "Do you own a business?"
+    readable_pretext: "You"
+    options:
+      - label: "Yes"
+        value: "yes"
+        readable_text: "own a business"
+      - label: "No"
+        value: "no"
+        readable_text: "do not own a business"
   - key: business_activity
+    conditionally_show_based_on:
+      key: "do_you_own_a_business"
+      value: "yes"
     question_type: "multiple"
     question: "Does your business do any of the following activities?"
     description: "Importing and exporting includes temporarily taking goods across the EU border, for example to a trade fair."

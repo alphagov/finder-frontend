@@ -1,8 +1,8 @@
 <%= render "govuk_publishing_components/components/checkboxes", {
-  name: "#{current_question['key']}[]",
-  heading: current_question["question"],
+  name: "#{current_question.key}[]",
+  heading: current_question.text,
   description: formatted_description,
-  hint_text: current_question["hint_title"],
+  hint_text: current_question.hint_text,
   is_page_heading: true,
-  items: options
+  items: current_question.formatted_options(filtered_params)
 } %>
