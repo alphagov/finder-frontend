@@ -7,9 +7,9 @@
 
 <%
   formatted_description = nil
-  if @checklist_questions.current_question["description"]
+  if @checklist_questions.current_question.description
     formatted_description = render("govuk_publishing_components/components/govspeak", {
-      content: @checklist_questions.current_question["description"].html_safe
+      content: @checklist_questions.current_question.description.html_safe
     })
   end
 %>
@@ -20,14 +20,14 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
       <form action="<%= next_page_url %>" method="get" id="finder-qa-facet-filter-selection" data-module="track-qa-choices">
-        <% if multiple_question? %>
+        <% if @checklist_questions.current_question.multiple? %>
           <div class="govuk-!-margin-top-8">
             <%= render 'question_multiple_choice', {
               current_question: @checklist_questions.current_question,
               formatted_description: formatted_description
             } %>
           </div>
-        <% elsif single_wrapped_question? %>
+        <% elsif @checklist_questions.current_question.single_wrapped? %>
           <div class="govuk-!-margin-top-8">
             <%= render 'question_single_wrapped_choice', {
               current_question: @checklist_questions.current_question,

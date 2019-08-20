@@ -44,9 +44,12 @@ private
   ###
 
   def questions
-    @questions ||= qa_config["questions"]
+    @questions ||= begin
+      qa_config["questions"].map do |question|
+        ChecklistQuestion.new(question)
+      end
+    end
   end
-  helper_method :question
 
   ###
   # Current page
@@ -57,10 +60,6 @@ private
       params.permit(:page)
       params[:page].to_i.clamp(1, questions.length + 1)
     end
-  end
-
-  def current_question_index
-    page - 1
   end
 
   ###
@@ -81,42 +80,6 @@ private
     next_page_url + "?" + filtered_params.merge(page_number).to_query
   end
   helper_method :skip_link_url
-
-  ###
-  # Question types
-  ###
-
-  def question_type
-    @question_type ||= @checklist_questions.current_question["type"]
-  end
-
-  def single_wrapped_question?
-    question_type == "single_wrapped"
-  end
-  helper_method :single_wrapped_question?
-
-  def multiple_grouped_question?
-    question_type == "multiple_grouped"
-  end
-  helper_method :multiple_grouped_question?
-
-  def multiple_question?
-    question_type == "multiple"
-  end
-  helper_method :multiple_question?
-
-  ###
-  # Options
-  ###
-
-  def options
-    allowed_values = @checklist_questions.current_question["options"]
-    allowed_values.map do |option|
-      checked = filtered_params[@checklist_questions.current_question["key"]].present? && filtered_params[@checklist_questions.current_question["key"]].include?(option["value"])
-      { label: option["label"], text: option["label"], value: option["value"], checked: checked }
-    end
-  end
-  helper_method :options
 
   ###
   # Redirect
