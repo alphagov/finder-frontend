@@ -35,4 +35,14 @@ en:
       more: "Show more search options"
       fewer: "Show fewer search options"
   checklists:
-    title: "Prepare yourself, your family and your business or organisation for the UK leaving the EU" 
+    title: "Prepare yourself, your family and your business or organisation for the UK leaving the EU"
+  checklists_results:
+    context: "Based on your answers"
+    title: "Actions you may need to do for Brexit"
+    answers:
+      list_context: "Based on your answers, we know:"
+      change_answers: "Change your answers"
+    actions:
+      no_results: "Based on your answers, we were not able to determine suitable actions for you."
+      more_guidance: "View more guidance here"
+
