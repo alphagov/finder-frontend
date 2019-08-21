@@ -1,4 +1,4 @@
-class ChecklistQuestion
+class Checklists::Question
   attr_reader :key, :text, :description, :hint_title, :hint_text,
               :options, :type, :show_condition
 

@@ -1,4 +1,4 @@
-class ChecklistAnswers
+class Checklists::Answers
   def initialize(filtered_params, actions)
     @filtered_params = filtered_params
     @actions = actions
@@ -39,6 +39,6 @@ private
   attr_reader :filtered_params, :actions
 
   def qa_config
-    @qa_config ||= YAML.load_file("lib/find_brexit_guidance.yaml")
+    @qa_config ||= YAML.load_file("lib/checklists/questions.yaml")
   end
 end

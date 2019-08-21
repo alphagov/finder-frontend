@@ -11,15 +11,15 @@ class ChecklistController < ApplicationController
   end
 
   def results
-    actions = ChecklistAction.all
-    @checklist = ChecklistAnswers.new(request.query_parameters.except(:page), actions)
+    actions = Checklists::Action.all
+    @checklist = Checklists::Answers.new(request.query_parameters.except(:page), actions)
     render "checklist/results"
   end
 
 private
 
   def qa_config
-    @qa_config ||= YAML.load_file("lib/find_brexit_guidance.yaml")
+    @qa_config ||= YAML.load_file("lib/checklists/questions.yaml")
   end
 
   ###
@@ -54,13 +54,8 @@ private
   helper_method :filtered_params
 
   ###
-  # Page title and breadcrumbs
+  # Breadcrumbs
   ###
-
-  def title
-    qa_config["title"]
-  end
-  helper_method :title
 
   def breadcrumbs
     [{ title: "Home", url: "/" }]
@@ -74,7 +69,7 @@ private
   def questions
     @questions ||= begin
       qa_config["questions"].map do |question|
-        ChecklistQuestion.new(question)
+        Checklists::Question.new(question)
       end
     end
   end
@@ -98,14 +93,9 @@ private
   end
   helper_method :next_page
 
-  def next_page_url
-    request.path
-  end
-  helper_method :next_page_url
-
   def skip_link_url
     page_number = { page: next_page }
-    next_page_url + "?" + filtered_params.merge(page_number).to_query
+    find_brexit_guidance_path(filtered_params.merge(page_number))
   end
   helper_method :skip_link_url
 end
