@@ -26,12 +26,12 @@ private
   ###
 
   def redirect_to_next_question?
-    next_viewable_page(page, @questions) != page
+    next_viewable_page(page, @questions, criteria_keys) != page
   end
 
   def redirect_to_next_question
     redirect_to find_brexit_guidance_path(
-      filtered_params.merge(page: next_viewable_page(page, @questions))
+      filtered_params.merge(page: next_viewable_page(page, @questions, criteria_keys))
     )
   end
 

@@ -1,12 +1,9 @@
 module ChecklistHelper
-  def next_viewable_page(page, questions)
-    question_index = page - 1
-    while question_index <= questions.length
-      break if questions[question_index].show?(criteria_keys)
-
-      question_index += 1
+  def next_viewable_page(page, questions, criteria_keys)
+    next_page = (page..questions.length).find do |index|
+      questions[index - 1].show?(criteria_keys)
     end
-    question_index + 1
+    next_page || questions.length + 1
   end
 
   def format_criteria_list(criteria)
@@ -16,7 +13,7 @@ module ChecklistHelper
   def format_action_sections(actions)
     [
       {
-        heading: "Some category",
+        heading: 'Some category',
         actions: actions
       }
     ]
