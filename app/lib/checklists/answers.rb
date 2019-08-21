@@ -10,14 +10,6 @@ class Checklists::Answers
     @answers ||= criteria.map { |c| { readable_text: c.text } }
   end
 
-  def action_sections
-    [
-      {
-        heading: "Some category",
-        actions: actions
-      }
-    ]
-  end
 
 
 private

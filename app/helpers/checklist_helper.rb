@@ -8,4 +8,13 @@ module ChecklistHelper
     end
     question_index + 1
   end
+
+  def format_action_sections(actions)
+    [
+      {
+        heading: "Some category",
+        actions: actions
+      }
+    ]
+  end
 end

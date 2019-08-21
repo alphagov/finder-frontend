@@ -13,7 +13,7 @@ class ChecklistController < ApplicationController
   end
 
   def results
-    actions = Checklists::Action.load_all
+    @actions = Checklists::Action.load_all
     @checklist = Checklists::Answers.new(criteria, actions)
 
     render "checklist/results"

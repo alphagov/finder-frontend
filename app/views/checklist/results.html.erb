@@ -19,9 +19,7 @@
       <%= render 'results_answers', answers: @checklist.answers %>
     </div>
     <div class="govuk-grid-column-two-thirds">
-      <%= render 'action_sections', sections: @checklist.action_sections %>
+      <%= render 'action_sections', sections: format_action_sections(@actions) %>
     </div>
   </div>
-
-  
 </div>
