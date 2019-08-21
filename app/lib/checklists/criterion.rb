@@ -7,7 +7,7 @@ class Checklists::Criterion
     @depends_on = params.fetch('depends_on', [])
   end
 
-  def self.load(criteria_keys)
+  def self.load_by(criteria_keys)
     file = YAML.load_file("lib/checklists/criteria.yaml")
 
     criteria = file['criteria'].map do |c|

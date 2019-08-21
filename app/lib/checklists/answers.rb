@@ -25,6 +25,6 @@ private
   attr_reader :actions
 
   def criteria
-    @criteria ||= Checklists::Criterion.load(criteria_keys)
+    @criteria ||= Checklists::Criterion.load_by(criteria_keys)
   end
 end
