@@ -1,11 +1,14 @@
 <div class="checklist-results-answers">
   <% if answers.present? %>
+    <p class="govuk-body govuk-!-font-size-16"><%= t('checklists_results.answers.description') %></p>
     <p class="govuk-body govuk-!-font-weight-bold"><%= t('checklists_results.answers.list_context') %></p>
     <ul class="govuk-list govuk-!-margin-top-3 govuk-!-font-size-16 govuk-list--checked">
       <% answers.each do |answer| %>
         <li><%= answer[:readable_text] %></li>
       <% end %>
     </ul>
+  <% else %>
+    <p class="govuk-body govuk-!-font-size-16"><%= t('checklists_results.answers.no_answers') %></p>
   <% end %>
 
   <p class="govuk-body govuk-!-font-weight-bold govuk-!-font-size-16">

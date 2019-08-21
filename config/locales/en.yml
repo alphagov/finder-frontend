@@ -40,8 +40,15 @@ en:
     context: "Based on your answers"
     title: "Actions you may need to do for Brexit"
     answers:
+      description: |
+        This list may not be complete, and you might not need to take all the actions.
+        The links provided will help you find that out.
       list_context: "Based on your answers, we know:"
       change_answers: "Change your answers"
+      no_answers: |
+        You did not answer any of the questions.
+        This is a safe and secure service. We don't store any of your personal information.
+        To change your answers, follow the link below.
     actions:
       no_results: "Based on your answers, we were not able to determine suitable actions for you."
       more_guidance: "View more guidance here"
