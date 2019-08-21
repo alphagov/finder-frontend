@@ -8,9 +8,7 @@ class Checklists::Criterion
   end
 
   def self.load_by(criteria_keys)
-    file = YAML.load_file("lib/checklists/criteria.yaml")
-
-    criteria = file['criteria'].map do |c|
+    criteria = CHECKLISTS_CRITERIA.map do |c|
       Checklists::Criterion.new(c) if criteria_keys.include?(c['key'])
     end
 

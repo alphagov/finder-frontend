@@ -33,8 +33,7 @@ class Checklists::Question
   end
 
   def self.load_all
-    file = YAML.load_file("lib/checklists/questions.yaml")
-    file["questions"].map do |question|
+    CHECKLISTS_QUESTIONS.map do |question|
       Checklists::Question.new(question)
     end
   end
