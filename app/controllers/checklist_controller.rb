@@ -1,12 +1,14 @@
 class ChecklistController < ApplicationController
+  include ChecklistHelper
   layout "finder_layout"
 
   def show
-    return redirect_to_result_page if redirect_to_results?
+    @questions = Checklists::Question.load_all
 
-    @checklist_questions = ChecklistQuestionsPresenter.new(page, criteria, questions)
+    return redirect_to_result_page if redirect_to_results?
     return redirect_to_next_question if redirect_to_next_question?
 
+    @current_question = @questions[page - 1]
     render "checklist/show"
   end
 
@@ -24,17 +26,17 @@ private
   ###
 
   def redirect_to_next_question?
-    @checklist_questions.get_next_page != page
+    next_viewable_page(page, @questions) != page
   end
 
   def redirect_to_next_question
-    redirect_to find_brexit_guidance_path(filtered_params.merge(
-                                            page: @checklist_questions.get_next_page
-                                          ))
+    redirect_to find_brexit_guidance_path(
+      filtered_params.merge(page: next_viewable_page(page, @questions))
+    )
   end
 
   def redirect_to_results?
-    page == questions.length + 1
+    page == @questions.length + 1
   end
 
   def redirect_to_result_page
@@ -64,21 +66,13 @@ private
   helper_method :breadcrumbs
 
   ###
-  # Questions
-  ###
-
-  def questions
-    @questions ||= Checklists::Question.load_all
-  end
-
-  ###
   # Current page
   ###
 
   def page
     @page ||= begin
       params.permit(:page)
-      params[:page].to_i.clamp(1, questions.length + 1)
+      params[:page].to_i.clamp(1, @questions.length + 1)
     end
   end
 
