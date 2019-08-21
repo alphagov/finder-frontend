@@ -3,6 +3,11 @@
     <div class="govuk-grid-row govuk-!-margin-bottom-6">
       <div class="govuk-grid-column-full">
         <h2 class="govuk-heading-m"><%= section[:heading] %></h2>
+        <% if section[:description].present? %>
+          <%= render "govuk_publishing_components/components/inset_text", {
+            text: section[:description]
+          } %>
+        <% end %>
         <hr class="govuk-section-break govuk-section-break--s govuk-section-break--visible">
       </div>
       <div class="govuk-grid-column-full">

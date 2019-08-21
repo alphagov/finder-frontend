@@ -28,6 +28,7 @@ class Checklists::Answers
     [
       {
         heading: "Some category",
+        description: "This is a description",
         actions: actions
       }
     ]
