@@ -1,0 +1,13 @@
+<%= render "govuk_publishing_components/components/heading", {
+  text: t('checklists_results.stay_updated.heading')
+} %>
+
+<p class="govuk-body govuk-!-margin-top-4">
+  <%= sanitize( t('checklists_results.stay_updated.description') ) %>
+</p>
+
+<%= render "govuk_publishing_components/components/button", {
+  text: t('checklists_results.stay_updated.sign_up'),
+  href: "/find-brexit-guidance/email-sign", # this needs to be changed to use rails route path
+  inline_layout: true
+} %>
