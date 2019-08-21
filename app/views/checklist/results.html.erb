@@ -16,7 +16,7 @@
   </div>
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-one-third">
-      <%= render 'results_answers', answers: @checklist.answers %>
+      <%= render 'results_answers', answers: format_criteria_list(@criteria) %>
     </div>
     <div class="govuk-grid-column-two-thirds">
       <%= render 'action_sections', sections: format_action_sections(@actions) %>

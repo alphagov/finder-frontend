@@ -14,7 +14,7 @@ class ChecklistController < ApplicationController
 
   def results
     @actions = Checklists::Action.load_all
-    @checklist = Checklists::Answers.new(criteria, actions)
+    @criteria = Checklists::Criterion.load_by(criteria_keys)
 
     render "checklist/results"
   end
@@ -52,7 +52,7 @@ private
   end
   helper_method :filtered_params
 
-  def criteria
+  def criteria_keys
     filtered_params.values.flatten
   end
 
