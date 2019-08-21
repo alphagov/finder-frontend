@@ -1,6 +1,6 @@
 <div class="checklist-results-answers">
   <% if answers.present? %>
-    <p class="govuk-body govuk-!-font-weight-bold">Based on your answers, we know:</p>
+    <p class="govuk-body govuk-!-font-weight-bold"><%= t('checklists_results.answers.list_context') %></p>
     <ul class="govuk-list govuk-!-margin-top-3 govuk-!-font-size-16 govuk-list--checked">
       <% answers.each do |answer| %>
         <li><%= answer[:readable_text] %></li>
@@ -10,7 +10,7 @@
 
   <p class="govuk-body govuk-!-font-weight-bold govuk-!-font-size-16">
     <a href="<%= find_brexit_guidance_path(filtered_params) %>" class="govuk-link">
-      Change your answers
+      <%= t('checklists_results.answers.change_answers') %>
     </a>
   </p>
 </div>
