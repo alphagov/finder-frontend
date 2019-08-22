@@ -31,6 +31,10 @@ class SortPresenter
     user_selected_option || raw_default_option
   end
 
+  def sort_options
+    content_item_sort_options
+  end
+
 private
 
   attr_reader :user_selected_order, :keywords, :content_item_sort_options
@@ -52,10 +56,6 @@ private
 
   def is_default?(option)
     option['default']
-  end
-
-  def sort_options
-    content_item_sort_options
   end
 
   def options_as_hashes

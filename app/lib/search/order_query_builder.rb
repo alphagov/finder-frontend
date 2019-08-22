@@ -68,22 +68,22 @@ module Search
       { 'order' => sort_option['key'] }
     end
 
-    def sort_options
-      content_item.sort_options
+    def order_presenter
+      @order_presenter ||= content_item.sorter_class.new(content_item, params)
     end
 
     def sort_option
-      return if sort_options.blank?
+      return if order_presenter.sort_options.blank?
 
-      sort_option = if params['order']
-                      sort_options.detect { |option| option['name'].parameterize == params['order'] }
-                    end
-
-      sort_option || sort_options.detect { |option| option['default'] } || { 'key' => default_order }
+      order_presenter.selected_option
     end
 
     def default_order
-      content_item.default_order
+      if order_presenter.default_option
+        order_presenter.default_option['key']
+      else
+        content_item.default_order
+      end
     end
   end
 end
