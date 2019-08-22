@@ -1,26 +1,29 @@
 FactoryBot.define do
   factory :content_item, class: ContentItem do
-    sequence :content_item, 1 do |n|
-      "content_item_#{n}"
+    sequence :content_id, 1 do |n|
+      "content_id_#{n}"
     end
     slug { "/finder_slug" }
-    name { "finder_name" }
+    title { "finder-title" }
     links { {} }
-    details {
+    details do
       {
+        'details_show_summaries': true,
         "sort": [
-         {
-           "name": "Topic",
-           "key": "topic",
-           "default": true
-         },
-         {
-           "name": "Most viewed",
-           "key": "-popularity"
-         }
+          {
+            "name": "Topic",
+            "key": "topic",
+            "default": true
+          },
+          {
+            "name": "Most viewed",
+            "key": "-popularity"
+          }
         ],
       }
-    }
-    initialize_with { new(attributes.deep_stringify_keys) }
+    end
+    initialize_with do
+      new(attributes.deep_stringify_keys)
+    end
   end
 end
