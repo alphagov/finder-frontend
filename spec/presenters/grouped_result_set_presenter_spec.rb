@@ -1,222 +1,119 @@
 require 'spec_helper'
 
 RSpec.describe GroupedResultSetPresenter do
-  subject(:presenter) { GroupedResultSetPresenter.new(finder, filter_params, sort_presenter, metadata_presenter_class) }
+  subject(:presenter) { GroupedResultSetPresenter.new(finder_presenter, filter_params, sort_presenter, metadata_presenter_class) }
+
   let(:metadata_presenter_class) do
     MetadataPresenter
   end
-  let(:linked_facet_data) do
-    [
-      { key: 'case-state', name: 'Case state', value: 'Open', labels: %W(open) },
-      { key: 'opened-date', name: 'Opened date', value: '2006-7-14', type: 'date' },
-      { key: 'case-type', name: 'Case type', value: 'CA98 and civil cartels', labels: %W(ca98-and-civil-cartels) },
-      { key: 'organisation_activity', name: 'Organisation activity', value: 'buying', labels: %W(buying) }
-    ]
-  end
-  let(:formatted_metadata) do
-    metadata_presenter_class.new(metadata).present
-  end
 
-  let(:filter_params) { { keywords: 'test' } }
+  let(:content_item) {
+    FactoryBot.build(:content_item, finder_name: finder_name)
+  }
 
   let(:finder_name) { 'A finder' }
 
-  let(:finder) do
-    double(
-      FinderPresenter,
-      slug: "/a-finder",
-      name: finder_name,
-      results: results,
-      document_noun: document_noun,
-      sort_options: sort_presenter_without_options,
-      total: 20,
-      facets: facet_filters,
-      filters: facet_filters,
-      keywords: keywords,
-      atom_url: "/a-finder.atom",
-      default_documents_per_page: 10,
-      values: {},
-      sort: {},
-      start_offset: 0,
-    )
+  let(:finder_presenter) do
+    FinderPresenter.new(content_item, facets, search_results)
   end
 
-  let(:sort_presenter) { sort_presenter_without_options }
+  let(:sort_presenter) { SortPresenter.new(content_item, filter_params.deep_stringify_keys) }
 
-  let(:a_facet) do
-    double(
-      OptionSelectFacet,
-      key: 'case-type',
-      allowed_values: [
-        {
-          'value' => 'ca98-and-civil-cartels',
-          'label' => 'CA98 and civil cartels'
-        },
-        {
-          'value' => 'mergers',
-          'label' => 'Mergers'
-        },
-      ],
-      hide_facet_tag?: false,
-    )
+  let(:facets) { [first_facet, second_facet, third_facet] }
+
+  let(:first_facet) do
+    FactoryBot.build(:option_select_facet,
+                     key: 'first_facet_key',
+                     short_name: 'Primary Facet Short Name',
+                     allowed_values: [
+                       {
+                         'value' => 'first_value_1',
+                         'label' => 'Primary Label 1',
+                         'content_id' => 'first_value_1_content_id'
+                       },
+                       {
+                         'value' => 'first_value_2',
+                         'label' => 'Primary Label 2',
+                         'content_id' => 'first_value_2_content_id'
+                       },
+                     ])
   end
 
-  let(:results) do
-    ResultSet.new(
-      (1..total).map { document },
-      total,
-    )
+  let(:second_facet) do
+    FactoryBot.build(:option_select_facet,
+                     key: 'second_facet_key',
+                     short_name: 'Secondary Facet Short Name',
+                     allowed_values: [
+                       {
+                         'value' => 'second_value_1',
+                         'label' => 'secondary Label 1',
+                         'content_id' => 'second_value_1_content_id'
+                       },
+                       {
+                         'value' => 'second_value_2',
+                         'label' => 'Secondary Label 2',
+                         'content_id' => 'second_value_2_content_id'
+                       }
+                     ])
   end
 
-  let(:sort_presenter_without_options) do
-    double(
-      SortPresenter,
-      has_options?: false,
-      selected_option: nil,
-      to_hash: {
-        options: [],
-        default_value: nil,
-        relevance_value: nil,
-      }
-    )
-  end
-
-  let(:sort_presenter_with_options) do
-    double(
-      SortPresenter,
-      has_options?: true,
-      selected_option: { "name" => 'Relevance', "key" => '-relevance' },
-      to_hash: {
-        options: [
-          {
-            data_track_category: 'dropDownClicked',
-            data_track_action: 'clicked',
-            data_track_label: "Relevance",
-            label: "Relevance",
-            value: "relevance",
-            disabled: false,
-            selected: true,
-          }
-        ],
-        default_value: nil,
-        relevance_value: nil,
-      },
-    )
-  end
-
-  let(:document) do
-    double(
-      Document,
-      title: 'Investigation into the distribution of road fuels in parts of Scotland',
-      path: 'slug-1',
-      linked_facet_data: linked_facet_data,
-      metadata: [],
-      index: 1,
-      summary: 'I am a document',
-      is_historic: false,
-      government_name: 'The Government!',
-      show_metadata: false,
-      format: 'transaction',
-      es_score: nil,
-      content_id: 'content_id',
-    )
-  end
-
-  let(:keywords) { '' }
-  let(:document_noun) { 'case' }
-  let(:total) { 20 }
-
-  let(:facet_filters) { [sector_facet, activity_facet, a_facet] }
-
-  let(:sector_facet) do
-    double(
-      OptionSelectFacet,
-      key: 'sector_business_area',
-      allowed_values: [
-        { 'value' => 'aerospace', 'label' => 'Aerospace' },
-        { 'value' => 'agriculture', 'label' => 'Agriculture' },
-      ],
-      hide_facet_tag?: false,
-    )
-  end
-
-  let(:activity_facet) do
-    double(
-      OptionSelectFacet,
-      key: 'organisation_activity',
-      allowed_values: [
-        { 'value' => 'products-or-goods', 'label' => 'Products or goods' },
-        { 'value' => 'buying', 'label' => 'Buying' },
-      ],
-      hide_facet_tag?: false,
-    )
-  end
-
-  before do
-    allow(finder).to receive(:eu_exit_finder?).and_return(false)
+  let(:third_facet) do
+    FactoryBot.build(:option_select_facet,
+                     key: 'third_facet_key',
+                     short_name: 'Tertiary Facet Short Name',
+                     allowed_values: [
+                       {
+                         'value' => 'third_value_1',
+                         'label' => 'tertiary Label 1',
+                         'content_id' => 'third_value_1_content_id'
+                       },
+                       {
+                         'value' => 'third_value_2',
+                         'label' => 'Tertiary Label 2',
+                         'content_id' => 'third_value_2_content_id'
+                       },
+                     ])
   end
 
   describe "#grouped_documents" do
-    let(:tagging_facet_data) {
-      [
-        {
-          key: 'sector_business_area',
-          name: 'Sector / Organisation area',
-          value: 'Aerospace',
-          labels: %W(aerospace)
-        },
-        {
-          key: 'business_activity',
-          name: 'Organisation activity',
-          value: 'Buying',
-          labels: %W(buying)
-        },
-      ]
-    }
-
-    let(:tagged_document) {
-      double(
-        Document,
-        title: 'Tagged to a primary facet',
-        path: 'slug-3',
-        linked_facet_data: tagging_facet_data,
-        metadata: [],
-        index: 1,
-        summary: 'I am a document',
-        is_historic: false,
-        government_name: 'The Government',
-        show_metadata: false,
-        format: 'transaction',
-        es_score: nil,
-        content_id: 'content_id',
-      )
-    }
     def build_document_list_component(document, all_documents_count)
       SearchResultPresenter.new(document: document,
                                 metadata_presenter_class: metadata_presenter_class,
                                 doc_count: all_documents_count,
-                                finder_name: finder_name,
+                                finder_name: finder_presenter.name,
                                 debug_score: false,
                                 highlight: false).document_list_component_data
     end
 
-    context "when not grouping results" do
+    context "Ordering is not set to topic, so there is no grouping" do
       let(:filter_params) { { order: 'a-z' } }
-      let(:results) { ResultSet.new([document], total) }
+      let(:search_results) { { "results" => [FactoryBot.build(:document_hash)], "total" => 1 } }
 
       it "returns an empty array" do
-        expect(subject.search_results_content[:grouped_document_list_component_data]).to eq([])
+        expect(subject.search_results_content[:grouped_document_list_component_data]).to be_empty
       end
     end
 
-    context "when no filters have been selected" do
+    context "The user has not selected any facets" do
       let(:filter_params) { { order: 'topic' } }
-      let(:results) { ResultSet.new([document], total) }
+      let(:search_results) {
+        {
+          "results" => [
+            FactoryBot.build(:document_hash,
+                             facet_values: %w[
+                               first_value_1_content_id
+                               second_value_1_content_id
+                               third_value_1_content_id
+                              ])
+          ], "total" => 1
+        }
+      }
 
       it "groups all documents in the default group" do
-        expect(subject.search_results_content[:grouped_document_list_component_data]).to eq([{
-          documents: subject.search_results_content[:document_list_component_data]
-        }])
+        expect(subject.search_results_content[:grouped_document_list_component_data]).
+          to eq([{
+                   documents: subject.search_results_content[:document_list_component_data]
+                 }])
       end
 
       it "does not populate the facet name for the group" do
@@ -224,234 +121,167 @@ RSpec.describe GroupedResultSetPresenter do
       end
     end
 
-    context "when only the primary facet has been selected" do
+    context "The user has not selected only the primary facet" do
       let(:filter_params) {
         {
           order: 'topic',
-          sector_business_area: %W(aerospace),
+          first_facet_key: %W(first_value_1),
         }
       }
-      let(:results) { ResultSet.new([document, tagged_document], total) }
+      let(:document_hash) {
+        FactoryBot.build(:document_hash,
+                         facet_values: %w[
+                           first_value_1_content_id
+                           second_value_1_content_id
+                           third_value_1_content_id
+                          ])
+      }
+
+      let(:search_results) {
+        {
+          "results" => [document_hash], "total" => 5
+        }
+      }
+
+      let(:document) {
+        Document.new(document_hash, finder_presenter, 1)
+      }
 
       it "groups the relevant documents by the primary facet" do
-        expect(subject.search_results_content[:grouped_document_list_component_data]).to eq([
-          {
-            group_name: 'Aerospace',
-            documents: [build_document_list_component(tagged_document, 2)]
-          }
-        ])
+        expect(subject.search_results_content[:grouped_document_list_component_data]).
+          to eq([
+                  {
+                    group_name: 'Primary Label 1',
+                    documents: [build_document_list_component(document, 1)]
+                  }
+                ])
       end
     end
 
     context "when primary and other facets have been selected" do
+      let(:tagged_to_first_facet_document_hash) {
+        FactoryBot.build(:document_hash,
+                         facet_values: %w[
+                           first_value_1_content_id
+                         ])
+      }
+      let(:tagged_to_second_and_third_facet_document_hash) {
+        FactoryBot.build(:document_hash,
+                         facet_values: %w[
+                           second_value_1_content_id
+                           third_value_1_content_id
+                          ])
+      }
+
+      let(:search_results) {
+        {
+          "results" => [tagged_to_first_facet_document_hash, tagged_to_second_and_third_facet_document_hash],
+          "total" => 5
+        }
+      }
+      let(:tagged_to_first_facet_document) {
+        Document.new(tagged_to_first_facet_document_hash, finder_presenter, 1)
+      }
+      let(:tagged_to_second_and_third_facet_document) {
+        Document.new(tagged_to_second_and_third_facet_document_hash, finder_presenter, 2)
+      }
+
       let(:filter_params) {
         {
           order: 'topic',
-          sector_business_area: %W(aerospace),
-          'case-type': %W(ca98-and-civil-cartels),
-          'organisation_activity': %W(buying)
+          first_facet_key: %W(first_value_1),
+          second_facet_key: %W(second_value_1),
+          third_facet_key: %W(third_value_1),
         }
       }
-
-      let(:results) { ResultSet.new([document, tagged_document], 2) }
-      let(:facet_filters) { [sector_facet, a_facet, activity_facet] }
 
       it "orders the groups by facets in the other facets" do
-        expect(subject.search_results_content[:grouped_document_list_component_data]).to eq([
-          {
-            group_name: 'Aerospace',
-            documents: [build_document_list_component(tagged_document, 2)]
-          },
-          {
-            group_name: 'Case type',
-            documents: [build_document_list_component(document, 2)]
-          },
-          {
-            group_name: 'Organisation activity',
-            documents: [build_document_list_component(document, 2)]
-          },
-        ])
+        expect(subject.search_results_content[:grouped_document_list_component_data]).
+          to eq([
+                  {
+                    group_name: 'Primary Label 1',
+                    documents: [build_document_list_component(tagged_to_first_facet_document, 2)]
+                  },
+                  {
+                    group_name: 'Secondary Facet Short Name',
+                    documents: [build_document_list_component(tagged_to_second_and_third_facet_document, 2)]
+                  },
+                  {
+                    group_name: 'Tertiary Facet Short Name',
+                    documents: [build_document_list_component(tagged_to_second_and_third_facet_document, 2)]
+                  }
+
+                ])
       end
     end
 
-    context "when other facets have been selected" do
+    context "when a document is tagged to all primary facet values" do
+      let(:document_hash) {
+        FactoryBot.build(:document_hash,
+                         facet_values: %w[
+                           first_value_1_content_id first_value_2_content_id
+                         ])
+      }
       let(:filter_params) {
         {
           order: 'topic',
-          'organisation_activity': %W(buying),
-          'personal-data': %W(digital-services)
+          first_facet_key: %W(first_value_1),
         }
       }
-
-      let(:results) { ResultSet.new([document, tagged_document], total) }
-
-      it "groups the relevant documents in the other facets" do
-        expect(subject.search_results_content[:grouped_document_list_component_data]).to eq([
-          {
-            group_name: 'Organisation activity',
-            documents: [build_document_list_component(document, 2)]
-          }
-        ])
-      end
-    end
-
-    context "when a document is tagged to all primary facets" do
-      let(:tagging_facet_data) {
-        [{
-          key: 'sector_business_area',
-          name: 'Business area',
-          value: 'Aerospace',
-          labels: %W(aerospace agriculture)
-        }]
-      }
-
-      let(:filter_params) {
+      let(:search_results) {
         {
-          order: 'topic',
-          sector_business_area: %W(aerospace),
-          'case-type': %W(ca98-and-civil-cartels)
+          "results" => [document_hash],
+          "total" => 5
         }
       }
+      let(:document) {
+        Document.new(document_hash, finder_presenter, 1)
+      }
 
-      let(:results) { ResultSet.new([tagged_document], total) }
       it "is grouped in the default set" do
-        expect(subject.search_results_content[:grouped_document_list_component_data]).to eq([
-          {
-            group_name: 'All businesses',
-            documents: [build_document_list_component(tagged_document, 1)]
-          }
-        ])
-      end
-    end
-
-    context "when primary facets have been selected" do
-      let(:filter_params) {
-        {
-          order: 'topic',
-          sector_business_area: %W(aerospace),
-          'case-type': %W(ca98-and-civil-cartels)
-        }
-      }
-      let(:results) { ResultSet.new([document, tagged_document], total) }
-
-      it "groups the relevant documents in the primary facets" do
-        expect(subject.search_results_content[:grouped_document_list_component_data]).to eq([
-          {
-            group_name: 'Aerospace',
-            documents: [build_document_list_component(tagged_document, 2)]
-          },
-          {
-            group_name: 'Case type',
-            documents: [build_document_list_component(document, 2)]
-          },
-        ])
-      end
-    end
-
-    context "when other facets have been selected" do
-      let(:filter_params) {
-        {
-          order: 'topic',
-          'case-type': %W(ca98-and-civil-cartels)
-        }
-      }
-
-      let(:results) { ResultSet.new([document, tagged_document], total) }
-
-      it "groups the relevant documents in the other facets" do
-        expect(subject.search_results_content[:grouped_document_list_component_data]).to eq([
-          {
-            group_name: 'Case type',
-            documents: [build_document_list_component(document, 2)]
-          }
-        ])
+        expect(subject.search_results_content[:grouped_document_list_component_data]).
+          to eq([
+                  {
+                    group_name: 'All businesses',
+                    documents: [build_document_list_component(document, 1)]
+                  }
+                ])
       end
     end
   end
 
   describe "#grouped_display?" do
-    context "a finder does not sort by topic" do
-      let(:filter_params) { {} }
-      let(:sort_presenter) { sort_presenter_without_options }
-      before { allow(finder).to receive(:default_sort_option) }
-      it "is false" do
-        # allow(finder).to receive(:sort_options).and_return(sort_presenter_without_options)
-
-        expect(subject.grouped_display?).to be false
-      end
-    end
+    let(:document_hash) {
+      FactoryBot.build(:document_hash)
+    }
+    let(:search_results) {
+      {
+        "results" => [document_hash],
+        "total" => 5
+      }
+    }
+    subject(:grouped_display) {
+      GroupedResultSetPresenter.new(finder_presenter, filter_params, sort_presenter, metadata_presenter_class).
+        search_results_content[:display_grouped_results]
+    }
 
     context "a finder sorts by topic" do
-      let(:topic_sort_option) { { 'key' => 'topic', 'name' => 'Topic' } }
-      let(:sort_presenter) { sort_presenter_with_options }
-
-      before do
-        # allow(finder).to receive(:sort_options).and_return(sort_presenter_with_options)
-        allow(sort_presenter).to receive(:selected_option).and_return(topic_sort_option)
-      end
       context "with no sort param" do
         let(:filter_params) { {} }
         it "is true" do
-          expect(subject.grouped_display?).to be true
+          expect(grouped_display).to be true
         end
       end
       context "with a 'topic' sort param" do
-        let(:filter_params) { { order: 'topic' } }
+        let(:filter_params) { { 'order' => 'topic' } }
         it "is true" do
-          expect(subject.grouped_display?).to be true
+          expect(grouped_display).to be true
         end
       end
-      context "with a-z sort param" do
-        let(:filter_params) { { order: 'a-z' } }
+      context "with non-topic sort param" do
+        let(:filter_params) { { order: 'most-viewed' } }
         it "is false" do
-          expect(subject.grouped_display?).to be false
-        end
-      end
-    end
-  end
-
-  context "when not grouping results" do
-    let(:filter_params) { { order: 'a-z' } }
-    let(:results) { ResultSet.new([document], total) }
-
-    it "returns an empty array" do
-      expect(subject.search_results_content[:grouped_document_list_component_data]).to eq([])
-    end
-  end
-
-  describe "#grouped_display?" do
-    context "a finder does not sort by topic" do
-      let(:filter_params) { {} }
-      before { allow(finder).to receive(:default_option) }
-      it "is false" do
-        allow(finder).to receive(:sort).and_return([])
-
-        expect(subject.grouped_display?).to be false
-      end
-    end
-
-    context "a finder sorts by topic" do
-      let(:topic_sort_option) { { 'key' => 'topic', 'name' => 'Topic' } }
-      before do
-        allow(sort_presenter).to receive(:selected_option).and_return(topic_sort_option)
-      end
-      context "with no sort param" do
-        let(:filter_params) { {} }
-        let(:sort_presenter) { sort_presenter_with_options }
-        it "is true" do
-          expect(subject.grouped_display?).to be true
-        end
-      end
-      context "with a 'topic' sort param" do
-        let(:filter_params) { { order: 'topic' } }
-        it "is true" do
-          expect(subject.grouped_display?).to be true
-        end
-      end
-      context "with a-z sort param" do
-        let(:filter_params) { { order: 'a-z' } }
-        it "is false" do
-          expect(subject.grouped_display?).to be false
+          expect(grouped_display).to be false
         end
       end
     end

@@ -41,27 +41,6 @@ class FinderPresenter
     content_item.base_path
   end
 
-  def facet_for_content_id(content_id)
-    @facet_lookup ||= begin
-      facets.each_with_object({}) do |facet, result|
-        facet.allowed_values.each do |allowed_value|
-          result[allowed_value['content_id']] = facet
-        end
-      end
-    end
-    @facet_lookup[content_id]
-  end
-
-  def value_for_content_id(content_id)
-    @facet_value_lookup ||= begin
-      facet_values = facets.flat_map(&:allowed_values)
-      facet_values.to_h do |val|
-        [val['content_id'], val['value']]
-      end
-    end
-    @facet_value_lookup[content_id]
-  end
-
   def filters
     facets.select(&:filterable?)
   end
