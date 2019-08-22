@@ -3,46 +3,35 @@ questions:
   - key: do_you_own_a_business
     question_type: "single"
     question: "Do you own a business?"
-    readable_pretext: "You"
     options:
       - label: "Yes"
-        value: "yes"
-        readable_text: "own a business"
+        value: owns-business
       - label: "No"
-        value: "no"
-        readable_text: "do not own a business"
+        value: does-not-own-business
+
   - key: business_activity
-    conditionally_show_based_on:
-      key: "do_you_own_a_business"
-      value: "yes"
+    depends_on:
+      - owns-business
     question_type: "multiple"
     question: "Does your business do any of the following activities?"
     description: "Importing and exporting includes temporarily taking goods across the EU border, for example to a trade fair."
-    readable_pretext: "Your business"
     options:
       - label: "Sell goods or provide services in the UK"
-        value: "products-or-goods"
-        readable_text: "sells goods or provides services in the UK"
+        value: sells-services-or-goods
       - label: "Import from the EU"
-        value: "buying"
-        readable_text: "imports from the EU"
+        value: import-from-eu
       - label: "Export to the EU"
-        value: "selling"
-        readable_text: "exports to the EU"
+        value: export-to-eu
       - label: "Provide services or do business in the EU"
-        value: "other-eu"
-        readable_text: "provides services or does business in the EU"
+        value: other-eu
       - label: "Transporting goods across EU borders"
-        value: "transporting"
-        readable_text: "transports goods across EU borders"
+        value: transport-eu
+
   - key: eu_national_in_uk
     question_type: "single"
     question: "Are you an EU national living in the UK?"
-    readable_pretext: "Your are"
     options:
       - label: "Yes"
-        value: "yes"
-        readable_text: "an EU national living in the UK"
+        value: eu-national
       - label: "No"
-        value: "no"
-        readable_text: "not an EU national living in the UK"
+        value: non-eu-national

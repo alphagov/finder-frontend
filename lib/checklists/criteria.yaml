@@ -1,0 +1,30 @@
+---
+criteria:
+  - key: owns-business 
+    text: "You own a business"
+  - key: does-not-own-business 
+    text: "You do not own a business"
+  - key: sells-services-or-goods
+    text: "Your business sells goods or provides services in the UK"
+    depends_on:
+      - owns-business
+  - key: import-from-eu 
+    text: "Your business imports goods from the EU"
+    depends_on:
+      - owns-business
+  - key: export-to-eu 
+    text: "Your business exports goods the EU"
+    depends_on:
+      - owns-business
+  - key: other-eu 
+    text: "Your business provides services in the EU"
+    depends_on:
+      - owns-business
+  - key: transport-eu
+    text: "Your business transports goods across EU borders"
+    depends_on:
+      - owns-business
+  - key: eu-national
+    text: "You are an EU national living in the UK"
+  - key: non-eu-national
+    text: "You are not an EU national living in the UK"

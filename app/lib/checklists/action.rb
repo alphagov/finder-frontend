@@ -8,7 +8,7 @@ class Checklists::Action
     @due_date = params['due_date']
   end
 
-  def self.all
+  def self.load_all
     actions = YAML.load_file("lib/checklists/actions.yaml")
     actions['actions'].map { |a| new(a) }
   end

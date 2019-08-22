@@ -1,43 +1,42 @@
 class ChecklistController < ApplicationController
+  include ChecklistHelper
   layout "finder_layout"
 
   def show
-    return redirect_to_result_page if redirect_to_results?
+    @questions = Checklists::Question.load_all
 
-    @checklist_questions = ChecklistQuestionsPresenter.new(page, filtered_params, questions)
+    return redirect_to_result_page if redirect_to_results?
     return redirect_to_next_question if redirect_to_next_question?
 
+    @current_question = @questions[page - 1]
     render "checklist/show"
   end
 
   def results
-    actions = Checklists::Action.all
-    @checklist = Checklists::Answers.new(request.query_parameters.except(:page), actions)
+    @actions = Checklists::Action.load_all
+    @criteria = Checklists::Criterion.load_by(criteria_keys)
+
     render "checklist/results"
   end
 
 private
-
-  def qa_config
-    @qa_config ||= YAML.load_file("lib/checklists/questions.yaml")
-  end
 
   ###
   # Redirect
   ###
 
   def redirect_to_next_question?
-    @checklist_questions.get_next_page != page
+    next_viewable_page(page, @questions, criteria_keys) != page
   end
 
   def redirect_to_next_question
-    redirect_to find_brexit_guidance_path(filtered_params.merge(
-                                            page: @checklist_questions.get_next_page
-                                          ))
+    redirect_to find_brexit_guidance_path(
+      filtered_params.merge(page: next_viewable_page(page, @questions, criteria_keys))
+    )
   end
 
   def redirect_to_results?
-    page == questions.length + 1
+    page == @questions.length + 1
   end
 
   def redirect_to_result_page
@@ -53,6 +52,10 @@ private
   end
   helper_method :filtered_params
 
+  def criteria_keys
+    filtered_params.values.flatten
+  end
+
   ###
   # Breadcrumbs
   ###
@@ -63,25 +66,13 @@ private
   helper_method :breadcrumbs
 
   ###
-  # Questions
-  ###
-
-  def questions
-    @questions ||= begin
-      qa_config["questions"].map do |question|
-        Checklists::Question.new(question)
-      end
-    end
-  end
-
-  ###
   # Current page
   ###
 
   def page
     @page ||= begin
       params.permit(:page)
-      params[:page].to_i.clamp(1, questions.length + 1)
+      params[:page].to_i.clamp(1, @questions.length + 1)
     end
   end
 
