@@ -27,6 +27,6 @@ FactoryBot.define do
     format { "answer" }
     facet_values { [] }
 
-    initialize_with { attributes }
+    initialize_with { attributes.deep_stringify_keys }
   end
 end

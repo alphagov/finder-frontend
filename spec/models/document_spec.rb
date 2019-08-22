@@ -1,174 +1,167 @@
 require "spec_helper"
 
 describe Document do
+  let(:content_item) {
+    FactoryBot.build(:content_item,
+                     details: {
+                       "show_summaries": show_summaries,
+                       "sort": [
+                         {
+                           "name": "Topic",
+                           "key": "topic",
+                           "default": true
+                         },
+                         {
+                           "name": "Most viewed",
+                           "key": "-popularity"
+                         }
+                       ],
+                     })
+  }
+
+  let(:show_summaries) { true }
+  let(:facets) { [] }
+  let(:finder) do
+    FinderPresenter.new(content_item, facets, ResultSet.new([], 0))
+  end
+
   describe "initialization" do
     it 'defaults to nil without a public timestamp' do
-      rummager_document = {
-        title: 'A title',
-        link: 'link.com',
-        es_score: 0.005
-      }
-      finder = double(
-        'finder', date_metadata_keys: [], text_metadata_keys: [], links: {}
-      )
-      document = described_class.new(rummager_document, finder, 0)
+      document_hash = FactoryBot.build(:document_hash).except('public_timestamp')
+      document = described_class.new(document_hash, finder, 0)
 
       expect(document.public_timestamp).to be_nil
     end
 
-    it 'does not break external links' do
-      rummager_document = {
-        title: 'A title',
-        link: 'https://link.com/mature-cheeses'
-      }
-      finder = double(
-        'finder', date_metadata_keys: [], text_metadata_keys: [], links: {}
-      )
-      document = described_class.new(rummager_document, finder, 0)
+    it 'returns a link as a path' do
+      document_hash = FactoryBot.build(:document_hash, link: 'https://link.com/mature-cheeses')
+      document = described_class.new(document_hash, finder, 0)
 
       expect(document.path).to eq("https://link.com/mature-cheeses")
     end
   end
 
-  describe "show_metadata" do
-    let(:organisations) {
-      [
-          {
-              'title' => 'org',
-              'name' => 'org'
-          }
-      ]
-    }
-    subject(:non_mainstream_document) { described_class.new({ title: "Y", link: "/y", content_store_document_type: 'employment_tribunal_decision', organisations: organisations }, finder, 0) }
-    subject(:mainstream_document) { described_class.new({ title: "Y", link: "/y", content_store_document_type: 'simple_smart_answer', organisations: organisations }, finder, 0) }
-
-    let(:finder) do
-      double(:finder,
-             date_metadata_keys: %w[foo],
-             text_metadata_keys: %w[organisations],
-             "display_metadata?": true,
-             display_key_for_metadata_key: 'title')
-    end
-
-    context "There is an organisations metadata key" do
-      before :each do
-        allow(finder).to receive(:label_for_metadata_key).with('organisations').and_return('org_label')
-      end
-      it "Remove organisations metadata for mainstream content only" do
-        expect(mainstream_document.metadata).to be_empty
-        expect(non_mainstream_document.metadata).to match_array(include(name: 'org_label'))
-      end
-    end
-  end
-
   describe "#metadata" do
-    subject { described_class.new(result_hash, finder, 0) }
-
-    let(:finder) do
-      double(:finder,
-             date_metadata_keys: [],
-             label_for_metadata_key: 'Tag values',
-             text_metadata_keys: [:tag_values],
-             "display_metadata?": true)
-    end
-
-    context 'metadata in the result hash' do
-      let(:result_hash) do
-        {
-          title: 'the title',
-          link: '/the/link',
-          tag_values: %w[some-value another-value]
-        }
-      end
-
-      it 'returns the metadata from the result hash' do
-        expect(subject.metadata).to include(
-          id: :tag_values,
-          labels: %w[some-value another-value],
-          name: "Tag values",
-          type: "text",
-          value: "some-value and 1 others"
-        )
+    context 'There is one facet with type "date"' do
+      let(:facets) {
+        [FactoryBot.build(:date_facet, key: "a_filter_key")]
+      }
+      let(:document_hash) {
+        FactoryBot.build(:document_hash, a_filter_key: "2019")
+      }
+      it 'gets the metadata' do
+        expected_hash =
+          {
+            name: "A filter key",
+            type: "date",
+            value: "2019"
+          }
+        expect(Document.new(document_hash, finder, 1).metadata).to eq([expected_hash])
       end
     end
-
-    context 'metadata as linked content' do
-      let(:result_hash) do
-        {
-          title: 'the title',
-          link: '/the/link',
-          facet_values: %w[
-            afda44ba-bcb9-42de-87de-6207a8912cbc
-            daff3e98-ac54-44c1-aadb-9efe276dd74b
-            3dfb99d0-3753-483a-842c-2b724474f349
-          ]
-
+    context 'There is one facet with type text' do
+      let(:facets) {
+        [FactoryBot.build(:option_select_facet, key: 'a_filter_key')]
+      }
+      describe 'The document is tagged to a single value of the facet filter key' do
+        let(:document_hash) {
+          FactoryBot.build(:document_hash, a_filter_key: "metadata_label")
         }
+        it 'gets metadata for a simple text value' do
+          expected_hash =
+            {
+              id: 'a_filter_key',
+              name: 'A filter key',
+              value:  "metadata_label",
+              labels: %w[metadata_label],
+              type: "text",
+            }
+          expect(Document.new(document_hash, finder, 1).metadata).to eq([expected_hash])
+        end
+        describe 'There is a short name in the facet' do
+          let(:facets) {
+            [FactoryBot.build(:option_select_facet, short_name: 'short name')]
+          }
+          it 'replaces the name field in the metafata by the short name from the facet' do
+            expect(Document.new(document_hash, finder, 1).metadata).to match([include(name: 'short name')])
+          end
+        end
       end
-
-      before do
-        facet1 = Facet.new('key' => :link_values, 'name' => 'Link values')
-        facet2 = Facet.new('key' => :other_link_values, 'name' => 'Other link values')
-        allow(finder).to receive(:facet_for_content_id).
-          with('afda44ba-bcb9-42de-87de-6207a8912cbc').
-          and_return facet1
-        allow(finder).to receive(:facet_for_content_id).
-          with('daff3e98-ac54-44c1-aadb-9efe276dd74b').
-          and_return facet1
-        allow(finder).to receive(:facet_for_content_id).
-          with('3dfb99d0-3753-483a-842c-2b724474f349').
-          and_return facet2
-
-        allow(finder).to receive(:value_for_content_id).
-          with('afda44ba-bcb9-42de-87de-6207a8912cbc').
-          and_return('link-val-1')
-        allow(finder).to receive(:value_for_content_id).
-          with('daff3e98-ac54-44c1-aadb-9efe276dd74b').
-          and_return('link-val-2')
-        allow(finder).to receive(:value_for_content_id).
-          with('3dfb99d0-3753-483a-842c-2b724474f349').
-          and_return('other-value-1')
+      describe 'The document is tagged to a multiple values of the facet filter key' do
+        let(:document_hash) {
+          FactoryBot.build(:document_hash,
+                           a_filter_key:
+                             [
+                               { "label" => "metadata_label_1" },
+                               { "label" => "metadata_label_2" },
+                               { "label" => "metadata_label_3" }
+                             ])
+        }
+        it 'gets the metadata' do
+          expected_hash =
+            {
+              id: 'a_filter_key',
+              name: 'A filter key',
+              value:  "metadata_label_1 and 2 others",
+              labels: %w[metadata_label_1 metadata_label_2 metadata_label_3],
+              type: "text",
+            }
+          expect(Document.new(document_hash, finder, 1).metadata).to eq([expected_hash])
+        end
+      end
+    end
+    describe 'The facet key is an organisation or a document collection' do
+      let(:facets) {
+        [FactoryBot.build(:option_select_facet, key: 'organisations'),
+         FactoryBot.build(:option_select_facet, key: 'document_collections')]
+      }
+      let(:document_hash) {
+        FactoryBot.build(:document_hash,
+                         organisations: [{ "title" => "org_title" }],
+                         document_collections: [{ "title" => "dc_title" }])
+      }
+      it 'uses title instead of label' do
+        expect(Document.new(document_hash, finder, 1).metadata).
+          to match_array([include(value: 'org_title'), include(value: 'dc_title')])
+      end
+    end
+    describe 'the facet key is an organisation and the document is a mainstream document' do
+      let(:facets) {
+        [FactoryBot.build(:option_select_facet, key: 'organisations')]
+      }
+      let(:document_hash) {
+        FactoryBot.build(:document_hash,
+                         organisations: [{ "title" => "org_title" }],
+                         content_store_document_type: 'answer')
+      }
+      it 'does not display metadata because we are not interested in who publishes a mainstream document' do
+        expect(Document.new(document_hash, finder, 1).metadata).to be_empty
       end
     end
   end
 
   describe "es_score" do
-    let(:finder) do
-      double(:finder,
-             date_metadata_keys: [:foo],
-             text_metadata_keys: [:bar],
-             "display_metadata?": true)
-    end
-    subject(:instance) { described_class.new({ title: "Y", link: "/y", es_score: 0.005 }, finder, 0) }
+    let(:document_hash) { FactoryBot.build(:document_hash, es_score: 0.005) }
 
     it "es_score is 0.005" do
-      expect(instance.es_score).to eq 0.005
+      expect(Document.new(document_hash, finder, nil).es_score).to eq 0.005
     end
   end
 
   describe '#truncated_description' do
-    context 'shows truncated description when description is present' do
-      let(:finder) do
-        double(:finder,
-               date_metadata_keys: [],
-               text_metadata_keys: [],
-               links: {
-                 "ordered_related_items" => [{ "base_path" => "/foo" }]
-               })
-      end
-
+    describe 'shows the truncated (first sentence) description when a description is present' do
       description = "The government has many departments. These departments are part of the government."
       truncated_description = "The government has many departments."
 
-      subject(:instance_with_description) { described_class.new({ title: "Y", link: "/y", description: description }, finder, 0) }
-      subject(:instance_without_description) { described_class.new({ title: "Y", link: "/y" }, finder, 0) }
+      let(:with_description_hash) { FactoryBot.build(:document_hash, description: description) }
+      let(:without_description) { FactoryBot.build(:document_hash, description: nil) }
 
       it 'should have truncated description' do
-        expect(instance_with_description.truncated_description).to eq(truncated_description)
+        expect(Document.new(with_description_hash, finder, 1).truncated_description).to eq(truncated_description)
       end
 
       it 'should not have truncated description' do
-        expect(instance_without_description.truncated_description).to eq(nil)
+        expect(Document.new(without_description, finder, 1).truncated_description).to eq(nil)
       end
     end
   end

@@ -2,7 +2,6 @@ class SearchResultPresenter
   include ActionView::Helpers::SanitizeHelper
 
   delegate :title,
-           :summary,
            :is_historic,
            :government_name,
            :format,
@@ -52,7 +51,7 @@ private
   end
 
   def summary_text
-    @highlight ? document.truncated_description : summary
+    document.truncated_description if @highlight || @finder_presenter.show_summaries?
   end
 
   def highlight_text
@@ -74,10 +73,8 @@ private
     return {} unless @finder_presenter.display_metadata?
 
     metadata.each_with_object({}) do |meta, component_metadata|
-      label = meta[:hide_label] ? "<span class='govuk-visually-hidden'>#{meta[:label]}:</span>" : "#{meta[:label]}:"
       value = meta[:is_date] ? "<time datetime='#{meta[:machine_date]}'>#{meta[:human_date]}</time>" : meta[:value]
-
-      component_metadata[meta[:label]] = sanitize("#{label} #{value}", tags: %w(time span))
+      component_metadata[meta[:label]] = sanitize("#{meta[:label]}: #{value}", tags: %w(time span))
     end
   end
 

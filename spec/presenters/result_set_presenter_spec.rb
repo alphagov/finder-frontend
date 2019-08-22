@@ -20,6 +20,7 @@ RSpec.describe ResultSetPresenter do
       total: '20 cases',
       facets: [a_facet, another_facet, a_date_facet],
       keywords: keywords,
+      show_summaries?: true,
       default_documents_per_page: 10,
       values: {},
       start_offset: 1,
@@ -69,7 +70,7 @@ RSpec.describe ResultSetPresenter do
         { id: 'opened-date', name: 'Opened date', value: '2006-7-14', type: 'date' },
         { id: 'case-type', name: 'Case type', value: 'CA98 and civil cartels', type: 'text', labels: %W(ca98-and-civil-cartels) },
       ],
-      summary: 'I am a document',
+      truncated_description: 'I am a document',
       is_historic: true,
       government_name: 'The Government!',
       format: 'transaction',
@@ -250,7 +251,7 @@ RSpec.describe ResultSetPresenter do
           title: 'Investigation into the distribution of road fuels in parts of Scotland',
           path: 'slug-2',
           metadata: [],
-          summary: 'Lower score',
+          truncated_description: 'Lower score',
           is_historic: false,
           government_name: 'The Government!',
           format: 'transaction',
@@ -340,31 +341,6 @@ RSpec.describe ResultSetPresenter do
       it 'returns just the atom link' do
         expect(presenter.signup_links).to eq(feed_link: "/finder.atom", hide_heading: true,
                                              small_form: true)
-      end
-    end
-  end
-
-
-  describe '#has_email_signup_link?' do
-    context 'has one signup link' do
-      before(:each) do
-        allow(finder).to receive(:atom_url).and_return("")
-        allow(finder).to receive(:email_alert_signup_url).and_return("/email_signup")
-      end
-
-      it 'returns true' do
-        expect(presenter.has_email_signup_link?).to eq(true)
-      end
-    end
-
-    context 'has no links' do
-      before(:each) do
-        allow(finder).to receive(:atom_url).and_return("")
-        allow(finder).to receive(:email_alert_signup_url).and_return("")
-      end
-
-      it 'returns false' do
-        expect(presenter.has_email_signup_link?).to eq(false)
       end
     end
   end

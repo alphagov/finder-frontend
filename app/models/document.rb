@@ -4,24 +4,24 @@ class Document
               :release_timestamp, :es_score, :format, :content_id, :index,
               :facet_content_ids, :description
 
-  def initialize(rummager_document, finder, index)
-    rummager_document = rummager_document.with_indifferent_access
-    @title = rummager_document.fetch(:title)
-    @link = rummager_document.fetch(:link)
-    @content_id = rummager_document.fetch(:content_id, nil)
-    @description = rummager_document.fetch(:description, nil)
-    @public_timestamp = rummager_document.fetch(:public_timestamp, nil)
-    @release_timestamp = rummager_document.fetch(:release_timestamp, nil)
-    @document_type = rummager_document.fetch(:content_store_document_type, nil)
-    @organisations = rummager_document.fetch(:organisations, [])
-    @content_purpose_supergroup = rummager_document.fetch(:content_purpose_supergroup, nil)
-    @is_historic = rummager_document.fetch(:is_historic, false)
-    @government_name = rummager_document.fetch(:government_name, nil)
-    @es_score = rummager_document.fetch(:es_score, nil)
-    @format = rummager_document.fetch(:format, nil)
+  def initialize(document_hash, finder, index)
+    document_hash = document_hash.with_indifferent_access
+    @title = document_hash.fetch(:title)
+    @link = document_hash.fetch(:link)
+    @content_id = document_hash.fetch(:content_id, nil)
+    @description = document_hash.fetch(:description, nil)
+    @public_timestamp = document_hash.fetch(:public_timestamp, nil)
+    @release_timestamp = document_hash.fetch(:release_timestamp, nil)
+    @document_type = document_hash.fetch(:content_store_document_type, nil)
+    @organisations = document_hash.fetch(:organisations, [])
+    @content_purpose_supergroup = document_hash.fetch(:content_purpose_supergroup, nil)
+    @is_historic = document_hash.fetch(:is_historic, false)
+    @government_name = document_hash.fetch(:government_name, nil)
+    @es_score = document_hash.fetch(:es_score, nil)
+    @format = document_hash.fetch(:format, nil)
     @finder = finder
-    @facet_content_ids = rummager_document.fetch(:facet_values, [])
-    @rummager_document = rummager_document.slice(*metadata_keys)
+    @facet_content_ids = document_hash.fetch(:facet_values, [])
+    @document_hash = document_hash
     @index = index
   end
 
@@ -33,10 +33,6 @@ class Document
     link
   end
 
-  def summary
-    truncated_description if description.present? && finder.show_summaries?
-  end
-
   def truncated_description
     # This truncates the description at the end of the first sentence
     description.gsub(/\.\s[A-Z].*/, '.') if description.present?
@@ -44,7 +40,7 @@ class Document
 
 private
 
-  attr_reader :link, :rummager_document, :finder
+  attr_reader :link, :document_hash, :finder
 
   def is_mainstream_content?
     %w(completed_transaction
@@ -90,7 +86,7 @@ private
   def build_date_metadata(key)
     {
       name: key,
-      value: rummager_document[key],
+      value: document_hash[key],
       type: "date",
     }
   end
@@ -102,7 +98,7 @@ private
   end
 
   def tag_labels_for(key)
-    Array(rummager_document.fetch(key, []))
+    Array(document_hash.fetch(key, []))
       .map { |label| get_metadata_label(key, label) }
       .select(&:present?)
   end

@@ -53,11 +53,9 @@
                 <%= result_set_presenter.displayed_total %>
               </h2>
             </div>
-            <% if result_set_presenter.has_email_signup_link? %>
-              <div class="govuk-grid-column-two-thirds">
-                <%= render "govuk_publishing_components/components/subscription-links", result_set_presenter.signup_links %>
-              </div>
-            <% end %>
+            <div class="govuk-grid-column-two-thirds">
+              <%= render "govuk_publishing_components/components/subscription-links", result_set_presenter.signup_links %>
+            </div>
           </div>
           <div id="js-facet-tag-wrapper" aria-live="assertive">
             <%= render "facet_tags", facet_tags.present %>
