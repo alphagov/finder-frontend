@@ -4,6 +4,10 @@ class StatisticsSortPresenter < SortPresenter
     super(content_item, filter_params)
   end
 
+  def sort_options
+    content_item_sort_options.reject { |o| excluded? o }.map { |o| rename o }
+  end
+
 private
 
   attr_reader :doc_type, :user_selected_order, :keywords, :content_item_sort_options
@@ -31,10 +35,6 @@ private
 
   def is_default?(option)
     option['key'] == default_key
-  end
-
-  def sort_options
-    content_item_sort_options.reject { |o| excluded? o }.map { |o| rename o }
   end
 
   def raw_default_option
