@@ -6,6 +6,7 @@ actions:
     due_date: 2019-10-31
     applicable_criteria:
       - owns-business
+    section: business
   - title: 'Get a new passport'
     description: |
       If you do not get one, you will not be able to travel.
@@ -13,4 +14,5 @@ actions:
     due_date: 2019-10-31
     applicable_criteria:
       - non-eu-national
+    section: citizen
 

@@ -11,16 +11,14 @@ module ChecklistHelper
   end
 
   def format_action_sections(actions)
-    [
+    action_groups = actions.group_by(&:section)
+
+    action_groups.map do |key, action_group|
       {
-        heading: 'Some category',
-        actions: actions
-      },
-      {
-        heading: 'Some other category',
-        actions: actions
+        heading: I18n.t("checklists_results.sections.#{key}.heading"),
+        actions: action_group
       }
-    ]
+    end
   end
 
   def filter_actions(actions, criteria_keys)
