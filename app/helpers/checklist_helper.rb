@@ -15,6 +15,10 @@ module ChecklistHelper
       {
         heading: 'Some category',
         actions: actions
+      },
+      {
+        heading: 'Some other category',
+        actions: actions
       }
     ]
   end
