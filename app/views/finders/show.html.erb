@@ -4,7 +4,7 @@
   <% content_for :title, finder_presenter.name %>
 <% end %>
 <% content_for :head do %>
-  <%= auto_discovery_link_tag(:atom, result_set_presenter.signup_links[:feed_link]) %>
+  <%= auto_discovery_link_tag(:atom, signup_links[:feed_link]) %>
   <%= render 'finder_meta', finder_presenter: finder_presenter %>
 
   <% if result_set_presenter.highlight_top_result? %>
@@ -54,7 +54,7 @@
               </h2>
             </div>
             <div class="govuk-grid-column-two-thirds">
-              <%= render "govuk_publishing_components/components/subscription-links", result_set_presenter.signup_links %>
+              <%= render "govuk_publishing_components/components/subscription-links", signup_links %>
             </div>
           </div>
           <div id="js-facet-tag-wrapper" aria-live="assertive">

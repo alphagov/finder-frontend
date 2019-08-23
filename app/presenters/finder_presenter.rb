@@ -81,17 +81,6 @@ class FinderPresenter
     search_results.fetch('start', 0) + 1
   end
 
-  def atom_url
-    "#{slug}.atom#{alert_query_string}"
-  end
-
-  def email_alert_signup_url
-    signup_link = content_item.signup_link
-    return signup_link if signup_link.present?
-
-    "#{email_alert_signup['web_url']}#{alert_query_string}" if email_alert_signup
-  end
-
   def topic_finder?
     values.include?('topic') && topic_finder_parent.present?
   end
@@ -106,12 +95,5 @@ private
 
   def is_external?(href)
     URI.parse(href).host != "www.gov.uk"
-  end
-
-  def alert_query_string
-    facets_with_filters = facets.select(&:has_filters?)
-    query_params_array = facets_with_filters.map(&:query_params)
-    query_string = query_params_array.inject({}, :merge).to_query
-    query_string.blank? ? query_string : "?#{query_string}"
   end
 end

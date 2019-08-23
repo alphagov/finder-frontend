@@ -46,7 +46,7 @@ private
 
   attr_accessor :search_query
 
-  helper_method :finder_presenter, :facet_tags, :i_am_a_topic_page_finder, :result_set_presenter, :content_item
+  helper_method :finder_presenter, :facet_tags, :i_am_a_topic_page_finder, :result_set_presenter, :content_item, :signup_links
 
   def redirect_to_destination
     @redirect = content_item.redirect
@@ -92,6 +92,10 @@ private
 
   def facets
     @facets ||= FacetsBuilder.new(content_item: content_item, search_results: search_results, value_hash: filter_params).facets
+  end
+
+  def signup_links
+    @signup_links ||= SignupLinksPresenter.new(content_item, facets).signup_links
   end
 
   def finder_presenter

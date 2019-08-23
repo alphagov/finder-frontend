@@ -49,10 +49,6 @@ class ResultSetPresenter
     @filter_params.fetch('keywords', '')
   end
 
-  def signup_links
-    @signup_links ||= fetch_signup_links
-  end
-
 private
 
   attr_reader :metadata_presenter_class, :sort_presenter, :total, :finder_presenter, :documents
@@ -76,22 +72,5 @@ private
 
   def sort_option
     sort_presenter.selected_option || {}
-  end
-
-  def fetch_signup_links
-    {
-       feed_link: feed_link,
-       hide_heading: true,
-       small_form: true,
-       email_signup_link: (email_signup_link if email_signup_link.present?)
-    }.compact
-  end
-
-  def email_signup_link
-    finder_presenter.email_alert_signup_url
-  end
-
-  def feed_link
-    finder_presenter.atom_url
   end
 end

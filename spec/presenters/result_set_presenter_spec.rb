@@ -207,28 +207,4 @@ RSpec.describe ResultSetPresenter do
       end
     end
   end
-
-  describe '#signup_links' do
-    context 'has both signup links' do
-      let(:email_signup_hash) {
-        {
-          web_url: "/email_signup"
-        }
-      }
-      it 'returns both signup links' do
-        expect(subject.signup_links).to eq(email_signup_link: "/email_signup",
-                                             feed_link: "/a-finder.atom",
-                                             hide_heading: true,
-                                             small_form: true)
-      end
-    end
-
-    context 'has just has the atom signup link' do
-      it 'returns just the atom link' do
-        expect(subject.signup_links).to eq(feed_link: "/a-finder.atom",
-                                           hide_heading: true,
-                                           small_form: true)
-      end
-    end
-  end
 end
