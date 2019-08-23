@@ -37,12 +37,11 @@ en:
   checklists:
     title: "Prepare yourself, your family and your business or organisation for the UK leaving the EU"
   checklists_results:
-    context: "Based on your answers"
-    title: "Actions you may need to do for Brexit"
+    title: "What you may need to know to prepare for Brexit"
+    description: |
+      The United Kingdom is leaving the European Union on the 31 October 2019.
+      The list may not be complete, and you might not need to take all actions.
     answers:
-      description: |
-        This list may not be complete, and you might not need to take all the actions.
-        The links provided will help you find that out.
       list_context: "Based on your answers, we know:"
       change_answers: "Change your answers"
       no_answers: |

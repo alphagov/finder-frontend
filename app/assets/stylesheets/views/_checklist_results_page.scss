@@ -16,4 +16,8 @@
     background-color: govuk-colour('grey-4');
     color: govuk-colour('black');
   }
+
+  .govuk-section-break--bold {
+    border-bottom: 3px solid govuk-colour('blue');
+  }
 }
