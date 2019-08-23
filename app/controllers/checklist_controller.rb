@@ -13,8 +13,9 @@ class ChecklistController < ApplicationController
   end
 
   def results
-    @actions = Checklists::Action.load_all
+    all_actions = Checklists::Action.load_all
     @criteria = Checklists::Criterion.load_by(criteria_keys)
+    @actions = filter_actions(all_actions, criteria_keys)
 
     render "checklist/results"
   end
