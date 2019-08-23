@@ -31,6 +31,7 @@ class FinderPresenter
     @values = values
     @facets = facets
     @keywords = values["keywords"].presence
+    @filter = values["filter"].presence
   end
 
   def name
@@ -65,6 +66,10 @@ class FinderPresenter
         [val['content_id'], val['value']]
       end
     end
+  end
+
+  def mobile_filter?
+    @filter.eql?('true') && all_content_finder?
   end
 
   def filters

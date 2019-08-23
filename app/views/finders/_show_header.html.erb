@@ -3,11 +3,13 @@
     <%= render 'govuk_publishing_components/components/phase_banner', phase: finder_presenter.phase, message: sanitize(finder_presenter.phase_message), inverse: inverse %>
   <% end %>
 
+  <div <%= 'class=govuk-visually-hidden' if finder_presenter.all_content_finder? %>>
   <% if @breadcrumbs.breadcrumbs %>
     <%= render 'govuk_publishing_components/components/breadcrumbs', breadcrumbs: @breadcrumbs.breadcrumbs, inverse: inverse %>
   <% else %>
     <%= render 'govuk_publishing_components/components/contextual_breadcrumbs', content_item: content_item.as_hash, prioritise_taxon_breadcrumbs: finder_presenter.eu_exit_finder?, inverse: inverse %>
   <% end %>
+  </div>
 
   <% if finder_presenter.government? %>
     <%= render 'govuk_publishing_components/components/government_navigation', active: finder_presenter.government_content_section %>
@@ -17,9 +19,9 @@
     <div class="govuk-grid-column-two-thirds">
       <% if finder_presenter.all_content_finder? %>
         <% label_text = capture do %>
-          <h1 class="app-c-search-page-heading">Search<span class="govuk-visually-hidden"> all content</span></h1>
+          <h1 class="app-c-search-page-heading app-visually-hidden-mobile">Search<span class="govuk-visually-hidden"> all content</span></h1>
         <% end %>
-        <div id="keywords" class="app-patch--search-input-override">
+        <div id="keywords" class="app-patch--search-input-override app-!-hack-search-override<%= ' app-visually-hidden-mobile' if finder_presenter.mobile_filter? %>">
           <%= render "govuk_publishing_components/components/input", {
             controls: "js-search-results-info",
             id: "finder-keyword-search",
@@ -27,9 +29,12 @@
               text: label_text,
             },
             name: "keywords",
-            search_icon: true,
+            search_icon: false,
             type: 'search',
             value: result_set_presenter.user_supplied_keywords,
+          } %>
+          <%= render "govuk_publishing_components/components/button", {
+            text: "Search"
           } %>
         </div>
       <% elsif finder_presenter.topic_finder? %>

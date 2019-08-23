@@ -22,6 +22,10 @@
   <% inverse = true %>
 <% end %>
 
+<% if finder_presenter.mobile_filter? %>
+  <% content_for :body_classes, "app-hack-!-hide-header-and-footer" %>
+<% end %>
+
 <form method="get" action="<%= finder_presenter.slug %>" class="js-live-search-form"
   data-analytics-ecommerce
   data-ecommerce-start-index="<%= finder_presenter.start_offset %>"
@@ -31,30 +35,45 @@
 
   <% if finder_presenter.topic_finder? && !finder_presenter.all_content_finder? %>
     <%= render "govuk_publishing_components/components/inverse_header", {
-      full_width: true
-    } do %>
+        full_width: true
+      } do %>
+        <%= render partial: 'show_header', locals: { inverse: inverse } %>
+      <% end %>
+    <% else %>
       <%= render partial: 'show_header', locals: { inverse: inverse } %>
     <% end %>
-  <% else %>
-    <%= render partial: 'show_header', locals: { inverse: inverse } %>
-  <% end %>
 
   <div class="govuk-width-container">
     <div class="govuk-grid-row">
-      <div class="govuk-grid-column-one-third" role="search" aria-label="<%= finder_presenter.name %>">
+      <div class="govuk-grid-column-one-third app-c-hack-!-button-link govuk-!-padding-bottom-2">
+        <%
+          facet_count = facet_tags.present[:applied_filters].flatten.count # TODO: counts the search terms as well; is this desired?
+          facet_count_bracketed = facet_count == 0 ? nil : "(#{facet_count})"
+        %>
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Filter#{facet_count_bracketed}",
+          secondary: true,
+          name: 'filter',
+          value: 'true'
+        } unless finder_presenter.mobile_filter? %>
+      </div>
+    </div>
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-one-third<%= ' app-visually-hidden-mobile' unless finder_presenter.mobile_filter? %>" role="search" aria-label="<%= finder_presenter.name %>">
+        <h1 class="app-c-search-page-heading govuk-!-margin-top-8<%= ' govuk-visually-hidden' unless finder_presenter.mobile_filter? %>">Filter</h1>
         <%= render partial: 'facet_collection'%>
       </div>
 
       <div class="govuk-grid-column-two-thirds js-live-search-results-block filtered-results" role="region" aria-label="<%= finder_presenter.name %> search results">
         <div id="js-search-results-info" data-module="remove-filter" class="result-info">
           <div class="govuk-grid-row">
-            <div class="govuk-grid-column-one-third">
-              <h2 class="result-region-header__counter" id="js-result-count">
+            <div class="govuk-grid-column-one-third<%= ' app-visually-hidden-mobile' if finder_presenter.mobile_filter? %>">
+              <h2 class="result-region-header__counter<%= ' app-visually-hidden-mobile' unless finder_presenter.mobile_filter? %>" id="js-result-count">
                 <%= result_set_presenter.displayed_total %>
               </h2>
             </div>
             <% if result_set_presenter.has_email_signup_link? %>
-              <div class="govuk-grid-column-two-thirds">
+              <div class="govuk-grid-column-two-thirds app-visually-hidden-mobile">
                 <%= render "govuk_publishing_components/components/subscription-links", result_set_presenter.signup_links %>
               </div>
             <% end %>
@@ -66,17 +85,22 @@
 
         <div class="govuk-caption-l live-search-loading-message" id="js-loading-message"></div>
 
-        <div id="js-sort-options">
+        <div id="js-sort-options" class="govuk-!-padding-bottom-6<%= ' app-visually-hidden-mobile' if finder_presenter.mobile_filter? %>">
           <%= render "sort_options", @sort_presenter.to_hash %>
         </div>
 
-        <div id="js-results">
+        <div id="js-results"<%= ' class=app-visually-hidden-mobile' if finder_presenter.mobile_filter? %>>
           <%= render "search_results", result_set_presenter.search_results_content %>
         </div>
 
-        <div id="js-pagination">
+        <div id="js-pagination"<%= ' class=app-visually-hidden-mobile' if finder_presenter.mobile_filter? %>>
           <%= render "govuk_publishing_components/components/previous_and_next_navigation", @pagination.next_and_prev_links %>
         </div>
+        <% if result_set_presenter.has_email_signup_link? %>
+          <div class="govuk-grid-column-two-thirds<%= ' app-visually-hidden-mobile' if finder_presenter.mobile_filter? %>">
+            <%= render "govuk_publishing_components/components/subscription-links", result_set_presenter.signup_links %>
+          </div>
+        <% end %>
       </div>
     </div>
   </div>

@@ -27,19 +27,20 @@
 
   <% if finder_presenter.filters.any? %>
     <div data-module="gem-toggle" data-toggle-class="facet-toggle__content--hide" <%= "class=facet-toggle--only-on-mobile" unless finder_presenter.hide_facets_by_default %>>
-      <a href="#" class="facet-toggle" data-controls="facet-wrapper" data-expanded="false" data-track-category="filterClicked" data-track-action="accordion" data-toggled-text="- <%= t("finders.facet_disclosure.fewer", default: "Show fewer search options") %>">
+
+      <a href="#" class="facet-toggle<%= ' app-visually-hidden-mobile' if finder_presenter.mobile_filter? %>" data-controls="facet-wrapper" data-expanded="false" data-track-category="filterClicked" data-track-action="accordion" data-toggled-text="- <%= t("finders.facet_disclosure.fewer", default: "Show fewer search options") %>">
         + <%= t("finders.facet_disclosure.more", default: "Show more search options") %>
       </a>
 
-      <div id="facet-wrapper" class="facet-toggle__content facet-toggle__content--hide">
+      <div id="facet-wrapper" class="facet-toggle__content facet-toggle__content--hide<%= ' app-!hack-hide-override-for-mobile' if finder_presenter.mobile_filter? %>" >
         <%= render finder_presenter.filters %>
       </div>
     </div>
   <% end %>
 
-  <div class="js-live-search-fallback button__wrapper">
+  <div id="js-filter-button-result-count" class="js-live-search-fallback button__wrapper<%= ' app-!hack-hide-override-for-mobile app-!-stick-bottom app-hack-filter-submit govuk-!-padding-left-3 govuk-!-padding-right-3' if finder_presenter.mobile_filter? %>">
     <%= render "govuk_publishing_components/components/button", {
-      text: "Filter results",
+      text: "Filter #{result_set_presenter.displayed_total}",
       margin_bottom: true
     } %>
   </div>

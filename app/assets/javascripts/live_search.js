@@ -13,6 +13,7 @@
     this.$form = options.$form
     this.$resultsBlock = options.$results.find('#js-results')
     this.$countBlock = options.$results.find('#js-result-count')
+    this.$buttonCountBlock = $('#js-filter-button-result-count').find('button')
     this.$facetTagBlock = options.$results.find('#js-facet-tag-wrapper')
     this.$loadingBlock = options.$results.find('#js-loading-message')
     this.$sortBlock = options.$results.find('#js-sort-options')
@@ -316,9 +317,13 @@
     // As search is asynchronous, check that the action associated with these results is
     // still the latest to stop results being overwritten by stale data
     if (action === $.param(this.state)) {
+      var resultsNumber = Number(results.total.replace(/ results/, '')) // TODO: replace. Super brittle. yuck yuck yuck
+      var filterButtonText = resultsNumber === 0 ? 'No results' : 'Show ' + results.total
+
       this.updateElement(this.$resultsBlock, results.search_results)
       this.updateElement(this.$facetTagBlock, results.facet_tags)
       this.updateElement(this.$countBlock, results.total)
+      this.updateElement(this.$buttonCountBlock, filterButtonText)
       this.updateElement(this.$paginationBlock, results.next_and_prev_links)
       this.updateSortOptions(results, action)
       this.$atomAutodiscoveryLink.attr('href', results.atom_url)

@@ -1,3 +1,8 @@
+// sass-lint:disable IdSelector
+
+$govuk-use-legacy-palette: true;
+$govuk-typography-use-rem: false;
+
 @import 'not-ie-conditional';
 @import 'reset';
 @import 'govuk_publishing_components/all_components';
@@ -6,3 +11,81 @@
 @import 'views/search';
 @import 'views/qa';
 @import 'views/checklist_results_page';
+
+@include govuk-media-query($until: desktop) {
+  .app-visually-hidden-mobile {
+    @include govuk-visually-hidden;
+  }
+
+  .app-\!hack-hide-override-for-mobile {
+    display: block !important;
+  }
+
+  .app-\!-stick-bottom {
+    bottom :0;
+    box-sizing: border-box;
+    left: 0;
+    padding: 0;
+    position: fixed;
+    width: 100%;
+  }
+
+  .app-hack-filter-submit {
+    background: govuk-colour("white");
+  }
+
+  .app-\!-hack-search-override {
+    padding-top: govuk-spacing(4);
+
+    // input[type="search"] {
+    // }
+
+    .govuk-form-group {
+      float: left;
+      width: calc(100% - 2.4em);
+    }
+
+    button {
+      float: left;
+      background: $govuk-brand-colour;
+      margin-top: govuk-spacing(1);
+      width: 2.4em;
+    }
+  }
+
+  .app-c-hack-\!-button-link button {
+    border: 0;
+    color: $govuk-brand-colour;
+    display: inline-block;
+    font-weight: bold;
+    margin: -5px 0 0 0;
+    padding: 5px 0 5px 0;
+    width: auto;
+  }
+
+  .gem-c-document-list__item {
+    border: 0;
+    margin-bottom: govuk-spacing(6);
+    padding-bottom: govuk-spacing(0);
+  }
+
+  .app-hack-\!-hide-header-and-footer {
+    #global-header,
+    #global-header-bar,
+    #footer,
+    .gem-c-feedback {
+      @include govuk-visually-hidden;
+    }
+
+    #finder-frontend {
+      padding-bottom: govuk-spacing(9);
+      margin-bottom: 0;
+    }
+  }
+}
+
+@include govuk-media-query($from: desktop) {
+  .app-visually-hidden-not-mobile {
+    @include govuk-visually-hidden;
+  }
+}

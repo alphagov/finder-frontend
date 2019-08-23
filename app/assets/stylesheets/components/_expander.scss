@@ -35,7 +35,7 @@
 
 .app-c-expander__button {
   @include govuk-font(19, $weight: bold);
-  @include govuk-focusable;
+  // @include govuk-focusable;
   position: relative;
   width: 100%;
   border: 0;
