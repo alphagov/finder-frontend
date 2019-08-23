@@ -331,6 +331,14 @@ Then(/^I can see documents which have government metadata$/) do
   end
 end
 
+Then(/^I see the atom feed$/) do
+  expect(page).to have_selector('id', text: 'tag:www.dev.gov.uk,2005:/restrictions-on-usage-of-spells-within-school-grounds')
+  expect(page).to have_selector('updated', text: '2017-12-30T10:00:00Z')
+  expect(page).to have_selector(:css, 'link[href="http://www.dev.gov.uk/restrictions-on-usage-of-spells-within-school-grounds"]')
+  expect(page).to have_selector('title', text: 'Restrictions on usage of spells within school grounds')
+  expect(page).to have_selector('summary', text: 'Restrictions on usage of spells within school grounds')
+end
+
 Given(/^a collection of documents with bad metadata exist$/) do
   stub_taxonomy_api_request
   content_store_has_mosw_reports_finder
@@ -429,6 +437,10 @@ Then(/^I browse to a huge page number and get an appropriate error$/) do
   visit finder_path('government/policies/benefits-reform', page: 999999)
 
   expect(page.status_code).to eq(422)
+end
+
+And("I click on the atom feed link") do
+  click_on 'Subscribe to feed'
 end
 
 And("there is machine readable information") do
