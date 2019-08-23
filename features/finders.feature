@@ -427,3 +427,8 @@ Feature: Filtering documents
     Then I can see results filtered by that manual
     And I click the Replacing bristles in your Nimbus 2000 remove control
     Then I see all content results
+
+  Scenario: Atom Feed
+    When I view the research and statistics finder
+    And I click on the atom feed link
+    Then I see the atom feed
