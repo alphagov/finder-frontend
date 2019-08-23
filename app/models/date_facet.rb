@@ -2,8 +2,16 @@ class DateFacet < FilterableFacet
   attr_reader :value
 
   def initialize(facet, value_hash)
-    @value = value_hash
+    @value = value_hash || {}
     super(facet)
+  end
+
+  def user_supplied_from_date
+    @value['from']
+  end
+
+  def user_supplied_to_date
+    @value['to']
   end
 
   def sentence_fragment

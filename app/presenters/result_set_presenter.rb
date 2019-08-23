@@ -41,10 +41,6 @@ class ResultSetPresenter
       best_bet?
   end
 
-  def user_supplied_date(date_facet_key, date_facet_from_to)
-    @filter_params.fetch(date_facet_key, {}).fetch(date_facet_from_to, nil)
-  end
-
   def user_supplied_keywords
     @filter_params.fetch('keywords', '')
   end
