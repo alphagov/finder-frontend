@@ -38,10 +38,6 @@ class Document
     description.gsub(/\.\s[A-Z].*/, '.') if description.present?
   end
 
-  def summary
-    truncated_description if finder.show_summaries?
-  end
-
 private
 
   attr_reader :link, :document_hash, :finder
