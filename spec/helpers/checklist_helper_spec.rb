@@ -105,4 +105,27 @@ describe ChecklistHelper, type: :helper do
       end
     end
   end
+
+  describe "#action_guidance_link_text" do
+    context "when no prompt is specified" do
+      let(:action) { Checklists::Action.new('guidance_text' => 'text') }
+
+      subject { action_guidance_link_text(action) }
+
+      it "returns link text with a default prompt" do
+        default_prompt = I18n.t!("checklists_results.actions.guidance_prompt")
+        expect(subject).to eq("#{default_prompt}: text")
+      end
+    end
+
+    context "when a prompt is specified" do
+      let(:action) { Checklists::Action.new('guidance_text' => 'text', 'guidance_prompt' => 'prompt') }
+
+      subject { action_guidance_link_text(action) }
+
+      it "returns link text with the prompt" do
+        expect(subject).to eq("prompt: text")
+      end
+    end
+  end
 end

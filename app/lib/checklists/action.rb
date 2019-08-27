@@ -1,5 +1,13 @@
 class Checklists::Action
-  attr_accessor :title, :description, :path, :lead_time, :applicable_criteria, :section
+  attr_accessor :title,
+                :description,
+                :path,
+                :lead_time,
+                :applicable_criteria,
+                :section,
+                :guidance_text,
+                :guidance_url,
+                :guidance_prompt
 
   def initialize(params)
     @title = params['title']
@@ -8,6 +16,9 @@ class Checklists::Action
     @lead_time = params['lead_time']
     @applicable_criteria = params['applicable_criteria']
     @section = params['section']
+    @guidance_text = params['guidance_text']
+    @guidance_url = params['guidance_url']
+    @guidance_prompt = params['guidance_prompt']
   end
 
   def applies_to?(criteria_keys)

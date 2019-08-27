@@ -15,3 +15,5 @@ actions:
     applicable_criteria:
       - non-eu-national
     section: citizen
+    guidance_url: 'http://guidance.com'
+    guidance_text: 'Guidance Central'

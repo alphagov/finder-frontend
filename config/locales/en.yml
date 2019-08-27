@@ -56,6 +56,7 @@ en:
     actions:
       no_results: "Based on your answers, we were not able to determine suitable actions for you."
       more_guidance: "View more guidance here"
+      guidance_prompt: Read the guidance
     sections:
       citizen:
         heading: 'You and your family'
