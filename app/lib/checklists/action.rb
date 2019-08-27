@@ -9,7 +9,6 @@ class Checklists::Action
   end
 
   def self.load_all
-    actions = YAML.load_file("lib/checklists/actions.yaml")
-    actions['actions'].map { |a| new(a) }
+    CHECKLISTS_ACTIONS.map { |a| new(a) }
   end
 end
