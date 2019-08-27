@@ -41,6 +41,8 @@ en:
     description: |
       The United Kingdom is leaving the European Union on the 31 October 2019.
       The list may not be complete, and you might not need to take all actions.
+    email_sign_up_link: |
+      Sign up to recieve a copy of your results or to get email about alerts when your results are updated
     answers:
       list_context: "Based on your answers, we know:"
       change_answers: "Change your answers"
@@ -51,4 +53,9 @@ en:
     actions:
       no_results: "Based on your answers, we were not able to determine suitable actions for you."
       more_guidance: "View more guidance here"
-
+    stay_updated:
+      heading: "Stay up to date"
+      description: |
+        Sign up to receive a copy of your results or to get email alterts when your results are upadated.
+        To come back to your results page at anytime, just copy the url.
+      sign_up: "Sign up for emails"
