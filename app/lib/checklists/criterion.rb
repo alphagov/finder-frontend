@@ -7,13 +7,15 @@ class Checklists::Criterion
     @depends_on = params.fetch('depends_on', [])
   end
 
-  def self.load_by(criteria_keys)
-    criteria = CHECKLISTS_CRITERIA.map do |c|
-      Checklists::Criterion.new(c) if criteria_keys.include?(c['key'])
+  def self.load_all
+    CHECKLISTS_CRITERIA.map do |criteria|
+      Checklists::Criterion.new(criteria)
     end
+  end
 
-    criteria.select do |c|
-      c.present? && (c.depends_on - criteria_keys).blank?
+  def self.load_by(criteria_keys)
+    load_all.select do |c|
+      criteria_keys.include?(c.key) && (c.depends_on - criteria_keys).blank?
     end
   end
 end

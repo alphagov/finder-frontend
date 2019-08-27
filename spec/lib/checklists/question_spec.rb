@@ -24,4 +24,29 @@ describe Checklists::Question do
       it { is_expected.to eq(true) }
     end
   end
+
+  describe ".load_all" do
+    subject { described_class.load_all }
+
+    it "returns a list of questions with required keys" do
+      subject.each do |question|
+        expect(question.key).to be_present
+        expect(question.text).to be_present
+        expect(%w[single multiple]).to include(question.type)
+        expect(question.options).to be_a Array
+      end
+    end
+
+    it "returns question that reference valid criteria" do
+      criteria = Checklists::Criterion.load_all.map(&:key)
+
+      subject.each do |question|
+        question.options.each do |option|
+          expect(criteria).to include(option['value'])
+        end
+
+        expect(criteria).to include(*question.depends_on.to_a)
+      end
+    end
+  end
 end

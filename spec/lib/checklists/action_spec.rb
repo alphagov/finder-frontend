@@ -29,4 +29,25 @@ describe Checklists::Action do
       it { is_expected.to eq(false) }
     end
   end
+
+  describe ".load_all" do
+    subject { described_class.load_all }
+
+    it "returns a list of actions with required keys" do
+      subject.each do |action|
+        expect(action.title).to be_present
+        expect(action.description).to be_present
+        expect(action.path).to be_present
+        expect(action.applicable_criteria).to be_a Array
+      end
+    end
+
+    it "returns actions that reference valid criteria" do
+      criteria = Checklists::Criterion.load_all.map(&:key)
+
+      subject.each do |action|
+        expect(criteria).to include(*action.applicable_criteria.to_a)
+      end
+    end
+  end
 end
