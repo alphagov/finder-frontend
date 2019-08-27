@@ -42,4 +42,37 @@ describe ChecklistHelper, type: :helper do
       end
     end
   end
+
+  describe "#filter_actions" do
+    let(:action1) { Checklists::Action.new('applicable_criteria' => []) }
+    let(:action2) { Checklists::Action.new('applicable_criteria' => %w[A]) }
+    let(:action3) { Checklists::Action.new('applicable_criteria' => %w[B C]) }
+    let(:actions) { [action1, action2, action3] }
+
+    subject { filter_actions(actions, criteria_keys) }
+
+    context "when there is no criteria" do
+      let(:criteria_keys) { [] }
+
+      it "returns no actions" do
+        expect(subject).to eq([])
+      end
+    end
+
+    context "when there is a criteria" do
+      let(:criteria_keys) { %w[A] }
+
+      it "returns some actions" do
+        expect(subject).to eq([action2])
+      end
+    end
+
+    context "when there is multiple criteria" do
+      let(:criteria_keys) { %w[A B] }
+
+      it "returns some actions" do
+        expect(subject).to eq([action2, action3])
+      end
+    end
+  end
 end

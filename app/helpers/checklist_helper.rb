@@ -22,4 +22,10 @@ module ChecklistHelper
       }
     ]
   end
+
+  def filter_actions(actions, criteria_keys)
+    actions.select do |action|
+      action.applies_to?(criteria_keys)
+    end
+  end
 end

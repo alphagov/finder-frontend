@@ -1,6 +1,6 @@
 require "spec_helper"
 
-RSpec.feature "Checklists", type: :feature do
+RSpec.feature "Questions workflow", type: :feature do
   scenario "User answers questions" do
     given_i_visit_the_checklist_question_and_answer_flow
     and_i_have_a_business
@@ -14,6 +14,7 @@ RSpec.feature "Checklists", type: :feature do
     and_i_dont_have_a_business
     and_i_say_that_i_am_a_eu_citizen
     then_i_should_see_the_results_page
+    and_i_should_not_see_unrelated_actions
   end
 
   def given_i_visit_the_checklist_question_and_answer_flow
@@ -50,5 +51,9 @@ RSpec.feature "Checklists", type: :feature do
 
   def and_i_should_see_the_related_actions
     expect(page).to have_content "Get a new passport"
+  end
+
+  def and_i_should_not_see_unrelated_actions
+    expect(page).not_to have_content "Get an EORI number that starts with GB to move goods in or out of the UK"
   end
 end
