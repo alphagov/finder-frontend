@@ -8,6 +8,8 @@ RSpec.feature "Checklist email signup", type: :feature do
     given_im_on_the_results_page
     then_i_click_to_signup_to_emails
     then_i_choose_a_weekly_digest
+    then_i_see_text_to_insert_an_email_address
+    and_the_url_contains_the_necessary_information
   end
 
   def given_im_on_the_results_page
@@ -30,5 +32,18 @@ RSpec.feature "Checklist email signup", type: :feature do
     choose "frequency", option: 'weekly', visible: false
 
     click_on "Next"
+  end
+
+  def then_i_see_text_to_insert_an_email_address
+    expect(page).to have_content("Insert email address here")
+  end
+
+  def and_the_url_contains_the_necessary_information
+    url = 'http://www.example.com/find-brexit-guidance/email-signup/address?' \
+          'frequency=weekly&' \
+          'topic_id=some-non-sensical-slug-wfhihfiansfkjnad&' \
+          'url=http%3A%2F%2Fwww.example.com%2Ffind-brexit-guidance%2Fresults%3Fc%255B%255D%3Ddoes-not-own-business%26c%255B%255D%3Deu-national'
+
+    expect(current_url).to eq(url)
   end
 end

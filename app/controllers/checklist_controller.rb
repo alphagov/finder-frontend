@@ -32,13 +32,28 @@ class ChecklistController < ApplicationController
     @url = params.require(:url)
   end
 
-  def create_email_frequency; end
+  def create_email_frequency
+    frequency = checklist_email_frequency_path(topic_id: params.require(:topic_id), url: params.require(:url))
+    return redirect_to frequency unless valid_frequency
+
+    redirect_to checklist_email_address_path(
+      topic_id: params.require(:topic_id),
+      url: params.require(:url),
+      frequency: params.require(:frequency)
+    )
+  end
+
+  def email_address; end
 
 private
 
   ###
   # Email signup
   ###
+
+  def valid_frequency
+    I18n.t('frequencies').map { |frequency, _config| frequency.to_s }.include?(params.require(:frequency))
+  end
 
   def frequencies
     I18n.t('frequencies').map { |frequency, config|
