@@ -24,8 +24,8 @@ class Document
     @index = index
   end
 
-  def metadata(finder)
-    all_metadata(finder).map { |metadata| humanize_metadata_name(finder, metadata) }
+  def metadata(facets)
+    all_metadata(facets).map { |metadata| humanize_metadata_name(facets, metadata) }
   end
 
   def path
@@ -39,7 +39,7 @@ class Document
 
 private
 
-  attr_reader :link, :document_hash, :finder
+  attr_reader :link, :document_hash
 
   def is_mainstream_content?
     %w(completed_transaction
@@ -55,33 +55,33 @@ private
        guide).include?(@document_type)
   end
 
-  def metadata_keys(finder)
-    date_metadata_keys(finder) + text_metadata_keys(finder)
+  def metadata_keys(facets)
+    date_metadata_keys(facets) + text_metadata_keys(facets)
   end
 
-  def date_metadata_keys(finder)
-    metadata_facets(finder).select { |f| f.type == "date" }.map(&:key)
+  def date_metadata_keys(facets)
+    metadata_facets(facets).select { |f| f.type == "date" }.map(&:key)
   end
 
-  def text_metadata_keys(finder)
-    keys = metadata_facets(finder).select { |f| f.type == "text" }.map(&:key)
+  def text_metadata_keys(facets)
+    keys = metadata_facets(facets).select { |f| f.type == "text" }.map(&:key)
     keys.reject do |key|
       key == 'organisations' && is_mainstream_content?
     end
   end
 
-  def metadata_facets(finder)
-    finder.facets.select(&:metadata?)
+  def metadata_facets(facets)
+    facets.select(&:metadata?)
   end
 
-  def all_metadata(finder)
-    text_metadata(finder) + date_metadata(finder)
+  def all_metadata(facets)
+    text_metadata(facets) + date_metadata(facets)
   end
 
-  def date_metadata(finder)
+  def date_metadata(facets)
     return [] if @content_purpose_supergroup == 'services'
 
-    date_metadata_keys(finder)
+    date_metadata_keys(facets)
       .map(&method(:build_date_metadata))
       .select(&method(:metadata_value_present?))
   end
@@ -94,8 +94,8 @@ private
     }
   end
 
-  def text_metadata(finder)
-    text_metadata_keys(finder)
+  def text_metadata(facets)
+    text_metadata_keys(facets)
       .map(&method(:build_text_metadata))
       .select(&method(:metadata_value_present?))
   end
@@ -131,14 +131,14 @@ private
     metadata_hash.fetch(:value).present?
   end
 
-  def humanize_metadata_name(finder, metadata_hash)
+  def humanize_metadata_name(facets, metadata_hash)
     metadata_hash.merge(
-      name: label_for_metadata_key(finder, metadata_hash.fetch(:name))
+      name: label_for_metadata_key(facets, metadata_hash.fetch(:name))
     )
   end
 
-  def label_for_metadata_key(finder, key)
-    facet = metadata_facets(finder).find { |f| f.key == key }
+  def label_for_metadata_key(facets, key)
+    facet = metadata_facets(facets).find { |f| f.key == key }
 
     facet.short_name || facet.key.humanize
   end

@@ -8,13 +8,13 @@ class SearchResultPresenter
            :es_score,
            to: :document
 
-  def initialize(document:, metadata_presenter_class:, doc_count:, finder_presenter:, debug_score:, highlight:)
+  def initialize(document:, metadata_presenter_class:, doc_count:, facets:, content_item:, debug_score:, highlight:)
     @document = document
-    @metadata = metadata_presenter_class.new(document.metadata(finder_presenter)).present
+    @metadata = metadata_presenter_class.new(document.metadata(facets)).present
     @count = doc_count
     @debug_score = debug_score
     @highlight = highlight
-    @finder_presenter = finder_presenter
+    @content_item = content_item
   end
 
   def document_list_component_data
@@ -28,7 +28,7 @@ class SearchResultPresenter
           ecommerce_content_id: document.content_id,
           ecommerce_row: 1,
           track_category: "navFinderLinkClicked",
-          track_action: "#{@finder_presenter.name}.#{document.index}",
+          track_action: "#{content_item.title}.#{document.index}",
           track_label: link,
           track_options: {
             dimension28: @count,
@@ -51,7 +51,7 @@ private
   end
 
   def summary_text
-    document.truncated_description if @highlight || @finder_presenter.show_summaries?
+    document.truncated_description if @highlight || content_item.show_summaries?
   end
 
   def highlight_text
@@ -70,7 +70,7 @@ private
   end
 
   def structure_metadata
-    return {} unless @finder_presenter.display_metadata?
+    return {} if content_item.eu_exit_finder?
 
     metadata.each_with_object({}) do |meta, component_metadata|
       value = meta[:is_date] ? "<time datetime='#{meta[:machine_date]}'>#{meta[:human_date]}</time>" : meta[:value]
@@ -79,5 +79,5 @@ private
   end
 
 
-  attr_reader :document, :metadata
+  attr_reader :document, :metadata, :content_item
 end

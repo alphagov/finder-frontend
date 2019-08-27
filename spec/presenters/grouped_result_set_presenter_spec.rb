@@ -80,7 +80,8 @@ RSpec.describe GroupedResultSetPresenter do
       SearchResultPresenter.new(document: document,
                                 metadata_presenter_class: metadata_presenter_class,
                                 doc_count: all_documents_count,
-                                finder_presenter: finder_presenter,
+                                content_item: content_item,
+                                facets: facets,
                                 debug_score: false,
                                 highlight: false).document_list_component_data
     end
