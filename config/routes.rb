@@ -18,15 +18,17 @@ FinderFrontend::Application.routes.draw do
     get "/test-search/search/opensearch" => "search#opensearch"
   end
 
+  # Q&A checklist frontend for brexit guidance
+  get '/get-ready-brexit-check/results' => 'checklist#results', as: :checklist_results
+  get '/get-ready-brexit-check/questions' => 'checklist#show', as: :checklist_questions
+  post '/get-ready-brexit-check/email-signup' => 'checklist#email_signup', as: :checklist_email_signup
+  get '/get-ready-brexit-check/email-signup/frequency' => 'checklist#email_frequency', as: :checklist_email_frequency
+
   get '/*slug/email-signup' => 'email_alert_subscriptions#new', as: :new_email_alert_subscriptions
   post '/*slug/email-signup' => 'email_alert_subscriptions#create', as: :email_alert_subscriptions
 
   # Q&A frontend for "Find EU Exit guidance for your business" (www.gov.uk/find-eu-exit-guidance-business)
   get '/prepare-business-uk-leaving-eu' => 'qa#show'
-
-  # Q&A checklist frontend for brexit guidance
-  get '/get-ready-brexit-check/results' => 'checklist#results', as: :checklist_results
-  get '/get-ready-brexit-check/questions' => 'checklist#show', as: :checklist_questions
 
   # Q&A frontend for "UK Nationals in the EU" (www.gov.uk/uk-nationals-in-the-eu)
   get '/uk-nationals-living-eu' => 'qa_to_content#show'

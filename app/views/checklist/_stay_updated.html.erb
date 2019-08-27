@@ -6,8 +6,9 @@
   <%= sanitize( t('checklists_results.stay_updated.description') ) %>
 </p>
 
-<%= render "govuk_publishing_components/components/button", {
-  text: t('checklists_results.stay_updated.sign_up'),
-  href: "/find-brexit-guidance/email-sign", # this needs to be changed to use rails route path
-  inline_layout: true
-} %>
+<%= form_tag checklist_email_signup_path(c: criteria_keys) do %>
+  <%= render "govuk_publishing_components/components/button", {
+    text: t('checklists_results.stay_updated.sign_up'),
+    inline_layout: true
+  } %>
+<% end %>

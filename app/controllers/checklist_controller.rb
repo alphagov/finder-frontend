@@ -20,7 +20,31 @@ class ChecklistController < ApplicationController
     render "checklist/results"
   end
 
+  def email_signup
+    request = Services.email_alert_api.find_or_create_subscriber_list(subscriber_list_options)
+    subscriber_list_slug = request.dig("subscriber_list", "slug")
+
+    redirect_to checklist_email_frequency_path(topic_id: subscriber_list_slug, url: results_url)
+  end
+
+  def email_frequency; end
+
 private
+
+  ###
+  # Email signup
+  ###
+
+  def subscriber_list_options
+    criteria = params.require(:c)
+
+    {
+      "title" => "Your Brexit Checklist",
+      "slug" => criteria.sort.join('-'),
+      "tags" => { "brexit_checklist_criteria" => { "any" => criteria } },
+      "url" => find_brexit_guidance_results_path(c: criteria)
+    }
+  end
 
   ###
   # Redirect
@@ -56,6 +80,7 @@ private
   def criteria_keys
     filtered_params.values.flatten
   end
+  helper_method :criteria_keys
 
   ###
   # Breadcrumbs
