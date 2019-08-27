@@ -317,7 +317,8 @@
     // As search is asynchronous, check that the action associated with these results is
     // still the latest to stop results being overwritten by stale data
     if (action === $.param(this.state)) {
-      var resultsNumber = Number(results.total.replace(/ results/, '')) // TODO: replace. Super brittle. yuck yuck yuck
+      var nmbr = results.total
+      var resultsNumber = nmbr ? Number(nmbr.replace(/ results/, '')) : 0// TODO: replace. Super brittle. yuck yuck yuck
       var filterButtonText = resultsNumber === 0 ? 'No results' : 'Show ' + results.total
 
       this.updateElement(this.$resultsBlock, results.search_results)
