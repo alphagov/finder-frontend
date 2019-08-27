@@ -63,4 +63,15 @@ describe ChecklistHelper, type: :helper do
       end
     end
   end
+
+  describe "#persistent_criteria_keys" do
+    let(:criteria_keys) { %w[A B C D] }
+    let(:question_criteria_keys) { %w[C D] }
+
+    subject { persistent_criteria_keys(question_criteria_keys) }
+
+    it 'returns all but the questions criteria' do
+      expect(subject).to contain_exactly('A', 'B')
+    end
+  end
 end

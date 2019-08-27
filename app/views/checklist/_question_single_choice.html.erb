@@ -1,8 +1,8 @@
 <%= render "govuk_publishing_components/components/radio", {
-  name: "#{current_question.key}[]",
+  name: "c[]",
   heading: current_question.text,
   description: formatted_description,
   hint_text: current_question.hint_title,
   is_page_heading: true,
-  items: current_question.formatted_options(filtered_params)
+  items: current_question.formatted_options(criteria_keys)
 } %>
