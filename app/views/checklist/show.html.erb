@@ -27,13 +27,6 @@
               formatted_description: formatted_description
             } %>
           </div>
-        <% elsif @current_question.single_wrapped? %>
-          <div class="govuk-!-margin-top-8">
-            <%= render 'question_single_wrapped_choice', {
-              current_question: @current_question,
-              formatted_description: formatted_description
-            } %>
-          </div>
         <% else %>
           <div class="govuk-!-margin-top-8">
             <%= render 'question_single_choice', {

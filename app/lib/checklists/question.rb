@@ -24,10 +24,6 @@ class Checklists::Question
     end
   end
 
-  def single_wrapped?
-    type == "single_wrapped"
-  end
-
   def multiple?
     type == "multiple"
   end
