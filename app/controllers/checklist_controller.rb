@@ -27,13 +27,29 @@ class ChecklistController < ApplicationController
     redirect_to checklist_email_frequency_path(topic_id: subscriber_list_slug, url: results_url)
   end
 
-  def email_frequency; end
+  def email_frequency
+    @topic_id = params.require(:topic_id)
+    @url = params.require(:url)
+  end
+
+  def create_email_frequency; end
 
 private
 
   ###
   # Email signup
   ###
+
+  def frequencies
+    I18n.t('frequencies').map { |frequency, config|
+      {
+        value: frequency,
+        text: config[:short_desc],
+        checked: (frequency.to_s == 'immediately'),
+      }
+    }
+  end
+  helper_method :frequencies
 
   def subscriber_list_options
     criteria = params.require(:c)

@@ -7,7 +7,7 @@ RSpec.feature "Checklist email signup", type: :feature do
   scenario "user clicks to signup to email alerts" do
     given_im_on_the_results_page
     then_i_click_to_signup_to_emails
-    then_i_can_see_the_frequency_options_to_select
+    then_i_choose_a_weekly_digest
   end
 
   def given_im_on_the_results_page
@@ -25,7 +25,10 @@ RSpec.feature "Checklist email signup", type: :feature do
     click_on "Sign up for emails"
   end
 
-  def then_i_can_see_the_frequency_options_to_select
+  def then_i_choose_a_weekly_digest
     expect(page).to have_content "How often do you want to get updates?"
+    choose "frequency", option: 'weekly', visible: false
+
+    click_on "Next"
   end
 end
