@@ -1,11 +1,11 @@
 class Checklists::Action
-  attr_accessor :title, :description, :path, :due_date, :applicable_criteria, :section
+  attr_accessor :title, :description, :path, :lead_time, :applicable_criteria, :section
 
   def initialize(params)
     @title = params['title']
     @description = params['description']
     @path = params['path']
-    @due_date = params['due_date']
+    @lead_time = params['lead_time']
     @applicable_criteria = params['applicable_criteria']
     @section = params['section']
   end
@@ -14,6 +14,10 @@ class Checklists::Action
     applicable_criteria.any? do |key|
       criteria_keys.include?(key)
     end
+  end
+
+  def self.find_by_title(title)
+    load_all.find { |a| a.title.match(title) }
   end
 
   def self.load_all
