@@ -2,7 +2,11 @@ require "csv"
 require "yaml"
 
 class CsvToYamlConverter
-  def initialize; end
+  attr_reader :fields
+
+  def initialize(fields)
+    @fields = fields
+  end
 
   def convert(csv_filename, yaml_filename)
     csv = File.read(csv_filename)
@@ -11,7 +15,9 @@ class CsvToYamlConverter
     CSV.parse(csv,
               headers: true,
               header_converters: downcase_underscore_headers)
-       .each { |row| data << row.to_h }
+       .each do |row|
+         data << row.to_h.keep_if { |k, _v| fields.include?(k) }
+       end
 
     File.open(yaml_filename, "w") { |f| f.puts data.to_yaml }
   end
