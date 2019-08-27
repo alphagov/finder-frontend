@@ -8,8 +8,17 @@ class CsvToYamlConverter
     csv = File.read(csv_filename)
     data = []
 
-    CSV.parse(csv, headers: true).each { |row| data << row.to_h }
+    CSV.parse(csv,
+              headers: true,
+              header_converters: downcase_underscore_headers)
+       .each { |row| data << row.to_h }
 
     File.open(yaml_filename, "w") { |f| f.puts data.to_yaml }
+  end
+
+private
+
+  def downcase_underscore_headers
+    lambda { |field, _| field.downcase.gsub(" ", "_") }
   end
 end
