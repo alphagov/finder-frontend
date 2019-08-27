@@ -11,9 +11,9 @@
       <% end %>
     </div>
     <div class="govuk-grid-column-one-quarter">
-      <% if action.due_date.present? %>
+      <% if action.lead_time.present? %>
         <p class="govuk-body govuk-!-font-size-16 govuk-!-font-weight-bold checklist-result__leadtime">
-          Due by <%= action.due_date %>
+          It takes up to <%= action.lead_time %>
         </p>
       <% end %>
     </div>
