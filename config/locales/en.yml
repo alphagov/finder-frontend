@@ -53,6 +53,11 @@ en:
     actions:
       no_results: "Based on your answers, we were not able to determine suitable actions for you."
       more_guidance: "View more guidance here"
+    sections:
+      citizen:
+        heading: 'You and your family'
+      business:
+        heading: 'Your business'
     stay_updated:
       heading: "Stay up to date"
       description: |

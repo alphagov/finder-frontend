@@ -1,5 +1,5 @@
 class Checklists::Action
-  attr_accessor :title, :description, :path, :lead_time, :applicable_criteria
+  attr_accessor :title, :description, :path, :lead_time, :applicable_criteria, :section
 
   def initialize(params)
     @title = params['title']
@@ -7,6 +7,7 @@ class Checklists::Action
     @path = params['path']
     @lead_time = params['lead_time']
     @applicable_criteria = params['applicable_criteria']
+    @section = params['section']
   end
 
   def applies_to?(criteria_keys)

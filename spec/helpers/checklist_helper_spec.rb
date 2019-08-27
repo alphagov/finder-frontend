@@ -75,4 +75,34 @@ describe ChecklistHelper, type: :helper do
       end
     end
   end
+
+  describe "#format_action_sections" do
+    let(:citizen_action) { Checklists::Action.new('section' => 'citizen') }
+    let(:business_action) { Checklists::Action.new('section' => 'business') }
+
+    subject { format_action_sections(actions) }
+
+    context "when there are actions for each section" do
+      let(:actions) { [citizen_action, business_action] }
+      it "return formatted sections" do
+        expect(subject).to eq([
+          {
+            heading: I18n.t("checklists_results.sections.citizen.heading"),
+            actions: [citizen_action]
+          },
+          {
+            heading: I18n.t("checklists_results.sections.business.heading"),
+            actions: [business_action]
+          }
+        ])
+      end
+    end
+
+    context "when there are not actions" do
+      let(:actions) { [] }
+      it "returns no sections" do
+        expect(subject).to eq([])
+      end
+    end
+  end
 end

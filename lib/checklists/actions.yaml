@@ -6,6 +6,7 @@ actions:
     lead_time: '3 months'
     applicable_criteria:
       - owns-business
+    section: business
   - title: 'Get a new passport'
     description: |
       If you do not get one, you will not be able to travel.
@@ -13,3 +14,4 @@ actions:
     lead_time: '2 weeks'
     applicable_criteria:
       - non-eu-national
+    section: citizen
