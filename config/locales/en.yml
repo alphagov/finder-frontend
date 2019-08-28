@@ -39,7 +39,10 @@ en:
   checklists_results:
     breadcrumbs:
       home: "Home"
-      q_and_a: "Brexit Q&A"
+      brexit-home: "Brexit"
+      brexit-check: "How to get ready"
+      questions: "Questions"
+      results: "Results"
     title: "Your results: what you need to do to prepare for Brexit"
     description: |
       You may not need to do everything on the list to prepare for Brexit, and your list of results may not be complete.
