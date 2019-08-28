@@ -2,6 +2,8 @@ class ChecklistController < ApplicationController
   include ChecklistHelper
   layout "finder_layout"
 
+  protect_from_forgery except: :confirm_email_signup
+
   def show
     @questions = Checklists::Question.load_all
     @page_service = Checklists::PageService.new(questions: @questions,
@@ -22,7 +24,33 @@ class ChecklistController < ApplicationController
     render "checklist/results"
   end
 
+  def email_signup
+    @criteria = params.require(:c)
+  end
+
+  def confirm_email_signup
+    request = Services.email_alert_api.find_or_create_subscriber_list(subscriber_list_options)
+    subscriber_list_slug = request.dig("subscriber_list", "slug")
+
+    redirect_to email_alert_frontend_signup_path(topic_id: subscriber_list_slug)
+  end
+
 private
+
+  ###
+  # Email signup
+  ###
+
+  def subscriber_list_options
+    criteria = params.require(:c).reject(&:blank?)
+
+    {
+      "title" => "Your Get ready for Brexit results",
+      "slug" => "brexit-checklist-#{criteria.sort.join('-')}",
+      "tags" => { "brexit_checklist_criteria" => { "any" => criteria } },
+      "url" => checklist_results_path(c: criteria)
+    }
+  end
 
   ###
   # Redirect
@@ -47,6 +75,7 @@ private
   def criteria_keys
     filtered_params.values.flatten
   end
+  helper_method :criteria_keys
 
   ###
   # Breadcrumbs

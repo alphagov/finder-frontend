@@ -8,6 +8,6 @@
 
 <%= render "govuk_publishing_components/components/button", {
   text: t('checklists_results.stay_updated.sign_up'),
-  href: "/find-brexit-guidance/email-sign", # this needs to be changed to use rails route path
+  href: checklist_email_signup_path(c: criteria_keys),
   inline_layout: true
 } %>

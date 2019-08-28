@@ -1,0 +1,38 @@
+<% content_for :title, t('checklists.title') %>
+<% content_for :head do %>
+  <% unless params[:page] %>
+    <meta name="robots" content="noindex">
+  <% end %>
+<% end %>
+
+<div class="govuk-width-container">
+  <%= render 'govuk_publishing_components/components/breadcrumbs', breadcrumbs: [
+    {
+      title: t('checklists_results.breadcrumbs.home'),
+      url: "/"
+    },
+    {
+      title: t('checklists_results.breadcrumbs.q_and_a'),
+      url: checklist_questions_path(filtered_params)
+    }
+  ] %>
+
+  <main class="govuk-main-wrapper" role="mail">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-l">Get email alerts</h1>
+        <p class="govuk-body">You are signing up for email alerts about: the Get ready for Brexit tool.
+        <p class="govuk-body">
+          This will include: Information about Brexit including what you and your business can do to prepare.
+        </p>
+
+        <%= form_tag checklist_confirm_email_signup_path(c: @criteria) do %>
+          <%= render "govuk_publishing_components/components/button", {
+            text: t('checklists_results.stay_updated.sign_up'),
+            inline_layout: true
+          } %>
+        <% end %>
+      </div>
+    </div>
+  </main>
+</div>
