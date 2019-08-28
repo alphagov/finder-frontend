@@ -33,12 +33,11 @@ describe Checklists::Action do
   describe ".load_all" do
     subject { described_class.load_all }
 
-    it "returns a list of actions with required keys" do
+    it "returns a list of actions with required fields" do
       subject.each do |action|
         expect(action.title).to be_present
-        expect(action.description).to be_present
-        expect(action.path).to be_present
         expect(action.applicable_criteria).to be_a Array
+        expect(%w[business citizen]).to include(action.section)
       end
     end
 
@@ -47,6 +46,14 @@ describe Checklists::Action do
 
       subject.each do |action|
         expect(criteria).to include(*action.applicable_criteria.to_a)
+      end
+    end
+
+    it "returns actions with guidance fields together" do
+      subject.each do |action|
+        text = action.guidance_text.present?
+        url = action.guidance_url.present?
+        expect(text ^ url).to be_falsey
       end
     end
   end

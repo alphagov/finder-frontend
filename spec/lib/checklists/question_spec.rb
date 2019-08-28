@@ -28,7 +28,7 @@ describe Checklists::Question do
   describe ".load_all" do
     subject { described_class.load_all }
 
-    it "returns a list of questions with required keys" do
+    it "returns a list of questions with required fields" do
       subject.each do |question|
         expect(question.key).to be_present
         expect(question.text).to be_present
@@ -37,7 +37,12 @@ describe Checklists::Question do
       end
     end
 
-    it "returns question that reference valid criteria" do
+    it "returns questions with unique keys" do
+      keys = subject.map(&:key)
+      expect(keys.uniq.count).to eq(keys.count)
+    end
+
+    it "returns questions that reference valid criteria" do
       criteria = Checklists::Criterion.load_all.map(&:key)
 
       subject.each do |question|
