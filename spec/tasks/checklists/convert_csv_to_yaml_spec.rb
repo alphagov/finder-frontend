@@ -49,4 +49,37 @@ RSpec.describe "Convert CSV to YAML tasks" do
         .to raise_error "You must provide a path to the CSV file you would like to convert."
     end
   end
+
+  describe "checklists:convert_csv_to_yaml:criteria" do
+    before do
+      Rake::Task["checklists:convert_csv_to_yaml:criteria"].reenable
+    end
+
+    let(:criteria_yaml_file_path) { Tempfile.new("criteria.yaml").path }
+    let(:criteria_csv_file_path) { criteria_csv_to_convert_to_yaml }
+
+    it "converts the criteria CSV to YAML and writes to the criteria.yml file" do
+      # Override the YAML file path that is sent to the Converter with a tempfile
+      # so that "lib/checklists/criteria.yaml" isn't overwritten by the test.
+      allow_any_instance_of(Checklists::ConvertCsvToYaml::Converter).to receive(:convert).and_wrap_original do |m|
+        m.call(criteria_csv_file_path, criteria_yaml_file_path, "criteria")
+      end
+
+      Rake::Task["checklists:convert_csv_to_yaml:criteria"].invoke(criteria_csv_file_path)
+      loaded_yaml_file = YAML.safe_load(File.read(criteria_yaml_file_path))
+
+      expect(loaded_yaml_file["criteria"]).to include(
+        a_hash_including(
+          "key" => "owns-operates-business-organisation",
+          "text" => "Owns or operates business or organisation",
+          "depends_on" => %w(something another-thing),
+        )
+      )
+    end
+
+    it "raises an error if a path is provided to a file that doesn't have .csv extension" do
+      expect { Rake::Task["checklists:convert_csv_to_yaml:criteria"].invoke }
+        .to raise_error "You must provide a path to the CSV file you would like to convert."
+    end
+  end
 end
