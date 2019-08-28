@@ -35,7 +35,7 @@
             } %>
           </div>
         <% end %>
-        <%= render 'form_data', current_question: @current_question %>
+        <%= render 'form_data', current_question: @current_question, next_page: @page_service.next_page %>
         <%= render 'hint_text', current_question: @current_question %>
         <div class="govuk-form-footer">
           <%= render "govuk_publishing_components/components/button", {

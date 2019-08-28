@@ -4,11 +4,13 @@ class ChecklistController < ApplicationController
 
   def show
     @questions = Checklists::Question.load_all
+    @page_service = Checklists::PageService.new(questions: @questions,
+                                                criteria_keys: criteria_keys,
+                                                current_page_from_params: current_page_from_params)
 
-    return redirect_to_result_page if redirect_to_results?
-    return redirect_to_next_question if redirect_to_next_question?
+    return redirect_to_result_page if @page_service.redirect_to_results?
 
-    @current_question = @questions[page - 1]
+    @current_question = @questions[@page_service.current_page]
     render "checklist/show"
   end
 
@@ -25,19 +27,8 @@ private
   ###
   # Redirect
   ###
-
-  def redirect_to_next_question?
-    next_viewable_page(page, @questions, criteria_keys) != page
-  end
-
-  def redirect_to_next_question
-    redirect_to checklist_questions_path(
-      filtered_params.merge(page: next_viewable_page(page, @questions, criteria_keys))
-    )
-  end
-
   def redirect_to_results?
-    page == @questions.length + 1
+    @page_service.redirect_to_results?
   end
 
   def redirect_to_result_page
@@ -70,23 +61,12 @@ private
   # Current page
   ###
 
-  def page
-    @page ||= begin
-      params.permit(:page)
-      params[:page].to_i.clamp(1, @questions.length + 1)
-    end
+  def current_page_from_params
+    params[:page].to_i
   end
-
-  ###
-  # Navigation
-  ###
-  def next_page
-    page + 1
-  end
-  helper_method :next_page
 
   def skip_link_url
-    page_number = { page: next_page }
+    page_number = { page: @page_service.next_page }
     checklist_questions_path(filtered_params.merge(page_number))
   end
   helper_method :skip_link_url
