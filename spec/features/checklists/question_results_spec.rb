@@ -51,20 +51,20 @@ RSpec.feature "Questions workflow", type: :feature do
 
   def and_i_should_see_a_passport_action
     action = Checklists::Action.find_by_title("Get a new passport")
-    expect(page).to have_link(action.title, href: action.path)
+    expect(page).to have_link(action.title, href: action.title_url)
     expect(page).to have_content action.lead_time
     expect(page).to have_content action.consequence
-    expect(page).to have_link(action.guidance_text, href: action.guidance_url)
+    expect(page).to have_link(action.guidance_link_text, href: action.guidance_url)
   end
 
   def and_i_should_not_see_an_eori_action
     action = Checklists::Action.find_by_title("Get an EORI number")
-    expect(page).to_not have_link(action.title, href: action.path)
+    expect(page).to_not have_link(action.title, href: action.title_url)
   end
 
   def and_i_should_see_an_eori_action
     action = Checklists::Action.find_by_title("Get an EORI number")
-    expect(page).to have_link(action.title, href: action.path)
+    expect(page).to have_link(action.title, href: action.title_url)
     expect(page).to have_content action.lead_time
     expect(page).to have_content action.consequence
   end

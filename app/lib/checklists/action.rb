@@ -1,28 +1,28 @@
 class Checklists::Action
   attr_accessor :title,
                 :consequence,
-                :path,
+                :title_url,
                 :lead_time,
-                :applicable_criteria,
-                :section,
-                :guidance_text,
+                :criteria,
+                :audience,
+                :guidance_link_text,
                 :guidance_url,
                 :guidance_prompt
 
   def initialize(params)
     @title = params['title']
     @consequence = params['consequence']
-    @path = params['path']
+    @title_url = params['title_url']
     @lead_time = params['lead_time']
-    @applicable_criteria = params['applicable_criteria']
-    @section = params['section']
-    @guidance_text = params['guidance_text']
+    @criteria = params['criteria']
+    @audience = params['audience']
+    @guidance_link_text = params['guidance_link_text']
     @guidance_url = params['guidance_url']
     @guidance_prompt = params['guidance_prompt']
   end
 
   def applies_to?(criteria_keys)
-    applicable_criteria.any? do |key|
+    criteria.any? do |key|
       criteria_keys.include?(key)
     end
   end
