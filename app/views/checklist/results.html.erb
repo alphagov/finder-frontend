@@ -2,6 +2,12 @@
 <% content_for :head do %>
   <% unless params[:page] %>
     <meta name="robots" content="noindex">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="GOV.UK">
+    <meta property="og:url" content="<%= request.url %>">
+    <meta property="og:title" content="<%= t('checklists_results.social_media_meta.title') %>">
+    <meta property="og:description" content="<%= t('checklists_results.social_media_meta.description') %>">
+    <meta name="twitter:card" content="summary">
   <% end %>
 <% end %>
 
