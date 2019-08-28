@@ -56,6 +56,9 @@
           name: 'filter',
           value: 'true'
         } unless finder_presenter.mobile_filter? %>
+        <% if not finder_presenter.mobile_filter? %>
+          <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+        <% end %>
       </div>
     </div>
     <div class="govuk-grid-row">
@@ -65,6 +68,7 @@
       </div>
 
       <div class="govuk-grid-column-two-thirds js-live-search-results-block filtered-results" role="region" aria-label="<%= finder_presenter.name %> search results">
+      <% if finder_presenter.mobile_filter? %>    
         <div id="js-search-results-info" data-module="remove-filter" class="result-info">
           <div class="govuk-grid-row">
             <div class="govuk-grid-column-one-third<%= ' app-visually-hidden-mobile' if finder_presenter.mobile_filter? %>">
@@ -87,6 +91,7 @@
           <% end %>
 
         </div>
+        <% end %>
 
         <div class="govuk-caption-l live-search-loading-message" id="js-loading-message"></div>
 
