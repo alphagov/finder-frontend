@@ -14,7 +14,7 @@
     <div class="govuk-grid-column-one-quarter">
       <% if action.lead_time.present? %>
         <p class="govuk-body govuk-!-font-size-16 govuk-!-font-weight-bold checklist-result__leadtime">
-          It takes up to <%= action.lead_time %>
+          <%= action.lead_time %>
         </p>
       <% end %>
     </div>
