@@ -2,7 +2,11 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-three-quarters">
       <p class="govuk-body govuk-!-font-weight-bold">
-        <a href="<%= action.path %>" class="govuk-link"><%= action.title %></a>
+        <% if action.path.present? %>
+          <a href="<%= action.path %>" class="govuk-link"><%= action.title %></a>
+        <% else %>
+          <%= action.title %>
+        <% end %>
       </p>
       <% if action.description.present? %>
         <p class="govuk-body govuk-!-font-size-16">
