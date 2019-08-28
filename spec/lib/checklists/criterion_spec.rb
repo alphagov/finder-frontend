@@ -21,5 +21,14 @@ describe Checklists::Criterion do
         expect(keys).to include(*criterion.depends_on.to_a)
       end
     end
+
+    it "returns criteria that are covered by a question" do
+      question_criteria = Checklists::Question.load_all
+        .flat_map(&:options).map { |o| o["value"] }
+
+      subject.each do |criterion|
+        expect(question_criteria).to include(criterion.key)
+      end
+    end
   end
 end
