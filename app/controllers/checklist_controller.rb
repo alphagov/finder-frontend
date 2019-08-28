@@ -93,10 +93,4 @@ private
   def current_page_from_params
     params[:page].to_i
   end
-
-  def skip_link_url
-    page_number = { page: @page_service.next_page }
-    checklist_questions_path(filtered_params.merge(page_number))
-  end
-  helper_method :skip_link_url
 end
