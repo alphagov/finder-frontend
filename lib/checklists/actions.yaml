@@ -3,7 +3,7 @@ actions:
     description: |
       If you do not get one, you may have increased costs and delays. For example, if HM Revenue and Customs (HMRC) cannot clear your goods you may have to pay storage fees.
     path: '/eori'
-    lead_time: '3 months'
+    lead_time: 'It takes up to 3 months'
     applicable_criteria:
       - owns-business
     section: business
@@ -11,7 +11,7 @@ actions:
     description: |
       If you do not get one, you will not be able to travel.
     path: '/apply-renew-passport'
-    lead_time: '2 weeks'
+    lead_time: 'Do it as soon as possible'
     applicable_criteria:
       - non-eu-national
     section: citizen
