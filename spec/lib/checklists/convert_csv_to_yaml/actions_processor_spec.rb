@@ -1,7 +1,7 @@
 require "spec_helper"
-require "convert_csv_to_yaml/actions_processor"
+require "checklists/convert_csv_to_yaml/actions_processor"
 
-describe ConvertCsvToYaml::ActionsProcessor do
+describe Checklists::ConvertCsvToYaml::ActionsProcessor do
   let(:record) do
     {
       "owner" => "John Doe",
