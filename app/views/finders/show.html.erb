@@ -81,6 +81,11 @@
           <div id="js-facet-tag-wrapper" aria-live="assertive">
             <%= render "facet_tags", facet_tags.present %>
           </div>
+
+          <% if finder_presenter.mobile_filter? %>
+            <a href="/search/all" class="govuk-link">Clear filters</a>
+          <% end %>
+
         </div>
 
         <div class="govuk-caption-l live-search-loading-message" id="js-loading-message"></div>
@@ -96,6 +101,7 @@
         <div id="js-pagination"<%= ' class=app-visually-hidden-mobile' if finder_presenter.mobile_filter? %>>
           <%= render "govuk_publishing_components/components/previous_and_next_navigation", @pagination.next_and_prev_links %>
         </div>
+
         <% if result_set_presenter.has_email_signup_link? %>
           <div class="govuk-grid-column-two-thirds<%= ' app-visually-hidden-mobile' if finder_presenter.mobile_filter? %>">
             <%= render "govuk_publishing_components/components/subscription-links", result_set_presenter.signup_links %>
