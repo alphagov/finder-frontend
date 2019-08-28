@@ -1,6 +1,6 @@
 class Checklists::Action
   attr_accessor :title,
-                :description,
+                :consequence,
                 :path,
                 :lead_time,
                 :applicable_criteria,
@@ -11,7 +11,7 @@ class Checklists::Action
 
   def initialize(params)
     @title = params['title']
-    @description = params['description']
+    @consequence = params['consequence']
     @path = params['path']
     @lead_time = params['lead_time']
     @applicable_criteria = params['applicable_criteria']

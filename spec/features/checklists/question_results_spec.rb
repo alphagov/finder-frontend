@@ -53,7 +53,7 @@ RSpec.feature "Questions workflow", type: :feature do
     action = Checklists::Action.find_by_title("Get a new passport")
     expect(page).to have_link(action.title, href: action.path)
     expect(page).to have_content action.lead_time
-    expect(page).to have_content action.description
+    expect(page).to have_content action.consequence
     expect(page).to have_link(action.guidance_text, href: action.guidance_url)
   end
 
@@ -66,6 +66,6 @@ RSpec.feature "Questions workflow", type: :feature do
     action = Checklists::Action.find_by_title("Get an EORI number")
     expect(page).to have_link(action.title, href: action.path)
     expect(page).to have_content action.lead_time
-    expect(page).to have_content action.description
+    expect(page).to have_content action.consequence
   end
 end
