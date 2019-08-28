@@ -6,6 +6,10 @@
   aria_controls_id ||= false
 %>
 <% if key && name %>
+<%= render "components/expander", {
+  title: "Date range",
+  closed_on_load: true
+} do %>
   <div class="app-c-date-filter" id="<%= key %>" <% if aria_controls_id %> data-module="enable-aria-controls"<% end %>>
     <%= render "govuk_publishing_components/components/input", {
       label: {
@@ -29,4 +33,5 @@
       hint: "For example, 2005 or 21/11/2014"
     } %>
   </div>
+<% end %>
 <% end %>

@@ -1,5 +1,6 @@
 .app-c-expander {
-  border-bottom: solid 1px govuk-colour("black");
+  border-bottom: solid 1px $govuk-border-colour;
+  padding: govuk-spacing(3) 0 govuk-spacing(3) 0;
 }
 
 .app-c-expander__title {
@@ -23,19 +24,8 @@
   }
 }
 
-.app-c-expander__icon {
-  display: none;
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 30px;
-  height: 100%;
-  fill: currentColor;
-}
-
 .app-c-expander__button {
   @include govuk-font(19, $weight: bold);
-  // @include govuk-focusable;
   position: relative;
   width: 100%;
   border: 0;
@@ -46,11 +36,8 @@
 }
 
 .js-enabled {
-  [aria-expanded="true"] .app-c-expander__icon--up {
-    display: block;
-  }
-
-  [aria-expanded="false"] .app-c-expander__icon--down {
-    display: block;
+  [aria-expanded="true"] .govuk-accordion__icon:after {
+    content: " ";
+    display: none;
   }
 }

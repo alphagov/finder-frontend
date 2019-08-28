@@ -1,30 +1,25 @@
 <% unless i_am_a_topic_page_finder %>
-<div class="app-c-option-select" data-module="option-select">
-  <div class="app-c-option-select__title js-container-head">
-    Topic
-    <span class="govuk-accordion__icon" aria-hidden="true"></span>
-  </div>
-  <div role="group" class="app-c-option-select__container js-options-container" tabindex="-1">
-    <div class="app-c-option-select__container-inner js-auto-height-inner">
-      <div class="js-taxonomy-select">
+  <%= render "components/expander", {
+    title: "Topic",
+    closed_on_load: true
+  } do %>
+    <div class="js-taxonomy-select">
+      <%= render "govuk_publishing_components/components/select", {
+        id: 'level_one_taxon',
+        label: "Topic",
+        full_width: true,
+        options: taxon_facet.topics
+      }
+      %>
+      <div class="js-required govuk-form-group gem-c-select">
         <%= render "govuk_publishing_components/components/select", {
-          id: 'level_one_taxon',
-          label: "Topic",
+          id: 'level_two_taxon',
+          label: "Sub-topic",
           full_width: true,
-          options: taxon_facet.topics
+          options: taxon_facet.sub_topics
         }
         %>
-        <div class="js-required govuk-form-group gem-c-select">
-          <%= render "govuk_publishing_components/components/select", {
-            id: 'level_two_taxon',
-            label: "Sub-topic",
-            full_width: true,
-            options: taxon_facet.sub_topics
-          }
-          %>
-        </div>
       </div>
     </div>
-  </div>
-</div>
+  <% end %>
 <% end %>
