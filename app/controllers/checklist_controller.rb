@@ -2,6 +2,8 @@ class ChecklistController < ApplicationController
   include ChecklistHelper
   layout "finder_layout"
 
+  protect_from_forgery except: :email_signup
+
   def show
     @questions = Checklists::Question.load_all
 
