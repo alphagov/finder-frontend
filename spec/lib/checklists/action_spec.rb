@@ -36,9 +36,8 @@ describe Checklists::Action do
     it "returns a list of actions with required keys" do
       subject.each do |action|
         expect(action.title).to be_present
-        expect(action.description).to be_present
-        expect(action.path).to be_present
         expect(action.applicable_criteria).to be_a Array
+        expect(%w[business citizen]).to include(action.section)
       end
     end
 
