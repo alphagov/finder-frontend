@@ -46,7 +46,8 @@ RSpec.feature "Checklist email signup", type: :feature do
   end
 
   def then_i_click_to_signup_to_emails
-    click_on "Sign up for emails"
+    click_on "Sign up for emails" # on main results page
+    click_on "Sign up for emails" # on overview of subscription page
   end
 
   def and_i_am_taken_to_email_alert_frontend

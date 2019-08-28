@@ -1,5 +1,3 @@
-<a id="stay-updated"></a>
-
 <%= render "govuk_publishing_components/components/heading", {
   text: t('checklists_results.stay_updated.heading')
 } %>
@@ -8,9 +6,8 @@
   <%= sanitize( t('checklists_results.stay_updated.description') ) %>
 </p>
 
-<%= form_tag checklist_email_signup_path(c: criteria_keys) do %>
-  <%= render "govuk_publishing_components/components/button", {
-    text: t('checklists_results.stay_updated.sign_up'),
-    inline_layout: true
-  } %>
-<% end %>
+<%= render "govuk_publishing_components/components/button", {
+  text: t('checklists_results.stay_updated.sign_up'),
+  href: checklist_email_signup_path(c: criteria_keys),
+  inline_layout: true
+} %>

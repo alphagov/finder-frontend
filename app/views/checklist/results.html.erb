@@ -30,7 +30,7 @@
     <div class="govuk-grid-column-full">
       <%= render './components/email_link', {
         link_text: t('checklists_results.email_sign_up_link'),
-        link_href: "#stay-updated"
+        link_href: checklist_email_signup_path(c: criteria_keys),
       } %>
     </div>
   </div>

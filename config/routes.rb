@@ -21,7 +21,8 @@ FinderFrontend::Application.routes.draw do
   # Q&A checklist frontend for brexit guidance
   get '/get-ready-brexit-check/results' => 'checklist#results', as: :checklist_results
   get '/get-ready-brexit-check/questions' => 'checklist#show', as: :checklist_questions
-  post '/get-ready-brexit-check/email-signup' => 'checklist#email_signup', as: :checklist_email_signup
+  get '/get-ready-brexit-check/email-signup' => 'checklist#email_signup', as: :checklist_email_signup
+  post '/get-ready-brexit-check/email-signup' => 'checklist#confirm_email_signup', as: :checklist_confirm_email_signup
   get '/email/subscriptions/new', to: proc { [200, {}, ['']] }, as: :email_alert_frontend_signup
 
   get '/*slug/email-signup' => 'email_alert_subscriptions#new', as: :new_email_alert_subscriptions
