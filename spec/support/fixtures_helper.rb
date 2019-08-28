@@ -46,4 +46,8 @@ module FixturesHelper
   def business_readiness_qa_config
     YAML.load_file(fixtures_path + "/prepare_business_uk_leaving_eu.yaml")
   end
+
+  def csv_to_convert_to_yaml
+    fixtures_path + "/csv_to_convert.csv"
+  end
 end
