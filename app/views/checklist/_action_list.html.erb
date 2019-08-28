@@ -1,9 +1,16 @@
-<% items.each do | action | %>
+<% items.each.with_index do | action, index | %>
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-three-quarters">
       <p class="govuk-body govuk-!-font-weight-bold">
         <% if action.title_url.present? %>
-          <a href="<%= action.title_url %>" class="govuk-link"><%= action.title %></a>
+          <a
+            class="govuk-link"
+            href="<%= action.title_url %>"
+            data-module="track-click"
+            data-track-action="<%= audience_heading %> <%= audience_index %>.<%= index + 1 %>"
+            data-track-category="ContentItemClicked"
+            data-track-label="<%= action.title_url %>"
+          ><%= action.title %></a>
         <% else %>
           <%= action.title %>
         <% end %>
