@@ -2,8 +2,8 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-three-quarters">
       <p class="govuk-body govuk-!-font-weight-bold">
-        <% if action.path.present? %>
-          <a href="<%= action.path %>" class="govuk-link"><%= action.title %></a>
+        <% if action.title_url.present? %>
+          <a href="<%= action.title_url %>" class="govuk-link"><%= action.title %></a>
         <% else %>
           <%= action.title %>
         <% end %>
@@ -24,8 +24,8 @@
     </div>
   </div>
 
-  <% if action.guidance_text.present? && action.guidance_url.present? %>
+  <% if action.guidance_link_text.present? && action.guidance_url.present? %>
     <% prompt = action.guidance_prompt || t("checklists_results.actions.guidance_prompt") %>
-    <%= prompt %>: <a href="<%= action.guidance_url %>" class="govuk-link"><%= action.guidance_text %></a>
+    <%= prompt %>: <a href="<%= action.guidance_url %>" class="govuk-link"><%= action.guidance_link_text %></a>
   <% end %>
 <% end %>

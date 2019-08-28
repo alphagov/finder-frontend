@@ -10,12 +10,12 @@ module ChecklistHelper
     criteria.map { |criterion| { readable_text: criterion.text } }
   end
 
-  def format_action_sections(actions)
-    action_groups = actions.group_by(&:section)
+  def format_action_audiences(actions)
+    action_groups = actions.group_by(&:audience)
 
     action_groups.map do |key, action_group|
       {
-        heading: I18n.t("checklists_results.sections.#{key}.heading"),
+        heading: I18n.t("checklists_results.audiences.#{key}.heading"),
         actions: action_group
       }
     end
