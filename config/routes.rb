@@ -22,9 +22,7 @@ FinderFrontend::Application.routes.draw do
   get '/get-ready-brexit-check/results' => 'checklist#results', as: :checklist_results
   get '/get-ready-brexit-check/questions' => 'checklist#show', as: :checklist_questions
   post '/get-ready-brexit-check/email-signup' => 'checklist#email_signup', as: :checklist_email_signup
-  get '/get-ready-brexit-check/email-signup/frequency' => 'checklist#email_frequency', as: :checklist_email_frequency
-  post '/get-ready-brexit-check/email-signup/create-email-frequency' => 'checklist#create_email_frequency', as: :create_checklist_email_frequency
-  get '/get-ready-brexit-check/email-signup/address' => 'checklist#email_address', as: :checklist_email_address
+  get '/email/subscriptions/new', to: proc { [200, {}, ['']] }, as: :email_alert_frontend_signup
 
   get '/*slug/email-signup' => 'email_alert_subscriptions#new', as: :new_email_alert_subscriptions
   post '/*slug/email-signup' => 'email_alert_subscriptions#create', as: :email_alert_subscriptions

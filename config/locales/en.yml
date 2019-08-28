@@ -68,19 +68,3 @@ en:
         Sign up to receive a copy of your results or to get email alterts when your results are upadated.
         To come back to your results page at anytime, just copy the url.
       sign_up: "Sign up for emails"
-  frequencies:
-    immediately:
-      short_desc: As soon as they happen
-      subscribing_to_topic: "You’ll get an email every time a page is added or changed."
-      subscribed_to_topic: "You’ll get an email each time there’s an update to ‘%{title}’"
-      subscribed_summary: "You chose to get updates as soon as they happen."
-    daily:
-      short_desc: Once a day
-      subscribing_to_topic: "You'll get an email each day if a page is added or changed."
-      subscribed_to_topic: "You’ll get an email each day there’s been an update to ‘%{title}’"
-      subscribed_summary: "You chose to get daily updates."
-    weekly:
-      short_desc: Once a week
-      subscribing_to_topic: "You'll get one email per week if a page is added or changed."
-      subscribed_to_topic: "You’ll get one email per week if there’s been an update to ‘%{title}’"
-      subscribed_summary: "You chose to get weekly updates."

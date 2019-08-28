@@ -24,26 +24,8 @@ class ChecklistController < ApplicationController
     request = Services.email_alert_api.find_or_create_subscriber_list(subscriber_list_options)
     subscriber_list_slug = request.dig("subscriber_list", "slug")
 
-    redirect_to checklist_email_frequency_path(topic_id: subscriber_list_slug, url: results_url)
+    redirect_to email_alert_frontend_signup_path(topic_id: subscriber_list_slug)
   end
-
-  def email_frequency
-    @topic_id = params.require(:topic_id)
-    @url = params.require(:url)
-  end
-
-  def create_email_frequency
-    frequency = checklist_email_frequency_path(topic_id: params.require(:topic_id), url: params.require(:url))
-    return redirect_to frequency unless valid_frequency
-
-    redirect_to checklist_email_address_path(
-      topic_id: params.require(:topic_id),
-      url: params.require(:url),
-      frequency: params.require(:frequency)
-    )
-  end
-
-  def email_address; end
 
 private
 
@@ -51,27 +33,12 @@ private
   # Email signup
   ###
 
-  def valid_frequency
-    I18n.t('frequencies').map { |frequency, _config| frequency.to_s }.include?(params.require(:frequency))
-  end
-
-  def frequencies
-    I18n.t('frequencies').map { |frequency, config|
-      {
-        value: frequency,
-        text: config[:short_desc],
-        checked: (frequency.to_s == 'immediately'),
-      }
-    }
-  end
-  helper_method :frequencies
-
   def subscriber_list_options
     criteria = params.require(:c)
 
     {
       "title" => "Your Brexit Checklist",
-      "slug" => criteria.sort.join('-'),
+      "slug" => "brexit-checklist-#{criteria.sort.join('-')}",
       "tags" => { "brexit_checklist_criteria" => { "any" => criteria } },
       "url" => find_brexit_guidance_results_path(c: criteria)
     }
