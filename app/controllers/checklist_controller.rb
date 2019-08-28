@@ -31,7 +31,7 @@ private
   end
 
   def redirect_to_next_question
-    redirect_to find_brexit_guidance_path(
+    redirect_to checklist_questions_path(
       filtered_params.merge(page: next_viewable_page(page, @questions, criteria_keys))
     )
   end
@@ -41,7 +41,7 @@ private
   end
 
   def redirect_to_result_page
-    redirect_to find_brexit_guidance_results_path(filtered_params)
+    redirect_to checklist_results_path(filtered_params)
   end
 
   ###
@@ -87,7 +87,7 @@ private
 
   def skip_link_url
     page_number = { page: next_page }
-    find_brexit_guidance_path(filtered_params.merge(page_number))
+    checklist_questions_path(filtered_params.merge(page_number))
   end
   helper_method :skip_link_url
 end

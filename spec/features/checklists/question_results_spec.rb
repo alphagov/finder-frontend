@@ -18,7 +18,7 @@ RSpec.feature "Questions workflow", type: :feature do
   end
 
   def when_i_visit_the_checklist_flow
-    visit '/find-brexit-guidance'
+    visit checklist_questions_path
   end
 
   def and_i_answer_the_basic_questions
