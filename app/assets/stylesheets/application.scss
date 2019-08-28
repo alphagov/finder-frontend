@@ -35,6 +35,7 @@ $govuk-typography-use-rem: false;
   }
 
   .app-\!-hack-search-override {
+    @include govuk-clearfix;
     padding-top: govuk-spacing(4);
 
     // input[type="search"] {
@@ -47,9 +48,18 @@ $govuk-typography-use-rem: false;
 
     button {
       float: left;
-      background: $govuk-brand-colour;
+      // background: $govuk-brand-colour;
       margin-top: govuk-spacing(1);
       width: 2.4em;
+      background: $govuk-brand-colour url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36' width='40' height='40'%3E%3Cpath d='M25.7 24.8L21.9 21c.7-1 1.1-2.2 1.1-3.5 0-3.6-2.9-6.5-6.5-6.5S10 13.9 10 17.5s2.9 6.5 6.5 6.5c1.6 0 3-.6 4.1-1.5l3.7 3.7 1.4-1.4zM12 17.5c0-2.5 2-4.5 4.5-4.5s4.5 2 4.5 4.5-2 4.5-4.5 4.5-4.5-2-4.5-4.5z' fill='white'%3E%3C/path%3E%3C/svg%3E") no-repeat top left;
+      background-size: 36px 36px;
+      text-indent: -9999px;
+
+      &:focus,
+      &:hover {
+        color: $govuk-brand-colour;
+        background-color: govuk-colour("white");
+      }
     }
   }
 
@@ -61,11 +71,16 @@ $govuk-typography-use-rem: false;
     margin: -5px 0 0 0;
     padding: 5px 0 5px 0;
     width: auto;
+
+    &:focus,
+    &:hover {
+      background-color: $govuk-brand-colour;
+    }
   }
 
   .gem-c-document-list__item {
     border: 0;
-    margin-bottom: govuk-spacing(6);
+    margin-bottom: govuk-spacing(7);
     padding-bottom: govuk-spacing(0);
   }
 
@@ -78,7 +93,7 @@ $govuk-typography-use-rem: false;
     }
 
     #finder-frontend {
-      padding-bottom: govuk-spacing(9);
+      padding-bottom: govuk-spacing(7);
       margin-bottom: 0;
     }
   }
@@ -88,4 +103,33 @@ $govuk-typography-use-rem: false;
   .app-visually-hidden-not-mobile {
     @include govuk-visually-hidden;
   }
+}
+
+// remove background on facets
+.facet-tags__group:nth-child(odd) {
+  background: none;
+}
+
+// adjust facet tags and prepositions width to be non-block
+.js-enabled .facet-tag {
+  display: inline-block;
+}
+
+.facet-tags__wrapper {
+  display: inline-block;
+  vertical-align: baseline;
+}
+
+.facet-tags__preposition {
+  display: inline-block;
+}
+
+.facet-tags__wrapper:first-of-type .facet-tags__preposition:first-of-type {
+  display: block;
+}
+
+// tweak facet tag styles
+.facet-tag {
+  background: none;
+  border: 2px solid $govuk-input-border-colour;
 }
