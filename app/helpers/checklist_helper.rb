@@ -26,11 +26,4 @@ module ChecklistHelper
       action.applies_to?(criteria_keys)
     end
   end
-
-  def action_guidance_link_text(action)
-    prompt = action.guidance_prompt.presence ||
-      t("checklists_results.actions.guidance_prompt")
-
-    "#{prompt}: #{action.guidance_text}"
-  end
 end

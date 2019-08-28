@@ -51,11 +51,10 @@ RSpec.feature "Questions workflow", type: :feature do
 
   def and_i_should_see_a_passport_action
     action = Checklists::Action.find_by_title("Get a new passport")
-    prompt = I18n.t!("checklists_results.actions.guidance_prompt")
     expect(page).to have_link(action.title, href: action.path)
     expect(page).to have_content action.lead_time
     expect(page).to have_content action.consequence
-    expect(page).to have_link("#{prompt}: #{action.guidance_text}", href: action.guidance_url)
+    expect(page).to have_link(action.guidance_text, href: action.guidance_url)
   end
 
   def and_i_should_not_see_an_eori_action
