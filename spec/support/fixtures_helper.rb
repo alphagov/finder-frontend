@@ -47,7 +47,8 @@ module FixturesHelper
     YAML.load_file(fixtures_path + "/prepare_business_uk_leaving_eu.yaml")
   end
 
-  def csv_to_convert_to_yaml
+  def actions_csv_to_convert_to_yaml
+    fixtures_path + "/actions_csv_to_convert.csv"
   end
 
   def criteria_csv_to_convert_to_yaml
