@@ -2,9 +2,11 @@
   text: t('checklists_results.stay_updated.heading')
 } %>
 
-<p class="govuk-body govuk-!-margin-top-4">
-  <%= sanitize( t('checklists_results.stay_updated.description') ) %>
-</p>
+<div class="govuk-!-margin-top-4">
+  <%= render "govuk_publishing_components/components/govspeak", {
+    content: t('checklists_results.stay_updated.description').html_safe
+  } %>
+</div>
 
 <%= render "govuk_publishing_components/components/button", {
   text: t('checklists_results.stay_updated.sign_up'),

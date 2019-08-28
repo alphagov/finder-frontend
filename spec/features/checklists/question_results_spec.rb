@@ -46,7 +46,7 @@ RSpec.feature "Questions workflow", type: :feature do
   end
 
   def then_i_should_see_the_results_page
-    expect(page).to have_content "What you may need to know to prepare for Brexit"
+    expect(page).to have_content I18n.t!("checklists_results.title")
   end
 
   def and_i_should_see_a_passport_action
