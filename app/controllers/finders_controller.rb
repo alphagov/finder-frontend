@@ -1,5 +1,3 @@
-require 'pry'
-
 class FindersController < ApplicationController
   include FinderTopResultAbTestable
   include SearchClusterABTestable
