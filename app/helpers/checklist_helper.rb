@@ -19,4 +19,8 @@ module ChecklistHelper
       action.applies_to?(criteria_keys)
     end
   end
+
+  def persistent_criteria_keys(question_criteria_keys)
+    criteria_keys - question_criteria_keys
+  end
 end

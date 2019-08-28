@@ -17,9 +17,13 @@ class Checklists::Question
     depends_on.blank? || (depends_on - criteria).empty?
   end
 
-  def formatted_options(filtered_params)
+  def possible_criteria
+    @possible_criteria ||= options.map { |o| o['value'] }
+  end
+
+  def formatted_options(criteria_keys)
     options.map do |option|
-      checked = filtered_params[key].present? && filtered_params[key].include?(option["value"])
+      checked = criteria_keys.include?(option["value"])
       { label: option["label"], text: option["label"], value: option["value"], checked: checked }
     end
   end

@@ -24,9 +24,7 @@ class ChecklistController < ApplicationController
     render "checklist/results"
   end
 
-  def email_signup
-    @criteria = params.require(:c)
-  end
+  def email_signup; end
 
   def confirm_email_signup
     request = Services.email_alert_api.find_or_create_subscriber_list(subscriber_list_options)
@@ -42,18 +40,17 @@ private
   ###
 
   def subscriber_list_options
-    criteria = params.require(:c).reject(&:blank?)
-
     {
       "title" => "Your Get ready for Brexit results",
-      "slug" => "brexit-checklist-#{criteria.sort.join('-')}",
-      "tags" => { "brexit_checklist_criteria" => { "any" => criteria } },
-      "url" => checklist_results_path(c: criteria)
+      "slug" => "brexit-checklist-#{criteria_keys.sort.join('-')}",
+      "tags" => { "brexit_checklist_criteria" => { "any" => criteria_keys } },
+      "url" => checklist_results_path(c: criteria_keys)
     }
   end
 
   ###
   # Redirect
+
   ###
   def redirect_to_results?
     @page_service.redirect_to_results?
@@ -73,7 +70,7 @@ private
   helper_method :filtered_params
 
   def criteria_keys
-    filtered_params.values.flatten
+    request.query_parameters.fetch(:c, [])
   end
   helper_method :criteria_keys
 
