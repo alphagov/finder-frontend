@@ -39,7 +39,7 @@ private
     criteria = params.require(:c)
 
     {
-      "title" => "Your Brexit Checklist",
+      "title" => "the Get ready for Brexit tool",
       "slug" => "brexit-checklist-#{criteria.sort.join('-')}",
       "tags" => { "brexit_checklist_criteria" => { "any" => criteria } },
       "url" => find_brexit_guidance_results_path(c: criteria)

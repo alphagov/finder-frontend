@@ -7,7 +7,7 @@ RSpec.feature "Checklist email signup", type: :feature do
 
   let(:subscriber_list) do
     {
-      "title" => "Your Brexit Checklist",
+      "title" => "the Get ready for Brexit tool",
       "slug" => "brexit-checklist-does-not-own-business-eu-national",
       "tags" => { "brexit_checklist_criteria" => { "any" => %w[does-not-own-business eu-national] } },
       "url" => "/results?c[]=does-not-own-business&c[]=eu-national"
