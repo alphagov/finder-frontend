@@ -4,9 +4,9 @@
       <p class="govuk-body govuk-!-font-weight-bold">
         <a href="<%= action.path %>" class="govuk-link"><%= action.title %></a>
       </p>
-      <% if action.description.present? %>
+      <% if action.consequence.present? %>
         <p class="govuk-body govuk-!-font-size-16">
-          <%= action.description %>
+          <%= action.consequence %>
         </p>
       <% end %>
     </div>
