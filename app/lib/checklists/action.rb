@@ -1,5 +1,6 @@
 class Checklists::Action
-  attr_accessor :title,
+  attr_accessor :id,
+                :title,
                 :consequence,
                 :title_url,
                 :lead_time,
@@ -10,6 +11,7 @@ class Checklists::Action
                 :guidance_prompt
 
   def initialize(params)
+    @id = params['action_id']
     @title = params['title']
     @consequence = params['consequence']
     @title_url = params['title_url']
