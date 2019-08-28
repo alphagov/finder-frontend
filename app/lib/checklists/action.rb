@@ -7,7 +7,8 @@ class Checklists::Action
                 :audience,
                 :guidance_link_text,
                 :guidance_url,
-                :guidance_prompt
+                :guidance_prompt,
+                :priority
 
   def initialize(params)
     @title = params['title']
@@ -19,6 +20,7 @@ class Checklists::Action
     @guidance_link_text = params['guidance_link_text']
     @guidance_url = params['guidance_url']
     @guidance_prompt = params['guidance_prompt']
+    @priority = params['priority']
   end
 
   def applies_to?(criteria_keys)

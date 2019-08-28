@@ -35,31 +35,27 @@ describe ChecklistHelper, type: :helper do
   end
 
   describe "#format_action_audiences" do
-    let(:citizen_action) { Checklists::Action.new('audience' => 'citizen') }
-    let(:business_action) { Checklists::Action.new('audience' => 'business') }
+    let(:action1) { Checklists::Action.new('audience' => 'citizen', 'priority' => 'Medium') }
+    let(:action2) { Checklists::Action.new('audience' => 'citizen', 'priority' => 'High') }
+    let(:action3) { Checklists::Action.new('audience' => 'business', 'priority' => 'Medium') }
+    let(:action4) { Checklists::Action.new('audience' => 'business', 'priority' => 'Medium') }
 
     subject { format_action_audiences(actions) }
 
-    context "when there are actions for each section" do
-      let(:actions) { [citizen_action, business_action] }
-      it "return formatted sections" do
+    context "when there are actions for each audience" do
+      let(:actions) { [action1, action2, action3, action4] }
+
+      it "return actions grouped by audience and sorted by priority" do
         expect(subject).to eq([
           {
             heading: I18n.t("checklists_results.audiences.citizen.heading"),
-            actions: [citizen_action]
+            actions: [action2, action1]
           },
           {
             heading: I18n.t("checklists_results.audiences.business.heading"),
-            actions: [business_action]
+            actions: [action3, action4]
           }
         ])
-      end
-    end
-
-    context "when there are not actions" do
-      let(:actions) { [] }
-      it "returns no sections" do
-        expect(subject).to eq([])
       end
     end
   end
