@@ -50,5 +50,13 @@ describe Checklists::Action do
         expect(criteria).to include(*action.applicable_criteria.to_a)
       end
     end
+
+    it "returns actions with guidance fields together" do
+      subject.each do |action|
+        text = action.guidance_text.present?
+        url = action.guidance_url.present?
+        expect(text ^ url).to be_falsey
+      end
+    end
   end
 end
