@@ -30,7 +30,7 @@ RSpec.feature "Checklist email signup", type: :feature do
   end
 
   def given_im_on_the_results_page
-    visit "/find-brexit-guidance/results?do_you_own_a_business%5B%5D=does-not-own-business&eu_national_in_uk%5B%5D=eu-national"
+    visit "/get-ready-brexit-check/results?do_you_own_a_business%5B%5D=does-not-own-business&eu_national_in_uk%5B%5D=eu-national"
   end
 
   def and_email_alert_api_has_subscriber_list

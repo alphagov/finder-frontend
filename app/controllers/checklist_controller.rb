@@ -40,13 +40,13 @@ private
   ###
 
   def subscriber_list_options
-    criteria = params.require(:c)
+    criteria = params.require(:c).reject(&:blank?)
 
     {
       "title" => "Your Get ready for Brexit results",
       "slug" => "brexit-checklist-#{criteria.sort.join('-')}",
       "tags" => { "brexit_checklist_criteria" => { "any" => criteria } },
-      "url" => find_brexit_guidance_results_path(c: criteria)
+      "url" => checklist_results_path(c: criteria)
     }
   end
 
