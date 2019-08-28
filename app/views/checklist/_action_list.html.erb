@@ -21,6 +21,7 @@
   </div>
 
   <% if action.guidance_text.present? && action.guidance_url.present? %>
-    <a href="<%= action.guidance_url %>" class="govuk-link"><%= action_guidance_link_text(action) %></a>
+    <% prompt = action.guidance_prompt || t("checklists_results.actions.guidance_prompt") %>
+    <%= prompt %>: <a href="<%= action.guidance_url %>" class="govuk-link"><%= action.guidance_text %></a>
   <% end %>
 <% end %>
