@@ -70,7 +70,7 @@ private
   helper_method :filtered_params
 
   def criteria_keys
-    request.query_parameters.fetch(:c, [])
+    request.query_parameters.fetch(:c, []).reject(&:blank?)
   end
   helper_method :criteria_keys
 
