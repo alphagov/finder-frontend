@@ -10,6 +10,7 @@
         </p>
       <% end %>
     </div>
+
     <div class="govuk-grid-column-one-quarter">
       <% if action.lead_time.present? %>
         <p class="govuk-body govuk-!-font-size-16 govuk-!-font-weight-bold checklist-result__leadtime">
@@ -18,4 +19,8 @@
       <% end %>
     </div>
   </div>
+
+  <% if action.guidance_text.present? && action.guidance_url.present? %>
+    <a href="<%= action.guidance_url %>" class="govuk-link"><%= action_guidance_link_text(action) %></a>
+  <% end %>
 <% end %>
