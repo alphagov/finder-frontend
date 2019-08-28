@@ -1,8 +1,8 @@
 .app-c-option-select {
   position: relative;
-  padding: 0 0 1px;
-  background-color: govuk-colour("grey-3");
-  margin-bottom: govuk-spacing(6);
+  padding: govuk-spacing(3) 0 govuk-spacing(3) 0;
+  background-color: govuk-colour("white");
+  border-bottom: 1px solid $govuk-border-colour;
 
   @include media(desktop) {
     // Redefine scrollbars on desktop where these lists are scrollable
@@ -22,14 +22,10 @@
   }
 
   &.js-closed {
-    .app-c-option-select__filter,
-    .app-c-option-select__container,
-    .app-c-option-select__icon--up {
-      display: none;
-    }
 
-    .app-c-option-select__icon--down {
-      display: block;
+    .app-c-option-select__filter,
+    .app-c-option-select__container {
+      display: none;
     }
   }
 
@@ -40,28 +36,29 @@
 
 .app-c-option-select__title {
   @include govuk-font(19, $weight: bold);
-  padding: 10px 8px 5px 16px;
+  padding: 10px 8px 5px 0;
   margin: 0;
 }
 
 .app-c-option-select__button {
   z-index: 100;
-  padding-right: 40px;
+  padding-right: 0;
   width: 100%;
   background: none;
   border: 0;
   text-align: left;
   cursor: pointer;
+  position: relative;
 
   &:hover,
   &:hover + .app-c-option-select__selected-counter {
-    background-color: govuk-colour("grey-2");
+    background-color: govuk-colour("white");
   }
 
   &:hover ~ .app-c-option-select__container,
   &:hover ~ .app-c-option-select__selected-counter,
   &:hover ~ .app-c-option-select__filter {
-    border-color: govuk-colour("grey-2");
+    border-color: govuk-colour("white");
   }
 
   &::-moz-focus-inner {
@@ -88,22 +85,12 @@
   }
 }
 
-.app-c-option-select__icon {
-  display: none;
-  position: absolute;
-  top: 0;
-  right: govuk-spacing(2);
-  width: 30px;
-  height: 40px;
-  fill: currentColor;
-}
-
 .app-c-option-select__container {
   position: relative;
   max-height: 200px;
   overflow-y: auto;
   overflow-x: hidden;
-  border: govuk-spacing(1) solid govuk-colour("grey-3");
+  border: none;
   background-color: govuk-colour("white");
 
   &:focus {
@@ -112,15 +99,15 @@
 }
 
 .app-c-option-select__container-inner {
-  padding: govuk-spacing(1) 13px;
+  padding: govuk-spacing(1) 0;
 }
 
 .app-c-option-select__filter {
   position: relative;
   background: govuk-colour('white');
-  border-left: govuk-spacing(1) solid govuk-colour("grey-3");
-  border-right: govuk-spacing(1) solid govuk-colour("grey-3");
-  padding: 13px 13px govuk-spacing(2) 13px;
+  border-left: none;
+  border-right: none;
+  padding: 13px 0 govuk-spacing(2) 0;
 }
 
 .app-c-option-select__filter-input {
@@ -135,12 +122,8 @@
 
 .js-enabled {
   .app-c-option-select__container {
-    border: govuk-spacing(1) solid govuk-colour("grey-3");
+    border: none;
     border-top: 0;
-  }
-
-  .app-c-option-select__icon--up {
-    display: block;
   }
 
   .app-c-option-select__container {
@@ -150,7 +133,7 @@
 
 .app-c-option-select__selected-counter {
   margin-top: -3px;
-  padding: 0 8px 3px 18px;
+  padding: 0 8px 3px 0;
 }
 
 .app-c-option-select--expander {
@@ -191,10 +174,6 @@
     padding-top: govuk-spacing(1);
     padding-left: 0;
     padding-right: 0;
-  }
-
-  .app-c-option-select__icon {
-    right: 0;
   }
 
   .app-c-option-select__filter {
