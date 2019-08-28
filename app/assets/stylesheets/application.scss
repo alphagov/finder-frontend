@@ -32,6 +32,7 @@ $govuk-typography-use-rem: false;
 
   .app-hack-filter-submit {
     background: govuk-colour("white");
+    z-index: 999;
   }
 
   .app-\!-hack-search-override {
