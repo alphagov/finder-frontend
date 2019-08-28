@@ -35,6 +35,7 @@
 }
 
 .filter-form {
+  border-top: 1px solid $govuk-border-colour;
   .js-enabled & .button__wrapper {
     display:none;
   }
@@ -263,8 +264,7 @@
 }
 
 .result-info {
-  margin: 0 0 govuk-spacing(4) 0;
-  border-bottom: solid 1px govuk-colour("black");
+  margin: 0 0 govuk-spacing(8) 0;
 
   .govuk-grid-column-two-thirds {
     text-align: left;

@@ -58,8 +58,7 @@ $govuk-typography-use-rem: false;
 
       &:focus,
       &:hover {
-        color: $govuk-brand-colour;
-        background-color: govuk-colour("white");
+        background-color: $govuk-brand-colour;
       }
     }
   }
@@ -75,7 +74,8 @@ $govuk-typography-use-rem: false;
 
     &:focus,
     &:hover {
-      background-color: $govuk-brand-colour;
+      color: $govuk-brand-colour;
+      background-color: govuk-colour("white");
     }
   }
 
