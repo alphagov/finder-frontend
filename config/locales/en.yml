@@ -37,6 +37,10 @@ en:
   checklists:
     title: "Get ready for Brexit: check what you need to do"
   checklists_results:
+    social_media_meta:
+      title: "Get ready for Brexit"
+      description: |
+        Check what you or your business need to do to prepare for Brexit.
     breadcrumbs:
       home: "Home"
       q_and_a: "Brexit Q&A"
