@@ -5,12 +5,12 @@ questions:
     question: "Are you preparing a business or organisation for Brexit?"
     options:
       - label: "Yes"
-        value: owns-business
+        value: owns-operates-business-organisation
       - label: "No"
-        value: does-not-own-business
+        value: does-not-own-operate-business-organisation
 
   - key: sector_business_area
-    criteria: owns-business
+    criteria: owns-operates-business-organisation
     question_type: "multiple"
     question: "What does your business or organisation do?"
     description: |
@@ -23,23 +23,23 @@ questions:
           - label: Automotive
             value: sector-automotive
           - label: Electronics, parts and machinery
-            value: sector-electronics-parts-machinery
+            value: sector-electronic-parts-machinery
           - label: Installation, servicing and repair
             value: sector-installation-servicing-repair
           - label: Marine and marine transport
-            value: sector-marine
+            value: sector-marine-marine-transport
           - label: Rail (manufacture)
-            value: sector-rail
+            value: sector-rail-manufacture
       #- label: "Agriculture, animals, fisheries and forestry"
         #options:
           - label: Agriculture and farming
-            value: sector-agriculture-and-farming
+            value: sector-agriculture-farming
           - label: Animals and animal products (excluding food)
-            value: sector-animals-and-animal-products
+            value: sector-animals-animal-products-ex-food
           - label: Fisheries (including wholesale)
-            value: sector-fisheries
+            value: sector-fisheries-inc-wholesale
           - label: Plants and forestry
-            value: sector-plants-and-forestry
+            value: sector-plants-forestry
           - label: Veterinary
             value: sector-veterinary
       #- label: "Business and personal services"
@@ -47,17 +47,17 @@ questions:
           - label: Personal services
             value: sector-personal-services
           - label: Professional, legal and business services
-            value: sector-professional-and-business-services
+            value: sector-professional-legal-business-services
       #- label: "Charities and voluntary organisation"
         #options:
           - label: Charities
             value: sector-charities
           - label: Voluntary and community organisations
-            value: sector-voluntary-community-organisations
+            value: sector-voluntary-community-orgs
       #- label: "Construction and environmental services"
         #options:
           - label: Construction
-            value: sector-construction-contracting
+            value: sector-construction
           - label: Environmental services
             value: sector-environmental-services
       #- label: "Defence"
@@ -73,11 +73,11 @@ questions:
           - label: Oil, gas and coal
             value: sector-oil-gas-coal
           - label: Renewable energy
-            value: sector-other-energy
+            value: sector-renewable-energy
       #- label: "Entertainment"
         #options:
           - label: Media and broadcasting
-            value: sector-broadcasting
+            value: sector-media-broadcasting
           - label: Creative industries
             value: sector-creative-industries
           - label: Gambling
@@ -93,7 +93,7 @@ questions:
           - label: Insurance
             value: sector-insurance
           - label: Real estate
-            value: sector-real-estate-excl-imputed-rent
+            value: sector-real-estate
       #- label: "Health and social care"
         #options:
           - label: Health and social care services
@@ -101,17 +101,17 @@ questions:
           - label: Medical technology
             value: sector-medical-technology
           - label: Pharmaceuticals and clinical trials
-            value: sector-pharmaceuticals
+            value: sector-pharmaceuticals-clinical-trials
       #- label: "Information and communications"
         #options:
           - label: Digital, technology and computer services
-            value: sector-computer-services
+            value: sector-digital-technology-computer-services
           - label: Telecoms and information services
-            value: sector-telecoms
+            value: sector-telecoms-information-services
       #- label: "Manufacturing"
         #options:
           - label: Manufacturing of consumer goods
-            value: sector-clothing-consumer-goods-manufacturing
+            value: sector-manufacturing-consumer-goods
       #- label: "Materials and mining"
         #options:
           - label: Chemicals
@@ -127,7 +127,7 @@ questions:
       #- label: "Public administration"
         #options:
           - label: Justice including prisons
-            value: sector-justice-prisons
+            value: sector-justice-including-prisons
           - label: Public administration
             value: sector-public-administration
       #- label: "Research and education"
@@ -139,11 +139,11 @@ questions:
       #- label: "Retail, wholesale and consumer goods"
         #options:
           - label: Food, drink and tobacco
-            value: sector-food-and-drink
+            value: sector-food-drink-tobacco
           - label: Motor trade
-            value: sector-motor-trades
+            value: sector-motor-trade
           - label: Retail and wholesale (excluding food, drink and motors)
-            value: sector-retail
+            value: sector-retail-wholesale-ex-food-drink-motors
       #- label: "Tourism and hospitality"
         #options:
           - label: Accommodation
@@ -161,20 +161,20 @@ questions:
           - label: Postal and courier services
             value: sector-postal-courier-services
           - label: Rail (passengers and freight)
-            value: sector-rail-passenger-freight
+            value: sector-rail-passengers-freight
           - label: Road (passengers and freight)
             value: sector-road-passengers-freight
           - label: Warehousing, services and pipelines
-            value: sector-warehouses-services-pipelines
+            value: sector-warehousing-services-pipelines
 
   - key: business_activity
-    criteria: owns-business
+    criteria: owns-operates-business-organisation
     question_type: "multiple"
     question: "Does your business or organisation do any of the following activities?"
     description: <p>Importing and exporting includes temporarily taking goods across the EU border, for example to a trade fair.</p>
     options:
       - label: "Sell goods or provide services in the UK"
-        value: sells-services-or-goods
+        value: sell-goods-provide-services-in-uk
       - label: "Import from the EU"
         value: import-from-eu
       - label: "Export to the EU"
@@ -185,7 +185,7 @@ questions:
         value: haulage-goods-across-eu-borders
 
   - key: employ_eu_citizens
-    criteria: owns-business
+    criteria: owns-operates-business-organisation
     question_type: "single"
     question: "Do you employ anyone from another European country?"
     description: |
@@ -197,7 +197,7 @@ questions:
         value: do-not-employ-eu-citizens
 
   - key: personal_data
-    criteria: owns-business
+    criteria: owns-operates-business-organisation
     question_type: "single_wrapped"
     question: "Do you exchange personal data with another organisation in Europe?"
     description: |
@@ -217,7 +217,7 @@ questions:
         value: do-not-exchange-personal-data-with-eu-org
 
   - key: intellectual_property
-    criteria: owns-business
+    criteria: owns-operates-business-organisation
     question_type: "single_wrapped"
     question: "Do you use or rely on intellectual property (IP) protection?"
     description: |
@@ -240,7 +240,7 @@ questions:
         value: do-not-use-rely-ip
 
   - key: eu_uk_government_funding
-    criteria: owns-business
+    criteria: owns-operates-business-organisation
     question_type: "single_wrapped"
     question: "Do you get EU or UK government funding?"
     description: |
@@ -257,7 +257,7 @@ questions:
         value: do-not-get-eu-uk-funding
 
   - key: public_sector_procurement
-    criteria: owns-business
+    criteria: owns-operates-business-organisation
     question_type: "single_wrapped"
     question: "Do you sell your products or services to the public sector?"
     description: |
@@ -303,37 +303,37 @@ questions:
       - label: EU
         value: living-eu
       - label: Rest of world
-        value: living-other
+        value: living-row
 
   - key: drive-in-eu
     question_type: single
     question: Do you need to drive in the EU?
-    criteria: "nationality-uk && (living-eu || living-other)"
+    criteria: "nationality-uk && (living-eu || living-row)"
     options:
       - label: "Yes"
-        value: drive-eu-yes
+        value: driving-eu
       - label: "No"
-        value: drive-eu-no
+        value: driving-eu-no
 
   - key: employment-1
     criteria: "nationality-uk && living-eu"
     question_type: multiple
     question: 'What do you do?'
     options:
-      - label: Work
-        value: employment-work
-      - label: Study
-        value: employment-study
+      - label: "Work in the EU"
+        value: working-eu
+      - label: "Study in the EU"
+        value: studying-eu
 
   - key: employment-2
     criteria: "nationality-row && living-uk"
     question_type: multiple
     question: 'What do you do?'
     options:
-      - label: Work
-        value: employment-work
-      - label: Study
-        value: employment-study
+      - label: "Work in the UK"
+        value: working-uk
+      - label: "Study in the UK"
+        value: studying-uk
 
   - key: employment-3
     criteria: "nationality-eu && living-uk"
@@ -341,9 +341,9 @@ questions:
     question: 'What do you do?'
     options:
       - label: Work
-        value: employment-work
+        value: working-uk
       - label: Study
-        value: employment-study
+        value: studying-uk
 
   - key: travelling-to-eu
     criteria: "nationality-uk"
@@ -351,14 +351,14 @@ questions:
     question: 'Are you planning to travel to the EU after 31 October 2019?'
     options:
       - label: "Yes"
-        value: travelling-to-eu-yes
+        value: visiting-eu
         options:
           - label: You plan to bring your pet
-            value: pet-or-driving-pet
+            value: bring-pet-eu
           - label: You plan to drive
-            value: pet-or-driving-drive
+            value: driving-eu
       - label: "No"
-        value: travelling-to-eu-no
+        value: visiting-eu-no
 
   - key: travelling-to-uk
     criteria: "nationality-row || nationality-eu"
@@ -366,9 +366,9 @@ questions:
     question: 'Are you planning to travel to the UK after 31 October 2019?'
     options:
       - label: "Yes"
-        value: travelling-to-uk-yes
+        value: visiting-uk
       - label: "No"
-        value: travelling-to-uk-no
+        value: visting-uk-no
 
   - key: property
     criteria: "nationality-uk"
@@ -376,16 +376,16 @@ questions:
     question: 'Are you planning to buy or do you already own property in the EU?'
     options:
       - label: "Yes"
-        value: property-yes
+        value: own-eu-property
       - label: "No"
-        value: property-no
+        value: own-eu-property-no
 
   - key: returning
-    criteria: "nationality-uk && (living-eu || living-other)"
+    criteria: "nationality-uk && (living-eu || living-row)"
     question_type: single
     question: 'Are you planning to move back to the UK?'
     options:
       - label: "Yes"
-        value: returning-yes
+        value: return-to-uk 
       - label: "No"
-        value: returning-no
+        value: return-to-uk-no 

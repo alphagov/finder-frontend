@@ -16,7 +16,9 @@ module Checklists
 
       def process(record)
         stripped_record = remove_unnecessary_fields(record)
-        convert_logic_fields(stripped_record)
+        stripped_record = convert_logic_fields(stripped_record)
+        stripped_record["priority"] = stripped_record["priority"].to_i
+        stripped_record
       end
 
     private
