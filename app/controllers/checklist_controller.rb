@@ -82,15 +82,6 @@ private
   helper_method :criteria_keys
 
   ###
-  # Breadcrumbs
-  ###
-
-  def breadcrumbs
-    [{ title: "Home", url: "/" }]
-  end
-  helper_method :breadcrumbs
-
-  ###
   # Current page
   ###
 
