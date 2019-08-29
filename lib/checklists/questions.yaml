@@ -282,3 +282,198 @@ questions:
             value: sell-defence-contracts
       - label: "No"
         value: do-not-sell-to-public-sector
+
+  # INDIVIDUALS
+  # TIER 1
+  - key: nationality
+    depends_on:
+      - does-not-own-business
+    question_type: single
+    question: 'What nationality are you?'
+    options:
+      - label: UK
+        value: nationality-uk
+      - label: EU
+        value: nationality-eu
+      - label: Rest of world
+        value: nationality-row
+
+  # TIER 2
+  - key: living
+    depends_on:
+      - does-not-own-business
+    question_type: single
+    question: 'Where do you live?'
+    options:
+      - label: UK
+        value: living-uk
+      - label: EU
+        value: living-eu
+      - label: Rest of world
+        value: living-other
+
+  # TIER 3
+  #UK NATIONAL -> LIVE IN EU
+  - key: employment-1
+    depends_on:
+      - does-not-own-business
+      - nationality-uk
+      - living-eu
+    question_type: multiple
+    question: 'What do you do? (Select all that apply)'
+    options:
+      - label: Work
+        value: employment-work
+      - label: Study
+        value: employment-study
+      - label: Neither
+        value: employment-neither
+
+  # UK NATIONAL -> LIVE IN UK
+  - key: travelling-to-eu-1
+    depends_on:
+      - does-not-own-business
+      - nationality-uk
+      - living-uk
+    question_type: single
+    question: 'Are you planning to travel to the EU after 31 October 2019?'
+    options:
+      - label: "Yes"
+        value: travelling-to-eu-yes
+      - label: "No"
+        value: travelling-to-eu-no
+
+  # UK NATIONAL -> LIVE IN OTHER
+  - key: travelling-to-eu-2
+    depends_on:
+      - does-not-own-business
+      - nationality-uk
+      - living-other
+    question_type: single
+    question: 'Are you planning to travel to the EU after 31 October 2019?'
+    options:
+      - label: "Yes"
+        value: travelling-to-eu-yes
+      - label: "No"
+        value: travelling-to-eu-no
+
+  # ROW NATIONAL -> LIVE IN UK
+  - key: employment-2
+    depends_on:
+      - does-not-own-business
+      - nationality-row
+      - living-uk
+    question_type: multiple
+    question: 'What do you do? (Select all that apply)'
+    options:
+      - label: Work
+        value: employment-work
+      - label: Study
+        value: employment-study
+      - label: Neither
+        value: employment-neither
+
+  # ROW NATIONAL -> LIVE IN EU
+  - key: travelling-to-uk-3
+    depends_on:
+      - does-not-own-business
+      - nationality-row
+      - living-eu
+    question_type: single
+    question: 'Are you planning to travel to the UK after 31 October 2019?'
+    options:
+      - label: "Yes"
+        value: travelling-to-uk-yes
+      - label: "No"
+        value: travelling-to-uk-no
+
+  # ROW NATIONAL -> LIVE OTHER
+  - key: travelling-to-uk-4
+    depends_on:
+      - does-not-own-business
+      - nationality-row
+      - living-other
+    question_type: single
+    question: 'Are you planning to travel to the UK after 31 October 2019?'
+    options:
+      - label: "Yes"
+        value: travelling-to-uk-yes
+      - label: "No"
+        value: travelling-to-uk-no
+
+  # EU NATIONAL -> LIVE IN UK
+  - key: employment-3
+    depends_on:
+      - does-not-own-business
+      - nationality-eu
+      - living-uk
+    question_type: multiple
+    question: 'What do you do? (Select all that apply)'
+    options:
+      - label: Work
+        value: employment-work
+      - label: Study
+        value: employment-study
+      - label: Neither
+        value: employment-neither
+
+  # EU NATIONAL -> LIVE IN EU
+  - key: travelling-to-uk-5
+    depends_on:
+      - does-not-own-business
+      - nationality-eu
+      - living-eu
+    question_type: single
+    question: 'Are you planning to travel to the UK after 31 October 2019?'
+    options:
+      - label: "Yes"
+        value: travelling-to-uk-yes
+      - label: "No"
+        value: travelling-to-uk-no
+
+  # TIER 4
+  # UK NATIONAL -> LIVE IN UK
+  - key: pet-or-driving-1
+    depends_on:
+      - does-not-own-business
+      - nationality-uk
+      - living-uk
+    question_type: "multiple"
+    question: 'Are you planning to do the following? (Select all that apply)'
+    options:
+      - label: Bring your pet
+        value: pet-or-driving-pet
+      - label: Drive
+        value: pet-or-driving-drive
+      - label: Other
+        value: pet-or-driving-other
+
+  # UK NATIONAL -> LIVE IN OTHER
+  - key: pet-or-driving-2
+    depends_on:
+      - does-not-own-business
+      - nationality-uk
+      - living-other
+    question_type: "multiple"
+    question: 'Are you planning to do the following? (Select all that apply)'
+    options:
+      - label: Bring your pet
+        value: pet-or-driving-pet
+      - label: Drive
+        value: pet-or-driving-drive
+      - label: Other
+        value: pet-or-driving-other
+
+  # TIER 5
+  # UK NATIONAL
+  - key: property
+    depends_on:
+      - does-not-own-business
+      - nationality-uk
+    question_type: "single"
+    question: 'Are you planning to buy or do you already own property in the EU?'
+    options:
+      - label: "Yes"
+        value: property-yes
+      - label: "No"
+        value: property-no

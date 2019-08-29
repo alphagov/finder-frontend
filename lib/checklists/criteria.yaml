@@ -316,3 +316,48 @@ criteria:
     key: sell-defence-contracts
   - text: You do not sell products or services to the public sector
     key: do-not-sell-to-public-sector
+
+  # individuals
+  - key: nationality-uk
+    text: "You are a UK national"
+  - key: nationality-eu
+    text: "You are an EU national"
+  - key: nationality-row
+    text: "You are not an EU national or a UK national"
+
+  - key: living-uk
+    text: "You are living in the UK"
+  - key: living-eu
+    text: "You are living in the EU"
+  - key: living-other
+    text: "You are not living in the UK or the EU"
+
+  - key: employment-work
+    text: "You are employed"
+  - key: employment-study
+    text: "You are studying"
+  - key: employment-neither
+    text: "You are not employed or studying"
+
+  - key: travelling-to-eu-yes
+    text: "You intend to travel to the EU"
+  - key: travelling-to-eu-no
+    text: "You do not intend to travel to the EU"
+
+  - key: travelling-to-uk-yes
+    text: "You intend to travel to the UK"
+  - key: travelling-to-uk-no
+    text: "You do not intend to travel to the UK"
+
+  - key: pet-or-driving-pet
+    text: "You intend to bring your pet"
+  - key: pet-or-driving-drive
+    text: "You intend to drive"
+  - key: pet-or-driving-other
+    text: "You do not intend to drive or bring your pet"
+
+  - key: property-yes
+    text: "You are planning to buy or already own property in the EU"
+  - key: property-no
+    text: "You are not planning to buy nor do you currently own property in the EU"
+
