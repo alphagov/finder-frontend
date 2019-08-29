@@ -2,28 +2,48 @@ require 'spec_helper'
 
 describe Checklists::Action do
   describe '#criteria?' do
+    before do
+      allow(Checklists::Criterion).to receive(:load_all).and_return([
+        double(key: 'a'), double(key: 'b'), double(key: 'c')
+      ])
+    end
+
     subject do
       described_class.new(
         'criteria' => criteria
       ).applies_to?(selected_criteria)
     end
 
-    context "no applicable criteria" do
-      let(:criteria) { [] }
-      let(:selected_criteria) { %w[A] }
+    context "an empty criteria" do
+      let(:criteria) { "" }
+      let(:selected_criteria) { %w[a] }
 
       it { is_expected.to eq(false) }
     end
 
     context "the selected criteria meets the applicable criteria" do
-      let(:criteria) { %w[A B C] }
-      let(:selected_criteria) { %w[A] }
+      let(:criteria) { "a || b || c" }
+      let(:selected_criteria) { %w[a] }
 
       it { is_expected.to eq(true) }
     end
 
+    context "the selected criteria meets the applicable criteria with an AND" do
+      let(:criteria) { "a && b || c" }
+      let(:selected_criteria) { %w[a b] }
+
+      it { is_expected.to eq(true) }
+    end
+
+    context "the selected criteria doesn't meet the applicable criteria with an AND" do
+      let(:criteria) { "a && (b || c)" }
+      let(:selected_criteria) { %w[c] }
+
+      it { is_expected.to eq(false) }
+    end
+
     context "no selected criteria" do
-      let(:criteria) { %w[A B C] }
+      let(:criteria) { "a || b || c" }
       let(:selected_criteria) { [] }
 
       it { is_expected.to eq(false) }
@@ -40,16 +60,14 @@ describe Checklists::Action do
         expect(%w[business citizen]).to include(action.audience)
         expect(action.consequence).to be_present
         expect(action.title_url).to be_present
-        expect(action.criteria).to be_a Array
+        expect(action.criteria).to be_a String
         expect(action.priority).to be_a Integer
       end
     end
 
     it "returns actions that reference valid criteria" do
-      criteria = Checklists::Criterion.load_all.map(&:key)
-
       subject.each do |action|
-        expect(criteria).to include(*action.criteria.to_a)
+        expect(action.applies_to?([])).to eq(false)
       end
     end
 
