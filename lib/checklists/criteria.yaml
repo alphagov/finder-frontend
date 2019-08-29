@@ -238,3 +238,9 @@ criteria:
     text: "You plan to join an EU or EEA family member in the UK"
   - key: join-family-uk-no
     text: "You do not plan to join an EU or EEA family member in the UK"
+
+  # drive-in-eu
+  - key: drive-eu-yes
+    text: "You need to drive in the EU, EEA or Switzerland"
+  - key: drive-eu-no
+    text: "You do not need to drive in the EU, EEA or Switzerland"
