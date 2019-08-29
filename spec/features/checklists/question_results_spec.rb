@@ -24,7 +24,7 @@ RSpec.feature "Questions workflow", type: :feature do
   def and_i_answer_business_questions
     answer_question("do_you_own_a_business", "Yes")
     answer_question("sector_business_area", "Tourism")
-    answer_question("business_activity", "No")
+    answer_question("business_activity")
     answer_question("employ_eu_citizens", "No")
     answer_question("personal_data", "No")
     answer_question("intellectual_property", "No")
@@ -36,8 +36,7 @@ RSpec.feature "Questions workflow", type: :feature do
     answer_question("do_you_own_a_business", "No")
     answer_question("nationality", "UK")
     answer_question("living", "Rest of world")
-    answer_question("travelling-to-eu-2", "No")
-    answer_question("pet-or-driving-1", "Bring your pet")
+    answer_question("travelling-to-eu-2", "Yes", "You plan to bring your pet")
     answer_question("property", "Yes")
   end
 
