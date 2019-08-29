@@ -40,7 +40,6 @@ describe Checklists::Action do
       subject.each do |action|
         text = action.guidance_link_text.present?
         url = action.guidance_url.present?
-        puts action.guidance_link_text, action.guidance_url
         expect(text ^ url).to be_falsey
       end
     end
