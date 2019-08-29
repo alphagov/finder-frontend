@@ -47,7 +47,7 @@
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-one-third app-c-hack-!-button-link govuk-!-padding-bottom-2">
         <%
-          facet_count = facet_tags.present[:applied_filters].flatten.count # TODO: counts the search terms as well; is this desired?
+          facet_count = facet_tags.present[:applied_filters].flatten.reject { |facet| facet[:data_facet] == 'keywords' }.count
           facet_count_bracketed = facet_count == 0 ? nil : "(#{facet_count})"
         %>
         <%= render "govuk_publishing_components/components/button", {
