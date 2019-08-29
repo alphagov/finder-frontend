@@ -1,23 +1,28 @@
 .checklist-results-page {
-  .govuk-list--checked {
-    list-style: none;
-  }
-
-  .govuk-list--checked li:before {
-    width: 1em;
-    height: 1em;
-    content: '';
-    display: inline-block;
-    margin-right: govuk-spacing(2);
-    background-image: image-url('check.svg');
-  }
-
-  .govuk-tag--muted {
-    background-color: govuk-colour('grey-4');
-    color: govuk-colour('black');
-  }
-
   .govuk-section-break--bold {
     border-bottom: 3px solid govuk-colour('blue');
+  }
+
+  .checklist-results-answers__check {
+    width: 1em;
+    height: 1em;
+  }
+
+  .govuk-grid-column-one-tenth {
+    box-sizing: border-box;
+    padding: 0 $govuk-gutter-half;
+    @include govuk-media-query($from: mobile) {
+      width: 10%;
+      float: left;
+    }
+  }
+
+  .govuk-grid-column-nine-tenths {
+    box-sizing: border-box;
+    padding: 0 $govuk-gutter-half;
+    @include govuk-media-query($from: mobile) {
+      width: 85%;
+      float: left;
+    }
   }
 }
