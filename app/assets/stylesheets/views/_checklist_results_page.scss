@@ -2,28 +2,4 @@
   .govuk-section-break--bold {
     border-bottom: 3px solid govuk-colour('blue');
   }
-
-  .checklist-results-answers__check {
-    width: 1em;
-    height: 1em;
-    fill: govuk-colour('green');
-  }
-
-  .govuk-grid-column-one-tenth {
-    box-sizing: border-box;
-    padding: 0 $govuk-gutter-half;
-    @include govuk-media-query($from: mobile) {
-      width: 10%;
-      float: left;
-    }
-  }
-
-  .govuk-grid-column-nine-tenths {
-    box-sizing: border-box;
-    padding: 0 $govuk-gutter-half;
-    @include govuk-media-query($from: mobile) {
-      width: 85%;
-      float: left;
-    }
-  }
 }

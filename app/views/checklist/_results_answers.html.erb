@@ -1,20 +1,9 @@
 <div class="checklist-results-answers">
   <% if answers.present? %>
     <p class="govuk-body govuk-!-font-weight-bold"><%= t('checklists_results.answers.list_context') %></p>
-    <ul class="govuk-list govuk-!-margin-top-3 govuk-!-font-size-16">
+    <ul class="govuk-list govuk-list--bullet govuk-!-margin-top-3 govuk-!-font-size-16">
       <% answers.each do |answer| %>
-        <li>
-          <div class="govuk-grid-row">
-            <div class="govuk-grid-column-one-tenth">
-              <svg class="checklist-results-answers__check" role="presentation" version="1.1" viewBox="0 0 512 512" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                <polygon points="434.8,49 174.2,309.7 76.8,212.3 0,289.2 174.1,463.3 196.6,440.9 196.6,440.9 511.7,125.8 434.8,49"/>
-              </svg>
-            </div>
-            <div class="govuk-grid-column-nine-tenths">
-              <%= answer[:readable_text] %>
-            </div>
-          </div>
-        </li>
+        <li><%= answer[:readable_text] %></li>
       <% end %>
     </ul>
   <% else %>
