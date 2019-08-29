@@ -2,7 +2,7 @@
 questions:
   - key: do_you_own_a_business
     question_type: "single"
-    question: "Do you own a business?"
+    question: "Are you preparing a business or organisation for Brexit?"
     options:
       - label: "Yes"
         value: owns-business
