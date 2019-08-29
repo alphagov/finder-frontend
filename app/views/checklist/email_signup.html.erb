@@ -12,8 +12,16 @@
       url: "/"
     },
     {
-      title: t('checklists_results.breadcrumbs.q_and_a'),
-      url: checklist_questions_path(filtered_params)
+      title: t('checklists_results.breadcrumbs.brexit-home'),
+      url: "/brexit"
+    },
+    {
+      title: t('checklists_results.breadcrumbs.brexit-check'),
+      url: "/get-ready-brexit-check"
+    },
+    {
+      title: t('checklists_results.breadcrumbs.results'),
+      url: checklist_results_path(filtered_params)
     }
   ] %>
 
@@ -26,7 +34,7 @@
           This will include: Information about Brexit including what you and your business can do to prepare.
         </p>
 
-        <%= form_tag checklist_confirm_email_signup_path(c: @criteria) do %>
+        <%= form_tag checklist_confirm_email_signup_path(c: criteria_keys) do %>
           <%= render "govuk_publishing_components/components/button", {
             text: t('checklists_results.stay_updated.sign_up'),
             inline_layout: true

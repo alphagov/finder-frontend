@@ -35,6 +35,7 @@ describe Checklists::Action do
 
     it "returns a list of actions with required fields" do
       subject.each do |action|
+        expect(action.id).to be_present
         expect(action.title).to be_present
         expect(%w[business citizen]).to include(action.audience)
         expect(action.consequence).to be_present
@@ -58,6 +59,16 @@ describe Checklists::Action do
         url = action.guidance_url.present?
         expect(text ^ url).to be_falsey
       end
+    end
+
+    it "returns actions with unique ids" do
+      ids = subject.map(&:id)
+      expect(ids.uniq.count).to eq(ids.count)
+    end
+
+    it "does not return soft deleted actions by default" do
+      all_actions = described_class.load_all(exclude_deleted: false)
+      expect(subject.count).to be < all_actions.count
     end
   end
 end

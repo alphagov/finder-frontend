@@ -15,7 +15,20 @@
 %>
 
 <div class="govuk-width-container">
-  <%= render 'govuk_publishing_components/components/breadcrumbs', breadcrumbs: breadcrumbs %>
+  <%= render 'govuk_publishing_components/components/breadcrumbs', breadcrumbs: [
+    {
+      title: t('checklists_results.breadcrumbs.home'),
+      url: "/"
+    },
+    {
+      title: t('checklists_results.breadcrumbs.brexit-home'),
+      url: "/brexit"
+    },
+    {
+      title: t('checklists_results.breadcrumbs.brexit-check'),
+      url: "/get-ready-brexit-check"
+    }
+  ] %>
 
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
@@ -35,13 +48,15 @@
             } %>
           </div>
         <% end %>
-        <%= render 'form_data', current_question: @current_question, next_page: @page_service.next_page %>
+        <%= render 'form_data',
+          criteria_keys: persistent_criteria_keys(@current_question.possible_criteria),
+          next_page: @page_service.next_page
+        %>
         <%= render 'hint_text', current_question: @current_question %>
         <div class="govuk-form-footer">
           <%= render "govuk_publishing_components/components/button", {
             text: "Next"
           } %>
-          <a class="govuk-form-footer__alt-cta-link" href="<%= skip_link_url %>">Skip this question</a>
         </div>
       </form>
     </div>

@@ -21,3 +21,17 @@ actions:
     guidance_link_text: 'Guidance Central'
     action_id: T002
     priority: 8
+  - title: 'Removed action'
+    soft_deleted: true
+    title_url: '/removed-action'
+    consequence: |
+      This action has been deleted.
+    lead_time: 'This action is not required'
+    criteria:
+      - non-eu-national
+    audience: citizen
+    guidance_url: 'https://gov.uk'
+    guidance_link_text: 'REMOVED'
+    action_id: SOFT_DELETED_TEST
+    priority: 2
+

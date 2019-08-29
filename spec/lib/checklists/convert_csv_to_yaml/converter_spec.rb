@@ -1,9 +1,9 @@
 require "spec_helper"
-require "convert_csv_to_yaml/converter"
+require "checklists/convert_csv_to_yaml/converter"
 
-describe ConvertCsvToYaml::Converter do
+describe Checklists::ConvertCsvToYaml::Converter do
   include FixturesHelper
-  let(:csv_file_path) { "#{fixtures_path}/csv_to_convert.csv" }
+  let(:csv_file_path) { actions_csv_to_convert_to_yaml }
   let(:yaml_file_path) { Tempfile.new("a_file.yaml").path }
   let(:processor) { double("processor") }
 
@@ -16,7 +16,8 @@ describe ConvertCsvToYaml::Converter do
     end
 
     it "converts CSV file data to YAML and writes to a YAML file" do
-      ConvertCsvToYaml::Converter.new(processor).convert(csv_file_path, yaml_file_path)
+      converter = Checklists::ConvertCsvToYaml::Converter.new(processor)
+      converter.convert(csv_file_path, yaml_file_path)
 
       expect(loaded_yaml_file).to include(
         "title_url" => "https://www.gov.uk/important-action"
@@ -24,7 +25,8 @@ describe ConvertCsvToYaml::Converter do
     end
 
     it "allows an optional record category to be set as a key in the YAML file" do
-      ConvertCsvToYaml::Converter.new(processor).convert(csv_file_path, yaml_file_path, "category")
+      converter = Checklists::ConvertCsvToYaml::Converter.new(processor)
+      converter.convert(csv_file_path, yaml_file_path, "category")
 
       expect(loaded_yaml_file).to eq(
         "category" => [

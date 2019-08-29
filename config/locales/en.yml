@@ -35,17 +35,23 @@ en:
       more: "Show more search options"
       fewer: "Show fewer search options"
   checklists:
-    title: "Prepare yourself, your family and your business or organisation for the UK leaving the EU"
+    title: "Get ready for Brexit: check what you need to do"
   checklists_results:
+    social_media_meta:
+      title: "Get ready for Brexit"
+      description: |
+        Check what you or your business need to do to prepare for Brexit.
     breadcrumbs:
       home: "Home"
-      q_and_a: "Brexit Q&A"
-    title: "What you may need to know to prepare for Brexit"
+      brexit-home: "Brexit"
+      brexit-check: "How to get ready"
+      questions: "Questions"
+      results: "Results"
+    title: "Your results: what you need to do to prepare for Brexit"
     description: |
-      The United Kingdom is leaving the European Union on the 31 October 2019.
-      The list may not be complete, and you might not need to take all actions.
+      You may not need to do everything on the list to prepare for Brexit, and your list of results may not be complete.
     email_sign_up_link: |
-      Sign up to recieve a copy of your results or to get email about alerts when your results are updated
+      Sign up to get email alerts about changes to Brexit information that may affect you or to get a copy of your results
     answers:
       list_context: "Based on your answers, we know:"
       change_answers: "Change your answers"
@@ -54,17 +60,20 @@ en:
         This is a safe and secure service. We don't store any of your personal information.
         To change your answers, follow the link below.
     actions:
-      no_results: "Based on your answers, we were not able to determine suitable actions for you."
+      no_results: "Based on your responses, you do not need to take any action to prepare for Brexit."
       more_guidance: "View more guidance here"
       guidance_prompt: Read the guidance
     audiences:
       citizen:
         heading: 'You and your family'
       business:
-        heading: 'Your business'
+        heading: 'Your business or organisation'
     stay_updated:
-      heading: "Stay up to date"
-      description: |
-        Sign up to receive a copy of your results or to get email alterts when your results are upadated.
-        To come back to your results page at anytime, just copy the url.
-      sign_up: "Sign up for emails"
+      heading: "Get updates"
+      description: >
+        <p>Sign up to receive:</p>
+        <ul>
+          <li>email alerts about changes to Brexit information that may affect you</li>
+          <li>a copy of your results</li>
+        </ul>
+      sign_up: "Subscribe"

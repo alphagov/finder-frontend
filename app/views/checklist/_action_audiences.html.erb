@@ -9,6 +9,8 @@
       </div>
       <div class="govuk-grid-column-full">
         <%= render "action_list", {
+          audience_heading: audience[:heading],
+          audience_index: index + 1,
           items: audience[:actions]
         } %>
       </div>
