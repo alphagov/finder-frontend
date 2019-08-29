@@ -5,7 +5,7 @@ class ChecklistController < ApplicationController
   protect_from_forgery except: :confirm_email_signup
 
   before_action do
-    expires_in(5.minutes, public: true)
+    expires_in(30.minutes, public: true) unless Rails.env.development?
   end
 
   def show
