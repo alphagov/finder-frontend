@@ -22,7 +22,7 @@
         title: t('checklists_results.title')
       } %>
       <p class="govuk-body-l">
-        <%= t('checklists_results.description') %>
+        <%= action_based_description %>
       </p>
     </div>
   </div>
@@ -33,11 +33,11 @@
         <%= render './components/email_link', {
           data_attributes: {
             "module": "track-click",
-            "track-action": t('checklists_results.email_sign_up_link'),
+            "track-action": action_based_email_link_label,
             "track-category": "StayUpdated",
             "track-label": checklist_email_signup_path(c: criteria_keys)
           },
-          link_text: t('checklists_results.email_sign_up_link'),
+          link_text: action_based_email_link_label,
           link_href: checklist_email_signup_path(c: criteria_keys),
         } %>
       </div>
