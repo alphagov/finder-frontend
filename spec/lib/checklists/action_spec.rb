@@ -40,7 +40,7 @@ describe Checklists::Action do
         expect(action.consequence).to be_present
         expect(action.title_url).to be_present
         expect(action.criteria).to be_a Array
-        expect(%w[High Medium Low]).to include(action.priority)
+        expect(action.priority).to be_a Integer
       end
     end
 

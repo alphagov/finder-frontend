@@ -8,7 +8,7 @@ actions:
       - owns-business
     audience: business
     action_id: T001
-    priority: Medium
+    priority: 5
   - title: 'Get a new passport'
     title_url: '/apply-renew-passport'
     consequence: |
@@ -20,4 +20,4 @@ actions:
     guidance_url: 'http://guidance.com'
     guidance_link_text: 'Guidance Central'
     action_id: T002
-    priority: High
+    priority: 8
