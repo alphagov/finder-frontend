@@ -3,9 +3,9 @@ describe Checklists::Criterion do
     subject { described_class.load_all }
 
     it "returns a list of criteria with required fields" do
-      subject.each do |criteria|
-        expect(criteria.key).to be_present
-        expect(criteria.text).to be_present
+      subject.each do |criterion|
+        expect(criterion.key).to be_present
+        expect(criterion.text).to be_present
       end
     end
 
@@ -23,11 +23,11 @@ describe Checklists::Criterion do
     end
 
     it "returns criteria that are covered by a question" do
-      question_criteria = Checklists::Question.load_all
-        .flat_map(&:options).map { |o| o["value"] }
+      possible_criteria = Checklists::Question.load_all
+        .flat_map(&:possible_criteria)
 
       subject.each do |criterion|
-        expect(question_criteria).to include(criterion.key)
+        expect(possible_criteria).to include(criterion.key)
       end
     end
   end

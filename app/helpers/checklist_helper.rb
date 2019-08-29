@@ -23,4 +23,13 @@ module ChecklistHelper
   def persistent_criteria_keys(question_criteria_keys)
     criteria_keys - question_criteria_keys
   end
+
+  def format_question_options(options, criteria_keys)
+    options.map { |o| format_question_option(o, criteria_keys) }
+  end
+
+  def format_question_option(option, criteria_keys)
+    checked = criteria_keys.include?(option["value"])
+    { label: option["label"], text: option["label"], value: option["value"], checked: checked }
+  end
 end
