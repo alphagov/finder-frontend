@@ -33,7 +33,7 @@ class Checklists::Action
     load_all.find { |a| a.title.match(title) }
   end
 
-  def self.load_all
-    CHECKLISTS_ACTIONS.map { |a| new(a) }
+  def self.load_all(exclude_deleted: true)
+    CHECKLISTS_ACTIONS.reject { |a| a['soft_deleted'] && exclude_deleted }.map { |a| new(a) }
   end
 end

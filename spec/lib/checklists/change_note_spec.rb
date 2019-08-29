@@ -22,7 +22,7 @@ describe Checklists::ChangeNote do
       action_changes = subject.map(&:action_id).compact
       question_changes = subject.map(&:question_key).compact
 
-      action_ids = Checklists::Action.load_all.map(&:id)
+      action_ids = Checklists::Action.load_all(exclude_deleted: false).map(&:id)
       action_changes.each { |action_id|
         expect(action_ids).to include(action_id)
       }
