@@ -1,4 +1,6 @@
 class Checklists::Question
+  CONFIG_PATH = Rails.root.join('lib', 'checklists', 'questions.yaml')
+
   attr_reader :key, :text, :description, :hint_title, :hint_text,
               :options, :type, :criteria
 
@@ -35,8 +37,9 @@ class Checklists::Question
   end
 
   def self.load_all
-    CHECKLISTS_QUESTIONS.map do |question|
-      Checklists::Question.new(question)
-    end
+    @load_all = nil if Rails.env.development?
+
+    @load_all ||= YAML.load_file(CONFIG_PATH)['questions']
+      .map { |q| new(q) }
   end
 end

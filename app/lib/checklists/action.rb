@@ -1,4 +1,6 @@
 class Checklists::Action
+  CONFIG_PATH = Rails.root.join('lib', 'checklists', 'actions.yaml')
+
   attr_accessor :id,
                 :title,
                 :consequence,
@@ -33,7 +35,8 @@ class Checklists::Action
     load_all.find { |a| a.id == id }
   end
 
-  def self.load_all(exclude_deleted: true)
-    CHECKLISTS_ACTIONS.reject { |a| a['soft_deleted'] && exclude_deleted }.map { |a| new(a) }
+  def self.load_all
+    @load_all = nil if Rails.env.development?
+    @load_all ||= YAML.load_file(CONFIG_PATH)['actions'].map { |a| new(a) }
   end
 end
