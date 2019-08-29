@@ -1,3 +1,5 @@
+require 'spec_helper'
+
 describe Checklists::Criterion do
   describe ".load_all" do
     subject { described_class.load_all }

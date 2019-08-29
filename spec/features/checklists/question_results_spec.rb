@@ -11,7 +11,7 @@ RSpec.feature "Questions workflow", type: :feature do
 
   scenario "citizen questions" do
     when_i_visit_the_checklist_flow
-    and_i_only_answer_citizen_questions
+    and_i_answer_citizen_questions
     then_i_should_see_the_results_page
     and_i_should_not_see_a_passport_action
     and_i_should_not_see_an_eori_action
@@ -32,8 +32,13 @@ RSpec.feature "Questions workflow", type: :feature do
     answer_question("public_sector_procurement", "No")
   end
 
-  def and_i_only_answer_citizen_questions
+  def and_i_answer_citizen_questions
     answer_question("do_you_own_a_business", "No")
+    answer_question("nationality", "UK")
+    answer_question("living", "Rest of world")
+    answer_question("travelling-to-eu-2", "No")
+    answer_question("pet-or-driving-1", "Bring your pet")
+    answer_question("property", "Yes")
   end
 
   def then_i_should_see_the_results_page
