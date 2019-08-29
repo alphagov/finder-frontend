@@ -40,18 +40,21 @@ private
   ###
 
   def subscriber_list_options
+    path = checklist_results_path(c: criteria_keys)
+
     {
       "title" => "Your Get ready for Brexit results",
       "slug" => "brexit-checklist-#{criteria_keys.sort.join('-')}",
+      "description" => "[You can view a copy of your Brexit tool results](#{Plek.new.website_root}#{path}) on GOV.UK.",
       "tags" => { "brexit_checklist_criteria" => { "any" => criteria_keys } },
-      "url" => checklist_results_path(c: criteria_keys)
+      "url" => path,
     }
   end
 
   ###
   # Redirect
-
   ###
+
   def redirect_to_results?
     @page_service.redirect_to_results?
   end
