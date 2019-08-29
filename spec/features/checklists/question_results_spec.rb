@@ -43,6 +43,7 @@ RSpec.feature "Questions workflow", type: :feature do
     answer_question("living", "Rest of world")
     answer_question("travelling-to-eu-2", "Yes", "You plan to bring your pet")
     answer_question("property", "Yes")
+    answer_question("returning-2", "Yes")
   end
 
   def then_i_should_see_the_results_page

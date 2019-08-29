@@ -213,6 +213,11 @@ criteria:
   - key: travelling-to-eu-no
     text: "You do not intend to travel to the EU"
 
+  - key: returning-yes
+    text: "You plan to move back to the UK"
+  - key: returning-no
+    text: "You do not plan to move back to the UK"
+
   - key: travelling-to-uk-yes
     text: "You intend to travel to the UK"
   - key: travelling-to-uk-no
@@ -227,4 +232,3 @@ criteria:
     text: "You are planning to buy or already own property in the EU"
   - key: property-no
     text: "You are not planning to buy nor do you currently own property in the EU"
-

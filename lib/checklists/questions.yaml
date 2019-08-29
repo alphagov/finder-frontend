@@ -433,3 +433,30 @@ questions:
         value: property-yes
       - label: "No"
         value: property-no
+
+  # TIER 5
+  # UK NATIONAL -> LIVE IN EU
+  - key: returning-1
+    depends_on:
+      - nationality-uk
+      - living-eu
+    question_type: single
+    question: 'Are you planning to move back to the UK?'
+    options:
+      - label: "Yes"
+        value: returning-yes
+      - label: "No"
+        value: returning-no
+
+  # UK NATIONAL -> LIVE OUTSIDE EU
+  - key: returning-2
+    depends_on:
+      - nationality-uk
+      - living-other
+    question_type: single
+    question: 'Are you planning to move back to the UK?'
+    options:
+      - label: "Yes"
+        value: returning-yes
+      - label: "No"
+        value: returning-no
