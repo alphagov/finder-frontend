@@ -32,7 +32,7 @@ RSpec.describe "Convert CSV to YAML tasks" do
           "action_id" => "T001",
           "audience" => "business",
           "consequence" => "If you don't do the important action then it will be bad.",
-          "criteria" => %w(owns-business imports-eu),
+          "criteria" => "owns-business,imports-eu",
           "guidance_link_text" => "Some important guidance",
           "guidance_prompt" => "Read the guidance:",
           "guidance_url" => "https://www.gov.uk/guidance/important-guidance",
