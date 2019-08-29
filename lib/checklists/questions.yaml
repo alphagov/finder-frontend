@@ -185,8 +185,6 @@ questions:
         value: provide-services-do-business-in-eu
       - label: "Transporting goods across EU borders"
         value: haulage-goods-across-eu-borders
-      - label: "None of these"
-        value: export-to-eu-none-of-these
 
   - key: employ_eu_citizens
     depends_on:
@@ -314,7 +312,7 @@ questions:
 
   # TIER 3
   #UK NATIONAL -> LIVE IN EU
-  - key: employment-1
+  - key: employment
     depends_on:
       - does-not-own-business
       - nationality-uk
@@ -326,8 +324,6 @@ questions:
         value: employment-work
       - label: Study
         value: employment-study
-      - label: Neither
-        value: employment-neither
 
   # UK NATIONAL -> LIVE IN UK
   - key: travelling-to-eu-1
@@ -335,11 +331,16 @@ questions:
       - does-not-own-business
       - nationality-uk
       - living-uk
-    question_type: single
+    question_type: single_wrapped
     question: 'Are you planning to travel to the EU after 31 October 2019?'
     options:
       - label: "Yes"
         value: travelling-to-eu-yes
+        options:
+          - label: You plan to bring your pet
+            value: pet-or-driving-pet
+          - label: You plan to drive
+            value: pet-or-driving-drive
       - label: "No"
         value: travelling-to-eu-no
 
@@ -349,11 +350,16 @@ questions:
       - does-not-own-business
       - nationality-uk
       - living-other
-    question_type: single
+    question_type: single_wrapped
     question: 'Are you planning to travel to the EU after 31 October 2019?'
     options:
       - label: "Yes"
         value: travelling-to-eu-yes
+        options:
+          - label: You plan to bring your pet
+            value: pet-or-driving-pet
+          - label: You plan to drive
+            value: pet-or-driving-drive
       - label: "No"
         value: travelling-to-eu-no
 
@@ -370,11 +376,9 @@ questions:
         value: employment-work
       - label: Study
         value: employment-study
-      - label: Neither
-        value: employment-neither
 
   # ROW NATIONAL -> LIVE IN EU
-  - key: travelling-to-uk-3
+  - key: travelling-to-uk-1
     depends_on:
       - does-not-own-business
       - nationality-row
@@ -388,7 +392,7 @@ questions:
         value: travelling-to-uk-no
 
   # ROW NATIONAL -> LIVE OTHER
-  - key: travelling-to-uk-4
+  - key: travelling-to-uk-2
     depends_on:
       - does-not-own-business
       - nationality-row
@@ -414,11 +418,9 @@ questions:
         value: employment-work
       - label: Study
         value: employment-study
-      - label: Neither
-        value: employment-neither
 
   # EU NATIONAL -> LIVE IN EU
-  - key: travelling-to-uk-5
+  - key: travelling-to-uk-3
     depends_on:
       - does-not-own-business
       - nationality-eu
@@ -432,39 +434,6 @@ questions:
         value: travelling-to-uk-no
 
   # TIER 4
-  # UK NATIONAL -> LIVE IN UK
-  - key: pet-or-driving-1
-    depends_on:
-      - does-not-own-business
-      - nationality-uk
-      - living-uk
-    question_type: "multiple"
-    question: 'Are you planning to do the following? (Select all that apply)'
-    options:
-      - label: Bring your pet
-        value: pet-or-driving-pet
-      - label: Drive
-        value: pet-or-driving-drive
-      - label: Other
-        value: pet-or-driving-other
-
-  # UK NATIONAL -> LIVE IN OTHER
-  - key: pet-or-driving-2
-    depends_on:
-      - does-not-own-business
-      - nationality-uk
-      - living-other
-    question_type: "multiple"
-    question: 'Are you planning to do the following? (Select all that apply)'
-    options:
-      - label: Bring your pet
-        value: pet-or-driving-pet
-      - label: Drive
-        value: pet-or-driving-drive
-      - label: Other
-        value: pet-or-driving-other
-
-  # TIER 5
   # UK NATIONAL
   - key: property
     depends_on:

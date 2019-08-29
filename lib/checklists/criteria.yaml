@@ -133,8 +133,6 @@ criteria:
     text: "Your business provides services in the EU"
   - key: haulage-goods-across-eu-borders
     text: "Your business transports goods across EU borders"
-  - key: export-to-eu-none-of-these
-    text: "Your business does not sell goods or services in the UK"
 
   # employ_eu_citizens
   - text: You employ EU citizens
@@ -209,8 +207,6 @@ criteria:
     text: "You are employed"
   - key: employment-study
     text: "You are studying"
-  - key: employment-neither
-    text: "You are not employed or studying"
 
   - key: travelling-to-eu-yes
     text: "You intend to travel to the EU"
@@ -226,8 +222,6 @@ criteria:
     text: "You intend to bring your pet"
   - key: pet-or-driving-drive
     text: "You intend to drive"
-  - key: pet-or-driving-other
-    text: "You do not intend to drive or bring your pet"
 
   - key: property-yes
     text: "You are planning to buy or already own property in the EU"
