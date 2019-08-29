@@ -41,7 +41,7 @@ end
 
 class CriteriaLogic
   def initialize(string, selected_options, all_options)
-    @string = string.underscore
+    @string = string&.underscore
     @selected_options = selected_options.map(&:underscore)
     @all_options = all_options.map(&:underscore)
   end

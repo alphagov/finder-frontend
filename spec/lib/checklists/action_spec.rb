@@ -21,6 +21,13 @@ describe Checklists::Action do
       it { is_expected.to eq(false) }
     end
 
+    context "a nil criteria" do
+      let(:criteria) { nil }
+      let(:selected_criteria) { %w[a] }
+
+      it { is_expected.to eq(false) }
+    end
+
     context "the selected criteria meets the applicable criteria" do
       let(:criteria) { "a || b || c" }
       let(:selected_criteria) { %w[a] }
