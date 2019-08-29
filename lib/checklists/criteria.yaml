@@ -1,246 +1,341 @@
 ---
 criteria:
-  # do_you_own_a_business
-  - key: owns-business
-    text: "You own a business"
-  - key: does-not-own-business
-    text: "You do not own a business"
-
-  # sector_business_area
-  - text: You work in the aerospace and space industry
-    key: sector-aerospace-space
-  - text: You work in the automotive industry
-    key: sector-automotive
-  - text: You work in electronics, parts and machinery
-    key: sector-electronics-parts-machinery
-  - text: You work in installation, servicing and repair
-    key: sector-installation-servicing-repair
-  - text: You work in the marine and marine transport industry
-    key: sector-marine
-  - text: You work in rail manufacturing
-    key: sector-rail
-  - text: You work in agriculture and farming
-    key: sector-agriculture-and-farming
-  - text: You work with animals and animal products (excluding food)
-    key: sector-animals-and-animal-products
-  - text: You work in fisheries (including wholesale)
-    key: sector-fisheries
-  - text: You work in plants and forestry
-    key: sector-plants-and-forestry
-  - text: You work in veterinary services
-    key: sector-veterinary
-  - text: You work in personal services
-    key: sector-personal-services
-  - text: You work in professional, legal and business services
-    key: sector-professional-and-business-services
-  - text: You work in the charity sector
-    key: sector-charities
-  - text: You work for voluntary and community organisations
-    key: sector-voluntary-community-organisations
-  - text: You work in construction
-    key: sector-construction-contracting
-  - text: You work in environmental services
-    key: sector-environmental-services
-  - text: You work in defence
-    key: sector-defence
-  - text: You work in electricity
-    key: sector-electricity
-  - text: You work in the nuclear industry
-    key: sector-nuclear
-  - text: You work in oil, gas and coal
-    key: sector-oil-gas-coal
-  - text: You work in renewable energy
-    key: sector-other-energy
-  - text: You work in media and broadcasting
-    key: sector-broadcasting
-  - text: You work in the creative industries
-    key: sector-creative-industries
-  - text: You work in the gambling sector
-    key: sector-gambling
-  - text: You work in sports and recreation
-    key: sector-sports-recreation
-  - text: You work in arts, culture and heritage
-    key: sector-arts-culture-heritage
-  - text: You work in financial services
-    key: sector-financial-services
-  - text: You work in insurance
-    key: sector-insurance
-  - text: You work in real estate
-    key: sector-real-estate-excl-imputed-rent
-  - text: You work in health and social care services
-    key: sector-health-social-care-services
-  - text: You work in medical technology
-    key: sector-medical-technology
-  - text: You work in pharmaceuticals and clinical trials
-    key: sector-pharmaceuticals
-  - text: You work in digital, technology and computer services
-    key: sector-computer-services
-  - text: You work in telecoms and information services
-    key: sector-telecoms
-  - text: You work in consumer goods manufacturing
-    key: sector-clothing-consumer-goods-manufacturing
-  - text: You work in the chemicals industry
-    key: sector-chemicals
-  - text: You work in the diamond industry
-    key: sector-diamonds
-  - text: You work in metals manufacturing
-    key: sector-metals-manufacture
-  - text: You work in mining
-    key: sector-mining
-  - text: You work in non-metal materials manufacturing
-    key: sector-non-metal-materials-manufacture
-  - text: You work in the justice system (including prisons)
-    key: sector-justice-prisons
-  - text: You work in public administration
-    key: sector-public-administration
-  - text: You work in education
-    key: sector-education
-  - text: You work in research
-    key: sector-research
-  - text: You work in the food, drink and tobacco industry
-    key: sector-food-and-drink
-  - text: You work in the motor trade
-    key: sector-motor-trades
-  - text: You work in retail and wholesale (excluding food, drink and motors)
-    key: sector-retail
-  - text: You work in accommodation
-    key: sector-accommodation
-  - text: You work in restaurants, bars and catering
-    key: sector-restaurants-bars-catering
-  - text: You work in tourism
-    key: sector-tourism
-  - text: You work in air freight and passenger services
-    key: sector-air-freight-air-passenger-services
-  - text: You work in ports and airports
-    key: sector-ports-airports
-  - text: You work in postal and courier services
-    key: sector-postal-courier-services
-  - text: You work in rail freight and passenger services
-    key: sector-rail-passenger-freight
-  - text: You work in road freight and passenger services
-    key: sector-road-passengers-freight
-  - text: You work in warehousing, services and pipelines
-    key: sector-warehouses-services-pipelines
-
-  # business_activity
-  - key: sells-services-or-goods
-    text: "Your business sells goods or services in the UK"
-  - key: import-from-eu
-    text: "Your business imports goods from the EU"
-  - key: export-to-eu
-    text: "Your business exports goods to the EU"
-  - key: provide-services-do-business-in-eu
-    text: "Your business provides services in the EU"
-  - key: haulage-goods-across-eu-borders
-    text: "Your business transports goods across EU borders"
-
-  # employ_eu_citizens
-  - text: You employ EU citizens
-    key: employ-eu-citizens
-  - text: You do not employ EU citizens
-    key: do-not-employ-eu-citizens
-
-  # personal_data
-  - text: You exchange personal data with EU organisations
-    key: exchange-personal-data-with-eu-org
-  - text: You process personal data from the EU
-    key: exchange-personal-data-with-eu-org-process
-  - text: You use websites or services hosted in the EU
-    key: exchange-personal-data-with-eu-org-use
-  - text: You provide digital services to the EU
-    key: exchange-personal-data-with-eu-org-provide
-  - text: You do not exchange personal data with EU organisations
-    key: do-not-exchange-personal-data-with-eu-org
-
-  # intellectual_property
-  - text: You use or rely on intellectual property protection
-    key: use-rely-ip
-  - text: You use or rely on IP copyright protection
-    key: use-rely-ip-copyright
-  - text: You use or rely on trade mark protection
-    key: use-rely-ip-trade-marks
-  - text: You use or rely on design protection
-    key: use-rely-ip-designs
-  - text: You use or rely on patents protection
-    key: use-rely-ip-patents
-  - text: You use or rely on exhaustion of rights protection
-    key: use-rely-ip-exhaustion-rights
-  - text: You do not use or rely on intellectual property protection
-    key: do-not-use-rely-ip
-
-  # eu_uk_government_funding
-  - text: You receive EU or UK government funding
-    key: get-eu-uk-funding
-  - text: You receive EU government funding
-    key: get-eu-funding
-  - text: You receive UK government funding
-    key: get-uk-funding
-  - text: You do not receive EU or UK government funding
-    key: do-not-get-eu-uk-funding
-
-  # public_sector_procurement
-  - text: You sell products or services to the public sector
-    key: sell-public-sector
-  - text: You have public sector contracts
-    key: sell-public-sector-contracts
-  - text: You have defence contracts
-    key: sell-defence-contracts
-  - text: You do not sell products or services to the public sector
-    key: do-not-sell-to-public-sector
-
-  # individuals
-  - key: nationality-uk
-    text: "You are a UK national"
-  - key: nationality-eu
-    text: "You are an EU national"
-  - key: nationality-row
-    text: "You are not an EU or UK national"
-
-  - key: living-uk
-    text: "You live in the UK"
-  - key: living-eu
-    text: "You live in the EU"
-  - key: living-other
-    text: "You do not live in the UK or the EU"
-
-  - key: employment-work
-    text: "You are employed"
-  - key: employment-study
-    text: "You are studying"
-
-  - key: travelling-to-eu-yes
-    text: "You plan to travel to the UK"
-  - key: travelling-to-eu-no
-    text: "You do not plan to travel to the UK"
-
-  - key: returning-yes
-    text: "You plan to move back to the UK"
-  - key: returning-no
-    text: "You do not plan to move back to the UK"
-
-  - key: travelling-to-uk-yes
-    text: "You intend to travel to the UK"
-  - key: travelling-to-uk-no
-    text: "You do not intend to travel to the UK"
-
-  - key: pet-or-driving-pet
-    text: "You plan to take your pet"
-  - key: pet-or-driving-drive
-    text: "You plan to drive"
-
-  - key: property-yes
-    text: "You are planning to buy or already own property in the EU"
-  - key: property-no
-    text: "You are not planning to buy nor do you currently own property in the EU"
-
-  # join-family-uk
-  - key: join-family-uk-yes
-    text: "You plan to join an EU or EEA family member in the UK"
-  - key: join-family-uk-no
-    text: "You do not plan to join an EU or EEA family member in the UK"
-
-  # drive-in-eu
-  - key: drive-eu-yes
-    text: "You need to drive in the EU, EEA or Switzerland"
-  - key: drive-eu-no
-    text: "You do not need to drive in the EU, EEA or Switzerland"
+- key: owns-operates-business-organisation
+  text: You own or operate a business or organisation
+  depends_on: 
+- key: does-not-own-operate-business-organisation
+  text: You do not own or operate a business or organisation
+  depends_on: 
+- key: sector-aerospace-space
+  text: You work in the aerospace and space industry
+  depends_on: 
+- key: sector-automotive
+  text: You work in the automotive industry
+  depends_on: 
+- key: sector-electronic-parts-machinery
+  text: You work in electronics, parts and machinery
+  depends_on: 
+- key: sector-installation-servicing-repair
+  text: You work in installation, servicing and repair
+  depends_on: 
+- key: sector-marine-marine-transport
+  text: You work in the marine and marine transport industry
+  depends_on: 
+- key: sector-rail-manufacture
+  text: You work in rail manufacturing
+  depends_on: 
+- key: sector-agriculture-farming
+  text: You work in agriculture and farming
+  depends_on: 
+- key: sector-animals-animal-products-ex-food
+  text: You work with animals and animal products (excluding food)
+  depends_on: 
+- key: sector-fisheries-inc-wholesale
+  text: You work in fisheries (including wholesale)
+  depends_on: 
+- key: sector-plants-forestry
+  text: You work in plants and forestry
+  depends_on: 
+- key: sector-veterinary
+  text: You work in veterinary services
+  depends_on: 
+- key: sector-personal-services
+  text: You work in personal services
+  depends_on: 
+- key: sector-professional-legal-business-services
+  text: You work in professional, legal and business services
+  depends_on: 
+- key: sector-charities
+  text: You work in the charity sector
+  depends_on: 
+- key: sector-voluntary-community-orgs
+  text: You work for voluntary and community organisations
+  depends_on: 
+- key: sector-construction
+  text: You work in construction
+  depends_on: 
+- key: sector-environmental-services
+  text: You work in environmental services
+  depends_on: 
+- key: sector-defence
+  text: You work in defence
+  depends_on: 
+- key: sector-electricity
+  text: You work in electricity
+  depends_on: 
+- key: sector-nuclear
+  text: You work in the nuclear industry
+  depends_on: 
+- key: sector-oil-gas-coal
+  text: You work in oil, gas and coal
+  depends_on: 
+- key: sector-renewable-energy
+  text: You work in renewable energy
+  depends_on: 
+- key: sector-media-broadcasting
+  text: You work in media and broadcasting
+  depends_on: 
+- key: sector-creative-industries
+  text: You work in the creative industries
+  depends_on: 
+- key: sector-gambling
+  text: You work in the gambling sector
+  depends_on: 
+- key: sector-sports-recreation
+  text: You work in sports and recreation
+  depends_on: 
+- key: sector-arts-culture-heritage
+  text: You work in arts, culture and heritage
+  depends_on: 
+- key: sector-financial-services
+  text: You work in financial services
+  depends_on: 
+- key: sector-insurance
+  text: You work in insurance
+  depends_on: 
+- key: sector-real-estate
+  text: You work in real estate
+  depends_on: 
+- key: sector-health-social-care-services
+  text: You work in health and social care services
+  depends_on: 
+- key: sector-medical-technology
+  text: You work in medical technology
+  depends_on: 
+- key: sector-pharmaceuticals-clinical-trials
+  text: You work in pharmaceuticals and clinical trials
+  depends_on: 
+- key: sector-digital-technology-computer-services
+  text: You work in digital, technology and computer services
+  depends_on: 
+- key: sector-telecoms-information-services
+  text: You work in telecoms and information services
+  depends_on: 
+- key: sector-manufacturing-consumer-goods
+  text: You work in consumer goods manufacturing
+  depends_on: 
+- key: sector-chemicals
+  text: You work in the chemicals industry
+  depends_on: 
+- key: sector-diamonds
+  text: You work in the diamond industry
+  depends_on: 
+- key: sector-metals-manufacture
+  text: You work in metals manufacturing
+  depends_on: 
+- key: sector-mining
+  text: You work in mining
+  depends_on: 
+- key: sector-non-metal-materials-manufacture
+  text: You work in non-metal materials manufacturing
+  depends_on: 
+- key: sector-justice-including-prisons
+  text: You work in the justice system (including prisons)
+  depends_on: 
+- key: sector-public-administration
+  text: You work in public administration
+  depends_on: 
+- key: sector-education
+  text: You work in education
+  depends_on: 
+- key: sector-research
+  text: You work in research
+  depends_on: 
+- key: sector-food-drink-tobacco
+  text: You work in the food, drink and tobacco industry
+  depends_on: 
+- key: sector-motor-trade
+  text: You work in the motor trade
+  depends_on: 
+- key: sector-retail-wholesale-ex-food-drink-motors
+  text: You work in retail and wholesale (excluding food, drink and motors)
+  depends_on: 
+- key: sector-accommodation
+  text: You work in accommodation
+  depends_on: 
+- key: sector-restaurants-bars-catering
+  text: You work in restaurants, bars and catering
+  depends_on: 
+- key: sector-tourism
+  text: You work in tourism
+  depends_on: 
+- key: sector-air-freight-air-passenger-services
+  text: You work in air freight and passenger services
+  depends_on: 
+- key: sector-ports-airports
+  text: You work in ports and airports
+  depends_on: 
+- key: sector-postal-courier-services
+  text: You work in postal and courier services
+  depends_on: 
+- key: sector-rail-passengers-freight
+  text: You work in rail freight and passenger services
+  depends_on: 
+- key: sector-road-passengers-freight
+  text: You work in road freight and passenger services
+  depends_on: 
+- key: sector-warehousing-services-pipelines
+  text: You work in warehousing, services and pipelines
+  depends_on: 
+- key: sell-goods-provide-services-in-uk
+  text: Your business sells goods or services in the UK
+  depends_on: 
+- key: import-from-eu
+  text: Your business imports goods from the EU
+  depends_on: 
+- key: export-to-eu
+  text: Your business exports goods to the EU
+  depends_on: 
+- key: provide-services-do-business-in-eu
+  text: Your business provides services in the EU
+  depends_on: 
+- key: haulage-goods-across-eu-borders
+  text: Your business transports goods across EU borders
+  depends_on: 
+- key: export-to-eu-non-of-these
+  text: None of these
+  depends_on: 
+- key: employ-eu-citizens
+  text: You employ EU citizens
+  depends_on: 
+- key: do-not-employ-eu-citizens
+  text: You do not employ EU citizens
+  depends_on: 
+- key: exchange-personal-data-with-eu-org
+  text: You exchange personal data with EU organisations
+  depends_on: 
+- key: exchange-personal-data-with-eu-org-process
+  text: You process personal data from the EU
+  depends_on: 
+- key: exchange-personal-data-with-eu-org-use
+  text: You use websites or services hosted in the EU
+  depends_on: 
+- key: exchange-personal-data-with-eu-org-provide
+  text: You provide digital services to the EU
+  depends_on: 
+- key: do-no-exchange-personal-data-with-eu-org
+  text: You do not exchange personal data with EU organisations
+  depends_on: 
+- key: use-rely-ip
+  text: You use or rely on intellectual property protection
+  depends_on: 
+- key: use-rely-ip-copyright
+  text: You use or rely on IP copyright protection
+  depends_on: 
+- key: use-rely-ip-trade-marks
+  text: You use or rely on trade mark protection
+  depends_on: 
+- key: use-rely-ip-designs
+  text: You use or rely on design protection
+  depends_on: 
+- key: use-rely-ip-patents
+  text: You use or rely on patents protection
+  depends_on: 
+- key: use-rely-ip-exhaustion-rights
+  text: You use or rely on exhaustion of rights protection
+  depends_on: 
+- key: do-not-use-rely-ip
+  text: You do not use or rely on intellectual property protection
+  depends_on: 
+- key: get-eu-uk-funding
+  text: You receive EU or UK government funding
+  depends_on: 
+- key: get-eu-funding
+  text: You receive EU government funding
+  depends_on: 
+- key: get-uk-funding
+  text: You receive UK government funding
+  depends_on: 
+- key: do-not-get-eu-uk-funding
+  text: You do not receive EU or UK government funding
+  depends_on: 
+- key: sell-public-sector
+  text: You sell products or services to the public sector
+  depends_on: 
+- key: sell-public-sector-contracts
+  text: You have public sector contracts
+  depends_on: 
+- key: sell-defence-contracts
+  text: You have defence contracts
+  depends_on: 
+- key: do-not-sell-to-public-sector
+  text: You do not sell products or services to the public sector
+  depends_on: 
+- key: nationality-uk
+  text: You are a UK national
+  depends_on: 
+- key: nationality-eu
+  text: You are an EU national
+  depends_on: 
+- key: nationality-row
+  text: You are not an EU or UK national
+  depends_on: 
+- key: living-row
+  text: You do not live in the UK or the EU
+  depends_on: 
+- key: living-uk
+  text: You live in the UK
+  depends_on: 
+- key: living-eu
+  text: You live in the EU
+  depends_on: 
+- key: working-eu
+  text: You are employed in the EU
+  depends_on: 
+- key: working-uk
+  text: You are employed in the UK
+  depends_on: 
+- key: studying-eu
+  text: You are studying in the EU
+  depends_on: 
+- key: studying-uk
+  text: You are studying in the UK
+  depends_on: 
+- key: visiting-eu
+  text: You plan to travel to the EU
+  depends_on: 
+- key: visiting-eu-no
+  text: You do not plan to travel to the EU
+  depends_on: 
+- key: visiting-uk
+  text: You intend to travel to the UK
+  depends_on: 
+- key: visting-uk-no
+  text: You do not intend to travel to the UK
+  depends_on: 
+- key: bring-pet-eu
+  text: You are visiting the EU with a pet
+  depends_on: 
+- key: bring-pet-uk
+  text: You are visiting the UK with a pet
+  depends_on: 
+- key: driving-eu
+  text: You need to drive in the EU, EEA or Switzerland
+  depends_on: 
+- key: driving-eu-no
+  text: You do not need to drive in the EU, EEA or Switzerland
+  depends_on: 
+- key: driving-uk
+  text: You need to drive in the UK
+  depends_on: 
+- key: own-eu-property
+  text: You are planning to buy or already own property in the EU
+  depends_on: 
+- key: own-eu-property-no
+  text: You are not planning to buy nor do you currently own property in the EU
+  depends_on: 
+- key: legal-case-uk
+  text: You have an open legal case in UK
+  depends_on: 
+- key: legal-case-eu
+  text: You have an open legal case in EU
+  depends_on: 
+- key: return-to-uk
+  text: You are planning to live in UK
+  depends_on: 
+- key: join-family-uk-no
+  text: You do not plan to join an EU or EEA family member in the UK
+  depends_on: 
+- key: join-family-uk-yes
+  text: You plan to join an EU or EEA family member in the UK
+  depends_on: 
