@@ -15,11 +15,7 @@ describe Checklists::ConvertCsvToYaml::ActionsProcessor do
       result = described_class.new.process(record)
       expect(result).not_to include("owner" => "John Doe")
       expect(result).to include("title" => "A title")
-    end
-
-    it "converts comma-separated values to an array" do
-      result = described_class.new.process(record)
-      expect(result["criteria"]).to eq(%w(owns-business imports-eu))
+      expect(result).to include("criteria" => "owns-business,imports-eu")
     end
   end
 end
