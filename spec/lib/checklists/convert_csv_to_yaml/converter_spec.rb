@@ -3,7 +3,7 @@ require "checklists/convert_csv_to_yaml/converter"
 
 describe Checklists::ConvertCsvToYaml::Converter do
   include FixturesHelper
-  let(:csv_file_path) { csv_to_convert_to_yaml }
+  let(:csv_file_path) { actions_csv_to_convert_to_yaml }
   let(:yaml_file_path) { Tempfile.new("a_file.yaml").path }
   let(:processor) { double("processor") }
 
