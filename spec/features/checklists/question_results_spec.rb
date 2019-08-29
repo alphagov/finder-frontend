@@ -11,6 +11,7 @@ RSpec.feature "Questions workflow", type: :feature do
 
   scenario "citizen questions" do
     when_i_visit_the_checklist_flow
+    and_i_do_not_answer_business_questions
     and_i_answer_citizen_questions
     then_i_should_see_the_no_results_page # we have no results here
     and_i_should_not_see_a_passport_action
@@ -19,6 +20,10 @@ RSpec.feature "Questions workflow", type: :feature do
 
   def when_i_visit_the_checklist_flow
     visit checklist_questions_path
+  end
+
+  def and_i_do_not_answer_business_questions
+    answer_question("do_you_own_a_business", "No")
   end
 
   def and_i_answer_business_questions
@@ -30,10 +35,10 @@ RSpec.feature "Questions workflow", type: :feature do
     answer_question("intellectual_property", "No")
     answer_question("eu_uk_government_funding", "No")
     answer_question("public_sector_procurement", "No")
+    and_i_answer_citizen_questions
   end
 
   def and_i_answer_citizen_questions
-    answer_question("do_you_own_a_business", "No")
     answer_question("nationality", "UK")
     answer_question("living", "Rest of world")
     answer_question("travelling-to-eu-2", "Yes", "You plan to bring your pet")
