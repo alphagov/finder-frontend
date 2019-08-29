@@ -4,8 +4,7 @@ actions:
     consequence: |
       If you do not get one, you may have increased costs and delays. For example, if HM Revenue and Customs (HMRC) cannot clear your goods you may have to pay storage fees.
     lead_time: 'It takes up to 3 months'
-    criteria:
-      - owns-business
+    criteria: owns-business
     audience: business
     action_id: T001
     priority: 5
@@ -14,8 +13,7 @@ actions:
     consequence: |
       If you do not get one, you will not be able to travel.
     lead_time: 'Do it as soon as possible'
-    criteria:
-      - sector-tourism
+    criteria: sector-tourism
     audience: citizen
     guidance_url: 'http://guidance.com'
     guidance_link_text: 'Guidance Central'
@@ -27,11 +25,9 @@ actions:
     consequence: |
       This action has been deleted.
     lead_time: 'This action is not required'
-    criteria:
-      - non-eu-national
+    criteria: non-eu-national
     audience: citizen
     guidance_url: 'https://gov.uk'
     guidance_link_text: 'REMOVED'
     action_id: SOFT_DELETED_TEST
     priority: 2
-
