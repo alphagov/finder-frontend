@@ -9,7 +9,9 @@ module ChecklistHelper
     action_groups.map do |key, action_group|
       {
         heading: I18n.t("checklists_results.audiences.#{key}.heading"),
-        actions: action_group
+        actions: action_group.sort_by.with_index do |action, index|
+          [-action.priority, index]
+        end
       }
     end
   end
