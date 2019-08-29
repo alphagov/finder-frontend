@@ -7,35 +7,35 @@ criteria:
     text: "You do not own a business"
 
   # sector_business_area
-  - text: You work in aerospace and space
+  - text: You work in the aerospace and space industry
     key: sector-aerospace-space
-  - text: You work in automotive
+  - text: You work in the automotive industry
     key: sector-automotive
   - text: You work in electronics, parts and machinery
     key: sector-electronics-parts-machinery
   - text: You work in installation, servicing and repair
     key: sector-installation-servicing-repair
-  - text: You work in marine and marine transport
+  - text: You work in the marine and marine transport industry
     key: sector-marine
-  - text: You work in rail manufacture
+  - text: You work in rail manufacturing
     key: sector-rail
   - text: You work in agriculture and farming
     key: sector-agriculture-and-farming
-  - text: You work in animals and animal products (excluding food)
+  - text: You work with animals and animal products (excluding food)
     key: sector-animals-and-animal-products
   - text: You work in fisheries (including wholesale)
     key: sector-fisheries
   - text: You work in plants and forestry
     key: sector-plants-and-forestry
-  - text: You work in veterinary
+  - text: You work in veterinary services
     key: sector-veterinary
   - text: You work in personal services
     key: sector-personal-services
   - text: You work in professional, legal and business services
     key: sector-professional-and-business-services
-  - text: You work in charities
+  - text: You work in the charity sector
     key: sector-charities
-  - text: You work in voluntary and community organisations
+  - text: You work for voluntary and community organisations
     key: sector-voluntary-community-organisations
   - text: You work in construction
     key: sector-construction-contracting
@@ -45,7 +45,7 @@ criteria:
     key: sector-defence
   - text: You work in electricity
     key: sector-electricity
-  - text: You work in nuclear
+  - text: You work in the nuclear industry
     key: sector-nuclear
   - text: You work in oil, gas and coal
     key: sector-oil-gas-coal
@@ -53,9 +53,9 @@ criteria:
     key: sector-other-energy
   - text: You work in media and broadcasting
     key: sector-broadcasting
-  - text: You work in creative industries
+  - text: You work in the creative industries
     key: sector-creative-industries
-  - text: You work in gambling
+  - text: You work in the gambling sector
     key: sector-gambling
   - text: You work in sports and recreation
     key: sector-sports-recreation
@@ -77,19 +77,19 @@ criteria:
     key: sector-computer-services
   - text: You work in telecoms and information services
     key: sector-telecoms
-  - text: You work in manufacturing of consumer goods
+  - text: You work in consumer goods manufacturing
     key: sector-clothing-consumer-goods-manufacturing
-  - text: You work in chemicals
+  - text: You work in the chemicals industry
     key: sector-chemicals
-  - text: You work in diamonds
+  - text: You work in the diamond industry
     key: sector-diamonds
-  - text: You work in metals manufacture
+  - text: You work in metals manufacturing
     key: sector-metals-manufacture
   - text: You work in mining
     key: sector-mining
-  - text: You work in non-metal materials manufacture
+  - text: You work in non-metal materials manufacturing
     key: sector-non-metal-materials-manufacture
-  - text: You work in justice including prisons
+  - text: You work in the justice system (including prisons)
     key: sector-justice-prisons
   - text: You work in public administration
     key: sector-public-administration
@@ -97,9 +97,9 @@ criteria:
     key: sector-education
   - text: You work in research
     key: sector-research
-  - text: You work in food, drink and tobacco
+  - text: You work in the food, drink and tobacco industry
     key: sector-food-and-drink
-  - text: You work in motor trade
+  - text: You work in the motor trade
     key: sector-motor-trades
   - text: You work in retail and wholesale (excluding food, drink and motors)
     key: sector-retail
@@ -109,26 +109,26 @@ criteria:
     key: sector-restaurants-bars-catering
   - text: You work in tourism
     key: sector-tourism
-  - text: You work in air freight and air passenger services
+  - text: You work in air freight and passenger services
     key: sector-air-freight-air-passenger-services
   - text: You work in ports and airports
     key: sector-ports-airports
   - text: You work in postal and courier services
     key: sector-postal-courier-services
-  - text: You work in rail (passengers and freight)
+  - text: You work in rail freight and passenger services
     key: sector-rail-passenger-freight
-  - text: You work in road (passengers and freight)
+  - text: You work in road freight and passenger services
     key: sector-road-passengers-freight
   - text: You work in warehousing, services and pipelines
     key: sector-warehouses-services-pipelines
 
   # business_activity
   - key: sells-services-or-goods
-    text: "Your business sells goods or provides services in the UK"
+    text: "Your business sells goods or services in the UK"
   - key: import-from-eu
     text: "Your business imports goods from the EU"
   - key: export-to-eu
-    text: "Your business exports goods the EU"
+    text: "Your business exports goods to the EU"
   - key: provide-services-do-business-in-eu
     text: "Your business provides services in the EU"
   - key: haulage-goods-across-eu-borders
@@ -143,17 +143,17 @@ criteria:
   # personal_data
   - text: You exchange personal data with EU organisations
     key: exchange-personal-data-with-eu-org
-  - text: You process personal data from Europe
+  - text: You process personal data from the EU
     key: exchange-personal-data-with-eu-org-process
-  - text: You use websites or services hosted in Europe
+  - text: You use websites or services hosted in the EU
     key: exchange-personal-data-with-eu-org-use
-  - text: You provide digital services available to Europe
+  - text: You provide digital services to the EU
     key: exchange-personal-data-with-eu-org-provide
   - text: You do not exchange personal data with EU organisations
     key: do-not-exchange-personal-data-with-eu-org
 
   # intellectual_property
-  - text: You use or rely on IP protection
+  - text: You use or rely on intellectual property protection
     key: use-rely-ip
   - text: You use or rely on IP copyright protection
     key: use-rely-ip-copyright
@@ -165,17 +165,17 @@ criteria:
     key: use-rely-ip-patents
   - text: You use or rely on exhaustion of rights protection
     key: use-rely-ip-exhaustion-rights
-  - text: You do not use or rely on IP protection
+  - text: You do not use or rely on intellectual property protection
     key: do-not-use-rely-ip
 
   # eu_uk_government_funding
-  - text: You receive government funding
+  - text: You receive EU or UK government funding
     key: get-eu-uk-funding
   - text: You receive EU government funding
     key: get-eu-funding
   - text: You receive UK government funding
     key: get-uk-funding
-  - text: You do not receive government funding
+  - text: You do not receive EU or UK government funding
     key: do-not-get-eu-uk-funding
 
   # public_sector_procurement
