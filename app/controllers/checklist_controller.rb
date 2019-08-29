@@ -88,26 +88,4 @@ private
   def current_page_from_params
     params[:page].to_i
   end
-
-  ###
-  # Results page
-  ###
-
-  def action_based_description
-    if @actions.any?
-      t('checklists_results.description')
-    else
-      t('checklists_results.description_no_actions')
-    end
-  end
-  helper_method :action_based_description
-
-  def action_based_email_link_label
-    if @actions.any?
-      t('checklists_results.email_sign_up_link')
-    else
-      t('checklists_results.email_sign_up_link_no_actions')
-    end
-  end
-  helper_method :action_based_email_link_label
 end
