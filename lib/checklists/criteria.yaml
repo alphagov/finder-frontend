@@ -192,9 +192,6 @@ criteria:
 - key: haulage-goods-across-eu-borders
   text: Your business transports goods across EU borders
   depends_on: 
-- key: export-to-eu-non-of-these
-  text: None of these
-  depends_on: 
 - key: employ-eu-citizens
   text: You employ EU citizens
   depends_on: 
@@ -213,7 +210,7 @@ criteria:
 - key: exchange-personal-data-with-eu-org-provide
   text: You provide digital services to the EU
   depends_on: 
-- key: do-no-exchange-personal-data-with-eu-org
+- key: do-not-exchange-personal-data-with-eu-org
   text: You do not exchange personal data with EU organisations
   depends_on: 
 - key: use-rely-ip
@@ -306,17 +303,11 @@ criteria:
 - key: bring-pet-eu
   text: You are visiting the EU with a pet
   depends_on: 
-- key: bring-pet-uk
-  text: You are visiting the UK with a pet
-  depends_on: 
 - key: driving-eu
   text: You need to drive in the EU, EEA or Switzerland
   depends_on: 
 - key: driving-eu-no
   text: You do not need to drive in the EU, EEA or Switzerland
-  depends_on: 
-- key: driving-uk
-  text: You need to drive in the UK
   depends_on: 
 - key: own-eu-property
   text: You are planning to buy or already own property in the EU
@@ -324,15 +315,12 @@ criteria:
 - key: own-eu-property-no
   text: You are not planning to buy nor do you currently own property in the EU
   depends_on: 
-- key: legal-case-uk
-  text: You have an open legal case in UK
-  depends_on: 
-- key: legal-case-eu
-  text: You have an open legal case in EU
-  depends_on: 
 - key: return-to-uk
   text: You are planning to live in UK
   depends_on: 
+- key: return-to-uk-no
+  text: You are not planning to live in the UK
+  depends_on:
 - key: join-family-uk-no
   text: You do not plan to join an EU or EEA family member in the UK
   depends_on: 
