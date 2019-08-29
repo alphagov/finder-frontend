@@ -294,7 +294,7 @@ questions:
 
   - key: join-family-uk-1
     question_type: single
-    question: Do you plan to join an EU or EEA family member in the UK?
+    question: Do you plan to join an EU family member in the UK?
     depends_on:
       - nationality-eu
     options:
@@ -305,7 +305,7 @@ questions:
 
   - key: join-family-uk-2
     question_type: single
-    question: Do you plan to join an EU or EEA family member in the UK?
+    question: Do you plan to join an EU family member in the UK?
     depends_on:
       - nationality-row
     options:
