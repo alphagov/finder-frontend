@@ -47,14 +47,15 @@ en:
       brexit-check: "How to get ready"
       questions: "Questions"
       results: "Results"
-    title: "Your results: what you need to do to prepare for Brexit"
+    title: "What you need to do now to prepare for Brexit"
     title_no_actions: You do not need to take action at this time
     description: |
-      You may not need to do everything on the list to prepare for Brexit, and your list of results may not be complete.
+      You may not need to do everything on the list to prepare for the Brexit deadline of 31 October 2019. 
+      Your list of results may not be complete.
     description_no_actions: |
       Based on your responses, you do not need to take any action to prepare for the Brexit deadline of 31 October 2019.
     email_sign_up_link: |
-      Sign up to get email alerts about changes to Brexit information that may affect you or to get a copy of your results.
+      Sign up to get email alerts about changes to Brexit information that may affect you
     email_sign_up_link_no_actions: |
       This may change. Subscribe to email alerts about changes to Brexit information that may affect you.
     answers:
@@ -79,6 +80,6 @@ en:
         <p>Sign up to receive:</p>
         <ul>
           <li>email alerts about changes to Brexit information that may affect you</li>
-          <li>a copy of your results</li>
+          <li>a link to your results</li>
         </ul>
       sign_up: "Subscribe"

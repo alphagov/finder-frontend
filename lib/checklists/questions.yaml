@@ -172,7 +172,7 @@ questions:
     depends_on:
       - owns-business
     question_type: "multiple"
-    question: "Does your business do any of the following activities?"
+    question: "Does your business or organisation do any of the following activities?"
     description: <p>Importing and exporting includes temporarily taking goods across the EU border, for example to a trade fair.</p>
     options:
       - label: "Sell goods or provide services in the UK"
@@ -207,7 +207,6 @@ questions:
     description: |
       <p>This includes <a href="/eu-eea">organisations located in the EU</a> and Norway, Iceland and Liechtenstein.</p>
       <p>Personal data includes customers’ addresses, staff working hours or information you give to a delivery company.</p>
-      <p>Skip this question if you’re not sure how you deal with personal data.</p>
     options:
       - label: "Yes"
         value: exchange-personal-data-with-eu-org
