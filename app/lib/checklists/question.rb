@@ -1,6 +1,6 @@
 class Checklists::Question
   attr_reader :key, :text, :description, :hint_title, :hint_text,
-              :options, :type, :depends_on
+              :options, :type, :criteria
 
   def initialize(params)
     @key            = params['key']
@@ -10,15 +10,15 @@ class Checklists::Question
     @hint_text      = params['hint_text']
     @options        = params['options']
     @type           = params['question_type']
-    @depends_on     = params['depends_on']
+    @criteria       = params['criteria']
   end
 
   def self.find_by_key(key)
     load_all.find { |q| q.key == key }
   end
 
-  def show?(criteria)
-    depends_on.blank? || (depends_on - criteria).empty?
+  def show?(selected_criteria)
+    Checklists::CriteriaLogic.new(criteria, selected_criteria).applies?
   end
 
   def possible_criteria

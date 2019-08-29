@@ -1,59 +1,17 @@
 require 'spec_helper'
 
 describe Checklists::Action do
-  describe '#criteria?' do
-    before do
-      allow(Checklists::Criterion).to receive(:load_all).and_return([
-        double(key: 'a'), double(key: 'b'), double(key: 'c')
-      ])
+  describe '#applies_to?' do
+    let(:criteria_logic) do
+      instance_double Checklists::CriteriaLogic, applies?: :result
     end
 
-    subject do
-      described_class.new(
-        'criteria' => criteria
-      ).applies_to?(selected_criteria)
-    end
+    it "delegates to the CriteriaLogic" do
+      allow(Checklists::CriteriaLogic).to receive(:new)
+        .with('criteria', 'selected_criteria') { criteria_logic }
 
-    context "an empty criteria" do
-      let(:criteria) { "" }
-      let(:selected_criteria) { %w[a] }
-
-      it { is_expected.to eq(false) }
-    end
-
-    context "a nil criteria" do
-      let(:criteria) { nil }
-      let(:selected_criteria) { %w[a] }
-
-      it { is_expected.to eq(false) }
-    end
-
-    context "the selected criteria meets the applicable criteria" do
-      let(:criteria) { "a || b || c" }
-      let(:selected_criteria) { %w[a] }
-
-      it { is_expected.to eq(true) }
-    end
-
-    context "the selected criteria meets the applicable criteria with an AND" do
-      let(:criteria) { "a && b || c" }
-      let(:selected_criteria) { %w[a b] }
-
-      it { is_expected.to eq(true) }
-    end
-
-    context "the selected criteria doesn't meet the applicable criteria with an AND" do
-      let(:criteria) { "a && (b || c)" }
-      let(:selected_criteria) { %w[c] }
-
-      it { is_expected.to eq(false) }
-    end
-
-    context "no selected criteria" do
-      let(:criteria) { "a || b || c" }
-      let(:selected_criteria) { [] }
-
-      it { is_expected.to eq(false) }
+      action = described_class.new('criteria' => 'criteria')
+      expect(action.applies_to?('selected_criteria')).to eq :result
     end
   end
 
@@ -68,13 +26,14 @@ describe Checklists::Action do
         expect(action.consequence).to be_present
         expect(action.title_url).to be_present
         expect(action.criteria).to be_a String
+        expect(action.criteria).to be_present
         expect(action.priority).to be_a Integer
       end
     end
 
     it "returns actions that reference valid criteria" do
       subject.each do |action|
-        expect(action.applies_to?([])).to eq(false)
+        expect { action.applies_to?([]) }.to_not raise_error
       end
     end
 

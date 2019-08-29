@@ -2,26 +2,16 @@ require 'spec_helper'
 
 describe Checklists::Question do
   describe '#show?' do
-    let(:criteria) { [] }
-    subject { described_class.new('depends_on' => dependencies).show?(criteria) }
-
-    context "when the question has no dependencies" do
-      let(:dependencies) { [] }
-
-      it { is_expected.to eq(true) }
+    let(:criteria_logic) do
+      instance_double Checklists::CriteriaLogic, applies?: :result
     end
 
-    context "when the question has unmet dependencies" do
-      let(:dependencies) { %w[A] }
+    it "delegates to the CriteriaLogic" do
+      allow(Checklists::CriteriaLogic).to receive(:new)
+        .with('criteria', 'selected_criteria') { criteria_logic }
 
-      it { is_expected.to eq(false) }
-    end
-
-    context "when the question has met dependencies" do
-      let(:criteria) { %w[A B] }
-      let(:dependencies) { %w[A B] }
-
-      it { is_expected.to eq(true) }
+      action = described_class.new('criteria' => 'criteria')
+      expect(action.show?('selected_criteria')).to eq :result
     end
   end
 
@@ -50,7 +40,7 @@ describe Checklists::Question do
           expect(criteria).to include(option['value'])
         end
 
-        expect(criteria).to include(*question.depends_on.to_a)
+        expect { question.show?([]) }.to_not raise_error
       end
     end
   end

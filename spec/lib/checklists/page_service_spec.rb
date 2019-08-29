@@ -3,12 +3,19 @@ require 'spec_helper'
 describe Checklists::PageService do
   let(:questions) {
     [
-      Checklists::Question.new(key: 'question_zero', 'depends_on' => []),
-      Checklists::Question.new(key: 'question_one', 'depends_on' => %i[a b]),
-      Checklists::Question.new(key: 'question_two', 'depends_on' => %i[c d]),
-      Checklists::Question.new(key: 'question_three', 'depends_on' => [:c])
+      Checklists::Question.new(key: 'question_zero'),
+      Checklists::Question.new(key: 'question_one', 'criteria' => 'a && b'),
+      Checklists::Question.new(key: 'question_two', 'criteria' => 'c && d'),
+      Checklists::Question.new(key: 'question_three', 'criteria' => 'c')
     ]
   }
+
+  before do
+    allow(Checklists::Criterion).to receive(:load_all).and_return([
+      double(key: 'a'), double(key: 'b'), double(key: 'c'), double(key: 'd')
+    ])
+  end
+
   describe '#next_page' do
     it 'returns nil if the last page has been reached' do
       subject = Checklists::PageService.new(questions: questions,
@@ -33,7 +40,7 @@ describe Checklists::PageService do
     it 'returns false if the end of the questions has not been reached' do
       subject = Checklists::PageService.new(questions: questions,
                                             current_page_from_params: questions.count - 1,
-                                            criteria_keys: [:c])
+                                            criteria_keys: %w[c])
       expect(subject.redirect_to_results?).to be false
     end
   end
@@ -52,21 +59,21 @@ describe Checklists::PageService do
     end
     context 'the page on the form is 1 and the criteria_keys match question_two' do
       let(:current_page_from_params) { 1 }
-      let(:criteria_keys) { %i[c d] }
+      let(:criteria_keys) { %w[c d] }
       it 'returns the page for question_two' do
         expect(subject).to eq(2)
       end
     end
     context 'the page on the form is 1 and the criteria_keys match question_three' do
       let(:current_page_from_params) { 1 }
-      let(:criteria_keys) { [:c] }
+      let(:criteria_keys) { %w[c] }
       it 'returns the page for question_three' do
         expect(subject).to eq(3)
       end
     end
     context 'the page on the form is 1 and the criteria_keys do not match anything' do
       let(:current_page_from_params) { 1 }
-      let(:criteria_keys) { [:e] }
+      let(:criteria_keys) { %w[e] }
       it 'returns nil' do
         expect(subject).to be nil
       end
