@@ -31,8 +31,8 @@ class Checklists::Action
     end
   end
 
-  def self.find_by_title(title)
-    load_all.find { |a| a.title.match(title) }
+  def self.find_by_id(id)
+    load_all.find { |a| a.id == id }
   end
 
   def self.load_all(exclude_deleted: true)

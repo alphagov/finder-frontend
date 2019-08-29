@@ -9,12 +9,171 @@ questions:
       - label: "No"
         value: does-not-own-business
 
+  - key: sector_business_area
+    depends_on:
+      - owns-business
+    question_type: "multiple"
+    question: "What does your business or organisation do?"
+    description: |
+      <p>Choose all the sectors and areas that your business or organisation operates in.</p>
+    options:
+      #- label: "Advanced manufacturing and services"
+        #options:
+          - label: Aerospace and space
+            value: sector-aerospace-space
+          - label: Automotive
+            value: sector-automotive
+          - label: Electronics, parts and machinery
+            value: sector-electronics-parts-machinery
+          - label: Installation, servicing and repair
+            value: sector-installation-servicing-repair
+          - label: Marine and marine transport
+            value: sector-marine
+          - label: Rail (manufacture)
+            value: sector-rail
+      #- label: "Agriculture, animals, fisheries and forestry"
+        #options:
+          - label: Agriculture and farming
+            value: sector-agriculture-and-farming
+          - label: Animals and animal products (excluding food)
+            value: sector-animals-and-animal-products
+          - label: Fisheries (including wholesale)
+            value: sector-fisheries
+          - label: Plants and forestry
+            value: sector-plants-and-forestry
+          - label: Veterinary
+            value: sector-veterinary
+      #- label: "Business and personal services"
+        #options:
+          - label: Personal services
+            value: sector-personal-services
+          - label: Professional, legal and business services
+            value: sector-professional-and-business-services
+      #- label: "Charities and voluntary organisation"
+        #options:
+          - label: Charities
+            value: sector-charities
+          - label: Voluntary and community organisations
+            value: sector-voluntary-community-organisations
+      #- label: "Construction and environmental services"
+        #options:
+          - label: Construction
+            value: sector-construction-contracting
+          - label: Environmental services
+            value: sector-environmental-services
+      #- label: "Defence"
+        #options:
+          - label: Defence
+            value: sector-defence
+      #- label: "Energy"
+        #options:
+          - label: Electricity
+            value: sector-electricity
+          - label: Nuclear
+            value: sector-nuclear
+          - label: Oil, gas and coal
+            value: sector-oil-gas-coal
+          - label: Renewable energy
+            value: sector-other-energy
+      #- label: "Entertainment"
+        #options:
+          - label: Media and broadcasting
+            value: sector-broadcasting
+          - label: Creative industries
+            value: sector-creative-industries
+          - label: Gambling
+            value: sector-gambling
+          - label: Sports and recreation
+            value: sector-sports-recreation
+          - label: Arts, culture and heritage
+            value: sector-arts-culture-heritage
+      #- label: "Finance, insurance and real estate"
+        #options:
+          - label: Financial services
+            value: sector-financial-services
+          - label: Insurance
+            value: sector-insurance
+          - label: Real estate
+            value: sector-real-estate-excl-imputed-rent
+      #- label: "Health and social care"
+        #options:
+          - label: Health and social care services
+            value: sector-health-social-care-services
+          - label: Medical technology
+            value: sector-medical-technology
+          - label: Pharmaceuticals and clinical trials
+            value: sector-pharmaceuticals
+      #- label: "Information and communications"
+        #options:
+          - label: Digital, technology and computer services
+            value: sector-computer-services
+          - label: Telecoms and information services
+            value: sector-telecoms
+      #- label: "Manufacturing"
+        #options:
+          - label: Manufacturing of consumer goods
+            value: sector-clothing-consumer-goods-manufacturing
+      #- label: "Materials and mining"
+        #options:
+          - label: Chemicals
+            value: sector-chemicals
+          - label: Diamonds
+            value: sector-diamonds
+          - label: Metals manufacture
+            value: sector-metals-manufacture
+          - label: Mining
+            value: sector-mining
+          - label: Non-metal materials manufacture
+            value: sector-non-metal-materials-manufacture
+      #- label: "Public administration"
+        #options:
+          - label: Justice including prisons
+            value: sector-justice-prisons
+          - label: Public administration
+            value: sector-public-administration
+      #- label: "Research and education"
+        #options:
+          - label: Education
+            value: sector-education
+          - label: Research
+            value: sector-research
+      #- label: "Retail, wholesale and consumer goods"
+        #options:
+          - label: Food, drink and tobacco
+            value: sector-food-and-drink
+          - label: Motor trade
+            value: sector-motor-trades
+          - label: Retail and wholesale (excluding food, drink and motors)
+            value: sector-retail
+      #- label: "Tourism and hospitality"
+        #options:
+          - label: Accommodation
+            value: sector-accommodation
+          - label: Restaurants, bars and catering
+            value: sector-restaurants-bars-catering
+          - label: Tourism
+            value: sector-tourism
+      #- label: "Transport and logistics"
+        #options:
+          - label: Air freight and air passenger services
+            value: sector-air-freight-air-passenger-services
+          - label: Ports and airports
+            value: sector-ports-airports
+          - label: Postal and courier services
+            value: sector-postal-courier-services
+          - label: Rail (passengers and freight)
+            value: sector-rail-passenger-freight
+          - label: Road (passengers and freight)
+            value: sector-road-passengers-freight
+          - label: Warehousing, services and pipelines
+            value: sector-warehouses-services-pipelines
+
   - key: business_activity
     depends_on:
       - owns-business
     question_type: "multiple"
     question: "Does your business do any of the following activities?"
-    description: "Importing and exporting includes temporarily taking goods across the EU border, for example to a trade fair."
+    description: <p>Importing and exporting includes temporarily taking goods across the EU border, for example to a trade fair.</p>
     options:
       - label: "Sell goods or provide services in the UK"
         value: sells-services-or-goods
@@ -23,15 +182,103 @@ questions:
       - label: "Export to the EU"
         value: export-to-eu
       - label: "Provide services or do business in the EU"
-        value: other-eu
+        value: provide-services-do-business-in-eu
       - label: "Transporting goods across EU borders"
-        value: transport-eu
+        value: haulage-goods-across-eu-borders
+      - label: "None of these"
+        value: export-to-eu-none-of-these
 
-  - key: eu_national_in_uk
+  - key: employ_eu_citizens
+    depends_on:
+      - owns-business
     question_type: "single"
-    question: "Are you an EU national living in the UK?"
+    question: "Do you employ anyone from another European country?"
+    description: |
+      <p>This includes <a href="/eu-eea">countries in the EU</a> and Norway, Switzerland, Iceland and Liechtenstein.</p>
     options:
       - label: "Yes"
-        value: eu-national
+        value: employ-eu-citizens
       - label: "No"
-        value: non-eu-national
+        value: do-not-employ-eu-citizens
+
+  - key: personal_data
+    depends_on:
+      - owns-business
+    question_type: "single_wrapped"
+    question: "Do you exchange personal data with another organisation in Europe?"
+    description: |
+      <p>This includes <a href="/eu-eea">organisations located in the EU</a> and Norway, Iceland and Liechtenstein.</p>
+      <p>Personal data includes customers’ addresses, staff working hours or information you give to a delivery company.</p>
+      <p>Skip this question if you’re not sure how you deal with personal data.</p>
+    options:
+      - label: "Yes"
+        value: exchange-personal-data-with-eu-org
+        options:
+          - label: Processing personal data from Europe
+            value: exchange-personal-data-with-eu-org-process
+          - label: Using websites or services hosted in Europe
+            value: exchange-personal-data-with-eu-org-use
+          - label: Providing digital services available to Europe
+            value: exchange-personal-data-with-eu-org-provide
+      - label: "No"
+        value: do-not-exchange-personal-data-with-eu-org
+
+  - key: intellectual_property
+    depends_on:
+      - owns-business
+    question_type: "single_wrapped"
+    question: "Do you use or rely on intellectual property (IP) protection?"
+    description: |
+      <p>Intellectual property protection includes copyright, trade marks and patents.</p>
+    options:
+      - label: "Yes"
+        value: use-rely-ip
+        options:
+          - label: Copyright
+            value: use-rely-ip-copyright
+          - label: Trade marks
+            value: use-rely-ip-trade-marks
+          - label: Designs
+            value: use-rely-ip-designs
+          - label: Patents
+            value: use-rely-ip-patents
+          - label: Exhaustion of rights
+            value: use-rely-ip-exhaustion-rights
+      - label: "No"
+        value: do-not-use-rely-ip
+
+  - key: eu_uk_government_funding
+    depends_on:
+      - owns-business
+    question_type: "single_wrapped"
+    question: "Do you get EU or UK government funding?"
+    description: |
+      <p>EU funding includes the Creative Europe Fund or Horizon 2020 scheme.</p>
+    options:
+      - label: "Yes"
+        value: get-eu-uk-funding
+        options:
+          - label: EU funding
+            value: get-eu-funding
+          - label: UK government funding
+            value: get-uk-funding
+      - label: "No"
+        value: do-not-get-eu-uk-funding
+
+  - key: public_sector_procurement
+    depends_on:
+      - owns-business
+    question_type: "single_wrapped"
+    question: "Do you sell your products or services to the public sector?"
+    description: |
+      <p>This includes non-government organisations, such as hospitals and schools, and central or local government organisations.</p>
+    options:
+      - label: "Yes"
+        value: sell-public-sector
+        options:
+          - label: Public sector contracts
+            value: sell-public-sector-contracts
+          - label: Defence contracts
+            value: sell-defence-contracts
+      - label: "No"
+        value: do-not-sell-to-public-sector

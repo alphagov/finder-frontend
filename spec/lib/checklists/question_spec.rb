@@ -32,7 +32,7 @@ describe Checklists::Question do
       subject.each do |question|
         expect(question.key).to be_present
         expect(question.text).to be_present
-        expect(%w[single multiple]).to include(question.type)
+        expect(%w[single multiple single_wrapped]).to include(question.type)
         expect(question.options).to be_a Array
       end
     end
