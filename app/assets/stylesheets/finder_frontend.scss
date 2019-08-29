@@ -278,6 +278,9 @@
 // NOTE: Reset from element level styles inherited from the deprecated `govuk-template`.
 .app-patch--search-input-override input[type="search"] {
   box-sizing: border-box;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
 
 // NOTE: Used to remove the blue global header bar for the topic finder header.
