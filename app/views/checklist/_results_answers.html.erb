@@ -1,9 +1,18 @@
 <div class="checklist-results-answers">
   <% if answers.present? %>
     <p class="govuk-body govuk-!-font-weight-bold"><%= t('checklists_results.answers.list_context') %></p>
-    <ul class="govuk-list govuk-!-margin-top-3 govuk-!-font-size-16 govuk-list--checked">
+    <ul class="govuk-list govuk-!-margin-top-3 govuk-!-font-size-16">
       <% answers.each do |answer| %>
-        <li><%= answer[:readable_text] %></li>
+        <li>
+          <div class="govuk-grid-row">
+            <div class="govuk-grid-column-one-tenth">
+              <%= image_tag 'check', class: "checklist-results-answers__check" %>
+            </div>
+            <div class="govuk-grid-column-nine-tenths">
+              <%= answer[:readable_text] %>
+            </div>
+          </div>
+        </li>
       <% end %>
     </ul>
   <% else %>
