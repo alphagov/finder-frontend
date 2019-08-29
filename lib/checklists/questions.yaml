@@ -325,6 +325,30 @@ questions:
       - label: Rest of world
         value: living-other
 
+  - key: drive-in-eu-1
+    question_type: single
+    question: Do you need to drive in the EU?
+    depends_on:
+      - nationality-uk
+      - living-eu
+    options:
+      - label: "Yes"
+        value: drive-eu-yes
+      - label: "No"
+        value: drive-eu-no
+
+  - key: drive-in-eu-2
+    question_type: single
+    question: Do you need to drive in the EU?
+    depends_on:
+      - nationality-uk
+      - living-other
+    options:
+      - label: "Yes"
+        value: drive-eu-yes
+      - label: "No"
+        value: drive-eu-no
+
   - key: employment-1
     depends_on:
       - nationality-uk
