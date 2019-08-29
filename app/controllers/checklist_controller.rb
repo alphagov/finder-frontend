@@ -4,6 +4,10 @@ class ChecklistController < ApplicationController
 
   protect_from_forgery except: :confirm_email_signup
 
+  before_action do
+    expires_in(5.minutes, public: true)
+  end
+
   def show
     @questions = Checklists::Question.load_all
     @page_service = Checklists::PageService.new(questions: @questions,
