@@ -194,14 +194,14 @@ criteria:
   - key: nationality-eu
     text: "You are an EU national"
   - key: nationality-row
-    text: "You are not an EU national or a UK national"
+    text: "You are not an EU or UK national"
 
   - key: living-uk
-    text: "You are living in the UK"
+    text: "You live in the UK"
   - key: living-eu
-    text: "You are living in the EU"
+    text: "You live in the EU"
   - key: living-other
-    text: "You are not living in the UK or the EU"
+    text: "You do not live in the UK or the EU"
 
   - key: employment-work
     text: "You are employed"
@@ -209,9 +209,9 @@ criteria:
     text: "You are studying"
 
   - key: travelling-to-eu-yes
-    text: "You intend to travel to the EU"
+    text: "You plan to travel to the UK"
   - key: travelling-to-eu-no
-    text: "You do not intend to travel to the EU"
+    text: "You do not plan to travel to the UK"
 
   - key: returning-yes
     text: "You plan to move back to the UK"
@@ -224,9 +224,9 @@ criteria:
     text: "You do not intend to travel to the UK"
 
   - key: pet-or-driving-pet
-    text: "You intend to bring your pet"
+    text: "You plan to take your pet"
   - key: pet-or-driving-drive
-    text: "You intend to drive"
+    text: "You plan to drive"
 
   - key: property-yes
     text: "You are planning to buy or already own property in the EU"
