@@ -9,265 +9,138 @@ criteria:
   # sector_business_area
   - text: You work in aerospace and space
     key: sector-aerospace-space
-    depends_on:
-      - owns-business
   - text: You work in automotive
     key: sector-automotive
-    depends_on:
-      - owns-business
   - text: You work in electronics, parts and machinery
     key: sector-electronics-parts-machinery
-    depends_on:
-      - owns-business
   - text: You work in installation, servicing and repair
     key: sector-installation-servicing-repair
-    depends_on:
-      - owns-business
   - text: You work in marine and marine transport
     key: sector-marine
-    depends_on:
-      - owns-business
   - text: You work in rail manufacture
     key: sector-rail
-    depends_on:
-      - owns-business
   - text: You work in agriculture and farming
     key: sector-agriculture-and-farming
-    depends_on:
-      - owns-business
   - text: You work in animals and animal products (excluding food)
     key: sector-animals-and-animal-products
-    depends_on:
-      - owns-business
   - text: You work in fisheries (including wholesale)
     key: sector-fisheries
-    depends_on:
-      - owns-business
   - text: You work in plants and forestry
     key: sector-plants-and-forestry
-    depends_on:
-      - owns-business
   - text: You work in veterinary
     key: sector-veterinary
-    depends_on:
-      - owns-business
   - text: You work in personal services
     key: sector-personal-services
-    depends_on:
-      - owns-business
   - text: You work in professional, legal and business services
     key: sector-professional-and-business-services
-    depends_on:
-      - owns-business
   - text: You work in charities
     key: sector-charities
-    depends_on:
-      - owns-business
   - text: You work in voluntary and community organisations
     key: sector-voluntary-community-organisations
-    depends_on:
-      - owns-business
   - text: You work in construction
     key: sector-construction-contracting
-    depends_on:
-      - owns-business
   - text: You work in environmental services
     key: sector-environmental-services
-    depends_on:
-      - owns-business
   - text: You work in defence
     key: sector-defence
-    depends_on:
-      - owns-business
   - text: You work in electricity
     key: sector-electricity
-    depends_on:
-      - owns-business
   - text: You work in nuclear
     key: sector-nuclear
-    depends_on:
-      - owns-business
   - text: You work in oil, gas and coal
     key: sector-oil-gas-coal
-    depends_on:
-      - owns-business
   - text: You work in renewable energy
     key: sector-other-energy
-    depends_on:
-      - owns-business
   - text: You work in media and broadcasting
     key: sector-broadcasting
-    depends_on:
-      - owns-business
   - text: You work in creative industries
     key: sector-creative-industries
-    depends_on:
-      - owns-business
   - text: You work in gambling
     key: sector-gambling
-    depends_on:
-      - owns-business
   - text: You work in sports and recreation
     key: sector-sports-recreation
-    depends_on:
-      - owns-business
   - text: You work in arts, culture and heritage
     key: sector-arts-culture-heritage
-    depends_on:
-      - owns-business
   - text: You work in financial services
     key: sector-financial-services
-    depends_on:
-      - owns-business
   - text: You work in insurance
     key: sector-insurance
-    depends_on:
-      - owns-business
   - text: You work in real estate
     key: sector-real-estate-excl-imputed-rent
-    depends_on:
-      - owns-business
   - text: You work in health and social care services
     key: sector-health-social-care-services
-    depends_on:
-      - owns-business
   - text: You work in medical technology
     key: sector-medical-technology
-    depends_on:
-      - owns-business
   - text: You work in pharmaceuticals and clinical trials
     key: sector-pharmaceuticals
-    depends_on:
-      - owns-business
   - text: You work in digital, technology and computer services
     key: sector-computer-services
-    depends_on:
-      - owns-business
   - text: You work in telecoms and information services
     key: sector-telecoms
-    depends_on:
-      - owns-business
   - text: You work in manufacturing of consumer goods
     key: sector-clothing-consumer-goods-manufacturing
-    depends_on:
-      - owns-business
   - text: You work in chemicals
     key: sector-chemicals
-    depends_on:
-      - owns-business
   - text: You work in diamonds
     key: sector-diamonds
-    depends_on:
-      - owns-business
   - text: You work in metals manufacture
     key: sector-metals-manufacture
-    depends_on:
-      - owns-business
   - text: You work in mining
     key: sector-mining
-    depends_on:
-      - owns-business
   - text: You work in non-metal materials manufacture
     key: sector-non-metal-materials-manufacture
-    depends_on:
-      - owns-business
   - text: You work in justice including prisons
     key: sector-justice-prisons
-    depends_on:
-      - owns-business
   - text: You work in public administration
     key: sector-public-administration
-    depends_on:
-      - owns-business
   - text: You work in education
     key: sector-education
-    depends_on:
-      - owns-business
   - text: You work in research
     key: sector-research
-    depends_on:
-      - owns-business
   - text: You work in food, drink and tobacco
     key: sector-food-and-drink
-    depends_on:
-      - owns-business
   - text: You work in motor trade
     key: sector-motor-trades
-    depends_on:
-      - owns-business
   - text: You work in retail and wholesale (excluding food, drink and motors)
     key: sector-retail
-    depends_on:
-      - owns-business
   - text: You work in accommodation
     key: sector-accommodation
-    depends_on:
-      - owns-business
   - text: You work in restaurants, bars and catering
     key: sector-restaurants-bars-catering
-    depends_on:
-      - owns-business
   - text: You work in tourism
     key: sector-tourism
-    depends_on:
-      - owns-business
   - text: You work in air freight and air passenger services
     key: sector-air-freight-air-passenger-services
-    depends_on:
-      - owns-business
   - text: You work in ports and airports
     key: sector-ports-airports
-    depends_on:
-      - owns-business
   - text: You work in postal and courier services
     key: sector-postal-courier-services
-    depends_on:
-      - owns-business
   - text: You work in rail (passengers and freight)
     key: sector-rail-passenger-freight
-    depends_on:
-      - owns-business
   - text: You work in road (passengers and freight)
     key: sector-road-passengers-freight
-    depends_on:
-      - owns-business
   - text: You work in warehousing, services and pipelines
     key: sector-warehouses-services-pipelines
-    depends_on:
-      - owns-business
 
   # business_activity
   - key: sells-services-or-goods
     text: "Your business sells goods or provides services in the UK"
-    depends_on:
-      - owns-business
   - key: import-from-eu
     text: "Your business imports goods from the EU"
-    depends_on:
-      - owns-business
   - key: export-to-eu
     text: "Your business exports goods the EU"
-    depends_on:
-      - owns-business
   - key: provide-services-do-business-in-eu
     text: "Your business provides services in the EU"
-    depends_on:
-      - owns-business
   - key: haulage-goods-across-eu-borders
     text: "Your business transports goods across EU borders"
-    depends_on:
-      - owns-business
   - key: export-to-eu-none-of-these
     text: "Your business does not sell goods or services in the UK"
-    depends_on:
-      - owns-business
 
   # employ_eu_citizens
   - text: You employ EU citizens
     key: employ-eu-citizens
   - text: You do not employ EU citizens
     key: do-not-employ-eu-citizens
-
 
   # personal_data
   - text: You exchange personal data with EU organisations
