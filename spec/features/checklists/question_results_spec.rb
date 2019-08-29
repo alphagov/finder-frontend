@@ -41,7 +41,7 @@ RSpec.feature "Questions workflow", type: :feature do
   def and_i_answer_citizen_questions
     answer_question("nationality", "UK")
     answer_question("living", "Rest of world")
-    answer_question("travelling-to-eu-2", "Yes", "You plan to bring your pet")
+    answer_question("travelling-to-eu", "Yes", "You plan to bring your pet")
     answer_question("property", "Yes")
     answer_question("returning-2", "Yes")
   end
