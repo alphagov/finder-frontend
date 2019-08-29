@@ -294,7 +294,28 @@ questions:
       - label: Rest of world
         value: nationality-row
 
-  # TIER 2
+  - key: join-family-uk-1
+    question_type: single
+    question: Do you plan to join an EU or EEA family member in the UK?
+    criteria:
+      - nationality-eu
+    options:
+      - label: "Yes"
+        value: join-family-uk-yes
+      - label: "No"
+        value: join-family-uk-no
+
+  - key: join-family-uk-2
+    question_type: single
+    question: Do you plan to join an EU or EEA family member in the UK?
+    criteria:
+      - nationality-row
+    options:
+      - label: "Yes"
+        value: join-family-uk-yes
+      - label: "No"
+        value: join-family-uk-no
+
   - key: living
     question_type: single
     question: 'Where do you live?'
