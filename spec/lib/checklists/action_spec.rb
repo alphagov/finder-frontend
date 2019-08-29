@@ -24,7 +24,6 @@ describe Checklists::Action do
         expect(action.title).to be_present
         expect(%w[business citizen]).to include(action.audience)
         expect(action.consequence).to be_present
-        expect(action.title_url).to be_present
         expect(action.criteria).to be_a String
         expect(action.criteria).to be_present
         expect(action.priority).to be_a Integer
