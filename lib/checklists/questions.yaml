@@ -361,27 +361,9 @@ questions:
       - label: Study
         value: employment-study
 
-  - key: travelling-to-eu-1
+  - key: travelling-to-eu
     depends_on:
       - nationality-uk
-      - living-uk
-    question_type: single_wrapped
-    question: 'Are you planning to travel to the EU after 31 October 2019?'
-    options:
-      - label: "Yes"
-        value: travelling-to-eu-yes
-        options:
-          - label: You plan to bring your pet
-            value: pet-or-driving-pet
-          - label: You plan to drive
-            value: pet-or-driving-drive
-      - label: "No"
-        value: travelling-to-eu-no
-
-  - key: travelling-to-eu-2
-    depends_on:
-      - nationality-uk
-      - living-other
     question_type: single_wrapped
     question: 'Are you planning to travel to the EU after 31 October 2019?'
     options:
@@ -398,7 +380,6 @@ questions:
   - key: travelling-to-uk-1
     depends_on:
       - nationality-row
-      - living-eu
     question_type: single
     question: 'Are you planning to travel to the UK after 31 October 2019?'
     options:
@@ -409,20 +390,7 @@ questions:
 
   - key: travelling-to-uk-2
     depends_on:
-      - nationality-row
-      - living-other
-    question_type: single
-    question: 'Are you planning to travel to the UK after 31 October 2019?'
-    options:
-      - label: "Yes"
-        value: travelling-to-uk-yes
-      - label: "No"
-        value: travelling-to-uk-no
-
-  - key: travelling-to-uk-3
-    depends_on:
       - nationality-eu
-      - living-eu
     question_type: single
     question: 'Are you planning to travel to the UK after 31 October 2019?'
     options:
@@ -442,8 +410,6 @@ questions:
       - label: "No"
         value: property-no
 
-  # TIER 5
-  # UK NATIONAL -> LIVE IN EU
   - key: returning-1
     depends_on:
       - nationality-uk
@@ -456,7 +422,6 @@ questions:
       - label: "No"
         value: returning-no
 
-  # UK NATIONAL -> LIVE OUTSIDE EU
   - key: returning-2
     depends_on:
       - nationality-uk
