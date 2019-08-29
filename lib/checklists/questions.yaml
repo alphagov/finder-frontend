@@ -281,8 +281,6 @@ questions:
       - label: "No"
         value: do-not-sell-to-public-sector
 
-  # INDIVIDUALS
-  # TIER 1
   - key: nationality
     question_type: single
     question: 'What nationality are you?'
@@ -294,7 +292,28 @@ questions:
       - label: Rest of world
         value: nationality-row
 
-  # TIER 2
+  - key: join-family-uk-1
+    question_type: single
+    question: Do you plan to join an EU or EEA family member in the UK?
+    depends_on:
+      - nationality-eu
+    options:
+      - label: "Yes"
+        value: join-family-uk-yes
+      - label: "No"
+        value: join-family-uk-no
+
+  - key: join-family-uk-2
+    question_type: single
+    question: Do you plan to join an EU or EEA family member in the UK?
+    depends_on:
+      - nationality-row
+    options:
+      - label: "Yes"
+        value: join-family-uk-yes
+      - label: "No"
+        value: join-family-uk-no
+
   - key: living
     question_type: single
     question: 'Where do you live?'
@@ -306,9 +325,7 @@ questions:
       - label: Rest of world
         value: living-other
 
-  # TIER 3
-  #UK NATIONAL -> LIVE IN EU
-  - key: employment
+  - key: employment-1
     depends_on:
       - nationality-uk
       - living-eu
@@ -320,7 +337,30 @@ questions:
       - label: Study
         value: employment-study
 
-  # UK NATIONAL -> LIVE IN UK
+  - key: employment-2
+    depends_on:
+      - nationality-row
+      - living-uk
+    question_type: multiple
+    question: 'What do you do?'
+    options:
+      - label: Work
+        value: employment-work
+      - label: Study
+        value: employment-study
+
+  - key: employment-3
+    depends_on:
+      - nationality-eu
+      - living-uk
+    question_type: multiple
+    question: 'What do you do?'
+    options:
+      - label: Work
+        value: employment-work
+      - label: Study
+        value: employment-study
+
   - key: travelling-to-eu-1
     depends_on:
       - nationality-uk
@@ -338,7 +378,6 @@ questions:
       - label: "No"
         value: travelling-to-eu-no
 
-  # UK NATIONAL -> LIVE IN OTHER
   - key: travelling-to-eu-2
     depends_on:
       - nationality-uk
@@ -356,20 +395,6 @@ questions:
       - label: "No"
         value: travelling-to-eu-no
 
-  # ROW NATIONAL -> LIVE IN UK
-  - key: employment-2
-    depends_on:
-      - nationality-row
-      - living-uk
-    question_type: multiple
-    question: 'What do you do?'
-    options:
-      - label: Work
-        value: employment-work
-      - label: Study
-        value: employment-study
-
-  # ROW NATIONAL -> LIVE IN EU
   - key: travelling-to-uk-1
     depends_on:
       - nationality-row
@@ -382,7 +407,6 @@ questions:
       - label: "No"
         value: travelling-to-uk-no
 
-  # ROW NATIONAL -> LIVE OTHER
   - key: travelling-to-uk-2
     depends_on:
       - nationality-row
@@ -395,20 +419,6 @@ questions:
       - label: "No"
         value: travelling-to-uk-no
 
-  # EU NATIONAL -> LIVE IN UK
-  - key: employment-3
-    depends_on:
-      - nationality-eu
-      - living-uk
-    question_type: multiple
-    question: 'What do you do?'
-    options:
-      - label: Work
-        value: employment-work
-      - label: Study
-        value: employment-study
-
-  # EU NATIONAL -> LIVE IN EU
   - key: travelling-to-uk-3
     depends_on:
       - nationality-eu
@@ -421,8 +431,6 @@ questions:
       - label: "No"
         value: travelling-to-uk-no
 
-  # TIER 4
-  # UK NATIONAL
   - key: property
     depends_on:
       - nationality-uk
