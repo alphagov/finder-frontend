@@ -37,7 +37,7 @@ RSpec.describe "Convert CSV to YAML tasks" do
           "guidance_prompt" => "Read the guidance:",
           "guidance_url" => "https://www.gov.uk/guidance/important-guidance",
           "lead_time" => "1 week or less",
-          "priority" => "High",
+          "priority" => 0,
           "title" => "An important action",
           "title_url" => "https://www.gov.uk/important-action",
         )
