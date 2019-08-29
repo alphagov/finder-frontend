@@ -232,3 +232,9 @@ criteria:
     text: "You are planning to buy or already own property in the EU"
   - key: property-no
     text: "You are not planning to buy nor do you currently own property in the EU"
+
+  # join-family-uk
+  - key: join-family-uk-yes
+    text: "You plan to join an EU or EEA family member in the UK"
+  - key: join-family-uk-no
+    text: "You do not plan to join an EU or EEA family member in the UK"
