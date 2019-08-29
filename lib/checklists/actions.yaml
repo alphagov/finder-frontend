@@ -14,7 +14,7 @@ actions:
       If you do not get one, you will not be able to travel.
     lead_time: 'Do it as soon as possible'
     criteria:
-      - non-eu-national
+      - sector-tourism
     audience: citizen
     guidance_url: 'http://guidance.com'
     guidance_link_text: 'Guidance Central'

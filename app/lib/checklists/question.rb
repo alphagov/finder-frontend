@@ -13,6 +13,10 @@ class Checklists::Question
     @depends_on     = params['depends_on']
   end
 
+  def self.find_by_key(key)
+    load_all.find { |q| q.key == key }
+  end
+
   def show?(criteria)
     depends_on.blank? || (depends_on - criteria).empty?
   end
