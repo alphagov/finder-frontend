@@ -318,7 +318,7 @@ questions:
       - nationality-uk
       - living-eu
     question_type: multiple
-    question: 'What do you do? (Select all that apply)'
+    question: 'What do you do?'
     options:
       - label: Work
         value: employment-work
@@ -370,7 +370,7 @@ questions:
       - nationality-row
       - living-uk
     question_type: multiple
-    question: 'What do you do? (Select all that apply)'
+    question: 'What do you do?'
     options:
       - label: Work
         value: employment-work
@@ -412,7 +412,7 @@ questions:
       - nationality-eu
       - living-uk
     question_type: multiple
-    question: 'What do you do? (Select all that apply)'
+    question: 'What do you do?'
     options:
       - label: Work
         value: employment-work
