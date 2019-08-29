@@ -1,4 +1,6 @@
 class Checklists::Criterion
+  CONFIG_PATH = Rails.root.join('lib', 'checklists', 'criteria.yaml')
+
   attr_reader :key, :text, :depends_on
 
   def initialize(params)
@@ -8,9 +10,10 @@ class Checklists::Criterion
   end
 
   def self.load_all
-    CHECKLISTS_CRITERIA.map do |criteria|
-      Checklists::Criterion.new(criteria)
-    end
+    @load_all = nil if Rails.env.development?
+
+    @load_all ||= YAML.load_file(CONFIG_PATH)['criteria']
+      .map { |c| new(c) }
   end
 
   def self.load_by(criteria_keys)
