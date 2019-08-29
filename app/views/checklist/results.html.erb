@@ -1,7 +1,19 @@
 <%
-  action_based_title = @actions.any? ? t('checklists_results.title') : t('checklists_results.title_no_actions')
-  action_based_description = @actions.any? ? t('checklists_results.description') : t('checklists_results.description_no_actions')
   action_based_email_link_label = @actions.any? ? t('checklists_results.email_sign_up_link') : t('checklists_results.email_sign_up_link_no_actions')
+  action_based_title            = if @actions.any?
+                                    t('checklists_results.title')
+                                  elsif criteria_keys.present?
+                                    t('checklists_results.title_no_actions')
+                                  else
+                                    t('checklists_results.title_no_answers')
+                                  end
+  action_based_description      = if @actions.any?
+                                    t('checklists_results.description')
+                                  elsif criteria_keys.present?
+                                    t('checklists_results.description_no_actions')
+                                  else
+                                    t('checklists_results.description_no_answers')
+                                  end
 %>
 
 <% content_for :title, t('checklists_results.title') %>
@@ -40,6 +52,11 @@
       <p class="govuk-body-l">
         <%= action_based_description %>
       </p>
+      <% unless criteria_keys.present? %>
+        <p class="govuk-body-l">
+          <%= render "change_answers_link" %>
+        </p>
+      <% end %>
     </div>
   </div>
 
@@ -58,20 +75,18 @@
         } %>
       </div>
     </div>
-  <% end %>
 
-  <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible govuk-section-break--bold">
-  <div class="govuk-grid-row">
-    <div class="govuk-grid-column-one-third">
-      <%= render 'results_answers', answers: format_criteria_list(@criteria) %>
+    <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible govuk-section-break--bold">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-one-third">
+        <%= render 'results_answers', answers: format_criteria_list(@criteria) %>
+      </div>
+      <div class="govuk-grid-column-two-thirds">
+        <%= render 'action_audiences', audiences: format_action_audiences(@actions) %>
+      </div>
     </div>
-    <div class="govuk-grid-column-two-thirds">
-      <%= render 'action_audiences', audiences: format_action_audiences(@actions) %>
-    </div>
-  </div>
-  <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible govuk-section-break--bold">
+    <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible govuk-section-break--bold">
 
-  <% if criteria_keys.present? %>
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-one-third">
         &nbsp; <!-- without this space, it will push the two-thirds column to the left -->
