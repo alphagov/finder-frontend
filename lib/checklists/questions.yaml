@@ -10,8 +10,7 @@ questions:
         value: does-not-own-business
 
   - key: sector_business_area
-    depends_on:
-      - owns-business
+    criteria: owns-business
     question_type: "multiple"
     question: "What does your business or organisation do?"
     description: |
@@ -169,8 +168,7 @@ questions:
             value: sector-warehouses-services-pipelines
 
   - key: business_activity
-    depends_on:
-      - owns-business
+    criteria: owns-business
     question_type: "multiple"
     question: "Does your business do any of the following activities?"
     description: <p>Importing and exporting includes temporarily taking goods across the EU border, for example to a trade fair.</p>
@@ -187,8 +185,7 @@ questions:
         value: haulage-goods-across-eu-borders
 
   - key: employ_eu_citizens
-    depends_on:
-      - owns-business
+    criteria: owns-business
     question_type: "single"
     question: "Do you employ anyone from another European country?"
     description: |
@@ -200,8 +197,7 @@ questions:
         value: do-not-employ-eu-citizens
 
   - key: personal_data
-    depends_on:
-      - owns-business
+    criteria: owns-business
     question_type: "single_wrapped"
     question: "Do you exchange personal data with another organisation in Europe?"
     description: |
@@ -222,8 +218,7 @@ questions:
         value: do-not-exchange-personal-data-with-eu-org
 
   - key: intellectual_property
-    depends_on:
-      - owns-business
+    criteria: owns-business
     question_type: "single_wrapped"
     question: "Do you use or rely on intellectual property (IP) protection?"
     description: |
@@ -246,8 +241,7 @@ questions:
         value: do-not-use-rely-ip
 
   - key: eu_uk_government_funding
-    depends_on:
-      - owns-business
+    criteria: owns-business
     question_type: "single_wrapped"
     question: "Do you get EU or UK government funding?"
     description: |
@@ -264,8 +258,7 @@ questions:
         value: do-not-get-eu-uk-funding
 
   - key: public_sector_procurement
-    depends_on:
-      - owns-business
+    criteria: owns-business
     question_type: "single_wrapped"
     question: "Do you sell your products or services to the public sector?"
     description: |
@@ -292,22 +285,10 @@ questions:
       - label: Rest of world
         value: nationality-row
 
-  - key: join-family-uk-1
+  - key: join-family-uk
     question_type: single
     question: Do you plan to join an EU family member in the UK?
-    depends_on:
-      - nationality-eu
-    options:
-      - label: "Yes"
-        value: join-family-uk-yes
-      - label: "No"
-        value: join-family-uk-no
-
-  - key: join-family-uk-2
-    question_type: single
-    question: Do you plan to join an EU family member in the UK?
-    depends_on:
-      - nationality-row
+    criteria: "nationality-eu || nationality-row"
     options:
       - label: "Yes"
         value: join-family-uk-yes
@@ -325,24 +306,10 @@ questions:
       - label: Rest of world
         value: living-other
 
-  - key: drive-in-eu-1
+  - key: drive-in-eu
     question_type: single
     question: Do you need to drive in the EU?
-    depends_on:
-      - nationality-uk
-      - living-eu
-    options:
-      - label: "Yes"
-        value: drive-eu-yes
-      - label: "No"
-        value: drive-eu-no
-
-  - key: drive-in-eu-2
-    question_type: single
-    question: Do you need to drive in the EU?
-    depends_on:
-      - nationality-uk
-      - living-other
+    criteria: "nationality-uk && (living-eu || living-other)"
     options:
       - label: "Yes"
         value: drive-eu-yes
@@ -350,9 +317,7 @@ questions:
         value: drive-eu-no
 
   - key: employment-1
-    depends_on:
-      - nationality-uk
-      - living-eu
+    criteria: "nationality-uk && living-eu"
     question_type: multiple
     question: 'What do you do?'
     options:
@@ -362,9 +327,7 @@ questions:
         value: employment-study
 
   - key: employment-2
-    depends_on:
-      - nationality-row
-      - living-uk
+    criteria: "nationality-row && living-uk"
     question_type: multiple
     question: 'What do you do?'
     options:
@@ -374,9 +337,7 @@ questions:
         value: employment-study
 
   - key: employment-3
-    depends_on:
-      - nationality-eu
-      - living-uk
+    criteria: "nationality-eu && living-uk"
     question_type: multiple
     question: 'What do you do?'
     options:
@@ -386,8 +347,7 @@ questions:
         value: employment-study
 
   - key: travelling-to-eu
-    depends_on:
-      - nationality-uk
+    criteria: "nationality-uk"
     question_type: single_wrapped
     question: 'Are you planning to travel to the EU after 31 October 2019?'
     options:
@@ -401,20 +361,8 @@ questions:
       - label: "No"
         value: travelling-to-eu-no
 
-  - key: travelling-to-uk-1
-    depends_on:
-      - nationality-row
-    question_type: single
-    question: 'Are you planning to travel to the UK after 31 October 2019?'
-    options:
-      - label: "Yes"
-        value: travelling-to-uk-yes
-      - label: "No"
-        value: travelling-to-uk-no
-
-  - key: travelling-to-uk-2
-    depends_on:
-      - nationality-eu
+  - key: travelling-to-uk
+    criteria: "nationality-row || nationality-eu"
     question_type: single
     question: 'Are you planning to travel to the UK after 31 October 2019?'
     options:
@@ -424,8 +372,7 @@ questions:
         value: travelling-to-uk-no
 
   - key: property
-    depends_on:
-      - nationality-uk
+    criteria: "nationality-uk"
     question_type: "single"
     question: 'Are you planning to buy or do you already own property in the EU?'
     options:
@@ -434,22 +381,8 @@ questions:
       - label: "No"
         value: property-no
 
-  - key: returning-1
-    depends_on:
-      - nationality-uk
-      - living-eu
-    question_type: single
-    question: 'Are you planning to move back to the UK?'
-    options:
-      - label: "Yes"
-        value: returning-yes
-      - label: "No"
-        value: returning-no
-
-  - key: returning-2
-    depends_on:
-      - nationality-uk
-      - living-other
+  - key: returning
+    criteria: "nationality-uk && (living-eu || living-other)"
     question_type: single
     question: 'Are you planning to move back to the UK?'
     options:

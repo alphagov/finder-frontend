@@ -2,10 +2,9 @@ require 'spec_helper'
 
 describe ChecklistHelper, type: :helper do
   describe "#filter_actions" do
-    let(:action1) { Checklists::Action.new('criteria' => "") }
-    let(:action2) { Checklists::Action.new('criteria' => "a") }
-    let(:action3) { Checklists::Action.new('criteria' => "b || c") }
-    let(:actions) { [action1, action2, action3] }
+    let(:action1) { Checklists::Action.new('criteria' => "a") }
+    let(:action2) { Checklists::Action.new('criteria' => "b || c") }
+    let(:actions) { [action1, action2] }
 
     before do
       allow(Checklists::Criterion).to receive(:load_all).and_return([
@@ -27,7 +26,7 @@ describe ChecklistHelper, type: :helper do
       let(:criteria_keys) { %w[a] }
 
       it "returns some actions" do
-        expect(subject).to eq([action2])
+        expect(subject).to eq([action1])
       end
     end
 
@@ -35,7 +34,7 @@ describe ChecklistHelper, type: :helper do
       let(:criteria_keys) { %w[a b] }
 
       it "returns some actions" do
-        expect(subject).to eq([action2, action3])
+        expect(subject).to eq([action1, action2])
       end
     end
   end
