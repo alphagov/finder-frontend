@@ -15,7 +15,7 @@ class Checklists::Criterion
 
   def self.load_by(criteria_keys)
     load_all.select do |c|
-      criteria_keys.include?(c.key) && (c.depends_on - criteria_keys).blank?
+      criteria_keys.include?(c.key)
     end
   end
 end

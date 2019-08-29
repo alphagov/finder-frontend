@@ -58,7 +58,7 @@ en:
       This may change. Subscribe to email alerts about changes to Brexit information that may affect you.
     answers:
       list_context: "Based on your answers, we know:"
-      change_answers: "Change your answers"
+      change_answers: "Start again"
       no_answers: |
         You did not answer any of the questions.
         This is a safe and secure service. We don't store any of your personal information.
