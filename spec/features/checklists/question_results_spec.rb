@@ -12,7 +12,7 @@ RSpec.feature "Questions workflow", type: :feature do
   scenario "citizen questions" do
     when_i_visit_the_checklist_flow
     and_i_answer_citizen_questions
-    then_i_should_see_the_results_page
+    then_i_should_see_the_no_results_page # we have no results here
     and_i_should_not_see_a_passport_action
     and_i_should_not_see_an_eori_action
   end
@@ -43,6 +43,10 @@ RSpec.feature "Questions workflow", type: :feature do
 
   def then_i_should_see_the_results_page
     expect(page).to have_content I18n.t!("checklists_results.title")
+  end
+
+  def then_i_should_see_the_no_results_page
+    expect(page).to have_content I18n.t!("checklists_results.title_no_actions")
   end
 
   def and_i_should_see_a_passport_action
