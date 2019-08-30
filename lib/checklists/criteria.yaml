@@ -162,7 +162,7 @@ criteria:
 - key: air-passenger-freight
   text: You work in air freight and passenger services
   depends_on:
-- key: ports-airports
+- key: port-airports
   text: You work in ports and airports
   depends_on:
 - key: postal-couriers
@@ -236,6 +236,9 @@ criteria:
   depends_on:
 - key: uk-funding
   text: You receive UK government funding
+  depends_on:
+- key: do-not-eu-uk-funding
+  text: You do not receive EU or UK government funding
   depends_on:
 - key: sell-public-sector
   text: You sell products or services to the public sector
