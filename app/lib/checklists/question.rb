@@ -19,6 +19,10 @@ class Checklists::Question
     load_all.find { |q| q.key == key }
   end
 
+  def valid?
+    Checklists::CriteriaLogic.new(criteria, []).valid?
+  end
+
   def show?(selected_criteria)
     Checklists::CriteriaLogic.new(criteria, selected_criteria).applies?
   end

@@ -33,14 +33,9 @@ describe Checklists::Question do
     end
 
     it "returns questions that reference valid criteria" do
-      criteria = Checklists::Criterion.load_all.map(&:key)
-
       subject.each do |question|
-        question.options.each do |option|
-          expect(criteria).to include(option['value'])
-        end
-
         expect { question.show?([]) }.to_not raise_error
+        expect(question.valid?).to be true
       end
     end
   end

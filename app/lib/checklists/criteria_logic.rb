@@ -12,6 +12,7 @@ class Checklists::CriteriaLogic
 
     tokens.all? do |(_, type, value, _)|
       next true unless type == :on_ident
+
       all_options.include?(value)
     end
   end
