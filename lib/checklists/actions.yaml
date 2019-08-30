@@ -178,8 +178,7 @@ actions:
   guidance_prompt: Read the guidance
   guidance_link_text: Driving abroad
   guidance_url: https://www.gov.uk/driving-abroad
-  criteria: "(nationality-uk && visiting-eu && driving-eu) || (nationality-eu && visiting-uk
-    && driving-uk)"
+  criteria: "(nationality-uk && visiting-eu && driving-eu) || (nationality-eu && visiting-uk)"
   audience: business
 - action_id: S023
   priority: 2
@@ -193,8 +192,7 @@ actions:
   guidance_link_text: Driving in the EU after Brexit - Insurance for your vehicle,
     caravan or trailer
   guidance_url: https://www.gov.uk/guidance/driving-in-the-eu-after-brexit#insurance-for-your-vehicle-caravan-or-trailer
-  criteria: "(nationality-uk && visiting-eu && driving-eu) || (nationality-eu && visiting-uk
-    && driving-uk)"
+  criteria: "(nationality-uk && visiting-eu && driving-eu) || (nationality-eu && visiting-uk)"
   audience: citizen
 - action_id: S024
   priority: 2
@@ -207,8 +205,7 @@ actions:
   guidance_prompt: Read the guidance
   guidance_link_text: Driving in the EU after Brexit - GB stickers and number plates
   guidance_url: https://www.gov.uk/guidance/driving-in-the-eu-after-brexit#gb-stickers-and-number-plates
-  criteria: "(nationality-uk && visiting-eu && driving-eu) || (nationality-eu && visiting-uk
-    && driving-uk)"
+  criteria: "(nationality-uk && visiting-eu && driving-eu) || (nationality-eu && visiting-uk)"
   audience: citizen
 - action_id: S025
   priority: 2
@@ -515,7 +512,7 @@ actions:
   guidance_prompt: Read the guidance
   guidance_link_text: Export fish after a no-deal Brexit
   guidance_url: https://www.gov.uk/guidance/exporting-and-importing-fish-if-theres-no-brexit-deal
-  criteria: air-passenger-freight || port-airports || postal-couriers
+  criteria: air-passenger-freight || ports-airports || postal-couriers
   audience: business
 - action_id: T032
   priority: 8
