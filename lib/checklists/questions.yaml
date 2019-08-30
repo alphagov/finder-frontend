@@ -1,6 +1,6 @@
 ---
 questions:
-  - key: do_you_own_a_business
+  - key: do-you-own-a-business
     question_type: "single"
     question: "Are you preparing a business or organisation for Brexit?"
     options:
@@ -9,7 +9,7 @@ questions:
       - label: "No"
         value: does-not-own-operate-business-organisation
 
-  - key: sector_business_area
+  - key: sector-business-area
     criteria: owns-operates-business-organisation
     question_type: "multiple"
     question: "What does your business or organisation do?"
@@ -167,7 +167,7 @@ questions:
           - label: Warehousing, services and pipelines
             value: warehouse-pipeline
 
-  - key: business_activity
+  - key: business-activity
     criteria: owns-operates-business-organisation
     question_type: "multiple"
     question: "Does your business or organisation do any of the following activities?"
@@ -184,7 +184,7 @@ questions:
       - label: "Transporting goods across EU borders"
         value: haulage-goods-across-eu-borders
 
-  - key: employ_eu_citizens
+  - key: employ-eu-citizens
     criteria: owns-operates-business-organisation
     question_type: "single"
     question: "Do you employ anyone from another European country?"
@@ -196,7 +196,7 @@ questions:
       - label: "No"
         value: do-not-employ-eu-citizens
 
-  - key: personal_data
+  - key: personal-data
     criteria: owns-operates-business-organisation
     question_type: "single_wrapped"
     question: "Do you exchange personal data with another organisation in Europe?"
@@ -216,7 +216,7 @@ questions:
       - label: "No"
         value: do-not-personal-eu-org
 
-  - key: intellectual_property
+  - key: intellectual-property
     criteria: owns-operates-business-organisation
     question_type: "single_wrapped"
     question: "Do you use or rely on intellectual property (IP) protection?"
@@ -239,7 +239,7 @@ questions:
       - label: "No"
         value: do-not-ip
 
-  - key: eu_uk_government_funding
+  - key: eu-uk-government-funding
     criteria: owns-operates-business-organisation
     question_type: "single_wrapped"
     question: "Do you get EU or UK government funding?"
@@ -256,7 +256,7 @@ questions:
       - label: "No"
         value: do-not-eu-uk-funding
 
-  - key: public_sector_procurement
+  - key: public-sector-procurement
     criteria: owns-operates-business-organisation
     question_type: "single_wrapped"
     question: "Do you sell your products or services to the public sector?"
@@ -284,16 +284,6 @@ questions:
       - label: Rest of world
         value: nationality-row
 
-  - key: join-family-uk
-    question_type: single
-    question: Do you plan to join an EU family member in the UK?
-    criteria: "nationality-eu || nationality-row"
-    options:
-      - label: "Yes"
-        value: join-family-uk-yes
-      - label: "No"
-        value: join-family-uk-no
-
   - key: living
     question_type: single
     question: 'Where do you live?'
@@ -305,80 +295,55 @@ questions:
       - label: Rest of world
         value: living-row
 
-  - key: drive-in-eu
-    question_type: single
-    question: Do you need to drive in the EU?
-    criteria: "nationality-uk && (living-eu || living-row)"
-    options:
-      - label: "Yes"
-        value: driving-eu
-      - label: "No"
-        value: driving-eu-no
-
-  - key: employment-1
-    criteria: "nationality-uk && living-eu"
+  - key: employment
     question_type: multiple
     question: 'What do you do?'
+    hint_title: 'If none apply click next'
     options:
       - label: "Work in the EU"
         value: working-eu
       - label: "Study in the EU"
         value: studying-eu
-
-  - key: employment-2
-    criteria: "nationality-row && living-uk"
-    question_type: multiple
-    question: 'What do you do?'
-    options:
       - label: "Work in the UK"
         value: working-uk
       - label: "Study in the UK"
         value: studying-uk
 
-  - key: employment-3
-    criteria: "nationality-eu && living-uk"
-    question_type: multiple
-    question: 'What do you do?'
-    options:
-      - label: Work
-        value: working-uk
-      - label: Study
-        value: studying-uk
-
-  - key: travelling-to-eu
-    criteria: "nationality-uk"
-    question_type: single_wrapped
-    question: 'Are you planning to travel to the EU after 31 October 2019?'
-    options:
-      - label: "Yes"
-        value: visiting-eu
-        options:
-          - label: You plan to bring your pet
-            value: bring-pet-eu
-          - label: You plan to drive
-            value: driving-eu
-      - label: "No"
-        value: visiting-eu-no
-
-  - key: travelling-to-uk
-    criteria: "nationality-row || nationality-eu"
+  - key: drive-in-eu
     question_type: single
-    question: 'Are you planning to travel to the UK after 31 October 2019?'
+    question: Do you drive in the EU using a UK licence?
+    criteria: "nationality-uk && living-eu"
     options:
       - label: "Yes"
-        value: visiting-uk
+        value: living-driving-eu
       - label: "No"
-        value: visting-uk-no
+        value: living-driving-eu-no
 
-  - key: property
-    criteria: "nationality-uk"
-    question_type: "single"
-    question: 'Are you planning to buy or do you already own property in the EU?'
+  - key: travelling
+    question_type: single_wrapped
+    question: 'Do you plan to travel after 31 October 2019?'
     options:
       - label: "Yes"
-        value: own-eu-property
+        value: travelling
+        options:
+          - label: To the UK
+            value: visiting-uk
+          - label: To the EU
+            value: visiting-eu
+          - label: To the rest of the world
+            value: visiting-row
       - label: "No"
-        value: own-eu-property-no
+        value: travelling-no
+
+  - key: activities
+    criteria: "(nationality-uk && visiting-eu) || visiting-uk"
+    question_type: multiple
+    question: 'Are you planning to do any of the following?'
+    options:
+      - label: Bring your pet
+        value: visiting-bring-pet
+      - label: Drive
+        value: visiting-driving
 
   - key: returning
     criteria: "nationality-uk && (living-eu || living-row)"
@@ -389,3 +354,13 @@ questions:
         value: return-to-uk
       - label: "No"
         value: return-to-uk-no
+
+  - key: join-family-uk
+    question_type: single
+    question: Do you plan to join an EU family member in the UK?
+    criteria: "(nationality-eu || nationality-row) && (living-eu || living-row)"
+    options:
+      - label: "Yes"
+        value: join-family-uk-yes
+      - label: "No"
+        value: join-family-uk-no

@@ -29,33 +29,35 @@ RSpec.feature "Questions workflow", type: :feature do
   end
 
   def and_i_do_not_answer_business_questions
-    answer_question("do_you_own_a_business", "No")
+    answer_question("do-you-own-a-business", "No")
   end
 
   def and_i_dont_answer_enough_questions
-    answer_question("do_you_own_a_business")
+    answer_question("do-you-own-a-business")
     answer_question("nationality")
     answer_question("living", "Rest of world")
+    answer_question("employment")
+    answer_question("travelling")
   end
 
   def and_i_answer_business_questions
-    answer_question("do_you_own_a_business", "Yes")
-    answer_question("sector_business_area", "Tourism")
-    answer_question("business_activity")
-    answer_question("employ_eu_citizens", "No")
-    answer_question("personal_data", "No")
-    answer_question("intellectual_property", "No")
-    answer_question("eu_uk_government_funding", "No")
-    answer_question("public_sector_procurement", "No")
+    answer_question("do-you-own-a-business", "Yes")
+    answer_question("sector-business-area", "Tourism")
+    answer_question("business-activity")
+    answer_question("employ-eu-citizens", "No")
+    answer_question("personal-data", "No")
+    answer_question("intellectual-property", "No")
+    answer_question("eu-uk-government-funding", "No")
+    answer_question("public-sector-procurement", "No")
     and_i_answer_citizen_questions
   end
 
   def and_i_answer_citizen_questions
     answer_question("nationality", "UK")
     answer_question("living", "Rest of world")
-    answer_question("drive-in-eu", "Yes")
-    answer_question("travelling-to-eu", "Yes", "You plan to bring your pet")
-    answer_question("property", "Yes")
+    answer_question("employment")
+    answer_question("travelling", "Yes", "To the EU")
+    answer_question("activities", "Bring your pet")
     answer_question("returning", "Yes")
   end
 
