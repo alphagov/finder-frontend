@@ -7,6 +7,7 @@ describe Checklists::ConvertCsvToYaml::ActionsProcessor do
       "owner" => "John Doe",
       "title" => "A title",
       "criteria" => "owns-business",
+      "status" => "Approved",
     }
   end
 
@@ -43,9 +44,15 @@ describe Checklists::ConvertCsvToYaml::ActionsProcessor do
     end
 
     it "strips trailing whitespace from record values" do
-      record = { "consequence" => "A consequence with some whitespace.    " }
+      record["consequence"] = "A consequence with some whitespace.    "
       result = described_class.new.process(record)
       expect(result["consequence"]).to eq("A consequence with some whitespace.")
+    end
+
+    it "does not return a record if its status is not 'Approved'" do
+      record["status"] = "Hold"
+      result = described_class.new.process(record)
+      expect(result).to be nil
     end
   end
 end

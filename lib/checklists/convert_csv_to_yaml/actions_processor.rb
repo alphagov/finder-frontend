@@ -15,6 +15,8 @@ module Checklists
                           action_id).freeze
 
       def process(record)
+        return unless approved?(record)
+
         stripped_record = remove_unnecessary_fields(record)
         stripped_record = convert_logic_fields(stripped_record)
         stripped_record = strip_trailing_whitespace(stripped_record)
@@ -38,6 +40,12 @@ module Checklists
       def strip_trailing_whitespace(record)
         record.keys.each { |key| record[key] = record[key].strip if record[key] }
         record
+      end
+
+      def approved?(record)
+        return unless record["status"]
+
+        record["status"].downcase.strip == "approved"
       end
     end
   end

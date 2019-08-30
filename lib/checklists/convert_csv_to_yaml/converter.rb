@@ -21,10 +21,10 @@ module Checklists
 
         File.open(yaml_filename, "w") do |f|
           if record_category
-            data_hash = { record_category => data }
+            data_hash = { record_category => data.compact }
             f.puts data_hash.to_yaml
           else
-            f.puts data.to_yaml
+            f.puts data.compact.to_yaml
           end
         end
       end
