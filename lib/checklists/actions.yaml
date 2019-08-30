@@ -324,7 +324,7 @@ actions:
   guidance_prompt: Read the guidance
   guidance_link_text: Prepare to use the UKCA mark after Brexit
   guidance_url: https://www.gov.uk/guidance/prepare-to-use-the-ukca-mark-after-brexit
-  criteria: sector-construction || sell-goods-provide-services-in-uk || export-to-eu
+  criteria: s-construction || sell-goods-provide-services-in-uk || export-to-eu
   audience: business
 - action_id: T009
   priority: 2
@@ -337,7 +337,7 @@ actions:
   guidance_prompt: Read the guidance
   guidance_link_text: Construction Products Regulation if there is no Brexit deal
   guidance_url: https://www.gov.uk/guidance/construction-products-regulation-if-there-is-no-brexit-deal
-  criteria: sector-construction || export-to-eu
+  criteria: s-construction || export-to-eu
   audience: business
 - action_id: T010
   priority: 5
@@ -349,7 +349,7 @@ actions:
   guidance_link_text: Prepare to work and operate in the European aviation sector
     after Brexit
   guidance_url: https://www.gov.uk/guidance/prepare-to-work-and-operate-in-the-european-aviation-sector-after-brexit
-  criteria: sector-aerospace-space || sector-air-freight-air-passenger-services
+  criteria: s-aerospace-space || s-air-freight-air-passenger-services
   audience: business
 - action_id: T011
   priority: 5
@@ -362,8 +362,8 @@ actions:
   guidance_prompt: Read the guidance
   guidance_link_text: Copyright if there's no Brexit deal
   guidance_url: https://www.gov.uk/government/publications/copyright-if-theres-no-brexit-deal
-  criteria: sector-media-broadcasting || sector-digital-technology-computer-services
-    || sector-telecoms-information-services || exchange-personal-data-with-eu-org-provide
+  criteria: s-media-broadcasting || s-digital-technology-computer-services
+    || s-telecoms-information-services || exchange-personal-data-with-eu-org-provide
     || use-rely-ip-copyright
   audience: business
 - action_id: T012
@@ -391,7 +391,7 @@ actions:
   guidance_prompt: Read the guidance
   guidance_link_text: Satellites and space programmes after Brexit
   guidance_url: https://www.gov.uk/guidance/satellites-and-space-programmes-after-brexit
-  criteria: sector-aerospace-space
+  criteria: s-aerospace-space
   audience: business
 - action_id: T014
   priority: 5
@@ -404,7 +404,7 @@ actions:
   guidance_prompt: Read the guidance
   guidance_link_text: Satellites and space programmes after Brexit - Copernicus
   guidance_url: https://www.gov.uk/guidance/satellites-and-space-programmes-after-brexit
-  criteria: sector-aerospace-space
+  criteria: s-aerospace-space
   audience: business
 - action_id: T016
   priority: 5
@@ -416,7 +416,7 @@ actions:
   guidance_prompt: Read ONR guidance
   guidance_link_text: Draft nuclear safeguards guidance for inspectors
   guidance_url: http://www.onr.org.uk/safeguards/draft-guidance-for-inspectors-and-nuclear-material-accountants.htm
-  criteria: sector-nuclear
+  criteria: s-nuclear
   audience: business
 - action_id: T017
   priority: 5
@@ -429,7 +429,7 @@ actions:
   guidance_prompt: Read the guidance
   guidance_link_text: Exporting nuclear-related items after Brexit
   guidance_url: https://www.gov.uk/guidance/exporting-nuclear-related-items-after-brexit
-  criteria: sector-nuclear
+  criteria: s-nuclear
   audience: business
 - action_id: T018
   priority: 5
@@ -442,7 +442,7 @@ actions:
   guidance_link_text: 'Prepare to import ‘relevant’ nuclear materials from the EU
     after Brexit: licensing requirements'
   guidance_url: https://www.gov.uk/guidance/prepare-to-import-relevant-nuclear-materials-from-the-eu-after-brexit-licensing-requirements
-  criteria: sector-nuclear
+  criteria: s-nuclear
   audience: business
 - action_id: T019
   priority: 5
@@ -453,7 +453,7 @@ actions:
   guidance_prompt: Read the guidance
   guidance_link_text: Shipping radioactive waste and spent fuel after Brexit
   guidance_url: https://www.gov.uk/guidance/shipping-radioactive-waste-and-spent-fuel-after-brexit
-  criteria: sector-nuclear
+  criteria: s-nuclear
   audience: business
 - action_id: T020
   priority: 5
@@ -465,7 +465,7 @@ actions:
   guidance_prompt: Read the guidance
   guidance_link_text: Shipping radioactive waste and spent fuel after Brexit
   guidance_url: https://www.gov.uk/guidance/shipping-radioactive-sources-between-the-uk-and-eu-after-brexit
-  criteria: sector-nuclear || sector-electricity || sector-mining || sector-medical-technology
+  criteria: s-nuclear || s-electricity || s-mining || s-medical-technology
   audience: business
 - action_id: T021
   priority: 5
@@ -479,8 +479,8 @@ actions:
   guidance_link_text: Prepare to work and operate in the European aviation sector
     after Brexit
   guidance_url: https://www.gov.uk/guidance/prepare-to-work-and-operate-in-the-european-aviation-sector-after-brexit
-  criteria: sector-aerospace-space || sector-air-freight-air-passenger-services ||
-    sector-oil-gas-coal
+  criteria: s-aerospace-space || s-air-freight-air-passenger-services ||
+    s-oil-gas-coal
   audience: business
 - action_id: T022
   priority: 8
@@ -508,8 +508,8 @@ actions:
   guidance_prompt: Read the guidance
   guidance_link_text: Export fish after a no-deal Brexit
   guidance_url: https://www.gov.uk/guidance/exporting-and-importing-fish-if-theres-no-brexit-deal
-  criteria: sector-air-freight-air-passenger-services || sector-ports-airports ||
-    sector-postal-courier-services
+  criteria: s-air-freight-air-passenger-services || s-ports-airports ||
+    s-postal-courier-services
   audience: business
 - action_id: T032
   priority: 8
@@ -523,7 +523,7 @@ actions:
   guidance_link_text: Importing and exporting plants and plant products if there’s
     a no deal Brexit
   guidance_url: https://www.gov.uk/guidance/importing-and-exporting-plants-and-plant-products-if-theres-no-withdrawal-deal
-  criteria: sector-agriculture-farming || sector-plants-forestry
+  criteria: s-agriculture-farming || s-plants-forestry
   audience: business
 - action_id: T033
   priority: 8
@@ -537,7 +537,7 @@ actions:
   guidance_link_text: Fresh fruit and vegetable marketing standards if there's a no
     deal Brexit
   guidance_url: https://www.gov.uk/guidance/fresh-fruit-and-vegetable-marketing-standards-if-the-uk-leaves-the-eu-without-a-deal
-  criteria: sector-plants-forestry
+  criteria: s-plants-forestry
   audience: business
 - action_id: T034
   priority: 8
@@ -549,7 +549,7 @@ actions:
   guidance_prompt: Read the guidance
   guidance_link_text: Protecting food and drink names in a no-deal Brexit
   guidance_url: https://www.gov.uk/guidance/protecting-food-and-drink-names-if-theres-no-brexit-deal
-  criteria: sector-agriculture-farming
+  criteria: s-agriculture-farming
   audience: business
 - action_id: T035
   priority: 8
@@ -560,7 +560,7 @@ actions:
   guidance_prompt: Read the guidance
   guidance_link_text: Exporting animals and animal products in a no-deal Brexit
   guidance_url: https://www.gov.uk/guidance/exporting-animals-animal-products-fish-and-fishery-products-if-the-uk-leaves-the-eu-with-no-deal
-  criteria: sector-plants-forestry
+  criteria: s-plants-forestry
   audience: business
 - action_id: T036
   priority: 8
@@ -571,7 +571,7 @@ actions:
   guidance_prompt: Read the guidance
   guidance_link_text: Food labelling changes if there's a no-deal Brexit
   guidance_url: https://www.gov.uk/guidance/food-labelling-changes-after-brexit
-  criteria: sector-food-drink-tobacco || sell-goods-provide-services-in-uk || export-to-eu
+  criteria: s-food-drink-tobacco || sell-goods-provide-services-in-uk || export-to-eu
   audience: business
 - action_id: T038
   priority: 8
@@ -583,7 +583,7 @@ actions:
   guidance_prompt: Read the guidance
   guidance_link_text: Trading and labelling organic food after Brexit
   guidance_url: https://www.gov.uk/guidance/trading-and-labelling-organic-food-if-theres-no-brexit-deal
-  criteria: sector-food-drink-tobacco || export-to-eu
+  criteria: s-food-drink-tobacco || export-to-eu
   audience: business
 - action_id: T044
   priority: 5
@@ -595,7 +595,7 @@ actions:
   guidance_prompt: Read the guidance
   guidance_link_text: Hops and hops products marketing standards after Brexit
   guidance_url: https://www.gov.uk/guidance/hops-and-hops-products-marketing-standards-if-the-uk-leaves-the-eu-without-a-deal
-  criteria: sector-food-drink-tobacco || sector-agriculture-farming
+  criteria: s-food-drink-tobacco || s-agriculture-farming
   audience: business
 - action_id: T045
   priority: 5
@@ -608,7 +608,7 @@ actions:
   guidance_prompt: Read the guidance
   guidance_link_text: Egg marketing standards if there’s a no-deal Brexit
   guidance_url: https://www.gov.uk/guidance/egg-marketing-standards-if-theres-a-no-deal-brexit
-  criteria: sector-agriculture-farming
+  criteria: s-agriculture-farming
   audience: business
 - action_id: T046
   priority: 5
@@ -622,7 +622,7 @@ actions:
   guidance_link_text: Hatching eggs and chicks marketing standards if there's a no-deal
     Brexit
   guidance_url: https://www.gov.uk/guidance/hatching-eggs-and-chicks-marketing-standards-when-the-uk-leaves-the-eu
-  criteria: sector-agriculture-farming
+  criteria: s-agriculture-farming
   audience: business
 - action_id: T047
   priority: 5
@@ -636,7 +636,7 @@ actions:
   guidance_prompt: Read the guidance
   guidance_link_text: Poultry meat marketing standards after Brexit
   guidance_url: https://www.gov.uk/guidance/poultry-meat-marketing-standards-when-the-uk-leaves-the-eu
-  criteria: sector-agriculture-farming
+  criteria: s-agriculture-farming
   audience: business
 - action_id: T050
   priority: 8
@@ -649,7 +649,7 @@ actions:
   guidance_prompt: Read the press release
   guidance_link_text: Prepare your fisheries business for Brexit
   guidance_url: https://www.gov.uk/guidance/the-fisheries-sector-and-preparing-for-eu-exit
-  criteria: sector-marine-marine-transport || sector-fisheries-inc-wholesale
+  criteria: s-marine-marine-transport || s-fisheries-inc-wholesale
   audience: business
 - action_id: T051
   priority: 5
@@ -661,7 +661,7 @@ actions:
   guidance_prompt: Read the guidance
   guidance_link_text: Export fish after a no-deal Brexit
   guidance_url: https://www.gov.uk/guidance/exporting-and-importing-fish-if-theres-no-brexit-deal
-  criteria: sector-marine-marine-transport || sector-fisheries-inc-wholesale
+  criteria: s-marine-marine-transport || s-fisheries-inc-wholesale
   audience: business
 - action_id: T052
   priority: 8
@@ -674,7 +674,7 @@ actions:
   guidance_prompt: Read the guidance
   guidance_link_text: How to comply with REACH chemical regulations
   guidance_url: https://www.gov.uk/guidance/how-to-comply-with-reach-chemical-regulations
-  criteria: sector-chemicals
+  criteria: s-chemicals
   audience: business
 - action_id: T059
   priority: 5
@@ -686,7 +686,7 @@ actions:
   guidance_prompt: Read the guidance
   guidance_link_text: Wood packaging goods for import and export
   guidance_url: https://www.gov.uk/wood-packaging-import-export
-  criteria: sector-plants-forestry
+  criteria: s-plants-forestry
   audience: business
 - action_id: T060
   priority: 5
@@ -700,7 +700,7 @@ actions:
   guidance_link_text: 'Drive in the EU after Brexit: lorry and goods vehicle drivers
     - Driver CPC for lorry drivers'
   guidance_url: https://www.gov.uk/guidance/prepare-to-drive-in-the-eu-after-brexit-lorry-and-goods-vehicle-drivers
-  criteria: sector-road-passengers-freight || employ-eu-citizens || exchange-personal-data-with-eu-org
+  criteria: s-road-passengers-freight || employ-eu-citizens || exchange-personal-data-with-eu-org
   audience: business
 - action_id: T061
   priority: 5
@@ -713,7 +713,7 @@ actions:
   guidance_prompt: Read the guidance
   guidance_link_text: ECMT international road haulage permits
   guidance_url: https://www.gov.uk/guidance/ecmt-international-road-haulage-permits
-  criteria: sector-road-passengers-freight || import-from-eu || export-to-eu || haulage-goods-across-eu-borders
+  criteria: s-road-passengers-freight || import-from-eu || export-to-eu || haulage-goods-across-eu-borders
   audience: business
 - action_id: T062
   priority: 5
@@ -726,7 +726,7 @@ actions:
   guidance_link_text: Get your business ready to export from the UK to the EU after
     Brexit
   guidance_url: https://www.gov.uk/prepare-export-from-uk-after-brexit
-  criteria: sector-road-passengers-freight || import-from-eu || export-to-eu || haulage-goods-across-eu-borders
+  criteria: s-road-passengers-freight || import-from-eu || export-to-eu || haulage-goods-across-eu-borders
   audience: business
 - action_id: T063
   priority: 5
@@ -739,7 +739,7 @@ actions:
   guidance_prompt: Read the guidance
   guidance_link_text: Run international bus or coach services and tours after Brexit
   guidance_url: https://www.gov.uk/guidance/run-international-bus-or-coach-services-after-brexit
-  criteria: sector-tourism || sector-road-passengers-freight
+  criteria: s-tourism || s-road-passengers-freight
   audience: business
 - action_id: T064
   priority: 5
@@ -752,7 +752,7 @@ actions:
   guidance_prompt: Read the guidance
   guidance_link_text: 'International road haulage: no-deal Brexit haulier checklist'
   guidance_url: https://www.gov.uk/guidance/transport-goods-out-of-the-uk-by-road-if-the-uk-leaves-the-eu-without-a-deal-checklist-for-hauliers
-  criteria: sector-road-passengers-freight || import-from-eu || export-to-eu || haulage-goods-across-eu-borders
+  criteria: s-road-passengers-freight || import-from-eu || export-to-eu || haulage-goods-across-eu-borders
   audience: business
 - action_id: T065
   priority: 5
@@ -765,7 +765,7 @@ actions:
   guidance_prompt: Read the guidance
   guidance_link_text: Carry out international road haulage after Brexit
   guidance_url: https://www.gov.uk/guidance/carry-out-international-road-haulage-after-brexit
-  criteria: sector-road-passengers-freight || import-from-eu || export-to-eu || haulage-goods-across-eu-borders
+  criteria: s-road-passengers-freight || import-from-eu || export-to-eu || haulage-goods-across-eu-borders
   audience: business
 - action_id: T066
   priority: 5
@@ -778,7 +778,7 @@ actions:
   guidance_prompt: Read the guidance
   guidance_link_text: Vehicle type-approval if there’s no Brexit deal
   guidance_url: https://www.gov.uk/guidance/vehicle-type-approval-if-theres-no-brexit-deal
-  criteria: sector-automotive || sector-road-passengers-freight || sector-motor-trade
+  criteria: s-automotive || s-road-passengers-freight || s-motor-trade
     || sell-goods-provide-services-in-uk
   audience: business
 - action_id: T067
@@ -794,7 +794,7 @@ actions:
   guidance_url: 'https://www.gov.uk/government/publications/further-guidance-note-on-the-regulation-of-medicines-medical-devices-and-clinical-trials-if-theres-no-brexit-deal/further-guidance-note-on-the-regulation-of-medicines-medical-devices-and-clinical-trials-if-theres-no-brexit-deal
 
     '
-  criteria: sector-medical-technology
+  criteria: s-medical-technology
   audience: business
 - action_id: T068
   priority: 8
@@ -807,7 +807,7 @@ actions:
   guidance_link_text: Further guidance note on the regulation of medicines, medical
     devices and clinical trials if there’s no Brexit deal
   guidance_url: https://www.gov.uk/government/publications/further-guidance-note-on-the-regulation-of-medicines-medical-devices-and-clinical-trials-if-theres-no-brexit-deal/further-guidance-note-on-the-regulation-of-medicines-medical-devices-and-clinical-trials-if-theres-no-brexit-deal
-  criteria: sector-pharmaceuticals-clinical-trials
+  criteria: s-pharmaceuticals-clinical-trials
   audience: business
 - action_id: T069
   priority: 8
@@ -820,7 +820,7 @@ actions:
   guidance_link_text: Further guidance note on the regulation of medicines, medical
     devices and clinical trials if there’s no Brexit deal
   guidance_url: https://www.gov.uk/government/publications/further-guidance-note-on-the-regulation-of-medicines-medical-devices-and-clinical-trials-if-theres-no-brexit-deal/further-guidance-note-on-the-regulation-of-medicines-medical-devices-and-clinical-trials-if-theres-no-brexit-deal
-  criteria: sector-pharmaceuticals-clinical-trials
+  criteria: s-pharmaceuticals-clinical-trials
   audience: business
 - action_id: T070
   priority: 8
@@ -923,7 +923,7 @@ actions:
   guidance_link_text: Changes to registered design, design right and international
     design and trade mark law if the UK leaves the EU without a deal
   guidance_url: https://www.gov.uk/government/publications/changes-to-design-and-trade-mark-law-if-the-uk-leaves-the-eu-without-a-deal
-  criteria: sector-creative-industries || sector-arts-culture-heritage || sector-manufacturing-consumer-goods
+  criteria: s-creative-industries || s-arts-culture-heritage || s-manufacturing-consumer-goods
     || use-rely-ip-copyright || use-rely-ip-designs
   audience: business
 - action_id: T081
@@ -937,7 +937,7 @@ actions:
   guidance_prompt: Read the guidance
   guidance_link_text: EU lawyers in the UK after a no-deal Brexit
   guidance_url: https://www.gov.uk/government/publications/eu-lawyers-in-the-uk-after-a-no-deal-brexit/eu-lawyers-in-the-uk-after-a-no-deal-brexit
-  criteria: sector-professional-legal-business-services
+  criteria: s-professional-legal-business-services
   audience: business
 - action_id: T082
   priority: 5
@@ -949,7 +949,7 @@ actions:
   guidance_prompt: Read the guidance
   guidance_link_text: Legal services business owners after a no-deal Brexit
   guidance_url: https://www.gov.uk/government/publications/legal-services-business-owners-after-a-no-deal-brexit
-  criteria: sector-professional-legal-business-services
+  criteria: s-professional-legal-business-services
   audience: business
 - action_id: T085
   priority: 5
@@ -963,7 +963,7 @@ actions:
   guidance_link_text: UK lawyers practising in the EU, Norway, Iceland or Liechtenstein
     in a no-deal Brexit
   guidance_url: https://www.gov.uk/government/publications/uk-lawyers-practising-in-the-eu-norway-iceland-or-liechtenstein-after-a-no-deal-brexit
-  criteria: sector-professional-legal-business-services
+  criteria: s-professional-legal-business-services
   audience: business
 - action_id: T086
   priority: 5
@@ -975,7 +975,7 @@ actions:
   guidance_link_text: Plant variety rights and marketing plant reproductive material
     if there’s a no deal Brexit
   guidance_url: https://www.gov.uk/guidance/plant-variety-rights-and-marketing-plant-reproductive-material-if-the-uk-leaves-the-eu-without-a-deal
-  criteria: sector-agriculture-farming || sector-plants-forestry
+  criteria: s-agriculture-farming || s-plants-forestry
   audience: business
 - action_id: T087
   priority: 8
@@ -989,7 +989,7 @@ actions:
   guidance_link_text: Importing and exporting plants and plant products if there’s
     a no deal Brexit
   guidance_url: https://www.gov.uk/guidance/importing-and-exporting-plants-and-plant-products-if-theres-no-withdrawal-deal
-  criteria: sector-agriculture-farming || sector-plants-forestry
+  criteria: s-agriculture-farming || s-plants-forestry
   audience: business
 - action_id: T088
   priority: 5
@@ -1001,7 +1001,7 @@ actions:
   guidance_prompt: Read the guidance
   guidance_link_text: How to comply with REACH chemical regulations
   guidance_url: https://www.gov.uk/guidance/how-to-comply-with-reach-chemical-regulations
-  criteria: sector-chemicals || import-from-eu
+  criteria: s-chemicals || import-from-eu
   audience: business
 - action_id: T089
   priority: 5
@@ -1013,7 +1013,7 @@ actions:
   guidance_prompt: Read the guidance
   guidance_link_text: 'Export horses and ponies: special rules'
   guidance_url: https://www.gov.uk/guidance/export-horses-and-ponies-special-rules
-  criteria: sector-animals-animal-products-ex-food
+  criteria: s-animals-animal-products-ex-food
   audience: business
 - action_id: T090
   priority: 5
@@ -1027,5 +1027,5 @@ actions:
   guidance_prompt: Read the guidance
   guidance_link_text: Exporting animals and animal products in a no-deal Brexit
   guidance_url: https://www.gov.uk/guidance/exporting-animals-animal-products-fish-and-fishery-products-if-the-uk-leaves-the-eu-with-no-deal
-  criteria: sector-animals-animal-products-ex-food
+  criteria: s-animals-animal-products-ex-food
   audience: business
