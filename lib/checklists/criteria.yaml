@@ -21,7 +21,7 @@ criteria:
 - key: marine-transport
   text: You work in the marine and marine transport industry
   depends_on:
-- key: rail
+- key: rail-manufacture
   text: You work in rail manufacturing
   depends_on:
 - key: agriculture-farm
