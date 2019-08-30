@@ -26,7 +26,7 @@ describe Checklists::Criterion do
 
     it "returns criteria that are covered by a question" do
       possible_criteria = Checklists::Question.load_all
-        .flat_map(&:possible_criteria)
+        .flat_map(&:possible_options)
 
       subject.each do |criterion|
         expect(possible_criteria).to include(criterion.key)

@@ -22,7 +22,7 @@ class Checklists::Question
   def valid?
     return false unless Checklists::CriteriaLogic.new(criteria, []).valid?
 
-    possible_criteria.all? do |criterion|
+    possible_options.all? do |criterion|
       Checklists::CriteriaLogic.new(criterion, []).valid?
     end
   end
@@ -31,7 +31,7 @@ class Checklists::Question
     Checklists::CriteriaLogic.new(criteria, selected_criteria).applies?
   end
 
-  def possible_criteria
+  def possible_options
     sub_options = options.flat_map { |o| o['options'].to_a }
     (options + sub_options).map { |o| o['value'] }
   end
