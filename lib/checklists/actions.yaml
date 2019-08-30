@@ -86,9 +86,7 @@ actions:
     to take it with you.
   lead_time: It takes at least 4 months
   guidance_prompt: Read the guidance
-  guidance_link_text: 'Pet travel to Europe after Brexit
-
-    '
+  guidance_link_text: 'Pet travel to Europe after Brexit'
   guidance_url: https://www.gov.uk/guidance/pet-travel-to-europe-after-brexit
   criteria: nationality-uk && visiting-eu && bring-pet-eu
   audience: citizen
@@ -734,7 +732,7 @@ actions:
     Europe
   title_url:
   consequence: 'You may not be able to run unscheduled services in Europe without
-    the right documents. '
+    the right documents.'
   lead_time: Do it as soon as possible
   guidance_prompt: Read the guidance
   guidance_link_text: Run international bus or coach services and tours after Brexit
