@@ -36,7 +36,7 @@ actions:
   guidance_link_text: 'Healthcare after Brexit: citizens of the EU, Norway, Iceland,
     Liechtenstein and Switzerland visiting the UK'
   guidance_url: https://www.gov.uk/guidance/healthcare-for-eu-and-efta-citizens-visiting-the-uk
-  criteria: nationality-eu && visiting-uk
+  criteria: (nationality-eu || nationality-row) && visiting-uk
   audience: citizen
 - action_id: S005
   priority: 5
@@ -50,7 +50,7 @@ actions:
   guidance_prompt:
   guidance_link_text:
   guidance_url:
-  criteria: nationality-eu && studying-uk
+  criteria: (nationality-eu || nationality-row) && studying-uk
   audience: citizen
 - action_id: S007
   priority: 5
@@ -64,7 +64,7 @@ actions:
   guidance_prompt: Read the guidance
   guidance_link_text: Studying in the European Union after Brexit
   guidance_url: https://www.gov.uk/guidance/studying-in-the-european-union-after-brexit
-  criteria: nationality-uk && studying-eu
+  criteria: (nationality-uk || nationality-row) && studying-eu
   audience: citizen
 - action_id: S008
   priority: 8
@@ -89,7 +89,7 @@ actions:
   guidance_prompt: Read the guidance
   guidance_link_text: Pet travel to Europe after Brexit
   guidance_url: https://www.gov.uk/guidance/pet-travel-to-europe-after-brexit
-  criteria: nationality-uk && visiting-eu && bring-pet-eu
+  criteria: living-uk && visiting-eu && visiting-bring-pet
   audience: citizen
 - action_id: S010
   priority: 5
@@ -115,7 +115,7 @@ actions:
   guidance_prompt: Read the guidance
   guidance_link_text: Visit Europe after Brexit
   guidance_url: https://www.gov.uk/visit-europe-brexit
-  criteria: nationality-uk && visiting-eu
+  criteria: living-uk && visiting-eu
   audience: citizen
 - action_id: S015
   priority: 5
@@ -141,7 +141,7 @@ actions:
   guidance_prompt: Read the guidance
   guidance_link_text: Driving abroad
   guidance_url: https://www.gov.uk/driving-abroad
-  criteria: "(nationality-uk && visiting-eu && driving-eu) || (nationality-eu && visiting-uk)"
+  criteria: visiting-eu && visiting-driving
   audience: citizen
 - action_id: S023
   priority: 2
@@ -155,7 +155,7 @@ actions:
   guidance_link_text: Driving in the EU after Brexit - Insurance for your vehicle,
     caravan or trailer
   guidance_url: https://www.gov.uk/guidance/driving-in-the-eu-after-brexit#insurance-for-your-vehicle-caravan-or-trailer
-  criteria: "(nationality-uk && visiting-eu && driving-eu) || (nationality-eu && visiting-uk)"
+  criteria: nationality-uk && visiting-eu && visiting-driving
   audience: citizen
 - action_id: S024
   priority: 2
@@ -168,7 +168,7 @@ actions:
   guidance_prompt: Read the guidance
   guidance_link_text: Driving in the EU after Brexit - GB stickers and number plates
   guidance_url: https://www.gov.uk/guidance/driving-in-the-eu-after-brexit#gb-stickers-and-number-plates
-  criteria: nationality-uk && visiting-eu && driving-eu
+  criteria: nationality-uk && visiting-eu && visiting-driving
   audience: citizen
 - action_id: S025
   priority: 2
@@ -181,7 +181,7 @@ actions:
   guidance_prompt: Read the guidance
   guidance_link_text: Visit Europe after Brexit
   guidance_url: https://www.gov.uk/visit-europe-brexit
-  criteria: "(nationality-uk && visiting-eu) || (nationality-eu && visiting-uk)"
+  criteria: visiting-eu || visiting-uk
   audience: citizen
 - action_id: S026
   priority: 2
@@ -193,11 +193,11 @@ actions:
   guidance_prompt: Read the guidance
   guidance_link_text: 'UK students in the EU: continuing your studies'
   guidance_url: https://www.gov.uk/guidance/uk-students-in-the-eu-continuing-your-studies
-  criteria: nationality-uk && studying-eu
+  criteria: (nationality-uk || nationality-row) && studying-eu
   audience: citizen
 - action_id: S028
   priority: 2
-  title: Check you're eligible for housing services if you're returning to the UK
+  title: Check you're eligible for housing services if you're moving back to the UK
     from the EU
   title_url:
   consequence: You must check with your local council that you're eligible for housing
@@ -843,9 +843,7 @@ actions:
   audience: business
 - action_id: T074
   priority: 8
-  title: "[OLD: Check if companies that export your products to the EU use the correct
-    customs procedures] \nNEW: Decide whether to get an agent or make declarations
-    yourself"
+  title: Decide whether to get an agent or make declarations yourself
   title_url: https://www.gov.uk/prepare-export-from-uk-after-brexit
   consequence: You may not be able to trade goods with the EU if you do not get your
     business ready.
@@ -870,7 +868,7 @@ actions:
   audience: business
 - action_id: T076
   priority: 2
-  title: Find out if a no deal Brexit will affect your business on the Finacial Conduct
+  title: Find out if a no deal Brexit will affect your business on the Financial Conduct
     Authority’s website
   title_url: https://www.fca.org.uk/firms/preparing-for-brexit
   consequence: Financial institutions that carry out business between the UK and EEA

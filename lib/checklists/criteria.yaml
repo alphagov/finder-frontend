@@ -210,6 +210,9 @@ criteria:
 - key: personal-eu-org-provide
   text: You provide digital services to the EU
   depends_on:
+- key: do-not-personal-eu-org
+  text: You do not exchange personal data with EU organisations
+  depends_on:
 - key: ip
   text: You use or rely on intellectual property protection
   depends_on:
@@ -227,6 +230,9 @@ criteria:
   depends_on:
 - key: ip-exhaustion-rights
   text: You use or rely on exhaustion of rights protection
+  depends_on:
+- key: do-not-ip
+  text: You do not use or rely on IP copyright protection
   depends_on:
 - key: eu-uk-funding
   text: You receive EU or UK government funding
@@ -282,32 +288,32 @@ criteria:
 - key: studying-uk
   text: You are studying in the UK
   depends_on:
+- key: living-driving-eu
+  text: You drive in the EU using a UK licence
+  depends_on:
+- key: living-driving-eu-no
+  text: You do not drive in the EU using a UK licence
+  depends_on:
 - key: visiting-eu
   text: You plan to travel to the EU
   depends_on:
-- key: visiting-eu-no
-  text: You do not plan to travel to the EU
+- key: visiting-row
+  text: You plan to travel to the rest of the world
+  depends_on:
+- key: travelling
+  text: You plan to travel after 31 October 2019
   depends_on:
 - key: visiting-uk
-  text: You intend to travel to the UK
+  text: You plan to travel to the UK
   depends_on:
-- key: visting-uk-no
-  text: You do not intend to travel to the UK
+- key: visiting-bring-pet
+  text: You are travelling with a pet
   depends_on:
-- key: bring-pet-eu
-  text: You are visiting the EU with a pet
+- key: visiting-driving
+  text: You need to drive abroad
   depends_on:
-- key: driving-eu
-  text: You need to drive in the EU, EEA or Switzerland
-  depends_on:
-- key: driving-eu-no
-  text: You do not need to drive in the EU, EEA or Switzerland
-  depends_on:
-- key: own-eu-property
-  text: You are planning to buy or already own property in the EU
-  depends_on:
-- key: own-eu-property-no
-  text: You are not planning to buy nor do you currently own property in the EU
+- key: travelling-no
+  text: You do no plan to travel after 31 October 2019
   depends_on:
 - key: return-to-uk
   text: You are planning to live in UK

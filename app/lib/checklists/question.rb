@@ -20,7 +20,11 @@ class Checklists::Question
   end
 
   def valid?
-    Checklists::CriteriaLogic.new(criteria, []).valid?
+    return false unless Checklists::CriteriaLogic.new(criteria, []).valid?
+
+    possible_criteria.all? do |criterion|
+      Checklists::CriteriaLogic.new(criterion, []).valid?
+    end
   end
 
   def show?(selected_criteria)

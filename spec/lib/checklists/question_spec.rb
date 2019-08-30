@@ -34,7 +34,6 @@ describe Checklists::Question do
 
     it "returns questions that reference valid criteria" do
       subject.each do |question|
-        expect { question.show?([]) }.to_not raise_error
         expect(question.valid?).to be true
       end
     end
