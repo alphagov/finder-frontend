@@ -41,5 +41,11 @@ describe Checklists::ConvertCsvToYaml::ActionsProcessor do
       result = described_class.new.process(record)
       expect(result).not_to include("criteria" => nil)
     end
+
+    it "strips trailing whitespace from record values" do
+      record = { "consequence" => "A consequence with some whitespace.    " }
+      result = described_class.new.process(record)
+      expect(result["consequence"]).to eq("A consequence with some whitespace.")
+    end
   end
 end
