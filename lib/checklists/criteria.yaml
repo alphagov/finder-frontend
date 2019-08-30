@@ -313,7 +313,7 @@ criteria:
   text: You need to drive abroad
   depends_on:
 - key: travelling-no
-  text: You do no plan to travel after 31 October 2019
+  text: You do not plan to travel after 31 October 2019
   depends_on:
 - key: return-to-uk
   text: You are planning to live in UK
