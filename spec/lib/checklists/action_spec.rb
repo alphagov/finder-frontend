@@ -31,8 +31,11 @@ describe Checklists::Action do
     end
 
     it "returns actions that reference valid criteria" do
+      all_criteria_keys = Checklists::Criterion.load_all.map(&:key)
+
       subject.each do |action|
         expect { action.applies_to?([]) }.to_not raise_error
+        expect { action.applies_to?(all_criteria_keys) }.to_not raise_error
       end
     end
 
