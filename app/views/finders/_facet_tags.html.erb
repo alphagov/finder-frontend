@@ -9,7 +9,8 @@
   <div class="facet-tags" data-module="track-click">
     <% local_assigns[:applied_filters].each do |applied_filter| %>
       <div class="facet-tags__group">
-        <% applied_filter.each do |filter| %>
+      <%# TODO: filter higher up so we don't create an empty group %>
+        <% applied_filter.reject { |filter| filter[:data_facet] == 'keywords' }.each do |filter| %>
           <div class="facet-tags__wrapper">
             <p class="facet-tags__preposition"><%= filter[:preposition] %></p>
             <div class="facet-tag">
