@@ -2,328 +2,319 @@
 criteria:
 - key: owns-operates-business-organisation
   text: You own or operate a business or organisation
-  depends_on: 
+  depends_on:
 - key: does-not-own-operate-business-organisation
   text: You do not own or operate a business or organisation
-  depends_on: 
-- key: s-aerospace-space
+  depends_on:
+- key: aero-space
   text: You work in the aerospace and space industry
-  depends_on: 
-- key: s-automotive
+  depends_on:
+- key: automotive
   text: You work in the automotive industry
-  depends_on: 
-- key: s-electronic-parts-machinery
+  depends_on:
+- key: electronic-machinery
   text: You work in electronics, parts and machinery
-  depends_on: 
-- key: s-installation-servicing-repair
+  depends_on:
+- key: install-service-repair
   text: You work in installation, servicing and repair
-  depends_on: 
-- key: s-marine-marine-transport
+  depends_on:
+- key: marine-transport
   text: You work in the marine and marine transport industry
-  depends_on: 
-- key: s-rail-manufacture
+  depends_on:
+- key: rail-manufacture
   text: You work in rail manufacturing
-  depends_on: 
-- key: s-agriculture-farming
+  depends_on:
+- key: agriculture-farm
   text: You work in agriculture and farming
-  depends_on: 
-- key: s-animals-animal-products-ex-food
+  depends_on:
+- key: animal-ex-food
   text: You work with animals and animal products (excluding food)
-  depends_on: 
-- key: s-fisheries-inc-wholesale
+  depends_on:
+- key: fish-inc-wholesale
   text: You work in fisheries (including wholesale)
-  depends_on: 
-- key: s-plants-forestry
+  depends_on:
+- key: forestry
   text: You work in plants and forestry
-  depends_on: 
-- key: s-veterinary
+  depends_on:
+- key: vet
   text: You work in veterinary services
-  depends_on: 
-- key: s-personal-services
+  depends_on:
+- key: personal-service
   text: You work in personal services
-  depends_on: 
-- key: s-professional-legal-business-services
+  depends_on:
+- key: legal-service
   text: You work in professional, legal and business services
-  depends_on: 
-- key: s-charities
+  depends_on:
+- key: charity
   text: You work in the charity sector
-  depends_on: 
-- key: s-voluntary-community-orgs
+  depends_on:
+- key: voluntary
   text: You work for voluntary and community organisations
-  depends_on: 
-- key: s-construction
+  depends_on:
+- key: construction
   text: You work in construction
-  depends_on: 
-- key: s-environmental-services
+  depends_on:
+- key: environment
   text: You work in environmental services
-  depends_on: 
-- key: s-defence
+  depends_on:
+- key: defence
   text: You work in defence
-  depends_on: 
-- key: s-electricity
+  depends_on:
+- key: electricity
   text: You work in electricity
-  depends_on: 
-- key: s-nuclear
+  depends_on:
+- key: nuclear
   text: You work in the nuclear industry
-  depends_on: 
-- key: s-oil-gas-coal
+  depends_on:
+- key: oil-gas-coal
   text: You work in oil, gas and coal
-  depends_on: 
-- key: s-renewable-energy
+  depends_on:
+- key: renewables
   text: You work in renewable energy
-  depends_on: 
-- key: s-media-broadcasting
+  depends_on:
+- key: media
   text: You work in media and broadcasting
-  depends_on: 
-- key: s-creative-industries
+  depends_on:
+- key: creative
   text: You work in the creative industries
-  depends_on: 
-- key: s-gambling
+  depends_on:
+- key: gamble
   text: You work in the gambling sector
-  depends_on: 
-- key: s-sports-recreation
+  depends_on:
+- key: sports
   text: You work in sports and recreation
-  depends_on: 
-- key: s-arts-culture-heritage
+  depends_on:
+- key: culture
   text: You work in arts, culture and heritage
-  depends_on: 
-- key: s-financial-services
+  depends_on:
+- key: finance
   text: You work in financial services
-  depends_on: 
-- key: s-insurance
+  depends_on:
+- key: insurance
   text: You work in insurance
-  depends_on: 
-- key: s-real-estate
+  depends_on:
+- key: real-estate
   text: You work in real estate
-  depends_on: 
-- key: s-health-social-care-services
+  depends_on:
+- key: health
   text: You work in health and social care services
-  depends_on: 
-- key: s-medical-technology
+  depends_on:
+- key: medical-tech
   text: You work in medical technology
-  depends_on: 
-- key: s-pharmaceuticals-clinical-trials
+  depends_on:
+- key: pharma
   text: You work in pharmaceuticals and clinical trials
-  depends_on: 
-- key: s-digital-technology-computer-services
+  depends_on:
+- key: digital
   text: You work in digital, technology and computer services
-  depends_on: 
-- key: s-telecoms-information-services
+  depends_on:
+- key: telecoms
   text: You work in telecoms and information services
-  depends_on: 
-- key: s-manufacturing-consumer-goods
+  depends_on:
+- key: consumer-goods
   text: You work in consumer goods manufacturing
-  depends_on: 
-- key: s-chemicals
+  depends_on:
+- key: chemical
   text: You work in the chemicals industry
-  depends_on: 
-- key: s-diamonds
+  depends_on:
+- key: diamond
   text: You work in the diamond industry
-  depends_on: 
-- key: s-metals-manufacture
+  depends_on:
+- key: metal
   text: You work in metals manufacturing
-  depends_on: 
-- key: s-mining
+  depends_on:
+- key: mining
   text: You work in mining
-  depends_on: 
-- key: s-non-metal-materials-manufacture
+  depends_on:
+- key: non-metal-material
   text: You work in non-metal materials manufacturing
-  depends_on: 
-- key: s-justice-including-prisons
+  depends_on:
+- key: justice-including-prisons
   text: You work in the justice system (including prisons)
-  depends_on: 
-- key: s-public-administration
+  depends_on:
+- key: public-administration
   text: You work in public administration
-  depends_on: 
-- key: s-education
+  depends_on:
+- key: education
   text: You work in education
-  depends_on: 
-- key: s-research
+  depends_on:
+- key: research
   text: You work in research
-  depends_on: 
-- key: s-food-drink-tobacco
+  depends_on:
+- key: food-drink-tobacco
   text: You work in the food, drink and tobacco industry
-  depends_on: 
-- key: s-motor-trade
+  depends_on:
+- key: motor-trade
   text: You work in the motor trade
-  depends_on: 
-- key: s-retail-wholesale-ex-food-drink-motors
+  depends_on:
+- key: retail-wholesale-x-food-drink-motors
   text: You work in retail and wholesale (excluding food, drink and motors)
-  depends_on: 
-- key: s-accommodation
+  depends_on:
+- key: accommodation
   text: You work in accommodation
-  depends_on: 
-- key: s-restaurants-bars-catering
+  depends_on:
+- key: restaurants-catering
   text: You work in restaurants, bars and catering
-  depends_on: 
-- key: s-tourism
+  depends_on:
+- key: tourism
   text: You work in tourism
-  depends_on: 
-- key: s-air-freight-air-passenger-services
+  depends_on:
+- key: air-passenger-freight
   text: You work in air freight and passenger services
-  depends_on: 
-- key: s-ports-airports
+  depends_on:
+- key: ports-airports
   text: You work in ports and airports
-  depends_on: 
-- key: s-postal-courier-services
+  depends_on:
+- key: postal-couriers
   text: You work in postal and courier services
-  depends_on: 
-- key: s-rail-passengers-freight
+  depends_on:
+- key: rail-passenger-freight
   text: You work in rail freight and passenger services
-  depends_on: 
-- key: s-road-passengers-freight
+  depends_on:
+- key: road-passenger-freight
   text: You work in road freight and passenger services
-  depends_on: 
-- key: s-warehousing-services-pipelines
+  depends_on:
+- key: warehouse-pipeline
   text: You work in warehousing, services and pipelines
-  depends_on: 
+  depends_on:
 - key: sell-goods-provide-services-in-uk
   text: Your business sells goods or services in the UK
-  depends_on: 
+  depends_on:
 - key: import-from-eu
   text: Your business imports goods from the EU
-  depends_on: 
+  depends_on:
 - key: export-to-eu
   text: Your business exports goods to the EU
-  depends_on: 
+  depends_on:
 - key: provide-services-do-business-in-eu
   text: Your business provides services in the EU
-  depends_on: 
+  depends_on:
 - key: haulage-goods-across-eu-borders
   text: Your business transports goods across EU borders
-  depends_on: 
+  depends_on:
 - key: employ-eu-citizens
   text: You employ EU citizens
-  depends_on: 
+  depends_on:
 - key: do-not-employ-eu-citizens
   text: You do not employ EU citizens
-  depends_on: 
-- key: exchange-personal-data-with-eu-org
+  depends_on:
+- key: personal-eu-org
   text: You exchange personal data with EU organisations
-  depends_on: 
-- key: exchange-personal-data-with-eu-org-process
+  depends_on:
+- key: personal-eu-org-process
   text: You process personal data from the EU
-  depends_on: 
-- key: exchange-personal-data-with-eu-org-use
+  depends_on:
+- key: personal-eu-org-use
   text: You use websites or services hosted in the EU
-  depends_on: 
-- key: exchange-personal-data-with-eu-org-provide
+  depends_on:
+- key: personal-eu-org-provide
   text: You provide digital services to the EU
-  depends_on: 
-- key: do-not-exchange-personal-data-with-eu-org
-  text: You do not exchange personal data with EU organisations
-  depends_on: 
-- key: use-rely-ip
+  depends_on:
+- key: ip
   text: You use or rely on intellectual property protection
-  depends_on: 
-- key: use-rely-ip-copyright
+  depends_on:
+- key: ip-copyright
   text: You use or rely on IP copyright protection
-  depends_on: 
-- key: use-rely-ip-trade-marks
+  depends_on:
+- key: ip-trade-marks
   text: You use or rely on trade mark protection
-  depends_on: 
-- key: use-rely-ip-designs
+  depends_on:
+- key: ip-designs
   text: You use or rely on design protection
-  depends_on: 
-- key: use-rely-ip-patents
+  depends_on:
+- key: ip-patents
   text: You use or rely on patents protection
-  depends_on: 
-- key: use-rely-ip-exhaustion-rights
+  depends_on:
+- key: ip-exhaustion-rights
   text: You use or rely on exhaustion of rights protection
-  depends_on: 
-- key: do-not-use-rely-ip
-  text: You do not use or rely on intellectual property protection
-  depends_on: 
-- key: get-eu-uk-funding
+  depends_on:
+- key: eu-uk-funding
   text: You receive EU or UK government funding
-  depends_on: 
-- key: get-eu-funding
+  depends_on:
+- key: eu-funding
   text: You receive EU government funding
-  depends_on: 
-- key: get-uk-funding
+  depends_on:
+- key: uk-funding
   text: You receive UK government funding
-  depends_on: 
-- key: do-not-get-eu-uk-funding
-  text: You do not receive EU or UK government funding
-  depends_on: 
+  depends_on:
 - key: sell-public-sector
   text: You sell products or services to the public sector
-  depends_on: 
+  depends_on:
 - key: sell-public-sector-contracts
   text: You have public sector contracts
-  depends_on: 
+  depends_on:
 - key: sell-defence-contracts
   text: You have defence contracts
-  depends_on: 
+  depends_on:
 - key: do-not-sell-to-public-sector
   text: You do not sell products or services to the public sector
-  depends_on: 
+  depends_on:
 - key: nationality-uk
   text: You are a UK national
-  depends_on: 
+  depends_on:
 - key: nationality-eu
   text: You are an EU national
-  depends_on: 
+  depends_on:
 - key: nationality-row
   text: You are not an EU or UK national
-  depends_on: 
+  depends_on:
 - key: living-row
   text: You do not live in the UK or the EU
-  depends_on: 
+  depends_on:
 - key: living-uk
   text: You live in the UK
-  depends_on: 
+  depends_on:
 - key: living-eu
   text: You live in the EU
-  depends_on: 
+  depends_on:
 - key: working-eu
   text: You are employed in the EU
-  depends_on: 
+  depends_on:
 - key: working-uk
   text: You are employed in the UK
-  depends_on: 
+  depends_on:
 - key: studying-eu
   text: You are studying in the EU
-  depends_on: 
+  depends_on:
 - key: studying-uk
   text: You are studying in the UK
-  depends_on: 
+  depends_on:
 - key: visiting-eu
   text: You plan to travel to the EU
-  depends_on: 
+  depends_on:
 - key: visiting-eu-no
   text: You do not plan to travel to the EU
-  depends_on: 
+  depends_on:
 - key: visiting-uk
   text: You intend to travel to the UK
-  depends_on: 
+  depends_on:
 - key: visting-uk-no
   text: You do not intend to travel to the UK
-  depends_on: 
+  depends_on:
 - key: bring-pet-eu
   text: You are visiting the EU with a pet
-  depends_on: 
+  depends_on:
 - key: driving-eu
   text: You need to drive in the EU, EEA or Switzerland
-  depends_on: 
+  depends_on:
 - key: driving-eu-no
   text: You do not need to drive in the EU, EEA or Switzerland
-  depends_on: 
+  depends_on:
 - key: own-eu-property
   text: You are planning to buy or already own property in the EU
-  depends_on: 
+  depends_on:
 - key: own-eu-property-no
   text: You are not planning to buy nor do you currently own property in the EU
-  depends_on: 
+  depends_on:
 - key: return-to-uk
   text: You are planning to live in UK
-  depends_on: 
+  depends_on:
 - key: return-to-uk-no
-  text: You are not planning to live in the UK
+  text: You are not planning to live in UK
   depends_on:
 - key: join-family-uk-no
   text: You do not plan to join an EU or EEA family member in the UK
-  depends_on: 
+  depends_on:
 - key: join-family-uk-yes
   text: You plan to join an EU or EEA family member in the UK
-  depends_on: 
+  depends_on:

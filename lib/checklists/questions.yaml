@@ -19,153 +19,153 @@ questions:
       #- label: "Advanced manufacturing and services"
         #options:
           - label: Aerospace and space
-            value: s-aerospace-space
+            value: aero-space
           - label: Automotive
-            value: s-automotive
+            value: automotive
           - label: Electronics, parts and machinery
-            value: s-electronic-parts-machinery
+            value: electronic-machinery
           - label: Installation, servicing and repair
-            value: s-installation-servicing-repair
+            value: install-service-repair
           - label: Marine and marine transport
-            value: s-marine-marine-transport
+            value: marine-transport
           - label: Rail (manufacture)
-            value: s-rail-manufacture
+            value: rail-manufacture
       #- label: "Agriculture, animals, fisheries and forestry"
         #options:
           - label: Agriculture and farming
-            value: s-agriculture-farming
+            value: agriculture-farm
           - label: Animals and animal products (excluding food)
-            value: s-animals-animal-products-ex-food
+            value: animal-ex-food
           - label: Fisheries (including wholesale)
-            value: s-fisheries-inc-wholesale
+            value: fish-inc-wholesale
           - label: Plants and forestry
-            value: s-plants-forestry
+            value: forestry
           - label: Veterinary
-            value: s-veterinary
+            value: vet
       #- label: "Business and personal services"
         #options:
           - label: Personal services
-            value: s-personal-services
+            value: personal-service
           - label: Professional, legal and business services
-            value: s-professional-legal-business-services
+            value: legal-service
       #- label: "Charities and voluntary organisation"
         #options:
           - label: Charities
-            value: s-charities
+            value: charity
           - label: Voluntary and community organisations
-            value: s-voluntary-community-orgs
+            value: voluntary
       #- label: "Construction and environmental services"
         #options:
           - label: Construction
-            value: s-construction
+            value: construction
           - label: Environmental services
-            value: s-environmental-services
+            value: environment
       #- label: "Defence"
         #options:
           - label: Defence
-            value: s-defence
+            value: defence
       #- label: "Energy"
         #options:
           - label: Electricity
-            value: s-electricity
+            value: electricity
           - label: Nuclear
-            value: s-nuclear
+            value: nuclear
           - label: Oil, gas and coal
-            value: s-oil-gas-coal
+            value: oil-gas-coal
           - label: Renewable energy
-            value: s-renewable-energy
+            value: renewables
       #- label: "Entertainment"
         #options:
           - label: Media and broadcasting
-            value: s-media-broadcasting
+            value: media
           - label: Creative industries
-            value: s-creative-industries
+            value: creative
           - label: Gambling
-            value: s-gambling
+            value: gamble
           - label: Sports and recreation
-            value: s-sports-recreation
+            value: sports
           - label: Arts, culture and heritage
-            value: s-arts-culture-heritage
+            value: culture
       #- label: "Finance, insurance and real estate"
         #options:
           - label: Financial services
-            value: s-financial-services
+            value: finance
           - label: Insurance
-            value: s-insurance
+            value: insurance
           - label: Real estate
-            value: s-real-estate
+            value: real-estate
       #- label: "Health and social care"
         #options:
           - label: Health and social care services
-            value: s-health-social-care-services
+            value: health
           - label: Medical technology
-            value: s-medical-technology
+            value: medical-tech
           - label: Pharmaceuticals and clinical trials
-            value: s-pharmaceuticals-clinical-trials
+            value: pharma
       #- label: "Information and communications"
         #options:
           - label: Digital, technology and computer services
-            value: s-digital-technology-computer-services
+            value: digital
           - label: Telecoms and information services
-            value: s-telecoms-information-services
+            value: telecoms
       #- label: "Manufacturing"
         #options:
           - label: Manufacturing of consumer goods
-            value: s-manufacturing-consumer-goods
+            value: consumer-goods
       #- label: "Materials and mining"
         #options:
           - label: Chemicals
-            value: s-chemicals
+            value: chemical
           - label: Diamonds
-            value: s-diamonds
+            value: diamond
           - label: Metals manufacture
-            value: s-metals-manufacture
+            value: metal
           - label: Mining
-            value: s-mining
+            value: mining
           - label: Non-metal materials manufacture
-            value: s-non-metal-materials-manufacture
+            value: non-metal-material
       #- label: "Public administration"
         #options:
           - label: Justice including prisons
-            value: s-justice-including-prisons
+            value: justice-including-prisons
           - label: Public administration
-            value: s-public-administration
+            value: public-administration
       #- label: "Research and education"
         #options:
           - label: Education
-            value: s-education
+            value: education
           - label: Research
-            value: s-research
+            value: research
       #- label: "Retail, wholesale and consumer goods"
         #options:
           - label: Food, drink and tobacco
-            value: s-food-drink-tobacco
+            value: food-drink-tobacco
           - label: Motor trade
-            value: s-motor-trade
+            value: motor-trade
           - label: Retail and wholesale (excluding food, drink and motors)
-            value: s-retail-wholesale-ex-food-drink-motors
+            value: retail-wholesale-x-food-drink-motors
       #- label: "Tourism and hospitality"
         #options:
           - label: Accommodation
-            value: s-accommodation
+            value: accommodation
           - label: Restaurants, bars and catering
-            value: s-restaurants-bars-catering
+            value: restaurants-catering
           - label: Tourism
-            value: s-tourism
+            value: tourism
       #- label: "Transport and logistics"
         #options:
           - label: Air freight and air passenger services
-            value: s-air-freight-air-passenger-services
+            value: air-passenger-freight
           - label: Ports and airports
-            value: s-ports-airports
+            value: ports-airports
           - label: Postal and courier services
-            value: s-postal-courier-services
+            value: postal-couriers
           - label: Rail (passengers and freight)
-            value: s-rail-passengers-freight
+            value: rail-passenger-freight
           - label: Road (passengers and freight)
-            value: s-road-passengers-freight
+            value: road-passenger-freight
           - label: Warehousing, services and pipelines
-            value: s-warehousing-services-pipelines
+            value: warehouse-pipeline
 
   - key: business_activity
     criteria: owns-operates-business-organisation
@@ -205,16 +205,16 @@ questions:
       <p>Personal data includes customers’ addresses, staff working hours or information you give to a delivery company.</p>
     options:
       - label: "Yes"
-        value: exchange-personal-data-with-eu-org
+        value: personal-eu-org
         options:
           - label: Processing personal data from Europe
-            value: exchange-personal-data-with-eu-org-process
+            value: personal-eu-org-process
           - label: Using websites or services hosted in Europe
-            value: exchange-personal-data-with-eu-org-use
+            value: personal-eu-org-use
           - label: Providing digital services available to Europe
-            value: exchange-personal-data-with-eu-org-provide
+            value: personal-eu-org-provide
       - label: "No"
-        value: do-not-exchange-personal-data-with-eu-org
+        value: do-not-personal-eu-org
 
   - key: intellectual_property
     criteria: owns-operates-business-organisation
@@ -224,20 +224,20 @@ questions:
       <p>Intellectual property protection includes copyright, trade marks and patents.</p>
     options:
       - label: "Yes"
-        value: use-rely-ip
+        value: ip
         options:
           - label: Copyright
-            value: use-rely-ip-copyright
+            value: ip-copyright
           - label: Trade marks
-            value: use-rely-ip-trade-marks
+            value: ip-trade-marks
           - label: Designs
-            value: use-rely-ip-designs
+            value: ip-designs
           - label: Patents
-            value: use-rely-ip-patents
+            value: ip-patents
           - label: Exhaustion of rights
-            value: use-rely-ip-exhaustion-rights
+            value: ip-exhaustion-rights
       - label: "No"
-        value: do-not-use-rely-ip
+        value: do-not-ip
 
   - key: eu_uk_government_funding
     criteria: owns-operates-business-organisation
@@ -247,14 +247,14 @@ questions:
       <p>EU funding includes the Creative Europe Fund or Horizon 2020 scheme.</p>
     options:
       - label: "Yes"
-        value: get-eu-uk-funding
+        value: eu-uk-funding
         options:
           - label: EU funding
-            value: get-eu-funding
+            value: eu-funding
           - label: UK government funding
-            value: get-uk-funding
+            value: uk-funding
       - label: "No"
-        value: do-not-get-eu-uk-funding
+        value: do-not-eu-uk-funding
 
   - key: public_sector_procurement
     criteria: owns-operates-business-organisation
@@ -386,6 +386,6 @@ questions:
     question: 'Are you planning to move back to the UK?'
     options:
       - label: "Yes"
-        value: return-to-uk 
+        value: return-to-uk
       - label: "No"
-        value: return-to-uk-no 
+        value: return-to-uk-no
