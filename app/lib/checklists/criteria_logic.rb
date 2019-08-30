@@ -1,7 +1,19 @@
+require 'ripper'
+
 class Checklists::CriteriaLogic
   def initialize(string, selected_options)
     @string = string.to_s.underscore
     @selected_options = selected_options.map(&:underscore)
+  end
+
+  def valid?
+    tokens = Ripper.lex(string)
+    return true if tokens.empty?
+
+    tokens.all? do |(_, type, value, _)|
+      next true unless type == :on_ident
+      all_options.include?(value)
+    end
   end
 
   def applies?
