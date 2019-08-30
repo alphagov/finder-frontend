@@ -10,10 +10,18 @@ class Checklists::CriteriaLogic
     tokens = Ripper.lex(string)
     return true if tokens.empty?
 
-    tokens.all? do |(_, type, value, _)|
-      next true unless type == :on_ident
+    allowed_values = {
+      on_ident: all_options,
+      on_sp: [" "],
+      on_op: %w(&& ||),
+      on_lparen: ["("],
+      on_rparen: [")"],
+    }
 
-      all_options.include?(value)
+    allowed_types = allowed_values.keys
+
+    tokens.all? do |(_, type, value, _)|
+      allowed_types.include?(type) && allowed_values[type].include?(value)
     end
   end
 
