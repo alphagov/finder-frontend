@@ -6,175 +6,175 @@ criteria:
 - key: does-not-own-operate-business-organisation
   text: You do not own or operate a business or organisation
   depends_on: 
-- key: sector-aerospace-space
+- key: s-aerospace-space
   text: You work in the aerospace and space industry
   depends_on: 
-- key: sector-automotive
+- key: s-automotive
   text: You work in the automotive industry
   depends_on: 
-- key: sector-electronic-parts-machinery
+- key: s-electronic-parts-machinery
   text: You work in electronics, parts and machinery
   depends_on: 
-- key: sector-installation-servicing-repair
+- key: s-installation-servicing-repair
   text: You work in installation, servicing and repair
   depends_on: 
-- key: sector-marine-marine-transport
+- key: s-marine-marine-transport
   text: You work in the marine and marine transport industry
   depends_on: 
-- key: sector-rail-manufacture
+- key: s-rail-manufacture
   text: You work in rail manufacturing
   depends_on: 
-- key: sector-agriculture-farming
+- key: s-agriculture-farming
   text: You work in agriculture and farming
   depends_on: 
-- key: sector-animals-animal-products-ex-food
+- key: s-animals-animal-products-ex-food
   text: You work with animals and animal products (excluding food)
   depends_on: 
-- key: sector-fisheries-inc-wholesale
+- key: s-fisheries-inc-wholesale
   text: You work in fisheries (including wholesale)
   depends_on: 
-- key: sector-plants-forestry
+- key: s-plants-forestry
   text: You work in plants and forestry
   depends_on: 
-- key: sector-veterinary
+- key: s-veterinary
   text: You work in veterinary services
   depends_on: 
-- key: sector-personal-services
+- key: s-personal-services
   text: You work in personal services
   depends_on: 
-- key: sector-professional-legal-business-services
+- key: s-professional-legal-business-services
   text: You work in professional, legal and business services
   depends_on: 
-- key: sector-charities
+- key: s-charities
   text: You work in the charity sector
   depends_on: 
-- key: sector-voluntary-community-orgs
+- key: s-voluntary-community-orgs
   text: You work for voluntary and community organisations
   depends_on: 
-- key: sector-construction
+- key: s-construction
   text: You work in construction
   depends_on: 
-- key: sector-environmental-services
+- key: s-environmental-services
   text: You work in environmental services
   depends_on: 
-- key: sector-defence
+- key: s-defence
   text: You work in defence
   depends_on: 
-- key: sector-electricity
+- key: s-electricity
   text: You work in electricity
   depends_on: 
-- key: sector-nuclear
+- key: s-nuclear
   text: You work in the nuclear industry
   depends_on: 
-- key: sector-oil-gas-coal
+- key: s-oil-gas-coal
   text: You work in oil, gas and coal
   depends_on: 
-- key: sector-renewable-energy
+- key: s-renewable-energy
   text: You work in renewable energy
   depends_on: 
-- key: sector-media-broadcasting
+- key: s-media-broadcasting
   text: You work in media and broadcasting
   depends_on: 
-- key: sector-creative-industries
+- key: s-creative-industries
   text: You work in the creative industries
   depends_on: 
-- key: sector-gambling
+- key: s-gambling
   text: You work in the gambling sector
   depends_on: 
-- key: sector-sports-recreation
+- key: s-sports-recreation
   text: You work in sports and recreation
   depends_on: 
-- key: sector-arts-culture-heritage
+- key: s-arts-culture-heritage
   text: You work in arts, culture and heritage
   depends_on: 
-- key: sector-financial-services
+- key: s-financial-services
   text: You work in financial services
   depends_on: 
-- key: sector-insurance
+- key: s-insurance
   text: You work in insurance
   depends_on: 
-- key: sector-real-estate
+- key: s-real-estate
   text: You work in real estate
   depends_on: 
-- key: sector-health-social-care-services
+- key: s-health-social-care-services
   text: You work in health and social care services
   depends_on: 
-- key: sector-medical-technology
+- key: s-medical-technology
   text: You work in medical technology
   depends_on: 
-- key: sector-pharmaceuticals-clinical-trials
+- key: s-pharmaceuticals-clinical-trials
   text: You work in pharmaceuticals and clinical trials
   depends_on: 
-- key: sector-digital-technology-computer-services
+- key: s-digital-technology-computer-services
   text: You work in digital, technology and computer services
   depends_on: 
-- key: sector-telecoms-information-services
+- key: s-telecoms-information-services
   text: You work in telecoms and information services
   depends_on: 
-- key: sector-manufacturing-consumer-goods
+- key: s-manufacturing-consumer-goods
   text: You work in consumer goods manufacturing
   depends_on: 
-- key: sector-chemicals
+- key: s-chemicals
   text: You work in the chemicals industry
   depends_on: 
-- key: sector-diamonds
+- key: s-diamonds
   text: You work in the diamond industry
   depends_on: 
-- key: sector-metals-manufacture
+- key: s-metals-manufacture
   text: You work in metals manufacturing
   depends_on: 
-- key: sector-mining
+- key: s-mining
   text: You work in mining
   depends_on: 
-- key: sector-non-metal-materials-manufacture
+- key: s-non-metal-materials-manufacture
   text: You work in non-metal materials manufacturing
   depends_on: 
-- key: sector-justice-including-prisons
+- key: s-justice-including-prisons
   text: You work in the justice system (including prisons)
   depends_on: 
-- key: sector-public-administration
+- key: s-public-administration
   text: You work in public administration
   depends_on: 
-- key: sector-education
+- key: s-education
   text: You work in education
   depends_on: 
-- key: sector-research
+- key: s-research
   text: You work in research
   depends_on: 
-- key: sector-food-drink-tobacco
+- key: s-food-drink-tobacco
   text: You work in the food, drink and tobacco industry
   depends_on: 
-- key: sector-motor-trade
+- key: s-motor-trade
   text: You work in the motor trade
   depends_on: 
-- key: sector-retail-wholesale-ex-food-drink-motors
+- key: s-retail-wholesale-ex-food-drink-motors
   text: You work in retail and wholesale (excluding food, drink and motors)
   depends_on: 
-- key: sector-accommodation
+- key: s-accommodation
   text: You work in accommodation
   depends_on: 
-- key: sector-restaurants-bars-catering
+- key: s-restaurants-bars-catering
   text: You work in restaurants, bars and catering
   depends_on: 
-- key: sector-tourism
+- key: s-tourism
   text: You work in tourism
   depends_on: 
-- key: sector-air-freight-air-passenger-services
+- key: s-air-freight-air-passenger-services
   text: You work in air freight and passenger services
   depends_on: 
-- key: sector-ports-airports
+- key: s-ports-airports
   text: You work in ports and airports
   depends_on: 
-- key: sector-postal-courier-services
+- key: s-postal-courier-services
   text: You work in postal and courier services
   depends_on: 
-- key: sector-rail-passengers-freight
+- key: s-rail-passengers-freight
   text: You work in rail freight and passenger services
   depends_on: 
-- key: sector-road-passengers-freight
+- key: s-road-passengers-freight
   text: You work in road freight and passenger services
   depends_on: 
-- key: sector-warehousing-services-pipelines
+- key: s-warehousing-services-pipelines
   text: You work in warehousing, services and pipelines
   depends_on: 
 - key: sell-goods-provide-services-in-uk

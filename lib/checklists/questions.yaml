@@ -19,153 +19,153 @@ questions:
       #- label: "Advanced manufacturing and services"
         #options:
           - label: Aerospace and space
-            value: sector-aerospace-space
+            value: s-aerospace-space
           - label: Automotive
-            value: sector-automotive
+            value: s-automotive
           - label: Electronics, parts and machinery
-            value: sector-electronic-parts-machinery
+            value: s-electronic-parts-machinery
           - label: Installation, servicing and repair
-            value: sector-installation-servicing-repair
+            value: s-installation-servicing-repair
           - label: Marine and marine transport
-            value: sector-marine-marine-transport
+            value: s-marine-marine-transport
           - label: Rail (manufacture)
-            value: sector-rail-manufacture
+            value: s-rail-manufacture
       #- label: "Agriculture, animals, fisheries and forestry"
         #options:
           - label: Agriculture and farming
-            value: sector-agriculture-farming
+            value: s-agriculture-farming
           - label: Animals and animal products (excluding food)
-            value: sector-animals-animal-products-ex-food
+            value: s-animals-animal-products-ex-food
           - label: Fisheries (including wholesale)
-            value: sector-fisheries-inc-wholesale
+            value: s-fisheries-inc-wholesale
           - label: Plants and forestry
-            value: sector-plants-forestry
+            value: s-plants-forestry
           - label: Veterinary
-            value: sector-veterinary
+            value: s-veterinary
       #- label: "Business and personal services"
         #options:
           - label: Personal services
-            value: sector-personal-services
+            value: s-personal-services
           - label: Professional, legal and business services
-            value: sector-professional-legal-business-services
+            value: s-professional-legal-business-services
       #- label: "Charities and voluntary organisation"
         #options:
           - label: Charities
-            value: sector-charities
+            value: s-charities
           - label: Voluntary and community organisations
-            value: sector-voluntary-community-orgs
+            value: s-voluntary-community-orgs
       #- label: "Construction and environmental services"
         #options:
           - label: Construction
-            value: sector-construction
+            value: s-construction
           - label: Environmental services
-            value: sector-environmental-services
+            value: s-environmental-services
       #- label: "Defence"
         #options:
           - label: Defence
-            value: sector-defence
+            value: s-defence
       #- label: "Energy"
         #options:
           - label: Electricity
-            value: sector-electricity
+            value: s-electricity
           - label: Nuclear
-            value: sector-nuclear
+            value: s-nuclear
           - label: Oil, gas and coal
-            value: sector-oil-gas-coal
+            value: s-oil-gas-coal
           - label: Renewable energy
-            value: sector-renewable-energy
+            value: s-renewable-energy
       #- label: "Entertainment"
         #options:
           - label: Media and broadcasting
-            value: sector-media-broadcasting
+            value: s-media-broadcasting
           - label: Creative industries
-            value: sector-creative-industries
+            value: s-creative-industries
           - label: Gambling
-            value: sector-gambling
+            value: s-gambling
           - label: Sports and recreation
-            value: sector-sports-recreation
+            value: s-sports-recreation
           - label: Arts, culture and heritage
-            value: sector-arts-culture-heritage
+            value: s-arts-culture-heritage
       #- label: "Finance, insurance and real estate"
         #options:
           - label: Financial services
-            value: sector-financial-services
+            value: s-financial-services
           - label: Insurance
-            value: sector-insurance
+            value: s-insurance
           - label: Real estate
-            value: sector-real-estate
+            value: s-real-estate
       #- label: "Health and social care"
         #options:
           - label: Health and social care services
-            value: sector-health-social-care-services
+            value: s-health-social-care-services
           - label: Medical technology
-            value: sector-medical-technology
+            value: s-medical-technology
           - label: Pharmaceuticals and clinical trials
-            value: sector-pharmaceuticals-clinical-trials
+            value: s-pharmaceuticals-clinical-trials
       #- label: "Information and communications"
         #options:
           - label: Digital, technology and computer services
-            value: sector-digital-technology-computer-services
+            value: s-digital-technology-computer-services
           - label: Telecoms and information services
-            value: sector-telecoms-information-services
+            value: s-telecoms-information-services
       #- label: "Manufacturing"
         #options:
           - label: Manufacturing of consumer goods
-            value: sector-manufacturing-consumer-goods
+            value: s-manufacturing-consumer-goods
       #- label: "Materials and mining"
         #options:
           - label: Chemicals
-            value: sector-chemicals
+            value: s-chemicals
           - label: Diamonds
-            value: sector-diamonds
+            value: s-diamonds
           - label: Metals manufacture
-            value: sector-metals-manufacture
+            value: s-metals-manufacture
           - label: Mining
-            value: sector-mining
+            value: s-mining
           - label: Non-metal materials manufacture
-            value: sector-non-metal-materials-manufacture
+            value: s-non-metal-materials-manufacture
       #- label: "Public administration"
         #options:
           - label: Justice including prisons
-            value: sector-justice-including-prisons
+            value: s-justice-including-prisons
           - label: Public administration
-            value: sector-public-administration
+            value: s-public-administration
       #- label: "Research and education"
         #options:
           - label: Education
-            value: sector-education
+            value: s-education
           - label: Research
-            value: sector-research
+            value: s-research
       #- label: "Retail, wholesale and consumer goods"
         #options:
           - label: Food, drink and tobacco
-            value: sector-food-drink-tobacco
+            value: s-food-drink-tobacco
           - label: Motor trade
-            value: sector-motor-trade
+            value: s-motor-trade
           - label: Retail and wholesale (excluding food, drink and motors)
-            value: sector-retail-wholesale-ex-food-drink-motors
+            value: s-retail-wholesale-ex-food-drink-motors
       #- label: "Tourism and hospitality"
         #options:
           - label: Accommodation
-            value: sector-accommodation
+            value: s-accommodation
           - label: Restaurants, bars and catering
-            value: sector-restaurants-bars-catering
+            value: s-restaurants-bars-catering
           - label: Tourism
-            value: sector-tourism
+            value: s-tourism
       #- label: "Transport and logistics"
         #options:
           - label: Air freight and air passenger services
-            value: sector-air-freight-air-passenger-services
+            value: s-air-freight-air-passenger-services
           - label: Ports and airports
-            value: sector-ports-airports
+            value: s-ports-airports
           - label: Postal and courier services
-            value: sector-postal-courier-services
+            value: s-postal-courier-services
           - label: Rail (passengers and freight)
-            value: sector-rail-passengers-freight
+            value: s-rail-passengers-freight
           - label: Road (passengers and freight)
-            value: sector-road-passengers-freight
+            value: s-road-passengers-freight
           - label: Warehousing, services and pipelines
-            value: sector-warehousing-services-pipelines
+            value: s-warehousing-services-pipelines
 
   - key: business_activity
     criteria: owns-operates-business-organisation
