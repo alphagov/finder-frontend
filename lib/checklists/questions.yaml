@@ -11,13 +11,13 @@ questions:
 
   - key: sector-business-area
     criteria: owns-operates-business-organisation
-    question_type: "multiple"
+    question_type: "multiple_grouped"
     question: "What does your business or organisation do?"
     description: |
       <p>Choose all the sectors and areas that your business or organisation operates in.</p>
     options:
-      #- label: "Advanced manufacturing and services"
-        #options:
+      - label: "Advanced manufacturing and services"
+        options:
           - label: Aerospace and space
             value: aero-space
           - label: Automotive
@@ -30,8 +30,8 @@ questions:
             value: marine-transport
           - label: Rail (manufacture)
             value: rail-manufacture
-      #- label: "Agriculture, animals, fisheries and forestry"
-        #options:
+      - label: "Agriculture, animals, fisheries and forestry"
+        options:
           - label: Agriculture and farming
             value: agriculture-farm
           - label: Animals and animal products (excluding food)
@@ -42,30 +42,30 @@ questions:
             value: forestry
           - label: Veterinary
             value: vet
-      #- label: "Business and personal services"
-        #options:
+      - label: "Business and personal services"
+        options:
           - label: Personal services
             value: personal-service
           - label: Professional, legal and business services
             value: legal-service
-      #- label: "Charities and voluntary organisation"
-        #options:
+      - label: "Charities and voluntary organisation"
+        options:
           - label: Charities
             value: charity
           - label: Voluntary and community organisations
             value: voluntary
-      #- label: "Construction and environmental services"
-        #options:
+      - label: "Construction and environmental services"
+        options:
           - label: Construction
             value: construction
           - label: Environmental services
             value: environment
-      #- label: "Defence"
-        #options:
+      - label: "Defence"
+        options:
           - label: Defence
             value: defence
-      #- label: "Energy"
-        #options:
+      - label: "Energy"
+        options:
           - label: Electricity
             value: electricity
           - label: Nuclear
@@ -74,8 +74,8 @@ questions:
             value: oil-gas-coal
           - label: Renewable energy
             value: renewables
-      #- label: "Entertainment"
-        #options:
+      - label: "Entertainment"
+        options:
           - label: Media and broadcasting
             value: media
           - label: Creative industries
@@ -86,34 +86,34 @@ questions:
             value: sports
           - label: Arts, culture and heritage
             value: culture
-      #- label: "Finance, insurance and real estate"
-        #options:
+      - label: "Finance, insurance and real estate"
+        options:
           - label: Financial services
             value: finance
           - label: Insurance
             value: insurance
           - label: Real estate
             value: real-estate
-      #- label: "Health and social care"
-        #options:
+      - label: "Health and social care"
+        options:
           - label: Health and social care services
             value: health
           - label: Medical technology
             value: medical-tech
           - label: Pharmaceuticals and clinical trials
             value: pharma
-      #- label: "Information and communications"
-        #options:
+      - label: "Information and communications"
+        options:
           - label: Digital, technology and computer services
             value: digital
           - label: Telecoms and information services
             value: telecoms
-      #- label: "Manufacturing"
-        #options:
+      - label: "Manufacturing"
+        options:
           - label: Manufacturing of consumer goods
             value: consumer-goods
-      #- label: "Materials and mining"
-        #options:
+      - label: "Materials and mining"
+        options:
           - label: Chemicals
             value: chemical
           - label: Diamonds
@@ -124,36 +124,36 @@ questions:
             value: mining
           - label: Non-metal materials manufacture
             value: non-metal-material
-      #- label: "Public administration"
-        #options:
+      - label: "Public administration"
+        options:
           - label: Justice including prisons
             value: justice-including-prisons
           - label: Public administration
             value: public-administration
-      #- label: "Research and education"
-        #options:
+      - label: "Research and education"
+        options:
           - label: Education
             value: education
           - label: Research
             value: research
-      #- label: "Retail, wholesale and consumer goods"
-        #options:
+      - label: "Retail, wholesale and consumer goods"
+        options:
           - label: Food, drink and tobacco
             value: food-drink-tobacco
           - label: Motor trade
             value: motor-trade
           - label: Retail and wholesale (excluding food, drink and motors)
             value: retail-wholesale-x-food-drink-motors
-      #- label: "Tourism and hospitality"
-        #options:
+      - label: "Tourism and hospitality"
+        options:
           - label: Accommodation
             value: accommodation
           - label: Restaurants, bars and catering
             value: restaurants-catering
           - label: Tourism
             value: tourism
-      #- label: "Transport and logistics"
-        #options:
+      - label: "Transport and logistics"
+        options:
           - label: Air freight and air passenger services
             value: air-passenger-freight
           - label: Ports and airports

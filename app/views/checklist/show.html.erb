@@ -38,6 +38,13 @@
               formatted_description: formatted_description
             } %>
           </div>
+        <% elsif @current_question.multiple_grouped? %>
+          <div class="govuk-!-margin-top-8">
+            <%= render 'question_multiple_grouped_choice', {
+              current_question: @current_question,
+              formatted_description: formatted_description
+            } %>
+          </div>
         <% elsif @current_question.single_wrapped? %>
           <div class="govuk-!-margin-top-8">
             <%= render 'question_single_wrapped', {
