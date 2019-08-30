@@ -36,7 +36,7 @@ actions:
   guidance_link_text: 'Healthcare after Brexit: citizens of the EU, Norway, Iceland,
     Liechtenstein and Switzerland visiting the UK'
   guidance_url: https://www.gov.uk/guidance/healthcare-for-eu-and-efta-citizens-visiting-the-uk
-  criteria: (nationality-eu || nationality-row) && visiting-uk
+  criteria: "(nationality-eu || nationality-row) && visiting-uk"
   audience: citizen
 - action_id: S005
   priority: 5
@@ -50,7 +50,7 @@ actions:
   guidance_prompt:
   guidance_link_text:
   guidance_url:
-  criteria: (nationality-eu || nationality-row) && studying-uk
+  criteria: "(nationality-eu || nationality-row) && studying-uk"
   audience: citizen
 - action_id: S007
   priority: 5
@@ -64,7 +64,7 @@ actions:
   guidance_prompt: Read the guidance
   guidance_link_text: Studying in the European Union after Brexit
   guidance_url: https://www.gov.uk/guidance/studying-in-the-european-union-after-brexit
-  criteria: (nationality-uk || nationality-row) && studying-eu
+  criteria: "(nationality-uk || nationality-row) && studying-eu"
   audience: citizen
 - action_id: S008
   priority: 8
@@ -193,7 +193,7 @@ actions:
   guidance_prompt: Read the guidance
   guidance_link_text: 'UK students in the EU: continuing your studies'
   guidance_url: https://www.gov.uk/guidance/uk-students-in-the-eu-continuing-your-studies
-  criteria: (nationality-uk || nationality-row) && studying-eu
+  criteria: "(nationality-uk || nationality-row) && studying-eu"
   audience: citizen
 - action_id: S028
   priority: 2
