@@ -1,56 +1,5 @@
 ---
 actions:
-- action_id: T090
-  priority: 5
-  title: Export animals or products of animal origin (POAO) through the right EU border
-    inspection post and prepare the right documents
-  title_url:
-  consequence: Your animals or products may be delayed or rejected when they reach
-    the EU if you do not have the right documents or go through the wrong border post.
-  lead_time: It takes up to 3 days
-  guidance_prompt: Read the guidance
-  guidance_link_text: Exporting animals and animal products in a no-deal Brexit
-  guidance_url: https://www.gov.uk/guidance/exporting-animals-animal-products-fish-and-fishery-products-if-the-uk-leaves-the-eu-with-no-deal
-  criteria: animal-ex-food
-  audience: business
-- action_id: T089
-  priority: 5
-  title: Talk to your vet 6 weeks before you travel with your horse or other equine
-    to the EU
-  title_url:
-  consequence: You will not be able to take your horse or other equine to the EU.
-  lead_time: Do it as soon as possible
-  guidance_prompt: Read the guidance
-  guidance_link_text: 'Export horses and ponies: special rules'
-  guidance_url: https://www.gov.uk/guidance/export-horses-and-ponies-special-rules
-  criteria: animal-ex-food
-  audience: citizen
-- action_id: T088
-  priority: 5
-  title: If you buy chemicals from the EU, you will need to register on the new UK
-    REACH system
-  title_url:
-  consequence: You may not be able to bring chemicals into the UK if you do not register.
-  lead_time: It usually takes up to 6 weeks
-  guidance_prompt: Read the guidance
-  guidance_link_text: How to comply with REACH chemical regulations
-  guidance_url: https://www.gov.uk/guidance/how-to-comply-with-reach-chemical-regulations
-  criteria: chemical || import-from-eu
-  audience: business
-- action_id: T087
-  priority: 8
-  title: Check if you need to get a phytosanitary certificate to export plants to
-    the EU
-  title_url:
-  consequence: The plants may be delayed or rejected when they reach the EU if you
-    do not have the certificate.
-  lead_time: It takes up to 7 days
-  guidance_prompt: Read the guidance
-  guidance_link_text: Importing and exporting plants and plant products if there’s
-    a no deal Brexit
-  guidance_url: https://www.gov.uk/guidance/importing-and-exporting-plants-and-plant-products-if-theres-no-withdrawal-deal
-  criteria: agriculture-farm || forestry
-  audience: business
 - action_id: S001
   priority: 8
   title: Apply to the EU Settlement Scheme by 31 December 2020 to continue living
@@ -63,7 +12,7 @@ actions:
   guidance_link_text: Apply to the EU Settlement Scheme (settled and pre-settled status)
   guidance_url: https://www.gov.uk/settled-status-eu-citizens-families
   criteria: nationality-eu && living-uk
-  audience: business
+  audience: citizen
 - action_id: S003
   priority: 5
   title: Apply for a permit to join your EU or EEA family member in the UK
@@ -75,7 +24,7 @@ actions:
   guidance_link_text: Apply to the EU Settlement Scheme (settled and pre-settled status)
   guidance_url: https://www.gov.uk/settled-status-eu-citizens-families
   criteria: "(nationality-row || nationality-eu) && (living-eu || living-row)"
-  audience: business
+  audience: citizen
 - action_id: S004
   priority: 5
   title: Take out appropriate travel insurance with health cover before travelling
@@ -102,7 +51,7 @@ actions:
   guidance_link_text:
   guidance_url:
   criteria: nationality-eu && studying-uk
-  audience: business
+  audience: citizen
 - action_id: S007
   priority: 5
   title: Contact your home university to check if you can continue your Erasmus+ placement
@@ -116,7 +65,7 @@ actions:
   guidance_link_text: Studying in the European Union after Brexit
   guidance_url: https://www.gov.uk/guidance/studying-in-the-european-union-after-brexit
   criteria: nationality-uk && studying-eu
-  audience: business
+  audience: citizen
 - action_id: S008
   priority: 8
   title: Check a passport for travel to Europe after Brexit
@@ -128,7 +77,7 @@ actions:
   guidance_link_text: Passport rules for travel to Europe after Brexit
   guidance_url: https://www.gov.uk/guidance/passport-rules-for-travel-to-europe-after-brexit
   criteria: nationality-uk && visiting-eu
-  audience: business
+  audience: citizen
 - action_id: S009
   priority: 8
   title: Contact your vet at least 4 months before travelling to make sure your pet
@@ -141,7 +90,7 @@ actions:
   guidance_link_text: Pet travel to Europe after Brexit
   guidance_url: https://www.gov.uk/guidance/pet-travel-to-europe-after-brexit
   criteria: nationality-uk && visiting-eu && bring-pet-eu
-  audience: business
+  audience: citizen
 - action_id: S010
   priority: 5
   title: Check whether your mobile phone company has changed its mobile roaming charges
@@ -154,7 +103,7 @@ actions:
   guidance_link_text: Visit Europe after Brexit
   guidance_url: https://www.gov.uk/visit-europe-brexit
   criteria: living-uk && visiting-eu
-  audience: business
+  audience: citizen
 - action_id: S013
   priority: 8
   title: Check what you need to do to make sure you can travel through the border
@@ -167,7 +116,7 @@ actions:
   guidance_link_text: Visit Europe after Brexit
   guidance_url: https://www.gov.uk/visit-europe-brexit
   criteria: nationality-uk && visiting-eu
-  audience: business
+  audience: citizen
 - action_id: S015
   priority: 5
   title: To get free NHS healthcare, prove that you've returned to the UK to live
@@ -180,7 +129,7 @@ actions:
   guidance_link_text: 'Living in the EU: prepare for Brexit'
   guidance_url: https://www.gov.uk/guidance/advice-for-british-nationals-travelling-and-living-in-europe
   criteria: nationality-uk && return-to-uk
-  audience: business
+  audience: citizen
 - action_id: S022
   priority: 2
   title: Check if you need an International Driving Permit before you drive in the
@@ -193,7 +142,7 @@ actions:
   guidance_link_text: Driving abroad
   guidance_url: https://www.gov.uk/driving-abroad
   criteria: "(nationality-uk && visiting-eu && driving-eu) || (nationality-eu && visiting-uk)"
-  audience: business
+  audience: citizen
 - action_id: S023
   priority: 2
   title: Get motor insurance green cards for your vehicle, caravan or trailer if they're
@@ -313,7 +262,7 @@ actions:
   audience: business
 - action_id: T004
   priority: 8
-  title: Check if you need to appoint a representative in the EU and label your goods
+  title: Check if you need to appoint a representative in the EU, and label your goods
     with your EU importer's details
   title_url:
   consequence: If you do not meet the requirements, you may not be able to export
@@ -375,7 +324,7 @@ actions:
     after Brexit
   guidance_url: https://www.gov.uk/guidance/prepare-to-work-and-operate-in-the-european-aviation-sector-after-brexit
   criteria: aero-space || air-passenger-freight
-  audience: citizen
+  audience: business
 - action_id: T011
   priority: 5
   title: Check if you need to change your contracts to broadcast licenced content
@@ -427,7 +376,7 @@ actions:
   guidance_link_text: Satellites and space programmes after Brexit - Copernicus
   guidance_url: https://www.gov.uk/guidance/satellites-and-space-programmes-after-brexit
   criteria: aero-space
-  audience: citizen
+  audience: business
 - action_id: T016
   priority: 5
   title: Find out how to comply with the new UK nuclear safeguards arrangements
@@ -488,7 +437,7 @@ actions:
   guidance_link_text: Shipping radioactive waste and spent fuel after Brexit
   guidance_url: https://www.gov.uk/guidance/shipping-radioactive-sources-between-the-uk-and-eu-after-brexit
   criteria: nuclear || electricity || mining || medical-tech
-  audience: citizen
+  audience: business
 - action_id: T021
   priority: 5
   title: Check what documents your employees need to make and operate aircraft for
@@ -516,15 +465,15 @@ actions:
     no Brexit deal
   guidance_url: https://www.gov.uk/guidance/using-personal-data-after-brexit
   criteria: personal-eu-org || personal-eu-org-process || personal-eu-org-use || personal-eu-org-provide
-  audience: citizen
+  audience: business
 - action_id: T028
   priority: 8
   title: Export fish through the right EU border inspection post and prepare the right
     documentation
   title_url:
   consequence: Your fish may be delayed or rejected when they reach the EU if you
-    do not have the right documentation or go through the wrong border post.
-  lead_time: The documentation will take 3 days
+    do not have the right documents or go through the wrong border post.
+  lead_time: It takes 3 days to get the documents
   guidance_prompt: Read the guidance
   guidance_link_text: Export fish after a no-deal Brexit
   guidance_url: https://www.gov.uk/guidance/exporting-and-importing-fish-if-theres-no-brexit-deal
@@ -596,7 +545,7 @@ actions:
   priority: 8
   title: Check if you can export organic food to the EU, and how to label and trade
     it.
-  title_url: https://www.gov.uk/government/publications/organic-certification-list-of-uk-approved-organic-control-bodies
+  title_url: https://www.gov.uk/guidance/trading-and-labelling-organic-food-if-theres-no-brexit-deal
   consequence: You may not be able to sell your food as organic in the EU.
   lead_time:
   guidance_prompt: Read the guidance
@@ -604,18 +553,18 @@ actions:
   guidance_url: https://www.gov.uk/guidance/trading-and-labelling-organic-food-if-theres-no-brexit-deal
   criteria: food-drink-tobacco || export-to-eu
   audience: business
-- action_id: T044
+- action_id: T045
   priority: 5
-  title: You’ll need to get an ‘attestation of equivalence’ to export hops to the
-    EU
+  title: Print 'GB', 'GBR' or '826' on each egg you're exporting to the EU for people
+    to eat
   title_url:
-  consequence: You will not be able to export hops to the EU without the right certificates.
-  lead_time: 5 working days for an attestation once equivalence is granted by the
-    EU
+  consequence: Your eggs may be delayed or rejected when they reach the EU if they
+    have the wrong marking.
+  lead_time: Do it as soon as possible
   guidance_prompt: Read the guidance
-  guidance_link_text: Hops and hops products marketing standards after Brexit
-  guidance_url: https://www.gov.uk/guidance/hops-and-hops-products-marketing-standards-if-the-uk-leaves-the-eu-without-a-deal
-  criteria: food-drink-tobacco || agriculture-farm
+  guidance_link_text: Egg marketing standards if there’s a no-deal Brexit
+  guidance_url: https://www.gov.uk/guidance/egg-marketing-standards-if-theres-a-no-deal-brexit
+  criteria: agriculture-farm
   audience: business
 - action_id: T046
   priority: 5
@@ -644,7 +593,7 @@ actions:
   guidance_link_text: Poultry meat marketing standards after Brexit
   guidance_url: https://www.gov.uk/guidance/poultry-meat-marketing-standards-when-the-uk-leaves-the-eu
   criteria: agriculture-farm
-  audience: citizen
+  audience: business
 - action_id: T050
   priority: 8
   title: Get an International Maritime Organisation (IMO) number if your boat is 12
@@ -669,7 +618,7 @@ actions:
   guidance_link_text: Export fish after a no-deal Brexit
   guidance_url: https://www.gov.uk/guidance/exporting-and-importing-fish-if-theres-no-brexit-deal
   criteria: marine-transport || fish-inc-wholesale
-  audience: citizen
+  audience: business
 - action_id: T052
   priority: 8
   title: Register your chemicals to an organisation based in the EU if you want to
@@ -682,7 +631,7 @@ actions:
   guidance_link_text: How to comply with REACH chemical regulations
   guidance_url: https://www.gov.uk/guidance/how-to-comply-with-reach-chemical-regulations
   criteria: chemical
-  audience: citizen
+  audience: business
 - action_id: T056
   priority: 5
   title: Prepare for loss of access to EU Emissions Trading System and other EU Registry
@@ -701,8 +650,8 @@ actions:
   priority: 5
   title: Check whether any wood packaging you use meets ISPM15 international standards
   title_url:
-  consequence: If your wood packaging does not meet these standards, it may not be
-    allowed into any EU countries.
+  consequence: You may not be able to export using wood packaging that isn’t ISPM15
+    certified.
   lead_time: Do it as soon as possible
   guidance_prompt: Read the guidance
   guidance_link_text: Wood packaging goods for import and export
@@ -898,7 +847,8 @@ actions:
     customs procedures] \nNEW: Decide whether to get an agent or make declarations
     yourself"
   title_url: https://www.gov.uk/prepare-export-from-uk-after-brexit
-  consequence: You will not be able to trade goods with the EU.
+  consequence: You may not be able to trade goods with the EU if you do not get your
+    business ready.
   lead_time: Do it as soon as possible
   guidance_prompt: Read the guidance
   guidance_link_text: Placing manufactured goods on the EU market after Brexit
@@ -917,7 +867,21 @@ actions:
     the EU
   guidance_url: https://www.gov.uk/guidance/how-to-move-goods-between-or-through-common-transit-countries-including-the-eu
   criteria: export-to-eu || haulage-goods-across-eu-borders
-  audience: citizen
+  audience: business
+- action_id: T076
+  priority: 2
+  title: Find out if a no deal Brexit will affect your business on the Finacial Conduct
+    Authority’s website
+  title_url: https://www.fca.org.uk/firms/preparing-for-brexit
+  consequence: Financial institutions that carry out business between the UK and EEA
+    may not be able to operate if they do not have the right plan in place.
+  lead_time: Do it as soon as possible
+  guidance_prompt: Read the guidance
+  guidance_link_text: Information for financial institutions if there’s no Brexit
+    deal
+  guidance_url: https://www.gov.uk/government/publications/banking-insurance-and-other-financial-services-if-theres-no-brexit-deal/banking-insurance-and-other-financial-services-if-theres-no-brexit-deal-information-for-financial-services-institutions
+  criteria: finance || insurance
+  audience: business
 - action_id: T077
   priority: 2
   title: Ask your employees to check if they need to apply to the EU Settlement Scheme
@@ -929,20 +893,6 @@ actions:
   guidance_link_text: Apply to the EU Settlement Scheme (settled and pre-settled status)
   guidance_url: https://www.gov.uk/settled-status-eu-citizens-families
   criteria: employ-eu-citizens
-  audience: citizen
-- action_id: T085
-  priority: 5
-  title: Check what you need to do if you're a lawyer with a UK qualification to still
-    work or provide legal services in the EU
-  title_url:
-  consequence: You may not be able to continue working or providing legal services
-    in the EU if you do not prepare.
-  lead_time: Do it as soon as possible
-  guidance_prompt: Read the guidance
-  guidance_link_text: UK lawyers practising in the EU, Norway, Iceland or Liechtenstein
-    in a no-deal Brexit
-  guidance_url: https://www.gov.uk/government/publications/uk-lawyers-practising-in-the-eu-norway-iceland-or-liechtenstein-after-a-no-deal-brexit
-  criteria: legal-service
   audience: business
 - action_id: T080
   priority: 5
@@ -983,6 +933,20 @@ actions:
   guidance_url: https://www.gov.uk/government/publications/legal-services-business-owners-after-a-no-deal-brexit
   criteria: legal-service
   audience: business
+- action_id: T085
+  priority: 5
+  title: Check what you need to do if you're a lawyer with a UK qualification to still
+    work or provide legal services in the EU
+  title_url:
+  consequence: You may not be able to continue working or providing legal services
+    in the EU if you do not prepare.
+  lead_time: Do it as soon as possible
+  guidance_prompt: Read the guidance
+  guidance_link_text: UK lawyers practising in the EU, Norway, Iceland or Liechtenstein
+    in a no-deal Brexit
+  guidance_url: https://www.gov.uk/government/publications/uk-lawyers-practising-in-the-eu-norway-iceland-or-liechtenstein-after-a-no-deal-brexit
+  criteria: legal-service
+  audience: business
 - action_id: T086
   priority: 5
   title: Apply for the right to export seeds to the EU
@@ -994,4 +958,55 @@ actions:
     if there’s a no deal Brexit
   guidance_url: https://www.gov.uk/guidance/plant-variety-rights-and-marketing-plant-reproductive-material-if-the-uk-leaves-the-eu-without-a-deal
   criteria: agriculture-farm || forestry
+  audience: business
+- action_id: T087
+  priority: 8
+  title: Check if you need to get a phytosanitary certificate to export plants to
+    the EU
+  title_url:
+  consequence: The plants may be delayed or rejected when they reach the EU if you
+    do not have the certificate.
+  lead_time: It takes up to 7 days
+  guidance_prompt: Read the guidance
+  guidance_link_text: Importing and exporting plants and plant products if there’s
+    a no deal Brexit
+  guidance_url: https://www.gov.uk/guidance/importing-and-exporting-plants-and-plant-products-if-theres-no-withdrawal-deal
+  criteria: agriculture-farm || forestry
+  audience: business
+- action_id: T088
+  priority: 5
+  title: If you buy chemicals from the EU, you will need to register on the new UK
+    REACH system
+  title_url:
+  consequence: You may not be able to bring chemicals into the UK if you do not register.
+  lead_time: It usually takes up to 6 weeks
+  guidance_prompt: Read the guidance
+  guidance_link_text: How to comply with REACH chemical regulations
+  guidance_url: https://www.gov.uk/guidance/how-to-comply-with-reach-chemical-regulations
+  criteria: chemical || import-from-eu
+  audience: business
+- action_id: T089
+  priority: 5
+  title: Talk to your vet 6 weeks before you travel with your horse or other equine
+    to the EU
+  title_url:
+  consequence: You will not be able to take your horse or other equine to the EU.
+  lead_time: Do it as soon as possible
+  guidance_prompt: Read the guidance
+  guidance_link_text: 'Export horses and ponies: special rules'
+  guidance_url: https://www.gov.uk/guidance/export-horses-and-ponies-special-rules
+  criteria: animal-ex-food
+  audience: business
+- action_id: T090
+  priority: 5
+  title: Export animals or products of animal origin (POAO) through the right EU border
+    inspection post and prepare the right documents
+  title_url:
+  consequence: Your animals or products may be delayed or rejected when they reach
+    the EU if you do not have the right documents or go through the wrong border post.
+  lead_time: It takes up to 3 days
+  guidance_prompt: Read the guidance
+  guidance_link_text: Exporting animals and animal products in a no-deal Brexit
+  guidance_url: https://www.gov.uk/guidance/exporting-animals-animal-products-fish-and-fishery-products-if-the-uk-leaves-the-eu-with-no-deal
+  criteria: animal-ex-food
   audience: business
