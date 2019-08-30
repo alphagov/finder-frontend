@@ -5,8 +5,8 @@ RSpec.feature "Questions workflow", type: :feature do
     when_i_visit_the_checklist_flow
     and_i_answer_business_questions
     then_i_should_see_the_results_page
-    and_i_should_see_a_pet_action
-    and_i_should_see_a_tourism_action
+    #and_i_should_see_a_pet_action
+    #and_i_should_see_a_tourism_action
   end
 
   scenario "citizen questions" do
@@ -14,8 +14,8 @@ RSpec.feature "Questions workflow", type: :feature do
     and_i_do_not_answer_business_questions
     and_i_answer_citizen_questions
     then_i_should_see_the_results_page
-    and_i_should_see_a_pet_action
-    and_i_should_not_see_a_tourism_action
+    #and_i_should_see_a_pet_action
+    #and_i_should_not_see_a_tourism_action
   end
 
   scenario "skip all questions" do
