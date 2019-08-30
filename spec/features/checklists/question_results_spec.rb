@@ -18,6 +18,18 @@ RSpec.feature "Questions workflow", type: :feature do
     and_i_should_not_see_a_tourism_action
   end
 
+  scenario "changing answers" do
+    when_i_visit_the_checklist_flow
+    and_i_answer_business_questions
+    then_i_should_see_the_results_page
+    and_i_click_the_change_answers_link
+    and_i_do_not_answer_business_questions
+    and_i_answer_citizen_questions
+    then_i_should_see_the_results_page
+    and_i_should_see_a_pet_action
+    and_i_should_not_see_a_tourism_action
+  end
+
   scenario "skip all questions" do
     when_i_visit_the_checklist_flow
     and_i_dont_answer_enough_questions
@@ -57,6 +69,10 @@ RSpec.feature "Questions workflow", type: :feature do
     answer_question("travelling-to-eu", "Yes", "You plan to bring your pet")
     answer_question("property", "Yes")
     answer_question("returning", "Yes")
+  end
+
+  def and_i_click_the_change_answers_link
+    click_on(I18n.t!("checklists_results.answers.change_answers"))
   end
 
   def then_i_should_see_the_results_page

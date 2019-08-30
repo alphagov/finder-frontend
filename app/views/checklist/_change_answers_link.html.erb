@@ -3,8 +3,8 @@
   data-module="track-click"
   data-track-action="ChangeAnswers"
   data-track-category="ChangeAnswersClicked"
-  data-track-label="<%= checklist_questions_path %>"
-  href="<%= checklist_questions_path %>"
+  data-track-label="<%= checklist_questions_path(filtered_params) %>"
+  href="<%= checklist_questions_path(filtered_params) %>"
 >
   <%= t('checklists_results.answers.change_answers') %>
 </a>
