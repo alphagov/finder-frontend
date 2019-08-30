@@ -40,6 +40,10 @@ class Checklists::Question
     type == "multiple"
   end
 
+  def multiple_grouped?
+    type == "multiple_grouped"
+  end
+
   def single_wrapped?
     type == "single_wrapped"
   end
