@@ -16,8 +16,11 @@
       </div>
     </div>
   <% end %>
+  <p class="govuk-body checklist-actions__description">
+    <%= action_based_description %>
+  </p>
 <% else %>
-  <div class="govuk-grid-row govuk-!-margin-bottom-6">
+  <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
       <p class="govuk-body"><%= t('checklists_results.actions.no_results') %></p>
     </div>

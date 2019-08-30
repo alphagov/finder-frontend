@@ -2,4 +2,9 @@
   .govuk-section-break--bold {
     border-bottom: 3px solid govuk-colour('blue');
   }
+
+  .checklist-actions__description {
+    padding: govuk-spacing(4);
+    background-color: govuk-colour('grey-4');
+  }
 }

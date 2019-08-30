@@ -49,9 +49,11 @@
       <%= render "govuk_publishing_components/components/title", {
         title: action_based_title
       } %>
-      <p class="govuk-body-l">
-        <%= action_based_description %>
-      </p>
+      <% unless @actions.any? %>
+        <p class="govuk-body-l">
+          <%= action_based_description %>
+        </p>
+      <% end %>
       <% unless criteria_keys.present? %>
         <p class="govuk-body-l">
           <%= render "change_answers_link" %>
@@ -77,16 +79,16 @@
     </div>
 
     <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible govuk-section-break--bold">
-    <div class="govuk-grid-row">
+    <div class="govuk-grid-row govuk-!-margin-bottom-6">
       <div class="govuk-grid-column-one-third">
         <%= render 'results_answers', answers: format_criteria_list(@criteria) %>
       </div>
       <div class="govuk-grid-column-two-thirds">
-        <%= render 'action_audiences', audiences: format_action_audiences(@actions) %>
+        <%= render 'action_audiences', audiences: format_action_audiences(@actions), action_based_description: action_based_description %>
       </div>
     </div>
-    <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible govuk-section-break--bold">
 
+    <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible govuk-section-break--bold">
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-one-third">
         &nbsp; <!-- without this space, it will push the two-thirds column to the left -->
