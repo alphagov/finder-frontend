@@ -36,6 +36,7 @@ describe Checklists::Action do
       subject.each do |action|
         expect { action.applies_to?([]) }.to_not raise_error
         expect { action.applies_to?(all_criteria_keys) }.to_not raise_error
+        expect(action.valid?).to be true
       end
     end
 

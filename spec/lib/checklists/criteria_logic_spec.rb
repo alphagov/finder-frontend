@@ -1,14 +1,39 @@
+require 'spec_helper'
+
 RSpec.describe Checklists::CriteriaLogic do
-  describe '#applies?' do
-    before do
-      allow(Checklists::Criterion).to receive(:load_all).and_return([
-        double(key: 'a'), double(key: 'b'), double(key: 'c')
-      ])
+  before do
+    allow(Checklists::Criterion).to receive(:load_all).and_return([
+      double(key: 'a'), double(key: 'b'), double(key: 'c')
+    ])
+  end
+
+  let(:selected_criteria) { [] }
+
+  subject(:criteria_logic) do
+    described_class.new(criteria, selected_criteria)
+  end
+
+  describe '#valid?' do
+    subject { criteria_logic.valid? }
+
+    context "a nil criteria" do
+      let(:criteria) { nil }
+      it { is_expected.to eq(true) }
     end
 
-    subject do
-      described_class.new(criteria, selected_criteria).applies?
+    context "the criteria includes all the available criteria" do
+      let(:criteria) { "a || b || c" }
+      it { is_expected.to eq(true) }
     end
+
+    context "the criteria references a non-existent criteria" do
+      let(:criteria) { "a || b || c || d" }
+      it { is_expected.to eq(false) }
+    end
+  end
+
+  describe '#applies?' do
+    subject { criteria_logic.applies? }
 
     context "a nil criteria" do
       let(:criteria) { nil }

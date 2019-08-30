@@ -27,6 +27,10 @@ class Checklists::Action
     @priority = params['priority']
   end
 
+  def valid?
+    Checklists::CriteriaLogic.new(criteria, []).valid?
+  end
+
   def applies_to?(selected_criteria)
     Checklists::CriteriaLogic.new(criteria, selected_criteria).applies?
   end
