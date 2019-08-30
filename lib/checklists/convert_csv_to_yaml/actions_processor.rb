@@ -17,6 +17,7 @@ module Checklists
       def process(record)
         stripped_record = remove_unnecessary_fields(record)
         stripped_record = convert_logic_fields(stripped_record)
+        stripped_record = strip_trailing_whitespace(stripped_record)
         stripped_record["priority"] = stripped_record["priority"].to_i
         stripped_record
       end
@@ -32,6 +33,11 @@ module Checklists
 
       def remove_unnecessary_fields(record)
         record.keep_if { |k, _v| ALLOWED_FIELDS.include?(k) }
+      end
+
+      def strip_trailing_whitespace(record)
+        record.keys.each { |key| record[key] = record[key].strip if record[key] }
+        record
       end
     end
   end
