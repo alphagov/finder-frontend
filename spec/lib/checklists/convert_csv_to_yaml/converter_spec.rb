@@ -12,7 +12,8 @@ describe Checklists::ConvertCsvToYaml::Converter do
 
     before do
       allow(processor).to receive(:process)
-                      .and_return("title_url" => "https://www.gov.uk/important-action")
+                      .and_return({ "title_url" => "https://www.gov.uk/important-action" },
+                                  "title_url" => "https://www.gov.uk/important-action-2")
     end
 
     it "converts CSV file data to YAML and writes to a YAML file" do
@@ -30,8 +31,18 @@ describe Checklists::ConvertCsvToYaml::Converter do
 
       expect(loaded_yaml_file).to eq(
         "category" => [
-          { "title_url" => "https://www.gov.uk/important-action" }
+          { "title_url" => "https://www.gov.uk/important-action" },
+          { "title_url" => "https://www.gov.uk/important-action-2" },
         ]
+      )
+    end
+
+    it "removes nil values from the records array before writing to the YAML file" do
+      converter = Checklists::ConvertCsvToYaml::Converter.new(processor)
+      converter.convert(csv_file_path, yaml_file_path)
+
+      expect(loaded_yaml_file).not_to include(
+        "title" => "Another important action"
       )
     end
   end
