@@ -59,6 +59,35 @@ RSpec.describe Registries::BaseRegistries do
     end
   end
 
+  describe "#ensure_warm_cache" do
+    before do
+      clear_cache
+      topic_taxonomy_has_taxons(level_one_taxons)
+      stub_people_registry_request
+      stub_manuals_registry_request
+      stub_organisations_registry_request
+    end
+    after { clear_cache }
+
+    it "populates the cache of all registries that implement refresh_cache" do
+      registry_cache_keys.each { |cache_key|
+        expect(Rails.cache.fetch(cache_key)).to be nil
+      }
+
+      described_class.new.ensure_warm_cache
+
+      registry_cache_keys.each { |cache_key|
+        expect(Rails.cache.fetch(cache_key)).not_to be nil
+      }
+
+      WebMock.reset!
+
+      # should not request anything further over the network
+      described_class.new.ensure_warm_cache
+      assert_not_requested :get, "http://search.dev.gov.uk/search.json"
+    end
+  end
+
   def clear_cache
     Rails.cache.clear
   end
