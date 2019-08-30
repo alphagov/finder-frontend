@@ -68,7 +68,7 @@ en:
         This is a safe and secure service. We don't store any of your personal information.
         To change your answers, follow the link below.
     actions:
-      no_results: "Based on your responses, you do not need to take any action to prepare for the Brexit deadline of 31 October 2019."
+      no_results: This is a safe and secure service. We don't store any of your personal information.
       more_guidance: "View more guidance here"
       guidance_prompt: Read the guidance
     audiences:
