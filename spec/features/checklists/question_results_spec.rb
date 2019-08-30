@@ -5,17 +5,23 @@ RSpec.feature "Questions workflow", type: :feature do
     when_i_visit_the_checklist_flow
     and_i_answer_business_questions
     then_i_should_see_the_results_page
-#    and_i_should_see_a_passport_action
-#    and_i_should_see_an_eori_action
+    and_i_should_see_a_pet_action
+    and_i_should_see_a_tourism_action
   end
 
   scenario "citizen questions" do
     when_i_visit_the_checklist_flow
     and_i_do_not_answer_business_questions
     and_i_answer_citizen_questions
-#    then_i_should_see_the_no_results_page # we have no results here
-#    and_i_should_not_see_a_passport_action
-#    and_i_should_not_see_an_eori_action
+    then_i_should_see_the_results_page
+    and_i_should_see_a_pet_action
+    and_i_should_not_see_a_tourism_action
+  end
+
+  scenario "skip all questions" do
+    when_i_visit_the_checklist_flow
+    and_i_dont_answer_enough_questions
+    then_i_should_see_the_no_results_page
   end
 
   def when_i_visit_the_checklist_flow
@@ -24,6 +30,12 @@ RSpec.feature "Questions workflow", type: :feature do
 
   def and_i_do_not_answer_business_questions
     answer_question("do_you_own_a_business", "No")
+  end
+
+  def and_i_dont_answer_enough_questions
+    answer_question("do_you_own_a_business")
+    answer_question("nationality")
+    answer_question("living", "Rest of world")
   end
 
   def and_i_answer_business_questions
@@ -41,7 +53,7 @@ RSpec.feature "Questions workflow", type: :feature do
   def and_i_answer_citizen_questions
     answer_question("nationality", "UK")
     answer_question("living", "Rest of world")
-    answer_question("drive-in-eu", "No")
+    answer_question("drive-in-eu", "Yes")
     answer_question("travelling-to-eu", "Yes", "You plan to bring your pet")
     answer_question("property", "Yes")
     answer_question("returning", "Yes")
@@ -55,20 +67,16 @@ RSpec.feature "Questions workflow", type: :feature do
     expect(page).to have_content I18n.t!("checklists_results.title_no_actions")
   end
 
-  def and_i_should_see_a_passport_action
-    action_is_shown("T002")
+  def and_i_should_see_a_pet_action
+    action_is_shown("S009")
   end
 
-  def and_i_should_not_see_a_passport_action
-    action_not_shown("T002")
+  def and_i_should_not_see_a_tourism_action
+    action_not_shown("T063")
   end
 
-  def and_i_should_not_see_an_eori_action
-    action_not_shown("T001")
-  end
-
-  def and_i_should_see_an_eori_action
-    action_is_shown("T001")
+  def and_i_should_see_a_tourism_action
+    action_is_shown("T063")
   end
 
   def action_not_shown(key)
@@ -78,7 +86,7 @@ RSpec.feature "Questions workflow", type: :feature do
 
   def action_is_shown(key)
     action = Checklists::Action.find_by_id(key)
-    expect(page).to have_link(action.title, href: action.title_url)
+    expect(page).to have_content action.title
     expect(page).to have_content action.lead_time
     expect(page).to have_content action.consequence
 
