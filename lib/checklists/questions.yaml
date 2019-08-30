@@ -300,14 +300,14 @@ questions:
     question: 'What do you do?'
     hint_title: 'If none apply click next'
     options:
-      - label: "Work in the EU"
-        value: working-eu
-      - label: "Study in the EU"
-        value: studying-eu
       - label: "Work in the UK"
         value: working-uk
       - label: "Study in the UK"
         value: studying-uk
+      - label: "Work in the EU"
+        value: working-eu
+      - label: "Study in the EU"
+        value: studying-eu
 
   - key: drive-in-eu
     question_type: single
