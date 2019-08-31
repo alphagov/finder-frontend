@@ -12,7 +12,7 @@ describe Checklists::PageService do
 
   before do
     allow(Checklists::Criterion).to receive(:load_all).and_return([
-      double(key: 'a'), double(key: 'b'), double(key: 'c'), double(key: 'd')
+      double(key_underscored: 'a'), double(key_underscored: 'b'), double(key_underscored: 'c'), double(key_underscored: 'd')
     ])
   end
 

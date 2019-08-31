@@ -36,7 +36,7 @@ private
   attr_reader :string, :selected_options
 
   def all_options
-    @all_options ||= Checklists::Criterion.load_all.map(&:key).map(&:underscore)
+    @all_options ||= Checklists::Criterion.load_all.map(&:key_underscored)
   end
 
   def context
