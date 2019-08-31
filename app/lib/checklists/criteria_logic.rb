@@ -11,7 +11,7 @@ class Checklists::CriteriaLogic
     return true if tokens.empty?
 
     allowed_values = {
-      on_ident: all_options,
+      on_ident: self.class.all_options,
       on_sp: [" "],
       on_op: %w(&& ||),
       on_lparen: ["("],
@@ -31,20 +31,22 @@ class Checklists::CriteriaLogic
     eval(string, context) # rubocop:disable Security/Eval
   end
 
+  def self.all_options
+    @all_options ||= Checklists::Criterion.load_all.map(&:key_underscored)
+  end
+
+  def self.all_options_hash
+    @all_options_hash ||= all_options.each_with_object({}) do |key, hash|
+      hash[key] = false
+    end
+  end
+
 private
 
   attr_reader :string, :selected_options
 
-  def all_options
-    @all_options ||= Checklists::Criterion.load_all.map(&:key_underscored)
-  end
-
   def context
-    all_options_hash = all_options.each_with_object({}) do |key, hash|
-      hash[key] = false
-    end
-
-    options_hash = selected_options.each_with_object(all_options_hash) do |key, hash|
+    options_hash = selected_options.each_with_object(self.class.all_options_hash.dup) do |key, hash|
       hash[key] = true
     end
 

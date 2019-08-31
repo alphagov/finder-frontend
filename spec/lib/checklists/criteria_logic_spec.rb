@@ -2,9 +2,8 @@ require 'spec_helper'
 
 RSpec.describe Checklists::CriteriaLogic do
   before do
-    allow(Checklists::Criterion).to receive(:load_all).and_return([
-      double(key_underscored: 'a'), double(key_underscored: 'b'), double(key_underscored: 'c')
-    ])
+    allow(described_class).to receive(:all_options).and_return(%w(a b c))
+    allow(described_class).to receive(:all_options_hash).and_return("a" => false, "b" => false, "c" => false)
   end
 
   let(:selected_criteria) { [] }
