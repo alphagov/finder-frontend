@@ -39,10 +39,6 @@ class ChecklistController < ApplicationController
 
 private
 
-  ###
-  # Email signup
-  ###
-
   def subscriber_list_options
     path = checklist_results_path(c: criteria_keys)
 
@@ -55,10 +51,6 @@ private
     }
   end
 
-  ###
-  # Redirect
-  ###
-
   def redirect_to_results?
     @page_service.redirect_to_results?
   end
@@ -67,23 +59,17 @@ private
     redirect_to checklist_results_path(filtered_params)
   end
 
-  ###
-  # Filtered params
-  ###
-
   def filtered_params
     request.query_parameters.except(:page)
   end
   helper_method :filtered_params
 
   def criteria_keys
-    request.query_parameters.fetch(:c, []).reject(&:blank?)
+    return [] unless params[:c].is_a? Array
+
+    params[:c].select { |k| k =~ /[a-z\-]+/ }
   end
   helper_method :criteria_keys
-
-  ###
-  # Current page
-  ###
 
   def current_page_from_params
     params[:page].to_i
