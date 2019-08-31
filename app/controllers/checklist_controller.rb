@@ -31,7 +31,7 @@ class ChecklistController < ApplicationController
   def email_signup; end
 
   def confirm_email_signup
-    request = Services.email_alert_api.find_or_create_subscriber_list(subscriber_list_options)
+    request = Services.find_or_create_subscriber_list(subscriber_list_options)
     subscriber_list_slug = request.dig("subscriber_list", "slug")
 
     redirect_to email_alert_frontend_signup_path(topic_id: subscriber_list_slug)
