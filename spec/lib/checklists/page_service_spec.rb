@@ -11,9 +11,8 @@ describe Checklists::PageService do
   }
 
   before do
-    allow(Checklists::Criterion).to receive(:load_all).and_return([
-      double(key_underscored: 'a'), double(key_underscored: 'b'), double(key_underscored: 'c'), double(key_underscored: 'd')
-    ])
+    allow(Checklists::CriteriaLogic).to receive(:all_options).and_return(%w(a b c d))
+    allow(Checklists::CriteriaLogic).to receive(:all_options_hash).and_return("a" => false, "b" => false, "c" => false, "d" => false)
   end
 
   describe '#next_page' do
