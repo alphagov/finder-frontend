@@ -1,5 +1,97 @@
 ---
 questions:
+  - key: nationality
+    question_type: single
+    question: 'What nationality are you?'
+    options:
+      - label: UK
+        value: nationality-uk
+      - label: EU
+        value: nationality-eu
+      - label: Rest of world
+        value: nationality-row
+
+  - key: living
+    question_type: single
+    question: 'Where do you live?'
+    options:
+      - label: UK
+        value: living-uk
+      - label: EU
+        value: living-eu
+      - label: Rest of world
+        value: living-row
+
+  - key: employment
+    question_type: multiple
+    question: 'What do you do?'
+    hint_title: 'If none apply click next'
+    options:
+      - label: "Work in the UK"
+        value: working-uk
+      - label: "Study in the UK"
+        value: studying-uk
+      - label: "Work in the EU"
+        value: working-eu
+      - label: "Study in the EU"
+        value: studying-eu
+
+  - key: drive-in-eu
+    question_type: single
+    question: Do you drive in the EU using a UK licence?
+    criteria: "nationality-uk && living-eu"
+    options:
+      - label: "Yes"
+        value: living-driving-eu
+      - label: "No"
+        value: living-driving-eu-no
+
+  - key: travelling
+    question_type: single_wrapped
+    question: 'Do you plan to travel after 31 October 2019?'
+    options:
+      - label: "Yes"
+        value: travelling
+        options:
+          - label: To the UK
+            value: visiting-uk
+          - label: To the EU
+            value: visiting-eu
+          - label: To the rest of the world
+            value: visiting-row
+      - label: "No"
+        value: travelling-no
+
+  - key: activities
+    criteria: "(nationality-uk && visiting-eu) || visiting-uk"
+    question_type: multiple
+    question: 'Are you planning to do any of the following?'
+    options:
+      - label: Bring your pet
+        value: visiting-bring-pet
+      - label: Drive
+        value: visiting-driving
+
+  - key: returning
+    criteria: "nationality-uk && (living-eu || living-row)"
+    question_type: single
+    question: 'Are you planning to move back to the UK?'
+    options:
+      - label: "Yes"
+        value: return-to-uk
+      - label: "No"
+        value: return-to-uk-no
+
+  - key: join-family-uk
+    question_type: single
+    question: Do you plan to join an EU family member in the UK?
+    criteria: "(nationality-eu || nationality-row) && (living-eu || living-row)"
+    options:
+      - label: "Yes"
+        value: join-family-uk-yes
+      - label: "No"
+        value: join-family-uk-no
+
   - key: do-you-own-a-business
     question_type: "single"
     question: "Are you preparing a business or organisation for Brexit?"
@@ -8,6 +100,112 @@ questions:
         value: owns-operates-business-organisation
       - label: "No"
         value: does-not-own-operate-business-organisation
+
+  - key: employ-eu-citizens
+    criteria: owns-operates-business-organisation
+    question_type: "single"
+    question: "Do you employ anyone from another European country?"
+    description: |
+      <p>This includes <a href="/eu-eea">countries in the EU</a> and Norway, Switzerland, Iceland and Liechtenstein.</p>
+    options:
+      - label: "Yes"
+        value: employ-eu-citizens
+      - label: "No"
+        value: do-not-employ-eu-citizens
+
+  - key: personal-data
+    criteria: owns-operates-business-organisation
+    question_type: "single_wrapped"
+    question: "Do you exchange personal data with another organisation in Europe?"
+    description: |
+      <p>This includes <a href="/eu-eea">organisations located in the EU</a> and Norway, Iceland and Liechtenstein.</p>
+      <p>Personal data includes customers’ addresses, staff working hours or information you give to a delivery company.</p>
+    options:
+      - label: "Yes"
+        value: personal-eu-org
+        options:
+          - label: Processing personal data from Europe
+            value: personal-eu-org-process
+          - label: Using websites or services hosted in Europe
+            value: personal-eu-org-use
+          - label: Providing digital services available to Europe
+            value: personal-eu-org-provide
+      - label: "No"
+        value: do-not-personal-eu-org
+
+  - key: eu-uk-government-funding
+    criteria: owns-operates-business-organisation
+    question_type: "single_wrapped"
+    question: "Do you get EU or UK government funding?"
+    description: |
+      <p>EU funding includes the Creative Europe Fund or Horizon 2020 scheme.</p>
+    options:
+      - label: "Yes"
+        value: eu-uk-funding
+        options:
+          - label: EU funding
+            value: eu-funding
+          - label: UK government funding
+            value: uk-funding
+      - label: "No"
+        value: do-not-eu-uk-funding
+
+  - key: public-sector-procurement
+    criteria: owns-operates-business-organisation
+    question_type: "single_wrapped"
+    question: "Do you sell your products or services to the public sector?"
+    description: |
+      <p>This includes non-government organisations, such as hospitals and schools, and central or local government organisations.</p>
+    options:
+      - label: "Yes"
+        value: sell-public-sector
+        options:
+          - label: Public sector contracts
+            value: sell-public-sector-contracts
+          - label: Defence contracts
+            value: sell-defence-contracts
+      - label: "No"
+        value: do-not-sell-to-public-sector
+
+  - key: intellectual-property
+    criteria: owns-operates-business-organisation
+    question_type: "single_wrapped"
+    question: "Do you use or rely on intellectual property (IP) protection?"
+    description: |
+      <p>Intellectual property protection includes copyright, trade marks and patents.</p>
+    options:
+      - label: "Yes"
+        value: ip
+        options:
+          - label: Copyright
+            value: ip-copyright
+          - label: Trade marks
+            value: ip-trade-marks
+          - label: Designs
+            value: ip-designs
+          - label: Patents
+            value: ip-patents
+          - label: Exhaustion of rights
+            value: ip-exhaustion-rights
+      - label: "No"
+        value: do-not-ip
+
+  - key: business-activity
+    criteria: owns-operates-business-organisation
+    question_type: "multiple"
+    question: "Does your business or organisation do any of the following activities?"
+    description: <p>Importing and exporting includes temporarily taking goods across the EU border, for example to a trade fair.</p>
+    options:
+      - label: "Sell goods or provide services in the UK"
+        value: sell-goods-provide-services-in-uk
+      - label: "Import from the EU"
+        value: import-from-eu
+      - label: "Export to the EU"
+        value: export-to-eu
+      - label: "Provide services or do business in the EU"
+        value: provide-services-do-business-in-eu
+      - label: "Transporting goods across EU borders"
+        value: haulage-goods-across-eu-borders
 
   - key: sector-business-area
     criteria: owns-operates-business-organisation
@@ -167,200 +365,3 @@ questions:
           - label: Warehousing, services and pipelines
             value: warehouse-pipeline
 
-  - key: business-activity
-    criteria: owns-operates-business-organisation
-    question_type: "multiple"
-    question: "Does your business or organisation do any of the following activities?"
-    description: <p>Importing and exporting includes temporarily taking goods across the EU border, for example to a trade fair.</p>
-    options:
-      - label: "Sell goods or provide services in the UK"
-        value: sell-goods-provide-services-in-uk
-      - label: "Import from the EU"
-        value: import-from-eu
-      - label: "Export to the EU"
-        value: export-to-eu
-      - label: "Provide services or do business in the EU"
-        value: provide-services-do-business-in-eu
-      - label: "Transporting goods across EU borders"
-        value: haulage-goods-across-eu-borders
-
-  - key: employ-eu-citizens
-    criteria: owns-operates-business-organisation
-    question_type: "single"
-    question: "Do you employ anyone from another European country?"
-    description: |
-      <p>This includes <a href="/eu-eea">countries in the EU</a> and Norway, Switzerland, Iceland and Liechtenstein.</p>
-    options:
-      - label: "Yes"
-        value: employ-eu-citizens
-      - label: "No"
-        value: do-not-employ-eu-citizens
-
-  - key: personal-data
-    criteria: owns-operates-business-organisation
-    question_type: "single_wrapped"
-    question: "Do you exchange personal data with another organisation in Europe?"
-    description: |
-      <p>This includes <a href="/eu-eea">organisations located in the EU</a> and Norway, Iceland and Liechtenstein.</p>
-      <p>Personal data includes customers’ addresses, staff working hours or information you give to a delivery company.</p>
-    options:
-      - label: "Yes"
-        value: personal-eu-org
-        options:
-          - label: Processing personal data from Europe
-            value: personal-eu-org-process
-          - label: Using websites or services hosted in Europe
-            value: personal-eu-org-use
-          - label: Providing digital services available to Europe
-            value: personal-eu-org-provide
-      - label: "No"
-        value: do-not-personal-eu-org
-
-  - key: intellectual-property
-    criteria: owns-operates-business-organisation
-    question_type: "single_wrapped"
-    question: "Do you use or rely on intellectual property (IP) protection?"
-    description: |
-      <p>Intellectual property protection includes copyright, trade marks and patents.</p>
-    options:
-      - label: "Yes"
-        value: ip
-        options:
-          - label: Copyright
-            value: ip-copyright
-          - label: Trade marks
-            value: ip-trade-marks
-          - label: Designs
-            value: ip-designs
-          - label: Patents
-            value: ip-patents
-          - label: Exhaustion of rights
-            value: ip-exhaustion-rights
-      - label: "No"
-        value: do-not-ip
-
-  - key: eu-uk-government-funding
-    criteria: owns-operates-business-organisation
-    question_type: "single_wrapped"
-    question: "Do you get EU or UK government funding?"
-    description: |
-      <p>EU funding includes the Creative Europe Fund or Horizon 2020 scheme.</p>
-    options:
-      - label: "Yes"
-        value: eu-uk-funding
-        options:
-          - label: EU funding
-            value: eu-funding
-          - label: UK government funding
-            value: uk-funding
-      - label: "No"
-        value: do-not-eu-uk-funding
-
-  - key: public-sector-procurement
-    criteria: owns-operates-business-organisation
-    question_type: "single_wrapped"
-    question: "Do you sell your products or services to the public sector?"
-    description: |
-      <p>This includes non-government organisations, such as hospitals and schools, and central or local government organisations.</p>
-    options:
-      - label: "Yes"
-        value: sell-public-sector
-        options:
-          - label: Public sector contracts
-            value: sell-public-sector-contracts
-          - label: Defence contracts
-            value: sell-defence-contracts
-      - label: "No"
-        value: do-not-sell-to-public-sector
-
-  - key: nationality
-    question_type: single
-    question: 'What nationality are you?'
-    options:
-      - label: UK
-        value: nationality-uk
-      - label: EU
-        value: nationality-eu
-      - label: Rest of world
-        value: nationality-row
-
-  - key: living
-    question_type: single
-    question: 'Where do you live?'
-    options:
-      - label: UK
-        value: living-uk
-      - label: EU
-        value: living-eu
-      - label: Rest of world
-        value: living-row
-
-  - key: employment
-    question_type: multiple
-    question: 'What do you do?'
-    hint_title: 'If none apply click next'
-    options:
-      - label: "Work in the UK"
-        value: working-uk
-      - label: "Study in the UK"
-        value: studying-uk
-      - label: "Work in the EU"
-        value: working-eu
-      - label: "Study in the EU"
-        value: studying-eu
-
-  - key: drive-in-eu
-    question_type: single
-    question: Do you drive in the EU using a UK licence?
-    criteria: "nationality-uk && living-eu"
-    options:
-      - label: "Yes"
-        value: living-driving-eu
-      - label: "No"
-        value: living-driving-eu-no
-
-  - key: travelling
-    question_type: single_wrapped
-    question: 'Do you plan to travel after 31 October 2019?'
-    options:
-      - label: "Yes"
-        value: travelling
-        options:
-          - label: To the UK
-            value: visiting-uk
-          - label: To the EU
-            value: visiting-eu
-          - label: To the rest of the world
-            value: visiting-row
-      - label: "No"
-        value: travelling-no
-
-  - key: activities
-    criteria: "(nationality-uk && visiting-eu) || visiting-uk"
-    question_type: multiple
-    question: 'Are you planning to do any of the following?'
-    options:
-      - label: Bring your pet
-        value: visiting-bring-pet
-      - label: Drive
-        value: visiting-driving
-
-  - key: returning
-    criteria: "nationality-uk && (living-eu || living-row)"
-    question_type: single
-    question: 'Are you planning to move back to the UK?'
-    options:
-      - label: "Yes"
-        value: return-to-uk
-      - label: "No"
-        value: return-to-uk-no
-
-  - key: join-family-uk
-    question_type: single
-    question: Do you plan to join an EU family member in the UK?
-    criteria: "(nationality-eu || nationality-row) && (living-eu || living-row)"
-    options:
-      - label: "Yes"
-        value: join-family-uk-yes
-      - label: "No"
-        value: join-family-uk-no

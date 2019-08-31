@@ -3,6 +3,7 @@ require "spec_helper"
 RSpec.feature "Questions workflow", type: :feature do
   scenario "business questions" do
     when_i_visit_the_checklist_flow
+    and_i_answer_citizen_questions
     and_i_answer_business_questions
     then_i_should_see_the_results_page
     and_i_should_see_a_pet_action
@@ -11,8 +12,8 @@ RSpec.feature "Questions workflow", type: :feature do
 
   scenario "citizen questions" do
     when_i_visit_the_checklist_flow
-    and_i_do_not_answer_business_questions
     and_i_answer_citizen_questions
+    and_i_do_not_answer_business_questions
     then_i_should_see_the_results_page
     and_i_should_see_a_pet_action
     and_i_should_not_see_a_tourism_action
@@ -33,23 +34,22 @@ RSpec.feature "Questions workflow", type: :feature do
   end
 
   def and_i_dont_answer_enough_questions
-    answer_question("do-you-own-a-business")
     answer_question("nationality")
     answer_question("living", "Rest of world")
     answer_question("employment")
     answer_question("travelling")
+    answer_question("do-you-own-a-business")
   end
 
   def and_i_answer_business_questions
     answer_question("do-you-own-a-business", "Yes")
-    answer_question("sector-business-area", "Tourism")
-    answer_question("business-activity")
     answer_question("employ-eu-citizens", "No")
     answer_question("personal-data", "No")
-    answer_question("intellectual-property", "No")
     answer_question("eu-uk-government-funding", "No")
     answer_question("public-sector-procurement", "No")
-    and_i_answer_citizen_questions
+    answer_question("intellectual-property", "No")
+    answer_question("business-activity")
+    answer_question("sector-business-area", "Tourism")
   end
 
   def and_i_answer_citizen_questions
