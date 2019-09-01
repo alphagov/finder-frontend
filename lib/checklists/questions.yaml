@@ -63,7 +63,7 @@ questions:
         value: travelling-no
 
   - key: activities
-    criteria: "(nationality-uk && visiting-eu) || visiting-uk"
+    criteria: "visiting-eu || visiting-uk"
     question_type: multiple
     question: 'Are you planning to do any of the following?'
     options:
