@@ -21,6 +21,11 @@
           <%= action.consequence %>
         </p>
       <% end %>
+      <% if action.exception.present? %>
+        <p class="govuk-body govuk-!-font-size-16">
+          <%= action.exception %>
+        </p>
+      <% end %>
 
       <% if action.guidance_link_text.present? && action.guidance_url.present? %>
         <p class="govuk-body govuk-!-font-size-16">

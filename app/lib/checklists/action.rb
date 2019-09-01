@@ -4,6 +4,7 @@ class Checklists::Action
   attr_accessor :id,
                 :title,
                 :consequence,
+                :exception,
                 :title_url,
                 :lead_time,
                 :criteria,
@@ -17,6 +18,7 @@ class Checklists::Action
     @id = params['action_id']
     @title = params['title']
     @consequence = params['consequence']
+    @exception = params['exception']
     @title_url = params['title_url']
     @lead_time = params['lead_time']
     @criteria = params['criteria']
