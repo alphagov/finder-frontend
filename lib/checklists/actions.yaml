@@ -7,6 +7,7 @@ actions:
   title_url: https://www.gov.uk/settled-status-eu-citizens-families/applying-for-settled-status
   consequence: If you do not apply to the Settlement Scheme, you may not be able to
     continue living or working in the UK as you do now.
+  exception: "You do not need to apply if you have: indefinite leave to enter the UK, indefinite leave to remain in the UK, British or Irish citizenship (including ‘dual citizenship’)."
   lead_time: Do it as soon as possible
   guidance_prompt: Read the guidance
   guidance_link_text: Apply to the EU Settlement Scheme (settled and pre-settled status)

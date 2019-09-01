@@ -1,5 +1,10 @@
 ---
-change_notes: []
+change_notes:
+   - id: add_exception_to_settled_status
+     title: "Apply to the EU Settlement Scheme by 31 December 2020 to continue living in the UK"
+     text: "Added exceptions to settle status for those with indefinite leave to enter/remain and Irish citizenship"
+     action_id: 'S001'
+     question_key:
   # - id: brexit_action_change_1
   #   title: "Change to Get an EORI number that starts with GB to move goods in or out of the UK"
   #   text: "EORI number description added"
