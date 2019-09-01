@@ -116,7 +116,7 @@ actions:
   guidance_prompt: Read the guidance
   guidance_link_text: Visit Europe after Brexit
   guidance_url: https://www.gov.uk/visit-europe-brexit
-  criteria: living-uk && visiting-eu
+  criteria: nationality-uk && visiting-eu
   audience: citizen
 - action_id: S015
   priority: 5
@@ -142,7 +142,7 @@ actions:
   guidance_prompt: Read the guidance
   guidance_link_text: Driving abroad
   guidance_url: https://www.gov.uk/driving-abroad
-  criteria: visiting-eu && visiting-driving
+  criteria: living-uk && visiting-eu && visiting-driving
   audience: citizen
 - action_id: S023
   priority: 2
@@ -156,7 +156,7 @@ actions:
   guidance_link_text: Driving in the EU after Brexit - Insurance for your vehicle,
     caravan or trailer
   guidance_url: https://www.gov.uk/guidance/driving-in-the-eu-after-brexit#insurance-for-your-vehicle-caravan-or-trailer
-  criteria: nationality-uk && visiting-eu && visiting-driving
+  criteria: living-uk && visiting-eu && visiting-driving
   audience: citizen
 - action_id: S024
   priority: 2
@@ -169,7 +169,7 @@ actions:
   guidance_prompt: Read the guidance
   guidance_link_text: Driving in the EU after Brexit - GB stickers and number plates
   guidance_url: https://www.gov.uk/guidance/driving-in-the-eu-after-brexit#gb-stickers-and-number-plates
-  criteria: nationality-uk && visiting-eu && visiting-driving
+  criteria: living-uk && visiting-eu && visiting-driving
   audience: citizen
 - action_id: S025
   priority: 2
@@ -182,7 +182,7 @@ actions:
   guidance_prompt: Read the guidance
   guidance_link_text: Visit Europe after Brexit
   guidance_url: https://www.gov.uk/visit-europe-brexit
-  criteria: visiting-eu || visiting-uk
+  criteria: "(nationality-uk && visiting-eu) || (nationality-eu && visiting-uk)"
   audience: citizen
 - action_id: S026
   priority: 2
