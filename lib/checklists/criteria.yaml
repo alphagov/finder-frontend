@@ -232,7 +232,7 @@ criteria:
   text: You use or rely on exhaustion of rights protection
   depends_on:
 - key: do-not-ip
-  text: You do not use or rely on IP copyright protection
+  text: You do not use or rely on intellectual property protection
   depends_on:
 - key: eu-uk-funding
   text: You receive EU or UK government funding
