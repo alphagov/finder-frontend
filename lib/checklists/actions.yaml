@@ -808,7 +808,7 @@ actions:
   title_url: https://www.gov.uk/eori
   consequence: You will not be able to buy goods from or sell goods to the EU without
     an EORI number.
-  lead_time: It takes up a week
+  lead_time: It takes up to a week
   guidance_prompt: Read the guidance
   guidance_link_text: Get ready to move goods between or through common transit countries
     including the EU
