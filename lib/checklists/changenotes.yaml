@@ -30,6 +30,11 @@ change_notes:
      text: "Change criteria to only show those UK nationals traveling to the EU and EU nationals travelling to the UK"
      action_id: 'S025'
      question_key:
+   - id: change_criteria_for_activities_question
+     title: "Are you planning to do any of the following?"
+     text: "Change criteria to only show question to anyone travelling to the EU or the UK"
+     action_id:
+     question_key: activities
   # - id: brexit_action_change_1
   #   title: "Change to Get an EORI number that starts with GB to move goods in or out of the UK"
   #   text: "EORI number description added"
