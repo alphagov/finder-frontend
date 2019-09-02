@@ -23,7 +23,7 @@ questions:
         value: living-ie
       - label: Another EU country
         value: living-eu
-      - label: Rest of world
+      - label: Somewhere else
         value: living-row
 
   - key: employment
