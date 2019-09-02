@@ -54,7 +54,7 @@ actions:
   guidance_prompt:
   guidance_link_text:
   guidance_url:
-  criteria: "(nationality-eu || nationality-row) && studying-uk"
+  criteria: "(nationality-eu || nationality-row || nationality-ie) && studying-uk"
   audience: citizen
 - action_id: S007
   priority: 5
