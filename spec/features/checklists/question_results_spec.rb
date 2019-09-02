@@ -35,7 +35,7 @@ RSpec.feature "Questions workflow", type: :feature do
 
   def and_i_dont_answer_enough_questions
     answer_question("nationality")
-    answer_question("living", "Rest of world")
+    answer_question("living", "Somewhere else")
     answer_question("employment")
     answer_question("travelling")
     answer_question("do-you-own-a-business")
@@ -53,7 +53,7 @@ RSpec.feature "Questions workflow", type: :feature do
   end
 
   def and_i_answer_citizen_questions
-    answer_question("nationality", "UK")
+    answer_question("nationality", "British")
     answer_question("living", "UK")
     answer_question("employment")
     answer_question("travelling", "Yes", "To the EU")

@@ -4,11 +4,13 @@ questions:
     question_type: single
     question: 'What nationality are you?'
     options:
-      - label: UK
+      - label: British
         value: nationality-uk
-      - label: 'EU, Iceland, Liechtenstein, Norway or Switzerland'
+      - label: Irish
+        value: nationality-ie
+      - label: 'Another EU country, Iceland, Liechtenstein, Norway or Switzerland'
         value: nationality-eu
-      - label: Rest of world
+      - label: Somewhere else
         value: nationality-row
 
   - key: living
@@ -17,9 +19,11 @@ questions:
     options:
       - label: UK
         value: living-uk
-      - label: EU
+      - label: Ireland
+        value: living-ie
+      - label: Another EU country
         value: living-eu
-      - label: Rest of world
+      - label: Somewhere else
         value: living-row
 
   - key: employment
