@@ -17,13 +17,21 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
         var $submittedForm = $(event.target)
         var $checkedOptions = $submittedForm.find('input:checked')
 
-        $checkedOptions.each(function (index) {
-          $checkedOption = $(this)
-          eventLabel = $checkedOption.attr('name').replace('[]', '')
+        if ($checkedOptions.length) {
+          $checkedOptions.each(function (index) {
+            $checkedOption = $(this)
+            eventLabel = $checkedOption.attr('name').replace('[]', '')
+            options = { transport: 'beacon', label: eventLabel }
+
+            GOVUK.SearchAnalytics.trackEvent('QA option chosen', $checkedOption.val(), options)
+          })
+        } else {
+          // Skipped questions
+          eventLabel = $submittedForm.find('input').first().attr('name').replace('[]', '')
           options = { transport: 'beacon', label: eventLabel }
 
-          GOVUK.SearchAnalytics.trackEvent('QA option chosen', $checkedOption.val(), options)
-        })
+          GOVUK.SearchAnalytics.trackEvent('QA option chosen', 'no choice', options)
+        }
       })
     }
   }
