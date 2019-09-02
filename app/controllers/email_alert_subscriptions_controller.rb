@@ -1,6 +1,3 @@
-require 'email_alert_signup_api'
-require 'email_alert_title_builder'
-
 class EmailAlertSubscriptionsController < ApplicationController
   layout "finder_layout"
   protect_from_forgery except: :create
