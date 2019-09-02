@@ -28,9 +28,11 @@
         </label>
         <input name="keywords" value="<%= result_set_presenter.user_supplied_keywords %>" class="gem-c-input govuk-input" placeholder="Search GOV.UK" id="finder-keyword-search" type="search" aria-controls="js-search-results-info">
         </div>
+        <div class="app-visually-hidden-not-mobile">
           <%= render "govuk_publishing_components/components/button", {
             text: "Search"
           } %>
+        </div>
         </div>
       <% elsif finder_presenter.topic_finder? %>
         <%= link_to finder_presenter.topic_finder_parent['title'], finder_presenter.topic_finder_parent['base_path'], class: 'topic-finder__taxon-link' %>

@@ -35,13 +35,16 @@
 }
 
 .filter-form {
-  border-top: 1px solid $govuk-border-colour;
+  
   .js-enabled & .button__wrapper {
     display:none;
   }
 
   .js-required {
     display: none;
+  }
+  @include govuk-media-query($until: desktop) {
+    border-top: 1px solid $govuk-border-colour;
   }
 }
 
