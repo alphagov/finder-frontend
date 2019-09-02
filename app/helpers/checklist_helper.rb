@@ -31,7 +31,7 @@ module ChecklistHelper
   end
 
   def format_question_option(option, criteria_keys)
-    checked = criteria_keys.include?(option["value"])
-    { label: option["label"], text: option["label"], value: option["value"], checked: checked, hint_text: option["hint_text"] }
+    checked = criteria_keys.include?(option.value)
+    { label: option.label, text: option.label, value: option.value, checked: checked, hint_text: option.hint_text }
   end
 end

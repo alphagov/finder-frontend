@@ -5,15 +5,21 @@ class Checklists::Question
               :options, :type, :criteria
 
   def initialize(params)
-    @key            = params['key']
-    @text           = params['question']
-    @description    = params['description']
-    @hint_title     = params['hint_title']
-    @hint_text      = params['hint_text']
-    @options        = params['options']
-    @type           = params['question_type']
-    @criteria       = params['criteria']
+    @key = params['key']
+    @text = params['question']
+    @description = params['description']
+    @hint_title = params['hint_title']
+    @hint_text = params['hint_text']
+    @options = Option.load_all(params['options'].to_a)
+    @type = params['question_type']
+    @criteria = params['criteria']
   end
+
+  def multiple?; type == "multiple" end
+
+  def multiple_grouped?; type == "multiple_grouped" end
+
+  def single_wrapped?; type == "single_wrapped" end
 
   def self.find_by_key(key)
     load_all.find { |q| q.key == key }
@@ -22,7 +28,7 @@ class Checklists::Question
   def valid?
     return false unless Checklists::CriteriaLogic.new(criteria, []).valid?
 
-    possible_options.all? do |criterion|
+    possible_values.all? do |criterion|
       Checklists::CriteriaLogic.new(criterion, []).valid?
     end
   end
@@ -31,21 +37,9 @@ class Checklists::Question
     Checklists::CriteriaLogic.new(criteria, selected_criteria).applies?
   end
 
-  def possible_options
-    sub_options = options.flat_map { |o| o['options'].to_a }
-    (options + sub_options).map { |o| o['value'] }
-  end
-
-  def multiple?
-    type == "multiple"
-  end
-
-  def multiple_grouped?
-    type == "multiple_grouped"
-  end
-
-  def single_wrapped?
-    type == "single_wrapped"
+  def possible_values
+    sub_options = options.flat_map(&:sub_options)
+    (options + sub_options).map(&:value)
   end
 
   def self.load_all
