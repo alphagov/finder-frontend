@@ -33,7 +33,7 @@ class Checklists::Action
     Checklists::CriteriaLogic.new(criteria, []).valid?
   end
 
-  def applies_to?(selected_criteria)
+  def show?(selected_criteria)
     Checklists::CriteriaLogic.new(criteria, selected_criteria).applies?
   end
 

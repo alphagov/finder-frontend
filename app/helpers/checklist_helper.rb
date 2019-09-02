@@ -17,9 +17,7 @@ module ChecklistHelper
   end
 
   def filter_actions(actions, criteria_keys)
-    actions.select do |action|
-      action.applies_to?(criteria_keys)
-    end
+    actions.select { |a| a.show?(criteria_keys) }
   end
 
   def persistent_criteria_keys(question_criteria_keys)
@@ -27,11 +25,17 @@ module ChecklistHelper
   end
 
   def format_question_options(options, criteria_keys)
-    options.map { |o| format_question_option(o, criteria_keys) }
+    options.select { |o| o.show?(criteria_keys) }
+      .map { |o| format_question_option(o, criteria_keys) }
   end
 
   def format_question_option(option, criteria_keys)
     checked = criteria_keys.include?(option.value)
-    { label: option.label, text: option.label, value: option.value, checked: checked, hint_text: option.hint_text }
+
+    { label: option.label,
+      text: option.label,
+      value: option.value,
+      checked: checked,
+      hint_text: option.hint_text }
   end
 end
