@@ -12,7 +12,8 @@ module Checklists
                           priority
                           criteria
                           audience
-                          action_id).freeze
+                          action_id
+                          exception).freeze
 
       def process(record)
         return unless approved?(record)

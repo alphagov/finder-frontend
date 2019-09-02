@@ -7,7 +7,7 @@ actions:
   title_url: https://www.gov.uk/settled-status-eu-citizens-families/applying-for-settled-status
   consequence: If you do not apply to the Settlement Scheme, you may not be able to
     continue living or working in the UK as you do now.
-  exception: "You do not need to apply if you have: indefinite leave to enter the UK, indefinite leave to remain in the UK, British or Irish citizenship (including ‘dual citizenship’)."
+  exception: 'You do not need to apply if you have: indefinite leave to enter the UK, indefinite leave to remain in the UK, British or Irish citizenship (including ‘dual citizenship’).'
   lead_time: Do it as soon as possible
   guidance_prompt: Read the guidance
   guidance_link_text: Apply to the EU Settlement Scheme (settled and pre-settled status)
@@ -20,6 +20,7 @@ actions:
   title_url: https://www.gov.uk/family-permit/eu-settlement-scheme-family-permit
   consequence: You may not be able to travel to the UK if you do not have the right
     permit.
+  exception:
   lead_time: Do it as soon as possible
   guidance_prompt: Read the guidance
   guidance_link_text: Apply to the EU Settlement Scheme (settled and pre-settled status)
@@ -32,6 +33,7 @@ actions:
     to the UK
   title_url:
   consequence: You will be charged for your care if you do not have the right insurance.
+  exception:
   lead_time: Do it as soon as possible
   guidance_prompt: Read the guidance
   guidance_link_text: 'Healthcare after Brexit: citizens of the EU, Norway, Iceland,
@@ -47,6 +49,7 @@ actions:
   consequence: If you have not already started your placement you may not be able
     to study in the UK. If you have started, you may not get NHS healthcare, student
     finance or benefits.
+  exception:
   lead_time: Do it as soon as possible
   guidance_prompt:
   guidance_link_text:
@@ -61,6 +64,7 @@ actions:
   consequence: If you have not already started your placement you may not be able
     to study abroad. If you have started, you may not get free healthcare, student
     finance or benefits.
+  exception:
   lead_time: Do it as soon as possible
   guidance_prompt: Read the guidance
   guidance_link_text: Studying in the European Union after Brexit
@@ -73,6 +77,7 @@ actions:
   title_url: https://www.gov.uk/check-a-passport-for-travel-to-europe
   consequence: You may not be able to travel if you do not renew your passport in
     time.
+  exception:
   lead_time: Do it as soon as possible
   guidance_prompt: Read the guidance
   guidance_link_text: Passport rules for travel to Europe after Brexit
@@ -86,6 +91,7 @@ actions:
   title_url:
   consequence: If your pet does not have the proper certificates you will not be able
     to take it with you.
+  exception:
   lead_time: It takes at least 4 months
   guidance_prompt: Read the guidance
   guidance_link_text: Pet travel to Europe after Brexit
@@ -99,6 +105,21 @@ actions:
   title_url:
   consequence: You may be charged for using your mobile device in the EU if your operator
     has re-introduced roaming charges.
+  exception:
+  lead_time: Do it as soon as possible
+  guidance_prompt: Read the guidance
+  guidance_link_text: Visit Europe after Brexit
+  guidance_url: https://www.gov.uk/visit-europe-brexit
+  criteria: living-uk && visiting-eu
+  audience: citizen
+- action_id: S011
+  priority: 5
+  title: Take out appropriate travel insurance with health cover before travelling
+    to the EU
+  title_url:
+  consequence: You may be charged for your care if you do not get health cover with
+    your travel insurance.
+  exception:
   lead_time: Do it as soon as possible
   guidance_prompt: Read the guidance
   guidance_link_text: Visit Europe after Brexit
@@ -112,6 +133,7 @@ actions:
   title_url: https://www.gov.uk/visit-europe-brexit
   consequence: You may not be allowed to enter the EU if you cannot show you meet
     immigration rules.
+  exception:
   lead_time: Do it as soon as possible
   guidance_prompt: Read the guidance
   guidance_link_text: Visit Europe after Brexit
@@ -125,6 +147,7 @@ actions:
   title_url:
   consequence: If you can’t prove you meet the ordinary residence test, you may be
     charged for NHS services.
+  exception:
   lead_time: Do it as soon as possible
   guidance_prompt: Read the guidance
   guidance_link_text: 'Living in the EU: prepare for Brexit'
@@ -138,6 +161,7 @@ actions:
   title_url:
   consequence: You may be driving illegally - you could get a fine, or your vehicle
     could be seized.
+  exception:
   lead_time: Do it as soon as possible
   guidance_prompt: Read the guidance
   guidance_link_text: Driving abroad
@@ -151,6 +175,7 @@ actions:
   title_url:
   consequence: You could get a fine or your vehicle could be seized if you do not
     have a motor insurance green card to prove you're insured.
+  exception:
   lead_time: It takes up to one month
   guidance_prompt: Read the guidance
   guidance_link_text: Driving in the EU after Brexit - Insurance for your vehicle,
@@ -165,6 +190,7 @@ actions:
   title_url:
   consequence: You could get a fine if you do not have a GB sticker when you need
     one.
+  exception:
   lead_time: Do it as soon as possible
   guidance_prompt: Read the guidance
   guidance_link_text: Driving in the EU after Brexit - GB stickers and number plates
@@ -178,6 +204,7 @@ actions:
   title_url:
   consequence: If you do not allow enough time, you could miss your flight, train
     or ferry.
+  exception:
   lead_time: Do it as soon as possible
   guidance_prompt: Read the guidance
   guidance_link_text: Visit Europe after Brexit
@@ -190,6 +217,7 @@ actions:
   title_url:
   consequence: Changes to your residency, healthcare or tuition fee status will may
     stop you from completing your course.
+  exception:
   lead_time: Do it as soon as possible
   guidance_prompt: Read the guidance
   guidance_link_text: 'UK students in the EU: continuing your studies'
@@ -203,6 +231,7 @@ actions:
   title_url:
   consequence: You must check with your local council that you're eligible for housing
     services if you’re returning to the UK from the EU.
+  exception:
   lead_time: Do it as soon as possible
   guidance_prompt: Read the guidance
   guidance_link_text: Council housing
@@ -215,6 +244,7 @@ actions:
   title_url:
   consequence: You may not be able to continue living and using services in the EU
     if you are not a resident.
+  exception:
   lead_time: Do it as soon as possible
   guidance_prompt: Read the guidance
   guidance_link_text: 'Living in the EU: prepare for Brexit'
@@ -230,6 +260,7 @@ actions:
     (although in some cases you may need to transfer your certificate of conformity
     to an EU conformity asssesment body) - but if your good requires UKCA marking
     and you have not used it, then it will not be valid for sale in the UK.
+  exception:
   lead_time: Do it as soon as possible
   guidance_prompt: Read the guidance
   guidance_link_text: Prepare to use the UKCA mark after Brexit
@@ -242,6 +273,7 @@ actions:
   title_url:
   consequence: If you do not follow the rules, you may be investigated by the Competition
     and Markets Authority (CMA) and the European Commission.
+  exception:
   lead_time: Do it as soon as possible
   guidance_prompt: Read the guidance
   guidance_link_text: Merger review and anti-competitive activity after Brexit
@@ -255,6 +287,7 @@ actions:
   title_url: https://apply-for-innovation-funding.service.gov.uk/eu-grant/overview
   consequence: If you do not register, your Horizon 2020 funding will stop and you
     will not be able to receive funding from the UK government.
+  exception:
   lead_time: Do it before 31 October
   guidance_prompt: Read the guidance
   guidance_link_text: Horizon 2020 funding after Brexit
@@ -268,6 +301,7 @@ actions:
   title_url:
   consequence: If you do not meet the requirements, you may not be able to export
     goods to the EU.
+  exception:
   lead_time: Do it as soon as possible
   guidance_prompt: Read the guidance
   guidance_link_text: Placing manufactured goods on the EU market after Brexit
@@ -280,6 +314,7 @@ actions:
     for their profession to work in the country they’re going to
   title_url:
   consequence: You or your employees may not be able to enter or work in some countries.
+  exception:
   lead_time: Do it as soon as possible
   guidance_prompt: Read the guidance
   guidance_link_text: Providing services to any country in the EU, Iceland, Liechtenstein,
@@ -293,6 +328,7 @@ actions:
   title_url:
   consequence: You may breach reporting requirements in EEA countries if you do not
     make any changes you need to.
+  exception:
   lead_time: Do it as soon as possible
   guidance_prompt: Read the guidance
   guidance_link_text: Accounting if there's a no-deal Brexit
@@ -306,6 +342,7 @@ actions:
   title_url:
   consequence: If your conformity assessment is not held by an EU-recognised body,
     you will not be able to sell your products in the EU.
+  exception:
   lead_time: Do it as soon as possible
   guidance_prompt: Read the guidance
   guidance_link_text: Construction Products Regulation if there is no Brexit deal
@@ -319,6 +356,7 @@ actions:
   title_url:
   consequence: You may not be able to work or operate in the aviation industry without
     valid certificates and licences.
+  exception:
   lead_time: Do it as soon as possible
   guidance_prompt: Read the guidance
   guidance_link_text: Prepare to work and operate in the European aviation sector
@@ -333,6 +371,7 @@ actions:
   title_url:
   consequence: You may not be able to broadcast outside the UK if you do not get extra
     copyright permissions.
+  exception:
   lead_time: Do it as soon as possible
   guidance_prompt: Read the guidance
   guidance_link_text: Copyright if there's no Brexit deal
@@ -346,6 +385,7 @@ actions:
   title_url:
   consequence: You may not be able to export your intellectual property protected
     products from the UK to the EEA without the right permission.
+  exception:
   lead_time: Do it as soon as possible
   guidance_prompt: Read the guidance
   guidance_link_text: Brexit and exhaustion of intellectual property rights
@@ -359,6 +399,7 @@ actions:
   title: Check contracts relating to EU space programmes with your contracting authority
   title_url:
   consequence: You may not be able to bid for future contracts with EU space programmes.
+  exception:
   lead_time: Do it as soon as possible
   guidance_prompt: Read the guidance
   guidance_link_text: Satellites and space programmes after Brexit
@@ -372,6 +413,7 @@ actions:
   title_url:
   consequence: You may lose access to some Copernicus data and your services may not
     work.
+  exception:
   lead_time: Do it as soon as possible
   guidance_prompt: Read the guidance
   guidance_link_text: Satellites and space programmes after Brexit - Copernicus
@@ -384,6 +426,7 @@ actions:
   title_url:
   consequence: All operators in the UK civil nuclear sector will need to comply with
     the new domestic safeguards regime.
+  exception:
   lead_time: Do it as soon as possible
   guidance_prompt: Read ONR guidance
   guidance_link_text: Draft nuclear safeguards guidance for inspectors
@@ -397,6 +440,7 @@ actions:
   title_url: https://www.gov.uk/government/publications/open-general-export-licence-export-of-dual-use-items-to-eu-member-states
   consequence: You will not be able to export 'dual use' nuclear goods from the UK
     if you have not registered.
+  exception:
   lead_time: Do it as soon as possible
   guidance_prompt: Read the guidance
   guidance_link_text: Exporting nuclear-related items after Brexit
@@ -409,6 +453,7 @@ actions:
   title_url:
   consequence: You will not be able to import the specified some types of nuclear
     materials into the UK without the right licence.
+  exception:
   lead_time: It usually takes over 4 weeks
   guidance_prompt: Read the guidance
   guidance_link_text: 'Prepare to import ‘relevant’ nuclear materials from the EU
@@ -421,6 +466,7 @@ actions:
   title: Prepare to ship radioactive waste and spent fuel into and out of the UK
   title_url:
   consequence: Failing to comply with the new regulations will be a criminal offence.
+  exception:
   lead_time: Do it as soon as possible
   guidance_prompt: Read the guidance
   guidance_link_text: Shipping radioactive waste and spent fuel after Brexit
@@ -433,6 +479,7 @@ actions:
   title_url:
   consequence: You will not be able to move radioactive sources into the UK without
     making a written declaration.
+  exception:
   lead_time: Do it as soon as possible
   guidance_prompt: Read the guidance
   guidance_link_text: Shipping radioactive waste and spent fuel after Brexit
@@ -446,6 +493,7 @@ actions:
   title_url:
   consequence: You will not be able to make or operate aircraft for the gas and oil
     industry in the EU, EEA and Switzerland without the right documents.
+  exception:
   lead_time: Up to one week
   guidance_prompt: Read the guidance
   guidance_link_text: Prepare to work and operate in the European aviation sector
@@ -460,6 +508,7 @@ actions:
   title_url: https://www.gov.uk/guidance/using-personal-data-after-brexit#what-you-need-to-do-before-a-no-deal-brexit
   consequence: You will not be able to access personal data from the EU without the
     right contract.
+  exception:
   lead_time: Do it as soon as possible
   guidance_prompt: Read the guidance
   guidance_link_text: Using personal data in your business or organisation if there’s
@@ -474,6 +523,7 @@ actions:
   title_url:
   consequence: Your fish may be delayed or rejected when they reach the EU if you
     do not have the right documents or go through the wrong border post.
+  exception:
   lead_time: It takes 3 days to get the documents
   guidance_prompt: Read the guidance
   guidance_link_text: Export fish after a no-deal Brexit
@@ -487,6 +537,7 @@ actions:
   title_url:
   consequence: The plants may be delayed or rejected when they reach the UK if you
     do not register.
+  exception:
   lead_time: It takes up to 3 months
   guidance_prompt: Read the guidance
   guidance_link_text: Importing and exporting plants and plant products if there’s
@@ -501,6 +552,7 @@ actions:
   title_url:
   consequence: Your goods may be delayed or rejected at the border if you do not have
     the right documents.
+  exception:
   lead_time: It takes 48 hours
   guidance_prompt: Read the guidance
   guidance_link_text: Fresh fruit and vegetable marketing standards if there's a no
@@ -514,6 +566,7 @@ actions:
   title_url:
   consequence: Your geographical indicator name may not be protected if you do not
     register correctly.
+  exception:
   lead_time: It usually takes up to 6 weeks
   guidance_prompt: Read the guidance
   guidance_link_text: Protecting food and drink names in a no-deal Brexit
@@ -525,6 +578,7 @@ actions:
   title: Register as an approved food establishment to export food to the EU
   title_url: https://www.food.gov.uk/business-guidance/approved-food-establishments
   consequence: You will not be able to export food to the EU if you do not register.
+  exception:
   lead_time: It takes up to 4 weeks
   guidance_prompt: Read the guidance
   guidance_link_text: Exporting animals and animal products in a no-deal Brexit
@@ -536,6 +590,7 @@ actions:
   title: Check how to label food if you're selling it in the UK or EU
   title_url:
   consequence: You may not be able to sell goods in the EU if they're labelled incorrectly.
+  exception:
   lead_time: Do it as soon as possible
   guidance_prompt: Read the guidance
   guidance_link_text: Food labelling changes if there's a no-deal Brexit
@@ -548,6 +603,7 @@ actions:
     it.
   title_url: https://www.gov.uk/guidance/trading-and-labelling-organic-food-if-theres-no-brexit-deal
   consequence: You may not be able to sell your food as organic in the EU.
+  exception:
   lead_time:
   guidance_prompt: Read the guidance
   guidance_link_text: Trading and labelling organic food after Brexit
@@ -561,6 +617,7 @@ actions:
   title_url:
   consequence: Your eggs may be delayed or rejected when they reach the EU if they
     have the wrong marking.
+  exception:
   lead_time: Do it as soon as possible
   guidance_prompt: Read the guidance
   guidance_link_text: Egg marketing standards if there’s a no-deal Brexit
@@ -574,6 +631,7 @@ actions:
   title_url:
   consequence: Your eggs or chicks may be delayed or rejected when they reach the
     EU if they have the wrong markings.
+  exception:
   lead_time: Do it as soon as possible
   guidance_prompt: Read the guidance
   guidance_link_text: Hatching eggs and chicks marketing standards if there's a no-deal
@@ -589,6 +647,7 @@ actions:
   consequence: If you do not have a certificate, your meat may be delayed or rejected
     when it reaches the EU if it's printed with a farming method, for example "Free
     range".
+  exception:
   lead_time: It usually takes up to 6 weeks
   guidance_prompt: Read the guidance
   guidance_link_text: Poultry meat marketing standards after Brexit
@@ -602,6 +661,7 @@ actions:
   title_url: https://imonumbers.ihs.com/
   consequence: If your boat is 12 metres or longer, you wil not be allowed to to fish
     in EU, Norwegian or Faroese waters without an IMO number.
+  exception:
   lead_time: Do it as soon as possible
   guidance_prompt: Read the guidance
   guidance_link_text: Prepare your fisheries business for Brexit
@@ -614,6 +674,7 @@ actions:
   title_url:
   consequence: Your fish may be delayed or rejected when you reach the port if you
     do not have the right documents.
+  exception:
   lead_time: Do it as soon as possible
   guidance_prompt: Read the guidance
   guidance_link_text: Export fish after a no-deal Brexit
@@ -627,6 +688,7 @@ actions:
   title_url:
   consequence: You will not be able to export your chemicals if you do not register
     them to an organisation in the EU.
+  exception:
   lead_time: It usually takes up to 6 weeks
   guidance_prompt: Read the guidance
   guidance_link_text: How to comply with REACH chemical regulations
@@ -641,6 +703,7 @@ actions:
   consequence: You will not be able to access accounts in the EU ETS Union Registry
     administered by the UK and accounts in the Kyoto Protocol National Registry of
     the UK.
+  exception:
   lead_time: Do it as soon as possible
   guidance_prompt: Read the guidance
   guidance_link_text: The chemicals sector and preparing for Brexit
@@ -653,6 +716,7 @@ actions:
   title_url:
   consequence: You may not be able to export using wood packaging that isn’t ISPM15
     certified.
+  exception:
   lead_time: Do it as soon as possible
   guidance_prompt: Read the guidance
   guidance_link_text: Wood packaging goods for import and export
@@ -666,6 +730,7 @@ actions:
   title_url:
   consequence: You will not be able to drive a lorry for an EU operator if you do
     not have an EU Driver CPC.
+  exception:
   lead_time: Do it as soon as possible
   guidance_prompt: Read the guidance
   guidance_link_text: 'Drive in the EU after Brexit: lorry and goods vehicle drivers'
@@ -679,6 +744,7 @@ actions:
   title_url:
   consequence: You may not be able to transport goods through or between EU countries
     without an ECMT permit.
+  exception:
   lead_time: It takes up to 2 weeks
   guidance_prompt: Read the guidance
   guidance_link_text: ECMT international road haulage permits
@@ -691,6 +757,7 @@ actions:
   title_url: https://www.gov.uk/prepare-export-from-uk-after-brexit
   consequence: You may not be able to sell goods to the EU if you do not get your
     business ready.
+  exception:
   lead_time: It takes up to 4 weeks
   guidance_prompt: Read the guidance
   guidance_link_text: Get your business ready to export from the UK to the EU after
@@ -705,6 +772,7 @@ actions:
   title_url:
   consequence: You may not be able to run unscheduled services in Europe without the
     right documents.
+  exception:
   lead_time: Do it as soon as possible
   guidance_prompt: Read the guidance
   guidance_link_text: Run international bus or coach services and tours after Brexit
@@ -718,6 +786,7 @@ actions:
   title_url:
   consequence: You may not be able to transport goods through the EU if your customers
     do not give you the right documents
+  exception:
   lead_time: It takes more than 4 weeks
   guidance_prompt: Read the guidance
   guidance_link_text: 'International road haulage: no-deal Brexit haulier checklist'
@@ -731,6 +800,7 @@ actions:
   title_url:
   consequence: You will not be able to transport haulage goods through the EU without
     the right documents.
+  exception:
   lead_time: It takes more than 4 weeks
   guidance_prompt: Read the guidance
   guidance_link_text: Carry out international road haulage after Brexit
@@ -744,6 +814,7 @@ actions:
   title_url:
   consequence: You will not be able to sell vehicles or vehicle parts in the UK and
     the EU if they are not approved correctly.
+  exception:
   lead_time: It takes more than 4 weeks
   guidance_prompt: Read the guidance
   guidance_link_text: Vehicle type-approval if there’s no Brexit deal
@@ -756,6 +827,7 @@ actions:
   title_url:
   consequence: You will not be able to legally sell or supply medical devices in the
     UK if you do not get your business ready.
+  exception:
   lead_time: Do it as soon as possible
   guidance_prompt: Read the guidance
   guidance_link_text: Further guidance note on the regulation of medicines, medical
@@ -769,6 +841,7 @@ actions:
     trials
   title_url:
   consequence: You will not be able to carry out clinical trials without a legal representative.
+  exception:
   lead_time: Do it as soon as possible
   guidance_prompt: Read the guidance
   guidance_link_text: Further guidance note on the regulation of medicines, medical
@@ -782,6 +855,7 @@ actions:
   title_url:
   consequence: You will not be able to legally sell or supply medicines in the UK
     if you do not get your business ready.
+  exception:
   lead_time: Do it as soon as possible
   guidance_prompt: Read the guidance
   guidance_link_text: Further guidance note on the regulation of medicines, medical
@@ -794,6 +868,7 @@ actions:
   title: Check if you need to pay a tariff on goods you import from the EU
   title_url:
   consequence: Your goods will be held at customs if you do not pay the correct tariff.
+  exception:
   lead_time: It takes more than 4 weeks
   guidance_prompt: Read the guidance
   guidance_link_text: Check temporary rates of customs duty (tariffs) on imports after
@@ -808,6 +883,7 @@ actions:
   title_url: https://www.gov.uk/eori
   consequence: You will not be able to buy goods from or sell goods to the EU without
     an EORI number.
+  exception:
   lead_time: It takes up to a week
   guidance_prompt: Read the guidance
   guidance_link_text: Get ready to move goods between or through common transit countries
@@ -822,6 +898,7 @@ actions:
   title_url: https://www.gov.uk/guidance/register-for-simplified-import-procedures-if-the-uk-leaves-the-eu-without-a-deal
   consequence: You'll need to make full import declarations each time you buy goods
     from the EU if you do not use TSP.
+  exception:
   lead_time: It takes 2 to 4 weeks
   guidance_prompt:
   guidance_link_text:
@@ -835,6 +912,7 @@ actions:
   title_url: https://www.gov.uk/government/publications/apply-to-defer-payment-of-customs-duties-import-vat-and-excise-duties
   consequence: You'll need to pay your import duties as soon as your goods pass through
     customs if you do not have a 'duty deferment account'.
+  exception:
   lead_time: It takes up to one week
   guidance_prompt: Read the guidance
   guidance_link_text: Customs procedures if the UK leaves the EU without a deal -
@@ -848,6 +926,7 @@ actions:
   title_url: https://www.gov.uk/prepare-export-from-uk-after-brexit
   consequence: You may not be able to trade goods with the EU if you do not get your
     business ready.
+  exception:
   lead_time: Do it as soon as possible
   guidance_prompt: Read the guidance
   guidance_link_text: Placing manufactured goods on the EU market after Brexit
@@ -860,6 +939,7 @@ actions:
   title_url: https://www.gov.uk/guidance/what-you-need-to-move-goods-between-or-through-common-transit-countries-including-the-eu
   consequence: Your goods may be delayed or rejected when they reach the EU if you
     do not register.
+  exception:
   lead_time: Do it as soon as possible
   guidance_prompt: Read the guidance
   guidance_link_text: Moving goods between or through common transit countries including
@@ -874,6 +954,7 @@ actions:
   title_url: https://www.fca.org.uk/firms/preparing-for-brexit
   consequence: Financial institutions that carry out business between the UK and EEA
     may not be able to operate if they do not have the right plan in place.
+  exception:
   lead_time: Do it as soon as possible
   guidance_prompt: Read the guidance
   guidance_link_text: Information for financial institutions if there’s no Brexit
@@ -887,11 +968,42 @@ actions:
   title_url:
   consequence: Your employees may not be able to continue living or working in the
     UK as they do now, if they do not apply to the scheme.
+  exception:
   lead_time: Do it as soon as possible
   guidance_prompt: Read the guidance
   guidance_link_text: Apply to the EU Settlement Scheme (settled and pre-settled status)
   guidance_url: https://www.gov.uk/settled-status-eu-citizens-families
   criteria: employ-eu-citizens
+  audience: business
+- action_id: T078
+  priority: 5
+  title: Check what documents you need to run scheduled bus or coach services in EU
+    countries
+  title_url:
+  consequence: If your authorisation expires before 31 December you must renew it
+    by 31 October 2019, or you will not be able to run regular bus or coach services
+    in EU countries.
+  exception:
+  lead_time: Do it as soon as possible
+  guidance_prompt:
+  guidance_link_text: 'Run international bus or coach services and tours after Brexit;
+    Drive in the EU after Brexit: bus and coach drivers'
+  guidance_url: https://www.gov.uk/guidance/run-international-bus-or-coach-services-after-brexit
+  criteria: road-passenger-freight
+  audience: business
+- action_id: T079
+  priority: 5
+  title: Check what steps you need to take in order to import goods from the EU.
+  title_url:
+  consequence: If you do not get your business ready, you may not be able to import
+    goods into the UK from EU countries.
+  exception:
+  lead_time: Do it as soon as possible
+  guidance_prompt:
+  guidance_link_text: Get your business ready to import from the EU to the UK after
+    Brexit
+  guidance_url: https://www.gov.uk/prepare-import-to-uk-after-brexit
+  criteria: import-from-eu || sell-goods-provide-services-in-uk
   audience: business
 - action_id: T080
   priority: 5
@@ -900,6 +1012,7 @@ actions:
   title_url:
   consequence: If you do not do this before 31 October, you’ll only have protection
     where you first showed your design, either the UK or the EU.
+  exception:
   lead_time: Do it as soon as possible
   guidance_prompt: Read the guidance
   guidance_link_text: Changes to registered design, design rights and international
@@ -914,6 +1027,7 @@ actions:
   title_url:
   consequence: You may not be able to continue working or providing legal services
     in the UK if you do not prepare.
+  exception:
   lead_time: Do it as soon as possible
   guidance_prompt: Read the guidance
   guidance_link_text: EU lawyers in the UK after a no-deal Brexit
@@ -926,6 +1040,7 @@ actions:
   title_url:
   consequence: You may not be able to continue providing legal services in the same
     way if you do not get your business ready.
+  exception:
   lead_time: Do it as soon as possible
   guidance_prompt: Read the guidance
   guidance_link_text: Legal services business owners after a no-deal Brexit
@@ -939,6 +1054,7 @@ actions:
   title_url:
   consequence: You may not be able to continue working or providing legal services
     in the EU if you do not prepare.
+  exception:
   lead_time: Do it as soon as possible
   guidance_prompt: Read the guidance
   guidance_link_text: UK lawyers practising in the EU, Norway, Iceland or Liechtenstein
@@ -951,6 +1067,7 @@ actions:
   title: Apply for the right to export seeds to the EU
   title_url:
   consequence: You will not be able to export seeds to the EU if you do not apply.
+  exception:
   lead_time: It takes 2 months
   guidance_prompt: Read the guidance
   guidance_link_text: Plant variety rights and marketing plant reproductive material
@@ -965,6 +1082,7 @@ actions:
   title_url:
   consequence: The plants may be delayed or rejected when they reach the EU if you
     do not have the certificate.
+  exception:
   lead_time: It takes up to 7 days
   guidance_prompt: Read the guidance
   guidance_link_text: Importing and exporting plants and plant products if there’s
@@ -978,6 +1096,7 @@ actions:
     REACH system
   title_url:
   consequence: You may not be able to bring chemicals into the UK if you do not register.
+  exception:
   lead_time: It usually takes up to 6 weeks
   guidance_prompt: Read the guidance
   guidance_link_text: How to comply with REACH chemical regulations
@@ -990,6 +1109,7 @@ actions:
     to the EU
   title_url:
   consequence: You will not be able to take your horse or other equine to the EU.
+  exception:
   lead_time: Do it as soon as possible
   guidance_prompt: Read the guidance
   guidance_link_text: 'Export horses and ponies: special rules'
@@ -1003,6 +1123,7 @@ actions:
   title_url:
   consequence: Your animals or products may be delayed or rejected when they reach
     the EU if you do not have the right documents or go through the wrong border post.
+  exception:
   lead_time: It takes up to 3 days
   guidance_prompt: Read the guidance
   guidance_link_text: Exporting animals and animal products in a no-deal Brexit
