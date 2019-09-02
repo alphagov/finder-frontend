@@ -35,6 +35,15 @@ change_notes:
      text: "Change criteria to only show question to anyone travelling to the EU or the UK"
      action_id:
      question_key: activities
+   - id: add_s011
+     text: "Added action to take out appropriate travel insurance with health cover before travelling to the EU"
+     action_id: S011
+   - id: add_t078
+     text: "Added action to check what documents you need to run scheduled bus or coach services in EU countries"
+     action_id: T078
+   - id: add_t079
+     text: "Added action to check what steps you need to take in order to import goods from the EU"
+     action_id: T079
   # - id: brexit_action_change_1
   #   title: "Change to Get an EORI number that starts with GB to move goods in or out of the UK"
   #   text: "EORI number description added"

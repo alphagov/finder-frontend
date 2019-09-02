@@ -7,7 +7,6 @@ describe Checklists::ChangeNote do
     it "returns a list of change notes with required fields" do
       subject.each do |change_note|
         expect(change_note.id).to be_present
-        expect(change_note.title).to be_present
         expect(change_note.text).to be_present
       end
     end
