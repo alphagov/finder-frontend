@@ -1,7 +1,6 @@
 require 'gds_api/content_store'
 require 'gds_api/rummager'
 require 'gds_api/email_alert_api'
-require 'email_alert_subscriber_list_service'
 
 module Services
   def self.content_store
@@ -21,14 +20,7 @@ module Services
   end
 
   def self.email_alert_api
-    GdsApi::EmailAlertApi.new(
-      Plek.find("email-alert-api"),
-      bearer_token: ENV.fetch("EMAIL_ALERT_API_BEARER_TOKEN", "wubbalubbadubdub")
-    )
-  end
-
-  def self.find_or_create_subscriber_list(options)
-    EmailAlertSubscriberListService.new(options).cacheable_subscriber_list
+    Services::EmailAlertApi.new
   end
 
   def self.worldwide_api
