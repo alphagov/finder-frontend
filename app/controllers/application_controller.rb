@@ -55,7 +55,6 @@ private
     # TODO Use a whitelist based on the facets in the schema
     @filter_params ||= begin
       permitted_params = params
-                           .to_unsafe_hash
                            .except(
                              :controller,
                              :action,
@@ -68,10 +67,7 @@ private
         permitted_params["keywords"] = permitted_params.delete("q")
       end
 
-      ParamsCleaner
-        .new(permitted_params)
-        .cleaned
-        .delete_if { |_, value| value.blank? }
+      ParamsCleaner.new(permitted_params).cleaned
     end
   end
 end

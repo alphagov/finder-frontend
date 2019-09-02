@@ -12,7 +12,7 @@ class ChecklistController < ApplicationController
     @questions = Checklists::Question.load_all
     @page_service = Checklists::PageService.new(questions: @questions,
                                                 criteria_keys: criteria_keys,
-                                                current_page_from_params: params[:page].to_i)
+                                                current_page_from_params: page)
 
     if @page_service.redirect_to_results?
       redirect_to checklist_results_path(c: criteria_keys)
@@ -51,9 +51,11 @@ private
   end
 
   def criteria_keys
-    return [] unless params[:c].is_a? Array
-
-    params[:c].select { |k| k =~ /[a-z\-]+/ }
+    @criteria_keys ||= ParamsCleaner.new(params).fetch(:c, [])
   end
   helper_method :criteria_keys
+
+  def page
+    @page ||= ParamsCleaner.new(params).fetch(:page, "0").to_i
+  end
 end
