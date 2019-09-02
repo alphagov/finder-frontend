@@ -10,7 +10,7 @@ questions:
         value: nationality-ie
       - label: 'Another EU country, Iceland, Liechtenstein, Norway or Switzerland'
         value: nationality-eu
-      - label: Rest of world
+      - label: Somewhere else
         value: nationality-row
 
   - key: living
