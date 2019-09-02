@@ -8,7 +8,7 @@ questions:
         value: nationality-uk
       - label: Irish
         value: nationality-ie
-      - label: 'EU, Iceland, Liechtenstein, Norway or Switzerland'
+      - label: 'Another EU country, Iceland, Liechtenstein, Norway or Switzerland'
         value: nationality-eu
       - label: Rest of world
         value: nationality-row
