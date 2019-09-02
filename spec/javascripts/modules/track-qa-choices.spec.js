@@ -42,9 +42,11 @@ describe('QA choices tracker', function () {
     )
   })
 
-  it('does not track events when no choice is made', function () {
+  it('track event triggered when no choice is made', function () {
     $element.find('form').trigger('submit')
 
-    expect(GOVUK.SearchAnalytics.trackEvent).not.toHaveBeenCalled()
+    expect(GOVUK.SearchAnalytics.trackEvent).toHaveBeenCalledWith(
+      'QA option chosen', 'no choice', { transport: 'beacon', label: 'sector_business_area' }
+    )
   })
 })
