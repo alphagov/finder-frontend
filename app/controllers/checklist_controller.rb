@@ -12,20 +12,19 @@ class ChecklistController < ApplicationController
     @questions = Checklists::Question.load_all
     @page_service = Checklists::PageService.new(questions: @questions,
                                                 criteria_keys: criteria_keys,
-                                                current_page_from_params: current_page_from_params)
+                                                current_page_from_params: params[:page].to_i)
 
-    return redirect_to_result_page if @page_service.redirect_to_results?
-
-    @current_question = @questions[@page_service.current_page]
-    render "checklist/show"
+    if @page_service.redirect_to_results?
+      redirect_to checklist_results_path(c: criteria_keys)
+    else
+      @current_question = @questions[@page_service.current_page]
+    end
   end
 
   def results
     all_actions = Checklists::Action.load_all
     @criteria = Checklists::Criterion.load_by(criteria_keys)
     @actions = filter_actions(all_actions, criteria_keys)
-
-    render "checklist/results"
   end
 
   def email_signup; end
@@ -51,27 +50,10 @@ private
     }
   end
 
-  def redirect_to_results?
-    @page_service.redirect_to_results?
-  end
-
-  def redirect_to_result_page
-    redirect_to checklist_results_path(filtered_params)
-  end
-
-  def filtered_params
-    request.query_parameters.except(:page)
-  end
-  helper_method :filtered_params
-
   def criteria_keys
     return [] unless params[:c].is_a? Array
 
     params[:c].select { |k| k =~ /[a-z\-]+/ }
   end
   helper_method :criteria_keys
-
-  def current_page_from_params
-    params[:page].to_i
-  end
 end
