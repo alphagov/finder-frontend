@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Checklists::Action do
-  describe '#applies_to?' do
+  describe '#show?' do
     let(:criteria_logic) do
       instance_double Checklists::CriteriaLogic, applies?: :result
     end
@@ -11,7 +11,7 @@ describe Checklists::Action do
         .with('criteria', 'selected_criteria') { criteria_logic }
 
       action = described_class.new('criteria' => 'criteria')
-      expect(action.applies_to?('selected_criteria')).to eq :result
+      expect(action.show?('selected_criteria')).to eq :result
     end
   end
 
@@ -34,8 +34,8 @@ describe Checklists::Action do
       all_criteria_keys = Checklists::Criterion.load_all.map(&:key)
 
       subject.each do |action|
-        expect { action.applies_to?([]) }.to_not raise_error
-        expect { action.applies_to?(all_criteria_keys) }.to_not raise_error
+        expect { action.show?([]) }.to_not raise_error
+        expect { action.show?(all_criteria_keys) }.to_not raise_error
         expect(action.valid?).to be true
       end
     end

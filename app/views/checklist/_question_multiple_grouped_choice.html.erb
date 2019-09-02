@@ -6,8 +6,8 @@
 <% current_question.options.each do | group | %>
   <%= render "govuk_publishing_components/components/checkboxes", {
     name: "c[]",
-    heading: group["label"],
+    heading: group.label,
     no_hint_text: true,
-    items: format_question_options(group["options"], criteria_keys)
+    items: format_question_options(group.sub_options, criteria_keys)
   } %>
 <% end %>

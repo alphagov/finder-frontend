@@ -74,4 +74,35 @@ describe ChecklistHelper, type: :helper do
       expect(subject).to contain_exactly('A', 'B')
     end
   end
+
+  describe "#format_question_options" do
+    it "filters options which should not be shown" do
+      option = Checklists::Question::Option.new({})
+      allow(option).to receive(:show?).with([]) { false }
+      results = format_question_options([option], [])
+      expect(results).to be_empty
+    end
+
+    it "returns a hash of options for rendering" do
+      option = Checklists::Question::Option.new('label' => 'label',
+                                                'value' => 'value',
+                                                'hint_text' => 'hint_text')
+
+      allow(option).to receive(:show?) { true }
+      results = format_question_options([option], [])
+
+      expect(results[0]).to match(label: 'label',
+                                  text: 'label',
+                                  value: 'value',
+                                  hint_text: 'hint_text',
+                                  checked: false)
+    end
+
+    it "returns a hash of any checked options" do
+      option = Checklists::Question::Option.new('value' => 'value')
+      allow(option).to receive(:show?) { true }
+      results = format_question_options([option], %w(value))
+      expect(results[0][:checked]).to be_truthy
+    end
+  end
 end
