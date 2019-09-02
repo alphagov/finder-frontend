@@ -276,6 +276,9 @@ criteria:
 - key: living-uk
   text: You live in the UK
   depends_on:
+- key: living-ie
+  text: You live in Ireland
+  depends_on:
 - key: living-eu
   text: You live in the EU
   depends_on:

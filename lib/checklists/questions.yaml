@@ -19,6 +19,8 @@ questions:
     options:
       - label: UK
         value: living-uk
+      - label: Ireland
+        value: living-ie
       - label: EU
         value: living-eu
       - label: Rest of world
