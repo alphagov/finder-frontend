@@ -16,6 +16,9 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}; // if this ; is omitted, none
     this.$module.toggleContent = this.toggleContent.bind(this)
     this.$toggleButton = this.$module.querySelector('.js-button')
     this.$toggleButton.addEventListener('click', this.$module.toggleContent)
+
+    // get selected filter add/or date range inputs
+    this.countSelected(this.$content.querySelectorAll('select, [type="text"]'))
   }
 
   Expander.prototype.replaceTitleWithButton = function (expanded) {
@@ -40,6 +43,26 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}; // if this ; is omitted, none
       this.$toggleButton.setAttribute('aria-expanded', false)
       this.$content.classList.remove('app-c-expander__content--visible')
     }
+  }
+
+  Expander.prototype.countSelected = function (elements) {
+    var totalSelected = 0
+    for (var i = 0; i < elements.length; i++) {
+      var element = elements[i]
+      if (element.value !== '') {
+        totalSelected++
+      }
+    }
+    this.attachSelectedCount(totalSelected)
+  }
+
+  Expander.prototype.attachSelectedCount = function (count) {
+    var $counter = document.createElement('div')
+    $counter.classList.add('govuk-!-font-size-14')
+    $counter.classList.add('app-c-option-select__selected-counter')
+    $counter.classList.add('js-selected-counter')
+    $counter.innerHTML = count > 0 ? count + ' selected' : ''
+    this.$module.insertBefore($counter, this.$toggleButton.nextSibling)
   }
 
   Modules.Expander = Expander
