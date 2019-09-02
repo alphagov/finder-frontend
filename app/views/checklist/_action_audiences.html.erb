@@ -2,7 +2,7 @@
   <% audiences.each.with_index do |audience, index| %>
     <div class="govuk-grid-row govuk-!-margin-bottom-6">
       <div class="govuk-grid-column-full">
-        <h2 class="govuk-heading-l govuk-!-font-size-27"><%= audience[:heading] %></h2>
+        <h2 class="govuk-heading-l action-audience__heading"><%= audience[:heading] %></h2>
       </div>
       <div class="govuk-grid-column-full">
         <%= render "action_list", {
