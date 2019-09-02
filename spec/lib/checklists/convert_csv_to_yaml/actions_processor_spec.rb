@@ -8,6 +8,7 @@ describe Checklists::ConvertCsvToYaml::ActionsProcessor do
       "title" => "A title",
       "criteria" => "owns-business",
       "status" => "Approved",
+      "guidance" => "",
     }
   end
 
@@ -17,6 +18,11 @@ describe Checklists::ConvertCsvToYaml::ActionsProcessor do
       expect(result).not_to include("owner" => "John Doe")
       expect(result).to include("title" => "A title")
       expect(result).to include("criteria" => "owns-business")
+    end
+
+    it "removes empty fields from a record" do
+      result = described_class.new.process(record)
+      expect(result).not_to include("guidance")
     end
 
     it "converts AND logic criteria" do
@@ -37,7 +43,7 @@ describe Checklists::ConvertCsvToYaml::ActionsProcessor do
       expect(result).to include("criteria" => "owns-business || imports-eu && something")
     end
 
-    it "converts OR and AND logic criteria" do
+    it "ignores empty criteria field" do
       record.delete('criteria')
       result = described_class.new.process(record)
       expect(result).not_to include("criteria" => nil)
