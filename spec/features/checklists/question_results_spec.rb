@@ -53,7 +53,7 @@ RSpec.feature "Questions workflow", type: :feature do
   end
 
   def and_i_answer_citizen_questions
-    answer_question("nationality", "UK")
+    answer_question("nationality", "British")
     answer_question("living", "UK")
     answer_question("employment")
     answer_question("travelling", "Yes", "To the EU")

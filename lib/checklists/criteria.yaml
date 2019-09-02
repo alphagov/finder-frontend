@@ -259,13 +259,16 @@ criteria:
   text: You do not sell products or services to the public sector
   depends_on:
 - key: nationality-uk
-  text: You are a UK national
+  text: You are a British national
+  depends_on:
+- key: nationality-ie
+  text: You are an Irish national
   depends_on:
 - key: nationality-eu
   text: You are an EU national
   depends_on:
 - key: nationality-row
-  text: You are not an EU or UK national
+  text: You are not an EU or British national
   depends_on:
 - key: living-row
   text: You do not live in the UK or the EU

@@ -4,8 +4,10 @@ questions:
     question_type: single
     question: 'What nationality are you?'
     options:
-      - label: UK
+      - label: British
         value: nationality-uk
+      - label: Irish
+        value: nationality-ie
       - label: 'EU, Iceland, Liechtenstein, Norway or Switzerland'
         value: nationality-eu
       - label: Rest of world
