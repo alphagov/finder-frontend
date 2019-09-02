@@ -1,5 +1,3 @@
-require 'publications_routes'
-
 class RedirectionController < ApplicationController
   include PublicationsRoutes
   DEFAULT_PUBLICATIONS_PATH = 'search/all'.freeze

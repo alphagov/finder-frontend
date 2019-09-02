@@ -1,5 +1,4 @@
 require 'spec_helper'
-require "helpers/taxonomy_spec_helper"
 
 RSpec.describe SortOptionPresenter do
   subject(:sort_option) { described_class.new(label: "Updated (newest)", key: "-public_timestamp") }

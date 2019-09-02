@@ -1,6 +1,4 @@
 require 'spec_helper'
-require "helpers/taxonomy_spec_helper"
-require "helpers/registry_spec_helper"
 require 'gds_api/test_helpers/content_store'
 require 'gds_api/test_helpers/email_alert_api'
 

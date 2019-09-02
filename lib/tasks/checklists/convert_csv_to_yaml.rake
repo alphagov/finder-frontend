@@ -1,7 +1,3 @@
-require "checklists/convert_csv_to_yaml/actions_processor.rb"
-require "checklists/convert_csv_to_yaml/criteria_processor.rb"
-require "checklists/convert_csv_to_yaml/converter.rb"
-
 MISSING_CSV_MESSAGE = "You must provide a path to the CSV file you would like to convert.".freeze
 
 namespace :checklists do
