@@ -21,7 +21,7 @@ questions:
         value: living-uk
       - label: Ireland
         value: living-ie
-      - label: EU
+      - label: Another EU country
         value: living-eu
       - label: Rest of world
         value: living-row
