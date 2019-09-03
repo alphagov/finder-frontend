@@ -152,7 +152,7 @@ actions:
     - visiting-eu
   audience: citizen
 - action_id: S011
-  priority: 5
+  priority: 9
   title: Take out appropriate travel insurance with health cover before travelling
     to the EU
   consequence: You may be charged for your care if you do not get health cover with
