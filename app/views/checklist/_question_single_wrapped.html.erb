@@ -15,7 +15,7 @@
                      }
                    end
 
-      format_question_option(option, criteria_keys).merge(conditional: checkboxes)
+      format_question_option(option, criteria_keys).merge(conditional: (checkboxes if checkboxes.present?))
     end
   } %>
 </div>
