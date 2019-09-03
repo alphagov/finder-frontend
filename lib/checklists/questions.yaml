@@ -59,13 +59,10 @@ questions:
         options:
           - label: To the UK
             value: visiting-uk
-            criteria: "(living-eu || living-row || living-ie)"
           - label: To the EU
             value: visiting-eu
-            criteria: "(living-uk || living-row || living-ie)"
           - label: To the rest of the world
             value: visiting-row
-            criteria: "(living-eu || living-uk || living-ie)"
       - label: "No"
         value: travelling-no
 
