@@ -11,8 +11,8 @@ describe Checklists::PageService do
   }
 
   before do
-    allow(Checklists::CriteriaLogic).to receive(:all_options).and_return(%w(a b c d))
-    allow(Checklists::CriteriaLogic).to receive(:all_options_hash).and_return("a" => false, "b" => false, "c" => false, "d" => false)
+    allow(Checklists::CriteriaLogic::Evaluator).to receive(:all_options).and_return(%w(a b c d))
+    allow(Checklists::CriteriaLogic::Evaluator).to receive(:all_options_hash).and_return("a" => false, "b" => false, "c" => false, "d" => false)
   end
 
   describe '#next_page' do

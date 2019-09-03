@@ -1,6 +1,6 @@
-require 'ripper'
+require "ripper"
 
-class Checklists::CriteriaLogic
+class Checklists::CriteriaLogic::Evaluator
   def initialize(string, selected_options)
     @string = string.to_s.underscore
     @selected_options = selected_options.map(&:underscore)

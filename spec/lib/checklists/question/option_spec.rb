@@ -3,11 +3,11 @@ require 'spec_helper'
 RSpec.describe Checklists::Question::Option do
   describe "#show?" do
     let(:criteria_logic) do
-      instance_double Checklists::CriteriaLogic, applies?: :result
+      instance_double Checklists::CriteriaLogic::Evaluator, applies?: :result
     end
 
     before do
-      allow(Checklists::CriteriaLogic).to receive(:new)
+      allow(Checklists::CriteriaLogic::Evaluator).to receive(:new)
         .with("criteria", []) { criteria_logic }
     end
 

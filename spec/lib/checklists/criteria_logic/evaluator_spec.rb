@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe Checklists::CriteriaLogic do
+RSpec.describe Checklists::CriteriaLogic::Evaluator do
   before do
     allow(described_class).to receive(:all_options).and_return(%w(a b c))
     allow(described_class).to receive(:all_options_hash).and_return("a" => false, "b" => false, "c" => false)

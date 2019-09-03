@@ -26,15 +26,15 @@ class Checklists::Question
   end
 
   def valid?
-    return false unless Checklists::CriteriaLogic.new(criteria, []).valid?
+    return false unless Checklists::CriteriaLogic::Evaluator.new(criteria, []).valid?
 
     possible_values.all? do |criterion|
-      Checklists::CriteriaLogic.new(criterion, []).valid?
+      Checklists::CriteriaLogic::Evaluator.new(criterion, []).valid?
     end
   end
 
   def show?(selected_criteria)
-    Checklists::CriteriaLogic.new(criteria, selected_criteria).applies?
+    Checklists::CriteriaLogic::Evaluator.new(criteria, selected_criteria).applies?
   end
 
   def possible_values

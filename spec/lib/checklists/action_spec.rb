@@ -3,11 +3,11 @@ require 'spec_helper'
 describe Checklists::Action do
   describe '#show?' do
     let(:criteria_logic) do
-      instance_double Checklists::CriteriaLogic, applies?: :result
+      instance_double Checklists::CriteriaLogic::Evaluator, applies?: :result
     end
 
     it "delegates to the CriteriaLogic" do
-      allow(Checklists::CriteriaLogic).to receive(:new)
+      allow(Checklists::CriteriaLogic::Evaluator).to receive(:new)
         .with('criteria', 'selected_criteria') { criteria_logic }
 
       action = described_class.new('criteria' => 'criteria')
