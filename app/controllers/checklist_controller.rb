@@ -24,7 +24,7 @@ class ChecklistController < ApplicationController
   def results
     all_actions = Checklists::Action.load_all
     @criteria = Checklists::Criterion.load_by(criteria_keys)
-    @actions = filter_actions(all_actions, criteria_keys)
+    @actions = filter_items(all_actions, criteria_keys)
   end
 
   def email_signup; end

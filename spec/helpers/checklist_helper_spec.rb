@@ -1,40 +1,23 @@
 require 'spec_helper'
 
 describe ChecklistHelper, type: :helper do
-  describe "#filter_actions" do
-    let(:action1) { Checklists::Action.new('criteria' => "a") }
-    let(:action2) { Checklists::Action.new('criteria' => "b || c") }
-    let(:actions) { [action1, action2] }
-
-    before do
-      allow(Checklists::CriteriaLogic).to receive(:all_options).and_return(%w(a b c))
-      allow(Checklists::CriteriaLogic).to receive(:all_options_hash).and_return("a" => false, "b" => false, "c" => false)
+  describe "#filter_items" do
+    it "filters actions that should be shown" do
+      action1 = instance_double Checklists::Action, show?: true
+      action2 = instance_double Checklists::Action, show?: false
+      expect(action1).to receive(:show?).with([])
+      expect(action2).to receive(:show?).with([])
+      results = filter_items([action1, action2], [])
+      expect(results).to eq([action1])
     end
 
-    subject { filter_actions(actions, criteria_keys) }
-
-    context "when there is no criteria" do
-      let(:criteria_keys) { [] }
-
-      it "returns no actions" do
-        expect(subject).to eq([])
-      end
-    end
-
-    context "when there is a criteria" do
-      let(:criteria_keys) { %w[a] }
-
-      it "returns some actions" do
-        expect(subject).to eq([action1])
-      end
-    end
-
-    context "when there is multiple criteria" do
-      let(:criteria_keys) { %w[a b] }
-
-      it "returns some actions" do
-        expect(subject).to eq([action1, action2])
-      end
+    it "filters options that should be shown" do
+      option1 = instance_double Checklists::Question::Option, show?: true
+      option2 = instance_double Checklists::Question::Option, show?: false
+      expect(option1).to receive(:show?).with([])
+      expect(option2).to receive(:show?).with([])
+      results = filter_items([option1, option2], [])
+      expect(results).to eq([option1])
     end
   end
 
@@ -72,37 +55,6 @@ describe ChecklistHelper, type: :helper do
 
     it 'returns all but the questions criteria' do
       expect(subject).to contain_exactly('A', 'B')
-    end
-  end
-
-  describe "#format_question_options" do
-    it "filters options which should not be shown" do
-      option = Checklists::Question::Option.new({})
-      allow(option).to receive(:show?).with([]) { false }
-      results = format_question_options([option], [])
-      expect(results).to be_empty
-    end
-
-    it "returns a hash of options for rendering" do
-      option = Checklists::Question::Option.new('label' => 'label',
-                                                'value' => 'value',
-                                                'hint_text' => 'hint_text')
-
-      allow(option).to receive(:show?) { true }
-      results = format_question_options([option], [])
-
-      expect(results[0]).to match(label: 'label',
-                                  text: 'label',
-                                  value: 'value',
-                                  hint_text: 'hint_text',
-                                  checked: false)
-    end
-
-    it "returns a hash of any checked options" do
-      option = Checklists::Question::Option.new('value' => 'value')
-      allow(option).to receive(:show?) { true }
-      results = format_question_options([option], %w(value))
-      expect(results[0][:checked]).to be_truthy
     end
   end
 end
