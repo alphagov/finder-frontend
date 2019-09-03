@@ -16,8 +16,8 @@ module ChecklistHelper
     end
   end
 
-  def filter_actions(actions, criteria_keys)
-    actions.select { |a| a.show?(criteria_keys) }
+  def filter_items(items, criteria_keys)
+    items.select { |i| i.show?(criteria_keys) }
   end
 
   def persistent_criteria_keys(question_criteria_keys)
@@ -25,8 +25,7 @@ module ChecklistHelper
   end
 
   def format_question_options(options, criteria_keys)
-    options.select { |o| o.show?(criteria_keys) }
-      .map { |o| format_question_option(o, criteria_keys) }
+    options.map { |o| format_question_option(o, criteria_keys) }
   end
 
   def format_question_option(option, criteria_keys)
