@@ -1,5 +1,4 @@
 require 'spec_helper'
-require "helpers/taxonomy_spec_helper"
 
 RSpec.describe FinderPresenter do
   include GovukContentSchemaExamples

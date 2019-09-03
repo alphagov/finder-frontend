@@ -1,7 +1,5 @@
 require 'spec_helper'
 require "gds_api/test_helpers/worldwide"
-require "helpers/taxonomy_spec_helper"
-require "helpers/registry_spec_helper"
 
 RSpec.describe Registries::BaseRegistries do
   include GdsApi::TestHelpers::Worldwide

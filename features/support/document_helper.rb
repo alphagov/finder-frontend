@@ -1,6 +1,6 @@
-require_relative '../../lib/govuk_content_schema_examples'
-require_relative "../../spec/helpers/taxonomy_spec_helper"
-require_relative "../../spec/helpers/registry_spec_helper"
+require_relative '../../spec/support/content_helper'
+require_relative "../../spec/support/taxonomy_helper"
+require_relative "../../spec/support/registry_helper"
 require_relative '../../spec/support/fixtures_helper'
 require 'gds_api/test_helpers/email_alert_api'
 require 'gds_api/test_helpers/content_store'

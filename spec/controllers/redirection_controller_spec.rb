@@ -1,5 +1,4 @@
 require 'spec_helper'
-require "helpers/taxonomy_spec_helper"
 
 describe RedirectionController, type: :controller do
   include TaxonomySpecHelper

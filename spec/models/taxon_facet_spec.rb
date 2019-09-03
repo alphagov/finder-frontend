@@ -1,5 +1,4 @@
 require "spec_helper"
-require "helpers/taxonomy_spec_helper"
 
 describe TaxonFacet do
   include TaxonomySpecHelper

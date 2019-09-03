@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'helpers/registry_spec_helper'
 
 RSpec.describe Registries::OrganisationsRegistry do
   include RegistrySpecHelper

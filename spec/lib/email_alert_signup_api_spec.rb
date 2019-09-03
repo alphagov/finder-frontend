@@ -1,7 +1,6 @@
 require 'spec_helper'
 require 'email_alert_signup_api'
 require 'gds_api/test_helpers/email_alert_api'
-require 'helpers/registry_spec_helper'
 
 describe EmailAlertSignupAPI do
   include GdsApi::TestHelpers::EmailAlertApi
