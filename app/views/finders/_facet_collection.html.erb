@@ -36,7 +36,7 @@
 
   <div id="js-filter-button-result-count" class="js-live-search-fallback button__wrapper<%= ' app-!hack-hide-override-for-mobile app-!-stick-bottom app-hack-filter-submit govuk-!-padding-left-3 govuk-!-padding-right-3' if finder_presenter.mobile_filter? %>">
     <%= render "govuk_publishing_components/components/button", {
-      text: "Filter #{result_set_presenter.displayed_total}",
+      text: "#{result_set_presenter.displayed_total_text}",
       margin_bottom: true
     } %>
   </div>

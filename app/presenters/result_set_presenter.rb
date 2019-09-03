@@ -22,6 +22,10 @@ class ResultSetPresenter
     "#{number_with_delimiter(total)} #{pluralised_document_noun}"
   end
 
+  def displayed_total_text
+    total > 0 ? "Show #{displayed_total}" : "No results"
+  end
+
   def search_results_content
     {
       document_list_component_data: document_list_component_data,
