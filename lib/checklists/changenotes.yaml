@@ -65,12 +65,15 @@ change_notes:
   #   text: "EORI number description added"
   #   action_id: 'T001'
   #   question_key:
+  #   date: 2019-09-03
   # - id: brexit_action_change_2
   #   title: "Change to question"
   #   text: "The business activity question was changed"
   #   action_id:
   #   question_key: business_activity
+  #   date: 2019-09-03
   # - id: brexit_action_change_3
   #   title: "Removed action"
   #   text: "This action was removed"
   #   action_id: SOFT_DELETED_TEST
+  #   date: 2019-09-03
