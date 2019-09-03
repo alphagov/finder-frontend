@@ -6,7 +6,7 @@
     hint_text: current_question.hint_title,
     is_page_heading: true,
     items: current_question.options.map do |option|
-      checkboxes = if option.sub_options
+      checkboxes = if option.sub_options.present?
                      render "govuk_publishing_components/components/checkboxes", {
                        name: "c[]",
                        heading: option.label,
