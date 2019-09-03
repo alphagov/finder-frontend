@@ -1,67 +1,51 @@
-require "ripper"
-
 class Checklists::CriteriaLogic::Evaluator
-  def initialize(string, selected_options)
-    @string = string.to_s.underscore
-    @selected_options = selected_options.map(&:underscore)
+  def initialize(expression, selected_criteria)
+    @expression = expression
+    @selected_criteria = selected_criteria
   end
 
-  def valid?
-    tokens = Ripper.lex(string)
-    return true if tokens.empty?
+  def evaluate
+    return true if expression.blank?
 
-    allowed_values = {
-      on_ident: self.class.all_options,
-      on_sp: [" "],
-      on_op: %w(&& ||),
-      on_lparen: ["("],
-      on_rparen: [")"],
-    }
-
-    allowed_types = allowed_values.keys
-
-    tokens.all? do |(_, type, value, _)|
-      allowed_types.include?(type) && allowed_values[type].include?(value)
-    end
+    evaluate_node(expression)
   end
 
-  def applies?
-    return true if string.blank?
-
-    eval(string, context) # rubocop:disable Security/Eval
+  def self.evaluate(*args)
+    new(*args).evaluate
   end
 
-  def self.all_options
-    @all_options ||= Checklists::Criterion.load_all.map(&:key_underscored)
-  end
-
-  def self.all_options_hash
-    @all_options_hash ||= all_options.each_with_object({}) do |key, hash|
-      hash[key] = false
-    end
-  end
+  private_class_method :new
 
 private
 
-  attr_reader :string, :selected_options
+  attr_reader :expression, :selected_criteria
 
-  def context
-    options_hash = selected_options.each_with_object(self.class.all_options_hash.dup) do |key, hash|
-      hash[key] = true
+  def evaluate_node(node)
+    case node
+    when Array
+      evaluate_all_of(node)
+    when Hash
+      evaluate_hash(node)
+    when String
+      selected_criteria.include?(node)
     end
-
-    HashBinding.new(options_hash).context
   end
 
-  class HashBinding
-    def initialize(hash)
-      hash.each do |key, value|
-        singleton_class.send(:define_method, key) { value }
-      end
+  def evaluate_hash(node)
+    if node["any_of"]
+      evaluate_any_of(node["any_of"])
+    elsif node["all_of"]
+      evaluate_all_of(node["all_of"])
+    else
+      raise "Unknown node: #{node}"
     end
+  end
 
-    def context
-      binding
-    end
+  def evaluate_all_of(nodes)
+    nodes.all? { |node| evaluate_node(node) }
+  end
+
+  def evaluate_any_of(nodes)
+    nodes.any? { |node| evaluate_node(node) }
   end
 end
