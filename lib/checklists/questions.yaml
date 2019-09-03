@@ -44,8 +44,9 @@ questions:
     question_type: single
     question: Do you drive in the EU using a UK licence?
     criteria:
-      - nationality-uk
-      - living-eu
+      - all_of:
+        - nationality-uk
+        - living-eu
     options:
       - label: "Yes"
         value: living-driving-eu
@@ -83,10 +84,11 @@ questions:
 
   - key: returning
     criteria:
-      - nationality-uk
-      - any_of:
-        - living-eu
-        - living-row
+      - all_of:
+        - nationality-uk
+        - any_of:
+          - living-eu
+          - living-row
     question_type: single
     question: 'Are you planning to move back to the UK?'
     options:
@@ -99,12 +101,13 @@ questions:
     question_type: single
     question: Do you plan to join an EU family member in the UK?
     criteria:
-      - any_of:
-        - nationality-eu
-        - nationality-row
-      - any_of:
-        - living-eu
-        - living-row
+      - all_of:
+        - any_of:
+          - nationality-eu
+          - nationality-row
+        - any_of:
+          - living-eu
+          - living-row
     options:
       - label: "Yes"
         value: join-family-uk-yes
