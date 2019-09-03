@@ -65,7 +65,7 @@ questions:
             criteria: "(living-uk || living-row || living-ie)"
           - label: To the rest of the world
             value: visiting-row
-            criteria: "(living-row || living-uk || living-ie)"
+            criteria: "(living-eu || living-uk || living-ie)"
       - label: "No"
         value: travelling-no
 
