@@ -44,6 +44,18 @@ change_notes:
    - id: add_t079
      text: "Added action to check what steps you need to take in order to import goods from the EU"
      action_id: T079
+   - id: add_s006
+     text: "Action added advising citizens with UK healthcare living, studying or working in the EU to register for local healthcare or take out health insurance"
+     action_id: S006
+     date: 2019-09-23
+   - id: add_t025
+     text: "Added action to get permission to take creative, cultural and sports goods into and out of the EU for business"
+     action_id: T025
+     date: 2019-09-23
+   - id: add_t026
+     text: "Added action to appoint a representative in the EU if you run a large UK-based online business providing digital services in the EU"
+     action_id: T026
+     date: 2019-09-23
   # - id: brexit_action_change_1
   #   title: "Change to Get an EORI number that starts with GB to move goods in or out of the UK"
   #   text: "EORI number description added"

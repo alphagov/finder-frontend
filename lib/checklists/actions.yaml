@@ -69,6 +69,24 @@ actions:
       - nationality-ie
     - studying-uk
   audience: citizen
+- action_id: S006
+  priority: 9
+  title: Register for local healthcare or take out health insurance
+  consequence: You may be charged for your care if you are not registered for local
+    healthcare or do not have the right insurance.
+  lead_time: Do it as soon as possible
+  guidance_prompt: Read the guidance
+  guidance_link_text: Important Brexit information for UK nationals if there’s no
+    deal
+  guidance_url: https://www.gov.uk/guidance/important-eu-exit-information-for-uk-nationals-if-theres-no-deal
+  criteria:
+  - all_of:
+    - nationality-uk
+    - any_of:
+      - living-eu
+      - studying-eu
+      - working-eu
+  audience: citizen
 - action_id: S007
   priority: 5
   title: Contact your home university to check if you can continue your Erasmus+ placement
@@ -574,6 +592,38 @@ actions:
     - personal-eu-org
     - personal-eu-org-process
     - personal-eu-org-use
+    - personal-eu-org-provide
+  audience: business
+- action_id: T025
+  priority: 5
+  title: Get permission to take creative, cultural and sports goods into and out of
+    the EU for business
+  title_url: https://www.gov.uk/taking-goods-out-uk-temporarily/get-an-ata-carnet
+  consequence: You may not be able to take goods such as musical instruments, stage
+    designs, make-up and film production equipment into or out of the EU.
+  lead_time: Do it as soon as possible
+  criteria:
+  - any_of:
+    - media
+    - creative
+    - sports
+    - culture
+  audience: business
+- action_id: T026
+  priority: 5
+  title: Appoint a representative in the EU if you run a large UK-based online business
+    providing digital services in the EU
+  title_url: https://www.gov.uk/government/publications/nis-regulation-eu-exit-guidance/nis-regulations-what-digital-service-providers-in-the-uk-should-do-if-theres-no-brexit-deal
+  consequence: You may be fined if you do not have a representative to help you meet
+    online security standards.
+  lead_time: Do it as soon as possible
+  guidance_prompt: Read the guidance
+  guidance_link_text: NIS Regulations - what digital service providers in the UK should
+    do if there’s no Brexit deal
+  guidance_url: https://www.gov.uk/government/publications/nis-regulation-eu-exit-guidance
+  criteria:
+  - any_of:
+    - digital
     - personal-eu-org-provide
   audience: business
 - action_id: T028
