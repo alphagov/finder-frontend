@@ -299,12 +299,10 @@ actions:
 - action_id: S029
   priority: 5
   title: Apply to be a resident in the EU country you live in
+  title_url: https://www.gov.uk/uk-nationals-living-eu
   consequence: You may not be able to continue living and using services in the EU
     if you are not a resident.
   lead_time: Do it as soon as possible
-  guidance_prompt: Read the guidance
-  guidance_link_text: 'Living in the EU: prepare for Brexit'
-  guidance_url: https://www.gov.uk/guidance/advice-for-british-nationals-travelling-and-living-in-europe
   criteria:
   - all_of:
     - nationality-uk

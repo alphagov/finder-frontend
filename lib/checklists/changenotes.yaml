@@ -56,6 +56,10 @@ change_notes:
      text: "Added action to appoint a representative in the EU if you run a large UK-based online business providing digital services in the EU"
      action_id: T026
      date: 2019-09-23
+   - id: add_title_url_to_s029
+     text: Removed the guidance link and the guidance prompt as the page hasn't been updated. Add a title URL sending people to the triaging tool.
+     action_id: S029
+     date: 2019-09-03
   # - id: brexit_action_change_1
   #   title: "Change to Get an EORI number that starts with GB to move goods in or out of the UK"
   #   text: "EORI number description added"
