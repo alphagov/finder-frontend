@@ -2,16 +2,13 @@ require 'spec_helper'
 
 describe Checklists::Question do
   describe '#show?' do
-    let(:criteria_logic) do
-      instance_double Checklists::CriteriaLogic, applies?: :result
-    end
-
     it "delegates to the CriteriaLogic" do
-      allow(Checklists::CriteriaLogic).to receive(:new)
-        .with('criteria', 'selected_criteria') { criteria_logic }
+      expect(Checklists::CriteriaLogic::Evaluator).to receive(:evaluate)
+        .with('criteria', 'selected_criteria')
+        .and_return(:result)
 
-      action = described_class.new('criteria' => 'criteria')
-      expect(action.show?('selected_criteria')).to eq :result
+      question = described_class.new('criteria' => 'criteria')
+      expect(question.show?('selected_criteria')).to eq(:result)
     end
   end
 

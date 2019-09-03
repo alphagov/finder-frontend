@@ -2,18 +2,13 @@ require 'spec_helper'
 
 RSpec.describe Checklists::Question::Option do
   describe "#show?" do
-    let(:criteria_logic) do
-      instance_double Checklists::CriteriaLogic, applies?: :result
-    end
+    it "delegates to the CriteriaLogic" do
+      expect(Checklists::CriteriaLogic::Evaluator).to receive(:evaluate)
+        .with('criteria', 'selected_criteria')
+        .and_return(:result)
 
-    before do
-      allow(Checklists::CriteriaLogic).to receive(:new)
-        .with("criteria", []) { criteria_logic }
-    end
-
-    it "delegates to CriteriaLogic" do
-      option = described_class.new("criteria" => "criteria")
-      expect(option.show?([])).to eq(:result)
+      option = described_class.new('criteria' => 'criteria')
+      expect(option.show?('selected_criteria')).to eq(:result)
     end
   end
 end

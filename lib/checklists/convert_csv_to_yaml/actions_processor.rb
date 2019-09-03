@@ -19,7 +19,7 @@ module Checklists
         return unless approved?(record)
 
         stripped_record = remove_unnecessary_fields(record)
-        stripped_record = convert_logic_fields(stripped_record)
+        stripped_record = parse_logic_fields(stripped_record)
         stripped_record = strip_trailing_whitespace(stripped_record)
         stripped_record = remove_empty_fields(stripped_record)
         stripped_record["priority"] = stripped_record["priority"].to_i
@@ -28,11 +28,10 @@ module Checklists
 
     private
 
-      def convert_logic_fields(record)
-        LOGIC_FIELDS.each do |field|
-          record[field] = record[field].gsub('AND', '&&').gsub('OR', '||') if record[field]
+      def parse_logic_fields(record)
+        LOGIC_FIELDS.each_with_object(record) do |field, hash|
+          hash[field] = Checklists::CriteriaLogic::Parser.parse(hash[field].strip) if hash[field]
         end
-        record
       end
 
       def remove_unnecessary_fields(record)
@@ -44,7 +43,7 @@ module Checklists
       end
 
       def strip_trailing_whitespace(record)
-        record.keys.each { |key| record[key] = record[key].strip if record[key] }
+        (record.keys - LOGIC_FIELDS).each { |key| record[key] = record[key].strip if record[key] }
         record
       end
 

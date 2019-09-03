@@ -14,6 +14,6 @@ class Checklists::Question::Option
   end
 
   def show?(criteria_keys)
-    Checklists::CriteriaLogic.new(criteria, criteria_keys).applies?
+    Checklists::CriteriaLogic::Evaluator.evaluate(criteria, criteria_keys)
   end
 end

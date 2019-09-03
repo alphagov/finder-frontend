@@ -6,7 +6,7 @@ describe Checklists::ConvertCsvToYaml::ActionsProcessor do
     {
       "owner" => "John Doe",
       "title" => "A title",
-      "criteria" => "owns-business",
+      "criteria" => "owns-business OR (imports-eu AND something)",
       "status" => "Approved",
       "guidance" => "",
     }
@@ -15,9 +15,9 @@ describe Checklists::ConvertCsvToYaml::ActionsProcessor do
   describe "#process" do
     it "removes unnecessary fields from a record" do
       result = described_class.new.process(record)
-      expect(result).not_to include("owner" => "John Doe")
-      expect(result).to include("title" => "A title")
-      expect(result).to include("criteria" => "owns-business")
+      expect(result.keys).not_to include("owner")
+      expect(result.keys).to include("title")
+      expect(result.keys).to include("criteria")
     end
 
     it "removes empty fields from a record" do
@@ -25,22 +25,9 @@ describe Checklists::ConvertCsvToYaml::ActionsProcessor do
       expect(result).not_to include("guidance")
     end
 
-    it "converts AND logic criteria" do
-      record['criteria'] = 'owns-business AND imports-eu'
+    it "parses criteria" do
       result = described_class.new.process(record)
-      expect(result).to include("criteria" => "owns-business && imports-eu")
-    end
-
-    it "converts OR logic criteria" do
-      record['criteria'] = 'owns-business OR imports-eu'
-      result = described_class.new.process(record)
-      expect(result).to include("criteria" => "owns-business || imports-eu")
-    end
-
-    it "converts OR and AND logic criteria" do
-      record['criteria'] = 'owns-business OR imports-eu AND something'
-      result = described_class.new.process(record)
-      expect(result).to include("criteria" => "owns-business || imports-eu && something")
+      expect(result).to include("criteria" => [{ "any_of" => ["owns-business", { "all_of" => %w(imports-eu something) }] }])
     end
 
     it "ignores empty criteria field" do
