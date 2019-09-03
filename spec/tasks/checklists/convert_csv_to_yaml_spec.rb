@@ -1,17 +1,12 @@
 require "spec_helper"
-require "rake"
 
 RSpec.describe "Convert CSV to YAML tasks" do
   include FixturesHelper
 
-  before do
-    Rake.application.rake_require "tasks/checklists/convert_csv_to_yaml"
-    Rake::Task.define_task(:environment)
-  end
-
   describe "checklists:convert_csv_to_yaml:actions" do
     before do
       Rake::Task["checklists:convert_csv_to_yaml:actions"].reenable
+      allow($stdout).to receive(:puts)
     end
 
     let(:actions_yaml_file_path) { Tempfile.new("actions.yaml").path }
@@ -53,6 +48,7 @@ RSpec.describe "Convert CSV to YAML tasks" do
   describe "checklists:convert_csv_to_yaml:criteria" do
     before do
       Rake::Task["checklists:convert_csv_to_yaml:criteria"].reenable
+      allow($stdout).to receive(:puts)
     end
 
     let(:criteria_yaml_file_path) { Tempfile.new("criteria.yaml").path }
