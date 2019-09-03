@@ -30,7 +30,7 @@ class Checklists::Action
   end
 
   def valid?
-    Checklists::CriteriaLogic::Evaluator.new(criteria, []).valid?
+    Checklists::CriteriaLogic::Validator.validate(criteria)
   end
 
   def show?(selected_criteria)

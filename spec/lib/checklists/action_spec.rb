@@ -24,18 +24,14 @@ describe Checklists::Action do
         expect(action.title).to be_present
         expect(%w[business citizen]).to include(action.audience)
         expect(action.consequence).to be_present
-        expect(action.criteria).to be_a String
+        expect(action.criteria).to be_a Array
         expect(action.criteria).to be_present
         expect(action.priority).to be_a Integer
       end
     end
 
     it "returns actions that reference valid criteria" do
-      all_criteria_keys = Checklists::Criterion.load_all.map(&:key)
-
       subject.each do |action|
-        expect { action.show?([]) }.to_not raise_error
-        expect { action.show?(all_criteria_keys) }.to_not raise_error
         expect(action.valid?).to be true
       end
     end

@@ -26,10 +26,10 @@ class Checklists::Question
   end
 
   def valid?
-    return false unless Checklists::CriteriaLogic::Evaluator.new(criteria, []).valid?
+    return false unless Checklists::CriteriaLogic::Validator.validate(criteria)
 
     possible_values.all? do |criterion|
-      Checklists::CriteriaLogic::Evaluator.new(criterion, []).valid?
+      Checklists::CriteriaLogic::Validator.validate([criterion])
     end
   end
 
@@ -39,7 +39,7 @@ class Checklists::Question
 
   def possible_values
     sub_options = options.flat_map(&:sub_options)
-    (options + sub_options).map(&:value)
+    (options + sub_options).map(&:value).compact
   end
 
   def self.load_all
