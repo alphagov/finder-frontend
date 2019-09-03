@@ -34,7 +34,7 @@ class Checklists::Action
   end
 
   def show?(selected_criteria)
-    Checklists::CriteriaLogic::Evaluator.new(criteria, selected_criteria).applies?
+    Checklists::CriteriaLogic::Evaluator.evaluate(criteria, selected_criteria)
   end
 
   def self.find_by_id(id)

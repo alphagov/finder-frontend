@@ -34,7 +34,7 @@ class Checklists::Question
   end
 
   def show?(selected_criteria)
-    Checklists::CriteriaLogic::Evaluator.new(criteria, selected_criteria).applies?
+    Checklists::CriteriaLogic::Evaluator.evaluate(criteria, selected_criteria)
   end
 
   def possible_values

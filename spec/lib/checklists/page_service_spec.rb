@@ -4,16 +4,11 @@ describe Checklists::PageService do
   let(:questions) {
     [
       Checklists::Question.new(key: 'question_zero'),
-      Checklists::Question.new(key: 'question_one', 'criteria' => 'a && b'),
-      Checklists::Question.new(key: 'question_two', 'criteria' => 'c && d'),
-      Checklists::Question.new(key: 'question_three', 'criteria' => 'c')
+      Checklists::Question.new(key: 'question_one', 'criteria' => [{ "all_of" => %w(a b) }]),
+      Checklists::Question.new(key: 'question_two', 'criteria' => [{ "all_of" => %w(c d) }]),
+      Checklists::Question.new(key: 'question_three', 'criteria' => %w(c))
     ]
   }
-
-  before do
-    allow(Checklists::CriteriaLogic::Evaluator).to receive(:all_options).and_return(%w(a b c d))
-    allow(Checklists::CriteriaLogic::Evaluator).to receive(:all_options_hash).and_return("a" => false, "b" => false, "c" => false, "d" => false)
-  end
 
   describe '#next_page' do
     it 'returns nil if the last page has been reached' do
