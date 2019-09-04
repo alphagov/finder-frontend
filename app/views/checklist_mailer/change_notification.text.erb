@@ -1,0 +1,18 @@
+<% if @action.title_url.present? %><%= @action.title_url %><% end %>
+
+<% if @action.consequence.present? %><%= @action.consequence %><% end %>
+
+<% if @action.exception.present? %><%= @action.exception %><% end %>
+
+<% if @action.guidance_url.present? %>
+<%= @action.guidance_prompt || t("checklists_results.actions.guidance_prompt") %>
+[<%= @action.guidance_link_text %>](<%= @action.guidance_url %>)
+<% end %>
+
+<% if @change_note.note.present? %>
+What's changed
+<%= @change_note.note %>
+<% end %>
+
+Time updated
+<%= DateTime.parse(@change_note.time).strftime("%l.%M%P, %-d %B") %>
