@@ -125,7 +125,7 @@ actions:
   priority: 8
   title: Contact your vet at least 4 months before travelling to make sure your pet
     is able to travel to the EU
-  consequence: If your pet does not have the proper certificates you will not be able
+  consequence: If your pet does not have the proper documents, you will not be able
     to take it with you.
   lead_time: It takes at least 4 months
   guidance_prompt: Read the guidance
