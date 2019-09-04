@@ -6,30 +6,27 @@ describe Checklists::ChangeNote do
 
     it "returns a list of change notes with required fields" do
       subject.each do |change_note|
-        expect(change_note.id).to be_present
-        expect(change_note.text).to be_present
+        expect(change_note.id.length).to eq SecureRandom.uuid.length
+        expect(change_note.time).to match(/\d{4}-\d{2}-\d{2} \d{2}:\d{2}/)
+        expect(%w(content_change addition)).to include(change_note.type)
+
+        if change_note.type == "content_change"
+          expect(change_note.note).to be_present
+        end
       end
     end
 
-    it "requires an action_id or a question_key, but not both" do
-      subject.each do |change_note|
-        expect([change_note.action_id, change_note.question_key].compact.count).to eq(1)
-      end
-    end
-
-    it "returns change notes that reference actions or questions" do
-      action_changes = subject.map(&:action_id).compact
-      question_changes = subject.map(&:question_key).compact
-
+    it "returns change notes that reference actions" do
       action_ids = Checklists::Action.load_all.map(&:id)
-      action_changes.each { |action_id|
-        expect(action_ids).to include(action_id)
-      }
 
-      question_keys = Checklists::Question.load_all.map(&:key)
-      question_changes.each { |question_key|
-        expect(question_keys).to include(question_key)
-      }
+      subject.each do |change_note|
+        expect(action_ids).to include(change_note.action_id)
+      end
+    end
+
+    it "returns change notes with unique ids" do
+      ids = subject.map(&:id)
+      expect(ids.uniq.count).to eq(ids.count)
     end
   end
 end

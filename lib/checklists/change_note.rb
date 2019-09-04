@@ -1,18 +1,26 @@
 class Checklists::ChangeNote
-  attr_reader :id, :title, :text, :action_id, :question_key
+  CONFIG_PATH = Rails.root.join('lib/checklists/change_notes.yaml')
+
+  attr_reader :id, :action_id, :type, :note, :time
 
   def initialize(params)
-    @id             = params['id']
-    @title          = params['title']
-    @text           = params['text']
-    @action_id      = params['action_id']
-    @question_key   = params['question_key']
+    @id = params['uuid']
+    @action_id = params['action_id']
+    @type = params['type']
+    @note = params['note']
+    @time = params['time']
+  end
+
+  def action
+    Checklists::Action.find_by_id(action_id)
   end
 
   def self.load_all
-    change_notes = YAML.load_file(Rails.root.join('lib/checklists/changenotes.yaml'))['change_notes']
-    change_notes.map do |change_note|
-      Checklists::ChangeNote.new(change_note)
-    end
+    @load_all ||= YAML.load_file(CONFIG_PATH)['change_notes'].to_a
+      .map { |c| new(c) }
+  end
+
+  def self.find_by_id(id)
+    load_all.find { |c| c.id == id }
   end
 end
