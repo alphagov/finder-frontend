@@ -4,7 +4,7 @@ namespace :checklists do
   namespace :convert_csv_to_yaml do
     desc "Import actions CSV and convert to YAML file"
     task :actions, [:csv_path] => :environment do |_, args|
-      abort MISSING_CSV_MESSAGE unless args.csv_path
+      raise MISSING_CSV_MESSAGE unless args.csv_path
 
       processor = Checklists::ConvertCsvToYaml::ActionsProcessor.new
       converter = Checklists::ConvertCsvToYaml::Converter.new(processor)
@@ -18,7 +18,7 @@ namespace :checklists do
 
     desc "Import criteria CSV and convert to YAML file"
     task :criteria, [:csv_path] => :environment do |_, args|
-      abort MISSING_CSV_MESSAGE unless args.csv_path
+      raise MISSING_CSV_MESSAGE unless args.csv_path
 
       processor = Checklists::ConvertCsvToYaml::CriteriaProcessor.new
       converter = Checklists::ConvertCsvToYaml::Converter.new(processor)
