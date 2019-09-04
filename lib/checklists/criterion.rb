@@ -1,13 +1,12 @@
 class Checklists::Criterion
   CONFIG_PATH = Rails.root.join('lib', 'checklists', 'criteria.yaml')
 
-  attr_reader :key, :text, :depends_on, :key_underscored
+  attr_reader :key, :text, :depends_on
 
   def initialize(params)
     @key = params['key']
     @text = params['text']
     @depends_on = params.fetch('depends_on', [])
-    @key_underscored = @key.underscore
   end
 
   def self.load_all
