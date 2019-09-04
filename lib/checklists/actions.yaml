@@ -35,6 +35,7 @@ actions:
     - any_of:
       - living-eu
       - living-row
+    - join-family-uk-yes
   audience: citizen
 - action_id: S004
   priority: 5

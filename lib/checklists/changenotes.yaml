@@ -60,6 +60,10 @@ change_notes:
      text: Removed the guidance link and the guidance prompt as the page hasn't been updated. Add a title URL sending people to the triaging tool.
      action_id: S029
      date: 2019-09-03
+   - id: add_join_family_uk_yes_criteria_to_s003
+     text: Added a tag to show this action only to non UK nationals who are planning on joining a family member in the UK
+     action_id: S003
+     date: 2019-09-04
   # - id: brexit_action_change_1
   #   title: "Change to Get an EORI number that starts with GB to move goods in or out of the UK"
   #   text: "EORI number description added"
