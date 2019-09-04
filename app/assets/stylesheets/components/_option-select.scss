@@ -4,7 +4,7 @@
   background-color: govuk-colour("light-grey", $legacy: "grey-3");
   margin-bottom: govuk-spacing(6);
 
-  @include media(desktop) {
+  @include govuk-media-query($from: desktop) {
     // Redefine scrollbars on desktop where these lists are scrollable
     // so they are always visible in option lists
     ::-webkit-scrollbar {

@@ -6,10 +6,10 @@
   @include govuk-font($size: 19);
   display: block;
   text-align: center;
-  padding: (govuk-spacing(2) - $govuk-border-width-form-element) govuk-spacing(2);  
+  padding: (govuk-spacing(2) - $govuk-border-width-form-element) govuk-spacing(2);
   margin-top: govuk-spacing(3);
 
-  @include media(tablet) {
+  @include govuk-media-query($from: tablet) {
     display: inline-block;
     margin-top: 0;
   }
