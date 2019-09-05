@@ -25,14 +25,6 @@ class Checklists::Question
     load_all.find { |q| q.key == key }
   end
 
-  def valid?
-    return false unless Checklists::CriteriaLogic::Validator.validate(criteria)
-
-    possible_values.all? do |criterion|
-      Checklists::CriteriaLogic::Validator.validate([criterion])
-    end
-  end
-
   def show?(selected_criteria)
     Checklists::CriteriaLogic::Evaluator.evaluate(criteria, selected_criteria)
   end

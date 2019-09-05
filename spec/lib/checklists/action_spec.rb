@@ -28,8 +28,10 @@ describe Checklists::Action do
     end
 
     it "returns actions that reference valid criteria" do
+      validator = Checklists::CriteriaLogic::Validator
+
       subject.each do |action|
-        expect(action.valid?).to be true
+        expect(validator.validate(action.criteria)).to be_truthy
       end
     end
 

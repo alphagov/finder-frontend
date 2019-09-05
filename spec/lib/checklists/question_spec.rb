@@ -30,8 +30,14 @@ describe Checklists::Question do
     end
 
     it "returns questions that reference valid criteria" do
+      validator = Checklists::CriteriaLogic::Validator
+
       subject.each do |question|
-        expect(question.valid?).to be true
+        expect(validator.validate(question.criteria)).to be_truthy
+
+        question.possible_values.each do |value|
+          expect(validator.validate([value])).to be_truthy
+        end
       end
     end
   end

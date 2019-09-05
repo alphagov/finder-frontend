@@ -29,10 +29,6 @@ class Checklists::Action
     @priority = params['priority']
   end
 
-  def valid?
-    Checklists::CriteriaLogic::Validator.validate(criteria)
-  end
-
   def show?(selected_criteria)
     Checklists::CriteriaLogic::Evaluator.evaluate(criteria, selected_criteria)
   end
