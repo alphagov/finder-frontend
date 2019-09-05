@@ -1,7 +1,11 @@
 require "spec_helper"
+require "csv"
 
 RSpec.describe "Convert CSV to YAML tasks" do
   include FixturesHelper
+
+  let(:actions_yaml_file) { Tempfile.new("actions.yaml") }
+  let(:actions_csv_file_path) { actions_csv_to_convert_to_yaml }
 
   describe "checklists:convert_csv_to_yaml:actions" do
     before do
@@ -9,18 +13,15 @@ RSpec.describe "Convert CSV to YAML tasks" do
       allow($stdout).to receive(:puts)
     end
 
-    let(:actions_yaml_file_path) { Tempfile.new("actions.yaml").path }
-    let(:actions_csv_file_path) { actions_csv_to_convert_to_yaml }
-
     it "converts the actions CSV to YAML and writes to the actions.yml file" do
       # Override the YAML file path that is sent to the Converter with a tempfile
       # so that "lib/checklists/actions.yaml" isn't overwritten by the test.
       allow_any_instance_of(Checklists::ConvertCsvToYaml::Converter).to receive(:convert).and_wrap_original do |m|
-        m.call(actions_csv_file_path, actions_yaml_file_path, "actions")
+        m.call(actions_csv_file_path, actions_yaml_file.path, "actions")
       end
 
       Rake::Task["checklists:convert_csv_to_yaml:actions"].invoke(actions_csv_file_path)
-      loaded_yaml_file = YAML.safe_load(File.read(actions_yaml_file_path))
+      loaded_yaml_file = YAML.safe_load(File.read(actions_yaml_file.path))
 
       expect(loaded_yaml_file["actions"]).to include(
         a_hash_including(
@@ -42,6 +43,52 @@ RSpec.describe "Convert CSV to YAML tasks" do
     it "raises an error if a path is provided to a file that doesn't have .csv extension" do
       expect { Rake::Task["checklists:convert_csv_to_yaml:actions"].invoke }
         .to raise_error "You must provide a path to the CSV file you would like to convert."
+    end
+  end
+
+  describe "checklists:convert_csv_to_yaml:actions_from_google_drive" do
+    let(:google_drive_actions_csv) { Tempfile.new("download.csv") }
+
+    before do
+      Rake::Task["checklists:convert_csv_to_yaml:actions_from_google_drive"].reenable
+      allow($stdout).to receive(:puts)
+
+      actions_csv = CSV.read(actions_csv_file_path, headers: true).to_a
+      CSV.open(google_drive_actions_csv, "w") do |csv|
+        actions_csv.each { |row| csv << row }
+      end
+    end
+
+    it "converts the actions CSV downloaded from Google Drive to YAML and writes to the actions.yml file" do
+      allow_any_instance_of(Checklists::ConvertCsvToYaml::GoogleDriveCsvDownloader)
+        .to receive(:download)
+        .and_return(google_drive_actions_csv)
+
+      # Override the YAML file path that is sent to the Converter with a tempfile
+      # so that "lib/checklists/actions.yaml" isn't overwritten by the test.
+      allow_any_instance_of(Checklists::ConvertCsvToYaml::Converter)
+        .to receive(:convert).and_wrap_original do |m|
+          m.call(google_drive_actions_csv.path, actions_yaml_file.path, "actions")
+        end
+
+      Rake::Task["checklists:convert_csv_to_yaml:actions_from_google_drive"].invoke
+      loaded_yaml_file = YAML.safe_load(File.read(actions_yaml_file.path))
+
+      expect(loaded_yaml_file["actions"]).to include(
+        a_hash_including(
+          "action_id" => "T001",
+          "audience" => "business",
+          "consequence" => "If you don't do the important action then it will be bad.",
+          "criteria" => [{ "any_of" => %w(owns-business imports-eu) }],
+          "guidance_link_text" => "Some important guidance",
+          "guidance_prompt" => "Read the guidance:",
+          "guidance_url" => "https://www.gov.uk/guidance/important-guidance",
+          "lead_time" => "1 week or less",
+          "priority" => 0,
+          "title" => "An important action",
+          "title_url" => "https://www.gov.uk/important-action",
+        )
+      )
     end
   end
 
