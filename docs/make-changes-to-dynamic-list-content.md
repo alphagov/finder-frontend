@@ -18,15 +18,35 @@ subscribed users of this change via email.
 
 ## Update actions
 
-To add, remove, or change an action, you'll need to edit the actions file
-at [lib/checklists/actions.yaml](https://github.com/alphagov/finder-frontend/tree/master/lib/checklists/actions.yaml). See the yaml file for examples.
+To add, remove, or change an action, you'll need to run a rake task to convert an actions CSV to `actions.yaml`.  After running one of the rake tasks below, run `bundle exec rspec spec/lib/checklists` to run tests against the Yaml. This will ensure it has the right format. For example, the `action_id` must be unique.  
 
-A content editor should supply you with the data you need.
-
-Run `bundle exec rspec spec/lib/checklists` to run tests against the Yaml. This will ensure it has
-the right format. For example, the `action_id` must be unique.
+Review the diff for `lib/checklists/actions.yaml` and commit only the changes that
+the content designer requested.
 
 **NOTE: A change note should be created for all major changes to actions.**
+
+### If the CSV is available from Google Sheets
+1. Create a `.env` file and add the sheet ID (this can be found in the URL of the Google Sheet) as an environment variable. For example:
+
+```
+GOOGLE_SHEET_ID="a-google-sheet-id"
+```
+
+2. Before you run the rake task for the first time, you will need to enable to Google Drive API by generating a `credentials.json` file from the API.  Instructions to to this can be found [here](https://developers.google.com/drive/api/v3/quickstart/ruby).  You will not need to do this again when running the rake task in future as long as you have `credentials.json`.
+
+3. Run this take task:
+
+```
+bundle exec rake checklists:convert_csv_to_yaml:actions_from_google_drive
+```
+
+### If the CSV is available as a standalone file
+
+Run this take task:
+
+```
+bundle exec rake checklists:convert_csv_to_yaml:actions[path/to/actions.csv]`
+```
 
 ## Adding change notes
 
