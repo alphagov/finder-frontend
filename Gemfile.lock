@@ -102,6 +102,10 @@ GEM
     docile (1.3.2)
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
+    dotenv (2.7.5)
+    dotenv-rails (2.7.5)
+      dotenv (= 2.7.5)
+      railties (>= 3.2, < 6.1)
     erubi (1.8.0)
     execjs (2.7.0)
     factory_bot (5.0.2)
@@ -417,6 +421,7 @@ DEPENDENCIES
   chronic (~> 0.10.2)
   cucumber-rails (~> 1.8.0)
   dalli
+  dotenv-rails
   factory_bot
   gds-api-adapters (~> 60.0)
   google-api-client
