@@ -296,6 +296,41 @@ describe FindersController, type: :controller do
     end
   end
 
+  describe "Spelling suggestions" do
+    let(:breakfast_finder) do
+      finder = govuk_content_schema_example('finder').to_hash.merge(
+        'title' => 'Breakfast Finder',
+        'base_path' => '/breakfast-finder',
+        'content_id' => '42ce66de-04f3-4192-bf31-8394538e0734'
+      )
+
+      finder["details"]["default_documents_per_page"] = 10
+      finder["details"]["sort"] = nil
+      finder
+    end
+
+    before do
+      content_store_has_item(breakfast_finder['base_path'], breakfast_finder)
+      rummager_response = %|{
+        "results": [],
+        "total": 0,
+        "start": 0,
+        "facets": {},
+        "suggested_queries": ["cereal", "full english"]
+      }|
+      stub_request(:get, /search.json/).to_return(status: 200, body: rummager_response, headers: {})
+    end
+
+    it "Gives all the spelling suggestions and links to them" do
+      get :show, params: { slug: path_for(breakfast_finder), format: "json" }
+      expect(response.status).to eq(200)
+      expect(response.content_type).to eq("application/json")
+
+      expect(response.body).to include('{"keywords":"cereal","link":"/breakfast-finder?keywords=cereal"}')
+      expect(response.body).to include('{"keywords":"full english","link":"/breakfast-finder?keywords=full+english"}')
+    end
+  end
+
   def path_for(content_item, locale = nil)
     base_path = content_item['base_path'].sub(/^\//, '')
     base_path.gsub!(/\.#{locale}$/, '') if locale
