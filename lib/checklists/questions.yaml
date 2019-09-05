@@ -63,6 +63,8 @@ questions:
         options:
           - label: To the UK
             value: visiting-uk
+          - label: To Ireland
+            value: visiting-ie
           - label: To another EU country, Iceland, Liechtenstein, Norway or Switzerland
             value: visiting-eu
           - label: To the rest of the world
