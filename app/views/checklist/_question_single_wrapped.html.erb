@@ -3,7 +3,7 @@
     name: "c[]",
     heading: current_question.text,
     description: formatted_description,
-    hint_text: current_question.hint_title,
+    hint: current_question.hint_text,
     is_page_heading: true,
     items: current_question.options.map do |option|
       sub_options = filter_items(option.sub_options, criteria_keys)
