@@ -27,7 +27,7 @@
         </p>
       <% end %>
 
-      <% if action.guidance_link_text.present? && action.guidance_url.present? %>
+      <% if action.guidance_url.present? %>
         <p class="govuk-body govuk-!-font-size-16">
           <% prompt = action.guidance_prompt || t("checklists_results.actions.guidance_prompt") %>
           <%= prompt %>: <a href="<%= action.guidance_url %>" class="govuk-link"><%= action.guidance_link_text %></a>

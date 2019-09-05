@@ -1,0 +1,35 @@
+---
+change_notes:
+   #- uuid: "a5647877-7ff9-47ed-a6d8-fb377791ffb9"
+     #note: "Added exceptions to settle status for those with indefinite leave to enter/remain and Irish citizenship"
+     #type: content_change
+     #action_id: 'S001'
+     #time: "2019-09-08 10:20"
+   #- uuid: "047d877f-9034-4845-b19d-02b3e413aa94"
+     #type: addition
+     #action_id: S011
+     #time: TODO
+   #- uuid: "72e4f470-f60f-42df-8724-7bb5d6055ff5"
+     #type: addition
+     #action_id: T078
+     #time: TODO
+   #- uuid: "b64e80e1-332d-4893-873a-94c13423a0b3"
+     #type: addition
+     #action_id: T079
+     #time: TODO
+   #- uuid: "871e7fe2-395e-4b65-a6e5-453031082a43"
+     #type: addition
+     #action_id: S006
+     #time: TODO
+   #- uuid: "921cd309-c1ef-4902-9154-4f2299240a20"
+     #type: addition
+     #action_id: T025
+     #time: TODO
+   #- uuid: "64c565bc-cc88-417a-90b9-618f5de6134c"
+     #type: addition
+     #action_id: T026
+     #time: TODO
+   #- uuid: "553fa1b6-30f8-405e-95dd-0bb1a9ea7111"
+     #type: content_change
+     #action_id: S029
+     #time: TODO
