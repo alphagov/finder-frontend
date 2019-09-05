@@ -18,6 +18,7 @@ class FindersController < ApplicationController
         @parent = parent
         @sort_presenter = sort_presenter
         @pagination = pagination_presenter
+        @suggestions = suggestions
       end
       format.json do
         @search_query = initialize_search_query
