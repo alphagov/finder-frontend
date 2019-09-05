@@ -63,7 +63,8 @@ describe FindersController, type: :controller do
               fields: "title,link,description,public_timestamp,popularity,content_purpose_supergroup,content_store_document_type,format,is_historic,government_name,content_id,walk_type,place_of_origin,date_of_introduction,creator",
               filter_document_type: "mosw_report",
               order: "-public_timestamp",
-              start: 0
+              start: 0,
+              suggest: "spelling",
             }
           )
           .to_return(status: 200, body: rummager_response, headers: {})
@@ -121,7 +122,8 @@ describe FindersController, type: :controller do
               fields: "title,link,description,public_timestamp,popularity,content_purpose_supergroup,content_store_document_type,format,is_historic,government_name,content_id,walk_type,place_of_origin,date_of_introduction,creator",
               filter_document_type: "mosw_report",
               order: "-public_timestamp",
-              start: 0
+              start: 0,
+              suggest: "spelling",
             }
           )
           .to_return(status: 200, body: rummager_response, headers: {})
@@ -222,7 +224,8 @@ describe FindersController, type: :controller do
               fields: "title,link,description,public_timestamp,popularity,content_purpose_supergroup,content_store_document_type,format,is_historic,government_name,content_id,walk_type,place_of_origin,date_of_introduction,creator",
               filter_document_type: "mosw_report",
               order: "-public_timestamp",
-              start: 0
+              start: 0,
+              suggest: "spelling",
             }
           )
           .to_return(status: 200, body: rummager_response, headers: {})
