@@ -56,13 +56,16 @@ questions:
   - key: travelling
     question_type: single_wrapped
     question: 'Do you plan to travel after 31 October 2019?'
+    hint_text: "This includes travel the may have started on or before 31 October 2019"
     options:
       - label: "Yes"
         value: travelling
         options:
           - label: To the UK
             value: visiting-uk
-          - label: To the EU
+          - label: To Ireland
+            value: visiting-ie
+          - label: To another EU country, Iceland, Liechtenstein, Norway or Switzerland
             value: visiting-eu
           - label: To the rest of the world
             value: visiting-row

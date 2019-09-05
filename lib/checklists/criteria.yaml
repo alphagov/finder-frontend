@@ -200,6 +200,8 @@ criteria:
   text: You drive in the EU using a UK licence
 - key: living-driving-eu-no
   text: You do not drive in the EU using a UK licence
+- key: visiting-ie
+  text: You plan to Ireland
 - key: visiting-eu
   text: You plan to travel to the EU
 - key: visiting-row
