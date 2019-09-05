@@ -1,6 +1,21 @@
 require 'addressable/uri'
 
+# TODO :
+# 1. create module containing researach and stats filters and include
+# here. Include it in Models/Filters too so it's only in one place.
+# 2. Can that module be used in the spec too?
+# 3. Can research_and_statistics_links be refactored - it's a bit massive
+# 4. Test on integration
+
+
 class EmailAlertSignupAPI
+  RESEARCH_AND_STATS_FILTERS = {
+    "published_statistics" => %w(statistics national_statistics statistical_data_set official_statistics),
+    "research" => %w(dfid_research_output independent_report research),
+    "cancelled_statistics" => { "statistics_announcement_state" => "cancelled" },
+    "upcoming_statistics" => { "document_type" => %w(national_statistics_announcement official_statistics_announcement statistics_announcement national official) }
+  }.freeze
+
   def initialize(applied_filters:, default_filters:, facets:, subscriber_list_title:, finder_format:, default_frequency: nil, email_filter_by: nil)
     @applied_filters = applied_filters.deep_symbolize_keys
     @default_filters = default_filters.deep_symbolize_keys
@@ -42,16 +57,49 @@ private
       options["links"] = facet_values
     elsif link_based_subscriber_list?
       options["links"] = links
+    elsif research_and_statistics?
+      options["links"] = research_and_statistics_links(links)
     else
       options["tags"] = tags
     end
     options
   end
 
+  def research_and_statistics?
+    RESEARCH_AND_STATS_FILTERS.keys.include?(content_store_document_type)
+  end
+
+  def content_store_document_type
+    if applied_filters.has_key?(:content_store_document_type)
+      applied_filters[:content_store_document_type][0]
+    end
+  end
+
+  def research_and_statistics_links(links)
+    stats_filters = {}
+    if %w(research published_statistics).include?(content_store_document_type)
+      stats_filters['content_store_document_type'] ||= {}
+      stats_filters['content_store_document_type']['any'] ||= []
+      document_types = RESEARCH_AND_STATS_FILTERS[content_store_document_type]
+      document_types.each do |type|
+        stats_filters['content_store_document_type']['any'] << type
+      end
+      links_hash = links.merge(stats_filters)
+    else
+      key = RESEARCH_AND_STATS_FILTERS[content_store_document_type].keys.first
+      stats_filters[key] ||= {}
+      stats_filters[key]['any'] ||= []
+      stats_filters[key]['any'] = RESEARCH_AND_STATS_FILTERS[content_store_document_type][key]
+      links_hash = links.merge(stats_filters)
+      links_hash.except!("content_store_document_type")
+    end
+    links_hash
+  end
+
   def link_based_subscriber_list?
     content_types = %w[organisations people world_locations part_of_taxonomy_tree]
     keys = facet_filter_keys.map { |key| key.gsub(/^(all_|any_)/, '') }
-    (keys & content_types).present?
+    (keys & content_types).present? && !research_and_statistics?
   end
 
   def links

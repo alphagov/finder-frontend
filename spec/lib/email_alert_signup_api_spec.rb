@@ -600,4 +600,97 @@ describe EmailAlertSignupAPI do
       end
     end
   end
+
+  context "Create research and statistics subscriber lists" do
+    let(:subscription_url) { "http://gov.uk/email/research-and-statistics-subscription" }
+
+    let(:facets) {
+      [
+        {
+        "facet_id" => "content_store_document_type",
+        "facet_name" => "Document type"
+        }
+      ]
+    }
+
+    describe 'cancelled statistics' do
+      let(:applied_filters) {
+        {
+          "content_store_document_type" => %w[cancelled_statistics]
+        }
+      }
+
+      it 'asks email-alert-api to find or create the subscriber list' do
+        req = email_alert_api_has_subscriber_list(
+          "links" => {
+            statistics_announcement_state: { any: "cancelled" }
+          },
+          "subscription_url" => subscription_url
+        )
+        expect(subject.signup_url).to eql subscription_url
+
+        assert_requested(req)
+      end
+    end
+
+    describe 'upcoming statistics' do
+      let(:applied_filters) {
+        {
+          "content_store_document_type" => %w[upcoming_statistics]
+        }
+      }
+
+      it 'asks email-alert-api to find or create the subscriber list' do
+        req = email_alert_api_has_subscriber_list(
+          "links" => {
+            document_type: { any: %w(national_statistics_announcement official_statistics_announcement statistics_announcement national official) }
+          },
+          "subscription_url" => subscription_url
+        )
+        expect(subject.signup_url).to eql subscription_url
+
+        assert_requested(req)
+      end
+    end
+
+    describe 'published statistics' do
+      let(:applied_filters) {
+        {
+          "content_store_document_type" => %w[published_statistics]
+        }
+      }
+
+      it 'asks email-alert-api to find or create the subscriber list' do
+        req = email_alert_api_has_subscriber_list(
+          "links" => {
+            content_store_document_type: { any:  %w(statistics national_statistics statistical_data_set official_statistics) }
+          },
+          "subscription_url" => subscription_url
+        )
+        expect(subject.signup_url).to eql subscription_url
+
+        assert_requested(req)
+      end
+    end
+
+    describe 'research' do
+      let(:applied_filters) {
+        {
+          "content_store_document_type" => %w[research]
+        }
+      }
+
+      it 'asks email-alert-api to find or create the subscriber list' do
+        req = email_alert_api_has_subscriber_list(
+          "links" => {
+            content_store_document_type: { any:  %w(dfid_research_output independent_report research) }
+          },
+          "subscription_url" => subscription_url
+        )
+        expect(subject.signup_url).to eql subscription_url
+
+        assert_requested(req)
+      end
+    end
+  end
 end
