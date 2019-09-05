@@ -1,8 +1,13 @@
 class Checklists::Question::Option
+  include ActiveModel::Validations
+
+  validates_presence_of :label
+
   attr_reader :label, :value, :sub_options, :hint_text, :criteria
 
   def initialize(attrs)
     attrs.each { |key, value| instance_variable_set("@#{key}", value) }
+    validate!
   end
 
   def show?(criteria_keys)

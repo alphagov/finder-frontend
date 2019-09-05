@@ -1,5 +1,12 @@
 class Checklists::Action
+  include ActiveModel::Validations
+
   CONFIG_PATH = Rails.root.join('lib', 'checklists', 'actions.yaml')
+
+  validates_presence_of :id, :title, :consequence, :criteria
+  validates_inclusion_of :audience, in: %w(business citizen)
+  validates_presence_of :guidance_link_text, if: :guidance_url
+  validates_numericality_of :priority, only_integer: true
 
   attr_reader :id, :title, :consequence, :exception, :title_url,
               :lead_time, :criteria, :audience, :guidance_link_text,
@@ -7,6 +14,7 @@ class Checklists::Action
 
   def initialize(attrs)
     attrs.each { |key, value| instance_variable_set("@#{key}", value) }
+    validate!
   end
 
   def show?(selected_criteria)

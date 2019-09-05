@@ -1,10 +1,15 @@
 class Checklists::Criterion
+  include ActiveModel::Validations
+
   CONFIG_PATH = Rails.root.join('lib', 'checklists', 'criteria.yaml')
+
+  validates_presence_of :key, :text
 
   attr_reader :key, :text
 
   def initialize(attrs)
     attrs.each { |key, value| instance_variable_set("@#{key}", value) }
+    validate!
   end
 
   def self.load_all
