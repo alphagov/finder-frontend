@@ -1,36 +1,22 @@
 class Checklists::Action
   CONFIG_PATH = Rails.root.join('lib', 'checklists', 'actions.yaml')
 
-  attr_accessor :id,
-                :title,
-                :consequence,
-                :exception,
-                :title_url,
-                :lead_time,
-                :criteria,
-                :audience,
-                :guidance_link_text,
-                :guidance_url,
-                :guidance_prompt,
-                :priority
+  attr_reader :id, :title, :consequence, :exception, :title_url,
+              :lead_time, :criteria, :audience, :guidance_link_text,
+              :guidance_url, :guidance_prompt, :priority
 
-  def initialize(params)
-    @id = params['action_id']
-    @title = params['title']
-    @consequence = params['consequence']
-    @exception = params['exception']
-    @title_url = params['title_url']
-    @lead_time = params['lead_time']
-    @criteria = params['criteria']
-    @audience = params['audience']
-    @guidance_link_text = params['guidance_link_text']
-    @guidance_url = params['guidance_url']
-    @guidance_prompt = params['guidance_prompt']
-    @priority = params['priority']
+  def initialize(attrs)
+    attrs.each { |key, value| instance_variable_set("@#{key}", value) }
   end
 
   def show?(selected_criteria)
     Checklists::CriteriaLogic::Evaluator.evaluate(criteria, selected_criteria)
+  end
+
+  def self.load(params)
+    parsed_params = params.dup
+    parsed_params['id'] = params['action_id']
+    new(parsed_params)
   end
 
   def self.find_by_id(id)
@@ -39,6 +25,6 @@ class Checklists::Action
 
   def self.load_all
     @load_all = nil if Rails.env.development?
-    @load_all ||= YAML.load_file(CONFIG_PATH)['actions'].map { |a| new(a) }
+    @load_all ||= YAML.load_file(CONFIG_PATH)['actions'].map { |a| load(a) }
   end
 end

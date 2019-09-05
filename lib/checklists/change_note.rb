@@ -3,21 +3,23 @@ class Checklists::ChangeNote
 
   attr_reader :id, :action_id, :type, :note, :time
 
-  def initialize(params)
-    @id = params['uuid']
-    @action_id = params['action_id']
-    @type = params['type']
-    @note = params['note']
-    @time = params['time']
+  def initialize(attrs)
+    attrs.each { |key, value| instance_variable_set("@#{key}", value) }
   end
 
   def action
     Checklists::Action.find_by_id(action_id)
   end
 
+  def self.load(params)
+    parsed_params = params.dup
+    parsed_params['id'] = params['uuid']
+    new(parsed_params)
+  end
+
   def self.load_all
     @load_all ||= YAML.load_file(CONFIG_PATH)['change_notes'].to_a
-      .map { |c| new(c) }
+      .map { |c| load(c) }
   end
 
   def self.find_by_id(id)

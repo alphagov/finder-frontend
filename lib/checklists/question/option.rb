@@ -1,19 +1,21 @@
 class Checklists::Question::Option
   attr_reader :label, :value, :sub_options, :hint_text, :criteria
 
-  def self.load_all(options)
-    options.map { |o| new(o) }
-  end
-
-  def initialize(params)
-    @label = params['label']
-    @value = params['value']
-    @sub_options = Checklists::Question::Option.load_all(params['options'].to_a)
-    @hint_text = params['hint_text']
-    @criteria = params['criteria']
+  def initialize(attrs)
+    attrs.each { |key, value| instance_variable_set("@#{key}", value) }
   end
 
   def show?(criteria_keys)
     Checklists::CriteriaLogic::Evaluator.evaluate(criteria, criteria_keys)
+  end
+
+  def self.load(params)
+    parsed_params = params.dup
+    parsed_params['sub_options'] = load_all(params['options'].to_a)
+    new(parsed_params)
+  end
+
+  def self.load_all(options)
+    options.map { |o| load(o) }
   end
 end

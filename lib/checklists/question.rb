@@ -4,15 +4,8 @@ class Checklists::Question
   attr_reader :key, :text, :description, :hint_title, :hint_text,
               :options, :type, :criteria
 
-  def initialize(params)
-    @key = params['key']
-    @text = params['question']
-    @description = params['description']
-    @hint_title = params['hint_title']
-    @hint_text = params['hint_text']
-    @options = Option.load_all(params['options'].to_a)
-    @type = params['question_type']
-    @criteria = params['criteria']
+  def initialize(attrs)
+    attrs.each { |key, value| instance_variable_set("@#{key}", value) }
   end
 
   def multiple?; type == "multiple" end
@@ -34,10 +27,16 @@ class Checklists::Question
     (options + sub_options).map(&:value).compact
   end
 
+  def self.load(params)
+    parsed_params = params.dup
+    parsed_params['text'] = params['question']
+    parsed_params['options'] = Option.load_all(params['options'])
+    parsed_params['type'] = params['question_type']
+    new(parsed_params)
+  end
+
   def self.load_all
     @load_all = nil if Rails.env.development?
-
-    @load_all ||= YAML.load_file(CONFIG_PATH)['questions']
-      .map { |q| new(q) }
+    @load_all ||= YAML.load_file(CONFIG_PATH)['questions'] .map { |q| load(q) }
   end
 end
