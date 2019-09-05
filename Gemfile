@@ -29,6 +29,8 @@ end
 
 group :development, :test do
   gem 'awesome_print'
+  gem "dotenv-rails"
+  gem "google-api-client"
   gem 'govuk-lint', '~> 3.11.5'
   gem 'govuk_schemas', '~> 4.0'
   gem 'jasmine-rails'
