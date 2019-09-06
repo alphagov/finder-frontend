@@ -264,7 +264,7 @@ questions:
         options:
           - label: Agriculture and farming
             value: agriculture-farm
-          - label: Animals and animal products (excluding food)
+          - label: Animals and animal products
             value: animal-ex-food
           - label: Fisheries (including wholesale)
             value: fish-inc-wholesale
