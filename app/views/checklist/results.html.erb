@@ -16,7 +16,7 @@
                                   end
 %>
 
-<% content_for :title, t('checklists_results.title') %>
+<% content_for :title, action_based_title %>
 <% content_for :head do %>
   <% page_url = request.base_url + request.path %>
   <meta name="robots" content="noindex">
