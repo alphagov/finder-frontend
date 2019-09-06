@@ -1,5 +1,3 @@
-<% if @action.title_url.present? %><%= @action.title_url %><% end %>
-
 <% if @action.consequence.present? %><%= @action.consequence %><% end %>
 
 <% if @action.exception.present? %><%= @action.exception %><% end %>
@@ -9,10 +7,8 @@
 [<%= @action.guidance_link_text %>](<%= @action.guidance_url %>)
 <% end %>
 
-<% if @change_note.note.present? %>
-What's changed
-<%= @change_note.note %>
-<% end %>
+Updated
+<%= DateTime.parse(@change_note.time).strftime("%-d %B, %Y") %>
 
-Time updated
-<%= DateTime.parse(@change_note.time).strftime("%l.%M%P, %-d %B") %>
+Changes made
+<%= @change_note.note.presence || t("checklists_mailer.change_notification.added") %>

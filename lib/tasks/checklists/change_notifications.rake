@@ -9,6 +9,7 @@ namespace :checklists do
 
     GdsApi.email_alert_api.create_message(
       title: mail.subject,
+      url: change_note.action.title_url,
       body: mail.body.raw_source,
       sender_message_id: change_note.id,
       criteria_rules: criteria_rules(change_note.action.criteria)

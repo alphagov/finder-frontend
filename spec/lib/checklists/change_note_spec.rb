@@ -7,7 +7,7 @@ describe Checklists::ChangeNote do
     it "returns a list of change notes with required fields" do
       subject.each do |change_note|
         expect(change_note.id.length).to eq SecureRandom.uuid.length
-        expect(change_note.time).to match(/\d{4}-\d{2}-\d{2} \d{2}:\d{2}/)
+        expect(change_note.time).to match(/\d{4}-\d{2}-\d{2}/)
         expect(%w(content_change addition)).to include(change_note.type)
 
         if change_note.type == "content_change"
