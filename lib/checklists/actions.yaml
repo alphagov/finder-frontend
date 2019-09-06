@@ -196,13 +196,9 @@ actions:
   guidance_link_text: Apply to the EU Settlement Scheme (settled and pre-settled status)
   guidance_url: https://www.gov.uk/settled-status-eu-citizens-families/
   criteria:
-  - any_of:
-    - all_of:
-      - nationality-uk
-      - return-to-uk
-    - all_of:
-      - nationality-eu
-      - join-family-uk-yes
+  - all_of:
+    - nationality-uk
+    - return-to-uk
   audience: citizen
 - action_id: S015
   priority: 5
