@@ -7,12 +7,12 @@ RSpec.describe "Convert CSV to YAML tasks" do
   let(:actions_yaml_file) { Tempfile.new("actions.yaml") }
   let(:actions_csv_file_path) { actions_csv_to_convert_to_yaml }
 
-  describe "checklists:convert_csv_to_yaml:actions" do
-    before do
-      Rake::Task["checklists:convert_csv_to_yaml:actions"].reenable
-      allow($stdout).to receive(:puts)
-    end
+  before do
+    Rake::Task["checklists:convert_csv_to_yaml:actions"].reenable
+    allow($stdout).to receive(:puts)
+  end
 
+  describe "checklists:convert_csv_to_yaml:actions" do
     it "converts the actions CSV to YAML and writes to the actions.yml file" do
       # Override the YAML file path that is sent to the Converter with a tempfile
       # so that "lib/checklists/actions.yaml" isn't overwritten by the test.
