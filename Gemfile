@@ -5,6 +5,7 @@ ruby File.read(".ruby-version").strip
 gem 'chronic', '~> 0.10.2'
 gem 'dalli'
 gem 'gds-api-adapters', '~> 60.0'
+gem "google-api-client"
 gem 'govuk_ab_testing', '~> 2.4.1'
 gem 'govuk_app_config', '~> 2.0.0'
 gem 'govuk_document_types', '~> 0.9.2'
@@ -30,7 +31,6 @@ end
 group :development, :test do
   gem 'awesome_print'
   gem "dotenv-rails"
-  gem "google-api-client"
   gem 'govuk-lint', '~> 3.11.5'
   gem 'govuk_schemas', '~> 4.0'
   gem 'jasmine-rails'
