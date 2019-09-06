@@ -13,6 +13,10 @@ every cache_refresh_schedule.minutes do
   rake "registries:cache_refresh"
 end
 
+every cache_refresh_schedule.minutes do
+  rake "content_store:refresh_cache_hard"
+end
+
 # Example:
 #
 # set :output, "/path/to/my/cron_log.log"

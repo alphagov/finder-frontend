@@ -3,16 +3,12 @@ require 'gds_api/rummager'
 require 'gds_api/email_alert_api'
 
 module Services
-  def self.content_store
-    GdsApi::ContentStore.new(Plek.find("content-store"))
+  def self.cached_content_item(path)
+    content_store.cached_content_item(path)
   end
 
-  def self.cached_content_item(base_path)
-    Rails.cache.fetch("finder-frontend_content_items#{base_path}", expires_in: 10.minutes) do
-      GovukStatsd.time("content_store.fetch_request_time") do
-        content_store.content_item(base_path).to_h
-      end
-    end
+  def self.content_store
+    Services::ContentStore.new
   end
 
   def self.rummager
