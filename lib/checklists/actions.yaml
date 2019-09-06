@@ -675,6 +675,8 @@ actions:
     - agriculture-farm
     - forestry
     - food-drink-tobacco
+    - export-to-eu
+    - import-from-eu
   audience: business
 - action_id: T033
   priority: 8
