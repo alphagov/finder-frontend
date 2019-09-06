@@ -36,6 +36,9 @@ en:
       fewer: "Show fewer search options"
   checklists:
     title: "Get ready for Brexit: check what you need to do"
+  checklists_mailer:
+    change_notification:
+      added: This action has been added to your list of results.
   checklists_results:
     social_media_meta:
       title: "Get ready for Brexit"

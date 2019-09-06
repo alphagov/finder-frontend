@@ -64,12 +64,15 @@ RSpec.describe "Change notifications" do
       assert_requested(:post, "#{endpoint}/messages") do |request|
         payload = JSON.parse(request.body)
         expect(payload["title"]).to eq "Added: #{action.title}"
+        expect(payload["url"]).to eq action.title_url
         expect(payload["sender_message_id"]).to eq action.id
         expect(payload["body"]).to match(action.consequence)
-        expect(payload["body"]).to match(action.title_url)
 
         date = DateTime.parse(change_note.time)
-        expect(payload["body"]).to match(date.strftime("%l.%M%P, %-d %B"))
+        expect(payload["body"]).to match(date.strftime("%-d %B, %Y"))
+
+        note = I18n.t!("checklists_mailer.change_notification.added")
+        expect(payload["body"]).to match(note)
 
         expect(payload["criteria_rules"]).to eq([
           {
@@ -98,12 +101,12 @@ RSpec.describe "Change notifications" do
       assert_requested(:post, "#{endpoint}/messages") do |request|
         payload = JSON.parse(request.body)
         expect(payload["title"]).to eq "Changed: #{action.title}"
+        expect(payload["url"]).to eq action.title_url
         expect(payload["sender_message_id"]).to eq action.id
-        expect(payload["body"]).to match(change_note.note)
-        expect(payload["body"]).to match(action.title_url)
 
         date = DateTime.parse(change_note.time)
-        expect(payload["body"]).to match(date.strftime("%l.%M%P, %-d %B"))
+        expect(payload["body"]).to match(date.strftime("%-d %B, %Y"))
+        expect(payload["body"]).to match(change_note.note)
 
         expect(payload["criteria_rules"]).to eq([
           {
