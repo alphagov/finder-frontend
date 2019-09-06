@@ -30,7 +30,13 @@
 
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-      <form action="<%= checklist_questions_path %>" method="get" id="finder-qa-facet-filter-selection" data-module="track-qa-choices">
+      <form
+        action="<%= checklist_questions_path %>"
+        method="get"
+        id="finder-qa-facet-filter-selection"
+        data-module="track-brexit-qa-choices"
+        data-question-key="<%= @current_question.key %>"
+      >
         <% if @current_question.multiple? %>
           <div class="govuk-!-margin-top-8">
             <%= render 'question_multiple_choice', {
