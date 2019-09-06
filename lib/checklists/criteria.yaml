@@ -19,7 +19,7 @@ criteria:
 - key: agriculture-farm
   text: You work in agriculture and farming
 - key: animal-ex-food
-  text: You work with animals and animal products (excluding food)
+  text: You work with animals and animal products
 - key: fish-inc-wholesale
   text: You work in fisheries (including wholesale)
 - key: forestry
