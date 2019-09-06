@@ -63,7 +63,8 @@ describe FindersController, type: :controller do
               fields: "title,link,description,public_timestamp,popularity,content_purpose_supergroup,content_store_document_type,format,is_historic,government_name,content_id,walk_type,place_of_origin,date_of_introduction,creator",
               filter_document_type: "mosw_report",
               order: "-public_timestamp",
-              start: 0
+              start: 0,
+              suggest: "spelling",
             }
           )
           .to_return(status: 200, body: rummager_response, headers: {})
@@ -121,7 +122,8 @@ describe FindersController, type: :controller do
               fields: "title,link,description,public_timestamp,popularity,content_purpose_supergroup,content_store_document_type,format,is_historic,government_name,content_id,walk_type,place_of_origin,date_of_introduction,creator",
               filter_document_type: "mosw_report",
               order: "-public_timestamp",
-              start: 0
+              start: 0,
+              suggest: "spelling",
             }
           )
           .to_return(status: 200, body: rummager_response, headers: {})
@@ -222,7 +224,8 @@ describe FindersController, type: :controller do
               fields: "title,link,description,public_timestamp,popularity,content_purpose_supergroup,content_store_document_type,format,is_historic,government_name,content_id,walk_type,place_of_origin,date_of_introduction,creator",
               filter_document_type: "mosw_report",
               order: "-public_timestamp",
-              start: 0
+              start: 0,
+              suggest: "spelling",
             }
           )
           .to_return(status: 200, body: rummager_response, headers: {})
@@ -290,6 +293,41 @@ describe FindersController, type: :controller do
         expect(subject.use_default_cluster?).to eq(false)
         expect(subject.use_b_cluster?).to eq(true)
       end
+    end
+  end
+
+  describe "Spelling suggestions" do
+    let(:breakfast_finder) do
+      finder = govuk_content_schema_example('finder').to_hash.merge(
+        'title' => 'Breakfast Finder',
+        'base_path' => '/breakfast-finder',
+        'content_id' => '42ce66de-04f3-4192-bf31-8394538e0734'
+      )
+
+      finder["details"]["default_documents_per_page"] = 10
+      finder["details"]["sort"] = nil
+      finder
+    end
+
+    before do
+      content_store_has_item(breakfast_finder['base_path'], breakfast_finder)
+      rummager_response = %|{
+        "results": [],
+        "total": 0,
+        "start": 0,
+        "facets": {},
+        "suggested_queries": ["cereal", "full english"]
+      }|
+      stub_request(:get, /search.json/).to_return(status: 200, body: rummager_response, headers: {})
+    end
+
+    it "Gives all the spelling suggestions and links to them" do
+      get :show, params: { slug: path_for(breakfast_finder), format: "json" }
+      expect(response.status).to eq(200)
+      expect(response.content_type).to eq("application/json")
+
+      expect(response.body).to include('{"keywords":"cereal","link":"/breakfast-finder?keywords=cereal"}')
+      expect(response.body).to include('{"keywords":"full english","link":"/breakfast-finder?keywords=full+english"}')
     end
   end
 

@@ -18,6 +18,7 @@ class FindersController < ApplicationController
         @parent = parent
         @sort_presenter = sort_presenter
         @pagination = pagination_presenter
+        @suggestions = suggestions
       end
       format.json do
         @search_query = initialize_search_query
@@ -60,6 +61,7 @@ private
       search_results: render_component("finders/search_results", result_set_presenter.search_results_content),
       sort_options_markup: render_component("finders/sort_options", sort_presenter.to_hash),
       next_and_prev_links: render_component("govuk_publishing_components/components/previous_and_next_navigation", pagination_presenter.next_and_prev_links),
+      suggestions: suggestions,
     }
   end
 
@@ -135,6 +137,15 @@ private
 
   def search_results
     search_query.search_results
+  end
+
+  def suggestions
+    search_results.fetch('suggested_queries', []).map do |keywords|
+      {
+        keywords: keywords,
+        link: finder_url_builder.url(keywords: keywords),
+      }
+    end
   end
 
   def finder_url_builder

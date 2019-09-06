@@ -30,6 +30,7 @@ module Search
         facet_query,
         debug_query,
         ab_query,
+        suggest_query,
       ].reduce(&:merge)
 
       return [base_query] if filter_queries.empty?
@@ -231,6 +232,10 @@ module Search
 
     def ab_query
       ab_params.any? ? { 'ab_tests' => ab_params.map { |k, v| "#{k}:#{v}" }.join(',') } : {}
+    end
+
+    def suggest_query
+      { "suggest" => "spelling" }
     end
 
     def stopwords
