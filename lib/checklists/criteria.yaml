@@ -206,16 +206,12 @@ criteria:
   text: You plan to travel to the EU
 - key: visiting-row
   text: You plan to travel to the rest of the world
-- key: travelling
-  text: You plan to travel after 31 October 2019
 - key: visiting-uk
   text: You plan to travel to the UK
 - key: visiting-bring-pet
   text: You are travelling with a pet
 - key: visiting-driving
   text: You need to drive abroad
-- key: travelling-no
-  text: You do not plan to travel after 31 October 2019
 - key: return-to-uk
   text: You are planning to live in UK
 - key: return-to-uk-no

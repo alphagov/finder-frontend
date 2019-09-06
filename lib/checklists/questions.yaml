@@ -54,23 +54,18 @@ questions:
         value: living-driving-eu-no
 
   - key: travelling
-    question_type: single_wrapped
-    question: 'Do you plan to travel after 31 October 2019?'
-    hint_text: "This includes travel that may have started on or before 31 October 2019"
+    question_type: multiple
+    question: 'Where do you plan to travel after 31 October 2019?'
+    hint_text: "This includes travel that may have started on or before 31 October 2019. Select all that apply. If you do not plan to travel, select next."
     options:
-      - label: "Yes"
-        value: travelling
-        options:
-          - label: To the UK
-            value: visiting-uk
-          - label: To Ireland
-            value: visiting-ie
-          - label: To another EU country, Iceland, Liechtenstein, Norway or Switzerland
-            value: visiting-eu
-          - label: To the rest of the world
-            value: visiting-row
-      - label: "No"
-        value: travelling-no
+      - label: To the UK
+        value: visiting-uk
+      - label: To Ireland
+        value: visiting-ie
+      - label: To another EU country, Iceland, Liechtenstein, Norway or Switzerland
+        value: visiting-eu
+      - label: To the rest of the world
+        value: visiting-row
 
   - key: activities
     criteria:
