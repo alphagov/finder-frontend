@@ -56,7 +56,7 @@ questions:
   - key: travelling
     question_type: single_wrapped
     question: 'Do you plan to travel after 31 October 2019?'
-    hint_text: "This includes travel the may have started on or before 31 October 2019"
+    hint_text: "This includes travel that may have started on or before 31 October 2019"
     options:
       - label: "Yes"
         value: travelling
