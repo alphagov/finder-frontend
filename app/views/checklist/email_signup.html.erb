@@ -34,7 +34,7 @@
           This will include: Information about Brexit including what you and your business can do to prepare.
         </p>
 
-        <%= form_tag checklist_confirm_email_signup_path(c: criteria_keys) do %>
+        <%= form_tag checklist_confirm_email_signup_path(c: criteria_keys), id: "checklist-email-signup" do %>
           <%= render "govuk_publishing_components/components/button", {
             text: t('checklists_results.stay_updated.sign_up'),
             inline_layout: true
