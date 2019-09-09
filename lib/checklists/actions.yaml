@@ -857,6 +857,20 @@ actions:
   criteria:
   - chemical
   audience: business
+- action_id: T058
+  priority: 5
+  title: Find out how to register with a National Regulatory Authority in EU countries
+    so you can continue to trade in wholesale energy products in the EU, or within
+    the SEM
+  consequence: If you do not register, you will no longer be able to trade wholesale
+    energy products in the EU, or within the SEM.
+  lead_time: It takes up to 4 weeks
+  guidance_prompt: Read the guidance
+  guidance_link_text: Trading electricity if there’s no Brexit deal
+  guidance_url: https://www.gov.uk/government/publications/trading-electricity-if-theres-no-brexit-deal/trading-electricity-if-theres-no-brexit-deal
+  criteria:
+  - electricity
+  audience: business
 - action_id: T059
   priority: 5
   title: Check whether any wood packaging you use meets ISPM15 international standards
