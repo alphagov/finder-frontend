@@ -27,18 +27,24 @@ questions:
         value: living-row
 
   - key: employment
-    question_type: multiple
-    question: 'What do you do?'
-    hint_text: 'Select all that apply. If you do something else, select next.'
+    question_type: multiple_grouped
     options:
-      - label: "Work in the UK"
-        value: working-uk
-      - label: "Study in the UK"
-        value: studying-uk
-      - label: "Work in the EU"
-        value: working-eu
-      - label: "Study in the EU"
-        value: studying-eu
+      - label: Work
+        options:
+          - label: "Work in the UK"
+            value: working-uk
+          - label: "Work in Ireland"
+            value: working-ie
+          - label: "Work in another EU country, Iceland, Liechtenstein, Norway or Switzerland"
+            value: working-eu
+      - label: Study
+        options:
+          - label: "Study in the UK"
+            value: studying-uk
+          - label: "Study in Ireland"
+            value: studying-ie
+          - label: "Study in another EU country, Iceland, Liechtenstein, Norway or Switzerland"
+            value: studying-eu
 
   - key: drive-in-eu
     question_type: single
