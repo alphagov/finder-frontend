@@ -186,7 +186,7 @@ actions:
     - visiting-eu
   audience: citizen
 - action_id: S014
-  priority: 5
+  priority: 3
   title: Check when your family needs to apply to the EU Settlement Scheme if they
     come to the UK with you after Brexit
   consequence: They may not be able to continue living or working in the UK if they
