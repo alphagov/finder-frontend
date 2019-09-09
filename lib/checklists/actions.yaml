@@ -215,6 +215,21 @@ actions:
     - nationality-uk
     - return-to-uk
   audience: citizen
+- action_id: S018
+  priority: 2
+  title: Talk to a lawyer if your divorce, maintenance or parental responsibility
+    case involves both the UK and EU
+  consequence: Your case may be delayed if you follow the wrong process.
+  lead_time: Do it as soon as possible
+  guidance_prompt: Read the guidance
+  guidance_link_text: Cross-border divorce after Brexit
+  guidance_url: https://www.gov.uk/government/publications/cross-border-divorce-after-brexit-guidance-for-public
+  criteria:
+  - any_of:
+    - living-uk
+    - living-eu
+    - living-ie
+  audience: citizen
 - action_id: S022
   priority: 2
   title: Check if you need an International Driving Permit before you drive in the
