@@ -286,8 +286,8 @@ actions:
 - action_id: S026
   priority: 2
   title: Contact your university to check if you can continue studying in the EU
-  consequence: Changes to your residency, healthcare or tuition fee status will may
-    stop you from completing your course.
+  consequence: Changes to your residency, healthcare or tuition fee status may stop
+    you from completing your course.
   lead_time: Do it as soon as possible
   guidance_prompt: Read the guidance
   guidance_link_text: 'UK students in the EU: continuing your studies'
