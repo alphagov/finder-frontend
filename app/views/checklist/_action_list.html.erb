@@ -1,4 +1,5 @@
 <% items.each.with_index do | action, index | %>
+  <% action_index = "#{audience_index}.#{'%02d' % (index + 1)}"%>
   <div class="govuk-grid-row govuk-!-margin-bottom-3">
     <div class="govuk-grid-column-three-quarters">
       <p class="govuk-body govuk-!-font-weight-bold">
@@ -7,8 +8,8 @@
             class="govuk-link"
             href="<%= action.title_url %>"
             data-module="track-click"
-            data-track-action="<%= audience_heading %> <%= audience_index %>.<%= index + 1 %>"
-            data-track-category="ContentItemClicked"
+            data-track-action="<%= audience_heading %> <%= action_index %> - Action"
+            data-track-category="brexit-checker-results"
             data-track-label="<%= action.title_url %>"
           ><%= action.title %></a>
         <% else %>
@@ -30,7 +31,15 @@
       <% if action.guidance_url.present? %>
         <p class="govuk-body govuk-!-font-size-16">
           <% prompt = action.guidance_prompt || t("checklists_results.actions.guidance_prompt") %>
-          <%= prompt %>: <a href="<%= action.guidance_url %>" class="govuk-link"><%= action.guidance_link_text %></a>
+          <%= prompt %>: 
+            <a 
+              href="<%= action.guidance_url %>"
+              class="govuk-link"
+              data-module="track-click"
+              data-track-action="<%= audience_heading %> <%= action_index %> - Guidance"
+              data-track-category="brexit-checker-results"
+              data-track-label="<%= action.guidance_link_text %>"
+            ><%= action.guidance_link_text %></a>
         </p>
       <% end %>
     </div>
