@@ -5,11 +5,11 @@ class Checklists::ChangeNote
 
   validates_presence_of :action_id
   validates_inclusion_of :type, in: %w(addition content_change)
-  validates_format_of :time, with: /\d{4}-\d{2}-\d{2} \d{2}:\d{2}/
+  validates_format_of :date, with: /\d{4}-\d{2}-\d{2}/
   validates_presence_of :note, if: -> { type == "content_change" }
   validates_length_of :id, is: SecureRandom.uuid.length, message: "ID not a UUID"
 
-  attr_reader :id, :action_id, :type, :note, :time
+  attr_reader :id, :action_id, :type, :note, :date
 
   def initialize(attrs)
     attrs.each { |key, value| instance_variable_set("@#{key}", value) }
@@ -23,6 +23,7 @@ class Checklists::ChangeNote
   def self.load(params)
     parsed_params = params.dup
     parsed_params['id'] = params['uuid']
+    parsed_params['date'] = params['date'].to_s
     new(parsed_params)
   end
 

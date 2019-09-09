@@ -63,7 +63,7 @@ RSpec.describe "Change notifications" do
         expect(payload["sender_message_id"]).to eq addition.id
         expect(payload["body"]).to match(addition.action.consequence)
 
-        date = DateTime.parse(addition.time)
+        date = DateTime.parse(addition.date)
         expect(payload["body"]).to match(date.strftime("%-d %B, %Y"))
 
         note = I18n.t!("checklists_mailer.change_notification.added")
@@ -96,7 +96,7 @@ RSpec.describe "Change notifications" do
         expect(payload["title"]).to eq content_change.action.title
         expect(payload["url"]).to eq content_change.action.title_url
 
-        date = DateTime.parse(content_change.time)
+        date = DateTime.parse(content_change.date)
         expect(payload["body"]).to match(date.strftime("%-d %B, %Y"))
         expect(payload["body"]).to match(content_change.note)
 
