@@ -1,3 +1,11 @@
+<%= t("checklists_mailer.change_notification.#{@change_note.type}") %>
+
+<% if @action.title_url.present? %>
+[<%= @action.title %>](<%= @action.title_url %>)
+<% else %>
+<%= @action.title %>
+<% end %>
+
 <% if @action.consequence.present? %><%= @action.consequence %><% end %>
 
 <% if @action.exception.present? %><%= @action.exception %><% end %>
@@ -10,5 +18,7 @@
 Updated
 <%= Date.parse(@change_note.date).strftime("%-d %B, %Y") %>
 
+<% if @change_note.note.present? %>
 Changes made
-<%= @change_note.note.presence || t("checklists_mailer.change_notification.added") %>
+<%= @change_note.note %>
+<% end %>
