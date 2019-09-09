@@ -1282,3 +1282,16 @@ actions:
   criteria:
   - animal-ex-food
   audience: business
+- action_id: T092
+  priority: 5
+  title: Check the rules on moving timber and timber products between the UK and the
+    EU
+  consequence: Your timber or timber products may be delayed or rejected if you do
+    not follow the right rules.
+  lead_time: Do it as soon as possible
+  guidance_prompt: Read the guidance
+  guidance_link_text: 'Trading timber: imports and exports if there’s no Brexit deal'
+  guidance_url: https://www.gov.uk/guidance/trading-timber-imports-and-exports-if-theres-no-brexit-deal
+  criteria:
+  - forestry
+  audience: business
