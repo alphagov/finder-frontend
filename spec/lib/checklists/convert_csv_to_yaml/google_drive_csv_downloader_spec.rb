@@ -15,6 +15,7 @@ describe Checklists::ConvertCsvToYaml::GoogleDriveCsvDownloader do
 
   describe "#download" do
     before do
+      allow($stdout).to receive(:puts)
       api_url = "https://www.googleapis.com/drive/v3/files/#{sheet_id}/export?alt=media&mimeType=text/csv"
       stub_request(:get, api_url).to_return(body: File.open(csv_to_download))
     end
