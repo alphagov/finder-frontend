@@ -858,7 +858,7 @@ actions:
   - chemical
   audience: business
 - action_id: T058
-  priority: 5
+  priority: 8
   title: Find out how to register with a National Regulatory Authority in EU countries
     so you can continue to trade in wholesale energy products in the EU, or within
     the SEM
