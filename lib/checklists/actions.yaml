@@ -676,11 +676,11 @@ actions:
   audience: business
 - action_id: T032
   priority: 8
-  title: Check if you need to register as an importer and apply to be a 'place of
-    first arrival' to import plants from the EU
-  consequence: The plants may be delayed or rejected when they reach the UK if you
-    do not register.
-  lead_time: It takes up to 3 months
+  title: Check the rules on moving plants and plant products between the UK and the
+    EU
+  consequence: The plants or plant products may be delayed or rejected if you do not
+    follow the right rules
+  lead_time: Do it as soon as possible
   guidance_prompt: Read the guidance
   guidance_link_text: Importing and exporting plants and plant products if there’s
     a no deal Brexit
