@@ -8,7 +8,7 @@
 <% end %>
 
 Updated
-<%= DateTime.parse(@change_note.time).strftime("%-d %B, %Y") %>
+<%= Date.parse(@change_note.date).strftime("%-d %B, %Y") %>
 
 Changes made
 <%= @change_note.note.presence || t("checklists_mailer.change_notification.added") %>
