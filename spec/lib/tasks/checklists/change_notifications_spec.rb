@@ -63,7 +63,7 @@ RSpec.describe "Change notifications" do
 
       assert_requested(:post, "#{endpoint}/messages") do |request|
         payload = JSON.parse(request.body)
-        expect(payload["title"]).to eq "Added: #{action.title}"
+        expect(payload["title"]).to eq action.title
         expect(payload["url"]).to eq action.title_url
         expect(payload["sender_message_id"]).to eq action.id
         expect(payload["body"]).to match(action.consequence)
@@ -100,7 +100,7 @@ RSpec.describe "Change notifications" do
 
       assert_requested(:post, "#{endpoint}/messages") do |request|
         payload = JSON.parse(request.body)
-        expect(payload["title"]).to eq "Changed: #{action.title}"
+        expect(payload["title"]).to eq action.title
         expect(payload["url"]).to eq action.title_url
         expect(payload["sender_message_id"]).to eq action.id
 
