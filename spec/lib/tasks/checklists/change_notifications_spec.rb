@@ -9,40 +9,37 @@ RSpec.describe "Change notifications" do
       GdsApi::TestHelpers::EmailAlertApi::EMAIL_ALERT_API_ENDPOINT
     end
 
+    let(:addition) do
+      FactoryBot.build(:checklists_change_note,
+                       type: "addition",
+                       action_id: "addition")
+    end
+
+    let(:content_change) do
+      FactoryBot.build(:checklists_change_note,
+                       type: "content_change",
+                       note: "Something has changed",
+                       action_id: "content_change")
+    end
+
     before do
       stub_email_alert_api_accepts_message
       Rake::Task["checklists:change_notification"].reenable
-
-      allow(Checklists::ChangeNote).to receive(:load_all) do
-        [
-          Checklists::ChangeNote.new("uuid" => "addition",
-                                     "action_id" => "addition",
-                                     "type" => "addition",
-                                     "time" => "2019-08-07 10:20"),
-          Checklists::ChangeNote.new("uuid" => "content_change",
-                                     "action_id" => "content_change",
-                                     "note" => "Something has changed",
-                                     "type" => "content_change",
-                                     "time" => "2019-08-07 10:20")
-        ]
-      end
+      allow(Checklists::ChangeNote).to receive(:load_all) { [addition, content_change] }
 
       allow(Checklists::Action).to receive(:load_all) do
         [
-          Checklists::Action.new(
-            "action_id" => "addition",
-            "title" => "A new title",
-            "title_url" => "http://www.google.com",
-            "consequence" => "A new consequence",
-            "criteria" => [
+          FactoryBot.build(
+            :checklists_action,
+            id: "addition",
+            criteria: [
               { "all_of" => %w(nationality-eu living-uk) }
             ]
           ),
-          Checklists::Action.new(
-            "action_id" => "content_change",
-            "title" => "A changed title",
-            "title_url" => "http://www.google.com",
-            "criteria" => [
+          FactoryBot.build(
+            :checklists_action,
+            id: "content_change",
+            criteria: [
               {
                 "all_of" => [
                   { "any_of" => %w(nationality-row nationality-eu) },
@@ -57,18 +54,16 @@ RSpec.describe "Change notifications" do
     end
 
     it "asks Email Alert API to notify subscribers about additions" do
-      change_note = Checklists::ChangeNote.find_by_id("addition")
-      action = Checklists::Action.find_by_id(change_note.action_id)
-      Rake::Task["checklists:change_notification"].invoke("addition")
+      Rake::Task["checklists:change_notification"].invoke(addition.id)
 
       assert_requested(:post, "#{endpoint}/messages") do |request|
         payload = JSON.parse(request.body)
-        expect(payload["title"]).to eq action.title
-        expect(payload["url"]).to eq action.title_url
-        expect(payload["sender_message_id"]).to eq action.id
-        expect(payload["body"]).to match(action.consequence)
+        expect(payload["title"]).to eq addition.action.title
+        expect(payload["url"]).to eq addition.action.title_url
+        expect(payload["sender_message_id"]).to eq addition.id
+        expect(payload["body"]).to match(addition.action.consequence)
 
-        date = DateTime.parse(change_note.time)
+        date = DateTime.parse(addition.time)
         expect(payload["body"]).to match(date.strftime("%-d %B, %Y"))
 
         note = I18n.t!("checklists_mailer.change_notification.added")
@@ -94,19 +89,16 @@ RSpec.describe "Change notifications" do
     end
 
     it "asks Email Alert API to notify subscribers about content changes" do
-      change_note = Checklists::ChangeNote.find_by_id("content_change")
-      action = Checklists::Action.find_by_id(change_note.action_id)
-      Rake::Task["checklists:change_notification"].invoke("content_change")
+      Rake::Task["checklists:change_notification"].invoke(content_change.id)
 
       assert_requested(:post, "#{endpoint}/messages") do |request|
         payload = JSON.parse(request.body)
-        expect(payload["title"]).to eq action.title
-        expect(payload["url"]).to eq action.title_url
-        expect(payload["sender_message_id"]).to eq action.id
+        expect(payload["title"]).to eq content_change.action.title
+        expect(payload["url"]).to eq content_change.action.title_url
 
-        date = DateTime.parse(change_note.time)
+        date = DateTime.parse(content_change.time)
         expect(payload["body"]).to match(date.strftime("%-d %B, %Y"))
-        expect(payload["body"]).to match(change_note.note)
+        expect(payload["body"]).to match(content_change.note)
 
         expect(payload["criteria_rules"]).to eq([
           {
@@ -154,7 +146,7 @@ RSpec.describe "Change notifications" do
       stub_request(:post, "#{endpoint}/messages")
         .to_return(status: 409)
 
-      expect { Rake::Task["checklists:change_notification"].invoke("addition") }
+      expect { Rake::Task["checklists:change_notification"].invoke(addition.id) }
         .to raise_error("Notification already sent")
     end
 

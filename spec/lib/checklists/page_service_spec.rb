@@ -3,10 +3,10 @@ require 'spec_helper'
 describe Checklists::PageService do
   let(:questions) {
     [
-      Checklists::Question.new(key: 'question_zero'),
-      Checklists::Question.new(key: 'question_one', 'criteria' => [{ "all_of" => %w(a b) }]),
-      Checklists::Question.new(key: 'question_two', 'criteria' => [{ "all_of" => %w(c d) }]),
-      Checklists::Question.new(key: 'question_three', 'criteria' => %w(c))
+      FactoryBot.build(:checklists_question),
+      FactoryBot.build(:checklists_question, criteria: [{ "all_of" => %w(a b) }]),
+      FactoryBot.build(:checklists_question, criteria: [{ "all_of" => %w(c d) }]),
+      FactoryBot.build(:checklists_question, criteria: %w(c))
     ]
   }
 

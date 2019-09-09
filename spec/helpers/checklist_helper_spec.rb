@@ -22,10 +22,10 @@ describe ChecklistHelper, type: :helper do
   end
 
   describe "#format_action_audiences" do
-    let(:action1) { Checklists::Action.new('audience' => 'citizen', 'priority' => 5) }
-    let(:action2) { Checklists::Action.new('audience' => 'citizen', 'priority' => 8) }
-    let(:action3) { Checklists::Action.new('audience' => 'business', 'priority' => 5) }
-    let(:action4) { Checklists::Action.new('audience' => 'business', 'priority' => 5) }
+    let(:action1) { FactoryBot.build(:checklists_action, audience: "citizen", priority: 5) }
+    let(:action2) { FactoryBot.build(:checklists_action, audience: "citizen", priority: 8) }
+    let(:action3) { FactoryBot.build(:checklists_action, audience: "business", priority: 5) }
+    let(:action4) { FactoryBot.build(:checklists_action, audience: "business", priority: 5) }
 
     subject { format_action_audiences(actions) }
 
