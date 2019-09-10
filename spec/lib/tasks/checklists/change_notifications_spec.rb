@@ -58,16 +58,18 @@ RSpec.describe "Change notifications" do
 
       assert_requested(:post, "#{endpoint}/messages") do |request|
         payload = JSON.parse(request.body)
-        expect(payload["title"]).to eq addition.action.title
-        expect(payload["url"]).to eq addition.action.title_url
         expect(payload["sender_message_id"]).to eq addition.id
+        expect(payload["body"]).to match(addition.action.title)
         expect(payload["body"]).to match(addition.action.consequence)
+
+        title = I18n.t!("checklists_mailer.change_notification.title")
+        expect(payload["title"]).to eq title
+
+        change_text = I18n.t!("checklists_mailer.change_notification.addition")
+        expect(payload["body"]).to match(change_text)
 
         date = DateTime.parse(addition.date)
         expect(payload["body"]).to match(date.strftime("%-d %B, %Y"))
-
-        note = I18n.t!("checklists_mailer.change_notification.added")
-        expect(payload["body"]).to match(note)
 
         expect(payload["criteria_rules"]).to eq([
           {
@@ -93,8 +95,17 @@ RSpec.describe "Change notifications" do
 
       assert_requested(:post, "#{endpoint}/messages") do |request|
         payload = JSON.parse(request.body)
-        expect(payload["title"]).to eq content_change.action.title
-        expect(payload["url"]).to eq content_change.action.title_url
+        expect(payload["sender_message_id"]).to eq content_change.id
+        expect(payload["body"]).to match(content_change.action.title)
+
+        title = I18n.t!("checklists_mailer.change_notification.title")
+        expect(payload["title"]).to eq title
+
+        change_text = I18n.t!("checklists_mailer.change_notification.content_change")
+        expect(payload["body"]).to match(change_text)
+
+        date = DateTime.parse(addition.date)
+        expect(payload["body"]).to match(date.strftime("%-d %B, %Y"))
 
         date = DateTime.parse(content_change.date)
         expect(payload["body"]).to match(date.strftime("%-d %B, %Y"))

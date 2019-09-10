@@ -38,7 +38,9 @@ en:
     title: "Get ready for Brexit: check what you need to do"
   checklists_mailer:
     change_notification:
-      added: This action has been added to your list of results.
+      title: Your Get ready for Brexit results
+      addition: A new action has been added
+      content_change: An action has been updated
   checklists_results:
     social_media_meta:
       title: "Get ready for Brexit"
