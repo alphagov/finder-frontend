@@ -9,7 +9,6 @@ Zendesk.
 
 - [Updates to actions](#updates-to-actions)
 - [Adding change notes](#adding-change-notes)
-- [Send updates to subscribed users](#send-updates-to-subscribed-users)
 
 ## Updates to actions
 
@@ -44,19 +43,10 @@ bundle exec rake brexit_checker:convert_csv_to_yaml:actions[path/to/actions.csv]
 
 ## Adding change notes
 
-When making changes to actions, you may also need to create a change note.
+Additions or changes to actions may require a change note, which is used to send a notification about the change. Change notes should only be created for this purpose.
 
-This will involve adding an entry to the [lib/brexit_checker/changenotes.yaml](https://github.com/alphagov/finder-frontend/tree/master/lib/brexit_checker/changenotes.yaml)
-file. See the yaml file for examples.
+Change notes are defined [in a `change_notes.yaml` file](https://github.com/alphagov/finder-frontend/blob/master/lib/brexit_checker/change_notes.yaml). You should check with the person who requested the change, to determine if a change note is appropriate.
 
-The text should be provided by the content editor. This content will be
-included in emails to users.
+When a new change note has been deployed to production, you need to run a rake task to send the notification. The notification will be sent to all subscribers who would see this action on their results page.
 
-If a change note is created, users will be emailed about the change. Without
-a change note, users will not be emailed.
-
-Don't modify change notes, always add new ones. Change note IDs must be unique.
-
-## Send updates to subscribed users
-
-*TODO* Add details of rake task to update users of changes to actions.
+https://deploy.blue.production.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=finder-frontend&MACHINE_CLASS=calculators_frontend&RAKE_TASK=brexit_checker:change_notification[UUID]
