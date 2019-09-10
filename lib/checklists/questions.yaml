@@ -70,15 +70,17 @@ questions:
   - key: activities
     criteria:
       - any_of:
+        - visiting-ie
         - visiting-eu
         - visiting-uk
     question_type: multiple
-    question: 'Are you planning to do any of the following?'
+    question: 'Do you plan to do either of the following when travelling?'
+    hint_text: "Select all that apply. If neither apply, select next."
     options:
-      - label: Bring your pet
-        value: visiting-bring-pet
       - label: Drive
         value: visiting-driving
+      - label: Take your pet
+        value: visiting-bring-pet
 
   - key: returning
     criteria:
