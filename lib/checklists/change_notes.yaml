@@ -45,11 +45,6 @@ change_notes:
      type: addition
      action_id: T023
      date: 2019-09-09
-   #- uuid: "494350c4-9749-4b4d-affd-3910011f6eab"
-     #note: "This information now tells all importers and exporters of plants and plant products what they need to do"
-     #type: content_change
-     #action_id: T032
-     #date: 2019-09-09
    - uuid: "a63eabee-5bbb-445b-b2d0-bed9f140c4dc"
      type: addition
      action_id: T058
