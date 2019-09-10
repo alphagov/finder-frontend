@@ -18,11 +18,11 @@ FinderFrontend::Application.routes.draw do
     get "/test-search/search/opensearch" => "search#opensearch"
   end
 
-  # Q&A checklist frontend for brexit guidance
-  get '/get-ready-brexit-check/results' => 'checklist#results', as: :checklist_results
-  get '/get-ready-brexit-check/questions' => 'checklist#show', as: :checklist_questions
-  get '/get-ready-brexit-check/email-signup' => 'checklist#email_signup', as: :checklist_email_signup
-  post '/get-ready-brexit-check/email-signup' => 'checklist#confirm_email_signup', as: :checklist_confirm_email_signup
+  # Q&A brexit_checker frontend for brexit guidance
+  get '/get-ready-brexit-check/results' => 'brexit_checker#results', as: :brexit_checker_results
+  get '/get-ready-brexit-check/questions' => 'brexit_checker#show', as: :brexit_checker_questions
+  get '/get-ready-brexit-check/email-signup' => 'brexit_checker#email_signup', as: :brexit_checker_email_signup
+  post '/get-ready-brexit-check/email-signup' => 'brexit_checker#confirm_email_signup', as: :brexit_checker_confirm_email_signup
   get '/email/subscriptions/new', to: proc { [200, {}, ['']] }, as: :email_alert_frontend_signup
 
   get '/*slug/email-signup' => 'email_alert_subscriptions#new', as: :new_email_alert_subscriptions

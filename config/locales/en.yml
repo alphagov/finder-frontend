@@ -34,59 +34,59 @@ en:
     facet_disclosure:
       more: "Show more search options"
       fewer: "Show fewer search options"
-  checklists:
+  brexit_checker:
     title: "Get ready for Brexit: check what you need to do"
-  checklists_mailer:
+    results:
+      social_media_meta:
+        title: "Get ready for Brexit"
+        description: |
+          Check what you or your business need to do to prepare for Brexit.
+      breadcrumbs:
+        home: "Home"
+        brexit-home: "Brexit"
+        brexit-check: "How to get ready"
+        questions: "Questions"
+        results: "Results"
+      title: "What you need to do now to prepare for Brexit"
+      title_no_actions: You do not need to take action at this time
+      title_no_answers: You did not answer any of the questions
+      description: |
+        You may not need to do all these actions ahead of the 31 October deadline.
+        The action you may need to take may change subject to negotiations and your own circumstances.
+      description_no_actions: |
+        Based on your responses, you do not need to take any action to prepare for the Brexit deadline of 31 October 2019.
+      description_no_answers: |
+        To change your answers, follow the link below. This is a safe and secure service. We do not store any of your personal information.
+      email_sign_up_link: |
+        Sign up to get email alerts about changes to Brexit information that may affect you
+      email_sign_up_link_no_actions: |
+        This may change. Subscribe to email alerts about changes to Brexit information that may affect you.
+      answers:
+        list_context: "Based on your answers, we know:"
+        change_answers: "Start again"
+        no_answers: |
+          You did not answer any of the questions.
+          This is a safe and secure service. We don't store any of your personal information.
+          To change your answers, follow the link below.
+      actions:
+        no_results: This is a safe and secure service. We don't store any of your personal information.
+        guidance_prompt: Read the guidance
+      audiences:
+        citizen:
+          heading: 'You and your family'
+        business:
+          heading: 'Your business or organisation'
+      stay_updated:
+        heading: "Get updates"
+        description: >
+          <p>Sign up to receive:</p>
+          <ul>
+            <li>email alerts about changes to Brexit information that may affect you</li>
+            <li>a link to your results</li>
+          </ul>
+        sign_up: "Subscribe"
+  brexit_checker_mailer:
     change_notification:
       title: Your Get ready for Brexit results
       addition: A new action has been added
       content_change: An action has been updated
-  checklists_results:
-    social_media_meta:
-      title: "Get ready for Brexit"
-      description: |
-        Check what you or your business need to do to prepare for Brexit.
-    breadcrumbs:
-      home: "Home"
-      brexit-home: "Brexit"
-      brexit-check: "How to get ready"
-      questions: "Questions"
-      results: "Results"
-    title: "What you need to do now to prepare for Brexit"
-    title_no_actions: You do not need to take action at this time
-    title_no_answers: You did not answer any of the questions
-    description: |
-      You may not need to do all these actions ahead of the 31 October deadline.
-      The action you may need to take may change subject to negotiations and your own circumstances.
-    description_no_actions: |
-      Based on your responses, you do not need to take any action to prepare for the Brexit deadline of 31 October 2019.
-    description_no_answers: |
-      To change your answers, follow the link below. This is a safe and secure service. We do not store any of your personal information.
-    email_sign_up_link: |
-      Sign up to get email alerts about changes to Brexit information that may affect you
-    email_sign_up_link_no_actions: |
-      This may change. Subscribe to email alerts about changes to Brexit information that may affect you.
-    answers:
-      list_context: "Based on your answers, we know:"
-      change_answers: "Start again"
-      no_answers: |
-        You did not answer any of the questions.
-        This is a safe and secure service. We don't store any of your personal information.
-        To change your answers, follow the link below.
-    actions:
-      no_results: This is a safe and secure service. We don't store any of your personal information.
-      guidance_prompt: Read the guidance
-    audiences:
-      citizen:
-        heading: 'You and your family'
-      business:
-        heading: 'Your business or organisation'
-    stay_updated:
-      heading: "Get updates"
-      description: >
-        <p>Sign up to receive:</p>
-        <ul>
-          <li>email alerts about changes to Brexit information that may affect you</li>
-          <li>a link to your results</li>
-        </ul>
-      sign_up: "Subscribe"
