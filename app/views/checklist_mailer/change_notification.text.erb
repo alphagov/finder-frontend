@@ -16,7 +16,7 @@
 <% end %>
 
 Updated
-<%= Date.parse(@change_note.date).strftime("%-d %B, %Y") %>
+<%= Date.parse(@change_note.date).strftime("%-d %B %Y") %>
 
 <% if @change_note.note.present? %>
 Changes made
