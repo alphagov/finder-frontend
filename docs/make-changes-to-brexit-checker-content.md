@@ -5,11 +5,6 @@ Finder frontend serves lists of actions to take related to Brexit.
 Content editors request changes to the actions, questions, and criteria via
 Zendesk.
 
-For these changes to reach users, a developer needs to change the content in
-Yaml files in [lib/brexit_checker](https://github.com/alphagov/finder-frontend/tree/master/lib/brexit_checker). Once the change has been made
-(raise a PR, and merge in the updated Yaml), then run a rake task to update
-subscribed users of this change via email.
-
 ### Contents:
 
 - [Update actions](#update-actions)
