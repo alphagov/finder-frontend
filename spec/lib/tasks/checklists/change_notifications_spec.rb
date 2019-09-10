@@ -69,7 +69,7 @@ RSpec.describe "Change notifications" do
         expect(payload["body"]).to match(change_text)
 
         date = DateTime.parse(addition.date)
-        expect(payload["body"]).to match(date.strftime("%-d %B, %Y"))
+        expect(payload["body"]).to match(date.strftime("%-d %B %Y"))
 
         expect(payload["criteria_rules"]).to eq([
           {
@@ -104,11 +104,8 @@ RSpec.describe "Change notifications" do
         change_text = I18n.t!("checklists_mailer.change_notification.content_change")
         expect(payload["body"]).to match(change_text)
 
-        date = DateTime.parse(addition.date)
-        expect(payload["body"]).to match(date.strftime("%-d %B, %Y"))
-
         date = DateTime.parse(content_change.date)
-        expect(payload["body"]).to match(date.strftime("%-d %B, %Y"))
+        expect(payload["body"]).to match(date.strftime("%-d %B %Y"))
         expect(payload["body"]).to match(content_change.note)
 
         expect(payload["criteria_rules"]).to eq([
