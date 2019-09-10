@@ -57,7 +57,7 @@ RSpec.feature "Questions workflow", type: :feature do
     answer_question("living", "UK")
     answer_question("employment")
     answer_question("travelling", "To another EU country, Iceland, Liechtenstein, Norway or Switzerland")
-    answer_question("activities", "Bring your pet")
+    answer_question("activities", "Take your pet")
   end
 
   def then_i_should_see_the_results_page
