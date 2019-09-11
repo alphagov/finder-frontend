@@ -1,7 +1,15 @@
 <%= render "govuk_publishing_components/components/title", {
   title: current_question.text,
+  margin_bottom: 5
 } %>
+
 <%= formatted_description %>
+
+<% if current_question.hint_text.present? %>
+  <%= render "govuk_publishing_components/components/hint", {
+    text: current_question.hint_text
+  } %>
+<% end %>
 
 <% current_question.options.each do | group | %>
   <%= render "govuk_publishing_components/components/checkboxes", {

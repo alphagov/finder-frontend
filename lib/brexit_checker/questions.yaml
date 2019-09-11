@@ -64,7 +64,9 @@ questions:
   - key: travelling
     question_type: multiple
     question: 'Where do you plan to travel after 31 October 2019?'
-    hint_text: "This includes travel that may have started on or before 31 October 2019. Select all that apply. If you do not plan to travel, select next."
+    description: |
+      <p>This includes travel that may have started on or before 31 October 2019.</p>
+    hint_text: Select all that apply. If you do not plan to travel, select next.
     options:
       - label: To the UK
         value: visiting-uk
@@ -230,7 +232,8 @@ questions:
       - owns-operates-business-organisation
     question_type: "multiple"
     question: "Does your business or organisation do any of the following activities?"
-    description: <p>Importing and exporting includes temporarily taking goods across the EU border, for example to a trade fair.</p>
+    description: |
+      <p>Importing and exporting includes temporarily taking goods across the EU border, for example to a trade fair.</p>
     options:
       - label: "Sell goods or provide services in the UK"
         value: sell-goods-provide-services-in-uk
@@ -248,8 +251,7 @@ questions:
       - owns-operates-business-organisation
     question_type: "multiple_grouped"
     question: "What does your business or organisation do?"
-    description: |
-      <p>Choose all the sectors and areas that your business or organisation operates in.</p>
+    hint_text: "Choose all the sectors and areas that your business or organisation operates in."
     options:
       - label: "Advanced manufacturing and services"
         options:
