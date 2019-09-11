@@ -43,7 +43,7 @@ private
 
     {
       "title" => "Your Get ready for Brexit results",
-      "description" => "[You can view a copy of your Brexit tool results](#{Plek.new.website_root}#{path}) on GOV.UK.",
+      "description" => "[You can view a copy of your results on GOV.UK.](#{Plek.new.website_root}#{path})",
       "tags" => { "brexit_checklist_criteria" => { "any" => criteria_keys } },
       "url" => path,
     }

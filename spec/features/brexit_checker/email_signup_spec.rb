@@ -9,7 +9,7 @@ RSpec.feature "Brexit Checker email signup", type: :feature do
     {
       "title" => "Your Get ready for Brexit results",
       "slug" => "your-get-ready-for-brexit-results-a1a2a3a4a5",
-      "description" => "[You can view a copy of your Brexit tool results](http://www.test.gov.uk/results?c[]=does-not-own-business&c[]=eu-national) on GOV.UK.",
+      "description" => "[You can view a copy of your results on GOV.UK.](http://www.test.gov.uk/results?c[]=does-not-own-business&c[]=eu-national)",
       "tags" => { "brexit_checklist_criteria" => { "any" => %w[does-not-own-business eu-national] } },
       "url" => "/results?c[]=does-not-own-business&c[]=eu-national"
     }
