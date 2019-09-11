@@ -213,9 +213,9 @@ criteria:
 - key: visiting-driving
   text: You need to drive abroad
 - key: return-to-uk
-  text: You are planning to live in UK
+  text: You are planning to move back to the UK
 - key: return-to-uk-no
-  text: You are not planning to live in UK
+  text: You are not planning to move back to the UK
 - key: join-family-uk-no
   text: You do not plan to join an EU or EEA family member in the UK
 - key: join-family-uk-yes
