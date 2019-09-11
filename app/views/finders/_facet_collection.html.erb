@@ -27,9 +27,9 @@
 
   <% if finder_presenter.filters.any? %>
     <div data-module="gem-toggle" data-toggle-class="facet-toggle__content--hide" <%= "class=facet-toggle--only-on-mobile" unless finder_presenter.hide_facets_by_default %>>
-      <a href="#" class="facet-toggle govuk-link" data-controls="facet-wrapper" data-expanded="false" data-track-category="filterClicked" data-track-action="accordion" data-toggled-text="- <%= t("finders.facet_disclosure.fewer", default: "Show fewer search options") %>">
+      <button type="button" class="facet-toggle app-c-button-as-link" data-controls="facet-wrapper" data-expanded="false" data-track-category="filterClicked" data-track-action="accordion" data-toggled-text="- <%= t("finders.facet_disclosure.fewer", default: "Show fewer search options") %>">
         + <%= t("finders.facet_disclosure.more", default: "Show more search options") %>
-      </a>
+      </button>
 
       <div id="facet-wrapper" class="facet-toggle__content facet-toggle__content--hide">
         <%= render finder_presenter.filters %>
