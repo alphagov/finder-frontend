@@ -192,10 +192,14 @@ criteria:
   text: You are employed in the EU
 - key: working-uk
   text: You are employed in the UK
+- key: working-ie
+  text: You are employed in Ireland
 - key: studying-eu
   text: You are studying in the EU
 - key: studying-uk
   text: You are studying in the UK
+- key: studying-ie
+  text: You are studying in Ireland
 - key: living-driving-eu
   text: You drive in the EU using a UK licence
 - key: living-driving-eu-no
