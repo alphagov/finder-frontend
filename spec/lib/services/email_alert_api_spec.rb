@@ -9,7 +9,7 @@ describe Services::EmailAlertApi do
       described_class.new.find_or_create_subscriber_list_cached(subscriber_list_options)
     end
 
-    let(:subscriber_list_slug) { "brexit-checklist-does-not-own-business-eu-national" }
+    let(:subscriber_list_slug) { "your-get-ready-for-brexit-results-a1a2a3a4a5" }
 
     let(:subscriber_list_options) do
       {
