@@ -15,7 +15,7 @@ describe Services::EmailAlertApi do
       {
         "title" => "Your Get ready for Brexit results",
         "slug" => subscriber_list_slug,
-        "description" => "You can view a copy of your Brexit tool results on GOV.UK.",
+        "description" => "You can view a copy of your results on GOV.UK.",
         "tags" => { "brexit_checklist_criteria" => { "any" => %w(does-not-own-business eu-national) } },
         "url" => "/results?c[]=does-not-own-business&c[]=eu-national",
       }
