@@ -7,8 +7,8 @@ RSpec.feature "Brexit Checker email signup", type: :feature do
 
   let(:subscriber_list) do
     {
-      "title" => "the Get ready for Brexit tool",
-      "slug" => "brexit-checklist-does-not-own-business-eu-national",
+      "title" => "Your Get ready for Brexit results",
+      "slug" => "your-get-ready-for-brexit-results-a1a2a3a4a5",
       "description" => "[You can view a copy of your Brexit tool results](http://www.test.gov.uk/results?c[]=does-not-own-business&c[]=eu-national) on GOV.UK.",
       "tags" => { "brexit_checklist_criteria" => { "any" => %w[does-not-own-business eu-national] } },
       "url" => "/results?c[]=does-not-own-business&c[]=eu-national"
@@ -52,6 +52,6 @@ RSpec.feature "Brexit Checker email signup", type: :feature do
   end
 
   def and_i_am_taken_to_email_alert_frontend
-    expect(page).to have_current_path("/email/subscriptions/new?topic_id=brexit-checklist-does-not-own-business-eu-national")
+    expect(page).to have_current_path("/email/subscriptions/new?topic_id=your-get-ready-for-brexit-results-a1a2a3a4a5")
   end
 end
