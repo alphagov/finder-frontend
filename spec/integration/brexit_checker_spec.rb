@@ -57,4 +57,11 @@ RSpec.describe "Brexit checker data integrity" do
       expect(possible_criteria).to include(criterion.key)
     end
   end
+
+  it "has criteria that occur only once in the questions" do
+    possible_criteria = BrexitChecker::Question.load_all
+      .flat_map(&:possible_values)
+
+    expect(possible_criteria.uniq.count).to eq possible_criteria.count
+  end
 end
