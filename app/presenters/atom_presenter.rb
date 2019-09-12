@@ -20,7 +20,7 @@ class AtomPresenter
   def entries
     finder_presenter.results.documents
     .reject { |d| d.public_timestamp.blank? && d.release_timestamp.blank? }
-    .map { |d| EntryPresenter.new(d) }
+    .map { |d| EntryPresenter.new(d, finder_presenter.show_summaries?) }
   end
 
   def updated_at

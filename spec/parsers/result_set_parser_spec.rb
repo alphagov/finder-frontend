@@ -5,13 +5,11 @@ describe ResultSetParser do
     let(:results) { %i[a_document_hash another_document_hash] }
     let(:total) { 2 }
 
-    let(:finder) { double(:finder) }
-
-    subject { ResultSetParser.parse(results, total, finder) }
+    subject { ResultSetParser.parse(results, total) }
 
     before do
-      allow(Document).to receive(:new).with(:a_document_hash, finder, 1).and_return(:a_document_instance)
-      allow(Document).to receive(:new).with(:another_document_hash, finder, 2).and_return(:another_document_instance)
+      allow(Document).to receive(:new).with(:a_document_hash, 1).and_return(:a_document_instance)
+      allow(Document).to receive(:new).with(:another_document_hash, 2).and_return(:another_document_instance)
     end
 
     specify { expect(subject.documents).to eql(%i[a_document_instance another_document_instance]) }

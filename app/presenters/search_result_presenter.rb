@@ -10,7 +10,7 @@ class SearchResultPresenter
 
   def initialize(document:, metadata_presenter_class:, doc_count:, finder_presenter:, debug_score:, highlight:)
     @document = document
-    @metadata = metadata_presenter_class.new(document.metadata).present
+    @metadata = metadata_presenter_class.new(document.metadata(finder_presenter)).present
     @count = doc_count
     @debug_score = debug_score
     @highlight = highlight

@@ -1,13 +1,17 @@
 class EntryPresenter
   delegate :title,
-           :summary,
            :path,
            to: :entry
 
   WEBSITE_ROOT = Plek.current.website_root.gsub(/https?:\/\//, '')
 
-  def initialize(entry)
+  def initialize(entry, show_summaries)
     @entry = entry
+    @show_summaries = show_summaries
+  end
+
+  def summary
+    @entry.truncated_description if show_summaries
   end
 
   def tag(schema)
@@ -28,5 +32,5 @@ class EntryPresenter
 
 private
 
-  attr_reader :entry
+  attr_reader :entry, :show_summaries
 end

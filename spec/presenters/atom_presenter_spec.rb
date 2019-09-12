@@ -22,6 +22,7 @@ RSpec.describe AtomPresenter do
       default_documents_per_page: 10,
       values: {},
       sort: {},
+      show_summaries?: true
     )
   end
 

@@ -74,20 +74,6 @@ RSpec.describe FinderPresenter do
     it "returns the filters that are filterable" do
       expect(subject.filters).to match_array([hidden_facet, date_facet])
     end
-
-    it "returns facets with display_as_result_metadata" do
-      expect(subject.metadata).to match_array([date_facet, option_facet])
-    end
-
-    it "returns correct keys for each facet type" do
-      expect(subject.date_metadata_keys).to eq([date_facet.key])
-      expect(subject.text_metadata_keys).to match_array([option_facet.key])
-    end
-
-    it "finds the name for the key key" do
-      expect(subject.label_for_metadata_key("people")).to eql("Person")
-      expect(subject.label_for_metadata_key("public_timestamp")).to eql("Public timestamp")
-    end
   end
 
   describe 'url helpers' do
