@@ -315,7 +315,7 @@ actions:
     - return-to-uk
   audience: citizen
 - action_id: S029
-  priority: 5
+  priority: 11
   title: Apply to be a resident in the EU country you live in
   title_url: https://www.gov.uk/uk-nationals-living-eu
   consequence: You may not be able to continue living and using services in the EU
