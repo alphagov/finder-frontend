@@ -54,7 +54,10 @@ private
   end
 
   def criteria_keys
-    @criteria_keys ||= ParamsCleaner.new(params).fetch(:c, [])
+    @criteria_keys ||= begin
+                         keys = ParamsCleaner.new(params).fetch(:c, [])
+                         BrexitChecker::Criteria::Filter.new.call(keys)
+                       end
   end
   helper_method :criteria_keys
 
