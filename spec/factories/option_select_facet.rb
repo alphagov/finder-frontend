@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :option_select_facet, class: OptionSelectFacet do
-    key { 'organisations' }
+    key { "organisations" }
     filterable { true }
-    type { 'text' }
+    type { "text" }
     display_as_result_metadata { true }
     transient do
       values { nil }

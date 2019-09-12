@@ -22,7 +22,7 @@ private
 
   def grouped_display?
     @grouped_display ||= begin
-      sorts_by_topic = sort_option.dig('key') == 'topic'
+      sorts_by_topic = sort_option.dig("key") == "topic"
       @filter_params[:order] == "topic" || (!@filter_params.has_key?(:order) && sorts_by_topic)
     end
   end
@@ -48,7 +48,7 @@ private
     @facet_by_allowed_value_lookup_hash ||= begin
       finder_presenter.facets.each_with_object({}) do |facet, result|
         facet.allowed_values.each do |allowed_value|
-          result[allowed_value['content_id']] = facet
+          result[allowed_value["content_id"]] = facet
         end
       end
     end
@@ -62,7 +62,7 @@ private
     @facet_value_lookup_hash ||= begin
       all_allowed_values = finder_presenter.facets.flat_map(&:allowed_values)
       all_allowed_values.to_h do |val|
-        [val['content_id'], val['value']]
+        [val["content_id"], val["value"]]
       end
     end
   end
@@ -146,14 +146,14 @@ private
     facet_datum = document_facet_data.find { |m| m[:key] == primary_facet_key }
     return false unless primary_facet && facet_datum
 
-    allowed_values = primary_facet.allowed_values.map { |v| v['value'] }
+    allowed_values = primary_facet.allowed_values.map { |v| v["value"] }
     facet_datum[:labels].to_set.superset? allowed_values.to_set
   end
 
   def label_for_facet_value(key)
     allowed_values = finder_presenter.facets.flat_map(&:allowed_values)
     allowed_value = allowed_values.find(-> { {} }) { |v| v["value"] == key }
-    allowed_value.fetch("label", '')
+    allowed_value.fetch("label", "")
   end
 
   def sort_by_alphabetical(documents)

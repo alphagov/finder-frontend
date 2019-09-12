@@ -1,4 +1,4 @@
-require 'spec_helper'
+require "spec_helper"
 
 describe "expander", type: :view do
   def component_name

@@ -1,7 +1,7 @@
 class BrexitChecker::Action
   include ActiveModel::Validations
 
-  CONFIG_PATH = Rails.root.join('lib', 'brexit_checker', 'actions.yaml')
+  CONFIG_PATH = Rails.root.join("lib", "brexit_checker", "actions.yaml")
 
   validates_presence_of :id, :title, :consequence, :criteria
   validates_inclusion_of :audience, in: %w(business citizen)
@@ -23,7 +23,7 @@ class BrexitChecker::Action
 
   def self.load(params)
     parsed_params = params.dup
-    parsed_params['id'] = params['action_id']
+    parsed_params["id"] = params["action_id"]
     new(parsed_params)
   end
 
@@ -33,6 +33,6 @@ class BrexitChecker::Action
 
   def self.load_all
     @load_all = nil if Rails.env.development?
-    @load_all ||= YAML.load_file(CONFIG_PATH)['actions'].map { |a| load(a) }
+    @load_all ||= YAML.load_file(CONFIG_PATH)["actions"].map { |a| load(a) }
   end
 end

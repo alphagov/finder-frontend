@@ -24,8 +24,8 @@ private
     return if taxon_hashes.nil?
 
     taxon_hashes.each do |taxon_hash|
-      content_store_has_item(taxon_hash['base_path'], taxon_hash)
-      has_taxons(taxon_hash.dig('links', 'child_taxons'))
+      content_store_has_item(taxon_hash["base_path"], taxon_hash)
+      has_taxons(taxon_hash.dig("links", "child_taxons"))
     end
   end
 end

@@ -6,7 +6,7 @@ describe SignupPresenter do
   let(:params) {
     ActionController::Parameters.new({})
   }
-  describe 'single facet' do
+  describe "single facet" do
     let(:content_item) {
       {
         "details" =>
@@ -20,8 +20,8 @@ describe SignupPresenter do
            "email_filter_name" => "Alert Type", }
       }
     }
-    describe '#choices' do
-      it 'returns an array of signup facets' do
+    describe "#choices" do
+      it "returns an array of signup facets" do
         expect(SignupPresenter.new(content_item, params).choices).
           to eq([
                   { "facet_choices" => [{ "key" => "devices",
@@ -33,19 +33,19 @@ describe SignupPresenter do
                 ])
       end
     end
-    describe '#choices?' do
-      it 'returns true' do
+    describe "#choices?" do
+      it "returns true" do
         expect(SignupPresenter.new(content_item, params).choices?).to be true
       end
     end
-    describe '#can_modify_choices?' do
-      it 'returns false' do
+    describe "#can_modify_choices?" do
+      it "returns false" do
         expect(SignupPresenter.new(content_item, params).can_modify_choices?).to be true
       end
     end
   end
 
-  describe 'multiple facets' do
+  describe "multiple facets" do
     let(:content_item) {
       {
         "details" => {
@@ -62,8 +62,8 @@ describe SignupPresenter do
         }
       }
     }
-    describe '#choices' do
-      it 'returns an array of signup facets' do
+    describe "#choices" do
+      it "returns an array of signup facets" do
         expect(SignupPresenter.new(content_item, params).choices).
           to eq([
                   {
@@ -77,19 +77,19 @@ describe SignupPresenter do
 ])
       end
     end
-    describe '#choices?' do
-      it 'returns true' do
+    describe "#choices?" do
+      it "returns true" do
         expect(SignupPresenter.new(content_item, params).choices?).to be true
       end
     end
-    describe '#can_modify_choices?' do
-      it 'returns false' do
+    describe "#can_modify_choices?" do
+      it "returns false" do
         expect(SignupPresenter.new(content_item, params).can_modify_choices?).to be false
       end
     end
   end
 
-  describe 'no facets in email signup' do
+  describe "no facets in email signup" do
     let(:content_item) {
       {
         "details" => {
@@ -97,18 +97,18 @@ describe SignupPresenter do
         }
       }
     }
-    describe '#choices' do
-      it 'returns an empty array' do
+    describe "#choices" do
+      it "returns an empty array" do
         expect(SignupPresenter.new(content_item, params).choices).to eq([])
       end
     end
-    describe '#choices?' do
-      it 'returns false' do
+    describe "#choices?" do
+      it "returns false" do
         expect(SignupPresenter.new(content_item, params).choices?).to be false
       end
     end
-    describe '#can_modify_choices?' do
-      it 'returns an empty array' do
+    describe "#can_modify_choices?" do
+      it "returns an empty array" do
         expect(SignupPresenter.new(content_item, params).can_modify_choices?).to be false
       end
     end

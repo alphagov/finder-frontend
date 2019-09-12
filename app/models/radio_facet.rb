@@ -5,14 +5,14 @@ class RadioFacet < FilterableFacet
   end
 
   def value
-    @value || default_value['value']
+    @value || default_value["value"]
   end
 
   def options
     allowed_values.map do |allowed_value|
       {
-        value: allowed_value['value'],
-        text: allowed_value['label'],
+        value: allowed_value["value"],
+        text: allowed_value["label"],
         checked: selected_value == allowed_value,
       }
     end
@@ -27,16 +27,16 @@ class RadioFacet < FilterableFacet
   end
 
   def query_params
-    { key => selected_value['value'] }
+    { key => selected_value["value"] }
   end
 
 private
 
   def selected_value
-    allowed_values.find { |option| @value == option['value'] } || default_value
+    allowed_values.find { |option| @value == option["value"] } || default_value
   end
 
   def default_value
-    @default_value ||= allowed_values.find { |option| option['default'] } || {}
+    @default_value ||= allowed_values.find { |option| option["default"] } || {}
   end
 end

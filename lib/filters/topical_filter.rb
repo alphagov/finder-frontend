@@ -9,8 +9,8 @@ module Filters
     def fetch_value
       return nil if params.blank?
 
-      user_has_selected_open = params.include?(facet['open_value']['value'])
-      user_has_selected_closed = params.include?(facet['closed_value']['value'])
+      user_has_selected_open = params.include?(facet["open_value"]["value"])
+      user_has_selected_closed = params.include?(facet["closed_value"]["value"])
 
       # with both or neither selected, the filter is not used
       if user_has_selected_open && !user_has_selected_closed

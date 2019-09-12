@@ -25,8 +25,8 @@ module Filters
     end
 
     def default_allowed_value
-      @default_allowed_value ||= facet['allowed_values'].find(Proc.new { {} }) { |option| option['default'] }
-      @default_allowed_value['value']
+      @default_allowed_value ||= facet["allowed_values"].find(Proc.new { {} }) { |option| option["default"] }
+      @default_allowed_value["value"]
     end
 
     def acceptable_param?
@@ -34,7 +34,7 @@ module Filters
     end
 
     def param_is_part_of_allowed_values
-      facet['allowed_values'].any? { |option| option['value'] == params }
+      facet["allowed_values"].any? { |option| option["value"] == params }
     end
   end
 end

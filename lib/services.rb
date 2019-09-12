@@ -1,6 +1,6 @@
-require 'gds_api/content_store'
-require 'gds_api/rummager'
-require 'gds_api/email_alert_api'
+require "gds_api/content_store"
+require "gds_api/rummager"
+require "gds_api/email_alert_api"
 
 module Services
   def self.content_store
@@ -24,7 +24,7 @@ module Services
   end
 
   def self.worldwide_api
-    GdsApi::Worldwide.new(Plek.find('whitehall-admin'))
+    GdsApi::Worldwide.new(Plek.find("whitehall-admin"))
   end
 
   def self.registries

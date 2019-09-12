@@ -1,4 +1,4 @@
-require 'addressable/uri'
+require "addressable/uri"
 
 class EmailAlertSignupAPI
   def initialize(applied_filters:, default_filters:, facets:, subscriber_list_title:, finder_format:, default_frequency: nil, email_filter_by: nil)
@@ -13,9 +13,9 @@ class EmailAlertSignupAPI
 
   def signup_url
     if @default_frequency
-      add_url_param(subscriber_list['subscription_url'], default_frequency: @default_frequency)
+      add_url_param(subscriber_list["subscription_url"], default_frequency: @default_frequency)
     else
-      subscriber_list['subscription_url']
+      subscriber_list["subscription_url"]
     end
   end
 
@@ -31,7 +31,7 @@ private
   end
 
   def subscriber_list
-    Services.email_alert_api.find_or_create_subscriber_list(subscriber_list_options).dig('subscriber_list')
+    Services.email_alert_api.find_or_create_subscriber_list(subscriber_list_options).dig("subscriber_list")
   end
 
   def subscriber_list_options
@@ -50,7 +50,7 @@ private
 
   def link_based_subscriber_list?
     content_types = %w[organisations people world_locations part_of_taxonomy_tree]
-    keys = facet_filter_keys.map { |key| key.gsub(/^(all_|any_)/, '') }
+    keys = facet_filter_keys.map { |key| key.gsub(/^(all_|any_)/, "") }
     (keys & content_types).present?
   end
 
@@ -71,8 +71,8 @@ private
 
   def split_key(full_key)
     matches = full_key.match(/^((?<operator>any|all)_)?(?<key>.*)$/)
-    operator = matches[:operator] || 'any'
-    key = matches[:key] == 'part_of_taxonomy_tree' ? 'taxon_tree' : matches[:key]
+    operator = matches[:operator] || "any"
+    key = matches[:key] == "part_of_taxonomy_tree" ? "taxon_tree" : matches[:key]
     [operator, key]
   end
 
@@ -80,11 +80,11 @@ private
     return values unless %w[organisations people world_locations].include?(key)
 
     registry = Registries::BaseRegistries.new.all[key]
-    values.map { |value| registry[value]['content_id'] }
+    values.map { |value| registry[value]["content_id"] }
   end
 
   def facet_filter_keys
-    @facet_filter_keys ||= facets.map { |f| f['filter_key'] || f['facet_id'] }
+    @facet_filter_keys ||= facets.map { |f| f["filter_key"] || f["facet_id"] }
   end
 
   def facet_groups?
@@ -102,15 +102,15 @@ private
   end
 
   def facet_values?
-    email_filter_by == 'facet_values'
+    email_filter_by == "facet_values"
   end
 
   def facet_values
     @facet_values ||= filter_keys.each_with_object({}) { |key, links_hash|
       values = values_for_key(key)
-      links_hash['facet_values'] ||= {}
-      links_hash['facet_values'][:any] ||= []
-      links_hash['facet_values'][:any] = links_hash.dig('facet_values', :any).concat(values).uniq
+      links_hash["facet_values"] ||= {}
+      links_hash["facet_values"][:any] ||= []
+      links_hash["facet_values"][:any] = links_hash.dig("facet_values", :any).concat(values).uniq
     }
   end
 
@@ -150,9 +150,9 @@ private
 
   def facet_choice_filter_values(facet, values)
     facet
-      .fetch('facet_choices', [])
-      .select { |option| values.include?(option['key']) }
-      .flat_map { |option| option['filter_values'] }
+      .fetch("facet_choices", [])
+      .select { |option| values.include?(option["key"]) }
+      .flat_map { |option| option["filter_values"] }
   end
 
   def facet_by_key(key)
@@ -160,6 +160,6 @@ private
   end
 
   def is_all_field?(key)
-    key[0..3] == 'all_'
+    key[0..3] == "all_"
   end
 end

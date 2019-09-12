@@ -1,5 +1,5 @@
-require 'spec_helper'
-require 'gds_api/test_helpers/content_store'
+require "spec_helper"
+require "gds_api/test_helpers/content_store"
 
 describe QaController, type: :controller do
   include GdsApi::TestHelpers::ContentStore
@@ -74,9 +74,9 @@ describe QaController, type: :controller do
 
       context "on the last page" do
         let(:last_facet_key)  { aaib_reports_finder_facets.last["key"] }
-        let(:last_filters)    { aaib_reports_finder_facets.last['allowed_values'] }
-        let(:first_filter)    { last_filters.first['value'] }
-        let(:last_filter)     { last_filters.last['value'] }
+        let(:last_filters)    { aaib_reports_finder_facets.last["allowed_values"] }
+        let(:first_filter)    { last_filters.first["value"] }
+        let(:last_filter)     { last_filters.last["value"] }
         let(:params)          { { page: aaib_reports_finder_facets.count } }
 
         before { get:show, params: params }

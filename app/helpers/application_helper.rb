@@ -27,7 +27,7 @@ module ApplicationHelper
 
   def arr_to_links(arr)
     arr.map { |link|
-      link_to(link['title'], link['web_url'])
+      link_to(link["title"], link["web_url"])
     }
   end
 end

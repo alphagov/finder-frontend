@@ -1,5 +1,5 @@
-require 'spec_helper'
-require_relative './helpers/facets_helper'
+require "spec_helper"
+require_relative "./helpers/facets_helper"
 
 RSpec.describe ResultSetPresenter do
   include FacetsHelper
@@ -12,12 +12,12 @@ RSpec.describe ResultSetPresenter do
     double(
       FinderPresenter,
       slug: "/a-finder",
-      name: 'A finder',
+      name: "A finder",
       results: results,
       document_noun: document_noun,
       display_metadata?: true,
       sort_options: sort_presenter,
-      total: '20 cases',
+      total: "20 cases",
       facets: [a_facet, another_facet, a_date_facet],
       keywords: keywords,
       show_summaries?: true,
@@ -47,10 +47,10 @@ RSpec.describe ResultSetPresenter do
     )
   end
 
-  let(:filter_params) { { keywords: 'test' } }
+  let(:filter_params) { { keywords: "test" } }
 
-  let(:keywords) { '' }
-  let(:document_noun) { 'case' }
+  let(:keywords) { "" }
+  let(:document_noun) { "case" }
   let(:total) { 20 }
 
   let(:results) do
@@ -63,39 +63,39 @@ RSpec.describe ResultSetPresenter do
   let(:document) do
     double(
       Document,
-      title: 'Investigation into the distribution of road fuels in parts of Scotland',
-      path: 'slug-1',
+      title: "Investigation into the distribution of road fuels in parts of Scotland",
+      path: "slug-1",
       metadata: [
-        { id: 'case-state', name: 'Case state', value: 'Open', type: 'text', labels: %W(open) },
-        { id: 'opened-date', name: 'Opened date', value: '2006-7-14', type: 'date' },
-        { id: 'case-type', name: 'Case type', value: 'CA98 and civil cartels', type: 'text', labels: %W(ca98-and-civil-cartels) },
+        { id: "case-state", name: "Case state", value: "Open", type: "text", labels: %W(open) },
+        { id: "opened-date", name: "Opened date", value: "2006-7-14", type: "date" },
+        { id: "case-type", name: "Case type", value: "CA98 and civil cartels", type: "text", labels: %W(ca98-and-civil-cartels) },
       ],
-      truncated_description: 'I am a document',
+      truncated_description: "I am a document",
       is_historic: true,
-      government_name: 'The Government!',
-      format: 'transaction',
+      government_name: "The Government!",
+      format: "transaction",
       index: 1,
       es_score: 0.005,
-      content_id: 'content_id',
+      content_id: "content_id",
     )
   end
 
   let(:expected_document_content) do
     {
       link: {
-        text: 'Investigation into the distribution of road fuels in parts of Scotland',
-        path: 'slug-1',
-        description: 'I am a document',
+        text: "Investigation into the distribution of road fuels in parts of Scotland",
+        path: "slug-1",
+        description: "I am a document",
         data_attributes: {
-          ecommerce_path: 'slug-1',
-          ecommerce_content_id: 'content_id',
+          ecommerce_path: "slug-1",
+          ecommerce_content_id: "content_id",
           ecommerce_row: 1,
-          track_category: 'navFinderLinkClicked',
-          track_action: 'A finder.1',
-          track_label: 'slug-1',
+          track_category: "navFinderLinkClicked",
+          track_action: "A finder.1",
+          track_label: "slug-1",
           track_options: {
             dimension28: 1,
-            dimension29: 'Investigation into the distribution of road fuels in parts of Scotland'
+            dimension29: "Investigation into the distribution of road fuels in parts of Scotland"
           }
         }
       },
@@ -134,12 +134,12 @@ RSpec.describe ResultSetPresenter do
     double(
       SortPresenter,
       has_options?: false,
-      selected_option: { "name" => 'Relevance', "key" => '-relevance' },
+      selected_option: { "name" => "Relevance", "key" => "-relevance" },
       to_hash: {
         options: [
           {
-            data_track_category: 'dropDownClicked',
-            data_track_action: 'clicked',
+            data_track_category: "dropDownClicked",
+            data_track_action: "clicked",
             data_track_label: "Relevance",
             label: "Relevance",
             value: "relevance",
@@ -158,12 +158,12 @@ RSpec.describe ResultSetPresenter do
   end
 
   describe "#displayed_total" do
-    it 'combines total with document noun' do
+    it "combines total with document noun" do
       expect(presenter.displayed_total).to eql("#{total} cases")
     end
   end
 
-  describe '#documents' do
+  describe "#documents" do
     context "has one document" do
       let(:results) do
         ResultSet.new(
@@ -172,7 +172,7 @@ RSpec.describe ResultSetPresenter do
         )
       end
 
-      it 'creates a new search_result_presenter hash for each result' do
+      it "creates a new search_result_presenter hash for each result" do
         search_result_objects = presenter.search_results_content[:document_list_component_data]
         expect(search_result_objects.count).to eql(1)
         expect(search_result_objects.first).to be_a(Hash)
@@ -187,7 +187,7 @@ RSpec.describe ResultSetPresenter do
         )
       end
 
-      it 'creates a new document for each result' do
+      it "creates a new document for each result" do
         search_result_objects = presenter.search_results_content[:document_list_component_data]
         expect(search_result_objects.count).to eql(3)
       end
@@ -201,7 +201,7 @@ RSpec.describe ResultSetPresenter do
         )
       end
 
-      it 'has the right data' do
+      it "has the right data" do
         search_result_objects = presenter.search_results_content[:document_list_component_data]
         expect(search_result_objects.first).to eql(expected_document_content)
       end
@@ -214,13 +214,13 @@ RSpec.describe ResultSetPresenter do
         "<span class=\"published-by\">First published during the The Government!</span><span class=\"debug-results debug-results--link\">slug-1</span><span class=\"debug-results debug-results--meta\">Score: 0.005</span><span class=\"debug-results debug-results--meta\">Format: transaction</span>"
       end
 
-      it 'shows debug metadata' do
+      it "shows debug metadata" do
         search_result_objects = presenter.search_results_content[:document_list_component_data]
         expect(search_result_objects.first[:subtext]).to eql(expected_document_content_with_debug)
       end
     end
 
-    context 'check top result' do
+    context "check top result" do
       subject(:presenter) { ResultSetPresenter.new(finder, filter_params, sort_presenter, metadata_presenter_class, true) }
 
       before(:each) do
@@ -231,16 +231,16 @@ RSpec.describe ResultSetPresenter do
       let(:document_with_higher_es_score) do
         double(
           Document,
-          title: 'Investigation into the distribution of road fuels in parts of Scotland',
+          title: "Investigation into the distribution of road fuels in parts of Scotland",
           description: "Some description about the Department",
-          path: 'slug-1',
+          path: "slug-1",
           metadata: [],
-          summary: 'Higher score',
+          summary: "Higher score",
           is_historic: false,
-          government_name: 'The Government!',
-          format: 'transaction',
+          government_name: "The Government!",
+          format: "transaction",
           es_score: 1000.0,
-          content_id: 'content_id',
+          content_id: "content_id",
           index: 1
         )
       end
@@ -248,20 +248,20 @@ RSpec.describe ResultSetPresenter do
       let(:document_with_lower_es_score) do
         double(
           Document,
-          title: 'Investigation into the distribution of road fuels in parts of Scotland',
-          path: 'slug-2',
+          title: "Investigation into the distribution of road fuels in parts of Scotland",
+          path: "slug-2",
           metadata: [],
-          truncated_description: 'Lower score',
+          truncated_description: "Lower score",
           is_historic: false,
-          government_name: 'The Government!',
-          format: 'transaction',
+          government_name: "The Government!",
+          format: "transaction",
           es_score: 100.0,
-          content_id: 'content_id',
+          content_id: "content_id",
           index: 2
         )
       end
 
-      context 'top result set if best bet' do
+      context "top result set if best bet" do
         let(:results) do
           ResultSet.new(
             [document_with_higher_es_score, document_with_lower_es_score],
@@ -269,7 +269,7 @@ RSpec.describe ResultSetPresenter do
           )
         end
 
-        it 'has top result true' do
+        it "has top result true" do
           search_result_objects = presenter.search_results_content[:document_list_component_data]
           expect(search_result_objects[0][:highlight]).to eql(true)
           expect(search_result_objects[0][:highlight_text]).to eql("Most relevant result")
@@ -277,7 +277,7 @@ RSpec.describe ResultSetPresenter do
         end
       end
 
-      context 'top result not set if no best bet' do
+      context "top result not set if no best bet" do
         let(:results) do
           ResultSet.new(
             [document, document],
@@ -285,16 +285,16 @@ RSpec.describe ResultSetPresenter do
           )
         end
 
-        it 'has no top result' do
+        it "has no top result" do
           search_result_objects = presenter.search_results_content[:document_list_component_data]
           expect(search_result_objects[0][:highlight]).to_not eql(true)
         end
       end
 
-      context 'top result not set if show top result is false' do
+      context "top result not set if show top result is false" do
         subject(:presenter) { ResultSetPresenter.new(finder, filter_params, sort_presenter, metadata_presenter_class, false) }
 
-        it 'has no top result' do
+        it "has no top result" do
           search_result_objects = presenter.search_results_content[:document_list_component_data]
           expect(search_result_objects[0][:highlight]).to_not eql(true)
         end
@@ -306,10 +306,10 @@ RSpec.describe ResultSetPresenter do
     let(:primary_facet) do
       double(
         OptionSelectFacet,
-        key: 'sector_business_area',
+        key: "sector_business_area",
         allowed_values: [
-          { 'value' => 'aerospace', 'label' => 'Aerospace' },
-          { 'value' => 'agriculture', 'label' => 'Agriculture' },
+          { "value" => "aerospace", "label" => "Aerospace" },
+          { "value" => "agriculture", "label" => "Agriculture" },
         ],
         value: %W(aerospace agriculture),
         labels: %W(aerospace agriculture),
@@ -317,14 +317,14 @@ RSpec.describe ResultSetPresenter do
     end
   end
 
-  describe '#signup_links' do
-    context 'has both signup links' do
+  describe "#signup_links" do
+    context "has both signup links" do
       before(:each) do
         allow(finder).to receive(:atom_url).and_return("/finder.atom")
         allow(finder).to receive(:email_alert_signup_url).and_return("/email_signup")
       end
 
-      it 'returns both signup links' do
+      it "returns both signup links" do
         expect(presenter.signup_links).to eq(email_signup_link: "/email_signup",
                                              feed_link: "/finder.atom",
                                              hide_heading: true,
@@ -332,13 +332,13 @@ RSpec.describe ResultSetPresenter do
       end
     end
 
-    context 'has just has the atom signup link' do
+    context "has just has the atom signup link" do
       before(:each) do
         allow(finder).to receive(:atom_url).and_return("/finder.atom")
         allow(finder).to receive(:email_alert_signup_url).and_return("")
       end
 
-      it 'returns just the atom link' do
+      it "returns just the atom link" do
         expect(presenter.signup_links).to eq(feed_link: "/finder.atom", hide_heading: true,
                                              small_form: true)
       end

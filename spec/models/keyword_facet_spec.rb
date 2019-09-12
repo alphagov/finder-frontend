@@ -9,35 +9,35 @@ describe KeywordFacet do
     context "keywords without quotes" do
       subject { KeywordFacet.new(query) }
 
-      let(:first_word) { subject.sentence_fragment['values'].first }
-      let(:second_word) { subject.sentence_fragment['values'].second }
+      let(:first_word) { subject.sentence_fragment["values"].first }
+      let(:second_word) { subject.sentence_fragment["values"].second }
 
       specify {
-        expect(subject.sentence_fragment['preposition']).to eql("containing")
-        expect(first_word['parameter_key']).to eql("keywords")
-        expect(first_word['label']).to eql("Happy")
-        expect(second_word['label']).to eql("Christmas")
+        expect(subject.sentence_fragment["preposition"]).to eql("containing")
+        expect(first_word["parameter_key"]).to eql("keywords")
+        expect(first_word["label"]).to eql("Happy")
+        expect(second_word["label"]).to eql("Christmas")
 
-        expect(subject.sentence_fragment['word_connectors'][:words_connector]).to eql("")
+        expect(subject.sentence_fragment["word_connectors"][:words_connector]).to eql("")
       }
     end
 
     context "keywords with quotes" do
       subject { KeywordFacet.new(query_with_quotes) }
-      let(:labels) { subject.sentence_fragment['values'].map { |v| v['label'] } }
+      let(:labels) { subject.sentence_fragment["values"].map { |v| v["label"] } }
 
       specify {
-        expect(subject.sentence_fragment['preposition']).to eql("containing")
+        expect(subject.sentence_fragment["preposition"]).to eql("containing")
         expect(labels).to eql(["\"Merry Christmas\""])
       }
     end
 
     context "keywords with multiple quotes" do
       subject { KeywordFacet.new(query_with_multiple_quotes) }
-      let(:labels) { subject.sentence_fragment['values'].map { |v| v['label'] } }
+      let(:labels) { subject.sentence_fragment["values"].map { |v| v["label"] } }
 
       specify {
-        expect(subject.sentence_fragment['preposition']).to eql("containing")
+        expect(subject.sentence_fragment["preposition"]).to eql("containing")
         expect(labels).to eql(["\"Merry Christmas\"", "\" Happy Birthday\"", "i'm", "100", "today"])
       }
     end

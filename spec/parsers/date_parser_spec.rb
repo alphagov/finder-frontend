@@ -42,7 +42,7 @@ describe DateParser do
             "01/11/2014" => Date.new(2014, 11, 1),
 
             # Future date
-            '22/09/25' => Date.new(2025, 9, 22),
+            "22/09/25" => Date.new(2025, 9, 22),
 
             # Blank dates
             "" => nil,
@@ -68,7 +68,7 @@ describe DateParser do
   end
 
   it "handles dates without years correctly" do
-    date_to_parse = '26 november'
+    date_to_parse = "26 november"
 
     year = 2001
 

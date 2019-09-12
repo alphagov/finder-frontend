@@ -35,7 +35,7 @@ class Document
 
   def truncated_description
     # This truncates the description at the end of the first sentence
-    description.gsub(/\.\s[A-Z].*/, '.') if description.present?
+    description.gsub(/\.\s[A-Z].*/, ".") if description.present?
   end
 
   def summary
@@ -71,7 +71,7 @@ private
   def tag_metadata_keys
     keys = finder.text_metadata_keys
     keys.reject do |key|
-      key == 'organisations' && is_mainstream_content?
+      key == "organisations" && is_mainstream_content?
     end
   end
 
@@ -80,7 +80,7 @@ private
   end
 
   def date_metadata
-    return [] if @content_purpose_supergroup == 'services'
+    return [] if @content_purpose_supergroup == "services"
 
     date_metadata_keys
       .map(&method(:build_date_metadata))
@@ -140,14 +140,14 @@ private
 
   def get_metadata_label(key, tag)
     if tag.respond_to? :fetch
-      tag.fetch(finder.display_key_for_metadata_key(key), '')
+      tag.fetch(finder.display_key_for_metadata_key(key), "")
     else
       tag
     end
   rescue StandardError => e
     GovukError.notify(
       e,
-      level: 'debug',
+      level: "debug",
       extra: { url: finder.slug, document: link }
     )
     nil

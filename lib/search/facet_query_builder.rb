@@ -18,7 +18,7 @@ module Search
         # "1500,order:value.title" is specifying that we want 1500 results back
         # which are ordered by the title attribute of each value (option)
         # that is returned
-        key = (facet['filter_key'] || facet['key'])
+        key = (facet["filter_key"] || facet["key"])
         query.merge(key => "1500,order:value.title")
       }
     end
@@ -28,15 +28,15 @@ module Search
     attr_reader :facets
 
     def dynamic_facets
-      facets_that_could_be_dynamic.select { |f| f['allowed_values'].blank? }
+      facets_that_could_be_dynamic.select { |f| f["allowed_values"].blank? }
     end
 
     def facets_that_could_be_dynamic
-      filterable_facets.select { |f| %w(text hidden_clearable).include? f['type'] }
+      filterable_facets.select { |f| %w(text hidden_clearable).include? f["type"] }
     end
 
     def filterable_facets
-      facets.select { |f| f['filterable'] }
+      facets.select { |f| f["filterable"] }
     end
   end
 end

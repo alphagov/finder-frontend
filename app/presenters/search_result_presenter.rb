@@ -55,7 +55,7 @@ private
   end
 
   def highlight_text
-    I18n.t('finders.most_relevant') if @highlight
+    I18n.t("finders.most_relevant") if @highlight
   end
 
   def subtext

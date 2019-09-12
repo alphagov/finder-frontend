@@ -4,16 +4,16 @@
 # instead of editing this one. Cucumber will automatically load all features/**/*.rb
 # files.
 
-require 'simplecov'
+require "simplecov"
 SimpleCov.start
 
-require 'cucumber/rails'
-require 'cucumber/rspec/doubles'
+require "cucumber/rails"
+require "cucumber/rspec/doubles"
 
-require 'webmock/cucumber'
+require "webmock/cucumber"
 WebMock.disable_net_connect!(allow_localhost: true)
 
-require 'slimmer/test'
+require "slimmer/test"
 
 GovukTest.configure
 

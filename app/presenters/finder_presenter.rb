@@ -27,7 +27,7 @@ class FinderPresenter
   def initialize(content_item, facets, search_results, values = {})
     @content_item = content_item
     @search_results = search_results
-    @organisations = content_item.links.fetch('organisations', [])
+    @organisations = content_item.links.fetch("organisations", [])
     @values = values
     @facets = facets
     @keywords = values["keywords"].presence
@@ -50,7 +50,7 @@ class FinderPresenter
   end
 
   def government_content_section
-    slug.split('/')[2]
+    slug.split("/")[2]
   end
 
   def display_metadata?
@@ -91,7 +91,7 @@ class FinderPresenter
   end
 
   def start_offset
-    search_results.fetch('start', 0) + 1
+    search_results.fetch("start", 0) + 1
   end
 
   def label_for_metadata_key(key)
@@ -102,9 +102,9 @@ class FinderPresenter
 
   def display_key_for_metadata_key(key)
     if %w[organisations document_collections].include?(key)
-      'title'
+      "title"
     else
-      'label'
+      "label"
     end
   end
 
@@ -120,11 +120,11 @@ class FinderPresenter
   end
 
   def topic_finder?
-    values.include?('topic') && topic_finder_parent.present?
+    values.include?("topic") && topic_finder_parent.present?
   end
 
   def topic_finder_parent
-    Services.registries.all['full_topic_taxonomy'][values['topic']]
+    Services.registries.all["full_topic_taxonomy"][values["topic"]]
   end
 
 private

@@ -1,9 +1,9 @@
-require_relative '../../spec/support/content_helper'
+require_relative "../../spec/support/content_helper"
 require_relative "../../spec/support/taxonomy_helper"
 require_relative "../../spec/support/registry_helper"
-require_relative '../../spec/support/fixtures_helper'
-require 'gds_api/test_helpers/email_alert_api'
-require 'gds_api/test_helpers/content_store'
+require_relative "../../spec/support/fixtures_helper"
+require "gds_api/test_helpers/email_alert_api"
+require "gds_api/test_helpers/content_store"
 
 module DocumentHelper
   include FixturesHelper
@@ -55,7 +55,7 @@ module DocumentHelper
 
   def stub_rummager_api_request_with_query_param_no_results(query)
     stub_request(:get, SEARCH_ENDPOINT)
-      .with(query: hash_including('q' => query))
+      .with(query: hash_including("q" => query))
       .to_return(
         body: no_results_json,
       )
@@ -109,7 +109,7 @@ module DocumentHelper
 
   def stub_rummager_api_request_with_all_content_results
     stub_request(:get, SEARCH_ENDPOINT).
-      with(query: hash_including(all_content_params.merge(order: '-public_timestamp'))).
+      with(query: hash_including(all_content_params.merge(order: "-public_timestamp"))).
       to_return(body: all_content_results_json)
   end
 
@@ -205,29 +205,29 @@ module DocumentHelper
   end
 
   def content_store_has_mosw_reports_finder
-    content_store_has_item('/mosw-reports', govuk_content_schema_example('finder').to_json)
+    content_store_has_item("/mosw-reports", govuk_content_schema_example("finder").to_json)
   end
 
   def content_store_has_mosw_reports_finder_with_no_facets
-    finder = govuk_content_schema_example('finder')
+    finder = govuk_content_schema_example("finder")
     finder["details"]["facets"] = []
-    content_store_has_item('/mosw-reports', finder.to_json)
+    content_store_has_item("/mosw-reports", finder.to_json)
   end
 
   def content_store_has_qa_finder
-    content_store_has_item('/aaib-reports', aaib_reports_content_item.to_json)
+    content_store_has_item("/aaib-reports", aaib_reports_content_item.to_json)
   end
 
   def content_store_has_news_and_communications_finder
-    finder_fixture = File.read(Rails.root.join('features', 'fixtures', 'news_and_communications_with_checkboxes.json'))
+    finder_fixture = File.read(Rails.root.join("features", "fixtures", "news_and_communications_with_checkboxes.json"))
 
-    content_store_has_item('/search/news-and-communications', finder_fixture)
+    content_store_has_item("/search/news-and-communications", finder_fixture)
   end
 
   def content_store_has_government_finder
-    base_path = '/government/policies/benefits-reform'
-    finder = govuk_content_schema_example('finder').merge('base_path' => base_path)
-    finder['details']["sort"] = [
+    base_path = "/government/policies/benefits-reform"
+    finder = govuk_content_schema_example("finder").merge("base_path" => base_path)
+    finder["details"]["sort"] = [
       {
         "name": "Most viewed",
         "key": "-popularity"
@@ -243,56 +243,56 @@ module DocumentHelper
   end
 
   def content_store_has_services_finder
-    finder_fixture = File.read(Rails.root.join('features', 'fixtures', 'services.json'))
+    finder_fixture = File.read(Rails.root.join("features", "fixtures", "services.json"))
 
-    content_store_has_item('/search/services', finder_fixture)
+    content_store_has_item("/search/services", finder_fixture)
   end
 
   def content_store_has_government_finder_with_10_items
-    base_path = '/government/policies/benefits-reform'
-    content_item = govuk_content_schema_example('finder').merge('base_path' => base_path)
-    content_item['details']['default_documents_per_page'] = 10
+    base_path = "/government/policies/benefits-reform"
+    content_item = govuk_content_schema_example("finder").merge("base_path" => base_path)
+    content_item["details"]["default_documents_per_page"] = 10
     content_store_has_item(base_path, content_item.to_json)
   end
 
   def content_store_has_statistics_finder
-    finder_fixture = File.read(Rails.root.join('features', 'fixtures', 'statistics.json'))
+    finder_fixture = File.read(Rails.root.join("features", "fixtures", "statistics.json"))
 
-    content_store_has_item('/search/research-and-statistics', finder_fixture)
+    content_store_has_item("/search/research-and-statistics", finder_fixture)
   end
 
   def content_store_has_aaib_reports_finder
-    finder_fixture = File.read(Rails.root.join('features', 'fixtures', 'aaib_reports_example.json'))
+    finder_fixture = File.read(Rails.root.join("features", "fixtures", "aaib_reports_example.json"))
 
-    content_store_has_item('/aaib-reports', finder_fixture)
+    content_store_has_item("/aaib-reports", finder_fixture)
   end
 
   def content_store_has_all_content_finder
-    finder_fixture = File.read(Rails.root.join('features', 'fixtures', 'all_content.json'))
+    finder_fixture = File.read(Rails.root.join("features", "fixtures", "all_content.json"))
 
-    content_store_has_item('/search/all', finder_fixture)
+    content_store_has_item("/search/all", finder_fixture)
   end
 
   def content_store_has_policy_and_engagement_finder
-    finder_fixture = File.read(Rails.root.join('features', 'fixtures', 'policy_and_engagement.json'))
+    finder_fixture = File.read(Rails.root.join("features", "fixtures", "policy_and_engagement.json"))
 
-    content_store_has_item('/search/policy-papers-and-consultations', finder_fixture)
+    content_store_has_item("/search/policy-papers-and-consultations", finder_fixture)
   end
 
   def content_store_has_business_finder_qa
-    content_store_has_item(business_readiness_qa_config['base_path'], business_readiness_qa_config)
+    content_store_has_item(business_readiness_qa_config["base_path"], business_readiness_qa_config)
   end
 
   def content_store_has_business_readiness_finder
-    finder_fixture = File.read(Rails.root.join('features', 'fixtures', 'business_readiness.json'))
+    finder_fixture = File.read(Rails.root.join("features", "fixtures", "business_readiness.json"))
 
-    content_store_has_item('/find-eu-exit-guidance-business', finder_fixture)
+    content_store_has_item("/find-eu-exit-guidance-business", finder_fixture)
   end
 
   def content_store_has_business_readiness_email_signup
-    finder_fixture = File.read(Rails.root.join('features', 'fixtures', 'business_readiness_email_signup.json'))
+    finder_fixture = File.read(Rails.root.join("features", "fixtures", "business_readiness_email_signup.json"))
 
-    content_store_has_item('/find-eu-exit-guidance-business/email-signup', finder_fixture)
+    content_store_has_item("/find-eu-exit-guidance-business/email-signup", finder_fixture)
   end
 
   def search_params(params = {})
@@ -439,9 +439,9 @@ module DocumentHelper
       to_return(body: all_cma_case_documents_json)
 
     open_cma_case_documents_params = cma_case_search_params.merge(
-      'filter_case_state' => "open",
-      'order' => '-public_timestamp',
-      'filter_closed_date' => 'from:2015-11-01'
+      "filter_case_state" => "open",
+      "order" => "-public_timestamp",
+      "filter_closed_date" => "from:2015-11-01"
     )
 
     stub_request(:get, SEARCH_ENDPOINT).
@@ -499,29 +499,29 @@ module DocumentHelper
 
   def rummager_newest_news_and_communications_params
     news_and_communications_search_params.merge(
-      'order' => '-public_timestamp',
-      'count' => "20",
+      "order" => "-public_timestamp",
+      "count" => "20",
     )
   end
 
   def rummager_popular_news_and_communications_params
     news_and_communications_search_params.merge(
-      'order' => '-popularity',
-      'count' => "20",
+      "order" => "-popularity",
+      "count" => "20",
     )
   end
 
   def rummager_popular_services_params
     services_search_params.merge(
-      'order' => '-popularity',
-      'count' => "20",
+      "order" => "-popularity",
+      "count" => "20",
     )
   end
 
   def rummager_alphabetical_services_params
     services_search_params.merge(
-      'order' => 'title',
-      'count' => "20",
+      "order" => "title",
+      "count" => "20",
     )
   end
 
@@ -1986,12 +1986,12 @@ module DocumentHelper
 
   def business_readiness_results_json
     @business_readiness_results_json ||=
-      File.read(Rails.root.join('features', 'fixtures', 'business_readiness_results.json'))
+      File.read(Rails.root.join("features", "fixtures", "business_readiness_results.json"))
   end
 
   def filtered_business_readiness_results_json
     @filtered_business_readiness_results_json ||=
-      File.read(Rails.root.join('features', 'fixtures', 'business_readiness_filtered_results.json'))
+      File.read(Rails.root.join("features", "fixtures", "business_readiness_filtered_results.json"))
   end
 
   def visit_filtered_finder(facets = {})

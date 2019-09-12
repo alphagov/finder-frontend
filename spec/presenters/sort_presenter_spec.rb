@@ -1,4 +1,4 @@
-require 'spec_helper'
+require "spec_helper"
 
 RSpec.describe SortPresenter do
   include GovukContentSchemaExamples
@@ -52,8 +52,8 @@ RSpec.describe SortPresenter do
       expect(presenter_with_sort.to_hash).to eq(
         options: [
           {
-            data_track_category: 'dropDownClicked',
-            data_track_action: 'clicked',
+            data_track_category: "dropDownClicked",
+            data_track_action: "clicked",
             data_track_label: "Most viewed",
             label: "Most viewed",
             value: "most-viewed",
@@ -61,8 +61,8 @@ RSpec.describe SortPresenter do
             selected: false,
           },
           {
-            data_track_category: 'dropDownClicked',
-            data_track_action: 'clicked',
+            data_track_category: "dropDownClicked",
+            data_track_action: "clicked",
             data_track_label: "Updated (newest)",
             label: "Updated (newest)",
             value: "updated-newest",
@@ -86,8 +86,8 @@ RSpec.describe SortPresenter do
     it "sets an option as selected if a valid order is provided by the user" do
       expect(presenter_with_relevance_selected.to_hash[:options].find { |o| o[:selected] }).
         to eq(
-          data_track_category: 'dropDownClicked',
-          data_track_action: 'clicked',
+          data_track_category: "dropDownClicked",
+          data_track_action: "clicked",
           data_track_label: "Relevance",
           label: "Relevance",
           value: "relevance",
@@ -98,7 +98,7 @@ RSpec.describe SortPresenter do
 
     it "should disable the relevance option if keywords are not present" do
       expect(presenter_with_relevance.to_hash[:options].find { |o|
-        o[:value] == 'relevance'
+        o[:value] == "relevance"
       }[:disabled]).to be true
     end
 
@@ -107,7 +107,7 @@ RSpec.describe SortPresenter do
 
       it "should not disable relevance" do
         expect(presenter_with_relevance.to_hash[:options].find { |o|
-          o[:value] == 'relevance'
+          o[:value] == "relevance"
         }[:disabled]).to be false
       end
     end
@@ -186,7 +186,7 @@ RSpec.describe SortPresenter do
     context "a default option is specified in the content item" do
       it "returns the default SortOptionPresenter" do
         expect(presenter_with_default.default_option).to be_instance_of(SortOptionPresenter)
-        expect(presenter_with_default.default_option.label).to eq('Updated (oldest)')
+        expect(presenter_with_default.default_option.label).to eq("Updated (oldest)")
       end
     end
 
@@ -200,8 +200,8 @@ RSpec.describe SortPresenter do
 private
 
   def content_item(sort_options: nil)
-    finder_example = govuk_content_schema_example('finder')
-    finder_example['details']['sort'] = sort_options
+    finder_example = govuk_content_schema_example("finder")
+    finder_example["details"]["sort"] = sort_options
     ContentItem.new(finder_example)
   end
 end

@@ -1,4 +1,4 @@
-require 'spec_helper'
+require "spec_helper"
 
 RSpec.describe FinderPresenter do
   include GovukContentSchemaExamples
@@ -90,7 +90,7 @@ RSpec.describe FinderPresenter do
     end
   end
 
-  describe 'url helpers' do
+  describe "url helpers" do
     let(:hidden_facet_hash) {
       {
         "filter_key": "hidden",
@@ -186,7 +186,7 @@ RSpec.describe FinderPresenter do
     end
 
     context "beta message is set" do
-      let(:content_item) { create_content_item("phase" => 'beta', "details" => { "beta_message" => message }) }
+      let(:content_item) { create_content_item("phase" => "beta", "details" => { "beta_message" => message }) }
       it "returns html_safe beta message" do
         expect(subject.phase_message).to eql message
       end
@@ -278,8 +278,8 @@ RSpec.describe FinderPresenter do
       ]
     }
 
-    it 'returns all relevant query parameters' do
-      topic_taxonomy_has_taxons([FactoryBot.build(:level_one_taxon_hash, content_id: 'taxon', title: 'taxon')])
+    it "returns all relevant query parameters" do
+      topic_taxonomy_has_taxons([FactoryBot.build(:level_one_taxon_hash, content_id: "taxon", title: "taxon")])
 
       query_params = Rack::Utils.parse_nested_query URI.parse(subject.atom_url).query
       expect(query_params).to eq("checkbox" => "filter_value",
@@ -293,7 +293,7 @@ RSpec.describe FinderPresenter do
   end
 
   describe "#all_content_finder?" do
-    it 'returns false by default' do
+    it "returns false by default" do
       expect(subject.all_content_finder?).to eq false
     end
 
@@ -301,14 +301,14 @@ RSpec.describe FinderPresenter do
       let(:content_item) {
         create_content_item(content_id: "dd395436-9b40-41f3-8157-740a453ac972")
       }
-      it 'returns true' do
+      it "returns true" do
         expect(subject.all_content_finder?).to eq true
       end
     end
   end
 
   describe "#eu_exit_finder?" do
-    it 'returns false by default' do
+    it "returns false by default" do
       expect(subject.eu_exit_finder?).to eq false
     end
 
@@ -316,7 +316,7 @@ RSpec.describe FinderPresenter do
       let(:content_item) {
         create_content_item(content_id: "42ce66de-04f3-4192-bf31-8394538e0734")
       }
-      it 'returns true' do
+      it "returns true" do
         expect(subject.eu_exit_finder?).to eq true
       end
     end
@@ -346,7 +346,7 @@ RSpec.describe FinderPresenter do
 private
 
   def create_content_item(options = {})
-    finder_example = govuk_content_schema_example('finder').merge(options)
+    finder_example = govuk_content_schema_example("finder").merge(options)
 
     dummy_http_response = double(
       "net http response",

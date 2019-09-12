@@ -1,5 +1,5 @@
 require "spec_helper"
-require 'gds_api/test_helpers/email_alert_api'
+require "gds_api/test_helpers/email_alert_api"
 
 RSpec.feature "Brexit Checker email signup", type: :feature do
   include GdsApi::TestHelpers::ContentStore

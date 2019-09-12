@@ -1,4 +1,4 @@
-require 'spec_helper'
+require "spec_helper"
 
 describe PaginationPresenter do
   subject(:links) { presenter.next_and_prev_links }
@@ -13,7 +13,7 @@ describe PaginationPresenter do
   let(:per_page) {}
   let(:start_offset) {}
   let(:total_results) {}
-  let(:url_builder) { UrlBuilder.new('/search') }
+  let(:url_builder) { UrlBuilder.new("/search") }
 
   describe "#next_and_prev_links" do
     context "when per_page is unset" do

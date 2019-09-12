@@ -10,7 +10,7 @@ class FinderBreadcrumbsPresenter
     return nil if organisation.blank?
 
     crumbs = [{ title: "Home", url: "/" }]
-    crumbs << { title: 'Organisations', url: '/government/organisations' }
+    crumbs << { title: "Organisations", url: "/government/organisations" }
 
     if organisation_is_valid?
       crumbs << { title: organisation["title"], url: "/government/organisations/#{organisation['slug']}" }

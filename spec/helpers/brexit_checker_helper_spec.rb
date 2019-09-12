@@ -1,4 +1,4 @@
-require 'spec_helper'
+require "spec_helper"
 
 describe BrexitCheckerHelper, type: :helper do
   describe "#filter_items" do
@@ -53,8 +53,8 @@ describe BrexitCheckerHelper, type: :helper do
 
     subject { persistent_criteria_keys(question_criteria_keys) }
 
-    it 'returns all but the questions criteria' do
-      expect(subject).to contain_exactly('A', 'B')
+    it "returns all but the questions criteria" do
+      expect(subject).to contain_exactly("A", "B")
     end
   end
 end

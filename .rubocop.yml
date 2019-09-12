@@ -1,6 +1,7 @@
 AllCops:
   Exclude:
     - 'lib/tasks/cucumber.rake' # Automatically generated
+    - tmp/**/*
 
 Lint/AmbiguousRegexpLiteral:
   Exclude:
@@ -11,3 +12,6 @@ Metrics/BlockLength:
     - 'features/**/*.rb'
     - 'spec/**/*'
     - 'config/routes.rb'
+
+Style/StringLiterals:
+  Enabled: true

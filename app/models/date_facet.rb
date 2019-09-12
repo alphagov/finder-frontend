@@ -10,10 +10,10 @@ class DateFacet < FilterableFacet
     return nil unless has_filters?
 
     {
-      'key' => key,
-      'preposition' => [preposition, additional_preposition].compact.join(' '),
-      'values' => value_fragments,
-      'word_connectors' => and_word_connectors
+      "key" => key,
+      "preposition" => [preposition, additional_preposition].compact.join(" "),
+      "values" => value_fragments,
+      "word_connectors" => and_word_connectors
     }
   end
 
@@ -32,10 +32,10 @@ private
   def value_fragments
     present_values.map { |name, date|
       {
-        'label' => date.date.strftime("%e %B %Y"),
-        'parameter_key' => key,
-        'value' => date.original_input,
-        'name' => "#{key}[#{name}]"
+        "label" => date.date.strftime("%e %B %Y"),
+        "parameter_key" => key,
+        "value" => date.original_input,
+        "name" => "#{key}[#{name}]"
       }
     }
   end

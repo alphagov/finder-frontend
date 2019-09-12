@@ -3,7 +3,7 @@ module RegistrySpecHelper
     stub_request(:get, "http://search.dev.gov.uk/search.json")
         .with(query: {
             count: 0,
-            facet_people: '1500,examples:0,order:value.title'
+            facet_people: "1500,examples:0,order:value.title"
         })
         .to_return(body: {
             results: [],
@@ -63,7 +63,7 @@ module RegistrySpecHelper
       count: 1500,
       fields: %w(slug title acronym content_id),
       filter_format: %(organisation),
-      order: 'title'
+      order: "title"
     })
     .to_return(body: { results: [
       {

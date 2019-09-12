@@ -4,7 +4,7 @@ class EntryPresenter
            :path,
            to: :entry
 
-  WEBSITE_ROOT = Plek.current.website_root.gsub(/https?:\/\//, '')
+  WEBSITE_ROOT = Plek.current.website_root.gsub(/https?:\/\//, "")
 
   def initialize(entry)
     @entry = entry

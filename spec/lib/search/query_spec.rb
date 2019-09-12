@@ -20,20 +20,20 @@ describe Search::Query do
   let(:facets) {
     [
       {
-        'key' => "alpha",
-        'filterable' => true,
-        'type' => "text"
+        "key" => "alpha",
+        "filterable" => true,
+        "type" => "text"
       },
       {
-        'key' => "beta",
-        'filterable' => true,
-        'type' => "text",
-        'combine_mode' => "or"
+        "key" => "beta",
+        "filterable" => true,
+        "type" => "text",
+        "combine_mode" => "or"
       },
     ]
   }
-  let(:filter_params) { { 'alpha' => 'foo' } }
-  let(:batch_search_filter_params) { { 'alpha' => 'foo', 'beta' => 'bar' } }
+  let(:filter_params) { { "alpha" => "foo" } }
+  let(:batch_search_filter_params) { { "alpha" => "foo", "beta" => "bar" } }
 
   def result_item(id, title, score:, popularity:, updated:)
     {
@@ -67,9 +67,9 @@ describe Search::Query do
   end
 
   context "when merging, de-duplicating and sorting" do
-    shared_examples 'sorts by other fields' do
-      context 'most-recent' do
-        subject { described_class.new(content_item, batch_search_filter_params.merge('order' => 'most-recent')).search_results }
+    shared_examples "sorts by other fields" do
+      context "most-recent" do
+        subject { described_class.new(content_item, batch_search_filter_params.merge("order" => "most-recent")).search_results }
 
         it "de-duplicates and sorts by public_updated descending" do
           results = subject.fetch("results")
@@ -78,8 +78,8 @@ describe Search::Query do
         end
       end
 
-      context 'most-viewed' do
-        subject { described_class.new(content_item, batch_search_filter_params.merge('order' => 'most-viewed')).search_results }
+      context "most-viewed" do
+        subject { described_class.new(content_item, batch_search_filter_params.merge("order" => "most-viewed")).search_results }
 
         it "de-duplicates and sorts by popularity descending" do
           results = subject.fetch("results")
@@ -88,8 +88,8 @@ describe Search::Query do
         end
       end
 
-      context 'a-to-z' do
-        subject { described_class.new(content_item, batch_search_filter_params.merge('order' => 'a-to-z')).search_results }
+      context "a-to-z" do
+        subject { described_class.new(content_item, batch_search_filter_params.merge("order" => "a-to-z")).search_results }
 
         it "de-duplicates and sorts by title descending" do
           results = subject.fetch("results")
@@ -99,7 +99,7 @@ describe Search::Query do
       end
     end
 
-    context 'when keywords are not used' do #Rummager returns nil for es_score
+    context "when keywords are not used" do #Rummager returns nil for es_score
       before do
         stub_batch_search.to_return(body:
           {
@@ -119,9 +119,9 @@ describe Search::Query do
           }.to_json)
       end
 
-      it_behaves_like 'sorts by other fields'
+      it_behaves_like "sorts by other fields"
 
-      context 'default' do
+      context "default" do
         subject { described_class.new(content_item, batch_search_filter_params).search_results }
 
         it "de-duplicates and returns in the order rummager returns" do
@@ -131,8 +131,8 @@ describe Search::Query do
         end
       end
 
-      context 'most-relevant' do
-        subject { described_class.new(content_item, batch_search_filter_params.merge('order' => 'most-relevant')).search_results }
+      context "most-relevant" do
+        subject { described_class.new(content_item, batch_search_filter_params.merge("order" => "most-relevant")).search_results }
 
         it "de-duplicates and returns in the order rummager returns" do
           results = subject.fetch("results")
@@ -142,7 +142,7 @@ describe Search::Query do
       end
     end
 
-    context 'when keywords exist in search' do
+    context "when keywords exist in search" do
       before do
         stub_batch_search.to_return(body:
         {
@@ -162,9 +162,9 @@ describe Search::Query do
        }.to_json)
       end
 
-      it_behaves_like 'sorts by other fields'
+      it_behaves_like "sorts by other fields"
 
-      context 'default' do
+      context "default" do
         subject { described_class.new(content_item, batch_search_filter_params).search_results }
 
         it "de-duplicates and sorts by es_score descending" do
@@ -174,8 +174,8 @@ describe Search::Query do
         end
       end
 
-      context 'most-relevant' do
-        subject { described_class.new(content_item, batch_search_filter_params.merge('order' => 'most-relevant')).search_results }
+      context "most-relevant" do
+        subject { described_class.new(content_item, batch_search_filter_params.merge("order" => "most-relevant")).search_results }
 
         it "de-duplicates and sorts by es_score descending" do
           results = subject.fetch("results")

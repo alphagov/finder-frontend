@@ -16,7 +16,7 @@ class BrexitChecker::Question::Option
 
   def self.load(params)
     parsed_params = params.dup
-    parsed_params['sub_options'] = load_all(params['options'].to_a)
+    parsed_params["sub_options"] = load_all(params["options"].to_a)
     new(parsed_params)
   end
 

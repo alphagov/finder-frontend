@@ -37,7 +37,7 @@ class ResultSetPresenter
     @show_top_result &&
       finder_presenter.eu_exit_finder? &&
       documents.length >= 2 &&
-      sort_option.dig('key').eql?("-relevance") &&
+      sort_option.dig("key").eql?("-relevance") &&
       best_bet?
   end
 
@@ -46,7 +46,7 @@ class ResultSetPresenter
   end
 
   def user_supplied_keywords
-    @filter_params.fetch('keywords', '')
+    @filter_params.fetch("keywords", "")
   end
 
   def signup_links
