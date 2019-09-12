@@ -81,7 +81,7 @@ actions:
   guidance_prompt: Read the guidance
   guidance_link_text: Important Brexit information for UK nationals if there’s no
     deal
-  guidance_url: https://www.gov.uk/guidance/important-eu-exit-information-for-uk-nationals-if-theres-no-deal
+  guidance_url: https://www.nhs.uk/using-the-nhs/healthcare-abroad/healthcare-when-travelling-abroad/
   criteria:
   - all_of:
     - nationality-uk
