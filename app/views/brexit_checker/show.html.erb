@@ -13,21 +13,6 @@
 %>
 
 <div class="govuk-width-container">
-  <%= render 'govuk_publishing_components/components/breadcrumbs', breadcrumbs: [
-    {
-      title: t('brexit_checker.results.breadcrumbs.home'),
-      url: "/"
-    },
-    {
-      title: t('brexit_checker.results.breadcrumbs.brexit-home'),
-      url: "/brexit"
-    },
-    {
-      title: t('brexit_checker.results.breadcrumbs.brexit-check'),
-      url: "/get-ready-brexit-check"
-    }
-  ] %>
-
   <% if @page_service.previous_page.present? %>
     <%= render "govuk_publishing_components/components/back_link",
       href: brexit_checker_questions_path(c: @page_service.criteria_keys, page: @page_service.previous_page)
