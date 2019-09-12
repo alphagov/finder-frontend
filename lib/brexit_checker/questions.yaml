@@ -21,7 +21,7 @@ questions:
         value: living-uk
       - label: Ireland
         value: living-ie
-      - label: Another EU country
+      - label: Another EU country, Iceland, Liechtenstein, Norway or Switzerland
         value: living-eu
       - label: Somewhere else
         value: living-row
