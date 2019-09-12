@@ -1,6 +1,6 @@
 module BrexitChecker
   class PageService
-    attr_reader :current_page
+    attr_reader :current_page, :criteria_keys
 
     def initialize(questions:, criteria_keys: [], current_page_from_params: 0)
       @questions = questions
@@ -11,6 +11,10 @@ module BrexitChecker
 
     def next_page
       current_page && current_page + 1
+    end
+
+    def previous_page
+      current_page && current_page > 0 && current_page - 1
     end
 
     def redirect_to_results?
