@@ -2,6 +2,8 @@ require 'spec_helper'
 require 'json'
 
 describe 'Healthcheck' do
+  include ContentStoreServiceHelper
+
   before do
     Rails.cache.clear
   end
@@ -13,6 +15,8 @@ describe 'Healthcheck' do
   context 'when everything is fine', type: :request do
     before do
       fill_registries
+      search_api_has_finders
+      content_items_are_already_cached
     end
 
     it "returns an OK status" do
@@ -20,6 +24,10 @@ describe 'Healthcheck' do
       expect(JSON.parse(response.body)).to eq(
         "checks" => {
           "registries_have_data" => {
+            "message" => "OK",
+            "status" => "ok",
+          },
+          "content_items_are_cached" => {
             "message" => "OK",
             "status" => "ok",
           }
@@ -32,19 +40,15 @@ describe 'Healthcheck' do
   context 'when registries have no data', type: :request do
     before do
       Rails.cache.clear
+      search_api_has_finders
     end
 
     it "returns a warning status" do
       get '/healthcheck.json'
-      expect(JSON.parse(response.body)).to eq(
-        "checks" => {
-          "registries_have_data" => {
-            "message" => "The following registry caches are empty: world_locations, all_part_of_taxonomy_tree, part_of_taxonomy_tree, people, organisations, manual, full_topic_taxonomy.",
-            "status" => "warning",
-          }
-        },
-        "status" => "warning",
-      )
+      res = JSON.parse(response.body)
+      expect(res["status"]).to eq("warning")
+      expect(res['checks']['registries_have_data']['status']).to eq("warning")
+      expect(res['checks']['content_items_are_cached']['status']).to eq("warning")
     end
   end
 

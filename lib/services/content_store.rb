@@ -29,7 +29,7 @@ private
       content_store.content_item(base_path).to_h
     end
   rescue GdsApi::HTTPServerError, GdsApi::HTTPBadGateway
-    GovukStatsd.increment("content_store_service.connection_error")
+    GovukStatsd.increment("content_store.connection_error")
     raise
   end
 

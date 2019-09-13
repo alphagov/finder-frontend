@@ -4,6 +4,7 @@ FinderFrontend::Application.routes.draw do
 
   get '/healthcheck.json', to: GovukHealthcheck.rack_response(
     Healthchecks::RegistriesCache,
+    Healthchecks::ContentItemsCache,
   )
   get '/healthcheck', to: proc { [200, {}, %w[OK]] }
 
