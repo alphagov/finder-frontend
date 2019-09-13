@@ -75,13 +75,6 @@ en:
         business:
           heading: 'Your business or organisation'
       stay_updated:
-        heading: "Get updates"
-        description: >
-          <p>Sign up to receive:</p>
-          <ul>
-            <li>email alerts about changes to Brexit information that may affect you</li>
-            <li>a link to your results</li>
-          </ul>
         sign_up: "Subscribe"
   brexit_checker_mailer:
     change_notification:
