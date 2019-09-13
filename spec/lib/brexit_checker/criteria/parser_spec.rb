@@ -1,6 +1,6 @@
 require "spec_helper"
 
-RSpec.describe BrexitChecker::CriteriaLogic::Parser do
+RSpec.describe BrexitChecker::Criteria::Parser do
   let(:input) { nil }
   subject(:output) { described_class.parse(input) }
 

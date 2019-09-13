@@ -26,7 +26,7 @@ class BrexitChecker::Question
   end
 
   def show?(selected_criteria)
-    BrexitChecker::CriteriaLogic::Evaluator.evaluate(criteria, selected_criteria)
+    BrexitChecker::Criteria::Evaluator.evaluate(criteria, selected_criteria)
   end
 
   def possible_values

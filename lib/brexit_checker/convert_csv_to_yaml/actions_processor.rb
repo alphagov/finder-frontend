@@ -30,7 +30,7 @@ module BrexitChecker
 
       def parse_logic_fields(record)
         LOGIC_FIELDS.each_with_object(record) do |field, hash|
-          hash[field] = BrexitChecker::CriteriaLogic::Parser.parse(hash[field].strip) if hash[field]
+          hash[field] = BrexitChecker::Criteria::Parser.parse(hash[field].strip) if hash[field]
         end
       end
 

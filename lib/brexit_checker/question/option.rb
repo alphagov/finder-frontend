@@ -11,7 +11,7 @@ class BrexitChecker::Question::Option
   end
 
   def show?(criteria_keys)
-    BrexitChecker::CriteriaLogic::Evaluator.evaluate(criteria, criteria_keys)
+    BrexitChecker::Criteria::Evaluator.evaluate(criteria, criteria_keys)
   end
 
   def self.load(params)

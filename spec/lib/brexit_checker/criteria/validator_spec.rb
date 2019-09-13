@@ -1,6 +1,6 @@
 require "spec_helper"
 
-RSpec.describe BrexitChecker::CriteriaLogic::Validator do
+RSpec.describe BrexitChecker::Criteria::Validator do
   before do
     allow(BrexitChecker::Criterion).to receive(:load_all).and_return([
       double(key: "a"), double(key: "b"), double(key: "c")
