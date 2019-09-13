@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe BrexitChecker::CriteriaLogic::Evaluator do
+RSpec.describe BrexitChecker::Criteria::Evaluator do
   let(:selected_criteria) { [] }
   subject(:evaluation) { described_class.evaluate(expression, selected_criteria) }
 

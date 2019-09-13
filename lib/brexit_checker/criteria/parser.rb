@@ -1,4 +1,4 @@
-class BrexitChecker::CriteriaLogic::Parser
+class BrexitChecker::Criteria::Parser
   def self.parse(string)
     tokens = Lexer.tokenise(string)
     ast = AST.parse(tokens)

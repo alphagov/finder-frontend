@@ -1,4 +1,4 @@
-class BrexitChecker::CriteriaLogic::Evaluator
+class BrexitChecker::Criteria::Evaluator
   def initialize(expression, selected_criteria)
     @expression = expression
     @selected_criteria = selected_criteria

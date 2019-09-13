@@ -1,6 +1,6 @@
 require "set"
 
-class BrexitChecker::CriteriaLogic::Validator
+class BrexitChecker::Criteria::Validator
   def initialize(expression)
     @expression = expression
   end

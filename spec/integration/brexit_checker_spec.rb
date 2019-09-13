@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe "Brexit checker data integrity" do
-  let(:validator) { BrexitChecker::CriteriaLogic::Validator }
+  let(:validator) { BrexitChecker::Criteria::Validator }
 
   it "has questions that reference valid criteria" do
     BrexitChecker::Question.load_all.each do |question|
