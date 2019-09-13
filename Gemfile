@@ -47,5 +47,5 @@ group :test do
   gem 'rails-controller-testing'
   gem 'simplecov', '~> 0.17.0'
   gem "timecop"
-  gem 'webmock', '~> 3.7.2'
+  gem 'webmock', '~> 3.7.3'
 end
