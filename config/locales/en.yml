@@ -34,12 +34,3 @@ en:
     facet_disclosure:
       more: "Show more search options"
       fewer: "Show fewer search options"
-  brexit_checker:
-    results:
-      actions:
-        guidance_prompt: Read the guidance
-  brexit_checker_mailer:
-    change_notification:
-      title: Your Get ready for Brexit results
-      addition: A new action has been added
-      content_change: An action has been updated
