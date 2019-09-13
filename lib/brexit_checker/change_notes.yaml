@@ -51,6 +51,6 @@ change_notes:
      date: 2019-09-09
    - uuid: "fa691118-469f-492c-84ab-8f9896e886ad"
      type: content_change
-     note: "We changed the guidance link to point to updated advice on getting healthcare when travelling and living abroad."
+     note: "We changed the guidance link to point to NHS guidance on getting healthcare when travelling and living abroad."
      action_id: S006
-     date: 2019-09-12
+     date: 2019-09-13
