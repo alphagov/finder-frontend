@@ -36,12 +36,6 @@ en:
       fewer: "Show fewer search options"
   brexit_checker:
     results:
-      breadcrumbs:
-        home: "Home"
-        brexit-home: "Brexit"
-        brexit-check: "How to get ready"
-        questions: "Questions"
-        results: "Results"
       answers:
         list_context: "Based on your answers, we know:"
         no_answers: |
