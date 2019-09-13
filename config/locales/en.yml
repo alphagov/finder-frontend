@@ -74,8 +74,6 @@ en:
           heading: 'You and your family'
         business:
           heading: 'Your business or organisation'
-      stay_updated:
-        sign_up: "Subscribe"
   brexit_checker_mailer:
     change_notification:
       title: Your Get ready for Brexit results

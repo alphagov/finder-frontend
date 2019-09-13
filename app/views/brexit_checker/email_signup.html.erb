@@ -1,4 +1,4 @@
-<% content_for :title, t('brexit_checker.title') %>
+<% content_for :title, t('brexit_checker.email_signup.title') %>
 <% content_for :head do %>
   <% unless params[:page] %>
     <meta name="robots" content="noindex">
@@ -36,7 +36,7 @@
 
         <%= form_tag brexit_checker_confirm_email_signup_path(c: criteria_keys), id: "checklist-email-signup" do %>
           <%= render "govuk_publishing_components/components/button", {
-            text: t('brexit_checker.results.stay_updated.sign_up'),
+            text: t('brexit_checker.email_signup.sign_up'),
             inline_layout: true
           } %>
         <% end %>
