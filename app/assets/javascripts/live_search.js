@@ -17,6 +17,7 @@
     this.$loadingBlock = options.$results.find('#js-loading-message')
     this.$sortBlock = options.$results.find('#js-sort-options')
     this.$paginationBlock = options.$results.find('#js-pagination')
+    this.$suggestionsBlock = this.$form.find('#js-spelling-suggestions')
     this.action = this.$form.attr('action') + '.json'
     this.$atomAutodiscoveryLink = options.$atomAutodiscoveryLink
     this.baseTitle = $("meta[name='govuk:base_title']").attr('content') || document.title
@@ -219,6 +220,31 @@
     this.bindSortElements()
   }
 
+  LiveSearch.prototype.updateSpellingSuggestions = function (results) {
+    // bail out, as this is only set up on search/all
+    if (this.$suggestionsBlock.length === 0) { return }
+    var suggestionsPresent = results.suggestions.length !== 0
+
+    if (suggestionsPresent) {
+      // there might be more than one suggestion in the future
+      // so we're removing all previous ones before adding new one
+      // as there might be fewer or more new suggestions
+      this.$suggestionsBlock.find('a').remove()
+      for (var i = 0; i < results.suggestions.length; i++) {
+        var suggestion = results.suggestions[i]
+        var $suggestionLink = $('<a>', {
+          text: suggestion.keywords,
+          href: suggestion.link,
+          class: 'govuk-link govuk-!-font-weight-bold'
+        })
+        this.$suggestionsBlock.find('p').append($suggestionLink)
+      }
+    }
+
+    // checks results for any suggestions and hides/shows the container accordingly
+    this.$suggestionsBlock.attr('class', suggestionsPresent ? 'spelling-suggestions--visible' : 'spelling-suggestions')
+  }
+
   LiveSearch.prototype.bindSortElements = function bindSortElements () {
     this.$orderSelect = this.$form.find('.js-order-results')
     this.$relevanceOrderOption = this.$orderSelect.find('option[value=' + this.$orderSelect.data('relevance-sort-option') + ']')
@@ -321,6 +347,7 @@
       this.updateElement(this.$countBlock, results.total)
       this.updateElement(this.$paginationBlock, results.next_and_prev_links)
       this.updateSortOptions(results, action)
+      this.updateSpellingSuggestions(results)
       this.$atomAutodiscoveryLink.attr('href', results.atom_url)
       this.$loadingBlock.text('').hide()
     }
