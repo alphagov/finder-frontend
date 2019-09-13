@@ -69,7 +69,6 @@ en:
           This is a safe and secure service. We don't store any of your personal information.
           To change your answers, follow the link below.
       actions:
-        no_results: This is a safe and secure service. We don't store any of your personal information.
         guidance_prompt: Read the guidance
       audiences:
         citizen:
