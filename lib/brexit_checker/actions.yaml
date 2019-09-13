@@ -74,13 +74,13 @@ actions:
   audience: citizen
 - action_id: S006
   priority: 9
-  title: Register for local healthcare or take out health insurance
+  title: Register for local healthcare or take out health insurance, if you are a
+    British national living in the EU
   consequence: You may be charged for your care if you are not registered for local
     healthcare or do not have the right insurance.
   lead_time: Do it as soon as possible
-  guidance_prompt: Read the guidance
-  guidance_link_text: Important Brexit information for UK nationals if there’s no
-    deal
+  guidance_prompt: Read NHS guidance
+  guidance_link_text: Healthcare when travelling or living abroad
   guidance_url: https://www.nhs.uk/using-the-nhs/healthcare-abroad/healthcare-when-travelling-abroad/
   criteria:
   - all_of:
