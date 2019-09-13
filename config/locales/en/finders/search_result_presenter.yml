@@ -1,0 +1,5 @@
+en:
+  finders:
+    search_result_presenter:
+      first_published_during: "First published during the"
+      most_relevant: "Most relevant result"

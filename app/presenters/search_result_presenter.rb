@@ -55,11 +55,11 @@ private
   end
 
   def highlight_text
-    I18n.t('finders.most_relevant') if @highlight
+    I18n.t('finders.search_result_presenter.most_relevant') if @highlight
   end
 
   def subtext
-    published_text = "<span class='published-by'>#{I18n.t('finders.first_published_during')} #{government_name}</span>" if is_historic
+    published_text = "<span class='published-by'>#{I18n.t('finders.search_result_presenter.first_published_during')} #{government_name}</span>" if is_historic
     if @debug_score
       debug_text = "<span class='debug-results debug-results--link'>#{link}</span>"\
                    "<span class='debug-results debug-results--meta'>Score: #{es_score || 'no score (sort by relevance)'}</span>"\

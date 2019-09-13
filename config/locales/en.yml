@@ -23,9 +23,3 @@ en:
   time:
     formats:
       as_date: "%d %B %Y"
-  finders:
-    first_published_during: "First published during the"
-    most_relevant: "Most relevant result"
-    facet_disclosure:
-      more: "Show more search options"
-      fewer: "Show fewer search options"
