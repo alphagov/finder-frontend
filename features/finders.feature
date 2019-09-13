@@ -327,9 +327,9 @@ Feature: Filtering documents
   @javascript
   Scenario: Facets should not be hidden by default on finders except all content
     When I view the research and statistics finder
-    And I should not see a "Show more search options" link
+    And I should not see a "Show more search options" button
     Then I view the all content finder
-    And I should see a "Show more search options" link
+    And I should see a "Show more search options" button
 
   @javascript
   Scenario: A Blue Banner should be displayed when navigating from a topic page
@@ -337,14 +337,14 @@ Feature: Filtering documents
     Then I should see a blue banner
 
   @javascript
-  Scenario: Facets should expand when clicking on the "Show more search options" link on all content
+  Scenario: Facets should expand when clicking on the "Show more search options" button on all content
     When I view the all content finder
-    And I should see a "Show more search options" link
-    And I should not see a "Show fewer search options" link
+    And I should see a "Show more search options" button
+    And I should not see a "Show fewer search options" button
     And Facets should be hidden
     Then I click "Show more search options" to expand all facets
-    And I should see a "Show fewer search options" link
-    And I should not see a "Show more search options" link
+    And I should see a "Show fewer search options" button
+    And I should not see a "Show more search options" button
     And Facets should be visible
 
   Scenario: Results should be a landmark to allow screenreaders to jump to it quickly

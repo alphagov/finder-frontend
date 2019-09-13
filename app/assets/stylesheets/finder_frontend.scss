@@ -305,3 +305,25 @@
     color: govuk-colour("white");
   }
 }
+
+.app-c-button-as-link {
+  padding: 0;
+  border-width: 0;
+  color: $govuk-link-colour;
+  background: none;
+  cursor: pointer;
+  -webkit-appearance: none;
+  text-decoration: underline;
+
+  // we need consistent font-size across breakpoints
+  // so we cannot use govuk-font mixin
+  font-size: 16px;
+  @include govuk-link-common;
+  @include govuk-link-style-default;
+
+  // Remove default button focus outline in Firefox
+  &::-moz-focus-inner {
+    padding: 0;
+    border: 0;
+  }
+}
