@@ -30,7 +30,7 @@
 
       <% if action.guidance_url.present? %>
         <p class="govuk-body govuk-!-font-size-16">
-          <% prompt = action.guidance_prompt || t("brexit_checker.results.actions.guidance_prompt") %>
+          <% prompt = action.guidance_prompt || t("brexit_checker.action_list.guidance_prompt") %>
           <%= prompt %>:
             <a
               href="<%= action.guidance_url %>"
