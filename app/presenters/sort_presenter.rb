@@ -5,10 +5,6 @@ class SortPresenter
     @content_item_sort_options = content_item.sort_options
   end
 
-  def has_options?
-    content_item_sort_options.any?
-  end
-
   def to_hash
     return nil unless has_options?
 
@@ -40,6 +36,10 @@ private
   attr_reader :user_selected_order, :keywords, :content_item_sort_options
 
   RELEVANCE_OPTION_TYPES = %w(relevance -relevance).freeze
+
+  def has_options?
+    content_item_sort_options.any?
+  end
 
   def presented_sort_options
     @presented_sort_options ||= sort_options.map do |option|
