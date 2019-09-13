@@ -24,7 +24,7 @@ RSpec.describe "Brexit checker data integrity" do
   end
 
   it "has question options that reference valid criteria" do
-    BrexitChecker::Question.load_all.flat_map(&:possible_values).each do |value|
+    BrexitChecker::Question.load_all.flat_map(&:all_values).each do |value|
       expect(validator.validate([value])).to be_truthy
     end
   end
@@ -51,7 +51,7 @@ RSpec.describe "Brexit checker data integrity" do
 
   it "has criteria that are covered by a question" do
     possible_criteria = BrexitChecker::Question.load_all
-      .flat_map(&:possible_values)
+      .flat_map(&:all_values)
 
     BrexitChecker::Criterion.load_all.each do |criterion|
       expect(possible_criteria).to include(criterion.key)
@@ -60,7 +60,7 @@ RSpec.describe "Brexit checker data integrity" do
 
   it "has criteria that occur only once in the questions" do
     possible_criteria = BrexitChecker::Question.load_all
-      .flat_map(&:possible_values)
+      .flat_map(&:all_values)
 
     expect(possible_criteria.uniq.count).to eq possible_criteria.count
   end
