@@ -1,7 +1,6 @@
 class AtomPresenter
-  def initialize(finder_presenter, results, facet_tags)
+  def initialize(finder_presenter, facet_tags)
     @finder_presenter = finder_presenter
-    @results = results
     @filter_descriptions = facet_tags.selected_filter_descriptions
   end
 

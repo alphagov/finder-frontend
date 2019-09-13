@@ -1,9 +1,8 @@
 require 'spec_helper'
 
 RSpec.describe AtomPresenter do
-  subject(:instance) { described_class.new(finder, results, facet_tags) }
+  subject(:instance) { described_class.new(finder, facet_tags) }
 
-  let(:results) { ResultSetPresenter.new(finder, filter_params, sort_presenter, metadata_presenter_class) }
   let(:metadata_presenter_class) do
     MetadataPresenter
   end

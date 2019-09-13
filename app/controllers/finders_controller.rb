@@ -34,7 +34,7 @@ class FindersController < ApplicationController
           redirect_to_destination
         else
           expires_in(ATOM_FEED_MAX_AGE, public: true)
-          @feed = AtomPresenter.new(finder_presenter, result_set_presenter, facet_tags)
+          @feed = AtomPresenter.new(finder_presenter, facet_tags)
         end
       end
     end
