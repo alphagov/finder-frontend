@@ -491,4 +491,38 @@ describe('liveSearch', function () {
       expect($('#order option:selected').length).toBe(1)
     })
   })
+
+  describe('spelling suggestions', function () {
+    var $suggestionBlock = $('<div class="spelling-suggestions" id="js-spelling-suggestions"><p class="govuk-body">Did you mean </p></div>')
+    var responseWithSpellingSuggestions = {
+      'suggestions': [{
+        'keywords': 'driving license',
+        'link': '/search/all?keywords=driving+license&order=relevance'
+      }]
+    }
+
+    var responseWithNoSpellingSuggestions = {
+      'suggestions': []
+    }
+    beforeEach(function () {
+      $form.append($suggestionBlock)
+      liveSearch = new GOVUK.LiveSearch({ $form: $form, $results: $results, $suggestionBlock: $suggestionBlock, $atomAutodiscoveryLink: $atomAutodiscoveryLink })
+    })
+
+    afterEach(function () {
+      $form.remove()
+    })
+
+    it('are shown if there are available in the data', function () {
+      liveSearch.updateSpellingSuggestions(responseWithSpellingSuggestions)
+      expect($('#js-spelling-suggestions').hasClass('spelling-suggestions--visible')).toBe(true)
+      expect($('#js-spelling-suggestions a').text()).toBe('driving license')
+      expect($('#js-spelling-suggestions a').attr('href')).toBe('/search/all?keywords=driving+license&order=relevance')
+    })
+
+    it('are not shown if there are none available in the data', function () {
+      liveSearch.updateSpellingSuggestions(responseWithNoSpellingSuggestions)
+      expect($('#js-spelling-suggestions').hasClass('spelling-suggestions--visible')).toBe(false)
+    })
+  })
 })
