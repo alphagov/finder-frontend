@@ -73,10 +73,6 @@ class FinderPresenter
     )
   end
 
-  def show_keyword_search?
-    keywords.present? || facets.any? || results.total.positive?
-  end
-
   def start_offset
     search_results.fetch('start', 0) + 1
   end
