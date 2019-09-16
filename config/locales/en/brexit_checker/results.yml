@@ -1,0 +1,26 @@
+en:
+  brexit_checker:
+    results:
+      title: What you need to do now to prepare for Brexit
+      title_no_actions: You do not need to take action at this time
+      title_no_answers: You did not answer any of the questions
+      description: |
+        You may not need to do all these actions ahead of the 31 October deadline.
+        The action you may need to take may change subject to negotiations and your own circumstances.
+      description_no_actions: |
+        Based on your responses, you do not need to take any action to prepare for the Brexit deadline of 31 October 2019.
+      description_no_answers: |
+        To change your answers, follow the link below. This is a safe and secure service. We do not store any of your personal information.
+      email_sign_up_link: |
+        Sign up to get email alerts about changes to Brexit information that may affect you
+      email_sign_up_link_no_actions: |
+        This may change. Subscribe to email alerts about changes to Brexit information that may affect you.
+      social_media_meta:
+        title: Get ready for Brexit
+        description: |
+          Check what you or your business need to do to prepare for Brexit.
+      audiences:
+        citizen:
+          heading: You and your family
+        business:
+          heading: Your business or organisation

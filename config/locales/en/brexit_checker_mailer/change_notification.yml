@@ -1,0 +1,7 @@
+en:
+  brexit_checker_mailer:
+    change_notification:
+      guidance_prompt: Read the guidance
+      title: Your Get ready for Brexit results
+      addition: A new action has been added
+      content_change: An action has been updated

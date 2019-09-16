@@ -11,7 +11,7 @@
 <% if @action.exception.present? %><%= @action.exception %><% end %>
 
 <% if @action.guidance_url.present? %>
-<%= @action.guidance_prompt || t("brexit_checker.results.actions.guidance_prompt") %>
+<%= @action.guidance_prompt || t("brexit_checker_mailer.change_notification.guidance_prompt") %>
 [<%= @action.guidance_link_text %>](<%= @action.guidance_url %>)
 <% end %>
 
