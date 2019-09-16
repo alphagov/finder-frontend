@@ -357,15 +357,14 @@ actions:
   audience: business
 - action_id: T003
   priority: 5
-  title: Register with UK Research and Innovation (UKRI) for updates on how to claim
-    funding after your Horizon 2020 funding stops
-  title_url: https://apply-for-innovation-funding.service.gov.uk/eu-grant/overview
-  consequence: If you do not register, your Horizon 2020 funding will stop and you
-    will not be able to receive funding from the UK government.
+  title: Check what you need to do if you currently receive EU funding
+  consequence: If you do not follow the relevant guidelines, you may have a gap in
+    payments or your funding may stop.
   lead_time: Do it before 31 October
   guidance_prompt: Read the guidance
-  guidance_link_text: Horizon 2020 funding after Brexit
-  guidance_url: https://www.gov.uk/guidance/horizon-2020-funding-after-brexit
+  guidance_link_text: The Government's guarantee for EU-funded programmes if there's
+    no Brexit deal
+  guidance_url: https://www.gov.uk/government/publications/the-governments-guarantee-for-eu-funded-programmes-if-theres-no-brexit-deal/the-governments-guarantee-for-eu-funded-programmes-if-theres-no-brexit-deal
   criteria:
   - eu-funding
   audience: business

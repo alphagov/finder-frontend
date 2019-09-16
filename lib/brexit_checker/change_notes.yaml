@@ -54,3 +54,8 @@ change_notes:
      note: "We changed the guidance link to point to NHS guidance on getting healthcare when travelling and living abroad."
      action_id: S006
      date: 2019-09-13
+   - uuid: "376803be-af7b-4014-a166-0b3e5821026c"
+     type: content_change
+     note: "We changed the guidance link to point at information on all EU funding, including Horizon 2020 funding, so that anyone who currently receives EU funding can continue to do so."
+     action_id: T003
+     date: 2019-09-16
