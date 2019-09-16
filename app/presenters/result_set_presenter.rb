@@ -2,14 +2,15 @@ class ResultSetPresenter
   include ERB::Util
   include ActionView::Helpers::NumberHelper
 
-  attr_reader :pluralised_document_noun, :debug_score
+  attr_reader :pluralised_document_noun, :debug_score, :start_offset
 
   delegate :atom_url, to: :finder_presenter
 
-  def initialize(finder_presenter, filter_params, sort_presenter, metadata_presenter_class, show_top_result = false, debug_score = false)
+  def initialize(finder_presenter, results, filter_params, sort_presenter, metadata_presenter_class, show_top_result = false, debug_score = false)
     @finder_presenter = finder_presenter
-    @documents = finder_presenter.results.documents
-    @total = finder_presenter.results.total
+    @documents = results.documents
+    @total = results.total
+    @start_offset = results.start + 1
     @pluralised_document_noun = finder_presenter.document_noun.pluralize(total)
     @filter_params = filter_params
     @sort_presenter = sort_presenter

@@ -4,7 +4,7 @@ RSpec.describe FinderPresenter do
   include GovukContentSchemaExamples
   include TaxonomySpecHelper
 
-  subject(:presenter) { described_class.new(content_item, facets, {}, values) }
+  subject(:presenter) { described_class.new(content_item, facets, values) }
   let(:facets) { [] }
   let(:content_item) { create_content_item }
   let(:values) { {} }

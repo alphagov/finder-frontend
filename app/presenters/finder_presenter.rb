@@ -24,9 +24,8 @@ class FinderPresenter
            :eu_exit_finder?, to: :content_item
 
 
-  def initialize(content_item, facets, search_results, values = {})
+  def initialize(content_item, facets, values = {})
     @content_item = content_item
-    @search_results = search_results
     @organisations = content_item.links.fetch('organisations', [])
     @values = values
     @facets = facets
@@ -66,17 +65,6 @@ class FinderPresenter
     metadata.reject { |_, links| links.blank? }
   end
 
-  def results
-    @results ||= ResultSetParser.parse(
-      search_results.fetch("results"),
-      search_results.fetch("total")
-    )
-  end
-
-  def start_offset
-    search_results.fetch('start', 0) + 1
-  end
-
   def topic_finder?
     values.include?('topic') && topic_finder_parent.present?
   end
@@ -86,8 +74,6 @@ class FinderPresenter
   end
 
 private
-
-  attr_reader :search_results
 
   def is_external?(href)
     URI.parse(href).host != "www.gov.uk"

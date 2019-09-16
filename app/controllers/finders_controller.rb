@@ -34,7 +34,7 @@ class FindersController < ApplicationController
           redirect_to_destination
         else
           expires_in(ATOM_FEED_MAX_AGE, public: true)
-          @feed = AtomPresenter.new(finder_presenter, facet_tags)
+          @feed = AtomPresenter.new(finder_presenter, results, facet_tags)
         end
       end
     end
@@ -76,11 +76,20 @@ private
   def result_set_presenter
     @result_set_presenter ||= result_set_presenter_class.new(
       finder_presenter,
+      results,
       filter_params,
       sort_presenter,
       content_item.metadata_class,
       show_top_result?,
       debug_score?,
+    )
+  end
+
+  def results
+    @results ||= ResultSetParser.parse(
+      search_results.fetch("results"),
+      search_results.fetch("start", 0),
+      search_results.fetch("total")
     )
   end
 
@@ -102,7 +111,6 @@ private
     @finder_presenter ||= FinderPresenter.new(
       content_item,
       facets,
-      search_results,
       filter_params,
     )
   end

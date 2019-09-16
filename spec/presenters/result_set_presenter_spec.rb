@@ -6,6 +6,7 @@ RSpec.describe ResultSetPresenter do
 
   subject(:subject) {
     ResultSetPresenter.new(finder_presenter,
+                           search_results,
                            filter_params,
                            sort_presenter,
                            metadata_presenter_class,
@@ -16,7 +17,7 @@ RSpec.describe ResultSetPresenter do
   let(:show_top_result) { false }
   let(:debug_score) { false }
 
-  let(:finder_presenter) { FinderPresenter.new(content_item, facets, search_results) }
+  let(:finder_presenter) { FinderPresenter.new(content_item, facets) }
 
   let(:finder_content_id) { 'content_id' }
 
@@ -58,10 +59,11 @@ RSpec.describe ResultSetPresenter do
   let(:facets) { [FactoryBot.build(:option_select_facet)] }
 
   let(:search_results) do
-    {
-      'results' => results.map(&:deep_stringify_keys),
-      'total' => total_number_of_results
-    }
+    ResultSetParser.parse(
+      results.map(&:deep_stringify_keys),
+      1,
+      total_number_of_results
+)
   end
 
   let(:results) {

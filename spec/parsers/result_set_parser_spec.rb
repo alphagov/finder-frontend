@@ -4,8 +4,9 @@ describe ResultSetParser do
   context "with a result set hash with some documents" do
     let(:results) { %i[a_document_hash another_document_hash] }
     let(:total) { 2 }
+    let(:start) { 1 }
 
-    subject { ResultSetParser.parse(results, total) }
+    subject { ResultSetParser.parse(results, start, total) }
 
     before do
       allow(Document).to receive(:new).with(:a_document_hash, 1).and_return(:a_document_instance)
@@ -13,5 +14,7 @@ describe ResultSetParser do
     end
 
     specify { expect(subject.documents).to eql(%i[a_document_instance another_document_instance]) }
+    specify { expect(subject.start).to eql(start) }
+    specify { expect(subject.total).to eql(total) }
   end
 end
