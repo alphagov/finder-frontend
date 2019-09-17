@@ -1,5 +1,8 @@
 class BrexitCheckerController < ApplicationController
   include BrexitCheckerHelper
+
+  SUBSCRIBER_LIST_GROUP_ID = "5a7c11f2-e737-4531-a0bc-b5f707046607".freeze
+
   layout "finder_layout"
 
   protect_from_forgery except: :confirm_email_signup
@@ -44,6 +47,7 @@ private
     {
       "title" => "Your Get ready for Brexit results",
       "description" => "[You can view a copy of your results on GOV.UK.](#{Plek.new.website_root}#{path})",
+      "group_id" => SUBSCRIBER_LIST_GROUP_ID,
       "tags" => { "brexit_checklist_criteria" => { "any" => criteria_keys } },
       "url" => path,
     }
