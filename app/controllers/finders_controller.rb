@@ -86,11 +86,7 @@ private
   end
 
   def results
-    @results ||= ResultSetParser.parse(
-      search_results.fetch("results"),
-      search_results.fetch("start", 0),
-      search_results.fetch("total"),
-    )
+    @results ||= ResultSetParser.parse(search_results)
   end
 
   def result_set_presenter_class

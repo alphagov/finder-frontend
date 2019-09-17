@@ -60,9 +60,9 @@ RSpec.describe ResultSetPresenter do
 
   let(:search_results) do
     ResultSetParser.parse(
-      results.map(&:deep_stringify_keys),
-      1,
-      total_number_of_results,
+      "results" => results.map(&:deep_stringify_keys),
+      "start" => 1,
+      "total" => total_number_of_results
 )
   end
 
