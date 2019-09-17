@@ -1,9 +1,8 @@
 require 'spec_helper'
 
 RSpec.describe AtomPresenter do
-  subject(:instance) { described_class.new(finder, results, facet_tags) }
+  subject(:instance) { described_class.new(finder, result_set, facet_tags) }
 
-  let(:results) { ResultSetPresenter.new(finder, filter_params, sort_presenter, metadata_presenter_class) }
   let(:metadata_presenter_class) do
     MetadataPresenter
   end
@@ -12,7 +11,6 @@ RSpec.describe AtomPresenter do
       FinderPresenter,
       slug: "/search/news-and-communications",
       name: 'News and communications',
-      results: result_set,
       document_noun: 'case',
       total: 20,
       filters: [a_facet, another_facet, a_date_facet],
@@ -70,7 +68,7 @@ RSpec.describe AtomPresenter do
   end
 
   let(:result_set) do
-    ResultSet.new((1..20).map { document }, 20)
+    ResultSet.new((1..20).map { document }, 1, 20)
   end
 
   let(:another_facet) do

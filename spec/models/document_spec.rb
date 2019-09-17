@@ -21,9 +21,6 @@ describe Document do
 
   let(:show_summaries) { true }
   let(:facets) { [] }
-  let(:finder) do
-    FinderPresenter.new(content_item, facets, ResultSet.new([], 0))
-  end
 
   describe "initialization" do
     it 'defaults to nil without a public timestamp' do
@@ -56,7 +53,7 @@ describe Document do
             type: "date",
             value: "2019"
           }
-        expect(Document.new(document_hash, 1).metadata(finder)).to eq([expected_hash])
+        expect(Document.new(document_hash, 1).metadata(facets)).to eq([expected_hash])
       end
     end
     context 'There is one facet with type text' do
@@ -76,14 +73,14 @@ describe Document do
               labels: %w[metadata_label],
               type: "text",
             }
-          expect(Document.new(document_hash, 1).metadata(finder)).to eq([expected_hash])
+          expect(Document.new(document_hash, 1).metadata(facets)).to eq([expected_hash])
         end
         describe 'There is a short name in the facet' do
           let(:facets) {
             [FactoryBot.build(:option_select_facet, short_name: 'short name')]
           }
           it 'replaces the name field in the metafata by the short name from the facet' do
-            expect(Document.new(document_hash, 1).metadata(finder)).to match([include(name: 'short name')])
+            expect(Document.new(document_hash, 1).metadata(facets)).to match([include(name: 'short name')])
           end
         end
       end
@@ -106,7 +103,7 @@ describe Document do
               labels: %w[metadata_label_1 metadata_label_2 metadata_label_3],
               type: "text",
             }
-          expect(Document.new(document_hash, 1).metadata(finder)).to eq([expected_hash])
+          expect(Document.new(document_hash, 1).metadata(facets)).to eq([expected_hash])
         end
       end
     end
@@ -121,7 +118,7 @@ describe Document do
                          document_collections: [{ "title" => "dc_title" }])
       }
       it 'uses title instead of label' do
-        expect(Document.new(document_hash, 1).metadata(finder)).
+        expect(Document.new(document_hash, 1).metadata(facets)).
           to match_array([include(value: 'org_title'), include(value: 'dc_title')])
       end
     end
@@ -135,7 +132,7 @@ describe Document do
                          content_store_document_type: 'answer')
       }
       it 'does not display metadata because we are not interested in who publishes a mainstream document' do
-        expect(Document.new(document_hash, 1).metadata(finder)).to be_empty
+        expect(Document.new(document_hash, 1).metadata(facets)).to be_empty
       end
     end
   end

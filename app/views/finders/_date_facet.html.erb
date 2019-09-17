@@ -1,7 +1,7 @@
 <%= render "components/date-filter", {
   name: date_facet.name,
   key: date_facet.key,
-  from_value: result_set_presenter.user_supplied_date(date_facet.key, 'from'),
-  to_value: result_set_presenter.user_supplied_date(date_facet.key, 'to'),
+  from_value: date_facet.user_supplied_from_date,
+  to_value: date_facet.user_supplied_to_date,
   aria_controls_id: "js-search-results-info"
 } %>

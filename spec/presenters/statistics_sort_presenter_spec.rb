@@ -41,11 +41,11 @@ RSpec.describe StatisticsSortPresenter do
 
   describe "#has_options?" do
     it "returns false if there are no options in the content item" do
-      expect(presenter_without_sort.has_options?).to be false
+      expect(presenter_without_sort.to_hash).to be nil
     end
 
     it "returns true if there are sort options in the content item" do
-      expect(presenter.has_options?).to be true
+      expect(presenter.to_hash).to_not be nil
     end
   end
 

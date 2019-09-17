@@ -34,7 +34,7 @@ class FindersController < ApplicationController
           redirect_to_destination
         else
           expires_in(ATOM_FEED_MAX_AGE, public: true)
-          @feed = AtomPresenter.new(finder_presenter, result_set_presenter, facet_tags)
+          @feed = AtomPresenter.new(finder_presenter, results, facet_tags)
         end
       end
     end
@@ -46,7 +46,7 @@ private
 
   attr_accessor :search_query
 
-  helper_method :finder_presenter, :facet_tags, :i_am_a_topic_page_finder, :result_set_presenter, :content_item
+  helper_method :finder_presenter, :facet_tags, :i_am_a_topic_page_finder, :result_set_presenter, :content_item, :signup_links
 
   def redirect_to_destination
     @redirect = content_item.redirect
@@ -76,11 +76,20 @@ private
   def result_set_presenter
     @result_set_presenter ||= result_set_presenter_class.new(
       finder_presenter,
+      results,
       filter_params,
       sort_presenter,
       content_item.metadata_class,
       show_top_result?,
       debug_score?,
+    )
+  end
+
+  def results
+    @results ||= ResultSetParser.parse(
+      search_results.fetch("results"),
+      search_results.fetch("start", 0),
+      search_results.fetch("total")
     )
   end
 
@@ -94,11 +103,14 @@ private
     @facets ||= FacetsBuilder.new(content_item: content_item, search_results: search_results, value_hash: filter_params).facets
   end
 
+  def signup_links
+    @signup_links ||= SignupLinksPresenter.new(content_item, facets).signup_links
+  end
+
   def finder_presenter
     @finder_presenter ||= FinderPresenter.new(
       content_item,
       facets,
-      search_results,
       filter_params,
     )
   end

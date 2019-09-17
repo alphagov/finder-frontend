@@ -18,15 +18,6 @@ When(/^I view the finder with no keywords and no facets$/) do
   visit finder_path('mosw-reports')
 end
 
-Then(/I see no results$/) do
-  expect(page).to have_content('0 reports')
-  expect(page).to have_css('.filtered-results .gem-c-document-list__item', count: 0)
-end
-
-And(/there is no keyword search box$/) do
-  expect(page).to_not have_css('#finder-keyword-search')
-end
-
 And(/there is a zero results message$/) do
   expect(page).to have_content('no matching results')
 end

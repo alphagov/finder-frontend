@@ -2,14 +2,15 @@ class ResultSetPresenter
   include ERB::Util
   include ActionView::Helpers::NumberHelper
 
-  attr_reader :pluralised_document_noun, :debug_score
+  attr_reader :pluralised_document_noun, :debug_score, :start_offset
 
   delegate :atom_url, to: :finder_presenter
 
-  def initialize(finder_presenter, filter_params, sort_presenter, metadata_presenter_class, show_top_result = false, debug_score = false)
+  def initialize(finder_presenter, results, filter_params, sort_presenter, metadata_presenter_class, show_top_result = false, debug_score = false)
     @finder_presenter = finder_presenter
-    @documents = finder_presenter.results.documents
-    @total = finder_presenter.results.total
+    @documents = results.documents
+    @total = results.total
+    @start_offset = results.start + 1
     @pluralised_document_noun = finder_presenter.document_noun.pluralize(total)
     @filter_params = filter_params
     @sort_presenter = sort_presenter
@@ -41,16 +42,8 @@ class ResultSetPresenter
       best_bet?
   end
 
-  def user_supplied_date(date_facet_key, date_facet_from_to)
-    @filter_params.fetch(date_facet_key, {}).fetch(date_facet_from_to, nil)
-  end
-
   def user_supplied_keywords
     @filter_params.fetch('keywords', '')
-  end
-
-  def signup_links
-    @signup_links ||= fetch_signup_links
   end
 
 private
@@ -59,7 +52,13 @@ private
 
   def document_list_component_data(documents_to_convert:)
     documents_to_convert.map do |document|
-      SearchResultPresenter.new(document: document, metadata_presenter_class: metadata_presenter_class, doc_count: documents.count, finder_presenter: finder_presenter, debug_score: debug_score, highlight: highlight(document.index)).document_list_component_data
+      SearchResultPresenter.new(document: document,
+                                metadata_presenter_class: metadata_presenter_class,
+                                doc_count: documents.count,
+                                facets: finder_presenter.facets,
+                                content_item: finder_presenter.content_item,
+                                debug_score: debug_score,
+                                highlight: highlight(document.index)).document_list_component_data
     end
   end
 
@@ -76,22 +75,5 @@ private
 
   def sort_option
     sort_presenter.selected_option || {}
-  end
-
-  def fetch_signup_links
-    {
-       feed_link: feed_link,
-       hide_heading: true,
-       small_form: true,
-       email_signup_link: (email_signup_link if email_signup_link.present?)
-    }.compact
-  end
-
-  def email_signup_link
-    finder_presenter.email_alert_signup_url
-  end
-
-  def feed_link
-    finder_presenter.atom_url
   end
 end

@@ -1,5 +1,5 @@
 <div class="filter-form">
-  <% if finder_presenter.show_keyword_search? and !finder_presenter.all_content_finder? %>
+  <% if !finder_presenter.all_content_finder? %>
     <div id="keywords">
       <% label_text = capture do %>
         Search <span class="govuk-visually-hidden"><%= finder_presenter.name %></span>

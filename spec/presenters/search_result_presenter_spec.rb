@@ -12,18 +12,14 @@ RSpec.describe SearchResultPresenter do
   let(:content_id) { "content_id" }
   let(:show_summaries) { true }
 
-  let(:finder_presenter) { FinderPresenter.new(content_item, facets, search_results) }
   let(:facets) { [] }
-
-  let(:search_results) {
-    ResultSet.new([], 1)
-  }
 
   subject(:presenter) {
     SearchResultPresenter.new(document: document,
                               metadata_presenter_class: MetadataPresenter,
                               doc_count: 10,
-                              finder_presenter: finder_presenter,
+                              content_item: content_item,
+                              facets: facets,
                               debug_score: debug_score,
                               highlight: highlight)
   }

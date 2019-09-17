@@ -36,13 +36,6 @@ Feature: Filtering documents
     Then I see all documents which contain the keywords
     And there is not a zero results message
 
-  Scenario: Hiding keyword search
-    Given no results
-    When I view the finder with no keywords and no facets
-    Then I see no results
-    And there is no keyword search box
-    And there is a zero results message
-
   Scenario: Visit a government finder
     Given a government finder exists
     Then I can see the government header
