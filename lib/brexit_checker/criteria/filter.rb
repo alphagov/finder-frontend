@@ -3,6 +3,7 @@ class BrexitChecker::Criteria::Filter
     loop do
       old_size = selected_criteria.size
       selected_criteria &= possible_criteria(selected_criteria)
+      assert_loop_terminates(selected_criteria, old_size)
       break if selected_criteria.size == old_size
     end
 
@@ -10,6 +11,12 @@ class BrexitChecker::Criteria::Filter
   end
 
 private
+
+  def assert_loop_terminates(selected_criteria, old_size)
+    return if selected_criteria.size <= old_size
+
+    raise "Number of filtered criteria is larger than number of original criteria"
+  end
 
   def possible_criteria(selected_criteria)
     relevant_questions = BrexitChecker::Question.load_all
