@@ -56,23 +56,6 @@ class FinderPresenter
     !eu_exit_finder?
   end
 
-  def page_metadata
-    metadata = {
-      from: organisations,
-    }
-
-    metadata[:inverse] = true if topic_finder?
-    metadata.reject { |_, links| links.blank? }
-  end
-
-  def topic_finder?
-    values.include?("topic") && topic_finder_parent.present?
-  end
-
-  def topic_finder_parent
-    Services.registries.all["full_topic_taxonomy"][values["topic"]]
-  end
-
 private
 
   def is_external?(href)

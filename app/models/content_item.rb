@@ -145,6 +145,10 @@ class ContentItem
     content_item_hash.dig("redirects", 0, "destination")
   end
 
+  def organisations
+    links.fetch('organisations', [])
+  end
+
 private
 
   attr_reader :content_item_hash

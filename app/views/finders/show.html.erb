@@ -17,7 +17,7 @@
 
 <% content_for :meta_title, finder_presenter.name %>
 
-<% if finder_presenter.topic_finder? && !finder_presenter.all_content_finder? %>
+<% if topic_finder?(filter_params) && !finder_presenter.all_content_finder? %>
   <% content_for :body_classes, "full-width" %>
   <% inverse = true %>
 <% end %>
@@ -29,14 +29,16 @@
   data-search-query="<%= result_set_presenter.user_supplied_keywords %>">
   <input type="hidden" name="parent" value="<%= @parent %>">
 
-  <% if finder_presenter.topic_finder? && !finder_presenter.all_content_finder? %>
+  <% if topic_finder?(filter_params) && !finder_presenter.all_content_finder? %>
     <%= render "govuk_publishing_components/components/inverse_header", {
       full_width: true
     } do %>
-      <%= render partial: 'show_header', locals: { inverse: inverse } %>
+      <%= render partial: 'show_header', locals: { inverse: inverse,
+                                                   page_metadata: page_metadata(content_item, filter_params) } %>
     <% end %>
   <% else %>
-    <%= render partial: 'show_header', locals: { inverse: inverse } %>
+    <%= render partial: 'show_header', locals: { inverse: inverse,
+                                                 page_metadata: page_metadata(content_item, filter_params) } %>
   <% end %>
 
   <div class="govuk-width-container">
