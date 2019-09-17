@@ -29,7 +29,7 @@ class BrexitChecker::Question
     BrexitChecker::Criteria::Evaluator.evaluate(criteria, selected_criteria)
   end
 
-  def possible_values
+  def all_values
     sub_options = options.flat_map(&:sub_options)
     (options + sub_options).map(&:value).compact
   end

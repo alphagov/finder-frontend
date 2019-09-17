@@ -9,9 +9,9 @@ RSpec.feature "Brexit Checker email signup", type: :feature do
     {
       "title" => "Your Get ready for Brexit results",
       "slug" => "your-get-ready-for-brexit-results-a1a2a3a4a5",
-      "description" => "[You can view a copy of your results on GOV.UK.](https://www.test.gov.uk/get-ready-brexit-check/results?c%5B%5D=does-not-own-business&c%5B%5D=eu-national)",
-      "tags" => { "brexit_checklist_criteria" => { "any" => %w[does-not-own-business eu-national] } },
-      "url" => "/get-ready-brexit-check/results?c%5B%5D=does-not-own-business&c%5B%5D=eu-national",
+      "description" => "[You can view a copy of your results on GOV.UK.](https://www.test.gov.uk/get-ready-brexit-check/results?c%5B%5D=nationality-eu)",
+      "tags" => { "brexit_checklist_criteria" => { "any" => %w[nationality-eu] } },
+      "url" => "/get-ready-brexit-check/results?c%5B%5D=nationality-eu",
       "group_id" => BrexitCheckerController::SUBSCRIBER_LIST_GROUP_ID,
     }
   end
@@ -33,7 +33,7 @@ RSpec.feature "Brexit Checker email signup", type: :feature do
   end
 
   def given_im_on_the_results_page
-    visit "/get-ready-brexit-check/results?c%5B%5D=does-not-own-business&c%5B%5D=eu-national"
+    visit brexit_checker_results_path(c: %w(nationality-eu))
   end
 
   def and_email_alert_api_has_subscriber_list
@@ -59,6 +59,6 @@ RSpec.feature "Brexit Checker email signup", type: :feature do
   end
 
   def and_i_am_taken_to_email_alert_frontend
-    expect(page).to have_current_path("/email/subscriptions/new?topic_id=your-get-ready-for-brexit-results-a1a2a3a4a5")
+    expect(page).to have_current_path(email_alert_frontend_signup_path(topic_id: "your-get-ready-for-brexit-results-a1a2a3a4a5"))
   end
 end
