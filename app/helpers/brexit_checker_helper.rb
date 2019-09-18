@@ -37,4 +37,11 @@ module BrexitCheckerHelper
       checked: checked,
       hint_text: option.hint_text }
   end
+
+  def next_question_index(all_questions:, criteria_keys: [], previous_question_index: 0)
+    available_questions = all_questions[previous_question_index..] || []
+
+    relative_next_question_index = available_questions.find_index { |question| question.show?(criteria_keys) }
+    relative_next_question_index ? previous_question_index + relative_next_question_index : nil
+  end
 end

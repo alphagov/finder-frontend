@@ -68,7 +68,7 @@
         <% end %>
         <%= render 'form_data',
           criteria_keys: persistent_criteria_keys(@current_question.all_values),
-          next_page: @page_service.next_page
+          next_page: (@question_index + 1)
         %>
         <%= render 'hint_text', current_question: @current_question %>
         <div class="govuk-form-footer">

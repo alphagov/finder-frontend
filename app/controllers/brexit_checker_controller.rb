@@ -12,16 +12,16 @@ class BrexitCheckerController < ApplicationController
   end
 
   def show
-    @questions = BrexitChecker::Question.load_all
-    @page_service = BrexitChecker::PageService.new(questions: @questions,
-                                                criteria_keys: criteria_keys,
-                                                current_page_from_params: page)
+    all_questions = BrexitChecker::Question.load_all
+    @question_index = next_question_index(
+      all_questions: all_questions,
+      criteria_keys: criteria_keys,
+      previous_question_index: page
+    )
 
-    if @page_service.redirect_to_results?
-      redirect_to brexit_checker_results_path(c: criteria_keys)
-    else
-      @current_question = @questions[@page_service.current_page]
-    end
+    @current_question = all_questions[@question_index] if @question_index.present?
+
+    redirect_to brexit_checker_results_path(c: criteria_keys) if @current_question.nil?
   end
 
   def results

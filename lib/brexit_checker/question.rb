@@ -44,6 +44,6 @@ class BrexitChecker::Question
 
   def self.load_all
     @load_all = nil if Rails.env.development?
-    @load_all ||= YAML.load_file(CONFIG_PATH)['questions'] .map { |q| load(q) }
+    @load_all ||= YAML.load_file(CONFIG_PATH)['questions'].map { |q| load(q) }
   end
 end

@@ -57,4 +57,71 @@ describe BrexitCheckerHelper, type: :helper do
       expect(subject).to contain_exactly('A', 'B')
     end
   end
+
+  describe "#next_question_index" do
+    let(:q1) { FactoryBot.build(:brexit_checker_question) }
+    let(:q2) { FactoryBot.build(:brexit_checker_question, criteria: [{ "all_of" => %w(a b) }]) }
+    let(:q3) { FactoryBot.build(:brexit_checker_question, criteria: [{ "all_of" => %w(c d) }]) }
+    let(:q4) { FactoryBot.build(:brexit_checker_question, criteria: %w(c)) }
+
+    let(:questions) { [q1, q2, q3, q4] }
+
+    subject {
+      next_question_index(
+        all_questions: questions,
+        criteria_keys: criteria_keys,
+        previous_question_index: previous_question_index
+      )
+    }
+
+    before do
+      allow(q1).to receive(:show?) { true }
+      allow(q2).to receive(:show?) { false }
+      allow(q2).to receive(:show?).with(%w(a b)) { true }
+      allow(q3).to receive(:show?) { false }
+      allow(q3).to receive(:show?).with(%w(c d)) { true }
+      allow(q4).to receive(:show?) { false }
+      allow(q4).to receive(:show?).with(%w(c)) { true }
+    end
+
+    context 'previous question id is zero' do
+      let(:previous_question_index) { 0 }
+      let(:criteria_keys) { [] }
+      it 'returns first question' do
+        expect(subject).to eq(0)
+      end
+    end
+
+    context 'previous question id is one and the criteria matches question two' do
+      let(:previous_question_index) { 1 }
+      let(:criteria_keys) { %w[a b] }
+      it 'returns question two' do
+        expect(subject).to eq(1)
+      end
+    end
+
+    context 'previous question id is one and the criteria matches question three' do
+      let(:previous_question_index) { 1 }
+      let(:criteria_keys) { %w[c d] }
+      it 'returns question three' do
+        expect(subject).to eq(2)
+      end
+    end
+
+    context 'previous question id is one and the criteria does any futher questions' do
+      let(:previous_question_index) { 1 }
+      let(:criteria_keys) { %w[e] }
+      it 'does not return a question' do
+        expect(subject).to be nil
+      end
+    end
+
+    context 'previous question id is higher than the number of questions' do
+      let(:previous_question_index) { questions.count + 1 }
+      let(:criteria_keys) { [] }
+      it 'does not return a question' do
+        expect(subject).to be nil
+      end
+    end
+  end
 end
