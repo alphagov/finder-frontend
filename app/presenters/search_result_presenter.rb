@@ -22,7 +22,7 @@ class SearchResultPresenter
       link: {
         text: title,
         path: link,
-        description: summary_text,
+        description: sanitize(summary_text),
         data_attributes: {
           ecommerce_path: link,
           ecommerce_content_id: document.content_id,

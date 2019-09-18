@@ -113,7 +113,7 @@ RSpec.describe ResultSetPresenter do
                           content_id: "content_id",
                           link: "/path/to/doc",
                           title: 'document_title',
-                          description: 'document_description')]
+                          description_with_highlighting: 'document_description')]
       }
       it 'has the right data' do
         expected_hash = {
@@ -176,8 +176,8 @@ RSpec.describe ResultSetPresenter do
       let(:show_top_result) { true }
       let(:filter_params) { { 'order' => 'relevance' } }
       let(:results) do
-        [FactoryBot.build(:document_hash, es_score: 1.0, description: "A description. With more text"),
-         FactoryBot.build(:document_hash, es_score: 0.1, description: "Another description")]
+        [FactoryBot.build(:document_hash, es_score: 1.0, description_with_highlighting: "A description. With more text"),
+         FactoryBot.build(:document_hash, es_score: 0.1, description_with_highlighting: "Another description")]
       end
 
       context 'top result set if best bet (score > 7*other)' do
@@ -191,8 +191,8 @@ RSpec.describe ResultSetPresenter do
 
       context 'top result not set if no best bet (score < 7*other)' do
         let(:results) do
-          [FactoryBot.build(:document_hash, es_score: 1.0, description: "A description. With more text"),
-           FactoryBot.build(:document_hash, es_score: 0.5, description: "Another description")]
+          [FactoryBot.build(:document_hash, es_score: 1.0, description_with_highlighting: "A description. With more text"),
+           FactoryBot.build(:document_hash, es_score: 0.5, description_with_highlighting: "Another description")]
         end
         it 'has no top result' do
           search_result_objects = subject.search_results_content[:document_list_component_data]

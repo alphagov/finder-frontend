@@ -150,8 +150,8 @@ describe Document do
       description = "The government has many departments. These departments are part of the government."
       truncated_description = "The government has many departments."
 
-      let(:with_description_hash) { FactoryBot.build(:document_hash, description: description) }
-      let(:without_description) { FactoryBot.build(:document_hash, description: nil) }
+      let(:with_description_hash) { FactoryBot.build(:document_hash, description_with_highlighting: description) }
+      let(:without_description) { FactoryBot.build(:document_hash, description_with_highlighting: nil) }
 
       it 'should have truncated description' do
         expect(Document.new(with_description_hash, 1).truncated_description).to eq(truncated_description)

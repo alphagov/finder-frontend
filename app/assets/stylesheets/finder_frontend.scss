@@ -25,6 +25,12 @@
   }
 }
 
+mark {
+  background-color: inherit;
+  color: inherit;
+  @include govuk-typography-weight-bold;
+}
+
 .related-links__link {
   @include govuk-font(16, $weight: bold);
   text-decoration: none;
