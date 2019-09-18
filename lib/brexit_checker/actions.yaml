@@ -1340,3 +1340,20 @@ actions:
       - living-eu
       - living-ie
   audience: citizen
+- action_id: S031
+  priority: 4
+  title: Test your vehicle for roadworthiness in the EU country you live in
+  title_url: https://www.gov.uk/guidance/driving-in-the-eu-after-brexit-driving-licence-exchange
+  consequence: Your UK MOT test certificate will not be recognised in the EU after
+    Brexit.
+  lead_time: Do it as soon as possible
+  guidance_prompt: Read the guidance
+  guidance_link_text: 'Driving in the EU after Brexit: driving licence exchange'
+  guidance_url: https://www.gov.uk/guidance/driving-after-brexit-for-uk-licence-holders-living-in-the-eu#vehicle-safety-and-roadworthiness-mot
+  criteria:
+  - all_of:
+    - nationality-uk
+    - any_of:
+      - living-eu
+      - living-ie
+  audience: citizen
