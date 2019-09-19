@@ -1,7 +1,7 @@
 ---
 questions:
   - key: nationality
-    index: 1
+    index: 0
     question_type: single
     question: 'What nationality are you?'
     options:
@@ -15,7 +15,7 @@ questions:
         value: nationality-row
 
   - key: living
-    index: 2
+    index: 1
     question_type: single
     question: 'Where do you live?'
     options:
@@ -29,7 +29,7 @@ questions:
         value: living-row
 
   - key: employment
-    index: 3
+    index: 2
     question_type: multiple_grouped
     question: 'Do you work or study?'
     hint_text: 'Select all that apply. If you do something else, select next.'
@@ -52,7 +52,7 @@ questions:
             value: studying-eu
 
   - key: drive-in-eu
-    index: 4
+    index: 3
     question_type: single
     question: Do you drive in the EU using a UK licence?
     criteria:
@@ -66,7 +66,7 @@ questions:
         value: living-driving-eu-no
 
   - key: travelling
-    index: 5
+    index: 4
     question_type: multiple
     question: 'Where do you plan to travel after 31 October 2019?'
     description: |
@@ -83,7 +83,7 @@ questions:
         value: visiting-row
 
   - key: activities
-    index: 6
+    index: 5
     criteria:
       - any_of:
         - visiting-ie
@@ -99,7 +99,7 @@ questions:
         value: visiting-bring-pet
 
   - key: returning
-    index: 7
+    index: 6
     criteria:
       - all_of:
         - nationality-uk
@@ -115,7 +115,7 @@ questions:
         value: return-to-uk-no
 
   - key: join-family-uk
-    index: 8
+    index: 7
     question_type: single
     question: Do you plan to join an EU family member in the UK?
     criteria:
@@ -133,7 +133,7 @@ questions:
         value: join-family-uk-no
 
   - key: do-you-own-a-business
-    index: 9
+    index: 8
     question_type: "single"
     question: "Are you preparing a business or organisation for Brexit?"
     options:
@@ -143,7 +143,7 @@ questions:
         value: does-not-own-operate-business-organisation
 
   - key: employ-eu-citizens
-    index: 10
+    index: 9
     criteria:
       - owns-operates-business-organisation
     question_type: "single"
@@ -157,7 +157,7 @@ questions:
         value: do-not-employ-eu-citizens
 
   - key: personal-data
-    index: 11
+    index: 10
     criteria:
       - owns-operates-business-organisation
     question_type: "single_wrapped"
@@ -179,7 +179,7 @@ questions:
         value: do-not-personal-eu-org
 
   - key: eu-uk-government-funding
-    index: 12
+    index: 11
     criteria:
       - owns-operates-business-organisation
     question_type: "single_wrapped"
@@ -198,7 +198,7 @@ questions:
         value: do-not-eu-uk-funding
 
   - key: public-sector-procurement
-    index: 13
+    index: 12
     criteria:
       - owns-operates-business-organisation
     question_type: "single_wrapped"
@@ -217,7 +217,7 @@ questions:
         value: do-not-sell-to-public-sector
 
   - key: intellectual-property
-    index: 14
+    index: 13
     criteria:
       - owns-operates-business-organisation
     question_type: "single_wrapped"
@@ -242,7 +242,7 @@ questions:
         value: do-not-ip
 
   - key: business-activity
-    index: 15
+    index: 14
     criteria:
       - owns-operates-business-organisation
     question_type: "multiple"
@@ -262,7 +262,7 @@ questions:
         value: haulage-goods-across-eu-borders
 
   - key: sector-business-area
-    index: 16
+    index: 15
     criteria:
       - owns-operates-business-organisation
     question_type: "multiple_grouped"

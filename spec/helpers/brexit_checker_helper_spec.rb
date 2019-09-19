@@ -67,7 +67,7 @@ describe BrexitCheckerHelper, type: :helper do
     let(:questions) { [q1, q2, q3, q4] }
 
     subject {
-      next_question_index(
+      next_question(
         all_questions: questions,
         criteria_keys: criteria_keys,
         previous_question_index: previous_question_index
@@ -88,7 +88,7 @@ describe BrexitCheckerHelper, type: :helper do
       let(:previous_question_index) { 0 }
       let(:criteria_keys) { [] }
       it 'returns first question' do
-        expect(subject).to eq(0)
+        expect(subject).to eq(q1)
       end
     end
 
@@ -96,7 +96,7 @@ describe BrexitCheckerHelper, type: :helper do
       let(:previous_question_index) { 1 }
       let(:criteria_keys) { %w[a b] }
       it 'returns question two' do
-        expect(subject).to eq(1)
+        expect(subject).to eq(q2)
       end
     end
 
@@ -104,7 +104,7 @@ describe BrexitCheckerHelper, type: :helper do
       let(:previous_question_index) { 1 }
       let(:criteria_keys) { %w[c d] }
       it 'returns question three' do
-        expect(subject).to eq(2)
+        expect(subject).to eq(q3)
       end
     end
 
