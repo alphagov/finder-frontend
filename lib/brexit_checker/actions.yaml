@@ -1,6 +1,6 @@
 ---
 actions:
-- action_id: S001
+- id: S001
   priority: 8
   title: Apply to the EU Settlement Scheme by 31 December 2020 to continue living
     in the UK
@@ -19,7 +19,7 @@ actions:
     - nationality-eu
     - living-uk
   audience: citizen
-- action_id: S003
+- id: S003
   priority: 5
   title: Apply for a permit to join your EU or EEA family member in the UK
   title_url: https://www.gov.uk/family-permit/eu-settlement-scheme-family-permit
@@ -39,7 +39,7 @@ actions:
       - living-row
     - join-family-uk-yes
   audience: citizen
-- action_id: S004
+- id: S004
   priority: 5
   title: Take out appropriate travel insurance with health cover before travelling
     to the UK
@@ -56,7 +56,7 @@ actions:
       - nationality-row
     - visiting-uk
   audience: citizen
-- action_id: S005
+- id: S005
   priority: 5
   title: Contact your home university to check if you can continue studying on your
     Erasmus+ placement in the UK
@@ -72,7 +72,7 @@ actions:
       - nationality-ie
     - studying-uk
   audience: citizen
-- action_id: S006
+- id: S006
   priority: 9
   title: Register for local healthcare or take out health insurance, if you are a
     British national living in the EU
@@ -90,7 +90,7 @@ actions:
       - studying-eu
       - working-eu
   audience: citizen
-- action_id: S007
+- id: S007
   priority: 5
   title: Contact your home university to check if you can continue your Erasmus+ placement
     in the EU
@@ -108,7 +108,7 @@ actions:
       - nationality-row
     - studying-eu
   audience: citizen
-- action_id: S008
+- id: S008
   priority: 8
   title: Check a passport for travel to Europe after Brexit
   title_url: https://www.gov.uk/check-a-passport-for-travel-to-europe
@@ -123,7 +123,7 @@ actions:
     - nationality-uk
     - visiting-eu
   audience: citizen
-- action_id: S009
+- id: S009
   priority: 8
   title: Contact your vet at least 4 months before travelling to make sure your pet
     is able to travel to the EU
@@ -139,7 +139,7 @@ actions:
     - visiting-eu
     - visiting-bring-pet
   audience: citizen
-- action_id: S010
+- id: S010
   priority: 5
   title: Check whether your mobile phone company has changed its mobile roaming charges
     before travelling to the EU
@@ -154,7 +154,7 @@ actions:
     - living-uk
     - visiting-eu
   audience: citizen
-- action_id: S011
+- id: S011
   priority: 9
   title: Take out appropriate travel insurance with health cover before travelling
     to the EU
@@ -169,7 +169,7 @@ actions:
     - living-uk
     - visiting-eu
   audience: citizen
-- action_id: S013
+- id: S013
   priority: 8
   title: Check what you need to do to make sure you can travel through the border
     of the country you are visiting
@@ -185,7 +185,7 @@ actions:
     - nationality-uk
     - visiting-eu
   audience: citizen
-- action_id: S014
+- id: S014
   priority: 3
   title: Check when your family needs to apply to the EU Settlement Scheme if they
     come to the UK with you after Brexit
@@ -200,7 +200,7 @@ actions:
     - nationality-uk
     - return-to-uk
   audience: citizen
-- action_id: S015
+- id: S015
   priority: 5
   title: To get free NHS healthcare, prove that you've returned to the UK to live
     and you meet the ordinary residence test
@@ -215,7 +215,7 @@ actions:
     - nationality-uk
     - return-to-uk
   audience: citizen
-- action_id: S022
+- id: S022
   priority: 2
   title: Check if you need an International Driving Permit before you drive in the
     EU, EEA or Switzerland
@@ -231,7 +231,7 @@ actions:
     - visiting-eu
     - visiting-driving
   audience: citizen
-- action_id: S023
+- id: S023
   priority: 2
   title: Get motor insurance green cards for your vehicle, caravan or trailer if they're
     registered in the UK and you'll be driving in the EU or EEA
@@ -248,7 +248,7 @@ actions:
     - visiting-eu
     - visiting-driving
   audience: citizen
-- action_id: S024
+- id: S024
   priority: 2
   title: Put a GB sticker on the back of your vehicle if it's registered in the UK,
     even if your number plate already shows GB with a Euro symbol
@@ -264,7 +264,7 @@ actions:
     - visiting-eu
     - visiting-driving
   audience: citizen
-- action_id: S025
+- id: S025
   priority: 2
   title: Check for disruption to your journey before you travel between the UK and
     the EU - border checks may take longer
@@ -283,7 +283,7 @@ actions:
       - nationality-eu
       - visiting-uk
   audience: citizen
-- action_id: S026
+- id: S026
   priority: 2
   title: Contact your university to check if you can continue studying in the EU
   consequence: Changes to your residency, healthcare or tuition fee status may stop
@@ -299,7 +299,7 @@ actions:
       - nationality-row
     - studying-eu
   audience: citizen
-- action_id: S028
+- id: S028
   priority: 2
   title: Check you're eligible for housing services if you're moving back to the UK
     from the EU
@@ -314,7 +314,7 @@ actions:
     - nationality-uk
     - return-to-uk
   audience: citizen
-- action_id: S029
+- id: S029
   priority: 11
   title: Apply to be a resident in the EU country you live in
   title_url: https://www.gov.uk/uk-nationals-living-eu
@@ -326,7 +326,7 @@ actions:
     - nationality-uk
     - living-eu
   audience: citizen
-- action_id: T001
+- id: T001
   priority: 8
   title: Check if you need to change your conformity assessment or conformity marking
     to sell your CE marked goods in the UK or EU
@@ -343,7 +343,7 @@ actions:
     - sell-goods-provide-services-in-uk
     - export-to-eu
   audience: business
-- action_id: T002
+- id: T002
   priority: 8
   title: Get legal advice if your business is merging with an EU company
   consequence: If you do not follow the rules, you may be investigated by the Competition
@@ -355,7 +355,7 @@ actions:
   criteria:
   - provide-services-do-business-in-eu
   audience: business
-- action_id: T003
+- id: T003
   priority: 5
   title: Check what you need to do if you currently receive EU funding
   consequence: If you do not follow the relevant guidelines, your funding may stop.
@@ -367,7 +367,7 @@ actions:
   criteria:
   - eu-funding
   audience: business
-- action_id: T004
+- id: T004
   priority: 8
   title: Check if you need to appoint a representative in the EU, and label your goods
     with your EU importer's details
@@ -382,7 +382,7 @@ actions:
     - export-to-eu
     - provide-services-do-business-in-eu
   audience: business
-- action_id: T005
+- id: T005
   priority: 5
   title: Sign up to search for contracts to sell goods or services to the UK public
     sector
@@ -397,7 +397,7 @@ actions:
     - sell-public-sector-contracts
     - sell-goods-provide-services-in-uk
   audience: business
-- action_id: T006
+- id: T006
   priority: 8
   title: Check if your employees need a visa or work permit and meet any requirements
     for their profession to work in the country they’re going to
@@ -412,7 +412,7 @@ actions:
     - employ-eu-citizens
     - provide-services-do-business-in-eu
   audience: business
-- action_id: T007
+- id: T007
   priority: 8
   title: Check if you need to change how you do accounting and reporting
   consequence: You may breach reporting requirements in EEA countries if you do not
@@ -424,7 +424,7 @@ actions:
   criteria:
   - provide-services-do-business-in-eu
   audience: business
-- action_id: T009
+- id: T009
   priority: 2
   title: Check if your third-party conformity assessment for construction products
     is still recognised by the EU
@@ -439,7 +439,7 @@ actions:
     - construction
     - export-to-eu
   audience: business
-- action_id: T010
+- id: T010
   priority: 5
   title: Check if your existing UK Civil Aviation Authority or EASA certificates and
     licences will be valid
@@ -455,7 +455,7 @@ actions:
     - aero-space
     - air-passenger-freight
   audience: business
-- action_id: T011
+- id: T011
   priority: 5
   title: Check if you need to change your contracts to broadcast licenced content
     outside the UK
@@ -473,7 +473,7 @@ actions:
     - personal-eu-org-provide
     - ip-copyright
   audience: business
-- action_id: T012
+- id: T012
   priority: 5
   title: Check if you need permission to sell someone's intellectual property in the
     EEA, if you've already sold it in the UK
@@ -497,7 +497,7 @@ actions:
     - ip-patents
     - ip-exhaustion-rights
   audience: business
-- action_id: T013
+- id: T013
   priority: 5
   title: Check contracts relating to EU space programmes with your contracting authority
   consequence: You may not be able to bid for future contracts with EU space programmes.
@@ -508,7 +508,7 @@ actions:
   criteria:
   - aero-space
   audience: business
-- action_id: T014
+- id: T014
   priority: 5
   title: Check if you need to find replacement data if you're using data from the
     Copernicus satellite programme
@@ -521,7 +521,7 @@ actions:
   criteria:
   - aero-space
   audience: business
-- action_id: T016
+- id: T016
   priority: 5
   title: Find out how to comply with the new UK nuclear safeguards arrangements
   consequence: All operators in the UK civil nuclear sector will need to comply with
@@ -533,7 +533,7 @@ actions:
   criteria:
   - nuclear
   audience: business
-- action_id: T017
+- id: T017
   priority: 5
   title: Register to use the open general export licence to export 'dual use' nuclear
     goods from the UK
@@ -547,7 +547,7 @@ actions:
   criteria:
   - nuclear
   audience: business
-- action_id: T018
+- id: T018
   priority: 5
   title: Get an import licence to move certain nuclear materials into the UK
   consequence: You will not be able to import the specified some types of nuclear
@@ -560,7 +560,7 @@ actions:
   criteria:
   - nuclear
   audience: business
-- action_id: T019
+- id: T019
   priority: 5
   title: Prepare to ship radioactive waste and spent fuel into and out of the UK
   consequence: Failing to comply with the new regulations will be a criminal offence.
@@ -571,7 +571,7 @@ actions:
   criteria:
   - nuclear
   audience: business
-- action_id: T020
+- id: T020
   priority: 5
   title: Check the rules on moving radioactive material into and out of the UK
   consequence: You will not be able to move radioactive sources into the UK without
@@ -587,7 +587,7 @@ actions:
     - mining
     - medical-tech
   audience: business
-- action_id: T021
+- id: T021
   priority: 5
   title: Check what documents your employees need to make and operate aircraft for
     the gas and oil industry in the EU, EEA and Switzerland
@@ -604,7 +604,7 @@ actions:
     - air-passenger-freight
     - oil-gas-coal
   audience: business
-- action_id: T022
+- id: T022
   priority: 8
   title: Read the guidance from the Information Commissioner's Office (ICO) to check
     if you need to change your contract to keep accessing personal data from the EU
@@ -623,7 +623,7 @@ actions:
     - personal-eu-org-use
     - personal-eu-org-provide
   audience: business
-- action_id: T023
+- id: T023
   priority: 8
   title: Check the rules you need to follow if you're a broadcaster or provider of
     video on demand services in the UK or the EU
@@ -638,7 +638,7 @@ actions:
     - media
     - digital
   audience: business
-- action_id: T025
+- id: T025
   priority: 5
   title: Get permission to take creative, cultural and sports goods into and out of
     the EU for business
@@ -653,7 +653,7 @@ actions:
     - sports
     - culture
   audience: business
-- action_id: T026
+- id: T026
   priority: 5
   title: Appoint a representative in the EU if you run a large UK-based online business
     providing digital services in the EU
@@ -670,7 +670,7 @@ actions:
     - digital
     - personal-eu-org-provide
   audience: business
-- action_id: T028
+- id: T028
   priority: 8
   title: Export fish through the right EU border inspection post and prepare the right
     documentation
@@ -687,7 +687,7 @@ actions:
     - postal-couriers
     - fish-inc-wholesale
   audience: business
-- action_id: T032
+- id: T032
   priority: 8
   title: Check the rules on moving plants and plant products between the UK and the
     EU
@@ -706,7 +706,7 @@ actions:
     - export-to-eu
     - import-from-eu
   audience: business
-- action_id: T033
+- id: T033
   priority: 8
   title: Get a ‘certificate of conformity’ to move fruit and vegetables into or through
     the EU
@@ -720,7 +720,7 @@ actions:
   criteria:
   - forestry
   audience: business
-- action_id: T034
+- id: T034
   priority: 8
   title: Check how to register or label food or drink with a protected name
   consequence: Your geographical indicator name may not be protected if you do not
@@ -732,7 +732,7 @@ actions:
   criteria:
   - agriculture-farm
   audience: business
-- action_id: T035
+- id: T035
   priority: 8
   title: Register as an approved food establishment to export food to the EU
   title_url: https://www.food.gov.uk/business-guidance/approved-food-establishments
@@ -744,7 +744,7 @@ actions:
   criteria:
   - forestry
   audience: business
-- action_id: T036
+- id: T036
   priority: 8
   title: Check how to label food if you're selling it in the UK or EU
   consequence: You may not be able to sell goods in the EU if they're labelled incorrectly.
@@ -758,7 +758,7 @@ actions:
     - sell-goods-provide-services-in-uk
     - export-to-eu
   audience: business
-- action_id: T038
+- id: T038
   priority: 8
   title: Check if you can export organic food to the EU, and how to label and trade
     it.
@@ -772,7 +772,7 @@ actions:
     - food-drink-tobacco
     - export-to-eu
   audience: business
-- action_id: T045
+- id: T045
   priority: 5
   title: Print 'GB', 'GBR' or '826' on each egg you're exporting to the EU for people
     to eat
@@ -785,7 +785,7 @@ actions:
   criteria:
   - agriculture-farm
   audience: business
-- action_id: T046
+- id: T046
   priority: 5
   title: Print markings on hatching eggs and boxes of chicks that you're exporting
     to the EU
@@ -799,7 +799,7 @@ actions:
   criteria:
   - agriculture-farm
   audience: business
-- action_id: T047
+- id: T047
   priority: 5
   title: Get a certificate to export poultry meat to the EU if it's printed with a
     farming method
@@ -813,7 +813,7 @@ actions:
   criteria:
   - agriculture-farm
   audience: business
-- action_id: T050
+- id: T050
   priority: 8
   title: Get an International Maritime Organisation (IMO) number if your boat is 12
     metres or longer
@@ -829,7 +829,7 @@ actions:
     - marine-transport
     - fish-inc-wholesale
   audience: business
-- action_id: T051
+- id: T051
   priority: 5
   title: Check what you need to do to land your fish catch at a port in the EU
   consequence: Your fish may be delayed or rejected when you reach the port if you
@@ -843,7 +843,7 @@ actions:
     - marine-transport
     - fish-inc-wholesale
   audience: business
-- action_id: T052
+- id: T052
   priority: 8
   title: Register your chemicals to an organisation based in the EU if you want to
     export them to the EU.
@@ -856,7 +856,7 @@ actions:
   criteria:
   - chemical
   audience: business
-- action_id: T056
+- id: T056
   priority: 5
   title: Prepare for loss of access to EU Emissions Trading System and other EU Registry
     accounts after Brexit
@@ -870,7 +870,7 @@ actions:
   criteria:
   - chemical
   audience: business
-- action_id: T057
+- id: T057
   priority: 5
   title: Check which carbon pricing policies you need to comply with before and after
     exit day
@@ -904,7 +904,7 @@ actions:
     - digital
     - telecoms
   audience: business
-- action_id: T058
+- id: T058
   priority: 8
   title: Find out how to register with a National Regulatory Authority in EU countries
     so you can continue to trade in wholesale energy products in the EU, or within
@@ -918,7 +918,7 @@ actions:
   criteria:
   - electricity
   audience: business
-- action_id: T059
+- id: T059
   priority: 5
   title: Check whether any wood packaging you use meets ISPM15 international standards
   consequence: You may not be able to export using wood packaging that isn’t ISPM15
@@ -930,7 +930,7 @@ actions:
   criteria:
   - forestry
   audience: business
-- action_id: T060
+- id: T060
   priority: 5
   title: Exchange your UK Driver Certificate of Professional Competence (CPC) for
     an EU Driver CPC
@@ -946,7 +946,7 @@ actions:
     - employ-eu-citizens
     - personal-eu-org
   audience: business
-- action_id: T061
+- id: T061
   priority: 5
   title: Check if you need to apply for a permit for journeys through or between EU
     countries
@@ -963,7 +963,7 @@ actions:
     - export-to-eu
     - haulage-goods-across-eu-borders
   audience: business
-- action_id: T062
+- id: T062
   priority: 5
   title: Check what steps you need to take to sell goods to the EU
   title_url: https://www.gov.uk/prepare-export-from-uk-after-brexit
@@ -981,7 +981,7 @@ actions:
     - export-to-eu
     - haulage-goods-across-eu-borders
   audience: business
-- action_id: T063
+- id: T063
   priority: 5
   title: Check what documents you need to run unscheduled bus or coach services in
     EU countries
@@ -996,7 +996,7 @@ actions:
     - tourism
     - road-passenger-freight
   audience: business
-- action_id: T064
+- id: T064
   priority: 5
   title: Check if your customers can give you the right documents for trade with the
     EU, if you’re a haulier
@@ -1013,7 +1013,7 @@ actions:
     - export-to-eu
     - haulage-goods-across-eu-borders
   audience: business
-- action_id: T065
+- id: T065
   priority: 5
   title: Check what documents you need to transport goods through the EU, if you’re
     a haulier
@@ -1030,7 +1030,7 @@ actions:
     - export-to-eu
     - haulage-goods-across-eu-borders
   audience: business
-- action_id: T066
+- id: T066
   priority: 5
   title: Check how to get approval to sell vehicles and vehicle parts  in the UK and
     the EU
@@ -1047,7 +1047,7 @@ actions:
     - motor-trade
     - sell-goods-provide-services-in-uk
   audience: business
-- action_id: T067
+- id: T067
   priority: 8
   title: Check what you need to do to sell or supply medical devices in the UK
   consequence: You will not be able to legally sell or supply medical devices in the
@@ -1060,7 +1060,7 @@ actions:
   criteria:
   - medical-tech
   audience: business
-- action_id: T068
+- id: T068
   priority: 8
   title: Get a legal representative in the UK, EU or EEA if you carry out clinical
     trials
@@ -1073,7 +1073,7 @@ actions:
   criteria:
   - pharma
   audience: business
-- action_id: T069
+- id: T069
   priority: 8
   title: Check what you need to do to sell or supply medicines in the UK
   consequence: You will not be able to legally sell or supply medicines in the UK
@@ -1086,7 +1086,7 @@ actions:
   criteria:
   - pharma
   audience: business
-- action_id: T070
+- id: T070
   priority: 8
   title: Check if you need to pay a tariff on goods you import from the EU
   consequence: Your goods will be held at customs if you do not pay the correct tariff.
@@ -1100,7 +1100,7 @@ actions:
     - import-from-eu
     - sell-goods-provide-services-in-uk
   audience: business
-- action_id: T071
+- id: T071
   priority: 8
   title: Get an EORI number that starts with GB to move your goods into or out of
     the EU
@@ -1118,7 +1118,7 @@ actions:
     - export-to-eu
     - haulage-goods-across-eu-borders
   audience: business
-- action_id: T072
+- id: T072
   priority: 8
   title: Register for Transitional Simplified Procedures (TSP) to make it easier to
     import goods from the EU
@@ -1129,7 +1129,7 @@ actions:
   criteria:
   - import-from-eu
   audience: business
-- action_id: T073
+- id: T073
   priority: 8
   title: Set up a 'duty deferment account' to pay your customs duties, import VAT
     and excise duties monthly by Direct Debit, if you need to pay duty
@@ -1144,7 +1144,7 @@ actions:
   criteria:
   - import-from-eu
   audience: business
-- action_id: T074
+- id: T074
   priority: 8
   title: Decide whether to get an agent or make declarations yourself
   title_url: https://www.gov.uk/prepare-export-from-uk-after-brexit
@@ -1157,7 +1157,7 @@ actions:
   criteria:
   - export-to-eu
   audience: business
-- action_id: T075
+- id: T075
   priority: 8
   title: Register for a quicker way to move your goods to the EU
   title_url: https://www.gov.uk/guidance/what-you-need-to-move-goods-between-or-through-common-transit-countries-including-the-eu
@@ -1173,7 +1173,7 @@ actions:
     - export-to-eu
     - haulage-goods-across-eu-borders
   audience: business
-- action_id: T076
+- id: T076
   priority: 2
   title: Find out if a no deal Brexit will affect your business on the Financial Conduct
     Authority’s website
@@ -1190,7 +1190,7 @@ actions:
     - finance
     - insurance
   audience: business
-- action_id: T077
+- id: T077
   priority: 2
   title: Ask your employees to check if they need to apply to the EU Settlement Scheme
   consequence: Your employees may not be able to continue living or working in the
@@ -1202,7 +1202,7 @@ actions:
   criteria:
   - employ-eu-citizens
   audience: business
-- action_id: T078
+- id: T078
   priority: 5
   title: Check what documents you need to run scheduled bus or coach services in EU
     countries
@@ -1216,7 +1216,7 @@ actions:
   criteria:
   - road-passenger-freight
   audience: business
-- action_id: T079
+- id: T079
   priority: 5
   title: Check what steps you need to take in order to import goods from the EU.
   consequence: If you do not get your business ready, you may not be able to import
@@ -1230,7 +1230,7 @@ actions:
     - import-from-eu
     - sell-goods-provide-services-in-uk
   audience: business
-- action_id: T080
+- id: T080
   priority: 5
   title: Disclose your designs before 31 October if you want unregistered protection
     in the UK and EU
@@ -1249,7 +1249,7 @@ actions:
     - ip-copyright
     - ip-designs
   audience: business
-- action_id: T081
+- id: T081
   priority: 5
   title: Check what you need to do if you're a lawyer with an EU or EEA qualification
     to still work or provide legal services in the UK
@@ -1262,7 +1262,7 @@ actions:
   criteria:
   - legal-service
   audience: business
-- action_id: T082
+- id: T082
   priority: 5
   title: Check what you need to do if you own a UK legal services business
   consequence: You may not be able to continue providing legal services in the same
@@ -1274,7 +1274,7 @@ actions:
   criteria:
   - legal-service
   audience: business
-- action_id: T085
+- id: T085
   priority: 5
   title: Check what you need to do if you're a lawyer with a UK qualification to still
     work or provide legal services in the EU
@@ -1288,7 +1288,7 @@ actions:
   criteria:
   - legal-service
   audience: business
-- action_id: T086
+- id: T086
   priority: 5
   title: Apply for the right to export seeds to the EU
   consequence: You will not be able to export seeds to the EU if you do not apply.
@@ -1302,7 +1302,7 @@ actions:
     - agriculture-farm
     - forestry
   audience: business
-- action_id: T087
+- id: T087
   priority: 8
   title: Check if you need to get a phytosanitary certificate to export plants to
     the EU
@@ -1319,7 +1319,7 @@ actions:
     - forestry
     - food-drink-tobacco
   audience: business
-- action_id: T088
+- id: T088
   priority: 5
   title: If you buy chemicals from the EU, you will need to register on the new UK
     REACH system
@@ -1333,7 +1333,7 @@ actions:
     - chemical
     - import-from-eu
   audience: business
-- action_id: T089
+- id: T089
   priority: 5
   title: Talk to your vet 6 weeks before you travel with your horse or other equine
     to the EU
@@ -1345,7 +1345,7 @@ actions:
   criteria:
   - animal-ex-food
   audience: business
-- action_id: T090
+- id: T090
   priority: 5
   title: Export animals or products of animal origin (POAO) through the right EU border
     inspection post and prepare the right documents
@@ -1358,7 +1358,7 @@ actions:
   criteria:
   - animal-ex-food
   audience: business
-- action_id: T092
+- id: T092
   priority: 5
   title: Check the rules on moving timber and timber products between the UK and the
     EU
@@ -1371,7 +1371,7 @@ actions:
   criteria:
   - forestry
   audience: business
-- action_id: S030
+- id: S030
   priority: 5
   title: Exchange your UK licence for a licence issued by the EU country you live
     in
@@ -1388,7 +1388,7 @@ actions:
       - living-eu
       - living-ie
   audience: citizen
-- action_id: S031
+- id: S031
   priority: 4
   title: Test your vehicle for roadworthiness in the EU country you live in
   title_url: https://www.gov.uk/guidance/driving-in-the-eu-after-brexit-driving-licence-exchange

@@ -25,7 +25,7 @@ RSpec.describe "Convert CSV to YAML tasks" do
 
       expect(loaded_yaml_file["actions"]).to include(
         a_hash_including(
-          "action_id" => "T001",
+          "id" => "T001",
           "audience" => "business",
           "consequence" => "If you don't do the important action then it will be bad.",
           "criteria" => [{ "any_of" => %w(owns-business imports-eu) }],
@@ -76,7 +76,7 @@ RSpec.describe "Convert CSV to YAML tasks" do
 
       expect(loaded_yaml_file["actions"]).to include(
         a_hash_including(
-          "action_id" => "T001",
+          "id" => "T001",
           "audience" => "business",
           "consequence" => "If you don't do the important action then it will be bad.",
           "criteria" => [{ "any_of" => %w(owns-business imports-eu) }],

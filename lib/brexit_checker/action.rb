@@ -21,18 +21,12 @@ class BrexitChecker::Action
     BrexitChecker::Criteria::Evaluator.evaluate(criteria, selected_criteria)
   end
 
-  def self.load(params)
-    parsed_params = params.dup
-    parsed_params['id'] = params['action_id']
-    new(parsed_params)
-  end
-
   def self.find_by_id(id)
     load_all.find { |a| a.id == id }
   end
 
   def self.load_all
     @load_all = nil if Rails.env.development?
-    @load_all ||= YAML.load_file(CONFIG_PATH)['actions'].map { |a| load(a) }
+    @load_all ||= YAML.load_file(CONFIG_PATH)['actions'].map { |a| new(a) }
   end
 end
