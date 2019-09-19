@@ -358,8 +358,7 @@ actions:
 - action_id: T003
   priority: 5
   title: Check what you need to do if you currently receive EU funding
-  consequence: If you do not follow the relevant guidelines, you may have a gap in
-    payments or your funding may stop.
+  consequence: If you do not follow the relevant guidelines, your funding may stop.
   lead_time: Do it before 31 October
   guidance_prompt: Read the guidance
   guidance_link_text: The Government's guarantee for EU-funded programmes if there's
