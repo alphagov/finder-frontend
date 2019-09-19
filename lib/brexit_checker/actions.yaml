@@ -883,14 +883,14 @@ actions:
   audience: business
 - action_id: T060
   priority: 5
-  title: Find out how to exchange your UK Driver Certificate of Professional Competence
-    (CPC) for an EU Driver CPC
-  consequence: You will not be able to drive a lorry for an EU operator if you do
-    not have an EU Driver CPC.
+  title: Exchange your UK Driver Certificate of Professional Competence (CPC) for
+    an EU Driver CPC
+  consequence: You will not be able to drive a lorry, bus or coach for an EU operator
+    if you do not have an EU Driver CPC.
   lead_time: Do it as soon as possible
   guidance_prompt: Read the guidance
-  guidance_link_text: 'Drive in the EU after Brexit: lorry and goods vehicle drivers'
-  guidance_url: https://www.gov.uk/guidance/prepare-to-drive-in-the-eu-after-brexit-lorry-and-goods-vehicle-drivers
+  guidance_link_text: Driving in the EU after Brexit
+  guidance_url: https://www.gov.uk/guidance/driving-in-the-eu-after-brexit
   criteria:
   - any_of:
     - road-passenger-freight

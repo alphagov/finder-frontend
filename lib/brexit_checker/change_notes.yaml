@@ -22,3 +22,8 @@ change_notes:
      note: "We changed the guidance link to point at information on all EU funding, including Horizon 2020 funding, so that anyone who currently receives EU funding can continue to do so."
      action_id: T003
      date: 2019-09-16
+   - uuid: "45ab5ddf-4e49-486e-a729-0b585f3ce51f"
+     type: content_change
+     note: "Updated to include bus and coach drivers working in the EU. They will need to exchange their UK Driver CPC for an EU Driver CPC."
+     action_id: T060
+     date: 2019-09-19
