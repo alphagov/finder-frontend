@@ -36,7 +36,6 @@ class BrexitChecker::Question
 
   def self.load(params)
     parsed_params = params.dup
-    parsed_params['text'] = params['question']
     parsed_params['options'] = Option.load_all(params['options'])
     new(parsed_params)
   end
