@@ -30,7 +30,7 @@ RSpec.describe SearchResultPresenter do
     FactoryBot.build(:document,
                      title: title,
                      link: link,
-                     description: description,
+                     description_with_highlighting: description,
                      is_historic: is_historic,
                      government_name: 'Government!',
                      format: 'cake',

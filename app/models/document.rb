@@ -9,7 +9,7 @@ class Document
     @title = document_hash.fetch(:title)
     @link = document_hash.fetch(:link)
     @content_id = document_hash.fetch(:content_id, nil)
-    @description = document_hash.fetch(:description, nil)
+    @description = document_hash.fetch(:description_with_highlighting, nil)
     @public_timestamp = document_hash.fetch(:public_timestamp, nil)
     @release_timestamp = document_hash.fetch(:release_timestamp, nil)
     @document_type = document_hash.fetch(:content_store_document_type, nil)

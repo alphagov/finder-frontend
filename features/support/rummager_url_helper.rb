@@ -93,7 +93,7 @@ module RummagerUrlHelper
     %w(
       title
       link
-      description
+      description_with_highlighting
       public_timestamp
       popularity
       content_purpose_supergroup

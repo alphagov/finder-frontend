@@ -1039,6 +1039,7 @@ module DocumentHelper
           "title": "Register a spell",
           "link": "/register-a-spell",
           "description": "Register a magical spell",
+          "description_with_highlighting": "Register a magical spell",
           "public_timestamp": "2017-12-25T09:00:00Z",
           "part_of_taxonomy_tree": [
             "4bc72a8b-6011-457a-87e0-06dbb427cf36"
@@ -1105,6 +1106,7 @@ module DocumentHelper
           "title": "Register a spell",
           "link": "/register-a-spell",
           "description": "Register a magical spell",
+          "description_with_highlighting": "Register a magical spell",
           "public_timestamp": "2017-12-25T09:00:00Z",
           "part_of_taxonomy_tree": [
             "4bc72a8b-6011-457a-87e0-06dbb427cf36"
@@ -1413,6 +1415,7 @@ module DocumentHelper
           "title": "Restrictions on usage of spells within school grounds",
           "link": "/restrictions-on-usage-of-spells-within-school-grounds",
           "description": "Restrictions on usage of spells within school grounds",
+          "description_with_highlighting": "Restrictions on usage of spells within school grounds",
           "public_timestamp": "2017-12-30T10:00:00Z",
           "part_of_taxonomy_tree": [
             "622e9691-4b4f-4e9c-bce1-098b0c4f5ee2"
@@ -1543,6 +1546,7 @@ module DocumentHelper
           "title": "Restrictions on usage of spells within school grounds",
           "link": "/restrictions-on-usage-of-spells-within-school-grounds",
           "description": "Restrictions on usage of spells within school grounds",
+          "description_with_highlighting": "Restrictions on usage of spells within school grounds",
           "public_timestamp": "2017-12-30T10:00:00Z",
           "part_of_taxonomy_tree": [
             "622e9691-4b4f-4e9c-bce1-098b0c4f5ee2"
@@ -1583,6 +1587,7 @@ module DocumentHelper
           "title": "Restrictions on usage of spells within school grounds",
           "link": "/restrictions-on-usage-of-spells-within-school-grounds",
           "description": "Restrictions on usage of spells within school grounds",
+          "description_with_highlighting": "Restrictions on usage of spells within school grounds",
           "public_timestamp": "2017-12-30T10:00:00Z",
           "part_of_taxonomy_tree": [
             "622e9691-4b4f-4e9c-bce1-098b0c4f5ee2"
@@ -1683,6 +1688,7 @@ module DocumentHelper
           "title": "Restrictions on usage of spells within school grounds",
           "link": "/restrictions-on-usage-of-spells-within-school-grounds",
           "description": "Restrictions on usage of spells within school grounds",
+          "description_with_highlighting": "Restrictions on usage of spells within school grounds",
           "public_timestamp": "2017-12-30T10:00:00Z",
           "part_of_taxonomy_tree": [
             "622e9691-4b4f-4e9c-bce1-098b0c4f5ee2"
@@ -1783,6 +1789,7 @@ module DocumentHelper
           "title": "Restrictions on usage of spells within school grounds",
           "link": "/restrictions-on-usage-of-spells-within-school-grounds",
           "description": "Restrictions on usage of spells within school grounds",
+          "description_with_highlighting": "Restrictions on usage of spells within school grounds",
           "public_timestamp": "2017-12-30T10:00:00Z",
           "part_of_taxonomy_tree": [
             "622e9691-4b4f-4e9c-bce1-098b0c4f5ee2"
@@ -1824,6 +1831,7 @@ module DocumentHelper
           "link": "/restrictions-on-usage-of-spells-within-school-grounds",
           "content_id": "1234",
           "description": "Restrictions on usage of spells within school grounds",
+          "description_with_highlighting": "Restrictions on usage of spells within school grounds",
           "public_timestamp": "2017-12-30T10:00:00Z",
           "part_of_taxonomy_tree": [
             "622e9691-4b4f-4e9c-bce1-098b0c4f5ee2"
@@ -1920,6 +1928,7 @@ module DocumentHelper
           "title": "Restrictions on usage of spells within school grounds",
           "link": "/restrictions-on-usage-of-spells-within-school-grounds",
           "description": "Restrictions on usage of spells within school grounds",
+          "description_with_highlighting": "Restrictions on usage of spells within school grounds",
           "public_timestamp": "2017-12-30T10:00:00Z",
           "part_of_taxonomy_tree": [
             "622e9691-4b4f-4e9c-bce1-098b0c4f5ee2"
