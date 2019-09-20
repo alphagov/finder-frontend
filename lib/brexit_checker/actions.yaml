@@ -382,6 +382,21 @@ actions:
     - export-to-eu
     - provide-services-do-business-in-eu
   audience: business
+- action_id: T005
+  priority: 5
+  title: Sign up to search for contracts to sell goods or services to the UK public
+    sector
+  consequence: You won't receive notifications of new UK public sector contract opportunities.
+  lead_time: Do it as soon as possible
+  guidance_prompt: Read the guidance
+  guidance_link_text: Public-sector procurement after a no-deal Brexit
+  guidance_url: https://www.gov.uk/guidance/public-sector-procurement-after-a-no-deal-brexit
+  criteria:
+  - any_of:
+    - sell-public-sector
+    - sell-public-sector-contracts
+    - sell-goods-provide-services-in-uk
+  audience: business
 - action_id: T006
   priority: 8
   title: Check if your employees need a visa or work permit and meet any requirements
