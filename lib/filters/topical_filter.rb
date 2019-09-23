@@ -1,6 +1,6 @@
 module Filters
   class TopicalFilter < Filter
-  private # rubocop:disable Layout/IndentationWidth
+  private
 
     def value
       @value ||= fetch_value

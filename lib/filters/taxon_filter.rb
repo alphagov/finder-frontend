@@ -1,6 +1,6 @@
 module Filters
   class TaxonFilter < Filter
-  private # rubocop:disable Layout/IndentationWidth
+  private
 
     def value
       @value ||= begin

@@ -1,6 +1,6 @@
 module Filters
   class DropdownSelectFilter < Filter
-  private # rubocop:disable Layout/IndentationWidth
+  private
 
     def value
       @value ||= Array(parsed_value)

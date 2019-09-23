@@ -1,6 +1,6 @@
 module Filters
   class TextFilter < Filter
-  private # rubocop:disable Layout/IndentationWidth
+  private
 
     def value
       parsed_value

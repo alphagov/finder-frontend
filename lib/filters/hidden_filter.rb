@@ -1,6 +1,6 @@
 module Filters
   class HiddenFilter < Filter
-  private # rubocop:disable Layout/IndentationWidth
+  private
 
     def value
       params
