@@ -30,7 +30,7 @@
 
   <% if @previous_page %>
     <%= render "govuk_publishing_components/components/back_link", {
-      href: brexit_checker_questions_path(page: @previous_page),
+      href: brexit_checker_questions_path(page: @previous_page, c: criteria_keys),
     } %>
   <% else %>
     <%= render "govuk_publishing_components/components/back_link", {
