@@ -871,7 +871,7 @@ actions:
   - chemical
   audience: business
 - id: T057
-  priority: 5
+  priority: 4
   title: Check which carbon pricing policies you need to comply with before and after
     exit day
   consequence: You may not comply correctly with emissions reporting and carbon pricing
