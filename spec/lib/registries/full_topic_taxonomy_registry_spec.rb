@@ -1,5 +1,5 @@
 require "securerandom"
-require 'spec_helper'
+require "spec_helper"
 require "registries/base_registries"
 
 RSpec.describe Registries::FullTopicTaxonomyRegistry do
@@ -44,12 +44,12 @@ RSpec.describe Registries::FullTopicTaxonomyRegistry do
 
     it "can look up a child taxon by basepath" do
       fetched_document = registry[child_content_id]
-      expect(fetched_document['base_path']).to eq(child_base_path)
+      expect(fetched_document["base_path"]).to eq(child_base_path)
     end
 
     it "can look up a level one taxon by basepath" do
       fetched_document = registry[first_level_content_id]
-      expect(fetched_document['base_path']).to eq(first_level_base_path)
+      expect(fetched_document["base_path"]).to eq(first_level_base_path)
     end
   end
 

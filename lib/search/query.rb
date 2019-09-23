@@ -9,9 +9,9 @@ module Search
       @override_sort_for_feed = override_sort_for_feed
       @order =
         if override_sort_for_feed
-          'most-recent'
+          "most-recent"
         else
-          filter_params['order']
+          filter_params["order"]
         end
     end
 
@@ -46,12 +46,12 @@ module Search
 
     def sort_batch_results(raw_results)
       case @order
-      when 'most-viewed'
-        raw_results.sort_by { |hash| hash['popularity'] }.reverse
-      when 'most-recent'
-        raw_results.sort_by { |hash| hash['public_timestamp'] }.reverse
-      when 'a-to-z'
-        raw_results.sort_by { |hash| hash['title'] }
+      when "most-viewed"
+        raw_results.sort_by { |hash| hash["popularity"] }.reverse
+      when "most-recent"
+        raw_results.sort_by { |hash| hash["public_timestamp"] }.reverse
+      when "a-to-z"
+        raw_results.sort_by { |hash| hash["title"] }
       else
         sort_by_relevance(raw_results)
       end
@@ -60,11 +60,11 @@ module Search
     def sort_by_relevance(raw_results)
       return raw_results unless relevance_scores_exist?(raw_results)
 
-      raw_results.sort_by { |hash| hash['es_score'] }.reverse
+      raw_results.sort_by { |hash| hash["es_score"] }.reverse
     end
 
     def relevance_scores_exist?(results)
-      results.all? { |result| result['es_score'].present? }
+      results.all? { |result| result["es_score"].present? }
     end
 
     def fetch_search_response(content_item)
@@ -82,7 +82,7 @@ module Search
       else
         GovukStatsd.time("rummager.finder_batch_search") do
           merge_and_deduplicate(
-            Services.rummager.batch_search(queries).to_hash
+            Services.rummager.batch_search(queries).to_hash,
           )
         end
       end

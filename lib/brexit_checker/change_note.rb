@@ -1,7 +1,7 @@
 class BrexitChecker::ChangeNote
   include ActiveModel::Validations
 
-  CONFIG_PATH = Rails.root.join('lib', 'brexit_checker', 'change_notes.yaml')
+  CONFIG_PATH = Rails.root.join("lib", "brexit_checker", "change_notes.yaml")
 
   validates_presence_of :action_id
   validates_inclusion_of :type, in: %w(addition content_change)
@@ -22,13 +22,13 @@ class BrexitChecker::ChangeNote
 
   def self.load(params)
     parsed_params = params.dup
-    parsed_params['id'] = params['uuid']
-    parsed_params['date'] = params['date'].to_s
+    parsed_params["id"] = params["uuid"]
+    parsed_params["date"] = params["date"].to_s
     new(parsed_params)
   end
 
   def self.load_all
-    @load_all ||= YAML.load_file(CONFIG_PATH)['change_notes'].to_a
+    @load_all ||= YAML.load_file(CONFIG_PATH)["change_notes"].to_a
       .map { |c| load(c) }
   end
 

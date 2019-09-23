@@ -20,7 +20,7 @@ describe BrexitChecker::ConvertCsvToYaml::Converter do
       converter.convert(csv_file_path, yaml_file_path)
 
       expect(loaded_yaml_file).to include(
-        "title_url" => "https://www.gov.uk/important-action"
+        "title_url" => "https://www.gov.uk/important-action",
       )
     end
 
@@ -32,7 +32,7 @@ describe BrexitChecker::ConvertCsvToYaml::Converter do
         "category" => [
           { "title_url" => "https://www.gov.uk/important-action" },
           { "title_url" => "https://www.gov.uk/important-action-2" },
-        ]
+        ],
       )
     end
 
@@ -41,7 +41,7 @@ describe BrexitChecker::ConvertCsvToYaml::Converter do
       converter.convert(csv_file_path, yaml_file_path)
 
       expect(loaded_yaml_file).not_to include(
-        "title" => "Another important action"
+        "title" => "Another important action",
       )
     end
   end

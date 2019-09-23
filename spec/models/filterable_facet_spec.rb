@@ -1,11 +1,11 @@
-require 'spec_helper'
+require "spec_helper"
 
 describe FilterableFacet do
   let(:facet_data) {
     {
-      'key' => "test_facet",
-      'name' => "Test facet",
-      'preposition' => "of value"
+      "key" => "test_facet",
+      "name" => "Test facet",
+      "preposition" => "of value",
     }
   }
 
@@ -24,20 +24,20 @@ describe FilterableFacet do
     end
   end
 
-  describe '#preposition' do
+  describe "#preposition" do
     let(:default_preposition) {
       facet_class.new(
-        'key' => "test_facet",
-        'name' => "Facet without preposition"
+        "key" => "test_facet",
+        "name" => "Facet without preposition",
       )
     }
 
     it "has a default preposition" do
-      expect(default_preposition.preposition).to eq('related to')
+      expect(default_preposition.preposition).to eq("related to")
     end
 
     it "has a preposition specified in the facet content" do
-      expect(subject.preposition).to eq(facet_data['preposition'])
+      expect(subject.preposition).to eq(facet_data["preposition"])
     end
   end
 end

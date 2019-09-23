@@ -1,11 +1,11 @@
 require "securerandom"
-require 'spec_helper'
+require "spec_helper"
 require "gds_api/test_helpers/worldwide"
 
 RSpec.describe Registries::WorldLocationsRegistry do
   include GdsApi::TestHelpers::Worldwide
 
-  let(:slug) { 'privet-drive' }
+  let(:slug) { "privet-drive" }
 
   describe "when world locations api is available" do
     before do
@@ -20,9 +20,9 @@ RSpec.describe Registries::WorldLocationsRegistry do
     it "will fetch an expanded world location by slug" do
       fetched_document = registry[slug]
       expect(fetched_document).to eq(
-        'title' => 'Privet Drive',
-        'slug' => slug,
-        'content_id' => 'content_id_for_privet-drive'
+        "title" => "Privet Drive",
+        "slug" => slug,
+        "content_id" => "content_id_for_privet-drive",
       )
     end
 

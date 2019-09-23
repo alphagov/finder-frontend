@@ -7,12 +7,12 @@ class KeywordFacet
     return nil unless has_filters?
 
     {
-      'key' => key,
-      'preposition' => 'containing',
-      'values' => value_fragments,
-      'word_connectors' => {
-        words_connector: ''
-      }
+      "key" => key,
+      "preposition" => "containing",
+      "values" => value_fragments,
+      "word_connectors" => {
+        words_connector: "",
+      },
     }
   end
 
@@ -21,7 +21,7 @@ class KeywordFacet
   end
 
   def key
-    'keywords'
+    "keywords"
   end
 
   def value
@@ -34,7 +34,7 @@ class KeywordFacet
 
   def query_params
     {
-      key => value
+      key => value,
     }
   end
 
@@ -49,10 +49,10 @@ private
     keyword_array.each do |keyword|
       unless keyword.empty?
         keyword_fragments << {
-          'label' => keyword,
-          'parameter_key' => key,
-          'name' => 'keywords',
-          'value' => keyword.gsub('"', "&quot;")
+          "label" => keyword,
+          "parameter_key" => key,
+          "name" => "keywords",
+          "value" => keyword.gsub('"', "&quot;"),
         }
       end
     end

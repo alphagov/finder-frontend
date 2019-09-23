@@ -6,8 +6,8 @@ describe TaxonFacet do
   before :each do
     Rails.cache.clear
     topic_taxonomy_has_taxons([
-      FactoryBot.build(:level_one_taxon_hash, content_id: 'allowed-value-1', title: 'allowed-value-1', number_of_children: 1),
-      FactoryBot.build(:level_one_taxon_hash, content_id: 'allowed-value-2', title: 'allowed-value-2', number_of_children: 1),
+      FactoryBot.build(:level_one_taxon_hash, content_id: "allowed-value-1", title: "allowed-value-1", number_of_children: 1),
+      FactoryBot.build(:level_one_taxon_hash, content_id: "allowed-value-2", title: "allowed-value-2", number_of_children: 1),
     ])
   end
 
@@ -20,12 +20,12 @@ describe TaxonFacet do
 
   let(:facet_data) {
     {
-      'type' => "text",
+      "type" => "text",
       "keys" => %w(level_one_taxon level_two_taxon),
-      'name' => "Test values",
-      'key' => "test_values",
-      'preposition' => "of value",
-      'allowed_values' => allowed_values,
+      "name" => "Test values",
+      "key" => "test_values",
+      "preposition" => "of value",
+      "allowed_values" => allowed_values,
     }
   }
 
@@ -46,13 +46,13 @@ describe TaxonFacet do
           :text,
           :sub_topics,
           :selected,
-          :data_attributes
+          :data_attributes,
         )
       end
     end
 
     it "will have a default option" do
-      expect(subject.topics.first[:text]).to eql('All topics')
+      expect(subject.topics.first[:text]).to eql("All topics")
     end
   end
 
@@ -70,12 +70,12 @@ describe TaxonFacet do
         :value,
         :text,
         :data_attributes,
-        :selected
+        :selected,
       )
     end
 
     it "will have a default option" do
-      expect(subject.sub_topics.first[:text]).to eql('All sub-topics')
+      expect(subject.sub_topics.first[:text]).to eql("All sub-topics")
     end
   end
 
@@ -84,9 +84,9 @@ describe TaxonFacet do
       subject { TaxonFacet.new(facet_data, allowed_values) }
 
       specify {
-        expect(subject.sentence_fragment['preposition']).to eql("of value")
-        expect(subject.sentence_fragment['values'].first['label']).to eql("allowed-value-1")
-        expect(subject.sentence_fragment['values'].first['parameter_key']).to eql("level_one_taxon")
+        expect(subject.sentence_fragment["preposition"]).to eql("of value")
+        expect(subject.sentence_fragment["values"].first["label"]).to eql("allowed-value-1")
+        expect(subject.sentence_fragment["values"].first["parameter_key"]).to eql("level_one_taxon")
       }
     end
 

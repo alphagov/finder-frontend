@@ -4,27 +4,27 @@ describe OptionSelectFacet do
   let(:allowed_values) {
     [
       {
-        'label' => "Allowed value 1",
-        'value' => "allowed-value-1"
+        "label" => "Allowed value 1",
+        "value" => "allowed-value-1",
       },
       {
-        'label' => "Allowed value 2",
-        'value' => "allowed-value-2"
+        "label" => "Allowed value 2",
+        "value" => "allowed-value-2",
       },
       {
-        'label' => "Remittals",
-        'value' => "remittals"
-      }
+        "label" => "Remittals",
+        "value" => "remittals",
+      },
     ]
   }
 
   let(:facet_data) {
     {
-      'type' => "multi-select",
-      'name' => "Test values",
-      'key' => "test_values",
-      'preposition' => "of value",
-      'allowed_values' => allowed_values,
+      "type" => "multi-select",
+      "name" => "Test values",
+      "key" => "test_values",
+      "preposition" => "of value",
+      "allowed_values" => allowed_values,
     }
   }
 
@@ -34,9 +34,9 @@ describe OptionSelectFacet do
       subject { OptionSelectFacet.new(facet_data, %w[allowed-value-1]) }
 
       specify {
-        expect(subject.sentence_fragment['preposition']).to eql("of value")
-        expect(subject.sentence_fragment['values'].first['label']).to eql("Allowed value 1")
-        expect(subject.sentence_fragment['values'].first['parameter_key']).to eql("test_values")
+        expect(subject.sentence_fragment["preposition"]).to eql("of value")
+        expect(subject.sentence_fragment["values"].first["label"]).to eql("Allowed value 1")
+        expect(subject.sentence_fragment["values"].first["parameter_key"]).to eql("test_values")
       }
     end
 
@@ -44,12 +44,12 @@ describe OptionSelectFacet do
       subject { OptionSelectFacet.new(facet_data, %w[allowed-value-1 allowed-value-2]) }
 
       specify {
-        expect(subject.sentence_fragment['preposition']).to eql("of value")
-        expect(subject.sentence_fragment['values'].first['label']).to eql("Allowed value 1")
-        expect(subject.sentence_fragment['values'].first['parameter_key']).to eql("test_values")
+        expect(subject.sentence_fragment["preposition"]).to eql("of value")
+        expect(subject.sentence_fragment["values"].first["label"]).to eql("Allowed value 1")
+        expect(subject.sentence_fragment["values"].first["parameter_key"]).to eql("test_values")
 
-        expect(subject.sentence_fragment['values'].last['label']).to eql("Allowed value 2")
-        expect(subject.sentence_fragment['values'].last['parameter_key']).to eql("test_values")
+        expect(subject.sentence_fragment["values"].last["label"]).to eql("Allowed value 2")
+        expect(subject.sentence_fragment["values"].last["parameter_key"]).to eql("test_values")
       }
     end
 
@@ -78,15 +78,15 @@ describe OptionSelectFacet do
     context "some selected values" do
       let(:facet_data) {
         {
-          'type' => "multi-select",
-          'name' => "Test values",
-          'key' => "test_values",
-          'preposition' => "of value",
-          'allowed_values' => [{ 'label' => 'One', 'value' => '1' }],
+          "type" => "multi-select",
+          "name" => "Test values",
+          "key" => "test_values",
+          "preposition" => "of value",
+          "allowed_values" => [{ "label" => "One", "value" => "1" }],
         }
       }
 
-      subject { OptionSelectFacet.new(facet_data, '1') }
+      subject { OptionSelectFacet.new(facet_data, "1") }
 
       specify do
         expect(subject.unselected?).to be false

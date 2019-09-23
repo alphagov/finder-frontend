@@ -36,7 +36,7 @@ RSpec.describe "Convert CSV to YAML tasks" do
           "priority" => 0,
           "title" => "An important action",
           "title_url" => "https://www.gov.uk/important-action",
-        )
+        ),
       )
     end
 
@@ -87,7 +87,7 @@ RSpec.describe "Convert CSV to YAML tasks" do
           "priority" => 0,
           "title" => "An important action",
           "title_url" => "https://www.gov.uk/important-action",
-        )
+        ),
       )
     end
   end
@@ -116,7 +116,7 @@ RSpec.describe "Convert CSV to YAML tasks" do
           "key" => "owns-operates-business-organisation",
           "text" => "Owns or operates business or organisation",
           "depends_on" => %w(something another-thing),
-        )
+        ),
       )
     end
 

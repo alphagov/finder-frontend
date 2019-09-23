@@ -1,6 +1,6 @@
 class TaxonFacet < FilterableFacet
-  LEVEL_ONE_TAXON_KEY = 'level_one_taxon'.freeze
-  LEVEL_TWO_TAXON_KEY = 'level_two_taxon'.freeze
+  LEVEL_ONE_TAXON_KEY = "level_one_taxon".freeze
+  LEVEL_TWO_TAXON_KEY = "level_two_taxon".freeze
 
   def initialize(facet, value_hash)
     @value_hash = value_hash
@@ -8,7 +8,7 @@ class TaxonFacet < FilterableFacet
   end
 
   def name
-    facet['name']
+    facet["name"]
   end
 
   def topics
@@ -25,10 +25,10 @@ class TaxonFacet < FilterableFacet
     return nil if selected_level_one_value.nil?
 
     {
-      'type' => "taxon",
-      'preposition' => preposition,
-      'values' => value_fragments,
-      'word_connectors' => and_word_connectors
+      "type" => "taxon",
+      "preposition" => preposition,
+      "values" => value_fragments,
+      "word_connectors" => and_word_connectors,
     }
   end
 
@@ -39,7 +39,7 @@ class TaxonFacet < FilterableFacet
   def query_params
     {
       LEVEL_ONE_TAXON_KEY => (selected_level_one_value || {})[:value],
-      LEVEL_TWO_TAXON_KEY => (selected_level_two_value || {})[:value]
+      LEVEL_TWO_TAXON_KEY => (selected_level_two_value || {})[:value],
     }
   end
 
@@ -48,7 +48,7 @@ private
   def value_fragments
     [
       value_fragment(selected_level_one_value, LEVEL_ONE_TAXON_KEY),
-      value_fragment(selected_level_two_value, LEVEL_TWO_TAXON_KEY)
+      value_fragment(selected_level_two_value, LEVEL_TWO_TAXON_KEY),
     ].compact
   end
 
@@ -56,24 +56,24 @@ private
     return nil if value.nil?
 
     {
-      'label' => value[:text],
-      'parameter_key' => key,
-      'value' => value[:value]
+      "label" => value[:text],
+      "parameter_key" => key,
+      "value" => value[:value],
     }
   end
 
   def level_one_taxons
     @level_one_taxons ||= registry.taxonomy_tree.values.map { |v|
       {
-        value: v['content_id'],
-        text: v['title'],
-        sub_topics: v['children'],
+        value: v["content_id"],
+        text: v["title"],
+        sub_topics: v["children"],
         data_attributes: {
           track_category: "filterClicked",
           track_action: "level_one_taxon",
-          track_label: v['title'],
+          track_label: v["title"],
         },
-        selected: v['content_id'] == @value_hash[LEVEL_ONE_TAXON_KEY]
+        selected: v["content_id"] == @value_hash[LEVEL_ONE_TAXON_KEY],
       }
     }
   end
@@ -85,15 +85,15 @@ private
       .flatten
       .map { |v|
         {
-          text: v['title'],
-          value: v['content_id'],
+          text: v["title"],
+          value: v["content_id"],
           data_attributes: {
             track_category: "filterClicked",
             track_action: "level_two_taxon",
-            track_label: v['title'],
-            topic_parent: v['parent'],
+            track_label: v["title"],
+            topic_parent: v["parent"],
           },
-          selected: v['content_id'] == @value_hash[LEVEL_TWO_TAXON_KEY]
+          selected: v["content_id"] == @value_hash[LEVEL_TWO_TAXON_KEY],
         }
       }
   end
@@ -111,14 +111,14 @@ private
   end
 
   def default_sub_topic_value
-    { text: 'All sub-topics', value: '', parent: '' }
+    { text: "All sub-topics", value: "", parent: "" }
   end
 
   def default_topic_value
-    { text: 'All topics', value: '' }
+    { text: "All topics", value: "" }
   end
 
   def registry
-    @registry ||= Registries::BaseRegistries.new.all['part_of_taxonomy_tree']
+    @registry ||= Registries::BaseRegistries.new.all["part_of_taxonomy_tree"]
   end
 end

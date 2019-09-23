@@ -1,5 +1,5 @@
 require "spec_helper"
-require_relative './helpers/facets_helper'
+require_relative "./helpers/facets_helper"
 
 describe FacetTagsPresenter do
   include FacetsHelper
@@ -19,7 +19,7 @@ describe FacetTagsPresenter do
   let(:sort_presenter) {
     double(
       SortPresenter,
-      selected_option: nil
+      selected_option: nil,
     )
   }
 
@@ -29,20 +29,20 @@ describe FacetTagsPresenter do
     end
   end
 
-  describe '#selected_filter_descriptions' do
-    it 'includes prepositions for each facet' do
+  describe "#selected_filter_descriptions" do
+    it "includes prepositions for each facet" do
       applied_filters = presenter.selected_filter_descriptions.flat_map { |filter| filter }
       prepositions = applied_filters.flat_map { |filter| filter[:preposition] }.reject { |preposition| preposition == "or" }
 
       finder_presenter.filters.reject { |filter| filter.sentence_fragment.nil? }.each do |fragment|
-        expect(prepositions).to include(fragment.sentence_fragment['preposition'])
+        expect(prepositions).to include(fragment.sentence_fragment["preposition"])
       end
     end
 
-    context 'when keywords have been searched for' do
+    context "when keywords have been searched for" do
       let(:keywords) { "my search term" }
 
-      it 'includes the keywords' do
+      it "includes the keywords" do
         applied_filters = presenter.selected_filter_descriptions.flat_map { |filter| filter }
         text_values = applied_filters.flat_map { |filter| filter[:text] }
 
@@ -50,10 +50,10 @@ describe FacetTagsPresenter do
       end
     end
 
-    context 'when XSS attack keywords have been searched for' do
+    context "when XSS attack keywords have been searched for" do
       let(:keywords) { '"><script>alert("hello")</script>' }
 
-      it 'escapes keywords appropriately' do
+      it "escapes keywords appropriately" do
         applied_filters = presenter.selected_filter_descriptions.flat_map { |filter| filter }
         text_values = applied_filters.flat_map { |filter| filter[:text] }
 

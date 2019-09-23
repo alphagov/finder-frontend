@@ -43,7 +43,7 @@ module BrexitChecker
                "resulting code after authorization:\n" + url
           code = gets
           credentials = authorizer.get_and_store_credentials_from_code(
-            user_id: user_id, code: code, base_url: OOB_URI
+            user_id: user_id, code: code, base_url: OOB_URI,
           )
         end
         credentials

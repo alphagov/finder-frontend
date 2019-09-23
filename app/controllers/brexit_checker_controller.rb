@@ -16,7 +16,7 @@ class BrexitCheckerController < ApplicationController
     @question_index = next_question_index(
       all_questions: all_questions,
       criteria_keys: criteria_keys,
-      previous_question_index: page
+      previous_question_index: page,
     )
 
     @current_question = all_questions[@question_index] if @question_index.present?

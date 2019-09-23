@@ -39,7 +39,7 @@ class FindersController < ApplicationController
       end
     end
   rescue ActionController::UnknownFormat
-    render plain: 'Not acceptable', status: :not_acceptable
+    render plain: "Not acceptable", status: :not_acceptable
   end
 
 private
@@ -51,7 +51,7 @@ private
   def redirect_to_destination
     @redirect = content_item.redirect
     @finder_slug = finder_slug
-    render 'finders/show-redirect'
+    render "finders/show-redirect"
   end
 
   def json_response
@@ -89,7 +89,7 @@ private
     @results ||= ResultSetParser.parse(
       search_results.fetch("results"),
       search_results.fetch("start", 0),
-      search_results.fetch("total")
+      search_results.fetch("total"),
     )
   end
 
@@ -141,8 +141,8 @@ private
   def pagination_presenter
     PaginationPresenter.new(
       per_page: content_item.default_documents_per_page,
-      start_offset: search_results.dig('start'),
-      total_results: search_results.dig('total'),
+      start_offset: search_results.dig("start"),
+      total_results: search_results.dig("total"),
       url_builder: finder_url_builder,
     )
   end
@@ -152,7 +152,7 @@ private
   end
 
   def suggestions
-    search_results.fetch('suggested_queries', []).map do |keywords|
+    search_results.fetch("suggested_queries", []).map do |keywords|
       {
         keywords: keywords,
         link: finder_url_builder.url(keywords: keywords),
@@ -165,7 +165,7 @@ private
   end
 
   def parent
-    params.fetch(:parent, '')
+    params.fetch(:parent, "")
   end
 
   def facet_tags
@@ -181,7 +181,7 @@ private
   end
 
   def remove_search_box
-    hide_site_serch = params['slug'] == 'search/all'
+    hide_site_serch = params["slug"] == "search/all"
     set_slimmer_headers(remove_search: hide_site_serch)
   end
 
@@ -190,11 +190,11 @@ private
   end
 
   def taxonomy_registry
-    Services.registries.all['full_topic_taxonomy']
+    Services.registries.all["full_topic_taxonomy"]
   end
 
   def organisation_registry
-    Services.registries.all['organisations']
+    Services.registries.all["organisations"]
   end
 
   def debug_score?

@@ -1,7 +1,7 @@
 class BrexitChecker::Criterion
   include ActiveModel::Validations
 
-  CONFIG_PATH = Rails.root.join('lib', 'brexit_checker', 'criteria.yaml')
+  CONFIG_PATH = Rails.root.join("lib", "brexit_checker", "criteria.yaml")
 
   validates_presence_of :key, :text
 
@@ -14,7 +14,7 @@ class BrexitChecker::Criterion
 
   def self.load_all
     @load_all = nil if Rails.env.development?
-    @load_all ||= YAML.load_file(CONFIG_PATH)['criteria'].map { |c| new(c) }
+    @load_all ||= YAML.load_file(CONFIG_PATH)["criteria"].map { |c| new(c) }
   end
 
   def self.load_by(criteria_keys)

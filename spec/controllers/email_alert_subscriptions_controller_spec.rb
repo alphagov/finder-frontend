@@ -1,6 +1,6 @@
-require 'spec_helper'
-require 'gds_api/test_helpers/content_store'
-require 'gds_api/test_helpers/email_alert_api'
+require "spec_helper"
+require "gds_api/test_helpers/content_store"
+require "gds_api/test_helpers/email_alert_api"
 
 describe EmailAlertSubscriptionsController, type: :controller do
   include GdsApi::TestHelpers::ContentStore
@@ -31,19 +31,19 @@ describe EmailAlertSubscriptionsController, type: :controller do
     stub_organisations_registry_request
   end
 
-  describe 'GET #new' do
+  describe "GET #new" do
     describe "finder email signup item doesn't exist" do
-      it 'returns a 404, rather than 5xx' do
-        content_store_does_not_have_item('/does-not-exist/email-signup')
-        get :new, params: { slug: 'does-not-exist' }
+      it "returns a 404, rather than 5xx" do
+        content_store_does_not_have_item("/does-not-exist/email-signup")
+        get :new, params: { slug: "does-not-exist" }
         expect(response.status).to eq(404)
       end
     end
 
     describe "finder email signup item does exist" do
-      it 'returns a success' do
-        content_store_has_item('/does-exist/email-signup', signup_finder)
-        get :new, params: { slug: 'does-exist' }
+      it "returns a success" do
+        content_store_has_item("/does-exist/email-signup", signup_finder)
+        get :new, params: { slug: "does-exist" }
 
         expect(response).to be_successful
       end
@@ -52,42 +52,42 @@ describe EmailAlertSubscriptionsController, type: :controller do
 
   describe 'POST "#create"' do
     before do
-      content_store_has_item('/cma-cases', cma_cases_content_item)
-      content_store_has_item('/cma-cases/email-signup', cma_cases_signup_content_item)
+      content_store_has_item("/cma-cases", cma_cases_content_item)
+      content_store_has_item("/cma-cases/email-signup", cma_cases_signup_content_item)
     end
 
     context "finder has default filters" do
       it "fails if the relevant filters are not provided" do
-        post :create, params: { slug: 'cma-cases' }
+        post :create, params: { slug: "cma-cases" }
         expect(response).to be_successful
-        expect(response).to render_template('new')
+        expect(response).to render_template("new")
       end
 
-      it 'redirects to the correct email subscription url' do
+      it "redirects to the correct email subscription url" do
         email_alert_api_has_subscriber_list(
           "tags" => {
             "case_type" => { any: %w[ca98-and-civil-cartels] },
             "format" => { any: %w[cma_case] },
           },
-          "subscription_url" => 'http://www.example.com'
+          "subscription_url" => "http://www.example.com",
         )
 
         post :create, params: {
-          slug: 'cma-cases',
+          slug: "cma-cases",
           filter: {
-            'case_type' => %w[ca98-and-civil-cartels]
-          }
+            "case_type" => %w[ca98-and-civil-cartels],
+          },
         }
-        expect(subject).to redirect_to('http://www.example.com')
+        expect(subject).to redirect_to("http://www.example.com")
       end
     end
   end
 
   context "with a multi facet signup" do
     describe 'POST "#create"' do
-      it 'redirects to the correct email subscription url' do
-        content_store_has_item('/cma-cases', cma_cases_content_item)
-        content_store_has_item('/cma-cases/email-signup', cma_cases_with_multi_facets_signup_content_item)
+      it "redirects to the correct email subscription url" do
+        content_store_has_item("/cma-cases", cma_cases_content_item)
+        content_store_has_item("/cma-cases/email-signup", cma_cases_with_multi_facets_signup_content_item)
 
         email_alert_api_has_subscriber_list(
           "tags" => {
@@ -95,62 +95,62 @@ describe EmailAlertSubscriptionsController, type: :controller do
             "case_state" => { any: %w(open) },
             "format" => { any: %w[cma_case] },
           },
-          "subscription_url" => 'http://www.example.com'
+          "subscription_url" => "http://www.example.com",
         )
 
         post :create, params: {
-          slug: 'cma-cases',
+          slug: "cma-cases",
           filter: {
-            'case_type' => %w[ca98-and-civil-cartels],
-            'case_state' => %w(open),
-          }
+            "case_type" => %w[ca98-and-civil-cartels],
+            "case_state" => %w(open),
+          },
         }
 
-        expect(subject).to redirect_to('http://www.example.com')
+        expect(subject).to redirect_to("http://www.example.com")
       end
 
-      it 'redirects to the correct email subscription url with subscriber_list_params' do
-        content_store_has_item('/news-and-communications', news_and_communications_content_item)
-        content_store_has_item('/news-and-communications/email-signup', news_and_communications_signup_content_item)
+      it "redirects to the correct email subscription url with subscriber_list_params" do
+        content_store_has_item("/news-and-communications", news_and_communications_content_item)
+        content_store_has_item("/news-and-communications/email-signup", news_and_communications_signup_content_item)
 
         email_alert_api_has_subscriber_list(
-          'links' => {
+          "links" => {
             "content_purpose_subgroup" =>
               {
-                "any" => %w[news speeches_and_statements]
-              }
+                "any" => %w[news speeches_and_statements],
+              },
           },
-          'subscription_url' => 'http://www.example.com'
+          "subscription_url" => "http://www.example.com",
         )
 
         post :create, params: {
-          slug: 'news-and-communications',
+          slug: "news-and-communications",
           subscriber_list_params: {},
         }
-        expect(subject).to redirect_to('http://www.example.com')
+        expect(subject).to redirect_to("http://www.example.com")
       end
 
 
-      it 'will not include a facet that is not in the signup content item in the redirect' do
-        content_store_has_item('/cma-cases', cma_cases_content_item)
-        content_store_has_item('/cma-cases/email-signup', cma_cases_signup_content_item)
+      it "will not include a facet that is not in the signup content item in the redirect" do
+        content_store_has_item("/cma-cases", cma_cases_content_item)
+        content_store_has_item("/cma-cases/email-signup", cma_cases_signup_content_item)
         email_alert_api_has_subscriber_list(
-          'tags' => {
-            'case_type' => { any: %w[ca98-and-civil-cartels] },
-            'format' => { any: %w[cma_case] },
+          "tags" => {
+            "case_type" => { any: %w[ca98-and-civil-cartels] },
+            "format" => { any: %w[cma_case] },
           },
-          'subscription_url' => 'http://www.example.com'
+          "subscription_url" => "http://www.example.com",
         )
 
         post :create, params: {
-          slug: 'cma-cases',
+          slug: "cma-cases",
           subscriber_list_params: { part_of_taxonomy_tree: %w(some-taxon) },
           filter: {
-            'case_type' => %w[ca98-and-civil-cartels],
-            'case_state' => %w(open),
-          }
+            "case_type" => %w[ca98-and-civil-cartels],
+            "case_state" => %w(open),
+          },
         }
-        expect(subject).to redirect_to('http://www.example.com')
+        expect(subject).to redirect_to("http://www.example.com")
       end
     end
   end
@@ -158,26 +158,26 @@ describe EmailAlertSubscriptionsController, type: :controller do
   context "with email_filter_by set to 'facet_values'" do
     describe 'POST "#create"' do
       before do
-        content_store_has_item('/find-eu-exit-guidance-business', business_readiness_content_item)
-        content_store_has_item('/find-eu-exit-guidance-business/email-signup', business_readiness_signup_content_item)
+        content_store_has_item("/find-eu-exit-guidance-business", business_readiness_content_item)
+        content_store_has_item("/find-eu-exit-guidance-business/email-signup", business_readiness_signup_content_item)
       end
 
       it "should call EmailAlertListTitleBuilder instead of EmailAlertTitleBuilder" do
         email_alert_api_has_subscriber_list(
-          'links' => {
-            'facet_values' => { any: %w(aerospace) },
+          "links" => {
+            "facet_values" => { any: %w(aerospace) },
           },
-          'subscription_url' => 'http://www.itstartshear.com',
-          'email_filter_by' => 'facet_values'
+          "subscription_url" => "http://www.itstartshear.com",
+          "email_filter_by" => "facet_values",
         )
 
         allow(EmailAlertListTitleBuilder).to receive(:call)
 
         post :create, params: {
-          slug: 'find-eu-exit-guidance-business',
+          slug: "find-eu-exit-guidance-business",
           filter: {
-            'sector_business_area' => %w(aerospace),
-          }
+            "sector_business_area" => %w(aerospace),
+          },
         }
 
         expect(EmailAlertListTitleBuilder).to have_received(:call)
@@ -188,13 +188,13 @@ describe EmailAlertSubscriptionsController, type: :controller do
   context "with blank email_filter_by" do
     describe 'POST "#create"' do
       it "should not call EmailAlertListTitleBuilder instead of EmailAlertTitleBuilder" do
-        content_store_has_item('/cma_cases', cma_cases_content_item)
-        content_store_has_item('/cma_cases/email-signup', cma_cases_signup_content_item)
+        content_store_has_item("/cma_cases", cma_cases_content_item)
+        content_store_has_item("/cma_cases/email-signup", cma_cases_signup_content_item)
 
         email_alert_api_has_subscriber_list(
-          'tags' => {
-            'format' => { any: %w[cma_case] },
-            'case_type' => { any: %w[markets] }
+          "tags" => {
+            "format" => { any: %w[cma_case] },
+            "case_type" => { any: %w[markets] },
           },
           "subscription_url" => "http://www.gov.uk",
         )
@@ -202,10 +202,10 @@ describe EmailAlertSubscriptionsController, type: :controller do
         allow(EmailAlertTitleBuilder).to receive(:call)
 
         post :create, params: {
-          slug: 'cma_cases',
+          slug: "cma_cases",
           filter: {
-            'case_type' => %w[markets],
-          }
+            "case_type" => %w[markets],
+          },
         }
 
         expect(EmailAlertTitleBuilder).to have_received(:call)

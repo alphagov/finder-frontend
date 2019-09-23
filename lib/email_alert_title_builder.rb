@@ -38,7 +38,7 @@ private
   end
 
   def singular_suffix
-    facet_key = facets.first['filter_key'] || facets.first['facet_id']
+    facet_key = facets.first["filter_key"] || facets.first["facet_id"]
 
     if dynamic_filter_option?(facet_key)
       return dynamic_facet_sentence(facet_key, selected_facets.first["facet_name"])
@@ -77,7 +77,7 @@ private
   end
 
   def grouped_facets
-    selected_facets.group_by { |facet| facet['filter_key'] || facet['facet_id'] }
+    selected_facets.group_by { |facet| facet["filter_key"] || facet["facet_id"] }
   end
 
   def dynamic_facet_sentence(facet_key, facet_name)

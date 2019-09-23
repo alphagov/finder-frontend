@@ -3,13 +3,13 @@ require "spec_helper"
 describe CheckboxFacet do
   let(:facet_data) {
     {
-      'type' => "checkbox",
-      'filter_value' => 'selectedvalue',
-      'key' => "show_extra_information",
-      'name' => "Show extra information",
-      'short_name' => "Show more",
-      'value' => "yes",
-      'preposition' => "of value",
+      "type" => "checkbox",
+      "filter_value" => "selectedvalue",
+      "key" => "show_extra_information",
+      "name" => "Show extra information",
+      "short_name" => "Show more",
+      "value" => "yes",
+      "preposition" => "of value",
     }
   }
 
@@ -18,9 +18,9 @@ describe CheckboxFacet do
       subject { CheckboxFacet.new(facet_data, "yes") }
 
       specify {
-        expect(subject.sentence_fragment['preposition']).to eql("of value")
-        expect(subject.sentence_fragment['values'].first['label']).to eql("Show more")
-        expect(subject.sentence_fragment['values'].first['parameter_key']).to eql("show_extra_information")
+        expect(subject.sentence_fragment["preposition"]).to eql("of value")
+        expect(subject.sentence_fragment["values"].first["label"]).to eql("Show more")
+        expect(subject.sentence_fragment["values"].first["parameter_key"]).to eql("show_extra_information")
       }
     end
 
@@ -29,9 +29,9 @@ describe CheckboxFacet do
         subject { CheckboxFacet.new(facet_data, true) }
 
         specify {
-          expect(subject.sentence_fragment['preposition']).to eql("of value")
-          expect(subject.sentence_fragment['values'].count).to eql 1
-          expect(subject.sentence_fragment['values'].first['parameter_key']).to eql("show_extra_information")
+          expect(subject.sentence_fragment["preposition"]).to eql("of value")
+          expect(subject.sentence_fragment["values"].count).to eql 1
+          expect(subject.sentence_fragment["values"].first["parameter_key"]).to eql("show_extra_information")
         }
       end
 

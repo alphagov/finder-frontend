@@ -22,11 +22,11 @@ private
   end
 
   def filter_label(filter)
-    selected_option = filter.allowed_values.find { |option| option['value'] == filter.value }
-    return selected_option['label'] unless selected_option.nil?
+    selected_option = filter.allowed_values.find { |option| option["value"] == filter.value }
+    return selected_option["label"] unless selected_option.nil?
 
-    default_option = filter.allowed_values.find { |option| option['default'] }
-    return default_option['label'] unless default_option.nil?
+    default_option = filter.allowed_values.find { |option| option["default"] }
+    return default_option["label"] unless default_option.nil?
 
     nil
   end

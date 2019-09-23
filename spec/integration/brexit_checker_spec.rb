@@ -1,4 +1,4 @@
-require 'spec_helper'
+require "spec_helper"
 
 RSpec.describe "Brexit checker data integrity" do
   let(:validator) { BrexitChecker::Criteria::Validator }

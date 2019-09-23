@@ -4,8 +4,8 @@ module Filters
 
     def value
       @value ||= begin
-        topic = params['level_one_taxon']
-        subtopic = params['level_two_taxon']
+        topic = params["level_one_taxon"]
+        subtopic = params["level_two_taxon"]
 
         # we send a conjunctive query to rummager for part_of_taxonomy_tree
         [topic, subtopic]

@@ -13,7 +13,7 @@ describe EmailAlertListTitleBuilder do
   let(:subscription_list_title_prefix) { "EU Exit guidance" }
   let(:facets) do
     signup_json = JSON.parse(File.read(Rails.root.join("features", "fixtures", "business_readiness_email_signup.json")))
-    signup_json.fetch('details').fetch('email_filter_facets')
+    signup_json.fetch("details").fetch("email_filter_facets")
   end
 
   context "one choice for one facet selected" do
@@ -32,7 +32,7 @@ describe EmailAlertListTitleBuilder do
     let(:filter) do
       {
         "sector_business_area" => %w(94b3cfe2-af89-4744-b8d7-7fc79edcbc85),
-        "business_activity" => %w(d422aa2e-59ad-4986-8ef0-973959878912)
+        "business_activity" => %w(d422aa2e-59ad-4986-8ef0-973959878912),
       }
     end
 
@@ -46,7 +46,7 @@ describe EmailAlertListTitleBuilder do
     let(:filter) do
       {
         "sector_business_area" => %w(94b3cfe2-af89-4744-b8d7-7fc79edcbc85),
-        "public_sector_procurement" => %w(33fc20d7-6a45-40c9-b31f-e4678f962ff1)
+        "public_sector_procurement" => %w(33fc20d7-6a45-40c9-b31f-e4678f962ff1),
       }
     end
 
@@ -59,7 +59,7 @@ describe EmailAlertListTitleBuilder do
     let(:filter) do
       {
         "sector_business_area" => %w(94b3cfe2-af89-4744-b8d7-7fc79edcbc85),
-        "public_sector_procurement" => %w(33fc20d7-6a45-40c9-b31f-e4678f962ff1 f165dc7c-7cef-446a-bdfd-8a1ca685d091)
+        "public_sector_procurement" => %w(33fc20d7-6a45-40c9-b31f-e4678f962ff1 f165dc7c-7cef-446a-bdfd-8a1ca685d091),
       }
     end
 
@@ -73,7 +73,7 @@ describe EmailAlertListTitleBuilder do
     let(:filter) do
       {
         "sector_business_area" => %w(94b3cfe2-af89-4744-b8d7-7fc79edcbc85 01b51981-1ad6-4e45-9b14-b8a57fcb4204),
-        "business_activity" => %w(d422aa2e-59ad-4986-8ef0-973959878912 7283b8e1-840f-49da-967f-c0a512a3f531)
+        "business_activity" => %w(d422aa2e-59ad-4986-8ef0-973959878912 7283b8e1-840f-49da-967f-c0a512a3f531),
       }
     end
 

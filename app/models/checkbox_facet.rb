@@ -8,14 +8,14 @@ class CheckboxFacet < FilterableFacet
     return nil unless is_checked?
 
     {
-      'key' => key,
-      'preposition' => preposition,
-      'values' => [{
-        'label' => short_name,
-        'parameter_key' => key,
-        'value' => value
+      "key" => key,
+      "preposition" => preposition,
+      "values" => [{
+        "label" => short_name,
+        "parameter_key" => key,
+        "value" => value,
       }],
-      'word_connectors' => and_word_connectors
+      "word_connectors" => and_word_connectors,
     }
   end
 
@@ -24,7 +24,7 @@ class CheckboxFacet < FilterableFacet
   end
 
   def value
-    facet['filter_value'] || true
+    facet["filter_value"] || true
   end
 
   def is_checked?
@@ -44,7 +44,7 @@ class CheckboxFacet < FilterableFacet
         track_category: "filterClicked",
         uncheck_track_category: "filterRemoved",
         track_action: "checkboxFacet",
-        track_label: name
+        track_label: name,
     }
   end
 

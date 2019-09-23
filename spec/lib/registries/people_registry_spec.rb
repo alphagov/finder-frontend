@@ -1,11 +1,11 @@
-require 'spec_helper'
+require "spec_helper"
 
 RSpec.describe Registries::PeopleRegistry do
-  let(:slug) { 'cornelius-fudge' }
+  let(:slug) { "cornelius-fudge" }
   let(:rummager_params) {
     {
       count: 0,
-      facet_people: '1500,examples:0,order:value.title'
+      facet_people: "1500,examples:0,order:value.title",
     }
   }
   let(:rummager_url) { "#{Plek.current.find('search')}/search.json?#{rummager_params.to_query}" }
@@ -19,8 +19,8 @@ RSpec.describe Registries::PeopleRegistry do
     it "will fetch person information by slug" do
       person = described_class.new[slug]
       expect(person).to eq(
-        'title' => 'Cornelius Fudge',
-        'slug' => slug
+        "title" => "Cornelius Fudge",
+        "slug" => slug,
       )
     end
 
@@ -32,16 +32,16 @@ RSpec.describe Registries::PeopleRegistry do
     end
   end
 
-  describe 'there is no slug or title' do
-    it 'will remove those results' do
+  describe "there is no slug or title" do
+    it "will remove those results" do
       stub_request(:get, rummager_url).to_return(
         body: {
           "facets": {
             "people": {
-              "options": [{ "value": {} }]
-            }
-          }
-        }.to_json
+              "options": [{ "value": {} }],
+            },
+          },
+        }.to_json,
 )
       clear_cache
       expect(described_class.new.values).to be_empty

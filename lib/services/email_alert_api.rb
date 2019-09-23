@@ -1,4 +1,4 @@
-require 'digest'
+require "digest"
 
 class Services::EmailAlertApi
   delegate :find_or_create_subscriber_list,

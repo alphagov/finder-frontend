@@ -8,10 +8,10 @@ class HiddenClearableFacet < FilterableFacet
     return nil unless selected_values.any?
 
     {
-        'key' => key,
-        'preposition' => preposition,
-        'values' => value_fragments,
-        'word_connectors' => or_word_connectors
+        "key" => key,
+        "preposition" => preposition,
+        "values" => value_fragments,
+        "word_connectors" => or_word_connectors,
     }
   end
 
@@ -20,7 +20,7 @@ class HiddenClearableFacet < FilterableFacet
   end
 
   def query_params
-    { key => selected_values.map { |value| value['value'] } }
+    { key => selected_values.map { |value| value["value"] } }
   end
 
 private
@@ -28,9 +28,9 @@ private
   def value_fragments
     selected_values.map { |value|
       {
-          'label' => value['label'],
-          'value' => value['value'],
-          'parameter_key' => key
+          "label" => value["label"],
+          "value" => value["value"],
+          "parameter_key" => key,
       }
     }
   end
@@ -40,7 +40,7 @@ private
       return [] if @value.nil?
 
       allowed_values.select { |option|
-        @value.include?(option['value'])
+        @value.include?(option["value"])
       }
     end
   end

@@ -8,10 +8,10 @@ class HiddenFacet < FilterableFacet
     return nil unless has_filters?
 
     {
-      'key' => key,
-      'preposition' => preposition,
-      'values' => value_fragments,
-      'word_connectors' => or_word_connectors
+      "key" => key,
+      "preposition" => preposition,
+      "values" => value_fragments,
+      "word_connectors" => or_word_connectors,
     }
   end
 
@@ -20,7 +20,7 @@ class HiddenFacet < FilterableFacet
   end
 
   def query_params
-    values = allowed_values.empty? ? @value : selected_values.map { |value| value['value'] }
+    values = allowed_values.empty? ? @value : selected_values.map { |value| value["value"] }
     { key => values }
   end
 
@@ -29,8 +29,8 @@ private
   def value_fragments
     selected_values.map { |value|
       {
-          'label' => value['label'],
-          'parameter_key' => key,
+          "label" => value["label"],
+          "parameter_key" => key,
       }
     }
   end
@@ -39,7 +39,7 @@ private
     return [] if @value.nil?
 
     allowed_values.select { |option|
-      @value.include?(option['value'])
+      @value.include?(option["value"])
     }
   end
 end

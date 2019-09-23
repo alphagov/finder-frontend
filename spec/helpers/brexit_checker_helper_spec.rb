@@ -1,4 +1,4 @@
-require 'spec_helper'
+require "spec_helper"
 
 describe BrexitCheckerHelper, type: :helper do
   describe "#filter_items" do
@@ -36,12 +36,12 @@ describe BrexitCheckerHelper, type: :helper do
         expect(subject).to eq([
           {
             heading: I18n.t("brexit_checker.results.audiences.citizen.heading"),
-            actions: [action2, action1]
+            actions: [action2, action1],
           },
           {
             heading: I18n.t("brexit_checker.results.audiences.business.heading"),
-            actions: [action3, action4]
-          }
+            actions: [action3, action4],
+          },
         ])
       end
     end
@@ -53,8 +53,8 @@ describe BrexitCheckerHelper, type: :helper do
 
     subject { persistent_criteria_keys(question_criteria_keys) }
 
-    it 'returns all but the questions criteria' do
-      expect(subject).to contain_exactly('A', 'B')
+    it "returns all but the questions criteria" do
+      expect(subject).to contain_exactly("A", "B")
     end
   end
 
@@ -70,7 +70,7 @@ describe BrexitCheckerHelper, type: :helper do
       next_question_index(
         all_questions: questions,
         criteria_keys: criteria_keys,
-        previous_question_index: previous_question_index
+        previous_question_index: previous_question_index,
       )
     }
 
@@ -84,42 +84,42 @@ describe BrexitCheckerHelper, type: :helper do
       allow(q4).to receive(:show?).with(%w(c)) { true }
     end
 
-    context 'previous question id is zero' do
+    context "previous question id is zero" do
       let(:previous_question_index) { 0 }
       let(:criteria_keys) { [] }
-      it 'returns first question' do
+      it "returns first question" do
         expect(subject).to eq(0)
       end
     end
 
-    context 'previous question id is one and the criteria matches question two' do
+    context "previous question id is one and the criteria matches question two" do
       let(:previous_question_index) { 1 }
       let(:criteria_keys) { %w[a b] }
-      it 'returns question two' do
+      it "returns question two" do
         expect(subject).to eq(1)
       end
     end
 
-    context 'previous question id is one and the criteria matches question three' do
+    context "previous question id is one and the criteria matches question three" do
       let(:previous_question_index) { 1 }
       let(:criteria_keys) { %w[c d] }
-      it 'returns question three' do
+      it "returns question three" do
         expect(subject).to eq(2)
       end
     end
 
-    context 'previous question id is one and the criteria does any futher questions' do
+    context "previous question id is one and the criteria does any futher questions" do
       let(:previous_question_index) { 1 }
       let(:criteria_keys) { %w[e] }
-      it 'does not return a question' do
+      it "does not return a question" do
         expect(subject).to be nil
       end
     end
 
-    context 'previous question id is higher than the number of questions' do
+    context "previous question id is higher than the number of questions" do
       let(:previous_question_index) { questions.count + 1 }
       let(:criteria_keys) { [] }
-      it 'does not return a question' do
+      it "does not return a question" do
         expect(subject).to be nil
       end
     end

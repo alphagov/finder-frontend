@@ -5,7 +5,7 @@ module ResultSetParser
     ResultSet.new(
       documents,
       start,
-      total
+      total,
     )
   end
 end

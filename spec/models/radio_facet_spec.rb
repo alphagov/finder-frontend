@@ -3,11 +3,11 @@ require "spec_helper"
 describe RadioFacet do
   let(:facet_data) {
     {
-      'type' => "radio_facet",
-      'key' => "type",
-      'value' => "selected_value",
+      "type" => "radio_facet",
+      "key" => "type",
+      "value" => "selected_value",
       "allowed_values" => [{ "value" => "selected_value" }],
-      'filterable' => true
+      "filterable" => true,
     }
   }
 

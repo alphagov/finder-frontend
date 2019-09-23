@@ -30,7 +30,7 @@ describe BrexitChecker::ConvertCsvToYaml::ActionsProcessor do
     end
 
     it "ignores empty criteria field" do
-      record.delete('criteria')
+      record.delete("criteria")
       result = described_class.new.process(record)
       expect(result).not_to include("criteria" => nil)
     end

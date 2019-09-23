@@ -26,7 +26,7 @@ class FinderPresenter
 
   def initialize(content_item, facets, values = {})
     @content_item = content_item
-    @organisations = content_item.links.fetch('organisations', [])
+    @organisations = content_item.links.fetch("organisations", [])
     @values = values
     @facets = facets
     @keywords = values["keywords"].presence
@@ -49,7 +49,7 @@ class FinderPresenter
   end
 
   def government_content_section
-    slug.split('/')[2]
+    slug.split("/")[2]
   end
 
   def display_metadata?
@@ -58,7 +58,7 @@ class FinderPresenter
 
   def page_metadata
     metadata = {
-      from: organisations
+      from: organisations,
     }
 
     metadata[:inverse] = true if topic_finder?
@@ -66,11 +66,11 @@ class FinderPresenter
   end
 
   def topic_finder?
-    values.include?('topic') && topic_finder_parent.present?
+    values.include?("topic") && topic_finder_parent.present?
   end
 
   def topic_finder_parent
-    Services.registries.all['full_topic_taxonomy'][values['topic']]
+    Services.registries.all["full_topic_taxonomy"][values["topic"]]
   end
 
 private

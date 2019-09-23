@@ -12,17 +12,17 @@ class OptionSelectFacet < FilterableFacet
     # that expects symbol keys, not strings
     @options ||= allowed_values.map do |allowed_value|
       {
-        value: allowed_value['value'],
-        label: allowed_value['label'],
+        value: allowed_value["value"],
+        label: allowed_value["label"],
         id: "#{key}-#{allowed_value['value']}",
         data_attributes: {
           track_category: "filterClicked",
           uncheck_track_category: "filterRemoved",
           track_action: name,
-          track_label: allowed_value['label'],
+          track_label: allowed_value["label"],
         },
         checked: selected_values.include?(allowed_value),
-        controls: controls || nil
+        controls: controls || nil,
       }
     end
   end
@@ -31,10 +31,10 @@ class OptionSelectFacet < FilterableFacet
     return nil unless selected_values.any?
 
     {
-      'key' => key,
-      'preposition' => preposition,
-      'values' => value_fragments,
-      'word_connectors' => or_word_connectors
+      "key" => key,
+      "preposition" => preposition,
+      "values" => value_fragments,
+      "word_connectors" => or_word_connectors,
     }
   end
 
@@ -55,7 +55,7 @@ class OptionSelectFacet < FilterableFacet
   end
 
   def query_params
-    { key => selected_values.map { |value| value['value'] } }
+    { key => selected_values.map { |value| value["value"] } }
   end
 
 private
@@ -63,9 +63,9 @@ private
   def value_fragments
     @value_fragments ||= selected_values.map { |value|
       {
-        'label' => value['label'],
-        'value' => value['value'],
-        'parameter_key' => key
+        "label" => value["label"],
+        "value" => value["value"],
+        "parameter_key" => key,
       }
     }
   end
@@ -75,7 +75,7 @@ private
       return [] if @value.nil?
 
       allowed_values.select { |option|
-        @value.include?(option['value'])
+        @value.include?(option["value"])
       }
     end
   end

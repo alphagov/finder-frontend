@@ -4,7 +4,7 @@ class SearchParameters
   end
 
   def search_term
-    full_term = params[:q]&.strip&.gsub(/\s{2,}/, ' ')
+    full_term = params[:q]&.strip&.gsub(/\s{2,}/, " ")
     unless full_term.nil?
       full_term[0, Search::QueryBuilder::MAX_QUERY_LENGTH]
     end

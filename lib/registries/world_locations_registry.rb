@@ -31,7 +31,7 @@ module Registries
     def locations
       GovukStatsd.time("registries.world_locations.request_time") do
         fetch_locations.each_with_object({}) { |hash, result_hash|
-          result_hash[hash['slug']] = hash
+          result_hash[hash["slug"]] = hash
         }
       end
     end
@@ -39,9 +39,9 @@ module Registries
     def fetch_locations
       fetch_locations_from_worldwide_api.map { |result|
         {
-          'title' => result['title'],
-          'slug' => result.dig('details', 'slug'),
-          'content_id' => result['content_id']
+          "title" => result["title"],
+          "slug" => result.dig("details", "slug"),
+          "content_id" => result["content_id"],
         }
       }
     end

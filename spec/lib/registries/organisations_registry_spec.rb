@@ -1,15 +1,15 @@
-require 'spec_helper'
+require "spec_helper"
 
 RSpec.describe Registries::OrganisationsRegistry do
   include RegistrySpecHelper
 
-  let(:slug) { 'ministry-of-magic' }
+  let(:slug) { "ministry-of-magic" }
   let(:rummager_params) {
     {
       "count" => 1500,
       "fields" => %w(slug title acronym content_id),
       "filter_format" => "organisation",
-      "order" => 'title',
+      "order" => "title",
     }
   }
   let(:rummager_url) { "#{Plek.current.find('search')}/search.json?#{rummager_params.to_query}" }
@@ -23,10 +23,10 @@ RSpec.describe Registries::OrganisationsRegistry do
     it "will fetch organisation information by slug" do
       organisation = described_class.new[slug]
       expect(organisation).to eq(
-        'title' => 'Ministry of Magic',
-        'acronym' => 'MOM',
-        'slug' => slug,
-        'content_id' => 'content_id_for_ministry-of-magic'
+        "title" => "Ministry of Magic",
+        "acronym" => "MOM",
+        "slug" => slug,
+        "content_id" => "content_id_for_ministry-of-magic",
       )
     end
 

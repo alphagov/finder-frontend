@@ -34,7 +34,7 @@ class Document
 
   def truncated_description
     # This truncates the description at the end of the first sentence
-    description.gsub(/\.\s[A-Z].*/, '.') if description.present?
+    description.gsub(/\.\s[A-Z].*/, ".") if description.present?
   end
 
 private
@@ -66,7 +66,7 @@ private
   def text_metadata_keys(facets)
     keys = metadata_facets(facets).select { |f| f.type == "text" }.map(&:key)
     keys.reject do |key|
-      key == 'organisations' && is_mainstream_content?
+      key == "organisations" && is_mainstream_content?
     end
   end
 
@@ -79,7 +79,7 @@ private
   end
 
   def date_metadata(facets)
-    return [] if @content_purpose_supergroup == 'services'
+    return [] if @content_purpose_supergroup == "services"
 
     date_metadata_keys(facets)
       .map(&method(:build_date_metadata))
@@ -133,7 +133,7 @@ private
 
   def humanize_metadata_name(facets, metadata_hash)
     metadata_hash.merge(
-      name: label_for_metadata_key(facets, metadata_hash.fetch(:name))
+      name: label_for_metadata_key(facets, metadata_hash.fetch(:name)),
     )
   end
 
@@ -145,7 +145,7 @@ private
 
   def get_metadata_label(key, tag)
     if tag.respond_to? :fetch
-      tag.fetch(display_key_for_metadata_key(key), '')
+      tag.fetch(display_key_for_metadata_key(key), "")
     else
       tag
     end
@@ -153,9 +153,9 @@ private
 
   def display_key_for_metadata_key(key)
     if %w[organisations document_collections].include?(key)
-      'title'
+      "title"
     else
-      'label'
+      "label"
     end
   end
 end

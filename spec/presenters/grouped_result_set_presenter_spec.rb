@@ -1,4 +1,4 @@
-require 'spec_helper'
+require "spec_helper"
 
 RSpec.describe GroupedResultSetPresenter do
   subject(:presenter) { GroupedResultSetPresenter.new(finder_presenter, search_results, filter_params, sort_presenter, metadata_presenter_class) }
@@ -11,7 +11,7 @@ RSpec.describe GroupedResultSetPresenter do
     FactoryBot.build(:content_item, finder_name: finder_name)
   }
 
-  let(:finder_name) { 'A finder' }
+  let(:finder_name) { "A finder" }
 
   let(:finder_presenter) do
     FinderPresenter.new(content_item, facets)
@@ -23,54 +23,54 @@ RSpec.describe GroupedResultSetPresenter do
 
   let(:first_facet) do
     FactoryBot.build(:option_select_facet,
-                     key: 'first_facet_key',
-                     short_name: 'Primary Facet Short Name',
+                     key: "first_facet_key",
+                     short_name: "Primary Facet Short Name",
                      allowed_values: [
                        {
-                         'value' => 'first_value_1',
-                         'label' => 'Primary Label 1',
-                         'content_id' => 'first_value_1_content_id'
+                         "value" => "first_value_1",
+                         "label" => "Primary Label 1",
+                         "content_id" => "first_value_1_content_id",
                        },
                        {
-                         'value' => 'first_value_2',
-                         'label' => 'Primary Label 2',
-                         'content_id' => 'first_value_2_content_id'
+                         "value" => "first_value_2",
+                         "label" => "Primary Label 2",
+                         "content_id" => "first_value_2_content_id",
                        },
                      ])
   end
 
   let(:second_facet) do
     FactoryBot.build(:option_select_facet,
-                     key: 'second_facet_key',
-                     short_name: 'Secondary Facet Short Name',
+                     key: "second_facet_key",
+                     short_name: "Secondary Facet Short Name",
                      allowed_values: [
                        {
-                         'value' => 'second_value_1',
-                         'label' => 'secondary Label 1',
-                         'content_id' => 'second_value_1_content_id'
+                         "value" => "second_value_1",
+                         "label" => "secondary Label 1",
+                         "content_id" => "second_value_1_content_id",
                        },
                        {
-                         'value' => 'second_value_2',
-                         'label' => 'Secondary Label 2',
-                         'content_id' => 'second_value_2_content_id'
-                       }
+                         "value" => "second_value_2",
+                         "label" => "Secondary Label 2",
+                         "content_id" => "second_value_2_content_id",
+                       },
                      ])
   end
 
   let(:third_facet) do
     FactoryBot.build(:option_select_facet,
-                     key: 'third_facet_key',
-                     short_name: 'Tertiary Facet Short Name',
+                     key: "third_facet_key",
+                     short_name: "Tertiary Facet Short Name",
                      allowed_values: [
                        {
-                         'value' => 'third_value_1',
-                         'label' => 'tertiary Label 1',
-                         'content_id' => 'third_value_1_content_id'
+                         "value" => "third_value_1",
+                         "label" => "tertiary Label 1",
+                         "content_id" => "third_value_1_content_id",
                        },
                        {
-                         'value' => 'third_value_2',
-                         'label' => 'Tertiary Label 2',
-                         'content_id' => 'third_value_2_content_id'
+                         "value" => "third_value_2",
+                         "label" => "Tertiary Label 2",
+                         "content_id" => "third_value_2_content_id",
                        },
                      ])
   end
@@ -87,7 +87,7 @@ RSpec.describe GroupedResultSetPresenter do
     end
 
     context "Ordering is not set to topic, so there is no grouping" do
-      let(:filter_params) { { order: 'a-z' } }
+      let(:filter_params) { { order: "a-z" } }
       let(:search_results) { ResultSetParser.parse([FactoryBot.build(:document_hash)], 0, 1) }
 
       it "returns an empty array" do
@@ -96,7 +96,7 @@ RSpec.describe GroupedResultSetPresenter do
     end
 
     context "The user has not selected any facets" do
-      let(:filter_params) { { order: 'topic' } }
+      let(:filter_params) { { order: "topic" } }
       let(:search_results) {
         document = FactoryBot.build(:document_hash,
                                     facet_values: %w[first_value_1_content_id
@@ -108,7 +108,7 @@ RSpec.describe GroupedResultSetPresenter do
       it "groups all documents in the default group" do
         expect(subject.search_results_content[:grouped_document_list_component_data]).
           to eq([{
-                   documents: subject.search_results_content[:document_list_component_data]
+                   documents: subject.search_results_content[:document_list_component_data],
                  }])
       end
 
@@ -120,7 +120,7 @@ RSpec.describe GroupedResultSetPresenter do
     context "The user has not selected only the primary facet" do
       let(:filter_params) {
         {
-          order: 'topic',
+          order: "topic",
           first_facet_key: %W(first_value_1),
         }
       }
@@ -143,9 +143,9 @@ RSpec.describe GroupedResultSetPresenter do
         expect(subject.search_results_content[:grouped_document_list_component_data]).
           to eq([
                   {
-                    group_name: 'Primary Label 1',
-                    documents: [build_document_list_component(document, 1)]
-                  }
+                    group_name: "Primary Label 1",
+                    documents: [build_document_list_component(document, 1)],
+                  },
                 ])
       end
     end
@@ -168,7 +168,7 @@ RSpec.describe GroupedResultSetPresenter do
       let(:search_results) {
         ResultSetParser.parse([
                                 tagged_to_first_facet_document_hash,
-                                tagged_to_second_and_third_facet_document_hash
+                                tagged_to_second_and_third_facet_document_hash,
                               ], 0, 5)
       }
 
@@ -181,7 +181,7 @@ RSpec.describe GroupedResultSetPresenter do
 
       let(:filter_params) {
         {
-          order: 'topic',
+          order: "topic",
           first_facet_key: %W(first_value_1),
           second_facet_key: %W(second_value_1),
           third_facet_key: %W(third_value_1),
@@ -192,17 +192,17 @@ RSpec.describe GroupedResultSetPresenter do
         expect(subject.search_results_content[:grouped_document_list_component_data]).
           to eq([
                   {
-                    group_name: 'Primary Label 1',
-                    documents: [build_document_list_component(tagged_to_first_facet_document, 2)]
+                    group_name: "Primary Label 1",
+                    documents: [build_document_list_component(tagged_to_first_facet_document, 2)],
                   },
                   {
-                    group_name: 'Secondary Facet Short Name',
-                    documents: [build_document_list_component(tagged_to_second_and_third_facet_document, 2)]
+                    group_name: "Secondary Facet Short Name",
+                    documents: [build_document_list_component(tagged_to_second_and_third_facet_document, 2)],
                   },
                   {
-                    group_name: 'Tertiary Facet Short Name',
-                    documents: [build_document_list_component(tagged_to_second_and_third_facet_document, 2)]
-                  }
+                    group_name: "Tertiary Facet Short Name",
+                    documents: [build_document_list_component(tagged_to_second_and_third_facet_document, 2)],
+                  },
 
                 ])
       end
@@ -217,7 +217,7 @@ RSpec.describe GroupedResultSetPresenter do
       }
       let(:filter_params) {
         {
-          order: 'topic',
+          order: "topic",
           first_facet_key: %W(first_value_1),
         }
       }
@@ -233,9 +233,9 @@ RSpec.describe GroupedResultSetPresenter do
         expect(subject.search_results_content[:grouped_document_list_component_data]).
           to eq([
                   {
-                    group_name: 'All businesses',
-                    documents: [build_document_list_component(document, 1)]
-                  }
+                    group_name: "All businesses",
+                    documents: [build_document_list_component(document, 1)],
+                  },
                 ])
       end
     end
@@ -261,13 +261,13 @@ RSpec.describe GroupedResultSetPresenter do
         end
       end
       context "with a 'topic' sort param" do
-        let(:filter_params) { { 'order' => 'topic' } }
+        let(:filter_params) { { "order" => "topic" } }
         it "is true" do
           expect(grouped_display).to be true
         end
       end
       context "with non-topic sort param" do
-        let(:filter_params) { { order: 'most-viewed' } }
+        let(:filter_params) { { order: "most-viewed" } }
         it "is false" do
           expect(grouped_display).to be false
         end

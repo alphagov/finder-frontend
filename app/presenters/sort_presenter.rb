@@ -1,6 +1,6 @@
 class SortPresenter
   def initialize(content_item, filter_params)
-    @user_selected_order = filter_params['order']
+    @user_selected_order = filter_params["order"]
     @keywords = filter_params["keywords"]
     @content_item_sort_options = content_item.sort_options
   end
@@ -44,9 +44,9 @@ private
   def presented_sort_options
     @presented_sort_options ||= sort_options.map do |option|
       SortOptionPresenter.new(
-        label: option['name'],
+        label: option["name"],
         value: option_value(option),
-        key: option['key'],
+        key: option["key"],
         default: is_default?(option),
         selected: option_value(option) == option_value(selected_option),
         disabled: option_value(option) == disabled_option_value,
@@ -55,7 +55,7 @@ private
   end
 
   def is_default?(option)
-    option['default']
+    option["default"]
   end
 
   def options_as_hashes
@@ -67,20 +67,20 @@ private
   end
 
   def disabled_option_value
-    keywords.blank? && relevance_option.present? ? option_value(relevance_option) : ''
+    keywords.blank? && relevance_option.present? ? option_value(relevance_option) : ""
   end
 
   def raw_default_option
-    sort_options.find { |option| option['default'] }
+    sort_options.find { |option| option["default"] }
   end
 
   def relevance_option
-    sort_options.find { |option| RELEVANCE_OPTION_TYPES.include?(option['key']) }
+    sort_options.find { |option| RELEVANCE_OPTION_TYPES.include?(option["key"]) }
   end
 
   def option_value(option)
     return if option.nil?
 
-    option.fetch('value', option.fetch('name', '').parameterize)
+    option.fetch("value", option.fetch("name", "").parameterize)
   end
 end

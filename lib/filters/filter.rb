@@ -6,7 +6,7 @@ module Filters
     end
 
     def key
-      facet['filter_key'] || facet['key']
+      facet["filter_key"] || facet["key"]
     end
 
     def active?
@@ -36,11 +36,11 @@ module Filters
     end
 
     def multi_value?
-      facet.has_key?('option_lookup')
+      facet.has_key?("option_lookup")
     end
 
     def option_lookup
-      @option_lookup ||= facet['option_lookup']
+      @option_lookup ||= facet["option_lookup"]
     end
   end
 end

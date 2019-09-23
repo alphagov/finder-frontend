@@ -1,4 +1,4 @@
-require 'spec_helper'
+require "spec_helper"
 
 RSpec.describe SortPresenter do
   include GovukContentSchemaExamples
@@ -10,7 +10,7 @@ RSpec.describe SortPresenter do
   subject(:presenter_with_relevance_selected) {
     described_class.new(
       content_item(sort_options: sort_options_with_relevance),
-      "keywords" => "cats", "order" => "relevance"
+      "keywords" => "cats", "order" => "relevance",
     )
   }
 
@@ -21,7 +21,7 @@ RSpec.describe SortPresenter do
   let(:sort_options_without_relevance) {
     [
       { "name" => "Most viewed" },
-      { "name" => "Updated (newest)" }
+      { "name" => "Updated (newest)" },
     ]
   }
 
@@ -29,21 +29,21 @@ RSpec.describe SortPresenter do
     [
       { "name" => "Most viewed" },
       { "name" => "Updated (newest)" },
-      { "name" => "Relevance", "key" => "relevance" }
+      { "name" => "Relevance", "key" => "relevance" },
     ]
   }
 
   let(:sort_options_with_default) {
     [
       { "name" => "Most viewed" },
-      { "name" => "Updated (oldest)", "default" => true }
+      { "name" => "Updated (oldest)", "default" => true },
     ]
   }
 
   let(:sort_options_with_public_timestamp_default) {
     [
       { "name" => "Most viewed" },
-      { "name" => "Updated (newest)", "key" => "-public_timestamp", "default" => true }
+      { "name" => "Updated (newest)", "key" => "-public_timestamp", "default" => true },
     ]
   }
 
@@ -52,8 +52,8 @@ RSpec.describe SortPresenter do
       expect(presenter_with_sort.to_hash).to eq(
         options: [
           {
-            data_track_category: 'dropDownClicked',
-            data_track_action: 'clicked',
+            data_track_category: "dropDownClicked",
+            data_track_action: "clicked",
             data_track_label: "Most viewed",
             label: "Most viewed",
             value: "most-viewed",
@@ -61,14 +61,14 @@ RSpec.describe SortPresenter do
             selected: false,
           },
           {
-            data_track_category: 'dropDownClicked',
-            data_track_action: 'clicked',
+            data_track_category: "dropDownClicked",
+            data_track_action: "clicked",
             data_track_label: "Updated (newest)",
             label: "Updated (newest)",
             value: "updated-newest",
             disabled: false,
             selected: false,
-          }
+          },
         ],
         default_value: nil,
         relevance_value: nil,
@@ -86,8 +86,8 @@ RSpec.describe SortPresenter do
     it "sets an option as selected if a valid order is provided by the user" do
       expect(presenter_with_relevance_selected.to_hash[:options].find { |o| o[:selected] }).
         to eq(
-          data_track_category: 'dropDownClicked',
-          data_track_action: 'clicked',
+          data_track_category: "dropDownClicked",
+          data_track_action: "clicked",
           data_track_label: "Relevance",
           label: "Relevance",
           value: "relevance",
@@ -98,7 +98,7 @@ RSpec.describe SortPresenter do
 
     it "should disable the relevance option if keywords are not present" do
       expect(presenter_with_relevance.to_hash[:options].find { |o|
-        o[:value] == 'relevance'
+        o[:value] == "relevance"
       }[:disabled]).to be true
     end
 
@@ -107,7 +107,7 @@ RSpec.describe SortPresenter do
 
       it "should not disable relevance" do
         expect(presenter_with_relevance.to_hash[:options].find { |o|
-          o[:value] == 'relevance'
+          o[:value] == "relevance"
         }[:disabled]).to be false
       end
     end
@@ -132,7 +132,7 @@ RSpec.describe SortPresenter do
           disabled: false,
           label: "Updated (oldest)",
           selected: true,
-          value: "updated-oldest"
+          value: "updated-oldest",
         )
       end
     end
@@ -162,7 +162,7 @@ RSpec.describe SortPresenter do
     context "an option is selected by the user" do
       it "returns a selected content item sort option" do
         expect(presenter_with_relevance_selected.selected_option).to eq(
-          "key" => "relevance", "name" => "Relevance"
+          "key" => "relevance", "name" => "Relevance",
         )
       end
     end
@@ -170,7 +170,7 @@ RSpec.describe SortPresenter do
     context "no option is selected by the user" do
       it "returns a default content item sort option" do
         expect(presenter_with_default.selected_option).to eq(
-          "default" => true, "name" => "Updated (oldest)"
+          "default" => true, "name" => "Updated (oldest)",
         )
       end
     end
@@ -186,7 +186,7 @@ RSpec.describe SortPresenter do
     context "a default option is specified in the content item" do
       it "returns the default SortOptionPresenter" do
         expect(presenter_with_default.default_option).to be_instance_of(SortOptionPresenter)
-        expect(presenter_with_default.default_option.label).to eq('Updated (oldest)')
+        expect(presenter_with_default.default_option.label).to eq("Updated (oldest)")
       end
     end
 
@@ -200,8 +200,8 @@ RSpec.describe SortPresenter do
 private
 
   def content_item(sort_options: nil)
-    finder_example = govuk_content_schema_example('finder')
-    finder_example['details']['sort'] = sort_options
+    finder_example = govuk_content_schema_example("finder")
+    finder_example["details"]["sort"] = sort_options
     ContentItem.new(finder_example)
   end
 end

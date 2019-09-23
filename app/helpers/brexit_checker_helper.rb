@@ -11,7 +11,7 @@ module BrexitCheckerHelper
         heading: I18n.t("brexit_checker.results.audiences.#{key}.heading"),
         actions: action_group.sort_by.with_index do |action, index|
           [-action.priority, index]
-        end
+        end,
       }
     end
   end

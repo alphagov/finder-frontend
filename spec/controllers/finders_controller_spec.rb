@@ -1,6 +1,6 @@
-require 'spec_helper'
-require 'gds_api/test_helpers/content_store'
-require 'gds_api/test_helpers/rummager'
+require "spec_helper"
+require "gds_api/test_helpers/content_store"
+require "gds_api/test_helpers/rummager"
 
 describe FindersController, type: :controller do
   include GdsApi::TestHelpers::ContentStore
@@ -12,9 +12,9 @@ describe FindersController, type: :controller do
   render_views
 
   let(:lunch_finder) do
-    finder = govuk_content_schema_example('finder').to_hash.merge(
-      'title' => 'Lunch Finder',
-      'base_path' => '/lunch-finder',
+    finder = govuk_content_schema_example("finder").to_hash.merge(
+      "title" => "Lunch Finder",
+      "base_path" => "/lunch-finder",
     )
 
     finder["details"]["default_documents_per_page"] = 10
@@ -30,8 +30,8 @@ describe FindersController, type: :controller do
 
   describe "GET show" do
     let(:all_content_finder) do
-      finder = govuk_content_schema_example('finder').to_hash.merge(
-        'base_path' => '/search/all',
+      finder = govuk_content_schema_example("finder").to_hash.merge(
+        "base_path" => "/search/all",
       )
 
       finder["details"]["default_documents_per_page"] = 10
@@ -42,8 +42,8 @@ describe FindersController, type: :controller do
     describe "a finder content item exists" do
       before do
         content_store_has_item(
-          '/lunch-finder',
-          lunch_finder
+          "/lunch-finder",
+          lunch_finder,
         )
 
         rummager_response = %|{
@@ -65,13 +65,13 @@ describe FindersController, type: :controller do
               order: "-public_timestamp",
               start: 0,
               suggest: "spelling",
-            }
+            },
           )
           .to_return(status: 200, body: rummager_response, headers: {})
       end
 
       it "correctly renders a finder page" do
-        get :show, params: { slug: 'lunch-finder' }
+        get :show, params: { slug: "lunch-finder" }
         expect(response.status).to eq(200)
         expect(response).to render_template("finders/show")
       end
@@ -81,7 +81,7 @@ describe FindersController, type: :controller do
         expect(response.status).to eq(200)
         expect(response.content_type).to eq("application/atom+xml")
         expect(response).to render_template("finders/show")
-        expect(response.headers['Cache-Control']).to eq("max-age=300, public")
+        expect(response.headers["Cache-Control"]).to eq("max-age=300, public")
       end
 
       it "can respond with JSON" do
@@ -100,11 +100,11 @@ describe FindersController, type: :controller do
 
     describe "a finder content item with a default order exists" do
       it "sorts the finder results by public timestamp" do
-        sort_options = [{ 'name' => 'Closing date', 'key' => '-closing_date', 'default' => true, }]
+        sort_options = [{ "name" => "Closing date", "key" => "-closing_date", "default" => true }]
 
         content_store_has_item(
-          '/lunch-finder',
-          lunch_finder.merge('details' => lunch_finder['details'].merge('sort' => sort_options))
+          "/lunch-finder",
+          lunch_finder.merge("details" => lunch_finder["details"].merge("sort" => sort_options)),
         )
 
         rummager_response = %|{
@@ -124,11 +124,11 @@ describe FindersController, type: :controller do
               order: "-public_timestamp",
               start: 0,
               suggest: "spelling",
-            }
+            },
           )
           .to_return(status: 200, body: rummager_response, headers: {})
 
-        get :show, params: { format: :atom, slug: 'lunch-finder' }
+        get :show, params: { format: :atom, slug: "lunch-finder" }
         expect(stub).to have_been_requested
         expect(response.status).to eq(200)
       end
@@ -136,15 +136,15 @@ describe FindersController, type: :controller do
 
     describe "finder item doesn't exist" do
       before do
-        content_store_does_not_have_item('/does-not-exist')
+        content_store_does_not_have_item("/does-not-exist")
       end
 
-      it 'returns a 404, rather than 5xx' do
-        get :show, params: { slug: 'does-not-exist' }
+      it "returns a 404, rather than 5xx" do
+        get :show, params: { slug: "does-not-exist" }
         expect(response.status).to eq(404)
       end
 
-      it 'returns a 404, rather than 5xx for the atom feed' do
+      it "returns a 404, rather than 5xx for the atom feed" do
         get :show, params: { slug: "does-not-exist", format: "atom" }
 
         expect(response.status).to eq(404)
@@ -156,24 +156,24 @@ describe FindersController, type: :controller do
         stub_request(:get, "#{Plek.find('content-store')}/content/unpublished-finder").to_return(
           status: 200,
           body: {
-            document_type: 'redirect',
-            schema_name: 'redirect',
+            document_type: "redirect",
+            schema_name: "redirect",
             redirects: [
-              { path: '/unpublished-finder', type: 'exact', destination: '/replacement' }
-            ]
+              { path: "/unpublished-finder", type: "exact", destination: "/replacement" },
+            ],
           }.to_json,
-          headers: {}
+          headers: {},
         )
       end
 
-      it 'returns a message indicating the atom feed has ended' do
+      it "returns a message indicating the atom feed has ended" do
         get :show, params: { slug: "unpublished-finder", format: "atom" }
 
         expect(response.status).to eq(200)
         expect(response.body).to include("This feed no longer exists")
       end
 
-      it 'returns a 404 for json responses' do
+      it "returns a 404 for json responses" do
         get :show, params: { slug: "unpublished-finder", format: "json" }
 
         expect(response.status).to eq(404)
@@ -185,17 +185,17 @@ describe FindersController, type: :controller do
           stub_request(:get, "#{Plek.find('content-store')}/content/government/policies/cats").to_return(
             status: 200,
             body: {
-              document_type: 'redirect',
-              schema_name: 'redirect',
+              document_type: "redirect",
+              schema_name: "redirect",
               redirects: [
-                { path: '/government/policies/cats', type: 'exact', destination: '/cats' }
-              ]
+                { path: "/government/policies/cats", type: "exact", destination: "/cats" },
+              ],
             }.to_json,
-            headers: {}
+            headers: {},
           )
         end
 
-        it 'returns a policy specific message indicating the atom feed has ended' do
+        it "returns a policy specific message indicating the atom feed has ended" do
           get :show, params: { slug: "government/policies/cats", format: "atom" }
 
           expect(response.status).to eq(200)
@@ -206,8 +206,8 @@ describe FindersController, type: :controller do
 
     describe "Show/Hiding site search form" do
       before do
-        content_store_has_item('/search/all', all_content_finder)
-        content_store_has_item('/lunch-finder', lunch_finder)
+        content_store_has_item("/search/all", all_content_finder)
+        content_store_has_item("/lunch-finder", lunch_finder)
 
         rummager_response = %|{
           "results": [],
@@ -226,18 +226,18 @@ describe FindersController, type: :controller do
               order: "-public_timestamp",
               start: 0,
               suggest: "spelling",
-            }
+            },
           )
           .to_return(status: 200, body: rummager_response, headers: {})
       end
 
-      it 'all content finder tells Slimmer to hide the form' do
-        get :show, params: { slug: 'search/all' }
+      it "all content finder tells Slimmer to hide the form" do
+        get :show, params: { slug: "search/all" }
         expect(response.headers["X-Slimmer-Remove-Search"]).to eq("true")
       end
 
-      it 'any other finder does not tell Slimmer to hide the form' do
-        get :show, params: { slug: 'lunch-finder' }
+      it "any other finder does not tell Slimmer to hide the form" do
+        get :show, params: { slug: "lunch-finder" }
         expect(response.headers).not_to include("X-Slimmer-Remove-Search")
       end
     end
@@ -245,10 +245,10 @@ describe FindersController, type: :controller do
 
   describe "Search cluster AB tests" do
     let(:breakfast_finder) do
-      finder = govuk_content_schema_example('finder').to_hash.merge(
-        'title' => 'Breakfast Finder',
-        'base_path' => '/breakfast-finder',
-        'content_id' => '42ce66de-04f3-4192-bf31-8394538e0734'
+      finder = govuk_content_schema_example("finder").to_hash.merge(
+        "title" => "Breakfast Finder",
+        "base_path" => "/breakfast-finder",
+        "content_id" => "42ce66de-04f3-4192-bf31-8394538e0734",
       )
 
       finder["details"]["default_documents_per_page"] = 10
@@ -256,11 +256,11 @@ describe FindersController, type: :controller do
       finder
     end
 
-    let(:filter_params) { double(:filter_params, keywords: '') }
+    let(:filter_params) { double(:filter_params, keywords: "") }
     let(:finder_presenter) { FinderPresenter.new(breakfast_finder, {}, filter_params) }
 
     before do
-      content_store_has_item(breakfast_finder['base_path'], breakfast_finder)
+      content_store_has_item(breakfast_finder["base_path"], breakfast_finder)
       rummager_response = %|{
         "results": [],
         "total": 0,
@@ -272,7 +272,7 @@ describe FindersController, type: :controller do
     end
 
     it "Variant Default sets use_default_cluster? and not use_b_cluster?" do
-      with_variant SearchClusterQueryABTest: 'Default' do
+      with_variant SearchClusterQueryABTest: "Default" do
         get :show, params: { slug: path_for(breakfast_finder) }
         expect(subject.use_default_cluster?).to eq(true)
         expect(subject.use_b_cluster?).to eq(false)
@@ -280,7 +280,7 @@ describe FindersController, type: :controller do
     end
 
     it "Variant A does not set use_default_cluster? or use_b_cluster?" do
-      with_variant SearchClusterQueryABTest: 'A' do
+      with_variant SearchClusterQueryABTest: "A" do
         get :show, params: { slug: path_for(breakfast_finder) }
         expect(subject.use_default_cluster?).to eq(false)
         expect(subject.use_b_cluster?).to eq(false)
@@ -288,7 +288,7 @@ describe FindersController, type: :controller do
     end
 
     it "Variant 'B' sets use_b_cluster? and not use_default_cluster?" do
-      with_variant SearchClusterQueryABTest: 'B' do
+      with_variant SearchClusterQueryABTest: "B" do
         get :show, params: { slug: path_for(breakfast_finder) }
         expect(subject.use_default_cluster?).to eq(false)
         expect(subject.use_b_cluster?).to eq(true)
@@ -298,10 +298,10 @@ describe FindersController, type: :controller do
 
   describe "Spelling suggestions" do
     let(:breakfast_finder) do
-      finder = govuk_content_schema_example('finder').to_hash.merge(
-        'title' => 'Breakfast Finder',
-        'base_path' => '/breakfast-finder',
-        'content_id' => '42ce66de-04f3-4192-bf31-8394538e0734'
+      finder = govuk_content_schema_example("finder").to_hash.merge(
+        "title" => "Breakfast Finder",
+        "base_path" => "/breakfast-finder",
+        "content_id" => "42ce66de-04f3-4192-bf31-8394538e0734",
       )
 
       finder["details"]["default_documents_per_page"] = 10
@@ -310,7 +310,7 @@ describe FindersController, type: :controller do
     end
 
     before do
-      content_store_has_item(breakfast_finder['base_path'], breakfast_finder)
+      content_store_has_item(breakfast_finder["base_path"], breakfast_finder)
       rummager_response = %|{
         "results": [],
         "total": 0,
@@ -332,8 +332,8 @@ describe FindersController, type: :controller do
   end
 
   def path_for(content_item, locale = nil)
-    base_path = content_item['base_path'].sub(/^\//, '')
-    base_path.gsub!(/\.#{locale}$/, '') if locale
+    base_path = content_item["base_path"].sub(/^\//, "")
+    base_path.gsub!(/\.#{locale}$/, "") if locale
     base_path
   end
 end

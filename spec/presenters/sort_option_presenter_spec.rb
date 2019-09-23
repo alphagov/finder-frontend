@@ -1,10 +1,10 @@
-require 'spec_helper'
+require "spec_helper"
 
 RSpec.describe SortOptionPresenter do
   subject(:sort_option) { described_class.new(label: "Updated (newest)", key: "-public_timestamp") }
   subject(:sort_option_with_value) { described_class.new(label: "Updated (newest)", value: "frogs-frogs-frogs", key: "-public_timestamp") }
   subject(:default_sort_option) { described_class.new(label: "Most viewed", key: "most-viewed", default: true) }
-  subject(:relevance_sort_option) { described_class.new(label: "Show least relevant", key: "-relevance",) }
+  subject(:relevance_sort_option) { described_class.new(label: "Show least relevant", key: "-relevance") }
 
   describe "#value" do
     context "a value is provided" do

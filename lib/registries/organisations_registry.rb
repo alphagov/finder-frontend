@@ -31,24 +31,24 @@ module Registries
     def organisations_as_hash
       GovukStatsd.time("registries.organisations.request_time") do
         fetch_organisations_from_rummager
-          .reject { |result| result['slug'].empty? || result['title'].empty? }
-          .sort_by { |result| result['title'].sub("Closed organisation: ", "ZZ").upcase }
+          .reject { |result| result["slug"].empty? || result["title"].empty? }
+          .sort_by { |result| result["title"].sub("Closed organisation: ", "ZZ").upcase }
           .each_with_object({}) { |result, orgs|
-            slug = result['slug']
-            orgs[slug] = result.slice('title', 'slug', 'acronym', 'content_id')
+            slug = result["slug"]
+            orgs[slug] = result.slice("title", "slug", "acronym", "content_id")
           }
       end
     end
 
     def fetch_organisations_from_rummager
       params = {
-        filter_format: 'organisation',
+        filter_format: "organisation",
         fields: %w(title slug acronym content_id),
         count: 1500,
-        order: 'title'
+        order: "title",
       }
       response = Services.rummager.search(params)
-      response['results']
+      response["results"]
     end
   end
 end

@@ -13,12 +13,12 @@ FactoryBot.define do
           {
             "name": "Topic",
             "key": "topic",
-            "default": true
+            "default": true,
           },
           {
             "name": "Most viewed",
-            "key": "-popularity"
-          }
+            "key": "-popularity",
+          },
         ],
       }
     end

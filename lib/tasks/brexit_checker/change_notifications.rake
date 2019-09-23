@@ -12,7 +12,7 @@ namespace :brexit_checker do
       url: change_note.action.title_url,
       body: mail.body.raw_source,
       sender_message_id: change_note.id,
-      criteria_rules: criteria_rules(change_note.action.criteria)
+      criteria_rules: criteria_rules(change_note.action.criteria),
     )
   rescue GdsApi::HTTPConflict
     raise "Notification already sent"
@@ -23,7 +23,7 @@ namespace :brexit_checker do
       return {
         type: "tag",
         key: "brexit_checklist_criteria",
-        value: criteria
+        value: criteria,
       }
     end
 
