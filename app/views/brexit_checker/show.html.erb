@@ -27,6 +27,9 @@
       url: "/get-ready-brexit-check"
     }
   ] %>
+  <%= render "govuk_publishing_components/components/back_link", {
+    href: brexit_checker_questions_path(page: @previous_page),
+  } %>
 
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
