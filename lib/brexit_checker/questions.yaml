@@ -1,8 +1,8 @@
 ---
 questions:
   - key: nationality
-    question_type: single
-    question: 'What nationality are you?'
+    type: single
+    text: 'What nationality are you?'
     options:
       - label: British
         value: nationality-uk
@@ -14,8 +14,8 @@ questions:
         value: nationality-row
 
   - key: living
-    question_type: single
-    question: 'Where do you live?'
+    type: single
+    text: 'Where do you live?'
     options:
       - label: UK
         value: living-uk
@@ -27,8 +27,8 @@ questions:
         value: living-row
 
   - key: employment
-    question_type: multiple_grouped
-    question: 'Do you work or study?'
+    type: multiple_grouped
+    text: 'Do you work or study?'
     hint_text: 'Select all that apply. If you do something else, select next.'
     options:
       - label: Work
@@ -49,8 +49,8 @@ questions:
             value: studying-eu
 
   - key: drive-in-eu
-    question_type: single
-    question: Do you drive in the EU using a UK licence?
+    type: single
+    text: "Do you drive in the EU using a UK licence?"
     criteria:
       - all_of:
         - nationality-uk
@@ -62,8 +62,8 @@ questions:
         value: living-driving-eu-no
 
   - key: travelling
-    question_type: multiple
-    question: 'Where do you plan to travel after 31 October 2019?'
+    type: multiple
+    text: 'Where do you plan to travel after 31 October 2019?'
     description: |
       <p>This includes travel that may have started on or before 31 October 2019.</p>
     hint_text: Select all that apply. If you do not plan to travel, select next.
@@ -83,8 +83,8 @@ questions:
         - visiting-ie
         - visiting-eu
         - visiting-uk
-    question_type: multiple
-    question: 'Do you plan to do either of the following when travelling?'
+    type: multiple
+    text: 'Do you plan to do either of the following when travelling?'
     hint_text: "Select all that apply. If neither apply, select next."
     options:
       - label: Drive
@@ -99,8 +99,8 @@ questions:
         - any_of:
           - living-eu
           - living-row
-    question_type: single
-    question: 'Are you planning to move back to the UK?'
+    type: single
+    text: 'Are you planning to move back to the UK?'
     options:
       - label: "Yes"
         value: return-to-uk
@@ -108,8 +108,8 @@ questions:
         value: return-to-uk-no
 
   - key: join-family-uk
-    question_type: single
-    question: Do you plan to join an EU family member in the UK?
+    type: single
+    text: "Do you plan to join an EU family member in the UK?"
     criteria:
       - all_of:
         - any_of:
@@ -125,8 +125,8 @@ questions:
         value: join-family-uk-no
 
   - key: do-you-own-a-business
-    question_type: "single"
-    question: "Are you preparing a business or organisation for Brexit?"
+    type: "single"
+    text: "Are you preparing a business or organisation for Brexit?"
     options:
       - label: "Yes"
         value: owns-operates-business-organisation
@@ -136,8 +136,8 @@ questions:
   - key: employ-eu-citizens
     criteria:
       - owns-operates-business-organisation
-    question_type: "single"
-    question: "Do you employ anyone from another European country?"
+    type: "single"
+    text: "Do you employ anyone from another European country?"
     description: |
       <p>This includes <a href="/eu-eea">countries in the EU</a> and Norway, Switzerland, Iceland and Liechtenstein.</p>
     options:
@@ -149,8 +149,8 @@ questions:
   - key: personal-data
     criteria:
       - owns-operates-business-organisation
-    question_type: "single_wrapped"
-    question: "Do you exchange personal data with another organisation in Europe?"
+    type: "single_wrapped"
+    text: "Do you exchange personal data with another organisation in Europe?"
     description: |
       <p>This includes <a href="/eu-eea">organisations located in the EU</a> and Norway, Iceland and Liechtenstein.</p>
       <p>Personal data includes customers’ addresses, staff working hours or information you give to a delivery company.</p>
@@ -170,8 +170,8 @@ questions:
   - key: eu-uk-government-funding
     criteria:
       - owns-operates-business-organisation
-    question_type: "single_wrapped"
-    question: "Do you get EU or UK government funding?"
+    type: "single_wrapped"
+    text: "Do you get EU or UK government funding?"
     description: |
       <p>EU funding includes the Creative Europe Fund or Horizon 2020 scheme.</p>
     options:
@@ -188,8 +188,8 @@ questions:
   - key: public-sector-procurement
     criteria:
       - owns-operates-business-organisation
-    question_type: "single_wrapped"
-    question: "Do you sell your products or services to the public sector?"
+    type: "single_wrapped"
+    text: "Do you sell your products or services to the public sector?"
     description: |
       <p>This includes non-government organisations, such as hospitals and schools, and central or local government organisations.</p>
     options:
@@ -206,8 +206,8 @@ questions:
   - key: intellectual-property
     criteria:
       - owns-operates-business-organisation
-    question_type: "single_wrapped"
-    question: "Do you use or rely on intellectual property (IP) protection?"
+    type: "single_wrapped"
+    text: "Do you use or rely on intellectual property (IP) protection?"
     description: |
       <p>Intellectual property protection includes copyright, trade marks and patents.</p>
     options:
@@ -230,8 +230,8 @@ questions:
   - key: business-activity
     criteria:
       - owns-operates-business-organisation
-    question_type: "multiple"
-    question: "Does your business or organisation do any of the following activities?"
+    type: "multiple"
+    text: "Does your business or organisation do any of the following activities?"
     description: |
       <p>Importing and exporting includes temporarily taking goods across the EU border, for example to a trade fair.</p>
     options:
@@ -249,8 +249,8 @@ questions:
   - key: sector-business-area
     criteria:
       - owns-operates-business-organisation
-    question_type: "multiple_grouped"
-    question: "What does your business or organisation do?"
+    type: "multiple_grouped"
+    text: "What does your business or organisation do?"
     hint_text: "Choose all the sectors and areas that your business or organisation operates in."
     options:
       - label: "Advanced manufacturing and services"

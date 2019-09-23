@@ -12,7 +12,7 @@ module BrexitChecker
                           priority
                           criteria
                           audience
-                          action_id
+                          id
                           exception).freeze
 
       def process(record)
