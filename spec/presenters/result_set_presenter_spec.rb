@@ -18,7 +18,7 @@ RSpec.describe ResultSetPresenter do
   let(:show_top_result) { false }
   let(:debug_score) { false }
 
-  let(:finder_content_id) { 'content_id' }
+  let(:finder_content_id) { "content_id" }
 
   let(:content_item) {
     FactoryBot.build(:content_item,

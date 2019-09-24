@@ -4,7 +4,7 @@ class ResultSetPresenter
 
   attr_reader :pluralised_document_noun, :debug_score, :start_offset
 
-  delegate :atom_url, to: :finder_presenter
+  delegate :atom_url, to: :content_item
 
   def initialize(content_item, facets, results, filter_params, sort_presenter, metadata_presenter_class, show_top_result = false, debug_score = false)
     @content_item = content_item
@@ -31,7 +31,7 @@ class ResultSetPresenter
       zero_results: total.zero?,
       page_count: component_data.count,
       finder_name: content_item.title,
-      debug_score: debug_score
+      debug_score: debug_score,
     }
   end
 

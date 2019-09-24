@@ -104,13 +104,6 @@ private
     @signup_links ||= SignupLinksPresenter.new(content_item, facets).signup_links
   end
 
-  def finder_presenter
-    @finder_presenter ||= FinderPresenter.new(
-      content_item,
-      facets,
-    )
-  end
-
   def initialize_search_query(is_for_feed: false)
     Search::Query.new(
       content_item,
