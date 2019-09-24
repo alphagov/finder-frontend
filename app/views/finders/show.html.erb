@@ -1,35 +1,35 @@
 <% if result_set_presenter.user_supplied_keywords.length > 0 %>
-  <% content_for :title, "#{result_set_presenter.user_supplied_keywords} - #{finder_presenter.title}" %>
+  <% content_for :title, "#{result_set_presenter.user_supplied_keywords} - #{content_item.title}" %>
 <% else %>
-  <% content_for :title, finder_presenter.title %>
+  <% content_for :title, content_item.title %>
 <% end %>
 <% content_for :head do %>
   <%= auto_discovery_link_tag(:atom, signup_links[:feed_link]) %>
-  <%= render 'finder_meta', finder_presenter: finder_presenter %>
+  <%= render 'finder_meta', content_item: content_item %>
 
   <% if result_set_presenter.highlight_top_result? %>
     <meta name="govuk:relevant-result-shown" content="yes">
   <% end %>
 
-  <%= finder_top_result_variant.analytics_meta_tag.html_safe if finder_presenter.eu_exit_finder? %>
+  <%= finder_top_result_variant.analytics_meta_tag.html_safe if content_item.eu_exit_finder? %>
   <%= search_cluster_variant.analytics_meta_tag.html_safe %>
 <% end %>
 
-<% content_for :meta_title, finder_presenter.title %>
+<% content_for :meta_title, content_item.title %>
 
-<% if topic_finder?(filter_params) && !finder_presenter.all_content_finder? %>
+<% if topic_finder?(filter_params) && !content_item.all_content_finder? %>
   <% content_for :body_classes, "full-width" %>
   <% inverse = true %>
 <% end %>
 
-<form method="get" action="<%= finder_presenter.base_path %>" class="js-live-search-form"
+<form method="get" action="<%= content_item.base_path %>" class="js-live-search-form"
   data-analytics-ecommerce
   data-ecommerce-start-index="<%= result_set_presenter.start_offset %>"
-  data-list-title="<%= finder_presenter.title %>"
+  data-list-title="<%= content_item.title %>"
   data-search-query="<%= result_set_presenter.user_supplied_keywords %>">
   <input type="hidden" name="parent" value="<%= @parent %>">
 
-  <% if topic_finder?(filter_params) && !finder_presenter.all_content_finder? %>
+  <% if topic_finder?(filter_params) && !content_item.all_content_finder? %>
     <%= render "govuk_publishing_components/components/inverse_header", {
       full_width: true
     } do %>
@@ -43,11 +43,11 @@
 
   <div class="govuk-width-container">
     <div class="govuk-grid-row">
-      <div class="govuk-grid-column-one-third" role="search" aria-label="<%= finder_presenter.title %>">
+      <div class="govuk-grid-column-one-third" role="search" aria-label="<%= content_item.title %>">
         <%= render partial: 'facet_collection'%>
       </div>
 
-      <div class="govuk-grid-column-two-thirds js-live-search-results-block filtered-results" role="region" aria-label="<%= finder_presenter.title %> search results">
+      <div class="govuk-grid-column-two-thirds js-live-search-results-block filtered-results" role="region" aria-label="<%= content_item.title %> search results">
         <div id="js-search-results-info" data-module="remove-filter" class="result-info">
           <div class="govuk-grid-row">
             <div class="govuk-grid-column-one-third">

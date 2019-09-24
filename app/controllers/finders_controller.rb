@@ -46,7 +46,7 @@ private
 
   attr_reader :search_query
 
-  helper_method :finder_presenter, :facet_tags, :i_am_a_topic_page_finder, :result_set_presenter, :content_item, :signup_links, :filter_params
+  helper_method :facet_tags, :i_am_a_topic_page_finder, :result_set_presenter, :content_item, :signup_links, :filter_params, :facets
 
   def redirect_to_destination
     @redirect = content_item.redirect
