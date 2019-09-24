@@ -34,6 +34,9 @@
       // Use navigator.sendBeacon
       // https://developers.google.com/analytics/devguides/collection/analyticsjs/sending-hits#specifying_different_transport_mechanisms
       window.ga('set', 'transport', 'beacon')
+
+      // add page impression on page load if there are any
+      this.trackSpellingSuggestions()
     }
 
     if (GOVUK.support.history()) {
@@ -220,6 +223,44 @@
     this.bindSortElements()
   }
 
+  LiveSearch.prototype.trackSpellingSuggestions = function () {
+    if (this.$suggestionsBlock.length === 0) { return }
+    var contentID = this.$suggestionsBlock.data('analytics-contentid')
+    // add impressions for each spelling suggestion
+    var suggestions = this.$suggestionsBlock.find('a')
+    for (var i = 0; i < suggestions.length; i++) {
+      var $suggestion = suggestions[i]
+      var ecPayload = {
+        id: contentID,
+        list: $($suggestion).data('analytics-list'),
+        dimension71: stripPossiblePII($($suggestion).data('analytics-dimension71')),
+        dimension81: stripPossiblePII($($suggestion).data('analytics-dimension81'))
+      }
+      ecTracking('ec:addImpression', null, ecPayload)
+      $($suggestion).click(function () {
+        ecTracking('ec:addProduct', null, ecPayload)
+        ecTracking('ec:setAction', 'click', ecPayload)
+        window.ga('send', 'event', 'click', 'spellingSuggestionLinkClicked', ecPayload)
+      })
+    }
+
+    function ecTracking (ecType, ecEvent, ecPayload) {
+      if (ecEvent !== null) {
+        window.ga(ecType, ecEvent, ecPayload)
+      } else {
+        window.ga(ecType, ecPayload)
+      }
+    }
+
+    function stripPossiblePII (string) {
+      // Try to detect emails and redact it.
+      string = string.replace(/\S*@\S*\s?/g, '[email]')
+      // If someone has typed in a number it's likely not related so redact it
+      string = string.replace(/0|1|2|3|4|5|6|7|8|9/g, '[number]')
+      return string
+    }
+  }
+
   LiveSearch.prototype.updateSpellingSuggestions = function (results) {
     // bail out, as this is only set up on search/all
     if (this.$suggestionsBlock.length === 0) { return }
@@ -235,14 +276,25 @@
         var $suggestionLink = $('<a>', {
           text: suggestion.keywords,
           href: suggestion.link,
+          'data-analytics-list': 'Search spelling suggestions',
+          'data-analytics-dimension71': suggestion.keywords,
+          'data-analytics-dimension81': this.previousSearchTerm,
           class: 'govuk-link govuk-!-font-weight-bold'
         })
         this.$suggestionsBlock.find('p').append($suggestionLink)
+        // fire custom dimension with spelling suggestion text
+        GOVUK.SearchAnalytics.setDimension(81, suggestion.keywords)
       }
+      // add impressions for spelling suggestions
+      // binding the function so 'this' is available inside it
+      var boundedtrackSpellingSuggestions = this.trackSpellingSuggestions.bind(this)
+      boundedtrackSpellingSuggestions()
+    } else {
+      this.$suggestionsBlock.find('a').remove()
     }
 
     // checks results for any suggestions and hides/shows the container accordingly
-    this.$suggestionsBlock.attr('class', suggestionsPresent ? 'spelling-suggestions--visible' : 'spelling-suggestions')
+    this.$suggestionsBlock.attr('class', suggestionsPresent ? 'spelling-suggestions spelling-suggestions--visible' : 'spelling-suggestions')
   }
 
   LiveSearch.prototype.bindSortElements = function bindSortElements () {

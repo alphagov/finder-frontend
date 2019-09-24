@@ -32,10 +32,14 @@
             value: result_set_presenter.user_supplied_keywords,
           } %>
         </div>
-        <div class="spelling-suggestions<%= ' spelling-suggestions--visible' if @suggestions.any? %>" id="js-spelling-suggestions">
+        <div class="spelling-suggestions<%= ' spelling-suggestions--visible' if @suggestions.any? %>" id="js-spelling-suggestions" data-analytics-contentid="<%= content_item.as_hash['content_id'] %>">
           <p class="govuk-body">Did you mean 
             <% @suggestions.each do |suggestion| %>
-              <%= link_to suggestion[:keywords], suggestion[:link], class: "govuk-link govuk-!-font-weight-bold" %>
+              <%= link_to suggestion[:keywords], suggestion[:link],
+                "data-analytics-list": "Search spelling suggestions",
+                "data-analytics-dimension71": "#{result_set_presenter.user_supplied_keywords}",
+                "data-analytics-dimension81": "#{suggestion[:keywords]}",
+                class: "govuk-link govuk-!-font-weight-bold" %>
             <% end %>
           </p>
         </div>
