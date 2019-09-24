@@ -49,10 +49,4 @@ class FinderPresenter
   def display_metadata?
     !eu_exit_finder?
   end
-
-private
-
-  def is_external?(href)
-    URI.parse(href).host != "www.gov.uk"
-  end
 end
