@@ -75,7 +75,8 @@ private
 
   def result_set_presenter
     @result_set_presenter ||= result_set_presenter_class.new(
-      finder_presenter,
+      content_item,
+      facets,
       results,
       filter_params,
       sort_presenter,

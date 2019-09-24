@@ -46,7 +46,7 @@ private
 
   def facet_by_allowed_value_lookup_hash
     @facet_by_allowed_value_lookup_hash ||= begin
-      finder_presenter.facets.each_with_object({}) do |facet, result|
+      facets.each_with_object({}) do |facet, result|
         facet.allowed_values.each do |allowed_value|
           result[allowed_value["content_id"]] = facet
         end
@@ -60,7 +60,7 @@ private
 
   def facet_value_lookup_hash
     @facet_value_lookup_hash ||= begin
-      all_allowed_values = finder_presenter.facets.flat_map(&:allowed_values)
+      all_allowed_values = facets.flat_map(&:allowed_values)
       all_allowed_values.to_h do |val|
         [val["content_id"], val["value"]]
       end
@@ -130,7 +130,7 @@ private
   end
 
   def primary_facet
-    finder_presenter.facets.first
+    facets.first
   end
 
   def primary_facet_key
@@ -151,7 +151,7 @@ private
   end
 
   def label_for_facet_value(key)
-    allowed_values = finder_presenter.facets.flat_map(&:allowed_values)
+    allowed_values = facets.flat_map(&:allowed_values)
     allowed_value = allowed_values.find(-> { {} }) { |v| v["value"] == key }
     allowed_value.fetch("label", "")
   end
@@ -161,7 +161,7 @@ private
   end
 
   def secondary_facets
-    finder_presenter.facets.select(&:filterable?)[1..-1].select { |f| facet_filters.keys.include?(f.key.to_sym) }
+    facets.select(&:filterable?)[1..-1].select { |f| facet_filters.keys.include?(f.key.to_sym) }
   end
 
   def facet_filters

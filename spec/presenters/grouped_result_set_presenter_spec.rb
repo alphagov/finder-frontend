@@ -1,7 +1,7 @@
 require "spec_helper"
 
 RSpec.describe GroupedResultSetPresenter do
-  subject(:presenter) { GroupedResultSetPresenter.new(finder_presenter, search_results, filter_params, sort_presenter, metadata_presenter_class) }
+  subject(:presenter) { GroupedResultSetPresenter.new(content_item, facets, search_results, filter_params, sort_presenter, metadata_presenter_class) }
 
   let(:metadata_presenter_class) do
     MetadataPresenter
@@ -12,10 +12,6 @@ RSpec.describe GroupedResultSetPresenter do
   }
 
   let(:finder_name) { "A finder" }
-
-  let(:finder_presenter) do
-    FinderPresenter.new(content_item, facets)
-  end
 
   let(:sort_presenter) { SortPresenter.new(content_item, filter_params.deep_stringify_keys) }
 
@@ -253,7 +249,7 @@ RSpec.describe GroupedResultSetPresenter do
     let(:search_results) { ResultSetParser.parse("results" => [document_hash], "start" => 0, "total" => 5) }
 
     subject(:grouped_display) {
-      GroupedResultSetPresenter.new(finder_presenter, search_results, filter_params, sort_presenter, metadata_presenter_class).
+      GroupedResultSetPresenter.new(content_item, facets, search_results, filter_params, sort_presenter, metadata_presenter_class).
         search_results_content[:display_grouped_results]
     }
 

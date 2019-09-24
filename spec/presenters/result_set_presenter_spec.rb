@@ -5,7 +5,8 @@ RSpec.describe ResultSetPresenter do
   include FacetsHelper
 
   subject(:subject) {
-    ResultSetPresenter.new(finder_presenter,
+    ResultSetPresenter.new(content_item,
+                           facets,
                            search_results,
                            filter_params,
                            sort_presenter,
@@ -17,9 +18,7 @@ RSpec.describe ResultSetPresenter do
   let(:show_top_result) { false }
   let(:debug_score) { false }
 
-  let(:finder_presenter) { FinderPresenter.new(content_item, facets) }
-
-  let(:finder_content_id) { "content_id" }
+  let(:finder_content_id) { 'content_id' }
 
   let(:content_item) {
     FactoryBot.build(:content_item,

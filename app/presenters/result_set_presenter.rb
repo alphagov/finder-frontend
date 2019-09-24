@@ -6,12 +6,13 @@ class ResultSetPresenter
 
   delegate :atom_url, to: :finder_presenter
 
-  def initialize(finder_presenter, results, filter_params, sort_presenter, metadata_presenter_class, show_top_result = false, debug_score = false)
-    @finder_presenter = finder_presenter
+  def initialize(content_item, facets, results, filter_params, sort_presenter, metadata_presenter_class, show_top_result = false, debug_score = false)
+    @content_item = content_item
+    @facets = facets
     @documents = results.documents
     @total = results.total
     @start_offset = results.start + 1
-    @pluralised_document_noun = finder_presenter.document_noun.pluralize(total)
+    @pluralised_document_noun = content_item.document_noun.pluralize(total)
     @filter_params = filter_params
     @sort_presenter = sort_presenter
     @show_top_result = show_top_result
@@ -29,14 +30,14 @@ class ResultSetPresenter
       document_list_component_data: component_data,
       zero_results: total.zero?,
       page_count: component_data.count,
-      finder_name: finder_presenter.title,
-      debug_score: debug_score,
+      finder_name: content_item.title,
+      debug_score: debug_score
     }
   end
 
   def highlight_top_result?
     @show_top_result &&
-      finder_presenter.eu_exit_finder? &&
+      content_item.eu_exit_finder? &&
       documents.length >= 2 &&
       sort_option.dig("key").eql?("-relevance") &&
       best_bet?
@@ -48,15 +49,15 @@ class ResultSetPresenter
 
 private
 
-  attr_reader :metadata_presenter_class, :sort_presenter, :total, :finder_presenter, :documents
+  attr_reader :metadata_presenter_class, :sort_presenter, :total, :documents, :facets, :content_item
 
   def document_list_component_data(documents_to_convert:)
     documents_to_convert.map do |document|
       SearchResultPresenter.new(document: document,
                                 metadata_presenter_class: metadata_presenter_class,
                                 doc_count: documents.count,
-                                facets: finder_presenter.facets,
-                                content_item: finder_presenter.content_item,
+                                facets: facets,
+                                content_item: content_item,
                                 debug_score: debug_score,
                                 highlight: highlight(document.index)).document_list_component_data
     end
