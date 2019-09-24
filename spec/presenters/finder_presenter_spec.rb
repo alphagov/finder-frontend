@@ -70,10 +70,6 @@ RSpec.describe FinderPresenter do
     it "returns the correct facets" do
       expect(subject.facets).to match_array(facets)
     end
-
-    it "returns the filters that are filterable" do
-      expect(subject.filters).to match_array([hidden_facet, date_facet])
-    end
   end
 
   describe "#phase_message" do

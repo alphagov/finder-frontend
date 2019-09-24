@@ -33,8 +33,4 @@ class FinderPresenter
     @content_item = content_item
     @facets = facets
   end
-
-  def filters
-    facets.select(&:filterable?)
-  end
 end

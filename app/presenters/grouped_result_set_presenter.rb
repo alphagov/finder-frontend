@@ -161,7 +161,7 @@ private
   end
 
   def secondary_facets
-    finder_presenter.filters[1..-1].select { |f| facet_filters.keys.include?(f.key.to_sym) }
+    finder_presenter.facets.select(&:filterable?)[1..-1].select { |f| facet_filters.keys.include?(f.key.to_sym) }
   end
 
   def facet_filters
