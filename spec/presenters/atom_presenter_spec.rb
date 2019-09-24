@@ -10,7 +10,7 @@ RSpec.describe AtomPresenter do
     double(
       FinderPresenter,
       slug: "/search/news-and-communications",
-      name: "News and communications",
+      title: "News and communications",
       document_noun: "case",
       total: 20,
       filters: [a_facet, another_facet, a_date_facet],

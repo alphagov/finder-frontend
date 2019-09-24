@@ -1,7 +1,7 @@
 <% if result_set_presenter.user_supplied_keywords.length > 0 %>
-  <% content_for :title, "#{result_set_presenter.user_supplied_keywords} - #{finder_presenter.name}" %>
+  <% content_for :title, "#{result_set_presenter.user_supplied_keywords} - #{finder_presenter.title}" %>
 <% else %>
-  <% content_for :title, finder_presenter.name %>
+  <% content_for :title, finder_presenter.title %>
 <% end %>
 <% content_for :head do %>
   <%= auto_discovery_link_tag(:atom, signup_links[:feed_link]) %>
@@ -15,7 +15,7 @@
   <%= search_cluster_variant.analytics_meta_tag.html_safe %>
 <% end %>
 
-<% content_for :meta_title, finder_presenter.name %>
+<% content_for :meta_title, finder_presenter.title %>
 
 <% if topic_finder?(filter_params) && !finder_presenter.all_content_finder? %>
   <% content_for :body_classes, "full-width" %>
@@ -25,7 +25,7 @@
 <form method="get" action="<%= finder_presenter.slug %>" class="js-live-search-form"
   data-analytics-ecommerce
   data-ecommerce-start-index="<%= result_set_presenter.start_offset %>"
-  data-list-title="<%= finder_presenter.name %>"
+  data-list-title="<%= finder_presenter.title %>"
   data-search-query="<%= result_set_presenter.user_supplied_keywords %>">
   <input type="hidden" name="parent" value="<%= @parent %>">
 
@@ -43,11 +43,11 @@
 
   <div class="govuk-width-container">
     <div class="govuk-grid-row">
-      <div class="govuk-grid-column-one-third" role="search" aria-label="<%= finder_presenter.name %>">
+      <div class="govuk-grid-column-one-third" role="search" aria-label="<%= finder_presenter.title %>">
         <%= render partial: 'facet_collection'%>
       </div>
 
-      <div class="govuk-grid-column-two-thirds js-live-search-results-block filtered-results" role="region" aria-label="<%= finder_presenter.name %> search results">
+      <div class="govuk-grid-column-two-thirds js-live-search-results-block filtered-results" role="region" aria-label="<%= finder_presenter.title %> search results">
         <div id="js-search-results-info" data-module="remove-filter" class="result-info">
           <div class="govuk-grid-row">
             <div class="govuk-grid-column-one-third">

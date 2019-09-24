@@ -35,12 +35,12 @@
       <% elsif topic_finder?(filter_params) %>
         <%= link_to topic_finder_parent(filter_params)['title'], topic_finder_parent(filter_params)['base_path'], class: 'topic-finder__taxon-link' %>
         <%= render partial: 'govuk_publishing_components/components/title', locals: {
-          title: finder_presenter.name,
+          title: finder_presenter.title,
           inverse: true,
         } %>
       <% else %>
         <%= render partial: 'govuk_publishing_components/components/title', locals: {
-          title: finder_presenter.name,
+          title: finder_presenter.title,
         } %>
       <% end %>
 

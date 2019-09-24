@@ -21,7 +21,8 @@ class FinderPresenter
            :no_index?,
            :canonical_link?,
            :all_content_finder?,
-           :eu_exit_finder?, to: :content_item
+           :eu_exit_finder?,
+           :title,to: :content_item
 
 
   def initialize(content_item, facets, values = {})
@@ -30,10 +31,6 @@ class FinderPresenter
     @values = values
     @facets = facets
     @keywords = values["keywords"].presence
-  end
-
-  def name
-    content_item.title
   end
 
   def slug

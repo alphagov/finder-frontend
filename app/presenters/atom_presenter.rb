@@ -6,9 +6,9 @@ class AtomPresenter
   end
 
   def title
-    return "#{finder_presenter.name} #{filters_applied.join(' ')}" if filters_applied.present?
+    return "#{finder_presenter.title} #{filters_applied.join(' ')}" if filters_applied.present?
 
-    finder_presenter.name
+    finder_presenter.title
   end
 
   def filters_applied
