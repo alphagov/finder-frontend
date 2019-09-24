@@ -106,7 +106,9 @@ actions:
     - any_of:
       - nationality-uk
       - nationality-row
-    - studying-eu
+    - any_of:
+      - studying-eu
+      - studying-ie
   audience: citizen
 - id: S008
   priority: 8
