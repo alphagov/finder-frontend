@@ -149,6 +149,18 @@ class ContentItem
     links.fetch('organisations', [])
   end
 
+  def government?
+    base_path.starts_with?("/government")
+  end
+
+  def government_content_section
+    base_path.split('/')[2]
+  end
+
+  def display_metadata?
+    !eu_exit_finder?
+  end
+
 private
 
   attr_reader :content_item_hash

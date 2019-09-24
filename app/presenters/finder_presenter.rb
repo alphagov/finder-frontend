@@ -23,7 +23,9 @@ class FinderPresenter
            :all_content_finder?,
            :eu_exit_finder?,
            :title,
-           :base_path, to: :content_item
+           :base_path,
+           :government?,
+           :government_content_section, to: :content_item
 
 
   def initialize(content_item, facets, values = {})
@@ -36,17 +38,5 @@ class FinderPresenter
 
   def filters
     facets.select(&:filterable?)
-  end
-
-  def government?
-    base_path.starts_with?("/government")
-  end
-
-  def government_content_section
-    base_path.split("/")[2]
-  end
-
-  def display_metadata?
-    !eu_exit_finder?
   end
 end
