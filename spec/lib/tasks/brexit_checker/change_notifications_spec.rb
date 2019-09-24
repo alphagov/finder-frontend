@@ -33,8 +33,8 @@ RSpec.describe "Change notifications" do
             :brexit_checker_action,
             id: "addition",
             criteria: [
-              { "all_of" => %w(nationality-eu living-uk) }
-            ]
+              { "all_of" => %w(nationality-eu living-uk) },
+            ],
           ),
           FactoryBot.build(
             :brexit_checker_action,
@@ -44,11 +44,11 @@ RSpec.describe "Change notifications" do
                 "all_of" => [
                   { "any_of" => %w(nationality-row nationality-eu) },
                   { "any_of" => %w(living-row living-eu) },
-                  "join-family-uk-yes"
+                  "join-family-uk-yes",
                 ],
-              }
-            ]
-          )
+              },
+            ],
+          ),
         ]
       end
     end
@@ -77,15 +77,15 @@ RSpec.describe "Change notifications" do
               {
                 "type" => "tag",
                 "key" => "brexit_checklist_criteria",
-                "value" => "nationality-eu"
+                "value" => "nationality-eu",
               },
               {
                 "type" => "tag",
                 "key" => "brexit_checklist_criteria",
-                "value" => "living-uk"
-              }
-            ]
-          }
+                "value" => "living-uk",
+              },
+            ],
+          },
         ])
       end
     end
@@ -116,36 +116,36 @@ RSpec.describe "Change notifications" do
                   {
                     "type" => "tag",
                     "key" => "brexit_checklist_criteria",
-                    "value" => "nationality-row"
+                    "value" => "nationality-row",
                   },
                   {
                     "type" => "tag",
                     "key" => "brexit_checklist_criteria",
-                    "value" => "nationality-eu"
-                  }
-                ]
+                    "value" => "nationality-eu",
+                  },
+                ],
               },
               {
                 "any_of" => [
                   {
                     "type" => "tag",
                     "key" => "brexit_checklist_criteria",
-                    "value" => "living-row"
+                    "value" => "living-row",
                   },
                   {
                     "type" => "tag",
                     "key" => "brexit_checklist_criteria",
-                    "value" => "living-eu"
-                  }
-                ]
+                    "value" => "living-eu",
+                  },
+                ],
               },
               {
                 "type" => "tag",
                 "key" => "brexit_checklist_criteria",
-                "value" => "join-family-uk-yes"
-              }
-            ]
-          }
+                "value" => "join-family-uk-yes",
+              },
+            ],
+          },
         ])
       end
     end

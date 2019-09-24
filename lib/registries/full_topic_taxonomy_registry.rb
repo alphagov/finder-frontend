@@ -26,11 +26,11 @@ module Registries
 
     def format_taxon(taxon)
       {
-        taxon['content_id'] =>
+        taxon["content_id"] =>
         {
-          'title' => taxon['title'],
-          'base_path' => taxon['base_path']
-        }
+          "title" => taxon["title"],
+          "base_path" => taxon["base_path"],
+        },
       }
     end
 
@@ -42,7 +42,7 @@ module Registries
       return {} if taxons.empty?
 
       taxons.inject({}) do |result, taxon|
-        child_taxons = taxon.dig('links', 'child_taxons') || []
+        child_taxons = taxon.dig("links", "child_taxons") || []
 
         taxon_hash = format_taxon(taxon)
         child_taxon_hashes = flatten_taxonomy(child_taxons)
@@ -58,11 +58,11 @@ module Registries
     end
 
     def fetch_level_one_taxons_from_api
-      taxons = fetch_taxon.dig('links', 'level_one_taxons') || []
-      taxons.map { |taxon| fetch_taxon(taxon['base_path']) }
+      taxons = fetch_taxon.dig("links", "level_one_taxons") || []
+      taxons.map { |taxon| fetch_taxon(taxon["base_path"]) }
     end
 
-    def fetch_taxon(base_path = '/')
+    def fetch_taxon(base_path = "/")
       Services.cached_content_item(base_path)
     end
   end

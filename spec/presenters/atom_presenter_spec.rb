@@ -1,4 +1,4 @@
-require 'spec_helper'
+require "spec_helper"
 
 RSpec.describe AtomPresenter do
   subject(:instance) { described_class.new(finder, result_set, facet_tags) }
@@ -10,17 +10,17 @@ RSpec.describe AtomPresenter do
     double(
       FinderPresenter,
       slug: "/search/news-and-communications",
-      name: 'News and communications',
-      document_noun: 'case',
+      name: "News and communications",
+      document_noun: "case",
       total: 20,
       filters: [a_facet, another_facet, a_date_facet],
       facets: [a_facet, another_facet, a_date_facet],
-      keywords: '',
+      keywords: "",
       atom_url: "/a-finder.atom",
       default_documents_per_page: 10,
       values: {},
       sort: {},
-      show_summaries?: true
+      show_summaries?: true,
     )
   end
 
@@ -28,42 +28,42 @@ RSpec.describe AtomPresenter do
     FacetTagsPresenter.new(finder, sort_presenter)
   }
 
-  let(:filter_params) { double(:filter_params, keywords: '') }
+  let(:filter_params) { double(:filter_params, keywords: "") }
   let(:sort_presenter) { double(:sort_presenter, selected_option: nil) }
 
   let(:a_facet) do
     double(
       OptionSelectFacet,
-      key: 'key_1',
+      key: "key_1",
       sentence_fragment: {
-      'key' => 'key_1',
-      'type' => 'text',
-      'preposition' => 'About',
-      'values' => first_facet_values,
-      'word_connectors' => { words_connector: 'and' }
+      "key" => "key_1",
+      "type" => "text",
+      "preposition" => "About",
+      "values" => first_facet_values,
+      "word_connectors" => { words_connector: "and" },
       },
         has_filters?: true,
         value: %w[brexit harry-potter],
-        hide_facet_tag?: false
+        hide_facet_tag?: false,
     )
   end
 
   let(:first_facet_values) do
-    [{ 'label' => 'Brexit' }, { 'label' => 'Harry Potter' }]
+    [{ "label" => "Brexit" }, { "label" => "Harry Potter" }]
   end
 
   let(:second_facet_values) do
-    [{ 'label' => 'Farming' }, { 'label' => 'Chemicals' }]
+    [{ "label" => "Farming" }, { "label" => "Chemicals" }]
   end
 
   let(:a_date_facet) do
     double(
       OptionSelectFacet,
-      'key' => 'closed_date',
+      "key" => "closed_date",
       sentence_fragment: nil,
       has_filters?: false,
-      'word_connectors' => { words_connector: 'or' },
-      hide_facet_tag?: false
+      "word_connectors" => { words_connector: "or" },
+      hide_facet_tag?: false,
     )
   end
 
@@ -74,19 +74,19 @@ RSpec.describe AtomPresenter do
   let(:another_facet) do
     double(
       OptionSelectFacet,
-      key: 'key_2',
-      preposition: 'About',
+      key: "key_2",
+      preposition: "About",
       sentence_fragment: {
-      'key' => 'key_2',
-      'type' => 'text',
-      'preposition' => 'Related to',
-      'values' => second_facet_values,
-      'word_connectors' => { words_connector: 'or' }
+      "key" => "key_2",
+      "type" => "text",
+      "preposition" => "Related to",
+      "values" => second_facet_values,
+      "word_connectors" => { words_connector: "or" },
       },
         has_filters?: true,
         value: %w[farming chemicals],
-        'word_connectors' => { words_connector: 'or' },
-        hide_facet_tag?: false
+        "word_connectors" => { words_connector: "or" },
+        hide_facet_tag?: false,
     )
   end
 

@@ -1,9 +1,9 @@
 Given /^the search page exists$/ do
-  content_store_has_item("/search", schema: 'special_route')
+  content_store_has_item("/search", schema: "special_route")
 end
 
 When(/^I search for an empty string$/) do
-  visit '/search?q='
+  visit "/search?q="
 end
 
 When(/^I search for "([^"]*)" from "([^"]*)"$/) do |search_term, organisation|
@@ -19,7 +19,7 @@ When(/^I search for "([^"]*)" from "(.*)" on the json endpoint$/) do |search_ter
 end
 
 Then /^I am able to set search terms$/ do
-  expect(page).to have_field('Search GOV.UK', with: '')
+  expect(page).to have_field("Search GOV.UK", with: "")
 end
 
 Given(/^the all content finder exists$/) do
@@ -35,8 +35,8 @@ Given(/^the all content finder exists$/) do
 end
 
 Then(/^I am redirected to the (html|json) all content finder results page$/) do |format|
-  expect(page).to have_current_path(finder_path('search/all'), ignore_query: true)
-  expect(page.response_headers['Content-Type']).to include(format)
+  expect(page).to have_current_path(finder_path("search/all"), ignore_query: true)
+  expect(page.response_headers["Content-Type"]).to include(format)
 end
 
 Then(/^results are filtered with a facet tag of (.*)/) do |text|

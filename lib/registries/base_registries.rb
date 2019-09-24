@@ -1,16 +1,16 @@
 module Registries
-  NAMESPACE = 'registries'.freeze
+  NAMESPACE = "registries".freeze
 
   class BaseRegistries
     def all
       @all ||= {
-        'world_locations' => world_locations,
-        'all_part_of_taxonomy_tree' => topic_taxonomy,
-        'part_of_taxonomy_tree' => topic_taxonomy,
-        'people' => people,
-        'organisations' => organisations,
-        'manual' => manuals,
-        'full_topic_taxonomy' => full_topic_taxonomy
+        "world_locations" => world_locations,
+        "all_part_of_taxonomy_tree" => topic_taxonomy,
+        "part_of_taxonomy_tree" => topic_taxonomy,
+        "people" => people,
+        "organisations" => organisations,
+        "manual" => manuals,
+        "full_topic_taxonomy" => full_topic_taxonomy,
       }
     end
 

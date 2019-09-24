@@ -7,10 +7,10 @@
 #
 #   $ GOVUK_CONTENT_SCHEMAS_PATH=/some/dir/govuk-content-schemas bundle exec rake
 #
-require 'gds_api/test_helpers/content_store'
+require "gds_api/test_helpers/content_store"
 
 GovukContentSchemaTestHelpers.configure do |config|
-  config.schema_type = 'frontend'
+  config.schema_type = "frontend"
   config.project_root = Rails.root
 end
 
@@ -21,7 +21,7 @@ module GovukContentSchemaExamples
     include GdsApi::TestHelpers::ContentStore
 
     # Returns a hash representing an finder content item from govuk-content-schemas
-    def govuk_content_schema_example(name, format = 'finder')
+    def govuk_content_schema_example(name, format = "finder")
       string = GovukContentSchemaTestHelpers::Examples.new.get(format, name)
       JSON.parse(string)
     end

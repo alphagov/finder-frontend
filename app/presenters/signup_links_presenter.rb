@@ -9,7 +9,7 @@ class SignupLinksPresenter
       feed_link: feed_link,
       hide_heading: true,
       small_form: true,
-      email_signup_link: (email_signup_link if email_signup_link.present?)
+      email_signup_link: (email_signup_link if email_signup_link.present?),
     }.compact
   end
 

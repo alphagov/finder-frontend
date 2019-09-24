@@ -1,4 +1,4 @@
-require 'spec_helper'
+require "spec_helper"
 require "support/taxonomy_helper"
 
 RSpec.describe SignupLinksPresenter do
@@ -9,12 +9,12 @@ RSpec.describe SignupLinksPresenter do
   let(:facets) { [] }
   let(:content_item) {
     content_item_hash = {
-      content_id: 'content_id',
+      content_id: "content_id",
       base_path: "/mosw-reports",
-      title: 'A finder',
-      name: 'A finder',
+      title: "A finder",
+      name: "A finder",
       links: {
-        email_alert_signup: Array.wrap(email_signup_hash)
+        email_alert_signup: Array.wrap(email_signup_hash),
       },
       details: {
         show_summaries: true,
@@ -22,37 +22,37 @@ RSpec.describe SignupLinksPresenter do
         sort: [
           {
             "name" => "Most viewed",
-            "key" => "-popularity"
+            "key" => "-popularity",
           },
           {
               "name" => "Relevance",
-              "key" => "-relevance"
+              "key" => "-relevance",
             },
           {
             "name" => "Updated (newest)",
             "key" => "-public_timestamp",
-            "default" => true
-        }
+            "default" => true,
+        },
         ],
-      }
+      },
     }
     ContentItem.new(content_item_hash.deep_stringify_keys)
   }
 
   let(:email_signup_hash) {
     {
-      web_url: "http://www.gov.uk/email_signup"
+      web_url: "http://www.gov.uk/email_signup",
     }
   }
 
-  describe 'url helpers' do
+  describe "url helpers" do
     let(:hidden_facet_hash) {
       {
         "filter_key": "hidden",
         "key": "topic",
         "type": "hidden",
         "filterable": true,
-        "allowed_values": [{ "value" => "hidden_facet_content_id" }]
+        "allowed_values": [{ "value" => "hidden_facet_content_id" }],
       }.deep_stringify_keys
     }
 
@@ -83,7 +83,7 @@ RSpec.describe SignupLinksPresenter do
             "withdrawn": false,
             "links": {},
             "api_url": "https://www.gov.uk/api/content/mosw-reports/email-signup",
-            "web_url": "/mosw-reports/email-signup"
+            "web_url": "/mosw-reports/email-signup",
           }
         }
 

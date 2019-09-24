@@ -1,29 +1,29 @@
-require 'spec_helper'
+require "spec_helper"
 
 describe HiddenClearableFacet do
   let(:allowed_values) {
     [
         {
-            'label' => "Allowed value 1",
-            'value' => "allowed-value-1"
+            "label" => "Allowed value 1",
+            "value" => "allowed-value-1",
         },
         {
-            'label' => "Allowed value 2",
-            'value' => "allowed-value-2"
+            "label" => "Allowed value 2",
+            "value" => "allowed-value-2",
         },
         {
-            'label' => "Allowed value 3",
-            'value' => "allowed-value-3"
-        }
+            "label" => "Allowed value 3",
+            "value" => "allowed-value-3",
+        },
     ]
   }
 
   let(:facet_data) {
     {
-      'key' => "test_facet",
-      'name' => "Test facet",
-      'preposition' => "of value",
-      'allowed_values' => allowed_values
+      "key" => "test_facet",
+      "name" => "Test facet",
+      "preposition" => "of value",
+      "allowed_values" => allowed_values,
     }
   }
 
@@ -35,9 +35,9 @@ describe HiddenClearableFacet do
       subject { facet_class.new(facet_data, %w[allowed-value-1]) }
 
       specify {
-        expect(subject.sentence_fragment['preposition']).to eql("of value")
-        expect(subject.sentence_fragment['values'].first['label']).to eql("Allowed value 1")
-        expect(subject.sentence_fragment['values'].first['parameter_key']).to eql("test_facet")
+        expect(subject.sentence_fragment["preposition"]).to eql("of value")
+        expect(subject.sentence_fragment["values"].first["label"]).to eql("Allowed value 1")
+        expect(subject.sentence_fragment["values"].first["parameter_key"]).to eql("test_facet")
       }
     end
 
@@ -45,12 +45,12 @@ describe HiddenClearableFacet do
       subject { facet_class.new(facet_data, %w[allowed-value-1 allowed-value-2]) }
 
       specify {
-        expect(subject.sentence_fragment['preposition']).to eql("of value")
-        expect(subject.sentence_fragment['values'].first['label']).to eql("Allowed value 1")
-        expect(subject.sentence_fragment['values'].first['parameter_key']).to eql("test_facet")
+        expect(subject.sentence_fragment["preposition"]).to eql("of value")
+        expect(subject.sentence_fragment["values"].first["label"]).to eql("Allowed value 1")
+        expect(subject.sentence_fragment["values"].first["parameter_key"]).to eql("test_facet")
 
-        expect(subject.sentence_fragment['values'].last['label']).to eql("Allowed value 2")
-        expect(subject.sentence_fragment['values'].last['parameter_key']).to eql("test_facet")
+        expect(subject.sentence_fragment["values"].last["label"]).to eql("Allowed value 2")
+        expect(subject.sentence_fragment["values"].last["parameter_key"]).to eql("test_facet")
       }
     end
 

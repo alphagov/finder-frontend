@@ -6,9 +6,9 @@ class MetadataPresenter
   def present
     raw_metadata.map { |datum|
       case datum.fetch(:type)
-      when 'date'
+      when "date"
         build_date_metadata(datum)
-      when 'text', 'content_id'
+      when "text", "content_id"
         build_text_metadata(datum)
       end
     }

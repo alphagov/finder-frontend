@@ -1,12 +1,12 @@
-require 'spec_helper'
+require "spec_helper"
 
 RSpec.describe Registries::ManualsRegistry do
-  let(:slug) { '/guidance/care-and-use-of-a-nimbus-2000' }
+  let(:slug) { "/guidance/care-and-use-of-a-nimbus-2000" }
   let(:rummager_params) {
     {
       filter_document_type: %w(manual service_manual_homepage service_manual_guide),
       fields: %w(title),
-      count: 1500
+      count: 1500,
     }
   }
   let(:rummager_url) { "#{Plek.current.find('search')}/search.json?#{rummager_params.to_query}" }
@@ -20,14 +20,14 @@ RSpec.describe Registries::ManualsRegistry do
     it "will fetch manual information by slug" do
       manual = described_class.new
       expect(manual[slug]).to eq(
-        'title' => 'Care and use of a Nimbus 2000',
-        'slug' => slug
+        "title" => "Care and use of a Nimbus 2000",
+        "slug" => slug,
       )
       expect(manual.values).to eq(
         slug => {
-              'title' => 'Care and use of a Nimbus 2000',
-              'slug' => slug
-           }
+              "title" => "Care and use of a Nimbus 2000",
+              "slug" => slug,
+           },
        )
     end
 
@@ -37,20 +37,20 @@ RSpec.describe Registries::ManualsRegistry do
     end
   end
 
-  describe 'there is no id or title' do
-    it 'will remove those results' do
+  describe "there is no id or title" do
+    it "will remove those results" do
       stub_request(:get, rummager_url).to_return(
         body: {
           "results": [
             {
-              'title' => '',
-              'index' => 'govuk',
-              'es_score' => nil,
-              '_id' => ''
-            }
-          ]
+              "title" => "",
+              "index" => "govuk",
+              "es_score" => nil,
+              "_id" => "",
+            },
+          ],
         }
-        .to_json
+        .to_json,
       )
       clear_cache
       expect(described_class.new.values).to be_empty

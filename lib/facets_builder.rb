@@ -7,7 +7,7 @@ class FacetsBuilder
 
   def facets
     facet_hashes.map do |facet_hash|
-      facet_hash_with_allowed_values = facet_hash.merge('allowed_values' => allowed_values(facet_hash))
+      facet_hash_with_allowed_values = facet_hash.merge("allowed_values" => allowed_values(facet_hash))
       build_facet(facet_hash_with_allowed_values)
     end
   end
@@ -17,11 +17,11 @@ private
   attr_reader :content_item, :search_results, :value_hash
 
   def filters_on_brexit_topic?
-    @value_hash['topic'] == ContentItem::BREXIT_CONTENT_ID
+    @value_hash["topic"] == ContentItem::BREXIT_CONTENT_ID
   end
 
   def is_related_to_brexit_checkbox?(facet_hash)
-    facet_hash['key'] == "related_to_brexit" && facet_hash['filter_value'] == ContentItem::BREXIT_CONTENT_ID
+    facet_hash["key"] == "related_to_brexit" && facet_hash["filter_value"] == ContentItem::BREXIT_CONTENT_ID
   end
 
   def facet_hashes
@@ -34,28 +34,28 @@ private
   end
 
   def build_facet(facet_hash)
-    if facet_hash['filterable']
-      case facet_hash['type']
-      when 'text', 'content_id'
-        OptionSelectFacet.new(facet_hash, value_hash[facet_hash['key']])
-      when 'topical'
-        TopicalFacet.new(facet_hash, value_hash[facet_hash['key']])
-      when 'taxon'
-        TaxonFacet.new(facet_hash, value_hash.slice(*facet_hash['keys']))
-      when 'date'
-        DateFacet.new(facet_hash, value_hash[facet_hash['key']])
-      when 'hidden'
-        HiddenFacet.new(facet_hash, value_hash[facet_hash['key']])
-      when 'checkbox'
-        CheckboxFacet.new(facet_hash, value_hash[facet_hash['key']])
-      when 'radio'
-        RadioFacet.new(facet_hash, value_hash[facet_hash['key']])
-      when 'hidden_clearable'
-        HiddenClearableFacet.new(facet_hash, value_hash[facet_hash['key']])
-      when 'research_and_statistics'
-        RadioFacetForMultipleFilters.new(facet_hash, value_hash[facet_hash['key']], ::Filters::ResearchAndStatsHashes.new.call)
-      when 'official_documents'
-        RadioFacetForMultipleFilters.new(facet_hash, value_hash[facet_hash['key']], ::Filters::OfficialDocumentsHashes.new.call)
+    if facet_hash["filterable"]
+      case facet_hash["type"]
+      when "text", "content_id"
+        OptionSelectFacet.new(facet_hash, value_hash[facet_hash["key"]])
+      when "topical"
+        TopicalFacet.new(facet_hash, value_hash[facet_hash["key"]])
+      when "taxon"
+        TaxonFacet.new(facet_hash, value_hash.slice(*facet_hash["keys"]))
+      when "date"
+        DateFacet.new(facet_hash, value_hash[facet_hash["key"]])
+      when "hidden"
+        HiddenFacet.new(facet_hash, value_hash[facet_hash["key"]])
+      when "checkbox"
+        CheckboxFacet.new(facet_hash, value_hash[facet_hash["key"]])
+      when "radio"
+        RadioFacet.new(facet_hash, value_hash[facet_hash["key"]])
+      when "hidden_clearable"
+        HiddenClearableFacet.new(facet_hash, value_hash[facet_hash["key"]])
+      when "research_and_statistics"
+        RadioFacetForMultipleFilters.new(facet_hash, value_hash[facet_hash["key"]], ::Filters::ResearchAndStatsHashes.new.call)
+      when "official_documents"
+        RadioFacetForMultipleFilters.new(facet_hash, value_hash[facet_hash["key"]], ::Filters::OfficialDocumentsHashes.new.call)
       else
         raise ArgumentError.new("Unknown filterable facet type: #{facet_hash['type']}")
       end
@@ -65,7 +65,7 @@ private
   end
 
   def allowed_values(facet_hash)
-    return facet_hash['allowed_values'] unless facet_hash['allowed_values'].blank?
+    return facet_hash["allowed_values"] unless facet_hash["allowed_values"].blank?
 
     facet_key = facet_hash["key"]
     if registries.all.has_key?(facet_key)

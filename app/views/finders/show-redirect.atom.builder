@@ -44,12 +44,12 @@ atom_feed do |feed|
   ) do |entry|
     entry.title("This feed has ended")
 
-    summary = if @finder_slug.starts_with? 'government/policies/'
+    summary = if @finder_slug.starts_with? "government/policies/"
                 policy_summary
               else
                 generic_summary
               end
 
-    entry.summary(summary, type: 'html')
+    entry.summary(summary, type: "html")
   end
 end

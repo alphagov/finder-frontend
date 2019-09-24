@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :brexit_checker_question, class: BrexitChecker::Question do
-    text { 'A title' }
+    text { "A title" }
     key { SecureRandom.uuid }
-    type { 'single' }
+    type { "single" }
     options { [] }
 
     initialize_with { BrexitChecker::Question.new(attributes) }

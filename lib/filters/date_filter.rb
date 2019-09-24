@@ -1,6 +1,6 @@
 module Filters
   class DateFilter < Filter
-  private # rubocop:disable Layout/IndentationWidth
+  private
 
     def value
       @value ||= serialized_values.join(",")

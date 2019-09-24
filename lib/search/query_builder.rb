@@ -92,7 +92,7 @@ module Search
 
     def metadata_fields
       raw_facets.map { |f|
-        unfilterise(f['filter_key'] || f['key'])
+        unfilterise(f["filter_key"] || f["key"])
       }
     end
 
@@ -100,7 +100,7 @@ module Search
       finder_content_item.raw_facets
     end
 
-    def unfilterise(field = '')
+    def unfilterise(field = "")
       # Removes filter-y prefixes from facet keys.
       # For example, filter_x or filter_all_x will become x.
       field.gsub(/^(?'full_name'(?'operation'filter|reject|any|all)_(?:(?'multivalue_query'any|all)_)?(?'name'.*))$/, '\k<name>')
@@ -130,11 +130,11 @@ module Search
     end
 
     def remove_stopwords
-      keywords = params["keywords"].split(' ')
+      keywords = params["keywords"].split(" ")
       keywords.delete_if do |keyword|
-        stopwords.include?(keyword.downcase.gsub(/\W/, ''))
+        stopwords.include?(keyword.downcase.gsub(/\W/, ""))
       end
-      keywords.join(' ')
+      keywords.join(" ")
     end
 
     def base_filter_query
@@ -153,13 +153,13 @@ module Search
     def and_filter_params
       @and_filter_params ||= FilterQueryBuilder.new(
         facets: and_facets,
-        user_params: params
+        user_params: params,
       ).call
     end
 
     def and_facets
       raw_facets.select do |facet|
-        facet.fetch('combine_mode', 'and') == 'and'
+        facet.fetch("combine_mode", "and") == "and"
       end
     end
 
@@ -173,13 +173,13 @@ module Search
     def or_filter_params
       @or_filter_params ||= FilterQueryBuilder.new(
         facets: or_facets,
-        user_params: params
+        user_params: params,
       ).call
     end
 
     def or_facets
       raw_facets.select do |facet|
-        facet.fetch('combine_mode', 'and') == 'or'
+        facet.fetch("combine_mode", "and") == "or"
       end
     end
 
@@ -231,7 +231,7 @@ module Search
     end
 
     def ab_query
-      ab_params.any? ? { 'ab_tests' => ab_params.map { |k, v| "#{k}:#{v}" }.join(',') } : {}
+      ab_params.any? ? { "ab_tests" => ab_params.map { |k, v| "#{k}:#{v}" }.join(",") } : {}
     end
 
     def suggest_query

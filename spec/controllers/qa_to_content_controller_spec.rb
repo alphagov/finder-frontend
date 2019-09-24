@@ -1,5 +1,5 @@
-require 'spec_helper'
-require 'gds_api/test_helpers/content_store'
+require "spec_helper"
+require "gds_api/test_helpers/content_store"
 
 describe QaToContentController, type: :controller do
   include FixturesHelper
@@ -51,10 +51,10 @@ describe QaToContentController, type: :controller do
       end
 
       context "when the option is invalid" do
-        let(:params) { { question["id"] => '/non-matching-url' } }
+        let(:params) { { question["id"] => "/non-matching-url" } }
 
         it "renders the question" do
-          expect(response).to render_template('qa_to_content/show')
+          expect(response).to render_template("qa_to_content/show")
         end
       end
     end

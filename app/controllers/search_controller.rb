@@ -14,7 +14,7 @@ class SearchController < ApplicationController
       redirect_to_all_content_finder(search_params) && return
     end
 
-    render(action: 'no_search_term') && return
+    render(action: "no_search_term") && return
   end
 
 protected
@@ -39,12 +39,12 @@ protected
   def redirect_to_all_content_finder(search_params)
     all_content_params = {
       keywords: search_params.search_term,
-      organisations: params['filter_organisations'],
-      manual: params['filter_manual'],
-      format: params['format'],
-      order: 'relevance'
+      organisations: params["filter_organisations"],
+      manual: params["filter_manual"],
+      format: params["format"],
+      order: "relevance",
     }.compact
 
-    redirect_to(finder_path('search/all', params: all_content_params), status: :moved_permanently)
+    redirect_to(finder_path("search/all", params: all_content_params), status: :moved_permanently)
   end
 end

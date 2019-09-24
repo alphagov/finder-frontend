@@ -11,10 +11,10 @@ module SearchClusterABTestable
   # anything else = use default cluster
   def search_cluster_test
     @search_cluster_test ||= GovukAbTesting::AbTest.new(
-      'SearchClusterQueryABTest',
+      "SearchClusterQueryABTest",
       dimension: CUSTOM_DIMENSION,
       allowed_variants: %w[Default A B],
-      control_variant: 'Default',
+      control_variant: "Default",
     )
   end
 
@@ -26,7 +26,7 @@ module SearchClusterABTestable
     if use_default_cluster?
       {}
     else
-      { search_cluster_query: use_b_cluster? ? 'B' : 'A' }
+      { search_cluster_query: use_b_cluster? ? "B" : "A" }
     end
   end
 
@@ -35,11 +35,11 @@ module SearchClusterABTestable
   end
 
   def use_default_cluster?
-    !(search_cluster_variant.variant?('A') || search_cluster_variant.variant?('B'))
+    !(search_cluster_variant.variant?("A") || search_cluster_variant.variant?("B"))
   end
 
   def use_b_cluster?
-    search_cluster_variant.variant? 'B'
+    search_cluster_variant.variant? "B"
   end
 
   def search_cluster_test_in_scope?

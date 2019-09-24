@@ -1,6 +1,6 @@
 class StatisticsSortPresenter < SortPresenter
   def initialize(content_item, filter_params)
-    @doc_type = filter_params['content_store_document_type']
+    @doc_type = filter_params["content_store_document_type"]
     super(content_item, filter_params)
   end
 
@@ -16,17 +16,17 @@ private
   EXCLUDED_OPTIONS = {
     any: [],
     public: %w(-release_timestamp release_timestamp),
-    upcoming: %w(-public_timestamp public_timestamp)
+    upcoming: %w(-public_timestamp public_timestamp),
   }.freeze
   DEFAULT_KEY = {
-    any: '-public_timestamp',
-    public: '-public_timestamp',
-    upcoming: 'release_timestamp'
+    any: "-public_timestamp",
+    public: "-public_timestamp",
+    upcoming: "release_timestamp",
   }.freeze
   RENAMED_OPTIONS = {
-    'upcoming_statistics' => {
-      'release_timestamp' => 'Release date (soonest)'
-    }
+    "upcoming_statistics" => {
+      "release_timestamp" => "Release date (soonest)",
+    },
   }.freeze
 
   def default_key
@@ -34,23 +34,23 @@ private
   end
 
   def is_default?(option)
-    option['key'] == default_key
+    option["key"] == default_key
   end
 
   def raw_default_option
-    sort_options.find { |option| option['key'] == default_key }
+    sort_options.find { |option| option["key"] == default_key }
   end
 
   def excluded?(option)
-    EXCLUDED_OPTIONS[sort_type].include? option['key']
+    EXCLUDED_OPTIONS[sort_type].include? option["key"]
   end
 
   def rename(option)
-    name = RENAMED_OPTIONS.dig(doc_type, option['key'])
+    name = RENAMED_OPTIONS.dig(doc_type, option["key"])
     if name
       option.merge(
-        'name' => name,
-        'value' => option['name'].parameterize,
+        "name" => name,
+        "value" => option["name"].parameterize,
       )
     else
       option
@@ -59,11 +59,11 @@ private
 
   def sort_type
     case doc_type
-    when 'upcoming_statistics'
+    when "upcoming_statistics"
       :upcoming
-    when 'published_statistics'
+    when "published_statistics"
       :public
-    when 'cancelled_statistics'
+    when "cancelled_statistics"
       :any
     else
       :public

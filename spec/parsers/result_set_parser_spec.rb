@@ -1,4 +1,4 @@
-require 'spec_helper'
+require "spec_helper"
 
 describe ResultSetParser do
   context "with a result set hash with some documents" do

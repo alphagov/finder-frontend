@@ -9,7 +9,7 @@ class FacetTagsPresenter
   def present
     {
       applied_filters: selected_filter_descriptions,
-      screen_reader_filter_description: ScreenReaderFilterDescriptionPresenter.new(filters, sort_option).present
+      screen_reader_filter_description: ScreenReaderFilterDescriptionPresenter.new(filters, sort_option).present,
     }
   end
 

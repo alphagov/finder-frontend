@@ -4,7 +4,7 @@ module FinderTopResultAbTestable
   def self.included(base)
     base.helper_method(
       :finder_top_result_variant,
-      :show_top_result?
+      :show_top_result?,
     )
     base.after_action :set_finder_top_result_response_header
   end
@@ -14,7 +14,7 @@ module FinderTopResultAbTestable
       "FinderAnswerABTest",
       dimension: CUSTOM_DIMENSION,
       allowed_variants: %w(A B),
-      control_variant: "A"
+      control_variant: "A",
     )
   end
 

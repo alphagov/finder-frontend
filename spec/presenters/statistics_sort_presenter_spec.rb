@@ -1,4 +1,4 @@
-require 'spec_helper'
+require "spec_helper"
 
 RSpec.describe StatisticsSortPresenter do
   let(:stats_finder) {
@@ -11,7 +11,7 @@ RSpec.describe StatisticsSortPresenter do
 
   let(:keywords_query) { { "keywords" => "cats" } }
 
-  let(:most_viewed_query) { { 'order' => "most-viewed" } }
+  let(:most_viewed_query) { { "order" => "most-viewed" } }
 
   let(:bad_sort_option_query) { { "order" => "blah blah" } }
 
@@ -35,7 +35,7 @@ RSpec.describe StatisticsSortPresenter do
     {
       "default" => true,
       "key" => "-public_timestamp",
-      "name" => "Updated (newest)"
+      "name" => "Updated (newest)",
     }
   }
 
@@ -63,34 +63,34 @@ RSpec.describe StatisticsSortPresenter do
     context "when published_statistics is selected" do
       let(:query) { published_statistics_query }
       it "returns updated newest" do
-        expect_default('Updated (newest)', 'updated-newest')
+        expect_default("Updated (newest)", "updated-newest")
       end
     end
 
     context "when research is selected" do
       let(:query) { research_query }
       it "returns updated newest" do
-        expect_default('Updated (newest)', 'updated-newest')
+        expect_default("Updated (newest)", "updated-newest")
       end
     end
 
     context "when upcoming_statistics is selected" do
       let(:query) { upcoming_statistics_query }
       it "returns release timestamp" do
-        expect_default('Release date (soonest)', 'release-date-oldest')
+        expect_default("Release date (soonest)", "release-date-oldest")
       end
     end
 
     context "when cancelled_statistics is selected" do
       let(:query) { cancelled_statistics_query }
       it "returns public timestamp" do
-        expect_default('Updated (newest)', 'updated-newest')
+        expect_default("Updated (newest)", "updated-newest")
       end
     end
 
     context "when no value is selected" do
       it "returns updated newest as the default" do
-        expect_default('Updated (newest)', 'updated-newest')
+        expect_default("Updated (newest)", "updated-newest")
       end
     end
   end
@@ -110,13 +110,13 @@ RSpec.describe StatisticsSortPresenter do
       let(:query) { most_viewed_query }
       it "returns the permitted sort option" do
         expect(presenter.selected_option).to eq(
-          "key" => "-popularity", "name" => "Most viewed"
+          "key" => "-popularity", "name" => "Most viewed",
         )
       end
     end
 
     context "an unpermitted option is selected by the user" do
-      let(:order) { { 'order' => 'bad input!' } }
+      let(:order) { { "order" => "bad input!" } }
 
       it "returns the default option" do
         returns_the_default_option
@@ -160,7 +160,7 @@ RSpec.describe StatisticsSortPresenter do
     end
 
     context "Release date (latest) is selected by the user" do
-      let(:order) { { 'order' => 'release-date-latest' } }
+      let(:order) { { "order" => "release-date-latest" } }
       let(:query) { order }
 
       it "returns Updated (newest)" do
@@ -178,7 +178,7 @@ RSpec.describe StatisticsSortPresenter do
       end
 
       context "Updated (oldest) is selected by the user" do
-        let(:order) { { 'order' => 'updated-oldest' } }
+        let(:order) { { "order" => "updated-oldest" } }
         let(:query) { order }
 
         it "returns Updated (oldest)" do
@@ -202,7 +202,7 @@ RSpec.describe StatisticsSortPresenter do
     end
 
     context "Sort option release-date-oldest is selected by the user" do
-      let(:order) { { 'order' => 'release-date-oldest' } }
+      let(:order) { { "order" => "release-date-oldest" } }
 
       context "upcoming statistics is selected" do
         let(:query) { order.merge(upcoming_statistics_query) }
@@ -233,7 +233,7 @@ RSpec.describe StatisticsSortPresenter do
     end
 
     def relevance_value_is_set
-      expect(presenter.to_hash[:relevance_value]).to eq('relevance')
+      expect(presenter.to_hash[:relevance_value]).to eq("relevance")
     end
 
     def has_four_options
@@ -242,7 +242,7 @@ RSpec.describe StatisticsSortPresenter do
 
     def relevance_disabled?
       presenter.to_hash[:options].find { |o|
-        o[:value] == 'relevance'
+        o[:value] == "relevance"
       }[:disabled]
     end
 
@@ -330,16 +330,16 @@ RSpec.describe StatisticsSortPresenter do
               label: "Updated (oldest)",
               selected: false,
               value: "updated-oldest",
-            }
-          ]
+            },
+          ],
         )
       end
 
       it "sets the default option as selected" do
         expect(presenter.to_hash[:options].find { |o| o[:selected] }).
           to eq(
-            data_track_category: 'dropDownClicked',
-            data_track_action: 'clicked',
+            data_track_category: "dropDownClicked",
+            data_track_action: "clicked",
             data_track_label: "Updated (newest)",
             label: "Updated (newest)",
             value: "updated-newest",

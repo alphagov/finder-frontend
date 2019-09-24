@@ -1,5 +1,5 @@
-require 'spec_helper'
-require 'gds_api/test_helpers/content_store'
+require "spec_helper"
+require "gds_api/test_helpers/content_store"
 
 describe SearchController, type: :controller do
   include GdsApi::TestHelpers::ContentStore
@@ -8,9 +8,9 @@ describe SearchController, type: :controller do
 
   before do
     content_store_has_item(
-      '/search',
-      base_path: '/search',
-      title: 'Search'
+      "/search",
+      base_path: "/search",
+      title: "Search",
     )
 
     rummager_response = %|{

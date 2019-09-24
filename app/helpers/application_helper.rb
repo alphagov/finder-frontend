@@ -20,14 +20,14 @@ module ApplicationHelper
   def page_metadata(metadata)
     metadata.inject({}) do |memo, (type, data)|
       memo.merge(
-        type => data.is_a?(Array) ? arr_to_links(data) : data
+        type => data.is_a?(Array) ? arr_to_links(data) : data,
       )
     end
   end
 
   def arr_to_links(arr)
     arr.map { |link|
-      link_to(link['title'], link['web_url'])
+      link_to(link["title"], link["web_url"])
     }
   end
 end

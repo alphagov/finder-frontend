@@ -46,10 +46,10 @@ private
   def applied_filters
     params
       .permit("filter" => {})
-      .dig('filter')
+      .dig("filter")
       .to_h
       .merge(
-        filter_params.fetch('subscriber_list_params', {})
+        filter_params.fetch("subscriber_list_params", {}),
       )
   end
 
@@ -73,16 +73,16 @@ private
     title_builder = signup_presenter.email_filter_by == "facet_values" ? EmailAlertListTitleBuilder : EmailAlertTitleBuilder
     title_builder.call(
       filter: applied_filters,
-      subscription_list_title_prefix: content.dig('details', 'subscription_list_title_prefix'),
-      facets: signup_presenter.choices
+      subscription_list_title_prefix: content.dig("details", "subscription_list_title_prefix"),
+      facets: signup_presenter.choices,
     )
   end
 
   def default_filters
-    content['details'].fetch('filter', {})
+    content["details"].fetch("filter", {})
   end
 
   def finder_format
-    finder_content_item.dig('details', 'filter', 'document_type')
+    finder_content_item.dig("details", "filter", "document_type")
   end
 end

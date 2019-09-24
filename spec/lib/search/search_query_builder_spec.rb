@@ -12,14 +12,14 @@ describe Search::QueryBuilder do
 
   let(:finder_content_item) {
     ContentItem.new(
-      'base_path' => '/finder-path',
-      'details' => {
-        'facets' => facets,
-        'filter' => filter,
-        'reject' => reject,
-        'default_order' => default_order,
-        'default_documents_per_page' => nil,
-      }
+      "base_path" => "/finder-path",
+      "details" => {
+        "facets" => facets,
+        "filter" => filter,
+        "reject" => reject,
+        "default_order" => default_order,
+        "default_documents_per_page" => nil,
+      },
 )
   }
 
@@ -37,20 +37,20 @@ describe Search::QueryBuilder do
   context "with pagination" do
     let(:finder_content_item) {
       ContentItem.new(
-        'details' => {
-          'facets' => facets,
-          'filter' => filter,
-          'reject' => reject,
-          'default_order' => default_order,
-          'default_documents_per_page' => 10
-        }
+        "details" => {
+          "facets" => facets,
+          "filter" => filter,
+          "reject" => reject,
+          "default_order" => default_order,
+          "default_documents_per_page" => 10,
+        },
 )
     }
 
     it "should use documents_per_page from content item" do
       expect(query).to include(
         "count" => 10,
-        "start" => 0
+        "start" => 0,
       )
     end
   end
@@ -67,19 +67,19 @@ describe Search::QueryBuilder do
     let(:facets) {
       [
         {
-          'key' => "alpha",
-          'filterable' => false,
+          "key" => "alpha",
+          "filterable" => false,
         },
         {
-          'key' => "beta",
-          'filterable' => false,
+          "key" => "beta",
+          "filterable" => false,
         },
       ]
     }
 
     let(:reject) {
       {
-        alpha: "value"
+        alpha: "value",
       }
     }
 
@@ -143,14 +143,14 @@ describe Search::QueryBuilder do
       let(:allowed_values) do
         [
           { "label" => "EU citizens", "value" => "yes", "content_id" => "yes-cont-id" },
-          { "label" => "No EU citizens", "value" => "no", "content_id" => "no-cont-id" }
+          { "label" => "No EU citizens", "value" => "no", "content_id" => "no-cont-id" },
         ]
       end
 
       let(:intellectual_property_allowed_values) do
         [
           { "label" => "Copyright", "value" => "copyright", "content_id" => "copyright-cont-id" },
-          { "label" => "Patents", "value" => "patents", "content_id" => "patents-cont-id" }
+          { "label" => "Patents", "value" => "patents", "content_id" => "patents-cont-id" },
         ]
       end
 
@@ -170,22 +170,22 @@ describe Search::QueryBuilder do
       let(:params) do
         {
           "employ_eu_citizens" => "yes",
-          "intellectual_property" => %w[copyright patents]
+          "intellectual_property" => %w[copyright patents],
         }
       end
 
-      context 'with `and` combine_mode' do
-        it 'adds a `filter_facet_values` filter with the content_id' do
+      context "with `and` combine_mode" do
+        it "adds a `filter_facet_values` filter with the content_id" do
           expect(query["filter_any_facet_values"]).to eq(%w[yes-cont-id copyright-cont-id patents-cont-id])
         end
       end
 
-      context 'with `or` combine_mode' do
+      context "with `or` combine_mode" do
         before do
-          facets.second["combine_mode"] = 'or'
+          facets.second["combine_mode"] = "or"
         end
 
-        it 'sends the correct `filter_any_facet_values` to each query' do
+        it "sends the correct `filter_any_facet_values` to each query" do
           expect(queries.first["filter_any_facet_values"]).to eq(%w[yes-cont-id])
           expect(queries.second["filter_any_facet_values"]).to eq(%w[copyright-cont-id patents-cont-id])
         end
@@ -229,7 +229,7 @@ describe Search::QueryBuilder do
     context "longer than the maximum query length" do
       let(:params) {
         {
-          "keywords" => "a" * 1024
+          "keywords" => "a" * 1024,
         }
       }
 
@@ -241,7 +241,7 @@ describe Search::QueryBuilder do
     context "without stopwords" do
       let(:params) {
         {
-          "keywords" => "a mango"
+          "keywords" => "a mango",
         }
       }
 
@@ -253,25 +253,25 @@ describe Search::QueryBuilder do
     context "with stopwords" do
       let(:finder_content_item) {
         ContentItem.new(
-          'base_path' => '/find-eu-exit-guidance-business',
-          'details' => {
-            'facets' => facets,
-            'filter' => filter,
-            'reject' => reject,
-            'default_order' => default_order,
-            'default_documents_per_page' => 10
-          }
+          "base_path" => "/find-eu-exit-guidance-business",
+          "details" => {
+            "facets" => facets,
+            "filter" => filter,
+            "reject" => reject,
+            "default_order" => default_order,
+            "default_documents_per_page" => 10,
+          },
 )
       }
 
       it "should not include stopwords in search" do
         params = {
-          "keywords" => "a mango"
+          "keywords" => "a mango",
         }
 
         query = described_class.new(
           finder_content_item: finder_content_item,
-          params: params
+          params: params,
         ).call.first
 
         expect(query).to include("q" => "mango")
@@ -280,12 +280,12 @@ describe Search::QueryBuilder do
 
       it "strips punctuation from stopword check" do
         params = {
-          "keywords" => "a, isn't a mango is it?"
+          "keywords" => "a, isn't a mango is it?",
         }
 
         query = described_class.new(
           finder_content_item: finder_content_item,
-          params: params
+          params: params,
         ).call.first
 
         expect(query).to include("q" => "mango")
@@ -294,12 +294,12 @@ describe Search::QueryBuilder do
 
       it "ignores case of keywords" do
         params = {
-          "keywords" => "A mango"
+          "keywords" => "A mango",
         }
 
         query = described_class.new(
           finder_content_item: finder_content_item,
-          params: params
+          params: params,
         ).call.first
 
         expect(query).to include("q" => "mango")
@@ -308,12 +308,12 @@ describe Search::QueryBuilder do
 
       it "does not strip numbers from search" do
         params = {
-          "keywords" => "50"
+          "keywords" => "50",
         }
 
         query = described_class.new(
           finder_content_item: finder_content_item,
-          params: params
+          params: params,
         ).call.first
 
         expect(query).to include("q" => "50")
@@ -342,8 +342,8 @@ describe Search::QueryBuilder do
   context "with A/B parameters" do
     let(:ab_params) {
       {
-        test_one: 'a',
-        test_two: 'b',
+        test_one: "a",
+        test_two: "b",
       }
     }
 
@@ -365,41 +365,41 @@ describe Search::QueryBuilder do
     end
   end
 
-  describe '#start' do
-    it 'starts at zero by default' do
+  describe "#start" do
+    it "starts at zero by default" do
       query = query_with_params({})
 
-      expect(query['start']).to eql(0)
+      expect(query["start"]).to eql(0)
     end
 
-    it 'starts at zero when page param is zero' do
+    it "starts at zero when page param is zero" do
       query = query_with_params("page" => 0)
 
-      expect(query['start']).to eql(0)
+      expect(query["start"]).to eql(0)
     end
 
-    it 'starts at zero when page param is nil' do
+    it "starts at zero when page param is nil" do
       query = query_with_params("page" => nil)
 
-      expect(query['start']).to eql(0)
+      expect(query["start"]).to eql(0)
     end
 
-    it 'starts at zero when page param is empty' do
+    it "starts at zero when page param is empty" do
       query = query_with_params("page" => "")
 
-      expect(query['start']).to eql(0)
+      expect(query["start"]).to eql(0)
     end
 
-    it 'is paginated' do
+    it "is paginated" do
       query = query_with_params("page" => "10")
 
-      expect(query['start']).to eql(13500)
+      expect(query["start"]).to eql(13500)
     end
 
     def query_with_params(params)
       described_class.new(
         finder_content_item: finder_content_item,
-        params: params
+        params: params,
       ).call.first
     end
   end

@@ -28,27 +28,27 @@ module RummagerUrlHelper
 
   def news_and_communications_search_params
     base_search_params.merge(
-      'filter_content_purpose_supergroup' => 'news_and_communications'
+      "filter_content_purpose_supergroup" => "news_and_communications",
     )
   end
 
   def services_search_params
     base_search_params.merge(
-      'filter_content_purpose_supergroup' => 'services',
+      "filter_content_purpose_supergroup" => "services",
     )
   end
 
   def policy_papers_params
     base_search_params.merge(
-      'filter_content_purpose_supergroup' => 'policy_and_engagement',
-      'count' => "20",
-      'order' => '-public_timestamp',
+      "filter_content_purpose_supergroup" => "policy_and_engagement",
+      "count" => "20",
+      "order" => "-public_timestamp",
     )
   end
 
   def all_content_params
     base_search_params.merge(
-      'count' => "20",
+      "count" => "20",
     )
   end
 

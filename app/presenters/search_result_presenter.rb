@@ -32,15 +32,15 @@ class SearchResultPresenter
           track_label: link,
           track_options: {
             dimension28: @count,
-            dimension29: title
-          }
-        }
+            dimension29: title,
+          },
+        },
       },
       metadata: structure_metadata,
       metadata_raw: metadata,
       subtext: subtext,
       highlight: @highlight,
-      highlight_text: highlight_text
+      highlight_text: highlight_text,
     }
   end
 
@@ -55,7 +55,7 @@ private
   end
 
   def highlight_text
-    I18n.t('finders.search_result_presenter.most_relevant') if @highlight
+    I18n.t("finders.search_result_presenter.most_relevant") if @highlight
   end
 
   def subtext

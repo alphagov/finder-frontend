@@ -23,16 +23,16 @@ private
 
   def used_facets
     facets.select { |facet|
-      params[facet['facet_id']].present?
+      params[facet["facet_id"]].present?
     }
   end
 
   def facets
-    allowed_facets.reject { |facet| facet.key?('facet_choices') }
+    allowed_facets.reject { |facet| facet.key?("facet_choices") }
   end
 
   def allowed_facets
-    content_item['details'].fetch('email_filter_facets', [])
+    content_item["details"].fetch("email_filter_facets", [])
   end
 
   def hash_with_default_as_array
@@ -40,20 +40,20 @@ private
   end
 
   def facet_filter_key(facet)
-    facet['filter_key'] || facet['facet_id']
+    facet["filter_key"] || facet["facet_id"]
   end
 
   def facet_filter_value(facet)
-    return facet['filter_value'] if facet['filter_value'].present?
+    return facet["filter_value"] if facet["filter_value"].present?
 
-    values = Array(params[facet['facet_id']])
+    values = Array(params[facet["facet_id"]])
 
-    return facet_option_lookup_values(values, facet) if facet['option_lookup'].present?
+    return facet_option_lookup_values(values, facet) if facet["option_lookup"].present?
 
     values
   end
 
   def facet_option_lookup_values(values, facet)
-    facet['option_lookup'].select { |key, _| values.include? key }.values.flatten
+    facet["option_lookup"].select { |key, _| values.include? key }.values.flatten
   end
 end

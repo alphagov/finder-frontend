@@ -69,7 +69,7 @@ private
       "description" => current_facet_config["description"],
       "hint_title" => current_facet_config["hint_title"],
       "hint_text" => current_facet_config["hint_text"],
-      "facet" => current_facet
+      "facet" => current_facet,
     }
     config.merge!("custom_options" => current_facet_config["custom_options"]) if current_facet_config["custom_options"].present?
 
@@ -97,7 +97,7 @@ private
   end
 
   def custom_options?
-    question_type == "single" && current_facet['custom_options'].present?
+    question_type == "single" && current_facet["custom_options"].present?
   end
 
   def options
@@ -122,7 +122,7 @@ private
     filter_group["filters"].map do |filter|
       {
         label: facet_grouped_allowed_values[filter][0]["label"],
-        value: filter
+        value: filter,
       }
     end
   end
@@ -143,7 +143,7 @@ private
   helper_method :next_page_url
 
   def redirect_to_finder
-    redirect_to qa_config["finder_base_path"] + '?' + filtered_params.to_query
+    redirect_to qa_config["finder_base_path"] + "?" + filtered_params.to_query
   end
 
   def skip_link_url
@@ -166,7 +166,7 @@ private
   helper_method :filtered_params
 
   def permitted_params
-    permitted_yesnos = facets.map { |facet| :"#{facet['key']}-yesno" }
+    permitted_yesnos = facets.map { |facet| :"#{facet["key"]}-yesno" }
 
     permitted_keys = facets.each_with_object({}) do |facet, keys|
       keys[facet["key"]] = []

@@ -1,4 +1,4 @@
-require 'spec_helper'
+require "spec_helper"
 require "gds_api/test_helpers/worldwide"
 
 RSpec.describe Registries::BaseRegistries do
@@ -18,20 +18,20 @@ RSpec.describe Registries::BaseRegistries do
   }
 
   it "fetches all registries" do
-    expect(subject.all).to have_key('manual')
-    expect(subject.all).to have_key('full_topic_taxonomy')
-    expect(subject.all).to have_key('world_locations')
-    expect(subject.all).to have_key('part_of_taxonomy_tree')
-    expect(subject.all).to have_key('organisations')
-    expect(subject.all).to have_key('people')
+    expect(subject.all).to have_key("manual")
+    expect(subject.all).to have_key("full_topic_taxonomy")
+    expect(subject.all).to have_key("world_locations")
+    expect(subject.all).to have_key("part_of_taxonomy_tree")
+    expect(subject.all).to have_key("organisations")
+    expect(subject.all).to have_key("people")
   end
 
   it "provides world_locations registry" do
-    expect(subject.all['world_locations']).to be_instance_of Registries::WorldLocationsRegistry
+    expect(subject.all["world_locations"]).to be_instance_of Registries::WorldLocationsRegistry
   end
 
   it "provides topic_taxonomy registry as part_of_taxonomy_tree" do
-    expect(subject.all['part_of_taxonomy_tree']).to be_instance_of Registries::TopicTaxonomyRegistry
+    expect(subject.all["part_of_taxonomy_tree"]).to be_instance_of Registries::TopicTaxonomyRegistry
   end
 
   describe "#refresh_cache" do

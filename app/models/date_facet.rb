@@ -7,21 +7,21 @@ class DateFacet < FilterableFacet
   end
 
   def user_supplied_from_date
-    @value['from']
+    @value["from"]
   end
 
   def user_supplied_to_date
-    @value['to']
+    @value["to"]
   end
 
   def sentence_fragment
     return nil unless has_filters?
 
     {
-      'key' => key,
-      'preposition' => [preposition, additional_preposition].compact.join(' '),
-      'values' => value_fragments,
-      'word_connectors' => and_word_connectors
+      "key" => key,
+      "preposition" => [preposition, additional_preposition].compact.join(" "),
+      "values" => value_fragments,
+      "word_connectors" => and_word_connectors,
     }
   end
 
@@ -31,7 +31,7 @@ class DateFacet < FilterableFacet
 
   def query_params
     {
-      key => @value
+      key => @value,
     }
   end
 
@@ -40,10 +40,10 @@ private
   def value_fragments
     present_values.map { |name, date|
       {
-        'label' => date.date.strftime("%e %B %Y"),
-        'parameter_key' => key,
-        'value' => date.original_input,
-        'name' => "#{key}[#{name}]"
+        "label" => date.date.strftime("%e %B %Y"),
+        "parameter_key" => key,
+        "value" => date.original_input,
+        "name" => "#{key}[#{name}]",
       }
     }
   end

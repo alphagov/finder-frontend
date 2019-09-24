@@ -1,5 +1,5 @@
 require "securerandom"
-require 'spec_helper'
+require "spec_helper"
 
 RSpec.describe Registries::TopicTaxonomyRegistry do
   include TaxonomySpecHelper
@@ -35,12 +35,12 @@ RSpec.describe Registries::TopicTaxonomyRegistry do
 
     it "will fetch an expanded topic taxon by content_id" do
       fetched_document = registry[content_id_one]
-      expect(fetched_document['content_id']).to eq(content_id_one)
-      expect(fetched_document['title']).to eq(top_level_taxon_one['title'])
+      expect(fetched_document["content_id"]).to eq(content_id_one)
+      expect(fetched_document["title"]).to eq(top_level_taxon_one["title"])
 
       fetched_document = registry[content_id_two]
-      expect(fetched_document['content_id']).to eq(content_id_two)
-      expect(fetched_document['title']).to eq(top_level_taxon_two['title'])
+      expect(fetched_document["content_id"]).to eq(content_id_two)
+      expect(fetched_document["title"]).to eq(top_level_taxon_two["title"])
     end
   end
 end

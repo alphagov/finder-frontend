@@ -13,25 +13,25 @@ class SignupPresenter
   end
 
   def name
-    content_item['title']
+    content_item["title"]
   end
 
   def default_frequency
     # return 'nil' if NOT the business finder email signup page to avoid `default_frequency` appearing in other URLs
     # as this may not be expected and could have some side-effects
-    EuExitFinderHelper.eu_exit_finder_email_signup?(@content_item['content_id']) ? 'daily' : nil
+    EuExitFinderHelper.eu_exit_finder_email_signup?(@content_item["content_id"]) ? "daily" : nil
   end
 
   def body
-    content_item['description']
+    content_item["description"]
   end
 
   def beta?
-    content_item['details']['beta']
+    content_item["details"]["beta"]
   end
 
   def email_filter_by
-    content_item['details'].fetch('email_filter_by', nil)
+    content_item["details"].fetch("email_filter_by", nil)
   end
 
   def can_modify_choices?
@@ -41,7 +41,7 @@ class SignupPresenter
   def hidden_choices
     hidden_choices = choices.map do |choice|
       if ignore_facet?(choice["facet_id"])
-        choice['facet_choices'].map do |facet_choice|
+        choice["facet_choices"].map do |facet_choice|
           {
             name: "filter[#{choice['facet_id']}][]",
             value: facet_choice["key"],
@@ -67,17 +67,17 @@ class SignupPresenter
   def choices_formatted
     @choices_formatted ||= facets_with_choices.map { |choice|
       {
-        label: choice['facet_name'],
-        value: choice['facet_id'],
-        checked: choice['prechecked'],
-        items: choice['facet_choices'].map do |facet_choice|
+        label: choice["facet_name"],
+        value: choice["facet_id"],
+        checked: choice["prechecked"],
+        items: choice["facet_choices"].map do |facet_choice|
           {
             name: "filter[#{choice['facet_id']}][]",
-            label: facet_choice['radio_button_name'],
-            value: facet_choice.fetch('content_id', nil) || facet_choice['key'],
-            checked: facet_choice['prechecked'] || selected_choices.fetch(choice['facet_id'], []).include?(facet_choice['key'])
+            label: facet_choice["radio_button_name"],
+            value: facet_choice.fetch("content_id", nil) || facet_choice["key"],
+            checked: facet_choice["prechecked"] || selected_choices.fetch(choice["facet_id"], []).include?(facet_choice["key"]),
           }
-        end
+        end,
       }
     }.compact
   end
@@ -90,19 +90,19 @@ private
 
   def facets_with_choices
     choices.select { |choice|
-      choice['facet_choices'] && choice["facet_choices"].any? && !ignore_facet?(choice["facet_id"])
+      choice["facet_choices"] && choice["facet_choices"].any? && !ignore_facet?(choice["facet_id"])
     }
   end
 
   def selected_choices
     facets_ids = choices.each_with_object({}) do |choice, hash|
-      hash[choice['facet_id'].to_sym] = []
+      hash[choice["facet_id"].to_sym] = []
     end
     params.permit(facets_ids).to_h
   end
 
   def single_facet_choice_data
-    facet_id = content_item.dig('details', "email_filter_by")
+    facet_id = content_item.dig("details", "email_filter_by")
 
     return [] if facet_id.nil?
 
@@ -110,13 +110,13 @@ private
       {
         "facet_id" => facet_id,
         "facet_name" => single_facet_name,
-        "facet_choices" => content_item['details']["email_signup_choice"]
-      }
+        "facet_choices" => content_item["details"]["email_signup_choice"],
+      },
     ]
   end
 
   def multiple_facet_choice_data
-    content_item['details']["email_filter_facets"]
+    content_item["details"]["email_filter_facets"]
   end
 
   def single_facet_name

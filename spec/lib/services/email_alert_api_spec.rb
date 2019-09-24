@@ -1,5 +1,5 @@
-require 'spec_helper'
-require 'gds_api/test_helpers/email_alert_api'
+require "spec_helper"
+require "gds_api/test_helpers/email_alert_api"
 
 describe Services::EmailAlertApi do
   include GdsApi::TestHelpers::EmailAlertApi
@@ -27,12 +27,12 @@ describe Services::EmailAlertApi do
       end
 
       it "returns a subscriber list if one exists" do
-        expect(subject.dig('subscriber_list', 'slug')).to eq(subscriber_list_slug)
+        expect(subject.dig("subscriber_list", "slug")).to eq(subscriber_list_slug)
       end
 
       it "returns a cached subscriber list on subsequent requests" do
-        expect(subject.dig('subscriber_list', 'slug')).to eq(subscriber_list_slug)
-        expect(subject.dig('subscriber_list', 'slug')).to eq(subscriber_list_slug)
+        expect(subject.dig("subscriber_list", "slug")).to eq(subscriber_list_slug)
+        expect(subject.dig("subscriber_list", "slug")).to eq(subscriber_list_slug)
         expect(@stub).to have_been_requested.times(1)
       end
     end
@@ -44,12 +44,12 @@ describe Services::EmailAlertApi do
       end
 
       it "returns a newly created subscriber list" do
-        expect(subject.dig('subscriber_list', 'slug')).to eq(subscriber_list_slug)
+        expect(subject.dig("subscriber_list", "slug")).to eq(subscriber_list_slug)
       end
 
       it "caches the subscriber list once created" do
-        expect(subject.dig('subscriber_list', 'slug')).to eq(subscriber_list_slug)
-        expect(subject.dig('subscriber_list', 'slug')).to eq(subscriber_list_slug)
+        expect(subject.dig("subscriber_list", "slug")).to eq(subscriber_list_slug)
+        expect(subject.dig("subscriber_list", "slug")).to eq(subscriber_list_slug)
         expect(@not_found_stub).to have_been_requested.times(1)
         expect(@creation_stub).to have_been_requested.times(1)
       end

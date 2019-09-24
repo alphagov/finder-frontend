@@ -1,7 +1,7 @@
 class BrexitChecker::Question
   include ActiveModel::Validations
 
-  CONFIG_PATH = Rails.root.join('lib', 'brexit_checker', 'questions.yaml')
+  CONFIG_PATH = Rails.root.join("lib", "brexit_checker", "questions.yaml")
 
   validates_presence_of :key, :text
   validates_inclusion_of :type, in: %w(single single_wrapped multiple multiple_grouped)
@@ -36,12 +36,12 @@ class BrexitChecker::Question
 
   def self.load(params)
     parsed_params = params.dup
-    parsed_params['options'] = Option.load_all(params['options'])
+    parsed_params["options"] = Option.load_all(params["options"])
     new(parsed_params)
   end
 
   def self.load_all
     @load_all = nil if Rails.env.development?
-    @load_all ||= YAML.load_file(CONFIG_PATH)['questions'].map { |q| load(q) }
+    @load_all ||= YAML.load_file(CONFIG_PATH)["questions"].map { |q| load(q) }
   end
 end

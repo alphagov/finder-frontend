@@ -1,4 +1,4 @@
-require 'spec_helper'
+require "spec_helper"
 require "gds_api/test_helpers/worldwide"
 
 RSpec.describe Healthchecks::RegistriesCache do

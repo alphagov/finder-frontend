@@ -1,4 +1,4 @@
-require 'spec_helper'
+require "spec_helper"
 
 RSpec.describe BrexitChecker::Criteria::Evaluator do
   let(:selected_criteria) { [] }
