@@ -44,4 +44,9 @@ module BrexitCheckerHelper
     relative_next_question_index = available_questions.find_index { |question| question.show?(criteria_keys) }
     relative_next_question_index ? previous_question_index + relative_next_question_index : nil
   end
+
+  def previous_question_index(all_questions:, criteria_keys: [], current_question_index: 0)
+    previous_questions = all_questions[0...current_question_index]
+    previous_questions.rindex { |question| question.show?(criteria_keys) }
+  end
 end
