@@ -107,7 +107,6 @@ private
     @finder_presenter ||= FinderPresenter.new(
       content_item,
       facets,
-      filter_params,
     )
   end
 
@@ -164,9 +163,14 @@ private
     params.fetch(:parent, "")
   end
 
+  def keywords
+    filter_params["keywords"].presence
+  end
+
   def facet_tags
     @facet_tags ||= FacetTagsPresenter.new(
-      finder_presenter,
+      facets.select(&:filterable?),
+      keywords,
       sort_presenter,
       i_am_a_topic_page_finder: i_am_a_topic_page_finder,
     )

@@ -13,9 +13,9 @@ RSpec.describe AtomPresenter do
       title: "News and communications",
       document_noun: "case",
       total: 20,
-      filters: [a_facet, another_facet, a_date_facet],
+      filters: filters,
       facets: [a_facet, another_facet, a_date_facet],
-      keywords: "",
+      keywords: keywords,
       atom_url: "/a-finder.atom",
       default_documents_per_page: 10,
       values: {},
@@ -24,8 +24,14 @@ RSpec.describe AtomPresenter do
     )
   end
 
+  let(:keywords) { "" }
+
+  let(:filters) {
+    [a_facet, another_facet, a_date_facet]
+  }
+
   let(:facet_tags) {
-    FacetTagsPresenter.new(finder, sort_presenter)
+    FacetTagsPresenter.new(filters, keywords, sort_presenter)
   }
 
   let(:filter_params) { double(:filter_params, keywords: "") }

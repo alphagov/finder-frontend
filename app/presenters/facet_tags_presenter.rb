@@ -1,7 +1,7 @@
 class FacetTagsPresenter
-  def initialize(finder_presenter, sort_presenter, i_am_a_topic_page_finder: false)
-    @filters = finder_presenter.filters
-    @keywords = finder_presenter.keywords
+  def initialize(filters, keywords, sort_presenter, i_am_a_topic_page_finder: false)
+    @filters = filters
+    @keywords = keywords
     @sort_option = sort_presenter.selected_option || {}
     @i_am_a_topic_page_finder = i_am_a_topic_page_finder
   end

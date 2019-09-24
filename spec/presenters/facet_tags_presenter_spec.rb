@@ -4,15 +4,9 @@ require_relative "./helpers/facets_helper"
 describe FacetTagsPresenter do
   include FacetsHelper
 
-  subject(:presenter) { described_class.new(finder_presenter, sort_presenter) }
+  subject(:presenter) { described_class.new(filters, keywords, sort_presenter) }
 
-  let(:finder_presenter) {
-    double(
-      FinderPresenter,
-      filters: [a_facet, another_facet, a_date_facet],
-      keywords: keywords,
-    )
-  }
+  let(:filters) { [a_facet, another_facet, a_date_facet] }
 
   let(:keywords) { "" }
 
@@ -34,7 +28,7 @@ describe FacetTagsPresenter do
       applied_filters = presenter.selected_filter_descriptions.flat_map { |filter| filter }
       prepositions = applied_filters.flat_map { |filter| filter[:preposition] }.reject { |preposition| preposition == "or" }
 
-      finder_presenter.filters.reject { |filter| filter.sentence_fragment.nil? }.each do |fragment|
+      filters.reject { |filter| filter.sentence_fragment.nil? }.each do |fragment|
         expect(prepositions).to include(fragment.sentence_fragment["preposition"])
       end
     end
