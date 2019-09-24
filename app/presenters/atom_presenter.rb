@@ -1,14 +1,14 @@
 class AtomPresenter
-  def initialize(finder_presenter, result_set, facet_tags)
-    @finder_presenter = finder_presenter
+  def initialize(content_item, result_set, facet_tags)
+    @content_item = content_item
     @filter_descriptions = facet_tags.selected_filter_descriptions
     @result_set = result_set
   end
 
   def title
-    return "#{finder_presenter.title} #{filters_applied.join(' ')}" if filters_applied.present?
+    return "#{content_item.title} #{filters_applied.join(' ')}" if filters_applied.present?
 
-    finder_presenter.title
+    content_item.title
   end
 
   def filters_applied
@@ -20,7 +20,7 @@ class AtomPresenter
   def entries
     result_set.documents
     .reject { |d| d.public_timestamp.blank? && d.release_timestamp.blank? }
-    .map { |d| EntryPresenter.new(d, finder_presenter.show_summaries?) }
+    .map { |d| EntryPresenter.new(d, content_item.show_summaries?) }
   end
 
   def updated_at
@@ -29,5 +29,5 @@ class AtomPresenter
 
 private
 
-  attr_reader :finder_presenter, :result_set, :filter_descriptions
+  attr_reader :content_item, :result_set, :filter_descriptions
 end
