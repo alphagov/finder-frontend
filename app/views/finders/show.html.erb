@@ -22,7 +22,7 @@
   <% inverse = true %>
 <% end %>
 
-<form method="get" action="<%= finder_presenter.slug %>" class="js-live-search-form"
+<form method="get" action="<%= finder_presenter.base_path %>" class="js-live-search-form"
   data-analytics-ecommerce
   data-ecommerce-start-index="<%= result_set_presenter.start_offset %>"
   data-list-title="<%= finder_presenter.title %>"

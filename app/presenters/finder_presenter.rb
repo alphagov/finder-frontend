@@ -22,7 +22,8 @@ class FinderPresenter
            :canonical_link?,
            :all_content_finder?,
            :eu_exit_finder?,
-           :title,to: :content_item
+           :title,
+           :base_path, to: :content_item
 
 
   def initialize(content_item, facets, values = {})
@@ -33,20 +34,16 @@ class FinderPresenter
     @keywords = values["keywords"].presence
   end
 
-  def slug
-    content_item.base_path
-  end
-
   def filters
     facets.select(&:filterable?)
   end
 
   def government?
-    slug.starts_with?("/government")
+    base_path.starts_with?("/government")
   end
 
   def government_content_section
-    slug.split("/")[2]
+    base_path.split("/")[2]
   end
 
   def display_metadata?
