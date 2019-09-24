@@ -2,7 +2,7 @@ class FinderPresenter
   include ActionView::Helpers::FormOptionsHelper
   include ActionView::Helpers::UrlHelper
 
-  attr_reader :content_item, :organisations, :values, :keywords, :links, :facets
+  attr_reader :content_item, :values, :keywords, :links, :facets
 
   delegate :hide_facets_by_default,
            :show_summaries?,
@@ -25,12 +25,12 @@ class FinderPresenter
            :title,
            :base_path,
            :government?,
-           :government_content_section, to: :content_item
+           :government_content_section,
+           :organisations, to: :content_item
 
 
   def initialize(content_item, facets, values = {})
     @content_item = content_item
-    @organisations = content_item.links.fetch("organisations", [])
     @values = values
     @facets = facets
     @keywords = values["keywords"].presence
