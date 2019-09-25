@@ -385,7 +385,7 @@ GEM
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
     uber (0.1.0)
-    uglifier (4.1.20)
+    uglifier (4.2.0)
       execjs (>= 0.3.0, < 3)
     unf (0.1.4)
       unf_ext
@@ -444,7 +444,7 @@ DEPENDENCIES
   simplecov (~> 0.17.1)
   slimmer (~> 13.1.0)
   timecop
-  uglifier (~> 4.1)
+  uglifier (~> 4.2)
   webmock (~> 3.7.5)
   whenever (~> 1.0.0)
 
