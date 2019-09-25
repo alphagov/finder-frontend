@@ -27,3 +27,8 @@ change_notes:
      note: "Updated to include bus and coach drivers working in the EU. They will need to exchange their UK Driver CPC for an EU Driver CPC."
      action_id: T060
      date: 2019-09-19
+   - uuid: "e028f547-e19b-4cfc-aac9-2d3339dbcd25"
+     type: content_change
+     note: "Guidance link changed from general travel guidance to specific travel insurance guidance that contains more detailed information on the insurance you might need and the organisations you can contact."
+     action_id: S011
+     date: 2019-09-25

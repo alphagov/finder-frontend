@@ -164,11 +164,16 @@ actions:
     your travel insurance.
   lead_time: Do it as soon as possible
   guidance_prompt: Read the guidance
-  guidance_link_text: Visit Europe after Brexit
-  guidance_url: https://www.gov.uk/visit-europe-brexit
+  guidance_link_text: Foreign travel insurance
+  guidance_url: https://www.gov.uk/guidance/foreign-travel-insurance
   criteria:
   - all_of:
-    - living-uk
+    - any_of:
+      - nationality-uk
+      - nationality-row
+    - any_of:
+      - living-uk
+      - living-row
     - visiting-eu
   audience: citizen
 - id: S013
