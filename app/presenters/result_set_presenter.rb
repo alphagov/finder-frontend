@@ -30,7 +30,7 @@ class ResultSetPresenter
       zero_results: total.zero?,
       page_count: component_data.count,
       finder_name: finder_presenter.title,
-      debug_score: debug_score
+      debug_score: debug_score,
     }
   end
 

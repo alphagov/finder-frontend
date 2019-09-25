@@ -106,7 +106,7 @@ RSpec.describe GroupedResultSetPresenter do
                                     facet_values: %w[first_value_1_content_id
                                                      second_value_1_content_id
                                                      third_value_1_content_id])
-        ResultSetParser.parse('results' => [document], 'start' => 0, 'total' => 1)
+        ResultSetParser.parse("results" => [document], "start" => 0, "total" => 1)
       }
 
       it "groups all documents in the default group" do
@@ -172,7 +172,7 @@ RSpec.describe GroupedResultSetPresenter do
       let(:search_results) {
         ResultSetParser.parse("results" => [
                                 tagged_to_first_facet_document_hash,
-                                tagged_to_second_and_third_facet_document_hash
+                                tagged_to_second_and_third_facet_document_hash,
                               ], "start" => 0, "total" => 5)
       }
 
@@ -227,7 +227,7 @@ RSpec.describe GroupedResultSetPresenter do
       }
 
       let(:search_results) {
-        ResultSetParser.parse("results" => [document_hash], 'start' => 0, 'total' => 5)
+        ResultSetParser.parse("results" => [document_hash], "start" => 0, "total" => 5)
       }
       let(:document) {
         Document.new(document_hash, 1)

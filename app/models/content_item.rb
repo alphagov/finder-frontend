@@ -146,7 +146,7 @@ class ContentItem
   end
 
   def organisations
-    links.fetch('organisations', [])
+    links.fetch("organisations", [])
   end
 
   def government?
@@ -154,7 +154,7 @@ class ContentItem
   end
 
   def government_content_section
-    base_path.split('/')[2]
+    base_path.split("/")[2]
   end
 
   def display_metadata?

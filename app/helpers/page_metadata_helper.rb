@@ -1,7 +1,7 @@
 module PageMetadataHelper
   def page_metadata(content_item, filter_params)
     organisation_links = content_item.organisations.map do |organisation|
-      link_to(organisation['title'], organisation['web_url'])
+      link_to(organisation["title"], organisation["web_url"])
     end
 
     {}.tap do |metadata|
