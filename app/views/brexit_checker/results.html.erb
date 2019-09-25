@@ -19,6 +19,7 @@
 <% content_for :title, action_based_title %>
 <% content_for :head do %>
   <% page_url = request.base_url + request.path %>
+  <meta name="govuk:search-result-count" content="<%= @actions.count %>">
   <meta name="robots" content="noindex">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="GOV.UK">
