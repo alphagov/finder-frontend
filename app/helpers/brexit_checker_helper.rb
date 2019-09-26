@@ -1,3 +1,5 @@
+require "addressable/uri"
+
 module BrexitCheckerHelper
   def format_criteria_list(criteria)
     criteria.map { |criterion| { readable_text: criterion.text } }
@@ -48,5 +50,18 @@ module BrexitCheckerHelper
   def previous_question_index(all_questions:, criteria_keys: [], current_question_index: 0)
     previous_questions = all_questions[0...current_question_index]
     previous_questions.rindex { |question| question.show?(criteria_keys) }
+  end
+
+  def change_note_email_link(non_tracked_url, change_note)
+    url = Addressable::URI.parse(non_tracked_url)
+    return non_tracked_url unless url.host == "www.gov.uk"
+
+    url.query_values = (url.query_values || {}).merge(
+      utm_source: change_note.id,
+      utm_medium: "email",
+      utm_campaign: "govuk-brexit-checker",
+    )
+
+    url.to_s
   end
 end

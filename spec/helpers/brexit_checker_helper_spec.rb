@@ -191,4 +191,21 @@ describe BrexitCheckerHelper, type: :helper do
       end
     end
   end
+
+  describe "#change_note_email_link" do
+    let(:change_note) { FactoryBot.build :brexit_checker_change_note }
+
+    it "returns the unchanged link when it's external" do
+      link = change_note_email_link("http://foo.bar", change_note)
+      expect(link).to eq("http://foo.bar")
+    end
+
+    it "adds tracking attributes for internal links" do
+      link = change_note_email_link("http://www.gov.uk", change_note)
+      expect(link).to match("utm_source=#{change_note.id}")
+      expect(link).to match("utm_medium=email")
+      expect(link).to match("utm_campaign=govuk-brexit-checker")
+      expect(link).to match("http://www.gov.uk?")
+    end
+  end
 end
