@@ -14,7 +14,7 @@ gem "rails", "~> 5.2.3"
 gem "slimmer", "~> 13.1.0"
 
 gem "govuk_frontend_toolkit", "~> 8.2"
-gem "sass-rails", "~> 5.0"
+gem "sass-rails", "~> 5.1"
 gem "uglifier", "~> 4.2"
 gem "whenever", "~> 1.0.0"
 
