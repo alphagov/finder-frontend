@@ -1299,12 +1299,15 @@ actions:
   audience: business
 - id: T086
   priority: 5
-  title: Apply for the right to export seeds to the EU
-  consequence: You will not be able to export seeds to the EU if you do not apply.
+  title: Check if you need to apply for plant variety rights to market seeds in the
+    UK and EU
+  consequence: Your varieties might not be protected unless you apply for rights in
+    both the UK and EU.
+  exception: Even with variety rights, you will not be able to market seeds in the
+    EU after Brexit until new arrangements are agreed with the EU.
   lead_time: It takes 2 months
   guidance_prompt: Read the guidance
-  guidance_link_text: Plant variety rights and marketing plant reproductive material
-    if there’s a no deal Brexit
+  guidance_link_text: Plant variety rights and marketing if there’s a no deal Brexit
   guidance_url: https://www.gov.uk/guidance/plant-variety-rights-and-marketing-plant-reproductive-material-if-the-uk-leaves-the-eu-without-a-deal
   criteria:
   - any_of:
