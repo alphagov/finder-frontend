@@ -768,7 +768,7 @@ actions:
 - id: T038
   priority: 8
   title: Check if you can export organic food to the EU, and how to label and trade
-    it.
+    it
   title_url: https://www.gov.uk/guidance/trading-and-labelling-organic-food-if-theres-no-brexit-deal
   consequence: You may not be able to sell your food as organic in the EU.
   guidance_prompt: Read the guidance
@@ -853,7 +853,7 @@ actions:
 - id: T052
   priority: 8
   title: Register your chemicals to an organisation based in the EU if you want to
-    export them to the EU.
+    export them to the EU
   consequence: You will not be able to export your chemicals if you do not register
     them to an organisation in the EU.
   lead_time: It usually takes up to 6 weeks
@@ -1225,7 +1225,7 @@ actions:
   audience: business
 - id: T079
   priority: 5
-  title: Check what steps you need to take in order to import goods from the EU.
+  title: Check what steps you need to take in order to import goods from the EU
   consequence: If you do not get your business ready, you may not be able to import
     goods into the UK from EU countries.
   lead_time: Do it as soon as possible
