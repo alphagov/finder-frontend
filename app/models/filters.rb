@@ -30,6 +30,7 @@ module Filters
           "label" => "Research",
           "filter" => {
             "content_store_document_type" => %w(dfid_research_output independent_report research),
+            "format" => "publication",
           },
         },
       ]
