@@ -21,6 +21,12 @@ class BrexitCheckerController < ApplicationController
 
     @current_question = all_questions[@question_index] if @question_index.present?
 
+    @previous_page = previous_question_index(
+      all_questions: all_questions,
+      criteria_keys: criteria_keys,
+      current_question_index: page,
+    )
+
     redirect_to brexit_checker_results_path(c: criteria_keys) if @current_question.nil?
   end
 

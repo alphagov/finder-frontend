@@ -124,4 +124,71 @@ describe BrexitCheckerHelper, type: :helper do
       end
     end
   end
+
+  describe "#previous_question_index" do
+    let(:q1) { FactoryBot.build(:brexit_checker_question) }
+    let(:q2) { FactoryBot.build(:brexit_checker_question, criteria: [{ "all_of" => %w(a b) }]) }
+    let(:q3) { FactoryBot.build(:brexit_checker_question, criteria: [{ "all_of" => %w(c d) }]) }
+    let(:q4) { FactoryBot.build(:brexit_checker_question, criteria: %w(c)) }
+
+    let(:questions) { [q1, q2, q3, q4] }
+
+    subject {
+      previous_question_index(
+        all_questions: questions,
+        criteria_keys: criteria_keys,
+        current_question_index: current_question_index,
+      )
+    }
+
+    context "current_question_index is 3 and the criteria matches question 3" do
+      let(:current_question_index) { 3 }
+      let(:criteria_keys) { %w[c d] }
+
+      before do
+        allow(q3).to receive(:show?) { true }
+      end
+
+      it "returns question 3" do
+        expect(subject).to be(2)
+      end
+    end
+
+    context "current_question_index is 3 and the criteria match question 2" do
+      let(:current_question_index) { 3 }
+      let(:criteria_keys) { %w[a b] }
+
+      before do
+        allow(q2).to receive(:show?) { true }
+        allow(q3).to receive(:show?) { false }
+      end
+
+      it "returns question 2" do
+        expect(subject).to be(1)
+      end
+    end
+
+    context "current_question_index is 2 and the criteria do not match previous questions" do
+      let(:current_question_index) { 2 }
+      let(:criteria_keys) { %w[e] }
+
+      before do
+        allow(q1).to receive(:show?) { false }
+        allow(q2).to receive(:show?) { false }
+      end
+
+      it "does not return a question" do
+        expect(subject).to be nil
+      end
+    end
+
+    context "current_question_index is 0 and there are no previous questions" do
+      let(:current_question_index) { 0 }
+      let(:criteria_keys) { %w[a] }
+
+      it "does not return a question" do
+        expect(subject).to be nil
+      end
+    end
+  end
 end
