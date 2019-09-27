@@ -138,9 +138,7 @@ actions:
   criteria:
   - all_of:
     - living-uk
-    - any_of:
-      - visiting-eu
-      - visiting-ie
+    - visiting-eu
     - visiting-bring-pet
   audience: citizen
 - id: S010
