@@ -9,7 +9,7 @@ class BrexitChecker::ChangeNote
   validates_presence_of :note, if: -> { type == "content_change" }
   validates_length_of :id, is: SecureRandom.uuid.length, message: "ID not a UUID"
 
-  attr_reader :id, :action_id, :type, :note, :date
+  attr_reader :id, :action_id, :type, :note, :date, :criteria_rules
 
   def initialize(attrs)
     attrs.each { |key, value| instance_variable_set("@#{key}", value) }
