@@ -37,3 +37,14 @@ change_notes:
      note: "Content updated to say that you may need to apply for plant variety rights in both the UK and the EU. New arrangements will have to be agreed between the UK and the EU before seeds can be marketed in the EU after Brexit."
      action_id: T086
      date: 2019-09-26
+   - uuid: "3eda1e9f-a5df-4604-a323-248ce1920b9e"
+     type: addition
+     note: "Content updated to advise people travelling from the UK to Ireland with a pet that they need to ask their vet about the documents they need."
+     action_id: S009
+     date: 2019-09-30
+     criteria_rules:
+      - all_of:
+        - living-uk
+        - visiting-ie
+        - visiting-bring-pet
+
