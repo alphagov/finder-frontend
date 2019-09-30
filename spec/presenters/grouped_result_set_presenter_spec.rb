@@ -88,7 +88,11 @@ RSpec.describe GroupedResultSetPresenter do
 
     context "Ordering is not set to topic, so there is no grouping" do
       let(:filter_params) { { order: "a-z" } }
-      let(:search_results) { ResultSetParser.parse([FactoryBot.build(:document_hash)], 0, 1) }
+      let(:search_results) {
+        ResultSetParser.parse("results" => [FactoryBot.build(:document_hash)],
+                                                   "start" => 0,
+                                                   "total" => 1)
+      }
 
       it "returns an empty array" do
         expect(subject.search_results_content[:grouped_document_list_component_data]).to be_empty
@@ -102,7 +106,7 @@ RSpec.describe GroupedResultSetPresenter do
                                     facet_values: %w[first_value_1_content_id
                                                      second_value_1_content_id
                                                      third_value_1_content_id])
-        ResultSetParser.parse([document], 0, 1)
+        ResultSetParser.parse("results" => [document], "start" => 0, "total" => 1)
       }
 
       it "groups all documents in the default group" do
@@ -133,7 +137,7 @@ RSpec.describe GroupedResultSetPresenter do
                           ])
       }
 
-      let(:search_results) { ResultSetParser.parse([document_hash], 0, 5) }
+      let(:search_results) { ResultSetParser.parse("results" => [document_hash], "start" => 0, "total" => 5) }
 
       let(:document) {
         Document.new(document_hash, 1)
@@ -166,10 +170,10 @@ RSpec.describe GroupedResultSetPresenter do
       }
 
       let(:search_results) {
-        ResultSetParser.parse([
+        ResultSetParser.parse("results" => [
                                 tagged_to_first_facet_document_hash,
                                 tagged_to_second_and_third_facet_document_hash,
-                              ], 0, 5)
+                              ], "start" => 0, "total" => 5)
       }
 
       let(:tagged_to_first_facet_document) {
@@ -223,7 +227,7 @@ RSpec.describe GroupedResultSetPresenter do
       }
 
       let(:search_results) {
-        ResultSetParser.parse([document_hash], 0, 5)
+        ResultSetParser.parse("results" => [document_hash], "start" => 0, "total" => 5)
       }
       let(:document) {
         Document.new(document_hash, 1)
@@ -246,7 +250,7 @@ RSpec.describe GroupedResultSetPresenter do
       FactoryBot.build(:document_hash)
     }
 
-    let(:search_results) { ResultSetParser.parse([document_hash], 0, 5) }
+    let(:search_results) { ResultSetParser.parse("results" => [document_hash], "start" => 0, "total" => 5) }
 
     subject(:grouped_display) {
       GroupedResultSetPresenter.new(finder_presenter, search_results, filter_params, sort_presenter, metadata_presenter_class).

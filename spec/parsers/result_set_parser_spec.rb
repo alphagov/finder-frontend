@@ -6,7 +6,7 @@ describe ResultSetParser do
     let(:total) { 2 }
     let(:start) { 1 }
 
-    subject { ResultSetParser.parse(results, start, total) }
+    subject { ResultSetParser.parse("results" => results, "start" => start, "total" => total) }
 
     before do
       allow(Document).to receive(:new).with(:a_document_hash, 1).and_return(:a_document_instance)

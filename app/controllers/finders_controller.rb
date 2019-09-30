@@ -44,9 +44,9 @@ class FindersController < ApplicationController
 
 private
 
-  attr_accessor :search_query
+  attr_reader :search_query
 
-  helper_method :finder_presenter, :facet_tags, :i_am_a_topic_page_finder, :result_set_presenter, :content_item, :signup_links
+  helper_method :finder_presenter, :facet_tags, :i_am_a_topic_page_finder, :result_set_presenter, :content_item, :signup_links, :filter_params
 
   def redirect_to_destination
     @redirect = content_item.redirect
@@ -86,11 +86,7 @@ private
   end
 
   def results
-    @results ||= ResultSetParser.parse(
-      search_results.fetch("results"),
-      search_results.fetch("start", 0),
-      search_results.fetch("total"),
-    )
+    @results ||= ResultSetParser.parse(search_results)
   end
 
   def result_set_presenter_class

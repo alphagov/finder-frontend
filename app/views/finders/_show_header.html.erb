@@ -32,20 +32,20 @@
             value: result_set_presenter.user_supplied_keywords,
           } %>
         </div>
-      <% elsif finder_presenter.topic_finder? %>
-        <%= link_to finder_presenter.topic_finder_parent['title'], finder_presenter.topic_finder_parent['base_path'], class: 'topic-finder__taxon-link' %>
+      <% elsif topic_finder?(filter_params) %>
+        <%= link_to topic_finder_parent(filter_params)['title'], topic_finder_parent(filter_params)['base_path'], class: 'topic-finder__taxon-link' %>
         <%= render partial: 'govuk_publishing_components/components/title', locals: {
-          title: finder_presenter.name,
+          title: finder_presenter.title,
           inverse: true,
         } %>
       <% else %>
         <%= render partial: 'govuk_publishing_components/components/title', locals: {
-          title: finder_presenter.name,
+          title: finder_presenter.title,
         } %>
       <% end %>
 
-      <% if finder_presenter.page_metadata.any? %>
-        <%= render 'govuk_publishing_components/components/metadata', page_metadata(finder_presenter.page_metadata) %>
+      <% if page_metadata.any? %>
+        <%= render 'govuk_publishing_components/components/metadata', page_metadata %>
       <% end %>
     </div>
 
