@@ -17,23 +17,20 @@ actions:
   criteria:
   - all_of:
     - nationality-eu
-    - living-uk
+    - any_of:
+      - living-uk
+      - join-family-uk-yes
   audience: citizen
 - id: S003
   priority: 5
   title: Apply for a permit to join your EU or EEA family member in the UK
-  title_url: https://www.gov.uk/family-permit/eu-settlement-scheme-family-permit
+  title_url: https://www.gov.uk/family-permit
   consequence: You may not be able to travel to the UK if you do not have the right
     permit.
   lead_time: Do it as soon as possible
-  guidance_prompt: Read the guidance
-  guidance_link_text: Apply to the EU Settlement Scheme (settled and pre-settled status)
-  guidance_url: https://www.gov.uk/settled-status-eu-citizens-families
   criteria:
   - all_of:
-    - any_of:
-      - nationality-row
-      - nationality-eu
+    - nationality-row
     - any_of:
       - living-eu
       - living-row
