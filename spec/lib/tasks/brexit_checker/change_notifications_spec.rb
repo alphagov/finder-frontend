@@ -150,6 +150,40 @@ RSpec.describe "Change notifications" do
       end
     end
 
+    describe "when change note has criteria rules" do
+      let(:content_note_criteria_change) do
+        FactoryBot.build(:brexit_checker_change_note,
+                         type: "content_change",
+                         note: "Something has changed",
+                         action_id: "content_change",
+                         criteria: [{ any_of: %w[forestry] }])
+      end
+
+      before do
+        allow(BrexitChecker::ChangeNote).to receive(:load_all) {
+          [content_note_criteria_change]
+        }
+      end
+
+      it "should notify subscribers based on the change note's criteria rules" do
+        Rake::Task["brexit_checker:change_notification"].invoke(content_note_criteria_change.id)
+        assert_requested(:post, "#{endpoint}/messages") do |request|
+          payload = JSON.parse(request.body)
+          expect(payload["criteria_rules"]).to eq([
+            {
+              "any_of" => [
+                {
+                  "key" => "brexit_checklist_criteria",
+                  "type" => "tag",
+                  "value" => "forestry",
+                },
+              ],
+            },
+          ])
+        end
+      end
+    end
+
     it "raises an error if the change notification has been sent already" do
       stub_request(:post, "#{endpoint}/messages")
         .to_return(status: 409)
