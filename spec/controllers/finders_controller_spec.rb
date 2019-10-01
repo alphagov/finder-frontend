@@ -243,58 +243,6 @@ describe FindersController, type: :controller do
     end
   end
 
-  describe "Search cluster AB tests" do
-    let(:breakfast_finder) do
-      finder = govuk_content_schema_example("finder").to_hash.merge(
-        "title" => "Breakfast Finder",
-        "base_path" => "/breakfast-finder",
-        "content_id" => "42ce66de-04f3-4192-bf31-8394538e0734",
-      )
-
-      finder["details"]["default_documents_per_page"] = 10
-      finder["details"]["sort"] = nil
-      finder
-    end
-
-    let(:filter_params) { double(:filter_params, keywords: "") }
-
-    before do
-      content_store_has_item(breakfast_finder["base_path"], breakfast_finder)
-      rummager_response = %|{
-        "results": [],
-        "total": 0,
-        "start": 0,
-        "facets": {},
-        "suggested_queries": []
-      }|
-      stub_request(:get, /search.json/).to_return(status: 200, body: rummager_response, headers: {})
-    end
-
-    it "Variant Default sets use_default_cluster? and not use_b_cluster?" do
-      with_variant SearchClusterQueryABTest: "Default" do
-        get :show, params: { slug: path_for(breakfast_finder) }
-        expect(subject.use_default_cluster?).to eq(true)
-        expect(subject.use_b_cluster?).to eq(false)
-      end
-    end
-
-    it "Variant A does not set use_default_cluster? or use_b_cluster?" do
-      with_variant SearchClusterQueryABTest: "A" do
-        get :show, params: { slug: path_for(breakfast_finder) }
-        expect(subject.use_default_cluster?).to eq(false)
-        expect(subject.use_b_cluster?).to eq(false)
-      end
-    end
-
-    it "Variant 'B' sets use_b_cluster? and not use_default_cluster?" do
-      with_variant SearchClusterQueryABTest: "B" do
-        get :show, params: { slug: path_for(breakfast_finder) }
-        expect(subject.use_default_cluster?).to eq(false)
-        expect(subject.use_b_cluster?).to eq(true)
-      end
-    end
-  end
-
   describe "Spelling suggestions" do
     let(:breakfast_finder) do
       finder = govuk_content_schema_example("finder").to_hash.merge(
