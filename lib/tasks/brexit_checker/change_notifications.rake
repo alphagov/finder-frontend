@@ -7,14 +7,14 @@ namespace :brexit_checker do
 
     mail = BrexitCheckerMailer.change_notification(change_note)
 
-    criteria_rules = change_note.criteria_rules || change_note.action.criteria
+    criteria = change_note.criteria.presence || change_note.action.criteria
 
     GdsApi.email_alert_api.create_message(
       title: mail.subject,
       url: change_note.action.title_url,
       body: mail.body.raw_source,
       sender_message_id: change_note.id,
-      criteria_rules: criteria_rules(criteria_rules),
+      criteria_rules: criteria_rules(criteria),
     )
 
   rescue GdsApi::HTTPConflict

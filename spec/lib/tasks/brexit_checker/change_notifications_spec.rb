@@ -22,19 +22,11 @@ RSpec.describe "Change notifications" do
                        action_id: "content_change")
     end
 
-    let(:content_change_with_critiera_rules) do
-      FactoryBot.build(:brexit_checker_change_note,
-                       :with_criteria_rules,
-                       type: "content_change",
-                       note: "Something has changed",
-                       action_id: "content_change")
-    end
-
     before do
       stub_email_alert_api_accepts_message
       Rake::Task["brexit_checker:change_notification"].reenable
       allow(BrexitChecker::ChangeNote).to receive(:load_all) {
-        [addition, content_change, content_change_with_critiera_rules]
+        [addition, content_change]
       }
 
       allow(BrexitChecker::Action).to receive(:load_all) do
@@ -120,7 +112,6 @@ RSpec.describe "Change notifications" do
             expect(payload["body"]).to match(date.strftime("%-d %B %Y"))
             expect(payload["body"]).to match(content_change.note)
 
-
             expect(payload["criteria_rules"]).to eq([
               {
                 "all_of" => [
@@ -164,22 +155,11 @@ RSpec.describe "Change notifications" do
         end
 
         context "when change note has criteira rules" do
-          it "should notify subscribers based on the change note's criteira rules" do
-            Rake::Task["brexit_checker:change_notification"].invoke(content_change_with_critiera_rules.id)
+          it "should notify subscribers based on the change note's criteria rules" do
+            content_change.criteria = [{ any_of: %w[forestry] }]
+            Rake::Task["brexit_checker:change_notification"].invoke(content_change.id)
             assert_requested(:post, "#{endpoint}/messages") do |request|
               payload = JSON.parse(request.body)
-              expect(payload["sender_message_id"]).to eq content_change_with_critiera_rules.id
-              expect(payload["body"]).to match(content_change_with_critiera_rules.action.title)
-
-              title = I18n.t!("brexit_checker_mailer.change_notification.title")
-              expect(payload["title"]).to eq title
-
-              change_text = I18n.t!("brexit_checker_mailer.change_notification.content_change")
-              expect(payload["body"]).to match(change_text)
-
-              date = DateTime.parse(content_change_with_critiera_rules.date)
-              expect(payload["body"]).to match(date.strftime("%-d %B %Y"))
-              expect(payload["body"]).to match(content_change_with_critiera_rules.note)
               expect(payload["criteria_rules"]).to eq([
                 {
                   "any_of" => [
