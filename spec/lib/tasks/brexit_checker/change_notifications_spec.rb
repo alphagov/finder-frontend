@@ -25,9 +25,7 @@ RSpec.describe "Change notifications" do
     before do
       stub_email_alert_api_accepts_message
       Rake::Task["brexit_checker:change_notification"].reenable
-      allow(BrexitChecker::ChangeNote).to receive(:load_all) {
-        [addition, content_change]
-      }
+      allow(BrexitChecker::ChangeNote).to receive(:load_all) { [addition, content_change] }
 
       allow(BrexitChecker::Action).to receive(:load_all) do
         [
@@ -92,102 +90,111 @@ RSpec.describe "Change notifications" do
       end
     end
 
-    describe "asks Email Alert API" do
-      context "when change note has no criteria rules" do
-        it "should notify subscribers based on the action's criteria rules" do
-          Rake::Task["brexit_checker:change_notification"].invoke(content_change.id)
+    it "asks Email Alert API to notify subscribers about content changes" do
+      Rake::Task["brexit_checker:change_notification"].invoke(content_change.id)
 
-          assert_requested(:post, "#{endpoint}/messages") do |request|
-            payload = JSON.parse(request.body)
-            expect(payload["sender_message_id"]).to eq content_change.id
-            expect(payload["body"]).to match(content_change.action.title)
+      assert_requested(:post, "#{endpoint}/messages") do |request|
+        payload = JSON.parse(request.body)
+        expect(payload["sender_message_id"]).to eq content_change.id
+        expect(payload["body"]).to match(content_change.action.title)
 
-            title = I18n.t!("brexit_checker_mailer.change_notification.title")
-            expect(payload["title"]).to eq title
+        title = I18n.t!("brexit_checker_mailer.change_notification.title")
+        expect(payload["title"]).to eq title
 
-            change_text = I18n.t!("brexit_checker_mailer.change_notification.content_change")
-            expect(payload["body"]).to match(change_text)
+        change_text = I18n.t!("brexit_checker_mailer.change_notification.content_change")
+        expect(payload["body"]).to match(change_text)
 
-            date = DateTime.parse(content_change.date)
-            expect(payload["body"]).to match(date.strftime("%-d %B %Y"))
-            expect(payload["body"]).to match(content_change.note)
+        date = DateTime.parse(content_change.date)
+        expect(payload["body"]).to match(date.strftime("%-d %B %Y"))
+        expect(payload["body"]).to match(content_change.note)
 
-            expect(payload["criteria_rules"]).to eq([
+        expect(payload["criteria_rules"]).to eq([
+          {
+            "all_of" => [
               {
-                "all_of" => [
+                "any_of" => [
                   {
-                    "any_of" => [
-                      {
-                        "type" => "tag",
-                        "key" => "brexit_checklist_criteria",
-                        "value" => "nationality-row",
-                      },
-                      {
-                        "type" => "tag",
-                        "key" => "brexit_checklist_criteria",
-                        "value" => "nationality-eu",
-                      },
-                    ],
-                  },
-                  {
-                    "any_of" => [
-                      {
-                        "type" => "tag",
-                        "key" => "brexit_checklist_criteria",
-                        "value" => "living-row",
-                      },
-                      {
-                        "type" => "tag",
-                        "key" => "brexit_checklist_criteria",
-                        "value" => "living-eu",
-                      },
-                    ],
+                    "type" => "tag",
+                    "key" => "brexit_checklist_criteria",
+                    "value" => "nationality-row",
                   },
                   {
                     "type" => "tag",
                     "key" => "brexit_checklist_criteria",
-                    "value" => "join-family-uk-yes",
+                    "value" => "nationality-eu",
                   },
                 ],
               },
-            ])
-          end
-        end
+              {
+                "any_of" => [
+                  {
+                    "type" => "tag",
+                    "key" => "brexit_checklist_criteria",
+                    "value" => "living-row",
+                  },
+                  {
+                    "type" => "tag",
+                    "key" => "brexit_checklist_criteria",
+                    "value" => "living-eu",
+                  },
+                ],
+              },
+              {
+                "type" => "tag",
+                "key" => "brexit_checklist_criteria",
+                "value" => "join-family-uk-yes",
+              },
+            ],
+          },
+        ])
+      end
+    end
 
-        context "when change note has criteira rules" do
-          it "should notify subscribers based on the change note's criteria rules" do
-            content_change.criteria = [{ any_of: %w[forestry] }]
-            Rake::Task["brexit_checker:change_notification"].invoke(content_change.id)
-            assert_requested(:post, "#{endpoint}/messages") do |request|
-              payload = JSON.parse(request.body)
-              expect(payload["criteria_rules"]).to eq([
+    describe "when change note has criteria rules" do
+      let(:content_note_criteria_change) do
+        FactoryBot.build(:brexit_checker_change_note,
+                         type: "content_change",
+                         note: "Something has changed",
+                         action_id: "content_change",
+                         criteria: [{ any_of: %w[forestry] }])
+      end
+
+      before do
+        allow(BrexitChecker::ChangeNote).to receive(:load_all) {
+          [content_note_criteria_change]
+        }
+      end
+
+      it "should notify subscribers based on the change note's criteria rules" do
+        Rake::Task["brexit_checker:change_notification"].invoke(content_note_criteria_change.id)
+        assert_requested(:post, "#{endpoint}/messages") do |request|
+          payload = JSON.parse(request.body)
+          expect(payload["criteria_rules"]).to eq([
+            {
+              "any_of" => [
                 {
-                  "any_of" => [
-                    {
-                      "key" => "brexit_checklist_criteria",
-                      "type" => "tag",
-                      "value" => "forestry",
-                    },
-                  ],
+                  "key" => "brexit_checklist_criteria",
+                  "type" => "tag",
+                  "value" => "forestry",
                 },
-              ])
-            end
-          end
+              ],
+            },
+          ])
         end
       end
+    end
 
-      it "raises an error if the change notification has been sent already" do
-        stub_request(:post, "#{endpoint}/messages")
-          .to_return(status: 409)
+    it "raises an error if the change notification has been sent already" do
+      stub_request(:post, "#{endpoint}/messages")
+        .to_return(status: 409)
 
-        expect { Rake::Task["brexit_checker:change_notification"].invoke(addition.id) }
-          .to raise_error("Notification already sent")
-      end
+      expect { Rake::Task["brexit_checker:change_notification"].invoke(addition.id) }
+        .to raise_error("Notification already sent")
+    end
 
-      it "raises an error if the change note cannot be found" do
-        expect { Rake::Task["brexit_checker:change_notification"].invoke("missing") }
-          .to raise_error("Change note not found")
-      end
+    it "raises an error if the change note cannot be found" do
+      expect { Rake::Task["brexit_checker:change_notification"].invoke("missing") }
+        .to raise_error("Change note not found")
     end
   end
 end
