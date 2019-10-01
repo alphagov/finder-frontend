@@ -257,7 +257,6 @@ describe FindersController, type: :controller do
     end
 
     let(:filter_params) { double(:filter_params, keywords: "") }
-    let(:finder_presenter) { FinderPresenter.new(breakfast_finder, {}, filter_params) }
 
     before do
       content_store_has_item(breakfast_finder["base_path"], breakfast_finder)

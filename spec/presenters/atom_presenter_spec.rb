@@ -1,31 +1,25 @@
 require "spec_helper"
 
 RSpec.describe AtomPresenter do
-  subject(:instance) { described_class.new(finder, result_set, facet_tags) }
+  subject(:instance) { described_class.new(content_item, result_set, facet_tags) }
 
   let(:metadata_presenter_class) do
     MetadataPresenter
   end
-  let(:finder) do
-    double(
-      FinderPresenter,
-      slug: "/search/news-and-communications",
-      title: "News and communications",
-      document_noun: "case",
-      total: 20,
-      filters: [a_facet, another_facet, a_date_facet],
-      facets: [a_facet, another_facet, a_date_facet],
-      keywords: "",
-      atom_url: "/a-finder.atom",
-      default_documents_per_page: 10,
-      values: {},
-      sort: {},
-      show_summaries?: true,
-    )
-  end
+  let(:content_item) {
+    FactoryBot.build(:content_item,
+                     base_path: "/search/news-and-communications",
+                     title: "News and communications")
+  }
+
+  let(:keywords) { "" }
+
+  let(:filters) {
+    [a_facet, another_facet, a_date_facet]
+  }
 
   let(:facet_tags) {
-    FacetTagsPresenter.new(finder, sort_presenter)
+    FacetTagsPresenter.new(filters, keywords, sort_presenter)
   }
 
   let(:filter_params) { double(:filter_params, keywords: "") }

@@ -1,8 +1,8 @@
 <div class="filter-form">
-  <% if !finder_presenter.all_content_finder? %>
+  <% if !content_item.all_content_finder? %>
     <div id="keywords">
       <% label_text = capture do %>
-        Search <span class="govuk-visually-hidden"><%= finder_presenter.title %></span>
+        Search <span class="govuk-visually-hidden"><%= content_item.title %></span>
       <% end %>
       <%= render "govuk_publishing_components/components/input", {
         controls: "js-search-results-info",
@@ -25,14 +25,14 @@
     %>
   </div>
 
-  <% if finder_presenter.filters.any? %>
-    <div data-module="gem-toggle" data-toggle-class="facet-toggle__content--hide" <%= "class=facet-toggle--only-on-mobile" unless finder_presenter.hide_facets_by_default %>>
+  <% if facets.select(&:filterable?).any? %>
+    <div data-module="gem-toggle" data-toggle-class="facet-toggle__content--hide" <%= "class=facet-toggle--only-on-mobile" unless content_item.hide_facets_by_default %>>
       <button type="button" class="facet-toggle app-c-button-as-link" data-controls="facet-wrapper" data-expanded="false" data-track-category="filterClicked" data-track-action="accordion" data-toggled-text="- <%= t("finders.facet_collection.facet_disclosure.fewer", default: "Show fewer search options") %>">
         + <%= t("finders.facet_collection.facet_disclosure.more", default: "Show more search options") %>
       </button>
 
       <div id="facet-wrapper" class="facet-toggle__content facet-toggle__content--hide">
-        <%= render finder_presenter.filters %>
+        <%= render facets.select(&:filterable?) %>
       </div>
     </div>
   <% end %>

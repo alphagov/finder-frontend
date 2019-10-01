@@ -34,7 +34,7 @@ class FindersController < ApplicationController
           redirect_to_destination
         else
           expires_in(ATOM_FEED_MAX_AGE, public: true)
-          @feed = AtomPresenter.new(finder_presenter, results, facet_tags)
+          @feed = AtomPresenter.new(content_item, results, facet_tags)
         end
       end
     end
@@ -46,7 +46,7 @@ private
 
   attr_reader :search_query
 
-  helper_method :finder_presenter, :facet_tags, :i_am_a_topic_page_finder, :result_set_presenter, :content_item, :signup_links, :filter_params
+  helper_method :facet_tags, :i_am_a_topic_page_finder, :result_set_presenter, :content_item, :signup_links, :filter_params, :facets
 
   def redirect_to_destination
     @redirect = content_item.redirect
@@ -75,7 +75,8 @@ private
 
   def result_set_presenter
     @result_set_presenter ||= result_set_presenter_class.new(
-      finder_presenter,
+      content_item,
+      facets,
       results,
       filter_params,
       sort_presenter,
@@ -101,14 +102,6 @@ private
 
   def signup_links
     @signup_links ||= SignupLinksPresenter.new(content_item, facets).signup_links
-  end
-
-  def finder_presenter
-    @finder_presenter ||= FinderPresenter.new(
-      content_item,
-      facets,
-      filter_params,
-    )
   end
 
   def initialize_search_query(is_for_feed: false)
@@ -164,9 +157,14 @@ private
     params.fetch(:parent, "")
   end
 
+  def keywords
+    filter_params["keywords"].presence
+  end
+
   def facet_tags
     @facet_tags ||= FacetTagsPresenter.new(
-      finder_presenter,
+      facets.select(&:filterable?),
+      keywords,
       sort_presenter,
       i_am_a_topic_page_finder: i_am_a_topic_page_finder,
     )

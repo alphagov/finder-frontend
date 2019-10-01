@@ -1,21 +1,21 @@
 <div class="govuk-width-container">
-  <% if finder_presenter.show_phase_banner? %>
-    <%= render 'govuk_publishing_components/components/phase_banner', phase: finder_presenter.phase, message: sanitize(finder_presenter.phase_message), inverse: inverse %>
+  <% if content_item.show_phase_banner? %>
+    <%= render 'govuk_publishing_components/components/phase_banner', phase: content_item.phase, message: sanitize(content_item.phase_message), inverse: inverse %>
   <% end %>
 
   <% if @breadcrumbs.breadcrumbs %>
     <%= render 'govuk_publishing_components/components/breadcrumbs', breadcrumbs: @breadcrumbs.breadcrumbs, inverse: inverse %>
   <% else %>
-    <%= render 'govuk_publishing_components/components/contextual_breadcrumbs', content_item: content_item.as_hash, prioritise_taxon_breadcrumbs: finder_presenter.eu_exit_finder?, inverse: inverse %>
+    <%= render 'govuk_publishing_components/components/contextual_breadcrumbs', content_item: content_item.as_hash, prioritise_taxon_breadcrumbs: content_item.eu_exit_finder?, inverse: inverse %>
   <% end %>
 
-  <% if finder_presenter.government? %>
-    <%= render 'govuk_publishing_components/components/government_navigation', active: finder_presenter.government_content_section %>
+  <% if content_item.government? %>
+    <%= render 'govuk_publishing_components/components/government_navigation', active: content_item.government_content_section %>
   <% end %>
 
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-      <% if finder_presenter.all_content_finder? %>
+      <% if content_item.all_content_finder? %>
         <% label_text = capture do %>
           <h1 class="app-c-search-page-heading">Search<span class="govuk-visually-hidden"> all content</span></h1>
         <% end %>
@@ -35,12 +35,12 @@
       <% elsif topic_finder?(filter_params) %>
         <%= link_to topic_finder_parent(filter_params)['title'], topic_finder_parent(filter_params)['base_path'], class: 'topic-finder__taxon-link' %>
         <%= render partial: 'govuk_publishing_components/components/title', locals: {
-          title: finder_presenter.title,
+          title: content_item.title,
           inverse: true,
         } %>
       <% else %>
         <%= render partial: 'govuk_publishing_components/components/title', locals: {
-          title: finder_presenter.title,
+          title: content_item.title,
         } %>
       <% end %>
 
@@ -49,24 +49,24 @@
       <% end %>
     </div>
 
-    <% if finder_presenter.summary %>
+    <% if content_item.summary %>
       <div class="govuk-grid-column-two-thirds">
         <div class="metadata-summary ">
-          <%= render 'govuk_publishing_components/components/govspeak', content: finder_presenter.summary.html_safe %>
+          <%= render 'govuk_publishing_components/components/govspeak', content: content_item.summary.html_safe %>
         </div>
       </div>
     <% end %>
 
-    <% if finder_presenter.logo_path %>
+    <% if content_item.logo_path %>
       <div class="finder-logo govuk-grid-column-one-third">
-        <%= image_tag finder_presenter.logo_path, class: "finder-logo__image" %>
+        <%= image_tag content_item.logo_path, class: "finder-logo__image" %>
       </div>
     <% end %>
 
-    <% if finder_presenter.related.any? %>
+    <% if content_item.related.any? %>
       <div class="related-links govuk-grid-column-one-third">
         <ul class="js-finder-results">
-          <% finder_presenter.related.each do |link| %>
+          <% content_item.related.each do |link| %>
             <li class="related-links__item">
               <%= link_to link['title'], link['web_url'], class: "related-links__link" %>
             </li>

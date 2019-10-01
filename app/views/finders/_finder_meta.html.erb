@@ -1,12 +1,12 @@
-<% if finder_presenter.description %>
-  <meta name="description" content="<%= finder_presenter.description %>">
+<% if content_item.description %>
+  <meta name="description" content="<%= content_item.description %>">
 <% end %>
-<% if finder_presenter.no_index? %>
+<% if content_item.no_index? %>
   <meta name="robots" content="noindex">
 <% end %>
-<link rel="alternate" type="application/json" href="/api/content<%= finder_presenter.base_path %>">
+<link rel="alternate" type="application/json" href="/api/content<%= content_item.base_path %>">
 
-<%= render 'govuk_publishing_components/components/meta_tags', content_item: finder_presenter.content_item.as_hash %>
+<%= render 'govuk_publishing_components/components/meta_tags', content_item: content_item.as_hash %>
 <%= render 'govuk_publishing_components/components/machine_readable_metadata',
            schema: :search_results_page,
-           content_item: finder_presenter.content_item.as_hash %>
+           content_item: content_item.as_hash %>
