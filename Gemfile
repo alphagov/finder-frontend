@@ -13,7 +13,7 @@ gem "govuk_publishing_components", "~> 21.3.0"
 gem "rails", "~> 5.2.3"
 gem "slimmer", "~> 13.1.0"
 
-gem "sass-rails", "~> 5.1"
+gem "sass-rails", "~> 6.0"
 gem "uglifier", "~> 4.2"
 gem "whenever", "~> 1.0.0"
 
