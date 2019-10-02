@@ -1007,11 +1007,12 @@ actions:
   title: Check if your customers can give you the right documents for trade with the
     EU, if you’re a haulier
   consequence: You may not be able to transport goods through the EU if your customers
-    do not give you the right documents
+    do not give you the right documents.
   lead_time: It takes more than 4 weeks
   guidance_prompt: Read the guidance
-  guidance_link_text: 'International road haulage: no-deal Brexit haulier checklist'
-  guidance_url: https://www.gov.uk/guidance/transport-goods-out-of-the-uk-by-road-if-the-uk-leaves-the-eu-without-a-deal-checklist-for-hauliers
+  guidance_link_text: 'Transporting goods between the UK and EU in a no-deal Brexit:
+    guidance for hauliers'
+  guidance_url: https://www.gov.uk/guidance/transporting-goods-between-the-uk-and-eu-in-a-no-deal-brexit-guidance-for-hauliers
   criteria:
   - any_of:
     - road-passenger-freight
