@@ -50,3 +50,12 @@ Change notes are defined [in a `change_notes.yaml` file](https://github.com/alph
 When a new change note has been deployed to production, you need to run a rake task to send the notification. The notification will be sent to all subscribers who would see this action on their results page.
 
 https://deploy.blue.production.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=finder-frontend&MACHINE_CLASS=calculators_frontend&RAKE_TASK=brexit_checker:change_notification[UUID]
+
+### Notifying a subset of subscribers
+
+Sometimes you will only want to notify a subset of subscribers. For example when content remains the same but the criteria for an action has changed.
+
+Change notes have an optional attribute `criteria`. The structure and format of change note criteria, is the same as criteria from an action.
+
+You can add criteria to a change note in `change_notes.yaml`. If a record has criteria the rake file will [use these values](https://github.com/alphagov/finder-frontend/blob/0979c94ec51ba38f8d574569ffd51ffea55f13a6/lib/tasks/brexit_checker/change_notifications.rake#L10) to notify subscribers. This will override the default of notifying users based on criteria from the action.
+
