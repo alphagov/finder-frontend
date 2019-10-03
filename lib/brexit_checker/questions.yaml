@@ -109,7 +109,7 @@ questions:
 
   - key: join-family-uk
     type: single
-    text: "Do you plan to join an EU family member in the UK?"
+    text: "Do you plan to join an EU, EEA, Swiss or UK family member in the UK?"
     criteria:
       - all_of:
         - any_of:
