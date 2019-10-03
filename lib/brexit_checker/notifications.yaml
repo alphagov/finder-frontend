@@ -46,3 +46,14 @@ notifications:
      type: addition
      action_id: T091
      date: 2019-10-07
+   - uuid: "f37f8452-c81d-4cd6-82ce-6930a8a50b6d"
+     type: addition
+     action_id: S011
+     date: 2019-10-07
+     criteria:
+     - all_of:
+       - nationality-uk
+       - any_of:
+         - living-ie
+         - living-eu
+       - visiting-eu
