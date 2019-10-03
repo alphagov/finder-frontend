@@ -1368,6 +1368,19 @@ actions:
   criteria:
   - animal-ex-food
   audience: business
+- id: T091
+  priority: 5
+  title: Check guidance on UK participation in the Kimberly Process Certification
+    Scheme (KPCS) for trading rough diamonds
+  consequence: You will not be able to trade internationally in rough diamonds until
+    the UK secures independent participation in the KPCS.
+  lead_time: Do it as soon as possible
+  guidance_prompt: Read the guidance
+  guidance_link_text: Trading in rough diamonds after Brexit
+  guidance_url: https://www.gov.uk/government/publications/brexit-and-the-uk-trade-in-rough-diamonds
+  criteria:
+  - diamond
+  audience: business
 - id: T092
   priority: 5
   title: Check the rules on moving timber and timber products between the UK and the
