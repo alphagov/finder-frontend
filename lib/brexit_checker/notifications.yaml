@@ -57,3 +57,7 @@ notifications:
          - living-ie
          - living-eu
        - visiting-eu
+   - uuid: "7683bdd6-eef4-4d78-b78f-9e507e0ba0da"
+     type: addition
+     action_id: T093
+     date: 2019-10-07
