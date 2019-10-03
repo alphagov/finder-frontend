@@ -37,3 +37,8 @@ change_notes:
      note: "Content updated to say that you may need to apply for plant variety rights in both the UK and the EU. New arrangements will have to be agreed between the UK and the EU before seeds can be marketed in the EU after Brexit."
      action_id: T086
      date: 2019-09-26
+   - uuid: "d2335a6a-ea96-4647-86f1-164cc1144964"
+     type: content_change
+     action_id: T064
+     note: "Link changed to provide hauliers with updated guidance."
+     date: 2019-10-02
