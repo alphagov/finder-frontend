@@ -10,7 +10,7 @@ gem "govuk_ab_testing", "~> 2.4.1"
 gem "govuk_app_config", "~> 2.0.0"
 gem "govuk_document_types", "~> 0.9.2"
 gem "govuk_publishing_components", "~> 21.4.0"
-gem "rails", "~> 5.2.3"
+gem "rails", "~> 6.0.0"
 gem "slimmer", "~> 13.1.0"
 
 gem "sass-rails", "~> 5.1"
