@@ -19,13 +19,15 @@ Actions are defined in [an `actions.yaml` file](https://github.com/alphagov/find
 **NOTE: It's a good idea to run `bundle exec rspec spec/integration/brexit_checker_spec.rb` to validate the Yaml locally, before raising a PR.**
 
 ### If the CSV is available from Google Sheets
-1. Create a `.env` file and add the sheet ID (this can be found in the URL of the Google Sheet) as an environment variable. For example:
+1. Create a `.env` file and add the sheet ID (this can be found in the URL of the Google Sheet between `/d/` and `/edit`) as an environment variable. For example:
 
 ```
+# eg. for given sheet https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
+# id="1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms"
 GOOGLE_SHEET_ID="a-google-sheet-id"
 ```
 
-2. Before you run the rake task for the first time, you will need to enable to Google Drive API by generating a `credentials.json` file from the API.  Instructions to to this can be found [here](https://developers.google.com/drive/api/v3/quickstart/ruby).  You will not need to do this again when running the rake task in future as long as you have `credentials.json`.
+2. Before you run the rake task for the first time, you will need to enable to Google Drive API by generating a `credentials.json` file from the API and saving it in the root directory of the repo.  Instructions to to this can be found [here](https://developers.google.com/drive/api/v3/quickstart/ruby).  You will not need to do this again when running the rake task in future as long as you have `credentials.json`.
 
 3. Run this take task:
 
