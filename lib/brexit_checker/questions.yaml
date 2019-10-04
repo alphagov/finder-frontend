@@ -126,7 +126,9 @@ questions:
 
   - key: do-you-own-a-business
     type: "single"
-    text: "Are you preparing a business or organisation for Brexit?"
+    text: "Do you own or help to run a business or organisation?"
+    description: |
+      <p>This includes sole traders (self-employed), limited companies, and small and medium enterprises.</p>
     options:
       - label: "Yes"
         value: owns-operates-business-organisation
