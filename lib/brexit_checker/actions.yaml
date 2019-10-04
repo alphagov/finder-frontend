@@ -100,9 +100,7 @@ actions:
   guidance_url: https://www.gov.uk/guidance/studying-in-the-european-union-after-brexit
   criteria:
   - all_of:
-    - any_of:
-      - nationality-uk
-      - nationality-row
+    - nationality-uk
     - any_of:
       - studying-eu
       - studying-ie
@@ -300,9 +298,7 @@ actions:
   guidance_url: https://www.gov.uk/guidance/uk-students-in-the-eu-continuing-your-studies
   criteria:
   - all_of:
-    - any_of:
-      - nationality-uk
-      - nationality-row
+    - nationality-uk
     - studying-eu
   audience: citizen
 - id: S028
