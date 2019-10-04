@@ -15,11 +15,11 @@ RSpec.describe "Brexit checker data integrity" do
     end
   end
 
-  it "has change notes that reference valid actions" do
+  it "has notifications that reference valid actions" do
     ids = BrexitChecker::Action.load_all.map(&:id)
 
-    BrexitChecker::ChangeNote.load_all.each do |change_note|
-      expect(ids).to include(change_note.action_id)
+    BrexitChecker::Notification.load_all.each do |notification|
+      expect(ids).to include(notification.action_id)
     end
   end
 
@@ -44,8 +44,8 @@ RSpec.describe "Brexit checker data integrity" do
     expect(keys.uniq.count).to eq(keys.count)
   end
 
-  it "has change notes with unique IDs" do
-    keys = BrexitChecker::ChangeNote.load_all.map(&:id)
+  it "has notifications with unique IDs" do
+    keys = BrexitChecker::Notification.load_all.map(&:id)
     expect(keys.uniq.count).to eq(keys.count)
   end
 

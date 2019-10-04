@@ -1,5 +1,5 @@
 ---
-change_notes:
+notifications:
    - uuid: "5fe018d7-edb1-4d7a-858e-065e46d0917e"
      type: addition
      action_id: T092

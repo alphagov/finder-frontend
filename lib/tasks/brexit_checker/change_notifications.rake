@@ -1,19 +1,19 @@
 namespace :brexit_checker do
   desc "Notify Email Alert API subscribers about a change"
-  task :change_notification, [:change_note_id] => :environment do |_, args|
-    id = args[:change_note_id]
-    change_note = BrexitChecker::ChangeNote.find_by_id(id)
-    raise "Change note not found" if change_note.nil?
+  task :change_notification, [:notification_id] => :environment do |_, args|
+    id = args[:notification_id]
+    notification = BrexitChecker::Notification.find_by_id(id)
+    raise "Notification not found" if notification.nil?
 
-    mail = BrexitCheckerMailer.change_notification(change_note)
+    mail = BrexitCheckerMailer.change_notification(notification)
 
-    criteria = change_note.criteria.presence || change_note.action.criteria
+    criteria = notification.criteria.presence || notification.action.criteria
 
     GdsApi.email_alert_api.create_message(
       title: mail.subject,
-      url: change_note.action.title_url,
+      url: notification.action.title_url,
       body: mail.body.raw_source,
-      sender_message_id: change_note.id,
+      sender_message_id: notification.id,
       criteria_rules: criteria_rules(criteria),
     )
 
