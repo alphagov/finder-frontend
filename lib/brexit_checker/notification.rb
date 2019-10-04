@@ -1,7 +1,7 @@
-class BrexitChecker::ChangeNote
+class BrexitChecker::Notification
   include ActiveModel::Validations
 
-  CONFIG_PATH = Rails.root.join("lib", "brexit_checker", "change_notes.yaml")
+  CONFIG_PATH = Rails.root.join("lib", "brexit_checker", "notifications.yaml")
 
   validates_presence_of :action_id
   validates_inclusion_of :type, in: %w(addition content_change)
@@ -28,7 +28,7 @@ class BrexitChecker::ChangeNote
   end
 
   def self.load_all
-    @load_all ||= YAML.load_file(CONFIG_PATH)["change_notes"].to_a
+    @load_all ||= YAML.load_file(CONFIG_PATH)["notifications"].to_a
       .map { |c| load(c) }
   end
 

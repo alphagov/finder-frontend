@@ -8,13 +8,13 @@ Zendesk.
 ### Contents:
 
 - [Updates to actions](#updates-to-actions)
-- [Adding change notes](#adding-change-notes)
+- [Adding notifications](#adding-notifications)
 
 ## Updates to actions
 
 Actions are defined in [an `actions.yaml` file](https://github.com/alphagov/finder-frontend/blob/master/lib/brexit_checker/actions.yaml). To add or change an action, you'll need to run one of the following rake tasks. When the file has changed in multiple ways, only commit the changes that were requested.
 
-**NOTE: Additions or changes to actions may require a [change note](#adding-change-notes). Check with the person who requested the change.**
+**NOTE: Additions or changes to actions may require a [notification](#adding-notifications). Check with the person who requested the change.**
 
 **NOTE: It's a good idea to run `bundle exec rspec spec/integration/brexit_checker_spec.rb` to validate the Yaml locally, before raising a PR.**
 
@@ -43,13 +43,13 @@ Run this take task:
 bundle exec rake brexit_checker:convert_csv_to_yaml:actions[path/to/actions.csv]`
 ```
 
-## Adding change notes
+## Adding notifications
 
-Additions or changes to actions may require a change note, which is used to send a notification about the change. Change notes should only be created for this purpose.
+Additions or changes to actions may require a notification, which sends an email to alert subscribers to a change. Notifications should only be created for this purpose.
 
-Change notes are defined [in a `change_notes.yaml` file](https://github.com/alphagov/finder-frontend/blob/master/lib/brexit_checker/change_notes.yaml). You should check with the person who requested the change, to determine if a change note is appropriate.
+Notifications are defined [in notifications.yaml` file](https://github.com/alphagov/finder-frontend/blob/master/lib/brexit_checker/notifications.yaml). You should check with the person who requested the change, to determine if a notification is appropriate.
 
-When a new change note has been deployed to production, you need to run a rake task to send the notification. The notification will be sent to all subscribers who would see this action on their results page.
+When a new Notification has been deployed to production, you need to run a rake task to send the notification email. The notification email will be sent to all subscribers who would see this action on their results page.
 
 https://deploy.blue.production.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=finder-frontend&MACHINE_CLASS=calculators_frontend&RAKE_TASK=brexit_checker:change_notification[UUID]
 
@@ -57,7 +57,7 @@ https://deploy.blue.production.govuk.digital/job/run-rake-task/parambuild/?TARGE
 
 Sometimes you will only want to notify a subset of subscribers. For example when content remains the same but the criteria for an action has changed.
 
-Change notes have an optional attribute `criteria`. The structure and format of change note criteria, is the same as criteria from an action.
+Notifications have an optional attribute `criteria`. The structure and format of this criteria, is the same as criteria from an action.
 
-You can add criteria to a change note in `change_notes.yaml`. If a record has criteria the rake file will [use these values](https://github.com/alphagov/finder-frontend/blob/0979c94ec51ba38f8d574569ffd51ffea55f13a6/lib/tasks/brexit_checker/change_notifications.rake#L10) to notify subscribers. This will override the default of notifying users based on criteria from the action.
+You can add criteria to a notification in `notifications.yaml`. If a record has criteria the rake file will [use these values](https://github.com/alphagov/finder-frontend/blob/0979c94ec51ba38f8d574569ffd51ffea55f13a6/lib/tasks/brexit_checker/change_notifications.rake#L10) to notify subscribers. This will override the default of notifying users based on criteria from the action.
 

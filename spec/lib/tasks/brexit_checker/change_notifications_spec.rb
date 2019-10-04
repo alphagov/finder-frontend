@@ -10,13 +10,13 @@ RSpec.describe "Change notifications" do
     end
 
     let(:addition) do
-      FactoryBot.build(:brexit_checker_change_note,
+      FactoryBot.build(:brexit_checker_notification,
                        type: "addition",
                        action_id: "addition")
     end
 
     let(:content_change) do
-      FactoryBot.build(:brexit_checker_change_note,
+      FactoryBot.build(:brexit_checker_notification,
                        type: "content_change",
                        note: "Something has changed",
                        action_id: "content_change")
@@ -25,7 +25,7 @@ RSpec.describe "Change notifications" do
     before do
       stub_email_alert_api_accepts_message
       Rake::Task["brexit_checker:change_notification"].reenable
-      allow(BrexitChecker::ChangeNote).to receive(:load_all) { [addition, content_change] }
+      allow(BrexitChecker::Notification).to receive(:load_all) { [addition, content_change] }
 
       allow(BrexitChecker::Action).to receive(:load_all) do
         [
@@ -150,9 +150,9 @@ RSpec.describe "Change notifications" do
       end
     end
 
-    describe "when change note has criteria rules" do
+    describe "when a notification has criteria rules" do
       let(:content_note_criteria_change) do
-        FactoryBot.build(:brexit_checker_change_note,
+        FactoryBot.build(:brexit_checker_notification,
                          type: "content_change",
                          note: "Something has changed",
                          action_id: "content_change",
@@ -160,12 +160,12 @@ RSpec.describe "Change notifications" do
       end
 
       before do
-        allow(BrexitChecker::ChangeNote).to receive(:load_all) {
+        allow(BrexitChecker::Notification).to receive(:load_all) {
           [content_note_criteria_change]
         }
       end
 
-      it "should notify subscribers based on the change note's criteria rules" do
+      it "should notify subscribers based on the notification's criteria rules" do
         Rake::Task["brexit_checker:change_notification"].invoke(content_note_criteria_change.id)
         assert_requested(:post, "#{endpoint}/messages") do |request|
           payload = JSON.parse(request.body)
@@ -192,9 +192,9 @@ RSpec.describe "Change notifications" do
         .to raise_error("Notification already sent")
     end
 
-    it "raises an error if the change note cannot be found" do
+    it "raises an error if the notification cannot be found" do
       expect { Rake::Task["brexit_checker:change_notification"].invoke("missing") }
-        .to raise_error("Change note not found")
+        .to raise_error("Notification not found")
     end
   end
 end

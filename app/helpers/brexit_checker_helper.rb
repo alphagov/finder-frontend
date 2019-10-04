@@ -52,12 +52,12 @@ module BrexitCheckerHelper
     previous_questions.rindex { |question| question.show?(criteria_keys) }
   end
 
-  def change_note_email_link(non_tracked_url, change_note)
+  def notification_email_link(non_tracked_url, notification)
     url = Addressable::URI.parse(non_tracked_url)
     return non_tracked_url unless url.host == "www.gov.uk"
 
     url.query_values = (url.query_values || {}).merge(
-      utm_source: change_note.id,
+      utm_source: notification.id,
       utm_medium: "email",
       utm_campaign: "govuk-brexit-checker",
     )
