@@ -988,7 +988,7 @@ actions:
     - haulage-goods-across-eu-borders
   audience: business
 - id: T063
-  priority: 5
+  priority: 6
   title: Check what documents you need to run unscheduled bus or coach services in
     EU countries
   consequence: You may not be able to run unscheduled services in Europe without the
@@ -1210,7 +1210,7 @@ actions:
   - employ-eu-citizens
   audience: business
 - id: T078
-  priority: 5
+  priority: 6
   title: Check what documents you need to run scheduled bus or coach services in EU
     countries
   consequence: If your authorisation expires before 31 December you must renew it
