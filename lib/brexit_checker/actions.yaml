@@ -1437,3 +1437,22 @@ actions:
     - visiting-uk
     - visiting-bring-pet
   audience: citizen
+- id: T093
+  priority: 5
+  title: Check if you need new licences for any drug precursor chemicals you import
+    or export
+  consequence: Your chemicals could be seized and you will be breaking the law if
+    you import or export drug precursors without the correct licences.
+  lead_time: Do it as soon as possible
+  guidance_prompt: Read the guidance
+  guidance_link_text: Trading in drug precursors if there’s no Brexit deal
+  guidance_url: https://www.gov.uk/government/publications/trading-in-drug-precursors-if-theres-no-brexit-deal
+  criteria:
+  - any_of:
+    - all_of:
+      - any_of:
+        - import-from-eu
+        - export-to-eu
+      - chemical
+    - non-metal-material
+  audience: business
