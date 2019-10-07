@@ -167,12 +167,7 @@ actions:
   guidance_url: https://www.gov.uk/guidance/foreign-travel-insurance
   criteria:
   - all_of:
-    - any_of:
-      - nationality-uk
-      - nationality-row
-    - any_of:
-      - living-uk
-      - living-row
+    - nationality-uk
     - visiting-eu
   audience: citizen
 - id: S013
