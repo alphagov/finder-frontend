@@ -42,3 +42,7 @@ notifications:
      action_id: T064
      note: "Link changed to provide hauliers with updated guidance."
      date: 2019-10-02
+   - uuid: "c23214f5-eee3-4528-88b1-c7d88fe59b7e"
+     type: addition
+     action_id: T091
+     date: 2019-10-07
