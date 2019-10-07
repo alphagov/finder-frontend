@@ -116,6 +116,7 @@
         function () {
           var newPath = window.location.pathname + '?' + $.param(this.state)
           window.history.pushState(this.state, '', newPath)
+          this.setResultCountCustomDimension()
           this.trackingInit()
           this.setRelevantResultCustomDimension()
           this.trackPageView()
@@ -128,6 +129,12 @@
     var $mostRelevantDocumentLink = $('.js-finder-results').find('.gem-c-document-list__item--highlight')
     var dimensionValue = $mostRelevantDocumentLink.length ? 'yes' : 'no'
     GOVUK.SearchAnalytics.setDimension(83, dimensionValue)
+  }
+
+  LiveSearch.prototype.setResultCountCustomDimension = function setResultCountCustomDimension () {
+    var results = this.cache($.param(this.state)) || this.$countBlock.text().split(' results')[0].trim()
+    if (!results) { return }
+    GOVUK.SearchAnalytics.setDimension(5, results.total)
   }
 
   LiveSearch.prototype.trackingInit = function trackingInit () {
