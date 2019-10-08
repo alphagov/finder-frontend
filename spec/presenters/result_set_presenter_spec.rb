@@ -86,6 +86,13 @@ RSpec.describe ResultSetPresenter do
     end
   end
 
+  describe "#total_count" do
+    it "displays the total count" do
+      FactoryBot.build(:option_select_facet, values: [1, 2, 3])
+      expect(subject.total_count).to eql(total_number_of_results)
+    end
+  end
+
   describe "#documents" do
     context "there is one document in the results" do
       let(:total_number_of_results) { 1 }
