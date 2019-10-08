@@ -1,3 +1,6 @@
+<% content_for :head do %>
+  <meta name="govuk:search-result-count" content="<%= result_set_presenter.total_count %>">
+<% end %>
 <% if local_assigns[:display_grouped_results] %>
   <ul class="finder-results js-finder-results" data-module="track-click">
     <% local_assigns[:grouped_document_list_component_data].each do |group| %>
