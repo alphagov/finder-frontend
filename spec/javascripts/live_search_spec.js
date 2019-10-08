@@ -4,7 +4,7 @@
 describe('liveSearch', function () {
   var $form, $results, _supportHistory, liveSearch, $atomAutodiscoveryLink, $count
   var dummyResponse = {
-    'total': 1,
+    'display_total': 1,
     'pluralised_document_noun': 'reports',
     'applied_filters': " \u003Cstrong\u003ECommercial - rotorcraft \u003Ca href='?format=json\u0026keywords='\u003E×\u003C/a\u003E\u003C/strong\u003E",
     'atom_url': 'http://an-atom-url.atom?some-query-param',
