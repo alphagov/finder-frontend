@@ -119,3 +119,18 @@ A option has the following attributes:
 | hint_text   | string           | addition context to help the user understand the option                                                         | no       |
 | criteria    | Criteria Rule    | defines which sets of criteria the option should be shown                                                       | no       |
 
+### Notification
+A notification is used to record changes to actions and to send emails to relevant subscribers.
+
+The emails are sent using the ```brexit_checker:change_notification``` rake task.
+
+A notification has the following attributes:
+
+| attribute   | values           | description                                                                                                     | required |
+|-------------|------------------|-----------------------------------------------------------------------------------------------------------------|----------|
+| id          | string           | unique id                                                                                                       | yes      |
+| action_id   | string           | action that has changed                                                                                         | yes      |
+| type        | string           | type of change, i.e. 'addition' or 'content_change'                                                             | yes      |
+| note        | string           | a comment describing what this change is about                                                                  | no       |
+| date        | date             | the date this change went live                                                                                  | yes      |
+| criteria    | Criteria Rule    | defines the criteria to determine which users to send emails to. If not specified the criteria of the action are used.   | no       |
