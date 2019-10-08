@@ -52,7 +52,7 @@ private
   end
 
   def title
-    qa_config["title"]
+    [current_facet["question"], qa_config["title"]].compact.join(" - ")
   end
   helper_method :title
 
