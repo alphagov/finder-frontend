@@ -55,7 +55,8 @@ private
 
   def json_response
     {
-      total: result_set_presenter.displayed_total,
+      total: result_set_presenter.total_count,
+      display_total: result_set_presenter.displayed_total,
       facet_tags: render_component("facet_tags", facet_tags.present),
       search_results: render_component("finders/search_results", result_set_presenter.search_results_content),
       sort_options_markup: render_component("finders/sort_options", sort_presenter.to_hash),
