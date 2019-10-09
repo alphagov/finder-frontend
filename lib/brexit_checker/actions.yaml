@@ -1456,3 +1456,18 @@ actions:
       - chemical
     - non-metal-material
   audience: business
+- id: T095
+  priority: 5
+  title: Register for the UK fluorinated gas (F gas) quota system (as well as the
+    EU quota system)
+  title_url: https://register.fluorinated-gas.service.gov.uk
+  consequence: You will not be able to import or export F gas products if you do not
+    have the right registrations and paperwork.
+  lead_time: Do it as soon as possible
+  guidance_prompt: Read the guidance
+  guidance_link_text: 'Fluorinated gases and ozone-depleting substances: how to do
+    business if there''s a no-deal Brexit'
+  guidance_url: https://www.gov.uk/government/publications/fluorinated-gases-and-ozone-depleting-substances-how-to-do-business-if-the-uk-leaves-the-eu-with-no-deal
+  criteria:
+  - chemical
+  audience: business
