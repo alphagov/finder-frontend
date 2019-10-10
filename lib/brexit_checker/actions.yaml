@@ -1460,7 +1460,7 @@ actions:
   priority: 5
   title: Register for the UK fluorinated gas (F gas) quota system (as well as the
     EU quota system)
-  title_url: https://register.fluorinated-gas.service.gov.uk
+  title_url: https://register.fluorinated-gas.service.gov.uk/register
   consequence: You will not be able to import or export F gas products if you do not
     have the right registrations and paperwork.
   lead_time: Do it as soon as possible
