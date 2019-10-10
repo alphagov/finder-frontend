@@ -22,14 +22,7 @@
   <% inverse = true %>
 <% end %>
 
-<form method="get" action="<%= content_item.base_path %>" class="js-live-search-form"
-  data-analytics-ecommerce
-  data-ecommerce-start-index="<%= result_set_presenter.start_offset %>"
-  <% unless result_set_presenter.sort_option.nil? %>
-    data-ecommerce-variant="<%= result_set_presenter.sort_option[:data_track_label] %>"
-  <% end %>
-  data-list-title="<%= content_item.title %>"
-  data-search-query="<%= result_set_presenter.user_supplied_keywords %>">
+<form method="get" action="<%= content_item.base_path %>" class="js-live-search-form">
   <input type="hidden" name="parent" value="<%= @parent %>">
 
   <% if topic_finder?(filter_params) && !content_item.all_content_finder? %>
@@ -50,7 +43,17 @@
         <%= render partial: 'facet_collection'%>
       </div>
 
-      <div class="govuk-grid-column-two-thirds js-live-search-results-block filtered-results" role="region" aria-label="<%= content_item.title %> search results">
+      <div class="govuk-grid-column-two-thirds js-live-search-results-block filtered-results" 
+        role="region" 
+        aria-label="<%= content_item.title %> search results"
+        data-analytics-ecommerce
+        data-ecommerce-start-index="<%= result_set_presenter.start_offset %>"
+        data-list-title="<%= content_item.title %>"
+        data-search-query="<%= result_set_presenter.user_supplied_keywords %>"
+        <% unless result_set_presenter.sort_option.nil? %>
+          data-ecommerce-variant="<%= result_set_presenter.sort_option[:data_track_label] %>"
+        <% end %>
+        >
         <div id="js-search-results-info" data-module="remove-filter" class="result-info">
           <div class="govuk-grid-row">
             <div class="govuk-grid-column-one-third">

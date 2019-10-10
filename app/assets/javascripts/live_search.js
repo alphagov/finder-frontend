@@ -11,6 +11,7 @@
     this.resultCache = {}
 
     this.$form = options.$form
+    this.$resultsWrapper = this.$form.find('.js-live-search-results-block')
     this.$resultsBlock = options.$results.find('#js-results')
     this.$countBlock = options.$results.find('#js-result-count')
     this.$facetTagBlock = options.$results.find('#js-facet-tag-wrapper')
@@ -69,7 +70,7 @@
   }
 
   LiveSearch.prototype.startEnhancedEcommerceTracking = function startEnhancedEcommerceTracking () {
-    this.$form.attr('data-search-query', this.currentKeywords())
+    this.$resultsWrapper.attr('data-search-query', this.currentKeywords())
     if (GOVUK.Ecommerce) { GOVUK.Ecommerce.start() }
   }
 
@@ -132,7 +133,7 @@
   }
 
   LiveSearch.prototype.trackingInit = function trackingInit () {
-    GOVUK.modules.start($('.js-live-search-results-block'))
+    GOVUK.modules.start($(this.$resultsWrapper))
     this.indexTrackingData()
     this.startEnhancedEcommerceTracking()
   }
