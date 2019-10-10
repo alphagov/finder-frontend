@@ -353,3 +353,20 @@ mark {
     margin-bottom: govuk-spacing(2);
   }
 }
+
+// show spelling suggestion container only if suggestions are available
+.spelling-suggestions {
+  margin-top: -(govuk-spacing(1));
+  margin-bottom: govuk-spacing(4);
+
+  @include govuk-media-query($from: tablet) {
+    margin-top: -(govuk-spacing(2));
+    margin-bottom: govuk-spacing(7);
+
+    // We need to keep font size consistently 16 pixels 
+    // when above the tablet breakpoint
+    .govuk-body {
+      font-size: 16px;
+    }
+  }
+}
