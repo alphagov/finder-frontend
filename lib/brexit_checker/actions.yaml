@@ -1484,3 +1484,19 @@ actions:
   criteria:
   - chemical
   audience: business
+- id: S033
+  priority: 5
+  title: Check if you can apply to the EU Settlement Scheme
+  consequence: If you do not apply to the EU Settlement Scheme, you may not be able
+    to continue living or working in the UK as you do now.
+  lead_time: Do it as soon as possible
+  guidance_prompt: Read the guidance
+  guidance_link_text: Applying to the EU Settlement Scheme if you're not an EU, EEA
+    or Swiss citizen
+  guidance_url: https://www.gov.uk/settled-status-eu-citizens-families/not-EU-EEA-Swiss-citizen
+  criteria:
+  - all_of:
+    - nationality-row
+    - living-uk
+    - family-eu
+  audience: citizen
