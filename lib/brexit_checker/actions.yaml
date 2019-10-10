@@ -3,10 +3,10 @@ actions:
 - id: S001
   priority: 8
   title: Apply to the EU Settlement Scheme by 31 December 2020 to continue living
-    in the UK
+    or to join family in the UK
   title_url: https://www.gov.uk/settled-status-eu-citizens-families/applying-for-settled-status
-  consequence: If you do not apply to the Settlement Scheme, you may not be able to
-    continue living or working in the UK as you do now.
+  consequence: If you do not apply to the scheme, you may not be able to continue
+    living or working in the UK as you do now, or join your family in the UK.
   exception: 'You do not need to apply if you have: indefinite leave to enter the
     UK, indefinite leave to remain in the UK, British or Irish citizenship (including
     ‘dual citizenship’).'
