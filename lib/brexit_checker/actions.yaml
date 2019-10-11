@@ -1515,3 +1515,14 @@ actions:
     - living-uk
     - family-eu
   audience: citizen
+- id: T098
+  priority: 5
+  title: Check the rules on making or placing pesticides on the UK market
+  consequence: You may not be able to sell new pesticides on the UK market.
+  lead_time: Do it as soon as possible
+  guidance_prompt: Read the guidance
+  guidance_link_text: How to comply with pesticide regulations after Brexit
+  guidance_url: https://www.gov.uk/guidance/how-to-comply-with-pesticide-regulations-after-brexit
+  criteria:
+  - chemical
+  audience: business
