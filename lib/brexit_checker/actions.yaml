@@ -1484,6 +1484,21 @@ actions:
   criteria:
   - chemical
   audience: business
+- id: T096
+  priority: 1
+  title: Check the rules on moving waste between the UK and the EU
+  consequence: Your waste shipments may be delayed or rejected if you do not follow
+    the right rules.
+  lead_time: Do it as soon as possible
+  guidance_prompt: Read the guidance
+  guidance_link_text: Importing and exporting waste if there’s no Brexit deal
+  guidance_url: https://www.gov.uk/guidance/importing-and-exporting-waste-if-theres-no-brexit-deal
+  criteria:
+  - any_of:
+    - environment
+    - import-from-eu
+    - export-from-eu
+  audience: business
 - id: S033
   priority: 5
   title: Check if you can apply to the EU Settlement Scheme
