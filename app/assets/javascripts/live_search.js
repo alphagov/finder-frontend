@@ -20,6 +20,7 @@
     this.action = this.$form.attr('action') + '.json'
     this.$atomAutodiscoveryLink = options.$atomAutodiscoveryLink
     this.baseTitle = $("meta[name='govuk:base_title']").attr('content') || document.title
+    this.$resultsCountMetaTag = $("meta[name='govuk:search-result-count']")
     this.$emailLink = $('a[href*="email-signup"]')
     this.previousSearchTerm = ''
 
@@ -213,6 +214,11 @@
     }
   }
 
+  LiveSearch.prototype.updateResultsCountMeta = function updateResultsCountMeta (totalCount) {
+    // update search tracking meta data tag with new value
+    this.$resultsCountMetaTag.attr('content', totalCount)
+  }
+
   LiveSearch.prototype.updateSortOptions = function updateSortOptions (results, action) {
     if (action !== $.param(this.state)) { return }
     this.updateElement(this.$sortBlock, results.sort_options_markup)
@@ -318,9 +324,10 @@
     if (action === $.param(this.state)) {
       this.updateElement(this.$resultsBlock, results.search_results)
       this.updateElement(this.$facetTagBlock, results.facet_tags)
-      this.updateElement(this.$countBlock, results.total)
+      this.updateElement(this.$countBlock, results.display_total)
       this.updateElement(this.$paginationBlock, results.next_and_prev_links)
       this.updateSortOptions(results, action)
+      this.updateResultsCountMeta(results.total)
       this.$atomAutodiscoveryLink.attr('href', results.atom_url)
       this.$loadingBlock.text('').hide()
     }

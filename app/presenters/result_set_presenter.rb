@@ -24,6 +24,10 @@ class ResultSetPresenter
     "#{number_with_delimiter(total)} #{pluralised_document_noun}"
   end
 
+  def total_count
+    @total
+  end
+
   def search_results_content
     component_data = document_list_component_data(documents_to_convert: documents)
     {
