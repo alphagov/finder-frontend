@@ -1515,6 +1515,23 @@ actions:
     - living-uk
     - family-eu
   audience: citizen
+- id: T097
+  priority: 2
+  title: Check if you need a CITES permit when moving endangered animal or plant species
+    between the UK and the EU
+  consequence: You may not be able to move animals or plants protected under CITES.
+  lead_time: Do it as soon as possible
+  guidance_prompt: Read the guidance
+  guidance_link_text: Trading and moving endangered species protected by CITES
+  guidance_url: https://www.gov.uk/guidance/trading-and-moving-endangered-species-protected-by-cites-if-theres-no-withdrawal-deal
+  criteria:
+  - any_of:
+    - import-from-eu
+    - export-from-eu
+    - fish-inc-wholesale
+    - forestry
+    - animal-ex-food
+  audience: business
 - id: T098
   priority: 5
   title: Check the rules on making or placing pesticides on the UK market
