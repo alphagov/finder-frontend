@@ -73,3 +73,7 @@ notifications:
      type: addition
      action_id: S033
      date: 2019-10-11
+   - uuid: "ccafb18a-350d-476b-af29-ca906c374202"
+     type: addition
+     action_id: T098
+     date: 2019-10-11
