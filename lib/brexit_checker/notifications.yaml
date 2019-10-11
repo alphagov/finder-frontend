@@ -65,3 +65,7 @@ notifications:
      type: addition
      action_id: T095
      date: 2019-10-09
+   - uuid: "3c414f66-35fe-4178-ab4f-40f67bdb3a2b"
+     type: addition
+     action_id: T094
+     date: 2019-10-11

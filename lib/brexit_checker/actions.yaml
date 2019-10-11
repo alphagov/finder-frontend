@@ -1456,6 +1456,19 @@ actions:
       - chemical
     - non-metal-material
   audience: business
+- id: T094
+  priority: 4
+  title: Check if your employees need to make social security contributions in the
+    UK as well as in the EU, EEA or Switzerland
+  consequence: Your employees may not be entitled to healthcare or benefits in the
+    country they work in.
+  lead_time: Do it as soon as possible
+  guidance_prompt: Read the guidance
+  guidance_link_text: Social security contributions for EU, EEA or Swiss workers
+  guidance_url: https://www.gov.uk/guidance/social-security-contributions-for-uk-and-eu-workers-if-the-uk-leaves-the-eu-with-no-deal
+  criteria:
+  - provide-services-do-business-in-eu
+  audience: business
 - id: T095
   priority: 5
   title: Register for the UK fluorinated gas (F gas) quota system (as well as the
