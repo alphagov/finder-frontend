@@ -107,6 +107,19 @@ questions:
       - label: "No"
         value: return-to-uk-no
 
+  - key: family-eu
+    type: single
+    text: 'Are you a family member of an EU, EEA or Swiss citizen?'
+    criteria:
+      all_of:
+        - nationality-row
+        - living-uk
+    options:
+      - label: 'Yes'
+        value: family-eu
+      - label: 'No'
+        value: family-eu-no
+
   - key: join-family-uk
     type: single
     text: "Do you plan to join an EU, EEA, Swiss or UK family member in the UK?"
