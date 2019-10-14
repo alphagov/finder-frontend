@@ -1065,9 +1065,9 @@ actions:
   consequence: You will not be able to carry out clinical trials without a legal representative.
   lead_time: Do it as soon as possible
   guidance_prompt: Read the guidance
-  guidance_link_text: Further guidance note on the regulation of medicines, medical
-    devices and clinical trials if there’s no Brexit deal
-  guidance_url: https://www.gov.uk/government/publications/further-guidance-note-on-the-regulation-of-medicines-medical-devices-and-clinical-trials-if-theres-no-brexit-deal/further-guidance-note-on-the-regulation-of-medicines-medical-devices-and-clinical-trials-if-theres-no-brexit-deal
+  guidance_link_text: Guidance on substantial amendments to a clinical trial if the
+    UK leaves the EU with no deal
+  guidance_url: https://www.gov.uk/guidance/guidance-on-substantial-amendments-to-a-clinical-trial-if-the-uk-leaves-the-eu-with-no-deal
   criteria:
   - pharma
   audience: business
