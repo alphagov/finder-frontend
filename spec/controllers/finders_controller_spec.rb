@@ -22,6 +22,16 @@ describe FindersController, type: :controller do
     finder
   end
 
+  let(:all_content_finder) do
+    finder = govuk_content_schema_example("finder").to_hash.merge(
+      "base_path" => "/search/all",
+    )
+
+    finder["details"]["default_documents_per_page"] = 10
+    finder["details"]["sort"] = nil
+    finder
+  end
+
   before do
     Rails.cache.clear
     content_store_has_item("/", "links" => { "level_one_taxons" => [] })
@@ -29,30 +39,12 @@ describe FindersController, type: :controller do
   after { Rails.cache.clear }
 
   describe "GET show" do
-    let(:all_content_finder) do
-      finder = govuk_content_schema_example("finder").to_hash.merge(
-        "base_path" => "/search/all",
-      )
-
-      finder["details"]["default_documents_per_page"] = 10
-      finder["details"]["sort"] = nil
-      finder
-    end
-
     describe "a finder content item exists" do
       before do
         content_store_has_item(
           "/lunch-finder",
           lunch_finder,
         )
-
-        rummager_response = %|{
-          "results": [],
-          "total": 11,
-          "start": 0,
-          "facets": {},
-          "suggested_queries": []
-        }|
 
         url = "#{Plek.current.find('search')}/search.json"
 
@@ -243,6 +235,29 @@ describe FindersController, type: :controller do
     end
   end
 
+  describe "popularity AB test variant" do
+    before do
+      content_store_has_item("/search/all", all_content_finder)
+    end
+
+    it "should request the B popularity variant from search api" do
+      request = search_api_request(query: { ab_tests: "popularity:B" })
+
+      with_variant FinderPopularityABTest: "B" do
+        get :show, params: { slug: "search/all" }
+        expect(request).to have_been_made.once
+      end
+    end
+
+    it "should not specify a popularity variant from search api by default" do
+      request = search_api_request
+      with_variant FinderPopularityABTest: "A" do
+        get :show, params: { slug: "search/all" }
+        expect(request).to have_been_made.once
+      end
+    end
+  end
+
   describe "Spelling suggestions" do
     let(:breakfast_finder) do
       finder = govuk_content_schema_example("finder").to_hash.merge(
@@ -276,6 +291,31 @@ describe FindersController, type: :controller do
       expect(response.body).to include('{"keywords":"cereal","link":"/breakfast-finder?keywords=cereal"}')
       expect(response.body).to include('{"keywords":"full english","link":"/breakfast-finder?keywords=full+english"}')
     end
+  end
+
+  def search_api_request(query: {})
+    stub_request(:get, "#{Plek.current.find('search')}/search.json")
+      .with(
+        query: {
+          count: 10,
+          fields: "title,link,description_with_highlighting,public_timestamp,popularity,content_purpose_supergroup,content_store_document_type,format,is_historic,government_name,content_id,walk_type,place_of_origin,date_of_introduction,creator",
+          filter_document_type: "mosw_report",
+          order: "-public_timestamp",
+          start: 0,
+          suggest: "spelling",
+        }.merge(query),
+      )
+      .to_return(status: 200, body: rummager_response, headers: {})
+  end
+
+  def rummager_response
+    %|{
+      "results": [],
+      "total": 11,
+      "start": 0,
+      "facets": {},
+      "suggested_queries": []
+    }|
   end
 
   def path_for(content_item, locale = nil)
