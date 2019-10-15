@@ -22,6 +22,11 @@ module BrexitCheckerHelper
     items.select { |i| i.show?(criteria_keys) }
   end
 
+  def travel_question_options(options, criterion)
+    location = criterion.split("-").last
+    options.reject { |o| /(#{location})\z/.match?(o.value) }
+  end
+
   def persistent_criteria_keys(question_criteria_keys)
     criteria_keys - question_criteria_keys
   end

@@ -208,4 +208,21 @@ describe BrexitCheckerHelper, type: :helper do
       expect(link).to match("http://www.gov.uk?")
     end
   end
+
+  describe "#travel_question_options" do
+    let(:uk_option) { FactoryBot.build(:brexit_checker_option, value: "living-uk") }
+    let(:eu_option) { FactoryBot.build(:brexit_checker_option, value: "living-eu") }
+    let(:ie_option) { FactoryBot.build(:brexit_checker_option, value: "living-ie") }
+    let(:options) { [uk_option, eu_option, ie_option] }
+
+    it "returns a list of options excluding options with a value containing the location given in the criterion" do
+      options_list = travel_question_options(options, %w[ie])
+      expect(options_list).not_to include(ie_option)
+    end
+
+    it "returns all given options if none have a value matching the location given in the criterion" do
+      options_list = travel_question_options(options, %w[row])
+      expect(options_list).to eq(options)
+    end
+  end
 end

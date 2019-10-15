@@ -27,6 +27,8 @@ class BrexitCheckerController < ApplicationController
       current_question_index: page,
     )
 
+    @living_criterion = find_living_criterion
+
     redirect_to brexit_checker_results_path(c: criteria_keys) if @current_question.nil?
   end
 
@@ -70,4 +72,17 @@ private
   def page
     @page ||= ParamsCleaner.new(params).fetch(:page, "0").to_i
   end
+
+  def find_living_criterion
+    living_options = BrexitChecker::Question.find_by_key("living").options
+    living_criteria = living_options.map(&:value)
+    living_criteria.find { |criterion| criteria_keys.include?(criterion) }
+  end
+
+  def travel_question?(question)
+    return unless question
+
+    question.key == "travelling"
+  end
+  helper_method :travel_question?
 end

@@ -1,8 +1,16 @@
+<%
+  options = if travel_question?(current_question) && @living_criterion
+              travel_question_options(current_question.options, @living_criterion)
+            else
+              current_question.options
+            end
+%>
+
 <%= render "govuk_publishing_components/components/checkboxes", {
   name: "c[]",
   heading: current_question.text,
   description: formatted_description,
   hint_text: current_question.hint_text,
   is_page_heading: true,
-  items: format_question_options(current_question.options, criteria_keys)
+  items: format_question_options(options, criteria_keys)
 } %>
