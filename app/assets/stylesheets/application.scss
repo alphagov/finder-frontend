@@ -1,10 +1,12 @@
-$govuk-compatibility-govukfrontendtoolkit: true;
 $govuk-compatibility-govuktemplate: true;
 
-@import 'reset';
-@import 'govuk_publishing_components/all_components';
-@import 'components/*';
-@import 'finder_frontend';
-@import 'views/search';
-@import 'views/qa';
-@import 'views/brexit_checker_results_page';
+@import "govuk_publishing_components/all_components";
+@import "reset";
+@import "components/date-filter";
+@import "components/email-link";
+@import "components/expander";
+@import "components/option-select";
+@import "views/finder_frontend";
+@import "views/search";
+@import "views/qa";
+@import "views/brexit_checker_results_page";
