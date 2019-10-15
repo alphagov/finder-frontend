@@ -160,17 +160,17 @@ private
   end
 
   def invalid_date?(user_input)
-     DateParser.parse(user_input).nil?
-   end
+    DateParser.parse(user_input).nil?
+  end
 
-   def from_date
-     params.dig(:public_timestamp, :from)
-   end
+  def from_date
+    params.dig(:public_timestamp, :from)
+  end
 
-   def to_date
-     params.dig(:public_timestamp, :to)
-   end
-   
+  def to_date
+    params.dig(:public_timestamp, :to)
+  end
+
   def finder_url_builder
     UrlBuilder.new(content_item.base_path, filter_params)
   end
