@@ -208,7 +208,7 @@ actions:
   lead_time: Do it as soon as possible
   guidance_prompt: Read the guidance
   guidance_link_text: 'Living in the EU: prepare for Brexit'
-  guidance_url: https://www.gov.uk/guidance/advice-for-british-nationals-travelling-and-living-in-europe
+  guidance_url: https://www.gov.uk/guidance/living-in-the-eu-prepare-for-brexit
   criteria:
   - all_of:
     - nationality-uk
