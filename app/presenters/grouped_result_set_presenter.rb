@@ -22,7 +22,7 @@ private
 
   def grouped_display?
     @grouped_display ||= begin
-      sorts_by_topic = sort_option.dig("key") == "topic"
+      sorts_by_topic = unpresented_sort_option.dig("key") == "topic"
       @filter_params[:order] == "topic" || (!@filter_params.has_key?(:order) && sorts_by_topic)
     end
   end
