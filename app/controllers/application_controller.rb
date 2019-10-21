@@ -12,6 +12,7 @@ class ApplicationController < ActionController::Base
   rescue_from GdsApi::BaseError, with: :error_503
   rescue_from GdsApi::InvalidUrl, with: :unprocessable_entity
   rescue_from GdsApi::HTTPNotFound, with: :error_not_found
+  rescue_from GdsApi::HTTPForbidden, with: :forbidden
   rescue_from GdsApi::HTTPUnprocessableEntity, with: :unprocessable_entity
 
   if ENV["REQUIRE_BASIC_AUTH"]
@@ -45,6 +46,10 @@ private
 
   def error_not_found
     render status: :not_found, plain: "404 error not found"
+  end
+
+  def forbidden
+    render status: :forbidden, plain: "403 forbidden"
   end
 
   def unprocessable_entity

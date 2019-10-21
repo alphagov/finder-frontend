@@ -143,6 +143,21 @@ describe FindersController, type: :controller do
       end
     end
 
+    describe "finder item returns forbidden response when user not authorised" do
+      let(:forbidden_slug) { "/#{SecureRandom.hex}" }
+
+      before do
+        url = "#{Plek.find('content-store')}/content/#{forbidden_slug}"
+        stub_request(:get, url).to_return(status: 403, headers: {})
+      end
+
+      it "returns 403" do
+        get :show, params: { slug: forbidden_slug }
+
+        expect(response.status).to eq 403
+      end
+    end
+
     describe "finder item has been unpublished" do
       before do
         stub_request(:get, "#{Plek.find('content-store')}/content/unpublished-finder").to_return(
