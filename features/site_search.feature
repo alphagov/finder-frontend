@@ -27,3 +27,9 @@ Feature: Site search
     And the all content finder exists
     When I search for "search-term" from "ministry-of-magic" on the json endpoint
     Then I am redirected to the json all content finder results page
+
+  Scenario: Spelling suggestion
+    Given the search page exists
+    And the all content finder exists
+    When I search for "drving"
+    Then I see a "driving" spelling suggestion

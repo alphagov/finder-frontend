@@ -32,6 +32,7 @@ Given(/^the all content finder exists$/) do
 
   stub_rummager_api_request_with_organisation_filter_all_content_results
   stub_rummager_api_request_with_manual_filter_all_content_results
+  stub_rummager_api_request_with_misspelt_query
 end
 
 Then(/^I am redirected to the (html|json) all content finder results page$/) do |format|
@@ -41,4 +42,12 @@ end
 
 Then(/^results are filtered with a facet tag of (.*)/) do |text|
   expect(page).to have_selector("p[class='facet-tag__text']", text: text)
+end
+
+When(/^I search for "([^"]*)"$/) do |search_term|
+  visit "/search?q=#{search_term}"
+end
+
+Then(/^I see a "(.*)" spelling suggestion$/) do |suggestion|
+  expect(page).to have_link suggestion.to_s, href: "/search/all?keywords=#{suggestion}&order=relevance"
 end
