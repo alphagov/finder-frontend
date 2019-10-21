@@ -5,7 +5,8 @@ RSpec.describe SignupLinksPresenter do
   include GovukContentSchemaExamples
   include TaxonomySpecHelper
 
-  subject(:presenter) { described_class.new(content_item, facets) }
+  subject(:presenter) { described_class.new(content_item, facets, keywords) }
+  let(:keywords) { nil }
   let(:facets) { [] }
   let(:content_item) {
     content_item_hash = {
@@ -112,8 +113,12 @@ RSpec.describe SignupLinksPresenter do
           %w[hidden_facet_content_id]
         end
 
+        let(:keywords) do
+          "micropig"
+        end
+
         it "returns the finder URL appended with permitted query params" do
-          expect(subject.signup_links[:feed_link]).to eql("/mosw-reports.atom?topic%5B%5D=hidden_facet_content_id")
+          expect(subject.signup_links[:feed_link]).to eql("/mosw-reports.atom?keywords=micropig&topic%5B%5D=hidden_facet_content_id")
         end
       end
     end
