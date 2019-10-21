@@ -7,12 +7,17 @@ class BrexitChecker::Question
   validates_inclusion_of :type, in: %w(single single_wrapped multiple multiple_grouped)
   validate { errors.add("Options is not an array") unless options.is_a? Array }
 
-  attr_reader :key, :text, :description, :hint_title, :hint_text,
-              :options, :type, :criteria
+  attr_reader :key, :text, :description, :hint_title, :hint_text, :type, :criteria
 
   def initialize(attrs)
     attrs.each { |key, value| instance_variable_set("@#{key}", value) }
     validate!
+  end
+
+  def options(criteria_keys = nil)
+    return @options if criteria_keys.nil?
+
+    @options.reject { |option| criteria_keys.include?(option.exclude_if) }
   end
 
   def multiple?; type == "multiple" end

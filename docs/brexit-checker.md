@@ -117,7 +117,7 @@ A option has the following attributes:
 | value       | string           | criteria key in which to apply to the user if the option is selected                                            | yes      |
 | sub_options | array of Options | additional options that are available if option is selected, primarily used for the 'single_wrapped' type questions | no       |
 | hint_text   | string           | addition context to help the user understand the option                                                         | no       |
-| criteria    | Criteria Rule    | defines which sets of criteria the option should be shown                                                       | no       |
+| exclude_if  | string           | the option will not be shown if the given criterion has been selected.                                                    | no       |
 
 ### Notification
 A notification is used to record changes to actions and to send emails to relevant subscribers.

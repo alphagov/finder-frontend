@@ -82,12 +82,16 @@ questions:
     options:
       - label: To the UK
         value: visiting-uk
+        exclude_if: living-uk
       - label: To Ireland
         value: visiting-ie
+        exclude_if: living-ie
       - label: To another EU country, Iceland, Liechtenstein, Norway or Switzerland
         value: visiting-eu
+        exclude_if: living-eu
       - label: To the rest of the world
         value: visiting-row
+        exclude_if: living-row
 
   - key: activities
     criteria:
