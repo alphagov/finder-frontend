@@ -1433,9 +1433,9 @@ actions:
 - id: S032
   priority: 4
   title: Contact your vet at least 4 months before travelling to make sure your pet
-    is able to travel to the UK
-  consequence: If your pet does not have the proper documents, you will not be able
-    to take it with you.
+    or assistance dog is able to travel to the UK
+  consequence: If your pet (dog, cat or ferret) or assistance dog does not have the
+    proper documents, you will not be able to take it with you.
   lead_time: It takes at least 4 months
   guidance_prompt: Read the guidance
   guidance_link_text: Pet travel after Brexit
