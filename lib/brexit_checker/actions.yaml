@@ -136,6 +136,7 @@ actions:
     - any_of:
       - visiting-eu
       - visiting-ie
+      - travel-eu-business
     - visiting-bring-pet
   audience: citizen
 - id: S010
@@ -149,9 +150,11 @@ actions:
   guidance_link_text: Visit Europe after Brexit
   guidance_url: https://www.gov.uk/visit-europe-brexit
   criteria:
-  - all_of:
-    - living-uk
-    - visiting-eu
+  - any_of:
+    - all_of:
+      - living-uk
+      - visiting-eu
+    - travel-eu-business
   audience: citizen
 - id: S011
   priority: 9
@@ -166,7 +169,9 @@ actions:
   criteria:
   - all_of:
     - nationality-uk
-    - visiting-eu
+    - any_of:
+      - visiting-eu
+      - travel-eu-business
   audience: citizen
 - id: S013
   priority: 8
@@ -182,7 +187,9 @@ actions:
   criteria:
   - all_of:
     - nationality-uk
-    - visiting-eu
+    - any_of:
+      - visiting-eu
+      - travel-eu-business
   audience: citizen
 - id: S014
   priority: 3
@@ -208,7 +215,7 @@ actions:
   lead_time: Do it as soon as possible
   guidance_prompt: Read the guidance
   guidance_link_text: 'Living in the EU: prepare for Brexit'
-  guidance_url: https://www.gov.uk/guidance/living-in-the-eu-prepare-for-brexit
+  guidance_url: https://www.gov.uk/guidance/advice-for-british-nationals-travelling-and-living-in-europe
   criteria:
   - all_of:
     - nationality-uk
@@ -227,7 +234,9 @@ actions:
   criteria:
   - all_of:
     - living-uk
-    - visiting-eu
+    - any_of:
+      - visiting-eu
+      - travel-eu-business
     - visiting-driving
   audience: citizen
 - id: S023
@@ -244,7 +253,9 @@ actions:
   criteria:
   - all_of:
     - living-uk
-    - visiting-eu
+    - any_of:
+      - visiting-eu
+      - travel-eu-business
     - visiting-driving
   audience: citizen
 - id: S024
@@ -260,7 +271,9 @@ actions:
   criteria:
   - all_of:
     - living-uk
-    - visiting-eu
+    - any_of:
+      - visiting-eu
+      - travel-eu-business
     - visiting-driving
   audience: citizen
 - id: S025
@@ -281,6 +294,7 @@ actions:
     - all_of:
       - nationality-eu
       - visiting-uk
+    - travel-eu-business
   audience: citizen
 - id: S026
   priority: 2
@@ -392,7 +406,6 @@ actions:
   - any_of:
     - sell-public-sector
     - sell-public-sector-contracts
-    - sell-goods-provide-services-in-uk
   audience: business
 - id: T006
   priority: 8
@@ -482,10 +495,8 @@ actions:
   guidance_url: https://www.gov.uk/government/publications/exhaustion-of-intellectual-property-rights/exhaustion-of-intellectual-property-rights
   criteria:
   - any_of:
-    - sell-goods-provide-services-in-uk
     - import-from-eu
     - export-to-eu
-    - provide-services-do-business-in-eu
     - haulage-goods-across-eu-borders
     - ip
     - ip-copyright
@@ -715,7 +726,11 @@ actions:
     deal Brexit
   guidance_url: https://www.gov.uk/guidance/fresh-fruit-and-vegetable-marketing-standards-if-the-uk-leaves-the-eu-without-a-deal
   criteria:
-  - forestry
+  - any_of:
+    - export-to-eu
+    - forestry
+    - agriculture-farm
+    - food-drink-tobacco
   audience: business
 - id: T034
   priority: 8
@@ -753,7 +768,6 @@ actions:
   criteria:
   - any_of:
     - food-drink-tobacco
-    - sell-goods-provide-services-in-uk
     - export-to-eu
   audience: business
 - id: T038
@@ -1044,7 +1058,6 @@ actions:
     - automotive
     - road-passenger-freight
     - motor-trade
-    - sell-goods-provide-services-in-uk
   audience: business
 - id: T067
   priority: 8
@@ -1095,9 +1108,7 @@ actions:
     a no-deal Brexit.
   guidance_url: https://www.gov.uk/guidance/check-temporary-rates-of-customs-duty-on-imports-after-eu-exit
   criteria:
-  - any_of:
-    - import-from-eu
-    - sell-goods-provide-services-in-uk
+  - import-from-eu
   audience: business
 - id: T071
   priority: 8
@@ -1225,9 +1236,7 @@ actions:
     Brexit
   guidance_url: https://www.gov.uk/prepare-import-to-uk-after-brexit
   criteria:
-  - any_of:
-    - import-from-eu
-    - sell-goods-provide-services-in-uk
+  - import-from-eu
   audience: business
 - id: T080
   priority: 5
@@ -1546,3 +1555,19 @@ actions:
   criteria:
   - chemical
   audience: business
+- id: S036
+  priority: 5
+  title: Get motor insurance green cards or other proof of insurance for your vehicle,
+    caravan or trailer if they are registered in the EU, EEA, Andorra, Serbia or Switzerland
+    and you will be driving in the UK
+  consequence: You could get a fine or your vehicle could be seized if you cannot
+    prove that you are insured.
+  lead_time: Do it before you travel
+  guidance_prompt: Read the guidance
+  guidance_link_text: Visiting the UK after Brexit
+  guidance_url: https://www.gov.uk/guidance/visiting-the-uk-after-brexit#if-your-vehicle-is-not-insured-in-the-uk
+  criteria:
+  - all_of:
+    - visiting-uk
+    - visiting-driving
+  audience: citizen
