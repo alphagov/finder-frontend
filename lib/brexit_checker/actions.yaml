@@ -351,8 +351,7 @@ actions:
   guidance_url: https://www.gov.uk/guidance/prepare-to-use-the-ukca-mark-after-brexit
   criteria:
   - any_of:
-    - sell-goods-provide-services-in-uk
-    - export-to-eu
+    - owns-operates-business-organisation
   audience: business
 - id: T002
   priority: 8
