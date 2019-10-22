@@ -25,6 +25,9 @@
 <form method="get" action="<%= content_item.base_path %>" class="js-live-search-form"
   data-analytics-ecommerce
   data-ecommerce-start-index="<%= result_set_presenter.start_offset %>"
+  <% unless result_set_presenter.sort_option.nil? %>
+    data-ecommerce-variant="<%= result_set_presenter.sort_option[:data_track_label] %>"
+  <% end %>
   data-list-title="<%= content_item.title %>"
   data-search-query="<%= result_set_presenter.user_supplied_keywords %>">
   <input type="hidden" name="parent" value="<%= @parent %>">

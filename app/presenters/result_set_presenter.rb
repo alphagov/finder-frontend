@@ -43,12 +43,19 @@ class ResultSetPresenter
     @show_top_result &&
       content_item.eu_exit_finder? &&
       documents.length >= 2 &&
-      sort_option.dig("key").eql?("-relevance") &&
+      unpresented_sort_option.dig("key").eql?("-relevance") &&
       best_bet?
   end
 
   def user_supplied_keywords
     @filter_params.fetch("keywords", "")
+  end
+
+  def sort_option
+    presenter = sort_presenter.to_hash
+    return nil unless presenter
+
+    presenter[:options].find { |o| o[:selected] }
   end
 
 private
@@ -78,7 +85,7 @@ private
     end
   end
 
-  def sort_option
+  def unpresented_sort_option
     sort_presenter.selected_option || {}
   end
 end
