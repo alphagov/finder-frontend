@@ -204,6 +204,10 @@ criteria:
   text: You drive in the EU using a UK licence
 - key: living-driving-eu-no
   text: You do not drive in the EU using a UK licence
+- key: travel-eu-business
+  text: You travel to the EU for Business
+- key: travel-eu-business-no
+  text: You do not travel to the EU for Business
 - key: visiting-ie
   text: You plan to travel to Ireland
 - key: visiting-eu
