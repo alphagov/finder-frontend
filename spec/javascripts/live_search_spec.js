@@ -491,4 +491,148 @@ describe('liveSearch', function () {
       expect($('#order option:selected').length).toBe(1)
     })
   })
+
+  describe('spelling suggestions', function () {
+    var $suggestionBlock = $('<div class="spelling-suggestions" id="js-spelling-suggestions"></div>')
+    var responseWithSpellingSuggestions = {
+      'display_total': 1,
+      'pluralised_document_noun': 'reports',
+      'applied_filters': " \u003Cstrong\u003ECommercial - rotorcraft \u003Ca href='?format=json\u0026keywords='\u003E×\u003C/a\u003E\u003C/strong\u003E",
+      'atom_url': 'http://an-atom-url.atom?some-query-param',
+      'documents': [
+        {
+          'document': {
+            'title': 'Test report',
+            'slug': 'aaib-reports/test-report',
+            'metadata': [
+              {
+                'label': 'Aircraft category',
+                'value': 'General aviation - rotorcraft',
+                'is_text': true
+              }, {
+                'label': 'Report type',
+                'value': 'Annual safety report',
+                'is_text': true
+              }, {
+                'label': 'Occurred',
+                'is_date': true,
+                'machine_date': '2013-11-03',
+                'human_date': '3 November 2013'
+              }
+            ]
+          },
+          'document_index': 1
+        }
+      ],
+      'search_results': '<div class="finder-results js-finder-results" data-module="track-click">' +
+        '<ol class="gem-c-document-list">' +
+          '<li class="gem-c-document-list__item">' +
+            '<a data-track-category="navFinderLinkClicked" data-track-action="" data-track-label="" class="gem-c-document-list__item-title" href="aaib-reports/test-report">Test report</a>' +
+              '<p class="gem-c-document-list__item-description">The English business survey will provide Ministers and officials with information about the current economic and business conditions across</p>' +
+              '<ul class="gem-c-document-list__item-metadata">' +
+                  '<li class="gem-c-document-list__attribute">' +
+                      'Document type: Official Statistics' +
+                  '</li>' +
+                  '<li class="gem-c-document-list__attribute">' +
+                      'Part of a collection: English business survey' +
+                  '</li>' +
+                  '<li class="gem-c-document-list__attribute">' +
+                      'Organisation: Closed organisation: Department for Business, Innovation &amp; Skills' +
+                  '</li>' +
+                  '<li class="gem-c-document-list__attribute">' +
+                      'Updated: <time datetime="2012-12-21">21 December 2012</time>' +
+                  '</li>' +
+              '</ul>' +
+          '</li>' +
+        '</ol>' +
+      '</div>',
+      'suggestions': '<p class="govuk-body">Did you mean' +
+      '<a class="govuk-link govuk-!-font-weight-bold" data-ecommerce-content-id="dd395436-9b40-41f3-8157-740a453ac972"' +
+      'data-ecommerce-row="1" data-track-options="{"dimension81":"driving licences"}" href="/search/all?keywords=driving+licences&order=relevance">' +
+      'driving licences</a> </p>'
+    }
+
+    var responseWithNoSpellingSuggestions = {
+      'display_total': 1,
+      'pluralised_document_noun': 'reports',
+      'applied_filters': " \u003Cstrong\u003ECommercial - rotorcraft \u003Ca href='?format=json\u0026keywords='\u003E×\u003C/a\u003E\u003C/strong\u003E",
+      'atom_url': 'http://an-atom-url.atom?some-query-param',
+      'documents': [
+        {
+          'document': {
+            'title': 'Test report',
+            'slug': 'aaib-reports/test-report',
+            'metadata': [
+              {
+                'label': 'Aircraft category',
+                'value': 'General aviation - rotorcraft',
+                'is_text': true
+              }, {
+                'label': 'Report type',
+                'value': 'Annual safety report',
+                'is_text': true
+              }, {
+                'label': 'Occurred',
+                'is_date': true,
+                'machine_date': '2013-11-03',
+                'human_date': '3 November 2013'
+              }
+            ]
+          },
+          'document_index': 1
+        }
+      ],
+      'search_results': '<div class="finder-results js-finder-results" data-module="track-click">' +
+        '<ol class="gem-c-document-list">' +
+          '<li class="gem-c-document-list__item">' +
+            '<a data-track-category="navFinderLinkClicked" data-track-action="" data-track-label="" class="gem-c-document-list__item-title" href="aaib-reports/test-report">Test report</a>' +
+              '<p class="gem-c-document-list__item-description">The English business survey will provide Ministers and officials with information about the current economic and business conditions across</p>' +
+              '<ul class="gem-c-document-list__item-metadata">' +
+                  '<li class="gem-c-document-list__attribute">' +
+                      'Document type: Official Statistics' +
+                  '</li>' +
+                  '<li class="gem-c-document-list__attribute">' +
+                      'Part of a collection: English business survey' +
+                  '</li>' +
+                  '<li class="gem-c-document-list__attribute">' +
+                      'Organisation: Closed organisation: Department for Business, Innovation &amp; Skills' +
+                  '</li>' +
+                  '<li class="gem-c-document-list__attribute">' +
+                      'Updated: <time datetime="2012-12-21">21 December 2012</time>' +
+                  '</li>' +
+              '</ul>' +
+          '</li>' +
+        '</ol>' +
+      '</div>',
+      'suggestions': ''
+    }
+    beforeEach(function () {
+      $form.append($suggestionBlock)
+      liveSearch = new GOVUK.LiveSearch({ $form: $form, $results: $results, $suggestionBlock: $suggestionBlock, $atomAutodiscoveryLink: $atomAutodiscoveryLink })
+    })
+
+    afterEach(function () {
+      $form.remove()
+    })
+
+    it('are shown if there are available in the data', function () {
+      liveSearch.state = { search: 'state' }
+      liveSearch.displayResults(responseWithSpellingSuggestions, $.param(liveSearch.state))
+      expect($('#js-spelling-suggestions a').text()).toBe('driving licences')
+      expect($('#js-spelling-suggestions a').attr('href')).toBe('/search/all?keywords=driving+licences&order=relevance')
+    })
+
+    it('are not shown if there are none in the data', function () {
+      liveSearch.state = { search: 'state' }
+      liveSearch.displayResults(responseWithNoSpellingSuggestions, $.param(liveSearch.state))
+      expect($('#js-spelling-suggestions').text()).toBe('')
+    })
+
+    it('tracking has been called', function () {
+      liveSearch.state = { search: 'state' }
+      spyOn(liveSearch, 'trackSpellingSuggestionsImpressions')
+      liveSearch.displayResults(responseWithSpellingSuggestions, $.param(liveSearch.state))
+      expect(liveSearch.trackSpellingSuggestionsImpressions).toHaveBeenCalled()
+    })
+  })
 })
