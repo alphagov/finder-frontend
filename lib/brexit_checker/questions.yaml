@@ -63,9 +63,7 @@ questions:
 
   - key: travelling
     type: multiple
-    text: 'Where do you plan to travel after 31 October 2019?'
-    description: |
-      <p>This includes travel that may have started on or before 31 October 2019.</p>
+    text: 'Where do you plan to travel for other purposes like tourism?'
     hint_text: Select all that apply. If you do not plan to travel, select next.
     options:
       - label: To the UK
