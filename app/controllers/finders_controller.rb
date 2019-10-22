@@ -102,7 +102,7 @@ private
   end
 
   def signup_links
-    @signup_links ||= SignupLinksPresenter.new(content_item, facets).signup_links
+    @signup_links ||= SignupLinksPresenter.new(content_item, facets, keywords).signup_links
   end
 
   def initialize_search_query(is_for_feed: false)

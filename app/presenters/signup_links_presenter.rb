@@ -1,7 +1,8 @@
 class SignupLinksPresenter
-  def initialize(content_item, facets)
+  def initialize(content_item, facets, keywords)
     @content_item = content_item
     @facets = facets
+    @keywords = keywords
   end
 
   def signup_links
@@ -15,23 +16,27 @@ class SignupLinksPresenter
 
 private
 
-  attr_reader :content_item, :facets
+  attr_reader :content_item, :facets, :keywords
 
   def email_signup_link
     signup_link = content_item.signup_link
     return signup_link if signup_link.present?
 
-    "#{content_item.email_alert_signup['web_url']}#{alert_query_string}" if content_item.email_alert_signup
+    "#{content_item.email_alert_signup['web_url']}#{query_string(alert_query_params)}" if content_item.email_alert_signup
   end
 
   def feed_link
-    "#{content_item.base_path}.atom#{alert_query_string}"
+    "#{content_item.base_path}.atom#{query_string(alert_query_params.merge(keywords: keywords))}"
   end
 
-  def alert_query_string
+  def alert_query_params
     facets_with_filters = facets.select(&:has_filters?)
     query_params_array = facets_with_filters.map(&:query_params)
-    query_string = query_params_array.inject({}, :merge).to_query
+    query_params_array.inject({}, :merge)
+  end
+
+  def query_string(params)
+    query_string = params.compact.to_query
     query_string.blank? ? query_string : "?#{query_string}"
   end
 end
