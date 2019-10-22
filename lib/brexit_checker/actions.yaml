@@ -337,8 +337,7 @@ actions:
   guidance_url: https://www.gov.uk/guidance/prepare-to-use-the-ukca-mark-after-brexit
   criteria:
   - any_of:
-    - sell-goods-provide-services-in-uk
-    - export-to-eu
+    - owns-operates-business-organisation
   audience: business
 - id: T002
   priority: 8
@@ -392,7 +391,6 @@ actions:
   - any_of:
     - sell-public-sector
     - sell-public-sector-contracts
-    - sell-goods-provide-services-in-uk
   audience: business
 - id: T006
   priority: 8
@@ -482,7 +480,6 @@ actions:
   guidance_url: https://www.gov.uk/government/publications/exhaustion-of-intellectual-property-rights/exhaustion-of-intellectual-property-rights
   criteria:
   - any_of:
-    - sell-goods-provide-services-in-uk
     - import-from-eu
     - export-to-eu
     - provide-services-do-business-in-eu
@@ -752,7 +749,6 @@ actions:
   criteria:
   - any_of:
     - food-drink-tobacco
-    - sell-goods-provide-services-in-uk
     - export-to-eu
   audience: business
 - id: T038
@@ -1043,7 +1039,6 @@ actions:
     - automotive
     - road-passenger-freight
     - motor-trade
-    - sell-goods-provide-services-in-uk
   audience: business
 - id: T067
   priority: 8
@@ -1096,7 +1091,6 @@ actions:
   criteria:
   - any_of:
     - import-from-eu
-    - sell-goods-provide-services-in-uk
   audience: business
 - id: T071
   priority: 8
@@ -1226,7 +1220,6 @@ actions:
   criteria:
   - any_of:
     - import-from-eu
-    - sell-goods-provide-services-in-uk
   audience: business
 - id: T080
   priority: 5

@@ -118,8 +118,6 @@ criteria:
   text: You work in road freight and passenger services
 - key: warehouse-pipeline
   text: You work in warehousing, services and pipelines
-- key: sell-goods-provide-services-in-uk
-  text: Your business sells goods or services in the UK
 - key: import-from-eu
   text: Your business imports goods from the EU
 - key: export-to-eu

@@ -139,7 +139,7 @@ questions:
 
   - key: do-you-own-a-business
     type: "single"
-    text: "Do you own or help to run a business or organisation?"
+    text: "Do you own or help to run a UK business or organisation?"
     description: |
       <p>This includes sole traders (self-employed), limited companies, and small and medium enterprises.</p>
     options:
@@ -250,8 +250,6 @@ questions:
     description: |
       <p>Importing and exporting includes temporarily taking goods across the EU border, for example to a trade fair.</p>
     options:
-      - label: "Sell goods or provide services in the UK"
-        value: sell-goods-provide-services-in-uk
       - label: "Import from the EU"
         value: import-from-eu
       - label: "Export to the EU"
@@ -266,7 +264,6 @@ questions:
       - owns-operates-business-organisation
     type: "multiple_grouped"
     text: "What does your business or organisation do?"
-    hint_text: "Choose all the sectors and areas that your business or organisation operates in."
     options:
       - label: "Advanced manufacturing and services"
         options:
