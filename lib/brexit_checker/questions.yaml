@@ -277,6 +277,7 @@ questions:
       - owns-operates-business-organisation
     type: "multiple_grouped"
     text: "What does your business or organisation do?"
+    hint_text: "Select all that apply."
     options:
       - label: "Advanced manufacturing and services"
         options:
