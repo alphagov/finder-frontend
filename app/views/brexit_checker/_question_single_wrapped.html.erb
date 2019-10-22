@@ -6,14 +6,12 @@
     hint: current_question.hint_text,
     is_page_heading: true,
     items: current_question.options.map do |option|
-      sub_options = filter_items(option.sub_options, criteria_keys)
-
-      checkboxes = if sub_options.present?
+      checkboxes = if option.sub_options.present?
                      render "govuk_publishing_components/components/checkboxes", {
                        name: "c[]",
                        heading: option.label,
                        visually_hide_heading: true,
-                       items: format_question_options(sub_options, criteria_keys)
+                       items: format_question_options(option.sub_options, criteria_keys)
                      }
                    end
 
