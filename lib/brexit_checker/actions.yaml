@@ -371,7 +371,7 @@ actions:
   consequence: There is a risk your funding could stop if you do not follow the guidelines.
   lead_time: Do it before 31 October
   guidance_prompt: Read the guidance
-  guidance_link_text: The Government's guarantee for EU-funded programmes if there's
+  guidance_link_text: The government's guarantee for EU-funded programmes if there's
     no Brexit deal
   guidance_url: https://www.gov.uk/government/publications/the-governments-guarantee-for-eu-funded-programmes-if-theres-no-brexit-deal/the-governments-guarantee-for-eu-funded-programmes-if-theres-no-brexit-deal
   criteria:
