@@ -10,15 +10,6 @@ describe BrexitCheckerHelper, type: :helper do
       results = filter_items([action1, action2], [])
       expect(results).to eq([action1])
     end
-
-    it "filters options that should be shown" do
-      option1 = instance_double BrexitChecker::Question::Option, show?: true
-      option2 = instance_double BrexitChecker::Question::Option, show?: false
-      expect(option1).to receive(:show?).with([])
-      expect(option2).to receive(:show?).with([])
-      results = filter_items([option1, option2], [])
-      expect(results).to eq([option1])
-    end
   end
 
   describe "#format_action_audiences" do

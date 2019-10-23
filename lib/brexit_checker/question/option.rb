@@ -3,15 +3,11 @@ class BrexitChecker::Question::Option
 
   validates_presence_of :label
 
-  attr_reader :label, :value, :sub_options, :hint_text, :criteria
+  attr_reader :label, :value, :sub_options, :hint_text, :exclude_if
 
   def initialize(attrs)
     attrs.each { |key, value| instance_variable_set("@#{key}", value) }
     validate!
-  end
-
-  def show?(criteria_keys)
-    BrexitChecker::Criteria::Evaluator.evaluate(criteria, criteria_keys)
   end
 
   def self.load(params)
