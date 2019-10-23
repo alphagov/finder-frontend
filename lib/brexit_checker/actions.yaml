@@ -1554,6 +1554,19 @@ actions:
   criteria:
   - chemical
   audience: business
+- id: S034
+  priority: 4
+  title: Check if you need a visa or work permit and meet the professional requirements
+    to travel to the EU, Iceland, Liechtenstein, Norway or Switzerland for work
+  consequence: You may not be able to enter or work in some countries if you do not
+    meet the requirements.
+  lead_time: Do it as soon as possible
+  guidance_prompt: Read the guidance
+  guidance_link_text: 'Visit Europe after Brexit: Business travel'
+  guidance_url: https://www.gov.uk/visit-europe-brexit/business-travel
+  criteria:
+  - travel-eu-business
+  audience: citizen
 - id: S036
   priority: 5
   title: Get motor insurance green cards or other proof of insurance for your vehicle,

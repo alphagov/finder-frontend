@@ -94,3 +94,7 @@ notifications:
      action_id: S032
      date: 2019-10-22
      note: "Content updated to reflect that requirements will apply to assistance dogs as well as to pets."
+   - uuid: "f5941476-eb36-4bcf-8434-5b699956774d"
+     type: addition
+     action_id: S034
+     date: 2019-10-23
