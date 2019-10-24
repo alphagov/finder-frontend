@@ -215,7 +215,7 @@ actions:
   lead_time: Do it as soon as possible
   guidance_prompt: Read the guidance
   guidance_link_text: 'Living in the EU: prepare for Brexit'
-  guidance_url: https://www.gov.uk/guidance/advice-for-british-nationals-travelling-and-living-in-europe
+  guidance_url: https://www.gov.uk/guidance/living-in-the-eu-prepare-for-brexit
   criteria:
   - all_of:
     - nationality-uk
@@ -472,7 +472,7 @@ actions:
   lead_time: Do it as soon as possible
   guidance_prompt: Read the guidance
   guidance_link_text: Copyright if there's no Brexit deal
-  guidance_url: https://www.gov.uk/government/publications/copyright-if-theres-no-brexit-deal
+  guidance_url: https://www.gov.uk/guidance/changes-to-copyright-law-after-brexit
   criteria:
   - any_of:
     - media
@@ -490,7 +490,7 @@ actions:
   lead_time: Do it as soon as possible
   guidance_prompt: Read the guidance
   guidance_link_text: Brexit and exhaustion of intellectual property rights
-  guidance_url: https://www.gov.uk/government/publications/exhaustion-of-intellectual-property-rights/exhaustion-of-intellectual-property-rights
+  guidance_url: https://www.gov.uk/guidance/exhaustion-of-ip-rights-and-parallel-trade-after-brexit
   criteria:
   - any_of:
     - import-from-eu
@@ -638,7 +638,7 @@ actions:
   lead_time: Do it as soon as possible
   guidance_prompt: Read the guidance
   guidance_link_text: Broadcasting and video on demand if there’s no Brexit deal
-  guidance_url: https://www.gov.uk/government/publications/broadcasting-and-video-on-demand-if-theres-no-brexit-deal
+  guidance_url: https://www.gov.uk/guidance/broadcasting-and-video-on-demand-if-theres-no-brexit-deal
   criteria:
   - any_of:
     - media
@@ -663,14 +663,13 @@ actions:
   priority: 5
   title: Appoint a representative in the EU if you run a large UK-based online business
     providing digital services in the EU
-  title_url: https://www.gov.uk/government/publications/nis-regulation-eu-exit-guidance/nis-regulations-what-digital-service-providers-in-the-uk-should-do-if-theres-no-brexit-deal
   consequence: You risk being fined if you do not have a representative to help you
     meet online security standards.
   lead_time: Do it as soon as possible
   guidance_prompt: Read the guidance
   guidance_link_text: NIS Regulations - what digital service providers in the UK should
     do if there’s no Brexit deal
-  guidance_url: https://www.gov.uk/government/publications/nis-regulation-eu-exit-guidance
+  guidance_url: https://www.gov.uk/guidance/nis-regulations-what-uk-digital-service-providers-operating-in-the-eu-should-do-after-brexit
   criteria:
   - any_of:
     - digital
