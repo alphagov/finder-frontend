@@ -1,5 +1,6 @@
 class FindersController < ApplicationController
   include FinderTopResultAbTestable
+  include ShinglesABTestable
 
   layout "finder_layout"
   before_action :remove_search_box
@@ -114,7 +115,7 @@ private
       content_item,
       filter_params,
       override_sort_for_feed: is_for_feed,
-      ab_params: {},
+      ab_params: shingles_ab_test,
     )
   end
 
