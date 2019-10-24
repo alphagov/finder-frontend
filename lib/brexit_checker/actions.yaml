@@ -366,13 +366,13 @@ actions:
   audience: business
 - id: T003
   priority: 5
-  title: Check what you need to do if you currently receive EU funding
+  title: Check if the UK government’s funding guarantee applies to you if you have
+    any EU-funded projects
   consequence: There is a risk your funding could stop if you do not follow the guidelines.
-  lead_time: Do it before 31 October
+  lead_time: Do it as soon as possible
   guidance_prompt: Read the guidance
-  guidance_link_text: The government's guarantee for EU-funded programmes if there's
-    no Brexit deal
-  guidance_url: https://www.gov.uk/government/publications/the-governments-guarantee-for-eu-funded-programmes-if-theres-no-brexit-deal/the-governments-guarantee-for-eu-funded-programmes-if-theres-no-brexit-deal
+  guidance_link_text: EU funding after Brexit
+  guidance_url: https://www.gov.uk/guidance/european-and-domestic-funding-after-brexit
   criteria:
   - eu-funding
   audience: business
