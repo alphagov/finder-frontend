@@ -1566,6 +1566,22 @@ actions:
   criteria:
   - travel-eu-business
   audience: citizen
+- id: S035
+  priority: 5
+  title: Check if you need to get your EU professional qualifications recognised in
+    the UK
+  consequence: You will not be able to work in a regulated profession if your qualification
+    from the EU, Iceland, Liechtenstein, Norway or Switzerland is not recognised in
+    the UK.
+  lead_time: Do it as soon as possible
+  guidance_prompt: Read the guidance
+  guidance_link_text: Get your EEA qualification recognised in the UK after Brexit
+  guidance_url: https://www.gov.uk/guidance/get-your-eea-qualification-recognised-in-the-uk-after-brexit
+  criteria:
+  - all_of:
+    - nationality-eu
+    - working-uk
+  audience: citizen
 - id: S036
   priority: 5
   title: Get motor insurance green cards or other proof of insurance for your vehicle,

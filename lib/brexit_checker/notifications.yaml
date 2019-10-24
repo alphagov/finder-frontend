@@ -98,3 +98,7 @@ notifications:
      type: addition
      action_id: S034
      date: 2019-10-23
+   - uuid: "8cbcddb5-1eed-418f-a2dc-be5057116daa"
+     type: addition
+     action_id: S035
+     date: 2019-10-24
