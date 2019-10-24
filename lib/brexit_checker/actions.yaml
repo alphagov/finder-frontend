@@ -1554,7 +1554,7 @@ actions:
   - chemical
   audience: business
 - id: S034
-  priority: 4
+  priority: 8
   title: Check if you need a visa or work permit and meet the professional requirements
     to travel to the EU, Iceland, Liechtenstein, Norway or Switzerland for work
   consequence: You may not be able to enter or work in some countries if you do not
