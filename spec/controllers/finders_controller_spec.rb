@@ -258,7 +258,7 @@ describe FindersController, type: :controller do
     it "requests the B variant" do
       request = search_api_request(query: { ab_tests: "shingles:B" })
 
-      with_variant shingles_ab_test: "B" do
+      with_variant ShinglesABTest: "B" do
         get :show, params: { slug: "search/all" }
         expect(request).to have_been_made.once
       end
@@ -267,7 +267,7 @@ describe FindersController, type: :controller do
     it "requests the non-shingles variant (A) by default" do
       request = search_api_request
 
-      with_variant shingles_ab_test: "A" do
+      with_variant ShinglesABTest: "A" do
         get :show, params: { slug: "search/all" }
         expect(request).to have_been_made.once
       end

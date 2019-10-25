@@ -18,7 +18,7 @@ module ShinglesABTestable
 
   def shingles_test
     @shingles_test ||= GovukAbTesting::AbTest.new(
-      "shingles_ab_test",
+      "ShinglesABTest",
       dimension: CUSTOM_DIMENSION,
       allowed_variants: %w(A B),
       control_variant: "A",
