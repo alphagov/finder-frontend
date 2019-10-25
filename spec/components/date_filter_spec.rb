@@ -24,4 +24,28 @@ describe "components/_date-filter.html.erb", type: :view do
     expect(rendered).to have_selector("input[name='key\[to\]'][value='user to']")
     expect(rendered).to have_selector("input[name='key\[from\]'][value='user from']")
   end
+
+  it "displays an error if it's passed an error message" do
+    render partial: "components/date-filter",
+           locals: {
+             from_value: "user from",
+             to_value: "user to",
+             key: "key",
+             name: "name",
+             date_errors_from: "error message",
+           }
+    expect(rendered).to have_selector(".gem-c-error-message")
+  end
+
+  it "does not display error if it isn't passed an error message" do
+    render partial: "components/date-filter",
+           locals: {
+             from_value: "user from",
+             to_value: "user to",
+             key: "key",
+             name: "name",
+             date_errors_from: nil,
+           }
+    expect(rendered).not_to have_selector(".gem-c-error-message")
+  end
 end

@@ -45,9 +45,7 @@ class FindersController < ApplicationController
     @parent = parent
     @sort_presenter = sort_presenter
     @pagination = pagination_presenter
-    @suggestions = suggestions
-    @error_to_date = error_message if show_date_error?(to_date)
-    @error_from_date = error_message if show_date_error?(from_date)
+    @spelling_suggestion_presenter = spelling_suggestion_presenter
   end
 
 private
@@ -71,10 +69,7 @@ private
       sort_options_markup: render_component("finders/sort_options", sort_presenter.to_hash),
       next_and_prev_links: render_component("govuk_publishing_components/components/previous_and_next_navigation", pagination_presenter.next_and_prev_links),
       suggestions: render_component("finders/spelling_suggestion", suggestions: spelling_suggestion_presenter.suggestions),
-      public_timestamp_errors: {
-        from: show_date_error?(from_date),
-        to:   show_date_error?(to_date),
-      },
+      public_timestamp_errors: date_errors.error_hash,
     }
   end
 
@@ -163,24 +158,12 @@ private
     )
   end
 
-  def invalid_date?(user_input)
-    DateParser.parse(user_input).nil?
+  def date_errors
+    @date_errors ||= DateErrorsPresenter.new(date_params)
   end
 
-  def from_date
-    params.dig(:public_timestamp, :from)
-  end
-
-  def to_date
-    params.dig(:public_timestamp, :to)
-  end
-
-  def show_date_error?(date)
-    date.present? && invalid_date?(date)
-  end
-
-  def error_message
-    "Please enter a valid date"
+  def date_params
+    params.fetch(:public_timestamp, {})
   end
 
   def finder_url_builder

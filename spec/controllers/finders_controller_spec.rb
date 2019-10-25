@@ -332,6 +332,40 @@ describe FindersController, type: :controller do
     end
   end
 
+  describe "Errors on date filters" do
+    before do
+      content_store_has_item("/search/all", all_content_finder)
+    end
+
+    rummager_response = %|{
+      "results": [],
+      "total": 0,
+      "start": 0,
+      "facets": {},
+      "suggested_queries":[]
+    }|
+
+    it "should detect bad 'from' dates" do
+      stub_request(:get, /search.json/).to_return(status: 200, body: rummager_response, headers: {})
+
+      get :show, params: { slug: "search/all", format: "json", public_timestamp: { from: "99-99-99", to: "01-01-01" } }
+      json_response = JSON.parse(response.body)
+
+      expect(json_response["public_timestamp_errors"]["from"]).to be true
+      expect(json_response["public_timestamp_errors"]["to"]).to be false
+    end
+
+    it "should detect bad 'to' dates" do
+      stub_request(:get, /search.json/).to_return(status: 200, body: rummager_response, headers: {})
+
+      get :show, params: { slug: "search/all", format: "json", public_timestamp: { from: "01-01-01", to: "99-99-99" } }
+
+      json_response = JSON.parse(response.body)
+      expect(json_response["public_timestamp_errors"]["from"]).to be false
+      expect(json_response["public_timestamp_errors"]["to"]).to be true
+    end
+  end
+
   def search_api_request(query: {})
     stub_request(:get, "#{Plek.current.find('search')}/search.json")
       .with(

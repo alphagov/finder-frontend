@@ -4,6 +4,8 @@
   from_value ||= ""
   to_value ||= ""
   aria_controls_id ||= false
+  date_errors_from ||= nil
+  date_errors_to ||= nil
 %>
 <% if key && name %>
   <div class="app-c-date-filter" id="<%= key %>" <% if aria_controls_id %> data-module="enable-aria-controls"<% end %>>
@@ -16,7 +18,7 @@
       value: from_value,
       controls: aria_controls_id,
       hint: "For example, 2005 or 21/11/2014",
-      error_message: @error_from_date
+      error_message: date_errors_from
     } %>
 
     <%= render "govuk_publishing_components/components/input", {
@@ -28,7 +30,7 @@
       value: to_value,
       controls: aria_controls_id,
       hint: "For example, 2005 or 21/11/2014",
-      error_message: @error_to_date
+      error_message: date_errors_to
     } %>
   </div>
 <% end %>
