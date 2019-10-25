@@ -115,7 +115,7 @@ private
       content_item,
       filter_params,
       override_sort_for_feed: is_for_feed,
-      ab_params: shingles_ab_test,
+      ab_params: ab_params,
     )
   end
 
@@ -175,6 +175,10 @@ private
       sort_presenter,
       i_am_a_topic_page_finder: i_am_a_topic_page_finder,
     )
+  end
+
+  def ab_params
+    popularity_ab_test.merge(shingles_ab_test)
   end
 
   def grouped_display?
