@@ -32,7 +32,7 @@
       </button>
 
       <div id="facet-wrapper" class="facet-toggle__content facet-toggle__content--hide">
-        <%= render facets.select(&:filterable?) %>
+        <%= render partial: 'facet_collection_filterables'%>
       </div>
     </div>
   <% end %>

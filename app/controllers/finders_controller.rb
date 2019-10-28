@@ -64,6 +64,7 @@ private
     {
       total: result_set_presenter.total_count,
       display_total: result_set_presenter.displayed_total,
+      facet_collection_filterables: render_component("finders/facet_collection_filterables", content_item: content_item),
       facet_tags: render_component("facet_tags", facet_tags.present),
       search_results: render_component("finders/search_results", result_set_presenter.search_results_content),
       sort_options_markup: render_component("finders/sort_options", sort_presenter.to_hash),

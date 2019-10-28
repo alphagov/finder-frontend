@@ -14,6 +14,7 @@
     this.$resultsWrapper = this.$form.find('.js-live-search-results-block')
     this.$suggestionsBlock = this.$form.find('#js-spelling-suggestions')
     this.$resultsBlock = options.$results.find('#js-results')
+    this.$facetWrapper = this.$form.find('#facet-wrapper')
     this.$countBlock = options.$results.find('#js-result-count')
     this.$facetTagBlock = options.$results.find('#js-facet-tag-wrapper')
     this.$loadingBlock = options.$results.find('#js-loading-message')
@@ -116,7 +117,6 @@
   LiveSearch.prototype.formChange = function formChange (e) {
     var pageUpdated
     if (this.isNewState()) {
-      this.getTaxonomyFacet().update()
       this.saveState()
       this.updateOrder()
       this.updateLinks()
@@ -351,8 +351,36 @@
       this.updateResultsCountMeta(results.total)
       this.manipulateErrorMessages(results.errors)
       this.$atomAutodiscoveryLink.attr('href', results.atom_url)
+      this.updateFacetWrapper(results)
       this.$loadingBlock.text('').hide()
     }
+  }
+
+  LiveSearch.prototype.updateFacetWrapper = function updateFacetWrapper (results) {
+    var $optionSelectElements = $('[data-module="option-select"]')
+    // save the user expanded / collapsed state of the facets
+    // so we can restore them after the relopad
+    var oldStates = $optionSelectElements.map(function () {
+      var $el = $(this)
+      var id = $el.find('.js-container-head').attr('id')
+      return { 'elementId': id, 'expanded': $el.hasClass('js-closed') }
+    })
+    // replace facets content with data from the JSON
+    this.updateElement(this.$facetWrapper, results.facet_collection_filterables)
+    // apply old states to each facets and reinitialise the optionSelect script
+    oldStates.each(function (i, data) {
+      var $header = $('#' + data.elementId)
+      var $el = $header.parent('[data-module="option-select"]')
+      $el.data('closed-on-load', data.expanded)
+      new GOVUK.Modules.OptionSelect().start($el)
+    })
+    // we need to reinitialise the module after the DOM update
+    var updatedTaxonomy = new GOVUK.TaxonomySelect({ $el: $('.js-taxonomy-select') })
+    updatedTaxonomy.update()
+    // we need to show the element again the way it's done on first load
+    // in application.js:31
+    var $facetElementsRequiringJavascript = $(this.$facetWrapper).find('.js-required')
+    $facetElementsRequiringJavascript.show()
   }
 
   LiveSearch.prototype.restoreBooleans = function restoreBooleans () {
