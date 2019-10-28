@@ -829,6 +829,15 @@ module DocumentHelper
           "options": [
             {
               "value": {
+                "title": "Rufus Scrimgeour",
+                "slug": "rufus-scrimgeour",
+                "link": "/government/people/rufus-scrimgeour",
+                "content_id": "content_id_for_rufus-scrimgeour"
+              },
+              "documents": 1
+            },
+            {
+              "value": {
                 "slug": "harry-potter",
                 "title": "Harry Potter",
                 "content_id": "aca5d2de-1fef-45fe-a39d-6a779589d220",

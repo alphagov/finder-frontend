@@ -18,6 +18,10 @@ module Registries
       "#{NAMESPACE}/people"
     end
 
+    def is_dynamic?
+      true
+    end
+
   private
 
     def report_error

@@ -18,6 +18,10 @@ module Registries
       "registries/organisations"
     end
 
+    def is_dynamic?
+      true
+    end
+
   private
 
     def report_error

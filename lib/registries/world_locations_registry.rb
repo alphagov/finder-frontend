@@ -14,6 +14,10 @@ module Registries
       "#{NAMESPACE}/world_locations"
     end
 
+    def is_dynamic?
+      true
+    end
+
   private
 
     def cacheable_data

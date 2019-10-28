@@ -260,6 +260,9 @@ describe FacetsBuilder do
       let(:hash_under_test) {
         option_select_facet_hash.except(:allowed_values)
       }
+      let(:search_results) {
+        people_search_api_results.deep_stringify_keys
+      }
       it "gets values from the registry" do
         stub_request(:get, rummager_url).to_return(body: people_search_api_results.to_json)
         expect(facet.allowed_values).to eq([{ "label" => "Cornelius Fudge", "value" => "cornelius-fudge" }, { "label" => "Rufus Scrimgeour", "value" => "rufus-scrimgeour" }])

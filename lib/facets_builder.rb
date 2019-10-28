@@ -68,7 +68,7 @@ private
     return facet_hash["allowed_values"] unless facet_hash["allowed_values"].blank?
 
     facet_key = facet_hash["key"]
-    if registries.all.has_key?(facet_key)
+    if registries.all.has_key?(facet_key) && !registries.all[facet_key].is_dynamic?
       allowed_values_from_registry(facet_key)
     elsif (facet_details = search_results.dig("facets", facet_key))
       allowed_values_for_facet_details(facet_key, facet_details)

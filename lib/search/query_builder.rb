@@ -209,7 +209,7 @@ module Search
     end
 
     def facets_not_overridden_by_registries(facet_params)
-      facet_params.reject { |k, _v| Services.registries.all.has_key?(k) }
+      facet_params.reject { |k, _v| Services.registries.all.has_key?(k) && !Services.registries.all[k].is_dynamic? }
     end
 
     def count_dynamic_facets(facet_names)
