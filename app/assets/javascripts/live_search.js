@@ -11,6 +11,8 @@
     this.resultCache = {}
 
     this.$form = options.$form
+    this.$resultsWrapper = this.$form.find('.js-live-search-results-block')
+    this.$suggestionsBlock = this.$form.find('#js-spelling-suggestions')
     this.$resultsBlock = options.$results.find('#js-results')
     this.$countBlock = options.$results.find('#js-result-count')
     this.$facetTagBlock = options.$results.find('#js-facet-tag-wrapper')
@@ -34,6 +36,11 @@
       // Use navigator.sendBeacon
       // https://developers.google.com/analytics/devguides/collection/analyticsjs/sending-hits#specifying_different_transport_mechanisms
       window.ga('set', 'transport', 'beacon')
+    }
+
+    // track impressions of spelling suggestions
+    if (this.$suggestionsBlock) {
+      this.trackSpellingSuggestionsImpressions(this.$suggestionsBlock)
     }
 
     if (GOVUK.support.history()) {
@@ -69,7 +76,8 @@
   }
 
   LiveSearch.prototype.startEnhancedEcommerceTracking = function startEnhancedEcommerceTracking () {
-    this.$form.attr('data-search-query', this.currentKeywords())
+    this.$resultsWrapper.attr('data-search-query', this.currentKeywords())
+    this.$suggestionsBlock.attr('data-search-query', this.currentKeywords())
     if (GOVUK.Ecommerce) { GOVUK.Ecommerce.start() }
   }
 
@@ -132,7 +140,7 @@
   }
 
   LiveSearch.prototype.trackingInit = function trackingInit () {
-    GOVUK.modules.start($('.js-live-search-results-block'))
+    GOVUK.modules.start($(this.$resultsWrapper))
     this.indexTrackingData()
     this.startEnhancedEcommerceTracking()
   }
@@ -140,6 +148,12 @@
   LiveSearch.prototype.trackPageView = function trackPageView () {
     var newPath = window.location.pathname + '?' + $.param(this.state)
     GOVUK.SearchAnalytics.trackPageview(newPath)
+  }
+
+  LiveSearch.prototype.trackSpellingSuggestionsImpressions = function trackSpellingSuggestionsImpressions ($suggestions) {
+    $($suggestions).find('a').each(function () {
+      GOVUK.SearchAnalytics.setDimension(81, $(this).data('track-options').dimension81)
+    })
   }
 
   /**
@@ -326,6 +340,8 @@
       this.updateElement(this.$facetTagBlock, results.facet_tags)
       this.updateElement(this.$countBlock, results.display_total)
       this.updateElement(this.$paginationBlock, results.next_and_prev_links)
+      this.updateElement(this.$suggestionsBlock, results.suggestions)
+      this.trackSpellingSuggestionsImpressions(results.suggestions)
       this.updateSortOptions(results, action)
       this.updateResultsCountMeta(results.total)
       this.$atomAutodiscoveryLink.attr('href', results.atom_url)

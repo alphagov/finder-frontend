@@ -1,0 +1,10 @@
+<% if @spelling_suggestion_presenter.suggestions.any? %>
+<p class="govuk-body">Did you mean
+  <% @spelling_suggestion_presenter.suggestions.each do |suggestion| %>
+    <%= link_to suggestion[:keywords], suggestion[:link],
+      class: "govuk-link govuk-!-font-weight-bold",
+      :data => suggestion[:data_attributes]
+    %>
+  <% end %>
+</p>
+<% end %>

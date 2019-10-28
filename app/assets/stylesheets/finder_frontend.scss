@@ -214,7 +214,11 @@ mark {
 
 .facet-toggle {
   display: none;
-  margin-bottom: govuk-spacing(6);
+  margin-bottom: govuk-spacing(4);
+
+  @include govuk-media-query($from: tablet) {
+    margin-bottom: govuk-spacing(6);
+  }
 }
 
 .js-enabled {
@@ -268,10 +272,20 @@ mark {
   }
 }
 
-.result-region-header__sort-label {
+.sort-options__label {
   @include govuk-responsive-padding(1, "right");
   display: inline-block;
   margin-bottom: govuk-spacing(3);
+
+  @include govuk-media-query($from: tablet) {
+    font-size: 16px;
+  }
+}
+
+.sort-options__select {
+  @include govuk-media-query($from: tablet) {
+    font-size: 16px;
+  }
 }
 
 .result-info {
@@ -331,5 +345,28 @@ mark {
   &::-moz-focus-inner {
     padding: 0;
     border: 0;
+  }
+}
+
+.gem-c-subscription-links {
+  @include govuk-media-query($until: tablet) {
+    margin-bottom: govuk-spacing(2);
+  }
+}
+
+// show spelling suggestion container only if suggestions are available
+.spelling-suggestions {
+  margin-top: -(govuk-spacing(1));
+  margin-bottom: govuk-spacing(4);
+
+  @include govuk-media-query($from: tablet) {
+    margin-top: -(govuk-spacing(2));
+    margin-bottom: govuk-spacing(7);
+
+    // We need to keep font size consistently 16 pixels 
+    // when above the tablet breakpoint
+    .govuk-body {
+      font-size: 16px;
+    }
   }
 }

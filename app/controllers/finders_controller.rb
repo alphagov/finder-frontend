@@ -13,16 +13,12 @@ class FindersController < ApplicationController
   def show
     respond_to do |format|
       format.html do
-        @search_query = initialize_search_query
-        @breadcrumbs = fetch_breadcrumbs
-        @parent = parent
-        @sort_presenter = sort_presenter
-        @pagination = pagination_presenter
-        @suggestions = suggestions
+        show_page_variables
       end
       format.json do
         @search_query = initialize_search_query
         if content_item.is_search? || content_item.is_finder?
+          @spelling_suggestion_presenter = spelling_suggestion_presenter
           render json: json_response
         else
           render json: {}, status: :not_found
@@ -40,6 +36,15 @@ class FindersController < ApplicationController
     end
   rescue ActionController::UnknownFormat
     render plain: "Not acceptable", status: :not_acceptable
+  end
+
+  def show_page_variables
+    @search_query = initialize_search_query
+    @breadcrumbs = fetch_breadcrumbs
+    @parent = parent
+    @sort_presenter = sort_presenter
+    @pagination = pagination_presenter
+    @spelling_suggestion_presenter = spelling_suggestion_presenter
   end
 
 private
@@ -62,7 +67,7 @@ private
       search_results: render_component("finders/search_results", result_set_presenter.search_results_content),
       sort_options_markup: render_component("finders/sort_options", sort_presenter.to_hash),
       next_and_prev_links: render_component("govuk_publishing_components/components/previous_and_next_navigation", pagination_presenter.next_and_prev_links),
-      suggestions: suggestions,
+      suggestions: render_component("finders/spelling_suggestion", suggestions: spelling_suggestion_presenter.suggestions),
     }
   end
 
@@ -141,13 +146,14 @@ private
     search_query.search_results
   end
 
-  def suggestions
-    search_results.fetch("suggested_queries", []).map do |keywords|
-      {
-        keywords: keywords,
-        link: finder_url_builder.url(keywords: keywords),
-      }
-    end
+  def spelling_suggestion_presenter
+    suggested_queries = search_results.fetch("suggested_queries", [])
+    SpellingSuggestionPresenter.new(
+      suggested_queries,
+      finder_url_builder.url(keywords: suggested_queries.first),
+      # Search api is set to always return an array with one item
+      content_item.as_hash["content_id"],
+    )
   end
 
   def finder_url_builder

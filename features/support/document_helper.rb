@@ -119,6 +119,12 @@ module DocumentHelper
       to_return(body: filtered_by_organisation_all_content_results_json)
   end
 
+  def stub_rummager_api_request_with_misspelt_query
+    stub_request(:get, SEARCH_ENDPOINT).
+      with(query: hash_including("q" => "drving")).
+      to_return(body: spelling_suggestions_json)
+  end
+
   def stub_rummager_api_request_with_manual_filter_all_content_results
     stub_request(:get, SEARCH_ENDPOINT).
       with(query: hash_including("q" => "search-term", "filter_manual" => %w(how-to-be-a-wizard))).
@@ -670,6 +676,16 @@ module DocumentHelper
       "start": 0,
       "facets": {},
       "suggested_queries": []
+    }|
+  end
+
+  def spelling_suggestions_json
+    %|{
+      "results": #{government_document_results_json},
+      "total": 20,
+      "start": 0,
+      "facets": {},
+      "suggested_queries": ["driving"]
     }|
   end
 

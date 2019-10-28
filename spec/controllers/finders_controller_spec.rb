@@ -293,18 +293,18 @@ describe FindersController, type: :controller do
         "total": 0,
         "start": 0,
         "facets": {},
-        "suggested_queries": ["cereal", "full english"]
+        "suggested_queries": ["cereal"]
       }|
       stub_request(:get, /search.json/).to_return(status: 200, body: rummager_response, headers: {})
     end
 
-    it "Gives all the spelling suggestions and links to them" do
+    it "Gives the spelling suggestion and links to it" do
       get :show, params: { slug: path_for(breakfast_finder), format: "json" }
       expect(response.status).to eq(200)
       expect(response.content_type).to eq("application/json")
 
-      expect(response.body).to include('{"keywords":"cereal","link":"/breakfast-finder?keywords=cereal"}')
-      expect(response.body).to include('{"keywords":"full english","link":"/breakfast-finder?keywords=full+english"}')
+      expect(response.body).to include("cereal")
+      expect(response.body).to include("/breakfast-finder?keywords=cereal")
     end
   end
 
