@@ -337,6 +337,119 @@ actions:
     - nationality-uk
     - living-eu
   audience: citizen
+- id: S030
+  priority: 5
+  title: Exchange your UK licence for a licence issued by the EU country you live
+    in
+  title_url: https://europa.eu/youreurope/citizens/vehicles/driving-licence/driving-licence-renewal-exchange/index_en.htm#shortcut-0-exchanging-your-licence
+  consequence: You will not be able to drive in the EU with a UK licence after Brexit.
+  lead_time: Do it as soon as possible
+  guidance_prompt: Read the guidance
+  guidance_link_text: 'Driving in the EU after Brexit: driving licence exchange'
+  guidance_url: https://www.gov.uk/guidance/driving-in-the-eu-after-brexit-driving-licence-exchange
+  criteria:
+  - all_of:
+    - nationality-uk
+    - any_of:
+      - living-eu
+      - living-ie
+  audience: citizen
+- id: S031
+  priority: 4
+  title: Test your vehicle for roadworthiness in the EU country you live in
+  title_url: https://www.gov.uk/guidance/driving-in-the-eu-after-brexit-driving-licence-exchange
+  consequence: Your UK MOT test certificate will not be recognised in the EU after
+    Brexit.
+  lead_time: Do it as soon as possible
+  guidance_prompt: Read the guidance
+  guidance_link_text: 'Driving in the EU after Brexit: driving licence exchange'
+  guidance_url: https://www.gov.uk/guidance/driving-after-brexit-for-uk-licence-holders-living-in-the-eu#vehicle-safety-and-roadworthiness-mot
+  criteria:
+  - all_of:
+    - nationality-uk
+    - any_of:
+      - living-eu
+      - living-ie
+  audience: citizen
+- id: S032
+  priority: 4
+  title: Contact your vet at least 4 months before travelling to make sure your pet
+    or assistance dog is able to travel to the UK
+  consequence: If your pet (dog, cat or ferret) or assistance dog does not have the
+    proper documents, you will not be able to take it with you.
+  lead_time: It takes at least 4 months
+  guidance_prompt: Read the guidance
+  guidance_link_text: Pet travel after Brexit
+  guidance_url: https://www.gov.uk/guidance/pet-travel-to-europe-after-brexit
+  criteria:
+  - all_of:
+    - any_of:
+      - living-eu
+      - living-ie
+    - visiting-uk
+    - visiting-bring-pet
+  audience: citizen
+- id: S033
+  priority: 5
+  title: Check if you can apply to the EU Settlement Scheme
+  consequence: If you do not apply to the EU Settlement Scheme, you may not be able
+    to continue living or working in the UK as you do now.
+  lead_time: Do it as soon as possible
+  guidance_prompt: Read the guidance
+  guidance_link_text: Applying to the EU Settlement Scheme if you're not an EU, EEA
+    or Swiss citizen
+  guidance_url: https://www.gov.uk/settled-status-eu-citizens-families/not-EU-EEA-Swiss-citizen
+  criteria:
+  - all_of:
+    - nationality-row
+    - living-uk
+    - family-eu
+  audience: citizen
+- id: S034
+  priority: 8
+  title: Check if you need a visa or work permit and meet the professional requirements
+    to travel to the EU, Iceland, Liechtenstein, Norway or Switzerland for work
+  consequence: You may not be able to enter or work in some countries if you do not
+    meet the requirements.
+  lead_time: Do it as soon as possible
+  guidance_prompt: Read the guidance
+  guidance_link_text: 'Visit Europe after Brexit: Business travel'
+  guidance_url: https://www.gov.uk/visit-europe-brexit/business-travel
+  criteria:
+  - travel-eu-business
+  audience: citizen
+- id: S035
+  priority: 5
+  title: Check if you need to get your EU professional qualifications recognised in
+    the UK
+  consequence: You will not be able to work in a regulated profession if your qualification
+    from the EU, Iceland, Liechtenstein, Norway or Switzerland is not recognised in
+    the UK.
+  lead_time: Do it as soon as possible
+  guidance_prompt: Read the guidance
+  guidance_link_text: Get your EEA qualification recognised in the UK after Brexit
+  guidance_url: https://www.gov.uk/guidance/get-your-eea-qualification-recognised-in-the-uk-after-brexit
+  criteria:
+  - all_of:
+    - nationality-eu
+    - working-uk
+  audience: citizen
+- id: S036
+  priority: 5
+  title: Get motor insurance green cards or other proof of insurance for your vehicle,
+    caravan or trailer if they are registered in the EU, EEA, Andorra, Serbia or Switzerland
+    and you will be driving in the UK
+  consequence: You could get a fine or your vehicle could be seized if you cannot
+    prove that you are insured.
+  lead_time: Do it before you travel
+  guidance_prompt: Read the guidance
+  guidance_link_text: Visiting the UK after Brexit
+  guidance_url: https://www.gov.uk/guidance/visiting-the-uk-after-brexit#if-your-vehicle-is-not-insured-in-the-uk
+  criteria:
+  - all_of:
+    - visiting-uk
+    - visiting-driving
+  audience: citizen
 - id: T001
   priority: 8
   title: Check if you need to change your conformity assessment or conformity marking
@@ -1394,58 +1507,6 @@ actions:
   criteria:
   - forestry
   audience: business
-- id: S030
-  priority: 5
-  title: Exchange your UK licence for a licence issued by the EU country you live
-    in
-  title_url: https://europa.eu/youreurope/citizens/vehicles/driving-licence/driving-licence-renewal-exchange/index_en.htm#shortcut-0-exchanging-your-licence
-  consequence: You will not be able to drive in the EU with a UK licence after Brexit.
-  lead_time: Do it as soon as possible
-  guidance_prompt: Read the guidance
-  guidance_link_text: 'Driving in the EU after Brexit: driving licence exchange'
-  guidance_url: https://www.gov.uk/guidance/driving-in-the-eu-after-brexit-driving-licence-exchange
-  criteria:
-  - all_of:
-    - nationality-uk
-    - any_of:
-      - living-eu
-      - living-ie
-  audience: citizen
-- id: S031
-  priority: 4
-  title: Test your vehicle for roadworthiness in the EU country you live in
-  title_url: https://www.gov.uk/guidance/driving-in-the-eu-after-brexit-driving-licence-exchange
-  consequence: Your UK MOT test certificate will not be recognised in the EU after
-    Brexit.
-  lead_time: Do it as soon as possible
-  guidance_prompt: Read the guidance
-  guidance_link_text: 'Driving in the EU after Brexit: driving licence exchange'
-  guidance_url: https://www.gov.uk/guidance/driving-after-brexit-for-uk-licence-holders-living-in-the-eu#vehicle-safety-and-roadworthiness-mot
-  criteria:
-  - all_of:
-    - nationality-uk
-    - any_of:
-      - living-eu
-      - living-ie
-  audience: citizen
-- id: S032
-  priority: 4
-  title: Contact your vet at least 4 months before travelling to make sure your pet
-    or assistance dog is able to travel to the UK
-  consequence: If your pet (dog, cat or ferret) or assistance dog does not have the
-    proper documents, you will not be able to take it with you.
-  lead_time: It takes at least 4 months
-  guidance_prompt: Read the guidance
-  guidance_link_text: Pet travel after Brexit
-  guidance_url: https://www.gov.uk/guidance/pet-travel-to-europe-after-brexit
-  criteria:
-  - all_of:
-    - any_of:
-      - living-eu
-      - living-ie
-    - visiting-uk
-    - visiting-bring-pet
-  audience: citizen
 - id: T093
   priority: 5
   title: Check if you need new licences for any drug precursor chemicals you import
@@ -1493,22 +1554,6 @@ actions:
   criteria:
   - chemical
   audience: business
-- id: S033
-  priority: 5
-  title: Check if you can apply to the EU Settlement Scheme
-  consequence: If you do not apply to the EU Settlement Scheme, you may not be able
-    to continue living or working in the UK as you do now.
-  lead_time: Do it as soon as possible
-  guidance_prompt: Read the guidance
-  guidance_link_text: Applying to the EU Settlement Scheme if you're not an EU, EEA
-    or Swiss citizen
-  guidance_url: https://www.gov.uk/settled-status-eu-citizens-families/not-EU-EEA-Swiss-citizen
-  criteria:
-  - all_of:
-    - nationality-row
-    - living-uk
-    - family-eu
-  audience: citizen
 - id: T096
   priority: 1
   title: Check the rules on moving waste between the UK and the EU
@@ -1552,48 +1597,3 @@ actions:
   criteria:
   - chemical
   audience: business
-- id: S034
-  priority: 8
-  title: Check if you need a visa or work permit and meet the professional requirements
-    to travel to the EU, Iceland, Liechtenstein, Norway or Switzerland for work
-  consequence: You may not be able to enter or work in some countries if you do not
-    meet the requirements.
-  lead_time: Do it as soon as possible
-  guidance_prompt: Read the guidance
-  guidance_link_text: 'Visit Europe after Brexit: Business travel'
-  guidance_url: https://www.gov.uk/visit-europe-brexit/business-travel
-  criteria:
-  - travel-eu-business
-  audience: citizen
-- id: S035
-  priority: 5
-  title: Check if you need to get your EU professional qualifications recognised in
-    the UK
-  consequence: You will not be able to work in a regulated profession if your qualification
-    from the EU, Iceland, Liechtenstein, Norway or Switzerland is not recognised in
-    the UK.
-  lead_time: Do it as soon as possible
-  guidance_prompt: Read the guidance
-  guidance_link_text: Get your EEA qualification recognised in the UK after Brexit
-  guidance_url: https://www.gov.uk/guidance/get-your-eea-qualification-recognised-in-the-uk-after-brexit
-  criteria:
-  - all_of:
-    - nationality-eu
-    - working-uk
-  audience: citizen
-- id: S036
-  priority: 5
-  title: Get motor insurance green cards or other proof of insurance for your vehicle,
-    caravan or trailer if they are registered in the EU, EEA, Andorra, Serbia or Switzerland
-    and you will be driving in the UK
-  consequence: You could get a fine or your vehicle could be seized if you cannot
-    prove that you are insured.
-  lead_time: Do it before you travel
-  guidance_prompt: Read the guidance
-  guidance_link_text: Visiting the UK after Brexit
-  guidance_url: https://www.gov.uk/guidance/visiting-the-uk-after-brexit#if-your-vehicle-is-not-insured-in-the-uk
-  criteria:
-  - all_of:
-    - visiting-uk
-    - visiting-driving
-  audience: citizen
