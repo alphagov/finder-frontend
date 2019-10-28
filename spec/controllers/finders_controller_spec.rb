@@ -1,12 +1,12 @@
 require "spec_helper"
 require "gds_api/test_helpers/content_store"
-require "gds_api/test_helpers/rummager"
+require "gds_api/test_helpers/search"
 
 describe FindersController, type: :controller do
   include GdsApi::TestHelpers::ContentStore
   include FixturesHelper
   include GovukContentSchemaExamples
-  include GdsApi::TestHelpers::Rummager
+  include GdsApi::TestHelpers::Search
   include GovukAbTesting::RspecHelpers
 
   render_views
