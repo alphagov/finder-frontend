@@ -926,8 +926,8 @@ actions:
   title: Get a certificate to export poultry meat to the EU if it's printed with a
     farming method
   consequence: If your meat is printed with a farming method, such as 'Free range',
-    and you do not have a certiicate, you risk it being delayed or rejected when it
-    reaches the EU.
+    and you do not have a certificate, you risk it being delayed or rejected when
+    it reaches the EU.
   lead_time: It usually takes up to 6 weeks
   guidance_prompt: Read the guidance
   guidance_link_text: Poultry meat marketing standards after Brexit
