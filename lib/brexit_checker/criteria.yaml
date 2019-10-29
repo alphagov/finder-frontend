@@ -154,10 +154,14 @@ criteria:
   text: You use or rely on exhaustion of rights protection
 - key: do-not-ip
   text: You do not use or rely on intellectual property protection
+- key: eu-uk-funding
+  text: You receive EU or UK government funding
 - key: eu-funding
   text: You receive EU government funding
-- key: eu-funding-no
-  text: You receive EU government funding
+- key: uk-funding
+  text: You receive UK government funding
+- key: do-not-eu-uk-funding
+  text: You do not receive EU or UK government funding
 - key: sell-public-sector
   text: You sell products or services to the public sector
 - key: sell-public-sector-contracts
