@@ -30,7 +30,7 @@ end
 group :development, :test do
   gem "awesome_print"
   gem "dotenv-rails"
-  gem "govuk-lint", "~> 4.0.1"
+  gem "govuk-lint", "~> 4.1.0"
   gem "govuk_schemas", "~> 4.0"
   gem "jasmine-rails"
   gem "pry-byebug"
