@@ -200,7 +200,7 @@ actions:
   lead_time: Do it as soon as possible
   guidance_prompt: Read the guidance
   guidance_link_text: Apply to the EU Settlement Scheme (settled and pre-settled status)
-  guidance_url: https://www.gov.uk/settled-status-eu-citizens-families/
+  guidance_url: https://www.gov.uk/settled-status-eu-citizens-families
   criteria:
   - all_of:
     - nationality-uk
