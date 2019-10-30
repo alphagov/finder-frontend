@@ -707,33 +707,6 @@ And(/^I click filter results$/) do
   click_on "Filter results"
 end
 
-And(/^I reload the page$/) do
-  visit [current_path, page.driver.request.env["QUERY_STRING"]].reject(&:blank?).join("?")
-end
-
-Then(/^I should see all people in the people facet$/) do
-  expect(page).to have_css('input[id^="people-"]', count: 5)
-  find("label", text: "Albus Dumbledore")
-  find("label", text: "Cornelius Fudge")
-  find("label", text: "Harry Potter")
-  find("label", text: "Ron Weasley")
-  find("label", text: "Rufus Scrimgeour")
-end
-
-And(/^I should see all organisations in the organisation facet$/) do
-  expect(page).to have_css('input[id^="organisations-"]', count: 4)
-  find("label", text: "Department of Mysteries")
-  find("label", text: "Gringots")
-  find("label", text: "Ministry of Magic")
-  find("label", text: "Closed organisation: Death Eaters")
-end
-
-Then(/^I should see all world locations in the world location facet$/) do
-  expect(page).to have_css('input[id^="world_locations-"]', count: 2)
-  find("label", text: "Azkaban")
-  find("label", text: "Tracy Island")
-end
-
 And(/^I select a World Location$/) do
   click_on("World location")
   check("Azkaban")

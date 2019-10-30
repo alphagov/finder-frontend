@@ -300,14 +300,6 @@ Feature: Filtering documents
     And I select facet Aerospace in the already expanded "Sector / Business Area" section
     Then I see results grouped by primary facet value
 
-  Scenario: Dynamic facets continue to show all options on page reload
-    When I view the news and communications finder
-    And I select a Person
-    And I reload the page
-    Then I should see all people in the people facet
-    And I should see all organisations in the organisation facet
-    And I should see all world locations in the world location facet
-
   @javascript
   Scenario: Skip to results after inputing some keywords
     When I view the news and communications finder
