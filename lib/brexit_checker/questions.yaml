@@ -203,20 +203,14 @@ questions:
     criteria:
       - owns-operates-business-organisation
     type: "single_wrapped"
-    text: "Do you get EU or UK government funding?"
+    text: "Do you get funding from an EU programme?"
     description: |
-      <p>EU funding includes the Creative Europe Fund or Horizon 2020 scheme.</p>
+      <p>This includes funding like Erasmus+ and Horizon 2020.</p>
     options:
       - label: "Yes"
-        value: eu-uk-funding
-        options:
-          - label: EU funding
-            value: eu-funding
-          - label: UK government funding
-            value: uk-funding
+        value: eu-funding
       - label: "No"
-        value: do-not-eu-uk-funding
-
+        value: eu-funding-no
   - key: public-sector-procurement
     criteria:
       - owns-operates-business-organisation
