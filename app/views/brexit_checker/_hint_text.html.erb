@@ -1,7 +1,0 @@
-<% unless current_question.hint_text.nil? || current_question.hint_title.nil? %>
-  <%= render "govuk_publishing_components/components/details", {
-    title: current_question.hint_title
-  } do %>
-    <%= current_question.hint_text %>
-  <% end %>
-<% end %>

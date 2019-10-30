@@ -65,7 +65,11 @@
           criteria_keys: persistent_criteria_keys(@current_question.all_values),
           next_page: (@question_index + 1)
         %>
-        <%= render 'hint_text', current_question: @current_question %>
+        <%= render 'detail_text', {
+            detail_text: @current_question.detail_text,
+            detail_title: @current_question.detail_title
+          }
+        %>
         <div class="govuk-form-footer">
           <%= render "govuk_publishing_components/components/button", {
             text: "Next"
