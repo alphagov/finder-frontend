@@ -156,10 +156,6 @@ criteria:
   text: You do not use or rely on intellectual property protection
 - key: eu-uk-funding
   text: You receive EU or UK government funding
-- key: eu-funding
-  text: You receive EU government funding
-- key: uk-funding
-  text: You receive UK government funding
 - key: do-not-eu-uk-funding
   text: You do not receive EU or UK government funding
 - key: sell-public-sector
