@@ -2,6 +2,6 @@ en:
   brexit_checker_mailer:
     change_notification:
       guidance_prompt: Read the guidance
-      title: Your Get ready for Brexit results
+      title: How to prepare for a no deal Brexit
       addition: A new action has been added
       content_change: An action has been updated

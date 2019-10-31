@@ -51,7 +51,7 @@ private
     path = brexit_checker_results_path(c: criteria_keys)
 
     {
-      "title" => "Your Get ready for Brexit results",
+      "title" => "How to prepare for a no deal Brexit",
       "description" => "[You can view a copy of your results on GOV.UK.](#{Plek.new.website_root}#{path})",
       "group_id" => SUBSCRIBER_LIST_GROUP_ID,
       "tags" => { "brexit_checklist_criteria" => { "any" => criteria_keys } },
