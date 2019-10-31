@@ -51,7 +51,7 @@ class OptionSelectFacet < FilterableFacet
   end
 
   def cache_key
-    { selected: selected_values, allowed: allowed_values }
+    { name: name, selected: selected_values, allowed: allowed_values }
   end
 
   def query_params
