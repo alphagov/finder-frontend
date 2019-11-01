@@ -6,7 +6,9 @@ describe('An option select component', function () {
 
   function optionSelectWithAttrs (attrs) {
     return '<div class="app-c-option-select" ' + attrs + '>' +
-      '<div class="app-c-option-select__container-head js-container-head"></div>' +
+      '<h2 class="app-c-option-select__heading js-container-heading">' +
+        '<span class="app-c-option-select__title js-container-button"></span>' +
+      '</h2>' +
       '<div class="app-c-option-select__container js-options-container"></div>' +
     '</div>'
   }
@@ -16,9 +18,11 @@ describe('An option select component', function () {
   /* eslint-disable */
   var html = '\
     <div class="app-c-option-select" data-module="option-select" data-closed-on-load="false">' +
-      '<div class="app-c-option-select__title js-container-head">' +
-        'Market sector' +
-      '</div>' +
+      '<h2 class="app-c-option-select__heading js-container-heading">' +
+        '<span class="app-c-option-select__title js-container-button">' +
+          'Market sector' +
+        '</span>' +
+      '</h2>' +
       '<div class="app-c-option-select__container js-options-container">' +
         '<div class="app-c-option-select__container-inner js-auto-height-inner">' +
           '<div id="checkboxes-9b7ecc25" class="gem-c-checkboxes govuk-form-group" data-module="checkboxes">' +
@@ -129,7 +133,7 @@ describe('An option select component', function () {
       expect($closedOnLoadFixture.find('.js-options-container').attr('style')).not.toContain('height')
     })
 
-    it('replaces the `div.app-c-option-select__container-head` with a button', function () {
+    it('replaces the `span.app-c-option-select__title` with a button', function () {
       $element = $(html)
       optionSelect.start($element)
 
