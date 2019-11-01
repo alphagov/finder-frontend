@@ -107,6 +107,9 @@
 
 .app-c-option-select__container-inner {
   padding: govuk-spacing(1) 13px;
+  .no-results {
+    padding-top: 6px;
+  }
 }
 
 .app-c-option-select__filter {
