@@ -1,3 +1,5 @@
+<% # we want an empty string if there are no suggestions on page load %> 
+<% _spelling_suggestion = '' %>
 <% if @spelling_suggestion_presenter.suggestions.any? %>
 <p class="govuk-body">Did you mean
   <% @spelling_suggestion_presenter.suggestions.each do |suggestion| %>
@@ -5,6 +7,10 @@
       class: "govuk-link govuk-!-font-weight-bold",
       :data => suggestion[:data_attributes]
     %>
+    <% _spelling_suggestion = suggestion[:keywords] %>
   <% end %>
 </p>
+<% end %>
+<% content_for :head do %>
+  <meta name="govuk:spelling-suggestion" content="<%= _spelling_suggestion %>">
 <% end %>
