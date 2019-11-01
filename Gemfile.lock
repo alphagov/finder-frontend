@@ -86,7 +86,7 @@ GEM
       cucumber-tag_expressions (~> 1.1.0)
       gherkin (~> 5.0)
     cucumber-expressions (6.0.1)
-    cucumber-rails (1.8.0)
+    cucumber-rails (2.0.0)
       capybara (>= 2.12, < 4)
       cucumber (>= 3.0.2, < 4)
       mime-types (>= 2.0, < 4)
@@ -219,7 +219,7 @@ GEM
     multipart-post (2.1.1)
     netrc (0.11.0)
     nio4r (2.5.2)
-    nokogiri (1.10.4)
+    nokogiri (1.10.5)
       mini_portile2 (~> 2.4.0)
     null_logger (0.0.1)
     os (1.0.1)
@@ -417,7 +417,7 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   chronic (~> 0.10.2)
-  cucumber-rails (~> 1.8.0)
+  cucumber-rails (~> 2.0.0)
   dalli
   dotenv-rails
   factory_bot
