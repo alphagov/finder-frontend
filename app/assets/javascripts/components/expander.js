@@ -11,14 +11,14 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}; // if this ; is omitted, none
 
     var openOnLoad = this.$module.getAttribute('data-open-on-load') === 'true'
 
-    this.replaceTitleWithButton(openOnLoad)
+    this.replaceHeadingSpanWithButton(openOnLoad)
 
     this.$module.toggleContent = this.toggleContent.bind(this)
     this.$toggleButton = this.$module.querySelector('.js-button')
     this.$toggleButton.addEventListener('click', this.$module.toggleContent)
   }
 
-  Expander.prototype.replaceTitleWithButton = function (expanded) {
+  Expander.prototype.replaceHeadingSpanWithButton = function (expanded) {
     var toggleHtml = this.$toggle.innerHTML
     var $button = document.createElement('button')
 
