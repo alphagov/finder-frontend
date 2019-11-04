@@ -6,15 +6,21 @@ module BrexitCheckerHelper
   end
 
   def format_action_audiences(actions)
-    action_groups = actions.group_by(&:audience)
+    business, citizen = actions.partition { |action| action.audience == "business" }
+    business_results = {
+      heading: I18n.t("brexit_checker.results.audiences.business.heading"),
+      actions: order_actions_by_priority(business),
+    }
+    citizen_results = {
+      heading: I18n.t("brexit_checker.results.audiences.citizen.heading"),
+      actions: order_actions_by_priority(citizen),
+    }
+    [business_results, citizen_results]
+  end
 
-    action_groups.map do |key, action_group|
-      {
-        heading: I18n.t("brexit_checker.results.audiences.#{key}.heading"),
-        actions: action_group.sort_by.with_index do |action, index|
-          [-action.priority, index]
-        end,
-      }
+  def order_actions_by_priority(action_group)
+    action_group.sort_by.with_index do |action, index|
+      [-action.priority, index]
     end
   end
 

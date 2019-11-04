@@ -26,12 +26,12 @@ describe BrexitCheckerHelper, type: :helper do
       it "return actions grouped by audience and sorted by priority" do
         expect(subject).to eq([
           {
-            heading: I18n.t("brexit_checker.results.audiences.citizen.heading"),
-            actions: [action2, action1],
-          },
-          {
             heading: I18n.t("brexit_checker.results.audiences.business.heading"),
             actions: [action3, action4],
+          },
+          {
+            heading: I18n.t("brexit_checker.results.audiences.citizen.heading"),
+            actions: [action2, action1],
           },
         ])
       end
