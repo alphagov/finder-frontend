@@ -38,11 +38,6 @@
       window.ga('set', 'transport', 'beacon')
     }
 
-    // track impressions of spelling suggestions
-    if (this.$suggestionsBlock) {
-      this.trackSpellingSuggestionsImpressions(this.$suggestionsBlock)
-    }
-
     if (GOVUK.support.history()) {
       this.saveState()
 
@@ -151,9 +146,11 @@
   }
 
   LiveSearch.prototype.trackSpellingSuggestionsImpressions = function trackSpellingSuggestionsImpressions ($suggestions) {
-    $($suggestions).find('a').each(function () {
-      GOVUK.SearchAnalytics.setDimension(81, $(this).data('track-options').dimension81)
-    })
+    var $spellingSuggestionMetaTag = $("meta[name='govuk:spelling-suggestion']")
+    // currently there's ever only one suggestion
+    var spellingSuggestionAvailable = this.$suggestionsBlock.find('a').length > 0
+    var suggestion = spellingSuggestionAvailable ? this.$suggestionsBlock.find('a').data('track-options').dimension81 : ''
+    $spellingSuggestionMetaTag.attr('content', suggestion)
   }
 
   /**
