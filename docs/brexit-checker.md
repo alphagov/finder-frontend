@@ -1,6 +1,6 @@
 # Brexit Checker
 
-Finder frontend is responsible for the question and answer workflow of the "Get Ready for Brexit" Checker (aka Dynamic Lists). The tool allows users to answer a series of questions and then presents a list of "actions" that are relevant to them.
+Finder frontend is responsible for the question and answer workflow of the "How to prepare for a no deal Brexit" Checker (aka Dynamic Lists). The tool allows users to answer a series of questions and then presents a list of "actions" that are relevant to them.
 
 ## Data model
 Main concepts for the Brexit Checker include:
