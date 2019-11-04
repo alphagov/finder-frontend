@@ -107,11 +107,12 @@ actions:
   audience: citizen
 - id: S008
   priority: 8
-  title: Check a passport for travel to Europe after Brexit
+  title: Check your passport’s issue and expiry dates for travel to Europe after Brexit
   title_url: https://www.gov.uk/check-a-passport-for-travel-to-europe
-  consequence: You may not be able to travel unless your UK passport meets new validity
-    rules.
-  lead_time: Do it as soon as possible
+  consequence: You may not be able to travel unless your UK passport has at least
+    6 months left to run and is less than 10 years old.
+  exception: The new rules do not apply when travelling to Ireland.
+  lead_time: Do it before you travel
   guidance_prompt: More information
   guidance_link_text: Passport rules for travel to Europe after Brexit
   guidance_url: https://www.gov.uk/guidance/passport-rules-for-travel-to-europe-after-brexit
