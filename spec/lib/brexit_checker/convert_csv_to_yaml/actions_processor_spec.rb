@@ -24,6 +24,18 @@ describe BrexitChecker::ConvertCsvToYaml::ActionsProcessor do
       expect(result).not_to include("guidance")
     end
 
+    it "parses single result_groups" do
+      result = described_class.new.process(record.merge("result_groups" => "group1"))
+      expect(result.keys).to include("result_groups")
+      expect(result["result_groups"]).to eq(%w(group1))
+    end
+
+    it "parses double result_groups" do
+      result = described_class.new.process(record.merge("result_groups" => "group1, group2"))
+      expect(result.keys).to include("result_groups")
+      expect(result["result_groups"]).to eq(%w(group1 group2))
+    end
+
     it "parses criteria" do
       result = described_class.new.process(record)
       expect(result).to include("criteria" => [{ "any_of" => ["owns-business", { "all_of" => %w(imports-eu something) }] }])

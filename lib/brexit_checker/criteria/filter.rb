@@ -21,7 +21,6 @@ private
   def possible_criteria(selected_criteria)
     relevant_questions = BrexitChecker::Question.load_all
       .select { |question| question.show?(selected_criteria) }
-
     relevant_questions
       .flat_map(&:options)
       .flat_map { |o| filter_option_tree(o, selected_criteria) }

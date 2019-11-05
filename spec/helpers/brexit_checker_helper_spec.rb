@@ -13,25 +13,46 @@ describe BrexitCheckerHelper, type: :helper do
   end
 
   describe "#format_action_audiences" do
-    let(:action1) { FactoryBot.build(:brexit_checker_action, audience: "citizen", priority: 5) }
-    let(:action2) { FactoryBot.build(:brexit_checker_action, audience: "citizen", priority: 8) }
+    let(:action1) { FactoryBot.build(:brexit_checker_action, audience: "citizen", priority: 5, result_groups: %w(visiting-eu visiting-ie)) }
+    let(:action2) { FactoryBot.build(:brexit_checker_action, audience: "citizen", priority: 8, result_groups: "visiting-eu") }
     let(:action3) { FactoryBot.build(:brexit_checker_action, audience: "business", priority: 5) }
     let(:action4) { FactoryBot.build(:brexit_checker_action, audience: "business", priority: 5) }
+    let(:criterion1) { FactoryBot.build(:brexit_checker_criterion, key: "visiting-eu", text: "You plan to travel to the EU") }
+    let(:criterion2) { FactoryBot.build(:brexit_checker_criterion, key: "visiting-ie", text: "You plan to travel to Ireland") }
 
-    subject { format_action_audiences(actions) }
+    subject { format_action_audiences(actions, criteria) }
 
     context "when there are actions for each audience" do
       let(:actions) { [action1, action2, action3, action4] }
+      let(:criteria) { [criterion1, criterion2] }
 
       it "return actions grouped by audience and sorted by priority" do
         expect(subject).to eq([
           {
             heading: I18n.t("brexit_checker.results.audiences.business.heading"),
-            actions: [action3, action4],
+            groups: [{
+              heading: nil,
+              priority: 10,
+              actions: [action3, action4],
+              criteria: [],
+            }]
           },
           {
             heading: I18n.t("brexit_checker.results.audiences.citizen.heading"),
-            actions: [action2, action1],
+            groups: [
+              {
+              heading: "Visiting the EU",
+              priority: 9,
+              actions: [action2, action1],
+              criteria: [],
+              },
+              {
+                heading: "Visiting Ireland",
+                priority: 7,
+                actions: [action1],
+                criteria: [],
+              },
+            ],
           },
         ])
       end
