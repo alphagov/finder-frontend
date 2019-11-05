@@ -14,12 +14,16 @@ class DateFacet < FilterableFacet
     date_values["to"]
   end
 
-  def errors_to
-    date_errors_presenter.present(user_supplied_to_date)
+  def error_message_to(search_query)
+    if search_query.invalid?
+      search_query.errors[:to_date].first
+    end
   end
 
-  def errors_from
-    date_errors_presenter.present(user_supplied_from_date)
+  def error_message_from(search_query)
+    if search_query.invalid?
+      search_query.errors[:from_date].first
+    end
   end
 
   def sentence_fragment
@@ -42,10 +46,6 @@ class DateFacet < FilterableFacet
   end
 
 private
-
-  def date_errors_presenter
-    DateErrorsPresenter.new(date_values)
-  end
 
   def value_fragments
     present_values.map { |name, date|

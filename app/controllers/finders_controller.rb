@@ -69,7 +69,7 @@ private
       sort_options_markup: render_component("finders/sort_options", sort_presenter.to_hash),
       next_and_prev_links: render_component("govuk_publishing_components/components/previous_and_next_navigation", pagination_presenter.next_and_prev_links),
       suggestions: render_component("finders/spelling_suggestion", suggestions: spelling_suggestion_presenter.suggestions),
-      public_timestamp_errors: date_errors.error_hash,
+      public_timestamp_errors: search_query.date_errors_hash,
     }
   end
 
@@ -156,14 +156,6 @@ private
       # Search api is set to always return an array with one item
       content_item.as_hash["content_id"],
     )
-  end
-
-  def date_errors
-    @date_errors ||= DateErrorsPresenter.new(date_params)
-  end
-
-  def date_params
-    params.fetch(:public_timestamp, {})
   end
 
   def finder_url_builder
