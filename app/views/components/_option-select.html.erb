@@ -3,7 +3,6 @@
   checkboxes_id = "checkboxes-#{SecureRandom.hex(4)}"
   checkboxes_count_id = checkboxes_id + "-count"
   show_filter ||= false
-  expander_style ||= false
 %>
 
 <% if show_filter %>
@@ -29,17 +28,16 @@
 <% end %>
 
 <div
-  class="app-c-option-select <% if expander_style %>app-c-option-select--expander<% end %>"
-  data-module="option-select"
+  class="app-c-option-select" data-module="option-select"
   <% if local_assigns.include?(:closed_on_load) && closed_on_load %>data-closed-on-load="true"<% end %>
   <% if local_assigns.include?(:aria_controls_id) %>data-input-aria-controls="<%= aria_controls_id %>"<% end %>
   <% if show_filter %>data-filter-element="<%= filter_element %>"<% end %>
 >
-  <div class="app-c-option-select__title js-container-head" id="<%= title_id %>">
-    <%= title %>
-    <svg version="1.1" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" class="app-c-option-select__icon app-c-option-select__icon--up"><path d="m798.16 609.84l-256-256c-16.683-16.683-43.691-16.683-60.331 0l-256 256c-16.683 16.683-16.683 43.691 0 60.331s43.691 16.683 60.331 0l225.84-225.84 225.84 225.84c16.683 16.683 43.691 16.683 60.331 0s16.683-43.691 0-60.331z"/></svg>
-    <svg version="1.1" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" class="app-c-option-select__icon app-c-option-select__icon--down"><path d="m225.84 414.16l256 256c16.683 16.683 43.691 16.683 60.331 0l256-256c16.683-16.683 16.683-43.691 0-60.331s-43.691-16.683-60.331 0l-225.84 225.84-225.84-225.84c-16.683-16.683-43.691-16.683-60.331 0s-16.683 43.691 0 60.331z"/></svg>
-  </div>
+  <h2 class="app-c-option-select__heading js-container-heading">
+    <span class="app-c-option-select__title js-container-button" id="<%= title_id %>"><%= title %></span>
+    <svg version="1.1" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" class="app-c-option-select__icon app-c-option-select__icon--up" aria-hidden="true" focusable="false"><path d="m798.16 609.84l-256-256c-16.683-16.683-43.691-16.683-60.331 0l-256 256c-16.683 16.683-16.683 43.691 0 60.331s43.691 16.683 60.331 0l225.84-225.84 225.84 225.84c16.683 16.683 43.691 16.683 60.331 0s16.683-43.691 0-60.331z"/></svg>
+    <svg version="1.1" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" class="app-c-option-select__icon app-c-option-select__icon--down" aria-hidden="true" focusable="false"><path d="m225.84 414.16l256 256c16.683 16.683 43.691 16.683 60.331 0l256-256c16.683-16.683 16.683-43.691 0-60.331s-43.691-16.683-60.331 0l-225.84 225.84-225.84-225.84c-16.683-16.683-43.691-16.683-60.331 0s-16.683 43.691 0 60.331z"/></svg>
+  </h2>
   <div role="group" aria-labelledby="<%= title_id %>" class="app-c-option-select__container js-options-container" id="<%= options_container_id %>" tabindex="-1">
     <div class="app-c-option-select__container-inner js-auto-height-inner">
       <% if show_filter %>

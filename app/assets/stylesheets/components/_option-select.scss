@@ -1,8 +1,8 @@
 .app-c-option-select {
   position: relative;
-  padding: 0 0 1px;
-  background-color: govuk-colour("light-grey", $legacy: "grey-3");
-  margin-bottom: govuk-spacing(6);
+  padding: 0 0 govuk-spacing(2);
+  margin-bottom: govuk-spacing(2);
+  border-bottom: 1px solid govuk-colour("light-grey", $legacy: "grey-3");
 
   @include govuk-media-query($from: desktop) {
     // Redefine scrollbars on desktop where these lists are scrollable
@@ -39,30 +39,21 @@
 }
 
 .app-c-option-select__title {
-  @include govuk-font(19, $weight: bold);
-  padding: 10px 8px 5px 16px;
+  @include govuk-font(19);
   margin: 0;
 }
 
 .app-c-option-select__button {
-  position: relative;
   z-index: 1;
-  padding-right: 40px;
-  width: 100%;
   background: none;
   border: 0;
   text-align: left;
+  padding: 0;
   cursor: pointer;
+  color: $govuk-link-colour;
 
-  &:hover,
-  &:hover + .app-c-option-select__selected-counter {
-    background-color: govuk-colour("mid-grey", $legacy: "grey-2");
-  }
-
-  &:hover ~ .app-c-option-select__container,
-  &:hover ~ .app-c-option-select__selected-counter,
-  &:hover ~ .app-c-option-select__filter {
-    border-color: govuk-colour("mid-grey", $legacy: "grey-2");
+  &:hover {
+    text-decoration: underline;
   }
 
   &::-moz-focus-inner {
@@ -71,23 +62,24 @@
 
   &:focus {
     outline: none;
+    text-decoration: none;
     @include govuk-focused-text;
-
-    & ~ .app-c-option-select__selected-counter {
-      position: relative;
-      z-index: 2;
-      @include govuk-focused-text;
-    }
-
-    & ~ .app-c-option-select__container,
-    & ~ .app-c-option-select__filter {
-      border-color: govuk-colour("black");
-    }
   }
 
   &[disabled] {
     background-image: none;
     color: inherit;
+  }
+
+  // Extend the touch area of the button to span the heading
+  &:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 2;
   }
 }
 
@@ -95,10 +87,10 @@
   display: none;
   position: absolute;
   top: 0;
-  right: govuk-spacing(2);
+  left: 6px;
   width: 30px;
   height: 40px;
-  fill: currentColor;
+  fill: govuk-colour("black");
 }
 
 .app-c-option-select__container {
@@ -106,7 +98,6 @@
   max-height: 200px;
   overflow-y: auto;
   overflow-x: hidden;
-  border: govuk-spacing(1) solid govuk-colour("light-grey", $legacy: "grey-3");
   background-color: govuk-colour("white");
 
   &:focus {
@@ -121,8 +112,6 @@
 .app-c-option-select__filter {
   position: relative;
   background: govuk-colour('white');
-  border-left: govuk-spacing(1) solid govuk-colour("light-grey", $legacy: "grey-3");
-  border-right: govuk-spacing(1) solid govuk-colour("light-grey", $legacy: "grey-3");
   padding: 13px 13px govuk-spacing(2) 13px;
 }
 
@@ -137,9 +126,9 @@
 }
 
 .js-enabled {
-  .app-c-option-select__container {
-    border: govuk-spacing(1) solid govuk-colour("light-grey", $legacy: "grey-3");
-    border-top: 0;
+  .app-c-option-select__heading {
+    position: relative;
+    padding: 10px 8px 5px 40px;
   }
 
   .app-c-option-select__icon--up {
@@ -153,50 +142,6 @@
 
 .app-c-option-select__selected-counter {
   @include govuk-font($size: 14);
-  margin-top: -3px;
-  padding: 0 8px 3px 18px;
-}
-
-.app-c-option-select--expander {
-  padding: 0;
-  margin: 0;
-  background-color: transparent;
-  border-bottom: solid 1px govuk-colour("black");
-
-  .app-c-option-select__container {
-    border: 0;
-    padding: 0 govuk-spacing(2);
-    margin: 0 0 0 -10px;
-    background: none;
-  }
-
-  .app-c-option-select__container-inner {
-    padding: govuk-spacing(1) 0;
-  }
-
-  .app-c-option-select__title {
-    padding: govuk-spacing(2) govuk-spacing(6) govuk-spacing(2) 0;
-  }
-
-  .app-c-option-select__button {
-    position: relative;
-  }
-
-  .app-c-option-select__selected-counter {
-    margin: 0;
-    padding-top: govuk-spacing(1);
-    padding-left: 0;
-    padding-right: 0;
-  }
-
-  .app-c-option-select__icon {
-    right: 0;
-  }
-
-  .app-c-option-select__filter {
-    padding: 0;
-    padding-top: govuk-spacing(1);
-    padding-bottom: govuk-spacing(2);
-    border: 0;
-  }
+  color: $govuk-text-colour;
+  margin-top: 3px;
 }
