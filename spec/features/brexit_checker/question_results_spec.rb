@@ -3,22 +3,25 @@ require "spec_helper"
 RSpec.feature "Brexit Checker workflow", type: :feature do
   include BrexitCheckerHelper
 
-  scenario "business questions" do
+  scenario "business and citizen questions" do
     when_i_visit_the_brexit_checker_flow
     and_i_answer_citizen_questions
     and_i_answer_business_questions
-    then_i_should_see_the_results_page
-    and_i_should_see_a_pet_action
-    and_i_should_see_a_tourism_action
+    then_i_see_citizen_and_business_results
   end
 
-  scenario "citizen questions" do
+  scenario "business questions only" do
+    when_i_visit_the_brexit_checker_flow
+    and_i_do_not_answer_citizen_questions
+    and_i_answer_business_questions
+    then_i_see_business_results_only
+  end
+
+  scenario "citizen questions only" do
     when_i_visit_the_brexit_checker_flow
     and_i_answer_citizen_questions
     and_i_do_not_answer_business_questions
-    then_i_should_see_the_results_page
-    and_i_should_see_a_pet_action
-    and_i_should_not_see_a_tourism_action
+    then_i_see_citizens_results_only
   end
 
   scenario "skip all questions" do
@@ -27,8 +30,46 @@ RSpec.feature "Brexit Checker workflow", type: :feature do
     then_i_should_see_the_no_results_page
   end
 
+  def then_i_see_citizen_and_business_results
+    then_i_should_see_the_results_page
+    and_i_should_see_the_citizens_action_header
+    and_i_should_see_the_business_action_header
+    and_i_should_see_a_pet_action
+    and_i_should_see_a_tourism_action
+  end
+
+  def then_i_see_business_results_only
+    then_i_should_see_the_results_page
+    expect(page).to_not have_content I18n.t!("brexit_checker.results.audiences.citizen.heading")
+    and_i_should_see_the_business_action_header
+    and_i_should_see_a_ce_mark_action
+  end
+
+  def then_i_see_citizens_results_only
+    then_i_should_see_the_results_page
+    and_i_should_see_the_citizens_action_header
+    expect(page).to_not have_content I18n.t!("brexit_checker.results.audiences.business.heading")
+    and_i_should_see_a_pet_action
+    and_i_should_not_see_a_tourism_action
+  end
+
+  def and_i_should_see_the_citizens_action_header
+    expect(page).to have_content I18n.t!("brexit_checker.results.audiences.citizen.heading")
+  end
+
+  def and_i_should_see_the_business_action_header
+    expect(page).to have_content I18n.t!("brexit_checker.results.audiences.business.heading")
+  end
+
   def when_i_visit_the_brexit_checker_flow
     visit brexit_checker_questions_path
+  end
+
+  def and_i_do_not_answer_citizen_questions
+    answer_question("nationality")
+    answer_question("living")
+    answer_question("employment")
+    answer_question("travelling")
   end
 
   def and_i_do_not_answer_business_questions
@@ -81,6 +122,10 @@ RSpec.feature "Brexit Checker workflow", type: :feature do
 
   def and_i_should_see_a_tourism_action
     action_is_shown("T063")
+  end
+
+  def and_i_should_see_a_ce_mark_action
+    action_is_shown("T001")
   end
 
   def action_not_shown(key)
