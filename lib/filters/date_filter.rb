@@ -20,7 +20,7 @@ module Filters
 
     def parsed_values
       user_values.reduce({}) { |values, (key, date_string)|
-        values.merge(key => DateParser.parse(date_string))
+        values.merge(key => DateParser.new.parse(date_string))
       }
     end
 
