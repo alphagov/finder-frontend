@@ -64,40 +64,18 @@
   </div>
 
   <% if criteria_keys.present? %>
-    <div class="govuk-grid-row">
-      <div class="govuk-grid-column-full">
-        <%= render './components/email_link', {
-          data_attributes: {
-            "module": "track-click",
-            "track-action": action_based_email_link_label,
-            "track-category": "StayUpdated",
-            "track-label": brexit_checker_email_signup_path
-          },
-          link_text: action_based_email_link_label,
-          link_href: brexit_checker_email_signup_path(c: criteria_keys),
-        } %>
-      </div>
-    </div>
+    <%= render 'components/email_link', {
+      data_attributes: {
+        "module": "track-click",
+        "track-action": action_based_email_link_label,
+        "track-category": "StayUpdated",
+        "track-label": brexit_checker_email_signup_path
+      },
+      link_text: action_based_email_link_label,
+      link_href: brexit_checker_email_signup_path(c: criteria_keys),
+    } %>
 
-    <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible govuk-section-break--bold">
-    <div class="govuk-grid-row govuk-!-margin-bottom-6">
-      <div class="govuk-grid-column-one-third">
-        <%= render 'results_answers', answers: format_criteria_list(@criteria) %>
-      </div>
-      <div class="govuk-grid-column-two-thirds">
-        <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible govuk-section-break--bold govuk-section-break--visible-mobile-only">
-        <%= render 'action_audiences', audiences: format_action_audiences(@actions), action_based_description: action_based_description %>
-      </div>
-    </div>
-
-    <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible govuk-section-break--bold">
-    <div class="govuk-grid-row">
-      <div class="govuk-grid-column-one-third">
-        &nbsp; <!-- without this space, it will push the two-thirds column to the left -->
-      </div>
-      <div class="govuk-grid-column-two-thirds">
-        <%= render 'stay_updated' %>
-      </div>
-    </div>
+    <%= render 'action_audiences', audiences: format_action_audiences(@actions, @criteria), action_based_description: action_based_description %>    
+    <%= render 'stay_updated' %>
   <% end %>
 </div>

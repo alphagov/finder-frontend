@@ -1,25 +1,83 @@
 require "addressable/uri"
 
 module BrexitCheckerHelper
-  def format_criteria_list(criteria)
-    criteria.map { |criterion| { readable_text: criterion.text } }
+  def extract_criteria(object)
+    case object
+    when Array
+      object.flat_map { |element| extract_criteria(element) }
+    when Hash
+      extract_criteria(object.fetch("any_of", [])) + extract_criteria(object.fetch("all_of", []))
+    when String
+      object
+    end
   end
 
-  def format_action_audiences(actions)
+  def select_criteria(criteria, actions)
+    criteria.select do |criterion|
+      actions.any? do |action|
+        extract_criteria(action.criteria).include? criterion.key
+      end
+    end
+  end
+
+  def format_criteria(criteria, actions)
+    select_criteria(criteria, actions).map { |criterion| { readable_text: criterion.text } }
+  end
+
+  def format_action_audiences(actions, criteria)
     business, citizen = actions.partition { |action| action.audience == "business" }
+    business_groups = format_business_group(business, criteria)
+    citizens_groups = format_citizen_groups(citizen, criteria)
     business_results = {
       heading: I18n.t("brexit_checker.results.audiences.business.heading"),
-      actions: order_actions_by_priority(business),
-    }
+      groups: business_groups,
+    } if business_groups
     citizen_results = {
       heading: I18n.t("brexit_checker.results.audiences.citizen.heading"),
-      actions: order_actions_by_priority(citizen),
-    }
+      groups: citizens_groups,
+    } if citizens_groups
     [business_results, citizen_results]
   end
 
-  def order_actions_by_priority(action_group)
-    action_group.sort_by.with_index do |action, index|
+  def format_business_group(actions, criteria)
+    business_actions = order_actions_by_priority(actions)
+    if business_actions.any?
+      [{
+        heading: nil,
+        priority: 10,
+        actions: business_actions,
+        criteria: format_criteria(criteria, business_actions),
+      }]
+    else
+      []
+    end
+  end
+
+  def format_citizen_groups(actions, criteria)
+    all_groups = actions.map(&:groups).flatten.uniq
+    citizen_groups = all_groups.map do |group|
+      grouped_actions = format_citizen_actions(actions, group["key"])
+      {
+        heading: group["text"],
+        priority: group["priority"],
+        actions: grouped_actions,
+        criteria: format_criteria(criteria, grouped_actions),
+      } if grouped_actions.any?
+    end
+    order_citizen_groups(citizen_groups)
+  end
+
+  def format_citizen_actions(actions, group_key)
+    grouped_actions = actions.select { |action| action.result_groups.include?(group_key) }
+    order_actions_by_priority(grouped_actions)
+  end
+
+  def order_citizen_groups(citizen_groups)
+    citizen_groups.sort_by { |group| group[:priority] }.reverse
+  end
+
+  def order_actions_by_priority(actions)
+    actions.sort_by.with_index do |action, index|
       [-action.priority, index]
     end
   end

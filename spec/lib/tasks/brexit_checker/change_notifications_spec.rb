@@ -32,6 +32,8 @@ RSpec.describe "Change notifications" do
           FactoryBot.build(
             :brexit_checker_action,
             id: "addition",
+            audience: "citizen",
+            result_groups: "visiting-eu",
             criteria: [
               { "all_of" => %w(nationality-eu living-uk) },
             ],
@@ -39,6 +41,8 @@ RSpec.describe "Change notifications" do
           FactoryBot.build(
             :brexit_checker_action,
             id: "content_change",
+            audience: "citizen",
+            result_groups: "visiting-eu",
             criteria: [
               {
                 "all_of" => [

@@ -1,0 +1,29 @@
+---
+groups:
+- key: visiting-eu
+  text: Visiting the EU
+  priority: 9
+- key: visiting-uk
+  text: Visiting the UK
+  priority: 8
+- key: visiting-ie
+  text: Visiting Ireland
+  priority: 7
+- key: living-eu
+  text: Living in the EU
+  priority: 6
+- key: living-ie
+  text: Living in Ireland
+  priority: 6
+- key: living-uk
+  text: Living in the UK
+  priority: 6
+- key: working-uk
+  text: Working in the UK
+  priority: 5
+- key: studying-eu
+  text: Studying in the EU
+  priority: 4
+- key: studying-uk
+  text: Studying in the UK
+  priority: 3
