@@ -56,6 +56,10 @@ questions:
     description: |
       <p>This also includes Iceland, Liechtenstein, Norway and Switzerland.</p>
       <p>Business travel includes activities such as travelling for meetings and conferences, providing services, and touring art or music.</p>
+    detail_text: |
+      <p>After Brexit, the rules for business travel to the EU will change.</p>
+      <p>We need to know if you travel to the EU for business so we can show you what you need to do before you travel.</p>
+
     options:
       - label: "Yes"
         value: travel-eu-business
@@ -79,6 +83,9 @@ questions:
     type: multiple
     text: 'Where do you plan to travel for leisure and tourism?'
     hint_text: Select all that apply. If you do not plan to travel, select next.
+    detail_text: |
+      <p>After Brexit, the rules for travelling abroad will change.</p>
+      <p>We need to know where you plan to go so we can show you what you need to do before you travel.</p>
     options:
       - label: To the UK
         value: visiting-uk
@@ -103,6 +110,9 @@ questions:
     type: multiple
     text: 'Do you plan to do either of the following when travelling?'
     hint_text: "Select all that apply. If neither apply, select next."
+    detail_text: |
+      <p>After Brexit, the rules for driving abroad and taking a pet will change.</p>
+      <p>We need to know about your plans so we can show you what you need to do before you travel.</p>
     options:
       - label: Drive
         value: visiting-driving
@@ -159,12 +169,14 @@ questions:
     text: "Do you own or help to run a UK business or organisation?"
     description: |
       <p>This includes sole traders (self-employed), limited companies, and small and medium enterprises.</p>
+    detail_text: |
+      <p>After Brexit, rules for UK businesses and organisations will change.</p>
+      <p>We need to know if you own or help to run a UK business or organisation so we can show you what you need to do to prepare for Brexit.</p>
     options:
       - label: "Yes"
         value: owns-operates-business-organisation
       - label: "No"
         value: does-not-own-operate-business-organisation
-
   - key: employ-eu-citizens
     criteria:
       - owns-operates-business-organisation

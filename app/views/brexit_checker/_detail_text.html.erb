@@ -1,0 +1,7 @@
+<% unless detail_text.nil? %>
+  <%= render "govuk_publishing_components/components/details", {
+    title: detail_title  || "Why am I being asked this question?"
+  } do %>
+    <%= detail_text.html_safe %>
+  <% end %>
+<% end %>
