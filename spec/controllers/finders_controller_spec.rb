@@ -71,7 +71,7 @@ describe FindersController, type: :controller do
       it "can respond with an atom feed" do
         get :show, params: { slug: "lunch-finder", format: "atom" }
         expect(response.status).to eq(200)
-        expect(response.content_type).to eq("application/atom+xml")
+        expect(response.media_type).to eq("application/atom+xml")
         expect(response).to render_template("finders/show")
         expect(response.headers["Cache-Control"]).to eq("max-age=300, public")
       end
@@ -80,7 +80,7 @@ describe FindersController, type: :controller do
         get :show, params: { slug: "lunch-finder", format: "json" }
 
         expect(response.status).to eq(200)
-        expect(response.content_type).to eq("application/json")
+        expect(response.media_type).to eq("application/json")
       end
 
       it "returns a 406 if an invalid format is requested" do
@@ -184,7 +184,7 @@ describe FindersController, type: :controller do
         get :show, params: { slug: "unpublished-finder", format: "json" }
 
         expect(response.status).to eq(404)
-        expect(response.content_type).to eq("application/json")
+        expect(response.media_type).to eq("application/json")
       end
 
       context "and it was a policy finder page" do
@@ -302,7 +302,7 @@ describe FindersController, type: :controller do
     it "Gives the spelling suggestion and links to it" do
       get :show, params: { slug: path_for(breakfast_finder), format: "json" }
       expect(response.status).to eq(200)
-      expect(response.content_type).to eq("application/json")
+      expect(response.media_type).to eq("application/json")
 
       expect(response.body).to include("cereal")
       expect(response.body).to include("/breakfast-finder?keywords=cereal")

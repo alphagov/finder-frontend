@@ -10,10 +10,10 @@ gem "govuk_ab_testing", "~> 2.4.1"
 gem "govuk_app_config", "~> 2.0.1"
 gem "govuk_document_types", "~> 0.9.2"
 gem "govuk_publishing_components", "~> 21.9.0"
-gem "rails", "~> 5.2.3"
+gem "rails", "~> 6.0.0"
 gem "slimmer", "~> 13.2.0"
 
-gem "sass-rails", "~> 5.1"
+gem "sass-rails", "~> 6.0.0"
 gem "uglifier", "~> 4.2"
 gem "whenever", "~> 1.0.0"
 
@@ -33,8 +33,9 @@ group :development, :test do
   gem "govuk-lint", "~> 4.2.0"
   gem "govuk_schemas", "~> 4.0"
   gem "jasmine-rails"
+  gem "listen"
   gem "pry-byebug"
-  gem "rspec-rails", "~> 3.9.0"
+  gem "rspec-rails", "~> 4.0.0.beta3"
 end
 
 group :test do

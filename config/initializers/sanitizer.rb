@@ -1,1 +1,1 @@
-ActionView::Base.sanitized_allowed_tags << "mark"
+Rails::Html::WhiteListSanitizer.allowed_tags << "mark"
