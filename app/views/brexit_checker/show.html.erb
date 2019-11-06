@@ -67,7 +67,8 @@
         %>
         <%= render 'detail_text', {
             detail_text: @current_question.detail_text,
-            detail_title: @current_question.detail_title
+            detail_title: @current_question.detail_title,
+            question_key: @current_question.key
           }
         %>
         <div class="govuk-form-footer">
