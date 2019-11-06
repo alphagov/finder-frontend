@@ -4,10 +4,17 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}; // if this ; is omitted, none
 (function (Modules) {
   function Expander () {}
 
+  /* This JavaScript provides two functional enhancements to the expander component:
+    1) A count that shows how many items have been used in the expander container
+    2) Open/closing of the content
+  */
+
   Expander.prototype.start = function ($module) {
     this.$module = $module[0] // this is the expander element
     this.$toggle = this.$module.querySelector('.js-toggle')
     this.$content = this.$module.querySelector('.js-content')
+    this.$allInteractiveElements = this.$content.querySelectorAll('select, input[type=text]')
+    this.selectedElements = []
 
     var openOnLoad = this.$module.getAttribute('data-open-on-load') === 'true'
 
@@ -16,6 +23,41 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}; // if this ; is omitted, none
     this.$module.toggleContent = this.toggleContent.bind(this)
     this.$toggleButton = this.$module.querySelector('.js-button')
     this.$toggleButton.addEventListener('click', this.$module.toggleContent)
+
+    var selectedString = this.selectedString()
+    if (selectedString) {
+      this.attachSelectedCounter(selectedString)
+      // expand the content
+      this.$toggleButton.click()
+    }
+
+    // Attach listener function to update selected count
+    var boundChangeEvents = this.bindChangeEvents.bind(this)
+    boundChangeEvents()
+  }
+
+  Expander.prototype.bindChangeEvents = function (e) {
+    for (var i = 0; i < this.$allInteractiveElements.length; i++) {
+      var $el = this.$allInteractiveElements[i]
+      // for selects we only need to listen to the change event
+      if ($el.tagName === 'SELECT') {
+        $el.addEventListener('change', this.updateSelectedCount.bind(this))
+      }
+      // but for inputs we need both change and enter key event
+      if ($el.tagName === 'INPUT') {
+        $el.addEventListener('change', this.handleInputEvent.bind(this))
+        $el.addEventListener('keyup', this.handleInputEvent.bind(this))
+      }
+    }
+  }
+
+  Expander.prototype.handleInputEvent = function (e) {
+    var ENTER_KEY = 13
+    // we only want to fire when ENTER key is pressed or
+    // user selected a different element
+    if (e.keyCode === ENTER_KEY || e.type === 'change') {
+      this.updateSelectedCount()
+    }
   }
 
   Expander.prototype.replaceHeadingSpanWithButton = function (expanded) {
@@ -39,6 +81,49 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}; // if this ; is omitted, none
     } else {
       this.$toggleButton.setAttribute('aria-expanded', false)
       this.$content.classList.remove('app-c-expander__content--visible')
+    }
+  }
+
+  Expander.prototype.attachSelectedCounter = function attachSelectedCounter (selectedString) {
+    var $selectedCounter = document.createElement('div')
+    $selectedCounter.classList.add('app-c-expander__selected-counter')
+    $selectedCounter.classList.add('js-selected-counter')
+    $selectedCounter.innerHTML = selectedString
+    this.$toggleButton.parentNode.insertBefore($selectedCounter, this.$toggleButton.nextSibling)
+  }
+
+  Expander.prototype.updateSelectedCount = function updateSelectedCount () {
+    var selectedString = this.selectedString()
+    var selectedStringElement = this.$module.querySelector('.js-selected-counter')
+    if (selectedString) {
+      if (selectedStringElement) {
+        selectedStringElement.innerHTML = selectedString
+      } else {
+        this.attachSelectedCounter(selectedString)
+      }
+    } else if (selectedStringElement) {
+      selectedStringElement.parentNode.removeChild(selectedStringElement)
+    }
+  }
+
+  Expander.prototype.selectedString = function selectedString () {
+    this.getAllSelectedElements()
+    var count = this.selectedElements.length
+    var selectedString = false
+    if (count > 0) {
+      selectedString = count + ' selected'
+    }
+
+    return selectedString
+  }
+
+  Expander.prototype.getAllSelectedElements = function getAllSelectedElements () {
+    this.selectedElements = []
+    var that = this
+    for (var i = 0; i < this.$allInteractiveElements.length; i++) {
+      if (this.$allInteractiveElements[i].value.length > 0) {
+        that.selectedElements.push(i)
+      }
     }
   }
 
