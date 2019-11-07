@@ -69,7 +69,7 @@ private
       sort_options_markup: render_component("finders/sort_options", sort_presenter.to_hash),
       next_and_prev_links: render_component("govuk_publishing_components/components/previous_and_next_navigation", pagination_presenter.next_and_prev_links),
       suggestions: render_component("finders/spelling_suggestion", suggestions: spelling_suggestion_presenter.suggestions),
-      public_timestamp_errors: search_query.date_errors_hash,
+      errors: search_query.errors_hash,
     }
   end
 

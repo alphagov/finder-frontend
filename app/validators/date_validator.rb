@@ -1,31 +1,28 @@
-class DateValidator < ActiveModel::Validator
+class DateValidator
   def initialize(query)
     @query = query
   end
 
-  def validate
-    validate_from_date
-    validate_to_date
+  def validate_to_date
+    query.errors.add(:to_date, error_message) if invalid_date?(to_date)
   end
 
-  def error_hash
+  def validate_from_date
+    query.errors.add(:from_date, error_message) if invalid_date?(from_date)
+  end
+
+  def date_errors_hash
     {
-      from: invalid_date?(from_date),
-      to:   invalid_date?(to_date),
+      date_type => {
+        from: invalid_date?(from_date),
+        to:   invalid_date?(to_date),
+      },
     }
   end
 
 private
 
   attr_reader :query
-
-  def validate_from_date
-    query.errors.add(:from_date, error_message) if invalid_date?(from_date)
-  end
-
-  def validate_to_date
-    query.errors.add(:to_date, error_message) if invalid_date?(to_date)
-  end
 
   def from_date
     query.filter_params.dig(date_type, :from)
@@ -44,7 +41,7 @@ private
   end
 
   def invalid_date?(user_input)
-    user_input.present? && DateParser.parse(user_input).nil?
+    user_input.present? && DateParser.new.parse(user_input).nil?
   end
 
   def error_message

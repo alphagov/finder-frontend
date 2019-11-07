@@ -351,8 +351,8 @@ describe FindersController, type: :controller do
       get :show, params: { slug: "search/all", format: "json", public_timestamp: { from: "99-99-99", to: "01-01-01" } }
       json_response = JSON.parse(response.body)
 
-      expect(json_response["public_timestamp_errors"]["from"]).to be true
-      expect(json_response["public_timestamp_errors"]["to"]).to be false
+      expect(json_response["errors"]["public_timestamp"]["from"]).to be true
+      expect(json_response["errors"]["public_timestamp"]["to"]).to be false
     end
 
     it "should detect bad 'to' dates" do
@@ -361,8 +361,8 @@ describe FindersController, type: :controller do
       get :show, params: { slug: "search/all", format: "json", public_timestamp: { from: "01-01-01", to: "99-99-99" } }
 
       json_response = JSON.parse(response.body)
-      expect(json_response["public_timestamp_errors"]["from"]).to be false
-      expect(json_response["public_timestamp_errors"]["to"]).to be true
+      expect(json_response["errors"]["public_timestamp"]["from"]).to be false
+      expect(json_response["errors"]["public_timestamp"]["to"]).to be true
     end
   end
 

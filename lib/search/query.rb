@@ -7,7 +7,7 @@ module Search
     attr_reader :filter_params
 
     validate do |query|
-      DateValidator.new(query).validate
+      ParamValidator.new(query).validate
     end
 
     def initialize(content_item, filter_params, ab_params: {}, override_sort_for_feed: false)
@@ -27,8 +27,8 @@ module Search
       @search_results ||= fetch_search_response(content_item)
     end
 
-    def date_errors_hash
-      DateValidator.new(self).error_hash
+    def errors_hash
+      ParamValidator.new(self).errors_hash
     end
 
   private
