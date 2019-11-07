@@ -429,7 +429,7 @@ actions:
     the UK.
   lead_time: Do it as soon as possible
   guidance_prompt: More information
-  guidance_link_text: Get your qualification from the EU, Switzerland,Norway, Iceland
+  guidance_link_text: Get your qualification from the EU, Switzerland, Norway, Iceland
     or Liechtenstein recognised in the UK after Brexit
   guidance_url: https://www.gov.uk/guidance/get-your-eea-qualification-recognised-in-the-uk-after-brexit
   criteria:
@@ -713,7 +713,7 @@ actions:
 - id: T021
   priority: 5
   title: Check what documents your employees need to make and operate aircraft for
-    the gas and oil industry in the EU, Switzerland, Norway, Iceland or Liechtenstein.
+    the gas and oil industry in the EU, Switzerland, Norway, Iceland or Liechtenstein
   consequence: You will not be able to make or operate aircraft for the gas and oil
     industry in these locations without the right documents.
   lead_time: Up to one week

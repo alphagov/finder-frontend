@@ -8,7 +8,7 @@ questions:
         value: nationality-uk
       - label: Irish
         value: nationality-ie
-      - label: 'Another EU country, Iceland, Liechtenstein, Norway or Switzerland'
+      - label: "Another EU country, or Switzerland, Norway, Iceland or Liechtenstein"
         value: nationality-eu
       - label: Somewhere else
         value: nationality-row
@@ -21,7 +21,7 @@ questions:
         value: living-uk
       - label: Ireland
         value: living-ie
-      - label: Another EU country, Iceland, Liechtenstein, Norway or Switzerland
+      - label: "Another EU country, or Switzerland, Norway, Iceland or Liechtenstein"
         value: living-eu
       - label: Somewhere else
         value: living-row
@@ -37,7 +37,7 @@ questions:
             value: working-uk
           - label: "Work in Ireland"
             value: working-ie
-          - label: "Work in another EU country, Iceland, Liechtenstein, Norway or Switzerland"
+          - label: "Work in another EU country, or Switzerland, Norway, Iceland or Liechtenstein"
             value: working-eu
       - label: Study
         options:
@@ -45,7 +45,7 @@ questions:
             value: studying-uk
           - label: "Study in Ireland"
             value: studying-ie
-          - label: "Study in another EU country, Iceland, Liechtenstein, Norway or Switzerland"
+          - label: "Study in another EU country, or Switzerland, Norway, Iceland or Liechtenstein"
             value: studying-eu
 
   - key: travelling-business
@@ -54,7 +54,7 @@ questions:
     criteria:
       - living-uk
     description: |
-      <p>This also includes Iceland, Liechtenstein, Norway and Switzerland.</p>
+      <p>This also includes Switzerland, Norway, Iceland and Liechtenstein.</p>
       <p>Business travel includes activities such as travelling for meetings and conferences, providing services, and touring art or music.</p>
     detail_text: |
       <p>After Brexit, the rules for business travel to the EU will change.</p>
@@ -93,7 +93,7 @@ questions:
       - label: To Ireland
         value: visiting-ie
         exclude_if: living-ie
-      - label: To another EU country, Iceland, Liechtenstein, Norway or Switzerland
+      - label: To another EU country, or Switzerland, Norway, Iceland or Liechtenstein
         value: visiting-eu
         exclude_if: living-eu
       - label: To the rest of the world
@@ -149,7 +149,7 @@ questions:
 
   - key: join-family-uk
     type: single
-    text: "Do you plan to join an EU, EEA, Swiss or UK family member in the UK?"
+    text: "Do you plan to join a family member in the UK who's from the UK, EU, Switzerland, Norway, Iceland or Liechtenstein?"
     criteria:
       - all_of:
         - any_of:
@@ -183,7 +183,7 @@ questions:
     type: "single"
     text: "Do you employ anyone from another European country?"
     description: |
-      <p>This includes <a href="/eu-eea">countries in the EU</a> and Norway, Switzerland, Iceland and Liechtenstein.</p>
+      <p>This includes EU countries and Switzerland, Norway, Iceland and Liechtenstein.</p>
     options:
       - label: "Yes"
         value: employ-eu-citizens
@@ -196,7 +196,7 @@ questions:
     type: "single_wrapped"
     text: "Do you exchange personal data with another organisation in Europe?"
     description: |
-      <p>This includes <a href="/eu-eea">organisations located in the EU</a> and Norway, Iceland and Liechtenstein.</p>
+      <p>This includes organisations located in the EU, Norway, Iceland and Liechtenstein.</p>
       <p>Personal data includes customers’ addresses, staff working hours or information you give to a delivery company.</p>
     options:
       - label: "Yes"
