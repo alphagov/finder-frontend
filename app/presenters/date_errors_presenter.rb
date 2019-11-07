@@ -28,6 +28,6 @@ private
   end
 
   def error_message
-    "Please enter a valid date"
+    "Enter a real date"
   end
 end

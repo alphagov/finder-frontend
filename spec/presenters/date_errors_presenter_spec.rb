@@ -16,7 +16,7 @@ describe DateErrorsPresenter do
   end
 
   it "#present" do
-    error_message = "Please enter a valid date"
+    error_message = "Enter a real date"
     expect(presenter_bad_from_date.present("99/99/99")).to eq(error_message)
     expect(presenter_bad_from_date.present("01/01/01")).to be nil
   end
