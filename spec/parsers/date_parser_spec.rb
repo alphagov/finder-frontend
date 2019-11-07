@@ -32,6 +32,7 @@ describe DateParser do
             "21 January 2014" => Date.new(2014, 1, 21),
             "september 2014" => Date.new(2014, 9, 1),
             "2008" => Date.new(2008, 1, 1),
+            "1234" => Date.new(1234, 1, 1),
             "2004/6/1" => Date.new(2004, 6, 1),
             "09/2013" => Date.new(2013, 9, 1),
             "22 Sept 2014" => Date.new(2014, 9, 22),

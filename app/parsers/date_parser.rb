@@ -17,9 +17,8 @@ class DateParser
     if could_be_month_name?(date_string)
       date = process_month_name_inputs(date_string)
     end
-
     date ||= Chronic.parse(date_string, guess: :begin, endian_precedence: :little)
-    date.to_date if date
+    Date.new(date.year, date.month, date.day) if date
   end
 
 private
