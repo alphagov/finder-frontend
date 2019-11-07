@@ -32,12 +32,17 @@ describe DateParser do
             "21 January 2014" => Date.new(2014, 1, 21),
             "september 2014" => Date.new(2014, 9, 1),
             "2008" => Date.new(2008, 1, 1),
+            "1234" => Date.new(1234, 1, 1),
             "2004/6/1" => Date.new(2004, 6, 1),
             "09/2013" => Date.new(2013, 9, 1),
             "22 Sept 2014" => Date.new(2014, 9, 22),
+            "010101" => Date.new(2001, 1, 1),
 
-            # Invalid date
+            # Invalid dates that should raise an error
             "31/15/14" => nil,
+            "1@" => nil,
+            "20120" => nil,
+            "1" => nil,
 
             # Dates should be interpretted as UK not US
             "01/11/2014" => Date.new(2014, 11, 1),
@@ -49,7 +54,7 @@ describe DateParser do
             "" => nil,
             nil => nil,
 
-            ## Months only
+            # Months only
             "January"   => Date.new(this_year, 1, 1),
             "February"  => Date.new(this_year, 2, 1),
             "March"     => Date.new(this_year, 3, 1),
@@ -66,19 +71,19 @@ describe DateParser do
 
   dates.each_pair do |input, expected|
     it "returns the correct date for #{input}" do
-      expect(DateParser.parse(input)).to eql(expected)
+      expect(DateParser.new.parse(input)).to eql(expected)
     end
   end
 
   dates.each_pair do |input, expected|
     it "returns the correct date for #{input} with trailing whitespace" do
-      expect(DateParser.parse("#{input} ")).to eql(expected)
+      expect(DateParser.new.parse("#{input} ")).to eql(expected)
     end
   end
 
   dates.each_pair do |input, expected|
     it "returns the correct date for #{input} with preceeding whitespace" do
-      expect(DateParser.parse(" #{input}")).to eql(expected)
+      expect(DateParser.new.parse(" #{input}")).to eql(expected)
     end
   end
 
@@ -94,7 +99,6 @@ describe DateParser do
     pretend_today = Time.zone.local(year, 3, 11)
     allow(Time).to receive(:now).and_return(pretend_today)
 
-
-    expect(DateParser.parse(date_to_parse)).to eql(expected_date)
+    expect(DateParser.new.parse(date_to_parse)).to eql(expected_date)
   end
 end
