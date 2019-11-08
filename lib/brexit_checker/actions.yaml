@@ -23,7 +23,8 @@ actions:
   audience: citizen
 - id: S003
   priority: 5
-  title: Apply for a permit to join your EU or EEA family member in the UK
+  title: Apply for a permit to join your family member in the UK if they are from
+    the EU, Norway, Iceland or Liechtenstein
   title_url: https://www.gov.uk/family-permit
   consequence: You may not be able to travel to the UK if you do not have the right
     permit.
@@ -225,7 +226,7 @@ actions:
 - id: S022
   priority: 2
   title: Check if you need an International Driving Permit before you drive in the
-    EU, EEA or Switzerland
+    EU, Switzerland, Norway, Iceland or Liechtenstein
   consequence: You may be driving illegally - you could get a fine, or your vehicle
     could be seized.
   lead_time: Do it as soon as possible
@@ -243,7 +244,7 @@ actions:
 - id: S023
   priority: 2
   title: Get motor insurance green cards for your vehicle, caravan or trailer if they're
-    registered in the UK and you'll be driving in the EU or EEA
+    registered in the UK and you'll be driving in the EU, Norway, Iceland or Liechtenstein.
   consequence: You could get a fine or your vehicle could be seized if you do not
     have a motor insurance green card to prove you're insured.
   lead_time: It takes up to one month
@@ -397,8 +398,8 @@ actions:
     to continue living or working in the UK as you do now.
   lead_time: Do it as soon as possible
   guidance_prompt: Read the guidance
-  guidance_link_text: Applying to the EU Settlement Scheme if you're not an EU, EEA
-    or Swiss citizen
+  guidance_link_text: Applying to the EU Settlement Scheme if you're not a citizen
+    of the EU, Switzerland, Norway, Iceland or Liechtenstein
   guidance_url: https://www.gov.uk/settled-status-eu-citizens-families/not-EU-EEA-Swiss-citizen
   criteria:
   - all_of:
@@ -409,7 +410,7 @@ actions:
 - id: S034
   priority: 8
   title: Check if you need a visa or work permit and meet the professional requirements
-    to travel to the EU, Iceland, Liechtenstein, Norway or Switzerland for work
+    to travel to the EU, Switzerland, Norway, Iceland or Liechtenstein for work
   consequence: You may not be able to enter or work in some countries if you do not
     meet the requirements.
   lead_time: Do it as soon as possible
@@ -424,11 +425,12 @@ actions:
   title: Check if you need to get your EU professional qualifications recognised in
     the UK
   consequence: You will not be able to work in a regulated profession if your qualification
-    from the EU, Iceland, Liechtenstein, Norway or Switzerland is not recognised in
+    from the EU, Switzerland, Norway, Iceland or Liechtenstein is not recognised in
     the UK.
   lead_time: Do it as soon as possible
   guidance_prompt: More information
-  guidance_link_text: Get your EEA qualification recognised in the UK after Brexit
+  guidance_link_text: Get your qualification from the EU, Switzerland, Norway, Iceland
+    or Liechtenstein recognised in the UK after Brexit
   guidance_url: https://www.gov.uk/guidance/get-your-eea-qualification-recognised-in-the-uk-after-brexit
   criteria:
   - all_of:
@@ -438,8 +440,8 @@ actions:
 - id: S036
   priority: 5
   title: Get motor insurance green cards or other proof of insurance for your vehicle,
-    caravan or trailer if they are registered in the EU, EEA, Andorra, Serbia or Switzerland
-    and you will be driving in the UK
+    caravan or trailer if they are registered in the EU, Switzerland, Norway, Iceland,
+    Liechtenstein, Andorra or Serbia, and you will be driving in the UK
   consequence: You could get a fine or your vehicle could be seized if you cannot
     prove that you are insured.
   lead_time: Do it before you travel
@@ -537,8 +539,8 @@ actions:
 - id: T007
   priority: 8
   title: Check if you need to change how you do accounting and reporting
-  consequence: You risk breaching reporting requirements in EEA countries if you do
-    not make any changes you need to.
+  consequence: You risk breaching reporting requirements in the EU, Norway, Iceland
+    or Liechtenstein if you do not make any changes you need to.
   lead_time: Do it as soon as possible
   guidance_prompt: More information
   guidance_link_text: Accounting if there's a no-deal Brexit
@@ -597,10 +599,11 @@ actions:
   audience: business
 - id: T012
   priority: 5
-  title: Check if you need permission to sell someone's intellectual property in the
-    EEA, if you've already sold it in the UK
-  consequence: You risk not being able to export your intellectual property protected
-    products from the UK to the EEA without the right permission.
+  title: Check if you need the permission of the intellectual copyright holder to
+    continue to parallel export IP-protected goods from the UK to the EU, Norway,
+    Iceland or Liechtenstein
+  consequence: You risk not being able to continue to parallel export IP-protected
+    products from the UK to these locations if you do not have permission.
   lead_time: Do it as soon as possible
   guidance_prompt: More information
   guidance_link_text: Brexit and exhaustion of intellectual property rights
@@ -710,9 +713,9 @@ actions:
 - id: T021
   priority: 5
   title: Check what documents your employees need to make and operate aircraft for
-    the gas and oil industry in the EU, EEA and Switzerland
+    the gas and oil industry in the EU, Switzerland, Norway, Iceland or Liechtenstein
   consequence: You will not be able to make or operate aircraft for the gas and oil
-    industry in the EU, EEA and Switzerland without the right documents.
+    industry in these locations without the right documents.
   lead_time: Up to one week
   guidance_prompt: More information
   guidance_link_text: Prepare to work and operate in the European aviation sector
@@ -1186,8 +1189,8 @@ actions:
   audience: business
 - id: T068
   priority: 8
-  title: Get a legal representative in the UK, EU or EEA if you carry out clinical
-    trials
+  title: Get a legal representative in the UK, EU, Norway, Iceland or Liechtenstein
+    if you carry out clinical trials
   consequence: You will not be able to carry out clinical trials without a legal representative.
   lead_time: Do it as soon as possible
   guidance_prompt: More information
@@ -1300,8 +1303,9 @@ actions:
   title: Find out if a no deal Brexit will affect your business on the Financial Conduct
     Authority’s website
   title_url: https://www.fca.org.uk/firms/preparing-for-brexit
-  consequence: Financial institutions that carry out business between the UK and EEA
-    risk not being able to operate if they do not have the right plan in place.
+  consequence: Financial institutions that carry out business between the UK and the
+    EU, Norway, Iceland or Liechtenstein risk not being able to operate if they do
+    not have the right plan in place.
   lead_time: Do it as soon as possible
   guidance_prompt: More information
   guidance_link_text: Information for financial institutions if there’s no Brexit
@@ -1370,8 +1374,9 @@ actions:
   audience: business
 - id: T081
   priority: 5
-  title: Check what you need to do if you're a lawyer with an EU or EEA qualification
-    to still work or provide legal services in the UK
+  title: Check what you need to do to continue to work or provide legal services in
+    the UK if you're a lawyer with a qualification from the EU, Norway, Iceland or
+    Liechtenstein
   consequence: You risk not being able to continue working or providing legal services
     in the UK if you do not prepare.
   lead_time: Do it as soon as possible
@@ -1530,12 +1535,13 @@ actions:
 - id: T094
   priority: 4
   title: Check if your employees need to make social security contributions in the
-    UK as well as in the EU, EEA or Switzerland
+    UK as well as in the EU, Switzerland, Norway, Iceland or Liechtenstein
   consequence: Your employees may not be entitled to healthcare or benefits in the
     country they work in.
   lead_time: Do it as soon as possible
   guidance_prompt: More information
-  guidance_link_text: Social security contributions for EU, EEA or Swiss workers
+  guidance_link_text: Social security contributions for workers in the EU, Switzerland,
+    Norway, Iceland or Liechtenstein
   guidance_url: https://www.gov.uk/guidance/social-security-contributions-for-uk-and-eu-workers-if-the-uk-leaves-the-eu-with-no-deal
   criteria:
   - provide-services-do-business-in-eu
