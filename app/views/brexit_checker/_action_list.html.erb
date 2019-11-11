@@ -17,11 +17,11 @@
         <% end %>
       </p>
       <% if action.lead_time.present? %>
-        <p class="govuk-body govuk-!-font-weight-bold brexit-checker-result__leadtime">
+        <div class="govuk-body govuk-!-font-weight-bold brexit-checker-result__leadtime">
           <div class="govuk-inset-text">
             <%= action.lead_time %>
           </div>
-        </p>
+        </div>
       <% end %>
 
       <% if action.consequence.present? %>
