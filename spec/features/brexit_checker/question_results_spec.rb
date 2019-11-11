@@ -99,9 +99,9 @@ RSpec.feature "Brexit Checker workflow", type: :feature do
     answer_question("nationality", "British")
     answer_question("living", "UK")
     answer_question("employment")
-    answer_question("travelling-business", "Yes")
+    answer_question("travelling-business", "No")
     answer_question("travelling", "To another EU country, or Switzerland, Norway, Iceland or Liechtenstein")
-    answer_question("activities", "Take your pet")
+    answer_question("activities", "Take your pet or an assistance dog")
   end
 
   def then_i_should_see_the_results_page
