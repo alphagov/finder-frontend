@@ -28,15 +28,19 @@ module BrexitCheckerHelper
     business, citizen = actions.partition { |action| action.audience == "business" }
     business_groups = format_business_group(business, criteria)
     citizens_groups = format_citizen_groups(citizen, criteria)
-    business_results = {
-      heading: I18n.t("brexit_checker.results.audiences.business.heading"),
-      groups: business_groups,
-    } if business_groups
-    citizen_results = {
-      heading: I18n.t("brexit_checker.results.audiences.citizen.heading"),
-      groups: citizens_groups,
-    } if citizens_groups
-    [business_results, citizen_results]
+    business_results = if !business_groups.empty?
+                         {
+                           heading: I18n.t("brexit_checker.results.audiences.business.heading"),
+                           groups: business_groups,
+                         }
+                       end
+    citizen_results = if !citizens_groups.empty?
+                        {
+                          heading: I18n.t("brexit_checker.results.audiences.citizen.heading"),
+                          groups: citizens_groups,
+                        }
+                      end
+    [business_results, citizen_results].compact
   end
 
   def format_business_group(actions, criteria)
@@ -57,12 +61,14 @@ module BrexitCheckerHelper
     all_groups = actions.map(&:groups).flatten.uniq
     citizen_groups = all_groups.map do |group|
       grouped_actions = format_citizen_actions(actions, group["key"])
-      {
-        heading: group["text"],
-        priority: group["priority"],
-        actions: grouped_actions,
-        criteria: format_criteria(criteria, grouped_actions),
-      } if grouped_actions.any?
+      if grouped_actions.any?
+        {
+          heading: group["text"],
+          priority: group["priority"],
+          actions: grouped_actions,
+          criteria: format_criteria(criteria, grouped_actions),
+        }
+      end
     end
     order_citizen_groups(citizen_groups)
   end

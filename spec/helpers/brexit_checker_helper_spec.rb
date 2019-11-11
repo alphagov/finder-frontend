@@ -35,7 +35,7 @@ describe BrexitCheckerHelper, type: :helper do
               priority: 10,
               actions: [action3, action4],
               criteria: [],
-            }]
+            }],
           },
           {
             heading: I18n.t("brexit_checker.results.audiences.citizen.heading"),

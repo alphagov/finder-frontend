@@ -12,13 +12,10 @@ describe BrexitChecker::ConvertCsvToYaml::GoogleDriveCsvDownloader do
   end
 
   describe "#download" do
-    before do
+    it "downloads a CSV from Google Drive to a given location" do
       allow($stdout).to receive(:puts)
       api_url = "https://www.googleapis.com/drive/v3/files/#{sheet_id}/export?alt=media&mimeType=text/csv"
       stub_request(:get, api_url).to_return(body: File.open(csv_to_download))
-    end
-
-    it "downloads a CSV from Google Drive to a given location" do
       allow(Google::Auth::ClientId).to receive(:from_file).and_return(client_id)
       allow_any_instance_of(Google::Auth::UserAuthorizer).to receive(:get_credentials)
                                                          .and_return(user_refresh_credentials)
