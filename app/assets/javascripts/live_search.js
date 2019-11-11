@@ -297,6 +297,7 @@
     var liveSearch = this
     if (typeof cachedResultData === 'undefined') {
       this.showLoadingIndicator()
+      this.facetsLoadingIndicator(true)
       return $.ajax({
         url: this.action,
         data: this.state,
@@ -327,6 +328,16 @@
 
   LiveSearch.prototype.showLoadingIndicator = function showLoadingIndicator () {
     this.$loadingBlock.text('Loading...').show()
+  }
+
+  LiveSearch.prototype.facetsLoadingIndicator = function facetsLoadingIndicator (loading) {
+    if (loading) {
+      this.$facetWrapper.addClass('facets-loading')
+      $('<div class="facets__loader">Loading...</div>').appendTo(this.$facetWrapper)
+    } else {
+      this.$facetWrapper.removeClass('facets-loading')
+        .find('.loader').remove()
+    }
   }
 
   LiveSearch.prototype.showErrorIndicator = function showErrorIndicator () {
@@ -381,6 +392,7 @@
     // in application.js:31
     var $facetElementsRequiringJavascript = $(this.$facetWrapper).find('.js-required')
     $facetElementsRequiringJavascript.show()
+    this.facetsLoadingIndicator(false)
   }
 
   LiveSearch.prototype.restoreBooleans = function restoreBooleans () {

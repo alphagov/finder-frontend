@@ -382,3 +382,42 @@ mark {
   margin-bottom: govuk-spacing(7);
   padding-bottom: govuk-spacing(0);
 }
+
+.facets__loader {
+  visibility: visible;
+  border-radius: 50%;
+  width: 64px;
+  height: 64px;
+  border: 6px solid rgba(0, 0, 0, 0.1);
+  border-top: 6px solid #555;
+  animation: rotating 1.2s infinite cubic-bezier(0.785, 0.135, 0.15, 0.86);
+  position: absolute;
+  top:0;
+  left:0;
+  right: 0;
+  margin: auto;
+  z-index: 2;
+  opacity: 1;
+  text-indent: -9999px;
+}
+
+.facets-loading {
+  position: relative;
+}
+
+.facets-loading:after {
+  content: '';
+  position: absolute;
+  background: rgba(255, 255, 255, 0.8);
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+}
+
+@keyframes rotating {
+  100% {
+      transform: rotate(360deg);
+  }
+}
