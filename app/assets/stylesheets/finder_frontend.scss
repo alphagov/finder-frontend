@@ -354,6 +354,12 @@ mark {
   }
 }
 
+.subscription-links--desktop {
+  @include govuk-media-query($until: tablet) {
+    display: none;
+  }
+}
+
 // show spelling suggestion container only if suggestions are available
 .spelling-suggestions {
   margin-top: -(govuk-spacing(1));
@@ -363,7 +369,7 @@ mark {
     margin-top: -(govuk-spacing(2));
     margin-bottom: govuk-spacing(7);
 
-    // We need to keep font size consistently 16 pixels 
+    // We need to keep font size consistently 16 pixels
     // when above the tablet breakpoint
     .govuk-body {
       font-size: 16px;
@@ -372,7 +378,7 @@ mark {
 }
 
 // remove separator and increase spacing between list items
-// later, propose both features as flags in the 
+// later, propose both features as flags in the
 // "document list" govuk-publishing component
 .gem-c-document-list__item {
   border: 0;

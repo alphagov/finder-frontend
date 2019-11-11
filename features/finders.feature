@@ -368,6 +368,11 @@ Feature: Filtering documents
     Then I see email and feed sign up links with filters and order applied
 
   @javascript
+  Scenario: Email links while on mobile
+    When I view the news and communications finder
+    Then I see only one email and feed sign up link on mobile
+
+  @javascript
   Scenario: Policy papers should have three options
     When I view the policy papers and consultations finder
     And I select some document types
