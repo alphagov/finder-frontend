@@ -2,6 +2,5 @@ en:
   brexit_checker:
     stay_updated:
       heading: What you need to do may change
-      description: >
-        <p>Subscribe to updates about changes that may affect you and get a link to your results.</p>
+      description: Subscribe to updates about changes that may affect you and get a link to your results.
       sign_up: Subscribe

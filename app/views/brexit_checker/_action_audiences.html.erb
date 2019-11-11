@@ -2,7 +2,7 @@
   <section class="brexit-checker-actions">
     <% audiences.each do |audience| %>
       <% if audience[:groups].any? %>
-        <header class="govuk-section__header">
+        <header>
           <h2 class="govuk-heading-l action-audience__heading">
             <%= audience[:heading] %>
           </h2>
@@ -11,13 +11,13 @@
           <section class="brexit-checker-actions__group">
             <div class="govuk-grid-row">
               <div class="govuk-grid-column-one-third">
-                <%= render 'results_answers', answers: group[:criteria], heading: group[:heading] %>
+                <%= render 'results_criteria', criteria: group[:criteria], heading: group[:heading] %>
               </div>
               <div class="govuk-grid-column-two-thirds">
                 <%= render "action_list", {
-                  audience_heading: group[:heading],
-                  audience_index: group[:priority],
-                  items: group[:actions]
+                  heading: group[:heading],
+                  priority: group[:priority],
+                  actions: group[:actions]
                 } %>
               </div>
             </div>
@@ -27,9 +27,14 @@
     <% end %>
   </section>
 <% else %>
-  <div class="govuk-grid-row">
-    <div class="govuk-grid-column-full">
-      <p class="govuk-body"><%= t("brexit_checker.action_audiences.no_results") %></p>
+  <div class="brexit-checker__no-results">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-one-third">
+        <%= render 'results_criteria', criteria: format_criteria(@criteria) %>
+      </div>
+      <div class="govuk-grid-column-two-thirds">
+        <p class="govuk-body brexit-checker__no-results-warning"><%= t("brexit_checker.action_audiences.no_results") %></p>
+      </div>
     </div>
   </div>
 <% end %>
