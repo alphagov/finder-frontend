@@ -75,7 +75,7 @@
       link_href: brexit_checker_email_signup_path(c: criteria_keys),
     } %>
 
-    <%= render 'action_audiences', audiences: format_action_audiences(@actions, @criteria), action_based_description: action_based_description %>    
+    <%= render 'action_audiences', criteria: @criteria, audiences: format_action_audiences(@actions, @criteria), action_based_description: action_based_description %>
     <%= render 'stay_updated' %>
   <% end %>
 </div>

@@ -13,22 +13,12 @@
   }
 
   .brexit-checker__content-wrapper {
-    padding: 0 0 15px 0;
+    padding: 0 0 govuk-spacing(3) 0;
     border-bottom: 1px solid $govuk-border-colour;
   }
 
   .brexit-checker__action:last-child .brexit-checker__content-wrapper {
     border-bottom: none;
-  }
-
-  .govuk-section-break--bold {
-    border-bottom: 3px solid $govuk-brand-colour;
-  }
-
-  .govuk-section-break--visible-mobile-only {
-    @include govuk-media-query($from: tablet) {
-      display: none;
-    }
   }
 
   .brexit-checker-actions__description {
@@ -39,16 +29,30 @@
   .brexit-checker-actions__group {
     padding-top: govuk-spacing(6);
     border-bottom: 1px solid $govuk-border-colour;
+
     @include govuk-media-query($until: tablet) {
       padding-top: govuk-spacing(4);
     }
   }
+
   .brexit-checker-actions__group:last-child {
     border-bottom: none;
   }
 
   .stay-updated__heading {
     margin-top: govuk-spacing(6);
+  }
+
+  .brexit-checker__no-results {
+    margin-top: govuk-spacing(6);
+    padding-top: govuk-spacing(6);
+    border-top: 3px solid $govuk-brand-colour;
+    border-bottom: 3px solid $govuk-brand-colour;
+  }
+
+  .brexit-checker__no-results-warning {
+    background-color: govuk-colour("light-grey", $legacy: "grey-4");
+    padding: govuk-spacing(4);
   }
 
   .action-audience__heading {

@@ -1,14 +1,14 @@
-<% items.each.with_index do | action, index | %>
-  <% action_index = "#{audience_index}.#{'%02d' % (index + 1)}"%>
+<% actions.each.with_index do | action, index | %>
+  <% index = "#{priority}.#{'%02d' % (index + 1)}"%>
   <div class="govuk-grid-row brexit-checker__action">
-    <div class="govuk-grid-column-full brexit-checker__content-wrapper">
+    <div class="brexit-checker__content-wrapper">
       <p class="govuk-body govuk-!-font-weight-bold">
         <% if action.title_url.present? %>
           <a
             class="govuk-link"
             href="<%= action.title_url %>"
             data-module="track-click"
-            data-track-action="<%= audience_heading %> <%= action_index %> - Action"
+            data-track-action="<%= heading %> <%= index %> - Action"
             data-track-category="brexit-checker-results"
             data-track-label="<%= action.title_url %>"
           ><%= action.title %></a>
@@ -17,7 +17,7 @@
         <% end %>
       </p>
       <% if action.lead_time.present? %>
-        <div class="govuk-body govuk-!-font-weight-bold brexit-checker-result__leadtime">
+        <div class="govuk-body govuk-!-font-weight-bold">
           <div class="govuk-inset-text">
             <%= action.lead_time %>
           </div>
@@ -38,15 +38,14 @@
       <% if action.guidance_url.present? %>
         <div class="govuk-body govuk-!-font-size-16"> 
           <p>
-            <% prompt = action.guidance_prompt || t("brexit_checker.action_list.guidance_prompt") %>
-            <%= prompt %>:
+            <%= action.guidance_prompt || t("brexit_checker.action_list.guidance_prompt") %>:
           </p>
           <p>
             <a
               href="<%= action.guidance_url %>"
               class="govuk-link"
               data-module="track-click"
-              data-track-action="<%= audience_heading %> <%= action_index %> - Guidance"
+              data-track-action="<%= heading %> <%= index %> - Guidance"
               data-track-category="brexit-checker-results"
               data-track-label="<%= action.guidance_url %>"
             ><%= action.guidance_link_text %></a>

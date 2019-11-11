@@ -20,8 +20,13 @@ module BrexitCheckerHelper
     end
   end
 
-  def format_criteria(criteria, actions)
-    select_criteria(criteria, actions).map { |criterion| { readable_text: criterion.text } }
+  def format_criteria(criteria, actions = [])
+    selected_criteria = if !actions.empty?
+                          select_criteria(criteria, actions)
+                        else
+                          criteria
+                        end
+    selected_criteria.map { |criterion| { readable_text: criterion.text } }
   end
 
   def format_action_audiences(actions, criteria)
@@ -79,7 +84,7 @@ module BrexitCheckerHelper
   end
 
   def order_citizen_groups(citizen_groups)
-    citizen_groups.sort_by { |group| group[:priority] }.reverse
+    citizen_groups.sort_by { |group| -group[:priority] }
   end
 
   def order_actions_by_priority(actions)
