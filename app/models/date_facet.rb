@@ -1,17 +1,29 @@
 class DateFacet < FilterableFacet
-  attr_reader :value
+  attr_reader :date_values
 
   def initialize(facet, value_hash)
-    @value = value_hash || {}
+    @date_values = value_hash || {}
     super(facet)
   end
 
   def user_supplied_from_date
-    @value["from"]
+    date_values["from"]
   end
 
   def user_supplied_to_date
-    @value["to"]
+    date_values["to"]
+  end
+
+  def error_message_to(search_query)
+    if search_query.invalid?
+      search_query.errors[:to_date].first
+    end
+  end
+
+  def error_message_from(search_query)
+    if search_query.invalid?
+      search_query.errors[:from_date].first
+    end
   end
 
   def sentence_fragment
@@ -30,9 +42,7 @@ class DateFacet < FilterableFacet
   end
 
   def query_params
-    {
-      key => @value,
-    }
+    { key => date_values }
   end
 
 private
@@ -55,7 +65,7 @@ private
   end
 
   def parsed_values
-    (@value || {}).reduce({}) { |h, (k, v)|
+    (date_values || {}).reduce({}) { |h, (k, v)|
       h.merge(k => safe_date_parse(v))
     }
   end

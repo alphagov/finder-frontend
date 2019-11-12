@@ -183,6 +183,33 @@ describe Search::Query do
           expect(results.second).to match(hash_including("title" => "Register to Vote"))
         end
       end
+
+      context "with valid date params" do
+        let(:valid_date_params) { { public_timestamp: { to: "01/01/01", from: "01/02/01" } } }
+        subject { described_class.new(content_item, valid_date_params) }
+
+        it "has no errors" do
+          expect(subject.valid?).to be true
+          expect(subject.errors.messages).to be_empty
+        end
+      end
+
+      context "with invalid date params" do
+        let(:invalid_to_date_params) { { public_timestamp: { to: "99/99/99", from: "01/01/01" } } }
+        let(:invalid_from_date_params) { { public_timestamp: { to: "01/01/01", from: "99/99/99" } } }
+
+        it "stores an error for bad 'to date'" do
+          query = described_class.new(content_item, invalid_to_date_params)
+          expect(query.valid?).to be false
+          expect(query.errors.messages).to eq(to_date: ["Enter a real date"])
+        end
+
+        it "stores an error for bad 'from date'" do
+          query = described_class.new(content_item, invalid_from_date_params)
+          expect(query.valid?).to be false
+          expect(query.errors.messages).to eq(from_date: ["Enter a real date"])
+        end
+      end
     end
   end
 end

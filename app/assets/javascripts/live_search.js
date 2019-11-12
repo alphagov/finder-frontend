@@ -38,6 +38,8 @@
       window.ga('set', 'transport', 'beacon')
     }
 
+    this.focusErrorMessagesOnLoad(this.$form)
+
     if (GOVUK.support.history()) {
       this.saveState()
 
@@ -341,6 +343,7 @@
       this.trackSpellingSuggestionsImpressions(results.suggestions)
       this.updateSortOptions(results, action)
       this.updateResultsCountMeta(results.total)
+      this.manipulateErrorMessages(results.errors)
       this.$atomAutodiscoveryLink.attr('href', results.atom_url)
       this.$loadingBlock.text('').hide()
     }
@@ -380,6 +383,60 @@
       }
     }
     return ''
+  }
+
+  LiveSearch.prototype.focusErrorMessagesOnLoad = function ($container) {
+    var $facetToggle = $container.find('.facet-toggle')
+    var facetsHidden = $facetToggle.attr('aria-expanded') === 'false'
+    var $inputWithError = $container.find('input[class*=--error]')
+    if (facetsHidden && $inputWithError.length) {
+      $facetToggle.click()
+      $inputWithError.focus()
+    }
+  }
+
+  LiveSearch.prototype.manipulateErrorMessages = function (errorsObj) {
+    if (!errorsObj) return
+    // finders have different date fields
+    for (var prop in errorsObj) {
+      // store the name of the error item, eg. publictimestamp
+      var errorType = prop
+      // get true/false value for each to manipulate the error message
+      for (var field in errorsObj[prop]) {
+        var fieldsObj = errorsObj[prop]
+        fieldsObj[field] ? this.renderErrorMessage(errorType, field) : this.removeErrorMessage(errorType, field)
+      }
+    }
+  }
+
+  LiveSearch.prototype.renderErrorMessage = function (type, field) {
+    var $input = this.$form.find('input[name*="' + type + '[' + field + ']"]')
+    var errorMessageElement = $('<span />', {
+      id: 'error-' + type,
+      class: 'gem-c-error-message govuk-error-message',
+      html: '<span class="govuk-visually-hidden">Error:</span> Enter a real date'
+    })
+
+    // only attach the error message if not present
+    if ($input.siblings('.gem-c-error-message').length === 0) {
+      $input.addClass('govuk-input--error')
+      $input.before(errorMessageElement)
+      $input.parent('.govuk-form-group').addClass('govuk-form-group--error')
+      $input.attr('aria-describedby', $input.attr('aria-describedby') + ' ' + errorMessageElement.attr('id'))
+    }
+    $input.focus()
+  }
+
+  LiveSearch.prototype.removeErrorMessage = function (type, field) {
+    var $input = this.$form.find('input[name*="' + type + '[' + field + ']"]')
+
+    // only remove the message if it's present
+    if ($input.siblings('.gem-c-error-message').length > 0) {
+      $input.removeClass('govuk-input--error')
+      $input.siblings('.gem-c-error-message').remove()
+      $input.parent('.govuk-form-group').removeClass('govuk-form-group--error')
+      $input.attr('aria-describedby', '')
+    }
   }
 
   GOVUK.LiveSearch = LiveSearch

@@ -2,6 +2,14 @@
 # search results from rummager.
 module Search
   class Query
+    include ActiveModel::Validations
+
+    attr_reader :filter_params
+
+    validate do |query|
+      ParamValidator.new(query).validate
+    end
+
     def initialize(content_item, filter_params, ab_params: {}, override_sort_for_feed: false)
       @content_item = content_item
       @filter_params = filter_params
@@ -19,9 +27,13 @@ module Search
       @search_results ||= fetch_search_response(content_item)
     end
 
+    def errors_hash
+      ParamValidator.new(self).errors_hash
+    end
+
   private
 
-    attr_reader :ab_params, :filter_params, :override_sort_for_feed, :content_item
+    attr_reader :ab_params, :override_sort_for_feed, :content_item
 
     def merge_and_deduplicate(search_response)
       results = search_response.fetch("results")

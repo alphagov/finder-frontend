@@ -635,4 +635,93 @@ describe('liveSearch', function () {
       expect(liveSearch.trackSpellingSuggestionsImpressions).toHaveBeenCalled()
     })
   })
+
+  describe('validation of user date input', function () {
+    var $filterDateBlock = $('<div class="app-c-date-filter" id="public_timestamp" ' +
+    'data-module="enable-aria-controls">' +
+    '<div class="govuk-form-group">' +
+    '<label for="public_timestamp[from]" class="gem-c-label govuk-label">Updated after</label>' +
+    '<div id="hint-3d03f42d" class="gem-c-hint govuk-hint govuk-!-margin-bottom-3">' +
+      'For example, 2005 or 21/11/2014' +
+    '</div>' +
+    '<input name="public_timestamp[from]" value="" class="gem-c-input govuk-input" ' +
+    'id="public_timestamp[from]" type="text" aria-describedby="hint-3d03f42d" aria-controls="js-search-results-info">' +
+    '</div>' +
+    '<div class="govuk-form-group govuk-form-group--error">' +
+    '<label for="public_timestamp[to]" class="gem-c-label govuk-label">Updated before</label>' +
+    '<div id="hint-3626790f" class="gem-c-hint govuk-hint govuk-!-margin-bottom-3">' +
+      'For example, 2005 or 21/11/2014' +
+    '</div>' +
+    '<span id="error-to" class="gem-c-error-message govuk-error-message">' +
+    '<span class="govuk-visually-hidden">Error:</span> Enter a real date</span>' +
+    '<input name="public_timestamp[to]" value="" class="gem-c-input govuk-input govuk-input--error" id="public_timestamp[to]" ' +
+    'type="text" aria-describedby="hint-3626790f error-to" aria-controls="js-search-results-info">' +
+    '</div></div>')
+    var responseWithDateErrors = {
+      'errors': {
+        'public_timestamp': {
+          'from': true,
+          'to': false
+        }
+      }
+    }
+    beforeEach(function () {
+      $form.append($filterDateBlock)
+      liveSearch = new GOVUK.LiveSearch({ $form: $form, $results: $results, $atomAutodiscoveryLink: $atomAutodiscoveryLink })
+    })
+
+    afterEach(function () {
+      $form.remove()
+    })
+
+    it('calls renderErrorMessage function if a key in JSON property public_timestamp_errors is true', function () {
+      liveSearch.state = { search: 'state' }
+      spyOn(liveSearch, 'renderErrorMessage')
+      liveSearch.displayResults(responseWithDateErrors, $.param(liveSearch.state))
+      expect(liveSearch.renderErrorMessage).toHaveBeenCalled()
+    })
+
+    it('calls removeErrorMessage function if a key in JSON property public_timestamp_errors is false', function () {
+      liveSearch.state = { search: 'state' }
+      spyOn(liveSearch, 'removeErrorMessage')
+      liveSearch.displayResults(responseWithDateErrors, $.param(liveSearch.state))
+      expect(liveSearch.removeErrorMessage).toHaveBeenCalled()
+    })
+
+    it('adds the error class to the element where the JSON error property is set to true', function () {
+      liveSearch.state = { search: 'state' }
+      liveSearch.displayResults(responseWithDateErrors, $.param(liveSearch.state))
+      expect($('input[name*="[from]"]').hasClass('govuk-input--error')).toBe(true)
+    })
+
+    it('adds the error message to the element where the JSON error property is set to true', function () {
+      liveSearch.state = { search: 'state' }
+      liveSearch.displayResults(responseWithDateErrors, $.param(liveSearch.state))
+      expect($form.find('.govuk-form-group:eq(0) .govuk-error-message').length).toBe(1)
+    })
+
+    it('adds the error class to the form group of the element where the JSON error property is set to true', function () {
+      liveSearch.state = { search: 'state' }
+      liveSearch.displayResults(responseWithDateErrors, $.param(liveSearch.state))
+      expect($form.find('.govuk-form-group:eq(0)').hasClass('govuk-form-group--error')).toBe(true)
+    })
+
+    it('removes the error class to the element where the JSON error property is set to false', function () {
+      liveSearch.state = { search: 'state' }
+      liveSearch.displayResults(responseWithDateErrors, $.param(liveSearch.state))
+      expect($('input[name*="[to]"]').hasClass('govuk-input--error')).toBe(false)
+    })
+
+    it('removes the error message to the element where the JSON error property is set to false', function () {
+      liveSearch.state = { search: 'state' }
+      liveSearch.displayResults(responseWithDateErrors, $.param(liveSearch.state))
+      expect($form.find('.govuk-form-group:eq(1) .govuk-error-message').length).toBe(0)
+    })
+
+    it('removes the error class from the form group of the element where the JSON error property is set to false', function () {
+      liveSearch.state = { search: 'state' }
+      liveSearch.displayResults(responseWithDateErrors, $.param(liveSearch.state))
+      expect($form.find('.govuk-form-group:eq(1)').hasClass('govuk-form-group--error')).toBe(false)
+    })
+  })
 })
