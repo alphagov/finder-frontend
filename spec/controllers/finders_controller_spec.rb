@@ -56,7 +56,7 @@ describe FindersController, type: :controller do
               filter_document_type: "mosw_report",
               order: "-public_timestamp",
               start: 0,
-              suggest: "spelling",
+              suggest: "spelling_with_highlighting",
             },
           )
           .to_return(status: 200, body: rummager_response, headers: {})
@@ -115,7 +115,7 @@ describe FindersController, type: :controller do
               filter_document_type: "mosw_report",
               order: "-public_timestamp",
               start: 0,
-              suggest: "spelling",
+              suggest: "spelling_with_highlighting",
             },
           )
           .to_return(status: 200, body: rummager_response, headers: {})
@@ -232,7 +232,7 @@ describe FindersController, type: :controller do
               filter_document_type: "mosw_report",
               order: "-public_timestamp",
               start: 0,
-              suggest: "spelling",
+              suggest: "spelling_with_highlighting",
             },
           )
           .to_return(status: 200, body: rummager_response, headers: {})
@@ -317,7 +317,7 @@ describe FindersController, type: :controller do
         "total": 0,
         "start": 0,
         "facets": {},
-        "suggested_queries": ["cereal"]
+        "suggested_queries": [{ "text": "cereal", "highlighted": "<mark>cereal</mark>" }]
       }|
       stub_request(:get, /search.json/).to_return(status: 200, body: rummager_response, headers: {})
     end
@@ -341,7 +341,7 @@ describe FindersController, type: :controller do
           filter_document_type: "mosw_report",
           order: "-public_timestamp",
           start: 0,
-          suggest: "spelling",
+          suggest: "spelling_with_highlighting",
         }.merge(query),
       )
       .to_return(status: 200, body: rummager_response, headers: {})

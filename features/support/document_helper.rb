@@ -685,7 +685,7 @@ module DocumentHelper
       "total": 20,
       "start": 0,
       "facets": {},
-      "suggested_queries": ["driving"]
+      "suggested_queries": [{ "text": "driving", "highlighted": "<mark>driving</mark>" }]
     }|
   end
 

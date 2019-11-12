@@ -6,15 +6,16 @@ class SpellingSuggestionPresenter
   end
 
   def suggestions
-    @suggested_queries.map do |keywords|
+    @suggested_queries.map do |suggestion|
       {
-        keywords: keywords,
+        keywords: suggestion["text"],
+        highlighted: suggestion["highlighted"],
         link: @url,
         data_attributes: {
           ecommerce_content_id: @content_item_id,
           ecommerce_row: 1,
           track_options: {
-            dimension81: keywords,
+            dimension81: suggestion["text"],
           },
         },
       }

@@ -3,7 +3,7 @@ require "spec_helper"
 RSpec.describe SpellingSuggestionPresenter do
   describe "#suggestions" do
     it "presents spelling suggestions" do
-      suggested_queries = ["full english"]
+      suggested_queries = [{ "text" => "full english", "highlighted" => "<mark>full</mark> english" }]
       url = "/breakfast-finder?keywords=full+english"
       content_item_id = "123AAA"
 
@@ -20,6 +20,7 @@ RSpec.describe SpellingSuggestionPresenter do
           },
         },
         keywords: "full english",
+        highlighted: "<mark>full</mark> english",
         link: "/breakfast-finder?keywords=full+english" }]
 
       expect(presenter.suggestions).to eq(expected)
