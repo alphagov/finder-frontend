@@ -152,7 +152,7 @@ private
     suggested_queries = search_results.fetch("suggested_queries", [])
     SpellingSuggestionPresenter.new(
       suggested_queries,
-      finder_url_builder.url(keywords: suggested_queries.first),
+      finder_url_builder.url(keywords: (suggested_queries.first || {}).dig("text")),
       # Search api is set to always return an array with one item
       content_item.as_hash["content_id"],
     )

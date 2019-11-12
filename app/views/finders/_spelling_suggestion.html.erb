@@ -3,8 +3,8 @@
 <% if @spelling_suggestion_presenter.suggestions.any? %>
 <p class="govuk-body">Did you mean
   <% @spelling_suggestion_presenter.suggestions.each do |suggestion| %>
-    <%= link_to suggestion[:keywords], suggestion[:link],
-      class: "govuk-link govuk-!-font-weight-bold",
+    <%= link_to sanitize(suggestion[:highlighted]), suggestion[:link],
+      class: "govuk-link",
       :data => suggestion[:data_attributes]
     %>
     <% _spelling_suggestion = suggestion[:keywords] %>

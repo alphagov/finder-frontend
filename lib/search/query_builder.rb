@@ -235,7 +235,7 @@ module Search
     end
 
     def suggest_query
-      { "suggest" => "spelling" }
+      { "suggest" => "spelling_with_highlighting" }
     end
 
     def stopwords
