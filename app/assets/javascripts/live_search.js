@@ -374,7 +374,10 @@
     var oldStates = $optionSelectElements.map(function () {
       var $el = $(this)
       var id = $el.find('.js-container-head').attr('id')
-      return { 'elementId': id, 'expanded': $el.hasClass('js-closed') }
+      var filter = ''
+      var filters = $el.find('.app-c-option-select__filter-input')
+      if (filters.length === 1) { filter = filters[0].value }
+      return { 'elementId': id, 'expanded': $el.hasClass('js-closed'), 'filter': filter }
     })
     // replace facets content with data from the JSON
     this.updateElement(this.$facetWrapper, results.facet_collection_filterables)
@@ -384,6 +387,11 @@
       var $el = $header.parent('[data-module="option-select"]')
       $el.data('closed-on-load', data.expanded)
       new GOVUK.Modules.OptionSelect().start($el)
+      var filters = $el.find('.app-c-option-select__filter-input')
+      if (filters.length === 1) {
+        filters[0].value = data.filter
+        $(filters[0]).keyup()
+      }
     })
     // we need to reinitialise the module after the DOM update
     var updatedTaxonomy = new GOVUK.TaxonomySelect({ $el: $('.js-taxonomy-select') })
