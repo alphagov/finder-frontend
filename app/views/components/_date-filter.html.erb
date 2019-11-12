@@ -8,29 +8,33 @@
   date_errors_to ||= nil
 %>
 <% if key && name %>
-  <div class="app-c-date-filter" id="<%= key %>" <% if aria_controls_id %> data-module="enable-aria-controls"<% end %>>
-    <%= render "govuk_publishing_components/components/input", {
-      label: {
-        text: name + " after"
-      },
-      name: key + "[from]",
-      id: key + "[from]",
-      value: from_value,
-      controls: aria_controls_id,
-      hint: "For example, 2005 or 21/11/2014",
-      error_message: date_errors_from
-    } %>
-
-    <%= render "govuk_publishing_components/components/input", {
-      label: {
-        text: name + " before"
-      },
-      name: key + "[to]",
-      id: key + "[to]",
-      value: to_value,
-      controls: aria_controls_id,
-      hint: "For example, 2005 or 21/11/2014",
-      error_message: date_errors_to
-    } %>
-  </div>
+  <%= render "components/expander", {
+      title: "Date"
+    } do %>
+    <div class="app-c-date-filter govuk-!-margin-bottom-0" id="<%= key %>" <% if aria_controls_id %> data-module="enable-aria-controls"<% end %>>
+      <%= render "govuk_publishing_components/components/input", {
+        label: {
+          text: name + " after"
+        },
+        name: key + "[from]",
+        id: key + "[from]",
+        value: from_value,
+        controls: aria_controls_id,
+        hint: "For example, 2005 or 21/11/2014",
+        error_message: date_errors_from
+      } %>
+  
+      <%= render "govuk_publishing_components/components/input", {
+        label: {
+          text: name + " before"
+        },
+        name: key + "[to]",
+        id: key + "[to]",
+        value: to_value,
+        controls: aria_controls_id,
+        hint: "For example, 2005 or 21/11/2014",
+        error_message: date_errors_to
+      } %>
+    </div>
+  <% end %>
 <% end %>
