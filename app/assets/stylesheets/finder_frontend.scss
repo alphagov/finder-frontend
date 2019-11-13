@@ -379,3 +379,14 @@ mark {
   margin-bottom: govuk-spacing(7);
   padding-bottom: govuk-spacing(0);
 }
+
+
+// A/B test: hiding keywords until user has interacted with a filter
+.js-enabled .keywords-hide-ab-test {
+  .facet-tags__group--keywords {
+    display: none;
+    &.show {
+      display: block;
+    }
+  }
+}
