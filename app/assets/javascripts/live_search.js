@@ -125,6 +125,7 @@
           this.trackingInit()
           this.setRelevantResultCustomDimension()
           this.trackPageView()
+          this.displayKeywordTags(e)
         }.bind(this)
       )
     }
@@ -436,6 +437,13 @@
       $input.siblings('.gem-c-error-message').remove()
       $input.parent('.govuk-form-group').removeClass('govuk-form-group--error')
       $input.attr('aria-describedby', '')
+    }
+  }
+
+  LiveSearch.prototype.displayKeywordTags = function displayKeywordTags (e) {
+    // only display them when user interacted with the filters
+    if (e.currentTarget.id !== 'finder-keyword-search') {
+      this.$form.find('.facet-tags__group--keywords').addClass('show')
     }
   }
 
