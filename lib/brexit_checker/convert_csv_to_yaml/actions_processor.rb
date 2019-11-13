@@ -23,7 +23,7 @@ module BrexitChecker
         stripped_record = parse_logic_fields(stripped_record)
         stripped_record = strip_trailing_whitespace(stripped_record)
         stripped_record = remove_empty_fields(stripped_record)
-        stripped_record = parse_grouping(stripped_record)
+        stripped_record["result_groups"] &&= stripped_record["result_groups"].split(",").map(&:strip)
         stripped_record["priority"] = stripped_record["priority"].to_i
         stripped_record
       end
@@ -34,12 +34,6 @@ module BrexitChecker
         LOGIC_FIELDS.each_with_object(record) do |field, hash|
           hash[field] = BrexitChecker::Criteria::Parser.parse(hash[field].strip) if hash[field]
         end
-      end
-
-      def parse_grouping(record)
-        group_criteria = record["result_groups"]
-        record["result_groups"] = group_criteria.split(",").map(&:strip) unless group_criteria.nil?
-        record
       end
 
       def remove_unnecessary_fields(record)

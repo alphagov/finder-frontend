@@ -1,29 +1,29 @@
 <% if audiences.any?  %>
   <section class="brexit-checker-actions">
     <% audiences.each do |audience| %>
-      <% if audience[:groups].any? %>
-        <header>
-          <h2 class="govuk-heading-l action-audience__heading">
-            <%= audience[:heading] %>
-          </h2>
-        </header>
-        <% audience[:groups].each do |group| %>
-          <section class="brexit-checker-actions__group">
-            <div class="govuk-grid-row">
-              <div class="govuk-grid-column-one-third">
+      <section class="brexit-checker-audience">
+        <% if audience[:groups].any? %>
+          <header>
+            <h2 class="govuk-heading-l action-audience__heading">
+              <%= audience[:heading] %>
+            </h2>
+          </header>
+          <% audience[:groups].each do |group| %>
+            <section class="brexit-checker-actions__group">
+              <div class="govuk-grid-row">
                 <%= render 'results_criteria', criteria: group[:criteria], heading: group[:heading] %>
+                <div class="govuk-grid-column-two-thirds">
+                  <%= render "action_list", {
+                    heading: group[:heading],
+                    priority: group[:priority],
+                    actions: group[:actions]
+                  } %>
+                </div>
               </div>
-              <div class="govuk-grid-column-two-thirds">
-                <%= render "action_list", {
-                  heading: group[:heading],
-                  priority: group[:priority],
-                  actions: group[:actions]
-                } %>
-              </div>
-            </div>
-          </section>
+            </section>
+          <% end %>
         <% end %>
-      <% end %>
+      </section>
     <% end %>
   </section>
 <% else %>
