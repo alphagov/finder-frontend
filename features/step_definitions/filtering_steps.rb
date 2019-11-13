@@ -69,6 +69,15 @@ And("I see email and feed sign up links") do
   expect(page).to have_css('a[href="/search/news-and-communications.atom"]')
 end
 
+And("I see only one email and feed sign up link on mobile") do
+  width = page.driver.browser.manage.window.size.width
+  height = page.driver.browser.manage.window.size.height
+  page.driver.browser.manage.window.resize_to(375, 812)
+  expect(page).to have_css('a[href="/search/news-and-communications/email-signup"]', count: 1)
+  expect(page).to have_css('a[href="/search/news-and-communications.atom"]', count: 1)
+  page.driver.browser.manage.window.resize_to(width, height)
+end
+
 And("I see email and feed sign up links with filters applied") do
   expect(page).to have_css('a[href="/search/news-and-communications/email-signup?people%5B%5D=rufus-scrimgeour"]')
   expect(page).to have_css('a[href="/search/news-and-communications.atom?people%5B%5D=rufus-scrimgeour"]')
@@ -431,7 +440,9 @@ Then(/^I browse to a huge page number and get an appropriate error$/) do
 end
 
 And("I click on the atom feed link") do
-  click_on "Subscribe to feed"
+  within("#subscription-links-footer") do
+    click_on "Subscribe to feed"
+  end
 end
 
 And("there is machine readable information") do
@@ -788,7 +799,9 @@ Then(/^I can sign up to email alerts for allowed filters$/) do
 
   content_store_has_item("/cma-cases/email-signup", signup_content_item)
 
-  click_link("Get email alerts")
+  within "#subscription-links-footer" do
+    click_link("Get email alerts")
+  end
 
   begin
     click_on("Create subscription")
@@ -799,7 +812,9 @@ Then(/^I can sign up to email alerts for allowed filters$/) do
 end
 
 When("I create an email subscription") do
-  click_link("Get email alerts")
+  within "#subscription-links-footer" do
+    click_link("Get email alerts")
+  end
 end
 
 Then("I see the email subscription page") do

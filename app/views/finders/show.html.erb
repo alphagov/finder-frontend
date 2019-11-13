@@ -57,10 +57,13 @@
         >
         <div id="js-search-results-info" data-module="remove-filter" class="result-info">
           <div class="govuk-grid-row">
-            <div class="govuk-grid-column-full">
+            <div class="govuk-grid-column-one-third">
               <h2 class="result-region-header__counter" id="js-result-count">
                 <%= result_set_presenter.displayed_total %>
               </h2>
+            </div>
+            <div class="govuk-grid-column-two-thirds subscription-links subscription-links--desktop">
+              <%= render "govuk_publishing_components/components/subscription-links", signup_links %>
             </div>
           </div>
           <div id="js-facet-tag-wrapper" aria-live="assertive">
@@ -82,7 +85,7 @@
           <%= render "govuk_publishing_components/components/previous_and_next_navigation", @pagination.next_and_prev_links %>
         </div>
 
-        <div class="subscription-links">
+        <div class="subscription-links" id="subscription-links-footer">
           <%= render "govuk_publishing_components/components/subscription-links", signup_links %>
         </div>
       </div>
