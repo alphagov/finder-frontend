@@ -33,7 +33,6 @@ group :development, :test do
   gem 'govuk-lint', '~> 3.11.5'
   gem 'govuk_schemas', '~> 4.0'
   gem 'jasmine-rails'
-  gem 'pry-byebug'
   gem 'rspec-rails', '~> 3.8.2'
 end
 
