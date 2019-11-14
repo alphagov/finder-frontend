@@ -73,6 +73,7 @@
       },
       link_text: action_based_email_link_label,
       link_href: brexit_checker_email_signup_path(c: criteria_keys),
+      link_title: t("brexit_checker.results.email_sign_up_title"),
     } %>
 
     <%= render 'action_audiences', criteria: @criteria, audiences: format_action_audiences(@actions, @criteria), action_based_description: action_based_description %>

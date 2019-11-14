@@ -3,6 +3,10 @@
   padding: govuk-spacing(4);
   background: govuk-colour("light-grey", $legacy: "grey-4");
 
+  .app-c-email-link__title {
+    font-weight: bold;
+  }
+
   .app-c-email-link__link {
     .app-c-email-link__icon {
       position: relative;
