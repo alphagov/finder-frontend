@@ -1096,10 +1096,6 @@ actions:
   consequence: You will no longer be able to trade with the EU unless you follow the
     new processes.
   lead_time: It takes up to 4 weeks
-  guidance_prompt: More information
-  guidance_link_text: Get your business ready to export from the UK to the EU after
-    Brexit
-  guidance_url: https://www.gov.uk/prepare-export-from-uk-after-brexit
   criteria:
   - any_of:
     - road-passenger-freight
