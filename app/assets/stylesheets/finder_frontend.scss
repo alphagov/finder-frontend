@@ -113,6 +113,12 @@ mark {
   margin-bottom: govuk-spacing(8);
 }
 
+.facet-tags-block {
+  display: none;
+  @include govuk-media-query($from: tablet) {
+    display: block;
+  }
+}
 .facet-tags {
   padding-bottom: govuk-spacing(1);
 }
@@ -381,4 +387,94 @@ mark {
   border: 0;
   margin-bottom: govuk-spacing(7);
   padding-bottom: govuk-spacing(0);
+}
+
+
+// intestitial
+.app-mobile-filter-title {
+  display: none;
+}
+
+.app-mobile-filters-link {
+  display: none;
+}
+
+.app-c-mobile-result-count {
+  display: none;
+}
+.app-mobile-facet-tags {
+  display: none;
+}
+
+@include govuk-media-query($until: tablet) {
+  .facets {
+    display: none;
+  }
+
+  .app-mobile-filters-link {
+    display: inline-block;
+    margin-bottom: govuk-spacing(4);
+  }
+
+  .app-c-mobile-result-count {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: govuk-colour("white");
+    padding: govuk_spacing(3);
+    display: block;
+  }
+
+  .facets--as-modal {
+    display: block;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    outline: 0;
+    background: govuk-colour("white");
+
+    .app-mobile-filter-title {
+      display: block;
+      margin-bottom: govuk-spacing(2);
+      margin-left: govuk-spacing(2);
+    }
+
+    .facets__box {
+      position: fixed;
+      z-index: 1000;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      overflow-y: auto;
+      background: govuk-colour("white");
+    }
+
+    .facets__content {
+      padding: govuk-spacing(3) govuk-spacing(3) 60px govuk-spacing(3);
+    }
+
+    .app-mobile-facet-tags {
+      display: block;
+    }
+  }
+
+  .html--filters-open {
+    overflow-y: inherit;
+    height: 100%;
+    width: 100%;
+  }
+
+  .body--filters-open {
+    overflow: hidden;
+    touch-action: none;
+  }
 }
