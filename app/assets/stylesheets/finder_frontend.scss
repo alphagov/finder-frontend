@@ -125,23 +125,27 @@ mark {
 
 .facet-tags__group {
   padding: 5px;
-
-  &:nth-child(odd) {
-    background-color: govuk-colour("light-grey", $legacy: "grey-4");
+  @include govuk-media-query($from: tablet) {
+    &:nth-child(odd) {
+      background-color: govuk-colour("light-grey", $legacy: "grey-4");
+    }
   }
 }
 
 .facet-tags__wrapper {
   vertical-align: middle;
   margin: 5px 0;
-
-  @include govuk-media-query($from: tablet) {
-    display: inline-block;
+  display: inline-block;
+  @include govuk-media-query($until: tablet) {
+    vertical-align: baseline;
   }
 }
 
 .facet-tags__wrapper:first-of-type .facet-tags__preposition:first-of-type {
   font-weight: bold;
+  @include govuk-media-query($until: tablet) {
+    display: block;
+  }
 
   &::first-letter {
     text-transform: uppercase;
@@ -152,10 +156,10 @@ mark {
   padding: 0 5px 5px 2px;
   vertical-align: middle;
   text-transform: lowercase;
-
-  @include govuk-media-query($from: tablet) {
-    display: table-cell;
-    padding: 0 5px 0 2px;
+  display: table-cell;
+  padding: 0 5px 0 2px;
+  @include govuk-media-query($until: tablet) {
+    display: inline-block;
   }
 }
 
@@ -171,8 +175,11 @@ mark {
     padding: 8px 7px 7px 23px;
   }
 
-  @include govuk-media-query($from: tablet) {
-    display: table-cell;
+  display: table-cell;
+  @include govuk-media-query($until: tablet) {
+    display: inline-block;
+    background: none;
+    border: 2px solid $govuk-input-border-colour;
   }
 }
 
