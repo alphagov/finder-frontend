@@ -1343,12 +1343,10 @@ actions:
 - id: T079
   priority: 5
   title: Check what steps you need to take in order to import goods from the EU
+  title_url: https://www.gov.uk/prepare-import-to-uk-after-brexit
   consequence: You risk not being able to import goods into the UK from EU countries
     if you do not meet new requirements.
   lead_time: Do it as soon as possible
-  guidance_link_text: Get your business ready to import from the EU to the UK after
-    Brexit
-  guidance_url: https://www.gov.uk/prepare-import-to-uk-after-brexit
   criteria:
   - import-from-eu
   audience: business
