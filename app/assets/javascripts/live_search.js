@@ -15,6 +15,8 @@
     this.$suggestionsBlock = this.$form.find('#js-spelling-suggestions')
     this.$resultsBlock = options.$results.find('#js-results')
     this.$countBlock = options.$results.find('#js-result-count')
+    this.$mobileCountButton = this.$form.find('.js-result-count')
+    this.$mobleFacetTagBlock = this.$form.find('#js-facet-tag-block')
     this.$facetTagBlock = options.$results.find('#js-facet-tag-wrapper')
     this.$loadingBlock = options.$results.find('#js-loading-message')
     this.$sortBlock = options.$results.find('#js-sort-options')
@@ -74,6 +76,20 @@
     } else {
       this.$form.find('.js-live-search-fallback').show()
     }
+
+    this.$form.on('click', '.js-show-mobile-filters', function (e) {
+      e.preventDefault()
+      $('#facet-wrapper').addClass('facets--as-modal').attr('tabIndex', '0').focus()
+      $('body').addClass('body--filters-open')
+      $('html').addClass('html--filters-open')
+    })
+
+    this.$form.on('click', '.js-result-count', function (e) {
+      e.preventDefault()
+      $('#facet-wrapper').removeClass('facets--as-modal').removeAttr('tabIndex').blur()
+      $('body').removeClass('body--filters-open')
+      $('html').removeClass('html--filters-open')
+    })
   }
 
   LiveSearch.prototype.startEnhancedEcommerceTracking = function startEnhancedEcommerceTracking () {
@@ -343,7 +359,9 @@
     if (action === $.param(this.state)) {
       this.updateElement(this.$resultsBlock, results.search_results)
       this.updateElement(this.$facetTagBlock, results.facet_tags)
+      this.updateElement(this.$mobleFacetTagBlock, results.facet_tags)
       this.updateElement(this.$countBlock, results.display_total)
+      this.updateElement(this.$mobileCountButton, results.display_total)
       this.updateElement(this.$paginationBlock, results.next_and_prev_links)
       this.updateElement(this.$suggestionsBlock, results.suggestions)
       this.trackSpellingSuggestionsImpressions(results.suggestions)
