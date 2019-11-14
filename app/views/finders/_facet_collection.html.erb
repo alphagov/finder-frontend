@@ -15,6 +15,7 @@
         value: result_set_presenter.user_supplied_keywords,
       }  %>
     </div>
+    <button class="app-c-button-as-link govuk-!-font-weight-bold app-mobile-filters-link js-show-mobile-filters">Filter</button>
   <% end %>
 
   <div data-module="track-click" data-track-category="filterClicked"
@@ -24,17 +25,25 @@
       href: '#js-results'}
     %>
   </div>
+  
 
   <% if facets.select(&:filterable?).any? %>
-    <div data-module="gem-toggle" data-toggle-class="facet-toggle__content--hide" <%= "class=facet-toggle--only-on-mobile" unless content_item.hide_facets_by_default %>>
-      <button type="button" class="facet-toggle app-c-button-as-link" data-controls="facet-wrapper" data-expanded="false" data-track-category="filterClicked" data-track-action="accordion" data-toggled-text="- <%= t("finders.facet_collection.facet_disclosure.fewer", default: "Show fewer search options") %>">
-        + <%= t("finders.facet_collection.facet_disclosure.more", default: "Show more search options") %>
-      </button>
 
-      <div id="facet-wrapper" class="facet-toggle__content facet-toggle__content--hide">
-        <%= render facets.select(&:filterable?) %>
+      <div id="facet-wrapper" class="facets">
+        <div class="facets__box">
+          <div class="facets__content">
+            <h1 class="gem-c-title__text app-mobile-filter-title">
+              Filter
+            </h1>
+            <%= render facets.select(&:filterable?) %>
+            <div id="js-facet-tag-block" class="app-mobile-facet-tags"  data-module="remove-filter">
+              <%= render "facet_tags", facet_tags.present %>
+            </div>
+            <button class="gem-c-button govuk-button app-c-mobile-result-count js-result-count" type="button">Show <%= result_set_presenter.displayed_total %></button>
+          </div>
+        </div>
       </div>
-    </div>
+    
   <% end %>
 
   <div class="js-live-search-fallback button__wrapper">

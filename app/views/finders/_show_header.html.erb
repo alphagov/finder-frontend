@@ -41,6 +41,7 @@
           > 
           <%= render 'spelling_suggestion' %>
         </div>
+        <button class="app-c-button-as-link govuk-!-font-weight-bold app-mobile-filters-link js-show-mobile-filters">Filter</button>
       <% elsif topic_finder?(filter_params) %>
         <%= link_to topic_finder_parent(filter_params)['title'], topic_finder_parent(filter_params)['base_path'], class: 'topic-finder__taxon-link' %>
         <%= render partial: 'govuk_publishing_components/components/title', locals: {
