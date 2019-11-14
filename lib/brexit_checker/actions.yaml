@@ -227,8 +227,9 @@ actions:
   priority: 2
   title: Check if you need an International Driving Permit before you drive in the
     EU, Switzerland, Norway, Iceland or Liechtenstein
-  consequence: You may be driving illegally - you could get a fine, or your vehicle
-    could be seized.
+  title_url: https://www.gov.uk/guidance/driving-in-the-eu-after-brexit-international-driving-permits
+  consequence: You could get a fine or your vehicle could be seized if you drive without
+    the correct documents.
   lead_time: Do it as soon as possible
   guidance_prompt: More information
   guidance_link_text: Driving abroad
