@@ -31,6 +31,9 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}; // if this ; is omitted, none
       this.$toggleButton.click()
     }
 
+    // listen for the change event
+    $module.on('change', 'select, input[type="text"]', this.updateSelectedCount.bind(this))
+
     // Attach listener function to update selected count
     var boundChangeEvents = this.bindChangeEvents.bind(this)
     boundChangeEvents()
@@ -39,10 +42,6 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}; // if this ; is omitted, none
   Expander.prototype.bindChangeEvents = function (e) {
     for (var i = 0; i < this.$allInteractiveElements.length; i++) {
       var $el = this.$allInteractiveElements[i]
-      // for selects we only need to listen to the change event
-      if ($el.tagName === 'SELECT') {
-        $el.addEventListener('change', this.updateSelectedCount.bind(this))
-      }
       // but for inputs we need both change and enter key event
       if ($el.tagName === 'INPUT') {
         $el.addEventListener('change', this.handleInputEvent.bind(this))
