@@ -1,5 +1,4 @@
 <% actions.each.with_index do | action, index | %>
-  <% index = "#{priority}.#{'%02d' % (index + 1)}"%>
   <div class="govuk-grid-row brexit-checker__action">
     <div class="brexit-checker__content-wrapper">
       <p class="govuk-body govuk-!-font-weight-bold">
@@ -8,7 +7,7 @@
             class="govuk-link"
             href="<%= action.title_url %>"
             data-module="track-click"
-            data-track-action="<%= heading %> <%= index %> - Action"
+            data-track-action="<%= "#{analytics_group}#{index + 1}"%> - Action"
             data-track-category="brexit-checker-results"
             data-track-label="<%= action.title_url %>"
           ><%= action.title %></a>
@@ -45,7 +44,7 @@
               href="<%= action.guidance_url %>"
               class="govuk-link"
               data-module="track-click"
-              data-track-action="<%= heading %> <%= index %> - Guidance"
+              data-track-action="<%= "#{analytics_group}#{index + 1}"%> - Guidance"
               data-track-category="brexit-checker-results"
               data-track-label="<%= action.guidance_url %>"
             ><%= action.guidance_link_text %></a>
