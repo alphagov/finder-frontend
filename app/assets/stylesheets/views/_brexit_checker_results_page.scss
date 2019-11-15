@@ -73,4 +73,19 @@
     padding: govuk-spacing(4) 0;
     margin-bottom: 0;
   }
+
+  .govuk-print__link {
+    margin-bottom: govuk-spacing(6);
+    margin-top: govuk-spacing(6);
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .govuk-print__link-icon {
+    display: block;
+    width: 20px;
+    margin-right: govuk-spacing(2);
+    height: 18px;
+  }
 }

@@ -77,5 +77,8 @@
 
     <%= render 'action_audiences', criteria: @criteria, audiences: format_action_audiences(@actions, @criteria), action_based_description: action_based_description %>
     <%= render 'stay_updated' %>
+    <% if @actions.any? %>
+      <%= render 'print_link' %>
+    <% end %>
   <% end %>
 </div>
