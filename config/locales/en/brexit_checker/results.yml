@@ -1,7 +1,9 @@
 en:
   brexit_checker:
     results:
-      title: What you should do to prepare for no deal Brexit
+      title: |
+        Get ready for Brexit:<br>
+        Your results
       title_no_actions: You do not need to take action
       title_no_answers: You did not answer any of the questions
       description: |
