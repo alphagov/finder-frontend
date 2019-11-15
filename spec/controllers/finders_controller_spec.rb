@@ -250,30 +250,6 @@ describe FindersController, type: :controller do
     end
   end
 
-  describe "shingles A/B test" do
-    before do
-      content_store_has_item("/search/all", all_content_finder)
-    end
-
-    it "requests the B variant" do
-      request = search_api_request(query: { ab_tests: "shingles:B" })
-
-      with_variant ShinglesABTest: "B" do
-        get :show, params: { slug: "search/all" }
-        expect(request).to have_been_made.once
-      end
-    end
-
-    it "requests the non-shingles variant (A) by default" do
-      request = search_api_request
-
-      with_variant ShinglesABTest: "A" do
-        get :show, params: { slug: "search/all" }
-        expect(request).to have_been_made.once
-      end
-    end
-  end
-
   describe "popularity A/B test" do
     before do
       content_store_has_item("/search/all", all_content_finder)
