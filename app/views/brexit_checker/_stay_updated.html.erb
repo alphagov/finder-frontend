@@ -1,18 +1,20 @@
-<h2 class="govuk-heading-m stay-updated__heading">
-  <%= t("brexit_checker.stay_updated.heading") %>
-</h2>
+<div class="brexit-checker__stay_updated">
+  <h2 class="govuk-heading-m stay-updated__heading">
+    <%= t("brexit_checker.stay_updated.heading") %>
+  </h2>
 
-<p>
-  <%= t("brexit_checker.stay_updated.description") %>
-</p>
+  <p class="brexit-checker__subscribe-description">
+    <%= t("brexit_checker.stay_updated.description") %>
+  </p>
 
-<%= render "govuk_publishing_components/components/button", {
-  text: t("brexit_checker.stay_updated.sign_up"),
-  href: brexit_checker_email_signup_path(c: criteria_keys),
-  data_attributes: {
-    "module": "track-click",
-    "track-action": t("brexit_checker.stay_updated.sign_up"),
-    "track-category": "StayUpdated",
-    "track-label": brexit_checker_email_signup_path
-  }
-} %>
+  <%= render "govuk_publishing_components/components/button", {
+    text: t("brexit_checker.stay_updated.sign_up"),
+    href: brexit_checker_email_signup_path(c: criteria_keys),
+    data_attributes: {
+      "module": "track-click",
+      "track-action": t("brexit_checker.stay_updated.sign_up"),
+      "track-category": "StayUpdated",
+      "track-label": brexit_checker_email_signup_path
+    }
+  } %>
+</div>
