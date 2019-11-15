@@ -8,6 +8,7 @@ RSpec.feature "Brexit Checker workflow", type: :feature do
     and_i_answer_citizen_questions
     and_i_answer_business_questions
     then_i_see_citizen_and_business_results
+    and_i_should_see_a_print_link
   end
 
   scenario "business questions only" do
@@ -15,6 +16,7 @@ RSpec.feature "Brexit Checker workflow", type: :feature do
     and_i_do_not_answer_citizen_questions
     and_i_answer_business_questions
     then_i_see_business_results_only
+    and_i_should_see_a_print_link
   end
 
   scenario "citizen questions only" do
@@ -22,6 +24,7 @@ RSpec.feature "Brexit Checker workflow", type: :feature do
     and_i_answer_citizen_questions
     and_i_do_not_answer_business_questions
     then_i_see_citizens_results_only
+    and_i_should_see_a_print_link
   end
 
   scenario "skip all questions" do
@@ -53,6 +56,14 @@ RSpec.feature "Brexit Checker workflow", type: :feature do
     and_i_should_see_citizen_actions_are_grouped
     and_i_should_see_a_pet_action
     and_i_should_not_see_a_tourism_action
+  end
+
+  def and_i_should_see_a_print_link
+    expect(page).to have_css(".brexit-checker__print-link", text: "Print your results")
+  end
+
+  def and_i_should_not_see_a_print_link
+    expect(page).to_not have_css(".brexit-checker__print-link", text: "Print your results")
   end
 
   def and_i_should_see_the_citizens_action_header
