@@ -8,13 +8,14 @@
               <%= audience[:heading] %>
             </h2>
           </header>
-          <% audience[:groups].each do |group| %>
+          <% audience[:groups].each.with_index do |group, group_index| %>
             <section class="brexit-checker-actions__group">
               <div class="govuk-grid-row">
                 <%= render 'results_criteria', criteria: group[:criteria], heading: group[:heading] %>
                 <div class="govuk-grid-column-two-thirds">
+                  <% analytics_group = "#{audience[:heading]} #{" - #{group[:heading]} - " if !group[:heading].nil?}#{group_index + 1}." %>
                   <%= render "action_list", {
-                    heading: group[:heading],
+                    analytics_group: analytics_group,
                     priority: group[:priority],
                     actions: group[:actions]
                   } %>
