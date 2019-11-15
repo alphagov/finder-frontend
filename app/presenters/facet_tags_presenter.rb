@@ -23,6 +23,11 @@ class FacetTagsPresenter
     }.reject(&:empty?)
   end
 
+  def display_total_selected_filters
+    facet_count = filters.select(&:has_filters?).count
+    facet_count == 0 ? nil : "(#{facet_count})"
+  end
+
 private
 
   attr_reader :filters, :sort_option, :keywords, :i_am_a_topic_page_finder
