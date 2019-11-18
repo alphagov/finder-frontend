@@ -1,6 +1,5 @@
 class FindersController < ApplicationController
   include FinderTopResultAbTestable
-  include ShinglesABTestable
   include FinderPopularityAbTestable
   include SpellingSuggestionsABTestable
 
