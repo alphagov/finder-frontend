@@ -13,7 +13,7 @@ module HideKeywordFacetTagsABTestable
   def hide_keyword_facet_tags_ab_test
     return {} if hide_keyword_facet_tags_variant.variant?("A")
 
-    { hide_keyword_facet_tag: hide_keyword_facet_tags_variant.variant_name }
+    { hide_keyword_facet_tags: hide_keyword_facet_tags_variant.variant_name }
   end
 
   def hide_keyword_facet_tags_test

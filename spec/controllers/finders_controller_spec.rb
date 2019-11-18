@@ -303,9 +303,9 @@ describe FindersController, type: :controller do
     end
 
     it "requests the B (hide keyword facet tags) variant" do
-      request = search_api_request(query: { ab_tests: "HideKeywordFacetTagsABTest:B" })
+      request = search_api_request(query: { ab_tests: "hide_keyword_facet_tags:B" })
 
-      with_variant HideKeywordFacetTags: "B" do
+      with_variant HideKeywordFacetTagsABTest: "B" do
         get :show, params: { slug: "search/all" }
         expect(request).to have_been_made.once
       end
@@ -314,7 +314,7 @@ describe FindersController, type: :controller do
     it "requests the control variant (A) by default" do
       request = search_api_request
 
-      with_variant HideKeywordFacetTags: "A" do
+      with_variant HideKeywordFacetTagsABTest: "A" do
         get :show, params: { slug: "search/all" }
         expect(request).to have_been_made.once
       end
