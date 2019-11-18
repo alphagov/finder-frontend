@@ -9,7 +9,8 @@
             </h2>
           </header>
           <% audience[:groups].each.with_index do |group, group_index| %>
-            <section class="brexit-checker-actions__group">
+            <% ecommerce_list = group[:heading].nil? ? audience[:heading] : group[:heading] %>
+            <section class="brexit-checker-actions__group" data-analytics-ecommerce data-ecommerce-start-index="1" data-list-title="Brexit checker results: <%= ecommerce_list %>" data-search-query>
               <div class="govuk-grid-row">
                 <%= render 'results_criteria', criteria: group[:criteria], heading: group[:heading] %>
                 <div class="govuk-grid-column-two-thirds">
