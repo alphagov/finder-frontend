@@ -1,21 +1,10 @@
 require "addressable/uri"
 
 module BrexitCheckerHelper
-  def extract_criteria(object)
-    case object
-    when Array
-      object.flat_map { |element| extract_criteria(element) }
-    when Hash
-      extract_criteria(object.fetch("any_of", [])) + extract_criteria(object.fetch("all_of", []))
-    when String
-      object
-    end
-  end
-
   def select_criteria(criteria, actions)
     criteria.select do |criterion|
       actions.any? do |action|
-        extract_criteria(action.criteria).include? criterion.key
+        action.all_criteria.include? criterion.key
       end
     end
   end

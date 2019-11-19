@@ -34,7 +34,22 @@ class BrexitChecker::Action
     @load_all ||= YAML.load_file(CONFIG_PATH)["actions"].map { |a| new(a) }
   end
 
+  def all_criteria
+    extract_criteria(criteria)
+  end
+
 private
+
+  def extract_criteria(object)
+    case object
+    when Array
+      object.flat_map { |element| extract_criteria(element) }
+    when Hash
+      extract_criteria(object.fetch("any_of", [])) + extract_criteria(object.fetch("all_of", []))
+    when String
+      object
+    end
+  end
 
   def load_groups
     all_groups ||= YAML.load_file(GROUPS_PATH)["groups"]
