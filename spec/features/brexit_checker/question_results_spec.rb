@@ -8,6 +8,7 @@ RSpec.feature "Brexit Checker workflow", type: :feature do
     and_i_answer_citizen_questions
     and_i_answer_business_questions
     then_i_see_citizen_and_business_results
+    and_citizen_results_should_be_in_groups
   end
 
   scenario "business questions only" do
@@ -22,6 +23,7 @@ RSpec.feature "Brexit Checker workflow", type: :feature do
     and_i_answer_citizen_questions
     and_i_do_not_answer_business_questions
     then_i_see_citizens_results_only
+    and_citizen_results_should_be_in_groups
   end
 
   scenario "skip all questions" do
@@ -63,6 +65,11 @@ RSpec.feature "Brexit Checker workflow", type: :feature do
 
   def when_i_visit_the_brexit_checker_flow
     visit brexit_checker_questions_path
+  end
+
+  def and_citizen_results_should_be_in_groups
+    expect(page).to have_content "Visiting the UK"
+    expect(page).to have_content "Visiting Ireland"
   end
 
   def and_i_do_not_answer_citizen_questions
