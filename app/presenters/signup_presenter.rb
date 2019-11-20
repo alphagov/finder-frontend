@@ -35,7 +35,7 @@ class SignupPresenter
   end
 
   def can_modify_choices?
-    choices? && choices_formatted.any?
+    choices? && choices_formatted.any? && !content_item["details"]["cannot_modify_choices"]
   end
 
   def hidden_choices
