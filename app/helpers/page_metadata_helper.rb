@@ -5,7 +5,7 @@ module PageMetadataHelper
     end
 
     {}.tap do |metadata|
-      metadata[:from] = organisation_links unless organisation_links.blank?
+      metadata[:from] = organisation_links if organisation_links.present?
       metadata[:inverse] = true if topic_finder?(filter_params)
     end
   end

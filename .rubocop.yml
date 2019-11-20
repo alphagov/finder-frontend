@@ -11,3 +11,7 @@ Metrics/BlockLength:
     - 'features/**/*.rb'
     - 'spec/**/*'
     - 'config/routes.rb'
+
+inherit_gem:
+  rubocop-govuk:
+    - config/default.yml
