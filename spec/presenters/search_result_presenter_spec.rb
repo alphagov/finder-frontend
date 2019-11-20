@@ -54,7 +54,6 @@ RSpec.describe SearchResultPresenter do
           description: "I am a document.",
           data_attributes: {
             ecommerce_path: link,
-            ecommerce_content_id: "content_id",
             ecommerce_row: 1,
             track_category: "navFinderLinkClicked",
             track_action: "finder-title.1",

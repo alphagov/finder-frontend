@@ -25,7 +25,6 @@ class SearchResultPresenter
         description: sanitize(summary_text),
         data_attributes: {
           ecommerce_path: link,
-          ecommerce_content_id: document.content_id,
           ecommerce_row: 1,
           track_category: "navFinderLinkClicked",
           track_action: "#{content_item.title}.#{document.index}",
