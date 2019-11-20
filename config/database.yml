@@ -1,0 +1,19 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 12
+
+development:
+  <<: *default
+  database: relevancy_judgement_tool_development
+  url: <%= ENV["DATABASE_URL"]%>
+
+test:
+  <<: *default
+  database: relevancy_judgement_tool_test
+  url: <%= ENV["TEST_DATABASE_URL"] %>
+
+production:
+  <<: *default
+  database: relevancy_judgement_tool_production
+  url: <%= ENV["DATABASE_URL"]%>

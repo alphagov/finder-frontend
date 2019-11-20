@@ -27,7 +27,7 @@ module Search
     attr_reader :content_item, :params, :keywords, :override_sort_for_feed
 
     def order_by_relevance?(sort_option)
-      %w(relevance -relevance topic -topic).include?(sort_option.dig("key"))
+      true
     end
 
     def public_timestamp_unsupported

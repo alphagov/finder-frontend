@@ -4,7 +4,7 @@
   <% content_for :title, content_item.title %>
 <% end %>
 <% content_for :head do %>
-  <%= auto_discovery_link_tag(:atom, signup_links[:feed_link]) %>
+  <%# <%= auto_discovery_link_tag(:atom, signup_links[:feed_link]) %> %>
   <%= render 'finder_meta', content_item: content_item %>
 
   <% if result_set_presenter.highlight_top_result? %>
@@ -25,7 +25,6 @@
 
 <form method="get" action="<%= content_item.base_path %>" class="js-live-search-form">
   <input type="hidden" name="parent" value="<%= @parent %>">
-
   <% if topic_finder?(filter_params) && !content_item.all_content_finder? %>
     <%= render "govuk_publishing_components/components/inverse_header", {
       full_width: true
@@ -37,12 +36,12 @@
     <%= render partial: 'show_header', locals: { inverse: inverse,
                                                  page_metadata: page_metadata(content_item, filter_params) } %>
   <% end %>
-
+</form>
   <div class="govuk-width-container">
     <div class="govuk-grid-row">
-      <div class="govuk-grid-column-one-third" role="search" aria-label="<%= content_item.title %>">
-        <%= render partial: 'facet_collection'%>
-      </div>
+      <!-- <div class="govuk-grid-column-one-third" role="search" aria-label="<%= content_item.title %>">
+        <%# <%= render partial: 'facet_collection'%> %>
+      </div> -->
 
       <div class="govuk-grid-column-two-thirds js-live-search-results-block filtered-results"
         role="region"
@@ -55,40 +54,41 @@
           data-ecommerce-variant="<%= result_set_presenter.sort_option[:data_track_label] %>"
         <% end %>
         >
-        <div id="js-search-results-info" data-module="remove-filter" class="result-info">
+        <div id="js-search-results-info" data-module="remove-filter">
           <div class="govuk-grid-row">
             <div class="govuk-grid-column-one-third">
-              <h2 class="result-region-header__counter" id="js-result-count">
-                <%= result_set_presenter.displayed_total %>
-              </h2>
+              <% if result_set_presenter.documents.count > 0 %>
+              <h3 class="result-region-header__counter">
+                How relevant are these search results?
+              </h3>
+              <% end %>
             </div>
-            <div class="govuk-grid-column-two-thirds subscription-links subscription-links--desktop">
-              <%= render "govuk_publishing_components/components/subscription-links", signup_links %>
-            </div>
+            <!-- <div class="govuk-grid-column-two-thirds subscription-links subscription-links--desktop">
+              <%# <%= render "govuk_publishing_components/components/subscription-links", signup_links %> %>
+            </div> -->
           </div>
-          <div id="js-facet-tag-wrapper" aria-live="assertive">
-            <%= render "facet_tags", facet_tags.present %>
-          </div>
+          <!-- <div id="js-facet-tag-wrapper" aria-live="assertive">
+            <%# <%= render "facet_tags", facet_tags.present %> %>
+          </div> -->
         </div>
 
         <div class="govuk-caption-l live-search-loading-message" id="js-loading-message"></div>
 
-        <div id="js-sort-options">
-          <%= render "sort_options", @sort_presenter.to_hash %>
-        </div>
+        <!-- <div id="js-sort-options">
+          <%# <%= render "sort_options", @sort_presenter.to_hash %> %>
+        </div> -->
 
         <div id="js-results">
           <%= render "search_results", result_set_presenter.search_results_content %>
         </div>
 
-        <div id="js-pagination">
-          <%= render "govuk_publishing_components/components/previous_and_next_navigation", @pagination.next_and_prev_links %>
-        </div>
+        <!-- <div id="js-pagination">
+          <%# <%= render "govuk_publishing_components/components/previous_and_next_navigation", @pagination.next_and_prev_links %> %>
+        </div> -->
 
-        <div class="subscription-links" id="subscription-links-footer">
-          <%= render "govuk_publishing_components/components/subscription-links", signup_links %>
-        </div>
+        <!-- <div class="subscription-links" id="subscription-links-footer">
+          <%# <%= render "govuk_publishing_components/components/subscription-links", signup_links %> %>
+        </div> -->
       </div>
     </div>
   </div>
-</form>

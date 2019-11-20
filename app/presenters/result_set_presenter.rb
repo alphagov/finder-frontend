@@ -2,7 +2,7 @@ class ResultSetPresenter
   include ERB::Util
   include ActionView::Helpers::NumberHelper
 
-  attr_reader :pluralised_document_noun, :debug_score, :start_offset
+  attr_reader :pluralised_document_noun, :debug_score, :start_offset, :documents
 
   delegate :atom_url, to: :content_item
 
@@ -60,7 +60,7 @@ class ResultSetPresenter
 
 private
 
-  attr_reader :metadata_presenter_class, :sort_presenter, :total, :documents, :facets, :content_item
+  attr_reader :metadata_presenter_class, :sort_presenter, :total, :facets, :content_item
 
   def document_list_component_data(documents_to_convert:)
     documents_to_convert.map do |document|

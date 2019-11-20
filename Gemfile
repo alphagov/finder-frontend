@@ -16,7 +16,7 @@ gem "slimmer", "~> 13.2.0"
 gem "sass-rails", "~> 6.0.0"
 gem "uglifier", "~> 4.2"
 gem "whenever", "~> 1.0.0"
-
+gem "pg"
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem "sdoc", require: false

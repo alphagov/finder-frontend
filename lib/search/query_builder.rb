@@ -61,7 +61,7 @@ module Search
     end
 
     def documents_per_page
-      finder_content_item.default_documents_per_page
+      5
     end
 
     def return_fields_query
