@@ -15,7 +15,7 @@ class RelevancyController < ApplicationController
 
   def judgement_attrs
     { query: filter_params[:query],
-      user_id: 1
+      user_id: 1 #hardcoded until User signin flow impemented
     }
   end
 
