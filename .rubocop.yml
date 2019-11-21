@@ -5,6 +5,7 @@ inherit_gem:
 AllCops:
   Exclude:
     - 'lib/tasks/cucumber.rake' # Automatically generated
+    - 'tmp/**/*'
 
 Lint/AmbiguousRegexpLiteral:
   Exclude:
