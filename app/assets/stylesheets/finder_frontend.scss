@@ -387,3 +387,32 @@ mark {
   padding-left: govuk-spacing(3);
   margin-left: -(govuk-spacing(3));
 }
+
+// flash message
+.message {
+  margin-top: govuk-spacing(6);
+  margin-bottom: govuk-spacing(3);
+  padding: govuk-spacing(3) govuk-spacing(3) 0;
+  border-style: solid;
+  border-width: 3px;
+  border-color: govuk-colour("dark-grey", $legacy: "grey-1");
+  @include govuk-media-query($from: tablet) {
+    max-width: (100% / 3) * 2;
+  }
+
+  h2 {
+    @extend .govuk-heading-m;
+  }
+
+  p {
+    @extend .govuk-body;
+  }
+}
+
+.message--notice {
+  border-color: govuk-colour("blue");
+}
+
+.message--alert {
+  border-color: govuk-colour("red");
+}

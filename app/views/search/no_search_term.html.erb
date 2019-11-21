@@ -4,7 +4,7 @@
   <meta name="description"
         content="Search GOV.UK." />
 <% end %>
-
+<%= render 'finders/flash_message' %>
 <main id="content" role="main" class="search no-search-term">
   <form action="/search" method="get" accept-charset="utf-8" class="search-header" role="search">
     <%= render 'search_field' %>
