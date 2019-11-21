@@ -6,44 +6,44 @@
         </legend>
         <div class="govuk-radios govuk-radios--small govuk-radios--inline">
 
-          <% result_set_presenter.documents.each_with_index do |document, i| %>
-          <ol class="gem-c-document-list gem-c-document-list--no-underline">
+        <ol class="gem-c-document-list gem-c-document-list--no-underline">
+          <% result_set_presenter.documents.each_with_index do |document, i| %> 
             <li class="gem-c-document-list__item">
               <a class="gem-c-document-list__item-title" href="<%= document.send(:link) %>">
                 <%= document.title %>
               </a>
               <p class="gem-c-document-list__item-description"><%= document.description.html_safe %></p>
-              <div class="govuk-radios__item">
-                <input class="govuk-radios__input" id="<%i%>-perfect" name="scores[<%= i %>-<%= document.send(:link)%>]" type="radio" value="perfect">
-                <label class="govuk-label govuk-radios__label" for="changed-name">
-                  Perfect match
-                </label>
-              </div>
-              <div class="govuk-radios__item">
-                <input class="govuk-radios__input" id="<%i%>-good" name="scores[<%= i %>-<%= document.send(:link) %>]" type="radio" value="good">
-                <label class="govuk-label govuk-radios__label" for="<%= document.title %>">
-                  Good match
-                </label>
-              </div>
-              <div class="govuk-radios__item">
-                <input class="govuk-radios__input" id="<%i%>-ok" name="scores[<%= i %>-<%= document.send(:link) %>]" type="radio" value="ok">
-                <label class="govuk-label govuk-radios__label" for="<%= document.title %>">
-                  OK
-                </label>
-              </div>
-              <div class="govuk-radios__item">
-                <input class="govuk-radios__input" id="<%i%>-bad" name="scores[<%= i %>-<%= document.send(:link) %>]" type="radio" value="bad">
-                <label class="govuk-label govuk-radios__label" for="<%= document.title %>">
-                  Bad
-                </label>
-              </div>
+              <%= render "govuk_publishing_components/components/radio", {
+              name: "scores[#{i}-#{document.send(:link)}]",
+              small: true,
+              items: [
+                {
+                  value: "perfect",
+                  text: "Perfect match"
+                },
+                {
+                  value: "good",
+                  text: "Good match"
+                },
+                {
+                  value: "ok",
+                  text: "OK"
+                },
+                {
+                  value: "bad",
+                  text: "Bad"
+                }
+              ]
+            } %>
             </li>
-            </ol>
           <% end %>
-          <label class="govuk-label" for="org-name">
-              Enter the name of your organisation
-          </label>
-          <input class="govuk-input" id="org-name" name="org-name" type="text"></input>
+          </ol>
+          <%= render "govuk_publishing_components/components/input", {
+            label: {
+              text: "Enter the name of your organisation"
+            },
+            name: "org-name"
+          } %>
           <input class="govuk-input govuk-visually-hidden" id="query" name="query" value="<%= params["keywords"] %>"> </input>
         </div>
       </fieldset>
