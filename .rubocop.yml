@@ -1,3 +1,7 @@
+inherit_gem:
+  rubocop-govuk:
+    - config/default.yml
+
 AllCops:
   Exclude:
     - 'lib/tasks/cucumber.rake' # Automatically generated
@@ -11,7 +15,3 @@ Metrics/BlockLength:
     - 'features/**/*.rb'
     - 'spec/**/*'
     - 'config/routes.rb'
-
-inherit_gem:
-  rubocop-govuk:
-    - config/default.yml
