@@ -34,7 +34,7 @@ private
   end
 
   def can_modify_choices?
-    !content_item["details"]["cannot_modify_choices"]
+    !content_item["details"]["email_filter_by"] == "all_selected_facets"
   end
 
   def email_filter_facets

@@ -52,7 +52,7 @@ RSpec.describe SubscriberListParamsPresenter do
       finder_content_item = business_readiness_signup_content_item
 
       finder_content_item = finder_content_item.tap do |content_item|
-        content_item["details"]["cannot_modify_choices"] = true
+        content_item["details"]["email_filter_by"] = "all_selected_facets"
       end
 
       params = { "sector_business_area" => %w(accommodation aerospace) }
