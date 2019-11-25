@@ -30,12 +30,12 @@ end
 group :development, :test do
   gem "awesome_print"
   gem "dotenv-rails"
-  gem "govuk-lint", "~> 4.3.0"
   gem "govuk_schemas", "~> 4.0"
   gem "jasmine-rails"
   gem "listen"
   gem "pry-byebug"
   gem "rspec-rails", "~> 4.0.0.beta3"
+  gem "rubocop-govuk"
 end
 
 group :test do
