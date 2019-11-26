@@ -129,7 +129,6 @@ RSpec.describe ResultSetPresenter do
             description: "document_description",
             data_attributes: {
               ecommerce_path: "/path/to/doc",
-              ecommerce_content_id: "content_id",
               ecommerce_row: 1,
               track_category: "navFinderLinkClicked",
               track_action: "A finder.1",

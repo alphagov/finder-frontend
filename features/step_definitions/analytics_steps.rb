@@ -34,7 +34,6 @@ Then(/^the ecommerce tracking tags are present$/) do
   first_link = results.first
 
   expect(first_link["data-ecommerce-path"]).to eq("/restrictions-on-usage-of-spells-within-school-grounds")
-  expect(first_link["data-ecommerce-content-id"]).to eq("1234")
 end
 
 And "I search for lunch" do
