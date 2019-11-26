@@ -1,4 +1,5 @@
 FinderFrontend::Application.routes.draw do
+  
   mount JasmineRails::Engine => "/specs" if defined?(JasmineRails)
   mount GovukPublishingComponents::Engine, at: "/component-guide"
 
@@ -6,8 +7,7 @@ FinderFrontend::Application.routes.draw do
     Healthchecks::RegistriesCache,
   )
   get "/healthcheck", to: proc { [200, {}, %w[OK]] }
-
-  root to: redirect("/development") unless Rails.env.test?
+  root 'static#home'
   get "/development" => "development#index"
 
   get "/search" => "search#index", as: :search
