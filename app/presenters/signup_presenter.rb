@@ -35,7 +35,7 @@ class SignupPresenter
   end
 
   def can_modify_choices?
-    choices? && choices_formatted.any? && !(content_item["details"]["email_filter_by"] == "all_selected_facets")
+    choices? && choices_formatted.any? && content_item["details"]["email_filter_by"] != "all_selected_facets"
   end
 
   def hidden_choices
