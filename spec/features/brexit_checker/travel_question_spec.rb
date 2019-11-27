@@ -14,10 +14,10 @@ RSpec.feature "Filtering options based on criteria", type: :feature do
   end
 
   def and_i_choose_uk_for_the_living_question
-    click_on "Next"
+    click_on "Continue"
     answer_question("living", "UK")
-    click_on "Next"
-    click_on "Next"
+    click_on "Continue"
+    click_on "Continue"
   end
 
   def then_i_should_not_see_uk_as_an_option_for_the_travel_question
