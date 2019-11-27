@@ -14,8 +14,8 @@ class BrexitChecker::Action
 
   attr_reader :id, :title, :consequence, :exception, :title_url, :title_path,
               :lead_time, :criteria, :audience, :guidance_link_text,
-              :guidance_url, :guidance_prompt, :priority, :result_groups,
-              :groups
+              :guidance_url, :guidance_path, :guidance_prompt, :priority,
+              :result_groups, :groups
 
   def initialize(attrs)
     attrs.each { |key, value| instance_variable_set("@#{key}", value) }
@@ -63,7 +63,8 @@ private
   def citizen_actions_must_have_groupings
     if audience == "citizen" && result_groups.nil?
       errors.add(:result_groups, "can't be empty for citizen actions")
-private
+    end
+  end
 
   def path_from_url(full_url)
     url = Addressable::URI.parse(full_url)
