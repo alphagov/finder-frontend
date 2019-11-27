@@ -29,7 +29,7 @@ questions:
   - key: employment
     type: multiple_grouped
     text: 'Do you work or study?'
-    hint_text: 'Select all that apply. If you do something else, select next.'
+    hint_text: 'Select all that apply. If you do something else, select continue.'
     options:
       - label: Work
         options:
@@ -82,7 +82,7 @@ questions:
   - key: travelling
     type: multiple
     text: 'Where do you plan to travel for leisure and tourism?'
-    hint_text: Select all that apply. If you do not plan to travel, select next.
+    hint_text: Select all that apply. If you do not plan to travel, select continue.
     detail_text: |
       <p>After Brexit, the rules for travelling abroad will change.</p>
       <p>We need to know where you plan to go so we can show you what you need to do before you travel.</p>
@@ -109,7 +109,7 @@ questions:
         - travel-eu-business
     type: multiple
     text: 'Do you plan to do either of the following when travelling?'
-    hint_text: "Select all that apply. If neither apply, select next."
+    hint_text: "Select all that apply. If neither apply, select continue."
     detail_text: |
       <p>After Brexit, the rules for driving abroad and taking a pet will change.</p>
       <p>We need to know about your plans so we can show you what you need to do before you travel.</p>
