@@ -1,3 +1,5 @@
+require "addressable/uri"
+
 class BrexitChecker::Action
   include ActiveModel::Validations
 
@@ -10,13 +12,15 @@ class BrexitChecker::Action
   validates_numericality_of :priority, only_integer: true
   validate :citizen_actions_must_have_groupings
 
-  attr_reader :id, :title, :consequence, :exception, :title_url,
+  attr_reader :id, :title, :consequence, :exception, :title_url, :title_path,
               :lead_time, :criteria, :audience, :guidance_link_text,
               :guidance_url, :guidance_prompt, :priority, :result_groups,
               :groups
 
   def initialize(attrs)
     attrs.each { |key, value| instance_variable_set("@#{key}", value) }
+    @title_path = path_from_url(title_url) if title_url
+    @guidance_path = path_from_url(guidance_url) if guidance_url
     validate!
     load_groups
   end
@@ -59,6 +63,14 @@ private
   def citizen_actions_must_have_groupings
     if audience == "citizen" && result_groups.nil?
       errors.add(:result_groups, "can't be empty for citizen actions")
+private
+
+  def path_from_url(full_url)
+    url = Addressable::URI.parse(full_url)
+    if url.host == "www.gov.uk"
+      url.path
+    else
+      full_url
     end
   end
 end
