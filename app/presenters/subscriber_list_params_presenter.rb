@@ -28,11 +28,21 @@ private
   end
 
   def facets
-    allowed_facets.reject { |facet| facet.key?("facet_choices") }
+    return allowed_facets if can_modify_choices?
+
+    email_filter_facets
+  end
+
+  def can_modify_choices?
+    !content_item["details"]["email_filter_by"] == "all_selected_facets"
+  end
+
+  def email_filter_facets
+    content_item["details"].fetch("email_filter_facets", [])
   end
 
   def allowed_facets
-    content_item["details"].fetch("email_filter_facets", [])
+    email_filter_facets.reject { |facet| facet.key?("facet_choices") }
   end
 
   def hash_with_default_as_array

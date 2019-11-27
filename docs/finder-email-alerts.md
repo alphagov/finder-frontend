@@ -68,7 +68,7 @@ In this case, the user can modify the filters that they applied on the finder,
 to change what they will be subscribed to. Rather than using `email_filter_facets`,
 this uses an `email_signup_choice`.
 
-## How do I add or update an finder email signup?
+## How do I add or update a finder email alert signup?
 
 The `finder_email_signup` content items are published by [Search API](https://github.com/alphagov/search-api/blob/master/doc/publishing-finders.md).
 
@@ -87,6 +87,14 @@ a particular city, you might add the following to `email_filter_facets`:
   "facet_name": "city"
 },
 ```
+
+## How do I use selected search filters as email filter facets?
+
+If you would like to skip the email filter checkboxes and use the selected
+search filters as email filters, set the value of `email_filter` to `all_selected_facets`.
+
+**Note**: This is solution is in place until user email signup journeys are made consistent
+across all finders.
 
 You might also need to permit users to subscribe to this kind of tag.
 In this case, you would need to add `city` to [the list of allowed `tags`
