@@ -11,8 +11,18 @@ module BrexitCheckerHelper
 
   def title(actions, criteria_keys)
     if actions.any?
-      t("brexit_checker.results.meta_title")
+      t("brexit_checker.results.title")
     elsif criteria_keys.any?
+      t("brexit_checker.results.title_no_actions")
+    else
+      t("brexit_checker.results.title_no_answers")
+    end
+  end
+
+  def heading(actions, criteria_keys)
+    if actions.any?
+      t("brexit_checker.results.heading").html_safe
+    elsif criteria_keys.present?
       t("brexit_checker.results.title_no_actions")
     else
       t("brexit_checker.results.title_no_answers")

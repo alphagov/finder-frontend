@@ -237,12 +237,12 @@ describe BrexitCheckerHelper, type: :helper do
     let(:actions) { [FactoryBot.build(:brexit_checker_action, grouping_criteria: "visiting-eu")] }
     let(:answers) { %w"nationality-eu" }
 
-    it "Should return the meta title if there are actions and answers" do
-      expect(title(actions, answers)).to eq(t("brexit_checker.results.meta_title"))
+    it "Should return the title if there are actions and answers" do
+      expect(title(actions, answers)).to eq(t("brexit_checker.results.title"))
     end
 
     it "Should return the meta title if there are actions and no answers" do
-      expect(title(actions, [])).to eq(t("brexit_checker.results.meta_title"))
+      expect(title(actions, [])).to eq(t("brexit_checker.results.title"))
     end
 
     it "Should return the no actions title if there are answers but no actions" do
@@ -251,6 +251,27 @@ describe BrexitCheckerHelper, type: :helper do
 
     it "Should return the no answers title if there no answers and no actions" do
       expect(title([], [])).to eq(t("brexit_checker.results.title_no_answers"))
+    end
+  end
+
+  describe "#heading" do
+    let(:actions) { [FactoryBot.build(:brexit_checker_action, grouping_criteria: "visiting-eu")] }
+    let(:answers) { %w"nationality-eu" }
+
+    it "Should return the html safe heading if there are actions and answers" do
+      expect(heading(actions, answers)).to eq(t("brexit_checker.results.heading"))
+    end
+
+    it "Should return the html safe heading if there are actions and no answers" do
+      expect(heading(actions, [])).to eq(t("brexit_checker.results.heading"))
+    end
+
+    it "Should return the no actions heading if there are answers but no actions" do
+      expect(heading([], answers)).to eq(t("brexit_checker.results.title_no_actions"))
+    end
+
+    it "Should return the no answers heading if there no answers and no actions" do
+      expect(heading([], [])).to eq(t("brexit_checker.results.title_no_answers"))
     end
   end
 end

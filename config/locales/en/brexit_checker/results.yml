@@ -1,10 +1,10 @@
 en:
   brexit_checker:
     results:
-      title: |
+      heading: |
         Get ready for Brexit:<br>
         Your results
-      meta_title: "Get ready for Brexit: Your results"
+      title: "Get ready for Brexit: Your results"
       title_no_actions: You do not need to take action
       title_no_answers: You did not answer any of the questions
       description: |
