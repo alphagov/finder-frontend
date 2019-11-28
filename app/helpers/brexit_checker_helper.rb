@@ -52,13 +52,14 @@ module BrexitCheckerHelper
   end
 
   def format_citizen_groups(actions, criteria)
-    all_groups = actions.map(&:groups).flatten.uniq
-    citizen_groups = all_groups.map do |group|
-      grouped_actions = format_citizen_actions(actions, group["key"])
+    grouping_criteria = actions.flat_map(&:grouping_criteria).uniq
+    citizen_groups = grouping_criteria.map do |grouping_criterion|
+      grouped_actions = format_citizen_actions(actions, grouping_criterion)
       if grouped_actions.any?
+        group = BrexitChecker::Groups.get_by_key(grouping_criterion)
         {
-          heading: group["text"],
-          priority: group["priority"],
+          heading: group.text,
+          priority: group.priority,
           actions: grouped_actions,
           criteria: format_criteria(criteria, grouped_actions),
         }

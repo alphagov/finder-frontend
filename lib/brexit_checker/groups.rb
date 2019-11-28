@@ -25,4 +25,8 @@ class BrexitChecker::Groups
     @load_all = nil if Rails.env.development?
     @load_all ||= YAML.load_file(GROUPS_PATH)["groups"].map { |a| new(a) }
   end
+
+  def self.get_by_key(group_criterion)
+    load_all.find { |group| group.key == group_criterion }
+  end
 end

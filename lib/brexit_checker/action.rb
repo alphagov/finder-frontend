@@ -15,14 +15,13 @@ class BrexitChecker::Action
   attr_reader :id, :title, :consequence, :exception, :title_url, :title_path,
               :lead_time, :criteria, :audience, :guidance_link_text,
               :guidance_url, :guidance_path, :guidance_prompt, :priority,
-              :grouping_criteria, :groups
+              :grouping_criteria
 
   def initialize(attrs)
     attrs.each { |key, value| instance_variable_set("@#{key}", value) }
     @title_path = path_from_url(title_url) if title_url
     @guidance_path = path_from_url(guidance_url) if guidance_url
     validate!
-    load_groups
   end
 
   def show?(selected_criteria)
@@ -53,11 +52,6 @@ private
     when String
       object
     end
-  end
-
-  def load_groups
-    all_groups ||= YAML.load_file(GROUPS_PATH)["groups"]
-    @groups ||= all_groups.select { |group| grouping_criteria.include?(group["key"]) } if grouping_criteria
   end
 
   def citizen_actions_must_have_groupings
