@@ -3,6 +3,7 @@
   action_based_title            = title(@actions, criteria_keys)
   action_based_heading          = heading(@actions, criteria_keys)
   action_based_description      = description(@actions, criteria_keys)
+  audiences                     = format_action_audiences(@actions, @criteria)
 %>
 
 <% content_for :title, action_based_title %>
@@ -64,8 +65,6 @@
       link_href: brexit_checker_email_signup_path(c: criteria_keys),
       link_title: t("brexit_checker.results.email_sign_up_title"),
     } %>
-
-    <% audiences = format_action_audiences(@actions, @criteria) %>
 
     <% if audiences.any? %>
       <%= render 'results_actions', audiences: audiences %>
