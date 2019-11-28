@@ -220,4 +220,10 @@ describe BrexitCheckerHelper, type: :helper do
       expect(link).to match("http://www.gov.uk?")
     end
   end
+
+  describe "#email_link_label" do
+    it "Should return the no results email link copy if there are no actions" do
+      expect(email_link_label([])).to eq(t("brexit_checker.results.email_sign_up_link_no_actions"))
+    end
+  end
 end

@@ -1,5 +1,5 @@
 <%
-  action_based_email_link_label = @actions.any? ? t('brexit_checker.results.email_sign_up_link') : t('brexit_checker.results.email_sign_up_link_no_actions')
+  action_based_email_link_label = email_link_label(@actions)
   action_based_title        = if @actions.any?
                               t('brexit_checker.breadcrumbs.brexit-check')
                             elsif criteria_keys.present?

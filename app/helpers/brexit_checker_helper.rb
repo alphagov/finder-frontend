@@ -1,6 +1,14 @@
 require "addressable/uri"
 
 module BrexitCheckerHelper
+  def email_link_label(actions)
+    if actions.any?
+      t("brexit_checker.results.email_sign_up_link")
+    else
+      t("brexit_checker.results.email_sign_up_link_no_actions")
+    end
+  end
+
   def select_criteria(criteria, actions)
     criteria.select do |criterion|
       actions.any? do |action|
