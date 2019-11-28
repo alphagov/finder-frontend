@@ -9,6 +9,16 @@ module BrexitCheckerHelper
     end
   end
 
+  def title(actions, criteria_keys)
+    if actions.any?
+      t("brexit_checker.results.meta_title")
+    elsif criteria_keys.any?
+      t("brexit_checker.results.title_no_actions")
+    else
+      t("brexit_checker.results.title_no_answers")
+    end
+  end
+
   def select_criteria(criteria, actions)
     criteria.select do |criterion|
       actions.any? do |action|

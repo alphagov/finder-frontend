@@ -222,8 +222,35 @@ describe BrexitCheckerHelper, type: :helper do
   end
 
   describe "#email_link_label" do
+    let(:actions) { [FactoryBot.build(:brexit_checker_action, grouping_criteria: "visiting-eu")] }
+
+    it "Should return the email link copy if there are actions" do
+      expect(email_link_label(actions)).to eq(t("brexit_checker.results.email_sign_up_link"))
+    end
+
     it "Should return the no results email link copy if there are no actions" do
       expect(email_link_label([])).to eq(t("brexit_checker.results.email_sign_up_link_no_actions"))
+    end
+  end
+
+  describe "#title" do
+    let(:actions) { [FactoryBot.build(:brexit_checker_action, grouping_criteria: "visiting-eu")] }
+    let(:answers) { %w"nationality-eu" }
+
+    it "Should return the meta title if there are actions and answers" do
+      expect(title(actions, answers)).to eq(t("brexit_checker.results.meta_title"))
+    end
+
+    it "Should return the meta title if there are actions and no answers" do
+      expect(title(actions, [])).to eq(t("brexit_checker.results.meta_title"))
+    end
+
+    it "Should return the no actions title if there are answers but no actions" do
+      expect(title([], answers)).to eq(t("brexit_checker.results.title_no_actions"))
+    end
+
+    it "Should return the no answers title if there no answers and no actions" do
+      expect(title([], [])).to eq(t("brexit_checker.results.title_no_answers"))
     end
   end
 end

@@ -1,12 +1,6 @@
 <%
   action_based_email_link_label = email_link_label(@actions)
-  action_based_title        = if @actions.any?
-                              t('brexit_checker.breadcrumbs.brexit-check')
-                            elsif criteria_keys.present?
-                              t('brexit_checker.results.title_no_actions')
-                            else
-                              t('brexit_checker.results.title_no_answers')
-                            end
+  action_based_title = title(@actions, criteria_keys)
   action_based_heading      = if @actions.any?
                               t('brexit_checker.results.title').html_safe
                             elsif criteria_keys.present?
