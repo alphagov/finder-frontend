@@ -15,7 +15,7 @@ class BrexitChecker::Action
   attr_reader :id, :title, :consequence, :exception, :title_url, :title_path,
               :lead_time, :criteria, :audience, :guidance_link_text,
               :guidance_url, :guidance_path, :guidance_prompt, :priority,
-              :result_groups, :groups
+              :grouping_criteria, :groups
 
   def initialize(attrs)
     attrs.each { |key, value| instance_variable_set("@#{key}", value) }
@@ -57,12 +57,12 @@ private
 
   def load_groups
     all_groups ||= YAML.load_file(GROUPS_PATH)["groups"]
-    @groups ||= all_groups.select { |group| result_groups.include?(group["key"]) } if result_groups
+    @groups ||= all_groups.select { |group| grouping_criteria.include?(group["key"]) } if grouping_criteria
   end
 
   def citizen_actions_must_have_groupings
-    if audience == "citizen" && result_groups.nil?
-      errors.add(:result_groups, "can't be empty for citizen actions")
+    if audience == "citizen" && grouping_criteria.nil?
+      errors.add(:grouping_criteria, "can't be empty for citizen actions")
     end
   end
 

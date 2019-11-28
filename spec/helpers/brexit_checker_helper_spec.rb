@@ -13,8 +13,8 @@ describe BrexitCheckerHelper, type: :helper do
   end
 
   describe "#format_action_audiences" do
-    let(:action1) { FactoryBot.build(:brexit_checker_action, audience: "citizen", priority: 5, result_groups: %w(visiting-eu visiting-ie)) }
-    let(:action2) { FactoryBot.build(:brexit_checker_action, audience: "citizen", priority: 8, result_groups: "visiting-eu") }
+    let(:action1) { FactoryBot.build(:brexit_checker_action, audience: "citizen", priority: 5, grouping_criteria: %w(visiting-eu visiting-ie)) }
+    let(:action2) { FactoryBot.build(:brexit_checker_action, audience: "citizen", priority: 8, grouping_criteria: "visiting-eu") }
     let(:action3) { FactoryBot.build(:brexit_checker_action, audience: "business", priority: 5) }
     let(:action4) { FactoryBot.build(:brexit_checker_action, audience: "business", priority: 5) }
     let(:criterion1) { FactoryBot.build(:brexit_checker_criterion, key: "visiting-eu", text: "You plan to travel to the EU") }

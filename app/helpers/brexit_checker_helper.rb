@@ -68,7 +68,7 @@ module BrexitCheckerHelper
   end
 
   def format_citizen_actions(actions, group_key)
-    grouped_actions = actions.select { |action| action.result_groups.include?(group_key) }
+    grouped_actions = actions.select { |action| action.grouping_criteria.include?(group_key) }
     order_actions_by_priority(grouped_actions)
   end
 
