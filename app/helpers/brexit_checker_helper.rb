@@ -40,10 +40,11 @@ module BrexitCheckerHelper
   end
 
   def select_criteria(criteria, actions)
-    overlapping_criteria = criteria.map(&:key) & actions.flat_map(&:criteria)
-    overlapping_criteria.map { |criterion|
-      BrexitChecker::Criterion.load_by(criterion)
-    }.flatten
+    criteria.select do |criterion|
+      actions.any? do |action|
+        action.all_criteria.include? criterion.key
+      end
+    end
   end
 
   def format_criteria(criteria, actions = [])
