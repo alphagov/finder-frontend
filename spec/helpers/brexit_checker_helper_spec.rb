@@ -12,6 +12,48 @@ describe BrexitCheckerHelper, type: :helper do
     end
   end
 
+  describe "#select_criteria" do
+    let(:criteria) { [FactoryBot.build(:brexit_checker_criterion, key: "visiting-ie", text: "You plan to travel to Ireland")] }
+    let(:no_overlap_criteria) { [FactoryBot.build(:brexit_checker_criterion, key: "visiting-uk")] }
+    let(:actions) {
+      [
+        FactoryBot.build(:brexit_checker_action, audience: "citizen", priority: 5, criteria: %w(visiting-eu visiting-ie), grouping_criteria: "visiting-eu"),
+        FactoryBot.build(:brexit_checker_action, audience: "citizen", priority: 8, criteria: %w(visiting-eu), grouping_criteria: "visiting-eu"),
+      ]
+    }
+
+    it "should return overlapping values between page criteira and actions criteria" do
+      expect(select_criteria(criteria, actions).first.text).to eq(criteria.first.text)
+    end
+
+    it "should return an empty array if there are no criteria" do
+      expect(select_criteria([], actions)).to eq([])
+    end
+
+    it "should return an empty array if there are no actions" do
+      expect(select_criteria(criteria, [])).to eq([])
+    end
+
+    it "should return an empty array if there is no overlap in page criteria and actions criteria" do
+      expect(select_criteria(no_overlap_criteria, actions)).to eq([])
+    end
+  end
+
+  describe "#format_criteria" do
+    let(:criteria) { [FactoryBot.build(:brexit_checker_criterion, key: "visiting-ie", text: "You plan to travel to Ireland")] }
+    let(:no_overlap_criteria) { [FactoryBot.build(:brexit_checker_criterion, key: "visiting-uk")] }
+    let(:actions) {
+      [
+        FactoryBot.build(:brexit_checker_action, audience: "citizen", priority: 5, criteria: %w(visiting-eu visiting-ie), grouping_criteria: "visiting-eu"),
+        FactoryBot.build(:brexit_checker_action, audience: "citizen", priority: 8, criteria: %w(visiting-eu), grouping_criteria: "visiting-eu"),
+      ]
+    }
+
+    it "should select criteria by actions and return a hash with text" do
+      expect(format_criteria(criteria, actions)).to eq([{ readable_text: "You plan to travel to Ireland" }])
+    end
+  end
+
   describe "#format_action_audiences" do
     let(:action1) { FactoryBot.build(:brexit_checker_action, audience: "citizen", priority: 5, grouping_criteria: %w(visiting-eu visiting-ie)) }
     let(:action2) { FactoryBot.build(:brexit_checker_action, audience: "citizen", priority: 8, grouping_criteria: "visiting-eu") }
