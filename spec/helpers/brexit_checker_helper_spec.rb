@@ -274,4 +274,25 @@ describe BrexitCheckerHelper, type: :helper do
       expect(heading([], [])).to eq(t("brexit_checker.results.title_no_answers"))
     end
   end
+
+  describe "#description" do
+    let(:actions) { [FactoryBot.build(:brexit_checker_action, grouping_criteria: "visiting-eu")] }
+    let(:answers) { %w"nationality-eu" }
+
+    it "Should return the desciption if there are actions and answers" do
+      expect(description(actions, answers)).to eq(t("brexit_checker.results.description"))
+    end
+
+    it "Should return the desciption if there are actions and no answers" do
+      expect(description(actions, [])).to eq(t("brexit_checker.results.description"))
+    end
+
+    it "Should return the no actions desciption if there are answers but no actions" do
+      expect(description([], answers)).to eq(t("brexit_checker.results.description_no_actions"))
+    end
+
+    it "Should return the no answers desciption there no answers and no actions" do
+      expect(description([], [])).to eq(t("brexit_checker.results.description_no_answers"))
+    end
+  end
 end

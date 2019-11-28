@@ -1,14 +1,8 @@
 <%
   action_based_email_link_label = email_link_label(@actions)
-  action_based_title       = title(@actions, criteria_keys)
-  action_based_heading     = heading(@actions, criteria_keys)
-  action_based_description = if @actions.any?
-                              t('brexit_checker.results.description')
-                            elsif criteria_keys.present?
-                              t('brexit_checker.results.description_no_actions')
-                            else
-                              t('brexit_checker.results.description_no_answers')
-                            end
+  action_based_title            = title(@actions, criteria_keys)
+  action_based_heading          = heading(@actions, criteria_keys)
+  action_based_description      = description(@actions, criteria_keys)
 %>
 
 <% content_for :title, action_based_title %>
