@@ -21,6 +21,8 @@ actions:
       - living-uk
       - join-family-uk-yes
   audience: citizen
+  grouping_criteria:
+  - living-uk
 - id: S003
   priority: 5
   title: Apply for a permit to join your family member in the UK if they are from
@@ -37,6 +39,8 @@ actions:
       - living-row
     - join-family-uk-yes
   audience: citizen
+  grouping_criteria:
+  - living-uk
 - id: S004
   priority: 5
   title: Take out appropriate travel insurance with health cover before travelling
@@ -54,6 +58,8 @@ actions:
       - nationality-row
     - visiting-uk
   audience: citizen
+  grouping_criteria:
+  - visiting-uk
 - id: S005
   priority: 5
   title: Contact your home university to check if you can continue studying on your
@@ -70,6 +76,8 @@ actions:
       - nationality-ie
     - studying-uk
   audience: citizen
+  grouping_criteria:
+  - studying-uk
 - id: S006
   priority: 9
   title: Register for local healthcare or take out health insurance, if you are a
@@ -88,6 +96,8 @@ actions:
       - studying-eu
       - working-eu
   audience: citizen
+  grouping_criteria:
+  - living-eu
 - id: S007
   priority: 5
   title: Contact your home university to check if you can continue your Erasmus+ placement
@@ -106,6 +116,8 @@ actions:
       - studying-eu
       - studying-ie
   audience: citizen
+  grouping_criteria:
+  - studying-eu
 - id: S008
   priority: 8
   title: Check your passport’s issue and expiry dates for travel to Europe after Brexit
@@ -122,6 +134,8 @@ actions:
     - nationality-uk
     - visiting-eu
   audience: citizen
+  grouping_criteria:
+  - visiting-eu
 - id: S009
   priority: 8
   title: Contact your vet at least 4 months before travelling to make sure your pet
@@ -141,6 +155,9 @@ actions:
       - travel-eu-business
     - visiting-bring-pet
   audience: citizen
+  grouping_criteria:
+  - visiting-eu
+  - visiting-ie
 - id: S010
   priority: 5
   title: Check whether your mobile phone company has changed its mobile roaming charges
@@ -158,6 +175,8 @@ actions:
       - visiting-eu
     - travel-eu-business
   audience: citizen
+  grouping_criteria:
+  - visiting-eu
 - id: S011
   priority: 9
   title: Take out appropriate travel insurance with health cover before travelling
@@ -175,6 +194,8 @@ actions:
       - visiting-eu
       - travel-eu-business
   audience: citizen
+  grouping_criteria:
+  - visiting-eu
 - id: S013
   priority: 8
   title: Check what you need to do to make sure you can travel through the border
@@ -193,6 +214,8 @@ actions:
       - visiting-eu
       - travel-eu-business
   audience: citizen
+  grouping_criteria:
+  - visiting-eu
 - id: S014
   priority: 3
   title: Check when your family needs to apply to the EU Settlement Scheme if they
@@ -208,6 +231,8 @@ actions:
     - nationality-uk
     - return-to-uk
   audience: citizen
+  grouping_criteria:
+  - living-uk
 - id: S015
   priority: 5
   title: To get free NHS healthcare, prove that you've returned to the UK to live
@@ -223,6 +248,8 @@ actions:
     - nationality-uk
     - return-to-uk
   audience: citizen
+  grouping_criteria:
+  - living-uk
 - id: S022
   priority: 2
   title: Check if you need an International Driving Permit before you drive in the
@@ -242,6 +269,8 @@ actions:
       - travel-eu-business
     - visiting-driving
   audience: citizen
+  grouping_criteria:
+  - visiting-eu
 - id: S023
   priority: 2
   title: Get motor insurance green cards for your vehicle, caravan or trailer if they're
@@ -261,6 +290,8 @@ actions:
       - travel-eu-business
     - visiting-driving
   audience: citizen
+  grouping_criteria:
+  - visiting-eu
 - id: S024
   priority: 2
   title: Put a GB sticker on the back of your vehicle if it's registered in the UK,
@@ -279,6 +310,8 @@ actions:
       - travel-eu-business
     - visiting-driving
   audience: citizen
+  grouping_criteria:
+  - visiting-eu
 - id: S025
   priority: 2
   title: Check for disruption to your journey before you travel between the UK and
@@ -299,6 +332,9 @@ actions:
       - visiting-uk
     - travel-eu-business
   audience: citizen
+  grouping_criteria:
+  - visiting-uk
+  - visiting-eu
 - id: S026
   priority: 2
   title: Contact your university to check if you can continue studying in the EU
@@ -313,6 +349,8 @@ actions:
     - nationality-uk
     - studying-eu
   audience: citizen
+  grouping_criteria:
+  - studying-eu
 - id: S028
   priority: 2
   title: Check you're eligible for housing services if you're moving back to the UK
@@ -328,6 +366,8 @@ actions:
     - nationality-uk
     - return-to-uk
   audience: citizen
+  grouping_criteria:
+  - living-uk
 - id: S029
   priority: 11
   title: Apply to be a resident in the EU country you live in
@@ -340,6 +380,8 @@ actions:
     - nationality-uk
     - living-eu
   audience: citizen
+  grouping_criteria:
+  - living-eu
 - id: S030
   priority: 5
   title: Exchange your UK licence for a licence issued by the EU country you live
@@ -356,6 +398,9 @@ actions:
       - living-eu
       - living-ie
   audience: citizen
+  grouping_criteria:
+  - living-eu
+  - living-ie
 - id: S031
   priority: 4
   title: Test your vehicle for roadworthiness in the EU country you live in
@@ -373,6 +418,9 @@ actions:
       - living-eu
       - living-ie
   audience: citizen
+  grouping_criteria:
+  - living-eu
+  - living-ie
 - id: S032
   priority: 4
   title: Contact your vet at least 4 months before travelling to make sure your pet
@@ -391,6 +439,8 @@ actions:
     - visiting-uk
     - visiting-bring-pet
   audience: citizen
+  grouping_criteria:
+  - visiting-uk
 - id: S033
   priority: 5
   title: Check if you can apply to the EU Settlement Scheme
@@ -407,6 +457,8 @@ actions:
     - living-uk
     - family-eu
   audience: citizen
+  grouping_criteria:
+  - living-uk
 - id: S034
   priority: 8
   title: Check if you need a visa or work permit and meet the professional requirements
@@ -420,6 +472,8 @@ actions:
   criteria:
   - travel-eu-business
   audience: citizen
+  grouping_criteria:
+  - visiting-eu
 - id: S035
   priority: 5
   title: Check if you need to get your EU professional qualifications recognised in
@@ -437,6 +491,8 @@ actions:
     - nationality-eu
     - working-uk
   audience: citizen
+  grouping_criteria:
+  - working-uk
 - id: S036
   priority: 5
   title: Get motor insurance green cards or other proof of insurance for your vehicle,
@@ -453,6 +509,8 @@ actions:
     - visiting-uk
     - visiting-driving
   audience: citizen
+  grouping_criteria:
+  - visiting-uk
 - id: T001
   priority: 8
   title: Check if you need to change your conformity assessment or conformity marking
