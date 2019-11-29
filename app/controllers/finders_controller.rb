@@ -1,6 +1,5 @@
 class FindersController < ApplicationController
   include FinderTopResultAbTestable
-  include FinderPopularityAbTestable
   include SpellingSuggestionsABTestable
 
   layout "finder_layout"
@@ -117,7 +116,7 @@ private
       content_item,
       filter_params,
       override_sort_for_feed: is_for_feed,
-      ab_params: popularity_ab_test.merge(spelling_suggestions_ab_test),
+      ab_params: spelling_suggestions_ab_test,
     )
   end
 
