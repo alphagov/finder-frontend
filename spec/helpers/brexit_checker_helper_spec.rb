@@ -199,4 +199,58 @@ describe BrexitCheckerHelper, type: :helper do
       expect(link).to match("http://www.gov.uk?")
     end
   end
+
+  describe "#brexit_results_email_link_label" do
+    let(:actions) { [FactoryBot.build(:brexit_checker_action)] }
+
+    it "returns the email link copy if there are actions" do
+      expect(brexit_results_email_link_label(actions)).to eq(t("brexit_checker.results.email_sign_up_link"))
+    end
+
+    it "returns the no results email link copy if there are no actions" do
+      expect(brexit_results_email_link_label([])).to eq(t("brexit_checker.results.email_sign_up_link_no_actions"))
+    end
+  end
+
+  describe "#brexit_results_title" do
+    let(:actions) { [FactoryBot.build(:brexit_checker_action)] }
+    let(:criteria_keys) { %w"nationality-eu" }
+
+    it "returns the title if there are actions and answers" do
+      expect(brexit_results_title(actions, criteria_keys)).to eq(t("brexit_checker.results.title"))
+    end
+
+    it "returns the meta title if there are actions and no answers" do
+      expect(brexit_results_title(actions, [])).to eq(t("brexit_checker.results.title"))
+    end
+
+    it "returns the no actions title if there are answers but no actions" do
+      expect(brexit_results_title([], criteria_keys)).to eq(t("brexit_checker.results.title_no_actions"))
+    end
+
+    it "returns the no answers title if there no answers and no actions" do
+      expect(brexit_results_title([], [])).to eq(t("brexit_checker.results.title_no_answers"))
+    end
+  end
+
+  describe "#brexit_results_description" do
+    let(:actions) { [FactoryBot.build(:brexit_checker_action, grouping_criteria: "visiting-eu")] }
+    let(:criteria_keys) { %w"nationality-eu" }
+
+    it "returns the desciption if there are actions and answers" do
+      expect(brexit_results_description(actions, criteria_keys)).to eq(t("brexit_checker.results.description"))
+    end
+
+    it "returns the desciption if there are actions and no answers" do
+      expect(brexit_results_description(actions, [])).to eq(t("brexit_checker.results.description"))
+    end
+
+    it "returns the no actions desciption if there are answers but no actions" do
+      expect(brexit_results_description([], criteria_keys)).to eq(t("brexit_checker.results.description_no_actions"))
+    end
+
+    it "returns the no answers desciption there no answers and no actions" do
+      expect(brexit_results_description([], [])).to eq(t("brexit_checker.results.description_no_answers"))
+    end
+  end
 end
