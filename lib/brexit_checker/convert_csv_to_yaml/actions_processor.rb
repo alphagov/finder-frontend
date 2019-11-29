@@ -26,6 +26,7 @@ module BrexitChecker
         stripped_record = remove_empty_fields(stripped_record)
         stripped_record = parse_comma_separated(stripped_record)
         stripped_record["priority"] = stripped_record["priority"].to_i
+        stripped_record["grouping_criteria"] &&= stripped_record["grouping_criteria"].split(",").map(&:strip)
         stripped_record
       end
 
