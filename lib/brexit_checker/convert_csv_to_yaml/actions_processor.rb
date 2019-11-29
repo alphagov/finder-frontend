@@ -13,7 +13,8 @@ module BrexitChecker
                           criteria
                           audience
                           id
-                          exception).freeze
+                          exception
+                          grouping_criteria).freeze
 
       def process(record)
         return unless approved?(record)
@@ -23,6 +24,7 @@ module BrexitChecker
         stripped_record = strip_trailing_whitespace(stripped_record)
         stripped_record = remove_empty_fields(stripped_record)
         stripped_record["priority"] = stripped_record["priority"].to_i
+        stripped_record["grouping_criteria"] &&= stripped_record["grouping_criteria"].split(",").map(&:strip)
         stripped_record
       end
 
