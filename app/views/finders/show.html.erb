@@ -12,7 +12,6 @@
   <% end %>
 
   <%= finder_top_result_variant.analytics_meta_tag.html_safe if content_item.eu_exit_finder? %>
-  <%= popularity_variant.analytics_meta_tag.html_safe if in_popularity_ab_test_scope? %>
   <%= spelling_suggestions_variant.analytics_meta_tag.html_safe if in_spelling_suggestions_ab_test_scope? %>
 <% end %>
 
