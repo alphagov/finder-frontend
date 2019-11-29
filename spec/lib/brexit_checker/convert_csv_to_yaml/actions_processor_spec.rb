@@ -46,5 +46,17 @@ describe BrexitChecker::ConvertCsvToYaml::ActionsProcessor do
       result = described_class.new.process(record)
       expect(result).to be nil
     end
+
+    it "parses single grouping_criteria" do
+      record["grouping_criteria"] = "group1"
+      result = described_class.new.process(record)
+      expect(result["grouping_criteria"]).to eq(%w(group1))
+    end
+
+    it "parses double grouping_criteria" do
+      record["grouping_criteria"] = "group1, group2"
+      result = described_class.new.process(record)
+      expect(result["grouping_criteria"]).to eq(%w(group1 group2))
+    end
   end
 end

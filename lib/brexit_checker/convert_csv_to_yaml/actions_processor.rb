@@ -2,6 +2,7 @@ module BrexitChecker
   module ConvertCsvToYaml
     class ActionsProcessor
       LOGIC_FIELDS = %w(criteria).freeze
+      COMMA_SEPARATED_FIELDS = %w(grouping_criteria).freeze
       ALLOWED_FIELDS = %w(title
                           title_url
                           consequence
@@ -13,7 +14,8 @@ module BrexitChecker
                           criteria
                           audience
                           id
-                          exception).freeze
+                          exception
+                          grouping_criteria).freeze
 
       def process(record)
         return unless approved?(record)
@@ -22,11 +24,18 @@ module BrexitChecker
         stripped_record = parse_logic_fields(stripped_record)
         stripped_record = strip_trailing_whitespace(stripped_record)
         stripped_record = remove_empty_fields(stripped_record)
+        stripped_record = parse_comma_separated(stripped_record)
         stripped_record["priority"] = stripped_record["priority"].to_i
         stripped_record
       end
 
     private
+
+      def parse_comma_separated(record)
+        COMMA_SEPARATED_FIELDS.each_with_object(record) do |field, hash|
+          hash[field] = hash[field].split(",").map(&:strip) if hash[field]
+        end
+      end
 
       def parse_logic_fields(record)
         LOGIC_FIELDS.each_with_object(record) do |field, hash|

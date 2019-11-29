@@ -13,7 +13,8 @@ class BrexitChecker::Action
 
   attr_reader :id, :title, :consequence, :exception, :title_url, :title_path,
               :lead_time, :criteria, :audience, :guidance_link_text,
-              :guidance_url, :guidance_path, :guidance_prompt, :priority
+              :guidance_url, :guidance_path, :guidance_prompt, :priority,
+              :grouping_criteria
 
   def initialize(attrs)
     attrs.each { |key, value| instance_variable_set("@#{key}", value) }
