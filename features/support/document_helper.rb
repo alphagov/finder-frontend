@@ -225,7 +225,7 @@ module DocumentHelper
   end
 
   def content_store_has_news_and_communications_finder
-    finder_fixture = File.read(Rails.root.join("features", "fixtures", "news_and_communications_with_checkboxes.json"))
+    finder_fixture = File.read(Rails.root.join("features/fixtures/news_and_communications_with_checkboxes.json"))
 
     content_store_has_item("/search/news-and-communications", finder_fixture)
   end
@@ -249,7 +249,7 @@ module DocumentHelper
   end
 
   def content_store_has_services_finder
-    finder_fixture = File.read(Rails.root.join("features", "fixtures", "services.json"))
+    finder_fixture = File.read(Rails.root.join("features/fixtures/services.json"))
 
     content_store_has_item("/search/services", finder_fixture)
   end
@@ -262,25 +262,25 @@ module DocumentHelper
   end
 
   def content_store_has_statistics_finder
-    finder_fixture = File.read(Rails.root.join("features", "fixtures", "statistics.json"))
+    finder_fixture = File.read(Rails.root.join("features/fixtures/statistics.json"))
 
     content_store_has_item("/search/research-and-statistics", finder_fixture)
   end
 
   def content_store_has_aaib_reports_finder
-    finder_fixture = File.read(Rails.root.join("features", "fixtures", "aaib_reports_example.json"))
+    finder_fixture = File.read(Rails.root.join("features/fixtures/aaib_reports_example.json"))
 
     content_store_has_item("/aaib-reports", finder_fixture)
   end
 
   def content_store_has_all_content_finder
-    finder_fixture = File.read(Rails.root.join("features", "fixtures", "all_content.json"))
+    finder_fixture = File.read(Rails.root.join("features/fixtures/all_content.json"))
 
     content_store_has_item("/search/all", finder_fixture)
   end
 
   def content_store_has_policy_and_engagement_finder
-    finder_fixture = File.read(Rails.root.join("features", "fixtures", "policy_and_engagement.json"))
+    finder_fixture = File.read(Rails.root.join("features/fixtures/policy_and_engagement.json"))
 
     content_store_has_item("/search/policy-papers-and-consultations", finder_fixture)
   end
@@ -290,13 +290,13 @@ module DocumentHelper
   end
 
   def content_store_has_business_readiness_finder
-    finder_fixture = File.read(Rails.root.join("features", "fixtures", "business_readiness.json"))
+    finder_fixture = File.read(Rails.root.join("features/fixtures/business_readiness.json"))
 
     content_store_has_item("/find-eu-exit-guidance-business", finder_fixture)
   end
 
   def content_store_has_business_readiness_email_signup
-    finder_fixture = File.read(Rails.root.join("features", "fixtures", "business_readiness_email_signup.json"))
+    finder_fixture = File.read(Rails.root.join("features/fixtures/business_readiness_email_signup.json"))
 
     content_store_has_item("/find-eu-exit-guidance-business/email-signup", finder_fixture)
   end
@@ -2011,12 +2011,12 @@ module DocumentHelper
 
   def business_readiness_results_json
     @business_readiness_results_json ||=
-      File.read(Rails.root.join("features", "fixtures", "business_readiness_results.json"))
+      File.read(Rails.root.join("features/fixtures/business_readiness_results.json"))
   end
 
   def filtered_business_readiness_results_json
     @filtered_business_readiness_results_json ||=
-      File.read(Rails.root.join("features", "fixtures", "business_readiness_filtered_results.json"))
+      File.read(Rails.root.join("features/fixtures/business_readiness_filtered_results.json"))
   end
 
   def visit_filtered_finder(facets = {})

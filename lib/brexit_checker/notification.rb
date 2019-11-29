@@ -1,7 +1,7 @@
 class BrexitChecker::Notification
   include ActiveModel::Validations
 
-  CONFIG_PATH = Rails.root.join("lib", "brexit_checker", "notifications.yaml")
+  CONFIG_PATH = Rails.root.join("lib/brexit_checker/notifications.yaml")
 
   validates_presence_of :action_id
   validates_inclusion_of :type, in: %w(addition content_change)

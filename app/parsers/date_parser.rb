@@ -70,7 +70,7 @@ private
     guessed_date = Chronic.parse(date_string, guess: :begin)
     if guessed_date
       guessed_year = guessed_date.year
-      this_year = Time.now.year
+      this_year = Time.zone.now.year
       guessed_year != this_year ? guessed_date - 1.year : guessed_date
     end
   end

@@ -5,7 +5,7 @@ require "registries/base_registries"
 RSpec.describe Registries::FullTopicTaxonomyRegistry do
   include TaxonomySpecHelper
   let(:level_one_taxons) {
-    JSON.parse(File.read(Rails.root.join("features", "fixtures", "level_one_taxon.json")))
+    JSON.parse(File.read(Rails.root.join("features/fixtures/level_one_taxon.json")))
   }
 
   let(:base_path) { "/basepath" }

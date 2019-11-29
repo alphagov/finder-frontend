@@ -12,7 +12,7 @@ describe EmailAlertListTitleBuilder do
 
   let(:subscription_list_title_prefix) { "EU Exit guidance" }
   let(:facets) do
-    signup_json = JSON.parse(File.read(Rails.root.join("features", "fixtures", "business_readiness_email_signup.json")))
+    signup_json = JSON.parse(File.read(Rails.root.join("features/fixtures/business_readiness_email_signup.json")))
     signup_json.fetch("details").fetch("email_filter_facets")
   end
 
