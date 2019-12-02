@@ -10,6 +10,7 @@ class BrexitChecker::Action
   validates_presence_of :guidance_link_text, if: :guidance_url
   validates_numericality_of :priority, only_integer: true
   validate :has_criteria
+  validate :citizen_action_has_grouping_criteria
 
   attr_reader :id, :title, :consequence, :exception, :title_url, :title_path,
               :lead_time, :criteria, :audience, :guidance_link_text,
@@ -66,6 +67,12 @@ private
       url.path
     else
       full_url
+    end
+  end
+
+  def citizen_action_has_grouping_criteria
+    if audience == "citizen" && grouping_criteria.nil?
+      errors.add(:grouping_criteria, "Can't be empty for citizen actions")
     end
   end
 end
