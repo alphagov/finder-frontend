@@ -31,6 +31,7 @@ RSpec.describe "Change notifications" do
         [
           FactoryBot.build(
             :brexit_checker_action,
+            :business,
             id: "addition",
             criteria: [
               { "all_of" => %w(nationality-eu living-uk) },
@@ -38,6 +39,7 @@ RSpec.describe "Change notifications" do
           ),
           FactoryBot.build(
             :brexit_checker_action,
+            :business,
             id: "content_change",
             criteria: [
               {
