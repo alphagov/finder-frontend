@@ -1,17 +1,18 @@
 require "spec_helper"
 
 RSpec.describe "Brexit checker data integrity" do
-  let(:validator) { BrexitChecker::Criteria::Validator }
+  let(:extractor) { BrexitChecker::Criteria::Extractor }
+  let(:all_criteria) { BrexitChecker::Criterion.load_all.map(&:key).to_set }
 
   it "has questions that reference valid criteria" do
     BrexitChecker::Question.load_all.each do |question|
-      expect(validator.validate(question.criteria)).to be_truthy
+      expect(all_criteria).to include(*extractor.extract(question.criteria))
     end
   end
 
   it "has actions that reference valid criteria" do
     BrexitChecker::Action.load_all.each do |action|
-      expect(validator.validate(action.criteria)).to be_truthy
+      expect(all_criteria).to include(*extractor.extract(action.criteria))
     end
   end
 
@@ -25,7 +26,7 @@ RSpec.describe "Brexit checker data integrity" do
 
   it "has question options that reference valid criteria" do
     BrexitChecker::Question.load_all.flat_map(&:all_values).each do |value|
-      expect(validator.validate([value])).to be_truthy
+      expect(all_criteria).to include(*extractor.extract([value]))
     end
   end
 

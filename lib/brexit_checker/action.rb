@@ -9,6 +9,7 @@ class BrexitChecker::Action
   validates_inclusion_of :audience, in: %w(business citizen)
   validates_presence_of :guidance_link_text, if: :guidance_url
   validates_numericality_of :priority, only_integer: true
+  validate :has_criteria
 
   attr_reader :id, :title, :consequence, :exception, :title_url, :title_path,
               :lead_time, :criteria, :audience, :guidance_link_text,
@@ -35,6 +36,13 @@ class BrexitChecker::Action
   end
 
 private
+
+  def has_criteria
+    return unless BrexitChecker::Criteria::Extractor
+      .extract(criteria).none?
+
+    errors.add "Action must have at least one criterion"
+  end
 
   def path_from_url(full_url)
     url = Addressable::URI.parse(full_url)
