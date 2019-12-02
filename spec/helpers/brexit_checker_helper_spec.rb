@@ -13,10 +13,10 @@ describe BrexitCheckerHelper, type: :helper do
   end
 
   describe "#format_action_audiences" do
-    let(:action1) { FactoryBot.build(:brexit_checker_action, audience: "citizen", priority: 5) }
-    let(:action2) { FactoryBot.build(:brexit_checker_action, audience: "citizen", priority: 8) }
-    let(:action3) { FactoryBot.build(:brexit_checker_action, audience: "business", priority: 5) }
-    let(:action4) { FactoryBot.build(:brexit_checker_action, audience: "business", priority: 5) }
+    let(:action1) { FactoryBot.build(:brexit_checker_action, :citizen, priority: 5) }
+    let(:action2) { FactoryBot.build(:brexit_checker_action, :citizen, priority: 8) }
+    let(:action3) { FactoryBot.build(:brexit_checker_action, priority: 5) }
+    let(:action4) { FactoryBot.build(:brexit_checker_action, priority: 5) }
 
     subject { format_action_audiences(actions) }
 

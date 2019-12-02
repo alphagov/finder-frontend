@@ -4,9 +4,15 @@ FactoryBot.define do
     title_url { "http://www.gov.uk" }
     id { SecureRandom.uuid }
     consequence { "A consequence" }
-    criteria { %w(construction) }
-    audience { "citizen" }
     priority { 5 }
+    criteria { %w(construction) }
+    audience { "business" }
+
+    trait :citizen do
+      audience { "citizen" }
+      grouping_criteria { %w(living-uk) }
+      criteria { %w(living-uk) }
+    end
 
     initialize_with { BrexitChecker::Action.new(attributes) }
   end
