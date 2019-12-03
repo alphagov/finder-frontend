@@ -1,0 +1,28 @@
+<section class="brexit-checker-actions">
+  <header>
+    <h2 class="govuk-heading-l action-audience__heading">
+      <%= t('brexit_checker.results.audiences.citizen.heading') %>
+    </h2>
+  </header>
+  <section class="brexit-checker-audience">
+    <% citizen_results_groups.each.with_index do |group, group_index| %>
+      <section
+        class="brexit-checker-actions__group"
+        data-analytics-ecommerce
+        data-ecommerce-start-index="1"
+        data-list-title="Brexit checker results: <%= "#{t('brexit_checker.results.audiences.citizen.heading')} - #{group[:group].heading}" %>"
+        data-search-query
+      >
+        <div class="govuk-grid-row">
+          <%= render 'results_criteria', criteria: group[:criteria], heading: group[:group].heading %>
+          <div class="govuk-grid-column-two-thirds">
+            <%= render "action_list", {
+              analytics_group: "#{t('brexit_checker.results.audiences.citizen.heading')} - #{group[:heading]} - #{group_index + 1}.",
+              actions: group[:actions]
+            } %>
+          </div>
+        </div>
+      </section>
+    <% end %>
+  </section>
+</section>
