@@ -1,7 +1,4 @@
-<% items.each.with_index do | action, index | %>
-  <% action_index = "#{audience_index}.#{'%02d' % (index + 1)}"%>
-  <div class="govuk-grid-row govuk-!-margin-bottom-3">
-    <div class="govuk-grid-column-three-quarters">
+<% actions.each.with_index do | action, index | %>
       <p class="govuk-body govuk-!-font-weight-bold">
         <% if action.title_url.present? %>
           <a
@@ -31,9 +28,10 @@
       <% end %>
 
       <% if action.guidance_url.present? %>
-        <p class="govuk-body govuk-!-font-size-16">
-          <% prompt = action.guidance_prompt || t("brexit_checker.action_list.guidance_prompt") %>
-          <%= prompt %>:
+          <p>
+            <%= action.guidance_prompt || t("brexit_checker.action_list.guidance_prompt") %>:
+          </p>
+          <p>
             <a
               href="<%= action.guidance_url %>"
               class="govuk-link"
