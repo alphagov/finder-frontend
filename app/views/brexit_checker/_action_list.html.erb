@@ -15,6 +15,13 @@
           <%= action.title %>
         <% end %>
       </p>
+      <% if action.lead_time.present? %>
+        <div class="govuk-body govuk-!-font-weight-bold">
+          <div class="govuk-inset-text">
+            <%= action.lead_time %>
+          </div>
+        </div>
+      <% end %>
 
       <% if action.consequence.present? %>
         <p class="govuk-body govuk-!-font-size-16">
@@ -42,19 +49,9 @@
               data-ecommerce-row
               data-ecommerce-path="<%= action.guidance_path %>"
             ><%= action.guidance_link_text %></a>
-        </p>
+          </p>
+        </div>
       <% end %>
-    </div>
-
-    <div class="govuk-grid-column-one-quarter">
-      <% if action.lead_time.present? %>
-        <p class="govuk-body govuk-!-font-size-16 govuk-!-font-weight-bold brexit-checker-result__leadtime">
-          <%= action.lead_time %>
-        </p>
-      <% end %>
-    </div>
-    <div class="govuk-grid-column-full">
-      <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
     </div>
   </div>
 <% end %>
