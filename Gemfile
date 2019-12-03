@@ -36,6 +36,7 @@ group :development, :test do
   gem "pry-byebug"
   gem "rspec-rails", "~> 4.0.0.beta3"
   gem "rubocop-govuk"
+  gem "scss_lint-govuk"
 end
 
 group :test do

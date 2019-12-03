@@ -11,6 +11,7 @@
 
 .app-c-expander__content {
   padding: govuk-spacing(2) 13px;
+
   .govuk-form-group:last-child {
     margin-bottom: 0;
   }
@@ -21,7 +22,7 @@
     position: relative;
     padding: 10px 8px 5px 40px;
   }
-  
+
   .app-c-expander__content {
     display: none;
   }
