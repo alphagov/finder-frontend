@@ -5,7 +5,7 @@
             class="govuk-link"
             href="<%= action.title_url %>"
             data-module="track-click"
-            data-track-action="<%= audience_heading %> <%= action_index %> - Action"
+            data-track-action="<%= "#{analytics_group}#{index + 1}"%> - Action"
             data-track-category="brexit-checker-results"
             data-track-label="<%= action.title_url %>"
             data-ecommerce-row
@@ -43,7 +43,7 @@
               href="<%= action.guidance_url %>"
               class="govuk-link"
               data-module="track-click"
-              data-track-action="<%= audience_heading %> <%= action_index %> - Guidance"
+              data-track-action="<%= "#{analytics_group}#{index + 1}"%> - Guidance"
               data-track-category="brexit-checker-results"
               data-track-label="<%= action.guidance_url %>"
               data-ecommerce-row
