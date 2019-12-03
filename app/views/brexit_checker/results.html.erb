@@ -67,16 +67,9 @@
       </div>
     </div>
 
-    <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible govuk-section-break--bold">
-    <div class="govuk-grid-row govuk-!-margin-bottom-6">
-      <div class="govuk-grid-column-one-third">
-        <%= render 'results_answers', answers: format_criteria_list(@criteria) %>
-      </div>
-      <div class="govuk-grid-column-two-thirds">
-        <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible govuk-section-break--bold govuk-section-break--visible-mobile-only">
-        <%= render 'action_audiences', audiences: format_action_audiences(@actions), action_based_description: action_based_description %>
-      </div>
-    </div>
+    <%= render 'results_business_actions', business_results: @business_results if @business_results.any? %>
+    <%= render 'results_citizen_actions', citizen_results_groups: @citizen_results_groups if @citizen_results_groups.any? %>
+    <%= render 'results_with_no_actions', criteria: @criteria if (@business_results.empty? && @citizen_results_groups.empty?) %>
 
     <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible govuk-section-break--bold">
     <div class="govuk-grid-row">
