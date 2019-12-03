@@ -59,12 +59,6 @@ mark {
   @include govuk-media-query($from: tablet) {
     max-width: (100% / 3) * 2;
   }
-
-  fieldset.invalid {
-    border-left: solid 4px $govuk-error-colour;
-    padding-left: govuk-spacing(3);
-    margin-left: -govuk-spacing(3) - 4;
-  }
 }
 
 .signup-choices__message {
