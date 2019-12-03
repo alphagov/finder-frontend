@@ -1,8 +1,0 @@
-en:
-  brexit_checker:
-    results_answers:
-      list_context: "Based on your answers, we know:"
-      no_answers: |
-        You did not answer any of the questions.
-        This is a safe and secure service. We don't store any of your personal information.
-        To change your answers, follow the link below.
