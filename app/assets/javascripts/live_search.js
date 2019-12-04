@@ -373,7 +373,7 @@
     // so we can restore them after the relopad
     var oldStates = $optionSelectElements.map(function () {
       var $el = $(this)
-      var id = $el.find('.js-container-head').attr('id')
+      var id = $el.find('.js-container-button').attr('id')
       var filter = ''
       var filters = $el.find('.app-c-option-select__filter-input')
       if (filters.length === 1) { filter = filters[0].value }
@@ -384,7 +384,7 @@
     // apply old states to each facets and reinitialise the optionSelect script
     oldStates.each(function (i, data) {
       var $header = $('#' + data.elementId)
-      var $el = $header.parent('[data-module="option-select"]')
+      var $el = $header.parents('[data-module="option-select"]')
       $el.data('closed-on-load', data.expanded)
       new GOVUK.Modules.OptionSelect().start($el)
       var filters = $el.find('.app-c-option-select__filter-input')
@@ -396,6 +396,12 @@
     // we need to reinitialise the module after the DOM update
     var updatedTaxonomy = new GOVUK.TaxonomySelect({ $el: $('.js-taxonomy-select') })
     updatedTaxonomy.update()
+    // reinitialise expanders
+    var expanders = $('[data-module="expander"]')
+    console.log(expanders)
+    for (var i = 0; i < expanders.length; i++) {
+      new GOVUK.Modules.Expander().start($(expanders[i]))
+    }
     // we need to show the element again the way it's done on first load
     // in application.js:31
     var $facetElementsRequiringJavascript = $(this.$facetWrapper).find('.js-required')
