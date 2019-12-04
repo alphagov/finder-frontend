@@ -274,6 +274,30 @@ describe FindersController, type: :controller do
     end
   end
 
+  describe "hide keyword facet tag A/B test" do
+    before do
+      content_store_has_item("/search/all", all_content_finder)
+    end
+
+    it "requests the B (hide keyword facet tags) variant" do
+      request = search_api_request(query: { ab_tests: "hide_keyword_facet_tags:B" })
+
+      with_variant HideKeywordFacetTagsABTest: "B" do
+        get :show, params: { slug: "search/all" }
+        expect(request).to have_been_made.once
+      end
+    end
+
+    it "requests the control variant (A) by default" do
+      request = search_api_request
+
+      with_variant HideKeywordFacetTagsABTest: "A" do
+        get :show, params: { slug: "search/all" }
+        expect(request).to have_been_made.once
+      end
+    end
+  end
+
   describe "Spelling suggestions" do
     let(:breakfast_finder) do
       finder = govuk_content_schema_example("finder").to_hash.merge(
