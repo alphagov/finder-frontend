@@ -34,7 +34,8 @@ private
     when Array
       object.flat_map { |element| extract_criteria(element) }
     when Hash
-      extract_criteria(object.fetch(:any_of, [])) + extract_criteria(object.fetch(:all_of, []))
+      extract_criteria(object.fetch("any_of", [])) +
+        extract_criteria(object.fetch("all_of", []))
     when String
       object
     end

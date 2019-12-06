@@ -15,12 +15,12 @@ RSpec.describe BrexitChecker::Criteria::Validator do
   end
 
   context "the criteria includes all the available criteria" do
-    let(:expression) { [{ any_of: %w(a b c) }] }
+    let(:expression) { [{ "any_of" => %w(a b c) }] }
     it { is_expected.to eq(true) }
   end
 
   context "the criteria references a non-existent criteria" do
-    let(:expression) { [{ any_of: %w(a b c) }, { all_of: %w(d) }] }
+    let(:expression) { [{ "any_of" => %w(a b c) }, { "all_of" => %w(d) }] }
     it { is_expected.to eq(false) }
   end
 end
