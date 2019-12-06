@@ -154,10 +154,10 @@ criteria:
   text: You use or rely on exhaustion of rights protection
 - key: do-not-ip
   text: You do not use or rely on intellectual property protection
-- key: eu-uk-funding
-  text: You receive EU or UK government funding
 - key: do-not-eu-uk-funding
   text: You do not receive EU or UK government funding
+- key: eu-uk-funding
+  text: You receive EU or UK government funding
 - key: sell-public-sector
   text: You sell products or services to the public sector
 - key: sell-public-sector-contracts
@@ -198,10 +198,6 @@ criteria:
   text: You drive in the EU using a UK licence
 - key: living-driving-eu-no
   text: You do not drive in the EU using a UK licence
-- key: travel-eu-business
-  text: You travel to the EU for business
-- key: travel-eu-business-no
-  text: You do not travel to the EU for business
 - key: visiting-ie
   text: You plan to travel to Ireland
 - key: visiting-eu
@@ -226,3 +222,7 @@ criteria:
   text: You are a family member of an EU, EEA or Swiss citizen
 - key: family-eu-no
   text: You are not a family member of an EU, EEA or Swiss citizen
+- key: travel-eu-business
+  text: You travel to the EU for business
+- key: travel-eu-business-no
+  text: You do not travel to the EU for business
