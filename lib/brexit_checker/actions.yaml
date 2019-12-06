@@ -1568,7 +1568,7 @@ actions:
   - any_of:
     - environment
     - import-from-eu
-    - export-from-eu
+    - export-to-eu
   audience: business
 - id: T097
   priority: 2
@@ -1582,7 +1582,7 @@ actions:
   criteria:
   - any_of:
     - import-from-eu
-    - export-from-eu
+    - export-to-eu
     - fish-inc-wholesale
     - forestry
     - animal-ex-food
