@@ -1,7 +1,7 @@
 require "spec_helper"
 
 RSpec.describe FinderBreadcrumbsPresenter do
-  let(:finder_hash) { JSON.parse(File.read(Rails.root.join("features", "fixtures", "aaib_reports_example.json"))) }
+  let(:finder_hash) { JSON.parse(File.read(Rails.root.join("features/fixtures/aaib_reports_example.json"))) }
   let(:finder) { ContentItem.new(finder_hash) }
   let(:org_breadcrumb_info) { { "title" => "Attorney General's Office", "slug" => "attorney-generals-office" } }
   let(:empty_breadcrumb_info) { nil }
