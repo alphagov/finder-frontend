@@ -2,67 +2,60 @@ require "spec_helper"
 
 RSpec.describe "Brexit checker data integrity" do
   let(:extractor) { BrexitChecker::Criteria::Extractor }
-  let(:all_criteria) { BrexitChecker::Criterion.load_all.map(&:key).to_set }
+  let(:all_criteria_keys) { BrexitChecker::Criterion.load_all.map(&:key).to_set }
+  let(:all_action_ids) { BrexitChecker::Action.load_all.map(&:id) }
 
-  it "has questions that reference valid criteria" do
-    BrexitChecker::Question.load_all.each do |question|
-      expect(all_criteria).to include(*extractor.extract(question.criteria))
+  BrexitChecker::Question.load_all.each do |question|
+    it "ensures question '#{question.key}' references valid criteria" do
+      expect(all_criteria_keys).to include(*extractor.extract(question.criteria))
+    end
+
+    it "ensures question '#{question.key}' options reference valid criteria" do
+      expect(all_criteria_keys).to include(*extractor.extract(question.all_values))
     end
   end
 
-  it "has actions that reference valid criteria" do
-    BrexitChecker::Action.load_all.each do |action|
-      expect(all_criteria).to include(*extractor.extract(action.criteria))
+  BrexitChecker::Action.load_all.each do |action|
+    it "ensures action '#{action.id}' references valid criteria" do
+      expect(all_criteria_keys).to include(*extractor.extract(action.criteria))
     end
   end
 
-  it "has notifications that reference valid actions" do
-    ids = BrexitChecker::Action.load_all.map(&:id)
-
-    BrexitChecker::Notification.load_all.each do |notification|
-      expect(ids).to include(notification.action_id)
-    end
-  end
-
-  it "has question options that reference valid criteria" do
-    BrexitChecker::Question.load_all.flat_map(&:all_values).each do |value|
-      expect(all_criteria).to include(*extractor.extract([value]))
+  BrexitChecker::Notification.load_all.each do |notification|
+    it "ensures notification '#{notification.id}' references a valid action" do
+      expect(all_action_ids).to include(notification.action_id)
     end
   end
 
   it "has questions with unique keys" do
     ids = BrexitChecker::Question.load_all(&:key)
-    expect(ids.uniq.count).to eq ids.count
+    expect(ids.uniq).to match_array ids
   end
 
   it "has actions with unique IDs" do
-    ids = BrexitChecker::Action.load_all(&:id)
-    expect(ids.uniq.count).to eq ids.count
+    expect(all_action_ids.uniq).to match_array all_action_ids
   end
 
   it "has criteria with unique keys" do
-    keys = BrexitChecker::Criterion.load_all.map(&:key)
-    expect(keys.uniq.count).to eq(keys.count)
+    expect(all_criteria_keys.uniq).to match_array all_criteria_keys
   end
 
   it "has notifications with unique IDs" do
     keys = BrexitChecker::Notification.load_all.map(&:id)
-    expect(keys.uniq.count).to eq(keys.count)
+    expect(keys.uniq).to match_array keys
   end
 
   it "has criteria that are covered by a question" do
     possible_criteria = BrexitChecker::Question.load_all
       .flat_map(&:all_values)
 
-    BrexitChecker::Criterion.load_all.each do |criterion|
-      expect(possible_criteria).to include(criterion.key)
-    end
+    expect(all_criteria_keys).to include(*possible_criteria)
   end
 
   it "has criteria that occur only once in the questions" do
     possible_criteria = BrexitChecker::Question.load_all
       .flat_map(&:all_values)
 
-    expect(possible_criteria.uniq.count).to eq possible_criteria.count
+    expect(possible_criteria.uniq).to match_array possible_criteria
   end
 end
