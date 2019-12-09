@@ -4,6 +4,16 @@
   padding: govuk-spacing(4);
   background: govuk-colour('grey-4');
 
+  .app-c-email-link__title {
+    font-weight: bold;
+  }
+
+  .app-c-email-link__icon {
+    position: relative;
+    margin-right: 5px;
+    top: 5px;
+  }
+
   .app-c-email-link__link {
     .app-c-email-link__icon {
       position: relative;
