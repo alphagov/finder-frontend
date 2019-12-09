@@ -250,30 +250,6 @@ describe FindersController, type: :controller do
     end
   end
 
-  describe "suggestions A/B test" do
-    before do
-      content_store_has_item("/search/all", all_content_finder)
-    end
-
-    it "requests the B (levenshtein) variant" do
-      request = search_api_request(query: { ab_tests: "spelling_suggestions:B" })
-
-      with_variant SpellingSuggestionsABTest: "B" do
-        get :show, params: { slug: "search/all" }
-        expect(request).to have_been_made.once
-      end
-    end
-
-    it "requests the non-levenshtein variant (A) by default" do
-      request = search_api_request
-
-      with_variant SpellingSuggestionsABTest: "A" do
-        get :show, params: { slug: "search/all" }
-        expect(request).to have_been_made.once
-      end
-    end
-  end
-
   describe "hide keyword facet tag A/B test" do
     before do
       content_store_has_item("/search/all", all_content_finder)
