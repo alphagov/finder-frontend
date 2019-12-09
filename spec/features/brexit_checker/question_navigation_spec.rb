@@ -17,7 +17,7 @@ RSpec.feature "Navigating Brexit Checker questions", type: :feature do
   end
 
   def and_i_answer_travel_questions
-    3.times { click_on "Next" }
+    3.times { click_on "Continue" }
     answer_question("travelling", "To another EU country, or Switzerland, Norway, Iceland or Liechtenstein")
     answer_question("activities", "Take your pet")
   end
