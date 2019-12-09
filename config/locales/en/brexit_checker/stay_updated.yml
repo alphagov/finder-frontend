@@ -1,11 +1,6 @@
 en:
   brexit_checker:
     stay_updated:
-      heading: Get updates
-      description: >
-        <p>Sign up to receive:</p>
-        <ul>
-          <li>email alerts about changes to Brexit information that may affect you</li>
-          <li>a link to your results</li>
-        </ul>
+      heading: What you need to do may change
+      description: Subscribe to updates about changes that may affect you and get a link to your results.
       sign_up: Subscribe

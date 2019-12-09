@@ -1,10 +1,10 @@
-<h2 class="govuk-heading-l stay-updated__heading"><%= t("brexit_checker.stay_updated.heading") %></h2>
+<h2 class="govuk-heading-m stay-updated__heading">
+  <%= t("brexit_checker.stay_updated.heading") %>
+</h2>
 
-<div class="govuk-!-margin-top-4">
-  <%= render "govuk_publishing_components/components/govspeak", {
-    content: t("brexit_checker.stay_updated.description").html_safe
-  } %>
-</div>
+<p class="stay-updated_description" >
+  <%= t("brexit_checker.stay_updated.description") %>
+</p>
 
 <%= render "govuk_publishing_components/components/button", {
   text: t("brexit_checker.stay_updated.sign_up"),
