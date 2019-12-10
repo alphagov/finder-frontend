@@ -159,13 +159,13 @@ criteria:
 - key: eu-uk-funding
   text: You receive EU or UK government funding
 - key: sell-public-sector
-  text: You sell products or services to the public sector
+  text: You sell products or services to the UK public sector
 - key: sell-public-sector-contracts
-  text: You have public sector contracts
+  text: You have UK public sector contracts
 - key: sell-defence-contracts
-  text: You have defence contracts
+  text: You have UK defence contracts
 - key: do-not-sell-to-public-sector
-  text: You do not sell products or services to the public sector
+  text: You do not sell products or services to the UK public sector
 - key: nationality-uk
   text: You are a British national
 - key: nationality-ie
