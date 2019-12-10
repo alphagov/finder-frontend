@@ -4,10 +4,10 @@
       <% if local_assigns[:heading] %>
         <h3 class="govuk-heading-m"><%= heading %></h3>
       <% end %>
-      <p class="govuk-body govuk-!-font-size-16">
+      <p class="govuk-body">
         <%= t('brexit_checker.results.criteria.list_context') %>
       </p>
-      <ul class="govuk-list govuk-list--bullet govuk-!-font-size-16">
+      <ul class="govuk-list govuk-list--bullet">
         <% criteria.each do |criterion| %>
           <li><%= criterion.text %></li>
         <% end %>
@@ -15,7 +15,7 @@
     </div>
   </aside>
 <% else %>
-  <p class="govuk-body govuk-!-font-size-16">
+  <p class="govuk-body">
     <%= t('brexit_checker.results.criteria.no_answers') %>
   </p>
 <% end %>
