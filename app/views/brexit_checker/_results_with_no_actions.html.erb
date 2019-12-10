@@ -1,8 +1,6 @@
 <section class="brexit-checker__no-results">
   <div class="govuk-grid-row">
-    <div>
-      <%= render 'results_criteria', criteria: @criteria %>
-    </div>
+    <%= render 'results_criteria', criteria: @criteria %>
     <div class="govuk-grid-column-two-thirds">
       <p class="govuk-body brexit-checker__no-results-warning">
         <%= t("brexit_checker.action_audiences.no_results") %>
