@@ -1,18 +1,18 @@
 <% if criteria.present? %>
   <aside class="govuk-grid-column-one-third">
-    <div class="brexit-checker__criteria">
-      <% if local_assigns[:heading] %>
-        <h3 class="govuk-heading-m"><%= heading %></h3>
+    <% if local_assigns[:heading] %>
+      <h3 class="govuk-heading-m"><%= heading %></h3>
+    <% end %>
+    <p class="govuk-body brexit-checker__critera_explaination">
+      <%= t('brexit_checker.results.criteria.list_context') %>
+    </p>
+    <ul class="govuk-list govuk-list--bullet">
+      <% criteria.each do |criterion| %>
+        <li class="brexit-checker__criterion">
+          <%= criterion.text %>
+        </li>
       <% end %>
-      <p class="govuk-body">
-        <%= t('brexit_checker.results.criteria.list_context') %>
-      </p>
-      <ul class="govuk-list govuk-list--bullet">
-        <% criteria.each do |criterion| %>
-          <li><%= criterion.text %></li>
-        <% end %>
-      </ul>
-    </div>
+    </ul>
   </aside>
 <% else %>
   <p class="govuk-body">
