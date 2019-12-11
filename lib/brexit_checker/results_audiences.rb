@@ -9,6 +9,25 @@ class BrexitChecker::ResultsAudiences
       }
     end
 
+    def populate_citizen_groups(audience_actions, selected_criteria)
+      return [] if audience_actions.blank? || selected_criteria.blank?
+
+      all_possible_groups = BrexitChecker::Group.load_all
+      grouped_actions = all_possible_groups.map do |group|
+        actions_in_group = filter_actions_by_group(audience_actions, group.key)
+        if actions_in_group.empty?
+          nil
+        else
+          {
+            group: group,
+            actions: actions_in_group,
+            criteria: filter_criteria_by_actions(actions_in_group, selected_criteria),
+          }
+        end
+      end
+      grouped_actions.compact
+    end
+
   private
 
     def filter_actions_by_group(actions, group_key)
