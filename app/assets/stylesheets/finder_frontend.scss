@@ -431,6 +431,8 @@ mark {
     background-color: govuk-colour("white");
     padding: govuk_spacing(3);
     display: block;
+    border-top: 1px solid govuk-colour("light-grey", $legacy: "grey-2");
+    box-shadow: 0px 0 5px rgba(govuk-colour("light-grey", $legacy: "grey-2"), 0.8);
   }
 
   .facets--as-modal {
