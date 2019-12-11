@@ -25,7 +25,7 @@ class FacetTagsPresenter
 
   def display_total_selected_filters
     facet_count = filters.select(&:has_filters?).count
-    facet_count == 0 ? nil : "(#{facet_count})"
+    facet_count.zero? ? nil : "(#{facet_count})"
   end
 
 private
