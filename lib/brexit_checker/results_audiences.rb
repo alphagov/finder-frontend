@@ -5,7 +5,7 @@ class BrexitChecker::ResultsAudiences
 
       {
         actions: audience_actions,
-        criteria: audience_actions.flat_map(&:all_criteria),
+        criteria: audience_actions.flat_map(&:all_criteria).uniq,
       }
     end
 
@@ -21,7 +21,7 @@ class BrexitChecker::ResultsAudiences
           {
             group: group,
             actions: actions_in_group,
-            criteria: audience_actions.flat_map(&:all_criteria),
+            criteria: audience_actions.flat_map(&:all_criteria).uniq,
           }
         end
       end
