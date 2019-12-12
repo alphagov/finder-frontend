@@ -414,6 +414,10 @@ mark {
   display: none;
 }
 
+.app-c-clear-filters {
+  display: none;
+}
+
 @include govuk-media-query($until: tablet) {
   .facets {
     display: none;
@@ -422,9 +426,6 @@ mark {
   .app-mobile-filters-link {
     display: inline-block;
     margin-bottom: govuk-spacing(4);
-  }
-  .app-c-clear-filters {
-    display: none;
   }
 
   .app-c-mobile-result-count {
