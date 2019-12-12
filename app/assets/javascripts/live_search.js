@@ -85,12 +85,19 @@
       $('html').addClass('html--filters-open')
     })
 
-    this.$form.on('click', '.js-result-count', function (e) {
+    this.$form.on('click', '.js-result-count, .js-return-to-results', function (e) {
       e.preventDefault()
       $('#facet-wrapper').removeClass('facets--as-modal').removeAttr('tabIndex').blur()
       $('body').removeClass('body--filters-open')
       $('html').removeClass('html--filters-open')
     })
+
+    this.$form.on('click', '.js-clear-filters', function (e) {
+      e.preventDefault()
+      this.$form.find('input:checked').prop('checked', false).change()
+      this.$form.find('select').val('').change()
+      this.formChange(e)
+    }.bind(this))
   }
 
   LiveSearch.prototype.startEnhancedEcommerceTracking = function startEnhancedEcommerceTracking () {
