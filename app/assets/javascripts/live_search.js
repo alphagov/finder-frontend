@@ -94,8 +94,9 @@
 
     this.$form.on('click', '.js-clear-filters', function (e) {
       e.preventDefault()
-      this.$form.find('input:checked').prop('checked', false).change()
-      this.$form.find('select').val('').change()
+      this.$form.find('input:checked').prop('checked', false).trigger('change')
+      this.$form.find('select').val('').trigger('change')
+      this.$form.find('input[type="text"]').val('').trigger('change')
       this.formChange(e)
     }.bind(this))
   }
