@@ -2,7 +2,7 @@ require "spec_helper"
 
 describe DateParser do
   # These dates have been chosen based on analytics from site search more info here: https://designpatterns.hackpad.com/Dates-vpx6XlVjIbE
-  this_year = Time.now.year
+  this_year = Time.zone.now.year
   dates = { # Zero padded, full year, various delimiters
             "21/01/2002" => Date.new(2002, 1, 21),
             "21.01.2002" => Date.new(2002, 1, 21),

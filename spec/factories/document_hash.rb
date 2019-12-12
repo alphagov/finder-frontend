@@ -10,8 +10,8 @@ FactoryBot.define do
     sequence :description, 1 do |n|
       "description_#{n}"
     end
-    public_timestamp { Time.now }
-    release_timestamp { Time.now }
+    public_timestamp { Time.zone.now }
+    release_timestamp { Time.zone.now }
     document_type { "answer" }
     organisations {
       [{

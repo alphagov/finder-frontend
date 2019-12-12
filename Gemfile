@@ -4,7 +4,7 @@ ruby File.read(".ruby-version").strip
 
 gem "chronic", "~> 0.10.2"
 gem "dalli"
-gem "gds-api-adapters", "~> 61.0"
+gem "gds-api-adapters", "~> 63.0"
 gem "google-api-client"
 gem "govuk_ab_testing", "~> 2.4.1"
 gem "govuk_app_config", "~> 2.0.1"
@@ -36,6 +36,7 @@ group :development, :test do
   gem "pry-byebug"
   gem "rspec-rails", "~> 4.0.0.beta3"
   gem "rubocop-govuk"
+  gem "scss_lint-govuk"
 end
 
 group :test do

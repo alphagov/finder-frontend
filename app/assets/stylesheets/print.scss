@@ -24,18 +24,24 @@ header,
   margin-top: 20px;
   clear: both;
 
-  a, dl, ul, li {
+  a,
+  dl,
+  ul,
+  li {
     margin: 0;
   }
+
   ul {
     padding: 0;
   }
+
   .document {
     margin: 10px 0;
     padding-bottom: 10px;
     border-bottom: 1px solid $govuk-border-colour;
     list-style: none;
   }
+
   a {
     font-weight: bold;
     margin-bottom: 5px;

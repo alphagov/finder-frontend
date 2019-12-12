@@ -5,7 +5,7 @@
         <div class="govuk-grid-column-full">
           <h2 class="govuk-heading-l action-audience__heading"><%= audience[:heading] %></h2>
         </div>
-        <div class="govuk-grid-column-full">
+        <div class="govuk-grid-column-full" data-analytics-ecommerce data-ecommerce-start-index="1" data-list-title="Brexit checker results: <%= audience[:heading] %>" data-search-query>
           <%= render "action_list", {
             audience_heading: audience[:heading],
             audience_index: index + 1,

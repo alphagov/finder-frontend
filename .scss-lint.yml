@@ -1,0 +1,6 @@
+scss_files:
+  - 'app/assets/stylesheets/**/*.scss'
+exclude: 
+  - 'app/assets/stylesheets/_reset.scss'
+plugin_gems: ['scss_lint-govuk']
+

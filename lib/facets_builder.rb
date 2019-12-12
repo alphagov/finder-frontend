@@ -65,7 +65,7 @@ private
   end
 
   def allowed_values(facet_hash)
-    return facet_hash["allowed_values"] unless facet_hash["allowed_values"].blank?
+    return facet_hash["allowed_values"] if facet_hash["allowed_values"].present?
 
     facet_key = facet_hash["key"]
     if registries.all.has_key?(facet_key)

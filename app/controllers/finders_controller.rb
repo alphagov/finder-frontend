@@ -1,7 +1,6 @@
 class FindersController < ApplicationController
   include FinderTopResultAbTestable
-  include FinderPopularityAbTestable
-  include SpellingSuggestionsABTestable
+  include HideKeywordFacetTagsABTestable
 
   layout "finder_layout"
   before_action :remove_search_box
@@ -117,7 +116,7 @@ private
       content_item,
       filter_params,
       override_sort_for_feed: is_for_feed,
-      ab_params: popularity_ab_test.merge(spelling_suggestions_ab_test),
+      ab_params: hide_keyword_facet_tags_ab_test,
     )
   end
 

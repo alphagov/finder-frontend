@@ -1,5 +1,5 @@
 require "gds_api/content_store"
-require "gds_api/rummager"
+require "gds_api/search"
 require "gds_api/email_alert_api"
 
 module Services

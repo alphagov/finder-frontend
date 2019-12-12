@@ -25,6 +25,7 @@
     this.$resultsCountMetaTag = $("meta[name='govuk:search-result-count']")
     this.$emailLink = $('a[href*="email-signup"]')
     this.previousSearchTerm = ''
+    this.isHideKeywordFacetTagsTestBVariant = $("meta[name='govuk:ab-test']").attr('content') === 'HideKeywordFacetTagsABTest:B'
 
     this.emailSignupHref = this.$emailLink.attr('href')
     this.$atomLink = $('a[href*=".atom"]')
@@ -39,6 +40,9 @@
     }
 
     this.focusErrorMessagesOnLoad(this.$form)
+
+    // hide keyword facet tags on load
+    this.toggleKeywordTags()
 
     if (GOVUK.support.history()) {
       this.saveState()
@@ -125,6 +129,7 @@
           this.trackingInit()
           this.setRelevantResultCustomDimension()
           this.trackPageView()
+          this.toggleKeywordTags()
         }.bind(this)
       )
     }
@@ -145,6 +150,7 @@
   LiveSearch.prototype.trackPageView = function trackPageView () {
     var newPath = window.location.pathname + '?' + $.param(this.state)
     GOVUK.SearchAnalytics.trackPageview(newPath)
+    GOVUK.SearchAnalytics.trackPageview(newPath, document.title, { 'trackerName': 'govuk' })
   }
 
   LiveSearch.prototype.trackSpellingSuggestionsImpressions = function trackSpellingSuggestionsImpressions ($suggestions) {
@@ -436,6 +442,19 @@
       $input.siblings('.gem-c-error-message').remove()
       $input.parent('.govuk-form-group').removeClass('govuk-form-group--error')
       $input.attr('aria-describedby', '')
+    }
+  }
+
+  LiveSearch.prototype.toggleKeywordTags = function toggleKeywordTags () {
+    if (this.isHideKeywordFacetTagsTestBVariant) {
+      var $facetTagsContainer = this.$form.find('.facet-tags')
+      var $facetTagsGroups = $facetTagsContainer.find('.facet-tags__group')
+      var $facetTagsKeyword = $facetTagsContainer.find('.facet-tags__group--keywords')
+      var isFacetTagKeyword = $facetTagsGroups.hasClass('facet-tags__group--keywords')
+
+      if ($facetTagsGroups.length === 1 && isFacetTagKeyword) {
+        $facetTagsKeyword.hide()
+      }
     }
   }
 

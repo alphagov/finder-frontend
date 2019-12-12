@@ -1,4 +1,4 @@
-main.search {
+.search-wrapper {
   padding-bottom: 30px;
 
   @include govuk-media-query($from: tablet) {
@@ -28,7 +28,7 @@ main.search {
   }
 }
 
-main.no-search-term {
+.search-wrapper--no-search-term {
   @include govuk-media-query($from: tablet) {
     h1 {
       @include govuk-font(48, $weight: bold);

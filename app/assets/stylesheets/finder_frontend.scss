@@ -1,3 +1,5 @@
+$app-colour-true-black: #000;
+
 .metadata-summary {
   @include govuk-font(19);
   margin-bottom: govuk-spacing(6);
@@ -42,7 +44,7 @@ mark {
 
 .filter-form {
   .js-enabled & .button__wrapper {
-    display:none;
+    display: none;
   }
 
   .js-required {
@@ -56,12 +58,6 @@ mark {
 
   @include govuk-media-query($from: tablet) {
     max-width: (100% / 3) * 2;
-  }
-
-  fieldset.invalid {
-    border-left: solid 4px $govuk-error-colour;
-    padding-left: govuk-spacing(3);
-    margin-left: -govuk-spacing(3) - 4;
   }
 }
 
@@ -113,7 +109,7 @@ mark {
   }
 }
 
-#finder-frontend {
+.finder-frontend {
   margin-bottom: govuk-spacing(8);
 }
 
@@ -196,7 +192,7 @@ mark {
   @include govuk-font(16, $weight: bold);
   text-align: left;
   cursor: pointer;
-  color: #000;
+  color: $app-colour-true-black;
   text-decoration: none;
   background: none;
   border: 0;
@@ -204,6 +200,7 @@ mark {
   .js-enabled & {
     display: inline-block;
     border: 1px solid transparent;
+
     &:focus {
       -webkit-box-shadow: inset 0 0 0 2px;
       box-shadow: inset 0 0 0 2px;
@@ -315,7 +312,7 @@ mark {
 // scss-lint:enable IdSelector
 
 .topic-finder__taxon-link {
-    @include govuk-font(24, $weight: bold);
+  @include govuk-font(24, $weight: bold);
 }
 
 // NOTE: used to override govspeak component when it's used on an inverse header

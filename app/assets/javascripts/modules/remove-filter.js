@@ -82,6 +82,12 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
         action,
         { label: label }
       )
+
+      GOVUK.SearchAnalytics.trackEvent(
+        category,
+        action,
+        { label: label, trackerName: 'govuk' }
+      )
     }
 
     function decodeEntities (string) {

@@ -8,7 +8,8 @@
 <% if local_assigns[:applied_filters] %>
   <div class="facet-tags" data-module="track-click">
     <% local_assigns[:applied_filters].each do |applied_filter| %>
-      <div class="facet-tags__group">
+      <% # apply type of facet tag as class to the group to be a be able to target it  %> 
+      <div class="facet-tags__group facet-tags__group--<%= applied_filter.first[:data_facet].strip.downcase %>">
         <% applied_filter.each do |filter| %>
           <div class="facet-tags__wrapper">
             <p class="facet-tags__preposition"><%= filter[:preposition] %></p>

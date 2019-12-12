@@ -1,19 +1,7 @@
 <%
-  action_based_email_link_label = @actions.any? ? t('brexit_checker.results.email_sign_up_link') : t('brexit_checker.results.email_sign_up_link_no_actions')
-  action_based_title            = if @actions.any?
-                                    t('brexit_checker.results.title')
-                                  elsif criteria_keys.present?
-                                    t('brexit_checker.results.title_no_actions')
-                                  else
-                                    t('brexit_checker.results.title_no_answers')
-                                  end
-  action_based_description      = if @actions.any?
-                                    t('brexit_checker.results.description')
-                                  elsif criteria_keys.present?
-                                    t('brexit_checker.results.description_no_actions')
-                                  else
-                                    t('brexit_checker.results.description_no_answers')
-                                  end
+  action_based_email_link_label = brexit_results_email_link_label(@actions)
+  action_based_title = brexit_results_title(@actions, criteria_keys)
+  action_based_description = brexit_results_description(@actions, criteria_keys)
 %>
 
 <% content_for :title, action_based_title %>

@@ -250,47 +250,24 @@ describe FindersController, type: :controller do
     end
   end
 
-  describe "popularity A/B test" do
+  describe "hide keyword facet tag A/B test" do
     before do
       content_store_has_item("/search/all", all_content_finder)
     end
 
-    it "should request the B popularity variant from search api" do
-      request = search_api_request(query: { ab_tests: "popularity:C" })
+    it "requests the B (hide keyword facet tags) variant" do
+      request = search_api_request(query: { ab_tests: "hide_keyword_facet_tags:B" })
 
-      with_variant FinderPopularityABTest: "C" do
+      with_variant HideKeywordFacetTagsABTest: "B" do
         get :show, params: { slug: "search/all" }
         expect(request).to have_been_made.once
       end
     end
 
-    it "should not specify a popularity variant from search api by default" do
-      request = search_api_request
-      with_variant FinderPopularityABTest: "A" do
-        get :show, params: { slug: "search/all" }
-        expect(request).to have_been_made.once
-      end
-    end
-  end
-
-  describe "suggestions A/B test" do
-    before do
-      content_store_has_item("/search/all", all_content_finder)
-    end
-
-    it "requests the B (levenshtein) variant" do
-      request = search_api_request(query: { ab_tests: "spelling_suggestions:B" })
-
-      with_variant SpellingSuggestionsABTest: "B" do
-        get :show, params: { slug: "search/all" }
-        expect(request).to have_been_made.once
-      end
-    end
-
-    it "requests the non-levenshtein variant (A) by default" do
+    it "requests the control variant (A) by default" do
       request = search_api_request
 
-      with_variant SpellingSuggestionsABTest: "A" do
+      with_variant HideKeywordFacetTagsABTest: "A" do
         get :show, params: { slug: "search/all" }
         expect(request).to have_been_made.once
       end
