@@ -398,7 +398,7 @@ mark {
 
 
 // intestitial
-.app-mobile-filter-title {
+.facets__header {
   display: none;
 }
 
@@ -409,6 +409,7 @@ mark {
 .app-c-mobile-result-count {
   display: none;
 }
+
 .app-mobile-facet-tags {
   display: none;
 }
@@ -421,6 +422,9 @@ mark {
   .app-mobile-filters-link {
     display: inline-block;
     margin-bottom: govuk-spacing(4);
+  }
+  .app-c-clear-filters {
+    display: none;
   }
 
   .app-c-mobile-result-count {
@@ -446,10 +450,16 @@ mark {
     outline: 0;
     background: govuk-colour("white");
 
-    .app-mobile-filter-title {
-      display: block;
+    .facets__header {
+      padding: govuk-spacing(2);
+      display: grid;
+      grid-auto-flow: column;
+      border-bottom: 1px solid govuk-colour("light-grey", $legacy: "grey-2");
       margin-bottom: govuk-spacing(2);
-      margin-left: govuk-spacing(2);
+    }
+
+    .app-c-return-to-results {
+      justify-self: end;
     }
 
     .facets__box {
@@ -468,11 +478,16 @@ mark {
     }
 
     .facets__content {
-      padding: govuk-spacing(3) govuk-spacing(3) 60px govuk-spacing(3);
+      padding: govuk-spacing(3) govuk-spacing(3) 90px govuk-spacing(3);
     }
 
     .app-mobile-facet-tags {
       display: block;
+    }
+
+    .app-c-clear-filters {
+      display: inline-block;
+      margin-top: govuk-spacing(2);
     }
   }
 
