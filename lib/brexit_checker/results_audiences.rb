@@ -5,7 +5,7 @@ class BrexitChecker::ResultsAudiences
 
       {
         actions: audience_actions,
-        criteria: filter_criteria_by_actions(audience_actions, selected_criteria),
+        criteria: audience_actions.flat_map(&:all_criteria),
       }
     end
 
@@ -21,7 +21,7 @@ class BrexitChecker::ResultsAudiences
           {
             group: group,
             actions: actions_in_group,
-            criteria: filter_criteria_by_actions(actions_in_group, selected_criteria),
+            criteria: audience_actions.flat_map(&:all_criteria),
           }
         end
       end
@@ -32,16 +32,6 @@ class BrexitChecker::ResultsAudiences
 
     def filter_actions_by_group(actions, group_key)
       actions.select { |action| action.grouping_criteria.include?(group_key) }
-    end
-
-    def filter_criteria_by_actions(actions, criteria)
-      return [] if actions.empty? || criteria.empty?
-
-      action_criteria = actions.flat_map do |action|
-        BrexitChecker::Criteria::Extractor.extract(action.criteria).to_a
-      end
-      criteria_keys = criteria.map(&:key) & action_criteria.uniq
-      BrexitChecker::Criterion.load_by(criteria_keys)
     end
   end
 end
