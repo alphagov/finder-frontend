@@ -37,11 +37,18 @@ class BrexitChecker::Action
     @load_all ||= YAML.load_file(CONFIG_PATH)["actions"].map { |a| new(a) }
   end
 
+  def all_criteria
+    BrexitChecker::Criterion.load_by(all_criteria_keys)
+  end
+
+  def all_criteria_keys
+    BrexitChecker::Criteria::Extractor.extract(criteria)
+  end
+
 private
 
   def has_criteria
-    return unless BrexitChecker::Criteria::Extractor
-      .extract(criteria).none?
+    return unless all_criteria_keys.none?
 
     errors.add "Action must have at least one criterion"
   end
