@@ -24,9 +24,15 @@ class FacetTagsPresenter
   end
 
   def display_total_selected_filters
-    facet_count = filters.select(&:has_filters?).count
-    facet_count.zero? ? nil : "(#{facet_count})"
-  end
+    selected_facets_count.zero? ? nil : "(#{selected_facets_count})"
+ end
+ 
+ def selected_facets_count
+   selected_filter_descriptions.flatten.reject do |facet|
+     facet[:data_facet]=="keywords"
+   end.count
+ end
+  
 
 private
 
