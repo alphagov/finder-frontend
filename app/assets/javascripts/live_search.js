@@ -85,7 +85,7 @@
       $('html').addClass('html--filters-open')
     })
 
-    this.$form.on('click', '.js-result-count, .js-return-to-results', function (e) {
+    this.$form.on('click', '.js-show-result, .js-return-to-results', function (e) {
       e.preventDefault()
       $('#facet-wrapper').removeClass('facets--as-modal').removeAttr('tabIndex').blur()
       $('body').removeClass('body--filters-open')

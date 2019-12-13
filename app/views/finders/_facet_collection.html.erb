@@ -27,7 +27,9 @@
             </div>
             <button class="app-c-button-as-link app-c-clear-filters js-clear-filters" type="button">Clear all filters</button>
             <div class="app-c-mobile-result-count">
-              <button class="gem-c-button govuk-button js-result-count" type="button">Show <%= result_set_presenter.displayed_total %></button>
+              <button class="gem-c-button govuk-button js-show-results" type="button">Show
+                <span class="js-result-count"> <%= result_set_presenter.displayed_total %><span>
+              </button>
             </div>
           </div>
         </div>
