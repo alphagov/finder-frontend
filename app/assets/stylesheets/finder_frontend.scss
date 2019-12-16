@@ -117,21 +117,28 @@ mark {
 .facet-tags__group {
   padding: 5px;
 
-  &:nth-child(odd) {
-    background-color: govuk-colour("light-grey");
+  @include govuk-media-query($from: tablet) {
+    &:nth-child(odd) {
+      background-color: govuk-colour("light-grey");
+    }
   }
 }
 
 .facet-tags__wrapper {
+  @include govuk-media-query($until: tablet) {
+    vertical-align: baseline;
+  }
+
   vertical-align: middle;
   margin: 5px 0;
-
-  @include govuk-media-query($from: tablet) {
-    display: inline-block;
-  }
+  display: inline-block;
 }
 
 .facet-tags__wrapper:first-of-type .facet-tags__preposition:first-of-type {
+  @include govuk-media-query($until: tablet) {
+    display: block;
+  }
+
   font-weight: bold;
 
   &::first-letter {
@@ -140,18 +147,24 @@ mark {
 }
 
 .facet-tags__preposition {
-  padding: 0 5px 5px 2px;
+  @include govuk-media-query($until: tablet) {
+    display: inline-block;
+  }
+
+  display: table-cell;
+  padding: 0 5px 0 2px;
   vertical-align: middle;
   text-transform: lowercase;
-
-  @include govuk-media-query($from: tablet) {
-    display: table-cell;
-    padding: 0 5px 0 2px;
-  }
 }
 
 .facet-tag {
-  display: block;
+  @include govuk-media-query($until: tablet) {
+    display: inline-block;
+    background: none;
+    border: 2px solid $govuk-input-border-colour;
+  }
+
+  display: table-cell;
   position: relative;
   padding: 5px;
   border: 1px solid govuk-colour("dark-grey");
@@ -160,10 +173,6 @@ mark {
 
   .js-enabled & {
     padding: 8px 7px 7px 23px;
-  }
-
-  @include govuk-media-query($from: tablet) {
-    display: table-cell;
   }
 }
 
