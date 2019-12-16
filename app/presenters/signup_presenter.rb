@@ -16,12 +16,6 @@ class SignupPresenter
     content_item["title"]
   end
 
-  def default_frequency
-    # return 'nil' if NOT the business finder email signup page to avoid `default_frequency` appearing in other URLs
-    # as this may not be expected and could have some side-effects
-    EuExitFinderHelper.eu_exit_finder_email_signup?(@content_item["content_id"]) ? "daily" : nil
-  end
-
   def body
     content_item["description"]
   end

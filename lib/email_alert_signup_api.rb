@@ -1,22 +1,17 @@
 require "addressable/uri"
 
 class EmailAlertSignupAPI
-  def initialize(applied_filters:, default_filters:, facets:, subscriber_list_title:, finder_format:, default_frequency: nil, email_filter_by: nil)
+  def initialize(applied_filters:, default_filters:, facets:, subscriber_list_title:, finder_format:, email_filter_by: nil)
     @applied_filters = applied_filters.deep_symbolize_keys
     @default_filters = default_filters.deep_symbolize_keys
     @facets = facets
     @subscriber_list_title = subscriber_list_title
     @finder_format = finder_format
-    @default_frequency = default_frequency
     @email_filter_by = email_filter_by
   end
 
   def signup_url
-    if @default_frequency
-      add_url_param(subscriber_list["subscription_url"], default_frequency: @default_frequency)
-    else
-      subscriber_list["subscription_url"]
-    end
+    subscriber_list["subscription_url"]
   end
 
 private
