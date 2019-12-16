@@ -64,7 +64,6 @@ private
       facets: signup_presenter.choices,
       finder_format: finder_format,
       subscriber_list_title: subscriber_list_title,
-      default_frequency: signup_presenter.default_frequency,
       email_filter_by: signup_presenter.email_filter_by,
     )
   end
