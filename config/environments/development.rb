@@ -55,6 +55,6 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
-  # Hostname for govuk-docker
-  config.hosts << "finder-frontend.dev.gov.uk"
+  # Allow requests for all domains e.g. <app>.dev.gov.uk
+  config.hosts.clear
 end
