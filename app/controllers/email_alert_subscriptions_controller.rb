@@ -44,12 +44,11 @@ private
   end
 
   def applied_filters
-    params
-      .permit("filter" => {})
-      .dig("filter")
-      .to_h
-      .merge(
-        filter_params.fetch("subscriber_list_params", {}),
+    filter_params.fetch("subscriber_list_params", {}).merge(
+      params
+        .permit("filter" => {})
+        .dig("filter")
+        .to_h,
       )
   end
 
