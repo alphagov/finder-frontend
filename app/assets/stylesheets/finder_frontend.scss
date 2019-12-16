@@ -372,13 +372,12 @@ mark {
   }
 }
 
-// remove separator and increase spacing between list items
-// later, propose both features as flags in the
-// "document list" govuk-publishing component
-.gem-c-document-list__item {
-  border: 0;
-  margin-bottom: govuk-spacing(7);
-  padding-bottom: govuk-spacing(0);
+// adjust spacing between items
+// not using govuk-spacing as they need to be consistent 
+// across breakpoints
+.finder-results .gem-c-document-list__item {
+  margin-bottom: 20px;
+  padding-bottom: 30px;
 }
 
 .facet-container {
