@@ -49,7 +49,7 @@ private
 
   def multiple_facets_suffix
     grouped_facets.map { |facet_key, facet_group|
-      if dynamic_filter_option?(facet_key)
+      if dynamic_filter_option?(facet_key) && has_no_filter_values?(facet_group)
         dynamic_facet_sentence(facet_key, facet_group.first["facet_name"])
       else
         facet_group.map { |facet| facet["facet_name"] + " of " + topic_names_sentence(facet) }.to_sentence
@@ -63,7 +63,6 @@ private
 
   def choice_by_key(facet, key)
     chosen = facet.fetch("facet_choices", []).detect { |choice| choice["key"] == key }
-
     chosen["topic_name"] if chosen
   end
 
@@ -118,6 +117,11 @@ private
 
   def registries
     @registries ||= Registries::BaseRegistries.new
+  end
+
+  def has_no_filter_values?(facet_group)
+    facet_choices = facet_group.first.fetch("facet_choices", [])
+    facet_choices.none? { |choice| choice.fetch("filter_values", []).any? }
   end
 
   def dynamic_filter_option?(filter_key)

@@ -200,4 +200,31 @@ describe EmailAlertTitleBuilder do
       is_expected.to eq("News and communicatons with people of Harry Potter, Ron Weasley, Albus Dumbledore, Cornelius Fudge, and Rufus Scrimgeour, organisations of Ministry of Magic, Gringots, and 1 other organisation, topics of Magical Education, Brexit, and Herbology, and 2 document types")
     }
   end
+
+  context "when the finder is research and statistics" do
+    let(:subscription_list_title_prefix) { "Statistics" }
+    let(:facets) do
+      [
+        { "facet_id" => "content_store_document_type", "facet_name" => "document types", "facet_choices" => [{ "key" => "statistics_published", "filter_values" => %w[statistics national_statistics statistical_data_set official_statistics], "radio_button_name" => "Statistics (published)", "topic_name" => "Statistics (published)", "prechecked" => false }, { "key" => "research", "filter_values" => %w[dfid_research_output independent_report research], "radio_button_name" => "Research", "topic_name" => "Research", "prechecked" => false }] },
+        { "facet_id" => "organisations", "facet_name" => "organisations" },
+        { "facet_id" => "world_locations", "facet_name" => "world locations" },
+        { "facet_id" => "topic", "filter_key" => "all_part_of_taxonomy_tree", "facet_name" => "topics" },
+        { "facet_id" => "level_one_taxon", "filter_key" => "all_part_of_taxonomy_tree", "facet_name" => "topics" },
+        { "facet_id" => "level_two_taxon", "filter_key" => "all_part_of_taxonomy_tree", "facet_name" => "topics" },
+      ]
+    end
+
+    context "when published statistics are requested" do
+      let(:filter) do
+        {
+          "content_store_document_type" => %w[statistics_published research],
+          "organisations" => %w[fco hmrc],
+        }
+      end
+
+      it {
+        is_expected.to eq("Statistics with document types of Statistics (published) and Research and 2 organisations")
+      }
+    end
+  end
 end
