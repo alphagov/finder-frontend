@@ -47,4 +47,18 @@ RSpec.describe BrexitChecker::Action do
       )
     end
   end
+
+  describe "#show?" do
+    let(:action1) { FactoryBot.build(:brexit_checker_action, :citizen, id: "S01", criteria: %w(living-uk), grouping_criteria: %w(living-uk)) }
+    let(:criteria_key_a) { "living-uk" }
+    let(:criteria_key_b) { "working-eu" }
+
+    it "returns true if the criteria key array includes a criterion found on the action" do
+      expect(action1.show?([criteria_key_a])).to be(true)
+    end
+
+    it "returns false if the criteria key array does not include a criterion found on the action" do
+      expect(action1.show?([criteria_key_b])).to be(false)
+    end
+  end
 end
