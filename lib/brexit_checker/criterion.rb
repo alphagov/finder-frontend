@@ -17,8 +17,8 @@ class BrexitChecker::Criterion
   end
 
   # Overwriting functionality of eql? so we can call uniq on an criteria array
-  def eql?(other_item)
-    key == other_item.key
+  def eql?(other)
+    key == other.key
   end
 
   def self.load_all
