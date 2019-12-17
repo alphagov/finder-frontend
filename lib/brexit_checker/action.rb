@@ -45,6 +45,14 @@ class BrexitChecker::Action
     BrexitChecker::Criteria::Extractor.extract(criteria)
   end
 
+  def hash
+    id.hash
+  end
+
+  def eql?(other)
+    id == other.id
+  end
+
 private
 
   def has_criteria
