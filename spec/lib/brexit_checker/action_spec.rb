@@ -108,4 +108,14 @@ RSpec.describe BrexitChecker::Action do
       expect(action2.all_criteria_keys).to eq(%w[join-family-uk-yes living-uk])
     end
   end
+
+  describe "#hash & #eql?" do
+    let(:action1) { FactoryBot.build(:brexit_checker_action, :citizen, id: "S01") }
+    let(:action2) { FactoryBot.build(:brexit_checker_action, :citizen, id: "S01") }
+    let(:action3) { FactoryBot.build(:brexit_checker_action, :citizen, id: "S02") }
+
+    it "correctly removes duplicates from an array by id" do
+      expect([action1, action2, action3].uniq.map(&:id)).to eq(%w[S01 S02])
+    end
+  end
 end
