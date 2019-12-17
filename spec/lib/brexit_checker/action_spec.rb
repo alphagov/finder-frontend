@@ -73,4 +73,49 @@ RSpec.describe BrexitChecker::Action do
       expect(action1.show?([criteria_key_b])).to be(false)
     end
   end
+
+  describe "#find_by_id" do
+    let(:action1) { FactoryBot.build(:brexit_checker_action, :citizen, id: "S01", criteria: %w(living-uk), grouping_criteria: %w(living-uk)) }
+    let(:action2) { FactoryBot.build(:brexit_checker_action, :citizen, id: "S02", criteria: %w(join-family-uk-yes), grouping_criteria: %w(living-uk)) }
+    let(:action3) { FactoryBot.build(:brexit_checker_action, :citizen, id: "S03", criteria: %w(nationality-uk), grouping_criteria: %w(living-uk)) }
+    let(:action4) { FactoryBot.build(:brexit_checker_action, :citizen, id: "S04", criteria: %w(visiting-driving), grouping_criteria: %w(visiting-eu)) }
+    let(:action5) { FactoryBot.build(:brexit_checker_action, :citizen, id: "S05", criteria: %w(studying-eu), grouping_criteria: %w(studying-eu)) }
+
+    before :each do
+      allow(BrexitChecker::Action).to receive(:load_all).and_return([action1, action2, action3, action4, action5])
+    end
+
+    it "loads all actions and selecteds a relevant one by ID" do
+      expect(BrexitChecker::Action.find_by_id("S01")).to eql(action1)
+    end
+  end
+
+  describe "#all_criteria_keys" do
+    let(:action1) { FactoryBot.build(:brexit_checker_action, :citizen, id: "S01", criteria: %w(living-uk), grouping_criteria: %w(living-uk)) }
+    let(:action2) { FactoryBot.build(:brexit_checker_action, :citizen, id: "S02", criteria: %w(join-family-uk-yes living-uk), grouping_criteria: %w(living-uk)) }
+    let(:criteria1) { FactoryBot.build(:brexit_checker_criterion, key: "living-uk", text: "Living in the UK") }
+    let(:criteria2) { FactoryBot.build(:brexit_checker_criterion, key: "join-family-uk-yes", text: "You plan to join an EU or EEA family member in the UK") }
+
+    before :each do
+      allow(BrexitChecker::Criterion).to receive(:load_all).and_return([criteria1, criteria2])
+    end
+
+    it "returns a single criteira key from the action" do
+      expect(action1.all_criteria_keys).to eq(%w[living-uk])
+    end
+
+    it "returns multiple criteria keys from the action" do
+      expect(action2.all_criteria_keys).to eq(%w[join-family-uk-yes living-uk])
+    end
+  end
+
+  describe "#hash & #eql?" do
+    let(:action1) { FactoryBot.build(:brexit_checker_action, :citizen, id: "S01") }
+    let(:action2) { FactoryBot.build(:brexit_checker_action, :citizen, id: "S01") }
+    let(:action3) { FactoryBot.build(:brexit_checker_action, :citizen, id: "S02") }
+
+    it "correctly removes duplicates from an array by id" do
+      expect([action1, action2, action3].uniq.map(&:id)).to eq(%w[S01 S02])
+    end
+  end
 end
