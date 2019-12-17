@@ -61,4 +61,20 @@ RSpec.describe BrexitChecker::Action do
       expect(action1.show?([criteria_key_b])).to be(false)
     end
   end
+
+  describe "#find_by_id" do
+    let(:action1) { FactoryBot.build(:brexit_checker_action, :citizen, id: "S01", criteria: %w(living-uk), grouping_criteria: %w(living-uk)) }
+    let(:action2) { FactoryBot.build(:brexit_checker_action, :citizen, id: "S02", criteria: %w(join-family-uk-yes), grouping_criteria: %w(living-uk)) }
+    let(:action3) { FactoryBot.build(:brexit_checker_action, :citizen, id: "S03", criteria: %w(nationality-uk), grouping_criteria: %w(living-uk)) }
+    let(:action4) { FactoryBot.build(:brexit_checker_action, :citizen, id: "S04", criteria: %w(visiting-driving), grouping_criteria: %w(visiting-eu)) }
+    let(:action5) { FactoryBot.build(:brexit_checker_action, :citizen, id: "S05", criteria: %w(studying-eu), grouping_criteria: %w(studying-eu)) }
+
+    before :each do
+      allow(BrexitChecker::Action).to receive(:load_all).and_return([action1, action2, action3, action4, action5])
+    end
+
+    it "loads all actions and selecteds a relevant one by ID" do
+      expect(BrexitChecker::Action.find_by_id("S01")).to eql(action1)
+    end
+  end
 end
