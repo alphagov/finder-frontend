@@ -1,6 +1,18 @@
 require "spec_helper"
 
 RSpec.describe BrexitChecker::Action do
+  describe "factories" do
+    it "has a valid default business action factory" do
+      action = FactoryBot.build(:brexit_checker_action)
+      expect(action.valid?).to be(true)
+    end
+
+    it "has a valid citizen trait factory" do
+      action = FactoryBot.build(:brexit_checker_action, :citizen)
+      expect(action.valid?).to be(true)
+    end
+  end
+
   describe "#all_criteria" do
     let(:criteria_a) { FactoryBot.build(:brexit_checker_criterion, key: "owns-operates-business-organisation", text: "You own or operate a business or organisation") }
     let(:criteria_b) { FactoryBot.build(:brexit_checker_criterion, key: "forestry", text: "You work in plants and forestry") }
