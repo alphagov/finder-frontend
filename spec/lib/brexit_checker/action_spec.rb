@@ -101,11 +101,11 @@ RSpec.describe BrexitChecker::Action do
     end
 
     it "returns a single criteira key from the action" do
-      expect(action1.all_criteria_keys).to eq(["living-uk"])
+      expect(action1.all_criteria_keys).to eq(%w[living-uk])
     end
 
     it "returns multiple criteria keys from the action" do
-      expect(action2.all_criteria_keys).to eq(["join-family-uk-yes", "living-uk"])
+      expect(action2.all_criteria_keys).to eq(%w[join-family-uk-yes living-uk])
     end
   end
 end
