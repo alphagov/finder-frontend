@@ -1,3 +1,5 @@
+require "spec_helper"
+
 RSpec.describe BrexitChecker::Action do
   describe "#all_criteria" do
     let(:criteria_a) { FactoryBot.build(:brexit_checker_criterion, key: "owns-operates-business-organisation", text: "You own or operate a business or organisation") }
