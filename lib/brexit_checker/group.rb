@@ -24,4 +24,16 @@ class BrexitChecker::Group
     @load_all = nil if Rails.env.development?
     @load_all ||= YAML.load_file(GROUPS_PATH)["groups"].map { |a| new(a) }
   end
+
+  def hash
+    key.hash
+  end
+
+  def eql?(other)
+    key == other.key
+  end
+
+  def actions
+    BrexitChecker::Action.load_all.select { |action| action.grouping_criteria&.include?(key) }
+  end
 end
