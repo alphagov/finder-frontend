@@ -12,6 +12,15 @@ class BrexitChecker::Criterion
     validate!
   end
 
+  def hash
+    key.hash
+  end
+
+  # Overwriting functionality of eql? so we can call uniq on an criteria array
+  def eql?(other_item)
+    key == other_item.key
+  end
+
   def self.load_all
     @load_all = nil if Rails.env.development?
     @load_all ||= YAML.load_file(CONFIG_PATH)["criteria"].map { |c| new(c) }
