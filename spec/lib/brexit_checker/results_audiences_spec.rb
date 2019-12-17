@@ -19,7 +19,13 @@ describe BrexitChecker::ResultsAudiences do
     let(:group_studying_eu) { FactoryBot.build(:brexit_checker_group, key: "studying-eu", heading: "Studying in the EU") }
 
     let(:selected_criteria) { [criteria1, criteria2, criteria3, criteria4, criteria5] }
-    let(:actions) { [action1, action2, action3, action4] }
+    let(:actions) { [action1, action2, action3, action4, action5] }
+
+    before :each do
+      allow(BrexitChecker::Action).to receive(:load_all).and_return([action1, action2, action3, action4, action5])
+      allow(BrexitChecker::Criterion).to receive(:load_all).and_return([criteria1, criteria2, criteria3, criteria4, criteria5])
+      allow(BrexitChecker::Group).to receive(:load_all).and_return([group_living_uk, group_visiting_eu, group_studying_eu])
+    end
 
     context "actions are provided but there are no criteria" do
       let(:result) { described_class.populate_citizen_groups(actions, []) }
@@ -41,14 +47,14 @@ describe BrexitChecker::ResultsAudiences do
       it "produces an array of group hashes" do
         grouped_actions_fixture = [
           {
+            group: group_living_uk,
+            actions: [action1, action2, action3],
+            criteria: [criteria1, criteria2, criteria3],
+          },
+          {
             group: group_visiting_eu,
             actions: [action4],
             criteria: [criteria4],
-          },
-          {
-            group: group_living_uk,
-            actions: [action1, action2, action3],
-            criteria: [criteria1, criteria3, criteria2],
           },
           {
             group: group_studying_eu,
@@ -56,8 +62,7 @@ describe BrexitChecker::ResultsAudiences do
             criteria: [criteria5],
           },
         ]
-        expect(result[0][:group].heading).to eql(grouped_actions_fixture[0][:group].heading)
-        expect(result[0][:group].key).to eql(grouped_actions_fixture[0][:group].key)
+        expect(result).to eql(grouped_actions_fixture)
       end
     end
   end
