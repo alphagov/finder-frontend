@@ -4,12 +4,12 @@
       <%= t('brexit_checker.results.audiences.citizen.heading') %>
     </h2>
   </header>
-  <section class="brexit-checker-audience">
+  <section class="brexit-checker-audience brexit-checker-audience-citizen">
     <% citizen_results_groups.each.with_index do |group, group_index| %>
       <section
         class="brexit-checker-actions__group"
         data-analytics-ecommerce
-        data-ecommerce-start-index="1"
+        data-ecommerce-start-index=<%="#{group_index + 1}"%>
         data-list-title="Brexit checker results: <%= "#{t('brexit_checker.results.audiences.citizen.heading')} - #{group[:group].heading}" %>"
         data-search-query
       >

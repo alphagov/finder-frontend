@@ -37,6 +37,7 @@ RSpec.feature "Brexit Checker workflow", type: :feature do
     and_i_should_see_the_business_action_header
     and_i_should_see_a_pet_action
     and_i_should_see_a_tourism_action
+    and_citizen_results_audience_analyitics_tracking_should_be_present
   end
 
   def then_i_see_business_results_only
@@ -53,6 +54,7 @@ RSpec.feature "Brexit Checker workflow", type: :feature do
     and_i_should_see_citizen_actions_are_grouped
     and_i_should_see_a_pet_action
     and_i_should_not_see_a_tourism_action
+    and_citizen_results_audience_analyitics_tracking_should_be_present
   end
 
   def and_i_should_see_the_citizens_action_header
@@ -72,6 +74,27 @@ RSpec.feature "Brexit Checker workflow", type: :feature do
 
     find_all(".brexit-checker-audience-citizen section.brexit-checker-actions__group h3").each_with_index do |group_title, i|
       expect(group_title.text).to eq(group_titles_ordered[i])
+    end
+  end
+
+  def and_citizen_results_audience_analyitics_tracking_should_be_present
+    and_citizens_groups_section_has_ecommerce_tracking
+    and_citizens_groups_section_has_data_search_query_attributes
+  end
+
+  def and_citizens_groups_section_has_ecommerce_tracking
+    group_titles_ordered = ["Visiting the EU", "Visiting the UK", "Visiting Ireland"]
+
+    find_all('.brexit-checker-citizen-audience section.brexit-checker-actions__group', visible: false).each_with_index do |group, i|
+      expect(group['data-analytics-ecommerce']).to eq("")
+      expect(group['data-ecommerce-start-index']).to eq("#{i + 1}")
+      expect(group['data-list-title']).to eq("Brexit checker results: You and your family - #{group_titles_ordered[i]}")
+    end
+  end
+
+  def and_citizens_groups_section_has_data_search_query_attributes
+    find_all('.brexit-checker-citizen-audience section.brexit-checker-actions__group', visible: false).each do |group|
+      expect(group['data-search-query']).to eq("")
     end
   end
 
