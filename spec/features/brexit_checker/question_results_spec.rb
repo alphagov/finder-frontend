@@ -45,6 +45,7 @@ RSpec.feature "Brexit Checker workflow", type: :feature do
     expect(page).to_not have_content I18n.t!("brexit_checker.results.audiences.citizen.heading")
     and_i_should_see_the_business_action_header
     and_i_should_see_a_ce_mark_action
+    and_business_results_audience_analyitics_tracking_should_be_present
   end
 
   def then_i_see_citizens_results_only
@@ -75,6 +76,23 @@ RSpec.feature "Brexit Checker workflow", type: :feature do
     find_all(".brexit-checker-audience-citizen section.brexit-checker-actions__group h3").each_with_index do |group_title, i|
       expect(group_title.text).to eq(group_titles_ordered[i])
     end
+  end
+
+  def and_business_results_audience_analyitics_tracking_should_be_present
+    and_business_actions_section_has_ecommerce_tracking
+    and_business_actions_section_has_data_search_query_attributes
+  end
+
+  def and_business_actions_section_has_ecommerce_tracking
+    section = find('.brexit-checker-business-actions', visible: false)
+    expect(section['data-analytics-ecommerce']).to eq("")
+    expect(section['data-ecommerce-start-index']).to eq("1")
+    expect(section['data-list-title']).to eq("Brexit checker results: Your business or organisation")
+  end
+
+  def and_business_actions_section_has_data_search_query_attributes
+    section = find('.brexit-checker-business-actions', visible: false)
+    expect(section['data-search-query']).to eq("")
   end
 
   def and_citizen_results_audience_analyitics_tracking_should_be_present
