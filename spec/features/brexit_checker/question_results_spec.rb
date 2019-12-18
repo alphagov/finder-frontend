@@ -38,6 +38,7 @@ RSpec.feature "Brexit Checker workflow", type: :feature do
     and_i_should_see_a_pet_action
     and_i_should_see_a_tourism_action
     and_citizen_results_audience_analyitics_tracking_should_be_present
+    and_business_results_audience_analyitics_tracking_should_be_present
   end
 
   def then_i_see_business_results_only
