@@ -25,6 +25,7 @@ describe FindersController, type: :controller do
   let(:all_content_finder) do
     finder = govuk_content_schema_example("finder").to_hash.merge(
       "base_path" => "/search/all",
+      "content_id" => "dd395436-9b40-41f3-8157-740a453ac972",
     )
 
     finder["details"]["default_documents_per_page"] = 10
@@ -250,13 +251,13 @@ describe FindersController, type: :controller do
     end
   end
 
-  describe "hide keyword facet tag A/B test" do
+  describe "Learning To Rank AB test" do
     before do
       content_store_has_item("/search/all", all_content_finder)
     end
 
-    it "requests the B (hide keyword facet tags) variant" do
-      request = search_api_request(query: { ab_tests: "hide_keyword_facet_tags:B" })
+    it "requests the B variant" do
+      request = search_api_request(query: { ab_tests: "relevance:B" })
 
       with_variant HideKeywordFacetTagsABTest: "B" do
         get :show, params: { slug: "search/all" }
