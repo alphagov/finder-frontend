@@ -32,6 +32,7 @@ RSpec.feature "Brexit Checker workflow", type: :feature do
 
   def then_i_see_citizen_and_business_results
     then_i_should_see_the_results_page
+    and_i_should_see_citizen_actions_are_grouped
     and_i_should_see_the_citizens_action_header
     and_i_should_see_the_business_action_header
     and_i_should_see_a_pet_action
@@ -49,6 +50,7 @@ RSpec.feature "Brexit Checker workflow", type: :feature do
     then_i_should_see_the_results_page
     and_i_should_see_the_citizens_action_header
     expect(page).to_not have_content I18n.t!("brexit_checker.results.audiences.business.heading")
+    and_i_should_see_citizen_actions_are_grouped
     and_i_should_see_a_pet_action
     and_i_should_not_see_a_tourism_action
   end
@@ -63,6 +65,14 @@ RSpec.feature "Brexit Checker workflow", type: :feature do
 
   def when_i_visit_the_brexit_checker_flow
     visit brexit_checker_questions_path
+  end
+
+  def and_i_should_see_citizen_actions_are_grouped
+    group_titles_ordered = ["Visiting the EU", "Visiting the UK", "Visiting Ireland"]
+
+    find_all(".brexit-checker-audience-citizen section.brexit-checker-actions__group h3").each_with_index do |group_title, i|
+      expect(group_title.text).to eq(group_titles_ordered[i])
+    end
   end
 
   def and_i_do_not_answer_citizen_questions
