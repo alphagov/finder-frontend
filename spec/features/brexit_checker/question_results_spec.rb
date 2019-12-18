@@ -79,9 +79,16 @@ RSpec.feature "Brexit Checker workflow", type: :feature do
     end
   end
 
+  def and_all_business_actions_links_should_have_ecommerce_tracking
+    find_all('.brexit-checker-business-actions .brexit-checker__action a.govuk-link').each do |link|
+      expect(link['data-module']).to eq("track-click")
+    end
+  end
+
   def and_business_results_audience_analyitics_tracking_should_be_present
     and_business_actions_section_has_ecommerce_tracking
     and_business_actions_section_has_data_search_query_attributes
+    and_all_business_actions_links_should_have_ecommerce_tracking
   end
 
   def and_business_actions_section_has_ecommerce_tracking
@@ -91,14 +98,69 @@ RSpec.feature "Brexit Checker workflow", type: :feature do
     expect(section['data-list-title']).to eq("Brexit checker results: Your business or organisation")
   end
 
+  def all_business_action_links_have_ecommerce_tracking(link, action_index, link_type)
+    expect(link['data-module']).to eq("track-click")
+    expect(link['data-track-category']).to eq("brexit-checker-results")
+    expect(link['data-ecommerce-path']).to eq(link['href'].sub("https://www.gov.uk",""))
+    expect(link['data-ecommerce-row']).to eq("")
+    expect(link['data-track-label']).to eq(link['href'])
+    action_string = link['data-track-action'].split(" - ")
+    expect(action_string[0]).to eql(I18n.t!("brexit_checker.results.audiences.business.heading"))
+    expect(action_string[1]).to eql(I18n.t!('brexit_checker.results.audiences.business.heading'))
+    expect(action_string[2]).to eql("1.#{action_index + 1}")
+    expect(action_string[3]).to eql(link_type)
+  end
+
+  def all_citizen_action_links_have_ecommerce_tracking(link, group_index, group_title, action_index, link_type)
+    expect(link['data-module']).to eq("track-click")
+    expect(link['data-track-category']).to eq("brexit-checker-results")
+    expect(link['data-ecommerce-path']).to eq(link['href'].sub("https://www.gov.uk",""))
+    expect(link['data-ecommerce-row']).to eq("")
+    expect(link['data-track-label']).to eq(link['href'])
+    action_string = link['data-track-action'].split(" - ")
+    expect(action_string[0]).to eql(I18n.t!("brexit_checker.results.audiences.citizen.heading"))
+    expect(action_string[1]).to eql(group_title)
+    expect(action_string[2]).to eql("#{group_index}.#{action_index + 1}")
+    expect(action_string[3]).to eql(link_type)
+  end
+
+  def and_all_business_actions_links_should_have_ecommerce_tracking
+    find_all('brexit-checker-business-actions .brexit-checker__action .brexit-checker__action_title a.govuk-link').each_with_index do |link, i|
+      all_business_action_links_have_ecommerce_tracking(link, i,"Action")
+    end
+    find_all('brexit-checker-business-actions .brexit-checker__action .govuk-body a.govuk-link').each_with_index do |link, i|
+      all_business_action_links_have_ecommerce_tracking(link, i,"Guidance")
+    end
+  end
+
   def and_business_actions_section_has_data_search_query_attributes
     section = find('.brexit-checker-business-actions', visible: false)
     expect(section['data-search-query']).to eq("")
   end
 
+  def and_all_citizens_actions_links_should_have_ecommerce_tracking
+    find_all(".brexit-checker-audience-citizen section.brexit-checker-actions__group", visible: false).each_with_index do |group, group_index|
+      group_index += 1
+      group_title = group["data-list-title"].split(" - ").last
+      within :xpath, group.path do
+        find_all('.brexit-checker__action', visible: false).each_with_index do |action, link_index|
+          within :xpath, action.path do
+            find_all('a.brexit-checker__action_link').each do |link|
+              all_citizen_action_links_have_ecommerce_tracking(link, group_index, group_title, link_index, "Action")
+            end
+            find_all('a.brexit-checker__guidance_link').each_with_index do |link|
+              all_citizen_action_links_have_ecommerce_tracking(link, group_index, group_title, link_index,"Guidance")
+            end
+          end
+        end
+      end
+    end
+  end
+
   def and_citizen_results_audience_analyitics_tracking_should_be_present
     and_citizens_groups_section_has_ecommerce_tracking
     and_citizens_groups_section_has_data_search_query_attributes
+    and_all_citizens_actions_links_should_have_ecommerce_tracking
   end
 
   def and_citizens_groups_section_has_ecommerce_tracking
