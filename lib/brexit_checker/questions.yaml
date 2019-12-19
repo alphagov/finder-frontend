@@ -228,7 +228,7 @@ questions:
     criteria:
       - owns-operates-business-organisation
     type: "single_wrapped"
-    text: "Do you sell your products or services to the public sector?"
+    text: "Do you sell your products or services to the UK public sector?"
     description: |
       <p>This includes non-government organisations, such as hospitals and schools, and central or local government organisations.</p>
     options:
