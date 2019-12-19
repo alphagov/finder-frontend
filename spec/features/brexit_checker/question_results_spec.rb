@@ -42,7 +42,7 @@ RSpec.feature "Brexit Checker workflow", type: :feature do
 
   def then_i_see_business_results_only
     then_i_should_see_the_results_page
-    expect(page).to_not have_content I18n.t!("brexit_checker.results.audiences.citizen.heading")
+    and_i_should_not_see_the_business_action_header
     and_i_should_see_the_business_action_header
     and_i_should_see_a_ce_mark_action
     and_the_ce_mark_link_should_have_tracking_analyitics
@@ -51,7 +51,7 @@ RSpec.feature "Brexit Checker workflow", type: :feature do
   def then_i_see_citizens_results_only
     then_i_should_see_the_results_page
     and_i_should_see_the_citizens_action_header
-    expect(page).to_not have_content I18n.t!("brexit_checker.results.audiences.business.heading")
+    and_i_should_not_see_the_citizens_action_header
     and_i_should_see_citizen_actions_are_grouped
     and_i_should_see_a_pet_action
     and_i_should_not_see_a_tourism_action
@@ -64,6 +64,14 @@ RSpec.feature "Brexit Checker workflow", type: :feature do
 
   def and_i_should_see_the_business_action_header
     expect(page).to have_content I18n.t!("brexit_checker.results.audiences.business.heading")
+  end
+
+  def and_i_should_not_see_the_citizens_action_header
+    expect(page).to_not have_content I18n.t!("brexit_checker.results.audiences.citizen.heading")
+  end
+
+  def and_i_should_not_see_the_business_action_header
+    expect(page).to_not have_content I18n.t!("brexit_checker.results.audiences.business.heading")
   end
 
   def when_i_visit_the_brexit_checker_flow
