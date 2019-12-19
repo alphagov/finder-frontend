@@ -37,7 +37,7 @@ RSpec.feature "Brexit Checker workflow", type: :feature do
     and_i_should_see_the_business_action_header
     and_i_should_see_a_pet_action
     and_i_should_see_a_tourism_action
-    and_the_tourism_link_should_have_tracking_analyitics
+    and_the_tourism_link_should_have_tracking_analytics
   end
 
   def then_i_see_business_results_only
@@ -45,7 +45,7 @@ RSpec.feature "Brexit Checker workflow", type: :feature do
     expect(page).to_not have_content I18n.t!("brexit_checker.results.audiences.citizen.heading")
     and_i_should_see_the_business_action_header
     and_i_should_see_a_ce_mark_action
-    and_the_ce_mark_link_should_have_tracking_analyitics
+    and_the_ce_mark_link_should_have_tracking_analytics
   end
 
   def then_i_see_citizens_results_only
@@ -55,7 +55,7 @@ RSpec.feature "Brexit Checker workflow", type: :feature do
     and_i_should_see_citizen_actions_are_grouped
     and_i_should_see_a_pet_action
     and_i_should_not_see_a_tourism_action
-    and_the_pet_link_should_have_tracking_analyitics
+    and_the_pet_link_should_have_tracking_analytics
   end
 
   def and_i_should_see_the_citizens_action_header
@@ -73,7 +73,7 @@ RSpec.feature "Brexit Checker workflow", type: :feature do
   def and_i_should_see_citizen_actions_are_grouped
     group_titles_ordered = ["Visiting the EU", "Visiting the UK", "Visiting Ireland"]
 
-    find_all(".brexit-checker-audience-citizen section.brexit-checker-actions__group h3").each_with_index do |group_title, i|
+    find_all(".brexit-checker-audience-citizen .brexit-checker-actions__group h3").each_with_index do |group_title, i|
       expect(group_title.text).to eq(group_titles_ordered[i])
     end
   end
@@ -157,18 +157,18 @@ RSpec.feature "Brexit Checker workflow", type: :feature do
     end
   end
 
-  def and_the_tourism_link_should_have_tracking_analyitics
+  def and_the_tourism_link_should_have_tracking_analytics
     action = BrexitChecker::Action.find_by_id("T063")
     expect(page).to have_css(".govuk-link[href='#{action.guidance_url}'][data-track-action='Your business or organisation - 1.2 - Guidance']")
 
   end
 
-  def and_the_ce_mark_link_should_have_tracking_analyitics
+  def and_the_ce_mark_link_should_have_tracking_analytics
     action = BrexitChecker::Action.find_by_id("T001")
     expect(page).to have_css(".govuk-link[href='#{action.guidance_url}'][data-track-action='Your business or organisation - 1.1 - Guidance']")
   end
 
-  def and_the_pet_link_should_have_tracking_analyitics
+  def and_the_pet_link_should_have_tracking_analytics
     action = BrexitChecker::Action.find_by_id("S009")
     expect(page).to have_css(".govuk-link[href='#{action.guidance_url}'][data-track-action='You and your family - Visiting the EU - 1.2 - Guidance']")
   end
