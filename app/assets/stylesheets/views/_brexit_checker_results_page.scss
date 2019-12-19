@@ -57,7 +57,14 @@
   }
 
   .stay-updated__heading {
+    border-top: 1px solid $govuk-border-colour;
+    padding-top: govuk-spacing(6);
     margin-top: govuk-spacing(6);
+  }
+
+  .stay-updated_description {
+    margin-bottom: govuk-spacing(4);
+    @include govuk-font(19);
   }
 
   .brexit-checker__no-results {
