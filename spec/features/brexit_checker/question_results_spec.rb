@@ -168,7 +168,6 @@ RSpec.feature "Brexit Checker workflow", type: :feature do
   def and_the_tourism_link_should_have_tracking_analytics
     action = BrexitChecker::Action.find_by_id("T063")
     expect(page).to have_css(".govuk-link[href='#{action.guidance_url}'][data-track-action='Your business or organisation - 1.2 - Guidance']")
-
   end
 
   def and_the_ce_mark_link_should_have_tracking_analytics
