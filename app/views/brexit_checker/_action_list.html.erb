@@ -4,7 +4,7 @@
       <p class="govuk-body brexit-checker__action_title">
         <% if action.title_url.present? %>
           <a
-            class="govuk-link brexit-checker__action_link"
+            class="govuk-link"
             href="<%= action.title_url %>"
             data-module="track-click"
             data-track-action="<%= "#{analytics_group}#{index + 1}"%> - Action"
@@ -44,7 +44,7 @@
           <p>
             <a
               href="<%= action.guidance_url %>"
-              class="govuk-link brexit-checker__guidance_link"
+              class="govuk-link"
               data-module="track-click"
               data-track-action="<%= "#{analytics_group}#{index + 1}"%> - Guidance"
               data-track-category="brexit-checker-results"
