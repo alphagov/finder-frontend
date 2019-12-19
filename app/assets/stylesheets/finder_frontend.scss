@@ -270,9 +270,11 @@ mark {
   @include govuk-font(19);
   white-space: nowrap;
   margin-bottom: govuk-spacing(4);
+  display: none;
 
   @include govuk-media-query($from: tablet) {
     margin-bottom: govuk-spacing(2);
+    display: block;
   }
 }
 
