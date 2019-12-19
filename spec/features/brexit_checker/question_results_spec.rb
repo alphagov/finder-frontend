@@ -170,7 +170,7 @@ RSpec.feature "Brexit Checker workflow", type: :feature do
     expect(page).to have_css(".govuk-link[href='#{action.guidance_url}'][data-track-action='Your business or organisation - 1.2 - Guidance']")
     expect(page).to have_css(".govuk-link[href='#{action.guidance_url}'][data-track-category='brexit-checker-results']")
     expect(page).to have_css(".govuk-link[href='#{action.guidance_url}'][data-track-label='#{action.guidance_url}']")
-    expect(page).to have_css(".govuk-link[href='#{action.guidance_url}'][data-ecommerce-path='#{action.guidance_url.sub('https://www.gov.uk','')}']")
+    expect(page).to have_css(".govuk-link[href='#{action.guidance_url}'][data-ecommerce-path='#{action.guidance_path}']")
     expect(page).to have_css(".govuk-link[href='#{action.guidance_url}'][data-ecommerce-row]")
   end
 
@@ -179,7 +179,7 @@ RSpec.feature "Brexit Checker workflow", type: :feature do
     expect(page).to have_css(".govuk-link[href='#{action.guidance_url}'][data-track-action='Your business or organisation - 1.1 - Guidance']")
     expect(page).to have_css(".govuk-link[href='#{action.guidance_url}'][data-track-category='brexit-checker-results']")
     expect(page).to have_css(".govuk-link[href='#{action.guidance_url}'][data-track-label='#{action.guidance_url}']")
-    expect(page).to have_css(".govuk-link[href='#{action.guidance_url}'][data-ecommerce-path='#{action.guidance_url.sub('https://www.gov.uk','')}']")
+    expect(page).to have_css(".govuk-link[href='#{action.guidance_url}'][data-ecommerce-path='#{action.guidance_path}']")
     expect(page).to have_css(".govuk-link[href='#{action.guidance_url}'][data-ecommerce-row]")
   end
 
@@ -188,7 +188,7 @@ RSpec.feature "Brexit Checker workflow", type: :feature do
     expect(page).to have_css(".govuk-link[href='#{action.guidance_url}'][data-track-action='You and your family - Visiting the EU - 1.2 - Guidance']")
     expect(page).to have_css(".govuk-link[href='#{action.guidance_url}'][data-track-category='brexit-checker-results']")
     expect(page).to have_css(".govuk-link[href='#{action.guidance_url}'][data-track-label='#{action.guidance_url}']")
-    expect(page).to have_css(".govuk-link[href='#{action.guidance_url}'][data-ecommerce-path='#{action.guidance_url.sub('https://www.gov.uk','')}']")
+    expect(page).to have_css(".govuk-link[href='#{action.guidance_url}'][data-ecommerce-path='#{action.guidance_path}']")
     expect(page).to have_css(".govuk-link[href='#{action.guidance_url}'][data-ecommerce-row]")
   end
 end
