@@ -16,18 +16,12 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
       <% if content_item.all_content_finder? %>
-        <% label_text = capture do %>
-          <h1 class="app-c-search-page-heading">Search<span class="govuk-visually-hidden"> all content</span></h1>
-        <% end %>
+        <h1 class="app-c-search-page-heading">Search<span class="govuk-visually-hidden"> all content</span></h1>
         <div id="keywords" class="app-patch--search-input-override">
-          <%= render "govuk_publishing_components/components/input", {
+          <%= render "govuk_publishing_components/components/search", {
             controls: "js-search-results-info",
             id: "finder-keyword-search",
-            label: {
-              text: label_text,
-            },
             name: "keywords",
-            search_icon: true,
             type: 'search',
             value: result_set_presenter.user_supplied_keywords,
           } %>
