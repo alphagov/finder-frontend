@@ -1,6 +1,10 @@
 require "addressable/uri"
 
 module BrexitCheckerHelper
+  def format_criterion(criteria_key)
+    BrexitChecker::Criterion.load_by(criteria_key).first.text
+  end
+
   def format_criteria_list(criteria)
     criteria.map { |criterion| { readable_text: criterion.text } }
   end

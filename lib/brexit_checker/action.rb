@@ -10,10 +10,12 @@ class BrexitChecker::Action
   validates_presence_of :guidance_link_text, if: :guidance_url
   validates_numericality_of :priority, only_integer: true
   validate :has_criteria
+  validate :citizen_action_has_grouping_criteria
 
   attr_reader :id, :title, :consequence, :exception, :title_url, :title_path,
               :lead_time, :criteria, :audience, :guidance_link_text,
-              :guidance_url, :guidance_path, :guidance_prompt, :priority
+              :guidance_url, :guidance_path, :guidance_prompt, :priority,
+              :grouping_criteria
 
   def initialize(attrs)
     attrs.each { |key, value| instance_variable_set("@#{key}", value) }
@@ -35,11 +37,26 @@ class BrexitChecker::Action
     @load_all ||= YAML.load_file(CONFIG_PATH)["actions"].map { |a| new(a) }
   end
 
+  def all_criteria
+    BrexitChecker::Criterion.load_by(all_criteria_keys)
+  end
+
+  def all_criteria_keys
+    BrexitChecker::Criteria::Extractor.extract(criteria)
+  end
+
+  def hash
+    id.hash
+  end
+
+  def eql?(other)
+    id == other.id
+  end
+
 private
 
   def has_criteria
-    return unless BrexitChecker::Criteria::Extractor
-      .extract(criteria).none?
+    return unless all_criteria_keys.none?
 
     errors.add "Action must have at least one criterion"
   end
@@ -50,6 +67,12 @@ private
       url.path
     else
       full_url
+    end
+  end
+
+  def citizen_action_has_grouping_criteria
+    if audience == "citizen" && grouping_criteria.nil?
+      errors.add(:grouping_criteria, "Can't be empty for citizen actions")
     end
   end
 end

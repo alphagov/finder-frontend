@@ -18,6 +18,12 @@ en:
         title: "Brexit: check what you need to do if there is no deal"
         description: |
           Check what you or your business need to do to prepare for Brexit.
+      criteria:
+        list_context: "Because you said:"
+        no_answers: |
+          You did not answer any of the questions.
+          This is a safe and secure service. We don't store any of your personal information.
+          To change your answers, follow the link below.
       audiences:
         citizen:
           heading: You and your family

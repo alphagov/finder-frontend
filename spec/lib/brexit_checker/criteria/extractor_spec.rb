@@ -1,7 +1,7 @@
 require "spec_helper"
 
 RSpec.describe BrexitChecker::Criteria::Extractor do
-  describe "#expression_criteria" do
+  describe "#extract" do
     subject { described_class.extract(expression) }
 
     context "an empty criteria" do
