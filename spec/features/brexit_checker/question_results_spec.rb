@@ -37,8 +37,7 @@ RSpec.feature "Brexit Checker workflow", type: :feature do
     and_i_should_see_the_business_action_header
     and_i_should_see_a_pet_action
     and_i_should_see_a_tourism_action
-    and_citizen_results_audience_analyitics_tracking_should_be_present
-    and_business_results_audience_analyitics_tracking_should_be_present
+    and_the_tourism_link_should_have_tracking_analyitics
   end
 
   def then_i_see_business_results_only
@@ -46,7 +45,7 @@ RSpec.feature "Brexit Checker workflow", type: :feature do
     expect(page).to_not have_content I18n.t!("brexit_checker.results.audiences.citizen.heading")
     and_i_should_see_the_business_action_header
     and_i_should_see_a_ce_mark_action
-    and_business_results_audience_analyitics_tracking_should_be_present
+    and_the_ce_mark_link_should_have_tracking_analyitics
   end
 
   def then_i_see_citizens_results_only
@@ -56,7 +55,7 @@ RSpec.feature "Brexit Checker workflow", type: :feature do
     and_i_should_see_citizen_actions_are_grouped
     and_i_should_see_a_pet_action
     and_i_should_not_see_a_tourism_action
-    and_citizen_results_audience_analyitics_tracking_should_be_present
+    and_the_pet_link_should_have_tracking_analyitics
   end
 
   def and_i_should_see_the_citizens_action_header
@@ -76,106 +75,6 @@ RSpec.feature "Brexit Checker workflow", type: :feature do
 
     find_all(".brexit-checker-audience-citizen section.brexit-checker-actions__group h3").each_with_index do |group_title, i|
       expect(group_title.text).to eq(group_titles_ordered[i])
-    end
-  end
-
-  def and_all_business_actions_links_should_have_ecommerce_tracking
-    find_all(".brexit-checker-business-actions .brexit-checker__action a.govuk-link").each do |link|
-      expect(link["data-module"]).to eq("track-click")
-    end
-  end
-
-  def and_business_results_audience_analyitics_tracking_should_be_present
-    and_business_actions_section_has_ecommerce_tracking
-    and_business_actions_section_has_data_search_query_attributes
-    and_all_business_actions_links_should_have_ecommerce_tracking
-  end
-
-  def and_business_actions_section_has_ecommerce_tracking
-    section = find(".brexit-checker-business-actions", visible: false)
-    expect(section["data-analytics-ecommerce"]).to eq("")
-    expect(section["data-ecommerce-start-index"]).to eq("1")
-    expect(section["data-list-title"]).to eq("Brexit checker results: Your business or organisation")
-  end
-
-  def all_business_action_links_have_ecommerce_tracking(link, action_index, link_type)
-    expect(link["data-module"]).to eq("track-click")
-    expect(link["data-track-category"]).to eq("brexit-checker-results")
-    expect(link["data-ecommerce-path"]).to eq(link["href"].sub("https://www.gov.uk", ""))
-    expect(link["data-ecommerce-row"]).to eq("")
-    expect(link["data-track-label"]).to eq(link["href"])
-    action_string = link["data-track-action"].split(" - ")
-    expect(action_string[0]).to eql(I18n.t!("brexit_checker.results.audiences.business.heading"))
-    expect(action_string[1]).to eql(I18n.t!("brexit_checker.results.audiences.business.heading"))
-    expect(action_string[2]).to eql("1.#{action_index + 1}")
-    expect(action_string[3]).to eql(link_type)
-  end
-
-  def all_citizen_action_links_have_ecommerce_tracking(link, group_index, group_title, action_index, link_type)
-    expect(link["data-module"]).to eq("track-click")
-    expect(link["data-track-category"]).to eq("brexit-checker-results")
-    expect(link["data-ecommerce-path"]).to eq(link["href"].sub("https://www.gov.uk", ""))
-    expect(link["data-ecommerce-row"]).to eq("")
-    expect(link["data-track-label"]).to eq(link["href"])
-    action_string = link["data-track-action"].split(" - ")
-    expect(action_string[0]).to eql(I18n.t!("brexit_checker.results.audiences.citizen.heading"))
-    expect(action_string[1]).to eql(group_title)
-    expect(action_string[2]).to eql("#{group_index}.#{action_index + 1}")
-    expect(action_string[3]).to eql(link_type)
-  end
-
-  def and_all_business_actions_links_should_have_ecommerce_tracking
-    find_all("brexit-checker-business-actions .brexit-checker__action .brexit-checker__action_title a.govuk-link").each_with_index do |link, i|
-      all_business_action_links_have_ecommerce_tracking(link, i, "Action")
-    end
-    find_all("brexit-checker-business-actions .brexit-checker__action .govuk-body a.govuk-link").each_with_index do |link, i|
-      all_business_action_links_have_ecommerce_tracking(link, i, "Guidance")
-    end
-  end
-
-  def and_business_actions_section_has_data_search_query_attributes
-    section = find(".brexit-checker-business-actions", visible: false)
-    expect(section["data-search-query"]).to eq("")
-  end
-
-  def and_all_citizens_actions_links_should_have_ecommerce_tracking
-    find_all(".brexit-checker-audience-citizen section.brexit-checker-actions__group", visible: false).each_with_index do |group, group_index|
-      group_index += 1
-      group_title = group["data-list-title"].split(" - ").last
-      within :xpath, group.path do
-        find_all(".brexit-checker__action", visible: false).each_with_index do |action, link_index|
-          within :xpath, action.path do
-            find_all("a.brexit-checker__action_link").each do |link|
-              all_citizen_action_links_have_ecommerce_tracking(link, group_index, group_title, link_index, "Action")
-            end
-            find_all("a.brexit-checker__guidance_link").each do |link|
-              all_citizen_action_links_have_ecommerce_tracking(link, group_index, group_title, link_index, "Guidance")
-            end
-          end
-        end
-      end
-    end
-  end
-
-  def and_citizen_results_audience_analyitics_tracking_should_be_present
-    and_citizens_groups_section_has_ecommerce_tracking
-    and_citizens_groups_section_has_data_search_query_attributes
-    and_all_citizens_actions_links_should_have_ecommerce_tracking
-  end
-
-  def and_citizens_groups_section_has_ecommerce_tracking
-    group_titles_ordered = ["Visiting the EU", "Visiting the UK", "Visiting Ireland"]
-
-    find_all(".brexit-checker-citizen-audience section.brexit-checker-actions__group", visible: false).each_with_index do |group, i|
-      expect(group["data-analytics-ecommerce"]).to eq("")
-      expect(group["data-ecommerce-start-index"]).to eq((i + 1).to_s)
-      expect(group["data-list-title"]).to eq("Brexit checker results: You and your family - #{group_titles_ordered[i]}")
-    end
-  end
-
-  def and_citizens_groups_section_has_data_search_query_attributes
-    find_all(".brexit-checker-citizen-audience section.brexit-checker-actions__group", visible: false).each do |group|
-      expect(group["data-search-query"]).to eq("")
     end
   end
 
@@ -256,5 +155,21 @@ RSpec.feature "Brexit Checker workflow", type: :feature do
     if action.guidance_link_text
       expect(page).to have_link(action.guidance_link_text, href: action.guidance_url)
     end
+  end
+
+  def and_the_tourism_link_should_have_tracking_analyitics
+    action = BrexitChecker::Action.find_by_id("T063")
+    expect(page).to have_css(".govuk-link[href='#{action.guidance_url}'][data-track-action='Your business or organisation - 1.2 - Guidance']")
+
+  end
+
+  def and_the_ce_mark_link_should_have_tracking_analyitics
+    action = BrexitChecker::Action.find_by_id("T001")
+    expect(page).to have_css(".govuk-link[href='#{action.guidance_url}'][data-track-action='Your business or organisation - 1.1 - Guidance']")
+  end
+
+  def and_the_pet_link_should_have_tracking_analyitics
+    action = BrexitChecker::Action.find_by_id("S009")
+    expect(page).to have_css(".govuk-link[href='#{action.guidance_url}'][data-track-action='You and your family - Visiting the EU - 1.2 - Guidance']")
   end
 end
