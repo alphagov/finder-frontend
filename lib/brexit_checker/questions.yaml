@@ -270,7 +270,7 @@ questions:
     criteria:
       - owns-operates-business-organisation
     type: "multiple"
-    text: "Does your business or organisation do any of the following activities?"
+    text: "Does your business or organisation do any of the following?"
     description: |
       <p>Importing and exporting includes temporarily taking goods across the EU border, for example to a trade fair.</p>
     options:
