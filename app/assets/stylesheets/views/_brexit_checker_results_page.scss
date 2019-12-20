@@ -13,6 +13,12 @@
     margin-bottom: govuk-spacing(6);
   }
 
+  .brexit-checker__share {
+    border-top: 3px solid $govuk-brand-colour;
+    margin: govuk-spacing(8) 0;
+    padding: govuk-spacing(4) 0;
+  }
+
   .brexit-checker__action {
     margin: 0 0 govuk-spacing(6);
 
