@@ -14,7 +14,8 @@
         label_text: label_text
       } %>
     </div>
-    <button class="app-c-button-as-link app-mobile-filters-link js-show-mobile-filters">
+    <button class="app-c-button-as-link app-mobile-filters-link js-show-mobile-filters"
+      data-toggle="mobile-filters-modal" data-target="facet-wrapper">
       Filter <span class="govuk-visually-hidden"> results</span>
       <span class="js-selected-filter-count"><%= sanitize facet_tags.display_total_selected_filters %></span>
     </button>
