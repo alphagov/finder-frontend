@@ -227,7 +227,11 @@ mark {
 
 .js-enabled {
   .facet-toggle {
-    display: inline-block;
+    display: none;
+    @include govuk-media-query($from: tablet) {
+      display: inline-block;
+      margin-bottom: govuk-spacing(6);
+    }
   }
 
   // on mobile we have a modal hidden with Javascript
