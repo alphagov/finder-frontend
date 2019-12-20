@@ -15,6 +15,10 @@
         value: result_set_presenter.user_supplied_keywords,
       }  %>
     </div>
+    <button class="app-c-button-as-link app-mobile-filters-link js-show-mobile-filters">
+      Filter <span class="govuk-visually-hidden"> results</span>
+      <span class="js-selected-filter-count"><%= sanitize facet_tags.display_total_selected_filters %></span>
+    </button>
   <% end %>
 
   <div data-module="track-click" data-track-category="filterClicked"

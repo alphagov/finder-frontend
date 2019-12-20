@@ -1,0 +1,13 @@
+.app-mobile-filters-link {
+  display: none;
+  .js-enabled & {
+    display: inline-block;
+    margin-bottom: govuk-spacing(4);
+    text-decoration: none;
+
+    @include govuk-typography-weight-bold;
+    @include govuk-media-query($from: tablet) {
+      display: none;
+    }
+  }
+}
