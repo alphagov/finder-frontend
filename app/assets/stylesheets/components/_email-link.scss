@@ -3,6 +3,10 @@
   padding: govuk-spacing(4);
   background: govuk-colour('grey-4');
 
+  .govuk-heading-m {
+    margin-bottom: govuk-spacing(2);
+  }
+
   .app-c-email-link__title {
     font-weight: bold;
   }
@@ -14,6 +18,7 @@
   }
 
   .app-c-email-link__link {
+    @include govuk-font(19);
 
     &:visited .app-c-email-link__icon {
       fill: $govuk-link-visited-colour;
