@@ -110,6 +110,13 @@ mark {
   margin-bottom: govuk-spacing(8);
 }
 
+.facet-tags__container {
+  display: none;
+  @include govuk-media-query($from: tablet) {
+    display: block;
+  }
+}
+
 .facet-tags {
   padding-bottom: govuk-spacing(1);
 }
