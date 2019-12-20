@@ -230,24 +230,33 @@ mark {
     display: inline-block;
   }
 
-  .facet-toggle__content {
-    display: block;
+  // on mobile we have a modal hidden with Javascript
+  // so there styles should only apply from larger viewports
+  // if user closes the filter and then switches orientation to landscape
+  // we need to show the filters if they toggle them on, hence !important
+  //
+  // we are looking always show filters on table/desktop
+  // so once that decision is made, all of this can be removed 
+  @include govuk-media-query($from: tablet) {
+    .facet-toggle__content {
+      display: block !important;
 
-    &.facet-toggle__content--hide {
-      display: none;
+      &.facet-toggle__content--hide {
+        display: none !important;
+      }
     }
   }
 
   .facet-toggle--only-on-mobile {
     .facet-toggle {
       @include govuk-media-query($from: tablet) {
-        display: none;
+        display: none !important;
       }
     }
 
     .facet-toggle__content.facet-toggle__content--hide {
       @include govuk-media-query($from: tablet) {
-        display: block;
+        display: block !important;
       }
     }
   }

@@ -11,3 +11,87 @@
     }
   }
 }
+
+// facet container should be hidden on mobile if 
+// javascript is available
+.js-enabled .facets {
+  @include govuk-media-query($until: tablet) {
+    display: none;
+  }
+}
+
+// if javascript doesn't run we don't need to show this block
+.facets__header {
+  display: none;
+}
+
+.facets__footer {
+  display: none;
+}
+
+.facets__clear-link {
+  display: none;
+}
+
+
+
+// all filter styles are applicable on mobile only 
+// and when javascript is enabled
+@include govuk-media-query($until: tablet) {
+  .js-enabled {
+    .facets__box {
+      position: fixed;
+      z-index: 1000;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      overflow-y: auto;
+      background: govuk-colour("white");
+    }
+
+    .facets__header {
+      padding: govuk-spacing(3) 0 govuk-spacing(2);
+      border-bottom: 1px solid $govuk-border-colour;
+      margin: 0 govuk-spacing(3) 0 govuk-spacing(3);
+      @supports (display: grid) {
+        display: grid;
+        grid-auto-flow: column;
+      }
+    }
+  
+    .facets__content {
+      padding: govuk-spacing(2) govuk-spacing(3) 90px govuk-spacing(3);
+    }
+
+    .facets__footer {
+      display: block;
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: govuk-colour("white");
+      padding: govuk_spacing(3);
+      border-top: 1px solid $govuk-border-colour;
+      box-shadow: 0px 0 5px rgba($govuk-border-colour, 0.8);
+    }
+
+    .facets__return-link {
+      text-decoration: none;
+      @supports (display: grid) {
+        justify-self: end;
+        align-self: center;
+      }
+    }
+
+    .facets__clear-link {
+      display: inline-block;
+      margin-top: govuk-spacing(2);
+      text-decoration: none;
+    }
+  }
+}
