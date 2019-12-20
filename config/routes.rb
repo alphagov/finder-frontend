@@ -18,6 +18,8 @@ FinderFrontend::Application.routes.draw do
     get "/test-search/search/opensearch" => "search#opensearch"
   end
 
+  get "/browse" => "browse#index"
+
   # Routes for the for Brexit Checker
   get "/get-ready-brexit-check/results" => "brexit_checker#results", as: :brexit_checker_results
   get "/get-ready-brexit-check/questions" => "brexit_checker#show", as: :brexit_checker_questions

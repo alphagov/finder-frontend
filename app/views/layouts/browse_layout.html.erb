@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Browse - GOV.UK</title>
+    <%= stylesheet_link_tag "application", integrity: true, crossorigin: 'anonymous' %>
+    <%= stylesheet_link_tag "print", media: "print" %>
+    <%= javascript_include_tag 'application', integrity: true, crossorigin: 'anonymous' %>
+    <% if @content_item %>
+      <%= render 'govuk_publishing_components/components/meta_tags', content_item: @content_item %>
+    <% end %>
+    <%= yield :extra_headers %>
+  </head>
+
+  <body class="mainstream <%= yield :body_classes %>">
+    <div id="wrapper" class="govuk-width-container">
+      <%= yield %>
+    </div>
+  </body>
+</html>

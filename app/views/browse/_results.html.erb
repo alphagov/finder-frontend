@@ -1,0 +1,4 @@
+<% @results.each_with_index do |result, index| %>
+  <% @rank = 0 %>
+  <%= render(partial: "result", locals: { result: result })%>
+<% end %>

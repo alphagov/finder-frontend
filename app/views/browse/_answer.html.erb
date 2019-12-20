@@ -1,0 +1,7 @@
+<% if @answer.present? %>
+  <section class="gem-c-notice gem-c-notice--bottom-margin" aria-label="Notice" role="region">
+    <div class="gem-c-govspeak govuk-govspeak">
+      <a href='<%= @answer["link"] %>'><%= @answer["title"] %></a>
+    </div>
+  </section>
+<% end %>

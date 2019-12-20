@@ -1,0 +1,26 @@
+<% content_for :body_classes, "browse" %>
+<% content_for :meta_tags do %>
+  <meta name='govuk:navigation-page-type' content='Browse Index'>
+<% end %>
+
+<div class="browse-header">
+  <%= render "govuk_publishing_components/components/heading", {
+      text: "Search for a topic"
+  } %>
+</div>
+
+<form method="get" action="/browse">
+  <%= render "govuk_publishing_components/components/search", {
+    search_icon: true,
+    type: 'search',
+    value: @search_query,
+  } %>
+</form>
+
+<div id="answer">
+  <%= render 'answer' %>
+</div>
+
+<div id="results" style="margin-top: 20px; display: inline-block; min-height: 100px; width: 100%">
+  <%= render 'results' %>
+</div>

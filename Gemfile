@@ -17,11 +17,11 @@ gem "sass-rails", "~> 6.0.0"
 gem "uglifier", "~> 4.2"
 gem "whenever", "~> 1.0.0"
 
-gem "fast-stemmer", "~> 1.0.2"
-gem "text", "~> 1.3.1"
 gem "engtagger", "~> 0.2.0"
-gem "levenshtein-ffi", "~> 1.1.0", :require => "levenshtein"
+gem "fast-stemmer", "~> 1.0.2"
 gem "kmeans-clusterer", "~> 0.11.4"
+gem "levenshtein-ffi", "~> 1.1.0", require: "levenshtein"
+gem "text", "~> 1.3.1"
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.

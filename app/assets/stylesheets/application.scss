@@ -5,6 +5,7 @@ $govuk-compatibility-govuktemplate: true;
 @import 'govuk_publishing_components/all_components';
 @import 'components/*';
 @import 'finder_frontend';
+@import 'views/browse';
 @import 'views/search';
 @import 'views/qa';
 @import 'views/brexit_checker_results_page';

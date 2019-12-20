@@ -6,6 +6,16 @@ module Registries
       taxonomy_tree[content_id]
     end
 
+    def get_taxon(content_id, tree: nil)
+      tree = tree || taxonomy_tree.values
+      this_level_taxon = tree.find { |taxon| taxon["content_id"] == content_id }
+      return this_level_taxon unless this_level_taxon.nil?
+
+      topic = nil
+      tree.find { |taxon| topic = get_taxon(content_id, tree: taxon.fetch("children", [])) }
+      topic
+    end
+
     def taxonomy_tree
       @taxonomy_tree ||= fetch_from_cache
     end
