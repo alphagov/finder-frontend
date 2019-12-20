@@ -119,12 +119,14 @@ GEM
     dotenv-rails (2.7.5)
       dotenv (= 2.7.5)
       railties (>= 3.2, < 6.1)
+    engtagger (0.2.1)
     erubi (1.9.0)
     execjs (2.7.0)
     factory_bot (5.1.1)
       activesupport (>= 4.2.0)
     faraday (0.17.1)
       multipart-post (>= 1.2, < 3)
+    fast-stemmer (1.0.2)
     ffi (1.11.3)
     gds-api-adapters (63.1.0)
       addressable
@@ -197,9 +199,13 @@ GEM
       addressable (>= 2.4)
     jwt (2.2.1)
     kgio (2.11.2)
+    kmeans-clusterer (0.11.4)
+      narray (~> 0.6)
     kramdown (2.1.0)
     launchy (2.4.3)
       addressable (~> 2.3)
+    levenshtein-ffi (1.1.0)
+      ffi (~> 1.9)
     link_header (0.0.8)
     listen (3.2.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
@@ -228,6 +234,7 @@ GEM
     multi_json (1.14.1)
     multi_test (0.1.2)
     multipart-post (2.1.1)
+    narray (0.6.1.2)
     netrc (0.11.0)
     nio4r (2.5.2)
     nokogiri (1.10.7)
@@ -392,6 +399,7 @@ GEM
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
     statsd-ruby (1.4.0)
+    text (1.3.1)
     thor (1.0.1)
     thread_safe (0.3.6)
     tilt (2.0.10)
@@ -436,7 +444,9 @@ DEPENDENCIES
   cucumber-rails (~> 2.0.0)
   dalli
   dotenv-rails
+  engtagger (~> 0.2.0)
   factory_bot
+  fast-stemmer (~> 1.0.2)
   gds-api-adapters (~> 63.1)
   google-api-client
   govuk-content-schema-test-helpers (~> 1.6)
@@ -447,7 +457,9 @@ DEPENDENCIES
   govuk_schemas (~> 4.0)
   govuk_test
   jasmine-rails
+  kmeans-clusterer (~> 0.11.4)
   launchy (~> 2.4.2)
+  levenshtein-ffi (~> 1.1.0)
   listen
   pry-byebug
   rails (~> 6.0.2)
@@ -459,6 +471,7 @@ DEPENDENCIES
   sdoc
   simplecov (~> 0.17.1)
   slimmer (~> 13.2.0)
+  text (~> 1.3.1)
   timecop
   uglifier (~> 4.2)
   webmock (~> 3.7.6)
