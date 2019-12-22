@@ -680,7 +680,7 @@ Then(/^I see (.*) order selected$/) do |label|
 end
 
 And(/^I see the facet tag$/) do
-  within ".facet-tags" do
+  within first ".facet-tags" do
     expect(page).to have_button("✕")
     expect(page).to have_content("Open")
     expect(page).to have_css("[data-module='remove-filter-link']")
