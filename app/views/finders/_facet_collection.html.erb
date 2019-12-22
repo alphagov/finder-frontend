@@ -45,6 +45,9 @@
           </div>
           <div class="facets__content">
             <%= render facets.select(&:filterable?) %>
+            <div class="facets__tags-block js-mobile-facet-tag-block"  data-module="remove-filter">
+              <%= render "facet_tags", facet_tags.present %>
+            </div>
             <button class="app-c-button-as-link facets__clear-link js-clear-selected-filters" type="button">
               Clear all filters
             </button> 

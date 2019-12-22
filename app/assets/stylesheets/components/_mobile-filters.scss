@@ -33,7 +33,9 @@
   display: none;
 }
 
-
+.facets__tags-block {
+  display: none;
+}
 
 // all filter styles are applicable on mobile only 
 // and when javascript is enabled
@@ -92,6 +94,10 @@
       display: inline-block;
       margin-top: govuk-spacing(2);
       text-decoration: none;
+    }
+
+    .facets__tags-block {
+      display: block;
     }
   }
 }
