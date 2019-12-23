@@ -2,9 +2,9 @@
   <% hidden_text = capture do %>
     <span class="govuk-visually-hidden">Share on</span>
   <% end %>
-  <h4 class="govuk-heading-m">
+  <h2 class="govuk-heading-m">
     <%= I18n.t("brexit_checker.results.share_link_title") %>
-  </h4>
+  </h2>
   <%= render "govuk_publishing_components/components/share_links", {
     columns: true,
     links: [
