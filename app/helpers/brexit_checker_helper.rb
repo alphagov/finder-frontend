@@ -1,6 +1,10 @@
 require "addressable/uri"
 
 module BrexitCheckerHelper
+  def encoded_results_url
+    CGI.escape(request.original_url)
+  end
+
   def format_criterion(criteria_key)
     BrexitChecker::Criterion.load_by(criteria_key).first.text
   end
