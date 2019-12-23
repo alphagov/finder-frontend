@@ -5,6 +5,12 @@ module BrexitCheckerHelper
     CGI.escape(request.original_url)
   end
 
+  def criteria_aside_label(heading = nil)
+    return "you-and-your-family-actions-group-#{heading.downcase.gsub(' ', '-')}-criteria" if !heading.nil?
+
+    "business-actions-criteria"
+  end
+
   def format_criterion(criteria_key)
     BrexitChecker::Criterion.load_by(criteria_key).first.text
   end
