@@ -1,5 +1,8 @@
 <% if criteria.present? %>
-  <aside class="govuk-grid-column-one-third">
+  <aside
+    class="govuk-grid-column-one-third"
+    aria-label=<%="#{criteria_aside_label(local_assigns[:heading])}"%>
+  >
     <% if local_assigns[:heading] %>
       <h3 class="govuk-heading-m"><%= heading %></h3>
     <% end %>

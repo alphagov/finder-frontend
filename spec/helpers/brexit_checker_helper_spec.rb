@@ -253,4 +253,14 @@ describe BrexitCheckerHelper, type: :helper do
       expect(brexit_results_description([], [])).to eq(t("brexit_checker.results.description_no_answers"))
     end
   end
+
+  describe "#criteria_aside_label" do
+    it "returns string 'buisness-criteira' if not provided with a group heading" do
+      expect(criteria_aside_label).to eql("business-actions-criteria")
+    end
+
+    it "returns an identifying string for citizen group criteria if provided with a group heading" do
+      expect(criteria_aside_label("I am an Official Group heading")).to eq("you-and-your-family-actions-group-i-am-an-official-group-heading-criteria")
+    end
+  end
 end
