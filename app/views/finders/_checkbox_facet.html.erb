@@ -1,17 +1,19 @@
-<div id="<%= checkbox_facet.key %>">
-  <%= render "govuk_publishing_components/components/checkboxes", {
-    name: checkbox_facet.key,
-    margin_bottom: true,
-    small: true,
-    items: [
-      {
-        label: checkbox_facet.name,
-        value: checkbox_facet.value,
-        id: checkbox_facet.id,
-        checked: checkbox_facet.is_checked?,
-        data_attributes: checkbox_facet.data,
-        controls: "js-search-results-info"
-      }
-    ]
-  } %>
+<div class="facet-container">
+  <div id="<%= checkbox_facet.key %>">
+    <%= render "govuk_publishing_components/components/checkboxes", {
+      name: checkbox_facet.key,
+      margin_bottom: true,
+      small: true,
+      items: [
+        {
+          label: checkbox_facet.name,
+          value: checkbox_facet.value,
+          id: checkbox_facet.id,
+          checked: checkbox_facet.is_checked?,
+          data_attributes: checkbox_facet.data,
+          controls: "js-search-results-info"
+        }
+      ]
+    } %>
+  </div>
 </div>
