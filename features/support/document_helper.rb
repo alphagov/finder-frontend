@@ -2029,7 +2029,9 @@ module DocumentHelper
 
   def apply_date_filter
     fill_in("Closed after", with: "2015-11-01")
-    click_on "Filter results"
+    within ".js-live-search-fallback" do
+      click_on "Filter results"
+    end
   end
 
   def assert_cma_cases_are_filtered_by_date
