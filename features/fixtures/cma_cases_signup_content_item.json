@@ -147,7 +147,6 @@
         ]
       }
     ],
-    "email_signup_choice": [],
     "email_filter_by": "case_type",
     "email_filter_name": {
       "singular": "case type",

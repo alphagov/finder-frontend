@@ -9,15 +9,25 @@ describe SignupPresenter do
   describe "single facet" do
     let(:content_item) {
       {
-        "details" =>
-          { "beta" => false,
-           "email_signup_choice" =>
-             [{ "key" => "devices",
-               "radio_button_name" => "Medical device alerts" },
-              { "key" => "drugs",
-                "radio_button_name" => "Drug alerts" }],
-           "email_filter_by" => "alert_type",
-           "email_filter_name" => "Alert Type" },
+        "details" => {
+          "beta" => false,
+          "email_filter_facets" => [
+            {
+              "facet_id" => "alert_type",
+              "facet_name" => "Alert type",
+              "facet_choices" => [
+                {
+                  "key" => "devices",
+                  "radio_button_name" => "Medical device alerts",
+                },
+                {
+                  "key" => "drugs",
+                  "radio_button_name" => "Drug alerts",
+                },
+              ],
+            },
+          ],
+        },
       }
     }
     describe "#choices" do
@@ -58,6 +68,18 @@ describe SignupPresenter do
               "facet_id" => "organisations",
               "facet_name" => "organisations",
             },
+            {
+              "facet_id" => "custom_facet",
+              "facet_name" => "Custom facet",
+              "facet_choices" => [
+                {
+                  "key" => "custom-facet-key-one",
+                  "radio_button_name" => "this is the custom facet",
+                  "topic_name" => "This is the custom facet",
+                  "prechecked" => false,
+                },
+              ],
+            },
           ],
         },
       }
@@ -65,16 +87,30 @@ describe SignupPresenter do
     describe "#choices" do
       it "returns an array of signup facets" do
         expect(SignupPresenter.new(content_item, params).choices).
-          to eq([
+          to eq(
+            [
+              {
+                "facet_id" => "people",
+                "facet_name" => "people",
+              },
+              {
+                "facet_id" => "organisations",
+                "facet_name" => "organisations",
+              },
+              {
+                "facet_id" => "custom_facet",
+                "facet_name" => "Custom facet",
+                "facet_choices" => [
                   {
-                    "facet_id" => "people",
-                    "facet_name" => "people",
+                    "key" => "custom-facet-key-one",
+                    "prechecked" => false,
+                    "radio_button_name" => "this is the custom facet",
+                    "topic_name" => "This is the custom facet",
                   },
-                  {
-                    "facet_id" => "organisations",
-                    "facet_name" => "organisations",
-                  },
-])
+                ],
+              },
+            ],
+          )
       end
     end
     describe "#choices?" do
@@ -83,8 +119,8 @@ describe SignupPresenter do
       end
     end
     describe "#can_modify_choices?" do
-      it "returns false" do
-        expect(SignupPresenter.new(content_item, params).can_modify_choices?).to be false
+      it "returns true" do
+        expect(SignupPresenter.new(content_item, params).can_modify_choices?).to be true
       end
     end
   end
@@ -93,7 +129,7 @@ describe SignupPresenter do
     let(:content_item) {
       {
         "details" => {
-          "email_signup_choice" => [],
+          "email_filter_facets" => [],
         },
       }
     }

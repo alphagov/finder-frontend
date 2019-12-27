@@ -47,15 +47,11 @@ class SignupPresenter
   end
 
   def choices?
-    email_filter_facets.present? || single_facet_choice_data.dig(0, "facet_choices").present?
+    email_filter_facets.present?
   end
 
   def choices
-    if email_filter_facets.present? && email_filter_facets.any?
-      return email_filter_facets
-    end
-
-    single_facet_choice_data
+    email_filter_facets
   end
 
   def choices_formatted
@@ -91,27 +87,8 @@ private
     params.permit(facets_ids).to_h
   end
 
-  def single_facet_choice_data
-    return [] if email_filter_by.nil?
-
-    [
-      {
-        "facet_id" => email_filter_by,
-        "facet_name" => single_facet_name,
-        "facet_choices" => content_item["details"]["email_signup_choice"],
-      },
-    ]
-  end
-
   def email_filter_facets
-    content_item.dig("details", "email_filter_facets")
-  end
-
-  def single_facet_name
-    email_filter_name = content_item["details"]["email_filter_name"]
-    return nil unless email_filter_name
-
-    (email_filter_name["plural"] || email_filter_name).capitalize
+    content_item["details"].fetch("email_filter_facets", [])
   end
 
   def ignore_facet?(facet_id)
