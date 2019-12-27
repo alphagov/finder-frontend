@@ -148,10 +148,6 @@
       }
     ],
     "email_filter_by": "case_type",
-    "email_filter_name": {
-      "singular": "case type",
-      "plural": "case types"
-    },
     "subscription_list_title_prefix": {
       "singular": "CMA cases with the following case type: ",
       "plural": "CMA cases with the following case types: ",
