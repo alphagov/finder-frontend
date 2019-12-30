@@ -91,63 +91,61 @@
   "description": "You'll get an email each time a case is updated or a new case is published.",
   "details": {
     "beta": false,
-    "email_filter_facets": [
+    "email_signup_choice": [
       {
-        "facet_id": "case_type",
-        "facet_name": "Case type",
-        "facet_choices": [
-          {
-            "key": "ca98-and-civil-cartels",
-            "radio_button_name": "CA98 and civil cartels",
-            "topic_name": "CA98 and civil cartels",
-            "prechecked": false
-          },
-          {
-            "key": "competition-disqualification",
-            "radio_button_name": "Competition disqualification",
-            "topic_name": "competition disqualification",
-            "prechecked": false
-          },
-          {
-            "key": "criminal-cartels",
-            "radio_button_name": "Criminal cartels",
-            "topic_name": "criminal cartels",
-            "prechecked": false
-          },
-          {
-            "key": "markets",
-            "radio_button_name": "Markets",
-            "topic_name": "markets",
-            "prechecked": false
-          },
-          {
-            "key": "mergers",
-            "radio_button_name": "Mergers",
-            "topic_name": "mergers",
-            "prechecked": false
-          },
-          {
-            "key": "consumer-enforcement",
-            "radio_button_name": "Consumer enforcement",
-            "topic_name": "consumer enforcement",
-            "prechecked": false
-          },
-          {
-            "key": "regulatory-references-and-appeals",
-            "radio_button_name": "Regulatory references and appeals",
-            "topic_name": "regulatory references and appeals",
-            "prechecked": false
-          },
-          {
-            "key": "review-of-orders-and-undertakings",
-            "radio_button_name": "Reviews of orders and undertakings",
-            "topic_name": "reviews of orders and undertakings",
-            "prechecked": false
-          }
-        ]
+        "key": "ca98-and-civil-cartels",
+        "radio_button_name": "CA98 and civil cartels",
+        "topic_name": "CA98 and civil cartels",
+        "prechecked": false
+      },
+      {
+        "key": "competition-disqualification",
+        "radio_button_name": "Competition disqualification",
+        "topic_name": "competition disqualification",
+        "prechecked": false
+      },
+      {
+        "key": "criminal-cartels",
+        "radio_button_name": "Criminal cartels",
+        "topic_name": "criminal cartels",
+        "prechecked": false
+      },
+      {
+        "key": "markets",
+        "radio_button_name": "Markets",
+        "topic_name": "markets",
+        "prechecked": false
+      },
+      {
+        "key": "mergers",
+        "radio_button_name": "Mergers",
+        "topic_name": "mergers",
+        "prechecked": false
+      },
+      {
+        "key": "consumer-enforcement",
+        "radio_button_name": "Consumer enforcement",
+        "topic_name": "consumer enforcement",
+        "prechecked": false
+      },
+      {
+        "key": "regulatory-references-and-appeals",
+        "radio_button_name": "Regulatory references and appeals",
+        "topic_name": "regulatory references and appeals",
+        "prechecked": false
+      },
+      {
+        "key": "review-of-orders-and-undertakings",
+        "radio_button_name": "Reviews of orders and undertakings",
+        "topic_name": "reviews of orders and undertakings",
+        "prechecked": false
       }
     ],
     "email_filter_by": "case_type",
+    "email_filter_name": {
+      "singular": "case type",
+      "plural": "case types"
+    },
     "subscription_list_title_prefix": {
       "singular": "CMA cases with the following case type: ",
       "plural": "CMA cases with the following case types: ",

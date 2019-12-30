@@ -65,7 +65,8 @@ subscription' page:
 ![](/docs/assets/cma-alerts.png)
 
 In this case, the user can modify the filters that they applied on the finder,
-to change what they will be subscribed to.
+to change what they will be subscribed to. Rather than using `email_filter_facets`,
+this uses an `email_signup_choice`.
 
 ## How do I add or update a finder email alert signup?
 

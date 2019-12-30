@@ -25,11 +25,11 @@ class SignupPresenter
   end
 
   def email_filter_by
-    content_item.dig("details", "email_filter_by")
+    content_item["details"].fetch("email_filter_by", nil)
   end
 
   def can_modify_choices?
-    choices? && choices_formatted.any? && email_filter_by != "all_selected_facets"
+    choices? && choices_formatted.any? && content_item["details"]["email_filter_by"] != "all_selected_facets"
   end
 
   def hidden_choices
@@ -47,11 +47,15 @@ class SignupPresenter
   end
 
   def choices?
-    email_filter_facets.present?
+    multiple_facet_choice_data.present? || single_facet_choice_data.dig(0, "facet_choices").present?
   end
 
   def choices
-    email_filter_facets
+    if multiple_facet_choice_data.present? && multiple_facet_choice_data.any?
+      return multiple_facet_choice_data
+    end
+
+    single_facet_choice_data
   end
 
   def choices_formatted
@@ -72,6 +76,10 @@ class SignupPresenter
     }.compact
   end
 
+  def target
+    "#"
+  end
+
 private
 
   def facets_with_choices
@@ -87,8 +95,29 @@ private
     params.permit(facets_ids).to_h
   end
 
-  def email_filter_facets
-    content_item["details"].fetch("email_filter_facets", [])
+  def single_facet_choice_data
+    facet_id = content_item.dig("details", "email_filter_by")
+
+    return [] if facet_id.nil?
+
+    [
+      {
+        "facet_id" => facet_id,
+        "facet_name" => single_facet_name,
+        "facet_choices" => content_item["details"]["email_signup_choice"],
+      },
+    ]
+  end
+
+  def multiple_facet_choice_data
+    content_item["details"]["email_filter_facets"]
+  end
+
+  def single_facet_name
+    email_filter_name = content_item["details"]["email_filter_name"]
+    return nil unless email_filter_name
+
+    (email_filter_name["plural"] || email_filter_name).capitalize
   end
 
   def ignore_facet?(facet_id)
