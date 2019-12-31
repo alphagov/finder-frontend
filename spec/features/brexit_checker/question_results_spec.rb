@@ -157,7 +157,7 @@ RSpec.feature "Brexit Checker workflow", type: :feature do
   def action_is_shown(key)
     action = BrexitChecker::Action.find_by_id(key)
     expect(page).to have_content action.title
-    expect(page).to have_content action.lead_time
+    expect(page).to have_content action.lead_time if action.lead_time
     expect(page).to have_content action.consequence
 
     if action.guidance_link_text
