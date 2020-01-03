@@ -10,6 +10,10 @@ module Registries
       @taxonomy_tree ||= fetch_from_cache
     end
 
+    def values
+      taxonomy_tree
+    end
+
     def cache_key
       "#{NAMESPACE}/topic_taxonomy"
     end
