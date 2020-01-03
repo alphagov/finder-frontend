@@ -20,29 +20,29 @@ RSpec.describe SortPresenter do
 
   let(:sort_options_without_relevance) {
     [
-      { "name" => "Most viewed" },
-      { "name" => "Updated (newest)" },
+      { "name" => "Most viewed", "key" => "-popularity" },
+      { "name" => "Updated (newest)", "key" => "-public_timestamp" },
     ]
   }
 
   let(:sort_options_with_relevance) {
     [
-      { "name" => "Most viewed" },
-      { "name" => "Updated (newest)" },
+      { "name" => "Most viewed", "key" => "-popularity" },
+      { "name" => "Updated (newest)", "key" => "-public_timestamp" },
       { "name" => "Relevance", "key" => "relevance" },
     ]
   }
 
   let(:sort_options_with_default) {
     [
-      { "name" => "Most viewed" },
-      { "name" => "Updated (oldest)", "default" => true },
+      { "name" => "Most viewed", "key" => "-popularity" },
+      { "name" => "Updated (oldest)", "key" => "-public_timestamp", "default" => true },
     ]
   }
 
   let(:sort_options_with_public_timestamp_default) {
     [
-      { "name" => "Most viewed" },
+      { "name" => "Most viewed", "key" => "-popularity" },
       { "name" => "Updated (newest)", "key" => "-public_timestamp", "default" => true },
     ]
   }
@@ -170,7 +170,7 @@ RSpec.describe SortPresenter do
     context "no option is selected by the user" do
       it "returns a default content item sort option" do
         expect(presenter_with_default.selected_option).to eq(
-          "default" => true, "name" => "Updated (oldest)",
+          "default" => true, "name" => "Updated (oldest)", "key" => "-public_timestamp",
         )
       end
     end
