@@ -3,7 +3,7 @@ module Filters
     def call
       [
         {
-          "value" => "published_statistics",
+          "value" => "statistics_published",
           "label" => "Statistics (published)",
           "filter" => {
             "content_store_document_type" => %w(statistics national_statistics statistical_data_set official_statistics),
