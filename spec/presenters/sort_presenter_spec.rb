@@ -102,6 +102,12 @@ RSpec.describe SortPresenter do
       }[:disabled]).to be true
     end
 
+    it "should enable the popularity option if keywords are not present" do
+      expect(presenter_with_relevance.to_hash[:options].find { |o|
+        o[:value] == "most-viewed"
+      }[:disabled]).to be false
+    end
+
     context "keywords are not blank" do
       let(:values) { { "keywords" => "something not blank" } }
 
@@ -109,6 +115,12 @@ RSpec.describe SortPresenter do
         expect(presenter_with_relevance.to_hash[:options].find { |o|
           o[:value] == "relevance"
         }[:disabled]).to be false
+      end
+
+      it "should disable popularity" do
+        expect(presenter_with_relevance.to_hash[:options].find { |o|
+          o[:value] == "most-viewed"
+        }[:disabled]).to be true
       end
     end
 
