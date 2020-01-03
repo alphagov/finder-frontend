@@ -6,30 +6,27 @@
   "first_published_at": "2015-08-17T13:28:37.000+00:00",
   "locale": "en",
   "phase": "live",
-  "public_updated_at": "2019-06-26T13:50:02.000+00:00",
+  "public_updated_at": "2019-12-30T11:14:06.000+00:00",
   "publishing_app": "specialist-publisher",
   "publishing_scheduled_at": null,
   "rendering_app": "finder-frontend",
   "scheduled_publishing_delay_seconds": null,
   "schema_name": "finder_email_signup",
   "title": "Competition and Markets Authority cases",
-  "updated_at": "2019-07-19T11:59:45.822Z",
-  "withdrawn_notice": {
-
-  },
-  "publishing_request_id": "18907-1561557105.583-10.3.3.1-400",
+  "updated_at": "2019-12-30T11:21:05.768Z",
+  "withdrawn_notice": {},
+  "publishing_request_id": "24198-1577704672.422-10.13.3.248-531",
   "links": {
     "organisations": [
       {
+        "content_id": "957eb4ec-089b-4f71-ba2a-dc69ac8919ea",
+        "title": "Competition and Markets Authority",
+        "locale": "en",
         "analytics_identifier": "D550",
         "api_path": "/api/content/government/organisations/competition-and-markets-authority",
         "base_path": "/government/organisations/competition-and-markets-authority",
-        "content_id": "957eb4ec-089b-4f71-ba2a-dc69ac8919ea",
-        "description": "We work to promote competition for the benefit of consumers, both within and outside the UK. We have staff in London, Edinburgh, Belfast and Cardiff. CMA is a non-ministerial department.",
         "document_type": "organisation",
-        "locale": "en",
         "schema_name": "organisation",
-        "title": "Competition and Markets Authority",
         "withdrawn": false,
         "details": {
           "logo": {
@@ -42,28 +39,23 @@
           "brand": "department-for-business-innovation-skills",
           "default_news_image": null
         },
-        "links": {
-
-        },
+        "links": {},
         "api_url": "https://www.gov.uk/api/content/government/organisations/competition-and-markets-authority",
         "web_url": "https://www.gov.uk/government/organisations/competition-and-markets-authority"
       }
     ],
     "related": [
       {
+        "content_id": "fef4ac7c-024a-4943-9f19-e85a8369a1f3",
+        "title": "Competition and Markets Authority cases",
+        "locale": "en",
         "api_path": "/api/content/cma-cases",
         "base_path": "/cma-cases",
-        "content_id": "fef4ac7c-024a-4943-9f19-e85a8369a1f3",
-        "description": "Find reports and updates on current and historical CMA investigations",
         "document_type": "finder",
-        "locale": "en",
-        "public_updated_at": "2019-06-26T13:50:02Z",
+        "public_updated_at": "2019-12-30T11:14:06Z",
         "schema_name": "finder",
-        "title": "Competition and Markets Authority cases",
         "withdrawn": false,
-        "links": {
-
-        },
+        "links": {},
         "api_url": "https://www.gov.uk/api/content/cma-cases",
         "web_url": "https://www.gov.uk/cma-cases"
       }
@@ -71,20 +63,17 @@
     "available_translations": [
       {
         "title": "Competition and Markets Authority cases",
-        "public_updated_at": "2019-06-26T13:50:02Z",
+        "public_updated_at": "2019-12-30T11:14:06Z",
         "document_type": "finder_email_signup",
         "schema_name": "finder_email_signup",
         "base_path": "/cma-cases/email-signup",
-        "description": "You'll get an email each time a case is updated or a new case is published.",
         "api_path": "/api/content/cma-cases/email-signup",
         "withdrawn": false,
         "content_id": "43dd2b13-93ec-4ca6-a7a4-e2eb5f5d485a",
         "locale": "en",
         "api_url": "https://www.gov.uk/api/content/cma-cases/email-signup",
         "web_url": "https://www.gov.uk/cma-cases/email-signup",
-        "links": {
-
-        }
+        "links": {}
       }
     ]
   },
@@ -148,6 +137,9 @@
       }
     ],
     "email_filter_by": "case_type",
+    "filter": {
+      "document_type": "cma_case"
+    },
     "subscription_list_title_prefix": {
       "singular": "CMA cases with the following case type: ",
       "plural": "CMA cases with the following case types: ",

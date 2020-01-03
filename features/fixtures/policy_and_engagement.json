@@ -1,28 +1,22 @@
 {
-  "analytics_identifier":null,
-  "base_path":"/search/policy-papers-and-consultations",
-  "content_id":"622e9691-4b4f-4e9c-bce1-098b0c4f5ee2",
-  "content_purpose_document_supertype":"navigation",
-  "document_type":"finder",
-  "email_document_supertype":"other",
-  "first_published_at":"2018-11-07T14:47:48.000+00:00",
-  "government_document_supertype":"other",
-  "locale":"en",
-  "navigation_document_supertype":"other",
-  "phase":"alpha",
-  "public_updated_at":"2018-11-07T14:47:48.000+00:00",
-  "publishing_app":"finder-frontend",
-  "rendering_app":"finder-frontend",
-  "schema_name":"finder",
-  "search_user_need_document_supertype":"government",
-  "title":"Policy papers and consultations",
-  "updated_at":"2018-11-07T14:47:48.000+00:00",
-  "user_journey_document_supertype":"finding",
-  "withdrawn_notice":{
-
-  },
-  "publishing_request_id":"",
-  "links":{
+  "analytics_identifier": null,
+  "base_path": "/search/policy-papers-and-consultations",
+  "content_id": "45bb9f22-096a-4e4c-a39e-04a65ff82da7",
+  "document_type": "finder",
+  "first_published_at": "2019-03-13T11:59:20.000+00:00",
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2019-08-06T12:01:43.000+00:00",
+  "publishing_app": "search-api",
+  "publishing_scheduled_at": null,
+  "rendering_app": "finder-frontend",
+  "scheduled_publishing_delay_seconds": null,
+  "schema_name": "finder",
+  "title": "Policy papers and consultations",
+  "updated_at": "2019-08-06T13:56:49.039Z",
+  "withdrawn_notice": {},
+  "publishing_request_id": "20171-1565092905.023-10.3.3.1-390",
+  "links": {
     "email_alert_signup": [
       {
         "api_path": "/api/content/search/policy-papers-and-consultations/email-signup",
@@ -30,24 +24,42 @@
         "content_id": "5a4dc517-57cf-4dd6-873f-f1d29f6d540c",
         "document_type": "finder_email_signup",
         "locale": "en",
-        "public_updated_at": "2019-03-06T10:22:17Z",
+        "public_updated_at": "2019-08-06T12:01:43Z",
         "schema_name": "finder_email_signup",
         "title": "Policy papers and consultations",
         "withdrawn": false,
         "links": {},
-        "api_url": "https://www.gov.uk/api/content/policy-papers-and-consultations/email-signup",
-        "web_url": "/search/policy-papers-and-consultations/email-signup"
+        "api_url": "https://www.gov.uk/api/content/search/policy-papers-and-consultations/email-signup",
+        "web_url": "https://www.gov.uk/search/policy-papers-and-consultations/email-signup"
+      }
+    ],
+    "available_translations": [
+      {
+        "title": "Policy papers and consultations",
+        "public_updated_at": "2019-08-06T12:01:43Z",
+        "document_type": "finder",
+        "schema_name": "finder",
+        "base_path": "/search/policy-papers-and-consultations",
+        "api_path": "/api/content/search/policy-papers-and-consultations",
+        "withdrawn": false,
+        "content_id": "45bb9f22-096a-4e4c-a39e-04a65ff82da7",
+        "locale": "en",
+        "api_url": "https://www.gov.uk/api/content/search/policy-papers-and-consultations",
+        "web_url": "https://www.gov.uk/search/policy-papers-and-consultations",
+        "links": {}
       }
     ]
   },
-  "description":"Find policy papers and consultations from government",
-  "details":{
-    "document_noun":"result",
-    "filter":{
-      "content_purpose_supergroup":"policy_and_engagement"
+  "description": "Find policy papers and consultations from government",
+  "details": {
+    "document_noun": "result",
+    "filter": {
+      "content_purpose_supergroup": [
+        "policy_and_engagement"
+      ]
     },
-    "format_name":"document",
-    "show_summaries":true,
+    "format_name": "document",
+    "show_summaries": true,
     "sort": [
       {
         "name": "Most viewed",
@@ -67,10 +79,14 @@
         "key": "public_timestamp"
       }
     ],
-    "facets":[
+    "facets": [
       {
+        "key": "_unused",
         "filter_key": "all_part_of_taxonomy_tree",
-        "keys": ["level_one_taxon", "level_two_taxon"],
+        "keys": [
+          "level_one_taxon",
+          "level_two_taxon"
+        ],
         "name": "topic",
         "short_name": "topic",
         "type": "taxon",
@@ -79,26 +95,35 @@
         "preposition": "about"
       },
       {
-        "filter_key": "all_part_of_taxonomy_tree",
         "key": "topic",
+        "filter_key": "all_part_of_taxonomy_tree",
         "name": "topic",
         "short_name": "topic",
         "type": "hidden",
         "display_as_result_metadata": false,
-        "filterable":true,
-        "hide_facet_tag":true
+        "hide_facet_tag": true,
+        "filterable": true
       },
       {
         "key": "content_store_document_type",
         "name": "Document type",
         "preposition": "of type",
-        "type":"text",
+        "type": "text",
         "display_as_result_metadata": false,
         "filterable": true,
         "option_lookup": {
-          "policy_papers": ["impact_assessment", "case_study", "policy_paper"],
-          "open_consultations": ["open_consultation"],
-          "closed_consultations": ["closed_consultation", "consultation_outcome"]
+          "policy_papers": [
+            "impact_assessment",
+            "case_study",
+            "policy_paper"
+          ],
+          "open_consultations": [
+            "open_consultation"
+          ],
+          "closed_consultations": [
+            "closed_consultation",
+            "consultation_outcome"
+          ]
         },
         "allowed_values": [
           {
@@ -142,8 +167,19 @@
         "type": "date",
         "display_as_result_metadata": true,
         "filterable": true
+      },
+      {
+        "display_as_result_metadata": false,
+        "filterable": true,
+        "key": "topical_events",
+        "name": "Topical event",
+        "preposition": "about",
+        "short_name": "about",
+        "type": "hidden",
+        "show_option_select_filter": false,
+        "allowed_values": []
       }
     ],
-    "default_documents_per_page":20
+    "default_documents_per_page": 20
   }
 }
