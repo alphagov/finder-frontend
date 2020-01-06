@@ -43,6 +43,9 @@ describe DateParser do
             "1@" => nil,
             "20120" => nil,
             "1" => nil,
+            "randomwords" => nil,
+            "Britain First" => nil,
+            "6   april    2018 to april 2018" => nil,
 
             # Dates should be interpretted as UK not US
             "01/11/2014" => Date.new(2014, 11, 1),
