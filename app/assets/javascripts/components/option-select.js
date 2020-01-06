@@ -83,6 +83,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
   OptionSelect.prototype.cleanString = function cleanString (text) {
     text = text.replace(/&/g, 'and')
     text = text.replace(/[’',:–-]/g, '') // remove punctuation characters
+    text = text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') // escape special characters
     return text.trim().replace(/\s\s+/g, ' ').toLowerCase() // replace multiple spaces with one
   }
 
