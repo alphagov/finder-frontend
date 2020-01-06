@@ -102,6 +102,26 @@ describe EmailAlertSubscriptionsController, type: :controller do
           }
           expect(subject).to redirect_to("http://www.example.com")
         end
+
+        it "overrides any subscriber_list_params with filter params even if they are empty" do
+          email_alert_api_has_subscriber_list(
+            "tags" => {
+              "case_type" => { any: %w[overriding-case-type] },
+              "format" => { any: %w[cma_case] },
+            },
+            "subscription_url" => "http://www.example.com",
+          )
+
+          post :create, params: {
+            slug: "cma-cases",
+            filter: {},
+            subscriber_list_params: {
+              "case_type" => %w[overriden-case-type],
+            },
+          }
+          expect(response).to be_successful
+          expect(response).to render_template("new")
+        end
       end
     end
   end

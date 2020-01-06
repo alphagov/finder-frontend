@@ -36,7 +36,7 @@ private
   end
 
   def at_least_one_filter_chosen?
-    applied_filters.any?(&:present?)
+    final_filter_choices.any?
   end
 
   def has_default_filters?
@@ -44,12 +44,17 @@ private
   end
 
   def applied_filters
-    filter_params.fetch("subscriber_list_params", {}).merge(
-      params
-        .permit("filter" => {})
-        .dig("filter")
-        .to_h,
-      )
+    filter_params.fetch("subscriber_list_params", {}).merge(filter_params)
+      .keep_if { |key, _| final_filter_choices.include?(key) }
+  end
+
+  def final_filter_choices
+    subscriber_list_params = filter_params.fetch("subscriber_list_params", {})
+    subscriber_list_params.keys && filter_params.keys
+  end
+
+  def filter_params
+    params.permit("filter" => {}).dig("filter").to_h
   end
 
   def fetch_content_item(content_item_path)
