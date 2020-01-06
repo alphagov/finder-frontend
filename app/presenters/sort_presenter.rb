@@ -37,6 +37,8 @@ private
 
   RELEVANCE_OPTION_TYPES = %w(relevance -relevance).freeze
 
+  POPULARITY_OPTION_TYPES = %w(popularity -popularity).freeze
+
   def has_options?
     content_item_sort_options.any?
   end
@@ -67,7 +69,11 @@ private
   end
 
   def disabled_option_value
-    keywords.blank? && relevance_option.present? ? option_value(relevance_option) : ""
+    if keywords.blank?
+      relevance_option.present? ? option_value(relevance_option) : ""
+    else
+      popularity_option.present? ? option_value(popularity_option) : ""
+    end
   end
 
   def raw_default_option
@@ -76,6 +82,10 @@ private
 
   def relevance_option
     sort_options.find { |option| RELEVANCE_OPTION_TYPES.include?(option["key"]) }
+  end
+
+  def popularity_option
+    sort_options.find { |option| POPULARITY_OPTION_TYPES.include?(option["key"]) }
   end
 
   def option_value(option)
