@@ -5,15 +5,22 @@ class EmailAlertSubscriptionsController < ApplicationController
   helper_method :subscriber_list_params
 
   def create
-    if valid_choices?
-      redirect_to email_alert_signup_api.signup_url
-    else
-      @error_message = "Please choose an email alert"
-      render action: :new
-    end
+    validate_choices!
+    redirect_to email_alert_signup_api.signup_url
+  rescue MissingFiltersError
+    render_error "Please choose an email alert"
+  rescue EmailAlertSignupAPI::UnprocessableSubscriberListError
+    render_error("An error occured. Please check your filters and try again.")
   end
 
 private
+
+  class MissingFiltersError < StandardError; end
+
+  def render_error(error_message)
+    @error_message = error_message
+    render action: :new
+  end
 
   def content
     @content ||= fetch_content_item(request.path)
@@ -29,6 +36,10 @@ private
 
   def subscriber_list_params
     SubscriberListParamsPresenter.new(content, filter_params).subscriber_list_params
+  end
+
+  def validate_choices!
+    raise MissingFiltersError unless valid_choices?
   end
 
   def valid_choices?

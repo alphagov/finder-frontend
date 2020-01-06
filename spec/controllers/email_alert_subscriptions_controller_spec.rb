@@ -56,6 +56,18 @@ describe EmailAlertSubscriptionsController, type: :controller do
       content_store_has_item("/cma-cases/email-signup", cma_cases_signup_content_item)
     end
 
+    context "when Email Alert API returns a 422 error" do
+      it "returns a 200 and displays the signup page" do
+        stub_any_email_alert_api_call.to_return(status: 422)
+        post :create, params: {
+          slug: "cma-cases",
+          filter: { "case_type" => %w[overriding-case-type] },
+        }
+        expect(response).to be_successful
+        expect(response).to render_template("new")
+      end
+    end
+
     context "finder has default filters" do
       it "fails if the relevant filters are not provided" do
         post :create, params: { slug: "cma-cases" }
