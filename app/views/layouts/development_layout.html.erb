@@ -2,8 +2,8 @@
 <html>
   <head>
     <title><%= yield :title %> - GOV.UK</title>
-    <!--[if gt IE 8]><!--><%= stylesheet_link_tag "application", integrity: true, crossorigin: "anonymous" %><!--<![endif]-->
-    <%= javascript_include_tag "application", integrity: true, crossorigin: "anonymous" %>
+    <!--[if gt IE 8]><!--><%= stylesheet_link_tag "application", integrity: true, crossorigin: "use-credentials" %><!--<![endif]-->
+    <%= javascript_include_tag "application", integrity: true, crossorigin: "use-credentials" %>
     <meta name="robots" content="noindex">
   </head>
 

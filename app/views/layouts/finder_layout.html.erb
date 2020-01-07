@@ -2,9 +2,9 @@
 <html>
   <head>
     <title><%= yield :title %> - GOV.UK</title>
-    <%= stylesheet_link_tag "application", integrity: true, crossorigin: 'anonymous' %>
+    <%= stylesheet_link_tag "application", integrity: true, crossorigin: 'use-credentials' %>
     <%= stylesheet_link_tag "print", media: "print" %>
-    <%= javascript_include_tag 'application', integrity: true, crossorigin: 'anonymous' %>
+    <%= javascript_include_tag 'application', integrity: true, crossorigin: 'use-credentials' %>
     <%= csrf_meta_tags %>
     <%= yield :head %>
 
