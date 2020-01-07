@@ -1,6 +1,8 @@
 require "addressable/uri"
 
 class EmailAlertSignupAPI
+  class UnprocessableSubscriberListError < StandardError; end
+
   def initialize(applied_filters:, default_filters:, facets:, subscriber_list_title:, finder_format:, email_filter_by: nil)
     @applied_filters = applied_filters.deep_symbolize_keys
     @default_filters = default_filters.deep_symbolize_keys
@@ -12,6 +14,8 @@ class EmailAlertSignupAPI
 
   def signup_url
     subscriber_list["subscription_url"]
+  rescue GdsApi::HTTPUnprocessableEntity
+    raise UnprocessableSubscriberListError
   end
 
 private
