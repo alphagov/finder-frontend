@@ -10,7 +10,7 @@ class EmailAlertSubscriptionsController < ApplicationController
   rescue MissingFiltersError
     render_error "Please choose an email alert"
   rescue EmailAlertSignupAPI::UnprocessableSubscriberListError
-    render_error("An error occured. Please check your filters and try again.")
+    render_error("An error occurred. Please check your filters and try again.")
   end
 
 private
