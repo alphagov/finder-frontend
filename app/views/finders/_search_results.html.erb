@@ -8,7 +8,7 @@
         <% if group[:group_name] %>
           <h2 class="filtered-results__facet-heading"><%= group[:group_name] %></h2>
         <% end %>
-        <%= render "govuk_publishing_components/components/document_list", {
+        <%= render "components/document_list", {
           items: group[:documents],
           remove_underline: true
         } %>
@@ -17,7 +17,7 @@
   </ul>
 <% else %>
   <div class="finder-results js-finder-results" data-module="track-click">
-    <%= render "govuk_publishing_components/components/document_list", {
+    <%= render "components/document_list", {
       items: local_assigns[:document_list_component_data],
       remove_underline: true
     } %>
