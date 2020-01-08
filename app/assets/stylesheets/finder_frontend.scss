@@ -35,11 +35,8 @@ mark {
 
 .related-links__link {
   @include govuk-font(16, $weight: bold);
-  text-decoration: none;
-
-  &:hover {
-    text-decoration: underline;
-  }
+  @include govuk-link-common;
+  @include govuk-link-style-default;
 }
 
 .filter-form {
