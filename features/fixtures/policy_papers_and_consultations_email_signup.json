@@ -1,0 +1,93 @@
+{
+  "analytics_identifier": null,
+  "base_path": "/search/policy-papers-and-consultations/email-signup",
+  "content_id": "5a4dc517-57cf-4dd6-873f-f1d29f6d540c",
+  "document_type": "finder_email_signup",
+  "first_published_at": "2019-03-13T11:59:19.000+00:00",
+  "locale": "en",
+  "phase": "live",
+  "public_updated_at": "2019-08-06T12:01:43.000+00:00",
+  "publishing_app": "search-api",
+  "publishing_scheduled_at": null,
+  "rendering_app": "finder-frontend",
+  "scheduled_publishing_delay_seconds": null,
+  "schema_name": "finder_email_signup",
+  "title": "Policy papers and consultations",
+  "updated_at": "2019-08-06T12:01:45.488Z",
+  "withdrawn_notice": {},
+  "publishing_request_id": "20169-1565092904.286-10.3.3.1-390",
+  "links": {
+    "available_translations": [
+      {
+        "title": "Policy papers and consultations",
+        "public_updated_at": "2019-08-06T12:01:43Z",
+        "document_type": "finder_email_signup",
+        "schema_name": "finder_email_signup",
+        "base_path": "/search/policy-papers-and-consultations/email-signup",
+        "api_path": "/api/content/search/policy-papers-and-consultations/email-signup",
+        "withdrawn": false,
+        "content_id": "5a4dc517-57cf-4dd6-873f-f1d29f6d540c",
+        "locale": "en",
+        "api_url": "https://www.gov.uk/api/content/search/policy-papers-and-consultations/email-signup",
+        "web_url": "https://www.gov.uk/search/policy-papers-and-consultations/email-signup",
+        "links": {}
+      }
+    ]
+  },
+  "description": "You'll get an email each time content is published.",
+  "details": {
+    "email_filter_by": null,
+    "email_filter_name": null,
+    "subscription_list_title_prefix": "Policy papers and consultations",
+    "filter": {
+      "content_purpose_supergroup": "policy_and_engagement"
+    },
+    "email_filter_facets": [
+      {
+        "facet_id": "people",
+        "facet_name": "people"
+      },
+      {
+        "facet_id": "organisations",
+        "facet_name": "organisations"
+      },
+      {
+        "facet_id": "content_store_document_type",
+        "facet_name": "document types",
+        "option_lookup": {
+          "policy_papers": [
+            "impact_assessment",
+            "case_study",
+            "policy_paper"
+          ],
+          "open_consultations": [
+            "open_consultation"
+          ],
+          "closed_consultations": [
+            "closed_consultation",
+            "consultation_outcome"
+          ]
+        }
+      },
+      {
+        "facet_id": "world_locations",
+        "facet_name": "world locations"
+      },
+      {
+        "facet_id": "topic",
+        "filter_key": "all_part_of_taxonomy_tree",
+        "facet_name": "topics"
+      },
+      {
+        "facet_id": "level_one_taxon",
+        "filter_key": "all_part_of_taxonomy_tree",
+        "facet_name": "topics"
+      },
+      {
+        "facet_id": "level_two_taxon",
+        "filter_key": "all_part_of_taxonomy_tree",
+        "facet_name": "topics"
+      }
+    ]
+  }
+}

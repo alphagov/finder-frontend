@@ -22,9 +22,9 @@
         items: @signup_presenter.choices_formatted,
         visually_hide_heading: true
       } %>
-      <% if @error_message.present? %>
-        <p class="signup-choices__message"><%= @error_message %></p>
-      <% end %>
+    <% end %>
+    <% if @error_message.present? %>
+      <p class="signup-choices__message"><%= @error_message %></p>
     <% end %>
 
     <% @signup_presenter.hidden_choices.each do |hidden_choice| %>

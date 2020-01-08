@@ -9,6 +9,8 @@ class EmailAlertSubscriptionsController < ApplicationController
     redirect_to email_alert_signup_api.signup_url
   rescue MissingFiltersError
     render_error "Please choose an email alert"
+  rescue UnprocessableFilterAlertParamsError
+    render_error "There was a problem with your chosen filters. Please try again."
   rescue EmailAlertSignupAPI::UnprocessableSubscriberListError
     render_error("An error occurred. Please check your filters and try again.")
   end
@@ -16,6 +18,7 @@ class EmailAlertSubscriptionsController < ApplicationController
 private
 
   class MissingFiltersError < StandardError; end
+  class UnprocessableFilterAlertParamsError < StandardError; end
 
   def render_error(error_message)
     @error_message = error_message
@@ -38,11 +41,18 @@ private
     SubscriberListParamsPresenter.new(content, filter_params).subscriber_list_params
   end
 
+  def email_alert_filter_params
+    @email_alert_filter_params ||= ParameterParser::EmailAlertParameterParser.new(content, filter_params, params)
+  end
+
   def validate_choices!
+    raise UnprocessableFilterAlertParamsError unless email_alert_filter_params.valid?
     raise MissingFiltersError unless valid_choices?
   end
 
   def valid_choices?
+    # TODO: implement explicit controls in the schema over validity of filters.
+    # E.g. is it acceptable to have no additional filters provided by the user?
     !signup_presenter.choices? || at_least_one_filter_chosen? || has_default_filters?
   end
 
@@ -55,12 +65,7 @@ private
   end
 
   def applied_filters
-    filter_params.fetch("subscriber_list_params", {}).merge(
-      params
-        .permit("filter" => {})
-        .dig("filter")
-        .to_h,
-      )
+    @applied_filters ||= email_alert_filter_params.applied_filters
   end
 
   def fetch_content_item(content_item_path)

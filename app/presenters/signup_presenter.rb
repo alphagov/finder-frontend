@@ -81,10 +81,12 @@ private
   end
 
   def selected_choices
-    facets_ids = choices.each_with_object({}) do |choice, hash|
-      hash[choice["facet_id"].to_sym] = []
+    choices.each_with_object({}) do |choice, hash|
+      key = choice["facet_id"]
+      next unless params.key?(key)
+
+      hash[choice["facet_id"]] = Array(params[key])
     end
-    params.permit(facets_ids).to_h
   end
 
   def email_filter_facets

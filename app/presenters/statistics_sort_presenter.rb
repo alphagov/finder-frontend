@@ -61,7 +61,7 @@ private
     case doc_type
     when "upcoming_statistics"
       :upcoming
-    when "published_statistics"
+    when "statistics_published"
       :public
     when "cancelled_statistics"
       :any

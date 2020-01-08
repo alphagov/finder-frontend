@@ -40,7 +40,7 @@ module RummagerUrlHelper
 
   def policy_papers_params
     base_search_params.merge(
-      "filter_content_purpose_supergroup" => "policy_and_engagement",
+      "filter_content_purpose_supergroup" => %w(policy_and_engagement),
       "count" => "20",
       "order" => "-public_timestamp",
     )
