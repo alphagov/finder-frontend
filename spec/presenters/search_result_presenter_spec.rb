@@ -69,6 +69,7 @@ RSpec.describe SearchResultPresenter do
         subtext: nil,
         highlight: false,
         highlight_text: nil,
+        parts: [],
       }
       expect(subject.document_list_component_data).to eql(expected_document)
     end
