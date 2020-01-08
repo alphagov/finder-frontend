@@ -82,7 +82,7 @@ mark {
 .published-by {
   @include govuk-font(14);
   display: block;
-  color: govuk-colour("dark-grey", $legacy: "grey-1");
+  color: govuk-colour("dark-grey");
 }
 
 .debug-results {
@@ -121,7 +121,7 @@ mark {
   padding: 5px;
 
   &:nth-child(odd) {
-    background-color: govuk-colour("light-grey", $legacy: "grey-4");
+    background-color: govuk-colour("light-grey");
   }
 }
 
@@ -157,9 +157,9 @@ mark {
   display: block;
   position: relative;
   padding: 5px;
-  border: 1px solid govuk-colour("dark-grey", $legacy: "grey-1");
+  border: 1px solid govuk-colour("dark-grey");
   border-radius: 5px;
-  background-color: govuk-colour("light-grey", $legacy: "grey-4");
+  background-color: govuk-colour("light-grey");
 
   .js-enabled & {
     padding: 8px 7px 7px 23px;
