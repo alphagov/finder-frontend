@@ -2,6 +2,7 @@ class SearchResultPresenter
   include ActionView::Helpers::SanitizeHelper
 
   delegate :title,
+           :parts,
            :is_historic,
            :government_name,
            :format,
@@ -43,10 +44,13 @@ class SearchResultPresenter
       subtext: subtext,
       highlight: @highlight,
       highlight_text: highlight_text,
+      parts: structure_parts,
     }
   end
 
 private
+
+  class MalformedPartError < StandardError; end
 
   def link
     document.path
@@ -83,6 +87,33 @@ private
       value = meta[:is_date] ? "<time datetime='#{meta[:machine_date]}'>#{meta[:human_date]}</time>" : meta[:value]
       component_metadata[meta[:label]] = sanitize("#{meta[:label]}: #{value}", tags: %w(time span))
     end
+  end
+
+  def structure_parts
+    structured_parts = parts.map.with_index(1) do |part, index|
+      has_required_data = %i[title slug body].all? { |key| part.key? key }
+      unless has_required_data
+        GovukError.notify(MalformedPartError.new, extra: { part: part, link: link })
+        next
+      end
+      {
+        link: {
+          text: part[:title],
+          path: "#{link}/#{part[:slug]}",
+          description: part[:body],
+          data_attributes: {
+            ecommerce_path: part[:slug],
+            track_category: "resultPart",
+            track_action: "Result part",
+            track_label: "Part #{index}",
+            track_options: {
+              dimension82: index,
+            },
+          },
+        },
+      }
+    end
+    structured_parts.compact
   end
 
 
