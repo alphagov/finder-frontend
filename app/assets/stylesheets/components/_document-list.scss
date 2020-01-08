@@ -1,0 +1,58 @@
+.gem-c-document-list__children {
+  margin-bottom: 0;
+  margin-top: govuk-spacing(3);
+
+  @include govuk-media-query($from: tablet) {
+    margin-left: govuk-spacing(4);
+
+    @supports (display: grid) {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      column-gap: 15px;
+    }
+  }
+}
+
+.gem-c-document-list-child {
+  @include govuk-font($size: 16);
+}
+
+.gem-c-document-list-child--dashed {
+  @include govuk-media-query($until: tablet) {
+    position: relative;
+    padding-left: govuk-spacing(5); //25px on mobile
+    padding-top: govuk-spacing(2);
+
+    &:before {
+      content: "—";
+      position: absolute;
+      left: 0;
+      width: 20px;
+      overflow: hidden;
+    }
+  }
+}
+
+.gem-c-document-list-child__heading {
+  @include govuk-typography-weight-bold;
+}
+
+.gem-c-document-list-child__link {
+  @include govuk-link-common;
+  @include govuk-link-style-default;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.gem-c-document-list-child__description {
+  @include govuk-media-query($until: tablet) {
+    display: none;
+  }
+
+  @include govuk-text-colour;
+  margin-top: govuk-spacing(1);
+  margin-bottom: govuk-spacing(1);
+}
