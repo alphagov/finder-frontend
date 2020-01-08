@@ -37,8 +37,6 @@ module ParameterParser
 
     def permitted_values_for_filter_key(key)
       facet = find_facet_by_key(key)
-      return if facet.blank?
-
       given_values = Array(filter_params[key])
       allowed_values = allowed_values_for_facet(facet)
       permitted = allowed_values & given_values
