@@ -70,5 +70,6 @@
 
     <%= render 'stay_updated' %>
     <%= render 'share_links' %>
+    <%= render 'print_link' if @business_results.any? || @citizen_results_groups.any? %>
   <% end %>
 </div>

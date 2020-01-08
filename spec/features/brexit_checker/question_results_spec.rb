@@ -8,6 +8,8 @@ RSpec.feature "Brexit Checker workflow", type: :feature do
     and_i_answer_citizen_questions
     and_i_answer_business_questions
     then_i_see_citizen_and_business_results
+    and_i_should_see_a_print_link
+    and_i_should_see_share_links
   end
 
   scenario "business questions only" do
@@ -15,6 +17,8 @@ RSpec.feature "Brexit Checker workflow", type: :feature do
     and_i_do_not_answer_citizen_questions
     and_i_answer_business_questions
     then_i_see_business_results_only
+    and_i_should_see_a_print_link
+    and_i_should_see_share_links
   end
 
   scenario "citizen questions only" do
@@ -22,6 +26,8 @@ RSpec.feature "Brexit Checker workflow", type: :feature do
     and_i_answer_citizen_questions
     and_i_do_not_answer_business_questions
     then_i_see_citizens_results_only
+    and_i_should_see_a_print_link
+    and_i_should_see_share_links
   end
 
   scenario "skip all questions" do
@@ -53,6 +59,27 @@ RSpec.feature "Brexit Checker workflow", type: :feature do
     and_i_should_see_citizen_actions_are_grouped
     and_i_should_see_a_pet_action
     and_i_should_not_see_a_tourism_action
+  end
+
+  def and_i_should_see_share_links
+    current_url = CGI.escape(page.current_url)
+    expect(page).to have_css("a[href='https://www.facebook.com/sharer/sharer.php?u=#{current_url}']")
+    expect(page).to have_css("a[href='https://twitter.com/share?url=#{current_url}']")
+    expect(page).to have_css("a[href='https://api.whatsapp.com/send?text=#{current_url}']")
+    expect(page).to have_css("a[href='mailto:?body=#{current_url}&subject=Get%20ready%20for%20a%20no-deal%20Brexit:%20Your%20results']")
+    expect(page).to have_css("a[href='http://www.linkedin.com/shareArticle?url=#{current_url}']")
+  end
+
+  def and_i_should_see_a_print_link
+    expect(page).to have_css(".brexit-checker__print-link", text: "Print your results")
+  end
+
+  def and_i_should_not_see_a_print_link
+    expect(page).to_not have_css(".brexit-checker__print-link", text: "Print your results")
+  end
+
+  def and_i_should_not_see_share_links
+    expect(page).to_not have_css(".gem-c-share-links")
   end
 
   def and_i_should_see_the_citizens_action_header
