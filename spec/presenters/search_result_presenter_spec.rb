@@ -73,6 +73,7 @@ RSpec.describe SearchResultPresenter do
         metadata: {},
         metadata_raw: [],
         subtext: nil,
+        parts: [],
       }
       expect(subject.document_list_component_data).to eql(expected_document)
     end
