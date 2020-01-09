@@ -1,5 +1,5 @@
-$govuk-compatibility-govukfrontendtoolkit: true;
 $govuk-compatibility-govuktemplate: true;
+$govuk-use-legacy-palette: false;
 
 @import 'reset';
 @import 'govuk_publishing_components/all_components';
