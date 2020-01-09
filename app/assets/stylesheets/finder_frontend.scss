@@ -202,6 +202,7 @@ mark {
       -webkit-box-shadow: inset 0 0 0 2px;
       box-shadow: inset 0 0 0 2px;
       border: solid 1px govuk-colour("black");
+      outline: 3px solid $govuk-focus-colour;
     }
   }
 }
