@@ -22,9 +22,10 @@ describe EmailAlertSubscriptionsController, type: :controller do
   before do
     Rails.cache.clear
     topic_taxonomy_has_taxons([
-      FactoryBot.build(:level_one_taxon_hash, content_id: taxon_content_id_one, title: "Magical Education"),
+      FactoryBot.build(:level_one_taxon_hash, content_id: taxon_content_id_one, title: "Magical Education", child_taxons: [
+        FactoryBot.build(:taxon_hash, content_id: taxon_content_id_two, title: "Herbology"),
+      ]),
       FactoryBot.build(:level_one_taxon_hash, content_id: brexit_taxon_id, title: "Brexit"),
-      FactoryBot.build(:level_one_taxon_hash, content_id: taxon_content_id_two, title: "Herbology"),
     ])
 
     stub_people_registry_request
@@ -137,7 +138,7 @@ describe EmailAlertSubscriptionsController, type: :controller do
         email_alert_api_has_subscriber_list(
           "links" => {
             "organisations" => { "any" => ["content_id_for_#{org_slug_one}", "content_id_for_#{org_slug_two}"] },
-            "taxon_tree" => { "all" => [brexit_taxon_id, taxon_content_id_two, taxon_content_id_one] },
+            "taxon_tree" => { "all" => [taxon_content_id_one, taxon_content_id_two, brexit_taxon_id] },
             "content_purpose_subgroup" => { "any" => %w(news speeches_and_statements) },
           },
           "subscription_url" => "http://www.gov.uk/subscription/news",
@@ -184,7 +185,7 @@ describe EmailAlertSubscriptionsController, type: :controller do
           "links" => {
             "organisations" => { "any" => ["content_id_for_#{org_slug_one}", "content_id_for_#{org_slug_two}"] },
             "content_store_document_type" => { "any" => %w(impact_assessment case_study policy_paper) },
-            "taxon_tree" => { "all" => [taxon_content_id_two, taxon_content_id_one] },
+            "taxon_tree" => { "all" => [taxon_content_id_one, taxon_content_id_two] },
             "content_purpose_supergroup" => { "any" => %w(policy_and_engagement) },
           },
           "subscription_url" => "http://www.gov.uk/subscription/policy-papers-and-consultations",
@@ -218,7 +219,7 @@ describe EmailAlertSubscriptionsController, type: :controller do
               ),
             },
             "organisations" => { "any" => ["content_id_for_#{org_slug_one}", "content_id_for_#{org_slug_two}"] },
-            "taxon_tree" => { "all" => [taxon_content_id_two, taxon_content_id_one] },
+            "taxon_tree" => { "all" => [taxon_content_id_one, taxon_content_id_two] },
           },
           "subscription_url" => "http://www.gov.uk/subscription/research-and-stats",
         )
@@ -259,7 +260,7 @@ describe EmailAlertSubscriptionsController, type: :controller do
                   dfid_research_output independent_report research
                 ),
               },
-              "taxon_tree" => { "all" => [taxon_content_id_two, taxon_content_id_one] },
+              "taxon_tree" => { "all" => [taxon_content_id_one, taxon_content_id_two] },
             },
             "subscription_url" => "http://www.gov.uk/subscription/research-and-stats",
           )

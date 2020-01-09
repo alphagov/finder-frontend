@@ -18,9 +18,15 @@ FactoryBot.define do
       number_of_children { 0 }
     end
 
+    transient do
+      child_taxons { [] }
+    end
+
     after(:build) do |taxon, evaluator|
       taxon[:links] =
-        if evaluator.number_of_children == 0
+        if evaluator.child_taxons.any?
+          { child_taxons: evaluator.child_taxons }
+        elsif evaluator.number_of_children == 0
           {}
         else
           { child_taxons: FactoryBot.build_list(:taxon_hash, evaluator.number_of_children) }

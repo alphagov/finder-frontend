@@ -14,6 +14,10 @@ module Registries
       "registries/full_topic_taxonomy"
     end
 
+    def values
+      taxonomy
+    end
+
   private
 
     def cacheable_data
