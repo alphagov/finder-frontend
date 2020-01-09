@@ -39,7 +39,7 @@ describe EmailAlertSubscriptionsController, type: :controller do
   describe "GET #new" do
     describe "finder email signup item doesn't exist" do
       it "returns a 404, rather than 5xx" do
-        content_store_does_not_have_item("/does-not-exist/email-signup")
+        stub_content_store_does_not_have_item("/does-not-exist/email-signup")
         get :new, params: { slug: "does-not-exist" }
         expect(response.status).to eq(404)
       end
@@ -47,7 +47,7 @@ describe EmailAlertSubscriptionsController, type: :controller do
 
     describe "finder email signup item does exist" do
       before do
-        content_store_has_item("/does-exist/email-signup", signup_finder)
+        stub_content_store_has_item("/does-exist/email-signup", signup_finder)
       end
       it "returns a success" do
         get :new, params: { slug: "does-exist" }
@@ -60,7 +60,7 @@ describe EmailAlertSubscriptionsController, type: :controller do
   describe "POST #create" do
     context "when finder email signup item doesn't exist" do
       before do
-        content_store_does_not_have_item("/does-not-exist/email-signup")
+        stub_content_store_does_not_have_item("/does-not-exist/email-signup")
       end
       it "returns a 404" do
         get :new, params: { slug: "does-not-exist" }
@@ -70,8 +70,8 @@ describe EmailAlertSubscriptionsController, type: :controller do
 
     context "when Email Alert API returns a 422 error" do
       before do
-        content_store_has_item("/cma-cases", cma_cases_content_item)
-        content_store_has_item("/cma-cases/email-signup", cma_cases_signup_content_item)
+        stub_content_store_has_item("/cma-cases", cma_cases_content_item)
+        stub_content_store_has_item("/cma-cases/email-signup", cma_cases_signup_content_item)
       end
 
       it "returns a 200 and displays the signup page" do
@@ -87,8 +87,8 @@ describe EmailAlertSubscriptionsController, type: :controller do
 
     context "when the finder signup page has filters (CMA Cases)" do
       before do
-        content_store_has_item("/cma-cases", cma_cases_content_item)
-        content_store_has_item("/cma-cases/email-signup", cma_cases_signup_content_item)
+        stub_content_store_has_item("/cma-cases", cma_cases_content_item)
+        stub_content_store_has_item("/cma-cases/email-signup", cma_cases_signup_content_item)
       end
 
       context "when no filters are provided" do
@@ -130,8 +130,8 @@ describe EmailAlertSubscriptionsController, type: :controller do
 
     context "when the signup page has 'dynamic' filters (News and Communications)" do
       before do
-        content_store_has_item("/news-and-communications", news_and_communications_content_item)
-        content_store_has_item("/news-and-communications/email-signup", news_and_communications_signup_content_item)
+        stub_content_store_has_item("/news-and-communications", news_and_communications_content_item)
+        stub_content_store_has_item("/news-and-communications/email-signup", news_and_communications_signup_content_item)
       end
 
       it "redirects to the correct email subscription url with subscriber_list_params" do
@@ -176,8 +176,8 @@ describe EmailAlertSubscriptionsController, type: :controller do
 
     context "when the signup page has 'option lookup' filters (Policy Papers and Consultations)" do
       before do
-        content_store_has_item("/search/policy-papers-and-consultations", policy_papers_finder_content_item)
-        content_store_has_item("/search/policy-papers-and-consultations/email-signup", policy_papers_finder_signup_content_item)
+        stub_content_store_has_item("/search/policy-papers-and-consultations", policy_papers_finder_content_item)
+        stub_content_store_has_item("/search/policy-papers-and-consultations/email-signup", policy_papers_finder_signup_content_item)
       end
 
       it "redirects to the correct email subscription URL" do
@@ -205,8 +205,8 @@ describe EmailAlertSubscriptionsController, type: :controller do
 
     context "when facet choices contain filter_values (Research and Statistics)" do
       before do
-        content_store_has_item("/search/research-and-statistics", research_and_stats_finder_content_item)
-        content_store_has_item("/search/research-and-statistics/email-signup", research_and_stats_finder_signup_content_item)
+        stub_content_store_has_item("/search/research-and-statistics", research_and_stats_finder_content_item)
+        stub_content_store_has_item("/search/research-and-statistics/email-signup", research_and_stats_finder_signup_content_item)
       end
 
       it "will redirect the user to the subscription URL" do
@@ -305,8 +305,8 @@ describe EmailAlertSubscriptionsController, type: :controller do
 
     context "when additional keys or values are provided by the user" do
       before do
-        content_store_has_item("/cma-cases", cma_cases_content_item)
-        content_store_has_item("/cma-cases/email-signup", cma_cases_signup_content_item)
+        stub_content_store_has_item("/cma-cases", cma_cases_content_item)
+        stub_content_store_has_item("/cma-cases/email-signup", cma_cases_signup_content_item)
       end
       it "will strip surplus keys or values" do
         email_alert_api_has_subscriber_list(
@@ -332,8 +332,8 @@ describe EmailAlertSubscriptionsController, type: :controller do
 
     context "when unprocessable keys are provided by the user" do
       before do
-        content_store_has_item("/cma-cases", cma_cases_content_item)
-        content_store_has_item("/cma-cases/email-signup", bad_input_finder_signup_content_item)
+        stub_content_store_has_item("/cma-cases", cma_cases_content_item)
+        stub_content_store_has_item("/cma-cases/email-signup", bad_input_finder_signup_content_item)
       end
       it "will redirect the user to the signup page" do
         post :create, params: {
@@ -347,8 +347,8 @@ describe EmailAlertSubscriptionsController, type: :controller do
 
     context "when unprocessable keys are provided by the user" do
       before do
-        content_store_has_item("/cma-cases", cma_cases_content_item)
-        content_store_has_item("/cma-cases/email-signup", bad_input_finder_signup_content_item)
+        stub_content_store_has_item("/cma-cases", cma_cases_content_item)
+        stub_content_store_has_item("/cma-cases/email-signup", bad_input_finder_signup_content_item)
       end
       it "will redirect the user to the signup page" do
         post :create, params: {
@@ -363,8 +363,8 @@ describe EmailAlertSubscriptionsController, type: :controller do
     # TODO: Remove email_filter_by key
     context "with email_filter_by set to 'facet_values'" do
       it "should call EmailAlertListTitleBuilder instead of EmailAlertTitleBuilder" do
-        content_store_has_item("/find-eu-exit-guidance-business", business_readiness_content_item)
-        content_store_has_item("/find-eu-exit-guidance-business/email-signup", business_readiness_signup_content_item)
+        stub_content_store_has_item("/find-eu-exit-guidance-business", business_readiness_content_item)
+        stub_content_store_has_item("/find-eu-exit-guidance-business/email-signup", business_readiness_signup_content_item)
         email_alert_api_has_subscriber_list(
           "links" => {
             "facet_values" => { any: %w(24fd50fa-6619-46ca-96cd-8ce90fa076ce) },
@@ -387,8 +387,8 @@ describe EmailAlertSubscriptionsController, type: :controller do
 
       context "with blank email_filter_by" do
         before do
-          content_store_has_item("/cma_cases", cma_cases_content_item)
-          content_store_has_item("/cma_cases/email-signup", cma_cases_signup_content_item)
+          stub_content_store_has_item("/cma_cases", cma_cases_content_item)
+          stub_content_store_has_item("/cma_cases/email-signup", cma_cases_signup_content_item)
         end
 
         it "should not call EmailAlertListTitleBuilder instead of EmailAlertTitleBuilder" do
