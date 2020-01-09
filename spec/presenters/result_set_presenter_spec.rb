@@ -152,6 +152,7 @@ RSpec.describe ResultSetPresenter do
             },
           ],
           subtext: nil,
+          parts: [],
         }
 
         search_result_objects = subject.search_results_content[:document_list_component_data]
