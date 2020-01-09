@@ -5,7 +5,7 @@ module Registries
     def all
       @all ||= {
         "world_locations" => world_locations,
-        "all_part_of_taxonomy_tree" => topic_taxonomy,
+        "all_part_of_taxonomy_tree" => full_topic_taxonomy,
         "part_of_taxonomy_tree" => topic_taxonomy,
         "people" => people,
         "organisations" => organisations,
