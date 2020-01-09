@@ -38,6 +38,11 @@ class FindersController < ApplicationController
     render plain: "Not acceptable", status: :not_acceptable
   end
 
+  def show_autocomplete
+    @autocomplete_query = initialize_autocomplete_query
+    @autocomplete_suggestion_presenter = autocomplete_suggestion_presenter
+  end
+
   def show_page_variables
     @search_query = initialize_search_query
     @breadcrumbs = fetch_breadcrumbs
@@ -49,7 +54,7 @@ class FindersController < ApplicationController
 
 private
 
-  attr_reader :search_query
+  attr_reader :search_query, :autocomplete_query
 
   helper_method :facet_tags, :i_am_a_topic_page_finder, :result_set_presenter, :content_item, :signup_links, :filter_params, :facets
 
@@ -120,6 +125,14 @@ private
     )
   end
 
+  def initialize_autocomplete_query
+    Search::Query.new(
+      content_item,
+      filter_params,
+      autocomplete_query: true,
+    )
+  end
+
   def content_item_with_search_results
     @content_item_with_search_results ||= search_query.content_item_with_search_results
   end
@@ -153,6 +166,14 @@ private
       suggested_queries,
       finder_url_builder.url(keywords: (suggested_queries.first || {}).dig("text")),
       # Search api is set to always return an array with one item
+      content_item.as_hash["content_id"],
+    )
+  end
+
+  def autocomplete_suggestion_presenter
+    autocomplete_options = search_results.fetch("suggested_autocomplete", [])
+    AutocompleteSuggestionPresenter.new(
+      autocomplete_options,
       content_item.as_hash["content_id"],
     )
   end

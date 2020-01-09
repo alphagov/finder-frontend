@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Search::QueryBuilder takes the content item for the finder and the query params
 # from the URL to generate a query for Search API.
 module Search
@@ -12,11 +14,12 @@ module Search
     # find anything useful, too much noise.
     MAX_QUERY_LENGTH = 512
 
-    def initialize(finder_content_item:, params: {}, ab_params: {}, override_sort_for_feed: false)
+    def initialize(finder_content_item:, params: {}, ab_params: {}, override_sort_for_feed: false, autocomplete_query: false)
       @finder_content_item = finder_content_item
       @params = params
       @ab_params = ab_params
       @override_sort_for_feed = override_sort_for_feed
+      @autocomplete_query = autocomplete_query
     end
 
     def call
@@ -42,8 +45,7 @@ module Search
 
   private
 
-    attr_reader :finder_content_item, :params, :ab_params, :override_sort_for_feed
-
+    attr_reader :finder_content_item, :params, :ab_params, :override_sort_for_feed, :autocomplete_query
 
     def pagination_query
       {
@@ -61,7 +63,7 @@ module Search
     end
 
     def documents_per_page
-      finder_content_item.default_documents_per_page
+      autocomplete_query ? 0 : finder_content_item.default_documents_per_page
     end
 
     def return_fields_query
@@ -235,7 +237,11 @@ module Search
     end
 
     def suggest_query
-      { "suggest" => "spelling_with_highlighting" }
+      if autocomplete_query
+        { "suggest" => "autocomplete" }
+      else
+        { "suggest" => "spelling_with_highlighting" }
+      end
     end
 
     def stopwords
