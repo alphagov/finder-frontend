@@ -85,28 +85,33 @@
   }
 
   .brexit-checker__print-link {
-    @include govuk-font(19);
-    background: image-url("govuk_publishing_components/icon-print.png") no-repeat 10px 50%;
-    padding: 0.5em 0.5em 0.5em 38px;
-    margin-left: -10px;
-    margin-top: govuk-spacing(3);
-    outline: 0;
-    border: 0;
-    cursor: pointer;
-    text-decoration: underline;
-    color: $govuk-link-colour;
+    display: none;
 
-    @include govuk-device-pixel-ratio($ratio: 2) {
-      background-image: image-url("govuk_publishing_components/icon-print-2x.png");
-      background-size: 16px 18px;
-    }
+    .js-enabled & {
+      @include govuk-font(19);
+      display: inline-block;
+      background: image-url("govuk_publishing_components/icon-print.png") no-repeat 10px 50%;
+      padding: 0.5em 0.5em 0.5em 38px;
+      margin-left: -10px;
+      margin-top: govuk-spacing(3);
+      outline: 0;
+      border: 0;
+      cursor: pointer;
+      text-decoration: underline;
+      color: $govuk-link-colour;
 
-    &:hover {
-      color: $govuk-link-hover-colour;
-    }
+      @include govuk-device-pixel-ratio($ratio: 2) {
+        background-image: image-url("govuk_publishing_components/icon-print-2x.png");
+        background-size: 16px 18px;
+      }
 
-    &:focus {
-      @include govuk-focused-text;
+      &:hover {
+        color: $govuk-link-hover-colour;
+      }
+
+      &:focus {
+        @include govuk-focused-text;
+      }
     }
   }
 }
