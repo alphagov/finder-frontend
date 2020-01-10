@@ -55,6 +55,7 @@ questions:
       - living-uk
     description: |
       <p>This also includes Switzerland, Norway, Iceland and Liechtenstein.</p>
+      <p>It does not include travel to Ireland.</p>
       <p>Business travel includes activities such as travelling for meetings and conferences, providing services, and touring art or music.</p>
     detail_text: |
       <p>After Brexit, the rules for business travel to the EU will change.</p>
