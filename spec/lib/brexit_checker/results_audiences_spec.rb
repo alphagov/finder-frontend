@@ -2,7 +2,7 @@ require "spec_helper"
 
 describe BrexitChecker::ResultsAudiences do
   describe "#populate_citizen_groups" do
-    let(:action1) { FactoryBot.build(:brexit_checker_action, :citizen, criteria: %w(living-uk), grouping_criteria: %w(living-uk)) }
+    let(:action1) { FactoryBot.build(:brexit_checker_action, :citizen, criteria: %w(living-uk living-row), grouping_criteria: %w(living-uk)) }
     let(:action2) { FactoryBot.build(:brexit_checker_action, :citizen, criteria: %w(join-family-uk-yes), grouping_criteria: %w(living-uk)) }
     let(:action3) { FactoryBot.build(:brexit_checker_action, :citizen, criteria: %w(nationality-uk), grouping_criteria: %w(living-uk)) }
     let(:action4) { FactoryBot.build(:brexit_checker_action, :citizen, criteria: %w(visiting-driving), grouping_criteria: %w(visiting-eu)) }
@@ -13,6 +13,7 @@ describe BrexitChecker::ResultsAudiences do
     let(:criteria3) { FactoryBot.build(:brexit_checker_criterion, key: "nationality-uk", text: "You are a British national") }
     let(:criteria4) { FactoryBot.build(:brexit_checker_criterion, key: "visiting-driving", text: "You need to drive abroad") }
     let(:criteria5) { FactoryBot.build(:brexit_checker_criterion, key: "studying-eu", text: "You are studying in the EU") }
+    let(:criteria6) { FactoryBot.build(:brexit_checker_criterion, key: "living-row", text: "You do not live in the UK or the EU") }
 
     let(:group_living_uk) { FactoryBot.build(:brexit_checker_group, key: "living-uk", heading: "Living in the UK") }
     let(:group_visiting_eu) { FactoryBot.build(:brexit_checker_group, key: "visiting-eu", heading: "Visiting the EU") }
@@ -23,7 +24,7 @@ describe BrexitChecker::ResultsAudiences do
 
     before :each do
       allow(BrexitChecker::Action).to receive(:load_all).and_return([action1, action2, action3, action4, action5])
-      allow(BrexitChecker::Criterion).to receive(:load_all).and_return([criteria1, criteria2, criteria3, criteria4, criteria5])
+      allow(BrexitChecker::Criterion).to receive(:load_all).and_return([criteria1, criteria2, criteria3, criteria4, criteria5, criteria6])
       allow(BrexitChecker::Group).to receive(:load_all).and_return([group_living_uk, group_visiting_eu, group_studying_eu])
     end
 
@@ -68,15 +69,22 @@ describe BrexitChecker::ResultsAudiences do
   end
 
   describe "#populate_business_groups" do
-    let(:action1) { FactoryBot.build(:brexit_checker_action, criteria: %w(owns-operates-business-organisation)) }
+    let(:action1) { FactoryBot.build(:brexit_checker_action, criteria: %w(owns-operates-business-organisation automotive)) }
     let(:action2) { FactoryBot.build(:brexit_checker_action, criteria: %w(aero-space)) }
     let(:action3) { FactoryBot.build(:brexit_checker_action, criteria: %w(forestry)) }
     let(:criteria1) { FactoryBot.build(:brexit_checker_criterion, key: "owns-operates-business-organisation", text: "You own or operate a business or organisation") }
     let(:criteria2) { FactoryBot.build(:brexit_checker_criterion, key: "aero-space", text: "You work in the aerospace and space industry") }
     let(:criteria3) { FactoryBot.build(:brexit_checker_criterion, key: "forestry", text: "You work in plants and forestry") }
     let(:criteria4) { FactoryBot.build(:brexit_checker_criterion, key: "exports-enchanted-goods", text: "You export enchanted amulets") }
+    let(:criteria5) { FactoryBot.build(:brexit_checker_criterion, key: "automotive", text: "You work in the automotive industry") }
+
     let(:selected_criteria) { [criteria1, criteria2, criteria3, criteria4] }
     let(:actions) { [action1, action2, action3] }
+
+    before :each do
+      allow(BrexitChecker::Action).to receive(:load_all).and_return([action1, action2, action3])
+      allow(BrexitChecker::Criterion).to receive(:load_all).and_return([criteria1, criteria2, criteria3, criteria4, criteria5])
+    end
 
     context "actions are provided but there are no criteria" do
       let(:result) { described_class.populate_business_groups(actions, []) }
@@ -94,23 +102,10 @@ describe BrexitChecker::ResultsAudiences do
 
     context "actions and criteria are provided" do
       let(:result) { described_class.populate_business_groups(actions, selected_criteria) }
-      let(:result_criteria_keys) { result[:criteria].map(&:key) }
 
       it "produces an hash of actions and criteria" do
         expect(result[:actions]).to eq(actions)
-        expect(result_criteria_keys).to match_array([criteria1.key, criteria2.key, criteria3.key])
-      end
-
-      it "excludes answer criteria that are not relevant to actions" do
-        expect(result_criteria_keys).not_to include("exports-enchanted-goods")
-        expect(result_criteria_keys).to include("owns-operates-business-organisation")
-        expect(result_criteria_keys).to include("aero-space")
-        expect(result_criteria_keys).to include("forestry")
-      end
-
-      it "has a criteria key that matches criteria on the actions" do
-        basic_action_criteira = result[:actions].flat_map(&:criteria)
-        expect(result_criteria_keys).to eq(basic_action_criteira)
+        expect(result[:criteria]).to match_array([criteria1, criteria2, criteria3])
       end
     end
   end
