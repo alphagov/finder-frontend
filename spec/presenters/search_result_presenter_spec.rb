@@ -53,7 +53,7 @@ RSpec.describe SearchResultPresenter do
   let(:link) { "link-1" }
   let(:description) { "I am a document. I am full of words and that." }
 
-  describe "#govuk_component_data" do
+  describe "#document_list_component_data" do
     it "returns a hash of the data we need to show the document" do
       expected_document = {
         link: {
@@ -80,6 +80,70 @@ RSpec.describe SearchResultPresenter do
         parts: [],
       }
       expect(subject.document_list_component_data).to eql(expected_document)
+    end
+    context "has parts" do
+      let(:parts) {
+        [
+          {
+            title: "I am a part title",
+            slug: "part-path",
+            body: "Part description",
+          },
+          {
+            title: "I am a part title 2",
+            slug: "part-path2",
+          },
+        ]
+      }
+      let(:expected_parts) {
+        [
+          {
+            link: {
+              text: "I am a part title",
+              path: "#{link}/part-path",
+              description: "Part description",
+              data_attributes: {
+                ecommerce_path: "part-path",
+                track_category: "resultPart",
+                track_action: "Result part",
+                track_label: "Part 1",
+                track_options: {
+                  dimension82: 1,
+                },
+              },
+            },
+          },
+        ]
+      }
+
+      let(:document) {
+        FactoryBot.build(:document,
+                         title: title,
+                         link: link,
+                         description_with_highlighting: description,
+                         is_historic: is_historic,
+                         government_name: "Government!",
+                         format: "cake",
+                         es_score: 0.005,
+                         content_id: "content_id",
+                         filter_key: "filter_value",
+                         index: 1,
+                         parts: parts)
+      }
+      it "shows only parts with required data" do
+        expect(subject.document_list_component_data[:parts]).to eq(expected_parts)
+      end
+
+      it "notifies of a validation error for missing part data" do
+        expect(GovukError).to receive(:notify).with(
+          instance_of(described_class::MalformedPartError),
+          extra: {
+            part: { title: "I am a part title 2", slug: "part-path2" },
+            link: "link-1",
+          },
+        )
+        subject.document_list_component_data
+      end
     end
   end
 
