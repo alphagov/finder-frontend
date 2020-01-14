@@ -84,7 +84,7 @@ GEM
     concurrent-ruby (1.1.5)
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
-    crass (1.0.5)
+    crass (1.0.6)
     cucumber (3.1.2)
       builder (>= 2.1.2)
       cucumber-core (~> 3.2.0)
@@ -160,7 +160,7 @@ GEM
       statsd-ruby (~> 1.4.0)
       unicorn (>= 5.4, < 5.6)
     govuk_document_types (0.9.2)
-    govuk_publishing_components (21.19.0)
+    govuk_publishing_components (21.19.1)
       gds-api-adapters
       govuk_app_config
       kramdown
@@ -183,7 +183,7 @@ GEM
     http-cookie (1.0.3)
       domain_name (~> 0.5)
     httpclient (2.8.3)
-    i18n (1.8.1)
+    i18n (1.8.2)
       concurrent-ruby (~> 1.0)
     jaro_winkler (1.5.4)
     jasmine-core (3.4.0)
@@ -443,7 +443,7 @@ DEPENDENCIES
   govuk_ab_testing (~> 2.4.1)
   govuk_app_config (~> 2.0.1)
   govuk_document_types (~> 0.9.2)
-  govuk_publishing_components (~> 21.19.0)
+  govuk_publishing_components (~> 21.19.1)
   govuk_schemas (~> 4.0)
   govuk_test
   jasmine-rails
