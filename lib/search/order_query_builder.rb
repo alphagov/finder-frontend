@@ -15,6 +15,8 @@ module Search
 
       return order_by_relevance_query if sort_option.present? && order_by_relevance?(sort_option)
 
+      return order_by_relevance_query if keywords.present? && sort_option.present? && order_by_popularity?(sort_option)
+
       return order_by_sort_option_query if sort_option.present?
 
       return order_by_relevance_query if keywords.present?
@@ -28,6 +30,10 @@ module Search
 
     def order_by_relevance?(sort_option)
       %w(relevance -relevance topic -topic).include?(sort_option.dig("key"))
+    end
+
+    def order_by_popularity?(sort_option)
+      %w(popularity -popularity).include?(sort_option.dig("key"))
     end
 
     def public_timestamp_unsupported
