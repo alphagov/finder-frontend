@@ -6,6 +6,7 @@ RSpec.describe SortPresenter do
   subject(:presenter_without_sort) { described_class.new(content_item(sort_options: no_sort_options), values) }
   subject(:presenter_with_sort) { described_class.new(content_item(sort_options: sort_options_without_relevance), values) }
   subject(:presenter_with_default) { described_class.new(content_item(sort_options: sort_options_with_default), values) }
+  subject(:presenter_with_popularity_default_and_relevance) { described_class.new(content_item(sort_options: sort_options_with_popularity_default_and_relevance), values) }
   subject(:presenter_with_relevance) { described_class.new(content_item(sort_options: sort_options_with_relevance), values) }
   subject(:presenter_with_relevance_selected) {
     described_class.new(
@@ -37,6 +38,13 @@ RSpec.describe SortPresenter do
     [
       { "name" => "Most viewed", "key" => "-popularity" },
       { "name" => "Updated (oldest)", "key" => "-public_timestamp", "default" => true },
+    ]
+  }
+
+  let(:sort_options_with_popularity_default_and_relevance) {
+    [
+      { "name" => "Most viewed", "key" => "-popularity", "default" => true },
+      { "name" => "Relevance", "key" => "relevance" },
     ]
   }
 
@@ -97,30 +105,46 @@ RSpec.describe SortPresenter do
     end
 
     it "should disable the relevance option if keywords are not present" do
-      expect(presenter_with_relevance.to_hash[:options].find { |o|
+      expect(presenter_with_popularity_default_and_relevance.to_hash[:options].find { |o|
         o[:value] == "relevance"
       }[:disabled]).to be true
+
+      expect(presenter_with_popularity_default_and_relevance.to_hash[:options].find { |o|
+        o[:value] == "relevance"
+      }[:selected]).to be false
     end
 
     it "should enable the popularity option if keywords are not present" do
-      expect(presenter_with_relevance.to_hash[:options].find { |o|
+      expect(presenter_with_popularity_default_and_relevance.to_hash[:options].find { |o|
         o[:value] == "most-viewed"
       }[:disabled]).to be false
+
+      expect(presenter_with_popularity_default_and_relevance.to_hash[:options].find { |o|
+        o[:value] == "most-viewed"
+      }[:selected]).to be true
     end
 
     context "keywords are not blank" do
       let(:values) { { "keywords" => "something not blank" } }
 
       it "should not disable relevance" do
-        expect(presenter_with_relevance.to_hash[:options].find { |o|
+        expect(presenter_with_popularity_default_and_relevance.to_hash[:options].find { |o|
           o[:value] == "relevance"
         }[:disabled]).to be false
+
+        expect(presenter_with_popularity_default_and_relevance.to_hash[:options].find { |o|
+          o[:value] == "relevance"
+        }[:selected]).to be true
       end
 
       it "should disable popularity" do
-        expect(presenter_with_relevance.to_hash[:options].find { |o|
+        expect(presenter_with_popularity_default_and_relevance.to_hash[:options].find { |o|
           o[:value] == "most-viewed"
         }[:disabled]).to be true
+
+        expect(presenter_with_popularity_default_and_relevance.to_hash[:options].find { |o|
+          o[:value] == "most-viewed"
+        }[:selected]).to be false
       end
     end
 
