@@ -20,7 +20,7 @@ module DocumentHelper
   end
 
   def stub_taxonomy_api_request
-    content_store_has_item("/", "links" => { "level_one_taxons" => [] })
+    stub_content_store_has_item("/", "links" => { "level_one_taxons" => [] })
   end
 
   def stub_rummager_api_request
@@ -211,23 +211,23 @@ module DocumentHelper
   end
 
   def content_store_has_mosw_reports_finder
-    content_store_has_item("/mosw-reports", govuk_content_schema_example("finder").to_json)
+    stub_content_store_has_item("/mosw-reports", govuk_content_schema_example("finder").to_json)
   end
 
   def content_store_has_mosw_reports_finder_with_no_facets
     finder = govuk_content_schema_example("finder")
     finder["details"]["facets"] = []
-    content_store_has_item("/mosw-reports", finder.to_json)
+    stub_content_store_has_item("/mosw-reports", finder.to_json)
   end
 
   def content_store_has_qa_finder
-    content_store_has_item("/aaib-reports", aaib_reports_content_item.to_json)
+    stub_content_store_has_item("/aaib-reports", aaib_reports_content_item.to_json)
   end
 
   def content_store_has_news_and_communications_finder
     finder_fixture = File.read(Rails.root.join("features/fixtures/news_and_communications_with_checkboxes.json"))
 
-    content_store_has_item("/search/news-and-communications", finder_fixture)
+    stub_content_store_has_item("/search/news-and-communications", finder_fixture)
   end
 
   def content_store_has_government_finder
@@ -245,60 +245,60 @@ module DocumentHelper
       },
     ]
 
-    content_store_has_item(base_path, finder.to_json)
+    stub_content_store_has_item(base_path, finder.to_json)
   end
 
   def content_store_has_services_finder
     finder_fixture = File.read(Rails.root.join("features/fixtures/services.json"))
 
-    content_store_has_item("/search/services", finder_fixture)
+    stub_content_store_has_item("/search/services", finder_fixture)
   end
 
   def content_store_has_government_finder_with_10_items
     base_path = "/government/policies/benefits-reform"
     content_item = govuk_content_schema_example("finder").merge("base_path" => base_path)
     content_item["details"]["default_documents_per_page"] = 10
-    content_store_has_item(base_path, content_item.to_json)
+    stub_content_store_has_item(base_path, content_item.to_json)
   end
 
   def content_store_has_statistics_finder
     finder_fixture = File.read(Rails.root.join("features/fixtures/statistics.json"))
 
-    content_store_has_item("/search/research-and-statistics", finder_fixture)
+    stub_content_store_has_item("/search/research-and-statistics", finder_fixture)
   end
 
   def content_store_has_aaib_reports_finder
     finder_fixture = File.read(Rails.root.join("features/fixtures/aaib_reports_example.json"))
 
-    content_store_has_item("/aaib-reports", finder_fixture)
+    stub_content_store_has_item("/aaib-reports", finder_fixture)
   end
 
   def content_store_has_all_content_finder
     finder_fixture = File.read(Rails.root.join("features/fixtures/all_content.json"))
 
-    content_store_has_item("/search/all", finder_fixture)
+    stub_content_store_has_item("/search/all", finder_fixture)
   end
 
   def content_store_has_policy_and_engagement_finder
     finder_fixture = File.read(Rails.root.join("features/fixtures/policy_and_engagement.json"))
 
-    content_store_has_item("/search/policy-papers-and-consultations", finder_fixture)
+    stub_content_store_has_item("/search/policy-papers-and-consultations", finder_fixture)
   end
 
   def content_store_has_business_finder_qa
-    content_store_has_item(business_readiness_qa_config["base_path"], business_readiness_qa_config)
+    stub_content_store_has_item(business_readiness_qa_config["base_path"], business_readiness_qa_config)
   end
 
   def content_store_has_business_readiness_finder
     finder_fixture = File.read(Rails.root.join("features/fixtures/business_readiness.json"))
 
-    content_store_has_item("/find-eu-exit-guidance-business", finder_fixture)
+    stub_content_store_has_item("/find-eu-exit-guidance-business", finder_fixture)
   end
 
   def content_store_has_business_readiness_email_signup
     finder_fixture = File.read(Rails.root.join("features/fixtures/business_readiness_email_signup.json"))
 
-    content_store_has_item("/find-eu-exit-guidance-business/email-signup", finder_fixture)
+    stub_content_store_has_item("/find-eu-exit-guidance-business/email-signup", finder_fixture)
   end
 
   def search_params(params = {})
@@ -310,7 +310,7 @@ module DocumentHelper
   def stub_content_store_with_cma_cases_finder
     schema = govuk_content_schema_example("cma-cases", "finder")
 
-    content_store_has_item(
+    stub_content_store_has_item(
       schema.fetch("base_path"),
       schema.to_json,
     )
@@ -341,7 +341,7 @@ module DocumentHelper
       },
     )
 
-    content_store_has_item(
+    stub_content_store_has_item(
       schema.fetch("base_path"),
       schema.to_json,
     )
@@ -361,7 +361,7 @@ module DocumentHelper
     schema = govuk_content_schema_example("cma-cases", "finder")
       .merge("description" => "Find reports and updates on current and historical CMA investigations")
 
-    content_store_has_item(
+    stub_content_store_has_item(
       schema.fetch("base_path"),
       schema.to_json,
     )
@@ -371,7 +371,7 @@ module DocumentHelper
     schema = govuk_content_schema_example("cma-cases", "finder")
     schema["details"]["no_index"] = true
 
-    content_store_has_item(
+    stub_content_store_has_item(
       schema.fetch("base_path"),
       schema.to_json,
     )
@@ -381,7 +381,7 @@ module DocumentHelper
     schema = govuk_content_schema_example("cma-cases", "finder")
       .merge("from" => "An authority")
 
-    content_store_has_item(
+    stub_content_store_has_item(
       schema.fetch("base_path"),
       schema.to_json,
     )
@@ -392,7 +392,7 @@ module DocumentHelper
       .merge("from" => "An authority")
     schema["content_id"] = "c58fdadd-7743-46d6-9629-90bb3ccc4ef0"
 
-    content_store_has_item(
+    stub_content_store_has_item(
       schema.fetch("base_path"),
       schema.to_json,
     )
@@ -417,7 +417,7 @@ module DocumentHelper
         facet
       end
     end
-    schema["details"]["facets"] << content_store_has_item(
+    schema["details"]["facets"] << stub_content_store_has_item(
       schema.fetch("base_path"),
       schema.to_json,
     )

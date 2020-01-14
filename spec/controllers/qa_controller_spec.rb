@@ -27,7 +27,7 @@ describe QaController, type: :controller do
       let(:finder_base_path) { aaib_reports_qa_config_yaml["finder_base_path"] }
 
       before do
-        content_store_has_item(
+        stub_content_store_has_item(
           "/aaib-reports",
           aaib_reports_finder,
         )
@@ -163,7 +163,7 @@ describe QaController, type: :controller do
 
     describe "finder item doesn't exist" do
       before do
-        content_store_does_not_have_item("/aaib-reports")
+        stub_content_store_does_not_have_item("/aaib-reports")
         get :show
       end
 

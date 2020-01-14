@@ -10,7 +10,7 @@ RSpec.describe Registries::WorldLocationsRegistry do
   describe "when world locations api is available" do
     before do
       clear_cache
-      worldwide_api_has_locations %w(hogwarts privet-drive diagon-alley)
+      stub_worldwide_api_has_locations %w(hogwarts privet-drive diagon-alley)
     end
 
     after { clear_cache }

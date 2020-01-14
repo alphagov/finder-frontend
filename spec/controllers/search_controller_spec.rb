@@ -7,7 +7,7 @@ describe SearchController, type: :controller do
   render_views
 
   before do
-    content_store_has_item(
+    stub_content_store_has_item(
       "/search",
       base_path: "/search",
       title: "Search",

@@ -13,7 +13,7 @@ describe ContentItem do
     let(:base_path) { "/search/news-and-communications" }
 
     it "returns a content item as a hash" do
-      content_store_has_item(base_path, finder_content_item)
+      stub_content_store_has_item(base_path, finder_content_item)
       expect(ContentItem.from_content_store(base_path).as_hash).to eql(finder_content_item)
     end
   end

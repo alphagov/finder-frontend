@@ -797,7 +797,7 @@ Then(/^I can sign up to email alerts for allowed filters$/) do
   signup_content_item = cma_cases_with_multi_facets_signup_content_item
   signup_content_item["details"]["email_filter_facets"] = [{ "facet_id" => "case_state", "facet_name" => "case_state" }]
 
-  content_store_has_item("/cma-cases/email-signup", signup_content_item)
+  stub_content_store_has_item("/cma-cases/email-signup", signup_content_item)
 
   within "#subscription-links-footer" do
     click_link("Get email alerts")
