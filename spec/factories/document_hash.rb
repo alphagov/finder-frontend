@@ -26,6 +26,7 @@ FactoryBot.define do
     es_score { nil }
     format { "answer" }
     facet_values { [] }
+    parts { [] }
 
     initialize_with { attributes.deep_stringify_keys }
   end
