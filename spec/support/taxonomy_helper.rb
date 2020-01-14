@@ -5,7 +5,7 @@ module TaxonomySpecHelper
   include ::GdsApi::TestHelpers::ContentStore
 
   def topic_taxonomy_api_is_unavailable
-    content_store_isnt_available
+    stub_content_store_isnt_available
   end
 
   def topic_taxonomy_has_taxons(level_one_taxon_hashes = FactoryBot.build_list(:level_one_taxon_hash, 2, number_of_children: 2))

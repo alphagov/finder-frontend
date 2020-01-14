@@ -35,14 +35,14 @@ describe FindersController, type: :controller do
 
   before do
     Rails.cache.clear
-    content_store_has_item("/", "links" => { "level_one_taxons" => [] })
+    stub_content_store_has_item("/", "links" => { "level_one_taxons" => [] })
   end
   after { Rails.cache.clear }
 
   describe "GET show" do
     describe "a finder content item exists" do
       before do
-        content_store_has_item(
+        stub_content_store_has_item(
           "/lunch-finder",
           lunch_finder,
         )
@@ -95,7 +95,7 @@ describe FindersController, type: :controller do
       it "sorts the finder results by public timestamp" do
         sort_options = [{ "name" => "Closing date", "key" => "-closing_date", "default" => true }]
 
-        content_store_has_item(
+        stub_content_store_has_item(
           "/lunch-finder",
           lunch_finder.merge("details" => lunch_finder["details"].merge("sort" => sort_options)),
         )
@@ -129,7 +129,7 @@ describe FindersController, type: :controller do
 
     describe "finder item doesn't exist" do
       before do
-        content_store_does_not_have_item("/does-not-exist")
+        stub_content_store_does_not_have_item("/does-not-exist")
       end
 
       it "returns a 404, rather than 5xx" do
@@ -214,8 +214,8 @@ describe FindersController, type: :controller do
 
     describe "Show/Hiding site search form" do
       before do
-        content_store_has_item("/search/all", all_content_finder)
-        content_store_has_item("/lunch-finder", lunch_finder)
+        stub_content_store_has_item("/search/all", all_content_finder)
+        stub_content_store_has_item("/lunch-finder", lunch_finder)
 
         rummager_response = %|{
           "results": [],
@@ -253,7 +253,7 @@ describe FindersController, type: :controller do
 
   describe "Learning To Rank AB test" do
     before do
-      content_store_has_item("/search/all", all_content_finder)
+      stub_content_store_has_item("/search/all", all_content_finder)
     end
 
     it "requests the B variant" do
@@ -289,7 +289,7 @@ describe FindersController, type: :controller do
     end
 
     before do
-      content_store_has_item(breakfast_finder["base_path"], breakfast_finder)
+      stub_content_store_has_item(breakfast_finder["base_path"], breakfast_finder)
       rummager_response = %|{
         "results": [],
         "total": 0,
@@ -312,7 +312,7 @@ describe FindersController, type: :controller do
 
   describe "Errors on date filters" do
     before do
-      content_store_has_item("/search/all", all_content_finder)
+      stub_content_store_has_item("/search/all", all_content_finder)
     end
 
     rummager_response = %|{

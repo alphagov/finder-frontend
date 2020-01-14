@@ -1,5 +1,5 @@
 Given /^the search page exists$/ do
-  content_store_has_item("/search", schema: "special_route")
+  stub_content_store_has_item("/search", schema: "special_route")
 end
 
 When(/^I search for an empty string$/) do
