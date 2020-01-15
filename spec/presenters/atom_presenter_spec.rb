@@ -12,17 +12,15 @@ RSpec.describe AtomPresenter do
                      title: "News and communications")
   }
 
-  let(:keywords) { "" }
-
   let(:filters) {
     [a_facet, another_facet, a_date_facet]
   }
 
   let(:facet_tags) {
-    FacetTagsPresenter.new(filters, keywords, sort_presenter)
+    FacetTagsPresenter.new(filters, sort_presenter)
   }
 
-  let(:filter_params) { double(:filter_params, keywords: "") }
+  let(:filter_params) { double(:filter_params) }
   let(:sort_presenter) { double(:sort_presenter, selected_option: nil) }
 
   let(:a_facet) do

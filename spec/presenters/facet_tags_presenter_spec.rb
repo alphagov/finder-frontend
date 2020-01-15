@@ -4,11 +4,9 @@ require_relative "./helpers/facets_helper"
 describe FacetTagsPresenter do
   include FacetsHelper
 
-  subject(:presenter) { described_class.new(filters, keywords, sort_presenter) }
+  subject(:presenter) { described_class.new(filters, sort_presenter) }
 
   let(:filters) { [a_facet, another_facet, a_date_facet] }
-
-  let(:keywords) { "" }
 
   let(:sort_presenter) {
     double(
@@ -30,28 +28,6 @@ describe FacetTagsPresenter do
 
       filters.reject { |filter| filter.sentence_fragment.nil? }.each do |fragment|
         expect(prepositions).to include(fragment.sentence_fragment["preposition"])
-      end
-    end
-
-    context "when keywords have been searched for" do
-      let(:keywords) { "my search term" }
-
-      it "includes the keywords" do
-        applied_filters = presenter.selected_filter_descriptions.flat_map { |filter| filter }
-        text_values = applied_filters.flat_map { |filter| filter[:text] }
-
-        expect(text_values).to include("my", "search", "term")
-      end
-    end
-
-    context "when XSS attack keywords have been searched for" do
-      let(:keywords) { '"><script>alert("hello")</script>' }
-
-      it "escapes keywords appropriately" do
-        applied_filters = presenter.selected_filter_descriptions.flat_map { |filter| filter }
-        text_values = applied_filters.flat_map { |filter| filter[:text] }
-
-        expect(["script", "alert", "&quot;hello&quot;"].any? { |word| text_values.join(" ").include?(word) })
       end
     end
   end
