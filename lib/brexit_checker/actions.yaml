@@ -1048,7 +1048,7 @@ actions:
   lead_time: It takes up to 4 weeks
   guidance_prompt: More information
   guidance_link_text: Trading electricity if there’s no Brexit deal
-  guidance_url: https://www.gov.uk/government/publications/trading-electricity-if-theres-no-brexit-deal/trading-electricity-if-theres-no-brexit-deal
+  guidance_url: https://www.gov.uk/government/publications/trading-electricity-if-theres-no-brexit-deal
   criteria:
   - electricity
   audience: business
