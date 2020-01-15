@@ -1,7 +1,6 @@
 class FacetTagsPresenter
-  def initialize(filters, keywords, sort_presenter, i_am_a_topic_page_finder: false)
+  def initialize(filters, sort_presenter, i_am_a_topic_page_finder: false)
     @filters = filters
-    @keywords = keywords
     @sort_option = sort_presenter.selected_option || {}
     @i_am_a_topic_page_finder = i_am_a_topic_page_finder
   end
@@ -25,9 +24,9 @@ class FacetTagsPresenter
 
 private
 
-  attr_reader :filters, :sort_option, :keywords, :i_am_a_topic_page_finder
+  attr_reader :filters, :sort_option, :i_am_a_topic_page_finder
 
   def selected_filters
-    (filters + [KeywordFacet.new(keywords)]).select(&:has_filters?)
+    filters.select(&:has_filters?)
   end
 end

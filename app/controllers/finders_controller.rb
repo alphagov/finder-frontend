@@ -172,7 +172,6 @@ private
   def facet_tags
     @facet_tags ||= FacetTagsPresenter.new(
       facets.select(&:filterable?),
-      keywords,
       sort_presenter,
       i_am_a_topic_page_finder: i_am_a_topic_page_finder,
     )

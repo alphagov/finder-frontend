@@ -71,8 +71,6 @@ Feature: Filtering documents
     Then I should see results and pagination
     When I fill in a keyword that should match no results
     Then the results and pagination should be removed
-    And I click the xxxxxxxxxxxxxxYYYYYYYYYYYxxxxxxxxxxxxxxx remove control
-    Then I should see results and pagination
 
   Scenario: Visit a finder with metadata
     Given a finder with metadata exists
@@ -185,41 +183,12 @@ Feature: Filtering documents
       | Azkaban            | "World location" | world_locations-azkaban         |
 
   @javascript
-  Scenario: Removing keyword filter
-    When I view the news and communications finder
-    Then I see Updated (newest) order selected
-    And I fill in some keywords
-    Then I see Relevance order selected
-    And the page title contains both keywords
-    And I click the Keyword1 remove control
-    Then The keyword textbox only contains Keyword2
-    And I see Relevance order selected
-    And the page title contains only Keyword2
-    And I click the Keyword2 remove control
-    Then The keyword textbox is empty
-    And I see Updated (newest) order selected
-    And the page title contains no keywords
-
-  @javascript
   Scenario: Adding keyword filter
     When I view the news and communications finder
     Then I see Updated (newest) order selected
     And I fill in some keywords
     And I press tab key to navigate
     Then I see Relevance order selected
-
-  @javascript
-  Scenario: Removing keyword filter in business finder
-    When I view the business readiness finder
-    Then I see Topic order selected
-    And I fill in some keywords
-    Then I see Relevance order selected
-    And I click the Keyword1 remove control
-    Then The keyword textbox only contains Keyword2
-    And I see Relevance order selected
-    And I click the Keyword2 remove control
-    Then The keyword textbox is empty
-    And I see Topic order selected
 
   @javascript
   Scenario: Adding keyword filter in business finder
