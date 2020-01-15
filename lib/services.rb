@@ -24,7 +24,7 @@ module Services
   end
 
   def self.worldwide_api
-    GdsApi::Worldwide.new(Plek.find("whitehall-admin"))
+    GdsApi.worldwide
   end
 
   def self.registries
