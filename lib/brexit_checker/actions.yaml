@@ -1013,7 +1013,7 @@ actions:
   lead_time: Up to one week
   guidance_prompt: More information
   guidance_link_text: Meeting climate change requirements if there’s no Brexit deal
-  guidance_url: https://www.gov.uk/government/publications/meeting-climate-change-requirements-if-theres-no-brexit-deal/meeting-climate-change-requirements-if-theres-no-brexit-deal
+  guidance_url: https://www.gov.uk/government/publications/meeting-climate-change-requirements-if-theres-no-brexit-deal
   criteria:
   - any_of:
     - aero-space
