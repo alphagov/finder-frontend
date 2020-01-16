@@ -51,6 +51,14 @@
           this.formChange(e)
         }.bind(this)
       )
+      // custom event listener on the form, that fires the update only once
+      // when we clear of filters
+      // fired from javascripts/modules/mobile-filters-modal.js:139
+      this.$form.on('customFormChange', this.$form,
+        function (e) {
+          this.formChange(e)
+        }.bind(this)
+      )
 
       this.$form.on('change keypress', 'input[type=text],input[type=search]',
         function (e) {
