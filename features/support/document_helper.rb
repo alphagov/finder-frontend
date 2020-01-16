@@ -553,7 +553,7 @@ module DocumentHelper
   end
 
   def whitehall_admin_world_locations_api_url
-    "#{Plek.current.find('whitehall-admin')}/api/world-locations"
+    "#{Plek.current.find('whitehall-frontend')}/api/world-locations"
   end
 
   def rummager_business_readiness_url

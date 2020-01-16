@@ -535,7 +535,7 @@ describe EmailAlertSignupAPI do
             },
           ],
         }
-        stub_request(:get, "#{Plek.current.find('whitehall-admin')}/api/world-locations")
+        stub_request(:get, "#{Plek.current.find('whitehall-frontend')}/api/world-locations")
           .with(query: hash_including({}))
           .to_return(body: world_locations.to_json)
       end
