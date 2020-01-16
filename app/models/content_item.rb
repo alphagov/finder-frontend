@@ -109,10 +109,6 @@ class ContentItem
     content_item_hash.dig("links", "email_alert_signup", 0)
   end
 
-  def hide_facets_by_default
-    content_item_hash["details"]["hide_facets_by_default"] || false
-  end
-
   def signup_link
     content_item_hash["details"]["signup_link"]
   end
