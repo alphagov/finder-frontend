@@ -724,4 +724,31 @@ describe('liveSearch', function () {
       expect($form.find('.govuk-form-group:eq(1)').hasClass('govuk-form-group--error')).toBe(false)
     })
   })
+
+  describe('on mobile viewport', function () {
+    var $filterButtonOnMobile = $(
+      '<button class="app-c-button-as-link app-mobile-filters-link js-show-mobile-filters">' +
+        'Filter <span class="govuk-visually-hidden"> results</span>' +
+        '<span class="js-selected-filter-count"></span>' +
+      '</button>')
+    var dummyResponse = {
+      'display_total': 1,
+      'display_selected_facets_count': '(6)<span class="govuk-visually-hidden"> filters currently selected</span>'
+    }
+
+    beforeEach(function () {
+      $form.append($filterButtonOnMobile)
+      liveSearch = new GOVUK.LiveSearch({ $form: $form, $results: $results, $atomAutodiscoveryLink: $atomAutodiscoveryLink })
+    })
+
+    afterEach(function () {
+      $form.remove()
+    })
+
+    it('should update the count in the "Filter" button with the number of currently selected filters', function () {
+      liveSearch.state = { search: 'state' }
+      liveSearch.displayResults(dummyResponse, $.param(liveSearch.state))
+      expect($('.js-selected-filter-count').html()).toBe('(6)<span class="govuk-visually-hidden"> filters currently selected</span>')
+    })
+  })
 })

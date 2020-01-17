@@ -22,9 +22,19 @@ class FacetTagsPresenter
     }.reject(&:empty?)
   end
 
+  def display_total_selected_filters
+    selected_facets_count.zero? ? nil : "(#{selected_facets_count})<span class='govuk-visually-hidden'> filters currently selected</span>"
+  end
+
 private
 
   attr_reader :filters, :sort_option, :i_am_a_topic_page_finder
+
+  def selected_facets_count
+    selected_filter_descriptions.flatten.reject { |facet|
+      facet[:data_facet] == "keywords"
+    }.count
+  end
 
   def selected_filters
     filters.select(&:has_filters?)

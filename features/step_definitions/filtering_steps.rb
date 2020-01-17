@@ -266,8 +266,9 @@ When(/^I search documents by keyword$/) do
   within ".filter-form" do
     fill_in("Search", with: @keyword_search)
   end
-
-  click_on "Filter results"
+  within ".js-live-search-fallback" do
+    click_on "Filter results"
+  end
 end
 
 When(/^I search documents by keyword for business finder$/) do
@@ -282,7 +283,9 @@ When(/^I search documents by keyword for business finder$/) do
     fill_in("Search", with: @keyword_search)
   end
 
-  click_on "Filter results"
+  within ".js-live-search-fallback" do
+    click_on "Filter results"
+  end
 end
 
 Then(/^I see all documents which contain the keywords$/) do
@@ -594,7 +597,9 @@ end
 
 When(/^I use a checkbox filter$/) do
   find("label", text: "Show open cases").click
-  click_on "Filter results"
+  within ".js-live-search-fallback" do
+    click_on "Filter results"
+  end
 end
 
 Then(/^I only see documents that match the checkbox filter$/) do
@@ -634,7 +639,9 @@ end
 
 
 When(/^I filter the results$/) do
-  click_on "Filter results"
+  within ".js-live-search-fallback" do
+    click_on "Filter results"
+  end
 end
 
 Then(/^I see the most viewed articles first$/) do
@@ -673,7 +680,7 @@ Then(/^I see (.*) order selected$/) do |label|
 end
 
 And(/^I see the facet tag$/) do
-  within ".facet-tags" do
+  within first ".facet-tags" do
     expect(page).to have_button("✕")
     expect(page).to have_content("Open")
     expect(page).to have_css("[data-module='remove-filter-link']")
@@ -704,7 +711,9 @@ And(/^I select published statistics$/) do
 end
 
 And(/^I click filter results$/) do
-  click_on "Filter results"
+  within ".js-live-search-fallback" do
+    click_on "Filter results"
+  end
 end
 
 And(/^I reload the page$/) do
@@ -785,7 +794,9 @@ When(/^I use a checkbox filter and another disallowed filter$/) do
   find("label", text: "Show open cases").click
   fill_in("closed_date[from]", with: "1st November 2015")
   stub_rummager_with_cma_cases_for_supergroups_checkbox_and_date
-  click_on "Filter results"
+  within ".js-live-search-fallback" do
+    click_on "Filter results"
+  end
 end
 
 Then(/^I can sign up to email alerts for allowed filters$/) do

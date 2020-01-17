@@ -15,7 +15,10 @@
     this.$suggestionsBlock = this.$form.find('#js-spelling-suggestions')
     this.$resultsBlock = options.$results.find('#js-results')
     this.$countBlock = options.$results.find('#js-result-count')
+    this.$mobileResultsCount = this.$form.find('.js-result-count')
+    this.$selectedFilterCount = this.$form.find('.js-selected-filter-count')
     this.$facetTagBlock = options.$results.find('#js-facet-tag-wrapper')
+    this.$mobileFacetTagBlock = this.$form.find('.js-mobile-facet-tag-block')
     this.$loadingBlock = options.$results.find('#js-loading-message')
     this.$sortBlock = options.$results.find('#js-sort-options')
     this.$paginationBlock = options.$results.find('#js-pagination')
@@ -44,6 +47,14 @@
       this.saveState()
 
       this.$form.on('change', 'input[type=checkbox], input[type=radio], select',
+        function (e) {
+          this.formChange(e)
+        }.bind(this)
+      )
+      // custom event listener on the form, that fires the update only once
+      // when we clear of filters
+      // fired from javascripts/modules/mobile-filters-modal.js:139
+      this.$form.on('customFormChange', this.$form,
         function (e) {
           this.formChange(e)
         }.bind(this)
@@ -339,6 +350,9 @@
       this.updateElement(this.$resultsBlock, results.search_results)
       this.updateElement(this.$facetTagBlock, results.facet_tags)
       this.updateElement(this.$countBlock, results.display_total)
+      this.updateElement(this.$mobileResultsCount, results.display_total)
+      this.updateElement(this.$mobileFacetTagBlock, results.facet_tags)
+      this.updateElement(this.$selectedFilterCount, results.display_selected_facets_count)
       this.updateElement(this.$paginationBlock, results.next_and_prev_links)
       this.updateElement(this.$suggestionsBlock, results.suggestions)
       this.trackSpellingSuggestionsImpressions(results.suggestions)

@@ -4,17 +4,25 @@
       <% label_text = capture do %>
         Search <span class="govuk-visually-hidden"><%= content_item.title %></span>
       <% end %>
-      <%= render "govuk_publishing_components/components/input", {
+      <%= render "govuk_publishing_components/components/search", {
         controls: "js-search-results-info",
         id: "finder-keyword-search",
-        label: {
-          text: label_text
-        },
         name: "keywords",
-        search_icon: true,
+        type: 'search',
         value: result_set_presenter.user_supplied_keywords,
-      }  %>
+        inline_label: false,
+        label_text: label_text
+      } %>
     </div>
+    <% if facets.select(&:filterable?).any? %>
+      <button class="app-c-button-as-link app-mobile-filters-link js-show-mobile-filters"
+        data-toggle="mobile-filters-modal" data-target="facet-wrapper"
+        data-module="track-click" data-track-category="filterClicked" 
+        data-track-action="mobile-filter-button" data-track-label="">
+        Filter <span class="govuk-visually-hidden"> results</span>
+        <span class="js-selected-filter-count"><%= sanitize facet_tags.display_total_selected_filters %></span>
+      </button>
+    <% end %>
   <% end %>
 
   <div data-module="track-click" data-track-category="filterClicked"
@@ -31,8 +39,29 @@
         + <%= t("finders.facet_collection.facet_disclosure.more", default: "Show more search options") %>
       </button>
 
-      <div id="facet-wrapper" class="facet-toggle__content facet-toggle__content--hide">
-        <%= render facets.select(&:filterable?) %>
+      <div id="facet-wrapper" data-module="mobile-filters-modal" class="facets facet-toggle__content facet-toggle__content--hide">
+        <div class="facets__box">
+          <div class="facets__header">
+            <h1 class="gem-c-title__text">Filter</h1>
+            <button class="app-c-button-as-link facets__return-link js-close-filters" type="button">
+              Return to results
+            </button>
+          </div>
+          <div class="facets__content">
+            <%= render facets.select(&:filterable?) %>
+            <div class="facets__tags-block js-mobile-facet-tag-block"  data-module="remove-filter">
+              <%= render "facet_tags", facet_tags.present %>
+            </div>
+            <button class="app-c-button-as-link facets__clear-link js-clear-selected-filters" type="button">
+              Clear all filters
+            </button> 
+          </div>
+          <div class="facets__footer">
+              <button class="gem-c-button govuk-button js-close-filters js-show-results" type="button">
+                Show <span class="js-result-count"> <%= result_set_presenter.displayed_total %><span>
+              </button>
+            </div>
+        </div>
       </div>
     </div>
   <% end %>

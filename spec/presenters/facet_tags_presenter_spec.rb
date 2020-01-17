@@ -31,4 +31,11 @@ describe FacetTagsPresenter do
       end
     end
   end
+
+  describe "display_total_selected_filters" do
+    it "displays the count of total filters applied, not the count of filter types applied" do
+      expect(presenter.present[:applied_filters].count).to eq 2
+      expect(presenter.display_total_selected_filters).to eq("(4)<span class='govuk-visually-hidden'> filters currently selected</span>")
+    end
+  end
 end

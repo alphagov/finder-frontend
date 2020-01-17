@@ -110,6 +110,13 @@ mark {
   margin-bottom: govuk-spacing(8);
 }
 
+.facet-tags__container {
+  display: none;
+  @include govuk-media-query($from: tablet) {
+    display: block;
+  }
+}
+
 .facet-tags {
   padding-bottom: govuk-spacing(1);
 }
@@ -117,21 +124,28 @@ mark {
 .facet-tags__group {
   padding: 5px;
 
-  &:nth-child(odd) {
-    background-color: govuk-colour("light-grey");
+  @include govuk-media-query($from: tablet) {
+    &:nth-child(odd) {
+      background-color: govuk-colour("light-grey");
+    }
   }
 }
 
 .facet-tags__wrapper {
+  @include govuk-media-query($until: tablet) {
+    vertical-align: baseline;
+  }
+
   vertical-align: middle;
   margin: 5px 0;
-
-  @include govuk-media-query($from: tablet) {
-    display: inline-block;
-  }
+  display: inline-block;
 }
 
 .facet-tags__wrapper:first-of-type .facet-tags__preposition:first-of-type {
+  @include govuk-media-query($until: tablet) {
+    display: block;
+  }
+
   font-weight: bold;
 
   &::first-letter {
@@ -140,18 +154,24 @@ mark {
 }
 
 .facet-tags__preposition {
-  padding: 0 5px 5px 2px;
+  @include govuk-media-query($until: tablet) {
+    display: inline-block;
+  }
+
+  display: table-cell;
+  padding: 0 5px 0 2px;
   vertical-align: middle;
   text-transform: lowercase;
-
-  @include govuk-media-query($from: tablet) {
-    display: table-cell;
-    padding: 0 5px 0 2px;
-  }
 }
 
 .facet-tag {
-  display: block;
+  @include govuk-media-query($until: tablet) {
+    display: inline-block;
+    background: none;
+    border: 2px solid $govuk-input-border-colour;
+  }
+
+  display: table-cell;
   position: relative;
   padding: 5px;
   border: 1px solid govuk-colour("dark-grey");
@@ -160,10 +180,6 @@ mark {
 
   .js-enabled & {
     padding: 8px 7px 7px 23px;
-  }
-
-  @include govuk-media-query($from: tablet) {
-    display: table-cell;
   }
 }
 
@@ -218,27 +234,40 @@ mark {
 
 .js-enabled {
   .facet-toggle {
-    display: inline-block;
+    display: none;
+    @include govuk-media-query($from: tablet) {
+      display: inline-block;
+      margin-bottom: govuk-spacing(6);
+    }
   }
 
-  .facet-toggle__content {
-    display: block;
+  // on mobile we have a modal hidden with Javascript
+  // so there styles should only apply from larger viewports
+  // if user closes the filter and then switches orientation to landscape
+  // we need to show the filters if they toggle them on, hence !important
+  //
+  // we are looking always show filters on table/desktop
+  // so once that decision is made, all of this can be removed 
+  @include govuk-media-query($from: tablet) {
+    .facet-toggle__content {
+      display: block !important;
 
-    &.facet-toggle__content--hide {
-      display: none;
+      &.facet-toggle__content--hide {
+        display: none !important;
+      }
     }
   }
 
   .facet-toggle--only-on-mobile {
     .facet-toggle {
       @include govuk-media-query($from: tablet) {
-        display: none;
+        display: none !important;
       }
     }
 
     .facet-toggle__content.facet-toggle__content--hide {
       @include govuk-media-query($from: tablet) {
-        display: block;
+        display: block !important;
       }
     }
   }
@@ -261,9 +290,11 @@ mark {
   @include govuk-font(19);
   white-space: nowrap;
   margin-bottom: govuk-spacing(4);
+  display: none;
 
   @include govuk-media-query($from: tablet) {
     margin-bottom: govuk-spacing(2);
+    display: block;
   }
 }
 
@@ -372,13 +403,12 @@ mark {
   }
 }
 
-// remove separator and increase spacing between list items
-// later, propose both features as flags in the
-// "document list" govuk-publishing component
-.gem-c-document-list__item {
-  border: 0;
-  margin-bottom: govuk-spacing(7);
-  padding-bottom: govuk-spacing(0);
+// adjust spacing between items
+// not using govuk-spacing as they need to be consistent 
+// across breakpoints
+.finder-results .gem-c-document-list__item {
+  margin-bottom: 20px;
+  padding-bottom: 30px;
 }
 
 .facet-container {
