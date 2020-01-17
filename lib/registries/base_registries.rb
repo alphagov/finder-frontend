@@ -8,6 +8,7 @@ module Registries
         "all_part_of_taxonomy_tree" => full_topic_taxonomy,
         "part_of_taxonomy_tree" => topic_taxonomy,
         "people" => people,
+        "roles" => roles,
         "organisations" => organisations,
         "manual" => manuals,
         "full_topic_taxonomy" => full_topic_taxonomy,
@@ -46,6 +47,10 @@ module Registries
 
     def people
       @people ||= PeopleRegistry.new
+    end
+
+    def roles
+      @roles ||= RolesRegistry.new
     end
 
     def organisations
