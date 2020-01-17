@@ -12,7 +12,6 @@
   <% end %>
 
   <%= finder_top_result_variant.analytics_meta_tag.html_safe if content_item.eu_exit_finder? %>
-  <%= learn_to_rank_variant.analytics_meta_tag.html_safe if in_learn_to_rank_scope? %>
 <% end %>
 
 <% content_for :meta_title, content_item.title %>
