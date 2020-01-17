@@ -1,0 +1,168 @@
+$size: 40px;
+
+.app-autocomplete-search__wrapper {
+  display: inline-block;
+  position: relative;
+  z-index: 3; // prevents the focus outline overlapping the submit button
+  height: $size;
+  width: calc(100% - #{$size});
+}
+
+.app-autocomplete-search__wrapper + .gem-c-search__submit {
+  display: inline-block;
+  height: 40px;
+  vertical-align: bottom;
+  background-color: $govuk-brand-colour;
+  color: govuk-colour("white");
+}
+
+.app-autocomplete-search__hint,
+.app-autocomplete-search__input {
+  box-sizing: border-box;
+  width: 100%;
+  height: $size;
+  margin-bottom: 0; // BUG: Safari 10 on macOS seems to add an implicit margin.
+  padding: govuk-spacing(1) govuk-spacing(1) govuk-spacing(1) govuk-spacing(2);
+  border: $govuk-border-width-form-element solid govuk-colour("white");  
+  border-radius: 0; // Safari 10 on iOS adds implicit border rounding.
+  -webkit-appearance: none;
+}
+
+.app-autocomplete-search__hint {
+  position: absolute;
+  color: govuk-colour("mid-grey");
+}
+
+.app-autocomplete-search__input {
+  position: relative;
+  border-width: $govuk-border-width-form-element 0 $govuk-border-width-form-element $govuk-border-width-form-element;
+  border-style: solid;
+  border-color: $govuk-input-border-colour;
+
+  &:focus {
+    -webkit-box-shadow: inset 0 0 0 $govuk-border-width-form-element;
+    box-shadow: inset 0 0 0 $govuk-border-width-form-element;
+    outline: 3px solid $govuk-focus-colour;
+  }
+
+  &::placeholder {
+    color: govuk-colour("dark-grey");
+  }
+}
+
+.app-autocomplete-search__input--focused {
+  -webkit-box-shadow: inset 0 0 0 $govuk-border-width-form-element;
+  box-shadow: inset 0 0 0 $govuk-border-width-form-element;
+  border: $govuk-border-width-form-element solid $govuk-input-border-colour;
+  outline: 3px solid $govuk-focus-colour;
+}
+
+.app-autocomplete-search__input--show-all-values {
+  padding: govuk-spacing(1) 34px govuk-spacing(1) govuk-spacing(1);
+  cursor: pointer;
+}
+
+.app-autocomplete-search__dropdown-arrow-down {
+  display: inline-block;
+  position: absolute;
+  z-index: -1;
+  top: govuk-spacing(2);
+  right: 8px;
+  width: 24px;
+  height: 24px;
+}
+
+.app-autocomplete-search__menu {
+  width: 100%;
+  max-height: 342px;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  border-top: 0;
+  color: govuk-colour("black");
+  background-color: govuk-colour("white");
+}
+
+.app-autocomplete-search__menu--visible {
+  display: block;
+}
+
+.app-autocomplete-search__menu--hidden {
+  display: none;
+}
+
+.app-autocomplete-search__menu--overlay {
+  position: absolute;
+  z-index: 100;
+  top: 100%;
+  left: 0;
+  box-shadow: rgba(govuk-colour("black"), .256863) 0 2px 6px;
+}
+
+.app-autocomplete-search__option {
+  display: block;
+  position: relative;
+  padding: govuk-spacing(2);
+  border-bottom: solid govuk-colour("mid-grey");
+  border-width: 1px 0;
+  cursor: pointer;
+}
+
+.app-autocomplete-search__option > * {
+  pointer-events: none;
+}
+
+.app-autocomplete-search__option:first-of-type {
+  border-top-width: 0;
+}
+
+.app-autocomplete-search__option:last-of-type {
+  border-bottom-width: 0;
+}
+
+.app-autocomplete-search__option--odd {
+  background-color: govuk-colour("light-grey");
+}
+
+.app-autocomplete-search__option--focused,
+.app-autocomplete-search__option:hover {
+  border-color: govuk-colour("blue");
+  // Add a transparent outline for when users change their colours.
+  outline: 3px solid transparent;
+  outline-offset: -3px;
+  color: govuk-colour("white");
+  background-color: govuk-colour("blue");
+
+  .app-autocomplete-search--section {
+    color: inherit;
+  }
+}
+
+.app-autocomplete-search__option--no-results {
+  color: govuk-colour("dark-grey");
+  background-color: govuk-colour("white");
+  cursor: not-allowed;
+  
+  &:empty {
+    display: none;
+  }
+}
+
+.app-autocomplete-search__hint,
+.app-autocomplete-search__input,
+.app-autocomplete-search__option {
+  @include govuk-font($size: 19);
+}
+
+.app-autocomplete-search__separator {
+  display: inline-block;
+  margin-right: govuk-spacing(1);
+  margin-left: govuk-spacing(1);
+}
+
+// adjust margin as the non-enhanced form group has a massive margin
+// with the autcomplete enhancement we're removing that, 
+// so we need to adjust it
+.app-patch--search-input-override ~ .spelling-suggestions {
+  margin-top: govuk-spacing(4);
+}
