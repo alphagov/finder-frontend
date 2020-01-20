@@ -12,7 +12,6 @@ describe EmailAlertSignupAPI do
       default_filters: default_filters,
       facets: facets,
       subscriber_list_title: subscriber_list_title,
-      finder_format: finder_format,
     )
   end
 
@@ -20,7 +19,6 @@ describe EmailAlertSignupAPI do
   let(:applied_filters) { {} }
   let(:facets) { [] }
   let(:subscriber_list_title) { "Subscriber list title" }
-  let(:finder_format) {}
 
   def init_simple_email_alert_api(subscription_url)
     email_alert_api_has_subscriber_list(
@@ -64,7 +62,7 @@ describe EmailAlertSignupAPI do
   end
 
   context "with a single facet finder" do
-    let(:finder_format) { "test-reports" }
+    let(:default_filters) { { "format" => "test-reports" } }
     let(:applied_filters) do
       { "alert_type" => %w(first second) }
     end
@@ -124,14 +122,14 @@ describe EmailAlertSignupAPI do
       context "with one choice selected and a title prefix" do
         let(:applied_filters) do
           {
-            format: { any: %w(test-reports) },
+            format: %w(other-reports),
             alert_type: %w[first],
           }
         end
         it "asks email-alert-api to find or create the subscriber list" do
           req = email_alert_api_has_subscriber_list(
             "tags" => {
-              format: { any: %w(test-reports) },
+              format: { any: %w(other-reports test-reports) },
               alert_type: { any: %w[first] },
             },
             "subscription_url" => subscription_url,
@@ -159,7 +157,7 @@ describe EmailAlertSignupAPI do
 
       context "no options available" do
         let(:facets) { [] }
-        let(:finder_format) { "test-reports" }
+        let(:default_filters) { { "format" => "test-reports" } }
 
         it "asks email-alert-api to find or create the subscriber list" do
           req = email_alert_api_has_subscriber_list(
@@ -177,7 +175,7 @@ describe EmailAlertSignupAPI do
   end
 
   context "with a multi facet finder" do
-    let(:finder_format) { "test-reports" }
+    let(:default_filters) { { "format" => "test-reports" } }
     let(:applied_filters) do
       {
         "alert_type" => %w(first second),
@@ -266,7 +264,7 @@ describe EmailAlertSignupAPI do
       end
 
       context "with one choice selected and a title prefix" do
-        let(:finder_format) { "test-reports" }
+        let(:default_filters) { { "format" => "test-reports" } }
         let(:applied_filters) do
           {
             "alert_type" => %w[first],
@@ -307,7 +305,7 @@ describe EmailAlertSignupAPI do
 
       context "no options available" do
         let(:facets) { [] }
-        let(:finder_format) { "test-reports" }
+        let(:default_filters) { { "format" => "test-reports" } }
 
         it "asks email-alert-api to find or create the subscriber list" do
           req = email_alert_api_has_subscriber_list(

@@ -138,7 +138,7 @@
     ],
     "email_filter_by": "case_type",
     "filter": {
-      "document_type": "cma_case"
+      "format": "cma_case"
     },
     "subscription_list_title_prefix": {
       "singular": "CMA cases with the following case type: ",

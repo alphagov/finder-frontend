@@ -96,7 +96,6 @@ describe EmailAlertSubscriptionsController, type: :controller do
           email_alert_api_has_subscriber_list(
             "tags" => {
               "format" => { any: %w[cma_case] },
-              "document_type" => { any: %w[cma_case] },
             },
             "subscription_url" => "http://www.gov.uk/default-subscription-to-cma-cases",
           )
@@ -112,7 +111,6 @@ describe EmailAlertSubscriptionsController, type: :controller do
             "tags" => {
               "case_type" => { any: %w[consumer-enforcement] },
               "format" => { any: %w[cma_case] },
-              "document_type" => { any: %w[cma_case] },
             },
             "subscription_url" => "http://www.gov.uk/subscription-to-cma-cases",
           )
@@ -313,7 +311,6 @@ describe EmailAlertSubscriptionsController, type: :controller do
           "tags" => {
             "case_type" => { any: %w[consumer-enforcement] },
             "format" => { any: %w[cma_case] },
-            "document_type" => { any: %w[cma_case] },
           },
           "subscription_url" => "http://www.gov.uk/subscription-to-cma-cases",
         )
@@ -396,7 +393,6 @@ describe EmailAlertSubscriptionsController, type: :controller do
             "tags" => {
               "format" => { any: %w[cma_case] },
               "case_type" => { any: %w[markets] },
-              "document_type" => { any: %w[cma_case] },
             },
             "subscription_url" => "http://www.gov.uk/subscription/cma-markets",
           )
