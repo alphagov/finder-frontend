@@ -57,6 +57,31 @@ module RegistrySpecHelper
         }.to_json)
   end
 
+  def stub_roles_registry_request
+    stub_request(:get, "http://search.dev.gov.uk/search.json")
+        .with(query: {
+            count: 0,
+            aggregate_roles: "1500,examples:0,order:value.title",
+        })
+        .to_return(body: {
+            results: [],
+            facets: {
+                roles: {
+                    options: [
+                        {
+                            value: {
+                                title: "Prime Minister",
+                                slug: "prime-minister",
+                                _id: "a field that we're not using",
+                                content_id: "content_id_for_prime-minister",
+                            },
+                        },
+                    ],
+                },
+            },
+        }.to_json)
+  end
+
   def stub_organisations_registry_request
     stub_request(:get, "http://search.dev.gov.uk/search.json")
     .with(query: {

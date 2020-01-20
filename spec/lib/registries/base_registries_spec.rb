@@ -39,6 +39,7 @@ RSpec.describe Registries::BaseRegistries do
       clear_cache
       topic_taxonomy_has_taxons(level_one_taxons)
       stub_people_registry_request
+      stub_roles_registry_request
       stub_manuals_registry_request
       stub_organisations_registry_request
     end
@@ -62,6 +63,7 @@ RSpec.describe Registries::BaseRegistries do
       clear_cache
       topic_taxonomy_has_taxons(level_one_taxons)
       stub_people_registry_request
+      stub_roles_registry_request
       stub_manuals_registry_request
       stub_organisations_registry_request
     end

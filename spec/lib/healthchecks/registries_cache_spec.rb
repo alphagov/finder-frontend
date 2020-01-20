@@ -21,6 +21,7 @@ RSpec.describe Healthchecks::RegistriesCache do
       stub_worldwide_api_has_locations %w(hogwarts privet-drive diagon-alley)
       topic_taxonomy_has_taxons
       stub_people_registry_request
+      stub_roles_registry_request
       stub_manuals_registry_request
       stub_organisations_registry_request
 
@@ -36,7 +37,7 @@ RSpec.describe Healthchecks::RegistriesCache do
   context "Registries caches are empty" do
     it "has an OK status" do
       expect(check.status).to eq :warning
-      expect(check.message).to eq "The following registry caches are empty: world_locations, all_part_of_taxonomy_tree, part_of_taxonomy_tree, people, organisations, manual, full_topic_taxonomy."
+      expect(check.message).to eq "The following registry caches are empty: world_locations, all_part_of_taxonomy_tree, part_of_taxonomy_tree, people, roles, organisations, manual, full_topic_taxonomy."
     end
   end
 end
