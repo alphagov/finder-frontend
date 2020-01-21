@@ -801,14 +801,11 @@ end
 
 Then(/^I can sign up to email alerts for allowed filters$/) do
   email_alert_api_has_subscriber_list(
-    "tags" => { "case_state" => { any: { "0" => "open" } }, "format" => { any: { "0" => "cma_case" } } },
+    "tags" => { "case_type" => { any: %w(ca98-and-civil-cartels) }, "format" => { any: %w(cma_case) } },
     "subscription_url" => "http://www.rathergood.com",
   )
 
-  signup_content_item = cma_cases_with_multi_facets_signup_content_item
-  signup_content_item["details"]["email_filter_facets"] = [{ "facet_id" => "case_state", "facet_name" => "case_state" }]
-
-  stub_content_store_has_item("/cma-cases/email-signup", signup_content_item)
+  stub_content_store_has_item("/cma-cases/email-signup", cma_cases_with_multi_facets_signup_content_item)
 
   within "#subscription-links-footer" do
     click_link("Get email alerts")

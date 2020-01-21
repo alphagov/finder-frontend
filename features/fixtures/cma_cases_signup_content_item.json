@@ -84,6 +84,7 @@
       {
         "facet_id": "case_type",
         "facet_name": "Case type",
+        "required": true,
         "facet_choices": [
           {
             "key": "ca98-and-civil-cartels",
