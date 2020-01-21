@@ -3,12 +3,11 @@ require "addressable/uri"
 class EmailAlertSignupAPI
   class UnprocessableSubscriberListError < StandardError; end
 
-  def initialize(applied_filters:, default_filters:, facets:, subscriber_list_title:, finder_format:, email_filter_by: nil)
+  def initialize(applied_filters:, default_filters:, facets:, subscriber_list_title:, email_filter_by: nil)
     @applied_filters = applied_filters.deep_symbolize_keys
     @default_filters = default_filters.deep_symbolize_keys
     @facets = facets
     @subscriber_list_title = subscriber_list_title
-    @finder_format = finder_format
     @email_filter_by = email_filter_by
   end
 
@@ -20,7 +19,7 @@ class EmailAlertSignupAPI
 
 private
 
-  attr_reader :applied_filters, :default_filters, :facets, :subscriber_list_title, :finder_format, :email_filter_by
+  attr_reader :applied_filters, :default_filters, :facets, :subscriber_list_title, :email_filter_by
 
   def add_url_param(url, param)
     # this method safely adds a URL parameter using the correct one of '?' or '&'
@@ -119,13 +118,7 @@ private
   end
 
   def tags
-    return filters_to_tags if finder_format.blank?
-
-    filters_to_tags.merge(format: { any: [finder_format] })
-  end
-
-  def filters_to_tags
-    @filters_to_tags ||= filter_keys.each_with_object({}) { |key, tags_hash|
+    @tags ||= filter_keys.each_with_object({}) { |key, tags_hash|
       values = values_for_key(key)
       any_or_all = is_all_field?(key) ? :all : :any
       tag = is_all_field?(key) ? key[4..-1] : key

@@ -26,11 +26,7 @@ private
   end
 
   def content
-    @content ||= fetch_content_item(request.path)
-  end
-
-  def finder_content_item
-    @finder_content_item ||= fetch_content_item(finder_base_path)
+    @content ||= ContentItem.from_content_store(request.path).as_hash
   end
 
   def signup_presenter
@@ -68,16 +64,11 @@ private
     @applied_filters ||= email_alert_filter_params.applied_filters
   end
 
-  def fetch_content_item(content_item_path)
-    ContentItem.from_content_store(content_item_path).as_hash
-  end
-
   def email_alert_signup_api
     EmailAlertSignupAPI.new(
       applied_filters: applied_filters,
       default_filters: default_filters,
       facets: signup_presenter.choices,
-      finder_format: finder_format,
       subscriber_list_title: subscriber_list_title,
       email_filter_by: signup_presenter.email_filter_by,
     )
@@ -94,9 +85,5 @@ private
 
   def default_filters
     content["details"].fetch("filter", {})
-  end
-
-  def finder_format
-    finder_content_item.dig("details", "filter", "document_type")
   end
 end
