@@ -21,9 +21,17 @@ module ParameterParser
       end
     end
 
+    def required_facets_selected?
+      required_facets.all? { |facet| applied_filters.key?(key_for_facet(facet)) }
+    end
+
   private
 
     attr_reader :filter_params, :content_item
+
+    def required_facets
+      permitted_facets.select { |facet| facet.dig("required") }
+    end
 
     def permitted_facets
       content_item.dig("details", "email_filter_facets") || []

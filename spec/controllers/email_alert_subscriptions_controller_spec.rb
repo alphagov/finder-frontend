@@ -91,21 +91,15 @@ describe EmailAlertSubscriptionsController, type: :controller do
         stub_content_store_has_item("/cma-cases/email-signup", cma_cases_signup_content_item)
       end
 
-      context "when no filters are provided" do
-        it "redirects to the subscription url" do
-          email_alert_api_has_subscriber_list(
-            "tags" => {
-              "format" => { any: %w[cma_case] },
-            },
-            "subscription_url" => "http://www.gov.uk/default-subscription-to-cma-cases",
-          )
-
+      context "when a required filter is not provided" do
+        it "returns the user to the signup page with an error" do
           post :create, params: { slug: "cma-cases" }
-          expect(subject).to redirect_to("http://www.gov.uk/default-subscription-to-cma-cases")
+          expect(response).to be_successful
+          expect(response).to render_template("new")
         end
       end
 
-      context "when at least one required filter is provided" do
+      context "when all required filters are provided" do
         it "redirects to the subscription url" do
           email_alert_api_has_subscriber_list(
             "tags" => {

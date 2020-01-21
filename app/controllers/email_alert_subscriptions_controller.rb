@@ -43,21 +43,7 @@ private
 
   def validate_choices!
     raise UnprocessableFilterAlertParamsError unless email_alert_filter_params.valid?
-    raise MissingFiltersError unless valid_choices?
-  end
-
-  def valid_choices?
-    # TODO: implement explicit controls in the schema over validity of filters.
-    # E.g. is it acceptable to have no additional filters provided by the user?
-    !signup_presenter.choices? || at_least_one_filter_chosen? || has_default_filters?
-  end
-
-  def at_least_one_filter_chosen?
-    applied_filters.any?(&:present?)
-  end
-
-  def has_default_filters?
-    default_filters.present? && default_filters.any?
+    raise MissingFiltersError unless email_alert_filter_params.required_facets_selected?
   end
 
   def applied_filters
@@ -67,7 +53,7 @@ private
   def email_alert_signup_api
     EmailAlertSignupAPI.new(
       applied_filters: applied_filters,
-      default_filters: default_filters,
+      default_filters: content["details"].fetch("filter", {}),
       facets: signup_presenter.choices,
       subscriber_list_title: subscriber_list_title,
       email_filter_by: signup_presenter.email_filter_by,
@@ -81,9 +67,5 @@ private
       subscription_list_title_prefix: content.dig("details", "subscription_list_title_prefix"),
       facets: signup_presenter.choices,
     )
-  end
-
-  def default_filters
-    content["details"].fetch("filter", {})
   end
 end
