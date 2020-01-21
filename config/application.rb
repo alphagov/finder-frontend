@@ -14,6 +14,7 @@ require "action_view/railtie"
 # require "action_cable/engine"
 require "sprockets/railtie"
 # require "rails/test_unit/railtie"
+require "neo4j/railtie"
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -51,5 +52,8 @@ module FinderFrontend
 
     # https://github.com/alphagov/govuk-frontend/issues/1350
     config.assets.css_compressor = nil
+
+    config.neo4j.session_type = :bolt
+    config.neo4j.session_path = ENV["NEO4J_URL"] || "http://localhost:7475"
   end
 end
