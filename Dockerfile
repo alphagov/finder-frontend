@@ -1,6 +1,9 @@
 FROM ruby:2.7.2
+RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 RUN apt-get update -qq && apt-get upgrade -y
-RUN apt-get install -y build-essential nodejs && apt-get clean
+RUN apt-get install -y build-essential nodejs yarn && apt-get clean
 RUN gem install foreman
 
 ENV GOVUK_APP_NAME finder-frontend
@@ -14,6 +17,10 @@ WORKDIR $APP_HOME
 ADD Gemfile* $APP_HOME/
 ADD .ruby-version $APP_HOME/
 RUN bundle install
+
+ADD package.json $APP_HOME/
+ADD yarn.lock $APP_HOME/
+RUN yarn install
 
 ADD . $APP_HOME
 
