@@ -69,10 +69,12 @@
       this.$form.addEventListener('change', this.formChange.bind(this))
 
       // custom event listener on the form, that fires the update only once
-      // when we clear of filters
-      // fired from javascripts/modules/mobile-filters-modal.js
+      // when we clear of filters fired from javascripts/modules/mobile-filters-modal.js:139
+      // and when the user selects a suggestion: /javascripts/components/autocomplete.js:82
       this.$form.addEventListener('customFormChange', this.formChange.bind(this))
 
+      // excluding .app-autocomplete-search__input as we do not wan't to trigger livesearch
+      // when the user navigates through suggestions with a keyword
       this.handleKeyPress = function (e) {
         var ENTER_KEY = 13
 
@@ -82,10 +84,10 @@
           if (e.currentTarget.value !== this.previousSearchTerm && !suppressAnalytics) {
             LiveSearch.prototype.fireTextAnalyticsEvent(e)
           }
+
           this.formChange()
           this.previousSearchTerm = e.currentTarget.value
           e.preventDefault()
-        }
       }
 
       var inputs = this.$form.querySelectorAll('input[type=text],input[type=search]')
@@ -93,6 +95,21 @@
         inputs[i].addEventListener('change', this.handleKeyPress.bind(this))
         inputs[i].addEventListener('keypress', this.handleKeyPress.bind(this))
       }
+
+      // but we do want to perform a livesearch if the users want to perform a keyword search
+      this.$form.on('keyup', '.app-autocomplete-search__input',
+        function (e) {
+          var ENTER_KEY = 13
+          if (e.keyCode === ENTER_KEY) {
+            if (e.currentTarget.value !== this.previousSearchTerm && !e.suppressAnalytics) {
+              LiveSearch.prototype.fireTextAnalyticsEvent(e)
+            }
+            this.formChange(e)
+            this.previousSearchTerm = e.currentTarget.value
+            e.preventDefault()
+          }
+        }.bind(this)
+      )
 
       this.indexTrackingData()
 
