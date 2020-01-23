@@ -353,12 +353,23 @@ mark {
   }
 }
 
-// adjust spacing between items
-// not using govuk-spacing as they need to be consistent 
-// across breakpoints
-.finder-results .gem-c-document-list__item {
-  margin-bottom: 20px;
-  padding-bottom: 30px;
+// document-list component adjustments
+// specific to the finder app
+.finder-results {
+  .gem-c-document-list__item {
+    // not using govuk-spacing as they need to be consistent 
+    // across breakpoints
+    margin-bottom: 20px;
+    padding-bottom: 30px;
+  }
+  @include govuk-media-query($from: desktop) {
+    .gem-c-document-list__item-description {
+      margin-top: 0;
+    }
+    .gem-c-document-list__item {
+      margin-bottom: 15px;
+    }
+  }
 }
 
 .facet-container {
