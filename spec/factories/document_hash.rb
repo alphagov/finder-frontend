@@ -24,6 +24,8 @@ FactoryBot.define do
     is_historic { false }
     government_name { "2015 Conservative government" }
     es_score { nil }
+    combined_score { nil }
+    original_rank { nil }
     format { "answer" }
     facet_values { [] }
 
