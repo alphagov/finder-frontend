@@ -72,11 +72,11 @@ module Search
     def sort_by_relevance(raw_results)
       return raw_results unless relevance_scores_exist?(raw_results)
 
-      raw_results.sort_by { |hash| hash["es_score"] }.reverse
+      raw_results.sort_by { |hash| hash["combined_score"] || hash["es_score"] }.reverse
     end
 
     def relevance_scores_exist?(results)
-      results.all? { |result| result["es_score"].present? }
+      results.all? { |result| (result["combined_score"] || result["es_score"]).present? }
     end
 
     def fetch_search_response(content_item)
