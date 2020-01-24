@@ -35,10 +35,15 @@ RSpec.describe SearchResultPresenter do
                      government_name: "Government!",
                      format: "cake",
                      es_score: 0.005,
+                     combined_score: combined_score,
+                     original_rank: original_rank,
                      content_id: "content_id",
                      filter_key: "filter_value",
                      index: 1)
   }
+
+  let(:combined_score) { nil }
+  let(:original_rank) { nil }
 
   let(:is_historic) { false }
   let(:title) { "Investigation into the distribution of road fuels in parts of Scotland" }
@@ -142,6 +147,23 @@ RSpec.describe SearchResultPresenter do
       let(:debug_score) { true }
       it "returns 'Published by' and debug metadata together" do
         expect(subject.document_list_component_data[:subtext]).to eql("#{historic_subtext}#{debug_subtext}")
+      end
+    end
+
+    context "The document has been reranked" do
+      let(:combined_score) { 8 }
+      let(:original_rank) { 3 }
+      let(:debug_score) { true }
+
+      let(:debug_subtext) do
+        "<span class=\"debug-results debug-results--link\">link-1</span>"\
+        "<span class=\"debug-results debug-results--meta\">Score: #{combined_score}</span>"\
+        "<span class=\"debug-results debug-results--meta\">Original score: 0.005 (ranked ##{original_rank})</span>"\
+        "<span class=\"debug-results debug-results--meta\">Format: cake</span>"
+      end
+
+      it "gives the original score and rank in the debug text" do
+        expect(subject.document_list_component_data[:subtext]).to eql(debug_subtext)
       end
     end
   end

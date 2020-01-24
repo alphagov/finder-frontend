@@ -5,7 +5,9 @@ class SearchResultPresenter
            :is_historic,
            :government_name,
            :format,
+           :score,
            :es_score,
+           :original_rank,
            to: :document
 
   def initialize(document:, metadata_presenter_class:, doc_count:, facets:, content_item:, debug_score:, highlight:)
@@ -60,9 +62,10 @@ private
   def subtext
     published_text = "<span class='published-by'>#{I18n.t('finders.search_result_presenter.first_published_during')} #{government_name}</span>" if is_historic
     if @debug_score
-      debug_text = "<span class='debug-results debug-results--link'>#{link}</span>"\
-                   "<span class='debug-results debug-results--meta'>Score: #{es_score || 'no score (sort by relevance)'}</span>"\
-                   "<span class='debug-results debug-results--meta'>Format: #{format}</span>"
+      debug_text = "<span class='debug-results debug-results--link'>#{link}</span>"
+      debug_text += "<span class='debug-results debug-results--meta'>Score: #{score}</span>" if score
+      debug_text += "<span class='debug-results debug-results--meta'>Original score: #{es_score} (ranked ##{original_rank})</span>" if es_score && original_rank
+      debug_text += "<span class='debug-results debug-results--meta'>Format: #{format}</span>"
     end
 
     sanitize("#{published_text}#{debug_text}") if published_text || debug_text
