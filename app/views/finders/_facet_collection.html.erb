@@ -5,7 +5,7 @@
         Search <span class="govuk-visually-hidden"><%= content_item.title %></span>
       <% end %>
       <%= render "govuk_publishing_components/components/search", {
-        controls: "js-search-results-info",
+        aria_controls: "js-search-results-info",
         id: "finder-keyword-search",
         name: "keywords",
         type: 'search',
