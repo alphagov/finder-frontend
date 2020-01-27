@@ -27,6 +27,10 @@ module Services
     GdsApi.worldwide
   end
 
+  def self.publishing_api
+    GdsApi::PublishingApi.new(Plek.find("publishing-api"))
+  end
+
   def self.registries
     Registries::BaseRegistries.new
   end
