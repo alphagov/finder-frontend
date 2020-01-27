@@ -15,7 +15,7 @@
       } %>
     </div>
     <% if facets.select(&:filterable?).any? %>
-      <button class="app-c-button-as-link app-mobile-filters-link js-show-mobile-filters"
+      <button type="button" class="app-c-button-as-link app-mobile-filters-link js-show-mobile-filters"
         data-toggle="mobile-filters-modal" data-target="facet-wrapper"
         data-module="gem-track-click" data-track-category="filterClicked"
         data-track-action="mobile-filter-button" data-track-label="">
