@@ -11,6 +11,7 @@
     this.resultCache = {}
 
     this.$form = options.$form
+    this.$searchSubmitButton = this.$form.find('.gem-c-search__submit')
     this.$resultsWrapper = this.$form.find('.js-live-search-results-block')
     this.$suggestionsBlock = this.$form.find('#js-spelling-suggestions')
     this.$resultsBlock = options.$results.find('#js-results')
@@ -42,6 +43,15 @@
     }
 
     this.focusErrorMessagesOnLoad(this.$form)
+
+    // prevent page refresh on search submit button click
+    // instead trigger the AJAX results fetch
+    this.$form.on('click', this.$searchSubmitButton,
+      function (e) {
+        e.preventDefault()
+        this.formChange(e)
+      }.bind(this)
+    )
 
     if (GOVUK.support.history()) {
       this.saveState()
