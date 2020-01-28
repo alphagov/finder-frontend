@@ -7,7 +7,6 @@
   "details": {
     "default_documents_per_page": 20,
     "document_noun": "result",
-    "hide_facets_by_default": true,
     "facets": [
       {
         "display_as_result_metadata": false,

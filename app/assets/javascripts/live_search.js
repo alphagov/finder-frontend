@@ -401,11 +401,8 @@
   }
 
   LiveSearch.prototype.focusErrorMessagesOnLoad = function ($container) {
-    var $facetToggle = $container.find('.facet-toggle')
-    var facetsHidden = $facetToggle.attr('aria-expanded') === 'false'
     var $inputWithError = $container.find('input[class*=--error]')
-    if (facetsHidden && $inputWithError.length) {
-      $facetToggle.click()
+    if ($inputWithError.length) {
       $inputWithError.focus()
     }
   }

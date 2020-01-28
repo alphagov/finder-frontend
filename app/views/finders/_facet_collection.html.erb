@@ -34,33 +34,27 @@
   </div>
 
   <% if facets.select(&:filterable?).any? %>
-    <div data-module="gem-toggle" data-toggle-class="facet-toggle__content--hide" <%= "class=facet-toggle--only-on-mobile" unless content_item.hide_facets_by_default %>>
-      <button type="button" class="facet-toggle app-c-button-as-link" data-controls="facet-wrapper" data-expanded="false" data-track-category="filterClicked" data-track-action="accordion" data-toggled-text="- <%= t("finders.facet_collection.facet_disclosure.fewer", default: "Show fewer search options") %>">
-        + <%= t("finders.facet_collection.facet_disclosure.more", default: "Show more search options") %>
-      </button>
-
-      <div id="facet-wrapper" data-module="mobile-filters-modal" class="facets facet-toggle__content facet-toggle__content--hide">
-        <div class="facets__box">
-          <div class="facets__header">
-            <h1 class="gem-c-title__text">Filter</h1>
-            <button class="app-c-button-as-link facets__return-link js-close-filters" type="button">
-              Return to results
-            </button>
+    <div id="facet-wrapper" data-module="mobile-filters-modal" class="facets">
+      <div class="facets__box">
+        <div class="facets__header">
+          <h1 class="gem-c-title__text">Filter</h1>
+          <button class="app-c-button-as-link facets__return-link js-close-filters" type="button">
+            Return to results
+          </button>
+        </div>
+        <div class="facets__content">
+          <%= render facets.select(&:filterable?) %>
+          <div class="facets__tags-block js-mobile-facet-tag-block"  data-module="remove-filter">
+            <%= render "facet_tags", facet_tags.present %>
           </div>
-          <div class="facets__content">
-            <%= render facets.select(&:filterable?) %>
-            <div class="facets__tags-block js-mobile-facet-tag-block"  data-module="remove-filter">
-              <%= render "facet_tags", facet_tags.present %>
-            </div>
-            <button class="app-c-button-as-link facets__clear-link js-clear-selected-filters" type="button">
-              Clear all filters
-            </button> 
-          </div>
-          <div class="facets__footer">
-              <button class="gem-c-button govuk-button js-close-filters js-show-results" type="button">
-                Show <span class="js-result-count"> <%= result_set_presenter.displayed_total %><span>
-              </button>
-            </div>
+          <button class="app-c-button-as-link facets__clear-link js-clear-selected-filters" type="button">
+            Clear all filters
+          </button> 
+        </div>
+        <div class="facets__footer">
+          <button class="gem-c-button govuk-button js-close-filters js-show-results" type="button">
+            Show <span class="js-result-count"> <%= result_set_presenter.displayed_total %><span>
+          </button>
         </div>
       </div>
     </div>

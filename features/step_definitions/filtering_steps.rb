@@ -918,24 +918,6 @@ Then(/^I should (see|not see) a "Skip to results" link$/) do |can_be_seen|
   expect(page).to have_css('[href="#js-results"]', visible: visibility)
 end
 
-Then(/^I should see a "(Show .* search options)" button$/) do |link_text|
-  expect(page).to have_css(".facet-toggle", visible: true)
-  expect(page).to have_selector(:link_or_button, link_text)
-end
-
-Then(/^I should not see a "(Show .* search options)" button$/) do |link_text|
-  expect(page).to have_css(".facet-toggle", visible: false)
-  expect(page).to_not have_selector(:link_or_button, link_text)
-end
-
-Then(/^Facets should be visible$/) do
-  expect(page).to_not have_css(".facet-toggle__content--hide")
-end
-
-Then(/^Facets should be hidden/) do
-  expect(page).to have_css(".facet-toggle__content--hide", visible: false)
-end
-
 Then(/^the page has results region$/) do
   expect(page).to have_css('[id="js-results"]')
 end
