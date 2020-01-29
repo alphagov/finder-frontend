@@ -23,6 +23,12 @@ FinderFrontend::Application.routes.draw do
   get "/get-ready-brexit-check/questions" => "brexit_checker#show", as: :brexit_checker_questions
   get "/get-ready-brexit-check/email-signup" => "brexit_checker#email_signup", as: :brexit_checker_email_signup
   post "/get-ready-brexit-check/email-signup" => "brexit_checker#confirm_email_signup", as: :brexit_checker_confirm_email_signup
+
+  get "/transition-check/results" => "brexit_checker#results", as: :transition_checker_results
+  get "/transition-check/questions" => "brexit_checker#show", as: :transition_checker_questions
+  get "/transition-check/email-signup" => "brexit_checker#email_signup", as: :transition_checker_email_signup
+  post "/transition-check/email-signup" => "brexit_checker#confirm_email_signup", as: :transition_checker_confirm_email_signup
+
   get "/email/subscriptions/new", to: proc { [200, {}, [""]] }, as: :email_alert_frontend_signup
 
   get "/*slug/email-signup" => "email_alert_subscriptions#new", as: :new_email_alert_subscriptions
