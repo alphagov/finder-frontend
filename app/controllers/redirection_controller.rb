@@ -71,6 +71,7 @@ private
       level_two_taxon: params["subtaxons"].try(:first),
       organisations: params["departments"] || params["organisations"],
       people: params["people"],
+      roles: params["roles"],
       world_locations: params["world_locations"],
       public_timestamp: { from: params["from_date"], to: params["to_date"] }.compact.presence }.compact
   end
