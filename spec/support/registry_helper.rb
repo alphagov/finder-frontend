@@ -61,7 +61,7 @@ module RegistrySpecHelper
     stub_request(:get, "http://search.dev.gov.uk/search.json")
         .with(query: {
             count: 0,
-            aggregate_roles: "1500,examples:0,order:value.title",
+            facet_roles: "1500,examples:0,order:value.title",
         })
         .to_return(body: {
             results: [],
