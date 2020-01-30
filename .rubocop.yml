@@ -22,3 +22,6 @@ Rails/DynamicFindBy:
   Whitelist:
     - find_by_key
     - find_by_id
+
+Rails/OutputSafety:
+  Enabled: false
