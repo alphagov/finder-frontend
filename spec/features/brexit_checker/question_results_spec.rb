@@ -99,7 +99,7 @@ RSpec.feature "Brexit Checker workflow", type: :feature do
   end
 
   def when_i_visit_the_brexit_checker_flow
-    visit brexit_checker_questions_path
+    visit transition_checker_questions_path
   end
 
   def and_i_should_see_citizen_actions_are_grouped
