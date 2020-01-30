@@ -160,7 +160,7 @@ actions:
     has re-introduced roaming charges.
   guidance_prompt: More information
   guidance_link_text: Visit Europe after Brexit
-  guidance_url: https://www.gov.uk/visit-europe-brexit
+  guidance_url: https://www.gov.uk/visit-europe-1-january-2021
   criteria:
   - any_of:
     - all_of:
@@ -197,7 +197,7 @@ actions:
     immigration rules.
   guidance_prompt: More information
   guidance_link_text: Visit Europe after Brexit
-  guidance_url: https://www.gov.uk/visit-europe-brexit
+  guidance_url: https://www.gov.uk/visit-europe-1-january-2021
   criteria:
   - all_of:
     - nationality-uk
@@ -307,7 +307,7 @@ actions:
     or ferry.
   guidance_prompt: More information
   guidance_link_text: Visit Europe after Brexit
-  guidance_url: https://www.gov.uk/visit-europe-brexit
+  guidance_url: https://www.gov.uk/visit-europe-1-january-2021
   criteria:
   - any_of:
     - all_of:
@@ -447,7 +447,7 @@ actions:
     meet the requirements.
   guidance_prompt: More information
   guidance_link_text: 'Visit Europe after Brexit: Business travel'
-  guidance_url: https://www.gov.uk/visit-europe-brexit/business-travel
+  guidance_url: https://www.gov.uk/visit-europe-1-january-2021/business-travel-extra-requirements
   criteria:
   - travel-eu-business
   audience: citizen
