@@ -21,7 +21,7 @@
     },
     {
       title: t('brexit_checker.breadcrumbs.results'),
-      url: brexit_checker_results_path(c: criteria_keys)
+      url: transition_checker_results_path(c: criteria_keys)
     }
   ] %>
 
@@ -34,7 +34,7 @@
           This will include: Information about Brexit including what you and your business can do to prepare.
         </p>
 
-        <%= form_tag brexit_checker_confirm_email_signup_path(c: criteria_keys), id: "checklist-email-signup" do %>
+        <%= form_tag transition_checker_confirm_email_signup_path(c: criteria_keys), id: "checklist-email-signup" do %>
           <%= render "govuk_publishing_components/components/button", {
             text: t('brexit_checker.email_signup.sign_up'),
             inline_layout: true

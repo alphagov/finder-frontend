@@ -27,7 +27,7 @@ class BrexitCheckerController < ApplicationController
       current_question_index: page,
     )
 
-    redirect_to brexit_checker_results_path(c: criteria_keys) if @current_question.nil?
+    redirect_to transition_checker_results_path(c: criteria_keys) if @current_question.nil?
   end
 
   def results
@@ -51,7 +51,7 @@ class BrexitCheckerController < ApplicationController
 private
 
   def subscriber_list_options
-    path = brexit_checker_results_path(c: criteria_keys)
+    path = transition_checker_results_path(c: criteria_keys)
 
     {
       "title" => "How to prepare for a no deal Brexit",
