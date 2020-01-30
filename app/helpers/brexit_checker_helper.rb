@@ -109,7 +109,7 @@ module BrexitCheckerHelper
     elsif criteria_keys.present?
       t("brexit_checker.results.description_no_actions")
     else
-      t("brexit_checker.results.description_no_answers")
+      t("brexit_checker.results.description_no_answers").html_safe
     end
   end
 end

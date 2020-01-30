@@ -13,11 +13,11 @@
     },
     {
       title: t('brexit_checker.breadcrumbs.brexit-home'),
-      url: "/brexit"
+      url: "/transition"
     },
     {
       title: t('brexit_checker.breadcrumbs.brexit-check'),
-      url: "/get-ready-brexit-check"
+      url: "/transition-check"
     },
     {
       title: t('brexit_checker.breadcrumbs.results'),
@@ -28,15 +28,12 @@
   <main class="govuk-main-wrapper" role="mail">
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-two-thirds">
-        <h1 class="govuk-heading-l">Get email alerts</h1>
-        <p class="govuk-body">You are signing up for email alerts about: how to prepare for a no deal Brexit.
-        <p class="govuk-body">
-          This will include: Information about Brexit including what you and your business can do to prepare.
-        </p>
+        <h1 class="govuk-heading-l"><%= t('brexit_checker.email_signup.sign_up_heading') %></h1>
+        <%= t('brexit_checker.email_signup.sign_up_message').html_safe %>
 
         <%= form_tag transition_checker_confirm_email_signup_path(c: criteria_keys), id: "checklist-email-signup" do %>
           <%= render "govuk_publishing_components/components/button", {
-            text: t('brexit_checker.email_signup.sign_up'),
+            text: t('brexit_checker.email_signup.sign_up_button'),
             inline_layout: true
           } %>
         <% end %>

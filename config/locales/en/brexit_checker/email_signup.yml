@@ -1,5 +1,9 @@
 en:
   brexit_checker:
     email_signup:
-      title: "Brexit: check what you need to do if there is no deal"
-      sign_up: Subscribe
+      title: "How to get ready for new rules in 2021"
+      sign_up_heading: "Get email alerts"
+      sign_up_message: |
+        <p class="govuk-body">You are signing up for email updates about how to prepare for new rules from 1 January 2021.</p>
+        <p class="govuk-body">This will include information about the transition period including what you, your family, or your business can do to prepare for new rules.</p>
+      sign_up_button: Subscribe
