@@ -9,9 +9,9 @@ RSpec.feature "Brexit Checker email signup", type: :feature do
     {
       "title" => "How to prepare for a no deal Brexit",
       "slug" => "your-get-ready-for-brexit-results-a1a2a3a4a5",
-      "description" => "[You can view a copy of your results on GOV.UK.](https://www.test.gov.uk/get-ready-brexit-check/results?c%5B%5D=nationality-eu)",
+      "description" => "[You can view a copy of your results on GOV.UK.](https://www.test.gov.uk/transition-check/results?c%5B%5D=nationality-eu)",
       "tags" => { "brexit_checklist_criteria" => { "any" => %w[nationality-eu] } },
-      "url" => "/get-ready-brexit-check/results?c%5B%5D=nationality-eu",
+      "url" => "/transition-check/results?c%5B%5D=nationality-eu",
       "group_id" => BrexitCheckerController::SUBSCRIBER_LIST_GROUP_ID,
     }
   end
@@ -33,7 +33,7 @@ RSpec.feature "Brexit Checker email signup", type: :feature do
   end
 
   def given_im_on_the_results_page
-    visit brexit_checker_results_path(c: %w(nationality-eu))
+    visit transition_checker_results_path(c: %w(nationality-eu))
   end
 
   def and_email_alert_api_has_subscriber_list

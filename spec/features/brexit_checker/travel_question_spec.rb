@@ -10,7 +10,7 @@ RSpec.feature "Filtering options based on criteria", type: :feature do
   end
 
   def when_i_visit_the_brexit_checker_flow
-    visit brexit_checker_questions_path
+    visit transition_checker_questions_path
   end
 
   def and_i_choose_uk_for_the_living_question
