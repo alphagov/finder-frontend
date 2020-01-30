@@ -14,8 +14,11 @@ RSpec.describe SearchResultPresenter do
 
   let(:facets) { [] }
 
+  let(:rank) { 1 }
+
   subject(:presenter) {
     SearchResultPresenter.new(document: document,
+                              rank: rank,
                               metadata_presenter_class: MetadataPresenter,
                               doc_count: 10,
                               content_item: content_item,
@@ -122,7 +125,7 @@ RSpec.describe SearchResultPresenter do
     end
     let(:debug_subtext) do
       "<span class=\"debug-results debug-results--link\">link-1</span><span class=\"debug-results debug-results--meta\">"\
-      "Score: 0.005</span><span class=\"debug-results debug-results--meta\">Format: cake</span>"
+      "Score: 0.005 (ranked #1)</span><span class=\"debug-results debug-results--meta\">Format: cake</span>"
     end
     it "returns nothing unless the document is historic or debug_score is set to true" do
       expect(subject.document_list_component_data[:subtext]).to eql(nil)
@@ -157,7 +160,7 @@ RSpec.describe SearchResultPresenter do
 
       let(:debug_subtext) do
         "<span class=\"debug-results debug-results--link\">link-1</span>"\
-        "<span class=\"debug-results debug-results--meta\">Score: #{combined_score}</span>"\
+        "<span class=\"debug-results debug-results--meta\">Score: #{combined_score} (ranked #1)</span>"\
         "<span class=\"debug-results debug-results--meta\">Original score: 0.005 (ranked ##{original_rank})</span>"\
         "<span class=\"debug-results debug-results--meta\">Format: cake</span>"
       end

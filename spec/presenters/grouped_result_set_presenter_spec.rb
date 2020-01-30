@@ -74,6 +74,7 @@ RSpec.describe GroupedResultSetPresenter do
   describe "#grouped_documents" do
     def build_document_list_component(document, all_documents_count)
       SearchResultPresenter.new(document: document,
+                                rank: 1,
                                 metadata_presenter_class: metadata_presenter_class,
                                 doc_count: all_documents_count,
                                 content_item: content_item,
