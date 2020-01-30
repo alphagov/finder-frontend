@@ -21,7 +21,7 @@
     },
     {
       title: t('brexit_checker.breadcrumbs.results'),
-      url: brexit_checker_results_path(c: criteria_keys)
+      url: transition_checker_results_path(c: criteria_keys)
     }
   ] %>
 
@@ -31,7 +31,7 @@
         <h1 class="govuk-heading-l"><%= t('brexit_checker.email_signup.sign_up_heading') %></h1>
         <%= t('brexit_checker.email_signup.sign_up_message').html_safe %>
 
-        <%= form_tag brexit_checker_confirm_email_signup_path(c: criteria_keys), id: "checklist-email-signup" do %>
+        <%= form_tag transition_checker_confirm_email_signup_path(c: criteria_keys), id: "checklist-email-signup" do %>
           <%= render "govuk_publishing_components/components/button", {
             text: t('brexit_checker.email_signup.sign_up_button'),
             inline_layout: true

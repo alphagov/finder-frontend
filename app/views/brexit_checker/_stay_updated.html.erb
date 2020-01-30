@@ -8,11 +8,11 @@
 
 <%= render "govuk_publishing_components/components/button", {
   text: t("brexit_checker.stay_updated.sign_up"),
-  href: brexit_checker_email_signup_path(c: criteria_keys),
+  href: transition_checker_email_signup_path(c: criteria_keys),
   data_attributes: {
     "module": "track-click",
     "track-action": t("brexit_checker.stay_updated.sign_up"),
     "track-category": "StayUpdated",
-    "track-label": brexit_checker_email_signup_path
+    "track-label": transition_checker_email_signup_path
   }
 } %>

@@ -15,7 +15,7 @@
 <div class="govuk-width-container">
   <% if @previous_page %>
     <%= render "govuk_publishing_components/components/back_link", {
-      href: brexit_checker_questions_path(page: @previous_page, c: criteria_keys),
+      href: transition_checker_questions_path(page: @previous_page, c: criteria_keys),
     } %>
   <% else %>
     <%= render "govuk_publishing_components/components/back_link", {
@@ -26,7 +26,7 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
       <form
-        action="<%= brexit_checker_questions_path %>"
+        action="<%= transition_checker_questions_path %>"
         method="get"
         id="finder-qa-facet-filter-selection"
         data-module="track-brexit-qa-choices"
