@@ -19,11 +19,6 @@ FinderFrontend::Application.routes.draw do
   end
 
   # Routes for the for Brexit Checker
-  get "/get-ready-brexit-check/results" => "brexit_checker#results", as: :brexit_checker_results
-  get "/get-ready-brexit-check/questions" => "brexit_checker#show", as: :brexit_checker_questions
-  get "/get-ready-brexit-check/email-signup" => "brexit_checker#email_signup", as: :brexit_checker_email_signup
-  post "/get-ready-brexit-check/email-signup" => "brexit_checker#confirm_email_signup", as: :brexit_checker_confirm_email_signup
-
   get "/transition-check/results" => "brexit_checker#results", as: :transition_checker_results
   get "/transition-check/questions" => "brexit_checker#show", as: :transition_checker_questions
   get "/transition-check/email-signup" => "brexit_checker#email_signup", as: :transition_checker_email_signup
