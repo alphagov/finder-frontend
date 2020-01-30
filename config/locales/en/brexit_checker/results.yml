@@ -1,6 +1,7 @@
 en:
   brexit_checker:
     results:
+      title: "How to get ready for new rules in 2021: Your results"
       title_no_actions: You do not need to take action now
       title_no_answers: You did not answer any of the questions
       description: |
@@ -12,14 +13,14 @@ en:
         This is a safe and secure service. We do not store any of your personal information.
       email_sign_up_title: What you need to do may change
       email_sign_up_link: |
-        Subscribe to updates about changes that may affect you and get a link to your results
+        Subscribe to email updates about changes that may affect you and get a link to your results
       email_sign_up_link_no_actions: |
         This may change. Subscribe to email alerts about changes to Brexit information that may affect you.
       share_link_title: Share your results
       social_media_meta:
-        title: "Brexit: check what you need to do if there is no deal"
+        title: "How to get ready for new rules in 2021: Your results"
         description: |
-          Check what you or your business need to do to prepare for a no-deal Brexit.
+          What you, your family, or your business can do now to prepare for new rules from 1 January 2021.
       criteria:
         list_context: "Because you said:"
         no_answers: |
