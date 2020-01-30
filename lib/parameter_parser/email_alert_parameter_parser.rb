@@ -88,7 +88,7 @@ module ParameterParser
     end
 
     def could_be_a_dynamic_facet?(key)
-      %w(organisations people world_locations all_part_of_taxonomy_tree part_of_taxonomy_tree).include? key
+      %w(organisations people roles world_locations all_part_of_taxonomy_tree part_of_taxonomy_tree).include? key
     end
 
     def parsed_params(filter_params, params)

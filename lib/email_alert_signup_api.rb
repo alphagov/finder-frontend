@@ -48,7 +48,7 @@ private
 
   def link_based_subscriber_list?
     # TODO: move this logic into schema
-    content_types = %w[organisations people world_locations part_of_taxonomy_tree]
+    content_types = %w[organisations people roles world_locations part_of_taxonomy_tree]
     keys = facet_filter_keys.map { |key| key.gsub(/^(all_|any_)/, "") }
     (keys & content_types).present?
   end
@@ -80,7 +80,7 @@ private
   end
 
   def to_content_ids(key, values)
-    return values unless %w[organisations people world_locations].include?(key)
+    return values unless %w[organisations people roles world_locations].include?(key)
 
     registry = Registries::BaseRegistries.new.all[key]
     values.map { |value| registry[value]["content_id"] }

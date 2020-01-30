@@ -578,5 +578,36 @@ describe EmailAlertSignupAPI do
         assert_requested(req)
       end
     end
+
+    describe "roles facet" do
+      let(:applied_filters) do
+        { "roles" => %w(prime-minister) }
+      end
+
+      let(:facets) do
+        [
+          {
+            "facet_id" => "roles",
+            "facet_name" => "roles",
+          },
+        ]
+      end
+
+      before { stub_roles_registry_request }
+
+      it "asks email-alert-api to find or create the subscriber list" do
+        req = email_alert_api_has_subscriber_list(
+          "links" => {
+            roles: { any: %w(content_id_for_prime-minister) },
+            content_purpose_subgroup: { any: %w[news speeches_and_statements] },
+          },
+          "subscription_url" => subscription_url,
+        )
+
+        expect(subject.signup_url).to eql subscription_url
+
+        assert_requested(req)
+      end
+    end
   end
 end
