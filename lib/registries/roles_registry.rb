@@ -41,10 +41,10 @@ module Registries
 
     def fetch_roles_from_rummager
       params = {
-        aggregate_roles: "1500,examples:0,order:value.title",
+        facet_roles: "1500,examples:0,order:value.title",
         count: 0,
       }
-      Services.rummager.search(params).dig("aggregates", "roles", "options")
+      Services.rummager.search(params).dig("facets", "roles", "options")
     end
   end
 end
