@@ -1,27 +1,27 @@
 ---
 notifications:
-   - uuid: "5fe018d7-edb1-4d7a-858e-065e46d0917e"
-     type: addition
-     action_id: T092
-     date: 2019-09-09
+  #  - uuid: "5fe018d7-edb1-4d7a-858e-065e46d0917e"
+  #    type: addition
+  #    action_id: T092
+  #    date: 2019-09-09
    - uuid: "24b21f22-5f2c-4f11-9a08-25fe84919b67"
      type: addition
      action_id: T023
      date: 2019-09-09
-   - uuid: "a63eabee-5bbb-445b-b2d0-bed9f140c4dc"
-     type: addition
-     action_id: T058
-     date: 2019-09-09
-   - uuid: "fa691118-469f-492c-84ab-8f9896e886ad"
-     type: content_change
-     note: "We changed the guidance link to point to NHS guidance on getting healthcare when travelling and living abroad."
-     action_id: S006
-     date: 2019-09-13
-   - uuid: "376803be-af7b-4014-a166-0b3e5821026c"
-     type: content_change
-     note: "We changed the guidance link to point at information on all EU funding, including Horizon 2020 funding, so that anyone who currently receives EU funding can continue to do so."
-     action_id: T003
-     date: 2019-09-16
+  #  - uuid: "a63eabee-5bbb-445b-b2d0-bed9f140c4dc"
+  #    type: addition
+  #    action_id: T058
+  #    date: 2019-09-09
+  #  - uuid: "fa691118-469f-492c-84ab-8f9896e886ad"
+  #    type: content_change
+  #    note: "We changed the guidance link to point to NHS guidance on getting healthcare when travelling and living abroad."
+  #    action_id: S006
+  #    date: 2019-09-13
+  #  - uuid: "376803be-af7b-4014-a166-0b3e5821026c"
+  #    type: content_change
+  #    note: "We changed the guidance link to point at information on all EU funding, including Horizon 2020 funding, so that anyone who currently receives EU funding can continue to do so."
+  #    action_id: T003
+  #    date: 2019-09-16
    - uuid: "45ab5ddf-4e49-486e-a729-0b585f3ce51f"
      type: content_change
      note: "Updated to include bus and coach drivers working in the EU. They will need to exchange their UK Driver CPC for an EU Driver CPC."
@@ -32,11 +32,11 @@ notifications:
      note: "Guidance link changed from general travel guidance to specific travel insurance guidance that contains more detailed information on the insurance you might need and the organisations you can contact."
      action_id: S011
      date: 2019-09-25
-   - uuid: "651b7e67-f02b-4c41-80e7-374fd1a9661a"
-     type: content_change
-     note: "Content updated to say that you may need to apply for plant variety rights in both the UK and the EU. New arrangements will have to be agreed between the UK and the EU before seeds can be marketed in the EU after Brexit."
-     action_id: T086
-     date: 2019-09-26
+  #  - uuid: "651b7e67-f02b-4c41-80e7-374fd1a9661a"
+  #    type: content_change
+  #    note: "Content updated to say that you may need to apply for plant variety rights in both the UK and the EU. New arrangements will have to be agreed between the UK and the EU before seeds can be marketed in the EU after Brexit."
+  #    action_id: T086
+  #    date: 2019-09-26
    - uuid: "d2335a6a-ea96-4647-86f1-164cc1144964"
      type: content_change
      action_id: T064
@@ -61,26 +61,26 @@ notifications:
      type: addition
      action_id: T093
      date: 2019-10-07
-   - uuid: "b6e61e16-6d9b-4ac0-b500-5ab0f9fded76"
-     type: addition
-     action_id: T095
-     date: 2019-10-09
-   - uuid: "3c414f66-35fe-4178-ab4f-40f67bdb3a2b"
-     type: addition
-     action_id: T094
-     date: 2019-10-11
-   - uuid: "2f2ace6b-b694-42d5-b16e-838cf29d6e51"
-     type: addition
-     action_id: T096
-     date: 2019-10-11
-   - uuid: "d94ec718-eced-4f71-aaf8-c206aec21a29"
-     type: addition
-     action_id: S033
-     date: 2019-10-11
-   - uuid: "fc9f9268-d398-4adb-8628-1465e6d4e23a"
-     type: addition
-     action_id: T097
-     date: 2019-10-11
+  #  - uuid: "b6e61e16-6d9b-4ac0-b500-5ab0f9fded76"
+  #    type: addition
+  #    action_id: T095
+  #    date: 2019-10-09
+  #  - uuid: "3c414f66-35fe-4178-ab4f-40f67bdb3a2b"
+  #    type: addition
+  #    action_id: T094
+  #    date: 2019-10-11
+  #  - uuid: "2f2ace6b-b694-42d5-b16e-838cf29d6e51"
+  #    type: addition
+  #    action_id: T096
+  #    date: 2019-10-11
+  #  - uuid: "d94ec718-eced-4f71-aaf8-c206aec21a29"
+  #    type: addition
+  #    action_id: S033
+  #    date: 2019-10-11
+  #  - uuid: "fc9f9268-d398-4adb-8628-1465e6d4e23a"
+  #    type: addition
+  #    action_id: T097
+  #    date: 2019-10-11
    - uuid: "ccafb18a-350d-476b-af29-ca906c374202"
      type: addition
      action_id: T098
@@ -89,11 +89,11 @@ notifications:
      type: addition
      action_id: S036
      date: 2019-10-22
-   - uuid: "65071215-569a-4c42-9e2a-51e8296bf5a8"
-     type: content_change
-     action_id: S032
-     date: 2019-10-22
-     note: "Content updated to reflect that requirements will apply to assistance dogs as well as to pets."
+  #  - uuid: "65071215-569a-4c42-9e2a-51e8296bf5a8"
+  #    type: content_change
+  #    action_id: S032
+  #    date: 2019-10-22
+  #    note: "Content updated to reflect that requirements will apply to assistance dogs as well as to pets."
    - uuid: "f5941476-eb36-4bcf-8434-5b699956774d"
      type: addition
      action_id: S034

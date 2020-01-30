@@ -41,7 +41,7 @@ RSpec.feature "Brexit Checker workflow", type: :feature do
     and_i_should_see_citizen_actions_are_grouped
     and_i_should_see_the_citizens_action_header
     and_i_should_see_the_business_action_header
-    and_i_should_see_a_pet_action
+    and_i_should_see_a_mobile_roaming_action
     and_i_should_see_a_tourism_action
   end
 
@@ -49,7 +49,7 @@ RSpec.feature "Brexit Checker workflow", type: :feature do
     then_i_should_see_the_results_page
     and_i_should_see_the_business_action_header
     and_i_should_not_see_the_citizens_action_header
-    and_i_should_see_a_ce_mark_action
+    and_i_should_see_a_competition_markets_authority_action
   end
 
   def then_i_see_citizens_results_only
@@ -57,7 +57,7 @@ RSpec.feature "Brexit Checker workflow", type: :feature do
     and_i_should_see_the_citizens_action_header
     and_i_should_not_see_the_business_action_header
     and_i_should_see_citizen_actions_are_grouped
-    and_i_should_see_a_pet_action
+    and_i_should_see_a_mobile_roaming_action
     and_i_should_not_see_a_tourism_action
   end
 
@@ -136,7 +136,7 @@ RSpec.feature "Brexit Checker workflow", type: :feature do
     answer_question("eu-uk-government-funding", "No")
     answer_question("public-sector-procurement", "No")
     answer_question("intellectual-property", "No")
-    answer_question("business-activity")
+    answer_question("business-activity", "Provide services or do business in the EU")
     answer_question("sector-business-area", "Tourism")
   end
 
@@ -157,8 +157,8 @@ RSpec.feature "Brexit Checker workflow", type: :feature do
     expect(page).to have_content I18n.t!("brexit_checker.results.title_no_actions")
   end
 
-  def and_i_should_see_a_pet_action
-    action = BrexitChecker::Action.find_by_id("S009")
+  def and_i_should_see_a_mobile_roaming_action
+    action = BrexitChecker::Action.find_by_id("S010")
     expect(page).to have_css(".govuk-link[href='#{action.guidance_url}'][data-track-action='You and your family - Visiting the EU - 1.2 - Guidance']")
     action_is_shown(action)
     action_has_analytics(action)
@@ -170,13 +170,13 @@ RSpec.feature "Brexit Checker workflow", type: :feature do
 
   def and_i_should_see_a_tourism_action
     action = BrexitChecker::Action.find_by_id("T063")
-    expect(page).to have_css(".govuk-link[href='#{action.guidance_url}'][data-track-action='Your business or organisation - 1.2 - Guidance']")
+    expect(page).to have_css(".govuk-link[href='#{action.guidance_url}'][data-track-action='Your business or organisation - 1.4 - Guidance']")
     action_is_shown(action)
     action_has_analytics(action)
   end
 
-  def and_i_should_see_a_ce_mark_action
-    action = BrexitChecker::Action.find_by_id("T001")
+  def and_i_should_see_a_competition_markets_authority_action
+    action = BrexitChecker::Action.find_by_id("T002")
     expect(page).to have_css(".govuk-link[href='#{action.guidance_url}'][data-track-action='Your business or organisation - 1.1 - Guidance']")
     action_is_shown(action)
     action_has_analytics(action)
