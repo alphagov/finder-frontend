@@ -167,7 +167,7 @@ RSpec.describe ResultSetPresenter do
         [FactoryBot.build(:document_hash, is_historic: true, es_score: 0.005, link: "/path/to/doc")]
       }
       let(:expected_document_content_with_debug) do
-        "<span class=\"published-by\">First published during the 2015 Conservative government</span><span class=\"debug-results debug-results--link\">/path/to/doc</span><span class=\"debug-results debug-results--meta\">Score: 0.005</span><span class=\"debug-results debug-results--meta\">Format: answer</span>"
+        "<span class=\"published-by\">First published during the 2015 Conservative government</span><span class=\"debug-results debug-results--link\">/path/to/doc</span><span class=\"debug-results debug-results--meta\">Score: 0.005 (ranked #1)</span><span class=\"debug-results debug-results--meta\">Format: answer</span>"
       end
 
       it "shows debug metadata" do

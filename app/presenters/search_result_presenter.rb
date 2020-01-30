@@ -10,8 +10,9 @@ class SearchResultPresenter
            :original_rank,
            to: :document
 
-  def initialize(document:, metadata_presenter_class:, doc_count:, facets:, content_item:, debug_score:, highlight:)
+  def initialize(document:, rank:, metadata_presenter_class:, doc_count:, facets:, content_item:, debug_score:, highlight:)
     @document = document
+    @rank = rank
     @metadata = metadata_presenter_class.new(document.metadata(facets)).present
     @count = doc_count
     @debug_score = debug_score
@@ -63,7 +64,11 @@ private
     published_text = "<span class='published-by'>#{I18n.t('finders.search_result_presenter.first_published_during')} #{government_name}</span>" if is_historic
     if @debug_score
       debug_text = "<span class='debug-results debug-results--link'>#{link}</span>"
-      debug_text += "<span class='debug-results debug-results--meta'>Score: #{score}</span>" if score
+      debug_text += if score
+                      "<span class='debug-results debug-results--meta'>Score: #{score} (ranked ##{@rank})</span>"
+                    else
+                      "<span class='debug-results debug-results--meta'>Ranked: ##{@rank}</span>"
+                    end
       debug_text += "<span class='debug-results debug-results--meta'>Original score: #{es_score} (ranked ##{original_rank})</span>" if es_score && original_rank
       debug_text += "<span class='debug-results debug-results--meta'>Format: #{format}</span>"
     end
