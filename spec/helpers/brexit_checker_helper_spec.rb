@@ -250,7 +250,7 @@ describe BrexitCheckerHelper, type: :helper do
     end
 
     it "returns the no answers desciption there no answers and no actions" do
-      expect(brexit_results_description([], [])).to eq(t("brexit_checker.results.description_no_answers"))
+      expect(brexit_results_description([], [])).to eq(t("brexit_checker.results.description_no_answers").html_safe)
     end
   end
 

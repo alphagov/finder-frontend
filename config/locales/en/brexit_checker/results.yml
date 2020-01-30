@@ -9,8 +9,8 @@ en:
       description_no_actions: |
         Based on your responses, you do not need to take any action to prepare for the new rules from 1 January 2021.
       description_no_answers: |
-        To change your answers, follow the link below.
-        This is a safe and secure service. We do not store any of your personal information.
+        <p class="govuk-body-l">To change your answers, follow the link below.</p>
+        <p class="govuk-body-l">This is a safe and secure service. We do not store any of your personal information.</p>
       email_sign_up_title: What you need to do may change
       email_sign_up_link: |
         Subscribe to email updates about changes that may affect you and get a link to your results
