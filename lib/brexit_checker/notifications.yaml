@@ -22,11 +22,11 @@ notifications:
   #    note: "We changed the guidance link to point at information on all EU funding, including Horizon 2020 funding, so that anyone who currently receives EU funding can continue to do so."
   #    action_id: T003
   #    date: 2019-09-16
-   - uuid: "45ab5ddf-4e49-486e-a729-0b585f3ce51f"
-     type: content_change
-     note: "Updated to include bus and coach drivers working in the EU. They will need to exchange their UK Driver CPC for an EU Driver CPC."
-     action_id: T060
-     date: 2019-09-19
+  #  - uuid: "45ab5ddf-4e49-486e-a729-0b585f3ce51f"
+  #    type: content_change
+  #    note: "Updated to include bus and coach drivers working in the EU. They will need to exchange their UK Driver CPC for an EU Driver CPC."
+  #    action_id: T060
+  #    date: 2019-09-19
    - uuid: "e028f547-e19b-4cfc-aac9-2d3339dbcd25"
      type: content_change
      note: "Guidance link changed from general travel guidance to specific travel insurance guidance that contains more detailed information on the insurance you might need and the organisations you can contact."
@@ -37,11 +37,11 @@ notifications:
   #    note: "Content updated to say that you may need to apply for plant variety rights in both the UK and the EU. New arrangements will have to be agreed between the UK and the EU before seeds can be marketed in the EU after Brexit."
   #    action_id: T086
   #    date: 2019-09-26
-   - uuid: "d2335a6a-ea96-4647-86f1-164cc1144964"
-     type: content_change
-     action_id: T064
-     note: "Link changed to provide hauliers with updated guidance."
-     date: 2019-10-02
+  #  - uuid: "d2335a6a-ea96-4647-86f1-164cc1144964"
+  #    type: content_change
+  #    action_id: T064
+  #    note: "Link changed to provide hauliers with updated guidance."
+  #    date: 2019-10-02
    - uuid: "c23214f5-eee3-4528-88b1-c7d88fe59b7e"
      type: addition
      action_id: T091
@@ -98,7 +98,7 @@ notifications:
      type: addition
      action_id: S034
      date: 2019-10-23
-   - uuid: "8cbcddb5-1eed-418f-a2dc-be5057116daa"
-     type: addition
-     action_id: S035
-     date: 2019-10-24
+  #  - uuid: "8cbcddb5-1eed-418f-a2dc-be5057116daa"
+  #    type: addition
+  #    action_id: S035
+  #    date: 2019-10-24
