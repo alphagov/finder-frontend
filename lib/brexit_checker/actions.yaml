@@ -80,8 +80,8 @@ actions:
     to study abroad. If you have started, you may not get free healthcare, student
     finance or benefits.
   guidance_prompt: More information
-  guidance_link_text: Studying in the European Union from 2021
-  guidance_url: https://www.gov.uk/guidance/studying-in-the-european-union-after-brexit
+  guidance_link_text: Study in the European Union
+  guidance_url: https://www.gov.uk/guidance/study-in-the-european-union
   criteria:
   - all_of:
     - nationality-uk
@@ -94,7 +94,6 @@ actions:
 - id: S008
   priority: 8
   title: Check your passport’s issue and expiry dates for travel to Europe
-  title_url: https://www.gov.uk/check-a-passport-for-travel-to-europe
   consequence: You may not be able to travel unless your UK passport has at least
     6 months left to run and is less than 10 years old.
   exception: The new rules do not apply when travelling to Ireland.
@@ -116,8 +115,8 @@ actions:
   consequence: You may be charged for using your mobile device in the EU if your operator
     has re-introduced roaming charges.
   guidance_prompt: More information
-  guidance_link_text: Visit Europe from 2021
-  guidance_url: https://www.gov.uk/visit-europe-brexit
+  guidance_link_text: Visit Europe from 1 January 2021
+  guidance_url: https://www.gov.uk/visit-europe-1-january-2021
   criteria:
   - any_of:
     - all_of:
@@ -149,12 +148,11 @@ actions:
   priority: 8
   title: Check what you need to do to make sure you can travel through the border
     of the country you are visiting
-  title_url: https://www.gov.uk/visit-europe-brexit
   consequence: You may not be allowed to enter the EU if you cannot show you meet
     immigration rules.
   guidance_prompt: More information
-  guidance_link_text: Visit Europe from 2021
-  guidance_url: https://www.gov.uk/visit-europe-brexit
+  guidance_link_text: Visit Europe from 1 January 2021
+  guidance_url: https://www.gov.uk/visit-europe-1-january-2021
   criteria:
   - all_of:
     - nationality-uk
@@ -184,11 +182,11 @@ actions:
   priority: 5
   title: To get free NHS healthcare, prove that you've returned to the UK to live
     and you meet the ordinary residence test
-  consequence: If you can’t prove you meet the ordinary residence test, you may be
+  consequence: If you cannot prove you meet the ordinary residence test, you may be
     charged for NHS services.
   guidance_prompt: More information
-  guidance_link_text: 'Living in the EU: prepare for 2021'
-  guidance_url: https://www.gov.uk/guidance/living-in-the-eu-prepare-for-brexit
+  guidance_link_text: Living in Europe
+  guidance_url: https://www.gov.uk/guidance/living-in-europe
   criteria:
   - all_of:
     - nationality-uk
@@ -200,52 +198,11 @@ actions:
   priority: 2
   title: Check if you need an International Driving Permit before you drive in the
     EU, Switzerland, Norway, Iceland or Liechtenstein
-  title_url: https://www.gov.uk/guidance/driving-in-the-eu-after-brexit-international-driving-permits
   consequence: You could get a fine or your vehicle could be seized if you drive without
     the correct documents.
   guidance_prompt: More information
   guidance_link_text: Driving abroad
   guidance_url: https://www.gov.uk/driving-abroad
-  criteria:
-  - all_of:
-    - living-uk
-    - any_of:
-      - visiting-eu
-      - travel-eu-business
-    - visiting-driving
-  audience: citizen
-  grouping_criteria:
-  - visiting-eu
-- id: S023
-  priority: 2
-  title: Get motor insurance green cards for your vehicle, caravan or trailer if they're
-    registered in the UK and you'll be driving in the EU, Norway, Iceland or Liechtenstein.
-  consequence: You could get a fine or your vehicle could be seized if you do not
-    have a motor insurance green card to prove you're insured.
-  lead_time: It takes up to one month
-  guidance_prompt: More information
-  guidance_link_text: Driving in the EU after 2021 - Insurance for your vehicle, caravan
-    or trailer
-  guidance_url: https://www.gov.uk/guidance/driving-in-the-eu-after-brexit#insurance-for-your-vehicle-caravan-or-trailer
-  criteria:
-  - all_of:
-    - living-uk
-    - any_of:
-      - visiting-eu
-      - travel-eu-business
-    - visiting-driving
-  audience: citizen
-  grouping_criteria:
-  - visiting-eu
-- id: S024
-  priority: 2
-  title: Put a GB sticker on the back of your vehicle if it's registered in the UK,
-    even if your number plate already shows GB with a Euro symbol
-  consequence: You could get a fine if you do not have a GB sticker when you need
-    one.
-  guidance_prompt: More information
-  guidance_link_text: Driving in the EU from 2021 - GB stickers and number plates
-  guidance_url: https://www.gov.uk/guidance/driving-in-the-eu-after-brexit#gb-stickers-and-number-plates
   criteria:
   - all_of:
     - living-uk
@@ -263,8 +220,8 @@ actions:
   consequence: If you do not allow enough time, you could miss your flight, train
     or ferry.
   guidance_prompt: More information
-  guidance_link_text: Visit Europe from 2021
-  guidance_url: https://www.gov.uk/visit-europe-brexit
+  guidance_link_text: Visit Europe from 1 January 2021
+  guidance_url: https://www.gov.uk/visit-europe-1-january-2021
   criteria:
   - any_of:
     - all_of:
@@ -322,42 +279,6 @@ actions:
   audience: citizen
   grouping_criteria:
   - living-eu
-- id: S030
-  priority: 5
-  title: Exchange your UK licence for a licence issued by the EU country you live
-    in
-  consequence: You will not be able to drive in the EU with a UK licence.
-  guidance_prompt: More information
-  guidance_link_text: 'Driving in the EU from 2021: driving licence exchange'
-  guidance_url: https://www.gov.uk/guidance/driving-in-the-eu-after-brexit-driving-licence-exchange
-  criteria:
-  - all_of:
-    - nationality-uk
-    - any_of:
-      - living-eu
-      - living-ie
-  audience: citizen
-  grouping_criteria:
-  - living-eu
-  - living-ie
-- id: S031
-  priority: 4
-  title: Test your vehicle for roadworthiness in the EU country you live in
-  consequence: Your UK MOT test certificate will not be recognised in the EU.
-  guidance_prompt: More information
-  guidance_link_text: 'Driving in the EU from 2021: vehicle safety and roadworthiness
-    (MOT)'
-  guidance_url: https://www.gov.uk/guidance/driving-after-brexit-for-uk-licence-holders-living-in-the-eu#vehicle-safety-and-roadworthiness-mot
-  criteria:
-  - all_of:
-    - nationality-uk
-    - any_of:
-      - living-eu
-      - living-ie
-  audience: citizen
-  grouping_criteria:
-  - living-eu
-  - living-ie
 - id: S034
   priority: 8
   title: Check if you need a visa or work permit and meet the professional requirements
@@ -365,31 +286,13 @@ actions:
   consequence: You may not be able to enter or work in some countries if you do not
     meet the requirements.
   guidance_prompt: More information
-  guidance_link_text: 'Visit Europe from 2021: Business travel'
-  guidance_url: https://www.gov.uk/visit-europe-brexit/business-travel
+  guidance_link_text: 'Visit Europe from 1 January 2021: Business travel'
+  guidance_url: https://www.gov.uk/visit-europe-1-january-2021/business-travel-extra-requirements
   criteria:
   - travel-eu-business
   audience: citizen
   grouping_criteria:
   - visiting-eu
-- id: S035
-  priority: 5
-  title: Check if you need to get your EU professional qualifications recognised in
-    the UK
-  consequence: You will not be able to work in a regulated profession if your qualification
-    from the EU, Switzerland, Norway, Iceland or Liechtenstein is not recognised in
-    the UK.
-  guidance_prompt: More information
-  guidance_link_text: Get your qualification from the EU, Switzerland, Norway, Iceland
-    or Liechtenstein recognised in the UK
-  guidance_url: https://www.gov.uk/guidance/get-your-eea-qualification-recognised-in-the-uk-after-brexit
-  criteria:
-  - all_of:
-    - nationality-eu
-    - working-uk
-  audience: citizen
-  grouping_criteria:
-  - working-uk
 - id: S036
   priority: 5
   title: Get motor insurance green cards or other proof of insurance for your vehicle,
