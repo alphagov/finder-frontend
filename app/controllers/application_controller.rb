@@ -9,11 +9,13 @@ class ApplicationController < ActionController::Base
   helper :application
 
   # rescue_from precedence is bottom up - https://stackoverflow.com/a/9121054/170864
-  rescue_from GdsApi::BaseError, with: :error_503
-  rescue_from GdsApi::InvalidUrl, with: :unprocessable_entity
-  rescue_from GdsApi::HTTPNotFound, with: :error_not_found
-  rescue_from GdsApi::HTTPForbidden, with: :forbidden
-  rescue_from GdsApi::HTTPUnprocessableEntity, with: :unprocessable_entity
+  unless Rails.env.development?
+    rescue_from GdsApi::BaseError, with: :error_503
+    rescue_from GdsApi::InvalidUrl, with: :unprocessable_entity
+    rescue_from GdsApi::HTTPNotFound, with: :error_not_found
+    rescue_from GdsApi::HTTPForbidden, with: :forbidden
+    rescue_from GdsApi::HTTPUnprocessableEntity, with: :unprocessable_entity
+  end
 
   if ENV["REQUIRE_BASIC_AUTH"]
     http_basic_authenticate_with(
