@@ -42,7 +42,7 @@ RSpec.feature "Brexit Checker workflow", type: :feature do
     and_i_should_see_the_citizens_action_header
     and_i_should_see_the_business_action_header
     and_i_should_see_a_mobile_roaming_action
-    and_i_should_see_a_tourism_action
+    and_i_should_see_an_air_freight_action
   end
 
   def then_i_see_business_results_only
@@ -58,7 +58,7 @@ RSpec.feature "Brexit Checker workflow", type: :feature do
     and_i_should_not_see_the_business_action_header
     and_i_should_see_citizen_actions_are_grouped
     and_i_should_see_a_mobile_roaming_action
-    and_i_should_not_see_a_tourism_action
+    and_i_should_not_see_an_air_freight_action
   end
 
   def and_i_should_see_share_links
@@ -137,7 +137,7 @@ RSpec.feature "Brexit Checker workflow", type: :feature do
     answer_question("public-sector-procurement", "No")
     answer_question("intellectual-property", "No")
     answer_question("business-activity", "Provide services or do business in the EU")
-    answer_question("sector-business-area", "Tourism")
+    answer_question("sector-business-area", "Air freight and air passenger services")
   end
 
   def and_i_answer_citizen_questions
@@ -164,19 +164,19 @@ RSpec.feature "Brexit Checker workflow", type: :feature do
     action_has_analytics(action)
   end
 
-  def and_i_should_not_see_a_tourism_action
-    action_not_shown("T063")
+  def and_i_should_not_see_an_air_freight_action
+    action_not_shown("T028")
   end
 
-  def and_i_should_see_a_tourism_action
-    action = BrexitChecker::Action.find_by_id("T063")
-    expect(page).to have_css(".govuk-link[href='#{action.guidance_url}'][data-track-action='Your business or organisation - 1.4 - Guidance']")
+  def and_i_should_see_an_air_freight_action
+    action = BrexitChecker::Action.find_by_id("T028")
+    expect(page).to have_css(".govuk-link[href='#{action.guidance_url}'][data-track-action='Your business or organisation - 1.5 - Guidance']")
     action_is_shown(action)
     action_has_analytics(action)
   end
 
   def and_i_should_see_a_competition_markets_authority_action
-    action = BrexitChecker::Action.find_by_id("T002")
+    action = BrexitChecker::Action.find_by_id("T006")
     expect(page).to have_css(".govuk-link[href='#{action.guidance_url}'][data-track-action='Your business or organisation - 1.1 - Guidance']")
     action_is_shown(action)
     action_has_analytics(action)
