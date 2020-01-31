@@ -5,7 +5,7 @@ questions:
   - id: where_do_you_live
     question: Where do you live?
     hint: |
-      Choose your country or <a href="https://www.gov.uk/guidance/living-in-the-eu-prepare-for-brexit">check the guidance for all UK nationals living in the EU</a>.
+      Choose your country or <a href="https://www.gov.uk/guidance/living-in-europe">check the guidance for all UK nationals living in the EU</a>.
     type: radio
     options:
       - text: Austria
