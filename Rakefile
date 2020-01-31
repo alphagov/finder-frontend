@@ -10,7 +10,7 @@ if Rails.env.development? && ENV["LIVE"]
   ENV["PLEK_SERVICE_SEARCH_URI"] = "https://www.gov.uk/api"
   ENV["PLEK_SERVICE_CONTENT_STORE_URI"] = "https://www.gov.uk/api"
   ENV["PLEK_SERVICE_STATIC_URI"] = "assets.publishing.service.gov.uk"
-  ENV["PLEK_SERVICE_WHITEHALL_ADMIN_URI"] = "https://www.gov.uk"
+  ENV["PLEK_SERVICE_WHITEHALL_FRONTEND_URI"] = "https://www.gov.uk"
 end
 
 FinderFrontend::Application.load_tasks
