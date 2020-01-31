@@ -311,17 +311,6 @@ actions:
   audience: citizen
   grouping_criteria:
   - visiting-uk
-- id: T002
-  priority: 8
-  title: Get legal advice if your business is merging with an EU company
-  consequence: If you do not follow the rules, you risk being investigated by the
-    Competition and Markets Authority (CMA) and the European Commission.
-  guidance_prompt: More information
-  guidance_link_text: Merger review and anti-competitive activity from 2021
-  guidance_url: https://www.gov.uk/guidance/merger-review-and-anti-competitive-activity-after-brexit
-  criteria:
-  - provide-services-do-business-in-eu
-  audience: business
 - id: T006
   priority: 8
   title: Check if your employees need a visa or work permit and meet any requirements
@@ -347,6 +336,21 @@ actions:
   criteria:
   - provide-services-do-business-in-eu
   audience: business
+- id: T010
+  priority: 5
+  title: Check if your existing UK Civil Aviation Authority or EASA certificates and
+    licences will be valid
+  consequence: You risk not being able to work or operate in the aviation industry
+    without valid certificates and licences.
+  guidance_prompt: More information
+  guidance_link_text: Prepare to work and operate in the European aviation sector
+    from 2021
+  guidance_url: https://www.gov.uk/guidance/prepare-to-work-and-operate-in-the-european-aviation-sector-after-brexit
+  criteria:
+  - any_of:
+    - aero-space
+    - air-passenger-freight
+  audience: business
 - id: T011
   priority: 5
   title: Check if you need to change your contracts to broadcast licenced content
@@ -354,8 +358,8 @@ actions:
   consequence: You risk not being able to broadcast outside the UK if you do not get
     extra copyright permissions.
   guidance_prompt: More information
-  guidance_link_text: Copyright from 2021
-  guidance_url: https://www.gov.uk/guidance/changes-to-copyright-law-after-brexit
+  guidance_link_text: Changes to copyright law from 1 January 2021
+  guidance_url: https://www.gov.uk/guidance/changes-to-copyright-law-after-the-transition-period
   criteria:
   - any_of:
     - media
@@ -386,6 +390,57 @@ actions:
     - ip-patents
     - ip-exhaustion-rights
   audience: business
+- id: T016
+  priority: 5
+  title: Find out how to comply with the new UK nuclear safeguards arrangements
+  consequence: All operators in the UK civil nuclear sector will need to comply with
+    the new domestic safeguards regime.
+  guidance_prompt: Read ONR guidance
+  guidance_link_text: Draft nuclear safeguards guidance for inspectors
+  guidance_url: http://www.onr.org.uk/safeguards/draft-guidance-for-inspectors-and-nuclear-material-accountants.htm
+  criteria:
+  - nuclear
+  audience: business
+- id: T017
+  priority: 5
+  title: Register to use the open general export licence to export 'dual use' nuclear
+    goods from the UK
+  title_url: https://www.gov.uk/guidance/exporting-nuclear-related-items-from-1-january-2021
+  consequence: You will not be able to export 'dual use' nuclear goods from the UK
+    if you have not registered.
+  guidance_prompt: More information
+  guidance_link_text: Exporting nuclear-related items from 1 January 2021
+  guidance_url: https://www.gov.uk/guidance/exporting-nuclear-related-items-from-1-january-2021
+  criteria:
+  - nuclear
+  audience: business
+- id: T019
+  priority: 5
+  title: Prepare to ship radioactive waste and spent fuel into and out of the UK
+  consequence: Failing to comply with the new regulations will be a criminal offence.
+  guidance_prompt: More information
+  guidance_link_text: Shipping radioactive sources between the UK and EU from 1 January
+    2021
+  guidance_url: https://www.gov.uk/guidance/shipping-radioactive-waste-and-spent-fuel-from-1-january-2021
+  criteria:
+  - nuclear
+  audience: business
+- id: T020
+  priority: 5
+  title: Check the rules on moving radioactive material into and out of the UK
+  consequence: You will not be able to move radioactive sources into the UK without
+    making a written declaration.
+  guidance_prompt: More information
+  guidance_link_text: Shipping radioactive sources between the UK and EU from 1 January
+    2021
+  guidance_url: https://www.gov.uk/guidance/shipping-radioactive-sources-between-the-uk-and-eu-from-1-january-2021
+  criteria:
+  - any_of:
+    - nuclear
+    - electricity
+    - mining
+    - medical-tech
+  audience: business
 - id: T021
   priority: 5
   title: Check what documents your employees need to make and operate aircraft for
@@ -402,6 +457,23 @@ actions:
     - aero-space
     - air-passenger-freight
     - oil-gas-coal
+  audience: business
+- id: T022
+  priority: 8
+  title: Check if you need to update your data protection arrangements to keep accessing
+    personal data from the EU
+  title_url: https://www.gov.uk/guidance/using-personal-data-after-brexit#what-you-need-to-do-before-a-no-deal-brexit
+  consequence: You may not be able to access personal data from the EU without the
+    right arrangements in place.
+  guidance_prompt: More information
+  guidance_link_text: Using personal data in your business or organisation from 2021
+  guidance_url: https://www.gov.uk/guidance/using-personal-data-after-brexit
+  criteria:
+  - any_of:
+    - personal-eu-org
+    - personal-eu-org-process
+    - personal-eu-org-use
+    - personal-eu-org-provide
   audience: business
 - id: T023
   priority: 8
@@ -445,6 +517,23 @@ actions:
   - any_of:
     - digital
     - personal-eu-org-provide
+  audience: business
+- id: T028
+  priority: 8
+  title: Export fish through the right EU border inspection post and prepare the right
+    documentation
+  consequence: You risk your fish being delayed or rejected when they reach the EU
+    if you do not have the right documents or go through the wrong border post.
+  lead_time: It takes 3 days to get the documents
+  guidance_prompt: More information
+  guidance_link_text: Export fish to the EU from 1 January 2021
+  guidance_url: https://www.gov.uk/guidance/exporting-and-importing-fish-if-theres-no-brexit-deal
+  criteria:
+  - any_of:
+    - air-passenger-freight
+    - port-airports
+    - postal-couriers
+    - fish-inc-wholesale
   audience: business
 - id: T032
   priority: 8
@@ -491,6 +580,40 @@ actions:
     - marine-transport
     - fish-inc-wholesale
   audience: business
+- id: T057
+  priority: 4
+  title: Check which carbon pricing policies you need to comply with before and after
+    exit day
+  consequence: You risk not complying correctly with emissions reporting and carbon
+    pricing regulations, which could lead to a fine.
+  lead_time: Up to one week
+  guidance_prompt: More information
+  guidance_link_text: Meeting climate change requirements from 2021
+  guidance_url: https://www.gov.uk/government/publications/meeting-climate-change-requirements-if-theres-no-brexit-deal
+  criteria:
+  - any_of:
+    - aero-space
+    - automotive
+    - electronic-machinery
+    - rail-manufacture
+    - agriculture-farm
+    - animal-ex-food
+    - legal-service
+    - defence
+    - electricity
+    - nuclear
+    - oil-gas-coal
+    - renewables
+    - finance
+    - health
+    - consumer-goods
+    - chemical
+    - metal
+    - non-metal-material
+    - air-passenger-freight
+    - digital
+    - telecoms
+  audience: business
 - id: T059
   priority: 5
   title: Check whether any wood packaging you use meets ISPM15 international standards
@@ -501,21 +624,6 @@ actions:
   guidance_url: https://www.gov.uk/wood-packaging-import-export
   criteria:
   - forestry
-  audience: business
-- id: T060
-  priority: 5
-  title: Exchange your UK Driver Certificate of Professional Competence (CPC) for
-    an EU Driver CPC
-  consequence: You will not be able to drive a lorry, bus or coach for an EU operator
-    if you do not have an EU Driver CPC.
-  guidance_prompt: More information
-  guidance_link_text: Driving in the EU from 2021
-  guidance_url: https://www.gov.uk/guidance/driving-in-the-eu-after-brexit
-  criteria:
-  - any_of:
-    - road-passenger-freight
-    - employ-eu-citizens
-    - personal-eu-org
   audience: business
 - id: T061
   priority: 5
@@ -533,107 +641,6 @@ actions:
     - import-from-eu
     - export-to-eu
     - haulage-goods-across-eu-borders
-  audience: business
-- id: T063
-  priority: 6
-  title: Check what documents you need to run unscheduled bus or coach services in
-    EU countries
-  consequence: You risk not being able to run unscheduled services in Europe if you
-    do not have the right documents.
-  guidance_prompt: More information
-  guidance_link_text: Run international bus or coach services and tours from 2021
-  guidance_url: https://www.gov.uk/guidance/run-international-bus-or-coach-services-after-brexit
-  criteria:
-  - any_of:
-    - tourism
-    - road-passenger-freight
-  audience: business
-- id: T064
-  priority: 5
-  title: Check if your customers can give you the right documents for trade with the
-    EU, if you’re a haulier
-  consequence: You risk not being able to transport goods through the EU if your customers
-    do not give you the right documents.
-  lead_time: It takes more than 4 weeks
-  guidance_prompt: More information
-  guidance_link_text: 'Transporting goods between the UK and EU from 2021: guidance
-    for hauliers'
-  guidance_url: https://www.gov.uk/guidance/transporting-goods-between-the-uk-and-eu-in-a-no-deal-brexit-guidance-for-hauliers
-  criteria:
-  - any_of:
-    - road-passenger-freight
-    - import-from-eu
-    - export-to-eu
-    - haulage-goods-across-eu-borders
-  audience: business
-- id: T065
-  priority: 5
-  title: Check what documents you need to transport goods through the EU, if you’re
-    a haulier
-  consequence: You will not be able to transport haulage goods through the EU without
-    the right documents.
-  lead_time: It takes more than 4 weeks
-  guidance_prompt: More information
-  guidance_link_text: Carry out international road haulage from 2021
-  guidance_url: https://www.gov.uk/guidance/carry-out-international-road-haulage-after-brexit
-  criteria:
-  - any_of:
-    - road-passenger-freight
-    - import-from-eu
-    - export-to-eu
-    - haulage-goods-across-eu-borders
-  audience: business
-- id: T066
-  priority: 5
-  title: Check how to get approval to sell vehicles and vehicle parts in the UK and
-    the EU
-  consequence: You will not be able to sell vehicles or vehicle parts in the UK and
-    the EU if they are not approved correctly.
-  lead_time: It takes more than 4 weeks
-  guidance_prompt: More information
-  guidance_link_text: Vehicle type-approval from 2021
-  guidance_url: https://www.gov.uk/guidance/vehicle-type-approval-if-theres-no-brexit-deal
-  criteria:
-  - any_of:
-    - automotive
-    - road-passenger-freight
-    - motor-trade
-  audience: business
-- id: T067
-  priority: 8
-  title: Check what you need to do to sell or supply medical devices in the UK
-  consequence: You will not be able to legally sell or supply medical devices in the
-    UK if you do not get your business ready.
-  guidance_prompt: More information
-  guidance_link_text: Further guidance note on the regulation of medicines, medical
-    devices and clinical trials from 2021
-  guidance_url: https://www.gov.uk/guidance/regulating-medical-devices-in-the-event-of-a-no-deal-scenario
-  criteria:
-  - medical-tech
-  audience: business
-- id: T068
-  priority: 8
-  title: Get a legal representative in the UK, EU, Norway, Iceland or Liechtenstein
-    if you carry out clinical trials
-  consequence: You will not be able to carry out clinical trials without a legal representative.
-  guidance_prompt: More information
-  guidance_link_text: Guidance on substantial amendments to a clinical trial from
-    2021
-  guidance_url: https://www.gov.uk/guidance/guidance-on-substantial-amendments-to-a-clinical-trial-if-the-uk-leaves-the-eu-with-no-deal
-  criteria:
-  - pharma
-  audience: business
-- id: T069
-  priority: 8
-  title: Check what you need to do to sell or supply medicines in the UK
-  consequence: You will not be able to legally sell or supply medicines in the UK
-    if you do not get your business ready.
-  guidance_prompt: More information
-  guidance_link_text: Further guidance note on the regulation of medicines, medical
-    devices and clinical trials from 2021
-  guidance_url: https://www.gov.uk/government/collections/mhra-guidance-and-publications-on-a-possible-no-deal-scenario#marketing-authorisations,-variations-and-licensing-guidance
-  criteria:
-  - pharma
   audience: business
 - id: T071
   priority: 8
@@ -654,21 +661,6 @@ actions:
     - haulage-goods-across-eu-borders
     - road-passenger-freight
   audience: business
-- id: T073
-  priority: 8
-  title: Set up a 'duty deferment account' to pay your customs duties, import VAT
-    and excise duties monthly by Direct Debit, if you need to pay duty
-  title_url: https://www.gov.uk/government/publications/apply-to-defer-payment-of-customs-duties-import-vat-and-excise-duties
-  consequence: You'll need to pay your import duties as soon as your goods pass through
-    customs if you do not have a 'duty deferment account'.
-  lead_time: It takes up to one week
-  guidance_prompt: More information
-  guidance_link_text: Customs procedures if the UK leaves the EU without a deal -
-    Deferring Duty
-  guidance_url: https://www.gov.uk/guidance/customs-procedures-if-the-uk-leaves-the-eu-without-a-deal
-  criteria:
-  - import-from-eu
-  audience: business
 - id: T075
   priority: 8
   title: Register for a quicker way to move your goods to the EU
@@ -684,6 +676,22 @@ actions:
     - export-to-eu
     - haulage-goods-across-eu-borders
   audience: business
+- id: T076
+  priority: 2
+  title: Check on the Financial Conduct Authority’s website how your business will
+    be affected
+  title_url: https://www.fca.org.uk/firms/preparing-for-brexit
+  consequence: Financial institutions that carry out business between the UK and the
+    EU, Norway, Iceland or Liechtenstein risk not being able to operate if they do
+    not have the right plan in place.
+  guidance_prompt: More information
+  guidance_link_text: Information for financial institutions from 2021
+  guidance_url: https://www.gov.uk/government/publications/banking-insurance-and-other-financial-services-if-theres-no-brexit-deal/banking-insurance-and-other-financial-services-if-theres-no-brexit-deal-information-for-financial-services-institutions
+  criteria:
+  - any_of:
+    - finance
+    - insurance
+  audience: business
 - id: T077
   priority: 2
   title: Ask your employees to check if they need to apply to the EU Settlement Scheme
@@ -695,27 +703,15 @@ actions:
   criteria:
   - employ-eu-citizens
   audience: business
-- id: T078
-  priority: 6
-  title: Check what documents you need to run scheduled bus or coach services in EU
-    countries
-  consequence: You may not be able to run regular bus or coach services in EU countries
-    if you do not request authorisation in time.
-  guidance_link_text: 'Run international bus or coach services and tours from 2021;
-    Drive in the EU from 2021: bus and coach drivers'
-  guidance_url: https://www.gov.uk/guidance/run-international-bus-or-coach-services-after-brexit
-  criteria:
-  - road-passenger-freight
-  audience: business
 - id: T080
   priority: 5
   title: Disclose your designs if you want unregistered protection in the UK and EU
   consequence: If you do not do this you’ll only have protection where you first showed
     your design, either the UK or the EU.
   guidance_prompt: More information
-  guidance_link_text: Changes to registered design, design rights and international
-    design and trade mark law
-  guidance_url: https://www.gov.uk/guidance/changes-to-eu-and-international-designs-and-trade-mark-protection-after-brexit
+  guidance_link_text: Changes to EU and international designs and trade mark protection
+    from 1 January 2021
+  guidance_url: https://www.gov.uk/guidance/changes-to-eu-and-international-designs-and-trade-mark-protection-after-the-transition-period
   criteria:
   - any_of:
     - creative
@@ -732,8 +728,8 @@ actions:
   consequence: You risk not being able to continue working or providing legal services
     in the UK if you do not prepare.
   guidance_prompt: More information
-  guidance_link_text: EU lawyers in the UK from 2021
-  guidance_url: https://www.gov.uk/government/publications/eu-lawyers-in-the-uk-after-a-no-deal-brexit/eu-lawyers-in-the-uk-after-a-no-deal-brexit
+  guidance_link_text: EU lawyers in the UK from 1 January 2021
+  guidance_url: https://www.gov.uk/government/publications/eu-lawyers-in-the-uk-from-1-january-2021
   criteria:
   - legal-service
   audience: business
@@ -743,8 +739,8 @@ actions:
   consequence: You risk not being able to continue providing legal services in the
     same way if you do not meet new requirements.
   guidance_prompt: More information
-  guidance_link_text: Legal services business owners from 2021
-  guidance_url: https://www.gov.uk/government/publications/legal-services-business-owners-after-a-no-deal-brexit
+  guidance_link_text: Legal services business owners from 1 January 2021
+  guidance_url: https://www.gov.uk/government/publications/legal-services-business-owners-from-1-january-2021
   criteria:
   - legal-service
   audience: business
@@ -756,10 +752,27 @@ actions:
     in the EU if you do not prepare.
   guidance_prompt: More information
   guidance_link_text: UK lawyers practising in the EU, Norway, Iceland or Liechtenstein
-    from 2021
-  guidance_url: https://www.gov.uk/government/publications/uk-lawyers-practising-in-the-eu-norway-iceland-or-liechtenstein-after-a-no-deal-brexit
+    from 1 January 2021
+  guidance_url: https://www.gov.uk/government/publications/uk-lawyers-practising-in-the-eu-norway-iceland-or-liechtenstein-from-1-january-2021
   criteria:
   - legal-service
+  audience: business
+- id: T086
+  priority: 5
+  title: Check if you need to apply for plant variety rights to market seeds in the
+    UK and EU
+  consequence: You risk your varieties not being protected unless you apply for rights
+    in both the UK and EU.
+  exception: Even with variety rights, you will not be able to market seeds in the
+    EU from 2021 until new arrangements are agreed with the EU.
+  lead_time: It takes 2 months
+  guidance_prompt: More information
+  guidance_link_text: Plant variety rights and marketing from 2021
+  guidance_url: https://www.gov.uk/guidance/plant-variety-rights-and-marketing-plant-reproductive-material-if-the-uk-leaves-the-eu-without-a-deal
+  criteria:
+  - any_of:
+    - agriculture-farm
+    - forestry
   audience: business
 - id: T087
   priority: 8
@@ -784,8 +797,8 @@ actions:
   consequence: You will not be able to export rough diamonds from 1 January 2021 unless
     you have applied for a UK Kimberly Process certificate.
   guidance_prompt: More information
-  guidance_link_text: Trading in rough diamonds from 2021
-  guidance_url: https://www.gov.uk/government/publications/brexit-and-the-uk-trade-in-rough-diamonds
+  guidance_link_text: Trading internationally in rough diamonds from 1 January 2021
+  guidance_url: https://www.gov.uk/government/publications/trading-internationally-in-rough-diamonds-from-1-january-2021
   criteria:
   - diamond
   audience: business
