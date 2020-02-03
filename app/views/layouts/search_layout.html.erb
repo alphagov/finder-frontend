@@ -3,9 +3,9 @@
   <head>
     <title><%= yield :title %> - GOV.UK</title>
     <link title="Search" rel="search" type="application/opensearchdescription+xml" href="/search/opensearch.xml"/>
-    <%= stylesheet_link_tag "application", integrity: true, crossorigin: 'anonymous' %>
+    <%= stylesheet_link_tag "application", integrity: false %>
     <%= stylesheet_link_tag "print", media: "print" %>
-    <%= javascript_include_tag 'application', integrity: true, crossorigin: 'anonymous' %>
+    <%= javascript_include_tag 'application', integrity: false %>
     <% if @content_item %>
       <%= render 'govuk_publishing_components/components/meta_tags', content_item: @content_item %>
     <% end %>
