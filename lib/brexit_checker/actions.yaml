@@ -331,8 +331,8 @@ actions:
   consequence: You risk breaching reporting requirements in the EU, Norway, Iceland
     or Liechtenstein if you do not make any changes you need to.
   guidance_prompt: More information
-  guidance_link_text: Accounting after 2021
-  guidance_url: https://www.gov.uk/guidance/accounting-if-theres-no-brexit-deal
+  guidance_link_text: Accounting for UK companies from 1 January 2021
+  guidance_url: https://www.gov.uk/guidance/accounting-for-uk-companies-from-1-january-2021
   criteria:
   - provide-services-do-business-in-eu
   audience: business
