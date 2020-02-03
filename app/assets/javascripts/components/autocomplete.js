@@ -15,6 +15,8 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
     this.$label = this.$module.querySelector('label')
     this.$submitButton = this.$module.querySelector('button[type=submit]')
     this.$searchContainer = this.$module.querySelector('.gem-c-search')
+    // store user entered partial query for further use
+    this.userEnteredQuery = ''
     // use to store suggestions
     this.cachedSuggestions = []
 
@@ -128,12 +130,20 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
 
     window.GOVUK.SearchAnalytics.trackEvent(
       'suggestionClicked',
-      trackingDataOptions.position
+      'click',
+      {
+        'dimension333': this.userEnteredQuery,
+        'dimension444': trackingDataOptions.text,
+        'dimension555': trackingDataOptions.position,
+        'dimension666': trackingDataOptions.numberOfSuggestions
+      }
     )
+    document.querySelector('meta[name="govuk:publishing-application"]').setAttribute('content', 'suggestion selected')
   }
 
   Autocomplete.prototype.handleSearchQuery = function (query, populateResults) {
     statusMessage = 'Searching...'
+    this.userEnteredQuery = query
 
     // check if current string exists in the cached array
     // if it does exists, return matching items
