@@ -32,11 +32,11 @@ notifications:
      note: "Guidance link changed from general travel guidance to specific travel insurance guidance that contains more detailed information on the insurance you might need and the organisations you can contact."
      action_id: S011
      date: 2019-09-25
-  #  - uuid: "651b7e67-f02b-4c41-80e7-374fd1a9661a"
-  #    type: content_change
-  #    note: "Content updated to say that you may need to apply for plant variety rights in both the UK and the EU. New arrangements will have to be agreed between the UK and the EU before seeds can be marketed in the EU after Brexit."
-  #    action_id: T086
-  #    date: 2019-09-26
+   - uuid: "651b7e67-f02b-4c41-80e7-374fd1a9661a"
+     type: content_change
+     note: "Content updated to say that you may need to apply for plant variety rights in both the UK and the EU. New arrangements will have to be agreed between the UK and the EU before seeds can be marketed in the EU after Brexit."
+     action_id: T086
+     date: 2019-09-26
   #  - uuid: "d2335a6a-ea96-4647-86f1-164cc1144964"
   #    type: content_change
   #    action_id: T064
