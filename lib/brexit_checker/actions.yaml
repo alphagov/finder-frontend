@@ -680,7 +680,7 @@ actions:
   priority: 2
   title: Check on the Financial Conduct Authority’s website how your business will
     be affected
-  title_url: https://www.fca.org.uk/firms/preparing-for-brexit
+  title_url: https://www.fca.org.uk/brexit/considerations-uk-firms-after-implementation-period
   consequence: Financial institutions that carry out business between the UK and the
     EU, Norway, Iceland or Liechtenstein risk not being able to operate if they do
     not have the right plan in place.
