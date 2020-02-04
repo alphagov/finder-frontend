@@ -185,7 +185,17 @@
       this.updateOrder()
       this.updateLinks()
       this.updateTitle()
-      this.updateResults()
+      this.trackAutocompleteSuggestions()
+      pageUpdated = this.updateResults()
+      pageUpdated.done(
+        function () {
+          var newPath = window.location.pathname + '?' + $.param(this.state)
+          window.history.pushState(this.state, '', newPath)
+          this.trackingInit()
+          this.setRelevantResultCustomDimension()
+          this.trackPageView()
+        }.bind(this)
+      )
     }
   }
 
@@ -235,6 +245,23 @@
       }
       $spellingSuggestionMetaTag.setAttribute('content', suggestion)
     }
+  }
+
+  LiveSearch.prototype.trackAutocompleteSuggestions = function trackAutocompleteSuggestions () {
+    var $autocompleteSuggestions = this.$form.find('.app-autocomplete-search__menu').children()
+
+    var suggestionsCount = $autocompleteSuggestions.length === 1 &&
+      $autocompleteSuggestions.hasClass('app-autocomplete-search__option--no-results')
+      ? 0 : $autocompleteSuggestions.length
+
+    window.GOVUK.SearchAnalytics.trackEvent(
+      'noSuggestionClicked',
+      'click',
+      {
+        'dimension555': this.$form.find('.app-autocomplete-search__input').val(),
+        'dimension666': suggestionsCount
+      }
+    )
   }
 
   /**
