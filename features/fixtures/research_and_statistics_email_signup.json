@@ -38,12 +38,13 @@
   "details": {
     "email_filter_by": null,
     "email_filter_name": null,
-    "subscription_list_title_prefix": "Statistics",
+    "subscription_list_title_prefix": "",
     "filter": {},
     "email_filter_facets": [
       {
         "facet_id": "content_store_document_type",
-        "facet_name": "Research and statistics",
+        "facet_name": "All documents",
+        "facet_connector": "filtered by",
         "required": true,
         "facet_choices": [
           {

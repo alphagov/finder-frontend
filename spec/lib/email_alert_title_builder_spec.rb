@@ -4,6 +4,7 @@ require "email_alert_title_builder"
 describe EmailAlertTitleBuilder do
   include TaxonomySpecHelper
   include RegistrySpecHelper
+  include FixturesHelper
 
   subject do
     described_class.call(
@@ -198,6 +199,16 @@ describe EmailAlertTitleBuilder do
 
     it {
       is_expected.to eq("News and communicatons with people of Harry Potter, Ron Weasley, Albus Dumbledore, Cornelius Fudge, and Rufus Scrimgeour, organisations of Ministry of Magic, Gringots, and 1 other organisation, topics of Magical Education, Brexit, and Herbology, and 2 document types")
+    }
+  end
+
+  context "when a facet_connector is provided" do
+    let(:content_item) { research_and_stats_finder_signup_content_item }
+    let(:filter) { { "content_store_document_type" => %w(statistics_published research) } }
+    let(:subscription_list_title_prefix) { content_item.dig("details", "subscription_list_title_prefix") }
+    let(:facets) { content_item["details"].fetch("email_filter_facets", []) }
+    it {
+      is_expected.to eq("All documents filtered by Statistics (published) and Research")
     }
   end
 end
