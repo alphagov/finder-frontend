@@ -54,7 +54,7 @@ private
     path = transition_checker_results_path(c: criteria_keys)
 
     {
-      "title" => "How to prepare for a no deal Brexit",
+      "title" => "Get ready for 2021",
       "description" => "[You can view a copy of your results on GOV.UK.](#{Plek.new.website_root}#{path})",
       "group_id" => SUBSCRIBER_LIST_GROUP_ID,
       "tags" => { "brexit_checklist_criteria" => { "any" => criteria_keys } },
