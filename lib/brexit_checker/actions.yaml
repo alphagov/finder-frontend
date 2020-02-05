@@ -376,8 +376,8 @@ actions:
   consequence: You risk not being able to continue to parallel export IP-protected
     products from the UK to these locations if you do not have permission.
   guidance_prompt: More information
-  guidance_link_text: Exhaustion of intellectual property rights from 2021
-  guidance_url: https://www.gov.uk/guidance/exhaustion-of-ip-rights-and-parallel-trade-after-brexit
+  guidance_link_text: Exhaustion of IP rights and parallel trade from 1 January 2021
+  guidance_url: https://www.gov.uk/guidance/exhaustion-of-ip-rights-and-parallel-trade-after-the-transition-period
   criteria:
   - any_of:
     - import-from-eu
@@ -460,8 +460,8 @@ actions:
   audience: business
 - id: T022
   priority: 8
-  title: Check if you need to update your data protection arrangements to keep accessing
-    personal data from the EU
+  title: Check if you need to change your contract to keep accessing personal data
+    from the EU, Norway, Iceland or Liechtenstein
   title_url: https://www.gov.uk/guidance/using-personal-data-after-brexit#what-you-need-to-do-before-a-no-deal-brexit
   consequence: You may not be able to access personal data from the EU without the
     right arrangements in place.
@@ -582,8 +582,7 @@ actions:
   audience: business
 - id: T057
   priority: 4
-  title: Check which carbon pricing policies you need to comply with before and after
-    exit day
+  title: Check which carbon pricing policies you need to comply with
   consequence: You risk not complying correctly with emissions reporting and carbon
     pricing regulations, which could lead to a fine.
   lead_time: Up to one week
@@ -625,16 +624,31 @@ actions:
   criteria:
   - forestry
   audience: business
-- id: T061
-  priority: 5
-  title: Check if you need to apply for a permit for journeys through or between EU
-    countries
-  consequence: You risk not being able to transport goods through or between EU countries
-    if you do not have an ECMT permit.
-  lead_time: It takes up to 2 weeks
+- id: T063
+  priority: 6
+  title: Check what documents you need to run unscheduled bus or coach services in
+    EU countries
+  consequence: You risk not being able to run unscheduled services in Europe if you
+    do not have the right documents.
   guidance_prompt: More information
-  guidance_link_text: ECMT international road haulage permits
-  guidance_url: https://www.gov.uk/guidance/ecmt-international-road-haulage-permits
+  guidance_link_text: 'International bus and coach services: operator licences and
+    permits'
+  guidance_url: https://www.gov.uk/guidance/overseas-bus-and-coach-services-how-to-apply-for-authorisation
+  criteria:
+  - any_of:
+    - tourism
+    - road-passenger-freight
+  audience: business
+- id: T065
+  priority: 5
+  title: Check what documents you need to transport goods through the EU, if you’re
+    a haulier
+  consequence: You will not be able to transport haulage goods through the EU without
+    the right documents.
+  lead_time: It takes more than 4 weeks
+  guidance_prompt: More information
+  guidance_link_text: 'International road haulage: operator licences and permits'
+  guidance_url: https://www.gov.uk/guidance/international-authorisations-and-permits-for-road-haulage
   criteria:
   - any_of:
     - road-passenger-freight
@@ -702,6 +716,18 @@ actions:
   guidance_url: https://www.gov.uk/settled-status-eu-citizens-families
   criteria:
   - employ-eu-citizens
+  audience: business
+- id: T078
+  priority: 6
+  title: Check what documents you need to run scheduled bus or coach services in EU
+    countries
+  consequence: You may not be able to run regular bus or coach services in EU countries
+    if you do not request authorisation in time.
+  guidance_link_text: 'International bus and coach services: operator licences and
+    permits'
+  guidance_url: https://www.gov.uk/guidance/overseas-bus-and-coach-services-how-to-apply-for-authorisation
+  criteria:
+  - road-passenger-freight
   audience: business
 - id: T080
   priority: 5
