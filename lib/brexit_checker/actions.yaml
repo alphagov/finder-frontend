@@ -108,6 +108,28 @@ actions:
   audience: citizen
   grouping_criteria:
   - visiting-eu
+- id: S009
+  priority: 8
+  title: Contact your vet at least 4 months before travelling to make sure your pet
+    is able to travel to the EU
+  consequence: If your pet does not have the proper documents, you will not be able
+    to take it with you.
+  lead_time: It takes at least 4 months
+  guidance_prompt: More information
+  guidance_link_text: Pet travel to Europe from 2021
+  guidance_url: https://www.gov.uk/guidance/pet-travel-to-europe-after-brexit
+  criteria:
+  - all_of:
+    - living-uk
+    - any_of:
+      - visiting-eu
+      - visiting-ie
+      - travel-eu-business
+    - visiting-bring-pet
+  audience: citizen
+  grouping_criteria:
+  - visiting-eu
+  - visiting-ie
 - id: S010
   priority: 5
   title: Check whether your mobile phone company has changed its mobile roaming charges
@@ -279,6 +301,26 @@ actions:
   audience: citizen
   grouping_criteria:
   - living-eu
+- id: S032
+  priority: 4
+  title: Contact your vet at least 4 months before travelling to make sure your pet
+    or assistance dog is able to travel to the UK
+  consequence: If your pet (dog, cat or ferret) or assistance dog does not have the
+    proper documents, you will not be able to take it with you.
+  lead_time: It takes at least 4 months
+  guidance_prompt: More information
+  guidance_link_text: Pet travel from 2021
+  guidance_url: https://www.gov.uk/guidance/pet-travel-to-europe-after-brexit
+  criteria:
+  - all_of:
+    - any_of:
+      - living-eu
+      - living-ie
+    - visiting-uk
+    - visiting-bring-pet
+  audience: citizen
+  grouping_criteria:
+  - visiting-uk
 - id: S034
   priority: 8
   title: Check if you need a visa or work permit and meet the professional requirements
@@ -552,6 +594,104 @@ actions:
     - export-to-eu
     - import-from-eu
   audience: business
+- id: T033
+  priority: 8
+  title: Get a ‘certificate of conformity’ to move fruit and vegetables into or through
+    the EU
+  consequence: You risk your goods being delayed or rejected at the border if you
+    do not have the right documents.
+  lead_time: It takes 48 hours
+  guidance_prompt: More information
+  guidance_link_text: Fresh fruit and vegetable marketing standards from 2021
+  guidance_url: https://www.gov.uk/guidance/fresh-fruit-and-vegetable-marketing-standards-if-the-uk-leaves-the-eu-without-a-deal
+  criteria:
+  - any_of:
+    - export-to-eu
+    - forestry
+    - agriculture-farm
+    - food-drink-tobacco
+  audience: business
+- id: T035
+  priority: 8
+  title: Register as an approved food establishment to export food to the EU
+  title_url: https://www.food.gov.uk/business-guidance/approved-food-establishments
+  consequence: You will not be able to export food to the EU if you do not register.
+  lead_time: It takes up to 4 weeks
+  guidance_prompt: More information
+  guidance_link_text: Exporting animals and animal products from 2021
+  guidance_url: https://www.gov.uk/guidance/exporting-animals-animal-products-fish-and-fishery-products-if-the-uk-leaves-the-eu-with-no-deal
+  criteria:
+  - any_of:
+    - food-drink-tobacco
+    - animal-ex-food
+    - fish-inc-wholesale
+    - export-to-eu
+  audience: business
+- id: T036
+  priority: 8
+  title: Check how to label food if you're selling it in the UK or EU
+  consequence: You risk not being able to sell goods in the EU if they're labelled
+    incorrectly.
+  guidance_prompt: More information
+  guidance_link_text: Food labelling changes from 2021
+  guidance_url: https://www.gov.uk/guidance/food-labelling-changes-after-brexit
+  criteria:
+  - any_of:
+    - food-drink-tobacco
+    - export-to-eu
+  audience: business
+- id: T038
+  priority: 8
+  title: Check if you can export organic food to the EU, and how to label and trade
+    it
+  title_url: https://www.gov.uk/guidance/trading-and-labelling-organic-food-if-theres-no-brexit-deal
+  consequence: You risk not being able to sell your food as organic in the EU.
+  guidance_prompt: More information
+  guidance_link_text: Trading and labelling organic food from 2021
+  guidance_url: https://www.gov.uk/guidance/trading-and-labelling-organic-food-if-theres-no-brexit-deal
+  criteria:
+  - any_of:
+    - food-drink-tobacco
+    - export-to-eu
+  audience: business
+- id: T045
+  priority: 5
+  title: Print 'GB', 'GBR' or '826' on each egg you're exporting to the EU for people
+    to eat
+  consequence: You risk your eggs being delayed or rejected when they reach the EU
+    if they have the wrong marking.
+  guidance_prompt: More information
+  guidance_link_text: Egg marketing standards from 2021
+  guidance_url: https://www.gov.uk/guidance/egg-marketing-standards-if-theres-a-no-deal-brexit
+  criteria:
+  - agriculture-farm
+  audience: business
+- id: T046
+  priority: 5
+  title: Print markings on hatching eggs and boxes of chicks that you're exporting
+    to the EU
+  consequence: You risk your eggs or chicks being delayed or rejected when they reach
+    the EU if they have the wrong markings.
+  guidance_prompt: More information
+  guidance_link_text: Hatching eggs and chicks marketing standards from 2021
+  guidance_url: https://www.gov.uk/guidance/hatching-eggs-and-chicks-marketing-standards-when-the-uk-leaves-the-eu
+  criteria:
+  - agriculture-farm
+  audience: business
+- id: T047
+  priority: 5
+  title: Get a certificate to export poultry meat to the EU if it's printed with a
+    farming method
+  consequence: If your meat is printed with a farming method, such as 'Free range',
+    and you do not have a certificate, you risk it being delayed or rejected when
+    it reaches the EU.
+  lead_time: It usually takes up to 6 weeks
+  guidance_prompt: More information
+  guidance_link_text: Poultry meat marketing standards from 2021
+  guidance_url: https://www.gov.uk/guidance/poultry-meat-marketing-standards-when-the-uk-leaves-the-eu
+  criteria:
+  - agriculture-farm
+  audience: business
 - id: T050
   priority: 8
   title: Get an International Maritime Organisation (IMO) number if your boat is 12
@@ -579,6 +719,19 @@ actions:
   - any_of:
     - marine-transport
     - fish-inc-wholesale
+  audience: business
+- id: T052
+  priority: 8
+  title: Register your chemicals to an organisation based in the EU if you want to
+    export them to the EU
+  consequence: You risk not being able to export your chemicals if you do not register
+    them to an organisation in the EU.
+  lead_time: It usually takes up to 6 weeks
+  guidance_prompt: More information
+  guidance_link_text: How to comply with REACH chemical regulations
+  guidance_url: https://www.gov.uk/guidance/how-to-comply-with-reach-chemical-regulations
+  criteria:
+  - chemical
   audience: business
 - id: T057
   priority: 4
@@ -816,6 +969,35 @@ actions:
     - forestry
     - food-drink-tobacco
   audience: business
+- id: T088
+  priority: 5
+  title: If you buy chemicals from the EU, you will need to register on the new UK
+    REACH system
+  consequence: You risk not being able to bring chemicals into the UK if you do not
+    register.
+  lead_time: It usually takes up to 6 weeks
+  guidance_prompt: More information
+  guidance_link_text: How to comply with REACH chemical regulations
+  guidance_url: https://www.gov.uk/guidance/how-to-comply-with-reach-chemical-regulations
+  criteria:
+  - any_of:
+    - chemical
+    - import-from-eu
+  audience: business
+- id: T090
+  priority: 5
+  title: Export animals or products of animal origin (POAO) through the right EU border
+    inspection post and prepare the right documents
+  consequence: You risk your animals or products being delayed or rejected when they
+    reach the EU if you do not have the right documents or go through the wrong border
+    post.
+  lead_time: It takes up to 3 days
+  guidance_prompt: More information
+  guidance_link_text: Exporting animals and animal products from 2021
+  guidance_url: https://www.gov.uk/guidance/exporting-animals-animal-products-fish-and-fishery-products-if-the-uk-leaves-the-eu-with-no-deal
+  criteria:
+  - animal-ex-food
+  audience: business
 - id: T091
   priority: 5
   title: Check guidance on UK participation in the Kimberly Process Certification
@@ -827,6 +1009,18 @@ actions:
   guidance_url: https://www.gov.uk/government/publications/trading-internationally-in-rough-diamonds-from-1-january-2021
   criteria:
   - diamond
+  audience: business
+- id: T092
+  priority: 5
+  title: Check the rules on moving timber and timber products between the UK and the
+    EU
+  consequence: You risk your timber or timber products being delayed or rejected if
+    you do not follow the right rules.
+  guidance_prompt: More information
+  guidance_link_text: 'Trading timber: imports and exports from 2021'
+  guidance_url: https://www.gov.uk/guidance/trading-timber-imports-and-exports-if-theres-no-brexit-deal
+  criteria:
+  - forestry
   audience: business
 - id: T093
   priority: 5
@@ -845,6 +1039,36 @@ actions:
         - export-to-eu
       - chemical
     - non-metal-material
+  audience: business
+- id: T096
+  priority: 1
+  title: Check the rules on moving waste between the UK and the EU
+  consequence: You risk your waste shipments being delayed or rejected if you do not
+    follow the right rules.
+  guidance_prompt: More information
+  guidance_link_text: Importing and exporting waste from 2021
+  guidance_url: https://www.gov.uk/guidance/importing-and-exporting-waste-if-theres-no-brexit-deal
+  criteria:
+  - any_of:
+    - environment
+    - import-from-eu
+    - export-to-eu
+  audience: business
+- id: T097
+  priority: 2
+  title: Check if you need a CITES permit when moving endangered animal or plant species
+    between the UK and the EU
+  consequence: You risk not being able to move animals or plants protected under CITES.
+  guidance_prompt: More information
+  guidance_link_text: Trading and moving endangered species protected by CITES
+  guidance_url: https://www.gov.uk/guidance/trading-and-moving-endangered-species-protected-by-cites-if-theres-no-withdrawal-deal
+  criteria:
+  - any_of:
+    - import-from-eu
+    - export-to-eu
+    - fish-inc-wholesale
+    - forestry
+    - animal-ex-food
   audience: business
 - id: T098
   priority: 5
