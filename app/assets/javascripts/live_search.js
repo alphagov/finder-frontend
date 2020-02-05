@@ -154,7 +154,7 @@
       this.updateOrder()
       this.updateLinks()
       this.updateTitle()
-      this.trackAutocompleteSuggestions()
+      this.trackAutocompleteSuggestions(e)
       pageUpdated = this.updateResults()
       pageUpdated.done(
         function () {
@@ -194,21 +194,23 @@
     $spellingSuggestionMetaTag.attr('content', suggestion)
   }
 
-  LiveSearch.prototype.trackAutocompleteSuggestions = function trackAutocompleteSuggestions () {
+  LiveSearch.prototype.trackAutocompleteSuggestions = function trackAutocompleteSuggestions (e) {
     var $autocompleteSuggestions = this.$form.find('.app-autocomplete-search__menu').children()
+    // only fire if suggestion wasn't selected
+    if (e.type !== 'customFormChange') {
+      var suggestionsCount = $autocompleteSuggestions.length === 1 &&
+        $autocompleteSuggestions.hasClass('app-autocomplete-search__option--no-results')
+        ? 0 : $autocompleteSuggestions.length
 
-    var suggestionsCount = $autocompleteSuggestions.length === 1 &&
-      $autocompleteSuggestions.hasClass('app-autocomplete-search__option--no-results')
-      ? 0 : $autocompleteSuggestions.length
-
-    window.GOVUK.SearchAnalytics.trackEvent(
-      'noSuggestionClicked',
-      'click',
-      {
-        'dimension555': this.$form.find('.app-autocomplete-search__input').val(),
-        'dimension666': suggestionsCount
-      }
-    )
+      window.GOVUK.SearchAnalytics.trackEvent(
+        'noSuggestionClicked',
+        'click',
+        {
+          'dimension555': this.$form.find('.app-autocomplete-search__input').val(),
+          'dimension666': suggestionsCount
+        }
+      )
+    }
   }
 
   /**
