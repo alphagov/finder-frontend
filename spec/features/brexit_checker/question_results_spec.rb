@@ -159,7 +159,7 @@ RSpec.feature "Brexit Checker workflow", type: :feature do
 
   def and_i_should_see_a_mobile_roaming_action
     action = BrexitChecker::Action.find_by_id("S010")
-    expect(page).to have_css(".govuk-link[href='#{action.guidance_url}'][data-track-action='You and your family - Visiting the EU - 1.2 - Guidance']")
+    expect(page).to have_css(".govuk-link[href='#{action.guidance_url}'][data-track-action='You and your family - Visiting the EU - 1.3 - Guidance']")
     action_is_shown(action)
     action_has_analytics(action)
   end
