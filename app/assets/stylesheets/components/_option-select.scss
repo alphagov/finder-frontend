@@ -17,19 +17,7 @@
 
       // scss-lint:disable ColorVariable
       background-color: rgba(0, 0, 0, .5);
-      -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .5);
-    }
-  }
-
-  &.js-closed {
-    .app-c-option-select__filter,
-    .app-c-option-select__container,
-    .app-c-option-select__icon--up {
-      display: none;
-    }
-
-    .app-c-option-select__icon--down {
-      display: block;
+      -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, 0.87);
     }
   }
 
@@ -131,12 +119,20 @@
     padding: 10px 8px 5px 43px;
   }
 
-  .app-c-option-select__icon--up {
+  [aria-expanded="true"] ~ .app-c-option-select__icon--up {
+    display: block;
+  }
+
+  [aria-expanded="false"] ~ .app-c-option-select__icon--down {
     display: block;
   }
 
   .app-c-option-select__container {
     height: 200px;
+  }
+
+  [data-closed-on-load="true"] .app-c-option-select__container {
+    display: none;
   }
 }
 
@@ -144,4 +140,18 @@
   @include govuk-font($size: 14);
   color: $govuk-text-colour;
   margin-top: 3px;
+}
+
+.app-c-option-select.js-closed {
+  .app-c-option-select__filter,
+  .app-c-option-select__container {
+    display: none;
+  }
+}
+
+.app-c-option-select.js-opened {
+  .app-c-option-select__filter,
+  .app-c-option-select__container {
+    display: block;
+  }
 }
