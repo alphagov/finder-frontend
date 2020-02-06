@@ -1094,3 +1094,19 @@ actions:
     - import-from-eu
     - export-to-eu
   audience: business
+- id: T066
+  priority: 5
+  title: Check how to get approval to sell vehicles and vehicle parts in the UK and
+    the EU
+  consequence: You will not be able to sell vehicles or vehicle parts in the UK and
+    the EU if they are not approved correctly.
+  lead_time: It takes more than 4 weeks
+  guidance_prompt: More information
+  guidance_link_text: Vehicle type-approval from 2021
+  guidance_url: https://www.gov.uk/guidance/vehicle-type-approval-if-theres-no-brexit-deal
+  criteria:
+  - any_of:
+    - automotive
+    - road-passenger-freight
+    - motor-trade
+  audience: business
