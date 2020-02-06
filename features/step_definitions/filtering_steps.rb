@@ -10,10 +10,6 @@ Given(/^no results$/) do
   stub_taxonomy_api_request
 end
 
-Given /^the business finder QA exists/ do
-  stub_business_finder_qa_config
-end
-
 When(/^I view the finder with no keywords and no facets$/) do
   visit finder_path("mosw-reports")
 end
@@ -134,29 +130,6 @@ Given(/^I am in the variant B control group$/) do
   allow_any_instance_of(FindersController).to receive(:finder_top_result_variant).and_return(ab_test_variant)
 end
 
-When(/^I view the business readiness finder$/) do
-  stub_taxonomy_api_request
-  content_store_has_business_readiness_finder
-  content_store_has_business_readiness_email_signup
-  stub_whitehall_api_world_location_request
-  stub_rummager_api_request_with_business_readiness_results
-  stub_rummager_api_request_with_filtered_business_readiness_results(
-    "q" => "Keyword2",
-  )
-  stub_rummager_api_request_with_filtered_business_readiness_results(
-    "q" => "Keyword1 Keyword2",
-  )
-  stub_rummager_api_request_with_filtered_business_readiness_results(
-    "filter_any_facet_values[0]" => "24fd50fa-6619-46ca-96cd-8ce90fa076ce",
-  )
-  stub_rummager_api_request_with_filtered_business_readiness_results(
-    "filter_any_facet_values[0]" => "24fd50fa-6619-46ca-96cd-8ce90fa076ce",
-    "q" => "Keyword1 Keyword2",
-  )
-
-  visit finder_path("find-eu-exit-guidance-business")
-end
-
 When(/^I view the policy papers and consultations finder$/) do
   topic_taxonomy_has_taxons
   content_store_has_policy_and_engagement_finder
@@ -266,23 +239,6 @@ When(/^I search documents by keyword$/) do
   within ".filter-form" do
     fill_in("Search", with: @keyword_search)
   end
-  within ".js-live-search-fallback" do
-    click_on "Filter results"
-  end
-end
-
-When(/^I search documents by keyword for business finder$/) do
-  content_store_has_business_readiness_finder
-  stub_keyword_business_readiness_search_api_request
-
-  visit finder_path("find-eu-exit-guidance-business")
-
-  @keyword_search = "keyword searchable"
-
-  within ".filter-form" do
-    fill_in("Search", with: @keyword_search)
-  end
-
   within ".js-live-search-fallback" do
     click_on "Filter results"
   end
@@ -822,21 +778,6 @@ When("I create an email subscription") do
   within "#subscription-links-footer" do
     click_link("Get email alerts")
   end
-end
-
-Then("I see the email subscription page") do
-  visit finder_path("find-eu-exit-guidance-business/email-signup")
-  expect(page).to have_button("Create subscription")
-end
-
-And("I can see the business finder filters") do
-  expect(page).to have_css(".govuk-checkboxes__label", text: "Sector / Business area")
-  expect(page).to have_css(".govuk-checkboxes__label", text: "Organisation activity")
-  expect(page).to have_css(".govuk-checkboxes__label", text: "Who you employ")
-  expect(page).to have_css(".govuk-checkboxes__label", text: "Personal data")
-  expect(page).to have_css(".govuk-checkboxes__label", text: "Intellectual property")
-  expect(page).to have_css(".govuk-checkboxes__label", text: "EU or UK government funding")
-  expect(page).to have_css(".govuk-checkboxes__label", text: "Public sector procurement")
 end
 
 Then("I should see results in the default group") do

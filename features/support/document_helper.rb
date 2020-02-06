@@ -15,10 +15,6 @@ module DocumentHelper
 
   SEARCH_ENDPOINT = "#{Plek.current.find('search')}/search.json".freeze
 
-  def stub_business_finder_qa_config
-    allow_any_instance_of(QaController).to receive(:qa_config).and_return(business_readiness_qa_config)
-  end
-
   def stub_taxonomy_api_request
     stub_content_store_has_item("/", "links" => { "level_one_taxons" => [] })
   end
@@ -283,10 +279,6 @@ module DocumentHelper
     finder_fixture = File.read(Rails.root.join("features/fixtures/policy_and_engagement.json"))
 
     stub_content_store_has_item("/search/policy-papers-and-consultations", finder_fixture)
-  end
-
-  def content_store_has_business_finder_qa
-    stub_content_store_has_item(business_readiness_qa_config["base_path"], business_readiness_qa_config)
   end
 
   def content_store_has_business_readiness_finder

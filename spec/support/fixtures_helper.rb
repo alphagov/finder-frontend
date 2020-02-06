@@ -43,10 +43,6 @@ module FixturesHelper
     JSON.parse(File.read(fixtures_path + "/business_readiness_email_signup.json"))
   end
 
-  def business_readiness_qa_config
-    YAML.load_file(fixtures_path + "/prepare_business_uk_leaving_eu.yaml")
-  end
-
   def actions_csv_to_convert_to_yaml
     fixtures_path + "/actions_csv_to_convert.csv"
   end

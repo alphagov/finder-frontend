@@ -79,18 +79,6 @@ Then /^I am redirected to the finder results page/ do
   expect(current_url).to match(finder_url)
 end
 
-When /^I visit the business finder Q&A/ do
-  stub_taxonomy_api_request
-  content_store_has_business_finder_qa
-  content_store_has_business_readiness_finder
-  stub_rummager_api_request_with_filtered_business_readiness_results(
-    "filter_any_facet_values[0]" => "24fd50fa-6619-46ca-96cd-8ce90fa076ce",
-    "filter_any_facet_values[1]" => "a55f04df-3877-4c73-bbfe-ad7339cdfccf",
-  )
-  qa_url = business_readiness_qa_config["base_path"]
-  visit qa_url
-end
-
 When /^I select choice "(.+)"/ do |label|
   find("label", text: label).click
 end
@@ -104,10 +92,6 @@ When /^I skip the rest of the questions/ do
   5.times do
     click_on "Skip this question"
   end
-end
-
-Then /^I should be on the business finder page/ do
-  expect(page.current_path).to eq "/find-eu-exit-guidance-business"
 end
 
 Then /^the correct facets have been pre-selected/ do
