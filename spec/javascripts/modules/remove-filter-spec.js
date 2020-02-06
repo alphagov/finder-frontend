@@ -10,7 +10,7 @@ describe('remove-filter', function () {
   var removeFilter
   var $checkbox = $(
     '<div data-module="remove-filter">' +
-    '<button href="/search/news-and-communications" class="remove-filter" role="button" aria-label="Remove filter Brexit" data-module="remove-filter-link" data-facet="related_to_brexit" data-value="true" data-track-label="Brexit" data-name="">✕</button>' +
+    '<button href="/search/news-and-communications" class="remove-filter" role="button" aria-label="Remove filter transition period" data-module="remove-filter-link" data-facet="related_to_brexit" data-value="true" data-track-label="transition period" data-name="">✕</button>' +
   '</div>')
 
   var $oneTextQuery = $(

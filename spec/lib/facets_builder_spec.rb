@@ -70,12 +70,12 @@ describe FacetsBuilder do
       "allowed_values": [{ "value" => "my_manual" }],
     }
   }
-  let(:related_to_brexit_facet_hash) {
+  let(:related_to_transition_period_facet_hash) {
     {
       "key": "related_to_brexit",
       "filter_key": "all_part_of_taxonomy_tree",
       "filter_value": "d6c2de5d-ef90-45d1-82d4-5f2438369eea",
-      "name": "Show only Brexit results",
+      "name": "Show only transition period results",
       "type": "checkbox",
       "filterable": true,
     }
@@ -106,7 +106,7 @@ describe FacetsBuilder do
     ContentItem.new(content_item_hash)
   }
 
-  describe "Remove brexit checkbox filter" do
+  describe "Remove transition period checkbox filter" do
     subject(:facets) do
       FacetsBuilder.new(content_item: content_item, search_results: {}, value_hash: value_hash).facets
     end
@@ -117,28 +117,28 @@ describe FacetsBuilder do
             taxon_facet_hash,
             checkbox_facet_hash,
             radio_facet_hash,
-            related_to_brexit_facet_hash,
+            related_to_transition_period_facet_hash,
           ],
         },
       }
     }
-    context "The page is filtered on the brexit topic" do
+    context "The page is filtered on the transition period topic" do
       let(:value_hash) {
         {
           "topic" => ContentItem::BREXIT_CONTENT_ID,
         }
       }
-      it "contains no related to brexit taxon" do
+      it "contains no related to transition period taxon" do
         expect(facets).to_not include(an_object_satisfying { |facet| facet.key == "related_to_brexit" })
       end
     end
-    context "The page is not filtered on the brexit topic" do
+    context "The page is not filtered on the transition period topic" do
       let(:value_hash) {
         {
           related_to_brexit: ContentItem::BREXIT_CONTENT_ID,
         }
       }
-      it "contains a related to brexit taxon" do
+      it "contains a related to transition period taxon" do
         expect(facets).to include(an_object_satisfying { |facet| facet.key == "related_to_brexit" })
       end
     end
