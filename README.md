@@ -25,11 +25,7 @@ Finder pages provide facetted searching over a collection of documents.
 * [gov.uk/maib-reports](https://www.gov.uk/maib-reports)
 * [gov.uk/raib-reports](https://www.gov.uk/raib-reports)
 
-The EU exit business readiness finder ('business finder') provides a links-based facetted search of GOV.UK Brexit-related content for businesses:
-
-* [gov.uk/find-eu-exit-guidance-business](https://www.gov.uk/find-eu-exit-guidance-business)
-
-Read more about [how links-based facets are handled](docs/finder-facets-links.md) and the [business finder email signup](docs/business-finder-email-signup.md).
+Read more about [how links-based facets are handled](docs/finder-facets-links.md).
 
 ![Finder frontend screenshot](docs/assets/page-screenshot.png)
 
@@ -109,10 +105,6 @@ You can double check the filter by performing the following search using search-
 http://search-api.dev.gov.uk/search.json?filter_NAME=VALUE
 
 For more information please refer to the [search api documentation](https://github.com/alphagov/search-api/blob/master/doc/search-api.md).
-
-## Adding a Q&A frontend to a finder
-
-See the [documentation on the Q&A frontend](docs/q-and-a.md) and how it relates to a finder.
 
 ## Application structure
 
