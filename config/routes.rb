@@ -29,9 +29,6 @@ FinderFrontend::Application.routes.draw do
   get "/*slug/email-signup" => "email_alert_subscriptions#new", as: :new_email_alert_subscriptions
   post "/*slug/email-signup" => "email_alert_subscriptions#create", as: :email_alert_subscriptions
 
-  # Q&A frontend for "Find EU Exit guidance for your business" (www.gov.uk/find-eu-exit-guidance-business)
-  get "/prepare-business-uk-leaving-eu" => "qa#show"
-
   # Q&A frontend for "UK Nationals in the EU" (www.gov.uk/uk-nationals-in-the-eu)
   get "/uk-nationals-living-eu" => "qa_to_content#show"
 
