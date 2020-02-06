@@ -12,6 +12,5 @@
 - https://[HEROKU-APP-ID].herokuapp.com/find-eu-exit-guidance-business?keywords=eori&order=relevance
 - https://[HEROKU-APP-ID].herokuapp.com/find-eu-exit-guidance-business?sector_business_area%5B%5D=aerospace&order=topic
 - https://[HEROKU-APP-ID].herokuapp.com/uk-nationals-living-eu
-- https://[HEROKU-APP-ID].herokuapp.com/prepare-business-uk-leaving-eu
 
 [Other finders](https://live-stuff.herokuapp.com/finders)
