@@ -19,6 +19,8 @@ class BrexitCheckerController < ApplicationController
       previous_question_index: page,
     )
 
+    @business_sectors = load_business_sectors
+
     @current_question = all_questions[@question_index] if @question_index.present?
 
     @previous_page = previous_question_index(
@@ -49,6 +51,11 @@ class BrexitCheckerController < ApplicationController
   end
 
 private
+
+  def load_business_sectors
+    file = File.read('config/locales/en/brexit_checker/business_sectors.json')
+    JSON.parse(file)
+  end
 
   def subscriber_list_options
     path = transition_checker_results_path(c: criteria_keys)

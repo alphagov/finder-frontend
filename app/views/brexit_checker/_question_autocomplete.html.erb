@@ -1,0 +1,17 @@
+<%= render "govuk_publishing_components/components/title", {
+  title: "What does your business or organisation do?"
+} %>
+<%= render "govuk_publishing_components/components/autocomplete", {
+  id: "autocomplete-multiselect",
+  name: "autocomplete-multiselect",
+  label: {
+    text: "What sector/area does your business work in?",
+    bold: true
+  },
+  hint: "Select all that apply",
+  search_with_label: true,
+  select: {
+    multiple: true,
+    options: @business_sectors
+  }
+} %>

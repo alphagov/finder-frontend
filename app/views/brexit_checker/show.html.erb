@@ -39,6 +39,13 @@
               formatted_description: formatted_description
             } %>
           </div>
+        <% elsif @current_question.key.eql?("sector-business-area") %>
+          <div class="govuk-!-margin-top-8">
+            <%= render 'question_autocomplete', {
+              current_question: @current_question,
+              formatted_description: formatted_description
+            } %>
+          </div>
         <% elsif @current_question.multiple_grouped? %>
           <div class="govuk-!-margin-top-8">
             <%= render 'question_multiple_grouped_choice', {

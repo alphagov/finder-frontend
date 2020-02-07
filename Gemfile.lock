@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/alphagov/govuk_publishing_components.git
-  revision: 1eec84c5d3dd9427fa6288e48338c9c89877062a
+  revision: ed6af4d6384fa4fa94420a792ce85d77ad4f93b6
   branch: wip-autocomplete
   specs:
     govuk_publishing_components (21.22.0)
