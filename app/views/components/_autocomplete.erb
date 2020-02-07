@@ -1,0 +1,32 @@
+<%
+  id ||= "autocomplete-#{SecureRandom.hex(4)}"
+  type ||= nil
+  hint ||= nil
+  data_attributes ||= {}
+  input ||= {}
+  search ||= false
+  search_with_label ||= false
+
+  root_classes = %w(app-autocomplete)
+  if search
+    root_classes << "app-autocomplete--search"
+  elsif search_with_label
+    root_classes << "app-autocomplete--search-with-label"
+  end
+%>
+
+<%= tag.div class: root_classes, data: data_attributes.merge(module: "autocomplete", "autocomplete-type": type) do %>
+  <%= render "govuk_publishing_components/components/label", {
+    html_for: id
+  }.merge(label.symbolize_keys) %>
+
+  <%= tag.span hint, class: "govuk-hint" if hint %>
+  <% options = Array(input[:options]) %>
+
+  <%= tag.input name: name,
+    value: input[:value],
+    class: "govuk-input",
+    id: id,
+    list: options.any? ? "#{id}-list" : nil,
+    type: search ? "search" : "text" %>
+<% end %>
