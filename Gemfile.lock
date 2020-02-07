@@ -1,3 +1,19 @@
+GIT
+  remote: https://github.com/alphagov/govuk_publishing_components.git
+  revision: 1eec84c5d3dd9427fa6288e48338c9c89877062a
+  branch: wip-autocomplete
+  specs:
+    govuk_publishing_components (21.22.0)
+      gds-api-adapters
+      govuk_app_config
+      kramdown
+      plek
+      rails (>= 5.0.0.1)
+      rake
+      rouge
+      sassc-rails (>= 2.0.1)
+      sprockets (< 4)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -160,16 +176,6 @@ GEM
       statsd-ruby (~> 1.4.0)
       unicorn (>= 5.4, < 5.6)
     govuk_document_types (0.9.2)
-    govuk_publishing_components (21.21.3)
-      gds-api-adapters
-      govuk_app_config
-      kramdown
-      plek
-      rails (>= 5.0.0.1)
-      rake
-      rouge
-      sassc-rails (>= 2.0.1)
-      sprockets (< 4)
     govuk_schemas (4.0.0)
       json-schema (~> 2.8.0)
     govuk_test (1.0.3)
@@ -442,7 +448,7 @@ DEPENDENCIES
   govuk_ab_testing (~> 2.4.1)
   govuk_app_config (~> 2.0.2)
   govuk_document_types (~> 0.9.2)
-  govuk_publishing_components (~> 21.21.3)
+  govuk_publishing_components!
   govuk_schemas (~> 4.0)
   govuk_test
   jasmine-rails
