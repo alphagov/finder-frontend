@@ -301,6 +301,25 @@ actions:
   audience: citizen
   grouping_criteria:
   - living-eu
+- id: S030
+  priority: 5
+  title: Exchange your UK licence for a licence issued by the EU country you live
+    in
+  consequence: You will not be able to drive in the EU with a UK licence.
+  guidance_prompt: More information
+  guidance_link_text: 'Driving in the EU from 1 January 2021: UK licence holders living
+    in the EU'
+  guidance_url: https://www.gov.uk/guidance/driving-in-the-eu-from-1-january-2021-uk-licence-holders-living-in-the-eu
+  criteria:
+  - all_of:
+    - nationality-uk
+    - any_of:
+      - living-eu
+      - living-ie
+  audience: citizen
+  grouping_criteria:
+  - living-eu
+  - living-ie
 - id: S032
   priority: 4
   title: Contact your vet at least 4 months before travelling to make sure your pet
@@ -611,6 +630,20 @@ actions:
     - agriculture-farm
     - food-drink-tobacco
   audience: business
+- id: T034
+  priority: 8
+  title: Check how to register or label food or drink with a protected name
+  consequence: You risk your geographical indicator name not being protected if you
+    do not register correctly.
+  lead_time: It usually takes up to 6 weeks
+  guidance_prompt: More information
+  guidance_link_text: Protecting food and drink names from 1 January 2021
+  guidance_url: https://www.gov.uk/guidance/protecting-food-and-drink-names-if-theres-no-brexit-deal
+  criteria:
+  - any_of:
+    - agriculture-farm
+    - food-drink-tobacco
+  audience: business
 - id: T035
   priority: 8
   title: Register as an approved food establishment to export food to the EU
@@ -809,6 +842,22 @@ actions:
     - export-to-eu
     - haulage-goods-across-eu-borders
   audience: business
+- id: T066
+  priority: 5
+  title: Check how to get approval to sell vehicles and vehicle parts in the UK and
+    the EU
+  consequence: You will not be able to sell vehicles or vehicle parts in the UK and
+    the EU if they are not approved correctly.
+  lead_time: It takes more than 4 weeks
+  guidance_prompt: More information
+  guidance_link_text: Vehicle type-approval from 2021
+  guidance_url: https://www.gov.uk/guidance/vehicle-type-approval-if-theres-no-brexit-deal
+  criteria:
+  - any_of:
+    - automotive
+    - road-passenger-freight
+    - motor-trade
+  audience: business
 - id: T071
   priority: 8
   title: Get an EORI number that starts with GB to move your goods into or out of
@@ -984,6 +1033,17 @@ actions:
     - chemical
     - import-from-eu
   audience: business
+- id: T089
+  priority: 5
+  title: Talk to your vet 6 weeks before you travel with your horse or other equine
+    to the EU
+  consequence: You will not be able to take your horse or other equine to the EU.
+  guidance_prompt: More information
+  guidance_link_text: 'Export horses and ponies: special rules'
+  guidance_url: https://www.gov.uk/guidance/export-horses-and-ponies-special-rules
+  criteria:
+  - animal-ex-food
+  audience: business
 - id: T090
   priority: 5
   title: Export animals or products of animal origin (POAO) through the right EU border
@@ -1093,20 +1153,4 @@ actions:
   - any_of:
     - import-from-eu
     - export-to-eu
-  audience: business
-- id: T066
-  priority: 5
-  title: Check how to get approval to sell vehicles and vehicle parts in the UK and
-    the EU
-  consequence: You will not be able to sell vehicles or vehicle parts in the UK and
-    the EU if they are not approved correctly.
-  lead_time: It takes more than 4 weeks
-  guidance_prompt: More information
-  guidance_link_text: Vehicle type-approval from 2021
-  guidance_url: https://www.gov.uk/guidance/vehicle-type-approval-if-theres-no-brexit-deal
-  criteria:
-  - any_of:
-    - automotive
-    - road-passenger-freight
-    - motor-trade
   audience: business
