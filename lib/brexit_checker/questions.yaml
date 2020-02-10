@@ -28,7 +28,7 @@ questions:
 
   - key: employment
     type: multiple_grouped
-    text: 'Do you work or study?'
+    text: 'What do you do?'
     hint_text: 'Select all that apply. If you do something else, select continue.'
     options:
       - label: Work
