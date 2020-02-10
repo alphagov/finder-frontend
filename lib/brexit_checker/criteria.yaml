@@ -226,3 +226,5 @@ criteria:
   text: You travel to the EU for business
 - key: travel-eu-business-no
   text: You do not travel to the EU for business
+- key: retired
+  text: You are retired or semi-retired
