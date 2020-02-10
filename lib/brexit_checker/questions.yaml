@@ -47,6 +47,10 @@ questions:
             value: studying-ie
           - label: "Study in another EU country, or Switzerland, Norway, Iceland or Liechtenstein"
             value: studying-eu
+      - label: Retired
+        options:
+          - label: "I am retired or semi-retired"
+            value: retired
 
   - key: travelling-business
     type: single
