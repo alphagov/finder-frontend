@@ -134,7 +134,7 @@ class ContentItem
   end
 
   def raw_facets
-    @raw_facets ||= FacetExtractor.new(self).extract
+    content_item_hash.dig("details", "facets") || []
   end
 
   def redirect
