@@ -103,10 +103,6 @@ Feature: Filtering documents
     Then I can see a breadcrumb for home
     And no breadcrumb for all organisations
 
-  Scenario: Business readiness finder has taxon
-    When I view the business readiness finder
-    Then I can see Brexit taxonomy breadcrumbs
-
   Scenario: Visit a finder not from an organisation
     Given a finder tagged to the topic taxonomy
     Then I can see taxonomy breadcrumbs
@@ -124,13 +120,6 @@ Feature: Filtering documents
       | A-Z         |
       | Most viewed |
       | Relevance   |
-    When I view the business readiness finder
-    Then I can sort by:
-      | Topic         |
-      | Most viewed   |
-      | Relevance     |
-      | Most recent   |
-      | A to Z        |
 
   @javascript
   Scenario: Live sorting options
@@ -190,45 +179,6 @@ Feature: Filtering documents
     And I press tab key to navigate
     Then I see Relevance order selected
 
-  @javascript
-  Scenario: Adding keyword filter in business finder
-    When I view the business readiness finder
-    Then I see Topic order selected
-    And I fill in some keywords
-    And I press tab key to navigate
-    Then I see Relevance order selected
-
-  @javascript
-  Scenario: Adding keyword filter to facet search in business finder
-    When I view the business readiness finder
-    Then I see Topic order selected
-    And I select facet Aerospace in the already expanded "Sector / Business Area" section
-    Then I see results grouped by primary facet value
-    And I fill in some keywords
-    And I press tab key to navigate
-    Then I see Relevance order selected
-
-  Scenario: Arrive at the business finder through Q&A
-    Given the business finder QA exists
-    When I visit the business finder Q&A
-    And I select choice "Aerospace"
-    And I submit my answer
-    And I select choice "Sell goods or provide services in the UK"
-    And I submit my answer
-    And I skip the rest of the questions
-    Then I should be on the business finder page
-    And the correct facets have been pre-selected
-
-  @javascript
-  Scenario: Showing top result in business finder
-    Given I am in the variant B control group
-    When I view the business readiness finder
-    And I fill in some keywords
-    And I submit the form
-    Then I see Relevance order selected
-    And I see results with top result
-    And The top result has the correct tracking data
-
   Scenario: Subscribing to email alerts
     Given a collection of documents exist that can be filtered by checkbox
     When I use a checkbox filter
@@ -240,34 +190,11 @@ Feature: Filtering documents
     Then I can sign up to email alerts for allowed filters
 
   @javascript
-  Scenario: Subscribing to email alerts for business readiness finder
-    When I view the business readiness finder
-    And I create an email subscription
-    Then I see the email subscription page
-    And I can see the business finder filters
-
-  @javascript
   Scenario: Filter documents by keywords and sort by most relevant
     When I view the news and communications finder
     And I fill in some keywords
     And I sort by most relevant
     Then I see Relevance order selected
-
-  Scenario: Filter documents by keywords and sort by most relevant for business finder
-    When I view the business readiness finder
-    And I search documents by keyword for business finder
-    And I sort by most relevant
-    Then I see Relevance order selected
-
-  Scenario: Group documents by facets
-    When I view the business readiness finder
-    Then I should see results in the default group
-
-  @javascript
-  Scenario: Filter documents and group by facets
-    When I view the business readiness finder
-    And I select facet Aerospace in the already expanded "Sector / Business Area" section
-    Then I see results grouped by primary facet value
 
   Scenario: Dynamic facets continue to show all options on page reload
     When I view the news and communications finder

@@ -11,7 +11,6 @@ describe QaToContentController, type: :controller do
     let(:params)                  { {} }
 
     before do
-      allow_any_instance_of(QaController).to receive(:qa_config).and_return(uk_nationals_in_eu_yaml)
       get :show, params: params
     end
 

@@ -3,19 +3,6 @@ require_relative "../../spec/support/fixtures_helper"
 module QAHelper
   include FixturesHelper
 
-  def stub_qa_config
-    allow_any_instance_of(QaController).to receive(:qa_config).and_return(mock_qa_config)
-    allow_any_instance_of(QaController).to receive(:next_page_url).and_return(qa_path)
-  end
-
-  def stub_last_page_url
-    allow_any_instance_of(QaController).to receive(:next_page_url).and_return(mock_qa_config["finder_base_path"])
-  end
-
-  def qa_path
-    "/prepare-business-uk-leaving-eu"
-  end
-
   def mock_qa_config
     @mock_qa_config ||= YAML.load_file("./features/fixtures/aaib_reports_qa.yaml")
   end
