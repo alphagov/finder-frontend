@@ -39,14 +39,6 @@ class ResultSetPresenter
     }
   end
 
-  def highlight_top_result?
-    @show_top_result &&
-      content_item.eu_exit_finder? &&
-      documents.length >= 2 &&
-      unpresented_sort_option.dig("key").eql?("-relevance") &&
-      best_bet?
-  end
-
   def user_supplied_keywords
     @filter_params.fetch("keywords", "")
   end
@@ -70,13 +62,8 @@ private
                                 doc_count: documents.count,
                                 facets: facets,
                                 content_item: content_item,
-                                debug_score: debug_score,
-                                highlight: highlight(document.index)).document_list_component_data
+                                debug_score: debug_score).document_list_component_data
     end
-  end
-
-  def highlight(index)
-    index === 1 && highlight_top_result?
   end
 
   def best_bet?
