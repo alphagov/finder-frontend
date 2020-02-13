@@ -1,28 +1,13 @@
 <% content_for :head do %>
   <meta name="govuk:search-result-count" content="<%= result_set_presenter.total_count %>">
 <% end %>
-<% if local_assigns[:display_grouped_results] %>
-  <ul class="finder-results js-finder-results" data-module="track-click">
-    <% local_assigns[:grouped_document_list_component_data].each do |group| %>
-      <li class="filtered-results__group">
-        <% if group[:group_name] %>
-          <h2 class="filtered-results__facet-heading"><%= group[:group_name] %></h2>
-        <% end %>
-        <%= render "govuk_publishing_components/components/document_list", {
-          items: group[:documents],
-          remove_underline: true
-        } %>
-      </li>
-    <% end %>
-  </ul>
-<% else %>
-  <div class="finder-results js-finder-results" data-module="track-click">
-    <%= render "govuk_publishing_components/components/document_list", {
-      items: local_assigns[:document_list_component_data],
-      remove_underline: true
-    } %>
-  </div>
-<% end %>
+
+<div class="finder-results js-finder-results" data-module="track-click">
+  <%= render "govuk_publishing_components/components/document_list", {
+    items: local_assigns[:document_list_component_data],
+    remove_underline: true
+  } %>
+</div>
 
 <% if local_assigns[:zero_results] %>
   <%= link_to "ecommerce data", "www.gov.uk",

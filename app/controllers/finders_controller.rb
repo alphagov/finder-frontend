@@ -82,7 +82,7 @@ private
   end
 
   def result_set_presenter
-    @result_set_presenter ||= result_set_presenter_class.new(
+    @result_set_presenter ||= ResultSetPresenter.new(
       content_item,
       facets,
       results,
@@ -96,12 +96,6 @@ private
 
   def results
     @results ||= ResultSetParser.parse(search_results)
-  end
-
-  def result_set_presenter_class
-    return GroupedResultSetPresenter if grouped_display?
-
-    ResultSetPresenter
   end
 
   def facets
@@ -176,10 +170,6 @@ private
       sort_presenter,
       i_am_a_topic_page_finder: i_am_a_topic_page_finder,
     )
-  end
-
-  def grouped_display?
-    params["order"] == "topic" || sort_presenter.default_value == "topic"
   end
 
   def remove_search_box
