@@ -65,15 +65,4 @@ private
                                 debug_score: debug_score).document_list_component_data
     end
   end
-
-  def best_bet?
-    # We found the average score on the top 500 searches and found that 7 was the most suitable number
-    if documents[0].es_score && documents[1].es_score
-      (documents[0].es_score / documents[1].es_score) > 7
-    end
-  end
-
-  def unpresented_sort_option
-    sort_presenter.selected_option || {}
-  end
 end
