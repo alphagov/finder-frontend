@@ -42,7 +42,7 @@ RSpec.describe SignupLinksPresenter do
 
   let(:email_signup_hash) {
     {
-      web_url: "http://www.gov.uk/email_signup",
+      base_path: "/email_signup",
     }
   }
 
@@ -66,7 +66,7 @@ RSpec.describe SignupLinksPresenter do
         let(:facet_values) { [] }
 
         it "returns the finder URL appended with /email-signup" do
-          expect(subject.signup_links[:email_signup_link]).to eql("http://www.gov.uk/email_signup")
+          expect(subject.signup_links[:email_signup_link]).to eql("/email_signup")
         end
       end
 

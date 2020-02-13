@@ -22,7 +22,7 @@ private
     signup_link = content_item.signup_link
     return signup_link if signup_link.present?
 
-    "#{content_item.email_alert_signup['web_url']}#{query_string(alert_query_params)}" if content_item.email_alert_signup
+    "#{content_item.email_alert_signup['base_path']}#{query_string(alert_query_params)}" if content_item.email_alert_signup
   end
 
   def feed_link

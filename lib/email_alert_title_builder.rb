@@ -10,7 +10,7 @@ class EmailAlertTitleBuilder
   end
 
   def call
-    "#{prefix.to_s.strip} #{suffix}".strip.upcase_first
+    [prefix, suffix].compact.join(" ").strip.upcase_first
   end
 
 private
@@ -19,10 +19,10 @@ private
 
   def prefix
     if facets.size == 1 && subscription_list_title_prefix.is_a?(Hash)
-      subscription_list_title_prefix[plural_or_single].to_s
+      subscription_list_title_prefix[plural_or_single].to_s.strip
     elsif selected_facets.empty?
-      subscription_list_title_prefix.to_s
-    elsif subscription_list_title_prefix
+      subscription_list_title_prefix.to_s.strip
+    elsif subscription_list_title_prefix.present?
       "#{subscription_list_title_prefix.strip} with"
     end
   end
@@ -52,7 +52,7 @@ private
       if dynamic_filter_option?(facet_key)
         dynamic_facet_sentence(facet_key, facet_group.first["facet_name"])
       else
-        facet_group.map { |facet| facet["facet_name"] + " of " + topic_names_sentence(facet) }.to_sentence
+        facet_group.map { |facet| facet["facet_name"] + " #{facet.fetch('facet_connector', 'of')} " + topic_names_sentence(facet) }.to_sentence
       end
     }.to_sentence
   end
@@ -123,6 +123,7 @@ private
   def dynamic_filter_option?(filter_key)
     # these are keys such as organisations where it is not practical to
     # put all choices into the finder email signup content item.
+    facet = facet_by_filter_key(filter_key)
     %w(
       world_locations
       organisations
@@ -132,7 +133,11 @@ private
       all_part_of_taxonomy_tree
       document_type
       content_store_document_type
-    ).include?(filter_key)
+    ).include?(filter_key) && facet && facet.fetch("facet_choices", []).none?
+  end
+
+  def facet_by_filter_key(filter_key)
+    facets.find { |facet| facet.slice("facet_id", "filter_key").values.include?(filter_key) }
   end
 
   def is_brexit?(registry, content_id)

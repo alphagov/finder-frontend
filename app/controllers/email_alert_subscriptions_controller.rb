@@ -54,7 +54,7 @@ private
     EmailAlertSignupAPI.new(
       applied_filters: applied_filters,
       default_filters: content["details"].fetch("filter", {}),
-      facets: signup_presenter.choices,
+      facets: content["details"].fetch("email_filter_facets", []),
       subscriber_list_title: subscriber_list_title,
       email_filter_by: signup_presenter.email_filter_by,
     )
@@ -65,7 +65,7 @@ private
     title_builder.call(
       filter: applied_filters,
       subscription_list_title_prefix: content.dig("details", "subscription_list_title_prefix"),
-      facets: signup_presenter.choices,
+      facets: content["details"].fetch("email_filter_facets", []),
     )
   end
 end
