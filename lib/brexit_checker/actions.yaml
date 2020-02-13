@@ -892,22 +892,6 @@ actions:
     - export-to-eu
     - haulage-goods-across-eu-borders
   audience: business
-- id: T076
-  priority: 2
-  title: Check on the Financial Conduct Authority’s website how your business will
-    be affected
-  title_url: https://www.fca.org.uk/brexit/considerations-uk-firms-after-implementation-period
-  consequence: Financial institutions that carry out business between the UK and the
-    EU, Norway, Iceland or Liechtenstein risk not being able to operate if they do
-    not have the right plan in place.
-  guidance_prompt: More information
-  guidance_link_text: Information for financial institutions from 2021
-  guidance_url: https://www.gov.uk/government/publications/banking-insurance-and-other-financial-services-if-theres-no-brexit-deal/banking-insurance-and-other-financial-services-if-theres-no-brexit-deal-information-for-financial-services-institutions
-  criteria:
-  - any_of:
-    - finance
-    - insurance
-  audience: business
 - id: T077
   priority: 2
   title: Ask your employees to check if they need to apply to the EU Settlement Scheme
