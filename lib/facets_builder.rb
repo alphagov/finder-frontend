@@ -25,7 +25,7 @@ private
   end
 
   def facet_hashes
-    all_facet_hashes = FacetExtractor.new(content_item).extract
+    all_facet_hashes = content_item.raw_facets
     if filters_on_brexit_topic?
       all_facet_hashes.reject { |facet_hash| is_related_to_transition_period_checkbox?(facet_hash) }
     else
