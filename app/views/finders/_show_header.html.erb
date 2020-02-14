@@ -6,7 +6,7 @@
   <% if @breadcrumbs.breadcrumbs %>
     <%= render 'govuk_publishing_components/components/breadcrumbs', breadcrumbs: @breadcrumbs.breadcrumbs, inverse: inverse %>
   <% else %>
-    <%= render 'govuk_publishing_components/components/contextual_breadcrumbs', content_item: content_item.as_hash, prioritise_taxon_breadcrumbs: content_item.eu_exit_finder?, inverse: inverse %>
+    <%= render 'govuk_publishing_components/components/contextual_breadcrumbs', content_item: content_item.as_hash, inverse: inverse %>
   <% end %>
 
   <% if content_item.government? %>

@@ -2,7 +2,7 @@ class Document
   attr_reader :title, :public_timestamp, :is_historic, :government_name,
               :content_purpose_supergroup, :document_type, :organisations,
               :release_timestamp, :es_score, :format, :content_id, :index,
-              :facet_content_ids, :description, :score, :original_rank
+              :description, :score, :original_rank
 
   def initialize(document_hash, index)
     document_hash = document_hash.with_indifferent_access
@@ -21,7 +21,6 @@ class Document
     @score = document_hash.fetch(:combined_score, nil) || @es_score
     @original_rank = document_hash.fetch(:original_rank, nil)
     @format = document_hash.fetch(:format, nil)
-    @facet_content_ids = document_hash.fetch(:facet_values, [])
     @document_hash = document_hash
     @index = index
   end
@@ -55,10 +54,6 @@ private
        transaction
        answer
        guide).include?(@document_type)
-  end
-
-  def metadata_keys(facets)
-    date_metadata_keys(facets) + text_metadata_keys(facets)
   end
 
   def date_metadata_keys(facets)

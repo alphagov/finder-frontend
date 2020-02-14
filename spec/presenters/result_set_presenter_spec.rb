@@ -152,8 +152,6 @@ RSpec.describe ResultSetPresenter do
             },
           ],
           subtext: nil,
-          highlight: false,
-          highlight_text: nil,
         }
 
         search_result_objects = subject.search_results_content[:document_list_component_data]
@@ -173,44 +171,6 @@ RSpec.describe ResultSetPresenter do
       it "shows debug metadata" do
         search_result_objects = subject.search_results_content[:document_list_component_data]
         expect(search_result_objects.first[:subtext]).to eql(expected_document_content_with_debug)
-      end
-    end
-
-    context "check top result" do
-      let(:finder_content_id) { "42ce66de-04f3-4192-bf31-8394538e0734" } #brexit finder
-      let(:show_top_result) { true }
-      let(:filter_params) { { "order" => "relevance" } }
-      let(:results) do
-        [FactoryBot.build(:document_hash, es_score: 1.0, description_with_highlighting: "A description. With more text"),
-         FactoryBot.build(:document_hash, es_score: 0.1, description_with_highlighting: "Another description")]
-      end
-
-      context "top result set if best bet (score > 7*other)" do
-        it "has top result true" do
-          search_result_objects = subject.search_results_content[:document_list_component_data]
-          expect(search_result_objects[0][:highlight]).to be true
-          expect(search_result_objects[0][:highlight_text]).to eql("Most relevant result")
-          expect(search_result_objects[0][:link][:description]).to eql("A description.")
-        end
-      end
-
-      context "top result not set if no best bet (score < 7*other)" do
-        let(:results) do
-          [FactoryBot.build(:document_hash, es_score: 1.0, description_with_highlighting: "A description. With more text"),
-           FactoryBot.build(:document_hash, es_score: 0.5, description_with_highlighting: "Another description")]
-        end
-        it "has no top result" do
-          search_result_objects = subject.search_results_content[:document_list_component_data]
-          expect(search_result_objects[0][:highlight]).to_not eql(true)
-        end
-      end
-
-      context "top result not set if show top result is false" do
-        let(:show_top_result) { false }
-        it "has no top result" do
-          search_result_objects = subject.search_results_content[:document_list_component_data]
-          expect(search_result_objects[0][:highlight]).to_not eql(true)
-        end
       end
     end
   end

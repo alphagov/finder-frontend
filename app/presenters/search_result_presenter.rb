@@ -10,13 +10,12 @@ class SearchResultPresenter
            :original_rank,
            to: :document
 
-  def initialize(document:, rank:, metadata_presenter_class:, doc_count:, facets:, content_item:, debug_score:, highlight:)
+  def initialize(document:, rank:, metadata_presenter_class:, doc_count:, facets:, content_item:, debug_score:)
     @document = document
     @rank = rank
     @metadata = metadata_presenter_class.new(document.metadata(facets)).present
     @count = doc_count
     @debug_score = debug_score
-    @highlight = highlight
     @content_item = content_item
   end
 
@@ -41,8 +40,6 @@ class SearchResultPresenter
       metadata: structure_metadata,
       metadata_raw: metadata,
       subtext: subtext,
-      highlight: @highlight,
-      highlight_text: highlight_text,
     }
   end
 
@@ -53,11 +50,7 @@ private
   end
 
   def summary_text
-    document.truncated_description if @highlight || content_item.show_summaries?
-  end
-
-  def highlight_text
-    I18n.t("finders.search_result_presenter.most_relevant") if @highlight
+    document.truncated_description if content_item.show_summaries?
   end
 
   def subtext
@@ -77,14 +70,11 @@ private
   end
 
   def structure_metadata
-    return {} if content_item.eu_exit_finder?
-
     metadata.each_with_object({}) do |meta, component_metadata|
       value = meta[:is_date] ? "<time datetime='#{meta[:machine_date]}'>#{meta[:human_date]}</time>" : meta[:value]
       component_metadata[meta[:label]] = sanitize("#{meta[:label]}: #{value}", tags: %w(time span))
     end
   end
-
 
   attr_reader :document, :metadata, :content_item
 end

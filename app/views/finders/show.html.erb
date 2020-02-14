@@ -6,12 +6,6 @@
 <% content_for :head do %>
   <%= auto_discovery_link_tag(:atom, signup_links[:feed_link]) %>
   <%= render 'finder_meta', content_item: content_item %>
-
-  <% if result_set_presenter.highlight_top_result? %>
-    <meta name="govuk:relevant-result-shown" content="yes">
-  <% end %>
-
-  <%= finder_top_result_variant.analytics_meta_tag.html_safe if content_item.eu_exit_finder? %>
 <% end %>
 
 <% content_for :meta_title, content_item.title %>

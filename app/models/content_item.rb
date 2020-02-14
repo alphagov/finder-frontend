@@ -70,18 +70,8 @@ class ContentItem
     !!content_item_hash["details"]["no_index"]
   end
 
-  def canonical_link?
-    content_item_hash["details"]["canonical_link"]
-  end
-
   def all_content_finder?
     content_item_hash["content_id"] == "dd395436-9b40-41f3-8157-740a453ac972"
-  end
-
-  # FIXME: This should be removed once we have a way to determine
-  # whether to display metadata in the finder definition
-  def eu_exit_finder?
-    EuExitFinderHelper.eu_exit_finder? content_item_hash["content_id"]
   end
 
   def related
@@ -151,10 +141,6 @@ class ContentItem
 
   def government_content_section
     base_path.split("/")[2]
-  end
-
-  def display_metadata?
-    !eu_exit_finder?
   end
 
 private

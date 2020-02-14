@@ -11,33 +11,6 @@ module BrexitCheckerHelper
     "business-actions-criteria"
   end
 
-  def format_criterion(criteria_key)
-    BrexitChecker::Criterion.load_by(criteria_key).first.text
-  end
-
-  def format_criteria_list(criteria)
-    criteria.map { |criterion| { readable_text: criterion.text } }
-  end
-
-  def format_action_audiences(actions)
-    business, citizen = actions.partition { |action| action.audience == "business" }
-    business_results = {
-      heading: I18n.t("brexit_checker.results.audiences.business.heading"),
-      actions: order_actions_by_priority(business),
-    }
-    citizen_results = {
-      heading: I18n.t("brexit_checker.results.audiences.citizen.heading"),
-      actions: order_actions_by_priority(citizen),
-    }
-    [business_results, citizen_results]
-  end
-
-  def order_actions_by_priority(action_group)
-    action_group.sort_by.with_index do |action, index|
-      [-action.priority, index]
-    end
-  end
-
   def filter_items(items, criteria_keys)
     items.select { |i| i.show?(criteria_keys) }
   end
