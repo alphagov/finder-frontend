@@ -17,7 +17,7 @@
     <% if facets.select(&:filterable?).any? %>
       <button class="app-c-button-as-link app-mobile-filters-link js-show-mobile-filters"
         data-toggle="mobile-filters-modal" data-target="facet-wrapper"
-        data-module="track-click" data-track-category="filterClicked" 
+        data-module="track-click" data-track-category="filterClicked"
         data-track-action="mobile-filter-button" data-track-label="">
         Filter <span class="govuk-visually-hidden"> results</span>
         <span class="js-selected-filter-count"><%= sanitize facet_tags.display_total_selected_filters %></span>
@@ -49,7 +49,7 @@
           </div>
           <button class="app-c-button-as-link facets__clear-link js-clear-selected-filters" type="button">
             Clear all filters
-          </button> 
+          </button>
         </div>
         <div class="facets__footer">
           <button class="gem-c-button govuk-button js-close-filters js-show-results" type="button">
