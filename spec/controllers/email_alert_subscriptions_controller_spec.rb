@@ -350,59 +350,5 @@ describe EmailAlertSubscriptionsController, type: :controller do
         expect(response).to render_template(:new)
       end
     end
-
-    # TODO: Remove email_filter_by key
-    context "with email_filter_by set to 'facet_values'" do
-      it "should call EmailAlertListTitleBuilder instead of EmailAlertTitleBuilder" do
-        stub_content_store_has_item("/find-eu-exit-guidance-business", business_readiness_content_item)
-        stub_content_store_has_item("/find-eu-exit-guidance-business/email-signup", business_readiness_signup_content_item)
-        email_alert_api_has_subscriber_list(
-          "links" => {
-            "facet_values" => { any: %w(24fd50fa-6619-46ca-96cd-8ce90fa076ce) },
-          },
-          "subscription_url" => "http://www.gov.uk/subscription/find-eu-exit-guidance-business",
-          "email_filter_by" => "facet_values",
-        )
-
-        allow(EmailAlertListTitleBuilder).to receive(:call)
-
-        post :create, params: {
-          slug: "find-eu-exit-guidance-business",
-          filter: {
-            "sector_business_area" => %w(24fd50fa-6619-46ca-96cd-8ce90fa076ce),
-          },
-        }
-
-        expect(EmailAlertListTitleBuilder).to have_received(:call)
-      end
-
-      context "with blank email_filter_by" do
-        before do
-          stub_content_store_has_item("/cma_cases", cma_cases_content_item)
-          stub_content_store_has_item("/cma_cases/email-signup", cma_cases_signup_content_item)
-        end
-
-        it "should not call EmailAlertListTitleBuilder instead of EmailAlertTitleBuilder" do
-          email_alert_api_has_subscriber_list(
-            "tags" => {
-              "format" => { any: %w[cma_case] },
-              "case_type" => { any: %w[markets] },
-            },
-            "subscription_url" => "http://www.gov.uk/subscription/cma-markets",
-          )
-
-          allow(EmailAlertTitleBuilder).to receive(:call)
-
-          post :create, params: {
-            slug: "cma_cases",
-            filter: {
-              "case_type" => %w[markets],
-            },
-          }
-
-          expect(EmailAlertTitleBuilder).to have_received(:call)
-        end
-      end
-    end
   end
 end
