@@ -508,7 +508,7 @@ actions:
     the gas and oil industry in the EU, Switzerland, Norway, Iceland or Liechtenstein
   consequence: You will not be able to make or operate aircraft for the gas and oil
     industry in these locations without the right documents.
-  lead_time: Up to one week
+  lead_time: It takes up to one week to get the right documents
   guidance_prompt: More information
   guidance_link_text: Prepare to work and operate in the European aviation sector
     from 2021
@@ -635,7 +635,7 @@ actions:
   title: Check how to register or label food or drink with a protected name
   consequence: You risk your geographical indicator name not being protected if you
     do not register correctly.
-  lead_time: It usually takes up to 6 weeks
+  lead_time: It takes up to 6 weeks to register
   guidance_prompt: More information
   guidance_link_text: Protecting food and drink names from 1 January 2021
   guidance_url: https://www.gov.uk/guidance/protecting-food-and-drink-names-if-theres-no-brexit-deal
@@ -771,7 +771,6 @@ actions:
   title: Check which carbon pricing policies you need to comply with
   consequence: You risk not complying correctly with emissions reporting and carbon
     pricing regulations, which could lead to a fine.
-  lead_time: Up to one week
   guidance_prompt: More information
   guidance_link_text: Meeting climate change requirements from 2021
   guidance_url: https://www.gov.uk/government/publications/meeting-climate-change-requirements-if-theres-no-brexit-deal
@@ -831,7 +830,7 @@ actions:
     a haulier
   consequence: You will not be able to transport haulage goods through the EU without
     the right documents.
-  lead_time: It takes more than 4 weeks
+  lead_time: It takes more than 4 weeks to get the right documents
   guidance_prompt: More information
   guidance_link_text: 'International road haulage: operator licences and permits'
   guidance_url: https://www.gov.uk/guidance/international-authorisations-and-permits-for-road-haulage
@@ -848,7 +847,7 @@ actions:
     the EU
   consequence: You will not be able to sell vehicles or vehicle parts in the UK and
     the EU if they are not approved correctly.
-  lead_time: It takes more than 4 weeks
+  lead_time: It takes more than 4 weeks to get approved
   guidance_prompt: More information
   guidance_link_text: Vehicle type-approval from 2021
   guidance_url: https://www.gov.uk/guidance/vehicle-type-approval-if-theres-no-brexit-deal
@@ -977,7 +976,7 @@ actions:
     in both the UK and EU.
   exception: Even with variety rights, you will not be able to market seeds in the
     EU from 2021 until new arrangements are agreed with the EU.
-  lead_time: It takes 2 months
+  lead_time: It takes 2 months to get the rights for both the UK and EU
   guidance_prompt: More information
   guidance_link_text: Plant variety rights and marketing from 2021
   guidance_url: https://www.gov.uk/guidance/plant-variety-rights-and-marketing-plant-reproductive-material-if-the-uk-leaves-the-eu-without-a-deal
@@ -992,7 +991,7 @@ actions:
     the EU
   consequence: You risk the plants being delayed or rejected when they reach the EU
     if you do not have the certificate.
-  lead_time: It takes up to 7 days
+  lead_time: It takes up to 7 days to get the certificate
   guidance_prompt: More information
   guidance_link_text: Importing and exporting plants and plant products from 2021
   guidance_url: https://www.gov.uk/guidance/importing-and-exporting-plants-and-plant-products-if-theres-no-withdrawal-deal
@@ -1035,9 +1034,10 @@ actions:
   consequence: You risk your animals or products being delayed or rejected when they
     reach the EU if you do not have the right documents or go through the wrong border
     post.
-  lead_time: It takes up to 3 days
+  lead_time: It takes up to 3 days to get the right documents
   guidance_prompt: More information
-  guidance_link_text: Exporting animals and animal products from 2021
+  guidance_link_text: Exporting animals and animal products to the EU from 1 January
+    2021
   guidance_url: https://www.gov.uk/guidance/exporting-animals-animal-products-fish-and-fishery-products-if-the-uk-leaves-the-eu-with-no-deal
   criteria:
   - animal-ex-food
