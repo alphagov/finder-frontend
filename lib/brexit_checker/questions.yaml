@@ -2,6 +2,7 @@
 questions:
   - key: nationality
     type: single
+    caption: About you and your family
     text: 'What nationality are you?'
     options:
       - label: British
@@ -15,6 +16,7 @@ questions:
 
   - key: living
     type: single
+    caption: About you and your family
     text: 'Where do you live?'
     options:
       - label: UK
@@ -28,6 +30,7 @@ questions:
 
   - key: employment
     type: multiple_grouped
+    caption: About you and your family
     text: 'What do you do?'
     hint_text: 'Select all that apply. If you do something else, select continue.'
     options:
@@ -54,6 +57,7 @@ questions:
 
   - key: travelling-business
     type: single
+    caption: About you and your family
     text: 'Do you travel to the EU for business?'
     criteria:
       - living-uk
@@ -72,6 +76,7 @@ questions:
 
   - key: drive-in-eu
     type: single
+    caption: About you and your family
     text: "Do you drive in the EU using a UK licence?"
     criteria:
       - all_of:
@@ -85,6 +90,7 @@ questions:
 
   - key: travelling
     type: multiple
+    caption: About you and your family
     text: 'Where do you plan to travel for leisure and tourism?'
     hint_text: Select all that apply. If you do not plan to travel, select continue.
     detail_text: |
@@ -112,6 +118,7 @@ questions:
         - visiting-uk
         - travel-eu-business
     type: multiple
+    caption: About you and your family
     text: 'Do you plan to do either of the following when travelling?'
     hint_text: "Select all that apply. If neither apply, select continue."
     detail_text: |
@@ -124,6 +131,7 @@ questions:
         value: visiting-bring-pet
 
   - key: returning
+    caption: About you and your family
     criteria:
       - all_of:
         - nationality-uk
@@ -140,6 +148,7 @@ questions:
 
   - key: family-eu
     type: single
+    caption: About you and your family
     text: 'Are you a family member of an EU, EEA or Swiss citizen?'
     criteria:
       all_of:
@@ -153,6 +162,7 @@ questions:
 
   - key: join-family-uk
     type: single
+    caption: About you and your family
     text: "Do you plan to join a family member in the UK who's from the UK, EU, Switzerland, Norway, Iceland or Liechtenstein?"
     criteria:
       - all_of:
@@ -170,6 +180,7 @@ questions:
 
   - key: do-you-own-a-business
     type: "single"
+    caption: About your business
     text: "Do you own or help to run a UK business or organisation?"
     description: |
       <p>This includes sole traders (self-employed), limited companies, and small and medium enterprises.</p>
@@ -183,6 +194,7 @@ questions:
         value: does-not-own-operate-business-organisation
 
   - key: employ-eu-citizens
+    caption: About your business
     criteria:
       - owns-operates-business-organisation
     type: "single"
@@ -198,6 +210,7 @@ questions:
   - key: personal-data
     criteria:
       - owns-operates-business-organisation
+    caption: About your business
     type: "single_wrapped"
     text: "Do you exchange personal data with another organisation in Europe?"
     description: |
@@ -219,6 +232,7 @@ questions:
   - key: eu-uk-government-funding
     criteria:
       - owns-operates-business-organisation
+    caption: About your business
     type: "single"
     text: "Do you get EU or UK government funding?"
     description: |
@@ -232,6 +246,7 @@ questions:
   - key: public-sector-procurement
     criteria:
       - owns-operates-business-organisation
+    caption: About your business
     type: "single_wrapped"
     text: "Do you sell your products or services to the UK public sector?"
     description: |
@@ -250,6 +265,7 @@ questions:
   - key: intellectual-property
     criteria:
       - owns-operates-business-organisation
+    caption: About your business
     type: "single_wrapped"
     text: "Do you use or rely on intellectual property (IP) protection?"
     description: |
@@ -274,6 +290,7 @@ questions:
   - key: business-activity
     criteria:
       - owns-operates-business-organisation
+    caption: About your business
     type: "multiple"
     text: "Does your business or organisation do any of the following?"
     description: |
@@ -291,6 +308,7 @@ questions:
   - key: sector-business-area
     criteria:
       - owns-operates-business-organisation
+    caption: About your business
     type: "multiple_grouped"
     text: "What does your business or organisation do?"
     hint_text: "Select all that apply."
