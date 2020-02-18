@@ -48,20 +48,6 @@ RSpec.describe SubscriberListParamsPresenter do
       )
     end
 
-    it "returns hash with values if cannot modify choices" do
-      finder_content_item = business_readiness_signup_content_item
-
-      finder_content_item = finder_content_item.tap do |content_item|
-        content_item["details"]["email_filter_by"] = "all_selected_facets"
-      end
-
-      params = { "sector_business_area" => %w(accommodation aerospace) }
-
-      presenter = described_class.new(finder_content_item, params)
-
-      expect(presenter.subscriber_list_params).to eql(params)
-    end
-
     it "returns empty hash if email_filter_facet includes facet_choices in the content_item" do
       signup_finder_content_item = signup_finder.tap do |content_item|
         content_item["details"]["email_filter_facets"] = [

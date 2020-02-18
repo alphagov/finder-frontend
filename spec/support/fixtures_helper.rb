@@ -35,14 +35,6 @@ module FixturesHelper
     JSON.parse(File.read(fixtures_path + "/cma_cases_with_multi_facets_signup_content_item.json"))
   end
 
-  def business_readiness_content_item
-    JSON.parse(File.read(fixtures_path + "/business_readiness.json"))
-  end
-
-  def business_readiness_signup_content_item
-    JSON.parse(File.read(fixtures_path + "/business_readiness_email_signup.json"))
-  end
-
   def actions_csv_to_convert_to_yaml
     fixtures_path + "/actions_csv_to_convert.csv"
   end

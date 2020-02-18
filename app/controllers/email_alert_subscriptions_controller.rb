@@ -61,8 +61,7 @@ private
   end
 
   def subscriber_list_title
-    title_builder = signup_presenter.email_filter_by == "facet_values" ? EmailAlertListTitleBuilder : EmailAlertTitleBuilder
-    title_builder.call(
+    EmailAlertTitleBuilder.call(
       filter: applied_filters,
       subscription_list_title_prefix: content.dig("details", "subscription_list_title_prefix"),
       facets: content["details"].fetch("email_filter_facets", []),
