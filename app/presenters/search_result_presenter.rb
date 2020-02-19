@@ -71,6 +71,8 @@ private
 
   def structure_metadata
     metadata.each_with_object({}) do |meta, component_metadata|
+      next if meta[:is_date] && format == "recommended-link"
+
       value = meta[:is_date] ? "<time datetime='#{meta[:machine_date]}'>#{meta[:human_date]}</time>" : meta[:value]
       component_metadata[meta[:label]] = sanitize("#{meta[:label]}: #{value}", tags: %w(time span))
     end
