@@ -2,6 +2,7 @@
   <%= render "govuk_publishing_components/components/radio", {
     name: "c[]",
     heading: current_question.text,
+    heading_caption: current_question.caption,
     description: formatted_description,
     hint: current_question.hint_text,
     is_page_heading: true,

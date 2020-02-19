@@ -8,7 +8,7 @@ class BrexitChecker::Question
   validate { errors.add("Options is not an array") unless options.is_a? Array }
 
   attr_reader :key, :text, :description, :hint_title, :hint_text, :type, :criteria,
-              :detail_text, :detail_title
+              :detail_text, :detail_title, :caption
 
   def initialize(attrs)
     attrs.each { |key, value| instance_variable_set("@#{key}", value) }
