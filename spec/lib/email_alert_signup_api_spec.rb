@@ -322,46 +322,6 @@ describe EmailAlertSignupAPI do
     end
   end
 
-  describe "business readiness tags" do
-    context "with the tags done right" do
-      let(:applied_filters) do
-        {
-          "facet_groups" => %w(52435175-82ed-4a04-adef-74c0199d0f46),
-        }
-      end
-      let(:facets) do
-        [
-          {
-            "facet_id" => "facet_groups",
-            "facet_name" => "facet_groups",
-            "facet_choices" => [
-              {
-                "key" => "52435175-82ed-4a04-adef-74c0199d0f46",
-                "radio_button_name" => "52435175-82ed-4a04-adef-74c0199d0f46",
-                "prechecked" => true,
-              },
-            ],
-          },
-        ]
-      end
-      let(:subscription_url) { "http://gov.uk/email/business-readiness-subscription" }
-      let(:signup_content_id) { "not-the-business-readiness-signup-content-id" }
-
-
-      it "asks email-alert-api to find or create the subscriber list" do
-        req = email_alert_api_has_subscriber_list(
-          "links" => {
-            "facet_groups" => { any: %w(52435175-82ed-4a04-adef-74c0199d0f46) },
-          },
-          "subscription_url" => subscription_url,
-        )
-
-        expect(subject.signup_url).to eql subscription_url
-        assert_requested(req)
-      end
-    end
-  end
-
   context "when choices have filter_values" do
     let(:subscription_url) { "http://gov.uk/email/news-and-comms-subscription" }
     let(:applied_filters) do
