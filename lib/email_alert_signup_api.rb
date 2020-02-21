@@ -33,17 +33,8 @@ private
   end
 
   def subscriber_list_options
-    options = { "title" => subscriber_list_title }
-    if facet_groups? #business readiness legacy
-      options["links"] = facet_groups
-    elsif facet_values? #business readiness
-      options["links"] = facet_values
-    elsif link_based_subscriber_list?
-      options["links"] = links
-    else
-      options["tags"] = tags
-    end
-    options
+    options = link_based_subscriber_list? ? { "links" => links } : { "tags" => tags }
+    options.merge("title" => subscriber_list_title)
   end
 
   def link_based_subscriber_list?
@@ -88,20 +79,6 @@ private
 
   def facet_filter_keys
     @facet_filter_keys ||= facets.map { |f| f["filter_key"] || f["facet_id"] }
-  end
-
-  def facet_groups?
-    facets.any? { |facet| facet["facet_id"] == "facet_groups" }
-  end
-
-  def facet_groups
-    facet_groups = facets.map do |facet|
-      facet["facet_choices"].map do |facet_choice|
-        facet_choice["key"]
-      end
-    end
-
-    { "facet_groups" => { any: facet_groups.flatten } }
   end
 
   def facet_values?
