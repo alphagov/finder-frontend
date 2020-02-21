@@ -12,7 +12,7 @@ Rails.application.configure do
   # More details:
   # https://guides.rubyonrails.org/caching_with_rails.html#activesupport-cache-memcachestore
   config.cache_classes = true
-  config.cache_store = :dalli_store, nil, { namespace: :finder_frontend, compress: true }
+  config.cache_store = :memory_store
 
   # Do not eager load code on boot. This avoids loading your whole application
   # just for the purpose of running a single test. If you are using a tool that
