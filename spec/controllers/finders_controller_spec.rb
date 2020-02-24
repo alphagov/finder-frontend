@@ -251,25 +251,6 @@ describe FindersController, type: :controller do
     end
   end
 
-  context "with Learning To Rank header" do
-    before do
-      stub_content_store_has_item("/search/all", all_content_finder)
-    end
-
-    it "requests the B variant" do
-      request = search_api_request(query: { ab_tests: "relevance:B" })
-      @request.headers["Govuk-Use-Search-Reranker"] = "true"
-      get :show, params: { slug: "search/all" }
-      expect(request).to have_been_made.once
-    end
-
-    it "requests the control variant (A) by default" do
-      request = search_api_request
-      get :show, params: { slug: "search/all" }
-      expect(request).to have_been_made.once
-    end
-  end
-
   describe "Spelling suggestions" do
     let(:breakfast_finder) do
       finder = govuk_content_schema_example("finder").to_hash.merge(
