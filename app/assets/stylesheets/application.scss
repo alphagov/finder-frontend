@@ -2,7 +2,34 @@ $govuk-compatibility-govuktemplate: true;
 $govuk-use-legacy-palette: false;
 
 @import 'reset';
-@import 'govuk_publishing_components/all_components';
+
+// see /component-guide for sass imports and
+// https://github.com/alphagov/govuk_publishing_components/blob/master/docs/install-and-use.md#import-sass-for-individual-components
+// for guidance
+@import 'govuk_publishing_components/govuk_frontend_support';
+@import 'govuk_publishing_components/component_support';
+@import 'govuk_publishing_components/components/_back-link';
+@import 'govuk_publishing_components/components/_breadcrumbs';
+@import 'govuk_publishing_components/components/_button';
+@import 'govuk_publishing_components/components/_checkboxes';
+@import 'govuk_publishing_components/components/_details';
+@import 'govuk_publishing_components/components/_document-list';
+@import 'govuk_publishing_components/components/_feedback';
+@import 'govuk_publishing_components/components/_govspeak';
+@import 'govuk_publishing_components/components/_hint';
+@import 'govuk_publishing_components/components/_input';
+@import 'govuk_publishing_components/components/_inverse-header';
+@import 'govuk_publishing_components/components/_metadata';
+@import 'govuk_publishing_components/components/_phase-banner';
+@import 'govuk_publishing_components/components/_previous-and-next-navigation';
+@import 'govuk_publishing_components/components/_radio';
+@import 'govuk_publishing_components/components/_search';
+@import 'govuk_publishing_components/components/_select';
+@import 'govuk_publishing_components/components/_share-links';
+@import 'govuk_publishing_components/components/_skip-link';
+@import 'govuk_publishing_components/components/_subscription-links';
+@import 'govuk_publishing_components/components/_title';
+
 @import 'components/*';
 @import 'finder_frontend';
 @import 'views/search';
