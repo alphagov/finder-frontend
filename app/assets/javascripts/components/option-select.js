@@ -183,6 +183,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
     if (this.isClosed()) {
       this.$optionSelect.find('.js-container-button').attr('aria-expanded', true)
       this.$optionSelect.removeClass('js-closed')
+      this.$optionSelect.addClass('js-opened')
       if (!this.$optionsContainer.prop('style').height) {
         this.setupHeight()
       }
@@ -190,6 +191,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
   }
 
   OptionSelect.prototype.close = function close () {
+    this.$optionSelect.removeClass('js-opened')
     this.$optionSelect.addClass('js-closed')
     this.$optionSelect.find('.js-container-button').attr('aria-expanded', false)
   }

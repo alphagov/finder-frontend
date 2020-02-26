@@ -296,13 +296,13 @@ Feature: Filtering documents
     Then the page has a landmark to the search results
     And the page has a landmark to the search filters
 
-  Scenario: "Show only Brexit results" checkbox is removed if the topic parameter is set to the Brexit Topic.
-    When I view the news and communications finder filtered on the brexit topic
-    Then I cannot see the "show only brexit results" checkbox
+  Scenario: "Show only transition period results" checkbox is removed if the topic parameter is set to the transition period Topic.
+    When I view the news and communications finder filtered on the transition period topic
+    Then I cannot see the "show only transition period results" checkbox
 
-  Scenario: "Show only Brexit results" checkbox is shown if no topic parameter is set
+  Scenario: "Show only transition period results" checkbox is shown if no topic parameter is set
     When I view the news and communications finder
-    Then I can see the "show only brexit results" checkbox
+    Then I can see the "show only transition period results" checkbox
 
   Scenario: Email links
     When I view the news and communications finder

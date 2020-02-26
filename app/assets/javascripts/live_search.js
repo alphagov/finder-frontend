@@ -62,19 +62,35 @@
         }.bind(this)
       )
       // custom event listener on the form, that fires the update only once
-      // when we clear of filters
-      // fired from javascripts/modules/mobile-filters-modal.js:139
+      // when we clear of filters fired from javascripts/modules/mobile-filters-modal.js:139
+      // and when the user selects a suggestion: /javascripts/components/autocomplete.js:82
       this.$form.on('customFormChange', this.$form,
         function (e) {
           this.formChange(e)
         }.bind(this)
       )
-
-      this.$form.on('change keypress', 'input[type=text],input[type=search]',
+      // excluding .app-autocomplete-search__input as we do not wan't to trigger livesearch
+      // when the user navigates through suggestions with a keyword
+      this.$form.on('change keypress', 'input[type=text]:not(.app-autocomplete-search__input),input[type=search]',
         function (e) {
           var ENTER_KEY = 13
 
           if (e.keyCode === ENTER_KEY || e.type === 'change') {
+            if (e.currentTarget.value !== this.previousSearchTerm && !e.suppressAnalytics) {
+              LiveSearch.prototype.fireTextAnalyticsEvent(e)
+            }
+            this.formChange(e)
+            this.previousSearchTerm = e.currentTarget.value
+            e.preventDefault()
+          }
+        }.bind(this)
+      )
+
+      // but we do want to perform a livesearch if the users want to perform a keyword search
+      this.$form.on('keyup', '.app-autocomplete-search__input',
+        function (e) {
+          var ENTER_KEY = 13
+          if (e.keyCode === ENTER_KEY) {
             if (e.currentTarget.value !== this.previousSearchTerm && !e.suppressAnalytics) {
               LiveSearch.prototype.fireTextAnalyticsEvent(e)
             }
@@ -138,6 +154,7 @@
       this.updateOrder()
       this.updateLinks()
       this.updateTitle()
+      this.trackAutocompleteSuggestions(e)
       pageUpdated = this.updateResults()
       pageUpdated.done(
         function () {
@@ -175,6 +192,25 @@
     var spellingSuggestionAvailable = this.$suggestionsBlock.find('a').length > 0
     var suggestion = spellingSuggestionAvailable ? this.$suggestionsBlock.find('a').data('track-options').dimension81 : ''
     $spellingSuggestionMetaTag.attr('content', suggestion)
+  }
+
+  LiveSearch.prototype.trackAutocompleteSuggestions = function trackAutocompleteSuggestions (e) {
+    var $autocompleteSuggestions = this.$form.find('.app-autocomplete-search__menu').children()
+    // only fire if suggestion wasn't selected
+    if (e.type !== 'customFormChange') {
+      var suggestionsCount = $autocompleteSuggestions.length === 1 &&
+        $autocompleteSuggestions.hasClass('app-autocomplete-search__option--no-results')
+        ? 0 : $autocompleteSuggestions.length
+
+      window.GOVUK.SearchAnalytics.trackEvent(
+        'noSuggestionClicked',
+        'click',
+        {
+          'dimension555': this.$form.find('.app-autocomplete-search__input').val(),
+          'dimension666': suggestionsCount
+        }
+      )
+    }
   }
 
   /**
