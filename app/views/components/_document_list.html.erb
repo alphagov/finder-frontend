@@ -80,7 +80,7 @@
                   if part[:link][:path]
                     link_to(
                       part[:link][:text],
-                      part[:link][:path],
+                      "http://www.gov.uk" + part[:link][:path],
                       data: part[:link][:data_attributes],
                       class: "gem-c-document-list-child__link",
                     )
