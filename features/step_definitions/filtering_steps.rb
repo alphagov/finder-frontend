@@ -526,10 +526,6 @@ Then(/^I can see a breadcrumb for the organisation$/) do
   expect(page).to have_css("a[data-track-options='{\"dimension28\":\"4\",\"dimension29\":\"Ministry of Magic\"}']", text: "Ministry of Magic")
 end
 
-Then(/^I can see a breadcrumb that not a link for the finder$/) do
-  expect(page).to have_selector(".govuk-breadcrumbs__list-item", text: "Ministry of Silly Walks reports")
-end
-
 Then(/^I can see taxonomy breadcrumbs$/) do
   visit finder_path("cma-cases")
   expect(page).to have_selector(".govuk-breadcrumbs__list-item", text: "Competition Act and cartels")
