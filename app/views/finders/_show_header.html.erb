@@ -61,26 +61,26 @@
       <% if page_metadata.any? %>
         <%= render 'govuk_publishing_components/components/metadata', page_metadata %>
       <% end %>
-    </div>
-
-    <% if content_item.summary %>
-      <div class="govuk-grid-column-two-thirds">
-        <div class="metadata-summary ">
-          <%= render 'govuk_publishing_components/components/govspeak', content: content_item.summary.html_safe %>
-        </div>
-      </div>
-    <% end %>
-
-    <% if content_item.related.any? %>
-      <div class="related-links govuk-grid-column-one-third">
-        <ul class="js-finder-results">
-          <% content_item.related.each do |link| %>
-            <li class="related-links__item">
-              <%= link_to link['title'], link['web_url'], class: "related-links__link" %>
-            </li>
+      <% if content_item.summary || content_item.related.any? %>
+        <%= render "govuk_publishing_components/components/details", {
+          title: "Helpful title here"
+        } do %>
+          <% if content_item.summary %>
+            <div class="metadata-summary ">
+              <%= render 'govuk_publishing_components/components/govspeak', content: content_item.summary.html_safe %>
+            </div>
           <% end %>
-        </ul>
-      </div>
-    <% end %>
+          <% if content_item.related.any? %>
+            <ul class="related-links js-finder-results">
+              <% content_item.related.each do |link| %>
+                <li class="related-links__item">
+                  <%= link_to link['title'], link['web_url'], class: "related-links__link" %>
+                </li>
+              <% end %>
+            </ul>
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
   </div>
 </div>
