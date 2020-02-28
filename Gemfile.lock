@@ -198,8 +198,8 @@ GEM
     jwt (2.2.1)
     kgio (2.11.3)
     kramdown (2.1.0)
-    launchy (2.4.3)
-      addressable (~> 2.3)
+    launchy (2.5.0)
+      addressable (~> 2.7)
     link_header (0.0.8)
     listen (3.2.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
@@ -450,7 +450,7 @@ DEPENDENCIES
   govuk_schemas (~> 4.0)
   govuk_test
   jasmine-rails
-  launchy (~> 2.4.2)
+  launchy (~> 2.5.0)
   listen
   pry-byebug
   rails (~> 6.0.2)
