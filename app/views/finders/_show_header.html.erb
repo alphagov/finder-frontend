@@ -71,12 +71,6 @@
       </div>
     <% end %>
 
-    <% if content_item.logo_path %>
-      <div class="finder-logo govuk-grid-column-one-third">
-        <%= image_tag content_item.logo_path, class: "finder-logo__image" %>
-      </div>
-    <% end %>
-
     <% if content_item.related.any? %>
       <div class="related-links govuk-grid-column-one-third">
         <ul class="js-finder-results">
