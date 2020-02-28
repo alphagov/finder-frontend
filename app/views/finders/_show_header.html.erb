@@ -19,17 +19,14 @@
 
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
+      <%= render partial: 'govuk_publishing_components/components/title', locals: {
+        context: (topic_finder_parent(filter_params)['title'] if topic_finder?(filter_params)),
+        title: content_item.all_content_finder? ? sanitize("#{content_item.title} <span class='govuk-visually-hidden'> all content</span>") : content_item.title,
+        inverse: (true if topic_finder?(filter_params)),
+        margin_bottom: 3,
+      } %>
+
       <% if content_item.all_content_finder? %>
-        <h1 class="app-c-search-page-heading">Search<span class="govuk-visually-hidden"> all content</span></h1>
-        <div id="keywords" class="app-patch--search-input-override">
-          <%= render "govuk_publishing_components/components/search", {
-            aria_controls: "js-search-results-info",
-            id: "finder-keyword-search",
-            name: "keywords",
-            type: 'search',
-            value: result_set_presenter.user_supplied_keywords,
-          } %>
-        </div>
         <div id="js-spelling-suggestions" class="spelling-suggestions"
           data-analytics-ecommerce
           data-ecommerce-start-index="1"
@@ -39,29 +36,13 @@
           >
           <%= render 'spelling_suggestion' %>
         </div>
-        <button class="app-c-button-as-link app-mobile-filters-link js-show-mobile-filters"
-          data-toggle="mobile-filters-modal" data-target="facet-wrapper"
-          data-module="track-click" data-track-category="filterClicked"
-          data-track-action="mobile-filter-button" data-track-label="">
-          Filter <span class="govuk-visually-hidden"> results</span>
-          <span class="js-selected-filter-count"><%= sanitize facet_tags.display_total_selected_filters %></span>
-        </button>
-      <% elsif topic_finder?(filter_params) %>
-        <%= link_to topic_finder_parent(filter_params)['title'], topic_finder_parent(filter_params)['base_path'], class: 'govuk-link topic-finder__taxon-link' %>
-        <%= render partial: 'govuk_publishing_components/components/title', locals: {
-          title: content_item.title,
-          inverse: true,
-        } %>
-      <% else %>
-        <%= render partial: 'govuk_publishing_components/components/title', locals: {
-          title: content_item.title,
-        } %>
       <% end %>
 
       <% if page_metadata.any? %>
         <%= render 'govuk_publishing_components/components/metadata', page_metadata %>
       <% end %>
-      <% if content_item.summary || content_item.related.any? %>
+
+      <% if content_item.summary %>
         <%= render "govuk_publishing_components/components/details", {
           title: "Helpful title here"
         } do %>
@@ -70,17 +51,41 @@
               <%= render 'govuk_publishing_components/components/govspeak', content: content_item.summary.html_safe %>
             </div>
           <% end %>
-          <% if content_item.related.any? %>
-            <ul class="related-links js-finder-results">
-              <% content_item.related.each do |link| %>
-                <li class="related-links__item">
-                  <%= link_to link['title'], link['web_url'], class: "related-links__link" %>
-                </li>
-              <% end %>
-            </ul>
-          <% end %>
         <% end %>
       <% end %>
+    </div>
+    <% if content_item.related.any? %>
+      <div class="govuk-grid-column-one-third">
+        <ul class="related-links js-finder-results">
+          <% content_item.related.each do |link| %>
+            <li class="related-links__item">
+              <%= link_to link['title'], link['web_url'], class: "related-links__link" %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <div class="govuk-grid-column-two-thirds">
+      <div id="keywords" class="app-patch--search-input-override">
+        <%= render "govuk_publishing_components/components/search", {
+          aria_controls: "js-search-results-info",
+          id: "finder-keyword-search",
+          name: "keywords",
+          type: 'search',
+          value: result_set_presenter.user_supplied_keywords,
+          inline_label: false,
+          label_text: content_item.all_content_finder? ? sanitize("<span class='govuk-visually-hidden'>Search GOV.UK</span>") : sanitize("<span class='govuk-visually-hidden'>Search #{content_item.title}</span>"),
+          on_govuk_blue: (true if topic_finder?(filter_params)),
+        } %>
+      </div>
+
+      <button class="app-c-button-as-link app-mobile-filters-link js-show-mobile-filters"
+        data-toggle="mobile-filters-modal" data-target="facet-wrapper"
+        data-module="track-click" data-track-category="filterClicked"
+        data-track-action="mobile-filter-button" data-track-label="">
+        Filter <span class="govuk-visually-hidden"> results</span>
+        <span class="js-selected-filter-count"><%= sanitize facet_tags.display_total_selected_filters %></span>
+      </button>
     </div>
   </div>
 </div>
