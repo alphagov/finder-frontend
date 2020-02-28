@@ -44,7 +44,7 @@ group :test do
   gem "factory_bot"
   gem "govuk-content-schema-test-helpers", "~> 1.6"
   gem "govuk_test"
-  gem "launchy", "~> 2.4.2"
+  gem "launchy", "~> 2.5.0"
   gem "rails-controller-testing"
   gem "simplecov", "~> 0.18.5"
   gem "timecop"
