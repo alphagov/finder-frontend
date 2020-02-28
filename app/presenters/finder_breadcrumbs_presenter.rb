@@ -16,10 +16,6 @@ class FinderBreadcrumbsPresenter
       crumbs << { title: organisation["title"], url: "/government/organisations/#{organisation['slug']}" }
     end
 
-    if finder_name.present?
-      crumbs << { title: finder_name, is_current_page: true }
-    end
-
     crumbs
   end
 

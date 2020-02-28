@@ -28,16 +28,5 @@ RSpec.describe FinderBreadcrumbsPresenter do
       urls = instance.breadcrumbs.map { |breadcrumb| breadcrumb[:url] }
       expect(urls).to_not include("/government/organisations/attorney-generals-office")
     end
-
-    it "displays finder title as text when the finder has a title" do
-      expect(instance.breadcrumbs.last).to eql(title: "Air Accidents Investigation Branch reports", is_current_page: true)
-    end
-
-    it "does not display a finder title when the finder has no title" do
-      finder_hash["title"] = ""
-      instance = described_class.new(org_breadcrumb_info, finder)
-      titles = instance.breadcrumbs.map { |breadcrumb| breadcrumb[:title] }
-      expect(titles).to_not include("Air Accidents Investigation Branch reports")
-    end
   end
 end
