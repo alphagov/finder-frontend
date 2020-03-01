@@ -26,6 +26,9 @@
             value: result_set_presenter.user_supplied_keywords,
           } %>
         </div>
+        <% content_for :head do %>
+          <meta name="govuk:search-autocomplete-status" content="">
+        <% end %>
         <div id="js-spelling-suggestions" class="spelling-suggestions" 
           data-analytics-ecommerce
           data-ecommerce-start-index="1"
