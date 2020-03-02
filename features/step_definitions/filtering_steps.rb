@@ -236,9 +236,8 @@ When(/^I search documents by keyword$/) do
 
   @keyword_search = "keyword searchable"
 
-  within ".filter-form" do
-    fill_in("Search", with: @keyword_search)
-  end
+  fill_in("Search", with: @keyword_search)
+
   within ".js-live-search-fallback" do
     click_on "Filter results"
   end
