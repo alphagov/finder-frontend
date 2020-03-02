@@ -511,7 +511,7 @@ Then(/^I can see a breadcrumb for all organisations$/) do
   expect(page).to have_css("a[data-track-category='breadcrumbClicked']", text: "Organisations")
   expect(page).to have_css("a[data-track-action='2']", text: "Organisations")
   expect(page).to have_css("a[data-track-label='/government/organisations']", text: "Organisations")
-  expect(page).to have_css("a[data-track-options='{\"dimension28\":\"4\",\"dimension29\":\"Organisations\"}']", text: "Organisations")
+  expect(page).to have_css("a[data-track-options='{\"dimension28\":\"3\",\"dimension29\":\"Organisations\"}']", text: "Organisations")
 end
 
 And(/^no breadcrumb for all organisations$/) do
@@ -523,20 +523,18 @@ Then(/^I can see a breadcrumb for the organisation$/) do
   expect(page).to have_css("a[data-track-category='breadcrumbClicked']", text: "Ministry of Magic")
   expect(page).to have_css("a[data-track-action='3']", text: "Ministry of Magic")
   expect(page).to have_css("a[data-track-label='/government/organisations/ministry-of-magic']", text: "Ministry of Magic")
-  expect(page).to have_css("a[data-track-options='{\"dimension28\":\"4\",\"dimension29\":\"Ministry of Magic\"}']", text: "Ministry of Magic")
-end
-
-Then(/^I can see a breadcrumb that not a link for the finder$/) do
-  expect(page).to have_selector(".govuk-breadcrumbs__list-item", text: "Ministry of Silly Walks reports")
+  expect(page).to have_css("a[data-track-options='{\"dimension28\":\"3\",\"dimension29\":\"Ministry of Magic\"}']", text: "Ministry of Magic")
 end
 
 Then(/^I can see taxonomy breadcrumbs$/) do
   visit finder_path("cma-cases")
+  expect(page).to have_selector(".govuk-breadcrumbs.gem-c-breadcrumbs--collapse-on-mobile")
   expect(page).to have_selector(".govuk-breadcrumbs__list-item", text: "Competition Act and cartels")
   expect(page.find_all(".govuk-breadcrumbs__list-item").count).to eql(2)
 end
 
 Then(/^I can see Brexit taxonomy breadcrumbs$/) do
+  expect(page).to have_selector(".govuk-breadcrumbs.gem-c-breadcrumbs--collapse-on-mobile")
   expect(page.find_all(".govuk-breadcrumbs__list-item").count).to eql(3)
   expect(page).to have_selector(".govuk-breadcrumbs__list-item", text: "Home")
   expect(page).to have_selector(".govuk-breadcrumbs__list-item", text: "Government")

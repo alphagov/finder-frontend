@@ -6,24 +6,27 @@
 <% end %>
 
 <div class="govuk-width-container">
-  <%= render 'govuk_publishing_components/components/breadcrumbs', breadcrumbs: [
-    {
-      title: t('brexit_checker.breadcrumbs.home'),
-      url: "/"
-    },
-    {
-      title: t('brexit_checker.breadcrumbs.brexit-home'),
-      url: "/transition"
-    },
-    {
-      title: t('brexit_checker.breadcrumbs.brexit-check'),
-      url: "/transition-check"
-    },
-    {
-      title: t('brexit_checker.breadcrumbs.results'),
-      url: transition_checker_results_path(c: criteria_keys)
-    }
-  ] %>
+  <%= render 'govuk_publishing_components/components/breadcrumbs', {
+    collapse_on_mobile: true,
+    breadcrumbs: [
+      {
+        title: t('brexit_checker.breadcrumbs.home'),
+        url: "/"
+      },
+      {
+        title: t('brexit_checker.breadcrumbs.brexit-home'),
+        url: "/transition"
+      },
+      {
+        title: t('brexit_checker.breadcrumbs.brexit-check'),
+        url: "/transition-check"
+      },
+      {
+        title: t('brexit_checker.breadcrumbs.results'),
+        url: transition_checker_results_path(c: criteria_keys)
+      }
+    ]
+  } %>
 
   <main class="govuk-main-wrapper" role="mail">
     <div class="govuk-grid-row">

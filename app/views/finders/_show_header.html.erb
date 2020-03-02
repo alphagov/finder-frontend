@@ -4,7 +4,11 @@
   <% end %>
 
   <% if @breadcrumbs.breadcrumbs %>
-    <%= render 'govuk_publishing_components/components/breadcrumbs', breadcrumbs: @breadcrumbs.breadcrumbs, inverse: inverse %>
+    <%= render 'govuk_publishing_components/components/breadcrumbs', {
+      breadcrumbs: @breadcrumbs.breadcrumbs,
+      inverse: inverse,
+      collapse_on_mobile: true
+    } %>
   <% else %>
     <%= render 'govuk_publishing_components/components/contextual_breadcrumbs', content_item: content_item.as_hash, inverse: inverse %>
   <% end %>
@@ -26,18 +30,18 @@
             value: result_set_presenter.user_supplied_keywords,
           } %>
         </div>
-        <div id="js-spelling-suggestions" class="spelling-suggestions" 
+        <div id="js-spelling-suggestions" class="spelling-suggestions"
           data-analytics-ecommerce
           data-ecommerce-start-index="1"
           data-list-title="<%= content_item.title %> spelling suggestions"
           data-search-query="<%= result_set_presenter.user_supplied_keywords %>"
           data-track-click-label="Spelling suggestions"
-          > 
+          >
           <%= render 'spelling_suggestion' %>
         </div>
         <button class="app-c-button-as-link app-mobile-filters-link js-show-mobile-filters"
           data-toggle="mobile-filters-modal" data-target="facet-wrapper"
-          data-module="track-click" data-track-category="filterClicked" 
+          data-module="track-click" data-track-category="filterClicked"
           data-track-action="mobile-filter-button" data-track-label="">
           Filter <span class="govuk-visually-hidden"> results</span>
           <span class="js-selected-filter-count"><%= sanitize facet_tags.display_total_selected_filters %></span>
