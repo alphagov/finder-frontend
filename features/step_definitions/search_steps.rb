@@ -25,7 +25,7 @@ end
 Given(/^the all content finder exists$/) do
   topic_taxonomy_has_taxons
   content_store_has_all_content_finder
-  stub_whitehall_api_world_location_request
+  stub_world_locations_api_request
   stub_people_registry_request
   stub_organisations_registry_request
   stub_manuals_registry_request

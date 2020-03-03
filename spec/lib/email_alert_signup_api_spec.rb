@@ -1,9 +1,11 @@
 require "spec_helper"
 require "email_alert_signup_api"
 require "gds_api/test_helpers/email_alert_api"
+require "gds_api/test_helpers/worldwide"
 
 describe EmailAlertSignupAPI do
   include GdsApi::TestHelpers::EmailAlertApi
+  include GdsApi::TestHelpers::Worldwide
   include RegistrySpecHelper
 
   subject(:signup_api_wrapper) do
@@ -477,31 +479,13 @@ describe EmailAlertSignupAPI do
         ]
       end
       before :each do
-        world_locations = {
-          "results": [
-            {
-              "content_id": "location_id_1",
-              "details": {
-                "slug": "location_1",
-              },
-            },
-            {
-              "content_id": "location_id_2",
-              "details": {
-                "slug": "location_2",
-              },
-            },
-          ],
-        }
-        stub_request(:get, "#{Plek.current.find('whitehall-frontend')}/api/world-locations")
-          .with(query: hash_including({}))
-          .to_return(body: world_locations.to_json)
+        stub_worldwide_api_has_locations(%w(location_1 location_2))
       end
 
       it "asks email-alert-api to find or create the subscriber list" do
         req = email_alert_api_has_subscriber_list(
           "links" => {
-            world_locations: { any: %w(location_id_1 location_id_2) },
+            world_locations: { any: %w(content_id_for_location_1 content_id_for_location_2) },
             content_purpose_subgroup: { any: %w[news speeches_and_statements] },
           },
           "subscription_url" => subscription_url,

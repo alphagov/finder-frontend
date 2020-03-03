@@ -4,6 +4,7 @@ require_relative "../../spec/support/registry_helper"
 require_relative "../../spec/support/fixtures_helper"
 require "gds_api/test_helpers/email_alert_api"
 require "gds_api/test_helpers/content_store"
+require "gds_api/test_helpers/worldwide"
 
 module DocumentHelper
   include FixturesHelper
@@ -12,6 +13,7 @@ module DocumentHelper
   include RegistrySpecHelper
   include GdsApi::TestHelpers::EmailAlertApi
   include GdsApi::TestHelpers::ContentStore
+  include GdsApi::TestHelpers::Worldwide
 
   SEARCH_ENDPOINT = "#{Plek.current.find('search')}/search.json".freeze
 
@@ -182,10 +184,8 @@ module DocumentHelper
       )
   end
 
-  def stub_whitehall_api_world_location_request
-    stub_request(:get, whitehall_admin_world_locations_api_url).to_return(
-      body: world_locations_json,
-    )
+  def stub_world_locations_api_request
+    stub_worldwide_api_has_locations(%w(azkaban tracy-island))
   end
 
   def content_store_has_mosw_reports_finder
@@ -504,10 +504,6 @@ module DocumentHelper
       "filter_closed_date" => "from:2015-11-01",
       "order" => "-public_timestamp",
     )
-  end
-
-  def whitehall_admin_world_locations_api_url
-    "#{Plek.current.find('whitehall-frontend')}/api/world-locations"
   end
 
   def aaib_reports_search_results
@@ -1312,61 +1308,6 @@ module DocumentHelper
       "start": 0,
       "facets": {},
       "suggested_queries": []
-    }|
-  end
-
-  def world_locations_json
-    %|{
-      "results": [
-        {
-          "id": "https://www.gov.uk/api/world-locations/azkaban",
-          "title": "Azkaban",
-          "format": "World location",
-          "updated_at": "2018-04-27T14:41:52.000+01:00",
-          "web_url": "https://www.gov.uk/world/azkaban",
-          "analytics_identifier": "WL1",
-          "details": {
-            "slug": "azkaban",
-            "iso2": "AK"
-          },
-          "organisations": {
-            "id": "https://www.gov.uk/api/world-locations/azkaban/organisations",
-            "web_url": "https://www.gov.uk/world/azkaban#organisations"
-          },
-          "content_id": "azkaban-id"
-        },
-        {
-          "id": "https://www.gov.uk/api/world-locations/tracy-island",
-          "title": "Tracy Island",
-          "format": "World location",
-          "updated_at": "2018-04-27T14:41:52.000+01:00",
-          "web_url": "https://www.gov.uk/world/tracy-island",
-          "analytics_identifier": "WL2",
-          "details": {
-            "slug": "tracy-island",
-            "iso2": "TI"
-          },
-          "organisations": {
-            "id": "https://www.gov.uk/api/world-locations/tracy-island/organisations",
-            "web_url": "https://www.gov.uk/world/tracy-island#organisations"
-          },
-          "content_id": "tracy-island-id"
-        }
-      ],
-      "current_page": 1,
-      "total": 1,
-      "pages": 1,
-      "page_size": 20,
-      "start_index": 1,
-      "_response_info": {
-        "status": "ok",
-        "links": [
-          {
-            "href": "#{whitehall_admin_world_locations_api_url}?page=1",
-            "rel": "self"
-          }
-        ]
-      }
     }|
   end
 

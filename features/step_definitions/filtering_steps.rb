@@ -87,7 +87,7 @@ end
 When(/^I view a list of news and communications$/) do
   topic_taxonomy_has_taxons
   content_store_has_news_and_communications_finder
-  stub_whitehall_api_world_location_request
+  stub_world_locations_api_request
   stub_people_registry_request
   stub_organisations_registry_request
   stub_rummager_api_request_with_news_and_communication_results
@@ -97,7 +97,7 @@ end
 When(/^I view the news and communications finder$/) do
   stub_taxonomy_api_request
   content_store_has_news_and_communications_finder
-  stub_whitehall_api_world_location_request
+  stub_world_locations_api_request
   stub_all_rummager_api_requests_with_news_and_communication_results
   stub_people_registry_request
   stub_organisations_registry_request
@@ -107,7 +107,7 @@ end
 When(/^I view the news and communications finder filtered on the transition period topic$/) do
   stub_taxonomy_api_request
   content_store_has_news_and_communications_finder
-  stub_whitehall_api_world_location_request
+  stub_world_locations_api_request
   stub_all_rummager_api_requests_with_news_and_communication_results
   stub_people_registry_request
   stub_organisations_registry_request
@@ -134,7 +134,7 @@ When(/^I view the policy papers and consultations finder$/) do
   topic_taxonomy_has_taxons
   content_store_has_policy_and_engagement_finder
   stub_organisations_registry_request
-  stub_whitehall_api_world_location_request
+  stub_world_locations_api_request
   stub_rummager_api_request_with_policy_papers_results
   stub_rummager_api_request_with_filtered_policy_papers_results
 
@@ -146,7 +146,7 @@ When(/^I view the research and statistics finder$/) do
   content_store_has_statistics_finder
   stub_organisations_registry_request
   stub_manuals_registry_request
-  stub_whitehall_api_world_location_request
+  stub_world_locations_api_request
   stub_rummager_api_request_with_research_and_statistics_results
   stub_rummager_api_request_with_filtered_research_and_statistics_results
   visit finder_path("search/research-and-statistics")
@@ -163,7 +163,7 @@ When(/^I view the research and statistics finder with a topic param set$/) do
   content_store_has_statistics_finder
   stub_organisations_registry_request
   stub_manuals_registry_request
-  stub_whitehall_api_world_location_request
+  stub_world_locations_api_request
   stub_rummager_api_request_with_research_and_statistics_results
   stub_rummager_api_request_with_filtered_research_and_statistics_results
   visit finder_path("search/research-and-statistics", topic: "c58fdadd-7743-46d6-9629-90bb3ccc4ef0")
@@ -180,7 +180,7 @@ When(/^I view the aaib reports finder with a topic param set$/) do
   content_store_has_aaib_reports_finder
   stub_organisations_registry_request
   stub_manuals_registry_request
-  stub_whitehall_api_world_location_request
+  stub_world_locations_api_request
   stub_rummager_api_request_with_aaib_reports_results
   visit finder_path("aaib-reports", topic: "c58fdadd-7743-46d6-9629-90bb3ccc4ef0")
 end
@@ -189,7 +189,7 @@ When(/^I view the all content finder with a manual filter$/) do
   topic_taxonomy_has_taxons
   content_store_has_all_content_finder
   stub_organisations_registry_request
-  stub_whitehall_api_world_location_request
+  stub_world_locations_api_request
   stub_people_registry_request
   stub_manuals_registry_request
 
@@ -211,7 +211,7 @@ When(/^I view the all content finder$/) do
   topic_taxonomy_has_taxons
   content_store_has_all_content_finder
   stub_organisations_registry_request
-  stub_whitehall_api_world_location_request
+  stub_world_locations_api_request
   stub_people_registry_request
   stub_manuals_registry_request
   stub_rummager_api_request_with_all_content_results
