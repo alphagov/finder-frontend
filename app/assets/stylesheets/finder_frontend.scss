@@ -290,8 +290,16 @@ mark {
 }
 // scss-lint:enable IdSelector
 
-.topic-finder__taxon-link {
+.topic-finder__taxon-link,
+.topic-finder__taxon-link:link,
+.topic-finder__taxon-link:visited {
   @include govuk-font(24, $weight: bold);
+  color: govuk-colour("white");
+
+  &:link:focus,
+  &:visited:focus {
+    color: $govuk-text-colour;
+  }
 }
 
 // NOTE: used to override govspeak component when it's used on an inverse header
@@ -354,7 +362,7 @@ mark {
 }
 
 // adjust spacing between items
-// not using govuk-spacing as they need to be consistent 
+// not using govuk-spacing as they need to be consistent
 // across breakpoints
 .finder-results .gem-c-document-list__item {
   margin-bottom: 20px;

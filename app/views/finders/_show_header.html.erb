@@ -47,7 +47,7 @@
           <span class="js-selected-filter-count"><%= sanitize facet_tags.display_total_selected_filters %></span>
         </button>
       <% elsif topic_finder?(filter_params) %>
-        <%= link_to topic_finder_parent(filter_params)['title'], topic_finder_parent(filter_params)['base_path'], class: 'topic-finder__taxon-link' %>
+        <%= link_to topic_finder_parent(filter_params)['title'], topic_finder_parent(filter_params)['base_path'], class: 'govuk-link topic-finder__taxon-link' %>
         <%= render partial: 'govuk_publishing_components/components/title', locals: {
           title: content_item.title,
           inverse: true,
