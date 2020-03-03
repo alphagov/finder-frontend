@@ -3,7 +3,7 @@ $size: 40px;
 .app-autocomplete-search__wrapper {
   display: inline-block;
   position: relative;
-  z-index: 1; // prevents the focus outline overlapping the submit button
+  z-index: 3; // prevents the focus outline overlapping the submit button
   height: $size;
   width: calc(100% - #{$size});
 }
