@@ -5,14 +5,6 @@ $app-colour-true-black: #000;
   margin-bottom: govuk-spacing(6);
 }
 
-.finder-logo {
-  margin: govuk-spacing(6) 0;
-}
-
-.finder-logo__image {
-  max-width: 100%;
-}
-
 .related-links {
   margin-top: govuk-spacing(8);
   margin-bottom: govuk-spacing(8);
@@ -223,15 +215,6 @@ mark {
   }
 }
 
-.finder-frontend-content {
-  .app-c-search-page-heading {
-    @include govuk-font(48, $weight: bold);
-    @include govuk-responsive-margin(2, "top");
-    @include govuk-responsive-margin(4, "bottom");
-    color: govuk-colour("black");
-  }
-}
-
 .govspeak-wrapper {
   @include govuk-responsive-margin(4, "bottom");
 }
@@ -289,18 +272,6 @@ mark {
   display: none;
 }
 // scss-lint:enable IdSelector
-
-.topic-finder__taxon-link,
-.topic-finder__taxon-link:link,
-.topic-finder__taxon-link:visited {
-  @include govuk-font(24, $weight: bold);
-  color: govuk-colour("white");
-
-  &:link:focus,
-  &:visited:focus {
-    color: $govuk-text-colour;
-  }
-}
 
 // NOTE: used to override govspeak component when it's used on an inverse header
 
