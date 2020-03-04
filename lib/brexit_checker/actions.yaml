@@ -23,10 +23,10 @@ actions:
 - id: S003
   priority: 5
   title: Apply for a permit to join your family member in the UK if they are from
-    the EU, Norway, Iceland or Liechtenstein
+    the EU, Switzerland, Norway, Iceland or Liechtenstein
   title_url: https://www.gov.uk/family-permit
-  consequence: You may not be able to travel to the UK if you do not have the right
-    permit.
+  consequence: You may not be able to join your family member in the UK if you do
+    not have the right permit.
   criteria:
   - all_of:
     - nationality-row
@@ -41,7 +41,8 @@ actions:
   priority: 5
   title: Take out appropriate travel insurance with health cover before travelling
     to the UK
-  consequence: You will be charged for your care if you do not have the right insurance.
+  consequence: You will be charged for your NHS healthcare if you do not have the
+    right insurance.
   guidance_prompt: More information
   guidance_link_text: 'Healthcare from 2021: citizens of the EU, Norway, Iceland,
     Liechtenstein and Switzerland visiting the UK'
@@ -59,9 +60,9 @@ actions:
   priority: 5
   title: Contact your home university to check if you can continue studying on your
     Erasmus+ placement in the UK
-  consequence: If you have not already started your placement you may not be able
-    to study in the UK. If you have started, you may not get NHS healthcare, student
-    finance or benefits.
+  consequence: If you have not started your placement, you may not be able to study
+    in the UK. If you have started, you may not get NHS healthcare, student finance
+    or benefits.
   criteria:
   - all_of:
     - any_of:
@@ -94,8 +95,8 @@ actions:
 - id: S008
   priority: 8
   title: Check your passport’s issue and expiry dates for travel to Europe
-  consequence: You may not be able to travel unless your UK passport has at least
-    6 months left to run and is less than 10 years old.
+  consequence: You should have at least 6 months left on your UK passport and it needs
+    to be less than 10 years old, or you may not be able to travel.
   exception: The new rules do not apply when travelling to Ireland.
   lead_time: Do it before you travel
   guidance_prompt: More information
@@ -111,9 +112,9 @@ actions:
 - id: S009
   priority: 8
   title: Contact your vet at least 4 months before travelling to make sure your pet
-    is able to travel to the EU
-  consequence: If your pet does not have the proper documents, you will not be able
-    to take it with you.
+    or assistance dog is able to travel to the EU
+  consequence: If your pet or assistance dog does not have the proper documents, you
+    will not be able to take it with you.
   lead_time: It takes at least 4 months
   guidance_prompt: More information
   guidance_link_text: Pet travel to Europe from 2021
@@ -133,9 +134,9 @@ actions:
 - id: S010
   priority: 5
   title: Check whether your mobile phone company has changed its mobile roaming charges
-    before travelling to the EU
-  consequence: You may be charged for using your mobile device in the EU if your operator
-    has re-introduced roaming charges.
+    before travelling to the EU, Switzerland, Norway, Iceland or Liechtenstein
+  consequence: You may be charged for using your mobile device in the EU, Switzerland,
+    Norway, Iceland or Liechtenstein if your operator has reintroduced roaming charges.
   guidance_prompt: More information
   guidance_link_text: Visit Europe from 1 January 2021
   guidance_url: https://www.gov.uk/visit-europe-1-january-2021
@@ -143,17 +144,21 @@ actions:
   - any_of:
     - all_of:
       - living-uk
-      - visiting-eu
+      - any_of:
+        - visiting-eu
+        - visiting-ie
     - travel-eu-business
   audience: citizen
   grouping_criteria:
   - visiting-eu
+  - visiting-ie
 - id: S011
   priority: 9
   title: Take out appropriate travel insurance with health cover before travelling
     to the EU
   consequence: You may not have access to free emergency medical treatment and could
-    be charged for your care if you do not get health cover with your travel insurance.
+    be charged for your healthcare if you do not get health cover with your travel
+    insurance.
   guidance_prompt: More information
   guidance_link_text: Foreign travel insurance
   guidance_url: https://www.gov.uk/guidance/foreign-travel-insurance
@@ -186,13 +191,12 @@ actions:
   - visiting-eu
 - id: S014
   priority: 3
-  title: Check when your family needs to apply to the EU Settlement Scheme if they
-    come to the UK with you
-  consequence: They may not be able to continue living or working in the UK if they
-    do not apply to the scheme once they're in the UK.
+  title: Find out if your family needs to apply to the EU Settlement Scheme to come
+    to the UK with you
+  title_url: https://www.gov.uk/settled-status-eu-citizens-families
+  consequence: Your family may not be able to live or work in the UK if they do not
+    apply to the scheme by 31 December 2020.
   guidance_prompt: More information
-  guidance_link_text: Apply to the EU Settlement Scheme (settled and pre-settled status)
-  guidance_url: https://www.gov.uk/settled-status-eu-citizens-families
   criteria:
   - all_of:
     - nationality-uk
@@ -208,7 +212,7 @@ actions:
     charged for NHS services.
   guidance_prompt: More information
   guidance_link_text: Living in Europe
-  guidance_url: https://www.gov.uk/guidance/living-in-europe
+  guidance_url: https://www.gov.uk/guidance/living-in-the-eu-prepare-for-brexit#uk-nationals-in-the-eu
   criteria:
   - all_of:
     - nationality-uk
@@ -274,10 +278,9 @@ actions:
   - studying-eu
 - id: S028
   priority: 2
-  title: Check you're eligible for housing services if you're moving back to the UK
-    from the EU
-  consequence: You must check with your local council that you're eligible for housing
-    services if you’re returning to the UK from the EU.
+  title: Check with your local council that you're eligible for housing services if
+    you’re returning to the UK from the EU
+  consequence: You may not be able to apply for housing services if you are not eligible.
   guidance_prompt: More information
   guidance_link_text: Council housing
   guidance_url: https://www.gov.uk/council-housing
@@ -292,8 +295,7 @@ actions:
   priority: 11
   title: Apply to be a resident in the EU country you live in
   title_url: https://www.gov.uk/uk-nationals-living-eu
-  consequence: You may not be able to continue living and using services in the EU
-    if you are not a resident.
+  consequence: You may need to leave the country you live in if you are not a resident.
   criteria:
   - all_of:
     - nationality-uk
@@ -356,8 +358,8 @@ actions:
   - visiting-eu
 - id: S036
   priority: 5
-  title: Get motor insurance green cards or other proof of insurance for your vehicle,
-    caravan or trailer if they are registered in the EU, Switzerland, Norway, Iceland,
+  title: Get a motor insurance green card or other proof of insurance for your vehicle,
+    caravan or trailer if it's registered in the EU, Switzerland, Norway, Iceland,
     Liechtenstein, Andorra or Serbia, and you will be driving in the UK
   consequence: You could get a fine or your vehicle could be seized if you cannot
     prove that you are insured.
@@ -374,9 +376,9 @@ actions:
   - visiting-uk
 - id: T006
   priority: 8
-  title: Check if your employees need a visa or work permit and meet any requirements
-    for their profession to work in the country they’re going to
-  consequence: You or your employees may not be able to enter or work in some countries.
+  title: Check if your employees need a visa or work permit and meet professional
+    requirements for the country they’re going to
+  consequence: You or your employees might not be able to enter or work in some countries.
   guidance_prompt: More information
   guidance_link_text: Providing services to any country in the EU, Iceland, Liechtenstein,
     Norway or Switzerland from 2021
@@ -414,7 +416,7 @@ actions:
   audience: business
 - id: T011
   priority: 5
-  title: Check if you need to change your contracts to broadcast licenced content
+  title: Check if you need to change your contracts to broadcast licensed content
     outside the UK
   consequence: You risk not being able to broadcast outside the UK if you do not get
     extra copyright permissions.
@@ -475,9 +477,23 @@ actions:
   criteria:
   - nuclear
   audience: business
+- id: T018
+  priority: 5
+  title: Get a licence to import certain nuclear materials into the UK
+  consequence: You will not be able to import some types of nuclear materials into
+    the UK without the right licence.
+  lead_time: It usually takes over 4 weeks
+  guidance_prompt: More information
+  guidance_link_text: 'Prepare to import ‘relevant’ nuclear materials from the EU
+    from 2021: licensing requirements'
+  guidance_url: https://www.gov.uk/guidance/importing-relevant-nuclear-materials-from-the-eu-from-1-january-2021-licensing-requirements
+  criteria:
+  - nuclear
+  audience: business
 - id: T019
   priority: 5
-  title: Prepare to ship radioactive waste and spent fuel into and out of the UK
+  title: Make sure you have the right authorisations to ship radioactive waste and
+    spent fuel into and out of the UK
   consequence: Failing to comply with the new regulations will be a criminal offence.
   guidance_prompt: More information
   guidance_link_text: Shipping radioactive sources between the UK and EU from 1 January
@@ -488,9 +504,10 @@ actions:
   audience: business
 - id: T020
   priority: 5
-  title: Check the rules on moving radioactive material into and out of the UK
-  consequence: You will not be able to move radioactive sources into the UK without
-    making a written declaration.
+  title: Make sure you comply with the correct rules on moving radioactive material
+    into and out of the UK
+  consequence: You will not be able to move radioactive sources into the UK if you
+    do not follow the correct rules.
   guidance_prompt: More information
   guidance_link_text: Shipping radioactive sources between the UK and EU from 1 January
     2021
@@ -504,8 +521,8 @@ actions:
   audience: business
 - id: T021
   priority: 5
-  title: Check what documents your employees need to make and operate aircraft for
-    the gas and oil industry in the EU, Switzerland, Norway, Iceland or Liechtenstein
+  title: Check what documents you and your employees need to make and operate aircraft
+    for the gas and oil industry in the EU, Switzerland, Norway, Iceland or Liechtenstein
   consequence: You will not be able to make or operate aircraft for the gas and oil
     industry in these locations without the right documents.
   lead_time: It takes up to one week to get the right documents
@@ -539,8 +556,8 @@ actions:
 - id: T023
   priority: 8
   title: Check the rules you need to follow if you're a broadcaster or provider of
-    video on demand services in the UK or the EU
-  consequence: You risk not being able to broadcast or provide video on demand services
+    video-on-demand services in the UK or the EU
+  consequence: You risk not being able to broadcast or provide video-on-demand services
     if you do not get your business ready.
   guidance_prompt: More information
   guidance_link_text: Broadcasting and video on demand from 2021
@@ -555,8 +572,8 @@ actions:
   title: Get permission to take creative, cultural and sports goods into and out of
     the EU for business
   title_url: https://www.gov.uk/taking-goods-out-uk-temporarily/get-an-ata-carnet
-  consequence: You risk not being able to take goods such as musical instruments,
-    stage designs, make-up and film production equipment into or out of the EU.
+  consequence: You might not be able to take goods such as musical instruments, stage
+    designs, make-up and film production equipment into or out of the EU.
   criteria:
   - any_of:
     - media
@@ -603,7 +620,7 @@ actions:
   consequence: You risk plants or plant products being delayed or rejected if you
     do not follow the right rules.
   guidance_prompt: More information
-  guidance_link_text: Importing and exporting plants and plant products from2021
+  guidance_link_text: Importing and exporting plants and plant products from 2021
   guidance_url: https://www.gov.uk/guidance/importing-and-exporting-plants-and-plant-products-if-theres-no-withdrawal-deal
   criteria:
   - any_of:
@@ -615,10 +632,10 @@ actions:
   audience: business
 - id: T033
   priority: 8
-  title: Get a ‘certificate of conformity’ to move fruit and vegetables into or through
-    the EU
+  title: Get the right certificates of conformity to move fruit and vegetables into
+    or through the EU
   consequence: You risk your goods being delayed or rejected at the border if you
-    do not have the right documents.
+    do not meet both UK and EU marketing standards and have the right documentation.
   lead_time: It takes 48 hours
   guidance_prompt: More information
   guidance_link_text: Fresh fruit and vegetable marketing standards from 2021
@@ -677,7 +694,6 @@ actions:
   priority: 8
   title: Check if you can export organic food to the EU, and how to label and trade
     it
-  title_url: https://www.gov.uk/guidance/trading-and-labelling-organic-food-if-theres-no-brexit-deal
   consequence: You risk not being able to sell your food as organic in the EU.
   guidance_prompt: More information
   guidance_link_text: Trading and labelling organic food from 2021
@@ -701,7 +717,7 @@ actions:
   audience: business
 - id: T046
   priority: 5
-  title: Print markings on hatching eggs and boxes of chicks that you're exporting
+  title: Check how to mark hatching eggs and boxes of chicks that you're exporting
     to the EU
   consequence: You risk your eggs or chicks being delayed or rejected when they reach
     the EU if they have the wrong markings.
@@ -713,9 +729,9 @@ actions:
   audience: business
 - id: T047
   priority: 5
-  title: Get a certificate to export poultry meat to the EU if it's printed with a
-    farming method
-  consequence: If your meat is printed with a farming method, such as 'Free range',
+  title: Get a certificate to export poultry meat to the EU if the meat is printed
+    with a farming method
+  consequence: If your meat is printed with a farming method, such as 'free range',
     and you do not have a certificate, you risk it being delayed or rejected when
     it reaches the EU.
   lead_time: It usually takes up to 6 weeks
@@ -727,8 +743,8 @@ actions:
   audience: business
 - id: T050
   priority: 8
-  title: Get an International Maritime Organisation (IMO) number if your boat is 12
-    metres or longer
+  title: Get an International Maritime Organisation (IMO) number if your fishing boat
+    is 12 metres or longer
   title_url: https://imonumbers.ihs.com/
   consequence: If your boat is 12 metres or longer, you wil not be allowed to to fish
     in EU, Norwegian or Faroese waters without an IMO number.
@@ -801,7 +817,7 @@ actions:
 - id: T059
   priority: 5
   title: Check whether any wood packaging you use meets ISPM15 international standards
-  consequence: You may not be able to export using wood packaging that isn’t ISPM15
+  consequence: You may not be able to export using wood packaging that is not ISPM15
     certified.
   guidance_prompt: More information
   guidance_link_text: Wood packaging goods for import and export
@@ -812,7 +828,7 @@ actions:
 - id: T063
   priority: 6
   title: Check what documents you need to run unscheduled bus or coach services in
-    EU countries
+    Europe
   consequence: You risk not being able to run unscheduled services in Europe if you
     do not have the right documents.
   guidance_prompt: More information
@@ -826,11 +842,10 @@ actions:
   audience: business
 - id: T065
   priority: 5
-  title: Check what documents you need to transport goods through the EU, if you’re
+  title: Check what documents you need to transport goods through the EU if you’re
     a haulier
-  consequence: You will not be able to transport haulage goods through the EU without
-    the right documents.
-  lead_time: It takes more than 4 weeks to get the right documents
+  consequence: You will not be able to transport goods through the EU without the
+    right documents.
   guidance_prompt: More information
   guidance_link_text: 'International road haulage: operator licences and permits'
   guidance_url: https://www.gov.uk/guidance/international-authorisations-and-permits-for-road-haulage
@@ -845,8 +860,8 @@ actions:
   priority: 5
   title: Check how to get approval to sell vehicles and vehicle parts in the UK and
     the EU
-  consequence: You will not be able to sell vehicles or vehicle parts in the UK and
-    the EU if they are not approved correctly.
+  consequence: You will not be able to sell non-approved vehicles or vehicle parts
+    in the UK and the EU.
   lead_time: It takes more than 4 weeks to get approved
   guidance_prompt: More information
   guidance_link_text: Vehicle type-approval from 2021
@@ -862,7 +877,7 @@ actions:
   title: Get an EORI number that starts with GB to move your goods into or out of
     the EU
   title_url: https://www.gov.uk/eori
-  consequence: You will not be able to buy goods from or sell goods to the EU without
+  consequence: You will not be able to move your goods into or out of the EU without
     an EORI number.
   lead_time: It takes up to a week
   guidance_prompt: More information
@@ -878,7 +893,8 @@ actions:
   audience: business
 - id: T075
   priority: 8
-  title: Register for a quicker way to move your goods to the EU
+  title: Register for a quicker way to move your goods to the EU, Switzerland, Norway,
+    Iceland or Liechtenstein
   title_url: https://www.gov.uk/guidance/what-you-need-to-move-goods-between-or-through-common-transit-countries-including-the-eu
   consequence: You risk your goods being delayed or rejected when they reach the EU
     if you do not register.
@@ -893,9 +909,10 @@ actions:
   audience: business
 - id: T077
   priority: 2
-  title: Ask your employees to check if they need to apply to the EU Settlement Scheme
+  title: Encourage your employees to check if they need to apply to the EU Settlement
+    Scheme
   consequence: Your employees risk not being able to continue living or working in
-    the UK as they do now, if they do not apply to the scheme.
+    the UK, if they do not apply to the scheme.
   guidance_prompt: More information
   guidance_link_text: Apply to the EU Settlement Scheme (settled and pre-settled status)
   guidance_url: https://www.gov.uk/settled-status-eu-citizens-families
@@ -934,7 +951,7 @@ actions:
 - id: T081
   priority: 5
   title: Check what you need to do to continue to work or provide legal services in
-    the UK if you're a lawyer with a qualification from the EU, Norway, Iceland or
+    the UK, if you're a lawyer with a qualification from the EU, Norway, Iceland or
     Liechtenstein
   consequence: You risk not being able to continue working or providing legal services
     in the UK if you do not prepare.
@@ -957,8 +974,8 @@ actions:
   audience: business
 - id: T085
   priority: 5
-  title: Check what you need to do if you're a lawyer with a UK qualification to still
-    work or provide legal services in the EU
+  title: Check what you need to do to continue to work or provide legal services in
+    the EU, Norway, Iceland or Liechtenstein, if you're a lawyer with a UK qualification
   consequence: You risk not being able to continue working or providing legal services
     in the EU if you do not prepare.
   guidance_prompt: More information
@@ -1018,9 +1035,9 @@ actions:
   audience: business
 - id: T089
   priority: 5
-  title: Talk to your vet 6 weeks before you travel with your horse or other equine
-    to the EU
-  consequence: You will not be able to take your horse or other equine to the EU.
+  title: Get your horse or other equine tested before you travel to the EU
+  consequence: You will not be able to take your horse or other equine to the EU if
+    it has not been tested in time.
   guidance_prompt: More information
   guidance_link_text: 'Export horses and ponies: special rules'
   guidance_url: https://www.gov.uk/guidance/export-horses-and-ponies-special-rules
@@ -1044,8 +1061,8 @@ actions:
   audience: business
 - id: T091
   priority: 5
-  title: Check guidance on UK participation in the Kimberly Process Certification
-    Scheme (KPCS) for trading rough diamonds
+  title: Check guidance on the Kimberly Process Certification Scheme for trading rough
+    diamonds
   consequence: You will not be able to export rough diamonds from 1 January 2021 unless
     you have applied for a UK Kimberly Process certificate.
   guidance_prompt: More information
@@ -1059,7 +1076,7 @@ actions:
   title: Check the rules on moving timber and timber products between the UK and the
     EU
   consequence: You risk your timber or timber products being delayed or rejected if
-    you do not follow the right rules.
+    you do not follow the rules.
   guidance_prompt: More information
   guidance_link_text: 'Trading timber: imports and exports from 2021'
   guidance_url: https://www.gov.uk/guidance/trading-timber-imports-and-exports-if-theres-no-brexit-deal
@@ -1071,7 +1088,7 @@ actions:
   title: Check if you need new licences for any drug precursor chemicals you import
     or export
   consequence: You risk your chemicals being seized and you will be breaking the law
-    if you import or export drug precursors without the correct licences.
+    if you do not have the correct licences.
   guidance_prompt: More information
   guidance_link_text: Trading in drug precursors from 2021
   guidance_url: https://www.gov.uk/government/publications/trading-in-drug-precursors-if-theres-no-brexit-deal
