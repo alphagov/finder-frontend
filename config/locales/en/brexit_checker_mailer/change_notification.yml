@@ -2,6 +2,11 @@ en:
   brexit_checker_mailer:
     change_notification:
       guidance_prompt: Read the guidance
-      title: Your transition period results
-      addition: A new action has been added
-      content_change: An action has been updated
+      addition:
+        description: "A new action has been added."
+        header: ""
+        title: "Update from GOV.UK - Transition period: check what you should do now"
+      content_change:
+        description: "What you need to do may have changed."
+        header: "What's changed"
+        title: "Update from GOV.UK - Transition period: what you need to do may have changed"

@@ -62,10 +62,10 @@ RSpec.describe "Change notifications" do
         expect(payload["body"]).to match(addition.action.title)
         expect(payload["body"]).to match(addition.action.consequence)
 
-        title = I18n.t!("brexit_checker_mailer.change_notification.title")
+        title = I18n.t!("brexit_checker_mailer.change_notification.addition.title")
         expect(payload["title"]).to eq title
 
-        change_text = I18n.t!("brexit_checker_mailer.change_notification.addition")
+        change_text = I18n.t!("brexit_checker_mailer.change_notification.addition.description")
         expect(payload["body"]).to match(change_text)
 
         date = DateTime.parse(addition.date)
@@ -98,10 +98,10 @@ RSpec.describe "Change notifications" do
         expect(payload["sender_message_id"]).to eq content_change.id
         expect(payload["body"]).to match(content_change.action.title)
 
-        title = I18n.t!("brexit_checker_mailer.change_notification.title")
+        title = I18n.t!("brexit_checker_mailer.change_notification.content_change.title")
         expect(payload["title"]).to eq title
 
-        change_text = I18n.t!("brexit_checker_mailer.change_notification.content_change")
+        change_text = I18n.t!("brexit_checker_mailer.change_notification.content_change.description")
         expect(payload["body"]).to match(change_text)
 
         date = DateTime.parse(content_change.date)

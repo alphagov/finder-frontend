@@ -1,4 +1,6 @@
-<%= t("brexit_checker_mailer.change_notification.#{@notification.type}") %>
+<%= t("brexit_checker_mailer.change_notification.#{@notification.type}.description") %>
+
+<%= t("brexit_checker_mailer.change_notification.#{@notification.type}.header") %>
 
 <% if @action.title_url.present? %>
 [<%= @action.title %>](<%= notification_email_link(@action.title_url, @notification) %>)
@@ -6,19 +8,18 @@
 <%= @action.title %>
 <% end %>
 
-<% if @action.consequence.present? %><%= @action.consequence %><% end %>
+<%= @action.consequence if @action.consequence.present? %>
 
-<% if @action.exception.present? %><%= @action.exception %><% end %>
-
-<% if @action.guidance_url.present? %>
-<%= @action.guidance_prompt || t("brexit_checker_mailer.change_notification.guidance_prompt") %>
-[<%= @action.guidance_link_text %>](<%= notification_email_link(@action.guidance_url, @notification)  %>)
-<% end %>
-
-Updated
-<%= Date.parse(@notification.date).strftime("%-d %B %Y") %>
+<%= @action.exception if @action.exception.present? %>
 
 <% if @notification.note.present? %>
 Changes made
 <%= @notification.note %>
+<% end %>
+
+Updated <%= Date.parse(@notification.date).strftime("%-d %B %Y") %>
+
+<% if @action.guidance_url.present? %>
+<%= @action.guidance_prompt || t("brexit_checker_mailer.change_notification.guidance_prompt") %>
+[<%= @action.guidance_link_text %>](<%= notification_email_link(@action.guidance_url, @notification)  %>)
 <% end %>

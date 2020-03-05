@@ -4,12 +4,12 @@ class BrexitCheckerMailer < ApplicationMailer
   def change_notification(notification)
     @notification = notification
     @action = @notification.action
-    mail(subject: subject)
+    mail(subject: subject(@notification))
   end
 
 private
 
-  def subject
-    I18n.t!("brexit_checker_mailer.change_notification.title")
+  def subject(notification)
+    I18n.t!("brexit_checker_mailer.change_notification.#{notification.type}.title")
   end
 end
