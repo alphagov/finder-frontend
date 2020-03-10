@@ -35,6 +35,25 @@ module Search
 
     attr_reader :ab_params, :override_sort_for_feed, :content_item
 
+    def fix_results(search_response)
+      start = search_response.fetch("start")
+      results = search_response.fetch("results")
+      results_chunks = results.each_slice(content_item.default_documents_per_page).to_a
+
+      if [filter_params["page"].to_i, 1].max.even?
+        results = results_chunks[1]
+        start += content_item.default_documents_per_page
+      else
+        results = results_chunks[0]
+      end
+
+      search_response["results"] = results
+      search_response["total"] = results.count
+      search_response["start"] = start
+
+      search_response
+    end
+
     def merge_and_deduplicate(search_response)
       results = search_response.fetch("results")
 
@@ -89,12 +108,12 @@ module Search
 
       if queries.one?
         GovukStatsd.time("rummager.finder_search") do
-          Services.rummager.search(queries.first).to_hash
+          fix_results(Services.rummager.search(queries.first).to_hash)
         end
       else
         GovukStatsd.time("rummager.finder_batch_search") do
           merge_and_deduplicate(
-            Services.rummager.batch_search(queries).to_hash,
+            fix_results(Services.rummager.batch_search(queries).to_hash),
           )
         end
       end

@@ -57,11 +57,13 @@ module Search
     end
 
     def current_page
-      [params["page"].to_i, 1].max
+      page = [params["page"].to_i, 1].max
+      page -= 1 if page.even?
+      page
     end
 
     def documents_per_page
-      finder_content_item.default_documents_per_page
+      finder_content_item.default_documents_per_page * 2
     end
 
     def return_fields_query
