@@ -36,6 +36,8 @@ module Search
     attr_reader :ab_params, :override_sort_for_feed, :content_item
 
     def fix_results(search_response)
+      return search_response unless request_multiple_pages?
+
       start = search_response.fetch("start")
       results = search_response.fetch("results")
       results_chunks = results.each_slice(content_item.default_documents_per_page).to_a
@@ -98,12 +100,17 @@ module Search
       results.all? { |result| (result["combined_score"] || result["es_score"]).present? }
     end
 
+    def request_multiple_pages?
+      filter_params["keywords"].present? && [nil, "relevance", "-relevance"].include?(filter_params["order"])
+    end
+
     def fetch_search_response(content_item)
       queries = QueryBuilder.new(
         finder_content_item: content_item,
         params: filter_params,
         ab_params: ab_params,
         override_sort_for_feed: override_sort_for_feed,
+        request_multiple_pages: request_multiple_pages?,
       ).call
 
       if queries.one?

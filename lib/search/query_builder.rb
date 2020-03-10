@@ -12,11 +12,12 @@ module Search
     # find anything useful, too much noise.
     MAX_QUERY_LENGTH = 512
 
-    def initialize(finder_content_item:, params: {}, ab_params: {}, override_sort_for_feed: false)
+    def initialize(finder_content_item:, params: {}, ab_params: {}, override_sort_for_feed: false, request_multiple_pages: false)
       @finder_content_item = finder_content_item
       @params = params
       @ab_params = ab_params
       @override_sort_for_feed = override_sort_for_feed
+      @request_multiple_pages = request_multiple_pages
     end
 
     def call
@@ -42,7 +43,7 @@ module Search
 
   private
 
-    attr_reader :finder_content_item, :params, :ab_params, :override_sort_for_feed
+    attr_reader :finder_content_item, :params, :ab_params, :override_sort_for_feed, :request_multiple_pages
 
 
     def pagination_query
@@ -58,12 +59,14 @@ module Search
 
     def current_page
       page = [params["page"].to_i, 1].max
-      page -= 1 if page.even?
+      page -= 1 if request_multiple_pages && page.even?
       page
     end
 
     def documents_per_page
-      finder_content_item.default_documents_per_page * 2
+      per_page = finder_content_item.default_documents_per_page
+      per_page *= 2 if request_multiple_pages
+      per_page
     end
 
     def return_fields_query
