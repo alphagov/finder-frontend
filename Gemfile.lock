@@ -160,7 +160,7 @@ GEM
       statsd-ruby (~> 1.4.0)
       unicorn (>= 5.4, < 5.6)
     govuk_document_types (0.9.2)
-    govuk_publishing_components (21.27.1)
+    govuk_publishing_components (21.28.1)
       gds-api-adapters
       govuk_app_config
       kramdown
@@ -168,6 +168,7 @@ GEM
       rails (>= 5.0.0.1)
       rake
       rouge
+      sass (= 3.7.4)
       sassc-rails (>= 2.0.1)
       sprockets (< 4)
     govuk_schemas (4.0.0)
@@ -304,7 +305,7 @@ GEM
       netrc (~> 0.8)
     retriable (3.1.2)
     rexml (3.2.4)
-    rouge (3.16.0)
+    rouge (3.17.0)
     rspec-core (3.9.1)
       rspec-support (~> 3.9.1)
     rspec-expectations (3.9.0)
@@ -448,7 +449,7 @@ DEPENDENCIES
   govuk_ab_testing (~> 2.4.1)
   govuk_app_config (~> 2.1.0)
   govuk_document_types (~> 0.9.2)
-  govuk_publishing_components (~> 21.27.1)
+  govuk_publishing_components (~> 21.28.1)
   govuk_schemas (~> 4.0)
   govuk_test
   jasmine-rails
