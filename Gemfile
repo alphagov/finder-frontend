@@ -34,7 +34,7 @@ group :development, :test do
   gem "jasmine-rails"
   gem "listen"
   gem "pry-byebug"
-  gem "rspec-rails", "~> 4.0.0.beta4"
+  gem "rspec-rails", "~> 4.0.0.rc1"
   gem "rubocop-govuk"
   gem "scss_lint-govuk"
 end
