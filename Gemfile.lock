@@ -290,7 +290,7 @@ GEM
     rb-fsevent (0.10.3)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
-    rdoc (6.2.0)
+    rdoc (6.2.1)
     regexp_parser (1.6.0)
     representable (3.0.4)
       declarative (< 0.1.0)
@@ -366,7 +366,7 @@ GEM
       sass (~> 3.5, >= 3.5.5)
     scss_lint-govuk (0.2.0)
       scss_lint
-    sdoc (1.0.0)
+    sdoc (1.1.0)
       rdoc (>= 5.0)
     selenium-webdriver (3.142.6)
       childprocess (>= 0.5, < 4.0)
