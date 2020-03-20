@@ -16,7 +16,7 @@ module Registries
     end
 
     def ensure_warm_cache
-      all.values.each { |registry|
+      all.each_value { |registry|
         if registry.can_refresh_cache?
           registry.fetch_from_cache
         end
@@ -24,7 +24,7 @@ module Registries
     end
 
     def refresh_cache
-      all.values.each { |registry|
+      all.each_value { |registry|
         if registry.can_refresh_cache?
           registry.refresh_cache
         end
