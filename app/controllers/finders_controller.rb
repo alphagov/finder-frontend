@@ -6,10 +6,10 @@ class FindersController < ApplicationController
   before_action :remove_search_box
 
   before_action do
-    expires_in(5.minutes, public: true)
+    expires_in(30.minutes, public: true)
   end
 
-  ATOM_FEED_MAX_AGE = 300
+  ATOM_FEED_MAX_AGE = 30 * 60
   def show
     respond_to do |format|
       format.html do
