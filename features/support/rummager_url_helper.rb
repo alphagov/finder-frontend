@@ -74,6 +74,7 @@ module RummagerUrlHelper
     {
       "count" => "1500",
       "start" => "0",
+      "ab_tests" => "relevance:disable",
       "suggest" => "spelling_with_highlighting",
     }
   end

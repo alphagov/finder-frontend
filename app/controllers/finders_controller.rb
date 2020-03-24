@@ -111,7 +111,7 @@ private
       content_item,
       filter_params,
       override_sort_for_feed: is_for_feed,
-      ab_params: learning_to_rank_model_ab_test_params,
+      ab_params: { relevance: "disable" },
     )
   end
 

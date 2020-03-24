@@ -57,6 +57,7 @@ describe FindersController, type: :controller do
               filter_document_type: "mosw_report",
               order: "-public_timestamp",
               start: 0,
+              ab_tests: "relevance:disable",
               suggest: "spelling_with_highlighting",
             },
           )
@@ -116,6 +117,7 @@ describe FindersController, type: :controller do
               filter_document_type: "mosw_report",
               order: "-public_timestamp",
               start: 0,
+              ab_tests: "relevance:disable",
               suggest: "spelling_with_highlighting",
             },
           )
@@ -233,6 +235,7 @@ describe FindersController, type: :controller do
               filter_document_type: "mosw_report",
               order: "-public_timestamp",
               start: 0,
+              ab_tests: "relevance:disable",
               suggest: "spelling_with_highlighting",
             },
           )
@@ -247,28 +250,6 @@ describe FindersController, type: :controller do
       it "any other finder does not tell Slimmer to hide the form" do
         get :show, params: { slug: "lunch-finder" }
         expect(response.headers).not_to include("X-Slimmer-Remove-Search")
-      end
-    end
-  end
-
-  describe "Learning To Rank AB test" do
-    before do
-      stub_content_store_has_item("/search/all", all_content_finder)
-    end
-
-    it "requests the Hippo model" do
-      request = search_api_request(query: { ab_tests: "mv:hippo" })
-      with_variant LearningToRankModelABTest: "hippo" do
-        get :show, params: { slug: "search/all" }
-        expect(request).to have_been_made.once
-      end
-    end
-
-    it "requests the control variant by default" do
-      request = search_api_request
-      with_variant LearningToRankModelABTest: "unchanged" do
-        get :show, params: { slug: "search/all" }
-        expect(request).to have_been_made.once
       end
     end
   end
@@ -351,6 +332,7 @@ describe FindersController, type: :controller do
           filter_document_type: "mosw_report",
           order: "-public_timestamp",
           start: 0,
+          ab_tests: "relevance:disable",
           suggest: "spelling_with_highlighting",
         }.merge(query),
       )
