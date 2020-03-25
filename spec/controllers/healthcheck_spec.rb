@@ -39,7 +39,7 @@ describe "Healthcheck" do
       expect(JSON.parse(response.body)).to eq(
         "checks" => {
           "registries_have_data" => {
-            "message" => "The following registry caches are empty: world_locations, all_part_of_taxonomy_tree, part_of_taxonomy_tree, people, roles, organisations, manual, full_topic_taxonomy.",
+            "message" => "The following registry caches are empty: world_locations, all_part_of_taxonomy_tree, part_of_taxonomy_tree, people, roles, organisations, manual, full_topic_taxonomy, full_topical_events.",
             "status" => "warning",
           },
         },
