@@ -144,4 +144,31 @@ module RegistrySpecHelper
         ],
       }.to_json)
   end
+
+  def stub_full_topical_events_registry_request
+    stub_request(:get, "http://search.dev.gov.uk/search.json")
+    .with(query: {
+      count: 1500,
+      fields: %w(slug title),
+      filter_format: %(topical_event),
+      order: "title",
+    })
+    .to_return(body: { results: [
+      {
+        "title": "2014 Overseas Territories Joint Ministerial Council",
+        "slug": "2014-overseas-territories-joint-ministerial-council",
+        "_id": "/government/topical-events/2014-overseas-territories-joint-ministerial-council",
+      },
+      {
+        "title": "Anti-Corruption Summit: London 2016",
+        "slug": "anti-corruption-summit-london-2016",
+        "_id": "/government/topical-events/anti-corruption-summit-london-2016",
+      },
+      {
+        "title": "Autumn Budget 2017",
+        "slug": "autumn-budget-2017",
+        "_id": "/government/topical-events/autumn-budget-2017",
+      },
+    ] }.to_json)
+  end
 end
