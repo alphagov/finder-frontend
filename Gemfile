@@ -9,7 +9,7 @@ gem "google-api-client"
 gem "govuk_ab_testing", "~> 2.4.1"
 gem "govuk_app_config", "~> 2.1.2"
 gem "govuk_document_types", "~> 0.9.2"
-gem "govuk_publishing_components", "~> 21.35.0"
+gem "govuk_publishing_components", "~> 21.36.0"
 gem "rails", "~> 6.0.2"
 gem "slimmer", "~> 13.2.2"
 
