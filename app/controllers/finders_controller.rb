@@ -111,6 +111,7 @@ private
       filter_params,
       override_sort_for_feed: is_for_feed,
       ab_params: {},
+      show_parts: true,
     )
   end
 
