@@ -26,17 +26,7 @@ class SearchResultPresenter
         text: title,
         path: link,
         description: sanitize(summary_text),
-        data_attributes: {
-          ecommerce_path: link,
-          ecommerce_row: 1,
-          track_category: "navFinderLinkClicked",
-          track_action: "#{content_item.title}.#{document.index}",
-          track_label: link,
-          track_options: {
-            dimension28: @count,
-            dimension29: title,
-          },
-        },
+        data_attributes: ecommerce_data(link, title),
       },
       metadata: structure_metadata,
       metadata_raw: metadata,
@@ -94,21 +84,28 @@ private
           text: part[:title],
           path: "#{link}/#{part[:slug]}",
           description: part[:body],
-          data_attributes: {
-            ecommerce_path: part[:slug],
-            track_category: "resultPart",
-            track_action: "Result part",
-            track_label: "Part #{index}",
-            track_options: {
-              dimension82: index,
-            },
-          },
+          data_attributes: ecommerce_data("#{link}/#{part[:slug]}", part[:title], part_index: index),
         },
       }
     end
     structured_parts.compact
   end
 
+  def ecommerce_data(link, title, part_index: nil)
+    {
+      ecommerce_path: link,
+      ecommerce_row: 1,
+      ecommerce_index: document.index,
+      track_category: "navFinderLinkClicked",
+      track_action: [content_item.title, document.index, part_index].compact.join("."),
+      track_label: link,
+      track_options: {
+        dimension22: part_index,
+        dimension28: @count,
+        dimension29: title,
+      }.compact,
+    }
+  end
 
   attr_reader :document, :metadata, :content_item
 end
