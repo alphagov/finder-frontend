@@ -127,6 +127,36 @@ describe FindersController, type: :controller do
       end
     end
 
+    describe "user requests parts" do
+      before do
+        stub_content_store_has_item(
+          "/lunch-finder",
+          lunch_finder,
+        )
+
+        url = "#{Plek.current.find('search')}/search.json"
+
+        stub_request(:get, url)
+          .with(
+            query: {
+              count: 10,
+              fields: "title,link,description_with_highlighting,public_timestamp,popularity,content_purpose_supergroup,content_store_document_type,format,is_historic,government_name,content_id,walk_type,place_of_origin,date_of_introduction,creator,parts",
+              filter_document_type: "mosw_report",
+              order: "-public_timestamp",
+              start: 0,
+              suggest: "spelling_with_highlighting",
+            },
+          )
+          .to_return(status: 200, body: rummager_response, headers: {})
+      end
+
+      it "correctly renders a finder page" do
+        get :show, params: { slug: "lunch-finder", show_parts: "1" }
+        expect(response.status).to eq(200)
+        expect(response).to render_template("finders/show")
+      end
+    end
+
     describe "finder item doesn't exist" do
       before do
         stub_content_store_does_not_have_item("/does-not-exist")

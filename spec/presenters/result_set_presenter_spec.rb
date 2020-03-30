@@ -130,6 +130,7 @@ RSpec.describe ResultSetPresenter do
             data_attributes: {
               ecommerce_path: "/path/to/doc",
               ecommerce_row: 1,
+              ecommerce_index: 1,
               track_category: "navFinderLinkClicked",
               track_action: "A finder.1",
               track_label: "/path/to/doc",
@@ -152,6 +153,7 @@ RSpec.describe ResultSetPresenter do
             },
           ],
           subtext: nil,
+          parts: [],
         }
 
         search_result_objects = subject.search_results_content[:document_list_component_data]

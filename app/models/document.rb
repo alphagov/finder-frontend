@@ -2,7 +2,7 @@ class Document
   attr_reader :title, :public_timestamp, :is_historic, :government_name,
               :content_purpose_supergroup, :document_type, :organisations,
               :release_timestamp, :es_score, :format, :content_id, :index,
-              :description, :score, :original_rank
+              :description, :score, :original_rank, :parts
 
   def initialize(document_hash, index)
     document_hash = document_hash.with_indifferent_access
@@ -22,6 +22,7 @@ class Document
     @original_rank = document_hash.fetch(:original_rank, nil)
     @format = document_hash.fetch(:format, nil)
     @document_hash = document_hash
+    @parts = document_hash.fetch(:parts, [])
     @index = index
   end
 

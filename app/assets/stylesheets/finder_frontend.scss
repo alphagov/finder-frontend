@@ -361,14 +361,6 @@ mark {
   }
 }
 
-// adjust spacing between items
-// not using govuk-spacing as they need to be consistent
-// across breakpoints
-.finder-results .gem-c-document-list__item {
-  margin-bottom: 20px;
-  padding-bottom: 30px;
-}
-
 .facet-container {
   padding-left: 13px;
   padding-right: 13px;

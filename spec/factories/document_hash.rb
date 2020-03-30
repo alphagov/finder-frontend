@@ -28,6 +28,7 @@ FactoryBot.define do
     original_rank { nil }
     format { "answer" }
     facet_values { [] }
+    parts { [] }
 
     initialize_with { attributes.deep_stringify_keys }
   end
