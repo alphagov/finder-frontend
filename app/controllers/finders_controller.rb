@@ -1,5 +1,6 @@
 class FindersController < ApplicationController
   include FinderTopResultAbTestable
+  include PartsInResultsAbTestable
 
   layout "finder_layout"
   before_action :remove_search_box
@@ -111,7 +112,7 @@ private
       filter_params,
       override_sort_for_feed: is_for_feed,
       ab_params: {},
-      show_parts: params["show_parts"] == "1",
+      show_parts: show_parts_in_results || params["show_parts"] == "1",
     )
   end
 
