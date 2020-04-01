@@ -149,7 +149,7 @@ private
       suggested_queries,
       finder_url_builder.url(keywords: (suggested_queries.first || {}).dig("text")),
       # Search api is set to always return an array with one item
-      content_item.as_hash["content_id"],
+      content_item.as_hash["base_path"],
     )
   end
 
