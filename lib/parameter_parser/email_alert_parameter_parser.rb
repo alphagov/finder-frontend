@@ -15,9 +15,7 @@ module ParameterParser
 
     def applied_filters
       @applied_filters ||= begin
-        permitted_filter_keys.each_with_object({}) { |key, filter_hash|
-          filter_hash[key] = permitted_values_for_filter_key(key)
-        }.compact
+        permitted_filter_keys.index_with { |key| permitted_values_for_filter_key(key) }.compact
       end
     end
 
