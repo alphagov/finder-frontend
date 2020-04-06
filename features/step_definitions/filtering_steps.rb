@@ -409,7 +409,7 @@ And("there is machine readable information") do
   schemas = schema_sections.map { |section| JSON.parse(section.text(:all)) }
 
   org_schema = schemas.detect { |schema| schema["@type"] == "SearchResultsPage" }
-  expect(org_schema["name"]).to eq @title
+  expect(org_schema["name"]).to_not be_nil
 
   tag = "link[rel='canonical']"
   expect(page).to have_css(tag, visible: false)
