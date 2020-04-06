@@ -45,9 +45,7 @@ module Search
       facet_keys = facet["keys"]
 
       if facet_keys
-        return facet_keys.each_with_object({}) { |key, result_hash|
-          result_hash[key] = user_params.fetch(key, nil)
-        }
+        return facet_keys.index_with { |key| user_params.fetch(key, nil) }
       end
 
       user_params.fetch(facet_key, nil)
