@@ -1,0 +1,78 @@
+<%
+  action_based_email_link_label = brexit_results_email_link_label(@actions)
+  action_based_title = brexit_results_title(@actions, criteria_keys)
+  action_based_description = brexit_results_description(@actions, criteria_keys)
+%>
+
+<% content_for :title, action_based_title %>
+<% content_for :head do %>
+  <% page_url = request.base_url + request.path %>
+  <meta name="govuk:search-result-count" content="<%= @actions.count %>">
+  <meta name="robots" content="noindex">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="GOV.UK">
+  <meta property="og:url" content="<%= page_url %>">
+  <meta property="og:title" content="<%= t('brexit_checker.results.social_media_meta.title') %>">
+  <meta property="og:description" content="<%= t('brexit_checker.results.social_media_meta.description') %>">
+  <meta name="twitter:card" content="summary">
+  <link rel="canonical" href="<%= page_url %>">
+<% end %>
+
+<div class="govuk-width-container brexit-checker-results-page">
+  <%= render 'govuk_publishing_components/components/breadcrumbs', {
+    collapse_on_mobile: true,
+    breadcrumbs: [
+      {
+        title: t('brexit_checker.breadcrumbs.home'),
+        url: "/"
+      },
+      {
+        title: t('brexit_checker.breadcrumbs.brexit-home'),
+        url: "/transition"
+      },
+      {
+        title: t('brexit_checker.breadcrumbs.brexit-check'),
+        url: "/transition-check"
+      }
+    ]
+  } %>
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <%= render "govuk_publishing_components/components/title", {
+        title: action_based_title
+      } %>
+      <% unless @actions.any? %>
+        <p class="govuk-body-l">
+          <%= action_based_description %>
+        </p>
+      <% end %>
+      <% unless criteria_keys.present? %>
+        <p class="govuk-body-l">
+          <%= render "change_answers_link" %>
+        </p>
+      <% end %>
+    </div>
+  </div>
+
+  <% if criteria_keys.present? %>
+    <%= render 'components/email_link', {
+      data_attributes: {
+        "module": "track-click",
+        "track-action": action_based_email_link_label,
+        "track-category": "StayUpdated",
+        "track-label": transition_checker_email_signup_path
+      },
+      link_text: action_based_email_link_label,
+      link_href: transition_checker_email_signup_path(c: criteria_keys),
+      link_title: t("brexit_checker.results.email_sign_up_title"),
+    } %>
+
+    <%= render 'results_business_actions', business_results: @business_results if @business_results.any? %>
+    <%= render 'results_citizen_actions', citizen_results_groups: @citizen_results_groups if @citizen_results_groups.any? %>
+    <%= render 'results_with_no_actions', criteria: @criteria if (@business_results.empty? && @citizen_results_groups.empty?) %>
+
+    <%= render 'stay_updated' %>
+    <%= render 'share_links' %>
+    <%= render 'print_link' if @business_results.any? || @citizen_results_groups.any? %>
+  <% end %>
+</div>

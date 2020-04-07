@@ -1,0 +1,22 @@
+<div class="govuk-!-margin-top-8">
+  <%= render "govuk_publishing_components/components/radio", {
+    name: "c[]",
+    heading: current_question.text,
+    heading_caption: current_question.caption,
+    description: formatted_description,
+    hint: current_question.hint_text,
+    is_page_heading: true,
+    items: current_question.options.map do |option|
+      checkboxes = if option.sub_options.present?
+                     render "govuk_publishing_components/components/checkboxes", {
+                       name: "c[]",
+                       heading: option.label,
+                       visually_hide_heading: true,
+                       items: format_question_options(option.sub_options, criteria_keys)
+                     }
+                   end
+
+      format_question_option(option, criteria_keys).merge(conditional: checkboxes)
+    end
+  } %>
+</div>

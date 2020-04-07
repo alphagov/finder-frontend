@@ -1,0 +1,80 @@
+<% content_for :title, "#{@current_question.text} - #{t('brexit_checker.show.title')}" %>
+<% content_for :head do %>
+  <meta name="robots" content="noindex">
+<% end %>
+
+<%
+  formatted_description = nil
+  if @current_question.description
+    formatted_description = render("govuk_publishing_components/components/govspeak", {
+      content: @current_question.description.html_safe
+    })
+  end
+%>
+
+<div class="govuk-width-container">
+  <% if @previous_page %>
+    <%= render "govuk_publishing_components/components/back_link", {
+      href: transition_checker_questions_path(page: @previous_page, c: criteria_keys),
+    } %>
+  <% else %>
+    <%= render "govuk_publishing_components/components/back_link", {
+      href: "/get-ready-brexit-check",
+    } %>
+  <% end %>
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <form
+        action="<%= transition_checker_questions_path %>"
+        method="get"
+        id="finder-qa-facet-filter-selection"
+        data-module="track-brexit-qa-choices"
+        data-question-key="<%= @current_question.key %>"
+      >
+        <% if @current_question.multiple? %>
+          <div class="govuk-!-margin-top-8">
+            <%= render 'question_multiple_choice', {
+              current_question: @current_question,
+              formatted_description: formatted_description
+            } %>
+          </div>
+        <% elsif @current_question.multiple_grouped? %>
+          <div class="govuk-!-margin-top-8">
+            <%= render 'question_multiple_grouped_choice', {
+              current_question: @current_question,
+              formatted_description: formatted_description
+            } %>
+          </div>
+        <% elsif @current_question.single_wrapped? %>
+          <div class="govuk-!-margin-top-8">
+            <%= render 'question_single_wrapped', {
+              current_question: @current_question,
+              formatted_description: formatted_description
+            } %>
+          </div>
+        <% else %>
+          <div class="govuk-!-margin-top-8">
+            <%= render 'question_single_choice', {
+              current_question: @current_question,
+              formatted_description: formatted_description
+            } %>
+          </div>
+        <% end %>
+        <%= render 'form_data',
+          criteria_keys: persistent_criteria_keys(@current_question.all_values),
+          next_page: (@question_index + 1)
+        %>
+        <%= render 'detail_text', {
+            detail_text: @current_question.detail_text,
+            detail_title: @current_question.detail_title,
+            question_key: @current_question.key
+          }
+        %>
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Continue"
+        } %>
+      </form>
+    </div>
+  </div>
+</div>

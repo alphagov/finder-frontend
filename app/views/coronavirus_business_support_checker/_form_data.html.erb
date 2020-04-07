@@ -1,0 +1,4 @@
+<% criteria_keys.each do |key| %>
+  <input type="hidden" name="c[]" value="<%= key %>">
+<% end %>
+<input type="hidden" name="page" value="<%= next_page %>">

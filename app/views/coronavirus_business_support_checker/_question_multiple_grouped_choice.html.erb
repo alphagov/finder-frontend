@@ -1,0 +1,22 @@
+<%= render "govuk_publishing_components/components/title", {
+  title: current_question.text,
+  context: current_question.caption,
+  margin_bottom: 5
+} %>
+
+<%= formatted_description %>
+
+<% if current_question.hint_text.present? %>
+  <%= render "govuk_publishing_components/components/hint", {
+    text: current_question.hint_text
+  } %>
+<% end %>
+
+<% current_question.options.each do | group | %>
+  <%= render "govuk_publishing_components/components/checkboxes", {
+    name: "c[]",
+    heading: group.label,
+    no_hint_text: true,
+    items: format_question_options(group.sub_options, criteria_keys)
+  } %>
+<% end %>

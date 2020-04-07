@@ -1,0 +1,9 @@
+<%= render "govuk_publishing_components/components/checkboxes", {
+  name: "c[]",
+  heading_caption: current_question.caption,
+  heading: current_question.text,
+  description: formatted_description,
+  hint_text: current_question.hint_text,
+  is_page_heading: true,
+  items: format_question_options(current_question.options(criteria_keys), criteria_keys)
+} %>

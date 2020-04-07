@@ -18,6 +18,10 @@ FinderFrontend::Application.routes.draw do
     get "/test-search/search/opensearch" => "search#opensearch"
   end
 
+  # Routes for the for Coronavirus Business Support Checker
+  get "/coronavirus-business-support/results" => "coronavirus_business_support_checker#results"
+  get "/coronavirus-business-support/questions" => "coronavirus_business_support_checker#show"
+
   # Routes for the for Brexit Checker
   get "/transition-check/results" => "brexit_checker#results", as: :transition_checker_results
   get "/transition-check/questions" => "brexit_checker#show", as: :transition_checker_questions

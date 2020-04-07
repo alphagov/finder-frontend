@@ -1,0 +1,11 @@
+<% unless detail_text.nil? %>
+  <%= render "govuk_publishing_components/components/details", {
+    title: detail_title  || "Why am I being asked this question?",
+    data_attributes: {
+      track_category: "brexit-checker-qa",
+      track_action: question_key,
+    }
+  } do %>
+    <%= detail_text.html_safe %>
+  <% end %>
+<% end %>

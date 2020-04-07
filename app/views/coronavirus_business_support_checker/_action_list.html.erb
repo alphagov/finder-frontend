@@ -1,0 +1,60 @@
+<% actions.each.with_index do | action, index | %>
+  <div class="govuk-grid-row brexit-checker__action">
+    <div class="brexit-checker__content-wrapper">
+      <p class="govuk-body brexit-checker__action_title">
+        <% if action.title_url.present? %>
+          <a
+            class="govuk-link"
+            href="<%= action.title_url %>"
+            data-module="track-click"
+            data-track-action="<%= "#{analytics_group}#{index + 1}"%> - Action"
+            data-track-category="brexit-checker-results"
+            data-track-label="<%= action.title_url %>"
+            data-ecommerce-row
+            data-ecommerce-path="<%= action.title_path %>"
+          ><%= action.title %></a>
+        <% else %>
+          <%= action.title %>
+        <% end %>
+      </p>
+      <% if action.lead_time.present? %>
+        <div class="govuk-body">
+          <div class="govuk-inset-text">
+            <%= action.lead_time %>
+          </div>
+        </div>
+      <% end %>
+
+      <% if action.consequence.present? %>
+        <p class="govuk-body">
+          <%= action.consequence %>
+        </p>
+      <% end %>
+      <% if action.exception.present? %>
+        <p class="govuk-body">
+          <%= action.exception %>
+        </p>
+      <% end %>
+
+      <% if action.guidance_url.present? %>
+        <div class="govuk-body govuk-!-font-size-16">
+          <p>
+            <%= action.guidance_prompt || t("brexit_checker.action_list.guidance_prompt") %>:
+          </p>
+          <p>
+            <a
+              href="<%= action.guidance_url %>"
+              class="govuk-link"
+              data-module="track-click"
+              data-track-action="<%= "#{analytics_group}#{index + 1}"%> - Guidance"
+              data-track-category="brexit-checker-results"
+              data-track-label="<%= action.guidance_url %>"
+              data-ecommerce-row
+              data-ecommerce-path="<%= action.guidance_path %>"
+            ><%= action.guidance_link_text %></a>
+          </p>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>

@@ -1,0 +1,46 @@
+<% content_for :title, t('brexit_checker.email_signup.title') %>
+<% content_for :head do %>
+  <% unless params[:page] %>
+    <meta name="robots" content="noindex">
+  <% end %>
+<% end %>
+
+<div class="govuk-width-container">
+  <%= render 'govuk_publishing_components/components/breadcrumbs', {
+    collapse_on_mobile: true,
+    breadcrumbs: [
+      {
+        title: t('brexit_checker.breadcrumbs.home'),
+        url: "/"
+      },
+      {
+        title: t('brexit_checker.breadcrumbs.brexit-home'),
+        url: "/transition"
+      },
+      {
+        title: t('brexit_checker.breadcrumbs.brexit-check'),
+        url: "/transition-check"
+      },
+      {
+        title: t('brexit_checker.breadcrumbs.results'),
+        url: transition_checker_results_path(c: criteria_keys)
+      }
+    ]
+  } %>
+
+  <main class="govuk-main-wrapper" role="mail">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-l"><%= t('brexit_checker.email_signup.sign_up_heading') %></h1>
+        <%= t('brexit_checker.email_signup.sign_up_message').html_safe %>
+
+        <%= form_tag transition_checker_confirm_email_signup_path(c: criteria_keys), id: "checklist-email-signup" do %>
+          <%= render "govuk_publishing_components/components/button", {
+            text: t('brexit_checker.email_signup.sign_up_button'),
+            inline_layout: true
+          } %>
+        <% end %>
+      </div>
+    </div>
+  </main>
+</div>
