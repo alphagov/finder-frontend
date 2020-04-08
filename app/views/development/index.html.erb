@@ -8,6 +8,7 @@
   <p>The following pages are rendered by this application:</p>
 
   <ul>
+    <li><%= link_to "Coronavirus business support checker", cbs_checker_questions_path %></li>
     <li><%= link_to "How to prepare for a no deal Brexit questions", transition_checker_questions_path %></li>
   <% @rendered_pages.each do |page| %>
     <li><%= link_to page.fetch("title"), page.fetch("link") %></li>
