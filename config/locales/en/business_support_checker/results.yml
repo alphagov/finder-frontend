@@ -1,0 +1,35 @@
+en:
+  business_support_checker:
+    results:
+      title: "Coronavirus business support:"
+      title_no_actions: You do not need to take action now
+      title_no_answers: You did not answer any of the questions
+      description: |
+        You may not need to take all these actions now. Actions you need to take will depend on your own circumstances.
+      description_no_actions: |
+        Based on your responses, you do not need to take any action to prepare for new rules from 1 January 2021.
+      description_no_answers: |
+        <p class="govuk-body-l">To change your answers, follow the link below.</p>
+        <p class="govuk-body-l">This is a safe and secure service. We do not store any of your personal information.</p>
+      email_sign_up_title: What you need to do may change
+      email_sign_up_link: |
+        Subscribe to email updates about changes that may affect you and get a link to your results
+      email_sign_up_link_no_actions: |
+        Subscribe to email updates about changes that may affect you and get a link to your results
+      share_link_title: Share your results
+      social_media_meta:
+        title: "How to get ready for new rules in 2021: Your results"
+        description: |
+          What you, your family, or your business can do now to prepare for new rules from 1 January 2021.
+      criteria:
+        list_context: "Because you said:"
+        no_answers: |
+          You did not answer any of the questions.
+          This is a safe and secure service. We don't store any of your personal information.
+          To change your answers, follow the link below.
+      audiences:
+        citizen:
+          heading: You and your family
+        business:
+          heading: Your business or organisation
+      print_link: Print your results

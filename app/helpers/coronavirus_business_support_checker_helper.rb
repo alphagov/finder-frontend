@@ -58,31 +58,23 @@ module CoronavirusBusinessSupportCheckerHelper
     url.to_s
   end
 
-  def brexit_results_email_link_label(actions)
-    if actions.any?
-      t("brexit_checker.results.email_sign_up_link")
-    else
-      t("brexit_checker.results.email_sign_up_link_no_actions")
-    end
-  end
-
   def brexit_results_title(actions, criteria_keys)
     if actions.any?
-      t("brexit_checker.results.title")
+      t("business_support_checker.results.title")
     elsif criteria_keys.any?
-      t("brexit_checker.results.title_no_actions")
+      t("business_support_checker.results.title_no_actions")
     else
-      t("brexit_checker.results.title_no_answers")
+      t("business_support_checker.results.title_no_answers")
     end
   end
 
   def brexit_results_description(actions, criteria_keys)
     if actions.any?
-      t("brexit_checker.results.description")
+      t("business_support_checker.results.description")
     elsif criteria_keys.present?
-      t("brexit_checker.results.description_no_actions")
+      t("business_support_checker.results.description_no_actions")
     else
-      t("brexit_checker.results.description_no_answers").html_safe
+      t("business_support_checker.results.description_no_answers").html_safe
     end
   end
 end

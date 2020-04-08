@@ -4,6 +4,10 @@ actions:
   priority: 5
   title: Coronavirus Job retention Scheme 
   title_url: https://www.gov.uk/settled-status-eu-citizens-families/applying-for-settled-status
+  consequence: "Under the coronavirus Job Retention Scheme, all UK employers with a PAYE scheme will be able to access support to continue paying part of their employees’ salary for those that would otherwise have been laid off during this crisis."
+  guidance_prompt: Read the guidance
+  guidance_link_text: Claim for your employees' wages 
+  guidance_url: https://www.gov.uk/settled-status-eu-citizens-families
   criteria:
   - all_of:
     - not-self-employed
@@ -11,6 +15,7 @@ actions:
   priority: 5
   title: Deferring VAT
   title_url: https://www.gov.uk/family-permit
+  consequence: "We will support businesses by deferring Valued Added Tax (VAT) payments for 3 months." 
   criteria:
   - any_of:
     - 45m-plus-turnover 
@@ -19,13 +24,17 @@ actions:
   priority: 5
   title: Deferring Self-Assessment payments on account
   title_url: https://www.gov.uk/family-permit
+  consequence: "The Self- Assessment payment on account, that is ordinarily due to be paid to HMRC by 31 July 2020 may now be deferred until January 2021." 
   criteria:
   - all_of:
     - self-assessment-due-31-06-20
 - id: F004
   priority: 5
   title: Statutory Sick Pay Rebate
-  title_url: https://www.gov.uk/family-permit
+  consequence: "The Government will bring forward legislation to allow small and medium-sized businesses to reclaim Statutory Sick Pay (SSP) paid for staff sickness absence due to coronavirus."
+  guidance_prompt: Read the guidance
+  guidance_link_text: Claim for your employees' wages 
+  guidance_url: https://www.gov.uk/settled-status-eu-citizens-families
   criteria:
   - all_of:
     - 0-249-employees
@@ -35,6 +44,7 @@ actions:
   priority: 5
   title: Support for self-employed through the Self-employment Income Support Scheme
   title_url: https://www.gov.uk/family-permit
+  consequence: "The Self-employment Income Support Scheme (SEISS) will support self-employed individuals (including members of partnerships) whose income has been negatively impacted by COVID-19."
   criteria:
   - all_of:
     - 0-249-employees
@@ -43,6 +53,7 @@ actions:
   priority: 5
   title: Business Rates holiday for retail, hospitality and leisure
   title_url: https://www.gov.uk/family-permit
+  consequence: "Some description."
   criteria:
   - all_of:
     - registered-england
@@ -55,6 +66,7 @@ actions:
   priority: 5
   title: Retail, Hospitality and Leisure Grant Funding
   title_url: https://www.gov.uk/family-permit
+  consequence: "Some description."
   criteria:
   - all_of:
     - registered-england
@@ -70,6 +82,7 @@ actions:
   priority: 5
   title: Support for nursery businesses that pay business rates 
   title_url: https://www.gov.uk/family-permit
+  consequence: "Some description."
   criteria:
   - all_of:
     - registered-england
@@ -79,6 +92,7 @@ actions:
   priority: 5
   title: Small Business Grant Funding
   title_url: https://www.gov.uk/family-permit
+  consequence: "Some description."
   criteria:
   - all_of:
     - registered-england
@@ -88,6 +102,7 @@ actions:
   priority: 5
   title: Coronavirus Business Interruption Loan Scheme
   title_url: https://www.gov.uk/family-permit
+  consequence: "Some description."
   criteria:
   - all_of:
     - not-self-employed
@@ -98,6 +113,7 @@ actions:
   priority: 5
   title: Covid-19 Corporate Financing Facility
   title_url: https://www.gov.uk/family-permit
+  consequence: "Some description."
   criteria:
   - all_of:
     - not-self-employed
@@ -105,6 +121,7 @@ actions:
   priority: 5
   title: "Support for businesses paying tax: Time To Pay Service" 
   title_url: https://www.gov.uk/family-permit
+  consequence: "Some description."
   criteria:
   - all_of:
     - not-self-employed
