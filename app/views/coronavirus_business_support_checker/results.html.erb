@@ -63,6 +63,7 @@
         data-search-query
       >
         <div class="govuk-grid-row">
+          <%= render 'results_criteria', criteria: @criteria %>
           <div class="govuk-grid-column-two-thirds">
             <%= render "action_list", {
               analytics_group: "business-support",
