@@ -1,0 +1,113 @@
+---
+actions:
+- id: F001
+  priority: 5
+  title: Coronavirus Job retention Scheme 
+  title_url: https://www.gov.uk/settled-status-eu-citizens-families/applying-for-settled-status
+  criteria:
+  - all_of:
+    - not-self-employed
+- id: F002
+  priority: 5
+  title: Deferring VAT
+  title_url: https://www.gov.uk/family-permit
+  criteria:
+  - any_of:
+    - 45m-plus-turnover 
+    - 85k-45m-turnover
+- id: F003
+  priority: 5
+  title: Deferring Self-Assessment payments on account
+  title_url: https://www.gov.uk/family-permit
+  criteria:
+  - all_of:
+    - self-assessment-due-31-06-20
+- id: F004
+  priority: 5
+  title: Statutory Sick Pay Rebate
+  title_url: https://www.gov.uk/family-permit
+  criteria:
+  - all_of:
+    - 0-249-employees
+    - not-self-employed
+    - self-assessment-due-31-06-20
+- id: F005
+  priority: 5
+  title: Support for self-employed through the Self-employment Income Support Scheme
+  title_url: https://www.gov.uk/family-permit
+  criteria:
+  - all_of:
+    - 0-249-employees
+    - self-employed
+- id: F006
+  priority: 5
+  title: Business Rates holiday for retail, hospitality and leisure
+  title_url: https://www.gov.uk/family-permit
+  criteria:
+  - all_of:
+    - registered-england
+    - pay-business-rates
+    - any_of:
+      - sector_retail
+      - sector_hospitality
+      - sector_leisure
+- id: F007
+  priority: 5
+  title: Retail, Hospitality and Leisure Grant Funding
+  title_url: https://www.gov.uk/family-permit
+  criteria:
+  - all_of:
+    - registered-england
+    - pay-business-rates
+    - any_of:
+      - 15k-51k-property-rateable-value
+      - 0-15k-property-rateable-value
+    - any_of:
+      - sector_retail
+      - sector_hospitality
+      - sector_leisure
+- id: F008
+  priority: 5
+  title: Support for nursery businesses that pay business rates 
+  title_url: https://www.gov.uk/family-permit
+  criteria:
+  - all_of:
+    - registered-england
+    - pay-business-rates
+    - sector_nurseries
+- id: F009
+  priority: 5
+  title: Small Business Grant Funding
+  title_url: https://www.gov.uk/family-permit
+  criteria:
+  - all_of:
+    - registered-england
+    - 0-249-employees
+    - 0-15k-property-rateable-value
+- id: F010
+  priority: 5
+  title: Coronavirus Business Interruption Loan Scheme
+  title_url: https://www.gov.uk/family-permit
+  criteria:
+  - all_of:
+    - not-self-employed
+    - any_of:
+      - 85k-45m-turnover
+      - 0-85k-turnover
+- id: F011
+  priority: 5
+  title: Covid-19 Corporate Financing Facility
+  title_url: https://www.gov.uk/family-permit
+  criteria:
+  - all_of:
+    - not-self-employed
+- id: F012
+  priority: 5
+  title: "Support for businesses paying tax: Time To Pay Service" 
+  title_url: https://www.gov.uk/family-permit
+  criteria:
+  - all_of:
+    - not-self-employed
+    - any_of:
+      - 85k-45m-turnover
+      - 0-85k-turnover

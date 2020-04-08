@@ -1,0 +1,96 @@
+---
+questions:
+  - key: registered-location
+    type: single
+    caption: About you and your family
+    text: 'Where is you business registered?'
+    options:
+      - label: England
+        value: registered-england
+      - label: Scotland
+        value: registered-scotland
+      - label: Wales
+        value: registered-wales
+      - label: Northern Ireland
+        value: registered-northern-ireland
+
+  - key: employee-number
+    type: single
+    caption: About you and your family
+    text: 'How many people do you employ?'
+    options:
+      - label: '0 to 249 employees'
+        value: 0-249-employees
+      - label: '250 or more employees'
+        value: 250-plus-employees
+
+  - key: self-employed
+    type: single
+    caption: About you and your family
+    text: 'Are you self-employed?'
+    options:
+      - label: "Yes"
+        value: self-employed
+      - label: "No"
+        value: not-self-employed
+
+  - key: turnover
+    type: single
+    caption: About you and your family
+    text: 'What is your turnover per year?'
+    options:
+      - label: "Over £45 million"
+        value: 45m-plus-turnover
+      - label: "Over £85,000 and under £45 million"
+        value: 85k-45m-turnover
+      - label: "Under £85,000 (i.e. you are not VAT registered)"
+        value: 0-85k-turnover
+
+  - key: business-rates
+    type: single
+    caption: About you and your family
+    text: 'Do you pay business rates?'
+    options:
+      - label: "Yes"
+        value: pay-business-rates
+      - label: "No"
+        value: no-pay-business-rates
+
+  - key: property-rateable-value
+    type: single
+    caption: About you and your family
+    text: 'What is the rateable value of non-domestic property?'
+    options:
+      - label: "Over £51,000"
+        value: 51k-plus-property-rateable-value
+      - label: "Over £15,000 and under £51,000"
+        value: 15k-51k-property-rateable-value
+      - label: "Under £15,000"
+        value: 0-15k-property-rateable-value
+
+  - key: self-assessment-due-31-06-20
+    type: single
+    caption: About you and your family
+    text: 'Are you due to pay a self-assessment payment on account by 31 July 2020?'
+    options:
+      - label: "Yes"
+        value: self-assessment-due-31-06-20
+      - label: "No"
+        value: no-self-assessment-due-31-06-20
+
+  - key: business-sector
+    caption: About your business
+    type: multiple
+    text: "What does your business or organisation do?"
+    hint_text: "Select all that apply."
+    options:
+      - label: "Retail"
+        value: sector-retail
+      - label: "Hospitality"
+        value: sector-hospitality
+      - label: "Leisure"
+        value: sector-leisure
+      - label: "Nurserises"
+        value: sector-nurseries
+      - label: "None of the above"
+        value: sector-none

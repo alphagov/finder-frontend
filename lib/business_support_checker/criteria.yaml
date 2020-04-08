@@ -1,0 +1,48 @@
+---
+criteria:
+- text: Your business is registered in England
+  key: registered-england
+- text: Your business is registered in Scotland
+  key: registered-scotland
+- text: Your business is registered in Wales
+  key: registered-wales
+- text: Your business is registered in Northern Ireland
+  key: registered-northern-ireland
+- text: 'Your business has between 0 to 249 employees'
+  key: 0-249-employees
+- text: 'Your business has 250 or more employees'
+  key: 250-plus-employees
+- text: "You are self employed"
+  key: self-employeed
+- text: "You are not self employed"
+  key: not-self-employeed
+- text: "Your business has a turnover over £45 million"
+  key: 45m-plus-turnover
+- text: "Your business has a turnover between £85,000 and £45 million"
+  key: 85k-45m-turnover
+- text: "Your business has a turnover under £85,000"
+  key: 0-85k-turnover
+- text: "You pay business rates"
+  key: pay-business-rates
+- text: "You do not pay business rates"
+  key: no-pay-business-rates
+- text: "Your non-domestic business property has a rateable value over £51,000"
+  key: 51k-plus-property-rateable-value
+- text: "Your non-domestic business property has a rateable value over £15,000 and under £51,000"
+  key: 15k-51k-property-rateable-value
+- text: "Your non-domestic business property has a rateable value under £15,000"
+  key: 0-15k-property-rateable-value
+- text: "Your self assessment is due on the 31 of August 2020"
+  key: self-assessment-due-31-06-20
+- text: "Your self assessment is not due on the 31 of August 2020"
+  key: no-self-assessment-due-31-06-20
+- text: "Your business is in the retail sector"
+  key: sector-retail
+- text: "Your business is in the hospitality sector"
+  key: sector-hospitality
+- text: "Your business is in the leisure sector"
+  key: sector-leisure
+- text: "Your business is in the nurserises sector"
+  key: sector-nurseries
+- text: "None of the above"
+  key: sector-none

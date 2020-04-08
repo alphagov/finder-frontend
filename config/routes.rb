@@ -19,8 +19,8 @@ FinderFrontend::Application.routes.draw do
   end
 
   # Routes for the for Coronavirus Business Support Checker
-  get "/coronavirus-business-support/results" => "coronavirus_business_support_checker#results"
-  get "/coronavirus-business-support/questions" => "coronavirus_business_support_checker#show"
+  get "/business-support/results" => "coronavirus_business_support_checker#results", as: :cbs_checker_results
+  get "/business-support/questions" => "coronavirus_business_support_checker#show", as: :cbs_checker_questions
 
   # Routes for the for Brexit Checker
   get "/transition-check/results" => "brexit_checker#results", as: :transition_checker_results
