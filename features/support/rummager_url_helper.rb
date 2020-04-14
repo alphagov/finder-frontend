@@ -91,6 +91,7 @@ module RummagerUrlHelper
       is_historic
       government_name
       content_id
+      parts
     )
   end
 end

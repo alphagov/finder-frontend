@@ -111,7 +111,7 @@ private
       filter_params,
       override_sort_for_feed: is_for_feed,
       ab_params: {},
-      show_parts: params["show_parts"] == "1",
+      show_parts: true,
     )
   end
 
