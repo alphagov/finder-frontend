@@ -12,12 +12,11 @@ module Search
     # find anything useful, too much noise.
     MAX_QUERY_LENGTH = 512
 
-    def initialize(finder_content_item:, params: {}, ab_params: {}, override_sort_for_feed: false, show_parts: false)
+    def initialize(finder_content_item:, params: {}, ab_params: {}, override_sort_for_feed: false)
       @finder_content_item = finder_content_item
       @params = params
       @ab_params = ab_params
       @override_sort_for_feed = override_sort_for_feed
-      @show_parts = show_parts
     end
 
     def call
@@ -43,7 +42,7 @@ module Search
 
   private
 
-    attr_reader :finder_content_item, :params, :ab_params, :override_sort_for_feed, :show_parts
+    attr_reader :finder_content_item, :params, :ab_params, :override_sort_for_feed
 
 
     def pagination_query
@@ -72,7 +71,7 @@ module Search
     end
 
     def return_fields
-      (base_return_fields + metadata_fields + ab_fields).uniq
+      (base_return_fields + metadata_fields).uniq
     end
 
     def base_return_fields
@@ -88,6 +87,7 @@ module Search
         is_historic
         government_name
         content_id
+        parts
       )
     end
 
@@ -95,10 +95,6 @@ module Search
       raw_facets.map { |f|
         unfilterise(f["filter_key"] || f["key"])
       }
-    end
-
-    def ab_fields
-      show_parts ? %w(parts) : []
     end
 
     def raw_facets
