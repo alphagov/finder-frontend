@@ -127,7 +127,7 @@ describe FindersController, type: :controller do
       end
     end
 
-    describe "parts in results A/B test" do
+    describe "user requests parts" do
       before do
         stub_content_store_has_item(
           "/lunch-finder",
@@ -150,12 +150,10 @@ describe FindersController, type: :controller do
           .to_return(status: 200, body: rummager_response, headers: {})
       end
 
-      it "requests parts from search-api" do
-        with_variant ShowPartsInResultsABTest: "showparts" do
-          get :show, params: { slug: "lunch-finder" }
-          expect(response.status).to eq(200)
-          expect(response).to render_template("finders/show")
-        end
+      it "correctly renders a finder page" do
+        get :show, params: { slug: "lunch-finder", show_parts: "1" }
+        expect(response.status).to eq(200)
+        expect(response).to render_template("finders/show")
       end
     end
 
