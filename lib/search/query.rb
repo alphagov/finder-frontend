@@ -10,12 +10,11 @@ module Search
       ParamValidator.new(query).validate
     end
 
-    def initialize(content_item, filter_params, ab_params: {}, override_sort_for_feed: false, show_parts: false)
+    def initialize(content_item, filter_params, ab_params: {}, override_sort_for_feed: false)
       @content_item = content_item
       @filter_params = filter_params
       @ab_params = ab_params
       @override_sort_for_feed = override_sort_for_feed
-      @show_parts = show_parts
       @order =
         if override_sort_for_feed
           "most-recent"
@@ -34,7 +33,7 @@ module Search
 
   private
 
-    attr_reader :ab_params, :override_sort_for_feed, :content_item, :show_parts
+    attr_reader :ab_params, :override_sort_for_feed, :content_item
 
     def merge_and_deduplicate(search_response)
       results = search_response.fetch("results")
@@ -86,7 +85,6 @@ module Search
         params: filter_params,
         ab_params: ab_params,
         override_sort_for_feed: override_sort_for_feed,
-        show_parts: show_parts,
       ).call
 
       if queries.one?
