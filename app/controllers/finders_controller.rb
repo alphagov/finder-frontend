@@ -12,6 +12,8 @@ class FindersController < ApplicationController
   def show
     respond_to do |format|
       format.html do
+        raise UnsupportedContentItem unless content_item.is_finder?
+
         show_page_variables
       end
       format.json do
@@ -35,6 +37,8 @@ class FindersController < ApplicationController
     end
   rescue ActionController::UnknownFormat
     render plain: "Not acceptable", status: :not_acceptable
+  rescue UnsupportedContentItem
+    render plain: "Not found", status: :not_found
   end
 
   def show_page_variables
@@ -47,6 +51,8 @@ class FindersController < ApplicationController
   end
 
 private
+
+  class UnsupportedContentItem < StandardError; end
 
   attr_reader :search_query
 
