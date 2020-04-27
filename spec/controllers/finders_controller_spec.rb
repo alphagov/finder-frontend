@@ -135,6 +135,7 @@ describe FindersController, type: :controller do
       it "returns a 404, rather than 5xx" do
         get :show, params: { slug: "does-not-exist" }
         expect(response.status).to eq(404)
+        expect(response.body).to include("404 error not found")
       end
 
       it "returns a 404, rather than 5xx for the atom feed" do
@@ -172,6 +173,13 @@ describe FindersController, type: :controller do
           }.to_json,
           headers: {},
         )
+      end
+
+      it "returns a 404 for HTML requests" do
+        get :show, params: { slug: "unpublished-finder" }
+
+        expect(response.status).to eq(404)
+        expect(response.body).to include("Not found")
       end
 
       it "returns a message indicating the atom feed has ended" do
