@@ -93,7 +93,6 @@ describe EmailAlertSignupAPI do
 
     let(:subscription_url) { "http://www.example.org/list-id/signup" }
 
-
     describe "#signup_url" do
       it "returns the url email-alert-api gives back" do
         email_alert_api_has_subscriber_list(

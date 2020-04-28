@@ -589,8 +589,6 @@ When(/^I sort by most relevant$/) do
   select "Relevance", from: "Sort by"
 end
 
-
-
 When(/^I filter the results$/) do
   within ".js-live-search-fallback" do
     click_on "Filter results"

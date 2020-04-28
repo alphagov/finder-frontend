@@ -29,7 +29,6 @@ describe TaxonFacet do
     }
   }
 
-
   describe "#topics" do
     subject { TaxonFacet.new(facet_data, allowed_values) }
 

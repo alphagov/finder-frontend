@@ -28,7 +28,6 @@ describe OptionSelectFacet do
     }
   }
 
-
   describe "#sentence_fragment" do
     context "single value" do
       subject { OptionSelectFacet.new(facet_data, %w[allowed-value-1]) }

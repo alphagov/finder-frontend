@@ -44,7 +44,6 @@ module Search
 
     attr_reader :finder_content_item, :params, :ab_params, :override_sort_for_feed
 
-
     def pagination_query
       {
         "count" => documents_per_page,
