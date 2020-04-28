@@ -159,7 +159,6 @@ describe EmailAlertTitleBuilder do
       it { is_expected.to eq("Prefix with people of Harry Potter and Ron Weasley") }
     end
 
-
     context "when two facets are selected" do
       let(:filter) do
         {

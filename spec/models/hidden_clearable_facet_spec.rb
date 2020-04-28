@@ -29,7 +29,6 @@ describe HiddenClearableFacet do
 
   let(:facet_class) { HiddenClearableFacet }
 
-
   describe "#sentence_fragment" do
     context "single value" do
       subject { facet_class.new(facet_data, %w[allowed-value-1]) }

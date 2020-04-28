@@ -18,7 +18,6 @@ describe TopicalFacet do
     }
   }
 
-
   describe "#sentence_fragment" do
     context "single value" do
       let(:value) { %w(open) }
