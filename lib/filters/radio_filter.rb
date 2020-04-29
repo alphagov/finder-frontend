@@ -25,7 +25,7 @@ module Filters
     end
 
     def default_allowed_value
-      @default_allowed_value ||= facet["allowed_values"].find(Proc.new { {} }) { |option| option["default"] }
+      @default_allowed_value ||= facet["allowed_values"].find(proc { {} }) { |option| option["default"] }
       @default_allowed_value["value"]
     end
 

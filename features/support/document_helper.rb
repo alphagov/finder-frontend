@@ -22,19 +22,19 @@ module DocumentHelper
   end
 
   def stub_rummager_api_request
-    stub_request(:get, SEARCH_ENDPOINT).
-      with(query: hash_including(rummager_all_documents_params)).
-      to_return(body: all_documents_json)
+    stub_request(:get, SEARCH_ENDPOINT)
+      .with(query: hash_including(rummager_all_documents_params))
+      .to_return(body: all_documents_json)
 
-    stub_request(:get, SEARCH_ENDPOINT).
-      with(query: rummager_hopscotch_walks_params).
-      to_return(body: hopscotch_reports_json)
+    stub_request(:get, SEARCH_ENDPOINT)
+      .with(query: rummager_hopscotch_walks_params)
+      .to_return(body: hopscotch_reports_json)
   end
 
   def stub_keyword_search_api_request
-    stub_request(:get, SEARCH_ENDPOINT).
-      with(query: rummager_keyword_search_params).
-      to_return(body: keyword_search_results)
+    stub_request(:get, SEARCH_ENDPOINT)
+      .with(query: rummager_keyword_search_params)
+      .to_return(body: keyword_search_results)
   end
 
   def stub_rummager_api_request_with_government_results
@@ -54,81 +54,81 @@ module DocumentHelper
   end
 
   def stub_rummager_api_request_with_10_government_results
-    stub_request(:get, SEARCH_ENDPOINT).
-      with(query: rummager_10_documents_params).
-      to_return(body: government_documents_json)
+    stub_request(:get, SEARCH_ENDPOINT)
+      .with(query: rummager_10_documents_params)
+      .to_return(body: government_documents_json)
   end
 
   def stub_rummager_api_request_with_bad_data
-    stub_request(:get, SEARCH_ENDPOINT).
-      with(query: rummager_all_documents_params).
-      to_return(body: documents_with_bad_data_json)
+    stub_request(:get, SEARCH_ENDPOINT)
+      .with(query: rummager_all_documents_params)
+      .to_return(body: documents_with_bad_data_json)
   end
 
   def stub_rummager_api_request_with_10_government_results_page_2
-    stub_request(:get, SEARCH_ENDPOINT).
-      with(query: rummager_10_documents_page_2_params).
-      to_return(body: government_documents_page_2_json)
+    stub_request(:get, SEARCH_ENDPOINT)
+      .with(query: rummager_10_documents_page_2_params)
+      .to_return(body: government_documents_page_2_json)
   end
 
   def stub_rummager_api_request_with_news_and_communication_results
-    stub_request(:get, SEARCH_ENDPOINT).
-      with(query: hash_including(rummager_newest_news_and_communications_params)).
-      to_return(body: newest_news_and_communication_json)
+    stub_request(:get, SEARCH_ENDPOINT)
+      .with(query: hash_including(rummager_newest_news_and_communications_params))
+      .to_return(body: newest_news_and_communication_json)
 
-    stub_request(:get, SEARCH_ENDPOINT).
-      with(query: hash_including(rummager_popular_news_and_communications_params)).
-      to_return(body: popular_news_and_communication_json)
+    stub_request(:get, SEARCH_ENDPOINT)
+      .with(query: hash_including(rummager_popular_news_and_communications_params))
+      .to_return(body: popular_news_and_communication_json)
   end
 
   def stub_rummager_api_request_with_policy_papers_results
-    stub_request(:get, SEARCH_ENDPOINT).
-      with(query: hash_including(policy_papers_params)).
-      to_return(body: policy_and_engagement_results_json)
+    stub_request(:get, SEARCH_ENDPOINT)
+      .with(query: hash_including(policy_papers_params))
+      .to_return(body: policy_and_engagement_results_json)
   end
 
   def stub_rummager_api_request_with_all_content_results
-    stub_request(:get, SEARCH_ENDPOINT).
-      with(query: hash_including(all_content_params.merge(order: "-public_timestamp"))).
-      to_return(body: all_content_results_json)
+    stub_request(:get, SEARCH_ENDPOINT)
+      .with(query: hash_including(all_content_params.merge(order: "-public_timestamp")))
+      .to_return(body: all_content_results_json)
   end
 
   def stub_rummager_api_request_with_organisation_filter_all_content_results
-    stub_request(:get, SEARCH_ENDPOINT).
-      with(query: hash_including("q" => "search-term", "filter_organisations" => %w(ministry-of-magic))).
-      to_return(body: filtered_by_organisation_all_content_results_json)
+    stub_request(:get, SEARCH_ENDPOINT)
+      .with(query: hash_including("q" => "search-term", "filter_organisations" => %w[ministry-of-magic]))
+      .to_return(body: filtered_by_organisation_all_content_results_json)
   end
 
   def stub_rummager_api_request_with_misspelt_query
-    stub_request(:get, SEARCH_ENDPOINT).
-      with(query: hash_including("q" => "drving")).
-      to_return(body: spelling_suggestions_json)
+    stub_request(:get, SEARCH_ENDPOINT)
+      .with(query: hash_including("q" => "drving"))
+      .to_return(body: spelling_suggestions_json)
   end
 
   def stub_rummager_api_request_with_manual_filter_all_content_results
-    stub_request(:get, SEARCH_ENDPOINT).
-      with(query: hash_including("q" => "search-term", "filter_manual" => %w(how-to-be-a-wizard))).
-      to_return(body: filtered_by_manual_all_content_results_json)
+    stub_request(:get, SEARCH_ENDPOINT)
+      .with(query: hash_including("q" => "search-term", "filter_manual" => %w[how-to-be-a-wizard]))
+      .to_return(body: filtered_by_manual_all_content_results_json)
   end
 
   def stub_rummager_api_request_with_filtered_policy_papers_results
-    stub_request(:get, SEARCH_ENDPOINT).
-      with(query: hash_including(policy_papers_params.merge("filter_content_store_document_type" => %w(case_study impact_assessment policy_paper)))).
-      to_return(body: policy_and_engagement_results_for_policy_papers_json)
+    stub_request(:get, SEARCH_ENDPOINT)
+      .with(query: hash_including(policy_papers_params.merge("filter_content_store_document_type" => %w[case_study impact_assessment policy_paper])))
+      .to_return(body: policy_and_engagement_results_for_policy_papers_json)
 
-    stub_request(:get, SEARCH_ENDPOINT).
-      with(query: hash_including(
+    stub_request(:get, SEARCH_ENDPOINT)
+      .with(query: hash_including(
         policy_papers_params.merge(
-          "filter_content_store_document_type" => %w(case_study closed_consultation consultation_outcome impact_assessment policy_paper),
+          "filter_content_store_document_type" => %w[case_study closed_consultation consultation_outcome impact_assessment policy_paper],
         ),
-      )).
-      to_return(body: policy_and_engagement_results_for_policy_papers_and_closed_consultations_json)
+      ))
+      .to_return(body: policy_and_engagement_results_for_policy_papers_and_closed_consultations_json)
   end
 
   def stub_rummager_api_request_with_research_and_statistics_results
     stub_request(:get, SEARCH_ENDPOINT)
       .with(query: hash_including(
-        "filter_content_store_document_type" => %w(national_statistics official_statistics statistical_data_set statistics),
+        "filter_content_store_document_type" => %w[national_statistics official_statistics statistical_data_set statistics],
       ))
       .to_return(body: statistics_results_for_statistics_json)
   end
@@ -136,7 +136,7 @@ module DocumentHelper
   def stub_rummager_api_request_with_filtered_research_and_statistics_results
     Timecop.freeze(Time.local("2019-01-01").utc)
     stub_request(:get, "#{Plek.current.find('search')}/search.json")
-      .with(query: hash_including("filter_format" => %w(statistics_announcement),
+      .with(query: hash_including("filter_format" => %w[statistics_announcement],
                                   "filter_release_timestamp" => "from:2019-01-01"))
       .to_return(body: upcoming_statistics_results_for_statistics_json)
   end
@@ -144,7 +144,7 @@ module DocumentHelper
   def stub_rummager_api_request_with_aaib_reports_results
     stub_request(:get, SEARCH_ENDPOINT)
       .with(query: hash_including({}))
-      .to_return(body: %|{ "results": [], "total": 0, "start": 0}|)
+      .to_return(body: %({ "results": [], "total": 0, "start": 0}))
   end
 
   def stub_all_rummager_api_requests_with_news_and_communication_results
@@ -154,25 +154,25 @@ module DocumentHelper
   end
 
   def stub_rummager_api_request_with_services_results
-    stub_request(:get, SEARCH_ENDPOINT).
-      with(query: hash_including(rummager_alphabetical_services_params)).
-      to_return(body: alpabetical_services_json)
+    stub_request(:get, SEARCH_ENDPOINT)
+      .with(query: hash_including(rummager_alphabetical_services_params))
+      .to_return(body: alpabetical_services_json)
 
-    stub_request(:get, SEARCH_ENDPOINT).
-      with(query: hash_including(rummager_popular_services_params)).
-      to_return(body: popular_services_json)
+    stub_request(:get, SEARCH_ENDPOINT)
+      .with(query: hash_including(rummager_popular_services_params))
+      .to_return(body: popular_services_json)
   end
 
   def stub_rummager_api_request_with_no_results
-    stub_request(:get, SEARCH_ENDPOINT).
-      with(query: rummager_0_documents_params).
-      to_return(body: %|{ "results": [], "total": 0, "start": 0}|)
+    stub_request(:get, SEARCH_ENDPOINT)
+      .with(query: rummager_0_documents_params)
+      .to_return(body: %({ "results": [], "total": 0, "start": 0}))
   end
 
   def stub_rummager_api_request_with_422_response(page_number)
-    stub_request(:get, SEARCH_ENDPOINT).
-      with(query: rummager_document_other_page_search_params(page_number)).
-      to_return(status: 422)
+    stub_request(:get, SEARCH_ENDPOINT)
+      .with(query: rummager_document_other_page_search_params(page_number))
+      .to_return(status: 422)
   end
 
   def stub_rummager_api_request_with_qa_finder_results
@@ -185,7 +185,7 @@ module DocumentHelper
   end
 
   def stub_world_locations_api_request
-    stub_worldwide_api_has_locations(%w(azkaban tracy-island))
+    stub_worldwide_api_has_locations(%w[azkaban tracy-island])
   end
 
   def content_store_has_mosw_reports_finder
@@ -310,13 +310,13 @@ module DocumentHelper
   end
 
   def stub_rummager_with_cma_cases
-    stub_request(:get, SEARCH_ENDPOINT).
-      with(query: rummager_all_cma_case_documents_params).
-      to_return(body: all_cma_case_documents_json)
+    stub_request(:get, SEARCH_ENDPOINT)
+      .with(query: rummager_all_cma_case_documents_params)
+      .to_return(body: all_cma_case_documents_json)
 
-    stub_request(:get, SEARCH_ENDPOINT).
-      with(query: rummager_filtered_cma_case_documents_params).
-      to_return(body: filtered_cma_case_documents_json)
+    stub_request(:get, SEARCH_ENDPOINT)
+      .with(query: rummager_filtered_cma_case_documents_params)
+      .to_return(body: filtered_cma_case_documents_json)
   end
 
   def stub_content_store_with_cma_cases_finder_with_description
@@ -386,9 +386,9 @@ module DocumentHelper
   end
 
   def stub_rummager_with_cma_cases_for_supergroups_checkbox
-    stub_request(:get, SEARCH_ENDPOINT).
-      with(query: hash_including(rummager_all_cma_case_documents_params)).
-      to_return(body: all_cma_case_documents_json)
+    stub_request(:get, SEARCH_ENDPOINT)
+      .with(query: hash_including(rummager_all_cma_case_documents_params))
+      .to_return(body: all_cma_case_documents_json)
 
     open_cma_case_documents_params =
       cma_case_search_params.merge(
@@ -396,15 +396,15 @@ module DocumentHelper
         "order" => "-public_timestamp",
       )
 
-    stub_request(:get, SEARCH_ENDPOINT).
-      with(query: hash_including(open_cma_case_documents_params)).
-      to_return(body: filtered_cma_case_documents_json)
+    stub_request(:get, SEARCH_ENDPOINT)
+      .with(query: hash_including(open_cma_case_documents_params))
+      .to_return(body: filtered_cma_case_documents_json)
   end
 
   def stub_rummager_with_cma_cases_for_supergroups_checkbox_and_date
-    stub_request(:get, SEARCH_ENDPOINT).
-      with(query: hash_including(rummager_all_cma_case_documents_params)).
-      to_return(body: all_cma_case_documents_json)
+    stub_request(:get, SEARCH_ENDPOINT)
+      .with(query: hash_including(rummager_all_cma_case_documents_params))
+      .to_return(body: all_cma_case_documents_json)
 
     open_cma_case_documents_params = cma_case_search_params.merge(
       "filter_case_state" => "open",
@@ -412,9 +412,9 @@ module DocumentHelper
       "filter_closed_date" => "from:2015-11-01",
     )
 
-    stub_request(:get, SEARCH_ENDPOINT).
-      with(query: hash_including(open_cma_case_documents_params)).
-      to_return(body: filtered_cma_case_documents_json)
+    stub_request(:get, SEARCH_ENDPOINT)
+      .with(query: hash_including(open_cma_case_documents_params))
+      .to_return(body: filtered_cma_case_documents_json)
   end
 
   def rummager_all_documents_params
@@ -507,7 +507,7 @@ module DocumentHelper
   end
 
   def aaib_reports_search_results
-    %|{
+    %({
       "results": [
         {
           "title": "Acme keyword searchable walk",
@@ -532,11 +532,11 @@ module DocumentHelper
       "start": 0,
       "facets": {},
       "suggested_queries": []
-    }|
+    })
   end
 
   def keyword_search_results
-    %|{
+    %({
       "results": [
         {
           "title": "Acme keyword searchable walk",
@@ -561,11 +561,11 @@ module DocumentHelper
       "start": 0,
       "facets": {},
       "suggested_queries": []
-    }|
+    })
   end
 
   def all_documents_json
-    %|{
+    %({
       "results": [
         {
           "title": "West London wobbley walk",
@@ -608,47 +608,47 @@ module DocumentHelper
       "start": 0,
       "facets": {},
       "suggested_queries": []
-    }|
+    })
   end
 
   def no_results_json
-    %|{
+    %({
       "results": [],
       "total": 0,
       "start": 0,
       "facets": {},
       "suggested_queries": []
-    }|
+    })
   end
 
   def spelling_suggestions_json
-    %|{
+    %({
       "results": #{government_document_results_json},
       "total": 20,
       "start": 0,
       "facets": {},
       "suggested_queries": [{ "text": "driving", "highlighted": "<mark>driving</mark>" }]
-    }|
+    })
   end
 
   def government_documents_json
-    %|{
+    %({
       "results": #{government_document_results_json},
       "total": 20,
       "start": 0,
       "facets": {},
       "suggested_queries": []
-    }|
+    })
   end
 
   def government_documents_page_2_json
-    %|{
+    %({
       "results": #{government_document_results_json(5)},
       "total": 20,
       "start": 10,
       "facets": {},
       "suggested_queries": []
-    }|
+    })
   end
 
   def government_document_results_json(start_at = 0)
@@ -701,7 +701,7 @@ module DocumentHelper
   end
 
   def newest_news_and_communication_json
-    %|{
+    %({
       "results": [
         {
           "title": "News from Hogwarts",
@@ -827,11 +827,11 @@ module DocumentHelper
         }
       },
       "suggested_queries": []
-    }|
+    })
   end
 
   def popular_news_and_communication_json
-    %|{
+    %({
       "results": [
         {
           "title": "Press release from Hogwarts",
@@ -957,11 +957,11 @@ module DocumentHelper
         }
       },
       "suggested_queries": []
-    }|
+    })
   end
 
   def alpabetical_services_json
-    %|{
+    %({
       "results": [
         {
           "title": "Apply for your full broomstick licence",
@@ -1054,11 +1054,11 @@ module DocumentHelper
         }
       },
       "suggested_queries": []
-    }|
+    })
   end
 
   def popular_services_json
-    %|{
+    %({
       "results": [
         {
           "title": "Register a spell",
@@ -1151,11 +1151,11 @@ module DocumentHelper
         }
       },
       "suggested_queries": []
-    }|
+    })
   end
 
   def documents_with_bad_data_json
-    %|{
+    %({
       "results": [
         {
           "title": "West London wobbley walk",
@@ -1192,11 +1192,11 @@ module DocumentHelper
       "start": 0,
       "facets": {},
       "suggested_queries": []
-    }|
+    })
   end
 
   def hopscotch_reports_json
-    %|{
+    %({
       "results": [
         {
           "title": "The Gerry Anderson",
@@ -1221,11 +1221,11 @@ module DocumentHelper
       "start": 0,
       "facets": {},
       "suggested_queries": []
-    }|
+    })
   end
 
   def all_cma_case_documents_json
-    %|{
+    %({
       "results": [
         {
           "title": "Big Beer Co / Salty Snacks Ltd merger inquiry",
@@ -1276,11 +1276,11 @@ module DocumentHelper
       "start": 0,
       "facets": {},
       "suggested_queries": []
-    }|
+    })
   end
 
   def filtered_cma_case_documents_json
-    %|{
+    %({
       "results": [
         {
           "title": "Big Beer Co / Salty Snacks Ltd merger inquiry",
@@ -1308,11 +1308,11 @@ module DocumentHelper
       "start": 0,
       "facets": {},
       "suggested_queries": []
-    }|
+    })
   end
 
   def policy_and_engagement_results_json
-    %|{
+    %({
       "results": [
         {
           "title": "Restrictions on usage of spells within school grounds",
@@ -1439,11 +1439,11 @@ module DocumentHelper
       "total": 4,
       "start": 0,
       "suggested_queries": []
-    }|
+    })
   end
 
   def policy_and_engagement_results_for_policy_papers_json
-    %|{
+    %({
       "results": [
         {
           "title": "Restrictions on usage of spells within school grounds",
@@ -1480,11 +1480,11 @@ module DocumentHelper
       "total": 1,
       "start": 0,
       "suggested_queries": []
-    }|
+    })
   end
 
   def policy_and_engagement_results_for_policy_papers_and_closed_consultations_json
-    %|{
+    %({
       "results": [
         {
           "title": "Restrictions on usage of spells within school grounds",
@@ -1581,11 +1581,11 @@ module DocumentHelper
       "total": 3,
       "start": 0,
       "suggested_queries": []
-    }|
+    })
   end
 
   def statistics_results_for_statistics_json
-    %|{
+    %({
       "results": [
         {
           "title": "Restrictions on usage of spells within school grounds",
@@ -1682,11 +1682,11 @@ module DocumentHelper
       "total": 3,
       "start": 0,
       "suggested_queries": []
-    }|
+    })
   end
 
   def upcoming_statistics_results_for_statistics_json
-    %|{
+    %({
       "results": [
         {
           "title": "Restrictions on usage of spells within school grounds",
@@ -1723,11 +1723,11 @@ module DocumentHelper
       "total": 1,
       "start": 0,
       "suggested_queries": []
-    }|
+    })
   end
 
   def all_content_results_json
-    %|{
+    %({
       "results": [
         {
           "title": "Restrictions on usage of spells within school grounds",
@@ -1765,11 +1765,11 @@ module DocumentHelper
       "total": 1,
       "start": 0,
       "suggested_queries": []
-    }|
+    })
   end
 
   def all_content_manuals_results_json
-    %|{
+    %({
       "results": [
         {
           "title": "Replacing bristles in your Nimbus 2000",
@@ -1821,11 +1821,11 @@ module DocumentHelper
     "total": 1,
     "start": 0,
     "suggested_queries": []
-    }|
+    })
   end
 
   def filtered_by_organisation_all_content_results_json
-    %|{
+    %({
       "results": [
         {
           "title": "Restrictions on usage of spells within school grounds",
@@ -1869,11 +1869,11 @@ module DocumentHelper
           ]
         }
       }
-    }|
+    })
   end
 
   def filtered_by_manual_all_content_results_json
-    %|{
+    %({
       "results": [
         {
           "title": "Choosing your wand",
@@ -1893,7 +1893,7 @@ module DocumentHelper
           }
         ]
       }
-    }|
+    })
   end
 
   def visit_filtered_finder(facets = {})

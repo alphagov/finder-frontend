@@ -69,7 +69,7 @@ describe Document do
             {
               id: "a_filter_key",
               name: "A filter key",
-              value:  "metadata_label",
+              value: "metadata_label",
               labels: %w[metadata_label],
               type: "text",
             }
@@ -99,7 +99,7 @@ describe Document do
             {
               id: "a_filter_key",
               name: "A filter key",
-              value:  "metadata_label_1 and 2 others",
+              value: "metadata_label_1 and 2 others",
               labels: %w[metadata_label_1 metadata_label_2 metadata_label_3],
               type: "text",
             }
@@ -118,8 +118,8 @@ describe Document do
                          document_collections: [{ "title" => "dc_title" }])
       }
       it "uses title instead of label" do
-        expect(Document.new(document_hash, 1).metadata(facets)).
-          to match_array([include(value: "org_title"), include(value: "dc_title")])
+        expect(Document.new(document_hash, 1).metadata(facets))
+          .to match_array([include(value: "org_title"), include(value: "dc_title")])
       end
     end
     describe "the facet key is an organisation and the document is a mainstream document" do

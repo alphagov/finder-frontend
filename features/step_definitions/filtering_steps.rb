@@ -193,12 +193,12 @@ When(/^I view the all content finder with a manual filter$/) do
   stub_people_registry_request
   stub_manuals_registry_request
 
-  stub_request(:get, DocumentHelper::SEARCH_ENDPOINT).
-    with(query: hash_including(q: "Replacing bristles", order: "-public_timestamp")).
-    to_return(body: all_content_results_json)
+  stub_request(:get, DocumentHelper::SEARCH_ENDPOINT)
+    .with(query: hash_including(q: "Replacing bristles", order: "-public_timestamp"))
+    .to_return(body: all_content_results_json)
 
-  stub_request(:get, DocumentHelper::SEARCH_ENDPOINT).
-    with(query: hash_including(
+  stub_request(:get, DocumentHelper::SEARCH_ENDPOINT)
+    .with(query: hash_including(
       filter_manual: "/guidance/care-and-use-of-a-nimbus-2000",
       q: "Replacing bristles",
       order: "-public_timestamp",
@@ -752,7 +752,7 @@ end
 
 Then(/^I can sign up to email alerts for allowed filters$/) do
   email_alert_api_has_subscriber_list(
-    "tags" => { "case_type" => { any: %w(ca98-and-civil-cartels) }, "format" => { any: %w(cma_case) } },
+    "tags" => { "case_type" => { any: %w[ca98-and-civil-cartels] }, "format" => { any: %w[cma_case] } },
     "subscription_url" => "http://www.rathergood.com",
   )
 

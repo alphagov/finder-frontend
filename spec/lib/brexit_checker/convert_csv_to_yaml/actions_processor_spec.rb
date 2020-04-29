@@ -26,7 +26,7 @@ describe BrexitChecker::ConvertCsvToYaml::ActionsProcessor do
 
     it "parses criteria" do
       result = described_class.new.process(record)
-      expect(result).to include("criteria" => [{ "any_of" => ["owns-business", { "all_of" => %w(imports-eu something) }] }])
+      expect(result).to include("criteria" => [{ "any_of" => ["owns-business", { "all_of" => %w[imports-eu something] }] }])
     end
 
     it "ignores empty criteria field" do
@@ -50,13 +50,13 @@ describe BrexitChecker::ConvertCsvToYaml::ActionsProcessor do
     it "parses single grouping_criteria" do
       record["grouping_criteria"] = "group1"
       result = described_class.new.process(record)
-      expect(result["grouping_criteria"]).to eq(%w(group1))
+      expect(result["grouping_criteria"]).to eq(%w[group1])
     end
 
     it "parses double grouping_criteria" do
       record["grouping_criteria"] = "group1, group2"
       result = described_class.new.process(record)
-      expect(result["grouping_criteria"]).to eq(%w(group1 group2))
+      expect(result["grouping_criteria"]).to eq(%w[group1 group2])
     end
   end
 end

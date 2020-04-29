@@ -2,9 +2,7 @@ module Registries
   class ManualsRegistry < Registry
     include CacheableRegistry
 
-    def [](base_url)
-      manuals[base_url]
-    end
+    delegate :[], to: :manuals
 
     def values
       manuals
@@ -40,8 +38,8 @@ module Registries
 
     def fetch_manuals_from_rummager
       params = {
-          filter_document_type: %w(manual service_manual_homepage service_manual_guide),
-          fields: %w(title),
+          filter_document_type: %w[manual service_manual_homepage service_manual_guide],
+          fields: %w[title],
           count: 1500,
       }
       Services.rummager.search(params)["results"]

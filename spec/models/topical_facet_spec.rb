@@ -20,7 +20,7 @@ describe TopicalFacet do
 
   describe "#sentence_fragment" do
     context "single value" do
-      let(:value) { %w(open) }
+      let(:value) { %w[open] }
       subject { TopicalFacet.new(facet_data, value) }
 
       specify {
@@ -31,7 +31,7 @@ describe TopicalFacet do
     end
 
     context "multiple values" do
-      let(:value) { %w(open closed) }
+      let(:value) { %w[open closed] }
       subject { TopicalFacet.new(facet_data, value) }
 
       specify {
@@ -45,7 +45,7 @@ describe TopicalFacet do
     end
 
     context "disallowed values" do
-      let(:value) { %w(disallowed-value-1 disallowed-value-2) }
+      let(:value) { %w[disallowed-value-1 disallowed-value-2] }
       subject { TopicalFacet.new(facet_data, value) }
 
       specify { expect(subject.sentence_fragment).to be_nil }

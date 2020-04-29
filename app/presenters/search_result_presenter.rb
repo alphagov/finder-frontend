@@ -68,7 +68,7 @@ private
       next if meta[:is_date] && format == "recommended-link"
 
       value = meta[:is_date] ? "<time datetime='#{meta[:machine_date]}'>#{meta[:human_date]}</time>" : meta[:value]
-      component_metadata[meta[:label]] = sanitize("#{meta[:label]}: #{value}", tags: %w(time span))
+      component_metadata[meta[:label]] = sanitize("#{meta[:label]}: #{value}", tags: %w[time span])
     end
   end
 

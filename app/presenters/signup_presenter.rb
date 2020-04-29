@@ -94,6 +94,6 @@ private
   end
 
   def ignore_facet?(facet_id)
-    %W(facet_groups).include?(facet_id)
+    %w[facet_groups].include?(facet_id)
   end
 end

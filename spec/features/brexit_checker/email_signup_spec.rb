@@ -33,7 +33,7 @@ RSpec.feature "Brexit Checker email signup", type: :feature do
   end
 
   def given_im_on_the_results_page
-    visit transition_checker_results_path(c: %w(nationality-eu))
+    visit transition_checker_results_path(c: %w[nationality-eu])
   end
 
   def and_email_alert_api_has_subscriber_list

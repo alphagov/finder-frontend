@@ -100,13 +100,13 @@ describe FindersController, type: :controller do
           lunch_finder.merge("details" => lunch_finder["details"].merge("sort" => sort_options)),
         )
 
-        rummager_response = %|{
+        rummager_response = %({
           "results": [],
           "total": 0,
           "start": 0,
           "facets": {},
           "suggested_queries": []
-        }|
+        })
 
         stub = stub_request(:get, "#{Plek.current.find('search')}/search.json")
           .with(
@@ -225,13 +225,13 @@ describe FindersController, type: :controller do
         stub_content_store_has_item("/search/all", all_content_finder)
         stub_content_store_has_item("/lunch-finder", lunch_finder)
 
-        rummager_response = %|{
+        rummager_response = %({
           "results": [],
           "total": 0,
           "start": 0,
           "facets": {},
           "suggested_queries": []
-        }|
+        })
 
         stub_request(:get, "#{Plek.current.find('search')}/search.json")
           .with(
@@ -274,13 +274,13 @@ describe FindersController, type: :controller do
 
     before do
       stub_content_store_has_item(breakfast_finder["base_path"], breakfast_finder)
-      rummager_response = %|{
+      rummager_response = %({
         "results": [],
         "total": 0,
         "start": 0,
         "facets": {},
         "suggested_queries": [{ "text": "cereal", "highlighted": "<mark>cereal</mark>" }]
-      }|
+      })
       stub_request(:get, /search.json/).to_return(status: 200, body: rummager_response, headers: {})
     end
 
@@ -299,13 +299,13 @@ describe FindersController, type: :controller do
       stub_content_store_has_item("/search/all", all_content_finder)
     end
 
-    rummager_response = %|{
+    rummager_response = %({
       "results": [],
       "total": 0,
       "start": 0,
       "facets": {},
       "suggested_queries":[]
-    }|
+    })
 
     it "should detect bad 'from' dates" do
       stub_request(:get, /search.json/).to_return(status: 200, body: rummager_response, headers: {})
@@ -344,13 +344,13 @@ describe FindersController, type: :controller do
   end
 
   def rummager_response
-    %|{
+    %({
       "results": [],
       "total": 11,
       "start": 0,
       "facets": {},
       "suggested_queries": []
-    }|
+    })
   end
 
   def path_for(content_item, locale = nil)

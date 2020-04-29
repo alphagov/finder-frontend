@@ -35,9 +35,9 @@ private
 
   attr_reader :user_selected_order, :keywords, :content_item_sort_options
 
-  RELEVANCE_OPTION_TYPES = %w(relevance -relevance).freeze
+  RELEVANCE_OPTION_TYPES = %w[relevance -relevance].freeze
 
-  POPULARITY_OPTION_TYPES = %w(popularity -popularity).freeze
+  POPULARITY_OPTION_TYPES = %w[popularity -popularity].freeze
 
   def has_options?
     content_item_sort_options.any?

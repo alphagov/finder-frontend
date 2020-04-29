@@ -4,15 +4,15 @@ FactoryBot.define do
     title_url { "http://www.gov.uk" }
     consequence { "A consequence" }
     priority { 5 }
-    criteria { %w(construction) }
+    criteria { %w[construction] }
     audience { "business" }
 
     sequence(:id) { |n| "Action#{n}" }
 
     trait :citizen do
       audience { "citizen" }
-      grouping_criteria { %w(living-uk) }
-      criteria { %w(living-uk) }
+      grouping_criteria { %w[living-uk] }
+      criteria { %w[living-uk] }
     end
 
     initialize_with { BrexitChecker::Action.new(attributes) }

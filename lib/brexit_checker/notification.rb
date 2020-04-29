@@ -4,7 +4,7 @@ class BrexitChecker::Notification
   CONFIG_PATH = Rails.root.join("lib/brexit_checker/notifications.yaml")
 
   validates_presence_of :action_id
-  validates_inclusion_of :type, in: %w(addition content_change)
+  validates_inclusion_of :type, in: %w[addition content_change]
   validates_format_of :date, with: /\d{4}-\d{2}-\d{2}/
   validates_presence_of :note, if: -> { type == "content_change" }
   validates_length_of :id, is: SecureRandom.uuid.length, message: "ID not a UUID"

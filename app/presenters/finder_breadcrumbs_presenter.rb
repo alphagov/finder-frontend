@@ -22,6 +22,6 @@ class FinderBreadcrumbsPresenter
 private
 
   def organisation_is_valid?
-    organisation.present? && %w(title slug).all? { |key| organisation[key].present? }
+    organisation.present? && %w[title slug].all? { |key| organisation[key].present? }
   end
 end

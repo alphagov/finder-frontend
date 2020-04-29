@@ -10,7 +10,7 @@ RSpec.describe Registries::WorldLocationsRegistry do
   describe "when world locations api is available" do
     before do
       clear_cache
-      stub_worldwide_api_has_locations %w(hogwarts privet-drive diagon-alley)
+      stub_worldwide_api_has_locations %w[hogwarts privet-drive diagon-alley]
     end
 
     after { clear_cache }
@@ -30,7 +30,7 @@ RSpec.describe Registries::WorldLocationsRegistry do
       world_locations = registry.values
 
       expect(world_locations.length).to eql(3)
-      expect(world_locations.keys).to eql(%w(hogwarts privet-drive diagon-alley))
+      expect(world_locations.keys).to eql(%w[hogwarts privet-drive diagon-alley])
     end
   end
 

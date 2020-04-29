@@ -64,8 +64,8 @@ describe DateFacet do
         expect(subject.query_params).to eql(
           "date_of_occurrence" =>
             { "from" => "22/09/1988",
-             "to" => "22/09/2014" },
-                                          )
+              "to" => "22/09/2014" },
+        )
       }
     end
   end

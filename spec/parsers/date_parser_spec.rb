@@ -58,18 +58,18 @@ describe DateParser do
             nil => nil,
 
             # Months only
-            "January"   => Date.new(this_year, 1, 1),
-            "February"  => Date.new(this_year, 2, 1),
-            "March"     => Date.new(this_year, 3, 1),
-            "April"     => Date.new(this_year, 4, 1),
-            "May"       => Date.new(this_year, 5, 1),
-            "June"      => Date.new(this_year, 6, 1),
-            "July"      => Date.new(this_year, 7, 1),
-            "August"    => Date.new(this_year, 8, 1),
+            "January" => Date.new(this_year, 1, 1),
+            "February" => Date.new(this_year, 2, 1),
+            "March" => Date.new(this_year, 3, 1),
+            "April" => Date.new(this_year, 4, 1),
+            "May" => Date.new(this_year, 5, 1),
+            "June" => Date.new(this_year, 6, 1),
+            "July" => Date.new(this_year, 7, 1),
+            "August" => Date.new(this_year, 8, 1),
             "September" => Date.new(this_year, 9, 1),
-            "October"   => Date.new(this_year, 10, 1),
-            "November"  => Date.new(this_year, 11, 1),
-            "December"  => Date.new(this_year, 12, 1),
+            "October" => Date.new(this_year, 10, 1),
+            "November" => Date.new(this_year, 11, 1),
+            "December" => Date.new(this_year, 12, 1),
           }
 
   dates.each_pair do |input, expected|

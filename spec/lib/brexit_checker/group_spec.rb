@@ -19,9 +19,9 @@ RSpec.describe BrexitChecker::Group do
   end
 
   describe "#actions" do
-    let(:action1) { FactoryBot.build(:brexit_checker_action, id: "S01", grouping_criteria: %w(visiting-eu)) }
-    let(:action2) { FactoryBot.build(:brexit_checker_action, id: "S02", grouping_criteria: %w(living-ie)) }
-    let(:action3) { FactoryBot.build(:brexit_checker_action, id: "S03", grouping_criteria: %w(living-ie)) }
+    let(:action1) { FactoryBot.build(:brexit_checker_action, id: "S01", grouping_criteria: %w[visiting-eu]) }
+    let(:action2) { FactoryBot.build(:brexit_checker_action, id: "S02", grouping_criteria: %w[living-ie]) }
+    let(:action3) { FactoryBot.build(:brexit_checker_action, id: "S03", grouping_criteria: %w[living-ie]) }
     let(:group1) { FactoryBot.build(:brexit_checker_group, key: "visiting-eu") }
     let(:group2) { FactoryBot.build(:brexit_checker_group, key: "living-ie") }
     let(:group3) { FactoryBot.build(:brexit_checker_group, key: "studying-uk") }

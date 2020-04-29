@@ -12,9 +12,7 @@ class BrexitChecker::Criterion
     validate!
   end
 
-  def hash
-    key.hash
-  end
+  delegate :hash, to: :key
 
   # Overwriting functionality of eql? so we can call uniq on an criteria array
   def eql?(other)

@@ -44,7 +44,7 @@ private
   attr_reader :link, :document_hash
 
   def is_mainstream_content?
-    %w(completed_transaction
+    %w[completed_transaction
        local_transaction
        calculator
        smart_answer
@@ -54,7 +54,7 @@ private
        step_by_step
        transaction
        answer
-       guide).include?(@document_type)
+       guide].include?(@document_type)
   end
 
   def date_metadata_keys(facets)

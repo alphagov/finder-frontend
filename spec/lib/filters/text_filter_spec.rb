@@ -44,17 +44,17 @@ describe Filters::TextFilter do
 
   describe "#query_hash" do
     context "when params is present and option_lookup is absent" do
-      let(:params) { %w(alpha) }
+      let(:params) { %w[alpha] }
       let(:facet) { { "key" => "text_key" } }
 
       it "should contain all values" do
-        expect(text_filter.query_hash).to eq("text_key" => %w(alpha))
+        expect(text_filter.query_hash).to eq("text_key" => %w[alpha])
       end
     end
 
     context "when params is present and option_lookup is empty" do
-      let(:params) { %w(does_not_exist) }
-      let(:facet) { { "option_lookup" => { "policy_papers" => %w(guidance) }, "key" => "text_key" } }
+      let(:params) { %w[does_not_exist] }
+      let(:facet) { { "option_lookup" => { "policy_papers" => %w[guidance] }, "key" => "text_key" } }
 
       it "should contain no values" do
         expect(text_filter.query_hash).to eq("text_key" => [])
@@ -62,20 +62,20 @@ describe Filters::TextFilter do
     end
 
     context "when params is present and option_lookup is present" do
-      let(:params) { %w(policy_papers) }
-      let(:facet) { { "option_lookup" => { "policy_papers" => %w(guidance) }, "key" => "text_key" } }
+      let(:params) { %w[policy_papers] }
+      let(:facet) { { "option_lookup" => { "policy_papers" => %w[guidance] }, "key" => "text_key" } }
 
       it "should contain all values" do
-        expect(text_filter.query_hash).to eq("text_key" => %w(guidance))
+        expect(text_filter.query_hash).to eq("text_key" => %w[guidance])
       end
     end
 
     context "when params has multiple values and option_lookup is present" do
-      let(:params) { %w(policy_papers does_not_exist consultations) }
-      let(:facet) { { "option_lookup" => { "consultations" => %w(open closed), "policy_papers" => %w(guidance) }, "key" => "text_key" } }
+      let(:params) { %w[policy_papers does_not_exist consultations] }
+      let(:facet) { { "option_lookup" => { "consultations" => %w[open closed], "policy_papers" => %w[guidance] }, "key" => "text_key" } }
 
       it "should contain all values" do
-        expect(text_filter.query_hash).to eq("text_key" => %w(open closed guidance))
+        expect(text_filter.query_hash).to eq("text_key" => %w[open closed guidance])
       end
     end
   end

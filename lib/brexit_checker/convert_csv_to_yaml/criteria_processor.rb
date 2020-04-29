@@ -1,10 +1,10 @@
 module BrexitChecker
   module ConvertCsvToYaml
     class CriteriaProcessor
-      COMMA_SEPARATED_FIELDS = %w(depends_on).freeze
-      ALLOWED_FIELDS = %w(key
+      COMMA_SEPARATED_FIELDS = %w[depends_on].freeze
+      ALLOWED_FIELDS = %w[key
                           text
-                          depends_on).freeze
+                          depends_on].freeze
 
       def process(record)
         stripped_record = remove_unnecessary_fields(record)

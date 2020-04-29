@@ -2,9 +2,7 @@ module Registries
   class TopicTaxonomyRegistry < Registry
     include CacheableRegistry
 
-    def [](content_id)
-      taxonomy_tree[content_id]
-    end
+    delegate :[], to: :taxonomy_tree
 
     def taxonomy_tree
       @taxonomy_tree ||= fetch_from_cache

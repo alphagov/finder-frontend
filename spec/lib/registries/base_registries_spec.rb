@@ -9,7 +9,7 @@ RSpec.describe Registries::BaseRegistries do
   include RegistrySpecHelper
 
   before do
-    stub_worldwide_api_has_locations %w(hogwarts privet-drive diagon-alley)
+    stub_worldwide_api_has_locations %w[hogwarts privet-drive diagon-alley]
   end
 
   let(:subject) { described_class.new }

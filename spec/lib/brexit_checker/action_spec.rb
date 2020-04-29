@@ -22,27 +22,27 @@ RSpec.describe BrexitChecker::Action do
     let(:criteria_f) { FactoryBot.build(:brexit_checker_criterion, key: "working-eu", text: "You are employed in the EU") }
 
     it "returns an array of criterion keys when criterion keys are also stored as an array of keys" do
-      action = FactoryBot.build(:brexit_checker_action, criteria: %w(owns-operates-business-organisation forestry vet))
+      action = FactoryBot.build(:brexit_checker_action, criteria: %w[owns-operates-business-organisation forestry vet])
       expect(action.all_criteria.map(&:text)).to match_array([criteria_a, criteria_b, criteria_c].map(&:text))
     end
 
     it "returns an array of criterion keys from an OR criteria data structure" do
-      action = FactoryBot.build(:brexit_checker_action, criteria: [{ "any_of" => %w(owns-operates-business-organisation forestry vet) }])
+      action = FactoryBot.build(:brexit_checker_action, criteria: [{ "any_of" => %w[owns-operates-business-organisation forestry vet] }])
       expect(action.all_criteria.map(&:text)).to match_array([criteria_a, criteria_b, criteria_c].map(&:text))
     end
 
     it "returns an array of criterion keys from an AND criteria data structure" do
-      action = FactoryBot.build(:brexit_checker_action, criteria: [{ "all_of" => %w(owns-operates-business-organisation forestry vet) }])
+      action = FactoryBot.build(:brexit_checker_action, criteria: [{ "all_of" => %w[owns-operates-business-organisation forestry vet] }])
       expect(action.all_criteria.map(&:text)).to match_array([criteria_a, criteria_b, criteria_c].map(&:text))
     end
 
     it "returns an array of criterion keys from an array and OR criteria data structure" do
-      action = FactoryBot.build(:brexit_checker_action, criteria: ["owns-operates-business-organisation", { "any_of" => %w(forestry vet charity) }])
+      action = FactoryBot.build(:brexit_checker_action, criteria: ["owns-operates-business-organisation", { "any_of" => %w[forestry vet charity] }])
       expect(action.all_criteria.map(&:text)).to match_array([criteria_a, criteria_b, criteria_c, criteria_d].map(&:text))
     end
 
     it "returns an array of criterion keys from an array an AND criteria data structure" do
-      action = FactoryBot.build(:brexit_checker_action, criteria: ["owns-operates-business-organisation", { "all_of" => %w(forestry vet charity) }])
+      action = FactoryBot.build(:brexit_checker_action, criteria: ["owns-operates-business-organisation", { "all_of" => %w[forestry vet charity] }])
       expect(action.all_criteria.map(&:text)).to match_array([criteria_a, criteria_b, criteria_c, criteria_d].map(&:text))
     end
 
@@ -50,8 +50,8 @@ RSpec.describe BrexitChecker::Action do
       action = FactoryBot.build(
         :brexit_checker_action,
         criteria: [
-          { "any_of" => %w(owns-operates-business-organisation forestry vet) },
-          { "all_of" => %w(charity living-uk working-eu) },
+          { "any_of" => %w[owns-operates-business-organisation forestry vet] },
+          { "all_of" => %w[charity living-uk working-eu] },
         ],
       )
       expect(action.all_criteria.map(&:text)).to match_array(
@@ -61,7 +61,7 @@ RSpec.describe BrexitChecker::Action do
   end
 
   describe "#show?" do
-    let(:action1) { FactoryBot.build(:brexit_checker_action, :citizen, id: "S01", criteria: %w(living-uk), grouping_criteria: %w(living-uk)) }
+    let(:action1) { FactoryBot.build(:brexit_checker_action, :citizen, id: "S01", criteria: %w[living-uk], grouping_criteria: %w[living-uk]) }
     let(:criteria_key_a) { "living-uk" }
     let(:criteria_key_b) { "working-eu" }
 
@@ -75,11 +75,11 @@ RSpec.describe BrexitChecker::Action do
   end
 
   describe "#find_by_id" do
-    let(:action1) { FactoryBot.build(:brexit_checker_action, :citizen, id: "S01", criteria: %w(living-uk), grouping_criteria: %w(living-uk)) }
-    let(:action2) { FactoryBot.build(:brexit_checker_action, :citizen, id: "S02", criteria: %w(join-family-uk-yes), grouping_criteria: %w(living-uk)) }
-    let(:action3) { FactoryBot.build(:brexit_checker_action, :citizen, id: "S03", criteria: %w(nationality-uk), grouping_criteria: %w(living-uk)) }
-    let(:action4) { FactoryBot.build(:brexit_checker_action, :citizen, id: "S04", criteria: %w(visiting-driving), grouping_criteria: %w(visiting-eu)) }
-    let(:action5) { FactoryBot.build(:brexit_checker_action, :citizen, id: "S05", criteria: %w(studying-eu), grouping_criteria: %w(studying-eu)) }
+    let(:action1) { FactoryBot.build(:brexit_checker_action, :citizen, id: "S01", criteria: %w[living-uk], grouping_criteria: %w[living-uk]) }
+    let(:action2) { FactoryBot.build(:brexit_checker_action, :citizen, id: "S02", criteria: %w[join-family-uk-yes], grouping_criteria: %w[living-uk]) }
+    let(:action3) { FactoryBot.build(:brexit_checker_action, :citizen, id: "S03", criteria: %w[nationality-uk], grouping_criteria: %w[living-uk]) }
+    let(:action4) { FactoryBot.build(:brexit_checker_action, :citizen, id: "S04", criteria: %w[visiting-driving], grouping_criteria: %w[visiting-eu]) }
+    let(:action5) { FactoryBot.build(:brexit_checker_action, :citizen, id: "S05", criteria: %w[studying-eu], grouping_criteria: %w[studying-eu]) }
 
     before :each do
       allow(BrexitChecker::Action).to receive(:load_all).and_return([action1, action2, action3, action4, action5])
@@ -91,8 +91,8 @@ RSpec.describe BrexitChecker::Action do
   end
 
   describe "#all_criteria_keys" do
-    let(:action1) { FactoryBot.build(:brexit_checker_action, :citizen, id: "S01", criteria: %w(living-uk), grouping_criteria: %w(living-uk)) }
-    let(:action2) { FactoryBot.build(:brexit_checker_action, :citizen, id: "S02", criteria: %w(join-family-uk-yes living-uk), grouping_criteria: %w(living-uk)) }
+    let(:action1) { FactoryBot.build(:brexit_checker_action, :citizen, id: "S01", criteria: %w[living-uk], grouping_criteria: %w[living-uk]) }
+    let(:action2) { FactoryBot.build(:brexit_checker_action, :citizen, id: "S02", criteria: %w[join-family-uk-yes living-uk], grouping_criteria: %w[living-uk]) }
     let(:criteria1) { FactoryBot.build(:brexit_checker_criterion, key: "living-uk", text: "Living in the UK") }
     let(:criteria2) { FactoryBot.build(:brexit_checker_criterion, key: "join-family-uk-yes", text: "You plan to join an EU or EEA family member in the UK") }
 

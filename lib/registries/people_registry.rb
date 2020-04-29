@@ -2,9 +2,7 @@ module Registries
   class PeopleRegistry < Registry
     include CacheableRegistry
 
-    def [](slug)
-      people[slug]
-    end
+    delegate :[], to: :people
 
     def people
       @people ||= fetch_from_cache

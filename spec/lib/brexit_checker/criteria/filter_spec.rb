@@ -37,37 +37,37 @@ RSpec.describe BrexitChecker::Criteria::Filter do
     end
 
     it "preserves criteria for questions without dependencies" do
-      criteria = subject.call(%w(c1))
+      criteria = subject.call(%w[c1])
       expect(criteria).to include("c1")
     end
 
     it "filters criteria that are not present in any question" do
-      criteria = subject.call(%w(c5))
+      criteria = subject.call(%w[c5])
       expect(criteria).to be_empty
     end
 
     it "filters criteria for questions with unmet dependencies" do
-      criteria = subject.call(%w(c3))
+      criteria = subject.call(%w[c3])
       expect(criteria).to be_empty
     end
 
     it "preserves criteria for questions with met dependencies" do
-      criteria = subject.call(%w(c1 c2 c3))
+      criteria = subject.call(%w[c1 c2 c3])
       expect(criteria).to include("c3").and match_array(criteria)
     end
 
     it "transitively filters criteria for follow-on questions" do
-      criteria = subject.call(%w(c2 c3 c4))
+      criteria = subject.call(%w[c2 c3 c4])
       expect(criteria).to be_empty
     end
 
     it "preserves criteria coming from applicable sub-options" do
-      criteria = subject.call(%w(c1 c2))
+      criteria = subject.call(%w[c1 c2])
       expect(criteria).to include("c2").and match_array(criteria)
     end
 
     it "filters criteria coming from deselected sub-options" do
-      criteria = subject.call(%w(c2))
+      criteria = subject.call(%w[c2])
       expect(criteria).to be_empty
     end
   end

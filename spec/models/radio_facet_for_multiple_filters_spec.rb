@@ -69,7 +69,7 @@ describe RadioFacetForMultipleFilters do
           value: "default_value",
           text: "default_label",
           checked: true,
-                                   )
+        )
       end
     end
   end

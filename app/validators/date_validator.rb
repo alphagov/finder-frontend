@@ -15,7 +15,7 @@ class DateValidator
     {
       date_type => {
         from: invalid_date?(from_date),
-        to:   invalid_date?(to_date),
+        to: invalid_date?(to_date),
       },
     }
   end

@@ -71,7 +71,9 @@ private
   end
 
   def safe_date_parse(date_string)
-    DateInput.new(date_string) rescue nil
+    DateInput.new(date_string)
+  rescue StandardError
+    nil
   end
 
   def additional_preposition

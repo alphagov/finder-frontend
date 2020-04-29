@@ -2,11 +2,11 @@ require "spec_helper"
 
 describe BrexitChecker::ResultsAudiences do
   describe "#populate_citizen_groups" do
-    let(:action1) { FactoryBot.build(:brexit_checker_action, :citizen, criteria: %w(living-uk living-row), grouping_criteria: %w(living-uk)) }
-    let(:action2) { FactoryBot.build(:brexit_checker_action, :citizen, criteria: %w(join-family-uk-yes), grouping_criteria: %w(living-uk)) }
-    let(:action3) { FactoryBot.build(:brexit_checker_action, :citizen, criteria: %w(nationality-uk), grouping_criteria: %w(living-uk)) }
-    let(:action4) { FactoryBot.build(:brexit_checker_action, :citizen, criteria: %w(visiting-driving), grouping_criteria: %w(visiting-eu)) }
-    let(:action5) { FactoryBot.build(:brexit_checker_action, :citizen, criteria: %w(studying-eu), grouping_criteria: %w(studying-eu)) }
+    let(:action1) { FactoryBot.build(:brexit_checker_action, :citizen, criteria: %w[living-uk living-row], grouping_criteria: %w[living-uk]) }
+    let(:action2) { FactoryBot.build(:brexit_checker_action, :citizen, criteria: %w[join-family-uk-yes], grouping_criteria: %w[living-uk]) }
+    let(:action3) { FactoryBot.build(:brexit_checker_action, :citizen, criteria: %w[nationality-uk], grouping_criteria: %w[living-uk]) }
+    let(:action4) { FactoryBot.build(:brexit_checker_action, :citizen, criteria: %w[visiting-driving], grouping_criteria: %w[visiting-eu]) }
+    let(:action5) { FactoryBot.build(:brexit_checker_action, :citizen, criteria: %w[studying-eu], grouping_criteria: %w[studying-eu]) }
 
     let(:criteria1) { FactoryBot.build(:brexit_checker_criterion, key: "living-uk", text: "Living in the UK") }
     let(:criteria2) { FactoryBot.build(:brexit_checker_criterion, key: "join-family-uk-yes", text: "You plan to join an EU or EEA family member in the UK") }
@@ -69,9 +69,9 @@ describe BrexitChecker::ResultsAudiences do
   end
 
   describe "#populate_business_groups" do
-    let(:action1) { FactoryBot.build(:brexit_checker_action, criteria: %w(owns-operates-business-organisation automotive)) }
-    let(:action2) { FactoryBot.build(:brexit_checker_action, criteria: %w(aero-space)) }
-    let(:action3) { FactoryBot.build(:brexit_checker_action, criteria: %w(forestry)) }
+    let(:action1) { FactoryBot.build(:brexit_checker_action, criteria: %w[owns-operates-business-organisation automotive]) }
+    let(:action2) { FactoryBot.build(:brexit_checker_action, criteria: %w[aero-space]) }
+    let(:action3) { FactoryBot.build(:brexit_checker_action, criteria: %w[forestry]) }
     let(:criteria1) { FactoryBot.build(:brexit_checker_criterion, key: "owns-operates-business-organisation", text: "You own or operate a business or organisation") }
     let(:criteria2) { FactoryBot.build(:brexit_checker_criterion, key: "aero-space", text: "You work in the aerospace and space industry") }
     let(:criteria3) { FactoryBot.build(:brexit_checker_criterion, key: "forestry", text: "You work in plants and forestry") }

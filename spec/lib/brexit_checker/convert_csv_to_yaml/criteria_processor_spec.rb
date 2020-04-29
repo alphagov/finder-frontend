@@ -25,7 +25,7 @@ describe BrexitChecker::ConvertCsvToYaml::CriteriaProcessor do
 
     it "converts comma-separated values to an array" do
       result = described_class.new.process(record)
-      expect(result["depends_on"]).to eq(%w(something another-thing))
+      expect(result["depends_on"]).to eq(%w[something another-thing])
     end
   end
 end

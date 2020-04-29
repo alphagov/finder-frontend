@@ -25,9 +25,9 @@ describe BrexitCheckerHelper, type: :helper do
 
   describe "#next_question_index" do
     let(:q1) { FactoryBot.build(:brexit_checker_question) }
-    let(:q2) { FactoryBot.build(:brexit_checker_question, criteria: [{ "all_of" => %w(a b) }]) }
-    let(:q3) { FactoryBot.build(:brexit_checker_question, criteria: [{ "all_of" => %w(c d) }]) }
-    let(:q4) { FactoryBot.build(:brexit_checker_question, criteria: %w(c)) }
+    let(:q2) { FactoryBot.build(:brexit_checker_question, criteria: [{ "all_of" => %w[a b] }]) }
+    let(:q3) { FactoryBot.build(:brexit_checker_question, criteria: [{ "all_of" => %w[c d] }]) }
+    let(:q4) { FactoryBot.build(:brexit_checker_question, criteria: %w[c]) }
 
     let(:questions) { [q1, q2, q3, q4] }
 
@@ -42,11 +42,11 @@ describe BrexitCheckerHelper, type: :helper do
     before do
       allow(q1).to receive(:show?) { true }
       allow(q2).to receive(:show?) { false }
-      allow(q2).to receive(:show?).with(%w(a b)) { true }
+      allow(q2).to receive(:show?).with(%w[a b]) { true }
       allow(q3).to receive(:show?) { false }
-      allow(q3).to receive(:show?).with(%w(c d)) { true }
+      allow(q3).to receive(:show?).with(%w[c d]) { true }
       allow(q4).to receive(:show?) { false }
-      allow(q4).to receive(:show?).with(%w(c)) { true }
+      allow(q4).to receive(:show?).with(%w[c]) { true }
     end
 
     context "previous question id is zero" do
@@ -92,9 +92,9 @@ describe BrexitCheckerHelper, type: :helper do
 
   describe "#previous_question_index" do
     let(:q1) { FactoryBot.build(:brexit_checker_question) }
-    let(:q2) { FactoryBot.build(:brexit_checker_question, criteria: [{ "all_of" => %w(a b) }]) }
-    let(:q3) { FactoryBot.build(:brexit_checker_question, criteria: [{ "all_of" => %w(c d) }]) }
-    let(:q4) { FactoryBot.build(:brexit_checker_question, criteria: %w(c)) }
+    let(:q2) { FactoryBot.build(:brexit_checker_question, criteria: [{ "all_of" => %w[a b] }]) }
+    let(:q3) { FactoryBot.build(:brexit_checker_question, criteria: [{ "all_of" => %w[c d] }]) }
+    let(:q4) { FactoryBot.build(:brexit_checker_question, criteria: %w[c]) }
 
     let(:questions) { [q1, q2, q3, q4] }
 
@@ -188,7 +188,7 @@ describe BrexitCheckerHelper, type: :helper do
 
   describe "#brexit_results_title" do
     let(:actions) { [FactoryBot.build(:brexit_checker_action)] }
-    let(:criteria_keys) { %w"nationality-eu" }
+    let(:criteria_keys) { %w[nationality-eu] }
 
     it "returns the title if there are actions and answers" do
       expect(brexit_results_title(actions, criteria_keys)).to eq(t("brexit_checker.results.title"))
@@ -209,7 +209,7 @@ describe BrexitCheckerHelper, type: :helper do
 
   describe "#brexit_results_description" do
     let(:actions) { [FactoryBot.build(:brexit_checker_action, grouping_criteria: "visiting-eu")] }
-    let(:criteria_keys) { %w"nationality-eu" }
+    let(:criteria_keys) { %w[nationality-eu] }
 
     it "returns the desciption if there are actions and answers" do
       expect(brexit_results_description(actions, criteria_keys)).to eq(t("brexit_checker.results.description"))

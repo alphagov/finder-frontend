@@ -10,33 +10,33 @@ RSpec.describe BrexitChecker::Criteria::Extractor do
     end
 
     context "the criteira is an array of strings" do
-      let(:expression) { %w(a b c) }
-      it { is_expected.to match_array(%w(a b c)) }
+      let(:expression) { %w[a b c] }
+      it { is_expected.to match_array(%w[a b c]) }
     end
 
     context "the criteira holds an OR object" do
-      let(:expression) { [{ "any_of": %w(a b c) }] }
-      it { is_expected.to match_array(%w(a b c)) }
+      let(:expression) { [{ "any_of": %w[a b c] }] }
+      it { is_expected.to match_array(%w[a b c]) }
     end
 
     context "the criteira holds an AND object" do
-      let(:expression) { [{ "all_of": %w(a b c) }] }
-      it { is_expected.to match_array(%w(a b c)) }
+      let(:expression) { [{ "all_of": %w[a b c] }] }
+      it { is_expected.to match_array(%w[a b c]) }
     end
 
     context "the criteira holds an AND and OR object" do
-      let(:expression) { [{ "any_of": %w(a b c) }, { "all_of": %w(d e f) }] }
-      it { is_expected.to match_array(%w(a b c d e f)) }
+      let(:expression) { [{ "any_of": %w[a b c] }, { "all_of": %w[d e f] }] }
+      it { is_expected.to match_array(%w[a b c d e f]) }
     end
 
     context "the criteira holds an AND object and separate criteira" do
-      let(:expression) { ["a", { "all_of": %w(d e f) }] }
-      it { is_expected.to match_array(%w(a d e f)) }
+      let(:expression) { ["a", { "all_of": %w[d e f] }] }
+      it { is_expected.to match_array(%w[a d e f]) }
     end
 
     context "the criteira holds an OR object and separate criteira" do
-      let(:expression) { ["a", { "any_of": %w(d e f) }] }
-      it { is_expected.to match_array(%w(a d e f)) }
+      let(:expression) { ["a", { "any_of": %w[d e f] }] }
+      it { is_expected.to match_array(%w[a d e f]) }
     end
   end
 end

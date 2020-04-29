@@ -20,7 +20,7 @@ describe Search::QueryBuilder do
         "default_order" => default_order,
         "default_documents_per_page" => nil,
       },
-)
+    )
   }
 
   let(:facets) { [] }
@@ -44,7 +44,7 @@ describe Search::QueryBuilder do
           "default_order" => default_order,
           "default_documents_per_page" => 10,
         },
-)
+      )
     }
 
     it "should use documents_per_page from content item" do
@@ -129,13 +129,13 @@ describe Search::QueryBuilder do
       end
 
       it "should filter on just alpha in the first query" do
-        expect(queries.first["filter_alpha"]).to eq(%w(test))
+        expect(queries.first["filter_alpha"]).to eq(%w[test])
         expect(queries.first["filter_beta"]).to be_nil
       end
 
       it "should filter on both alpha and beta in the second query" do
         expect(queries.second["filter_alpha"]).to be_nil
-        expect(queries.second["filter_beta"]).to eq(%w(test))
+        expect(queries.second["filter_beta"]).to eq(%w[test])
       end
     end
 
@@ -261,7 +261,7 @@ describe Search::QueryBuilder do
             "default_order" => default_order,
             "default_documents_per_page" => 10,
           },
-)
+        )
       }
 
       it "should not include stopwords in search" do

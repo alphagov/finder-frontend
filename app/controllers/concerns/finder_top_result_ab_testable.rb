@@ -12,7 +12,7 @@ module FinderTopResultAbTestable
     @finder_top_result_test ||= GovukAbTesting::AbTest.new(
       "FinderAnswerABTest",
       dimension: CUSTOM_DIMENSION,
-      allowed_variants: %w(A B),
+      allowed_variants: %w[A B],
       control_variant: "A",
     )
   end

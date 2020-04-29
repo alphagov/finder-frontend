@@ -43,8 +43,8 @@ RSpec.describe ScreenReaderFilterDescriptionPresenter do
           "word_connectors" => { words_connector: "or" },
       },
       has_filters?: true,
-      labels: %W(ca98-and-civil-cartels mergers),
-      value: %W(ca98-and-civil-cartels mergers),
+      labels: %w[ca98-and-civil-cartels mergers],
+      value: %w[ca98-and-civil-cartels mergers],
       hide_facet_tag?: false,
     )
   end
