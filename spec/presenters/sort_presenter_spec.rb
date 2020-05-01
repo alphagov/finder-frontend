@@ -92,8 +92,8 @@ RSpec.describe SortPresenter do
     end
 
     it "sets an option as selected if a valid order is provided by the user" do
-      expect(presenter_with_relevance_selected.to_hash[:options].find { |o| o[:selected] }).
-        to eq(
+      expect(presenter_with_relevance_selected.to_hash[:options].find { |o| o[:selected] })
+        .to eq(
           data_track_category: "dropDownClicked",
           data_track_action: "clicked",
           data_track_label: "Relevance",

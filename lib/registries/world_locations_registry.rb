@@ -2,9 +2,7 @@ module Registries
   class WorldLocationsRegistry < Registry
     include CacheableRegistry
 
-    def [](slug)
-      cached_locations[slug]
-    end
+    delegate :[], to: :cached_locations
 
     def values
       cached_locations

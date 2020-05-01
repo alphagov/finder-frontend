@@ -99,7 +99,7 @@ describe Search::Query do
       end
     end
 
-    context "when keywords are not used" do #Rummager returns nil for es_score
+    context "when keywords are not used" do # Rummager returns nil for es_score
       before do
         stub_batch_search.to_return(body:
           {

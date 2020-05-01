@@ -28,7 +28,7 @@ RSpec.describe "Convert CSV to YAML tasks" do
           "id" => "T001",
           "audience" => "business",
           "consequence" => "If you don't do the important action then it will be bad.",
-          "criteria" => [{ "any_of" => %w(owns-business imports-eu) }],
+          "criteria" => [{ "any_of" => %w[owns-business imports-eu] }],
           "guidance_link_text" => "Some important guidance",
           "guidance_prompt" => "Read the guidance:",
           "guidance_url" => "https://www.gov.uk/guidance/important-guidance",
@@ -79,7 +79,7 @@ RSpec.describe "Convert CSV to YAML tasks" do
           "id" => "T001",
           "audience" => "business",
           "consequence" => "If you don't do the important action then it will be bad.",
-          "criteria" => [{ "any_of" => %w(owns-business imports-eu) }],
+          "criteria" => [{ "any_of" => %w[owns-business imports-eu] }],
           "guidance_link_text" => "Some important guidance",
           "guidance_prompt" => "Read the guidance:",
           "guidance_url" => "https://www.gov.uk/guidance/important-guidance",
@@ -115,7 +115,7 @@ RSpec.describe "Convert CSV to YAML tasks" do
         a_hash_including(
           "key" => "owns-operates-business-organisation",
           "text" => "Owns or operates business or organisation",
-          "depends_on" => %w(something another-thing),
+          "depends_on" => %w[something another-thing],
         ),
       )
     end

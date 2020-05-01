@@ -12,7 +12,7 @@ module Search
 
     def call
       dynamic_facets.reduce({}) { |query, facet|
-        # TODO title will only work for Orgs, this key will need changed for
+        # TODO: title will only work for Orgs, this key will need changed for
         # other dynamic facets
         #
         # "1500,order:value.title" is specifying that we want 1500 results back
@@ -32,7 +32,7 @@ module Search
     end
 
     def facets_that_could_be_dynamic
-      filterable_facets.select { |f| %w(text hidden_clearable).include? f["type"] }
+      filterable_facets.select { |f| %w[text hidden_clearable].include? f["type"] }
     end
 
     def filterable_facets

@@ -256,7 +256,7 @@ RSpec.describe StatisticsSortPresenter do
 
     def release_timestamp_options_are_excluded
       no_release_timestamp_options = presenter.to_hash[:options].none? { |o|
-        %w(release-date-oldest release-date-latest).include? o[:value]
+        %w[release-date-oldest release-date-latest].include? o[:value]
       }
 
       expect(no_release_timestamp_options).to be true
@@ -264,7 +264,7 @@ RSpec.describe StatisticsSortPresenter do
 
     def public_timestamp_options_are_excluded
       no_public_timestamp_options = presenter.to_hash[:options].none? { |o|
-        %w(updated-newest updated-oldest).include? o[:value]
+        %w[updated-newest updated-oldest].include? o[:value]
       }
 
       expect(no_public_timestamp_options).to be true
@@ -336,8 +336,8 @@ RSpec.describe StatisticsSortPresenter do
       end
 
       it "sets the default option as selected" do
-        expect(presenter.to_hash[:options].find { |o| o[:selected] }).
-          to eq(
+        expect(presenter.to_hash[:options].find { |o| o[:selected] })
+          .to eq(
             data_track_category: "dropDownClicked",
             data_track_action: "clicked",
             data_track_label: "Updated (newest)",

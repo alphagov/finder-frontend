@@ -20,19 +20,19 @@ private
 
   DEFAULT_RESULTS_PER_PAGE = 20
   MAX_RESULTS_PER_PAGE = 100
-  ALLOWED_FACET_FIELDS = %w{organisations manual}.freeze
+  ALLOWED_FACET_FIELDS = %w[organisations manual].freeze
 
   def search_params(params)
-    params.
-      permit(:q, :start, :count,
-             :debug_score, :debug, :format,
-             # allow facets as array values like:
-             #     filter_foo[]=bar&filter_foo[]=baz
-             Hash[ALLOWED_FACET_FIELDS.map { |facet| [:"filter_#{facet}", []] }],
-             # and allow facets as single string values like
-             #     filter_foo=bar
-             *ALLOWED_FACET_FIELDS.map { |facet| :"filter_#{facet}" }).
-      to_h
+    params
+      .permit(:q, :start, :count,
+              :debug_score, :debug, :format,
+              # allow facets as array values like:
+              #     filter_foo[]=bar&filter_foo[]=baz
+              Hash[ALLOWED_FACET_FIELDS.map { |facet| [:"filter_#{facet}", []] }],
+              # and allow facets as single string values like
+              #     filter_foo=bar
+              *ALLOWED_FACET_FIELDS.map { |facet| :"filter_#{facet}" })
+      .to_h
   end
 
   def enforce_bounds(params)

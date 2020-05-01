@@ -1,9 +1,9 @@
 module BrexitChecker
   module ConvertCsvToYaml
     class ActionsProcessor
-      LOGIC_FIELDS = %w(criteria).freeze
-      COMMA_SEPARATED_FIELDS = %w(grouping_criteria).freeze
-      ALLOWED_FIELDS = %w(title
+      LOGIC_FIELDS = %w[criteria].freeze
+      COMMA_SEPARATED_FIELDS = %w[grouping_criteria].freeze
+      ALLOWED_FIELDS = %w[title
                           title_url
                           consequence
                           guidance_prompt
@@ -15,7 +15,7 @@ module BrexitChecker
                           audience
                           id
                           exception
-                          grouping_criteria).freeze
+                          grouping_criteria].freeze
 
       def process(record)
         return unless approved?(record)

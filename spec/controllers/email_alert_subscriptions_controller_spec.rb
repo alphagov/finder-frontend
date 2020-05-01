@@ -131,7 +131,7 @@ describe EmailAlertSubscriptionsController, type: :controller do
           "links" => {
             "organisations" => { "any" => ["content_id_for_#{org_slug_one}", "content_id_for_#{org_slug_two}"] },
             "taxon_tree" => { "all" => [taxon_content_id_one, taxon_content_id_two, brexit_taxon_id] },
-            "content_purpose_subgroup" => { "any" => %w(news speeches_and_statements) },
+            "content_purpose_subgroup" => { "any" => %w[news speeches_and_statements] },
           },
           "subscription_url" => "http://www.gov.uk/subscription/news",
         )
@@ -141,7 +141,7 @@ describe EmailAlertSubscriptionsController, type: :controller do
           subscriber_list_params: {
             "all_part_of_taxonomy_tree" => [taxon_content_id_one, taxon_content_id_two, brexit_taxon_id, "junk-content-id"],
             "organisations" => [org_slug_one, org_slug_two, "junk-organisation"],
-            "junk_key" => %w(junk-values),
+            "junk_key" => %w[junk-values],
             "another_junk_key" => "single-junk-value",
           },
         }
@@ -150,15 +150,15 @@ describe EmailAlertSubscriptionsController, type: :controller do
 
       it "without allowed filters it redirects to the default email subscription url" do
         email_alert_api_has_subscriber_list(
-          "links" => { "content_purpose_subgroup" => { "any" => %w(news speeches_and_statements) } },
+          "links" => { "content_purpose_subgroup" => { "any" => %w[news speeches_and_statements] } },
           "subscription_url" => "http://www.gov.uk/subscription/default-news",
         )
 
         post :create, params: {
           slug: "news-and-communications",
           subscriber_list_params: {
-            "organisations" => %w(junk-org),
-            "junk_key" => %w(junk-values),
+            "organisations" => %w[junk-org],
+            "junk_key" => %w[junk-values],
             "another_junk_key" => "single-junk-value",
           },
         }
@@ -176,9 +176,9 @@ describe EmailAlertSubscriptionsController, type: :controller do
         email_alert_api_has_subscriber_list(
           "links" => {
             "organisations" => { "any" => ["content_id_for_#{org_slug_one}", "content_id_for_#{org_slug_two}"] },
-            "content_store_document_type" => { "any" => %w(impact_assessment case_study policy_paper) },
+            "content_store_document_type" => { "any" => %w[impact_assessment case_study policy_paper] },
             "taxon_tree" => { "all" => [taxon_content_id_one, taxon_content_id_two] },
-            "content_purpose_supergroup" => { "any" => %w(policy_and_engagement) },
+            "content_purpose_supergroup" => { "any" => %w[policy_and_engagement] },
           },
           "subscription_url" => "http://www.gov.uk/subscription/policy-papers-and-consultations",
         )
@@ -187,7 +187,7 @@ describe EmailAlertSubscriptionsController, type: :controller do
           slug: "search/policy-papers-and-consultations",
           subscriber_list_params: {
             "all_part_of_taxonomy_tree" => [taxon_content_id_one, taxon_content_id_two, "junk-content-id"],
-            "content_store_document_type" => %w(impact_assessment case_study policy_paper junk-doc-type),
+            "content_store_document_type" => %w[impact_assessment case_study policy_paper junk-doc-type],
             "organisations" => [org_slug_one, org_slug_two, "junk-organisation"],
           },
         }
@@ -205,10 +205,10 @@ describe EmailAlertSubscriptionsController, type: :controller do
         email_alert_api_has_subscriber_list(
           "links" => {
             "content_store_document_type" => {
-              "any" => %w(
+              "any" => %w[
                 statistics national_statistics statistical_data_set official_statistics
                 dfid_research_output independent_report research
-              ),
+              ],
             },
             "organisations" => { "any" => ["content_id_for_#{org_slug_one}", "content_id_for_#{org_slug_two}"] },
             "taxon_tree" => { "all" => [taxon_content_id_one, taxon_content_id_two] },
@@ -222,7 +222,7 @@ describe EmailAlertSubscriptionsController, type: :controller do
             "content_store_document_type" => %w[statistics_published research junk-doc-type],
           },
           subscriber_list_params: {
-            "content_store_document_type" => %w(statistics_published research junk-doc-type),
+            "content_store_document_type" => %w[statistics_published research junk-doc-type],
             "organisations" => [org_slug_one, org_slug_two, "junk-organisation"],
             "all_part_of_taxonomy_tree" => [taxon_content_id_one, taxon_content_id_two, "junk-content-id"],
           },
@@ -247,10 +247,10 @@ describe EmailAlertSubscriptionsController, type: :controller do
           email_alert_api_has_subscriber_list(
             "links" => {
               "content_store_document_type" => {
-                "any" => %w(
+                "any" => %w[
                   statistics national_statistics statistical_data_set official_statistics
                   dfid_research_output independent_report research
-                ),
+                ],
               },
               "taxon_tree" => { "all" => [taxon_content_id_one, taxon_content_id_two] },
             },
@@ -261,7 +261,7 @@ describe EmailAlertSubscriptionsController, type: :controller do
             slug: "search/research-and-statistics",
             filter: {},
             subscriber_list_params: {
-              "content_store_document_type" => %w(statistics_published research junk-doc-type),
+              "content_store_document_type" => %w[statistics_published research junk-doc-type],
               "all_part_of_taxonomy_tree" => [taxon_content_id_one, taxon_content_id_two, "junk-content-id"],
             },
           }
@@ -274,10 +274,10 @@ describe EmailAlertSubscriptionsController, type: :controller do
           email_alert_api_has_subscriber_list(
             "links" => {
               "content_store_document_type" => {
-                "any" => %w(
+                "any" => %w[
                   statistics national_statistics statistical_data_set official_statistics
                   dfid_research_output independent_report research
-                ),
+                ],
               },
             },
             "subscription_url" => "http://www.gov.uk/subscription/research-and-stats",
@@ -310,8 +310,8 @@ describe EmailAlertSubscriptionsController, type: :controller do
         )
         post :create, params: {
           slug: "cma-cases",
-          filter: { "case_type" => %w[consumer-enforcement foo], "foo" => %w(mergers) },
-          subscriber_list_params: { "case_type" => %w[foo ca98-and-civil-cartels], "foo" => %w(markets) },
+          filter: { "case_type" => %w[consumer-enforcement foo], "foo" => %w[mergers] },
+          subscriber_list_params: { "case_type" => %w[foo ca98-and-civil-cartels], "foo" => %w[markets] },
           foo: { "filter" => %w[regulatory-references-and-appeals] },
           bar: [{ "case_type" => %w[criminal-cartels] }],
           blah: "criminal-cartels",
@@ -329,7 +329,7 @@ describe EmailAlertSubscriptionsController, type: :controller do
       it "will redirect the user to the signup page" do
         post :create, params: {
           slug: "cma-cases",
-          filter: { "evil_key'><script>alert(1)</script>" => %w(mergers) },
+          filter: { "evil_key'><script>alert(1)</script>" => %w[mergers] },
         }
         expect(response).to be_successful
         expect(response).to render_template(:new)

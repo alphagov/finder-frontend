@@ -19,9 +19,9 @@ RSpec.describe SpellingSuggestionPresenter do
             dimension81: "full english",
           },
         },
-        keywords: "full english",
-        highlighted: "<mark>full</mark> english",
-        link: "/breakfast-finder?keywords=full+english" }]
+                    keywords: "full english",
+                    highlighted: "<mark>full</mark> english",
+                    link: "/breakfast-finder?keywords=full+english" }]
 
       expect(presenter.suggestions).to eq(expected)
     end

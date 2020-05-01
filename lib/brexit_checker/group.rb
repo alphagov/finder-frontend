@@ -3,7 +3,7 @@ class BrexitChecker::Group
 
   GROUPS_PATH = Rails.root.join("lib/brexit_checker/groups.yaml")
 
-  validates_inclusion_of :key, in: %w(visiting-eu
+  validates_inclusion_of :key, in: %w[visiting-eu
                                       visiting-uk
                                       visiting-ie
                                       living-eu
@@ -11,7 +11,7 @@ class BrexitChecker::Group
                                       living-uk
                                       working-uk
                                       studying-eu
-                                      studying-uk)
+                                      studying-uk]
 
   attr_reader :key, :heading
 
@@ -25,9 +25,7 @@ class BrexitChecker::Group
     @load_all ||= YAML.load_file(GROUPS_PATH)["groups"].map { |a| new(a) }
   end
 
-  def hash
-    key.hash
-  end
+  delegate :hash, to: :key
 
   def eql?(other)
     key == other.key

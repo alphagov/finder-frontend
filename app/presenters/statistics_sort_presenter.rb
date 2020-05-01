@@ -12,11 +12,11 @@ private
 
   attr_reader :doc_type, :user_selected_order, :keywords, :content_item_sort_options
 
-  RELEVANCE_OPTION_TYPES = %w(relevance -relevance).freeze
+  RELEVANCE_OPTION_TYPES = %w[relevance -relevance].freeze
   EXCLUDED_OPTIONS = {
     any: [],
-    public: %w(-release_timestamp release_timestamp),
-    upcoming: %w(-public_timestamp public_timestamp),
+    public: %w[-release_timestamp release_timestamp],
+    upcoming: %w[-public_timestamp public_timestamp],
   }.freeze
   DEFAULT_KEY = {
     any: "-public_timestamp",

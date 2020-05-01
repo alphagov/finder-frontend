@@ -6,7 +6,7 @@ module Filters
           "value" => "statistics_published",
           "label" => "Statistics (published)",
           "filter" => {
-            "content_store_document_type" => %w(statistics national_statistics statistical_data_set official_statistics),
+            "content_store_document_type" => %w[statistics national_statistics statistical_data_set official_statistics],
           },
           "default" => true,
         },
@@ -15,7 +15,7 @@ module Filters
           "label" => "Statistics (upcoming)",
           "filter" => {
             "release_timestamp" => "from:#{Time.zone.today}",
-            "format" => %w(statistics_announcement),
+            "format" => %w[statistics_announcement],
           },
         },
         {
@@ -29,7 +29,7 @@ module Filters
           "value" => "research",
           "label" => "Research",
           "filter" => {
-            "content_store_document_type" => %w(dfid_research_output independent_report research),
+            "content_store_document_type" => %w[dfid_research_output independent_report research],
           },
         },
       ]
@@ -45,7 +45,7 @@ module Filters
           "filter" => {
             "has_official_document" => true,
           },
-            "default" => true,
+          "default" => true,
         },
         {
           "value" => "command_papers",

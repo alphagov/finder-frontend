@@ -18,12 +18,12 @@ module RummagerUrlHelper
   end
 
   def mosw_search_fields
-    base_search_fields + %w(
+    base_search_fields + %w[
       walk_type
       place_of_origin
       date_of_introduction
       creator
-    )
+    ]
   end
 
   def news_and_communications_search_params
@@ -40,7 +40,7 @@ module RummagerUrlHelper
 
   def policy_papers_params
     base_search_params.merge(
-      "filter_content_purpose_supergroup" => %w(policy_and_engagement),
+      "filter_content_purpose_supergroup" => %w[policy_and_engagement],
       "count" => "20",
       "order" => "-public_timestamp",
     )
@@ -60,14 +60,14 @@ module RummagerUrlHelper
   end
 
   def cma_case_search_fields
-    base_search_fields + %w(
+    base_search_fields + %w[
       case_type
       case_state
       market_sector
       outcome_type
       opened_date
       closed_date
-    )
+    ]
   end
 
   def base_search_params
@@ -79,7 +79,7 @@ module RummagerUrlHelper
   end
 
   def base_search_fields
-    %w(
+    %w[
       title
       link
       description_with_highlighting
@@ -92,7 +92,7 @@ module RummagerUrlHelper
       government_name
       content_id
       parts
-    )
+    ]
   end
 end
 

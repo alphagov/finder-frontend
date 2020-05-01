@@ -28,7 +28,7 @@ RSpec.describe Registries::PeopleRegistry do
       people = described_class.new.values
 
       expect(people.length).to eql(2)
-      expect(people.keys).to eql(%w(cornelius-fudge rufus-scrimgeour))
+      expect(people.keys).to eql(%w[cornelius-fudge rufus-scrimgeour])
     end
   end
 
@@ -42,7 +42,7 @@ RSpec.describe Registries::PeopleRegistry do
             },
           },
         }.to_json,
-)
+      )
       clear_cache
       expect(described_class.new.values).to be_empty
     end
@@ -70,7 +70,7 @@ RSpec.describe Registries::PeopleRegistry do
   end
 
   def rummager_results
-    %|{
+    %({
       "results": [],
       "total": 394075,
       "start": 0,
@@ -95,6 +95,6 @@ RSpec.describe Registries::PeopleRegistry do
         }
       },
       "suggested_queries": []
-    }|
+    })
   end
 end

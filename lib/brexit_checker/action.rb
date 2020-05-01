@@ -6,7 +6,7 @@ class BrexitChecker::Action
   CONFIG_PATH = Rails.root.join("lib/brexit_checker/actions.yaml")
 
   validates_presence_of :id, :title, :consequence, :criteria
-  validates_inclusion_of :audience, in: %w(business citizen)
+  validates_inclusion_of :audience, in: %w[business citizen]
   validates_presence_of :guidance_link_text, if: :guidance_url
   validates_numericality_of :priority, only_integer: true
   validate :has_criteria
@@ -45,9 +45,7 @@ class BrexitChecker::Action
     BrexitChecker::Criteria::Extractor.extract(criteria)
   end
 
-  def hash
-    id.hash
-  end
+  delegate :hash, to: :id
 
   def eql?(other)
     id == other.id

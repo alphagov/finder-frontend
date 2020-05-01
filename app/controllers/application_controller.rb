@@ -59,7 +59,7 @@ private
   end
 
   def filter_params
-    # TODO Use a whitelist based on the facets in the schema
+    # TODO: Use a whitelist based on the facets in the schema
     @filter_params ||= begin
       permitted_params = params
                            .except(

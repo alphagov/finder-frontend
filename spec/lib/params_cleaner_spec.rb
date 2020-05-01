@@ -5,7 +5,7 @@ describe ParamsCleaner do
     it "makes an array of a array-like hash" do
       params = ActionController::Parameters.new("foo" => { "0" => "bar", "1" => "baz" })
       cleaned = ParamsCleaner.new(params).cleaned
-      expect(cleaned).to match("foo" => %w(bar baz))
+      expect(cleaned).to match("foo" => %w[bar baz])
     end
 
     it "leaves normal params alone" do
@@ -29,7 +29,7 @@ describe ParamsCleaner do
     it "strips leading and trailing whitespace from array-of-stringstring parameters" do
       params = ActionController::Parameters.new("foo" => ["    bar    "])
       cleaned = ParamsCleaner.new(params).cleaned
-      expect(cleaned).to match("foo" => %w(bar))
+      expect(cleaned).to match("foo" => %w[bar])
     end
 
     it "removes params with blank values" do
@@ -43,7 +43,7 @@ describe ParamsCleaner do
     it "returns the param when the default class matches" do
       params = ActionController::Parameters.new("foo" => { "0" => "bar", "1" => "baz" })
       value = ParamsCleaner.new(params).fetch(:foo, [])
-      expect(value).to eq(%w(bar baz))
+      expect(value).to eq(%w[bar baz])
     end
 
     it "returns the default when the param class differs" do

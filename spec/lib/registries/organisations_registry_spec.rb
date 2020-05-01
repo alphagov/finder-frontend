@@ -7,7 +7,7 @@ RSpec.describe Registries::OrganisationsRegistry do
   let(:rummager_params) {
     {
       "count" => 1500,
-      "fields" => %w(slug title acronym content_id),
+      "fields" => %w[slug title acronym content_id],
       "filter_format" => "organisation",
       "order" => "title",
     }
@@ -34,7 +34,7 @@ RSpec.describe Registries::OrganisationsRegistry do
       organisations = described_class.new.values
 
       expect(organisations.length).to eql(4)
-      expect(organisations.keys).to eql(%w(department-of-mysteries gringots ministry-of-magic death-eaters))
+      expect(organisations.keys).to eql(%w[department-of-mysteries gringots ministry-of-magic death-eaters])
     end
   end
 

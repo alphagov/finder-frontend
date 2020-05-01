@@ -34,9 +34,9 @@ RSpec.describe AtomPresenter do
       "values" => first_facet_values,
       "word_connectors" => { words_connector: "and" },
       },
-        has_filters?: true,
-        value: %w[brexit harry-potter],
-        hide_facet_tag?: false,
+      has_filters?: true,
+      value: %w[brexit harry-potter],
+      hide_facet_tag?: false,
     )
   end
 
@@ -75,10 +75,10 @@ RSpec.describe AtomPresenter do
       "values" => second_facet_values,
       "word_connectors" => { words_connector: "or" },
       },
-        has_filters?: true,
-        value: %w[farming chemicals],
-        "word_connectors" => { words_connector: "or" },
-        hide_facet_tag?: false,
+      has_filters?: true,
+      value: %w[farming chemicals],
+      "word_connectors" => { words_connector: "or" },
+      hide_facet_tag?: false,
     )
   end
 

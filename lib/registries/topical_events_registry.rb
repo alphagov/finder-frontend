@@ -2,9 +2,7 @@ module Registries
   class TopicalEventsRegistry < Registry
     include CacheableRegistry
 
-    def [](slug)
-      topical_events[slug]
-    end
+    delegate :[], to: :topical_events
 
     def values
       topical_events
@@ -41,7 +39,7 @@ module Registries
     def fetch_topical_events_from_rummager
       params = {
         filter_format: "topical_event",
-        fields: %w(title slug),
+        fields: %w[title slug],
         count: 1500,
         order: "title",
       }

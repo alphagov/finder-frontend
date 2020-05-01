@@ -2,9 +2,7 @@ module Registries
   class RolesRegistry < Registry
     include CacheableRegistry
 
-    def [](slug)
-      roles[slug]
-    end
+    delegate :[], to: :roles
 
     def roles
       @roles ||= fetch_from_cache

@@ -62,7 +62,7 @@ RSpec.describe ResultSetPresenter do
       "results" => results.map(&:deep_stringify_keys),
       "start" => 1,
       "total" => total_number_of_results,
-)
+    )
   end
 
   let(:results) {

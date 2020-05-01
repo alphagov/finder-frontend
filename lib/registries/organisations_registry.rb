@@ -2,9 +2,7 @@ module Registries
   class OrganisationsRegistry < Registry
     include CacheableRegistry
 
-    def [](slug)
-      organisations[slug]
-    end
+    delegate :[], to: :organisations
 
     def organisations
       @organisations ||= fetch_from_cache
@@ -43,7 +41,7 @@ module Registries
     def fetch_organisations_from_rummager
       params = {
         filter_format: "organisation",
-        fields: %w(title slug acronym content_id),
+        fields: %w[title slug acronym content_id],
         count: 1500,
         order: "title",
       }

@@ -2,9 +2,7 @@ module Registries
   class FullTopicTaxonomyRegistry < Registry
     include CacheableRegistry
 
-    def [](base_path)
-      taxonomy[base_path]
-    end
+    delegate :[], to: :taxonomy
 
     def taxonomy
       @taxonomy ||= fetch_from_cache

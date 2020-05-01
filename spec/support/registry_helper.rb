@@ -86,7 +86,7 @@ module RegistrySpecHelper
     stub_request(:get, "http://search.dev.gov.uk/search.json")
     .with(query: {
       count: 1500,
-      fields: %w(slug title acronym content_id),
+      fields: %w[slug title acronym content_id],
       filter_format: %(organisation),
       order: "title",
     })
@@ -123,8 +123,8 @@ module RegistrySpecHelper
   def stub_manuals_registry_request
     stub_request(:get, "http://search.dev.gov.uk/search.json")
       .with(query: {
-          filter_document_type: %w(manual service_manual_homepage service_manual_guide),
-          fields: %w(title),
+          filter_document_type: %w[manual service_manual_homepage service_manual_guide],
+          fields: %w[title],
           count: 1500,
       })
       .to_return(body: {
@@ -149,7 +149,7 @@ module RegistrySpecHelper
     stub_request(:get, "http://search.dev.gov.uk/search.json")
     .with(query: {
       count: 1500,
-      fields: %w(slug title),
+      fields: %w[slug title],
       filter_format: %(topical_event),
       order: "title",
     })

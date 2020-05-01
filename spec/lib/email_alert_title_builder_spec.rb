@@ -72,13 +72,13 @@ describe EmailAlertTitleBuilder do
     end
 
     context "when one choice is selected" do
-      let(:filter) { { "facet_id" => %w(key_one) } }
+      let(:filter) { { "facet_id" => %w[key_one] } }
 
       it { is_expected.to eq("Prefix: topic name one") }
     end
 
     context "when two choices are selected" do
-      let(:filter) { { "facet_id" => %w(key_one key_two) } }
+      let(:filter) { { "facet_id" => %w[key_one key_two] } }
 
       it { is_expected.to eq("Prefixes: topic name one and topic name two") }
     end
@@ -135,13 +135,13 @@ describe EmailAlertTitleBuilder do
 
     context "when one facet is selected" do
       context "when one choice is selected" do
-        let(:filter) { { "facet_id_one" => %w(key_one) } }
+        let(:filter) { { "facet_id_one" => %w[key_one] } }
 
         it { is_expected.to eq("Prefix: with facet name one of topic name one") }
       end
 
       context "when two choices are selected" do
-        let(:filter) { { "facet_id_one" => %w(key_one key_two) } }
+        let(:filter) { { "facet_id_one" => %w[key_one key_two] } }
 
         it { is_expected.to eq("Prefix: with facet name one of topic name one and topic name two") }
       end
@@ -153,7 +153,7 @@ describe EmailAlertTitleBuilder do
         [{ "facet_id" => "people", "facet_name" => "people" }]
       end
       let(:filter) do
-        { "people" => %w(harry-potter ron-weasley) }
+        { "people" => %w[harry-potter ron-weasley] }
       end
 
       it { is_expected.to eq("Prefix with people of Harry Potter and Ron Weasley") }
@@ -162,8 +162,8 @@ describe EmailAlertTitleBuilder do
     context "when two facets are selected" do
       let(:filter) do
         {
-          "facet_id_one" => %w(key_one key_two),
-          "facet_id_two" => %w(key_three key_four),
+          "facet_id_one" => %w[key_one key_two],
+          "facet_id_two" => %w[key_three key_four],
         }
       end
 
@@ -189,10 +189,10 @@ describe EmailAlertTitleBuilder do
     end
     let(:filter) do
       {
-        "people" => %w(harry-potter ron-weasley albus-dumbledore cornelius-fudge rufus-scrimgeour),
-        "organisations" => %w(ministry-of-magic gringots hogwarts),
-        "part_of_taxonomy_tree" => %w(magical-education d6c2de5d-ef90-45d1-82d4-5f2438369eea herbology),
-        "document_type" => %w(OWL NEWT),
+        "people" => %w[harry-potter ron-weasley albus-dumbledore cornelius-fudge rufus-scrimgeour],
+        "organisations" => %w[ministry-of-magic gringots hogwarts],
+        "part_of_taxonomy_tree" => %w[magical-education d6c2de5d-ef90-45d1-82d4-5f2438369eea herbology],
+        "document_type" => %w[OWL NEWT],
       }
     end
 
@@ -203,7 +203,7 @@ describe EmailAlertTitleBuilder do
 
   context "when a facet_connector is provided" do
     let(:content_item) { research_and_stats_finder_signup_content_item }
-    let(:filter) { { "content_store_document_type" => %w(statistics_published research) } }
+    let(:filter) { { "content_store_document_type" => %w[statistics_published research] } }
     let(:subscription_list_title_prefix) { content_item.dig("details", "subscription_list_title_prefix") }
     let(:facets) { content_item["details"].fetch("email_filter_facets", []) }
     it {

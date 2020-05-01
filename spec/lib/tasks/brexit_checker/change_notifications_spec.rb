@@ -33,7 +33,7 @@ RSpec.describe "Change notifications" do
             :brexit_checker_action,
             id: "addition",
             criteria: [
-              { "all_of" => %w(nationality-eu living-uk) },
+              { "all_of" => %w[nationality-eu living-uk] },
             ],
           ),
           FactoryBot.build(
@@ -42,8 +42,8 @@ RSpec.describe "Change notifications" do
             criteria: [
               {
                 "all_of" => [
-                  { "any_of" => %w(nationality-row nationality-eu) },
-                  { "any_of" => %w(living-row living-eu) },
+                  { "any_of" => %w[nationality-row nationality-eu] },
+                  { "any_of" => %w[living-row living-eu] },
                   "join-family-uk-yes",
                 ],
               },

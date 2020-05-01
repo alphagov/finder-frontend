@@ -4,7 +4,7 @@ class BrexitChecker::Question
   CONFIG_PATH = Rails.root.join("lib/brexit_checker/questions.yaml")
 
   validates_presence_of :key, :text
-  validates_inclusion_of :type, in: %w(single single_wrapped multiple multiple_grouped)
+  validates_inclusion_of :type, in: %w[single single_wrapped multiple multiple_grouped]
   validate { errors.add("Options is not an array") unless options.is_a? Array }
 
   attr_reader :key, :text, :description, :hint_title, :hint_text, :type, :criteria,

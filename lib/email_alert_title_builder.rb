@@ -124,7 +124,7 @@ private
     # these are keys such as organisations where it is not practical to
     # put all choices into the finder email signup content item.
     facet = facet_by_filter_key(filter_key)
-    %w(
+    %w[
       world_locations
       organisations
       people
@@ -133,7 +133,7 @@ private
       all_part_of_taxonomy_tree
       document_type
       content_store_document_type
-    ).include?(filter_key) && facet && facet.fetch("facet_choices", []).none?
+    ].include?(filter_key) && facet && facet.fetch("facet_choices", []).none?
   end
 
   def facet_by_filter_key(filter_key)
@@ -145,6 +145,6 @@ private
   end
 
   def ignore_facet?(facet_id)
-    %W(facet_groups).include?(facet_id)
+    %w[facet_groups].include?(facet_id)
   end
 end

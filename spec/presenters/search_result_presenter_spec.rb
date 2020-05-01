@@ -164,8 +164,8 @@ RSpec.describe SearchResultPresenter do
         FactoryBot.build(:document, a_key_to_filter_on: "10-10-2009", index: 1)
       }
       it "displays date based metadata" do
-        expect(presenter.document_list_component_data[:metadata]).
-          to eq("A key to filter on" => 'A key to filter on: <time datetime="2009-10-10">10 October 2009</time>')
+        expect(presenter.document_list_component_data[:metadata])
+          .to eq("A key to filter on" => 'A key to filter on: <time datetime="2009-10-10">10 October 2009</time>')
       end
     end
   end

@@ -28,7 +28,7 @@ RSpec.describe Registries::RolesRegistry do
       roles = described_class.new.values
 
       expect(roles.length).to eql(2)
-      expect(roles.keys).to eql(%w(prime-minister chief-mouser))
+      expect(roles.keys).to eql(%w[prime-minister chief-mouser])
     end
   end
 
@@ -70,7 +70,7 @@ RSpec.describe Registries::RolesRegistry do
   end
 
   def rummager_results
-    %|{
+    %({
       "results": [],
       "total": 394075,
       "start": 0,
@@ -95,6 +95,6 @@ RSpec.describe Registries::RolesRegistry do
         }
       },
       "suggested_queries": []
-    }|
+    })
   end
 end

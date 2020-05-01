@@ -21,7 +21,7 @@ describe TaxonFacet do
   let(:facet_data) {
     {
       "type" => "text",
-      "keys" => %w(level_one_taxon level_two_taxon),
+      "keys" => %w[level_one_taxon level_two_taxon],
       "name" => "Test values",
       "key" => "test_values",
       "preposition" => "of value",
