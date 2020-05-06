@@ -3,18 +3,18 @@ require "spec_helper"
 describe HiddenClearableFacet do
   let(:allowed_values) {
     [
-        {
-            "label" => "Allowed value 1",
-            "value" => "allowed-value-1",
-        },
-        {
-            "label" => "Allowed value 2",
-            "value" => "allowed-value-2",
-        },
-        {
-            "label" => "Allowed value 3",
-            "value" => "allowed-value-3",
-        },
+      {
+        "label" => "Allowed value 1",
+        "value" => "allowed-value-1",
+      },
+      {
+        "label" => "Allowed value 2",
+        "value" => "allowed-value-2",
+      },
+      {
+        "label" => "Allowed value 3",
+        "value" => "allowed-value-3",
+      },
     ]
   }
 

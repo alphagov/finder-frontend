@@ -43,22 +43,22 @@ describe RadioFacetForMultipleFilters do
       subject { described_class.new(facet_data, "value_1", filter_hashes) }
       it "sets the options, selecting the correct value" do
         expect(subject.options).to eq([
-                                        {
-                                          value: "value_1",
-                                          text: "label_1",
-                                          checked: true,
-                                        },
-                                        {
-                                          value: "value_2",
-                                          text: "label_2",
-                                          checked: false,
-                                        },
-                                        {
-                                          value: "default_value",
-                                          text: "default_label",
-                                          checked: false,
-                                        },
-                                      ])
+          {
+            value: "value_1",
+            text: "label_1",
+            checked: true,
+          },
+          {
+            value: "value_2",
+            text: "label_2",
+            checked: false,
+          },
+          {
+            value: "default_value",
+            text: "default_label",
+            checked: false,
+          },
+        ])
       end
     end
 

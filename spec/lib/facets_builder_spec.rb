@@ -15,9 +15,9 @@ describe FacetsBuilder do
     {
       "key": "_unused",
       "keys": %w[
-            level_one_taxon
-            level_two_taxon
-          ],
+        level_one_taxon
+        level_two_taxon
+      ],
       "type": "taxon",
       "filterable": true,
     }
@@ -54,8 +54,8 @@ describe FacetsBuilder do
       "filterable": true,
       "option_lookup": {
         "statistics_published": %w[
-              statistics
-            ],
+          statistics
+        ],
       },
       "allowed_values": [
         { "value": "statistics_published" },
@@ -290,11 +290,11 @@ describe FacetsBuilder do
       "facets": {
         "topical_events": {
           "options": [{
-                        "value": {
-                          "title": "First World War Centenary",
-                          "slug": "first-world-war-centenary",
-                        },
-                      },
+            "value": {
+              "title": "First World War Centenary",
+              "slug": "first-world-war-centenary",
+            },
+          },
                       {
                         "value": {
                           "title": "Farming",
@@ -320,11 +320,11 @@ describe FacetsBuilder do
       "facets": {
         "people": {
           "options": [{
-                        "value": {
-                          "title": "Cornelius Fudge",
-                          "slug": "cornelius-fudge",
-                        },
-                      },
+            "value": {
+              "title": "Cornelius Fudge",
+              "slug": "cornelius-fudge",
+            },
+          },
                       {
                         "value": {
                           "title": "Rufus Scrimgeour",

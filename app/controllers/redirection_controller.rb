@@ -33,12 +33,12 @@ class RedirectionController < ApplicationController
   def advanced_search
     conversion_hash =
       {
-          "services" => "services",
-          "guidance_and_regulation" => "guidance-and-regulation",
-          "news_and_communications" => "news-and-communications",
-          "research_and_statistics" => "research-and-statistics",
-          "policy_and_engagement" => "policy-papers-and-consultations",
-          "transparency" => "transparency-and-freedom-of-information-releases",
+        "services" => "services",
+        "guidance_and_regulation" => "guidance-and-regulation",
+        "news_and_communications" => "news-and-communications",
+        "research_and_statistics" => "research-and-statistics",
+        "policy_and_engagement" => "policy-papers-and-consultations",
+        "transparency" => "transparency-and-freedom-of-information-releases",
       }
     group = conversion_hash[params["group"]]
     error_not_found && return if group.nil?

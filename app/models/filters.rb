@@ -22,8 +22,8 @@ module Filters
           "value" => "cancelled_statistics",
           "label" => "Statistics (cancelled)",
           "filter" => {
-              "statistics_announcement_state" => "cancelled",
-            },
+            "statistics_announcement_state" => "cancelled",
+          },
         },
         {
           "value" => "research",
