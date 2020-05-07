@@ -41,10 +41,10 @@ class CheckboxFacet < FilterableFacet
 
   def data
     {
-        track_category: "filterClicked",
-        uncheck_track_category: "filterRemoved",
-        track_action: "checkboxFacet",
-        track_label: name,
+      track_category: "filterClicked",
+      uncheck_track_category: "filterRemoved",
+      track_action: "checkboxFacet",
+      track_label: name,
     }
   end
 

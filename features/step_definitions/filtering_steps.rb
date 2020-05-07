@@ -154,12 +154,12 @@ end
 
 When(/^I view the research and statistics finder with a topic param set$/) do
   topic_taxonomy_has_taxons([
-                              FactoryBot.build(
-                                :level_one_taxon_hash,
-                                content_id: "c58fdadd-7743-46d6-9629-90bb3ccc4ef0",
-                                title: "Education, training and skills",
-                              ),
-                            ])
+    FactoryBot.build(
+      :level_one_taxon_hash,
+      content_id: "c58fdadd-7743-46d6-9629-90bb3ccc4ef0",
+      title: "Education, training and skills",
+    ),
+  ])
   content_store_has_statistics_finder
   stub_organisations_registry_request
   stub_manuals_registry_request
@@ -171,12 +171,12 @@ end
 
 When(/^I view the aaib reports finder with a topic param set$/) do
   topic_taxonomy_has_taxons([
-                              FactoryBot.build(
-                                :level_one_taxon_hash,
-                                content_id: "c58fdadd-7743-46d6-9629-90bb3ccc4ef0",
-                                title: "Education, training and skills",
-                              ),
-                            ])
+    FactoryBot.build(
+      :level_one_taxon_hash,
+      content_id: "c58fdadd-7743-46d6-9629-90bb3ccc4ef0",
+      title: "Education, training and skills",
+    ),
+  ])
   content_store_has_aaib_reports_finder
   stub_organisations_registry_request
   stub_manuals_registry_request

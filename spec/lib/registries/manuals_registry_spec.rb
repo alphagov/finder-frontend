@@ -25,9 +25,9 @@ RSpec.describe Registries::ManualsRegistry do
       )
       expect(manual.values).to eq(
         slug => {
-              "title" => "Care and use of a Nimbus 2000",
-              "slug" => slug,
-           },
+          "title" => "Care and use of a Nimbus 2000",
+          "slug" => slug,
+        },
       )
     end
 

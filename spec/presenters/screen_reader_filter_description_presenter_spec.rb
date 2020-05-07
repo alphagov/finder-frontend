@@ -9,38 +9,38 @@ RSpec.describe ScreenReaderFilterDescriptionPresenter do
       OptionSelectFacet,
       key: "key_1",
       selected_values: [
-          {
-              "value" => "ca98-and-civil-cartels",
-              "label" => "CA98 and civil cartels",
-          },
-          {
-              "value" => "mergers",
-              "label" => "Mergers",
-          },
+        {
+          "value" => "ca98-and-civil-cartels",
+          "label" => "CA98 and civil cartels",
+        },
+        {
+          "value" => "mergers",
+          "label" => "Mergers",
+        },
       ],
       allowed_values: [
-          {
-              "value" => "ca98-and-civil-cartels",
-              "label" => "CA98 and civil cartels",
-          },
-          {
-              "value" => "mergers",
-              "label" => "Mergers",
-          },
+        {
+          "value" => "ca98-and-civil-cartels",
+          "label" => "CA98 and civil cartels",
+        },
+        {
+          "value" => "mergers",
+          "label" => "Mergers",
+        },
       ],
       sentence_fragment: {
-          "key" => "key_1",
-          "type" => "text",
-          "preposition" => "Of Type",
-          "values" => [
-              {
-                  "label" => "CA98 and civil cartels",
-              },
-              {
-                  "label" => "Mergers",
-              },
-          ],
-          "word_connectors" => { words_connector: "or" },
+        "key" => "key_1",
+        "type" => "text",
+        "preposition" => "Of Type",
+        "values" => [
+          {
+            "label" => "CA98 and civil cartels",
+          },
+          {
+            "label" => "Mergers",
+          },
+        ],
+        "word_connectors" => { words_connector: "or" },
       },
       has_filters?: true,
       labels: %w[ca98-and-civil-cartels mergers],
@@ -55,28 +55,28 @@ RSpec.describe ScreenReaderFilterDescriptionPresenter do
       key: "key_3",
       preposition: "that are",
       allowed_values: [
-          {
-              "value" => "statistics_published",
-              "label" => "Statistics (published)",
-              "default" => true,
-          },
-          {
-              "value" => "statistics_upcoming",
-              "label" => "Statistics (upcoming)",
-          },
-          {
-              "value" => "research",
-              "label" => "Research",
-          },
+        {
+          "value" => "statistics_published",
+          "label" => "Statistics (published)",
+          "default" => true,
+        },
+        {
+          "value" => "statistics_upcoming",
+          "label" => "Statistics (upcoming)",
+        },
+        {
+          "value" => "research",
+          "label" => "Research",
+        },
       ],
       has_filters?: true,
       hide_facet_tag?: true,
       value: "something",
       sort: [
-          {
-              "value" => "most-viewed",
-              "name" => "Most viewed",
-          },
+        {
+          "value" => "most-viewed",
+          "name" => "Most viewed",
+        },
       ],
     )
   end
@@ -95,16 +95,16 @@ RSpec.describe ScreenReaderFilterDescriptionPresenter do
       allow(a_facet_without_facet_tags).to receive(:allowed_values).and_return(
         [
           {
-              "value" => "statistics_published",
-              "label" => "Statistics (published)",
+            "value" => "statistics_published",
+            "label" => "Statistics (published)",
           },
           {
-              "value" => "statistics_upcoming",
-              "label" => "Statistics (upcoming)",
+            "value" => "statistics_upcoming",
+            "label" => "Statistics (upcoming)",
           },
           {
-              "value" => "research",
-              "label" => "Research",
+            "value" => "research",
+            "label" => "Research",
           },
         ],
       )

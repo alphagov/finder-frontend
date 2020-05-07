@@ -61,7 +61,7 @@ private
   def redirect_to_destination
     @redirect = content_item.redirect
     @finder_slug = finder_slug
-    render "finders/show-redirect"
+    render "finders/show_redirect"
   end
 
   def json_response

@@ -29,8 +29,8 @@ private
   def value_fragments
     selected_values.map { |value|
       {
-          "label" => value["label"],
-          "parameter_key" => key,
+        "label" => value["label"],
+        "parameter_key" => key,
       }
     }
   end

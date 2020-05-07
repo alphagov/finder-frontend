@@ -34,13 +34,13 @@ describe SignupPresenter do
       it "returns an array of signup facets" do
         expect(SignupPresenter.new(content_item, params).choices)
           .to eq([
-                  { "facet_choices" => [{ "key" => "devices",
-                                          "radio_button_name" => "Medical device alerts" },
-                                        { "key" => "drugs",
-                                          "radio_button_name" => "Drug alerts" }],
-                    "facet_id" => "alert_type",
-                    "facet_name" => "Alert type" },
-                ])
+            { "facet_choices" => [{ "key" => "devices",
+                                    "radio_button_name" => "Medical device alerts" },
+                                  { "key" => "drugs",
+                                    "radio_button_name" => "Drug alerts" }],
+              "facet_id" => "alert_type",
+              "facet_name" => "Alert type" },
+          ])
       end
     end
     describe "#choices?" do

@@ -298,7 +298,7 @@ module DocumentHelper
               "visible_to_departmental_editors": false,
             },
             "phase" => "live",
-         },
+          },
         ],
       },
     )

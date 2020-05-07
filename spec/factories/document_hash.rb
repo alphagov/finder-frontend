@@ -15,10 +15,10 @@ FactoryBot.define do
     document_type { "answer" }
     organisations {
       [{
-          "acronym" => "DWP",
-          "content_id" => "b548a09f-8b35-4104-89f4-f1a40bf3136d",
-          "title" => "Department for Work and Pensions",
-       }]
+        "acronym" => "DWP",
+        "content_id" => "b548a09f-8b35-4104-89f4-f1a40bf3136d",
+        "title" => "Department for Work and Pensions",
+      }]
     }
     content_purpose_supergroup { "guidance_and_regulation" }
     is_historic { false }

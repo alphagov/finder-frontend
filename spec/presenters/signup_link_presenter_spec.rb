@@ -26,14 +26,14 @@ RSpec.describe SignupLinksPresenter do
             "key" => "-popularity",
           },
           {
-              "name" => "Relevance",
-              "key" => "-relevance",
-            },
+            "name" => "Relevance",
+            "key" => "-relevance",
+          },
           {
             "name" => "Updated (newest)",
             "key" => "-public_timestamp",
             "default" => true,
-        },
+          },
         ],
       },
     }

@@ -6,39 +6,39 @@ module FacetsHelper
       OptionSelectFacet,
       key: "key_1",
       selected_values: [
-      {
-        "value" => "ca98-and-civil-cartels",
-        "label" => "CA98 and civil cartels",
-      },
-      {
-        "value" => "mergers",
-        "label" => "Mergers",
-      },
-    ],
-      allowed_values: [
-      {
-        "value" => "ca98-and-civil-cartels",
-        "label" => "CA98 and civil cartels",
-      },
-      {
-        "value" => "mergers",
-        "label" => "Mergers",
-      },
-    ],
-      sentence_fragment: {
-      "key" => "key_1",
-      "type" => "text",
-      "preposition" => "Of Type",
-      "values" => [
         {
+          "value" => "ca98-and-civil-cartels",
           "label" => "CA98 and civil cartels",
         },
         {
+          "value" => "mergers",
           "label" => "Mergers",
         },
       ],
-      "word_connectors" => { words_connector: "or" },
-    },
+      allowed_values: [
+        {
+          "value" => "ca98-and-civil-cartels",
+          "label" => "CA98 and civil cartels",
+        },
+        {
+          "value" => "mergers",
+          "label" => "Mergers",
+        },
+      ],
+      sentence_fragment: {
+        "key" => "key_1",
+        "type" => "text",
+        "preposition" => "Of Type",
+        "values" => [
+          {
+            "label" => "CA98 and civil cartels",
+          },
+          {
+            "label" => "Mergers",
+          },
+        ],
+        "word_connectors" => { words_connector: "or" },
+      },
       has_filters?: true,
       labels: %w[ca98-and-civil-cartels mergers],
       value: %w[ca98-and-civil-cartels mergers],
@@ -52,29 +52,29 @@ module FacetsHelper
       key: "key_2",
       preposition: "About",
       selected_values: [
-      {
-        "value" => "farming",
-        "label" => "Farming",
-      },
-      {
-        "value" => "chemicals",
-        "label" => "Chemicals",
-      },
-    ],
-      sentence_fragment: {
-      "key" => "key_2",
-      "type" => "text",
-      "preposition" => "About",
-      "values" => [
         {
+          "value" => "farming",
           "label" => "Farming",
         },
         {
+          "value" => "chemicals",
           "label" => "Chemicals",
         },
       ],
-      "word_connectors" => { words_connector: "or" },
-    },
+      sentence_fragment: {
+        "key" => "key_2",
+        "type" => "text",
+        "preposition" => "About",
+        "values" => [
+          {
+            "label" => "Farming",
+          },
+          {
+            "label" => "Chemicals",
+          },
+        ],
+        "word_connectors" => { words_connector: "or" },
+      },
       has_filters?: true,
       value: %w[farming chemicals],
       "word_connectors" => { words_connector: "or" },

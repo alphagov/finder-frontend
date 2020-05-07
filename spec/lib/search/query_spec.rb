@@ -146,20 +146,20 @@ describe Search::Query do
       before do
         stub_batch_search.to_return(body:
         {
-         "results" => [
-           {
-             "results" => [
-               result_item("/register-to-vote", "Register to Vote", score: 1, updated: "14-12-19", popularity: 3),
-             ],
-           },
-           {
-             "results" => [
-               result_item("/hmrc", "HMRC", score: 10, updated: "14-12-18", popularity: 2),
-               result_item("/register-to-vote", "Register to Vote", score: 2, updated: "14-12-19", popularity: 3),
-             ],
-           },
-         ],
-       }.to_json)
+          "results" => [
+            {
+              "results" => [
+                result_item("/register-to-vote", "Register to Vote", score: 1, updated: "14-12-19", popularity: 3),
+              ],
+            },
+            {
+              "results" => [
+                result_item("/hmrc", "HMRC", score: 10, updated: "14-12-18", popularity: 2),
+                result_item("/register-to-vote", "Register to Vote", score: 2, updated: "14-12-19", popularity: 3),
+              ],
+            },
+          ],
+        }.to_json)
       end
 
       it_behaves_like "sorts by other fields"
