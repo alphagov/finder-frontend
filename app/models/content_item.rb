@@ -67,7 +67,7 @@ class ContentItem
   end
 
   def no_index?
-    !!content_item_hash["details"]["no_index"]
+    content_item_hash["details"]["no_index"].present?
   end
 
   def all_content_finder?
