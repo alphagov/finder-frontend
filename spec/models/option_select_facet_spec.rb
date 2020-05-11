@@ -1,7 +1,7 @@
 require "spec_helper"
 
 describe OptionSelectFacet do
-  let(:allowed_values) {
+  let(:allowed_values) do
     [
       {
         "label" => "Allowed value 1",
@@ -16,9 +16,9 @@ describe OptionSelectFacet do
         "value" => "remittals",
       },
     ]
-  }
+  end
 
-  let(:facet_data) {
+  let(:facet_data) do
     {
       "type" => "multi-select",
       "name" => "Test values",
@@ -26,30 +26,30 @@ describe OptionSelectFacet do
       "preposition" => "of value",
       "allowed_values" => allowed_values,
     }
-  }
+  end
 
   describe "#sentence_fragment" do
     context "single value" do
       subject { OptionSelectFacet.new(facet_data, %w[allowed-value-1]) }
 
-      specify {
+      specify do
         expect(subject.sentence_fragment["preposition"]).to eql("of value")
         expect(subject.sentence_fragment["values"].first["label"]).to eql("Allowed value 1")
         expect(subject.sentence_fragment["values"].first["parameter_key"]).to eql("test_values")
-      }
+      end
     end
 
     context "multiple values" do
       subject { OptionSelectFacet.new(facet_data, %w[allowed-value-1 allowed-value-2]) }
 
-      specify {
+      specify do
         expect(subject.sentence_fragment["preposition"]).to eql("of value")
         expect(subject.sentence_fragment["values"].first["label"]).to eql("Allowed value 1")
         expect(subject.sentence_fragment["values"].first["parameter_key"]).to eql("test_values")
 
         expect(subject.sentence_fragment["values"].last["label"]).to eql("Allowed value 2")
         expect(subject.sentence_fragment["values"].last["parameter_key"]).to eql("test_values")
-      }
+      end
     end
 
     context "disallowed values" do
@@ -61,9 +61,9 @@ describe OptionSelectFacet do
   describe "#query_params" do
     context "value selected" do
       subject { OptionSelectFacet.new(facet_data, "allowed-value-1") }
-      specify {
+      specify do
         expect(subject.query_params).to eql("test_values" => %w[allowed-value-1])
-      }
+      end
     end
   end
 
@@ -75,7 +75,7 @@ describe OptionSelectFacet do
     end
 
     context "some selected values" do
-      let(:facet_data) {
+      let(:facet_data) do
         {
           "type" => "multi-select",
           "name" => "Test values",
@@ -83,7 +83,7 @@ describe OptionSelectFacet do
           "preposition" => "of value",
           "allowed_values" => [{ "label" => "One", "value" => "1" }],
         }
-      }
+      end
 
       subject { OptionSelectFacet.new(facet_data, "1") }
 

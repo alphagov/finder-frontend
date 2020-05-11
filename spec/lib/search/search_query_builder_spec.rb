@@ -10,7 +10,7 @@ describe Search::QueryBuilder do
 
   let(:query) { queries.first }
 
-  let(:finder_content_item) {
+  let(:finder_content_item) do
     ContentItem.new(
       "base_path" => "/finder-path",
       "details" => {
@@ -21,7 +21,7 @@ describe Search::QueryBuilder do
         "default_documents_per_page" => nil,
       },
     )
-  }
+  end
 
   let(:facets) { [] }
   let(:filter) { {} }
@@ -35,7 +35,7 @@ describe Search::QueryBuilder do
   end
 
   context "with pagination" do
-    let(:finder_content_item) {
+    let(:finder_content_item) do
       ContentItem.new(
         "details" => {
           "facets" => facets,
@@ -45,7 +45,7 @@ describe Search::QueryBuilder do
           "default_documents_per_page" => 10,
         },
       )
-    }
+    end
 
     it "should use documents_per_page from content item" do
       expect(query).to include(
@@ -64,7 +64,7 @@ describe Search::QueryBuilder do
   end
 
   context "with facets" do
-    let(:facets) {
+    let(:facets) do
       [
         {
           "key" => "alpha",
@@ -75,13 +75,13 @@ describe Search::QueryBuilder do
           "filterable" => false,
         },
       ]
-    }
+    end
 
-    let(:reject) {
+    let(:reject) do
       {
         alpha: "value",
       }
-    }
+    end
 
     it "should include base and extra return fields" do
       expect(query).to include(
@@ -212,11 +212,11 @@ describe Search::QueryBuilder do
   end
 
   context "with keywords" do
-    let(:params) {
+    let(:params) do
       {
         "keywords" => "mangoes",
       }
-    }
+    end
 
     it "should include a keyword query" do
       expect(query).to include("q" => "mangoes")
@@ -227,11 +227,11 @@ describe Search::QueryBuilder do
     end
 
     context "longer than the maximum query length" do
-      let(:params) {
+      let(:params) do
         {
           "keywords" => "a" * 1024,
         }
-      }
+      end
 
       it "should include a truncated" do
         expect(query).to include("q" => "a" * described_class::MAX_QUERY_LENGTH)
@@ -239,11 +239,11 @@ describe Search::QueryBuilder do
     end
 
     context "without stopwords" do
-      let(:params) {
+      let(:params) do
         {
           "keywords" => "a mango",
         }
-      }
+      end
 
       it "should include stopwords in search" do
         expect(query).to include("q" => "a mango")
@@ -251,7 +251,7 @@ describe Search::QueryBuilder do
     end
 
     context "with stopwords" do
-      let(:finder_content_item) {
+      let(:finder_content_item) do
         ContentItem.new(
           "base_path" => "/find-eu-exit-guidance-business",
           "details" => {
@@ -262,7 +262,7 @@ describe Search::QueryBuilder do
             "default_documents_per_page" => 10,
           },
         )
-      }
+      end
 
       it "should not include stopwords in search" do
         params = {
@@ -322,11 +322,11 @@ describe Search::QueryBuilder do
   end
 
   context "with debug parameters" do
-    let(:params) {
+    let(:params) do
       {
         "debug" => "yes",
       }
-    }
+    end
 
     it "should include a debug query" do
       expect(query).to include("debug" => "yes")
@@ -340,12 +340,12 @@ describe Search::QueryBuilder do
   end
 
   context "with A/B parameters" do
-    let(:ab_params) {
+    let(:ab_params) do
       {
         test_one: "a",
         test_two: "b",
       }
-    }
+    end
 
     it "should include an A/B query" do
       query = described_class.new(

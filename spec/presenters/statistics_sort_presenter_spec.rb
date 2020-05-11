@@ -1,9 +1,9 @@
 require "spec_helper"
 
 RSpec.describe StatisticsSortPresenter do
-  let(:stats_finder) {
+  let(:stats_finder) do
     ContentItem.new(JSON.parse(File.read(Rails.root.join("features/fixtures/statistics.json"))))
-  }
+  end
 
   subject(:presenter_without_sort) { described_class.new(ContentItem.new("details" => { "sort_options" => [] }), {}) }
   subject(:presenter) { described_class.new(stats_finder, query) }
@@ -31,13 +31,13 @@ RSpec.describe StatisticsSortPresenter do
     { "content_store_document_type" => "cancelled_statistics" }
   end
 
-  let(:default_option) {
+  let(:default_option) do
     {
       "default" => true,
       "key" => "-public_timestamp",
       "name" => "Updated (newest)",
     }
-  }
+  end
 
   describe "#has_options?" do
     it "returns false if there are no options in the content item" do
@@ -255,17 +255,17 @@ RSpec.describe StatisticsSortPresenter do
     end
 
     def release_timestamp_options_are_excluded
-      no_release_timestamp_options = presenter.to_hash[:options].none? { |o|
+      no_release_timestamp_options = presenter.to_hash[:options].none? do |o|
         %w[release-date-oldest release-date-latest].include? o[:value]
-      }
+      end
 
       expect(no_release_timestamp_options).to be true
     end
 
     def public_timestamp_options_are_excluded
-      no_public_timestamp_options = presenter.to_hash[:options].none? { |o|
+      no_public_timestamp_options = presenter.to_hash[:options].none? do |o|
         %w[updated-newest updated-oldest].include? o[:value]
-      }
+      end
 
       expect(no_public_timestamp_options).to be true
     end

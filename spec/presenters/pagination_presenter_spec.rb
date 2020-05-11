@@ -2,14 +2,14 @@ require "spec_helper"
 
 describe PaginationPresenter do
   subject(:links) { presenter.next_and_prev_links }
-  let(:presenter) {
+  let(:presenter) do
     described_class.new(
       per_page: per_page,
       start_offset: start_offset,
       total_results: total_results,
       url_builder: url_builder,
     )
-  }
+  end
   let(:per_page) {}
   let(:start_offset) {}
   let(:total_results) {}

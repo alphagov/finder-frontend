@@ -98,9 +98,9 @@ private
   end
 
   def filter_values(facet_key, registry)
-    filter.fetch(facet_key, []).map { |value|
+    filter.fetch(facet_key, []).map do |value|
       find_title_by_slug(value, registry)
-    }
+    end
   end
 
   def find_title_by_slug(slug, registry)

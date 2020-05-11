@@ -31,10 +31,10 @@ module Registries
         fetch_organisations_from_rummager
           .reject { |result| result["slug"].empty? || result["title"].empty? }
           .sort_by { |result| result["title"].sub("Closed organisation: ", "ZZ").upcase }
-          .each_with_object({}) { |result, orgs|
+          .each_with_object({}) do |result, orgs|
             slug = result["slug"]
             orgs[slug] = result.slice("title", "slug", "acronym", "content_id")
-          }
+          end
       end
     end
 

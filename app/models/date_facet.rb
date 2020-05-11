@@ -48,26 +48,26 @@ class DateFacet < FilterableFacet
 private
 
   def value_fragments
-    present_values.map { |name, date|
+    present_values.map do |name, date|
       {
         "label" => date.date.strftime("%e %B %Y"),
         "parameter_key" => key,
         "value" => date.original_input,
         "name" => "#{key}[#{name}]",
       }
-    }
+    end
   end
 
   def present_values
-    parsed_values.select { |_, date|
+    parsed_values.select do |_, date|
       date.date.present?
-    }
+    end
   end
 
   def parsed_values
-    (date_values || {}).reduce({}) { |h, (k, v)|
+    (date_values || {}).reduce({}) do |h, (k, v)|
       h.merge(k => safe_date_parse(v))
-    }
+    end
   end
 
   def safe_date_parse(date_string)

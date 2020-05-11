@@ -11,14 +11,14 @@ describe TaxonFacet do
     ])
   end
 
-  let(:allowed_values) {
+  let(:allowed_values) do
     {
       "level_one_taxon" => "allowed-value-1",
       "level_two_taxon" => "allowed-value-2",
     }
-  }
+  end
 
-  let(:facet_data) {
+  let(:facet_data) do
     {
       "type" => "text",
       "keys" => %w[level_one_taxon level_two_taxon],
@@ -27,7 +27,7 @@ describe TaxonFacet do
       "preposition" => "of value",
       "allowed_values" => allowed_values,
     }
-  }
+  end
 
   describe "#topics" do
     subject { TaxonFacet.new(facet_data, allowed_values) }
@@ -82,20 +82,20 @@ describe TaxonFacet do
     context "allowed value selected" do
       subject { TaxonFacet.new(facet_data, allowed_values) }
 
-      specify {
+      specify do
         expect(subject.sentence_fragment["preposition"]).to eql("of value")
         expect(subject.sentence_fragment["values"].first["label"]).to eql("allowed-value-1")
         expect(subject.sentence_fragment["values"].first["parameter_key"]).to eql("level_one_taxon")
-      }
+      end
     end
 
     context "disallowed value selected" do
-      let(:disallowed_values) {
+      let(:disallowed_values) do
         {
           "level_one_taxon" => "disallowed-value-1",
           "level_two_taxon" => "disallowed-value-2",
         }
-      }
+      end
       subject { TaxonFacet.new(facet_data, disallowed_values) }
       specify { expect(subject.sentence_fragment).to be_nil }
     end

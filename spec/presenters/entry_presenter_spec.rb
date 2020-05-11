@@ -2,9 +2,9 @@ require "spec_helper"
 
 RSpec.describe EntryPresenter do
   describe "#summary" do
-    let(:document) {
+    let(:document) do
       FactoryBot.build(:document, description_with_highlighting: "This is the summary. And this is extra.")
-    }
+    end
     it "displays the truncated description" do
       expect(EntryPresenter.new(document, true).summary).to eq("This is the summary.")
     end

@@ -30,9 +30,9 @@ module Registries
       GovukStatsd.time("registries.topical_events.request_time") do
         fetch_topical_events_from_rummager
           .reject { |topical_event| topical_event["slug"].empty? || topical_event["title"].empty? }
-          .each_with_object({}) { |topical_event, topical_events|
+          .each_with_object({}) do |topical_event, topical_events|
             topical_events[topical_event["slug"]] = { "title" => topical_event["title"], "slug" => topical_event["slug"] }
-          }
+          end
       end
     end
 

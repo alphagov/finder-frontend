@@ -13,13 +13,13 @@ FactoryBot.define do
     public_timestamp { Time.zone.now }
     release_timestamp { Time.zone.now }
     document_type { "answer" }
-    organisations {
+    organisations do
       [{
         "acronym" => "DWP",
         "content_id" => "b548a09f-8b35-4104-89f4-f1a40bf3136d",
         "title" => "Department for Work and Pensions",
       }]
-    }
+    end
     content_purpose_supergroup { "guidance_and_regulation" }
     is_historic { false }
     government_name { "2015 Conservative government" }

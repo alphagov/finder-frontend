@@ -1,7 +1,7 @@
 require "spec_helper"
 
 describe Document do
-  let(:content_item) {
+  let(:content_item) do
     FactoryBot.build(:content_item,
                      details: {
                        "show_summaries": show_summaries,
@@ -17,7 +17,7 @@ describe Document do
                          },
                        ],
                      })
-  }
+  end
 
   let(:show_summaries) { true }
   let(:facets) { [] }
@@ -40,12 +40,12 @@ describe Document do
 
   describe "#metadata" do
     context 'There is one facet with type "date"' do
-      let(:facets) {
+      let(:facets) do
         [FactoryBot.build(:date_facet, key: "a_filter_key")]
-      }
-      let(:document_hash) {
+      end
+      let(:document_hash) do
         FactoryBot.build(:document_hash, a_filter_key: "2019")
-      }
+      end
       it "gets the metadata" do
         expected_hash =
           {
@@ -57,13 +57,13 @@ describe Document do
       end
     end
     context "There is one facet with type text" do
-      let(:facets) {
+      let(:facets) do
         [FactoryBot.build(:option_select_facet, key: "a_filter_key")]
-      }
+      end
       describe "The document is tagged to a single value of the facet filter key" do
-        let(:document_hash) {
+        let(:document_hash) do
           FactoryBot.build(:document_hash, a_filter_key: "metadata_label")
-        }
+        end
         it "gets metadata for a simple text value" do
           expected_hash =
             {
@@ -76,16 +76,16 @@ describe Document do
           expect(Document.new(document_hash, 1).metadata(facets)).to eq([expected_hash])
         end
         describe "There is a short name in the facet" do
-          let(:facets) {
+          let(:facets) do
             [FactoryBot.build(:option_select_facet, short_name: "short name")]
-          }
+          end
           it "replaces the name field in the metafata by the short name from the facet" do
             expect(Document.new(document_hash, 1).metadata(facets)).to match([include(name: "short name")])
           end
         end
       end
       describe "The document is tagged to a multiple values of the facet filter key" do
-        let(:document_hash) {
+        let(:document_hash) do
           FactoryBot.build(:document_hash,
                            a_filter_key:
                              [
@@ -93,7 +93,7 @@ describe Document do
                                { "label" => "metadata_label_2" },
                                { "label" => "metadata_label_3" },
                              ])
-        }
+        end
         it "gets the metadata" do
           expected_hash =
             {
@@ -108,29 +108,29 @@ describe Document do
       end
     end
     describe "The facet key is an organisation or a document collection" do
-      let(:facets) {
+      let(:facets) do
         [FactoryBot.build(:option_select_facet, key: "organisations"),
          FactoryBot.build(:option_select_facet, key: "document_collections")]
-      }
-      let(:document_hash) {
+      end
+      let(:document_hash) do
         FactoryBot.build(:document_hash,
                          organisations: [{ "title" => "org_title" }],
                          document_collections: [{ "title" => "dc_title" }])
-      }
+      end
       it "uses title instead of label" do
         expect(Document.new(document_hash, 1).metadata(facets))
           .to match_array([include(value: "org_title"), include(value: "dc_title")])
       end
     end
     describe "the facet key is an organisation and the document is a mainstream document" do
-      let(:facets) {
+      let(:facets) do
         [FactoryBot.build(:option_select_facet, key: "organisations")]
-      }
-      let(:document_hash) {
+      end
+      let(:document_hash) do
         FactoryBot.build(:document_hash,
                          organisations: [{ "title" => "org_title" }],
                          content_store_document_type: "answer")
-      }
+      end
       it "does not display metadata because we are not interested in who publishes a mainstream document" do
         expect(Document.new(document_hash, 1).metadata(facets)).to be_empty
       end

@@ -31,13 +31,13 @@ describe BrexitCheckerHelper, type: :helper do
 
     let(:questions) { [q1, q2, q3, q4] }
 
-    subject {
+    subject do
       next_question_index(
         all_questions: questions,
         criteria_keys: criteria_keys,
         previous_question_index: previous_question_index,
       )
-    }
+    end
 
     before do
       allow(q1).to receive(:show?) { true }
@@ -98,13 +98,13 @@ describe BrexitCheckerHelper, type: :helper do
 
     let(:questions) { [q1, q2, q3, q4] }
 
-    subject {
+    subject do
       previous_question_index(
         all_questions: questions,
         criteria_keys: criteria_keys,
         current_question_index: current_question_index,
       )
-    }
+    end
 
     context "current_question_index is 3 and the criteria matches question 3" do
       let(:current_question_index) { 3 }

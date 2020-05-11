@@ -36,7 +36,7 @@ describe RedirectionController, type: :controller do
   end
 
   describe "#publications" do
-    let(:received_params) {
+    let(:received_params) do
       {
         keywords: %w[one two],
         taxons: %w[one],
@@ -46,9 +46,9 @@ describe RedirectionController, type: :controller do
         from_date: "01/01/2014",
         to_date: "01/01/2014",
       }
-    }
+    end
 
-    let(:converted_params) {
+    let(:converted_params) do
       {
         keywords: %w[one two],
         level_one_taxon: "one",
@@ -57,7 +57,7 @@ describe RedirectionController, type: :controller do
         world_locations: %w[one two],
         public_timestamp: { from: "01/01/2014", to: "01/01/2014" },
       }
-    }
+    end
 
     it "redirects to the all page by default" do
       get :publications

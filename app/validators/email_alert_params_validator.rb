@@ -18,8 +18,8 @@ private
 
   def invalidly_formatted(values)
     # Allow alphanumerics, hyphens, and some legacy special characters.
-    values.reject { |val|
+    values.reject do |val|
       val.to_s.match?(/\A[a-zA-Z0-9\-_]*\z/)
-    }
+    end
   end
 end

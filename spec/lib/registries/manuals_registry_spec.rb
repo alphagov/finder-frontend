@@ -2,13 +2,13 @@ require "spec_helper"
 
 RSpec.describe Registries::ManualsRegistry do
   let(:slug) { "/guidance/care-and-use-of-a-nimbus-2000" }
-  let(:rummager_params) {
+  let(:rummager_params) do
     {
       filter_document_type: %w[manual service_manual_homepage service_manual_guide],
       fields: %w[title],
       count: 1500,
     }
-  }
+  end
   let(:rummager_url) { "#{Plek.current.find('search')}/search.json?#{rummager_params.to_query}" }
 
   describe "when rummager is available" do

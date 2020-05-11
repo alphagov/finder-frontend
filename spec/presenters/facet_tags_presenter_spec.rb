@@ -8,12 +8,12 @@ describe FacetTagsPresenter do
 
   let(:filters) { [a_facet, another_facet, a_date_facet] }
 
-  let(:sort_presenter) {
+  let(:sort_presenter) do
     double(
       SortPresenter,
       selected_option: nil,
     )
-  }
+  end
 
   describe "#present" do
     it "returns a hash containing expected keys" do

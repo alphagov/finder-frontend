@@ -6,19 +6,19 @@ RSpec.describe AtomPresenter do
   let(:metadata_presenter_class) do
     MetadataPresenter
   end
-  let(:content_item) {
+  let(:content_item) do
     FactoryBot.build(:content_item,
                      base_path: "/search/news-and-communications",
                      title: "News and communications")
-  }
+  end
 
-  let(:filters) {
+  let(:filters) do
     [a_facet, another_facet, a_date_facet]
-  }
+  end
 
-  let(:facet_tags) {
+  let(:facet_tags) do
     FacetTagsPresenter.new(filters, sort_presenter)
-  }
+  end
 
   let(:filter_params) { double(:filter_params) }
   let(:sort_presenter) { double(:sort_presenter, selected_option: nil) }

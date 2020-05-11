@@ -16,7 +16,7 @@ RSpec.describe SearchResultPresenter do
 
   let(:rank) { 1 }
 
-  subject(:presenter) {
+  subject(:presenter) do
     SearchResultPresenter.new(document: document,
                               rank: rank,
                               metadata_presenter_class: MetadataPresenter,
@@ -24,10 +24,10 @@ RSpec.describe SearchResultPresenter do
                               content_item: content_item,
                               facets: facets,
                               debug_score: debug_score)
-  }
+  end
   let(:debug_score) { false }
 
-  let(:document) {
+  let(:document) do
     FactoryBot.build(:document,
                      title: title,
                      link: link,
@@ -41,7 +41,7 @@ RSpec.describe SearchResultPresenter do
                      content_id: "content_id",
                      filter_key: "filter_value",
                      index: 1)
-  }
+  end
 
   let(:combined_score) { nil }
   let(:original_rank) { nil }
@@ -79,7 +79,7 @@ RSpec.describe SearchResultPresenter do
       expect(subject.document_list_component_data).to eql(expected_document)
     end
     context "has parts" do
-      let(:parts) {
+      let(:parts) do
         [
           {
             title: "I am a part title",
@@ -91,8 +91,8 @@ RSpec.describe SearchResultPresenter do
             slug: "part-path2",
           },
         ]
-      }
-      let(:expected_parts) {
+      end
+      let(:expected_parts) do
         [
           {
             link: {
@@ -115,9 +115,9 @@ RSpec.describe SearchResultPresenter do
             },
           },
         ]
-      }
+      end
 
-      let(:document) {
+      let(:document) do
         FactoryBot.build(:document,
                          title: title,
                          link: link,
@@ -130,7 +130,7 @@ RSpec.describe SearchResultPresenter do
                          filter_key: "filter_value",
                          index: 1,
                          parts: parts)
-      }
+      end
       it "shows only parts with required data" do
         expect(subject.document_list_component_data[:parts]).to eq(expected_parts)
       end
@@ -151,18 +151,18 @@ RSpec.describe SearchResultPresenter do
   describe "structure_metadata" do
     context "A text based facet and a document tagged to the key of the facet" do
       let(:facets) { [FactoryBot.build(:option_select_facet, key: "a_key_to_filter_on")] }
-      let(:document) {
+      let(:document) do
         FactoryBot.build(:document, a_key_to_filter_on: "a_filter_value", index: 1)
-      }
+      end
       it "displays text based metadata" do
         expect(presenter.document_list_component_data[:metadata]).to eq("A key to filter on" => "A key to filter on: a_filter_value")
       end
     end
     context "A date based facet and a document tagged to the key of the facet" do
       let(:facets) { [FactoryBot.build(:date_facet, "key" => "a_key_to_filter_on")] }
-      let(:document) {
+      let(:document) do
         FactoryBot.build(:document, a_key_to_filter_on: "10-10-2009", index: 1)
-      }
+      end
       it "displays date based metadata" do
         expect(presenter.document_list_component_data[:metadata])
           .to eq("A key to filter on" => 'A key to filter on: <time datetime="2009-10-10">10 October 2009</time>')

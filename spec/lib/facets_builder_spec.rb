@@ -3,15 +3,15 @@ require "spec_helper"
 describe FacetsBuilder do
   include GovukContentSchemaExamples
 
-  let(:option_select_facet_hash) {
+  let(:option_select_facet_hash) do
     {
       "filterable": true,
       "key": "people",
       "type": "text",
       "allowed_values": [{ "value" => "me" }, { "value" => "you" }],
     }
-  }
-  let(:taxon_facet_hash) {
+  end
+  let(:taxon_facet_hash) do
     {
       "key": "_unused",
       "keys": %w[
@@ -21,15 +21,15 @@ describe FacetsBuilder do
       "type": "taxon",
       "filterable": true,
     }
-  }
-  let(:date_facet_hash) {
+  end
+  let(:date_facet_hash) do
     {
       "filterable": true,
       "key": "public_timestamp",
       "type": "date",
     }
-  }
-  let(:hidden_facet_hash) {
+  end
+  let(:hidden_facet_hash) do
     {
       "filter_key": "hidden",
       "key": "topic",
@@ -37,8 +37,8 @@ describe FacetsBuilder do
       "filterable": true,
       "allowed_values": [{ "value" => "hiding" }],
     }
-  }
-  let(:checkbox_facet_hash) {
+  end
+  let(:checkbox_facet_hash) do
     {
       "key": "checkbox",
       "filter_key": "checkbox",
@@ -46,8 +46,8 @@ describe FacetsBuilder do
       "type": "checkbox",
       "filterable": true,
     }
-  }
-  let(:radio_facet_hash) {
+  end
+  let(:radio_facet_hash) do
     {
       "key": "content_store_document_type",
       "type": "radio",
@@ -61,16 +61,16 @@ describe FacetsBuilder do
         { "value": "statistics_published" },
       ],
     }
-  }
-  let(:hidden_clearable_facet_hash) {
+  end
+  let(:hidden_clearable_facet_hash) do
     {
       "filterable": true,
       "key": "manual",
       "type": "hidden_clearable",
       "allowed_values": [{ "value" => "my_manual" }],
     }
-  }
-  let(:related_to_transition_period_facet_hash) {
+  end
+  let(:related_to_transition_period_facet_hash) do
     {
       "key": "related_to_brexit",
       "filter_key": "all_part_of_taxonomy_tree",
@@ -79,9 +79,9 @@ describe FacetsBuilder do
       "type": "checkbox",
       "filterable": true,
     }
-  }
+  end
 
-  let(:detail_hash) {
+  let(:detail_hash) do
     {
       "details" => {
         "facets" => [
@@ -96,21 +96,21 @@ describe FacetsBuilder do
         "sort" => sort_without_relevance,
       },
     }
-  }
+  end
 
-  let(:content_item_hash) {
+  let(:content_item_hash) do
     govuk_content_schema_example("finder").merge(detail_hash).deep_stringify_keys
-  }
+  end
 
-  let(:content_item) {
+  let(:content_item) do
     ContentItem.new(content_item_hash)
-  }
+  end
 
   describe "Remove transition period checkbox filter" do
     subject(:facets) do
       FacetsBuilder.new(content_item: content_item, search_results: {}, value_hash: value_hash).facets
     end
-    let(:detail_hash) {
+    let(:detail_hash) do
       {
         "details" => {
           "facets" => [
@@ -121,23 +121,23 @@ describe FacetsBuilder do
           ],
         },
       }
-    }
+    end
     context "The page is filtered on the transition period topic" do
-      let(:value_hash) {
+      let(:value_hash) do
         {
           "topic" => ContentItem::BREXIT_CONTENT_ID,
         }
-      }
+      end
       it "contains no related to transition period taxon" do
         expect(facets).to_not include(an_object_satisfying { |facet| facet.key == "related_to_brexit" })
       end
     end
     context "The page is not filtered on the transition period topic" do
-      let(:value_hash) {
+      let(:value_hash) do
         {
           related_to_brexit: ContentItem::BREXIT_CONTENT_ID,
         }
-      }
+      end
       it "contains a related to transition period taxon" do
         expect(facets).to include(an_object_satisfying { |facet| facet.key == "related_to_brexit" })
       end
@@ -148,7 +148,7 @@ describe FacetsBuilder do
     subject(:facet) do
       FacetsBuilder.new(content_item: content_item, search_results: {}, value_hash: {}).facets.first
     end
-    let(:detail_hash) {
+    let(:detail_hash) do
       {
         "details" => {
           "facets" => [
@@ -156,11 +156,11 @@ describe FacetsBuilder do
           ],
         },
       }
-    }
+    end
     context "option_select_facet_hash facet" do
-      let(:hash_under_test) {
+      let(:hash_under_test) do
         option_select_facet_hash
-      }
+      end
       it "builds a option_select facet" do
         expect(facet).to be_a(OptionSelectFacet)
         expect(facet.key).to eq("people")
@@ -168,54 +168,54 @@ describe FacetsBuilder do
     end
 
     context "taxon facet" do
-      let(:hash_under_test) {
+      let(:hash_under_test) do
         taxon_facet_hash
-      }
+      end
       it "builds a taxon facet" do
         expect(facet).to be_a(TaxonFacet)
         expect(facet.keys).to eq(%w[level_one_taxon level_two_taxon])
       end
     end
     context "date facet" do
-      let(:hash_under_test) {
+      let(:hash_under_test) do
         date_facet_hash
-      }
+      end
       it "builds a taxon facet" do
         expect(facet).to be_a(DateFacet)
         expect(facet.key).to eq("public_timestamp")
       end
     end
     context "hidden facet" do
-      let(:hash_under_test) {
+      let(:hash_under_test) do
         hidden_facet_hash
-      }
+      end
       it "builds a hidden facet" do
         expect(facet).to be_a(HiddenFacet)
         expect(facet.key).to eq("topic")
       end
     end
     context "checkbox facet" do
-      let(:hash_under_test) {
+      let(:hash_under_test) do
         checkbox_facet_hash
-      }
+      end
       it "builds a checkbox facet" do
         expect(facet).to be_a(CheckboxFacet)
         expect(facet.key).to eq("checkbox")
       end
     end
     context "radio facet" do
-      let(:hash_under_test) {
+      let(:hash_under_test) do
         radio_facet_hash
-      }
+      end
       it "builds a checkbox facet" do
         expect(facet).to be_a(RadioFacet)
         expect(facet.key).to eq("content_store_document_type")
       end
     end
     context "hidden_clearable facet" do
-      let(:hash_under_test) {
+      let(:hash_under_test) do
         hidden_clearable_facet_hash
-      }
+      end
       it "builds a checkbox facet" do
         expect(facet).to be_a(HiddenClearableFacet)
         expect(facet.key).to eq("manual")
@@ -228,18 +228,18 @@ describe FacetsBuilder do
       FacetsBuilder.new(content_item: content_item, search_results: search_results, value_hash: {}).facets.first
     end
 
-    let(:search_results) {
+    let(:search_results) do
       {}
-    }
-    let(:rummager_params) {
+    end
+    let(:rummager_params) do
       {
         count: 0,
         facet_people: "1500,examples:0,order:value.title",
       }
-    }
+    end
     let(:rummager_url) { "#{Plek.current.find('search')}/search.json?#{rummager_params.to_query}" }
 
-    let(:detail_hash) {
+    let(:detail_hash) do
       {
         "details" => {
           "facets" => [
@@ -247,35 +247,35 @@ describe FacetsBuilder do
           ],
         },
       }
-    }
+    end
     context "The allowed values are in the content item hash" do
-      let(:hash_under_test) {
+      let(:hash_under_test) do
         option_select_facet_hash
-      }
+      end
       it "copies allowed values from the hash" do
         expect(facet.allowed_values).to eq([{ "value" => "me" }, { "value" => "you" }])
       end
     end
     context "The allowed values are in the registry" do
-      let(:hash_under_test) {
+      let(:hash_under_test) do
         option_select_facet_hash.except(:allowed_values)
-      }
+      end
       it "gets values from the registry" do
         stub_request(:get, rummager_url).to_return(body: people_search_api_results.to_json)
         expect(facet.allowed_values).to eq([{ "label" => "Cornelius Fudge", "value" => "cornelius-fudge" }, { "label" => "Rufus Scrimgeour", "value" => "rufus-scrimgeour" }])
       end
     end
     context "The allowed values are in the search results" do
-      let(:hash_under_test) {
+      let(:hash_under_test) do
         {
           "filterable": true,
           "key": "topical_events",
           "type": "text",
         }
-      }
-      let(:search_results) {
+      end
+      let(:search_results) do
         topical_events_search_results.deep_stringify_keys
-      }
+      end
       it "gets the allowed values from the search results" do
         expect(facet.allowed_values).to eq([{ "label" => "First World War Centenary", "value" => "first-world-war-centenary" },
                                             { "label" => "Farming", "value" => "farming" },

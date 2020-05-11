@@ -1,17 +1,17 @@
 require "spec_helper"
 
 describe Filters::RadioFilter do
-  subject(:radio_filter) {
+  subject(:radio_filter) do
     Filters::RadioFilter.new(facet, params)
-  }
+  end
 
   let(:facet) { { "allowed_values" => allowed_values, "key" => "radio_key" } }
   let(:params) { nil }
   let(:default_value) { %w[policy_papers] }
-  let(:option_lookup) {
+  let(:option_lookup) do
     { "open_consultations" => %w[open closed], "policy_papers" => %w[guidance] }
-  }
-  let(:allowed_values) {
+  end
+  let(:allowed_values) do
     [
       {
         "label" => "Policy papers",
@@ -27,7 +27,7 @@ describe Filters::RadioFilter do
         "value" => "closed_consultations",
       },
     ]
-  }
+  end
 
   describe "#active?" do
     context "when no default allowed value is set" do
@@ -67,12 +67,12 @@ describe Filters::RadioFilter do
 
   describe "#key" do
     context "when a filter_key is present" do
-      let(:facet) {
+      let(:facet) do
         {
           "filter_key" => "alpha", "key" => "beta",
           "allowed_values" => allowed_values
         }
-      }
+      end
 
       it "returns filter_key" do
         expect(radio_filter.key).to eq("alpha")
@@ -80,12 +80,12 @@ describe Filters::RadioFilter do
     end
 
     context "when a filter_key is not present" do
-      let(:facet) {
+      let(:facet) do
         {
           "key" => "beta",
           "allowed_values" => allowed_values,
         }
-      }
+      end
 
       it "returns key" do
         expect(radio_filter.key).to eq("beta")
@@ -136,13 +136,13 @@ describe Filters::RadioFilter do
     end
 
     context "with option lookup" do
-      let(:facet) {
+      let(:facet) do
         {
           "option_lookup" => option_lookup,
           "allowed_values" => allowed_values,
           "key" => "radio_key",
         }
-      }
+      end
 
       context "when no option is selected" do
         it "should return the corresponding default values from the option_lookup" do

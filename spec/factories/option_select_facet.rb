@@ -7,8 +7,8 @@ FactoryBot.define do
     transient do
       values { nil }
     end
-    initialize_with {
+    initialize_with do
       new(attributes.deep_stringify_keys, values)
-    }
+    end
   end
 end

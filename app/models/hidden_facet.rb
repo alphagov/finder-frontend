@@ -27,19 +27,19 @@ class HiddenFacet < FilterableFacet
 private
 
   def value_fragments
-    selected_values.map { |value|
+    selected_values.map do |value|
       {
         "label" => value["label"],
         "parameter_key" => key,
       }
-    }
+    end
   end
 
   def selected_values
     return [] if @value.nil?
 
-    allowed_values.select { |option|
+    allowed_values.select do |option|
       @value.include?(option["value"])
-    }
+    end
   end
 end

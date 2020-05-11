@@ -63,7 +63,7 @@ private
   end
 
   def level_one_taxons
-    @level_one_taxons ||= registry.taxonomy_tree.values.map { |v|
+    @level_one_taxons ||= registry.taxonomy_tree.values.map do |v|
       {
         value: v["content_id"],
         text: v["title"],
@@ -75,7 +75,7 @@ private
         },
         selected: v["content_id"] == @value_hash[LEVEL_ONE_TAXON_KEY],
       }
-    }
+    end
   end
 
   def level_two_taxons
@@ -83,7 +83,7 @@ private
       .map { |v| v[:sub_topics] }
       .compact
       .flatten
-      .map { |v|
+      .map do |v|
         {
           text: v["title"],
           value: v["content_id"],
@@ -95,19 +95,19 @@ private
           },
           selected: v["content_id"] == @value_hash[LEVEL_TWO_TAXON_KEY],
         }
-      }
+      end
   end
 
   def selected_level_two_value
-    @selected_level_two_value ||= level_two_taxons.find { |v|
+    @selected_level_two_value ||= level_two_taxons.find do |v|
       v[:value] == @value_hash[LEVEL_TWO_TAXON_KEY]
-    }
+    end
   end
 
   def selected_level_one_value
-    @selected_level_one_value ||= level_one_taxons.find { |v|
+    @selected_level_one_value ||= level_one_taxons.find do |v|
       v[:value] == @value_hash[LEVEL_ONE_TAXON_KEY]
-    }
+    end
   end
 
   def default_sub_topic_value

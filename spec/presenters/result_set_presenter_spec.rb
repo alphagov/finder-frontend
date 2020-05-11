@@ -4,7 +4,7 @@ require_relative "./helpers/facets_helper"
 RSpec.describe ResultSetPresenter do
   include FacetsHelper
 
-  subject(:subject) {
+  subject(:subject) do
     ResultSetPresenter.new(content_item,
                            facets,
                            search_results,
@@ -13,14 +13,14 @@ RSpec.describe ResultSetPresenter do
                            metadata_presenter_class,
                            show_top_result,
                            debug_score)
-  }
+  end
 
   let(:show_top_result) { false }
   let(:debug_score) { false }
 
   let(:finder_content_id) { "content_id" }
 
-  let(:content_item) {
+  let(:content_item) do
     FactoryBot.build(:content_item,
                      content_id: finder_content_id,
                      base_path: "/a-finder",
@@ -51,7 +51,7 @@ RSpec.describe ResultSetPresenter do
                          "key" => "-relevance",
                        },
                      })
-  }
+  end
 
   let(:email_signup_hash) { nil }
 
@@ -65,9 +65,9 @@ RSpec.describe ResultSetPresenter do
     )
   end
 
-  let(:results) {
+  let(:results) do
     (1..total_number_of_results).map { FactoryBot.build(:document_hash) }
-  }
+  end
 
   let(:total_number_of_results) { 5 }
 
@@ -114,13 +114,13 @@ RSpec.describe ResultSetPresenter do
     end
 
     describe "#search_results_content[:document_list_component_data]" do
-      let(:results) {
+      let(:results) do
         [FactoryBot.build(:document_hash,
                           content_id: "content_id",
                           link: "/path/to/doc",
                           title: "document_title",
                           description_with_highlighting: "document_description")]
-      }
+      end
       it "has the right data" do
         expected_hash = {
           link: {
@@ -163,9 +163,9 @@ RSpec.describe ResultSetPresenter do
 
     context "with &debug_score=1" do
       let(:debug_score) { true }
-      let(:results) {
+      let(:results) do
         [FactoryBot.build(:document_hash, is_historic: true, es_score: 0.005, link: "/path/to/doc")]
-      }
+      end
       let(:expected_document_content_with_debug) do
         "<span class=\"published-by\">First published during the 2015 Conservative government</span><span class=\"debug-results debug-results--link\">/path/to/doc</span><span class=\"debug-results debug-results--meta\">Score: 0.005 (ranked #1)</span><span class=\"debug-results debug-results--meta\">Format: answer</span>"
       end

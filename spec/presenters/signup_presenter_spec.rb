@@ -3,11 +3,11 @@ require "spec_helper"
 describe SignupPresenter do
   include FixturesHelper
 
-  let(:params) {
+  let(:params) do
     ActionController::Parameters.new({})
-  }
+  end
   describe "single facet" do
-    let(:content_item) {
+    let(:content_item) do
       {
         "details" => {
           "beta" => false,
@@ -29,7 +29,7 @@ describe SignupPresenter do
           ],
         },
       }
-    }
+    end
     describe "#choices" do
       it "returns an array of signup facets" do
         expect(SignupPresenter.new(content_item, params).choices)
@@ -56,7 +56,7 @@ describe SignupPresenter do
   end
 
   describe "multiple facets" do
-    let(:content_item) {
+    let(:content_item) do
       {
         "details" => {
           "email_filter_facets" => [
@@ -83,7 +83,7 @@ describe SignupPresenter do
           ],
         },
       }
-    }
+    end
     describe "#choices" do
       it "returns an array of signup facets" do
         expect(SignupPresenter.new(content_item, params).choices)
@@ -126,13 +126,13 @@ describe SignupPresenter do
   end
 
   describe "no facets in email signup" do
-    let(:content_item) {
+    let(:content_item) do
       {
         "details" => {
           "email_filter_facets" => [],
         },
       }
-    }
+    end
     describe "#choices" do
       it "returns an empty array" do
         expect(SignupPresenter.new(content_item, params).choices).to eq([])

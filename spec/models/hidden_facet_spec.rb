@@ -1,14 +1,14 @@
 require "spec_helper"
 
 describe HiddenFacet do
-  let(:facet_data) {
+  let(:facet_data) do
     {
       "key" => "test_facet",
       "name" => "Test facet",
       "preposition" => "of value",
       "allowed_values" => [{ "value" => "hidden_value" }],
     }
-  }
+  end
 
   let(:facet_class) { HiddenFacet }
   subject { facet_class.new(facet_data, nil) }
@@ -33,14 +33,14 @@ describe HiddenFacet do
       end
     end
     context "no allowed values specified" do
-      let(:facet_data) {
+      let(:facet_data) do
         {
           "key" => "test_facet",
           "name" => "Test facet",
           "preposition" => "of value",
           "allowed_values" => [],
         }
-      }
+      end
       it "returns the values without validation" do
         facet = HiddenFacet.new(facet_data, "hidden_value")
         expect(facet.query_params).to eql("test_facet" => %w[hidden_value])

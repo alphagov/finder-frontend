@@ -13,9 +13,9 @@ RSpec.describe Registries::BaseRegistries do
   end
 
   let(:subject) { described_class.new }
-  let(:level_one_taxons) {
+  let(:level_one_taxons) do
     JSON.parse(File.read(Rails.root.join("features/fixtures/level_one_taxon.json")))
-  }
+  end
 
   it "fetches all registries" do
     expect(subject.all).to have_key("manual")
@@ -47,15 +47,15 @@ RSpec.describe Registries::BaseRegistries do
     after { clear_cache }
 
     it "refreshes the cache of all registries that implement refresh_cache" do
-      registry_cache_keys.each { |cache_key|
+      registry_cache_keys.each do |cache_key|
         expect(Rails.cache.fetch(cache_key)).to be nil
-      }
+      end
 
       described_class.new.refresh_cache
 
-      registry_cache_keys.each { |cache_key|
+      registry_cache_keys.each do |cache_key|
         expect(Rails.cache.fetch(cache_key)).not_to be nil
-      }
+      end
     end
   end
 
@@ -72,15 +72,15 @@ RSpec.describe Registries::BaseRegistries do
     after { clear_cache }
 
     it "populates the cache of all registries that implement refresh_cache" do
-      registry_cache_keys.each { |cache_key|
+      registry_cache_keys.each do |cache_key|
         expect(Rails.cache.fetch(cache_key)).to be nil
-      }
+      end
 
       described_class.new.ensure_warm_cache
 
-      registry_cache_keys.each { |cache_key|
+      registry_cache_keys.each do |cache_key|
         expect(Rails.cache.fetch(cache_key)).not_to be nil
-      }
+      end
 
       WebMock.reset!
 

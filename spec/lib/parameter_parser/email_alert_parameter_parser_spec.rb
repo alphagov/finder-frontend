@@ -142,7 +142,7 @@ describe ParameterParser::EmailAlertParameterParser do
       end
 
       context "with unpermitted params provided" do
-        let(:params) {
+        let(:params) do
           {
             "filter" => {
               "foo" => "bar",
@@ -150,7 +150,7 @@ describe ParameterParser::EmailAlertParameterParser do
               "case_type" => %w[ca98-and-civil-cartels consumer-enforcement bad-value],
             },
           }
-        }
+        end
         it { is_expected.to eq("case_type" => %w[ca98-and-civil-cartels consumer-enforcement]) }
       end
     end

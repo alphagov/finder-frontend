@@ -1,12 +1,12 @@
 require "spec_helper"
 
 describe Filters::OfficialDocumentsFilter do
-  let(:filter) {
+  let(:filter) do
     Filters::OfficialDocumentsFilter.new(facet, "params_value")
-  }
-  let(:hashes) {
+  end
+  let(:hashes) do
     Filters::OfficialDocumentsHashes.new.call
-  }
+  end
 
   let(:facet) { { "key" => "content_store_document_type" } }
 

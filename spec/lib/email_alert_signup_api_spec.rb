@@ -364,11 +364,11 @@ describe EmailAlertSignupAPI do
 
   context "Create link based subscriber lists" do
     let(:subscription_url) { "http://gov.uk/email/news-and-comms-subscription" }
-    let(:default_filters) {
+    let(:default_filters) do
       {
         "content_purpose_subgroup": %w[news speeches_and_statements],
       }
-    }
+    end
     describe "part_of_taxonomy_tree facet" do
       let(:applied_filters) do
         { "all_part_of_taxonomy_tree" => %w[content_id_1 content_id_2] }

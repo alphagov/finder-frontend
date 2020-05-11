@@ -30,10 +30,10 @@ module Registries
       GovukStatsd.time("registries.roles.request_time") do
         (fetch_roles_from_rummager || {})
           .reject { |result| result.dig("value", "slug").blank? || result.dig("value", "title").blank? }
-          .each_with_object({}) { |result, roles|
+          .each_with_object({}) do |result, roles|
             slug = result["value"]["slug"]
             roles[slug] = result["value"].slice("title", "slug", "content_id")
-          }
+          end
       end
     end
 
