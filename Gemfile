@@ -11,7 +11,7 @@ gem "govuk_app_config", "~> 2.1.2"
 gem "govuk_document_types", "~> 0.9.2"
 gem "govuk_publishing_components", "~> 21.45.0"
 gem "rails", "~> 6.0.2"
-gem "slimmer", "~> 13.3.0"
+gem "slimmer", "~> 13.4.0"
 
 gem "sass-rails", "~> 5.1.0"
 gem "uglifier", "~> 4.2"
