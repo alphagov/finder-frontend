@@ -45,17 +45,19 @@ module Registries
 
     def format_child_taxons(taxon)
       children = taxon.dig("links", "child_taxons") || []
-      formatted_children = children.map { |child_taxon|
-        format_taxon(child_taxon, taxon["content_id"])
-      }
+      formatted_children = children
+        .reject { |child_taxon| child_taxon["phase"] == "alpha" }
+        .map { |child_taxon| format_taxon(child_taxon, taxon["content_id"]) }
 
       formatted_children.sort_by { |child_taxon| child_taxon["title"] }
     end
 
     def fetch_level_one_taxons_from_api
       taxons = fetch_taxon.dig("links", "level_one_taxons") || []
-      sorted = taxons.sort_by { |taxon| taxon["title"] }
-      sorted.map { |taxon| fetch_taxon(taxon["base_path"]) }
+      taxons
+        .reject { |taxon| taxon["phase"] == "alpha" }
+        .sort_by { |taxon| taxon["title"] }
+        .map { |taxon| fetch_taxon(taxon["base_path"]) }
     end
 
     def fetch_taxon(base_path = "/")

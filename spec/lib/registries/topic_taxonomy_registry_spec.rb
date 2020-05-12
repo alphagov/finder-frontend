@@ -8,6 +8,7 @@ RSpec.describe Registries::TopicTaxonomyRegistry do
   let(:content_id_two) { SecureRandom.uuid }
   let(:top_level_taxon_one) { FactoryBot.build(:level_one_taxon_hash, content_id: content_id_one, title: content_id_one) }
   let(:top_level_taxon_two) { FactoryBot.build(:level_one_taxon_hash, content_id: content_id_two, title: content_id_two) }
+  let(:top_level_taxon_three) { FactoryBot.build(:level_one_taxon_hash, content_id: SecureRandom.uuid, title: "Alpha topic", phase: "alpha") }
 
   before :each do
     Rails.cache.clear
@@ -24,12 +25,12 @@ RSpec.describe Registries::TopicTaxonomyRegistry do
 
   describe "when topic taxonomy api is available" do
     before :each do
-      topic_taxonomy_has_taxons([top_level_taxon_one, top_level_taxon_two])
+      topic_taxonomy_has_taxons([top_level_taxon_one, top_level_taxon_two, top_level_taxon_three])
     end
 
     subject(:registry) { described_class.new }
 
-    it "will provide the taxonomy tree" do
+    it "will provide the taxonomy tree not including those in the alpha phase" do
       expect(registry.taxonomy_tree.keys).to match_array([content_id_one, content_id_two])
     end
 
