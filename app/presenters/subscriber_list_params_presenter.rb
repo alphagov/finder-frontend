@@ -13,18 +13,18 @@ private
   attr_reader :content_item, :params
 
   def filtered_params
-    used_facets.each_with_object(hash_with_default_as_array) { |facet, hash|
+    used_facets.each_with_object(hash_with_default_as_array) do |facet, hash|
       key = facet_filter_key(facet)
       value = facet_filter_value(facet)
 
       hash[key].concat Array(value)
-    }
+    end
   end
 
   def used_facets
-    facets.select { |facet|
+    facets.select do |facet|
       params[facet["facet_id"]].present?
-    }
+    end
   end
 
   def facets

@@ -2,7 +2,7 @@ require "spec_helper"
 
 describe FacetParser do
   context "with a select facet definition" do
-    let(:facet_definition) {
+    let(:facet_definition) do
       {
         "type" => "text",
         "filterable" => true,
@@ -25,7 +25,7 @@ describe FacetParser do
           },
         ],
       }
-    }
+    end
     subject { FacetParser.parse(facet_definition, {}) }
 
     specify { expect(subject).to be_a OptionSelectFacet }

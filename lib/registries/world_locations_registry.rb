@@ -33,13 +33,13 @@ module Registries
     end
 
     def fetch_locations
-      fetch_locations_from_worldwide_api.map { |result|
+      fetch_locations_from_worldwide_api.map do |result|
         {
           "title" => result["title"],
           "slug" => result.dig("details", "slug"),
           "content_id" => result["content_id"],
         }
-      }
+      end
     end
 
     def fetch_locations_from_worldwide_api

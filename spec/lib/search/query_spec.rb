@@ -9,15 +9,15 @@ describe Search::Query do
     stub_request(:get, %r{#{Plek.find("search")}/batch_search.json})
   end
 
-  let(:content_item) {
+  let(:content_item) do
     ContentItem.new(
       "details" => {
         "facets" => facets,
       },
     )
-  }
+  end
 
-  let(:facets) {
+  let(:facets) do
     [
       {
         "key" => "alpha",
@@ -31,7 +31,7 @@ describe Search::Query do
         "combine_mode" => "or",
       },
     ]
-  }
+  end
   let(:filter_params) { { "alpha" => "foo" } }
   let(:batch_search_filter_params) { { "alpha" => "foo", "beta" => "bar" } }
 

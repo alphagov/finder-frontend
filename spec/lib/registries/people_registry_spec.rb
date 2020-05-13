@@ -2,12 +2,12 @@ require "spec_helper"
 
 RSpec.describe Registries::PeopleRegistry do
   let(:slug) { "cornelius-fudge" }
-  let(:rummager_params) {
+  let(:rummager_params) do
     {
       count: 0,
       facet_people: "1500,examples:0,order:value.title",
     }
-  }
+  end
   let(:rummager_url) { "#{Plek.current.find('search')}/search.json?#{rummager_params.to_query}" }
 
   describe "when rummager is available" do

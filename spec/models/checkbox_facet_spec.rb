@@ -1,7 +1,7 @@
 require "spec_helper"
 
 describe CheckboxFacet do
-  let(:facet_data) {
+  let(:facet_data) do
     {
       "type" => "checkbox",
       "filter_value" => "selectedvalue",
@@ -11,28 +11,28 @@ describe CheckboxFacet do
       "value" => "yes",
       "preposition" => "of value",
     }
-  }
+  end
 
   describe "#sentence_fragment" do
     context "single value" do
       subject { CheckboxFacet.new(facet_data, "yes") }
 
-      specify {
+      specify do
         expect(subject.sentence_fragment["preposition"]).to eql("of value")
         expect(subject.sentence_fragment["values"].first["label"]).to eql("Show more")
         expect(subject.sentence_fragment["values"].first["parameter_key"]).to eql("show_extra_information")
-      }
+      end
     end
 
     context "when multiple values are provided" do
       context "when a value is provided" do
         subject { CheckboxFacet.new(facet_data, true) }
 
-        specify {
+        specify do
           expect(subject.sentence_fragment["preposition"]).to eql("of value")
           expect(subject.sentence_fragment["values"].count).to eql 1
           expect(subject.sentence_fragment["values"].first["parameter_key"]).to eql("show_extra_information")
-        }
+        end
       end
 
       context "when no value is provided" do
@@ -45,32 +45,32 @@ describe CheckboxFacet do
   describe "#checked?" do
     context "checkbox is selected" do
       subject { CheckboxFacet.new(facet_data, "yes") }
-      specify {
+      specify do
         expect(subject.is_checked?).to eql(true)
-      }
+      end
     end
 
     context "checkbox is not selected" do
       subject { CheckboxFacet.new(facet_data, nil) }
-      specify {
+      specify do
         expect(subject.is_checked?).to eql(false)
-      }
+      end
     end
   end
 
   describe "#query_params" do
     context "checkbox is selected" do
       subject { CheckboxFacet.new(facet_data, "yes") }
-      specify {
+      specify do
         expect(subject.query_params).to eql("show_extra_information" => "selectedvalue")
-      }
+      end
     end
 
     context "checkbox is not selected" do
       subject { CheckboxFacet.new(facet_data, nil) }
-      specify {
+      specify do
         expect(subject.query_params).to eql({})
-      }
+      end
     end
   end
 end

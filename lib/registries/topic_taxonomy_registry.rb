@@ -28,9 +28,9 @@ module Registries
 
     def taxonomy_tree_as_hash
       GovukStatsd.time("registries.topic_taxonomy.request_time") do
-        fetch_level_one_taxons_from_api.each_with_object({}) { |taxon, taxonomy|
+        fetch_level_one_taxons_from_api.each_with_object({}) do |taxon, taxonomy|
           taxonomy[taxon["content_id"]] = format_taxon(taxon)
-        }
+        end
       end
     end
 
@@ -45,11 +45,11 @@ module Registries
 
     def format_child_taxons(taxon)
       children = taxon.dig("links", "child_taxons") || []
-      formatted_children = children
+
+      children
         .reject { |child_taxon| child_taxon["phase"] == "alpha" }
         .map { |child_taxon| format_taxon(child_taxon, taxon["content_id"]) }
-
-      formatted_children.sort_by { |child_taxon| child_taxon["title"] }
+        .sort_by { |child_taxon| child_taxon["title"] }
     end
 
     def fetch_level_one_taxons_from_api

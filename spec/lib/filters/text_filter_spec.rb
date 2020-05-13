@@ -1,9 +1,9 @@
 require "spec_helper"
 
 describe Filters::TextFilter do
-  subject(:text_filter) {
+  subject(:text_filter) do
     Filters::TextFilter.new(facet, params)
-  }
+  end
 
   let(:facet) { double }
   let(:params) { nil }

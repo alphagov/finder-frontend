@@ -75,9 +75,9 @@ class SignupPresenter
 private
 
   def facets_with_choices
-    choices.select { |choice|
+    choices.select do |choice|
       choice["facet_choices"] && choice["facet_choices"].any? && !ignore_facet?(choice["facet_id"])
-    }
+    end
   end
 
   def selected_choices

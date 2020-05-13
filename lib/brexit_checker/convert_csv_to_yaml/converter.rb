@@ -32,7 +32,7 @@ module BrexitChecker
     private
 
       def downcase_underscore_headers
-        lambda { |field, _| field.downcase.gsub(" ", "_") }
+        ->(field, _) { field.downcase.gsub(" ", "_") }
       end
     end
   end

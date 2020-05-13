@@ -1,4 +1,3 @@
-# rubocop:disable Metrics/BlockLength
 Rails.application.configure do
   # Set GOVUK_ASSET_ROOT for heroku - for review apps we have the hostname set
   # at the time of the app being built so can't be set up in the app.json
@@ -112,4 +111,3 @@ Rails.application.configure do
   # config.active_record.database_resolver = ActiveRecord::Middleware::DatabaseSelector::Resolver
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
 end
-# rubocop:enable Metrics/BlockLength

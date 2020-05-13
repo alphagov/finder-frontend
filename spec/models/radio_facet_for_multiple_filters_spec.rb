@@ -1,7 +1,7 @@
 require "spec_helper"
 
 describe RadioFacetForMultipleFilters do
-  let(:facet_data) {
+  let(:facet_data) do
     {
       "type" => "radio_facet",
       "key" => "type",
@@ -9,9 +9,9 @@ describe RadioFacetForMultipleFilters do
       "allowed_values" => [{ "value" => "selected_value" }],
       "filterable" => true,
     }
-  }
+  end
 
-  let(:filter_hashes) {
+  let(:filter_hashes) do
     [
       {
         "value" => "value_1",
@@ -36,7 +36,7 @@ describe RadioFacetForMultipleFilters do
         "default" => true,
       },
     ]
-  }
+  end
 
   describe "#options" do
     context "valid value" do
@@ -77,9 +77,9 @@ describe RadioFacetForMultipleFilters do
   describe "#query_params" do
     context "value selected" do
       subject { described_class.new(facet_data, "value_1", filter_hashes) }
-      specify {
+      specify do
         expect(subject.query_params).to eq("type" => "value_1")
-      }
+      end
     end
   end
 end

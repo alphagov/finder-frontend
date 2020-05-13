@@ -33,9 +33,9 @@ module Healthchecks
     end
 
     def empty_registries
-      @empty_registries ||= registries.select { |_key, registry|
+      @empty_registries ||= registries.select do |_key, registry|
         Rails.cache.fetch(registry.cache_key).nil?
-      }
+      end
     end
 
     def registries

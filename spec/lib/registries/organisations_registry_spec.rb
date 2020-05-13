@@ -4,14 +4,14 @@ RSpec.describe Registries::OrganisationsRegistry do
   include RegistrySpecHelper
 
   let(:slug) { "ministry-of-magic" }
-  let(:rummager_params) {
+  let(:rummager_params) do
     {
       "count" => 1500,
       "fields" => %w[slug title acronym content_id],
       "filter_format" => "organisation",
       "order" => "title",
     }
-  }
+  end
   let(:rummager_url) { "#{Plek.current.find('search')}/search.json?#{rummager_params.to_query}" }
 
   describe "when rummager is available" do

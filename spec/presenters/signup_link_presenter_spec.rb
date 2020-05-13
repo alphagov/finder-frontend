@@ -8,7 +8,7 @@ RSpec.describe SignupLinksPresenter do
   subject(:presenter) { described_class.new(content_item, facets, keywords) }
   let(:keywords) { nil }
   let(:facets) { [] }
-  let(:content_item) {
+  let(:content_item) do
     content_item_hash = {
       content_id: "content_id",
       base_path: "/mosw-reports",
@@ -38,16 +38,16 @@ RSpec.describe SignupLinksPresenter do
       },
     }
     ContentItem.new(content_item_hash.deep_stringify_keys)
-  }
+  end
 
-  let(:email_signup_hash) {
+  let(:email_signup_hash) do
     {
       base_path: "/email_signup",
     }
-  }
+  end
 
   describe "url helpers" do
-    let(:hidden_facet_hash) {
+    let(:hidden_facet_hash) do
       {
         "filter_key": "hidden",
         "key": "topic",
@@ -55,11 +55,11 @@ RSpec.describe SignupLinksPresenter do
         "filterable": true,
         "allowed_values": [{ "value" => "hidden_facet_content_id" }],
       }.deep_stringify_keys
-    }
+    end
 
-    let(:facets) {
+    let(:facets) do
       [HiddenFacet.new(hidden_facet_hash, facet_values)]
-    }
+    end
 
     describe "#email_signup_link" do
       context "with no values" do
@@ -71,7 +71,7 @@ RSpec.describe SignupLinksPresenter do
       end
 
       context "with some values" do
-        let(:email_signup_hash) {
+        let(:email_signup_hash) do
           {
             "api_path": "/api/content/mosw-reports/email-signup",
             "base_path": "/mosw-reports/email-signup",
@@ -86,7 +86,7 @@ RSpec.describe SignupLinksPresenter do
             "api_url": "https://www.gov.uk/api/content/mosw-reports/email-signup",
             "web_url": "/mosw-reports/email-signup",
           }
-        }
+        end
 
         let(:facet_values) do
           %w[hidden_facet_content_id]

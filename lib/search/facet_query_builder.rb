@@ -11,7 +11,7 @@ module Search
     end
 
     def call
-      dynamic_facets.reduce({}) { |query, facet|
+      dynamic_facets.reduce({}) do |query, facet|
         # TODO: title will only work for Orgs, this key will need changed for
         # other dynamic facets
         #
@@ -20,7 +20,7 @@ module Search
         # that is returned
         key = (facet["filter_key"] || facet["key"])
         query.merge(key => "1500,order:value.title")
-      }
+      end
     end
 
   private

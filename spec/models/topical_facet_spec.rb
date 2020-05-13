@@ -1,7 +1,7 @@
 require "spec_helper"
 
 describe TopicalFacet do
-  let(:facet_data) {
+  let(:facet_data) do
     {
       "type" => "topical",
       "name" => "State",
@@ -16,32 +16,32 @@ describe TopicalFacet do
         "value" => "closed",
       },
     }
-  }
+  end
 
   describe "#sentence_fragment" do
     context "single value" do
       let(:value) { %w[open] }
       subject { TopicalFacet.new(facet_data, value) }
 
-      specify {
+      specify do
         expect(subject.sentence_fragment["preposition"]).to eql("of value")
         expect(subject.sentence_fragment["values"].first["label"]).to eql("Open")
         expect(subject.sentence_fragment["values"].first["parameter_key"]).to eql("end_date")
-      }
+      end
     end
 
     context "multiple values" do
       let(:value) { %w[open closed] }
       subject { TopicalFacet.new(facet_data, value) }
 
-      specify {
+      specify do
         expect(subject.sentence_fragment["preposition"]).to eql("of value")
         expect(subject.sentence_fragment["values"].first["label"]).to eql("Open")
         expect(subject.sentence_fragment["values"].first["parameter_key"]).to eql("end_date")
 
         expect(subject.sentence_fragment["values"].last["label"]).to eql("Closed")
         expect(subject.sentence_fragment["values"].last["parameter_key"]).to eql("end_date")
-      }
+      end
     end
 
     context "disallowed values" do

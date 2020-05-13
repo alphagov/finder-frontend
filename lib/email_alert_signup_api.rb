@@ -86,16 +86,16 @@ private
   end
 
   def facet_values
-    @facet_values ||= filter_keys.each_with_object({}) { |key, links_hash|
+    @facet_values ||= filter_keys.each_with_object({}) do |key, links_hash|
       values = values_for_key(key)
       links_hash["facet_values"] ||= {}
       links_hash["facet_values"][:any] ||= []
       links_hash["facet_values"][:any] = links_hash.dig("facet_values", :any).concat(values).uniq
-    }
+    end
   end
 
   def tags
-    @tags ||= filter_keys.each_with_object({}) { |key, tags_hash|
+    @tags ||= filter_keys.each_with_object({}) do |key, tags_hash|
       values = values_for_key(key)
       any_or_all = is_all_field?(key) ? :all : :any
       tag = is_all_field?(key) ? key[4..-1] : key
@@ -103,7 +103,7 @@ private
       tags_hash[tag] ||= {}
       tags_hash[tag][any_or_all] ||= []
       tags_hash[tag][any_or_all] = tags_hash.dig(tag, any_or_all).concat(values).uniq
-    }
+    end
   end
 
   def filter_keys

@@ -9,7 +9,7 @@ describe UrlBuilder do
     context "when given a path and query params" do
       subject(:url) { builder.url }
 
-      let(:query_params) {
+      let(:query_params) do
         {
           keywords: "harry potter",
           order: "relevance",
@@ -22,7 +22,7 @@ describe UrlBuilder do
             hogwarts
           ],
         }
-      }
+      end
 
       it "builds a url with a query" do
         expect(url).to eq("/search/all?" + query_params.to_query)

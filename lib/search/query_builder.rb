@@ -91,9 +91,9 @@ module Search
     end
 
     def metadata_fields
-      raw_facets.map { |f|
+      raw_facets.map do |f|
         unfilterise(f["filter_key"] || f["key"])
-      }
+      end
     end
 
     def raw_facets
@@ -188,9 +188,9 @@ module Search
     end
 
     def reject_query
-      base_reject.reduce({}) { |query, (k, v)|
+      base_reject.reduce({}) do |query, (k, v)|
         query.merge("reject_#{k}" => v)
-      }
+      end
     end
 
     def base_filter
@@ -209,13 +209,13 @@ module Search
     end
 
     def facets_not_overridden_by_registries(facet_params)
-      facet_params.reject { |k, _v| Services.registries.all.has_key?(k) }
+      facet_params.reject { |k, _v| Services.registries.all.key?(k) }
     end
 
     def count_dynamic_facets(facet_names)
-      facet_names.each { |name|
+      facet_names.each do |name|
         GovukStatsd.increment "search_with_#{name}_facet"
-      }
+      end
     end
 
     def facet_params

@@ -5,17 +5,17 @@ describe PageMetadataHelper, type: :helper do
   include TaxonomySpecHelper
   include TopicFinderHelper
 
-  let(:organisations) {
+  let(:organisations) do
     [{ title: "org1", web_url: "http://www.gov.uk/org1" },
      { title: "org2", web_url: "http://www.gov.uk/org2" }]
-  }
-  let(:content_item) {
+  end
+  let(:content_item) do
     FactoryBot.build(:content_item, links: { organisations: organisations })
-  }
+  end
   let(:filter_params) { {} }
-  subject(:subject) {
+  subject(:subject) do
     page_metadata(content_item, filter_params)
-  }
+  end
   before :each do
     topic_taxonomy_has_taxons([FactoryBot.build(:level_one_taxon_hash, content_id: "existing_content_id")])
   end

@@ -5,9 +5,9 @@ describe ContentItem do
   include ::GdsApi::TestHelpers::ContentStore
 
   subject { described_class.new(finder_content_item) }
-  let(:finder_content_item) {
+  let(:finder_content_item) do
     JSON.parse(File.read(Rails.root.join("features/fixtures/news_and_communications.json")))
-  }
+  end
 
   describe "load a content item from the content store" do
     let(:base_path) { "/search/news-and-communications" }

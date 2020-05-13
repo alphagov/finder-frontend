@@ -36,7 +36,7 @@ module Filters
     end
 
     def multi_value?
-      facet.has_key?("option_lookup")
+      facet.key?("option_lookup")
     end
 
     def option_lookup

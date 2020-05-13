@@ -70,7 +70,7 @@ private
                            )
 
       # Convert a query with 'q=search_term' into 'keywords=search_term'
-      if permitted_params.has_key?("q")
+      if permitted_params.key?("q")
         permitted_params["keywords"] = permitted_params.delete("q")
       end
 

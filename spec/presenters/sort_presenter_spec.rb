@@ -8,52 +8,52 @@ RSpec.describe SortPresenter do
   subject(:presenter_with_default) { described_class.new(content_item(sort_options: sort_options_with_default), values) }
   subject(:presenter_with_popularity_default_and_relevance) { described_class.new(content_item(sort_options: sort_options_with_popularity_default_and_relevance), values) }
   subject(:presenter_with_relevance) { described_class.new(content_item(sort_options: sort_options_with_relevance), values) }
-  subject(:presenter_with_relevance_selected) {
+  subject(:presenter_with_relevance_selected) do
     described_class.new(
       content_item(sort_options: sort_options_with_relevance),
       "keywords" => "cats", "order" => "relevance",
     )
-  }
+  end
 
   let(:values) { {} }
 
   let(:no_sort_options) { nil }
 
-  let(:sort_options_without_relevance) {
+  let(:sort_options_without_relevance) do
     [
       { "name" => "Most viewed", "key" => "-popularity" },
       { "name" => "Updated (newest)", "key" => "-public_timestamp" },
     ]
-  }
+  end
 
-  let(:sort_options_with_relevance) {
+  let(:sort_options_with_relevance) do
     [
       { "name" => "Most viewed", "key" => "-popularity" },
       { "name" => "Updated (newest)", "key" => "-public_timestamp" },
       { "name" => "Relevance", "key" => "relevance" },
     ]
-  }
+  end
 
-  let(:sort_options_with_default) {
+  let(:sort_options_with_default) do
     [
       { "name" => "Most viewed", "key" => "-popularity" },
       { "name" => "Updated (oldest)", "key" => "-public_timestamp", "default" => true },
     ]
-  }
+  end
 
-  let(:sort_options_with_popularity_default_and_relevance) {
+  let(:sort_options_with_popularity_default_and_relevance) do
     [
       { "name" => "Most viewed", "key" => "-popularity", "default" => true },
       { "name" => "Relevance", "key" => "relevance" },
     ]
-  }
+  end
 
-  let(:sort_options_with_public_timestamp_default) {
+  let(:sort_options_with_public_timestamp_default) do
     [
       { "name" => "Most viewed", "key" => "-popularity" },
       { "name" => "Updated (newest)", "key" => "-public_timestamp", "default" => true },
     ]
-  }
+  end
 
   describe "#to_hash" do
     it "returns a hash containing options, default_value, and relevance_value" do

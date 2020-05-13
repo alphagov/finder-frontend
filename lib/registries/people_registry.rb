@@ -31,10 +31,10 @@ module Registries
         people = fetch_people_from_rummager || {}
 
         people.reject { |result| result.dig("value", "slug").blank? || result.dig("value", "title").blank? }
-          .each_with_object({}) { |result, orgs|
+          .each_with_object({}) do |result, orgs|
             slug = result["value"]["slug"]
             orgs[slug] = result["value"].slice("title", "slug", "content_id")
-          }
+          end
       end
     end
 

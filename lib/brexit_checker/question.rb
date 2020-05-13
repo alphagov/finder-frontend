@@ -21,11 +21,17 @@ class BrexitChecker::Question
     @options.reject { |option| criteria_keys.include?(option.exclude_if) }
   end
 
-  def multiple?; type == "multiple" end
+  def multiple?
+    type == "multiple"
+  end
 
-  def multiple_grouped?; type == "multiple_grouped" end
+  def multiple_grouped?
+    type == "multiple_grouped"
+  end
 
-  def single_wrapped?; type == "single_wrapped" end
+  def single_wrapped?
+    type == "single_wrapped"
+  end
 
   def self.find_by_key(key)
     load_all.find { |q| q.key == key }
