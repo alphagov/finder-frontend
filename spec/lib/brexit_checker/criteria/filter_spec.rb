@@ -3,25 +3,36 @@ require "spec_helper"
 RSpec.describe BrexitChecker::Criteria::Filter do
   describe "#call" do
     let(:question1) do
-      FactoryBot.build :brexit_checker_question, options: [
-        FactoryBot.build(:brexit_checker_option, value: "c1", sub_options: [
-          FactoryBot.build(:brexit_checker_option, value: "c2"),
-        ]),
-      ]
+      FactoryBot.build :brexit_checker_question,
+                       options: [
+                         FactoryBot.build(
+                           :brexit_checker_option,
+                           value: "c1",
+                           sub_options: [
+                             FactoryBot.build(:brexit_checker_option, value: "c2"),
+                           ],
+                         ),
+                       ]
     end
 
     let(:question2) do
-      FactoryBot.build :brexit_checker_question, options: [
-        FactoryBot.build(:brexit_checker_option, value: "c3"),
-      ]
+      FactoryBot.build :brexit_checker_question,
+                       options: [
+                         FactoryBot.build(:brexit_checker_option, value: "c3"),
+                       ]
     end
 
     let(:question3) do
-      FactoryBot.build :brexit_checker_question, options: [
-        FactoryBot.build(:brexit_checker_option, label: "Option group", sub_options: [
-          FactoryBot.build(:brexit_checker_option, value: "c4"),
-        ]),
-      ]
+      FactoryBot.build :brexit_checker_question,
+                       options: [
+                         FactoryBot.build(
+                           :brexit_checker_option,
+                           label: "Option group",
+                           sub_options: [
+                             FactoryBot.build(:brexit_checker_option, value: "c4"),
+                           ],
+                         ),
+                       ]
     end
 
     before do

@@ -5,14 +5,16 @@ RSpec.describe ResultSetPresenter do
   include FacetsHelper
 
   subject(:subject) do
-    ResultSetPresenter.new(content_item,
-                           facets,
-                           search_results,
-                           filter_params,
-                           sort_presenter,
-                           metadata_presenter_class,
-                           show_top_result,
-                           debug_score)
+    ResultSetPresenter.new(
+      content_item,
+      facets,
+      search_results,
+      filter_params,
+      sort_presenter,
+      metadata_presenter_class,
+      show_top_result,
+      debug_score,
+    )
   end
 
   let(:show_top_result) { false }
@@ -21,36 +23,38 @@ RSpec.describe ResultSetPresenter do
   let(:finder_content_id) { "content_id" }
 
   let(:content_item) do
-    FactoryBot.build(:content_item,
-                     content_id: finder_content_id,
-                     base_path: "/a-finder",
-                     title: "A finder",
-                     links: {
-                       email_alert_signup: Array.wrap(email_signup_hash),
-                     },
-                     details: {
-                       show_summaries: true,
-                       document_noun: "case",
-                       sort: [
-                         {
-                           "name" => "Most viewed",
-                           "key" => "-popularity",
-                         },
-                         {
-                           "name" => "Relevance",
-                           "key" => "-relevance",
-                         },
-                         {
-                           "name" => "Updated (newest)",
-                           "key" => "-public_timestamp",
-                           "default" => true,
-                         },
-                       ],
-                       default_sort_option: {
-                         "name" => "Relevance",
-                         "key" => "-relevance",
-                       },
-                     })
+    FactoryBot.build(
+      :content_item,
+      content_id: finder_content_id,
+      base_path: "/a-finder",
+      title: "A finder",
+      links: {
+        email_alert_signup: Array.wrap(email_signup_hash),
+      },
+      details: {
+        show_summaries: true,
+        document_noun: "case",
+        sort: [
+          {
+            "name" => "Most viewed",
+            "key" => "-popularity",
+          },
+          {
+            "name" => "Relevance",
+            "key" => "-relevance",
+          },
+          {
+            "name" => "Updated (newest)",
+            "key" => "-public_timestamp",
+            "default" => true,
+          },
+        ],
+        default_sort_option: {
+          "name" => "Relevance",
+          "key" => "-relevance",
+        },
+      },
+    )
   end
 
   let(:email_signup_hash) { nil }
@@ -115,11 +119,13 @@ RSpec.describe ResultSetPresenter do
 
     describe "#search_results_content[:document_list_component_data]" do
       let(:results) do
-        [FactoryBot.build(:document_hash,
-                          content_id: "content_id",
-                          link: "/path/to/doc",
-                          title: "document_title",
-                          description_with_highlighting: "document_description")]
+        [FactoryBot.build(
+          :document_hash,
+          content_id: "content_id",
+          link: "/path/to/doc",
+          title: "document_title",
+          description_with_highlighting: "document_description",
+        )]
       end
       it "has the right data" do
         expected_hash = {

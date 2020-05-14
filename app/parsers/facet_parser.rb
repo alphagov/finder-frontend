@@ -23,7 +23,7 @@ module FacetParser
       when "official_documents"
         RadioFacetForMultipleFilters.new(facet, value_hash[facet["key"]], ::Filters::OfficialDocumentsHashes.new.call)
       else
-        raise ArgumentError.new("Unknown filterable facet type: #{facet['type']}")
+        raise ArgumentError, "Unknown filterable facet type: #{facet['type']}"
       end
     else
       Facet.new(facet)

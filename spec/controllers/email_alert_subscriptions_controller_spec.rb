@@ -22,9 +22,14 @@ describe EmailAlertSubscriptionsController, type: :controller do
   before do
     Rails.cache.clear
     topic_taxonomy_has_taxons([
-      FactoryBot.build(:level_one_taxon_hash, content_id: taxon_content_id_one, title: "Magical Education", child_taxons: [
-        FactoryBot.build(:taxon_hash, content_id: taxon_content_id_two, title: "Herbology"),
-      ]),
+      FactoryBot.build(
+        :level_one_taxon_hash,
+        content_id: taxon_content_id_one,
+        title: "Magical Education",
+        child_taxons: [
+          FactoryBot.build(:taxon_hash, content_id: taxon_content_id_two, title: "Herbology"),
+        ],
+      ),
       FactoryBot.build(:level_one_taxon_hash, content_id: brexit_taxon_id, title: "Brexit"),
     ])
 
@@ -76,10 +81,11 @@ describe EmailAlertSubscriptionsController, type: :controller do
 
       it "returns a 200 and displays the signup page" do
         stub_any_email_alert_api_call.to_return(status: 422)
-        post :create, params: {
-          slug: "cma-cases",
-          filter: { "case_type" => %w[overriding-case-type] },
-        }
+        post :create,
+             params: {
+               slug: "cma-cases",
+               filter: { "case_type" => %w[overriding-case-type] },
+             }
         expect(response).to be_successful
         expect(response).to render_template("new")
       end
@@ -109,12 +115,13 @@ describe EmailAlertSubscriptionsController, type: :controller do
             "subscription_url" => "http://www.gov.uk/subscription-to-cma-cases",
           )
 
-          post :create, params: {
-            slug: "cma-cases",
-            filter: {
-              "case_type" => %w[consumer-enforcement],
-            },
-          }
+          post :create,
+               params: {
+                 slug: "cma-cases",
+                 filter: {
+                   "case_type" => %w[consumer-enforcement],
+                 },
+               }
           expect(subject).to redirect_to("http://www.gov.uk/subscription-to-cma-cases")
         end
       end
@@ -136,15 +143,16 @@ describe EmailAlertSubscriptionsController, type: :controller do
           "subscription_url" => "http://www.gov.uk/subscription/news",
         )
 
-        post :create, params: {
-          slug: "news-and-communications",
-          subscriber_list_params: {
-            "all_part_of_taxonomy_tree" => [taxon_content_id_one, taxon_content_id_two, brexit_taxon_id, "junk-content-id"],
-            "organisations" => [org_slug_one, org_slug_two, "junk-organisation"],
-            "junk_key" => %w[junk-values],
-            "another_junk_key" => "single-junk-value",
-          },
-        }
+        post :create,
+             params: {
+               slug: "news-and-communications",
+               subscriber_list_params: {
+                 "all_part_of_taxonomy_tree" => [taxon_content_id_one, taxon_content_id_two, brexit_taxon_id, "junk-content-id"],
+                 "organisations" => [org_slug_one, org_slug_two, "junk-organisation"],
+                 "junk_key" => %w[junk-values],
+                 "another_junk_key" => "single-junk-value",
+               },
+             }
         expect(subject).to redirect_to("http://www.gov.uk/subscription/news")
       end
 
@@ -154,14 +162,15 @@ describe EmailAlertSubscriptionsController, type: :controller do
           "subscription_url" => "http://www.gov.uk/subscription/default-news",
         )
 
-        post :create, params: {
-          slug: "news-and-communications",
-          subscriber_list_params: {
-            "organisations" => %w[junk-org],
-            "junk_key" => %w[junk-values],
-            "another_junk_key" => "single-junk-value",
-          },
-        }
+        post :create,
+             params: {
+               slug: "news-and-communications",
+               subscriber_list_params: {
+                 "organisations" => %w[junk-org],
+                 "junk_key" => %w[junk-values],
+                 "another_junk_key" => "single-junk-value",
+               },
+             }
         expect(subject).to redirect_to("http://www.gov.uk/subscription/default-news")
       end
     end
@@ -183,14 +192,15 @@ describe EmailAlertSubscriptionsController, type: :controller do
           "subscription_url" => "http://www.gov.uk/subscription/policy-papers-and-consultations",
         )
 
-        post :create, params: {
-          slug: "search/policy-papers-and-consultations",
-          subscriber_list_params: {
-            "all_part_of_taxonomy_tree" => [taxon_content_id_one, taxon_content_id_two, "junk-content-id"],
-            "content_store_document_type" => %w[impact_assessment case_study policy_paper junk-doc-type],
-            "organisations" => [org_slug_one, org_slug_two, "junk-organisation"],
-          },
-        }
+        post :create,
+             params: {
+               slug: "search/policy-papers-and-consultations",
+               subscriber_list_params: {
+                 "all_part_of_taxonomy_tree" => [taxon_content_id_one, taxon_content_id_two, "junk-content-id"],
+                 "content_store_document_type" => %w[impact_assessment case_study policy_paper junk-doc-type],
+                 "organisations" => [org_slug_one, org_slug_two, "junk-organisation"],
+               },
+             }
         expect(subject).to redirect_to("http://www.gov.uk/subscription/policy-papers-and-consultations")
       end
     end
@@ -206,8 +216,13 @@ describe EmailAlertSubscriptionsController, type: :controller do
           "links" => {
             "content_store_document_type" => {
               "any" => %w[
-                statistics national_statistics statistical_data_set official_statistics
-                dfid_research_output independent_report research
+                statistics
+                national_statistics
+                statistical_data_set
+                official_statistics
+                dfid_research_output
+                independent_report
+                research
               ],
             },
             "organisations" => { "any" => ["content_id_for_#{org_slug_one}", "content_id_for_#{org_slug_two}"] },
@@ -216,27 +231,29 @@ describe EmailAlertSubscriptionsController, type: :controller do
           "subscription_url" => "http://www.gov.uk/subscription/research-and-stats",
         )
 
-        post :create, params: {
-          slug: "search/research-and-statistics",
-          filter: {
-            "content_store_document_type" => %w[statistics_published research junk-doc-type],
-          },
-          subscriber_list_params: {
-            "content_store_document_type" => %w[statistics_published research junk-doc-type],
-            "organisations" => [org_slug_one, org_slug_two, "junk-organisation"],
-            "all_part_of_taxonomy_tree" => [taxon_content_id_one, taxon_content_id_two, "junk-content-id"],
-          },
-        }
+        post :create,
+             params: {
+               slug: "search/research-and-statistics",
+               filter: {
+                 "content_store_document_type" => %w[statistics_published research junk-doc-type],
+               },
+               subscriber_list_params: {
+                 "content_store_document_type" => %w[statistics_published research junk-doc-type],
+                 "organisations" => [org_slug_one, org_slug_two, "junk-organisation"],
+                 "all_part_of_taxonomy_tree" => [taxon_content_id_one, taxon_content_id_two, "junk-content-id"],
+               },
+             }
         expect(subject).to redirect_to("http://www.gov.uk/subscription/research-and-stats")
       end
 
       context "when filter and subscriber_list_params params are empty" do
         it "will render the signup page URL again" do
-          post :create, params: {
-            slug: "search/research-and-statistics",
-            filter: {},
-            subscriber_list_params: {},
-          }
+          post :create,
+               params: {
+                 slug: "search/research-and-statistics",
+                 filter: {},
+                 subscriber_list_params: {},
+               }
           expect(response).to be_successful
           expect(response).to render_template(:new)
         end
@@ -248,8 +265,13 @@ describe EmailAlertSubscriptionsController, type: :controller do
             "links" => {
               "content_store_document_type" => {
                 "any" => %w[
-                  statistics national_statistics statistical_data_set official_statistics
-                  dfid_research_output independent_report research
+                  statistics
+                  national_statistics
+                  statistical_data_set
+                  official_statistics
+                  dfid_research_output
+                  independent_report
+                  research
                 ],
               },
               "taxon_tree" => { "all" => [taxon_content_id_one, taxon_content_id_two] },
@@ -257,14 +279,15 @@ describe EmailAlertSubscriptionsController, type: :controller do
             "subscription_url" => "http://www.gov.uk/subscription/research-and-stats",
           )
 
-          post :create, params: {
-            slug: "search/research-and-statistics",
-            filter: {},
-            subscriber_list_params: {
-              "content_store_document_type" => %w[statistics_published research junk-doc-type],
-              "all_part_of_taxonomy_tree" => [taxon_content_id_one, taxon_content_id_two, "junk-content-id"],
-            },
-          }
+          post :create,
+               params: {
+                 slug: "search/research-and-statistics",
+                 filter: {},
+                 subscriber_list_params: {
+                   "content_store_document_type" => %w[statistics_published research junk-doc-type],
+                   "all_part_of_taxonomy_tree" => [taxon_content_id_one, taxon_content_id_two, "junk-content-id"],
+                 },
+               }
           expect(subject).to redirect_to("http://www.gov.uk/subscription/research-and-stats")
         end
       end
@@ -275,21 +298,27 @@ describe EmailAlertSubscriptionsController, type: :controller do
             "links" => {
               "content_store_document_type" => {
                 "any" => %w[
-                  statistics national_statistics statistical_data_set official_statistics
-                  dfid_research_output independent_report research
+                  statistics
+                  national_statistics
+                  statistical_data_set
+                  official_statistics
+                  dfid_research_output
+                  independent_report
+                  research
                 ],
               },
             },
             "subscription_url" => "http://www.gov.uk/subscription/research-and-stats",
           )
 
-          post :create, params: {
-            slug: "search/research-and-statistics",
-            filter: {
-              "content_store_document_type" => %w[statistics_published research junk-doc-type],
-            },
-            subscriber_list_params: {},
-          }
+          post :create,
+               params: {
+                 slug: "search/research-and-statistics",
+                 filter: {
+                   "content_store_document_type" => %w[statistics_published research junk-doc-type],
+                 },
+                 subscriber_list_params: {},
+               }
           expect(subject).to redirect_to("http://www.gov.uk/subscription/research-and-stats")
         end
       end
@@ -308,15 +337,16 @@ describe EmailAlertSubscriptionsController, type: :controller do
           },
           "subscription_url" => "http://www.gov.uk/subscription-to-cma-cases",
         )
-        post :create, params: {
-          slug: "cma-cases",
-          filter: { "case_type" => %w[consumer-enforcement foo], "foo" => %w[mergers] },
-          subscriber_list_params: { "case_type" => %w[foo ca98-and-civil-cartels], "foo" => %w[markets] },
-          foo: { "filter" => %w[regulatory-references-and-appeals] },
-          bar: [{ "case_type" => %w[criminal-cartels] }],
-          blah: "criminal-cartels",
-          mergers: %w[competition-disqualification],
-        }
+        post :create,
+             params: {
+               slug: "cma-cases",
+               filter: { "case_type" => %w[consumer-enforcement foo], "foo" => %w[mergers] },
+               subscriber_list_params: { "case_type" => %w[foo ca98-and-civil-cartels], "foo" => %w[markets] },
+               foo: { "filter" => %w[regulatory-references-and-appeals] },
+               bar: [{ "case_type" => %w[criminal-cartels] }],
+               blah: "criminal-cartels",
+               mergers: %w[competition-disqualification],
+             }
         expect(subject).to redirect_to("http://www.gov.uk/subscription-to-cma-cases")
       end
     end
@@ -327,10 +357,11 @@ describe EmailAlertSubscriptionsController, type: :controller do
         stub_content_store_has_item("/cma-cases/email-signup", bad_input_finder_signup_content_item)
       end
       it "will redirect the user to the signup page" do
-        post :create, params: {
-          slug: "cma-cases",
-          filter: { "evil_key'><script>alert(1)</script>" => %w[mergers] },
-        }
+        post :create,
+             params: {
+               slug: "cma-cases",
+               filter: { "evil_key'><script>alert(1)</script>" => %w[mergers] },
+             }
         expect(response).to be_successful
         expect(response).to render_template(:new)
       end
@@ -342,10 +373,11 @@ describe EmailAlertSubscriptionsController, type: :controller do
         stub_content_store_has_item("/cma-cases/email-signup", bad_input_finder_signup_content_item)
       end
       it "will redirect the user to the signup page" do
-        post :create, params: {
-          slug: "cma-cases",
-          filter: { "evil_value" => %w('><script>alert(1)</script>) },
-        }
+        post :create,
+             params: {
+               slug: "cma-cases",
+               filter: { "evil_value" => %w('><script>alert(1)</script>) },
+             }
         expect(response).to be_successful
         expect(response).to render_template(:new)
       end

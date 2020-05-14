@@ -69,8 +69,9 @@ describe Filters::RadioFilter do
     context "when a filter_key is present" do
       let(:facet) do
         {
-          "filter_key" => "alpha", "key" => "beta",
-          "allowed_values" => allowed_values
+          "filter_key" => "alpha",
+          "key" => "beta",
+          "allowed_values" => allowed_values,
         }
       end
 

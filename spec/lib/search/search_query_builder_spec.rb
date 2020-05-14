@@ -393,7 +393,7 @@ describe Search::QueryBuilder do
     it "is paginated" do
       query = query_with_params("page" => "10")
 
-      expect(query["start"]).to eql(13500)
+      expect(query["start"]).to eql(13_500)
     end
 
     def query_with_params(params)

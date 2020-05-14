@@ -24,8 +24,12 @@ private
 
   def search_params(params)
     params
-      .permit(:q, :start, :count,
-              :debug_score, :debug, :format,
+      .permit(:q,
+              :start,
+              :count,
+              :debug_score,
+              :debug,
+              :format,
               # allow facets as array values like:
               #     filter_foo[]=bar&filter_foo[]=baz
               Hash[ALLOWED_FACET_FIELDS.map { |facet| [:"filter_#{facet}", []] }],

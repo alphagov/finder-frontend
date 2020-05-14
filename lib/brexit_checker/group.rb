@@ -3,15 +3,16 @@ class BrexitChecker::Group
 
   GROUPS_PATH = Rails.root.join("lib/brexit_checker/groups.yaml")
 
-  validates_inclusion_of :key, in: %w[visiting-eu
-                                      visiting-uk
-                                      visiting-ie
-                                      living-eu
-                                      living-ie
-                                      living-uk
-                                      working-uk
-                                      studying-eu
-                                      studying-uk]
+  validates_inclusion_of :key,
+                         in: %w[visiting-eu
+                                visiting-uk
+                                visiting-ie
+                                living-eu
+                                living-ie
+                                living-uk
+                                working-uk
+                                studying-eu
+                                studying-uk]
 
   attr_reader :key, :heading
 

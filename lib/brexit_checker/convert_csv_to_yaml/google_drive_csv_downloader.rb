@@ -22,9 +22,11 @@ module BrexitChecker
       def download
         drive_service = Google::Apis::DriveV3::DriveService.new
         drive_service.authorization = authorize
-        drive_service.export_file(sheet_id,
-                                  "text/csv",
-                                  download_dest: download_destination)
+        drive_service.export_file(
+          sheet_id,
+          "text/csv",
+          download_dest: download_destination,
+        )
         puts "> CSV downloaded to #{download_destination}"
       end
 

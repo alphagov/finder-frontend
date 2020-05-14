@@ -56,13 +56,15 @@ private
 
   def document_list_component_data(documents_to_convert:)
     documents_to_convert.map.with_index do |document, index|
-      SearchResultPresenter.new(document: document,
-                                rank: index + 1,
-                                metadata_presenter_class: metadata_presenter_class,
-                                doc_count: documents.count,
-                                facets: facets,
-                                content_item: content_item,
-                                debug_score: debug_score).document_list_component_data
+      SearchResultPresenter.new(
+        document: document,
+        rank: index + 1,
+        metadata_presenter_class: metadata_presenter_class,
+        doc_count: documents.count,
+        facets: facets,
+        content_item: content_item,
+        debug_score: debug_score,
+      ).document_list_component_data
     end
   end
 end
