@@ -212,7 +212,7 @@ actions:
     charged for NHS services.
   guidance_prompt: More information
   guidance_link_text: Living in Europe
-  guidance_url: https://www.gov.uk/guidance/living-in-the-eu-prepare-for-brexit#uk-nationals-in-the-eu
+  guidance_url: https://www.gov.uk/guidance/living-in-europe#uk-nationals-in-the-eu
   criteria:
   - all_of:
     - nationality-uk
@@ -229,6 +229,25 @@ actions:
   guidance_prompt: More information
   guidance_link_text: Driving abroad
   guidance_url: https://www.gov.uk/driving-abroad
+  criteria:
+  - all_of:
+    - living-uk
+    - any_of:
+      - visiting-eu
+      - travel-eu-business
+    - visiting-driving
+  audience: citizen
+  grouping_criteria:
+  - visiting-eu
+- id: S024
+  priority: 2
+  title: Put a GB sticker on the back of your vehicle if it's registered in the UK,
+    even if your number plate already shows GB with a Euro symbol
+  consequence: You could get a fine if you do not have a GB sticker when you need
+    one.
+  guidance_prompt: More information
+  guidance_link_text: Driving in the EU from 2021 - GB stickers and number plates
+  guidance_url: https://www.gov.uk/guidance/driving-in-the-eu-from-1-january-2021#gb-stickers-and-number-plates
   criteria:
   - all_of:
     - living-uk
@@ -322,6 +341,24 @@ actions:
   grouping_criteria:
   - living-eu
   - living-ie
+- id: S031
+  priority: 4
+  title: Test your vehicle for roadworthiness in the EU country you live in
+  consequence: Your UK MOT test certificate will not be recognised in the EU.
+  guidance_prompt: More information
+  guidance_link_text: 'Driving in the EU from 2021: vehicle safety and roadworthiness
+    (MOT)'
+  guidance_url: https://www.gov.uk/guidance/driving-in-the-eu-from-1-january-2021-uk-licence-holders-living-in-the-eu#rules-for-driving-in-eu-countries
+  criteria:
+  - all_of:
+    - nationality-uk
+    - any_of:
+      - living-eu
+      - living-ie
+  audience: citizen
+  grouping_criteria:
+  - living-eu
+  - living-ie
 - id: S032
   priority: 4
   title: Contact your vet at least 4 months before travelling to make sure your pet
@@ -376,13 +413,13 @@ actions:
   - visiting-uk
 - id: T006
   priority: 8
-  title: Check if your employees need a visa or work permit and meet professional
+  title: Check if your employees need a visa or work permit and that they meet professional
     requirements for the country they’re going to
   consequence: You or your employees might not be able to enter or work in some countries.
   guidance_prompt: More information
   guidance_link_text: Providing services to any country in the EU, Iceland, Liechtenstein,
     Norway or Switzerland from 2021
-  guidance_url: https://www.gov.uk/guidance/providing-services-to-any-country-in-the-eu-iceland-liechtenstein-norway-or-switzerland-after-eu-exit
+  guidance_url: https://www.gov.uk/visit-europe-1-january-2021/business-travel-extra-requirements
   criteria:
   - any_of:
     - employ-eu-citizens
@@ -452,6 +489,27 @@ actions:
     - ip-designs
     - ip-patents
     - ip-exhaustion-rights
+  audience: business
+- id: T013
+  priority: 5
+  title: Check contracts relating to EU space programmes with your contracting authority
+  consequence: You may not be able to bid for future contracts with EU space programmes.
+  guidance_prompt: More information
+  guidance_link_text: Satellites and space programmes from 1 January 2021
+  guidance_url: https://www.gov.uk/guidance/satellites-and-space-programmes-from-1-january-2021
+  criteria:
+  - aero-space
+  audience: business
+- id: T014
+  priority: 5
+  title: Check if you need to find replacement data or services if you use the Copernicus
+    or EU Space Surveillance and Tracking programmes
+  consequence: You may lose access to some data and your services may not work.
+  guidance_prompt: More information
+  guidance_link_text: Satellites and space programmes from 1 January 2021
+  guidance_url: https://www.gov.uk/guidance/satellites-and-space-programmes-from-1-january-2021
+  criteria:
+  - aero-space
   audience: business
 - id: T016
   priority: 5
@@ -664,17 +722,19 @@ actions:
 - id: T035
   priority: 8
   title: Register as an approved food establishment to export food to the EU
-  title_url: https://www.food.gov.uk/business-guidance/approved-food-establishments
+  title_url: https://www.food.gov.uk/business-guidance/applying-for-approval-of-a-food-establishment
   consequence: You will not be able to export food to the EU if you do not register.
   lead_time: It takes up to 4 weeks
   guidance_prompt: More information
   guidance_link_text: Exporting animals and animal products from 2021
   guidance_url: https://www.gov.uk/guidance/exporting-animals-animal-products-fish-and-fishery-products-if-the-uk-leaves-the-eu-with-no-deal
   criteria:
-  - any_of:
-    - food-drink-tobacco
-    - animal-ex-food
-    - fish-inc-wholesale
+  - all_of:
+    - any_of:
+      - food-drink-tobacco
+      - animal-ex-food
+      - fish-inc-wholesale
+      - agriculture-farm
     - export-to-eu
   audience: business
 - id: T036
@@ -912,7 +972,7 @@ actions:
   title: Encourage your employees to check if they need to apply to the EU Settlement
     Scheme
   consequence: Your employees risk not being able to continue living or working in
-    the UK, if they do not apply to the scheme.
+    the UK if they do not apply to the scheme.
   guidance_prompt: More information
   guidance_link_text: Apply to the EU Settlement Scheme (settled and pre-settled status)
   guidance_url: https://www.gov.uk/settled-status-eu-citizens-families
@@ -1035,14 +1095,18 @@ actions:
   audience: business
 - id: T089
   priority: 5
-  title: Get your horse or other equine tested before you travel to the EU
+  title: Ask your vet what you need to do before you take your horse or other equine
+    to the EU
   consequence: You will not be able to take your horse or other equine to the EU if
-    it has not been tested in time.
+    you do not follow the correct rules.
+  lead_time: Do this 6 weeks before the horse or equine needs to travel
   guidance_prompt: More information
-  guidance_link_text: 'Export horses and ponies: special rules'
-  guidance_url: https://www.gov.uk/guidance/export-horses-and-ponies-special-rules
+  guidance_link_text: Export horses and ponies from 2021
+  guidance_url: https://www.gov.uk/guidance/export-horses-and-ponies-from-1-january-2021
   criteria:
-  - animal-ex-food
+  - any_of:
+    - animal-ex-food
+    - sports
   audience: business
 - id: T090
   priority: 5
