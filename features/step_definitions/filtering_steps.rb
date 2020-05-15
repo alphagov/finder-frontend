@@ -392,8 +392,8 @@ Then(/^I can browse to the next page$/) do
 end
 
 Then(/^I browse to a huge page number and get an appropriate error$/) do
-  stub_rummager_api_request_with_422_response(999999)
-  visit finder_path("government/policies/benefits-reform", page: 999999)
+  stub_rummager_api_request_with_422_response(999_999)
+  visit finder_path("government/policies/benefits-reform", page: 999_999)
 
   expect(page.status_code).to eq(422)
 end

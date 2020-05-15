@@ -2,21 +2,23 @@ require "spec_helper"
 
 describe Document do
   let(:content_item) do
-    FactoryBot.build(:content_item,
-                     details: {
-                       "show_summaries": show_summaries,
-                       "sort": [
-                         {
-                           "name": "Topic",
-                           "key": "topic",
-                           "default": true,
-                         },
-                         {
-                           "name": "Most viewed",
-                           "key": "-popularity",
-                         },
-                       ],
-                     })
+    FactoryBot.build(
+      :content_item,
+      details: {
+        "show_summaries": show_summaries,
+        "sort": [
+          {
+            "name": "Topic",
+            "key": "topic",
+            "default": true,
+          },
+          {
+            "name": "Most viewed",
+            "key": "-popularity",
+          },
+        ],
+      },
+    )
   end
 
   let(:show_summaries) { true }
@@ -86,13 +88,15 @@ describe Document do
       end
       describe "The document is tagged to a multiple values of the facet filter key" do
         let(:document_hash) do
-          FactoryBot.build(:document_hash,
-                           a_filter_key:
-                             [
-                               { "label" => "metadata_label_1" },
-                               { "label" => "metadata_label_2" },
-                               { "label" => "metadata_label_3" },
-                             ])
+          FactoryBot.build(
+            :document_hash,
+            a_filter_key:
+              [
+                { "label" => "metadata_label_1" },
+                { "label" => "metadata_label_2" },
+                { "label" => "metadata_label_3" },
+              ],
+          )
         end
         it "gets the metadata" do
           expected_hash =
@@ -113,9 +117,11 @@ describe Document do
          FactoryBot.build(:option_select_facet, key: "document_collections")]
       end
       let(:document_hash) do
-        FactoryBot.build(:document_hash,
-                         organisations: [{ "title" => "org_title" }],
-                         document_collections: [{ "title" => "dc_title" }])
+        FactoryBot.build(
+          :document_hash,
+          organisations: [{ "title" => "org_title" }],
+          document_collections: [{ "title" => "dc_title" }],
+        )
       end
       it "uses title instead of label" do
         expect(Document.new(document_hash, 1).metadata(facets))
@@ -127,9 +133,11 @@ describe Document do
         [FactoryBot.build(:option_select_facet, key: "organisations")]
       end
       let(:document_hash) do
-        FactoryBot.build(:document_hash,
-                         organisations: [{ "title" => "org_title" }],
-                         content_store_document_type: "answer")
+        FactoryBot.build(
+          :document_hash,
+          organisations: [{ "title" => "org_title" }],
+          content_store_document_type: "answer",
+        )
       end
       it "does not display metadata because we are not interested in who publishes a mainstream document" do
         expect(Document.new(document_hash, 1).metadata(facets)).to be_empty

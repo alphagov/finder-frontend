@@ -11,7 +11,8 @@ RSpec.describe SortPresenter do
   subject(:presenter_with_relevance_selected) do
     described_class.new(
       content_item(sort_options: sort_options_with_relevance),
-      "keywords" => "cats", "order" => "relevance",
+      "keywords" => "cats",
+      "order" => "relevance",
     )
   end
 

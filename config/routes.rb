@@ -2,9 +2,10 @@ FinderFrontend::Application.routes.draw do
   mount JasmineRails::Engine => "/specs" if defined?(JasmineRails)
   mount GovukPublishingComponents::Engine, at: "/component-guide"
 
-  get "/healthcheck.json", to: GovukHealthcheck.rack_response(
-    Healthchecks::RegistriesCache,
-  )
+  get "/healthcheck.json",
+      to: GovukHealthcheck.rack_response(
+        Healthchecks::RegistriesCache,
+      )
   get "/healthcheck", to: proc { [200, {}, %w[OK]] }
 
   root to: redirect("/development") unless Rails.env.test?

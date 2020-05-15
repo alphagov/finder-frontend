@@ -12,9 +12,20 @@ class BrexitChecker::Action
   validate :has_criteria
   validate :citizen_action_has_grouping_criteria
 
-  attr_reader :id, :title, :consequence, :exception, :title_url, :title_path,
-              :lead_time, :criteria, :audience, :guidance_link_text,
-              :guidance_url, :guidance_path, :guidance_prompt, :priority,
+  attr_reader :id,
+              :title,
+              :consequence,
+              :exception,
+              :title_url,
+              :title_path,
+              :lead_time,
+              :criteria,
+              :audience,
+              :guidance_link_text,
+              :guidance_url,
+              :guidance_path,
+              :guidance_prompt,
+              :priority,
               :grouping_criteria
 
   def initialize(attrs)

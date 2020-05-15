@@ -7,9 +7,11 @@ RSpec.describe AtomPresenter do
     MetadataPresenter
   end
   let(:content_item) do
-    FactoryBot.build(:content_item,
-                     base_path: "/search/news-and-communications",
-                     title: "News and communications")
+    FactoryBot.build(
+      :content_item,
+      base_path: "/search/news-and-communications",
+      title: "News and communications",
+    )
   end
 
   let(:filters) do

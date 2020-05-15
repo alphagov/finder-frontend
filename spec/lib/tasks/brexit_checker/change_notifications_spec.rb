@@ -10,16 +10,20 @@ RSpec.describe "Change notifications" do
     end
 
     let(:addition) do
-      FactoryBot.build(:brexit_checker_notification,
-                       type: "addition",
-                       action_id: "addition")
+      FactoryBot.build(
+        :brexit_checker_notification,
+        type: "addition",
+        action_id: "addition",
+      )
     end
 
     let(:content_change) do
-      FactoryBot.build(:brexit_checker_notification,
-                       type: "content_change",
-                       note: "Something has changed",
-                       action_id: "content_change")
+      FactoryBot.build(
+        :brexit_checker_notification,
+        type: "content_change",
+        note: "Something has changed",
+        action_id: "content_change",
+      )
     end
 
     before do
@@ -152,11 +156,13 @@ RSpec.describe "Change notifications" do
 
     describe "when a notification has criteria rules" do
       let(:content_note_criteria_change) do
-        FactoryBot.build(:brexit_checker_notification,
-                         type: "content_change",
-                         note: "Something has changed",
-                         action_id: "content_change",
-                         criteria: [{ any_of: %w[forestry] }])
+        FactoryBot.build(
+          :brexit_checker_notification,
+          type: "content_change",
+          note: "Something has changed",
+          action_id: "content_change",
+          criteria: [{ any_of: %w[forestry] }],
+        )
       end
 
       before do

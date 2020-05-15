@@ -57,7 +57,7 @@ private
       when "official_documents"
         RadioFacetForMultipleFilters.new(facet_hash, value_hash[facet_hash["key"]], ::Filters::OfficialDocumentsHashes.new.call)
       else
-        raise ArgumentError.new("Unknown filterable facet type: #{facet_hash['type']}")
+        raise ArgumentError, "Unknown filterable facet type: #{facet_hash['type']}"
       end
     else
       Facet.new(facet_hash)

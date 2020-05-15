@@ -14,9 +14,11 @@ module BrexitChecker
         csv = File.read(csv_filename)
         data = []
 
-        CSV.parse(csv,
-                  headers: true,
-                  header_converters: downcase_underscore_headers)
+        CSV.parse(
+          csv,
+          headers: true,
+          header_converters: downcase_underscore_headers,
+        )
            .each { |row| data << processor.process(row.to_h) }
 
         File.open(yaml_filename, "w") do |f|

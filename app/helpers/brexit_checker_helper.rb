@@ -6,7 +6,7 @@ module BrexitCheckerHelper
   end
 
   def criteria_aside_label(heading = nil)
-    return "you-and-your-family-actions-group-#{heading.downcase.gsub(' ', '-')}-criteria" if !heading.nil?
+    return "you-and-your-family-actions-group-#{heading.downcase.gsub(' ', '-')}-criteria" unless heading.nil?
 
     "business-actions-criteria"
   end
