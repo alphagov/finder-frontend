@@ -102,3 +102,13 @@ notifications:
   #    type: addition
   #    action_id: S035
   #    date: 2019-10-24
+   - uuid: "d66642bf-b3c1-4bee-a0a1-c15d205564d6"
+     type: content_change
+     action_id: T014
+     date: 2020-05-14
+     note: "EU Space Surveillance and Tracking programmes added"
+   - uuid: "cd58a06e-9d6c-4078-81c1-ece8a234a498"
+     type: content_change
+     action_id: T089
+     date: 2020-05-14
+     note: "New advice to contact a vet to find out what you need do to move horses or other equines"
