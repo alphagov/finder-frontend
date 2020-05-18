@@ -34,6 +34,13 @@ module Registries
       end
     end
 
+    def topic_taxon_with_content_id(content_id)
+      topic_taxonomy
+        .taxonomy_tree
+        .select { |key, value| key == content_id }
+        .dig(content_id)
+    end
+
   private
 
     def full_topic_taxonomy

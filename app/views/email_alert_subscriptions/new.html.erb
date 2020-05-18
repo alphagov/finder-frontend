@@ -8,38 +8,86 @@
 <% end %>
 
 <div class="govuk-width-container">
-  <%= form_tag email_alert_subscriptions_path(subscriber_list_params: subscriber_list_params), class: 'signup-choices' do %>
+
+  <% if @taxon %>
+    <%= render partial: 'govuk_publishing_components/components/title', locals: {
+      title: @taxon["title"],
+      context: "Email alert subscription"
+    } %>
+
+    <h1 class="govuk-heading-l">What do you want to get alerts about?</h1>
+
+    <%= form_tag email_alert_subscriptions_path, class: 'signup-choices' do %>
+      <p>Everything published to GOV.UK about</p>
+
+      <%= render "govuk_publishing_components/components/radio", {
+        name: "level_one_taxon",
+        id_prefix: "all",
+        items: [{
+          value: @taxon["content_id"],
+          text: @taxon["title"],
+          checked: true,
+          conditional: '<p class="govuk-body">This will include alerts about all the topics below</p>'.html_safe
+        }]
+      } %>
+
+      <p>or only one of the following <%= @taxon["children"].count %> topics</p>
+
+      <%= render "govuk_publishing_components/components/radio", {
+        name: "level_two_taxon",
+        id_prefix: "topics",
+        items: @taxon["children"].each.map { |taxon| {
+          value: taxon["content_id"],
+          text: taxon["title"],
+          checked: taxon["content_id"] == @filter_params[:level_two_taxon],
+          conditional: taxon["description"].present? ? ("<p class=\"govuk-body\">This will include: #{taxon['description']}</p>").html_safe : nil
+        } }
+      } %>
+
+      <%= render "govuk_publishing_components/components/button", {
+        text: "Create subscription",
+        margin_bottom: true
+      } %>
+    <% end %>
+
+  <% else %>
+
     <%= render partial: 'govuk_publishing_components/components/title', locals: {
       title: @signup_presenter.name,
       context: "Email alert subscription"
     } %>
 
-    <% if @signup_presenter.can_modify_choices? %>
-      <%= render "govuk_publishing_components/components/checkboxes", {
-        name: nil,
-        heading: @signup_presenter.name,
-        hint_text: "Choose the email alerts you need.",
-        items: @signup_presenter.choices_formatted,
-        visually_hide_heading: true
+    <%= form_tag email_alert_subscriptions_path(subscriber_list_params: subscriber_list_params), class: 'signup-choices' do %>
+      <% if @signup_presenter.can_modify_choices? %>
+        <%= render "govuk_publishing_components/components/checkboxes", {
+          name: nil,
+          heading: @signup_presenter.name,
+          hint_text: "Choose the email alerts you need.",
+          items: @signup_presenter.choices_formatted,
+          visually_hide_heading: true
+        } %>
+      <% end %>
+
+      <% if @error_message.present? %>
+        <p class="signup-choices__message"><%= @error_message %></p>
+      <% end %>
+
+      <% @signup_presenter.hidden_choices.each do |hidden_choice| %>
+        <%= hidden_field_tag hidden_choice[:name], hidden_choice[:value] %>
+      <% end %>
+
+      <% if @signup_presenter.body && !@signup_presenter.can_modify_choices? %>
+        <div class="govspeak-wrapper">
+          <%= render 'govuk_publishing_components/components/govspeak', content: @signup_presenter.body.html_safe %>
+        </div>
+      <% end %>
+
+      <%= render "govuk_publishing_components/components/button", {
+        text: "Create subscription",
+        margin_bottom: true
       } %>
-    <% end %>
-    <% if @error_message.present? %>
-      <p class="signup-choices__message"><%= @error_message %></p>
-    <% end %>
 
-    <% @signup_presenter.hidden_choices.each do |hidden_choice| %>
-      <%= hidden_field_tag hidden_choice[:name], hidden_choice[:value] %>
     <% end %>
-
-    <% if @signup_presenter.body && !@signup_presenter.can_modify_choices? %>
-      <div class="govspeak-wrapper">
-        <%= render 'govuk_publishing_components/components/govspeak', content: @signup_presenter.body.html_safe %>
-      </div>
-    <% end %>
-
-    <%= render "govuk_publishing_components/components/button", {
-      text: "Create subscription",
-      margin_bottom: true
-    } %>
   <% end %>
+
 </div>

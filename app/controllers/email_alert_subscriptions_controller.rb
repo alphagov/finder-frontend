@@ -1,7 +1,7 @@
 class EmailAlertSubscriptionsController < ApplicationController
   layout "finder_layout"
   protect_from_forgery except: :create
-  before_action :signup_presenter
+  before_action :signup_presenter, :set_taxon
   helper_method :subscriber_list_params
 
   def create
@@ -25,20 +25,26 @@ private
     render action: :new
   end
 
-  def content
-    @content ||= ContentItem.from_content_store(request.path).as_hash
+  def content_item
+    @content_item ||= ContentItem.from_content_store(request.path).as_hash
   end
 
   def signup_presenter
-    @signup_presenter ||= SignupPresenter.new(content, params)
+    @signup_presenter ||= SignupPresenter.new(content_item, params)
+  end
+
+  def set_taxon
+    content_id = filter_params[:level_one_taxon]
+    @registry ||= Registries::BaseRegistries.new
+    @taxon ||= @registry.topic_taxon_with_content_id(content_id)
   end
 
   def subscriber_list_params
-    SubscriberListParamsPresenter.new(content, filter_params).subscriber_list_params
+    SubscriberListParamsPresenter.new(content_item, filter_params).subscriber_list_params
   end
 
   def email_alert_filter_params
-    @email_alert_filter_params ||= ParameterParser::EmailAlertParameterParser.new(content, filter_params, params)
+    @email_alert_filter_params ||= ParameterParser::EmailAlertParameterParser.new(content_item, filter_params, params)
   end
 
   def validate_choices!
@@ -53,8 +59,8 @@ private
   def email_alert_signup_api
     EmailAlertSignupAPI.new(
       applied_filters: applied_filters,
-      default_filters: content["details"].fetch("filter", {}),
-      facets: content["details"].fetch("email_filter_facets", []),
+      default_filters: content_item["details"].fetch("filter", {}),
+      facets: content_item["details"].fetch("email_filter_facets", []),
       subscriber_list_title: subscriber_list_title,
       email_filter_by: signup_presenter.email_filter_by,
     )
@@ -63,8 +69,8 @@ private
   def subscriber_list_title
     EmailAlertTitleBuilder.call(
       filter: applied_filters,
-      subscription_list_title_prefix: content.dig("details", "subscription_list_title_prefix"),
-      facets: content["details"].fetch("email_filter_facets", []),
+      subscription_list_title_prefix: content_item.dig("details", "subscription_list_title_prefix"),
+      facets: content_item["details"].fetch("email_filter_facets", []),
     )
   end
 end
