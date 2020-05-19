@@ -9,38 +9,36 @@
 
 <div class="govuk-width-container">
 
-  <% if @taxon %>
+  <% if @level_one_taxon %>
     <%= render partial: 'govuk_publishing_components/components/title', locals: {
-      title: @taxon["title"],
+      title: @level_one_taxon[:title],
       context: "Email alert subscription"
     } %>
 
     <h1 class="govuk-heading-l">What do you want to get alerts about?</h1>
 
-    <%= form_tag email_alert_subscriptions_path, class: 'signup-choices' do %>
+    <%= form_tag email_alert_subscriptions_path(@taxon_facet.query_params), class: 'signup-choices' do %>
       <p>Everything published to GOV.UK about</p>
 
       <%= render "govuk_publishing_components/components/radio", {
-        name: "level_one_taxon",
-        id_prefix: "all",
+        name: "subscriber_list_params[all_part_of_taxonomy_tree]",
         items: [{
-          value: @taxon["content_id"],
-          text: @taxon["title"],
-          checked: true,
-          conditional: '<p class="govuk-body">This will include alerts about all the topics below</p>'.html_safe
+          value: @level_one_taxon[:value],
+          text: @level_one_taxon[:text],
+          checked: @filter_params[:level_two_taxon].blank?,
+          conditional: '<p class="govuk-body">This will include alerts about all the topics below</p>'.html_safe,
         }]
       } %>
 
-      <p>or only one of the following <%= @taxon["children"].count %> topics</p>
+      <p>or only one of the following <%= @sub_taxons.count %> topics</p>
 
       <%= render "govuk_publishing_components/components/radio", {
-        name: "level_two_taxon",
-        id_prefix: "topics",
-        items: @taxon["children"].each.map { |taxon| {
-          value: taxon["content_id"],
-          text: taxon["title"],
-          checked: taxon["content_id"] == @filter_params[:level_two_taxon],
-          conditional: taxon["description"].present? ? ("<p class=\"govuk-body\">This will include: #{taxon['description']}</p>").html_safe : nil
+        name: "subscriber_list_params[all_part_of_taxonomy_tree]",
+        items: @sub_taxons.map { |sub_taxon| {
+          value: sub_taxon["content_id"],
+          text: sub_taxon["title"],
+          checked: sub_taxon["content_id"] == @filter_params[:level_two_taxon],
+          conditional: sub_taxon["description"].present? ? ("<p class=\"govuk-body\">This will include: #{sub_taxon["description"]}</p>").html_safe : nil
         } }
       } %>
 

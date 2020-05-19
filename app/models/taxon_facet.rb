@@ -43,6 +43,12 @@ class TaxonFacet < FilterableFacet
     }
   end
 
+  def selected_level_one_value
+    @selected_level_one_value ||= level_one_taxons.find do |v|
+      v[:value] == @value_hash[LEVEL_ONE_TAXON_KEY]
+    end
+  end
+
 private
 
   def value_fragments
@@ -101,12 +107,6 @@ private
   def selected_level_two_value
     @selected_level_two_value ||= level_two_taxons.find do |v|
       v[:value] == @value_hash[LEVEL_TWO_TAXON_KEY]
-    end
-  end
-
-  def selected_level_one_value
-    @selected_level_one_value ||= level_one_taxons.find do |v|
-      v[:value] == @value_hash[LEVEL_ONE_TAXON_KEY]
     end
   end
 
