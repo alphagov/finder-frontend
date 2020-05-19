@@ -8,7 +8,7 @@ module Services
   end
 
   def self.cached_content_item(base_path)
-    Rails.cache.fetch("finder-frontend_content_items#{base_path}", expires_in: 6.hours) do
+    Rails.cache.fetch("finder-frontend_content_items#{base_path}", expires_in: 5.minutes) do
       GovukStatsd.time("content_store.fetch_request_time") do
         content_store.content_item(base_path).to_h
       end
