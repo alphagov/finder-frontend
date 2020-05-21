@@ -1,11 +1,25 @@
 class SignupPresenter
   include ActionView::Helpers::UrlHelper
   include ActionView::Helpers::CaptureHelper
-  attr_reader :content_item, :params
 
-  def initialize(content_item, params)
+  attr_reader :content_item, :taxon_facet, :params
+
+  def initialize(content_item, taxon_facet, params)
     @content_item = content_item
+    @taxon_facet = taxon_facet
     @params = params
+  end
+
+  def show_taxon_choices?
+    taxon_facet.query_params.compact.present?
+  end
+
+  def level_one_taxon
+    taxon_facet.selected_level_one_value
+  end
+
+  def sub_taxons
+    level_one_taxon[:sub_topics]
   end
 
   def page_title
