@@ -43,10 +43,8 @@ class TaxonFacet < FilterableFacet
     }
   end
 
-  def selected_level_one_value
-    @selected_level_one_value ||= level_one_taxons.find do |v|
-      v[:value] == @value_hash[LEVEL_ONE_TAXON_KEY]
-    end
+  def selected_taxon_value
+    selected_level_one_value || selected_level_two_value
   end
 
 private
@@ -93,6 +91,7 @@ private
         {
           text: v["title"],
           value: v["content_id"],
+          sub_topics: v["children"],
           data_attributes: {
             track_category: "filterClicked",
             track_action: "level_two_taxon",
@@ -107,6 +106,12 @@ private
   def selected_level_two_value
     @selected_level_two_value ||= level_two_taxons.find do |v|
       v[:value] == @value_hash[LEVEL_TWO_TAXON_KEY]
+    end
+  end
+
+  def selected_level_one_value
+    @selected_level_one_value ||= level_one_taxons.find do |v|
+      v[:value] == @value_hash[LEVEL_ONE_TAXON_KEY]
     end
   end
 

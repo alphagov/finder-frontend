@@ -10,16 +10,12 @@ class SignupPresenter
     @params = params
   end
 
-  def show_taxon_choices?
-    taxon_facet.query_params.compact.present?
-  end
-
-  def level_one_taxon
-    taxon_facet.selected_level_one_value
+  def selected_taxon
+    taxon_facet.selected_taxon_value
   end
 
   def sub_taxons
-    level_one_taxon[:sub_topics]
+    selected_taxon[:sub_topics]
   end
 
   def page_title
