@@ -107,7 +107,7 @@ describe EmailAlertSubscriptionsController, type: :controller do
 
       context "when all required filters are provided" do
         it "redirects to the subscription url" do
-          email_alert_api_has_subscriber_list(
+          stub_email_alert_api_has_subscriber_list(
             "tags" => {
               "case_type" => { any: %w[consumer-enforcement] },
               "format" => { any: %w[cma_case] },
@@ -134,7 +134,7 @@ describe EmailAlertSubscriptionsController, type: :controller do
       end
 
       it "redirects to the correct email subscription url with subscriber_list_params" do
-        email_alert_api_has_subscriber_list(
+        stub_email_alert_api_has_subscriber_list(
           "links" => {
             "organisations" => { "any" => ["content_id_for_#{org_slug_one}", "content_id_for_#{org_slug_two}"] },
             "taxon_tree" => { "all" => [taxon_content_id_one, taxon_content_id_two, brexit_taxon_id] },
@@ -157,7 +157,7 @@ describe EmailAlertSubscriptionsController, type: :controller do
       end
 
       it "without allowed filters it redirects to the default email subscription url" do
-        email_alert_api_has_subscriber_list(
+        stub_email_alert_api_has_subscriber_list(
           "links" => { "content_purpose_subgroup" => { "any" => %w[news speeches_and_statements] } },
           "subscription_url" => "http://www.gov.uk/subscription/default-news",
         )
@@ -182,7 +182,7 @@ describe EmailAlertSubscriptionsController, type: :controller do
       end
 
       it "redirects to the correct email subscription URL" do
-        email_alert_api_has_subscriber_list(
+        stub_email_alert_api_has_subscriber_list(
           "links" => {
             "organisations" => { "any" => ["content_id_for_#{org_slug_one}", "content_id_for_#{org_slug_two}"] },
             "content_store_document_type" => { "any" => %w[impact_assessment case_study policy_paper] },
@@ -212,7 +212,7 @@ describe EmailAlertSubscriptionsController, type: :controller do
       end
 
       it "will redirect the user to the subscription URL" do
-        email_alert_api_has_subscriber_list(
+        stub_email_alert_api_has_subscriber_list(
           "links" => {
             "content_store_document_type" => {
               "any" => %w[
@@ -261,7 +261,7 @@ describe EmailAlertSubscriptionsController, type: :controller do
 
       context "when the filter params are not provided" do
         it "will redirect the user to the subscription URL" do
-          email_alert_api_has_subscriber_list(
+          stub_email_alert_api_has_subscriber_list(
             "links" => {
               "content_store_document_type" => {
                 "any" => %w[
@@ -294,7 +294,7 @@ describe EmailAlertSubscriptionsController, type: :controller do
 
       context "when the subscriber_list_params params are not provided" do
         it "will redirect the user to the subscription URL" do
-          email_alert_api_has_subscriber_list(
+          stub_email_alert_api_has_subscriber_list(
             "links" => {
               "content_store_document_type" => {
                 "any" => %w[
@@ -330,7 +330,7 @@ describe EmailAlertSubscriptionsController, type: :controller do
         stub_content_store_has_item("/cma-cases/email-signup", cma_cases_signup_content_item)
       end
       it "will strip surplus keys or values" do
-        email_alert_api_has_subscriber_list(
+        stub_email_alert_api_has_subscriber_list(
           "tags" => {
             "case_type" => { any: %w[consumer-enforcement] },
             "format" => { any: %w[cma_case] },
