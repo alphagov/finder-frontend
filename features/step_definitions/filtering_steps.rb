@@ -751,7 +751,7 @@ When(/^I use a checkbox filter and another disallowed filter$/) do
 end
 
 Then(/^I can sign up to email alerts for allowed filters$/) do
-  email_alert_api_has_subscriber_list(
+  stub_email_alert_api_has_subscriber_list(
     "tags" => { "case_type" => { any: %w[ca98-and-civil-cartels] }, "format" => { any: %w[cma_case] } },
     "subscription_url" => "http://www.rathergood.com",
   )
