@@ -40,7 +40,11 @@ module FinderFrontend
     }
 
     # Path within public/ where assets are compiled to
-    config.assets.prefix = "/finder-frontend"
+    config.assets.prefix = "/assets/finder-frontend"
+
+    # allow overriding the asset host with an enironment variable, useful for
+    # when router is proxying to this app but asset proxying isn't set up.
+    config.asset_host = ENV["ASSET_HOST"]
 
     config.eager_load_paths << Rails.root.join("lib")
     config.autoload_paths << Rails.root.join("lib")
