@@ -47,14 +47,14 @@ private
     keyword_fragments = []
 
     keyword_array.each do |keyword|
-      unless keyword.empty?
-        keyword_fragments << {
-          "label" => keyword,
-          "parameter_key" => key,
-          "name" => "keywords",
-          "value" => keyword.gsub('"', "&quot;"),
-        }
-      end
+      next if keyword.empty?
+
+      keyword_fragments << {
+        "label" => keyword,
+        "parameter_key" => key,
+        "name" => "keywords",
+        "value" => keyword.gsub('"', "&quot;"),
+      }
     end
 
     keyword_fragments

@@ -34,13 +34,13 @@ class SignupPresenter
 
   def hidden_choices
     hidden_choices = choices.map do |choice|
-      if ignore_facet?(choice["facet_id"])
-        choice["facet_choices"].map do |facet_choice|
-          {
-            name: "filter[#{choice['facet_id']}][]",
-            value: facet_choice["key"],
-          }
-        end
+      next unless ignore_facet?(choice["facet_id"])
+
+      choice["facet_choices"].map do |facet_choice|
+        {
+          name: "filter[#{choice['facet_id']}][]",
+          value: facet_choice["key"],
+        }
       end
     end
     hidden_choices.flatten.compact
