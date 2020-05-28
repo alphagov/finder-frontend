@@ -1,4 +1,4 @@
-Given /^the search page exists$/ do
+Given(/^the search page exists$/) do
   stub_content_store_has_item("/search", schema: "special_route")
 end
 
@@ -18,7 +18,7 @@ When(/^I search for "([^"]*)" from "(.*)" on the json endpoint$/) do |search_ter
   visit "/search.json?q=#{search_term}&filter_organisations[]=#{organisation}"
 end
 
-Then /^I am able to set search terms$/ do
+Then(/^I am able to set search terms$/) do
   expect(page).to have_field("Search GOV.UK", with: "")
 end
 
