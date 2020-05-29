@@ -7,25 +7,8 @@ inherit_mode:
   merge:
     - Exclude
 
-AllCops:
-  Exclude:
-    - 'lib/tasks/cucumber.rake' # Automatically generated
-    - 'tmp/**/*'
-
-Lint/AmbiguousRegexpLiteral:
-  Exclude:
-    - 'features/**/*.rb'
-
-Metrics/BlockLength:
-  Exclude:
-    - 'features/**/*.rb'
-    - 'spec/**/*'
-    - 'config/routes.rb'
-
+# This app does not use ActiveRecord
 Rails/DynamicFindBy:
   Whitelist:
     - find_by_key
     - find_by_id
-
-Rails/OutputSafety:
-  Enabled: false
