@@ -26,20 +26,22 @@
           value: @signup_presenter.selected_taxon[:value],
           text: @signup_presenter.selected_taxon[:text],
           checked: true,
-          conditional: '<p class="govuk-body">This will include alerts about all the topics below</p>'.html_safe,
+          conditional: @signup_presenter.sub_taxons.any? ? '<p class="govuk-body">This will include alerts about all the topics below</p>'.html_safe : nil,
         }]
       } %>
 
-      <p>or only one of the following <%= @signup_presenter.sub_taxons.count %> topics</p>
+      <% if @signup_presenter.sub_taxons.any? %>
+        <p>or only one of the following <%= @signup_presenter.sub_taxons.count %> topics</p>
 
-      <%= render "govuk_publishing_components/components/radio", {
-        name: "subscriber_list_params[all_part_of_taxonomy_tree]",
-        items: @signup_presenter.sub_taxons.map { |sub_taxon| {
-          value: sub_taxon["content_id"],
-          text: sub_taxon["title"],
-          conditional: sub_taxon["description"].present? ? ("<p class=\"govuk-body\">This will include: #{sub_taxon["description"]}</p>").html_safe : nil
-        } }
-      } %>
+        <%= render "govuk_publishing_components/components/radio", {
+          name: "subscriber_list_params[all_part_of_taxonomy_tree]",
+          items: @signup_presenter.sub_taxons.map { |sub_taxon| {
+            value: sub_taxon["content_id"],
+            text: sub_taxon["title"],
+            conditional: sub_taxon["description"].present? ? ("<p class=\"govuk-body\">This will include: #{sub_taxon["description"]}</p>").html_safe : nil
+          } }
+        } %>
+      <% end %>
 
       <%= render "govuk_publishing_components/components/button", {
         text: "Create subscription",

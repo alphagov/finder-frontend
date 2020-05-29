@@ -44,7 +44,16 @@ class TaxonFacet < FilterableFacet
   end
 
   def selected_taxon_value
-    selected_level_one_value || selected_level_two_value
+    selected_level_one_value || selected_level_two_value || selected_topic_value
+  end
+
+  def selected_topic_value
+    topic = flat_taxons.dig(@value_hash["topic"])
+    {
+      value: topic["content_id"],
+      text: topic["title"],
+      sub_topics: topic["children"],
+    }
   end
 
 private
@@ -64,6 +73,10 @@ private
       "parameter_key" => key,
       "value" => value[:value],
     }
+  end
+
+  def flat_taxons
+    registry.flat_taxonomy_tree
   end
 
   def level_one_taxons
