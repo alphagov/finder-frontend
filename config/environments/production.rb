@@ -1,10 +1,4 @@
 Rails.application.configure do
-  # Set GOVUK_ASSET_ROOT for heroku - for review apps we have the hostname set
-  # at the time of the app being built so can't be set up in the app.json
-  if !ENV.include?("GOVUK_ASSET_ROOT") && ENV["HEROKU_APP_NAME"]
-    ENV["GOVUK_ASSET_ROOT"] = "https://#{ENV['HEROKU_APP_NAME']}.herokuapp.com"
-  end
-
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
@@ -39,12 +33,7 @@ Rails.application.configure do
   config.assets.compile = false
   config.assets.digest = true
   config.assets.version = "1.0"
-  config.action_controller.asset_host = ENV["GOVUK_ASSET_HOST"]
-  config.slimmer.asset_host = Plek.current.find("static")
   config.log_level = :info
-
-  # Enable serving of images, stylesheets, and JavaScripts from an asset server.
-  # config.action_controller.asset_host = 'http://assets.example.com'
 
   # Specifies the header that your server uses for sending files.
   # config.action_dispatch.x_sendfile_header = 'X-Sendfile' # for Apache
