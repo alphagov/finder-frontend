@@ -27,11 +27,20 @@ module Registries
     end
 
     def format_taxon(taxon)
+      formatted_children = Array(taxon.dig("links", "child_taxons")).map do |child|
+        {
+          "title" => child["title"],
+          "content_id" => child["content_id"],
+          "base_path" => child["base_path"],
+        }
+      end
+
       {
         taxon["content_id"] =>
         {
           "title" => taxon["title"],
           "base_path" => taxon["base_path"],
+          "children" => formatted_children,
         },
       }
     end

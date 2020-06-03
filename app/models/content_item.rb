@@ -26,6 +26,10 @@ class ContentItem
     document_type == "redirect"
   end
 
+  def content_id
+    content_item_hash["content_id"]
+  end
+
   def description
     content_item_hash["description"]
   end

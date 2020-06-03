@@ -48,7 +48,11 @@ class TaxonFacet < FilterableFacet
   end
 
   def selected_topic_value
-    topic = flat_taxons.dig(@value_hash["topic"])
+    return unless @value_hash["topic"]
+
+    ContentItem.from_content_store(@value_hash["topic"]).content_id
+
+    topic = full_topic_taxonomy.taxonomy.dig(content_id)
     {
       value: topic["content_id"],
       text: topic["title"],
@@ -75,12 +79,8 @@ private
     }
   end
 
-  def flat_taxons
-    registry.flat_taxonomy_tree
-  end
-
   def level_one_taxons
-    @level_one_taxons ||= registry.taxonomy_tree.values.map do |v|
+    @level_one_taxons ||= partial_topic_taxonomy.taxonomy_tree.values.map do |v|
       {
         value: v["content_id"],
         text: v["title"],
@@ -136,7 +136,11 @@ private
     { text: "All topics", value: "" }
   end
 
-  def registry
-    @registry ||= Registries::BaseRegistries.new.all["part_of_taxonomy_tree"]
+  def full_topic_taxonomy
+    @full_topic_taxonomy ||= Registries::BaseRegistries.new.all["full_topic_taxonomy"]
+  end
+
+  def partial_topic_taxonomy
+    @partial_topic_taxonomy ||= Registries::BaseRegistries.new.all["part_of_taxonomy_tree"]
   end
 end

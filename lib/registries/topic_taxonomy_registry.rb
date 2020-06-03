@@ -8,42 +8,6 @@ module Registries
       @taxonomy_tree ||= fetch_from_cache
     end
 
-    def flat_taxonomy_tree
-      flatten_taxonomy(fetch_level_one_taxons_from_api)
-    end
-
-    def flatten_taxonomy(taxons)
-      return {} if taxons.empty?
-
-      taxons.inject({}) do |result, taxon|
-        child_taxons = taxon.dig("links", "child_taxons") || []
-
-        taxon_hash = format_taxon_flat(taxon)
-        child_taxon_hashes = flatten_taxonomy(child_taxons)
-
-        result.merge(taxon_hash).merge(child_taxon_hashes)
-      end
-    end
-
-    def format_taxon_flat(taxon)
-      formatted_children = Array(taxon.dig("links", "child_taxons")).map do |child|
-        {
-          "title" => child["title"],
-          "content_id" => child["content_id"],
-          "base_path" => child["base_path"],
-        }
-      end
-
-      {
-        taxon["base_path"] =>
-        {
-          "title" => taxon["title"],
-          "content_id" => taxon["content_id"],
-          "children" => formatted_children
-        }
-      }
-    end
-
     def values
       taxonomy_tree
     end
