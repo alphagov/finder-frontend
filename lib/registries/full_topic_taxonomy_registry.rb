@@ -39,6 +39,7 @@ module Registries
         taxon["content_id"] =>
         {
           "title" => taxon["title"],
+          "content_id" => taxon["content_id"],
           "base_path" => taxon["base_path"],
           "children" => formatted_children,
         },

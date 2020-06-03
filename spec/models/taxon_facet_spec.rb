@@ -70,6 +70,7 @@ describe TaxonFacet do
         :text,
         :data_attributes,
         :selected,
+        :sub_topics,
       )
     end
 

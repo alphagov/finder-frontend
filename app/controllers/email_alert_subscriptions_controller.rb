@@ -30,11 +30,7 @@ private
   end
 
   def signup_presenter
-    @signup_presenter ||= SignupPresenter.new(content_item, taxon_facet, params)
-  end
-
-  def taxon_facet
-    TaxonFacet.new({}, filter_params.slice("level_one_taxon", "level_two_taxon", "topic"))
+    @signup_presenter ||= SignupPresenter.new(content_item, params)
   end
 
   def subscriber_list_params

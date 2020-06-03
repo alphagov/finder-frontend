@@ -47,20 +47,20 @@ class TaxonFacet < FilterableFacet
     selected_level_one_value || selected_level_two_value || selected_topic_value
   end
 
+private
+
   def selected_topic_value
     return unless @value_hash["topic"]
 
-    ContentItem.from_content_store(@value_hash["topic"]).content_id
-
+    content_id = ContentItem.from_content_store(@value_hash["topic"]).content_id
     topic = full_topic_taxonomy.taxonomy.dig(content_id)
+
     {
       value: topic["content_id"],
       text: topic["title"],
       sub_topics: topic["children"],
     }
   end
-
-private
 
   def value_fragments
     [
