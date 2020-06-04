@@ -101,4 +101,44 @@ describe TaxonFacet do
       specify { expect(subject.sentence_fragment).to be_nil }
     end
   end
+
+  describe "#selected_taxon_value" do
+    let(:level_one_taxons) do
+      JSON.parse(File.read(Rails.root.join("features/fixtures/level_one_taxon.json")))
+    end
+
+    before :each do
+      topic_taxonomy_has_taxons(level_one_taxons)
+    end
+
+    context "when a level one taxon is selected" do
+      subject { TaxonFacet.new({}, { "level_one_taxon" => "3cf97f69-84de-41ae-bc7b-7e2cc238fa58" }) } # /environment level one taxon
+
+      it "returns selected level one taxon value" do
+        expect(subject.selected_taxon_value[:text]).to eql "Environment"
+        expect(subject.selected_taxon_value[:value]).to eql "3cf97f69-84de-41ae-bc7b-7e2cc238fa58"
+        expect(subject.selected_taxon_value[:sub_topics].count).to eql 2
+      end
+    end
+
+    context "when a level two taxon is selected" do
+      subject { TaxonFacet.new({}, { "level_two_taxon" => "52ff5c99-a17b-42c4-a9d7-2cc92cccca39" }) } # /environment/food-and-faming level two taxon
+
+      it "returns selected level two taxon value" do
+        expect(subject.selected_taxon_value[:text]).to eql "Food and farming"
+        expect(subject.selected_taxon_value[:value]).to eql "52ff5c99-a17b-42c4-a9d7-2cc92cccca39"
+        expect(subject.selected_taxon_value[:sub_topics].count).to eql 1
+      end
+    end
+
+    context "when a topic is selected" do
+      subject { TaxonFacet.new({}, { "topic" => "/environment/farming-food-grants-payments" }) }
+
+      it "returns selected topic value" do
+        expect(subject.selected_taxon_value[:text]).to eql "Farming and food grants and payments"
+        expect(subject.selected_taxon_value[:value]).to eql "2368b8b1-9405-4e66-b396-a5d54b777a0a"
+        expect(subject.selected_taxon_value[:sub_topics].count).to eql 1
+      end
+    end
+  end
 end
