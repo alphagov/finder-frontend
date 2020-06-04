@@ -1,7 +1,7 @@
 class EmailAlertSubscriptionsController < ApplicationController
   layout "finder_layout"
   protect_from_forgery except: :create
-  before_action :signup_presenter
+  before_action :signup_presenter, :selected_taxon
   helper_method :subscriber_list_params
 
   def create
@@ -31,6 +31,10 @@ private
 
   def signup_presenter
     @signup_presenter ||= SignupPresenter.new(content_item, params)
+  end
+
+  def selected_taxon
+    @selected_taxon ||= TaxonFacet.new({}, params.slice("level_one_taxon", "level_two_taxon", "topic")).selected_taxon_value
   end
 
   def subscriber_list_params

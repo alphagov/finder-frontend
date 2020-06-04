@@ -9,18 +9,6 @@ class SignupPresenter
     @params = params
   end
 
-  def selected_taxon
-    taxon_facet.selected_taxon_value
-  end
-
-  def taxon_facet
-    TaxonFacet.new({}, params.slice("level_one_taxon", "level_two_taxon", "topic"))
-  end
-
-  def sub_taxons
-    selected_taxon[:sub_topics]
-  end
-
   def page_title
     "#{name} emails"
   end
