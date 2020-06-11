@@ -6,9 +6,3 @@ inherit_gem:
 inherit_mode:
   merge:
     - Exclude
-
-# This app does not use ActiveRecord
-Rails/DynamicFindBy:
-  Whitelist:
-    - find_by_key
-    - find_by_id
