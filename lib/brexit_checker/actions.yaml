@@ -461,12 +461,14 @@ actions:
   guidance_link_text: Changes to copyright law from 1 January 2021
   guidance_url: https://www.gov.uk/guidance/changes-to-copyright-law-after-the-transition-period
   criteria:
-  - any_of:
-    - media
-    - digital
-    - telecoms
-    - personal-eu-org-provide
-    - ip-copyright
+  - all_of:
+    - any_of:
+      - media
+      - digital
+      - telecoms
+    - any_of:
+      - personal-eu-org-provide
+      - ip-copyright
   audience: business
 - id: T012
   priority: 5
@@ -479,16 +481,17 @@ actions:
   guidance_link_text: Exhaustion of IP rights and parallel trade from 1 January 2021
   guidance_url: https://www.gov.uk/guidance/exhaustion-of-ip-rights-and-parallel-trade-after-the-transition-period
   criteria:
-  - any_of:
-    - import-from-eu
-    - export-to-eu
-    - haulage-goods-across-eu-borders
-    - ip
-    - ip-copyright
-    - ip-trade-marks
-    - ip-designs
-    - ip-patents
-    - ip-exhaustion-rights
+  - all_of:
+    - any_of:
+      - export-to-eu
+      - haulage-goods-across-eu-borders
+    - any_of:
+      - ip
+      - ip-copyright
+      - ip-trade-marks
+      - ip-designs
+      - ip-patents
+      - ip-exhaustion-rights
   audience: business
 - id: T013
   priority: 5
@@ -573,9 +576,7 @@ actions:
   criteria:
   - any_of:
     - nuclear
-    - electricity
     - mining
-    - medical-tech
   audience: business
 - id: T021
   priority: 5
@@ -652,6 +653,7 @@ actions:
   criteria:
   - any_of:
     - digital
+    - telecoms
     - personal-eu-org-provide
   audience: business
 - id: T028
@@ -681,12 +683,13 @@ actions:
   guidance_link_text: Importing and exporting plants and plant products from 2021
   guidance_url: https://www.gov.uk/guidance/importing-and-exporting-plants-and-plant-products-if-theres-no-withdrawal-deal
   criteria:
-  - any_of:
-    - agriculture-farm
-    - forestry
-    - food-drink-tobacco
-    - export-to-eu
-    - import-from-eu
+  - all_of:
+    - any_of:
+      - agriculture-farm
+      - forestry
+    - any_of:
+      - export-to-eu
+      - import-from-eu
   audience: business
 - id: T033
   priority: 8
@@ -699,11 +702,11 @@ actions:
   guidance_link_text: Fresh fruit and vegetable marketing standards from 2021
   guidance_url: https://www.gov.uk/guidance/fresh-fruit-and-vegetable-marketing-standards-if-the-uk-leaves-the-eu-without-a-deal
   criteria:
-  - any_of:
+  - all_of:
     - export-to-eu
-    - forestry
-    - agriculture-farm
-    - food-drink-tobacco
+    - any_of:
+      - agriculture-farm
+      - food-drink-tobacco
   audience: business
 - id: T034
   priority: 8
@@ -748,7 +751,9 @@ actions:
   criteria:
   - any_of:
     - food-drink-tobacco
-    - export-to-eu
+    - animal-ex-food
+    - fish-inc-wholesale
+    - agriculture-farm
   audience: business
 - id: T038
   priority: 8
@@ -759,8 +764,12 @@ actions:
   guidance_link_text: Trading and labelling organic food from 2021
   guidance_url: https://www.gov.uk/guidance/trading-and-labelling-organic-food-if-theres-no-brexit-deal
   criteria:
-  - any_of:
-    - food-drink-tobacco
+  - all_of:
+    - any_of:
+      - food-drink-tobacco
+      - animal-ex-food
+      - fish-inc-wholesale
+      - agriculture-farm
     - export-to-eu
   audience: business
 - id: T045
@@ -912,8 +921,6 @@ actions:
   criteria:
   - any_of:
     - road-passenger-freight
-    - import-from-eu
-    - export-to-eu
     - haulage-goods-across-eu-borders
   audience: business
 - id: T066
@@ -1002,9 +1009,6 @@ actions:
   guidance_url: https://www.gov.uk/guidance/changes-to-eu-and-international-designs-and-trade-mark-protection-after-the-transition-period
   criteria:
   - any_of:
-    - creative
-    - culture
-    - consumer-goods
     - ip-copyright
     - ip-designs
   audience: business
@@ -1157,13 +1161,14 @@ actions:
   guidance_link_text: Trading in drug precursors from 2021
   guidance_url: https://www.gov.uk/government/publications/trading-in-drug-precursors-if-theres-no-brexit-deal
   criteria:
-  - any_of:
-    - all_of:
-      - any_of:
-        - import-from-eu
-        - export-to-eu
+  - all_of:
+    - any_of:
+      - pharma
       - chemical
-    - non-metal-material
+      - non-metal-material
+    - any_of:
+      - export-to-eu
+      - import-from-eu
   audience: business
 - id: T096
   priority: 1
@@ -1174,10 +1179,11 @@ actions:
   guidance_link_text: Importing and exporting waste from 2021
   guidance_url: https://www.gov.uk/guidance/importing-and-exporting-waste-if-theres-no-brexit-deal
   criteria:
-  - any_of:
+  - all_of:
     - environment
-    - import-from-eu
-    - export-to-eu
+    - any_of:
+      - import-from-eu
+      - export-to-eu
   audience: business
 - id: T097
   priority: 2
