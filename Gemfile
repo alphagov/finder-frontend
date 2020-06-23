@@ -40,7 +40,7 @@ group :development, :test do
 end
 
 group :test do
-  gem "cucumber-rails", "~> 2.0.0", require: false
+  gem "cucumber-rails", "~> 2.1.0", require: false
   gem "factory_bot"
   gem "govuk-content-schema-test-helpers", "~> 1.6"
   gem "govuk_test"
