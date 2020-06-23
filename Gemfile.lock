@@ -136,7 +136,7 @@ GEM
     faraday (1.0.1)
       multipart-post (>= 1.2, < 3)
     ffi (1.12.2)
-    gds-api-adapters (63.6.0)
+    gds-api-adapters (67.0.0)
       addressable
       link_header
       null_logger
@@ -457,7 +457,7 @@ DEPENDENCIES
   dalli
   dotenv-rails
   factory_bot
-  gds-api-adapters (~> 63.6)
+  gds-api-adapters (~> 67.0)
   google-api-client
   govuk-content-schema-test-helpers (~> 1.6)
   govuk_ab_testing (~> 2.4.1)
