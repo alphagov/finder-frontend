@@ -26,10 +26,12 @@ class FindersController < ApplicationController
         end
       end
       format.atom do
-        @search_query = initialize_search_query(is_for_feed: true)
         if content_item.is_redirect?
           redirect_to_destination
+        elsif covid_topical_event_feed? # delete me after July 2020
+          show_retired_covid_feed
         else
+          @search_query = initialize_search_query(is_for_feed: true)
           expires_in(ATOM_FEED_MAX_AGE, public: true)
           @feed = AtomPresenter.new(content_item, results, facet_tags)
         end
@@ -196,5 +198,13 @@ private
 
   def debug_score?
     params[:debug_score]
+  end
+
+  def covid_topical_event_feed?
+    filter_params["topical_events"] && filter_params["topical_events"].include?("coronavirus-covid-19-uk-government-response")
+  end
+
+  def show_retired_covid_feed
+    render "finders/retired_covid_feed"
   end
 end
