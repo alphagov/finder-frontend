@@ -58,7 +58,7 @@ describe Services::EmailAlertApi do
     context "email alert api refuses to create the subscriber list" do
       before do
         stub_email_alert_api_does_not_have_subscriber_list(subscriber_list_options)
-        email_alert_api_refuses_to_create_subscriber_list
+        stub_email_alert_api_refuses_to_create_subscriber_list
       end
 
       it "bubbles up the 422 error" do
