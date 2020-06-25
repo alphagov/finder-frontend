@@ -220,6 +220,19 @@ describe FindersController, type: :controller do
       end
     end
 
+    describe "Feeds for the retired coronavirus topical event" do
+      before do
+        stub_content_store_has_item("/search/all", all_content_finder)
+      end
+
+      it "returns a message indicating the atom feed has ended" do
+        get :show, params: { slug: "search/all", format: "atom", topical_events: %w[coronavirus-covid-19-uk-government-response] }
+
+        expect(response.status).to eq(200)
+        expect(response.body).to include("We've changed the way coronavirus content is organised on GOV.​UK")
+      end
+    end
+
     describe "Show/Hiding site search form" do
       before do
         stub_content_store_has_item("/search/all", all_content_finder)
