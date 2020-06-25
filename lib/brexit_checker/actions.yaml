@@ -312,7 +312,7 @@ actions:
   - living-uk
 - id: S029
   priority: 11
-  title: Apply to be a resident in the EU country you live in
+  title: Find out how to apply to be a resident in the EU country you live in
   title_url: https://www.gov.uk/uk-nationals-living-eu
   consequence: You may need to leave the country you live in if you are not a resident.
   criteria:
@@ -461,12 +461,14 @@ actions:
   guidance_link_text: Changes to copyright law from 1 January 2021
   guidance_url: https://www.gov.uk/guidance/changes-to-copyright-law-after-the-transition-period
   criteria:
-  - any_of:
-    - media
-    - digital
-    - telecoms
-    - personal-eu-org-provide
-    - ip-copyright
+  - all_of:
+    - any_of:
+      - media
+      - digital
+      - telecoms
+    - any_of:
+      - personal-eu-org-provide
+      - ip-copyright
   audience: business
 - id: T012
   priority: 5
@@ -479,16 +481,17 @@ actions:
   guidance_link_text: Exhaustion of IP rights and parallel trade from 1 January 2021
   guidance_url: https://www.gov.uk/guidance/exhaustion-of-ip-rights-and-parallel-trade-after-the-transition-period
   criteria:
-  - any_of:
-    - import-from-eu
-    - export-to-eu
-    - haulage-goods-across-eu-borders
-    - ip
-    - ip-copyright
-    - ip-trade-marks
-    - ip-designs
-    - ip-patents
-    - ip-exhaustion-rights
+  - all_of:
+    - any_of:
+      - export-to-eu
+      - haulage-goods-across-eu-borders
+    - any_of:
+      - ip
+      - ip-copyright
+      - ip-trade-marks
+      - ip-designs
+      - ip-patents
+      - ip-exhaustion-rights
   audience: business
 - id: T013
   priority: 5
@@ -554,28 +557,23 @@ actions:
     spent fuel into and out of the UK
   consequence: Failing to comply with the new regulations will be a criminal offence.
   guidance_prompt: More information
-  guidance_link_text: Shipping radioactive sources between the UK and EU from 1 January
-    2021
+  guidance_link_text: Shipping radioactive waste and spent fuel from 1 January 2021
   guidance_url: https://www.gov.uk/guidance/shipping-radioactive-waste-and-spent-fuel-from-1-january-2021
   criteria:
   - nuclear
   audience: business
 - id: T020
   priority: 5
-  title: Make sure you comply with the correct rules on moving radioactive material
-    into and out of the UK
-  consequence: You will not be able to move radioactive sources into the UK if you
-    do not follow the correct rules.
+  title: Check the rules for moving radioactive sources into the UK
+  consequence: You will not be able to move radioactive sources into the UK from the
+    EU without making a written declaration.
   guidance_prompt: More information
-  guidance_link_text: Shipping radioactive sources between the UK and EU from 1 January
-    2021
+  guidance_link_text: Shipping radioactive sources from 1 January 2021
   guidance_url: https://www.gov.uk/guidance/shipping-radioactive-sources-between-the-uk-and-eu-from-1-january-2021
   criteria:
   - any_of:
     - nuclear
-    - electricity
     - mining
-    - medical-tech
   audience: business
 - id: T021
   priority: 5
@@ -652,6 +650,7 @@ actions:
   criteria:
   - any_of:
     - digital
+    - telecoms
     - personal-eu-org-provide
   audience: business
 - id: T028
@@ -681,12 +680,13 @@ actions:
   guidance_link_text: Importing and exporting plants and plant products from 2021
   guidance_url: https://www.gov.uk/guidance/importing-and-exporting-plants-and-plant-products-if-theres-no-withdrawal-deal
   criteria:
-  - any_of:
-    - agriculture-farm
-    - forestry
-    - food-drink-tobacco
-    - export-to-eu
-    - import-from-eu
+  - all_of:
+    - any_of:
+      - agriculture-farm
+      - forestry
+    - any_of:
+      - export-to-eu
+      - import-from-eu
   audience: business
 - id: T033
   priority: 8
@@ -699,11 +699,11 @@ actions:
   guidance_link_text: Fresh fruit and vegetable marketing standards from 2021
   guidance_url: https://www.gov.uk/guidance/fresh-fruit-and-vegetable-marketing-standards-if-the-uk-leaves-the-eu-without-a-deal
   criteria:
-  - any_of:
+  - all_of:
     - export-to-eu
-    - forestry
-    - agriculture-farm
-    - food-drink-tobacco
+    - any_of:
+      - agriculture-farm
+      - food-drink-tobacco
   audience: business
 - id: T034
   priority: 8
@@ -748,7 +748,9 @@ actions:
   criteria:
   - any_of:
     - food-drink-tobacco
-    - export-to-eu
+    - animal-ex-food
+    - fish-inc-wholesale
+    - agriculture-farm
   audience: business
 - id: T038
   priority: 8
@@ -759,9 +761,27 @@ actions:
   guidance_link_text: Trading and labelling organic food from 2021
   guidance_url: https://www.gov.uk/guidance/trading-and-labelling-organic-food-if-theres-no-brexit-deal
   criteria:
+  - all_of:
+    - any_of:
+      - food-drink-tobacco
+      - animal-ex-food
+      - fish-inc-wholesale
+      - agriculture-farm
+    - export-to-eu
+  audience: business
+- id: T044
+  priority: 5
+  title: Enrol with the Rural Payments Agency to prepare to export hops to the EU
+  consequence: You will not be able to apply for the correct documents you'll need
+    to export hops to the EU if you do not enrol.
+  lead_time: It takes 5 days
+  guidance_prompt: More information
+  guidance_link_text: Enrol with the Rural Payments Agency
+  guidance_url: https://www.gov.uk/government/publications/enrol-with-the-rural-payments-agency-to-export-hops-to-the-eu
+  criteria:
   - any_of:
     - food-drink-tobacco
-    - export-to-eu
+    - agriculture-farm
   audience: business
 - id: T045
   priority: 5
@@ -908,12 +928,10 @@ actions:
     right documents.
   guidance_prompt: More information
   guidance_link_text: 'International road haulage: operator licences and permits'
-  guidance_url: https://www.gov.uk/guidance/international-authorisations-and-permits-for-road-haulage
+  guidance_url: https://www.gov.uk/guidance/carry-out-international-road-haulage-from-1-january-2021
   criteria:
   - any_of:
     - road-passenger-freight
-    - import-from-eu
-    - export-to-eu
     - haulage-goods-across-eu-borders
   audience: business
 - id: T066
@@ -999,12 +1017,9 @@ actions:
   guidance_prompt: More information
   guidance_link_text: Changes to EU and international designs and trade mark protection
     from 1 January 2021
-  guidance_url: https://www.gov.uk/guidance/changes-to-eu-and-international-designs-and-trade-mark-protection-after-the-transition-period
+  guidance_url: https://www.gov.uk/guidance/changes-to-unregistered-designs-after-the-transition-period
   criteria:
   - any_of:
-    - creative
-    - culture
-    - consumer-goods
     - ip-copyright
     - ip-designs
   audience: business
@@ -1157,13 +1172,14 @@ actions:
   guidance_link_text: Trading in drug precursors from 2021
   guidance_url: https://www.gov.uk/government/publications/trading-in-drug-precursors-if-theres-no-brexit-deal
   criteria:
-  - any_of:
-    - all_of:
-      - any_of:
-        - import-from-eu
-        - export-to-eu
+  - all_of:
+    - any_of:
+      - pharma
       - chemical
-    - non-metal-material
+      - non-metal-material
+    - any_of:
+      - export-to-eu
+      - import-from-eu
   audience: business
 - id: T096
   priority: 1
@@ -1174,10 +1190,11 @@ actions:
   guidance_link_text: Importing and exporting waste from 2021
   guidance_url: https://www.gov.uk/guidance/importing-and-exporting-waste-if-theres-no-brexit-deal
   criteria:
-  - any_of:
+  - all_of:
     - environment
-    - import-from-eu
-    - export-to-eu
+    - any_of:
+      - import-from-eu
+      - export-to-eu
   audience: business
 - id: T097
   priority: 2
@@ -1218,4 +1235,15 @@ actions:
   - any_of:
     - import-from-eu
     - export-to-eu
+  audience: business
+- id: T100
+  priority: 5
+  title: Apply for a licence to export cultural objects
+  consequence: You might not be able to take items such as works of art and historical
+    objects out of the UK without the correct licence.
+  guidance_prompt: More information
+  guidance_link_text: Exporting objects of cultural interest from 1 January 2021
+  guidance_url: https://www.gov.uk/government/publications/exporting-objects-of-cultural-interest-if-theres-no-brexit-deal
+  criteria:
+  - culture
   audience: business
