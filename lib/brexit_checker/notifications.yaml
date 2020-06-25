@@ -112,3 +112,50 @@ notifications:
      action_id: T089
      date: 2020-05-14
      note: "New advice to contact a vet to find out what you need do to move horses or other equines"
+   - uuid: "79f362cd-dc2a-4de2-a7fc-3887588298e7"
+     type: addition
+     action_id: T100
+     date: 2020-06-25
+     criteria:
+       - all_of:
+         - culture
+   - uuid: "6533c03c-0ffd-4252-ae16-0ec6e75447e6"
+     type: content_change
+     action_id: T035
+     date: 2020-06-25
+     note: "Link changed to send businesses to a page where they can apply to become an approved food establishment."
+     criteria:
+       - all_of:
+         - export-to-eu
+         - any_of:
+           - food-drink-tobacco
+           - animal-ex-food
+           - fish-inc-wholesale
+           - agriculture-farm
+   - uuid: "a0d8df14-ce9e-41bc-a6da-12317c65cc11"
+     type: content_change
+     action_id: T080
+     date: 2020-06-25
+     note: "There is new guidance that focuses specifically on unregistered designs. The actions you must take remains the same."
+     criteria:
+       - any_of:
+         - ip-copyright
+         - ip-designs
+   - uuid: "5d3952a9-0dc4-48c7-b761-89ce840783cc"
+     type: content_change
+     action_id: T065
+     date: 2020-06-25
+     note: "There is new guidance that is more specific. It tells UK goods vehicle operators what they need to do to carry out international road haulage from 1 January 2021."
+     criteria:
+       - any_of:
+         - road-passenger-freight
+         - haulage-goods-across-eu-borders
+   - uuid: "1b3874e4-de91-4d92-af48-5ea906de2251"
+     type: content_change
+     action_id: T044
+     date: 2020-06-25
+     note: "You will now need to enrol with the Rural Payments Agency if you plan to export hops to the EU from 1 January 2021."
+     criteria:
+       - any_of:
+         - food-drink-tobacco
+         - agriculture-farm
