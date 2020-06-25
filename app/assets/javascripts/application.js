@@ -21,7 +21,7 @@ jQuery(function ($) {
 
   var $atomAutodiscoveryLink = $("link[type='application/atom+xml']").eq('0')
 
-  var $transitionSubscribeButton = document.querySelector('#checklist-email-signup button.js-subscribe-button')
+  var $transitionSubscribeButton = document.querySelector('.js-subscribe-button-tracker')
 
   $elementsRequiringJavascript.show()
 

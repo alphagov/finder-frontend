@@ -17,7 +17,7 @@ describe('Email subscription button tracking', function () {
     spyOn(GOVUK.analytics, 'trackEvent')
 
     $element = document.createElement('button')
-    $element.className = 'js-subscribe-button'
+    $element.className = '.js-subscribe-button-tracker'
     var buttonText = document.createTextNode('subscribe-button')
     $element.appendChild(buttonText)
 
