@@ -1,33 +1,6 @@
 class RedirectionController < ApplicationController
-  include PublicationsRoutes
-  DEFAULT_PUBLICATIONS_PATH = "search/all".freeze
-
-  def announcements
-    respond_to do |format|
-      format.html { redirect_to(finder_path("search/news-and-communications", params: convert_common_parameters)) }
-      format.atom { redirect_to(finder_path("search/news-and-communications", params: convert_common_parameters, format: :atom)) }
-    end
-  end
-
-  def publications
-    respond_to do |format|
-      format.html { redirect_to(finder_path(publications_base_path, params: convert_common_parameters.merge(content_store_document_type: set_document_type).compact)) }
-      format.atom { redirect_to(finder_path(publications_base_path, params: convert_common_parameters.merge(content_store_document_type: set_document_type).compact, format: :atom)) }
-    end
-  end
-
-  def published_statistics
-    respond_to do |format|
-      format.html { redirect_to(finder_path("search/statistics", params: convert_common_parameters)) }
-      format.atom { redirect_to(finder_path("search/statistics", params: convert_common_parameters, format: :atom)) }
-    end
-  end
-
-  def upcoming_statistics
-    respond_to do |format|
-      format.html { redirect_to(finder_path("search/statistics", params: convert_common_parameters.merge(content_store_document_type: :statistics_upcoming))) }
-      format.atom { redirect_to(finder_path("search/statistics", params: convert_common_parameters.merge(content_store_document_type: :statistics_upcoming), format: :atom)) }
-    end
+  def redirect_covid
+    redirect_to(finder_path(params[:slug], params: covid_topic_and_other_params))
   end
 
   def advanced_search
@@ -56,23 +29,15 @@ class RedirectionController < ApplicationController
 
 private
 
-  def publications_base_path
-    base_path = PUBLICATIONS_ROUTES.dig(params[:publication_filter_option], :base_path)
-    base_path || DEFAULT_PUBLICATIONS_PATH
-  end
-
-  def set_document_type
-    PUBLICATIONS_ROUTES.dig(params[:publication_filter_option], :special_params, :content_store_document_type)
-  end
-
-  def convert_common_parameters
-    { keywords: params["keywords"],
-      level_one_taxon: params["taxons"].try(:first) || params["topics"].try(:first),
-      level_two_taxon: params["subtaxons"].try(:first),
-      organisations: params["departments"] || params["organisations"],
-      people: params["people"],
-      roles: params["roles"],
-      world_locations: params["world_locations"],
-      public_timestamp: { from: params["from_date"], to: params["to_date"] }.compact.presence }.compact
+  def covid_topic_and_other_params
+    {
+      keywords: filter_params["keywords"],
+      level_one_taxon: "5b7b9532-a775-4bd2-a3aa-6ce380184b6c",
+      organisations: filter_params["organisations"],
+      people: filter_params["people"],
+      public_timestamp: filter_params["public_timestamp"],
+      roles: filter_params["roles"],
+      world_locations: filter_params["world_locations"],
+    }.compact
   end
 end
