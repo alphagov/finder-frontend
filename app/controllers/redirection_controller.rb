@@ -2,6 +2,10 @@ class RedirectionController < ApplicationController
   include PublicationsRoutes
   DEFAULT_PUBLICATIONS_PATH = "search/all".freeze
 
+  def redirect_covid
+    redirect_to(finder_path(params[:slug], params: covid_topic_and_other_params))
+  end
+
   def announcements
     respond_to do |format|
       format.html { redirect_to(finder_path("search/news-and-communications", params: convert_common_parameters)) }
@@ -74,5 +78,17 @@ private
       roles: params["roles"],
       world_locations: params["world_locations"],
       public_timestamp: { from: params["from_date"], to: params["to_date"] }.compact.presence }.compact
+  end
+
+  def covid_topic_and_other_params
+    {
+      keywords: filter_params["keywords"],
+      level_one_taxon: "5b7b9532-a775-4bd2-a3aa-6ce380184b6c",
+      organisations: filter_params["organisations"],
+      people: filter_params["people"],
+      public_timestamp: filter_params["public_timestamp"],
+      roles: filter_params["roles"],
+      world_locations: filter_params["world_locations"],
+    }.compact
   end
 end

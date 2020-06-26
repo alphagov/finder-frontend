@@ -3,6 +3,42 @@ require "spec_helper"
 describe RedirectionController, type: :controller do
   include TaxonomySpecHelper
 
+  describe "#redirect_covid" do
+    it "redirects to the same slug with the coronavirus taxon" do
+      get :redirect_covid, params: {
+        slug: "search/random-finder",
+      }
+      expect(response).to redirect_to finder_path("search/random-finder",
+                                                  params: {
+                                                    level_one_taxon: "5b7b9532-a775-4bd2-a3aa-6ce380184b6c",
+                                                  })
+    end
+
+    it "replaces the topical event with the coronavirus taxon, overwriting other taxons" do
+      get :redirect_covid, params: {
+        "slug" => "any-finder",
+        "keywords" => "one two",
+        "level_one_taxon" => "one",
+        "level_two_taxon" => "two",
+        "people" => %w[one two],
+        "organisations" => %w[one two],
+        "world_locations" => %w[one two],
+        "public_timestamp" => { "from" => "01/01/2014", "to" => "01/01/2014" },
+        "topical_events" => %w[anything],
+      }
+      expect(response).to redirect_to finder_path(
+        "any-finder", params: {
+          keywords: "one two",
+          level_one_taxon: "5b7b9532-a775-4bd2-a3aa-6ce380184b6c",
+          people: %w[one two],
+          organisations: %w[one two],
+          world_locations: %w[one two],
+          public_timestamp: { from: "01/01/2014", to: "01/01/2014" },
+        }
+      )
+    end
+  end
+
   describe "#announcements" do
     it "redirects to the news-and-comms page" do
       get :announcements

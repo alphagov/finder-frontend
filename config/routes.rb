@@ -43,5 +43,10 @@ FinderFrontend::Application.routes.draw do
 
   get "/redirect/statistics/announcements" => "redirection#upcoming_statistics"
 
+  get "/*slug" => "redirection#redirect_covid", constraints: lambda { |request|
+    topical_events = request.params["topical_events"]
+    topical_events && topical_events.include?("coronavirus-covid-19-uk-government-response")
+  }
+
   get "/*slug" => "finders#show", as: :finder
 end
