@@ -1,7 +1,13 @@
 ---
 criteria:
 - key: owns-operates-business-organisation
-  text: You own or operate a business or organisation
+  text: You own or run a business or organisation
+- key: owns-operates-business-organisation-uk
+  text: You own or run a business or organisation in the UK
+- key: owns-operates-business-organisation-eu
+  text: You own or run a business or organisation in the EU
+- key: owns-operates-business-organisation-row
+  text: You own or run a business outside the UK and EU
 - key: does-not-own-operate-business-organisation
   text: You do not own or operate a business or organisation
 - key: aero-space
