@@ -346,8 +346,10 @@ questions:
         value: export-to-eu
       - label: "Provide services or do business in the EU"
         value: provide-services-do-business-in-eu
-      - label: "Transporting goods across EU borders"
+      - label: "Transport goods across EU borders"
         value: haulage-goods-across-eu-borders
+      - label: "Trade with developing countries"
+        value: trade-developing
 
   - key: sector-business-area
     criteria:

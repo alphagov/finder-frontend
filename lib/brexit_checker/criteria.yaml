@@ -242,3 +242,5 @@ criteria:
   text: You plan to move to the EU
 - key: move-to-eu-no
   text: You do not plan to move to the EU
+- key: trade-developing
+  text: Your business trades with developing countries
