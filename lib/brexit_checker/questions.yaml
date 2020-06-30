@@ -130,6 +130,24 @@ questions:
       - label: Take your pet or an assistance dog
         value: visiting-bring-pet
 
+  - key: move-eu
+    caption: About you and your family
+    criteria:
+      - all_of:
+        - nationality-uk
+        - any_of:
+          - living-uk
+          - living-ie
+          - living-row
+    type: single
+    text: Do you plan to move to the EU or visit for more than 90 days?
+    hint_text: This includes Switzerland, Norway, Iceland or Liechtenstein but does not include Ireland.
+    options:
+      - label: "Yes"
+        value: move-to-eu
+      - label: "No"
+        value: move-to-eu-no
+
   - key: returning
     caption: About you and your family
     criteria:
