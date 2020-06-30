@@ -301,6 +301,18 @@ questions:
       - label: "No"
         value: do-not-ip
 
+  - key: eu-domain
+    caption: About your business
+    criteria:
+      - owns-operates-business-organisation-uk
+    type: "single"
+    text: "Do you run a website with a .eu domain?"
+    options:
+      - label: "Yes"
+        value: eu-domain
+      - label: "No"
+        value: eu-domain-no
+
   - key: business-activity
     criteria:
       - owns-operates-business-organisation-uk
