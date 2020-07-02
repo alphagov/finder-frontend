@@ -1049,16 +1049,18 @@ actions:
   audience: business
 - id: T085
   priority: 5
-  title: Check what you need to do to continue to work or provide legal services in
-    the EU, Norway, Iceland or Liechtenstein, if you're a lawyer with a UK qualification
-  consequence: You risk not being able to continue working or providing legal services
-    in the EU if you do not prepare.
+  title: Get your UK qualification recognised if you want to work in a regulated profession
+    in the EU, Norway, Iceland or Liechtenstein
+  consequence: You risk not being able to continue working or providing services in
+    the EU if you do not prepare.
   guidance_prompt: More information
-  guidance_link_text: UK lawyers practising in the EU, Norway, Iceland or Liechtenstein
-    from 1 January 2021
-  guidance_url: https://www.gov.uk/government/publications/uk-lawyers-practising-in-the-eu-norway-iceland-or-liechtenstein-from-1-january-2021
+  guidance_link_text: Recognition of professional qualifications
+  guidance_url: https://www.gov.uk/guidance/providing-services-to-any-country-in-the-eu-iceland-liechtenstein-norway-or-switzerland-after-eu-exit#recognition-of-professional-qualifications
   criteria:
-  - legal-service
+  - any_of:
+    - finance
+    - legal-service
+    - construction
   audience: business
 - id: T086
   priority: 5
@@ -1247,3 +1249,127 @@ actions:
   criteria:
   - culture
   audience: business
+- id: T101
+  priority: 5
+  title: Register for a licence to export dual-use items to the EU and Channel Islands 
+  consequence: You will not be able to export your goods without an export licence.
+  guidance_prompt: More information
+  guidance_link_text: Exporting controlled goods from 1 January 2021
+  guidance_url: https://www.gov.uk/guidance/exporting-controlled-goods-after-eu-exit
+  criteria:
+  - any_of:
+    - electronic-machinery
+    - defence
+    - nuclear
+    - medical-tech
+    - consumer-goods
+    - chemical
+    - metal
+    - mining
+    - non-metal-material
+  audience: business
+- id: T102
+  priority: 9
+  title: Find out how to export your goods to the UK if you're an overseas business
+  consequence: You risk not being able to export your goods to the UK after 1 January
+    2021.
+  guidance_prompt: More information
+  guidance_link_text: Trading with the UK as an overseas exporter
+  guidance_url: https://www.gov.uk/government/collections/trading-with-the-uk-as-an-overseas-exporter
+  criteria:
+  - any_of:
+    - owns-operates-business-organisation-eu
+    - owns-operates-business-organisation-row
+  audience: business
+- id: T103
+  priority: 8
+  title: Check if you need to pay a tariff on the goods you import from 1 January
+    2021
+  consequence: You risk penalties and your goods not getting through customs if you
+    do not pay the correct tariff.
+  guidance_prompt: More information
+  guidance_link_text: Check UK trade tariffs from 1 January 2021
+  guidance_url: https://www.gov.uk/check-tariffs-1-january-2021
+  criteria:
+  - import-from-eu
+  audience: business
+- id: S038
+  priority: 6
+  title: Sign up for email updates if you're a UK national living in the EU, Switzerland,
+    Norway, Iceland or Liechtenstein
+  consequence: You might miss updates about what you need to do to stay in the country
+    you live in from 1 January 2021.
+  guidance_prompt: More information
+  guidance_link_text: UK nationals living in the EU
+  guidance_url: https://www.gov.uk/uk-nationals-living-eu
+  criteria:
+  - all_of:
+    - nationality-uk
+    - living-eu
+  audience: citizen
+  grouping_criteria:
+  - living-eu
+- id: S040
+  priority: 4
+  title: Check if your benefits will be affected if you move to a country in the EU,
+    Switzerland, Norway, Iceland or Liechtenstein
+  consequence: Your right to receive some UK benefits will change if you move on or
+    after 1 January 2021.
+  guidance_prompt: More information
+  guidance_link_text: Benefits and pensions for UK nationals in the EEA or Switzerland
+  guidance_url: https://www.gov.uk/guidance/benefits-and-pensions-for-uk-nationals-in-the-eea-or-switzerland
+  criteria:
+  - move-to-eu
+  audience: citizen
+  grouping_criteria:
+  - living-eu
+- id: T104
+  priority: 3
+  title: Get provisional GB approval to be able to sell EC-approved vehicles in the
+    UK
+  consequence: You will not be able to sell your products in Great Britain if they
+    are not sent to the VCA for GB approval.
+  guidance_prompt: More information
+  guidance_link_text: Vehicle type-approval from 1 January 2021
+  guidance_url: https://www.gov.uk/guidance/vehicle-type-approval-if-theres-no-brexit-deal
+  criteria:
+  - any_of:
+    - automotive
+    - road-passenger-freight
+    - motor-trade
+  audience: business
+- id: T105
+  priority: 3
+  title: Check you have the correct EU type approval to continue selling vehicles
+    in the EU
+  consequence: You will not be able to continue selling your products in the EU if
+    they are not registered with the correct EU approval authority.
+  guidance_prompt: More information
+  guidance_link_text: Vehicle type-approval from 1 January 2021
+  guidance_url: https://www.gov.uk/guidance/vehicle-type-approval-if-theres-no-brexit-deal
+  criteria:
+  - any_of:
+    - automotive
+    - road-passenger-freight
+    - motor-trade
+  audience: business
+- id: S041
+  priority: 9
+  title: Check what you need to do to access healthcare in the country you'll be living
+    in
+  consequence: If you are not registered for local healthcare or do not have the right
+    insurance, you may have to pay additional costs for your care or may fail to meet
+    residency tests in the country you are living in.
+  guidance_prompt: More information
+  guidance_link_text: Healthcare in the EU, Norway, Iceland, Liechtenstein and Switzerland
+  guidance_url: https://www.gov.uk/government/collections/healthcare-in-the-eu-norway-iceland-liechtenstein-and-switzerland
+  criteria:
+  - all_of:
+    - nationality-uk
+    - any_of:
+      - living-eu
+      - studying-eu
+      - working-eu
+  audience: citizen
+  grouping_criteria:
+  - living-eu

@@ -132,11 +132,13 @@ RSpec.feature "Brexit Checker workflow", type: :feature do
 
   def and_i_answer_business_questions
     answer_question("do-you-own-a-business", "Yes")
+    answer_question("business-uk-or-eu", "UK")
     answer_question("employ-eu-citizens", "No")
     answer_question("personal-data", "No")
     answer_question("eu-uk-government-funding", "No")
     answer_question("public-sector-procurement", "No")
     answer_question("intellectual-property", "No")
+    answer_question("eu-domain", "No")
     answer_question("business-activity", "Export to the EU")
     answer_question("sector-business-area", "Fisheries (including wholesale)")
   end

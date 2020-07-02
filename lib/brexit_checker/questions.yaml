@@ -130,6 +130,24 @@ questions:
       - label: Take your pet or an assistance dog
         value: visiting-bring-pet
 
+  - key: move-eu
+    caption: About you and your family
+    criteria:
+      - all_of:
+        - nationality-uk
+        - any_of:
+          - living-uk
+          - living-ie
+          - living-row
+    type: single
+    text: Do you plan to move to the EU or visit for more than 90 days?
+    hint_text: This includes Switzerland, Norway, Iceland or Liechtenstein but does not include Ireland.
+    options:
+      - label: "Yes"
+        value: move-to-eu
+      - label: "No"
+        value: move-to-eu-no
+
   - key: returning
     caption: About you and your family
     criteria:
@@ -181,7 +199,7 @@ questions:
   - key: do-you-own-a-business
     type: "single"
     caption: About your business
-    text: "Do you own or help to run a UK business or organisation?"
+    text: "Do you own or help to run a business or organisation?"
     description: |
       <p>This includes sole traders (self-employed), limited companies, and small and medium enterprises.</p>
     detail_text: |
@@ -193,10 +211,24 @@ questions:
       - label: "No"
         value: does-not-own-operate-business-organisation
 
-  - key: employ-eu-citizens
+  - key: business-uk-or-eu
+    type: "single"
     caption: About your business
     criteria:
       - owns-operates-business-organisation
+    text: "Where is your business or organisation registered?"
+    options:
+      - label: "UK"
+        value: owns-operates-business-organisation-uk
+      - label: "EU"
+        value: owns-operates-business-organisation-eu
+      - label: "Somewhere else"
+    value: owns-operates-business-organisation-row
+
+  - key: employ-eu-citizens
+    caption: About your business
+    criteria:
+      - owns-operates-business-organisation-uk
     type: "single"
     text: "Do you employ anyone from another European country?"
     description: |
@@ -209,7 +241,7 @@ questions:
 
   - key: personal-data
     criteria:
-      - owns-operates-business-organisation
+      - owns-operates-business-organisation-uk
     caption: About your business
     type: "single_wrapped"
     text: "Do you exchange personal data with another organisation in Europe?"
@@ -231,7 +263,7 @@ questions:
 
   - key: eu-uk-government-funding
     criteria:
-      - owns-operates-business-organisation
+      - owns-operates-business-organisation-uk
     caption: About your business
     type: "single"
     text: "Do you get EU or UK government funding?"
@@ -245,7 +277,7 @@ questions:
 
   - key: public-sector-procurement
     criteria:
-      - owns-operates-business-organisation
+      - owns-operates-business-organisation-uk
     caption: About your business
     type: "single_wrapped"
     text: "Do you sell your products or services to the UK public sector?"
@@ -264,7 +296,7 @@ questions:
 
   - key: intellectual-property
     criteria:
-      - owns-operates-business-organisation
+      - owns-operates-business-organisation-uk
     caption: About your business
     type: "single_wrapped"
     text: "Do you use or rely on intellectual property (IP) protection?"
@@ -287,9 +319,21 @@ questions:
       - label: "No"
         value: do-not-ip
 
+  - key: eu-domain
+    caption: About your business
+    criteria:
+      - owns-operates-business-organisation-uk
+    type: "single"
+    text: "Do you run a website with a .eu domain?"
+    options:
+      - label: "Yes"
+        value: eu-domain
+      - label: "No"
+        value: eu-domain-no
+
   - key: business-activity
     criteria:
-      - owns-operates-business-organisation
+      - owns-operates-business-organisation-uk
     caption: About your business
     type: "multiple"
     text: "Does your business or organisation do any of the following?"
@@ -302,12 +346,14 @@ questions:
         value: export-to-eu
       - label: "Provide services or do business in the EU"
         value: provide-services-do-business-in-eu
-      - label: "Transporting goods across EU borders"
+      - label: "Transport goods across EU borders"
         value: haulage-goods-across-eu-borders
+      - label: "Trade with developing countries"
+        value: trade-developing
 
   - key: sector-business-area
     criteria:
-      - owns-operates-business-organisation
+      - owns-operates-business-organisation-uk
     caption: About your business
     type: "multiple_grouped"
     text: "What does your business or organisation do?"

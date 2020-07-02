@@ -159,3 +159,40 @@ notifications:
        - any_of:
          - food-drink-tobacco
          - agriculture-farm
+   - uuid: "0240a818-cb7f-4ed9-a8d9-5f2e7438d4b5"
+     type: content_change
+     action_id: T085
+     date: 2020-07-01
+     note: "Updated link and guidance to clarify that the action applies to other regulated professions (construction, finance, architecture) as well as legal services."
+   - uuid: "1418a82d-da93-4a35-8f5b-d7b81e4fbcc6"
+     type: addition
+     action_id: T101
+     date: 2020-07-01
+   - uuid: "3e4c599d-9006-4eb5-99eb-50ab4da2ec33"
+     type: addition
+     action_id: T102
+     date: 2020-07-01
+   - uuid: "cfef712e-8353-41d4-9870-6025f0637c85"
+     type: addition
+     action_id: T103
+     date: 2020-07-01
+   - uuid: "35da1d68-9082-402f-b72b-feec000154c9"
+     type: addition
+     action_id: T104
+     date: 2020-07-01
+   - uuid: "e504d423-188f-4929-85ba-3168b7dcacac"
+     type: addition
+     action_id: T105
+     date: 2020-07-01
+   - uuid: "b7a056d7-78c3-4fc3-9977-11a6b3986eeb"
+     type: addition
+     action_id: S038
+     date: 2020-07-01
+   - uuid: "62d381d2-9036-43d9-9b02-bc59023e47b9"
+     type: addition
+     action_id: S040
+     date: 2020-07-01
+   - uuid: "003545ad-add9-4f51-8d7b-ebdb18b2324e"
+     type: addition
+     action_id: S041
+     date: 2020-07-01
