@@ -244,3 +244,5 @@ criteria:
   text: You do not plan to move to the EU
 - key: trade-developing
   text: Your business trades with developing countries
+- key: move-goods-ni
+  text: Your business moves goods into, out of, or through Northern Ireland
