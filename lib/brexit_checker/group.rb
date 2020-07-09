@@ -12,7 +12,8 @@ class BrexitChecker::Group
                                 living-uk
                                 working-uk
                                 studying-eu
-                                studying-uk]
+                                studying-uk
+                                common-travel-area]
 
   attr_reader :key, :heading
 
