@@ -266,9 +266,9 @@ questions:
       - owns-operates-business-organisation-uk
     caption: About your business
     type: "single"
-    text: "Do you get EU or UK government funding?"
+    text: "Do you plan to apply for EU funding?"
     description: |
-      <p>This includes funding like Erasmus+ and Horizon 2020.</p>
+      <p>This includes funding like Horizon 2020.</p>
     options:
       - label: "Yes"
         value: eu-uk-funding
