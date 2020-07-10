@@ -348,6 +348,8 @@ questions:
         value: provide-services-do-business-in-eu
       - label: "Transport goods across EU borders"
         value: haulage-goods-across-eu-borders
+      - label: "Move goods into, out of, or through Northern Ireland"
+        value: move-goods-ni
       - label: "Trade with developing countries"
         value: trade-developing
 
