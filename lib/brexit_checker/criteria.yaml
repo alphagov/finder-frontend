@@ -246,3 +246,5 @@ criteria:
   text: Your business trades with developing countries
 - key: move-goods-ni
   text: Your business moves goods into, out of, or through Northern Ireland
+- key: export-to-row
+  text: Your business exports goods to the rest of the world

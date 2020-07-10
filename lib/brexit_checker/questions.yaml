@@ -350,6 +350,8 @@ questions:
         value: haulage-goods-across-eu-borders
       - label: "Move goods into, out of, or through Northern Ireland"
         value: move-goods-ni
+      - label: "Export to the rest of the world"
+        value: export-to-row
       - label: "Trade with developing countries"
         value: trade-developing
 

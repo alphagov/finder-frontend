@@ -1309,6 +1309,21 @@ actions:
   audience: citizen
   grouping_criteria:
   - living-eu
+- id: S039
+  priority: 1
+  title: Find out your right to live, work or study in the Common Travel Area if you're
+    an Irish or UK national
+  consequence: You can continue to live, work or study within the Common Travel Area.
+  guidance_prompt: More information
+  guidance_link_text: 'Common travel area: rights of UK and Irish citizens'
+  guidance_url: https://www.gov.uk/government/publications/common-travel-area-guidance
+  criteria:
+  - any_of:
+    - nationality-uk
+    - nationality-ie
+  audience: citizen
+  grouping_criteria:
+  - common-travel-area
 - id: S040
   priority: 4
   title: Check if your benefits will be affected if you move to a country in the EU,
@@ -1373,3 +1388,55 @@ actions:
   audience: citizen
   grouping_criteria:
   - living-eu
+- id: T106
+  priority: 8
+  title: Check the rules, tax and duty rates for exporting to the rest of the world
+  consequence: You risk not being able to export your goods if you do not follow the
+    rules.
+  guidance_prompt: More information
+  guidance_link_text: Check duties and customs procedures for exporting goods
+  guidance_url: https://www.gov.uk/check-duties-customs-exporting
+  criteria:
+  - export-to-row
+  audience: business
+- id: T107
+  priority: 3
+  title: Apply for Horizon 2020 funding
+  consequence: You may miss out on Horizon 2020 funding opportunities if you do not
+    apply.
+  guidance_prompt: More information
+  guidance_link_text: 'Horizon 2020: what it is and how to apply for funding'
+  guidance_url: https://www.gov.uk/guidance/horizon-2020-what-it-is-and-how-to-apply-for-funding#what-horizon-2020-can-do-for-you-as-a-uk-business
+  criteria:
+  - eu-uk-funding
+  audience: business
+- id: T108
+  priority: 9
+  title: Check how to trade or move goods into, out of, or through Northern Ireland
+  consequence: You may not be able to trade or move goods if you do not follow the
+    new rules.
+  guidance_prompt: More information
+  guidance_link_text: Moving goods into, out of, or through Northern Ireland from
+    1 January 2021
+  guidance_url: https://www.gov.uk/guidance/moving-goods-into-out-of-or-through-northern-ireland-from-1-january-2021
+  criteria:
+  - move-goods-ni
+  audience: business
+- id: T109
+  priority: 8
+  title: Get ready to export to the EU from 1 January 2021
+  title_url: https://www.gov.uk/prepare-to-export-from-great-britain-from-january-2021
+  consequence: You will not be able to export goods to the EU unless you follow the
+    new process.
+  criteria:
+  - export-to-eu
+  audience: business
+- id: T110
+  priority: 8
+  title: Get ready to import goods from the EU from 1 January 2021
+  title_url: https://www.gov.uk/prepare-to-import-to-great-britain-from-january-2021
+  consequence: You will not be able to import goods from the EU without following
+    the new process. 
+  criteria:
+  - import-from-eu
+  audience: business
