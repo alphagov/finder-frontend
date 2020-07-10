@@ -3,12 +3,11 @@ require "addressable/uri"
 class EmailAlertSignupAPI
   class UnprocessableSubscriberListError < StandardError; end
 
-  def initialize(applied_filters:, default_filters:, facets:, subscriber_list_title:, email_filter_by: nil)
+  def initialize(applied_filters:, default_filters:, facets:, subscriber_list_title:)
     @applied_filters = applied_filters.deep_symbolize_keys
     @default_filters = default_filters.deep_symbolize_keys
     @facets = facets
     @subscriber_list_title = subscriber_list_title
-    @email_filter_by = email_filter_by
   end
 
   def signup_url
@@ -79,19 +78,6 @@ private
 
   def facet_filter_keys
     @facet_filter_keys ||= facets.map { |f| f["filter_key"] || f["facet_id"] }
-  end
-
-  def facet_values?
-    email_filter_by == "facet_values"
-  end
-
-  def facet_values
-    @facet_values ||= filter_keys.each_with_object({}) do |key, links_hash|
-      values = values_for_key(key)
-      links_hash["facet_values"] ||= {}
-      links_hash["facet_values"][:any] ||= []
-      links_hash["facet_values"][:any] = links_hash.dig("facet_values", :any).concat(values).uniq
-    end
   end
 
   def tags

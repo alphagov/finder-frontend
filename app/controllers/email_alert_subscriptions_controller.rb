@@ -56,7 +56,6 @@ private
       default_filters: content["details"].fetch("filter", {}),
       facets: content["details"].fetch("email_filter_facets", []),
       subscriber_list_title: subscriber_list_title,
-      email_filter_by: signup_presenter.email_filter_by,
     )
   end
 
