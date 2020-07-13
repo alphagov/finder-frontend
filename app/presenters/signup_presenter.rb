@@ -64,7 +64,7 @@ class SignupPresenter
           {
             name: "filter[#{choice['facet_id']}][]",
             label: facet_choice["radio_button_name"],
-            value: facet_choice.fetch("content_id", nil) || facet_choice["key"],
+            value: facet_choice["key"],
             checked: facet_choice["prechecked"] || selected_choices.fetch(choice["facet_id"], []).include?(facet_choice["key"]),
           }
         end,
