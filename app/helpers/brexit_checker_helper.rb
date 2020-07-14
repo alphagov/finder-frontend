@@ -12,7 +12,13 @@ module BrexitCheckerHelper
   end
 
   def filter_items(items, criteria_keys)
-    items.select { |i| i.show?(criteria_keys) }
+    filtered = items.select { |i| i.show?(criteria_keys) }
+    sorted_items(filtered)
+  end
+
+  def sorted_items(items)
+    descending = -1
+    items.sort_by { |action| [(action.priority * descending), action.title] }
   end
 
   def persistent_criteria_keys(question_criteria_keys)
