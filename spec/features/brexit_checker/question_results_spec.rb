@@ -177,7 +177,7 @@ RSpec.feature "Brexit Checker workflow", type: :feature do
     action = BrexitChecker::Action.find_by_id("T099")
     expect(page).to have_css(".govuk-link[href='#{action.guidance_url}'][data-track-action]")
     data_track_action = page.find(".govuk-link[href='#{action.guidance_url}']")["data-track-action"]
-    expect(data_track_action).to eq("Your business or organisation - 1.10 - Guidance")
+    expect(data_track_action).to eq("Your business or organisation - 1.3 - Guidance")
     action_is_shown(action)
     action_has_analytics(action)
   end
