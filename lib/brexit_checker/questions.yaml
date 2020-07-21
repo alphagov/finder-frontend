@@ -167,7 +167,8 @@ questions:
   - key: family-eu
     type: single
     caption: About you and your family
-    text: 'Are you a family member of an EU, EEA or Swiss citizen?'
+    text: 'Are you a family member of an EU citizen?'
+    hint_text: 'This also includes Switzerland, Norway, Iceland and Liechtenstein.'
     criteria:
       all_of:
         - nationality-row
