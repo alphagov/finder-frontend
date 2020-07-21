@@ -182,7 +182,7 @@ questions:
   - key: join-family-uk
     type: single
     caption: About you and your family
-    text: "Do you plan to join a family member in the UK who's from the UK, EU, Switzerland, Norway, Iceland or Liechtenstein?"
+    text: "Do you plan to join a family member in the UK who is a citizen of the EU, Switzerland, Norway, Iceland or Liechtenstein?"
     criteria:
       - all_of:
         - any_of:
