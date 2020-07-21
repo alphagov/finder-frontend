@@ -221,13 +221,13 @@ criteria:
 - key: return-to-uk-no
   text: You are not planning to move back to the UK
 - key: join-family-uk-no
-  text: You do not plan to join an EU or EEA family member in the UK
+  text: You do not plan to join an EU family member in the UK
 - key: join-family-uk-yes
-  text: You plan to join an EU or EEA family member in the UK
+  text: You plan to join an EU family member in the UK
 - key: family-eu
-  text: You are a family member of an EU, EEA or Swiss citizen
+  text: You are a family member of an EU citizen
 - key: family-eu-no
-  text: You are not a family member of an EU, EEA or Swiss citizen
+  text: You are not a family member of an EU citizen
 - key: travel-eu-business
   text: You travel to the EU for business
 - key: travel-eu-business-no
