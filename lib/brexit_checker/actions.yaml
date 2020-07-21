@@ -678,7 +678,7 @@ actions:
     do not follow the right rules.
   guidance_prompt: More information
   guidance_link_text: Importing and exporting plants and plant products from 2021
-  guidance_url: https://www.gov.uk/guidance/importing-and-exporting-plants-and-plant-products-if-theres-no-withdrawal-deal
+  guidance_url: https://www.gov.uk/guidance/importing-and-exporting-plants-and-plant-products-from-1-january-2021
   criteria:
   - all_of:
     - any_of:
@@ -1088,7 +1088,7 @@ actions:
   lead_time: It takes up to 7 days to get the certificate
   guidance_prompt: More information
   guidance_link_text: Importing and exporting plants and plant products from 2021
-  guidance_url: https://www.gov.uk/guidance/importing-and-exporting-plants-and-plant-products-if-theres-no-withdrawal-deal
+  guidance_url: https://www.gov.uk/guidance/importing-and-exporting-plants-and-plant-products-from-1-january-2021
   criteria:
   - any_of:
     - agriculture-farm
