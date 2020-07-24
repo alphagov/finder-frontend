@@ -224,7 +224,7 @@ questions:
       - label: "EU"
         value: owns-operates-business-organisation-eu
       - label: "Somewhere else"
-    value: owns-operates-business-organisation-row
+        value: owns-operates-business-organisation-row
 
   - key: employ-eu-citizens
     caption: About your business
