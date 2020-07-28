@@ -29,7 +29,9 @@
       <div class="govuk-grid-column-two-thirds">
         <h1 class="govuk-heading-l"><%= t('brexit_checker.email_signup.sign_up_heading') %></h1>
         <%= t('brexit_checker.email_signup.sign_up_message').html_safe %>
-
+        <ul class="govuk-list govuk-list--bullet">
+          <%= t('brexit_checker.email_signup.sign_up_message_criteria').html_safe %>
+        </ul>
         <%= form_tag transition_checker_confirm_email_signup_path(c: criteria_keys), id: "checklist-email-signup" do %>
           <%= render "govuk_publishing_components/components/button", {
             text: t('brexit_checker.email_signup.sign_up_button'),

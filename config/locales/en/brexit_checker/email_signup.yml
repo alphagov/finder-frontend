@@ -6,5 +6,8 @@ en:
       sign_up_message: |
         <p class="govuk-body">You're signing up for email updates about changes to your results because of any additional arrangements between the UK and EU.</p>
         <p class="govuk-body">The emails will tell you what you, your family, or your business should do to prepare for new rules from 1 January 2021.</p>
-        <p class="govuk-body">You will only get updates based on your results.</p>
+        <p class="govuk-body">You will only get updates if:</p>
+      sign_up_message_criteria:
+        <li>there are changes to your results</li>
+        <li>questions or results are added which may affect you</li>
       sign_up_button: Subscribe
