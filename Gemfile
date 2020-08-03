@@ -32,7 +32,8 @@ group :development, :test do
   gem "awesome_print"
   gem "dotenv-rails"
   gem "govuk_schemas"
-  gem "jasmine-rails"
+  gem "jasmine"
+  gem "jasmine_selenium_runner", require: false
   gem "listen"
   gem "pry-byebug"
   gem "rspec-rails"
@@ -49,5 +50,6 @@ group :test do
   gem "rails-controller-testing"
   gem "simplecov"
   gem "timecop"
+  gem "webdrivers"
   gem "webmock"
 end
