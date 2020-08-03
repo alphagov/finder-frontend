@@ -29,7 +29,7 @@ module FinderFrontend
     # config.time_zone = 'Central Time (US & Canada)'
     # config.i18n.default_locale = :de
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 5.0
+    config.load_defaults 6.0
 
     config.i18n.load_path += Dir[Rails.root.join("config/locales/**/*yml")]
     config.action_view.raise_on_missing_translations = true
