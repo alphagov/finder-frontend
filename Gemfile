@@ -2,20 +2,21 @@ source "https://rubygems.org"
 
 ruby File.read(".ruby-version").strip
 
-gem "chronic", "~> 0.10.2"
-gem "dalli"
-gem "gds-api-adapters", "~> 67.0"
-gem "google-api-client"
-gem "govuk_ab_testing", "~> 2.4.2"
-gem "govuk_app_config", "~> 2.2.1"
-gem "govuk_document_types", "~> 0.9.2"
-gem "govuk_publishing_components", "~> 21.60.3"
-gem "rails", "~> 6.0.3"
-gem "slimmer", "~> 15.0.0"
+gem "rails", "6.0.3.2"
 
-gem "sass-rails", "~> 5.1.0"
-gem "uglifier", "~> 4.2"
-gem "whenever", "~> 1.0.0"
+gem "chronic"
+gem "dalli"
+gem "gds-api-adapters"
+gem "google-api-client"
+gem "govuk_ab_testing"
+gem "govuk_app_config"
+gem "govuk_document_types"
+gem "govuk_publishing_components"
+gem "slimmer"
+
+gem "sass-rails"
+gem "uglifier"
+gem "whenever"
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
@@ -30,23 +31,23 @@ end
 group :development, :test do
   gem "awesome_print"
   gem "dotenv-rails"
-  gem "govuk_schemas", "~> 4.1"
+  gem "govuk_schemas"
   gem "jasmine-rails"
   gem "listen"
   gem "pry-byebug"
-  gem "rspec-rails", "~> 4.0.1"
+  gem "rspec-rails"
   gem "rubocop-govuk"
   gem "scss_lint-govuk"
 end
 
 group :test do
-  gem "cucumber-rails", "~> 2.1.0", require: false
+  gem "cucumber-rails", require: false
   gem "factory_bot"
-  gem "govuk-content-schema-test-helpers", "~> 1.6"
+  gem "govuk-content-schema-test-helpers"
   gem "govuk_test"
-  gem "launchy", "~> 2.5.0"
+  gem "launchy"
   gem "rails-controller-testing"
-  gem "simplecov", "~> 0.18.5"
+  gem "simplecov"
   gem "timecop"
-  gem "webmock", "~> 3.8.3"
+  gem "webmock"
 end
