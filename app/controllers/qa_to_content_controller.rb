@@ -13,7 +13,7 @@ class QaToContentController < ApplicationController
 private
 
   def qa_config
-    @qa_config ||= YAML.load_file("lib/#{request.path.tr('-', '_')}.yaml")
+    @qa_config ||= YAML.load_file("app/lib/#{request.path.tr('-', '_')}.yaml")
   end
 
   def title

@@ -3,7 +3,7 @@ require "addressable/uri"
 class BrexitChecker::Action
   include ActiveModel::Validations
 
-  CONFIG_PATH = Rails.root.join("lib/brexit_checker/actions.yaml")
+  CONFIG_PATH = Rails.root.join("app/lib/brexit_checker/actions.yaml")
 
   validates_presence_of :id, :title, :consequence, :criteria
   validates_inclusion_of :audience, in: %w[business citizen]

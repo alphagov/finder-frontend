@@ -46,8 +46,6 @@ module FinderFrontend
     # when router is proxying to this app but asset proxying isn't set up.
     config.asset_host = ENV["ASSET_HOST"]
 
-    config.eager_load_paths << Rails.root.join("lib")
-    config.autoload_paths << Rails.root.join("lib")
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading

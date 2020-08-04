@@ -1,7 +1,7 @@
 class BrexitChecker::Question
   include ActiveModel::Validations
 
-  CONFIG_PATH = Rails.root.join("lib/brexit_checker/questions.yaml")
+  CONFIG_PATH = Rails.root.join("app/lib/brexit_checker/questions.yaml")
 
   validates_presence_of :key, :text
   validates_inclusion_of :type, in: %w[single single_wrapped multiple multiple_grouped]

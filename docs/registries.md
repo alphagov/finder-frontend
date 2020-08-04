@@ -1,6 +1,6 @@
 # Registries
 
-The registries module (lib/registries) provides datasets from other
+The registries module (app/lib/registries) provides datasets from other
 applications.
 
 These registries are intended to be used when rendering facets.
@@ -42,4 +42,4 @@ the cache and sets up the cron job.
 
 We have a healthcheck for the registry caches, so we know when
 there are empty registries. Poor health will be reported in Icinga.
-They are defined in `lib/healthchecks`.
+They are defined in `app/lib/healthchecks`.
