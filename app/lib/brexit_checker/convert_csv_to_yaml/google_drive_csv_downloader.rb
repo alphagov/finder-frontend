@@ -27,7 +27,7 @@ module BrexitChecker
           "text/csv",
           download_dest: download_destination,
         )
-        puts "> CSV downloaded to #{download_destination}"
+        Rails.logger.info "> CSV downloaded to #{download_destination}"
       end
 
     private
@@ -41,7 +41,7 @@ module BrexitChecker
 
         unless credentials
           url = authorizer.get_authorization_url(base_url: OOB_URI)
-          puts "Open the following URL in the browser and enter the " \
+          Rails.logger.info "Open the following URL in the browser and enter the " \
                "resulting code after authorization:\n" + url
           code = STDIN.gets
           credentials = authorizer.get_and_store_credentials_from_code(
