@@ -529,7 +529,6 @@ actions:
   priority: 5
   title: Register to use the open general export licence to export 'dual use' nuclear
     goods from the UK
-  title_url: https://www.gov.uk/guidance/exporting-nuclear-related-items-from-1-january-2021
   consequence: You will not be able to export 'dual use' nuclear goods from the UK
     if you have not registered.
   guidance_prompt: More information
@@ -596,7 +595,6 @@ actions:
   priority: 8
   title: Check if you need to change your contract to keep accessing personal data
     from the EU, Norway, Iceland or Liechtenstein
-  title_url: https://www.gov.uk/guidance/using-personal-data-after-brexit#what-you-need-to-do-before-a-no-deal-brexit
   consequence: You may not be able to access personal data from the EU without the
     right arrangements in place.
   guidance_prompt: More information
@@ -1289,7 +1287,7 @@ actions:
     do not pay the correct tariff.
   guidance_prompt: More information
   guidance_link_text: Check UK trade tariffs from 1 January 2021
-  guidance_url: https://www.gov.uk/check-tariffs-1-january-2021
+  guidance_url: https://www.gov.uk/guidance/uk-tariffs-from-1-january-2021
   criteria:
   - import-from-eu
   audience: business
