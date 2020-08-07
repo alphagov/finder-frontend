@@ -1438,3 +1438,58 @@ actions:
   criteria:
   - import-from-eu
   audience: business
+- id: T111
+  priority: 6
+  title: Check if you need to replace your .eu domain name
+  title_url: https://www.gov.uk/guidance/eu-domain-names-what-you-need-to-do-to-get-ready-for-brexit
+  consequence: You may not be able to hold, register or renew a .eu domain name from 1 January 2021.
+  criteria:
+  - eu-domain
+  audience: business
+- id: T112
+  priority: 8
+  title: Register for the UK’s new Import of Products, Animals, Food and Feed System (IPAFFS)
+  title_url: https://www.gov.uk/guidance/importing-animals-animal-products-and-high-risk-food-and-feed-not-of-animal-origin-from-1-january-2021
+  consequence: You will not be able to import using the TRACES system from 1 January 2021.
+  criteria:
+  - all_of:
+    - import-from-eu
+    - any_of:
+      - animal-ex-food
+      - agriculture-farm
+      - food-drink-tobacco
+  audience: business
+- id: T113
+  priority: 2
+  title: Check the rules for reporting unfair trade practices using the UK's new trade remedies service
+  title_url: https://www.gov.uk/guidance/applying-for-a-trade-remedies-investigation
+  consequence: You risk being affected if imported goods are dumped on the UK market or are benefiting from subsidies – or if there is a sudden increase in imports to the UK of a certain product.
+  criteria:
+  - owns-operates-business-organisation-uk
+  audience: business
+- id: T114
+  priority: 2
+  title: Check if there's a trade agreement with any non-EU country you're planning to trade with from 1 January 2021
+  title_url: https://www.gov.uk/guidance/uk-trade-agreements-with-non-eu-countries
+  consequence: You risk disruption to your trading arrangements and unexpected costs.
+  criteria:
+  - any_of:
+    - trade-developing
+    - export-to-row
+  audience: business
+- id: T115
+  priority: 1
+  title: Register with HSE to find out when guidance on the duties for classifying, labelling and packaging chemicals for the GB market is available
+  title_url: https://www.hse.gov.uk/brexit/chemicals-brexit-guidance.htm
+  consequence: You must make sure chemicals are classified, labelled and packaged according to GB regulations.
+  criteria:
+  - chemical
+  audience: business
+- id: T116
+  priority: 1
+  title: Register with HSE to find out when guidance on processes for biocidal active substance approval and product authorisation is available
+  title_url: https://www.hse.gov.uk/brexit/chemicals-brexit-guidance.htm
+  consequence: You may have delays in getting access to the right materials to continue with your work.
+  criteria:
+  - chemical
+  audience: business
