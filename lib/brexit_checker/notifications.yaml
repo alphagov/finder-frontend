@@ -220,3 +220,32 @@ notifications:
     type: addition
     action_id: S039
     date: 2020-07-10
+  - uuid: "9b9abe3b-d53a-492e-9131-e43ea29e395a"
+    type: addition
+    action_id: T111
+    date: 2020-08-07
+  - uuid: "b6cd898b-fe0a-4a58-bfd2-11a3bed2d438"
+    type: addition
+    action_id: T112
+    date: 2020-08-07
+  - uuid: "9d01a1f9-89d0-422e-9fbf-2dcac1ab8814"
+    type: addition
+    action_id: T113
+    date: 2020-08-07
+  - uuid: "346b56fc-65a5-4c8c-a450-d1eae29c6e2b"
+    type: addition
+    action_id: T114
+    date: 2020-08-07
+  - uuid: "f17041e6-b06e-4e44-afad-bc5de64f2afe"
+    type: addition
+    action_id: T115
+    date: 2020-08-07
+  - uuid: "5e0651dc-7db2-4a22-af49-ea0cb96a3a02"
+    type: addition
+    action_id: T116
+    date: 2020-08-07
+  - uuid: "8006eead-5352-412c-8ef5-0923339a1ec8"
+    type: content_change
+    action_id: T103
+    date: 2020-08-07
+    note: "Guidance link updated to provide more information about the UK Global Tariff"
