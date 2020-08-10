@@ -1,13 +1,13 @@
 ---
 notifications:
-   - uuid: "5fe018d7-edb1-4d7a-858e-065e46d0917e"
-     type: addition
-     action_id: T092
-     date: 2019-09-09
-   - uuid: "24b21f22-5f2c-4f11-9a08-25fe84919b67"
-     type: addition
-     action_id: T023
-     date: 2019-09-09
+  - uuid: "5fe018d7-edb1-4d7a-858e-065e46d0917e"
+    type: addition
+    action_id: T092
+    date: 2019-09-09
+  - uuid: "24b21f22-5f2c-4f11-9a08-25fe84919b67"
+    type: addition
+    action_id: T023
+    date: 2019-09-09
   #  - uuid: "a63eabee-5bbb-445b-b2d0-bed9f140c4dc"
   #    type: addition
   #    action_id: T058
@@ -27,40 +27,40 @@ notifications:
   #    note: "Updated to include bus and coach drivers working in the EU. They will need to exchange their UK Driver CPC for an EU Driver CPC."
   #    action_id: T060
   #    date: 2019-09-19
-   - uuid: "e028f547-e19b-4cfc-aac9-2d3339dbcd25"
-     type: content_change
-     note: "Guidance link changed from general travel guidance to specific travel insurance guidance that contains more detailed information on the insurance you might need and the organisations you can contact."
-     action_id: S011
-     date: 2019-09-25
-   - uuid: "651b7e67-f02b-4c41-80e7-374fd1a9661a"
-     type: content_change
-     note: "Content updated to say that you may need to apply for plant variety rights in both the UK and the EU. New arrangements will have to be agreed between the UK and the EU before seeds can be marketed in the EU after Brexit."
-     action_id: T086
-     date: 2019-09-26
+  - uuid: "e028f547-e19b-4cfc-aac9-2d3339dbcd25"
+    type: content_change
+    note: "Guidance link changed from general travel guidance to specific travel insurance guidance that contains more detailed information on the insurance you might need and the organisations you can contact."
+    action_id: S011
+    date: 2019-09-25
+  - uuid: "651b7e67-f02b-4c41-80e7-374fd1a9661a"
+    type: content_change
+    note: "Content updated to say that you may need to apply for plant variety rights in both the UK and the EU. New arrangements will have to be agreed between the UK and the EU before seeds can be marketed in the EU after Brexit."
+    action_id: T086
+    date: 2019-09-26
   #  - uuid: "d2335a6a-ea96-4647-86f1-164cc1144964"
   #    type: content_change
   #    action_id: T064
   #    note: "Link changed to provide hauliers with updated guidance."
   #    date: 2019-10-02
-   - uuid: "c23214f5-eee3-4528-88b1-c7d88fe59b7e"
-     type: addition
-     action_id: T091
-     date: 2019-10-07
-   - uuid: "f37f8452-c81d-4cd6-82ce-6930a8a50b6d"
-     type: addition
-     action_id: S011
-     date: 2019-10-07
-     criteria:
-     - all_of:
-       - nationality-uk
-       - any_of:
-         - living-ie
-         - living-eu
-       - visiting-eu
-   - uuid: "7683bdd6-eef4-4d78-b78f-9e507e0ba0da"
-     type: addition
-     action_id: T093
-     date: 2019-10-07
+  - uuid: "c23214f5-eee3-4528-88b1-c7d88fe59b7e"
+    type: addition
+    action_id: T091
+    date: 2019-10-07
+  - uuid: "f37f8452-c81d-4cd6-82ce-6930a8a50b6d"
+    type: addition
+    action_id: S011
+    date: 2019-10-07
+    criteria:
+    - all_of:
+      - nationality-uk
+      - any_of:
+        - living-ie
+        - living-eu
+        - visiting-eu
+  - uuid: "7683bdd6-eef4-4d78-b78f-9e507e0ba0da"
+    type: addition
+    action_id: T093
+    date: 2019-10-07
   #  - uuid: "b6e61e16-6d9b-4ac0-b500-5ab0f9fded76"
   #    type: addition
   #    action_id: T095
@@ -69,154 +69,183 @@ notifications:
   #    type: addition
   #    action_id: T094
   #    date: 2019-10-11
-   - uuid: "2f2ace6b-b694-42d5-b16e-838cf29d6e51"
-     type: addition
-     action_id: T096
-     date: 2019-10-11
+  - uuid: "2f2ace6b-b694-42d5-b16e-838cf29d6e51"
+    type: addition
+    action_id: T096
+    date: 2019-10-11
   #  - uuid: "d94ec718-eced-4f71-aaf8-c206aec21a29"
   #    type: addition
   #    action_id: S033
   #    date: 2019-10-11
-   - uuid: "fc9f9268-d398-4adb-8628-1465e6d4e23a"
-     type: addition
-     action_id: T097
-     date: 2019-10-11
-   - uuid: "ccafb18a-350d-476b-af29-ca906c374202"
-     type: addition
-     action_id: T098
-     date: 2019-10-11
-   - uuid: "3a7f10f0-6d49-4d9c-aea5-321efde52086"
-     type: addition
-     action_id: S036
-     date: 2019-10-22
-   - uuid: "65071215-569a-4c42-9e2a-51e8296bf5a8"
-     type: content_change
-     action_id: S032
-     date: 2019-10-22
-     note: "Content updated to reflect that requirements will apply to assistance dogs as well as to pets."
-   - uuid: "f5941476-eb36-4bcf-8434-5b699956774d"
-     type: addition
-     action_id: S034
-     date: 2019-10-23
+  - uuid: "fc9f9268-d398-4adb-8628-1465e6d4e23a"
+    type: addition
+    action_id: T097
+    date: 2019-10-11
+  - uuid: "ccafb18a-350d-476b-af29-ca906c374202"
+    type: addition
+    action_id: T098
+    date: 2019-10-11
+  - uuid: "3a7f10f0-6d49-4d9c-aea5-321efde52086"
+    type: addition
+    action_id: S036
+    date: 2019-10-22
+  - uuid: "65071215-569a-4c42-9e2a-51e8296bf5a8"
+    type: content_change
+    action_id: S032
+    date: 2019-10-22
+    note: "Content updated to reflect that requirements will apply to assistance dogs as well as to pets."
+  - uuid: "f5941476-eb36-4bcf-8434-5b699956774d"
+    type: addition
+    action_id: S034
+    date: 2019-10-23
   #  - uuid: "8cbcddb5-1eed-418f-a2dc-be5057116daa"
   #    type: addition
   #    action_id: S035
   #    date: 2019-10-24
-   - uuid: "d66642bf-b3c1-4bee-a0a1-c15d205564d6"
-     type: content_change
-     action_id: T014
-     date: 2020-05-14
-     note: "EU Space Surveillance and Tracking programmes added"
-   - uuid: "cd58a06e-9d6c-4078-81c1-ece8a234a498"
-     type: content_change
-     action_id: T089
-     date: 2020-05-14
-     note: "New advice to contact a vet to find out what you need do to move horses or other equines"
-   - uuid: "79f362cd-dc2a-4de2-a7fc-3887588298e7"
-     type: addition
-     action_id: T100
-     date: 2020-06-25
-     criteria:
-       - all_of:
-         - culture
-   - uuid: "6533c03c-0ffd-4252-ae16-0ec6e75447e6"
-     type: content_change
-     action_id: T035
-     date: 2020-06-25
-     note: "Link changed to send businesses to a page where they can apply to become an approved food establishment."
-     criteria:
-       - all_of:
-         - export-to-eu
-         - any_of:
-           - food-drink-tobacco
-           - animal-ex-food
-           - fish-inc-wholesale
-           - agriculture-farm
-   - uuid: "a0d8df14-ce9e-41bc-a6da-12317c65cc11"
-     type: content_change
-     action_id: T080
-     date: 2020-06-25
-     note: "There is new guidance that focuses specifically on unregistered designs. The actions you must take remains the same."
-     criteria:
-       - any_of:
-         - ip-copyright
-         - ip-designs
-   - uuid: "5d3952a9-0dc4-48c7-b761-89ce840783cc"
-     type: content_change
-     action_id: T065
-     date: 2020-06-25
-     note: "There is new guidance that is more specific. It tells UK goods vehicle operators what they need to do to carry out international road haulage from 1 January 2021."
-     criteria:
-       - any_of:
-         - road-passenger-freight
-         - haulage-goods-across-eu-borders
-   - uuid: "1b3874e4-de91-4d92-af48-5ea906de2251"
-     type: content_change
-     action_id: T044
-     date: 2020-06-25
-     note: "You will now need to enrol with the Rural Payments Agency if you plan to export hops to the EU from 1 January 2021."
-     criteria:
-       - any_of:
-         - food-drink-tobacco
-         - agriculture-farm
-   - uuid: "0240a818-cb7f-4ed9-a8d9-5f2e7438d4b5"
-     type: content_change
-     action_id: T085
-     date: 2020-07-01
-     note: "Updated link and guidance to clarify that the action applies to other regulated professions (construction, finance, architecture) as well as legal services."
-   - uuid: "1418a82d-da93-4a35-8f5b-d7b81e4fbcc6"
-     type: addition
-     action_id: T101
-     date: 2020-07-01
-   - uuid: "3e4c599d-9006-4eb5-99eb-50ab4da2ec33"
-     type: addition
-     action_id: T102
-     date: 2020-07-01
-   - uuid: "cfef712e-8353-41d4-9870-6025f0637c85"
-     type: addition
-     action_id: T103
-     date: 2020-07-01
-   - uuid: "35da1d68-9082-402f-b72b-feec000154c9"
-     type: addition
-     action_id: T104
-     date: 2020-07-01
-   - uuid: "e504d423-188f-4929-85ba-3168b7dcacac"
-     type: addition
-     action_id: T105
-     date: 2020-07-01
-   - uuid: "b7a056d7-78c3-4fc3-9977-11a6b3986eeb"
-     type: addition
-     action_id: S038
-     date: 2020-07-01
-   - uuid: "62d381d2-9036-43d9-9b02-bc59023e47b9"
-     type: addition
-     action_id: S040
-     date: 2020-07-01
-   - uuid: "003545ad-add9-4f51-8d7b-ebdb18b2324e"
-     type: addition
-     action_id: S041
-     date: 2020-07-01
-   - uuid: "5aeec364-f29d-421a-a426-20d52bf38c84"
-     type: addition
-     action_id: T106
-     date: 2020-07-10
-   - uuid: "cae8a3fa-80cc-4c32-97b4-f09b7693f35b"
-     type: addition
-     action_id: T107
-     date: 2020-07-10
-   - uuid: "07cfdc74-0270-4f01-aea8-2eb1da5d5b74"
-     type: addition
-     action_id: T108
-     date: 2020-07-10
-   - uuid: "1b3908d9-dfb7-48cb-9352-e0e66cb91806"
-     type: addition
-     action_id: T109
-     date: 2020-07-10
-   - uuid: "5dfa9c0c-c987-4860-9ec5-74a14d1291f6"
-     type: addition
-     action_id: T110
-     date: 2020-07-10
-   - uuid: "4ef933d0-7c25-40b6-a6cf-7a7e0fa2c432"
-     type: addition
-     action_id: S039
-     date: 2020-07-10
+  - uuid: "d66642bf-b3c1-4bee-a0a1-c15d205564d6"
+    type: content_change
+    action_id: T014
+    date: 2020-05-14
+    note: "EU Space Surveillance and Tracking programmes added"
+  - uuid: "cd58a06e-9d6c-4078-81c1-ece8a234a498"
+    type: content_change
+    action_id: T089
+    date: 2020-05-14
+    note: "New advice to contact a vet to find out what you need do to move horses or other equines"
+  - uuid: "79f362cd-dc2a-4de2-a7fc-3887588298e7"
+    type: addition
+    action_id: T100
+    date: 2020-06-25
+    criteria:
+      - all_of:
+        - culture
+  - uuid: "6533c03c-0ffd-4252-ae16-0ec6e75447e6"
+    type: content_change
+    action_id: T035
+    date: 2020-06-25
+    note: "Link changed to send businesses to a page where they can apply to become an approved food establishment."
+    criteria:
+      - all_of:
+        - export-to-eu
+        - any_of:
+          - food-drink-tobacco
+          - animal-ex-food
+          - fish-inc-wholesale
+          - agriculture-farm
+  - uuid: "a0d8df14-ce9e-41bc-a6da-12317c65cc11"
+    type: content_change
+    action_id: T080
+    date: 2020-06-25
+    note: "There is new guidance that focuses specifically on unregistered designs. The actions you must take remains the same."
+    criteria:
+      - any_of:
+        - ip-copyright
+        - ip-designs
+  - uuid: "5d3952a9-0dc4-48c7-b761-89ce840783cc"
+    type: content_change
+    action_id: T065
+    date: 2020-06-25
+    note: "There is new guidance that is more specific. It tells UK goods vehicle operators what they need to do to carry out international road haulage from 1 January 2021."
+    criteria:
+      - any_of:
+        - road-passenger-freight
+        - haulage-goods-across-eu-borders
+  - uuid: "1b3874e4-de91-4d92-af48-5ea906de2251"
+    type: content_change
+    action_id: T044
+    date: 2020-06-25
+    note: "You will now need to enrol with the Rural Payments Agency if you plan to export hops to the EU from 1 January 2021."
+    criteria:
+      - any_of:
+        - food-drink-tobacco
+        - agriculture-farm
+  - uuid: "0240a818-cb7f-4ed9-a8d9-5f2e7438d4b5"
+    type: content_change
+    action_id: T085
+    date: 2020-07-01
+    note: "Updated link and guidance to clarify that the action applies to other regulated professions (construction, finance, architecture) as well as legal services."
+  - uuid: "1418a82d-da93-4a35-8f5b-d7b81e4fbcc6"
+    type: addition
+    action_id: T101
+    date: 2020-07-01
+  - uuid: "3e4c599d-9006-4eb5-99eb-50ab4da2ec33"
+    type: addition
+    action_id: T102
+    date: 2020-07-01
+  - uuid: "cfef712e-8353-41d4-9870-6025f0637c85"
+    type: addition
+    action_id: T103
+    date: 2020-07-01
+  - uuid: "35da1d68-9082-402f-b72b-feec000154c9"
+    type: addition
+    action_id: T104
+    date: 2020-07-01
+  - uuid: "e504d423-188f-4929-85ba-3168b7dcacac"
+    type: addition
+    action_id: T105
+    date: 2020-07-01
+  - uuid: "b7a056d7-78c3-4fc3-9977-11a6b3986eeb"
+    type: addition
+    action_id: S038
+    date: 2020-07-01
+  - uuid: "62d381d2-9036-43d9-9b02-bc59023e47b9"
+    type: addition
+    action_id: S040
+    date: 2020-07-01
+  - uuid: "003545ad-add9-4f51-8d7b-ebdb18b2324e"
+    type: addition
+    action_id: S041
+    date: 2020-07-01
+  - uuid: "5aeec364-f29d-421a-a426-20d52bf38c84"
+    type: addition
+    action_id: T106
+    date: 2020-07-10
+  - uuid: "cae8a3fa-80cc-4c32-97b4-f09b7693f35b"
+    type: addition
+    action_id: T107
+    date: 2020-07-10
+  - uuid: "07cfdc74-0270-4f01-aea8-2eb1da5d5b74"
+    type: addition
+    action_id: T108
+    date: 2020-07-10
+  - uuid: "1b3908d9-dfb7-48cb-9352-e0e66cb91806"
+    type: addition
+    action_id: T109
+    date: 2020-07-10
+  - uuid: "5dfa9c0c-c987-4860-9ec5-74a14d1291f6"
+    type: addition
+    action_id: T110
+    date: 2020-07-10
+  - uuid: "4ef933d0-7c25-40b6-a6cf-7a7e0fa2c432"
+    type: addition
+    action_id: S039
+    date: 2020-07-10
+  - uuid: "9b9abe3b-d53a-492e-9131-e43ea29e395a"
+    type: addition
+    action_id: T111
+    date: 2020-08-07
+  - uuid: "b6cd898b-fe0a-4a58-bfd2-11a3bed2d438"
+    type: addition
+    action_id: T112
+    date: 2020-08-07
+  - uuid: "9d01a1f9-89d0-422e-9fbf-2dcac1ab8814"
+    type: addition
+    action_id: T113
+    date: 2020-08-07
+  - uuid: "346b56fc-65a5-4c8c-a450-d1eae29c6e2b"
+    type: addition
+    action_id: T114
+    date: 2020-08-07
+  - uuid: "f17041e6-b06e-4e44-afad-bc5de64f2afe"
+    type: addition
+    action_id: T115
+    date: 2020-08-07
+  - uuid: "5e0651dc-7db2-4a22-af49-ea0cb96a3a02"
+    type: addition
+    action_id: T116
+    date: 2020-08-07
+  - uuid: "8006eead-5352-412c-8ef5-0923339a1ec8"
+    type: content_change
+    action_id: T103
+    date: 2020-08-07
+    note: "Guidance link updated to provide more information about the UK Global Tariff"
