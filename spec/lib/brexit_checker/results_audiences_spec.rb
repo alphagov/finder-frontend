@@ -7,6 +7,7 @@ describe BrexitChecker::ResultsAudiences do
     let(:action3) { FactoryBot.build(:brexit_checker_action, :citizen, criteria: %w[nationality-uk], grouping_criteria: %w[living-uk]) }
     let(:action4) { FactoryBot.build(:brexit_checker_action, :citizen, criteria: %w[visiting-driving], grouping_criteria: %w[visiting-eu]) }
     let(:action5) { FactoryBot.build(:brexit_checker_action, :citizen, criteria: %w[studying-eu], grouping_criteria: %w[studying-eu]) }
+    let(:action6) { FactoryBot.build(:brexit_checker_action, :citizen, criteria: %w[living-uk visiting-ie], grouping_criteria: %w[living-uk visiting-ie]) }
 
     let(:criteria1) { FactoryBot.build(:brexit_checker_criterion, key: "living-uk", text: "Living in the UK") }
     let(:criteria2) { FactoryBot.build(:brexit_checker_criterion, key: "join-family-uk-yes", text: "You plan to join an EU or EEA family member in the UK") }
@@ -14,18 +15,20 @@ describe BrexitChecker::ResultsAudiences do
     let(:criteria4) { FactoryBot.build(:brexit_checker_criterion, key: "visiting-driving", text: "You need to drive abroad") }
     let(:criteria5) { FactoryBot.build(:brexit_checker_criterion, key: "studying-eu", text: "You are studying in the EU") }
     let(:criteria6) { FactoryBot.build(:brexit_checker_criterion, key: "living-row", text: "You do not live in the UK or the EU") }
+    let(:criteria7) { FactoryBot.build(:brexit_checker_criterion, key: "visiting-ie", text: "Visiting Ireland") }
 
     let(:group_living_uk) { FactoryBot.build(:brexit_checker_group, key: "living-uk", heading: "Living in the UK") }
     let(:group_visiting_eu) { FactoryBot.build(:brexit_checker_group, key: "visiting-eu", heading: "Visiting the EU") }
     let(:group_studying_eu) { FactoryBot.build(:brexit_checker_group, key: "studying-eu", heading: "Studying in the EU") }
+    let(:group_visiting_ie) { FactoryBot.build(:brexit_checker_group, key: "visiting-ie", heading: "Visiting Ireland") }
 
     let(:selected_criteria) { [criteria1, criteria2, criteria3, criteria4, criteria5] }
-    let(:actions) { [action1, action2, action3, action4, action5] }
+    let(:actions) { [action1, action2, action3, action4, action5, action6] }
 
     before :each do
-      allow(BrexitChecker::Action).to receive(:load_all).and_return([action1, action2, action3, action4, action5])
-      allow(BrexitChecker::Criterion).to receive(:load_all).and_return([criteria1, criteria2, criteria3, criteria4, criteria5, criteria6])
-      allow(BrexitChecker::Group).to receive(:load_all).and_return([group_living_uk, group_visiting_eu, group_studying_eu])
+      allow(BrexitChecker::Action).to receive(:load_all).and_return([action1, action2, action3, action4, action5, action6])
+      allow(BrexitChecker::Criterion).to receive(:load_all).and_return([criteria1, criteria2, criteria3, criteria4, criteria5, criteria6, criteria7])
+      allow(BrexitChecker::Group).to receive(:load_all).and_return([group_living_uk, group_visiting_eu, group_studying_eu, group_visiting_ie])
     end
 
     context "actions are provided but there are no criteria" do
@@ -49,7 +52,7 @@ describe BrexitChecker::ResultsAudiences do
         grouped_actions_fixture = [
           {
             group: group_living_uk,
-            actions: [action1, action2, action3],
+            actions: [action1, action2, action3, action6],
             criteria: [criteria1, criteria2, criteria3],
           },
           {
@@ -62,7 +65,13 @@ describe BrexitChecker::ResultsAudiences do
             actions: [action5],
             criteria: [criteria5],
           },
+          {
+            group: group_visiting_ie,
+            actions: [action6],
+            criteria: [criteria1],
+          },
         ]
+
         expect(result).to eql(grouped_actions_fixture)
       end
     end
