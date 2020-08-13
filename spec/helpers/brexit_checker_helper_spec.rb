@@ -1,13 +1,13 @@
 require "spec_helper"
 
 describe BrexitCheckerHelper, type: :helper do
-  describe "#filter_items" do
+  describe "#filter_actions" do
     it "filters actions that should be shown" do
       action1 = instance_double BrexitChecker::Action, show?: true, priority: 1, title: "title"
       action2 = instance_double BrexitChecker::Action, show?: false, priority: 1, title: "title"
       expect(action1).to receive(:show?).with([])
       expect(action2).to receive(:show?).with([])
-      results = filter_items([action1, action2], [])
+      results = filter_actions([action1, action2], [])
       expect(results).to eq([action1])
     end
 
@@ -20,12 +20,12 @@ describe BrexitCheckerHelper, type: :helper do
       let(:criteria) { action1.criteria }
 
       it "returns the filtered actions sorted by order of priority" do
-        results = filter_items([action1, action2, action3], criteria)
+        results = filter_actions([action1, action2, action3], criteria)
         expect(results).to eq([action3, action2, action1])
       end
 
       it "returns the filtered actions sorted by order of priority and then title" do
-        results = filter_items([action1, action2, action3, action4, action5], criteria)
+        results = filter_actions([action1, action2, action3, action4, action5], criteria)
         expect(results).to eq([action3, action4, action5, action2, action1])
       end
     end
