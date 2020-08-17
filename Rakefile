@@ -14,3 +14,7 @@ if Rails.env.development? && ENV["LIVE"]
 end
 
 FinderFrontend::Application.load_tasks
+
+unless Rails.env.production?
+  task default: %w[jasmine:ci]
+end

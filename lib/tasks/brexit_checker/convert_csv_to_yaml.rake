@@ -9,7 +9,7 @@ namespace :brexit_checker do
       processor = BrexitChecker::ConvertCsvToYaml::ActionsProcessor.new
       converter = BrexitChecker::ConvertCsvToYaml::Converter.new(processor)
       csv_path = args.csv_path
-      yaml_path = "lib/brexit_checker/actions.yaml"
+      yaml_path = "app/lib/brexit_checker/actions.yaml"
 
       puts "> Converting #{csv_path} to YAML..."
       converter.convert(csv_path, yaml_path, "actions")
@@ -32,7 +32,7 @@ namespace :brexit_checker do
       processor = BrexitChecker::ConvertCsvToYaml::CriteriaProcessor.new
       converter = BrexitChecker::ConvertCsvToYaml::Converter.new(processor)
       csv_path = args.csv_path
-      yaml_path = "lib/brexit_checker/criteria.yaml"
+      yaml_path = "app/lib/brexit_checker/criteria.yaml"
 
       puts "Converting #{csv_path} to YAML..."
       converter.convert(csv_path, yaml_path, "criteria")

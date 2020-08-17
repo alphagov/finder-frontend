@@ -71,7 +71,7 @@ The application has Jasmine tests, which can be accessed at `/specs` when the ap
 
 To run the Jasmine tests separately: `bundle exec cucumber`
 
-To run the JavaScript Jasmine tests separately: `bundle exec rake spec:javascript`
+To run the JavaScript Jasmine tests separately: `bundle exec rake jasmine:ci`
 
 Note: Running the JS tests require you to also install phantomjs with `brew cask install phantomjs`.
 

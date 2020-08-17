@@ -1,7 +1,7 @@
 class BrexitChecker::Group
   include ActiveModel::Validations
 
-  GROUPS_PATH = Rails.root.join("lib/brexit_checker/groups.yaml")
+  GROUPS_PATH = Rails.root.join("app/lib/brexit_checker/groups.yaml")
 
   validates_inclusion_of :key,
                          in: %w[visiting-eu

@@ -15,7 +15,7 @@ RSpec.describe "Convert CSV to YAML tasks" do
   describe "brexit_checker:convert_csv_to_yaml:actions" do
     it "converts the actions CSV to YAML and writes to the actions.yml file" do
       # Override the YAML file path that is sent to the Converter with a tempfile
-      # so that "lib/brexit_checker/actions.yaml" isn't overwritten by the test.
+      # so that "app/lib/brexit_checker/actions.yaml" isn't overwritten by the test.
       allow_any_instance_of(BrexitChecker::ConvertCsvToYaml::Converter).to receive(:convert).and_wrap_original do |m|
         m.call(actions_csv_file_path, actions_yaml_file.path, "actions")
       end
@@ -65,7 +65,7 @@ RSpec.describe "Convert CSV to YAML tasks" do
         .and_return(google_drive_actions_csv)
 
       # Override the YAML file path that is sent to the Converter with a tempfile
-      # so that "lib/brexit_checker/actions.yaml" isn't overwritten by the test.
+      # so that "app/lib/brexit_checker/actions.yaml" isn't overwritten by the test.
       allow_any_instance_of(BrexitChecker::ConvertCsvToYaml::Converter)
         .to receive(:convert).and_wrap_original do |m|
           m.call(google_drive_actions_csv.path, actions_yaml_file.path, "actions")
@@ -103,7 +103,7 @@ RSpec.describe "Convert CSV to YAML tasks" do
 
     it "converts the criteria CSV to YAML and writes to the criteria.yml file" do
       # Override the YAML file path that is sent to the Converter with a tempfile
-      # so that "lib/brexit_checker/criteria.yaml" isn't overwritten by the test.
+      # so that "app/lib/brexit_checker/criteria.yaml" isn't overwritten by the test.
       allow_any_instance_of(BrexitChecker::ConvertCsvToYaml::Converter).to receive(:convert).and_wrap_original do |m|
         m.call(criteria_csv_file_path, criteria_yaml_file_path, "criteria")
       end

@@ -1,7 +1,7 @@
 class BrexitChecker::Criterion
   include ActiveModel::Validations
 
-  CONFIG_PATH = Rails.root.join("lib/brexit_checker/criteria.yaml")
+  CONFIG_PATH = Rails.root.join("app/lib/brexit_checker/criteria.yaml")
 
   validates_presence_of :key, :text
 

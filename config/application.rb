@@ -29,7 +29,7 @@ module FinderFrontend
     # config.time_zone = 'Central Time (US & Canada)'
     # config.i18n.default_locale = :de
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 5.0
+    config.load_defaults 6.0
 
     config.i18n.load_path += Dir[Rails.root.join("config/locales/**/*yml")]
     config.action_view.raise_on_missing_translations = true
@@ -46,11 +46,15 @@ module FinderFrontend
     # when router is proxying to this app but asset proxying isn't set up.
     config.asset_host = ENV["ASSET_HOST"]
 
-    config.eager_load_paths << Rails.root.join("lib")
-    config.autoload_paths << Rails.root.join("lib")
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
+
+    # Using a sass css compressor causes a scss file to be processed twice
+    # (once to build, once to compress) which breaks the usage of "unquote"
+    # to use CSS that has same function names as SCSS such as max.
+    # https://github.com/alphagov/govuk-frontend/issues/1350
+    config.assets.css_compressor = nil
   end
 end

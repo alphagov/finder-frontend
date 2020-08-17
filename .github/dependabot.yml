@@ -20,7 +20,7 @@ updates:
       # Framework gems
       - dependency-name: factory_bot
         dependency-type: direct
-      - dependency-name: jasmine-rails
+      - dependency-name: jasmine
         dependency-type: direct
       - dependency-name: rails
         dependency-type: direct
