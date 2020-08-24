@@ -11,6 +11,7 @@ gem "govuk_app_config"
 gem "govuk_document_types"
 gem "govuk_publishing_components"
 gem "jwt"
+gem "openid_connect", "~> 1.2.0"
 gem "slimmer"
 
 gem "sass-rails"
