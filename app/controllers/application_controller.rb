@@ -34,6 +34,12 @@ private
     end
   end
 
+  def logout!
+    session.delete(:sub)
+    session.delete(:access_token)
+    session.delete(:refresh_token)
+  end
+
   def error_503(exception)
     error(503, exception)
   end
@@ -84,5 +90,13 @@ private
 
       ParamsCleaner.new(permitted_params).cleaned
     end
+  end
+
+  def logged_in?
+    current_user.present?
+  end
+
+  def current_user
+    session[:sub]
   end
 end

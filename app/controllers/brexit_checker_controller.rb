@@ -1,3 +1,5 @@
+require_relative "../lib/oidc_client.rb"
+
 class BrexitCheckerController < ApplicationController
   include BrexitCheckerHelper
 
@@ -14,6 +16,12 @@ class BrexitCheckerController < ApplicationController
   before_action :check_accounts_enabled, only: [:save_results]
 
   def show
+    @account_information = if logged_in?
+                             "Logged in. <a class=\"govuk-link\" href=\"#{transition_checker_end_session_path}\">Log out.</a>"
+                           else
+                             "Not logged in. <a class=\"govuk-link\" href=\"#{transition_checker_new_session_path}\">Login.</a>"
+                           end
+
     all_questions = BrexitChecker::Question.load_all
     @question_index = next_question_index(
       all_questions: all_questions,
