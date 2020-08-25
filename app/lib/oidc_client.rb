@@ -34,7 +34,7 @@ class OidcClient
   end
 
   def scopes
-    %i[email transition_checker]
+    %i[transition_checker]
   end
 
   def callback(code, state)
@@ -42,7 +42,24 @@ class OidcClient
     access_token = client.access_token!
     id_token = OpenIDConnect::ResponseObject::IdToken.decode access_token.id_token, discover.jwks
     id_token.verify! client_id: client_id, issuer: discover.issuer, nonce: state
-    access_token.userinfo!
+    {
+      access_token: access_token,
+      sub: id_token.sub,
+    }
+  end
+
+  def get_checker_attribute(access_token)
+    uri = URI.parse(userinfo_endpoint).tap do |u|
+      u.path = "/v1/attributes/transition_checker_state"
+    end
+
+    response = Rack::OAuth2::AccessToken::Bearer.new(access_token: access_token).get(uri)
+
+    if response.body.empty?
+      []
+    else
+      JSON.parse(response.body)["claim_value"]
+    end
   end
 
 private

@@ -60,6 +60,35 @@ class BrexitCheckerController < ApplicationController
 
   def save_results; end
 
+  def saved_results
+    redirect_to transition_checker_new_session_path and return unless logged_in?
+
+    @saved_results =
+      if logged_in?
+        begin
+          Array(
+            update_session_tokens(
+              oidc.get_checker_attribute(
+                access_token: session[:access_token],
+                refresh_token: session[:refresh_token],
+              ),
+            ),
+          )
+        rescue OidcClient::OAuthFailure
+          # this means the refresh token has been revoked or the
+          # accounts services are down
+          logout!
+          []
+        end
+      end
+
+    if @saved_results.empty?
+      redirect_to transition_checker_questions_path
+    else
+      redirect_to transition_checker_results_path(c: @saved_results["criteria_keys"])
+    end
+  end
+
 private
 
   def grouped_results

@@ -92,6 +92,14 @@ private
     end
   end
 
+  def oidc
+    @oidc ||= OidcClient.new(
+      Services.accounts_api,
+      ENV.fetch("GOVUK_ACCOUNT_OAUTH_CLIENT_ID"),
+      ENV.fetch("GOVUK_ACCOUNT_OAUTH_CLIENT_SECRET"),
+    )
+  end
+
   def logged_in?
     current_user.present?
   end

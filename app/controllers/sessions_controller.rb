@@ -18,13 +18,16 @@ class SessionsController < ApplicationController
 
     state = params.require(:state)
 
-    user_info = oidc.callback(
+    callback = oidc.callback(
       params.require(:code),
       state,
     )
 
-    session[:sub] = user_info.sub
-    session[:email] = user_info.email
+    access_token = callback[:access_token]
+    sub = callback[:sub]
+
+    session[:sub] = sub
+    session[:access_token] = access_token.token_response[:access_token]
 
     redirect_to redirect_path
   end
@@ -32,6 +35,7 @@ class SessionsController < ApplicationController
   def delete
     session.delete(:sub)
     session.delete(:email)
+    session.delete(:access_token)
     redirect_to redirect_path
   end
 
@@ -39,13 +43,5 @@ private
 
   def redirect_path
     transition_checker_questions_path
-  end
-
-  def oidc
-    @oidc ||= OidcClient.new(
-      Services.accounts_api,
-      ENV.fetch("GOVUK_ACCOUNT_OAUTH_CLIENT_ID"),
-      ENV.fetch("GOVUK_ACCOUNT_OAUTH_CLIENT_SECRET"),
-    )
   end
 end
