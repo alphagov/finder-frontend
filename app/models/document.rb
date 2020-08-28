@@ -111,9 +111,17 @@ private
   end
 
   def text_labels_for(key)
-    Array(document_hash.fetch(key, []))
-      .map { |label| get_metadata_label(key, label) }
-      .select(&:present?)
+    labels = Array(document_hash.fetch(key, []))
+               .map { |label| get_metadata_label(key, label) }
+               .select(&:present?)
+
+    if key == "organisations"
+      labels = labels.sort_by do |label|
+        label.sub("Closed organisation: ", "ZZ").upcase
+      end
+    end
+
+    labels
   end
 
   def build_text_metadata(key)
