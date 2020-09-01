@@ -220,7 +220,7 @@ describe EmailAlertSubscriptionsController, type: :controller do
                 national_statistics
                 statistical_data_set
                 official_statistics
-                dfid_research_output
+                research_for_development_output
                 independent_report
                 research
               ],
@@ -269,7 +269,7 @@ describe EmailAlertSubscriptionsController, type: :controller do
                   national_statistics
                   statistical_data_set
                   official_statistics
-                  dfid_research_output
+                  research_for_development_output
                   independent_report
                   research
                 ],
@@ -302,7 +302,7 @@ describe EmailAlertSubscriptionsController, type: :controller do
                   national_statistics
                   statistical_data_set
                   official_statistics
-                  dfid_research_output
+                  research_for_development_output
                   independent_report
                   research
                 ],

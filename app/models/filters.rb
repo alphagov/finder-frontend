@@ -29,7 +29,7 @@ module Filters
           "value" => "research",
           "label" => "Research",
           "filter" => {
-            "content_store_document_type" => %w[dfid_research_output independent_report research],
+            "content_store_document_type" => %w[research_for_development_output independent_report research],
           },
         },
       ]

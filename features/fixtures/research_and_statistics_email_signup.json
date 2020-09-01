@@ -62,7 +62,7 @@
           {
             "key": "research",
             "filter_values": [
-              "dfid_research_output",
+              "research_for_development_output",
               "independent_report",
               "research"
             ],
