@@ -95,6 +95,12 @@ private
     @grouped_results ||= BrexitChecker::Results::GroupByAudience.new(@audience_actions, @criteria)
   end
 
+  def update_session_tokens(result)
+    session[:access_token] = result[:access_token]
+    session[:refresh_token] = result[:refresh_token]
+    result[:result]
+  end
+
   def subscriber_list_options
     path = transition_checker_results_path(c: criteria_keys)
 

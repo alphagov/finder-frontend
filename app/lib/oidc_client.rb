@@ -1,6 +1,8 @@
 require "openid_connect"
 
 class OidcClient
+  class OAuthFailure < RuntimeError; end
+
   attr_reader :client_id,
               :provider_uri
 
@@ -48,21 +50,52 @@ class OidcClient
     }
   end
 
-  def get_checker_attribute(access_token)
+  def get_checker_attribute(access_token:, refresh_token:)
     uri = URI.parse(userinfo_endpoint).tap do |u|
       u.path = "/v1/attributes/transition_checker_state"
     end
 
-    response = Rack::OAuth2::AccessToken::Bearer.new(access_token: access_token).get(uri)
+    response = oauth_request(
+      access_token: access_token,
+      refresh_token: refresh_token,
+      method: :get,
+      args: [uri],
+    )
 
-    if response.body.empty?
-      []
+    if response[:result].empty?
+      response.merge(result: [])
     else
-      JSON.parse(response.body)["claim_value"]
+      response.merge(result: JSON.parse(response[:result])["claim_value"])
     end
   end
 
 private
+
+  def oauth_request(access_token:, refresh_token:, method:, args:)
+    access_token_str = access_token
+    refresh_token_str = refresh_token
+
+    response = Rack::OAuth2::AccessToken::Bearer.new(access_token: access_token_str).public_send(method, *args)
+
+    unless [200, 404].include? response.status
+      client.refresh_token = refresh_token
+      access_token = client.access_token!
+
+      response = access_token.public_send(method, *args)
+      raise OAuthFailure unless [200, 404].include? response.status
+
+      access_token_str = access_token.token_response[:access_token]
+      refresh_token_str = access_token.token_response[:refresh_token]
+    end
+
+    {
+      access_token: access_token_str,
+      refresh_token: refresh_token_str,
+      result: response.body,
+    }
+  rescue AttrRequired::AttrMissing, Rack::OAuth2::Client::Error
+    raise OAuthFailure
+  end
 
   def client
     @client ||= OpenIDConnect::Client.new(

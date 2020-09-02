@@ -28,14 +28,13 @@ class SessionsController < ApplicationController
 
     session[:sub] = sub
     session[:access_token] = access_token.token_response[:access_token]
+    session[:refresh_token] = access_token.token_response[:refresh_token]
 
     redirect_to redirect_path
   end
 
   def delete
-    session.delete(:sub)
-    session.delete(:email)
-    session.delete(:access_token)
+    logout!
     redirect_to redirect_path
   end
 
