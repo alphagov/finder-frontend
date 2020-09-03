@@ -51,15 +51,10 @@ class OidcClient
   end
 
   def get_checker_attribute(access_token:, refresh_token:)
-    uri = URI.parse(userinfo_endpoint).tap do |u|
-      u.path = "/v1/attributes/transition_checker_state"
-    end
-
     response = oauth_request(
       access_token: access_token,
       refresh_token: refresh_token,
       method: :get,
-      args: [uri],
     )
 
     if response[:result].empty?
@@ -71,9 +66,11 @@ class OidcClient
 
 private
 
-  def oauth_request(access_token:, refresh_token:, method:, args:)
+  def oauth_request(access_token:, refresh_token:, method:, arg: nil)
     access_token_str = access_token
     refresh_token_str = refresh_token
+
+    args = [attribute_uri, arg].compact
 
     response = Rack::OAuth2::AccessToken::Bearer.new(access_token: access_token_str).public_send(method, *args)
 
@@ -93,8 +90,14 @@ private
       refresh_token: refresh_token_str,
       result: response.body,
     }
-  rescue AttrRequired::AttrMissing, Rack::OAuth2::Client::Error
+  rescue AttrRequired::AttrMissing, Rack::OAuth2::Client::Error, URI::InvalidURIError
     raise OAuthFailure
+  end
+
+  def attribute_uri
+    @attribute_uri = URI.parse(userinfo_endpoint).tap do |u|
+      u.path = "/v1/attributes/transition_checker_state"
+    end
   end
 
   def client
