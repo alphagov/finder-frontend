@@ -84,7 +84,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}; // if this ; is omitted, none
   }
 
   Expander.prototype.attachSelectedCounter = function attachSelectedCounter (selectedString) {
-    var $selectedCounter = document.createElement('div')
+    var $selectedCounter = document.createElement('span')
     $selectedCounter.classList.add('app-c-expander__selected-counter')
     $selectedCounter.classList.add('js-selected-counter')
     $selectedCounter.innerHTML = selectedString
