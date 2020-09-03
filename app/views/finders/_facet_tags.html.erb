@@ -11,9 +11,9 @@
       <div class="facet-tags__group">
         <% applied_filter.each do |filter| %>
           <div class="facet-tags__wrapper">
-            <p class="facet-tags__preposition"><%= filter[:preposition] %></p>
-            <div class="facet-tag">
-              <p class="facet-tag__text"><%= filter[:text] %></p>
+            <span class="facet-tags__preposition"><%= filter[:preposition] %></span>
+            <span class="facet-tag">
+              <span class="facet-tag__text"><%= filter[:text] %></span>
               <button type="button"
                 class="facet-tag__remove"
                 aria-label="Remove filter <%= filter[:text] %>"
@@ -22,7 +22,7 @@
                 data-facet="<%= filter[:data_facet] %>"
                 data-value="<%= filter[:data_value] %>"
                 data-name="<%= filter[:data_name] %>">&#x2715;</button>
-            </div>
+            </span>
           </div>
         <% end %>
       </div>
