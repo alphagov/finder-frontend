@@ -1480,7 +1480,7 @@ actions:
 - id: T115
   priority: 1
   title: Register with HSE to find out when guidance on the duties for classifying, labelling and packaging chemicals for the GB market is available
-  title_url: https://www.hse.gov.uk/brexit/chemicals-brexit-guidance.htm
+  title_url: https://www.hse.gov.uk/brexit/chemicals-brexit-guidance.htm?utm_source=gov.uk&utm_medium=referral&utm_campaign=eu-transition&utm_content=checker-tool
   consequence: You must make sure chemicals are classified, labelled and packaged according to GB regulations.
   criteria:
   - chemical
@@ -1488,7 +1488,7 @@ actions:
 - id: T116
   priority: 1
   title: Register with HSE to find out when guidance on processes for biocidal active substance approval and product authorisation is available
-  title_url: https://www.hse.gov.uk/brexit/chemicals-brexit-guidance.htm
+  title_url: https://www.hse.gov.uk/brexit/chemicals-brexit-guidance.htm?utm_source=gov.uk&utm_medium=referral&utm_campaign=eu-transition&utm_content=checker-tool
   consequence: You may have delays in getting access to the right materials to continue with your work.
   criteria:
   - chemical
