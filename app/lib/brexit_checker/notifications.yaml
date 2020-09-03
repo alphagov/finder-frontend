@@ -249,3 +249,7 @@ notifications:
     action_id: T103
     date: 2020-08-07
     note: "Guidance link updated to provide more information about the UK Global Tariff"
+  - uuid: "e48eefd1-a85c-45b1-90d2-62f6aa07049a"
+    type: addition
+    action_id: T117
+    date: 2020-09-03
