@@ -1480,7 +1480,7 @@ actions:
 - id: T115
   priority: 1
   title: Register with HSE to find out when guidance on the duties for classifying, labelling and packaging chemicals for the GB market is available
-  title_url: https://www.hse.gov.uk/brexit/chemicals-brexit-guidance.htm
+  title_url: https://www.hse.gov.uk/brexit/chemicals-brexit-guidance.htm?utm_source=gov.uk&utm_medium=referral&utm_campaign=eu-transition&utm_content=checker-tool
   consequence: You must make sure chemicals are classified, labelled and packaged according to GB regulations.
   criteria:
   - chemical
@@ -1488,8 +1488,19 @@ actions:
 - id: T116
   priority: 1
   title: Register with HSE to find out when guidance on processes for biocidal active substance approval and product authorisation is available
-  title_url: https://www.hse.gov.uk/brexit/chemicals-brexit-guidance.htm
+  title_url: https://www.hse.gov.uk/brexit/chemicals-brexit-guidance.htm?utm_source=gov.uk&utm_medium=referral&utm_campaign=eu-transition&utm_content=checker-tool
   consequence: You may have delays in getting access to the right materials to continue with your work.
   criteria:
   - chemical
+  audience: business
+- id: T117
+  priority: 3
+  title: Contact your regulator if you are a UK lawyer working permanently in the EU, Norway, Iceland or Liechtenstein
+  consequence: You risk not being able to continue providing legal services in the same way if you do not meet new requirements.
+  guidance_link_text: UK laywers practising in the EU, Norway, Iceland or Liechtenstein from 1 January 2021
+  guidance_url: https://www.gov.uk/government/publications/uk-lawyers-practising-in-the-eu-norway-iceland-or-liechtenstein-from-1-january-2021/uk-lawyers-practising-in-the-eu-norway-iceland-or-liechtenstein-after-1-january-2021
+  criteria:
+  - all_of:
+    - working-eu
+    - legal-service
   audience: business
