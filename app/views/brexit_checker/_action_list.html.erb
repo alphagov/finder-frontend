@@ -19,9 +19,7 @@
       </p>
       <% if action.lead_time.present? %>
         <div class="govuk-body">
-          <div class="govuk-inset-text">
-            <%= action.lead_time %>
-          </div>
+          <%= render "govuk_publishing_components/components/inset_text", text: action.lead_time %>
         </div>
       <% end %>
 
