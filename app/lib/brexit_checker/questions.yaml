@@ -204,8 +204,8 @@ questions:
     description: |
       <p>This includes sole traders (self-employed), limited companies, and small and medium enterprises.</p>
     detail_text: |
-      <p>From 1 January 2021, rules for UK businesses and organisations will change.</p>
-      <p>We need to know if you own or help to run a UK business or organisation so we can show you what you need to do to prepare for the new rules.</p>
+      <p>From 1 January 2021, rules for businesses and organisations will change.</p>
+      <p>We need to know if you own or help to run a business or organisation so we can show you what you need to do to prepare for the new rules.</p>
     options:
       - label: "Yes"
         value: owns-operates-business-organisation
