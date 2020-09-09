@@ -22,17 +22,21 @@
     <%= render "govuk_publishing_components/components/inverse_header", {
       full_width: true
     } do %>
-      <%= render partial: 'show_header', locals: { inverse: inverse,
-                                                   page_metadata: page_metadata(content_item, filter_params) } %>
+      <%= render partial: 'show_header', locals: {
+        inverse: inverse,
+        page_metadata: page_metadata(content_item, filter_params)
+      } %>
     <% end %>
   <% else %>
-    <%= render partial: 'show_header', locals: { inverse: inverse,
-                                                 page_metadata: page_metadata(content_item, filter_params) } %>
+    <%= render partial: 'show_header', locals: {
+      inverse: inverse,
+      page_metadata: page_metadata(content_item, filter_params)
+    } %>
   <% end %>
 
   <div class="govuk-width-container">
     <div class="govuk-grid-row">
-      <div class="govuk-grid-column-one-third" role="search" aria-label="<%= content_item.title %>">
+      <div class="govuk-grid-column-one-third">
         <%= render partial: 'facet_collection'%>
       </div>
 

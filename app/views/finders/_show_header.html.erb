@@ -21,7 +21,7 @@
     <div class="govuk-grid-column-two-thirds">
       <% if content_item.all_content_finder? %>
         <h1 class="app-c-search-page-heading">Search<span class="govuk-visually-hidden"> all content</span></h1>
-        <div id="keywords" class="app-patch--search-input-override">
+        <div id="keywords" class="app-patch--search-input-override" role="search" aria-label="Sitewide">
           <%= render "govuk_publishing_components/components/search", {
             aria_controls: "js-search-results-info",
             id: "finder-keyword-search",
