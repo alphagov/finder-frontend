@@ -1,6 +1,6 @@
 class EmailAlertTitleBuilder
-  def self.call(*args)
-    new(*args).call
+  def self.call(**args)
+    new(**args).call
   end
 
   def initialize(filter:, subscription_list_title_prefix:, facets:)
