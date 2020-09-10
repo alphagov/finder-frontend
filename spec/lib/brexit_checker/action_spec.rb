@@ -100,7 +100,7 @@ RSpec.describe BrexitChecker::Action do
       allow(BrexitChecker::Criterion).to receive(:load_all).and_return([criteria1, criteria2])
     end
 
-    it "returns a single criteira key from the action" do
+    it "returns a single criteria key from the action" do
       expect(action1.all_criteria_keys).to eq(%w[living-uk])
     end
 
@@ -116,6 +116,16 @@ RSpec.describe BrexitChecker::Action do
 
     it "correctly removes duplicates from an array by id" do
       expect([action1, action2, action3].uniq.map(&:id)).to eq(%w[S01 S02])
+    end
+  end
+
+  describe "#multiple_grouping_criteria?" do
+    let(:action1) { FactoryBot.build(:brexit_checker_action, :citizen, grouping_criteria: %w[living-uk]) }
+    let(:action2) { FactoryBot.build(:brexit_checker_action, :citizen, grouping_criteria: %w[living-uk visiting-eu]) }
+
+    it "returns true if action has more than one grouping criteria" do
+      expect(action1.multiple_grouping_criteria?).to be false
+      expect(action2.multiple_grouping_criteria?).to be true
     end
   end
 end

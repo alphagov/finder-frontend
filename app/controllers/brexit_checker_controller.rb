@@ -34,9 +34,9 @@ class BrexitCheckerController < ApplicationController
     all_actions = BrexitChecker::Action.load_all
     @criteria = BrexitChecker::Criterion.load_by(criteria_keys)
     @actions = filter_actions(all_actions, criteria_keys)
-    audience_actions = @actions.group_by(&:audience)
-    @business_results = BrexitChecker::ResultsAudiences.populate_business_groups(audience_actions["business"], @criteria)
-    @citizen_results_groups = BrexitChecker::ResultsAudiences.populate_citizen_groups(audience_actions["citizen"], @criteria)
+    @audience_actions = @actions.group_by(&:audience)
+    @business_results = audience_results.populate_business_groups
+    @citizen_results_groups = audience_results.populate_citizen_groups
   end
 
   def email_signup; end
@@ -49,6 +49,10 @@ class BrexitCheckerController < ApplicationController
   end
 
 private
+
+  def audience_results
+    @audience_results ||= BrexitChecker::ResultsAudiences.new(@audience_actions, @criteria)
+  end
 
   def subscriber_list_options
     path = transition_checker_results_path(c: criteria_keys)
