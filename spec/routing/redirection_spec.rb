@@ -46,4 +46,18 @@ RSpec.describe "Redirecting coronavirus topical event searches", type: :routing 
       topical_events: %w[coronavirus-covid-19-uk-government-response],
     )
   end
+
+  it "ignores atom feeds" do
+    expect(
+      get: "/any-old-finder.atom?keywords=bernard&topical_events[]=coronavirus-covid-19-uk-government-response&organisations[]=ministry-of-pirates",
+    ).to route_to(
+      format: "atom",
+      controller: "finders",
+      action: "show",
+      slug: "any-old-finder",
+      keywords: "bernard",
+      organisations: %w[ministry-of-pirates],
+      topical_events: %w[coronavirus-covid-19-uk-government-response],
+    )
+  end
 end
