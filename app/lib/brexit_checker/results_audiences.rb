@@ -27,8 +27,13 @@ class BrexitChecker::ResultsAudiences
             criteria: selected_actions.flat_map(&:all_criteria).uniq & selected_criteria,
           }
         end
-        grouped_actions
+        sort_by_priority(grouped_actions)
       end
+    end
+
+    def sort_by_priority(grouped)
+      descending = -1
+      grouped.sort_by! { |actions| [(actions[:group].priority * descending ), actions[:group].key] }
     end
 
     def selected_group(action, selected_criteria)

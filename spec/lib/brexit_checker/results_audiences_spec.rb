@@ -17,9 +17,9 @@ describe BrexitChecker::ResultsAudiences do
     action3_criteria = [{ "all_of" => [living_uk.key, visiting_bring_pet.key, { "any_of" => [visiting_eu.key, visiting_ie.key] }] }]
     action3 = FactoryBot.build(:brexit_checker_action, :citizen, title: "action 3", criteria: action3_criteria, grouping_criteria: %w[visiting-eu visiting-ie])
 
-    group_visiting_eu = FactoryBot.build(:brexit_checker_group, key: "visiting-eu", heading: "Visiting the EU")
-    group_visiting_ie = FactoryBot.build(:brexit_checker_group, key: "visiting-ie", heading: "Visiting Ireland")
-    group_living_uk = FactoryBot.build(:brexit_checker_group, key: "living-uk", heading: "Living in the UK")
+    group_visiting_eu = FactoryBot.build(:brexit_checker_group, key: "visiting-eu", heading: "Visiting the EU", priority: 9)
+    group_visiting_ie = FactoryBot.build(:brexit_checker_group, key: "visiting-ie", heading: "Visiting Ireland", priority: 7)
+    group_living_uk = FactoryBot.build(:brexit_checker_group, key: "living-uk", heading: "Living in the UK", priority: 6)
 
     all_actions = [action1, action2, action3]
     all_criteria = [living_uk, visiting_driving, visiting_bring_pet, visiting_eu, visiting_ie]
@@ -49,17 +49,17 @@ describe BrexitChecker::ResultsAudiences do
       let(:selected_criteria) { [living_uk, visiting_driving] }
       let(:filtered_actions) { [action1, action2] }
       let(:grouped_citizen_actions) { described_class.populate_citizen_groups(filtered_actions, selected_criteria) }
-      it "produces an array of group hashes" do
+      it "produces an array of group hashes, ordered by priority" do
         grouped_actions_fixture = [
-          {
-            group: group_living_uk,
-            actions: [action1],
-            criteria: [living_uk],
-          },
           {
             group: group_visiting_eu,
             actions: [action2],
             criteria: [visiting_driving],
+          },
+          {
+            group: group_living_uk,
+            actions: [action1],
+            criteria: [living_uk],
           },
         ]
         expect(grouped_citizen_actions).to eq grouped_actions_fixture
@@ -72,18 +72,18 @@ describe BrexitChecker::ResultsAudiences do
         let(:filtered_actions) { [action1, action3] }
         let(:grouped_citizen_actions) { described_class.populate_citizen_groups(filtered_actions, selected_criteria) }
 
-        it "only shows the group matching the selected criteria" do
+        it "only shows the groups matching the selected criteria, ordered by priority" do
           grouped_actions_fixture = [
+            {
+              group: group_visiting_eu,
+              actions: [action3],
+              criteria: [living_uk, visiting_bring_pet, visiting_eu],
+            },
             {
               group: group_living_uk,
               actions: [action1],
               criteria: [living_uk],
             },
-            {
-              group: group_visiting_eu,
-              actions: [action3],
-              criteria: [living_uk, visiting_bring_pet, visiting_eu],
-            }
           ]
           expect(grouped_citizen_actions).to eq grouped_actions_fixture
         end
@@ -94,13 +94,8 @@ describe BrexitChecker::ResultsAudiences do
         let(:filtered_actions) { [action1, action3] }
         let(:grouped_citizen_actions) { described_class.populate_citizen_groups(filtered_actions, selected_criteria) }
 
-        it "shows all of the groups that have matching criteria, and duplicates actions" do
+        it "shows all of the groups that have matching criteria, ordered by priority, and duplicates actions " do
           grouped_actions_fixture = [
-            {
-              group: group_living_uk,
-              actions: [action1],
-              criteria: [living_uk],
-            },
             {
               group: group_visiting_eu,
               actions: [action3],
@@ -111,7 +106,11 @@ describe BrexitChecker::ResultsAudiences do
               actions: [action3],
               criteria: [living_uk, visiting_bring_pet, visiting_eu, visiting_ie],
             },
-
+            {
+              group: group_living_uk,
+              actions: [action1],
+              criteria: [living_uk],
+            },
           ]
           expect(grouped_citizen_actions).to eq grouped_actions_fixture
         end

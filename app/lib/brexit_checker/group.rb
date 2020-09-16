@@ -15,7 +15,7 @@ class BrexitChecker::Group
                                 studying-uk
                                 common-travel-area]
 
-  attr_reader :key, :heading
+  attr_reader :key, :heading, :priority
 
   def initialize(attrs)
     attrs.each { |key, value| instance_variable_set("@#{key}", value) }
