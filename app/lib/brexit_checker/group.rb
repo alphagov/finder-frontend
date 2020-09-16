@@ -27,6 +27,10 @@ class BrexitChecker::Group
     @load_all ||= YAML.load_file(GROUPS_PATH)["groups"].map { |a| new(a) }
   end
 
+  def self.find_by(key)
+    load_all.detect { |group| group.key == key }
+  end
+
   delegate :hash, to: :key
 
   def eql?(other)
