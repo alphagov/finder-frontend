@@ -99,12 +99,12 @@ describe BrexitChecker::ResultsAudiences do
             {
               group: group_visiting_eu,
               actions: [action3],
-              criteria: [living_uk, visiting_bring_pet, visiting_eu, visiting_ie],
+              criteria: [living_uk, visiting_bring_pet, visiting_eu],
             },
             {
               group: group_visiting_ie,
               actions: [action3],
-              criteria: [living_uk, visiting_bring_pet, visiting_eu, visiting_ie],
+              criteria: [living_uk, visiting_bring_pet, visiting_ie],
             },
             {
               group: group_living_uk,
