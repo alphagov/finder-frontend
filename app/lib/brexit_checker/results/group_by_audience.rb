@@ -65,21 +65,7 @@ private
 
   def criteria_for_group(group, actions)
     actions_for_group(group, actions).map { |action|
-      if action.multiple_grouping_criteria?
-        filtered_criteria(action, group.key)
-      else
-        criteria_for_action(action)
-      end
+      BrexitChecker::Results::CriteriaFilter.call(action, group.key, criteria)
     }.flatten.uniq
-  end
-
-  def filtered_criteria(action, group_key)
-    unfiltered = criteria_for_action(action)
-    rogue_criteria_keys = (action.grouping_criteria - [group_key])
-    unfiltered.reject { |criterion| rogue_criteria_keys.include? criterion.key }
-  end
-
-  def criteria_for_action(action)
-    (action.all_criteria & criteria).flatten.uniq
   end
 end
