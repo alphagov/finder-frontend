@@ -1,4 +1,4 @@
-class BrexitChecker::ResultsAudiences
+class BrexitChecker::Results::GroupByAudience
   attr_reader :citizen_actions, :business_actions, :criteria
 
   def initialize(actions, criteria)
@@ -21,21 +21,22 @@ class BrexitChecker::ResultsAudiences
 
     citizen_actions.each_with_object([]) do |action, grouped_actions|
       next if action.grouping_criteria.empty?
-        group_key_array(action).each do |key|
-          group = BrexitChecker::Group.find_by(key)
-          next if grouped_actions.any? { |actions| actions[:group] == group }
 
-          grouped_actions << {
-            group: group,
-            actions: actions_for_group(group, citizen_actions),
-            criteria: criteria_for_group(group, citizen_actions),
-          }
-        end
+      group_key_array(action).each do |key|
+        group = BrexitChecker::Group.find_by(key)
+        next if grouped_actions.any? { |actions| actions[:group] == group }
+
+        grouped_actions << {
+          group: group,
+          actions: actions_for_group(group, citizen_actions),
+          criteria: criteria_for_group(group, citizen_actions),
+        }
+      end
       sort_by_priority(grouped_actions)
     end
   end
 
-  private
+private
 
   def group_key_array(action)
     action.multiple_grouping_criteria? ? selected_grouping_criteria(action) : action.grouping_criteria
@@ -43,7 +44,7 @@ class BrexitChecker::ResultsAudiences
 
   def sort_by_priority(grouped)
     descending = -1
-    grouped.sort_by! { |actions| [(actions[:group].priority * descending ), actions[:group].key] }
+    grouped.sort_by! { |actions| [(actions[:group].priority * descending), actions[:group].key] }
   end
 
   def selected_grouping_criteria(action)
@@ -63,13 +64,13 @@ class BrexitChecker::ResultsAudiences
   end
 
   def criteria_for_group(group, actions)
-    actions_for_group(group, actions).map do |action|
+    actions_for_group(group, actions).map { |action|
       if action.multiple_grouping_criteria?
         filtered_criteria(action, group.key)
       else
         criteria_for_action(action)
       end
-    end.flatten.uniq
+    }.flatten.uniq
   end
 
   def filtered_criteria(action, group_key)

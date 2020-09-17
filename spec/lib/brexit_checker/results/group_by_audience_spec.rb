@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe BrexitChecker::ResultsAudiences do
+describe BrexitChecker::Results::GroupByAudience do
   describe "#populate_citizen_groups" do
     let(:living_uk) { FactoryBot.build(:brexit_checker_criterion, key: "living-uk") }
     let(:visiting_driving) { FactoryBot.build(:brexit_checker_criterion, key: "visiting-driving") }
