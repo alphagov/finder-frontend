@@ -1,0 +1,17 @@
+en:
+  brexit_checker:
+    account_signup:
+      title: Stay up to date with a new GOV.UK account
+      heading: Stay up to date with a new GOV.UK account
+      proposition: |
+        <p class="govuk-body">
+          Create a GOV.UK account to hep you get ready for new rules in 2021. You'll be able to:
+        </p>
+
+        <ul class="govuk-list govuk-list--bullet">
+          <li>get email updates about changes that may affect you</li>
+          <li>get a link to your UK transition results</li>
+        </ul>
+      cta_button: Create a GOV.UK account
+      or: or
+      alternative_path_link_text: stay up to date with email alerts only

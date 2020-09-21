@@ -1,0 +1,55 @@
+<% content_for :title, t('brexit_checker.account_signup.title') %>
+<% content_for :head do %>
+  <% unless params[:page] %>
+    <meta name="robots" content="noindex">
+  <% end %>
+<% end %>
+
+<div class="govuk-width-container">
+  <%= render 'govuk_publishing_components/components/breadcrumbs', {
+    collapse_on_mobile: true,
+    breadcrumbs: [
+      {
+        title: t('brexit_checker.breadcrumbs.home'),
+        url: "/"
+      },
+      {
+        title: t('brexit_checker.breadcrumbs.brexit-home'),
+        url: "/transition"
+      },
+      {
+        title: t('brexit_checker.breadcrumbs.results'),
+        url: transition_checker_results_path(c: criteria_keys)
+      }
+    ]
+  } %>
+
+  <main class="govuk-main-wrapper">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        <%= render "govuk_publishing_components/components/heading", {
+            text: t('brexit_checker.account_signup.heading'),
+            font_size: "xl",
+            heading_level: 1,
+          } %>
+
+        <%= t('brexit_checker.account_signup.proposition').html_safe %>
+
+        <%= render "experiment_banner" %>
+
+        <%= render "govuk_publishing_components/components/button", {
+            text: t('brexit_checker.account_signup.cta_button'),
+            href: sign_up_url,
+            margin_bottom: true
+          } %>
+
+        <p class="govuk-body">
+          <%= t('brexit_checker.account_signup.or') %>
+          <a class="govuk-link" href="<%= transition_checker_email_signup_path(c: criteria_keys) %>">
+            <%= t('brexit_checker.account_signup.alternative_path_link_text') %>
+          </a>
+        </p>
+      </div>
+    </div>
+  </main>
+</div>

@@ -11,6 +11,8 @@ class BrexitCheckerController < ApplicationController
     expires_in(30.minutes, public: true) unless Rails.env.development?
   end
 
+  before_action :check_accounts_enabled, only: [:save_results]
+
   def show
     all_questions = BrexitChecker::Question.load_all
     @question_index = next_question_index(
@@ -47,6 +49,8 @@ class BrexitCheckerController < ApplicationController
 
     redirect_to email_alert_frontend_signup_path(topic_id: subscriber_list_slug)
   end
+
+  def save_results; end
 
 private
 

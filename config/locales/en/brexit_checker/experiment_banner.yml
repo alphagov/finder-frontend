@@ -1,0 +1,7 @@
+en:
+  brexit_checker:
+    experiment_banner:
+      heading: GOV.UK accounts are an experimental new feature
+      proposition:
+        - They're a first step towards making GOV.UK more tailored to you and your circumstances.
+        - You'll be able to give feedback and suggest how to make the account better. You can also decide to delete your account at any time.
