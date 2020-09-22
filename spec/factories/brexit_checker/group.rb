@@ -2,7 +2,7 @@ FactoryBot.define do
   factory :brexit_checker_group, class: BrexitChecker::Group do
     key { "living-uk" }
     heading { "You live in the UK" }
-
+    priority { 6 }
     initialize_with { BrexitChecker::Group.new(attributes) }
   end
 end

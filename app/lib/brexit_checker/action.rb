@@ -62,6 +62,10 @@ class BrexitChecker::Action
     id == other.id
   end
 
+  def multiple_grouping_criteria?
+    grouping_criteria.count > 1
+  end
+
 private
 
   def has_criteria

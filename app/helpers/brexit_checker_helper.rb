@@ -11,14 +11,14 @@ module BrexitCheckerHelper
     "business-actions-criteria"
   end
 
-  def filter_items(items, criteria_keys)
-    filtered = items.select { |i| i.show?(criteria_keys) }
-    sorted_items(filtered)
+  def filter_actions(actions, criteria_keys)
+    filtered = actions.select { |a| a.show?(criteria_keys) }
+    sorted_actions(filtered)
   end
 
-  def sorted_items(items)
+  def sorted_actions(actions)
     descending = -1
-    items.sort_by { |action| [(action.priority * descending), action.title] }
+    actions.sort_by { |action| [(action.priority * descending), action.title] }
   end
 
   def persistent_criteria_keys(question_criteria_keys)

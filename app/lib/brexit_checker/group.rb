@@ -15,7 +15,7 @@ class BrexitChecker::Group
                                 studying-uk
                                 common-travel-area]
 
-  attr_reader :key, :heading
+  attr_reader :key, :heading, :priority
 
   def initialize(attrs)
     attrs.each { |key, value| instance_variable_set("@#{key}", value) }
@@ -25,6 +25,10 @@ class BrexitChecker::Group
   def self.load_all
     @load_all = nil if Rails.env.development?
     @load_all ||= YAML.load_file(GROUPS_PATH)["groups"].map { |a| new(a) }
+  end
+
+  def self.find_by(key)
+    load_all.detect { |group| group.key == key }
   end
 
   delegate :hash, to: :key
