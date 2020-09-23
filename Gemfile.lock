@@ -474,6 +474,7 @@ DEPENDENCIES
   govuk_test
   jasmine
   jasmine_selenium_runner
+  jwt
   launchy
   listen
   pry-byebug

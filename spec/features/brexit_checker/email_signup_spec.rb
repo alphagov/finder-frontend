@@ -37,6 +37,14 @@ RSpec.feature "Brexit Checker email signup", type: :feature do
   end
 
   context "with the GOV.UK Account feature flag" do
+    before do
+      ENV["GOVUK_ACCOUNT_OAUTH_CLIENT_ID"] = "Application's OAuth client ID"
+      ENV["GOVUK_ACCOUNT_OAUTH_CLIENT_KEY_UUID"] = "fake_key_uuid"
+      ENV["GOVUK_ACCOUNT_OAUTH_CLIENT_KEY"] = AccountSignupHelper.test_ec_key_fixture
+      allow(Rails.configuration).to receive(:feature_flag_govuk_accounts).and_return(true)
+      allow(Services).to receive(:accounts_api).and_return(Plek.find("account-manager"))
+    end
+
     scenario "user clicks to signup to email alerts with existing subscriber list" do
       given_im_on_the_results_page
       and_email_alert_api_has_subscriber_list

@@ -37,11 +37,13 @@
 
         <%= render "experiment_banner" %>
 
-        <%= render "govuk_publishing_components/components/button", {
+        <%= form_tag Services.accounts_api, id: "account-signup", class: "account-signup" do %>
+          <input type="hidden" name="jwt" value="<%= account_signup_jwt(criteria_keys) %>">
+          <%= render "govuk_publishing_components/components/button", {
             text: t('brexit_checker.account_signup.cta_button'),
-            href: sign_up_url,
-            margin_bottom: true
+            inline_layout: true,
           } %>
+        <% end %>
 
         <p class="govuk-body">
           <%= t('brexit_checker.account_signup.or') %>
