@@ -17,7 +17,7 @@ module BrexitChecker
         CSV.parse(
           csv,
           headers: true,
-          header_converters: downcase_underscore_headers,
+          header_converters: convert_headers,
         )
            .each { |row| data << processor.process(row.to_h) }
 
@@ -33,8 +33,15 @@ module BrexitChecker
 
     private
 
-      def downcase_underscore_headers
-        ->(field, _) { field.downcase.gsub(" ", "_") }
+      FIELD_NAME_OVERRIDES = {
+        "Priority (1 is low, 10 is high)" => "priority"
+      }.freeze
+
+      def convert_headers
+        ->(field, _) {
+          field = FIELD_NAME_OVERRIDES[field] || field
+          field.downcase.gsub(" ", "_")
+        }
       end
     end
   end
