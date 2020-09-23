@@ -33,6 +33,7 @@ FinderFrontend::Application.routes.draw do
   get "/uk-nationals-living-eu" => "qa_to_content#show"
 
   get "/search/advanced" => "redirection#advanced_search"
+  get "/postcode-lookup" => "post_code_lookup#show"
 
   get "/*slug" => "redirection#redirect_covid", constraints: lambda { |request|
     topical_events = request.params["topical_events"]
