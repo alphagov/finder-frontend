@@ -1,0 +1,9 @@
+<%= render layout: 'base_page' do %>
+  <p class="govuk-body">Find the website for your local council.</p>
+  <%= render partial: 'location_form',
+             locals: {
+               format: 'service',
+               publication_format: 'find_local_council',
+               postcode: @postcode,
+             } %>
+<% end %>

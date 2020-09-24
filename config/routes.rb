@@ -18,6 +18,10 @@ FinderFrontend::Application.routes.draw do
     get "/test-search/search/opensearch" => "search#opensearch"
   end
 
+  get "/local-restrictions" => "local_restrictions#index"
+  post "/local-restrictions" => "local_restrictions#find"
+  get "/local-restrictions/:authority_slug" => "local_restrictions#result"
+
   # Routes for the for Brexit Checker
   get "/transition-check/results" => "brexit_checker#results", as: :transition_checker_results
   get "/transition-check/questions" => "brexit_checker#show", as: :transition_checker_questions

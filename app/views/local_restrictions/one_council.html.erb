@@ -1,0 +1,34 @@
+<%= render layout: 'base_page' do %>
+  <h2 class="govuk-heading-m">Your postcode is in:</h2>
+
+  <div class="local-authority-results"
+       data-module="auto-track-event"
+       data-track-category="postcodeSearch:find_local_council"
+       data-track-action="postcodeResultShown"
+       data-track-label="1 Result">
+
+    <div class="<%= @authority['tier'] %>-result group">
+
+      <p class="govuk-body"><%= @authority["name"] %></p>
+
+      <p class="govuk-body">
+        <% if @authority["homepage_url"].blank? %>
+          We don't have a link for their website.
+        <% else %>
+          Website: <%= link_to extract_host(@authority["homepage_url"]), @authority["homepage_url"], class: "govuk-link",
+                        data: {
+                          module: 'track-click',
+                          track_category: 'pageElementInteraction',
+                          track_action: 'unitaryLinkClicked',
+                          track_label: @authority["homepage_url"]
+                        } %>
+        <% end %>
+      </p>
+    </div>
+    <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+  </div>
+
+  <%= render "govuk_publishing_components/components/back_link", {
+    href: "/find-local-council"
+  } %>
+<% end %>
