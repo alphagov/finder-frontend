@@ -1,7 +1,7 @@
 <% actions.each.with_index do | action, index | %>
   <div class="govuk-grid-row brexit-checker__action">
     <div class="brexit-checker__content-wrapper">
-      <p class="govuk-body brexit-checker__action_title">
+      <h4 class="govuk-body brexit-checker__action_title">
         <% if action.title_url.present? %>
           <a
             class="govuk-link"
@@ -16,7 +16,7 @@
         <% else %>
           <%= action.title %>
         <% end %>
-      </p>
+      </h4>
       <% if action.lead_time.present? %>
         <div class="govuk-body">
           <%= render "govuk_publishing_components/components/inset_text", text: action.lead_time %>
