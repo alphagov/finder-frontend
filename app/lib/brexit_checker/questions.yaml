@@ -341,17 +341,17 @@ questions:
     description: |
       <p>Importing and exporting includes temporarily taking goods across the EU border, for example to a trade fair.</p>
     options:
-      - label: "Import from the EU"
+      - label: "Bring or receive goods from EU countries (importing)"
         value: import-from-eu
-      - label: "Export to the EU"
+      - label: "Send or take goods to EU countries (exporting)"
         value: export-to-eu
+      - label: "Transport goods across EU borders (haulage)"
+        value: haulage-goods-across-eu-borders
       - label: "Provide services or do business in the EU"
         value: provide-services-do-business-in-eu
-      - label: "Transport goods across EU borders"
-        value: haulage-goods-across-eu-borders
       - label: "Move goods into, out of, or through Northern Ireland"
         value: move-goods-ni
-      - label: "Export to the rest of the world"
+      - label: "Send or take goods to the rest of the world (exporting)"
         value: export-to-row
       - label: "Trade with developing countries"
         value: trade-developing
