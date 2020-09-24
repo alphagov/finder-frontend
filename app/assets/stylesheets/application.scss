@@ -33,8 +33,12 @@ $govuk-use-legacy-palette: false;
 @import 'govuk_publishing_components/components/step-by-step-nav-header';
 @import 'govuk_publishing_components/components/subscription-links';
 @import 'govuk_publishing_components/components/title';
+@import 'govuk_publishing_components/components/related-navigation';
 
 @import 'components/*';
 @import 'finder_frontend';
 @import 'views/search';
 @import 'views/brexit_checker_results_page';
+
+// TODO - ported styles
+@import 'views/location_form';
