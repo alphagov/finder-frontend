@@ -46,5 +46,6 @@ FinderFrontend::Application.routes.draw do
       topical_events.include?("coronavirus-covid-19-uk-government-response")
   }
 
+  # Whatever else you do here... keep this at the bottom of the file
   get "/*slug" => "finders#show", as: :finder
 end
