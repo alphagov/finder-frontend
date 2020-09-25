@@ -13,17 +13,17 @@
 %>
 
 <% content_for :breadcrumbs do %>
-<div class="govuk-width-container">
-  <% if @previous_page %>
-    <%= render "govuk_publishing_components/components/back_link", {
-      href: transition_checker_questions_path(page: @previous_page, c: criteria_keys),
-    } %>
-  <% else %>
-    <%= render "govuk_publishing_components/components/back_link", {
-      href: "/transition",
-    } %>
-  <% end %>
-</div>
+  <div class="govuk-width-container">
+    <% if @previous_page %>
+      <%= render "govuk_publishing_components/components/back_link", {
+        href: transition_checker_questions_path(page: @previous_page, c: criteria_keys),
+      } %>
+    <% else %>
+      <%= render "govuk_publishing_components/components/back_link", {
+        href: "/transition",
+      } %>
+    <% end %>
+  </div>
 <% end %>
 
 <div class="govuk-width-container">

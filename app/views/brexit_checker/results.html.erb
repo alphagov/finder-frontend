@@ -19,21 +19,21 @@
 <% end %>
 
 <% content_for :breadcrumbs do %>
-<div class="govuk-width-container">
-  <%= render 'govuk_publishing_components/components/breadcrumbs', {
-    collapse_on_mobile: true,
-    breadcrumbs: [
-      {
-        title: t('brexit_checker.breadcrumbs.home'),
-        url: "/"
-      },
-      {
-        title: t('brexit_checker.breadcrumbs.brexit-home'),
-        url: "/transition"
-      }
-    ]
-  } %>
-</div>
+  <div class="govuk-width-container">
+    <%= render 'govuk_publishing_components/components/breadcrumbs', {
+      collapse_on_mobile: true,
+      breadcrumbs: [
+        {
+          title: t('brexit_checker.breadcrumbs.home'),
+          url: "/"
+        },
+        {
+          title: t('brexit_checker.breadcrumbs.brexit-home'),
+          url: "/transition"
+        }
+      ]
+    } %>
+  </div>
 <% end %>
 
 <div class="govuk-width-container brexit-checker-results-page">
