@@ -18,7 +18,8 @@
   <link rel="canonical" href="<%= page_url %>">
 <% end %>
 
-<div class="govuk-width-container brexit-checker-results-page">
+<% content_for :breadcrumbs do %>
+<div class="govuk-width-container">
   <%= render 'govuk_publishing_components/components/breadcrumbs', {
     collapse_on_mobile: true,
     breadcrumbs: [
@@ -32,6 +33,10 @@
       }
     ]
   } %>
+</div>
+<% end %>
+
+<div class="govuk-width-container brexit-checker-results-page">
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
       <%= render "govuk_publishing_components/components/title", {
