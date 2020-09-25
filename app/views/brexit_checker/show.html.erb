@@ -12,6 +12,7 @@
   end
 %>
 
+<% content_for :breadcrumbs do %>
 <div class="govuk-width-container">
   <% if @previous_page %>
     <%= render "govuk_publishing_components/components/back_link", {
@@ -19,10 +20,13 @@
     } %>
   <% else %>
     <%= render "govuk_publishing_components/components/back_link", {
-      href: "/get-ready-brexit-check",
+      href: "/transition",
     } %>
   <% end %>
+</div>
+<% end %>
 
+<div class="govuk-width-container">
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
       <form
