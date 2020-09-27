@@ -1,0 +1,59 @@
+<% content_for :title do %>Find out what coronavirus restrictions apply in your
+  area - GOV.UK <% end %> <% content_for :extra_headers do %>
+  <meta
+  name="description"
+  content="Find out what coronavirus restrictions apply in your area - GOV.UK"
+/>
+  <% end %>
+  <div class="govuk-width-container">
+    <div class="govuk-grid-row">
+      <main id="content" role="main" class="govuk-grid-column-two-thirds">
+        <%= render "govuk_publishing_components/components/back_link", { href: "#"
+      } %>
+        <div class="govuk-!-margin-top-8 govuk-!-margin-bottom-8">
+          <% if @local_restrictions == "tier1" %>
+            <%= render "govuk_publishing_components/components/title", title: "This area is in alert level 1" %>
+          <% elsif %>
+            <%= render "govuk_publishing_components/components/title", title: "This area is in alert level 2" %>
+          <% else %>
+            <%= render "govuk_publishing_components/components/title", title: "This area is in alert level 3" %>
+          <% end %>
+        </div>
+      </main>
+      <aside class="govuk-grid-column-one-third govuk-!-margin-top-7">
+        <!-- TODO remove simple rip -->
+        <div class="gem-c-contextual-sidebar">
+          <div
+          class="app-o-related-container <%= yield :related_container_class %>"
+        >
+            <div class="gem-c-related-navigation">
+              <h2
+              id="related-nav-related_items-3c4f964b"
+              class="gem-c-related-navigation__main-heading"
+              data-track-count="sidebarRelatedItemSection"
+            >
+                Related content
+              </h2>
+              <nav
+              role="navigation"
+              class="gem-c-related-navigation__nav-section"
+              aria-labelledby="related-nav-related_items-3c4f964b"
+              data-module="gem-toggle"
+            >
+                <ul class="gem-c-related-navigation__link-list">
+                  <li class="gem-c-related-navigation__link">
+                    <a
+                    class="gem-c-related-navigation__section-link gem-c-related-navigation__section-link--sidebar gem-c-related-navigation__section-link--other"
+                    href="/understand-how-your-council-works"
+                    >Understand how your council works</a
+                  >
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
+        <!-- TODO END remove rip -->
+      </aside>
+    </div>
+  </div>

@@ -1,0 +1,60 @@
+---
+groups:
+  - key: Level 1
+    heading: This area is in alert level 1
+    action_copy:  Find out what you can and cannot do.
+    addtional_copy: If you travel to other areas
+    Enter another postcode to find out what restrictions there are.
+
+  - key: Level 2
+    heading: This area is in alert level 2
+    action_copy:  Find out what you can and cannot do.
+    addtional_copy: If you travel to other areas
+    Enter another postcode to find out what restrictions there are.
+
+  - key: Level 3
+    heading: This area is in alert level 3
+    action_copy:  This means you should follow the national guidelines.
+    Find out what you can and cannot do.
+    addtional_copy: If you travel to other areas
+    Enter another postcode to find out what restrictions there are.
+
+  - key: No restrictions
+    heading: There are no restrictions in this area
+    action_copy:  This means you should follow the national guidelines.
+    addtional_copy: Find out what you can and cannot do.
+    If you travel to other areas
+    Enter another postcode to find out what restrictions there are.
+
+  - key: No result 
+    heading: There is no information about the restrictions in this area
+    action_copy:  All coronavirus infomation about what you can and cannot do. 
+    If you travel to other areas
+    Enter another postcode to find out what restrictions there are.
+
+  - key: Coming Soon
+    heading: There will be new restrictions soon
+    action_copy:  At the moment this area is in local alert level 1.
+    From the 18 October this area will be in local alert level 2.
+    Find out what you can and cannot do.
+    If you travel to other areas
+    Enter another postcode to find out what restrictions apply.
+
+  - key: Scotland
+    heading: There might be restrictions in this area
+    action_copy:  Find out what you can or cannot do from the Scottish Government.
+    addtional_copy: If you travel to areas in England
+    Enter another postcode to find out what restrictions there are.
+    Find out what you can or cannot do from the 
+
+  - key: Wales
+    heading: There might be restrictions in this area
+    action_copy:  Find out what you can or cannot do from the Welsh Government.
+    addtional_copy: If you travel to areas in England
+    Enter another postcode to find out what restrictions there are.
+
+  - key: Northern Island
+    heading: There might be restrictions in this area
+    action_copy:  Find out what you can or cannot do from the Northern Ireland Government.
+    addtional_copy: If you travel to areas in England
+    Enter another postcode to find out what restrictions there are.

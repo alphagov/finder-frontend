@@ -77,4 +77,37 @@ private
       ParamsCleaner.new(permitted_params).cleaned
     end
   end
+
+  def cacheable_404
+    set_expiry(10.minutes)
+    error :not_found
+  end
+
+  def set_expiry(duration = 30.minutes)
+    unless Rails.env.development?
+      expires_in(duration, public: true)
+    end
+  end
+
+  def setup_content_item(base_path)
+    @content_item = content_item(base_path).to_hash
+
+    section_name = @content_item.dig("links", "parent", 0, "links", "parent", 0, "title")
+    if section_name
+      @meta_section = section_name.downcase
+    end
+  rescue GdsApi::HTTPNotFound, GdsApi::HTTPGone
+    @content_item = nil
+    @meta_section = nil
+  end
+
+  def set_content_item(presenter = ContentItemPresenter)
+    @publication = presenter.new(content_item)
+    set_language_from_publication
+  end
+
+  def content_item(base_path = "/#{params[:slug]}")
+    @content_item ||= GdsApi.content_store.content_item(base_path)
+  end
+
 end

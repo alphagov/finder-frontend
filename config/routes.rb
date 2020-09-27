@@ -18,9 +18,13 @@ FinderFrontend::Application.routes.draw do
     get "/test-search/search/opensearch" => "search#opensearch"
   end
 
+  # Routes local restrictions postcode lookup
   get "/local-restrictions" => "local_restrictions#index"
   post "/local-restrictions" => "local_restrictions#find"
   get "/local-restrictions/:authority_slug" => "local_restrictions#result"
+  
+  # TODO local Dev - remove
+  get "/local-restrictions-results" => "local_restrictions#results"
 
   # Routes for the for Brexit Checker
   get "/transition-check/results" => "brexit_checker#results", as: :transition_checker_results

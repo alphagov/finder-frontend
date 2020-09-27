@@ -1,38 +1,13 @@
 require "postcode_sanitizer"
 
-class LocalRestrictionsController < ApplicationController
+class FindLocalCouncilController < ApplicationController
   before_action -> { setup_content_item(BASE_PATH) }
   before_action :set_expiry
 
-  layout "finder_layout"
-
-  BASE_PATH = "/local-restrictions".freeze
+  BASE_PATH = "/find-local-council".freeze
   UNITARY_AREA_TYPES = %w[COI LBO LGD MTD UTA].freeze
   DISTRICT_AREA_TYPE = "DIS".freeze
   LOWEST_TIER_AREA_TYPES = [*UNITARY_AREA_TYPES, DISTRICT_AREA_TYPE].freeze
-  
-  def results
-
-    # TODO remove:
-    # possible results ---
-    # level1
-    # level2
-    # level3
-    # no_restrictions
-    # no_result
-    # coming_soon
-    # scotland
-    # wales
-    # northern_island
-
-    @local_restrictions = "tier1"
-
-    # render('results_page')
-    render :results_page
-
-    # render('hello')
-    # redirect_to(:controller => 'demo', :action => 'index')
-  end
 
   def index; end
 
