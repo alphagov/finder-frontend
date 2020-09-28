@@ -1,59 +1,77 @@
 <% content_for :title do %>Find out what coronavirus restrictions apply in your
-  area - GOV.UK <% end %> <% content_for :extra_headers do %>
-  <meta
-  name="description"
-  content="Find out what coronavirus restrictions apply in your area - GOV.UK"
-/>
-  <% end %>
-  <div class="govuk-width-container">
+area - GOV.UK <% end %> <% content_for :extra_headers do %>
+<meta name="description" content="Find out what coronavirus restrictions apply in your area - GOV.UK" />
+<% end %>
+<div class="govuk-width-container">
     <div class="govuk-grid-row">
-      <main id="content" role="main" class="govuk-grid-column-two-thirds">
-        <%= render "govuk_publishing_components/components/back_link", { href: "#"
-      } %>
-        <div class="govuk-!-margin-top-8 govuk-!-margin-bottom-8">
-          <% if @local_restrictions == "tier1" %>
-            <%= render "govuk_publishing_components/components/title", title: "This area is in alert level 1" %>
-          <% elsif %>
-            <%= render "govuk_publishing_components/components/title", title: "This area is in alert level 2" %>
-          <% else %>
-            <%= render "govuk_publishing_components/components/title", title: "This area is in alert level 3" %>
-          <% end %>
-        </div>
-      </main>
-      <aside class="govuk-grid-column-one-third govuk-!-margin-top-7">
-        <!-- TODO remove simple rip -->
-        <div class="gem-c-contextual-sidebar">
-          <div
-          class="app-o-related-container <%= yield :related_container_class %>"
-        >
-            <div class="gem-c-related-navigation">
-              <h2
-              id="related-nav-related_items-3c4f964b"
-              class="gem-c-related-navigation__main-heading"
-              data-track-count="sidebarRelatedItemSection"
-            >
-                Related content
-              </h2>
-              <nav
-              role="navigation"
-              class="gem-c-related-navigation__nav-section"
-              aria-labelledby="related-nav-related_items-3c4f964b"
-              data-module="gem-toggle"
-            >
-                <ul class="gem-c-related-navigation__link-list">
-                  <li class="gem-c-related-navigation__link">
-                    <a
-                    class="gem-c-related-navigation__section-link gem-c-related-navigation__section-link--sidebar gem-c-related-navigation__section-link--other"
-                    href="/understand-how-your-council-works"
-                    >Understand how your council works</a
-                  >
-                  </li>
-                </ul>
-              </nav>
+        <main id="content" role="main" class="govuk-grid-column-two-thirds">
+
+            <!-- TODO Does back button go on this section -->
+            <%= render "govuk_publishing_components/components/back_link", { href: "#"} %>
+
+            <div class="govuk-!-margin-top-8 govuk-!-margin-bottom-8">
+                <% if @local_restrictions == "tier1" %>
+                <%= render "govuk_publishing_components/components/title", title: "This area is in alert level 1" %>
+
+                <p class="govuk-body">
+                    <a class="govuk-link" href="#">Find out what you can and cannot do.</a>
+                </p>
+
+                <%= render "govuk_publishing_components/components/heading", {
+                    text: "If you travel to other area",
+                    heading_level: 3,
+                    padding: true
+                  } %>
+
+                <p class="govuk-body">
+                    <a class="govuk-link" href="#">Enter another postcode</a> to find out what restrictions there are.
+                </p>
+
+                <% elsif %>
+                <%= render "govuk_publishing_components/components/title", title: "This area is in alert level 2" %>
+                <% else %>
+                <%= render "govuk_publishing_components/components/title", title: "This area is in alert level 3" %>
+                <% end %>
             </div>
-          </div>
-        </div>
-        <!-- TODO END remove rip -->
-      </aside>
+
+            <!-- TODO: This UI element / pattern - break and back link - is on the "find-my-council" but not on the design 
+
+            <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+
+            <%= render "govuk_publishing_components/components/back_link", {
+                href: "/find-local-council"
+              } %>
+
+              -->
+
+        </main>
+        <aside class="govuk-grid-column-one-third govuk-!-margin-top-7">
+            <!-- TODO remove live rip -->
+            <div class="gem-c-contextual-sidebar">
+                <div class="app-o-related-container">
+                    <div class="gem-c-related-navigation">
+                        <h2 class="gem-c-related-navigation__main-heading" data-track-count="sidebarRelatedItemSection">
+                            Related content
+                        </h2>
+                        <nav role="navigation" class="gem-c-related-navigation__nav-section"
+                            aria-labelledby="related-nav-related_items-3c4f964b" data-module="gem-toggle">
+                            <ul class="gem-c-related-navigation__link-list">
+                                <li class="gem-c-related-navigation__link"><a
+                                        class="gem-c-related-navigation__section-link gem-c-related-navigation__section-link--sidebar  gem-c-related-navigation__section-link--other"
+                                        href="/understand-how-your-council-works">Find out what support you can get if
+                                        you’re affected by
+                                        coronavirus</a></li>
+                                <li class="gem-c-related-navigation__link"><a
+                                        class="gem-c-related-navigation__section-link gem-c-related-navigation__section-link--sidebar  gem-c-related-navigation__section-link--other"
+                                        href="/understand-how-your-council-works">COVID-19: guidance for households with
+                                        possible
+                                        coronavirus infection</li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <!-- TODO END remove live rip -->
+        </aside>
     </div>
-  </div>
+</div>
