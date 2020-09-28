@@ -427,6 +427,7 @@ GEM
     uber (0.1.0)
     uglifier (4.2.0)
       execjs (>= 0.3.0, < 3)
+    uk_postcode (2.1.5)
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.7)
@@ -488,6 +489,7 @@ DEPENDENCIES
   slimmer
   timecop
   uglifier
+  uk_postcode
   webdrivers
   webmock
   whenever

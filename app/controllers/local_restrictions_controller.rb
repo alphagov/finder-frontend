@@ -3,6 +3,7 @@ require "postcode_sanitizer"
 class LocalRestrictionsController < ApplicationController
   # before_action -> { setup_content_item(BASE_PATH) }
   # before_action :set_expiry
+  skip_before_action :verify_authenticity_token
 
   layout "finder_layout"
 
@@ -74,7 +75,7 @@ private
   def fetch_location(postcode)
     if postcode.present?
       begin
-        location = Frontend.mapit_api.location_for_postcode(postcode)
+        location = FinderFrontend.mapit_api.location_for_postcode(postcode)
       rescue GdsApi::HTTPNotFound
         location = nil
       rescue GdsApi::HTTPClientError => e
