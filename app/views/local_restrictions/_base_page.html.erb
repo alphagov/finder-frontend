@@ -1,68 +1,57 @@
-<% content_for :title do %>Find out what coronavirus restrictions apply in your area - GOV.UK<% end %> <%
-content_for :extra_headers do %>
-<meta name="description" content="Find out what coronavirus restrictions apply in your area - GOV.UK" />
+<% content_for :title do %>Find out the coronavirus restrictions in a local area - GOV.UK<% end %>
+<% content_for :extra_headers do %>
+<meta name="description" content="Find out the coronavirus restrictions in a local area" />
 <% end %>
-
 <div class="govuk-width-container">
   <div class="govuk-grid-row">
-    <main class="govuk-grid-column-two-thirds">
+    <main id="content" role="main" class="govuk-grid-column-two-thirds">
 
-      <div class="govuk-!-margin-top-8 govuk-!-margin-bottom-8">
+      <%= render "govuk_publishing_components/components/breadcrumbs", {
+        collapse_on_mobile: true,
+        breadcrumbs: [
+          {
+            title: "Home",
+            url: "/section"
+          },
+          {
+            title: "Coronavirus (COVID-19)",
+            url: "/section/sub-section"
+          }
+        ]
+      } %>
 
-        <%= render "govuk_publishing_components/components/heading", { 
-            text:"Find out what coronavirus restrictions apply in your area", 
-            font_size:"xl" 
-            } 
-        %>
+      <header class="page-header">
+        <%= render "govuk_publishing_components/components/title", title: "Find out the coronavirus restrictions in a local area" %>
+      </header>
 
-      </div>
+      <%= render partial: 'base_content',
+             locals: {
+               format: 'service',
+             } %>
 
-      <%= render "govuk_publishing_components/components/inset_text", {
-        } do %>
-      <div>
-        <h2 id='gov-body'>Find out
-          what restrictions are in place in <a class="govuk-link"
-            href="https://www.gov.scot/coronavirus-covid-19/">Scotland</a>, <a class="govuk-link"
-            href="https://gov.wales/local-lockdown">Wales</a> and <a class="govuk-link"
-            href="https://www.nidirect.gov.uk/articles/coronavirus-covid-19-regulations-and-localised-restrictions">Northern
-            Ireland</a>
-      </div>
-      <% end %>
-
-      <p class="govuk-body">
-        Enter the postcode of the place you want to find information about. For example where you live, work, or
-        visit.</p>
-      <p class="govuk-body">
-        You can find out what tier of restrictions apply to the area. This is sometimes called a ‘local lockdown’.</p>
-      <p class="govuk-body">
-        Their are 3 levels of restrictions, called tier 1, tier 2, and tier 3. Tier 1 areas have the lowest level of
-        restrictions.
-      <p>
-
-        <%= yield %>
+      <%= yield %>
     </main>
-
+    
     <aside class="govuk-grid-column-one-third govuk-!-margin-top-7">
-
       <!-- TODO remove live rip -->
       <div class="gem-c-contextual-sidebar">
-        <div class="app-o-related-container <%= yield :related_container_class %>">
-
+        <div class="app-o-related-container">
           <div class="gem-c-related-navigation">
-
-            <h2 id="related-nav-related_items-3c4f964b" class="gem-c-related-navigation__main-heading"
+            <h2 class="gem-c-related-navigation__main-heading"
               data-track-count="sidebarRelatedItemSection">
               Related content
             </h2>
             <nav role="navigation" class="gem-c-related-navigation__nav-section"
               aria-labelledby="related-nav-related_items-3c4f964b" data-module="gem-toggle">
-              <ul class="gem-c-related-navigation__link-list" data-module="track-click">
+              <ul class="gem-c-related-navigation__link-list">
                 <li class="gem-c-related-navigation__link"><a
                     class="gem-c-related-navigation__section-link gem-c-related-navigation__section-link--sidebar  gem-c-related-navigation__section-link--other"
-                    data-track-category="relatedLinkClicked" data-track-action="1.1 Related content"
-                    data-track-label="/understand-how-your-council-works"
-                    data-track-options="{&quot;dimension28&quot;:&quot;1&quot;,&quot;dimension29&quot;:&quot;Understand how your council works&quot;}"
-                    href="/understand-how-your-council-works">Understand how your council works</a></li>
+                    href="/understand-how-your-council-works">Find out what support you can get if you’re affected by
+                    coronavirus</a></li>
+                <li class="gem-c-related-navigation__link"><a
+                    class="gem-c-related-navigation__section-link gem-c-related-navigation__section-link--sidebar  gem-c-related-navigation__section-link--other"
+                    href="/understand-how-your-council-works">COVID-19: guidance for households with possible
+                    coronavirus infection</li>
               </ul>
             </nav>
           </div>
@@ -71,229 +60,5 @@ content_for :extra_headers do %>
       <!-- TODO END remove live rip -->
 
     </aside>
-
-
-    <!-- TODO - question why is none of this component rendering ? -->
-    <div class="test">
-      <%= render "govuk_publishing_components/components/related_navigation", {
-        content_item: {
-          links: {
-            topics: [
-              {
-                title: "Apprenticeships, 14 to 19 education and training for work",
-                base_path: "/browse/education/find-course",
-                document_type: "topic"
-              },
-              {
-                title: "Finding a job",
-                base_path: "/browse/working/finding-job",
-                document_type: "topic"
-              },
-              {
-                title: "Apprenticeships",
-                base_path: "/topic/further-education-skills/apprenticeships",
-                document_type: "topic"
-              }
-            ]
-          }
-        }
-      } %>
-
-
-      <%= render "govuk_publishing_components/components/contextual_sidebar", {
-      content_item: {
-        title: "A content item",
-        links: {
-          ordered_related_items: [
-            {
-              title: "Find an apprenticeship",
-              base_path: "/apply-apprenticeship"
-            },
-            {
-              title: "Training and study at work",
-              base_path: "/training-study-work-your-rights"
-            },
-            {
-              title: "Careers helpline for teenagers",
-              base_path: "/careers-helpline-for-teenagers"
-            }
-          ],
-          document_collections: [
-            {
-              title: "Recruit an apprentice (formerly apprenticeship vacancies)",
-              base_path: "/government/collections/apprenticeship-vacancies",
-              document_type: "document_collection"
-            },
-            {
-              title: "The future of jobs and skills",
-              base_path: "/government/collections/the-future-of-jobs-and-skills",
-              document_type: "document_collection"
-            }
-          ]
-        }
-      }
-    } %>
-
-      <%= render "govuk_publishing_components/components/related_navigation", {
-      content_item: {
-        links: {
-          taxons: [
-            {
-              title: "Driving instruction and driving lessons",
-              base_path: "/transport/driving-instruction-and-driving-lessons",
-              phase: "live",
-              document_type: "taxon"
-            }
-          ]
-        }
-      }
-    } %>
-
-      <%= render "govuk_publishing_components/components/related_navigation", {
-      content_item: {
-        links: {
-          mainstream_browse_pages: [
-            {
-              title: "Driving licences",
-              base_path: "/browse/driving/driving-licences",
-              document_type: "mainstream_browse_page"
-            },
-            {
-              title: "Driving tests and learning to drive or ride",
-              base_path: "/browse/driving/learning-to-drive",
-              document_type: "mainstream_browse_page"
-            }
-          ],
-          topics: [
-            {
-              title: "Cars",
-              base_path: "/topic/driving-tests-and-learning-to-drive/car",
-              document_type: "topic"
-            }
-          ]
-        }
-      }
-    } %>
-
-      <%= render "govuk_publishing_components/components/related_navigation", {
-      content_item: {
-        links: {
-          mainstream_browse_pages: [
-            {
-              title: "Driving licences",
-              base_path: "/browse/driving/driving-licences",
-              document_type: "mainstream_browse_page"
-            },
-            {
-              title: "Driving tests and learning to drive or ride",
-              base_path: "/browse/driving/learning-to-drive",
-              document_type: "mainstream_browse_page"
-            }
-          ],
-          taxons: [
-            {
-              title: "Driving instruction and driving lessons",
-              base_path: "/transport/driving-instruction-and-driving-lessons",
-              phase: "live",
-              document_type: "taxon"
-            }
-          ],
-          topics: [
-            {
-              title: "Cars",
-              base_path: "/topic/driving-tests-and-learning-to-drive/car",
-              document_type: "topic"
-            }
-          ]
-        }
-      }
-    } %>
-
-      <%= render "govuk_publishing_components/components/related_navigation", {
-      content_item: {
-        links: {
-          document_collections: [
-            {
-              title: "Recruit an apprentice (formerly apprenticeship vacancies)",
-              base_path: "/government/collections/apprenticeship-vacancies",
-              document_type: "document_collection"
-            },
-            {
-              title: "The future of jobs and skills",
-              base_path: "/government/collections/the-future-of-jobs-and-skills",
-              document_type: "document_collection"
-            }
-          ]
-        }
-      }
-    } %>
-
-      <%= render "govuk_publishing_components/components/related_navigation", {
-      content_item: {
-        links: {
-          topical_events: [
-            {
-              title: "UK-China High-Level People to People Dialogue 2017",
-              base_path: "/government/topical-events/uk-china-high-level-people-to-people-dialogue-2017",
-              document_type: "topical_event"
-            }
-          ]
-        }
-      }
-    } %>
-
-      <%= render "govuk_publishing_components/components/related_navigation", {
-      content_item: {
-        links: {
-          world_locations: [
-            {
-              title: "South Sudan",
-              base_path: "/world/south-sudan/news"
-            },
-            {
-              title: "USA",
-              base_path: "/world/usa/news"
-            }
-          ]
-        }
-      }
-    } %>
-
-      <%= render "govuk_publishing_components/components/related_navigation", {
-      content_item: {
-        details: {
-          external_related_links: [
-            {
-              url: "http://media.slc.co.uk/sfe/1718/ft/sfe_terms_and_conditions_guide_1718_d.pdf",
-              title: "Student loans: terms and conditions 2017 to 2018 (PDF, 136KB)"
-            },
-            {
-              url: "https://www.thestudentroom.co.uk/content.php?r=5967-Repaying-your-student-loan",
-              title: "The Student Room: repaying your student loan"
-            }
-          ]
-        }
-      }
-    } %>
-
-      <%= render "govuk_publishing_components/components/related_navigation", {
-      content_item: {
-        details: {
-          quick_links: [
-            {
-              title: "Money Laundering Regulations: introduction",
-              url: "https://www.gov.uk/money-laundering-regulations-introduction"
-            },
-            {
-              title: "Money Laundering Regulations: report suspicious activities",
-              url: "https://www.gov.uk/money-laundering-regulations-report-suspicious-activities"
-            }
-          ]
-        }
-      }
-    } %>
-
-    </div>
-
   </div>
 </div>

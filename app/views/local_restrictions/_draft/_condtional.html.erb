@@ -1,0 +1,48 @@
+<% if @local_restrictions == "tier1" %> <%= render
+"govuk_publishing_components/components/title",
+    title: "This area is in alert
+level 1" } %> <% else %>
+  <p>None<%= @local_restrictions %></p >
+  <%= render "govuk_publishing_components/components/title",
+    title: "This area
+is in alert level 1" } %> <% end %>
+<% if
+@local_restrictions == "tier1" %> <%= render
+"govuk_publishing_components/components/title",
+    title: "This area is in alert
+level 1" } %> <% elsif %>
+  <p>Level 2<%= @local_restrictions %></p >
+  <%= render "govuk_publishing_components/components/title",
+    title: "This area
+is in alert level 2" } %> <% elsif %>
+  <p>Level 3<%= @local_restrictions %></p >
+  <%= render "govuk_publishing_components/components/title",
+    title: "This area
+is in alert level 3" } %> <% elsif %>
+  <p>*Coming Soon<%= @local_restrictions %></p >
+  <%= render "govuk_publishing_components/components/title",
+    title: "There will
+be new restrictions soon" } %> <% elsif %>
+  <p>No result<%= @local_restrictions %></p >
+  <%= render "govuk_publishing_components/components/title",
+    title: "There is no
+information about the restrictions in this area" } %> <% elsif
+%>
+  <p>Northern Ireland<%= @local_restrictions %></p>
+  <%= render "govuk_publishing_components/components/title",
+    title: "There might
+    be restrictions in this area" } %> <% elsif %>
+  < p > Scotland <%= @local_restrictions %></p >
+  <%= render "govuk_publishing_components/components/title",
+        title: "There might
+be restrictions in this area" } %> <% elsif %>
+  <p>Wales<%= @local_restrictions %></p >
+  <%= render "govuk_publishing_components/components/title",
+        title: "There might
+be restrictions in this area" } %> <% else %>
+  <p>None<%= @local_restrictions %></p >
+  <%= render "govuk_publishing_components/components/title",
+        title: "This area
+is in alert level 1" } %> <% end %>
+<!-- TODO Gem updated needed won't render -->
+<%= render 'govuk_publishing_components/components/contitleual_sidebar', content_item: @content_item %>

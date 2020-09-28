@@ -22,6 +22,7 @@
   <form method="post" id="local-locator-form" class="location-form">
     <fieldset>
       <legend class="visuallyhidden">Postcode lookup</legend>
+      <%= render partial: 'draft_fields' %>
       <%= render "govuk_publishing_components/components/input", {
         label: {
           text: "Enter a postcode"
@@ -30,8 +31,7 @@
         name: "postcode",
         id: "postcode",
         hint: "For example SW1A 2AA",
-        invalid: @location_error ? 'true' : 'false',
-        autocomplete: "postal-code",
+        invalid: @location_error ? 'true' : 'false'
       } %>
       <%= render "govuk_publishing_components/components/button", text: "Find", margin_bottom: true %>
       <%= tag.p link_to("Find a postcode on Royal Mail's postcode finder",
