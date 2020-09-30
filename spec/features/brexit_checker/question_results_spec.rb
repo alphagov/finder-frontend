@@ -176,7 +176,7 @@ RSpec.feature "Brexit Checker workflow", type: :feature do
 
   def and_i_should_see_customs_agent_action
     action = BrexitChecker::Action.find_by_id("T099")
-    expect(page).to have_css("h3", text: "Decide how you want to make customs declarations and whether you need to get someone to deal with customs for you" )
+    expect(page).to have_css("h3", text: "Decide how you want to make customs declarations and whether you need to get someone to deal with customs for you")
     expect(page).to have_css(".govuk-link[href='#{action.guidance_url}'][data-track-action]")
     data_track_action = page.find(".govuk-link[href='#{action.guidance_url}']")["data-track-action"]
     expect(data_track_action).to eq("Your business or organisation - 1.4 - Guidance")
