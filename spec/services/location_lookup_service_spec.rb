@@ -73,5 +73,12 @@ RSpec.describe LocationLookupService do
 
       expect(described_class.new(postcode).data).to eq(expected_data)
     end
+
+    it "returns nothing if the postcode isn't found" do
+      postcode = "E18QS"
+      stub_mapit_does_not_have_a_postcode(postcode)
+
+      expect(described_class.new(postcode).data).to eq([])
+    end
   end
 end
