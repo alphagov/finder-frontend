@@ -16,5 +16,5 @@ end
 FinderFrontend::Application.load_tasks
 
 unless Rails.env.production?
-  task default: %w[jasmine:ci]
+  task default: %w[jasmine:ci lint]
 end
