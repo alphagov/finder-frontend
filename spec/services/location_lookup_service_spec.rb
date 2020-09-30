@@ -27,20 +27,14 @@ RSpec.describe LocationLookupService do
       ]
       stub_mapit_has_a_postcode_and_areas(postcode, [], areas)
 
-      expected_data = [
-        {
-          gss: "E01000123",
-          area_name: "Coruscant Planetary Council",
-          country: "England",
-        },
-        {
-          gss: "E02000456",
-          area_name: "Galactic Empire",
-          country: "England",
-        },
-      ]
+      data = described_class.new(postcode).data
 
-      expect(described_class.new(postcode).data).to eq(expected_data)
+      expect(data.size).to eq(2)
+      expect(data.first).to be_a(MapitPostcodeResponse)
+      expect(data.first.gss).to eq("E01000123")
+
+      expect(data.second).to be_a(MapitPostcodeResponse)
+      expect(data.second.gss).to eq("E02000456")
     end
 
     it "only returns locations with a gss code" do
@@ -63,15 +57,11 @@ RSpec.describe LocationLookupService do
       ]
       stub_mapit_has_a_postcode_and_areas(postcode, [], areas)
 
-      expected_data = [
-        {
-          gss: "E01000123",
-          area_name: "Coruscant Planetary Council",
-          country: "England",
-        },
-      ]
+      data = described_class.new(postcode).data
 
-      expect(described_class.new(postcode).data).to eq(expected_data)
+      expect(data.size).to eq(1)
+      expect(data.first).to be_a(MapitPostcodeResponse)
+      expect(data.first.gss).to eq("E01000123")
     end
 
     it "returns nothing if the postcode isn't found" do
