@@ -34,11 +34,11 @@ module BrexitChecker
     private
 
       FIELD_NAME_OVERRIDES = {
-        "Priority (1 is low, 10 is high)" => "priority"
+        "Priority (1 is low, 10 is high)" => "priority",
       }.freeze
 
       def convert_headers
-        ->(field, _) {
+        lambda { |field, _|
           field = FIELD_NAME_OVERRIDES[field] || field
           field.downcase.gsub(" ", "_")
         }
