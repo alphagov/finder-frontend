@@ -13,13 +13,15 @@ class BrexitCheckerController < ApplicationController
     expires_in(30.minutes, public: true) unless Rails.env.development?
   end
 
-  before_action :check_accounts_enabled, only: [:save_results]
+  before_action :check_accounts_enabled, only: %i[save_results saved_results]
 
   def show
-    @account_information = if logged_in?
+    @account_information = if logged_in? && accounts_enabled?
                              "Logged in. <a class=\"govuk-link\" href=\"#{transition_checker_end_session_path}\">Log out.</a>"
-                           else
+                           elsif accounts_enabled?
                              "Not logged in. <a class=\"govuk-link\" href=\"#{transition_checker_new_session_path}\">Login.</a>"
+                           else
+                             ""
                            end
 
     all_questions = BrexitChecker::Question.load_all
