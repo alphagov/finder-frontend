@@ -30,4 +30,10 @@ module Services
   def self.registries
     Registries::BaseRegistries.new
   end
+
+  if Rails.configuration.feature_flag_govuk_accounts
+    def self.accounts_api
+      Plek.find("account-manager")
+    end
+  end
 end

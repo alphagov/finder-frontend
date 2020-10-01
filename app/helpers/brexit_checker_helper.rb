@@ -85,4 +85,23 @@ module BrexitCheckerHelper
       t("brexit_checker.results.description_no_answers").html_safe
     end
   end
+
+  def account_signup_jwt(criteria_keys)
+    account_jwt = BrexitChecker::AccountJwt.new(criteria_keys)
+    account_jwt.encode
+  end
+
+  def path_based_on_account_feature_flag
+    if Rails.configuration.feature_flag_govuk_accounts
+      transition_checker_save_results_path(c: criteria_keys)
+    else
+      transition_checker_email_signup_path(c: criteria_keys)
+    end
+  end
+
+  def check_accounts_enabled
+    unless Rails.configuration.feature_flag_govuk_accounts
+      render file: Rails.root.join(Rails.root, "public/404.html"), status: :not_found
+    end
+  end
 end

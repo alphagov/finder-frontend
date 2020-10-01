@@ -10,6 +10,7 @@ gem "govuk_ab_testing"
 gem "govuk_app_config"
 gem "govuk_document_types"
 gem "govuk_publishing_components"
+gem "jwt"
 gem "slimmer"
 
 gem "sass-rails"
