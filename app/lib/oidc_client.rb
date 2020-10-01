@@ -18,15 +18,17 @@ class OidcClient
     @secret = secret
   end
 
-  def auth_uri
+  def auth_uri(redirect_path: nil)
     nonce = SecureRandom.hex(16)
+    state = "#{nonce}:#{redirect_path}"
+
     {
       uri: client.authorization_uri(
         scope: scopes,
-        state: nonce,
+        state: state,
         nonce: nonce,
       ),
-      state: nonce,
+      state: state,
     }
   end
 
@@ -42,11 +44,13 @@ class OidcClient
   def callback(code, state)
     client.authorization_code = code
     access_token = client.access_token!
+    (nonce, redirect_path) = state.split(":")
     id_token = OpenIDConnect::ResponseObject::IdToken.decode access_token.id_token, discover.jwks
-    id_token.verify! client_id: client_id, issuer: discover.issuer, nonce: state
+    id_token.verify! client_id: client_id, issuer: discover.issuer, nonce: nonce
     {
       access_token: access_token,
       sub: id_token.sub,
+      redirect_path: redirect_path,
     }
   end
 

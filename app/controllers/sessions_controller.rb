@@ -3,16 +3,20 @@ require_relative "../lib/oidc_client.rb"
 class SessionsController < ApplicationController
   def create
     if logged_in?
-      redirect_to redirect_path
+      redirect_to default_redirect_path
       return
     end
 
-    redirect_to oidc.auth_uri[:uri]
+    if Rails.env.test?
+      render plain: "Redirecting to login"
+    else
+      redirect_to oidc.auth_uri(redirect_path: params["redirect_path"])[:uri]
+    end
   end
 
   def callback
     unless params[:code]
-      redirect_to redirect_path
+      redirect_to default_redirect_path
       return
     end
 
@@ -25,6 +29,7 @@ class SessionsController < ApplicationController
 
     access_token = callback[:access_token]
     sub = callback[:sub]
+    redirect_path = callback[:redirect_path] || default_redirect_path
 
     session[:sub] = sub
     session[:access_token] = access_token.token_response[:access_token]
@@ -35,12 +40,12 @@ class SessionsController < ApplicationController
 
   def delete
     logout!
-    redirect_to redirect_path
+    redirect_to default_redirect_path
   end
 
 private
 
-  def redirect_path
+  def default_redirect_path
     transition_checker_questions_path
   end
 end
