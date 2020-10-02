@@ -1,34 +1,38 @@
-<div class="postcode-lookup" data-module="track-submit"
-  <% if @location_error %>
-    <%
-      if @location_error.sub_message.present?
-        description = t(@location_error.sub_message)
-      end
-    %>
+<%
+  location_error ||= false
+  input_text ||= "Enter a postcode"
+  postcode ||= ""
+  postcode_hint_text ||= "For example SW1A 2AA"
+  button_text ||= "Find"
+  error_message ||= "This isn't a valid postcode."
+  error_description ||= "Check it and enter it again."
+%>
+
+<div class="postcode-lookup">
+  <% if location_error %>
     <%= render "govuk_publishing_components/components/error_alert", {
-      message: t(@location_error.message, **@location_error.message_args),
-      description: description,
+      message: error_message,
+      description: error_description,
     } %>
   <% end %>
-  <form method="post" id="local-locator-form">
+  <form method="post">
     <fieldset>
       <legend class="visuallyhidden">Postcode lookup</legend>
       <%= render "govuk_publishing_components/components/input", {
           label: {
-            text: "Enter a postcode"
+            text: input_text
           },
           value: postcode,
           name: "postcode",
           id: "postcode",
-          hint: "For example SW1A 2AA",
-          invalid: @location_error ? 'true' : 'false',
+          hint: postcode_hint_text,
+          invalid: location_error ? 'true' : 'false',
           autocomplete: "postal-code",
         } %>
-      <%= render "govuk_publishing_components/components/button", text: "Find", margin_bottom: true %>
+      <%= render "govuk_publishing_components/components/button", text: button_text, margin_bottom: true %>
       <%= tag.p link_to("Find a postcode on Royal Mail's postcode finder",
                       "http://www.royalmail.com/find-a-postcode",
                       target: "_blank",
-                      id: 'postcode-finder-link',
                       class: "govuk-link",
                       rel: "external"),
                       class: "govuk-body" %>
