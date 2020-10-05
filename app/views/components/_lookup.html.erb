@@ -1,46 +1,44 @@
 <%
   location_error ||= false
-  input_question ||= "Enter a postcode"
+  input_question ||= ""
   input_value ||= ""
-  hint_text ||= "For example SW1A 2AA"
-  button_text ||= "Find"
-  error_message ||= "This isn't a valid postcode."
-  error_description ||= "Check it and enter it again."
+  input_error ||= ""
+  hint_text ||= ""
+  button_text ||= ""
+  error_message ||= ""
+  error_description ||= ""
   autocomplete ||= null
-  link_text ||= "Find a postcode on Royal Mail's postcode finder"
-  link_href ||=  "http://www.royalmail.com/find-a-postcode"
-
+  link ||= nil
 %>
-<div class="app-c-lookup">
-  <% if location_error %>
+<% if location_error %>
   <%= render "govuk_publishing_components/components/error_alert", {
       message: error_message,
       description: error_description,
     } %>
-  <% end %>
+<% end %>
+<div class="app-c-lookup">
   <form method="post">
-    <fieldset>
-      <legend class="visuallyhidden">
-      <%= input_question %>
-      </legend>
-      <%= render "govuk_publishing_components/components/input", {
+    <%= render "govuk_publishing_components/components/input", {
           label: {
             text: input_question
           },
+          heading_size: "s",
+          error_message: input_error,
           value: input_value,
           name: "app-c-lookup",
           hint: hint_text,
           invalid: location_error ? 'true' : 'false',
           autocomplete: autocomplete,
         } %>
-      <%= render "govuk_publishing_components/components/button", text: button_text, margin_bottom: true %>
-      <%= tag.p link_to(
-                      link_text,
-                      link_href,
-                      target: "_blank",
-                      class: "govuk-link",
-                      rel: "external"),
-                      class: "govuk-body" %>
-    </fieldset>
+    <%= render "govuk_publishing_components/components/button", text: button_text, margin_bottom: true %>
   </form>
+  <% if link %>
+    <%= tag.p link_to(
+      link[:text],
+      link[:href],
+      target: "_blank",
+      class: "govuk-link",
+      rel: "external"),
+      class: "govuk-body" %>
+  <% end %>
 </div>
