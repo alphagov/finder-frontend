@@ -101,7 +101,7 @@ actions:
   lead_time: Do it before you travel
   guidance_prompt: More information
   guidance_link_text: Passport rules for travel to Europe from 2021
-  guidance_url: https://www.gov.uk/guidance/passport-rules-for-travel-to-europe-after-brexit
+  guidance_url: https://www.gov.uk/check-a-passport-travel-europe-1-january-2021
   criteria:
   - all_of:
     - nationality-uk
@@ -1405,19 +1405,19 @@ actions:
   audience: business
 - id: T109
   priority: 10
-  title: Get ready to export to the EU from 1 January 2021
+  title: Check what you need to do to export to the EU from 1 January 2021
   title_url: https://www.gov.uk/prepare-to-export-from-great-britain-from-january-2021
-  consequence: You will not be able to export goods to the EU unless you follow the
-    new process.
+  consequence: You risk not being able to send or take goods to EU countries from
+    1 January 2021
   criteria:
   - export-to-eu
   audience: business
 - id: T110
   priority: 10
-  title: Get ready to import goods from the EU from 1 January 2021
+  title: Check what you need to do to import from the EU from 1 January 2021
   title_url: https://www.gov.uk/prepare-to-import-to-great-britain-from-january-2021
-  consequence: You will not be able to import goods from the EU without following
-    the new process. 
+  consequence: You risk not being able to bring or receive goods from EU countries
+    from 1 January 2021
   criteria:
   - import-from-eu
   audience: business
@@ -1526,7 +1526,9 @@ actions:
   guidance_link_text: The eCommerce Directive after the transition period
   guidance_url: https://www.gov.uk/guidance/ecommerce-directive-what-online-service-providers-in-the-uk-should-do-to-get-ready-for-brexit
   criteria:
-  - export-to-eu
+  - any_of:
+    - provide-services-do-business-in-eu
+    - personal-eu-org-provide
   audience: business
 - id: T119
   priority: 3
