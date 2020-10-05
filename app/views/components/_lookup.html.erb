@@ -1,37 +1,42 @@
 <%
   location_error ||= false
-  input_text ||= "Enter a postcode"
-  postcode ||= ""
-  postcode_hint_text ||= "For example SW1A 2AA"
+  input_question ||= "Enter a postcode"
+  input_value ||= ""
+  hint_text ||= "For example SW1A 2AA"
   button_text ||= "Find"
   error_message ||= "This isn't a valid postcode."
   error_description ||= "Check it and enter it again."
-%>
+  autocomplete ||= null
+  link_text ||= "Find a postcode on Royal Mail's postcode finder"
+  link_href ||=  "http://www.royalmail.com/find-a-postcode"
 
-<div class="postcode-lookup">
+%>
+<div class="app-c-lookup">
   <% if location_error %>
-    <%= render "govuk_publishing_components/components/error_alert", {
+  <%= render "govuk_publishing_components/components/error_alert", {
       message: error_message,
       description: error_description,
     } %>
   <% end %>
   <form method="post">
     <fieldset>
-      <legend class="visuallyhidden">Postcode lookup</legend>
+      <legend class="visuallyhidden">
+      <%= input_question %>
+      </legend>
       <%= render "govuk_publishing_components/components/input", {
           label: {
-            text: input_text
+            text: input_question
           },
-          value: postcode,
-          name: "postcode",
-          id: "postcode",
-          hint: postcode_hint_text,
+          value: input_value,
+          name: "app-c-lookup",
+          hint: hint_text,
           invalid: location_error ? 'true' : 'false',
-          autocomplete: "postal-code",
+          autocomplete: autocomplete,
         } %>
       <%= render "govuk_publishing_components/components/button", text: button_text, margin_bottom: true %>
-      <%= tag.p link_to("Find a postcode on Royal Mail's postcode finder",
-                      "http://www.royalmail.com/find-a-postcode",
+      <%= tag.p link_to(
+                      link_text,
+                      link_href,
                       target: "_blank",
                       class: "govuk-link",
                       rel: "external"),
