@@ -31,8 +31,9 @@ group :development, :test do
   gem "awesome_print"
   gem "dotenv-rails"
   gem "govuk_schemas"
+  gem "govuk_test"
   gem "jasmine"
-  gem "jasmine_selenium_runner", require: false
+  gem "jasmine_selenium_runner"
   gem "listen"
   gem "pry-byebug"
   gem "rspec-rails"
@@ -44,7 +45,6 @@ group :test do
   gem "cucumber-rails", require: false
   gem "factory_bot"
   gem "govuk-content-schema-test-helpers"
-  gem "govuk_test"
   gem "launchy"
   gem "rails-controller-testing"
   gem "simplecov"
