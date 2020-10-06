@@ -100,7 +100,7 @@ actions:
   exception: The new rules do not apply when travelling to Ireland.
   lead_time: Do it before you travel
   guidance_prompt: More information
-  guidance_link_text: Passport rules for travel to Europe from 2021
+  guidance_link_text: Check a passport for travel to Europe from 1 January 2021
   guidance_url: https://www.gov.uk/check-a-passport-travel-europe-1-january-2021
   criteria:
   - all_of:
