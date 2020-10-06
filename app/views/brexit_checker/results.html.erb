@@ -39,6 +39,9 @@
 <div class="govuk-width-container brexit-checker-results-page">
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
+      <%= sanitize(@account_information) %>
+
+
       <%= render "govuk_publishing_components/components/title", {
         title: action_based_title
       } %>

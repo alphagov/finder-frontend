@@ -16,14 +16,6 @@ class BrexitCheckerController < ApplicationController
   before_action :check_accounts_enabled, only: %i[save_results saved_results]
 
   def show
-    @account_information = if logged_in? && accounts_enabled?
-                             "Logged in. <a class=\"govuk-link\" href=\"#{transition_checker_end_session_path}\">Log out.</a>"
-                           elsif accounts_enabled?
-                             "Not logged in. <a class=\"govuk-link\" href=\"#{transition_checker_new_session_path}\">Login.</a>"
-                           else
-                             ""
-                           end
-
     all_questions = BrexitChecker::Question.load_all
     @question_index = next_question_index(
       all_questions: all_questions,
@@ -43,6 +35,14 @@ class BrexitCheckerController < ApplicationController
   end
 
   def results
+    @account_information = if logged_in? && accounts_enabled?
+                             "Logged in. <a class=\"govuk-link\" href=\"#{transition_checker_end_session_path}\">Log out.</a>"
+                           elsif accounts_enabled?
+                             "Not logged in. <a class=\"govuk-link\" href=\"#{transition_checker_new_session_path}\">Login.</a>"
+                           else
+                             ""
+                           end
+
     all_actions = BrexitChecker::Action.load_all
     @criteria = BrexitChecker::Criterion.load_by(criteria_keys)
     @actions = filter_actions(all_actions, criteria_keys)
