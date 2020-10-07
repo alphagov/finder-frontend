@@ -40,7 +40,6 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
       ENV["GOVUK_ACCOUNT_OAUTH_CLIENT_SECRET"] = "secret"
 
       allow(Rails.configuration).to receive(:feature_flag_govuk_accounts).and_return(true)
-      allow(Services).to receive(:accounts_api).and_return(Plek.find("account-manager"))
 
       allow_any_instance_of(OidcClient).to receive(:userinfo_endpoint)
         .and_return("#{attribute_service_url}/oidc/user_info")
