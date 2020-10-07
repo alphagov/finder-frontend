@@ -19,6 +19,13 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
       end
     end
 
+    context "/transition-check/edit-saved-results" do
+      it "returns a 404" do
+        given_i_am_on_the_edit_saved_results_page
+        expect(page.status_code).to eq(404)
+      end
+    end
+
     def given_i_am_on_a_question_page
       visit transition_checker_questions_path
     end
@@ -29,6 +36,10 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
 
     def given_i_am_on_the_saved_results_page
       visit transition_checker_saved_results_path
+    end
+
+    def given_i_am_on_the_edit_saved_results_page
+      visit transition_checker_edit_saved_results_path
     end
   end
 
@@ -69,6 +80,23 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
 
         it "redirects to login page" do
           given_i_am_on_the_saved_results_page
+          expect(current_path).to eq(transition_checker_new_session_path)
+        end
+      end
+
+      context "/transition-check/edit-saved-results" do
+        before do
+          discovery_response = double(authorization_endpoint: "foo", token_endpoint: "foo", userinfo_endpoint: "foo", end_session_endpoint: "foo")
+
+          allow_any_instance_of(OidcClient).to receive(:discover)
+            .and_return(discovery_response)
+
+          allow_any_instance_of(OidcClient).to receive(:auth_uri)
+            .and_return({ uri: "http://account-mamager/login", state: SecureRandom.hex(16) })
+        end
+
+        it "redirects to login page" do
+          given_i_am_on_the_edit_saved_results_page
           expect(current_path).to eq(transition_checker_new_session_path)
         end
       end
@@ -120,6 +148,29 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
         end
       end
 
+      context "/transition-check/edit-saved-results" do
+        it "redirects to first question if no previous results present" do
+          stub = stub_attribute_service_request(:get, body: { claim_value: [] })
+
+          given_i_am_on_the_edit_saved_results_page
+
+          expect(stub).to have_been_made
+
+          expect(page).to have_current_path(transition_checker_questions_path)
+        end
+
+        it "redirects to first question with responses in query string if results present" do
+          stub = stub_attribute_service_request(:get, body: { claim_value: transition_checker_state })
+
+          given_i_am_on_the_edit_saved_results_page
+
+          expect(stub).to have_been_made
+
+          expect(page).to have_current_path(transition_checker_questions_path(c: %w[nationality-uk], page: 0))
+          expect(page).to_not have_content("Not logged in.")
+        end
+      end
+
       context "the access token has expired" do
         context "the refresh token is valid" do
           before { allow_token_refresh }
@@ -160,6 +211,25 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
               expect(stub_success).to have_been_made
 
               expect(page).to have_current_path(transition_checker_results_path(c: %w[nationality-uk]))
+              expect(page).to_not have_content("Not logged in.")
+            end
+          end
+
+          context "/transition-check/edit-saved-results" do
+            it "refreshes the access token and retries" do
+              stub_fail = stub_attribute_service_request(:get, status: 401)
+              stub_success = stub_attribute_service_request(
+                :get,
+                access_token: "new-access-token",
+                body: { claim_value: transition_checker_state },
+              )
+
+              given_i_am_on_the_edit_saved_results_page
+
+              expect(stub_fail).to have_been_made
+              expect(stub_success).to have_been_made
+
+              expect(page).to have_current_path(transition_checker_questions_path(c: %w[nationality-uk], page: 0))
               expect(page).to_not have_content("Not logged in.")
             end
           end
@@ -231,6 +301,10 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
 
     def given_i_am_on_the_saved_results_page
       visit transition_checker_saved_results_path
+    end
+
+    def given_i_am_on_the_edit_saved_results_page
+      visit transition_checker_edit_saved_results_path
     end
 
     def stub_attribute_service_request(method, access_token: "access-token", status: 200, body: "")

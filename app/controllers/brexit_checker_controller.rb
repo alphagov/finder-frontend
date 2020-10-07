@@ -13,7 +13,7 @@ class BrexitCheckerController < ApplicationController
     expires_in(30.minutes, public: true) unless Rails.env.development?
   end
 
-  before_action :check_accounts_enabled, only: %i[save_results saved_results]
+  before_action :check_accounts_enabled, only: %i[save_results saved_results edit_saved_results]
 
   def show
     all_questions = BrexitChecker::Question.load_all
@@ -69,6 +69,16 @@ class BrexitCheckerController < ApplicationController
       redirect_to transition_checker_questions_path
     else
       redirect_to transition_checker_results_path(c: results_from_account)
+    end
+  end
+
+  def edit_saved_results
+    redirect_to transition_checker_new_session_path(redirect_path: transition_checker_edit_saved_results_path) and return unless logged_in?
+
+    if results_from_account.empty?
+      redirect_to transition_checker_questions_path
+    else
+      redirect_to transition_checker_questions_path(c: results_from_account, page: 0)
     end
   end
 
