@@ -92,6 +92,16 @@ private
     end
   end
 
+  def check_accounts_enabled
+    unless accounts_enabled?
+      render file: Rails.root.join(Rails.root, "public/404.html"), status: :not_found
+    end
+  end
+
+  def accounts_enabled?
+    Rails.configuration.feature_flag_govuk_accounts
+  end
+
   def oidc
     @oidc ||= OidcClient.new(
       Services.accounts_api,
