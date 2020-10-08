@@ -9,11 +9,9 @@ class BrexitCheckerController < ApplicationController
 
   protect_from_forgery except: :confirm_email_signup
 
-  before_action do
-    expires_in(30.minutes, public: true) unless Rails.env.development?
-  end
-
   before_action :check_accounts_enabled, only: %i[save_results saved_results edit_saved_results]
+  before_action :enable_caching, only: %i[show]
+  before_action :enable_caching_unless_accounts, only: %i[results email_signup confirm_email_signup save_results saved_results edit_saved_results]
 
   def show
     all_questions = BrexitChecker::Question.load_all
@@ -83,6 +81,14 @@ class BrexitCheckerController < ApplicationController
   end
 
 private
+
+  def enable_caching
+    expires_in(30.minutes, public: true) unless Rails.env.development?
+  end
+
+  def enable_caching_unless_accounts
+    enable_caching unless accounts_enabled?
+  end
 
   def results_from_account
     @results_from_account ||= begin
