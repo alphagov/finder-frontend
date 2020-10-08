@@ -29,7 +29,7 @@ class ApplicationController < ActionController::Base
 private
 
   def skip_session_cookie
-    unless current_user
+    unless session[:has_session]
       request.session_options[:drop] = true
     end
   end
@@ -111,7 +111,7 @@ private
   end
 
   def logged_in?
-    current_user.present?
+    current_user.present? && session[:has_session]
   end
 
   def current_user
