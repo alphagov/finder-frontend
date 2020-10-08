@@ -1,6 +1,8 @@
 require_relative "../lib/oidc_client.rb"
 
 class SessionsController < ApplicationController
+  before_action :check_accounts_enabled
+
   def create
     if logged_in?
       redirect_to default_redirect_path
