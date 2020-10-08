@@ -54,3 +54,34 @@ Rails.application.configure do
   # Allow requests for all domains e.g. <app>.dev.gov.uk
   config.hosts.clear
 end
+
+# make discovery work over HTTP
+module OpenIDConnect
+  module Discovery
+    module Provider
+      class Config
+        class Resource
+          def initialize(uri)
+            @host = uri.host
+            @port = uri.port unless [80, 443].include?(uri.port)
+            @path = File.join uri.path, ".well-known/openid-configuration"
+            @scheme = uri.scheme
+            attr_missing!
+          end
+
+          def endpoint
+            SWD.url_builder = case @scheme
+                              when "http"
+                                URI::HTTP
+                              else
+                                URI::HTTPS
+                              end
+            SWD.url_builder.build [nil, host, port, path, nil, nil]
+          rescue URI::Error => e
+            raise SWD::Exception, e.message
+          end
+        end
+      end
+    end
+  end
+end

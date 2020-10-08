@@ -8,6 +8,8 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   helper :application
 
+  after_action :skip_session_cookie
+
   # rescue_from precedence is bottom up - https://stackoverflow.com/a/9121054/170864
   unless Rails.env.development?
     rescue_from GdsApi::BaseError, with: :error_503
@@ -25,6 +27,18 @@ class ApplicationController < ActionController::Base
   end
 
 private
+
+  def skip_session_cookie
+    unless current_user
+      request.session_options[:drop] = true
+    end
+  end
+
+  def logout!
+    session.delete(:sub)
+    session.delete(:access_token)
+    session.delete(:refresh_token)
+  end
 
   def error_503(exception)
     error(503, exception)
@@ -76,5 +90,21 @@ private
 
       ParamsCleaner.new(permitted_params).cleaned
     end
+  end
+
+  def oidc
+    @oidc ||= OidcClient.new(
+      Services.accounts_api,
+      ENV.fetch("GOVUK_ACCOUNT_OAUTH_CLIENT_ID"),
+      ENV.fetch("GOVUK_ACCOUNT_OAUTH_CLIENT_SECRET"),
+    )
+  end
+
+  def logged_in?
+    current_user.present?
+  end
+
+  def current_user
+    session[:sub]
   end
 end

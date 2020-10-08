@@ -21,7 +21,6 @@ RSpec.feature "Brexit Checker create GOV.UK Account", type: :feature do
     ENV["GOVUK_ACCOUNT_OAUTH_CLIENT_KEY_UUID"] = "fake_key_uuid"
     ENV["GOVUK_ACCOUNT_OAUTH_CLIENT_KEY"] = AccountSignupHelper.test_ec_key_fixture
     allow(Rails.configuration).to receive(:feature_flag_govuk_accounts).and_return(true)
-    allow(Services).to receive(:accounts_api).and_return(Plek.find("account-manager"))
   end
 
   scenario "user clicks Create a GOV.UK account" do

@@ -1,3 +1,5 @@
+require_relative "../lib/oidc_client.rb"
+
 class BrexitCheckerController < ApplicationController
   include BrexitCheckerHelper
 
@@ -11,7 +13,7 @@ class BrexitCheckerController < ApplicationController
     expires_in(30.minutes, public: true) unless Rails.env.development?
   end
 
-  before_action :check_accounts_enabled, only: [:save_results]
+  before_action :check_accounts_enabled, only: %i[save_results saved_results edit_saved_results]
 
   def show
     all_questions = BrexitChecker::Question.load_all
@@ -33,6 +35,14 @@ class BrexitCheckerController < ApplicationController
   end
 
   def results
+    @account_information = if logged_in? && accounts_enabled?
+                             "Logged in. <a class=\"govuk-link\" href=\"#{transition_checker_end_session_path}\">Log out.</a>"
+                           elsif accounts_enabled?
+                             "Not logged in. <a class=\"govuk-link\" href=\"#{transition_checker_new_session_path}\">Login.</a>"
+                           else
+                             ""
+                           end
+
     all_actions = BrexitChecker::Action.load_all
     @criteria = BrexitChecker::Criterion.load_by(criteria_keys)
     @actions = filter_actions(all_actions, criteria_keys)
@@ -52,10 +62,54 @@ class BrexitCheckerController < ApplicationController
 
   def save_results; end
 
+  def saved_results
+    redirect_to transition_checker_new_session_path(redirect_path: transition_checker_saved_results_path) and return unless logged_in?
+
+    if results_from_account.empty?
+      redirect_to transition_checker_questions_path
+    else
+      redirect_to transition_checker_results_path(c: results_from_account)
+    end
+  end
+
+  def edit_saved_results
+    redirect_to transition_checker_new_session_path(redirect_path: transition_checker_edit_saved_results_path) and return unless logged_in?
+
+    if results_from_account.empty?
+      redirect_to transition_checker_questions_path
+    else
+      redirect_to transition_checker_questions_path(c: results_from_account, page: 0)
+    end
+  end
+
 private
+
+  def results_from_account
+    @results_from_account ||= begin
+      Array(
+        update_session_tokens(
+          oidc.get_checker_attribute(
+            access_token: session[:access_token],
+            refresh_token: session[:refresh_token],
+          ),
+        ),
+      )
+                              rescue OidcClient::OAuthFailure
+                                # this means the refresh token has been revoked or the
+                                # accounts services are down
+                                logout!
+                                []
+    end
+  end
 
   def grouped_results
     @grouped_results ||= BrexitChecker::Results::GroupByAudience.new(@audience_actions, @criteria)
+  end
+
+  def update_session_tokens(result)
+    session[:access_token] = result[:access_token]
+    session[:refresh_token] = result[:refresh_token]
+    result[:result]
   end
 
   def subscriber_list_options
