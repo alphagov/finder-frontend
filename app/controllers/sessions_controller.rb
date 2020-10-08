@@ -1,5 +1,3 @@
-require_relative "../lib/oidc_client.rb"
-
 class SessionsController < ApplicationController
   before_action :check_accounts_enabled
 
@@ -12,7 +10,7 @@ class SessionsController < ApplicationController
     if Rails.env.test?
       render plain: "Redirecting to login"
     else
-      redirect_to oidc.auth_uri(redirect_path: params["redirect_path"])[:uri]
+      redirect_to Services.oidc.auth_uri(redirect_path: params["redirect_path"])[:uri]
     end
   end
 
@@ -24,7 +22,7 @@ class SessionsController < ApplicationController
 
     state = params.require(:state)
 
-    callback = oidc.callback(
+    callback = Services.oidc.callback(
       params.require(:code),
       state,
     )

@@ -39,8 +39,19 @@
 <div class="govuk-width-container brexit-checker-results-page">
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-      <%= sanitize(@account_information) %>
-
+      <% if accounts_enabled? %>
+        <% if logged_in? %>
+          <p class="govuk-body">Logged in. <a class="govuk-link" href="<%= transition_checker_end_session_path %>">Log out.</a></p>
+          <% if @results_differ %>
+            <p class="govuk-body">You've changed your answers. <a class="govuk-link" href="<%= transition_checker_save_results_confirm_path(c: criteria_keys) %>">Save this page instead?</a></p>
+          <% end %>
+          <% if @results_saved %>
+            <p class="govuk-body">Saved!</p>
+          <% end %>
+        <% else %>
+          <p class="govuk-body">Not logged in. <a class="govuk-link" href="<%= transition_checker_new_session_path %>">Log in.</a></p>
+        <% end %>
+      <% end %>
 
       <%= render "govuk_publishing_components/components/title", {
         title: action_based_title
@@ -59,23 +70,28 @@
   </div>
 
   <% if criteria_keys.present? %>
-    <%= render 'components/email_link', {
-      data_attributes: {
-        "module": "track-click",
-        "track-action": action_based_email_link_label,
-        "track-category": "StayUpdated",
-        "track-label": transition_checker_email_signup_path
-      },
-      link_text: action_based_email_link_label,
-      link_href: path_based_on_account_feature_flag,
-      link_title: t("brexit_checker.results.email_sign_up_title"),
-    } %>
+    <% unless accounts_enabled? && logged_in? %>
+      <%= render 'components/email_link', {
+        data_attributes: {
+          "module": "track-click",
+          "track-action": action_based_email_link_label,
+          "track-category": "StayUpdated",
+          "track-label": transition_checker_email_signup_path
+        },
+        link_text: action_based_email_link_label,
+        link_href: path_based_on_account_feature_flag,
+        link_title: t("brexit_checker.results.email_sign_up_title"),
+      } %>
+    <% end %>
 
     <%= render 'results_business_actions', business_results: @business_results if @business_results.any? %>
     <%= render 'results_citizen_actions', citizen_results_groups: @citizen_results_groups if @citizen_results_groups.any? %>
     <%= render 'results_with_no_actions', criteria: @criteria if (@business_results.empty? && @citizen_results_groups.empty?) %>
 
-    <%= render 'stay_updated' %>
+    <% unless accounts_enabled? && logged_in? %>
+      <%= render 'stay_updated' %>
+    <% end %>
+
     <%= render 'share_links' %>
     <%= render 'print_link' if @business_results.any? || @citizen_results_groups.any? %>
   <% end %>

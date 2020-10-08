@@ -1,5 +1,3 @@
-require_relative "../lib/oidc_client.rb"
-
 class BrexitCheckerController < ApplicationController
   include BrexitCheckerHelper
 
@@ -33,13 +31,14 @@ class BrexitCheckerController < ApplicationController
   end
 
   def results
-    @account_information = if logged_in? && accounts_enabled?
-                             "Logged in. <a class=\"govuk-link\" href=\"#{transition_checker_end_session_path}\">Log out.</a>"
-                           elsif accounts_enabled?
-                             "Not logged in. <a class=\"govuk-link\" href=\"#{transition_checker_new_session_path}\">Login.</a>"
-                           else
-                             ""
-                           end
+    if accounts_enabled?
+      results_in_account = results_from_account
+      if logged_in?
+        now = Time.zone.now.to_i
+        @results_differ = criteria_keys != results_in_account.fetch("criteria_keys", [])
+        @results_saved = !@results_differ && results_in_account.fetch("timestamp", now) >= now - 30
+      end
+    end
 
     all_actions = BrexitChecker::Action.load_all
     @criteria = BrexitChecker::Criterion.load_by(criteria_keys)
@@ -60,23 +59,48 @@ class BrexitCheckerController < ApplicationController
 
   def save_results; end
 
+  def save_results_confirm
+    saved_results = results_from_account.fetch("criteria_keys", [])
+    redirect_to transition_checker_new_session_path(redirect_path: transition_checker_save_results_confirm_path(c: criteria_keys)) and return unless logged_in?
+
+    @old_criteria_keys = saved_results
+    redirect_to transition_checker_results_path(c: criteria_keys) and return if criteria_keys == @old_criteria_keys
+  end
+
+  def save_results_apply
+    update_session_tokens(
+      Services.oidc.set_checker_attribute(
+        value: { criteria_keys: criteria_keys, timestamp: Time.zone.now.to_i },
+        access_token: session[:access_token],
+        refresh_token: session[:refresh_token],
+      ),
+    )
+    redirect_to transition_checker_results_path(c: criteria_keys)
+  rescue OidcClient::OAuthFailure
+    # this means the refresh token has been revoked or the
+    # accounts services are down
+    logout!
+  end
+
   def saved_results
+    saved_results = results_from_account.fetch("criteria_keys", [])
     redirect_to transition_checker_new_session_path(redirect_path: transition_checker_saved_results_path) and return unless logged_in?
 
-    if results_from_account.empty?
+    if saved_results.empty?
       redirect_to transition_checker_questions_path
     else
-      redirect_to transition_checker_results_path(c: results_from_account)
+      redirect_to transition_checker_results_path(c: saved_results)
     end
   end
 
   def edit_saved_results
+    saved_results = results_from_account.fetch("criteria_keys", [])
     redirect_to transition_checker_new_session_path(redirect_path: transition_checker_edit_saved_results_path) and return unless logged_in?
 
-    if results_from_account.empty?
+    if saved_results.empty?
       redirect_to transition_checker_questions_path
     else
-      redirect_to transition_checker_questions_path(c: results_from_account, page: 0)
+      redirect_to transition_checker_questions_path(c: saved_results, page: 0)
     end
   end
 
@@ -91,21 +115,17 @@ private
   end
 
   def results_from_account
-    @results_from_account ||=
-      begin
-        results = update_session_tokens(
-          oidc.get_checker_attribute(
-            access_token: session[:access_token],
-            refresh_token: session[:refresh_token],
-          ),
-        )
-        results.fetch("criteria_keys", [])
-      rescue OidcClient::OAuthFailure
-        # this means the refresh token has been revoked or the
-        # accounts services are down
-        logout!
-        []
-      end
+    update_session_tokens(
+      Services.oidc.get_checker_attribute(
+        access_token: session[:access_token],
+        refresh_token: session[:refresh_token],
+      ),
+    )
+  rescue OidcClient::OAuthFailure
+    # this means the refresh token has been revoked or the accounts
+    # services are down
+    logout!
+    {}
   end
 
   def grouped_results

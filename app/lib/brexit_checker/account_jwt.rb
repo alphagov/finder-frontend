@@ -1,6 +1,7 @@
 class BrexitChecker::AccountJwt
-  def initialize(criteria_keys)
+  def initialize(criteria_keys, oauth_uri)
     @criteria_keys = criteria_keys
+    @oauth_uri = oauth_uri
   end
 
   def encode(key = ecdsa_key, algorithmn = "ES256")
@@ -9,7 +10,7 @@ class BrexitChecker::AccountJwt
 
 private
 
-  attr_reader :criteria_keys
+  attr_reader :criteria_keys, :oauth_uri
 
   def payload
     {
@@ -17,6 +18,7 @@ private
       key: client_oauth_key_uuid,
       scopes: scopes,
       attributes: attributes,
+      post_login_oauth: oauth_uri,
     }
   end
 
