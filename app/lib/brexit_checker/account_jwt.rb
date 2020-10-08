@@ -25,7 +25,12 @@ private
   end
 
   def attributes
-    { transition_checker_state: criteria_keys }
+    {
+      transition_checker_state: {
+        criteria_keys: criteria_keys,
+        timestamp: Time.zone.now.to_i,
+      },
+    }
   end
 
   def client_oauth_id

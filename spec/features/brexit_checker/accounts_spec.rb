@@ -106,7 +106,7 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
       before { log_in }
       after { log_out }
 
-      let(:transition_checker_state) { %w[nationality-uk] }
+      let(:transition_checker_state) { { criteria_keys: %w[nationality-uk], timestamp: 42 } }
 
       context "/transition-check/questions" do
         it "does not show the login state" do
@@ -126,7 +126,7 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
 
       context "/transition-check/saved-results" do
         it "redirects to first question if no previous results present" do
-          stub = stub_attribute_service_request(:get, body: { claim_value: [] })
+          stub = stub_attribute_service_request(:get, body: { claim_value: {} })
 
           given_i_am_on_the_saved_results_page
 
@@ -150,7 +150,7 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
 
       context "/transition-check/edit-saved-results" do
         it "redirects to first question if no previous results present" do
-          stub = stub_attribute_service_request(:get, body: { claim_value: [] })
+          stub = stub_attribute_service_request(:get, body: { claim_value: {} })
 
           given_i_am_on_the_edit_saved_results_page
 
