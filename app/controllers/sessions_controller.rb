@@ -33,6 +33,7 @@ class SessionsController < ApplicationController
     sub = callback[:sub]
     redirect_path = callback[:redirect_path] || default_redirect_path
 
+    session[:has_session] = true
     session[:sub] = sub
     session[:access_token] = access_token.token_response[:access_token]
     session[:refresh_token] = access_token.token_response[:refresh_token]
