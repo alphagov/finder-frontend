@@ -91,21 +91,21 @@ private
   end
 
   def results_from_account
-    @results_from_account ||= begin
-      Array(
-        update_session_tokens(
+    @results_from_account ||=
+      begin
+        results = update_session_tokens(
           oidc.get_checker_attribute(
             access_token: session[:access_token],
             refresh_token: session[:refresh_token],
           ),
-        ),
-      )
-                              rescue OidcClient::OAuthFailure
-                                # this means the refresh token has been revoked or the
-                                # accounts services are down
-                                logout!
-                                []
-    end
+        )
+        results.fetch("criteria_keys", [])
+      rescue OidcClient::OAuthFailure
+        # this means the refresh token has been revoked or the
+        # accounts services are down
+        logout!
+        []
+      end
   end
 
   def grouped_results

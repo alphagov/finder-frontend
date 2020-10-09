@@ -62,7 +62,7 @@ class OidcClient
     )
 
     if response[:result].empty?
-      response.merge(result: [])
+      response.merge(result: {})
     else
       response.merge(result: JSON.parse(response[:result])["claim_value"])
     end
