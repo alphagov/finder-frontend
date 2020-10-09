@@ -33,7 +33,7 @@ class OidcClient
   end
 
   def redirect_uri
-    host = "http://#{ENV['VIRTUAL_HOST']}" || ENV["GOVUK_WEBSITE_ROOT"]
+    host = ENV["VIRTUAL_HOST"] ? "http://#{ENV['VIRTUAL_HOST']}" : ENV["GOVUK_WEBSITE_ROOT"]
     host + Rails.application.routes.url_helpers.transition_checker_new_session_callback_path
   end
 
