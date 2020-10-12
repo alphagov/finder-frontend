@@ -86,10 +86,11 @@ module BrexitCheckerHelper
     end
   end
 
-  def account_signup_jwt(criteria_keys)
+  def account_signup_jwt(criteria_keys, subscriber_list_slug)
     account_jwt = BrexitChecker::AccountJwt.new(
       criteria_keys,
       Services.oidc.auth_uri(redirect_path: transition_checker_save_results_confirm_path(c: criteria_keys))[:uri],
+      subscriber_list_slug,
     )
     account_jwt.encode
   end

@@ -26,6 +26,7 @@ RSpec.feature "Brexit Checker create GOV.UK Account", type: :feature do
     allow_any_instance_of(OidcClient).to receive(:userinfo_endpoint).and_return("http://attribute-service/oidc/user_info")
     allow_any_instance_of(OidcClient).to receive(:discover).and_return(discovery_response)
     allow_any_instance_of(OidcClient).to receive(:auth_uri).and_return({ uri: "http://account-mamager/login", state: SecureRandom.hex(16) })
+    stub_email_subscription_confirmation
   end
 
   scenario "user clicks Create a GOV.UK account" do
@@ -52,5 +53,12 @@ RSpec.feature "Brexit Checker create GOV.UK Account", type: :feature do
     expect(form.text).to eql("Create a GOV.UK account")
     expect(form["method"]).to eql("post")
     expect(form["action"]).to eql(Plek.find("account-manager"))
+  end
+
+  def stub_email_subscription_confirmation
+    fixture = { "subscriber_list": { "slug": "test-slug" } }.to_json
+    expected_url = "http://email-alert-api.dev.gov.uk/subscriber-lists?tags%5Bbrexit_checklist_criteria%5D%5Bany%5D%5B0%5D=nationality-eu"
+
+    stub_request(:get, expected_url).to_return(status: 200, body: fixture)
   end
 end

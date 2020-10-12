@@ -1,7 +1,8 @@
 class BrexitChecker::AccountJwt
-  def initialize(criteria_keys, oauth_uri)
+  def initialize(criteria_keys, oauth_uri, subscriber_list_slug)
     @criteria_keys = criteria_keys
     @oauth_uri = oauth_uri
+    @subscriber_list_slug = subscriber_list_slug
   end
 
   def encode(key = ecdsa_key, algorithmn = "ES256")
@@ -10,7 +11,7 @@ class BrexitChecker::AccountJwt
 
 private
 
-  attr_reader :criteria_keys, :oauth_uri
+  attr_reader :criteria_keys, :oauth_uri, :subscriber_list_slug
 
   def payload
     {
@@ -31,6 +32,7 @@ private
       transition_checker_state: {
         criteria_keys: criteria_keys,
         timestamp: Time.zone.now.to_i,
+        email_topic_slug: subscriber_list_slug,
       },
     }
   end
