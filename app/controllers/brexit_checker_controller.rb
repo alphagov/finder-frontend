@@ -76,10 +76,11 @@ class BrexitCheckerController < ApplicationController
       ),
     )
     redirect_to transition_checker_results_path(c: criteria_keys)
-  rescue OidcClient::OAuthFailure
+  rescue OidcClient::OAuthFailure => e
     # this means the refresh token has been revoked or the
     # accounts services are down
     logout!
+    raise e
   end
 
   def saved_results
