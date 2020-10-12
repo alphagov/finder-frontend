@@ -36,7 +36,7 @@ class BrexitCheckerController < ApplicationController
       if logged_in?
         now = Time.zone.now.to_i
         @results_differ = criteria_keys != results_in_account.fetch("criteria_keys", [])
-        @results_saved = !@results_differ && results_in_account.fetch("timestamp", now) >= now - 30
+        @results_saved = !@results_differ && results_in_account.fetch("timestamp", now) >= now - 10
       end
     end
 

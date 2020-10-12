@@ -115,9 +115,9 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
             expect(page).to_not have_content("You've changed your answers.")
           end
 
-          context "the account has been updated in the last 30 seconds" do
+          context "the account has been updated in the last 10 seconds" do
             it "shows a 'saved' notification" do
-              Timecop.freeze(Time.zone.at(transition_checker_state[:timestamp] - 29)) do
+              Timecop.freeze(Time.zone.at(transition_checker_state[:timestamp] - 9)) do
                 given_i_am_on_the_results_page_with(transition_checker_state[:criteria_keys])
                 expect(page).to have_content("Saved!")
               end
