@@ -41,15 +41,12 @@
     <div class="govuk-grid-column-two-thirds">
       <% if accounts_enabled? %>
         <% if logged_in? %>
-          <p class="govuk-body">Logged in. <a class="govuk-link" href="<%= transition_checker_end_session_path %>">Log out.</a></p>
           <% if @results_differ %>
             <p class="govuk-body">You've changed your answers. <a class="govuk-link" href="<%= transition_checker_save_results_confirm_path(c: criteria_keys) %>">Save this page instead?</a></p>
           <% end %>
           <% if @results_saved %>
             <p class="govuk-body">Saved!</p>
           <% end %>
-        <% else %>
-          <p class="govuk-body">Not logged in. <a class="govuk-link" href="<%= transition_checker_new_session_path %>">Log in.</a></p>
         <% end %>
       <% end %>
 

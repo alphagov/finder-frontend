@@ -4,14 +4,6 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
   context "without accounts enabled" do
     let(:mock_results) { %w[nationality-eu] }
 
-    context "/transition-check/results" do
-      it "does not show the login state" do
-        given_i_am_on_a_question_page
-        expect(page).to_not have_content("Logged in.")
-        expect(page).to_not have_content("Not logged in.")
-      end
-    end
-
     context "/transition-check/saved-results" do
       it "returns a 404" do
         given_i_am_on_the_saved_results_page
@@ -68,12 +60,6 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
 
     context "the user is not logged in" do
       context "/transition-check/results" do
-        it "shows the login state" do
-          given_i_am_on_the_results_page
-          expect(page).to_not have_content("Logged in.")
-          expect(page).to have_content("Not logged in.")
-        end
-
         it "shows the normal call-to-action" do
           given_i_am_on_the_results_page
           expect(page).to have_content(I18n.t("brexit_checker.results.email_sign_up_title"))
@@ -108,22 +94,8 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
 
       let(:transition_checker_state) { { criteria_keys: %w[nationality-uk], timestamp: 42 } }
 
-      context "/transition-check/questions" do
-        it "does not show the login state" do
-          given_i_am_on_a_question_page
-          expect(page).to_not have_content("Logged in.")
-          expect(page).to_not have_content("Not logged in.")
-        end
-      end
-
       context "/transition-check/results" do
         before { stub_attribute_service_request(:get, body: { claim_value: transition_checker_state }) }
-
-        it "shows the login state" do
-          given_i_am_on_the_results_page
-          expect(page).to have_content("Logged in.")
-          expect(page).to_not have_content("Not logged in.")
-        end
 
         it "doesn't show the normal call-to-action" do
           given_i_am_on_the_results_page
@@ -163,7 +135,6 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
           expect(stub).to have_been_made
 
           expect(page).to have_current_path(transition_checker_questions_path)
-          expect(page).to_not have_content("Not logged in.")
         end
 
         it "redirects to previous results if present" do
@@ -174,7 +145,6 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
           expect(stub).to have_been_made.twice
 
           expect(page).to have_current_path(transition_checker_results_path(c: %w[nationality-uk]))
-          expect(page).to_not have_content("Not logged in.")
         end
       end
 
@@ -197,7 +167,6 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
           expect(stub).to have_been_made
 
           expect(page).to have_current_path(transition_checker_questions_path(c: %w[nationality-uk], page: 0))
-          expect(page).to_not have_content("Not logged in.")
         end
       end
 
@@ -238,9 +207,6 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
 
                 expect(stub_get_fail).to have_been_made
                 expect(stub_get_success).to have_been_made.twice
-
-                expect(page).to have_content("Logged in")
-                expect(page).to have_content("Your results")
               end
             end
           end
@@ -260,7 +226,6 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
               expect(stub_success).to have_been_made.twice
 
               expect(page).to have_current_path(transition_checker_results_path(c: %w[nationality-uk]))
-              expect(page).to_not have_content("Not logged in.")
             end
           end
 
@@ -279,7 +244,6 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
               expect(stub_success).to have_been_made
 
               expect(page).to have_current_path(transition_checker_questions_path(c: %w[nationality-uk], page: 0))
-              expect(page).to_not have_content("Not logged in.")
             end
           end
 
