@@ -1,17 +1,26 @@
 en:
   brexit_checker:
     account_signup:
-      title: Stay up to date with a new GOV.UK account
-      heading: Stay up to date with a new GOV.UK account
-      proposition: |
-        <p class="govuk-body">
-          Create a GOV.UK account to hep you get ready for new rules in 2021. You'll be able to:
-        </p>
-
-        <ul class="govuk-list govuk-list--bullet">
-          <li>get email updates about changes that may affect you</li>
-          <li>get a link to your UK transition results</li>
-        </ul>
+      title: Stay up to date with a GOV.UK account
+      heading: Stay up to date with a GOV.UK account
+      proposition: "Create a GOV.UK account to:"
+      proposition_list:
+        - get email updates about changes that may affect you
+        - get a link to your UK transition results
+      aim: GOV.UK is trialling accounts to try to improve online public services.
+      aim_list:
+        - At the moment, this is separate from other government accounts.
+        - You can only use your account with the UK transition checker.
+      future: "In future, we want to add more features to your GOV.UK account so you can:"
+      future_list:
+        - see content that's more tailored to you
+        - get recommendations for services relevant to you
+        - get updates about guidance that might be helpful to you
+        - reuse information you provide between different services
       cta_button: Create a GOV.UK account
-      or: or
-      alternative_path_link_text: stay up to date with email alerts only
+      or: If you've already saved your UK transition results,
+      alternative_path_link_text: sign in to your account
+      do_not_want_heading: If you do not want a GOV.UK account
+      do_not_want_intro: You can
+      do_not_want_link: get notifications and a link to your results
+      do_not_want_outro: instead.
