@@ -87,7 +87,7 @@ RSpec.feature "Brexit Checker email signup", type: :feature do
   end
 
   def then_i_click_email_alerts_only
-    click_on "stay up to date with email alerts only"
+    click_on "get notifications and a link to your results"
   end
 
   def then_i_click_to_subscribe
