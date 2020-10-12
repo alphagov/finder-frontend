@@ -397,7 +397,7 @@ actions:
   grouping_criteria:
   - visiting-uk
 - id: T006
-  priority: 8
+  priority: 7
   title: Check if your employees need a visa or work permit and that they meet professional
     requirements for the country they’re going to
   consequence: You or your employees might not be able to enter or work in some countries.
@@ -411,7 +411,7 @@ actions:
     - provide-services-do-business-in-eu
   audience: business
 - id: T007
-  priority: 8
+  priority: 2
   title: Check if you need to change how you do accounting and reporting
   consequence: You risk breaching reporting requirements in the EU, Norway, Iceland
     or Liechtenstein if you do not make any changes you need to.
@@ -575,7 +575,7 @@ actions:
     - oil-gas-coal
   audience: business
 - id: T022
-  priority: 8
+  priority: 6
   title: Check if you need to change your contract to keep accessing personal data
     from the EU, Norway, Iceland or Liechtenstein
   consequence: You may not be able to access personal data from the EU without the
@@ -591,7 +591,7 @@ actions:
     - personal-eu-org-provide
   audience: business
 - id: T023
-  priority: 8
+  priority: 5
   title: Check the rules you need to follow if you're a broadcaster or provider of
     video-on-demand services in the UK or the EU
   consequence: You risk not being able to broadcast or provide video-on-demand services
@@ -687,7 +687,7 @@ actions:
       - food-drink-tobacco
   audience: business
 - id: T034
-  priority: 8
+  priority: 6
   title: Check how to register or label food or drink with a protected name
   consequence: You risk your geographical indicator name not being protected if you
     do not register correctly.
@@ -701,7 +701,7 @@ actions:
     - food-drink-tobacco
   audience: business
 - id: T035
-  priority: 8
+  priority: 6
   title: Register as an approved food establishment to export food to the EU
   title_url: https://www.food.gov.uk/business-guidance/applying-for-approval-of-a-food-establishment
   consequence: You will not be able to export food to the EU if you do not register.
@@ -719,7 +719,7 @@ actions:
     - export-to-eu
   audience: business
 - id: T036
-  priority: 8
+  priority: 6
   title: Check how to label food if you're selling it in the UK or EU
   consequence: You risk not being able to sell goods in the EU if they're labelled
     incorrectly.
@@ -734,7 +734,7 @@ actions:
     - agriculture-farm
   audience: business
 - id: T038
-  priority: 8
+  priority: 5
   title: Check if you can export organic food to the EU, and how to label and trade
     it
   consequence: You risk not being able to sell your food as organic in the EU.
@@ -765,7 +765,7 @@ actions:
     - agriculture-farm
   audience: business
 - id: T045
-  priority: 5
+  priority: 6
   title: Print 'GB', 'GBR' or '826' on each egg you're exporting to the EU for people
     to eat
   consequence: You risk your eggs being delayed or rejected when they reach the EU
@@ -777,7 +777,7 @@ actions:
   - agriculture-farm
   audience: business
 - id: T046
-  priority: 5
+  priority: 6
   title: Check how to mark hatching eggs and boxes of chicks that you're exporting
     to the EU
   consequence: You risk your eggs or chicks being delayed or rejected when they reach
@@ -789,7 +789,7 @@ actions:
   - agriculture-farm
   audience: business
 - id: T047
-  priority: 5
+  priority: 6
   title: Get a certificate to export poultry meat to the EU if the meat is printed
     with a farming method
   consequence: If your meat is printed with a farming method, such as 'free range',
@@ -803,7 +803,7 @@ actions:
   - agriculture-farm
   audience: business
 - id: T050
-  priority: 8
+  priority: 7
   title: Get an International Maritime Organisation (IMO) number if your fishing boat
     is 12 metres or longer
   title_url: https://imonumbers.ihs.com/
@@ -876,7 +876,7 @@ actions:
     - telecoms
   audience: business
 - id: T059
-  priority: 2
+  priority: 3
   title: Check whether any wood packaging you use meets ISPM15 international standards
   consequence: You may not be able to export using wood packaging that is not ISPM15
     certified.
@@ -902,7 +902,7 @@ actions:
     - road-passenger-freight
   audience: business
 - id: T065
-  priority: 5
+  priority: 7
   title: Check what documents you need to transport goods through the EU if you’re
     a haulier
   consequence: You will not be able to transport goods through the EU without the
@@ -991,7 +991,7 @@ actions:
   - road-passenger-freight
   audience: business
 - id: T080
-  priority: 5
+  priority: 2
   title: Check the new rules for unregistered design protection in the UK and EU
   consequence: You may not have IP protection if you do not disclose your designs
     correctly.
@@ -1029,7 +1029,7 @@ actions:
   - legal-service
   audience: business
 - id: T085
-  priority: 5
+  priority: 1
   title: Get your UK qualification recognised if you want to work in a regulated profession
     in the EU, Norway, Iceland or Liechtenstein
   consequence: You risk not being able to continue working or providing services in
@@ -1107,7 +1107,7 @@ actions:
     - sports
   audience: business
 - id: T090
-  priority: 5
+  priority: 8
   title: Export animals or products of animal origin (POAO) through the right EU border
     inspection post and prepare the right documents
   consequence: You risk your animals or products being delayed or rejected when they
@@ -1122,7 +1122,7 @@ actions:
   - animal-ex-food
   audience: business
 - id: T091
-  priority: 5
+  priority: 3
   title: Check guidance on the Kimberly Process Certification Scheme for trading rough
     diamonds
   consequence: You will not be able to export rough diamonds from 1 January 2021 unless
@@ -1165,7 +1165,7 @@ actions:
       - import-from-eu
   audience: business
 - id: T096
-  priority: 1
+  priority: 2
   title: Check the rules on moving waste between the UK and the EU
   consequence: You risk your waste shipments being delayed or rejected if you do not
     follow the right rules.
@@ -1206,7 +1206,7 @@ actions:
   - chemical
   audience: business
 - id: T099
-  priority: 8
+  priority: 9
   title: Decide how you want to make customs declarations and whether you need to
     get someone to deal with customs for you
   consequence: You risk not being able to import or export goods if you do not get
@@ -1220,7 +1220,7 @@ actions:
     - export-to-eu
   audience: business
 - id: T100
-  priority: 5
+  priority: 3
   title: Apply for a licence to export cultural objects
   consequence: You might not be able to take items such as works of art and historical
     objects out of the UK without the correct licence.
@@ -1320,7 +1320,7 @@ actions:
   grouping_criteria:
   - living-eu
 - id: T104
-  priority: 3
+  priority: 4
   title: Get provisional GB approval to be able to sell EC-approved vehicles in the
     UK
   consequence: You will not be able to sell your products in Great Britain if they
@@ -1335,7 +1335,7 @@ actions:
     - motor-trade
   audience: business
 - id: T105
-  priority: 3
+  priority: 4
   title: Check you have the correct EU type approval to continue selling vehicles
     in the EU
   consequence: You will not be able to continue selling your products in the EU if
@@ -1370,7 +1370,7 @@ actions:
   grouping_criteria:
   - living-eu
 - id: T106
-  priority: 8
+  priority: 7
   title: Check the rules, tax and duty rates for exporting to the rest of the world
   consequence: You risk not being able to export your goods if you do not follow the
     rules.
@@ -1381,7 +1381,7 @@ actions:
   - export-to-row
   audience: business
 - id: T107
-  priority: 3
+  priority: 1
   title: Apply for Horizon 2020 funding
   consequence: You may miss out on Horizon 2020 funding opportunities if you do not
     apply.
@@ -1422,7 +1422,7 @@ actions:
   - import-from-eu
   audience: business
 - id: T111
-  priority: 6
+  priority: 2
   title: Check if you need to replace your .eu domain name
   consequence: You may not be able to hold, register or renew a .eu domain name from
     1 January 2021.
@@ -1434,7 +1434,7 @@ actions:
   - eu-domain
   audience: business
 - id: T112
-  priority: 8
+  priority: 9
   title: Register for the UK’s new Import of Products, Animals, Food and Feed System
     (IPAFFS)
   consequence: You will not be able to import using the TRACES system from 1 January
@@ -1452,7 +1452,7 @@ actions:
       - food-drink-tobacco
   audience: business
 - id: T113
-  priority: 2
+  priority: 1
   title: Check the rules for reporting unfair trade practices using the UK's new trade
     remedies service
   consequence: You risk being affected if imported goods are dumped on the UK market
@@ -1478,7 +1478,7 @@ actions:
     - export-to-row
   audience: business
 - id: T115
-  priority: 1
+  priority: 2
   title: Register with HSE to find out when guidance on the duties for classifying,
     labelling and packaging chemicals for the GB market is available
   consequence: You must make sure chemicals are classified, labelled and packaged
@@ -1490,7 +1490,7 @@ actions:
   - chemical
   audience: business
 - id: T116
-  priority: 1
+  priority: 2
   title: Register with HSE to find out when guidance on processes for biocidal active
     substance approval and product authorisation is available
   consequence: You may have delays in getting access to the right materials to continue
@@ -1502,7 +1502,7 @@ actions:
   - chemical
   audience: business
 - id: T117
-  priority: 3
+  priority: 5
   title: Contact your regulator if you are a UK lawyer working permanently in the
     EU, Norway, Iceland or Liechtenstein
   consequence: You risk not being able to continue providing legal services in the
@@ -1542,4 +1542,20 @@ actions:
   - any_of:
     - ip-copyright
     - media
+  audience: business
+- id: T120
+  priority: 10
+  title: Check if you’ll need a licence to employ workers from the EU, Switzerland,
+    Norway, Iceland or Liechtenstein
+  consequence: You risk not being able to employ workers from outside the UK if you
+    do not have the correct licence.
+  exception: This does not apply to workers from Ireland or people with pre-settled
+    or settled status under the EU Settlement Scheme.
+  guidance_prompt: More information
+  guidance_link_text: Employing workers from outside the UK
+  guidance_url: https://www.gov.uk/guidance/recruiting-people-from-outside-the-uk-from-1-january-2021
+  criteria:
+  - all_of:
+    - owns-operates-business-organisation-uk
+    - employ-eu-citizens
   audience: business
