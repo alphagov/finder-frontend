@@ -68,6 +68,15 @@ class OidcClient
     end
   end
 
+  def set_checker_attribute(value:, access_token:, refresh_token:)
+    oauth_request(
+      access_token: access_token,
+      refresh_token: refresh_token,
+      method: :put,
+      arg: { value: value.to_json },
+    )
+  end
+
 private
 
   def oauth_request(access_token:, refresh_token:, method:, arg: nil)

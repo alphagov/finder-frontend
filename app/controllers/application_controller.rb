@@ -98,18 +98,12 @@ private
     end
   end
 
+  helper_method :accounts_enabled?
   def accounts_enabled?
     Rails.configuration.feature_flag_govuk_accounts
   end
 
-  def oidc
-    @oidc ||= OidcClient.new(
-      Services.accounts_api,
-      ENV.fetch("GOVUK_ACCOUNT_OAUTH_CLIENT_ID"),
-      ENV.fetch("GOVUK_ACCOUNT_OAUTH_CLIENT_SECRET"),
-    )
-  end
-
+  helper_method :logged_in?
   def logged_in?
     current_user.present? && session[:has_session]
   end

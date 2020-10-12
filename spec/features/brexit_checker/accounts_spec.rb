@@ -4,14 +4,6 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
   context "without accounts enabled" do
     let(:mock_results) { %w[nationality-eu] }
 
-    context "/transition-check/results" do
-      it "does not show the login state" do
-        given_i_am_on_a_question_page
-        expect(page).to_not have_content("Logged in.")
-        expect(page).to_not have_content("Not logged in.")
-      end
-    end
-
     context "/transition-check/saved-results" do
       it "returns a 404" do
         given_i_am_on_the_saved_results_page
@@ -54,30 +46,27 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
 
       allow_any_instance_of(OidcClient).to receive(:userinfo_endpoint)
         .and_return("#{attribute_service_url}/oidc/user_info")
+
+      discovery_response = double(authorization_endpoint: "foo", token_endpoint: "foo", userinfo_endpoint: "foo", end_session_endpoint: "foo")
+
+      allow_any_instance_of(OidcClient).to receive(:discover)
+        .and_return(discovery_response)
+
+      allow_any_instance_of(OidcClient).to receive(:auth_uri)
+        .and_return({ uri: "http://account-mamager/login", state: SecureRandom.hex(16) })
     end
 
     let(:mock_results) { %w[nationality-eu] }
 
     context "the user is not logged in" do
       context "/transition-check/results" do
-        it "shows the login state" do
+        it "shows the normal call-to-action" do
           given_i_am_on_the_results_page
-          expect(page).to_not have_content("Logged in.")
-          expect(page).to have_content("Not logged in.")
+          expect(page).to have_content(I18n.t("brexit_checker.results.email_sign_up_title"))
         end
       end
 
       context "/transition-check/saved-results" do
-        before do
-          discovery_response = double(authorization_endpoint: "foo", token_endpoint: "foo", userinfo_endpoint: "foo", end_session_endpoint: "foo")
-
-          allow_any_instance_of(OidcClient).to receive(:discover)
-            .and_return(discovery_response)
-
-          allow_any_instance_of(OidcClient).to receive(:auth_uri)
-            .and_return({ uri: "http://account-mamager/login", state: SecureRandom.hex(16) })
-        end
-
         it "redirects to login page" do
           given_i_am_on_the_saved_results_page
           expect(current_path).to eq(transition_checker_new_session_path)
@@ -85,18 +74,15 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
       end
 
       context "/transition-check/edit-saved-results" do
-        before do
-          discovery_response = double(authorization_endpoint: "foo", token_endpoint: "foo", userinfo_endpoint: "foo", end_session_endpoint: "foo")
-
-          allow_any_instance_of(OidcClient).to receive(:discover)
-            .and_return(discovery_response)
-
-          allow_any_instance_of(OidcClient).to receive(:auth_uri)
-            .and_return({ uri: "http://account-mamager/login", state: SecureRandom.hex(16) })
-        end
-
         it "redirects to login page" do
           given_i_am_on_the_edit_saved_results_page
+          expect(current_path).to eq(transition_checker_new_session_path)
+        end
+      end
+
+      context "/transition-check/save-your-results/confirm" do
+        it "redirects to login page" do
+          given_i_am_on_the_save_results_confirm_page
           expect(current_path).to eq(transition_checker_new_session_path)
         end
       end
@@ -108,19 +94,35 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
 
       let(:transition_checker_state) { { criteria_keys: %w[nationality-uk], timestamp: 42 } }
 
-      context "/transition-check/questions" do
-        it "does not show the login state" do
-          given_i_am_on_a_question_page
-          expect(page).to_not have_content("Logged in.")
-          expect(page).to_not have_content("Not logged in.")
-        end
-      end
-
       context "/transition-check/results" do
-        it "shows the login state" do
+        before { stub_attribute_service_request(:get, body: { claim_value: transition_checker_state }) }
+
+        it "doesn't show the normal call-to-action" do
           given_i_am_on_the_results_page
-          expect(page).to have_content("Logged in.")
-          expect(page).to_not have_content("Not logged in.")
+          expect(page).to_not have_content(I18n.t("brexit_checker.results.email_sign_up_title"))
+        end
+
+        context "the querystring differs to the value in the account" do
+          it "shows a link to save the new results" do
+            given_i_am_on_the_results_page_with(%w[bring-pet-abroad nationality-eu])
+            expect(page).to have_content("You've changed your answers.")
+          end
+        end
+
+        context "the querystring matches what's stored in the account" do
+          it "doesn't show a link to save the new results" do
+            given_i_am_on_the_results_page_with(transition_checker_state[:criteria_keys])
+            expect(page).to_not have_content("You've changed your answers.")
+          end
+
+          context "the account has been updated in the last 10 seconds" do
+            it "shows a 'saved' notification" do
+              Timecop.freeze(Time.zone.at(transition_checker_state[:timestamp] - 9)) do
+                given_i_am_on_the_results_page_with(transition_checker_state[:criteria_keys])
+                expect(page).to have_content("Saved!")
+              end
+            end
+          end
         end
       end
 
@@ -133,7 +135,6 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
           expect(stub).to have_been_made
 
           expect(page).to have_current_path(transition_checker_questions_path)
-          expect(page).to_not have_content("Not logged in.")
         end
 
         it "redirects to previous results if present" do
@@ -141,10 +142,9 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
 
           given_i_am_on_the_saved_results_page
 
-          expect(stub).to have_been_made
+          expect(stub).to have_been_made.twice
 
           expect(page).to have_current_path(transition_checker_results_path(c: %w[nationality-uk]))
-          expect(page).to_not have_content("Not logged in.")
         end
       end
 
@@ -167,7 +167,25 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
           expect(stub).to have_been_made
 
           expect(page).to have_current_path(transition_checker_questions_path(c: %w[nationality-uk], page: 0))
-          expect(page).to_not have_content("Not logged in.")
+        end
+      end
+
+      context "/transition-check/save-your-results/confirm" do
+        context "the querystring differs to the value in the account" do
+          it "shows a comparison of the result sets" do
+            stub_attribute_service_request(:get, body: { claim_value: transition_checker_state })
+            given_i_am_on_the_save_results_confirm_page_with(%w[nationality-eu])
+            expect(page).to have_content("nationality-uk")
+            expect(page).to have_content("nationality-eu")
+          end
+        end
+
+        context "the querystring matches what's stored in the account" do
+          it "redirects back to the results page" do
+            stub_attribute_service_request(:get, body: { claim_value: transition_checker_state })
+            given_i_am_on_the_save_results_confirm_page_with(transition_checker_state[:criteria_keys])
+            expect(page).to have_current_path(transition_checker_results_path(c: transition_checker_state[:criteria_keys]))
+          end
         end
       end
 
@@ -188,10 +206,7 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
                 given_i_am_on_the_saved_results_page
 
                 expect(stub_get_fail).to have_been_made
-                expect(stub_get_success).to have_been_made
-
-                expect(page).to have_content("Logged in")
-                expect(page).to have_content("Your results")
+                expect(stub_get_success).to have_been_made.twice
               end
             end
           end
@@ -208,10 +223,9 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
               given_i_am_on_the_saved_results_page
 
               expect(stub_fail).to have_been_made
-              expect(stub_success).to have_been_made
+              expect(stub_success).to have_been_made.twice
 
               expect(page).to have_current_path(transition_checker_results_path(c: %w[nationality-uk]))
-              expect(page).to_not have_content("Not logged in.")
             end
           end
 
@@ -230,7 +244,6 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
               expect(stub_success).to have_been_made
 
               expect(page).to have_current_path(transition_checker_questions_path(c: %w[nationality-uk], page: 0))
-              expect(page).to_not have_content("Not logged in.")
             end
           end
 
@@ -251,14 +264,14 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
         context "the refresh token is invalid" do
           before { forbid_token_refresh }
 
-          it "logs the user out" do
+          it "logs the user out and triggers a new login flow" do
             stub_fail = stub_attribute_service_request(:get, status: 401)
 
             given_i_am_on_the_saved_results_page
 
             expect(stub_fail).to have_been_made
 
-            expect(current_path).to eq(transition_checker_questions_path)
+            expect(current_path).to eq(transition_checker_new_session_path)
           end
 
           def forbid_token_refresh
@@ -299,8 +312,20 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
       visit transition_checker_results_path(c: mock_results)
     end
 
+    def given_i_am_on_the_results_page_with(criteria_keys)
+      visit transition_checker_results_path(c: criteria_keys)
+    end
+
     def given_i_am_on_the_saved_results_page
       visit transition_checker_saved_results_path
+    end
+
+    def given_i_am_on_the_save_results_confirm_page
+      visit transition_checker_save_results_confirm_path(c: mock_results)
+    end
+
+    def given_i_am_on_the_save_results_confirm_page_with(criteria_keys)
+      visit transition_checker_save_results_confirm_path(c: criteria_keys)
     end
 
     def given_i_am_on_the_edit_saved_results_page

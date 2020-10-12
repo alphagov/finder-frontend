@@ -1,0 +1,12 @@
+en:
+  brexit_checker:
+    confirm_changes:
+      title: You’ve changed your answer to some questions
+      heading: You’ve changed your answer to some questions
+      table:
+        question: Question
+        old_answer: Old answer
+        new_answer: New answer
+      message: Saving your new answers will automatically update your email notifications at the same time.
+      save_button: Save new answers
+

@@ -34,4 +34,12 @@ module Services
   def self.accounts_api
     Plek.find("account-manager")
   end
+
+  def self.oidc
+    @oidc ||= OidcClient.new(
+      accounts_api,
+      ENV.fetch("GOVUK_ACCOUNT_OAUTH_CLIENT_ID"),
+      ENV.fetch("GOVUK_ACCOUNT_OAUTH_CLIENT_SECRET"),
+    )
+  end
 end
