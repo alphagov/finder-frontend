@@ -175,8 +175,8 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
           it "shows a comparison of the result sets" do
             stub_attribute_service_request(:get, body: { claim_value: transition_checker_state })
             given_i_am_on_the_save_results_confirm_page_with(%w[nationality-eu])
-            expect(page).to have_content("Old criteria keys: [\"nationality-uk\"]")
-            expect(page).to have_content("New criteria keys: [\"nationality-eu\"]")
+            expect(page).to have_content("nationality-uk")
+            expect(page).to have_content("nationality-eu")
           end
         end
 

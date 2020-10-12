@@ -24,7 +24,3 @@ en:
       do_not_want_intro: You can
       do_not_want_link: get notifications and a link to your results
       do_not_want_outro: instead.
-    confirm_changes:
-      title: Update
-      heading: Update
-      save_button: Save

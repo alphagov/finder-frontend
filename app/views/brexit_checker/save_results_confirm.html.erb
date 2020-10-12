@@ -33,8 +33,24 @@
             heading_level: 1,
           } %>
 
-        <p class="govuk-body">Old criteria keys: <code><%= @old_criteria_keys %></code></p>
-        <p class="govuk-body">New criteria keys: <code><%= criteria_keys %></code></p>
+        <%= render "govuk_publishing_components/components/table", {
+          head: [
+            {
+              text: t("brexit_checker.confirm_changes.table.question")
+            },
+            {
+              text: t("brexit_checker.confirm_changes.table.old_answer")
+            },
+            {
+              text: t("brexit_checker.confirm_changes.table.new_answer")
+            }
+          ],
+          rows: [
+            [ { text: "all of them" }, { text: @old_criteria_keys }, { text: criteria_keys } ]
+          ]
+        } %>
+
+        <p class="govuk-body"><%= t("brexit_checker.confirm_changes.message") %></p>
 
         <%= form_tag transition_checker_save_results_confirm_path(c: criteria_keys), method: :post do %>
           <%= render "govuk_publishing_components/components/button", {
