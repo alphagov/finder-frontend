@@ -11,6 +11,8 @@ class BrexitCheckerController < ApplicationController
   before_action :enable_caching, only: %i[show]
   before_action :enable_caching_unless_accounts, only: %i[results email_signup confirm_email_signup save_results saved_results edit_saved_results]
 
+  helper_method :subscriber_list_slug
+
   def show
     all_questions = BrexitChecker::Question.load_all
     @question_index = next_question_index(
@@ -51,9 +53,6 @@ class BrexitCheckerController < ApplicationController
   def email_signup; end
 
   def confirm_email_signup
-    request = Services.email_alert_api.find_or_create_subscriber_list_cached(subscriber_list_options)
-    subscriber_list_slug = request.dig("subscriber_list", "slug")
-
     redirect_to email_alert_frontend_signup_path(topic_id: subscriber_list_slug)
   end
 
@@ -106,6 +105,12 @@ class BrexitCheckerController < ApplicationController
   end
 
 private
+
+  def subscriber_list_slug
+    @subscriber_list_slug ||= Services.email_alert_api
+      .find_or_create_subscriber_list_cached(subscriber_list_options)
+      .dig("subscriber_list", "slug")
+  end
 
   def enable_caching
     expires_in(30.minutes, public: true) unless Rails.env.development?

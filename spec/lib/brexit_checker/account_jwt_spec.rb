@@ -7,6 +7,7 @@ RSpec.describe BrexitChecker::AccountJwt do
   let(:key_uuid) { "38d7dd82-8436-43b5-ae97-e160101cec50" }
   let(:criteria_keys) { %w[hello world] }
   let(:oauth_uri) { "http://www.example.com" }
+  let(:subscriber_list_slug) { "test-slug" }
 
   before do
     ENV["GOVUK_ACCOUNT_OAUTH_CLIENT_ID"] = oauth_client_id
@@ -21,7 +22,7 @@ RSpec.describe BrexitChecker::AccountJwt do
   end
 
   it "generates a valid JWT" do
-    jwt = described_class.new(criteria_keys, oauth_uri).encode
+    jwt = described_class.new(criteria_keys, oauth_uri, subscriber_list_slug).encode
     payload, = JWT.decode(jwt, public_key, true, { algorithm: "ES256" })
     expect(payload).to_not be_nil
     expect(payload["uid"]).to eq(oauth_client_id)
@@ -31,14 +32,20 @@ RSpec.describe BrexitChecker::AccountJwt do
   end
 
   it "includes the criteria keys" do
-    jwt = described_class.new(criteria_keys, oauth_uri).encode
+    jwt = described_class.new(criteria_keys, oauth_uri, subscriber_list_slug).encode
     payload, = JWT.decode(jwt, public_key, true, { algorithm: "ES256" })
     expect(payload.dig("attributes", "transition_checker_state", "criteria_keys")).to eq(criteria_keys)
   end
 
   it "includes the timestamp" do
-    jwt = described_class.new(criteria_keys, oauth_uri).encode
+    jwt = described_class.new(criteria_keys, oauth_uri, subscriber_list_slug).encode
     payload, = JWT.decode(jwt, public_key, true, { algorithm: "ES256" })
     expect(payload.dig("attributes", "transition_checker_state", "timestamp")).to_not be_nil
+  end
+
+  it "includes the email topic slug" do
+    jwt = described_class.new(criteria_keys, oauth_uri, subscriber_list_slug).encode
+    payload, = JWT.decode(jwt, public_key, true, { algorithm: "ES256" })
+    expect(payload.dig("attributes", "transition_checker_state", "email_topic_slug")).to_not be_nil
   end
 end
