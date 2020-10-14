@@ -1544,7 +1544,7 @@ actions:
     - media
   audience: business
 - id: T120
-  priority: 10
+  priority: 6
   title: Check if you’ll need a licence to employ workers from the EU, Switzerland,
     Norway, Iceland or Liechtenstein
   consequence: You risk not being able to employ workers from outside the UK if you
