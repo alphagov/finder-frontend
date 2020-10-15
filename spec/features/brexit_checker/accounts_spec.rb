@@ -1,6 +1,9 @@
 require "spec_helper"
+require "gds_api/test_helpers/email_alert_api"
 
 RSpec.feature "Brexit Checker accounts", type: :feature do
+  include GdsApi::TestHelpers::EmailAlertApi
+
   context "without accounts enabled" do
     let(:mock_results) { %w[nationality-eu] }
 
@@ -92,7 +95,8 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
       before { log_in }
       after { log_out }
 
-      let(:transition_checker_state) { { criteria_keys: %w[nationality-uk], timestamp: 42 } }
+      let(:transition_checker_state) { { criteria_keys: criteria_keys, timestamp: 42 } }
+      let(:criteria_keys) { %w[nationality-uk] }
 
       context "/transition-check/results" do
         before { stub_attribute_service_request(:get, body: { claim_value: transition_checker_state }) }
@@ -111,14 +115,14 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
 
         context "the querystring matches what's stored in the account" do
           it "doesn't show a link to save the new results" do
-            given_i_am_on_the_results_page_with(transition_checker_state[:criteria_keys])
+            given_i_am_on_the_results_page_with(criteria_keys)
             expect(page).to_not have_content("You've changed your answers.")
           end
 
           context "the account has been updated in the last 10 seconds" do
             it "shows a 'saved' notification" do
               Timecop.freeze(Time.zone.at(transition_checker_state[:timestamp] - 9)) do
-                given_i_am_on_the_results_page_with(transition_checker_state[:criteria_keys])
+                given_i_am_on_the_results_page_with(criteria_keys)
                 expect(page).to have_content("Saved!")
               end
             end
@@ -171,20 +175,62 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
       end
 
       context "/transition-check/save-your-results/confirm" do
+        before { stub_attribute_service_request(:get, body: { claim_value: transition_checker_state }) }
+
+        let(:new_criteria_keys) { %w[nationality-eu] }
+
         context "the querystring differs to the value in the account" do
+          before do
+            stub_email_check(status: email_status)
+            stub_subscriber_list_exists(new_criteria_keys)
+          end
+
+          let(:email_status) { 200 }
+
           it "shows a comparison of the result sets" do
-            stub_attribute_service_request(:get, body: { claim_value: transition_checker_state })
-            given_i_am_on_the_save_results_confirm_page_with(%w[nationality-eu])
-            expect(page).to have_content("nationality-uk")
-            expect(page).to have_content("nationality-eu")
+            given_i_am_on_the_save_results_confirm_page_with(new_criteria_keys)
+            expect(page).to have_content(new_criteria_keys.first)
+            expect(page).to have_content(criteria_keys.first)
+          end
+
+          context "the user does not have an email subscription" do
+            let(:email_status) { 404 }
+
+            it "prompt the user to sign up to email alerts" do
+              given_i_am_on_the_save_results_confirm_page_with(new_criteria_keys)
+              click_on I18n.t("brexit_checker.confirm_changes.save_button")
+              expect(page).to have_content(I18n.t("brexit_checker.confirm_changes_email_signup.heading"))
+            end
+
+            context "the user wants email alerts" do
+              it "creates an email alert" do
+                stub = stub_update_emails
+                stub_attribute_service_request(:put)
+                given_i_am_on_the_save_results_confirm_page_with(new_criteria_keys)
+                click_on I18n.t("brexit_checker.confirm_changes.save_button")
+                find_field(I18n.t("brexit_checker.confirm_changes_email_signup.radio.yes")).click
+                click_on I18n.t("brexit_checker.confirm_changes_email_signup.save_button")
+                expect(stub).to have_been_made
+              end
+            end
+          end
+
+          context "the user has an email subscription" do
+            it "updates the existing email alert automatically" do
+              stub = stub_update_emails
+              stub_attribute_service_request(:put)
+              given_i_am_on_the_save_results_confirm_page_with(new_criteria_keys)
+              click_on I18n.t("brexit_checker.confirm_changes.save_button")
+              expect(page).to_not have_content(I18n.t("brexit_checker.confirm_changes_email_signup.heading"))
+              expect(stub).to have_been_made
+            end
           end
         end
 
         context "the querystring matches what's stored in the account" do
           it "redirects back to the results page" do
-            stub_attribute_service_request(:get, body: { claim_value: transition_checker_state })
-            given_i_am_on_the_save_results_confirm_page_with(transition_checker_state[:criteria_keys])
-            expect(page).to have_current_path(transition_checker_results_path(c: transition_checker_state[:criteria_keys]))
+            given_i_am_on_the_save_results_confirm_page_with(criteria_keys)
+            expect(page).to have_current_path(transition_checker_results_path(c: criteria_keys))
           end
         end
       end
@@ -336,6 +382,29 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
       stub_request(method, "#{attribute_service_url}/v1/attributes/transition_checker_state")
         .with(headers: { "Authorization" => "Bearer #{access_token}" })
         .to_return(status: status, body: body.to_json)
+    end
+
+    def stub_email_check(status: 204)
+      stub_request(:get, "http://account-manager.dev.gov.uk/api/v1/transition-checker/email-subscription")
+        .to_return(status: status)
+    end
+
+    def stub_update_emails
+      stub_request(:post, "http://account-manager.dev.gov.uk/api/v1/transition-checker/email-subscription")
+        .to_return(status: 200)
+    end
+
+    def stub_subscriber_list_exists(criteria_keys)
+      stub_email_alert_api_has_subscriber_list(
+        {
+          "title" => "Get ready for 2021",
+          "slug" => "your-get-ready-for-brexit-results-a1a2a3a4a5",
+          "description" => "[You can view a copy of your results on GOV.UK.](https://www.test.gov.uk/transition-check/results?c%5B%5D=nationality-eu)",
+          "tags" => { "brexit_checklist_criteria" => { "any" => criteria_keys } },
+          "url" => "/transition-check/results?c%5B%5D=nationality-eu",
+          "group_id" => BrexitCheckerController::SUBSCRIBER_LIST_GROUP_ID,
+        },
+      )
     end
   end
 end

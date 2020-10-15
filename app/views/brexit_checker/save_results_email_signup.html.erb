@@ -1,0 +1,68 @@
+<% content_for :title, t('brexit_checker.confirm_changes.title') %>
+<% content_for :head do %>
+  <% unless params[:page] %>
+    <meta name="robots" content="noindex">
+  <% end %>
+<% end %>
+
+<div class="govuk-width-container">
+  <%= render 'govuk_publishing_components/components/breadcrumbs', {
+    collapse_on_mobile: true,
+    breadcrumbs: [
+      {
+        title: t('brexit_checker.breadcrumbs.home'),
+        url: "/"
+      },
+      {
+        title: t('brexit_checker.breadcrumbs.brexit-home'),
+        url: "/transition"
+      },
+      {
+        title: t('brexit_checker.breadcrumbs.results'),
+        url: transition_checker_results_path(c: criteria_keys)
+      }
+    ]
+  } %>
+
+  <main class="govuk-main-wrapper">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        <%= render "govuk_publishing_components/components/heading", {
+            text: t('brexit_checker.confirm_changes_email_signup.heading'),
+            font_size: "xl",
+            heading_level: 1,
+          } %>
+
+        <%= form_tag transition_checker_save_results_confirm_path, method: :post do %>
+          <% criteria_keys.each do |key| %><%= hidden_field_tag :"c[]", key %><% end %>
+          <%= sanitize(t("brexit_checker.confirm_changes_email_signup.description")) %>
+
+          <%= render "govuk_publishing_components/components/radio", {
+            name: "email_decision",
+            heading: t("brexit_checker.confirm_changes_email_signup.radio.prompt"),
+            heading_size: "s",
+            items: [
+              {
+                value: "yes",
+                text: t("brexit_checker.confirm_changes_email_signup.radio.yes")
+              },
+              {
+                value: "no",
+                text: t("brexit_checker.confirm_changes_email_signup.radio.no")
+              }
+            ]
+          } %>
+
+         <%= render "govuk_publishing_components/components/inset_text", {
+           text: t("brexit_checker.confirm_changes_email_signup.unsubscribe")
+         } %>
+
+          <%= render "govuk_publishing_components/components/button", {
+            text: t('brexit_checker.confirm_changes_email_signup.save_button'),
+            inline_layout: true,
+          } %>
+        <% end %>
+      </div>
+    </div>
+  </main>
+</div>

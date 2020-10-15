@@ -59,12 +59,14 @@ class OidcClient
       access_token: access_token,
       refresh_token: refresh_token,
       method: :get,
+      uri: attribute_uri,
     )
 
-    if response[:result].empty?
+    body = response[:result].body
+    if body.empty?
       response.merge(result: {})
     else
-      response.merge(result: JSON.parse(response[:result])["claim_value"])
+      response.merge(result: JSON.parse(body)["claim_value"])
     end
   end
 
@@ -73,26 +75,50 @@ class OidcClient
       access_token: access_token,
       refresh_token: refresh_token,
       method: :put,
+      uri: attribute_uri,
       arg: { value: value.to_json },
+    )
+  end
+
+  def has_email_subscription(access_token:, refresh_token:)
+    response = oauth_request(
+      access_token: access_token,
+      refresh_token: refresh_token,
+      method: :get,
+      uri: email_subscription_uri,
+    )
+
+    response.merge(result: (200..299).include?(response[:result].status))
+  end
+
+  def update_email_subscription(slug:, access_token:, refresh_token:)
+    oauth_request(
+      access_token: access_token,
+      refresh_token: refresh_token,
+      method: :post,
+      uri: email_subscription_uri,
+      arg: { topic_slug: slug },
     )
   end
 
 private
 
-  def oauth_request(access_token:, refresh_token:, method:, arg: nil)
+  OK_STATUSES = [200, 204, 404, 410].freeze
+
+  def oauth_request(access_token:, refresh_token:, method:, uri:, arg: nil)
     access_token_str = access_token
     refresh_token_str = refresh_token
 
-    args = [attribute_uri, arg].compact
+    args = [uri, arg].compact
 
     response = Rack::OAuth2::AccessToken::Bearer.new(access_token: access_token_str).public_send(method, *args)
 
-    unless [200, 404].include? response.status
+    unless OK_STATUSES.include? response.status
       client.refresh_token = refresh_token
       access_token = client.access_token!
 
       response = access_token.public_send(method, *args)
-      raise OAuthFailure unless [200, 404].include? response.status
+      raise OAuthFailure unless OK_STATUSES.include? response.status
 
       access_token_str = access_token.token_response[:access_token]
       refresh_token_str = access_token.token_response[:refresh_token]
@@ -101,7 +127,7 @@ private
     {
       access_token: access_token_str,
       refresh_token: refresh_token_str,
-      result: response.body,
+      result: response,
     }
   rescue AttrRequired::AttrMissing, Rack::OAuth2::Client::Error, URI::InvalidURIError
     raise OAuthFailure
@@ -110,6 +136,12 @@ private
   def attribute_uri
     @attribute_uri = URI.parse(userinfo_endpoint).tap do |u|
       u.path = "/v1/attributes/transition_checker_state"
+    end
+  end
+
+  def email_subscription_uri
+    @email_uri = URI.parse(provider_uri).tap do |u|
+      u.path = "/api/v1/transition-checker/email-subscription"
     end
   end
 
