@@ -64,9 +64,27 @@ class BrexitCheckerController < ApplicationController
 
     @old_criteria_keys = saved_results
     redirect_to transition_checker_results_path(c: criteria_keys) and return if criteria_keys == @old_criteria_keys
+
+    @has_email_subscription = update_session_tokens(
+      Services.oidc.has_email_subscription(
+        access_token: session[:access_token],
+        refresh_token: session[:refresh_token],
+      ),
+    )
   end
 
+  def save_results_email_signup; end
+
   def save_results_apply
+    if params[:email_decision] == "yes"
+      update_session_tokens(
+        Services.oidc.update_email_subscription(
+          slug: subscriber_list_slug,
+          access_token: session[:access_token],
+          refresh_token: session[:refresh_token],
+        ),
+      )
+    end
     update_session_tokens(
       Services.oidc.set_checker_attribute(
         value: { criteria_keys: criteria_keys, timestamp: Time.zone.now.to_i },

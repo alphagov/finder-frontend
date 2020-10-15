@@ -1,0 +1,18 @@
+en:
+  brexit_checker:
+    confirm_changes_email_signup:
+      heading: Do you want to receive emails about the UK transition?
+      description: |
+        <p class="govuk-body">The emails will tell you what you, your family, or your business should do to prepare for new rules from 1 January 2021.</p>
+        <p class="govuk-body">You will only get updates if:</p>
+        <ul class="govuk-list govuk-list--bullet">
+          <li>there are changes to your results</li>
+          <li>questions or results are added which may affect you</li>
+        </ul>
+        <p class="govuk-body">You’ll never get more than one email a day. The email will include all the updates made that day.</p>
+      unsubscribe: You can unsubscribe from emails or change your subscription at any time.
+      radio:
+        prompt: Do you want to receive emails about the UK transition?
+        "yes": "Yes"
+        "no": No, I just want to save my results
+      save_button: Continue

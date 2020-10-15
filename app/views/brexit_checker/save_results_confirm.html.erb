@@ -52,11 +52,22 @@
 
         <p class="govuk-body"><%= t("brexit_checker.confirm_changes.message") %></p>
 
-        <%= form_tag transition_checker_save_results_confirm_path(c: criteria_keys), method: :post do %>
-          <%= render "govuk_publishing_components/components/button", {
-            text: t('brexit_checker.confirm_changes.save_button'),
-            inline_layout: true,
-          } %>
+        <% if @has_email_subscription %>
+          <%= form_tag transition_checker_save_results_confirm_path(c: criteria_keys), method: :post do %>
+            <%= hidden_field_tag :email_decision, "yes" %>
+            <%= render "govuk_publishing_components/components/button", {
+              text: t('brexit_checker.confirm_changes.save_button'),
+              inline_layout: true,
+            } %>
+          <% end %>
+        <% else %>
+          <%= form_tag transition_checker_save_results_email_signup_path, method: :get do %>
+            <% criteria_keys.each do |key| %><%= hidden_field_tag :"c[]", key %><% end %>
+            <%= render "govuk_publishing_components/components/button", {
+              text: t('brexit_checker.confirm_changes.save_button'),
+              inline_layout: true,
+            } %>
+          <% end %>
         <% end %>
       </div>
     </div>
