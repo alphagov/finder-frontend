@@ -257,3 +257,7 @@ notifications:
     type: addition
     action_id: T118
     date: 2020-10-06
+  - uuid: "cbf6fac4-31ad-4f48-b277-419b809fc509"
+    type: addition
+    action_id: T120
+    date: 2020-10-12
