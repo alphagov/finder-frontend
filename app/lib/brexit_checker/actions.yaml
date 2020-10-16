@@ -924,7 +924,7 @@ actions:
   lead_time: It takes more than 4 weeks to get approved
   guidance_prompt: More information
   guidance_link_text: Vehicle type-approval from 2021
-  guidance_url: https://www.gov.uk/guidance/vehicle-type-approval-if-theres-no-brexit-deal
+  guidance_url: https://www.vehicle-certification-agency.gov.uk/transitionperiod/
   criteria:
   - any_of:
     - automotive
@@ -1327,7 +1327,7 @@ actions:
     are not sent to the VCA for GB approval.
   guidance_prompt: More information
   guidance_link_text: Vehicle type-approval from 1 January 2021
-  guidance_url: https://www.gov.uk/guidance/vehicle-type-approval-if-theres-no-brexit-deal
+  guidance_url: https://www.vehicle-certification-agency.gov.uk/transitionperiod/
   criteria:
   - any_of:
     - automotive
@@ -1342,7 +1342,7 @@ actions:
     they are not registered with the correct EU approval authority.
   guidance_prompt: More information
   guidance_link_text: Vehicle type-approval from 1 January 2021
-  guidance_url: https://www.gov.uk/guidance/vehicle-type-approval-if-theres-no-brexit-deal
+  guidance_url: https://www.vehicle-certification-agency.gov.uk/transitionperiod/
   criteria:
   - any_of:
     - automotive
