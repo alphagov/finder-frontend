@@ -7,9 +7,9 @@ class BrexitCheckerController < ApplicationController
 
   protect_from_forgery except: :confirm_email_signup
 
-  before_action :check_accounts_enabled, only: %i[save_results saved_results edit_saved_results]
-  before_action :enable_caching, only: %i[show]
-  before_action :enable_caching_unless_accounts, only: %i[results email_signup confirm_email_signup save_results saved_results edit_saved_results]
+  before_action :check_accounts_enabled, only: %i[save_results save_results_confirm save_results_email_signup save_results_apply saved_results edit_saved_results]
+  before_action :enable_caching, only: %i[show email_signup confirm_email_signup]
+  before_action :enable_caching_unless_accounts, only: %i[results]
 
   helper_method :subscriber_list_slug
 
