@@ -19,8 +19,8 @@ RSpec.feature "Brexit Checker create GOV.UK Account", type: :feature do
   before do
     ENV["GOVUK_ACCOUNT_OAUTH_CLIENT_ID"] = "Application's OAuth client ID"
     ENV["GOVUK_ACCOUNT_OAUTH_CLIENT_SECRET"] = "secret!"
-    ENV["GOVUK_ACCOUNT_OAUTH_CLIENT_KEY_UUID"] = "fake_key_uuid"
-    ENV["GOVUK_ACCOUNT_OAUTH_CLIENT_KEY"] = AccountSignupHelper.test_ec_key_fixture
+    ENV["GOVUK_ACCOUNT_JWT_KEY_UUID"] = "fake_key_uuid"
+    ENV["GOVUK_ACCOUNT_JWT_KEY_PEM"] = AccountSignupHelper.test_ec_key_fixture
     allow(Rails.configuration).to receive(:feature_flag_govuk_accounts).and_return(true)
     discovery_response = double(authorization_endpoint: "foo", token_endpoint: "foo", userinfo_endpoint: "foo", end_session_endpoint: "foo")
     allow_any_instance_of(OidcClient).to receive(:userinfo_endpoint).and_return("http://attribute-service/oidc/user_info")

@@ -11,14 +11,14 @@ RSpec.describe BrexitChecker::AccountJwt do
 
   before do
     ENV["GOVUK_ACCOUNT_OAUTH_CLIENT_ID"] = oauth_client_id
-    ENV["GOVUK_ACCOUNT_OAUTH_CLIENT_KEY_UUID"] = key_uuid
-    ENV["GOVUK_ACCOUNT_OAUTH_CLIENT_KEY"] = private_key.to_pem
+    ENV["GOVUK_ACCOUNT_JWT_KEY_UUID"] = key_uuid
+    ENV["GOVUK_ACCOUNT_JWT_KEY_PEM"] = private_key.to_pem
   end
 
   after do
     ENV["GOVUK_ACCOUNT_OAUTH_CLIENT_ID"] = nil
-    ENV["GOVUK_ACCOUNT_OAUTH_CLIENT_KEY_UUID"] = nil
-    ENV["GOVUK_ACCOUNT_OAUTH_CLIENT_KEY"] = nil
+    ENV["GOVUK_ACCOUNT_JWT_KEY_UUID"] = nil
+    ENV["GOVUK_ACCOUNT_JWT_KEY_PEM"] = nil
   end
 
   it "generates a valid JWT" do

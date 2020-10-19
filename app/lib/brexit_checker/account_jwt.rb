@@ -42,10 +42,10 @@ private
   end
 
   def client_oauth_key_uuid
-    ENV.fetch("GOVUK_ACCOUNT_OAUTH_CLIENT_KEY_UUID")
+    ENV.fetch("GOVUK_ACCOUNT_JWT_KEY_UUID")
   end
 
   def ecdsa_key
-    OpenSSL::PKey::EC.new(ENV.fetch("GOVUK_ACCOUNT_OAUTH_CLIENT_KEY"))
+    OpenSSL::PKey::EC.new(ENV.fetch("GOVUK_ACCOUNT_JWT_KEY_PEM"))
   end
 end
