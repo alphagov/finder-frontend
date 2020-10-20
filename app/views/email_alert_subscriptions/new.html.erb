@@ -33,7 +33,9 @@
 
     <% if @signup_presenter.body && !@signup_presenter.can_modify_choices? %>
       <div class="govspeak-wrapper">
-        <%= render 'govuk_publishing_components/components/govspeak', content: @signup_presenter.body.html_safe %>
+        <%= render 'govuk_publishing_components/components/govspeak', {} do %>
+          <%= sanitize(@signup_presenter.body) %>
+        <% end %>
       </div>
     <% end %>
 
