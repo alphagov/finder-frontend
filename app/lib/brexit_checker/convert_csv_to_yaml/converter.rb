@@ -21,14 +21,7 @@ module BrexitChecker
         )
            .each { |row| data << processor.process(row.to_h) }
 
-        File.open(yaml_filename, "w") do |f|
-          if record_category
-            data_hash = { record_category => data.compact }
-            f.puts data_hash.to_yaml
-          else
-            f.puts data.compact.to_yaml
-          end
-        end
+        write_to_yaml(data, yaml_filename, record_category)
       end
 
     private
@@ -42,6 +35,17 @@ module BrexitChecker
           field = FIELD_NAME_OVERRIDES[field] || field
           field.downcase.gsub(" ", "_")
         }
+      end
+
+      def write_to_yaml(data, yaml_filename, record_category)
+        File.open(yaml_filename, "w") do |f|
+          if record_category
+            data_hash = { record_category => data.compact }
+            f.puts data_hash.to_yaml
+          else
+            f.puts data.compact.to_yaml
+          end
+        end
       end
     end
   end
