@@ -7,13 +7,16 @@ namespace :brexit_checker do
       raise MISSING_CSV_MESSAGE unless args.csv_path
 
       processor = BrexitChecker::ConvertCsvToYaml::ActionsProcessor.new
-      converter = BrexitChecker::ConvertCsvToYaml::Converter.new(processor)
+      action_validator = BrexitChecker::ConvertCsvToYaml::ActionValidator.new
+      converter = BrexitChecker::ConvertCsvToYaml::Converter.new(processor, action_validator)
       csv_path = args.csv_path
       yaml_path = "app/lib/brexit_checker/actions.yaml"
 
       puts "> Converting #{csv_path} to YAML..."
       converter.convert(csv_path, yaml_path, "actions")
       puts "> #{csv_path} has been converted to #{yaml_path}."
+    rescue BrexitChecker::ConvertCsvToYaml::Converter::ActionValidationError => e
+      puts "Aborting: #{e}"
     end
 
     desc "Download actions CSV from Google Drive and convert to YAML file"

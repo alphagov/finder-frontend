@@ -44,6 +44,30 @@ RSpec.describe "Convert CSV to YAML tasks" do
       expect { Rake::Task["brexit_checker:convert_csv_to_yaml:actions"].invoke }
         .to raise_error "You must provide a path to the CSV file you would like to convert."
     end
+
+    context "with invalid data" do
+      let(:invalid_actions_csv_file_path) { invalid_actions_csv_to_convert_to_yaml }
+      let(:run_task_with_invalid_data) do
+        Rake::Task["brexit_checker:convert_csv_to_yaml:actions"].invoke(invalid_actions_csv_file_path)
+      end
+
+      it "outputs an error and does not write to yaml" do
+        allow_any_instance_of(BrexitChecker::ConvertCsvToYaml::Converter).to receive(:convert).and_wrap_original do |m|
+          m.call(invalid_actions_csv_file_path, actions_yaml_file.path, "actions")
+        end
+
+        error_message =
+          <<~MESSAGE
+            > Converting #{invalid_actions_csv_file_path} to YAML...
+            Aborting: [\"T001 has invalid grouping criteria\"]
+          MESSAGE
+
+        expect { run_task_with_invalid_data }.to output(error_message).to_stdout
+
+        run_task_with_invalid_data
+        expect(File.read(actions_yaml_file)).to eq("")
+      end
+    end
   end
 
   describe "brexit_checker:convert_csv_to_yaml:actions_from_google_drive" do

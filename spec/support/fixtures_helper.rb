@@ -39,6 +39,10 @@ module FixturesHelper
     fixtures_path + "/actions_csv_to_convert.csv"
   end
 
+  def invalid_actions_csv_to_convert_to_yaml
+    fixtures_path + "/invalid_actions_csv_to_convert.csv"
+  end
+
   def criteria_csv_to_convert_to_yaml
     fixtures_path + "/criteria_csv_to_convert.csv"
   end
