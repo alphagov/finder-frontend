@@ -1,12 +1,12 @@
 {
   "analytics_identifier": null,
-  "base_path": "/search/services",
+  "base_path": "/licences",
   "content_id": "642caf21-e071-472e-9ea0-82d3c797dd64",
   "content_purpose_document_supertype": "navigation",
-  "description": "Find services from government",
+  "description": "Find licences from government",
   "details": {
     "default_documents_per_page": 20,
-    "document_noun": "service",
+    "document_noun": "licence",
     "facets": [
       {
         "display_as_result_metadata": false,
@@ -30,20 +30,10 @@
         "display_as_result_metadata": false,
         "filterable":true,
         "hide_facet_tag":true
-      },
-      {
-        "display_as_result_metadata": true,
-        "filterable": true,
-        "key": "organisations",
-        "name": "Organisation",
-        "preposition": "from",
-        "short_name": "From",
-        "type": "text",
-        "show_option_select_filter": true
       }
     ],
     "filter": {
-      "content_purpose_supergroup": "services"
+      "content_store_document_type": "licence"
     },
     "show_summaries": true,
     "sort": [
@@ -75,7 +65,7 @@
   "rendering_app": "finder-frontend",
   "schema_name": "finder",
   "search_user_need_document_supertype": "government",
-  "title": "Services",
+  "title": "Licences",
   "updated_at": "2019-01-15T13:00:00.000+00:00",
   "user_journey_document_supertype": "finding"
 }
