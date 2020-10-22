@@ -44,5 +44,34 @@ describe BrexitChecker::ConvertCsvToYaml::Converter do
         "title" => "Another important action",
       )
     end
+
+    context "when a validator is provided" do
+      let(:validator) { double("validator") }
+
+      before do
+        allow(validator).to receive(:validate)
+      end
+
+      it "if the csv contains a bad action it raises an error and does not write to yaml" do
+        allow(validator).to receive(:errors).and_return(["S001 has invalid grouping criteria"])
+
+        converter = BrexitChecker::ConvertCsvToYaml::Converter.new(processor, validator)
+        validation_error = BrexitChecker::ConvertCsvToYaml::Converter::ActionValidationError
+
+        expect { converter.convert(csv_file_path, yaml_file_path) }.to raise_error(validation_error)
+        expect(loaded_yaml_file).to be_nil
+      end
+
+      it "if the csv contains valid actions it writes to yaml" do
+        allow(validator).to receive(:errors).and_return([])
+
+        converter = BrexitChecker::ConvertCsvToYaml::Converter.new(processor, validator)
+
+        expect { converter.convert(csv_file_path, yaml_file_path) }.not_to raise_error
+        expect(loaded_yaml_file).to include(
+          "title_url" => "https://www.gov.uk/important-action",
+        )
+      end
+    end
   end
 end
