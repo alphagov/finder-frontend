@@ -1,0 +1,809 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for javascripts.bak/components/option-select.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">all files</a> / <a href="index.html">javascripts.bak/components/</a> option-select.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">98.57% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>138/140</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">87.5% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>35/40</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>22/22</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">98.55% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>136/138</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">28×</span>
+<span class="cline-any cline-yes">28×</span>
+<span class="cline-any cline-yes">28×</span>
+<span class="cline-any cline-yes">28×</span>
+<span class="cline-any cline-yes">28×</span>
+<span class="cline-any cline-yes">28×</span>
+<span class="cline-any cline-yes">28×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">28×</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-yes">120×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-yes">17×</span>
+<span class="cline-any cline-yes">17×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">17×</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">28×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">28×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">28×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">28×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">28×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">25×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">28×</span>
+<span class="cline-any cline-yes">28×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">136×</span>
+<span class="cline-any cline-yes">136×</span>
+<span class="cline-any cline-yes">136×</span>
+<span class="cline-any cline-yes">136×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">40×</span>
+<span class="cline-any cline-yes">40×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">40×</span>
+<span class="cline-any cline-yes">432×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-yes">192×</span>
+<span class="cline-any cline-yes">17×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">28×</span>
+<span class="cline-any cline-yes">28×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">28×</span>
+<span class="cline-any cline-yes">28×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">28×</span>
+<span class="cline-any cline-yes">28×</span>
+<span class="cline-any cline-yes">28×</span>
+<span class="cline-any cline-yes">28×</span>
+<span class="cline-any cline-yes">28×</span>
+<span class="cline-any cline-yes">28×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">30×</span>
+<span class="cline-any cline-yes">30×</span>
+<span class="cline-any cline-yes">30×</span>
+<span class="cline-any cline-yes">30×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">30×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">31×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">62×</span>
+<span class="cline-any cline-yes">62×</span>
+<span class="cline-any cline-yes">62×</span>
+<span class="cline-any cline-yes">62×</span>
+<span class="cline-any cline-yes">62×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">28×</span>
+<span class="cline-any cline-yes">28×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">28×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">28×</span>
+<span class="cline-any cline-yes">25×</span>
+<span class="cline-any cline-yes">25×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/* eslint-env jquery */
+window.GOVUK = window.GOVUK || <span class="branch-1 cbranch-no" title="branch not covered" >{}</span>
+window.GOVUK.Modules = window.GOVUK.Modules || <span class="branch-1 cbranch-no" title="branch not covered" >{};</span>
+&nbsp;
+(function (Modules) {
+  function OptionSelect () {}
+&nbsp;
+  /* This JavaScript provides two functional enhancements to option-select components:
+    1) A count that shows how many results have been checked in the option-container
+    2) Open/closing of the list of checkboxes
+  */
+  OptionSelect.prototype.start = function ($module) {
+    this.$optionSelect = $module
+    this.$options = this.$optionSelect.find("input[type='checkbox']")
+    this.$optionsContainer = this.$optionSelect.find('.js-options-container')
+    this.$optionList = this.$optionsContainer.children('.js-auto-height-inner')
+    this.$allCheckboxes = this.$optionsContainer.find('.govuk-checkboxes__item')
+    this.hasFilter = this.$optionSelect.data('filter-element') || ''
+    this.checkedCheckboxes = []
+&nbsp;
+    if (this.hasFilter.length) {
+      var filterEl = document.createElement('div')
+      filterEl.innerHTML = this.hasFilter
+&nbsp;
+      $('&lt;div class="app-c-option-select__filter"/&gt;')
+        .html(filterEl.childNodes[0].nodeValue)
+        .insertBefore(this.$optionsContainer)
+&nbsp;
+      this.$filter = this.$optionSelect.find('input[name="option-select-filter"]')
+      this.$filterCount = $('#' + this.$filter.attr('aria-describedby'))
+      this.filterTextSingle = ' ' + this.$filterCount.data('single')
+      this.filterTextMultiple = ' ' + this.$filterCount.data('multiple')
+      this.filterTextSelected = ' ' + this.$filterCount.data('selected')
+      this.checkboxLabels = []
+      this.filterTimeout = 0
+      var that = this
+&nbsp;
+      this.getAllCheckedCheckboxes()
+      this.$allCheckboxes.each(function () {
+        that.checkboxLabels.push(that.cleanString($(this).text()))
+      })
+&nbsp;
+      this.$filter.on('keyup', function (e) {
+        e.stopPropagation()
+        var ENTER_KEY = 13
+&nbsp;
+        if (e.keyCode !== ENTER_KEY) {
+          clearTimeout(that.filterTimeout)
+          that.filterTimeout = setTimeout(
+            function () { this.doFilter(this) }.bind(that),
+            300
+          )
+        } else {
+          e.preventDefault() // prevents finder forms from being submitted when user presses ENTER
+        }
+      })
+    }
+&nbsp;
+    // Attach listener to update checked count
+    this.$optionSelect.on('change', "input[type='checkbox']", this.updateCheckedCount.bind(this))
+&nbsp;
+    // Replace div.container-head with a button
+    this.replaceHeadingSpanWithButton()
+&nbsp;
+    // Add js-collapsible class to parent for CSS
+    this.$optionSelect.addClass('js-collapsible')
+&nbsp;
+    // Add open/close listeners
+    this.$optionSelect.find('.js-container-button').on('click', this.toggleOptionSelect.bind(this))
+&nbsp;
+    if (this.$optionSelect.data('closed-on-load') === true) {
+      this.close()
+    } else {
+      this.setupHeight()
+    }
+&nbsp;
+    var checkedString = this.checkedString()
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (checkedString) {
+<span class="cstat-no" title="statement not covered" >      this.attachCheckedCounter(checkedString)</span>
+    }
+  }
+&nbsp;
+  OptionSelect.prototype.cleanString = function cleanString (text) {
+    text = text.replace(/&amp;/g, 'and')
+    text = text.replace(/[’',:–-]/g, '') // remove punctuation characters
+    text = text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&amp;') // escape special characters
+    return text.trim().replace(/\s\s+/g, ' ').toLowerCase() // replace multiple spaces with one
+  }
+&nbsp;
+  OptionSelect.prototype.getAllCheckedCheckboxes = function getAllCheckedCheckboxes () {
+    this.checkedCheckboxes = []
+    var that = this
+&nbsp;
+    this.$allCheckboxes.each(function (i) {
+      if ($(this).find('input[type=checkbox]').is(':checked')) {
+        that.checkedCheckboxes.push(i)
+      }
+    })
+  }
+&nbsp;
+  OptionSelect.prototype.doFilter = function doFilter (obj) {
+    var filterBy = obj.cleanString(obj.$filter.val())
+    var showCheckboxes = obj.checkedCheckboxes.slice()
+&nbsp;
+    for (var i = 0; i &lt; obj.$allCheckboxes.length; i++) {
+      if (showCheckboxes.indexOf(i) === -1 &amp;&amp; obj.checkboxLabels[i].search(filterBy) !== -1) {
+        showCheckboxes.push(i)
+      }
+    }
+&nbsp;
+    obj.$allCheckboxes.hide()
+    for (var j = 0; j &lt; showCheckboxes.length; j++) {
+      obj.$allCheckboxes.eq(showCheckboxes[j]).show()
+    }
+&nbsp;
+    var len = showCheckboxes.length || 0
+    var lenChecked = obj.$optionsContainer.find('.govuk-checkboxes__input:checked').length
+    obj.$filterCount.html(len + (len === 1 ? obj.filterTextSingle : obj.filterTextMultiple) + ', ' + lenChecked + obj.filterTextSelected)
+  }
+&nbsp;
+  OptionSelect.prototype.replaceHeadingSpanWithButton = function replaceHeadingSpanWithButton () {
+    /* Replace the span within the heading with a button element. This is based on feedback from Léonie Watson.
+     * The button has all of the accessibility hooks that are used by screen readers and etc.
+     * We do this in the JavaScript because if the JavaScript is not active then the button shouldn't
+     * be there as there is no JS to handle the click event.
+    */
+    var $containerHead = this.$optionSelect.find('.js-container-button')
+    var jsContainerHeadHTML = $containerHead.html()
+&nbsp;
+    // Create button and replace the preexisting html with the button.
+    var $button = $('&lt;button&gt;')
+    $button.addClass('js-container-button app-c-option-select__title app-c-option-select__button')
+    // Add type button to override default type submit when this component is used within a form
+    $button.attr('type', 'button')
+    $button.attr('aria-expanded', true)
+    $button.attr('id', $containerHead.attr('id'))
+    $button.attr('aria-controls', this.$optionsContainer.attr('id'))
+    $button.html(jsContainerHeadHTML)
+    $containerHead.replaceWith($button)
+  }
+&nbsp;
+  OptionSelect.prototype.attachCheckedCounter = function attachCheckedCounter (checkedString) {
+    this.$optionSelect.find('.js-container-button')
+      .after('&lt;div class="app-c-option-select__selected-counter js-selected-counter"&gt;' + checkedString + '&lt;/div&gt;')
+  }
+&nbsp;
+  OptionSelect.prototype.updateCheckedCount = function updateCheckedCount () {
+    var checkedString = this.checkedString()
+    var checkedStringElement = this.$optionSelect.find('.js-selected-counter')
+&nbsp;
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (checkedString) {
+      if (checkedStringElement.length) {
+        checkedStringElement.text(checkedString)
+      } else {
+        this.attachCheckedCounter(checkedString)
+      }
+    } else {
+<span class="cstat-no" title="statement not covered" >      checkedStringElement.remove()</span>
+    }
+  }
+&nbsp;
+  OptionSelect.prototype.checkedString = function checkedString () {
+    this.getAllCheckedCheckboxes()
+    var count = this.checkedCheckboxes.length
+    var checkedString = false
+    if (count &gt; 0) {
+      checkedString = count + ' selected'
+    }
+&nbsp;
+    return checkedString
+  }
+&nbsp;
+  OptionSelect.prototype.toggleOptionSelect = function toggleOptionSelect (e) {
+    if (this.isClosed()) {
+      this.open()
+    } else {
+      this.close()
+    }
+    e.preventDefault()
+  }
+&nbsp;
+  OptionSelect.prototype.open = function open () {
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (this.isClosed()) {
+      this.$optionSelect.find('.js-container-button').attr('aria-expanded', true)
+      this.$optionSelect.removeClass('js-closed')
+      this.$optionSelect.addClass('js-opened')
+      if (!this.$optionsContainer.prop('style').height) {
+        this.setupHeight()
+      }
+    }
+  }
+&nbsp;
+  OptionSelect.prototype.close = function close () {
+    this.$optionSelect.removeClass('js-opened')
+    this.$optionSelect.addClass('js-closed')
+    this.$optionSelect.find('.js-container-button').attr('aria-expanded', false)
+  }
+&nbsp;
+  OptionSelect.prototype.isClosed = function isClosed () {
+    return this.$optionSelect.hasClass('js-closed')
+  }
+&nbsp;
+  OptionSelect.prototype.setContainerHeight = function setContainerHeight (height) {
+    this.$optionsContainer.css({
+      'height': height
+    })
+  }
+&nbsp;
+  OptionSelect.prototype.isCheckboxVisible = function isCheckboxVisible (index, option) {
+    var $checkbox = $(option)
+    var initialOptionContainerHeight = this.$optionsContainer.height()
+    var optionListOffsetTop = this.$optionList.offset().top
+    var distanceFromTopOfContainer = $checkbox.offset().top - optionListOffsetTop
+    return distanceFromTopOfContainer &lt; initialOptionContainerHeight
+  }
+&nbsp;
+  OptionSelect.prototype.getVisibleCheckboxes = function getVisibleCheckboxes () {
+    var visibleCheckboxes = this.$options.filter(this.isCheckboxVisible.bind(this))
+    // add an extra checkbox, if the label of the first is too long it collapses onto itself
+    visibleCheckboxes = visibleCheckboxes.add(this.$options[visibleCheckboxes.length])
+    return visibleCheckboxes
+  }
+&nbsp;
+  OptionSelect.prototype.setupHeight = function setupHeight () {
+    var initialOptionContainerHeight = this.$optionsContainer.height()
+    var height = this.$optionList.outerHeight(true)
+&nbsp;
+    // check whether this is hidden by progressive disclosure,
+    // because height calculations won't work
+    if (this.$optionsContainer[0].offsetParent === null) {
+      initialOptionContainerHeight = 200
+      height = 200
+    }
+&nbsp;
+    // Resize if the list is only slightly bigger than its container
+    if (height &lt; initialOptionContainerHeight + 50) {
+      this.setContainerHeight(height + 1)
+      return
+    }
+&nbsp;
+    // Resize to cut last item cleanly in half
+    var lastVisibleCheckbox = this.getVisibleCheckboxes().last()
+    var position = lastVisibleCheckbox.parent()[0].offsetTop // parent element is relative
+    this.setContainerHeight(position + (lastVisibleCheckbox.height() / 1.5))
+  }
+&nbsp;
+  Modules.OptionSelect = OptionSelect
+})(window.GOVUK.Modules)
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Fri Oct 23 2020 15:47:44 GMT+0000 (Coordinated Universal Time)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

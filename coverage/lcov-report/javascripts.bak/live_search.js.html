@@ -1,0 +1,1460 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for javascripts.bak/live_search.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../index.html">all files</a> / <a href="index.html">javascripts.bak/</a> live_search.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">88.56% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>240/271</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">72.62% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>61/84</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">88% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>44/50</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">89.18% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>239/268</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417
+418
+419
+420
+421
+422
+423
+424
+425
+426
+427
+428
+429
+430
+431
+432
+433
+434
+435
+436
+437
+438
+439
+440
+441
+442
+443
+444
+445
+446
+447
+448
+449
+450
+451
+452
+453
+454
+455
+456
+457
+458
+459
+460
+461
+462
+463
+464
+465
+466</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">58×</span>
+<span class="cline-any cline-yes">58×</span>
+<span class="cline-any cline-yes">58×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">58×</span>
+<span class="cline-any cline-yes">58×</span>
+<span class="cline-any cline-yes">58×</span>
+<span class="cline-any cline-yes">58×</span>
+<span class="cline-any cline-yes">58×</span>
+<span class="cline-any cline-yes">58×</span>
+<span class="cline-any cline-yes">58×</span>
+<span class="cline-any cline-yes">58×</span>
+<span class="cline-any cline-yes">58×</span>
+<span class="cline-any cline-yes">58×</span>
+<span class="cline-any cline-yes">58×</span>
+<span class="cline-any cline-yes">58×</span>
+<span class="cline-any cline-yes">58×</span>
+<span class="cline-any cline-yes">58×</span>
+<span class="cline-any cline-yes">58×</span>
+<span class="cline-any cline-yes">58×</span>
+<span class="cline-any cline-yes">58×</span>
+<span class="cline-any cline-yes">58×</span>
+<span class="cline-any cline-yes">58×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">58×</span>
+<span class="cline-any cline-yes">58×</span>
+<span class="cline-any cline-yes">58×</span>
+<span class="cline-any cline-yes">58×</span>
+<span class="cline-any cline-yes">58×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">58×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">58×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">58×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">58×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">58×</span>
+<span class="cline-any cline-yes">57×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">57×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">57×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">57×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">57×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">57×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">66×</span>
+<span class="cline-any cline-yes">66×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">80×</span>
+<span class="cline-any cline-yes">80×</span>
+<span class="cline-any cline-yes">329×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">80×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">68×</span>
+<span class="cline-any cline-yes">67×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">68×</span>
+<span class="cline-any cline-yes">68×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">15×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">15×</span>
+<span class="cline-any cline-yes">15×</span>
+<span class="cline-any cline-yes">15×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">58×</span>
+<span class="cline-any cline-yes">58×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">58×</span>
+<span class="cline-any cline-yes">58×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">14×</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">13×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">17×</span>
+<span class="cline-any cline-yes">17×</span>
+<span class="cline-any cline-yes">17×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">75×</span>
+<span class="cline-any cline-yes">75×</span>
+<span class="cline-any cline-yes">75×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">136×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">17×</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-yes">22×</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">58×</span>
+<span class="cline-any cline-yes">58×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/* eslint-env jquery */
+(function () {
+  'use strict'
+&nbsp;
+  window.GOVUK = window.GOVUK || <span class="branch-1 cbranch-no" title="branch not covered" >{}</span>
+  var GOVUK = window.GOVUK
+&nbsp;
+  function LiveSearch (options) {
+    this.state = false
+    this.previousState = false
+    this.resultCache = {}
+&nbsp;
+    this.$form = options.$form
+    this.$searchSubmitButton = this.$form.find('.gem-c-search__submit')
+    this.$resultsWrapper = this.$form.find('.js-live-search-results-block')
+    this.$suggestionsBlock = this.$form.find('#js-spelling-suggestions')
+    this.$resultsBlock = options.$results.find('#js-results')
+    this.$countBlock = options.$results.find('#js-result-count')
+    this.$mobileResultsCount = this.$form.find('.js-result-count')
+    this.$selectedFilterCount = this.$form.find('.js-selected-filter-count')
+    this.$facetTagBlock = options.$results.find('#js-facet-tag-wrapper')
+    this.$mobileFacetTagBlock = this.$form.find('.js-mobile-facet-tag-block')
+    this.$loadingBlock = options.$results.find('#js-loading-message')
+    this.$sortBlock = options.$results.find('#js-sort-options')
+    this.$paginationBlock = options.$results.find('#js-pagination')
+    this.action = this.$form.attr('action') + '.json'
+    this.$atomAutodiscoveryLink = options.$atomAutodiscoveryLink
+    this.baseTitle = $("meta[name='govuk:base_title']").attr('content') || <span class="branch-1 cbranch-no" title="branch not covered" >document.title</span>
+    this.$resultsCountMetaTag = $("meta[name='govuk:search-result-count']")
+    this.$emailLink = $('a[href*="email-signup"]')
+    this.previousSearchTerm = ''
+&nbsp;
+    this.emailSignupHref = this.$emailLink.attr('href')
+    this.$atomLink = $('a[href*=".atom"]')
+    this.atomHref = this.$atomLink.attr('href')
+    this.bindSortElements()
+    this.getTaxonomyFacet().update()
+&nbsp;
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (window.ga) {
+      // Use navigator.sendBeacon
+      // https://developers.google.com/analytics/devguides/collection/analyticsjs/sending-hits#specifying_different_transport_mechanisms
+      window.ga('set', 'transport', 'beacon')
+    }
+&nbsp;
+    this.focusErrorMessagesOnLoad(this.$form)
+&nbsp;
+    // prevent page refresh on search submit button click
+    // instead trigger the AJAX results fetch
+    this.$searchSubmitButton.on('click',
+      function (e) <span class="fstat-no" title="function not covered" >{</span>
+<span class="cstat-no" title="statement not covered" >        e.preventDefault()</span>
+<span class="cstat-no" title="statement not covered" >        this.formChange(e)</span>
+      }.bind(this)
+    )
+&nbsp;
+    if (GOVUK.support.history()) {
+      this.saveState()
+&nbsp;
+      this.$form.on('change', 'input[type=checkbox], input[type=radio], select',
+        function (e) <span class="fstat-no" title="function not covered" >{</span>
+<span class="cstat-no" title="statement not covered" >          this.formChange(e)</span>
+        }.bind(this)
+      )
+      // custom event listener on the form, that fires the update only once
+      // when we clear of filters
+      // fired from javascripts/modules/mobile-filters-modal.js:139
+      this.$form.on('customFormChange', this.$form,
+        function (e) <span class="fstat-no" title="function not covered" >{</span>
+<span class="cstat-no" title="statement not covered" >          this.formChange(e)</span>
+        }.bind(this)
+      )
+&nbsp;
+      this.$form.on('change keypress', 'input[type=text],input[type=search]',
+        function (e) {
+          var ENTER_KEY = 13
+&nbsp;
+          <span class="missing-if-branch" title="else path not taken" >E</span>if (e.keyCode === ENTER_KEY || e.type === 'change') {
+            if (e.currentTarget.value !== this.previousSearchTerm &amp;&amp; !e.suppressAnalytics) {
+              LiveSearch.prototype.fireTextAnalyticsEvent(e)
+            }
+            this.formChange(e)
+            this.previousSearchTerm = e.currentTarget.value
+            e.preventDefault()
+          }
+        }.bind(this)
+      )
+&nbsp;
+      this.indexTrackingData()
+&nbsp;
+      $(window).on('popstate', this.popState.bind(this))
+    } else {
+      this.$form.find('.js-live-search-fallback').show()
+    }
+  }
+&nbsp;
+  LiveSearch.prototype.startEnhancedEcommerceTracking = function startEnhancedEcommerceTracking () {
+    this.$resultsWrapper.attr('data-search-query', this.currentKeywords())
+    this.$suggestionsBlock.attr('data-search-query', this.currentKeywords())
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (GOVUK.Ecommerce) { <span class="cstat-no" title="statement not covered" >GOVUK.Ecommerce.start() </span>}
+  }
+&nbsp;
+  LiveSearch.prototype.getTaxonomyFacet = function getTaxonomyFacet () {
+    this.taxonomy = this.taxonomy || new GOVUK.TaxonomySelect({ $el: $('.js-taxonomy-select') })
+    return this.taxonomy
+  }
+&nbsp;
+  LiveSearch.prototype.getSerializeForm = function getSerializeForm () {
+    var serialized = this.$form.serializeArray()
+    var filtered = serialized.filter(function (field) {
+      return field.value !== '' &amp;&amp; field.name !== 'option-select-filter'
+    })
+    return filtered
+  }
+&nbsp;
+  LiveSearch.prototype.saveState = function saveState (state) {
+    if (typeof state === 'undefined') {
+      state = this.getSerializeForm()
+    }
+    this.previousState = this.state
+    this.state = state
+  }
+&nbsp;
+  LiveSearch.prototype.popState = function popState (event) {
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (event.originalEvent.state) {
+      this.saveState(event.originalEvent.state)
+      this.updateOrder()
+      this.updateResults()
+      this.restoreBooleans()
+      this.restoreTextInputs()
+    }
+  }
+&nbsp;
+  LiveSearch.prototype.formChange = function formChange (e) {
+    var pageUpdated
+    if (this.isNewState()) {
+      this.getTaxonomyFacet().update()
+      this.saveState()
+      this.updateOrder()
+      this.updateLinks()
+      this.updateTitle()
+      pageUpdated = this.updateResults()
+      pageUpdated.done(
+        function () {
+          var newPath = window.location.pathname + '?' + $.param(this.state)
+          window.history.pushState(this.state, '', newPath)
+          this.trackingInit()
+          this.setRelevantResultCustomDimension()
+          this.trackPageView()
+        }.bind(this)
+      )
+    }
+  }
+&nbsp;
+  LiveSearch.prototype.setRelevantResultCustomDimension = function setRelevantResultCustomDimension () {
+    var $mostRelevantDocumentLink = $('.js-finder-results').find('.gem-c-document-list__item--highlight')
+    var dimensionValue = $mostRelevantDocumentLink.length ? <span class="branch-0 cbranch-no" title="branch not covered" >'yes' </span>: 'no'
+    GOVUK.SearchAnalytics.setDimension(83, dimensionValue)
+  }
+&nbsp;
+  LiveSearch.prototype.trackingInit = function trackingInit () {
+    GOVUK.modules.start($(this.$resultsWrapper))
+    this.indexTrackingData()
+    this.startEnhancedEcommerceTracking()
+  }
+&nbsp;
+  LiveSearch.prototype.trackPageView = function trackPageView () {
+    var newPath = window.location.pathname + '?' + $.param(this.state)
+    GOVUK.SearchAnalytics.trackPageview(newPath)
+    GOVUK.SearchAnalytics.trackPageview(newPath, document.title, { 'trackerName': 'govuk' })
+  }
+&nbsp;
+  LiveSearch.prototype.trackSpellingSuggestionsImpressions = function trackSpellingSuggestionsImpressions ($suggestions) {
+    var $spellingSuggestionMetaTag = $("meta[name='govuk:spelling-suggestion']")
+    // currently there's ever only one suggestion
+    var spellingSuggestionAvailable = this.$suggestionsBlock.find('a').length &gt; 0
+    var suggestion = spellingSuggestionAvailable ? this.$suggestionsBlock.find('a').data('track-options').dimension81 : ''
+    $spellingSuggestionMetaTag.attr('content', suggestion)
+  }
+&nbsp;
+  /**
+   * Results grouped by facet and facet value do not have an accurate document index
+   * due to the post-search sorting and grouping which the presenter performs.
+   * In this case (ie. sorted by 'Topic' which actually means group by facet, facet value),
+   * rewrite the appropriate tracking data attribute to delineate the group and document index.
+   */
+  LiveSearch.prototype.indexTrackingData = function indexTrackingData () {
+    var $groupEls = $('.filtered-results__group')
+    if ($groupEls.length &gt; 0) {
+      $groupEls.each(function (groupIndex) {
+        var $resultEls = $(this).find('.gem-c-document-list__item')
+        $resultEls.each(function (documentIndex) {
+          var $document = $(this)
+          var $documentLink = $document.find('.gem-c-document-list__item-title')
+          var trackingAction = $documentLink.attr('data-track-action')
+          trackingAction = trackingAction.replace(/\.\d+$/, '')
+          trackingAction = [trackingAction, groupIndex + 1, documentIndex + 1].join('.')
+          $documentLink.attr('data-track-action', trackingAction)
+        })
+      })
+    }
+&nbsp;
+    var $results = $('.js-finder-results')
+    if ($results.length &gt; 0) {
+      var $mostRelevantDocumentLink = $results.find('.gem-c-document-list__item--highlight')
+&nbsp;
+      <span class="missing-if-branch" title="if path not taken" >I</span>if ($mostRelevantDocumentLink.length === 1) {
+        var trackingAction = <span class="cstat-no" title="statement not covered" >$mostRelevantDocumentLink.attr('data-track-action')</span>
+<span class="cstat-no" title="statement not covered" >        trackingAction += 'r'</span>
+<span class="cstat-no" title="statement not covered" >        $mostRelevantDocumentLink.attr('data-track-action', trackingAction)</span>
+      }
+    }
+  }
+&nbsp;
+  LiveSearch.prototype.fireTextAnalyticsEvent = function fireTextAnalyticsEvent (event) <span class="fstat-no" title="function not covered" >{</span>
+    var options = <span class="cstat-no" title="statement not covered" >{</span>
+      transport: 'beacon',
+      label: $(event.target)[0].value
+    }
+    var category = <span class="cstat-no" title="statement not covered" >'filterClicked'</span>
+    var action = <span class="cstat-no" title="statement not covered" >$('label[for="' + event.target.id + '"]')[0].innerText</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    GOVUK.SearchAnalytics.trackEvent(</span>
+      category,
+      action,
+      options
+    )
+  }
+&nbsp;
+  LiveSearch.prototype.cache = function cache (slug, data) {
+    if (typeof data === 'undefined') {
+      return this.resultCache[slug]
+    } else {
+      this.resultCache[slug] = data
+    }
+  }
+&nbsp;
+  LiveSearch.prototype.isNewState = function isNewState () {
+    return $.param(this.state) !== $.param(this.getSerializeForm())
+  }
+&nbsp;
+  LiveSearch.prototype.updateTitle = function updateTitle () {
+    var keywords = this.currentKeywords()
+    var keywordsPresent = keywords !== ''
+&nbsp;
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (keywordsPresent) {
+<span class="cstat-no" title="statement not covered" >      document.title = keywords + ' - ' + this.baseTitle</span>
+    } else {
+      document.title = this.baseTitle
+    }
+  }
+&nbsp;
+  LiveSearch.prototype.updateResultsCountMeta = function updateResultsCountMeta (totalCount) {
+    // update search tracking meta data tag with new value
+    this.$resultsCountMetaTag.attr('content', totalCount)
+  }
+&nbsp;
+  LiveSearch.prototype.updateSortOptions = function updateSortOptions (results, action) {
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (action !== $.param(this.state)) { <span class="cstat-no" title="statement not covered" >return </span>}
+    this.updateElement(this.$sortBlock, results.sort_options_markup)
+    this.bindSortElements()
+  }
+&nbsp;
+  LiveSearch.prototype.bindSortElements = function bindSortElements () {
+    this.$orderSelect = this.$form.find('.js-order-results')
+    this.$relevanceOrderOption = this.$orderSelect.find('option[value=' + this.$orderSelect.data('relevance-sort-option') + ']')
+    this.$relevanceOrderOptionIndex = this.$relevanceOrderOption.index()
+  }
+&nbsp;
+  LiveSearch.prototype.currentKeywords = function currentKeywords () {
+    return this.getTextInputValue('keywords', this.state)
+  }
+&nbsp;
+  LiveSearch.prototype.updateOrder = function updateOrder () {
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (!this.$orderSelect.length) {
+      return
+    }
+&nbsp;
+    var keywords = <span class="cstat-no" title="statement not covered" >this.currentKeywords()</span>
+    var previousKeywords = <span class="cstat-no" title="statement not covered" >this.getTextInputValue('keywords', this.previousState)</span>
+&nbsp;
+    var keywordsPresent = <span class="cstat-no" title="statement not covered" >keywords !== ''</span>
+    var previousKeywordsPresent = <span class="cstat-no" title="statement not covered" >previousKeywords !== ''</span>
+    var keywordsCleared = <span class="cstat-no" title="statement not covered" >!keywordsPresent &amp;&amp; previousKeywordsPresent</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    if (keywordsPresent &amp;&amp; !previousKeywordsPresent) {</span>
+<span class="cstat-no" title="statement not covered" >      this.selectRelevanceSortOption()</span>
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    if (keywordsCleared) {</span>
+<span class="cstat-no" title="statement not covered" >      this.selectDefaultSortOption()</span>
+    }
+  }
+&nbsp;
+  LiveSearch.prototype.selectDefaultSortOption = function selectDefaultSortOption () <span class="fstat-no" title="function not covered" >{</span>
+    var defaultSortOption = <span class="cstat-no" title="statement not covered" >this.$orderSelect.data('default-sort-option')</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    this.$orderSelect.val(defaultSortOption)</span>
+<span class="cstat-no" title="statement not covered" >    this.state = this.getSerializeForm()</span>
+  }
+&nbsp;
+  LiveSearch.prototype.selectRelevanceSortOption = function selectRelevanceSortOption () <span class="fstat-no" title="function not covered" >{</span>
+    var relevanceSortOption = <span class="cstat-no" title="statement not covered" >this.$orderSelect.data('relevance-sort-option')</span>
+<span class="cstat-no" title="statement not covered" >    if (relevanceSortOption) {</span>
+<span class="cstat-no" title="statement not covered" >      this.$relevanceOrderOption.removeAttr('disabled')</span>
+<span class="cstat-no" title="statement not covered" >      this.$orderSelect.val(relevanceSortOption)</span>
+<span class="cstat-no" title="statement not covered" >      this.state = this.getSerializeForm()</span>
+    }
+  }
+&nbsp;
+  LiveSearch.prototype.updateResults = function updateResults () {
+    var searchState = $.param(this.state)
+    var cachedResultData = this.cache(searchState)
+    var liveSearch = this
+    if (typeof cachedResultData === 'undefined') {
+      this.showLoadingIndicator()
+      return $.ajax({
+        url: this.action,
+        data: this.state,
+        searchState: searchState
+      }).done(function (response) {
+        liveSearch.cache($.param(liveSearch.state), response)
+        liveSearch.displayResults(response, this.searchState)
+      }).error(function () {
+        liveSearch.showErrorIndicator()
+      })
+    } else {
+      this.displayResults(cachedResultData, searchState)
+      var out = new $.Deferred()
+      return out.resolve()
+    }
+  }
+&nbsp;
+  LiveSearch.prototype.updateLinks = function updateLinks () {
+    var searchState = '?' + $.param(this.state)
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (typeof (this.emailSignupHref) !== 'undefined' &amp;&amp; this.emailSignupHref != null) {
+      this.$emailLink.attr('href', this.emailSignupHref.split('?')[0] + searchState)
+    }
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (typeof (this.atomHref) !== 'undefined' &amp;&amp; this.atomHref != null) {
+      this.$atomLink.attr('href', this.atomHref.split('?')[0] + searchState)
+      this.$atomAutodiscoveryLink.attr('href', this.atomHref.split('?')[0] + searchState)
+    }
+  }
+&nbsp;
+  LiveSearch.prototype.showLoadingIndicator = function showLoadingIndicator () {
+    this.$loadingBlock.text('Loading...').show()
+  }
+&nbsp;
+  LiveSearch.prototype.showErrorIndicator = function showErrorIndicator () {
+    this.$loadingBlock.text('Error. Please try modifying your search and trying again.')
+  }
+&nbsp;
+  LiveSearch.prototype.updateElement = function updateElement (element, content) {
+    element.html(content)
+  }
+&nbsp;
+  LiveSearch.prototype.displayResults = function displayResults (results, action) {
+    // As search is asynchronous, check that the action associated with these results is
+    // still the latest to stop results being overwritten by stale data
+    if (action === $.param(this.state)) {
+      this.updateElement(this.$resultsBlock, results.search_results)
+      this.updateElement(this.$facetTagBlock, results.facet_tags)
+      this.updateElement(this.$countBlock, results.display_total)
+      this.updateElement(this.$mobileResultsCount, results.display_total)
+      this.updateElement(this.$mobileFacetTagBlock, results.facet_tags)
+      this.updateElement(this.$selectedFilterCount, results.display_selected_facets_count)
+      this.updateElement(this.$paginationBlock, results.next_and_prev_links)
+      this.updateElement(this.$suggestionsBlock, results.suggestions)
+      this.trackSpellingSuggestionsImpressions(results.suggestions)
+      this.updateSortOptions(results, action)
+      this.updateResultsCountMeta(results.total)
+      this.manipulateErrorMessages(results.errors)
+      this.$atomAutodiscoveryLink.attr('href', results.atom_url)
+      this.$loadingBlock.text('').hide()
+    }
+  }
+&nbsp;
+  LiveSearch.prototype.restoreBooleans = function restoreBooleans () {
+    var that = this
+    this.$form.find('input[type=checkbox], input[type=radio]').each(function (i, el) {
+      var $el = $(el)
+      $el.prop('checked', that.isBooleanSelected($el.attr('name'), $el.attr('value')))
+    })
+  }
+&nbsp;
+  LiveSearch.prototype.isBooleanSelected = function isBooleanSelected (name, value) {
+    var i, _i
+    for (i = 0, _i = this.state.length; i &lt; _i; i++) {
+      if (this.state[i].name === name &amp;&amp; this.state[i].value === value) {
+        return true
+      }
+    }
+    return false
+  }
+&nbsp;
+  LiveSearch.prototype.restoreTextInputs = function restoreTextInputs () {
+    var that = this
+    this.$form.find('input[type=text], input[type=search], select').each(function (i, el) {
+      var $el = $(el)
+      $el.val(that.getTextInputValue($el.attr('name'), that.state))
+    })
+  }
+&nbsp;
+  LiveSearch.prototype.getTextInputValue = function getTextInputValue (name, state) {
+    var i, _i
+    for (i = 0, _i = state.length; i &lt; _i; i++) {
+      if (state[i].name === name) {
+        return state[i].value
+      }
+    }
+    return ''
+  }
+&nbsp;
+  LiveSearch.prototype.focusErrorMessagesOnLoad = function ($container) {
+    var $inputWithError = $container.find('input[class*=--error]')
+    if ($inputWithError.length) {
+      $inputWithError.focus()
+    }
+  }
+&nbsp;
+  LiveSearch.prototype.manipulateErrorMessages = function (errorsObj) {
+    if (!errorsObj) return
+    // finders have different date fields
+    for (var prop in errorsObj) {
+      // store the name of the error item, eg. publictimestamp
+      var errorType = prop
+      // get true/false value for each to manipulate the error message
+      for (var field in errorsObj[prop]) {
+        var fieldsObj = errorsObj[prop]
+        fieldsObj[field] ? this.renderErrorMessage(errorType, field) : this.removeErrorMessage(errorType, field)
+      }
+    }
+  }
+&nbsp;
+  LiveSearch.prototype.renderErrorMessage = function (type, field) {
+    var $input = this.$form.find('input[name*="' + type + '[' + field + ']"]')
+    var errorMessageElement = $('&lt;span /&gt;', {
+      id: 'error-' + type,
+      class: 'gem-c-error-message govuk-error-message',
+      html: '&lt;span class="govuk-visually-hidden"&gt;Error:&lt;/span&gt; Enter a real date'
+    })
+&nbsp;
+    // only attach the error message if not present
+    if ($input.siblings('.gem-c-error-message').length === 0) {
+      $input.addClass('govuk-input--error')
+      $input.before(errorMessageElement)
+      $input.parent('.govuk-form-group').addClass('govuk-form-group--error')
+      $input.attr('aria-describedby', $input.attr('aria-describedby') + ' ' + errorMessageElement.attr('id'))
+    }
+    $input.focus()
+  }
+&nbsp;
+  LiveSearch.prototype.removeErrorMessage = function (type, field) {
+    var $input = this.$form.find('input[name*="' + type + '[' + field + ']"]')
+&nbsp;
+    // only remove the message if it's present
+    if ($input.siblings('.gem-c-error-message').length &gt; 0) {
+      $input.removeClass('govuk-input--error')
+      $input.siblings('.gem-c-error-message').remove()
+      $input.parent('.govuk-form-group').removeClass('govuk-form-group--error')
+      $input.attr('aria-describedby', '')
+    }
+  }
+&nbsp;
+  GOVUK.LiveSearch = LiveSearch
+}())
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Fri Oct 23 2020 15:47:44 GMT+0000 (Coordinated Universal Time)
+</div>
+</div>
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../sorter.js"></script>
+</body>
+</html>

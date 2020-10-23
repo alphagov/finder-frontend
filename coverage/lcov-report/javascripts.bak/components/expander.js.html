@@ -1,0 +1,455 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for javascripts.bak/components/expander.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">all files</a> / <a href="index.html">javascripts.bak/components/</a> expander.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">85.9% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>67/78</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">50% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>12/24</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">81.82% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>9/11</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">85.53% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>65/76</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">window.GOVUK = window.GOVUK || <span class="branch-1 cbranch-no" title="branch not covered" >{}</span>
+window.GOVUK.Modules = window.GOVUK.Modules || <span class="branch-1 cbranch-no" title="branch not covered" >{};</span> // if this ; is omitted, none of this JS runs :(
+&nbsp;
+(function (Modules) {
+  function Expander () {}
+&nbsp;
+  /* This JavaScript provides two functional enhancements to the expander component:
+    1) A count that shows how many items have been used in the expander container
+    2) Open/closing of the content
+  */
+&nbsp;
+  Expander.prototype.start = function ($module) {
+    this.$module = $module[0] // this is the expander element
+    this.$toggle = this.$module.querySelector('.js-toggle')
+    this.$content = this.$module.querySelector('.js-content')
+    this.$allInteractiveElements = this.$content.querySelectorAll('select, input[type=text]')
+    this.selectedElements = []
+&nbsp;
+    var openOnLoad = this.$module.getAttribute('data-open-on-load') === 'true'
+&nbsp;
+    this.replaceHeadingSpanWithButton(openOnLoad)
+&nbsp;
+    this.$module.toggleContent = this.toggleContent.bind(this)
+    this.$toggleButton = this.$module.querySelector('.js-button')
+    this.$toggleButton.addEventListener('click', this.$module.toggleContent)
+&nbsp;
+    var selectedString = this.selectedString()
+    if (selectedString) {
+      this.attachSelectedCounter(selectedString)
+      // expand the content
+      this.$toggleButton.click()
+    }
+&nbsp;
+    // listen for the change event
+    $module.on('change', 'select, input[type="text"]', this.updateSelectedCount.bind(this))
+&nbsp;
+    // Attach listener function to update selected count
+    var boundChangeEvents = this.bindChangeEvents.bind(this)
+    boundChangeEvents()
+  }
+&nbsp;
+  Expander.prototype.bindChangeEvents = function (e) {
+    for (var i = 0; i &lt; this.$allInteractiveElements.length; i++) {
+      var $el = this.$allInteractiveElements[i]
+      // but for inputs we need both change and enter key event
+      if ($el.tagName === 'INPUT') {
+        $el.addEventListener('change', this.handleInputEvent.bind(this))
+        $el.addEventListener('keyup', this.handleInputEvent.bind(this))
+      }
+    }
+  }
+&nbsp;
+  Expander.prototype.handleInputEvent = function (e) <span class="fstat-no" title="function not covered" >{</span>
+    var ENTER_KEY = <span class="cstat-no" title="statement not covered" >13</span>
+    // we only want to fire when ENTER key is pressed or
+    // user selected a different element
+<span class="cstat-no" title="statement not covered" >    if (e.keyCode === ENTER_KEY || e.type === 'change') {</span>
+<span class="cstat-no" title="statement not covered" >      this.updateSelectedCount()</span>
+    }
+  }
+&nbsp;
+  Expander.prototype.replaceHeadingSpanWithButton = function (expanded) {
+    var toggleHtml = this.$toggle.innerHTML
+    var $button = document.createElement('button')
+&nbsp;
+    $button.classList.add('app-c-expander__button')
+    $button.classList.add('js-button')
+    $button.setAttribute('type', 'button')
+    $button.setAttribute('aria-expanded', expanded)
+    $button.setAttribute('aria-controls', this.$content.getAttribute('id'))
+    $button.innerHTML = toggleHtml
+&nbsp;
+    this.$toggle.parentNode.replaceChild($button, this.$toggle)
+  }
+&nbsp;
+  Expander.prototype.toggleContent = function (e) {
+    if (this.$toggleButton.getAttribute('aria-expanded') === 'false') {
+      this.$toggleButton.setAttribute('aria-expanded', true)
+      this.$content.classList.add('app-c-expander__content--visible')
+    } else {
+      this.$toggleButton.setAttribute('aria-expanded', false)
+      this.$content.classList.remove('app-c-expander__content--visible')
+    }
+  }
+&nbsp;
+  Expander.prototype.attachSelectedCounter = function attachSelectedCounter (selectedString) {
+    var $selectedCounter = document.createElement('span')
+    $selectedCounter.classList.add('app-c-expander__selected-counter')
+    $selectedCounter.classList.add('js-selected-counter')
+    $selectedCounter.innerHTML = selectedString
+    this.$toggleButton.parentNode.insertBefore($selectedCounter, this.$toggleButton.nextSibling)
+  }
+&nbsp;
+  Expander.prototype.updateSelectedCount = function updateSelectedCount () <span class="fstat-no" title="function not covered" >{</span>
+    var selectedString = <span class="cstat-no" title="statement not covered" >this.selectedString()</span>
+    var selectedStringElement = <span class="cstat-no" title="statement not covered" >this.$module.querySelector('.js-selected-counter')</span>
+<span class="cstat-no" title="statement not covered" >    if (selectedString) {</span>
+<span class="cstat-no" title="statement not covered" >      if (selectedStringElement) {</span>
+<span class="cstat-no" title="statement not covered" >        selectedStringElement.innerHTML = selectedString</span>
+      } else {
+<span class="cstat-no" title="statement not covered" >        this.attachSelectedCounter(selectedString)</span>
+      }
+    } else <span class="cstat-no" title="statement not covered" >if (selectedStringElement) {</span>
+<span class="cstat-no" title="statement not covered" >      selectedStringElement.parentNode.removeChild(selectedStringElement)</span>
+    }
+  }
+&nbsp;
+  Expander.prototype.selectedString = function selectedString () {
+    this.getAllSelectedElements()
+    var count = this.selectedElements.length
+    var selectedString = false
+    if (count &gt; 0) {
+      selectedString = count + ' selected'
+    }
+&nbsp;
+    return selectedString
+  }
+&nbsp;
+  Expander.prototype.getAllSelectedElements = function getAllSelectedElements () {
+    this.selectedElements = []
+    var that = this
+    for (var i = 0; i &lt; this.$allInteractiveElements.length; i++) {
+      if (this.$allInteractiveElements[i].value.length &gt; 0) {
+        that.selectedElements.push(i)
+      }
+    }
+  }
+&nbsp;
+  Modules.Expander = Expander
+})(window.GOVUK.Modules)
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Fri Oct 23 2020 15:47:44 GMT+0000 (Coordinated Universal Time)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

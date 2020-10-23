@@ -8,7 +8,6 @@
 .rbenv-version
 /doc/
 /public/finder-frontend/
-/coverage/*
 node_modules
 .env
 credentials.json
