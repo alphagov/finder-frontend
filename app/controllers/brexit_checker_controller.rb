@@ -1,5 +1,6 @@
 class BrexitCheckerController < ApplicationController
   include BrexitCheckerHelper
+  include BrexitResultsAbTestable
 
   SUBSCRIBER_LIST_GROUP_ID = "5a7c11f2-e737-4531-a0bc-b5f707046607".freeze
 
@@ -11,7 +12,7 @@ class BrexitCheckerController < ApplicationController
   before_action :enable_caching, only: %i[show email_signup confirm_email_signup]
   before_action :enable_caching_unless_accounts, only: %i[results]
 
-  helper_method :subscriber_list_slug
+  helper_method :subscriber_list_slug, :ab_test_variant, :show_variant?
 
   def show
     all_questions = BrexitChecker::Question.load_all
@@ -33,6 +34,8 @@ class BrexitCheckerController < ApplicationController
   end
 
   def results
+    ab_test_variant.configure_response(response)
+
     if accounts_enabled?
       results_in_account = results_from_account
       if logged_in?
