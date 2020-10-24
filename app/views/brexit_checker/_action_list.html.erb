@@ -6,7 +6,7 @@
     <div class="brexit-checker__content-wrapper">
       <% if action.urgent? && show_variant? %>
         <div class="brexit-checker__action-urgent">
-        <strong class="govuk-tag brexit-checker__action-urgent-tag">Urgent</strong>
+        <strong class="govuk-tag brexit-checker__action-urgent-tag"><%= t("brexit_checker.results.urgent") %></strong>
       <% end %>
       <%= content_tag(heading_tag, class: "govuk-body brexit-checker__action_title") do %>
         <% if action.title_url.present? %>
