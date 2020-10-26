@@ -5,22 +5,26 @@ en:
       heading: Stay up to date with a GOV.UK account
       proposition: "Create a GOV.UK account to:"
       proposition_list:
-        - get email updates about changes that may affect you
-        - get a link to your UK transition results
+        - get email updates about UK transition changes that may affect you
+        - save your UK transition checker results
       aim: GOV.UK is trialling accounts to try to improve online public services.
       aim_list:
-        - At the moment, this is separate from other government accounts.
-        - You can only use your account with the UK transition checker.
-      future: "In future, we want to add more features to your GOV.UK account so you can:"
+        - This is separate from other government accounts.
+        - At the moment, you can only use your account with the UK transition checker.
+      future: "In future, we want to add more features to your account so you can:"
       future_list:
-        - see content that's more tailored to you
+        - see content that’s more tailored to you
         - get recommendations for services relevant to you
         - get updates about guidance that might be helpful to you
         - reuse information you provide between different services
+      prerequisites: "To create an account, you’ll need:"
+      prerequisites_list:
+        - an email address
+        - a mobile phone
       cta_button: Create a GOV.UK account
-      or: If you've already saved your UK transition results,
+      or: If you’ve already saved your UK transition results,
       alternative_path_link_text: sign in to your account
       do_not_want_heading: If you do not want a GOV.UK account
       do_not_want_intro: You can
-      do_not_want_link: get notifications and a link to your results
+      do_not_want_link: get alerts and a link to your results
       do_not_want_outro: instead.
