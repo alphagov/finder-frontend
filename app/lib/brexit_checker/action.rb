@@ -67,7 +67,7 @@ class BrexitChecker::Action
   end
 
   def urgent?
-    priority >= 8
+    priority >= 9
   end
 
 private
