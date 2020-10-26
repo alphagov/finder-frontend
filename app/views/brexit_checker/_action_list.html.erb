@@ -1,9 +1,14 @@
 <% heading_level ||= 4 %>
 <% heading_tag = "h#{heading_level}"%>
 
+
 <% actions.each.with_index do | action, index | %>
   <div class="govuk-grid-row brexit-checker__action">
+  <% if action.urgent? && show_variant? %>
+    <div class="brexit-checker__content-wrapper-urgent">
+  <% else %>
     <div class="brexit-checker__content-wrapper">
+  <% end %>
       <% if action.urgent? && show_variant? %>
         <div class="brexit-checker__action-urgent">
         <strong class="govuk-tag brexit-checker__action-urgent-tag"><%= t("brexit_checker.results.urgent") %></strong>
