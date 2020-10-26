@@ -10,6 +10,7 @@ class BrexitCheckerController < ApplicationController
   before_action :check_accounts_enabled, only: %i[save_results save_results_confirm save_results_email_signup save_results_apply saved_results edit_saved_results]
   before_action :enable_caching, only: %i[show email_signup confirm_email_signup]
   before_action :enable_caching_unless_accounts, only: %i[results]
+  before_action :set_account_session_cookie
 
   helper_method :subscriber_list_slug
 
@@ -67,8 +68,8 @@ class BrexitCheckerController < ApplicationController
 
     @has_email_subscription = update_session_tokens(
       Services.oidc.has_email_subscription(
-        access_token: session[:access_token],
-        refresh_token: session[:refresh_token],
+        access_token: account_session_cookie_value[:access_token],
+        refresh_token: account_session_cookie_value[:refresh_token],
       ),
     )
   end
@@ -80,16 +81,16 @@ class BrexitCheckerController < ApplicationController
       update_session_tokens(
         Services.oidc.update_email_subscription(
           slug: subscriber_list_slug,
-          access_token: session[:access_token],
-          refresh_token: session[:refresh_token],
+          access_token: account_session_cookie_value[:access_token],
+          refresh_token: account_session_cookie_value[:refresh_token],
         ),
       )
     end
     update_session_tokens(
       Services.oidc.set_checker_attribute(
         value: { criteria_keys: criteria_keys, timestamp: Time.zone.now.to_i },
-        access_token: session[:access_token],
-        refresh_token: session[:refresh_token],
+        access_token: account_session_cookie_value[:access_token],
+        refresh_token: account_session_cookie_value[:refresh_token],
       ),
     )
     redirect_to transition_checker_results_path(c: criteria_keys)
@@ -139,10 +140,12 @@ private
   end
 
   def results_from_account
+    return {} unless account_session_cookie_value
+
     update_session_tokens(
       Services.oidc.get_checker_attribute(
-        access_token: session[:access_token],
-        refresh_token: session[:refresh_token],
+        access_token: account_session_cookie_value[:access_token],
+        refresh_token: account_session_cookie_value[:refresh_token],
       ),
     )
   rescue OidcClient::OAuthFailure
@@ -157,8 +160,10 @@ private
   end
 
   def update_session_tokens(result)
-    session[:access_token] = result[:access_token]
-    session[:refresh_token] = result[:refresh_token]
+    set_account_session_cookie(
+      access_token: result[:access_token],
+      refresh_token: result[:refresh_token],
+    )
     result[:result]
   end
 
