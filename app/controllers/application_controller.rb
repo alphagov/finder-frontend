@@ -8,8 +8,6 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   helper :application
 
-  after_action :skip_session_cookie
-
   # rescue_from precedence is bottom up - https://stackoverflow.com/a/9121054/170864
   unless Rails.env.development?
     rescue_from GdsApi::BaseError, with: :error_503
@@ -28,16 +26,8 @@ class ApplicationController < ActionController::Base
 
 private
 
-  def skip_session_cookie
-    unless session[:has_session]
-      request.session_options[:drop] = true
-    end
-  end
-
   def logout!
-    session.delete(:sub)
-    session.delete(:access_token)
-    session.delete(:refresh_token)
+    cookies.delete account_session_cookie_name
   end
 
   def error_503(exception)
@@ -105,10 +95,34 @@ private
 
   helper_method :logged_in?
   def logged_in?
-    current_user.present? && session[:has_session]
+    current_user.present?
   end
 
   def current_user
-    session[:sub]
+    account_session_cookie_value&.dig(:sub)
+  end
+
+  def account_session_cookie_name
+    :"_finder-frontend_account_session"
+  end
+
+  def account_session_cookie_value
+    value = cookies.encrypted[account_session_cookie_name]
+    JSON.parse(value).symbolize_keys if value
+  end
+
+  def set_account_session_cookie(sub: nil, access_token: nil, refresh_token: nil)
+    return unless accounts_enabled?
+    return unless sub || account_session_cookie_value
+
+    cookies.encrypted[account_session_cookie_name] = {
+      value: {
+        sub: sub || account_session_cookie_value&.dig(:sub),
+        access_token: access_token || account_session_cookie_value&.dig(:access_token),
+        refresh_token: refresh_token || account_session_cookie_value&.dig(:refresh_token),
+      }.to_json,
+      expires: 15.minutes,
+      secure: Rails.env.production?,
+    }
   end
 end

@@ -27,16 +27,14 @@ class SessionsController < ApplicationController
       state,
     )
 
-    access_token = callback[:access_token]
-    sub = callback[:sub]
-    redirect_path = callback[:redirect_path] || default_redirect_path
+    tokens = callback[:access_token].token_response
+    set_account_session_cookie(
+      sub: callback[:sub],
+      access_token: tokens[:access_token],
+      refresh_token: tokens[:refresh_token],
+    )
 
-    session[:has_session] = true
-    session[:sub] = sub
-    session[:access_token] = access_token.token_response[:access_token]
-    session[:refresh_token] = access_token.token_response[:refresh_token]
-
-    redirect_to redirect_path
+    redirect_to callback[:redirect_path] || default_redirect_path
   end
 
   def delete
