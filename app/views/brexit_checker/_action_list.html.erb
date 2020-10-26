@@ -47,14 +47,14 @@
       <% end %>
 
       <% if action.guidance_url.present? %>
-        <div class="govuk-body govuk-!-font-size-16">
+        <div class="govuk-body-m">
           <p>
             <%= action.guidance_prompt || t("brexit_checker.action_list.guidance_prompt") %>:
           </p>
           <p>
             <a
               href="<%= action.guidance_url %>"
-              class="govuk-link"
+              class="govuk-link govuk-body"
               data-module="track-click"
               data-track-action="<%= "#{analytics_group}#{index + 1}"%> - Guidance"
               data-track-category="brexit-checker-results"
