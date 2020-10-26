@@ -1,9 +1,18 @@
 <% heading_level ||= 4 %>
 <% heading_tag = "h#{heading_level}"%>
 
+
 <% actions.each.with_index do | action, index | %>
   <div class="govuk-grid-row brexit-checker__action">
+  <% if action.urgent? && show_variant? %>
+    <div class="brexit-checker__content-wrapper-urgent">
+  <% else %>
     <div class="brexit-checker__content-wrapper">
+  <% end %>
+      <% if action.urgent? && show_variant? %>
+        <div class="brexit-checker__action-urgent">
+        <strong class="govuk-tag brexit-checker__action-urgent-tag"><%= t("brexit_checker.results.urgent") %></strong>
+      <% end %>
       <%= content_tag(heading_tag, class: "govuk-body brexit-checker__action_title") do %>
         <% if action.title_url.present? %>
           <a
@@ -38,14 +47,14 @@
       <% end %>
 
       <% if action.guidance_url.present? %>
-        <div class="govuk-body govuk-!-font-size-16">
+        <div class="govuk-body-m">
           <p>
             <%= action.guidance_prompt || t("brexit_checker.action_list.guidance_prompt") %>:
           </p>
           <p>
             <a
               href="<%= action.guidance_url %>"
-              class="govuk-link"
+              class="govuk-link govuk-body"
               data-module="track-click"
               data-track-action="<%= "#{analytics_group}#{index + 1}"%> - Guidance"
               data-track-category="brexit-checker-results"
@@ -54,6 +63,10 @@
               data-ecommerce-path="<%= action.guidance_path %>"
             ><%= action.guidance_link_text %></a>
           </p>
+        </div>
+      <% end %>
+      <% if action.urgent? && show_variant? %>
+        <%# closing div from .brexit-checker__action-urgent %>
         </div>
       <% end %>
     </div>

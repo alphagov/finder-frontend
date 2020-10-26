@@ -66,6 +66,10 @@ class BrexitChecker::Action
     grouping_criteria.count > 1
   end
 
+  def urgent?
+    priority >= 9
+  end
+
 private
 
   def has_criteria
