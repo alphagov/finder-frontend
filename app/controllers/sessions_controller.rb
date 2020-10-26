@@ -34,6 +34,11 @@ class SessionsController < ApplicationController
       refresh_token: tokens[:refresh_token],
     )
 
+    if callback[:cookie_consent] && cookies[:cookies_policy]
+      cookies_policy = JSON.decode(cookies[:cookies_policy]).symbolize_keys
+      cookies[:cookies_policy] = cookies_policy.merge(usage: true).to_json
+    end
+
     redirect_to callback[:redirect_path] || default_redirect_path
   end
 
