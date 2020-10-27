@@ -7,11 +7,7 @@ class SessionsController < ApplicationController
       return
     end
 
-    if Rails.env.test?
-      render plain: "Redirecting to login"
-    else
-      redirect_to Services.oidc.auth_uri(redirect_path: params["redirect_path"])[:uri]
-    end
+    redirect_if_not_test Services.oidc.auth_uri(redirect_path: params["redirect_path"])[:uri]
   end
 
   def callback
@@ -39,17 +35,21 @@ class SessionsController < ApplicationController
       cookies[:cookies_policy] = cookies_policy.merge(usage: true).to_json
     end
 
-    redirect_to callback[:redirect_path] || default_redirect_path
+    redirect_to callback[:redirect_path] || transition_checker_questions_path
   end
 
   def delete
     logout!
-    redirect_to default_redirect_path
+    redirect_if_not_test Plek.new.website_root
   end
 
-private
+protected
 
-  def default_redirect_path
-    transition_checker_questions_path
+  def redirect_if_not_test(url)
+    if Rails.env.test?
+      render plain: "Redirecting to #{url}"
+    else
+      redirect_to url
+    end
   end
 end
