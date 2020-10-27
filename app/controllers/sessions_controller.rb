@@ -35,7 +35,7 @@ class SessionsController < ApplicationController
     )
 
     if callback[:cookie_consent] && cookies[:cookies_policy]
-      cookies_policy = JSON.decode(cookies[:cookies_policy]).symbolize_keys
+      cookies_policy = JSON.parse(cookies[:cookies_policy]).symbolize_keys
       cookies[:cookies_policy] = cookies_policy.merge(usage: true).to_json
     end
 
