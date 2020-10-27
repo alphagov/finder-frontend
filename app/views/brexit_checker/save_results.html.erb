@@ -57,6 +57,14 @@
           <% end %>
         </ul>
 
+        <p class="govuk-body"><%= t('brexit_checker.account_signup.prerequisites') %></p>
+
+        <ul class="govuk-list govuk-list--bullet">
+          <% t('brexit_checker.account_signup.prerequisites_list').each do |prerequisite| %>
+            <li><%= prerequisite %></li>
+          <% end %>
+        </ul>
+
         <%= form_tag Services.accounts_api, id: "account-signup", class: "account-signup" do %>
           <input type="hidden" name="jwt" value="<%= @account_jwt %>">
           <%= render "govuk_publishing_components/components/button", {
