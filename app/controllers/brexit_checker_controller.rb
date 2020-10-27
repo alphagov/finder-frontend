@@ -60,7 +60,11 @@ class BrexitCheckerController < ApplicationController
     redirect_to email_alert_frontend_signup_path(topic_id: subscriber_list_slug)
   end
 
-  def save_results; end
+  def save_results
+    @account_jwt = account_signup_jwt(criteria_keys, subscriber_list_slug)
+  rescue StandardError
+    redirect_to transition_checker_email_signup_path(c: criteria_keys)
+  end
 
   def save_results_confirm
     saved_results = results_from_account.fetch("criteria_keys", [])
