@@ -9,4 +9,5 @@ en:
         new_answer: New answer
       message: Saving your new answers will automatically update your email notifications at the same time.
       save_button: Save new answers
+      cancel: or <a class="govuk-link" href="%{link}">cancel</a> if you want to keep your previous results
 
