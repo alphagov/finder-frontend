@@ -34,6 +34,7 @@
           } %>
 
         <%= render "govuk_publishing_components/components/table", {
+          first_cell_is_header: true,
           head: [
             {
               text: t("brexit_checker.confirm_changes.table.question")
@@ -45,9 +46,7 @@
               text: t("brexit_checker.confirm_changes.table.new_answer")
             }
           ],
-          rows: [
-            [ { text: "all of them" }, { text: @old_criteria_keys }, { text: criteria_keys } ]
-          ]
+          rows: results_comparison(@old_criteria_keys, criteria_keys)
         } %>
 
         <p class="govuk-body"><%= t("brexit_checker.confirm_changes.message") %></p>

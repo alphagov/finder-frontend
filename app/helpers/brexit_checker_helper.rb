@@ -103,4 +103,15 @@ module BrexitCheckerHelper
       transition_checker_email_signup_path(c: criteria_keys)
     end
   end
+
+  def results_comparison(old_criteria_keys, new_criteria_keys)
+    answers_diff = BrexitChecker::Question.load_all.map do |question|
+      old_values = question.options.select { |o| old_criteria_keys.include? o.value }
+      new_values = question.options.select { |o| new_criteria_keys.include? o.value }
+      unless old_values == new_values
+        [{ text: question.text }, { text: old_values.map(&:label).join(", ") }, { text: new_values.map(&:label).join(", ") }]
+      end
+    end
+    answers_diff.compact
+  end
 end
