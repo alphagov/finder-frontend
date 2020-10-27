@@ -40,17 +40,6 @@
 <div class="govuk-width-container brexit-checker-results-page">
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-      <% if accounts_enabled? %>
-        <% if logged_in? %>
-          <% if @results_differ %>
-            <p class="govuk-body">You've changed your answers. <a class="govuk-link" href="<%= transition_checker_save_results_confirm_path(c: criteria_keys) %>">Save this page instead?</a></p>
-          <% end %>
-          <% if @results_saved %>
-            <p class="govuk-body">Saved!</p>
-          <% end %>
-        <% end %>
-      <% end %>
-
       <%= render "govuk_publishing_components/components/title", {
         title: action_based_title
       } %>
@@ -68,7 +57,19 @@
   </div>
 
   <% if criteria_keys.present? %>
-    <% unless accounts_enabled? && logged_in? %>
+    <% if accounts_enabled? && logged_in? %>
+      <% if @results_differ %>
+        <%= render 'govuk_publishing_components/components/notice', {
+          title: t('brexit_checker.results.accounts.results_differ.message'),
+          description: sanitize(t('brexit_checker.results.accounts.results_differ.description', link: transition_checker_save_results_confirm_path(c: criteria_keys)))
+        } %>
+      <% elsif @results_saved %>
+        <%= render 'govuk_publishing_components/components/success_alert', {
+          message: t('brexit_checker.results.accounts.results_saved.message'),
+          description: t('brexit_checker.results.accounts.results_saved.description')
+        } %>
+      <% end %>
+    <% else %>
       <%= render 'components/email_link', {
         data_attributes: {
           "module": "track-click",
@@ -86,7 +87,14 @@
     <%= render 'results_citizen_actions', citizen_results_groups: @citizen_results_groups if @citizen_results_groups.any? %>
     <%= render 'results_with_no_actions', criteria: @criteria if (@business_results.empty? && @citizen_results_groups.empty?) %>
 
-    <% unless accounts_enabled? && logged_in? %>
+    <% if accounts_enabled? && logged_in? %>
+      <% if @results_differ %>
+        <%= render 'govuk_publishing_components/components/notice', {
+          title: t('brexit_checker.results.accounts.results_differ.message'),
+          description: sanitize(t('brexit_checker.results.accounts.results_differ.description', link: transition_checker_save_results_confirm_path(c: criteria_keys)))
+        } %>
+      <% end %>
+    <% else %>
       <%= render 'stay_updated' %>
     <% end %>
 
