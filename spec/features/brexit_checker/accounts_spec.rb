@@ -38,6 +38,33 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
     end
   end
 
+  context "accounts is enabled but down" do
+    let(:criteria_keys) { %i[nationality-eu] }
+
+    before do
+      allow(Rails.configuration).to receive(:feature_flag_govuk_accounts).and_return(true)
+      allow_any_instance_of(BrexitCheckerHelper).to receive(:account_signup_jwt).and_raise
+
+      stub_email_alert_api_has_subscriber_list(
+        {
+          "title" => "Get ready for 2021",
+          "slug" => "your-get-ready-for-brexit-results-a1a2a3a4a5",
+          "description" => "[You can view a copy of your results on GOV.UK.](https://www.test.gov.uk/transition-check/results?c%5B%5D=nationality-eu)",
+          "tags" => { "brexit_checklist_criteria" => { "any" => criteria_keys } },
+          "url" => "/transition-check/results?c%5B%5D=nationality-eu",
+          "group_id" => BrexitCheckerController::SUBSCRIBER_LIST_GROUP_ID,
+        },
+      )
+    end
+
+    context "/transition-check/save-results" do
+      it "redirects to the email signup page" do
+        visit transition_checker_save_results_path(c: criteria_keys)
+        expect(page).to have_content(I18n.t("brexit_checker.email_signup.sign_up_heading"))
+      end
+    end
+  end
+
   context "with accounts enabled" do
     let(:attribute_service_url) { "http://attribute-service" }
 
