@@ -136,21 +136,21 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
         context "the querystring differs to the value in the account" do
           it "shows a link to save the new results" do
             given_i_am_on_the_results_page_with(%w[bring-pet-abroad nationality-eu])
-            expect(page).to have_content("You've changed your answers.")
+            expect(page).to have_content(I18n.t("brexit_checker.results.accounts.results_differ.message"))
           end
         end
 
         context "the querystring matches what's stored in the account" do
           it "doesn't show a link to save the new results" do
             given_i_am_on_the_results_page_with(criteria_keys)
-            expect(page).to_not have_content("You've changed your answers.")
+            expect(page).to_not have_content(I18n.t("brexit_checker.results.accounts.results_differ.message"))
           end
 
           context "the account has been updated in the last 10 seconds" do
             it "shows a 'saved' notification" do
               Timecop.freeze(Time.zone.at(transition_checker_state[:timestamp] - 9)) do
                 given_i_am_on_the_results_page_with(criteria_keys)
-                expect(page).to have_content("Saved!")
+                expect(page).to have_content(I18n.t("brexit_checker.results.accounts.results_saved.message"))
               end
             end
           end
@@ -216,8 +216,8 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
 
           it "shows a comparison of the result sets" do
             given_i_am_on_the_save_results_confirm_page_with(new_criteria_keys)
-            expect(page).to have_content(new_criteria_keys.first)
-            expect(page).to have_content(criteria_keys.first)
+            expect(page).to have_content("British")
+            expect(page).to have_content("Another EU country, or Switzerland, Norway, Iceland or Liechtenstein")
           end
 
           context "the user does not have an email subscription" do

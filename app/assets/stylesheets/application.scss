@@ -23,6 +23,7 @@ $govuk-use-legacy-palette: false;
 @import 'govuk_publishing_components/components/inverse-header';
 @import 'govuk_publishing_components/components/label';
 @import 'govuk_publishing_components/components/metadata';
+@import 'govuk_publishing_components/components/notice';
 @import 'govuk_publishing_components/components/phase-banner';
 @import 'govuk_publishing_components/components/previous-and-next-navigation';
 @import 'govuk_publishing_components/components/radio';
@@ -32,6 +33,8 @@ $govuk-use-legacy-palette: false;
 @import 'govuk_publishing_components/components/skip-link';
 @import 'govuk_publishing_components/components/step-by-step-nav-header';
 @import 'govuk_publishing_components/components/subscription-links';
+@import 'govuk_publishing_components/components/success-alert';
+@import 'govuk_publishing_components/components/table';
 @import 'govuk_publishing_components/components/title';
 
 @import 'components/*';

@@ -34,3 +34,10 @@ en:
         business:
           heading: Your business or organisation
       print_link: Print your results
+      accounts:
+        results_differ:
+          message: These results are different to the ones saved in your account.
+          description: You can <a class="govuk-link" href="%{link}">see what answers you’ve changed and save these results to your account instead.</a>
+        results_saved:
+          message: Success
+          description: Your results have been saved.
