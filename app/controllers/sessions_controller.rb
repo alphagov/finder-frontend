@@ -35,7 +35,7 @@ class SessionsController < ApplicationController
       cookies[:cookies_policy] = cookies_policy.merge(usage: true).to_json
     end
 
-    redirect_to callback[:redirect_path] || transition_checker_questions_path
+    redirect_if_not_test(callback[:redirect_path] || Plek.find("account-manager"))
   end
 
   def delete
