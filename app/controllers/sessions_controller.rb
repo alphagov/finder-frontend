@@ -35,7 +35,7 @@ class SessionsController < ApplicationController
       cookies[:cookies_policy] = cookies_policy.merge(usage: true).to_json
     end
 
-    redirect_if_not_test(callback[:redirect_path] || Plek.find("account-manager"))
+    redirect_if_not_test(callback[:redirect_path] || default_redirect_path)
   end
 
   def delete
@@ -51,5 +51,9 @@ protected
     else
       redirect_to url
     end
+  end
+
+  def default_redirect_path
+    Plek.find("account-manager")
   end
 end
