@@ -1,4 +1,6 @@
 class BrexitCheckerController < ApplicationController
+  include AccountAbTestable
+
   include BrexitCheckerHelper
   include BrexitResultsAbTestable
 
@@ -12,8 +14,9 @@ class BrexitCheckerController < ApplicationController
   before_action :enable_caching, only: %i[show email_signup confirm_email_signup]
   before_action :enable_caching_unless_accounts, only: %i[results]
   before_action :set_account_session_cookie
+  before_action :set_account_variant
 
-  helper_method :subscriber_list_slug, :ab_test_variant, :show_variant?
+  helper_method :subscriber_list_slug, :ab_test_variant, :show_variant?, :account_variant
 
   def show
     all_questions = BrexitChecker::Question.load_all
@@ -144,6 +147,18 @@ private
 
   def enable_caching_unless_accounts
     enable_caching unless accounts_enabled?
+  end
+
+  def set_account_variant
+    return unless accounts_enabled?
+    return unless show_signed_in_header? || show_signed_out_header?
+
+    account_variant.configure_response(response)
+
+    set_slimmer_headers(
+      remove_search: true,
+      show_accounts: show_signed_in_header? ? "signed-in" : "signed-out",
+    )
   end
 
   def results_from_account
