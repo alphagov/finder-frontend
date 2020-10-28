@@ -3,6 +3,7 @@
   <% unless params[:page] %>
     <meta name="robots" content="noindex">
   <% end %>
+  <%= account_variant.analytics_meta_tag.html_safe %>
 <% end %>
 
 <div class="govuk-width-container">
