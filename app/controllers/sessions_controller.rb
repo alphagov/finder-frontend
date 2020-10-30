@@ -2,19 +2,13 @@ class SessionsController < ApplicationController
   before_action :check_accounts_enabled
 
   def create
-    if logged_in?
-      redirect_to default_redirect_path
-      return
-    end
+    redirect_to Plek.find("account-manager") and return if logged_in?
 
     redirect_if_not_test Services.oidc.auth_uri(redirect_path: params["redirect_path"])[:uri]
   end
 
   def callback
-    unless params[:code]
-      redirect_to default_redirect_path
-      return
-    end
+    redirect_to Plek.new.website_root and return unless params[:code]
 
     state = params.require(:state)
 
@@ -35,12 +29,19 @@ class SessionsController < ApplicationController
       cookies[:cookies_policy] = cookies_policy.merge(usage: true).to_json
     end
 
-    redirect_if_not_test(callback[:redirect_path] || default_redirect_path)
+    redirect_if_not_test(callback[:redirect_path] || Plek.find("account-manager"))
   end
 
   def delete
-    logout!
-    redirect_if_not_test Plek.new.website_root
+    if params[:continue]
+      logout!
+      redirect_if_not_test URI.join(Plek.find("account-manager"), "logout", "?done=1")
+    elsif params[:done]
+      logout!
+      redirect_if_not_test Plek.new.website_root
+    else
+      redirect_if_not_test URI.join(Plek.find("account-manager"), "logout", "?continue=1")
+    end
   end
 
 protected
@@ -51,9 +52,5 @@ protected
     else
       redirect_to url
     end
-  end
-
-  def default_redirect_path
-    Plek.find("account-manager")
   end
 end
