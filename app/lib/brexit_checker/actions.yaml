@@ -118,7 +118,7 @@ actions:
   lead_time: It takes at least 4 months
   guidance_prompt: More information
   guidance_link_text: Pet travel to Europe from 2021
-  guidance_url: https://www.gov.uk/guidance/pet-travel-to-europe-after-brexit
+  guidance_url: https://www.gov.uk/guidance/pet-travel-to-europe-from-1-january-2021
   criteria:
   - all_of:
     - living-uk
@@ -220,6 +220,26 @@ actions:
   audience: citizen
   grouping_criteria:
   - living-uk
+- id: S017
+  priority: 2
+  title: Apply for Qualified Teacher Status (QTS) to teach in England if you qualified
+    to teach in the EU
+  title_url: https://teacherservices.education.gov.uk/MutualRecognition
+  consequence: You will not be able to start or continue teaching in England at schools
+    that require Qualified Teacher Status (QTS) if you do not apply.
+  guidance_prompt: More information
+  guidance_link_text: 'Qualified teacher status (QTS): qualify to teach in England'
+  guidance_url: https://www.gov.uk/guidance/applying-for-qualified-teacher-status-qts-from-1-january-2021
+  criteria:
+  - any_of:
+    - all_of:
+      - education
+      - living-uk
+      - nationality-eu
+    - nationality-ie
+  audience: citizen
+  grouping_criteria:
+  - working-uk
 - id: S022
   priority: 2
   title: Check if you need an International Driving Permit before you drive in the
@@ -228,7 +248,7 @@ actions:
     the correct documents.
   guidance_prompt: More information
   guidance_link_text: Driving abroad
-  guidance_url: https://www.gov.uk/driving-abroad
+  guidance_url: https://www.gov.uk/guidance/driving-in-the-eu-from-1-january-2021
   criteria:
   - all_of:
     - living-uk
@@ -272,13 +292,9 @@ actions:
     - all_of:
       - nationality-uk
       - visiting-eu
-    - all_of:
-      - nationality-eu
-      - visiting-uk
     - travel-eu-business
   audience: citizen
   grouping_criteria:
-  - visiting-uk
   - visiting-eu
 - id: S026
   priority: 2
@@ -703,12 +719,11 @@ actions:
 - id: T035
   priority: 6
   title: Register as an approved food establishment to export food to the EU
-  title_url: https://www.food.gov.uk/business-guidance/applying-for-approval-of-a-food-establishment
   consequence: You will not be able to export food to the EU if you do not register.
   lead_time: It takes up to 4 weeks
   guidance_prompt: More information
-  guidance_link_text: Exporting animals and animal products from 2021
-  guidance_url: https://www.gov.uk/guidance/exporting-animals-animal-products-fish-and-fishery-products-if-the-uk-leaves-the-eu-with-no-deal
+  guidance_link_text: Applying for approval of a food establishment
+  guidance_url: https://www.food.gov.uk/business-guidance/applying-for-approval-of-a-food-establishment
   criteria:
   - all_of:
     - any_of:
@@ -724,8 +739,8 @@ actions:
   consequence: You risk not being able to sell goods in the EU if they're labelled
     incorrectly.
   guidance_prompt: More information
-  guidance_link_text: Food labelling changes from 2021
-  guidance_url: https://www.gov.uk/guidance/food-labelling-changes-after-brexit
+  guidance_link_text: Food and drink labelling changes from 1 January 2021
+  guidance_url: https://www.gov.uk/guidance/food-and-drink-labelling-changes-from-1-january-2021
   criteria:
   - any_of:
     - food-drink-tobacco
@@ -824,7 +839,7 @@ actions:
     if you do not have the right documents.
   guidance_prompt: More information
   guidance_link_text: Export fish from 2021
-  guidance_url: https://www.gov.uk/guidance/exporting-and-importing-fish-if-theres-no-brexit-deal
+  guidance_url: https://www.gov.uk/guidance/export-fish-to-the-eu-from-1-january-2021
   criteria:
   - any_of:
     - marine-transport
@@ -888,14 +903,13 @@ actions:
   audience: business
 - id: T063
   priority: 6
-  title: Check what documents you need to run unscheduled bus or coach services in
-    Europe
-  consequence: You risk not being able to run unscheduled services in Europe if you
-    do not have the right documents.
+  title: Check what documents you need to run bus or coach services in EU countries
+  consequence: You may not be able to run bus or coach services in EU countries if
+    you do have the right documents or not request authorisation in time.
   guidance_prompt: More information
   guidance_link_text: 'International bus and coach services: operator licences and
     permits'
-  guidance_url: https://www.gov.uk/guidance/overseas-bus-and-coach-services-how-to-apply-for-authorisation
+  guidance_url: https://www.gov.uk/guidance/run-international-bus-or-coach-services-and-tours-from-1-january-2021
   criteria:
   - any_of:
     - tourism
@@ -977,18 +991,6 @@ actions:
   guidance_url: https://www.gov.uk/settled-status-eu-citizens-families
   criteria:
   - employ-eu-citizens
-  audience: business
-- id: T078
-  priority: 6
-  title: Check what documents you need to run scheduled bus or coach services in EU
-    countries
-  consequence: You may not be able to run regular bus or coach services in EU countries
-    if you do not request authorisation in time.
-  guidance_link_text: 'International bus and coach services: operator licences and
-    permits'
-  guidance_url: https://www.gov.uk/guidance/overseas-bus-and-coach-services-how-to-apply-for-authorisation
-  criteria:
-  - road-passenger-freight
   audience: business
 - id: T080
   priority: 2
@@ -1108,18 +1110,22 @@ actions:
   audience: business
 - id: T090
   priority: 8
-  title: Export animals or products of animal origin (POAO) through the right EU border
-    inspection post and prepare the right documents
+  title: Export animals or products of animal origin (POAO) through the right EU or
+    Northern Ireland border inspection post and prepare the right documents
   consequence: You risk your animals or products being delayed or rejected when they
-    reach the EU if you do not have the right documents or go through the wrong border
-    post.
+    reach the EU or Northern Ireland if you do not have the right documents or go
+    through the wrong border post.
   lead_time: It takes up to 3 days to get the right documents
   guidance_prompt: More information
-  guidance_link_text: Exporting animals and animal products to the EU from 1 January
-    2021
-  guidance_url: https://www.gov.uk/guidance/exporting-animals-animal-products-fish-and-fishery-products-if-the-uk-leaves-the-eu-with-no-deal
+  guidance_link_text: Exporting animals and animal products to the EU or Northern
+    Ireland from 1 January 2021
+  guidance_url: https://www.gov.uk/guidance/exporting-animals-and-animal-products-to-the-eu-from-1-january-2021
   criteria:
-  - animal-ex-food
+  - any_of:
+    - food-drink-tobacco
+    - animal-ex-food
+    - fish-inc-wholesale
+    - agriculture-farm
   audience: business
 - id: T091
   priority: 3
@@ -1153,7 +1159,7 @@ actions:
     if you do not have the correct licences.
   guidance_prompt: More information
   guidance_link_text: Trading in drug precursors from 2021
-  guidance_url: https://www.gov.uk/government/publications/trading-in-drug-precursors-if-theres-no-brexit-deal
+  guidance_url: https://www.gov.uk/government/publications/trading-in-drug-precursors-from-1-january-2021
   criteria:
   - all_of:
     - any_of:
@@ -1479,25 +1485,27 @@ actions:
   audience: business
 - id: T115
   priority: 2
-  title: Register with HSE to find out when guidance on the duties for classifying,
-    labelling and packaging chemicals for the GB market is available
-  consequence: You must make sure chemicals are classified, labelled and packaged
-    according to GB regulations.
+  title: Make sure chemicals are classified, labelled and packaged according to GB
+    regulations
+  consequence: You will not be able to place chemicals on the market unless they follow
+    the classification, labelling and packaging regulations.
   guidance_prompt: More information
-  guidance_link_text: 'Brexit: Chemicals industry guidance'
-  guidance_url: https://www.hse.gov.uk/brexit/chemicals-brexit-guidance.htm?utm_source=gov.uk&utm_medium=referral&utm_campaign=eu-transition&utm_content=checker-tool
+  guidance_link_text: Chemicals classification, labelling and packaging (CLP) after
+    the transition period
+  guidance_url: https://www.hse.gov.uk/brexit/clp.htm?utm_source=gov.uk&utm_medium=referral&utm_campaign=eu-transition&utm_term=clp&utm_content=checker-tool
   criteria:
   - chemical
   audience: business
 - id: T116
   priority: 2
-  title: Register with HSE to find out when guidance on processes for biocidal active
-    substance approval and product authorisation is available
-  consequence: You may have delays in getting access to the right materials to continue
-    with your work.
+  title: Get approval and product authorisations for new biocidal active substances
+    for the GB market from 1 January 2021
+  consequence: You will not be able to place new biocidal active substances on the
+    GB market without approval.
   guidance_prompt: More information
-  guidance_link_text: 'Brexit: Chemicals industry guidance'
-  guidance_url: https://www.hse.gov.uk/brexit/chemicals-brexit-guidance.htm?utm_source=gov.uk&utm_medium=referral&utm_campaign=eu-transition&utm_content=checker-tool
+  guidance_link_text: 'Biocides: What you''ll need to do after the transition period
+    ends'
+  guidance_url: https://www.hse.gov.uk/brexit/biocides.htm?utm_source=gov.uk&utm_medium=referral&utm_campaign=eu-transition&utm_term=biocides&utm_content=checker-tool
   criteria:
   - chemical
   audience: business
@@ -1558,4 +1566,18 @@ actions:
   - all_of:
     - owns-operates-business-organisation-uk
     - employ-eu-citizens
+  audience: business
+- id: T121
+  priority: 6
+  title: Check what you need to do if your business handles animal feed, or you export
+    animal feed to the EU
+  consequence: You may not be able to trade or move your goods if you do not follow
+    the new rules.
+  guidance_prompt: More information
+  guidance_link_text: Exporting GM food and animal feed products from 1 January 2021
+  guidance_url: https://www.gov.uk/guidance/exporting-gm-food-and-animal-feed-products-after-31-december-2020
+  criteria:
+  - all_of:
+    - export-to-eu
+    - animal-ex-food
   audience: business
