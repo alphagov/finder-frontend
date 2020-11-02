@@ -64,18 +64,6 @@ RSpec.describe SearchResultPresenter do
           text: title,
           path: link,
           description: "I am a document.",
-          data_attributes: {
-            ecommerce_path: link,
-            ecommerce_row: 1,
-            ecommerce_index: 1,
-            track_category: "navFinderLinkClicked",
-            track_action: "finder-title.1",
-            track_label: link,
-            track_options: {
-              dimension28: 10,
-              dimension29: title,
-            },
-          },
         },
         metadata: {},
         metadata_raw: [],
@@ -105,19 +93,6 @@ RSpec.describe SearchResultPresenter do
               text: "I am a part title",
               path: "#{link}/part-path",
               description: "Part description",
-              data_attributes: {
-                ecommerce_path: "#{link}/part-path",
-                ecommerce_row: 1,
-                ecommerce_index: 1,
-                track_category: "navFinderLinkClicked",
-                track_action: "finder-title.1.1",
-                track_label: "#{link}/part-path",
-                track_options: {
-                  dimension22: 1,
-                  dimension28: 10,
-                  dimension29: "I am a part title",
-                },
-              },
             },
           },
         ]

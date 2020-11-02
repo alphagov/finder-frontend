@@ -133,18 +133,6 @@ RSpec.describe ResultSetPresenter do
             text: "document_title",
             path: "/path/to/doc",
             description: "document_description",
-            data_attributes: {
-              ecommerce_path: "/path/to/doc",
-              ecommerce_row: 1,
-              ecommerce_index: 1,
-              track_category: "navFinderLinkClicked",
-              track_action: "A finder.1",
-              track_label: "/path/to/doc",
-              track_options: {
-                dimension28: 1,
-                dimension29: "document_title",
-              },
-            },
           },
           metadata: {
             "Organisations" => "Organisations: Department for Work and Pensions",
