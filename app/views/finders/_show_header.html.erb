@@ -67,7 +67,9 @@
     <% if content_item.summary %>
       <div class="govuk-grid-column-two-thirds">
         <div class="metadata-summary ">
-          <%= render 'govuk_publishing_components/components/govspeak', content: content_item.summary.html_safe %>
+          <%= render 'govuk_publishing_components/components/govspeak', {} do %>
+            <%= sanitize(content_item.summary) %>
+          <% end %>
         </div>
       </div>
     <% end %>

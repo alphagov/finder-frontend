@@ -7,9 +7,9 @@
 <%
   formatted_description = nil
   if @current_question.description
-    formatted_description = render("govuk_publishing_components/components/govspeak", {
-      content: @current_question.description.html_safe
-    })
+    formatted_description = render "govuk_publishing_components/components/govspeak", {} do
+      sanitize(@current_question.description)
+    end
   end
 %>
 
