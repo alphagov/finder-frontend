@@ -5,7 +5,7 @@ en:
       heading: You’ve changed your answer to some questions
       table:
         question: Question
-        old_answer: Old answer
+        old_answer: Previous answer
         new_answer: New answer
       message: Saving your new answers will automatically update your email notifications at the same time.
       save_button: Save new answers
