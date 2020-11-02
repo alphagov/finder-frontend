@@ -96,6 +96,7 @@ private
       content_item.metadata_class,
       show_top_result?,
       debug_score?,
+      include_ecommerce?,
     )
   end
 
@@ -196,5 +197,12 @@ private
 
   def debug_score?
     params[:debug_score]
+  end
+
+  def include_ecommerce?
+    # this page causes a javascript error because of the number of
+    # results, so disable ecommerce until we have a proper solution to
+    # splitting big GA requests.
+    content_item.base_path != "/government/groups"
   end
 end

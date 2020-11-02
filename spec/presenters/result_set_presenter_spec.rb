@@ -14,11 +14,13 @@ RSpec.describe ResultSetPresenter do
       metadata_presenter_class,
       show_top_result,
       debug_score,
+      enable_ecommerce,
     )
   end
 
   let(:show_top_result) { false }
   let(:debug_score) { false }
+  let(:enable_ecommerce) { true }
 
   let(:finder_content_id) { "content_id" }
 
@@ -179,6 +181,47 @@ RSpec.describe ResultSetPresenter do
       it "shows debug metadata" do
         search_result_objects = subject.search_results_content[:document_list_component_data]
         expect(search_result_objects.first[:subtext]).to eql(expected_document_content_with_debug)
+      end
+    end
+
+    context "with ecommerce disabled" do
+      let(:enable_ecommerce) { false }
+      let(:results) do
+        [FactoryBot.build(
+          :document_hash,
+          content_id: "content_id",
+          link: "/path/to/doc",
+          title: "document_title",
+          description_with_highlighting: "document_description",
+        )]
+      end
+
+      it "doesn't include ecommerce attributes" do
+        expected_hash = {
+          link: {
+            text: "document_title",
+            path: "/path/to/doc",
+            description: "document_description",
+            data_attributes: {},
+          },
+          metadata: {
+            "Organisations" => "Organisations: Department for Work and Pensions",
+          },
+          metadata_raw: [
+            {
+              id: "organisations",
+              label: "Organisations",
+              value: "Department for Work and Pensions",
+              labels: ["Department for Work and Pensions"],
+              is_text: true,
+            },
+          ],
+          subtext: nil,
+          parts: [],
+        }
+
+        search_result_objects = subject.search_results_content[:document_list_component_data]
+        expect(search_result_objects.first).to eql(expected_hash)
       end
     end
   end

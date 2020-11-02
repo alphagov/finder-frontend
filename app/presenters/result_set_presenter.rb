@@ -2,11 +2,11 @@ class ResultSetPresenter
   include ERB::Util
   include ActionView::Helpers::NumberHelper
 
-  attr_reader :pluralised_document_noun, :debug_score, :start_offset
+  attr_reader :pluralised_document_noun, :debug_score, :start_offset, :include_ecommerce
 
   delegate :atom_url, to: :content_item
 
-  def initialize(content_item, facets, results, filter_params, sort_presenter, metadata_presenter_class, show_top_result = false, debug_score = false)
+  def initialize(content_item, facets, results, filter_params, sort_presenter, metadata_presenter_class, show_top_result = false, debug_score = false, include_ecommerce = true)
     @content_item = content_item
     @facets = facets
     @documents = results.documents
@@ -18,6 +18,7 @@ class ResultSetPresenter
     @show_top_result = show_top_result
     @metadata_presenter_class = metadata_presenter_class
     @debug_score = debug_score
+    @include_ecommerce = include_ecommerce
   end
 
   def displayed_total
@@ -64,6 +65,7 @@ private
         facets: facets,
         content_item: content_item,
         debug_score: debug_score,
+        include_ecommerce: include_ecommerce,
       ).document_list_component_data
     end
   end
