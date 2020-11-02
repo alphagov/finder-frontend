@@ -106,12 +106,22 @@ module BrexitCheckerHelper
 
   def results_comparison(old_criteria_keys, new_criteria_keys)
     answers_diff = BrexitChecker::Question.load_all.map do |question|
-      old_values = question.options.select { |o| old_criteria_keys.include? o.value }
-      new_values = question.options.select { |o| new_criteria_keys.include? o.value }
-      unless old_values == new_values
-        [{ text: question.text }, { text: old_values.map(&:label).join(", ") }, { text: new_values.map(&:label).join(", ") }]
+      flattened_options = flatten_options(question.options)
+      old_values = flattened_options.select { |k, _v| old_criteria_keys.include? k }
+      new_values = flattened_options.select { |k, _v| new_criteria_keys.include? k }
+      unless old_values.keys == new_values.keys
+        [{ text: question.text }, { text: old_values.values.join(", ") }, { text: new_values.values.join(", ") }]
       end
     end
     answers_diff.compact
+  end
+
+  def flatten_options(options, hash = nil)
+    hash ||= {}
+    options.each do |option|
+      hash[option.value] = option.label if option.value
+      flatten_options(option.sub_options, hash)
+    end
+    hash
   end
 end
