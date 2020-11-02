@@ -11,13 +11,14 @@ class SearchResultPresenter
            :original_rank,
            to: :document
 
-  def initialize(document:, rank:, metadata_presenter_class:, doc_count:, facets:, content_item:, debug_score:)
+  def initialize(document:, rank:, metadata_presenter_class:, doc_count:, facets:, content_item:, debug_score:, include_ecommerce: true)
     @document = document
     @rank = rank
     @metadata = metadata_presenter_class.new(document.metadata(facets)).present
     @count = doc_count
     @debug_score = debug_score
     @content_item = content_item
+    @include_ecommerce = include_ecommerce
   end
 
   def document_list_component_data
@@ -92,6 +93,8 @@ private
   end
 
   def ecommerce_data(link, title, part_index: nil)
+    return {} unless @include_ecommerce
+
     {
       ecommerce_path: link,
       ecommerce_row: 1,
