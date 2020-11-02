@@ -38,7 +38,7 @@ class SessionsController < ApplicationController
       redirect_if_not_test "#{account_manager_url}/logout?done=1"
     elsif params[:done]
       logout!
-      redirect_if_not_test Plek.new.website_root
+      redirect_if_not_test "/transition"
     else
       redirect_if_not_test "#{account_manager_url}/logout?continue=1"
     end
