@@ -200,9 +200,13 @@ private
   end
 
   def include_ecommerce?
-    # this page causes a javascript error because of the number of
+    # these pages cause a javascript error because of the number of
     # results, so disable ecommerce until we have a proper solution to
     # splitting big GA requests.
-    content_item.base_path != "/government/groups"
+    %w[
+      /government/groups
+      /world/organisations
+      /government/organisations/hm-revenue-customs/contact
+    ].exclude?(content_item.base_path)
   end
 end
