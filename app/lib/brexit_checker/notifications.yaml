@@ -261,3 +261,21 @@ notifications:
     type: addition
     action_id: T120
     date: 2020-10-12
+  - uuid: "cfc24346-a457-4859-863d-86ef25195075"
+    type: addition
+    action_id: T121
+    date: 2020-11-02
+  - uuid: "565704ca-1e9e-4ac4-9225-6001172af5b9"
+    type: content_change
+    action_id: T115
+    date: 2020-11-02
+    note: "Link now points to new guidance on chemical classification, labelling and packaging."
+  - uuid: "16a88af0-aef9-4322-a899-de1f96f25e49"
+    type: content_change
+    action_id: T116
+    date: 2020-11-02
+    note: "Link now points to new guidance on getting approval and product authorisation for biocidal substances."
+  - uuid: "f955e4e7-eb4c-4044-b527-24e7b07308e0"
+    type: addition
+    action_id: S017
+    date: 2020-11-02
