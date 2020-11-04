@@ -35,7 +35,7 @@ class SessionsController < ApplicationController
   def delete
     if params[:continue]
       logout!
-      redirect_if_not_test "#{account_manager_url}/logout?done=1"
+      redirect_if_not_test "#{account_manager_url}/logout?done=#{params[:continue]}"
     elsif params[:done]
       logout!
       redirect_if_not_test "/transition"
