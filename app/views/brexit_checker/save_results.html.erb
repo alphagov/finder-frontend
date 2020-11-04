@@ -68,6 +68,7 @@
 
         <%= form_tag Services.accounts_api, id: "account-signup", class: "account-signup" do %>
           <input type="hidden" name="jwt" value="<%= @account_jwt %>">
+          <input id="cross_domain_ga" type="hidden" name="cross_domain_ga" value="">
           <%= render "govuk_publishing_components/components/button", {
             text: t('brexit_checker.account_signup.cta_button'),
             margin_bottom: true,
