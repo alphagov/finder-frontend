@@ -1,0 +1,13 @@
+function attachCrossDomainTrackerToInput(form_input, trackers) {
+  if (trackers.length) {
+    form_input.value = trackers[0].model.data.ea[":clientId"]
+  }
+}
+
+var form_input = document.getElementById("cross_domain_ga");
+var trackers = ga.getAll();
+
+document.addEventListener('turbolinks:load', function() {
+  attachCrossDomainTrackerToInput(form_input, trackers)
+});
+
