@@ -17,7 +17,7 @@ class BrexitChecker::Validators::GroupValidator < ActiveModel::Validator
 private
 
   def validate_citizen_group(record)
-    unless CITIZEN_KEYS.include? record.key
+    unless CITIZEN_KEYS.include?(record.key)
       record.errors[:key] << "is not included in the list"
     end
   end
