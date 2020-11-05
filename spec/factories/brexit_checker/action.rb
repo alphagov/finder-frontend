@@ -6,6 +6,7 @@ FactoryBot.define do
     priority { 5 }
     criteria { %w[construction] }
     audience { "business" }
+    grouping_criteria { %w[placeholder-grouping-1] }
 
     sequence(:id) { |n| "Action#{n}" }
 

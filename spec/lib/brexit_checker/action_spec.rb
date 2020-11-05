@@ -13,7 +13,7 @@ RSpec.describe BrexitChecker::Action do
     let(:action_missing_link_text) { FactoryBot.build(:brexit_checker_action, guidance_url: "/brexity_fun") }
     let(:action_with_invalid_priority) { FactoryBot.build(:brexit_checker_action, priority: "high") }
     let(:action_with_missing_criteria) { FactoryBot.build(:brexit_checker_action, criteria: []) }
-    let(:action_with_missing_grouping_criteria) { FactoryBot.build(:brexit_checker_action, :citizen, grouping_criteria: nil) }
+    let(:action_with_missing_grouping_criteria) { FactoryBot.build(:brexit_checker_action, grouping_criteria: nil) }
 
     it "id, title, consequence and criteria can't be blank" do
       message = "Validation failed: Id can't be blank, Title can't be blank, Consequence can't be blank"
@@ -40,8 +40,8 @@ RSpec.describe BrexitChecker::Action do
       expect { action_with_missing_criteria.valid? }.to raise_error(ActiveModel::ValidationError, message)
     end
 
-    it "must have grouping criteria if a citizen action" do
-      message = "Validation failed: Grouping criteria can't be empty for citizen actions"
+    it "must have grouping criteria" do
+      message = "Validation failed: Grouping criteria can't be blank"
       expect { action_with_missing_grouping_criteria.valid? }.to raise_error(ActiveModel::ValidationError, message)
     end
   end

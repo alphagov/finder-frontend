@@ -426,6 +426,8 @@ actions:
     - employ-eu-citizens
     - provide-services-do-business-in-eu
   audience: business
+  grouping_criteria:
+  - placeholder-grouping-1
 - id: T007
   priority: 2
   title: Check if you need to change how you do accounting and reporting
@@ -437,6 +439,8 @@ actions:
   criteria:
   - provide-services-do-business-in-eu
   audience: business
+  grouping_criteria:
+  - placeholder-grouping-1
 - id: T010
   priority: 5
   title: Check if your existing UK Civil Aviation Authority or EASA certificates and
@@ -452,6 +456,8 @@ actions:
     - aero-space
     - air-passenger-freight
   audience: business
+  grouping_criteria:
+  - placeholder-grouping-1
 - id: T011
   priority: 5
   title: Check if you need to change your contracts to broadcast licensed content
@@ -471,6 +477,8 @@ actions:
       - personal-eu-org-provide
       - ip-copyright
   audience: business
+  grouping_criteria:
+  - placeholder-grouping-1
 - id: T012
   priority: 5
   title: Check the new rules for parallel exporting IP protected goods from the UK
@@ -492,6 +500,8 @@ actions:
       - ip-patents
       - ip-exhaustion-rights
   audience: business
+  grouping_criteria:
+  - placeholder-grouping-1
 - id: T013
   priority: 5
   title: Check contracts relating to EU space programmes with your contracting authority
@@ -502,6 +512,8 @@ actions:
   criteria:
   - aero-space
   audience: business
+  grouping_criteria:
+  - placeholder-grouping-1
 - id: T014
   priority: 5
   title: Check if you need to find replacement data or services if you use the Copernicus
@@ -513,6 +525,8 @@ actions:
   criteria:
   - aero-space
   audience: business
+  grouping_criteria:
+  - placeholder-grouping-1
 - id: T016
   priority: 5
   title: Find out how to comply with the new UK nuclear safeguards arrangements
@@ -524,6 +538,8 @@ actions:
   criteria:
   - nuclear
   audience: business
+  grouping_criteria:
+  - placeholder-grouping-1
 - id: T017
   priority: 5
   title: Register to use the open general export licence to export 'dual use' nuclear
@@ -536,6 +552,8 @@ actions:
   criteria:
   - nuclear
   audience: business
+  grouping_criteria:
+  - placeholder-grouping-1
 - id: T018
   priority: 5
   title: Get a licence to import certain nuclear materials into the UK
@@ -549,6 +567,8 @@ actions:
   criteria:
   - nuclear
   audience: business
+  grouping_criteria:
+  - placeholder-grouping-2
 - id: T019
   priority: 5
   title: Make sure you have the right authorisations to ship radioactive waste and
@@ -560,6 +580,8 @@ actions:
   criteria:
   - nuclear
   audience: business
+  grouping_criteria:
+  - placeholder-grouping-2
 - id: T020
   priority: 5
   title: Check the rules for moving radioactive sources into the UK
@@ -573,6 +595,8 @@ actions:
     - nuclear
     - mining
   audience: business
+  grouping_criteria:
+  - placeholder-grouping-2
 - id: T021
   priority: 5
   title: Check what documents you and your employees need to make and operate aircraft
@@ -590,6 +614,8 @@ actions:
     - air-passenger-freight
     - oil-gas-coal
   audience: business
+  grouping_criteria:
+  - placeholder-grouping-2
 - id: T022
   priority: 6
   title: Check if you need to change your contract to keep accessing personal data
@@ -606,6 +632,8 @@ actions:
     - personal-eu-org-use
     - personal-eu-org-provide
   audience: business
+  grouping_criteria:
+  - placeholder-grouping-2
 - id: T023
   priority: 5
   title: Check the rules you need to follow if you're a broadcaster or provider of
@@ -620,6 +648,8 @@ actions:
     - media
     - digital
   audience: business
+  grouping_criteria:
+  - placeholder-grouping-2
 - id: T025
   priority: 5
   title: Get permission to take creative, cultural and sports goods into and out of
@@ -634,6 +664,8 @@ actions:
     - sports
     - culture
   audience: business
+  grouping_criteria:
+  - placeholder-grouping-2
 - id: T026
   priority: 5
   title: Appoint a representative in the EU if you run a large UK-based online business
@@ -650,6 +682,8 @@ actions:
     - telecoms
     - personal-eu-org-provide
   audience: business
+  grouping_criteria:
+  - placeholder-grouping-2
 - id: T028
   priority: 8
   title: Export fish through the right EU border inspection post and prepare the right
@@ -667,6 +701,8 @@ actions:
     - postal-couriers
     - fish-inc-wholesale
   audience: business
+  grouping_criteria:
+  - placeholder-grouping-2
 - id: T032
   priority: 8
   title: Check the rules on moving plants and plant products between the UK and the
@@ -685,6 +721,8 @@ actions:
       - export-to-eu
       - import-from-eu
   audience: business
+  grouping_criteria:
+  - placeholder-grouping-2
 - id: T033
   priority: 8
   title: Get the right certificates of conformity to move fruit and vegetables into
@@ -702,6 +740,8 @@ actions:
       - agriculture-farm
       - food-drink-tobacco
   audience: business
+  grouping_criteria:
+  - placeholder-grouping-3
 - id: T034
   priority: 6
   title: Check how to register or label food or drink with a protected name
@@ -716,6 +756,8 @@ actions:
     - agriculture-farm
     - food-drink-tobacco
   audience: business
+  grouping_criteria:
+  - placeholder-grouping-3
 - id: T035
   priority: 6
   title: Register as an approved food establishment to export food to the EU
@@ -733,6 +775,8 @@ actions:
       - agriculture-farm
     - export-to-eu
   audience: business
+  grouping_criteria:
+  - placeholder-grouping-3
 - id: T036
   priority: 6
   title: Check how to label food if you're selling it in the UK or EU
@@ -748,6 +792,8 @@ actions:
     - fish-inc-wholesale
     - agriculture-farm
   audience: business
+  grouping_criteria:
+  - placeholder-grouping-3
 - id: T038
   priority: 5
   title: Check if you can export organic food to the EU, and how to label and trade
@@ -765,6 +811,8 @@ actions:
       - agriculture-farm
     - export-to-eu
   audience: business
+  grouping_criteria:
+  - placeholder-grouping-3
 - id: T044
   priority: 5
   title: Enrol with the Rural Payments Agency to prepare to export hops to the EU
@@ -779,6 +827,8 @@ actions:
     - food-drink-tobacco
     - agriculture-farm
   audience: business
+  grouping_criteria:
+  - placeholder-grouping-3
 - id: T045
   priority: 6
   title: Print 'GB', 'GBR' or '826' on each egg you're exporting to the EU for people
@@ -791,6 +841,8 @@ actions:
   criteria:
   - agriculture-farm
   audience: business
+  grouping_criteria:
+  - placeholder-grouping-3
 - id: T046
   priority: 6
   title: Check how to mark hatching eggs and boxes of chicks that you're exporting
@@ -803,6 +855,8 @@ actions:
   criteria:
   - agriculture-farm
   audience: business
+  grouping_criteria:
+  - placeholder-grouping-3
 - id: T047
   priority: 6
   title: Get a certificate to export poultry meat to the EU if the meat is printed
@@ -817,6 +871,8 @@ actions:
   criteria:
   - agriculture-farm
   audience: business
+  grouping_criteria:
+  - placeholder-grouping-3
 - id: T050
   priority: 7
   title: Get an International Maritime Organisation (IMO) number if your fishing boat
@@ -832,6 +888,8 @@ actions:
     - marine-transport
     - fish-inc-wholesale
   audience: business
+  grouping_criteria:
+  - placeholder-grouping-3
 - id: T051
   priority: 5
   title: Check what you need to do to land your fish catch at a port in the EU
@@ -845,6 +903,8 @@ actions:
     - marine-transport
     - fish-inc-wholesale
   audience: business
+  grouping_criteria:
+  - placeholder-grouping-4
 - id: T052
   priority: 8
   title: Register your chemicals to an organisation based in the EU if you want to
@@ -858,6 +918,8 @@ actions:
   criteria:
   - chemical
   audience: business
+  grouping_criteria:
+  - placeholder-grouping-4
 - id: T057
   priority: 4
   title: Check which carbon pricing policies you need to comply with
@@ -890,6 +952,8 @@ actions:
     - digital
     - telecoms
   audience: business
+  grouping_criteria:
+  - placeholder-grouping-4
 - id: T059
   priority: 3
   title: Check whether any wood packaging you use meets ISPM15 international standards
@@ -901,6 +965,8 @@ actions:
   criteria:
   - export-to-eu
   audience: business
+  grouping_criteria:
+  - placeholder-grouping-4
 - id: T063
   priority: 6
   title: Check what documents you need to run bus or coach services in EU countries
@@ -915,6 +981,8 @@ actions:
     - tourism
     - road-passenger-freight
   audience: business
+  grouping_criteria:
+  - placeholder-grouping-4
 - id: T065
   priority: 7
   title: Check what documents you need to transport goods through the EU if you’re
@@ -929,6 +997,8 @@ actions:
     - road-passenger-freight
     - haulage-goods-across-eu-borders
   audience: business
+  grouping_criteria:
+  - placeholder-grouping-4
 - id: T066
   priority: 5
   title: Check how to get approval to sell vehicles and vehicle parts in the UK and
@@ -945,6 +1015,8 @@ actions:
     - road-passenger-freight
     - motor-trade
   audience: business
+  grouping_criteria:
+  - placeholder-grouping-4
 - id: T071
   priority: 8
   title: Get an EORI number that starts with GB to move your goods into or out of
@@ -964,6 +1036,8 @@ actions:
     - haulage-goods-across-eu-borders
     - road-passenger-freight
   audience: business
+  grouping_criteria:
+  - placeholder-grouping-4
 - id: T075
   priority: 8
   title: Register for a quicker way to move your goods to the EU, Switzerland, Norway,
@@ -980,6 +1054,8 @@ actions:
     - export-to-eu
     - haulage-goods-across-eu-borders
   audience: business
+  grouping_criteria:
+  - placeholder-grouping-4
 - id: T077
   priority: 2
   title: Encourage your employees to check if they need to apply to the EU Settlement
@@ -992,6 +1068,8 @@ actions:
   criteria:
   - employ-eu-citizens
   audience: business
+  grouping_criteria:
+  - placeholder-grouping-4
 - id: T080
   priority: 2
   title: Check the new rules for unregistered design protection in the UK and EU
@@ -1006,6 +1084,8 @@ actions:
     - ip-copyright
     - ip-designs
   audience: business
+  grouping_criteria:
+  - placeholder-grouping-5
 - id: T081
   priority: 5
   title: Check what you need to do to continue to work or provide legal services in
@@ -1019,6 +1099,8 @@ actions:
   criteria:
   - legal-service
   audience: business
+  grouping_criteria:
+  - placeholder-grouping-5
 - id: T082
   priority: 5
   title: Check what you need to do if you own a UK legal services business
@@ -1030,6 +1112,8 @@ actions:
   criteria:
   - legal-service
   audience: business
+  grouping_criteria:
+  - placeholder-grouping-5
 - id: T085
   priority: 1
   title: Get your UK qualification recognised if you want to work in a regulated profession
@@ -1045,6 +1129,8 @@ actions:
     - legal-service
     - construction
   audience: business
+  grouping_criteria:
+  - placeholder-grouping-5
 - id: T086
   priority: 5
   title: Check if you need to apply for plant variety rights to market seeds in the
@@ -1062,6 +1148,8 @@ actions:
     - agriculture-farm
     - forestry
   audience: business
+  grouping_criteria:
+  - placeholder-grouping-5
 - id: T087
   priority: 8
   title: Check if you need to get a phytosanitary certificate to export plants to
@@ -1078,6 +1166,8 @@ actions:
     - forestry
     - food-drink-tobacco
   audience: business
+  grouping_criteria:
+  - placeholder-grouping-5
 - id: T088
   priority: 5
   title: If you buy chemicals from the EU, you will need to register on the new UK
@@ -1093,6 +1183,8 @@ actions:
     - chemical
     - import-from-eu
   audience: business
+  grouping_criteria:
+  - placeholder-grouping-5
 - id: T089
   priority: 5
   title: Ask your vet what you need to do before you take your horse or other equine
@@ -1108,6 +1200,8 @@ actions:
     - animal-ex-food
     - sports
   audience: business
+  grouping_criteria:
+  - placeholder-grouping-5
 - id: T090
   priority: 8
   title: Export animals or products of animal origin (POAO) through the right EU or
@@ -1127,6 +1221,8 @@ actions:
     - fish-inc-wholesale
     - agriculture-farm
   audience: business
+  grouping_criteria:
+  - placeholder-grouping-6
 - id: T091
   priority: 3
   title: Check guidance on the Kimberly Process Certification Scheme for trading rough
@@ -1139,6 +1235,8 @@ actions:
   criteria:
   - diamond
   audience: business
+  grouping_criteria:
+  - placeholder-grouping-6
 - id: T092
   priority: 5
   title: Check the rules on moving timber and timber products between the UK and the
@@ -1151,6 +1249,8 @@ actions:
   criteria:
   - forestry
   audience: business
+  grouping_criteria:
+  - placeholder-grouping-6
 - id: T093
   priority: 5
   title: Check if you need new licences for any drug precursor chemicals you import
@@ -1170,6 +1270,8 @@ actions:
       - export-to-eu
       - import-from-eu
   audience: business
+  grouping_criteria:
+  - placeholder-grouping-6
 - id: T096
   priority: 2
   title: Check the rules on moving waste between the UK and the EU
@@ -1185,6 +1287,8 @@ actions:
       - import-from-eu
       - export-to-eu
   audience: business
+  grouping_criteria:
+  - placeholder-grouping-6
 - id: T097
   priority: 2
   title: Check if you need a CITES permit when moving endangered animal or plant species
@@ -1201,6 +1305,8 @@ actions:
     - forestry
     - animal-ex-food
   audience: business
+  grouping_criteria:
+  - placeholder-grouping-6
 - id: T098
   priority: 5
   title: Check the rules on making or placing pesticides on the UK market
@@ -1211,6 +1317,8 @@ actions:
   criteria:
   - chemical
   audience: business
+  grouping_criteria:
+  - placeholder-grouping-6
 - id: T099
   priority: 9
   title: Decide how you want to make customs declarations and whether you need to
@@ -1225,6 +1333,8 @@ actions:
     - import-from-eu
     - export-to-eu
   audience: business
+  grouping_criteria:
+  - placeholder-grouping-6
 - id: T100
   priority: 3
   title: Apply for a licence to export cultural objects
@@ -1236,6 +1346,8 @@ actions:
   criteria:
   - culture
   audience: business
+  grouping_criteria:
+  - placeholder-grouping-6
 - id: T101
   priority: 5
   title: Register for a licence to export dual-use items to the EU and Channel Islands 
@@ -1255,6 +1367,8 @@ actions:
     - mining
     - non-metal-material
   audience: business
+  grouping_criteria:
+  - placeholder-grouping-6
 - id: T102
   priority: 9
   title: Find out how to export your goods to the UK if you're an overseas business
@@ -1268,6 +1382,8 @@ actions:
     - owns-operates-business-organisation-eu
     - owns-operates-business-organisation-row
   audience: business
+  grouping_criteria:
+  - placeholder-grouping-7
 - id: T103
   priority: 8
   title: Check if you need to pay a tariff on the goods you import from 1 January
@@ -1280,6 +1396,8 @@ actions:
   criteria:
   - import-from-eu
   audience: business
+  grouping_criteria:
+  - placeholder-grouping-7
 - id: S038
   priority: 6
   title: Sign up for email updates if you're a UK national living in the EU, Switzerland,
@@ -1340,6 +1458,8 @@ actions:
     - road-passenger-freight
     - motor-trade
   audience: business
+  grouping_criteria:
+  - placeholder-grouping-7
 - id: T105
   priority: 4
   title: Check you have the correct EU type approval to continue selling vehicles
@@ -1355,6 +1475,8 @@ actions:
     - road-passenger-freight
     - motor-trade
   audience: business
+  grouping_criteria:
+  - placeholder-grouping-7
 - id: S041
   priority: 9
   title: Check what you need to do to access healthcare in the country you'll be living
@@ -1386,6 +1508,8 @@ actions:
   criteria:
   - export-to-row
   audience: business
+  grouping_criteria:
+  - placeholder-grouping-7
 - id: T107
   priority: 1
   title: Apply for Horizon 2020 funding
@@ -1397,6 +1521,8 @@ actions:
   criteria:
   - eu-uk-funding
   audience: business
+  grouping_criteria:
+  - placeholder-grouping-7
 - id: T108
   priority: 9
   title: Check how to trade or move goods into, out of, or through Northern Ireland
@@ -1409,6 +1535,8 @@ actions:
   criteria:
   - move-goods-ni
   audience: business
+  grouping_criteria:
+  - placeholder-grouping-7
 - id: T109
   priority: 10
   title: Check what you need to do to export to the EU from 1 January 2021
@@ -1418,6 +1546,8 @@ actions:
   criteria:
   - export-to-eu
   audience: business
+  grouping_criteria:
+  - placeholder-grouping-7
 - id: T110
   priority: 10
   title: Check what you need to do to import from the EU from 1 January 2021
@@ -1427,6 +1557,8 @@ actions:
   criteria:
   - import-from-eu
   audience: business
+  grouping_criteria:
+  - placeholder-grouping-7
 - id: T111
   priority: 2
   title: Check if you need to replace your .eu domain name
@@ -1439,6 +1571,8 @@ actions:
   criteria:
   - eu-domain
   audience: business
+  grouping_criteria:
+  - placeholder-grouping-7
 - id: T112
   priority: 9
   title: Register for the UK’s new Import of Products, Animals, Food and Feed System
@@ -1457,6 +1591,8 @@ actions:
       - agriculture-farm
       - food-drink-tobacco
   audience: business
+  grouping_criteria:
+  - placeholder-grouping-7
 - id: T113
   priority: 1
   title: Check the rules for reporting unfair trade practices using the UK's new trade
@@ -1470,6 +1606,8 @@ actions:
   criteria:
   - owns-operates-business-organisation-uk
   audience: business
+  grouping_criteria:
+  - placeholder-grouping-7
 - id: T114
   priority: 2
   title: Check if there's a trade agreement with any non-EU country you're planning
@@ -1483,6 +1621,8 @@ actions:
     - trade-developing
     - export-to-row
   audience: business
+  grouping_criteria:
+  - placeholder-grouping-7
 - id: T115
   priority: 2
   title: Make sure chemicals are classified, labelled and packaged according to GB
@@ -1496,6 +1636,8 @@ actions:
   criteria:
   - chemical
   audience: business
+  grouping_criteria:
+  - placeholder-grouping-7
 - id: T116
   priority: 2
   title: Get approval and product authorisations for new biocidal active substances
@@ -1509,6 +1651,8 @@ actions:
   criteria:
   - chemical
   audience: business
+  grouping_criteria:
+  - placeholder-grouping-7
 - id: T117
   priority: 5
   title: Contact your regulator if you are a UK lawyer working permanently in the
@@ -1524,6 +1668,8 @@ actions:
     - working-eu
     - legal-service
   audience: business
+  grouping_criteria:
+  - placeholder-grouping-7
 - id: T118
   priority: 4
   title: Check the rules for providing online services to the EU, Norway, Iceland
@@ -1538,6 +1684,8 @@ actions:
     - provide-services-do-business-in-eu
     - personal-eu-org-provide
   audience: business
+  grouping_criteria:
+  - placeholder-grouping-7
 - id: T119
   priority: 3
   title: Check if you need to update your copyright licenses to satellite broadcast
@@ -1551,6 +1699,8 @@ actions:
     - ip-copyright
     - media
   audience: business
+  grouping_criteria:
+  - placeholder-grouping-1
 - id: T120
   priority: 6
   title: Check if you’ll need a licence to employ workers from the EU, Switzerland,
@@ -1567,6 +1717,8 @@ actions:
     - owns-operates-business-organisation-uk
     - employ-eu-citizens
   audience: business
+  grouping_criteria:
+  - placeholder-grouping-7
 - id: T121
   priority: 6
   title: Check what you need to do if your business handles animal feed, or you export
@@ -1581,3 +1733,5 @@ actions:
     - export-to-eu
     - animal-ex-food
   audience: business
+  grouping_criteria:
+  - placeholder-grouping-7
