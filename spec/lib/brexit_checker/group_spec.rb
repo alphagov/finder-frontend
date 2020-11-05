@@ -9,11 +9,22 @@ RSpec.describe BrexitChecker::Group do
   let(:group3) { FactoryBot.build(:brexit_checker_group, key: "studying-uk") }
 
   describe "validations" do
-    let(:group_with_invalid_key) { FactoryBot.build(:brexit_checker_group, key: "studying-mars") }
-
+    let(:citizen_group_with_invalid_key) { FactoryBot.build(:brexit_checker_group, key: "studying-mars") }
+    let(:business_group_with_invalid_key) { FactoryBot.build(:brexit_checker_group, :business, key: "wonky-shops") }
+    let(:group_missing_audience) { FactoryBot.build(:brexit_checker_group, audience: nil ) }
     it "validates citizen groups by key" do
       message = "Validation failed: Key is not included in the list"
-      expect { group_with_invalid_key.valid? }.to raise_error(ActiveModel::ValidationError, message)
+      expect { citizen_group_with_invalid_key.valid? }.to raise_error(ActiveModel::ValidationError, message)
+    end
+
+    it "validates business groups by key" do
+      message = "Validation failed: Key is not included in the list"
+      expect { business_group_with_invalid_key.valid? }.to raise_error(ActiveModel::ValidationError, message)
+    end
+
+    it "must have an audience" do
+      message = "Validation failed: Audience can't be blank"
+      expect { group_missing_audience.valid? }.to raise_error(ActiveModel::ValidationError, message)
     end
   end
 

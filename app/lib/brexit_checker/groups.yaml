@@ -1,32 +1,76 @@
 ---
 groups:
-- key: visiting-eu
-  heading: Visiting the EU
-  priority: 9
-- key: visiting-uk
-  heading: Visiting the UK
-  priority: 8
-- key: visiting-ie
-  heading: Visiting Ireland
-  priority: 7
-- key: living-eu
-  heading: Living in the EU
-  priority: 6
-- key: living-ie
-  heading: Living in Ireland
-  priority: 6
-- key: living-uk
-  heading: Living in the UK
-  priority: 6
-- key: working-uk
-  heading: Working in the UK
-  priority: 5
-- key: studying-eu
-  heading: Studying in the EU
-  priority: 4
-- key: studying-uk
-  heading: Studying in the UK
-  priority: 3
-- key: common-travel-area
-  heading: Common Travel Area
-  priority: 1
+### --- Citizen groupings --- ###
+  - key: visiting-eu
+    heading: Visiting the EU
+    priority: 9
+    audience: citizen
+  - key: visiting-uk
+    heading: Visiting the UK
+    priority: 8
+    audience: citizen
+  - key: visiting-ie
+    heading: Visiting Ireland
+    priority: 7
+    audience: citizen
+  - key: living-eu
+    heading: Living in the EU
+    priority: 6
+    audience: citizen
+  - key: living-ie
+    heading: Living in Ireland
+    priority: 6
+    audience: citizen
+  - key: living-uk
+    heading: Living in the UK
+    priority: 6
+    audience: citizen
+  - key: working-uk
+    heading: Working in the UK
+    priority: 5
+    audience: citizen
+  - key: studying-eu
+    heading: Studying in the EU
+    priority: 4
+    audience: citizen
+  - key: studying-uk
+    heading: Studying in the UK
+    priority: 3
+    audience: citizen
+  - key: common-travel-area
+    heading: Common Travel Area
+    priority: 1
+    audience: citizen
+### --- Business groupings --- ###
+  - key: placeholder-grouping-1
+    heading: Placeholder grouping 1
+    priority: 1
+    audience: business
+  - key: placeholder-grouping-2
+    heading: Placeholder grouping 2
+    priority: 1
+    audience: business
+  - key: placeholder-grouping-3
+    heading: Placeholder grouping 3
+    priority: 1
+    audience: business
+  - key: placeholder-grouping-4
+    heading: Placeholder grouping 4
+    priority: 1
+    audience: business
+  - key: placeholder-grouping-5
+    heading: Placeholder grouping 5
+    priority: 1
+    audience: business
+  - key: placeholder-grouping-6
+    heading: Placeholder grouping 6
+    priority: 1
+    audience: business
+  - key: placeholder-grouping-7
+    heading: Placeholder grouping 7
+    priority: 1
+    audience: business
+  - key: placeholder-grouping-8
+    heading: Placeholder grouping 8
+    priority: 1
+    audience: business

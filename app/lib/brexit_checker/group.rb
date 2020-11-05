@@ -4,7 +4,7 @@ class BrexitChecker::Group
 
   GROUPS_PATH = Rails.root.join("app/lib/brexit_checker/groups.yaml")
 
-  attr_reader :key, :heading, :priority
+  attr_reader :key, :heading, :priority, :audience
 
   def initialize(attrs)
     attrs.each { |key, value| instance_variable_set("@#{key}", value) }
