@@ -1,13 +1,13 @@
 <%
-  action_based_email_link_label = brexit_results_email_link_label(@actions)
-  action_based_title = brexit_results_title(@actions, criteria_keys)
-  action_based_description = brexit_results_description(@actions, criteria_keys)
+  action_based_email_link_label = brexit_results_email_link_label(@presenter.actions)
+  action_based_title = brexit_results_title(@presenter.actions, criteria_keys)
+  action_based_description = brexit_results_description(@presenter.actions, criteria_keys)
 %>
 
 <% content_for :title, action_based_title %>
 <% content_for :head do %>
   <% page_url = request.base_url + request.path %>
-  <meta name="govuk:search-result-count" content="<%= @actions.count %>">
+  <meta name="govuk:search-result-count" content="<%= @presenter.actions.count %>">
   <meta name="robots" content="noindex">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="GOV.UK">
@@ -44,7 +44,7 @@
       <%= render "govuk_publishing_components/components/title", {
         title: action_based_title
       } %>
-      <% unless @actions.any? %>
+      <% unless @presenter.actions.any? %>
         <p class="govuk-body-l">
           <%= action_based_description %>
         </p>
@@ -84,9 +84,9 @@
       } %>
     <% end %>
 
-    <%= render 'results_business_actions', business_results: @business_results if @business_results.any? %>
-    <%= render 'results_citizen_actions', citizen_results_groups: @citizen_results_groups if @citizen_results_groups.any? %>
-    <%= render 'results_with_no_actions', criteria: @criteria if (@business_results.empty? && @citizen_results_groups.empty?) %>
+    <%= render 'results_business_actions', business_results: @presenter.business_results if @presenter.business_results.any? %>
+    <%= render 'results_citizen_actions', citizen_results_groups: @presenter.citizen_results_groups if @presenter.citizen_results_groups.any? %>
+    <%= render 'results_with_no_actions', criteria: @presenter.criteria if (@presenter.business_results.empty? && @presenter.citizen_results_groups.empty?) %>
 
     <% if accounts_enabled? && logged_in? %>
       <% if @results_differ %>
@@ -100,6 +100,6 @@
     <% end %>
 
     <%= render 'share_links' %>
-    <%= render 'print_link' if @business_results.any? || @citizen_results_groups.any? %>
+    <%= render 'print_link' if @presenter.business_results.any? || @presenter.citizen_results_groups.any? %>
   <% end %>
 </div>

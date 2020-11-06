@@ -5,16 +5,6 @@ module BrexitCheckerHelper
     CGI.escape(request.original_url)
   end
 
-  def filter_actions(actions, criteria_keys)
-    filtered = actions.select { |a| a.show?(criteria_keys) }
-    sorted_actions(filtered)
-  end
-
-  def sorted_actions(actions)
-    descending = -1
-    actions.sort_by { |action| [(action.priority * descending), action.title] }
-  end
-
   def persistent_criteria_keys(question_criteria_keys)
     criteria_keys - question_criteria_keys
   end
