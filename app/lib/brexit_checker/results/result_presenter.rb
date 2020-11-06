@@ -16,11 +16,15 @@ class BrexitChecker::Results::ResultPresenter
   end
 
   def business_results
-    grouped_results.populate_business_groups
+    grouped_results.populate_business_results(audience_actions["business"])
   end
 
   def citizen_results_groups
-    grouped_results.populate_citizen_groups
+    grouped_results.populate_groups(audience_actions["citizen"])
+  end
+
+  def business_results_groups
+    grouped_results.populate_groups(audience_actions["business"])
   end
 
 private
@@ -34,6 +38,6 @@ private
   end
 
   def grouped_results
-    BrexitChecker::Results::GroupByAudience.new(audience_actions, criteria)
+    BrexitChecker::Results::GroupByAudience.new(criteria)
   end
 end

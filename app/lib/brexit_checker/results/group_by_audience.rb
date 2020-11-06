@@ -1,35 +1,33 @@
 class BrexitChecker::Results::GroupByAudience
   attr_reader :citizen_actions, :business_actions, :criteria
 
-  def initialize(actions, criteria)
-    @citizen_actions = actions["citizen"]
-    @business_actions = actions["business"]
+  def initialize(criteria)
     @criteria = criteria
   end
 
-  def populate_business_groups
-    return {} if business_actions.blank? || criteria.blank?
+  def populate_business_results(actions)
+    return {} if actions.blank? || criteria.blank?
 
     {
-      actions: business_actions,
-      criteria: business_actions.flat_map(&:all_criteria).uniq & criteria,
+      actions: actions,
+      criteria: actions.flat_map(&:all_criteria).uniq & criteria,
     }
   end
 
-  def populate_citizen_groups
-    return [] if citizen_actions.blank? || criteria.blank?
+  def populate_groups(audience_actions)
+    return {} if audience_actions.blank? || criteria.blank?
 
-    citizen_actions.each_with_object([]) do |action, grouped_actions|
+    audience_actions.each_with_object([]) do |action, grouped_actions|
       next if action.grouping_criteria.empty?
 
       group_key_array(action).each do |key|
         group = BrexitChecker::Group.find_by(key)
-        next if grouped_actions.any? { |actions| actions[:group] == group }
+        next if grouped_actions.any? { |actions| actions[:group].key == group.key }
 
         grouped_actions << {
           group: group,
-          actions: actions_for_group(group, citizen_actions),
-          criteria: criteria_for_group(group, citizen_actions),
+          actions: actions_for_group(group, audience_actions),
+          criteria: criteria_for_group(group, audience_actions),
         }
       end
       sort_by_priority(grouped_actions)
