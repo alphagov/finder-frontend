@@ -49,12 +49,7 @@ class BrexitCheckerController < ApplicationController
       end
     end
 
-    all_actions = BrexitChecker::Action.load_all
-    @criteria = BrexitChecker::Criterion.load_by(criteria_keys)
-    @actions = filter_actions(all_actions, criteria_keys)
-    @audience_actions = @actions.group_by(&:audience)
-    @business_results = grouped_results.populate_business_groups
-    @citizen_results_groups = grouped_results.populate_citizen_groups
+    @presenter = result_presenter
   end
 
   def email_signup; end
@@ -177,10 +172,6 @@ private
     {}
   end
 
-  def grouped_results
-    @grouped_results ||= BrexitChecker::Results::GroupByAudience.new(@audience_actions, @criteria)
-  end
-
   def update_session_tokens(result)
     set_account_session_cookie(
       access_token: result[:access_token],
@@ -211,5 +202,9 @@ private
 
   def page
     @page ||= ParamsCleaner.new(params).fetch(:page, "0").to_i
+  end
+
+  def result_presenter
+    @result_presenter ||= BrexitChecker::Results::ResultPresenter.new(criteria_keys)
   end
 end
