@@ -5,7 +5,7 @@ class BrexitChecker::Action
 
   CONFIG_PATH = Rails.root.join("app/lib/brexit_checker/actions.yaml")
 
-  validates_presence_of :id, :title, :consequence, :criteria
+  validates_presence_of :id, :title, :consequence
   validates_inclusion_of :audience, in: %w[business citizen]
   validates_presence_of :guidance_link_text, if: :guidance_url
   validates_numericality_of :priority, only_integer: true
@@ -75,7 +75,7 @@ private
   def has_criteria
     return unless all_criteria_keys.none?
 
-    errors.add "Action must have at least one criterion"
+    errors.add(:criteria, "can't be blank")
   end
 
   def path_from_url(full_url)
@@ -88,8 +88,8 @@ private
   end
 
   def citizen_action_has_grouping_criteria
-    if audience == "citizen" && grouping_criteria.nil?
-      errors.add(:grouping_criteria, "Can't be empty for citizen actions")
+    if audience == "citizen" && grouping_criteria.blank?
+      errors.add(:grouping_criteria, "can't be empty for citizen actions")
     end
   end
 end

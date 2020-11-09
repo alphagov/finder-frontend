@@ -8,6 +8,15 @@ RSpec.describe BrexitChecker::Group do
   let(:group2) { FactoryBot.build(:brexit_checker_group, key: "living-ie") }
   let(:group3) { FactoryBot.build(:brexit_checker_group, key: "studying-uk") }
 
+  describe "validations" do
+    let(:group_with_invalid_key) { FactoryBot.build(:brexit_checker_group, key: "studying-mars") }
+
+    it "validates citizen groups by key" do
+      message = "Validation failed: Key is not included in the list"
+      expect { group_with_invalid_key.valid? }.to raise_error(ActiveModel::ValidationError, message)
+    end
+  end
+
   describe "factories" do
     it "has a valid default factory" do
       group = FactoryBot.build(:brexit_checker_group)

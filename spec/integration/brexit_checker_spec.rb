@@ -58,4 +58,8 @@ RSpec.describe "Brexit checker data integrity" do
 
     expect(possible_criteria.uniq).to match_array possible_criteria
   end
+
+  it "groups.yaml contains valid groups" do
+    expect { BrexitChecker::Group.load_all }.not_to raise_error
+  end
 end

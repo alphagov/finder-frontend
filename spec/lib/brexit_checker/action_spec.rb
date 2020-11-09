@@ -1,6 +1,51 @@
 require "spec_helper"
 
 RSpec.describe BrexitChecker::Action do
+  describe "validations" do
+    let(:action_missing_attributes) do
+      FactoryBot.build(:brexit_checker_action,
+                       id: nil,
+                       title: nil,
+                       consequence: nil)
+    end
+
+    let(:action_with_invalid_audience) { FactoryBot.build(:brexit_checker_action, audience: "clowns") }
+    let(:action_missing_link_text) { FactoryBot.build(:brexit_checker_action, guidance_url: "/brexity_fun") }
+    let(:action_with_invalid_priority) { FactoryBot.build(:brexit_checker_action, priority: "high") }
+    let(:action_with_missing_criteria) { FactoryBot.build(:brexit_checker_action, criteria: []) }
+    let(:action_with_missing_grouping_criteria) { FactoryBot.build(:brexit_checker_action, :citizen, grouping_criteria: nil) }
+
+    it "id, title, consequence and criteria can't be blank" do
+      message = "Validation failed: Id can't be blank, Title can't be blank, Consequence can't be blank"
+      expect { action_missing_attributes.valid? }.to raise_error(ActiveModel::ValidationError, message)
+    end
+
+    it "audience can only be business or citizen" do
+      message = "Validation failed: Audience is not included in the list"
+      expect { action_with_invalid_audience.valid? }.to raise_error(ActiveModel::ValidationError, message)
+    end
+
+    it "guidance links must have text and url" do
+      message = "Validation failed: Guidance link text can't be blank"
+      expect { action_missing_link_text.valid? }.to raise_error(ActiveModel::ValidationError, message)
+    end
+
+    it "priority must be an integer" do
+      message = "Validation failed: Priority is not a number"
+      expect { action_with_invalid_priority.valid? }.to raise_error(ActiveModel::ValidationError, message)
+    end
+
+    it "must have criteria" do
+      message = "Validation failed: Criteria can't be blank"
+      expect { action_with_missing_criteria.valid? }.to raise_error(ActiveModel::ValidationError, message)
+    end
+
+    it "must have grouping criteria if a citizen action" do
+      message = "Validation failed: Grouping criteria can't be empty for citizen actions"
+      expect { action_with_missing_grouping_criteria.valid? }.to raise_error(ActiveModel::ValidationError, message)
+    end
+  end
+
   describe "factories" do
     it "has a valid default business action factory" do
       action = FactoryBot.build(:brexit_checker_action)
