@@ -2,10 +2,10 @@ require "spec_helper"
 
 describe BrexitChecker::Results::ResultPresenter do
   let(:action) { BrexitChecker::Action }
-  let(:action1) { instance_double action, priority: 1, title: "a", audience: "citizen", show?: true }
-  let(:action2) { instance_double action, priority: 1, title: "b", audience: "citizen", show?: true }
-  let(:action3) { instance_double action, priority: 2, title: "c", audience: "biz", show?: true }
-  let(:action4) { instance_double action, priority: 2, title: "d", audience: "biz", show?: false }
+  let(:action1) { instance_double action, priority: 1, title: "a", show?: true }
+  let(:action2) { instance_double action, priority: 1, title: "b", show?: true }
+  let(:action3) { instance_double action, priority: 2, title: "c", show?: true }
+  let(:action4) { instance_double action, priority: 2, title: "d", show?: false }
   let(:all_actions) { [action1, action2, action3, action4] }
   let(:criteria_keys) { %w[key-one key-two] }
 
@@ -27,16 +27,6 @@ describe BrexitChecker::Results::ResultPresenter do
 
     it "sorts the actions by priority and then title" do
       expect(subject.actions).to eq([action3, action1, action2])
-    end
-  end
-
-  describe "#audience_actions" do
-    it "groups results by audience" do
-      grouped = {
-        "citizen" => [action1, action2],
-        "biz" => [action3],
-      }
-      expect(subject.audience_actions).to eq(grouped)
     end
   end
 end

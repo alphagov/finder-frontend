@@ -6,19 +6,13 @@ class BrexitChecker::Results::ResultPresenter
   end
 
   def criteria
-    BrexitChecker::Criterion.load_by(criteria_keys)
+    @criteria ||= BrexitChecker::Criterion.load_by(criteria_keys)
   end
 
   def actions
-    filtered = BrexitChecker::Action.load_all.select do |a|
-      a.show?(criteria_keys)
-    end
-    sorted_actions(filtered)
-  end
-
-  def sorted_actions(actions)
-    descending = -1
-    actions.sort_by { |action| [(action.priority * descending), action.title] }
+    filtered = all_actions.select { |a| a.show?(criteria_keys) }
+    desc = -1
+    filtered.sort_by { |action| [(action.priority * desc), action.title] }
   end
 
   def business_results
@@ -27,6 +21,12 @@ class BrexitChecker::Results::ResultPresenter
 
   def citizen_results_groups
     grouped_results.populate_citizen_groups
+  end
+
+private
+
+  def all_actions
+    @all_actions ||= BrexitChecker::Action.load_all
   end
 
   def audience_actions
