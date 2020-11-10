@@ -201,7 +201,7 @@ private
   helper_method :criteria_keys, :show_business_groupings?
 
   def show_business_groupings?
-    false
+    params[:show_business_groupings] == "true"
   end
 
   def page
