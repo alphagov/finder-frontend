@@ -1,10 +1,41 @@
-<section
+<% if show_business_groupings? %>
+  <section class="brexit-checker-audience">
+  <header>
+    <h2 class="govuk-heading-l action-audience__heading">
+      <%= t('brexit_checker.results.audiences.business.heading') %>
+    </h2>
+  </header>
+    <section class="brexit-checker-audience">
+      <% @presenter.business_results_groups.each.with_index do |grouping, group_index| %>
+        <section
+          class="brexit-checker-actions__group"
+          data-analytics-ecommerce
+          data-ecommerce-start-index=<%="#{group_index + 1}"%>
+          data-list-title="Brexit checker results: <%= "#{t('brexit_checker.results.audiences.business.heading')} - #{grouping[:group].heading}" %>"
+          data-search-query
+        >
+          <div class="govuk-grid-row">
+            <%= render 'results_criteria', criteria: grouping[:criteria], heading: grouping[:group].heading %>
+            <div class="govuk-grid-column-two-thirds">
+              <%= render "action_list", {
+                analytics_group: "#{t('brexit_checker.results.audiences.business.heading')} - 1.",
+                actions: grouping[:actions],
+                heading_level: 3
+              } %>
+            </div>
+          </div>
+        </section>
+        <% end %>
+    </section>
+  </section>
+<% else %>
+  <section
   class="brexit-checker-actions"
   data-analytics-ecommerce
   data-ecommerce-start-index="1"
   data-list-title="Brexit checker results: <%= t('brexit_checker.results.audiences.business.heading') %>"
   data-search-query
->
+  >
   <section class="brexit-checker-audience">
       <header>
         <h2 class="govuk-heading-l action-audience__heading">
@@ -13,15 +44,16 @@
       </header>
       <section class="brexit-checker-actions__group">
         <div class="govuk-grid-row">
-          <%= render 'results_criteria', criteria: business_results[:criteria] %>
+          <%= render 'results_criteria', criteria: @presenter.business_results[:criteria] %>
           <div class="govuk-grid-column-two-thirds">
             <%= render "action_list", {
               analytics_group: "#{t('brexit_checker.results.audiences.business.heading')} - 1.",
-              actions: business_results[:actions],
+              actions: @presenter.business_results[:actions],
               heading_level: 3
             } %>
           </div>
         </div>
       </section>
   </section>
-</section>
+  </section>
+<% end %>

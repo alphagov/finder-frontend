@@ -198,7 +198,11 @@ private
                          BrexitChecker::Criteria::Filter.new.call(keys)
                        end
   end
-  helper_method :criteria_keys
+  helper_method :criteria_keys, :show_business_groupings?
+
+  def show_business_groupings?
+    false
+  end
 
   def page
     @page ||= ParamsCleaner.new(params).fetch(:page, "0").to_i

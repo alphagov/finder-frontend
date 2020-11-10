@@ -84,7 +84,7 @@
       } %>
     <% end %>
 
-    <%= render 'results_business_actions', business_results: @presenter.business_results if @presenter.business_results.any? %>
+    <%= render 'results_business_actions' if @presenter.business_results.any? %>
     <%= render 'results_citizen_actions', citizen_results_groups: @presenter.citizen_results_groups if @presenter.citizen_results_groups.any? %>
     <%= render 'results_with_no_actions', criteria: @presenter.criteria if (@presenter.business_results.empty? && @presenter.citizen_results_groups.empty?) %>
 
