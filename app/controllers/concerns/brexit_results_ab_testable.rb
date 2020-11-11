@@ -2,8 +2,8 @@ module BrexitResultsAbTestable
   CUSTOM_DIMENSION = 44
   TEST_NAME = "TransitionUrgency5".freeze
 
-  def ab_test_variant
-    @ab_test_variant ||= begin
+  def brexit_urgency_variant
+    @brexit_urgency_variant ||= begin
       ab_test = GovukAbTesting::AbTest.new(
         TEST_NAME,
         dimension: CUSTOM_DIMENSION,
@@ -14,7 +14,7 @@ module BrexitResultsAbTestable
     end
   end
 
-  def show_variant?
-    ab_test_variant.variant?("B")
+  def show_urgency_variant?
+    brexit_urgency_variant.variant?("B")
   end
 end

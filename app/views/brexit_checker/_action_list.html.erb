@@ -4,12 +4,12 @@
 
 <% actions.each.with_index do | action, index | %>
   <div class="govuk-grid-row brexit-checker__action">
-  <% if action.urgent? && show_variant? %>
+  <% if action.urgent? && show_urgency_variant? %>
     <div class="brexit-checker__content-wrapper-urgent">
   <% else %>
     <div class="brexit-checker__content-wrapper">
   <% end %>
-      <% if action.urgent? && show_variant? %>
+      <% if action.urgent? && show_urgency_variant? %>
         <div class="brexit-checker__action-urgent">
         <strong class="govuk-tag brexit-checker__action-urgent-tag"><%= t("brexit_checker.results.urgent") %></strong>
       <% end %>
@@ -65,7 +65,7 @@
           </p>
         </div>
       <% end %>
-      <% if action.urgent? && show_variant? %>
+      <% if action.urgent? && show_urgency_variant? %>
         <%# closing div from .brexit-checker__action-urgent %>
         </div>
       <% end %>
