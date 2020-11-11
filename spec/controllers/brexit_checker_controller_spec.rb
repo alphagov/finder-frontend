@@ -80,4 +80,24 @@ describe BrexitCheckerController, type: :controller do
       end
     end
   end
+
+  context "Testing a new caption for the first question of the checker" do
+    %w[A Z].each do |variant|
+      it "Variant #{variant} shows the control caption" do
+        with_variant TransitionChecker1: variant do
+          get :show
+          assert_select ".govuk-caption-xl", text: "About you and your family"
+          assert_select ".govuk-caption-xl", text: "First answer some questions about you, then about any business you run", count: 0
+        end
+      end
+    end
+
+    it "Variant B shows the alternate caption" do
+      with_variant TransitionChecker1: "B" do
+        get :show
+        assert_select ".govuk-caption-xl", text: "First answer some questions about you, then about any business you run"
+        assert_select ".govuk-caption-xl", text: "About you and your family", count: 0
+      end
+    end
+  end
 end
