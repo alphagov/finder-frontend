@@ -3,6 +3,7 @@ class BrexitCheckerController < ApplicationController
 
   include BrexitCheckerHelper
   include BrexitResultsAbTestable
+  include BrexitQuestionsAbTestable
 
   SUBSCRIBER_LIST_GROUP_ID = "5a7c11f2-e737-4531-a0bc-b5f707046607".freeze
 
@@ -16,10 +17,16 @@ class BrexitCheckerController < ApplicationController
   before_action :set_account_session_cookie
   before_action :set_account_variant
 
-  helper_method :subscriber_list_slug, :ab_test_variant, :show_variant?, :account_variant
+  helper_method :subscriber_list_slug, :brexit_urgency_variant, :show_urgency_variant?, :account_variant, :brexit_question_variant, :show_brexit_question_variant?
 
   def show
-    all_questions = BrexitChecker::Question.load_all
+    brexit_question_variant.configure_response(response)
+    all_questions =
+      if show_brexit_question_variant?
+        BrexitChecker::Question.load_all_with_variant
+      else
+        BrexitChecker::Question.load_all
+      end
     @question_index = next_question_index(
       all_questions: all_questions,
       criteria_keys: criteria_keys,
@@ -38,7 +45,7 @@ class BrexitCheckerController < ApplicationController
   end
 
   def results
-    ab_test_variant.configure_response(response)
+    brexit_urgency_variant.configure_response(response)
 
     if accounts_enabled?
       results_in_account = results_from_account

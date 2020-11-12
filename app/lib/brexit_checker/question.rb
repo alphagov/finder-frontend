@@ -15,8 +15,9 @@ class BrexitChecker::Question
               :type,
               :criteria,
               :detail_text,
-              :detail_title,
-              :caption
+              :detail_title
+
+  attr_accessor :caption
 
   def initialize(attrs)
     attrs.each { |key, value| instance_variable_set("@#{key}", value) }
@@ -63,5 +64,11 @@ class BrexitChecker::Question
   def self.load_all
     @load_all = nil if Rails.env.development?
     @load_all ||= YAML.load_file(CONFIG_PATH)["questions"].map { |q| load(q) }
+  end
+
+  def self.load_all_with_variant
+    @load_all = load_all
+    @load_all.first.caption = "First answer some questions about you, then about any business you run"
+    @load_all
   end
 end

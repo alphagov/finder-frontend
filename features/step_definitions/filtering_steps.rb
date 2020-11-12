@@ -123,13 +123,6 @@ Then(/^I (can|cannot) see the "show only transition period results" checkbox$/) 
   end
 end
 
-Given(/^I am in the variant B control group$/) do
-  ab_test_variant = double(:variant, variant_name: "B", analytics_meta_tag: "")
-  allow(ab_test_variant).to receive(:variant?).with("B").and_return(true)
-  allow(ab_test_variant).to receive(:configure_response)
-  allow_any_instance_of(FindersController).to receive(:finder_top_result_variant).and_return(ab_test_variant)
-end
-
 When(/^I view the policy papers and consultations finder$/) do
   topic_taxonomy_has_taxons
   content_store_has_policy_and_engagement_finder
