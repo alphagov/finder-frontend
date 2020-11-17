@@ -3,6 +3,7 @@ questions:
   - key: nationality
     type: single
     caption: About you and your family
+    caption_b: First answer some questions about you, then about any business you run
     text: 'What nationality are you?'
     options:
       - label: British

@@ -21,12 +21,8 @@ class BrexitCheckerController < ApplicationController
   def show
     brexit_question_variant.configure_response(response)
 
-    all_questions =
-      if show_brexit_question_variant?
-        BrexitChecker::Question.load_all_with_variant
-      else
-        BrexitChecker::Question.load_all
-      end
+    all_questions = BrexitChecker::Question.load_all
+
     @question_index = next_question_index(
       all_questions: all_questions,
       criteria_keys: criteria_keys,
