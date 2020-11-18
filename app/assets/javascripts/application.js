@@ -23,6 +23,7 @@
 //= require live_search
 //= require search-analytics
 //= require taxonomy-select
+//= require ga_cross_domain_form_tracking
 //= require_tree ./modules
 //= require_tree ./components
 
