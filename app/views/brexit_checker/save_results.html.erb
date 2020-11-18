@@ -66,7 +66,7 @@
           <% end %>
         </ul>
 
-        <%= form_tag Services.accounts_api, id: "account-signup" do %>
+        <%= form_tag Services.accounts_api, id: "account-signup", data: { "module": "attach-cross-domain-tracker-to-input" } do %>
           <input type="hidden" name="jwt" value="<%= @account_jwt %>">
           <%= render "govuk_publishing_components/components/button", {
             text: t('brexit_checker.account_signup.cta_button'),
