@@ -162,6 +162,10 @@ RSpec.feature "Brexit Checker workflow", type: :feature do
 
   def and_i_should_see_eu_settled_status_scheme
     action = BrexitChecker::Action.find_by_id("S001")
+
+    # S001 is priority 8 so should not have the urgent tag applied
+    expect(page).to_not have_css(".brexit-checker__action-urgent", text: "Apply to the EU Settlement Scheme")
+
     expect(page).to have_css("h4", text: "Apply to the EU Settlement Scheme by 30 June 2021 to continue living in the UK - you must have arrived in the UK before January 2021")
     expect(page).to have_css(".govuk-link[href='#{action.guidance_url}'][data-track-action]")
     data_track_action = page.find(".govuk-link[href='#{action.guidance_url}']")["data-track-action"]
@@ -176,6 +180,10 @@ RSpec.feature "Brexit Checker workflow", type: :feature do
 
   def and_i_should_see_customs_agent_action
     action = BrexitChecker::Action.find_by_id("T099")
+
+    # T099 is priority 9 so should have the urgent tag applied
+    expect(page).to have_css(".brexit-checker__action-urgent", text: "Decide how you want to make customs declarations")
+
     expect(page).to have_css("h3", text: "Decide how you want to make customs declarations and whether you need to get someone to deal with customs for you")
     expect(page).to have_css(".govuk-link[href='#{action.guidance_url}'][data-track-action]")
     data_track_action = page.find(".govuk-link[href='#{action.guidance_url}']")["data-track-action"]
