@@ -196,7 +196,6 @@ actions:
   title_url: https://www.gov.uk/settled-status-eu-citizens-families
   consequence: Your family may not be able to live or work in the UK if they do not
     apply to the scheme by 31 December 2020.
-  guidance_prompt: More information
   criteria:
   - all_of:
     - nationality-uk
@@ -224,16 +223,14 @@ actions:
   priority: 2
   title: Apply for Qualified Teacher Status (QTS) to teach in England if you qualified
     to teach in the EU
-  title_url: https://teacherservices.education.gov.uk/MutualRecognition
-  consequence: You will not be able to start or continue teaching in England at schools
-    that require Qualified Teacher Status (QTS) if you do not apply.
+  consequence: You will not be able to start teaching in England at schools that require
+    Qualified Teacher Status (QTS) if you do not apply.
   guidance_prompt: More information
   guidance_link_text: 'Qualified teacher status (QTS): qualify to teach in England'
   guidance_url: https://www.gov.uk/guidance/applying-for-qualified-teacher-status-qts-from-1-january-2021
   criteria:
   - any_of:
     - all_of:
-      - education
       - living-uk
       - nationality-eu
     - nationality-ie
@@ -332,24 +329,6 @@ actions:
   guidance_link_text: 'Driving in the EU from 1 January 2021: UK licence holders living
     in the EU'
   guidance_url: https://www.gov.uk/guidance/driving-in-the-eu-from-1-january-2021-uk-licence-holders-living-in-the-eu
-  criteria:
-  - all_of:
-    - nationality-uk
-    - any_of:
-      - living-eu
-      - living-ie
-  audience: citizen
-  grouping_criteria:
-  - living-eu
-  - living-ie
-- id: S031
-  priority: 4
-  title: Test your vehicle for roadworthiness in the EU country you live in
-  consequence: Your UK MOT test certificate will not be recognised in the EU.
-  guidance_prompt: More information
-  guidance_link_text: 'Driving in the EU from 2021: vehicle safety and roadworthiness
-    (MOT)'
-  guidance_url: https://www.gov.uk/guidance/driving-in-the-eu-from-1-january-2021-uk-licence-holders-living-in-the-eu#rules-for-driving-in-eu-countries
   criteria:
   - all_of:
     - nationality-uk
@@ -821,7 +800,6 @@ actions:
   priority: 7
   title: Get an International Maritime Organisation (IMO) number if your fishing boat
     is 12 metres or longer
-  title_url: https://imonumbers.ihs.com/
   consequence: If your boat is 12 metres or longer, you will not be allowed to fish
     in EU, Norwegian or Faroese waters without an IMO number.
   guidance_prompt: More information
@@ -949,14 +927,12 @@ actions:
   priority: 8
   title: Get an EORI number that starts with GB to move your goods into or out of
     the EU
-  title_url: https://www.gov.uk/eori
   consequence: You will not be able to move your goods into or out of the EU without
     an EORI number.
   lead_time: It takes up to a week
   guidance_prompt: More information
-  guidance_link_text: Get ready to move goods between or through common transit countries
-    including the EU
-  guidance_url: https://www.gov.uk/guidance/what-you-need-to-move-goods-between-or-through-common-transit-countries-including-the-eu
+  guidance_link_text: Get an EORI number
+  guidance_url: https://www.gov.uk/eori
   criteria:
   - any_of:
     - import-from-eu
@@ -1435,7 +1411,7 @@ actions:
   guidance_prompt: More information
   guidance_link_text: ".eu domain names - what you need to do before the end of the
     transition period"
-  guidance_url: https://www.gov.uk/guidance/eu-domain-names-what-you-need-to-do-to-get-ready-for-brexit
+  guidance_url: https://www.gov.uk/guidance/eu-domain-names-what-you-need-to-do-before-the-end-of-the-transition-period
   criteria:
   - eu-domain
   audience: business
@@ -1532,7 +1508,7 @@ actions:
     you provide online services to.
   guidance_prompt: More information
   guidance_link_text: The eCommerce Directive after the transition period
-  guidance_url: https://www.gov.uk/guidance/ecommerce-directive-what-online-service-providers-in-the-uk-should-do-to-get-ready-for-brexit
+  guidance_url: https://www.gov.uk/guidance/the-ecommerce-directive-after-the-transition-period
   criteria:
   - any_of:
     - provide-services-do-business-in-eu
@@ -1580,4 +1556,54 @@ actions:
   - all_of:
     - export-to-eu
     - animal-ex-food
+  audience: business
+- id: S042
+  priority: 2
+  title: Apply for a frontier worker permit if you live outside of the UK and want
+    to continue working in the UK from 1 January 2021
+  consequence: You will not be able to enter the UK to work from 1 July 2021 if you
+    live outside of the UK and do not have a frontier worker permit.
+  exception: This does not apply to workers from Ireland.
+  guidance_prompt: More information
+  guidance_link_text: 'Frontier workers in the UK: rights and status'
+  guidance_url: https://www.gov.uk/guidance/frontier-workers-in-the-uk-rights-and-status
+  criteria:
+  - all_of:
+    - working-uk
+    - nationality-eu
+    - any_of:
+      - living-eu
+      - living-row
+  audience: citizen
+  grouping_criteria:
+  - working-uk
+  - living-eu
+- id: T122
+  priority: 2
+  title: Check if sanctions applying to a country, person or organisation will affect
+    your business
+  consequence: You will be breaking the law if you do certain types of business covered
+    by sanctions.
+  guidance_prompt: More information
+  guidance_link_text: UK sanctions regimes under the Sanctions Act
+  guidance_url: https://www.gov.uk/government/collections/uk-sanctions-regimes-under-the-sanctions-act
+  criteria:
+  - any_of:
+    - export-to-row
+    - defence
+  audience: business
+- id: T123
+  priority: 2
+  title: Check which food products you need permission to sell in Great Britain
+  consequence: You will not be able to sell certain food products without the right
+    authorisation.
+  guidance_prompt: More information
+  guidance_link_text: Submitting a regulated product authorisation application from
+    1 January 2021
+  guidance_url: https://www.food.gov.uk/business-guidance/submitting-a-regulated-product-authorisation-application-from-1-january-2021
+  criteria:
+  - any_of:
+    - animal-ex-food
+    - food-drink-tobacco
+    - retail-wholesale-x-food-drink-motors
   audience: business
