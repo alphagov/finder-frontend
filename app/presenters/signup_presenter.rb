@@ -16,10 +16,6 @@ class SignupPresenter
     content_item["title"]
   end
 
-  def body
-    content_item["description"]
-  end
-
   def beta?
     content_item["details"]["beta"]
   end

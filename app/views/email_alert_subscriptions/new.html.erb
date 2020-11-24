@@ -1,6 +1,7 @@
-<% content_for :title, @signup_presenter.page_title %>
-<% content_for :head do %>
-  <%= render 'email_alert_subscription_meta', email_alert_subscription: @signup_presenter %>
+<% if @signup_presenter.can_modify_choices? %>
+  <% content_for :title, @signup_presenter.page_title %>
+<% else %>
+  <% content_for :title, t("email_alert_subscriptions.new.title") %>
 <% end %>
 
 <% if @signup_presenter.beta? %>
@@ -9,38 +10,43 @@
 
 <div class="govuk-width-container">
   <%= form_tag email_alert_subscriptions_path(subscriber_list_params: subscriber_list_params), class: 'signup-choices' do %>
-    <%= render partial: 'govuk_publishing_components/components/title', locals: {
-      title: @signup_presenter.name,
-      context: "Email alert subscription"
-    } %>
-
     <% if @signup_presenter.can_modify_choices? %>
+      <%= render partial: 'govuk_publishing_components/components/title', locals: {
+        title: @signup_presenter.name,
+      } %>
+
       <%= render "govuk_publishing_components/components/checkboxes", {
         name: nil,
-        heading: @signup_presenter.name,
-        hint_text: "Choose the email alerts you need.",
+        no_hint_text: true,
+        heading: t("email_alert_subscriptions.new.question"),
         items: @signup_presenter.choices_formatted,
-        visually_hide_heading: true
       } %>
-    <% end %>
-    <% if @error_message.present? %>
-      <p class="signup-choices__message"><%= @error_message %></p>
+
+      <% if @error_message.present? %>
+        <p class="signup-choices__message"><%= @error_message %></p>
+      <% end %>
+
+    <% else %>
+
+      <%= render partial: 'govuk_publishing_components/components/title', locals: {
+        title: t("email_alert_subscriptions.new.title"),
+      } %>
+
+      <p class="govuk-body">
+        <%= t("email_alert_subscriptions.new.description") %>
+      </p>
+
+      <p class="govuk-body govuk-!-margin-bottom-8">
+        <strong class="govuk-!-font-weight-bold"><%= @signup_presenter.name %></strong>
+      </p>
     <% end %>
 
     <% @signup_presenter.hidden_choices.each do |hidden_choice| %>
       <%= hidden_field_tag hidden_choice[:name], hidden_choice[:value] %>
     <% end %>
 
-    <% if @signup_presenter.body && !@signup_presenter.can_modify_choices? %>
-      <div class="govspeak-wrapper">
-        <%= render 'govuk_publishing_components/components/govspeak', {} do %>
-          <%= sanitize(@signup_presenter.body) %>
-        <% end %>
-      </div>
-    <% end %>
-
     <%= render "govuk_publishing_components/components/button", {
-      text: "Create subscription",
+      text: "Continue",
       margin_bottom: true
     } %>
   <% end %>
