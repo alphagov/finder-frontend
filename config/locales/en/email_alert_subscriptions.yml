@@ -1,0 +1,7 @@
+en:
+  email_alert_subscriptions:
+    new:
+      title: Get emails from GOV.UK
+      description: "You’ll get emails when we add or update pages about:"
+      question: "What do you want to get emails about?"
+
