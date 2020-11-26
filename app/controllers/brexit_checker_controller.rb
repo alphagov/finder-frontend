@@ -2,7 +2,6 @@ class BrexitCheckerController < ApplicationController
   include AccountAbTestable
 
   include BrexitCheckerHelper
-  include BrexitQuestionsAbTestable
 
   SUBSCRIBER_LIST_GROUP_ID = "5a7c11f2-e737-4531-a0bc-b5f707046607".freeze
 
@@ -16,11 +15,9 @@ class BrexitCheckerController < ApplicationController
   before_action :set_account_session_cookie
   before_action :set_account_variant
 
-  helper_method :subscriber_list_slug, :account_variant, :brexit_question_variant, :show_brexit_question_variant?
+  helper_method :subscriber_list_slug, :account_variant
 
   def show
-    brexit_question_variant.configure_response(response)
-
     all_questions = BrexitChecker::Question.load_all
 
     @question_index = next_question_index(

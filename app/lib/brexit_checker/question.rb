@@ -10,7 +10,6 @@ class BrexitChecker::Question
   attr_reader :key,
               :text,
               :caption,
-              :caption_b,
               :description,
               :hint_title,
               :hint_text,
