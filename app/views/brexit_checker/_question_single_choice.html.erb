@@ -1,7 +1,6 @@
 <%= render "govuk_publishing_components/components/radio", {
   name: "c[]",
-  heading_caption: (show_brexit_question_variant? && current_question.caption_b.present?) ?
-    current_question.caption_b : current_question.caption,
+  heading_caption: current_question.caption,
   heading: current_question.text,
   description: formatted_description,
   hint: current_question.hint_text,
