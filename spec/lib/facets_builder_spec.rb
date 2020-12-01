@@ -269,46 +269,55 @@ describe FacetsBuilder do
       let(:hash_under_test) do
         {
           "filterable": true,
-          "key": "topical_events",
+          "key": "specialist_sectors",
           "type": "text",
         }
       end
       let(:search_results) do
-        topical_events_search_results.deep_stringify_keys
+        specialist_sector_search_results.deep_stringify_keys
       end
       it "gets the allowed values from the search results" do
-        expect(facet.allowed_values).to eq([{ "label" => "First World War Centenary", "value" => "first-world-war-centenary" },
-                                            { "label" => "Farming", "value" => "farming" },
-                                            { "label" => "Ebola Virus Government Response (EVGR)", "value" => "ebola-virus-government-response" }])
+        expect(facet.allowed_values).to eq([{ "label" => "Import, export and customs for businesses", "value" => "business-tax/import-export" },
+                                            { "label" => "Environmental permits", "value" => "environmental-management/environmental-permits" },
+                                            { "label" => "Tax agent and adviser guidance", "value" => "dealing-with-hmrc/tax-agent-guidance" }])
       end
     end
   end
 
-  def topical_events_search_results
+  def specialist_sector_search_results
     {
       "results": [],
       "facets": {
-        "topical_events": {
-          "options": [{
-            "value": {
-              "title": "First World War Centenary",
-              "slug": "first-world-war-centenary",
+        "specialist_sectors": {
+          "options": [
+            {
+              "value": {
+                "content_id": "4bda0be5-3e65-4cc1-850c-0541e95a40ca",
+                "link": "/topic/business-tax/import-export",
+                "title": "Import, export and customs for businesses",
+                "slug": "business-tax/import-export",
+              },
+              "documents": 1189,
             },
-          },
-                      {
-                        "value": {
-                          "title": "Farming",
-                          "slug": "farming",
-                          "acronym": "Farming",
-                        },
-                      },
-                      {
-                        "value": {
-                          "title": "Ebola Virus Government Response",
-                          "slug": "ebola-virus-government-response",
-                          "acronym": "EVGR",
-                        },
-                      }],
+            {
+              "value": {
+                "content_id": "9d128765-269a-4e90-982c-833a30a352d3",
+                "link": "/topic/environmental-management/environmental-permits",
+                "title": "Environmental permits",
+                "slug": "environmental-management/environmental-permits",
+              },
+              "documents": 950,
+            },
+            {
+              "value": {
+                "content_id": "c3133eb2-4d53-4905-88a2-d2e4547cc41e",
+                "link": "/topic/dealing-with-hmrc/tax-agent-guidance",
+                "title": "Tax agent and adviser guidance",
+                "slug": "dealing-with-hmrc/tax-agent-guidance",
+              },
+              "documents": 868,
+            },
+          ],
         },
       },
     }

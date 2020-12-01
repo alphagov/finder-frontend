@@ -145,7 +145,7 @@ module RegistrySpecHelper
       }.to_json)
   end
 
-  def stub_full_topical_events_registry_request
+  def stub_topical_events_registry_request
     stub_request(:get, "http://search.dev.gov.uk/search.json")
     .with(query: {
       count: 1500,

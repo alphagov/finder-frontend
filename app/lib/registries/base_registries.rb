@@ -12,9 +12,7 @@ module Registries
         "organisations" => organisations,
         "manual" => manuals,
         "full_topic_taxonomy" => full_topic_taxonomy,
-        # this isn't called "topical_events" because we don't want the
-        # facet tag to appear automatically
-        "full_topical_events" => full_topical_events,
+        "topical_events" => topical_events,
       }
     end
 
@@ -64,8 +62,8 @@ module Registries
       @manuals ||= ManualsRegistry.new
     end
 
-    def full_topical_events
-      @full_topical_events ||= TopicalEventsRegistry.new
+    def topical_events
+      @topical_events ||= TopicalEventsRegistry.new
     end
   end
 end
