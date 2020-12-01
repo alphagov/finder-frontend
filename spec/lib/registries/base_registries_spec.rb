@@ -42,7 +42,7 @@ RSpec.describe Registries::BaseRegistries do
       stub_roles_registry_request
       stub_manuals_registry_request
       stub_organisations_registry_request
-      stub_full_topical_events_registry_request
+      stub_topical_events_registry_request
     end
     after { clear_cache }
 
@@ -67,7 +67,7 @@ RSpec.describe Registries::BaseRegistries do
       stub_roles_registry_request
       stub_manuals_registry_request
       stub_organisations_registry_request
-      stub_full_topical_events_registry_request
+      stub_topical_events_registry_request
     end
     after { clear_cache }
 

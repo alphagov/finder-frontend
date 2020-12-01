@@ -24,7 +24,7 @@ RSpec.describe Healthchecks::RegistriesCache do
       stub_roles_registry_request
       stub_manuals_registry_request
       stub_organisations_registry_request
-      stub_full_topical_events_registry_request
+      stub_topical_events_registry_request
 
       Registries::BaseRegistries.new.refresh_cache
     end
@@ -38,7 +38,7 @@ RSpec.describe Healthchecks::RegistriesCache do
   context "Registries caches are empty" do
     it "has an OK status" do
       expect(check.status).to eq :warning
-      expect(check.message).to eq "The following registry caches are empty: world_locations, all_part_of_taxonomy_tree, part_of_taxonomy_tree, people, roles, organisations, manual, full_topic_taxonomy, full_topical_events."
+      expect(check.message).to eq "The following registry caches are empty: world_locations, all_part_of_taxonomy_tree, part_of_taxonomy_tree, people, roles, organisations, manual, full_topic_taxonomy, topical_events."
     end
   end
 end
