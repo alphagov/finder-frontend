@@ -203,4 +203,103 @@ RSpec.describe "Change notifications" do
         .to raise_error("Notification not found")
     end
   end
+
+  describe "brexit_checker:configure_notifications" do
+    let(:addition_ids) { "A001 A003" }
+    let(:content_change_ids) { "C001 C002" }
+    let(:uuid_1) { "random-uuid-1" }
+    let(:uuid_2) { "random-uuid-2" }
+    let(:uuid_3) { "random-uuid-3" }
+    let(:uuid_4) { "random-uuid-4" }
+
+    before do
+      Rake::Task["brexit_checker:configure_notifications"].reenable
+      allow(SecureRandom).to receive(:uuid).and_return(uuid_1, uuid_2, uuid_3, uuid_4)
+    end
+
+    it "outputs mostly configured notifications yaml" do
+      expected = <<-BOTH_TYPES.strip_heredoc
+        ---
+        notifications:
+        - uuid: #{uuid_1}
+          type: addition
+          action_id: A001
+          date: '2020-10-28'
+        - uuid: #{uuid_2}
+          type: addition
+          action_id: A003
+          date: '2020-10-28'
+        - uuid: #{uuid_3}
+          type: content_change
+          action_id: C001
+          date: '2020-10-28'
+          note: INSERT CHANGE NOTE HERE
+        - uuid: #{uuid_4}
+          type: content_change
+          action_id: C002
+          date: '2020-10-28'
+          note: INSERT CHANGE NOTE HERE
+      BOTH_TYPES
+
+      ClimateControl.modify(NEW_ACTIONS: addition_ids, CHANGED_ACTIONS: content_change_ids) do
+        Timecop.freeze(Time.zone.local(2020, 10, 28).utc)
+
+        expect { Rake::Task["brexit_checker:configure_notifications"].invoke }
+          .to output(expected).to_stdout
+      end
+    end
+
+    it "is happy with only additions" do
+      expected = <<-ADDITIONS.strip_heredoc
+        ---
+        notifications:
+        - uuid: #{uuid_1}
+          type: addition
+          action_id: A001
+          date: '2020-10-29'
+        - uuid: #{uuid_2}
+          type: addition
+          action_id: A003
+          date: '2020-10-29'
+      ADDITIONS
+
+      ClimateControl.modify(NEW_ACTIONS: addition_ids) do
+        Timecop.freeze(Time.zone.local(2020, 10, 29).utc)
+
+        expect { Rake::Task["brexit_checker:configure_notifications"].invoke }
+          .to output(expected).to_stdout
+      end
+    end
+
+    it "is happy with only changes" do
+      expected = <<-CHANGES.strip_heredoc
+        ---
+        notifications:
+        - uuid: #{uuid_1}
+          type: content_change
+          action_id: C001
+          date: '2020-10-30'
+          note: INSERT CHANGE NOTE HERE
+        - uuid: #{uuid_2}
+          type: content_change
+          action_id: C002
+          date: '2020-10-30'
+          note: INSERT CHANGE NOTE HERE
+      CHANGES
+
+      ClimateControl.modify(CHANGED_ACTIONS: content_change_ids) do
+        Timecop.freeze(Time.zone.local(2020, 10, 30).utc)
+
+        expect { Rake::Task["brexit_checker:configure_notifications"].invoke }
+          .to output(expected).to_stdout
+      end
+    end
+
+    it "is happy with nothing" do
+      expected = "Nothing to do. Consider setting NEW_ACTIONS and/or CHANGED_ACTIONS environment variables.\n"
+
+      expect { Rake::Task["brexit_checker:configure_notifications"].invoke }
+        .to output(expected).to_stdout
+    end
+  end
 end

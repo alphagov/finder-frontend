@@ -43,6 +43,7 @@ group :development, :test do
 end
 
 group :test do
+  gem "climate_control"
   gem "cucumber-rails", require: false
   gem "factory_bot"
   gem "govuk-content-schema-test-helpers"
