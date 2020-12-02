@@ -32,44 +32,43 @@
           text: t('brexit_checker.account_signup.heading'),
           font_size: "xl",
           heading_level: 1,
+          margin_bottom: 6,
         } %>
 
         <p class="govuk-body"><%= t('brexit_checker.account_signup.proposition') %></p>
 
-        <ul class="govuk-list govuk-list--bullet">
-          <% t('brexit_checker.account_signup.proposition_list').each do |prop| %>
-            <li><%= prop %></li>
-          <% end %>
-        </ul>
+        <%= render "govuk_publishing_components/components/heading", {
+          text: t('brexit_checker.account_signup.email_alerts.heading'),
+          font_size: "m",
+          heading_level: 2,
+        } %>
 
-        <p class="govuk-body"><%= t('brexit_checker.account_signup.aim') %></p>
+        <p class="govuk-body govuk-!-margin-bottom-6">
+          <a class="govuk-link" href="<%= transition_checker_email_signup_path(c: criteria_keys) %>">
+            <%= t('brexit_checker.account_signup.email_alerts.link') %>
+          </a>
+          <%= t('brexit_checker.account_signup.email_alerts.text') %>
+        </p>
+
+        <%= render "govuk_publishing_components/components/heading", {
+          text: t('brexit_checker.account_signup.create_account.heading'),
+          font_size: "m",
+          heading_level: 2,
+        } %>
+
+        <p class="govuk-body"><%= t('brexit_checker.account_signup.create_account.intro') %></p>
+        <p class="govuk-body"><%= t('brexit_checker.account_signup.create_account.text') %></p>
 
         <%= render "govuk_publishing_components/components/inset_text" do %>
-          <% t('brexit_checker.account_signup.aim_list').each do |aim| %>
-            <p class="govuk-body govuk-!-margin-bottom-0"><%= aim %></p>
-          <% end %>
+          <p class="govuk-body"><%= t('brexit_checker.account_signup.create_account.aside') %></p>
         <% end %>
 
-        <p class="govuk-body"><%= t('brexit_checker.account_signup.future') %></p>
-
-        <ul class="govuk-list govuk-list--bullet">
-          <% t('brexit_checker.account_signup.future_list').each do |future| %>
-            <li><%= future %></li>
-          <% end %>
-        </ul>
-
-        <p class="govuk-body"><%= t('brexit_checker.account_signup.prerequisites') %></p>
-
-        <ul class="govuk-list govuk-list--bullet">
-          <% t('brexit_checker.account_signup.prerequisites_list').each do |prerequisite| %>
-            <li><%= prerequisite %></li>
-          <% end %>
-        </ul>
+        <p class="govuk-body"><%= t('brexit_checker.account_signup.create_account.outro') %></p>
 
         <%= form_tag Services.accounts_api, id: "account-signup" do %>
           <input type="hidden" name="jwt" value="<%= @account_jwt %>">
           <%= render "govuk_publishing_components/components/button", {
-            text: t('brexit_checker.account_signup.cta_button'),
+            text: t('brexit_checker.account_signup.create_account.cta_button'),
             margin_bottom: true,
           } %>
         <% end %>
@@ -78,19 +77,6 @@
           <%= t('brexit_checker.account_signup.or') %>
           <a class="govuk-link" href="<%= transition_checker_save_results_confirm_path(c: criteria_keys) %>">
             <%= t('brexit_checker.account_signup.alternative_path_link_text') %></a>.
-        </p>
-
-        <%= render "govuk_publishing_components/components/heading", {
-          text: t('brexit_checker.account_signup.do_not_want_heading'),
-          font_size: "m",
-          heading_level: 2,
-        } %>
-
-        <p class="govuk-body">
-          <%= t('brexit_checker.account_signup.do_not_want_intro') %>
-          <a class="govuk-link" href="<%= transition_checker_email_signup_path(c: criteria_keys) %>">
-            <%= t('brexit_checker.account_signup.do_not_want_link') %></a>
-          <%= t('brexit_checker.account_signup.do_not_want_outro') %>
         </p>
       </div>
     </div>

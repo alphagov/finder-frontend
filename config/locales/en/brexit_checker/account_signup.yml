@@ -1,30 +1,19 @@
 en:
   brexit_checker:
     account_signup:
-      title: Stay up to date with a GOV.UK account
-      heading: Stay up to date with a GOV.UK account
-      proposition: "Create a GOV.UK account to:"
-      proposition_list:
-        - get email updates about Brexit transition changes that may affect you
-        - save your Brexit transition checker results
-      aim: GOV.UK is trialling accounts to try to improve online public services.
-      aim_list:
-        - This is separate from other government accounts.
-        - At the moment, you can only use your account with the Brexit transition checker.
-      future: "In future, we want to add more features to your account so you can:"
-      future_list:
-        - see content that’s more tailored to you
-        - get recommendations for services relevant to you
-        - get updates about guidance that might be helpful to you
-        - reuse information you provide between different services
-      prerequisites: "To create an account, you’ll need:"
-      prerequisites_list:
-        - an email address
-        - a mobile phone
-      cta_button: Create a GOV.UK account
-      or: If you’ve already saved your Brexit transition results,
+      title: Choose how you want to stay up to date
+      heading: Choose how you want to stay up to date
+      proposition: There are 2 different ways of signing up to updates.
+      email_alerts:
+        heading: Get email alerts
+        link: Subscribe to get email updates
+        text: about Brexit transition changes that may affect you.
+      create_account:
+        heading: Create a GOV.UK account
+        intro: Save your Brexit transition results and get email updates about changes that may affect you.
+        text: GOV.UK accounts are a trial. In future, we plan to add more features so you can use your account with more services.
+        aside: This is separate from other government accounts (for example your personal tax account or Government Gateway).
+        outro: You’ll need an email address and a mobile phone to create an account.
+        cta_button: Create a GOV.UK account
+      or: If you’ve already saved your UK transition results,
       alternative_path_link_text: sign in to your account
-      do_not_want_heading: If you do not want a GOV.UK account
-      do_not_want_intro: You can
-      do_not_want_link: get alerts and a link to your results
-      do_not_want_outro: instead.
