@@ -8,7 +8,6 @@ class FindersController < ApplicationController
     expires_in(5.minutes, public: true)
   end
 
-  ATOM_FEED_MAX_AGE = 300
   def show
     respond_to do |format|
       format.html do
@@ -30,7 +29,7 @@ class FindersController < ApplicationController
           redirect_to_destination
         else
           @search_query = initialize_search_query(is_for_feed: true)
-          expires_in(ATOM_FEED_MAX_AGE, public: true)
+          expires_in(15.minutes, public: true)
           @feed = AtomPresenter.new(content_item, results, facet_tags)
         end
       end

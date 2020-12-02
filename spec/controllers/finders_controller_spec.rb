@@ -74,7 +74,7 @@ describe FindersController, type: :controller do
         expect(response.status).to eq(200)
         expect(response.media_type).to eq("application/atom+xml")
         expect(response).to render_template("finders/show")
-        expect(response.headers["Cache-Control"]).to eq("max-age=300, public")
+        expect(response.headers["Cache-Control"]).to eq("max-age=900, public")
       end
 
       it "can respond with JSON" do
