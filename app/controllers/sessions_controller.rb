@@ -2,9 +2,9 @@ class SessionsController < ApplicationController
   before_action :check_accounts_enabled
 
   def create
-    redirect_to account_manager_url and return if logged_in?
+    redirect_with_ga account_manager_url and return if logged_in?
 
-    redirect_if_not_test Services.oidc.auth_uri(redirect_path: params["redirect_path"])[:uri]
+    redirect_with_ga Services.oidc.auth_uri(redirect_path: params["redirect_path"])[:uri]
   end
 
   def callback
@@ -29,18 +29,18 @@ class SessionsController < ApplicationController
       cookies[:cookies_policy] = cookies_policy.merge(usage: true).to_json
     end
 
-    redirect_if_not_test(callback[:redirect_path] || account_manager_url)
+    redirect_with_ga(callback[:redirect_path] || account_manager_url)
   end
 
   def delete
     if params[:continue]
       logout!
-      redirect_if_not_test "#{account_manager_url}/logout?done=#{params[:continue]}"
+      redirect_with_ga "#{account_manager_url}/logout?done=#{params[:continue]}"
     elsif params[:done]
       logout!
-      redirect_if_not_test "/transition"
+      redirect_with_ga "/transition"
     else
-      redirect_if_not_test "#{account_manager_url}/logout?continue=1"
+      redirect_with_ga "#{account_manager_url}/logout?continue=1"
     end
   end
 
@@ -50,7 +50,16 @@ protected
     Plek.find("account-manager")
   end
 
-  def redirect_if_not_test(url)
+  def redirect_with_ga(url)
+    if params[:_ga]
+      url =
+        if url.include? "?"
+          "#{url}&_ga=#{params[:_ga]}"
+        else
+          "#{url}?_ga=#{params[:_ga]}"
+        end
+    end
+
     if Rails.env.test?
       render plain: "Redirecting to #{url}"
     else
