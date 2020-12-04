@@ -64,7 +64,7 @@
 
         <p class="govuk-body"><%= t('brexit_checker.account_signup.create_account.outro') %></p>
 
-        <%= form_tag Services.accounts_api, id: "account-signup" do %>
+        <%= form_tag Services.accounts_api, id: "account-signup", :"data-module" => "explicit-cross-domain-links" do %>
           <input type="hidden" name="jwt" value="<%= @account_jwt %>">
           <%= render "govuk_publishing_components/components/button", {
             text: t('brexit_checker.account_signup.create_account.cta_button'),
@@ -74,7 +74,7 @@
 
         <p class="govuk-body">
           <%= t('brexit_checker.account_signup.or') %>
-          <a class="govuk-link" href="<%= transition_checker_save_results_confirm_path(c: criteria_keys) %>">
+          <a class="govuk-link" href="<%= transition_checker_save_results_confirm_path(c: criteria_keys) %>" data-module="explicit-cross-domain-links">
             <%= t('brexit_checker.account_signup.alternative_path_link_text') %></a>.
         </p>
       </div>

@@ -17,13 +17,13 @@
 //= require govuk_publishing_components/components/feedback
 //= require govuk_publishing_components/components/govspeak
 //= require govuk_publishing_components/components/radio
+//= require govuk_publishing_components/analytics/explicit-cross-domain-links
 //
 //= require support
 //
 //= require live_search
 //= require search-analytics
 //= require taxonomy-select
-//= require ga_cross_domain_form_tracking
 //= require_tree ./modules
 //= require_tree ./components
 
