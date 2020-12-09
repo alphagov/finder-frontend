@@ -369,6 +369,10 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
         allow_any_instance_of(OidcClient).to receive(:callback)
           .and_return({ access_token: access_token, sub: sub })
 
+        stub_request(:get, "http://account-manager.dev.gov.uk/api/v1/ephemeral-state")
+          .with(headers: { "Authorization" => "Bearer access-token" })
+          .to_return(status: 200, body: "{}")
+
         visit transition_checker_new_session_callback_path(state: "state", code: "code")
       end
 

@@ -102,6 +102,21 @@ class OidcClient
     )
   end
 
+  def get_ephemeral_state(access_token:, refresh_token:)
+    response = oauth_request(
+      access_token: access_token,
+      refresh_token: refresh_token,
+      method: :get,
+      uri: ephemeral_state_uri,
+    )
+
+    begin
+      response.merge(result: JSON.parse(response[:result].body))
+    rescue JSON::ParserError
+      response.merge(result: {})
+    end
+  end
+
 private
 
   OK_STATUSES = [200, 204, 404, 410].freeze
@@ -143,6 +158,12 @@ private
   def email_subscription_uri
     @email_uri = URI.parse(provider_uri).tap do |u|
       u.path = "/api/v1/transition-checker/email-subscription"
+    end
+  end
+
+  def ephemeral_state_uri
+    @ephemeral_state_uri = URI.parse(provider_uri).tap do |u|
+      u.path = "/api/v1/ephemeral-state"
     end
   end
 

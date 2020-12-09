@@ -24,12 +24,22 @@ class SessionsController < ApplicationController
       refresh_token: tokens[:refresh_token],
     )
 
-    if callback[:cookie_consent] && cookies[:cookies_policy]
+    ephemeral_state =
+      update_account_session_cookie_from_oauth_result(
+        Services.oidc.get_ephemeral_state(
+          access_token: tokens[:access_token],
+          refresh_token: tokens[:refresh_token],
+        ),
+      )
+
+    ga_client_id = ephemeral_state["_ga"]
+
+    if ephemeral_state["cookie_consent"] && cookies[:cookies_policy]
       cookies_policy = JSON.parse(cookies[:cookies_policy]).symbolize_keys
       cookies[:cookies_policy] = cookies_policy.merge(usage: true).to_json
     end
 
-    redirect_with_ga(callback[:redirect_path] || account_manager_url)
+    redirect_with_ga(callback[:redirect_path] || account_manager_url, ga_client_id)
   end
 
   def delete
@@ -50,13 +60,14 @@ protected
     Plek.find("account-manager")
   end
 
-  def redirect_with_ga(url)
-    if params[:_ga]
+  def redirect_with_ga(url, ga_client_id = nil)
+    ga_client_id ||= params[:_ga]
+    if ga_client_id
       url =
         if url.include? "?"
-          "#{url}&_ga=#{params[:_ga]}"
+          "#{url}&_ga=#{ga_client_id}"
         else
-          "#{url}?_ga=#{params[:_ga]}"
+          "#{url}?_ga=#{ga_client_id}"
         end
     end
 
