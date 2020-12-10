@@ -1,14 +1,14 @@
 # Make changes to Transition Checker content
 
-The Transition Checker is a question and answer tool which informs a user of actions to take related to the Transition period. It can be found at [https://www.gov.uk/transition-check](https://www.gov.uk/transition-check).
+The Transition Checker is a question and answer tool which informs a user of actions to take related to the Transition period. It can be found at [https://www.gov.uk/transition-check/questions](https://www.gov.uk/transition-check/questions).
 
-Content editors request changes to the actions, questions, and criteria via Zendesk.
+Content editors request changes to the actions, questions, and criteria via Zendesk. GDS content designers triage and process these requests, updating their canonical [Google Sheet](https://docs.google.com/spreadsheets/d/1wIeBTitJVfkWa7oKrGmusIo2r4TsvXVdlne_xG6YjYs/edit?usp=sharing) (aka the Dynamic List) as required.
 
 ## Updates to actions
 
-Actions are defined in [an `actions.yaml` file](https://github.com/alphagov/finder-frontend/blob/master/lib/brexit_checker/actions.yaml), which is automatically populated from a Google Sheet. To add or change an action, you'll need to complete the following steps:
+Actions are defined in an [ `actions.yaml`](https://github.com/alphagov/finder-frontend/blob/master/app/lib/brexit_checker/actions.yaml) file, which is automatically populated from the  Google Sheet. To add or change an action, you'll need to complete the following steps:
 
-1. The content designer requesting the change should provide you with a link to the Google Sheet.
+1. The content designer requesting the change should provide you with a link to the canonical Google Sheet. At time or writing, the sheet is located [here](https://docs.google.com/spreadsheets/d/1wIeBTitJVfkWa7oKrGmusIo2r4TsvXVdlne_xG6YjYs/edit?usp=sharing).
 
 2. Make sure you have finder-frontend checked out locally. Create a `.env` file in the root of the finder-frontend repo. Your file should look like this:
 
@@ -18,7 +18,11 @@ Actions are defined in [an `actions.yaml` file](https://github.com/alphagov/find
 GOOGLE_SHEET_ID="1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms"
 ```
 
-3. Enable the Google Drive API by generating a `credentials.json` file from the API and saving it in the root directory of the repo.  Instructions for this can be found [here](https://developers.google.com/drive/api/v3/quickstart/ruby).  You will not need to do this again when running the rake task in future as long as you have `credentials.json`.
+3. Enable the Google Drive API by generating a `credentials.json` file from the API and saving it in the root directory of the repo.  Instructions for this can be found [here](https://developers.google.com/drive/api/v3/quickstart/ruby#step_1_turn_on_the) (click the "Enable the Drive API" button). You will be prompted for the following information:
+  - Project name. (It doesn't matter what you enter here)
+  - Configure your OAuth client. (Select Desktop App)
+
+You will not need to do this again when running the rake task in future as long as you have `credentials.json`.
 
 4. Run this rake task:
 
@@ -36,21 +40,44 @@ bundle exec rake brexit_checker:convert_csv_to_yaml:actions_from_google_drive
 
 ## Adding notifications
 
-Additions or changes to actions may require a notification, which sends an email to alert subscribers to a change. Notifications should only be created for this purpose.
+When new actions are added to the checker, or existing actions are changed, it is sometimes necessary to send a notification email to alert subscribers. Generally the content designer requesting the change will specify if a notification is required, and if it should contain a change note. For reference, [these](https://docs.google.com/document/d/1YbXLRJ_FkPDvYPC7e4Nkhm054LqFVydn-KX_Th3yFYw/edit?usp=sharing) are the rules.
 
-Notifications are defined in the [notifications.yaml file](https://github.com/alphagov/finder-frontend/blob/master/lib/brexit_checker/notifications.yaml). You should check with the person who requested the change, to determine if a notification is appropriate.
+If a notification is needed, follow these steps:
 
-If a notification is needed, add the relevant details to the [notifications.yaml file](https://github.com/alphagov/finder-frontend/blob/master/lib/brexit_checker/notifications.yaml). You will need to generate a UUID for each notification. You can do this in an interactive Ruby shell (IRB):
+1. Add the relevant details to the [notifications.yaml](https://github.com/alphagov/finder-frontend/blob/master/lib/brexit_checker/notifications.yaml) file. There is a handy [rake task](https://github.com/alphagov/finder-frontend/blob/master/app/lib/tasks/brexit_checker/change_notifications.rake) to generate valid yaml that can be copied into the file.
 
-```
-> irb
-> require 'securerandom'
-> SecureRandom.uuid
-```
+  Example usage:
+  ```
+  rake brexit_checker:configure_notifications NEW_ACTIONS="A001 A099" CHANGED_ACTIONS="S007"
+  ```
 
-To send a notification, run the following rake task. The notification email will be sent to all subscribers who would see this action on their results page:
+  Will output:
 
-https://deploy.blue.production.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=finder-frontend&MACHINE_CLASS=calculators_frontend&RAKE_TASK=brexit_checker:change_notification[UUID]
+  ```
+  ---
+  notifications:
+  - uuid: f2a677fb-6350-4329-8969-848723410526
+    type: addition
+    action_id: A001
+    date: '2020-12-10'
+  - uuid: 56ff9c67-40b4-4c7f-9842-d9503212ff88
+    type: addition
+    action_id: A099
+    date: '2020-12-10'
+  - uuid: 71dd9005-06e5-4e40-ac5a-85f28c60862a
+    type: content_change
+    action_id: S007
+    date: '2020-12-10'
+    note: INSERT CHANGE NOTE HERE
+  ```
+
+2. Open a PR to get the new notification(s) merged to master.
+
+3. To send the notification email(s), run the following rake task.
+
+  https://deploy.blue.production.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=finder-frontend&MACHINE_CLASS=calculators_frontend&RAKE_TASK=brexit_checker:change_notification[UUID]
+
+  The email will be sent to all subscribers who would see this action on their results page:
 
 ### Notifying a subset of subscribers
 
@@ -72,7 +99,7 @@ criteria:
   - visiting-eu
 ```
 
-You can add criteria to a notification in `notifications.yaml`. If a record has criteria the rake file will [use these values](https://github.com/alphagov/finder-frontend/blob/0979c94ec51ba38f8d574569ffd51ffea55f13a6/lib/tasks/brexit_checker/change_notifications.rake#L10) to notify subscribers. This will override the default of notifying users based on criteria from the action.
+You can add criteria to a notification in `notifications.yaml`. If a notification has criteria the rake file will [use these values](https://github.com/alphagov/finder-frontend/blob/0d95a648088e50620810ef5c6830a32a113f3a68/app/lib/brexit_checker/notifications/payload.rb#L10) to determine which subscribers to notify. This will override the default of notifying users based on criteria from the action.
 
 ## If the CSV is available as a standalone file
 In some cases you may be required to upload content changes from a Google Sheet that's separate from the main sheet. This is advised against as the main sheet should always be up to date.
@@ -82,4 +109,3 @@ However, if this is needed, you can run the following rake task:
 ```
 bundle exec rake brexit_checker:convert_csv_to_yaml:actions[path/to/actions.csv]`
 ```
-
