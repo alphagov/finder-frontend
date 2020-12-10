@@ -2,13 +2,13 @@
 
 The Transition Checker is a question and answer tool which informs a user of actions to take related to the Transition period. It can be found at [https://www.gov.uk/transition-check/questions](https://www.gov.uk/transition-check/questions).
 
-Content editors request changes to the actions, questions, and criteria via Zendesk. GDS content designers triage and process these requests, updating their canonical Google Sheet (aka the Dynamic List) as required.
+Content editors request changes to the actions, questions, and criteria via Zendesk. GDS content designers triage and process these requests, updating their canonical [Google Sheet](https://docs.google.com/spreadsheets/d/1wIeBTitJVfkWa7oKrGmusIo2r4TsvXVdlne_xG6YjYs/edit?usp=sharing) (aka the Dynamic List) as required.
 
 ## Updates to actions
 
-Actions are defined in an [ `actions.yaml`](https://github.com/alphagov/finder-frontend/blob/master/lib/brexit_checker/actions.yaml) file, which is automatically populated from the  Google Sheet. To add or change an action, you'll need to complete the following steps:
+Actions are defined in an [ `actions.yaml`](https://github.com/alphagov/finder-frontend/blob/master/app/lib/brexit_checker/actions.yaml) file, which is automatically populated from the  Google Sheet. To add or change an action, you'll need to complete the following steps:
 
-1. The content designer requesting the change should provide you with a link to the canonical Google Sheet. At time or writing, the sheet is located [here](https://docs.google.com/spreadsheets/d/1wIeBTitJVfkWa7oKrGmusIo2r4TsvXVdlne_xG6YjYs/edit?usp=sharing)
+1. The content designer requesting the change should provide you with a link to the canonical Google Sheet. At time or writing, the sheet is located [here](https://docs.google.com/spreadsheets/d/1wIeBTitJVfkWa7oKrGmusIo2r4TsvXVdlne_xG6YjYs/edit?usp=sharing).
 
 2. Make sure you have finder-frontend checked out locally. Create a `.env` file in the root of the finder-frontend repo. Your file should look like this:
 
@@ -18,7 +18,7 @@ Actions are defined in an [ `actions.yaml`](https://github.com/alphagov/finder-f
 GOOGLE_SHEET_ID="1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms"
 ```
 
-3. Enable the Google Drive API by generating a `credentials.json` file from the API and saving it in the root directory of the repo.  Instructions for this can be found [here](https://developers.google.com/drive/api/v3/quickstart/ruby#step_1_turn_on_the). You will be prompted for the following information:
+3. Enable the Google Drive API by generating a `credentials.json` file from the API and saving it in the root directory of the repo.  Instructions for this can be found [here](https://developers.google.com/drive/api/v3/quickstart/ruby#step_1_turn_on_the) (click the "Enable the Drive API" button). You will be prompted for the following information:
   - Project name. (It doesn't matter what you enter here)
   - Configure your OAuth client. (Select Desktop App)
 
@@ -44,7 +44,7 @@ When new actions are added to the checker, or existing actions are changed, it i
 
 If a notification is needed, follow these steps:
 
-1. Add the relevant details to the [notifications.yaml](https://github.com/alphagov/finder-frontend/blob/master/lib/brexit_checker/notifications.yaml) file. There is a handy [rake task](https://github.com/alphagov/finder-frontend/blob/master/lib/tasks/brexit_checker/change_notifications.rake) to generate valid yaml that can be copied into the file.
+1. Add the relevant details to the [notifications.yaml](https://github.com/alphagov/finder-frontend/blob/master/lib/brexit_checker/notifications.yaml) file. There is a handy [rake task](https://github.com/alphagov/finder-frontend/blob/master/app/lib/tasks/brexit_checker/change_notifications.rake) to generate valid yaml that can be copied into the file.
 
   Example usage:
   ```
