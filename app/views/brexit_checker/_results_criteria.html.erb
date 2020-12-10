@@ -1,7 +1,12 @@
-<div class="govuk-grid-column-one-third">
-  <% if criteria.present? %>
+<% if criteria.present? %>
+  <div class="govuk-grid-column-one-third">
     <% if local_assigns[:heading] %>
-      <h3 class="govuk-heading-m"><%= heading %></h3>
+      <%= render "govuk_publishing_components/components/heading", {
+        text: heading,
+        heading_level: 3,
+        font_size: "m",
+        margin_bottom: 4
+      } %>
     <% end %>
     <aside>
       <p class="govuk-body brexit-checker__criteria_explanation">
@@ -15,9 +20,11 @@
         <% end %>
       </ul>
     </aside>
-  <% else %>
+  </div>
+<% else %>
+  <div class="govuk-grid-column-one-third">
     <p class="govuk-body">
       <%= t('brexit_checker.results.criteria.no_answers') %>
     </p>
-  <% end %>
-</div>
+  </div>
+<% end %>

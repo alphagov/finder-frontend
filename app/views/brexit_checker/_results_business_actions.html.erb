@@ -6,10 +6,13 @@
   data-search-query
 >
   <section class="brexit-checker-audience">
-      <header>
-        <h2 class="govuk-heading-l action-audience__heading">
-          <%= t('brexit_checker.results.audiences.business.heading') %>
-        </h2>
+      <header class="action-audience__heading">
+        <%= render "govuk_publishing_components/components/heading", {
+          text: t('brexit_checker.results.audiences.business.heading'),
+          heading_level: 2,
+          font_size: "l",
+          margin_bottom: 0
+        } %>
       </header>
       <section class="brexit-checker-actions__group">
         <div class="govuk-grid-row">

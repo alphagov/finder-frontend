@@ -1,5 +1,8 @@
 <% label_text = capture do %>
-  <h1>Search GOV.UK</h1>
+<%= render "govuk_publishing_components/components/heading", {
+  text: "Search GOV.UK",
+  heading_level: 1,
+} %>
 <% end %>
 
 <%= render "govuk_publishing_components/components/search", {

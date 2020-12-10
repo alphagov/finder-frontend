@@ -54,9 +54,13 @@
         <div id="js-search-results-info" data-module="remove-filter" class="result-info">
           <div class="govuk-grid-row">
             <div class="govuk-grid-column-one-third">
-              <h2 class="result-region-header__counter" id="js-result-count">
-                <%= result_set_presenter.displayed_total %>
-              </h2>
+              <div class="result-info__header">
+                <%= render "govuk_publishing_components/components/heading", {
+                  text: result_set_presenter.displayed_total,
+                  id: "js-result-count",
+                  font_size: "s"
+                  } %>
+              </div>
             </div>
             <div class="govuk-grid-column-two-thirds subscription-links subscription-links--desktop">
               <%= render "govuk_publishing_components/components/subscription-links", signup_links %>

@@ -37,7 +37,12 @@
     <div id="facet-wrapper" data-module="mobile-filters-modal" class="facets" role="search" aria-label="Search filters">
       <div class="facets__box">
         <div class="facets__header">
-          <h1 class="gem-c-title__text">Filter</h1>
+          <%= render "govuk_publishing_components/components/heading", {
+            text: "Filter",
+            heading_level: 1,
+            font_size: "xl",
+            margin_bottom: 0
+          } %>
           <button class="app-c-button-as-link facets__return-link js-close-filters" type="button">
             Return to results
           </button>

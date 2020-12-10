@@ -28,7 +28,12 @@
   <main class="govuk-main-wrapper" role="mail">
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-two-thirds">
-        <h1 class="govuk-heading-l"><%= t('brexit_checker.email_signup.sign_up_heading') %></h1>
+        <%= render "govuk_publishing_components/components/heading", {
+          text: t('brexit_checker.email_signup.sign_up_heading'),
+          heading_level: 1,
+          font_size: "l",
+          margin_bottom: 6
+        } %>
         <%= t('brexit_checker.email_signup.sign_up_message').html_safe %>
         <ul class="govuk-list govuk-list--bullet">
           <%= t('brexit_checker.email_signup.sign_up_message_criteria').html_safe %>
