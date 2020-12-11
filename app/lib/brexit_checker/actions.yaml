@@ -944,15 +944,13 @@ actions:
   audience: business
 - id: T075
   priority: 8
-  title: Register for a quicker way to move your goods to the EU, Switzerland, Norway,
-    Iceland or Liechtenstein
-  title_url: https://www.gov.uk/guidance/what-you-need-to-move-goods-between-or-through-common-transit-countries-including-the-eu
-  consequence: You risk your goods being delayed or rejected when they reach the EU
-    if you do not register.
+  title: Check if you can use Common Transit to move your goods more quickly to the
+    EU, Switzerland, Norway, Iceland or Liechtenstein
+  consequence: If you do not use transit, you may have to provide extra information
+    for each country your goods move through. This risks causing delays.
   guidance_prompt: More information
-  guidance_link_text: Moving goods between or through common transit countries including
-    the EU
-  guidance_url: https://www.gov.uk/guidance/how-to-move-goods-between-or-through-common-transit-countries-including-the-eu
+  guidance_link_text: Check if you can use Common Transit to move your goods
+  guidance_url: https://www.gov.uk/guidance/check-if-you-can-use-transit-to-move-goods-to-the-eu-and-common-transit-countries
   criteria:
   - any_of:
     - export-to-eu

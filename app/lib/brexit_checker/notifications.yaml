@@ -63,3 +63,8 @@ notifications:
       - all_of:
         - nationality-uk
         - living-eu
+  - uuid: c9587c81-3be1-47a6-9b71-ac65a560c7e6
+    type: content_change
+    action_id: T075
+    date: '2020-12-11'
+    note: Updated the action so that it links to guidance on checking if you can use transit.
