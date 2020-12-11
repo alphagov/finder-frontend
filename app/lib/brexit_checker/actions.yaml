@@ -293,19 +293,23 @@ actions:
   - visiting-eu
 - id: S026
   priority: 2
-  title: Contact your university to check if you can continue studying in the EU
-  consequence: Changes to your residency, healthcare or tuition fee status may stop
-    you from completing your course.
+  title: Contact the university where you're planning to study to find out if there
+    will be any changes to your fees
+  consequence: You may not be able to take up the course if you do not have the correct
+    funding in place.
   guidance_prompt: More information
-  guidance_link_text: 'UK students in the EU: continuing your studies'
-  guidance_url: https://www.gov.uk/guidance/uk-students-in-the-eu-continuing-your-studies
+  guidance_link_text: Planning to study in the EU
+  guidance_url: https://www.gov.uk/guidance/study-in-the-european-union
   criteria:
-  - all_of:
-    - nationality-uk
-    - studying-eu
+  - any_of:
+    - all_of:
+      - nationality-uk
+      - living-eu
+    - visiting-eu
   audience: citizen
   grouping_criteria:
-  - studying-eu
+  - living-eu
+  - visiting-eu
 - id: S029
   priority: 11
   title: Find out how to apply to be a resident in the EU country you live in

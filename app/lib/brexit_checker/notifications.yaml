@@ -48,3 +48,18 @@ notifications:
     action_id: S007
     date: '2020-12-11'
     note: Updated guidance URL so it's clearer the action applies to students already studying in the EU.
+  - uuid: '08a2fe44-7fb1-45c3-9126-0a0ff5a0cc88'
+    type: addition
+    action_id: S026
+    date: '2020-12-11'
+    criteria:
+      - visiting-eu
+  - uuid: 5ff248d5-b0bc-4e5a-ba4d-d4ea82dc55b0
+    type: content_change
+    action_id: S026
+    date: '2020-12-11'
+    note: Updated action so that it covers all students who are planning to study in the EU, not just Erasmus students continuing their studies in EU.
+    criteria:
+      - all_of:
+        - nationality-uk
+        - living-eu
