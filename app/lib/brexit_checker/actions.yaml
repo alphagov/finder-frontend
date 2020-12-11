@@ -1606,3 +1606,27 @@ actions:
     - food-drink-tobacco
     - retail-wholesale-x-food-drink-motors
   audience: business
+- id: T124
+  priority: 5
+  title: Use a GB ear tag for livestock you export to the EU
+  consequence: You risk delays or your animals being rejected when they reach the
+    EU if they do not have the right ear tags.
+  guidance_prompt: More information
+  guidance_link_text: Tagging animals for export to the EU from 1 January 2021
+  guidance_url: https://www.gov.uk/guidance/exporting-animals-and-animal-products-to-the-eu-from-1-january-2021#identify-animals
+  criteria:
+  - any_of:
+    - animal-ex-food
+    - agriculture-farm
+  audience: business
+- id: T125
+  priority: 3
+  title: Check if there are EU funding opportunities you can apply for
+  consequence: You will not be able to apply for EU funding once the current funding
+    cycle ends.
+  guidance_prompt: More information
+  guidance_link_text: Getting EU funding
+  guidance_url: https://www.gov.uk/guidance/getting-eu-funding
+  criteria:
+  - eu-uk-funding
+  audience: business
