@@ -74,14 +74,13 @@ actions:
   - studying-uk
 - id: S007
   priority: 5
-  title: Contact your home university to check if you can continue your Erasmus+ placement
+  title: Check with your university or college what you must do to continue studying
     in the EU
-  consequence: If you have not already started your placement you may not be able
-    to study abroad. If you have started, you may not get free healthcare, student
-    finance or benefits.
+  consequence: There may be changes to your residency, healthcare or tuition fees
+    that you need to act on, or you may not be able to continue studying as before.
   guidance_prompt: More information
-  guidance_link_text: Study in the European Union
-  guidance_url: https://www.gov.uk/guidance/study-in-the-european-union
+  guidance_link_text: Continuing your studies in the European Union
+  guidance_url: https://www.gov.uk/guidance/uk-students-in-the-eu-continuing-your-studies
   criteria:
   - all_of:
     - nationality-uk
@@ -294,19 +293,23 @@ actions:
   - visiting-eu
 - id: S026
   priority: 2
-  title: Contact your university to check if you can continue studying in the EU
-  consequence: Changes to your residency, healthcare or tuition fee status may stop
-    you from completing your course.
+  title: Contact the university where you're planning to study to find out if there
+    will be any changes to your fees
+  consequence: You may not be able to take up the course if you do not have the correct
+    funding in place.
   guidance_prompt: More information
-  guidance_link_text: 'UK students in the EU: continuing your studies'
-  guidance_url: https://www.gov.uk/guidance/uk-students-in-the-eu-continuing-your-studies
+  guidance_link_text: Planning to study in the EU
+  guidance_url: https://www.gov.uk/guidance/study-in-the-european-union
   criteria:
-  - all_of:
-    - nationality-uk
-    - studying-eu
+  - any_of:
+    - all_of:
+      - nationality-uk
+      - living-eu
+    - visiting-eu
   audience: citizen
   grouping_criteria:
-  - studying-eu
+  - living-eu
+  - visiting-eu
 - id: S029
   priority: 11
   title: Find out how to apply to be a resident in the EU country you live in
@@ -941,15 +944,13 @@ actions:
   audience: business
 - id: T075
   priority: 8
-  title: Register for a quicker way to move your goods to the EU, Switzerland, Norway,
-    Iceland or Liechtenstein
-  title_url: https://www.gov.uk/guidance/what-you-need-to-move-goods-between-or-through-common-transit-countries-including-the-eu
-  consequence: You risk your goods being delayed or rejected when they reach the EU
-    if you do not register.
+  title: Check if you can use Common Transit to move your goods more quickly to the
+    EU, Switzerland, Norway, Iceland or Liechtenstein
+  consequence: If you do not use transit, you may have to provide extra information
+    for each country your goods move through. This risks causing delays.
   guidance_prompt: More information
-  guidance_link_text: Moving goods between or through common transit countries including
-    the EU
-  guidance_url: https://www.gov.uk/guidance/how-to-move-goods-between-or-through-common-transit-countries-including-the-eu
+  guidance_link_text: Check if you can use Common Transit to move your goods
+  guidance_url: https://www.gov.uk/guidance/check-if-you-can-use-transit-to-move-goods-to-the-eu-and-common-transit-countries
   criteria:
   - any_of:
     - export-to-eu
@@ -1350,17 +1351,6 @@ actions:
   audience: citizen
   grouping_criteria:
   - living-eu
-- id: T106
-  priority: 7
-  title: Check the rules, tax and duty rates for exporting to the rest of the world
-  consequence: You risk not being able to export your goods if you do not follow the
-    rules.
-  guidance_prompt: More information
-  guidance_link_text: Check duties and customs procedures for exporting goods
-  guidance_url: https://www.gov.uk/check-duties-customs-exporting
-  criteria:
-  - export-to-row
-  audience: business
 - id: T107
   priority: 1
   title: Apply for Horizon 2020 funding
@@ -1605,4 +1595,28 @@ actions:
     - animal-ex-food
     - food-drink-tobacco
     - retail-wholesale-x-food-drink-motors
+  audience: business
+- id: T124
+  priority: 5
+  title: Use a GB ear tag for livestock you export to the EU
+  consequence: You risk delays or your animals being rejected when they reach the
+    EU if they do not have the right ear tags.
+  guidance_prompt: More information
+  guidance_link_text: Tagging animals for export to the EU from 1 January 2021
+  guidance_url: https://www.gov.uk/guidance/exporting-animals-and-animal-products-to-the-eu-from-1-january-2021#identify-animals
+  criteria:
+  - any_of:
+    - animal-ex-food
+    - agriculture-farm
+  audience: business
+- id: T125
+  priority: 3
+  title: Check if there are EU funding opportunities you can apply for
+  consequence: You will not be able to apply for EU funding once the current funding
+    cycle ends.
+  guidance_prompt: More information
+  guidance_link_text: Getting EU funding
+  guidance_url: https://www.gov.uk/guidance/getting-eu-funding
+  criteria:
+  - eu-uk-funding
   audience: business
