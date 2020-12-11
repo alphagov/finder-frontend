@@ -43,3 +43,8 @@ notifications:
     type: addition
     action_id: T125
     date: '2020-12-11'
+  - uuid: 40e9ccac-4831-4958-8cbf-94e960a37da8
+    type: content_change
+    action_id: S007
+    date: '2020-12-11'
+    note: Updated guidance URL so it's clearer the action applies to students already studying in the EU.

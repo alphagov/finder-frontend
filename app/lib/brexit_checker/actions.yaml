@@ -74,14 +74,13 @@ actions:
   - studying-uk
 - id: S007
   priority: 5
-  title: Contact your home university to check if you can continue your Erasmus+ placement
+  title: Check with your university or college what you must do to continue studying
     in the EU
-  consequence: If you have not already started your placement you may not be able
-    to study abroad. If you have started, you may not get free healthcare, student
-    finance or benefits.
+  consequence: There may be changes to your residency, healthcare or tuition fees
+    that you need to act on, or you may not be able to continue studying as before.
   guidance_prompt: More information
-  guidance_link_text: Study in the European Union
-  guidance_url: https://www.gov.uk/guidance/study-in-the-european-union
+  guidance_link_text: Continuing your studies in the European Union
+  guidance_url: https://www.gov.uk/guidance/uk-students-in-the-eu-continuing-your-studies
   criteria:
   - all_of:
     - nationality-uk
