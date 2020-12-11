@@ -1,7 +1,9 @@
 <section class="brexit-checker__share">
-  <h2 class="govuk-heading-m">
-    <%= I18n.t("brexit_checker.results.share_link_title") %>
-  </h2>
+  <%= render "govuk_publishing_components/components/heading", {
+    text: t("brexit_checker.results.share_link_title"),
+    font_size: "m",
+    margin_bottom: 4
+  } %>
   <%= render "govuk_publishing_components/components/share_links", {
     columns: true,
     links: [

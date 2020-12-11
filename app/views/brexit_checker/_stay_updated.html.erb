@@ -1,8 +1,11 @@
-<h2 class="govuk-heading-m stay-updated__heading">
-  <%= t("brexit_checker.stay_updated.heading") %>
-</h2>
+<hr class="stay-updated__heading">
+<%= render "govuk_publishing_components/components/heading", {
+  text: t("brexit_checker.stay_updated.heading"),
+  font_size: "m",
+  margin_bottom: 4
+} %>
 
-<p class="stay-updated_description" >
+<p class="stay-updated__description" >
   <%= t("brexit_checker.stay_updated.description") %>
 </p>
 

@@ -81,12 +81,14 @@ $urgency-blue: #0055D2;
   }
 
   .stay-updated__heading {
+    border: 0;
+    height: 0;
     border-top: 1px solid $govuk-border-colour;
-    padding-top: govuk-spacing(6);
     margin-top: govuk-spacing(6);
+    margin-bottom: govuk-spacing(6);
   }
 
-  .stay-updated_description {
+  .stay-updated__description {
     margin-bottom: govuk-spacing(4);
     @include govuk-font(19);
   }

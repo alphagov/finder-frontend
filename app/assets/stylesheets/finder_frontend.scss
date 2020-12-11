@@ -236,18 +236,6 @@ mark {
   @include govuk-responsive-margin(4, "bottom");
 }
 
-.result-region-header__counter {
-  @include govuk-font(19);
-  white-space: nowrap;
-  margin-bottom: govuk-spacing(4);
-  display: none;
-
-  @include govuk-media-query($from: tablet) {
-    margin-bottom: govuk-spacing(2);
-    display: block;
-  }
-}
-
 .sort-options__label {
   @include govuk-responsive-padding(1, "right");
   display: inline-block;
@@ -267,6 +255,13 @@ mark {
 .result-info {
   margin: 0 0 govuk-spacing(4) 0;
   border-bottom: solid 1px govuk-colour("black");
+
+  &__header {    
+    display: none;
+    @include govuk-media-query($from: tablet) {
+      display: block;
+    }
+  }
 
   .govuk-grid-column-two-thirds {
     text-align: left;
