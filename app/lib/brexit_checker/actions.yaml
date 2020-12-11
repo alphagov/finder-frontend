@@ -1350,17 +1350,6 @@ actions:
   audience: citizen
   grouping_criteria:
   - living-eu
-- id: T106
-  priority: 7
-  title: Check the rules, tax and duty rates for exporting to the rest of the world
-  consequence: You risk not being able to export your goods if you do not follow the
-    rules.
-  guidance_prompt: More information
-  guidance_link_text: Check duties and customs procedures for exporting goods
-  guidance_url: https://www.gov.uk/check-duties-customs-exporting
-  criteria:
-  - export-to-row
-  audience: business
 - id: T107
   priority: 1
   title: Apply for Horizon 2020 funding
