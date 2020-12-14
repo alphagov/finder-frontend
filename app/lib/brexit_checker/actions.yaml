@@ -303,11 +303,11 @@ actions:
   guidance_link_text: Planning to study in the EU
   guidance_url: https://www.gov.uk/guidance/study-in-the-european-union
   criteria:
-  - any_of:
-    - all_of:
-      - nationality-uk
-      - living-eu
-    - visiting-eu
+  - all_of:
+    - any_of:
+      - studying-uk
+      - studying-eu
+    - nationality-uk
   audience: citizen
   grouping_criteria:
   - living-eu
