@@ -57,11 +57,13 @@ actions:
   - visiting-uk
 - id: S005
   priority: 5
-  title: Contact your home university to check if you can continue studying on your
-    Erasmus+ placement in the UK
-  consequence: If you have not started your placement, you may not be able to study
-    in the UK. If you have started, you may not get NHS healthcare, student finance
-    or benefits.
+  title: Contact your university or college to find out if there are any changes you
+    need to act on to continue studying.
+  consequence: You might not be able to continue your studies or get student finance
+    or benefits if you don't act on any changes.
+  guidance_prompt: More information
+  guidance_link_text: Studying in the UK for EU students
+  guidance_url: https://www.gov.uk/guidance/studying-in-the-uk-guidance-for-eu-students
   criteria:
   - all_of:
     - any_of:
