@@ -45,12 +45,12 @@ class SessionsController < ApplicationController
   def delete
     if params[:continue]
       logout!
-      redirect_with_ga "#{account_manager_url}/logout?done=#{params[:continue]}"
+      redirect_with_ga "#{account_manager_url}/sign-out?done=#{params[:continue]}"
     elsif params[:done]
       logout!
       redirect_with_ga "/transition"
     else
-      redirect_with_ga "#{account_manager_url}/logout?continue=1"
+      redirect_with_ga "#{account_manager_url}/sign-out?continue=1"
     end
   end
 
