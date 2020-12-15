@@ -32,6 +32,7 @@ module BrexitChecker
 
     private
 
+      # rubocop:disable Rails/Output
       def authorize
         client_id = Google::Auth::ClientId.from_file(CREDENTIALS_PATH)
         token_store = Google::Auth::Stores::FileTokenStore.new(file: TOKEN_PATH)
@@ -41,7 +42,7 @@ module BrexitChecker
 
         unless credentials
           url = authorizer.get_authorization_url(base_url: OOB_URI)
-          Rails.logger.info "Open the following URL in the browser and enter the " \
+          puts "Open the following URL in the browser and enter the " \
                "resulting code after authorization:\n" + url
           code = STDIN.gets
           credentials = authorizer.get_and_store_credentials_from_code(
@@ -50,6 +51,7 @@ module BrexitChecker
         end
         credentials
       end
+      # rubocop:enable Rails/Output
     end
   end
 end
