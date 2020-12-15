@@ -68,3 +68,17 @@ notifications:
     action_id: T075
     date: '2020-12-11'
     note: Updated the action so that it links to guidance on checking if you can use transit.
+  - uuid: a4294202-72f5-4752-8e8a-5c18bb8afa83
+    type: content_change
+    action_id: S005
+    date: '2020-12-14'
+    note: The action has been updated to apply in general to EU students studying in the UK, not just Erasmus students.
+  - uuid: 5e29982f-a6e0-42e4-bea2-f44486079f59
+    type: content_change
+    action_id: S026
+    date: '2020-12-14'
+    note: Updated action so that it covers all students who are planning to study in the EU, not just Erasmus students continuing their studies in EU.
+    criteria:
+      - all_of:
+        - nationality-uk
+        - studying-uk
