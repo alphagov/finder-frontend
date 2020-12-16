@@ -173,7 +173,6 @@ private
 
     {
       "title" => "Get ready for 2021",
-      "description" => "[You can view a copy of your results on GOV.UK.](#{Plek.new.website_root}#{path})",
       "tags" => { "brexit_checklist_criteria" => { "any" => criteria_keys } },
       "url" => path,
     }
