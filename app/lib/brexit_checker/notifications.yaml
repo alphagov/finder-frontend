@@ -82,3 +82,8 @@ notifications:
       - all_of:
         - nationality-uk
         - studying-uk
+  - uuid: 4d3728cb-818f-4fa8-953f-07a7c6fb1349
+    type: content_change
+    action_id: T059
+    date: '2020-12-16'
+    note: Updated the action to refer to importing and exporting using wood packaging. Also updated the guidance link.
