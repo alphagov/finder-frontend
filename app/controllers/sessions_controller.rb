@@ -2,9 +2,9 @@ class SessionsController < ApplicationController
   before_action :check_accounts_enabled
 
   def create
-    redirect_to account_manager_url and return if logged_in?
+    redirect_with_ga account_manager_url and return if logged_in?
 
-    redirect_if_not_test Services.oidc.auth_uri(redirect_path: params["redirect_path"])[:uri]
+    redirect_with_ga Services.oidc.auth_uri(redirect_path: params["redirect_path"])[:uri]
   end
 
   def callback
@@ -24,23 +24,33 @@ class SessionsController < ApplicationController
       refresh_token: tokens[:refresh_token],
     )
 
-    if callback[:cookie_consent] && cookies[:cookies_policy]
+    ephemeral_state =
+      update_account_session_cookie_from_oauth_result(
+        Services.oidc.get_ephemeral_state(
+          access_token: tokens[:access_token],
+          refresh_token: tokens[:refresh_token],
+        ),
+      )
+
+    ga_client_id = ephemeral_state["_ga"]
+
+    if ephemeral_state["cookie_consent"] && cookies[:cookies_policy]
       cookies_policy = JSON.parse(cookies[:cookies_policy]).symbolize_keys
       cookies[:cookies_policy] = cookies_policy.merge(usage: true).to_json
     end
 
-    redirect_if_not_test(callback[:redirect_path] || account_manager_url)
+    redirect_with_ga(callback[:redirect_path] || account_manager_url, ga_client_id)
   end
 
   def delete
     if params[:continue]
       logout!
-      redirect_if_not_test "#{account_manager_url}/logout?done=#{params[:continue]}"
+      redirect_with_ga "#{account_manager_url}/logout?done=#{params[:continue]}"
     elsif params[:done]
       logout!
-      redirect_if_not_test "/transition"
+      redirect_with_ga "/transition"
     else
-      redirect_if_not_test "#{account_manager_url}/logout?continue=1"
+      redirect_with_ga "#{account_manager_url}/logout?continue=1"
     end
   end
 
@@ -50,7 +60,17 @@ protected
     Plek.find("account-manager")
   end
 
-  def redirect_if_not_test(url)
+  def redirect_with_ga(url, ga_client_id = nil)
+    ga_client_id ||= params[:_ga]
+    if ga_client_id
+      url =
+        if url.include? "?"
+          "#{url}&_ga=#{ga_client_id}"
+        else
+          "#{url}?_ga=#{ga_client_id}"
+        end
+    end
+
     if Rails.env.test?
       render plain: "Redirecting to #{url}"
     else

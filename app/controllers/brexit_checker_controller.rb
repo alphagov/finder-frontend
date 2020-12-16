@@ -64,12 +64,12 @@ class BrexitCheckerController < ApplicationController
 
   def save_results_confirm
     saved_results = results_from_account.fetch("criteria_keys", [])
-    redirect_to transition_checker_new_session_path(redirect_path: transition_checker_save_results_confirm_path(c: criteria_keys)) and return unless logged_in?
+    redirect_to transition_checker_new_session_path(redirect_path: transition_checker_save_results_confirm_path(c: criteria_keys), _ga: params[:_ga]) and return unless logged_in?
 
     @old_criteria_keys = saved_results
     redirect_to transition_checker_results_path(c: criteria_keys) and return if criteria_keys == @old_criteria_keys
 
-    @has_email_subscription = update_session_tokens(
+    @has_email_subscription = update_account_session_cookie_from_oauth_result(
       Services.oidc.has_email_subscription(
         access_token: account_session_cookie_value[:access_token],
         refresh_token: account_session_cookie_value[:refresh_token],
@@ -81,7 +81,7 @@ class BrexitCheckerController < ApplicationController
 
   def save_results_apply
     if params[:email_decision] == "yes"
-      update_session_tokens(
+      update_account_session_cookie_from_oauth_result(
         Services.oidc.update_email_subscription(
           slug: subscriber_list_slug,
           access_token: account_session_cookie_value[:access_token],
@@ -89,7 +89,7 @@ class BrexitCheckerController < ApplicationController
         ),
       )
     end
-    update_session_tokens(
+    update_account_session_cookie_from_oauth_result(
       Services.oidc.set_checker_attribute(
         value: { criteria_keys: criteria_keys, timestamp: Time.zone.now.to_i },
         access_token: account_session_cookie_value[:access_token],
@@ -106,7 +106,7 @@ class BrexitCheckerController < ApplicationController
 
   def saved_results
     saved_results = results_from_account.fetch("criteria_keys", [])
-    redirect_to transition_checker_new_session_path(redirect_path: transition_checker_saved_results_path) and return unless logged_in?
+    redirect_to transition_checker_new_session_path(redirect_path: transition_checker_saved_results_path, _ga: params[:_ga]) and return unless logged_in?
 
     if saved_results.empty?
       redirect_to transition_checker_questions_path
@@ -117,7 +117,7 @@ class BrexitCheckerController < ApplicationController
 
   def edit_saved_results
     saved_results = results_from_account.fetch("criteria_keys", [])
-    redirect_to transition_checker_new_session_path(redirect_path: transition_checker_edit_saved_results_path) and return unless logged_in?
+    redirect_to transition_checker_new_session_path(redirect_path: transition_checker_edit_saved_results_path, _ga: params[:_ga]) and return unless logged_in?
 
     if saved_results.empty?
       redirect_to transition_checker_questions_path
@@ -157,7 +157,7 @@ private
   def results_from_account
     return {} unless account_session_cookie_value
 
-    update_session_tokens(
+    update_account_session_cookie_from_oauth_result(
       Services.oidc.get_checker_attribute(
         access_token: account_session_cookie_value[:access_token],
         refresh_token: account_session_cookie_value[:refresh_token],
@@ -168,14 +168,6 @@ private
     # services are down
     logout!
     {}
-  end
-
-  def update_session_tokens(result)
-    set_account_session_cookie(
-      access_token: result[:access_token],
-      refresh_token: result[:refresh_token],
-    )
-    result[:result]
   end
 
   def subscriber_list_options

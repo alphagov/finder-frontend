@@ -125,4 +125,12 @@ private
       secure: Rails.env.production?,
     }
   end
+
+  def update_account_session_cookie_from_oauth_result(result)
+    set_account_session_cookie(
+      access_token: result[:access_token],
+      refresh_token: result[:refresh_token],
+    )
+    result[:result]
+  end
 end
