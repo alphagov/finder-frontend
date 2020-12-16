@@ -503,7 +503,7 @@ actions:
     the new domestic safeguards regime.
   guidance_prompt: Read ONR guidance
   guidance_link_text: Draft nuclear safeguards guidance for inspectors
-  guidance_url: http://www.onr.org.uk/safeguards/draft-guidance-for-inspectors-and-nuclear-material-accountants.htm
+  guidance_url: http://www.onr.org.uk/safeguards/safeguards-guidance.htm
   criteria:
   - nuclear
   audience: business
@@ -874,14 +874,18 @@ actions:
   audience: business
 - id: T059
   priority: 3
-  title: Check whether any wood packaging you use meets ISPM15 international standards
-  consequence: You may not be able to export using wood packaging that is not ISPM15
-    certified.
+  title: Check whether any wood packaging you use to import or export goods meets
+    ISPM15 international standards
+  consequence: If your wood packaging does not meet these standards, it may be rejected
+    or destroyed during border checks and you may need to make alternative arrangements
+    to transport your goods.
   guidance_prompt: More information
-  guidance_link_text: Movement of wood packaging material from 2021
-  guidance_url: https://www.gov.uk/guidance/importing-and-exporting-plants-and-plant-products-from-1-january-2021#movement-of-wood-packaging-material
+  guidance_link_text: Wood packaging material for import and export
+  guidance_url: https://www.gov.uk/guidance/import-or-export-wood-packaging-material
   criteria:
-  - export-to-eu
+  - any_of:
+    - export-to-eu
+    - import-from-eu
   audience: business
 - id: T063
   priority: 6
