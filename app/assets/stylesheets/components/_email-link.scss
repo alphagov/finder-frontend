@@ -1,5 +1,8 @@
 .app-c-email-link {
   display: block;
-  padding: govuk-spacing(4);
+}
+
+.app-c-email-link--callout {
   background: govuk-colour('light-grey');
+  padding: govuk-spacing(6);
 }

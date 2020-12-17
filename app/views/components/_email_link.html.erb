@@ -3,8 +3,11 @@
   link_text ||= "Sign up to emails"
   data_attributes ||= {}
   description ||= nil
+  callout ||= nil
+  css_classes = %w(app-c-email-link)
+  css_classes << 'app-c-email-link--callout' if callout
 %>
-<div class="app-c-email-link">
+<%= tag.div class: css_classes do %>
   <% if title %>
     <%= render "govuk_publishing_components/components/heading", {
       text: title,
@@ -18,4 +21,4 @@
     href: link_href,
     data_attributes: data_attributes,
   } %>
-</div>
+<% end %>
