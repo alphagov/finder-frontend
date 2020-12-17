@@ -30,7 +30,7 @@ RSpec.feature "Brexit Checker create GOV.UK Account", type: :feature do
   end
 
   def then_i_click_to_subscribe
-    click_on "Subscribe"
+    first(".app-c-email-link .govuk-button").click
   end
 
   def and_i_am_taken_to_choose_how_to_subscribe_page

@@ -96,7 +96,20 @@
         } %>
       <% end %>
     <% else %>
-      <%= render 'stay_updated' %>
+      <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+
+      <%= render 'components/email_link', {
+        data_attributes: {
+          "module": "track-click",
+          "track-action": action_based_email_link_label,
+          "track-category": "StayUpdated",
+          "track-label": transition_checker_email_signup_path
+        },
+        link_text: action_based_email_link_label,
+        link_href: path_based_on_account_feature_flag,
+        title: t("brexit_checker.results.email_sign_up_title"),
+        description: t("brexit_checker.results.email_sign_up_description"),
+      } %>
     <% end %>
 
     <%= render 'share_links' %>

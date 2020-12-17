@@ -19,7 +19,7 @@ RSpec.feature "Brexit Checker email signup", type: :feature do
     scenario "user clicks to signup to email alerts with existing subscriber list" do
       given_im_on_the_results_page
       and_email_alert_api_has_subscriber_list
-      then_i_click_to_subscribe # on main results page
+      then_i_click_to_get_email_updates # on main results page
       then_i_click_to_subscribe # on overview of subscription page
       and_i_am_taken_to_email_alert_frontend
     end
@@ -28,7 +28,7 @@ RSpec.feature "Brexit Checker email signup", type: :feature do
       given_im_on_the_results_page
       and_email_alert_api_does_not_have_subscriber_list
       and_email_alert_api_creates_subscriber_list
-      then_i_click_to_subscribe # on main results page
+      then_i_click_to_get_email_updates # on main results page
       then_i_click_to_subscribe # on overview of subscription page
       and_the_subscriber_list_was_created
       and_i_am_taken_to_email_alert_frontend
@@ -51,7 +51,7 @@ RSpec.feature "Brexit Checker email signup", type: :feature do
     scenario "user clicks to signup to email alerts with existing subscriber list" do
       given_im_on_the_results_page
       and_email_alert_api_has_subscriber_list
-      then_i_click_to_subscribe
+      then_i_click_to_get_email_updates
       and_i_am_taken_to_choose_how_to_subscribe_page
       then_i_click_email_alerts_only
       and_i_am_taken_to_email_alert_signup_page
@@ -63,7 +63,7 @@ RSpec.feature "Brexit Checker email signup", type: :feature do
       given_im_on_the_results_page
       and_email_alert_api_does_not_have_subscriber_list
       and_email_alert_api_creates_subscriber_list
-      then_i_click_to_subscribe
+      then_i_click_to_get_email_updates
       and_i_am_taken_to_choose_how_to_subscribe_page
       then_i_click_email_alerts_only
       and_i_am_taken_to_email_alert_signup_page
@@ -94,8 +94,12 @@ RSpec.feature "Brexit Checker email signup", type: :feature do
     click_on "Subscribe to get email updates"
   end
 
+  def then_i_click_to_get_email_updates
+    first(".app-c-email-link .govuk-button").click
+  end
+
   def then_i_click_to_subscribe
-    click_on "Subscribe"
+    click_on("Subscribe")
   end
 
   def and_the_subscriber_list_was_created
