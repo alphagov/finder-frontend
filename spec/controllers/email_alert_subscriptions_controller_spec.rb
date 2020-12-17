@@ -112,7 +112,7 @@ describe EmailAlertSubscriptionsController, type: :controller do
               "case_type" => { any: %w[consumer-enforcement] },
               "format" => { any: %w[cma_case] },
             },
-            "subscription_url" => "http://www.gov.uk/subscription-to-cma-cases",
+            "slug" => "slug",
           )
 
           post :create,
@@ -122,7 +122,7 @@ describe EmailAlertSubscriptionsController, type: :controller do
                    "case_type" => %w[consumer-enforcement],
                  },
                }
-          expect(subject).to redirect_to("http://www.gov.uk/subscription-to-cma-cases")
+          expect(subject).to redirect_to("/email/subscriptions/new?topic_id=slug")
         end
       end
     end
@@ -140,7 +140,7 @@ describe EmailAlertSubscriptionsController, type: :controller do
             "taxon_tree" => { "all" => [taxon_content_id_one, taxon_content_id_two, brexit_taxon_id] },
             "content_purpose_subgroup" => { "any" => %w[news speeches_and_statements] },
           },
-          "subscription_url" => "http://www.gov.uk/subscription/news",
+          "slug" => "slug",
         )
 
         post :create,
@@ -153,13 +153,13 @@ describe EmailAlertSubscriptionsController, type: :controller do
                  "another_junk_key" => "single-junk-value",
                },
              }
-        expect(subject).to redirect_to("http://www.gov.uk/subscription/news")
+        expect(subject).to redirect_to("/email/subscriptions/new?topic_id=slug")
       end
 
       it "without allowed filters it redirects to the default email subscription url" do
         stub_email_alert_api_has_subscriber_list(
           "links" => { "content_purpose_subgroup" => { "any" => %w[news speeches_and_statements] } },
-          "subscription_url" => "http://www.gov.uk/subscription/default-news",
+          "slug" => "slug",
         )
 
         post :create,
@@ -171,7 +171,7 @@ describe EmailAlertSubscriptionsController, type: :controller do
                  "another_junk_key" => "single-junk-value",
                },
              }
-        expect(subject).to redirect_to("http://www.gov.uk/subscription/default-news")
+        expect(subject).to redirect_to("/email/subscriptions/new?topic_id=slug")
       end
     end
 
@@ -189,7 +189,7 @@ describe EmailAlertSubscriptionsController, type: :controller do
             "taxon_tree" => { "all" => [taxon_content_id_one, taxon_content_id_two] },
             "content_purpose_supergroup" => { "any" => %w[policy_and_engagement] },
           },
-          "subscription_url" => "http://www.gov.uk/subscription/policy-papers-and-consultations",
+          "slug" => "slug",
         )
 
         post :create,
@@ -201,7 +201,7 @@ describe EmailAlertSubscriptionsController, type: :controller do
                  "organisations" => [org_slug_one, org_slug_two, "junk-organisation"],
                },
              }
-        expect(subject).to redirect_to("http://www.gov.uk/subscription/policy-papers-and-consultations")
+        expect(subject).to redirect_to("/email/subscriptions/new?topic_id=slug")
       end
     end
 
@@ -228,7 +228,7 @@ describe EmailAlertSubscriptionsController, type: :controller do
             "organisations" => { "any" => ["content_id_for_#{org_slug_one}", "content_id_for_#{org_slug_two}"] },
             "taxon_tree" => { "all" => [taxon_content_id_one, taxon_content_id_two] },
           },
-          "subscription_url" => "http://www.gov.uk/subscription/research-and-stats",
+          "slug" => "slug",
         )
 
         post :create,
@@ -243,7 +243,7 @@ describe EmailAlertSubscriptionsController, type: :controller do
                  "all_part_of_taxonomy_tree" => [taxon_content_id_one, taxon_content_id_two, "junk-content-id"],
                },
              }
-        expect(subject).to redirect_to("http://www.gov.uk/subscription/research-and-stats")
+        expect(subject).to redirect_to("/email/subscriptions/new?topic_id=slug")
       end
 
       context "when filter and subscriber_list_params params are empty" do
@@ -276,7 +276,7 @@ describe EmailAlertSubscriptionsController, type: :controller do
               },
               "taxon_tree" => { "all" => [taxon_content_id_one, taxon_content_id_two] },
             },
-            "subscription_url" => "http://www.gov.uk/subscription/research-and-stats",
+            "slug" => "slug",
           )
 
           post :create,
@@ -288,7 +288,7 @@ describe EmailAlertSubscriptionsController, type: :controller do
                    "all_part_of_taxonomy_tree" => [taxon_content_id_one, taxon_content_id_two, "junk-content-id"],
                  },
                }
-          expect(subject).to redirect_to("http://www.gov.uk/subscription/research-and-stats")
+          expect(subject).to redirect_to("/email/subscriptions/new?topic_id=slug")
         end
       end
 
@@ -308,7 +308,7 @@ describe EmailAlertSubscriptionsController, type: :controller do
                 ],
               },
             },
-            "subscription_url" => "http://www.gov.uk/subscription/research-and-stats",
+            "slug" => "slug",
           )
 
           post :create,
@@ -319,7 +319,7 @@ describe EmailAlertSubscriptionsController, type: :controller do
                  },
                  subscriber_list_params: {},
                }
-          expect(subject).to redirect_to("http://www.gov.uk/subscription/research-and-stats")
+          expect(subject).to redirect_to("/email/subscriptions/new?topic_id=slug")
         end
       end
     end
@@ -335,7 +335,7 @@ describe EmailAlertSubscriptionsController, type: :controller do
             "case_type" => { any: %w[consumer-enforcement] },
             "format" => { any: %w[cma_case] },
           },
-          "subscription_url" => "http://www.gov.uk/subscription-to-cma-cases",
+          "slug" => "slug",
         )
         post :create,
              params: {
@@ -347,7 +347,7 @@ describe EmailAlertSubscriptionsController, type: :controller do
                blah: "criminal-cartels",
                mergers: %w[competition-disqualification],
              }
-        expect(subject).to redirect_to("http://www.gov.uk/subscription-to-cma-cases")
+        expect(subject).to redirect_to("/email/subscriptions/new?topic_id=slug")
       end
     end
 
