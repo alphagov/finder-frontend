@@ -1,12 +1,13 @@
 <%
+  title ||= nil
   link_text ||= "Sign up to emails"
   data_attributes ||= {}
   description ||= nil
 %>
 <div class="app-c-email-link">
-  <% if link_title %>
+  <% if title %>
     <%= render "govuk_publishing_components/components/heading", {
-      text: link_title,
+      text: title,
       font_size: "m",
       margin_bottom: 2
     } %>

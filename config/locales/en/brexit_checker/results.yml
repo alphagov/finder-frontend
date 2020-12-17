@@ -12,11 +12,12 @@ en:
       description_no_answers: |
         <p class="govuk-body-l">To change your answers, follow the link below.</p>
         <p class="govuk-body-l">This is a safe and secure service. We do not store any of your personal information.</p>
-      email_sign_up_title: What you need to do may change
+      email_sign_up_title: Stay up to date
+      email_sign_up_description: Sign up to get emails about Brexit changes that may affect you.
       email_sign_up_link: |
-        Subscribe to email updates about changes that may affect you and get a link to your results
+        Get email updates
       email_sign_up_link_no_actions: |
-        Subscribe to email updates about changes that may affect you and get a link to your results
+        Get email updates
       share_link_title: Share your results
       social_media_meta:
         title: "How to get ready for new rules in 2021: Your results"
