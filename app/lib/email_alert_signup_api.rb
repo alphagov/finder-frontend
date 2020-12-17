@@ -11,7 +11,7 @@ class EmailAlertSignupAPI
   end
 
   def signup_url
-    subscriber_list["subscription_url"]
+    "/email/subscriptions/new?topic_id=#{subscriber_list['slug']}"
   rescue GdsApi::HTTPUnprocessableEntity
     raise UnprocessableSubscriberListError
   end

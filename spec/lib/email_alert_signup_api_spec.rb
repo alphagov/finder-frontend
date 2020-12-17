@@ -21,21 +21,21 @@ describe EmailAlertSignupAPI do
   let(:applied_filters) { {} }
   let(:facets) { [] }
   let(:subscriber_list_title) { "Subscriber list title" }
+  let(:slug) { "slug" }
+  let(:subscription_url) { "/email/subscriptions/new?topic_id=#{slug}" }
 
-  def init_simple_email_alert_api(subscription_url)
+  def init_simple_email_alert_api(slug)
     stub_email_alert_api_has_subscriber_list(
       "tags" => {},
-      "subscription_url" => subscription_url,
+      "slug" => slug,
     )
   end
 
   describe "default_attributes" do
     context "no default_attributes or attributes" do
       describe "#signup_url" do
-        let(:subscription_url) { "http://gov.uk/email" }
-
         it "returns the url email-alert-api gives back" do
-          req = init_simple_email_alert_api(subscription_url)
+          req = init_simple_email_alert_api(slug)
 
           expect(subject.signup_url).to eql subscription_url
           assert_requested(req)
@@ -45,7 +45,6 @@ describe EmailAlertSignupAPI do
 
     context "default attributes provided" do
       describe "#signup_url" do
-        let(:subscription_url) { "http://www.example.org/news_and_comms/signup" }
         let(:default_filters) do
           { "content_purpose_supergroup" => "news_and_communications" }
         end
@@ -53,7 +52,7 @@ describe EmailAlertSignupAPI do
         it "will send email_alert_api the default attributes" do
           req = stub_email_alert_api_has_subscriber_list(
             "tags" => { content_purpose_supergroup: { any: %w[news_and_communications] } },
-            "subscription_url" => subscription_url,
+            "slug" => "slug",
           )
 
           expect(subject.signup_url).to eql subscription_url
@@ -91,16 +90,14 @@ describe EmailAlertSignupAPI do
       ]
     end
 
-    let(:subscription_url) { "http://www.example.org/list-id/signup" }
-
     describe "#signup_url" do
-      it "returns the url email-alert-api gives back" do
+      it "returns the url for the subscriber list" do
         stub_email_alert_api_has_subscriber_list(
           "tags" => {
             format: { any: %w[test-reports] },
             alert_type: { any: %w[first second] },
           },
-          "subscription_url" => subscription_url,
+          "slug" => "slug",
         )
         expect(signup_api_wrapper.signup_url).to eql subscription_url
       end
@@ -133,7 +130,7 @@ describe EmailAlertSignupAPI do
               format: { any: %w[other-reports test-reports] },
               alert_type: { any: %w[first] },
             },
-            "subscription_url" => subscription_url,
+            "slug" => "slug",
           )
 
           signup_api_wrapper.signup_url
@@ -148,7 +145,7 @@ describe EmailAlertSignupAPI do
               format: { any: %w[test-reports] },
               alert_type: { any: %w[first second] },
             },
-            "subscription_url" => subscription_url,
+            "slug" => "slug",
           )
 
           signup_api_wrapper.signup_url
@@ -165,7 +162,7 @@ describe EmailAlertSignupAPI do
             "tags" => {
               format: { any: %w[test-reports] },
             },
-            "subscription_url" => subscription_url,
+            "slug" => "slug",
           )
 
           signup_api_wrapper.signup_url
@@ -223,7 +220,6 @@ describe EmailAlertSignupAPI do
         },
       ]
     end
-    let(:subscription_url) { "http://www.example.org/list-id/signup" }
 
     before do
       stub_email_alert_api_has_subscriber_list(
@@ -232,7 +228,7 @@ describe EmailAlertSignupAPI do
           alert_type: { any: %w[first second] },
           other_type: { any: %w[third fourth] },
         },
-        "subscription_url" => subscription_url,
+        "slug" => "slug",
       )
     end
 
@@ -243,7 +239,7 @@ describe EmailAlertSignupAPI do
             format: { any: %w[test-reports] },
             alert_type: { any: %w[first second] },
           },
-          "subscription_url" => subscription_url,
+          "slug" => "slug",
         )
         expect(signup_api_wrapper.signup_url).to eql subscription_url
       end
@@ -256,7 +252,7 @@ describe EmailAlertSignupAPI do
               alert_type: { any: %w[first second] },
               other_type: { any: %w[third fourth] },
             },
-            "subscription_url" => subscription_url,
+            "slug" => "slug",
           )
 
           signup_api_wrapper.signup_url
@@ -280,7 +276,7 @@ describe EmailAlertSignupAPI do
               alert_type: { any: %w[first] },
               other_type: { any: %w[] },
             },
-            "subscription_url" => subscription_url,
+            "slug" => "slug",
           )
 
           signup_api_wrapper.signup_url
@@ -296,7 +292,7 @@ describe EmailAlertSignupAPI do
               alert_type: { any: %w[first second] },
               other_type: { any: %w[third fourth] },
             },
-            "subscription_url" => subscription_url,
+            "slug" => "slug",
           )
 
           signup_api_wrapper.signup_url
@@ -313,7 +309,7 @@ describe EmailAlertSignupAPI do
             "tags" => {
               format: { any: %w[test-reports] },
             },
-            "subscription_url" => subscription_url,
+            "slug" => "slug",
           )
 
           signup_api_wrapper.signup_url
@@ -324,7 +320,6 @@ describe EmailAlertSignupAPI do
   end
 
   context "when choices have filter_values" do
-    let(:subscription_url) { "http://gov.uk/email/news-and-comms-subscription" }
     let(:applied_filters) do
       { "persons" => %w[people_named_harry people_named_john] }
     end
@@ -354,7 +349,7 @@ describe EmailAlertSignupAPI do
         "tags" => {
           persons: { any: %w[harry_potter harry john] },
         },
-        "subscription_url" => subscription_url,
+        "slug" => "slug",
       )
 
       expect(subject.signup_url).to eql subscription_url
@@ -363,7 +358,6 @@ describe EmailAlertSignupAPI do
   end
 
   context "Create link based subscriber lists" do
-    let(:subscription_url) { "http://gov.uk/email/news-and-comms-subscription" }
     let(:default_filters) do
       {
         "content_purpose_subgroup": %w[news speeches_and_statements],
@@ -387,7 +381,7 @@ describe EmailAlertSignupAPI do
             taxon_tree: { all: %w[content_id_1 content_id_2] },
             content_purpose_subgroup: { any: %w[news speeches_and_statements] },
           },
-          "subscription_url" => subscription_url,
+          "slug" => "slug",
         )
         expect(subject.signup_url).to eql subscription_url
         assert_requested(req)
@@ -415,7 +409,7 @@ describe EmailAlertSignupAPI do
             content_store_document_type: { any: %w[document_type_1 document_type_2] },
             content_purpose_subgroup: { any: %w[news speeches_and_statements] },
           },
-          "subscription_url" => subscription_url,
+          "slug" => "slug",
         )
         expect(subject.signup_url).to eql subscription_url
         assert_requested(req)
@@ -430,7 +424,7 @@ describe EmailAlertSignupAPI do
               content_store_document_type: { any: %w[document_type_1 document_type_2] },
               content_purpose_subgroup: { any: %w[one_thing] },
             },
-            "subscription_url" => subscription_url,
+            "slug" => "slug",
           )
           expect(subject.signup_url).to eql subscription_url
           assert_requested(req)
@@ -458,7 +452,7 @@ describe EmailAlertSignupAPI do
             organisations: { any: %w[content_id_for_death-eaters content_id_for_ministry-of-magic] },
             content_purpose_subgroup: { any: %w[news speeches_and_statements] },
           },
-          "subscription_url" => subscription_url,
+          "slug" => "slug",
         )
         expect(subject.signup_url).to eql subscription_url
         assert_requested(req)
@@ -487,7 +481,7 @@ describe EmailAlertSignupAPI do
             world_locations: { any: %w[content_id_for_location_1 content_id_for_location_2] },
             content_purpose_subgroup: { any: %w[news speeches_and_statements] },
           },
-          "subscription_url" => subscription_url,
+          "slug" => "slug",
         )
         expect(subject.signup_url).to eql subscription_url
         assert_requested(req)
@@ -515,7 +509,7 @@ describe EmailAlertSignupAPI do
             people: { any: %w[content_id_for_albus-dumbledore content_id_for_ron-weasley] },
             content_purpose_subgroup: { any: %w[news speeches_and_statements] },
           },
-          "subscription_url" => subscription_url,
+          "slug" => "slug",
         )
         expect(subject.signup_url).to eql subscription_url
         assert_requested(req)
@@ -544,7 +538,7 @@ describe EmailAlertSignupAPI do
             roles: { any: %w[content_id_for_prime-minister] },
             content_purpose_subgroup: { any: %w[news speeches_and_statements] },
           },
-          "subscription_url" => subscription_url,
+          "slug" => "slug",
         )
 
         expect(subject.signup_url).to eql subscription_url
