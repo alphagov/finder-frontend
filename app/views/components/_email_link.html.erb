@@ -4,8 +4,10 @@
   data_attributes ||= {}
   description ||= nil
   callout ||= nil
+  hidden_on_mobile ||= nil
   css_classes = %w(app-c-email-link)
   css_classes << 'app-c-email-link--callout' if callout
+  css_classes << 'app-c-email-link--hidden-on-mobile' if hidden_on_mobile
 %>
 <%= tag.div class: css_classes do %>
   <% if title %>

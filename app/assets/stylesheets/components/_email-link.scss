@@ -6,3 +6,11 @@
   background: govuk-colour('light-grey');
   padding: govuk-spacing(6);
 }
+
+.app-c-email-link--hidden-on-mobile {
+  display: none;
+
+  @include govuk-media-query($from: tablet) {
+    display: block;
+  }
+}
