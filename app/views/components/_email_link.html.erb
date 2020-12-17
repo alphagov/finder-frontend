@@ -1,6 +1,7 @@
 <%
   link_text ||= "Sign up to emails"
   data_attributes ||= {}
+  description ||= nil
 %>
 <div class="app-c-email-link">
   <% if link_title %>
@@ -10,6 +11,7 @@
       margin_bottom: 2
     } %>
   <% end %>
+  <%= tag.p description, class: "govuk-body" if description %>
   <%= render "govuk_publishing_components/components/button", {
     text: link_text,
     href: link_href,
