@@ -10,7 +10,9 @@
       margin_bottom: 2
     } %>
   <% end %>
-  <%= tag.a href: link_href, class:"app-c-email-link__link govuk-link", data: data_attributes do %>
-    <%= link_text %>
-  <% end %>
+  <%= render "govuk_publishing_components/components/button", {
+    text: link_text,
+    href: link_href,
+    data_attributes: data_attributes,
+  } %>
 </div>
