@@ -52,7 +52,6 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
           "description" => "[You can view a copy of your results on GOV.UK.](https://www.test.gov.uk/transition-check/results?c%5B%5D=nationality-eu)",
           "tags" => { "brexit_checklist_criteria" => { "any" => criteria_keys } },
           "url" => "/transition-check/results?c%5B%5D=nationality-eu",
-          "group_id" => BrexitCheckerController::SUBSCRIBER_LIST_GROUP_ID,
         },
       )
     end
@@ -433,7 +432,6 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
           "description" => "[You can view a copy of your results on GOV.UK.](https://www.test.gov.uk/transition-check/results?c%5B%5D=nationality-eu)",
           "tags" => { "brexit_checklist_criteria" => { "any" => criteria_keys } },
           "url" => "/transition-check/results?c%5B%5D=nationality-eu",
-          "group_id" => BrexitCheckerController::SUBSCRIBER_LIST_GROUP_ID,
         },
       )
     end

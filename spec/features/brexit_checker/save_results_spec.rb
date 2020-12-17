@@ -5,17 +5,6 @@ RSpec.feature "Brexit Checker create GOV.UK Account", type: :feature do
   include GdsApi::TestHelpers::ContentStore
   include GdsApi::TestHelpers::EmailAlertApi
 
-  let(:subscriber_list) do
-    {
-      "title" => "Get ready for 2021",
-      "slug" => "your-get-ready-for-brexit-results-a1a2a3a4a5",
-      "description" => "[You can view a copy of your results on GOV.UK.](https://www.test.gov.uk/transition-check/results?c%5B%5D=nationality-eu)",
-      "tags" => { "brexit_checklist_criteria" => { "any" => %w[nationality-eu] } },
-      "url" => "/transition-check/results?c%5B%5D=nationality-eu",
-      "group_id" => BrexitCheckerController::SUBSCRIBER_LIST_GROUP_ID,
-    }
-  end
-
   before do
     ENV["GOVUK_ACCOUNT_OAUTH_CLIENT_ID"] = "Application's OAuth client ID"
     ENV["GOVUK_ACCOUNT_OAUTH_CLIENT_SECRET"] = "secret!"
