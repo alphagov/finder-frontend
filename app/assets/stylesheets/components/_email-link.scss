@@ -7,29 +7,7 @@
     font-weight: bold;
   }
 
-  .app-c-email-link__icon {
-    position: relative;
-    margin-right: 5px;
-    top: 5px;
-  }
-
   .app-c-email-link__link {
     @include govuk-font(19);
-
-    &:visited .app-c-email-link__icon {
-      fill: $govuk-link-visited-colour;
-    }
-
-    &:hover .app-c-email-link__icon {
-      fill: $govuk-link-hover-colour;
-    }
-
-    &:active .app-c-email-link__icon {
-      fill: $govuk-link-active-colour;
-    }
-
-    &:focus .app-c-email-link__icon {
-      fill: $govuk-focus-text-colour;
-    }
   }
 }
