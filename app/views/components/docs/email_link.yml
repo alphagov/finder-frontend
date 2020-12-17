@@ -1,0 +1,26 @@
+name: Email link (experimental)
+description: A section with a call to action that allows user to subscribe to email notifications
+shared_accessibility_criteria:
+  - link
+examples:
+  default:
+    data:
+      title: Stay up to date
+      description: Sign up to get emails about Brexit changes that may affect you.
+      link_href: http://www.gov.uk
+      link_text: Get email updates
+  callout:
+    data:
+      title: Stay up to date
+      description: Sign up to get emails about Brexit changes that may affect you.
+      link_href: http://www.gov.uk
+      link_text: Get email updates
+      callout: true
+  hidden_on_mobile:
+    data:
+      title: Stay up to date
+      description: Sign up to get emails about Brexit changes that may affect you.
+      link_href: http://www.gov.uk
+      link_text: Get email updates
+      callout: true
+      hidden_on_mobile: true
