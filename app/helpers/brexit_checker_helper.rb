@@ -48,14 +48,6 @@ module BrexitCheckerHelper
     url.to_s
   end
 
-  def brexit_results_email_link_label(actions)
-    if actions.any?
-      t("brexit_checker.results.email_sign_up_link")
-    else
-      t("brexit_checker.results.email_sign_up_link_no_actions")
-    end
-  end
-
   def brexit_results_title(actions, criteria_keys)
     if actions.any?
       t("brexit_checker.results.title")

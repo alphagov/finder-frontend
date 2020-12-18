@@ -1,5 +1,4 @@
 <%
-  action_based_email_link_label = brexit_results_email_link_label(@presenter.actions)
   action_based_title = brexit_results_title(@presenter.actions, criteria_keys)
   action_based_description = brexit_results_description(@presenter.actions, criteria_keys)
 %>
@@ -73,11 +72,11 @@
       <%= render 'components/email_link', {
         data_attributes: {
           "module": "track-click",
-          "track-action": action_based_email_link_label,
+          "track-action": t("brexit_checker.results.email_sign_up_link"),
           "track-category": "StayUpdated",
           "track-label": transition_checker_email_signup_path
         },
-        link_text: action_based_email_link_label,
+        link_text: t("brexit_checker.results.email_sign_up_link"),
         link_href: path_based_on_account_feature_flag,
         title: t("brexit_checker.results.email_sign_up_title"),
         description: t("brexit_checker.results.email_sign_up_description"),
@@ -103,11 +102,11 @@
       <%= render 'components/email_link', {
         data_attributes: {
           "module": "track-click",
-          "track-action": action_based_email_link_label,
+          "track-action": t("brexit_checker.results.email_sign_up_link"),
           "track-category": "StayUpdated",
           "track-label": transition_checker_email_signup_path
         },
-        link_text: action_based_email_link_label,
+        link_text: t("brexit_checker.results.email_sign_up_link"),
         link_href: path_based_on_account_feature_flag,
         title: t("brexit_checker.results.email_sign_up_title"),
         description: t("brexit_checker.results.email_sign_up_description"),

@@ -163,18 +163,6 @@ describe BrexitCheckerHelper, type: :helper do
     end
   end
 
-  describe "#brexit_results_email_link_label" do
-    let(:actions) { [FactoryBot.build(:brexit_checker_action)] }
-
-    it "returns the email link copy if there are actions" do
-      expect(brexit_results_email_link_label(actions)).to eq(t("brexit_checker.results.email_sign_up_link"))
-    end
-
-    it "returns the no results email link copy if there are no actions" do
-      expect(brexit_results_email_link_label([])).to eq(t("brexit_checker.results.email_sign_up_link_no_actions"))
-    end
-  end
-
   describe "#brexit_results_title" do
     let(:actions) { [FactoryBot.build(:brexit_checker_action)] }
     let(:criteria_keys) { %w[nationality-eu] }
