@@ -78,6 +78,8 @@ class BrexitCheckerController < ApplicationController
   def save_results_email_signup; end
 
   def save_results_apply
+    redirect_to transition_checker_new_session_path(redirect_path: transition_checker_save_results_confirm_path(c: criteria_keys), _ga: params[:_ga]) and return unless logged_in?
+
     if params[:email_decision] == "yes"
       update_account_session_cookie_from_oauth_result(
         Services.oidc.update_email_subscription(
