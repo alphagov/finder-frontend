@@ -13,14 +13,13 @@ describe EmailAlertSignupAPI do
       applied_filters: applied_filters,
       default_filters: default_filters,
       facets: facets,
-      subscriber_list_title: subscriber_list_title,
+      subscriber_list_title: "title",
     )
   end
 
   let(:default_filters) { {} }
   let(:applied_filters) { {} }
   let(:facets) { [] }
-  let(:subscriber_list_title) { "Subscriber list title" }
 
   describe "default_attributes" do
     context "no default_attributes or attributes" do
