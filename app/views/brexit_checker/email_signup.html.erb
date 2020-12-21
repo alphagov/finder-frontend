@@ -6,26 +6,29 @@
   <%= account_variant.analytics_meta_tag.html_safe %>
 <% end %>
 
+<% content_for :breadcrumbs do %>
+  <div class="govuk-width-container">
+    <%= render 'govuk_publishing_components/components/breadcrumbs', {
+      collapse_on_mobile: true,
+      breadcrumbs: [
+        {
+          title: t('brexit_checker.breadcrumbs.home'),
+          url: "/"
+        },
+        {
+          title: t('brexit_checker.breadcrumbs.brexit-home'),
+          url: "/transition"
+        },
+        {
+          title: t('brexit_checker.breadcrumbs.results'),
+          url: transition_checker_results_path(c: criteria_keys)
+        }
+      ]
+    } %>
+  </div>
+<% end %>
 <div class="govuk-width-container">
-  <%= render 'govuk_publishing_components/components/breadcrumbs', {
-    collapse_on_mobile: true,
-    breadcrumbs: [
-      {
-        title: t('brexit_checker.breadcrumbs.home'),
-        url: "/"
-      },
-      {
-        title: t('brexit_checker.breadcrumbs.brexit-home'),
-        url: "/transition"
-      },
-      {
-        title: t('brexit_checker.breadcrumbs.results'),
-        url: transition_checker_results_path(c: criteria_keys)
-      }
-    ]
-  } %>
-
-  <main class="govuk-main-wrapper" role="mail">
+  <div class="govuk-main-wrapper">
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-two-thirds">
         <%= render "govuk_publishing_components/components/heading", {
@@ -51,5 +54,5 @@
         <% end %>
       </div>
     </div>
-  </main>
+  </div>
 </div>
