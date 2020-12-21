@@ -85,18 +85,6 @@ describe EmailAlertSignupAPI do
     end
 
     describe "#signup_url" do
-      it "returns the url for the subscriber list" do
-        req = stub_email_alert_api_has_subscriber_list(
-          "tags" => {
-            format: { any: %w[test-reports] },
-            alert_type: { any: %w[first second] },
-          },
-        )
-
-        signup_api_wrapper.signup_url
-        assert_requested(req)
-      end
-
       context "with multiple choices selected and a title prefix" do
         it "asks email-alert-api to find or create the subscriber list" do
           req = stub_email_alert_api_has_subscriber_list(
@@ -224,17 +212,6 @@ describe EmailAlertSignupAPI do
     end
 
     describe "#signup_url" do
-      it "returns the url email-alert-api gives back" do
-        stub_email_alert_api_has_subscriber_list(
-          "tags" => {
-            format: { any: %w[test-reports] },
-            alert_type: { any: %w[first second] },
-          },
-          "slug" => "slug",
-        )
-        expect(signup_api_wrapper.signup_url).to eql subscription_url
-      end
-
       context "with multiple choices selected and a title prefix" do
         it "asks email-alert-api to find or create the subscriber list" do
           req = stub_email_alert_api_has_subscriber_list(
