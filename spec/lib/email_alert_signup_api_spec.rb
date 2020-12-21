@@ -40,7 +40,7 @@ describe EmailAlertSignupAPI do
         { "content_purpose_supergroup" => "news_and_communications" }
       end
 
-      it "will send email_alert_api the default attributes" do
+      it "calls the API" do
         req = stub_email_alert_api_has_subscriber_list(
           "tags" => { content_purpose_supergroup: { any: %w[news_and_communications] } },
         )
@@ -79,7 +79,7 @@ describe EmailAlertSignupAPI do
       end
 
       context "with multiple choices selected and a title prefix" do
-        it "asks email-alert-api to find or create the subscriber list" do
+        it "calls the API" do
           req = stub_email_alert_api_has_subscriber_list(
             "tags" => {
               format: { any: %w[test-reports] },
@@ -99,7 +99,7 @@ describe EmailAlertSignupAPI do
             alert_type: %w[first],
           }
         end
-        it "asks email-alert-api to find or create the subscriber list" do
+        it "calls the API" do
           req = stub_email_alert_api_has_subscriber_list(
             "tags" => {
               format: { any: %w[other-reports test-reports] },
@@ -113,7 +113,7 @@ describe EmailAlertSignupAPI do
       end
 
       context "without a title prefix" do
-        it "asks email-alert-api to find or create the subscriber list" do
+        it "calls the API" do
           req = stub_email_alert_api_has_subscriber_list(
             "tags" => {
               format: { any: %w[test-reports] },
@@ -130,7 +130,7 @@ describe EmailAlertSignupAPI do
         let(:facets) { [] }
         let(:default_filters) { { "format" => "test-reports" } }
 
-        it "asks email-alert-api to find or create the subscriber list" do
+        it "calls the API" do
           req = stub_email_alert_api_has_subscriber_list(
             "tags" => {
               format: { any: %w[test-reports] },
@@ -193,7 +193,7 @@ describe EmailAlertSignupAPI do
       end
 
       context "with multiple choices selected and a title prefix" do
-        it "asks email-alert-api to find or create the subscriber list" do
+        it "calls the API" do
           req = stub_email_alert_api_has_subscriber_list(
             "tags" => {
               format: { any: %w[test-reports] },
@@ -216,7 +216,7 @@ describe EmailAlertSignupAPI do
           }
         end
 
-        it "asks email-alert-api to find or create the subscriber list" do
+        it "calls the API" do
           req = stub_email_alert_api_has_subscriber_list(
             "tags" => {
               format: { any: %w[test-reports] },
@@ -231,7 +231,7 @@ describe EmailAlertSignupAPI do
       end
 
       context "without a title prefix" do
-        it "asks email-alert-api to find or create the subscriber list" do
+        it "calls the API" do
           req = stub_email_alert_api_has_subscriber_list(
             "tags" => {
               format: { any: %w[test-reports] },
@@ -249,7 +249,7 @@ describe EmailAlertSignupAPI do
         let(:facets) { [] }
         let(:default_filters) { { "format" => "test-reports" } }
 
-        it "asks email-alert-api to find or create the subscriber list" do
+        it "calls the API" do
           req = stub_email_alert_api_has_subscriber_list(
             "tags" => {
               format: { any: %w[test-reports] },
@@ -287,7 +287,7 @@ describe EmailAlertSignupAPI do
         ]
       end
 
-      it "asks email-alert-api to find or create the subscriber list" do
+      it "calls the API" do
         req = stub_email_alert_api_has_subscriber_list(
           "tags" => {
             persons: { any: %w[harry_potter harry john] },
@@ -299,7 +299,7 @@ describe EmailAlertSignupAPI do
       end
     end
 
-    context "Create link based subscriber lists" do
+    context "with link-based facets" do
       let(:default_filters) do
         { "content_purpose_subgroup": %w[news speeches_and_statements] }
       end
@@ -318,7 +318,7 @@ describe EmailAlertSignupAPI do
           ]
         end
 
-        it "translates all_part_of_taxonomy_tree to taxon_tree and does not convert values" do
+        it "calls the API" do
           req = stub_email_alert_api_has_subscriber_list(
             "links" => {
               taxon_tree: { all: %w[content_id_1 content_id_2] },
@@ -348,7 +348,7 @@ describe EmailAlertSignupAPI do
           ]
         end
 
-        it "It does not convert values" do
+        it "calls the API" do
           req = stub_email_alert_api_has_subscriber_list(
             "links" => {
               content_store_document_type: { any: %w[document_type_1 document_type_2] },
@@ -364,7 +364,7 @@ describe EmailAlertSignupAPI do
             { "content_purpose_subgroup" => "one_thing" }
           end
 
-          it "it converting scalar values to arrays" do
+          it "converts scalar values to arrays" do
             req = stub_email_alert_api_has_subscriber_list(
               "links" => {
                 content_store_document_type: { any: %w[document_type_1 document_type_2] },
@@ -390,7 +390,7 @@ describe EmailAlertSignupAPI do
           stub_organisations_registry_request
         end
 
-        it "asks email-alert-api to find or create the subscriber list" do
+        it "calls the API" do
           req = stub_email_alert_api_has_subscriber_list(
             "links" => {
               organisations: { any: %w[content_id_for_death-eaters content_id_for_ministry-of-magic] },
@@ -415,7 +415,7 @@ describe EmailAlertSignupAPI do
           stub_worldwide_api_has_locations(%w[location_1 location_2])
         end
 
-        it "asks email-alert-api to find or create the subscriber list" do
+        it "calls the API" do
           req = stub_email_alert_api_has_subscriber_list(
             "links" => {
               world_locations: { any: %w[content_id_for_location_1 content_id_for_location_2] },
@@ -440,7 +440,7 @@ describe EmailAlertSignupAPI do
           stub_people_registry_request
         end
 
-        it "asks email-alert-api to find or create the subscriber list" do
+        it "calls the API" do
           req = stub_email_alert_api_has_subscriber_list(
             "links" => {
               people: { any: %w[content_id_for_albus-dumbledore content_id_for_ron-weasley] },
@@ -458,17 +458,12 @@ describe EmailAlertSignupAPI do
         end
 
         let(:facets) do
-          [
-            {
-              "facet_id" => "roles",
-              "facet_name" => "roles",
-            },
-          ]
+          [{ "facet_id" => "roles", "facet_name" => "roles" }]
         end
 
         before { stub_roles_registry_request }
 
-        it "asks email-alert-api to find or create the subscriber list" do
+        it "calls the API" do
           req = stub_email_alert_api_has_subscriber_list(
             "links" => {
               roles: { any: %w[content_id_for_prime-minister] },
