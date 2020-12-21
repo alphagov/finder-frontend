@@ -200,17 +200,6 @@ describe EmailAlertSignupAPI do
       ]
     end
 
-    before do
-      stub_email_alert_api_has_subscriber_list(
-        "tags" => {
-          format: { any: %w[test-reports] },
-          alert_type: { any: %w[first second] },
-          other_type: { any: %w[third fourth] },
-        },
-        "slug" => "slug",
-      )
-    end
-
     describe "#signup_url" do
       context "with multiple choices selected and a title prefix" do
         it "asks email-alert-api to find or create the subscriber list" do
