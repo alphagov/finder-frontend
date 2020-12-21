@@ -24,18 +24,14 @@ describe EmailAlertSignupAPI do
   let(:slug) { "slug" }
   let(:subscription_url) { "/email/subscriptions/new?topic_id=#{slug}" }
 
-  def init_simple_email_alert_api(slug)
-    stub_email_alert_api_has_subscriber_list(
-      "tags" => {},
-      "slug" => slug,
-    )
-  end
-
   describe "default_attributes" do
     context "no default_attributes or attributes" do
       describe "#signup_url" do
         it "returns the url email-alert-api gives back" do
-          req = init_simple_email_alert_api(slug)
+          req = stub_email_alert_api_has_subscriber_list(
+            "tags" => {},
+            "slug" => slug,
+          )
 
           expect(subject.signup_url).to eql subscription_url
           assert_requested(req)
