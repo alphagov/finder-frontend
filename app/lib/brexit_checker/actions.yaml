@@ -111,11 +111,11 @@ actions:
   - visiting-eu
 - id: S009
   priority: 8
-  title: Contact your vet at least 4 months before travelling to make sure your pet
+  title: Contact your vet at least 1 month before travelling to make sure your pet
     or assistance dog is able to travel to the EU
   consequence: If your pet or assistance dog does not have the proper documents, you
     will not be able to take it with you.
-  lead_time: It takes at least 4 months
+  lead_time: It takes at least 1 month
   guidance_prompt: More information
   guidance_link_text: Pet travel to Europe from 2021
   guidance_url: https://www.gov.uk/guidance/pet-travel-to-europe-from-1-january-2021
@@ -377,6 +377,24 @@ actions:
   audience: citizen
   grouping_criteria:
   - visiting-eu
+- id: S035
+  priority: 5
+  title: Check if you need to get your EU professional qualifications recognised in
+    the UK
+  consequence: You will not be able to work in a regulated profession if your qualification
+    from the EU, Switzerland, Norway, Iceland or Liechtenstein is not recognised in
+    the UK.
+  guidance_prompt: More information
+  guidance_link_text: Get your qualification from the EU, Switzerland, Norway, Iceland
+    or Liechtenstein recognised in the UK
+  guidance_url: https://www.gov.uk/guidance/get-your-eea-qualification-recognised-in-the-uk-from-1-january-2021
+  criteria:
+  - all_of:
+    - nationality-eu
+    - working-uk
+  audience: citizen
+  grouping_criteria:
+  - working-uk
 - id: S036
   priority: 5
   title: Get a motor insurance green card or other proof of insurance for your vehicle,
@@ -1625,4 +1643,47 @@ actions:
   guidance_url: https://www.gov.uk/guidance/getting-eu-funding
   criteria:
   - eu-uk-funding
+  audience: business
+- id: T126
+  priority: 5
+  title: Check the rules for placing manufactured goods on the EU market from 1 January
+    2021
+  consequence: You risk not being able to sell your goods in the EU if you don't follow
+    the rules.
+  guidance_prompt: More information
+  guidance_link_text: Placing manufactured goods on the EU market from 1 January 2021
+  guidance_url: https://www.gov.uk/guidance/placing-manufactured-goods-on-the-eu-market-from-1-january-2021
+  criteria:
+  - export-to-eu
+  audience: business
+- id: T127
+  priority: 5
+  title: Check the rules for placing manufactured goods on the market in Great Britain
+    from 1 January 2021
+  consequence: You risk not being able to sell your goods in Great Britain if you
+    don't follow the rules.
+  guidance_prompt: More information
+  guidance_link_text: Placing manufactured goods on the market in Great Britain from
+    1 January 2021
+  guidance_url: https://www.gov.uk/guidance/placing-manufactured-goods-on-the-market-in-great-britain-from-1-january-2021
+  criteria:
+  - any_of:
+    - import-from-eu
+    - consumer-goods
+    - retail-wholesale-x-food-drink-motors
+  audience: business
+- id: T128
+  priority: 4
+  title: Create energy labels for your white goods, boilers or other household appliances
+    in the UK
+  consequence: You will not be able to sell these products in the UK without the right
+    energy label.
+  guidance_prompt: More information
+  guidance_link_text: Create an energy label
+  guidance_url: https://www.gov.uk/guidance/create-an-energy-label
+  criteria:
+  - any_of:
+    - import-from-eu
+    - consumer-goods
+    - retail-wholesale-x-food-drink-motors
   audience: business
