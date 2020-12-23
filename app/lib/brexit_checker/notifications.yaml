@@ -23,67 +23,24 @@ notifications:
         - visiting-eu
   # End of example block.
   # Add new notifications below 👇
-  - uuid: "77562e3e-e4b9-435a-8f16-045eb8b938d5"
+  - uuid: aa05e643-8d52-40cf-bf67-123eccf10ebc
     type: addition
-    action_id: S042
-    date: 2020-11-25
-  - uuid: "79abcb5d-febc-4e29-8265-b1946faec27b"
+    action_id: S035
+    date: '2020-12-23'
+  - uuid: 45ae9772-90bb-4681-b0ad-ed28e714928c
     type: addition
-    action_id: T122
-    date: 2020-11-25
-  - uuid: "2f615e3b-be85-4c9d-a58d-fad710c00959"
+    action_id: T126
+    date: '2020-12-23'
+  - uuid: 1bfa8383-1d66-4d03-bbb7-0382e753dcfc
     type: addition
-    action_id: T123
-    date: 2020-11-25
-  - uuid: 1342fe6e-d2dd-47fa-81c2-31af6d39b197
+    action_id: T127
+    date: '2020-12-23'
+  - uuid: aa5c7da3-719d-4e03-a5b5-f0ef81d5b8dc
     type: addition
-    action_id: T124
-    date: '2020-12-11'
-  - uuid: ad4b8e50-ee68-4e6c-abf7-eeb05d636933
-    type: addition
-    action_id: T125
-    date: '2020-12-11'
-  - uuid: 40e9ccac-4831-4958-8cbf-94e960a37da8
+    action_id: T128
+    date: '2020-12-23'
+  - uuid: a6a2558b-1666-451a-84aa-ec540dc4af78
     type: content_change
-    action_id: S007
-    date: '2020-12-11'
-    note: Updated guidance URL so it's clearer the action applies to students already studying in the EU.
-  - uuid: '08a2fe44-7fb1-45c3-9126-0a0ff5a0cc88'
-    type: addition
-    action_id: S026
-    date: '2020-12-11'
-    criteria:
-      - visiting-eu
-  - uuid: 5ff248d5-b0bc-4e5a-ba4d-d4ea82dc55b0
-    type: content_change
-    action_id: S026
-    date: '2020-12-11'
-    note: Updated action so that it covers all students who are planning to study in the EU, not just Erasmus students continuing their studies in EU.
-    criteria:
-      - all_of:
-        - nationality-uk
-        - living-eu
-  - uuid: c9587c81-3be1-47a6-9b71-ac65a560c7e6
-    type: content_change
-    action_id: T075
-    date: '2020-12-11'
-    note: Updated the action so that it links to guidance on checking if you can use transit.
-  - uuid: a4294202-72f5-4752-8e8a-5c18bb8afa83
-    type: content_change
-    action_id: S005
-    date: '2020-12-14'
-    note: The action has been updated to apply in general to EU students studying in the UK, not just Erasmus students.
-  - uuid: 5e29982f-a6e0-42e4-bea2-f44486079f59
-    type: content_change
-    action_id: S026
-    date: '2020-12-14'
-    note: Updated action so that it covers all students who are planning to study in the EU, not just Erasmus students continuing their studies in EU.
-    criteria:
-      - all_of:
-        - nationality-uk
-        - studying-uk
-  - uuid: 4d3728cb-818f-4fa8-953f-07a7c6fb1349
-    type: content_change
-    action_id: T059
-    date: '2020-12-16'
-    note: Updated the action to refer to importing and exporting using wood packaging. Also updated the guidance link.
+    action_id: S009
+    date: '2020-12-23'
+    note: Clarified that you need to contact your vet at least 1 month before travelling to the EU if you want to take your pet or assistance dog with you.
