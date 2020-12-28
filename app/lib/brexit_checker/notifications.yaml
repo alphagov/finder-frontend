@@ -23,24 +23,44 @@ notifications:
         - visiting-eu
   # End of example block.
   # Add new notifications below 👇
-  - uuid: aa05e643-8d52-40cf-bf67-123eccf10ebc
+  - uuid: 3c1084ae-2e3c-4d0a-89aa-102230accaa6
     type: addition
-    action_id: S035
-    date: '2020-12-23'
-  - uuid: 45ae9772-90bb-4681-b0ad-ed28e714928c
+    action_id: T129
+    date: "2020-12-28"
+  - uuid: 3fd8761e-41e2-474a-b105-84ef2546b7c1
     type: addition
-    action_id: T126
-    date: '2020-12-23'
-  - uuid: 1bfa8383-1d66-4d03-bbb7-0382e753dcfc
+    action_id: S037
+    date: "2020-12-28"
+  - uuid: 031cd676-ea84-46e0-8298-16ff74b0a981
     type: addition
-    action_id: T127
-    date: '2020-12-23'
-  - uuid: aa5c7da3-719d-4e03-a5b5-f0ef81d5b8dc
+    action_id: S044
+    date: "2020-12-28"
+  - uuid: 51666546-3303-4ecb-8a9e-21e7573160c0
     type: addition
-    action_id: T128
-    date: '2020-12-23'
-  - uuid: a6a2558b-1666-451a-84aa-ec540dc4af78
+    action_id: S045
+    date: "2020-12-28"
+  - uuid: 2421ad66-e1bc-4f99-908b-0dec41d957b9
     type: content_change
-    action_id: S009
-    date: '2020-12-23'
-    note: Clarified that you need to contact your vet at least 1 month before travelling to the EU if you want to take your pet or assistance dog with you.
+    action_id: T081
+    date: "2020-12-28"
+    note: "Clarified that this action also applies to lawyers with qualifications from Switzerland."
+  - uuid: 63053034-af75-4875-8296-bf3494b83b10
+    type: content_change
+    action_id: T117
+    date: "2020-12-28"
+    note: "Clarified that the action also applies to UK lawyers working permanently in Switzerland."
+  - uuid: 2938d029-ff67-47a9-aace-7c9637ed5f76
+    type: content_change
+    action_id: S004
+    date: "2020-12-28"
+    note: "Link changed to provide updated guidance on health."
+  - uuid: 798dd12d-8577-43fe-a311-80affcd1dcbf
+    type: content_change
+    action_id: S011
+    date: "2020-12-28"
+    note: "Action updated to clarify you may be charged for healthcare if you do not have an EHIC card when visiting the EU, or appropriate travel insurance when visiting Switzerland, Norway, Iceland or Liechtenstein."
+  - uuid: 398e8da6-b1bd-4568-9f29-bb06d6ab510e
+    type: content_change
+    action_id: T063
+    date: "2020-12-28"
+    note: "Special regular international services will need to be authorised from 1 July 2021. Action updated to clarify that you'll need to apply for authorisation and that this can take up to 6 months."

@@ -43,9 +43,9 @@ actions:
   consequence: You will be charged for your NHS healthcare if you do not have the
     right insurance.
   guidance_prompt: More information
-  guidance_link_text: 'Healthcare from 2021: citizens of the EU, Norway, Iceland,
-    Liechtenstein and Switzerland visiting the UK'
-  guidance_url: https://www.gov.uk/guidance/healthcare-for-eu-and-efta-citizens-visiting-the-uk
+  guidance_link_text: Healthcare for visitors to the UK from the EU from 1 January
+    2021
+  guidance_url: https://www.gov.uk/guidance/healthcare-for-visitors-to-the-uk-from-the-eu-from-1-january-2021
   criteria:
   - all_of:
     - any_of:
@@ -154,14 +154,15 @@ actions:
   - visiting-ie
 - id: S011
   priority: 9
-  title: Take out appropriate travel insurance with health cover before travelling
-    to the EU
+  title: Check you’ve got an EHIC card or appropriate travel insurance with health
+    cover before travelling to the EU, Switzerland, Norway, Iceland or Liechtenstein
   consequence: You may not have access to free emergency medical treatment and could
-    be charged for your healthcare if you do not get health cover with your travel
-    insurance.
+    be charged for your healthcare if you do not have an EHIC card when visiting an
+    EU country, or appropriate travel insurance when visiting Switzerland, Norway,
+    Iceland or Liechtenstein.
   guidance_prompt: More information
-  guidance_link_text: Foreign travel insurance
-  guidance_url: https://www.gov.uk/guidance/foreign-travel-insurance
+  guidance_link_text: Apply for a free European Health Insurance Card (EHIC)
+  guidance_url: https://www.nhs.uk/using-the-nhs/healthcare-abroad/apply-for-a-free-ehic-european-health-insurance-card/
   criteria:
   - all_of:
     - nationality-uk
@@ -909,10 +910,12 @@ actions:
   priority: 6
   title: Check what documents you need to run bus or coach services in EU countries
   consequence: You may not be able to run bus or coach services in EU countries if
-    you do have the right documents or not request authorisation in time.
+    you do not request authorisation in time or have the right documents.
+  lead_time: It takes up to 6 months to get a special regular international service
+    authorised.
   guidance_prompt: More information
-  guidance_link_text: 'International bus and coach services: operator licences and
-    permits'
+  guidance_link_text: Run international bus or coach services and tours from 1 January
+    2021
   guidance_url: https://www.gov.uk/guidance/run-international-bus-or-coach-services-and-tours-from-1-january-2021
   criteria:
   - any_of:
@@ -1009,15 +1012,18 @@ actions:
 - id: T081
   priority: 5
   title: Check what you need to do to continue to work or provide legal services in
-    the UK, if you're a lawyer with a qualification from the EU, Norway, Iceland or
-    Liechtenstein
+    the UK, if you're a lawyer with a qualification from the EU, Switzerland, Norway,
+    Iceland or Liechtenstein
   consequence: You risk not being able to continue working or providing legal services
     in the UK if you do not prepare.
   guidance_prompt: More information
-  guidance_link_text: EU lawyers in the UK from 1 January 2021
+  guidance_link_text: Lawyers from the EU, Switzerland, Norway, Iceland or Liechtenstein
+    in the UK from 1 January 2021
   guidance_url: https://www.gov.uk/government/publications/eu-lawyers-in-the-uk-from-1-january-2021
   criteria:
-  - legal-service
+  - all_of:
+    - legal-service
+    - working-uk
   audience: business
 - id: T082
   priority: 5
@@ -1280,6 +1286,24 @@ actions:
   criteria:
   - import-from-eu
   audience: business
+- id: S037
+  priority: 9
+  title: Check each country’s entry requirements if you want to work, study or spend
+    more than 90 of any 180 days in the EU, Switzerland, Norway, Iceland or Liechtenstein
+  consequence: You may be refused entry if you do not have the correct visa or work
+    permit.
+  guidance_prompt: More information
+  guidance_link_text: UK nationals visiting the EU
+  guidance_url: https://www.gov.uk/foreign-travel-advice
+  criteria:
+  - any_of:
+    - visiting-eu
+    - studying-eu
+    - move-to-eu
+    - working-eu
+  audience: citizen
+  grouping_criteria:
+  - visiting-eu
 - id: S038
   priority: 6
   title: Sign up for email updates if you're a UK national living in the EU, Switzerland,
@@ -1501,12 +1525,12 @@ actions:
 - id: T117
   priority: 5
   title: Contact your regulator if you are a UK lawyer working permanently in the
-    EU, Norway, Iceland or Liechtenstein
+    EU, Switzerland, Norway, Iceland or Liechtenstein
   consequence: You risk not being able to continue providing legal services in the
     same way if you do not meet new requirements.
   guidance_prompt: More information
-  guidance_link_text: UK laywers practising in the EU, Norway, Iceland or Liechtenstein
-    from 1 January 2021
+  guidance_link_text: UK lawyers practising in the EU, Switzerland, Norway, Iceland
+    or Liechtenstein from 1 January 2021
   guidance_url: https://www.gov.uk/government/publications/uk-lawyers-practising-in-the-eu-norway-iceland-or-liechtenstein-from-1-january-2021/uk-lawyers-practising-in-the-eu-norway-iceland-or-liechtenstein-after-1-january-2021
   criteria:
   - all_of:
@@ -1687,3 +1711,54 @@ actions:
     - consumer-goods
     - retail-wholesale-x-food-drink-motors
   audience: business
+- id: T129
+  priority: 7
+  title: Apply for a Kent Access Permit (KAP) if your HGV is over 7.5 tonnes and you
+    are leaving Great Britain for the EU from the Port of Dover or Eurotunnel
+  consequence: From 1 January 2021, if you do not have a valid permit you will not
+    be able to travel from the Port of Dover or Eurotunnel to the EU, and you may
+    be fined.
+  guidance_prompt: More information
+  guidance_link_text: Apply for a Kent Access Permit
+  guidance_url: https://www.gov.uk/check-hgv-border
+  criteria:
+  - haulage-goods-across-eu-borders
+  audience: business
+- id: S044
+  priority: 2
+  title: Check where you need to pay social security contributions if you’re coming
+    from the EU, Switzerland, Norway, Iceland or Liechtenstein to work in the UK
+  consequence: You risk paying contributions in the wrong country and affecting your
+    entitlement to benefits if you do not complete the correct form.
+  guidance_prompt: More information
+  guidance_link_text: Social security contributions for workers coming to the UK from
+    the EEA or Switzerland from 1 January 2021
+  guidance_url: https://www.gov.uk/guidance/social-security-contributions-for-workers-coming-to-the-uk-from-the-eea-or-switzerland-from-1-january-2021
+  criteria:
+  - all_of:
+    - any_of:
+      - nationality-eu
+      - living-eu
+    - working-uk
+  audience: citizen
+  grouping_criteria:
+  - working-uk
+- id: S045
+  priority: 2
+  title: Check where you need to pay social security contributions if you’re going
+    from the UK to work in the EU, Switzerland, Norway, Iceland or Liechtenstein
+  consequence: You risk paying contributions in the wrong country and affecting your
+    entitlement to benefits if you do not complete the correct form.
+  guidance_prompt: More information
+  guidance_link_text: National Insurance for workers from the UK working in the EEA
+    or Switzerland from 1 January 2021
+  guidance_url: https://www.gov.uk/guidance/national-insurance-for-workers-from-the-uk-working-in-the-eea-or-switzerland-from-1-january-2021
+  criteria:
+  - all_of:
+    - any_of:
+      - nationality-uk
+      - living-uk
+    - working-eu
+  audience: citizen
+  grouping_criteria:
+  - working-eu
