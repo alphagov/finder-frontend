@@ -49,16 +49,27 @@ RSpec.describe BrexitChecker::Group do
       allow(BrexitChecker::Action).to receive(:load_all).and_return([action1, action2, action3])
     end
 
-    it "retuns an action when a grouping_criteira matches the group key" do
+    it "returns an action when a grouping_criteria matches the group key" do
       expect(group1.actions).to match_array([action1])
     end
 
-    it "retuns multiple actions when multiple grouping_criteira match the group key" do
+    it "returns multiple actions when multiple grouping_criteria match the group key" do
       expect(group2.actions).to match_array([action2, action3])
     end
 
-    it "retuns an empty array when no action's grouping_criteira match the group key" do
+    it "returns an empty array when no action's grouping_criteria match the group key" do
       expect(group3.actions).to match_array([])
+    end
+  end
+
+  describe "live actions" do
+    it "ensure that actions.yaml contains valid groupings" do
+      configured_groupings = BrexitChecker::Action.load_all
+        .select { |action| action.grouping_criteria.present? }
+        .flat_map(&:grouping_criteria).sort.uniq
+      expected_groupings = BrexitChecker::Validators::GroupValidator::CITIZEN_KEYS
+
+      expect(configured_groupings).to match_array(expected_groupings)
     end
   end
 end
