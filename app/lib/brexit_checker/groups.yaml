@@ -21,6 +21,9 @@ groups:
 - key: working-uk
   heading: Working in the UK
   priority: 5
+- key: working-eu
+  heading: Working in the EU
+  priority: 5
 - key: studying-eu
   heading: Studying in the EU
   priority: 4

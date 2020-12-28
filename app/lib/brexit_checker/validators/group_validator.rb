@@ -6,6 +6,7 @@ class BrexitChecker::Validators::GroupValidator < ActiveModel::Validator
                      living-ie
                      living-uk
                      working-uk
+                     working-eu
                      studying-eu
                      studying-uk
                      common-travel-area ].freeze
