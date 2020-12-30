@@ -7,7 +7,7 @@ RSpec.feature "Brexit Checker email signup", type: :feature do
 
   let(:subscriber_list) do
     {
-      "title" => "Get ready for 2021",
+      "title" => "Brexit checker results",
       "slug" => "your-get-ready-for-brexit-results-a1a2a3a4a5",
       "tags" => { "brexit_checklist_criteria" => { "any" => %w[nationality-eu] } },
       "url" => "/transition-check/results?c%5B%5D=nationality-eu",

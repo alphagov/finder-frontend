@@ -172,7 +172,7 @@ private
     path = transition_checker_results_path(c: criteria_keys)
 
     {
-      "title" => "Get ready for 2021",
+      "title" => "Brexit checker results",
       "tags" => { "brexit_checklist_criteria" => { "any" => criteria_keys } },
       "url" => path,
     }
