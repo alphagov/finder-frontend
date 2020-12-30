@@ -67,7 +67,7 @@ RSpec.feature "Brexit Checker workflow", type: :feature do
     expect(page).to have_css("a[href='https://www.facebook.com/sharer/sharer.php?u=#{current_url}']")
     expect(page).to have_css("a[href='https://twitter.com/share?url=#{current_url}']")
     expect(page).to have_css("a[href='https://api.whatsapp.com/send?text=#{current_url}']")
-    expect(page).to have_css("a[href='mailto:?body=#{current_url}&subject=How%20to%20get%20ready%20for%20new%20rules%20in%202021:%20Your%20results']")
+    expect(page).to have_css("a[href='mailto:?body=#{current_url}&subject=Brexit%20checker%20results:%20what%20you%20need%20to%20do']")
     expect(page).to have_css("a[href='http://www.linkedin.com/shareArticle?url=#{current_url}']")
   end
 
