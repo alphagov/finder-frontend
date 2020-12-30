@@ -3,5 +3,5 @@ en:
     change_notification:
       guidance_prompt: Read the guidance
       title: Brexit checker results
-      addition: A new action has been added
-      content_change: An action has been updated
+      addition: New action
+      content_change: Updated action
