@@ -1734,6 +1734,17 @@ actions:
   criteria:
   - haulage-goods-across-eu-borders
   audience: business
+- id: T130
+  priority: 8
+  title: Check the new traffic management systems in Kent for HGVs
+  consequence: Your HGV may have to reroute and wait to cross the border because of
+    severe traffic at the Port of Dover and Eurotunnel.
+  guidance_prompt: More information
+  guidance_link_text: Traffic management measures for Dover and Eurotunnel
+  guidance_url: https://www.gov.uk/guidance/kent-traffic-management-on-m20-motorway-to-dover-and-eurotunnel
+  criteria:
+  - haulage-goods-across-eu-borders
+  audience: business
 - id: S044
   priority: 2
   title: Check where you need to pay social security contributions if you’re coming

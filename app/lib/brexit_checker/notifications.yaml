@@ -73,3 +73,7 @@ notifications:
     action_id: T102
     date: '2020-12-31'
     note: "Updated link to new guidance for EU-based businesses that trade with the UK."
+  - uuid: d0b23019-0dfc-4490-9408-44fe8506ec88
+    type: addition
+    action_id: T130
+    date: '2020-12-31'
