@@ -87,7 +87,7 @@ module BrexitCheckerHelper
   end
 
   def path_based_on_account_feature_flag
-    if Rails.configuration.feature_flag_govuk_accounts
+    if accounts_enabled?
       transition_checker_save_results_path(c: criteria_keys)
     else
       transition_checker_email_signup_path(c: criteria_keys)

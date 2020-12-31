@@ -90,7 +90,17 @@ private
 
   helper_method :accounts_enabled?
   def accounts_enabled?
-    Rails.configuration.feature_flag_govuk_accounts
+    return false unless Rails.configuration.feature_flag_govuk_accounts
+
+    if @check_accounts_enabled.nil?
+      @check_accounts_enabled = true
+      begin
+        RestClient.get(Services.accounts_api)
+      rescue RestClient::ServiceUnavailable
+        @check_accounts_enabled = false
+      end
+    end
+    @check_accounts_enabled
   end
 
   helper_method :logged_in?
