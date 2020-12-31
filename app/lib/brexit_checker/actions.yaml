@@ -1537,8 +1537,8 @@ actions:
   priority: 5
   title: Contact your regulator if you are a UK lawyer working permanently in the
     EU, Switzerland, Norway, Iceland or Liechtenstein
-  consequence: You risk not being able to continue providing legal services in the
-    same way if you do not meet new requirements.
+  consequence: You risk not being able to provide legal services if you do not meet
+    new requirements.
   guidance_prompt: More information
   guidance_link_text: UK lawyers practising in the EU, Switzerland, Norway, Iceland
     or Liechtenstein from 1 January 2021
