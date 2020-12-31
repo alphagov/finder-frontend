@@ -952,6 +952,19 @@ actions:
     - road-passenger-freight
     - motor-trade
   audience: business
+- id: T068
+  priority: 8
+  title: Get a sponsor or legal representative in the UK, EU, Norway, Iceland or Liechtenstein
+    if you carry out clinical trials
+  consequence: You will not be able to carry out clinical trials without a sponsor
+    or legal representative.
+  guidance_prompt: More information
+  guidance_link_text: Guidance on substantial amendments to a clinical trial from
+    2021
+  guidance_url: https://www.gov.uk/guidance/guidance-on-substantial-amendments-to-a-clinical-trial-from-1-january-2021--2
+  criteria:
+  - pharma
+  audience: business
 - id: T071
   priority: 8
   title: Get an EORI number that starts with GB to move your goods into or out of

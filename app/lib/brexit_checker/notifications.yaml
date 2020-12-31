@@ -64,3 +64,7 @@ notifications:
     action_id: T063
     date: "2020-12-28"
     note: "Special regular international services will need to be authorised from 1 July 2021. Action updated to clarify that you'll need to apply for authorisation and that this can take up to 6 months."
+  - uuid: ef0e4a7b-d2e0-42e5-9dc0-0f6b47d290d4
+    type: addition
+    action_id: T068
+    date: '2020-12-31'
