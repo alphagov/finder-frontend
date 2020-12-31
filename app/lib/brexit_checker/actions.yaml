@@ -859,38 +859,6 @@ actions:
   criteria:
   - chemical
   audience: business
-- id: T057
-  priority: 4
-  title: Check which carbon pricing policies you need to comply with
-  consequence: You risk not complying correctly with emissions reporting and carbon
-    pricing regulations, which could lead to a fine.
-  guidance_prompt: More information
-  guidance_link_text: Meeting climate change requirements from 2021
-  guidance_url: https://www.gov.uk/government/publications/meeting-climate-change-requirements-if-theres-no-brexit-deal
-  criteria:
-  - any_of:
-    - aero-space
-    - automotive
-    - electronic-machinery
-    - rail-manufacture
-    - agriculture-farm
-    - animal-ex-food
-    - legal-service
-    - defence
-    - electricity
-    - nuclear
-    - oil-gas-coal
-    - renewables
-    - finance
-    - health
-    - consumer-goods
-    - chemical
-    - metal
-    - non-metal-material
-    - air-passenger-freight
-    - digital
-    - telecoms
-  audience: business
 - id: T059
   priority: 3
   title: Check whether any wood packaging you use to import or export goods meets
