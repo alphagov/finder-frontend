@@ -1040,9 +1040,10 @@ actions:
   audience: business
 - id: T082
   priority: 5
-  title: Check what you need to do if you own a UK legal services business
-  consequence: You risk not being able to continue providing legal services in the
-    same way if you do not meet new requirements.
+  title: Check what you need to do if you own a UK legal services business and are
+    a lawyer with qualifications from the EU, Switzerland, Norway, Iceland or Liechtenstein
+  consequence: You risk not being able to provide legal services if you do not meet
+    new requirements.
   guidance_prompt: More information
   guidance_link_text: Legal services business owners from 1 January 2021
   guidance_url: https://www.gov.uk/government/publications/legal-services-business-owners-from-1-january-2021
