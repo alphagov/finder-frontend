@@ -77,3 +77,8 @@ notifications:
     type: addition
     action_id: T130
     date: '2020-12-31'
+  - uuid: 4cce7716-dab1-4b82-b96d-7f80aca253f2
+    type: content_change
+    action_id: S014
+    date: '2020-12-31'
+    note: "Action updated to clarify that your family may not be able to live or work in the UK if they do not apply to the EU Settlement Scheme by 30 June 2021."
