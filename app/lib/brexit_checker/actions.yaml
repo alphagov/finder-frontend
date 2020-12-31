@@ -3,7 +3,7 @@ actions:
 - id: S001
   priority: 8
   title: Apply to the EU Settlement Scheme by 30 June 2021 to continue living in the
-    UK - you must have arrived in the UK before January 2021
+    UK - you must have arrived in the UK by 31 December 2020
   consequence: If you do not apply to the scheme, you may not be able to continue
     living or working in the UK as you do now.
   exception: 'You do not need to apply if you have: indefinite leave to enter the
