@@ -45,6 +45,7 @@ RSpec.feature "Brexit Checker email signup", type: :feature do
       allow_any_instance_of(OidcClient).to receive(:userinfo_endpoint).and_return("http://attribute-service/oidc/user_info")
       allow_any_instance_of(OidcClient).to receive(:discover).and_return(discovery_response)
       allow_any_instance_of(OidcClient).to receive(:auth_uri).and_return({ uri: "http://account-mamager/login", state: SecureRandom.hex(16) })
+      stub_request(:get, Services.accounts_api).to_return(status: 200)
     end
 
     scenario "user clicks to signup to email alerts with existing subscriber list" do
