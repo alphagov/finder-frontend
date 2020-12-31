@@ -64,3 +64,21 @@ notifications:
     action_id: T063
     date: "2020-12-28"
     note: "Special regular international services will need to be authorised from 1 July 2021. Action updated to clarify that you'll need to apply for authorisation and that this can take up to 6 months."
+  - uuid: ef0e4a7b-d2e0-42e5-9dc0-0f6b47d290d4
+    type: addition
+    action_id: T068
+    date: '2020-12-31'
+  - uuid: 8bfa5701-aeef-403c-a326-628ce543702e
+    type: content_change
+    action_id: T102
+    date: '2020-12-31'
+    note: "Updated link to new guidance for EU-based businesses that trade with the UK."
+  - uuid: d0b23019-0dfc-4490-9408-44fe8506ec88
+    type: addition
+    action_id: T130
+    date: '2020-12-31'
+  - uuid: 4cce7716-dab1-4b82-b96d-7f80aca253f2
+    type: content_change
+    action_id: S014
+    date: '2020-12-31'
+    note: "Action updated to clarify that your family may not be able to live or work in the UK if they do not apply to the EU Settlement Scheme by 30 June 2021."

@@ -3,7 +3,7 @@ actions:
 - id: S001
   priority: 8
   title: Apply to the EU Settlement Scheme by 30 June 2021 to continue living in the
-    UK - you must have arrived in the UK before January 2021
+    UK - you must have arrived in the UK by 31 December 2020
   consequence: If you do not apply to the scheme, you may not be able to continue
     living or working in the UK as you do now.
   exception: 'You do not need to apply if you have: indefinite leave to enter the
@@ -196,7 +196,7 @@ actions:
     to the UK with you
   title_url: https://www.gov.uk/settled-status-eu-citizens-families
   consequence: Your family may not be able to live or work in the UK if they do not
-    apply to the scheme by 31 December 2020.
+    apply to the scheme by 30 June 2021.
   criteria:
   - all_of:
     - nationality-uk
@@ -518,8 +518,8 @@ actions:
 - id: T016
   priority: 5
   title: Find out how to comply with the new UK nuclear safeguards arrangements
-  consequence: All operators in the UK civil nuclear sector will need to comply with
-    the new domestic safeguards regime.
+  consequence: All operators in the UK civil nuclear sector must comply with the new
+    domestic safeguards regime.
   guidance_prompt: Read ONR guidance
   guidance_link_text: Draft nuclear safeguards guidance for inspectors
   guidance_url: http://www.onr.org.uk/safeguards/safeguards-guidance.htm
@@ -859,38 +859,6 @@ actions:
   criteria:
   - chemical
   audience: business
-- id: T057
-  priority: 4
-  title: Check which carbon pricing policies you need to comply with
-  consequence: You risk not complying correctly with emissions reporting and carbon
-    pricing regulations, which could lead to a fine.
-  guidance_prompt: More information
-  guidance_link_text: Meeting climate change requirements from 2021
-  guidance_url: https://www.gov.uk/government/publications/meeting-climate-change-requirements-if-theres-no-brexit-deal
-  criteria:
-  - any_of:
-    - aero-space
-    - automotive
-    - electronic-machinery
-    - rail-manufacture
-    - agriculture-farm
-    - animal-ex-food
-    - legal-service
-    - defence
-    - electricity
-    - nuclear
-    - oil-gas-coal
-    - renewables
-    - finance
-    - health
-    - consumer-goods
-    - chemical
-    - metal
-    - non-metal-material
-    - air-passenger-freight
-    - digital
-    - telecoms
-  audience: business
 - id: T059
   priority: 3
   title: Check whether any wood packaging you use to import or export goods meets
@@ -952,6 +920,19 @@ actions:
     - road-passenger-freight
     - motor-trade
   audience: business
+- id: T068
+  priority: 8
+  title: Get a sponsor or legal representative in the UK, EU, Norway, Iceland or Liechtenstein
+    if you carry out clinical trials
+  consequence: You will not be able to carry out clinical trials without a sponsor
+    or legal representative.
+  guidance_prompt: More information
+  guidance_link_text: Guidance on substantial amendments to a clinical trial from
+    2021
+  guidance_url: https://www.gov.uk/guidance/guidance-on-substantial-amendments-to-a-clinical-trial-from-1-january-2021--2
+  criteria:
+  - pharma
+  audience: business
 - id: T071
   priority: 8
   title: Get an EORI number that starts with GB to move your goods into or out of
@@ -1011,11 +992,11 @@ actions:
   audience: business
 - id: T081
   priority: 5
-  title: Check what you need to do to continue to work or provide legal services in
-    the UK, if you're a lawyer with a qualification from the EU, Switzerland, Norway,
-    Iceland or Liechtenstein
-  consequence: You risk not being able to continue working or providing legal services
-    in the UK if you do not prepare.
+  title: Check what you need to do to work or provide legal services in the UK, if
+    you're a lawyer with a qualification from the EU, Switzerland, Norway, Iceland
+    or Liechtenstein
+  consequence: You risk not being able to work or provide legal services in the UK
+    if you do not take the necessary steps.
   guidance_prompt: More information
   guidance_link_text: Lawyers from the EU, Switzerland, Norway, Iceland or Liechtenstein
     in the UK from 1 January 2021
@@ -1027,9 +1008,10 @@ actions:
   audience: business
 - id: T082
   priority: 5
-  title: Check what you need to do if you own a UK legal services business
-  consequence: You risk not being able to continue providing legal services in the
-    same way if you do not meet new requirements.
+  title: Check what you need to do if you own a UK legal services business and are
+    a lawyer with qualifications from the EU, Switzerland, Norway, Iceland or Liechtenstein
+  consequence: You risk not being able to provide legal services if you do not meet
+    new requirements.
   guidance_prompt: More information
   guidance_link_text: Legal services business owners from 1 January 2021
   guidance_url: https://www.gov.uk/government/publications/legal-services-business-owners-from-1-january-2021
@@ -1264,15 +1246,12 @@ actions:
 - id: T102
   priority: 9
   title: Find out how to export your goods to the UK if you're an overseas business
-  consequence: You risk not being able to export your goods to the UK after 1 January
-    2021.
+  consequence: You risk not being able to export your goods to the UK.
   guidance_prompt: More information
-  guidance_link_text: Trading with the UK as an overseas exporter
-  guidance_url: https://www.gov.uk/government/collections/trading-with-the-uk-as-an-overseas-exporter
+  guidance_link_text: Trading with the UK as an EU-based business
+  guidance_url: www.gov.uk/eubusiness
   criteria:
-  - any_of:
-    - owns-operates-business-organisation-eu
-    - owns-operates-business-organisation-row
+  - owns-operates-business-organisation-eu
   audience: business
 - id: T103
   priority: 8
@@ -1526,8 +1505,8 @@ actions:
   priority: 5
   title: Contact your regulator if you are a UK lawyer working permanently in the
     EU, Switzerland, Norway, Iceland or Liechtenstein
-  consequence: You risk not being able to continue providing legal services in the
-    same way if you do not meet new requirements.
+  consequence: You risk not being able to provide legal services if you do not meet
+    new requirements.
   guidance_prompt: More information
   guidance_link_text: UK lawyers practising in the EU, Switzerland, Norway, Iceland
     or Liechtenstein from 1 January 2021
@@ -1580,27 +1559,15 @@ actions:
     - owns-operates-business-organisation-uk
     - employ-eu-citizens
   audience: business
-- id: T121
-  priority: 6
-  title: Check what you need to do if your business handles animal feed, or you export
-    animal feed to the EU
-  consequence: You may not be able to trade or move your goods if you do not follow
-    the new rules.
-  guidance_prompt: More information
-  guidance_link_text: Exporting GM food and animal feed products from 1 January 2021
-  guidance_url: https://www.gov.uk/guidance/exporting-gm-food-and-animal-feed-products-after-31-december-2020
-  criteria:
-  - all_of:
-    - export-to-eu
-    - animal-ex-food
-  audience: business
 - id: S042
   priority: 2
   title: Apply for a frontier worker permit if you live outside of the UK and want
     to continue working in the UK from 1 January 2021
   consequence: You will not be able to enter the UK to work from 1 July 2021 if you
     live outside of the UK and do not have a frontier worker permit.
-  exception: This does not apply to workers from Ireland.
+  exception: If you’re an Irish citizen, you do not need to apply for a Frontier Worker
+    permit but you can choose to do so. You cannot apply if you’re a British citizen
+    (this includes dual citizenship).
   guidance_prompt: More information
   guidance_link_text: 'Frontier workers in the UK: rights and status'
   guidance_url: https://www.gov.uk/guidance/frontier-workers-in-the-uk-rights-and-status
@@ -1712,7 +1679,7 @@ actions:
     - retail-wholesale-x-food-drink-motors
   audience: business
 - id: T129
-  priority: 7
+  priority: 8
   title: Apply for a Kent Access Permit (KAP) if your HGV is over 7.5 tonnes and you
     are leaving Great Britain for the EU from the Port of Dover or Eurotunnel
   consequence: From 1 January 2021, if you do not have a valid permit you will not
@@ -1721,6 +1688,17 @@ actions:
   guidance_prompt: More information
   guidance_link_text: Apply for a Kent Access Permit
   guidance_url: https://www.gov.uk/check-hgv-border
+  criteria:
+  - haulage-goods-across-eu-borders
+  audience: business
+- id: T130
+  priority: 8
+  title: Check the new traffic management systems in Kent for HGVs
+  consequence: Your HGV may have to reroute and wait to cross the border because of
+    severe traffic at the Port of Dover and Eurotunnel.
+  guidance_prompt: More information
+  guidance_link_text: Traffic management measures for Dover and Eurotunnel
+  guidance_url: https://www.gov.uk/guidance/kent-traffic-management-on-m20-motorway-to-dover-and-eurotunnel
   criteria:
   - haulage-goods-across-eu-borders
   audience: business
