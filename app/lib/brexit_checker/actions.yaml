@@ -1277,15 +1277,12 @@ actions:
 - id: T102
   priority: 9
   title: Find out how to export your goods to the UK if you're an overseas business
-  consequence: You risk not being able to export your goods to the UK after 1 January
-    2021.
+  consequence: You risk not being able to export your goods to the UK.
   guidance_prompt: More information
-  guidance_link_text: Trading with the UK as an overseas exporter
-  guidance_url: https://www.gov.uk/government/collections/trading-with-the-uk-as-an-overseas-exporter
+  guidance_link_text: Trading with the UK as an EU-based business
+  guidance_url: www.gov.uk/eubusiness
   criteria:
-  - any_of:
-    - owns-operates-business-organisation-eu
-    - owns-operates-business-organisation-row
+  - owns-operates-business-organisation-eu
   audience: business
 - id: T103
   priority: 8
