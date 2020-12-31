@@ -1024,11 +1024,11 @@ actions:
   audience: business
 - id: T081
   priority: 5
-  title: Check what you need to do to continue to work or provide legal services in
-    the UK, if you're a lawyer with a qualification from the EU, Switzerland, Norway,
-    Iceland or Liechtenstein
-  consequence: You risk not being able to continue working or providing legal services
-    in the UK if you do not prepare.
+  title: Check what you need to do to work or provide legal services in the UK, if
+    you're a lawyer with a qualification from the EU, Switzerland, Norway, Iceland
+    or Liechtenstein
+  consequence: You risk not being able to work or provide legal services in the UK
+    if you do not take the necessary steps.
   guidance_prompt: More information
   guidance_link_text: Lawyers from the EU, Switzerland, Norway, Iceland or Liechtenstein
     in the UK from 1 January 2021
