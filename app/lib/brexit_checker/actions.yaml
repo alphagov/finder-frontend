@@ -1579,7 +1579,9 @@ actions:
     to continue working in the UK from 1 January 2021
   consequence: You will not be able to enter the UK to work from 1 July 2021 if you
     live outside of the UK and do not have a frontier worker permit.
-  exception: This does not apply to workers from Ireland.
+  exception: If you’re an Irish citizen, you do not need to apply for a Frontier Worker
+    permit but you can choose to do so. You cannot apply if you’re a British citizen
+    (this includes dual citizenship).
   guidance_prompt: More information
   guidance_link_text: 'Frontier workers in the UK: rights and status'
   guidance_url: https://www.gov.uk/guidance/frontier-workers-in-the-uk-rights-and-status
