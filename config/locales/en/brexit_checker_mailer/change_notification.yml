@@ -2,6 +2,6 @@ en:
   brexit_checker_mailer:
     change_notification:
       guidance_prompt: Read the guidance
-      title: Your transition period results
-      addition: A new action has been added
-      content_change: An action has been updated
+      title: Brexit checker results
+      addition: New action
+      content_change: Updated action
