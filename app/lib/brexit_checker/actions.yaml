@@ -518,8 +518,8 @@ actions:
 - id: T016
   priority: 5
   title: Find out how to comply with the new UK nuclear safeguards arrangements
-  consequence: All operators in the UK civil nuclear sector will need to comply with
-    the new domestic safeguards regime.
+  consequence: All operators in the UK civil nuclear sector must comply with the new
+    domestic safeguards regime.
   guidance_prompt: Read ONR guidance
   guidance_link_text: Draft nuclear safeguards guidance for inspectors
   guidance_url: http://www.onr.org.uk/safeguards/safeguards-guidance.htm
