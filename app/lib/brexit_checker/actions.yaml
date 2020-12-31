@@ -1559,20 +1559,6 @@ actions:
     - owns-operates-business-organisation-uk
     - employ-eu-citizens
   audience: business
-- id: T121
-  priority: 6
-  title: Check what you need to do if your business handles animal feed, or you export
-    animal feed to the EU
-  consequence: You may not be able to trade or move your goods if you do not follow
-    the new rules.
-  guidance_prompt: More information
-  guidance_link_text: Exporting GM food and animal feed products from 1 January 2021
-  guidance_url: https://www.gov.uk/guidance/exporting-gm-food-and-animal-feed-products-after-31-december-2020
-  criteria:
-  - all_of:
-    - export-to-eu
-    - animal-ex-food
-  audience: business
 - id: S042
   priority: 2
   title: Apply for a frontier worker permit if you live outside of the UK and want
