@@ -1679,7 +1679,7 @@ actions:
     - retail-wholesale-x-food-drink-motors
   audience: business
 - id: T129
-  priority: 7
+  priority: 8
   title: Apply for a Kent Access Permit (KAP) if your HGV is over 7.5 tonnes and you
     are leaving Great Britain for the EU from the Port of Dover or Eurotunnel
   consequence: From 1 January 2021, if you do not have a valid permit you will not
