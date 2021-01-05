@@ -10,6 +10,7 @@
 /public/finder-frontend/
 /coverage/*
 node_modules
+yarn-error.log
 .env
 credentials.json
 token.yaml
