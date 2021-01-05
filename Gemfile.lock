@@ -392,11 +392,6 @@ GEM
     ruby2_keywords (0.0.2)
     rubyzip (2.3.0)
     safe_yaml (1.0.5)
-    sass (3.7.4)
-      sass-listen (~> 4.0.0)
-    sass-listen (4.0.0)
-      rb-fsevent (~> 0.9, >= 0.9.4)
-      rb-inotify (~> 0.9, >= 0.9.7)
     sassc (2.4.0)
       ffi (~> 1.9)
     sassc-rails (2.1.2)
@@ -405,10 +400,6 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
-    scss_lint (0.59.0)
-      sass (~> 3.5, >= 3.5.5)
-    scss_lint-govuk (0.2.0)
-      scss_lint
     sdoc (1.1.0)
       rdoc (>= 5.0)
     selenium-webdriver (3.142.7)
@@ -523,7 +514,6 @@ DEPENDENCIES
   rspec-rails
   rubocop-govuk
   sassc-rails
-  scss_lint-govuk
   sdoc
   simplecov
   slimmer

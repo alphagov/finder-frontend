@@ -6,7 +6,8 @@
   "license": "MIT",
   "scripts": {
     "lint": "yarn run lint:js",
-    "lint:js": "standardx 'app/assets/javascripts/**/*.js' 'spec/javascripts/**/*.js'"
+    "lint:js": "standardx 'app/assets/javascripts/**/*.js' 'spec/javascripts/**/*.js'",
+    "lint:scss": "stylelint app/assets/stylesheets/"
   },
   "standardx": {
     "env": {
@@ -26,7 +27,12 @@
       "no-var": 0
     }
   },
+  "stylelint": {
+    "extends": "stylelint-config-gds/scss"
+  },
   "devDependencies": {
-    "standardx": "^7.0.0"
+    "standardx": "^7.0.0",
+    "stylelint": "^13.8.0",
+    "stylelint-config-gds": "^0.1.0"
   }
 }
