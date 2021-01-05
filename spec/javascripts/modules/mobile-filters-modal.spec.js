@@ -1,6 +1,3 @@
-/* eslint-env jasmine, jquery */
-/* global GOVUK */
-
 describe('Mobile filters modal', function () {
   'use strict'
 

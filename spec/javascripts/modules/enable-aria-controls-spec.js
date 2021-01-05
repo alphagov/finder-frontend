@@ -1,5 +1,3 @@
-/* eslint-env jasmine, jquery */
-
 var $ = window.jQuery
 
 describe('aria-controls enabler', function () {

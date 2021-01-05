@@ -1,5 +1,3 @@
-/* eslint-env jasmine, jquery */
-
 describe('SearchAnalytics', function () {
   'use strict'
 

@@ -1,5 +1,3 @@
-/* eslint-env jquery */
-
 //
 // TaxonomySelect adds interactivity to the topic taxonomy facet.
 //
