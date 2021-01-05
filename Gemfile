@@ -12,9 +12,8 @@ gem "govuk_document_types"
 gem "govuk_publishing_components"
 gem "jwt"
 gem "openid_connect"
+gem "sassc-rails"
 gem "slimmer"
-
-gem "sass-rails"
 gem "uglifier"
 gem "whenever"
 
