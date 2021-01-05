@@ -30,6 +30,14 @@
   .app-c-expander__content--visible {
     display: block;
   }
+
+  [aria-expanded="true"] ~ .app-c-expander__icon--up {
+    display: block;
+  }
+
+  [aria-expanded="false"] ~ .app-c-expander__icon--down {
+    display: block;
+  }
 }
 
 .app-c-expander__icon {
@@ -78,14 +86,4 @@
   display: block;
   color: $govuk-text-colour;
   margin-top: 3px;
-}
-
-.js-enabled {
-  [aria-expanded="true"] ~ .app-c-expander__icon--up {
-    display: block;
-  }
-
-  [aria-expanded="false"] ~ .app-c-expander__icon--down {
-    display: block;
-  }
 }

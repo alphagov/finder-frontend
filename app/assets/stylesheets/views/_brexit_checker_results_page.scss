@@ -1,4 +1,4 @@
-$urgency-blue: #0055D2;
+$urgency-blue: #0055d2;
 
 .brexit-checker-results-page {
   .brexit-checker__criteria_explanation,
@@ -41,12 +41,12 @@ $urgency-blue: #0055D2;
   }
 
   .brexit-checker__content-wrapper-urgent {
-    padding: 0 0 30px 0;
+    padding: 0 0 30px;
     border-bottom: 1px solid $govuk-border-colour;
   }
 
   .brexit-checker__content-wrapper {
-    padding: 0 0 15px 0;
+    padding: 0 0 15px;
     border-bottom: 1px solid $govuk-border-colour;
   }
 
@@ -76,6 +76,7 @@ $urgency-blue: #0055D2;
       padding-top: govuk-spacing(4);
     }
   }
+
   .brexit-checker-actions__group:last-child {
     border-bottom: none;
   }
@@ -111,7 +112,7 @@ $urgency-blue: #0055D2;
       @include govuk-font(19);
       display: inline-block;
       background: image-url("govuk_publishing_components/icon-print.png") no-repeat 10px 50%;
-      padding: 0.5em 0.5em 0.5em 38px;
+      padding: .5em .5em .5em 38px;
       margin-left: -10px;
       margin-top: govuk-spacing(3);
       outline: 0;
@@ -120,7 +121,7 @@ $urgency-blue: #0055D2;
       text-decoration: underline;
       color: $govuk-link-colour;
 
-      @include govuk-device-pixel-ratio($ratio: 2) {
+      @include govuk-device-pixel-ratio($ratio: 2) { // stylelint-disable-line max-nesting-depth
         background-image: image-url("govuk_publishing_components/icon-print-2x.png");
         background-size: 16px 18px;
       }
