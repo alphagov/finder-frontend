@@ -46,11 +46,6 @@ class Document
     link
   end
 
-  def truncated_description
-    # This truncates the description at the end of the first sentence
-    description.gsub(/\.\s[A-Z].*/, ".") if description.present?
-  end
-
 private
 
   attr_reader :link, :document_hash

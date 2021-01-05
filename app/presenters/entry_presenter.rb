@@ -11,7 +11,7 @@ class EntryPresenter
   end
 
   def summary
-    @entry.truncated_description if show_summaries
+    @entry.description if show_summaries
   end
 
   def tag(schema)

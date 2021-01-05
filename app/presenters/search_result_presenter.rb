@@ -45,7 +45,7 @@ private
   end
 
   def summary_text
-    document.truncated_description if content_item.show_summaries?
+    document.description if content_item.show_summaries?
   end
 
   def subtext

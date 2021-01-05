@@ -152,22 +152,4 @@ describe Document do
       expect(Document.new(document_hash, nil).es_score).to eq 0.005
     end
   end
-
-  describe "#truncated_description" do
-    describe "shows the truncated (first sentence) description when a description is present" do
-      description = "The government has many departments. These departments are part of the government."
-      truncated_description = "The government has many departments."
-
-      let(:with_description_hash) { FactoryBot.build(:document_hash, description_with_highlighting: description) }
-      let(:without_description) { FactoryBot.build(:document_hash, description_with_highlighting: nil) }
-
-      it "should have truncated description" do
-        expect(Document.new(with_description_hash, 1).truncated_description).to eq(truncated_description)
-      end
-
-      it "should not have truncated description" do
-        expect(Document.new(without_description, 1).truncated_description).to eq(nil)
-      end
-    end
-  end
 end
