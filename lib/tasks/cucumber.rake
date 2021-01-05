@@ -10,6 +10,4 @@ unless Rails.env.production?
 
   desc "Alias for cucumber:ok"
   task cucumber: "cucumber:ok"
-
-  task default: :cucumber
 end
