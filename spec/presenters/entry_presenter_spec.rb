@@ -6,7 +6,7 @@ RSpec.describe EntryPresenter do
       FactoryBot.build(:document, description_with_highlighting: "This is the summary. And this is extra.")
     end
     it "displays the truncated description" do
-      expect(EntryPresenter.new(document, true).summary).to eq("This is the summary.")
+      expect(EntryPresenter.new(document, true).summary).to eq("This is the summary. And this is extra.")
     end
     it "returns nil" do
       expect(EntryPresenter.new(document, false).summary).to be nil

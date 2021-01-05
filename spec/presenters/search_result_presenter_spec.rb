@@ -63,7 +63,7 @@ RSpec.describe SearchResultPresenter do
         link: {
           text: title,
           path: link,
-          description: "I am a document.",
+          description: "I am a document. I am full of words and that.",
           data_attributes: {
             ecommerce_path: link,
             ecommerce_row: 1,
