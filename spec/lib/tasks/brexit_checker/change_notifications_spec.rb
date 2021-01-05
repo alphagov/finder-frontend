@@ -217,6 +217,10 @@ RSpec.describe "Change notifications" do
       allow(SecureRandom).to receive(:uuid).and_return(uuid_1, uuid_2, uuid_3, uuid_4)
     end
 
+    after do
+      Timecop.return
+    end
+
     it "outputs mostly configured notifications yaml" do
       expected = <<-BOTH_TYPES.strip_heredoc
         ---

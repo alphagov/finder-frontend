@@ -43,9 +43,8 @@ actions:
   consequence: You will be charged for your NHS healthcare if you do not have the
     right insurance.
   guidance_prompt: More information
-  guidance_link_text: Healthcare for visitors to the UK from the EU from 1 January
-    2021
-  guidance_url: https://www.gov.uk/guidance/healthcare-for-visitors-to-the-uk-from-the-eu-from-1-january-2021
+  guidance_link_text: Healthcare for visitors to the UK from the EU
+  guidance_url: https://www.gov.uk/guidance/healthcare-for-eu-and-efta-citizens-visiting-the-uk
   criteria:
   - all_of:
     - any_of:
@@ -100,8 +99,8 @@ actions:
   exception: The new rules do not apply when travelling to Ireland.
   lead_time: Do it before you travel
   guidance_prompt: More information
-  guidance_link_text: Check a passport for travel to Europe from 1 January 2021
-  guidance_url: https://www.gov.uk/check-a-passport-travel-europe-1-january-2021
+  guidance_link_text: Check a passport for travel to Europe
+  guidance_url: https://www.gov.uk/check-a-passport-travel-europe
   criteria:
   - all_of:
     - nationality-uk
@@ -388,7 +387,7 @@ actions:
   guidance_prompt: More information
   guidance_link_text: Get your qualification from the EU, Switzerland, Norway, Iceland
     or Liechtenstein recognised in the UK
-  guidance_url: https://www.gov.uk/guidance/get-your-eea-qualification-recognised-in-the-uk-from-1-january-2021
+  guidance_url: https://www.gov.uk/guidance/get-your-eu-professional-qualification-recognised-in-the-uk
   criteria:
   - all_of:
     - nationality-eu
@@ -434,8 +433,8 @@ actions:
   consequence: You risk breaching reporting requirements in the EU, Norway, Iceland
     or Liechtenstein if you do not make any changes you need to.
   guidance_prompt: More information
-  guidance_link_text: Accounting for UK companies from 1 January 2021
-  guidance_url: https://www.gov.uk/guidance/accounting-for-uk-companies-from-1-january-2021
+  guidance_link_text: Accounting for UK companies
+  guidance_url: https://www.gov.uk/guidance/accounting-for-uk-companies
   criteria:
   - provide-services-do-business-in-eu
   audience: business
@@ -1194,8 +1193,8 @@ actions:
   title: Check the rules on making or placing pesticides on the UK market
   consequence: You may not be able to sell new pesticides on the UK market.
   guidance_prompt: More information
-  guidance_link_text: How to comply with pesticide regulations from 2021
-  guidance_url: https://www.gov.uk/guidance/how-to-comply-with-pesticide-regulations-after-brexit
+  guidance_link_text: How to comply with pesticide regulations
+  guidance_url: https://www.hse.gov.uk/pesticides/
   criteria:
   - chemical
   audience: business
@@ -1249,7 +1248,7 @@ actions:
   consequence: You risk not being able to export your goods to the UK.
   guidance_prompt: More information
   guidance_link_text: Trading with the UK as an EU-based business
-  guidance_url: www.gov.uk/eubusiness
+  guidance_url: https://www.gov.uk/eubusiness
   criteria:
   - owns-operates-business-organisation-eu
   audience: business
