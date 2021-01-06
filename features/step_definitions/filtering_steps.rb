@@ -752,11 +752,11 @@ Then(/^I can sign up to email alerts for allowed filters$/) do
   stub_content_store_has_item("/cma-cases/email-signup", cma_cases_with_multi_facets_signup_content_item)
 
   within "#subscription-links-footer" do
-    click_link("Get email alerts")
+    click_link("Get emails")
   end
 
   begin
-    click_on("Create subscription")
+    click_on("Continue")
   rescue ActionController::RoutingError
     expect(page.status_code).to eq(302)
     expect(page.response_headers["Location"]).to eql("http://www.rathergood.com")
@@ -765,7 +765,7 @@ end
 
 When("I create an email subscription") do
   within "#subscription-links-footer" do
-    click_link("Get email alerts")
+    click_link("Get emails")
   end
 end
 
