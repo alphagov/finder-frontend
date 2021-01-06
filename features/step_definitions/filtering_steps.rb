@@ -521,17 +521,9 @@ end
 
 Then(/^I can see taxonomy breadcrumbs$/) do
   visit finder_path("cma-cases")
-  expect(page).to have_selector(".govuk-breadcrumbs.gem-c-breadcrumbs--collapse-on-mobile")
+  expect(page).to have_selector(".govuk-breadcrumbs--collapse-on-mobile")
   expect(page).to have_selector(".govuk-breadcrumbs__list-item", text: "Competition Act and cartels")
   expect(page.find_all(".govuk-breadcrumbs__list-item").count).to eql(2)
-end
-
-Then(/^I can see Brexit taxonomy breadcrumbs$/) do
-  expect(page).to have_selector(".govuk-breadcrumbs.gem-c-breadcrumbs--collapse-on-mobile")
-  expect(page.find_all(".govuk-breadcrumbs__list-item").count).to eql(3)
-  expect(page).to have_selector(".govuk-breadcrumbs__list-item", text: "Home")
-  expect(page).to have_selector(".govuk-breadcrumbs__list-item", text: "Government")
-  expect(page).to have_selector(".govuk-breadcrumbs__list-item", text: "Brexit")
 end
 
 Given(/^a collection of documents exist that can be filtered by checkbox$/) do
