@@ -1,6 +1,3 @@
-/* eslint-env jasmine, jquery */
-/* global GOVUK */
-
 describe('An option select component', function () {
   'use strict'
 
@@ -248,12 +245,12 @@ describe('An option select component', function () {
       // Set some visual properties which are done in the CSS IRL
       $checkboxList = $element.find('.js-options-container')
       $checkboxList.css({
-        'height': 200,
-        'position': 'relative',
-        'overflow': 'scroll'
+        height: 200,
+        position: 'relative',
+        overflow: 'scroll'
       })
       $checkboxList.find('label').css({
-        'display': 'block'
+        display: 'block'
       })
 
       $checkboxListInner = $checkboxList.find(' > .js-auto-height-inner')
@@ -272,7 +269,7 @@ describe('An option select component', function () {
     it('expands the checkbox-container just enough to cut the last visible item in half horizontally, if there are many items', function () {
       $checkboxList.css({
         'max-height': 200,
-        'width': 600
+        width: 600
       })
       optionSelect.setupHeight()
 

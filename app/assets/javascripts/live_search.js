@@ -166,7 +166,7 @@
   LiveSearch.prototype.trackPageView = function trackPageView () {
     var newPath = window.location.pathname + '?' + $.param(this.state)
     GOVUK.SearchAnalytics.trackPageview(newPath)
-    GOVUK.SearchAnalytics.trackPageview(newPath, document.title, { 'trackerName': 'govuk' })
+    GOVUK.SearchAnalytics.trackPageview(newPath, document.title, { trackerName: 'govuk' })
   }
 
   LiveSearch.prototype.trackSpellingSuggestionsImpressions = function trackSpellingSuggestionsImpressions ($suggestions) {

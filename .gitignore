@@ -7,9 +7,10 @@
 .rvmrc
 .rbenv-version
 /doc/
-/public/finder-frontend/
+/public/assets/
 /coverage/*
 node_modules
+yarn-error.log
 .env
 credentials.json
 token.yaml

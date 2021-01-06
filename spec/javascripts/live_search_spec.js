@@ -1,39 +1,36 @@
-/* eslint-env jasmine, jquery */
-/* global GOVUK */
-
 describe('liveSearch', function () {
   var $form, $results, _supportHistory, liveSearch, $atomAutodiscoveryLink, $count
   var dummyResponse = {
-    'display_total': 1,
-    'pluralised_document_noun': 'reports',
-    'applied_filters': " \u003Cstrong\u003ECommercial - rotorcraft \u003Ca href='?format=json\u0026keywords='\u003E×\u003C/a\u003E\u003C/strong\u003E",
-    'atom_url': 'http://an-atom-url.atom?some-query-param',
-    'documents': [
+    display_total: 1,
+    pluralised_document_noun: 'reports',
+    applied_filters: " \u003Cstrong\u003ECommercial - rotorcraft \u003Ca href='?format=json\u0026keywords='\u003E×\u003C/a\u003E\u003C/strong\u003E",
+    atom_url: 'http://an-atom-url.atom?some-query-param',
+    documents: [
       {
-        'document': {
-          'title': 'Test report',
-          'slug': 'aaib-reports/test-report',
-          'metadata': [
+        document: {
+          title: 'Test report',
+          slug: 'aaib-reports/test-report',
+          metadata: [
             {
-              'label': 'Aircraft category',
-              'value': 'General aviation - rotorcraft',
-              'is_text': true
+              label: 'Aircraft category',
+              value: 'General aviation - rotorcraft',
+              is_text: true
             }, {
-              'label': 'Report type',
-              'value': 'Annual safety report',
-              'is_text': true
+              label: 'Report type',
+              value: 'Annual safety report',
+              is_text: true
             }, {
-              'label': 'Occurred',
-              'is_date': true,
-              'machine_date': '2013-11-03',
-              'human_date': '3 November 2013'
+              label: 'Occurred',
+              is_date: true,
+              machine_date: '2013-11-03',
+              human_date: '3 November 2013'
             }
           ]
         },
-        'document_index': 1
+        document_index: 1
       }
     ],
-    'search_results': '<div class="finder-results js-finder-results" data-module="track-click">' +
+    search_results: '<div class="finder-results js-finder-results" data-module="track-click">' +
       '<ol class="gem-c-document-list">' +
         '<li class="gem-c-document-list__item">' +
           '<a data-track-category="navFinderLinkClicked" data-track-action="" data-track-label="" class="gem-c-document-list__item-title" href="aaib-reports/test-report">Test report</a>' +
@@ -58,7 +55,7 @@ describe('liveSearch', function () {
   }
 
   var responseWithSortOptions = {
-    'sort_options_markup': '<select id="order">' +
+    sort_options_markup: '<select id="order">' +
       '<option ' +
         'value="option-val" ' +
         'data_track_category="option-data_track_category"' +
@@ -402,7 +399,7 @@ describe('liveSearch', function () {
 
   describe('indexTrackingData', function () {
     var groupedResponse = {
-      'search_results':
+      search_results:
         '<ul class="finder-results js-finder-results" data-module="track-click">' +
           '<li class="filtered-results__group">' +
             '<h2 class="filtered-results__facet-heading">Primary group</h2>' +
@@ -495,36 +492,36 @@ describe('liveSearch', function () {
   describe('spelling suggestions', function () {
     var $suggestionBlock = $('<div class="spelling-suggestions" id="js-spelling-suggestions"></div>')
     var responseWithSpellingSuggestions = {
-      'display_total': 1,
-      'pluralised_document_noun': 'reports',
-      'applied_filters': " \u003Cstrong\u003ECommercial - rotorcraft \u003Ca href='?format=json\u0026keywords='\u003E×\u003C/a\u003E\u003C/strong\u003E",
-      'atom_url': 'http://an-atom-url.atom?some-query-param',
-      'documents': [
+      display_total: 1,
+      pluralised_document_noun: 'reports',
+      applied_filters: " \u003Cstrong\u003ECommercial - rotorcraft \u003Ca href='?format=json\u0026keywords='\u003E×\u003C/a\u003E\u003C/strong\u003E",
+      atom_url: 'http://an-atom-url.atom?some-query-param',
+      documents: [
         {
-          'document': {
-            'title': 'Test report',
-            'slug': 'aaib-reports/test-report',
-            'metadata': [
+          document: {
+            title: 'Test report',
+            slug: 'aaib-reports/test-report',
+            metadata: [
               {
-                'label': 'Aircraft category',
-                'value': 'General aviation - rotorcraft',
-                'is_text': true
+                label: 'Aircraft category',
+                value: 'General aviation - rotorcraft',
+                is_text: true
               }, {
-                'label': 'Report type',
-                'value': 'Annual safety report',
-                'is_text': true
+                label: 'Report type',
+                value: 'Annual safety report',
+                is_text: true
               }, {
-                'label': 'Occurred',
-                'is_date': true,
-                'machine_date': '2013-11-03',
-                'human_date': '3 November 2013'
+                label: 'Occurred',
+                is_date: true,
+                machine_date: '2013-11-03',
+                human_date: '3 November 2013'
               }
             ]
           },
-          'document_index': 1
+          document_index: 1
         }
       ],
-      'search_results': '<div class="finder-results js-finder-results" data-module="track-click">' +
+      search_results: '<div class="finder-results js-finder-results" data-module="track-click">' +
         '<ol class="gem-c-document-list">' +
           '<li class="gem-c-document-list__item">' +
             '<a data-track-category="navFinderLinkClicked" data-track-action="" data-track-label="" class="gem-c-document-list__item-title" href="aaib-reports/test-report">Test report</a>' +
@@ -546,43 +543,43 @@ describe('liveSearch', function () {
           '</li>' +
         '</ol>' +
       '</div>',
-      'suggestions': '<p class="govuk-body">Did you mean' +
+      suggestions: '<p class="govuk-body">Did you mean' +
       '<a class="govuk-link govuk-!-font-weight-bold" data-ecommerce-content-id="dd395436-9b40-41f3-8157-740a453ac972"' +
       'data-ecommerce-row="1" data-track-options="{"dimension81":"driving licences"}" href="/search/all?keywords=driving+licences&order=relevance">' +
       'driving licences</a> </p>'
     }
 
     var responseWithNoSpellingSuggestions = {
-      'display_total': 1,
-      'pluralised_document_noun': 'reports',
-      'applied_filters': " \u003Cstrong\u003ECommercial - rotorcraft \u003Ca href='?format=json\u0026keywords='\u003E×\u003C/a\u003E\u003C/strong\u003E",
-      'atom_url': 'http://an-atom-url.atom?some-query-param',
-      'documents': [
+      display_total: 1,
+      pluralised_document_noun: 'reports',
+      applied_filters: " \u003Cstrong\u003ECommercial - rotorcraft \u003Ca href='?format=json\u0026keywords='\u003E×\u003C/a\u003E\u003C/strong\u003E",
+      atom_url: 'http://an-atom-url.atom?some-query-param',
+      documents: [
         {
-          'document': {
-            'title': 'Test report',
-            'slug': 'aaib-reports/test-report',
-            'metadata': [
+          document: {
+            title: 'Test report',
+            slug: 'aaib-reports/test-report',
+            metadata: [
               {
-                'label': 'Aircraft category',
-                'value': 'General aviation - rotorcraft',
-                'is_text': true
+                label: 'Aircraft category',
+                value: 'General aviation - rotorcraft',
+                is_text: true
               }, {
-                'label': 'Report type',
-                'value': 'Annual safety report',
-                'is_text': true
+                label: 'Report type',
+                value: 'Annual safety report',
+                is_text: true
               }, {
-                'label': 'Occurred',
-                'is_date': true,
-                'machine_date': '2013-11-03',
-                'human_date': '3 November 2013'
+                label: 'Occurred',
+                is_date: true,
+                machine_date: '2013-11-03',
+                human_date: '3 November 2013'
               }
             ]
           },
-          'document_index': 1
+          document_index: 1
         }
       ],
-      'search_results': '<div class="finder-results js-finder-results" data-module="track-click">' +
+      search_results: '<div class="finder-results js-finder-results" data-module="track-click">' +
         '<ol class="gem-c-document-list">' +
           '<li class="gem-c-document-list__item">' +
             '<a data-track-category="navFinderLinkClicked" data-track-action="" data-track-label="" class="gem-c-document-list__item-title" href="aaib-reports/test-report">Test report</a>' +
@@ -604,7 +601,7 @@ describe('liveSearch', function () {
           '</li>' +
         '</ol>' +
       '</div>',
-      'suggestions': ''
+      suggestions: ''
     }
     beforeEach(function () {
       $form.append($suggestionBlock)
@@ -658,10 +655,10 @@ describe('liveSearch', function () {
     'type="text" aria-describedby="hint-3626790f error-to" aria-controls="js-search-results-info">' +
     '</div></div>')
     var responseWithDateErrors = {
-      'errors': {
-        'public_timestamp': {
-          'from': true,
-          'to': false
+      errors: {
+        public_timestamp: {
+          from: true,
+          to: false
         }
       }
     }
@@ -732,8 +729,8 @@ describe('liveSearch', function () {
         '<span class="js-selected-filter-count"></span>' +
       '</button>')
     var dummyResponse = {
-      'display_total': 1,
-      'display_selected_facets_count': '(6)<span class="govuk-visually-hidden"> filters currently selected</span>'
+      display_total: 1,
+      display_selected_facets_count: '(6)<span class="govuk-visually-hidden"> filters currently selected</span>'
     }
 
     beforeEach(function () {

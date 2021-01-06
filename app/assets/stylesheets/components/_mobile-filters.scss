@@ -1,5 +1,6 @@
 .app-mobile-filters-link {
   display: none;
+
   .js-enabled & {
     display: inline-block;
     margin-bottom: govuk-spacing(4);
@@ -12,7 +13,7 @@
   }
 }
 
-// facet container should be hidden on mobile if 
+// facet container should be hidden on mobile if
 // javascript is available
 .js-enabled .facets {
   @include govuk-media-query($until: tablet) {
@@ -37,7 +38,7 @@
   display: none;
 }
 
-// all filter styles are applicable on mobile only 
+// all filter styles are applicable on mobile only
 // and when javascript is enabled
 @include govuk-media-query($until: tablet) {
   .js-enabled {
@@ -65,7 +66,7 @@
         grid-auto-flow: column;
       }
     }
-  
+
     .facets__content {
       padding: govuk-spacing(2) govuk-spacing(3) 90px govuk-spacing(3);
     }
@@ -79,7 +80,7 @@
       background-color: govuk-colour("white");
       padding: govuk_spacing(3);
       border-top: 1px solid $govuk-border-colour;
-      box-shadow: 0px 0 5px rgba($govuk-border-colour, 0.8);
+      box-shadow: 0 0 5px rgba($govuk-border-colour, .8);
     }
 
     .facets__return-link {

@@ -1,4 +1,4 @@
-$app-colour-true-black: #000;
+$app-colour-true-black: #000000;
 
 .metadata-summary {
   @include govuk-font(19);
@@ -148,7 +148,7 @@ mark {
 
   font-weight: bold;
 
-  &::first-letter {
+  &:first-letter {
     text-transform: uppercase;
   }
 }
@@ -256,7 +256,7 @@ mark {
   margin: 0 0 govuk-spacing(4) 0;
   border-bottom: solid 1px govuk-colour("black");
 
-  &__header {    
+  &__header {
     display: none;
     @include govuk-media-query($from: tablet) {
       display: block;
@@ -279,11 +279,9 @@ mark {
 
 // NOTE: Used to remove the blue global header bar for the topic finder header.
 
-// scss-lint:disable IdSelector
-.full-width #global-header-bar {
+.full-width #global-header-bar { // stylelint-disable-line selector-max-id
   display: none;
 }
-// scss-lint:enable IdSelector
 
 .topic-finder__taxon-link,
 .topic-finder__taxon-link:link,

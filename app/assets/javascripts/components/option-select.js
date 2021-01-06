@@ -1,4 +1,3 @@
-/* eslint-env jquery */
 window.GOVUK = window.GOVUK || {}
 window.GOVUK.Modules = window.GOVUK.Modules || {};
 
@@ -202,7 +201,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
 
   OptionSelect.prototype.setContainerHeight = function setContainerHeight (height) {
     this.$optionsContainer.css({
-      'height': height
+      height: height
     })
   }
 

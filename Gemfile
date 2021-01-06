@@ -11,10 +11,9 @@ gem "govuk_app_config"
 gem "govuk_document_types"
 gem "govuk_publishing_components"
 gem "jwt"
-gem "openid_connect", "~> 1.2.0"
+gem "openid_connect"
+gem "sassc-rails"
 gem "slimmer"
-
-gem "sass-rails"
 gem "uglifier"
 gem "whenever"
 
@@ -39,7 +38,6 @@ group :development, :test do
   gem "pry-byebug"
   gem "rspec-rails"
   gem "rubocop-govuk"
-  gem "scss_lint-govuk"
 end
 
 group :test do
