@@ -127,6 +127,7 @@ When(/^I view the policy papers and consultations finder$/) do
   topic_taxonomy_has_taxons
   content_store_has_policy_and_engagement_finder
   stub_organisations_registry_request
+  stub_topical_events_registry_request
   stub_world_locations_api_request
   stub_rummager_api_request_with_policy_papers_results
   stub_rummager_api_request_with_filtered_policy_papers_results
