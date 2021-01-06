@@ -220,7 +220,6 @@ Feature: Filtering documents
   Scenario: Results should be a landmark to allow screenreaders to jump to it quickly
     When I view the news and communications finder
     Then the page has a landmark to the search results
-    And the page has a landmark to the search filters
 
   Scenario: "Show only transition period results" checkbox is removed if the topic parameter is set to the transition period Topic.
     When I view the news and communications finder filtered on the transition period topic

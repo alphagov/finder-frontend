@@ -848,10 +848,6 @@ Then(/^the page has a landmark to the search results$/) do
   expect(page).to have_css('[class="govuk-grid-column-two-thirds js-live-search-results-block filtered-results"][role="region"][aria-label$="search results"]')
 end
 
-Then(/^the page has a landmark to the search filters$/) do
-  expect(page).to have_css('.govuk-grid-column-one-third[role="search"][aria-label]')
-end
-
 And(/^I should not see an upcoming statistics facet tag$/) do
   expect(page).to_not have_css("span.facet-tag__text", text: "Upcoming statistics")
 end
