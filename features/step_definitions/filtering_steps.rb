@@ -127,6 +127,7 @@ When(/^I view the policy papers and consultations finder$/) do
   topic_taxonomy_has_taxons
   content_store_has_policy_and_engagement_finder
   stub_organisations_registry_request
+  stub_topical_events_registry_request
   stub_world_locations_api_request
   stub_rummager_api_request_with_policy_papers_results
   stub_rummager_api_request_with_filtered_policy_papers_results
@@ -521,17 +522,9 @@ end
 
 Then(/^I can see taxonomy breadcrumbs$/) do
   visit finder_path("cma-cases")
-  expect(page).to have_selector(".govuk-breadcrumbs.gem-c-breadcrumbs--collapse-on-mobile")
+  expect(page).to have_selector(".govuk-breadcrumbs--collapse-on-mobile")
   expect(page).to have_selector(".govuk-breadcrumbs__list-item", text: "Competition Act and cartels")
   expect(page.find_all(".govuk-breadcrumbs__list-item").count).to eql(2)
-end
-
-Then(/^I can see Brexit taxonomy breadcrumbs$/) do
-  expect(page).to have_selector(".govuk-breadcrumbs.gem-c-breadcrumbs--collapse-on-mobile")
-  expect(page.find_all(".govuk-breadcrumbs__list-item").count).to eql(3)
-  expect(page).to have_selector(".govuk-breadcrumbs__list-item", text: "Home")
-  expect(page).to have_selector(".govuk-breadcrumbs__list-item", text: "Government")
-  expect(page).to have_selector(".govuk-breadcrumbs__list-item", text: "Brexit")
 end
 
 Given(/^a collection of documents exist that can be filtered by checkbox$/) do
@@ -704,10 +697,10 @@ end
 When(/^I click the (.*) remove control$/) do |filter|
   expect(page).to have_css(".js-enabled")
 
-  button = page.find("p[class='facet-tag__text']", text: filter).sibling("button[data-module='remove-filter-link']")
+  button = page.find("span[class='facet-tag__text']", text: filter).sibling("button[data-module='remove-filter-link']")
   button.click
 
-  expect(page).to_not have_selector("p[class='facet-tag__text']", text: filter)
+  expect(page).to_not have_selector("span[class='facet-tag__text']", text: filter)
 end
 
 Then(/^The (.*) checkbox in deselected$/) do |checkbox|
@@ -752,11 +745,11 @@ Then(/^I can sign up to email alerts for allowed filters$/) do
   stub_content_store_has_item("/cma-cases/email-signup", cma_cases_with_multi_facets_signup_content_item)
 
   within "#subscription-links-footer" do
-    click_link("Get email alerts")
+    click_link("Get emails")
   end
 
   begin
-    click_on("Create subscription")
+    click_on("Continue")
   rescue ActionController::RoutingError
     expect(page.status_code).to eq(302)
     expect(page.response_headers["Location"]).to eql("http://www.rathergood.com")
@@ -765,7 +758,7 @@ end
 
 When("I create an email subscription") do
   within "#subscription-links-footer" do
-    click_link("Get email alerts")
+    click_link("Get emails")
   end
 end
 
@@ -855,12 +848,8 @@ Then(/^the page has a landmark to the search results$/) do
   expect(page).to have_css('[class="govuk-grid-column-two-thirds js-live-search-results-block filtered-results"][role="region"][aria-label$="search results"]')
 end
 
-Then(/^the page has a landmark to the search filters$/) do
-  expect(page).to have_css('.govuk-grid-column-one-third[role="search"][aria-label]')
-end
-
 And(/^I should not see an upcoming statistics facet tag$/) do
-  expect(page).to_not have_css("p.facet-tag__text", text: "Upcoming statistics")
+  expect(page).to_not have_css("span.facet-tag__text", text: "Upcoming statistics")
 end
 
 And(/^The top result has the correct tracking data$/) do
