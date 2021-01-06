@@ -704,10 +704,10 @@ end
 When(/^I click the (.*) remove control$/) do |filter|
   expect(page).to have_css(".js-enabled")
 
-  button = page.find("p[class='facet-tag__text']", text: filter).sibling("button[data-module='remove-filter-link']")
+  button = page.find("span[class='facet-tag__text']", text: filter).sibling("button[data-module='remove-filter-link']")
   button.click
 
-  expect(page).to_not have_selector("p[class='facet-tag__text']", text: filter)
+  expect(page).to_not have_selector("span[class='facet-tag__text']", text: filter)
 end
 
 Then(/^The (.*) checkbox in deselected$/) do |checkbox|
@@ -860,7 +860,7 @@ Then(/^the page has a landmark to the search filters$/) do
 end
 
 And(/^I should not see an upcoming statistics facet tag$/) do
-  expect(page).to_not have_css("p.facet-tag__text", text: "Upcoming statistics")
+  expect(page).to_not have_css("span.facet-tag__text", text: "Upcoming statistics")
 end
 
 And(/^The top result has the correct tracking data$/) do

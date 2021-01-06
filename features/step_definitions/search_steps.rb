@@ -41,7 +41,7 @@ Then(/^I am redirected to the (html|json) all content finder results page$/) do 
 end
 
 Then(/^results are filtered with a facet tag of (.*)/) do |text|
-  expect(page).to have_selector("p[class='facet-tag__text']", text: text)
+  expect(page).to have_selector("span[class='facet-tag__text']", text: text)
 end
 
 When(/^I search for "([^"]*)"$/) do |search_term|
