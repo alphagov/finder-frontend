@@ -116,8 +116,8 @@ actions:
     will not be able to take it with you.
   lead_time: It takes at least 1 month
   guidance_prompt: More information
-  guidance_link_text: Pet travel to Europe from 2021
-  guidance_url: https://www.gov.uk/guidance/pet-travel-to-europe-from-1-january-2021
+  guidance_link_text: Pet travel to and from Great Britain
+  guidance_url: https://www.gov.uk/guidance/pet-travel-to-and-from-great-britain
   criteria:
   - all_of:
     - living-uk
@@ -227,7 +227,7 @@ actions:
     Qualified Teacher Status (QTS) if you do not apply.
   guidance_prompt: More information
   guidance_link_text: 'Qualified teacher status (QTS): qualify to teach in England'
-  guidance_url: https://www.gov.uk/guidance/applying-for-qualified-teacher-status-qts-from-1-january-2021
+  guidance_url: https://www.gov.uk/guidance/qualified-teacher-status-qts
   criteria:
   - any_of:
     - all_of:
@@ -244,8 +244,8 @@ actions:
   consequence: You could get a fine or your vehicle could be seized if you drive without
     the correct documents.
   guidance_prompt: More information
-  guidance_link_text: Driving abroad
-  guidance_url: https://www.gov.uk/guidance/driving-in-the-eu-from-1-january-2021
+  guidance_link_text: Driving in the EU
+  guidance_url: https://www.gov.uk/guidance/driving-in-the-eu
   criteria:
   - all_of:
     - living-uk
@@ -263,8 +263,8 @@ actions:
   consequence: You could get a fine if you do not have a GB sticker when you need
     one.
   guidance_prompt: More information
-  guidance_link_text: Driving in the EU from 2021 - GB stickers and number plates
-  guidance_url: https://www.gov.uk/guidance/driving-in-the-eu-from-1-january-2021#gb-stickers-and-number-plates
+  guidance_link_text: Driving in the EU - GB stickers and number plates
+  guidance_url: https://www.gov.uk/guidance/driving-in-the-eu#gb-stickers-and-number-plates
   criteria:
   - all_of:
     - living-uk
@@ -330,9 +330,8 @@ actions:
     in
   consequence: You will not be able to drive in the EU with a UK licence.
   guidance_prompt: More information
-  guidance_link_text: 'Driving in the EU from 1 January 2021: UK licence holders living
-    in the EU'
-  guidance_url: https://www.gov.uk/guidance/driving-in-the-eu-from-1-january-2021-uk-licence-holders-living-in-the-eu
+  guidance_link_text: 'Driving in the EU: UK licence holders living in the EU'
+  guidance_url: https://www.gov.uk/guidance/driving-in-the-eu-uk-licence-holders-living-in-the-eu
   criteria:
   - all_of:
     - nationality-uk
@@ -351,8 +350,8 @@ actions:
     proper documents, you will not be able to take it with you.
   lead_time: It takes at least 4 months
   guidance_prompt: More information
-  guidance_link_text: Pet travel from 2021
-  guidance_url: https://www.gov.uk/guidance/pet-travel-to-europe-after-brexit
+  guidance_link_text: Pet travel to and from Great Britain
+  guidance_url: https://www.gov.uk/guidance/pet-travel-to-and-from-great-britain
   criteria:
   - all_of:
     - any_of:
@@ -404,8 +403,8 @@ actions:
     prove that you are insured.
   lead_time: Do it before you travel
   guidance_prompt: More information
-  guidance_link_text: Visiting the UK from 2021
-  guidance_url: https://www.gov.uk/guidance/visiting-the-uk-after-brexit#if-your-vehicle-is-not-insured-in-the-uk
+  guidance_link_text: Visiting the UK as an EU, EEA or Swiss citizen
+  guidance_url: https://www.gov.uk/guidance/visiting-the-uk-as-an-eu-eea-or-swiss-citizen#if-your-vehicle-is-not-insured-in-the-uk
   criteria:
   - all_of:
     - visiting-uk
@@ -445,9 +444,8 @@ actions:
   consequence: You risk not being able to work or operate in the aviation industry
     without valid certificates and licences.
   guidance_prompt: More information
-  guidance_link_text: Prepare to work and operate in the European aviation sector
-    from 2021
-  guidance_url: https://www.gov.uk/guidance/prepare-to-work-and-operate-in-the-european-aviation-sector-after-brexit
+  guidance_link_text: Working and operating in the European aviation sector
+  guidance_url: https://www.gov.uk/guidance/working-and-operating-in-the-european-aviation-sector
   criteria:
   - any_of:
     - aero-space
@@ -498,8 +496,8 @@ actions:
   title: Check contracts relating to EU space programmes with your contracting authority
   consequence: You may not be able to bid for future contracts with EU space programmes.
   guidance_prompt: More information
-  guidance_link_text: Satellites and space programmes from 1 January 2021
-  guidance_url: https://www.gov.uk/guidance/satellites-and-space-programmes-from-1-january-2021
+  guidance_link_text: UK involvement in EU space programmes
+  guidance_url: https://www.gov.uk/guidance/uk-involvement-in-the-eu-space-programme
   criteria:
   - aero-space
   audience: business
@@ -509,8 +507,8 @@ actions:
     or EU Space Surveillance and Tracking programmes
   consequence: You may lose access to some data and your services may not work.
   guidance_prompt: More information
-  guidance_link_text: Satellites and space programmes from 1 January 2021
-  guidance_url: https://www.gov.uk/guidance/satellites-and-space-programmes-from-1-january-2021
+  guidance_link_text: UK involvement in the EU Space Programme
+  guidance_url: https://www.gov.uk/guidance/uk-involvement-in-the-eu-space-programme
   criteria:
   - aero-space
   audience: business
@@ -532,8 +530,8 @@ actions:
   consequence: You will not be able to export 'dual use' nuclear goods from the UK
     if you have not registered.
   guidance_prompt: More information
-  guidance_link_text: Exporting nuclear-related items from 1 January 2021
-  guidance_url: https://www.gov.uk/guidance/exporting-nuclear-related-items-from-1-january-2021
+  guidance_link_text: Exporting nuclear-related items
+  guidance_url: https://www.gov.uk/guidance/exporting-nuclear-related-items
   criteria:
   - nuclear
   audience: business
@@ -544,9 +542,9 @@ actions:
     the UK without the right licence.
   lead_time: It usually takes over 4 weeks
   guidance_prompt: More information
-  guidance_link_text: 'Prepare to import ‘relevant’ nuclear materials from the EU
-    from 2021: licensing requirements'
-  guidance_url: https://www.gov.uk/guidance/importing-relevant-nuclear-materials-from-the-eu-from-1-january-2021-licensing-requirements
+  guidance_link_text: 'Importing ‘relevant’ nuclear materials into the UK: licensing
+    requirements'
+  guidance_url: https://www.gov.uk/guidance/importing-relevant-nuclear-materials-from-the-eu-licensing-requirements
   criteria:
   - nuclear
   audience: business
@@ -556,8 +554,8 @@ actions:
     spent fuel into and out of the UK
   consequence: Failing to comply with the new regulations will be a criminal offence.
   guidance_prompt: More information
-  guidance_link_text: Shipping radioactive waste and spent fuel from 1 January 2021
-  guidance_url: https://www.gov.uk/guidance/shipping-radioactive-waste-and-spent-fuel-from-1-january-2021
+  guidance_link_text: Shipping radioactive waste and spent fuel
+  guidance_url: https://www.gov.uk/guidance/shipping-radioactive-waste-and-spent-fuel
   criteria:
   - nuclear
   audience: business
@@ -567,8 +565,8 @@ actions:
   consequence: You will not be able to move radioactive sources into the UK from the
     EU without making a written declaration.
   guidance_prompt: More information
-  guidance_link_text: Shipping radioactive sources from 1 January 2021
-  guidance_url: https://www.gov.uk/guidance/shipping-radioactive-sources-between-the-uk-and-eu-from-1-january-2021
+  guidance_link_text: Shipping radioactive sources between the UK and EU
+  guidance_url: https://www.gov.uk/guidance/shipping-radioactive-sources-between-the-uk-and-eu
   criteria:
   - any_of:
     - nuclear
@@ -582,9 +580,8 @@ actions:
     industry in these locations without the right documents.
   lead_time: It takes up to one week to get the right documents
   guidance_prompt: More information
-  guidance_link_text: Prepare to work and operate in the European aviation sector
-    from 2021
-  guidance_url: https://www.gov.uk/guidance/prepare-to-work-and-operate-in-the-european-aviation-sector-after-brexit
+  guidance_link_text: Working and operating in the European aviation sector
+  guidance_url: https://www.gov.uk/guidance/working-and-operating-in-the-european-aviation-sector
   criteria:
   - any_of:
     - aero-space
@@ -598,8 +595,8 @@ actions:
   consequence: You may not be able to access personal data from the EU without the
     right arrangements in place.
   guidance_prompt: More information
-  guidance_link_text: Using personal data in your business or organisation from 2021
-  guidance_url: https://www.gov.uk/guidance/using-personal-data-after-brexit
+  guidance_link_text: Using personal data in your business or other organisation
+  guidance_url: https://www.gov.uk/guidance/using-personal-data-in-your-business-or-other-organisation
   criteria:
   - any_of:
     - personal-eu-org
@@ -614,8 +611,9 @@ actions:
   consequence: You risk not being able to broadcast or provide video-on-demand services
     if you do not get your business ready.
   guidance_prompt: More information
-  guidance_link_text: Broadcasting and video on demand from 2021
-  guidance_url: https://www.gov.uk/guidance/broadcasting-and-video-on-demand-if-theres-no-brexit-deal
+  guidance_link_text: Broadcasting and video on-demand services between the UK and
+    EU
+  guidance_url: https://www.gov.uk/guidance/broadcasting-and-video-on-demand-services-between-the-uk-and-eu
   criteria:
   - any_of:
     - media
@@ -642,9 +640,9 @@ actions:
   consequence: You risk being fined if you do not have a representative to help you
     meet online security standards.
   guidance_prompt: More information
-  guidance_link_text: NIS Regulations - what digital service providers in the UK should
-    do from 2021
-  guidance_url: https://www.gov.uk/guidance/nis-regulations-what-uk-digital-service-providers-operating-in-the-eu-should-do-after-brexit
+  guidance_link_text: 'NIS Regulations: UK digital service providers operating in
+    the EU'
+  guidance_url: https://www.gov.uk/guidance/nis-regulations-uk-digital-service-providers-operating-in-the-eu
   criteria:
   - any_of:
     - digital
@@ -659,8 +657,8 @@ actions:
     if you do not have the right documents or go through the wrong border post.
   lead_time: It takes 3 days to get the documents
   guidance_prompt: More information
-  guidance_link_text: Export fish to the EU from 1 January 2021
-  guidance_url: https://www.gov.uk/guidance/exporting-and-importing-fish-if-theres-no-brexit-deal
+  guidance_link_text: Export fish to the EU
+  guidance_url: https://www.gov.uk/guidance/exporting-or-moving-fish-from-the-uk
   criteria:
   - any_of:
     - air-passenger-freight
@@ -675,8 +673,8 @@ actions:
   consequence: You risk plants or plant products being delayed or rejected if you
     do not follow the right rules.
   guidance_prompt: More information
-  guidance_link_text: Importing and exporting plants and plant products from 2021
-  guidance_url: https://www.gov.uk/guidance/importing-and-exporting-plants-and-plant-products-from-1-january-2021
+  guidance_link_text: Importing and exporting plants and plant products
+  guidance_url: https://www.gov.uk/government/collections/importing-and-exporting-plants-and-plant-products
   criteria:
   - all_of:
     - any_of:
@@ -694,8 +692,8 @@ actions:
     do not meet both UK and EU marketing standards and have the right documentation.
   lead_time: It takes 48 hours
   guidance_prompt: More information
-  guidance_link_text: Fresh fruit and vegetable marketing standards from 2021
-  guidance_url: https://www.gov.uk/guidance/fresh-fruit-and-vegetable-marketing-standards-if-the-uk-leaves-the-eu-without-a-deal
+  guidance_link_text: Fresh fruit and vegetable marketing standards
+  guidance_url: https://www.gov.uk/guidance/fresh-fruit-and-vegetable-marketing-standards
   criteria:
   - all_of:
     - export-to-eu
@@ -710,8 +708,9 @@ actions:
     do not register correctly.
   lead_time: It takes up to 6 weeks to register
   guidance_prompt: More information
-  guidance_link_text: Protecting food and drink names from 1 January 2021
-  guidance_url: https://www.gov.uk/guidance/protecting-food-and-drink-names-if-theres-no-brexit-deal
+  guidance_link_text: 'Protected food and drink names: UK geographical indication
+    schemes'
+  guidance_url: https://www.gov.uk/guidance/protected-geographical-food-and-drink-names-uk-gi-schemes
   criteria:
   - any_of:
     - agriculture-farm
@@ -740,8 +739,8 @@ actions:
   consequence: You risk not being able to sell goods in the EU if they're labelled
     incorrectly.
   guidance_prompt: More information
-  guidance_link_text: Food and drink labelling changes from 1 January 2021
-  guidance_url: https://www.gov.uk/guidance/food-and-drink-labelling-changes-from-1-january-2021
+  guidance_link_text: 'Food standards: labelling and composition'
+  guidance_url: https://www.gov.uk/guidance/food-standards-labelling-durability-and-composition
   criteria:
   - any_of:
     - food-drink-tobacco
@@ -755,8 +754,8 @@ actions:
     it
   consequence: You risk not being able to sell your food as organic in the EU.
   guidance_prompt: More information
-  guidance_link_text: Trading and labelling organic food from 2021
-  guidance_url: https://www.gov.uk/guidance/trading-and-labelling-organic-food-if-theres-no-brexit-deal
+  guidance_link_text: 'Organic food: labelling rules'
+  guidance_url: https://www.gov.uk/guidance/organic-food-labelling-rules
   criteria:
   - all_of:
     - any_of:
@@ -787,8 +786,8 @@ actions:
   consequence: You risk your eggs being delayed or rejected when they reach the EU
     if they have the wrong marking.
   guidance_prompt: More information
-  guidance_link_text: Egg marketing standards from 2021
-  guidance_url: https://www.gov.uk/guidance/egg-marketing-standards-if-theres-a-no-deal-brexit
+  guidance_link_text: Egg marketing standards
+  guidance_url: https://www.gov.uk/guidance/egg-marketing-standards
   criteria:
   - agriculture-farm
   audience: business
@@ -799,8 +798,8 @@ actions:
   consequence: You risk your eggs or chicks being delayed or rejected when they reach
     the EU if they have the wrong markings.
   guidance_prompt: More information
-  guidance_link_text: Hatching eggs and chicks marketing standards from 2021
-  guidance_url: https://www.gov.uk/guidance/hatching-eggs-and-chicks-marketing-standards-when-the-uk-leaves-the-eu
+  guidance_link_text: Hatching eggs and chicks marketing standards
+  guidance_url: https://www.gov.uk/guidance/hatching-eggs-and-chicks-marketing-standards
   criteria:
   - agriculture-farm
   audience: business
@@ -813,8 +812,8 @@ actions:
     it reaches the EU.
   lead_time: It usually takes up to 6 weeks
   guidance_prompt: More information
-  guidance_link_text: Poultry meat marketing standards from 2021
-  guidance_url: https://www.gov.uk/guidance/poultry-meat-marketing-standards-when-the-uk-leaves-the-eu
+  guidance_link_text: Poultry meat marketing standards
+  guidance_url: https://www.gov.uk/guidance/poultry-meat-marketing-standards
   criteria:
   - agriculture-farm
   audience: business
@@ -838,8 +837,8 @@ actions:
   consequence: You risk your fish being delayed or rejected when you reach the port
     if you do not have the right documents.
   guidance_prompt: More information
-  guidance_link_text: Export fish from 2021
-  guidance_url: https://www.gov.uk/guidance/export-fish-to-the-eu-from-1-january-2021
+  guidance_link_text: Export fish
+  guidance_url: https://www.gov.uk/guidance/exporting-or-moving-fish-from-the-uk
   criteria:
   - any_of:
     - marine-transport
@@ -896,8 +895,8 @@ actions:
   consequence: You will not be able to transport goods through the EU without the
     right documents.
   guidance_prompt: More information
-  guidance_link_text: 'International road haulage: operator licences and permits'
-  guidance_url: https://www.gov.uk/guidance/carry-out-international-road-haulage-from-1-january-2021
+  guidance_link_text: Carry out international road haulage
+  guidance_url: https://www.gov.uk/guidance/carry-out-international-road-haulage
   criteria:
   - any_of:
     - road-passenger-freight
@@ -926,9 +925,8 @@ actions:
   consequence: You will not be able to carry out clinical trials without a sponsor
     or legal representative.
   guidance_prompt: More information
-  guidance_link_text: Guidance on substantial amendments to a clinical trial from
-    2021
-  guidance_url: https://www.gov.uk/guidance/guidance-on-substantial-amendments-to-a-clinical-trial-from-1-january-2021--2
+  guidance_link_text: Guidance on substantial amendments to a clinical trial
+  guidance_url: https://www.gov.uk/guidance/guidance-on-substantial-amendments-to-a-clinical-trial
   criteria:
   - pharma
   audience: business
@@ -998,8 +996,8 @@ actions:
     if you do not take the necessary steps.
   guidance_prompt: More information
   guidance_link_text: Lawyers from the EU, Switzerland, Norway, Iceland or Liechtenstein
-    in the UK from 1 January 2021
-  guidance_url: https://www.gov.uk/government/publications/eu-lawyers-in-the-uk-from-1-january-2021
+    working in the UK
+  guidance_url: https://www.gov.uk/government/publications/eu-eea-efta-and-swiss-lawyers-in-the-uk
   criteria:
   - all_of:
     - legal-service
@@ -1012,8 +1010,8 @@ actions:
   consequence: You risk not being able to provide legal services if you do not meet
     new requirements.
   guidance_prompt: More information
-  guidance_link_text: Legal services business owners from 1 January 2021
-  guidance_url: https://www.gov.uk/government/publications/legal-services-business-owners-from-1-january-2021
+  guidance_link_text: Owning a UK legal services business
+  guidance_url: https://www.gov.uk/government/publications/legal-services-business-owners
   criteria:
   - legal-service
   audience: business
@@ -1042,8 +1040,8 @@ actions:
     EU from 2021 until new arrangements are agreed with the EU.
   lead_time: It takes 2 months to get the rights for both the UK and EU
   guidance_prompt: More information
-  guidance_link_text: Plant variety rights and marketing from 2021
-  guidance_url: https://www.gov.uk/guidance/plant-variety-rights-and-marketing-plant-reproductive-material-if-the-uk-leaves-the-eu-without-a-deal
+  guidance_link_text: Get plant breeder rights
+  guidance_url: https://www.gov.uk/guidance/plant-breeders-rights
   criteria:
   - any_of:
     - agriculture-farm
@@ -1057,8 +1055,8 @@ actions:
     if you do not have the certificate.
   lead_time: It takes up to 7 days to get the certificate
   guidance_prompt: More information
-  guidance_link_text: Importing and exporting plants and plant products from 2021
-  guidance_url: https://www.gov.uk/guidance/importing-and-exporting-plants-and-plant-products-from-1-january-2021
+  guidance_link_text: Importing and exporting plants and plant products
+  guidance_url: https://www.gov.uk/government/collections/importing-and-exporting-plants-and-plant-products
   criteria:
   - any_of:
     - agriculture-farm
@@ -1088,8 +1086,8 @@ actions:
     you do not follow the correct rules.
   lead_time: Do this 6 weeks before the horse or equine needs to travel
   guidance_prompt: More information
-  guidance_link_text: Export horses and ponies from 2021
-  guidance_url: https://www.gov.uk/guidance/export-horses-and-ponies-from-1-january-2021
+  guidance_link_text: Exporting horses and ponies
+  guidance_url: https://www.gov.uk/guidance/export-horses-and-ponies-special-rules
   criteria:
   - any_of:
     - animal-ex-food
@@ -1105,8 +1103,8 @@ actions:
   lead_time: It takes up to 3 days to get the right documents
   guidance_prompt: More information
   guidance_link_text: Exporting animals and animal products to the EU or Northern
-    Ireland from 1 January 2021
-  guidance_url: https://www.gov.uk/guidance/exporting-animals-and-animal-products-to-the-eu-from-1-january-2021
+    Ireland
+  guidance_url: https://www.gov.uk/government/collections/guidance-on-importing-and-exporting-live-animals-or-animal-products
   criteria:
   - any_of:
     - food-drink-tobacco
@@ -1121,8 +1119,8 @@ actions:
   consequence: You will not be able to export rough diamonds from 1 January 2021 unless
     you have applied for a UK Kimberly Process certificate.
   guidance_prompt: More information
-  guidance_link_text: Trading internationally in rough diamonds from 1 January 2021
-  guidance_url: https://www.gov.uk/government/publications/trading-internationally-in-rough-diamonds-from-1-january-2021
+  guidance_link_text: Exporting rough diamonds
+  guidance_url: https://www.gov.uk/guidance/export-diamonds-special-rules
   criteria:
   - diamond
   audience: business
@@ -1133,8 +1131,8 @@ actions:
   consequence: You risk your timber or timber products being delayed or rejected if
     you do not follow the rules.
   guidance_prompt: More information
-  guidance_link_text: 'Trading timber: imports and exports from 2021'
-  guidance_url: https://www.gov.uk/guidance/trading-timber-imports-and-exports-if-theres-no-brexit-deal
+  guidance_link_text: 'Trading timber: imports and exports'
+  guidance_url: https://www.gov.uk/guidance/uk-timber-regulation-imports-and-exports-of-timber-and-timber-products
   criteria:
   - forestry
   audience: business
@@ -1145,8 +1143,8 @@ actions:
   consequence: You risk your chemicals being seized and you will be breaking the law
     if you do not have the correct licences.
   guidance_prompt: More information
-  guidance_link_text: Trading in drug precursors from 2021
-  guidance_url: https://www.gov.uk/government/publications/trading-in-drug-precursors-from-1-january-2021
+  guidance_link_text: Trading in chemical precursors
+  guidance_url: https://www.gov.uk/guidance/precursor-chemical-licensing
   criteria:
   - all_of:
     - any_of:
@@ -1163,8 +1161,8 @@ actions:
   consequence: You risk your waste shipments being delayed or rejected if you do not
     follow the right rules.
   guidance_prompt: More information
-  guidance_link_text: Importing and exporting waste from 2021
-  guidance_url: https://www.gov.uk/guidance/importing-and-exporting-waste-if-theres-no-brexit-deal
+  guidance_link_text: Importing and exporting waste
+  guidance_url: https://www.gov.uk/guidance/importing-and-exporting-waste
   criteria:
   - all_of:
     - environment
@@ -1178,8 +1176,9 @@ actions:
     between the UK and the EU
   consequence: You risk not being able to move animals or plants protected under CITES.
   guidance_prompt: More information
-  guidance_link_text: Trading and moving endangered species protected by CITES
-  guidance_url: https://www.gov.uk/guidance/trading-and-moving-endangered-species-protected-by-cites-if-theres-no-withdrawal-deal
+  guidance_link_text: 'Importing or exporting endangered species: check if you need
+    a CITES permit'
+  guidance_url: https://www.gov.uk/guidance/cites-imports-and-exports
   criteria:
   - any_of:
     - import-from-eu
@@ -1218,8 +1217,8 @@ actions:
   consequence: You might not be able to take items such as works of art and historical
     objects out of the UK without the correct licence.
   guidance_prompt: More information
-  guidance_link_text: Exporting objects of cultural interest from 1 January 2021
-  guidance_url: https://www.gov.uk/government/publications/exporting-objects-of-cultural-interest-if-theres-no-brexit-deal
+  guidance_link_text: Exporting objects of cultural interest
+  guidance_url: https://www.gov.uk/guidance/exporting-or-importing-objects-of-cultural-interest
   criteria:
   - culture
   audience: business
@@ -1259,8 +1258,8 @@ actions:
   consequence: You risk penalties and your goods not getting through customs if you
     do not pay the correct tariff.
   guidance_prompt: More information
-  guidance_link_text: UK tariffs from 1 January 2021
-  guidance_url: https://www.gov.uk/guidance/uk-tariffs-from-1-january-2021
+  guidance_link_text: Tariffs on goods imported into the UK
+  guidance_url: https://www.gov.uk/guidance/tariffs-on-goods-imported-into-the-uk
   criteria:
   - import-from-eu
   audience: business
@@ -1394,27 +1393,30 @@ actions:
   consequence: You may not be able to trade or move goods if you do not follow the
     new rules.
   guidance_prompt: More information
-  guidance_link_text: Moving goods into, out of, or through Northern Ireland from
-    1 January 2021
-  guidance_url: https://www.gov.uk/guidance/moving-goods-into-out-of-or-through-northern-ireland-from-1-january-2021
+  guidance_link_text: Moving goods into, out of, or through Northern Ireland
+  guidance_url: https://www.gov.uk/government/collections/moving-goods-into-out-of-or-through-northern-ireland
   criteria:
   - move-goods-ni
   audience: business
 - id: T109
   priority: 10
   title: Check what you need to do to export to the EU from 1 January 2021
-  title_url: https://www.gov.uk/prepare-to-export-from-great-britain-from-january-2021
   consequence: You risk not being able to send or take goods to EU countries from
     1 January 2021
+  guidance_prompt: More information
+  guidance_link_text: Exporting goods from the UK
+  guidance_url: https://www.gov.uk/export-goods
   criteria:
   - export-to-eu
   audience: business
 - id: T110
   priority: 10
   title: Check what you need to do to import from the EU from 1 January 2021
-  title_url: https://www.gov.uk/prepare-to-import-to-great-britain-from-january-2021
   consequence: You risk not being able to bring or receive goods from EU countries
     from 1 January 2021
+  guidance_prompt: More information
+  guidance_link_text: Importing goods into the UK
+  guidance_url: https://www.gov.uk/import-goods-into-uk
   criteria:
   - import-from-eu
   audience: business
@@ -1424,9 +1426,8 @@ actions:
   consequence: You may not be able to hold, register or renew a .eu domain name from
     1 January 2021.
   guidance_prompt: More information
-  guidance_link_text: ".eu domain names - what you need to do before the end of the
-    transition period"
-  guidance_url: https://www.gov.uk/guidance/eu-domain-names-what-you-need-to-do-before-the-end-of-the-transition-period
+  guidance_link_text: Registering and renewing .eu domain names in the UK
+  guidance_url: https://www.gov.uk/guidance/registering-and-renewing-eu-domain-names-in-the-uk
   criteria:
   - eu-domain
   audience: business
@@ -1438,8 +1439,8 @@ actions:
     2021.
   guidance_prompt: More information
   guidance_link_text: Importing animals, animal products and high-risk food and feed
-    not of animal origin from 1 January 2021
-  guidance_url: https://www.gov.uk/guidance/importing-animals-animal-products-and-high-risk-food-and-feed-not-of-animal-origin-from-1-january-2021
+    not of animal origin
+  guidance_url: https://www.gov.uk/guidance/importing-or-moving-live-animals-animal-products-and-high-risk-food-and-feed-not-of-animal-origin
   criteria:
   - all_of:
     - import-from-eu
@@ -1508,8 +1509,8 @@ actions:
     new requirements.
   guidance_prompt: More information
   guidance_link_text: UK lawyers practising in the EU, Switzerland, Norway, Iceland
-    or Liechtenstein from 1 January 2021
-  guidance_url: https://www.gov.uk/government/publications/uk-lawyers-practising-in-the-eu-norway-iceland-or-liechtenstein-from-1-january-2021/uk-lawyers-practising-in-the-eu-norway-iceland-or-liechtenstein-after-1-january-2021
+    or Liechtenstein
+  guidance_url: https://www.gov.uk/government/publications/uk-lawyers-practising-in-the-eu-eea-efta-and-switzerland
   criteria:
   - all_of:
     - working-eu
@@ -1552,7 +1553,7 @@ actions:
     or settled status under the EU Settlement Scheme.
   guidance_prompt: More information
   guidance_link_text: Employing workers from outside the UK
-  guidance_url: https://www.gov.uk/guidance/recruiting-people-from-outside-the-uk-from-1-january-2021
+  guidance_url: https://www.gov.uk/guidance/recruiting-people-from-outside-the-uk
   criteria:
   - all_of:
     - owns-operates-business-organisation-uk
@@ -1564,12 +1565,12 @@ actions:
     to continue working in the UK from 1 January 2021
   consequence: You will not be able to enter the UK to work from 1 July 2021 if you
     live outside of the UK and do not have a frontier worker permit.
-  exception: If you’re an Irish citizen, you do not need to apply for a Frontier Worker
+  exception: If you’re an Irish citizen, you do not need to apply for a frontier worker
     permit but you can choose to do so. You cannot apply if you’re a British citizen
     (this includes dual citizenship).
   guidance_prompt: More information
-  guidance_link_text: 'Frontier workers in the UK: rights and status'
-  guidance_url: https://www.gov.uk/guidance/frontier-workers-in-the-uk-rights-and-status
+  guidance_link_text: Apply for a frontier worker permit for the UK
+  guidance_url: https://www.gov.uk/frontier-worker-permit
   criteria:
   - all_of:
     - working-uk
@@ -1601,9 +1602,8 @@ actions:
   consequence: You will not be able to sell certain food products without the right
     authorisation.
   guidance_prompt: More information
-  guidance_link_text: Submitting a regulated product authorisation application from
-    1 January 2021
-  guidance_url: https://www.food.gov.uk/business-guidance/submitting-a-regulated-product-authorisation-application-from-1-january-2021
+  guidance_link_text: Submitting a regulated product authorisation application
+  guidance_url: https://www.food.gov.uk/business-guidance/placing-a-regulated-product-on-the-market
   criteria:
   - any_of:
     - animal-ex-food
@@ -1616,8 +1616,8 @@ actions:
   consequence: You risk delays or your animals being rejected when they reach the
     EU if they do not have the right ear tags.
   guidance_prompt: More information
-  guidance_link_text: Tagging animals for export to the EU from 1 January 2021
-  guidance_url: https://www.gov.uk/guidance/exporting-animals-and-animal-products-to-the-eu-from-1-january-2021#identify-animals
+  guidance_link_text: Tagging animals for export to the EU
+  guidance_url: https://www.gov.uk/government/collections/guidance-on-importing-and-exporting-live-animals-or-animal-products#identify-animals
   criteria:
   - any_of:
     - animal-ex-food
@@ -1641,8 +1641,8 @@ actions:
   consequence: You risk not being able to sell your goods in the EU if you don't follow
     the rules.
   guidance_prompt: More information
-  guidance_link_text: Placing manufactured goods on the EU market from 1 January 2021
-  guidance_url: https://www.gov.uk/guidance/placing-manufactured-goods-on-the-eu-market-from-1-january-2021
+  guidance_link_text: Placing manufactured goods on the EU market
+  guidance_url: https://www.gov.uk/guidance/placing-manufactured-goods-on-the-eu-market
   criteria:
   - export-to-eu
   audience: business
@@ -1653,9 +1653,8 @@ actions:
   consequence: You risk not being able to sell your goods in Great Britain if you
     don't follow the rules.
   guidance_prompt: More information
-  guidance_link_text: Placing manufactured goods on the market in Great Britain from
-    1 January 2021
-  guidance_url: https://www.gov.uk/guidance/placing-manufactured-goods-on-the-market-in-great-britain-from-1-january-2021
+  guidance_link_text: Placing manufactured goods on the market in Great Britain
+  guidance_url: https://www.gov.uk/guidance/placing-manufactured-goods-on-the-market-in-great-britain
   criteria:
   - any_of:
     - import-from-eu
@@ -1709,8 +1708,8 @@ actions:
     entitlement to benefits if you do not complete the correct form.
   guidance_prompt: More information
   guidance_link_text: Social security contributions for workers coming to the UK from
-    the EEA or Switzerland from 1 January 2021
-  guidance_url: https://www.gov.uk/guidance/social-security-contributions-for-workers-coming-to-the-uk-from-the-eea-or-switzerland-from-1-january-2021
+    the EEA or Switzerland
+  guidance_url: https://www.gov.uk/guidance/social-security-contributions-for-workers-coming-to-the-uk-from-the-eea-or-switzerland
   criteria:
   - all_of:
     - any_of:
@@ -1728,8 +1727,8 @@ actions:
     entitlement to benefits if you do not complete the correct form.
   guidance_prompt: More information
   guidance_link_text: National Insurance for workers from the UK working in the EEA
-    or Switzerland from 1 January 2021
-  guidance_url: https://www.gov.uk/guidance/national-insurance-for-workers-from-the-uk-working-in-the-eea-or-switzerland-from-1-january-2021
+    or Switzerland
+  guidance_url: https://www.gov.uk/guidance/national-insurance-for-workers-from-the-uk-working-in-the-eea-or-switzerland
   criteria:
   - all_of:
     - any_of:
