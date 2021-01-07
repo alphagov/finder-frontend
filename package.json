@@ -5,7 +5,7 @@
   "author": "Government Digital Service",
   "license": "MIT",
   "scripts": {
-    "lint": "yarn run lint:js",
+    "lint": "yarn run lint:js && yarn run lint:scss",
     "lint:js": "standardx 'app/assets/javascripts/**/*.js' 'spec/javascripts/**/*.js'",
     "lint:scss": "stylelint app/assets/stylesheets/"
   },
