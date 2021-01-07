@@ -8,7 +8,7 @@ describe EmailAlertSignupAPI do
   include GdsApi::TestHelpers::Worldwide
   include RegistrySpecHelper
 
-  subject(:signup_api_wrapper) do
+  let(:signup_api_wrapper) do
     described_class.new(
       applied_filters: applied_filters,
       default_filters: default_filters,
@@ -30,7 +30,7 @@ describe EmailAlertSignupAPI do
         )
 
         subscription_url = "/email/subscriptions/new?topic_id=slug"
-        expect(subject.signup_url).to eql subscription_url
+        expect(signup_api_wrapper.signup_url).to eql subscription_url
         assert_requested(req)
       end
     end
@@ -294,7 +294,7 @@ describe EmailAlertSignupAPI do
           },
         )
 
-        subject.signup_url
+        signup_api_wrapper.signup_url
         assert_requested(req)
       end
     end
@@ -325,7 +325,7 @@ describe EmailAlertSignupAPI do
               content_purpose_subgroup: { any: %w[news speeches_and_statements] },
             },
           )
-          subject.signup_url
+          signup_api_wrapper.signup_url
           assert_requested(req)
         end
       end
@@ -355,7 +355,7 @@ describe EmailAlertSignupAPI do
               content_purpose_subgroup: { any: %w[news speeches_and_statements] },
             },
           )
-          subject.signup_url
+          signup_api_wrapper.signup_url
           assert_requested(req)
         end
 
@@ -371,7 +371,7 @@ describe EmailAlertSignupAPI do
                 content_purpose_subgroup: { any: %w[one_thing] },
               },
             )
-            subject.signup_url
+            signup_api_wrapper.signup_url
             assert_requested(req)
           end
         end
@@ -397,7 +397,7 @@ describe EmailAlertSignupAPI do
               content_purpose_subgroup: { any: %w[news speeches_and_statements] },
             },
           )
-          subject.signup_url
+          signup_api_wrapper.signup_url
           assert_requested(req)
         end
       end
@@ -422,7 +422,7 @@ describe EmailAlertSignupAPI do
               content_purpose_subgroup: { any: %w[news speeches_and_statements] },
             },
           )
-          subject.signup_url
+          signup_api_wrapper.signup_url
           assert_requested(req)
         end
       end
@@ -447,7 +447,7 @@ describe EmailAlertSignupAPI do
               content_purpose_subgroup: { any: %w[news speeches_and_statements] },
             },
           )
-          subject.signup_url
+          signup_api_wrapper.signup_url
           assert_requested(req)
         end
       end
@@ -471,7 +471,7 @@ describe EmailAlertSignupAPI do
             },
           )
 
-          subject.signup_url
+          signup_api_wrapper.signup_url
           assert_requested(req)
         end
       end
