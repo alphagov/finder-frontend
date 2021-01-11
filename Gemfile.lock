@@ -513,6 +513,7 @@ DEPENDENCIES
   pry-byebug
   rails (= 6.0.3.4)
   rails-controller-testing
+  rest-client
   rspec-rails
   rubocop-govuk
   sassc-rails

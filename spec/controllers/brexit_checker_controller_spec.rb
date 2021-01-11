@@ -7,6 +7,7 @@ describe BrexitCheckerController, type: :controller do
   context "accounts header AB test setup" do
     before do
       allow(Rails.configuration).to receive(:feature_flag_govuk_accounts).and_return(true)
+      stub_request(:get, Services.accounts_api).to_return(status: 200)
     end
 
     %w[LoggedIn LoggedOut].each do |variant|

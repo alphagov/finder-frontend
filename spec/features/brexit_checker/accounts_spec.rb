@@ -4,6 +4,10 @@ require "gds_api/test_helpers/email_alert_api"
 RSpec.feature "Brexit Checker accounts", type: :feature do
   include GdsApi::TestHelpers::EmailAlertApi
 
+  before do
+    stub_request(:get, Services.accounts_api).to_return(status: 200)
+  end
+
   context "without accounts enabled" do
     let(:mock_results) { %w[nationality-eu] }
 
@@ -38,7 +42,7 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
     end
   end
 
-  context "accounts is enabled but down" do
+  context "accounts is enabled but not returning JWT" do
     let(:criteria_keys) { %i[nationality-eu] }
 
     before do
