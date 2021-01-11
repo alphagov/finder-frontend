@@ -40,6 +40,19 @@ RSpec.feature "Brexit Checker create GOV.UK Account", type: :feature do
     end
   end
 
+  context "accounts is enabled but is returning 500" do
+    before do
+      stub_request(:get, Services.accounts_api).to_return(status: 500)
+    end
+
+    scenario "user is still given a chance to subscribe with an account" do
+      given_im_on_the_results_page
+      then_i_click_to_subscribe
+      and_i_am_taken_to_choose_how_to_subscribe_page
+      i_see_a_create_account_button
+    end
+  end
+
   def given_im_on_the_results_page
     visit transition_checker_results_url(c: %w[nationality-eu])
   end

@@ -92,15 +92,21 @@ private
   def accounts_enabled?
     return false unless Rails.configuration.feature_flag_govuk_accounts
 
-    if @check_accounts_enabled.nil?
-      @check_accounts_enabled = true
+    if @check_accounts_available.nil?
+      @check_accounts_available = true
       begin
         RestClient.get(Services.accounts_api)
       rescue RestClient::ServiceUnavailable
-        @check_accounts_enabled = false
+        @check_accounts_available = false
+      rescue StandardError
+        # Currently we're only guarding against planned 503 errors
+        # In future we may want to selectively disable accounts if
+        # a 5xx error rate gets too high, but that needs some more
+        # thought first.
+        @check_accounts_available = true
       end
     end
-    @check_accounts_enabled
+    @check_accounts_available
   end
 
   helper_method :logged_in?
