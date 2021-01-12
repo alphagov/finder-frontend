@@ -97,6 +97,7 @@ private
     accounts_available?
   end
 
+  helper_method :account_feature_flag_enabled?
   def account_feature_flag_enabled?
     Rails.configuration.feature_flag_govuk_accounts
   end
