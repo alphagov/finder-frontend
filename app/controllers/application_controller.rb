@@ -83,15 +83,25 @@ private
   end
 
   def check_accounts_enabled
-    unless accounts_enabled?
+    if account_feature_flag_enabled?
+      redirect_to Services.accounts_api unless accounts_available?
+    else
       render file: Rails.root.join(Rails.root, "public/404.html"), status: :not_found
     end
   end
 
   helper_method :accounts_enabled?
   def accounts_enabled?
-    return false unless Rails.configuration.feature_flag_govuk_accounts
+    return false unless account_feature_flag_enabled?
 
+    accounts_available?
+  end
+
+  def account_feature_flag_enabled?
+    Rails.configuration.feature_flag_govuk_accounts
+  end
+
+  def accounts_available?
     if @check_accounts_available.nil?
       @check_accounts_available = true
       begin
