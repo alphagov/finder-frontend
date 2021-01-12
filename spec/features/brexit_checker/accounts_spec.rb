@@ -8,40 +8,6 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
     stub_request(:get, Services.accounts_api).to_return(status: 200)
   end
 
-  context "without accounts enabled" do
-    let(:mock_results) { %w[nationality-eu] }
-
-    context "/transition-check/saved-results" do
-      it "returns a 404" do
-        given_i_am_on_the_saved_results_page
-        expect(page.status_code).to eq(404)
-      end
-    end
-
-    context "/transition-check/edit-saved-results" do
-      it "returns a 404" do
-        given_i_am_on_the_edit_saved_results_page
-        expect(page.status_code).to eq(404)
-      end
-    end
-
-    def given_i_am_on_a_question_page
-      visit transition_checker_questions_path
-    end
-
-    def given_i_am_on_the_results_page
-      visit transition_checker_results_path(c: mock_results)
-    end
-
-    def given_i_am_on_the_saved_results_page
-      visit transition_checker_saved_results_path
-    end
-
-    def given_i_am_on_the_edit_saved_results_page
-      visit transition_checker_edit_saved_results_path
-    end
-  end
-
   context "accounts is enabled but not returning JWT" do
     let(:criteria_keys) { %i[nationality-eu] }
 
