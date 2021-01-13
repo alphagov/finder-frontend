@@ -738,7 +738,10 @@ end
 
 Then(/^I can sign up to email alerts for allowed filters$/) do
   stub_email_alert_api_has_subscriber_list(
-    "tags" => { "case_type" => { any: %w[ca98-and-civil-cartels] }, "format" => { any: %w[cma_case] } },
+    "tags" => {
+      "case_type" => { any: %w[competition-disqualification] },
+      "case_state" => { any: %w[open closed] },
+    },
     "subscription_url" => "http://www.rathergood.com",
   )
 
@@ -748,12 +751,11 @@ Then(/^I can sign up to email alerts for allowed filters$/) do
     click_link("Get emails")
   end
 
-  begin
-    click_on("Continue")
-  rescue ActionController::RoutingError
-    expect(page.status_code).to eq(302)
-    expect(page.response_headers["Location"]).to eql("http://www.rathergood.com")
-  end
+  check("Closed")
+  check("Competition disqualification")
+
+  click_on("Continue")
+  expect(page.current_path).to eq("/email/subscriptions/new")
 end
 
 When("I create an email subscription") do
