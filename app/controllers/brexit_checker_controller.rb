@@ -143,7 +143,7 @@ private
   end
 
   def set_account_variant
-    return unless accounts_enabled?
+    return unless account_feature_flag_enabled?
     return unless show_signed_in_header? || show_signed_out_header?
 
     account_variant.configure_response(response)

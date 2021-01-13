@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-  before_action :check_accounts_enabled
+  before_action :check_accounts_enabled, except: [:delete]
 
   def create
     redirect_with_ga account_manager_url and return if logged_in?
