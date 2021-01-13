@@ -770,7 +770,7 @@ Then(/^I can sign up to email alerts for allowed filters$/) do
 end
 
 Then("I see an error about selecting at least one option") do
-  expect(page).to have_content("Please choose an email alert")
+  expect(page).to have_content("Select at least one option")
 end
 
 When("I create an email subscription") do
