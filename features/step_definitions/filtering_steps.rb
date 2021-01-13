@@ -736,6 +736,17 @@ When(/^I use a checkbox filter and another disallowed filter$/) do
   end
 end
 
+When("I do not select any of the filters on the signup page") do
+  step("I use a checkbox filter")
+  stub_content_store_has_item("/cma-cases/email-signup", cma_cases_with_multi_facets_signup_content_item)
+
+  within "#subscription-links-footer" do
+    click_link("Get emails")
+  end
+
+  click_on("Continue")
+end
+
 Then(/^I can sign up to email alerts for allowed filters$/) do
   stub_email_alert_api_has_subscriber_list(
     "tags" => {
@@ -756,6 +767,10 @@ Then(/^I can sign up to email alerts for allowed filters$/) do
 
   click_on("Continue")
   expect(page.current_path).to eq("/email/subscriptions/new")
+end
+
+Then("I see an error about selecting at least one option") do
+  expect(page).to have_content("Please choose an email alert")
 end
 
 When("I create an email subscription") do
