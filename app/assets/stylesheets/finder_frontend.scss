@@ -58,14 +58,6 @@ mark {
   }
 }
 
-.signup-choices__message {
-  margin-bottom: govuk-spacing(3);
-  padding: govuk-spacing(3);
-  color: $govuk-error-colour;
-  font-weight: bold;
-  border-left: solid 4px $govuk-error-colour;
-}
-
 .live-search-loading-message {
   margin-bottom: govuk-spacing(4);
   display: none;

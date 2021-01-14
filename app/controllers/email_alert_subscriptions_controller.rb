@@ -8,7 +8,7 @@ class EmailAlertSubscriptionsController < ApplicationController
     validate_choices!
     redirect_to email_alert_signup_api.signup_url
   rescue MissingFiltersError
-    render_error "Please choose an email alert"
+    render_error "Select at least one option"
   rescue UnprocessableFilterAlertParamsError
     render_error "There was a problem with your chosen filters. Please try again."
   rescue EmailAlertSignupAPI::UnprocessableSubscriberListError

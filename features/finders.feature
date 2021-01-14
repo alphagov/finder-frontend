@@ -188,6 +188,11 @@ Feature: Filtering documents
     When I use a checkbox filter and another disallowed filter
     Then I can sign up to email alerts for allowed filters
 
+  Scenario: Subscribing to email alerts with missing filters
+    Given a collection of documents exist that can be filtered by checkbox
+    When I do not select any of the filters on the signup page
+    Then I see an error about selecting at least one option
+
   @javascript
   Scenario: Filter documents by keywords and sort by most relevant
     When I view the news and communications finder

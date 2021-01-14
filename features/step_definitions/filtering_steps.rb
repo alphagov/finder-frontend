@@ -736,9 +736,23 @@ When(/^I use a checkbox filter and another disallowed filter$/) do
   end
 end
 
+When("I do not select any of the filters on the signup page") do
+  step("I use a checkbox filter")
+  stub_content_store_has_item("/cma-cases/email-signup", cma_cases_with_multi_facets_signup_content_item)
+
+  within "#subscription-links-footer" do
+    click_link("Get emails")
+  end
+
+  click_on("Continue")
+end
+
 Then(/^I can sign up to email alerts for allowed filters$/) do
   stub_email_alert_api_has_subscriber_list(
-    "tags" => { "case_type" => { any: %w[ca98-and-civil-cartels] }, "format" => { any: %w[cma_case] } },
+    "tags" => {
+      "case_type" => { any: %w[competition-disqualification] },
+      "case_state" => { any: %w[open closed] },
+    },
     "subscription_url" => "http://www.rathergood.com",
   )
 
@@ -748,12 +762,15 @@ Then(/^I can sign up to email alerts for allowed filters$/) do
     click_link("Get emails")
   end
 
-  begin
-    click_on("Continue")
-  rescue ActionController::RoutingError
-    expect(page.status_code).to eq(302)
-    expect(page.response_headers["Location"]).to eql("http://www.rathergood.com")
-  end
+  check("Closed")
+  check("Competition disqualification")
+
+  click_on("Continue")
+  expect(page.current_path).to eq("/email/subscriptions/new")
+end
+
+Then("I see an error about selecting at least one option") do
+  expect(page).to have_content("Select at least one option")
 end
 
 When("I create an email subscription") do
