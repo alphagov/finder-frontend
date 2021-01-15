@@ -23,3 +23,20 @@ notifications:
         - visiting-eu
   # End of example block.
   # Add new notifications below 👇
+  - uuid: b56bc335-3f1f-4b5f-8d58-5bc15cf7a9a5
+    type: addition
+    action_id: T129
+    date: '2021-01-15'
+    criteria:
+    - road-passenger-freight
+  - uuid: '08a32a79-4b74-4377-b9e3-7ea90b757069'
+    type: addition
+    action_id: T130
+    date: '2021-01-15'
+    criteria:
+    - road-passenger-freight
+  - uuid: a5f51c09-c49c-4143-a0b9-24a22ba772d0
+    type: content_change
+    action_id: S011
+    date: '2021-01-15'
+    note: Check if you need a Global Health Insurance Card (EHIC) before you travel.
