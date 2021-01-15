@@ -152,16 +152,18 @@ actions:
   - visiting-eu
   - visiting-ie
 - id: S011
-  priority: 9
-  title: Check you’ve got an EHIC card or appropriate travel insurance with health
-    cover before travelling to the EU, Switzerland, Norway, Iceland or Liechtenstein
+  priority: 8
+  title: Before you travel, make sure you’ve got a valid European Health Insurance
+    Card (EHIC) or UK Global Health Insurance Card (GHIC) or travel insurance with
+    health cover
   consequence: You may not have access to free emergency medical treatment and could
-    be charged for your healthcare if you do not have an EHIC card when visiting an
-    EU country, or appropriate travel insurance when visiting Switzerland, Norway,
-    Iceland or Liechtenstein.
+    be charged for your healthcare if you do not have an EHIC or GHIC when visiting
+    an EU country, or travel insurance when visiting Switzerland, Norway, Iceland
+    or Liechtenstein.
+  exception: If you have an EHIC it will still be valid while it remains in date.
   guidance_prompt: More information
-  guidance_link_text: Apply for a free European Health Insurance Card (EHIC)
-  guidance_url: https://www.nhs.uk/using-the-nhs/healthcare-abroad/apply-for-a-free-ehic-european-health-insurance-card/
+  guidance_link_text: Check if you need a free Global Health Insurance Card (GHIC)
+  guidance_url: https://www.nhs.uk/using-the-nhs/healthcare-abroad/apply-for-a-free-uk-global-health-insurance-card-ghic/
   criteria:
   - all_of:
     - nationality-uk
@@ -1687,7 +1689,9 @@ actions:
   guidance_link_text: Apply for a Kent Access Permit
   guidance_url: https://www.gov.uk/check-hgv-border
   criteria:
-  - haulage-goods-across-eu-borders
+  - any_of:
+    - haulage-goods-across-eu-borders
+    - road-passenger-freight
   audience: business
 - id: T130
   priority: 8
@@ -1698,7 +1702,9 @@ actions:
   guidance_link_text: Traffic management measures for Dover and Eurotunnel
   guidance_url: https://www.gov.uk/guidance/kent-traffic-management-on-m20-motorway-to-dover-and-eurotunnel
   criteria:
-  - haulage-goods-across-eu-borders
+  - any_of:
+    - haulage-goods-across-eu-borders
+    - road-passenger-freight
   audience: business
 - id: S044
   priority: 2
