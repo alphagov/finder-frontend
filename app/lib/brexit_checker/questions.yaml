@@ -66,7 +66,7 @@ questions:
       <p>It does not include travel to Ireland.</p>
       <p>Business travel includes activities such as travelling for meetings and conferences, providing services, and touring art or music.</p>
     detail_text: |
-      <p>From 1 January 2021, the rules for business travel to the EU will change.</p>
+      <p>The rules for business travel to the EU have changed.</p>
       <p>We need to know if you travel to the EU for business so we can show you what you need to do before you travel.</p>
     options:
       - label: "Yes"
@@ -94,7 +94,7 @@ questions:
     text: 'Where do you plan to travel for leisure and tourism?'
     hint_text: Select all that apply. If you do not plan to travel, select continue.
     detail_text: |
-      <p>From 1 January 2021, the rules for travelling abroad will change.</p>
+      <p>The rules for travelling abroad have changed.</p>
       <p>We need to know where you plan to go so we can show you what you need to do before you travel.</p>
     options:
       - label: To the UK
@@ -122,7 +122,7 @@ questions:
     text: 'Do you plan to do either of the following when travelling?'
     hint_text: "Select all that apply. If neither apply, select continue."
     detail_text: |
-      <p>From 1 January 2021, the rules for driving abroad and taking a pet will change.</p>
+      <p>The rules for driving abroad and taking a pet have changed.</p>
       <p>We need to know about your plans so we can show you what you need to do before you travel.</p>
     options:
       - label: Drive
@@ -204,7 +204,7 @@ questions:
     description: |
       <p>This includes sole traders (self-employed), limited companies, and small and medium enterprises.</p>
     detail_text: |
-      <p>From 1 January 2021, rules for businesses and organisations will change.</p>
+      <p>Rules for businesses and organisations have changed.</p>
       <p>We need to know if you own or help to run a business or organisation so we can show you what you need to do to prepare for the new rules.</p>
     options:
       - label: "Yes"
