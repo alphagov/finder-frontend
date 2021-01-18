@@ -78,9 +78,13 @@ RSpec.feature "Brexit Checker create GOV.UK Account", type: :feature do
   end
 
   def stub_email_subscription_confirmation
-    fixture = { "subscriber_list": { "slug": "test-slug" } }.to_json
-    expected_url = "http://email-alert-api.dev.gov.uk/subscriber-lists?tags%5Bbrexit_checklist_criteria%5D%5Bany%5D%5B0%5D=nationality-eu"
-
-    stub_request(:get, expected_url).to_return(status: 200, body: fixture)
+    stub_email_alert_api_creates_subscriber_list(
+      {
+        "title" => "Get ready for 2021",
+        "slug" => "test-slug",
+        "tags" => { "brexit_checklist_criteria" => { "any" => %w[nationality-eu] } },
+        "url" => "/transition-check/results?c%5B%5D=nationality-eu",
+      },
+    )
   end
 end

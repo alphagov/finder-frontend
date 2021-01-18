@@ -24,7 +24,7 @@ describe EmailAlertSignupAPI do
   describe "#signup_url" do
     context "no default_attributes or attributes" do
       it "returns the url email-alert-api gives back" do
-        req = stub_email_alert_api_has_subscriber_list(
+        req = stub_email_alert_api_creates_subscriber_list(
           "tags" => {},
           "slug" => "slug",
         )
@@ -41,7 +41,7 @@ describe EmailAlertSignupAPI do
       end
 
       it "calls the API" do
-        req = stub_email_alert_api_has_subscriber_list(
+        req = stub_email_alert_api_creates_subscriber_list(
           "tags" => { content_purpose_supergroup: { any: %w[news_and_communications] } },
         )
 
@@ -80,7 +80,7 @@ describe EmailAlertSignupAPI do
 
       context "with multiple choices selected and a title prefix" do
         it "calls the API" do
-          req = stub_email_alert_api_has_subscriber_list(
+          req = stub_email_alert_api_creates_subscriber_list(
             "tags" => {
               format: { any: %w[test-reports] },
               alert_type: { any: %w[first second] },
@@ -100,7 +100,7 @@ describe EmailAlertSignupAPI do
           }
         end
         it "calls the API" do
-          req = stub_email_alert_api_has_subscriber_list(
+          req = stub_email_alert_api_creates_subscriber_list(
             "tags" => {
               format: { any: %w[other-reports test-reports] },
               alert_type: { any: %w[first] },
@@ -114,7 +114,7 @@ describe EmailAlertSignupAPI do
 
       context "without a title prefix" do
         it "calls the API" do
-          req = stub_email_alert_api_has_subscriber_list(
+          req = stub_email_alert_api_creates_subscriber_list(
             "tags" => {
               format: { any: %w[test-reports] },
               alert_type: { any: %w[first second] },
@@ -131,7 +131,7 @@ describe EmailAlertSignupAPI do
         let(:default_filters) { { "format" => "test-reports" } }
 
         it "calls the API" do
-          req = stub_email_alert_api_has_subscriber_list(
+          req = stub_email_alert_api_creates_subscriber_list(
             "tags" => {
               format: { any: %w[test-reports] },
             },
@@ -194,7 +194,7 @@ describe EmailAlertSignupAPI do
 
       context "with multiple choices selected and a title prefix" do
         it "calls the API" do
-          req = stub_email_alert_api_has_subscriber_list(
+          req = stub_email_alert_api_creates_subscriber_list(
             "tags" => {
               format: { any: %w[test-reports] },
               alert_type: { any: %w[first second] },
@@ -217,7 +217,7 @@ describe EmailAlertSignupAPI do
         end
 
         it "calls the API" do
-          req = stub_email_alert_api_has_subscriber_list(
+          req = stub_email_alert_api_creates_subscriber_list(
             "tags" => {
               format: { any: %w[test-reports] },
               alert_type: { any: %w[first] },
@@ -232,7 +232,7 @@ describe EmailAlertSignupAPI do
 
       context "without a title prefix" do
         it "calls the API" do
-          req = stub_email_alert_api_has_subscriber_list(
+          req = stub_email_alert_api_creates_subscriber_list(
             "tags" => {
               format: { any: %w[test-reports] },
               alert_type: { any: %w[first second] },
@@ -250,7 +250,7 @@ describe EmailAlertSignupAPI do
         let(:default_filters) { { "format" => "test-reports" } }
 
         it "calls the API" do
-          req = stub_email_alert_api_has_subscriber_list(
+          req = stub_email_alert_api_creates_subscriber_list(
             "tags" => {
               format: { any: %w[test-reports] },
             },
@@ -288,7 +288,7 @@ describe EmailAlertSignupAPI do
       end
 
       it "calls the API" do
-        req = stub_email_alert_api_has_subscriber_list(
+        req = stub_email_alert_api_creates_subscriber_list(
           "tags" => {
             persons: { any: %w[harry_potter harry john] },
           },
@@ -319,7 +319,7 @@ describe EmailAlertSignupAPI do
         end
 
         it "calls the API" do
-          req = stub_email_alert_api_has_subscriber_list(
+          req = stub_email_alert_api_creates_subscriber_list(
             "links" => {
               taxon_tree: { all: %w[content_id_1 content_id_2] },
               content_purpose_subgroup: { any: %w[news speeches_and_statements] },
@@ -349,7 +349,7 @@ describe EmailAlertSignupAPI do
         end
 
         it "calls the API" do
-          req = stub_email_alert_api_has_subscriber_list(
+          req = stub_email_alert_api_creates_subscriber_list(
             "links" => {
               content_store_document_type: { any: %w[document_type_1 document_type_2] },
               content_purpose_subgroup: { any: %w[news speeches_and_statements] },
@@ -365,7 +365,7 @@ describe EmailAlertSignupAPI do
           end
 
           it "converts scalar values to arrays" do
-            req = stub_email_alert_api_has_subscriber_list(
+            req = stub_email_alert_api_creates_subscriber_list(
               "links" => {
                 content_store_document_type: { any: %w[document_type_1 document_type_2] },
                 content_purpose_subgroup: { any: %w[one_thing] },
@@ -391,7 +391,7 @@ describe EmailAlertSignupAPI do
         end
 
         it "calls the API" do
-          req = stub_email_alert_api_has_subscriber_list(
+          req = stub_email_alert_api_creates_subscriber_list(
             "links" => {
               organisations: { any: %w[content_id_for_death-eaters content_id_for_ministry-of-magic] },
               content_purpose_subgroup: { any: %w[news speeches_and_statements] },
@@ -416,7 +416,7 @@ describe EmailAlertSignupAPI do
         end
 
         it "calls the API" do
-          req = stub_email_alert_api_has_subscriber_list(
+          req = stub_email_alert_api_creates_subscriber_list(
             "links" => {
               world_locations: { any: %w[content_id_for_location_1 content_id_for_location_2] },
               content_purpose_subgroup: { any: %w[news speeches_and_statements] },
@@ -441,7 +441,7 @@ describe EmailAlertSignupAPI do
         end
 
         it "calls the API" do
-          req = stub_email_alert_api_has_subscriber_list(
+          req = stub_email_alert_api_creates_subscriber_list(
             "links" => {
               people: { any: %w[content_id_for_albus-dumbledore content_id_for_ron-weasley] },
               content_purpose_subgroup: { any: %w[news speeches_and_statements] },
@@ -464,7 +464,7 @@ describe EmailAlertSignupAPI do
         before { stub_roles_registry_request }
 
         it "calls the API" do
-          req = stub_email_alert_api_has_subscriber_list(
+          req = stub_email_alert_api_creates_subscriber_list(
             "links" => {
               roles: { any: %w[content_id_for_prime-minister] },
               content_purpose_subgroup: { any: %w[news speeches_and_statements] },

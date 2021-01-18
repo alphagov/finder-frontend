@@ -15,17 +15,8 @@ RSpec.feature "Brexit Checker email signup", type: :feature do
   end
 
   context "without the GOV.UK Account feature flag" do
-    scenario "user clicks to signup to email alerts with existing subscriber list" do
+    scenario "user clicks to signup to email alerts" do
       given_im_on_the_results_page
-      and_email_alert_api_has_subscriber_list
-      then_i_click_to_subscribe # on main results page
-      then_i_click_to_subscribe # on overview of subscription page
-      and_i_am_taken_to_email_alert_frontend
-    end
-
-    scenario "user clicks to signup to email alerts without existing subscriber list" do
-      given_im_on_the_results_page
-      and_email_alert_api_does_not_have_subscriber_list
       and_email_alert_api_creates_subscriber_list
       then_i_click_to_subscribe # on main results page
       then_i_click_to_subscribe # on overview of subscription page
@@ -48,20 +39,8 @@ RSpec.feature "Brexit Checker email signup", type: :feature do
       stub_request(:get, Services.accounts_api).to_return(status: 200)
     end
 
-    scenario "user clicks to signup to email alerts with existing subscriber list" do
+    scenario "user clicks to signup to email alerts" do
       given_im_on_the_results_page
-      and_email_alert_api_has_subscriber_list
-      then_i_click_to_subscribe
-      and_i_am_taken_to_choose_how_to_subscribe_page
-      then_i_click_email_alerts_only
-      and_i_am_taken_to_email_alert_signup_page
-      then_i_click_to_subscribe
-      and_i_am_taken_to_email_alert_frontend
-    end
-
-    scenario "user clicks to signup to email alerts without existing subscriber list" do
-      given_im_on_the_results_page
-      and_email_alert_api_does_not_have_subscriber_list
       and_email_alert_api_creates_subscriber_list
       then_i_click_to_subscribe
       and_i_am_taken_to_choose_how_to_subscribe_page
@@ -75,14 +54,6 @@ RSpec.feature "Brexit Checker email signup", type: :feature do
 
   def given_im_on_the_results_page
     visit transition_checker_results_path(c: %w[nationality-eu])
-  end
-
-  def and_email_alert_api_has_subscriber_list
-    stub_email_alert_api_has_subscriber_list(subscriber_list)
-  end
-
-  def and_email_alert_api_does_not_have_subscriber_list
-    stub_email_alert_api_does_not_have_subscriber_list(subscriber_list)
   end
 
   def and_email_alert_api_creates_subscriber_list
