@@ -748,7 +748,7 @@ When("I do not select any of the filters on the signup page") do
 end
 
 Then(/^I can sign up to email alerts for allowed filters$/) do
-  stub_email_alert_api_has_subscriber_list(
+  stub_email_alert_api_creates_subscriber_list(
     "tags" => {
       "case_type" => { any: %w[competition-disqualification] },
       "case_state" => { any: %w[open closed] },

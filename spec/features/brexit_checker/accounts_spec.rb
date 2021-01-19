@@ -15,7 +15,7 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
       allow(Rails.configuration).to receive(:feature_flag_govuk_accounts).and_return(true)
       allow_any_instance_of(BrexitCheckerHelper).to receive(:account_signup_jwt).and_raise
 
-      stub_email_alert_api_has_subscriber_list(
+      stub_email_alert_api_creates_subscriber_list(
         {
           "title" => "Get ready for 2021",
           "slug" => "your-get-ready-for-brexit-results-a1a2a3a4a5",
@@ -177,7 +177,7 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
         context "the querystring differs to the value in the account" do
           before do
             stub_email_check(status: email_status)
-            stub_subscriber_list_exists(new_criteria_keys)
+            stub_find_or_create_subscriber_list(new_criteria_keys)
           end
 
           let(:email_status) { 200 }
@@ -393,8 +393,8 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
         .to_return(status: 200)
     end
 
-    def stub_subscriber_list_exists(criteria_keys)
-      stub_email_alert_api_has_subscriber_list(
+    def stub_find_or_create_subscriber_list(criteria_keys)
+      stub_email_alert_api_creates_subscriber_list(
         {
           "title" => "Get ready for 2021",
           "slug" => "your-get-ready-for-brexit-results-a1a2a3a4a5",
