@@ -1,0 +1,153 @@
+---
+actions:
+- id: S001
+  priority: 8
+  title: Apply to the EU Settlement Scheme by 30 June 2021 to continue living in the
+    UK - you must have arrived in the UK by 31 December 2020
+  consequence: If you do not apply to the scheme, you may not be able to continue
+    living or working in the UK as you do now.
+  exception: 'You do not need to apply if you have: indefinite leave to enter the
+    UK, indefinite leave to remain in the UK, British or Irish citizenship (including
+    ‘dual citizenship’).'
+  guidance_prompt: Read the guidance
+  guidance_link_text: Apply to the EU Settlement Scheme (settled and pre-settled status)
+  guidance_url: https://www.gov.uk/settled-status-eu-citizens-families
+  criteria:
+  - all_of:
+    - nationality-eu
+    - living-uk
+  audience: citizen
+  grouping_criteria:
+  - living-uk
+- id: S003
+  priority: 5
+  title: Apply for a permit to join your family member in the UK if they are from
+    the EU, Switzerland, Norway, Iceland or Liechtenstein
+  title_url: https://www.gov.uk/family-permit
+  consequence: You may not be able to join your family member in the UK if you do
+    not have the right permit.
+  criteria:
+  - all_of:
+    - nationality-row
+    - any_of:
+      - living-eu
+      - living-row
+    - join-family-uk-yes
+  audience: citizen
+  grouping_criteria:
+  - living-uk
+- id: S004
+  priority: 5
+  title: Take out appropriate travel insurance with health cover before travelling
+    to the UK
+  consequence: You will be charged for your NHS healthcare if you do not have the
+    right insurance.
+  guidance_prompt: More information
+  guidance_link_text: Healthcare for visitors to the UK from the EU
+  guidance_url: https://www.gov.uk/guidance/healthcare-for-eu-and-efta-citizens-visiting-the-uk
+  criteria:
+  - all_of:
+    - any_of:
+      - nationality-eu
+      - nationality-row
+    - visiting-uk
+  audience: citizen
+  grouping_criteria:
+  - visiting-uk
+- id: S005
+  priority: 5
+  title: Contact your university or college to find out if there are any changes you
+    need to act on to continue studying.
+  consequence: You might not be able to continue your studies or get student finance
+    or benefits if you don't act on any changes.
+  guidance_prompt: More information
+  guidance_link_text: Studying in the UK for EU students
+  guidance_url: https://www.gov.uk/guidance/studying-in-the-uk-guidance-for-eu-students
+  criteria:
+  - all_of:
+    - any_of:
+      - nationality-eu
+      - nationality-row
+      - nationality-ie
+    - studying-uk
+  audience: citizen
+  grouping_criteria:
+  - studying-uk
+- id: S007
+  priority: 5
+  title: Check with your university or college what you must do to continue studying
+    in the EU
+  consequence: There may be changes to your residency, healthcare or tuition fees
+    that you need to act on, or you may not be able to continue studying as before.
+  guidance_prompt: More information
+  guidance_link_text: Continuing your studies in the European Union
+  guidance_url: https://www.gov.uk/guidance/uk-students-in-the-eu-continuing-your-studies
+  criteria:
+  - all_of:
+    - nationality-uk
+    - any_of:
+      - studying-eu
+      - studying-ie
+  audience: citizen
+  grouping_criteria:
+  - studying-eu
+- id: S008
+  priority: 8
+  title: Check your passport’s issue and expiry dates for travel to Europe
+  consequence: You should have at least 6 months left on your UK passport and it needs
+    to be less than 10 years old, or you may not be able to travel.
+  exception: The new rules do not apply when travelling to Ireland.
+  lead_time: Do it before you travel
+  guidance_prompt: More information
+  guidance_link_text: Check a passport for travel to Europe
+  guidance_url: https://www.gov.uk/check-a-passport-travel-europe
+  criteria:
+  - all_of:
+    - nationality-uk
+    - visiting-eu
+  audience: citizen
+  grouping_criteria:
+  - visiting-eu
+- id: S009
+  priority: 8
+  title: Contact your vet at least 1 month before travelling to make sure your pet
+    or assistance dog is able to travel to the EU
+  consequence: If your pet or assistance dog does not have the proper documents, you
+    will not be able to take it with you.
+  lead_time: It takes at least 1 month
+  guidance_prompt: More information
+  guidance_link_text: Pet travel to and from Great Britain
+  guidance_url: https://www.gov.uk/guidance/pet-travel-to-and-from-great-britain
+  criteria:
+  - all_of:
+    - living-uk
+    - any_of:
+      - visiting-eu
+      - visiting-ie
+      - travel-eu-business
+    - visiting-bring-pet
+  audience: citizen
+  grouping_criteria:
+  - visiting-eu
+  - visiting-ie
+- id: S010
+  priority: 5
+  title: Check whether your mobile phone company has changed its mobile roaming charges
+    before travelling to the EU, Switzerland, Norway, Iceland or Liechtenstein
+  consequence: You may be charged for using your mobile device in the EU, Switzerland,
+    Norway, Iceland or Liechtenstein if your operator has reintroduced roaming charges.
+  guidance_prompt: More information
+  guidance_link_text: Visit Europe from 1 January 2021
+  guidance_url: https://www.gov.uk/visit-europe-1-january-2021
+  criteria:
+  - any_of:
+    - all_of:
+      - living-uk
+      - any_of:
+        - visiting-eu
+        - visiting-ie
+    - travel-eu-business
+  audience: citizen
+  grouping_criteria:
+  - visiting-eu
+  - visiting-ie

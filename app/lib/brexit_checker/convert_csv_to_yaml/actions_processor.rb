@@ -1,5 +1,6 @@
 module BrexitChecker
   module ConvertCsvToYaml
+
     class ActionsProcessor
       LOGIC_FIELDS = %w[criteria].freeze
       COMMA_SEPARATED_FIELDS = %w[grouping_criteria].freeze
@@ -17,8 +18,18 @@ module BrexitChecker
                           exception
                           grouping_criteria].freeze
 
+      def initialize(batch = nil)
+        @batch = batch
+      end
+
+      attr_reader :batch
+
       def process(record)
         return unless approved?(record)
+
+        if batch
+          return unless add_to_batch?(record)
+        end
 
         stripped_record = remove_unnecessary_fields(record)
         stripped_record = parse_logic_fields(stripped_record)
@@ -60,6 +71,12 @@ module BrexitChecker
         return unless record["status"]
 
         record["status"].downcase.strip == "approved"
+      end
+
+      def add_to_batch?(record)
+        return unless record["batch"]
+
+        record["batch"].downcase.strip == batch
       end
     end
   end
