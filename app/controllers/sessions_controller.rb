@@ -1,5 +1,8 @@
 class SessionsController < ApplicationController
-  before_action :check_accounts_enabled, except: [:delete]
+  include AccountConcern
+
+  before_action :handle_disabled, except: %i[delete], unless: :accounts_enabled?
+  before_action :handle_offline, except: %i[delete], unless: :accounts_available?
 
   def create
     redirect_with_ga account_manager_url and return if logged_in?

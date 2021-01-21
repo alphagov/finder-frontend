@@ -26,10 +26,6 @@ class ApplicationController < ActionController::Base
 
 private
 
-  def logout!
-    cookies.delete account_session_cookie_name
-  end
-
   def error_503(exception)
     error(503, exception)
   end
@@ -80,84 +76,5 @@ private
 
       ParamsCleaner.new(permitted_params).cleaned
     end
-  end
-
-  def check_accounts_enabled
-    if account_feature_flag_enabled?
-      redirect_to Services.accounts_api unless accounts_available?
-    else
-      render file: Rails.root.join(Rails.root, "public/404.html"), status: :not_found
-    end
-  end
-
-  helper_method :accounts_enabled?
-  def accounts_enabled?
-    return false unless account_feature_flag_enabled?
-
-    accounts_available?
-  end
-
-  helper_method :account_feature_flag_enabled?
-  def account_feature_flag_enabled?
-    Rails.configuration.feature_flag_govuk_accounts
-  end
-
-  def accounts_available?
-    if @check_accounts_available.nil?
-      @check_accounts_available = true
-      begin
-        RestClient.get(Services.accounts_api)
-      rescue RestClient::ServiceUnavailable
-        @check_accounts_available = false
-      rescue StandardError
-        # Currently we're only guarding against planned 503 errors
-        # In future we may want to selectively disable accounts if
-        # a 5xx error rate gets too high, but that needs some more
-        # thought first.
-        @check_accounts_available = true
-      end
-    end
-    @check_accounts_available
-  end
-
-  helper_method :logged_in?
-  def logged_in?
-    current_user.present?
-  end
-
-  def current_user
-    account_session_cookie_value&.dig(:sub)
-  end
-
-  def account_session_cookie_name
-    :"_finder-frontend_account_session"
-  end
-
-  def account_session_cookie_value
-    value = cookies.encrypted[account_session_cookie_name]
-    JSON.parse(value).symbolize_keys if value
-  end
-
-  def set_account_session_cookie(sub: nil, access_token: nil, refresh_token: nil)
-    return unless accounts_enabled?
-    return unless sub || account_session_cookie_value
-
-    cookies.encrypted[account_session_cookie_name] = {
-      value: {
-        sub: sub || account_session_cookie_value&.dig(:sub),
-        access_token: access_token || account_session_cookie_value&.dig(:access_token),
-        refresh_token: refresh_token || account_session_cookie_value&.dig(:refresh_token),
-      }.to_json,
-      expires: 15.minutes,
-      secure: Rails.env.production?,
-    }
-  end
-
-  def update_account_session_cookie_from_oauth_result(result)
-    set_account_session_cookie(
-      access_token: result[:access_token],
-      refresh_token: result[:refresh_token],
-    )
-    result[:result]
   end
 end
