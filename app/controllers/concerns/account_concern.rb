@@ -66,5 +66,6 @@ module AccountConcern
 
   def logout!
     cookies.delete ACCOUNT_SESSION_COOKIE_NAME
+    nil
   end
 end
