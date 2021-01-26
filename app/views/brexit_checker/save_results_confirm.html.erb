@@ -51,7 +51,7 @@
               text: t("brexit_checker.confirm_changes.table.new_answer")
             }
           ],
-          rows: results_comparison(@old_criteria_keys, criteria_keys)
+          rows: results_comparison(@saved_results, criteria_keys)
         } %>
 
         <%= render "govuk_publishing_components/components/inset_text", {
