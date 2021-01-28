@@ -1,6 +1,18 @@
 MISSING_CSV_MESSAGE = "You must provide a path to the CSV file you would like to convert.".freeze
 
 namespace :brexit_checker do
+  desc "Sort the actions file"
+  task sort_actions: :environment do
+    yaml_path = "app/lib/brexit_checker/actions.yaml"
+    actions = YAML.load_file(yaml_path)
+    sorted_actions = actions["actions"].sort_by { |action| action["id"] }
+
+    File.open(yaml_path, "w") do |f|
+      actions_hash = { "actions" => sorted_actions }
+      f.puts actions_hash.to_yaml
+    end
+  end
+
   namespace :convert_csv_to_yaml do
     desc "Import actions CSV and convert to YAML file"
     task :actions, [:csv_path] => :environment do |_, args|

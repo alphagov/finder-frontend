@@ -414,6 +414,150 @@ actions:
   audience: citizen
   grouping_criteria:
   - visiting-uk
+- id: S037
+  priority: 9
+  title: Check each country’s entry requirements if you want to work, study or spend
+    more than 90 of any 180 days in the EU, Switzerland, Norway, Iceland or Liechtenstein
+  consequence: You may be refused entry if you do not have the correct visa or work
+    permit.
+  guidance_prompt: More information
+  guidance_link_text: UK nationals visiting the EU
+  guidance_url: https://www.gov.uk/foreign-travel-advice
+  criteria:
+  - any_of:
+    - visiting-eu
+    - studying-eu
+    - move-to-eu
+    - working-eu
+  audience: citizen
+  grouping_criteria:
+  - visiting-eu
+- id: S038
+  priority: 6
+  title: Sign up for email updates if you're a UK national living in the EU, Switzerland,
+    Norway, Iceland or Liechtenstein
+  consequence: You might miss updates about what you need to do to stay in the country
+    you live in from 1 January 2021.
+  guidance_prompt: More information
+  guidance_link_text: UK nationals living in the EU
+  guidance_url: https://www.gov.uk/uk-nationals-living-eu
+  criteria:
+  - all_of:
+    - nationality-uk
+    - living-eu
+  audience: citizen
+  grouping_criteria:
+  - living-eu
+- id: S039
+  priority: 1
+  title: Find out your right to live, work or study in the Common Travel Area if you're
+    an Irish or UK national
+  consequence: You can continue to live, work or study within the Common Travel Area.
+  guidance_prompt: More information
+  guidance_link_text: 'Common travel area: rights of UK and Irish citizens'
+  guidance_url: https://www.gov.uk/government/publications/common-travel-area-guidance
+  criteria:
+  - any_of:
+    - nationality-uk
+    - nationality-ie
+  audience: citizen
+  grouping_criteria:
+  - common-travel-area
+- id: S040
+  priority: 4
+  title: Check if your benefits will be affected if you move to a country in the EU,
+    Switzerland, Norway, Iceland or Liechtenstein
+  consequence: Your right to receive some UK benefits will change if you move on or
+    after 1 January 2021.
+  guidance_prompt: More information
+  guidance_link_text: Benefits and pensions for UK nationals in the EEA or Switzerland
+  guidance_url: https://www.gov.uk/guidance/benefits-and-pensions-for-uk-nationals-in-the-eea-or-switzerland
+  criteria:
+  - move-to-eu
+  audience: citizen
+  grouping_criteria:
+  - living-eu
+- id: S041
+  priority: 9
+  title: Check what you need to do to access healthcare in the country you'll be living
+    in
+  consequence: If you are not registered for local healthcare or do not have the right
+    insurance, you may have to pay additional costs for your care or may fail to meet
+    residency tests in the country you are living in.
+  guidance_prompt: More information
+  guidance_link_text: Healthcare in the EU, Norway, Iceland, Liechtenstein and Switzerland
+  guidance_url: https://www.gov.uk/government/collections/healthcare-in-the-eu-norway-iceland-liechtenstein-and-switzerland
+  criteria:
+  - all_of:
+    - nationality-uk
+    - any_of:
+      - living-eu
+      - studying-eu
+      - working-eu
+  audience: citizen
+  grouping_criteria:
+  - living-eu
+- id: S042
+  priority: 2
+  title: Apply for a frontier worker permit if you live outside of the UK and want
+    to continue working in the UK from 1 January 2021
+  consequence: You will not be able to enter the UK to work from 1 July 2021 if you
+    live outside of the UK and do not have a frontier worker permit.
+  exception: If you’re an Irish citizen, you do not need to apply for a frontier worker
+    permit but you can choose to do so. You cannot apply if you’re a British citizen
+    (this includes dual citizenship).
+  guidance_prompt: More information
+  guidance_link_text: Apply for a frontier worker permit for the UK
+  guidance_url: https://www.gov.uk/frontier-worker-permit
+  criteria:
+  - all_of:
+    - working-uk
+    - nationality-eu
+    - any_of:
+      - living-eu
+      - living-row
+  audience: citizen
+  grouping_criteria:
+  - working-uk
+  - living-eu
+- id: S044
+  priority: 2
+  title: Check where you need to pay social security contributions if you’re coming
+    from the EU, Switzerland, Norway, Iceland or Liechtenstein to work in the UK
+  consequence: You risk paying contributions in the wrong country and affecting your
+    entitlement to benefits if you do not complete the correct form.
+  guidance_prompt: More information
+  guidance_link_text: Social security contributions for workers coming to the UK from
+    the EEA or Switzerland
+  guidance_url: https://www.gov.uk/guidance/social-security-contributions-for-workers-coming-to-the-uk-from-the-eea-or-switzerland
+  criteria:
+  - all_of:
+    - any_of:
+      - nationality-eu
+      - living-eu
+    - working-uk
+  audience: citizen
+  grouping_criteria:
+  - working-uk
+- id: S045
+  priority: 2
+  title: Check where you need to pay social security contributions if you’re going
+    from the UK to work in the EU, Switzerland, Norway, Iceland or Liechtenstein
+  consequence: You risk paying contributions in the wrong country and affecting your
+    entitlement to benefits if you do not complete the correct form.
+  guidance_prompt: More information
+  guidance_link_text: National Insurance for workers from the UK working in the EEA
+    or Switzerland
+  guidance_url: https://www.gov.uk/guidance/national-insurance-for-workers-from-the-uk-working-in-the-eea-or-switzerland
+  criteria:
+  - all_of:
+    - any_of:
+      - nationality-uk
+      - living-uk
+    - working-eu
+  audience: citizen
+  grouping_criteria:
+  - working-eu
 - id: T006
   priority: 7
   title: Check if your employees need a visa or work permit and that they meet professional
@@ -1265,69 +1409,6 @@ actions:
   criteria:
   - import-from-eu
   audience: business
-- id: S037
-  priority: 9
-  title: Check each country’s entry requirements if you want to work, study or spend
-    more than 90 of any 180 days in the EU, Switzerland, Norway, Iceland or Liechtenstein
-  consequence: You may be refused entry if you do not have the correct visa or work
-    permit.
-  guidance_prompt: More information
-  guidance_link_text: UK nationals visiting the EU
-  guidance_url: https://www.gov.uk/foreign-travel-advice
-  criteria:
-  - any_of:
-    - visiting-eu
-    - studying-eu
-    - move-to-eu
-    - working-eu
-  audience: citizen
-  grouping_criteria:
-  - visiting-eu
-- id: S038
-  priority: 6
-  title: Sign up for email updates if you're a UK national living in the EU, Switzerland,
-    Norway, Iceland or Liechtenstein
-  consequence: You might miss updates about what you need to do to stay in the country
-    you live in from 1 January 2021.
-  guidance_prompt: More information
-  guidance_link_text: UK nationals living in the EU
-  guidance_url: https://www.gov.uk/uk-nationals-living-eu
-  criteria:
-  - all_of:
-    - nationality-uk
-    - living-eu
-  audience: citizen
-  grouping_criteria:
-  - living-eu
-- id: S039
-  priority: 1
-  title: Find out your right to live, work or study in the Common Travel Area if you're
-    an Irish or UK national
-  consequence: You can continue to live, work or study within the Common Travel Area.
-  guidance_prompt: More information
-  guidance_link_text: 'Common travel area: rights of UK and Irish citizens'
-  guidance_url: https://www.gov.uk/government/publications/common-travel-area-guidance
-  criteria:
-  - any_of:
-    - nationality-uk
-    - nationality-ie
-  audience: citizen
-  grouping_criteria:
-  - common-travel-area
-- id: S040
-  priority: 4
-  title: Check if your benefits will be affected if you move to a country in the EU,
-    Switzerland, Norway, Iceland or Liechtenstein
-  consequence: Your right to receive some UK benefits will change if you move on or
-    after 1 January 2021.
-  guidance_prompt: More information
-  guidance_link_text: Benefits and pensions for UK nationals in the EEA or Switzerland
-  guidance_url: https://www.gov.uk/guidance/benefits-and-pensions-for-uk-nationals-in-the-eea-or-switzerland
-  criteria:
-  - move-to-eu
-  audience: citizen
-  grouping_criteria:
-  - living-eu
 - id: T104
   priority: 4
   title: Get provisional GB approval to be able to sell EC-approved vehicles in the
@@ -1358,26 +1439,6 @@ actions:
     - road-passenger-freight
     - motor-trade
   audience: business
-- id: S041
-  priority: 9
-  title: Check what you need to do to access healthcare in the country you'll be living
-    in
-  consequence: If you are not registered for local healthcare or do not have the right
-    insurance, you may have to pay additional costs for your care or may fail to meet
-    residency tests in the country you are living in.
-  guidance_prompt: More information
-  guidance_link_text: Healthcare in the EU, Norway, Iceland, Liechtenstein and Switzerland
-  guidance_url: https://www.gov.uk/government/collections/healthcare-in-the-eu-norway-iceland-liechtenstein-and-switzerland
-  criteria:
-  - all_of:
-    - nationality-uk
-    - any_of:
-      - living-eu
-      - studying-eu
-      - working-eu
-  audience: citizen
-  grouping_criteria:
-  - living-eu
 - id: T107
   priority: 1
   title: Apply for Horizon 2020 funding
@@ -1561,29 +1622,6 @@ actions:
     - owns-operates-business-organisation-uk
     - employ-eu-citizens
   audience: business
-- id: S042
-  priority: 2
-  title: Apply for a frontier worker permit if you live outside of the UK and want
-    to continue working in the UK from 1 January 2021
-  consequence: You will not be able to enter the UK to work from 1 July 2021 if you
-    live outside of the UK and do not have a frontier worker permit.
-  exception: If you’re an Irish citizen, you do not need to apply for a frontier worker
-    permit but you can choose to do so. You cannot apply if you’re a British citizen
-    (this includes dual citizenship).
-  guidance_prompt: More information
-  guidance_link_text: Apply for a frontier worker permit for the UK
-  guidance_url: https://www.gov.uk/frontier-worker-permit
-  criteria:
-  - all_of:
-    - working-uk
-    - nationality-eu
-    - any_of:
-      - living-eu
-      - living-row
-  audience: citizen
-  grouping_criteria:
-  - working-uk
-  - living-eu
 - id: T122
   priority: 2
   title: Check if sanctions applying to a country, person or organisation will affect
@@ -1706,41 +1744,3 @@ actions:
     - haulage-goods-across-eu-borders
     - road-passenger-freight
   audience: business
-- id: S044
-  priority: 2
-  title: Check where you need to pay social security contributions if you’re coming
-    from the EU, Switzerland, Norway, Iceland or Liechtenstein to work in the UK
-  consequence: You risk paying contributions in the wrong country and affecting your
-    entitlement to benefits if you do not complete the correct form.
-  guidance_prompt: More information
-  guidance_link_text: Social security contributions for workers coming to the UK from
-    the EEA or Switzerland
-  guidance_url: https://www.gov.uk/guidance/social-security-contributions-for-workers-coming-to-the-uk-from-the-eea-or-switzerland
-  criteria:
-  - all_of:
-    - any_of:
-      - nationality-eu
-      - living-eu
-    - working-uk
-  audience: citizen
-  grouping_criteria:
-  - working-uk
-- id: S045
-  priority: 2
-  title: Check where you need to pay social security contributions if you’re going
-    from the UK to work in the EU, Switzerland, Norway, Iceland or Liechtenstein
-  consequence: You risk paying contributions in the wrong country and affecting your
-    entitlement to benefits if you do not complete the correct form.
-  guidance_prompt: More information
-  guidance_link_text: National Insurance for workers from the UK working in the EEA
-    or Switzerland
-  guidance_url: https://www.gov.uk/guidance/national-insurance-for-workers-from-the-uk-working-in-the-eea-or-switzerland
-  criteria:
-  - all_of:
-    - any_of:
-      - nationality-uk
-      - living-uk
-    - working-eu
-  audience: citizen
-  grouping_criteria:
-  - working-eu
