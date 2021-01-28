@@ -5,7 +5,7 @@ actions:
   title: Apply to the EU Settlement Scheme by 30 June 2021 to continue living in the
     UK - you must have arrived in the UK by 31 December 2020
   consequence: If you do not apply to the scheme, you may not be able to continue
-    living or working in the UK as you do now.
+    living or working in the UK.
   exception: 'You do not need to apply if you have: indefinite leave to enter the
     UK, indefinite leave to remain in the UK, British or Irish citizenship (including
     ‘dual citizenship’).'
@@ -23,9 +23,12 @@ actions:
   priority: 5
   title: Apply for a permit to join your family member in the UK if they are from
     the EU, Switzerland, Norway, Iceland or Liechtenstein
-  title_url: https://www.gov.uk/family-permit
   consequence: You may not be able to join your family member in the UK if you do
     not have the right permit.
+  guidance_prompt: Read the guidance
+  guidance_link_text: nationality-row OR nationality-eu AND (living-eu OR living-row)
+    AND join-family-uk-yes
+  guidance_url: https://www.gov.uk/family-permit
   criteria:
   - all_of:
     - nationality-row
@@ -93,7 +96,7 @@ actions:
   - studying-eu
 - id: S008
   priority: 8
-  title: Check your passport’s issue and expiry dates for travel to Europe
+  title: Check if you need to renew your passport before you travel to Europe
   consequence: You should have at least 6 months left on your UK passport and it needs
     to be less than 10 years old, or you may not be able to travel.
   exception: The new rules do not apply when travelling to Ireland.
@@ -116,8 +119,8 @@ actions:
     will not be able to take it with you.
   lead_time: It takes at least 1 month
   guidance_prompt: More information
-  guidance_link_text: Pet travel to and from Great Britain
-  guidance_url: https://www.gov.uk/guidance/pet-travel-to-and-from-great-britain
+  guidance_link_text: Travelling to an EU country or Northern Ireland with your pet
+  guidance_url: https://www.gov.uk/taking-your-pet-abroad/travelling-to-an-eu-country-or-northern-ireland
   criteria:
   - all_of:
     - living-uk
@@ -153,9 +156,9 @@ actions:
   - visiting-ie
 - id: S011
   priority: 8
-  title: Before you travel, make sure you’ve got a valid European Health Insurance
-    Card (EHIC) or UK Global Health Insurance Card (GHIC) or travel insurance with
-    health cover
+  title: Before you travel, make sure you have a valid European Health Insurance Card
+    (EHIC) or UK Global Health Insurance Card (GHIC), or travel insurance with health
+    cover
   consequence: You may not have access to free emergency medical treatment and could
     be charged for your healthcare if you do not have an EHIC or GHIC when visiting
     an EU country, or travel insurance when visiting Switzerland, Norway, Iceland
@@ -170,6 +173,7 @@ actions:
     - any_of:
       - visiting-eu
       - travel-eu-business
+      - studying-eu
   audience: citizen
   grouping_criteria:
   - visiting-eu
@@ -177,10 +181,10 @@ actions:
   priority: 8
   title: Check what you need to do to make sure you can travel through the border
     of the country you are visiting
-  consequence: You may not be allowed to enter the EU if you cannot show you meet
-    immigration rules.
+  consequence: You may not be allowed to enter some EU countries if you do not have
+    an onward travel ticket, enough money for your stay, or a visa or permit.
   guidance_prompt: More information
-  guidance_link_text: Visit Europe from 1 January 2021
+  guidance_link_text: Visiting Europe
   guidance_url: https://www.gov.uk/visit-europe-1-january-2021
   criteria:
   - all_of:
@@ -195,13 +199,19 @@ actions:
   priority: 3
   title: Find out if your family needs to apply to the EU Settlement Scheme to come
     to the UK with you
-  title_url: https://www.gov.uk/settled-status-eu-citizens-families
   consequence: Your family may not be able to live or work in the UK if they do not
     apply to the scheme by 30 June 2021.
+  guidance_prompt: More information
+  guidance_link_text: Apply to the EU Settlement Scheme (settled and pre-settled status)
+  guidance_url: https://www.gov.uk/settled-status-eu-citizens-families
   criteria:
-  - all_of:
-    - nationality-uk
-    - return-to-uk
+  - any_of:
+    - all_of:
+      - nationality-uk
+      - return-to-uk
+    - all_of:
+      - nationality-eu
+      - join-family-uk-yes
   audience: citizen
   grouping_criteria:
   - living-uk
@@ -316,13 +326,17 @@ actions:
   - visiting-eu
 - id: S029
   priority: 11
-  title: Find out how to apply to be a resident in the EU country you live in
+  title: Check if you need to apply for a new residence status to continue living
+    in the EU
   title_url: https://www.gov.uk/uk-nationals-living-eu
-  consequence: You may need to leave the country you live in if you are not a resident.
+  consequence: If you do not register as a resident in the EU country you live in,
+    you risk being fined or not being able to stay.
   criteria:
   - all_of:
     - nationality-uk
-    - living-eu
+    - any_of:
+      - living-eu
+      - move-to-eu
   audience: citizen
   grouping_criteria:
   - living-eu
@@ -346,11 +360,11 @@ actions:
   - living-ie
 - id: S032
   priority: 4
-  title: Contact your vet at least 4 months before travelling to make sure your pet
-    or assistance dog is able to travel to the UK
+  title: Contact your vet at least 1 month before travelling to make sure your pet
+    or assistance dog is able to travel to Great Britain
   consequence: If your pet (dog, cat or ferret) or assistance dog does not have the
     proper documents, you will not be able to take it with you.
-  lead_time: It takes at least 4 months
+  lead_time: It takes at least 1 month
   guidance_prompt: More information
   guidance_link_text: Pet travel to and from Great Britain
   guidance_url: https://www.gov.uk/guidance/pet-travel-to-and-from-great-britain
@@ -414,6 +428,151 @@ actions:
   audience: citizen
   grouping_criteria:
   - visiting-uk
+- id: S037
+  priority: 9
+  title: Check each country’s entry requirements if you want to work, study or spend
+    more than 90 of any 180 days in the EU, Switzerland, Norway, Iceland or Liechtenstein
+  consequence: You may be refused entry if you do not have the correct visa or work
+    permit.
+  guidance_prompt: More information
+  guidance_link_text: UK nationals visiting the EU
+  guidance_url: https://www.gov.uk/foreign-travel-advice
+  criteria:
+  - any_of:
+    - visiting-eu
+    - studying-eu
+    - move-to-eu
+    - working-eu
+  audience: citizen
+  grouping_criteria:
+  - visiting-eu
+- id: S038
+  priority: 6
+  title: Sign up for email updates if you're a UK national living in the EU, Switzerland,
+    Norway, Iceland or Liechtenstein
+  consequence: You might miss updates about what you need to do to stay in the country
+    you live in.
+  guidance_prompt: More information
+  guidance_link_text: UK nationals living in the EU
+  guidance_url: https://www.gov.uk/uk-nationals-living-eu
+  criteria:
+  - all_of:
+    - nationality-uk
+    - living-eu
+  audience: citizen
+  grouping_criteria:
+  - living-eu
+- id: S039
+  priority: 1
+  title: Find out your right to live, work or study in the Common Travel Area if you're
+    an Irish or UK national
+  consequence: You can continue to live, work or study within the Common Travel Area.
+  guidance_prompt: More information
+  guidance_link_text: 'Common travel area: rights of UK and Irish citizens'
+  guidance_url: https://www.gov.uk/government/publications/common-travel-area-guidance
+  criteria:
+  - any_of:
+    - nationality-uk
+    - nationality-ie
+  audience: citizen
+  grouping_criteria:
+  - common-travel-area
+- id: S040
+  priority: 4
+  title: Check if your benefits will be affected if you move to a country in the EU,
+    Switzerland, Norway, Iceland or Liechtenstein
+  consequence: Your right to receive some UK benefits will change if you move on or
+    after 1 January 2021.
+  guidance_prompt: More information
+  guidance_link_text: Benefits and pensions for UK nationals in the EEA or Switzerland
+  guidance_url: https://www.gov.uk/guidance/benefits-and-pensions-for-uk-nationals-in-the-eea-or-switzerland
+  criteria:
+  - move-to-eu
+  audience: citizen
+  grouping_criteria:
+  - living-eu
+- id: S041
+  priority: 9
+  title: Check what you need to do to access healthcare in the country you'll be living
+    in
+  consequence: If you are not registered for local healthcare or do not have the right
+    insurance, you may have to pay additional costs for your care or may fail to meet
+    residency tests in the country you are living in.
+  guidance_prompt: More information
+  guidance_link_text: Healthcare in the EU, Norway, Iceland, Liechtenstein and Switzerland
+  guidance_url: https://www.gov.uk/government/collections/healthcare-in-the-eu-norway-iceland-liechtenstein-and-switzerland
+  criteria:
+  - all_of:
+    - nationality-uk
+    - any_of:
+      - living-eu
+      - studying-eu
+      - working-eu
+  audience: citizen
+  grouping_criteria:
+  - living-eu
+- id: S042
+  priority: 2
+  title: Apply for a frontier worker permit to work in the UK while living outside
+    the UK
+  consequence: You will not be able to enter the UK to work from 1 July 2021 if you
+    live outside of the UK and do not have a frontier worker permit.
+  exception: "You will only be eligible for a frontier worker permit if you began
+    working in the UK whilst living elsewhere by 31 December 2020. \nIf you’re an
+    Irish citizen, you do not need to apply but you can choose to do so. \nYou cannot
+    apply if you’re a British citizen (this includes dual citizenship)."
+  guidance_prompt: More information
+  guidance_link_text: Apply for a frontier worker permit for the UK
+  guidance_url: https://www.gov.uk/frontier-worker-permit
+  criteria:
+  - all_of:
+    - working-uk
+    - nationality-eu
+    - any_of:
+      - living-eu
+      - living-row
+  audience: citizen
+  grouping_criteria:
+  - working-uk
+  - living-eu
+- id: S044
+  priority: 2
+  title: Check where you need to pay social security contributions if you’re coming
+    from the EU, Switzerland, Norway, Iceland or Liechtenstein to work in the UK
+  consequence: You risk paying contributions in the wrong country and affecting your
+    entitlement to benefits if you do not complete the correct form.
+  guidance_prompt: More information
+  guidance_link_text: Social security contributions for workers coming to the UK from
+    the EEA or Switzerland
+  guidance_url: https://www.gov.uk/guidance/social-security-contributions-for-workers-coming-to-the-uk-from-the-eea-or-switzerland
+  criteria:
+  - all_of:
+    - any_of:
+      - nationality-eu
+      - living-eu
+    - working-uk
+  audience: citizen
+  grouping_criteria:
+  - working-uk
+- id: S045
+  priority: 2
+  title: Check where you need to pay social security contributions if you’re going
+    from the UK to work in the EU, Switzerland, Norway, Iceland or Liechtenstein
+  consequence: You risk paying contributions in the wrong country and affecting your
+    entitlement to benefits if you do not complete the correct form.
+  guidance_prompt: More information
+  guidance_link_text: National Insurance for workers from the UK working in the EEA
+    or Switzerland
+  guidance_url: https://www.gov.uk/guidance/national-insurance-for-workers-from-the-uk-working-in-the-eea-or-switzerland
+  criteria:
+  - all_of:
+    - any_of:
+      - nationality-uk
+      - living-uk
+    - working-eu
+  audience: citizen
+  grouping_criteria:
+  - working-eu
 - id: T006
   priority: 7
   title: Check if your employees need a visa or work permit and that they meet professional
@@ -662,11 +821,9 @@ actions:
   guidance_link_text: Export fish to the EU
   guidance_url: https://www.gov.uk/guidance/exporting-or-moving-fish-from-the-uk
   criteria:
-  - any_of:
-    - air-passenger-freight
-    - port-airports
-    - postal-couriers
+  - all_of:
     - fish-inc-wholesale
+    - export-to-eu
   audience: business
 - id: T032
   priority: 8
@@ -752,9 +909,9 @@ actions:
   audience: business
 - id: T038
   priority: 5
-  title: Check if you can export organic food to the EU, and how to label and trade
-    it
-  consequence: You risk not being able to sell your food as organic in the EU.
+  title: Check how to label organic food you export to the EU
+  consequence: You will not be able to sell your food as organic in the EU if you
+    do not label it correctly.
   guidance_prompt: More information
   guidance_link_text: 'Organic food: labelling rules'
   guidance_url: https://www.gov.uk/guidance/organic-food-labelling-rules
@@ -791,7 +948,11 @@ actions:
   guidance_link_text: Egg marketing standards
   guidance_url: https://www.gov.uk/guidance/egg-marketing-standards
   criteria:
-  - agriculture-farm
+  - all_of:
+    - any_of:
+      - animal-ex-food
+      - agriculture-farm
+    - export-to-eu
   audience: business
 - id: T046
   priority: 6
@@ -803,21 +964,29 @@ actions:
   guidance_link_text: Hatching eggs and chicks marketing standards
   guidance_url: https://www.gov.uk/guidance/hatching-eggs-and-chicks-marketing-standards
   criteria:
-  - agriculture-farm
+  - all_of:
+    - any_of:
+      - animal-ex-food
+      - agriculture-farm
+    - export-to-eu
   audience: business
 - id: T047
   priority: 6
-  title: Get a certificate to export poultry meat to the EU if the meat is printed
-    with a farming method
-  consequence: If your meat is printed with a farming method, such as 'free range',
-    and you do not have a certificate, you risk it being delayed or rejected when
-    it reaches the EU.
+  title: Get a certificate to export poultry meat to the EU if the meat has a farming
+    method mark
+  consequence: If your meat has a farming method mark, such as 'free range', and you
+    do not have a certificate, you risk it being delayed or rejected when it reaches
+    the EU.
   lead_time: It usually takes up to 6 weeks
   guidance_prompt: More information
   guidance_link_text: Poultry meat marketing standards
   guidance_url: https://www.gov.uk/guidance/poultry-meat-marketing-standards
   criteria:
-  - agriculture-farm
+  - all_of:
+    - any_of:
+      - animal-ex-food
+      - agriculture-farm
+    - export-to-eu
   audience: business
 - id: T050
   priority: 7
@@ -826,8 +995,8 @@ actions:
   consequence: If your boat is 12 metres or longer, you will not be allowed to fish
     in EU, Norwegian or Faroese waters without an IMO number.
   guidance_prompt: More information
-  guidance_link_text: Prepare your fisheries business for 2021
-  guidance_url: https://www.gov.uk/guidance/the-fisheries-sector-and-preparing-for-eu-exit
+  guidance_link_text: Guidance for fisheries
+  guidance_url: https://www.gov.uk/guidance/fisheries-businesses-working-after-brexit-transition
   criteria:
   - any_of:
     - marine-transport
@@ -842,9 +1011,9 @@ actions:
   guidance_link_text: Export fish
   guidance_url: https://www.gov.uk/guidance/exporting-or-moving-fish-from-the-uk
   criteria:
-  - any_of:
-    - marine-transport
+  - all_of:
     - fish-inc-wholesale
+    - export-to-eu
   audience: business
 - id: T052
   priority: 8
@@ -857,7 +1026,9 @@ actions:
   guidance_link_text: How to comply with REACH chemical regulations
   guidance_url: https://www.gov.uk/guidance/how-to-comply-with-reach-chemical-regulations
   criteria:
-  - chemical
+  - all_of:
+    - chemical
+    - export-to-eu
   audience: business
 - id: T059
   priority: 3
@@ -879,12 +1050,12 @@ actions:
   title: Check what documents you need to run bus or coach services in EU countries
   consequence: You may not be able to run bus or coach services in EU countries if
     you do not request authorisation in time or have the right documents.
-  lead_time: It takes up to 6 months to get a special regular international service
-    authorised.
+  lead_time: It takes one week to get the documents you need to run an occasional
+    service. It takes 6 months to get approval for a regular service or special regular
+    service.
   guidance_prompt: More information
-  guidance_link_text: Run international bus or coach services and tours from 1 January
-    2021
-  guidance_url: https://www.gov.uk/guidance/run-international-bus-or-coach-services-and-tours-from-1-january-2021
+  guidance_link_text: Run international bus or coach services and tours
+  guidance_url: https://www.gov.uk/guidance/run-international-bus-or-coach-services-and-tours
   criteria:
   - any_of:
     - tourism
@@ -912,8 +1083,8 @@ actions:
     in the UK and the EU.
   lead_time: It takes more than 4 weeks to get approved
   guidance_prompt: More information
-  guidance_link_text: Vehicle type-approval from 2021
-  guidance_url: https://www.vehicle-certification-agency.gov.uk/transitionperiod/
+  guidance_link_text: Vehicle type approval
+  guidance_url: https://www.vehicle-certification-agency.gov.uk/vehicle-type-approval/
   criteria:
   - any_of:
     - automotive
@@ -967,8 +1138,8 @@ actions:
   priority: 2
   title: Encourage your employees to check if they need to apply to the EU Settlement
     Scheme
-  consequence: Your employees risk not being able to continue living or working in
-    the UK if they do not apply to the scheme.
+  consequence: Your employees risk not being able to stay in the UK if they do not
+    apply to the scheme
   guidance_prompt: More information
   guidance_link_text: Apply to the EU Settlement Scheme (settled and pre-settled status)
   guidance_url: https://www.gov.uk/settled-status-eu-citizens-families
@@ -1057,18 +1228,20 @@ actions:
     if you do not have the certificate.
   lead_time: It takes up to 7 days to get the certificate
   guidance_prompt: More information
-  guidance_link_text: Importing and exporting plants and plant products
-  guidance_url: https://www.gov.uk/government/collections/importing-and-exporting-plants-and-plant-products
+  guidance_link_text: Export plants and plant products from Great Britain and Northern
+    Ireland
+  guidance_url: https://www.gov.uk/guidance/export-plants-seeds-bulbs-and-wood-special-rules
   criteria:
-  - any_of:
-    - agriculture-farm
-    - forestry
-    - food-drink-tobacco
+  - all_of:
+    - any_of:
+      - agriculture-farm
+      - forestry
+      - food-drink-tobacco
+    - export-to-eu
   audience: business
 - id: T088
   priority: 5
-  title: If you buy chemicals from the EU, you will need to register on the new UK
-    REACH system
+  title: Register on the UK REACH system if you buy chemicals from the EU
   consequence: You risk not being able to bring chemicals into the UK if you do not
     register.
   lead_time: It usually takes up to 6 weeks
@@ -1076,7 +1249,7 @@ actions:
   guidance_link_text: How to comply with REACH chemical regulations
   guidance_url: https://www.gov.uk/guidance/how-to-comply-with-reach-chemical-regulations
   criteria:
-  - any_of:
+  - all_of:
     - chemical
     - import-from-eu
   audience: business
@@ -1104,22 +1277,23 @@ actions:
     through the wrong border post.
   lead_time: It takes up to 3 days to get the right documents
   guidance_prompt: More information
-  guidance_link_text: Exporting animals and animal products to the EU or Northern
-    Ireland
-  guidance_url: https://www.gov.uk/government/collections/guidance-on-importing-and-exporting-live-animals-or-animal-products
+  guidance_link_text: Exporting animals and animal products
+  guidance_url: https://www.gov.uk/government/collections/guidance-on-importing-and-exporting-live-animals-or-animal-products#exports-or-moves-from-the-uk-to-all-countries
   criteria:
-  - any_of:
-    - food-drink-tobacco
-    - animal-ex-food
-    - fish-inc-wholesale
-    - agriculture-farm
+  - all_of:
+    - any_of:
+      - food-drink-tobacco
+      - animal-ex-food
+      - fish-inc-wholesale
+      - agriculture-farm
+    - export-to-eu
   audience: business
 - id: T091
   priority: 3
   title: Check guidance on the Kimberly Process Certification Scheme for trading rough
     diamonds
-  consequence: You will not be able to export rough diamonds from 1 January 2021 unless
-    you have applied for a UK Kimberly Process certificate.
+  consequence: You will not be able to export rough diamonds unless you have applied
+    for a UK Kimberly Process certificate.
   guidance_prompt: More information
   guidance_link_text: Exporting rough diamonds
   guidance_url: https://www.gov.uk/guidance/export-diamonds-special-rules
@@ -1136,14 +1310,18 @@ actions:
   guidance_link_text: 'Trading timber: imports and exports'
   guidance_url: https://www.gov.uk/guidance/uk-timber-regulation-imports-and-exports-of-timber-and-timber-products
   criteria:
-  - forestry
+  - all_of:
+    - forestry
+    - any_of:
+      - export-to-eu
+      - import-from-eu
   audience: business
 - id: T093
   priority: 5
   title: Check if you need new licences for any drug precursor chemicals you import
     or export
-  consequence: You risk your chemicals being seized and you will be breaking the law
-    if you do not have the correct licences.
+  consequence: You risk your chemicals being seized and you risk being prosecuted
+    for a criminal offence.
   guidance_prompt: More information
   guidance_link_text: Trading in chemical precursors
   guidance_url: https://www.gov.uk/guidance/precursor-chemical-licensing
@@ -1159,7 +1337,7 @@ actions:
   audience: business
 - id: T096
   priority: 2
-  title: Check the rules on moving waste between the UK and the EU
+  title: Check the rules on moving waste between Great Britain and the EU
   consequence: You risk your waste shipments being delayed or rejected if you do not
     follow the right rules.
   guidance_prompt: More information
@@ -1182,17 +1360,20 @@ actions:
     a CITES permit'
   guidance_url: https://www.gov.uk/guidance/cites-imports-and-exports
   criteria:
-  - any_of:
-    - import-from-eu
-    - export-to-eu
-    - fish-inc-wholesale
-    - forestry
-    - animal-ex-food
+  - all_of:
+    - any_of:
+      - fish-inc-wholesale
+      - forestry
+      - animal-ex-food
+    - any_of:
+      - import-from-eu
+      - export-to-eu
   audience: business
 - id: T098
   priority: 5
   title: Check the rules on making or placing pesticides on the UK market
-  consequence: You may not be able to sell new pesticides on the UK market.
+  consequence: You will not be able to sell new pesticides on the UK market if you
+    do not follow the rules.
   guidance_prompt: More information
   guidance_link_text: How to comply with pesticide regulations
   guidance_url: https://www.hse.gov.uk/pesticides/
@@ -1222,7 +1403,9 @@ actions:
   guidance_link_text: Exporting objects of cultural interest
   guidance_url: https://www.gov.uk/guidance/exporting-or-importing-objects-of-cultural-interest
   criteria:
-  - culture
+  - all_of:
+    - culture
+    - export-to-eu
   audience: business
 - id: T101
   priority: 5
@@ -1265,69 +1448,6 @@ actions:
   criteria:
   - import-from-eu
   audience: business
-- id: S037
-  priority: 9
-  title: Check each country’s entry requirements if you want to work, study or spend
-    more than 90 of any 180 days in the EU, Switzerland, Norway, Iceland or Liechtenstein
-  consequence: You may be refused entry if you do not have the correct visa or work
-    permit.
-  guidance_prompt: More information
-  guidance_link_text: UK nationals visiting the EU
-  guidance_url: https://www.gov.uk/foreign-travel-advice
-  criteria:
-  - any_of:
-    - visiting-eu
-    - studying-eu
-    - move-to-eu
-    - working-eu
-  audience: citizen
-  grouping_criteria:
-  - visiting-eu
-- id: S038
-  priority: 6
-  title: Sign up for email updates if you're a UK national living in the EU, Switzerland,
-    Norway, Iceland or Liechtenstein
-  consequence: You might miss updates about what you need to do to stay in the country
-    you live in from 1 January 2021.
-  guidance_prompt: More information
-  guidance_link_text: UK nationals living in the EU
-  guidance_url: https://www.gov.uk/uk-nationals-living-eu
-  criteria:
-  - all_of:
-    - nationality-uk
-    - living-eu
-  audience: citizen
-  grouping_criteria:
-  - living-eu
-- id: S039
-  priority: 1
-  title: Find out your right to live, work or study in the Common Travel Area if you're
-    an Irish or UK national
-  consequence: You can continue to live, work or study within the Common Travel Area.
-  guidance_prompt: More information
-  guidance_link_text: 'Common travel area: rights of UK and Irish citizens'
-  guidance_url: https://www.gov.uk/government/publications/common-travel-area-guidance
-  criteria:
-  - any_of:
-    - nationality-uk
-    - nationality-ie
-  audience: citizen
-  grouping_criteria:
-  - common-travel-area
-- id: S040
-  priority: 4
-  title: Check if your benefits will be affected if you move to a country in the EU,
-    Switzerland, Norway, Iceland or Liechtenstein
-  consequence: Your right to receive some UK benefits will change if you move on or
-    after 1 January 2021.
-  guidance_prompt: More information
-  guidance_link_text: Benefits and pensions for UK nationals in the EEA or Switzerland
-  guidance_url: https://www.gov.uk/guidance/benefits-and-pensions-for-uk-nationals-in-the-eea-or-switzerland
-  criteria:
-  - move-to-eu
-  audience: citizen
-  grouping_criteria:
-  - living-eu
 - id: T104
   priority: 4
   title: Get provisional GB approval to be able to sell EC-approved vehicles in the
@@ -1335,8 +1455,8 @@ actions:
   consequence: You will not be able to sell your products in Great Britain if they
     are not sent to the VCA for GB approval.
   guidance_prompt: More information
-  guidance_link_text: Vehicle type-approval from 1 January 2021
-  guidance_url: https://www.vehicle-certification-agency.gov.uk/transitionperiod/
+  guidance_link_text: Vehicle type approval
+  guidance_url: https://www.vehicle-certification-agency.gov.uk/vehicle-type-approval/issuing_gb_type_approval/
   criteria:
   - any_of:
     - automotive
@@ -1350,34 +1470,14 @@ actions:
   consequence: You will not be able to continue selling your products in the EU if
     they are not registered with the correct EU approval authority.
   guidance_prompt: More information
-  guidance_link_text: Vehicle type-approval from 1 January 2021
-  guidance_url: https://www.vehicle-certification-agency.gov.uk/transitionperiod/
+  guidance_link_text: Vehicle type approval
+  guidance_url: https://www.vehicle-certification-agency.gov.uk/vehicle-type-approval/what-is-vehicle-type-approval/
   criteria:
   - any_of:
     - automotive
     - road-passenger-freight
     - motor-trade
   audience: business
-- id: S041
-  priority: 9
-  title: Check what you need to do to access healthcare in the country you'll be living
-    in
-  consequence: If you are not registered for local healthcare or do not have the right
-    insurance, you may have to pay additional costs for your care or may fail to meet
-    residency tests in the country you are living in.
-  guidance_prompt: More information
-  guidance_link_text: Healthcare in the EU, Norway, Iceland, Liechtenstein and Switzerland
-  guidance_url: https://www.gov.uk/government/collections/healthcare-in-the-eu-norway-iceland-liechtenstein-and-switzerland
-  criteria:
-  - all_of:
-    - nationality-uk
-    - any_of:
-      - living-eu
-      - studying-eu
-      - working-eu
-  audience: citizen
-  grouping_criteria:
-  - living-eu
 - id: T107
   priority: 1
   title: Apply for Horizon 2020 funding
@@ -1437,12 +1537,12 @@ actions:
   priority: 9
   title: Register for the UK’s new Import of Products, Animals, Food and Feed System
     (IPAFFS)
-  consequence: You will not be able to import using the TRACES system from 1 January
-    2021.
+  consequence: If you do not use IPAFFS, you will not be able to import live animals,
+    animal products and high risk food or feed not of animal origin.
   guidance_prompt: More information
-  guidance_link_text: Importing animals, animal products and high-risk food and feed
-    not of animal origin
-  guidance_url: https://www.gov.uk/guidance/importing-or-moving-live-animals-animal-products-and-high-risk-food-and-feed-not-of-animal-origin
+  guidance_link_text: Using the Import of Products, Animals, Food and Feed System
+    (IPAFFS)
+  guidance_url: https://www.gov.uk/guidance/import-of-products-animals-food-and-feed-system
   criteria:
   - all_of:
     - import-from-eu
@@ -1526,7 +1626,7 @@ actions:
     you provide online services to.
   guidance_prompt: More information
   guidance_link_text: The eCommerce Directive after the transition period
-  guidance_url: https://www.gov.uk/guidance/the-ecommerce-directive-after-the-transition-period
+  guidance_url: https://www.gov.uk/guidance/the-ecommerce-directive-and-the-uk
   criteria:
   - any_of:
     - provide-services-do-business-in-eu
@@ -1547,47 +1647,24 @@ actions:
   audience: business
 - id: T120
   priority: 6
-  title: Check if you’ll need a licence to employ workers from the EU, Switzerland,
+  title: Check if you need a sponsor licence to employ workers from the EU, Switzerland,
     Norway, Iceland or Liechtenstein
   consequence: You risk not being able to employ workers from outside the UK if you
     do not have the correct licence.
   exception: This does not apply to workers from Ireland or people with pre-settled
     or settled status under the EU Settlement Scheme.
   guidance_prompt: More information
-  guidance_link_text: Employing workers from outside the UK
+  guidance_link_text: Recruiting skilled workers from outside the UK
   guidance_url: https://www.gov.uk/guidance/recruiting-people-from-outside-the-uk
   criteria:
   - all_of:
     - owns-operates-business-organisation-uk
     - employ-eu-citizens
   audience: business
-- id: S042
-  priority: 2
-  title: Apply for a frontier worker permit if you live outside of the UK and want
-    to continue working in the UK from 1 January 2021
-  consequence: You will not be able to enter the UK to work from 1 July 2021 if you
-    live outside of the UK and do not have a frontier worker permit.
-  exception: If you’re an Irish citizen, you do not need to apply for a frontier worker
-    permit but you can choose to do so. You cannot apply if you’re a British citizen
-    (this includes dual citizenship).
-  guidance_prompt: More information
-  guidance_link_text: Apply for a frontier worker permit for the UK
-  guidance_url: https://www.gov.uk/frontier-worker-permit
-  criteria:
-  - all_of:
-    - working-uk
-    - nationality-eu
-    - any_of:
-      - living-eu
-      - living-row
-  audience: citizen
-  grouping_criteria:
-  - working-uk
-  - living-eu
 - id: T122
   priority: 2
-  title: Check if sanctions applying to a country, person or organisation will affect
-    your business
+  title: Check if the new UK sanctions framework applying to a country, person or
+    organisation will affect your business
   consequence: You will be breaking the law if you do certain types of business covered
     by sanctions.
   guidance_prompt: More information
@@ -1596,7 +1673,7 @@ actions:
   criteria:
   - any_of:
     - export-to-row
-    - defence
+    - trade-developing
   audience: business
 - id: T123
   priority: 2
@@ -1610,7 +1687,6 @@ actions:
   - any_of:
     - animal-ex-food
     - food-drink-tobacco
-    - retail-wholesale-x-food-drink-motors
   audience: business
 - id: T124
   priority: 5
@@ -1618,12 +1694,14 @@ actions:
   consequence: You risk delays or your animals being rejected when they reach the
     EU if they do not have the right ear tags.
   guidance_prompt: More information
-  guidance_link_text: Tagging animals for export to the EU
-  guidance_url: https://www.gov.uk/government/collections/guidance-on-importing-and-exporting-live-animals-or-animal-products#identify-animals
+  guidance_link_text: Tagging animals for export
+  guidance_url: https://www.gov.uk/government/collections/guidance-on-importing-and-exporting-live-animals-or-animal-products#identifying-livestock,-including-identifying-for-export
   criteria:
-  - any_of:
-    - animal-ex-food
-    - agriculture-farm
+  - all_of:
+    - any_of:
+      - animal-ex-food
+      - agriculture-farm
+    - export-to-eu
   audience: business
 - id: T125
   priority: 3
@@ -1706,41 +1784,3 @@ actions:
     - haulage-goods-across-eu-borders
     - road-passenger-freight
   audience: business
-- id: S044
-  priority: 2
-  title: Check where you need to pay social security contributions if you’re coming
-    from the EU, Switzerland, Norway, Iceland or Liechtenstein to work in the UK
-  consequence: You risk paying contributions in the wrong country and affecting your
-    entitlement to benefits if you do not complete the correct form.
-  guidance_prompt: More information
-  guidance_link_text: Social security contributions for workers coming to the UK from
-    the EEA or Switzerland
-  guidance_url: https://www.gov.uk/guidance/social-security-contributions-for-workers-coming-to-the-uk-from-the-eea-or-switzerland
-  criteria:
-  - all_of:
-    - any_of:
-      - nationality-eu
-      - living-eu
-    - working-uk
-  audience: citizen
-  grouping_criteria:
-  - working-uk
-- id: S045
-  priority: 2
-  title: Check where you need to pay social security contributions if you’re going
-    from the UK to work in the EU, Switzerland, Norway, Iceland or Liechtenstein
-  consequence: You risk paying contributions in the wrong country and affecting your
-    entitlement to benefits if you do not complete the correct form.
-  guidance_prompt: More information
-  guidance_link_text: National Insurance for workers from the UK working in the EEA
-    or Switzerland
-  guidance_url: https://www.gov.uk/guidance/national-insurance-for-workers-from-the-uk-working-in-the-eea-or-switzerland
-  criteria:
-  - all_of:
-    - any_of:
-      - nationality-uk
-      - living-uk
-    - working-eu
-  audience: citizen
-  grouping_criteria:
-  - working-eu
