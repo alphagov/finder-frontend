@@ -11,8 +11,8 @@ describe BrexitChecker::ConvertCsvToYaml::Converter do
 
     before do
       allow(processor).to receive(:process)
-                      .and_return({ "title_url" => "https://www.gov.uk/important-action" },
-                                  "title_url" => "https://www.gov.uk/important-action-2")
+                      .and_return({ "id" => "S02", "title_url" => "https://www.gov.uk/important-action-2" },
+                                  "id" => "S01", "title_url" => "https://www.gov.uk/important-action")
     end
 
     it "converts CSV file data to YAML and writes to a YAML file" do
@@ -20,7 +20,7 @@ describe BrexitChecker::ConvertCsvToYaml::Converter do
       converter.convert(csv_file_path, yaml_file_path)
 
       expect(loaded_yaml_file).to include(
-        "title_url" => "https://www.gov.uk/important-action",
+        "id" => "S01", "title_url" => "https://www.gov.uk/important-action",
       )
     end
 
@@ -30,8 +30,8 @@ describe BrexitChecker::ConvertCsvToYaml::Converter do
 
       expect(loaded_yaml_file).to eq(
         "category" => [
-          { "title_url" => "https://www.gov.uk/important-action" },
-          { "title_url" => "https://www.gov.uk/important-action-2" },
+          { "id" => "S01", "title_url" => "https://www.gov.uk/important-action" },
+          { "id" => "S02", "title_url" => "https://www.gov.uk/important-action-2" },
         ],
       )
     end

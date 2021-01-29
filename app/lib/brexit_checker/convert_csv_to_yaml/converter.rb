@@ -21,12 +21,15 @@ module BrexitChecker
         )
            .each { |row| data << processor.process(row.to_h) }
 
+        sorted_data = data.compact
+                          .sort_by { |row| row["id"] }
+
         File.open(yaml_filename, "w") do |f|
           if record_category
-            data_hash = { record_category => data.compact }
+            data_hash = { record_category => sorted_data }
             f.puts data_hash.to_yaml
           else
-            f.puts data.compact.to_yaml
+            f.puts sorted_data.to_yaml
           end
         end
       end
