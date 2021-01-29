@@ -26,14 +26,21 @@
         margin_bottom: 4
         } %>
         <div id="keywords" class="app-patch--search-input-override" role="search" aria-label="Sitewide">
-          <%= render "govuk_publishing_components/components/search", {
-            aria_controls: "js-search-results-info",
-            id: "finder-keyword-search",
-            name: "keywords",
-            type: 'search',
-            value: result_set_presenter.user_supplied_keywords,
-          } %>
+          <div class="search-input">
+            <%= render "govuk_publishing_components/components/search", {
+                aria_controls: "js-search-results-info",
+                id: "finder-keyword-search",
+                name: "keywords",
+                type: 'search',
+                value: result_set_presenter.user_supplied_keywords,
+            } %>
+            <div class="autocom-box">
+              <!-- here list are inserted from javascript -->
+            </div>
+          </div>
+
         </div>
+
         <div id="js-spelling-suggestions" class="spelling-suggestions"
           data-analytics-ecommerce
           data-ecommerce-start-index="1"

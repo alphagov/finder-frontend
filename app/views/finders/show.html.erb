@@ -40,6 +40,7 @@
         <%= render partial: 'facet_collection'%>
       </div>
 
+
       <div class="govuk-grid-column-two-thirds js-live-search-results-block filtered-results"
         role="region"
         aria-label="<%= content_item.title %> search results"
@@ -92,3 +93,132 @@
     </div>
   </div>
 </form>
+
+
+
+
+<style>
+
+  /*
+  PLEASE NOTE
+  This code is for a demo/prototype and is not intended to be production ready (nor is it!)
+  */
+
+.wrapper{
+    max-width: 450px;
+    margin: 150px auto;
+  }
+
+  .search-input input{
+    height: 55px;
+    width: 100%;
+  }
+
+   .autocom-box{
+    padding: 0;
+    opacity: 0;
+    pointer-events: none;
+    max-height: 280px;
+    overflow-y: auto;
+  }
+
+  .search-input.active .autocom-box{
+    padding: 10px 8px;
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .autocom-box li{
+    list-style: none;
+    padding: 8px 12px;
+    display: none;
+    width: 100%;
+    cursor: default;
+    border: 1px solid #ccc;
+  }
+
+  .search-input.active .autocom-box li{
+    display: block;
+  }
+  .autocom-box li:hover{
+    background: #efefef;
+  }
+
+  .gem-c-search {
+    margin-bottom: 0px !important;
+  }
+
+</style>
+
+
+<script>
+
+  // PLEASE NOTE
+  // This code is for a demo/prototype and is not intended to be production ready (nor is it!)
+
+  let objects = <%= extender.verb_extensions.to_json.html_safe %>;
+  let verbs = <%= extender.object_extensions.to_json.html_safe %>;
+
+  // getting all required elements
+  const searchWrapper = document.querySelector(".search-input");
+  const inputBox = document.querySelector(".gem-c-search__input");
+  const suggBox = document.querySelector(".autocom-box");
+  let webLink;
+
+  // if user press any key and release
+  inputBox.onkeyup = (e)=>{
+    let userData = e.target.value; //user enetered data
+    let emptyArray = [];
+    if(userData){
+      let words = userData.split(" ");
+      for(var wordIndex = 0; wordIndex < words.length; ++wordIndex){
+        let word = words[wordIndex];
+        if(typeof objects[word] != "undefined") {
+          for(i=0; i<objects[word].length; ++i){
+            var entry = objects[word][i];
+            emptyArray.push(entry[2])
+          }
+        }
+        if(typeof verbs[word] != "undefined") {
+          for(i=0; i<verbs[word].length; ++i){
+            var entry = verbs[word][i];
+            emptyArray.push(entry[2])
+          }
+        }
+      }
+
+      emptyArray = emptyArray.map((data)=>{
+        // passing return data inside li tag
+        return data = '<li>'+ data +'</li>';
+      });
+      searchWrapper.classList.add("active"); //show autocomplete box
+      showSuggestions(emptyArray);
+      let allList = suggBox.querySelectorAll("li");
+      for (let i = 0; i < allList.length; i++) {
+        //adding onclick attribute in all li tag
+        allList[i].setAttribute("onclick", "select(this)");
+      }
+    }else{
+      searchWrapper.classList.remove("active"); //hide autocomplete box
+    }
+  }
+
+  function select(element){
+    let selectData = element.textContent;
+    inputBox.value = selectData;
+    searchWrapper.classList.remove("active");
+    document.querySelector(".js-live-search-form").submit();
+  }
+
+  function showSuggestions(list){
+    let listData;
+    if(!list.length){
+      userValue = inputBox.value;
+      listData = '<li>'+ userValue +'</li>';
+    }else{
+      listData = list.join('');
+    }
+    suggBox.innerHTML = listData;
+  }
+
+</script>
