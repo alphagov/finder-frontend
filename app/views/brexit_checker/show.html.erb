@@ -18,10 +18,22 @@
     <% if @previous_page %>
       <%= render "govuk_publishing_components/components/back_link", {
         href: transition_checker_questions_path(page: @previous_page, c: criteria_keys),
+        data_attributes: {
+          module: "track-click",
+          track_category: "brexit-checker-qa",
+          track_action: @current_question.key,
+          track_label: "back_click",
+        },
       } %>
     <% else %>
       <%= render "govuk_publishing_components/components/back_link", {
         href: "/transition",
+        module: "track-click",
+        data_attributes: {
+          track_category: "brexit-checker-qa",
+          track_action: @current_question.key,
+          track_label: "back_click",
+        },
       } %>
     <% end %>
   </div>
