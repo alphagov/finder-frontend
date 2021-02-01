@@ -11,19 +11,25 @@
       sanitize(@current_question.description)
     end
   end
+
+
+  back_link_path = "/transition"
+  if  @previous_page
+    back_link_path = transition_checker_questions_path(page: @previous_page, c: criteria_keys)
+  end
 %>
 
 <% content_for :breadcrumbs do %>
   <div class="govuk-width-container">
-    <% if @previous_page %>
-      <%= render "govuk_publishing_components/components/back_link", {
-        href: transition_checker_questions_path(page: @previous_page, c: criteria_keys),
-      } %>
-    <% else %>
-      <%= render "govuk_publishing_components/components/back_link", {
-        href: "/transition",
-      } %>
-    <% end %>
+    <%= render "govuk_publishing_components/components/back_link", {
+      href: back_link_path,
+      data_attributes: {
+        module: "track-click",
+        track_category: "brexit-checker-qa",
+        track_action: @current_question.key,
+        track_label: "back_click",
+      },
+    } %>
   </div>
 <% end %>
 
