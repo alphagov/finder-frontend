@@ -15,10 +15,15 @@ class SessionsController < ApplicationController
 
     state = params.require(:state)
 
-    callback = Services.oidc.callback(
-      params.require(:code),
-      state,
-    )
+    begin
+      callback = Services.oidc.callback(
+        params.require(:code),
+        state,
+      )
+    rescue Rack::OAuth2::Client::Error
+      head 400
+      return
+    end
 
     tokens = callback[:access_token].token_response
     set_account_session_cookie(
