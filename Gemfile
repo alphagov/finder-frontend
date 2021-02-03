@@ -5,6 +5,7 @@ gem "rails", "6.0.3.4"
 gem "chronic"
 gem "dalli"
 gem "gds-api-adapters"
+gem 'damerau-levenshtein', '~> 1.1'
 gem "google-api-client"
 gem "govuk_ab_testing"
 gem "govuk_app_config"
@@ -17,6 +18,7 @@ gem "sassc-rails"
 gem "slimmer"
 gem "uglifier"
 gem "whenever"
+
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.

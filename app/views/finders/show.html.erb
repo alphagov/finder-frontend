@@ -155,9 +155,8 @@
 
   // PLEASE NOTE
   // This code is for a demo/prototype and is not intended to be production ready (nor is it!)
-
-  let objects = <%= extender.verb_extensions.to_json.html_safe %>;
-  let verbs = <%= extender.object_extensions.to_json.html_safe %>;
+  let objects = <%= Search::QueryExtender.verb_extensions.to_json.html_safe %>;
+  let verbs = <%= Search::QueryExtender.object_extensions.to_json.html_safe %>;
 
   // getting all required elements
   const searchWrapper = document.querySelector(".search-input");
