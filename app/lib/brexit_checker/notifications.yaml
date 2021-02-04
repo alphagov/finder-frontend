@@ -23,94 +23,12 @@ notifications:
         - visiting-eu
   # End of example block.
   # Add new notifications below 👇
-  - uuid: b99cc090-d7b0-4eab-93c2-0d6f83df7f87
+  - uuid: 6e18b271-c4c2-4937-8949-d587453801df
     type: addition
-    action_id: T045
-    date: '2021-01-29'
-    criteria:
-    - all_of:
-      - animal-ex-food
-      - export-to-eu
-  - uuid: ae76f0eb-2096-44b9-8dd3-0f377162e713
-    type: addition
-    action_id: T046
-    date: '2021-01-29'
-    criteria:
-    - all_of:
-      - animal-ex-food
-      - export-to-eu
-  - uuid: e1934fdd-5382-4c38-95be-dbe2752ee533
-    type: addition
-    action_id: T047
-    date: '2021-01-29'
-    criteria:
-    - all_of:
-      - animal-ex-food
-      - export-to-eu
-  - uuid: 5eab1fba-335e-4f2b-b35b-f296b28d3547
-    type: addition
-    action_id: T051
-    date: '2021-01-29'
-  - uuid: d99b394d-286d-4cdc-946c-091bb8239fe1
-    type: addition
-    action_id: S029
-    date: '2021-01-29'
-    criteria:
-    - all_of:
-      - nationality-uk
-      - move-to-eu
-  - uuid: ba26e146-f3a4-4d2e-8e9d-f97042ee1a3b
-    type: addition
-    action_id: T066
-    date: '2021-01-29'
-  - uuid: 356ee51e-3bd1-4e7e-9569-063378fa12fc
-    type: addition
-    action_id: T104
-    date: '2021-01-29'
-  - uuid: 63255c2e-9224-41f0-ace4-0849c168b12e
-    type: addition
-    action_id: T105
-    date: '2021-01-29'
-  - uuid: 4180049e-cdc2-4354-9f2a-6f4cce1ad9d5
-    type: addition
-    action_id: S011
-    date: '2021-01-29'
-    criteria:
-    - all_of:
-      - nationality-uk
-      - studying-eu
-  - uuid: eb3bcd68-fc3c-484c-be45-48a8c16031ca
+    action_id: T131
+    date: '2021-02-04'
+  - uuid: 19d40094-76c2-4e40-a1fb-44dc7fa76a47
     type: content_change
-    action_id: S032
-    date: '2021-01-29'
-    note: "Updated wording of action to reflect that this applies to travelling to Great Britain. Also updated the timeframe to 'at least 1 month'."
-  - uuid: 525a587e-9786-448c-ac23-0e808aade566
-    type: content_change
-    action_id: T038
-    date: '2021-01-29'
-    note: Updated wording of action to reflect that it's about labelling organic food, not other trading rules.
-  - uuid: 1b2b5078-7998-4105-a234-d5d10a1662f3
-    type: content_change
-    action_id: T087
-    date: '2021-01-29'
-    note: "Updated action to link directly to guidance that covers phytosanitary certificates."
-  - uuid: e8181f47-78e1-4483-9194-755795e76d70
-    type: content_change
-    action_id: T096
-    date: '2021-01-29'
-    note: "Updated wording of action to reflect that this applies to Great Britain."
-  - uuid: 9ad7a1d3-e21f-41e3-aa1a-cb9c4b7d14ab
-    type: content_change
-    action_id: T112
-    date: '2021-01-29'
-    note: "Updated wording of action to remove a reference to TRACES, the EU's import system. Also updated the action to link directly to guidance about IPAFFS."
-  - uuid: c5472e5c-a62e-4849-ad4c-6c7a761a6333
-    type: content_change
-    action_id: S029
-    date: '2021-01-29'
-    note: "Updated to cover registering rather than applying to remain living in an EU country"
-  - uuid: fa057928-f659-491e-8dc4-ec3990c16130
-    type: content_change
-    action_id: T063
-    date: '2021-01-29'
-    note: "Updated information for how long it takes to get approval for a bus or coach service."
+    action_id: T115
+    date: '2021-02-04'
+    note: Guidance on chemical classification has been updated
