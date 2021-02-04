@@ -63,7 +63,7 @@ actions:
   priority: 5
   title: Contact your university or college to find out if there are any changes you
     need to act on to continue studying.
-  consequence: You might not be able to continue your studies or get student finance
+  consequence: You will not be able to continue your studies or get student finance
     or benefits if you don't act on any changes.
   guidance_prompt: More information
   guidance_link_text: Studying in the UK for EU students
@@ -72,7 +72,6 @@ actions:
   - all_of:
     - any_of:
       - nationality-eu
-      - nationality-row
       - nationality-ie
     - studying-uk
   audience: citizen
@@ -85,7 +84,7 @@ actions:
   consequence: There may be changes to your residency, healthcare or tuition fees
     that you need to act on, or you may not be able to continue studying as before.
   guidance_prompt: More information
-  guidance_link_text: Continuing your studies in the European Union
+  guidance_link_text: Continuing your studies in the EU
   guidance_url: https://www.gov.uk/guidance/uk-students-in-the-eu-continuing-your-studies
   criteria:
   - all_of:
@@ -142,7 +141,7 @@ actions:
   consequence: You may be charged for using your mobile device in the EU, Switzerland,
     Norway, Iceland or Liechtenstein if your operator has reintroduced roaming charges.
   guidance_prompt: More information
-  guidance_link_text: Visit Europe from 1 January 2021
+  guidance_link_text: Visit Europe
   guidance_url: https://www.gov.uk/visit-europe-1-january-2021
   criteria:
   - any_of:
@@ -296,7 +295,7 @@ actions:
   consequence: If you do not allow enough time, you could miss your flight, train
     or ferry.
   guidance_prompt: More information
-  guidance_link_text: Visit Europe from 1 January 2021
+  guidance_link_text: Visit Europe
   guidance_url: https://www.gov.uk/visit-europe-1-january-2021
   criteria:
   - any_of:
@@ -311,10 +310,10 @@ actions:
   priority: 2
   title: Contact the university where you're planning to study to find out if there
     will be any changes to your fees
-  consequence: You may not be able to take up the course if you do not have the correct
+  consequence: You will not be able to take up the course if you do not have the correct
     funding in place.
   guidance_prompt: More information
-  guidance_link_text: Planning to study in the EU
+  guidance_link_text: Study in the EU
   guidance_url: https://www.gov.uk/guidance/study-in-the-european-union
   criteria:
   - all_of:
@@ -346,7 +345,8 @@ actions:
   priority: 5
   title: Exchange your UK licence for a licence issued by the EU country you live
     in
-  consequence: You will not be able to drive in the EU with a UK licence.
+  consequence: You should exchange your UK licence as soon as possible to avoid having
+    to take a test to exchange your licence at a later date
   guidance_prompt: More information
   guidance_link_text: 'Driving in the EU: UK licence holders living in the EU'
   guidance_url: https://www.gov.uk/guidance/driving-in-the-eu-uk-licence-holders-living-in-the-eu
@@ -483,10 +483,9 @@ actions:
   priority: 4
   title: Check if your benefits will be affected if you move to a country in the EU,
     Switzerland, Norway, Iceland or Liechtenstein
-  consequence: Your right to receive some UK benefits will change if you move on or
-    after 1 January 2021.
+  consequence: Your right to receive some benefits will change.
   guidance_prompt: More information
-  guidance_link_text: Benefits and pensions for UK nationals in the EEA or Switzerland
+  guidance_link_text: Benefits and pensions for UK nationals in the EU, EEA or Switzerland
   guidance_url: https://www.gov.uk/guidance/benefits-and-pensions-for-uk-nationals-in-the-eea-or-switzerland
   criteria:
   - move-to-eu
@@ -771,8 +770,8 @@ actions:
   priority: 5
   title: Check the rules you need to follow if you're a broadcaster or provider of
     video-on-demand services in the UK or the EU
-  consequence: You risk not being able to broadcast or provide video-on-demand services
-    if you do not get your business ready.
+  consequence: You will not be able to broadcast or provide video-on-demand services
+    if you do not follow the rules.
   guidance_prompt: More information
   guidance_link_text: Broadcasting and video on-demand services between the UK and
     EU
@@ -928,9 +927,9 @@ actions:
   audience: business
 - id: T044
   priority: 5
-  title: Enrol with the Rural Payments Agency to prepare to export hops to the EU
-  consequence: You will not be able to apply for the correct documents you'll need
-    to export hops to the EU if you do not enrol.
+  title: Enrol with the Rural Payments Agency to export hops to the EU
+  consequence: If you do not enrol, you will not be able to apply for the correct
+    documents to export hops to the EU.
   lead_time: It takes 5 days
   guidance_prompt: More information
   guidance_link_text: Enrol with the Rural Payments Agency
@@ -1399,7 +1398,7 @@ actions:
 - id: T100
   priority: 3
   title: Apply for a licence to export cultural objects
-  consequence: You might not be able to take items such as works of art and historical
+  consequence: You will not be able to take items such as works of art and historical
     objects out of the UK without the correct licence.
   guidance_prompt: More information
   guidance_link_text: Exporting objects of cultural interest
@@ -1414,7 +1413,7 @@ actions:
   title: Register for a licence to export dual-use items to the EU and Channel Islands 
   consequence: You will not be able to export your goods without an export licence.
   guidance_prompt: More information
-  guidance_link_text: Exporting controlled goods from 1 January 2021
+  guidance_link_text: Exporting controlled goods
   guidance_url: https://www.gov.uk/guidance/exporting-controlled-goods-after-eu-exit
   criteria:
   - any_of:
@@ -1440,8 +1439,7 @@ actions:
   audience: business
 - id: T103
   priority: 8
-  title: Check if you need to pay a tariff on the goods you import from 1 January
-    2021
+  title: Check if you need to pay a tariff on the goods you import
   consequence: You risk penalties and your goods not getting through customs if you
     do not pay the correct tariff.
   guidance_prompt: More information
@@ -1527,8 +1525,7 @@ actions:
 - id: T111
   priority: 2
   title: Check if you need to replace your .eu domain name
-  consequence: You may not be able to hold, register or renew a .eu domain name from
-    1 January 2021.
+  consequence: You may not be able to hold, register or renew a .eu domain name.
   guidance_prompt: More information
   guidance_link_text: Registering and renewing .eu domain names in the UK
   guidance_url: https://www.gov.uk/guidance/registering-and-renewing-eu-domain-names-in-the-uk
@@ -1554,7 +1551,7 @@ actions:
   audience: business
 - id: T113
   priority: 1
-  title: Check the rules for reporting unfair trade practices using the UK's new trade
+  title: Check the rules for reporting unfair trade practices using the UK's trade
     remedies service
   consequence: You risk being affected if imported goods are dumped on the UK market
     or are benefiting from subsidies – or if there is a sudden increase in imports
@@ -1568,7 +1565,7 @@ actions:
 - id: T114
   priority: 2
   title: Check if there's a trade agreement with any non-EU country you're planning
-    to trade with from 1 January 2021
+    to trade with
   consequence: You risk disruption to your trading arrangements and unexpected costs.
   guidance_prompt: More information
   guidance_link_text: Existing UK trade agreements with non-EU countries
@@ -1587,14 +1584,14 @@ actions:
   guidance_prompt: More information
   guidance_link_text: Chemicals classification, labelling and packaging (CLP) after
     the transition period
-  guidance_url: https://www.hse.gov.uk/brexit/clp.htm?utm_source=gov.uk&utm_medium=referral&utm_campaign=eu-transition&utm_term=clp&utm_content=checker-tool
+  guidance_url: https://www.hse.gov.uk/chemical-classification/what-to-do/index.htm?utm_source=gov.uk&utm_medium=referral&utm_campaign=eu-transition&utm_term=clp&utm_content=checker-tool
   criteria:
   - chemical
   audience: business
 - id: T116
   priority: 2
   title: Get approval and product authorisations for new biocidal active substances
-    for the GB market from 1 January 2021
+    for the GB market
   consequence: You will not be able to place new biocidal active substances on the
     GB market without approval.
   guidance_prompt: More information
@@ -1623,10 +1620,10 @@ actions:
   priority: 4
   title: Check the rules for providing online services to the EU, Norway, Iceland
     or Liechtenstein
-  consequence: You may be breaking the law if you do not follow the rules in the country
-    you provide online services to.
+  consequence: You will be breaking the law if you do not follow the rules in the
+    country you provide online services to.
   guidance_prompt: More information
-  guidance_link_text: The eCommerce Directive after the transition period
+  guidance_link_text: The eCommerce Directive
   guidance_url: https://www.gov.uk/guidance/the-ecommerce-directive-and-the-uk
   criteria:
   - any_of:
@@ -1706,8 +1703,8 @@ actions:
   audience: business
 - id: T125
   priority: 3
-  title: Check if there are EU funding opportunities you can apply for
-  consequence: You will not be able to apply for EU funding once the current funding
+  title: Check which EU funding opportunities you can continue to apply for
+  consequence: You will only be able to apply for certain EU funding once the funding
     cycle ends.
   guidance_prompt: More information
   guidance_link_text: Getting EU funding
@@ -1762,7 +1759,7 @@ actions:
   title: Apply for a Kent Access Permit (KAP) if your HGV is over 7.5 tonnes and you
     are leaving Great Britain for the EU from the Port of Dover or Eurotunnel
   consequence: From 1 January 2021, if you do not have a valid permit you will not
-    be able to travel from the Port of Dover or Eurotunnel to the EU, and you may
+    be able to travel from the Port of Dover or by Eurotunnel to the EU, and you may
     be fined.
   guidance_prompt: More information
   guidance_link_text: Apply for a Kent Access Permit
@@ -1784,4 +1781,16 @@ actions:
   - any_of:
     - haulage-goods-across-eu-borders
     - road-passenger-freight
+  audience: business
+- id: T131
+  priority: 10
+  title: Check the rules for providing services to the EU, Switzerland, Norway, Iceland
+    and Liechtenstein
+  consequence: You risk not being able to continue providing services if you do not
+    follow the new rules.
+  guidance_prompt: More information
+  guidance_link_text: Rules for selling services to the EU
+  guidance_url: https://www.gov.uk/guidance/providing-services-to-any-country-in-the-eu-iceland-liechtenstein-norway-or-switzerland-after-eu-exit
+  criteria:
+  - provide-services-do-business-in-eu
   audience: business
