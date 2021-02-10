@@ -347,7 +347,7 @@ questions:
         value: export-to-eu
       - label: "Transport goods across EU borders (haulage)"
         value: haulage-goods-across-eu-borders
-      - label: "Provide services or do business in the EU"
+      - label: "Provide services to or do business in the EU"
         value: provide-services-do-business-in-eu
       - label: "Move goods into, out of, or through Northern Ireland"
         value: move-goods-ni
