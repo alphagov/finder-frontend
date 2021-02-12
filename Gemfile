@@ -14,7 +14,7 @@ gem "jwt"
 gem "openid_connect"
 gem "rest-client"
 gem "sassc-rails"
-gem "slimmer"
+gem "slimmer", git: 'https://github.com/alphagov/slimmer.git', branch: 'account-nav-layout-header'
 gem "uglifier"
 gem "whenever"
 
