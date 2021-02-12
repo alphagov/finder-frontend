@@ -440,11 +440,7 @@ actions:
   guidance_link_text: UK nationals visiting the EU
   guidance_url: https://www.gov.uk/foreign-travel-advice
   criteria:
-  - any_of:
-    - visiting-eu
-    - studying-eu
-    - move-to-eu
-    - working-eu
+  - move-to-eu
   audience: citizen
   grouping_criteria:
   - visiting-eu
@@ -1163,14 +1159,14 @@ actions:
   audience: business
 - id: T081
   priority: 5
-  title: Check what you need to do to work or provide legal services in the UK, if
-    you're a lawyer with a qualification from the EU, Switzerland, Norway, Iceland
-    or Liechtenstein
-  consequence: You risk not being able to work or provide legal services in the UK
-    if you do not take the necessary steps.
+  title: Check what you need to do to work or provide legal services in England, Wales
+    and Northern Ireland if you're a lawyer with a qualification from the EU, Switzerland,
+    Norway, Iceland or Liechtenstein
+  consequence: You will not be able to work or provide legal services in England,
+    Wales and Northern Ireland if you do not take the necessary steps.
   guidance_prompt: More information
   guidance_link_text: Lawyers from the EU, Switzerland, Norway, Iceland or Liechtenstein
-    working in the UK
+    working in England, Wales and Northern Ireland
   guidance_url: https://www.gov.uk/government/publications/eu-eea-efta-and-swiss-lawyers-in-the-uk
   criteria:
   - all_of:
@@ -1179,12 +1175,14 @@ actions:
   audience: business
 - id: T082
   priority: 5
-  title: Check what you need to do if you own a UK legal services business and are
-    a lawyer with qualifications from the EU, Switzerland, Norway, Iceland or Liechtenstein
+  title: Check what you need to do if you own a legal services business in England,
+    Wales and Northern Ireland and are a lawyer with qualifications from the EU, Switzerland,
+    Norway, Iceland or Liechtenstein
   consequence: You risk not being able to provide legal services if you do not meet
     new requirements.
   guidance_prompt: More information
-  guidance_link_text: Owning a UK legal services business
+  guidance_link_text: Owning a legal services business in England, Wales and Northern
+    Ireland
   guidance_url: https://www.gov.uk/government/publications/legal-services-business-owners
   criteria:
   - legal-service
@@ -1491,9 +1489,9 @@ actions:
   audience: business
 - id: T108
   priority: 9
-  title: Check how to trade or move goods into, out of, or through Northern Ireland
-  consequence: You may not be able to trade or move goods if you do not follow the
-    new rules.
+  title: Check the rules on moving goods into, out of, and through Northern Ireland
+  consequence: It will be difficult to do business in Northern Ireland if you do not
+    know the trading rules.
   guidance_prompt: More information
   guidance_link_text: Moving goods into, out of, or through Northern Ireland
   guidance_url: https://www.gov.uk/government/collections/moving-goods-into-out-of-or-through-northern-ireland
