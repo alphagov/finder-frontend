@@ -36,7 +36,7 @@ private
   def brexit_topic_and_other_params
     {
       keywords: filter_params["keywords"],
-      level_one_taxon: "d6c2de5d-ef90-45d1-82d4-5f2438369eea",
+      level_one_taxon: ContentItem::BREXIT_CONTENT_ID,
       organisations: filter_params["organisations"],
       people: filter_params["people"],
       public_timestamp: filter_params["public_timestamp"],

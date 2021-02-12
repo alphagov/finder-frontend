@@ -9,7 +9,7 @@ RSpec.describe "Redirecting", type: :routing do
         controller: "redirection",
         action: "redirect_brexit",
         slug: "any-old-finder",
-        related_to_brexit: "d6c2de5d-ef90-45d1-82d4-5f2438369eea",
+        related_to_brexit: ContentItem::BREXIT_CONTENT_ID,
       )
     end
 
@@ -33,7 +33,7 @@ RSpec.describe "Redirecting", type: :routing do
         slug: "any-old-finder",
         keywords: "booty",
         organisations: %w[ministry-of-pirates],
-        related_to_brexit: "d6c2de5d-ef90-45d1-82d4-5f2438369eea",
+        related_to_brexit: ContentItem::BREXIT_CONTENT_ID,
       )
     end
   end

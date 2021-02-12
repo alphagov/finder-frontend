@@ -15,7 +15,7 @@ describe EmailAlertSubscriptionsController, type: :controller do
   let(:signup_finder) { cma_cases_signup_content_item }
   let(:taxon_content_id_one) { "magical-education" }
   let(:taxon_content_id_two) { "herbology" }
-  let(:brexit_taxon_id) { "d6c2de5d-ef90-45d1-82d4-5f2438369eea" }
+  let(:brexit_taxon_id) { ContentItem::BREXIT_CONTENT_ID }
   let(:org_slug_one) { "department-of-mysteries" }
   let(:org_slug_two) { "gringots" }
 

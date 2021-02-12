@@ -10,7 +10,7 @@ describe RedirectionController, type: :controller do
       }
       expect(response).to redirect_to finder_path("search/random-finder",
                                                   params: {
-                                                    level_one_taxon: "d6c2de5d-ef90-45d1-82d4-5f2438369eea",
+                                                    level_one_taxon: ContentItem::BREXIT_CONTENT_ID,
                                                   })
     end
 
@@ -29,7 +29,7 @@ describe RedirectionController, type: :controller do
       expect(response).to redirect_to finder_path(
         "any-finder", params: {
           keywords: "one two",
-          level_one_taxon: "d6c2de5d-ef90-45d1-82d4-5f2438369eea",
+          level_one_taxon: ContentItem::BREXIT_CONTENT_ID,
           people: %w[one two],
           organisations: %w[one two],
           world_locations: %w[one two],

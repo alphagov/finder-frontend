@@ -8,7 +8,7 @@ describe('remove-filter', function () {
   var removeFilter
   var $checkbox = $(
     '<div data-module="remove-filter">' +
-    '<button href="/search/news-and-communications" class="remove-filter" role="button" aria-label="Remove filter transition period" data-module="remove-filter-link" data-facet="related_to_brexit" data-value="true" data-track-label="transition period" data-name="">✕</button>' +
+    '<button href="/search/news-and-communications" class="remove-filter" role="button" aria-label="Remove filter transition period" data-module="remove-filter-link" data-facet="a_check_box" data-value="true" data-track-label="transition period" data-name="">✕</button>' +
   '</div>')
 
   var $oneTextQuery = $(
@@ -64,8 +64,8 @@ describe('remove-filter', function () {
     '<div>' +
       '<input name="public_timestamp[from]" value="" id="public_timestamp[from]" type="text">' +
     '</div>' +
-    '<div id="related_to_brexit">' +
-      '<input type="checkbox" name="related_to_brexit" value="true" data-module="track-click">' +
+    '<div id="a_check_box">' +
+      '<input type="checkbox" name="a_check_box" value="true" data-module="track-click">' +
     '</div>'
 
   beforeEach(function () {
@@ -79,7 +79,7 @@ describe('remove-filter', function () {
   })
 
   it('deselects a selected checkbox', function (done) {
-    var checkbox = $('input[name=related_to_brexit]')[0]
+    var checkbox = $('input[name=a_check_box]')[0]
     checkbox.checked = true
     removeFilter.start($checkbox)
 

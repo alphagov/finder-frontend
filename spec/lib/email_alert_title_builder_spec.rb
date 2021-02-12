@@ -183,7 +183,6 @@ describe EmailAlertTitleBuilder do
         { "facet_id" => "world_locations", "facet_name" => "world locations" },
         { "facet_id" => "level_one_taxon", "filter_key" => "part_of_taxonomy_tree", "facet_name" => "topics" },
         { "facet_id" => "level_two_taxon", "filter_key" => "part_of_taxonomy_tree", "facet_name" => "topics" },
-        { "facet_id" => "related_to_brexit", "filter_key" => "part_of_taxonomy_tree", "filter_value" => "d6c2de5d-ef90-45d1-82d4-5f2438369eea", "facet_name" => "topics" },
         { "facet_id" => "document_type", "facet_name" => "document types" },
       ]
     end

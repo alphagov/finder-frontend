@@ -16,21 +16,8 @@ private
 
   attr_reader :content_item, :search_results, :value_hash
 
-  def filters_on_brexit_topic?
-    @value_hash["topic"] == ContentItem::BREXIT_CONTENT_ID
-  end
-
-  def is_related_to_transition_period_checkbox?(facet_hash)
-    facet_hash["key"] == "related_to_brexit" && facet_hash["filter_value"] == ContentItem::BREXIT_CONTENT_ID
-  end
-
   def facet_hashes
-    all_facet_hashes = content_item.raw_facets
-    if filters_on_brexit_topic?
-      all_facet_hashes.reject { |facet_hash| is_related_to_transition_period_checkbox?(facet_hash) }
-    else
-      all_facet_hashes
-    end
+    content_item.raw_facets
   end
 
   def build_facet(facet_hash)

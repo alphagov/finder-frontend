@@ -104,25 +104,6 @@ When(/^I view the news and communications finder$/) do
   visit finder_path("search/news-and-communications")
 end
 
-When(/^I view the news and communications finder filtered on the transition period topic$/) do
-  stub_taxonomy_api_request
-  content_store_has_news_and_communications_finder
-  stub_world_locations_api_request
-  stub_all_rummager_api_requests_with_news_and_communication_results
-  stub_people_registry_request
-  stub_organisations_registry_request
-  visit finder_path("search/news-and-communications", topic: "d6c2de5d-ef90-45d1-82d4-5f2438369eea")
-end
-
-Then(/^I (can|cannot) see the "show only transition period results" checkbox$/) do |can_or_cannot|
-  have_clause = have_css(".govuk-checkboxes__label", text: "Show only transition period results")
-  if can_or_cannot == "can"
-    expect(page).to have_clause
-  else
-    expect(page).to_not have_clause
-  end
-end
-
 When(/^I view the policy papers and consultations finder$/) do
   topic_taxonomy_has_taxons
   content_store_has_policy_and_engagement_finder
