@@ -1,4 +1,8 @@
 class RedirectionController < ApplicationController
+  def redirect_brexit
+    redirect_to(finder_path(params[:slug], params: brexit_topic_and_other_params))
+  end
+
   def redirect_covid
     redirect_to(finder_path(params[:slug], params: covid_topic_and_other_params))
   end
@@ -28,6 +32,18 @@ class RedirectionController < ApplicationController
   end
 
 private
+
+  def brexit_topic_and_other_params
+    {
+      keywords: filter_params["keywords"],
+      level_one_taxon: "d6c2de5d-ef90-45d1-82d4-5f2438369eea",
+      organisations: filter_params["organisations"],
+      people: filter_params["people"],
+      public_timestamp: filter_params["public_timestamp"],
+      roles: filter_params["roles"],
+      world_locations: filter_params["world_locations"],
+    }.compact
+  end
 
   def covid_topic_and_other_params
     {
