@@ -17,7 +17,7 @@
     <% if facets.select(&:filterable?).any? %>
       <button class="app-c-button-as-link app-mobile-filters-link js-show-mobile-filters"
         data-toggle="mobile-filters-modal" data-target="facet-wrapper"
-        data-module="track-click" data-track-category="filterClicked"
+        data-module="gem-track-click" data-track-category="filterClicked"
         data-track-action="mobile-filter-button" data-track-label="">
         Filter <span class="govuk-visually-hidden"> results</span>
         <span class="js-selected-filter-count"><%= sanitize facet_tags.display_total_selected_filters %></span>
@@ -25,7 +25,7 @@
     <% end %>
   <% end %>
 
-  <div data-module="track-click" data-track-category="filterClicked"
+  <div data-module="gem-track-click" data-track-category="filterClicked"
       data-track-action="skip-Link" data-track-label="">
     <%= render "govuk_publishing_components/components/skip_link", {
       text: 'Skip to results',

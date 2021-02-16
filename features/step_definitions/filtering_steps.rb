@@ -537,7 +537,7 @@ Then(/^The checkbox has the correct tracking data$/) do
   expect(page).to have_css("input[type='checkbox'][data-track-category='filterClicked']")
   expect(page).to have_css("input[type='checkbox'][data-track-action='checkboxFacet']")
   expect(page).to have_css("input[type='checkbox'][data-track-label='Show open cases']")
-  expect(page).to_not have_css("input[type='checkbox'][data-module='track-click']")
+  expect(page).to_not have_css("input[type='checkbox'][data-module='gem-track-click']")
 end
 
 Then(/^I can sort by:$/) do |table|

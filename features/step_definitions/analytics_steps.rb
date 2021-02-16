@@ -1,7 +1,7 @@
 Then(/^the links on the page have tracking attributes$/) do
   visit finder_path("government/policies/benefits-reform")
 
-  expect(page).to have_selector('.finder-results[data-module="track-click"]')
+  expect(page).to have_selector('.finder-results[data-module="gem-track-click"]')
 
   document_links = page.all(".gem-c-document-list__item-title")
   expect(document_links.count).to be_positive

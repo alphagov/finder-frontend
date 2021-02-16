@@ -65,7 +65,7 @@ describe('remove-filter', function () {
       '<input name="public_timestamp[from]" value="" id="public_timestamp[from]" type="text">' +
     '</div>' +
     '<div id="a_check_box">' +
-      '<input type="checkbox" name="a_check_box" value="true" data-module="track-click">' +
+      '<input type="checkbox" name="a_check_box" value="true" data-module="gem-track-click">' +
     '</div>'
 
   beforeEach(function () {

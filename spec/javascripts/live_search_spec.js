@@ -30,7 +30,7 @@ describe('liveSearch', function () {
         document_index: 1
       }
     ],
-    search_results: '<div class="finder-results js-finder-results" data-module="track-click">' +
+    search_results: '<div class="finder-results js-finder-results" data-module="gem-track-click">' +
       '<ol class="gem-c-document-list">' +
         '<li class="gem-c-document-list__item">' +
           '<a data-track-category="navFinderLinkClicked" data-track-action="" data-track-label="" class="gem-c-document-list__item-title" href="aaib-reports/test-report">Test report</a>' +
@@ -400,7 +400,7 @@ describe('liveSearch', function () {
   describe('indexTrackingData', function () {
     var groupedResponse = {
       search_results:
-        '<ul class="finder-results js-finder-results" data-module="track-click">' +
+        '<ul class="finder-results js-finder-results" data-module="gem-track-click">' +
           '<li class="filtered-results__group">' +
             '<h2 class="filtered-results__facet-heading">Primary group</h2>' +
             '<ol class="gem-c-document-list">' +
@@ -521,7 +521,7 @@ describe('liveSearch', function () {
           document_index: 1
         }
       ],
-      search_results: '<div class="finder-results js-finder-results" data-module="track-click">' +
+      search_results: '<div class="finder-results js-finder-results" data-module="gem-track-click">' +
         '<ol class="gem-c-document-list">' +
           '<li class="gem-c-document-list__item">' +
             '<a data-track-category="navFinderLinkClicked" data-track-action="" data-track-label="" class="gem-c-document-list__item-title" href="aaib-reports/test-report">Test report</a>' +
@@ -579,7 +579,7 @@ describe('liveSearch', function () {
           document_index: 1
         }
       ],
-      search_results: '<div class="finder-results js-finder-results" data-module="track-click">' +
+      search_results: '<div class="finder-results js-finder-results" data-module="gem-track-click">' +
         '<ol class="gem-c-document-list">' +
           '<li class="gem-c-document-list__item">' +
             '<a data-track-category="navFinderLinkClicked" data-track-action="" data-track-label="" class="gem-c-document-list__item-title" href="aaib-reports/test-report">Test report</a>' +
