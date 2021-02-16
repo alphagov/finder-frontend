@@ -15,13 +15,11 @@ describe ParameterParser::EmailAlertParameterParser do
   let(:signup_finder) { cma_cases_signup_content_item }
   let(:taxon_content_id_one) { "magical-education" }
   let(:taxon_content_id_two) { "herbology" }
-  let(:brexit_taxon_id) { "d6c2de5d-ef90-45d1-82d4-5f2438369eea" }
 
   before do
     Rails.cache.clear
     topic_taxonomy_has_taxons([
       FactoryBot.build(:level_one_taxon_hash, content_id: taxon_content_id_one, title: "Magical Education"),
-      FactoryBot.build(:level_one_taxon_hash, content_id: brexit_taxon_id, title: "Brexit"),
       FactoryBot.build(:level_one_taxon_hash, content_id: taxon_content_id_two, title: "Herbology"),
     ])
 

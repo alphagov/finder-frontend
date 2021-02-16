@@ -70,16 +70,6 @@ describe FacetsBuilder do
       "allowed_values": [{ "value" => "my_manual" }],
     }
   end
-  let(:related_to_transition_period_facet_hash) do
-    {
-      "key": "related_to_brexit",
-      "filter_key": "all_part_of_taxonomy_tree",
-      "filter_value": "d6c2de5d-ef90-45d1-82d4-5f2438369eea",
-      "name": "Show only transition period results",
-      "type": "checkbox",
-      "filterable": true,
-    }
-  end
 
   let(:detail_hash) do
     {
@@ -104,44 +94,6 @@ describe FacetsBuilder do
 
   let(:content_item) do
     ContentItem.new(content_item_hash)
-  end
-
-  describe "Remove transition period checkbox filter" do
-    subject(:facets) do
-      FacetsBuilder.new(content_item: content_item, search_results: {}, value_hash: value_hash).facets
-    end
-    let(:detail_hash) do
-      {
-        "details" => {
-          "facets" => [
-            taxon_facet_hash,
-            checkbox_facet_hash,
-            radio_facet_hash,
-            related_to_transition_period_facet_hash,
-          ],
-        },
-      }
-    end
-    context "The page is filtered on the transition period topic" do
-      let(:value_hash) do
-        {
-          "topic" => ContentItem::BREXIT_CONTENT_ID,
-        }
-      end
-      it "contains no related to transition period taxon" do
-        expect(facets).to_not include(an_object_satisfying { |facet| facet.key == "related_to_brexit" })
-      end
-    end
-    context "The page is not filtered on the transition period topic" do
-      let(:value_hash) do
-        {
-          related_to_brexit: ContentItem::BREXIT_CONTENT_ID,
-        }
-      end
-      it "contains a related to transition period taxon" do
-        expect(facets).to include(an_object_satisfying { |facet| facet.key == "related_to_brexit" })
-      end
-    end
   end
 
   describe "facets" do

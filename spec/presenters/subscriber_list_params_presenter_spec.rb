@@ -31,7 +31,6 @@ RSpec.describe SubscriberListParamsPresenter do
         "organisations" => %w[academy-for-social-justice-commissioning accelerated-access-review],
         "people" => %w[sir-philip-jones mark-stanhope],
         "level_one_taxon" => %w[c58fdadd-7743-46d6-9629-90bb3ccc4ef0],
-        "related_to_brexit" => "true",
       }
 
       presenter = described_class.new(signup_finder, params)
@@ -43,7 +42,6 @@ RSpec.describe SubscriberListParamsPresenter do
         "people" => %w[sir-philip-jones mark-stanhope],
         "all_part_of_taxonomy_tree" => %w[
           c58fdadd-7743-46d6-9629-90bb3ccc4ef0
-          d6c2de5d-ef90-45d1-82d4-5f2438369eea
         ],
       )
     end

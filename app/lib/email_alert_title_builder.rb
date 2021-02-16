@@ -141,7 +141,7 @@ private
   end
 
   def is_brexit?(registry, content_id)
-    registry.is_a?(Registries::TopicTaxonomyRegistry) && content_id == "d6c2de5d-ef90-45d1-82d4-5f2438369eea"
+    registry.is_a?(Registries::TopicTaxonomyRegistry) && content_id == ContentItem::BREXIT_CONTENT_ID
   end
 
   def ignore_facet?(facet_id)
