@@ -162,15 +162,15 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
 
   Autocomplete.prototype.fetchSuggestions = function (query, populateResults) {
     var request = new XMLHttpRequest()
-    request.open('GET', 'https://www.gov.uk/api/search.json?q=' + encodeURIComponent(query) + '&count=0&suggest=autocomplete', true)
-    // Time to wait before giving up fetching the search api
+    request.open('GET', 'https://search-autocomplete-api.staging.publishing.service.gov.uk/autocomplete_suggestions/' + encodeURIComponent(query), true)
+      // Time to wait before giving up fetching the search api
     request.timeout = 5 * 1000
     request.onreadystatechange = function () {
       // XHR client readyState DONE
       if (request.readyState === 4) {
         if (request.status === 200) {
           var response = JSON.parse(request.responseText)
-          var suggestions = response.suggested_autocomplete
+          var suggestions = response.results
           statusMessage = 'No suggestions found'
           cacheSuggestions(suggestions, populateResults)
         } else {
@@ -179,7 +179,6 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
       }
     }
     request.send()
-
     // cache suggestions to minimise API calls
     var cacheSuggestions = function (suggestions, populateResults) {
       this.cachedSuggestions = suggestions
