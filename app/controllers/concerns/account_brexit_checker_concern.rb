@@ -7,7 +7,7 @@ module AccountBrexitCheckerConcern
 
   ACCOUNT_AB_CUSTOM_DIMENSION = 42
   ACCOUNT_AB_TEST_NAME = "AccountExperiment"
-  ACCOUNT_ACTIONS = %i[save_results save_results_confirm save_results_email_signup save_results_apply saved_results edit_saved_results].freeze
+  ACCOUNT_ACTIONS = %i[save_results save_results_sign_up save_results_confirm save_results_email_signup save_results_apply saved_results edit_saved_results].freeze
 
   included do
     # this is a false positive which will be fixed by updating rubocop

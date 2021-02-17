@@ -127,6 +127,23 @@ class OidcClient
     end
   end
 
+  def submit_jwt(jwt:, access_token:, refresh_token:)
+    response = oauth_request(
+      access_token: access_token,
+      refresh_token: refresh_token,
+      method: :post,
+      uri: jwt_uri,
+      arg: { jwt: jwt },
+    )
+
+    body = response[:result].body
+    if body.empty?
+      raise OAuthFailure
+    else
+      response.merge(result: JSON.parse(body)["id"])
+    end
+  end
+
 private
 
   OK_STATUSES = [200, 204, 404, 410].freeze
@@ -160,20 +177,26 @@ private
   end
 
   def attribute_uri
-    @attribute_uri = URI.parse(userinfo_endpoint).tap do |u|
+    URI.parse(userinfo_endpoint).tap do |u|
       u.path = "/v1/attributes/transition_checker_state"
     end
   end
 
   def email_subscription_uri
-    @email_uri = URI.parse(provider_uri).tap do |u|
+    URI.parse(provider_uri).tap do |u|
       u.path = "/api/v1/transition-checker/email-subscription"
     end
   end
 
   def ephemeral_state_uri
-    @ephemeral_state_uri = URI.parse(provider_uri).tap do |u|
+    URI.parse(provider_uri).tap do |u|
       u.path = "/api/v1/ephemeral-state"
+    end
+  end
+
+  def jwt_uri
+    URI.parse(provider_uri).tap do |u|
+      u.path = "/api/v1/jwt"
     end
   end
 
