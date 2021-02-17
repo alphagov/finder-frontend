@@ -327,15 +327,16 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
       end
 
       def log_in
-        access_token = Rack::OAuth2::AccessToken::Bearer.new(
-          access_token: "access-token",
-          refresh_token: "refresh-token",
+        id_token = OpenIDConnect::ResponseObject::IdToken.new(
+          sub: "subject-identifier",
+          iss: "http://account-manager.dev.gov.uk",
+          aud: "test",
+          exp: 0,
+          iat: 0,
         )
 
-        sub = "subject-identifier"
-
-        allow_any_instance_of(OidcClient).to receive(:callback)
-          .and_return({ access_token: access_token, sub: sub })
+        allow_any_instance_of(OidcClient).to receive(:tokens!)
+          .and_return({ access_token: "access-token", refresh_token: "refresh-token", id_token: id_token })
 
         stub_request(:get, "http://account-manager.dev.gov.uk/api/v1/ephemeral-state")
           .with(headers: { "Authorization" => "Bearer access-token" })

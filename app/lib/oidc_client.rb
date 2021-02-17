@@ -18,6 +18,22 @@ class OidcClient
     @secret = secret
   end
 
+  def tokens!(id_token_nonce: nil)
+    access_token = client.access_token!
+    response = access_token.token_response
+
+    if id_token_nonce
+      id_token = OpenIDConnect::ResponseObject::IdToken.decode access_token.id_token, discover.jwks
+      id_token.verify! client_id: client_id, issuer: discover.issuer, nonce: id_token_nonce
+    end
+
+    {
+      access_token: response[:access_token],
+      refresh_token: response[:refresh_token],
+      id_token: id_token,
+    }.compact
+  end
+
   def auth_uri(redirect_path: nil, state: nil)
     nonce = state || SecureRandom.hex(16)
     state = "#{nonce}:#{redirect_path}"
@@ -42,19 +58,11 @@ class OidcClient
   end
 
   def callback(code, state)
-    client.authorization_code = code
-    access_token = client.access_token!
-
     nonce, redirect_path = state.split(":")
 
-    id_token = OpenIDConnect::ResponseObject::IdToken.decode access_token.id_token, discover.jwks
-    id_token.verify! client_id: client_id, issuer: discover.issuer, nonce: nonce
+    client.authorization_code = code
 
-    {
-      access_token: access_token,
-      sub: id_token.sub,
-      redirect_path: redirect_path,
-    }
+    tokens!(id_token_nonce: nonce).merge(redirect_path: redirect_path)
   end
 
   def get_checker_attribute(access_token:, refresh_token:)
