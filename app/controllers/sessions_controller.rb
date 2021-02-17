@@ -7,7 +7,10 @@ class SessionsController < ApplicationController
   def create
     redirect_with_ga account_manager_url and return if logged_in?
 
-    redirect_with_ga Services.oidc.auth_uri(redirect_path: params["redirect_path"])[:uri]
+    redirect_with_ga Services.oidc.auth_uri(
+      redirect_path: params[:redirect_path],
+      state: params[:state],
+    )[:uri]
   end
 
   def callback
