@@ -36,7 +36,7 @@ module Services
   end
 
   def self.oidc
-    @oidc ||= OidcClient.new(
+    OidcClient.new(
       accounts_api,
       ENV.fetch("GOVUK_ACCOUNT_OAUTH_CLIENT_ID"),
       ENV.fetch("GOVUK_ACCOUNT_OAUTH_CLIENT_SECRET"),
