@@ -12,6 +12,39 @@ describe BrexitCheckerHelper, type: :helper do
     end
   end
 
+  describe "#format_question_options" do
+    let(:criteria_keys) { %w[A B C D] }
+    let(:option_A) { FactoryBot.build(:brexit_checker_option, value: criteria_keys.first) }
+    let(:option_Z) { FactoryBot.build(:brexit_checker_option, value: "Z") }
+
+    def build_hash(option, checked)
+      {
+        label: option.label,
+        text: option.label,
+        value: option.value,
+        exclusive: option.exclusive,
+        checked: checked,
+        hint_text: option.hint_text,
+      }
+    end
+
+    it "returns an array of hashes formatted for the checkbox component" do
+      expected = [build_hash(option_A, true), build_hash(option_Z, false)]
+      formatted = format_question_options([option_A, option_Z], criteria_keys)
+      expect(formatted).to eq expected
+    end
+
+    context "when a question has a 'none of the above' option" do
+      let(:exclusive_option) { FactoryBot.build(:brexit_checker_option, value: criteria_keys.first, exclusive: true) }
+
+      it "returns an array of hashes, with an 'or'" do
+        expected = [build_hash(option_A, true), :or, build_hash(exclusive_option, true)]
+        formatted = format_question_options([option_A, exclusive_option], criteria_keys)
+        expect(formatted).to eq expected
+      end
+    end
+  end
+
   describe "#next_question_index" do
     let(:q1) { FactoryBot.build(:brexit_checker_question) }
     let(:q2) { FactoryBot.build(:brexit_checker_question, criteria: [{ "all_of" => %w[a b] }]) }
