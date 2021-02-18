@@ -81,7 +81,6 @@ module BrexitCheckerHelper
       criteria_keys: criteria_keys,
       subscriber_list_slug: subscriber_list_slug,
       post_register_uri: Services.oidc.auth_uri(redirect_path: transition_checker_saved_results_path)[:uri],
-      post_login_uri: Services.oidc.auth_uri(redirect_path: transition_checker_save_results_confirm_path(c: criteria_keys))[:uri],
     )
     account_jwt.encode
   end
