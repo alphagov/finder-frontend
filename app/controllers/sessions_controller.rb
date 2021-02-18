@@ -7,7 +7,10 @@ class SessionsController < ApplicationController
   def create
     redirect_with_ga account_manager_url and return if logged_in?
 
-    redirect_with_ga Services.oidc.auth_uri(redirect_path: params["redirect_path"])[:uri]
+    redirect_with_ga Services.oidc.auth_uri(
+      redirect_path: params[:redirect_path],
+      state: params[:state],
+    )[:uri]
   end
 
   def callback
@@ -25,18 +28,17 @@ class SessionsController < ApplicationController
       return
     end
 
-    tokens = callback[:access_token].token_response
     set_account_session_cookie(
-      sub: callback[:sub],
-      access_token: tokens[:access_token],
-      refresh_token: tokens[:refresh_token],
+      sub: callback[:id_token].sub,
+      access_token: callback[:access_token],
+      refresh_token: callback[:refresh_token],
     )
 
     ephemeral_state =
       update_account_session_cookie_from_oauth_result(
         Services.oidc.get_ephemeral_state(
-          access_token: tokens[:access_token],
-          refresh_token: tokens[:refresh_token],
+          access_token: callback[:access_token],
+          refresh_token: callback[:refresh_token],
         ),
       )
 

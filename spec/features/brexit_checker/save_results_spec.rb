@@ -8,13 +8,13 @@ RSpec.feature "Brexit Checker create GOV.UK Account", type: :feature do
   before do
     ENV["GOVUK_ACCOUNT_OAUTH_CLIENT_ID"] = "Application's OAuth client ID"
     ENV["GOVUK_ACCOUNT_OAUTH_CLIENT_SECRET"] = "secret!"
-    ENV["GOVUK_ACCOUNT_JWT_KEY_UUID"] = "fake_key_uuid"
-    ENV["GOVUK_ACCOUNT_JWT_KEY_PEM"] = AccountSignupHelper.test_ec_key_fixture
     allow(Rails.configuration).to receive(:feature_flag_govuk_accounts).and_return(true)
     discovery_response = double(authorization_endpoint: "foo", token_endpoint: "foo", userinfo_endpoint: "foo", end_session_endpoint: "foo")
     allow_any_instance_of(OidcClient).to receive(:userinfo_endpoint).and_return("http://attribute-service/oidc/user_info")
     allow_any_instance_of(OidcClient).to receive(:discover).and_return(discovery_response)
     allow_any_instance_of(OidcClient).to receive(:auth_uri).and_return({ uri: "http://account-mamager/login", state: SecureRandom.hex(16) })
+    allow_any_instance_of(OidcClient).to receive(:tokens!).and_return({ access_token: "access-token", refresh_token: "refresh-token" })
+    allow_any_instance_of(OidcClient).to receive(:submit_jwt).and_return({ access_token: "access-token", refresh_token: "refresh-token", result: "jwt-id" })
     stub_email_subscription_confirmation
     stub_request(:get, Services.accounts_api).to_return(status: 200)
   end
@@ -24,7 +24,8 @@ RSpec.feature "Brexit Checker create GOV.UK Account", type: :feature do
       given_im_on_the_results_page
       then_i_click_to_subscribe
       and_i_am_taken_to_choose_how_to_subscribe_page
-      i_see_a_create_account_button
+      and_i_click_the_create_account_button
+      i_get_redirected_to_sign_up
     end
   end
 
@@ -49,7 +50,8 @@ RSpec.feature "Brexit Checker create GOV.UK Account", type: :feature do
       given_im_on_the_results_page
       then_i_click_to_subscribe
       and_i_am_taken_to_choose_how_to_subscribe_page
-      i_see_a_create_account_button
+      and_i_click_the_create_account_button
+      i_get_redirected_to_sign_up
     end
   end
 
@@ -70,11 +72,15 @@ RSpec.feature "Brexit Checker create GOV.UK Account", type: :feature do
     expect(page).to have_current_path(transition_checker_save_results_url(c: %w[nationality-eu]))
   end
 
-  def i_see_a_create_account_button
+  def and_i_click_the_create_account_button
     form = page.find("form#account-signup")
     expect(form.text).to eql("Create a GOV.UK account")
     expect(form["method"]).to eql("post")
-    expect(form["action"]).to eql(Plek.find("account-manager"))
+    click_on I18n.t("brexit_checker.account_signup.create_account.cta_button")
+  end
+
+  def i_get_redirected_to_sign_up
+    expect(page.current_url).to include("&state=jwt-id")
   end
 
   def stub_email_subscription_confirmation

@@ -27,6 +27,7 @@ FinderFrontend::Application.routes.draw do
     get "/login/callback", to: "sessions#callback", as: :transition_checker_new_session_callback
     get "/logout", to: "sessions#delete", as: :transition_checker_end_session
     get "/save-your-results" => "brexit_checker#save_results", as: :transition_checker_save_results
+    post "/save-your-results/sign-up" => "brexit_checker#save_results_sign_up", as: :transition_checker_save_results_sign_up
     get "/save-your-results/confirm", to: "brexit_checker#save_results_confirm", as: :transition_checker_save_results_confirm
     get "/save-your-results/email-signup", to: "brexit_checker#save_results_email_signup", as: :transition_checker_save_results_email_signup
     post "/save-your-results/confirm", to: "brexit_checker#save_results_apply"

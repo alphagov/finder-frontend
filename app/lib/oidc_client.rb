@@ -18,8 +18,24 @@ class OidcClient
     @secret = secret
   end
 
-  def auth_uri(redirect_path: nil)
-    nonce = SecureRandom.hex(16)
+  def tokens!(id_token_nonce: nil)
+    access_token = client.access_token!
+    response = access_token.token_response
+
+    if id_token_nonce
+      id_token = OpenIDConnect::ResponseObject::IdToken.decode access_token.id_token, discover.jwks
+      id_token.verify! client_id: client_id, issuer: discover.issuer, nonce: id_token_nonce
+    end
+
+    {
+      access_token: response[:access_token],
+      refresh_token: response[:refresh_token],
+      id_token: id_token,
+    }.compact
+  end
+
+  def auth_uri(redirect_path: nil, state: nil)
+    nonce = state || SecureRandom.hex(16)
     state = "#{nonce}:#{redirect_path}"
 
     {
@@ -42,17 +58,11 @@ class OidcClient
   end
 
   def callback(code, state)
+    nonce, redirect_path = state.split(":")
+
     client.authorization_code = code
-    access_token = client.access_token!
-    (nonce, redirect_path, cookie_consent) = state.split(":")
-    id_token = OpenIDConnect::ResponseObject::IdToken.decode access_token.id_token, discover.jwks
-    id_token.verify! client_id: client_id, issuer: discover.issuer, nonce: nonce
-    {
-      access_token: access_token,
-      sub: id_token.sub,
-      redirect_path: redirect_path,
-      cookie_consent: cookie_consent == "cookies-yes",
-    }
+
+    tokens!(id_token_nonce: nonce).merge(redirect_path: redirect_path)
   end
 
   def get_checker_attribute(access_token:, refresh_token:)
@@ -117,6 +127,23 @@ class OidcClient
     end
   end
 
+  def submit_jwt(jwt:, access_token:, refresh_token:)
+    response = oauth_request(
+      access_token: access_token,
+      refresh_token: refresh_token,
+      method: :post,
+      uri: jwt_uri,
+      arg: { jwt: jwt },
+    )
+
+    body = response[:result].body
+    if body.empty?
+      raise OAuthFailure
+    else
+      response.merge(result: JSON.parse(body)["id"])
+    end
+  end
+
 private
 
   OK_STATUSES = [200, 204, 404, 410].freeze
@@ -150,20 +177,26 @@ private
   end
 
   def attribute_uri
-    @attribute_uri = URI.parse(userinfo_endpoint).tap do |u|
+    URI.parse(userinfo_endpoint).tap do |u|
       u.path = "/v1/attributes/transition_checker_state"
     end
   end
 
   def email_subscription_uri
-    @email_uri = URI.parse(provider_uri).tap do |u|
+    URI.parse(provider_uri).tap do |u|
       u.path = "/api/v1/transition-checker/email-subscription"
     end
   end
 
   def ephemeral_state_uri
-    @ephemeral_state_uri = URI.parse(provider_uri).tap do |u|
+    URI.parse(provider_uri).tap do |u|
       u.path = "/api/v1/ephemeral-state"
+    end
+  end
+
+  def jwt_uri
+    URI.parse(provider_uri).tap do |u|
+      u.path = "/api/v1/jwt"
     end
   end
 

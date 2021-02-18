@@ -41,10 +41,32 @@ class BrexitCheckerController < ApplicationController
     redirect_to email_alert_frontend_signup_path(topic_id: subscriber_list_slug)
   end
 
-  def save_results
-    @account_jwt = account_signup_jwt(criteria_keys, subscriber_list_slug)
-  rescue StandardError
-    redirect_to transition_checker_email_signup_path(c: criteria_keys)
+  def save_results; end
+
+  def save_results_sign_up
+    jwt = account_signup_jwt(criteria_keys, subscriber_list_slug)
+
+    tokens = Rails.cache.fetch("finder-frontend_account_oauth_token") || Services.oidc.tokens!
+
+    response = Services.oidc.submit_jwt(
+      jwt: jwt,
+      access_token: tokens[:access_token],
+      refresh_token: tokens[:refresh_token],
+    )
+
+    Rails.cache.write(
+      "finder-frontend_account_oauth_token",
+      { access_token: response[:access_token], refresh_token: response[:refresh_token] },
+      expires_in: 24.hours,
+    )
+
+    redirect_to transition_checker_new_session_path(
+      redirect_path: transition_checker_save_results_confirm_path(c: criteria_keys),
+      state: response[:result],
+      _ga: params[:_ga],
+    )
+  rescue OidcClient::OAuthFailure
+    head :internal_server_error
   end
 
   def save_results_confirm

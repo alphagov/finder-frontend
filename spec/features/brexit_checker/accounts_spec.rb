@@ -8,31 +8,6 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
     stub_request(:get, Services.accounts_api).to_return(status: 200)
   end
 
-  context "accounts is enabled but not returning JWT" do
-    let(:criteria_keys) { %i[nationality-eu] }
-
-    before do
-      allow(Rails.configuration).to receive(:feature_flag_govuk_accounts).and_return(true)
-      allow_any_instance_of(BrexitCheckerHelper).to receive(:account_signup_jwt).and_raise
-
-      stub_email_alert_api_creates_subscriber_list(
-        {
-          "title" => "Get ready for 2021",
-          "slug" => "your-get-ready-for-brexit-results-a1a2a3a4a5",
-          "tags" => { "brexit_checklist_criteria" => { "any" => criteria_keys } },
-          "url" => "/transition-check/results?c%5B%5D=nationality-eu",
-        },
-      )
-    end
-
-    context "/transition-check/save-results" do
-      it "redirects to the email signup page" do
-        visit transition_checker_save_results_path(c: criteria_keys)
-        expect(page).to have_content(I18n.t("brexit_checker.email_signup.sign_up_heading"))
-      end
-    end
-  end
-
   context "with accounts enabled" do
     let(:attribute_service_url) { "http://attribute-service" }
 
@@ -327,15 +302,16 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
       end
 
       def log_in
-        access_token = Rack::OAuth2::AccessToken::Bearer.new(
-          access_token: "access-token",
-          refresh_token: "refresh-token",
+        id_token = OpenIDConnect::ResponseObject::IdToken.new(
+          sub: "subject-identifier",
+          iss: "http://account-manager.dev.gov.uk",
+          aud: "test",
+          exp: 0,
+          iat: 0,
         )
 
-        sub = "subject-identifier"
-
-        allow_any_instance_of(OidcClient).to receive(:callback)
-          .and_return({ access_token: access_token, sub: sub })
+        allow_any_instance_of(OidcClient).to receive(:tokens!)
+          .and_return({ access_token: "access-token", refresh_token: "refresh-token", id_token: id_token })
 
         stub_request(:get, "http://account-manager.dev.gov.uk/api/v1/ephemeral-state")
           .with(headers: { "Authorization" => "Bearer access-token" })
