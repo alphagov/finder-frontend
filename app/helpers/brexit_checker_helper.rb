@@ -19,6 +19,7 @@ module BrexitCheckerHelper
     { label: option.label,
       text: option.label,
       value: option.value,
+      exclusive: option.exclusive,
       checked: checked,
       hint_text: option.hint_text }
   end
