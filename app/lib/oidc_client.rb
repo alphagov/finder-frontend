@@ -65,7 +65,7 @@ class OidcClient
     tokens!(id_token_nonce: nonce).merge(redirect_path: redirect_path)
   end
 
-  def get_checker_attribute(access_token:, refresh_token:)
+  def get_checker_attribute(access_token:, refresh_token: nil)
     response = oauth_request(
       access_token: access_token,
       refresh_token: refresh_token,
@@ -81,7 +81,7 @@ class OidcClient
     end
   end
 
-  def set_checker_attribute(value:, access_token:, refresh_token:)
+  def set_checker_attribute(value:, access_token:, refresh_token: nil)
     oauth_request(
       access_token: access_token,
       refresh_token: refresh_token,
@@ -91,7 +91,7 @@ class OidcClient
     )
   end
 
-  def has_email_subscription(access_token:, refresh_token:)
+  def has_email_subscription(access_token:, refresh_token: nil)
     response = oauth_request(
       access_token: access_token,
       refresh_token: refresh_token,
@@ -102,7 +102,7 @@ class OidcClient
     response.merge(result: (200..299).include?(response[:result].status))
   end
 
-  def update_email_subscription(slug:, access_token:, refresh_token:)
+  def update_email_subscription(slug:, access_token:, refresh_token: nil)
     oauth_request(
       access_token: access_token,
       refresh_token: refresh_token,
@@ -112,7 +112,7 @@ class OidcClient
     )
   end
 
-  def get_ephemeral_state(access_token:, refresh_token:)
+  def get_ephemeral_state(access_token:, refresh_token: nil)
     response = oauth_request(
       access_token: access_token,
       refresh_token: refresh_token,
@@ -127,7 +127,7 @@ class OidcClient
     end
   end
 
-  def submit_jwt(jwt:, access_token:, refresh_token:)
+  def submit_jwt(jwt:, access_token:, refresh_token: nil)
     response = oauth_request(
       access_token: access_token,
       refresh_token: refresh_token,
@@ -157,6 +157,8 @@ private
     response = Rack::OAuth2::AccessToken::Bearer.new(access_token: access_token_str).public_send(method, *args)
 
     unless OK_STATUSES.include? response.status
+      raise OAuthFailure unless refresh_token
+
       client.refresh_token = refresh_token
       access_token = client.access_token!
 
