@@ -10,7 +10,12 @@ module BrexitCheckerHelper
   end
 
   def format_question_options(options, criteria_keys)
-    options.map { |o| format_question_option(o, criteria_keys) }
+    formatted = options.map { |o| format_question_option(o, criteria_keys) }
+    if formatted.last[:exclusive]
+      penultimate_position = formatted.count - 1
+      formatted.insert(penultimate_position, :or)
+    end
+    formatted
   end
 
   def format_question_option(option, criteria_keys)
@@ -19,6 +24,7 @@ module BrexitCheckerHelper
     { label: option.label,
       text: option.label,
       value: option.value,
+      exclusive: option.exclusive,
       checked: checked,
       hint_text: option.hint_text }
   end

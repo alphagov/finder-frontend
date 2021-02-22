@@ -92,7 +92,6 @@ questions:
     type: multiple
     caption: About you and your family
     text: 'Where do you plan to travel for leisure and tourism?'
-    hint_text: Select all that apply. If you do not plan to travel, select continue.
     detail_text: |
       <p>The rules for travelling abroad have changed.</p>
       <p>We need to know where you plan to go so we can show you what you need to do before you travel.</p>
@@ -109,6 +108,8 @@ questions:
       - label: To the rest of the world
         value: visiting-row
         exclude_if: living-row
+      - label: None of the above
+        exclusive: true
 
   - key: activities
     criteria:
@@ -120,7 +121,6 @@ questions:
     type: multiple
     caption: About you and your family
     text: 'Do you plan to do either of the following when travelling?'
-    hint_text: "Select all that apply. If neither apply, select continue."
     detail_text: |
       <p>The rules for driving abroad and taking a pet have changed.</p>
       <p>We need to know about your plans so we can show you what you need to do before you travel.</p>
@@ -129,6 +129,8 @@ questions:
         value: visiting-driving
       - label: Take your pet or an assistance dog
         value: visiting-bring-pet
+      - label: None of the above
+        exclusive: true
 
   - key: move-eu
     caption: About you and your family
@@ -355,6 +357,8 @@ questions:
         value: export-to-row
       - label: "Trade with developing countries"
         value: trade-developing
+      - label: None of the above
+        exclusive: true
 
   - key: sector-business-area
     criteria:
