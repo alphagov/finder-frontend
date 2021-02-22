@@ -462,7 +462,7 @@ actions:
   - living-eu
 - id: S039
   priority: 1
-  title: Find out your right to live, work or study in the Common Travel Area if you're
+  title: Find out what your rights are to move between Ireland and the UK if you're
     an Irish or UK national
   consequence: You can continue to live, work or study within the Common Travel Area.
   guidance_prompt: More information
@@ -782,8 +782,10 @@ actions:
   title: Get permission to take creative, cultural and sports goods into and out of
     the EU for business
   title_url: https://www.gov.uk/taking-goods-out-uk-temporarily/get-an-ata-carnet
-  consequence: You might not be able to take goods such as musical instruments, stage
+  consequence: You will not be able to take goods such as musical instruments, stage
     designs, make-up and film production equipment into or out of the EU.
+  exception: The new rules do not apply when taking goods into and out of Northern
+    Ireland
   criteria:
   - any_of:
     - media
@@ -875,7 +877,7 @@ actions:
 - id: T035
   priority: 6
   title: Register as an approved food establishment to export food to the EU
-  consequence: You will not be able to export food to the EU if you do not register.
+  consequence: You cannot export food to the EU if you do not register.
   lead_time: It takes up to 4 weeks
   guidance_prompt: More information
   guidance_link_text: Applying for approval of a food establishment
@@ -1106,7 +1108,7 @@ actions:
     the EU
   consequence: You will not be able to move your goods into or out of the EU without
     an EORI number.
-  lead_time: It takes up to a week
+  lead_time: It takes 4 days
   guidance_prompt: More information
   guidance_link_text: Get an EORI number
   guidance_url: https://www.gov.uk/eori
@@ -1383,8 +1385,8 @@ actions:
   priority: 9
   title: Decide how you want to make customs declarations and whether you need to
     get someone to deal with customs for you
-  consequence: You risk not being able to import or export goods if you do not get
-    your business ready.
+  consequence: You will not be able to import or export goods if you do not get your
+    business ready.
   guidance_prompt: More information
   guidance_link_text: Get someone to deal with customs for you
   guidance_url: https://www.gov.uk/guidance/appoint-someone-to-deal-with-customs-on-your-behalf
@@ -1500,9 +1502,9 @@ actions:
   audience: business
 - id: T109
   priority: 10
-  title: Check what you need to do to export to the EU from 1 January 2021
-  consequence: You risk not being able to send or take goods to EU countries from
-    1 January 2021
+  title: Check what you need to do to export to the EU
+  consequence: You will not be able to send or take goods to EU countries if you do
+    not follow the new rules
   guidance_prompt: More information
   guidance_link_text: Exporting goods from the UK
   guidance_url: https://www.gov.uk/export-goods
@@ -1511,9 +1513,9 @@ actions:
   audience: business
 - id: T110
   priority: 10
-  title: Check what you need to do to import from the EU from 1 January 2021
-  consequence: You risk not being able to bring or receive goods from EU countries
-    from 1 January 2021
+  title: Check what you need to do to import from the EU
+  consequence: You will not be able to bring or receive goods from EU countries if
+    you do not follow the new rules
   guidance_prompt: More information
   guidance_link_text: Importing goods into the UK
   guidance_url: https://www.gov.uk/import-goods-into-uk
@@ -1595,7 +1597,7 @@ actions:
   guidance_prompt: More information
   guidance_link_text: 'Biocides: What you''ll need to do after the transition period
     ends'
-  guidance_url: https://www.hse.gov.uk/brexit/biocides.htm?utm_source=gov.uk&utm_medium=referral&utm_campaign=eu-transition&utm_term=biocides&utm_content=checker-tool
+  guidance_url: https://www.hse.gov.uk/biocides/eu-bpr/product-authorisation-overview.htm
   criteria:
   - chemical
   audience: business
