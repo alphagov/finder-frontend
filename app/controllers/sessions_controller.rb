@@ -23,7 +23,7 @@ class SessionsController < ApplicationController
         params.require(:code),
         state,
       )
-    rescue Rack::OAuth2::Client::Error
+    rescue OidcClient::OAuthFailure
       head 400
       return
     end

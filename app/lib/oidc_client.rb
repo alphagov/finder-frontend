@@ -32,6 +32,8 @@ class OidcClient
       refresh_token: response[:refresh_token],
       id_token: id_token,
     }.compact
+  rescue Rack::OAuth2::Client::Error
+    raise OAuthFailure
   end
 
   def auth_uri(redirect_path: nil, state: nil)
