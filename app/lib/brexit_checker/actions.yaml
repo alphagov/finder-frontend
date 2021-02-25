@@ -1522,16 +1522,6 @@ actions:
   criteria:
   - import-from-eu
   audience: business
-- id: T111
-  priority: 2
-  title: Check if you need to replace your .eu domain name
-  consequence: You may not be able to hold, register or renew a .eu domain name.
-  guidance_prompt: More information
-  guidance_link_text: Registering and renewing .eu domain names in the UK
-  guidance_url: https://www.gov.uk/guidance/registering-and-renewing-eu-domain-names-in-the-uk
-  criteria:
-  - eu-domain
-  audience: business
 - id: T112
   priority: 9
   title: Register for the UK’s new Import of Products, Animals, Food and Feed System

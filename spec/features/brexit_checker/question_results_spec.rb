@@ -138,7 +138,6 @@ RSpec.feature "Brexit Checker workflow", type: :feature do
     answer_question("eu-uk-government-funding", "No")
     answer_question("public-sector-procurement", "No")
     answer_question("intellectual-property", "No")
-    answer_question("eu-domain", "No")
     answer_question("business-activity", "Send or take goods to EU countries (exporting)")
     answer_question("sector-business-area", "Fisheries (including wholesale)")
   end

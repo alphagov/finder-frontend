@@ -234,10 +234,6 @@ criteria:
   text: You do not travel to the EU for business
 - key: retired
   text: You are retired or semi-retired
-- key: eu-domain
-  text: You run a website with a .eu domain
-- key: eu-domain-no
-  text: You do not run a website with a .eu domain
 - key: move-to-eu
   text: You plan to move to the EU
 - key: move-to-eu-no
