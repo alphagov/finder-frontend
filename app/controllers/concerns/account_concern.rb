@@ -43,7 +43,7 @@ module AccountConcern
   end
 
   def logged_in?
-    account_session_cookie_value&.dig(:sub).present?
+    account_session_cookie_value&.dig(:access_token).present?
   end
 
   def handle_disabled
@@ -80,12 +80,9 @@ module AccountConcern
     )
   end
 
-  def set_account_session_cookie(sub: nil, access_token: nil, refresh_token: nil)
-    return unless sub || account_session_cookie_value
-
+  def set_account_session_cookie(access_token: nil, refresh_token: nil)
     cookies.encrypted[ACCOUNT_SESSION_COOKIE_NAME] = {
       value: {
-        sub: sub || account_session_cookie_value&.dig(:sub),
         access_token: access_token || account_session_cookie_value&.dig(:access_token),
         refresh_token: refresh_token || account_session_cookie_value&.dig(:refresh_token),
       }.to_json,
