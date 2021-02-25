@@ -4,6 +4,8 @@ questions:
     type: single
     caption: About you and your family
     text: 'What nationality are you?'
+    detail_title: What if I have dual nationality?
+    detail_text: <p>If you have dual nationality, select one nationality and continue to get results for that nationality. You’ll need to complete the checker again to get results for your second nationality.</p>
     options:
       - label: British
         value: nationality-uk
