@@ -5,6 +5,9 @@ module AccountConcern
 
   ACCOUNT_SESSION_COOKIE_NAME = :"_finder-frontend_account_session"
 
+  ACCOUNT_SESSION_HEADER_NAME = "GOVUK-Account-Session"
+  ACCOUNT_SESSION_DEV_COOKIE_NAME = "govuk_account_session"
+
   ACCOUNT_AB_CUSTOM_DIMENSION = 42
   ACCOUNT_AB_TEST_NAME = "AccountExperiment"
 
@@ -54,6 +57,14 @@ module AccountConcern
     redirect_to Services.accounts_api
   end
 
+  def account_session_header
+    if request.headers[ACCOUNT_SESSION_HEADER_NAME]
+      request.headers[ACCOUNT_SESSION_HEADER_NAME]
+    elsif Rails.env.development?
+      cookies[ACCOUNT_SESSION_DEV_COOKIE_NAME]
+    end
+  end
+
   def account_variant
     @account_variant ||= begin
       ab_test = GovukAbTesting::AbTest.new(
@@ -66,17 +77,17 @@ module AccountConcern
     end
   end
 
+  def show_signed_in_header?
+    account_session_header.present? || account_variant.variant?("LoggedIn")
+  end
+
   def set_account_variant
-    show_signed_in_header = account_variant.variant?("LoggedIn")
-    show_signed_out_header = account_variant.variant?("LoggedOut")
-
-    return unless show_signed_in_header || show_signed_out_header
-
     account_variant.configure_response(response)
+    response.headers["Vary"] = [response.headers["Vary"], ACCOUNT_SESSION_HEADER_NAME].compact.join(", ")
 
     set_slimmer_headers(
       remove_search: true,
-      show_accounts: show_signed_in_header ? "signed-in" : "signed-out",
+      show_accounts: show_signed_in_header? ? "signed-in" : "signed-out",
     )
   end
 
