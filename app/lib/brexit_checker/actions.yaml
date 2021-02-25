@@ -1478,17 +1478,6 @@ actions:
     - road-passenger-freight
     - motor-trade
   audience: business
-- id: T107
-  priority: 1
-  title: Apply for Horizon 2020 funding
-  consequence: You may miss out on Horizon 2020 funding opportunities if you do not
-    apply.
-  guidance_prompt: More information
-  guidance_link_text: 'Horizon 2020: what it is and how to apply for funding'
-  guidance_url: https://www.gov.uk/guidance/horizon-2020-what-it-is-and-how-to-apply-for-funding#what-horizon-2020-can-do-for-you-as-a-uk-business
-  criteria:
-  - eu-uk-funding
-  audience: business
 - id: T108
   priority: 9
   title: Check the rules on moving goods into, out of, and through Northern Ireland
@@ -1690,17 +1679,6 @@ actions:
       - animal-ex-food
       - agriculture-farm
     - export-to-eu
-  audience: business
-- id: T125
-  priority: 3
-  title: Check which EU funding opportunities you can continue to apply for
-  consequence: You will only be able to apply for certain EU funding once the funding
-    cycle ends.
-  guidance_prompt: More information
-  guidance_link_text: Getting EU funding
-  guidance_url: https://www.gov.uk/guidance/getting-eu-funding
-  criteria:
-  - eu-uk-funding
   audience: business
 - id: T126
   priority: 5

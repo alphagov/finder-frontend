@@ -263,21 +263,6 @@ questions:
             value: personal-eu-org-provide
       - label: "No"
         value: do-not-personal-eu-org
-
-  - key: eu-uk-government-funding
-    criteria:
-      - owns-operates-business-organisation-uk
-    caption: About your business
-    type: "single"
-    text: "Do you plan to apply for EU funding?"
-    description: |
-      <p>This includes funding like Horizon 2020.</p>
-    options:
-      - label: "Yes"
-        value: eu-uk-funding
-      - label: "No"
-        value: do-not-eu-uk-funding
-
   - key: public-sector-procurement
     criteria:
       - owns-operates-business-organisation-uk
