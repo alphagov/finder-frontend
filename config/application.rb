@@ -32,7 +32,7 @@ module FinderFrontend
     config.load_defaults 6.0
 
     config.i18n.load_path += Dir[Rails.root.join("config/locales/**/*yml")]
-    config.action_view.raise_on_missing_translations = true
+    config.i18n.raise_on_missing_translations = true
 
     # Override Rails 4 default which restricts framing to SAMEORIGIN.
     config.action_dispatch.default_headers = {
