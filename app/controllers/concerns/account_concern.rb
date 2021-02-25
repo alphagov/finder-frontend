@@ -1,5 +1,22 @@
+# frozen_string_literal: true
+
 module AccountConcern
+  extend ActiveSupport::Concern
+
   ACCOUNT_SESSION_COOKIE_NAME = :"_finder-frontend_account_session"
+
+  ACCOUNT_AB_CUSTOM_DIMENSION = 42
+  ACCOUNT_AB_TEST_NAME = "AccountExperiment"
+
+  included do
+    before_action :set_account_session_cookie, if: :accounts_enabled?
+    before_action :set_account_variant, if: :accounts_enabled?
+
+    helper_method :accounts_available?,
+                  :accounts_enabled?,
+                  :account_variant,
+                  :logged_in?
+  end
 
   def accounts_enabled?
     Rails.configuration.feature_flag_govuk_accounts
@@ -35,6 +52,32 @@ module AccountConcern
 
   def handle_offline
     redirect_to Services.accounts_api
+  end
+
+  def account_variant
+    @account_variant ||= begin
+      ab_test = GovukAbTesting::AbTest.new(
+        ACCOUNT_AB_TEST_NAME,
+        dimension: ACCOUNT_AB_CUSTOM_DIMENSION,
+        allowed_variants: %w[LoggedIn LoggedOut],
+        control_variant: "LoggedOut",
+      )
+      ab_test.requested_variant(request.headers)
+    end
+  end
+
+  def set_account_variant
+    show_signed_in_header = account_variant.variant?("LoggedIn")
+    show_signed_out_header = account_variant.variant?("LoggedOut")
+
+    return unless show_signed_in_header || show_signed_out_header
+
+    account_variant.configure_response(response)
+
+    set_slimmer_headers(
+      remove_search: true,
+      show_accounts: show_signed_in_header ? "signed-in" : "signed-out",
+    )
   end
 
   def set_account_session_cookie(sub: nil, access_token: nil, refresh_token: nil)
