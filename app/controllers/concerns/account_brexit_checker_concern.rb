@@ -50,8 +50,8 @@ module AccountBrexitCheckerConcern
   def oauth_fetch_results_from_account_or_logout
     oauth_do_or_logout do
       Services.oidc.get_checker_attribute(
-        access_token: account_session_cookie_value[:access_token],
-        refresh_token: account_session_cookie_value[:refresh_token],
+        access_token: account_session_header_value[:access_token],
+        refresh_token: account_session_header_value[:refresh_token],
       )
     end
   end
@@ -59,8 +59,8 @@ module AccountBrexitCheckerConcern
   def oauth_fetch_email_subscription_from_account_or_logout
     oauth_do_or_logout do
       Services.oidc.has_email_subscription(
-        access_token: account_session_cookie_value[:access_token],
-        refresh_token: account_session_cookie_value[:refresh_token],
+        access_token: account_session_header_value[:access_token],
+        refresh_token: account_session_header_value[:refresh_token],
       )
     end
   end
@@ -69,8 +69,8 @@ module AccountBrexitCheckerConcern
     oauth_do_or_logout do
       Services.oidc.update_email_subscription(
         slug: slug,
-        access_token: account_session_cookie_value[:access_token],
-        refresh_token: account_session_cookie_value[:refresh_token],
+        access_token: account_session_header_value[:access_token],
+        refresh_token: account_session_header_value[:refresh_token],
       )
     end
   end
@@ -79,14 +79,14 @@ module AccountBrexitCheckerConcern
     oauth_do_or_logout do
       Services.oidc.set_checker_attribute(
         value: { criteria_keys: new_criteria_keys, timestamp: Time.zone.now.to_i },
-        access_token: account_session_cookie_value[:access_token],
-        refresh_token: account_session_cookie_value[:refresh_token],
+        access_token: account_session_header_value[:access_token],
+        refresh_token: account_session_header_value[:refresh_token],
       )
     end
   end
 
   def oauth_do_or_logout
-    return unless account_session_cookie_value
+    return unless account_session_header_value
 
     update_account_session_cookie_from_oauth_result yield
   rescue OidcClient::OAuthFailure

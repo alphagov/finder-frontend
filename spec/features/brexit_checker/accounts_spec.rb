@@ -223,6 +223,9 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
 
                 expect(stub_get_fail).to have_been_made
                 expect(stub_get_success).to have_been_made.twice
+
+                expect(page.response_headers["GOVUK-Account-Session"]).to_not be_nil
+                expect(page.response_headers["GOVUK-Account-Session"]).to_not eq(@original_account_session_header)
               end
             end
           end
@@ -242,6 +245,9 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
               expect(stub_success).to have_been_made.twice
 
               expect(page).to have_current_path(transition_checker_results_path(c: %w[nationality-uk]))
+
+              expect(page.response_headers["GOVUK-Account-Session"]).to_not be_nil
+              expect(page.response_headers["GOVUK-Account-Session"]).to_not eq(@original_account_session_header)
             end
           end
 
@@ -260,6 +266,9 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
               expect(stub_success).to have_been_made
 
               expect(page).to have_current_path(transition_checker_questions_path(c: %w[nationality-uk], page: 0))
+
+              expect(page.response_headers["GOVUK-Account-Session"]).to_not be_nil
+              expect(page.response_headers["GOVUK-Account-Session"]).to_not eq(@original_account_session_header)
             end
           end
 
@@ -318,10 +327,14 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
           .to_return(status: 200, body: "{}")
 
         visit transition_checker_new_session_callback_path(state: "state", code: "code")
+
+        @original_account_session_header = page.response_headers["GOVUK-Account-Session"]
+        expect(@original_account_session_header).to_not be_nil
       end
 
       def log_out
-        visit transition_checker_end_session_path
+        visit transition_checker_end_session_path(done: "1")
+        expect(page.response_headers["GOVUK-Account-End-Session"]).to_not be_nil
       end
     end
 

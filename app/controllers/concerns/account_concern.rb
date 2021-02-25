@@ -6,12 +6,14 @@ module AccountConcern
   ACCOUNT_SESSION_COOKIE_NAME = :"_finder-frontend_account_session"
 
   ACCOUNT_SESSION_HEADER_NAME = "GOVUK-Account-Session"
+  ACCOUNT_END_SESSION_HEADER_NAME = "GOVUK-Account-End-Session"
   ACCOUNT_SESSION_DEV_COOKIE_NAME = "govuk_account_session"
 
   ACCOUNT_AB_CUSTOM_DIMENSION = 42
   ACCOUNT_AB_TEST_NAME = "AccountExperiment"
 
   included do
+    before_action :fetch_account_session_header, if: :accounts_enabled?
     before_action :set_account_session_cookie, if: :accounts_enabled?
     before_action :set_account_variant, if: :accounts_enabled?
 
@@ -19,6 +21,8 @@ module AccountConcern
                   :accounts_enabled?,
                   :account_variant,
                   :logged_in?
+
+    attr_accessor :account_session_header
   end
 
   def accounts_enabled?
@@ -46,7 +50,7 @@ module AccountConcern
   end
 
   def logged_in?
-    account_session_cookie_value&.dig(:access_token).present?
+    account_session_header_value&.dig(:access_token).present?
   end
 
   def handle_disabled
@@ -57,12 +61,32 @@ module AccountConcern
     redirect_to Services.accounts_api
   end
 
-  def account_session_header
-    if request.headers[ACCOUNT_SESSION_HEADER_NAME]
-      request.headers[ACCOUNT_SESSION_HEADER_NAME]
-    elsif Rails.env.development?
-      cookies[ACCOUNT_SESSION_DEV_COOKIE_NAME]
+  def fetch_account_session_header
+    @account_session_header =
+      if request.headers[ACCOUNT_SESSION_HEADER_NAME]
+        request.headers[ACCOUNT_SESSION_HEADER_NAME]
+      elsif Rails.env.development?
+        cookies[ACCOUNT_SESSION_DEV_COOKIE_NAME]
+      elsif cookies.encrypted[ACCOUNT_SESSION_COOKIE_NAME]
+        legacy_cookie = JSON.parse(cookies.encrypted[ACCOUNT_SESSION_COOKIE_NAME])
+        cookie_value = encode_account_session_header(legacy_cookie["access_token"], legacy_cookie["refresh_token"])
+        response.headers[ACCOUNT_SESSION_HEADER_NAME] = cookie_value
+        cookie_value
+      end
+  end
+
+  def account_session_header_value
+    bits = (account_session_header || "").split(".")
+    if bits.length == 2
+      {
+        access_token: Base64.urlsafe_decode64(bits[0]),
+        refresh_token: Base64.urlsafe_decode64(bits[1]),
+      }
     end
+  end
+
+  def encode_account_session_header(access_token, refresh_token)
+    "#{Base64.urlsafe_encode64(access_token)}.#{Base64.urlsafe_encode64(refresh_token)}"
   end
 
   def account_variant
@@ -92,14 +116,29 @@ module AccountConcern
   end
 
   def set_account_session_cookie(access_token: nil, refresh_token: nil)
+    new_access_token = access_token || account_session_header_value&.dig(:access_token)
+    new_refresh_token = refresh_token || account_session_header_value&.dig(:refresh_token)
+
+    return if new_access_token.nil? || new_refresh_token.nil?
+
     cookies.encrypted[ACCOUNT_SESSION_COOKIE_NAME] = {
       value: {
-        access_token: access_token || account_session_cookie_value&.dig(:access_token),
-        refresh_token: refresh_token || account_session_cookie_value&.dig(:refresh_token),
+        access_token: new_access_token,
+        refresh_token: new_refresh_token,
       }.to_json,
       expires: 15.minutes,
       secure: Rails.env.production?,
     }
+
+    @account_session_header = encode_account_session_header(new_access_token, new_refresh_token)
+    response.headers[ACCOUNT_SESSION_HEADER_NAME] = @account_session_header
+
+    if Rails.env.development?
+      cookies[ACCOUNT_SESSION_DEV_COOKIE_NAME] = {
+        value: @account_session_header,
+        domain: "dev.gov.uk",
+      }
+    end
   end
 
   def update_account_session_cookie_from_oauth_result(result)
@@ -110,12 +149,9 @@ module AccountConcern
     result[:result]
   end
 
-  def account_session_cookie_value
-    value = cookies.encrypted[ACCOUNT_SESSION_COOKIE_NAME]
-    JSON.parse(value).symbolize_keys if value
-  end
-
   def logout!
     cookies.delete ACCOUNT_SESSION_COOKIE_NAME
+    response.headers[ACCOUNT_END_SESSION_HEADER_NAME] = "1"
+    @account_session_header = nil
   end
 end
