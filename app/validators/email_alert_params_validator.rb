@@ -1,16 +1,16 @@
 class EmailAlertParamsValidator < ActiveModel::EachValidator
   def validate_each(record, attribute, filter)
     unless filter.is_a? Hash
-      record.errors[attribute] << "is not a Hash"
+      record.errors.add(attribute, "is not a Hash")
       return
     end
 
     if invalidly_formatted(filter.keys).any?
-      record.errors[attribute] << "has some unprocessable filter keys"
+      record.errors.add(attribute, "has some unprocessable filter keys")
     end
 
     if invalidly_formatted(filter.values.flatten).any?
-      record.errors[attribute] << "has some unprocessable filter values"
+      record.errors.add(attribute, "has some unprocessable filter values")
     end
   end
 

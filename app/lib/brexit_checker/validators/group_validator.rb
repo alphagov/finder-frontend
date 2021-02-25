@@ -19,7 +19,7 @@ private
 
   def validate_citizen_group(record)
     unless CITIZEN_KEYS.include?(record.key)
-      record.errors[:key] << "is not included in the list"
+      record.errors.add(:key, "is not included in the list")
     end
   end
 end
