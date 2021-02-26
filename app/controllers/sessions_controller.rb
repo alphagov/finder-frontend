@@ -28,13 +28,13 @@ class SessionsController < ApplicationController
       return
     end
 
-    set_account_session_cookie(
+    set_account_session_header(
       access_token: callback[:access_token],
       refresh_token: callback[:refresh_token],
     )
 
     ephemeral_state =
-      update_account_session_cookie_from_oauth_result(
+      update_account_session_header_from_oauth_result(
         Services.oidc.get_ephemeral_state(
           access_token: callback[:access_token],
           refresh_token: callback[:refresh_token],

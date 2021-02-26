@@ -62,8 +62,17 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
     end
 
     context "the user is logged in" do
-      before { log_in }
-      after { log_out }
+      before do
+        log_in
+        @original_headers = page.driver.options[:headers]
+        page.driver.options[:headers] ||= {}
+        page.driver.options[:headers].merge!("GOVUK-Account-Session" => @original_account_session_header)
+      end
+
+      after do
+        log_out
+        page.driver.options[:headers] = @original_headers
+      end
 
       let(:transition_checker_state) { { criteria_keys: criteria_keys, timestamp: 42 } }
       let(:criteria_keys) { %w[nationality-uk] }
@@ -76,21 +85,9 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
           expect(page).to_not have_content(I18n.t("brexit_checker.results.email_sign_up_title"))
         end
 
-        context "the account header is sent" do
-          before do
-            @original_headers = page.driver.options[:headers]
-            page.driver.options[:headers] ||= {}
-            page.driver.options[:headers].merge!("GOVUK-Account-Session" => @original_account_session_header)
-          end
-
-          after do
-            page.driver.options[:headers] = @original_headers
-          end
-
-          it "reads the new account header" do
-            given_i_am_on_the_results_page
-            expect(page.response_headers["GOVUK-Account-Session"]).to eq(@original_account_session_header)
-          end
+        it "reads the new account header" do
+          given_i_am_on_the_results_page
+          expect(page.response_headers["GOVUK-Account-Session"]).to eq(@original_account_session_header)
         end
 
         context "the querystring differs to the value in the account" do
@@ -238,7 +235,7 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
 
                 given_i_am_on_the_saved_results_page
 
-                expect(stub_get_fail).to have_been_made
+                expect(stub_get_fail).to have_been_made.at_least_once
                 expect(stub_get_success).to have_been_made.twice
 
                 expect(page.response_headers["GOVUK-Account-Session"]).to_not be_nil
@@ -257,7 +254,7 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
 
               given_i_am_on_the_saved_results_page
 
-              expect(stub_fail).to have_been_made
+              expect(stub_fail).to have_been_made.at_least_once
               expect(stub_success).to have_been_made.twice
 
               expect(page).to have_current_path(transition_checker_results_path(c: %w[nationality-uk]))
@@ -277,7 +274,7 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
 
               given_i_am_on_the_edit_saved_results_page
 
-              expect(stub_fail).to have_been_made
+              expect(stub_fail).to have_been_made.at_least_once
               expect(stub_success).to have_been_made
 
               expect(page).to have_current_path(transition_checker_questions_path(c: %w[nationality-uk], page: 0))

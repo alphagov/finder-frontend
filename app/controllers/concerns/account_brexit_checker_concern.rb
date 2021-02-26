@@ -88,7 +88,7 @@ module AccountBrexitCheckerConcern
   def oauth_do_or_logout
     return unless account_session_header_value
 
-    update_account_session_cookie_from_oauth_result yield
+    update_account_session_header_from_oauth_result yield
   rescue OidcClient::OAuthFailure
     logout!
   end
