@@ -76,6 +76,23 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
           expect(page).to_not have_content(I18n.t("brexit_checker.results.email_sign_up_title"))
         end
 
+        context "the account header is sent" do
+          before do
+            @original_headers = page.driver.options[:headers]
+            page.driver.options[:headers] ||= {}
+            page.driver.options[:headers].merge!("GOVUK-Account-Session" => @original_account_session_header)
+          end
+
+          after do
+            page.driver.options[:headers] = @original_headers
+          end
+
+          it "reads the new account header" do
+            given_i_am_on_the_results_page
+            expect(page.response_headers["GOVUK-Account-Session"]).to eq(@original_account_session_header)
+          end
+        end
+
         context "the querystring differs to the value in the account" do
           it "shows a link to save the new results" do
             given_i_am_on_the_results_page_with(%w[bring-pet-abroad nationality-eu])
