@@ -10,9 +10,6 @@ module AccountConcern
   ACCOUNT_END_SESSION_HEADER_NAME = "GOVUK-Account-End-Session"
   ACCOUNT_SESSION_DEV_COOKIE_NAME = "govuk_account_session"
 
-  ACCOUNT_AB_CUSTOM_DIMENSION = 42
-  ACCOUNT_AB_TEST_NAME = "AccountExperiment"
-
   included do
     before_action :fetch_account_session_header, if: :accounts_enabled?
     before_action :set_account_session_cookie, if: :accounts_enabled?
@@ -20,7 +17,6 @@ module AccountConcern
 
     helper_method :accounts_available?,
                   :accounts_enabled?,
-                  :account_variant,
                   :logged_in?
 
     attr_accessor :account_session_header
@@ -92,24 +88,11 @@ module AccountConcern
     "#{Base64.urlsafe_encode64(access_token)}.#{Base64.urlsafe_encode64(refresh_token)}"
   end
 
-  def account_variant
-    @account_variant ||= begin
-      ab_test = GovukAbTesting::AbTest.new(
-        ACCOUNT_AB_TEST_NAME,
-        dimension: ACCOUNT_AB_CUSTOM_DIMENSION,
-        allowed_variants: %w[LoggedIn LoggedOut],
-        control_variant: "LoggedOut",
-      )
-      ab_test.requested_variant(request.headers)
-    end
-  end
-
   def show_signed_in_header?
-    account_session_header.present? || account_variant.variant?("LoggedIn")
+    account_session_header.present?
   end
 
   def set_account_variant
-    account_variant.configure_response(response)
     response.headers["Vary"] = [response.headers["Vary"], ACCOUNT_SESSION_HEADER_NAME].compact.join(", ")
 
     set_slimmer_headers(
