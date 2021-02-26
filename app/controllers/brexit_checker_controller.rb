@@ -1,4 +1,5 @@
 class BrexitCheckerController < ApplicationController
+  include AccountConcern
   include AccountBrexitCheckerConcern
   include BrexitCheckerHelper
 

@@ -29,7 +29,6 @@ class SessionsController < ApplicationController
     end
 
     set_account_session_cookie(
-      sub: callback[:id_token].sub,
       access_token: callback[:access_token],
       refresh_token: callback[:refresh_token],
     )
