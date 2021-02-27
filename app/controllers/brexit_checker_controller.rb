@@ -5,7 +5,11 @@ class BrexitCheckerController < ApplicationController
 
   layout "finder_layout"
 
-  protect_from_forgery except: :confirm_email_signup
+  protect_from_forgery except: %i[
+    confirm_email_signup
+    save_results_sign_up
+    save_results_apply
+  ]
 
   before_action :enable_caching, only: %i[show email_signup confirm_email_signup]
   before_action :enable_caching_unless_accounts, only: %i[results]
