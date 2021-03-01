@@ -160,10 +160,6 @@ criteria:
   text: You use or rely on exhaustion of rights protection
 - key: do-not-ip
   text: You do not use or rely on intellectual property protection
-- key: do-not-eu-uk-funding
-  text: You do not receive EU or UK government funding
-- key: eu-uk-funding
-  text: You receive EU or UK government funding
 - key: sell-public-sector
   text: You sell products or services to the UK public sector
 - key: sell-public-sector-contracts
@@ -234,10 +230,6 @@ criteria:
   text: You do not travel to the EU for business
 - key: retired
   text: You are retired or semi-retired
-- key: eu-domain
-  text: You run a website with a .eu domain
-- key: eu-domain-no
-  text: You do not run a website with a .eu domain
 - key: move-to-eu
   text: You plan to move to the EU
 - key: move-to-eu-no
