@@ -757,7 +757,6 @@ actions:
   guidance_url: https://www.gov.uk/guidance/using-personal-data-in-your-business-or-other-organisation
   criteria:
   - any_of:
-    - personal-eu-org
     - personal-eu-org-process
     - personal-eu-org-use
     - personal-eu-org-provide

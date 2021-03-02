@@ -248,23 +248,21 @@ questions:
     criteria:
       - owns-operates-business-organisation-uk
     caption: About your business
-    type: "single_wrapped"
-    text: "Do you exchange personal data with another organisation in Europe?"
+    type: "multiple"
+    text: "Does your business do any of the following?"
     description: |
-      <p>This includes organisations located in the EU, Norway, Iceland and Liechtenstein.</p>
-      <p>Personal data includes customers’ addresses, staff working hours or information you give to a delivery company.</p>
+      <p>Select any of the following which your business does in the EU. This also includes Norway, Iceland or Liechtenstein.</p>
     options:
-      - label: "Yes"
-        value: personal-eu-org
-        options:
-          - label: Processing personal data from Europe
-            value: personal-eu-org-process
-          - label: Using websites or services hosted in Europe
-            value: personal-eu-org-use
-          - label: Providing digital services available to Europe
-            value: personal-eu-org-provide
-      - label: "No"
+      - label: Store personal data of people in the EU - this includes customer names, email addresses and information you give to a delivery company
+        value: personal-eu-org-process
+      - label: Use websites or services hosted in the EU
+        value: personal-eu-org-use
+      - label: Provide digital services available in the EU
+        value: personal-eu-org-provide
+      - label: None of the above
         value: do-not-personal-eu-org
+        exclusive: true
+
   - key: public-sector-procurement
     criteria:
       - owns-operates-business-organisation-uk
