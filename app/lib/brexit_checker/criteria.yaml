@@ -136,8 +136,6 @@ criteria:
   text: You employ EU citizens
 - key: do-not-employ-eu-citizens
   text: You do not employ EU citizens
-- key: personal-eu-org
-  text: You exchange personal data with EU organisations
 - key: personal-eu-org-process
   text: You process personal data from the EU
 - key: personal-eu-org-use
