@@ -4,6 +4,7 @@
   heading: current_question.text,
   description: formatted_description,
   hint_text: current_question.hint_text,
+  no_hint_text: current_question.hint_text.nil?,
   is_page_heading: true,
   items: format_question_options(current_question.options(criteria_keys), criteria_keys)
 } %>
