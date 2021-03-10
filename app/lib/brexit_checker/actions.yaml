@@ -384,11 +384,11 @@ actions:
   priority: 8
   title: Check if you need a visa or work permit and meet the professional requirements
     to travel to the EU, Switzerland, Norway, Iceland or Liechtenstein for work
-  consequence: You may not be able to enter or work in some countries if you do not
+  consequence: You will not be able to enter or work in some countries if you do not
     meet the requirements.
   guidance_prompt: More information
-  guidance_link_text: 'Visit Europe from 1 January 2021: Business travel'
-  guidance_url: https://www.gov.uk/visit-europe-1-january-2021/business-travel-extra-requirements
+  guidance_link_text: 'Visit Europe: Business travel'
+  guidance_url: https://www.gov.uk/visit-eu-switzerland-norway-iceland-liechtenstein/business-travel-extra-requirements
   criteria:
   - travel-eu-business
   audience: citizen
@@ -574,21 +574,20 @@ actions:
   priority: 7
   title: Check if your employees need a visa or work permit and that they meet professional
     requirements for the country they’re going to
-  consequence: You or your employees might not be able to enter or work in some countries.
+  consequence: You or your employees will not be able to enter or work in some countries
+    without the correct visa or work permit.
   guidance_prompt: More information
   guidance_link_text: Providing services to any country in the EU, Iceland, Liechtenstein,
-    Norway or Switzerland from 2021
-  guidance_url: https://www.gov.uk/visit-europe-1-january-2021/business-travel-extra-requirements
+    Norway or Switzerland
+  guidance_url: https://www.gov.uk/visit-eu-switzerland-norway-iceland-liechtenstein/business-travel-extra-requirements
   criteria:
-  - any_of:
-    - employ-eu-citizens
-    - provide-services-do-business-in-eu
+  - provide-services-do-business-in-eu
   audience: business
 - id: T007
   priority: 2
   title: Check if you need to change how you do accounting and reporting
-  consequence: You risk breaching reporting requirements in the EU, Norway, Iceland
-    or Liechtenstein if you do not make any changes you need to.
+  consequence: You will breach reporting requirements in the EU, Norway, Iceland or
+    Liechtenstein if you do not make any changes you need to.
   guidance_prompt: More information
   guidance_link_text: Accounting for UK companies
   guidance_url: https://www.gov.uk/guidance/accounting-for-uk-companies
@@ -1583,14 +1582,15 @@ actions:
   priority: 5
   title: Contact your regulator if you are a UK lawyer working permanently in the
     EU, Switzerland, Norway, Iceland or Liechtenstein
-  consequence: You risk not being able to provide legal services if you do not meet
-    new requirements.
+  consequence: You will not be able to continue working or providing services in the
+    EU if you have not had your UK qualification recognised in each EU country
   guidance_prompt: More information
   guidance_link_text: UK lawyers practising in the EU, Switzerland, Norway, Iceland
     or Liechtenstein
   guidance_url: https://www.gov.uk/government/publications/uk-lawyers-practising-in-the-eu-eea-efta-and-switzerland
   criteria:
   - all_of:
+    - nationality-uk
     - working-eu
     - legal-service
   audience: business
@@ -1681,9 +1681,8 @@ actions:
   audience: business
 - id: T126
   priority: 5
-  title: Check the rules for placing manufactured goods on the EU market from 1 January
-    2021
-  consequence: You risk not being able to sell your goods in the EU if you don't follow
+  title: Check the rules for placing manufactured goods on the EU market
+  consequence: You will not be able to sell your goods in the EU if you don't follow
     the rules.
   guidance_prompt: More information
   guidance_link_text: Placing manufactured goods on the EU market
@@ -1694,9 +1693,8 @@ actions:
 - id: T127
   priority: 5
   title: Check the rules for placing manufactured goods on the market in Great Britain
-    from 1 January 2021
-  consequence: You risk not being able to sell your goods in Great Britain if you
-    don't follow the rules.
+  consequence: You will not be able to sell your goods in the EU if you don't follow
+    the rules.
   guidance_prompt: More information
   guidance_link_text: Placing manufactured goods on the market in Great Britain
   guidance_url: https://www.gov.uk/guidance/placing-manufactured-goods-on-the-market-in-great-britain
