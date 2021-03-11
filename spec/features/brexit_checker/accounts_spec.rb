@@ -161,21 +161,29 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
         let(:new_criteria_keys) { %w[nationality-eu] }
 
         context "the querystring differs to the value in the account" do
-          before do
-            stub_email_check(status: email_status)
-            stub_find_or_create_subscriber_list(new_criteria_keys)
-          end
+          before { stub_find_or_create_subscriber_list(new_criteria_keys) }
 
-          let(:email_status) { 200 }
+          context "the user has an email subscription" do
+            before { stub_account_api_has_email_subscription }
 
-          it "shows a comparison of the result sets" do
-            given_i_am_on_the_save_results_confirm_page_with(new_criteria_keys)
-            expect(page).to have_content("British")
-            expect(page).to have_content("Another EU country, or Switzerland, Norway, Iceland or Liechtenstein")
+            it "shows a comparison of the result sets" do
+              given_i_am_on_the_save_results_confirm_page_with(new_criteria_keys)
+              expect(page).to have_content("British")
+              expect(page).to have_content("Another EU country, or Switzerland, Norway, Iceland or Liechtenstein")
+            end
+
+            it "updates the existing email alert automatically" do
+              stub = stub_account_api_set_email_subscription(slug: "your-get-ready-for-brexit-results-a1a2a3a4a5")
+              stub_attribute_service_request(:put)
+              given_i_am_on_the_save_results_confirm_page_with(new_criteria_keys)
+              click_on I18n.t("brexit_checker.confirm_changes.save_button")
+              expect(page).to_not have_content(I18n.t("brexit_checker.confirm_changes_email_signup.heading"))
+              expect(stub).to have_been_made
+            end
           end
 
           context "the user does not have an email subscription" do
-            let(:email_status) { 404 }
+            before { stub_account_api_does_not_have_email_subscription }
 
             it "prompt the user to sign up to email alerts" do
               given_i_am_on_the_save_results_confirm_page_with(new_criteria_keys)
@@ -185,7 +193,7 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
 
             context "the user wants email alerts" do
               it "creates an email alert" do
-                stub = stub_update_emails
+                stub = stub_account_api_set_email_subscription(slug: "your-get-ready-for-brexit-results-a1a2a3a4a5")
                 stub_attribute_service_request(:put)
                 given_i_am_on_the_save_results_confirm_page_with(new_criteria_keys)
                 click_on I18n.t("brexit_checker.confirm_changes.save_button")
@@ -193,17 +201,6 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
                 click_on I18n.t("brexit_checker.confirm_changes_email_signup.save_button")
                 expect(stub).to have_been_made
               end
-            end
-          end
-
-          context "the user has an email subscription" do
-            it "updates the existing email alert automatically" do
-              stub = stub_update_emails
-              stub_attribute_service_request(:put)
-              given_i_am_on_the_save_results_confirm_page_with(new_criteria_keys)
-              click_on I18n.t("brexit_checker.confirm_changes.save_button")
-              expect(page).to_not have_content(I18n.t("brexit_checker.confirm_changes_email_signup.heading"))
-              expect(stub).to have_been_made
             end
           end
         end
@@ -367,16 +364,6 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
       stub_request(method, "#{attribute_service_url}/v1/attributes/transition_checker_state")
         .with(headers: { "Authorization" => "Bearer #{access_token}" })
         .to_return(status: status, body: body.to_json)
-    end
-
-    def stub_email_check(status: 204)
-      stub_request(:get, "http://account-manager.dev.gov.uk/api/v1/transition-checker/email-subscription")
-        .to_return(status: status)
-    end
-
-    def stub_update_emails
-      stub_request(:post, "http://account-manager.dev.gov.uk/api/v1/transition-checker/email-subscription")
-        .to_return(status: 200)
     end
 
     def stub_find_or_create_subscriber_list(criteria_keys)

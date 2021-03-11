@@ -56,23 +56,13 @@ module AccountBrexitCheckerConcern
     end
   end
 
-  def oauth_fetch_email_subscription_from_account_or_logout
-    oauth_do_or_logout do
-      Services.oidc.has_email_subscription(
-        access_token: account_session_header_value[:access_token],
-        refresh_token: account_session_header_value[:refresh_token],
-      )
-    end
+  def fetch_email_subscription_from_account_or_logout
+    result = do_or_logout { Services.account_api.check_for_email_subscription(govuk_account_session: account_session_header) }
+    result&.fetch("has_subscription", false)
   end
 
-  def oauth_update_email_subscription_in_account_or_logout(slug)
-    oauth_do_or_logout do
-      Services.oidc.update_email_subscription(
-        slug: slug,
-        access_token: account_session_header_value[:access_token],
-        refresh_token: account_session_header_value[:refresh_token],
-      )
-    end
+  def update_email_subscription_in_account_or_logout(slug)
+    do_or_logout { Services.account_api.set_email_subscription(govuk_account_session: account_session_header, slug: slug) }
   end
 
   def oauth_update_answers_in_account_or_logout(new_criteria_keys)
@@ -91,5 +81,16 @@ module AccountBrexitCheckerConcern
     update_account_session_header_from_oauth_result yield
   rescue OidcClient::OAuthFailure
     logout!
+  end
+
+  def do_or_logout
+    return unless account_session_header
+
+    result = yield.to_h
+    set_account_session_header(govuk_account_session: result["govuk_account_session"]) if result["govuk_account_session"]
+    result
+  rescue GdsApi::HTTPUnauthorized
+    logout!
+    nil
   end
 end
