@@ -30,7 +30,7 @@ module AccountConcern
     if @check_accounts_available.nil?
       @check_accounts_available = true
       begin
-        RestClient.get(Services.accounts_api)
+        RestClient.get(Plek.find("account-manager"))
       rescue RestClient::ServiceUnavailable
         @check_accounts_available = false
       rescue StandardError
@@ -53,7 +53,7 @@ module AccountConcern
   end
 
   def handle_offline
-    redirect_to Services.accounts_api
+    redirect_to Plek.find("account-manager")
   end
 
   def fetch_account_session_header

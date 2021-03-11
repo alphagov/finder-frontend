@@ -6,13 +6,13 @@ RSpec.describe "When account is enabled", type: :request do
   end
 
   context "and accounts is returning a 503 error code" do
-    before { stub_request(:get, Services.accounts_api).to_return(status: 503) }
+    before { stub_request(:get, Plek.find("account-manager")).to_return(status: 503) }
 
     describe "/login" do
       it "redirects a user to the accounts 503 error page" do
         get transition_checker_new_session_path
 
-        expect(response).to redirect_to(Services.accounts_api)
+        expect(response).to redirect_to(Plek.find("account-manager"))
       end
     end
 
@@ -20,7 +20,7 @@ RSpec.describe "When account is enabled", type: :request do
       it "redirects a user to the accounts 503 error page" do
         get transition_checker_new_session_callback_path
 
-        expect(response).to redirect_to(Services.accounts_api)
+        expect(response).to redirect_to(Plek.find("account-manager"))
       end
     end
 
@@ -28,14 +28,14 @@ RSpec.describe "When account is enabled", type: :request do
       it "redirects a user to the accounts 503 error page" do
         get transition_checker_end_session_path
 
-        expect(response.body).to eq("Redirecting to #{Services.accounts_api}/sign-out?continue=1")
+        expect(response.body).to eq("Redirecting to #{Plek.find('account-manager')}/sign-out?continue=1")
       end
 
       context "With a continue parameter" do
         it "redirects a user to the accounts 503 error page" do
           get transition_checker_end_session_path, params: { continue: 1 }
 
-          expect(response.body).to eq("Redirecting to #{Services.accounts_api}/sign-out?done=1")
+          expect(response.body).to eq("Redirecting to #{Plek.find('account-manager')}/sign-out?done=1")
         end
       end
 
@@ -52,7 +52,7 @@ RSpec.describe "When account is enabled", type: :request do
       it "redirects a user to the accounts 503 error page" do
         get transition_checker_save_results_path
 
-        expect(response).to redirect_to(Services.accounts_api)
+        expect(response).to redirect_to(Plek.find("account-manager"))
       end
     end
 
@@ -60,7 +60,7 @@ RSpec.describe "When account is enabled", type: :request do
       it "redirects a user to the accounts 503 error page" do
         get transition_checker_save_results_confirm_path
 
-        expect(response).to redirect_to(Services.accounts_api)
+        expect(response).to redirect_to(Plek.find("account-manager"))
       end
     end
 
@@ -68,7 +68,7 @@ RSpec.describe "When account is enabled", type: :request do
       it "redirects a user to the accounts 503 error page" do
         get transition_checker_save_results_email_signup_path
 
-        expect(response).to redirect_to(Services.accounts_api)
+        expect(response).to redirect_to(Plek.find("account-manager"))
       end
     end
 
@@ -76,7 +76,7 @@ RSpec.describe "When account is enabled", type: :request do
       it "redirects a user to the accounts 503 error page" do
         get transition_checker_saved_results_path
 
-        expect(response).to redirect_to(Services.accounts_api)
+        expect(response).to redirect_to(Plek.find("account-manager"))
       end
     end
 
@@ -84,7 +84,7 @@ RSpec.describe "When account is enabled", type: :request do
       it "redirects a user to the accounts 503 error page" do
         get transition_checker_edit_saved_results_path
 
-        expect(response).to redirect_to(Services.accounts_api)
+        expect(response).to redirect_to(Plek.find("account-manager"))
       end
     end
   end

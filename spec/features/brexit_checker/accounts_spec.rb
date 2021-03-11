@@ -5,7 +5,7 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
   include GdsApi::TestHelpers::EmailAlertApi
 
   before do
-    stub_request(:get, Services.accounts_api).to_return(status: 200)
+    stub_request(:get, Plek.find("account-manager")).to_return(status: 200)
   end
 
   context "with accounts enabled" do

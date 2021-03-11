@@ -16,7 +16,7 @@ RSpec.feature "Brexit Checker create GOV.UK Account", type: :feature do
     allow_any_instance_of(OidcClient).to receive(:tokens!).and_return({ access_token: "access-token", refresh_token: "refresh-token" })
     allow_any_instance_of(OidcClient).to receive(:submit_jwt).and_return({ access_token: "access-token", refresh_token: "refresh-token", result: "jwt-id" })
     stub_email_subscription_confirmation
-    stub_request(:get, Services.accounts_api).to_return(status: 200)
+    stub_request(:get, Plek.find("account-manager")).to_return(status: 200)
   end
 
   context "accounts is enabled" do
@@ -31,7 +31,7 @@ RSpec.feature "Brexit Checker create GOV.UK Account", type: :feature do
 
   context "accounts is enabled but is returning 503" do
     before do
-      stub_request(:get, Services.accounts_api).to_return(status: 503)
+      stub_request(:get, Plek.find("account-manager")).to_return(status: 503)
     end
 
     scenario "user is only given the chance to subscribe via email" do
@@ -43,7 +43,7 @@ RSpec.feature "Brexit Checker create GOV.UK Account", type: :feature do
 
   context "accounts is enabled but is returning 500" do
     before do
-      stub_request(:get, Services.accounts_api).to_return(status: 500)
+      stub_request(:get, Plek.find("account-manager")).to_return(status: 500)
     end
 
     scenario "user is still given a chance to subscribe with an account" do

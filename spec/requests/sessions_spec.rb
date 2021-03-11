@@ -16,7 +16,7 @@ RSpec.describe "Sessions controller", type: :request do
 
     allow(Rails.configuration).to receive(:feature_flag_govuk_accounts).and_return(true)
     allow_any_instance_of(OidcClient).to receive(:discover).and_return(discovery_response)
-    stub_request(:get, Services.accounts_api).to_return(status: 200)
+    stub_request(:get, Plek.find("account-manager")).to_return(status: 200)
   end
 
   around do |example|
