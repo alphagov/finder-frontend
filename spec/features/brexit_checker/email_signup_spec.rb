@@ -1,7 +1,9 @@
 require "spec_helper"
+require "gds_api/test_helpers/account_api"
 require "gds_api/test_helpers/email_alert_api"
 
 RSpec.feature "Brexit Checker email signup", type: :feature do
+  include GdsApi::TestHelpers::AccountApi
   include GdsApi::TestHelpers::ContentStore
   include GdsApi::TestHelpers::EmailAlertApi
 
@@ -27,13 +29,7 @@ RSpec.feature "Brexit Checker email signup", type: :feature do
 
   context "with the GOV.UK Account feature flag" do
     before do
-      ENV["GOVUK_ACCOUNT_OAUTH_CLIENT_ID"] = "Application's OAuth client ID"
-      ENV["GOVUK_ACCOUNT_OAUTH_CLIENT_SECRET"] = "secret"
       allow(Rails.configuration).to receive(:feature_flag_govuk_accounts).and_return(true)
-      discovery_response = double(authorization_endpoint: "foo", token_endpoint: "foo", userinfo_endpoint: "foo", end_session_endpoint: "foo")
-      allow_any_instance_of(OidcClient).to receive(:userinfo_endpoint).and_return("http://attribute-service/oidc/user_info")
-      allow_any_instance_of(OidcClient).to receive(:discover).and_return(discovery_response)
-      allow_any_instance_of(OidcClient).to receive(:auth_uri).and_return({ uri: "http://account-mamager/login", state: SecureRandom.hex(16) })
       stub_request(:get, Plek.find("account-manager")).to_return(status: 200)
     end
 

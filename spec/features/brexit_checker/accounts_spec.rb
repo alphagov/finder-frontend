@@ -1,7 +1,9 @@
 require "spec_helper"
+require "gds_api/test_helpers/account_api"
 require "gds_api/test_helpers/email_alert_api"
 
 RSpec.feature "Brexit Checker accounts", type: :feature do
+  include GdsApi::TestHelpers::AccountApi
   include GdsApi::TestHelpers::EmailAlertApi
 
   before do
@@ -19,14 +21,6 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
 
       allow_any_instance_of(OidcClient).to receive(:userinfo_endpoint)
         .and_return("#{attribute_service_url}/oidc/user_info")
-
-      discovery_response = double(authorization_endpoint: "foo", token_endpoint: "foo", userinfo_endpoint: "foo", end_session_endpoint: "foo")
-
-      allow_any_instance_of(OidcClient).to receive(:discover)
-        .and_return(discovery_response)
-
-      allow_any_instance_of(OidcClient).to receive(:auth_uri)
-        .and_return({ uri: "http://account-mamager/login", state: SecureRandom.hex(16) })
     end
 
     let(:mock_results) { %w[nationality-eu] }
@@ -41,6 +35,7 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
 
       context "/transition-check/saved-results" do
         it "redirects to login page" do
+          stub_account_api_get_sign_in_url(redirect_path: "/transition-check/saved-results")
           given_i_am_on_the_saved_results_page
           expect(current_path).to eq(transition_checker_new_session_path)
         end
@@ -48,6 +43,7 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
 
       context "/transition-check/edit-saved-results" do
         it "redirects to login page" do
+          stub_account_api_get_sign_in_url(redirect_path: "/transition-check/saved-results")
           given_i_am_on_the_edit_saved_results_page
           expect(current_path).to eq(transition_checker_new_session_path)
         end
@@ -55,6 +51,7 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
 
       context "/transition-check/save-your-results/confirm" do
         it "redirects to login page" do
+          stub_account_api_get_sign_in_url(redirect_path: "/transition-check/save-your-results/confirm?c%5B%5D=nationality-eu")
           given_i_am_on_the_save_results_confirm_page
           expect(current_path).to eq(transition_checker_new_session_path)
         end
@@ -322,20 +319,9 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
       end
 
       def log_in
-        id_token = OpenIDConnect::ResponseObject::IdToken.new(
-          sub: "subject-identifier",
-          iss: "http://account-manager.dev.gov.uk",
-          aud: "test",
-          exp: 0,
-          iat: 0,
+        stub_account_api_validates_auth_response(
+          govuk_account_session: Base64.urlsafe_encode64("access-token") + "." + Base64.urlsafe_encode64("refresh-token"),
         )
-
-        allow_any_instance_of(OidcClient).to receive(:tokens!)
-          .and_return({ access_token: "access-token", refresh_token: "refresh-token", id_token: id_token })
-
-        stub_request(:get, "http://account-manager.dev.gov.uk/api/v1/ephemeral-state")
-          .with(headers: { "Authorization" => "Bearer access-token" })
-          .to_return(status: 200, body: "{}")
 
         visit transition_checker_new_session_callback_path(state: "state", code: "code")
 

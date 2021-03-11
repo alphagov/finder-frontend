@@ -82,14 +82,6 @@ module BrexitCheckerHelper
     end
   end
 
-  def account_signup_jwt(criteria_keys, subscriber_list_slug)
-    account_jwt = BrexitChecker::AccountJwt.new(
-      criteria_keys: criteria_keys,
-      subscriber_list_slug: subscriber_list_slug,
-    )
-    account_jwt.encode
-  end
-
   def path_based_on_account_feature_flag
     if accounts_available?
       transition_checker_save_results_path(c: criteria_keys)

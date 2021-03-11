@@ -1,8 +1,13 @@
+require "gds_api/account_api"
 require "gds_api/content_store"
 require "gds_api/search"
 require "gds_api/email_alert_api"
 
 module Services
+  def self.account_api
+    GdsApi::AccountApi.new(Plek.find("account-api"))
+  end
+
   def self.content_store
     GdsApi::ContentStore.new(Plek.find("content-store"))
   end
