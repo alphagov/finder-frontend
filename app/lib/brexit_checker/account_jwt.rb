@@ -1,8 +1,7 @@
 class BrexitChecker::AccountJwt
-  def initialize(criteria_keys:, subscriber_list_slug:, post_register_uri:)
+  def initialize(criteria_keys:, subscriber_list_slug:)
     @criteria_keys = criteria_keys
     @subscriber_list_slug = subscriber_list_slug
-    @post_register_uri = post_register_uri
   end
 
   def encode
@@ -11,12 +10,11 @@ class BrexitChecker::AccountJwt
 
 private
 
-  attr_reader :criteria_keys, :subscriber_list_slug, :post_register_uri
+  attr_reader :criteria_keys, :subscriber_list_slug
 
   def payload
     {
       attributes: attributes,
-      post_register_oauth: post_register_uri,
     }
   end
 

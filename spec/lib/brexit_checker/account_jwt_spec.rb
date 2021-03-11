@@ -2,21 +2,18 @@ require "spec_helper"
 
 RSpec.describe BrexitChecker::AccountJwt do
   let(:criteria_keys) { %w[hello world] }
-  let(:post_register_uri) { "http://www.example.com/register" }
   let(:subscriber_list_slug) { "test-slug" }
 
   let(:jwt) do
     described_class.new(
       criteria_keys: criteria_keys,
       subscriber_list_slug: subscriber_list_slug,
-      post_register_uri: post_register_uri,
     ).encode
   end
 
   it "generates a valid JWT" do
     payload, = JWT.decode(jwt, nil, false)
     expect(payload).to_not be_nil
-    expect(payload["post_register_oauth"]).to eq(post_register_uri)
   end
 
   it "includes the criteria keys" do
