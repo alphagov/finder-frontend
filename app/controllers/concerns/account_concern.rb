@@ -122,5 +122,13 @@ module AccountConcern
   def logout!
     response.headers[ACCOUNT_END_SESSION_HEADER_NAME] = "1"
     @account_session_header = nil
+
+    if Rails.env.development?
+      cookies[ACCOUNT_SESSION_DEV_COOKIE_NAME] = {
+        value: "",
+        domain: "dev.gov.uk",
+        expires: 1.second.ago,
+      }
+    end
   end
 end
