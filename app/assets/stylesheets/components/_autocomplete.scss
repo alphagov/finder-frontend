@@ -166,3 +166,10 @@ $size: 40px;
 .app-patch--search-input-override ~ .spelling-suggestions {
   margin-top: govuk-spacing(4);
 }
+
+// Hide on mobile
+.app-autocomplete-search__menu {
+  @include govuk-media-query($until: tablet) {
+    display: none;
+  }
+}
