@@ -142,6 +142,12 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
   }
 
   Autocomplete.prototype.handleSearchQuery = function (query, populateResults) {
+    // Autocomplete is hidden for mobile so don't send a request if the results won't be shown
+    var $autocomplete = document.querySelector('.app-autocomplete-search__menu')
+    if ($autocomplete.offsetParent === null){
+        return
+    }
+
     statusMessage = 'Searching...'
     this.userEnteredQuery = query
 
