@@ -148,7 +148,10 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
         return
     }
 
-    statusMessage = 'Searching...'
+    // Don't show a status message in case the API fails or is scaled down because it's causing problems
+    // Ideally, this would be shown but it's (probably) more important to fail gracefully for an A/B test
+    // statusMessage = 'Searching...'
+
     this.userEnteredQuery = query
 
     // check if current string exists in the cached array
@@ -179,8 +182,6 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
           var suggestions = response.results
           statusMessage = 'No suggestions found'
           cacheSuggestions(suggestions, populateResults)
-        } else {
-          statusMessage = 'Failed to load suggestions'
         }
       }
     }
