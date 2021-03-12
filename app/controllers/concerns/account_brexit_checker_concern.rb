@@ -5,6 +5,8 @@ module AccountBrexitCheckerConcern
 
   ACCOUNT_ACTIONS = %i[save_results save_results_sign_up save_results_confirm save_results_email_signup save_results_apply saved_results edit_saved_results].freeze
 
+  ATTRIBUTE_NAME = "transition_checker_state"
+
   included do
     # this is a false positive which will be fixed by updating rubocop
     # rubocop:disable Rails/LexicallyScopedActionFilter
@@ -17,7 +19,7 @@ module AccountBrexitCheckerConcern
   end
 
   def pre_results
-    results_in_account = oauth_fetch_results_from_account_or_logout
+    results_in_account = fetch_results_from_account_or_logout
     return unless logged_in?
 
     now = Time.zone.now.to_i
@@ -26,14 +28,14 @@ module AccountBrexitCheckerConcern
   end
 
   def pre_saved_results
-    results_in_account = oauth_fetch_results_from_account_or_logout
+    results_in_account = fetch_results_from_account_or_logout
     redirect_to logged_out_pre_saved_results_path and return unless logged_in?
 
     @saved_results = results_in_account.fetch("criteria_keys", [])
   end
 
   def pre_update_results
-    results_in_account = oauth_fetch_results_from_account_or_logout
+    results_in_account = fetch_results_from_account_or_logout
     redirect_to logged_out_pre_update_results_path and return unless logged_in?
 
     @saved_results = results_in_account.fetch("criteria_keys", [])
@@ -47,13 +49,9 @@ module AccountBrexitCheckerConcern
     transition_checker_new_session_path(redirect_path: transition_checker_save_results_confirm_path(c: criteria_keys), _ga: params[:_ga])
   end
 
-  def oauth_fetch_results_from_account_or_logout
-    oauth_do_or_logout do
-      Services.oidc.get_checker_attribute(
-        access_token: account_session_header_value[:access_token],
-        refresh_token: account_session_header_value[:refresh_token],
-      )
-    end
+  def fetch_results_from_account_or_logout
+    result = do_or_logout { Services.account_api.get_attributes(govuk_account_session: account_session_header, attributes: [ATTRIBUTE_NAME]) }
+    result&.dig("values", ATTRIBUTE_NAME) || {}
   end
 
   def fetch_email_subscription_from_account_or_logout
@@ -65,22 +63,8 @@ module AccountBrexitCheckerConcern
     do_or_logout { Services.account_api.set_email_subscription(govuk_account_session: account_session_header, slug: slug) }
   end
 
-  def oauth_update_answers_in_account_or_logout(new_criteria_keys)
-    oauth_do_or_logout do
-      Services.oidc.set_checker_attribute(
-        value: { criteria_keys: new_criteria_keys, timestamp: Time.zone.now.to_i },
-        access_token: account_session_header_value[:access_token],
-        refresh_token: account_session_header_value[:refresh_token],
-      )
-    end
-  end
-
-  def oauth_do_or_logout
-    return unless account_session_header_value
-
-    update_account_session_header_from_oauth_result yield
-  rescue OidcClient::OAuthFailure
-    logout!
+  def update_answers_in_account_or_logout(new_criteria_keys)
+    do_or_logout { Services.account_api.set_attributes(govuk_account_session: account_session_header, attributes: { ATTRIBUTE_NAME => { criteria_keys: new_criteria_keys, timestamp: Time.zone.now.to_i } }) }
   end
 
   def do_or_logout

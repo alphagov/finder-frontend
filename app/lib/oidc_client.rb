@@ -23,32 +23,6 @@ class OidcClient
     host + Rails.application.routes.url_helpers.transition_checker_new_session_callback_path
   end
 
-  def get_checker_attribute(access_token:, refresh_token: nil)
-    response = oauth_request(
-      access_token: access_token,
-      refresh_token: refresh_token,
-      method: :get,
-      uri: attribute_uri,
-    )
-
-    body = response[:result].body
-    if body.empty?
-      response.merge(result: {})
-    else
-      response.merge(result: JSON.parse(body)["claim_value"])
-    end
-  end
-
-  def set_checker_attribute(value:, access_token:, refresh_token: nil)
-    oauth_request(
-      access_token: access_token,
-      refresh_token: refresh_token,
-      method: :put,
-      uri: attribute_uri,
-      arg: { value: value.to_json },
-    )
-  end
-
 private
 
   OK_STATUSES = [200, 204, 404, 410].freeze

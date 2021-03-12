@@ -80,7 +80,7 @@ class BrexitCheckerController < ApplicationController
       update_email_subscription_in_account_or_logout subscriber_list_slug
     end
 
-    oauth_update_answers_in_account_or_logout criteria_keys
+    update_answers_in_account_or_logout criteria_keys
 
     if logged_in?
       redirect_to transition_checker_results_path(c: criteria_keys)

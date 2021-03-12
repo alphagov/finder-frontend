@@ -115,14 +115,6 @@ module AccountConcern
     end
   end
 
-  def update_account_session_header_from_oauth_result(result)
-    set_account_session_header(
-      access_token: result[:access_token],
-      refresh_token: result[:refresh_token],
-    )
-    result[:result]
-  end
-
   def logout!
     response.headers[ACCOUNT_END_SESSION_HEADER_NAME] = "1"
     @account_session_header = nil
