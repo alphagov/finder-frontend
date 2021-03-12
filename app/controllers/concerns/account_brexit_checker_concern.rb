@@ -71,7 +71,7 @@ module AccountBrexitCheckerConcern
     return unless account_session_header
 
     result = yield.to_h
-    set_account_session_header(govuk_account_session: result["govuk_account_session"]) if result["govuk_account_session"]
+    set_account_session_header(result["govuk_account_session"])
     result
   rescue GdsApi::HTTPUnauthorized
     logout!

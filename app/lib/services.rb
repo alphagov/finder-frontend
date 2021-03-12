@@ -35,12 +35,4 @@ module Services
   def self.registries
     Registries::BaseRegistries.new
   end
-
-  def self.oidc
-    OidcClient.new(
-      Plek.find("account-manager"),
-      ENV.fetch("GOVUK_ACCOUNT_OAUTH_CLIENT_ID"),
-      ENV.fetch("GOVUK_ACCOUNT_OAUTH_CLIENT_SECRET"),
-    )
-  end
 end

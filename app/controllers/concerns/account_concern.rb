@@ -45,7 +45,7 @@ module AccountConcern
   end
 
   def logged_in?
-    account_session_header_value&.dig(:access_token).present?
+    account_session_header.present?
   end
 
   def handle_disabled
@@ -67,20 +67,6 @@ module AccountConcern
       end
   end
 
-  def account_session_header_value
-    bits = (account_session_header || "").split(".")
-    if bits.length == 2
-      {
-        access_token: Base64.urlsafe_decode64(bits[0]),
-        refresh_token: Base64.urlsafe_decode64(bits[1]),
-      }
-    end
-  end
-
-  def encode_account_session_header(access_token, refresh_token)
-    "#{Base64.urlsafe_encode64(access_token)}.#{Base64.urlsafe_encode64(refresh_token)}"
-  end
-
   def show_signed_in_header?
     account_session_header.present?
   end
@@ -94,17 +80,8 @@ module AccountConcern
     )
   end
 
-  def set_account_session_header(govuk_account_session: nil, access_token: nil, refresh_token: nil)
-    unless govuk_account_session
-      new_access_token = access_token || account_session_header_value&.dig(:access_token)
-      new_refresh_token = refresh_token || account_session_header_value&.dig(:refresh_token)
-
-      return if new_access_token.nil? || new_refresh_token.nil?
-
-      govuk_account_session = encode_account_session_header(new_access_token, new_refresh_token)
-    end
-
-    @account_session_header = govuk_account_session
+  def set_account_session_header(govuk_account_session = nil)
+    @account_session_header = govuk_account_session if govuk_account_session
     response.headers[ACCOUNT_SESSION_HEADER_NAME] = @account_session_header
 
     if Rails.env.development?
