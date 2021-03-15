@@ -69,7 +69,7 @@ class BrexitCheckerController < ApplicationController
   def save_results_confirm
     redirect_to transition_checker_results_path(c: criteria_keys) and return if criteria_keys == @saved_results
 
-    @has_email_subscription = oauth_fetch_email_subscription_from_account_or_logout
+    @has_email_subscription = fetch_email_subscription_from_account_or_logout
     redirect_to logged_out_pre_update_results_path unless logged_in?
   end
 
@@ -77,7 +77,7 @@ class BrexitCheckerController < ApplicationController
 
   def save_results_apply
     if params[:email_decision] == "yes"
-      oauth_update_email_subscription_in_account_or_logout subscriber_list_slug
+      update_email_subscription_in_account_or_logout subscriber_list_slug
     end
 
     oauth_update_answers_in_account_or_logout criteria_keys

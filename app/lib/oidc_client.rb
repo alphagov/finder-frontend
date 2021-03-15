@@ -49,27 +49,6 @@ class OidcClient
     )
   end
 
-  def has_email_subscription(access_token:, refresh_token: nil)
-    response = oauth_request(
-      access_token: access_token,
-      refresh_token: refresh_token,
-      method: :get,
-      uri: email_subscription_uri,
-    )
-
-    response.merge(result: (200..299).include?(response[:result].status))
-  end
-
-  def update_email_subscription(slug:, access_token:, refresh_token: nil)
-    oauth_request(
-      access_token: access_token,
-      refresh_token: refresh_token,
-      method: :post,
-      uri: email_subscription_uri,
-      arg: { topic_slug: slug },
-    )
-  end
-
 private
 
   OK_STATUSES = [200, 204, 404, 410].freeze
@@ -107,12 +86,6 @@ private
   def attribute_uri
     URI.parse(userinfo_endpoint).tap do |u|
       u.path = "/v1/attributes/transition_checker_state"
-    end
-  end
-
-  def email_subscription_uri
-    URI.parse(provider_uri).tap do |u|
-      u.path = "/api/v1/transition-checker/email-subscription"
     end
   end
 
