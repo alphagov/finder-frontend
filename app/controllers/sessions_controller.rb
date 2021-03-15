@@ -21,7 +21,7 @@ class SessionsController < ApplicationController
       state: params.require(:state),
     ).to_h
 
-    set_account_session_header(govuk_account_session: callback["govuk_account_session"])
+    set_account_session_header(callback["govuk_account_session"])
 
     redirect_with_ga(callback["redirect_path"] || account_manager_url, callback["ga_client_id"])
   rescue GdsApi::HTTPUnauthorized
