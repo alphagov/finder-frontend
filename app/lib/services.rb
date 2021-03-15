@@ -5,7 +5,7 @@ require "gds_api/email_alert_api"
 
 module Services
   def self.account_api
-    GdsApi::AccountApi.new(Plek.find("account-api"))
+    GdsApi.account_api
   end
 
   def self.content_store
