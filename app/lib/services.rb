@@ -1,8 +1,13 @@
+require "gds_api/account_api"
 require "gds_api/content_store"
 require "gds_api/search"
 require "gds_api/email_alert_api"
 
 module Services
+  def self.account_api
+    GdsApi::AccountApi.new(Plek.find("account-api"))
+  end
+
   def self.content_store
     GdsApi::ContentStore.new(Plek.find("content-store"))
   end
@@ -31,13 +36,9 @@ module Services
     Registries::BaseRegistries.new
   end
 
-  def self.accounts_api
-    Plek.find("account-manager")
-  end
-
   def self.oidc
     OidcClient.new(
-      accounts_api,
+      Plek.find("account-manager"),
       ENV.fetch("GOVUK_ACCOUNT_OAUTH_CLIENT_ID"),
       ENV.fetch("GOVUK_ACCOUNT_OAUTH_CLIENT_SECRET"),
     )

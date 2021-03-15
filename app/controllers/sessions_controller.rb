@@ -7,48 +7,25 @@ class SessionsController < ApplicationController
   def create
     redirect_with_ga account_manager_url and return if logged_in?
 
-    redirect_with_ga Services.oidc.auth_uri(
+    redirect_with_ga Services.account_api.get_sign_in_url(
       redirect_path: params[:redirect_path],
-      state: params[:state],
-    )[:uri]
+      state_id: params[:state],
+    ).to_h["auth_uri"]
   end
 
   def callback
     redirect_to Plek.new.website_root and return unless params[:code]
 
-    state = params.require(:state)
+    callback = Services.account_api.validate_auth_response(
+      code: params.require(:code),
+      state: params.require(:state),
+    ).to_h
 
-    begin
-      callback = Services.oidc.callback(
-        params.require(:code),
-        state,
-      )
-    rescue OidcClient::OAuthFailure
-      head 400
-      return
-    end
+    set_account_session_header(govuk_account_session: callback["govuk_account_session"])
 
-    set_account_session_header(
-      access_token: callback[:access_token],
-      refresh_token: callback[:refresh_token],
-    )
-
-    ephemeral_state =
-      update_account_session_header_from_oauth_result(
-        Services.oidc.get_ephemeral_state(
-          access_token: callback[:access_token],
-          refresh_token: callback[:refresh_token],
-        ),
-      )
-
-    ga_client_id = ephemeral_state["_ga"]
-
-    if ephemeral_state["cookie_consent"] && cookies[:cookies_policy]
-      cookies_policy = JSON.parse(cookies[:cookies_policy]).symbolize_keys
-      cookies[:cookies_policy] = cookies_policy.merge(usage: true).to_json
-    end
-
-    redirect_with_ga(callback[:redirect_path] || account_manager_url, ga_client_id)
+    redirect_with_ga(callback["redirect_path"] || account_manager_url, callback["ga_client_id"])
+  rescue GdsApi::HTTPUnauthorized
+    head :bad_request
   end
 
   def delete

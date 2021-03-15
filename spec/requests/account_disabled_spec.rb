@@ -25,14 +25,14 @@ RSpec.describe "When account is disabled", type: :request do
     it "shows the user the 404 page" do
       get transition_checker_end_session_path
 
-      expect(response.body).to eq("Redirecting to #{Services.accounts_api}/sign-out?continue=1")
+      expect(response.body).to eq("Redirecting to #{Plek.find('account-manager')}/sign-out?continue=1")
     end
 
     context "With a continue parameter" do
       it "shows the user the 404 page" do
         get transition_checker_end_session_path, params: { continue: 1 }
 
-        expect(response.body).to eq("Redirecting to #{Services.accounts_api}/sign-out?done=1")
+        expect(response.body).to eq("Redirecting to #{Plek.find('account-manager')}/sign-out?done=1")
       end
     end
 

@@ -30,7 +30,7 @@ module AccountConcern
     if @check_accounts_available.nil?
       @check_accounts_available = true
       begin
-        RestClient.get(Services.accounts_api)
+        RestClient.get(Plek.find("account-manager"))
       rescue RestClient::ServiceUnavailable
         @check_accounts_available = false
       rescue StandardError
@@ -53,7 +53,7 @@ module AccountConcern
   end
 
   def handle_offline
-    redirect_to Services.accounts_api
+    redirect_to Plek.find("account-manager")
   end
 
   def fetch_account_session_header
@@ -94,13 +94,17 @@ module AccountConcern
     )
   end
 
-  def set_account_session_header(access_token: nil, refresh_token: nil)
-    new_access_token = access_token || account_session_header_value&.dig(:access_token)
-    new_refresh_token = refresh_token || account_session_header_value&.dig(:refresh_token)
+  def set_account_session_header(govuk_account_session: nil, access_token: nil, refresh_token: nil)
+    unless govuk_account_session
+      new_access_token = access_token || account_session_header_value&.dig(:access_token)
+      new_refresh_token = refresh_token || account_session_header_value&.dig(:refresh_token)
 
-    return if new_access_token.nil? || new_refresh_token.nil?
+      return if new_access_token.nil? || new_refresh_token.nil?
 
-    @account_session_header = encode_account_session_header(new_access_token, new_refresh_token)
+      govuk_account_session = encode_account_session_header(new_access_token, new_refresh_token)
+    end
+
+    @account_session_header = govuk_account_session
     response.headers[ACCOUNT_SESSION_HEADER_NAME] = @account_session_header
 
     if Rails.env.development?
