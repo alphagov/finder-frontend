@@ -145,7 +145,8 @@ questions:
           - living-row
     type: single
     text: Do you plan to move to the EU or visit for more than 90 days?
-    hint_text: This includes Switzerland, Norway, Iceland or Liechtenstein but does not include Ireland.
+    description: |
+      <p>This includes Switzerland, Norway, Iceland or Liechtenstein but does not include Ireland.</p>
     options:
       - label: "Yes"
         value: move-to-eu
@@ -172,7 +173,8 @@ questions:
     type: single
     caption: About you and your family
     text: 'Are you a family member of an EU citizen?'
-    hint_text: 'This also includes Switzerland, Norway, Iceland and Liechtenstein.'
+    description: |
+      <p>This also includes Switzerland, Norway, Iceland and Liechtenstein.</p>
     criteria:
       all_of:
         - nationality-row
