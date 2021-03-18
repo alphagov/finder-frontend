@@ -198,12 +198,12 @@ GEM
     httpclient (2.8.3)
     i18n (1.8.9)
       concurrent-ruby (~> 1.0)
-    jasmine (3.6.0)
-      jasmine-core (~> 3.6.0)
+    jasmine (3.7.0)
+      jasmine-core (~> 3.7.0)
       phantomjs
       rack (>= 1.2.1)
       rake
-    jasmine-core (3.6.0)
+    jasmine-core (3.7.0)
     jasmine_selenium_runner (3.0.0)
       jasmine (~> 3.0)
       selenium-webdriver (~> 3.8)
