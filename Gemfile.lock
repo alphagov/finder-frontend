@@ -176,7 +176,7 @@ GEM
       statsd-ruby (~> 1.5.0)
       unicorn (>= 5.4, < 5.9)
     govuk_document_types (0.9.2)
-    govuk_publishing_components (24.6.1)
+    govuk_publishing_components (24.7.0)
       govuk_app_config
       kramdown
       plek
@@ -212,7 +212,7 @@ GEM
       addressable (>= 2.4)
     jwt (2.2.1)
     kgio (2.11.3)
-    kramdown (2.3.0)
+    kramdown (2.3.1)
       rexml
     launchy (2.5.0)
       addressable (~> 2.7)
