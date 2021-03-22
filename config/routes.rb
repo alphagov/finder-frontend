@@ -41,9 +41,6 @@ FinderFrontend::Application.routes.draw do
   get "/*slug/email-signup" => "email_alert_subscriptions#new", as: :new_email_alert_subscriptions
   post "/*slug/email-signup" => "email_alert_subscriptions#create", as: :email_alert_subscriptions
 
-  # Q&A frontend for "UK Nationals in the EU" (www.gov.uk/uk-nationals-in-the-eu)
-  get "/uk-nationals-living-eu" => "qa_to_content#show"
-
   get "/search/advanced" => "redirection#advanced_search"
 
   get "/*slug" => "redirection#redirect_covid", constraints: lambda { |request|
