@@ -5,7 +5,6 @@ RSpec.describe "Sessions controller", type: :request do
   include GdsApi::TestHelpers::AccountApi
 
   before do
-    allow(Rails.configuration).to receive(:feature_flag_govuk_accounts).and_return(true)
     stub_request(:get, Plek.find("account-manager")).to_return(status: 200)
   end
 

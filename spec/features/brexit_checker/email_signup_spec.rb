@@ -16,34 +16,16 @@ RSpec.feature "Brexit Checker email signup", type: :feature do
     }
   end
 
-  context "without the GOV.UK Account feature flag" do
-    scenario "user clicks to signup to email alerts" do
-      given_im_on_the_results_page
-      and_email_alert_api_creates_subscriber_list
-      then_i_click_to_subscribe # on main results page
-      then_i_click_to_subscribe # on overview of subscription page
-      and_the_subscriber_list_was_created
-      and_i_am_taken_to_email_alert_frontend
-    end
-  end
-
-  context "with the GOV.UK Account feature flag" do
-    before do
-      allow(Rails.configuration).to receive(:feature_flag_govuk_accounts).and_return(true)
-      stub_request(:get, Plek.find("account-manager")).to_return(status: 200)
-    end
-
-    scenario "user clicks to signup to email alerts" do
-      given_im_on_the_results_page
-      and_email_alert_api_creates_subscriber_list
-      then_i_click_to_subscribe
-      and_i_am_taken_to_choose_how_to_subscribe_page
-      then_i_click_email_alerts_only
-      and_i_am_taken_to_email_alert_signup_page
-      then_i_click_to_subscribe
-      and_the_subscriber_list_was_created
-      and_i_am_taken_to_email_alert_frontend
-    end
+  scenario "user clicks to signup to email alerts" do
+    given_im_on_the_results_page
+    and_email_alert_api_creates_subscriber_list
+    then_i_click_to_subscribe
+    and_i_am_taken_to_choose_how_to_subscribe_page
+    then_i_click_email_alerts_only
+    and_i_am_taken_to_email_alert_signup_page
+    then_i_click_to_subscribe
+    and_the_subscriber_list_was_created
+    and_i_am_taken_to_email_alert_frontend
   end
 
   def given_im_on_the_results_page
