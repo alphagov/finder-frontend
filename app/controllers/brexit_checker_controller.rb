@@ -10,8 +10,7 @@ class BrexitCheckerController < ApplicationController
     save_results_apply
   ]
 
-  before_action :enable_caching, only: %i[show email_signup confirm_email_signup]
-  before_action :enable_caching_unless_accounts, only: %i[results]
+  before_action :enable_caching, only: %i[show email_signup confirm_email_signup results]
 
   helper_method :subscriber_list_slug
 
@@ -114,10 +113,6 @@ private
 
   def enable_caching
     expires_in(30.minutes, public: true) unless Rails.env.development?
-  end
-
-  def enable_caching_unless_accounts
-    enable_caching unless accounts_enabled?
   end
 
   def subscriber_list_options
