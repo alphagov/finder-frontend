@@ -10,8 +10,6 @@ module AccountBrexitCheckerConcern
   included do
     # this is a false positive which will be fixed by updating rubocop
     # rubocop:disable Rails/LexicallyScopedActionFilter
-    before_action :handle_disabled, only: ACCOUNT_ACTIONS, unless: :accounts_enabled?
-    before_action :handle_offline, only: ACCOUNT_ACTIONS, unless: :accounts_available?
     before_action :pre_results, only: %i[results]
     before_action :pre_saved_results, only: %i[saved_results edit_saved_results]
     before_action :pre_update_results, only: %i[save_results_confirm save_results_apply]

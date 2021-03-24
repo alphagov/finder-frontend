@@ -9,51 +9,17 @@ module AccountConcern
   ACCOUNT_SESSION_DEV_COOKIE_NAME = "govuk_account_session"
 
   included do
-    before_action :fetch_account_session_header, if: :accounts_enabled?
-    before_action :set_account_session_header, if: :accounts_enabled?
-    before_action :set_account_variant, if: :accounts_enabled?
+    before_action :fetch_account_session_header
+    before_action :set_account_session_header
+    before_action :set_account_variant
 
-    helper_method :accounts_available?,
-                  :accounts_enabled?,
-                  :logged_in?
+    helper_method :logged_in?
 
     attr_accessor :account_session_header
   end
 
-  def accounts_enabled?
-    Rails.configuration.feature_flag_govuk_accounts
-  end
-
-  def accounts_available?
-    return false unless accounts_enabled?
-
-    if @check_accounts_available.nil?
-      @check_accounts_available = true
-      begin
-        RestClient.get(Plek.find("account-manager"))
-      rescue RestClient::ServiceUnavailable
-        @check_accounts_available = false
-      rescue StandardError
-        # Currently we're only guarding against planned 503 errors
-        # In future we may want to selectively disable accounts if
-        # a 5xx error rate gets too high, but that needs some more
-        # thought first.
-        @check_accounts_available = true
-      end
-    end
-    @check_accounts_available
-  end
-
   def logged_in?
     account_session_header.present?
-  end
-
-  def handle_disabled
-    render status: :not_found, plain: "404 error not found"
-  end
-
-  def handle_offline
-    redirect_to Plek.find("account-manager")
   end
 
   def fetch_account_session_header
