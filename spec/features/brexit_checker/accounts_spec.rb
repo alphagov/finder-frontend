@@ -18,39 +18,41 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
 
     context "/transition-check/saved-results" do
       it "redirects to login page" do
-        stub_account_api_get_sign_in_url(redirect_path: "/transition-check/saved-results")
         given_i_am_on_the_saved_results_page
-        expect(current_path).to eq(transition_checker_new_session_path)
+        expect(page).to have_current_path(
+          "#{Plek.find('frontend')}/sign-in?#{CGI.escape('redirect_path=/transition-check/saved-results')}",
+        )
       end
     end
 
     context "/transition-check/edit-saved-results" do
       it "redirects to login page" do
-        stub_account_api_get_sign_in_url(redirect_path: "/transition-check/saved-results")
         given_i_am_on_the_edit_saved_results_page
-        expect(current_path).to eq(transition_checker_new_session_path)
+        expect(page).to have_current_path(
+          "#{Plek.find('frontend')}/sign-in?#{CGI.escape('redirect_path=/transition-check/edit-saved-results')}",
+        )
       end
     end
 
     context "/transition-check/save-your-results/confirm" do
       it "redirects to login page" do
-        stub_account_api_get_sign_in_url(redirect_path: "/transition-check/save-your-results/confirm?c%5B%5D=nationality-eu")
         given_i_am_on_the_save_results_confirm_page
-        expect(current_path).to eq(transition_checker_new_session_path)
+        expect(page).to have_current_path(
+          "#{Plek.find('frontend')}/sign-in?#{CGI.escape('redirect_path=/transition-check/save-your-results/confirm?c%5B%5D=nationality-eu')}",
+        )
       end
     end
   end
 
   context "the user is logged in" do
     before do
-      log_in
       @original_headers = page.driver.options[:headers]
+      @original_account_session_header = "placeholder-session"
       page.driver.options[:headers] ||= {}
       page.driver.options[:headers].merge!("GOVUK-Account-Session" => @original_account_session_header)
     end
 
     after do
-      log_out
       page.driver.options[:headers] = @original_headers
     end
 
@@ -194,22 +196,6 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
           expect(page).to have_current_path(transition_checker_results_path(c: criteria_keys))
         end
       end
-    end
-
-    def log_in
-      stub_account_api_validates_auth_response(
-        govuk_account_session: Base64.urlsafe_encode64("access-token") + "." + Base64.urlsafe_encode64("refresh-token"),
-      )
-
-      visit transition_checker_new_session_callback_path(state: "state", code: "code")
-
-      @original_account_session_header = page.response_headers["GOVUK-Account-Session"]
-      expect(@original_account_session_header).to_not be_nil
-    end
-
-    def log_out
-      visit transition_checker_end_session_path(done: "1")
-      expect(page.response_headers["GOVUK-Account-End-Session"]).to_not be_nil
     end
   end
 
