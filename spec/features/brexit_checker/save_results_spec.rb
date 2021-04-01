@@ -41,7 +41,7 @@ RSpec.feature "Brexit Checker create GOV.UK Account", type: :feature do
   end
 
   def i_get_redirected_to_sign_up
-    expect(page.current_url).to include("&state=jwt-id")
+    expect(page.current_url).to include("&state_id=jwt-id")
   end
 
   def stub_email_subscription_confirmation
