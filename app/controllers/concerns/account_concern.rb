@@ -90,7 +90,14 @@ module AccountConcern
 
   def pre_saved_results
     results_in_account = fetch_results_from_account_or_logout
-    redirect_to logged_out_pre_saved_results_path and return unless logged_in?
+
+    redirect_path = if action_name == "saved_results"
+                      transition_checker_saved_results_path
+                    elsif action_name == "edit_saved_results"
+                      transition_checker_edit_saved_results_path
+                    end
+
+    redirect_to logged_out_pre_saved_results_path(redirect_path) and return unless logged_in?
 
     @saved_results = results_in_account.fetch("criteria_keys", [])
   end
@@ -102,8 +109,8 @@ module AccountConcern
     @saved_results = results_in_account.fetch("criteria_keys", [])
   end
 
-  def logged_out_pre_saved_results_path
-    transition_checker_new_session_url(redirect_path: transition_checker_saved_results_path, _ga: params[:_ga])
+  def logged_out_pre_saved_results_path(path = transition_checker_saved_results_path)
+    transition_checker_new_session_url(redirect_path: path, _ga: params[:_ga])
   end
 
   def logged_out_pre_update_results_path
