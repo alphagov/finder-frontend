@@ -5,7 +5,6 @@ describe BrexitCheckerController, type: :controller do
 
   context "accounts header" do
     before do
-      allow(Rails.configuration).to receive(:feature_flag_govuk_accounts).and_return(true)
       stub_request(:get, Plek.find("account-manager")).to_return(status: 200)
     end
 

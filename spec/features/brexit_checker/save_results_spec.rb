@@ -8,56 +8,21 @@ RSpec.feature "Brexit Checker create GOV.UK Account", type: :feature do
   include GdsApi::TestHelpers::EmailAlertApi
 
   before do
-    allow(Rails.configuration).to receive(:feature_flag_govuk_accounts).and_return(true)
     stub_account_api_create_registration_state(state_id: "jwt-id")
     stub_account_api_get_sign_in_url(redirect_path: "/transition-check/save-your-results/confirm?c%5B%5D=nationality-eu", state_id: "jwt-id")
     stub_email_subscription_confirmation
-    stub_request(:get, Plek.find("account-manager")).to_return(status: 200)
   end
 
-  context "accounts is enabled" do
-    scenario "user clicks Create a GOV.UK account" do
-      given_im_on_the_results_page
-      then_i_click_to_subscribe
-      and_i_am_taken_to_choose_how_to_subscribe_page
-      and_i_click_the_create_account_button
-      i_get_redirected_to_sign_up
-    end
-  end
-
-  context "accounts is enabled but is returning 503" do
-    before do
-      stub_request(:get, Plek.find("account-manager")).to_return(status: 503)
-    end
-
-    scenario "user is only given the chance to subscribe via email" do
-      given_im_on_the_results_page
-      then_i_click_to_subscribe
-      i_see_the_subscribe_by_email_page
-    end
-  end
-
-  context "accounts is enabled but is returning 500" do
-    before do
-      stub_request(:get, Plek.find("account-manager")).to_return(status: 500)
-    end
-
-    scenario "user is still given a chance to subscribe with an account" do
-      given_im_on_the_results_page
-      then_i_click_to_subscribe
-      and_i_am_taken_to_choose_how_to_subscribe_page
-      and_i_click_the_create_account_button
-      i_get_redirected_to_sign_up
-    end
+  scenario "user clicks Create a GOV.UK account" do
+    given_im_on_the_results_page
+    then_i_click_to_subscribe
+    and_i_am_taken_to_choose_how_to_subscribe_page
+    and_i_click_the_create_account_button
+    i_get_redirected_to_sign_up
   end
 
   def given_im_on_the_results_page
     visit transition_checker_results_url(c: %w[nationality-eu])
-  end
-
-  def i_see_the_subscribe_by_email_page
-    expect(page).to have_current_path(transition_checker_email_signup_url(c: %w[nationality-eu]))
-    expect(page).to have_content(I18n.t("brexit_checker.email_signup.sign_up_heading"))
   end
 
   def then_i_click_to_subscribe

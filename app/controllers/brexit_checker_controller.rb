@@ -1,6 +1,5 @@
 class BrexitCheckerController < ApplicationController
   include AccountConcern
-  include AccountBrexitCheckerConcern
   include BrexitCheckerHelper
 
   layout "finder_layout"
@@ -11,8 +10,7 @@ class BrexitCheckerController < ApplicationController
     save_results_apply
   ]
 
-  before_action :enable_caching, only: %i[show email_signup confirm_email_signup]
-  before_action :enable_caching_unless_accounts, only: %i[results]
+  before_action :enable_caching, only: %i[show email_signup confirm_email_signup results]
 
   helper_method :subscriber_list_slug
 
@@ -58,8 +56,7 @@ class BrexitCheckerController < ApplicationController
         },
       },
     ).to_h["state_id"]
-
-    redirect_to transition_checker_new_session_path(
+    redirect_to transition_checker_new_session_url(
       redirect_path: transition_checker_save_results_confirm_path(c: criteria_keys),
       state: state_id,
       _ga: params[:_ga],
@@ -115,10 +112,6 @@ private
 
   def enable_caching
     expires_in(30.minutes, public: true) unless Rails.env.development?
-  end
-
-  def enable_caching_unless_accounts
-    enable_caching unless accounts_enabled?
   end
 
   def subscriber_list_options

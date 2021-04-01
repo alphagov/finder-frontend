@@ -56,12 +56,5 @@ module FinderFrontend
     # to use CSS that has same function names as SCSS such as max.
     # https://github.com/alphagov/govuk-frontend/issues/1350
     config.assets.css_compressor = nil
-
-    # As part of the 2020 user discovery into GOV.UK accounts we want to deploy
-    # a live prototype allowing Brexit/Transition checker users to persisit their
-    # results page. We want to be able to toggle this feature on/off in the environment
-    # so we can launch this seemlessly with finder-frontend's continuious deployment
-    # and roll back if required.
-    config.feature_flag_govuk_accounts = ENV["FEATURE_FLAG_ACCOUNTS"] == "enabled"
   end
 end

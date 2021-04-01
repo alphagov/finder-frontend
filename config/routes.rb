@@ -1,6 +1,9 @@
 FinderFrontend::Application.routes.draw do
   mount GovukPublishingComponents::Engine, at: "/component-guide"
 
+  get "/sign-in", to: proc { [200, {}, %w[OK]] }
+  get "/sign-out", to: proc { [200, {}, %w[OK]] }
+
   get "/healthcheck.json",
       to: GovukHealthcheck.rack_response(
         Healthchecks::RegistriesCache,
@@ -23,9 +26,6 @@ FinderFrontend::Application.routes.draw do
     get "/questions" => "brexit_checker#show", as: :transition_checker_questions
     get "/email-signup" => "brexit_checker#email_signup", as: :transition_checker_email_signup
     post "/email-signup" => "brexit_checker#confirm_email_signup", as: :transition_checker_confirm_email_signup
-    get "/login", to: "sessions#create", as: :transition_checker_new_session
-    get "/login/callback", to: "sessions#callback", as: :transition_checker_new_session_callback
-    get "/logout", to: "sessions#delete", as: :transition_checker_end_session
     get "/save-your-results" => "brexit_checker#save_results", as: :transition_checker_save_results
     post "/save-your-results/sign-up" => "brexit_checker#save_results_sign_up", as: :transition_checker_save_results_sign_up
     get "/save-your-results/confirm", to: "brexit_checker#save_results_confirm", as: :transition_checker_save_results_confirm

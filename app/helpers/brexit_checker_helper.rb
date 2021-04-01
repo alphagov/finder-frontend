@@ -82,14 +82,6 @@ module BrexitCheckerHelper
     end
   end
 
-  def path_based_on_account_feature_flag
-    if accounts_available?
-      transition_checker_save_results_path(c: criteria_keys)
-    else
-      transition_checker_email_signup_path(c: criteria_keys)
-    end
-  end
-
   def results_comparison(old_criteria_keys, new_criteria_keys)
     answers_diff = BrexitChecker::Question.load_all.map do |question|
       flattened_options = flatten_options(question.options)
