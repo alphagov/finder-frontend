@@ -58,7 +58,7 @@ class BrexitCheckerController < ApplicationController
     ).to_h["state_id"]
     redirect_to transition_checker_new_session_url(
       redirect_path: transition_checker_save_results_confirm_path(c: criteria_keys),
-      state: state_id,
+      state_id: state_id,
       _ga: params[:_ga],
     )
   end
