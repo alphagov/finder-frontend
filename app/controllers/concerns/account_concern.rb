@@ -5,7 +5,7 @@ module AccountConcern
 
   ACCOUNT_SESSION_HEADER_INTERNAL_NAME = "HTTP_GOVUK_ACCOUNT_SESSION"
   ACCOUNT_SESSION_HEADER_NAME = "GOVUK-Account-Session"
-  ACCOUNT_END_SESSION_HEADER_NAME = "GOVUK-Account-End-Session"
+  ACCOUNT_END_SESSION_RESPONSE_HEADER_NAME = "GOVUK-Account-End-Session"
   ACCOUNT_SESSION_DEV_COOKIE_NAME = "govuk_account_session"
 
   ATTRIBUTE_NAME = "transition_checker_state"
@@ -67,7 +67,7 @@ module AccountConcern
   end
 
   def logout!
-    response.headers[ACCOUNT_END_SESSION_HEADER_NAME] = "1"
+    response.headers[ACCOUNT_END_SESSION_RESPONSE_HEADER_NAME] = "1"
     @account_session_header = nil
 
     if Rails.env.development?
