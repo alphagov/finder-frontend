@@ -45,16 +45,8 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
   end
 
   context "the user is logged in" do
-    before do
-      @original_headers = page.driver.options[:headers]
-      @original_account_session_header = "placeholder-session"
-      page.driver.options[:headers] ||= {}
-      page.driver.options[:headers].merge!("GOVUK-Account-Session" => @original_account_session_header)
-    end
-
-    after do
-      page.driver.options[:headers] = @original_headers
-    end
+    before { page.driver.header("GOVUK-Account-Session", "placeholder") }
+    after  { page.driver.header("GOVUK-Account-Session", nil) }
 
     let(:transition_checker_state) { { criteria_keys: criteria_keys, timestamp: 42 } }
     let(:criteria_keys) { %w[nationality-uk] }
@@ -69,7 +61,7 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
 
       it "reads the new account header" do
         given_i_am_on_the_results_page
-        expect(page.response_headers["GOVUK-Account-Session"]).to eq(@original_account_session_header)
+        expect(page.response_headers["GOVUK-Account-Session"]).to eq("placeholder")
       end
 
       context "the querystring differs to the value in the account" do
