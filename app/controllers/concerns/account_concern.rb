@@ -3,7 +3,7 @@
 module AccountConcern
   extend ActiveSupport::Concern
 
-  ACCOUNT_SESSION_HEADER_INTERNAL_NAME = "HTTP_GOVUK_ACCOUNT_SESSION"
+  ACCOUNT_SESSION_REQUEST_HEADER_NAME = "HTTP_GOVUK_ACCOUNT_SESSION"
   ACCOUNT_SESSION_HEADER_NAME = "GOVUK-Account-Session"
   ACCOUNT_END_SESSION_RESPONSE_HEADER_NAME = "GOVUK-Account-End-Session"
   ACCOUNT_SESSION_DEV_COOKIE_NAME = "govuk_account_session"
@@ -32,8 +32,8 @@ module AccountConcern
 
   def fetch_account_session_header
     @account_session_header =
-      if request.headers[ACCOUNT_SESSION_HEADER_INTERNAL_NAME]
-        request.headers[ACCOUNT_SESSION_HEADER_INTERNAL_NAME]
+      if request.headers[ACCOUNT_SESSION_REQUEST_HEADER_NAME]
+        request.headers[ACCOUNT_SESSION_REQUEST_HEADER_NAME]
       elsif request.headers.to_h[ACCOUNT_SESSION_HEADER_NAME]
         request.headers.to_h[ACCOUNT_SESSION_HEADER_NAME]
       elsif Rails.env.development?
