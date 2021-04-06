@@ -4,10 +4,6 @@ describe BrexitCheckerController, type: :controller do
   render_views
 
   context "accounts header" do
-    before do
-      stub_request(:get, Plek.find("account-manager")).to_return(status: 200)
-    end
-
     it "disables the search field" do
       get :show
       assert_equal "true", response.headers["X-Slimmer-Remove-Search"]
