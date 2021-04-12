@@ -175,7 +175,6 @@ GEM
       sentry-raven (~> 3.1.1)
       statsd-ruby (~> 1.5.0)
       unicorn (>= 5.4, < 5.9)
-    govuk_document_types (0.9.3)
     govuk_publishing_components (24.9.0)
       govuk_app_config
       kramdown
@@ -466,7 +465,6 @@ DEPENDENCIES
   govuk-content-schema-test-helpers
   govuk_ab_testing
   govuk_app_config
-  govuk_document_types
   govuk_publishing_components
   govuk_schemas
   govuk_test
