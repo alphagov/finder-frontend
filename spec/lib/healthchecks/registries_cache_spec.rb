@@ -36,8 +36,8 @@ RSpec.describe Healthchecks::RegistriesCache do
   end
 
   context "Registries caches are empty" do
-    it "has an OK status" do
-      expect(check.status).to eq :warning
+    it "has a critical status" do
+      expect(check.status).to eq :critical
       expect(check.message).to eq "The following registry caches are empty: world_locations, all_part_of_taxonomy_tree, part_of_taxonomy_tree, people, roles, organisations, manual, full_topic_taxonomy, topical_events."
     end
   end

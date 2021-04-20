@@ -16,7 +16,7 @@ describe "Healthcheck" do
     end
 
     it "returns an OK status" do
-      get "/healthcheck.json"
+      get "/healthcheck/ready"
       expect(JSON.parse(response.body)).to eq(
         "checks" => {
           "registries_have_data" => {
@@ -34,16 +34,16 @@ describe "Healthcheck" do
       Rails.cache.clear
     end
 
-    it "returns a warning status" do
-      get "/healthcheck.json"
+    it "returns a critical status" do
+      get "/healthcheck/ready"
       expect(JSON.parse(response.body)).to eq(
         "checks" => {
           "registries_have_data" => {
             "message" => "The following registry caches are empty: world_locations, all_part_of_taxonomy_tree, part_of_taxonomy_tree, people, roles, organisations, manual, full_topic_taxonomy, topical_events.",
-            "status" => "warning",
+            "status" => "critical",
           },
         },
-        "status" => "warning",
+        "status" => "critical",
       )
     end
   end

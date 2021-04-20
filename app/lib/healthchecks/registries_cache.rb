@@ -5,8 +5,8 @@ module Healthchecks
     end
 
     def status
-      if in_warning_state?
-        :warning
+      if empty_registries.any?
+        :critical
       else
         :ok
       end
@@ -14,7 +14,7 @@ module Healthchecks
 
     # Optional
     def message
-      if in_warning_state?
+      if empty_registries.any?
         "The following registry caches are empty: #{empty_registries.keys.join(', ')}."
       else
         "OK"
@@ -27,10 +27,6 @@ module Healthchecks
     end
 
   private
-
-    def in_warning_state?
-      empty_registries.any?
-    end
 
     def empty_registries
       @empty_registries ||= registries.select do |_key, registry|
