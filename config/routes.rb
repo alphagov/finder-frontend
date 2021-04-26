@@ -4,12 +4,6 @@ FinderFrontend::Application.routes.draw do
   get "/sign-in", to: proc { [200, {}, %w[OK]] }
   get "/sign-out", to: proc { [200, {}, %w[OK]] }
 
-  get "/healthcheck.json",
-      to: GovukHealthcheck.rack_response(
-        Healthchecks::RegistriesCache,
-      )
-  get "/healthcheck", to: proc { [200, {}, %w[OK]] }
-
   get "/healthcheck/live", to: proc { [200, {}, %w[OK]] }
   get "/healthcheck/ready", to: GovukHealthcheck.rack_response(
     Healthchecks::RegistriesCache,
