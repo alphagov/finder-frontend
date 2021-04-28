@@ -62,7 +62,7 @@ describe('Mobile filters modal', function () {
 
     it('should show the modal', function () {
       var modal = document.querySelector('.facets')
-      expect($(modal).is(':visible')).toBe(true)
+      expect($(modal).hasClass('facets--visible')).toBe(true)
     })
   })
 
@@ -73,7 +73,7 @@ describe('Mobile filters modal', function () {
 
       var modal = document.querySelector('.facets')
       document.querySelector('.js-close-filters').click()
-      expect($(modal).is(':visible')).toBe(false)
+      expect($(modal).hasClass('facets--visible')).toBe(false)
     })
   })
 
@@ -90,7 +90,7 @@ describe('Mobile filters modal', function () {
 
     it('should show the modal', function () {
       var modal = document.querySelector('.facets')
-      expect($(modal).is(':visible')).toBe(true)
+      expect($(modal).hasClass('facets--visible')).toBe(true)
     })
 
     it('should focus the modal', function () {
@@ -104,7 +104,7 @@ describe('Mobile filters modal', function () {
       var modal = document.querySelector('.facets')
       modal.open()
       modal.close()
-      expect($(modal).is(':visible')).toBe(false)
+      expect($(modal).hasClass('facets--visible')).toBe(false)
     })
   })
 

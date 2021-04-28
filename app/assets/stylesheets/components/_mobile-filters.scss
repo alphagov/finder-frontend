@@ -18,6 +18,10 @@
 .js-enabled .facets {
   @include govuk-media-query($until: tablet) {
     display: none;
+
+    &.facets--visible {
+      display: block;
+    }
   }
 }
 
