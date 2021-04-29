@@ -291,7 +291,7 @@ questions:
     type: "single_wrapped"
     text: "Do you use or rely on intellectual property (IP) protection?"
     description: |
-      <p>Intellectual property protection includes copyright, trade marks and patents.</p>
+      <p>Intellectual property protection includes copyright, trade marks, patents and designs.</p>
     options:
       - label: "Yes"
         value: ip
