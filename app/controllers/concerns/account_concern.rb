@@ -33,7 +33,7 @@ module AccountConcern
   def fetch_account_session_header
     @account_session_header =
       if request.headers[ACCOUNT_SESSION_REQUEST_HEADER_NAME]
-        request.headers[ACCOUNT_SESSION_REQUEST_HEADER_NAME]
+        request.headers[ACCOUNT_SESSION_REQUEST_HEADER_NAME].presence
       elsif Rails.env.development?
         cookies[ACCOUNT_SESSION_DEV_COOKIE_NAME]
       end

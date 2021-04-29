@@ -45,7 +45,8 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
   end
 
   context "the user is logged in" do
-    before { page.driver.header("GOVUK-Account-Session", "placeholder") }
+    let(:govuk_account_session) { "placeholder" }
+    before { page.driver.header("GOVUK-Account-Session", govuk_account_session) }
     after  { page.driver.header("GOVUK-Account-Session", nil) }
 
     let(:transition_checker_state) { { criteria_keys: criteria_keys, timestamp: 42 } }
@@ -62,6 +63,15 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
       it "reads the new account header" do
         given_i_am_on_the_results_page
         expect(page.response_headers["GOVUK-Account-Session"]).to eq("placeholder")
+      end
+
+      context "the account header is the empty string" do
+        let(:govuk_account_session) { "" }
+
+        it "doesn't consider the user logged in" do
+          given_i_am_on_the_results_page
+          expect(page.response_headers["GOVUK-Account-Session"]).to be_nil
+        end
       end
 
       context "the querystring differs to the value in the account" do
