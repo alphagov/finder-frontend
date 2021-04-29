@@ -181,7 +181,7 @@ GEM
       sentry-raven (~> 3.1.1)
       statsd-ruby (~> 1.5.0)
       unicorn (>= 5.4, < 5.9)
-    govuk_publishing_components (24.9.4)
+    govuk_publishing_components (24.10.0)
       govuk_app_config
       kramdown
       plek
@@ -247,7 +247,7 @@ GEM
       nokogiri (~> 1)
       rake
     mini_mime (1.1.0)
-    mini_portile2 (2.5.0)
+    mini_portile2 (2.5.1)
     minitest (5.14.4)
     multi_json (1.15.0)
     multi_test (0.1.2)
