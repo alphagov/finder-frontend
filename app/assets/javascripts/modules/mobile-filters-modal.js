@@ -45,7 +45,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
     this.$body.style.top = '-' + window.scrollY + 'px'
     this.$body.style.position = 'fixed'
     this.$focusedElementBeforeOpen = document.activeElement
-    this.$module.style.display = 'block'
+    this.$module.classList.add('facets--visible')
     this.$facetsBox.setAttribute('aria-modal', true)
     this.$facetsBox.setAttribute('tabindex', 0)
     this.$facetsBox.focus()
@@ -62,7 +62,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
     this.$body.style.position = ''
     this.$body.style.top = ''
     window.scrollTo(0, parseInt(offsetTop || '0') * -1)
-    this.$module.style.display = 'none'
+    this.$module.classList.remove('facets--visible')
     this.$facetsBox.removeAttribute('aria-modal')
     this.$facetsBox.removeAttribute('tabindex')
     this.$focusedElementBeforeOpen.focus()
