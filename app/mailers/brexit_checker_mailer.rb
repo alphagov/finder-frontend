@@ -1,5 +1,5 @@
 class BrexitCheckerMailer < ApplicationMailer
-  add_template_helper(BrexitCheckerHelper)
+  helper BrexitCheckerHelper
 
   def change_notification(notification)
     @notification = notification
