@@ -19,27 +19,24 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
     context "/transition-check/saved-results" do
       it "redirects to login page" do
         given_i_am_on_the_saved_results_page
-        expect(page).to have_current_path(
-          "#{Plek.find('frontend')}/sign-in?#{CGI.escape('redirect_path=/transition-check/saved-results')}",
-        )
+        querystring = { level_of_authentication: "level1", redirect_path: "/transition-check/saved-results" }.to_query
+        expect(page).to have_current_path("#{Plek.find('frontend')}/sign-in?#{querystring}")
       end
     end
 
     context "/transition-check/edit-saved-results" do
       it "redirects to login page" do
         given_i_am_on_the_edit_saved_results_page
-        expect(page).to have_current_path(
-          "#{Plek.find('frontend')}/sign-in?#{CGI.escape('redirect_path=/transition-check/edit-saved-results')}",
-        )
+        querystring = { level_of_authentication: "level1", redirect_path: "/transition-check/edit-saved-results" }.to_query
+        expect(page).to have_current_path("#{Plek.find('frontend')}/sign-in?#{querystring}")
       end
     end
 
     context "/transition-check/save-your-results/confirm" do
       it "redirects to login page" do
         given_i_am_on_the_save_results_confirm_page
-        expect(page).to have_current_path(
-          "#{Plek.find('frontend')}/sign-in?#{CGI.escape('redirect_path=/transition-check/save-your-results/confirm?c%5B%5D=nationality-eu')}",
-        )
+        querystring = { level_of_authentication: "level1", redirect_path: "/transition-check/save-your-results/confirm?c%5B%5D=nationality-eu" }.to_query
+        expect(page).to have_current_path("#{Plek.find('frontend')}/sign-in?#{querystring}")
       end
     end
   end

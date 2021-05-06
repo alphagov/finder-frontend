@@ -145,7 +145,8 @@ module AccountConcern
   end
 
   def transition_checker_new_session_url(**params)
-    "#{base_path}/sign-in?#{params.compact.to_query}"
+    querystring = params.merge(level_of_authentication: "level1").compact.to_query
+    "#{base_path}/sign-in?#{querystring}"
   end
 
   def transition_checker_end_session_url(**params)
