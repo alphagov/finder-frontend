@@ -24,12 +24,16 @@ if !Rails.env.production? || ENV["HEROKU_APP_NAME"].present?
 end
 module FinderFrontend
   class Application < Rails::Application
-    # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
-    # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
-    # config.time_zone = 'Central Time (US & Canada)'
-    # config.i18n.default_locale = :de
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.0
+
+    # Configuration for the application, engines, and railties goes here.
+    #
+    # These settings can be overridden in specific environments using the files
+    # in config/environments, which are processed later.
+    #
+    # config.time_zone = "Central Time (US & Canada)"
+    # config.eager_load_paths << Rails.root.join("extras")
 
     config.i18n.load_path += Dir[Rails.root.join("config/locales/**/*yml")]
     config.action_view.raise_on_missing_translations = true
@@ -45,11 +49,6 @@ module FinderFrontend
     # allow overriding the asset host with an enironment variable, useful for
     # when router is proxying to this app but asset proxying isn't set up.
     config.asset_host = ENV["ASSET_HOST"]
-
-    # Settings in config/environments/* take precedence over those specified here.
-    # Application configuration can go into files in config/initializers
-    # -- all .rb files in that directory are automatically loaded after loading
-    # the framework and any gems in your application.
 
     # Using a sass css compressor causes a scss file to be processed twice
     # (once to build, once to compress) which breaks the usage of "unquote"
