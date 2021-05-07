@@ -8,7 +8,7 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
 
   let(:mock_results) { %w[nationality-eu] }
 
-  context "the user is not logged in" do
+  shared_examples "the user is not logged in" do
     context "/transition-check/results" do
       it "shows the normal call-to-action" do
         given_i_am_on_the_results_page
@@ -41,6 +41,10 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
     end
   end
 
+  context "the user is not logged in" do
+    it_behaves_like "the user is not logged in"
+  end
+
   context "the user is logged in" do
     let(:govuk_account_session) { "placeholder" }
     before { page.driver.header("GOVUK-Account-Session", govuk_account_session) }
@@ -48,6 +52,32 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
 
     let(:transition_checker_state) { { criteria_keys: criteria_keys, timestamp: 42 } }
     let(:criteria_keys) { %w[nationality-uk] }
+
+    context "the user's session is invalid" do
+      before do
+        stub_account_api_unauthorized_has_attributes(attributes: %w[transition_checker_state])
+      end
+
+      it "logs the user out" do
+        given_i_am_on_the_results_page
+        expect(page.response_headers["GOVUK-Account-End-Session"]).to eq("1")
+      end
+
+      it_behaves_like "the user is not logged in"
+    end
+
+    context "the user is authenticated at too low a level" do
+      before do
+        stub_account_api_forbidden_has_attributes(attributes: %w[transition_checker_state])
+      end
+
+      it "doesn't log the user out" do
+        given_i_am_on_the_results_page
+        expect(page.response_headers["GOVUK-Account-End-Session"]).to be_nil
+      end
+
+      it_behaves_like "the user is not logged in"
+    end
 
     context "/transition-check/results" do
       before { stub_account_api_has_attributes(attributes: %w[transition_checker_state], values: { "transition_checker_state" => transition_checker_state }) }

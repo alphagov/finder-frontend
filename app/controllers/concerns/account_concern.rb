@@ -21,7 +21,7 @@ module AccountConcern
     before_action :pre_update_results, only: %i[save_results_confirm save_results_apply]
     # rubocop:enable Rails/LexicallyScopedActionFilter
 
-    helper_method :logged_in?
+    helper_method :must_reauthenticate?
 
     attr_accessor :account_session_header
   end
@@ -79,7 +79,7 @@ module AccountConcern
 
   def pre_results
     results_in_account = fetch_results_from_account_or_logout
-    return unless logged_in?
+    return if must_reauthenticate?
 
     now = Time.zone.now.to_i
     @results_differ = criteria_keys != results_in_account.fetch("criteria_keys", [])
@@ -95,14 +95,14 @@ module AccountConcern
                       transition_checker_edit_saved_results_path
                     end
 
-    redirect_to logged_out_pre_saved_results_path(redirect_path) and return unless logged_in?
+    redirect_to logged_out_pre_saved_results_path(redirect_path) and return if must_reauthenticate?
 
     @saved_results = results_in_account.fetch("criteria_keys", [])
   end
 
   def pre_update_results
     results_in_account = fetch_results_from_account_or_logout
-    redirect_to logged_out_pre_update_results_path and return unless logged_in?
+    redirect_to logged_out_pre_update_results_path and return if must_reauthenticate?
 
     @saved_results = results_in_account.fetch("criteria_keys", [])
   end
@@ -142,6 +142,13 @@ module AccountConcern
   rescue GdsApi::HTTPUnauthorized
     logout!
     nil
+  rescue GdsApi::HTTPForbidden
+    @level_of_authentication_is_too_low = true
+    nil
+  end
+
+  def must_reauthenticate?
+    !logged_in? || @level_of_authentication_is_too_low
   end
 
   def transition_checker_new_session_url(**params)

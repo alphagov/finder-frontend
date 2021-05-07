@@ -67,7 +67,7 @@ class BrexitCheckerController < ApplicationController
     redirect_to transition_checker_results_path(c: criteria_keys) and return if criteria_keys == @saved_results
 
     @has_email_subscription = fetch_email_subscription_from_account_or_logout
-    redirect_to logged_out_pre_update_results_path unless logged_in?
+    redirect_to logged_out_pre_update_results_path if must_reauthenticate?
   end
 
   def save_results_email_signup; end
@@ -79,10 +79,10 @@ class BrexitCheckerController < ApplicationController
 
     update_answers_in_account_or_logout criteria_keys
 
-    if logged_in?
-      redirect_to transition_checker_results_path(c: criteria_keys)
-    else
+    if must_reauthenticate?
       redirect_to logged_out_pre_update_results_path
+    else
+      redirect_to transition_checker_results_path(c: criteria_keys)
     end
   end
 
