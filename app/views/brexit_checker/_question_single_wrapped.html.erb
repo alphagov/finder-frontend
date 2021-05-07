@@ -5,7 +5,8 @@
     heading_caption: current_question.caption,
     description: formatted_description,
     hint: current_question.hint_text,
-    is_page_heading: true,
+    heading_level: 1,
+    heading_size: 'xl',
     items: current_question.options.map do |option|
       checkboxes = if option.sub_options.present?
                      render "govuk_publishing_components/components/checkboxes", {
