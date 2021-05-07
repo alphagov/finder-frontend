@@ -56,19 +56,7 @@
   </div>
 
   <% if criteria_keys.present? %>
-    <% if logged_in? %>
-      <% if @results_differ %>
-        <%= render 'govuk_publishing_components/components/notice', {
-          title: t('brexit_checker.results.accounts.results_differ.message'),
-          description: sanitize(t('brexit_checker.results.accounts.results_differ.description', link: transition_checker_save_results_confirm_path(c: criteria_keys)))
-        } %>
-      <% elsif @results_saved %>
-        <%= render 'govuk_publishing_components/components/success_alert', {
-          message: t('brexit_checker.results.accounts.results_saved.message'),
-          description: t('brexit_checker.results.accounts.results_saved.description')
-        } %>
-      <% end %>
-    <% else %>
+    <% if must_reauthenticate? %>
       <%= render 'components/email_link', {
         data_attributes: {
           "module": "gem-track-click",
@@ -80,13 +68,25 @@
         link_href: transition_checker_save_results_path(c: criteria_keys),
         link_title: t("brexit_checker.results.email_sign_up_title"),
       } %>
+    <% else %>
+      <% if @results_differ %>
+        <%= render 'govuk_publishing_components/components/notice', {
+          title: t('brexit_checker.results.accounts.results_differ.message'),
+          description: sanitize(t('brexit_checker.results.accounts.results_differ.description', link: transition_checker_save_results_confirm_path(c: criteria_keys)))
+        } %>
+      <% elsif @results_saved %>
+        <%= render 'govuk_publishing_components/components/success_alert', {
+          message: t('brexit_checker.results.accounts.results_saved.message'),
+          description: t('brexit_checker.results.accounts.results_saved.description')
+        } %>
+      <% end %>
     <% end %>
 
     <%= render 'results_business_actions', business_results: @presenter.business_results if @presenter.business_results.any? %>
     <%= render 'results_citizen_actions', citizen_results_groups: @presenter.citizen_results_groups if @presenter.citizen_results_groups.any? %>
     <%= render 'results_with_no_actions', criteria: @presenter.criteria if (@presenter.business_results.empty? && @presenter.citizen_results_groups.empty?) %>
 
-    <% if logged_in? %>
+    <% if !must_reauthenticate? %>
       <% if @results_differ %>
         <%= render 'govuk_publishing_components/components/notice', {
           title: t('brexit_checker.results.accounts.results_differ.message'),
