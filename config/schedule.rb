@@ -8,7 +8,7 @@ set :output, error: "log/cron.error.log", standard: "log/cron.log"
 bundler_prefix = ENV.fetch("BUNDLER_PREFIX", "/usr/local/bin/govuk_setenv finder-frontend")
 job_type :rake, "cd :path && #{bundler_prefix} bundle exec rake :task :output"
 
-cache_refresh_schedule = Random.new.rand(45..60)
+cache_refresh_schedule = Random.new.rand(0..60)
 every cache_refresh_schedule.minutes do
   rake "registries:cache_refresh"
 end
