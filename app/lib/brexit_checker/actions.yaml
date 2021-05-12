@@ -96,7 +96,7 @@ actions:
   grouping_criteria:
   - studying-eu
 - id: S008
-  priority: 8
+  priority: 10
   title: Check if you need to renew your passport before you travel to Europe
   consequence: You should have at least 6 months left on your UK passport and it needs
     to be less than 10 years old, or you may not be able to travel.
@@ -156,7 +156,7 @@ actions:
   - visiting-eu
   - visiting-ie
 - id: S011
-  priority: 8
+  priority: 10
   title: Before you travel, make sure you have a valid European Health Insurance Card
     (EHIC) or UK Global Health Insurance Card (GHIC), or travel insurance with health
     cover
