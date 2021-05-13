@@ -22,30 +22,18 @@ Read more about [how links-based facets are handled](docs/finder-facets-links.md
 * Facets: Metadata associated with documents.
 * Filters: Searchable/filterable metadata for example `case_state={open|closed}` for a CMA case.
 
-## Running the application
+## Technical documentation
+
+This is a Ruby on Rails app, and should follow [our Rails app conventions](https://docs.publishing.service.gov.uk/manual/conventions-for-rails-applications.html).
+
+You can use the [GOV.UK Docker environment](https://github.com/alphagov/govuk-docker) or the local `startup.sh` script to run the app. Read the [guidance on local frontend development](https://docs.publishing.service.gov.uk/manual/local-frontend-development.html) to find out more about each approach, before you get started.
+
+If you are using GOV.UK Docker, remember to combine it with the commands that follow. See the [GOV.UK Docker usage instructions](https://github.com/alphagov/govuk-docker#usage) for examples.
+
+### Running the test suite
 
 ```sh
-$ ./startup.sh
-```
-
-You can optionally add the `--live` flag to use live search data.
-
-If you are using the GDS development virtual machine then the application will be available on the host at [http://finder-frontend.dev.gov.uk/](http://finder-frontend.dev.gov.uk/)
-
-## Running the test suite
-
-Before you can run the test suite you'll need the [govuk-content-schemas] repository locally. See [`lib/govuk_content_schema_examples.rb`][content_schema_examples] for more details.
-
-The StandardJS JavaScript linter needs to be installed separately before running the default `rake` task. To make sure that it's been installed run:
-
-```sh
-$ yarn install
-```
-
-The default `rake` task runs all the tests:
-
-```sh
-$ bundle exec rake
+bundle exec rake
 ```
 
 The application has Jasmine tests, which can be accessed at `/specs` when the application is running in development mode. These are also run when `rake`, above, is run.
@@ -59,7 +47,7 @@ Note: Running the JS tests require you to also install phantomjs with `brew cask
 [govuk-content-schemas]: https://github.com/alphagov/govuk-content-schemas
 [content_schema_examples]: https://github.com/alphagov/finder-frontend/blob/master/lib/govuk_content_schema_examples.rb
 
-## Making a new finder
+### Making a new finder
 
 1. If required, add a schema to [alphagov/search-api](http://github.com/alphagov/search-api) describing your document type -- [example](https://github.com/alphagov/search-api/blob/master/config/schema/elasticsearch_types/cma_case.json)
 2. Publish a Finder Content Item to the content store. See the doc for [Finder Content Item](https://github.com/alphagov/finder-frontend/blob/master/docs/finder-content-item.md) for more info.
