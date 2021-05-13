@@ -59,17 +59,3 @@ For example:
 ```
 DEVELOPMENT_FINDER_JSON=features/fixtures/aaib_reports_example.json ./startup.sh --live
 ```
-
-### How to add a fixed filter
-
-You can use [gov.uk/api/search.json?filter_link=](https://www.gov.uk/api/search.json?filter_link=) with the path of the page you looking for to migrate.
-
-For example, you want to filter by the field `link` on `/government/world/organisations`
-You can access the following: https://www.gov.uk/api/search.json?filter_link=/government/world/organisations/british-antarctic-territory
-You will be able to see inside results the field `format`
-
-You can double check the filter by performing the following search using search-api:
-
-http://search-api.dev.gov.uk/search.json?filter_NAME=VALUE
-
-For more information please refer to the [search api documentation](https://github.com/alphagov/search-api/blob/master/doc/search-api.md).
