@@ -46,5 +46,4 @@ bundle exec rake jasmine:ci
 
 ### Further documentation
 
-- [Developing a Finder](docs/developing-a-finder.md)
-
+See the [`docs/`](docs/) directory for manuals and instructions.
