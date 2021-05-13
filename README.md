@@ -1,17 +1,11 @@
 # Finder Frontend
 
-Finder frontend renders search on GOV.UK.
+Renders search on GOV.UK:
+
+- [Site search](https://www.gov.uk/search) is available from the header of every page.
+- Finder pages provide facetted searching over a collection of documents.
 
 ## Live examples
-
-### Site search
-Site search is available from the header of every page.
-
-[![Site search screenshot](docs/assets/sitesearch-screenshot.png)](https://www.gov.uk/search)
-
-### Finder pages
-
-Finder pages provide facetted searching over a collection of documents.
 
 * [gov.uk/aaib-reports](https://www.gov.uk/aaib-reports)
 * [gov.uk/cma-cases](https://www.gov.uk/cma-cases)
@@ -27,19 +21,11 @@ Finder pages provide facetted searching over a collection of documents.
 
 Read more about [how links-based facets are handled](docs/finder-facets-links.md).
 
-![Finder frontend screenshot](docs/assets/page-screenshot.png)
-
 ## Nomenclature
 
 * Finder: Page containing a list of filterable documents and filters.
 * Facets: Metadata associated with documents.
 * Filters: Searchable/filterable metadata for example `case_state={open|closed}` for a CMA case.
-
-## Dependencies
-
-* [alphagov/static](http://github.com/alphagov/static): provides static assets (JS/CSS) and provides the GOV.UK templates.
-* [alphagov/content-store](http://github.com/alphagov/content-store): provides the content items for the finder itself -- containing the finder title, tagged organisations and related links
-* [alphagov/search-api](http://github.com/alphagov/search-api): provides search results
 
 ## Running the application
 
