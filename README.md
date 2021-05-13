@@ -17,8 +17,6 @@ This app also provides the [Brexit Checker](docs/brexit-checker.md).
 * [gov.uk/world/organisations](https://www.gov.uk/world/organisations)
 * [gov.uk/international-development-funding](https://www.gov.uk/international-development-funding)
 
-Read more about [how links-based facets are handled](docs/finder-facets-links.md).
-
 ## Nomenclature
 
 * Finder: Page containing a list of filterable documents and filters.
