@@ -4,6 +4,9 @@ Renders search on GOV.UK:
 
 - [Site search](https://www.gov.uk/search) is available from the header of every page.
 - Finder pages provide facetted searching over a collection of documents.
+- Most of these pages support [subscribing to email alerts](docs/finder-email-alerts.md).
+
+This app also provides the [Brexit Checker](docs/brexit-checker.md).
 
 ## Live examples
 
