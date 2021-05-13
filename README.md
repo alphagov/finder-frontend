@@ -19,8 +19,9 @@ Read more about [how links-based facets are handled](docs/finder-facets-links.md
 ## Nomenclature
 
 * Finder: Page containing a list of filterable documents and filters.
-* Facets: Metadata associated with documents.
+* Facets: Metadata associated with documents. See `app/models/*_facet.rb` for examples.
 * Filters: Searchable/filterable metadata for example `case_state={open|closed}` for a CMA case.
+* Parser: Transforms API responses into model objects.
 
 ## Technical documentation
 
@@ -76,12 +77,3 @@ You can double check the filter by performing the following search using search-
 http://search-api.dev.gov.uk/search.json?filter_NAME=VALUE
 
 For more information please refer to the [search api documentation](https://github.com/alphagov/search-api/blob/master/doc/search-api.md).
-
-## Application structure
-
-* No data store -- all data comes via the APIs mentioned above.
-* `app/models` contains two kinds of object.
-  1. Value objects used to wrap up responses from API calls.
-  2. Facet objects which wrap up the behaviour of different types of facet --
-     eg radios, selects, etc.
-* `app/parsers` contains objects which transform API responses into models.
