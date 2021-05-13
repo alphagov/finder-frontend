@@ -44,18 +44,7 @@ bundle exec cucumber
 bundle exec rake jasmine:ci
 ```
 
-### Making a new finder
+### Further documentation
 
-1. If required, add a schema to [alphagov/search-api](http://github.com/alphagov/search-api) describing your document type -- [example](https://github.com/alphagov/search-api/blob/master/config/schema/elasticsearch_types/cma_case.json)
-2. Publish a Finder Content Item to the content store. See the doc for [Finder Content Item](https://github.com/alphagov/finder-frontend/blob/master/docs/finder-content-item.md) for more info.
-3. Ensure your documents are indexed in [alphagov/search-api](http://github.com/alphagov/search-api) correctly.
+- [Developing a Finder](docs/developing-a-finder.md)
 
-### Developing a finder locally
-
-You can run this application with a local file so you can develop a finder without having to publish the content item to the publishing-api.
-
-For example:
-
-```
-DEVELOPMENT_FINDER_JSON=features/fixtures/aaib_reports_example.json ./startup.sh --live
-```
