@@ -8,16 +8,11 @@ Renders search on GOV.UK:
 ## Live examples
 
 * [gov.uk/aaib-reports](https://www.gov.uk/aaib-reports)
-* [gov.uk/cma-cases](https://www.gov.uk/cma-cases)
-* [gov.uk/drug-safety-update](https://www.gov.uk/drug-safety-update)
 * [gov.uk/drug-device-alerts](https://www.gov.uk/drug-device-alerts)
 * [gov.uk/government/case-studies](https://www.gov.uk/government/case-studies)
-* [gov.uk/government/groups](https://www.gov.uk/government/groups)
 * [gov.uk/government/people](https://www.gov.uk/government/people)
 * [gov.uk/world/organisations](https://www.gov.uk/world/organisations)
 * [gov.uk/international-development-funding](https://www.gov.uk/international-development-funding)
-* [gov.uk/maib-reports](https://www.gov.uk/maib-reports)
-* [gov.uk/raib-reports](https://www.gov.uk/raib-reports)
 
 Read more about [how links-based facets are handled](docs/finder-facets-links.md).
 
