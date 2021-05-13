@@ -34,19 +34,15 @@ If you are using GOV.UK Docker, remember to combine it with the commands that fo
 ### Running the test suite
 
 ```sh
+# run all the tests
 bundle exec rake
+
+# run only feature tests
+bundle exec cucumber
+
+# run only JS tests
+bundle exec rake jasmine:ci
 ```
-
-The application has Jasmine tests, which can be accessed at `/specs` when the application is running in development mode. These are also run when `rake`, above, is run.
-
-To run the Jasmine tests separately: `bundle exec cucumber`
-
-To run the JavaScript Jasmine tests separately: `bundle exec rake jasmine:ci`
-
-Note: Running the JS tests require you to also install phantomjs with `brew cask install phantomjs`.
-
-[govuk-content-schemas]: https://github.com/alphagov/govuk-content-schemas
-[content_schema_examples]: https://github.com/alphagov/finder-frontend/blob/master/lib/govuk_content_schema_examples.rb
 
 ### Making a new finder
 
