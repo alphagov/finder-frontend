@@ -128,7 +128,29 @@ module DocumentHelper
   def stub_rummager_api_request_with_research_and_statistics_results
     stub_request(:get, SEARCH_ENDPOINT)
       .with(query: hash_including(
-        "filter_content_store_document_type" => %w[national_statistics official_statistics statistical_data_set statistics],
+        "filter_content_store_document_type" => %w[
+          independent_report
+          national_statistics
+          official_statistics
+          research
+          research_for_development_output
+          statistical_data_set
+          statistics
+          statistics_announcement
+        ],
+      ))
+      .to_return(body: statistics_results_for_statistics_json)
+  end
+
+  def stub_rummager_api_request_with_statistics_results
+    stub_request(:get, SEARCH_ENDPOINT)
+      .with(query: hash_including(
+        "filter_content_store_document_type" => %w[
+          national_statistics
+          official_statistics
+          statistical_data_set
+          statistics
+        ],
       ))
       .to_return(body: statistics_results_for_statistics_json)
   end

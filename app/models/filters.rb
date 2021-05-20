@@ -3,12 +3,28 @@ module Filters
     def call
       [
         {
+          "value" => "all_research_and_statistics",
+          "label" => "All research and statistics",
+          "filter" => {
+            "content_store_document_type" => %w[
+              independent_report
+              national_statistics
+              official_statistics
+              research
+              research_for_development_output
+              statistical_data_set
+              statistics
+              statistics_announcement
+            ],
+          },
+          "default" => true,
+        },
+        {
           "value" => "statistics_published",
           "label" => "Statistics (published)",
           "filter" => {
             "content_store_document_type" => %w[statistics national_statistics statistical_data_set official_statistics],
           },
-          "default" => true,
         },
         {
           "value" => "upcoming_statistics",

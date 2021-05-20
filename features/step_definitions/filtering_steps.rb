@@ -123,6 +123,7 @@ When(/^I view the research and statistics finder$/) do
   stub_manuals_registry_request
   stub_world_locations_api_request
   stub_rummager_api_request_with_research_and_statistics_results
+  stub_rummager_api_request_with_statistics_results
   stub_rummager_api_request_with_filtered_research_and_statistics_results
   visit finder_path("search/research-and-statistics")
 end
@@ -140,6 +141,7 @@ When(/^I view the research and statistics finder with a topic param set$/) do
   stub_manuals_registry_request
   stub_world_locations_api_request
   stub_rummager_api_request_with_research_and_statistics_results
+  stub_rummager_api_request_with_statistics_results
   stub_rummager_api_request_with_filtered_research_and_statistics_results
   visit finder_path("search/research-and-statistics", topic: "c58fdadd-7743-46d6-9629-90bb3ccc4ef0")
 end
@@ -795,6 +797,17 @@ end
 Then("I see results with top result") do
   within("#js-results") do
     expect(page.all(".gem-c-document-list__item--highlight").length).to eq(1)
+  end
+end
+
+Then("I should see all research and statistics") do
+  expect(page).to have_text("3 results")
+  within("#js-results") do
+    expect(page.all(".gem-c-document-list__item").size).to eq(3)
+    expect(page).to have_link("Restrictions on usage of spells within school grounds")
+    expect(page).to have_link("New platform at Hogwarts for the express train")
+    expect(page).to have_link("Installation of double glazing at Hogwarts")
+    expect(page).to have_no_link("Proposed changes to magic tournaments")
   end
 end
 
