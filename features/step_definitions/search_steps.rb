@@ -30,9 +30,9 @@ Given(/^the all content finder exists$/) do
   stub_organisations_registry_request
   stub_manuals_registry_request
 
-  stub_rummager_api_request_with_organisation_filter_all_content_results
-  stub_rummager_api_request_with_manual_filter_all_content_results
-  stub_rummager_api_request_with_misspelt_query
+  stub_search_api_request_with_organisation_filter_all_content_results
+  stub_search_api_request_with_manual_filter_all_content_results
+  stub_search_api_request_with_misspelt_query
 end
 
 Then(/^I am redirected to the (html|json) all content finder results page$/) do |format|
