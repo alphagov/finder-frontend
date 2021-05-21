@@ -3,19 +3,40 @@ module Filters
     def call
       [
         {
+          "value" => "all_research_and_statistics",
+          "label" => "All research and statistics",
+          "filter" => {
+            "content_store_document_type" => %w[
+              independent_report
+              national_statistics
+              official_statistics
+              research
+              research_for_development_output
+              statistical_data_set
+              statistics
+              statistics_announcement
+            ],
+          },
+          "default" => true,
+        },
+        {
           "value" => "statistics_published",
           "label" => "Statistics (published)",
           "filter" => {
-            "content_store_document_type" => %w[statistics national_statistics statistical_data_set official_statistics],
+            "content_store_document_type" => %w[
+              national_statistics
+              official_statistics
+              statistical_data_set
+              statistics
+            ],
           },
-          "default" => true,
         },
         {
           "value" => "upcoming_statistics",
           "label" => "Statistics (upcoming)",
           "filter" => {
-            "release_timestamp" => "from:#{Time.zone.today}",
             "format" => %w[statistics_announcement],
+            "release_timestamp" => "from:#{Time.zone.today}",
           },
         },
         {
@@ -29,7 +50,11 @@ module Filters
           "value" => "research",
           "label" => "Research",
           "filter" => {
-            "content_store_document_type" => %w[research_for_development_output independent_report research],
+            "content_store_document_type" => %w[
+              independent_report
+              research
+              research_for_development_output
+            ],
           },
         },
       ]

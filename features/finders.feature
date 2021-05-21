@@ -253,6 +253,7 @@ Feature: Filtering documents
 
   Scenario: Choosing between document types with a research and statistics facet
     When I view the research and statistics finder
+    Then I should see all research and statistics
     And I select upcoming statistics
     And I click filter results
     Then I should see upcoming statistics

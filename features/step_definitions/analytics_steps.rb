@@ -37,13 +37,13 @@ Then(/^the ecommerce tracking tags are present$/) do
 end
 
 And "I search for lunch" do
-  stub_rummager_api_request_with_query_param_no_results("lunch")
+  stub_search_api_request_with_query_param_no_results("lunch")
 
   fill_in "Search", with: "lunch"
 end
 
 And "I search for superted" do
-  stub_rummager_api_request_with_query_param_no_results("superted")
+  stub_search_api_request_with_query_param_no_results("superted")
 
   fill_in "Search", with: "superted"
 end

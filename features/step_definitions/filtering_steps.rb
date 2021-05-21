@@ -1,12 +1,12 @@
 Given(/^a collection of documents exist$/) do
   content_store_has_mosw_reports_finder
-  stub_rummager_api_request
+  stub_search_api_request
   stub_taxonomy_api_request
 end
 
 Given(/^no results$/) do
   content_store_has_mosw_reports_finder_with_no_facets
-  stub_rummager_api_request_with_no_results
+  stub_search_api_request_with_no_results
   stub_taxonomy_api_request
 end
 
@@ -90,7 +90,7 @@ When(/^I view a list of news and communications$/) do
   stub_world_locations_api_request
   stub_people_registry_request
   stub_organisations_registry_request
-  stub_rummager_api_request_with_news_and_communication_results
+  stub_search_api_request_with_news_and_communication_results
   visit finder_path("search/news-and-communications")
 end
 
@@ -98,7 +98,7 @@ When(/^I view the news and communications finder$/) do
   stub_taxonomy_api_request
   content_store_has_news_and_communications_finder
   stub_world_locations_api_request
-  stub_all_rummager_api_requests_with_news_and_communication_results
+  stub_all_search_api_requests_with_news_and_communication_results
   stub_people_registry_request
   stub_organisations_registry_request
   visit finder_path("search/news-and-communications")
@@ -110,8 +110,8 @@ When(/^I view the policy papers and consultations finder$/) do
   stub_organisations_registry_request
   stub_topical_events_registry_request
   stub_world_locations_api_request
-  stub_rummager_api_request_with_policy_papers_results
-  stub_rummager_api_request_with_filtered_policy_papers_results
+  stub_search_api_request_with_policy_papers_results
+  stub_search_api_request_with_filtered_policy_papers_results
 
   visit finder_path("search/policy-papers-and-consultations")
 end
@@ -122,8 +122,9 @@ When(/^I view the research and statistics finder$/) do
   stub_organisations_registry_request
   stub_manuals_registry_request
   stub_world_locations_api_request
-  stub_rummager_api_request_with_research_and_statistics_results
-  stub_rummager_api_request_with_filtered_research_and_statistics_results
+  stub_search_api_request_with_research_and_statistics_results
+  stub_search_api_request_with_statistics_results
+  stub_search_api_request_with_filtered_research_and_statistics_results
   visit finder_path("search/research-and-statistics")
 end
 
@@ -139,8 +140,9 @@ When(/^I view the research and statistics finder with a topic param set$/) do
   stub_organisations_registry_request
   stub_manuals_registry_request
   stub_world_locations_api_request
-  stub_rummager_api_request_with_research_and_statistics_results
-  stub_rummager_api_request_with_filtered_research_and_statistics_results
+  stub_search_api_request_with_research_and_statistics_results
+  stub_search_api_request_with_statistics_results
+  stub_search_api_request_with_filtered_research_and_statistics_results
   visit finder_path("search/research-and-statistics", topic: "c58fdadd-7743-46d6-9629-90bb3ccc4ef0")
 end
 
@@ -156,7 +158,7 @@ When(/^I view the aaib reports finder with a topic param set$/) do
   stub_organisations_registry_request
   stub_manuals_registry_request
   stub_world_locations_api_request
-  stub_rummager_api_request_with_aaib_reports_results
+  stub_search_api_request_with_aaib_reports_results
   visit finder_path("aaib-reports", topic: "c58fdadd-7743-46d6-9629-90bb3ccc4ef0")
 end
 
@@ -189,7 +191,7 @@ When(/^I view the all content finder$/) do
   stub_world_locations_api_request
   stub_people_registry_request
   stub_manuals_registry_request
-  stub_rummager_api_request_with_all_content_results
+  stub_search_api_request_with_all_content_results
 
   visit finder_path("search/all")
 end
@@ -197,7 +199,7 @@ end
 When(/^I view a list of services$/) do
   topic_taxonomy_has_taxons
   content_store_has_services_finder
-  stub_rummager_api_request_with_services_results
+  stub_search_api_request_with_services_results
   stub_people_registry_request
   stub_organisations_registry_request
 
@@ -234,7 +236,7 @@ end
 Given(/^a government finder exists$/) do
   stub_taxonomy_api_request
   content_store_has_government_finder
-  stub_rummager_api_request_with_government_results
+  stub_search_api_request_with_government_results
   stub_organisations_registry_request
 end
 
@@ -276,7 +278,7 @@ end
 Given(/^a collection of documents with bad metadata exist$/) do
   stub_taxonomy_api_request
   content_store_has_mosw_reports_finder
-  stub_rummager_api_request_with_bad_data
+  stub_search_api_request_with_bad_data
 end
 
 Then(/^I can get a list of all documents with good metadata$/) do
@@ -323,7 +325,7 @@ end
 Given(/^a finder with a dynamic filter exists$/) do
   stub_taxonomy_api_request
   content_store_has_mosw_reports_finder
-  stub_rummager_api_request
+  stub_search_api_request
 end
 
 Then(/^I can see filters based on the results$/) do
@@ -347,8 +349,8 @@ end
 Given(/^a finder with paginated results exists$/) do
   stub_taxonomy_api_request
   content_store_has_government_finder_with_10_items
-  stub_rummager_api_request_with_10_government_results
-  stub_rummager_api_request_with_query_param_no_results("xxxxxxxxxxxxxxYYYYYYYYYYYxxxxxxxxxxxxxxx")
+  stub_search_api_request_with_10_government_results
+  stub_search_api_request_with_query_param_no_results("xxxxxxxxxxxxxxYYYYYYYYYYYxxxxxxxxxxxxxxx")
 end
 
 Then(/^I can see pagination$/) do
@@ -359,7 +361,7 @@ Then(/^I can see pagination$/) do
 end
 
 Then(/^I can browse to the next page$/) do
-  stub_rummager_api_request_with_10_government_results_page_2
+  stub_search_api_request_with_10_government_results_page_2
   visit finder_path("government/policies/benefits-reform", page: 2)
 
   expect(page).to have_content("Previous page")
@@ -367,7 +369,7 @@ Then(/^I can browse to the next page$/) do
 end
 
 Then(/^I browse to a huge page number and get an appropriate error$/) do
-  stub_rummager_api_request_with_422_response(999_999)
+  stub_search_api_request_with_422_response(999_999)
   visit finder_path("government/policies/benefits-reform", page: 999_999)
 
   expect(page.status_code).to eq(422)
@@ -454,7 +456,7 @@ end
 Given(/^an organisation finder exists$/) do
   stub_taxonomy_api_request
   content_store_has_government_finder
-  stub_rummager_api_request_with_government_results
+  stub_search_api_request_with_government_results
   stub_organisations_registry_request
   stub_people_registry_request
   stub_taxonomy_api_request
@@ -465,7 +467,7 @@ end
 Given(/^an organisation finder exists but a bad breadcrumb path is given$/) do
   stub_taxonomy_api_request
   content_store_has_government_finder
-  stub_rummager_api_request_with_government_results
+  stub_search_api_request_with_government_results
   stub_organisations_registry_request
   stub_people_registry_request
   stub_taxonomy_api_request
@@ -795,6 +797,17 @@ end
 Then("I see results with top result") do
   within("#js-results") do
     expect(page.all(".gem-c-document-list__item--highlight").length).to eq(1)
+  end
+end
+
+Then("I should see all research and statistics") do
+  expect(page).to have_text("3 results")
+  within("#js-results") do
+    expect(page.all(".gem-c-document-list__item").size).to eq(3)
+    expect(page).to have_link("Restrictions on usage of spells within school grounds")
+    expect(page).to have_link("New platform at Hogwarts for the express train")
+    expect(page).to have_link("Installation of double glazing at Hogwarts")
+    expect(page).to have_no_link("Proposed changes to magic tournaments")
   end
 end
 
