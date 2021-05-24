@@ -9,65 +9,56 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
     2) Open/closing of the list of checkboxes
   */
   OptionSelect.prototype.start = function ($module) {
-    this.$optionSelect = $module
-    this.$options = this.$optionSelect.find("input[type='checkbox']")
-    this.$optionsContainer = this.$optionSelect.find('.js-options-container')
-    this.$optionList = this.$optionsContainer.children('.js-auto-height-inner')
-    this.$allCheckboxes = this.$optionsContainer.find('.govuk-checkboxes__item')
-    this.hasFilter = this.$optionSelect.data('filter-element') || ''
+    this.$optionSelect = $module[0]
+    this.$options = this.$optionSelect.querySelectorAll("input[type='checkbox']")
+    this.$optionsContainer = this.$optionSelect.querySelector('.js-options-container')
+    this.$optionList = this.$optionsContainer.querySelector('.js-auto-height-inner')
+    this.$allCheckboxes = this.$optionsContainer.querySelectorAll('.govuk-checkboxes__item')
+    this.hasFilter = this.$optionSelect.getAttribute('data-filter-element') || ''
+
     this.checkedCheckboxes = []
 
     if (this.hasFilter.length) {
       var filterEl = document.createElement('div')
       filterEl.innerHTML = this.hasFilter
 
-      $('<div class="app-c-option-select__filter"/>')
-        .html(filterEl.childNodes[0].nodeValue)
-        .insertBefore(this.$optionsContainer)
+      var optionSelectFilter = document.createElement('div')
+      optionSelectFilter.classList.add('app-c-option-select__filter')
+      optionSelectFilter.innerHTML = filterEl.childNodes[0].nodeValue
 
-      this.$filter = this.$optionSelect.find('input[name="option-select-filter"]')
-      this.$filterCount = $('#' + this.$filter.attr('aria-describedby'))
-      this.filterTextSingle = ' ' + this.$filterCount.data('single')
-      this.filterTextMultiple = ' ' + this.$filterCount.data('multiple')
-      this.filterTextSelected = ' ' + this.$filterCount.data('selected')
+      this.$optionsContainer.parentNode.insertBefore(optionSelectFilter, this.$optionsContainer)
+
+      this.$filter = this.$optionSelect.querySelector('input[name="option-select-filter"]')
+      this.$filterCount = document.getElementById(this.$filter.getAttribute('aria-describedby'))
+      this.filterTextSingle = ' ' + this.$filterCount.getAttribute('data-single')
+      this.filterTextMultiple = ' ' + this.$filterCount.getAttribute('data-multiple')
+      this.filterTextSelected = ' ' + this.$filterCount.getAttribute('data-selected')
       this.checkboxLabels = []
       this.filterTimeout = 0
-      var that = this
 
       this.getAllCheckedCheckboxes()
-      this.$allCheckboxes.each(function () {
-        that.checkboxLabels.push(that.cleanString($(this).text()))
-      })
+      for (var i = 0; i < this.$allCheckboxes.length; i++) {
+        this.checkboxLabels.push(this.cleanString(this.$allCheckboxes[i].textContent))
+      }
 
-      this.$filter.on('keyup', function (e) {
-        e.stopPropagation()
-        var ENTER_KEY = 13
-
-        if (e.keyCode !== ENTER_KEY) {
-          clearTimeout(that.filterTimeout)
-          that.filterTimeout = setTimeout(
-            function () { this.doFilter(this) }.bind(that),
-            300
-          )
-        } else {
-          e.preventDefault() // prevents finder forms from being submitted when user presses ENTER
-        }
-      })
+      this.$filter.addEventListener('keyup', this.typeFilterText.bind(this))
     }
 
     // Attach listener to update checked count
-    this.$optionSelect.on('change', "input[type='checkbox']", this.updateCheckedCount.bind(this))
+    this.$optionsContainer.querySelector('.gem-c-checkboxes__list').addEventListener('change', this.updateCheckedCount.bind(this))
 
     // Replace div.container-head with a button
     this.replaceHeadingSpanWithButton()
 
     // Add js-collapsible class to parent for CSS
-    this.$optionSelect.addClass('js-collapsible')
+    this.$optionSelect.classList.add('js-collapsible')
 
     // Add open/close listeners
-    this.$optionSelect.find('.js-container-button').on('click', this.toggleOptionSelect.bind(this))
+    var button = this.$optionSelect.querySelector('.js-container-button')
+    button.addEventListener('click', this.toggleOptionSelect.bind(this))
 
-    if (this.$optionSelect.data('closed-on-load') === true) {
+    var closedOnLoad = this.$optionSelect.getAttribute('data-closed-on-load')
+    if (closedOnLoad === 'true') {
       this.close()
     } else {
       this.setupHeight()
@@ -76,6 +67,21 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
     var checkedString = this.checkedString()
     if (checkedString) {
       this.attachCheckedCounter(checkedString)
+    }
+  }
+
+  OptionSelect.prototype.typeFilterText = function (event) {
+    event.stopPropagation()
+    var ENTER_KEY = 13
+
+    if (event.keyCode !== ENTER_KEY) {
+      clearTimeout(this.filterTimeout)
+      this.filterTimeout = setTimeout(
+        function () { this.doFilter(this) }.bind(this),
+        300
+      )
+    } else {
+      event.preventDefault() // prevents finder forms from being submitted when user presses ENTER
     }
   }
 
@@ -88,33 +94,37 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
 
   OptionSelect.prototype.getAllCheckedCheckboxes = function getAllCheckedCheckboxes () {
     this.checkedCheckboxes = []
-    var that = this
 
-    this.$allCheckboxes.each(function (i) {
-      if ($(this).find('input[type=checkbox]').is(':checked')) {
-        that.checkedCheckboxes.push(i)
+    for (var i = 0; i < this.$options.length; i++) {
+      if (this.$options[i].checked) {
+        this.checkedCheckboxes.push(i)
       }
-    })
+    }
   }
 
   OptionSelect.prototype.doFilter = function doFilter (obj) {
-    var filterBy = obj.cleanString(obj.$filter.val())
+    var filterBy = obj.cleanString(obj.$filter.value)
     var showCheckboxes = obj.checkedCheckboxes.slice()
+    var i = 0
 
-    for (var i = 0; i < obj.$allCheckboxes.length; i++) {
+    for (i = 0; i < obj.$allCheckboxes.length; i++) {
       if (showCheckboxes.indexOf(i) === -1 && obj.checkboxLabels[i].search(filterBy) !== -1) {
         showCheckboxes.push(i)
       }
     }
 
-    obj.$allCheckboxes.hide()
-    for (var j = 0; j < showCheckboxes.length; j++) {
-      obj.$allCheckboxes.eq(showCheckboxes[j]).show()
+    for (i = 0; i < obj.$allCheckboxes.length; i++) {
+      obj.$allCheckboxes[i].style.display = 'none'
     }
 
-    var len = showCheckboxes.length || 0
-    var lenChecked = obj.$optionsContainer.find('.govuk-checkboxes__input:checked').length
-    obj.$filterCount.html(len + (len === 1 ? obj.filterTextSingle : obj.filterTextMultiple) + ', ' + lenChecked + obj.filterTextSelected)
+    for (i = 0; i < showCheckboxes.length; i++) {
+      obj.$allCheckboxes[showCheckboxes[i]].style.display = 'block'
+    }
+
+    var lenChecked = obj.$optionsContainer.querySelectorAll('.govuk-checkboxes__input:checked').length
+    var len = showCheckboxes.length + lenChecked
+    var html = len + (len === 1 ? obj.filterTextSingle : obj.filterTextMultiple) + ', ' + lenChecked + obj.filterTextSelected
+    obj.$filterCount.innerHTML = html
   }
 
   OptionSelect.prototype.replaceHeadingSpanWithButton = function replaceHeadingSpanWithButton () {
@@ -123,38 +133,40 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
      * We do this in the JavaScript because if the JavaScript is not active then the button shouldn't
      * be there as there is no JS to handle the click event.
     */
-    var $containerHead = this.$optionSelect.find('.js-container-button')
-    var jsContainerHeadHTML = $containerHead.html()
+    var containerHead = this.$optionSelect.querySelector('.js-container-button')
+    var jsContainerHeadHTML = containerHead.innerHTML
 
     // Create button and replace the preexisting html with the button.
-    var $button = $('<button>')
-    $button.addClass('js-container-button app-c-option-select__title app-c-option-select__button')
+    var button = document.createElement('button')
+    button.setAttribute('class', 'js-container-button app-c-option-select__title app-c-option-select__button')
     // Add type button to override default type submit when this component is used within a form
-    $button.attr('type', 'button')
-    $button.attr('aria-expanded', true)
-    $button.attr('id', $containerHead.attr('id'))
-    $button.attr('aria-controls', this.$optionsContainer.attr('id'))
-    $button.html(jsContainerHeadHTML)
-    $containerHead.replaceWith($button)
+    button.setAttribute('type', 'button')
+    button.setAttribute('aria-expanded', true)
+    button.setAttribute('id', containerHead.getAttribute('id'))
+    button.setAttribute('aria-controls', this.$optionsContainer.getAttribute('id'))
+    button.innerHTML = jsContainerHeadHTML
+    containerHead.parentNode.replaceChild(button, containerHead)
   }
 
   OptionSelect.prototype.attachCheckedCounter = function attachCheckedCounter (checkedString) {
-    this.$optionSelect.find('.js-container-button')
-      .after('<div class="app-c-option-select__selected-counter js-selected-counter">' + checkedString + '</div>')
+    var element = document.createElement('div')
+    element.setAttribute('class', 'app-c-option-select__selected-counter js-selected-counter')
+    element.innerHTML = checkedString
+    this.$optionSelect.querySelector('.js-container-button').insertAdjacentElement('afterend', element)
   }
 
   OptionSelect.prototype.updateCheckedCount = function updateCheckedCount () {
     var checkedString = this.checkedString()
-    var checkedStringElement = this.$optionSelect.find('.js-selected-counter')
+    var checkedStringElement = this.$optionSelect.querySelector('.js-selected-counter')
 
     if (checkedString) {
-      if (checkedStringElement.length) {
-        checkedStringElement.text(checkedString)
-      } else {
+      if (checkedStringElement === null) {
         this.attachCheckedCounter(checkedString)
+      } else {
+        checkedStringElement.textContent = checkedString
       }
-    } else {
-      checkedStringElement.remove()
+    } else if (checkedStringElement) {
+      checkedStringElement.parentNode.removeChild(checkedStringElement)
     }
   }
 
@@ -180,53 +192,58 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
 
   OptionSelect.prototype.open = function open () {
     if (this.isClosed()) {
-      this.$optionSelect.find('.js-container-button').attr('aria-expanded', true)
-      this.$optionSelect.removeClass('js-closed')
-      this.$optionSelect.addClass('js-opened')
-      if (!this.$optionsContainer.prop('style').height) {
+      this.$optionSelect.querySelector('.js-container-button').setAttribute('aria-expanded', true)
+      this.$optionSelect.classList.remove('js-closed')
+      this.$optionSelect.classList.add('js-opened')
+      if (!this.$optionsContainer.style.height) {
         this.setupHeight()
       }
     }
   }
 
   OptionSelect.prototype.close = function close () {
-    this.$optionSelect.removeClass('js-opened')
-    this.$optionSelect.addClass('js-closed')
-    this.$optionSelect.find('.js-container-button').attr('aria-expanded', false)
+    this.$optionSelect.classList.remove('js-opened')
+    this.$optionSelect.classList.add('js-closed')
+    this.$optionSelect.querySelector('.js-container-button').setAttribute('aria-expanded', false)
   }
 
   OptionSelect.prototype.isClosed = function isClosed () {
-    return this.$optionSelect.hasClass('js-closed')
+    return this.$optionSelect.classList.contains('js-closed')
   }
 
   OptionSelect.prototype.setContainerHeight = function setContainerHeight (height) {
-    this.$optionsContainer.css({
-      height: height
-    })
+    this.$optionsContainer.style.height = height + 'px'
   }
 
-  OptionSelect.prototype.isCheckboxVisible = function isCheckboxVisible (index, option) {
-    var $checkbox = $(option)
-    var initialOptionContainerHeight = this.$optionsContainer.height()
-    var optionListOffsetTop = this.$optionList.offset().top
-    var distanceFromTopOfContainer = $checkbox.offset().top - optionListOffsetTop
+  OptionSelect.prototype.isCheckboxVisible = function isCheckboxVisible (option) {
+    var initialOptionContainerHeight = this.$optionsContainer.clientHeight
+    var optionListOffsetTop = this.$optionList.getBoundingClientRect().top
+    var distanceFromTopOfContainer = option.getBoundingClientRect().top - optionListOffsetTop
     return distanceFromTopOfContainer < initialOptionContainerHeight
   }
 
   OptionSelect.prototype.getVisibleCheckboxes = function getVisibleCheckboxes () {
-    var visibleCheckboxes = this.$options.filter(this.isCheckboxVisible.bind(this))
+    var visibleCheckboxes = []
+    for (var i = 0; i < this.$options.length; i++) {
+      if (this.isCheckboxVisible(this.$options[i])) {
+        visibleCheckboxes.push(this.$options[i])
+      }
+    }
+
     // add an extra checkbox, if the label of the first is too long it collapses onto itself
-    visibleCheckboxes = visibleCheckboxes.add(this.$options[visibleCheckboxes.length])
+    if (this.$options[visibleCheckboxes.length]) {
+      visibleCheckboxes.push(this.$options[visibleCheckboxes.length])
+    }
     return visibleCheckboxes
   }
 
   OptionSelect.prototype.setupHeight = function setupHeight () {
-    var initialOptionContainerHeight = this.$optionsContainer.height()
-    var height = this.$optionList.outerHeight(true)
+    var initialOptionContainerHeight = this.$optionsContainer.clientHeight
+    var height = this.$optionList.offsetHeight
 
     // check whether this is hidden by progressive disclosure,
     // because height calculations won't work
-    if (this.$optionsContainer[0].offsetParent === null) {
+    if (this.$optionsContainer.offsetParent === null) {
       initialOptionContainerHeight = 200
       height = 200
     }
@@ -238,9 +255,11 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
     }
 
     // Resize to cut last item cleanly in half
-    var lastVisibleCheckbox = this.getVisibleCheckboxes().last()
-    var position = lastVisibleCheckbox.parent()[0].offsetTop // parent element is relative
-    this.setContainerHeight(position + (lastVisibleCheckbox.height() / 1.5))
+    var visibleCheckboxes = this.getVisibleCheckboxes()
+
+    var lastVisibleCheckbox = visibleCheckboxes[visibleCheckboxes.length - 1]
+    var position = lastVisibleCheckbox.parentNode.offsetTop // parent element is relative
+    this.setContainerHeight(position + (lastVisibleCheckbox.clientHeight / 1.5))
   }
 
   Modules.OptionSelect = OptionSelect

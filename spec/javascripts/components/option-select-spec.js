@@ -6,7 +6,16 @@ describe('An option select component', function () {
       '<h2 class="app-c-option-select__heading js-container-heading">' +
         '<span class="app-c-option-select__title js-container-button"></span>' +
       '</h2>' +
-      '<div class="app-c-option-select__container js-options-container"></div>' +
+      '<div class="app-c-option-select__container js-options-container">' +
+        '<div class="app-c-option-select__container-inner js-auto-height-inner">' +
+          '<div id="checkboxes-9b7ecc25" class="gem-c-checkboxes govuk-form-group" data-module="checkboxes">' +
+            '<fieldset class="govuk-fieldset">' +
+              '<legend class="govuk-fieldset__legend govuk-fieldset__legend--m gem-c-checkboxes__legend--hidden">Please select all that apply</legend>' +
+              '<ul class="govuk-checkboxes gem-c-checkboxes__list"></ul>' +
+            '</fieldset>' +
+          '</div>' +
+        '</div>' +
+      '</div>' +
     '</div>'
   }
 
@@ -195,17 +204,16 @@ describe('An option select component', function () {
       optionSelect.start($element)
 
       optionSelect.setContainerHeight(100)
-      optionSelect.$optionsContainer.width(100)
       firstCheckbox = optionSelect.$allCheckboxes[0]
       lastCheckbox = optionSelect.$allCheckboxes[optionSelect.$allCheckboxes.length - 1]
     })
 
     it('returns true if a label is visible', function () {
-      expect(optionSelect.isCheckboxVisible(0, firstCheckbox)).toBe(true)
+      expect(optionSelect.isCheckboxVisible(firstCheckbox)).toBe(true)
     })
 
     it('returns true if a label is outside its container', function () {
-      expect(optionSelect.isCheckboxVisible(0, lastCheckbox)).toBe(false)
+      expect(optionSelect.isCheckboxVisible(lastCheckbox)).toBe(false)
     })
   })
 
@@ -224,7 +232,6 @@ describe('An option select component', function () {
 
     it('only returns some of the first checkboxes if the container\'s dimensions are constricted', function () {
       optionSelect.setContainerHeight(100)
-      optionSelect.$optionsContainer.width(100)
 
       var visibleCheckboxes = optionSelect.getVisibleCheckboxes()
       expect(visibleCheckboxes.length).toBeLessThan(optionSelect.$allCheckboxes.length)
@@ -338,7 +345,7 @@ describe('An option select component', function () {
       optionSelect.start($element)
 
       jasmine.clock().install()
-      $filterInput = $element.find('[name="option-select-filter"]')
+      $filterInput = document.querySelector('[name="option-select-filter"]')
       $count = $('#checkboxes-9b7ecc25-count')
     })
 
@@ -349,27 +356,33 @@ describe('An option select component', function () {
     it('filters the checkboxes and updates the filter count correctly', function () {
       expect($('.govuk-checkboxes__item:visible').length).toBe(12)
 
-      $filterInput.val('in').keyup()
+      $filterInput.value = 'in'
+      window.GOVUK.triggerEvent($filterInput, 'keyup')
+
       jasmine.clock().tick(400)
-      expect($('.govuk-checkboxes__input:visible').length).toBe(5)
+      expect($('.govuk-checkboxes__input:visible').length + $('.govuk-checkboxes__input:checked').length).toBe(5)
       expect($count.text()).toBe('5 options found, 0 selected')
 
-      $filterInput.val('ind').keyup()
+      $filterInput.value = 'ind'
+      window.GOVUK.triggerEvent($filterInput, 'keyup')
       jasmine.clock().tick(400)
-      expect($('.govuk-checkboxes__input:visible').length).toBe(2)
+      expect($('.govuk-checkboxes__input:visible').length + $('.govuk-checkboxes__input:checked').length).toBe(2)
       expect($count.html()).toBe('2 options found, 0 selected')
 
-      $filterInput.val('shouldnotmatchanything').keyup()
+      $filterInput.value = 'shouldnotmatchanything'
+      window.GOVUK.triggerEvent($filterInput, 'keyup')
       jasmine.clock().tick(400)
-      expect($('.govuk-checkboxes__input:visible').length).toBe(0)
+      expect($('.govuk-checkboxes__input:visible').length + $('.govuk-checkboxes__input:checked').length).toBe(0)
       expect($count.html()).toBe('0 options found, 0 selected')
     })
 
     it('does not propagate keypresses up', function () {
-      var e = jQuery.Event('keyup', { keyCode: 13 }) // enter
-      $filterInput.trigger(e)
+      var event = document.createEvent('Events')
+      event.initEvent('keyup', true, true)
+      event.keyCode = 13
+      $filterInput.dispatchEvent(event)
 
-      expect(e.isDefaultPrevented()).toBe(true)
+      expect(event.defaultPrevented).toBe(true)
     })
 
     it('shows checked checkboxes regardless of whether they match the filter', function () {
@@ -377,84 +390,110 @@ describe('An option select component', function () {
       $('#chemicals').prop('checked', true).change()
       jasmine.clock().tick(100)
 
-      $filterInput.val('electronics').keyup()
+      $filterInput.value = 'electronics'
+      window.GOVUK.triggerEvent($filterInput, 'keyup')
       jasmine.clock().tick(400)
-      expect($('.govuk-checkboxes__input:visible').length).toBe(3)
+
+      expect($('.govuk-checkboxes__input:visible').length + $('.govuk-checkboxes__input:checked').length).toBe(3)
       expect($count.html()).toBe('3 options found, 2 selected')
 
-      $filterInput.val('shouldnotmatchanything').keyup()
+      $filterInput.value = 'shouldnotmatchanything'
+      window.GOVUK.triggerEvent($filterInput, 'keyup')
       jasmine.clock().tick(400)
-      expect($('.govuk-checkboxes__input:visible').length).toBe(2)
+
+      expect($('.govuk-checkboxes__input:visible').length + $('.govuk-checkboxes__input:checked').length).toBe(2)
       expect($count.html()).toBe('2 options found, 2 selected')
     })
 
     it('matches a filter regardless of text case', function () {
-      $filterInput.val('electroNICS industry').keyup()
+      $filterInput.value = 'electroNICS industry'
+      window.GOVUK.triggerEvent($filterInput, 'keyup')
       jasmine.clock().tick(400)
-      expect($('.govuk-checkboxes__input:visible').length).toBe(1)
+
+      expect($('.govuk-checkboxes__input:visible').length + $('.govuk-checkboxes__input:checked').length).toBe(1)
       expect($count.html()).toBe('1 option found, 0 selected')
 
-      $filterInput.val('Building and construction').keyup()
+      $filterInput.value = 'Building and construction'
+      window.GOVUK.triggerEvent($filterInput, 'keyup')
       jasmine.clock().tick(400)
-      expect($('.govuk-checkboxes__input:visible').length).toBe(1)
+
+      expect($('.govuk-checkboxes__input:visible').length + $('.govuk-checkboxes__input:checked').length).toBe(1)
       expect($count.html()).toBe('1 option found, 0 selected')
     })
 
     it('matches ampersands correctly', function () {
-      $filterInput.val('Distribution & Service Industries').keyup()
+      $filterInput.value = 'Distribution & Service Industries'
+      window.GOVUK.triggerEvent($filterInput, 'keyup')
       jasmine.clock().tick(400)
-      expect($('.govuk-checkboxes__input:visible').length).toBe(1)
+
+      expect($('.govuk-checkboxes__input:visible').length + $('.govuk-checkboxes__input:checked').length).toBe(1)
       expect($count.html()).toBe('1 option found, 0 selected')
 
-      $filterInput.val('Distribution &amp; Service Industries').keyup()
+      $filterInput.value = 'Distribution &amp; Service Industries'
+      window.GOVUK.triggerEvent($filterInput, 'keyup')
       jasmine.clock().tick(400)
-      expect($('.govuk-checkboxes__input:visible').length).toBe(0)
+
+      expect($('.govuk-checkboxes__input:visible').length + $('.govuk-checkboxes__input:checked').length).toBe(0)
       expect($count.html()).toBe('0 options found, 0 selected')
     })
 
     it('ignores whitespace around the user input', function () {
-      $filterInput.val('   Clothing, footwear and fashion    ').keyup()
+      $filterInput.value = '   Clothing, footwear and fashion    '
+      window.GOVUK.triggerEvent($filterInput, 'keyup')
       jasmine.clock().tick(400)
-      expect($('.govuk-checkboxes__input:visible').length).toBe(1)
+
+      expect($('.govuk-checkboxes__input:visible').length + $('.govuk-checkboxes__input:checked').length).toBe(1)
       expect($count.html()).toBe('1 option found, 0 selected')
     })
 
     it('ignores duplicate whitespace in the user input', function () {
-      $filterInput.val('Clothing,     footwear      and      fashion').keyup()
+      $filterInput.value = 'Clothing,     footwear      and      fashion'
+      window.GOVUK.triggerEvent($filterInput, 'keyup')
       jasmine.clock().tick(400)
-      expect($('.govuk-checkboxes__input:visible').length).toBe(1)
+
+      expect($('.govuk-checkboxes__input:visible').length + $('.govuk-checkboxes__input:checked').length).toBe(1)
       expect($count.html()).toBe('1 option found, 0 selected')
     })
 
     it('ignores common punctuation characters', function () {
-      $filterInput.val('closed organisation department for Fisheries War Widows pay Farmers rights sheep and goats Farmers rights cows & llamas').keyup()
+      $filterInput.value = 'closed organisation department for Fisheries War Widows pay Farmers rights sheep and goats Farmers rights cows & llamas'
+      window.GOVUK.triggerEvent($filterInput, 'keyup')
       jasmine.clock().tick(400)
-      expect($('.govuk-checkboxes__input:visible').length).toBe(1)
+
+      expect($('.govuk-checkboxes__input:visible').length + $('.govuk-checkboxes__input:checked').length).toBe(1)
       expect($count.html()).toBe('1 option found, 0 selected')
     })
 
     it('normalises & and and', function () {
-      $filterInput.val('cows & llamas').keyup()
+      $filterInput.value = 'cows & llamas'
+      window.GOVUK.triggerEvent($filterInput, 'keyup')
       jasmine.clock().tick(400)
-      expect($('.govuk-checkboxes__input:visible').length).toBe(1)
+
+      expect($('.govuk-checkboxes__input:visible').length + $('.govuk-checkboxes__input:checked').length).toBe(1)
       expect($count.html()).toBe('1 option found, 0 selected')
 
-      $filterInput.val('cows and llamas').keyup()
+      $filterInput.value = 'cows and llamas'
+      window.GOVUK.triggerEvent($filterInput, 'keyup')
       jasmine.clock().tick(400)
-      expect($('.govuk-checkboxes__input:visible').length).toBe(1)
+
+      expect($('.govuk-checkboxes__input:visible').length + $('.govuk-checkboxes__input:checked').length).toBe(1)
       expect($count.html()).toBe('1 option found, 0 selected')
     })
 
     // there was a bug in cleanString() where numbers were being ignored
     it('does not strip out numbers', function () {
-      $filterInput.val('1st and 2nd Military Courts').keyup()
+      $filterInput.value = '1st and 2nd Military Courts'
+      window.GOVUK.triggerEvent($filterInput, 'keyup')
       jasmine.clock().tick(400)
-      expect($('.govuk-checkboxes__input:visible').length).toBe(1)
+
+      expect($('.govuk-checkboxes__input:visible').length + $('.govuk-checkboxes__input:checked').length).toBe(1)
       expect($count.html()).toBe('1 option found, 0 selected')
 
-      $filterInput.val('footwear and f23907234973204723094ashion').keyup()
+      $filterInput.value = 'footwear and f23907234973204723094ashion'
+      window.GOVUK.triggerEvent($filterInput, 'keyup')
       jasmine.clock().tick(400)
-      expect($('.govuk-checkboxes__input:visible').length).toBe(0)
+
+      expect($('.govuk-checkboxes__input:visible').length + $('.govuk-checkboxes__input:checked').length).toBe(0)
       expect($count.html()).toBe('0 options found, 0 selected')
     })
   })
