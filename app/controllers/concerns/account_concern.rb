@@ -104,7 +104,7 @@ module AccountConcern
     results_in_account = fetch_results_from_account_or_logout
     redirect_to logged_out_pre_update_results_path and return if must_reauthenticate?
 
-    @saved_results = results_in_account.fetch("criteria_keys", [])
+    @saved_results = results_in_account["criteria_keys"]
   end
 
   def logged_out_pre_saved_results_path(path = transition_checker_saved_results_path)
