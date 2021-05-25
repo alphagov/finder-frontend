@@ -170,7 +170,7 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
     end
 
     context "/transition-check/save-your-results/confirm" do
-      before { stub_account_api_has_attributes(attributes: %w[transition_checker_state], values: { "transition_checker_state" => transition_checker_state }) }
+      before { stub_account_api_has_attributes(attributes: %w[transition_checker_state], values: { "transition_checker_state" => transition_checker_state }.compact) }
 
       let(:new_criteria_keys) { %w[nationality-eu] }
 
@@ -223,6 +223,15 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
         it "redirects back to the results page" do
           given_i_am_on_the_save_results_confirm_page_with(criteria_keys)
           expect(page).to have_current_path(transition_checker_results_path(c: criteria_keys))
+        end
+      end
+
+      context "the user has no results stored in their account" do
+        let(:transition_checker_state) { nil }
+
+        it "skips the comparison table and prompts the user to sign up to email alerts" do
+          given_i_am_on_the_save_results_confirm_page_with(criteria_keys)
+          expect(page).to have_current_path(transition_checker_save_results_email_signup_path(c: criteria_keys))
         end
       end
     end
