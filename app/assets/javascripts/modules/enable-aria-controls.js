@@ -6,12 +6,11 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
 
   GOVUK.Modules.EnableAriaControls = function EnableAriaControls () {
     this.start = function (element) {
-      element.find('[data-aria-controls]').each(enableAriaControls)
-
-      function enableAriaControls () {
-        var controls = $(this).data('aria-controls')
-        if (typeof controls === 'string' && $('#' + controls).length > 0) {
-          $(this).attr('aria-controls', controls)
+      var $controls = element[0].querySelectorAll('[data-aria-controls]')
+      for (var i = 0; i < $controls.length; i++) {
+        var control = $controls[i].getAttribute('data-aria-controls')
+        if (typeof control === 'string' && document.getElementById(control)) {
+          $controls[i].setAttribute('aria-controls', control)
         }
       }
     }
