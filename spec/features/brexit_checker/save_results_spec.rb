@@ -9,7 +9,12 @@ RSpec.feature "Brexit Checker create GOV.UK Account", type: :feature do
 
   before do
     stub_account_api_create_registration_state(state_id: "jwt-id")
-    stub_account_api_get_sign_in_url(redirect_path: "/transition-check/save-your-results/confirm?c%5B%5D=nationality-eu", state_id: "jwt-id")
+    stub_account_api_get_sign_in_url(
+      redirect_path: "/transition-check/save-your-results/confirm?c%5B%5D=nationality-eu",
+      state_id: "jwt-id",
+      level_of_authentication: "level1",
+      auth_uri: "/sign-in?this-is-a-stubbed-url",
+    )
     stub_email_subscription_confirmation
   end
 
@@ -41,7 +46,7 @@ RSpec.feature "Brexit Checker create GOV.UK Account", type: :feature do
   end
 
   def i_get_redirected_to_sign_up
-    expect(page.current_url).to include("&state_id=jwt-id")
+    expect(page.current_url).to include("/sign-in?this-is-a-stubbed-url")
   end
 
   def stub_email_subscription_confirmation

@@ -108,11 +108,11 @@ module AccountConcern
   end
 
   def logged_out_pre_saved_results_path(path = transition_checker_saved_results_path)
-    transition_checker_new_session_url(redirect_path: path, _ga: params[:_ga])
+    transition_checker_new_session_url path
   end
 
   def logged_out_pre_update_results_path
-    transition_checker_new_session_url(redirect_path: transition_checker_save_results_confirm_path(c: criteria_keys), _ga: params[:_ga])
+    transition_checker_new_session_url transition_checker_save_results_confirm_path(c: criteria_keys)
   end
 
   def fetch_results_from_account_or_logout
@@ -151,9 +151,14 @@ module AccountConcern
     !logged_in? || @level_of_authentication_is_too_low
   end
 
-  def transition_checker_new_session_url(**params)
-    querystring = params.merge(level_of_authentication: "level1").compact.to_query
-    "#{base_path}/sign-in?#{querystring}"
+  def transition_checker_new_session_url(redirect_path, state_id: nil)
+    uri = GdsApi.account_api.get_sign_in_url(
+      redirect_path: redirect_path,
+      level_of_authentication: "level1",
+      state_id: state_id,
+    ).to_h["auth_uri"]
+    uri += "&_ga=#{params[:_ga]}" if params[:_ga]
+    uri
   end
 
   def transition_checker_end_session_url(**params)
