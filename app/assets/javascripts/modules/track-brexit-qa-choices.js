@@ -16,7 +16,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
         var $checkedOptions = submittedForm.querySelectorAll('input:checked')
         var questionKey = submittedForm.dataset.questionKey
 
-        if ($checkedOptions) {
+        if ($checkedOptions.length > 0) {
           for (var i = 0; i < $checkedOptions.length; i++) {
             var checkedOptionId = $checkedOptions[i].getAttribute('id')
             var checkedOptionLabelText = submittedForm.querySelector('label[for="' + checkedOptionId + '"]')
