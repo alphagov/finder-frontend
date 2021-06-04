@@ -15,10 +15,11 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
       element.on('submit', function (event) {
         var $checkedOption, eventLabel, options
         var $submittedForm = $(event.target)
-        var $checkedOptions = $submittedForm.find('input:checked')
+        var $checkedOptions = document.querySelectorAll('input:checked')
         var questionKey = $submittedForm.data('question-key')
 
-        if ($checkedOptions.length) {
+        if ($checkedOptions) {
+          console.log($checkedOptions[0])
           $checkedOptions.each(function (index) {
             $checkedOption = $(this)
             var checkedOptionId = $checkedOption.attr('id')
