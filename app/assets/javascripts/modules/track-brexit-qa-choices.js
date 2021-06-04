@@ -13,25 +13,22 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
 
     function track (element) {
       element.on('submit', function (event) {
-        var $checkedOption, eventLabel, options
+        var eventLabel, options
         var $submittedForm = $(event.target)
         var $checkedOptions = document.querySelectorAll('input:checked')
         var questionKey = $submittedForm.data('question-key')
 
         if ($checkedOptions) {
-          console.log($checkedOptions[0])
-          $checkedOptions.each(function (index) {
-            $checkedOption = $(this)
-            var checkedOptionId = $checkedOption.attr('id')
+          for (var i = 0; i < $checkedOptions.length; i++) {
+            var checkedOptionId = $checkedOptions[i].getAttribute('id')
             var checkedOptionLabel = $submittedForm.find('label[for="' + checkedOptionId + '"]').text().trim()
             eventLabel = checkedOptionLabel.length
               ? checkedOptionLabel
-              : $checkedOption.val()
+              : $checkedOptions[i].val()
 
             options = { transport: 'beacon', label: eventLabel }
-
             GOVUK.SearchAnalytics.trackEvent('brexit-checker-qa', questionKey, options)
-          })
+          }
         } else {
           // Skipped questions
           options = { transport: 'beacon', label: 'no choice' }
