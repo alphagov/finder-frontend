@@ -10,7 +10,7 @@ describe('Brexit QA choices tracker', function () {
 
     $element = $(
       '<div>' +
-        '<form onsubmit="event.preventDefault()" id="finder-qa-facet-filter-selection" data-question-key="question-key">' +
+        '<form onsubmit="event.preventDefault()" data-question-key="question-key">' +
           '<div>' +
             '<input name="sector_business_area[]" id="construction" type="checkbox" value="construction">' +
             '<label for="construction">Construction label</label>' +
