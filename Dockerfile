@@ -4,21 +4,26 @@ RUN apt-get install -y build-essential nodejs npm && apt-get clean
 RUN npm install --global yarn
 RUN gem install foreman
 
+# This image is only intended to be able to run this app in a production RAILS_ENV
+ENV RAILS_ENV production
+
 ENV GOVUK_APP_NAME finder-frontend
 ENV PORT 3062
-ENV RAILS_ENV development
 
 ENV APP_HOME /app
 RUN mkdir $APP_HOME
 
 WORKDIR $APP_HOME
+
 ADD package.json $APP_HOME/
 ADD yarn.lock $APP_HOME/
 RUN yarn install --production=true --frozen-lockfile
 
 ADD Gemfile* $APP_HOME/
 ADD .ruby-version $APP_HOME/
-RUN bundle install
+RUN bundle config set deployment 'true'
+RUN bundle config set without 'development test'
+RUN bundle install --jobs 4
 
 ADD . $APP_HOME
 
