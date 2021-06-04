@@ -20,8 +20,12 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
           for (var i = 0; i < $checkedOptions.length; i++) {
             var checkedOptionId = $checkedOptions[i].getAttribute('id')
             var checkedOptionLabelText = submittedForm.querySelector('label[for="' + checkedOptionId + '"]')
-            var someText = checkedOptionLabelText.textContent || checkedOptionLabelText.innerText
-            var checkedOptionLabel = someText.replace(/^\s+|\s+$/g, '')
+            var checkedOptionLabel
+            if (checkedOptionLabelText != null){
+              checkedOptionLabel = checkedOptionLabelText.textContent.replace(/^\s+|\s+$/g, '')
+            } else {
+              checkedOptionLabel = ""
+            }
             eventLabel = checkedOptionLabel.length
               ? checkedOptionLabel
               : $checkedOptions[i].value
