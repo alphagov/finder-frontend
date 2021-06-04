@@ -12,14 +12,14 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
     function track (element) {
       element.on('submit', function (event) {
         var eventLabel, options
-        var $checkedOptions = document.querySelectorAll('input:checked')
-        var questionKey = document.getElementById("finder-qa-facet-filter-selection").dataset.questionKey
-        // var questionKey = "question-key"
+        var submittedForm = event.target
+        var $checkedOptions = submittedForm.querySelectorAll('input:checked')
+        var questionKey = submittedForm.dataset.questionKey
 
         if ($checkedOptions) {
           for (var i = 0; i < $checkedOptions.length; i++) {
             var checkedOptionId = $checkedOptions[i].getAttribute('id')
-            var checkedOptionLabelText = document.querySelector('label[for="' + checkedOptionId + '"]')
+            var checkedOptionLabelText = submittedForm.querySelector('label[for="' + checkedOptionId + '"]')
             var someText = checkedOptionLabelText.textContent || checkedOptionLabelText.innerText
             var checkedOptionLabel = someText.replace(/^\s+|\s+$/g, '')
             eventLabel = checkedOptionLabel.length
