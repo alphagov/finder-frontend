@@ -5,11 +5,6 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
   'use strict'
 
   GOVUK.Modules.RemoveFilter = function RemoveFilter () {
-    var onChangeSuppressAnalytics = {
-      type: 'change',
-      suppressAnalytics: true
-    }
-
     this.start = function (element) {
       $(element).on('click', '[data-module="remove-filter-link"]', toggleFilter)
     }
@@ -36,7 +31,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
 
       if (inputType === 'checkbox') {
         $input.prop('checked', false)
-        $input.trigger(onChangeSuppressAnalytics)
+        fireChangeSuppressedAnalytics($input)
       } else if (inputType === 'text' || inputType === 'search') {
         /* By padding the haystack with spaces, we can remove the
          * first instance of " $needle ", and this will catch it in
@@ -58,10 +53,19 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
         var needle = ' ' + decodeEntities(removeFilterValue.toString()) + ' '
         var newVal = haystack.replace(needle, ' ').replace(/ {2}/g, ' ').trim()
 
-        $input.val(newVal).trigger(onChangeSuppressAnalytics)
+        $input.val(newVal)
+        fireChangeSuppressedAnalytics($input)
       } else if (elementType === 'OPTION') {
-        $('#' + removeFilterFacet).val('').trigger(onChangeSuppressAnalytics)
+        var $el = $('#' + removeFilterFacet)
+        $el.val('')
+        fireChangeSuppressedAnalytics($el)
       }
+    }
+
+    function fireChangeSuppressedAnalytics ($element) {
+      var element = $element[0]
+      var event = new CustomEvent('change', { bubbles: true, detail: { suppressAnalytics: true } })
+      element.dispatchEvent(event)
     }
 
     function getInput (removeFilterName, removeFilterValue, removeFilterFacet) {

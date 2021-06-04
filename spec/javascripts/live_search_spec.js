@@ -275,9 +275,32 @@ describe('liveSearch', function () {
       GOVUK.LiveSearch.prototype.fireTextAnalyticsEvent = function (event) {}
       spyOn(GOVUK.LiveSearch.prototype, 'fireTextAnalyticsEvent')
 
+      // jquery event
       $form.find('input[name="published_at"]').val('2005').trigger('change')
 
-      expect(GOVUK.LiveSearch.prototype.fireTextAnalyticsEvent).toHaveBeenCalledTimes(1)
+      // native event
+      var input = $form.find('input[name="published_at"]')[0]
+      input.value = '2006'
+      var event = new CustomEvent('change', { bubbles: true })
+      input.dispatchEvent(event)
+
+      expect(GOVUK.LiveSearch.prototype.fireTextAnalyticsEvent).toHaveBeenCalledTimes(2)
+    })
+
+    it('should not trigger filterClicked custom event when input type is text and analytics are suppressed', function () {
+      GOVUK.LiveSearch.prototype.fireTextAnalyticsEvent = function (event) {}
+      spyOn(GOVUK.LiveSearch.prototype, 'fireTextAnalyticsEvent')
+
+      // jquery event
+      $form.find('input[name="published_at"]').val('2005').trigger({ type: 'change', suppressAnalytics: true })
+
+      // native event
+      var input = $form.find('input[name="published_at"]')[0]
+      input.value = '2006'
+      var event = new CustomEvent('change', { bubbles: true, detail: { suppressAnalytics: true } })
+      input.dispatchEvent(event)
+
+      expect(GOVUK.LiveSearch.prototype.fireTextAnalyticsEvent).not.toHaveBeenCalled()
     })
 
     it('should trigger filterClicked for both change and enter key events on text input', function () {
