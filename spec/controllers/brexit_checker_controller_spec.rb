@@ -1,6 +1,8 @@
 require "spec_helper"
 
 describe BrexitCheckerController, type: :controller do
+  include GovukPersonalisation::SessionHelpers
+
   render_views
 
   context "accounts header" do
@@ -20,8 +22,9 @@ describe BrexitCheckerController, type: :controller do
     end
 
     context "the GOVUK-Account-Session header is set" do
+      before { mock_logged_in_session }
+
       it "requests the signed-in header" do
-        request.headers["GOVUK-Account-Session"] = "foo"
         get :show
         assert_equal "signed-in", response.headers["X-Slimmer-Show-Accounts"]
       end
