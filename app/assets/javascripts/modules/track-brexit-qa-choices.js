@@ -6,11 +6,11 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
 
   GOVUK.Modules.TrackBrexitQaChoices = function () {
     this.start = function (element) {
-      track(element)
+      track(element[0])
     }
 
     function track (element) {
-      element.on('submit', function (event) {
+      element.addEventListener('submit', function (event) {
         var eventLabel, options
         var submittedForm = event.target
         var checkedOptions = submittedForm.querySelectorAll('input:checked')
@@ -23,10 +23,11 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
             var checkedOptionLabel = ""
             if (checkedOptionLabelText != null){
               checkedOptionLabel = checkedOptionLabelText.textContent.replace(/^\s+|\s+$/g, '')
-            } 
+            }
             eventLabel = checkedOptionLabel.length
               ? checkedOptionLabel
               : checkedOptions[i].value
+
 
             options = { transport: 'beacon', label: eventLabel }
             GOVUK.SearchAnalytics.trackEvent('brexit-checker-qa', questionKey, options)
