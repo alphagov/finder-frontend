@@ -1,7 +1,7 @@
 require "spec_helper"
 
 describe BrexitCheckerController, type: :controller do
-  include GovukPersonalisation::SessionHelpers
+  include GovukPersonalisation::RequestSessionHelpers
 
   render_views
 

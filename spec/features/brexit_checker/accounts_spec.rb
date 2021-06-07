@@ -5,7 +5,7 @@ require "gds_api/test_helpers/email_alert_api"
 RSpec.feature "Brexit Checker accounts", type: :feature do
   include GdsApi::TestHelpers::AccountApi
   include GdsApi::TestHelpers::EmailAlertApi
-  include GovukPersonalisation::SessionHelpers
+  include GovukPersonalisation::FeatureSessionHelpers
 
   let(:mock_results) { %w[nationality-eu] }
 
