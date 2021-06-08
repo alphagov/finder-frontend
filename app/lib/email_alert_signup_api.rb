@@ -28,7 +28,7 @@ private
   end
 
   def subscriber_list
-    Services.email_alert_api.find_or_create_subscriber_list(subscriber_list_options).dig("subscriber_list")
+    Services.email_alert_api.find_or_create_subscriber_list(subscriber_list_options)["subscriber_list"]
   end
 
   def subscriber_list_options
@@ -63,7 +63,7 @@ private
   end
 
   def split_key(full_key)
-    matches = full_key.match(/^((?<operator>any|all)_)?(?<key>.*)$/)
+    matches = full_key.match(/^((?<operator>any|all)_)?(?<key>.*)$/) # rubocop:disable Lint/MixedRegexpCaptureTypes
     operator = matches[:operator] || "any"
     key = matches[:key] == "part_of_taxonomy_tree" ? "taxon_tree" : matches[:key]
     [operator, key]
@@ -84,7 +84,7 @@ private
     @tags ||= filter_keys.each_with_object({}) do |key, tags_hash|
       values = values_for_key(key)
       any_or_all = is_all_field?(key) ? :all : :any
-      tag = is_all_field?(key) ? key[4..-1] : key
+      tag = is_all_field?(key) ? key[4..] : key
 
       tags_hash[tag] ||= {}
       tags_hash[tag][any_or_all] ||= []

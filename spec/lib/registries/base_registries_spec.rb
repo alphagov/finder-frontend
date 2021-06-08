@@ -95,8 +95,6 @@ RSpec.describe Registries::BaseRegistries do
   end
 
   def registry_cache_keys
-    @registry_cache_keys ||= begin
-      described_class.new.all.values.map(&:cache_key)
-    end
+    @registry_cache_keys ||= described_class.new.all.values.map(&:cache_key)
   end
 end

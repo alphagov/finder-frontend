@@ -1,5 +1,7 @@
 require "spec_helper"
 
+class ExampleFacet < FilterableFacet; end
+
 describe FilterableFacet do
   let(:facet_data) do
     {
@@ -18,7 +20,6 @@ describe FilterableFacet do
     end
 
     context "with another kind of facet" do
-      class ExampleFacet < FilterableFacet; end
       let(:facet_class) { ExampleFacet }
       specify { expect(subject.to_partial_path).to eql("example_facet") }
     end

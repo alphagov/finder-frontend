@@ -1,5 +1,6 @@
 class RadioFacetForMultipleFilters < FilterableFacet
   attr_reader :value
+
   def initialize(facet, value, filter_hashes)
     @filter_hashes = filter_hashes
     @value = validated_value(value, @filter_hashes)

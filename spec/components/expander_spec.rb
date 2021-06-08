@@ -5,9 +5,9 @@ describe "expander", type: :view do
     "expander"
   end
 
-  def render_component(locals)
+  def render_component(locals, &block)
     if block_given?
-      render("components/#{component_name}", locals) { yield }
+      render("components/#{component_name}", locals, &block)
     else
       render "components/#{component_name}", locals
     end

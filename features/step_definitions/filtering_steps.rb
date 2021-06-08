@@ -668,12 +668,12 @@ And(/^I select a World Location$/) do
   check("Azkaban")
 end
 
-And(/^I click button \"([^\"]*)\" and select facet (.*)$/) do |button, facet|
+And(/^I click button "([^"]*)" and select facet (.*)$/) do |button, facet|
   click_on(button)
   find("label", text: facet).click
 end
 
-And(/^I select facet (.*) in the already expanded \"([^\"]*)\" section$/) do |facet, _button|
+And(/^I select facet (.*) in the already expanded "([^"]*)" section$/) do |facet, _button|
   find("label", text: facet).click
 end
 

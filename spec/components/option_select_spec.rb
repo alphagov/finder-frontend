@@ -106,10 +106,10 @@ describe "components/_option-select.html.erb", type: :view do
   end
 
   def expect_label_and_checked_checkbox(label, id, value)
-    expect_label_and_checkbox(label, id, value, true)
+    expect_label_and_checkbox(label, id, value, checked: true)
   end
 
-  def expect_label_and_checkbox(label, id, value, checked = false)
+  def expect_label_and_checkbox(label, id, value, checked: false)
     expected_name = "[name='#{option_key}[]']"
     expected_id = "[id='#{option_key}-#{id}']"
     expected_value = "[value='#{value}']"

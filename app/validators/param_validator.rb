@@ -1,5 +1,6 @@
 class ParamValidator < ActiveModel::Validator
   def initialize(query)
+    super()
     @query = query
   end
 

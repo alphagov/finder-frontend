@@ -1,29 +1,30 @@
 require "spec_helper"
 
-describe Filters::RadioFilterForMultipleFields do
-  class InvalidFilter < Filters::RadioFilterForMultipleFields; end
-  class TestFilter < Filters::RadioFilterForMultipleFields
-    def filter_hashes
-      [
-        {
-          "value" => "value_1",
-          "label" => "label_1",
-          "filter" => {
-            "field" => "value_1",
-          },
-        },
-        {
-          "value" => "default_value",
-          "label" => "default_label",
-          "filter" => {
-            "field" => "default_value",
-          },
-          "default" => true,
-        },
-      ]
-    end
-  end
+class InvalidFilter < Filters::RadioFilterForMultipleFields; end
 
+class TestFilter < Filters::RadioFilterForMultipleFields
+  def filter_hashes
+    [
+      {
+        "value" => "value_1",
+        "label" => "label_1",
+        "filter" => {
+          "field" => "value_1",
+        },
+      },
+      {
+        "value" => "default_value",
+        "label" => "default_label",
+        "filter" => {
+          "field" => "default_value",
+        },
+        "default" => true,
+      },
+    ]
+  end
+end
+
+describe Filters::RadioFilterForMultipleFields do
   let(:facet) { { "key" => "content_store_document_type" } }
 
   describe "#query_hash" do

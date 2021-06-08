@@ -90,7 +90,7 @@ private
     acronym = value.fetch("acronym", "")
     return title if acronym.blank? || acronym == title
 
-    title + " (" + acronym + ")"
+    "#{title} (#{acronym})"
   end
 
   def find_facet_title_by_slug(slug, facet_key)

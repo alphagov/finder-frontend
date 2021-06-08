@@ -14,9 +14,7 @@ module ParameterParser
     end
 
     def applied_filters
-      @applied_filters ||= begin
-        permitted_filter_keys.index_with { |key| permitted_values_for_filter_key(key) }.compact
-      end
+      @applied_filters ||= permitted_filter_keys.index_with { |key| permitted_values_for_filter_key(key) }.compact
     end
 
     def required_facets_selected?
@@ -28,7 +26,7 @@ module ParameterParser
     attr_reader :filter_params, :content_item
 
     def required_facets
-      permitted_facets.select { |facet| facet.dig("required") }
+      permitted_facets.select { |facet| facet["required"] }
     end
 
     def permitted_facets
@@ -70,7 +68,7 @@ module ParameterParser
 
       # Option lookup used by /search/policy-papers-and-consultations/email-signup
       # TODO: remove option_lookup and make it consistent with other finders.
-      option_lookup = facet.dig("option_lookup")
+      option_lookup = facet["option_lookup"]
       return option_lookup.values.flatten if option_lookup.present?
 
       # Dynamic facets, such as people or organisations, used by
@@ -93,8 +91,7 @@ module ParameterParser
       # TODO: There are 3 params hashes here for the email-alert-api tags/links
       filter_params.fetch("subscriber_list_params", {}).merge(
         params
-          .permit("filter" => {})
-          .dig("filter")
+          .permit("filter" => {})["filter"]
           .to_h,
       )
     end

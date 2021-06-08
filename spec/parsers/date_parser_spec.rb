@@ -76,15 +76,11 @@ describe DateParser do
     it "returns the correct date for #{input}" do
       expect(DateParser.new.parse(input)).to eql(expected)
     end
-  end
 
-  dates.each_pair do |input, expected|
     it "returns the correct date for #{input} with trailing whitespace" do
       expect(DateParser.new.parse("#{input} ")).to eql(expected)
     end
-  end
 
-  dates.each_pair do |input, expected|
     it "returns the correct date for #{input} with preceeding whitespace" do
       expect(DateParser.new.parse(" #{input}")).to eql(expected)
     end
