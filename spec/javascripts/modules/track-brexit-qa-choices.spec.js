@@ -38,7 +38,8 @@ describe('Brexit QA choices tracker', function () {
   it('tracks checked checkboxes when clicking submit', function () {
     $element.find('input[value="accommodation"]').trigger('click')
     $element.find('input[value="construction"]').trigger('click')
-    $element.find('form').trigger('submit')
+    // $element.find('form').trigger('submit')
+    window.GOVUK.triggerEvent($element.find('form')[0], 'submit')
 
     expect(GOVUK.SearchAnalytics.trackEvent).toHaveBeenCalledWith(
       'brexit-checker-qa', 'question-key', { transport: 'beacon', label: 'Accommodation label' }
@@ -50,7 +51,7 @@ describe('Brexit QA choices tracker', function () {
 
   it('track events sends value of checkbox when no label is set', function () {
     $element.find('input[value="furniture"]').trigger('click')
-    $element.find('form').trigger('submit')
+    window.GOVUK.triggerEvent($element.find('form')[0], 'submit')
 
     expect(GOVUK.SearchAnalytics.trackEvent).toHaveBeenCalledWith(
       'brexit-checker-qa', 'question-key', { transport: 'beacon', label: 'furniture' }
@@ -58,7 +59,7 @@ describe('Brexit QA choices tracker', function () {
   })
 
   it('track event triggered when no choice is made', function () {
-    $element.find('form').trigger('submit')
+    window.GOVUK.triggerEvent($element.find('form')[0], 'submit')
 
     expect(GOVUK.SearchAnalytics.trackEvent).toHaveBeenCalledWith(
       'brexit-checker-qa', 'question-key', { transport: 'beacon', label: 'no choice' }
