@@ -38,7 +38,6 @@ describe('Brexit QA choices tracker', function () {
   it('tracks checked checkboxes when clicking submit', function () {
     $element.find('input[value="accommodation"]').trigger('click')
     $element.find('input[value="construction"]').trigger('click')
-    // $element.find('form').trigger('submit')
     window.GOVUK.triggerEvent($element.find('form')[0], 'submit')
 
     expect(GOVUK.SearchAnalytics.trackEvent).toHaveBeenCalledWith(

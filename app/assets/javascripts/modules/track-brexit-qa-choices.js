@@ -20,14 +20,13 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
           for (var i = 0; i < checkedOptions.length; i++) {
             var checkedOptionId = checkedOptions[i].getAttribute('id')
             var checkedOptionLabelText = submittedForm.querySelector('label[for="' + checkedOptionId + '"]')
-            var checkedOptionLabel = ""
-            if (checkedOptionLabelText != null){
+            var checkedOptionLabel = ''
+            if (checkedOptionLabelText != null) {
               checkedOptionLabel = checkedOptionLabelText.textContent.replace(/^\s+|\s+$/g, '')
             }
             eventLabel = checkedOptionLabel.length
               ? checkedOptionLabel
               : checkedOptions[i].value
-
 
             options = { transport: 'beacon', label: eventLabel }
             GOVUK.SearchAnalytics.trackEvent('brexit-checker-qa', questionKey, options)
