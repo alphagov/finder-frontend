@@ -14,7 +14,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
         var eventLabel, options
         var $submittedForm = event.target
         var $checkedOptions = $submittedForm.querySelectorAll('input:checked')
-        var questionKey = $submittedForm.data('question-key')
+        var questionKey = $submittedForm.getAttribute('data-question-key')
 
         if ($checkedOptions.length) {
           for (var i = 0; i < $checkedOptions.length; i++) {
