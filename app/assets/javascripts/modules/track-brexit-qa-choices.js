@@ -4,8 +4,6 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
 (function (global, GOVUK) {
   'use strict'
 
-  var $ = global.jQuery
-
   GOVUK.Modules.TrackBrexitQaChoices = function () {
     this.start = function (element) {
       track(element)
@@ -14,8 +12,8 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
     function track (element) {
       element.on('submit', function (event) {
         var $checkedOption, eventLabel, options
-        var $submittedForm = $(event.target)
-        var $checkedOptions = $submittedForm.find('input:checked')
+        var $submittedForm = event.target
+        var $checkedOptions = $submittedForm.querySelectorAll('input:checked')
         var questionKey = $submittedForm.data('question-key')
 
         if ($checkedOptions.length) {
