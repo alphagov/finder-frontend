@@ -12,14 +12,14 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
     function track (element) {
       element.addEventListener('submit', function (event) {
         var eventLabel, options
-        var $submittedForm = event.target
-        var $checkedOptions = $submittedForm.querySelectorAll('input:checked')
-        var questionKey = $submittedForm.getAttribute('data-question-key')
+        var submittedForm = event.target
+        var checkedOptions = submittedForm.querySelectorAll('input:checked')
+        var questionKey = submittedForm.getAttribute('data-question-key')
 
-        if ($checkedOptions.length) {
-          for (var i = 0; i < $checkedOptions.length; i++) {
-            var checkedOptionId = $checkedOptions[i].getAttribute('id')
-            var checkedOptionLabelText = $submittedForm.querySelector('label[for="' + checkedOptionId + '"]')
+        if (checkedOptions.length) {
+          for (var i = 0; i < checkedOptions.length; i++) {
+            var checkedOptionId = checkedOptions[i].getAttribute('id')
+            var checkedOptionLabelText = submittedForm.querySelector('label[for="' + checkedOptionId + '"]')
             var checkedOptionLabel = ''
 
             if (checkedOptionLabelText != null) {
@@ -28,7 +28,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
 
             eventLabel = checkedOptionLabel.length
               ? checkedOptionLabel
-              : $checkedOptions[i].value
+              : checkedOptions[i].value
 
             options = { transport: 'beacon', label: eventLabel }
 
