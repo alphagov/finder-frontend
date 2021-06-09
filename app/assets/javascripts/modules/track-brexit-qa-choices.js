@@ -22,7 +22,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
             var checkedOptionLabel = $submittedForm.find('label[for="' + checkedOptionId + '"]').text().trim()
             eventLabel = checkedOptionLabel.length
               ? checkedOptionLabel
-              : $checkedOptions[i].val()
+              : $checkedOptions[i].value
 
             options = { transport: 'beacon', label: eventLabel }
 
