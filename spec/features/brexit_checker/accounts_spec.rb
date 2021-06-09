@@ -5,6 +5,7 @@ require "gds_api/test_helpers/email_alert_api"
 RSpec.feature "Brexit Checker accounts", type: :feature do
   include GdsApi::TestHelpers::AccountApi
   include GdsApi::TestHelpers::EmailAlertApi
+  include GovukPersonalisation::TestHelpers::Features
 
   let(:mock_results) { %w[nationality-eu] }
 
@@ -59,8 +60,7 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
 
   context "the user is logged in" do
     let(:govuk_account_session) { "placeholder" }
-    before { page.driver.header("GOVUK-Account-Session", govuk_account_session) }
-    after  { page.driver.header("GOVUK-Account-Session", nil) }
+    before { mock_logged_in_session(govuk_account_session) }
 
     let(:transition_checker_state) { { criteria_keys: criteria_keys, timestamp: 42 } }
     let(:criteria_keys) { %w[nationality-uk] }
@@ -101,7 +101,7 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
 
       it "reads the new account header" do
         given_i_am_on_the_results_page
-        expect(page.response_headers["GOVUK-Account-Session"]).to eq("placeholder")
+        expect(page.response_headers["GOVUK-Account-Session"]).to eq(govuk_account_session)
       end
 
       context "the account header is the empty string" do
