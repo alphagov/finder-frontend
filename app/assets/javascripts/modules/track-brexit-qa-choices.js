@@ -6,11 +6,11 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
 
   GOVUK.Modules.TrackBrexitQaChoices = function () {
     this.start = function (element) {
-      track(element)
+      track(element[0])
     }
 
     function track (element) {
-      element.on('submit', function (event) {
+      element.addEventListener('submit', function (event) {
         var eventLabel, options
         var $submittedForm = event.target
         var $checkedOptions = $submittedForm.querySelectorAll('input:checked')
