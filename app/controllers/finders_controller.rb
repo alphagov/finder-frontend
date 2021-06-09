@@ -94,9 +94,9 @@ private
       filter_params,
       sort_presenter,
       content_item.metadata_class,
-      show_top_result?,
-      debug_score?,
-      include_ecommerce?,
+      show_top_result: show_top_result?,
+      debug_score: debug_score?,
+      include_ecommerce: include_ecommerce?,
     )
   end
 
@@ -138,8 +138,8 @@ private
   def pagination_presenter
     PaginationPresenter.new(
       per_page: content_item.default_documents_per_page,
-      start_offset: search_results.dig("start"),
-      total_results: search_results.dig("total"),
+      start_offset: search_results["start"],
+      total_results: search_results["total"],
       url_builder: finder_url_builder,
     )
   end
@@ -152,7 +152,7 @@ private
     suggested_queries = search_results.fetch("suggested_queries", [])
     SpellingSuggestionPresenter.new(
       suggested_queries,
-      finder_url_builder.url(keywords: (suggested_queries.first || {}).dig("text")),
+      finder_url_builder.url(keywords: (suggested_queries.first || {})["text"]),
       # Search api is set to always return an array with one item
       content_item.as_hash["base_path"],
     )

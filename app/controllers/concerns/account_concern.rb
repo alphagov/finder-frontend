@@ -32,9 +32,10 @@ module AccountConcern
   def pre_saved_results
     results_in_account = fetch_results_from_account_or_logout
 
-    redirect_path = if action_name == "saved_results"
+    redirect_path = case action_name
+                    when "saved_results"
                       transition_checker_saved_results_path
-                    elsif action_name == "edit_saved_results"
+                    when "edit_saved_results"
                       transition_checker_edit_saved_results_path
                     end
 

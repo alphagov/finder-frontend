@@ -29,11 +29,11 @@ module Search
     attr_reader :content_item, :params, :keywords, :override_sort_for_feed
 
     def order_by_relevance?(sort_option)
-      %w[relevance -relevance topic -topic].include?(sort_option.dig("key"))
+      %w[relevance -relevance topic -topic].include?(sort_option["key"])
     end
 
     def order_by_popularity?(sort_option)
-      %w[popularity -popularity].include?(sort_option.dig("key"))
+      %w[popularity -popularity].include?(sort_option["key"])
     end
 
     def public_timestamp_unsupported
@@ -45,12 +45,12 @@ module Search
     end
 
     def order_by_release_timestamp?(sort_option)
-      public_timestamp_chosen = %w[-public_timestamp public_timestamp].include?(sort_option.dig("key"))
+      public_timestamp_chosen = %w[-public_timestamp public_timestamp].include?(sort_option["key"])
       public_timestamp_chosen && public_timestamp_unsupported
     end
 
     def order_by_public_timestamp?(sort_option)
-      release_timestamp_chosen = %w[-release_timestamp release_timestamp].include?(sort_option.dig("key"))
+      release_timestamp_chosen = %w[-release_timestamp release_timestamp].include?(sort_option["key"])
       release_timestamp_chosen && release_timestamp_unsupported
     end
 

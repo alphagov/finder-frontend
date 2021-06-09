@@ -18,6 +18,7 @@ class EmailAlertSubscriptionsController < ApplicationController
 private
 
   class MissingFiltersError < StandardError; end
+
   class UnprocessableFilterAlertParamsError < StandardError; end
 
   def render_error(error_message)

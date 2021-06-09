@@ -120,7 +120,7 @@ class ContentItem
   end
 
   def base_path
-    content_item_hash.dig("base_path")
+    content_item_hash["base_path"]
   end
 
   def raw_facets

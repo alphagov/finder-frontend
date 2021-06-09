@@ -25,7 +25,7 @@ describe UrlBuilder do
       end
 
       it "builds a url with a query" do
-        expect(url).to eq("/search/all?" + query_params.to_query)
+        expect(url).to eq("/search/all?#{query_params.to_query}")
       end
     end
 

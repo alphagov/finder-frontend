@@ -9,8 +9,7 @@ module BrexitChecker
       def process(record)
         stripped_record = remove_unnecessary_fields(record)
         stripped_record = convert_comma_separated_values_to_array(stripped_record)
-        stripped_record = remove_empty_fields(stripped_record)
-        stripped_record
+        remove_empty_fields(stripped_record)
       end
 
     private
