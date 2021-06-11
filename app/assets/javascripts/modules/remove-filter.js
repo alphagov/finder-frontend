@@ -14,10 +14,10 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
       e.stopPropagation()
       var $el = $(e.target)
 
-      var removeFilterName = $el.data('name')
-      var removeFilterValue = $el.data('value')
-      var removeFilterLabel = $el.data('track-label')
-      var removeFilterFacet = $el.data('facet')
+      var removeFilterName = $el.getAttribute('data-name')
+      var removeFilterValue = $el.getAttribute('data-value')
+      var removeFilterLabel = $el.getAttribute('data-track-label')
+      var removeFilterFacet = $el.getAttribute('data-facet')
 
       var $input = getInput(removeFilterName, removeFilterValue, removeFilterFacet)
       fireRemoveTagTrackingEvent(removeFilterLabel, removeFilterFacet)
