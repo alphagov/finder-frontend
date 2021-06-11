@@ -49,10 +49,11 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
          * Just removing " beta " from the haystack would result in
          * "alphagamma", which is wrong.
          */
-        var haystack = ' ' + currentVal.trim() + ' '
+        var haystack = ' ' + currentVal.replace(/^\s+|\s+$/g, '') + ' '
         var needle = ' ' + decodeEntities(removeFilterValue.toString()) + ' '
-        var newVal = haystack.replace(needle, ' ').replace(/ {2}/g, ' ').trim()
-        window.GOVUK.triggerEvent($input.val(newVal)[0], 'change', { detail: { suppressAnalytics: true } })
+        var newVal = haystack.replace(needle, ' ').replace(/ {2}/g, ' ').replace(/^\s+|\s+$/g, '')
+        $input.value = newVal
+        window.GOVUK.triggerEvent($input, 'change', { detail: { suppressAnalytics: true } })
       } else if (elementType === 'OPTION') {
         var element = document.getElementById(removeFilterFacet)
         window.GOVUK.triggerEvent(element, 'change', { detail: { suppressAnalytics: true } })
