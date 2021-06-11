@@ -12,7 +12,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
     function toggleFilter (e) {
       e.preventDefault()
       e.stopPropagation()
-      var $el = $(e.target)
+      var $el = e.target
 
       var removeFilterName = $el.getAttribute('data-name')
       var removeFilterValue = $el.getAttribute('data-value')
