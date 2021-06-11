@@ -25,12 +25,12 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
     }
 
     function clearFacet ($input, removeFilterValue, removeFilterFacet) {
-      var elementType = $input.prop('tagName')
-      var inputType = $input.prop('type')
-      var currentVal = $input.val()
+      var elementType = $input.tagName
+      var inputType = $input.type
+      var currentVal = $input.value
 
       if (inputType === 'checkbox') {
-        $input.prop('checked', false)
+        $input.checked === false
         window.GOVUK.triggerEvent($input[0], 'change', { detail: { suppressAnalytics: true } })
       } else if (inputType === 'text' || inputType === 'search') {
         /* By padding the haystack with spaces, we can remove the
