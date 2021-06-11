@@ -1,5 +1,6 @@
 class SearchResultPresenter
   include ActionView::Helpers::SanitizeHelper
+  include BrexitHelper
 
   delegate :title,
            :parts,
@@ -45,6 +46,10 @@ private
   end
 
   def summary_text
+    brexit_child_taxon_description.presence || document_description
+  end
+
+  def document_description
     document.description if content_item.show_summaries?
   end
 

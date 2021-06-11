@@ -2,3 +2,6 @@ en:
   finders:
     search_result_presenter:
       first_published_during: "First published during the"
+    brexit_child_taxons:
+      business_description: "Find out how new Brexit rules apply to things like imports, exports, tariffs, providing services and exchanging data with the EU businesses."
+      individuals_description: "Find out how new Brexit rules apply to things like travel to the EU, living, working or studying in the EU and the UK."

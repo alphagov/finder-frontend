@@ -43,7 +43,7 @@ RSpec.describe SearchResultPresenter do
       es_score: 0.005,
       combined_score: combined_score,
       original_rank: original_rank,
-      content_id: "content_id",
+      content_id: content_id,
       filter_key: "filter_value",
       index: 1,
     )
@@ -51,19 +51,19 @@ RSpec.describe SearchResultPresenter do
 
   let(:combined_score) { nil }
   let(:original_rank) { nil }
-
+  let(:content_id) { "content_id" }
   let(:is_historic) { false }
   let(:title) { "Investigation into the distribution of road fuels in parts of Scotland" }
   let(:link) { "link-1" }
   let(:description) { "I am a document. I am full of words and that." }
 
   describe "#document_list_component_data" do
-    it "returns a hash of the data we need to show the document" do
-      expected_document = {
+    let(:expected_document) do
+      {
         link: {
           text: title,
           path: link,
-          description: "I am a document. I am full of words and that.",
+          description: description,
           data_attributes: {
             ecommerce_path: link,
             ecommerce_row: 1,
@@ -82,8 +82,21 @@ RSpec.describe SearchResultPresenter do
         subtext: nil,
         parts: [],
       }
+    end
+
+    it "returns a hash of the data we need to show the document" do
       expect(subject.document_list_component_data).to eql(expected_document)
     end
+
+    context "when the document is a brexit child taxon" do
+      let(:content_id) { BrexitHelper::BREXIT_CHILD_TAXON_IDS[:business] }
+      let(:description) { I18n.t("finders.brexit_child_taxons.business_description") }
+
+      it "overwrites the description field" do
+        expect(subject.document_list_component_data).to eql(expected_document)
+      end
+    end
+
     context "has parts" do
       let(:parts) do
         [
