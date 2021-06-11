@@ -54,7 +54,8 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
         var newVal = haystack.replace(needle, ' ').replace(/ {2}/g, ' ').trim()
         window.GOVUK.triggerEvent($input.val(newVal)[0], 'change', { detail: { suppressAnalytics: true } })
       } else if (elementType === 'OPTION') {
-        window.GOVUK.triggerEvent($('#' + removeFilterFacet).val('')[0], 'change', { detail: { suppressAnalytics: true } })
+        var element = document.getElementById(removeFilterFacet)
+        window.GOVUK.triggerEvent(element, 'change', { detail: { suppressAnalytics: true } })
       }
     }
 
