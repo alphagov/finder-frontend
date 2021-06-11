@@ -60,8 +60,8 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
 
     function getInput (removeFilterName, removeFilterValue, removeFilterFacet) {
       var selector = (removeFilterName) ? " input[name='" + removeFilterName + "']" : " [value='" + removeFilterValue + "']"
-
-      return $('#' + removeFilterFacet).find(selector)
+      var element = document.getElementById(removeFilterFacet)
+      return element.querySelector(selector)
     }
 
     function fireRemoveTagTrackingEvent (filterValue, filterFacet) {
