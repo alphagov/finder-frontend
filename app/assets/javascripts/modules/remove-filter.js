@@ -30,8 +30,8 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
       var currentVal = $input.value
 
       if (inputType === 'checkbox') {
-        $input.checked === false
-        window.GOVUK.triggerEvent($input[0], 'change', { detail: { suppressAnalytics: true } })
+        $input.checked = false
+        window.GOVUK.triggerEvent($input, 'change', { detail: { suppressAnalytics: true } })
       } else if (inputType === 'text' || inputType === 'search') {
         /* By padding the haystack with spaces, we can remove the
          * first instance of " $needle ", and this will catch it in
