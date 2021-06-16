@@ -63,6 +63,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
     function getInput (removeFilterName, removeFilterValue, removeFilterFacet) {
       var selector = (removeFilterName) ? " input[name='" + removeFilterName + "']" : " [value='" + removeFilterValue + "']"
       var element = document.getElementById(removeFilterFacet)
+      console.log(element.querySelector(selector))
       return element.querySelector(selector)
     }
 
