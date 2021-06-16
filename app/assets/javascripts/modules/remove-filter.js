@@ -56,6 +56,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
         window.GOVUK.triggerEvent($input, 'change', { detail: { suppressAnalytics: true } })
       } else if (elementType === 'OPTION') {
         var element = document.getElementById(removeFilterFacet)
+        element.value = ''
         window.GOVUK.triggerEvent(element, 'change', { detail: { suppressAnalytics: true } })
       }
     }
