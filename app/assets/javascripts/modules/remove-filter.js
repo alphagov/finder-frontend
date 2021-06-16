@@ -6,7 +6,12 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
 
   GOVUK.Modules.RemoveFilter = function RemoveFilter () {
     this.start = function (element) {
-      $(element).on('click', '[data-module="remove-filter-link"]', toggleFilter)
+      element[0].addEventListener('click', function(e){
+        var target = e.target
+        if (target.getAttribute('data-module') === 'remove-filter-link'){
+          toggleFilter(e)
+        }
+      })
     }
 
     function toggleFilter (e) {
@@ -21,7 +26,9 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
 
       var $input = getInput(removeFilterName, removeFilterValue, removeFilterFacet)
       fireRemoveTagTrackingEvent(removeFilterLabel, removeFilterFacet)
-      clearFacet($input, removeFilterValue, removeFilterFacet)
+      if ($input) {
+        clearFacet($input, removeFilterValue, removeFilterFacet)
+      }
     }
 
     function clearFacet ($input, removeFilterValue, removeFilterFacet) {
@@ -62,10 +69,11 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
     }
 
     function getInput (removeFilterName, removeFilterValue, removeFilterFacet) {
-      var selector = (removeFilterName) ? " input[name='" + removeFilterName + "']" : " [value='" + removeFilterValue + "']"
+      var selector = (removeFilterName) ? "input[name='" + removeFilterName + "']" : "[value='" + removeFilterValue + "']"
       var element = document.getElementById(removeFilterFacet)
-      console.log(element.querySelector(selector))
-      return element.querySelector(selector)
+      if (element) {
+        return element.querySelector(selector)
+      }
     }
 
     function fireRemoveTagTrackingEvent (filterValue, filterFacet) {
