@@ -6,7 +6,11 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
 
   GOVUK.Modules.RemoveFilter = function RemoveFilter () {
     this.start = function (element) {
-      $(element).on('click', '[data-module="remove-filter-link"]', toggleFilter)
+      element[0].addEventListener('click', function (e) {
+        if (e.target.getAttribute('data-module') === 'remove-filter-link') {
+          toggleFilter(e)
+        }
+      })
     }
 
     function toggleFilter (e) {
