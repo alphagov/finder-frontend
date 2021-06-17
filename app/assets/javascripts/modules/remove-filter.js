@@ -16,12 +16,12 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
     function toggleFilter (e) {
       e.preventDefault()
       e.stopPropagation()
-      var $el = $(e.target)
+      var $el = e.target
 
-      var removeFilterName = $el.data('name')
-      var removeFilterValue = $el.data('value')
-      var removeFilterLabel = $el.data('track-label')
-      var removeFilterFacet = $el.data('facet')
+      var removeFilterName = $el.getAttribute('data-name')
+      var removeFilterValue = $el.getAttribute('data-value')
+      var removeFilterLabel = $el.getAttribute('data-track-label')
+      var removeFilterFacet = $el.getAttribute('data-facet')
 
       var $input = getInput(removeFilterName, removeFilterValue, removeFilterFacet)
       fireRemoveTagTrackingEvent(removeFilterLabel, removeFilterFacet)
@@ -29,9 +29,9 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
     }
 
     function clearFacet ($input, removeFilterValue, removeFilterFacet) {
-      var elementType = $input.prop('tagName')
-      var inputType = $input.prop('type')
-      var currentVal = $input.val()
+      var elementType = $input.tagName
+      var inputType = $input.type
+      var currentVal = $input.value
 
       if (inputType === 'checkbox') {
         $input.prop('checked', false)
