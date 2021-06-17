@@ -6,7 +6,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
 
   GOVUK.Modules.RemoveFilter = function RemoveFilter () {
     this.start = function (element) {
-      element[0].addEventListener('click', function(e){
+      element.addEventListener('click', function(e){
         var target = e.target
         if (target.getAttribute('data-module') === 'remove-filter-link'){
           toggleFilter(e)
@@ -71,8 +71,11 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
     function getInput (removeFilterName, removeFilterValue, removeFilterFacet) {
       var selector = (removeFilterName) ? "input[name='" + removeFilterName + "']" : "[value='" + removeFilterValue + "']"
       var element = document.getElementById(removeFilterFacet)
+      console.log(selector)
+      console.log(element)
       if (element) {
-        return element.querySelector(selector)
+        // console.log(element.querySelectorAll(selector))
+        return element.querySelectorAll(selector)
       }
     }
 
