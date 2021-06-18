@@ -34,8 +34,8 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
       var currentVal = $input.value
 
       if (inputType === 'checkbox') {
-        $input.prop('checked', false)
-        window.GOVUK.triggerEvent($input[0], 'change', { detail: { suppressAnalytics: true } })
+        $input.checked = false
+        window.GOVUK.triggerEvent($input, 'change', { detail: { suppressAnalytics: true } })
       } else if (inputType === 'text' || inputType === 'search') {
         /* By padding the haystack with spaces, we can remove the
          * first instance of " $needle ", and this will catch it in
@@ -56,9 +56,12 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
         var haystack = ' ' + currentVal.trim() + ' '
         var needle = ' ' + decodeEntities(removeFilterValue.toString()) + ' '
         var newVal = haystack.replace(needle, ' ').replace(/ {2}/g, ' ').trim()
-        window.GOVUK.triggerEvent($input.val(newVal)[0], 'change', { detail: { suppressAnalytics: true } })
+        $input.value = newVal
+        window.GOVUK.triggerEvent($input, 'change', { detail: { suppressAnalytics: true } })
       } else if (elementType === 'OPTION') {
-        window.GOVUK.triggerEvent($('#' + removeFilterFacet).val('')[0], 'change', { detail: { suppressAnalytics: true } })
+        var element = document.getElementById(removeFilterFacet)
+        element.value = ''
+        window.GOVUK.triggerEvent(element, 'change', { detail: { suppressAnalytics: true } })
       }
     }
 
