@@ -43,8 +43,8 @@ describe('remove-filter', function () {
 
   var $facetTagOne = $(
     '<div data-module="remove-filter">' +
-      '<button href="/search/news-and-communications?[][]=level_one_taxon&amp;[][]=ba3a9702-da22-487f-86c1-8334a730e559&amp;[][]=level_two_taxon&amp;[][]" class="remove-filter" role="button" aria-label="Remove filter" data-module="remove-filter-link" data-facet="level_one_taxon" data-value="aa3a9702-da22-487f-86c1-8334a730e558" data-track-label="A level one taxon" data-name="">✕</button>' +
-      '</div>'
+      '<button href="/search/news-and-communications?[][]=level_one_taxon&amp;[][]=ba3a9702-da22-487f-86c1-8334a730e559&amp;[][]=level_two_taxon&amp;[][]" class="remove-filter" role="button" aria-label="Remove filter" data-module="remove-filter-link" data-facet="level_one_taxon" data-value="ba3a9702-da22-487f-86c1-8334a730e559" data-track-label="A level one taxon" data-name="">✕</button>' +
+    '</div>'
   )
 
   var $facetTagTwo = $(
@@ -57,6 +57,10 @@ describe('remove-filter', function () {
     '<select id="level_one_taxon" name="level_one_taxon">' +
       '<option value="">All topics</option>' +
       '<option value="ba3a9702-da22-487f-86c1-8334a730e559">Entering and staying in the UK</option>' +
+    '</select>' +
+    '<select id="level_two_taxon" name="level_two_taxon">' +
+      '<option value="">All topics</option>' +
+      '<option value="bb3a9702-da22-487f-86c1-8334a730e559">Entering and staying in the UK</option>' +
     '</select>' +
     '<div id="keywords">' +
       '<input name="keywords" value="" id="finder-keyword-search" type="text">' +
