@@ -66,9 +66,10 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
     }
 
     function getInput (removeFilterName, removeFilterValue, removeFilterFacet) {
-      var selector = (removeFilterName) ? " input[name='" + removeFilterName + "']" : " [value='" + removeFilterValue + "']"
+      var selector = (removeFilterName) ? "input[name='" + removeFilterName + "']" : "[value='" + removeFilterValue + "']"
+      var element = document.getElementById(removeFilterFacet)
 
-      return $('#' + removeFilterFacet).find(selector)
+      return element.querySelector(selector)
     }
 
     function fireRemoveTagTrackingEvent (filterValue, filterFacet) {
