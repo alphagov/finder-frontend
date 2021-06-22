@@ -75,7 +75,10 @@
           var ENTER_KEY = 13
 
           if (e.keyCode === ENTER_KEY || e.type === 'change') {
-            if (e.currentTarget.value !== this.previousSearchTerm && !e.suppressAnalytics) {
+            // cater for jQuery and native events
+            var suppressAnalytics = e.suppressAnalytics || (e.detail && e.detail.suppressAnalytics)
+
+            if (e.currentTarget.value !== this.previousSearchTerm && !suppressAnalytics) {
               LiveSearch.prototype.fireTextAnalyticsEvent(e)
             }
             this.formChange(e)
