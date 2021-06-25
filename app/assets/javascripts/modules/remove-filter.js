@@ -6,18 +6,22 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
 
   GOVUK.Modules.RemoveFilter = function RemoveFilter () {
     this.start = function (element) {
-      $(element).on('click', '[data-module="remove-filter-link"]', toggleFilter)
+      element[0].addEventListener('click', function (e) {
+        if (e.target.getAttribute('data-module') === 'remove-filter-link') {
+          toggleFilter(e)
+        }
+      })
     }
 
     function toggleFilter (e) {
       e.preventDefault()
       e.stopPropagation()
-      var $el = $(e.target)
+      var $el = e.target
 
-      var removeFilterName = $el.data('name')
-      var removeFilterValue = $el.data('value')
-      var removeFilterLabel = $el.data('track-label')
-      var removeFilterFacet = $el.data('facet')
+      var removeFilterName = $el.getAttribute('data-name')
+      var removeFilterValue = $el.getAttribute('data-value')
+      var removeFilterLabel = $el.getAttribute('data-track-label')
+      var removeFilterFacet = $el.getAttribute('data-facet')
 
       var $input = getInput(removeFilterName, removeFilterValue, removeFilterFacet)
       fireRemoveTagTrackingEvent(removeFilterLabel, removeFilterFacet)
@@ -25,13 +29,13 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
     }
 
     function clearFacet ($input, removeFilterValue, removeFilterFacet) {
-      var elementType = $input.prop('tagName')
-      var inputType = $input.prop('type')
-      var currentVal = $input.val()
+      var elementType = $input.tagName
+      var inputType = $input.type
+      var currentVal = $input.value
 
       if (inputType === 'checkbox') {
-        $input.prop('checked', false)
-        window.GOVUK.triggerEvent($input[0], 'change', { detail: { suppressAnalytics: true } })
+        $input.checked = false
+        window.GOVUK.triggerEvent($input, 'change', { detail: { suppressAnalytics: true } })
       } else if (inputType === 'text' || inputType === 'search') {
         /* By padding the haystack with spaces, we can remove the
          * first instance of " $needle ", and this will catch it in
@@ -52,16 +56,20 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
         var haystack = ' ' + currentVal.trim() + ' '
         var needle = ' ' + decodeEntities(removeFilterValue.toString()) + ' '
         var newVal = haystack.replace(needle, ' ').replace(/ {2}/g, ' ').trim()
-        window.GOVUK.triggerEvent($input.val(newVal)[0], 'change', { detail: { suppressAnalytics: true } })
+        $input.value = newVal
+        window.GOVUK.triggerEvent($input, 'change', { detail: { suppressAnalytics: true } })
       } else if (elementType === 'OPTION') {
-        window.GOVUK.triggerEvent($('#' + removeFilterFacet).val('')[0], 'change', { detail: { suppressAnalytics: true } })
+        var element = document.getElementById(removeFilterFacet)
+        element.value = ''
+        window.GOVUK.triggerEvent(element, 'change', { detail: { suppressAnalytics: true } })
       }
     }
 
     function getInput (removeFilterName, removeFilterValue, removeFilterFacet) {
-      var selector = (removeFilterName) ? " input[name='" + removeFilterName + "']" : " [value='" + removeFilterValue + "']"
+      var selector = (removeFilterName) ? "input[name='" + removeFilterName + "']" : "[value='" + removeFilterValue + "']"
+      var element = document.getElementById(removeFilterFacet)
 
-      return $('#' + removeFilterFacet).find(selector)
+      return element.querySelector(selector)
     }
 
     function fireRemoveTagTrackingEvent (filterValue, filterFacet) {
