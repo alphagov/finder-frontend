@@ -6,7 +6,7 @@ describe('TaxonomySelect', function () {
 
     $('body').append($facet)
 
-    taxonomySelect = new GOVUK.TaxonomySelect({ $el: $facet })
+    taxonomySelect = new GOVUK.TaxonomySelect({ $el: $facet[0] })
   })
 
   afterEach(function () {
@@ -25,34 +25,34 @@ describe('TaxonomySelect', function () {
     function displayedSubTopicParents () {
       var parents = []
 
-      taxonomySelect.$subTaxon().find('option').each(function () {
-        var option = $(this)
-        if (option.css('display') !== 'none' && option.attr('data-topic-parent')) {
+      var options = taxonomySelect.$subTaxon().querySelectorAll('option')
+      for (var i = 0; i < options.length; i++) {
+        var option = options[i]
+        if (option.style.display !== 'none' && option.getAttribute('data-topic-parent')) {
           parents.push(
-            option.attr('data-topic-parent')
+            option.getAttribute('data-topic-parent')
           )
         }
-      })
-
+      }
       return parents
     }
 
     // User selects easter as the topic
-    taxonomySelect.$topLevelTaxon().val('easter')
+    taxonomySelect.$topLevelTaxon().value = 'easter'
     taxonomySelect.showRelevantSubTaxons()
     expect(displayedSubTopicParents().length).toBe(2) // 2 displayed sub-topics
     expect(displayedSubTopicParents()[0]).toBe('easter')
     expect(displayedSubTopicParents()[1]).toBe('easter')
 
     // They then select christmas
-    taxonomySelect.$topLevelTaxon().val('christmas')
+    taxonomySelect.$topLevelTaxon().value = 'christmas'
     taxonomySelect.showRelevantSubTaxons()
     expect(displayedSubTopicParents().length).toBe(2) // 2 displayed sub-topics
     expect(displayedSubTopicParents()[0]).toBe('christmas')
     expect(displayedSubTopicParents()[1]).toBe('christmas')
 
     // Then halloween!
-    taxonomySelect.$topLevelTaxon().val('halloween')
+    taxonomySelect.$topLevelTaxon().value = 'halloween'
     taxonomySelect.showRelevantSubTaxons()
     expect(displayedSubTopicParents().length).toBe(1) // 1 displayed sub-topic
     expect(displayedSubTopicParents()[0]).toBe('halloween')
@@ -60,31 +60,31 @@ describe('TaxonomySelect', function () {
 
   it('will reset the sub-taxon value on top-level-taxon change', function () {
     // user selects easter as the topic, then easter eggs as a sub topic
-    taxonomySelect.$topLevelTaxon().val('easter')
-    taxonomySelect.$subTaxon().val('easter-eggs')
+    taxonomySelect.$topLevelTaxon().value = 'easter'
+    taxonomySelect.$subTaxon().value = 'easter-eggs'
 
     // user selects christmas as a topic
-    taxonomySelect.$topLevelTaxon().val('christmas')
+    taxonomySelect.$topLevelTaxon().value = 'christmas'
     taxonomySelect.resetSubTaxonValue()
 
-    expect(taxonomySelect.$subTaxon().val()).toBeFalsy()
+    expect(taxonomySelect.$subTaxon().value).toBeFalsy()
   })
 
   it('will disable the sub taxon facet when a top-level taxon is not selected', function () {
     function isSubTaxonDisabled () {
-      return !!taxonomySelect.$subTaxon().attr('disabled')
+      return !!taxonomySelect.$subTaxon().getAttribute('disabled')
     }
 
     // User has not yet selected a top-level topic
     expect(isSubTaxonDisabled()).toBe(true)
 
     // User selects a top-level topic
-    taxonomySelect.$topLevelTaxon().val('christmas')
+    taxonomySelect.$topLevelTaxon().value = 'christmas'
     taxonomySelect.disableSubTaxonFacet()
     expect(isSubTaxonDisabled()).toBe(false)
 
     // User selects default top-level topic again
-    taxonomySelect.$topLevelTaxon().val('')
+    taxonomySelect.$topLevelTaxon().value = ''
     taxonomySelect.disableSubTaxonFacet()
     expect(isSubTaxonDisabled()).toBe(true)
   })
