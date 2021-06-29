@@ -24,10 +24,6 @@ en:
           What you, your family, or your business can do now to prepare for new rules from 1 January 2021.
       criteria:
         list_context: "Because you said:"
-        no_answers: |
-          You did not answer any of the questions.
-          This is a safe and secure service. We don't store any of your personal information.
-          To change your answers, follow the link below.
       audiences:
         citizen:
           heading: You and your family
