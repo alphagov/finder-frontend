@@ -9,7 +9,7 @@ module AbTests::ExploreMenuAbTestable
       dimension: CUSTOM_DIMENSION,
       allowed_variants: ALLOWED_VARIANTS,
       control_variant: "Z",
-      )
+    )
   end
 
   def explore_menu_variant

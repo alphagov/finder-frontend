@@ -107,6 +107,10 @@ class BrexitCheckerController < ApplicationController
 
 private
 
+  def set_slimmer_template
+    slimmer_template "header_footer_only"
+  end
+
   def subscriber_list_slug
     @subscriber_list_slug ||= Services.email_alert_api
       .find_or_create_subscriber_list_cached(subscriber_list_options)
