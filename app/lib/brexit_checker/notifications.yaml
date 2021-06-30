@@ -23,3 +23,17 @@ notifications:
         - visiting-eu
   # End of example block.
   # Add new notifications below 👇
+  - uuid: 9743c774-a695-4504-a169-bbc304f4a6c7
+    type: addition
+    action_id: S033
+    date: '2021-07-01'
+  - uuid: 4340d491-949d-474d-9f4d-ee65eac2bcdb
+    type: content_change
+    action_id: S001
+    date: '2021-07-01'
+    note: The deadline for applying to the EU Settlement Scheme was 30 June for most people. There are some exceptions.
+  - uuid: 912adba8-9f5e-46c2-b98a-2035d74e8af4
+    type: content_change
+    action_id: S014
+    date: '2021-07-01'
+    note: The deadline for applying to the EU Settlement Scheme was 30 June for most people. There are some exceptions.
