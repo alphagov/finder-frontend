@@ -2,15 +2,14 @@
 actions:
 - id: S001
   priority: 8
-  title: Apply to the EU Settlement Scheme by 30 June 2021 to continue living in the
-    UK - you must have arrived in the UK by 31 December 2020
+  title: Apply to the EU Settlement Scheme, if you're eligible
   consequence: If you do not apply to the scheme, you may not be able to continue
     living or working in the UK.
   exception: 'You do not need to apply if you have: indefinite leave to enter the
     UK, indefinite leave to remain in the UK, British or Irish citizenship (including
     ‘dual citizenship’).'
   guidance_prompt: Read the guidance
-  guidance_link_text: Apply to the EU Settlement Scheme (settled and pre-settled status)
+  guidance_link_text: Find out if you're eligible to apply to the EU Settlement Scheme
   guidance_url: https://www.gov.uk/settled-status-eu-citizens-families
   criteria:
   - all_of:
@@ -24,7 +23,7 @@ actions:
   title: Apply for a permit to join your family member in the UK if they are from
     the EU, Switzerland, Norway, Iceland or Liechtenstein
   consequence: You may not be able to join your family member in the UK if you do
-    not have the right permit.
+    not have a permit.
   guidance_prompt: Read the guidance
   guidance_link_text: Apply for a permit to join your EU or EEA family member in the
     UK
@@ -198,12 +197,13 @@ actions:
   - visiting-eu
 - id: S014
   priority: 3
-  title: Find out if your family needs to apply to the EU Settlement Scheme to come
-    to the UK with you
-  consequence: Your family may not be able to live or work in the UK if they do not
-    apply to the scheme by 30 June 2021.
+  title: Find out if your family is eligible to apply to the EU Settlement Scheme
+    to come to the UK with you
+  consequence: Your family may not be able to live or work in the UK if they're not
+    eligible to apply to the scheme.
   guidance_prompt: More information
-  guidance_link_text: Apply to the EU Settlement Scheme (settled and pre-settled status)
+  guidance_link_text: Find out if your family member is eligible to apply to the EU
+    Settlement Scheme
   guidance_url: https://www.gov.uk/settled-status-eu-citizens-families
   criteria:
   - any_of:
@@ -380,6 +380,22 @@ actions:
   audience: citizen
   grouping_criteria:
   - visiting-uk
+- id: S033
+  priority: 5
+  title: Check if you can apply to the EU Settlement Scheme
+  consequence: If you do not apply to the EU Settlement Scheme, you may not be able
+    to continue living or working in the UK as you do now.
+  guidance_prompt: Read the guidance
+  guidance_link_text: Find out if you're eligible to apply to the EU Settlement Scheme
+  guidance_url: https://www.gov.uk/settled-status-eu-citizens-families
+  criteria:
+  - all_of:
+    - nationality-row
+    - living-uk
+    - family-eu
+  audience: citizen
+  grouping_criteria:
+  - living-uk
 - id: S034
   priority: 8
   title: Check if you need a visa or work permit and meet the professional requirements
@@ -512,8 +528,8 @@ actions:
   priority: 2
   title: Apply for a frontier worker permit to work in the UK while living outside
     the UK
-  consequence: You will not be able to enter the UK to work from 1 July 2021 if you
-    live outside of the UK and do not have a frontier worker permit.
+  consequence: You will not be able to enter the UK to work if you live outside of
+    the UK and do not have a frontier worker permit.
   exception: "You will only be eligible for a frontier worker permit if you began
     working in the UK whilst living elsewhere by 31 December 2020. \nIf you’re an
     Irish citizen, you do not need to apply but you can choose to do so. \nYou cannot
@@ -1133,12 +1149,13 @@ actions:
   audience: business
 - id: T077
   priority: 2
-  title: Encourage your employees to check if they need to apply to the EU Settlement
-    Scheme
+  title: Encourage your employees to apply to the EU Settlement Scheme, if they're
+    eligible
   consequence: Your employees risk not being able to stay in the UK if they do not
-    apply to the scheme
+    apply to the scheme when they're eligible
   guidance_prompt: More information
-  guidance_link_text: Apply to the EU Settlement Scheme (settled and pre-settled status)
+  guidance_link_text: Find out if your employees are eligible to apply to the EU Settlement
+    Scheme
   guidance_url: https://www.gov.uk/settled-status-eu-citizens-families
   criteria:
   - employ-eu-citizens

@@ -164,7 +164,7 @@ RSpec.feature "Brexit Checker workflow", type: :feature do
     # S001 is priority 8 so should not have the urgent tag applied
     expect(page).to_not have_css(".brexit-checker__action-urgent", text: "Apply to the EU Settlement Scheme")
 
-    expect(page).to have_css("h4", text: "Apply to the EU Settlement Scheme by 30 June 2021 to continue living in the UK - you must have arrived in the UK by 31 December 2020")
+    expect(page).to have_css("h4", text: "Apply to the EU Settlement Scheme, if you're eligible")
     expect(page).to have_css(".govuk-link[href='#{action.guidance_url}'][data-track-action]")
     data_track_action = page.find(".govuk-link[href='#{action.guidance_url}']")["data-track-action"]
     expect(data_track_action).to eq("You and your family - Living in the UK - 2.1 - Guidance")
