@@ -23,18 +23,3 @@ notifications:
         - visiting-eu
   # End of example block.
   # Add new notifications below 👇
-  - uuid: 2bd71314-e9d2-4b0d-92a4-872620281401
-    type: content_change
-    action_id: T025
-    date: '2021-02-23'
-    note: Added information about new rules not applying to Northern Ireland
-  - uuid: 03c4f7e7-99bb-4dc2-aa2a-4438b8d6aff5
-    type: content_change
-    action_id: T071
-    date: '2021-02-23'
-    note: Lead time updated to 4 days
-  - uuid: 6efcc4a8-fb92-4568-8dd8-807ae2ec3a4e
-    type: content_change
-    action_id: T116
-    date: '2021-02-23'
-    note: Link updated to provide further guidance
