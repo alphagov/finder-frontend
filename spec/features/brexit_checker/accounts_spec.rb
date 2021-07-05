@@ -190,7 +190,7 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
         before { stub_find_or_create_subscriber_list(new_criteria_keys) }
 
         context "the user has an email subscription" do
-          before { stub_account_api_has_email_subscription }
+          before { stub_account_api_get_email_subscription(name: "transition-checker-results") }
 
           it "shows a comparison of the result sets" do
             given_i_am_on_the_save_results_confirm_page_with(new_criteria_keys)
@@ -199,7 +199,7 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
           end
 
           it "updates the existing email alert automatically" do
-            stub = stub_account_api_set_email_subscription(slug: "your-get-ready-for-brexit-results-a1a2a3a4a5")
+            stub = stub_account_api_put_email_subscription(name: "transition-checker-results", topic_slug: "your-get-ready-for-brexit-results-a1a2a3a4a5")
             stub_account_api_set_attributes
             given_i_am_on_the_save_results_confirm_page_with(new_criteria_keys)
             click_on I18n.t("brexit_checker.confirm_changes.save_button")
@@ -209,7 +209,7 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
         end
 
         context "the user does not have an email subscription" do
-          before { stub_account_api_does_not_have_email_subscription }
+          before { stub_account_api_get_email_subscription_does_not_exist(name: "transition-checker-results") }
 
           it "prompt the user to sign up to email alerts" do
             given_i_am_on_the_save_results_confirm_page_with(new_criteria_keys)
@@ -219,7 +219,7 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
 
           context "the user wants email alerts" do
             it "creates an email alert" do
-              stub = stub_account_api_set_email_subscription(slug: "your-get-ready-for-brexit-results-a1a2a3a4a5")
+              stub = stub_account_api_put_email_subscription(name: "transition-checker-results", topic_slug: "your-get-ready-for-brexit-results-a1a2a3a4a5")
               stub_account_api_set_attributes
               given_i_am_on_the_save_results_confirm_page_with(new_criteria_keys)
               click_on I18n.t("brexit_checker.confirm_changes.save_button")

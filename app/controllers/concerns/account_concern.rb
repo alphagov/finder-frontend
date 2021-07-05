@@ -4,6 +4,7 @@ module AccountConcern
   extend ActiveSupport::Concern
 
   ATTRIBUTE_NAME = "transition_checker_state"
+  EMAIL_SUBSCRIPTION_NAME = "transition-checker-results"
 
   included do
     include GovukPersonalisation::AccountConcern
@@ -65,12 +66,14 @@ module AccountConcern
   end
 
   def fetch_email_subscription_from_account_or_logout
-    result = do_or_logout { Services.account_api.check_for_email_subscription(govuk_account_session: account_session_header) }
-    result&.fetch("has_subscription", false)
+    result = do_or_logout { Services.account_api.get_email_subscription(name: EMAIL_SUBSCRIPTION_NAME, govuk_account_session: account_session_header) }
+    result.key? "email_subscription"
+  rescue GdsApi::HTTPNotFound
+    false
   end
 
   def update_email_subscription_in_account_or_logout(slug)
-    do_or_logout { Services.account_api.set_email_subscription(govuk_account_session: account_session_header, slug: slug) }
+    do_or_logout { Services.account_api.put_email_subscription(name: EMAIL_SUBSCRIPTION_NAME, govuk_account_session: account_session_header, topic_slug: slug) }
   end
 
   def update_answers_in_account_or_logout(new_criteria_keys)
