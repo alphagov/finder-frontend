@@ -12,6 +12,7 @@
 #
 src_files:
   - spec/javascripts/vendor/jquery-1.12.4.js
+  - spec/javascripts/vendor/mock-ajax.js
   - assets/application.js
 
 # stylesheets
