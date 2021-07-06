@@ -55,7 +55,7 @@
     this.focusErrorMessagesOnLoad(this.$form)
 
     // prevent page refresh on search submit button click
-    // instead trigger the AJAX results fetch
+    // instead trigger the results fetch
     if (this.$searchSubmitButton) {
       this.$searchSubmitButton.addEventListener('click', function (e) {
         e.preventDefault()
@@ -117,7 +117,6 @@
     var taxonomySelect = document.querySelector('.js-taxonomy-select')
     if (taxonomySelect) {
       this.taxonomy = this.taxonomy || new GOVUK.TaxonomySelect({ $el: taxonomySelect })
-      // return this.taxonomy
       this.taxonomy.update()
     }
   }
@@ -159,23 +158,13 @@
   }
 
   LiveSearch.prototype.formChange = function formChange (e) {
-    var pageUpdated
     if (this.isNewState()) {
       this.getAndUpdateTaxonomyFacet()
       this.saveState()
       this.updateOrder()
       this.updateLinks()
       this.updateTitle()
-      pageUpdated = this.updateResults()
-      pageUpdated.done(
-        function () {
-          var newPath = window.location.pathname + '?' + this.serializeState(this.state)
-          window.history.pushState(this.state, '', newPath)
-          this.trackingInit()
-          this.setRelevantResultCustomDimension()
-          this.trackPageView()
-        }.bind(this)
-      )
+      this.updateResults()
     }
   }
 
@@ -201,7 +190,7 @@
   }
 
   LiveSearch.prototype.trackingInit = function trackingInit () {
-    GOVUK.modules.start($(this.$resultsWrapper))
+    GOVUK.modules.start($(this.$resultsWrapper)) // this still needs to pass a jQuery object until we update the modules code
     this.indexTrackingData()
     this.startEnhancedEcommerceTracking()
   }
@@ -364,20 +353,32 @@
     var liveSearch = this
     if (typeof cachedResultData === 'undefined') {
       this.showLoadingIndicator()
-      return $.ajax({
-        url: this.action,
-        data: this.state,
-        searchState: searchState
-      }).done(function (response) {
-        liveSearch.cache(liveSearch.serializeState(liveSearch.state), response)
-        liveSearch.displayResults(response, this.searchState)
-      }).error(function () {
-        liveSearch.showErrorIndicator()
-      })
+      var xhr = new XMLHttpRequest()
+      var url = this.action + '?' + encodeURI(searchState)
+
+      var done = function (e) {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          var response = JSON.parse(e.target.response)
+          var newPath = encodeURI(window.location.pathname + '?' + liveSearch.serializeState(liveSearch.state))
+          window.history.pushState(liveSearch.state, '', newPath)
+          liveSearch.trackingInit()
+          liveSearch.setRelevantResultCustomDimension()
+          liveSearch.trackPageView()
+
+          liveSearch.cache(liveSearch.serializeState(liveSearch.state), response)
+          liveSearch.displayResults(response, searchState)
+        } else {
+          liveSearch.showErrorIndicator()
+        }
+      }
+
+      xhr.open('GET', url, true)
+      xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
+      xhr.addEventListener('load', done)
+      xhr.addEventListener('error', liveSearch.showErrorIndicator())
+      xhr.send()
     } else {
       this.displayResults(cachedResultData, searchState)
-      var out = new $.Deferred()
-      return out.resolve()
     }
   }
 

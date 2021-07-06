@@ -74,6 +74,7 @@ describe('liveSearch', function () {
   }
 
   beforeEach(function () {
+    jasmine.Ajax.install()
     var count = '<div aria-live="assertive" id="js-search-results-info"><h2 class="result-region-header__counter" id="f-result-count"></h2></div>'
     var sortList = '<select id="order" class="js-order-results" data-relevance-sort-option="relevance"><option>Test 1</option><option value="relevance" disabled>Relevance</option>'
     var results = '<div class="js-live-search-results-block"><div id="js-loading-message"></div><div id="js-sort-options">' + sortList + '</div></div>'
@@ -91,15 +92,9 @@ describe('liveSearch', function () {
                 count +
                 results +
               '</form>')
-    // $results = $('<div class="js-live-search-results-block"><div id="js-loading-message"></div><div id="js-sort-options">' + sortList + '</div></div>')
     $results = $form.find('.js-live-search-results-block')
     $atomAutodiscoveryLink = $('<link href="http://an-atom-url.atom" rel="alternate" title="ATOM" type="application/atom+xml">')
     $count = $form.find('#js-search-results-info')
-    // $count = $('<div aria-live="assertive" id="js-search-results-info"><h2 class="result-region-header__counter" id="f-result-count"></h2></div>')
-    // $atomAutodiscoveryLink = $("<link href='http://an-atom-url.atom' rel='alternate' title='ATOM' type='application/atom+xml'>")
-    // var $emailSubscriptionLinks = $("<a href='https://a-url/email-signup?query_param=something'>")
-    // var $feedSubscriptionLinks = $("<a href='http://an-atom-url.atom?query_param=something'>")
-    // $('body').append($form).append($results).append($atomAutodiscoveryLink).append($feedSubscriptionLinks).append($emailSubscriptionLinks)
     $('body').append($form)
     $('head').append('<meta name="govuk:base_title" content="All Content - GOV.UK">').append($atomAutodiscoveryLink)
     _supportHistory = GOVUK.support.history
@@ -110,6 +105,7 @@ describe('liveSearch', function () {
   })
 
   afterEach(function () {
+    jasmine.Ajax.uninstall()
     $form.remove()
     $results.remove()
     $atomAutodiscoveryLink.remove()
@@ -148,48 +144,22 @@ describe('liveSearch', function () {
     liveSearch.resultCache['more=results'] = 'exists'
     liveSearch.state = { more: 'results' }
     spyOn(liveSearch, 'displayResults')
-    spyOn(jQuery, 'ajax')
+    spyOn(XMLHttpRequest.prototype, 'send')
 
     liveSearch.updateResults()
     expect(liveSearch.displayResults).toHaveBeenCalled()
-    expect(jQuery.ajax).not.toHaveBeenCalled()
-  })
-
-  it('should return a promise like object if results are in the cache', function () {
-    liveSearch.resultCache['more=results'] = 'exists'
-    liveSearch.state = { more: 'results' }
-    spyOn(liveSearch, 'displayResults')
-    spyOn(jQuery, 'ajax')
-
-    var promise = liveSearch.updateResults()
-    expect(typeof promise.done).toBe('function')
-  })
-
-  it("should return a promise like object if results aren't in the cache", function () {
-    liveSearch.state = { not: 'cached' }
-    spyOn(liveSearch, 'displayResults')
-    var ajaxCallback = jasmine.createSpyObj('ajax', ['done', 'error'])
-    ajaxCallback.done.and.returnValue(ajaxCallback)
-    spyOn(jQuery, 'ajax').and.returnValue(ajaxCallback)
-
-    liveSearch.updateResults()
-    expect(jQuery.ajax).toHaveBeenCalledWith({ url: '/somewhere.json', data: { not: 'cached' }, searchState: 'not=cached' })
-    expect(ajaxCallback.done).toHaveBeenCalled()
-    ajaxCallback.done.calls.mostRecent().args[0]('response data')
-    expect(liveSearch.displayResults).toHaveBeenCalled()
-    expect(liveSearch.resultCache['not=cached']).toBe('response data')
+    expect(XMLHttpRequest.prototype.send).not.toHaveBeenCalled()
   })
 
   it('should show error indicator when error loading new results', function () {
     liveSearch.state = { not: 'cached' }
     spyOn(liveSearch, 'displayResults')
     spyOn(liveSearch, 'showErrorIndicator')
-    var ajaxCallback = jasmine.createSpyObj('ajax', ['done', 'error'])
-    ajaxCallback.done.and.returnValue(ajaxCallback)
-    spyOn(jQuery, 'ajax').and.returnValue(ajaxCallback)
-
     liveSearch.updateResults()
-    ajaxCallback.error.calls.mostRecent().args[0]()
+
+    jasmine.Ajax.requests.mostRecent().respondWith({
+      status: 500
+    })
     expect(liveSearch.showErrorIndicator).toHaveBeenCalled()
   })
 
@@ -259,15 +229,17 @@ describe('liveSearch', function () {
     })
 
     it('should trigger analytics trackpage when checkbox is changed', function () {
-      var promise = jasmine.createSpyObj('promise', ['done'])
-      spyOn(liveSearch, 'updateResults').and.returnValue(promise)
+      spyOn(liveSearch, 'updateResults').and.callThrough()
       spyOn(GOVUK.SearchAnalytics, 'trackPageview')
       spyOn(liveSearch, 'trackingInit')
 
       liveSearch.state = []
 
       liveSearch.formChange()
-      promise.done.calls.mostRecent().args[0]()
+      jasmine.Ajax.requests.mostRecent().respondWith({
+        status: 200,
+        response: '{"total":81,"display_total":"81 reports","facet_tags":"","search_results":"","display_selected_facets_count":"","sort_options_markup":"","next_and_prev_links":"","suggestions":"","errors":{}}'
+      })
 
       expect(liveSearch.trackingInit).toHaveBeenCalled()
       expect(GOVUK.SearchAnalytics.trackPageview).toHaveBeenCalled()
