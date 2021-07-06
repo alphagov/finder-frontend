@@ -126,20 +126,24 @@
   }
 
   LiveSearch.prototype.getSerializeForm = function getSerializeForm () {
-    var serialized = new FormData(this.$form)
-
+    var formElements = this.$form.elements
     var filtered = []
-    serialized.forEach(function (value, key) {
-      if (key !== '' && key !== 'option-select-filter' && value !== '') {
-        filtered.push(
-          {
-            name: key,
-            value: value
-          }
-        )
-      }
-    })
 
+    for (var i = 0; i < formElements.length; i++) {
+      var el = formElements[i]
+      if ((el.type && el.type !== 'checkbox' && el.type !== 'radio') || el.checked) {
+        var name = el.getAttribute('name')
+        var value = el.value
+        if (name && value && name !== 'option-select-filter') {
+          filtered.push(
+            {
+              name: name,
+              value: value
+            }
+          )
+        }
+      }
+    }
     return filtered
   }
 
@@ -174,14 +178,15 @@
 
   LiveSearch.prototype.serializeState = function (state) {
     var params = []
-    if (!Array.isArray(state)) {
-      var url = Object.keys(state).map(function (k) {
-        return encodeURIComponent(k) + '=' + encodeURIComponent(state[k])
-      }).join('&')
-      params.push(url)
-    } else {
+    if (Array.isArray(state)) {
       for (var i = 0; i < state.length; i++) {
         params.push(state[i].name + '=' + state[i].value)
+      }
+    } else {
+      for (var key in state) {
+        if (Object.prototype.hasOwnProperty.call(state, key)) {
+          params.push(encodeURIComponent(key) + '=' + encodeURIComponent(state[key]))
+        }
       }
     }
     return params.join('&')
@@ -379,7 +384,6 @@
       xhr.open('GET', url, true)
       xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
       xhr.addEventListener('load', done)
-      xhr.addEventListener('error', liveSearch.showErrorIndicator())
       xhr.send()
     } else {
       this.displayResults(cachedResultData, searchState)
@@ -402,10 +406,8 @@
   }
 
   LiveSearch.prototype.showLoadingIndicator = function showLoadingIndicator () {
-    if (this.$loadingBlock) {
-      this.$loadingBlock.textContent = 'Loading...'
-      this.$loadingBlock.style.display = 'block'
-    }
+    this.$loadingBlock.textContent = 'Loading...'
+    this.$loadingBlock.style.display = 'block'
   }
 
   LiveSearch.prototype.showErrorIndicator = function showErrorIndicator () {
@@ -435,10 +437,8 @@
       this.updateResultsCountMeta(results.total)
       this.manipulateErrorMessages(results.errors)
       this.$atomAutodiscoveryLink.setAttribute('href', results.atom_url)
-      if (this.$loadingBlock) {
-        this.$loadingBlock.textContent = ''
-        this.$loadingBlock.style.display = 'none'
-      }
+      this.$loadingBlock.textContent = ''
+      this.$loadingBlock.style.display = 'none'
     }
   }
 
@@ -481,8 +481,8 @@
   }
 
   LiveSearch.prototype.focusErrorMessagesOnLoad = function ($container) {
-    var $inputWithError = $container.querySelector('input[class*=--error]') || []
-    if ($inputWithError.length) {
+    var $inputWithError = $container.querySelector('.govuk-input--error')
+    if ($inputWithError) {
       $inputWithError.focus()
     }
   }
