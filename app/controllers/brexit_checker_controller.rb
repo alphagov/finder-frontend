@@ -47,19 +47,7 @@ class BrexitCheckerController < ApplicationController
   def save_results; end
 
   def save_results_sign_up
-    state_id = Services.account_api.create_registration_state(
-      attributes: {
-        transition_checker_state: {
-          criteria_keys: criteria_keys,
-          timestamp: Time.zone.now.to_i,
-          email_topic_slug: subscriber_list_slug,
-        },
-      },
-    ).to_h["state_id"]
-    redirect_to transition_checker_new_session_url(
-      transition_checker_save_results_confirm_path(c: criteria_keys),
-      state_id: state_id,
-    )
+    redirect_to transition_checker_new_session_url(transition_checker_save_results_confirm_path(c: criteria_keys))
   end
 
   def save_results_confirm
