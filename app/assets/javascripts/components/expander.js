@@ -2,20 +2,19 @@ window.GOVUK = window.GOVUK || {}
 window.GOVUK.Modules = window.GOVUK.Modules || {}; // if this ; is omitted, none of this JS runs :(
 
 (function (Modules) {
-  function Expander () {}
-
   /* This JavaScript provides two functional enhancements to the expander component:
     1) A count that shows how many items have been used in the expander container
     2) Open/closing of the content
   */
-
-  Expander.prototype.start = function ($module) {
-    this.$module = $module[0] // this is the expander element
+  function Expander ($module) {
+    this.$module = $module
     this.$toggle = this.$module.querySelector('.js-toggle')
     this.$content = this.$module.querySelector('.js-content')
     this.$allInteractiveElements = this.$content.querySelectorAll('select, input[type=text]')
-    this.selectedElements = []
+  }
 
+  Expander.prototype.init = function () {
+    this.selectedElements = []
     var openOnLoad = this.$module.getAttribute('data-open-on-load') === 'true'
 
     this.replaceHeadingSpanWithButton(openOnLoad)
