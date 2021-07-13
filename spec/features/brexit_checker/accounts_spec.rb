@@ -182,51 +182,28 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
     end
 
     context "/transition-check/save-your-results/confirm" do
-      before { stub_account_api_has_attributes(attributes: %w[transition_checker_state], values: { "transition_checker_state" => transition_checker_state }.compact) }
+      before do
+        stub_account_api_has_attributes(attributes: %w[transition_checker_state], values: { "transition_checker_state" => transition_checker_state }.compact)
+        stub_find_or_create_subscriber_list(new_criteria_keys)
+      end
 
       let(:new_criteria_keys) { %w[nationality-eu] }
 
       context "the querystring differs to the value in the account" do
-        before { stub_find_or_create_subscriber_list(new_criteria_keys) }
-
-        context "the user has an email subscription" do
-          before { stub_account_api_get_email_subscription(name: "transition-checker-results") }
-
-          it "shows a comparison of the result sets" do
-            given_i_am_on_the_save_results_confirm_page_with(new_criteria_keys)
-            expect(page).to have_content("British")
-            expect(page).to have_content("Another EU country, or Switzerland, Norway, Iceland or Liechtenstein")
-          end
-
-          it "updates the existing email alert automatically" do
-            stub = stub_account_api_put_email_subscription(name: "transition-checker-results", topic_slug: "your-get-ready-for-brexit-results-a1a2a3a4a5")
-            stub_account_api_set_attributes
-            given_i_am_on_the_save_results_confirm_page_with(new_criteria_keys)
-            click_on I18n.t("brexit_checker.confirm_changes.save_button")
-            expect(page).to_not have_content(I18n.t("brexit_checker.confirm_changes_email_signup.heading"))
-            expect(stub).to have_been_made
-          end
+        it "shows a comparison of the result sets" do
+          given_i_am_on_the_save_results_confirm_page_with(new_criteria_keys)
+          expect(page).to have_content("British")
+          expect(page).to have_content("Another EU country, or Switzerland, Norway, Iceland or Liechtenstein")
         end
 
-        context "the user does not have an email subscription" do
-          before { stub_account_api_get_email_subscription_does_not_exist(name: "transition-checker-results") }
-
-          it "prompt the user to sign up to email alerts" do
+        context "the user clicks 'confirm'" do
+          it "saves the new results and updates the email alert" do
             given_i_am_on_the_save_results_confirm_page_with(new_criteria_keys)
+            stub_alert = stub_account_api_put_email_subscription(name: "transition-checker-results", topic_slug: "your-get-ready-for-brexit-results-a1a2a3a4a5")
+            stub_attributes = stub_account_api_set_attributes
             click_on I18n.t("brexit_checker.confirm_changes.save_button")
-            expect(page).to have_content(I18n.t("brexit_checker.confirm_changes_email_signup.heading"))
-          end
-
-          context "the user wants email alerts" do
-            it "creates an email alert" do
-              stub = stub_account_api_put_email_subscription(name: "transition-checker-results", topic_slug: "your-get-ready-for-brexit-results-a1a2a3a4a5")
-              stub_account_api_set_attributes
-              given_i_am_on_the_save_results_confirm_page_with(new_criteria_keys)
-              click_on I18n.t("brexit_checker.confirm_changes.save_button")
-              find_field(I18n.t("brexit_checker.confirm_changes_email_signup.radio.yes")).click
-              click_on I18n.t("brexit_checker.confirm_changes_email_signup.save_button")
-              expect(stub).to have_been_made
-            end
+            expect(stub_alert).to have_been_made
+            expect(stub_attributes).to have_been_made
           end
         end
       end
@@ -241,9 +218,12 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
       context "the user has no results stored in their account" do
         let(:transition_checker_state) { nil }
 
-        it "skips the comparison table and prompts the user to sign up to email alerts" do
-          given_i_am_on_the_save_results_confirm_page_with(criteria_keys)
-          expect(page).to have_current_path(transition_checker_save_results_email_signup_path(c: criteria_keys))
+        it "skips the comparison table, and just saves the results and sets up the email alert" do
+          stub_alert = stub_account_api_put_email_subscription(name: "transition-checker-results", topic_slug: "your-get-ready-for-brexit-results-a1a2a3a4a5")
+          stub_attributes = stub_account_api_set_attributes
+          given_i_am_on_the_save_results_confirm_page_with(new_criteria_keys)
+          expect(stub_alert).to have_been_made
+          expect(stub_attributes).to have_been_made
         end
       end
     end
