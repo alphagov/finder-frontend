@@ -86,17 +86,8 @@
     <%= render 'results_citizen_actions', citizen_results_groups: @presenter.citizen_results_groups if @presenter.citizen_results_groups.any? %>
     <%= render 'results_with_no_actions', criteria: @presenter.criteria if (@presenter.business_results.empty? && @presenter.citizen_results_groups.empty?) %>
 
-    <% if !must_reauthenticate? %>
-      <% if @results_differ %>
-        <%= render 'govuk_publishing_components/components/notice', {
-          title: t('brexit_checker.results.accounts.results_differ.message'),
-          description: sanitize(t('brexit_checker.results.accounts.results_differ.description', link: transition_checker_save_results_confirm_path(c: criteria_keys)))
-        } %>
-      <% end %>
-    <% else %>
-      <%= render 'stay_updated' %>
-    <% end %>
 
+    <%= render 'stay_updated' if must_reauthenticate? %>
     <%= render 'share_links' %>
     <%= render 'print_link' if @presenter.business_results.any? || @presenter.citizen_results_groups.any? %>
   <% end %>
