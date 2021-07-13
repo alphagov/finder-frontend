@@ -699,7 +699,7 @@ When(/^I fill in a keyword that should match no results$/) do
 end
 
 And(/^I submit the form$/) do
-  page.execute_script("$('form.js-live-search-form').submit()")
+  page.execute_script("document.querySelector('.js-live-search-form').submit()")
 end
 
 Then(/^The keyword textbox is empty$/) do
