@@ -47,7 +47,8 @@ class BrexitCheckerController < ApplicationController
   def save_results; end
 
   def save_results_sign_up
-    redirect_to transition_checker_new_session_url(transition_checker_save_results_confirm_path(c: criteria_keys))
+    url = transition_checker_new_session_url(transition_checker_save_results_confirm_path(c: criteria_keys))
+    redirect_to("#{url}&register=1")
   end
 
   def save_results_confirm
