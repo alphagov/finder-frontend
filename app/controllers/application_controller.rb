@@ -1,7 +1,13 @@
 class ApplicationController < ActionController::Base
   include Slimmer::Headers
   include Slimmer::Template
-  slimmer_template "header_footer_only"
+  include AbTests::ExploreMenuAbTestable
+
+  before_action :set_explore_menu_response
+
+  helper_method :explore_menu_variant, :explore_menu_testable?
+
+  after_action :set_slimmer_template
 
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
@@ -22,6 +28,16 @@ class ApplicationController < ActionController::Base
       name: ENV.fetch("BASIC_AUTH_USERNAME"),
       password: ENV.fetch("BASIC_AUTH_PASSWORD"),
     )
+  end
+
+protected
+
+  def set_slimmer_template
+    if explore_menu_testable?
+      slimmer_template "header_footer_only_explore_header"
+    else
+      slimmer_template "header_footer_only"
+    end
   end
 
 private
