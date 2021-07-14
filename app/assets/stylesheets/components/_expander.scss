@@ -61,6 +61,8 @@
 
   &:hover {
     text-decoration: underline;
+    text-underline-offset: .1em;
+    @include govuk-link-hover-decoration;
   }
 
   &:focus {

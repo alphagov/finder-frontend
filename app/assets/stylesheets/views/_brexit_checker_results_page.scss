@@ -118,7 +118,6 @@ $urgency-blue: #0055d2;
       outline: 0;
       border: 0;
       cursor: pointer;
-      text-decoration: underline;
       color: $govuk-link-colour;
 
       @include govuk-device-pixel-ratio($ratio: 2) { // stylelint-disable-line max-nesting-depth
