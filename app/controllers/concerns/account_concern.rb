@@ -19,11 +19,24 @@ module AccountConcern
     # rubocop:enable Rails/LexicallyScopedActionFilter
 
     helper_method :must_reauthenticate?
+    helper_method :show_confirmation_reminder?
+    helper_method :confirmation_banner_prompt_type
   end
 
   def pre_results
-    results_in_account = fetch_results_from_account_or_logout
+    result = do_or_logout do
+      Services.account_api.get_attributes(
+        govuk_account_session: account_session_header,
+        attributes: [ATTRIBUTE_NAME, "email_verified", "has_unconfirmed_email"],
+      )
+    end
+
     return if must_reauthenticate?
+
+    @user_email_verified = result&.dig("values", "email_verified")
+    @user_has_unconfirmed_email = result&.dig("values", "has_unconfirmed_email")
+
+    results_in_account = result&.dig("values", ATTRIBUTE_NAME) || {}
 
     now = Time.zone.now.to_i
     @results_differ = criteria_keys != results_in_account.fetch("criteria_keys", [])
@@ -127,5 +140,21 @@ module AccountConcern
 
   def base_path
     Rails.env.production? ? Plek.new.website_root : Plek.find("frontend")
+  end
+
+  def show_confirmation_reminder?
+    return false unless logged_in?
+
+    !@user_email_verified || @user_has_unconfirmed_email
+  end
+
+  def confirmation_banner_prompt_type
+    return "update" if confirmed_user_changed_email?
+
+    "set_up"
+  end
+
+  def confirmed_user_changed_email?
+    @user_email_verified && @user_has_unconfirmed_email
   end
 end
