@@ -50,21 +50,21 @@ describe('remove-filter', function () {
   )
 
   var facetsHTML =
-    '<select id="level_one_taxon" name="level_one_taxon">' +
+    '<select id="level_one_taxon" name="level_one_taxon" class="js-remove">' +
       '<option value="">All topics</option>' +
       '<option value="ba3a9702-da22-487f-86c1-8334a730e559">Entering and staying in the UK</option>' +
     '</select>' +
-    '<select id="level_two_taxon" name="level_two_taxon">' +
+    '<select id="level_two_taxon" name="level_two_taxon" class="js-remove">' +
       '<option value="">All topics</option>' +
       '<option value="bb3a9702-da22-487f-86c1-8334a730e559">Entering and staying in the UK</option>' +
     '</select>' +
-    '<div id="keywords">' +
+    '<div id="keywords" class="js-remove">' +
       '<input name="keywords" value="" id="finder-keyword-search" type="text">' +
     '</div>' +
-    '<div>' +
+    '<div class="js-remove">' +
       '<input name="public_timestamp[from]" value="" id="public_timestamp[from]" type="text">' +
     '</div>' +
-    '<div id="a_check_box">' +
+    '<div id="a_check_box" class="js-remove">' +
       '<input type="checkbox" name="a_check_box" value="true" data-module="gem-track-click">' +
     '</div>'
 
