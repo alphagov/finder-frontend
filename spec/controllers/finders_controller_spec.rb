@@ -63,6 +63,25 @@ describe FindersController, type: :controller do
           .to_return(status: 200, body: rummager_response, headers: {})
       end
 
+      it "requests the B variant for finders" do
+        with_variant ExploreMenuAbTestable: "B" do
+          get :show, params: { slug: "lunch-finder" }
+
+          expect(response.status).to eq(200)
+        end
+      end
+
+      it "requests the B variant for search pages" do
+        stub_content_store_has_item(
+          "/search/all",
+          all_content_finder,
+        )
+
+        with_variant ExploreMenuAbTestable: "B" do
+          get :show, params: { slug: "search/all" }
+        end
+      end
+
       it "correctly renders a finder page" do
         get :show, params: { slug: "lunch-finder" }
         expect(response.status).to eq(200)
