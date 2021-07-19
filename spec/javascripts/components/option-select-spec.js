@@ -23,7 +23,8 @@ describe('An option select component', function () {
   var optionSelect
   /* eslint-disable */
   var html = '\
-    <div class="app-c-option-select" data-module="option-select" data-closed-on-load="false">' +
+    <form>' +
+    '<div class="app-c-option-select" data-module="option-select" data-closed-on-load="false">' +
       '<h2 class="app-c-option-select__heading js-container-heading">' +
         '<span class="app-c-option-select__title js-container-button">' +
           'Market sector' +
@@ -87,7 +88,8 @@ describe('An option select component', function () {
             '</fieldset>' +
           '</div>' +
         '</div>' +
-      '</div>'
+      '</div>' +
+    '</form>'
   /* eslint-enable */
 
   afterEach(function () {
@@ -127,7 +129,6 @@ describe('An option select component', function () {
     it('sets the height of the options container as part of initialisation', function () {
       $element = document.createElement('div')
       $element.innerHTML = html
-
       new GOVUK.Modules.OptionSelect($element.querySelector('.app-c-option-select')).init()
 
       expect($($element).find('.js-options-container').attr('style')).toContain('height')
@@ -144,7 +145,6 @@ describe('An option select component', function () {
     it('replaces the `span.app-c-option-select__title` with a button', function () {
       $element = document.createElement('div')
       $element.innerHTML = html
-
       new GOVUK.Modules.OptionSelect($element.querySelector('.app-c-option-select')).init()
 
       expect($($element).find('button')).toBeDefined()
@@ -155,20 +155,21 @@ describe('An option select component', function () {
     beforeEach(function () {
       $element = document.createElement('div')
       $element.innerHTML = html
+      $('body').append($element)
 
-      optionSelect = new GOVUK.Modules.OptionSelect($element)
+      optionSelect = new GOVUK.Modules.OptionSelect($element.querySelector('.app-c-option-select'))
       optionSelect.init()
     })
 
     it('calls optionSelect.close() if the optionSelect is currently open', function () {
-      $($element).removeClass('js-closed')
+      $($element).find('.app-c-option-select').removeClass('js-closed')
       spyOn(optionSelect, 'close')
       optionSelect.toggleOptionSelect(jQuery.Event('click'))
       expect(optionSelect.close.calls.count()).toBe(1)
     })
 
     it('calls optionSelect.open() if the optionSelect is currently closed', function () {
-      $($element).addClass('js-closed')
+      $($element).find('.app-c-option-select').addClass('js-closed')
       spyOn(optionSelect, 'open')
       optionSelect.toggleOptionSelect(jQuery.Event('click'))
       expect(optionSelect.open.calls.count()).toBe(1)
@@ -179,17 +180,18 @@ describe('An option select component', function () {
     beforeEach(function () {
       $element = document.createElement('div')
       $element.innerHTML = html
+      $('body').append($element)
 
-      new GOVUK.Modules.OptionSelect($element).init()
+      new GOVUK.Modules.OptionSelect($element.querySelector('.app-c-option-select')).init()
     })
 
     it('closes and opens the option select', function () {
       var $button = $($element).find('button')
       $button.click()
-      expect($($element).hasClass('js-closed')).toBe(true)
+      expect($($element).find('.app-c-option-select').hasClass('js-closed')).toBe(true)
 
       $button.click()
-      expect($($element).hasClass('js-closed')).toBe(false)
+      expect($($element).find('.app-c-option-select').hasClass('js-closed')).toBe(false)
     })
 
     it('updates aria-expanded accordingly', function () {
@@ -209,9 +211,8 @@ describe('An option select component', function () {
       $element = $(html)
       $('body').append($element)
 
-      optionSelect = new GOVUK.Modules.OptionSelect($element[0])
+      optionSelect = new GOVUK.Modules.OptionSelect($element.find('.app-c-option-select')[0])
       optionSelect.init()
-
       optionSelect.setContainerHeight(100)
       firstCheckbox = optionSelect.$allCheckboxes[0]
       lastCheckbox = optionSelect.$allCheckboxes[optionSelect.$allCheckboxes.length - 1]
@@ -232,8 +233,7 @@ describe('An option select component', function () {
     beforeEach(function () {
       $element = $(html)
       $('body').append($element)
-
-      optionSelect = new GOVUK.Modules.OptionSelect($element[0])
+      optionSelect = new GOVUK.Modules.OptionSelect($element.find('.app-c-option-select')[0])
       optionSelect.init()
     })
 
@@ -260,7 +260,7 @@ describe('An option select component', function () {
       $element = $(html)
       $('body').append($element)
 
-      optionSelect = new GOVUK.Modules.OptionSelect($element[0])
+      optionSelect = new GOVUK.Modules.OptionSelect($element.find('.app-c-option-select')[0])
 
       // Set some visual properties which are done in the CSS IRL
       $checkboxList = $element.find('.js-options-container')
@@ -300,11 +300,11 @@ describe('An option select component', function () {
 
   describe('initialising when the parent is hidden', function () {
     beforeEach(function () {
-      $element = $(html)
-      var $wrapper = $('<div/>').addClass('wrapper').hide().html($element)
+      var $wrapper = $('<div/>').addClass('wrapper').html(html)
       $('body').append($wrapper)
+      $wrapper.hide()
 
-      optionSelect = new GOVUK.Modules.OptionSelect($element[0])
+      optionSelect = new GOVUK.Modules.OptionSelect($wrapper.find('.app-c-option-select')[0])
       optionSelect.init()
     })
 
@@ -324,8 +324,7 @@ describe('An option select component', function () {
       $element.attr('data-closed-on-load', true)
       var $wrapper = $('<div/>').addClass('wrapper').hide().html($element)
       $('body').append($wrapper)
-
-      optionSelect = new GOVUK.Modules.OptionSelect($element[0])
+      optionSelect = new GOVUK.Modules.OptionSelect($element.find('.app-c-option-select')[0])
       optionSelect.init()
     })
 
@@ -356,11 +355,10 @@ describe('An option select component', function () {
 
       var filterSpan = '<span id="checkboxes-9b7ecc25-count" class="app-c-option-select__count govuk-visually-hidden" aria-live="polite" data-single="option found" data-multiple="options found" data-selected="selected"></span>'
 
-      $element.attr('data-filter-element', filterMarkup)
+      $element.find('.app-c-option-select').attr('data-filter-element', filterMarkup)
       $element.find('.gem-c-checkboxes').prepend($(filterSpan))
       $('body').append($element)
-
-      optionSelect = new GOVUK.Modules.OptionSelect($element[0])
+      optionSelect = new GOVUK.Modules.OptionSelect($element.find('.app-c-option-select')[0])
       optionSelect.init()
 
       jasmine.clock().install()

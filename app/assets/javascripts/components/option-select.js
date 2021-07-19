@@ -243,7 +243,10 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
 
     // check whether this is hidden by progressive disclosure,
     // because height calculations won't work
-    if (this.$optionsContainer.offsetParent === null) {
+    // would use offsetParent === null but for IE10+
+    var parent = this.$optionSelect.parentElement
+    var parentIsHidden = !(parent.offsetWidth || parent.offsetHeight || parent.getClientRects().length)
+    if (parentIsHidden) {
       initialOptionContainerHeight = 200
       height = 200
     }
