@@ -124,7 +124,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
           }
           break
         case 'SELECT':
-          $el.value = ''
+          $el.selectedIndex = null
           break
         case 'DIV':
           $el.parentNode.removeChild($el)
