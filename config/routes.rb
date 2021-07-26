@@ -28,7 +28,6 @@ Rails.application.routes.draw do
     get "/save-your-results" => "brexit_checker#save_results", as: :transition_checker_save_results
     post "/save-your-results/sign-up" => "brexit_checker#save_results_sign_up", as: :transition_checker_save_results_sign_up
     get "/save-your-results/confirm", to: "brexit_checker#save_results_confirm", as: :transition_checker_save_results_confirm
-    get "/save-your-results/email-signup", to: "brexit_checker#save_results_email_signup", as: :transition_checker_save_results_email_signup
     post "/save-your-results/confirm", to: "brexit_checker#save_results_apply"
     get "/saved-results", to: "brexit_checker#saved_results", as: :transition_checker_saved_results
     get "/edit-saved-results", to: "brexit_checker#edit_saved_results", as: :transition_checker_edit_saved_results
