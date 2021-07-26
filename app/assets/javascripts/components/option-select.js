@@ -2,14 +2,12 @@ window.GOVUK = window.GOVUK || {}
 window.GOVUK.Modules = window.GOVUK.Modules || {};
 
 (function (Modules) {
-  function OptionSelect () {}
-
   /* This JavaScript provides two functional enhancements to option-select components:
     1) A count that shows how many results have been checked in the option-container
     2) Open/closing of the list of checkboxes
   */
-  OptionSelect.prototype.start = function ($module) {
-    this.$optionSelect = $module[0]
+  function OptionSelect ($module) {
+    this.$optionSelect = $module
     this.$options = this.$optionSelect.querySelectorAll("input[type='checkbox']")
     this.$optionsContainer = this.$optionSelect.querySelector('.js-options-container')
     this.$optionList = this.$optionsContainer.querySelector('.js-auto-height-inner')
@@ -17,7 +15,9 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
     this.hasFilter = this.$optionSelect.getAttribute('data-filter-element') || ''
 
     this.checkedCheckboxes = []
+  }
 
+  OptionSelect.prototype.init = function () {
     if (this.hasFilter.length) {
       var filterEl = document.createElement('div')
       filterEl.innerHTML = this.hasFilter

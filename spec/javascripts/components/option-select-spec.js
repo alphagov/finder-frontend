@@ -90,10 +90,6 @@ describe('An option select component', function () {
       '</div>'
   /* eslint-enable */
 
-  beforeEach(function () {
-    optionSelect = new GOVUK.Modules.OptionSelect()
-  })
-
   afterEach(function () {
     $('body').find('.app-c-option-select').remove()
   })
@@ -102,7 +98,8 @@ describe('An option select component', function () {
     it('instantiates a closed option-select if data-closed-on-load is true', function () {
       var $closedOnLoadFixture = $(optionSelectWithAttrs('data-closed-on-load=true'))
       $('body').append($closedOnLoadFixture)
-      optionSelect.start($closedOnLoadFixture)
+
+      new GOVUK.Modules.OptionSelect($closedOnLoadFixture[0]).init()
 
       expect($closedOnLoadFixture.find('button').attr('aria-expanded')).toBe('false')
     })
@@ -110,7 +107,8 @@ describe('An option select component', function () {
     it('instantiates an open option-select if data-closed-on-load is false', function () {
       var $openOnLoadFixture = $(optionSelectWithAttrs('data-closed-on-load=false'))
       $('body').append($openOnLoadFixture)
-      optionSelect.start($openOnLoadFixture)
+
+      new GOVUK.Modules.OptionSelect($openOnLoadFixture[0]).init()
 
       expect($openOnLoadFixture.find('button').attr('aria-expanded')).toBe('true')
       expect($('body').find('.js-options-container').is(':visible')).toBe(true)
@@ -119,50 +117,58 @@ describe('An option select component', function () {
     it('instantiates an open option-select if data-closed-on-load is not present', function () {
       var $openOnLoadFixture = $(optionSelectWithAttrs(''))
       $('body').append($openOnLoadFixture)
-      optionSelect.start($openOnLoadFixture)
+
+      new GOVUK.Modules.OptionSelect($openOnLoadFixture[0]).init()
 
       expect($openOnLoadFixture.find('button').attr('aria-expanded')).toBe('true')
       expect($('body').find('.js-options-container').is(':visible')).toBe(true)
     })
 
     it('sets the height of the options container as part of initialisation', function () {
-      $element = $(html)
-      optionSelect.start($element)
+      $element = document.createElement('div')
+      $element.innerHTML = html
 
-      expect($element.find('.js-options-container').attr('style')).toContain('height')
+      new GOVUK.Modules.OptionSelect($element.querySelector('.app-c-option-select')).init()
+
+      expect($($element).find('.js-options-container').attr('style')).toContain('height')
     })
 
     it('doesn\'t set the height of the options container as part of initialisation if closed-on-load is true', function () {
       var $closedOnLoadFixture = $(optionSelectWithAttrs('data-closed-on-load=true'))
-      optionSelect.start($closedOnLoadFixture)
+
+      new GOVUK.Modules.OptionSelect($closedOnLoadFixture[0]).init()
 
       expect($closedOnLoadFixture.find('.js-options-container').attr('style')).not.toContain('height')
     })
 
     it('replaces the `span.app-c-option-select__title` with a button', function () {
-      $element = $(html)
-      optionSelect.start($element)
+      $element = document.createElement('div')
+      $element.innerHTML = html
 
-      expect($element.find('button')).toBeDefined()
+      new GOVUK.Modules.OptionSelect($element.querySelector('.app-c-option-select')).init()
+
+      expect($($element).find('button')).toBeDefined()
     })
   })
 
   describe('toggleOptionSelect', function () {
     beforeEach(function () {
-      $element = $(html)
-      $('body').append($element)
-      optionSelect.start($element)
+      $element = document.createElement('div')
+      $element.innerHTML = html
+
+      optionSelect = new GOVUK.Modules.OptionSelect($element)
+      optionSelect.init()
     })
 
     it('calls optionSelect.close() if the optionSelect is currently open', function () {
-      $element.removeClass('js-closed')
+      $($element).removeClass('js-closed')
       spyOn(optionSelect, 'close')
       optionSelect.toggleOptionSelect(jQuery.Event('click'))
       expect(optionSelect.close.calls.count()).toBe(1)
     })
 
     it('calls optionSelect.open() if the optionSelect is currently closed', function () {
-      $element.addClass('js-closed')
+      $($element).addClass('js-closed')
       spyOn(optionSelect, 'open')
       optionSelect.toggleOptionSelect(jQuery.Event('click'))
       expect(optionSelect.open.calls.count()).toBe(1)
@@ -171,27 +177,28 @@ describe('An option select component', function () {
 
   describe('when the open/close button is clicked', function () {
     beforeEach(function () {
-      $element = $(html)
-      $('body').append($element)
-      optionSelect.start($element)
+      $element = document.createElement('div')
+      $element.innerHTML = html
+
+      new GOVUK.Modules.OptionSelect($element).init()
     })
 
     it('closes and opens the option select', function () {
-      var $button = $element.find('button')
+      var $button = $($element).find('button')
       $button.click()
-      expect($element.hasClass('js-closed')).toBe(true)
+      expect($($element).hasClass('js-closed')).toBe(true)
 
       $button.click()
-      expect($element.hasClass('js-closed')).toBe(false)
+      expect($($element).hasClass('js-closed')).toBe(false)
     })
 
     it('updates aria-expanded accordingly', function () {
-      var $button = $element.find('button')
+      var $button = $($element).find('button')
       $button.click()
-      expect($element.find('button').attr('aria-expanded')).toBe('false')
+      expect($($element).find('button').attr('aria-expanded')).toBe('false')
 
       $button.click()
-      expect($element.find('button').attr('aria-expanded')).toBe('true')
+      expect($($element).find('button').attr('aria-expanded')).toBe('true')
     })
   })
 
@@ -201,7 +208,9 @@ describe('An option select component', function () {
     beforeEach(function () {
       $element = $(html)
       $('body').append($element)
-      optionSelect.start($element)
+
+      optionSelect = new GOVUK.Modules.OptionSelect($element[0])
+      optionSelect.init()
 
       optionSelect.setContainerHeight(100)
       firstCheckbox = optionSelect.$allCheckboxes[0]
@@ -223,7 +232,9 @@ describe('An option select component', function () {
     beforeEach(function () {
       $element = $(html)
       $('body').append($element)
-      optionSelect.start($element)
+
+      optionSelect = new GOVUK.Modules.OptionSelect($element[0])
+      optionSelect.init()
     })
 
     it('returns all the checkboxes if the container doesn\'t overflow', function () {
@@ -249,6 +260,8 @@ describe('An option select component', function () {
       $element = $(html)
       $('body').append($element)
 
+      optionSelect = new GOVUK.Modules.OptionSelect($element[0])
+
       // Set some visual properties which are done in the CSS IRL
       $checkboxList = $element.find('.js-options-container')
       $checkboxList.css({
@@ -261,7 +274,7 @@ describe('An option select component', function () {
       })
 
       $checkboxListInner = $checkboxList.find(' > .js-auto-height-inner')
-      optionSelect.start($element)
+      optionSelect.init()
     })
 
     it('expands the checkbox-container to fit checkbox list if the list is < 50px larger than the container', function () {
@@ -290,7 +303,9 @@ describe('An option select component', function () {
       $element = $(html)
       var $wrapper = $('<div/>').addClass('wrapper').hide().html($element)
       $('body').append($wrapper)
-      optionSelect.start($element)
+
+      optionSelect = new GOVUK.Modules.OptionSelect($element[0])
+      optionSelect.init()
     })
 
     afterEach(function () {
@@ -309,7 +324,9 @@ describe('An option select component', function () {
       $element.attr('data-closed-on-load', true)
       var $wrapper = $('<div/>').addClass('wrapper').hide().html($element)
       $('body').append($wrapper)
-      optionSelect.start($element)
+
+      optionSelect = new GOVUK.Modules.OptionSelect($element[0])
+      optionSelect.init()
     })
 
     afterEach(function () {
@@ -318,7 +335,7 @@ describe('An option select component', function () {
 
     it('sets the height of the container sensibly when the option select is opened', function () {
       $('.wrapper').show()
-      $element.find('button').click()
+      $($element).find('button').click()
 
       var containerHeight = $('.js-options-container').height()
       expect(containerHeight).toBeGreaterThan(200)
@@ -342,7 +359,9 @@ describe('An option select component', function () {
       $element.attr('data-filter-element', filterMarkup)
       $element.find('.gem-c-checkboxes').prepend($(filterSpan))
       $('body').append($element)
-      optionSelect.start($element)
+
+      optionSelect = new GOVUK.Modules.OptionSelect($element[0])
+      optionSelect.init()
 
       jasmine.clock().install()
       $filterInput = document.querySelector('[name="option-select-filter"]')
