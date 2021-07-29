@@ -166,8 +166,8 @@ GEM
       plek (>= 1.9.0)
       rest-client (~> 2.0)
     gems (1.2.0)
-    globalid (0.4.2)
-      activesupport (>= 4.2.0)
+    globalid (0.5.1)
+      activesupport (>= 5.0)
     google-api-client (0.53.0)
       google-apis-core (~> 0.1)
       google-apis-generator (~> 0.1)
@@ -206,7 +206,7 @@ GEM
       unicorn (>= 5.4, < 5.9)
     govuk_personalisation (0.5.0)
       rails (~> 6)
-    govuk_publishing_components (24.21.1)
+    govuk_publishing_components (25.0.0)
       govuk_app_config
       kramdown
       plek
