@@ -2,10 +2,8 @@ window.GOVUK = window.GOVUK || {}
 window.GOVUK.Modules = window.GOVUK.Modules || {};
 
 (function (Modules) {
-  function MobileFiltersModal () { }
-
-  MobileFiltersModal.prototype.start = function ($module) {
-    this.$module = $module[0]
+  function MobileFiltersModal ($module) {
+    this.$module = $module
     this.$facetsBox = this.$module.querySelector('.facets__box')
     this.$closeTriggers = this.$module.querySelectorAll('.js-close-filters')
     this.$showResultsButton = this.$module.querySelector('.js-show-results')
@@ -17,7 +15,9 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
     this.$module.clearFilters = this.handleClearFilters.bind(this)
     this.$module.ModalFocus = this.handleModalFocus.bind(this)
     this.$module.boundKeyDown = this.handleKeyDown.bind(this)
+  }
 
+  MobileFiltersModal.prototype.init = function () {
     var $triggerElement = document.querySelector(
       '[data-toggle="mobile-filters-modal"][data-target="' + this.$module.id + '"]'
     )
