@@ -634,8 +634,7 @@ describe('liveSearch', function () {
   })
 
   describe('validation of user date input', function () {
-    var $filterDateBlock = $('<div class="app-c-date-filter" id="public_timestamp" ' +
-    'data-module="enable-aria-controls">' +
+    var $filterDateBlock = $('<div class="app-c-date-filter" id="public_timestamp">' +
     '<div class="govuk-form-group">' +
     '<label for="public_timestamp[from]" class="gem-c-label govuk-label">Updated after</label>' +
     '<div id="hint-3d03f42d" class="gem-c-hint govuk-hint govuk-!-margin-bottom-3">' +
