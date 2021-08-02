@@ -4,9 +4,11 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
 (function (global, GOVUK) {
   'use strict'
 
-  GOVUK.Modules.RemoveFilter = function RemoveFilter () {
-    this.start = function (element) {
-      element[0].addEventListener('click', function (e) {
+  GOVUK.Modules.RemoveFilter = function RemoveFilter (element) {
+    this.element = element
+
+    this.init = function () {
+      element.addEventListener('click', function (e) {
         if (e.target.getAttribute('data-module') === 'remove-filter-link') {
           toggleFilter(e)
         }
