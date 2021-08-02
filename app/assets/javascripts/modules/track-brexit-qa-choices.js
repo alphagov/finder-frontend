@@ -4,9 +4,9 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
 (function (global, GOVUK) {
   'use strict'
 
-  GOVUK.Modules.TrackBrexitQaChoices = function () {
-    this.start = function (element) {
-      track(element[0])
+  GOVUK.Modules.TrackBrexitQaChoices = function (element) {
+    this.init = function () {
+      track(element)
     }
 
     function track (element) {

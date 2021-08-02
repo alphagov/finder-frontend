@@ -27,8 +27,7 @@ describe('Brexit QA choices tracker', function () {
       '</div>'
     )
 
-    tracker = new GOVUK.Modules.TrackBrexitQaChoices()
-    tracker.start($element)
+    new GOVUK.Modules.TrackBrexitQaChoices($element[0]).init()
   })
 
   afterEach(function () {
