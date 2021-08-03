@@ -1,46 +1,47 @@
 window.GOVUK = window.GOVUK || {}
 window.GOVUK.Modules = window.GOVUK.Modules || {};
 
-(function (global, GOVUK) {
+(function (Modules) {
   'use strict'
 
-  GOVUK.Modules.TrackBrexitQaChoices = function () {
-    this.start = function (element) {
-      track(element[0])
-    }
+  function TrackBrexitQaChoices (element) {
+    this.element = element
+  }
 
-    function track (element) {
-      element.addEventListener('submit', function (event) {
-        var eventLabel, options
-        var submittedForm = event.target
-        var checkedOptions = submittedForm.querySelectorAll('input:checked')
-        var questionKey = submittedForm.getAttribute('data-question-key')
+  TrackBrexitQaChoices.prototype.init = function () {
+    this.element.addEventListener('submit', this.submitHandler.bind(this))
+  }
 
-        if (checkedOptions.length) {
-          for (var i = 0; i < checkedOptions.length; i++) {
-            var checkedOptionId = checkedOptions[i].getAttribute('id')
-            var checkedOptionLabelText = submittedForm.querySelector('label[for="' + checkedOptionId + '"]')
-            var checkedOptionLabel = ''
+  TrackBrexitQaChoices.prototype.submitHandler = function () {
+    var eventLabel, options
+    var checkedOptions = this.element.querySelectorAll('input:checked')
+    var questionKey = this.element.getAttribute('data-question-key')
 
-            if (checkedOptionLabelText != null) {
-              checkedOptionLabel = checkedOptionLabelText.textContent.replace(/^\s+|\s+$/g, '')
-            }
+    if (checkedOptions.length) {
+      for (var i = 0; i < checkedOptions.length; i++) {
+        var checkedOptionId = checkedOptions[i].getAttribute('id')
+        var checkedOptionLabelText = this.element.querySelector('label[for="' + checkedOptionId + '"]')
+        var checkedOptionLabel = ''
 
-            eventLabel = checkedOptionLabel.length
-              ? checkedOptionLabel
-              : checkedOptions[i].value
-
-            options = { transport: 'beacon', label: eventLabel }
-
-            GOVUK.SearchAnalytics.trackEvent('brexit-checker-qa', questionKey, options)
-          }
-        } else {
-          // Skipped questions
-          options = { transport: 'beacon', label: 'no choice' }
-
-          GOVUK.SearchAnalytics.trackEvent('brexit-checker-qa', questionKey, options)
+        if (checkedOptionLabelText != null) {
+          checkedOptionLabel = checkedOptionLabelText.textContent.replace(/^\s+|\s+$/g, '')
         }
-      })
+
+        eventLabel = checkedOptionLabel.length
+          ? checkedOptionLabel
+          : checkedOptions[i].value
+
+        options = { transport: 'beacon', label: eventLabel }
+
+        GOVUK.SearchAnalytics.trackEvent('brexit-checker-qa', questionKey, options)
+      }
+    } else {
+      // Skipped questions
+      options = { transport: 'beacon', label: 'no choice' }
+
+      GOVUK.SearchAnalytics.trackEvent('brexit-checker-qa', questionKey, options)
     }
   }
-})(window, window.GOVUK)
+
+  Modules.TrackBrexitQaChoices = TrackBrexitQaChoices
+})(window.GOVUK.Modules)
