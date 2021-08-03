@@ -356,6 +356,7 @@
     var searchState = this.serializeState(this.state)
     var cachedResultData = this.cache(searchState)
     var liveSearch = this
+
     if (typeof cachedResultData === 'undefined') {
       this.showLoadingIndicator()
       var xhr = new XMLHttpRequest()
@@ -364,12 +365,8 @@
       var done = function (e) {
         if (xhr.readyState === 4 && xhr.status === 200) {
           var response = JSON.parse(e.target.response)
-          var newPath = encodeURI(window.location.pathname + '?' + liveSearch.serializeState(liveSearch.state))
-          window.history.pushState(liveSearch.state, '', newPath)
-          liveSearch.trackingInit()
-          liveSearch.setRelevantResultCustomDimension()
-          liveSearch.trackPageView()
-
+          liveSearch.updateUrl()
+          liveSearch.trackSearch()
           liveSearch.cache(liveSearch.serializeState(liveSearch.state), response)
           liveSearch.displayResults(response, searchState)
         } else {
@@ -382,8 +379,21 @@
       xhr.addEventListener('load', done)
       xhr.send()
     } else {
+      this.updateUrl()
+      this.trackSearch()
       this.displayResults(cachedResultData, searchState)
     }
+  }
+
+  LiveSearch.prototype.updateUrl = function () {
+    var newPath = encodeURI(window.location.pathname + '?' + this.serializeState(this.state))
+    window.history.pushState(this.state, '', newPath)
+  }
+
+  LiveSearch.prototype.trackSearch = function () {
+    this.trackingInit()
+    this.setRelevantResultCustomDimension()
+    this.trackPageView()
   }
 
   LiveSearch.prototype.updateLinks = function updateLinks () {

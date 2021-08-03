@@ -82,6 +82,8 @@ describe('liveSearch', function () {
     var feedSubscriptionLinks = '<a href="http://an-atom-url.atom?query_param=something">Subscribe to feed</a>'
     $form = $('<form action="/somewhere" class="js-live-search-form">' +
                 '<input type="checkbox" name="field" value="sheep" checked>' +
+                '<input type="checkbox" name="people[]" value="john">' +
+                '<input type="checkbox" name="people[]" value="paul">' +
                 '<label for="published_at">Published at</label>' +
                 '<input type="text" name="published_at" value="2004" />' +
                 '<input type="text" name="option-select-filter" value="notincluded"/>' +
@@ -109,6 +111,8 @@ describe('liveSearch', function () {
     $form.remove()
     $results.remove()
     $atomAutodiscoveryLink.remove()
+    var url = encodeURI(window.location.pathname)
+    window.history.pushState('', '', url)
     GOVUK.support.history = _supportHistory
   })
 
@@ -168,6 +172,42 @@ describe('liveSearch', function () {
     expect(liveSearch.cache('some-slug')).toBe(undefined)
     liveSearch.cache('some-slug', 'something in the cache')
     expect(liveSearch.cache('some-slug')).toBe('something in the cache')
+  })
+
+  describe('changing the search options', function () {
+    beforeEach(function () {
+      // clear these options to simplify the URLs
+      $form.find('input[name=field]').prop('checked', false)
+      $form.find('input[name=published_at]').val('')
+    })
+
+    it('should update the URL', function () {
+      $form.find('input[value="john"]').click()
+      jasmine.Ajax.requests.mostRecent().respondWith({
+        status: 200,
+        response: '{}'
+      })
+
+      expect(window.location.search).toContain('people%5B%5D=john')
+    })
+
+    it('should update the URL when the search result is already cached', function () {
+      var urls = [
+        'people%5B%5D=john',
+        'people%5B%5D=john&people%5B%5D=paul'
+      ]
+      for (var i = 0; i < urls.length; i++) {
+        jasmine.Ajax.stubRequest('/somewhere.json?' + urls[i]).andReturn({
+          status: 200,
+          response: '{}'
+        })
+      }
+      $form.find('input[value="john"]').click() // only john is selected
+      $form.find('input[value="paul"]').click() // john and paul are selected
+      $form.find('input[value="paul"]').click() // only john is selected (cached from before)
+      expect(window.location.search).toContain('people%5B%5D=john')
+      expect(window.location.search).not.toContain('people%5B%5D=paul')
+    })
   })
 
   describe('should not display out of date results', function () {
