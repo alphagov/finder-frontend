@@ -99,7 +99,7 @@
   LiveSearch.prototype.startEnhancedEcommerceTracking = function startEnhancedEcommerceTracking () {
     this.$resultsWrapper.attr('data-search-query', this.currentKeywords())
     this.$suggestionsBlock.attr('data-search-query', this.currentKeywords())
-    if (GOVUK.Ecommerce) { GOVUK.Ecommerce.start() }
+    if (GOVUK.Ecommerce) { GOVUK.Ecommerce.init() }
   }
 
   LiveSearch.prototype.getTaxonomyFacet = function getTaxonomyFacet () {
