@@ -43,8 +43,13 @@ describe('Mobile filters modal', function () {
     '</form>'
 
     document.body.appendChild(container)
-    var element = $('[data-module="mobile-filters-modal"]')
-    new GOVUK.Modules.MobileFiltersModal().start(element)
+
+    container.addEventListener('submit', function (e) {
+      e.preventDefault()
+    })
+
+    var element = $('[data-module="mobile-filters-modal"]')[0]
+    new GOVUK.Modules.MobileFiltersModal(element).init()
   })
 
   afterEach(function () {
