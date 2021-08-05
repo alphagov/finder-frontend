@@ -39,7 +39,7 @@ end
 And "I search for lunch" do
   stub_search_api_request_with_query_param_no_results("lunch")
 
-  fill_in "Search", with: "lunch"
+  fill_in "Search", with: "lunch", fill_options: { clear: :backspace }
 end
 
 And "I search for superted" do
