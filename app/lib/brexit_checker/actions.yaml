@@ -140,8 +140,8 @@ actions:
   consequence: You may be charged for using your mobile device in the EU, Switzerland,
     Norway, Iceland or Liechtenstein if your operator has reintroduced roaming charges.
   guidance_prompt: More information
-  guidance_link_text: Visit Europe
-  guidance_url: https://www.gov.uk/visit-europe-1-january-2021
+  guidance_link_text: Visiting the EU
+  guidance_url: https://www.gov.uk/visit-eu-switzerland-norway-iceland-liechtenstein
   criteria:
   - any_of:
     - all_of:
@@ -184,8 +184,8 @@ actions:
   consequence: You may not be allowed to enter some EU countries if you do not have
     an onward travel ticket, enough money for your stay, or a visa or permit.
   guidance_prompt: More information
-  guidance_link_text: Visiting Europe
-  guidance_url: https://www.gov.uk/visit-europe-1-january-2021
+  guidance_link_text: Visiting the EU
+  guidance_url: https://www.gov.uk/visit-eu-switzerland-norway-iceland-liechtenstein
   criteria:
   - all_of:
     - nationality-uk
@@ -242,11 +242,13 @@ actions:
   guidance_link_text: 'Qualified teacher status (QTS): qualify to teach in England'
   guidance_url: https://www.gov.uk/guidance/qualified-teacher-status-qts
   criteria:
-  - any_of:
-    - all_of:
-      - living-uk
-      - nationality-eu
-    - nationality-ie
+  - all_of:
+    - any_of:
+      - all_of:
+        - living-uk
+        - nationality-eu
+      - nationality-ie
+    - education
   audience: citizen
   grouping_criteria:
   - working-uk
@@ -295,8 +297,8 @@ actions:
   consequence: If you do not allow enough time, you could miss your flight, train
     or ferry.
   guidance_prompt: More information
-  guidance_link_text: Visit Europe
-  guidance_url: https://www.gov.uk/visit-europe-1-january-2021
+  guidance_link_text: Visiting the EU
+  guidance_url: https://www.gov.uk/visit-eu-switzerland-norway-iceland-liechtenstein
   criteria:
   - any_of:
     - all_of:
@@ -329,9 +331,11 @@ actions:
   priority: 11
   title: Check if you need to apply for a new residence status to continue living
     in the EU
-  title_url: https://www.gov.uk/uk-nationals-living-eu
   consequence: If you do not register as a resident in the EU country you live in,
     you risk being fined or not being able to stay.
+  guidance_prompt: More information
+  guidance_link_text: Living in country guides
+  guidance_url: https://www.gov.uk/government/collections/overseas-living-in-guides
   criteria:
   - all_of:
     - nationality-uk
@@ -368,8 +372,8 @@ actions:
     proper documents, you will not be able to take it with you.
   lead_time: It takes at least 1 month
   guidance_prompt: More information
-  guidance_link_text: Pet travel to and from Great Britain
-  guidance_url: https://www.gov.uk/guidance/pet-travel-to-and-from-great-britain
+  guidance_link_text: Taking your pet dog, cat or ferret abroad
+  guidance_url: https://www.gov.uk/taking-your-pet-abroad
   criteria:
   - all_of:
     - any_of:
@@ -467,8 +471,8 @@ actions:
   consequence: You might miss updates about what you need to do to stay in the country
     you live in.
   guidance_prompt: More information
-  guidance_link_text: UK nationals living in the EU
-  guidance_url: https://www.gov.uk/uk-nationals-living-eu
+  guidance_link_text: Living in country guides
+  guidance_url: https://www.gov.uk/government/collections/overseas-living-in-guides
   criteria:
   - all_of:
     - nationality-uk
@@ -586,6 +590,41 @@ actions:
   audience: citizen
   grouping_criteria:
   - working-eu
+- id: S046
+  priority: 6
+  title: Check what documentation you need to continue working in the EU, Switzerland,
+    Norway, Iceland or Liechtenstein if you live in the UK
+  consequence: You may be delayed or stopped from travelling into another country
+    for work if you do not have the correct documentation.
+  guidance_prompt: More information
+  guidance_link_text: Frontier workers in EU and EFTA countries
+  guidance_url: https://www.gov.uk/guidance/frontier-workers-in-eu-and-efta-countries
+  criteria:
+  - all_of:
+    - nationality-uk
+    - working-eu
+    - living-uk
+  audience: citizen
+  grouping_criteria:
+  - working-eu
+- id: S047
+  priority: 6
+  title: Check what documentation you need to continue working in the EU, Switzerland,
+    Norway, Iceland or Liechtenstein if you live in a different country to where you
+    work
+  consequence: You may be delayed or stopped from travelling into another country
+    for work if you do not have the correct documentation.
+  guidance_prompt: More information
+  guidance_link_text: Frontier workers in EU and EFTA countries
+  guidance_url: https://www.gov.uk/guidance/frontier-workers-in-eu-and-efta-countries
+  criteria:
+  - all_of:
+    - nationality-uk
+    - working-eu
+    - living-eu
+  audience: citizen
+  grouping_criteria:
+  - working-eu
 - id: T006
   priority: 7
   title: Check if your employees need a visa or work permit and that they meet professional
@@ -631,8 +670,8 @@ actions:
   consequence: You risk not being able to broadcast outside the UK if you do not get
     extra copyright permissions.
   guidance_prompt: More information
-  guidance_link_text: Changes to copyright law from 1 January 2021
-  guidance_url: https://www.gov.uk/guidance/changes-to-copyright-law-after-the-transition-period
+  guidance_link_text: Protecting copyright in the UK and EU
+  guidance_url: https://www.gov.uk/guidance/protecting-copyright-in-the-uk-and-eu
   criteria:
   - all_of:
     - any_of:
@@ -649,8 +688,8 @@ actions:
     to the EU, Norway, Iceland and Liechtenstein
   consequence: You may infringe on IP rights if you do not follow the new rules.
   guidance_prompt: More information
-  guidance_link_text: Exhaustion of IP rights and parallel trade from 1 January 2021
-  guidance_url: https://www.gov.uk/guidance/exhaustion-of-ip-rights-and-parallel-trade-after-the-transition-period
+  guidance_link_text: Exhaustion of IP rights and parallel trade
+  guidance_url: https://www.gov.uk/guidance/exhaustion-of-ip-rights-and-parallel-trade
   criteria:
   - all_of:
     - any_of:
@@ -1167,8 +1206,7 @@ actions:
     correctly.
   guidance_prompt: More information
   guidance_link_text: Changes to EU and international designs and trade mark protection
-    from 1 January 2021
-  guidance_url: https://www.gov.uk/guidance/changes-to-eu-and-international-designs-and-trade-mark-protection-after-the-transition-period
+  guidance_url: https://www.gov.uk/guidance/changes-to-eu-and-international-designs-and-trade-mark-protection
   criteria:
   - any_of:
     - ip-copyright
@@ -1246,7 +1284,7 @@ actions:
   guidance_prompt: More information
   guidance_link_text: Export plants and plant products from Great Britain and Northern
     Ireland
-  guidance_url: https://www.gov.uk/guidance/export-plants-seeds-bulbs-and-wood-special-rules
+  guidance_url: https://www.gov.uk/guidance/export-plants-and-plant-products-from-great-britain-and-northern-ireland
   criteria:
   - all_of:
     - any_of:
@@ -1323,8 +1361,8 @@ actions:
   consequence: You risk your timber or timber products being delayed or rejected if
     you do not follow the rules.
   guidance_prompt: More information
-  guidance_link_text: 'Trading timber: imports and exports'
-  guidance_url: https://www.gov.uk/guidance/uk-timber-regulation-imports-and-exports-of-timber-and-timber-products
+  guidance_link_text: 'Regulations: timber and FLEGT licences'
+  guidance_url: https://www.gov.uk/guidance/regulations-timber-and-flegt-licences
   criteria:
   - all_of:
     - forestry
@@ -1589,9 +1627,8 @@ actions:
   consequence: You will not be able to place new biocidal active substances on the
     GB market without approval.
   guidance_prompt: More information
-  guidance_link_text: 'Biocides: What you''ll need to do after the transition period
-    ends'
-  guidance_url: https://www.hse.gov.uk/biocides/eu-bpr/product-authorisation-overview.htm
+  guidance_link_text: 'Biocides: how to get your product authorised for the GB market.'
+  guidance_url: https://www.hse.gov.uk/biocides/product-authorisation-overview.htm
   criteria:
   - chemical
   audience: business
@@ -1631,8 +1668,8 @@ actions:
     to the EU
   consequence: You risk breaking copyright rules if you do not have the right permissions.
   guidance_prompt: More information
-  guidance_link_text: Changes to copyright law from 1 January 2021
-  guidance_url: https://www.gov.uk/guidance/changes-to-copyright-law-after-the-transition-period
+  guidance_link_text: Protecting copyright in the UK and EU
+  guidance_url: https://www.gov.uk/guidance/protecting-copyright-in-the-uk-and-eu
   criteria:
   - any_of:
     - ip-copyright
