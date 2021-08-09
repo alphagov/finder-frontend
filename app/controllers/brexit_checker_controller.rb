@@ -12,6 +12,8 @@ class BrexitCheckerController < ApplicationController
 
   before_action :enable_caching, only: %i[show email_signup confirm_email_signup results]
 
+  after_action :set_slimmer_template
+
   helper_method :subscriber_list_slug
 
   def show
