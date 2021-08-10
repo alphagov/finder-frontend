@@ -395,13 +395,20 @@ describe('An option select component', function () {
       expect($count.html()).toBe('0 options found, 0 selected')
     })
 
-    it('does not propagate keypresses up', function () {
-      var event = document.createEvent('Events')
-      event.initEvent('keyup', true, true)
-      event.keyCode = 13
-      $filterInput.dispatchEvent(event)
+    it('prevents form submission if the key is Enter', function () {
+      $filterInput.addEventListener('keyup', function (event) {
+        expect(event.defaultPrevented).toBe(true)
+      })
 
-      expect(event.defaultPrevented).toBe(true)
+      window.GOVUK.triggerEvent($filterInput, 'keyup', { keyCode: 13, cancelable: true })
+    })
+
+    it('does not prevent keypresses other than Enter', function () {
+      $filterInput.addEventListener('keyup', function (event) {
+        expect(event.defaultPrevented).toBe(false)
+      })
+
+      window.GOVUK.triggerEvent($filterInput, 'keyup', { keyCode: 65, cancelable: true }) // key is 'a'
     })
 
     it('shows checked checkboxes regardless of whether they match the filter', function () {
