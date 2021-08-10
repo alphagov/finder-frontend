@@ -28,25 +28,21 @@
 //= require_tree ./modules
 //= require_tree ./components
 
-/* eslint-env jquery */
+var $elementsRequiringJavascript = document.querySelectorAll('.js-required')
 
-jQuery(function ($) {
-  var $form = $('.js-live-search-form')
+for (var i = 0; i < $elementsRequiringJavascript.length; i++) {
+  $elementsRequiringJavascript[i].style.display = 'block'
+}
 
-  var $results = $('.js-live-search-results-block')
+var $form = document.querySelector('.js-live-search-form')
+var $results = document.querySelector('.js-live-search-results-block')
+var $atomAutodiscoveryLink = document.querySelector("link[type='application/atom+xml']")
 
-  var $elementsRequiringJavascript = $('.js-required')
-
-  var $atomAutodiscoveryLink = $("link[type='application/atom+xml']").eq('0')
-
-  $elementsRequiringJavascript.show()
-
-  if ($form.length && $results.length) {
-    // eslint-disable-next-line
-    new GOVUK.LiveSearch({
-      $form: $form,
-      $results: $results,
-      $atomAutodiscoveryLink: $atomAutodiscoveryLink
-    })
-  }
-})
+if ($form && $results && $atomAutodiscoveryLink) {
+  // eslint-disable-next-line no-new
+  new GOVUK.LiveSearch({
+    $form: $form,
+    $results: $results,
+    $atomAutodiscoveryLink: $atomAutodiscoveryLink
+  })
+}

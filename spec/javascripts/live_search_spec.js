@@ -74,32 +74,45 @@ describe('liveSearch', function () {
   }
 
   beforeEach(function () {
+    jasmine.Ajax.install()
+    var count = '<div aria-live="assertive" id="js-search-results-info"><h2 class="result-region-header__counter" id="f-result-count"></h2></div>'
     var sortList = '<select id="order" class="js-order-results" data-relevance-sort-option="relevance"><option>Test 1</option><option value="relevance" disabled>Relevance</option>'
+    var results = '<div class="js-live-search-results-block"><div id="js-loading-message"></div><div id="js-sort-options">' + sortList + '</div></div>'
+    var emailSubscriptionLinks = '<a href="https://a-url/email-signup?query_param=something">Get emails</a>'
+    var feedSubscriptionLinks = '<a href="http://an-atom-url.atom?query_param=something">Subscribe to feed</a>'
     $form = $('<form action="/somewhere" class="js-live-search-form">' +
                 '<input type="checkbox" name="field" value="sheep" checked>' +
+                '<input type="checkbox" name="people[]" value="john">' +
+                '<input type="checkbox" name="people[]" value="paul">' +
                 '<label for="published_at">Published at</label>' +
                 '<input type="text" name="published_at" value="2004" />' +
                 '<input type="text" name="option-select-filter" value="notincluded"/>' +
                 '<input type="text" name="unused_facet"/>' +
                 '<input type="submit" value="Filter results" class="button js-live-search-fallback"/>' +
+                emailSubscriptionLinks +
+                feedSubscriptionLinks +
+                count +
+                results +
               '</form>')
-    $results = $('<div class="js-live-search-results-block"><div id="js-sort-options">' + sortList + '</div></div>')
-    $count = $('<div aria-live="assertive" id="js-search-results-info"><h2 class="result-region-header__counter" id="f-result-count"></h2></div>')
-    $atomAutodiscoveryLink = $("<link href='http://an-atom-url.atom' rel='alternate' title='ATOM' type='application/atom+xml'>")
-    var $emailSubscriptionLinks = $("<a href='https://a-url/email-signup?query_param=something'>")
-    var $feedSubscriptionLinks = $("<a href='http://an-atom-url.atom?query_param=something'>")
-    $('body').append($form).append($results).append($atomAutodiscoveryLink).append($feedSubscriptionLinks).append($emailSubscriptionLinks)
-    $('head').append('<meta name="govuk:base_title" content="All Content - GOV.UK">')
+    $results = $form.find('.js-live-search-results-block')
+    $atomAutodiscoveryLink = $('<link href="http://an-atom-url.atom" rel="alternate" title="ATOM" type="application/atom+xml">')
+    $count = $form.find('#js-search-results-info')
+    $('body').append($form)
+    $('head').append('<meta name="govuk:base_title" content="All Content - GOV.UK">').append($atomAutodiscoveryLink)
     _supportHistory = GOVUK.support.history
     GOVUK.support.history = function () { return true }
     window.ga = function () {}
     spyOn(window, 'ga')
-    liveSearch = new GOVUK.LiveSearch({ $form: $form, $results: $results, $atomAutodiscoveryLink: $atomAutodiscoveryLink })
+    liveSearch = new GOVUK.LiveSearch({ $form: $form[0], $results: $results[0], $atomAutodiscoveryLink: $atomAutodiscoveryLink[0] })
   })
 
   afterEach(function () {
+    jasmine.Ajax.uninstall()
     $form.remove()
     $results.remove()
+    $atomAutodiscoveryLink.remove()
+    var url = encodeURI(window.location.pathname)
+    window.history.pushState('', '', url)
     GOVUK.support.history = _supportHistory
   })
 
@@ -135,48 +148,22 @@ describe('liveSearch', function () {
     liveSearch.resultCache['more=results'] = 'exists'
     liveSearch.state = { more: 'results' }
     spyOn(liveSearch, 'displayResults')
-    spyOn(jQuery, 'ajax')
+    spyOn(XMLHttpRequest.prototype, 'send')
 
     liveSearch.updateResults()
     expect(liveSearch.displayResults).toHaveBeenCalled()
-    expect(jQuery.ajax).not.toHaveBeenCalled()
-  })
-
-  it('should return a promise like object if results are in the cache', function () {
-    liveSearch.resultCache['more=results'] = 'exists'
-    liveSearch.state = { more: 'results' }
-    spyOn(liveSearch, 'displayResults')
-    spyOn(jQuery, 'ajax')
-
-    var promise = liveSearch.updateResults()
-    expect(typeof promise.done).toBe('function')
-  })
-
-  it("should return a promise like object if results aren't in the cache", function () {
-    liveSearch.state = { not: 'cached' }
-    spyOn(liveSearch, 'displayResults')
-    var ajaxCallback = jasmine.createSpyObj('ajax', ['done', 'error'])
-    ajaxCallback.done.and.returnValue(ajaxCallback)
-    spyOn(jQuery, 'ajax').and.returnValue(ajaxCallback)
-
-    liveSearch.updateResults()
-    expect(jQuery.ajax).toHaveBeenCalledWith({ url: '/somewhere.json', data: { not: 'cached' }, searchState: 'not=cached' })
-    expect(ajaxCallback.done).toHaveBeenCalled()
-    ajaxCallback.done.calls.mostRecent().args[0]('response data')
-    expect(liveSearch.displayResults).toHaveBeenCalled()
-    expect(liveSearch.resultCache['not=cached']).toBe('response data')
+    expect(XMLHttpRequest.prototype.send).not.toHaveBeenCalled()
   })
 
   it('should show error indicator when error loading new results', function () {
     liveSearch.state = { not: 'cached' }
     spyOn(liveSearch, 'displayResults')
     spyOn(liveSearch, 'showErrorIndicator')
-    var ajaxCallback = jasmine.createSpyObj('ajax', ['done', 'error'])
-    ajaxCallback.done.and.returnValue(ajaxCallback)
-    spyOn(jQuery, 'ajax').and.returnValue(ajaxCallback)
-
     liveSearch.updateResults()
-    ajaxCallback.error.calls.mostRecent().args[0]()
+
+    jasmine.Ajax.requests.mostRecent().respondWith({
+      status: 500
+    })
     expect(liveSearch.showErrorIndicator).toHaveBeenCalled()
   })
 
@@ -185,6 +172,42 @@ describe('liveSearch', function () {
     expect(liveSearch.cache('some-slug')).toBe(undefined)
     liveSearch.cache('some-slug', 'something in the cache')
     expect(liveSearch.cache('some-slug')).toBe('something in the cache')
+  })
+
+  describe('changing the search options', function () {
+    beforeEach(function () {
+      // clear these options to simplify the URLs
+      $form.find('input[name=field]').prop('checked', false)
+      $form.find('input[name=published_at]').val('')
+    })
+
+    it('should update the URL', function () {
+      $form.find('input[value="john"]').click()
+      jasmine.Ajax.requests.mostRecent().respondWith({
+        status: 200,
+        response: '{}'
+      })
+
+      expect(window.location.search).toContain('people%5B%5D=john')
+    })
+
+    it('should update the URL when the search result is already cached', function () {
+      var urls = [
+        'people%5B%5D=john',
+        'people%5B%5D=john&people%5B%5D=paul'
+      ]
+      for (var i = 0; i < urls.length; i++) {
+        jasmine.Ajax.stubRequest('/somewhere.json?' + urls[i]).andReturn({
+          status: 200,
+          response: '{}'
+        })
+      }
+      $form.find('input[value="john"]').click() // only john is selected
+      $form.find('input[value="paul"]').click() // john and paul are selected
+      $form.find('input[value="paul"]').click() // only john is selected (cached from before)
+      expect(window.location.search).toContain('people%5B%5D=john')
+      expect(window.location.search).not.toContain('people%5B%5D=paul')
+    })
   })
 
   describe('should not display out of date results', function () {
@@ -197,7 +220,7 @@ describe('liveSearch', function () {
 
     it('should have an order state selected when keywords are present', function () {
       liveSearch.state = 'find-eu-exit-guidance-business.json?keywords=123'
-      expect(liveSearch.$orderSelect.val()).not.toBe(null)
+      expect(liveSearch.$orderSelect.value).not.toBe(null)
     })
 
     it('should update the results if the state of these results matches the state of the page', function () {
@@ -213,17 +236,17 @@ describe('liveSearch', function () {
     $form.find('.js-live-search-fallback').hide()
     expect($form.find('.js-live-search-fallback').is(':visible')).toBe(false)
     GOVUK.support.history = function () { return false }
-    liveSearch = new GOVUK.LiveSearch({ $form: $form, $results: $results })
+    liveSearch = new GOVUK.LiveSearch({ $form: $form[0], $results: $results[0], $atomAutodiscoveryLink: $atomAutodiscoveryLink[0] })
     expect($form.find('.js-live-search-fallback').is(':visible')).toBe(true)
   })
 
   describe('with relevant DOM nodes set', function () {
     beforeEach(function () {
-      liveSearch.$form = $form
-      liveSearch.$resultsBlock = $results
-      liveSearch.$countBlock = $count
+      liveSearch.$form = $form[0]
+      liveSearch.$resultsBlock = $results[0]
+      liveSearch.$countBlock = $count[0]
       liveSearch.state = { field: 'sheep', published_at: '2004' }
-      liveSearch.$atomAutodiscoveryLink = $atomAutodiscoveryLink
+      liveSearch.$atomAutodiscoveryLink = $atomAutodiscoveryLink[0]
     })
 
     it('should update save state and update results when checkbox is changed', function () {
@@ -246,15 +269,17 @@ describe('liveSearch', function () {
     })
 
     it('should trigger analytics trackpage when checkbox is changed', function () {
-      var promise = jasmine.createSpyObj('promise', ['done'])
-      spyOn(liveSearch, 'updateResults').and.returnValue(promise)
+      spyOn(liveSearch, 'updateResults').and.callThrough()
       spyOn(GOVUK.SearchAnalytics, 'trackPageview')
       spyOn(liveSearch, 'trackingInit')
 
       liveSearch.state = []
 
       liveSearch.formChange()
-      promise.done.calls.mostRecent().args[0]()
+      jasmine.Ajax.requests.mostRecent().respondWith({
+        status: 200,
+        response: '{"total":81,"display_total":"81 reports","facet_tags":"","search_results":"","display_selected_facets_count":"","sort_options_markup":"","next_and_prev_links":"","suggestions":"","errors":{}}'
+      })
 
       expect(liveSearch.trackingInit).toHaveBeenCalled()
       expect(GOVUK.SearchAnalytics.trackPageview).toHaveBeenCalled()
@@ -275,7 +300,8 @@ describe('liveSearch', function () {
       GOVUK.LiveSearch.prototype.fireTextAnalyticsEvent = function (event) {}
       spyOn(GOVUK.LiveSearch.prototype, 'fireTextAnalyticsEvent')
 
-      $form.find('input[name="published_at"]').val('2005').trigger('change')
+      var dateInput = $form.find('input[name="published_at"]').val('2005')[0]
+      window.GOVUK.triggerEvent(dateInput, 'change')
 
       expect(GOVUK.LiveSearch.prototype.fireTextAnalyticsEvent).toHaveBeenCalledTimes(1)
     })
@@ -284,12 +310,16 @@ describe('liveSearch', function () {
       GOVUK.LiveSearch.prototype.fireTextAnalyticsEvent = function (event) {}
       spyOn(GOVUK.LiveSearch.prototype, 'fireTextAnalyticsEvent')
 
-      $form.find('input[name="published_at"]').val('searchChange').trigger('change')
+      var publishedAt = $form.find('input[name="published_at"]').val('searchChange')[0]
+      window.GOVUK.triggerEvent(publishedAt, 'change')
 
       expect(GOVUK.LiveSearch.prototype.fireTextAnalyticsEvent).toHaveBeenCalledTimes(1)
 
-      var enterKeyPress = $.Event('keypress', { keyCode: 13 })
-      $form.find('input[name="published_at"]').val('searchEnter').trigger(enterKeyPress)
+      publishedAt.value = 'searchEnter'
+      // create our own custom event, as GOVUK.triggerEvent currently doesn't support custom keycodes
+      var e = new window.CustomEvent('keypress')
+      e.keyCode = 13
+      publishedAt.dispatchEvent(e)
 
       expect(GOVUK.LiveSearch.prototype.fireTextAnalyticsEvent).toHaveBeenCalledTimes(2)
     })
@@ -301,8 +331,11 @@ describe('liveSearch', function () {
       $form.find('input[name="published_at"]').val('same term').trigger('change')
       $form.find('input[name="published_at"]').val('same term').trigger('change')
 
-      var enterKeyPress = $.Event('keypress', { keyCode: 13 })
-      $form.find('input[name="published_at"]').val('same term').trigger(enterKeyPress)
+      var publishedAt = $form.find('input[name="published_at"]')[0]
+      // create our own custom event, as GOVUK.triggerEvent currently doesn't support custom keycodes
+      var e = new window.CustomEvent('keypress')
+      e.keyCode = 13
+      publishedAt.dispatchEvent(e)
 
       expect(GOVUK.LiveSearch.prototype.fireTextAnalyticsEvent).toHaveBeenCalledTimes(1)
     })
@@ -329,7 +362,7 @@ describe('liveSearch', function () {
 
     it('should update the Atom autodiscovery link', function () {
       liveSearch.displayResults(dummyResponse, $.param(liveSearch.state))
-      expect($atomAutodiscoveryLink.attr('href')).toEqual(dummyResponse.atom_url)
+      expect($atomAutodiscoveryLink[0].getAttribute('href')).toEqual(dummyResponse.atom_url)
     })
   })
 
@@ -358,42 +391,42 @@ describe('liveSearch', function () {
   describe('restoreBooleans', function () {
     beforeEach(function () {
       liveSearch.state = [{ name: 'list_1[]', value: 'checkbox_1' }, { name: 'list_1[]', value: 'checkbox_2' }, { name: 'list_2[]', value: 'radio_1' }]
-      liveSearch.$form = $('<form action="/somewhere" class="js-live-search-form"><input id="check_1" type="checkbox" name="list_1[]" value="checkbox_1"><input type="checkbox" id="check_2"  name="list_1[]" value="checkbox_2"><input type="radio" id="radio_1"  name="list_2[]" value="radio_1"><input type="radio" id="radio_2"  name="list_2[]" value="radio_2"><input type="submit"/></form>')
+      liveSearch.$form = $('<form action="/somewhere" class="js-live-search-form"><input id="check_1" type="checkbox" name="list_1[]" value="checkbox_1"><input type="checkbox" id="check_2"  name="list_1[]" value="checkbox_2"><input type="radio" id="radio_1"  name="list_2[]" value="radio_1"><input type="radio" id="radio_2"  name="list_2[]" value="radio_2"><input type="submit"/></form>')[0]
     })
 
     it('should check a checkbox if in the state it is checked in the history', function () {
-      expect(liveSearch.$form.find('input[type=checkbox]:checked').length).toBe(0)
+      expect(liveSearch.$form.querySelectorAll('input[type=checkbox]:checked').length).toBe(0)
       liveSearch.restoreBooleans()
-      expect(liveSearch.$form.find('input[type=checkbox]:checked').length).toBe(2)
+      expect(liveSearch.$form.querySelectorAll('input[type=checkbox]:checked').length).toBe(2)
     })
 
     it('should not check all the checkboxes if only one is checked', function () {
       liveSearch.state = [{ name: 'list_1[]', value: 'checkbox_2' }]
-      expect(liveSearch.$form.find('input[type=checkbox]:checked').length).toBe(0)
+      expect(liveSearch.$form.querySelectorAll('input[type=checkbox]:checked').length).toBe(0)
       liveSearch.restoreBooleans()
-      expect(liveSearch.$form.find('input[type=checkbox]:checked')[0].id).toBe('check_2')
-      expect(liveSearch.$form.find('input[type=checkbox]:checked').length).toBe(1)
+      expect($(liveSearch.$form).find('input[type=checkbox][checked=true]')[0].id).toBe('check_2')
+      expect($(liveSearch.$form).find('input[type=checkbox][checked=true]').length).toBe(1)
     })
 
     it('should pick a radiobox if in the state it is picked in the history', function () {
-      expect(liveSearch.$form.find('input[type=radio]:checked').length).toBe(0)
+      expect(liveSearch.$form.querySelectorAll('input[type=radio]:checked').length).toBe(0)
       liveSearch.restoreBooleans()
-      expect(liveSearch.$form.find('input[type=radio]:checked').length).toBe(1)
+      expect(liveSearch.$form.querySelectorAll('input[type=radio]:checked').length).toBe(1)
     })
   })
 
   describe('restoreKeywords', function () {
     beforeEach(function () {
       liveSearch.state = [{ name: 'text_1', value: 'Monday' }]
-      liveSearch.$form = $('<form action="/somewhere"><input id="text_1" type="text" name="text_1"><input id="text_2" type="text" name="text_2"></form>')
+      liveSearch.$form = $('<form action="/somewhere"><input id="text_1" type="text" name="text_1"><input id="text_2" type="text" name="text_2"></form>')[0]
     })
 
     it('should put the right text back in the right box', function () {
-      expect(liveSearch.$form.find('#text_1').val()).toBe('')
-      expect(liveSearch.$form.find('#text_2').val()).toBe('')
+      expect($(liveSearch.$form).find('#text_1').val()).toBe('')
+      expect($(liveSearch.$form).find('#text_2').val()).toBe('')
       liveSearch.restoreTextInputs()
-      expect(liveSearch.$form.find('#text_1').val()).toBe('Monday')
-      expect(liveSearch.$form.find('#text_2').val()).toBe('')
+      expect($(liveSearch.$form).find('#text_1').val()).toBe('Monday')
+      expect($(liveSearch.$form).find('#text_2').val()).toBe('')
     })
   })
 
@@ -431,8 +464,8 @@ describe('liveSearch', function () {
     }
 
     beforeEach(function () {
-      liveSearch.$form = $form
-      liveSearch.$resultsBlock = $results
+      liveSearch.$form = $form[0]
+      liveSearch.$resultsBlock = $results[0]
       liveSearch.state = { search: 'state' }
     })
 
@@ -461,21 +494,21 @@ describe('liveSearch', function () {
 
   it('should replace links with new links when state changes', function () {
     liveSearch.updateLinks()
-    expect(liveSearch.$emailLink.attr('href')).toBe('https://a-url/email-signup?field=sheep&published_at=2004')
-    expect(liveSearch.$atomLink.attr('href')).toBe('http://an-atom-url.atom?field=sheep&published_at=2004')
-    expect(liveSearch.$atomAutodiscoveryLink.attr('href')).toBe('http://an-atom-url.atom?field=sheep&published_at=2004')
+    expect(liveSearch.$emailLinks[0].getAttribute('href')).toBe('https://a-url/email-signup?field=sheep&published_at=2004')
+    expect(liveSearch.$atomLinks[0].getAttribute('href')).toBe('http://an-atom-url.atom?field=sheep&published_at=2004')
+    expect(liveSearch.$atomAutodiscoveryLink.getAttribute('href')).toBe('http://an-atom-url.atom?field=sheep&published_at=2004')
     $form.find('input[name="field"]').prop('checked', false)
     liveSearch.saveState()
     liveSearch.updateLinks()
-    expect(liveSearch.$emailLink.attr('href')).toBe('https://a-url/email-signup?published_at=2004')
-    expect(liveSearch.$atomLink.attr('href')).toBe('http://an-atom-url.atom?published_at=2004')
-    expect(liveSearch.$atomAutodiscoveryLink.attr('href')).toBe('http://an-atom-url.atom?published_at=2004')
+    expect(liveSearch.$emailLinks[0].getAttribute('href')).toBe('https://a-url/email-signup?published_at=2004')
+    expect(liveSearch.$atomLinks[0].getAttribute('href')).toBe('http://an-atom-url.atom?published_at=2004')
+    expect(liveSearch.$atomAutodiscoveryLink.getAttribute('href')).toBe('http://an-atom-url.atom?published_at=2004')
   })
 
   describe('updateSortOptions', function () {
     it('replaces the sort options with new data', function () {
-      liveSearch.$form = $form
-      liveSearch.$resultsBlock = $results
+      liveSearch.$form = $form[0]
+      liveSearch.$resultsBlock = $results[0]
       liveSearch.state = { search: 'state' }
 
       expect($('#order option').length).toBe(2)
@@ -605,7 +638,7 @@ describe('liveSearch', function () {
     }
     beforeEach(function () {
       $form.append($suggestionBlock)
-      liveSearch = new GOVUK.LiveSearch({ $form: $form, $results: $results, $suggestionBlock: $suggestionBlock, $atomAutodiscoveryLink: $atomAutodiscoveryLink })
+      liveSearch = new GOVUK.LiveSearch({ $form: $form[0], $results: $results[0], $suggestionBlock: $suggestionBlock[0], $atomAutodiscoveryLink: $atomAutodiscoveryLink[0] })
     })
 
     afterEach(function () {
@@ -663,7 +696,7 @@ describe('liveSearch', function () {
     }
     beforeEach(function () {
       $form.append($filterDateBlock)
-      liveSearch = new GOVUK.LiveSearch({ $form: $form, $results: $results, $atomAutodiscoveryLink: $atomAutodiscoveryLink })
+      liveSearch = new GOVUK.LiveSearch({ $form: $form[0], $results: $results[0], $atomAutodiscoveryLink: $atomAutodiscoveryLink[0] })
     })
 
     afterEach(function () {
@@ -734,7 +767,7 @@ describe('liveSearch', function () {
 
     beforeEach(function () {
       $form.append($filterButtonOnMobile)
-      liveSearch = new GOVUK.LiveSearch({ $form: $form, $results: $results, $atomAutodiscoveryLink: $atomAutodiscoveryLink })
+      liveSearch = new GOVUK.LiveSearch({ $form: $form[0], $results: $results[0], $atomAutodiscoveryLink: $atomAutodiscoveryLink[0] })
     })
 
     afterEach(function () {
