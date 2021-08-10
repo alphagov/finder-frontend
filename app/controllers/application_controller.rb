@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 
   before_action :set_explore_menu_response
 
-  helper_method :explore_menu_variant, :explore_menu_testable?
+  helper_method :explore_menu_variant, :explore_menu_variant_b?
 
   after_action :set_slimmer_template
 
@@ -33,7 +33,7 @@ class ApplicationController < ActionController::Base
 protected
 
   def set_slimmer_template
-    if explore_menu_testable?
+    if explore_menu_variant_b?
       slimmer_template "header_footer_only_explore_header"
     else
       slimmer_template "header_footer_only"
