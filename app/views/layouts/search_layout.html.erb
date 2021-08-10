@@ -6,7 +6,7 @@
     <%= stylesheet_link_tag "application", integrity: false %>
     <%= stylesheet_link_tag "print", media: "print" %>
     <%= javascript_include_tag 'application', integrity: false %>
-    <%= explore_menu_variant.analytics_meta_tag.html_safe if explore_menu_testable? %>
+    <%= explore_menu_variant.analytics_meta_tag.html_safe %>
     <% if @content_item %>
       <%= render 'govuk_publishing_components/components/meta_tags', content_item: @content_item %>
     <% end %>
