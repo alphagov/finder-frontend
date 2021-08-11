@@ -13,7 +13,7 @@
     <%= render 'govuk_publishing_components/components/contextual_breadcrumbs', content_item: content_item.as_hash, inverse: inverse %>
   <% end %>
 
-  <% if content_item.government? %>
+  <% if content_item.government? && explore_menu_variant_b? == false %>
     <%= render 'govuk_publishing_components/components/government_navigation', active: content_item.government_content_section %>
   <% end %>
   <div class="govuk-grid-row">
