@@ -316,10 +316,7 @@ describe('liveSearch', function () {
       expect(GOVUK.LiveSearch.prototype.fireTextAnalyticsEvent).toHaveBeenCalledTimes(1)
 
       publishedAt.value = 'searchEnter'
-      // create our own custom event, as GOVUK.triggerEvent currently doesn't support custom keycodes
-      var e = new window.CustomEvent('keypress')
-      e.keyCode = 13
-      publishedAt.dispatchEvent(e)
+      window.GOVUK.triggerEvent(publishedAt, 'keypress', { keyCode: 13 })
 
       expect(GOVUK.LiveSearch.prototype.fireTextAnalyticsEvent).toHaveBeenCalledTimes(2)
     })
@@ -332,10 +329,7 @@ describe('liveSearch', function () {
       $form.find('input[name="published_at"]').val('same term').trigger('change')
 
       var publishedAt = $form.find('input[name="published_at"]')[0]
-      // create our own custom event, as GOVUK.triggerEvent currently doesn't support custom keycodes
-      var e = new window.CustomEvent('keypress')
-      e.keyCode = 13
-      publishedAt.dispatchEvent(e)
+      window.GOVUK.triggerEvent(publishedAt, 'keypress', { keyCode: 13 })
 
       expect(GOVUK.LiveSearch.prototype.fireTextAnalyticsEvent).toHaveBeenCalledTimes(1)
     })
