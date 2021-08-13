@@ -7,7 +7,7 @@ module AccountConcern
   EMAIL_SUBSCRIPTION_NAME = "transition-checker-results"
 
   included do
-    include GovukPersonalisation::AccountConcern
+    include GovukPersonalisation::ControllerConcern
 
     before_action :set_account_session_header
     before_action -> { set_slimmer_headers(remove_search: true, show_accounts: logged_in? ? "signed-in" : "signed-out") }
