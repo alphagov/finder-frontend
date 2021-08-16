@@ -1,9 +1,7 @@
-// TaxonomySelect adds interactivity to the topic taxonomy facet
-(function ($) {
-  'use strict'
+window.GOVUK = window.GOVUK || {};
 
-  window.GOVUK = window.GOVUK || {}
-  var GOVUK = window.GOVUK
+(function (GOVUK) {
+  'use strict'
 
   function TaxonomySelect (options) {
     this.$el = options.$el
@@ -74,4 +72,4 @@
   }
 
   GOVUK.TaxonomySelect = TaxonomySelect
-})(jQuery)
+})(window.GOVUK)
