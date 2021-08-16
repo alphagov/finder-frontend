@@ -23,11 +23,6 @@
           <%= yield %>
         </div>
       </main>
-      <% unless @omit_feedback_footer %>
-        <div class="govuk-width-container">
-          <%= render 'govuk_publishing_components/components/feedback' %>
-        </div>
-      <% end %>
     </div>
   </body>
 </html>

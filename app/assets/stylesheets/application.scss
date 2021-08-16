@@ -1,4 +1,4 @@
-$govuk-compatibility-govuktemplate: true;
+$govuk-compatibility-govuktemplate: false;
 $govuk-use-legacy-palette: false;
 $govuk-new-link-styles: true;
 $govuk-use-legacy-font: false;
@@ -9,7 +9,6 @@ $govuk-use-legacy-font: false;
 // https://github.com/alphagov/govuk_publishing_components/blob/master/docs/install-and-use.md#import-sass-for-individual-components
 // for guidance
 @import 'govuk_publishing_components/govuk_frontend_support';
-@import 'govuk_publishing_components/component_support';
 @import 'govuk_publishing_components/components/back-link';
 @import 'govuk_publishing_components/components/breadcrumbs';
 @import 'govuk_publishing_components/components/button';
