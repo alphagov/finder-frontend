@@ -59,7 +59,7 @@
     if (this.$searchSubmitButton) {
       this.$searchSubmitButton.addEventListener('click', function (e) {
         e.preventDefault()
-        this.formChange()
+        this.formChange(e)
       }.bind(this))
     }
 
@@ -76,6 +76,7 @@
       // excluding .app-autocomplete-search__input as we do not wan't to trigger livesearch
       // when the user navigates through suggestions with a keyword
       this.handleKeyPress = function (e) {
+        console.log('keypress')
         var ENTER_KEY = 13
 
         if (e.keyCode === ENTER_KEY || e.type === 'change') {
@@ -85,9 +86,10 @@
             LiveSearch.prototype.fireTextAnalyticsEvent(e)
           }
 
-          this.formChange()
+          this.formChange(e)
           this.previousSearchTerm = e.currentTarget.value
           e.preventDefault()
+        }
       }
 
       var inputs = this.$form.querySelectorAll('input[type=text],input[type=search]')
@@ -97,19 +99,19 @@
       }
 
       // but we do want to perform a livesearch if the users want to perform a keyword search
-      this.$form.on('keyup', '.app-autocomplete-search__input',
-        function (e) {
-          var ENTER_KEY = 13
-          if (e.keyCode === ENTER_KEY) {
-            if (e.currentTarget.value !== this.previousSearchTerm && !e.suppressAnalytics) {
-              LiveSearch.prototype.fireTextAnalyticsEvent(e)
-            }
-            this.formChange(e)
-            this.previousSearchTerm = e.currentTarget.value
-            e.preventDefault()
-          }
-        }.bind(this)
-      )
+      // this.$form.on('keyup', '.app-autocomplete-search__input',
+      //   function (e) {
+      //     var ENTER_KEY = 13
+      //     if (e.keyCode === ENTER_KEY) {
+      //       if (e.currentTarget.value !== this.previousSearchTerm && !e.suppressAnalytics) {
+      //         LiveSearch.prototype.fireTextAnalyticsEvent(e)
+      //       }
+      //       this.formChange(e)
+      //       this.previousSearchTerm = e.currentTarget.value
+      //       e.preventDefault()
+      //     }
+      //   }.bind(this)
+      // )
 
       this.indexTrackingData()
 
@@ -178,7 +180,7 @@
     }
   }
 
-  LiveSearch.prototype.formChange = function formChange () {
+  LiveSearch.prototype.formChange = function formChange (e) {
     if (this.isNewState()) {
       this.getAndUpdateTaxonomyFacet()
       this.saveState()
@@ -186,8 +188,7 @@
       this.updateLinks()
       this.updateTitle()
       this.trackAutocompleteSuggestions(e)
-      pageUpdated = this.updateResults()
-      pageUpdated.done(
+      this.updateResults(
         function () {
           var newPath = window.location.pathname + '?' + $.param(this.state)
           window.history.pushState(this.state, '', newPath)
@@ -248,18 +249,19 @@
   }
 
   LiveSearch.prototype.trackAutocompleteSuggestions = function trackAutocompleteSuggestions (e) {
-    var $autocompleteSuggestions = this.$form.find('.app-autocomplete-search__menu').children()
+    var $autocompleteSuggestions = this.$form.querySelector('.app-autocomplete-search__menu').childNodes
     // only fire if suggestion wasn't selected
     if (e.type !== 'customFormChange') {
       var suggestionsCount = $autocompleteSuggestions.length === 1 &&
-        $autocompleteSuggestions.hasClass('app-autocomplete-search__option--no-results')
+        $autocompleteSuggestions.classList &&
+        $autocompleteSuggestions.classList.contains('app-autocomplete-search__option--no-results')
         ? 0 : $autocompleteSuggestions.length
 
       window.GOVUK.SearchAnalytics.trackEvent(
         'noSuggestionClicked',
         'click',
         {
-          'dimension555': this.$form.find('.app-autocomplete-search__input').val(),
+          'dimension555': this.$form.querySelector('.app-autocomplete-search__input').value,
           'dimension666': suggestionsCount
         }
       )
@@ -398,7 +400,7 @@
     }
   }
 
-  LiveSearch.prototype.updateResults = function updateResults () {
+  LiveSearch.prototype.updateResults = function updateResults (callback) {
     var searchState = this.serializeState(this.state)
     var cachedResultData = this.cache(searchState)
     var liveSearch = this
@@ -417,6 +419,9 @@
           liveSearch.displayResults(response, searchState)
         } else {
           liveSearch.showErrorIndicator()
+        }
+        if (typeof callback === 'function') {
+            callback();
         }
       }
 
