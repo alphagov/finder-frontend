@@ -195,7 +195,7 @@
   }
 
   LiveSearch.prototype.trackingInit = function trackingInit () {
-    GOVUK.modules.start($(this.$resultsWrapper)) // this still needs to pass a jQuery object until we update the modules code
+    GOVUK.modules.start(this.$resultsWrapper)
     this.indexTrackingData()
     this.startEnhancedEcommerceTracking()
   }
