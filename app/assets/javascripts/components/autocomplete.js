@@ -69,6 +69,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
       cssNamespace: 'app-autocomplete-search',
       displayMenu: 'overlay',
       confirmOnBlur: false,
+      showNoOptionsFound: false,
       placeholder: $label.innerText,
       onConfirm: this.handleOnConfirm.bind(this),
       minLength: 3,
