@@ -61,7 +61,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
       }
     }
 
-    new window.accessibleAutocomplete({ // eslint-disable-line no-new, new-cap
+    window.accessibleAutocomplete({ // eslint-disable-line no-new, new-cap
       id: $input.id,
       name: $input.name,
       element: this.$module,
@@ -144,8 +144,8 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
   Autocomplete.prototype.handleSearchQuery = function (query, populateResults) {
     // Autocomplete is hidden for mobile so don't send a request if the results won't be shown
     var $autocomplete = document.querySelector('.app-autocomplete-search__menu')
-    if ($autocomplete.offsetParent === null){
-        return
+    if ($autocomplete.offsetParent === null) {
+      populateResults([])
     }
 
     // Don't show a status message in case the API fails or is scaled down because it's causing problems
