@@ -2,7 +2,6 @@ Rails.application.routes.draw do
   mount GovukPublishingComponents::Engine, at: "/component-guide"
 
   get "/sign-in", to: proc { [200, {}, %w[OK]] }
-  get "/sign-out", to: proc { [200, {}, %w[OK]] }
 
   get "/healthcheck/live", to: proc { [200, {}, %w[OK]] }
   get "/healthcheck/ready", to: GovukHealthcheck.rack_response(
