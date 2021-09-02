@@ -120,10 +120,6 @@ module AccountConcern
     uri
   end
 
-  def transition_checker_end_session_url(**params)
-    "#{base_path}/sign-out?#{params.compact.to_query}"
-  end
-
   def base_path
     Rails.env.production? ? Plek.new.website_root : Plek.find("frontend")
   end
