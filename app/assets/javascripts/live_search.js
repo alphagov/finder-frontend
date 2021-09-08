@@ -423,7 +423,7 @@
           liveSearch.showErrorIndicator()
         }
         if (typeof callback === 'function') {
-            callback();
+          callback()
         }
       }
 

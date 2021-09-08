@@ -1,4 +1,3 @@
-/* global XMLHttpRequest */
 //= require accessible-autocomplete/dist/accessible-autocomplete.min.js
 window.GOVUK = window.GOVUK || {}
 window.GOVUK.Modules = window.GOVUK.Modules || {};
@@ -176,7 +175,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
   Autocomplete.prototype.fetchSuggestions = function (query, populateResults) {
     var request = new XMLHttpRequest()
     request.open('GET', 'https://search-autocomplete-api.staging.publishing.service.gov.uk/autocomplete_suggestions/' + encodeURIComponent(query), true)
-      // Time to wait before giving up fetching the search api
+    // Time to wait before giving up fetching the search api
     request.timeout = 5 * 1000
     request.onreadystatechange = function () {
       // XHR client readyState DONE

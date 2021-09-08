@@ -23,7 +23,7 @@ $size: 40px;
   height: $size;
   margin-bottom: 0; // BUG: Safari 10 on macOS seems to add an implicit margin.
   padding: govuk-spacing(1) govuk-spacing(1) govuk-spacing(1) govuk-spacing(2);
-  border: $govuk-border-width-form-element solid govuk-colour("white");  
+  border: $govuk-border-width-form-element solid govuk-colour("white");
   border-radius: 0; // Safari 10 on iOS adds implicit border rounding.
   -webkit-appearance: none;
 }
@@ -81,14 +81,18 @@ $size: 40px;
   border-top: 0;
   color: govuk-colour("black");
   background-color: govuk-colour("white");
-}
 
-.app-autocomplete-search__menu--visible {
-  display: block;
-}
+  &--visible {
+    display: block;
+  }
 
-.app-autocomplete-search__menu--hidden {
-  display: none;
+  &--hidden {
+    display: none;
+  }
+
+  @include govuk-media-query($until: tablet) {
+    display: none;
+  }
 }
 
 .app-autocomplete-search__menu--overlay {
@@ -142,7 +146,7 @@ $size: 40px;
   color: govuk-colour("dark-grey");
   background-color: govuk-colour("white");
   cursor: not-allowed;
-  
+
   &:empty {
     display: none;
   }
@@ -161,15 +165,8 @@ $size: 40px;
 }
 
 // adjust margin as the non-enhanced form group has a massive margin
-// with the autcomplete enhancement we're removing that, 
+// with the autcomplete enhancement we're removing that,
 // so we need to adjust it
 .app-patch--search-input-override ~ .spelling-suggestions {
   margin-top: govuk-spacing(4);
-}
-
-// Hide on mobile
-.app-autocomplete-search__menu {
-  @include govuk-media-query($until: tablet) {
-    display: none;
-  }
 }
