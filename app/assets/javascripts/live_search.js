@@ -249,7 +249,9 @@
   }
 
   LiveSearch.prototype.trackAutocompleteSuggestions = function trackAutocompleteSuggestions (e) {
-    var $autocompleteSuggestions = this.$form.querySelector('.app-autocomplete-search__menu').childNodes
+    var $autocompleteMenu = this.$form.querySelector('.app-autocomplete-search__menu')
+    if (!$autocompleteMenu) return
+    var $autocompleteSuggestions = $autocompleteMenu.childNodes
     // only fire if suggestion wasn't selected
     if (e.type !== 'customFormChange') {
       var suggestionsCount = $autocompleteSuggestions.length === 1 &&

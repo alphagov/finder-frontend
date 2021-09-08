@@ -116,7 +116,10 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
     // built-in onConfirm method only provides acces to the query
     // so we need to find our own index of the selected option
     // by checking for matching query string
-    var $availableSuggestionsNodeArray = Array.prototype.slice.call(this.$module.querySelector('.app-autocomplete-search__menu').childNodes)
+
+    var $autocompleteMenu = Array.prototype.slice.call(this.$module.querySelector('.app-autocomplete-search__menu'))
+    if (!$autocompleteMenu) return
+    var $availableSuggestionsNodeArray = $autocompleteMenu.childNodes
     // get data from the node to use in tracking
     var trackingDataOptions = {}
     for (var i = 0; i < $availableSuggestionsNodeArray.length; i++) {
