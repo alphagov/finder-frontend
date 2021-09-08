@@ -22,6 +22,12 @@ Then(/^I am able to set search terms$/) do
   expect(page).to have_field("Search GOV.UK", with: "")
 end
 
+Given(/^the autocomplete is available$/) do
+  # go large, otherwise suggestions are disabled
+  page.driver.browser.manage.window.resize_to(1000, 1000)
+  stub_autocomplete_api
+end
+
 Given(/^the all content finder exists$/) do
   topic_taxonomy_has_taxons
   content_store_has_all_content_finder
@@ -50,4 +56,16 @@ end
 
 Then(/^I see a "(.*)" spelling suggestion$/) do |suggestion|
   expect(page).to have_link suggestion.to_s, href: "/search/all?keywords=#{suggestion}&order=relevance"
+end
+
+Then(/^I can see "(.*)" as a suggestion$/) do |suggestion|
+  expect(page).to have_selector(".app-autocomplete-search__option", text: suggestion)
+end
+
+
+When(/^I type "(.*)" in the search box$/) do |characters|
+  visit "/search/all"
+  page.save_and_open_screenshot(full: true)
+#  fill_in("keywords", with: characters)
+
 end

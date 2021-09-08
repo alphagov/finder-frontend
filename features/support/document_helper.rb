@@ -16,6 +16,7 @@ module DocumentHelper
   include GdsApi::TestHelpers::Worldwide
 
   SEARCH_ENDPOINT = "#{Plek.current.find('search')}/search.json".freeze
+  AUTOCOMPLETE_ENDPOINT = "https://search-autocomplete-api.staging.publishing.service.gov.uk/autocomplete_suggestions/"
 
   def stub_taxonomy_api_request
     stub_content_store_has_item("/", "links" => { "level_one_taxons" => [] })
@@ -206,6 +207,12 @@ module DocumentHelper
       ).to_return(
         body: aaib_reports_search_results,
       )
+  end
+
+  def stub_autocomplete_api
+    stub_request(:get, "#{AUTOCOMPLETE_ENDPOINT}uni")
+      .to_return(body: '"university"')
+    stub_content_store_has_item("/search/all", '[]')
   end
 
   def stub_world_locations_api_request

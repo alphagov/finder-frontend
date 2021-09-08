@@ -33,3 +33,10 @@ Feature: Site search
     And the all content finder exists
     When I search for "drving"
     Then I see a "driving" spelling suggestion
+
+  @javascript
+  Scenario: Search term suggestions
+    Given the search page exists
+    And the autocomplete is available
+    When I type "uni" in the search box
+#    Then I can see "university" as a suggestion
