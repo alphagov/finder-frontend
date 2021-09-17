@@ -1798,3 +1798,31 @@ actions:
   criteria:
   - provide-services-do-business-in-eu
   audience: business
+- id: T132
+  priority: 6
+  title: Prepare to register road haulage journeys within the EU, Norway, Iceland
+    and Liechtenstein from 2 February 2022
+  consequence: You risk receiving a penalty if you do not register your journeys.
+  guidance_prompt: More information
+  guidance_link_text: Register road haulage journeys within Europe from 2 February
+    2022
+  guidance_url: https://www.gov.uk/guidance/register-road-haulage-journeys-within-europe-from-2-february-2022
+  criteria:
+  - any_of:
+    - haulage-goods-across-eu-borders
+    - road-passenger-freight
+  audience: business
+- id: T133
+  priority: 6
+  title: Check what you need to do to transport goods in and out of the UK using vans
+    or car and trailers from 21 May 2022
+  consequence: You risk having action taken against you if you do not meet the requirements.
+  guidance_prompt: More information
+  guidance_link_text: Transport goods in and out of the UK using vans or car and trailers
+    from 21 May 2022
+  guidance_url: https://www.gov.uk/guidance/transport-goods-in-and-out-of-the-uk-using-vans-or-car-and-trailers-from-21-may-2022
+  criteria:
+  - any_of:
+    - haulage-goods-across-eu-borders
+    - road-passenger-freight
+  audience: business
