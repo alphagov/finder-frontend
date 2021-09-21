@@ -84,7 +84,7 @@ class BrexitCheckerController < ApplicationController
 private
 
   def set_slimmer_template
-    slimmer_template "header_footer_only"
+    slimmer_template "header_footer_only_old_header"
   end
 
   def subscriber_list_slug
