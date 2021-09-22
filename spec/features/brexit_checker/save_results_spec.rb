@@ -10,7 +10,7 @@ RSpec.feature "Brexit Checker create GOV.UK Account", type: :feature do
   before do
     stub_account_api_get_sign_in_url(
       redirect_path: "/transition-check/save-your-results/confirm?c%5B%5D=nationality-eu",
-      level_of_authentication: "level1",
+      mfa: true,
       auth_uri: "/sign-in?this-is-a-stubbed-url",
     )
     stub_email_subscription_confirmation

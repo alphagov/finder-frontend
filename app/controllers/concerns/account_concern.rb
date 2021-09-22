@@ -116,18 +116,18 @@ module AccountConcern
     logout!
     nil
   rescue GdsApi::HTTPForbidden
-    @level_of_authentication_is_too_low = true
+    @must_reauthenticate_with_mfa = true
     nil
   end
 
   def must_reauthenticate?
-    !logged_in? || @level_of_authentication_is_too_low
+    !logged_in? || @must_reauthenticate_with_mfa
   end
 
   def transition_checker_new_session_url(redirect_path)
     uri = GdsApi.account_api.get_sign_in_url(
       redirect_path: redirect_path,
-      level_of_authentication: "level1",
+      mfa: true,
     ).to_h["auth_uri"]
     uri += "&_ga=#{params[:_ga]}" if params[:_ga]
     uri
