@@ -22,7 +22,7 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
       it "redirects to login page" do
         stub_account_api_get_sign_in_url(
           redirect_path: "/transition-check/saved-results",
-          level_of_authentication: "level1",
+          mfa: true,
           auth_uri: "/sign-in?this-is-a-stubbed-url",
         )
         given_i_am_on_the_saved_results_page
@@ -34,7 +34,7 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
       it "redirects to login page" do
         stub_account_api_get_sign_in_url(
           redirect_path: "/transition-check/edit-saved-results",
-          level_of_authentication: "level1",
+          mfa: true,
           auth_uri: "/sign-in?this-is-a-stubbed-url",
         )
         given_i_am_on_the_edit_saved_results_page
@@ -46,7 +46,7 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
       it "redirects to login page" do
         stub_account_api_get_sign_in_url(
           redirect_path: "/transition-check/save-your-results/confirm?c%5B%5D=nationality-eu",
-          level_of_authentication: "level1",
+          mfa: true,
           auth_uri: "/sign-in?this-is-a-stubbed-url",
         )
         given_i_am_on_the_save_results_confirm_page
