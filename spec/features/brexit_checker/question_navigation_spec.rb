@@ -13,7 +13,7 @@ RSpec.feature "Navigating Brexit Checker questions", type: :feature do
 
   def when_i_visit_the_brexit_checker_flow
     visit transition_checker_questions_path
-    expect(page).to have_link("Back", href: "/transition")
+    expect(page).to have_link("Back", href: "/brexit")
   end
 
   def and_i_answer_travel_questions
