@@ -23,11 +23,8 @@ notifications:
         - visiting-eu
   # End of example block.
   # Add new notifications below 👇
-  - uuid: 40431abe-890c-4759-b266-0b7351d79198
-    type: addition
-    action_id: T132
-    date: 2021-09-17
-  - uuid: bf9ffdbb-c49c-4def-abe3-b82a4e7ec90c
-    type: addition
-    action_id: T133
-    date: 2021-09-17
+  - uuid: 9153dec4-2145-4fca-a3cf-181343457297
+    type: content_change
+    action_id: S024
+    date: 2021-09-28
+    note: Guidance updated to reflect new rules.
