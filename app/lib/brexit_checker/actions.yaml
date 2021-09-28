@@ -273,13 +273,13 @@ actions:
   - visiting-eu
 - id: S024
   priority: 2
-  title: Put a GB sticker on the back of your vehicle if it's registered in the UK,
-    even if your number plate already shows GB with a Euro symbol
-  consequence: You could get a fine if you do not have a GB sticker when you need
+  title: Check if you need to display a UK sticker on the rear of your vehicle if
+    you drive outside the UK
+  consequence: You could get a fine if you do not have a UK sticker when you need
     one.
   guidance_prompt: More information
-  guidance_link_text: Driving in the EU - GB stickers and number plates
-  guidance_url: https://www.gov.uk/guidance/driving-in-the-eu#gb-stickers-and-number-plates
+  guidance_link_text: Displaying number plates
+  guidance_url: https://www.gov.uk/displaying-number-plates/flags-symbols-and-identifiers
   criteria:
   - all_of:
     - living-uk
