@@ -240,11 +240,6 @@ Given(/^a government finder exists$/) do
   stub_organisations_registry_request
 end
 
-Then(/^I can see the government header$/) do
-  visit finder_path("government/policies/benefits-reform")
-  expect(page).to have_css("#proposition-menu")
-end
-
 Then(/^I should see a blue banner$/) do
   expect(page).to have_css(".gem-c-inverse-header")
   expect(page).to have_content("Education, training and skills")
@@ -252,6 +247,7 @@ Then(/^I should see a blue banner$/) do
 end
 
 Then(/^I can see documents which are marked as being in history mode$/) do
+  visit finder_path("government/policies/benefits-reform")
   expect(page).to have_css(".published-by", count: 5)
   expect(page).to have_content("2005 to 2010 Labour government")
 end
