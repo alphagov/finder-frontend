@@ -38,8 +38,7 @@ Feature: Filtering documents
 
   Scenario: Visit a government finder
     Given a government finder exists
-    Then I can see the government header
-    And I can see documents which are marked as being in history mode
+    Then I can see documents which are marked as being in history mode
 
   Scenario: Filters document with bad metadata
     Given a collection of documents with bad metadata exist
