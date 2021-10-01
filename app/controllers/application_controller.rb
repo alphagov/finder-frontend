@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   include Slimmer::Headers
   include Slimmer::Template
   include AbTests::ExploreMenuAbTestable
+  include AbTests::SearchAutocompleteTestable
 
   before_action :set_explore_menu_response
 

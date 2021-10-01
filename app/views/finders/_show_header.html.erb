@@ -1,3 +1,8 @@
+<% content_for :head do %>
+  <%= sab_page_variant.analytics_meta_tag.html_safe if is_testable_sab_page? %>
+<% end %>
+
+
 <div class="govuk-width-container">
   <% if content_item.show_phase_banner? %>
     <%= render 'govuk_publishing_components/components/phase_banner', phase: content_item.phase, message: sanitize(content_item.phase_message), inverse: inverse %>
@@ -25,7 +30,7 @@
         font_size: "xl",
         margin_bottom: 4
         } %>
-        <div id="keywords" class="app-patch--search-input-override" role="search" aria-label="Sitewide" data-module="autocomplete">
+        <div id="keywords" class="app-patch--search-input-override" role="search" aria-label="Sitewide" <% if search_autocomplete_variant_b? then 'data-module="autocomplete"' end %>>
           <%= render "govuk_publishing_components/components/search", {
             aria_controls: "js-search-results-info",
             id: "finder-keyword-search",
