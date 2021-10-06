@@ -63,39 +63,6 @@ describe FindersController, type: :controller do
           .to_return(status: 200, body: rummager_response, headers: {})
       end
 
-      it "should render the default header for variant A of the explore menu A/B test" do
-        with_variant ExploreMenuAbTestable: "A", assert_meta_tag: true do
-          get :show, params: { slug: "lunch-finder" }
-
-          expect(response.status).to eq(200)
-          assert_response_is_cached_by_variant("ExploreMenuAbTestable")
-          expect(response.headers["X-Slimmer-Template"]).to eq("header_footer_only")
-          assert_page_tracked_in_ab_test("ExploreMenuAbTestable", "A", 47)
-        end
-      end
-
-      it "should render the explore header for variant B of the explore menu A/B test" do
-        with_variant ExploreMenuAbTestable: "B", assert_meta_tag: true do
-          get :show, params: { slug: "lunch-finder" }
-
-          expect(response.status).to eq(200)
-          assert_response_is_cached_by_variant("ExploreMenuAbTestable")
-          assert_page_tracked_in_ab_test("ExploreMenuAbTestable", "B", 47)
-          expect(response.headers["X-Slimmer-Template"]).to eq("header_footer_only_explore_header")
-        end
-      end
-
-      it "should render the default header for variant Z of the explore menu A/B test" do
-        with_variant ExploreMenuAbTestable: "Z", assert_meta_tag: true do
-          get :show, params: { slug: "lunch-finder" }
-
-          expect(response.status).to eq(200)
-          assert_response_is_cached_by_variant("ExploreMenuAbTestable")
-          assert_page_tracked_in_ab_test("ExploreMenuAbTestable", "Z", 47)
-          expect(response.headers["X-Slimmer-Template"]).to eq("header_footer_only")
-        end
-      end
-
       it "correctly renders a finder page" do
         get :show, params: { slug: "lunch-finder" }
         expect(response.status).to eq(200)
