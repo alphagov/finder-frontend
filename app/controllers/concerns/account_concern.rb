@@ -53,14 +53,14 @@ module AccountConcern
                       transition_checker_edit_saved_results_path
                     end
 
-    redirect_to logged_out_pre_saved_results_path(redirect_path) and return if must_reauthenticate?
+    redirect_with_analytics logged_out_pre_saved_results_path(redirect_path) and return if must_reauthenticate?
 
     @saved_results = results_in_account.fetch("criteria_keys", [])
   end
 
   def pre_update_results
     results_in_account = fetch_results_from_account_or_logout
-    redirect_to logged_out_pre_update_results_path and return if must_reauthenticate?
+    redirect_with_analytics logged_out_pre_update_results_path and return if must_reauthenticate?
 
     @saved_results = results_in_account["criteria_keys"]
   end
@@ -87,7 +87,7 @@ module AccountConcern
     end
 
     if must_reauthenticate?
-      redirect_to logged_out_pre_update_results_path
+      redirect_with_analytics logged_out_pre_update_results_path
     else
       redirect_to transition_checker_results_path(c: new_criteria_keys)
     end
@@ -125,12 +125,10 @@ module AccountConcern
   end
 
   def transition_checker_new_session_url(redirect_path)
-    uri = GdsApi.account_api.get_sign_in_url(
+    GdsApi.account_api.get_sign_in_url(
       redirect_path: redirect_path,
       mfa: true,
     ).to_h["auth_uri"]
-    uri += "&_ga=#{params[:_ga]}" if params[:_ga]
-    uri
   end
 
   def base_path
