@@ -1,8 +1,10 @@
 class BrexitCheckerController < ApplicationController
   include AccountConcern
   include BrexitCheckerHelper
+  include Slimmer::Template
 
   layout "finder_layout"
+  slimmer_template "header_footer_only_old_header"
 
   protect_from_forgery except: %i[
     confirm_email_signup
@@ -11,8 +13,6 @@ class BrexitCheckerController < ApplicationController
   ]
 
   before_action :enable_caching, only: %i[show email_signup confirm_email_signup results]
-
-  after_action :set_slimmer_template
 
   helper_method :subscriber_list_slug
 
@@ -82,10 +82,6 @@ class BrexitCheckerController < ApplicationController
   end
 
 private
-
-  def set_slimmer_template
-    slimmer_template "header_footer_only_old_header"
-  end
 
   def subscriber_list_slug
     @subscriber_list_slug ||= Services.email_alert_api
