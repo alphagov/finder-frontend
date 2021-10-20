@@ -31,11 +31,6 @@ en:
           heading: Your business or organisation
       print_link: Print your results
       accounts:
-        confirm:
-          intro:
-            set_up: <strong class="govuk-!-font-weight-bold">Confirm your email address</strong> to finish setting up your account and start getting email updates.
-            update: <strong class="govuk-!-font-weight-bold">Confirm your email address</strong> to finish updating your account and email alerts.
-          link_text: Send confirmation email again
         results_differ:
           message: These results are different to the ones saved in your account.
           description: You can <a class="govuk-link" href="%{link}">see what answers you’ve changed and save these results to your account instead.</a>
