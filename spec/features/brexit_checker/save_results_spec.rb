@@ -20,8 +20,6 @@ RSpec.feature "Brexit Checker create GOV.UK Account", type: :feature do
     given_im_on_the_results_page
     then_i_click_to_subscribe
     and_i_am_taken_to_choose_how_to_subscribe_page
-    and_i_click_the_create_account_button
-    i_get_redirected_to_sign_up
   end
 
   def given_im_on_the_results_page

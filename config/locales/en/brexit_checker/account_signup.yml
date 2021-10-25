@@ -15,5 +15,6 @@ en:
         aside: This is separate from other government accounts (for example your personal tax account or Government Gateway).
         outro: You’ll need an email address and a mobile phone to create an account.
         cta_button: Create a GOV.UK account
+        migration_warning: You cannot create a GOV.UK account between 9am on 25th October and 5pm on 27th October. This is because we’re making changes to how the account works.
       or: If you’ve already saved your UK transition results,
       alternative_path_link_text: sign in to your account
