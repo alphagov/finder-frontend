@@ -212,7 +212,7 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
             given_i_am_on_the_save_results_confirm_page_with(new_criteria_keys)
             stub_alert = stub_account_api_put_email_subscription(name: "transition-checker-results", topic_slug: "your-get-ready-for-brexit-results-a1a2a3a4a5")
             stub_attributes = stub_account_api_set_attributes
-            click_on I18n.t("brexit_checker.confirm_changes.save_button")
+            click_on I18n.t("brexit_checker.confirm_changes.update.save_button")
             expect(stub_alert).to have_been_made
             expect(stub_attributes).to have_been_made
           end
@@ -229,12 +229,20 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
       context "the user has no results stored in their account" do
         let(:transition_checker_state) { nil }
 
-        it "skips the comparison table, and just saves the results and sets up the email alert" do
-          stub_alert = stub_account_api_put_email_subscription(name: "transition-checker-results", topic_slug: "your-get-ready-for-brexit-results-a1a2a3a4a5")
-          stub_attributes = stub_account_api_set_attributes
+        it "shows a confirmation page" do
           given_i_am_on_the_save_results_confirm_page_with(new_criteria_keys)
-          expect(stub_alert).to have_been_made
-          expect(stub_attributes).to have_been_made
+          expect(page).to have_content("Confirm you want to save your Brexit checker results")
+        end
+
+        context "the user clicks 'confirm'" do
+          it "saves the new results and updates the email alert" do
+            given_i_am_on_the_save_results_confirm_page_with(new_criteria_keys)
+            stub_alert = stub_account_api_put_email_subscription(name: "transition-checker-results", topic_slug: "your-get-ready-for-brexit-results-a1a2a3a4a5")
+            stub_attributes = stub_account_api_set_attributes
+            click_on I18n.t("brexit_checker.confirm_changes.initial.save_button")
+            expect(stub_alert).to have_been_made
+            expect(stub_attributes).to have_been_made
+          end
         end
       end
     end

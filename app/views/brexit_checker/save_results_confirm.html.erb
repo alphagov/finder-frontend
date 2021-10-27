@@ -1,4 +1,4 @@
-<% content_for :title, t('brexit_checker.confirm_changes.title') %>
+<% content_for :title, t("brexit_checker.confirm_changes.update.title") %>
 <% content_for :head do %>
   <% unless params[:page] %>
     <meta name="robots" content="noindex">
@@ -32,39 +32,40 @@
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-two-thirds">
         <%= render "govuk_publishing_components/components/heading", {
-            text: t('brexit_checker.confirm_changes.heading'),
-            font_size: "xl",
-            heading_level: 1,
-          } %>
+          text: yield(:title),
+          font_size: "xl",
+          heading_level: 1,
+          margin_bottom: 6,
+        } %>
 
         <%= render "govuk_publishing_components/components/table", {
           first_cell_is_header: true,
           head: [
             {
-              text: t("brexit_checker.confirm_changes.table.question")
+              text: t("brexit_checker.confirm_changes.update.table.question")
             },
             {
-              text: t("brexit_checker.confirm_changes.table.old_answer")
+              text: t("brexit_checker.confirm_changes.update.table.old_answer")
             },
             {
-              text: t("brexit_checker.confirm_changes.table.new_answer")
+              text: t("brexit_checker.confirm_changes.update.table.new_answer")
             }
           ],
           rows: results_comparison(@saved_results, criteria_keys)
         } %>
 
         <%= render "govuk_publishing_components/components/inset_text", {
-          text: t("brexit_checker.confirm_changes.message")
+          text: t("brexit_checker.confirm_changes.update.message")
         } %>
 
         <%= form_tag transition_checker_save_results_confirm_path(c: criteria_keys), method: :post do %>
           <%= render "govuk_publishing_components/components/button", {
-            text: t('brexit_checker.confirm_changes.save_button'),
-            margin_bottom: 1
+            text: t("brexit_checker.confirm_changes.update.save_button"),
+            margin_bottom: 4
           } %>
         <% end %>
 
-        <p class="govuk-body"><%= sanitize(t("brexit_checker.confirm_changes.cancel", link: transition_checker_results_path(c: criteria_keys))) %></p>
+        <p class="govuk-body"><%= t("brexit_checker.confirm_changes.update.cancel_html", link: transition_checker_results_path(c: criteria_keys)) %></p>
       </div>
     </div>
   </div>
