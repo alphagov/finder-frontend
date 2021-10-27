@@ -58,10 +58,28 @@
                 <%= render "govuk_publishing_components/components/heading", {
                   text: result_set_presenter.displayed_total,
                   id: "js-result-count",
-                  font_size: "s"
+                  font_size: "s",
+                  margin_bottom: 2,
                   } %>
+
+                <% if content_item.all_content_finder? %>
+                  <%= render partial: 'filter_button'%>
+                <% elsif !content_item.all_content_finder? %>
+                  <% if facets.select(&:filterable?).any? %>
+                    <%= render partial: 'filter_button'%>
+                  <% end %>
+                <% end %>
+
+                <div data-module="gem-track-click" data-track-category="filterClicked"
+                    data-track-action="skip-Link" data-track-label="">
+                  <%= render "govuk_publishing_components/components/skip_link", {
+                    text: 'Skip to results',
+                    href: '#js-results'}
+                  %>
+                </div>
               </div>
             </div>
+
             <div class="govuk-grid-column-two-thirds subscription-links subscription-links--desktop">
               <%= render "govuk_publishing_components/components/subscription_links", signup_links %>
             </div>

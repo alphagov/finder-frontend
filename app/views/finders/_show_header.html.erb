@@ -40,13 +40,6 @@
           >
           <%= render 'spelling_suggestion' %>
         </div>
-        <button class="app-c-button-as-link app-mobile-filters-link js-show-mobile-filters"
-          data-toggle="mobile-filters-modal" data-target="facet-wrapper"
-          data-module="gem-track-click" data-track-category="filterClicked"
-          data-track-action="mobile-filter-button" data-track-label="">
-          Filter <span class="govuk-visually-hidden"> results</span>
-          <span class="js-selected-filter-count"><%= sanitize facet_tags.display_total_selected_filters %></span>
-        </button>
       <% elsif topic_finder?(filter_params) %>
         <%= link_to topic_finder_parent(filter_params)['title'], topic_finder_parent(filter_params)['base_path'], class: 'govuk-link topic-finder__taxon-link' %>
         <%= render partial: 'govuk_publishing_components/components/title', locals: {
