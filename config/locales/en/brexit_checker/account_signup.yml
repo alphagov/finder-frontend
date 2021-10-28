@@ -10,11 +10,9 @@ en:
         text: about Brexit transition changes that may affect you.
       create_account:
         heading: Create a GOV.UK account
-        intro: Save your Brexit transition results and get email updates about changes that may affect you.
-        text: GOV.UK accounts are a trial. In future, we plan to add more features so you can use your account with more services.
-        aside: This is separate from other government accounts (for example your personal tax account or Government Gateway).
-        outro: You’ll need an email address and a mobile phone to create an account.
-        cta_button: Create a GOV.UK account
-        migration_warning: You cannot create a GOV.UK account between 9am on 25 October and midday on 28 October. This is because we’re making changes to how the account works.
-      or: If you’ve already saved your UK transition results,
-      alternative_path_link_text: sign in to your account
+        text_html: |
+          <p class="govuk-body">Save your Brexit transition results and get email updates about changes that may affect you.</p>
+          <p class="govuk-body">GOV.UK accounts are new. They’re a first step towards creating a single account where you can access all your government services.</p>
+          <p class="govuk-body">GOV.UK accounts will eventually replace all other government accounts.</p>
+        aside_html: At the moment, GOV.UK accounts are separate from other government accounts (for example <a class="govuk-link" href="/log-in-register-hmrc-online-services">Government Gateway</a> or <a class="govuk-link" href="/sign-in-universal-credit">Universal Credit</a>).
+        cta_button: Create a GOV.UK account or sign in

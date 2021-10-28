@@ -68,7 +68,6 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
 
     context "the user's session is invalid" do
       before do
-        stub_account_api_unauthorized_has_attributes(attributes: %w[transition_checker_state email_verified has_unconfirmed_email])
         stub_account_api_unauthorized_has_attributes(attributes: %w[transition_checker_state])
       end
 
@@ -82,7 +81,6 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
 
     context "the user is authenticated at too low a level" do
       before do
-        stub_account_api_forbidden_has_attributes(attributes: %w[transition_checker_state email_verified has_unconfirmed_email])
         stub_account_api_forbidden_has_attributes(attributes: %w[transition_checker_state])
       end
 
@@ -97,17 +95,12 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
     context "/transition-check/results" do
       before do
         stub_account_api_has_attributes(
-          attributes: %w[transition_checker_state email_verified has_unconfirmed_email],
+          attributes: %w[transition_checker_state],
           values: {
             "transition_checker_state" => transition_checker_state,
-            "email_verified" => email_verified,
-            "has_unconfirmed_email" => has_unconfirmed_email,
           },
         )
       end
-
-      let(:email_verified) { true }
-      let(:has_unconfirmed_email) { false }
 
       it "doesn't show the normal call-to-action" do
         given_i_am_on_the_results_page
@@ -132,40 +125,6 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
         it "shows a link to save the new results" do
           given_i_am_on_the_results_page_with(%w[bring-pet-abroad nationality-eu])
           expect(page).to have_content(I18n.t("brexit_checker.results.accounts.results_differ.message"))
-        end
-      end
-
-      context "the user does not need to confirm their email address" do
-        it "does not show a reminder to confirm their email address" do
-          given_i_am_on_the_results_page
-
-          expect(page).to_not have_content(strip_tags(I18n.t("brexit_checker.results.accounts.confirm.intro.set_up")))
-          expect(page).to_not have_content(strip_tags(I18n.t("brexit_checker.results.accounts.confirm.intro.update")))
-          expect(page).to_not have_link(I18n.t("brexit_checker.results.accounts.confirm.link_text", href: "#{Plek.find('account-manager')}/account/confirmation/new"))
-        end
-      end
-
-      context "the user has not finished setting up their account" do
-        let(:email_verified) { false }
-        let(:has_unconfirmed_email) { false }
-
-        it "reminds them to confirm their email address" do
-          given_i_am_on_the_results_page
-
-          expect(page).to have_content(strip_tags(I18n.t("brexit_checker.results.accounts.confirm.intro.set_up")))
-          expect(page).to have_link(I18n.t("brexit_checker.results.accounts.confirm.link_text", href: "#{Plek.find('account-manager')}/account/confirmation/new"))
-        end
-      end
-
-      context "the user has changed the email address on their account, but has not confirmed it yet" do
-        let(:email_verified) { true }
-        let(:has_unconfirmed_email) { true }
-
-        it "reminds them to confirm their email address" do
-          given_i_am_on_the_results_page
-
-          expect(page).to have_content(strip_tags(I18n.t("brexit_checker.results.accounts.confirm.intro.update")))
-          expect(page).to have_link(I18n.t("brexit_checker.results.accounts.confirm.link_text", href: "#{Plek.find('account-manager')}/account/confirmation/new"))
         end
       end
 
@@ -202,14 +161,10 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
           attributes: %w[transition_checker_state],
           values: { "transition_checker_state" => transition_checker_state },
         )
-        stub_account_api_has_attributes(
-          attributes: %w[transition_checker_state email_verified has_unconfirmed_email],
-          values: { "transition_checker_state" => transition_checker_state },
-        )
 
         given_i_am_on_the_saved_results_page
 
-        expect(stub).to have_been_made
+        expect(stub).to have_been_made.twice
 
         expect(page).to have_current_path(transition_checker_results_path(c: %w[nationality-uk]))
       end
@@ -239,7 +194,6 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
 
     context "/transition-check/save-your-results/confirm" do
       before do
-        stub_account_api_has_attributes(attributes: %w[transition_checker_state email_verified has_unconfirmed_email], values: { "transition_checker_state" => transition_checker_state }.compact)
         stub_account_api_has_attributes(attributes: %w[transition_checker_state], values: { "transition_checker_state" => transition_checker_state }.compact)
         stub_find_or_create_subscriber_list(new_criteria_keys)
       end
@@ -258,7 +212,7 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
             given_i_am_on_the_save_results_confirm_page_with(new_criteria_keys)
             stub_alert = stub_account_api_put_email_subscription(name: "transition-checker-results", topic_slug: "your-get-ready-for-brexit-results-a1a2a3a4a5")
             stub_attributes = stub_account_api_set_attributes
-            click_on I18n.t("brexit_checker.confirm_changes.save_button")
+            click_on I18n.t("brexit_checker.confirm_changes.update.save_button")
             expect(stub_alert).to have_been_made
             expect(stub_attributes).to have_been_made
           end
@@ -275,12 +229,20 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
       context "the user has no results stored in their account" do
         let(:transition_checker_state) { nil }
 
-        it "skips the comparison table, and just saves the results and sets up the email alert" do
-          stub_alert = stub_account_api_put_email_subscription(name: "transition-checker-results", topic_slug: "your-get-ready-for-brexit-results-a1a2a3a4a5")
-          stub_attributes = stub_account_api_set_attributes
+        it "shows a confirmation page" do
           given_i_am_on_the_save_results_confirm_page_with(new_criteria_keys)
-          expect(stub_alert).to have_been_made
-          expect(stub_attributes).to have_been_made
+          expect(page).to have_content("Confirm you want to save your Brexit checker results")
+        end
+
+        context "the user clicks 'confirm'" do
+          it "saves the new results and updates the email alert" do
+            given_i_am_on_the_save_results_confirm_page_with(new_criteria_keys)
+            stub_alert = stub_account_api_put_email_subscription(name: "transition-checker-results", topic_slug: "your-get-ready-for-brexit-results-a1a2a3a4a5")
+            stub_attributes = stub_account_api_set_attributes
+            click_on I18n.t("brexit_checker.confirm_changes.initial.save_button")
+            expect(stub_alert).to have_been_made
+            expect(stub_attributes).to have_been_made
+          end
         end
       end
     end

@@ -58,22 +58,18 @@
           heading_level: 2,
         } %>
 
-        <p class="govuk-body"><%= t('brexit_checker.account_signup.create_account.intro') %></p>
-        <p class="govuk-body"><%= t('brexit_checker.account_signup.create_account.text') %></p>
+        <%= t('brexit_checker.account_signup.create_account.text_html') %>
 
         <%= render "govuk_publishing_components/components/inset_text" do %>
-          <p class="govuk-body"><%= t('brexit_checker.account_signup.create_account.aside') %></p>
+          <p class="govuk-body"><%= t('brexit_checker.account_signup.create_account.aside_html') %></p>
         <% end %>
 
-        <%= render "govuk_publishing_components/components/warning_text", {
-          text: t('brexit_checker.account_signup.create_account.migration_warning')
-        } %>
-
-        <p class="govuk-body">
-          <%= t('brexit_checker.account_signup.or') %>
-          <a class="govuk-link" href="<%= transition_checker_save_results_confirm_path(c: criteria_keys) %>" data-module="explicit-cross-domain-links">
-            <%= t('brexit_checker.account_signup.alternative_path_link_text') %></a>.
-        </p>
+        <%= form_tag transition_checker_save_results_sign_up_path(c: criteria_keys), method: :post, id: "account-signup", :"data-module" => "explicit-cross-domain-links" do %>
+          <%= render "govuk_publishing_components/components/button", {
+            text: t('brexit_checker.account_signup.create_account.cta_button'),
+            margin_bottom: true,
+          } %>
+        <% end %>
       </div>
     </div>
   </div>

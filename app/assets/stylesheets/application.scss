@@ -1,6 +1,7 @@
 $govuk-compatibility-govuktemplate: true;
 $govuk-use-legacy-palette: false;
 $govuk-new-link-styles: true;
+$govuk-use-legacy-font: false;
 
 @import 'reset';
 
@@ -39,7 +40,6 @@ $govuk-new-link-styles: true;
 @import 'govuk_publishing_components/components/success-alert';
 @import 'govuk_publishing_components/components/table';
 @import 'govuk_publishing_components/components/title';
-@import 'govuk_publishing_components/components/warning-text';
 
 @import 'components/*';
 @import 'finder_frontend';

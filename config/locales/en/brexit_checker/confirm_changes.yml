@@ -1,13 +1,18 @@
 en:
   brexit_checker:
     confirm_changes:
-      title: You’ve changed your answer to some questions
-      heading: You’ve changed your answer to some questions
-      table:
-        question: Question
-        old_answer: Previous answer
-        new_answer: New answer
-      message: Saving your new answers will automatically update your email notifications at the same time.
-      save_button: Save new answers
-      cancel: or <a class="govuk-link" href="%{link}">cancel</a> if you want to keep your previous results
+      initial:
+        title: Confirm you want to save your Brexit checker results
+        explainer: "You’ll get emails when there are updates or new pages about:"
+        save_button: Confirm
+        cancel_html: <a class="govuk-link" href="/">Cancel and go to the GOV.UK homepage</a>
+      update:
+        title: You’ve changed your answer to some questions
+        table:
+          question: Question
+          old_answer: Previous answer
+          new_answer: New answer
+        message: Saving your new answers will automatically update your email notifications at the same time.
+        save_button: Save new answers
+        cancel_html: or <a class="govuk-link" href="%{link}">cancel</a> if you want to keep your previous results
 

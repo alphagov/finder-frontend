@@ -19,22 +19,17 @@ module AccountConcern
     # rubocop:enable Rails/LexicallyScopedActionFilter
 
     helper_method :must_reauthenticate?
-    helper_method :show_confirmation_reminder?
-    helper_method :confirmation_banner_prompt_type
   end
 
   def pre_results
     result = do_or_logout do
       Services.account_api.get_attributes(
         govuk_account_session: account_session_header,
-        attributes: [ATTRIBUTE_NAME, "email_verified", "has_unconfirmed_email"],
+        attributes: [ATTRIBUTE_NAME],
       )
     end
 
     return if must_reauthenticate?
-
-    @user_email_verified = result&.dig("values", "email_verified")
-    @user_has_unconfirmed_email = result&.dig("values", "has_unconfirmed_email")
 
     results_in_account = result&.dig("values", ATTRIBUTE_NAME) || {}
 
@@ -63,34 +58,6 @@ module AccountConcern
     redirect_with_analytics logged_out_pre_update_results_path and return if must_reauthenticate?
 
     @saved_results = results_in_account["criteria_keys"]
-  end
-
-  def update_answers_and_email_subscription_in_account_or_reauthenticate(slug, new_criteria_keys)
-    do_or_logout do
-      Services.account_api.put_email_subscription(
-        govuk_account_session: account_session_header,
-        name: EMAIL_SUBSCRIPTION_NAME,
-        topic_slug: slug,
-      )
-    end
-
-    do_or_logout do
-      Services.account_api.set_attributes(
-        govuk_account_session: account_session_header,
-        attributes: {
-          ATTRIBUTE_NAME => {
-            criteria_keys: new_criteria_keys,
-            timestamp: Time.zone.now.to_i,
-          },
-        },
-      )
-    end
-
-    if must_reauthenticate?
-      redirect_with_analytics logged_out_pre_update_results_path
-    else
-      redirect_to transition_checker_results_path(c: new_criteria_keys)
-    end
   end
 
   def logged_out_pre_saved_results_path(path = transition_checker_saved_results_path)
@@ -133,21 +100,5 @@ module AccountConcern
 
   def base_path
     Rails.env.production? ? Plek.new.website_root : Plek.find("frontend")
-  end
-
-  def show_confirmation_reminder?
-    return false unless logged_in?
-
-    !@user_email_verified || @user_has_unconfirmed_email
-  end
-
-  def confirmation_banner_prompt_type
-    return "update" if confirmed_user_changed_email?
-
-    "set_up"
-  end
-
-  def confirmed_user_changed_email?
-    @user_email_verified && @user_has_unconfirmed_email
   end
 end

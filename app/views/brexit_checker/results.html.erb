@@ -37,18 +37,6 @@
 <% end %>
 
 <div class="govuk-width-container brexit-checker-results-page">
-  <% if show_confirmation_reminder? %>
-    <%= render "govuk_publishing_components/components/notice", {
-      margin_bottom: 0
-    } do %>
-      <p class="govuk-body">
-        <%= sanitize(t("brexit_checker.results.accounts.confirm.intro.#{confirmation_banner_prompt_type}")) %>
-      </p>
-      <p class="govuk-body govuk-!-margin-bottom-0">
-        <a href="<%= "#{Plek.find('account-manager')}/account/confirmation/new" %>" class="govuk-link"><%= t("brexit_checker.results.accounts.confirm.link_text") %></a>
-      </p>
-    <% end %>
-  <% end %>
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
       <%= render "govuk_publishing_components/components/title", {

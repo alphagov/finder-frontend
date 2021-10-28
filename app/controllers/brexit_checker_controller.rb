@@ -4,7 +4,6 @@ class BrexitCheckerController < ApplicationController
   include Slimmer::Template
 
   layout "finder_layout"
-  slimmer_template "header_footer_only_old_header"
 
   protect_from_forgery except: %i[
     confirm_email_signup
@@ -13,6 +12,7 @@ class BrexitCheckerController < ApplicationController
   ]
 
   before_action :enable_caching, only: %i[show email_signup confirm_email_signup results]
+  before_action :set_template, except: %i[save_results_confirm]
 
   helper_method :subscriber_list_slug
 
@@ -50,19 +50,46 @@ class BrexitCheckerController < ApplicationController
 
   def save_results_sign_up
     url = transition_checker_new_session_url(transition_checker_save_results_confirm_path(c: criteria_keys))
-    redirect_with_analytics "#{url}&register=1"
+    redirect_with_analytics url
   end
 
   def save_results_confirm
-    if criteria_keys == @saved_results
-      redirect_to transition_checker_results_path(c: criteria_keys)
-    elsif @saved_results.nil?
-      update_answers_and_email_subscription_in_account_or_reauthenticate(subscriber_list_slug, criteria_keys)
+    redirect_to transition_checker_results_path(c: criteria_keys) if criteria_keys == @saved_results
+
+    if @saved_results.nil?
+      slimmer_template "gem_layout_account_manager_no_nav"
+      render :save_results_initial
+    else
+      slimmer_template "header_footer_only_old_header"
     end
   end
 
   def save_results_apply
-    update_answers_and_email_subscription_in_account_or_reauthenticate(subscriber_list_slug, criteria_keys)
+    do_or_logout do
+      Services.account_api.put_email_subscription(
+        govuk_account_session: account_session_header,
+        name: AccountConcern::EMAIL_SUBSCRIPTION_NAME,
+        topic_slug: subscriber_list_slug,
+      )
+    end
+
+    do_or_logout do
+      Services.account_api.set_attributes(
+        govuk_account_session: account_session_header,
+        attributes: {
+          AccountConcern::ATTRIBUTE_NAME => {
+            criteria_keys: criteria_keys,
+            timestamp: Time.zone.now.to_i,
+          },
+        },
+      )
+    end
+
+    if must_reauthenticate?
+      redirect_with_analytics logged_out_pre_update_results_path
+    else
+      redirect_to transition_checker_results_path(c: criteria_keys)
+    end
   end
 
   def saved_results
@@ -102,6 +129,7 @@ private
       "url" => path,
     }
   end
+  helper_method :subscriber_list_options
 
   def criteria_keys
     @criteria_keys ||= begin
@@ -117,5 +145,9 @@ private
 
   def result_presenter
     @result_presenter ||= BrexitChecker::Results::ResultPresenter.new(criteria_keys)
+  end
+
+  def set_template
+    slimmer_template "header_footer_only_old_header"
   end
 end
