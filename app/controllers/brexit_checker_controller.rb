@@ -60,7 +60,7 @@ class BrexitCheckerController < ApplicationController
       slimmer_template "gem_layout_account_manager_no_nav"
       render :save_results_initial
     else
-      slimmer_template "header_footer_only_old_header"
+      slimmer_template "gem_layout_full_width_old_header"
     end
   end
 
@@ -148,6 +148,6 @@ private
   end
 
   def set_template
-    slimmer_template "header_footer_only_old_header"
+    slimmer_template "gem_layout_full_width_old_header"
   end
 end
