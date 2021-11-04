@@ -1,0 +1,7 @@
+en:
+  brexit_checker:
+    retirement:
+      title: "The Brexit checker will be removed on 30 November 2021"
+      description: >
+        <p class="govuk-body">From 30 November you will no longer be able to use the Brexit checker or see your results.</p>
+        <p class="govuk-body">You can continue to find out how Brexit affects you, your business and your family by visiting <a href="/brexit">gov.uk/brexit</a><p>
