@@ -14,35 +14,26 @@
         label_text: label_text
       } %>
     </div>
-    <% if facets.select(&:filterable?).any? %>
-      <button class="app-c-button-as-link app-mobile-filters-link js-show-mobile-filters"
-        data-toggle="mobile-filters-modal" data-target="facet-wrapper"
-        data-module="gem-track-click" data-track-category="filterClicked"
-        data-track-action="mobile-filter-button" data-track-label="">
-        Filter <span class="govuk-visually-hidden"> results</span>
-        <span class="js-selected-filter-count"><%= sanitize facet_tags.display_total_selected_filters %></span>
-      </button>
-    <% end %>
   <% end %>
-
-  <div data-module="gem-track-click" data-track-category="filterClicked"
-      data-track-action="skip-Link" data-track-label="">
-    <%= render "govuk_publishing_components/components/skip_link", {
-      text: 'Skip to results',
-      href: '#js-results'}
-    %>
-  </div>
 
   <% if facets.select(&:filterable?).any? %>
     <div id="facet-wrapper" data-module="mobile-filters-modal" class="facets" role="search" aria-label="Search filters">
       <div class="facets__box">
         <div class="facets__header">
-          <%= render "govuk_publishing_components/components/heading", {
-            text: "Filter",
-            heading_level: 1,
-            font_size: "xl",
-            margin_bottom: 0
-          } %>
+          <div>
+            <%= render "govuk_publishing_components/components/heading", {
+              text: "Filter",
+              heading_level: 1,
+              font_size: "xl",
+              margin_bottom: 2
+            } %>
+            <%= render "govuk_publishing_components/components/heading", {
+              text: sanitize("<span class=\"js-result-count govuk-!-font-weight-regular\">#{result_set_presenter.displayed_total}</span>"),
+              heading_level: 2,
+              font_size: "s",
+              margin_bottom: 0
+            } %>
+          </div>
           <button class="app-c-button-as-link facets__return-link js-close-filters" type="button">
             Return to results
           </button>
@@ -58,7 +49,7 @@
         </div>
         <div class="facets__footer">
           <%= render "govuk_publishing_components/components/button", {
-            text: sanitize("Show <span class=\"js-result-count\">#{result_set_presenter.displayed_total}</span>"),
+            text: sanitize("Show search results"),
             classes: "js-close-filters js-show-results"
           } %>
         </div>

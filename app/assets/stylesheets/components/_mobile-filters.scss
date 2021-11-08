@@ -84,7 +84,7 @@
       text-decoration: none;
       @supports (display: grid) {
         justify-self: end;
-        align-self: center;
+        align-self: start;
       }
     }
 
