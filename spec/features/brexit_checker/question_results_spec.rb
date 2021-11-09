@@ -152,6 +152,7 @@ RSpec.feature "Brexit Checker workflow", type: :feature do
 
   def then_i_should_see_the_results_page
     expect(page).to have_content I18n.t!("brexit_checker.results.title")
+    expect(page).to have_text("The Brexit checker will be removed")
   end
 
   def then_i_should_see_the_no_results_page
