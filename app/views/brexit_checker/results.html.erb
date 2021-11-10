@@ -58,19 +58,7 @@
   </div>
 
   <% if criteria_keys.present? %>
-    <% if must_reauthenticate? %>
-      <%= render 'components/email_link', {
-        data_attributes: {
-          "module": "gem-track-click",
-          "track-action": action_based_email_link_label,
-          "track-category": "StayUpdated",
-          "track-label": transition_checker_email_signup_path
-        },
-        link_text: action_based_email_link_label,
-        link_href: transition_checker_save_results_path(c: criteria_keys),
-        link_title: t("brexit_checker.results.email_sign_up_title"),
-      } %>
-    <% else %>
+    <% if !must_reauthenticate? %>
       <% if @results_differ %>
         <%= render 'govuk_publishing_components/components/notice', {
           title: t('brexit_checker.results.accounts.results_differ.message'),
@@ -95,8 +83,6 @@
           description: sanitize(t('brexit_checker.results.accounts.results_differ.description', link: transition_checker_save_results_confirm_path(c: criteria_keys)))
         } %>
       <% end %>
-    <% else %>
-      <%= render 'stay_updated' %>
     <% end %>
 
     <%= render 'share_links' %>

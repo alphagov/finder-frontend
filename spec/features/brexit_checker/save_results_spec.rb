@@ -18,7 +18,7 @@ RSpec.feature "Brexit Checker create GOV.UK Account", type: :feature do
 
   scenario "user clicks Create a GOV.UK account" do
     given_im_on_the_results_page
-    then_i_click_to_subscribe
+    then_i_navigate_to_subscribe
     and_i_am_taken_to_choose_how_to_subscribe_page
   end
 
@@ -26,8 +26,10 @@ RSpec.feature "Brexit Checker create GOV.UK Account", type: :feature do
     visit transition_checker_results_url(c: %w[nationality-eu])
   end
 
-  def then_i_click_to_subscribe
-    click_on "Subscribe"
+  # This is a stop gap to allow us to remove the subscribe link, but leave the
+  # rest of the plumbing in place until it's completely retired.
+  def then_i_navigate_to_subscribe
+    visit transition_checker_save_results_url(c: %w[nationality-eu])
   end
 
   def and_i_am_taken_to_choose_how_to_subscribe_page

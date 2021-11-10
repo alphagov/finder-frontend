@@ -19,7 +19,7 @@ RSpec.feature "Brexit Checker email signup", type: :feature do
   scenario "user clicks to signup to email alerts" do
     given_im_on_the_results_page
     and_email_alert_api_creates_subscriber_list
-    then_i_click_to_subscribe
+    then_i_navigate_to_subscribe
     and_i_am_taken_to_choose_how_to_subscribe_page
     then_i_click_email_alerts_only
     and_i_am_taken_to_email_alert_signup_page
@@ -39,6 +39,12 @@ RSpec.feature "Brexit Checker email signup", type: :feature do
 
   def then_i_click_email_alerts_only
     click_on "Subscribe to get email updates"
+  end
+
+  # This is a stop gap to allow us to remove the subscribe link, but leave the
+  # rest of the plumbing in place until it's completely retired.
+  def then_i_navigate_to_subscribe
+    visit transition_checker_save_results_url(c: %w[nationality-eu])
   end
 
   def then_i_click_to_subscribe

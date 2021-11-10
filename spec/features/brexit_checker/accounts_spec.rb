@@ -11,13 +11,6 @@ RSpec.feature "Brexit Checker accounts", type: :feature do
   let(:mock_results) { %w[nationality-eu] }
 
   shared_examples "the user is not logged in" do
-    context "/transition-check/results" do
-      it "shows the normal call-to-action" do
-        given_i_am_on_the_results_page
-        expect(page).to have_content(I18n.t("brexit_checker.results.email_sign_up_title"))
-      end
-    end
-
     context "/transition-check/saved-results" do
       it "redirects to login page" do
         stub_account_api_get_sign_in_url(
