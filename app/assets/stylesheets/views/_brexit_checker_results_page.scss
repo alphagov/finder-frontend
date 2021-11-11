@@ -81,19 +81,6 @@ $urgency-blue: #0055d2;
     border-bottom: none;
   }
 
-  .stay-updated__heading {
-    border: 0;
-    height: 0;
-    border-top: 1px solid $govuk-border-colour;
-    margin-top: govuk-spacing(6);
-    margin-bottom: govuk-spacing(6);
-  }
-
-  .stay-updated__description {
-    margin-bottom: govuk-spacing(4);
-    @include govuk-font(19);
-  }
-
   .brexit-checker__no-results {
     margin-top: govuk-spacing(6);
   }
