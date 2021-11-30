@@ -20,16 +20,16 @@ Rails.application.routes.draw do
   end
 
   scope "/transition-check" do
-    get "/results" => "brexit_checker#results", as: :transition_checker_results
-    get "/questions" => "brexit_checker#show", as: :transition_checker_questions
-    get "/email-signup" => "brexit_checker#email_signup", as: :transition_checker_email_signup
-    post "/email-signup" => "brexit_checker#confirm_email_signup", as: :transition_checker_confirm_email_signup
-    get "/save-your-results" => "brexit_checker#save_results", as: :transition_checker_save_results
-    post "/save-your-results/sign-up" => "brexit_checker#save_results_sign_up", as: :transition_checker_save_results_sign_up
-    get "/save-your-results/confirm", to: "brexit_checker#save_results_confirm", as: :transition_checker_save_results_confirm
-    post "/save-your-results/confirm", to: "brexit_checker#save_results_apply"
-    get "/saved-results", to: "brexit_checker#saved_results", as: :transition_checker_saved_results
-    get "/edit-saved-results", to: "brexit_checker#edit_saved_results", as: :transition_checker_edit_saved_results
+    get "/results", to: redirect("/brexit", status: 302)
+    get "/questions", to: redirect("/brexit", status: 302)
+    get "/email-signup", to: redirect("/brexit", status: 302)
+    post "/email-signup", to: redirect("/brexit", status: 302)
+    get "/save-your-results", to: redirect("/brexit", status: 302)
+    post "/save-your-results/sign-up", to: redirect("/brexit", status: 302)
+    get "/save-your-results/confirm", to: redirect("/brexit", status: 302)
+    post "/save-your-results/confirm", to: redirect("/brexit", status: 302)
+    get "/saved-results", to: redirect("/brexit", status: 302)
+    get "/edit-saved-results", to: redirect("/brexit", status: 302)
   end
 
   # Transition/Brexit checker email signup routes
