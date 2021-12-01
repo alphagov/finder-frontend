@@ -1,6 +1,5 @@
 class FindersController < ApplicationController
   layout "finder_layout"
-  before_action :remove_search_box
 
   before_action do
     expires_in(5.minutes, public: true)
@@ -173,11 +172,6 @@ private
       sort_presenter,
       i_am_a_topic_page_finder: i_am_a_topic_page_finder,
     )
-  end
-
-  def remove_search_box
-    hide_site_serch = params["slug"] == "search/all"
-    set_slimmer_headers(remove_search: hide_site_serch)
   end
 
   def i_am_a_topic_page_finder

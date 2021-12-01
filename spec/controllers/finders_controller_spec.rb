@@ -219,44 +219,6 @@ describe FindersController, type: :controller do
         end
       end
     end
-
-    describe "Show/Hiding site search form" do
-      before do
-        stub_content_store_has_item("/search/all", all_content_finder)
-        stub_content_store_has_item("/lunch-finder", lunch_finder)
-
-        rummager_response = %({
-          "results": [],
-          "total": 0,
-          "start": 0,
-          "facets": {},
-          "suggested_queries": []
-        })
-
-        stub_request(:get, "#{Plek.current.find('search')}/search.json")
-          .with(
-            query: {
-              count: 10,
-              fields: "title,link,description_with_highlighting,public_timestamp,popularity,content_purpose_supergroup,content_store_document_type,format,is_historic,government_name,content_id,parts,walk_type,place_of_origin,date_of_introduction,creator",
-              filter_document_type: "mosw_report",
-              order: "-public_timestamp",
-              start: 0,
-              suggest: "spelling_with_highlighting",
-            },
-          )
-          .to_return(status: 200, body: rummager_response, headers: {})
-      end
-
-      it "all content finder tells Slimmer to hide the form" do
-        get :show, params: { slug: "search/all" }
-        expect(response.headers["X-Slimmer-Remove-Search"]).to eq("true")
-      end
-
-      it "any other finder does not tell Slimmer to hide the form" do
-        get :show, params: { slug: "lunch-finder" }
-        expect(response.headers).not_to include("X-Slimmer-Remove-Search")
-      end
-    end
   end
 
   describe "Spelling suggestions" do

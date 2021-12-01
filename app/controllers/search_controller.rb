@@ -1,7 +1,6 @@
 class SearchController < ApplicationController
   layout "search_layout"
   before_action :set_expiry
-  before_action :remove_search_box
 
   def index
     search_params = SearchParameters.new(params)
@@ -23,10 +22,6 @@ protected
     unless Rails.env.development?
       expires_in(duration, public: true)
     end
-  end
-
-  def remove_search_box
-    set_slimmer_headers(remove_search: true)
   end
 
   def fill_in_slimmer_headers(result_count)
