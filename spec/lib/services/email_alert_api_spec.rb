@@ -9,15 +9,14 @@ describe Services::EmailAlertApi do
       described_class.new.find_or_create_subscriber_list_cached(subscriber_list_options)
     end
 
-    let(:subscriber_list_slug) { "your-get-ready-for-brexit-results-a1a2a3a4a5" }
+    let(:subscriber_list_slug) { "all-releases-filtered-by-corporate-report-a1a2a3a4a5" }
 
     let(:subscriber_list_options) do
       {
-        "title" => "Check what you need to do now",
+        "title" => "All releases filtered by Corporate report",
         "slug" => subscriber_list_slug,
-        "description" => "You can view a copy of your results on GOV.UK.",
-        "tags" => { "brexit_checklist_criteria" => { "any" => %w[does-not-own-business eu-national] } },
-        "url" => "/results?c[]=does-not-own-business&c[]=eu-national",
+        "tags" => { content_store_document_type: { any: %w[corporate_report] }, content_purpose_supergroup: { any: %w[transparency] } },
+        "url" => "/search/transparency-and-freedom-of-information-releases?content_store_document_type%5B%5D=corporate_report&order=updated-newest",
       }
     end
 
