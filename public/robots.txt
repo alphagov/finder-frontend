@@ -3,7 +3,3 @@
 # To ban all spiders from the entire site uncomment the next two lines:
 # User-agent: *
 # Disallow: /
-
-Disallow: /get-ready-brexit-check/questions
-Disallow: /get-ready-brexit-check/results
-Disallow: /get-ready-brexit-check/email-signup

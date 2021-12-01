@@ -1,8 +1,5 @@
 class FindersController < ApplicationController
-  include FinderTopResultAbTestable
-
   layout "finder_layout"
-  before_action :remove_search_box
 
   before_action do
     expires_in(5.minutes, public: true)
@@ -94,7 +91,6 @@ private
       filter_params,
       sort_presenter,
       content_item.metadata_class,
-      show_top_result: show_top_result?,
       debug_score: debug_score?,
       include_ecommerce: include_ecommerce?,
     )
@@ -176,11 +172,6 @@ private
       sort_presenter,
       i_am_a_topic_page_finder: i_am_a_topic_page_finder,
     )
-  end
-
-  def remove_search_box
-    hide_site_serch = params["slug"] == "search/all"
-    set_slimmer_headers(remove_search: hide_site_serch)
   end
 
   def i_am_a_topic_page_finder

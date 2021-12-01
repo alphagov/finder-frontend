@@ -6,8 +6,6 @@ Renders search on GOV.UK:
 - Finder pages provide facetted searching over a collection of documents.
 - Most of these pages support [subscribing to email alerts](docs/finder-email-alerts.md).
 
-This app also provides the [Brexit Checker](docs/brexit-checker.md).
-
 ## Live examples
 
 * [gov.uk/aaib-reports](https://www.gov.uk/aaib-reports)
