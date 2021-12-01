@@ -1,7 +1,0 @@
-en:
-  brexit_checker_mailer:
-    change_notification:
-      guidance_prompt: Read the guidance
-      title: Brexit checker results
-      addition: New action
-      content_change: Updated action
