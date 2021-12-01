@@ -6,7 +6,7 @@ class ResultSetPresenter
 
   delegate :atom_url, to: :content_item
 
-  def initialize(content_item, facets, results, filter_params, sort_presenter, metadata_presenter_class, show_top_result: false, debug_score: false, include_ecommerce: true)
+  def initialize(content_item, facets, results, filter_params, sort_presenter, metadata_presenter_class, debug_score: false, include_ecommerce: true)
     @content_item = content_item
     @facets = facets
     @documents = results.documents
@@ -15,7 +15,6 @@ class ResultSetPresenter
     @pluralised_document_noun = content_item.document_noun.pluralize(total)
     @filter_params = filter_params
     @sort_presenter = sort_presenter
-    @show_top_result = show_top_result
     @metadata_presenter_class = metadata_presenter_class
     @debug_score = debug_score
     @include_ecommerce = include_ecommerce

@@ -1,6 +1,4 @@
 class FindersController < ApplicationController
-  include FinderTopResultAbTestable
-
   layout "finder_layout"
   before_action :remove_search_box
 
@@ -94,7 +92,6 @@ private
       filter_params,
       sort_presenter,
       content_item.metadata_class,
-      show_top_result: show_top_result?,
       debug_score: debug_score?,
       include_ecommerce: include_ecommerce?,
     )
