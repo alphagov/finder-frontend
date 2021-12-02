@@ -19,7 +19,7 @@ Rails.application.routes.draw do
     get "/test-search/search/opensearch" => "search#opensearch"
   end
 
-  # Transition/Brexit checker email signup routes
+  # Helper to generate email signup routes
   get "/email/subscriptions/new", to: proc { [200, {}, [""]] }, as: :email_alert_frontend_signup
 
   get "/*slug/email-signup" => "email_alert_subscriptions#new", as: :new_email_alert_subscriptions
