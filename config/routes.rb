@@ -19,19 +19,6 @@ Rails.application.routes.draw do
     get "/test-search/search/opensearch" => "search#opensearch"
   end
 
-  scope "/transition-check" do
-    get "/results", to: redirect("/brexit", status: 302)
-    get "/questions", to: redirect("/brexit", status: 302)
-    get "/email-signup", to: redirect("/brexit", status: 302)
-    post "/email-signup", to: redirect("/brexit", status: 302)
-    get "/save-your-results", to: redirect("/brexit", status: 302)
-    post "/save-your-results/sign-up", to: redirect("/brexit", status: 302)
-    get "/save-your-results/confirm", to: redirect("/brexit", status: 302)
-    post "/save-your-results/confirm", to: redirect("/brexit", status: 302)
-    get "/saved-results", to: redirect("/brexit", status: 302)
-    get "/edit-saved-results", to: redirect("/brexit", status: 302)
-  end
-
   # Transition/Brexit checker email signup routes
   get "/email/subscriptions/new", to: proc { [200, {}, [""]] }, as: :email_alert_frontend_signup
 
