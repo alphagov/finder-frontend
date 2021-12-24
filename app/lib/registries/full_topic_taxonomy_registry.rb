@@ -65,7 +65,7 @@ module Registries
     end
 
     def fetch_taxon(base_path = "/")
-      Services.cached_content_item(base_path)
+      Services.cached_content_item(base_path).to_h
     end
   end
 end

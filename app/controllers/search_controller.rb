@@ -1,11 +1,13 @@
 class SearchController < ApplicationController
   layout "search_layout"
-  before_action :set_expiry
 
   def index
     search_params = SearchParameters.new(params)
 
-    @content_item = Services.cached_content_item("/search")
+    content_item = Services.cached_content_item("/search")
+    @content_item = content_item.to_h
+
+    set_expiry(content_item)
 
     # Redirect all requests to all content finder, where either search params have been supplied or the user is
     # requesting the JSON endpoint.
@@ -18,9 +20,12 @@ class SearchController < ApplicationController
 
 protected
 
-  def set_expiry(duration = 30.minutes)
+  def set_expiry(content_item)
     unless Rails.env.development?
-      expires_in(duration, public: true)
+      expires_in(
+        content_item.cache_control.max_age,
+        public: !content_item.cache_control.private?,
+      )
     end
   end
 

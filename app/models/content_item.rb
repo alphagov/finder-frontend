@@ -6,7 +6,7 @@ class ContentItem
   end
 
   def self.from_content_store(base_path)
-    content_item_hash = Services.cached_content_item(base_path)
+    content_item_hash = Services.cached_content_item(base_path).to_h
     new(content_item_hash)
   end
 
