@@ -45,6 +45,7 @@ describe FindersController, type: :controller do
         stub_content_store_has_item(
           "/lunch-finder",
           lunch_finder,
+          { max_age: 900, public: true },
         )
 
         url = "#{Plek.current.find('search')}/search.json"
@@ -74,7 +75,25 @@ describe FindersController, type: :controller do
         expect(response.status).to eq(200)
         expect(response.media_type).to eq("application/atom+xml")
         expect(response).to render_template("finders/show")
-        expect(response.headers["Cache-Control"]).to eq("max-age=300, public")
+        expect(response.headers["Cache-Control"]).to eq("max-age=900, public")
+      end
+
+      context "When private cache is set" do
+        before do
+          stub_content_store_has_item(
+            "/lunch-finder",
+            lunch_finder,
+            { max_age: 900, private: true },
+          )
+        end
+
+        it "can respond with an atom feed with private cache set" do
+          get :show, params: { slug: "lunch-finder", format: "atom" }
+          expect(response.status).to eq(200)
+          expect(response.media_type).to eq("application/atom+xml")
+          expect(response).to render_template("finders/show")
+          expect(response.headers["Cache-Control"]).to eq("max-age=900, private")
+        end
       end
 
       it "can respond with JSON" do

@@ -8,6 +8,7 @@
   "first_published_at":"2018-11-07T14:47:48.000+00:00",
   "government_document_supertype":"other",
   "locale":"en",
+  "cache_control": {"max_age":"900", "public": true},
   "navigation_document_supertype":"other",
   "phase":"alpha",
   "public_updated_at":"2018-11-07T14:47:48.000+00:00",

@@ -2,10 +2,9 @@ class FindersController < ApplicationController
   layout "finder_layout"
 
   before_action do
-    expires_in(5.minutes, public: true)
+    set_expiry(content_item)
   end
 
-  ATOM_FEED_MAX_AGE = 300
   def show
     respond_to do |format|
       format.html do
@@ -27,7 +26,6 @@ class FindersController < ApplicationController
           redirect_to_destination
         else
           @search_query = initialize_search_query(is_for_feed: true)
-          expires_in(ATOM_FEED_MAX_AGE, public: true)
           @feed = AtomPresenter.new(content_item, results, facet_tags)
         end
       end
@@ -77,10 +75,6 @@ private
 
   def render_component(partial, locals)
     (render_to_string(formats: %w[html], partial: partial, locals: locals) || "").squish
-  end
-
-  def content_item
-    @content_item ||= ContentItem.from_content_store(finder_base_path)
   end
 
   def result_set_presenter

@@ -58,6 +58,15 @@ class ContentItem
     content_item_hash["details"]["default_order"] || "-public_timestamp"
   end
 
+  def max_age
+    content_item_hash.dig("cache_control", "max_age") || 300
+  end
+
+  def cache_public
+    public_cache = content_item_hash.dig("cache_control", "public")
+    public_cache.nil? ? true : public_cache
+  end
+
   def phase_message
     content_item_hash["details"]["beta_message"] || content_item_hash["details"]["alpha_message"] || ""
   end
