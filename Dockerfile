@@ -22,12 +22,13 @@ RUN GOVUK_APP_DOMAIN=www.gov.uk \
     bundle exec rails assets:precompile
 
 FROM $base_image    
-ENV RAILS_ENV=production GOVUK_APP_NAME=finder-frontend GOVUK_APP_DOMAIN=www.gov.uk GOVUK_WEBSITE_ROOT=https://www.gov.uk 
+ENV RAILS_ENV=production GOVUK_APP_NAME=finder-frontend GOVUK_APP_DOMAIN=www.gov.uk GOVUK_WEBSITE_ROOT=https://www.gov.uk PORT=3062
 RUN apt-get update -qy && \
     apt-get upgrade -y && \
     apt-get install -y nodejs && \
     apt-get clean
 WORKDIR /app
+HEALTHCHECK CMD curl --silent --fail localhost:$PORT/healthcheck/ready || exit 1
 COPY --from=builder /usr/local/bundle/ /usr/local/bundle/
 COPY --from=builder /app ./
 CMD bundle exec puma
