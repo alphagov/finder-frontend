@@ -27,6 +27,21 @@ class ApplicationController < ActionController::Base
 
 private
 
+  def content_item
+    @content_item ||= ContentItem.from_content_store(finder_base_path)
+  end
+
+  def set_expiry(content_item)
+    unless Rails.env.development?
+      public_cache = content_item.as_hash.dig("cache_control", "public")
+
+      expires_in(
+        content_item.as_hash.dig("cache_control", "max_age") || 5.minutes.to_i,
+        public: public_cache.nil? ? true : public_cache,
+      )
+    end
+  end
+
   def error_503(exception)
     error(503, exception)
   end

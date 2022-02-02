@@ -7,7 +7,7 @@
     <%= stylesheet_link_tag "print", media: "print" %>
     <%= javascript_include_tag 'application', integrity: false %>
     <% if @content_item %>
-      <%= render 'govuk_publishing_components/components/meta_tags', content_item: @content_item %>
+      <%= render 'govuk_publishing_components/components/meta_tags', content_item: @content_item.as_hash %>
     <% end %>
     <%= yield :extra_headers %>
   </head>
