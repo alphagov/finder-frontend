@@ -7,7 +7,9 @@ ENV RAILS_ENV=production
 RUN apt-get update -qy && \
     apt-get upgrade -y && \
     apt-get install -y build-essential nodejs && \
-    apt-get clean
+    apt-get clean 
+    
+RUN bundle config set force_ruby_platform true
 
 RUN mkdir /app
 
