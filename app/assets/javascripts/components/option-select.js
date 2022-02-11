@@ -18,6 +18,18 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
   }
 
   OptionSelect.prototype.init = function () {
+    var SETTINGS = {
+      breakpoint: {
+        desktop: 769
+      }
+    }
+
+    // Returns what screen size the window is currently. Returns a string of
+    // either `desktop` or `mobile`
+    this.windowSize = function () {
+      return document.documentElement.clientWidth >= SETTINGS.breakpoint.desktop ? 'desktop' : 'mobile'
+    }
+
     if (this.hasFilter.length) {
       var filterEl = document.createElement('div')
       filterEl.innerHTML = this.hasFilter
@@ -212,7 +224,10 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
   }
 
   OptionSelect.prototype.setContainerHeight = function setContainerHeight (height) {
-    this.$optionsContainer.style.height = height + 'px'
+    // Only apply inline height should the user be on desktop
+    if (this.windowSize() === 'desktop') {
+      this.$optionsContainer.style.height = height + 'px'
+    }
   }
 
   OptionSelect.prototype.isCheckboxVisible = function isCheckboxVisible (option) {

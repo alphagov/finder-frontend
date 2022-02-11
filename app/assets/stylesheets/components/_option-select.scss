@@ -84,8 +84,6 @@
 
 .app-c-option-select__container {
   position: relative;
-  max-height: 200px;
-  overflow-y: auto;
   overflow-x: hidden;
   background-color: govuk-colour("white");
 
@@ -129,7 +127,9 @@
   }
 
   .app-c-option-select__container {
-    height: 200px;
+    @include govuk-media-query($from: tablet) {
+      height: 200px;
+    }
   }
 
   [data-closed-on-load="true"] .app-c-option-select__container {
