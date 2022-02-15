@@ -4,9 +4,7 @@ Rails.application.routes.draw do
   get "/sign-in", to: proc { [200, {}, %w[OK]] }
 
   get "/healthcheck/live", to: proc { [200, {}, %w[OK]] }
-  get "/healthcheck/ready", to: GovukHealthcheck.rack_response(
-    Healthchecks::RegistriesCache,
-  )
+  get "/healthcheck/ready", to: proc { [200, {}, [JSON.generate({ status: :ok })]] }
 
   root to: redirect("/development") unless Rails.env.test?
   get "/development" => "development#index"
