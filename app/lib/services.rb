@@ -13,7 +13,7 @@ module Services
   end
 
   def self.cached_content_item(base_path)
-    Rails.cache.fetch("finder-frontend_content_items#{base_path}", expires_in: 5.minutes) do
+    # Rails.cache.fetch("finder-frontend_content_items#{base_path}", expires_in: 5.minutes) do
       GovukStatsd.time("content_store.fetch_request_time") do
         content_item = content_store.content_item(base_path)
         content_item_hash = content_item.to_h
@@ -23,7 +23,7 @@ module Services
         }
         content_item_hash
       end
-    end
+    # end
   end
 
   def self.rummager
