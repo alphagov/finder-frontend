@@ -1,4 +1,5 @@
-FROM ruby:2.7.5 AS builder
+ARG base_image=ruby:2.7.5
+FROM $base_image AS builder
 
 ENV RAILS_ENV=production
 
