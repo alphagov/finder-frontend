@@ -1,5 +1,4 @@
-ARG base_image=ruby:2.7.2
-
+ARG base_image=ruby:2.7.5
 FROM $base_image AS builder
 
 ENV RAILS_ENV=production
@@ -7,8 +6,8 @@ ENV RAILS_ENV=production
 RUN apt-get update -qy && \
     apt-get upgrade -y && \
     apt-get install -y build-essential nodejs && \
-    apt-get clean 
-    
+    apt-get clean
+
 RUN bundle config set force_ruby_platform true
 
 RUN mkdir /app
@@ -27,7 +26,7 @@ RUN GOVUK_APP_DOMAIN=www.gov.uk \
     GOVUK_WEBSITE_ROOT=https://www.gov.uk \
     bundle exec rails assets:precompile
 
-FROM $base_image 
+FROM $base_image
 
 ENV RAILS_ENV=production GOVUK_APP_NAME=finder-frontend GOVUK_APP_DOMAIN=www.gov.uk GOVUK_WEBSITE_ROOT=https://www.gov.uk PORT=3062
 
