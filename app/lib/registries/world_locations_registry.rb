@@ -43,7 +43,15 @@ module Registries
     end
 
     def fetch_locations_from_worldwide_api
-      Services.worldwide_api.world_locations.with_subsequent_pages.to_a
+      GdsApi::Worldwide.new(worldwide_api_endpoint).world_locations.with_subsequent_pages.to_a
+    end
+
+    def worldwide_api_endpoint
+      if !Rails.env.production? || ENV["HEROKU_APP_NAME"].present?
+        Plek.new.website_root
+      else
+        Plek.find("whitehall-frontend")
+      end
     end
   end
 end
