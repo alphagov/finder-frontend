@@ -9,7 +9,6 @@
 //
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
-//= require govuk_publishing_components/dependencies
 //= require govuk_publishing_components/lib
 //= require govuk_publishing_components/components/button
 //= require govuk_publishing_components/components/checkboxes
