@@ -165,13 +165,13 @@ mark {
 
   display: table-cell;
   position: relative;
-  padding: 5px;
+  padding: govuk-em(5, 16px);
   border: 1px solid govuk-colour("dark-grey");
-  border-radius: 5px;
+  border-radius: govuk-em(5, 16px);
   background-color: govuk-colour("light-grey");
 
   .js-enabled & {
-    padding: 8px 7px 7px 23px;
+    padding: govuk-em(8, 16px) govuk-em(8, 16px) govuk-em(8, 16px) govuk-em(24, 16px);
   }
 }
 
@@ -180,7 +180,7 @@ mark {
   margin-left: 0;
 
   .js-enabled & {
-    margin-left: 5px;
+    margin-left: govuk-em(5, 16px);
   }
 }
 
@@ -191,8 +191,8 @@ mark {
   left: 0;
   width: 100%;
   height: 100%;
-  padding: 8px;
-  border-radius: 5px;
+  padding: govuk-em(8, 16px);
+  border-radius: govuk-em(5, 16px);
   font-weight: bold;
   @include govuk-font(16, $weight: bold);
   text-align: left;
