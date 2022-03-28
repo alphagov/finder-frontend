@@ -47,6 +47,5 @@ group :test do
   gem "rails-controller-testing"
   gem "simplecov"
   gem "timecop"
-  gem "webdrivers"
   gem "webmock"
 end
