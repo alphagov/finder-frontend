@@ -12,6 +12,7 @@ gem "govuk_publishing_components"
 gem "rest-client"
 gem "sassc-rails"
 gem "slimmer"
+gem "sprockets-rails"
 gem "uglifier"
 gem "whenever"
 

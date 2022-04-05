@@ -524,6 +524,7 @@ DEPENDENCIES
   sdoc
   simplecov
   slimmer
+  sprockets-rails
   timecop
   uglifier
   webmock
