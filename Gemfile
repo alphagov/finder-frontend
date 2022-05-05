@@ -30,8 +30,6 @@ group :development, :test do
   gem "dotenv-rails"
   gem "govuk_schemas"
   gem "govuk_test"
-  gem "jasmine"
-  gem "jasmine_selenium_runner"
   gem "listen"
   gem "pry-byebug"
   gem "rspec-rails"
