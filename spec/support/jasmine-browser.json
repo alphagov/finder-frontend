@@ -1,0 +1,20 @@
+{
+  "srcDir": "public/assets/finder-frontend",
+  "srcFiles": [
+    "application-*.js",
+    "test-dependencies-*.js"
+  ],
+  "cssFiles": [
+    "application-*.scss"
+  ],
+  "specDir": "spec/javascripts",
+  "specFiles": [
+    "**/*[sS]pec.js"
+  ],
+  "helpers": [
+    "helpers/*.js",
+    "vendor/jquery-1.12.4.js",
+    "vendor/jasmine-ajax-3.4.0.js"
+  ],
+  "browser": "headlessChrome"
+}
