@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe "components/_date-filter.html.erb", type: :view do
+describe "components/_date-filter", type: :view do
   it "returns nothing when no key or name provided" do
     render
     expect(rendered).to eql("")

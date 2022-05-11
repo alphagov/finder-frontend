@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-gem "rails", "6.1.5.1"
+gem "rails", "7.0.2.3"
 
 gem "chronic"
 gem "dalli"
@@ -12,6 +12,7 @@ gem "govuk_publishing_components"
 gem "rest-client"
 gem "sassc-rails"
 gem "slimmer"
+gem "sprockets-rails"
 gem "uglifier"
 gem "whenever"
 
