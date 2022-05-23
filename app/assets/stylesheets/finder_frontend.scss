@@ -178,6 +178,9 @@ mark {
 .facet-tag__text {
   display: inline-block;
   margin-left: 0;
+  pointer-events: none;
+  position: relative;
+  z-index: 1;
 
   .js-enabled & {
     margin-left: govuk-em(5, 16px);
@@ -205,6 +208,10 @@ mark {
   .js-enabled & {
     display: inline-block;
     border: 1px solid transparent;
+
+    &:hover {
+      background: govuk-colour("mid-grey");
+    }
 
     &:focus {
       -webkit-box-shadow: inset 0 0 0 2px;
