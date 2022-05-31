@@ -57,6 +57,8 @@ module Search
 
     def current_page
       [params["page"].to_i, 1].max
+    rescue StandardError
+      1
     end
 
     def documents_per_page

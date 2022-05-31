@@ -390,6 +390,18 @@ describe Search::QueryBuilder do
       expect(query["start"]).to eql(0)
     end
 
+    it "starts at zero when page param is an array" do
+      query = query_with_params("page" => %w[abc])
+
+      expect(query["start"]).to eql(0)
+    end
+
+    it "starts at zero when page param is an invalid string" do
+      query = query_with_params("page" => "def")
+
+      expect(query["start"]).to eql(0)
+    end
+
     it "is paginated" do
       query = query_with_params("page" => "10")
 
