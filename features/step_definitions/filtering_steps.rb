@@ -35,7 +35,7 @@ And(/the page title contains no keywords$/) do
 end
 
 And(/the page title is updated$/) do
-  expect(page).to have_title "keyword searchable - Ministry of Silly Walks reports - GOV.UK"
+  expect(page).to have_title "#{@keyword_search} - Ministry of Silly Walks reports - GOV.UK"
 end
 
 Then(/^I can get a list of all documents with matching metadata$/) do
@@ -58,6 +58,12 @@ Then(/^I can get a list of all documents with matching metadata$/) do
 
   expect(page).to have_content("1 report")
   expect(page).to have_css(".finder-results .gem-c-document-list__item", count: 1)
+end
+
+And(/there should not be an alert$/) do
+  expect {
+    page.driver.browser.switch_to.alert.accept
+  }.to raise_error(Selenium::WebDriver::Error::NoSuchAlertError)
 end
 
 And("I see email and feed sign up links") do
@@ -206,18 +212,16 @@ When(/^I view a list of services$/) do
   visit finder_path("search/services")
 end
 
-When(/^I search documents by keyword$/) do
-  stub_keyword_search_api_request
+When(/^I search documents by keyword: "(.*)"$/) do |term|
+  stub_keyword_search_api_request(term)
 
   visit finder_path("mosw-reports")
 
-  @keyword_search = "keyword searchable"
+  @keyword_search = term
 
   within ".filter-form" do
     fill_in("Search", with: @keyword_search)
-  end
-  within ".js-live-search-fallback" do
-    click_on "Filter results"
+    click_on("Search")
   end
 end
 
@@ -228,7 +232,7 @@ Then(/^I see all documents which contain the keywords$/) do
 end
 
 When(/^I visit a finder by keyword with q parameter$/) do
-  stub_keyword_search_api_request
+  stub_keyword_search_api_request(@keyword_search)
 
   visit finder_path("mosw-reports", q: @keyword_search)
 end

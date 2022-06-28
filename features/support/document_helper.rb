@@ -31,9 +31,9 @@ module DocumentHelper
       .to_return(body: hopscotch_reports_json)
   end
 
-  def stub_keyword_search_api_request
+  def stub_keyword_search_api_request(term)
     stub_request(:get, SEARCH_ENDPOINT)
-      .with(query: rummager_keyword_search_params)
+      .with(query: hash_including(mosw_search_params.merge("q" => term)))
       .to_return(body: keyword_search_results)
   end
 
@@ -470,13 +470,6 @@ module DocumentHelper
   def rummager_hopscotch_walks_params
     mosw_search_params.merge(
       "filter_walk_type" => %w[hopscotch],
-      "order" => "-public_timestamp",
-    )
-  end
-
-  def rummager_keyword_search_params
-    mosw_search_params.merge(
-      "q" => "keyword searchable",
       "order" => "-public_timestamp",
     )
   end
