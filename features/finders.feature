@@ -36,6 +36,7 @@ Feature: Filtering documents
     When I search documents by keyword: "<script>alert(0)</script>"
     Then the page title is updated
     And there should not be an alert
+    And there is not a zero results message
 
   Scenario: Filter document by keyword with q parameter
     Given a collection of documents exist
