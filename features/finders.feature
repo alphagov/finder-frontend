@@ -24,11 +24,19 @@ Feature: Filtering documents
 
   Scenario: Filter document by keyword
     Given a collection of documents exist
-    When I search documents by keyword
+    When I search documents by keyword: "keyword searchable"
     Then I see all documents which contain the keywords
     And there is not a zero results message
     And the page title is updated
     And I can see that Google won't index the page
+
+  @javascript
+  Scenario: User tries to filter with malicious input
+    Given a collection of documents exist
+    When I search documents by keyword: "<script>alert(0)</script>"
+    Then the page title is updated
+    And there should not be an alert
+    And there is not a zero results message
 
   Scenario: Filter document by keyword with q parameter
     Given a collection of documents exist

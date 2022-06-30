@@ -146,6 +146,19 @@ describe FindersController, type: :controller do
       end
     end
 
+    describe "a finder doesn't render a malicious search input" do
+      it "renders the users malicious input escaped" do
+        stub_content_store_has_item("/lunch-finder", lunch_finder)
+
+        stub_request(:get, /\A#{Plek.current.find('search')}\/search.json/)
+          .to_return(status: 200, body: rummager_response, headers: {})
+
+        get :show, params: { slug: "lunch-finder", keywords: "<script>alert(0)</script>" }
+        expect(response.body).to include("&lt;script&gt;alert(0)&lt;/script&gt;")
+        expect(response.body).not_to include("<script>alert(0)</script>")
+      end
+    end
+
     describe "finder item doesn't exist" do
       before do
         stub_content_store_does_not_have_item("/does-not-exist")
