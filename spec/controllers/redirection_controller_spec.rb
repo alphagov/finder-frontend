@@ -105,4 +105,39 @@ describe RedirectionController, type: :controller do
       end
     end
   end
+
+  describe "#redirect_latest" do
+    it "redirects to /search/all retaining topical events" do
+      get :redirect_latest, params: {
+        topical_events: %w[magic-competition],
+      }
+      expect(response).to redirect_to finder_path("search/all",
+                                                  params: {
+                                                    order: "updated-newest",
+                                                    topical_events: %w[magic-competition],
+                                                  })
+    end
+
+    it "redirects to /search/all retaining world locations" do
+      get :redirect_latest, params: {
+        world_locations: %w[hogwarts],
+      }
+      expect(response).to redirect_to finder_path("search/all",
+                                                  params: {
+                                                    order: "updated-newest",
+                                                    world_locations: %w[hogwarts],
+                                                  })
+    end
+
+    it "redirects to /search/all replacing departments with organisations" do
+      get :redirect_latest, params: {
+        departments: %w[department-of-magic],
+      }
+      expect(response).to redirect_to finder_path("search/all",
+                                                  params: {
+                                                    order: "updated-newest",
+                                                    organisations: %w[department-of-magic],
+                                                  })
+    end
+  end
 end
