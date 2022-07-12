@@ -139,5 +139,13 @@ describe RedirectionController, type: :controller do
                                                     organisations: %w[department-of-magic],
                                                   })
     end
+
+    it "copes with incorrect types being passed as parameters" do
+      get :redirect_latest, params: {
+        departments: { "wrong": %w[department-of-magic] },
+      }
+      expect(response).to redirect_to finder_path("search/all",
+                                                  params: { order: "updated-newest" })
+    end
   end
 end

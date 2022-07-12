@@ -8,13 +8,12 @@ class RedirectionController < ApplicationController
   end
 
   def redirect_latest
-    redirect_params = {
-      order: "updated-newest",
-    }
-    redirect_params[:organisations] = params[:departments] if params[:departments]
-    redirect_params[:topical_events] = params[:topical_events] if params[:topical_events]
-    redirect_params[:world_locations] = params[:world_locations] if params[:world_locations]
-    redirect_to(finder_path("search/all", params: redirect_params))
+    redirect_params = params.slice(:departments, :topical_events, :world_locations)
+                            .permit(departments: [], topical_events: [], world_locations: [])
+                            .transform_keys { |k| k == "departments" ? "organisations" : k }
+                            .compact
+
+    redirect_to(finder_path("search/all", params: { order: "updated-newest" }.merge(redirect_params)))
   end
 
   def advanced_search
