@@ -69,10 +69,7 @@ private
 
   def selected_facets
     facets.select do |facet|
-      (
-        filter[facet["facet_id"]].present? && !ignore_facet?(facet["facet_id"])
-      ) ||
-        filter[facet["filter_key"]].present?
+      filter[facet["facet_id"]].present? || filter[facet["filter_key"]].present?
     end
   end
 
@@ -142,9 +139,5 @@ private
 
   def is_brexit?(registry, content_id)
     registry.is_a?(Registries::TopicTaxonomyRegistry) && content_id == ContentItem::BREXIT_CONTENT_ID
-  end
-
-  def ignore_facet?(facet_id)
-    %w[facet_groups].include?(facet_id)
   end
 end
