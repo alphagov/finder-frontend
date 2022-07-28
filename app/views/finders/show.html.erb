@@ -50,6 +50,7 @@
         <% unless result_set_presenter.sort_option.nil? %>
           data-ecommerce-variant="<%= result_set_presenter.sort_option[:data_track_label] %>"
         <% end %>
+        data-module="gem-track-click"
         >
         <div id="js-search-results-info" data-module="remove-filter" class="result-info">
           <div class="govuk-grid-row">
@@ -69,6 +70,14 @@
                     <%= render partial: 'filter_button'%>
                   <% end %>
                 <% end %>
+
+                <div data-track-category="filterClicked"
+                    data-track-action="skip-Link" data-track-label="">
+                  <%= render "govuk_publishing_components/components/skip_link", {
+                    text: 'Skip to results',
+                    href: '#js-results'}
+                  %>
+                </div>
               </div>
             </div>
 
