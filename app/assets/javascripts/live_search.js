@@ -366,9 +366,9 @@
         if (xhr.readyState === 4 && xhr.status === 200) {
           var response = JSON.parse(e.target.response)
           liveSearch.updateUrl()
-          liveSearch.trackSearch()
           liveSearch.cache(liveSearch.serializeState(liveSearch.state), response)
           liveSearch.displayResults(response, searchState)
+          liveSearch.trackSearch()
         } else {
           liveSearch.showErrorIndicator()
         }
@@ -380,8 +380,8 @@
       xhr.send()
     } else {
       this.updateUrl()
-      this.trackSearch()
       this.displayResults(cachedResultData, searchState)
+      this.trackSearch()
     }
   }
 
