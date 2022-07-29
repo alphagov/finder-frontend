@@ -13,12 +13,12 @@ RSpec.describe SpellingSuggestionPresenter do
         content_item_path,
       )
       expected = [{ data_attributes: {
-        ecommerce_path: "fake/path",
-        ecommerce_row: 1,
-        track_options: {
-          dimension81: "full english",
-        },
-      },
+                      ecommerce_path: "fake/path",
+                      ecommerce_row: 1,
+                      track_options: {
+                        dimension81: "full english",
+                      },
+                    },
                     keywords: "full english",
                     highlighted: "<mark>full</mark> english",
                     link: "/breakfast-finder?keywords=full+english" }]
