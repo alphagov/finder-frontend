@@ -28,20 +28,6 @@ class SignupPresenter
     choices? && choices_formatted.any? && email_filter_by != "all_selected_facets"
   end
 
-  def hidden_choices
-    hidden_choices = choices.map do |choice|
-      next unless ignore_facet?(choice["facet_id"])
-
-      choice["facet_choices"].map do |facet_choice|
-        {
-          name: "filter[#{choice['facet_id']}][]",
-          value: facet_choice["key"],
-        }
-      end
-    end
-    hidden_choices.flatten.compact
-  end
-
   def choices?
     email_filter_facets.present?
   end
@@ -72,7 +58,7 @@ private
 
   def facets_with_choices
     choices.select do |choice|
-      choice["facet_choices"] && choice["facet_choices"].any? && !ignore_facet?(choice["facet_id"])
+      choice["facet_choices"] && choice["facet_choices"].any?
     end
   end
 
@@ -87,9 +73,5 @@ private
 
   def email_filter_facets
     content_item["details"].fetch("email_filter_facets", [])
-  end
-
-  def ignore_facet?(facet_id)
-    %w[facet_groups].include?(facet_id)
   end
 end

@@ -51,10 +51,6 @@
       </p>
     <% end %>
 
-    <% @signup_presenter.hidden_choices.each do |hidden_choice| %>
-      <%= hidden_field_tag hidden_choice[:name], hidden_choice[:value] %>
-    <% end %>
-
     <%= render "govuk_publishing_components/components/button", {
       text: "Continue",
       margin_bottom: true
