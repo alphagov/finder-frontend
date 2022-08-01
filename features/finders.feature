@@ -71,14 +71,6 @@ Feature: Filtering documents
     And I can see that Google won't index the page
     Then I browse to a huge page number and get an appropriate error
 
-  @javascript
-  Scenario: Pagination is removed when there are no results
-    Given a finder with paginated results exists
-    And I visit the benefits-reform page
-    Then I should see results and pagination
-    When I fill in a keyword that should match no results
-    Then the results and pagination should be removed
-
   Scenario: Visit a finder with metadata
     Given a finder with metadata exists
     Then I can see that the finder metadata is present
