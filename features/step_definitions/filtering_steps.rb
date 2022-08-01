@@ -694,6 +694,10 @@ And(/^I fill in some keywords$/) do
   fill_in "Search", with: "Keyword1 Keyword2\n"
 end
 
+When(/^I fill in a keyword that should match no results$/) do
+  fill_in "Search", with: "xxxxxxxxxxxxxxYYYYYYYYYYYxxxxxxxxxxxxxxx\n"
+end
+
 And(/^I submit the form$/) do
   page.execute_script("document.querySelector('.js-live-search-form').submit()")
 end
@@ -824,6 +828,22 @@ end
 
 Then(/^I click "(.*)" to expand|collapse all facets/) do |link_text|
   click_button(link_text)
+end
+
+And(/^I visit the benefits-reform page$/) do
+  visit finder_path("government/policies/benefits-reform")
+end
+
+Then(/^I should see results and pagination$/) do
+  expect(page).to have_text("20 reports")
+  expect(page).to have_css(".finder-results", visible: true)
+  expect(page).to have_css(".gem-c-pagination")
+end
+
+Then(/^the results and pagination should be removed$/) do
+  expect(page).not_to have_text("20 reports")
+  expect(page).to have_css(".finder-results", visible: false)
+  expect(page).to_not have_css(".gem-c-pagination")
 end
 
 Then(/^I should (see|not see) a "Skip to results" link$/) do |can_be_seen|
