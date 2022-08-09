@@ -1,45 +1,35 @@
-ARG base_image=ruby:2.7.6
-FROM $base_image AS builder
-
-ENV RAILS_ENV=production
-
-RUN apt-get update -qy && \
-    apt-get upgrade -y && \
-    apt-get install -y build-essential nodejs && \
-    apt-get clean
+ARG base_image=ghcr.io/alphagov/govuk-ruby-base:2.7.6
+ARG builder_image=ghcr.io/alphagov/govuk-ruby-builder:2.7.6
+ 
+FROM $builder_image AS builder
 
 RUN bundle config set force_ruby_platform true
 
-RUN mkdir /app
+RUN mkdir -p /app && ln -fs /tmp /app/tmp && ln -fs /tmp /home/app
 
 WORKDIR /app
 
-COPY Gemfile Gemfile.lock .ruby-version /app/
+COPY Gemfile* .ruby-version /app/
 
-RUN bundle config set deployment 'true' && \
-    bundle config set without 'development test' && \
-    bundle install --jobs 4 --retry=2
+RUN bundle install
 
 COPY . /app
 
-RUN GOVUK_APP_DOMAIN=www.gov.uk \
-    GOVUK_WEBSITE_ROOT=https://www.gov.uk \
-    bundle exec rails assets:precompile
+RUN bundle exec rails assets:precompile && rm -fr /app/log
+
 
 FROM $base_image
 
-ENV GOVUK_PROMETHEUS_EXPORTER=true RAILS_ENV=production GOVUK_APP_NAME=finder-frontend GOVUK_APP_DOMAIN=www.gov.uk GOVUK_WEBSITE_ROOT=https://www.gov.uk PORT=3062
-
-RUN apt-get update -qy && \
-    apt-get upgrade -y && \
-    apt-get install -y nodejs && \
-    apt-get clean
-
-WORKDIR /app
+ENV GOVUK_APP_NAME=finder-frontend PORT=3062
 
 HEALTHCHECK CMD curl --silent --fail localhost:$PORT/healthcheck/ready || exit 1
 
-COPY --from=builder /usr/local/bundle/ /usr/local/bundle/
-COPY --from=builder /app ./
+RUN mkdir -p /app && ln -fs /tmp /app/tmp && ln -fs /tmp /home/app
 
+COPY --from=builder /usr/local/bundle/ /usr/local/bundle/
+COPY --from=builder /app /app/
+
+USER app
+WORKDIR /app
+ 
 CMD bundle exec puma
