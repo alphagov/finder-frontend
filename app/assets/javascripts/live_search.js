@@ -106,6 +106,10 @@
   LiveSearch.prototype.startEnhancedEcommerceTracking = function startEnhancedEcommerceTracking () {
     if (this.$resultsWrapper) {
       this.$resultsWrapper.setAttribute('data-search-query', this.currentKeywords())
+      var sortedBy = this.$resultsWrapper.querySelector('.js-order-results')
+      if (sortedBy) {
+        this.$resultsWrapper.setAttribute('data-ecommerce-variant', sortedBy.options[sortedBy.selectedIndex].text)
+      }
     }
     if (this.$suggestionsBlock) {
       this.$suggestionsBlock.setAttribute('data-search-query', this.currentKeywords())
