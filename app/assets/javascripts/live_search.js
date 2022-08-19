@@ -106,6 +106,10 @@
   LiveSearch.prototype.startEnhancedEcommerceTracking = function startEnhancedEcommerceTracking () {
     if (this.$resultsWrapper) {
       this.$resultsWrapper.setAttribute('data-search-query', this.currentKeywords())
+      var sortedBy = this.$resultsWrapper.querySelector('.js-order-results')
+      if (sortedBy) {
+        this.$resultsWrapper.setAttribute('data-ecommerce-variant', sortedBy.options[sortedBy.selectedIndex].text)
+      }
     }
     if (this.$suggestionsBlock) {
       this.$suggestionsBlock.setAttribute('data-search-query', this.currentKeywords())
@@ -366,9 +370,9 @@
         if (xhr.readyState === 4 && xhr.status === 200) {
           var response = JSON.parse(e.target.response)
           liveSearch.updateUrl()
-          liveSearch.trackSearch()
           liveSearch.cache(liveSearch.serializeState(liveSearch.state), response)
           liveSearch.displayResults(response, searchState)
+          liveSearch.trackSearch()
         } else {
           liveSearch.showErrorIndicator()
         }
@@ -380,8 +384,8 @@
       xhr.send()
     } else {
       this.updateUrl()
-      this.trackSearch()
       this.displayResults(cachedResultData, searchState)
+      this.trackSearch()
     }
   }
 

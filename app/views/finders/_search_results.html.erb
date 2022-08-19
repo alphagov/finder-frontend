@@ -2,7 +2,7 @@
   <meta name="govuk:search-result-count" content="<%= result_set_presenter.total_count %>">
 <% end %>
 
-<div class="finder-results js-finder-results" data-module="gem-track-click">
+<div class="finder-results js-finder-results">
   <%= render "govuk_publishing_components/components/document_list", {
     items: local_assigns[:document_list_component_data],
     remove_underline: true
