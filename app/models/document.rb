@@ -153,7 +153,11 @@ private
   def label_for_metadata_key(facets, key)
     facet = metadata_facets(facets).find { |f| f.key == key }
 
-    facet.short_name || facet.key.humanize
+    if format == "oim_project"
+      facet.short_name || facet.name
+    else
+      facet.short_name || facet.key.humanize
+    end
   end
 
   def get_metadata_label(key, tag)
