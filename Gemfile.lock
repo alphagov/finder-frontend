@@ -439,7 +439,7 @@ GEM
       ffi (~> 1.1)
     thor (1.2.1)
     tilt (2.0.10)
-    timecop (0.9.4)
+    timecop (0.9.5)
     timeout (0.3.0)
     trailblazer-option (0.1.2)
     tzinfo (2.0.5)
