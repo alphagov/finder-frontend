@@ -283,6 +283,8 @@ GEM
     pry-byebug (3.10.1)
       byebug (~> 11.0)
       pry (>= 0.13, < 0.15)
+    psych (4.0.4)
+      stringio
     public_suffix (5.0.0)
     puma (5.6.5)
       nio4r (~> 2.0)
@@ -326,7 +328,8 @@ GEM
     rb-fsevent (0.11.2)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
-    rdoc (6.3.1)
+    rdoc (6.4.0)
+      psych (>= 4.0.0)
     regexp_parser (2.5.0)
     representable (3.2.0)
       declarative (< 0.1.0)
@@ -396,7 +399,7 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
-    sdoc (2.2.0)
+    sdoc (2.4.0)
       rdoc (>= 5.0)
     selenium-webdriver (4.1.0)
       childprocess (>= 0.5, < 5.0)
@@ -434,6 +437,7 @@ GEM
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
     statsd-ruby (1.5.0)
+    stringio (3.0.2)
     strscan (3.0.4)
     sys-uname (1.2.2)
       ffi (~> 1.1)
