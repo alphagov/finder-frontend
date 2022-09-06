@@ -20,9 +20,7 @@ RUN bundle exec rails assets:precompile && rm -fr /app/log
 
 FROM $base_image
 
-ENV GOVUK_APP_NAME=finder-frontend PORT=3062
-
-HEALTHCHECK CMD curl --silent --fail localhost:$PORT/healthcheck/ready || exit 1
+ENV GOVUK_APP_NAME=finder-frontend
 
 RUN mkdir -p /app && ln -fs /tmp /app/tmp && ln -fs /tmp /home/app
 
