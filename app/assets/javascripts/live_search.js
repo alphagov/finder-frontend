@@ -52,6 +52,8 @@
       window.ga('set', 'transport', 'beacon')
     }
 
+    this.Ga4EcommerceTracking(true)
+
     this.focusErrorMessagesOnLoad(this.$form)
 
     // prevent page refresh on search submit button click
@@ -115,6 +117,22 @@
       this.$suggestionsBlock.setAttribute('data-search-query', this.currentKeywords())
     }
     if (GOVUK.Ecommerce) { GOVUK.Ecommerce.start() }
+
+    this.Ga4EcommerceTracking(false)
+  }
+
+  LiveSearch.prototype.Ga4EcommerceTracking = function (isNewPage) {
+    if (GOVUK.analyticsGA4 && GOVUK.analyticsGA4.Ga4EnhancedEcommerceTracker) {
+      var consentCookie = GOVUK.getConsentCookie()
+
+      if (consentCookie && consentCookie.settings) {
+        GOVUK.analyticsGA4.Ga4EnhancedEcommerceTracker.init(isNewPage)
+      } else {
+        window.addEventListener('cookie-consent', function () {
+          GOVUK.analyticsGA4.Ga4EnhancedEcommerceTracker.init(isNewPage)
+        })
+      }
+    }
   }
 
   LiveSearch.prototype.getAndUpdateTaxonomyFacet = function getAndUpdateTaxonomyFacet () {
