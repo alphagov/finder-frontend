@@ -122,14 +122,14 @@
   }
 
   LiveSearch.prototype.Ga4EcommerceTracking = function (isNewPage) {
-    if (GOVUK.analyticsGA4 && GOVUK.analyticsGA4.Ga4EnhancedEcommerceTracker) {
+    if (GOVUK.analyticsGa4 && GOVUK.analyticsGa4.Ga4EcommerceTracker) {
       var consentCookie = GOVUK.getConsentCookie()
 
       if (consentCookie && consentCookie.settings) {
-        GOVUK.analyticsGA4.Ga4EnhancedEcommerceTracker.init(isNewPage)
+        GOVUK.analyticsGa4.Ga4EcommerceTracker.init(isNewPage)
       } else {
         window.addEventListener('cookie-consent', function () {
-          GOVUK.analyticsGA4.Ga4EnhancedEcommerceTracker.init(isNewPage)
+          GOVUK.analyticsGa4.Ga4EcommerceTracker.init(isNewPage)
         })
       }
     }
