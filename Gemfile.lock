@@ -155,7 +155,7 @@ GEM
       ruby2_keywords (>= 0.0.4)
     faraday-net_http (3.0.0)
     ffi (1.15.5)
-    gds-api-adapters (82.0.0)
+    gds-api-adapters (83.0.0)
       addressable
       link_header
       null_logger
@@ -276,7 +276,7 @@ GEM
     parallel (1.22.1)
     parser (3.1.2.1)
       ast (~> 2.4.1)
-    plek (4.0.0)
+    plek (4.1.0)
     prometheus_exporter (2.0.3)
       webrick
     pry (0.14.1)
