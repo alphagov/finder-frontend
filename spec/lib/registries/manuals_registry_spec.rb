@@ -9,7 +9,7 @@ RSpec.describe Registries::ManualsRegistry do
       count: 1500,
     }
   end
-  let(:rummager_url) { "#{Plek.current.find('search')}/search.json?#{rummager_params.to_query}" }
+  let(:rummager_url) { "#{Plek.find('search')}/search.json?#{rummager_params.to_query}" }
 
   describe "when rummager is available" do
     before do
