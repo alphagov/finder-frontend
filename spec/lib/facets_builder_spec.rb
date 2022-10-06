@@ -189,7 +189,7 @@ describe FacetsBuilder do
         facet_people: "1500,examples:0,order:value.title",
       }
     end
-    let(:rummager_url) { "#{Plek.current.find('search')}/search.json?#{rummager_params.to_query}" }
+    let(:rummager_url) { "#{Plek.find('search')}/search.json?#{rummager_params.to_query}" }
 
     let(:detail_hash) do
       {

@@ -1,6 +1,6 @@
 module RummagerUrlHelper
   def rummager_url(params)
-    "#{Plek.current.find('search')}/search.json?#{params.to_query}"
+    "#{Plek.find('search')}/search.json?#{params.to_query}"
   end
 
   def mosw_search_params
