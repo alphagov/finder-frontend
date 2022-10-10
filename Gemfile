@@ -36,7 +36,6 @@ group :test do
   gem "climate_control"
   gem "cucumber-rails", require: false
   gem "factory_bot"
-  gem "govuk-content-schema-test-helpers"
   gem "launchy"
   gem "rails-controller-testing"
   gem "simplecov"
