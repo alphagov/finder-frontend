@@ -12,7 +12,7 @@ RSpec.describe Registries::OrganisationsRegistry do
       "order" => "title",
     }
   end
-  let(:rummager_url) { "#{Plek.find('search')}/search.json?#{rummager_params.to_query}" }
+  let(:rummager_url) { "#{Plek.find('search-api')}/search.json?#{rummager_params.to_query}" }
 
   describe "when rummager is available" do
     before do

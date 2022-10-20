@@ -86,7 +86,7 @@ RSpec.describe Registries::BaseRegistries do
 
       # should not request anything further over the network
       described_class.new.ensure_warm_cache
-      assert_not_requested :get, "http://search.dev.gov.uk/search.json"
+      assert_not_requested :get, "http://search-api.dev.gov.uk/search.json"
     end
   end
 
