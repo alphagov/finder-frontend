@@ -48,7 +48,7 @@ describe FindersController, type: :controller do
           { max_age: 900, public: true },
         )
 
-        url = "#{Plek.find('search')}/search.json"
+        url = "#{Plek.find('search-api')}/search.json"
 
         stub_request(:get, url)
           .with(
@@ -127,7 +127,7 @@ describe FindersController, type: :controller do
           "suggested_queries": []
         })
 
-        stub = stub_request(:get, "#{Plek.find('search')}/search.json")
+        stub = stub_request(:get, "#{Plek.find('search-api')}/search.json")
           .with(
             query: {
               count: 10,
@@ -150,7 +150,7 @@ describe FindersController, type: :controller do
       it "renders the users malicious input escaped" do
         stub_content_store_has_item("/lunch-finder", lunch_finder)
 
-        stub_request(:get, /\A#{Plek.find('search')}\/search.json/)
+        stub_request(:get, /\A#{Plek.find('search-api')}\/search.json/)
           .to_return(status: 200, body: rummager_response, headers: {})
 
         get :show, params: { slug: "lunch-finder", keywords: "<script>alert(0)</script>" }
@@ -323,7 +323,7 @@ describe FindersController, type: :controller do
   end
 
   def search_api_request(query: {})
-    stub_request(:get, "#{Plek.find('search')}/search.json")
+    stub_request(:get, "#{Plek.find('search-api')}/search.json")
       .with(
         query: {
           count: 10,

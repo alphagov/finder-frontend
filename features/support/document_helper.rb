@@ -15,7 +15,7 @@ module DocumentHelper
   include GdsApi::TestHelpers::ContentStore
   include GdsApi::TestHelpers::Worldwide
 
-  SEARCH_ENDPOINT = "#{Plek.find('search')}/search.json".freeze
+  SEARCH_ENDPOINT = "#{Plek.find('search-api')}/search.json".freeze
 
   def stub_taxonomy_api_request
     stub_content_store_has_item("/", "links" => { "level_one_taxons" => [] })
@@ -157,7 +157,7 @@ module DocumentHelper
 
   def stub_search_api_request_with_filtered_research_and_statistics_results
     Timecop.freeze(Time.zone.local("2019-01-01").utc)
-    stub_request(:get, "#{Plek.find('search')}/search.json")
+    stub_request(:get, "#{Plek.find('search-api')}/search.json")
       .with(query: hash_including(
         "filter_format" => %w[statistics_announcement],
         "filter_release_timestamp" => "from:2019-01-01",

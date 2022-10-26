@@ -1,6 +1,6 @@
 module RegistrySpecHelper
   def stub_people_registry_request
-    stub_request(:get, "http://search.dev.gov.uk/search.json")
+    stub_request(:get, "http://search-api.dev.gov.uk/search.json")
         .with(query: {
           count: 0,
           facet_people: "1500,examples:0,order:value.title",
@@ -58,7 +58,7 @@ module RegistrySpecHelper
   end
 
   def stub_roles_registry_request
-    stub_request(:get, "http://search.dev.gov.uk/search.json")
+    stub_request(:get, "http://search-api.dev.gov.uk/search.json")
         .with(query: {
           count: 0,
           facet_roles: "1500,examples:0,order:value.title",
@@ -83,7 +83,7 @@ module RegistrySpecHelper
   end
 
   def stub_organisations_registry_request
-    stub_request(:get, "http://search.dev.gov.uk/search.json")
+    stub_request(:get, "http://search-api.dev.gov.uk/search.json")
     .with(query: {
       count: 1500,
       fields: %w[slug title acronym content_id],
@@ -121,7 +121,7 @@ module RegistrySpecHelper
   end
 
   def stub_manuals_registry_request
-    stub_request(:get, "http://search.dev.gov.uk/search.json")
+    stub_request(:get, "http://search-api.dev.gov.uk/search.json")
       .with(query: {
         filter_document_type: %w[manual service_manual_homepage service_manual_guide],
         fields: %w[title],
@@ -146,7 +146,7 @@ module RegistrySpecHelper
   end
 
   def stub_topical_events_registry_request
-    stub_request(:get, "http://search.dev.gov.uk/search.json")
+    stub_request(:get, "http://search-api.dev.gov.uk/search.json")
     .with(query: {
       count: 1500,
       fields: %w[slug title],
