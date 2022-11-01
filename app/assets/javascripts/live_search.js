@@ -52,7 +52,7 @@
       window.ga('set', 'transport', 'beacon')
     }
 
-    this.Ga4EcommerceTracking(true)
+    this.Ga4EcommerceTracking()
 
     this.focusErrorMessagesOnLoad(this.$form)
 
@@ -118,18 +118,18 @@
     }
     if (GOVUK.Ecommerce) { GOVUK.Ecommerce.start() }
 
-    this.Ga4EcommerceTracking(false)
+    this.Ga4EcommerceTracking(this.previousSearchUrl)
   }
 
-  LiveSearch.prototype.Ga4EcommerceTracking = function (isNewPage) {
+  LiveSearch.prototype.Ga4EcommerceTracking = function (referrer) {
     if (GOVUK.analyticsGa4 && GOVUK.analyticsGa4.Ga4EcommerceTracker) {
       var consentCookie = GOVUK.getConsentCookie()
 
       if (consentCookie && consentCookie.settings) {
-        GOVUK.analyticsGa4.Ga4EcommerceTracker.init(isNewPage)
+        GOVUK.analyticsGa4.Ga4EcommerceTracker.init(referrer)
       } else {
         window.addEventListener('cookie-consent', function () {
-          GOVUK.analyticsGa4.Ga4EcommerceTracker.init(isNewPage)
+          GOVUK.analyticsGa4.Ga4EcommerceTracker.init(referrer)
         })
       }
     }
@@ -378,6 +378,7 @@
     var searchState = this.serializeState(this.state)
     var cachedResultData = this.cache(searchState)
     var liveSearch = this
+    this.previousSearchUrl = window.location.href
 
     if (typeof cachedResultData === 'undefined') {
       this.showLoadingIndicator()
