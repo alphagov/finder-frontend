@@ -7,16 +7,13 @@ describe('Mobile filters modal', function () {
     container = document.createElement('div')
     container.innerHTML =
     '<form method="get" class="js-live-search-form">' +
-    '<button class="app-c-button-as-link app-mobile-filters-link js-show-mobile-filters"' +
+    '<button class="app-c-button-as-link app-mobile-filters-link js-toggle-mobile-filters"' +
       'data-toggle="mobile-filters-modal" data-target="facet-wrapper">Filter' +
     '</button>' +
     '<div id="facet-wrapper" data-module="mobile-filters-modal" class="facets">' +
       '<div class="facets__box">' +
         '<div class="facets__header">' +
-          '<h1 class="gem-c-title__text">Filter</h1>' +
-          '<button class="app-c-button-as-link facets__return-link js-close-filters" type="button">' +
-            'Return to results' +
-          '</button>' +
+          '<h2 class="gem-c-title__text">Filter</h2>' +
         '</div>' +
         '<div class="facets__content">' +
           '<select>' +
@@ -34,9 +31,9 @@ describe('Mobile filters modal', function () {
           '</button>' +
         '</div>' +
         '<div class="facets__footer">' +
-          '<button class="gem-c-button govuk-button js-close-filters" type="button">' +
-            'Show <span class="js-result-count">9<span>' +
-          '</button>' +
+          '<a class="gem-c-button govuk-button" role="button" data-module="govuk-button govuk-skip-link" draggable="false" href="#js-results" data-govuk-button-module-started="true" data-govuk-skip-link-module-started="true">' +
+            'Go to search results' +
+          '</a>' +
         '</div>' +
       '</div>' +
     '</div>' +
@@ -58,26 +55,21 @@ describe('Mobile filters modal', function () {
 
   describe('open button', function () {
     beforeEach(function () {
-      document.querySelector('.js-show-mobile-filters').click()
+      document.querySelector('.js-toggle-mobile-filters').click()
     })
 
     afterEach(function () {
-      document.querySelector('.js-close-filters').click()
+      document.querySelector('.js-toggle-mobile-filters').click()
     })
 
     it('should show the modal', function () {
       var modal = document.querySelector('.facets')
       expect($(modal).hasClass('facets--visible')).toBe(true)
     })
-  })
 
-  describe('close button', function () {
     it('should hide the modal', function () {
-      document.querySelector('.js-show-mobile-filters').click()
-      document.querySelector('.js-close-filters').click()
-
       var modal = document.querySelector('.facets')
-      document.querySelector('.js-close-filters').click()
+      document.querySelector('.js-toggle-mobile-filters').click()
       expect($(modal).hasClass('facets--visible')).toBe(false)
     })
   })
@@ -96,11 +88,6 @@ describe('Mobile filters modal', function () {
     it('should show the modal', function () {
       var modal = document.querySelector('.facets')
       expect($(modal).hasClass('facets--visible')).toBe(true)
-    })
-
-    it('should focus the modal', function () {
-      var modalFocused = document.querySelector('.facets__box')
-      expect(modalFocused).toBeTruthy()
     })
   })
 
@@ -122,6 +109,25 @@ describe('Mobile filters modal', function () {
       expect($(modal).find('input[type="text"]')
         .filter(function () { return $(this).val() }).length).toBe(0)
       expect($(modal).find('select').val()).toBe('')
+    })
+  })
+
+  describe('accessibility', function () {
+    it('should add aria-expanded="false" on load to the Filter button', function () {
+      var button = document.querySelector('.js-toggle-mobile-filters')
+      expect(button.getAttribute('aria-expanded')).toEqual('false')
+    })
+
+    it('should set aria-expanded to true when clicking the Filter button', function () {
+      var button = document.querySelector('.js-toggle-mobile-filters')
+      button.click()
+      expect(button.getAttribute('aria-expanded')).toEqual('true')
+    })
+
+    it('should add aria-controls on load to the Filter button', function () {
+      var button = document.querySelector('.js-toggle-mobile-filters')
+      expect(button.getAttribute('aria-controls')).toEqual('facet-wrapper')
+      expect(document.querySelector('#facet-wrapper')).not.toEqual(null)
     })
   })
 })
