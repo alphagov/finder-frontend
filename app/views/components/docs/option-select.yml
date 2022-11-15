@@ -1,9 +1,7 @@
 name: Option select
 description: A scrollable list of checkboxes to be displayed on a form where one might
   otherwise use a multi-select
-body: |
-  There is a bug where the option select will be scrolled to the bottom when the component is tested using Axe in Internet Explorer 10 and 11. This bug is not present when Axe and the test is not run, so is not seen when in production. This is caused by the `TODO:` SVG patch on line 32 of `accessibility-test.js` setting `restoreScroll` to `false`.
-
+body:
 accessibility_criteria: |
   The option select must:
 
