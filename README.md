@@ -47,6 +47,6 @@ bundle exec rake jasmine:ci
 
 See the [`docs/`](docs/) directory for manuals and instructions.
 
-## License
+## Licence
 
-[MIT License](LICENCE.txt)
+[MIT License](LICENCE)
