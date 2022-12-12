@@ -3,7 +3,7 @@
   <head>
     <title><%= yield :title %> - GOV.UK</title>
     <link title="Search" rel="search" type="application/opensearchdescription+xml" href="/search/opensearch.xml"/>
-    <%= stylesheet_link_tag "application", integrity: false %>
+    <%= stylesheet_link_tag "application", media: "all", integrity: false %>
     <%= stylesheet_link_tag "print", media: "print" %>
     <%= javascript_include_tag 'application', integrity: false %>
     <% if @content_item %>
