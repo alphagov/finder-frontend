@@ -12,7 +12,10 @@ class FindersController < ApplicationController
       format.html do
         raise UnsupportedContentItem unless content_item.is_finder?
 
-        transform_legacy_publication_params_and_redirect if legacy_params_present? && content_item.base_path == "/search/all"
+        if legacy_params_present?
+          transform_legacy_announcement_params_and_redirect if content_item.base_path == "/search/news-and-communications"
+          transform_legacy_publication_params_and_redirect if content_item.base_path == "/search/all"
+        end
 
         show_page_variables
       end
@@ -213,6 +216,19 @@ private
     given_params = params.keys.map(&:to_sym)
 
     (legacy_params & given_params).any?
+  end
+
+  def transform_legacy_announcement_params_and_redirect
+    base_path = "/search/news-and-communications"
+    query_string = legacy_finder_query_params.to_query
+
+    redirect_path = if query_string.empty?
+                      base_path
+                    else
+                      "#{base_path}?#{query_string}"
+                    end
+
+    redirect_to redirect_path and return
   end
 
   def transform_legacy_publication_params_and_redirect

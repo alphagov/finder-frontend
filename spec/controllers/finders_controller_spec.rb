@@ -322,6 +322,56 @@ describe FindersController, type: :controller do
     end
   end
 
+  describe "with legacy query parameters for announcements" do
+    before do
+      search_api_request
+
+      news_finder = govuk_content_schema_example("finder").to_hash.merge(
+        "base_path" => "/search/news-and-communications",
+        "content_id" => "622e9691-4b4f-4e9c-bce1-098b0c4f5ee2",
+      )
+
+      news_finder["details"]["default_documents_per_page"] = 10
+      news_finder["details"]["sort"] = nil
+
+      stub_content_store_has_item("/search/news-and-communications", news_finder)
+
+      @default_params = { slug: "search/news-and-communications" }
+    end
+
+    describe "when there are legacy parameters present" do
+      it "strips out all from taxons parameter" do
+        expect(get(:show, params: @default_params.merge(taxons: %w[all]))).to redirect_to("/search/news-and-communications")
+      end
+
+      it "strips out all from subtaxons parameter" do
+        expect(get(:show, params: @default_params.merge(subtaxons: %w[all]))).to redirect_to("/search/news-and-communications")
+      end
+
+      it "strips out all from departments parameter" do
+        expect(get(:show, params: @default_params.merge(departments: %w[all]))).to redirect_to("/search/news-and-communications")
+      end
+
+      it "replaces departments with organisations parameter" do
+        expect(get(:show, params: @default_params.merge(departments: %w[cabinet-office]))).to redirect_to("/search/news-and-communications?organisations%5B%5D=cabinet-office")
+      end
+    end
+
+    it "redirects a request using both a non-default finder and has legacy parameters" do
+      expected_query_string = {
+        level_one_taxon: "education",
+        level_two_taxon: "schools",
+        organisations: %w[cabinet-office hm-revenue-and-customs],
+      }.to_query
+
+      expect(get(:show, params: @default_params.merge(
+        departments: %w[cabinet-office hm-revenue-and-customs],
+        taxons: %w[education],
+        subtaxons: %w[schools],
+      ))).to redirect_to("/search/news-and-communications?#{expected_query_string}")
+    end
+  end
+
   describe "with legacy query parameters for publications" do
     before do
       search_api_request
