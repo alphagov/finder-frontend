@@ -12,6 +12,8 @@ class FindersController < ApplicationController
       format.html do
         raise UnsupportedContentItem unless content_item.is_finder?
 
+        transform_legacy_publication_params_and_redirect if legacy_params_present? && content_item.base_path == "/search/all"
+
         show_page_variables
       end
       format.json do
@@ -195,5 +197,144 @@ private
       /world/organisations
       /government/organisations/hm-revenue-customs/contact
     ].exclude?(content_item.base_path)
+  end
+
+  def legacy_params_present?
+    legacy_params = %i[
+      departments
+      from_date
+      official_document_status
+      publication_filter_option
+      publication_type
+      subtaxons
+      taxons
+      to_date
+    ].freeze
+    given_params = params.keys.map(&:to_sym)
+
+    (legacy_params & given_params).any?
+  end
+
+  def transform_legacy_publication_params_and_redirect
+    default_publications_path = "/search/all"
+
+    publications_routes = {
+      "command_and_act_papers" => {
+        base_path: "/official-documents",
+      },
+      "command_papers" => {
+        base_path: "/official-documents",
+        special_params: {
+          content_store_document_type: "command_papers",
+        },
+      },
+      "act_papers" => {
+        base_path: "/official-documents",
+        special_params: {
+          content_store_document_type: "act_papers",
+        },
+      },
+      "consultations" => {
+        base_path: "/search/policy-papers-and-consultations",
+        special_params: {
+          content_store_document_type: %w[open_consultations closed_consultations],
+        },
+      },
+      "closed-consultations" => {
+        base_path: "/search/policy-papers-and-consultations",
+        special_params: {
+          content_store_document_type: "closed_consultations",
+        },
+      },
+      "open-consultations" => {
+        base_path: "/search/policy-papers-and-consultations",
+        special_params: {
+          content_store_document_type: "open_consultations",
+        },
+      },
+      "foi-releases" => {
+        base_path: "/search/transparency-and-freedom-of-information-releases",
+        special_params: {
+          content_store_document_type: "foi_release",
+        },
+      },
+      "transparency-data" => {
+        base_path: "/search/transparency-and-freedom-of-information-releases",
+        special_params: {
+          content_store_document_type: "transparency",
+        },
+      },
+      "corporate-reports" => {
+        base_path: "/search/transparency-and-freedom-of-information-releases",
+        special_params: {
+          content_store_document_type: "corporate_report",
+        },
+      },
+      "guidance" => {
+        base_path: "/search/guidance-and-regulation",
+      },
+      "regulations" => {
+        base_path: "/search/guidance-and-regulation",
+      },
+      "policy-papers" => {
+        base_path: "/search/policy-papers-and-consultations",
+        special_params: {
+          content_store_document_type: "policy_papers",
+        },
+      },
+      "forms" => {
+        base_path: "/search/services",
+      },
+      "research-and-analysis" => {
+        base_path: "/search/research-and-statistics",
+        special_params: {
+          content_store_document_type: "research",
+        },
+      },
+      "statistics" => {
+        base_path: "/search/research-and-statistics",
+      },
+    }
+
+    base_path = publications_routes.dig(publication_finder_type, :base_path) || default_publications_path
+    special_params = publications_routes.dig(publication_finder_type, :special_params) || {}
+    query_string = legacy_finder_query_params.merge(special_params).to_query
+
+    redirect_path = if query_string.empty?
+                      base_path
+                    else
+                      "#{base_path}?#{query_string}"
+                    end
+
+    redirect_to redirect_path and return
+  end
+
+  def publication_finder_type
+    params[:official_document_status] || params[:publication_filter_option] || params[:publication_type]
+  end
+
+  def legacy_finder_query_params
+    level_one_taxon = params[:taxons].try(:first) || params[:topics].try(:first)
+    level_two_taxon = params[:subtaxons].try(:first)
+    level_one_taxon = nil if level_one_taxon == "all"
+    level_two_taxon = nil if level_two_taxon == "all"
+
+    {
+      keywords: params[:keywords],
+      level_one_taxon: level_one_taxon,
+      level_two_taxon: level_two_taxon,
+      organisations: filter_query_array(params[:departments] || params[:organisations]),
+      people: filter_query_array(params[:people]),
+      public_timestamp: { from: params[:from_date], to: params[:to_date] }.compact.presence,
+      roles: filter_query_array(params[:roles]),
+      topical_events: filter_query_array(params[:topical_events]),
+      world_locations: filter_query_array(params[:world_locations]),
+    }.compact
+  end
+
+  def filter_query_array(arr)
+    if arr.respond_to? "reject"
+      arr.reject { |v| v == "all" }.compact.presence
+    end
   end
 end
