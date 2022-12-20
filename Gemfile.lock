@@ -129,7 +129,7 @@ GEM
       webrick (~> 1.7)
     cucumber-tag-expressions (4.1.0)
     dalli (3.2.3)
-    date (3.3.1)
+    date (3.3.3)
     debug_inspector (1.1.0)
     declarative (0.0.20)
     diff-lcs (1.5.0)
@@ -189,7 +189,7 @@ GEM
     govuk_personalisation (0.12.0)
       plek (>= 1.9.0)
       rails (>= 6, < 8)
-    govuk_publishing_components (34.1.0)
+    govuk_publishing_components (34.1.1)
       govuk_app_config
       govuk_personalisation (>= 0.7.0)
       kramdown
@@ -331,7 +331,7 @@ GEM
       netrc (~> 0.8)
     retriable (3.1.2)
     rexml (3.2.5)
-    rouge (4.0.0)
+    rouge (4.0.1)
     rspec-core (3.11.0)
       rspec-support (~> 3.11.0)
     rspec-expectations (3.11.1)
