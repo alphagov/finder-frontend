@@ -7,7 +7,7 @@ gem "dalli"
 gem "gds-api-adapters"
 gem "google-apis-drive_v3"
 gem "govuk_ab_testing"
-gem "govuk_app_config"
+gem "govuk_app_config", github: "alphagov/govuk_app_config", branch: "csp-modernisation"
 gem "govuk_publishing_components"
 gem "mail", "~> 2.7.1"  # TODO: remove once https://github.com/mikel/mail/issues/1489 is fixed.
 gem "rest-client"
