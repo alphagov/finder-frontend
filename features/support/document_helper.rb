@@ -156,7 +156,7 @@ module DocumentHelper
   end
 
   def stub_search_api_request_with_filtered_research_and_statistics_results
-    Timecop.freeze(Time.zone.local("2019-01-01").utc)
+    Timecop.freeze(Time.zone.parse("2019-01-01").utc)
     stub_request(:get, "#{Plek.find('search-api')}/search.json")
       .with(query: hash_including(
         "filter_format" => %w[statistics_announcement],
