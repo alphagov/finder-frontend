@@ -10,7 +10,7 @@ class SortPresenter
 
     {
       options: options_as_hashes,
-      default_value: default_value,
+      default_value:,
       relevance_value: option_value(relevance_option),
     }
   end

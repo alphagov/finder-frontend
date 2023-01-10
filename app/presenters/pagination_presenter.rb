@@ -11,7 +11,7 @@ class PaginationPresenter
   def next_and_prev_links
     return unless can_paginate?
 
-    { previous_page: previous_page, next_page: next_page }.compact
+    { previous_page:, next_page: }.compact
   end
 
 private
@@ -27,7 +27,7 @@ private
   end
 
   def page_links
-    { previous_page: previous_page, next_page: next_page }.compact
+    { previous_page:, next_page: }.compact
   end
 
   def current_page
@@ -54,7 +54,7 @@ private
     {
       title: page_label,
       label: "#{page} of #{total_pages}",
-      url: url_builder.url(page: page),
+      url: url_builder.url(page:),
     }
   end
 end

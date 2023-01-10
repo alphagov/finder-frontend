@@ -16,13 +16,13 @@ class SortOptionPresenter
 
   def to_hash
     {
-      label: label,
-      value: value,
+      label:,
+      value:,
       data_track_category: "dropDownClicked",
       data_track_action: "clicked",
       data_track_label: label,
-      selected: selected,
-      disabled: disabled,
+      selected:,
+      disabled:,
     }
   end
 

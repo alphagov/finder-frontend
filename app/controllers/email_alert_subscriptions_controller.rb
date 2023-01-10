@@ -53,10 +53,10 @@ private
 
   def email_alert_signup_api
     EmailAlertSignupAPI.new(
-      applied_filters: applied_filters,
+      applied_filters:,
       default_filters: content["details"].fetch("filter", {}),
       facets: content["details"].fetch("email_filter_facets", []),
-      subscriber_list_title: subscriber_list_title,
+      subscriber_list_title:,
     )
   end
 

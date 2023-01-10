@@ -126,8 +126,8 @@ private
     {
       id: key,
       name: key,
-      value: value,
-      labels: labels,
+      value:,
+      labels:,
       type: "text",
     }
   end

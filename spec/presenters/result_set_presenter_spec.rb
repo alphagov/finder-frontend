@@ -12,7 +12,7 @@ RSpec.describe ResultSetPresenter do
       filter_params,
       sort_presenter,
       metadata_presenter_class,
-      debug_score: debug_score,
+      debug_score:,
       include_ecommerce: enable_ecommerce,
     )
   end

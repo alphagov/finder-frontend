@@ -83,8 +83,8 @@ module Search
       queries = QueryBuilder.new(
         finder_content_item: content_item,
         params: filter_params,
-        ab_params: ab_params,
-        override_sort_for_feed: override_sort_for_feed,
+        ab_params:,
+        override_sort_for_feed:,
       ).call
 
       if queries.one?

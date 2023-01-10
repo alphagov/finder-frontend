@@ -8,9 +8,9 @@ describe EmailAlertTitleBuilder do
 
   subject do
     described_class.call(
-      filter: filter,
-      subscription_list_title_prefix: subscription_list_title_prefix,
-      facets: facets,
+      filter:,
+      subscription_list_title_prefix:,
+      facets:,
     )
   end
 

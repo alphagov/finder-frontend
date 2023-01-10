@@ -7,7 +7,7 @@ class SignupLinksPresenter
 
   def signup_links
     {
-      feed_link: feed_link,
+      feed_link:,
       hide_heading: true,
       small_form: true,
       email_signup_link: email_signup_link.presence,
@@ -26,7 +26,7 @@ private
   end
 
   def feed_link
-    "#{content_item.base_path}.atom#{query_string(alert_query_params.merge(keywords: keywords))}"
+    "#{content_item.base_path}.atom#{query_string(alert_query_params.merge(keywords:))}"
   end
 
   def alert_query_params

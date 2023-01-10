@@ -31,7 +31,7 @@ class SearchResultPresenter
       },
       metadata: structure_metadata,
       metadata_raw: metadata,
-      subtext: subtext,
+      subtext:,
       parts: structure_parts,
     }
   end
@@ -77,7 +77,7 @@ private
     structured_parts = parts.map.with_index(1) do |part, index|
       has_required_data = %i[title slug body].all? { |key| part.key? key }
       unless has_required_data
-        GovukError.notify(MalformedPartError.new, extra: { part: part, link: link })
+        GovukError.notify(MalformedPartError.new, extra: { part:, link: })
         next
       end
       {

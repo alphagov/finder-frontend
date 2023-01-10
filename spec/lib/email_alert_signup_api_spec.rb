@@ -10,9 +10,9 @@ describe EmailAlertSignupAPI do
 
   let(:signup_api_wrapper) do
     described_class.new(
-      applied_filters: applied_filters,
-      default_filters: default_filters,
-      facets: facets,
+      applied_filters:,
+      default_filters:,
+      facets:,
       subscriber_list_title: "title",
     )
   end

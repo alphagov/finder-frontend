@@ -4,8 +4,8 @@ RSpec.describe SearchResultPresenter do
   let(:content_item) do
     FactoryBot.build(
       :content_item,
-      content_id: content_id,
-      link: link,
+      content_id:,
+      link:,
       details: {
         'show_summaries': show_summaries,
       },
@@ -20,13 +20,13 @@ RSpec.describe SearchResultPresenter do
 
   subject(:presenter) do
     SearchResultPresenter.new(
-      document: document,
-      rank: rank,
+      document:,
+      rank:,
       metadata_presenter_class: MetadataPresenter,
       doc_count: 10,
-      content_item: content_item,
-      facets: facets,
-      debug_score: debug_score,
+      content_item:,
+      facets:,
+      debug_score:,
     )
   end
   let(:debug_score) { false }
@@ -34,15 +34,15 @@ RSpec.describe SearchResultPresenter do
   let(:document) do
     FactoryBot.build(
       :document,
-      title: title,
-      link: link,
+      title:,
+      link:,
       description_with_highlighting: description,
-      is_historic: is_historic,
+      is_historic:,
       government_name: "Government!",
       format: "cake",
       es_score: 0.005,
-      combined_score: combined_score,
-      original_rank: original_rank,
+      combined_score:,
+      original_rank:,
       content_id: "content_id",
       filter_key: "filter_value",
       index: 1,
@@ -126,17 +126,17 @@ RSpec.describe SearchResultPresenter do
       let(:document) do
         FactoryBot.build(
           :document,
-          title: title,
-          link: link,
+          title:,
+          link:,
           description_with_highlighting: description,
-          is_historic: is_historic,
+          is_historic:,
           government_name: "Government!",
           format: "cake",
           es_score: 0.005,
           content_id: "content_id",
           filter_key: "filter_value",
           index: 1,
-          parts: parts,
+          parts:,
         )
       end
       it "shows only parts with required data" do
