@@ -39,7 +39,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
     if (inputType === 'checkbox') {
       $input.checked = false
       window.GOVUK.triggerEvent($input, 'change', { detail: { suppressAnalytics: true } })
-    } else if (inputType === 'text' || inputType === 'search') {
+    } else if (inputType === 'text' || inputType === 'search' || inputType === 'hidden') {
       /* By padding the haystack with spaces, we can remove the
        * first instance of " $needle ", and this will catch it in
        * the middle of the haystack, at the ends, and when the

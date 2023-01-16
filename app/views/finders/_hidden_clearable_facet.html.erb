@@ -1,12 +1,12 @@
-<div id="<%= hidden_clearable_facet.key %>" style="display: none">
-<%
-  key = hidden_clearable_facet.key
-  values = params[key]
-  key = "#{key}[]" if values.is_a?(Array)
--%>
-<% [values].flatten.each_with_index do |value, index| -%>
+<div id="<%= hidden_clearable_facet.key %>">
+  <%
+    key = hidden_clearable_facet.key
+    values = params[key]
+    key = "#{key}[]" if values.is_a?(Array)
+  -%>
+  <% [values].flatten.each_with_index do |value, index| -%>
 
 
-  <%= text_field_tag key, value, id: "#{hidden_clearable_facet.key}_#{index}" %>
-<% end -%>
+    <%= hidden_field_tag key, value, id: "#{hidden_clearable_facet.key}_#{index}" %>
+  <% end -%>
 </div>
