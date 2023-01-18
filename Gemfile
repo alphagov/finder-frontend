@@ -10,7 +10,6 @@ gem "google-apis-drive_v3"
 gem "govuk_ab_testing"
 gem "govuk_app_config"
 gem "govuk_publishing_components"
-gem "mail", "~> 2.8.0"  # TODO: remove once https://github.com/mikel/mail/issues/1489 is fixed.
 gem "rest-client"
 gem "sassc-rails"
 gem "slimmer"

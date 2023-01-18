@@ -483,7 +483,6 @@ DEPENDENCIES
   govuk_test
   launchy
   listen
-  mail (~> 2.8.0)
   pry-byebug
   rails (= 7.0.4)
   rails-controller-testing
