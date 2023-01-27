@@ -52,7 +52,13 @@
       window.ga('set', 'transport', 'beacon')
     }
 
-    this.Ga4EcommerceTracking()
+    if (document.readyState === 'complete') {
+      this.Ga4EcommerceTracking()
+    } else {
+      window.addEventListener('DOMContentLoaded', function () {
+        this.Ga4EcommerceTracking()
+      }.bind(this))
+    }
 
     this.focusErrorMessagesOnLoad(this.$form)
 
@@ -118,7 +124,13 @@
     }
     if (GOVUK.Ecommerce) { GOVUK.Ecommerce.start() }
 
-    this.Ga4EcommerceTracking(this.previousSearchUrl)
+    if (document.readyState === 'complete') {
+      this.Ga4EcommerceTracking(this.previousSearchUrl)
+    } else {
+      window.addEventListener('DOMContentLoaded', function () {
+        this.Ga4EcommerceTracking(this.previousSearchUrl)
+      }.bind(this))
+    }
   }
 
   LiveSearch.prototype.Ga4EcommerceTracking = function (referrer) {
