@@ -1,4 +1,4 @@
-<% cache_if option_select_facet.cacheable?, option_select_facet.cache_key do %>
+<% cache_if option_select_facet.cacheable?, option_select_facet.cache_key_with_version do %>
   <%= render partial: 'components/option-select', locals: {
     :key => option_select_facet.key,
     :title => option_select_facet.name,
