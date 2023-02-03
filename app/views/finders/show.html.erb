@@ -53,7 +53,7 @@
         <% end %>
         data-module="gem-track-click"
         >
-        <div id="js-search-results-info" data-module="remove-filter" class="result-info">
+        <div id="js-search-results-info" data-module="remove-filter" class="result-info <%= "govuk-!-margin-bottom-0" if result_set_presenter.has_sort_options %>">
           <div class="govuk-grid-row">
             <div class="govuk-grid-column-one-third">
               <div class="result-info__header">
