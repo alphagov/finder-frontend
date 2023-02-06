@@ -5,7 +5,8 @@
 <div class="finder-results js-finder-results">
   <%= render "govuk_publishing_components/components/document_list", {
     items: local_assigns[:document_list_component_data],
-    remove_underline: true
+    remove_underline: true,
+    remove_top_border_from_first_child: result_set_presenter.has_sort_options
   } %>
 </div>
 

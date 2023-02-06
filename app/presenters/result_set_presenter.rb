@@ -50,6 +50,10 @@ class ResultSetPresenter
     presenter[:options].find { |o| o[:selected] }
   end
 
+  def has_sort_options
+    sort_presenter.to_hash.blank? ? true : false
+  end
+
 private
 
   attr_reader :metadata_presenter_class, :sort_presenter, :total, :documents, :facets, :content_item
