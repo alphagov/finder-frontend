@@ -113,7 +113,7 @@ module Search
         finder_content_item,
         keywords,
         params,
-        override_sort_for_feed: override_sort_for_feed,
+        override_sort_for_feed:,
       ).call
     end
 

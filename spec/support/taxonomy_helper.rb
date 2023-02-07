@@ -16,7 +16,7 @@ module TaxonomySpecHelper
 private
 
   def has_root_taxon_with(level_one_taxon_hashes)
-    root_taxon_hash = FactoryBot.build(:root_taxon_hash, level_one_taxon_hashes: level_one_taxon_hashes)
+    root_taxon_hash = FactoryBot.build(:root_taxon_hash, level_one_taxon_hashes:)
     stub_content_store_has_item("/", root_taxon_hash)
   end
 

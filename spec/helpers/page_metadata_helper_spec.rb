@@ -10,7 +10,7 @@ describe PageMetadataHelper, type: :helper do
      { title: "org2", web_url: "http://www.gov.uk/org2" }]
   end
   let(:content_item) do
-    FactoryBot.build(:content_item, links: { organisations: organisations })
+    FactoryBot.build(:content_item, links: { organisations: })
   end
   let(:filter_params) { {} }
   subject(:subject) do

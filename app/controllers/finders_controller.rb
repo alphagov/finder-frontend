@@ -81,7 +81,7 @@ private
   end
 
   def render_component(partial, locals)
-    (render_to_string(formats: %i[html], partial: partial, locals: locals) || "").squish
+    (render_to_string(formats: %i[html], partial:, locals:) || "").squish
   end
 
   def result_set_presenter
@@ -102,7 +102,7 @@ private
   end
 
   def facets
-    @facets ||= FacetsBuilder.new(content_item: content_item, search_results: search_results, value_hash: filter_params).facets
+    @facets ||= FacetsBuilder.new(content_item:, search_results:, value_hash: filter_params).facets
   end
 
   def signup_links
@@ -171,7 +171,7 @@ private
     @facet_tags ||= FacetTagsPresenter.new(
       facets.select(&:filterable?),
       sort_presenter,
-      i_am_a_topic_page_finder: i_am_a_topic_page_finder,
+      i_am_a_topic_page_finder:,
     )
   end
 
@@ -337,8 +337,8 @@ private
 
     {
       keywords: params[:keywords],
-      level_one_taxon: level_one_taxon,
-      level_two_taxon: level_two_taxon,
+      level_one_taxon:,
+      level_two_taxon:,
       organisations: filter_query_array(params[:departments] || params[:organisations]),
       people: filter_query_array(params[:people]),
       public_timestamp: { from: params[:from_date], to: params[:to_date] }.compact.presence,

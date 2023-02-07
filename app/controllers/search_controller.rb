@@ -20,7 +20,7 @@ protected
 
   def fill_in_slimmer_headers(result_count)
     set_slimmer_headers(
-      result_count: result_count,
+      result_count:,
       section: "search",
     )
   end

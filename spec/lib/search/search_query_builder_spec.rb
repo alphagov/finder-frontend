@@ -3,8 +3,8 @@ require "spec_helper"
 describe Search::QueryBuilder do
   subject(:queries) do
     described_class.new(
-      finder_content_item: finder_content_item,
-      params: params,
+      finder_content_item:,
+      params:,
     ).call
   end
 
@@ -270,8 +270,8 @@ describe Search::QueryBuilder do
         }
 
         query = described_class.new(
-          finder_content_item: finder_content_item,
-          params: params,
+          finder_content_item:,
+          params:,
         ).call.first
 
         expect(query).to include("q" => "mango")
@@ -284,8 +284,8 @@ describe Search::QueryBuilder do
         }
 
         query = described_class.new(
-          finder_content_item: finder_content_item,
-          params: params,
+          finder_content_item:,
+          params:,
         ).call.first
 
         expect(query).to include("q" => "mango")
@@ -298,8 +298,8 @@ describe Search::QueryBuilder do
         }
 
         query = described_class.new(
-          finder_content_item: finder_content_item,
-          params: params,
+          finder_content_item:,
+          params:,
         ).call.first
 
         expect(query).to include("q" => "mango")
@@ -312,8 +312,8 @@ describe Search::QueryBuilder do
         }
 
         query = described_class.new(
-          finder_content_item: finder_content_item,
-          params: params,
+          finder_content_item:,
+          params:,
         ).call.first
 
         expect(query).to include("q" => "50")
@@ -349,8 +349,8 @@ describe Search::QueryBuilder do
 
     it "should include an A/B query" do
       query = described_class.new(
-        finder_content_item: finder_content_item,
-        ab_params: ab_params,
+        finder_content_item:,
+        ab_params:,
       ).call.first
 
       expect(query).to include("ab_tests" => "test_one:a,test_two:b")
@@ -410,8 +410,8 @@ describe Search::QueryBuilder do
 
     def query_with_params(params)
       described_class.new(
-        finder_content_item: finder_content_item,
-        params: params,
+        finder_content_item:,
+        params:,
       ).call.first
     end
   end

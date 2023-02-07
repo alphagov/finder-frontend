@@ -17,7 +17,7 @@ class FacetTagsPresenter
       FacetTagPresenter.new(
         filter.sentence_fragment,
         filter.hide_facet_tag?,
-        i_am_a_topic_page_finder: i_am_a_topic_page_finder,
+        i_am_a_topic_page_finder:,
       ).present
     }.reject(&:empty?)
   end

@@ -98,7 +98,7 @@ describe FacetsBuilder do
 
   describe "facets" do
     subject(:facet) do
-      FacetsBuilder.new(content_item: content_item, search_results: {}, value_hash: {}).facets.first
+      FacetsBuilder.new(content_item:, search_results: {}, value_hash: {}).facets.first
     end
     let(:detail_hash) do
       {
@@ -177,7 +177,7 @@ describe FacetsBuilder do
 
   describe "allowed values" do
     subject(:facet) do
-      FacetsBuilder.new(content_item: content_item, search_results: search_results, value_hash: {}).facets.first
+      FacetsBuilder.new(content_item:, search_results:, value_hash: {}).facets.first
     end
 
     let(:search_results) do
