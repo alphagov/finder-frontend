@@ -46,7 +46,7 @@ private
   end
 
   def hash_with_default_as_array
-    Hash.new { |hash, key| hash[key] = []; }
+    Hash.new { |hash, key| hash[key] = [] }
   end
 
   def facet_filter_key(facet)
