@@ -96,6 +96,7 @@ private
     return {} unless @include_ecommerce
 
     {
+      ga4_ecommerce_path: link,
       ecommerce_path: link,
       ecommerce_row: 1,
       ecommerce_index: document.index,
