@@ -177,7 +177,7 @@ GEM
       os (>= 0.9, < 2.0)
       signet (>= 0.16, < 2.a)
     govuk_ab_testing (2.4.2)
-    govuk_app_config (5.0.0)
+    govuk_app_config (5.1.0)
       logstasher (~> 2.1)
       plek (>= 4, < 6)
       prometheus_exporter (~> 2.0)
