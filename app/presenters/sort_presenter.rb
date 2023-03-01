@@ -2,7 +2,7 @@ class SortPresenter
   def initialize(content_item, filter_params)
     @user_selected_order = filter_params["order"]
     @keywords = filter_params["keywords"]
-    @content_item_sort_options = content_item.sort_options
+    @content_item_sort_options = content_item.base_path == "/find-licences" ? licence_transaction_sort_options : content_item.sort_options
   end
 
   def to_hash
@@ -28,8 +28,6 @@ class SortPresenter
   end
 
   def sort_options
-    return licence_transaction_sort_options if content_item.document_type == "licence_transaction"
-
     content_item_sort_options
   end
 
