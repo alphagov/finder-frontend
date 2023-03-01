@@ -41,10 +41,10 @@ private
 
   def licence_transaction_sort_options
     [
-      { name: "Most viewed", key: "-popularity" },
-      { name: "Relevance", key: "-relevance" },
-      { name: "Updated (newest)", key: "-public_timestamp", default: true },
-      { name: "Updated (oldest)", key: "public_timestamp" },
+      { "name" => "Most viewed", "key" => "-popularity" },
+      { "name" => "Relevance", "key" => "-relevance" },
+      { "name" => "Updated (newest)", "key" => "-public_timestamp", default: true },
+      { "name" => "Updated (oldest)", "key" => "public_timestamp" },
     ]
   end
 
