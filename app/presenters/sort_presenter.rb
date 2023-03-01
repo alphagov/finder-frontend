@@ -41,7 +41,7 @@ private
 
   def licence_transaction_sort_options
     [
-      { "name" => "Alphabetical", "key" => "-title" },
+      { "name" => "Alphabetical", "key" => "title" },
       { "name" => "Relevance", "key" => "-relevance", "default": true },
       { "name" => "Updated (newest)", "key" => "-public_timestamp" },
       { "name" => "Updated (oldest)", "key" => "public_timestamp" },
