@@ -28,6 +28,8 @@ class SortPresenter
   end
 
   def sort_options
+    return licence_transaction_sort_options if content_item.document_type == "licence_transaction"
+
     content_item_sort_options
   end
 
@@ -38,6 +40,15 @@ private
   RELEVANCE_OPTION_TYPES = %w[relevance -relevance].freeze
 
   POPULARITY_OPTION_TYPES = %w[popularity -popularity].freeze
+
+  def licence_transaction_sort_options
+    [
+      { name: "Most viewed", key: "-popularity" },
+      { name: "Relevance", key: "-relevance" },
+      { name: "Updated (newest)", key: "-public_timestamp", default: true },
+      { name: "Updated (oldest)", key: "public_timestamp" },
+    ]
+  end
 
   def has_options?
     content_item_sort_options.any?
