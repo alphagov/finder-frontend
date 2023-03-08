@@ -40,6 +40,8 @@ mark {
 }
 
 .filter-form {
+  position: relative;
+
   .js-enabled & .button__wrapper {
     display: none;
   }
