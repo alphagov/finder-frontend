@@ -42,7 +42,8 @@ private
   def licence_transaction_sort_options
     [
       { "name" => "Alphabetical", "key" => "title" },
-      { "name" => "Original Rank", "key" => "original_rank" },
+      { "name" => "ES Score", "key" => "es_score" },
+      { "name" => "ES Score -ve", "key" => "-es_score" },
       { "name" => "Relevance", "key" => "-relevance", "default": true },
       { "name" => "Updated (newest)", "key" => "-public_timestamp" },
       { "name" => "Updated (oldest)", "key" => "public_timestamp" },
