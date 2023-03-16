@@ -94,6 +94,10 @@
   }
 }
 
+.app-c-option-select__container--large {
+  max-height: 500px;
+}
+
 .app-c-option-select__container-inner {
   padding: govuk-spacing(1) 13px;
 }
@@ -130,6 +134,10 @@
 
   .app-c-option-select__container {
     height: 200px;
+  }
+
+  .app-c-option-select__container--large {
+    height: 500px;
   }
 
   [data-closed-on-load="true"] .app-c-option-select__container {
