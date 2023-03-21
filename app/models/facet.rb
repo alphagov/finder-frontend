@@ -32,6 +32,10 @@ class Facet
   end
 
   def large?
+    if facet["name"] == "Industry"
+      return true
+    end
+
     facet["large"] || false
   end
 

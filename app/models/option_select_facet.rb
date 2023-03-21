@@ -58,12 +58,8 @@ class OptionSelectFacet < FilterableFacet
     { key => selected_values.map { |value| value["value"] } }
   end
 
-  def closed_on_load?(option_select_facet_counter)
-    if open_on_load?
-      return false
-    end
-
-    closed_by_default?(option_select_facet_counter)
+  def closed_on_load?
+    false
   end
 
 private
