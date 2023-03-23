@@ -35,11 +35,12 @@ describe Search::Query do
   let(:filter_params) { { "alpha" => "foo" } }
   let(:batch_search_filter_params) { { "alpha" => "foo", "beta" => "bar" } }
 
-  def result_item(id, title, score:, popularity:, updated:)
+  def result_item(id, title, score:, popularity:, updated:, combined_score: nil)
     {
       "_id" => id,
       "title" => title,
       "es_score" => score,
+      "combined_score" => combined_score || score,
       "popularity" => popularity,
       "public_timestamp" => updated,
     }
@@ -184,6 +185,16 @@ describe Search::Query do
         end
       end
 
+      # context "es-score-only" do
+      #   subject { described_class.new(content_item, batch_search_filter_params.merge("order" => "es-score-only")).search_results }
+
+      #   it "de-duplicates and sorts by pure elasticsearch relevancy descending" do
+      #     results = subject.fetch("results")
+      #     expect(results.first).to match(hash_including("_id" => "/hmrc"))
+      #     expect(results.second).to match(hash_including("_id" => "/hmrc"))
+      #   end
+      # end
+
       context "with valid date params" do
         let(:valid_date_params) { { public_timestamp: { to: "01/01/01", from: "01/02/01" } } }
         subject { described_class.new(content_item, valid_date_params) }
@@ -208,6 +219,49 @@ describe Search::Query do
           query = described_class.new(content_item, invalid_from_date_params)
           expect(query.valid?).to be false
           expect(query.errors.messages).to eq(from_date: ["Enter a real date"])
+        end
+      end
+    end
+
+    context "when combined and raw es scores differ" do
+      before do
+        stub_batch_search.to_return(body:
+        {
+          "results" => [
+            {
+              "results" => [
+                result_item("/register-to-vote", "Register to Vote", score: 3, combined_score: 1, updated: "14-12-19", popularity: 3),
+              ],
+            },
+            {
+              "results" => [
+                result_item("/hmrc", "HMRC", score: 1, combined_score: 10, updated: "14-12-18", popularity: 2),
+                result_item("/register-to-vote", "Register to Vote", score: 2, combined_score: 2, updated: "14-12-19", popularity: 3),
+              ],
+            },
+          ],
+        }.to_json)
+      end
+
+      it_behaves_like "sorts by other fields"
+
+      context "default" do
+        subject { described_class.new(content_item, batch_search_filter_params).search_results }
+
+        it "de-duplicates and sorts by combined score descending" do
+          results = subject.fetch("results")
+          expect(results.first).to match(hash_including("title" => "HMRC"))
+          expect(results.second).to match(hash_including("title" => "Register to Vote"))
+        end
+      end
+
+      context "es-score-only" do
+        subject { described_class.new(content_item, batch_search_filter_params.merge("order" => "es-score-only")).search_results }
+
+        it "de-duplicates and sorts by es score descending" do
+          results = subject.fetch("results")
+          expect(results.first).to match(hash_including("title" => "Register to Vote"))
+          expect(results.second).to match(hash_including("title" => "HMRC"))
         end
       end
     end

@@ -64,9 +64,21 @@ module Search
         raw_results.sort_by { |hash| hash["public_timestamp"] }.reverse
       when "a-to-z"
         raw_results.sort_by { |hash| hash["title"] }
+      when "es-score-only"
+        sort_by_es_score(raw_results)
       else
         sort_by_relevance(raw_results)
       end
+    end
+
+    def sort_by_es_score(raw_results)
+      return raw_results unless es_scores_exist?(raw_results)
+
+      raw_results.sort_by { |hash| hash["es_score"] }.reverse
+    end
+
+    def es_scores_exist?(results)
+      results.all? { |result| result["es_score"].present? }
     end
 
     def sort_by_relevance(raw_results)
