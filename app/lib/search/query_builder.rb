@@ -31,6 +31,7 @@ module Search
         debug_query,
         ab_query,
         suggest_query,
+        boost_fields_query,
       ].reduce(&:merge)
 
       return [base_query] if filter_queries.empty?
@@ -238,6 +239,16 @@ module Search
 
     def suggest_query
       { "suggest" => "spelling_with_highlighting" }
+    end
+
+    def boost_fields_query
+      return {} unless licence_transaction_path?
+
+      { "boost_fields" => "licence_transaction_industry" }
+    end
+
+    def licence_transaction_path?
+      finder_content_item.base_path == "/find-licences"
     end
 
     def stopwords
