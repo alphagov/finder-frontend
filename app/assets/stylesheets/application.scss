@@ -15,6 +15,4 @@ $govuk-include-default-font-face: false;
 // for guidance
 @import "govuk_publishing_components/govuk_frontend_support";
 
-@import "components/*";
 @import "finder_frontend";
-@import "views/search";
