@@ -1,9 +1,20 @@
+<% content_for :body do %>
+  <%= yield :breadcrumbs %>
+  <main id="content" class="finder-frontend-content">
+    <div class="finder-frontend">
+      <%= yield %>
+    </div>
+  </main>
+<% end %>
 <% @omit_feedback_footer ||= nil %>
 <!DOCTYPE html>
 <html>
   <head>
     <title><%= yield :title %> - GOV.UK</title>
     <%= stylesheet_link_tag "application", media: "all", integrity: false %>
+    <%=
+      render_component_stylesheets
+    %>
     <%= javascript_include_tag 'test-dependencies.js' if Rails.env.test? %>
     <%= javascript_include_tag 'application', integrity: false %>
     <%= csrf_meta_tags %>
@@ -17,12 +28,7 @@
 
   <body class="<%= yield :body_classes %>">
     <div id="wrapper">
-      <%= yield :breadcrumbs %>
-      <main id="content" class="finder-frontend-content">
-        <div class="finder-frontend">
-          <%= yield %>
-        </div>
-      </main>
+      <%= yield :body %>
     </div>
   </body>
 </html>

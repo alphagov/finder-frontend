@@ -1,9 +1,15 @@
+<% content_for :body do %>
+  <%= yield %>
+<% end %>
 <!DOCTYPE html>
 <html>
   <head>
     <title><%= yield :title %> - GOV.UK</title>
     <link title="Search" rel="search" type="application/opensearchdescription+xml" href="/search/opensearch.xml"/>
     <%= stylesheet_link_tag "application", media: "all", integrity: false %>
+    <%=
+      render_component_stylesheets
+    %>
     <%= javascript_include_tag 'application', integrity: false %>
     <% if @content_item %>
       <%= render 'govuk_publishing_components/components/meta_tags', content_item: @content_item.as_hash %>
@@ -13,7 +19,7 @@
 
   <body class="mainstream <%= yield :body_classes %>">
     <div id="wrapper" class="govuk-width-container">
-      <%= yield %>
+      <%= yield :body %>
     </div>
   </body>
 </html>
