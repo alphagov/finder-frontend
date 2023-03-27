@@ -51,6 +51,12 @@ mark {
   }
 }
 
+@include govuk-media-query($media-type: print) {
+  .filter-form {
+    display: none;
+  }
+}
+
 .signup-choices {
   @include govuk-font(19);
   margin-top: 50px;
@@ -97,6 +103,29 @@ mark {
   .filtered-results__facet-heading {
     @include govuk-font($size: 24, $weight: bold);
     margin-bottom: govuk-spacing(4);
+  }
+}
+
+@include govuk-media-query($media-type: print) {
+  .filtered-results {
+    margin-top: 20px;
+    clear: both;
+
+    a,
+    dl,
+    ul,
+    li {
+      margin: 0;
+    }
+
+    ul {
+      padding: 0;
+    }
+
+    a {
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
   }
 }
 

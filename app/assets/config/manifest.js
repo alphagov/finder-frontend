@@ -3,4 +3,3 @@
 //= link test-dependencies.js
 //= link live_search.js
 //= link application.css
-//= link print.css
