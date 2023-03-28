@@ -266,19 +266,21 @@ mark {
   @include govuk-responsive-margin(4, "bottom");
 }
 
-.sort-options__label {
-  @include govuk-responsive-padding(1, "right");
-  display: inline-block;
-  margin-bottom: govuk-spacing(3);
+.sort-options {
+  .sort-options__label {
+    @include govuk-responsive-padding(1, "right");
+    display: inline-block;
+    margin-bottom: govuk-spacing(3);
 
-  @include govuk-media-query($from: tablet) {
-    font-size: 16px;
+    @include govuk-media-query($from: tablet) {
+      font-size: 16px;
+    }
   }
-}
 
-.sort-options__select {
-  @include govuk-media-query($from: tablet) {
-    font-size: 16px;
+  .sort-options__select {
+    @include govuk-media-query($from: tablet) {
+      font-size: 16px;
+    }
   }
 }
 
