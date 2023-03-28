@@ -260,6 +260,10 @@ mark {
     @include govuk-responsive-margin(4, "bottom");
     color: govuk-colour("black");
   }
+
+  .gem-c-intervention {
+    margin-bottom: 0;
+  }
 }
 
 .govspeak-wrapper {
@@ -326,10 +330,6 @@ mark {
   .gem-c-govspeak {
     color: govuk-colour("white");
   }
-}
-
-.gem-c-intervention {
-  margin-bottom: 0;
 }
 
 .app-c-button-as-link {
