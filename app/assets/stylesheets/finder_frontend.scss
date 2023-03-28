@@ -264,6 +264,19 @@ mark {
   .gem-c-intervention {
     margin-bottom: 0;
   }
+
+  .gem-c-subscription-links {
+    @include govuk-media-query($until: tablet) {
+      margin-bottom: govuk-spacing(2);
+    }
+  }
+
+  // NOTE: used to override govspeak component when it's used on an inverse header
+  .gem-c-inverse-header {
+    .gem-c-govspeak {
+      color: govuk-colour("white");
+    }
+  }
 }
 
 .govspeak-wrapper {
@@ -324,14 +337,6 @@ mark {
   }
 }
 
-// NOTE: used to override govspeak component when it's used on an inverse header
-
-.gem-c-inverse-header {
-  .gem-c-govspeak {
-    color: govuk-colour("white");
-  }
-}
-
 .app-c-button-as-link {
   padding: 0;
   border-width: 0;
@@ -351,12 +356,6 @@ mark {
   &::-moz-focus-inner {
     padding: 0;
     border: 0;
-  }
-}
-
-.gem-c-subscription-links {
-  @include govuk-media-query($until: tablet) {
-    margin-bottom: govuk-spacing(2);
   }
 }
 
