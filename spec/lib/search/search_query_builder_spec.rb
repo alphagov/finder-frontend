@@ -238,6 +238,18 @@ describe Search::QueryBuilder do
       end
     end
 
+    context "with field boosts" do
+      let(:finder_content_item) do
+        ContentItem.new(
+          "base_path" => "/find-licences",
+        )
+      end
+
+      it "should include field boosts for eligible content items" do
+        expect(query).to include("boost_fields" => "licence_transaction_industry")
+      end
+    end
+
     context "without stopwords" do
       let(:params) do
         {
