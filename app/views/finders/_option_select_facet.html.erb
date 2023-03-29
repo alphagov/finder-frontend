@@ -1,3 +1,6 @@
+<% add_app_component_stylesheet("option-select") %>
+<% add_gem_component_stylesheet("checkboxes") %>
+
 <% cache_if option_select_facet.cacheable?, option_select_facet.cache_key do %>
   <%= render partial: 'components/option-select', locals: {
     :key => option_select_facet.key,
