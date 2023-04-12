@@ -58,6 +58,12 @@ class OptionSelectFacet < FilterableFacet
     { key => selected_values.map { |value| value["value"] } }
   end
 
+  def closed_on_load?(option_select_facet_counter)
+    return false if open_on_load?
+
+    closed_by_default?(option_select_facet_counter)
+  end
+
 private
 
   def value_fragments
@@ -78,5 +84,13 @@ private
         @value.include?(option["value"])
       end
     end
+  end
+
+  def open_on_load?
+    facet["open_on_load"] || false
+  end
+
+  def closed_by_default?(option_select_facet_counter)
+    option_select_facet_counter.positive? && unselected?
   end
 end
