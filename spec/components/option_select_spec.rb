@@ -79,6 +79,14 @@ describe "components/_option-select.html.erb", type: :view do
     expect(rendered).to have_selector("\#list-of-sectors.app-c-option-select__container")
   end
 
+  it "renders the large version of the component" do
+    arguments = option_select_arguments
+    arguments[:large] = true
+    render_component(arguments)
+
+    expect(rendered).to have_selector(".app-c-option-select__container--large")
+  end
+
   it "can begin with the options box closed on load" do
     arguments = option_select_arguments
     arguments[:closed_on_load] = true

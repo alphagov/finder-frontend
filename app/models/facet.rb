@@ -31,6 +31,10 @@ class Facet
     facet["hide_facet_tag"] || false
   end
 
+  def large?
+    facet["large"] || false
+  end
+
   def filterable?
     facet["filterable"] || false
   end

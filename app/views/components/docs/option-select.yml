@@ -249,3 +249,95 @@ examples:
       - value: trinidad
         label: Trinidad & Tobago
         id: trinidad
+  large:
+    description: When `large` is set to `true`, the option-select container has an increased max-height of 600px, allowing more checkbox items to be visible.
+    data:
+      key: large_demo
+      title: Countries
+      options_container_id: list_of_countries_to_filter_large
+      large: true
+      options:
+      - value: afghanistan
+        label: Afghanistan
+        id: afghanistanLargeExample
+      - value: albania
+        label: Albania
+        id: albaniaLargeExample
+      - value: algeria
+        label: Algeria
+        id: algeriaLargeExample
+      - value: american_samoa
+        label: American Samoa
+        id: american_samoaLargeExample
+      - value: andorra
+        label: Andorra
+        id: andorraLargeExample
+      - value: angola
+        label: Angola
+        id: angolaLargeExample
+      - value: anguilla
+        label: Anguilla
+        id: anguillaLargeExample
+      - value: antigua_and_barbuda
+        label: Antigua and Barbuda
+        id: antigua_and_barbudaLargeExample
+      - value: argentina
+        label: Argentina
+        id: argentinaLargeExample
+      - value: armenia
+        label: Armenia
+        id: armeniaLargeExample
+      - value: aruba
+        label: Aruba
+        id: arubaLargeExample
+      - value: australia
+        label: Australia
+        id: australiaLargeExample
+      - value: austria
+        label: Austria
+        id: austriaLargeExample
+      - value: azerbaijan
+        label: Azerbaijan
+        id: azerbaijanLargeExample
+      - value: bahamas
+        label: Bahamas
+        id: bahamasLargeExample
+      - value: bahrain
+        label: Bahrain
+        id: bahrainLargeExample
+      - value: bangladesh
+        label: Bangladesh
+        id: bangladeshLargeExample
+      - value: barbados
+        label: Barbados
+        id: barbadosLargeExample
+      - value: belarus
+        label: Belarus
+        id: belarusLargeExample
+      - value: belgium
+        label: Belgium
+        id: belgiumLargeExample
+      - value: belize
+        label: Belize
+        id: belizeLargeExample
+      - value: benin
+        label: Benin
+        id: beninLargeExample
+      - value: bermuda
+        label: Bermuda
+        id: bermudaLargeExample
+      - value: bhutan
+        label: Bhutan
+        id: bhutanLargeExample
+      - value: bolivia
+        label: Bolivia
+        id: boliviaLargeExample
+      - value: cote
+        label: Cote d'Ivoire
+        id: coteLargeExample
+      - value: sthelena
+        label: St Helena, Ascension and Tristan da Cunha
+        id: sthelenaLargeExample
+      - value: trinidad
+        label: Trinidad & Tobago
+        id: trinidadLargeExample

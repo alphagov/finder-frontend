@@ -6,7 +6,8 @@
     :options_container_id => option_select_facet.key,
     :options => option_select_facet.options("js-search-results-info", option_select_facet.key),
     :closed_on_load => option_select_facet.closed_on_load?(option_select_facet_counter),
-    :show_filter => option_select_facet.show_option_select_filter
+    :show_filter => option_select_facet.show_option_select_filter,
+    :large => option_select_facet.large?
   }
   %>
 <% end %>
