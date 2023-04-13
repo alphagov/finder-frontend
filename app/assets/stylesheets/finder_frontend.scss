@@ -51,6 +51,12 @@ mark {
   }
 }
 
+@include govuk-media-query($media-type: print) {
+  .filter-form {
+    display: none;
+  }
+}
+
 .signup-choices {
   @include govuk-font(19);
   margin-top: 50px;
@@ -97,6 +103,29 @@ mark {
   .filtered-results__facet-heading {
     @include govuk-font($size: 24, $weight: bold);
     margin-bottom: govuk-spacing(4);
+  }
+}
+
+@include govuk-media-query($media-type: print) {
+  .filtered-results {
+    margin-top: 20px;
+    clear: both;
+
+    a,
+    dl,
+    ul,
+    li {
+      margin: 0;
+    }
+
+    ul {
+      padding: 0;
+    }
+
+    a {
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
   }
 }
 
@@ -231,25 +260,48 @@ mark {
     @include govuk-responsive-margin(4, "bottom");
     color: govuk-colour("black");
   }
+
+  .govuk-checkboxes__label {
+    margin-bottom: 0;
+  }
+
+  .gem-c-intervention {
+    margin-bottom: 0;
+  }
+
+  .gem-c-subscription-links {
+    @include govuk-media-query($until: tablet) {
+      margin-bottom: govuk-spacing(2);
+    }
+  }
+
+  // NOTE: used to override govspeak component when it's used on an inverse header
+  .gem-c-inverse-header {
+    .gem-c-govspeak {
+      color: govuk-colour("white");
+    }
+  }
 }
 
 .govspeak-wrapper {
   @include govuk-responsive-margin(4, "bottom");
 }
 
-.sort-options__label {
-  @include govuk-responsive-padding(1, "right");
-  display: inline-block;
-  margin-bottom: govuk-spacing(3);
+.sort-options {
+  .sort-options__label {
+    @include govuk-responsive-padding(1, "right");
+    display: inline-block;
+    margin-bottom: govuk-spacing(3);
 
-  @include govuk-media-query($from: tablet) {
-    font-size: 16px;
+    @include govuk-media-query($from: tablet) {
+      font-size: 16px;
+    }
   }
-}
 
-.sort-options__select {
-  @include govuk-media-query($from: tablet) {
-    font-size: 16px;
+  .sort-options__select {
+    @include govuk-media-query($from: tablet) {
+      font-size: 16px;
+    }
   }
 }
 
@@ -289,18 +341,6 @@ mark {
   }
 }
 
-// NOTE: used to override govspeak component when it's used on an inverse header
-
-.gem-c-inverse-header {
-  .gem-c-govspeak {
-    color: govuk-colour("white");
-  }
-}
-
-.gem-c-intervention {
-  margin-bottom: 0;
-}
-
 .app-c-button-as-link {
   padding: 0;
   border-width: 0;
@@ -320,12 +360,6 @@ mark {
   &::-moz-focus-inner {
     padding: 0;
     border: 0;
-  }
-}
-
-.gem-c-subscription-links {
-  @include govuk-media-query($until: tablet) {
-    margin-bottom: govuk-spacing(2);
   }
 }
 

@@ -9,7 +9,7 @@ describe "components/_date-filter", type: :view do
   it "returns two text fields with associated labels when key and name provided" do
     render partial: "components/date-filter", locals: { key: "key", name: "name" }
 
-    expect(rendered).to have_selector(".app-c-date-filter")
+    expect(rendered).to have_selector("#key")
 
     expect(rendered).to have_selector("input[name='key\[to\]']")
     expect(rendered).to have_selector("input[name='key\[from\]']")
