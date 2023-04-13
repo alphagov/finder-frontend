@@ -1,6 +1,4 @@
 class FindersController < ApplicationController
-  include ResearchBannerHelper
-
   layout "finder_layout"
 
   before_action do
@@ -13,8 +11,6 @@ class FindersController < ApplicationController
     respond_to do |format|
       format.html do
         raise UnsupportedContentItem unless content_item.is_finder?
-
-        @show_banner = show_banner?(request.path)
 
         if legacy_params_present?
           transform_legacy_announcement_params_and_redirect if content_item.base_path == "/search/news-and-communications"
