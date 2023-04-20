@@ -5,7 +5,16 @@
 <% end %>
 
 <main id="content" class="search-wrapper search-wrapper--no-search-term">
-  <form action="/search" method="get" accept-charset="utf-8" class="search-header" role="search">
+  <form
+    action="/search"
+    method="get"
+    accept-charset="utf-8"
+    class="search-header"
+    role="search"
+    data-module="ga4-form-tracker"
+    data-ga4-form-include-text
+    data-ga4-form='{"event_name": "search", "type": "finder", "url": "/search/all", "section": "Search", "action": "search"}'
+  >
     <%= render 'search_field' %>
   </form>
 </main>
