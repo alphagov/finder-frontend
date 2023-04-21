@@ -7,7 +7,7 @@
     <% end %>
   <% end %>
   <% if !content_item.all_content_finder? %>
-    <div id="keywords" role="search" aria-label="<%= content_item.title %>">
+    <div id="keywords" role="search" aria-label="<%= content_item.title %>" data-ga4-change-category="update-keyword text">
       <% label_text = capture do %>
         Search <span class="govuk-visually-hidden"><%= content_item.title %></span>
       <% end %>
@@ -45,7 +45,7 @@
             } %>
           </div>
         </div>
-        <div class="facets__content">
+        <div class="facets__content" data-ga4-filter-container>
           <%= render facets.select(&:filterable?) %>
           <div class="facets__tags-block js-mobile-facet-tag-block"  data-module="remove-filter">
             <%= render "facet_tags", facet_tags.present %>

@@ -2,7 +2,7 @@
   <%= render "components/expander", {
     title: "Topic"
   } do %>
-    <div class="js-taxonomy-select">
+    <div class="js-taxonomy-select" data-ga4-change-category="update-filter select">
       <%= render "govuk_publishing_components/components/select", {
         id: 'level_one_taxon',
         label: "Topic",

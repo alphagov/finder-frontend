@@ -54,9 +54,11 @@
 
     if (document.readyState === 'complete') {
       this.Ga4EcommerceTracking()
+      this.ga4SetFilterIndexes()
     } else {
       window.addEventListener('DOMContentLoaded', function () {
         this.Ga4EcommerceTracking()
+        this.ga4SetFilterIndexes()
       }.bind(this))
     }
 
@@ -67,19 +69,23 @@
     if (this.$searchSubmitButton) {
       this.$searchSubmitButton.addEventListener('click', function (e) {
         e.preventDefault()
-        this.formChange()
+        this.formChange(e)
       }.bind(this))
     }
 
     if (GOVUK.support.history()) {
       this.saveState()
 
-      this.$form.addEventListener('change', this.formChange.bind(this))
+      this.$form.addEventListener('change', function (e) {
+        this.formChange(e)
+      }.bind(this))
 
       // custom event listener on the form, that fires the update only once
       // when we clear of filters
       // fired from javascripts/modules/mobile-filters-modal.js
-      this.$form.addEventListener('customFormChange', this.formChange.bind(this))
+      this.$form.addEventListener('customFormChange', function (e) {
+        this.formChange(e)
+      }.bind(this))
 
       this.handleKeyPress = function (e) {
         var ENTER_KEY = 13
@@ -90,7 +96,7 @@
           if (e.currentTarget.value !== this.previousSearchTerm && !suppressAnalytics) {
             LiveSearch.prototype.fireTextAnalyticsEvent(e)
           }
-          this.formChange()
+          this.formChange(e)
           this.previousSearchTerm = e.currentTarget.value
           e.preventDefault()
         }
@@ -195,14 +201,14 @@
     }
   }
 
-  LiveSearch.prototype.formChange = function formChange () {
+  LiveSearch.prototype.formChange = function formChange (e) {
     if (this.isNewState()) {
       this.getAndUpdateTaxonomyFacet()
       this.saveState()
       this.updateOrder()
       this.updateLinks()
       this.updateTitle()
-      this.updateResults()
+      this.updateResults(e)
     }
   }
 
@@ -386,7 +392,7 @@
     }
   }
 
-  LiveSearch.prototype.updateResults = function updateResults () {
+  LiveSearch.prototype.updateResults = function updateResults (formChangeEvent) {
     var searchState = this.serializeState(this.state)
     var cachedResultData = this.cache(searchState)
     var liveSearch = this
@@ -402,6 +408,7 @@
           var response = JSON.parse(e.target.response)
           liveSearch.updateUrl()
           liveSearch.cache(liveSearch.serializeState(liveSearch.state), response)
+          liveSearch.ga4TrackFormChange(formChangeEvent) // Must be above displayResults, as if the DOM changes formChangeEvent.target.closest breaks.
           liveSearch.displayResults(response, searchState)
           liveSearch.trackSearch()
         } else {
@@ -415,6 +422,7 @@
       xhr.send()
     } else {
       this.updateUrl()
+      this.ga4TrackFormChange(formChangeEvent) // Must be above displayResults, as if the DOM changes formChangeEvent.target.closest breaks.
       this.displayResults(cachedResultData, searchState)
       this.trackSearch()
     }
@@ -578,6 +586,41 @@
           inputParent.classList.remove('govuk-form-group--error')
         }
         $input.setAttribute('aria-describedby', '')
+      }
+    }
+  }
+
+  LiveSearch.prototype.ga4TrackFormChange = function ga4TrackFormChange (event) {
+    if (event) {
+      var ga4ChangeCategory = event.target.closest('[data-ga4-change-category]')
+      if (ga4ChangeCategory) {
+        ga4ChangeCategory = ga4ChangeCategory.getAttribute('data-ga4-change-category')
+
+        if (GOVUK.analyticsGa4 && GOVUK.analyticsGa4.Ga4FinderTracker) {
+          var consentCookie = GOVUK.getConsentCookie()
+
+          if (consentCookie && consentCookie.settings) {
+            GOVUK.analyticsGa4.Ga4FinderTracker.trackChangeEvent(event.target, ga4ChangeCategory)
+          }
+        }
+      }
+    }
+  }
+
+  LiveSearch.prototype.ga4SetFilterIndexes = function () {
+    if (GOVUK.analyticsGa4 && GOVUK.analyticsGa4.Ga4FinderTracker) {
+      var consentCookie = GOVUK.getConsentCookie()
+
+      if (consentCookie && consentCookie.settings) {
+        if (GOVUK.analyticsGa4.Ga4FinderTracker.setFilterIndexes) {
+          GOVUK.analyticsGa4.Ga4FinderTracker.setFilterIndexes()
+        }
+      } else {
+        window.addEventListener('cookie-consent', function () {
+          if (GOVUK.analyticsGa4.Ga4FinderTracker.setFilterIndexes) {
+            GOVUK.analyticsGa4.Ga4FinderTracker.setFilterIndexes()
+          }
+        })
       }
     }
   }

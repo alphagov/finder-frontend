@@ -15,7 +15,9 @@
   <% inverse = true %>
 <% end %>
 
-<form method="get" action="<%= content_item.base_path %>" class="js-live-search-form">
+<form method="get" action="<%= content_item.base_path %>" class="js-live-search-form"
+    data-ga4-change-category="clear-all-filters"
+>
   <input type="hidden" name="parent" value="<%= @parent %>">
 
   <% if topic_finder?(filter_params) && !content_item.all_content_finder? %>
@@ -85,7 +87,7 @@
 
         <div class="govuk-caption-l live-search-loading-message" id="js-loading-message"></div>
 
-        <div id="js-sort-options">
+        <div id="js-sort-options" data-ga4-change-category="update-sort select">
           <%= render "sort_options", @sort_presenter.to_hash %>
         </div>
 
