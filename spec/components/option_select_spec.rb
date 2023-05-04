@@ -1,8 +1,8 @@
 require "spec_helper"
 
-describe "components/_option-select.html.erb", type: :view do
+describe "components/_option_select.html.erb", type: :view do
   def component_name
-    "option-select"
+    "option_select"
   end
 
   def render_component(component_arguments)
