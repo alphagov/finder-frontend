@@ -408,7 +408,7 @@
           var response = JSON.parse(e.target.response)
           liveSearch.updateUrl()
           liveSearch.cache(liveSearch.serializeState(liveSearch.state), response)
-          liveSearch.ga4TrackFormChange(formChangeEvent) // Must be above displayResults, as if the DOM changes formChangeEvent.target.closest breaks.
+          liveSearch.ga4TrackFormChange(formChangeEvent) // must be before displayResults changes the DOM, otherwise will break formChangeEvent.target.closest
           liveSearch.displayResults(response, searchState)
           liveSearch.trackSearch()
         } else {
@@ -422,7 +422,7 @@
       xhr.send()
     } else {
       this.updateUrl()
-      this.ga4TrackFormChange(formChangeEvent) // Must be above displayResults, as if the DOM changes formChangeEvent.target.closest breaks.
+      this.ga4TrackFormChange(formChangeEvent) // must be before displayResults changes the DOM, otherwise will break formChangeEvent.target.closest
       this.displayResults(cachedResultData, searchState)
       this.trackSearch()
     }
@@ -612,14 +612,10 @@
       var consentCookie = GOVUK.getConsentCookie()
 
       if (consentCookie && consentCookie.settings) {
-        if (GOVUK.analyticsGa4.Ga4FinderTracker.setFilterIndexes) {
-          GOVUK.analyticsGa4.Ga4FinderTracker.setFilterIndexes()
-        }
+        GOVUK.analyticsGa4.Ga4FinderTracker.setFilterIndexes()
       } else {
         window.addEventListener('cookie-consent', function () {
-          if (GOVUK.analyticsGa4.Ga4FinderTracker.setFilterIndexes) {
-            GOVUK.analyticsGa4.Ga4FinderTracker.setFilterIndexes()
-          }
+          GOVUK.analyticsGa4.Ga4FinderTracker.setFilterIndexes()
         })
       }
     }

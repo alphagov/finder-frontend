@@ -73,6 +73,14 @@ describe('liveSearch', function () {
     '</select>'
   }
 
+  function agreeToCookies () {
+    GOVUK.setCookie('cookies_policy', '{"essential":true,"settings":true,"usage":true,"campaigns":true}')
+  }
+
+  function denyCookies () {
+    GOVUK.setCookie('cookies_policy', '{"essential":false,"settings":false,"usage":false,"campaigns":false}')
+  }
+
   beforeEach(function () {
     jasmine.Ajax.install()
     var count = '<div aria-live="assertive" id="js-search-results-info"><h2 class="result-region-header__counter" id="f-result-count"></h2></div>'
@@ -777,12 +785,7 @@ describe('liveSearch', function () {
 
   describe('GA4 tracking', function () {
     beforeEach(function () {
-      window.GOVUK.getConsentCookie = function () {
-        return { settings: true }
-      }
-      window.GOVUK.analyticsGa4 = {}
-      window.GOVUK.analyticsGa4.Ga4FinderTracker = {}
-      window.GOVUK.analyticsGa4.Ga4FinderTracker.trackChangeEvent = function () {}
+      agreeToCookies()
 
       liveSearch = new GOVUK.LiveSearch({ $form: $form[0], $results: $results[0], $atomAutodiscoveryLink: $atomAutodiscoveryLink[0] })
       liveSearch.state = { search: 'state' }
@@ -836,9 +839,7 @@ describe('liveSearch', function () {
     })
 
     it('ignores GA4 finder tracker if cookies are rejected', function () {
-      window.GOVUK.getConsentCookie = function () {
-        return { settings: false }
-      }
+      denyCookies()
 
       var $input = $form.find('input[name="field"]')
       $input.attr('data-ga4-change-category', 'update-filter checkbox')
