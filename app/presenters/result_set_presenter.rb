@@ -21,7 +21,16 @@ class ResultSetPresenter
   end
 
   def displayed_total
-    "#{number_with_delimiter(total)} #{pluralised_document_noun}"
+    # TODO: to be displayed for all finders pending content + design review. See: https://trello.com/c/8sSaeXS4/2085-apply-results-heading-text-change-to-all-finders
+    if content_item.document_noun == "licence"
+      return I18n.t("finders.search_result_presenter.heading_text",
+                    prefix: "Results: ",
+                    total: number_with_delimiter(total),
+                    document_noun: pluralised_document_noun)
+    end
+
+    I18n.t("finders.search_result_presenter.heading_text",
+           prefix: nil, total: number_with_delimiter(total), document_noun: pluralised_document_noun).strip
   end
 
   def total_count

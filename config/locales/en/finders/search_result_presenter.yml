@@ -1,4 +1,5 @@
 en:
   finders:
     search_result_presenter:
+      heading_text: "%{prefix} %{total} %{document_noun}"
       first_published_during: "First published during the"
