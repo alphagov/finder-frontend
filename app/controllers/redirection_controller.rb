@@ -16,6 +16,21 @@ class RedirectionController < ApplicationController
     redirect_to(finder_path("search/all", params: { order: "updated-newest" }.merge(redirect_params)))
   end
 
+  def redirect_consultations
+    topics = {}
+    topics["level_one_taxon"] = params[:topics] if params[:topics]
+    topics["level_two_taxon"] = params[:subtaxons] if params[:subtaxons]
+
+    redirect_params = params.merge(topics)
+                            .slice(:departments, :level_one_taxon, :level_two_taxon, :world_locations, :content_store_document_type)
+                            .permit(:level_one_taxon, :level_two_taxon, departments: [], world_locations: [], content_store_document_type: [])
+                            .transform_keys { |k| k == "departments" ? "organisations" : k }
+                            .compact
+
+    redirect_params[:content_store_document_type] = %w[open_consultations closed_consultations]
+    redirect_to(finder_path("search/policy-papers-and-consultations", params: { order: "updated-newest" }.merge(redirect_params)))
+  end
+
   def advanced_search
     conversion_hash =
       {
