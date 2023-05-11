@@ -55,7 +55,7 @@
         >
         <div id="js-search-results-info" data-module="remove-filter" class="result-info <%= "govuk-!-margin-bottom-0" if result_set_presenter.has_sort_options %>">
           <div class="govuk-grid-row">
-            <div class="govuk-grid-column-one-third">
+            <div class="govuk-grid-column-one-half">
               <div class="result-info__header">
                 <%= render "govuk_publishing_components/components/heading", {
                   text: result_set_presenter.displayed_total,
@@ -74,7 +74,7 @@
               </div>
             </div>
 
-            <div class="govuk-grid-column-two-thirds subscription-links subscription-links--desktop">
+            <div class="govuk-grid-column-half govuk-!-text-align-right subscription-links subscription-links--desktop">
               <%= render "govuk_publishing_components/components/subscription_links", signup_links %>
             </div>
           </div>
