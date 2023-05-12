@@ -58,7 +58,21 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
     button.addEventListener('click', this.toggleOptionSelect.bind(this))
 
     var closedOnLoad = this.$optionSelect.getAttribute('data-closed-on-load')
-    if (closedOnLoad === 'true') {
+    var closedOnLoadMobile = this.$optionSelect.getAttribute('data-closed-on-load-mobile')
+
+    // By default the .filter-content container is hidden on mobile
+    // By checking if .filter-content is hidden, we are in mobile view given the current implementation
+    var isFacetsContentHidden = this.isFacetsContainerHidden()
+
+    // Check if the option select should be closed for mobile screen sizes
+    var closedForMobile = closedOnLoadMobile === 'true' && isFacetsContentHidden
+
+    // Always set the contain height to 200px for mobile screen sizes
+    if (closedForMobile) {
+      this.setContainerHeight(200)
+    }
+
+    if (closedOnLoad === 'true' || closedForMobile) {
       this.close()
     } else {
       this.setupHeight()
@@ -237,21 +251,33 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
     return visibleCheckboxes
   }
 
+  OptionSelect.prototype.isFacetsContainerHidden = function isFacetsContainerHidden () {
+    var facetsContent = this.$optionSelect.parentElement
+    var isFacetsContentHidden = false
+    // check whether this is hidden by progressive disclosure,
+    // because height calculations won't work
+    // would use offsetParent === null but for IE10+
+    if (facetsContent) {
+      isFacetsContentHidden = !(facetsContent.offsetWidth || facetsContent.offsetHeight || facetsContent.getClientRects().length)
+    }
+
+    return isFacetsContentHidden
+  }
+
   OptionSelect.prototype.setupHeight = function setupHeight () {
     var initialOptionContainerHeight = this.$optionsContainer.clientHeight
     var height = this.$optionList.offsetHeight
 
-    // check whether this is hidden by progressive disclosure,
-    // because height calculations won't work
-    // would use offsetParent === null but for IE10+
-    var parent = this.$optionSelect.parentElement
-    var parentIsHidden = !(parent.offsetWidth || parent.offsetHeight || parent.getClientRects().length)
-    if (parentIsHidden) {
+    var isFacetsContainerHidden = this.isFacetsContainerHidden()
+
+    if (isFacetsContainerHidden) {
       initialOptionContainerHeight = 200
       height = 200
     }
 
     // Resize if the list is only slightly bigger than its container
+    // If isFacetsContainerHidden is true, then 200 < 250
+    // And the container height is always set to 201px
     if (height < initialOptionContainerHeight + 50) {
       this.setContainerHeight(height + 1)
       return
