@@ -58,7 +58,21 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
     button.addEventListener('click', this.toggleOptionSelect.bind(this))
 
     var closedOnLoad = this.$optionSelect.getAttribute('data-closed-on-load')
-    if (closedOnLoad === 'true') {
+    var closedOnLoadMobile = this.$optionSelect.getAttribute('data-closed-on-load-mobile')
+
+    // By default the .filter-content container is hidden on mobile
+    // By checking if .filter-content is hidden, we are in mobile view given the current implementation
+    var isFacetsContentHidden = this.isFacetsContainerHidden()
+
+    // Check if the option select should be closed for mobile screen sizes
+    var closedForMobile = closedOnLoadMobile === 'true' && isFacetsContentHidden
+
+    // Always set the contain height to 200px for mobile screen sizes
+    if (closedForMobile) {
+      this.setContainerHeight(200)
+    }
+
+    if (closedOnLoad === 'true' || closedForMobile) {
       this.close()
     } else {
       this.setupHeight()
