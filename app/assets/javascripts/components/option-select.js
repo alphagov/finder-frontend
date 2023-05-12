@@ -237,21 +237,33 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
     return visibleCheckboxes
   }
 
+  OptionSelect.prototype.isFacetsContainerHidden = function isFacetsContainerHidden () {
+    var facetsContent = this.$optionSelect.parentElement
+    var isFacetsContentHidden = false
+    // check whether this is hidden by progressive disclosure,
+    // because height calculations won't work
+    // would use offsetParent === null but for IE10+
+    if (facetsContent) {
+      isFacetsContentHidden = !(facetsContent.offsetWidth || facetsContent.offsetHeight || facetsContent.getClientRects().length)
+    }
+
+    return isFacetsContentHidden
+  }
+
   OptionSelect.prototype.setupHeight = function setupHeight () {
     var initialOptionContainerHeight = this.$optionsContainer.clientHeight
     var height = this.$optionList.offsetHeight
 
-    // check whether this is hidden by progressive disclosure,
-    // because height calculations won't work
-    // would use offsetParent === null but for IE10+
-    var parent = this.$optionSelect.parentElement
-    var parentIsHidden = !(parent.offsetWidth || parent.offsetHeight || parent.getClientRects().length)
-    if (parentIsHidden) {
+    var isFacetsContainerHidden = this.isFacetsContainerHidden()
+
+    if (isFacetsContainerHidden) {
       initialOptionContainerHeight = 200
       height = 200
     }
 
     // Resize if the list is only slightly bigger than its container
+    // If isFacetsContainerHidden is true, then 200 < 250
+    // And the container height is always set to 201px
     if (height < initialOptionContainerHeight + 50) {
       this.setContainerHeight(height + 1)
       return
