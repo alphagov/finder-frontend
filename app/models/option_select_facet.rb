@@ -64,6 +64,14 @@ class OptionSelectFacet < FilterableFacet
     closed_by_default?(option_select_facet_counter)
   end
 
+  # TODO: open_on_load is currently only used in the Industry facets
+  # and we want the industry facet to be closed on load for mobile devices
+  # This will likely need refactoring if we decide to keep this approach and
+  # use it in other option select facets
+  def closed_on_load_mobile?
+    open_on_load?
+  end
+
 private
 
   def value_fragments

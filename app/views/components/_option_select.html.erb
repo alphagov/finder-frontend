@@ -35,6 +35,7 @@
 <div
   class="app-c-option-select" data-module="option-select"
   <% if local_assigns.include?(:closed_on_load) && closed_on_load %>data-closed-on-load="true"<% end %>
+  <% if local_assigns.include?(:closed_on_load_mobile) && closed_on_load_mobile %>data-closed-on-load-mobile="true"<% end %>
   <% if local_assigns.include?(:aria_controls_id) %>data-input-aria-controls="<%= aria_controls_id %>"<% end %>
   <% if show_filter %>data-filter-element="<%= filter_element %>"<% end %>
 >
