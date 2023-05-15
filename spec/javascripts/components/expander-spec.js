@@ -5,7 +5,7 @@ describe('An expander module', function () {
 
   /* eslint-disable */
   var html = '\
-    <div class="app-c-expander" data-module="expander">\
+    <div class="app-c-expander" data-module="expander" data-ga4-index=\'{\"index_section\":1, \"index_section_count\": 3}\'>\
       <h2 class="app-c-expander__heading">\
         <span class="app-c-expander__title js-toggle">Organisation</span>\
         <svg version="1.1" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" class="app-c-expander__icon app-c-expander__icon--up"><path d="m798.16 609.84l-256-256c-16.683-16.683-43.691-16.683-60.331 0l-256 256c-16.683 16.683-16.683 43.691 0 60.331s43.691 16.683 60.331 0l225.84-225.84 225.84 225.84c16.683 16.683 43.691 16.683 60.331 0s16.683-43.691 0-60.331z"/></svg>\
@@ -123,6 +123,35 @@ describe('An expander module', function () {
 
     it('sets correct aria attributes on the button', function () {
       expect($($element).find('.app-c-expander__button').attr('aria-expanded')).toBe('true')
+    })
+  })
+
+  describe('GA4 tracking', function () {
+    beforeEach(function () {
+      $element = document.createElement('div')
+      $element.innerHTML = html
+
+      new GOVUK.Modules.Expander($element.querySelector('.app-c-expander')).init()
+    })
+
+    afterEach(function () {
+      $(document).off()
+    })
+
+    it('adds the ga4 event tracker values to the button', function () {
+      var $button = $($element).find('.app-c-expander__button')
+      window.GOVUK.triggerEvent(window, 'ga4-filter-indexes-added')
+      var expected = JSON.stringify({
+        event_name: 'select_content',
+        type: 'finder',
+        section: 'Organisation',
+        index: {
+          index_section: 1,
+          index_section_count: 3
+        }
+      })
+
+      expect($button.attr('data-ga4-event')).toEqual(expected)
     })
   })
 })

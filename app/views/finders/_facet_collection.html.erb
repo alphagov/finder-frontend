@@ -45,7 +45,7 @@
             } %>
           </div>
         </div>
-        <div class="facets__content" data-ga4-filter-container>
+        <div class="facets__content" data-module="ga4-event-tracker" data-ga4-filter-container>
           <%= render facets.select(&:filterable?) %>
           <div class="facets__tags-block js-mobile-facet-tag-block"  data-module="remove-filter">
             <%= render "facet_tags", facet_tags.present %>

@@ -4,7 +4,7 @@ describe('An option select component', function () {
   function optionSelectWithAttrs (attrs) {
     return '<div class="app-c-option-select" ' + attrs + '>' +
       '<h2 class="app-c-option-select__heading js-container-heading">' +
-        '<span class="app-c-option-select__title js-container-button"></span>' +
+        '<span class="app-c-option-select__title js-container-button">Hello World</span>' +
       '</h2>' +
       '<div class="app-c-option-select__container js-options-container">' +
         '<div class="app-c-option-select__container-inner js-auto-height-inner">' +
@@ -148,6 +148,26 @@ describe('An option select component', function () {
       new GOVUK.Modules.OptionSelect($element.querySelector('.app-c-option-select')).init()
 
       expect($($element).find('button')).toBeDefined()
+    })
+
+    it('adds GA4 event tracking to the button', function () {
+      var $ga4Fixture = $(optionSelectWithAttrs('data-ga4-index=\'{"index_section":1, "index_section_count": 3}\''))
+      $('body').append($ga4Fixture)
+
+      new GOVUK.Modules.OptionSelect($ga4Fixture[0]).init()
+      window.GOVUK.triggerEvent(window, 'ga4-filter-indexes-added')
+
+      var expected = JSON.stringify({
+        event_name: 'select_content',
+        type: 'finder',
+        section: 'Hello World',
+        index: {
+          index_section: 1,
+          index_section_count: 3
+        }
+      })
+
+      expect($ga4Fixture.find('button').attr('data-ga4-event')).toEqual(expected)
     })
   })
 
