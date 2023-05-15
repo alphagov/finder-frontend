@@ -185,4 +185,25 @@ describe RedirectionController, type: :controller do
                                                             content_store_document_type: %w[open_consultations closed_consultations] })
     end
   end
+
+  describe "#redirect_statistics_announcements" do
+    it "redirects to /search/research-and-statistics" do
+      get :redirect_statistics_announcements, params: {
+        topics: "magic-competition",
+        keywords: %w[harry-potter],
+        organisations: %w[ministry-of-magic],
+        from_date: "01/01/2014",
+        to_date: "01/01/2014",
+      }
+      expect(response).to redirect_to finder_path("search/research-and-statistics",
+                                                  params: { content_store_document_type: "upcoming_statistics",
+                                                            keywords: %w[harry-potter],
+                                                            level_one_taxon: "magic-competition",
+                                                            organisations: %w[ministry-of-magic],
+                                                            public_timestamp: {
+                                                              from: "01/01/2014",
+                                                              to: "01/01/2014",
+                                                            } })
+    end
+  end
 end

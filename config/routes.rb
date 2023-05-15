@@ -26,6 +26,7 @@ Rails.application.routes.draw do
   get "/search/advanced" => "redirection#advanced_search"
   get "/search/latest" => "redirection#redirect_latest"
   get "/search/consultations" => "redirection#redirect_consultations"
+  get "/search/statistics-announcements" => "redirection#redirect_statistics_announcements"
 
   get "/*slug" => "redirection#redirect_covid", constraints: lambda { |request|
     topical_events = request.params["topical_events"]
