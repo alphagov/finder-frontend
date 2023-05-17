@@ -148,4 +148,62 @@ describe RedirectionController, type: :controller do
                                                   params: { order: "updated-newest" })
     end
   end
+
+  describe "#redirect_consultations" do
+    it "redirects to /search/policy-papers-and-consultations retaining level one and two taxons and setting content-store-document-type" do
+      get :redirect_consultations, params: {
+        topics: "magic-competition",
+        subtaxons: "potions",
+        content_store_document_type: %w[open_consultations],
+      }
+      expect(response).to redirect_to finder_path("search/policy-papers-and-consultations",
+                                                  params: { order: "updated-newest",
+                                                            level_one_taxon: "magic-competition",
+                                                            level_two_taxon: "potions",
+                                                            content_store_document_type: %w[open_consultations closed_consultations] })
+    end
+
+    it "redirects to /search/policy-papers-and-consultations retaining world locations and setting content-store-document-type" do
+      get :redirect_consultations, params: {
+        world_locations: %w[hogwarts],
+        content_store_document_type: %w[open_consultations],
+      }
+      expect(response).to redirect_to finder_path("search/policy-papers-and-consultations",
+                                                  params: { order: "updated-newest",
+                                                            world_locations: %w[hogwarts],
+                                                            content_store_document_type: %w[open_consultations closed_consultations] })
+    end
+
+    it "redirects to /search/policy-papers-and-consultations replacing departments with organisations and setting content-store-document-type" do
+      get :redirect_consultations, params: {
+        departments: %w[ministry_of_magic],
+        content_store_document_type: %w[open_consultations],
+      }
+      expect(response).to redirect_to finder_path("search/policy-papers-and-consultations",
+                                                  params: { order: "updated-newest",
+                                                            organisations: %w[ministry_of_magic],
+                                                            content_store_document_type: %w[open_consultations closed_consultations] })
+    end
+  end
+
+  describe "#redirect_statistics_announcements" do
+    it "redirects to /search/research-and-statistics" do
+      get :redirect_statistics_announcements, params: {
+        topics: "magic-competition",
+        keywords: %w[harry-potter],
+        organisations: %w[ministry-of-magic],
+        from_date: "01/01/2014",
+        to_date: "01/01/2014",
+      }
+      expect(response).to redirect_to finder_path("search/research-and-statistics",
+                                                  params: { content_store_document_type: "upcoming_statistics",
+                                                            keywords: %w[harry-potter],
+                                                            level_one_taxon: "magic-competition",
+                                                            organisations: %w[ministry-of-magic],
+                                                            public_timestamp: {
+                                                              from: "01/01/2014",
+                                                              to: "01/01/2014",
+                                                            } })
+    end
+  end
 end

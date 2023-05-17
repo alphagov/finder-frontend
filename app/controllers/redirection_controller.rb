@@ -16,6 +16,25 @@ class RedirectionController < ApplicationController
     redirect_to(finder_path("search/all", params: { order: "updated-newest" }.merge(redirect_params)))
   end
 
+  def redirect_consultations
+    topics = {}
+    topics["level_one_taxon"] = params[:topics] if params[:topics]
+    topics["level_two_taxon"] = params[:subtaxons] if params[:subtaxons]
+
+    redirect_params = params.merge(topics)
+                            .slice(:departments, :level_one_taxon, :level_two_taxon, :world_locations, :content_store_document_type)
+                            .permit(:level_one_taxon, :level_two_taxon, departments: [], world_locations: [], content_store_document_type: [])
+                            .transform_keys { |k| k == "departments" ? "organisations" : k }
+                            .compact
+    redirect_params[:content_store_document_type] = %w[open_consultations closed_consultations]
+
+    redirect_to(finder_path("search/policy-papers-and-consultations", params: { order: "updated-newest" }.merge(redirect_params)))
+  end
+
+  def redirect_statistics_announcements
+    redirect_to(finder_path("search/research-and-statistics", params: statistics_announcements_topic_and_other_params))
+  end
+
   def advanced_search
     conversion_hash =
       {
@@ -64,5 +83,22 @@ private
       roles: filter_params["roles"],
       world_locations: filter_params["world_locations"],
     }.compact
+  end
+
+  def statistics_announcements_topic_and_other_params
+    {
+      content_store_document_type: "upcoming_statistics",
+      keywords: filter_params["keywords"],
+      level_one_taxon: filter_params["topics"],
+      organisations: filter_orgs_array(filter_params["organisations"]),
+      public_timestamp: {
+        from: filter_params["from_date"],
+        to: filter_params["to_date"],
+      },
+    }.compact
+  end
+
+  def filter_orgs_array(arr)
+    Array(arr).delete_if { |i| i == "all" }
   end
 end
