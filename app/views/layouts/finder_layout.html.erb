@@ -28,6 +28,7 @@
 
   <body class="<%= yield :body_classes %>">
     <div id="wrapper">
+      <%= render partial: "layouts/prototype_warning" %>
       <%= yield :body %>
     </div>
   </body>
