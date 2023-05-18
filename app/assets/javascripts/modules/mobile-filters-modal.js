@@ -17,6 +17,10 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
       this.triggerElement.addEventListener('click', this.module.toggle)
       this.triggerElement.setAttribute('aria-controls', this.module.id)
       this.triggerElement.setAttribute('aria-expanded', 'false')
+      // TODO: temporary change added for licence finder user research
+      if (this.triggerElement.getAttribute('data-document-noun') === 'licence') {
+        this.triggerElement.click()
+      }
     }
 
     if (this.clearFiltersTrigger) {
