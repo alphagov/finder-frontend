@@ -92,4 +92,49 @@ describe OptionSelectFacet do
       end
     end
   end
+
+  describe "#cache_key" do
+    context "where facet allowed values differ in order" do
+      let(:allowed_values_2) do
+        [
+          {
+            "label" => "Allowed value 2",
+            "value" => "allowed-value-2",
+          },
+          {
+            "label" => "Allowed value 1",
+            "value" => "allowed-value-1",
+          },
+          {
+            "label" => "Remittals",
+            "value" => "remittals",
+          },
+        ]
+      end
+
+      specify "cache keys should differ" do
+        f1 = OptionSelectFacet.new(facet_data, "1")
+        f2 = OptionSelectFacet.new(facet_data.merge({ "allowed_values" => allowed_values_2 }), "1")
+        expect(f1.cache_key).not_to eq(f2.cache_key)
+      end
+    end
+
+    context "where facet names differ" do
+      let(:facet_data_2) do
+        {
+          "type" => "multi-select",
+          "name" => "Test values 2",
+          "key" => "test_values",
+          "preposition" => "of value",
+          "allowed_values" => allowed_values,
+        }
+      end
+
+      specify "cache keys should differ" do
+        f1 = OptionSelectFacet.new(facet_data, "1")
+        f2 = OptionSelectFacet.new(facet_data_2, "1")
+        expect(f1.cache_key).not_to eq(f2.cache_key)
+      end
+    end
+  end
 end
