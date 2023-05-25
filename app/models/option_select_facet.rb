@@ -51,7 +51,7 @@ class OptionSelectFacet < FilterableFacet
   end
 
   def cache_key
-    { selected: selected_values, allowed: allowed_values }
+    Digest::SHA256.hexdigest({ name:, selected: selected_values, allowed: allowed_values }.to_json)
   end
 
   def query_params
