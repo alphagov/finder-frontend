@@ -6,7 +6,6 @@ gem "bootsnap", require: false
 gem "chronic"
 gem "dalli"
 gem "gds-api-adapters"
-gem "google-apis-drive_v3"
 gem "govuk_ab_testing"
 gem "govuk_app_config"
 gem "govuk_publishing_components"
