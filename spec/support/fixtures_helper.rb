@@ -27,14 +27,6 @@ module FixturesHelper
     JSON.parse(File.read("#{fixtures_path}/cma_cases_with_multi_facets_signup_content_item.json"))
   end
 
-  def actions_csv_to_convert_to_yaml
-    "#{fixtures_path}/actions_csv_to_convert.csv"
-  end
-
-  def criteria_csv_to_convert_to_yaml
-    "#{fixtures_path}/criteria_csv_to_convert.csv"
-  end
-
   def policy_papers_finder_content_item
     JSON.parse(File.read("#{fixtures_path}/policy_and_engagement.json"))
   end
