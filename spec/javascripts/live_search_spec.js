@@ -73,6 +73,14 @@ describe('liveSearch', function () {
     '</select>'
   }
 
+  function agreeToCookies () {
+    GOVUK.setCookie('cookies_policy', '{"essential":true,"settings":true,"usage":true,"campaigns":true}')
+  }
+
+  function denyCookies () {
+    GOVUK.setCookie('cookies_policy', '{"essential":false,"settings":false,"usage":false,"campaigns":false}')
+  }
+
   beforeEach(function () {
     jasmine.Ajax.install()
     var count = '<div aria-live="assertive" id="js-search-results-info"><h2 class="result-region-header__counter" id="f-result-count"></h2></div>'
@@ -772,6 +780,79 @@ describe('liveSearch', function () {
       liveSearch.state = { search: 'state' }
       liveSearch.displayResults(dummyResponse, $.param(liveSearch.state))
       expect($('.js-selected-filter-count').html()).toBe('(6)<span class="govuk-visually-hidden"> filters currently selected</span>')
+    })
+  })
+
+  describe('GA4 tracking', function () {
+    beforeEach(function () {
+      agreeToCookies()
+
+      liveSearch = new GOVUK.LiveSearch({ $form: $form[0], $results: $results[0], $atomAutodiscoveryLink: $atomAutodiscoveryLink[0] })
+      liveSearch.state = { search: 'state' }
+
+      spyOn(window.GOVUK.analyticsGa4.Ga4FinderTracker, 'trackChangeEvent')
+    })
+
+    afterEach(function () {
+      $form.remove()
+    })
+
+    it('calls GA4 finder tracker on form update when data-ga4-change-category exists on the target', function () {
+      var $input = $form.find('input[name="field"]')
+      $input.attr('data-ga4-change-category', 'update-filter checkbox')
+
+      liveSearch.state = []
+
+      liveSearch.formChange({ target: $input[0] })
+      jasmine.Ajax.requests.mostRecent().respondWith({
+        status: 200,
+        response: '{"total":81,"display_total":"81 reports","facet_tags":"","search_results":"","display_selected_facets_count":"","sort_options_markup":"","next_and_prev_links":"","suggestions":"","errors":{}}'
+      })
+
+      expect(window.GOVUK.analyticsGa4.Ga4FinderTracker.trackChangeEvent).toHaveBeenCalled()
+    })
+
+    it('ignores GA4 finder tracker on form update without an event target', function () {
+      liveSearch.state = []
+
+      liveSearch.formChange()
+      jasmine.Ajax.requests.mostRecent().respondWith({
+        status: 200,
+        response: '{"total":81,"display_total":"81 reports","facet_tags":"","search_results":"","display_selected_facets_count":"","sort_options_markup":"","next_and_prev_links":"","suggestions":"","errors":{}}'
+      })
+
+      expect(window.GOVUK.analyticsGa4.Ga4FinderTracker.trackChangeEvent).not.toHaveBeenCalled()
+    })
+
+    it('ignores GA4 finder tracker on form update without data-ga4-change-category on the event target', function () {
+      var $input = $form.find('input[name="field"]')
+
+      liveSearch.state = []
+
+      liveSearch.formChange({ target: $input[0] })
+      jasmine.Ajax.requests.mostRecent().respondWith({
+        status: 200,
+        response: '{"total":81,"display_total":"81 reports","facet_tags":"","search_results":"","display_selected_facets_count":"","sort_options_markup":"","next_and_prev_links":"","suggestions":"","errors":{}}'
+      })
+
+      expect(window.GOVUK.analyticsGa4.Ga4FinderTracker.trackChangeEvent).not.toHaveBeenCalled()
+    })
+
+    it('ignores GA4 finder tracker if cookies are rejected', function () {
+      denyCookies()
+
+      var $input = $form.find('input[name="field"]')
+      $input.attr('data-ga4-change-category', 'update-filter checkbox')
+
+      liveSearch.state = []
+
+      liveSearch.formChange({ target: $input[0] })
+      jasmine.Ajax.requests.mostRecent().respondWith({
+        status: 200,
+        response: '{"total":81,"display_total":"81 reports","facet_tags":"","search_results":"","display_selected_facets_count":"","sort_options_markup":"","next_and_prev_links":"","suggestions":"","errors":{}}'
+      })
+
+      expect(window.GOVUK.analyticsGa4.Ga4FinderTracker.trackChangeEvent).not.toHaveBeenCalled()
     })
   })
 })
