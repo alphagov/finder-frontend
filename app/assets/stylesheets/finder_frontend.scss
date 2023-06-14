@@ -1,5 +1,20 @@
 $app-colour-true-black: #000000;
 
+.app-visually-hidden {
+  // The current .govuk-visually-hidden uses absolute positioning. This has the
+  // unintended consequence of removing any necessary whitespace before and
+  // after the visually hidden element, and potentially making screen reader
+  // announcements unintelligble. To fix this, insert a space character before
+  // and after the visually hidden element.
+  &:before {
+    content: "\00a0";
+  }
+
+  &:after {
+    content: "\00a0";
+  }
+}
+
 .metadata-summary {
   @include govuk-font(19);
   margin-bottom: govuk-spacing(6);
