@@ -22,6 +22,8 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
     if (this.clearFiltersTrigger) {
       this.clearFiltersTrigger.addEventListener('click', this.module.clearFilters)
     }
+
+    this.addGa4Tracking()
   }
 
   MobileFiltersModal.prototype.handleToggle = function (event) {
@@ -81,6 +83,21 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
     // fire a single custom change event on the form once all filters have been cleared
     // so that we only fetch new search-api data once
     form.dispatchEvent(customEvent)
+  }
+
+  MobileFiltersModal.prototype.addGa4Tracking = function () {
+    var indexSectionCount = document.querySelectorAll('[data-ga4-section]').length
+
+    this.triggerElement.setAttribute('data-ga4-event', JSON.stringify({
+      event_name: 'select_content',
+      type: 'finder',
+      text: 'Filter',
+      section: 'Filter',
+      index: {
+        index_section: 0,
+        index_section_count: indexSectionCount
+      }
+    }))
   }
 
   Modules.MobileFiltersModal = MobileFiltersModal

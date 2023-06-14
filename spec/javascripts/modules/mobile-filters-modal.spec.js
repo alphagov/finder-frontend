@@ -16,16 +16,16 @@ describe('Mobile filters modal', function () {
           '<h2 class="gem-c-title__text">Filter</h2>' +
         '</div>' +
         '<div class="facets__content">' +
-          '<select>' +
+          '<select data-ga4-section>' +
             '<option value>All options</option>' +
             '<option value="1" selected="selected">Selected</option>' +
           '</select>' +
-          '<input type="checkbox" id="checkbox-one" name="checkbox-one" checked>' +
+          '<input type="checkbox" id="checkbox-one" name="checkbox-one" checked data-ga4-section>' +
           '<label for="checkbox-one">Chekbox 2</label>' +
-          '<input type="checkbox" id="checkbox-two" name="checkbox-two">' +
+          '<input type="checkbox" id="checkbox-two" name="checkbox-two" data-ga4-section>' +
           '<label for="checkbox-two">Checkbox 2</label>' +
-          '<input name="input-one" type="text" value="">' +
-          '<input name="input-two" type="text" value="text input value">' +
+          '<input name="input-one" type="text" value="" data-ga4-section>' +
+          '<input name="input-two" type="text" value="text input value" data-ga4-section>' +
           '<button class="app-c-button-as-link facets__clear-link js-clear-selected-filters" type="button">' +
             'Clear all filters' +
           '</button>' +
@@ -128,6 +128,23 @@ describe('Mobile filters modal', function () {
       var button = document.querySelector('.js-toggle-mobile-filters')
       expect(button.getAttribute('aria-controls')).toEqual('facet-wrapper')
       expect(document.querySelector('#facet-wrapper')).not.toEqual(null)
+    })
+  })
+
+  describe('ga4 tracking', function () {
+    it('adds the ga4 event tracker to the button', function () {
+      var button = document.querySelector('.js-toggle-mobile-filters')
+      var expected = {
+        event_name: 'select_content',
+        type: 'finder',
+        text: 'Filter',
+        section: 'Filter',
+        index: {
+          index_section: 0,
+          index_section_count: 5
+        }
+      }
+      expect(button.getAttribute('data-ga4-event')).toEqual(JSON.stringify(expected))
     })
   })
 })
