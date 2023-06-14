@@ -76,7 +76,12 @@
               </div>
             </div>
 
-            <div class="govuk-grid-column-one-half govuk-!-text-align-right subscription-links subscription-links--desktop">
+            <div
+              class="govuk-grid-column-one-half govuk-!-text-align-right subscription-links subscription-links--desktop"
+              data-module="ga4-link-tracker"
+              data-ga4-track-links-only
+              data-ga4-set-indexes
+              data-ga4-link='{ "event_name": "navigation", "type": "subscribe", "section": "Top" }'>
               <%= render "govuk_publishing_components/components/subscription_links", signup_links %>
             </div>
           </div>
@@ -99,7 +104,13 @@
           <%= render "govuk_publishing_components/components/previous_and_next_navigation", @pagination.next_and_prev_links %>
         </div>
 
-        <div class="subscription-links" id="subscription-links-footer">
+        <div
+          class="subscription-links"
+          id="subscription-links-footer"
+          data-module="ga4-link-tracker"
+          data-ga4-track-links-only
+          data-ga4-set-indexes
+          data-ga4-link='{ "event_name": "navigation", "type": "subscribe", "section": "Footer" }'>
           <%= render "govuk_publishing_components/components/subscription_links", signup_links %>
         </div>
       </div>
