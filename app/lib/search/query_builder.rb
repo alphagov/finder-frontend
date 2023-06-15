@@ -12,6 +12,8 @@ module Search
     # find anything useful, too much noise.
     MAX_QUERY_LENGTH = 512
 
+    LICENCE_STOPWORDS = %w[licence license permit certification].freeze
+
     def initialize(finder_content_item:, params: {}, ab_params: {}, override_sort_for_feed: false)
       @finder_content_item = finder_content_item
       @params = params
@@ -129,13 +131,17 @@ module Search
     end
 
     def remove_stopwords?
-      params["keywords"].present? && ["/find-eu-exit-guidance-business"].include?(finder_content_item.base_path)
+      params["keywords"].present? && stopwords_for_path.any?
+    end
+
+    def stopwords_for_path
+      licence_transaction_path? ? LICENCE_STOPWORDS : []
     end
 
     def remove_stopwords
       keywords = params["keywords"].split(" ")
       keywords.delete_if do |keyword|
-        stopwords.include?(keyword.downcase.gsub(/\W/, ""))
+        stopwords_for_path.include?(keyword.downcase.gsub(/\W/, ""))
       end
       keywords.join(" ")
     end
@@ -253,187 +259,6 @@ module Search
 
     def licence_transaction_path?
       finder_content_item.base_path == "/find-licences"
-    end
-
-    def stopwords
-      generic_stopwords = %w[
-        a
-        about
-        above
-        after
-        again
-        against
-        all
-        am
-        an
-        and
-        any
-        are
-        arent
-        as
-        at
-        be
-        because
-        been
-        before
-        being
-        below
-        between
-        both
-        but
-        by
-        cant
-        cannot
-        could
-        couldnt
-        did
-        didnt
-        do
-        does
-        doesnt
-        doing
-        dont
-        down
-        during
-        each
-        few
-        for
-        from
-        further
-        had
-        hadnt
-        has
-        hasnt
-        have
-        havent
-        having
-        he
-        hed
-        hell
-        hes
-        her
-        here
-        heres
-        hers
-        herself
-        him
-        himself
-        his
-        how
-        hows
-        i
-        id
-        ill
-        im
-        ive
-        if
-        in
-        into
-        is
-        isnt
-        it
-        its
-        itself
-        lets
-        me
-        more
-        most
-        mustnt
-        my
-        myself
-        no
-        nor
-        not
-        of
-        off
-        on
-        once
-        only
-        or
-        other
-        ought
-        our
-        ours
-        ourselves
-        out
-        over
-        own
-        same
-        shant
-        she
-        shed
-        shell
-        shes
-        should
-        shouldnt
-        so
-        some
-        such
-        than
-        that
-        thats
-        the
-        their
-        theirs
-        them
-        themselves
-        then
-        there
-        theres
-        these
-        they
-        theyd
-        theyll
-        theyre
-        theyve
-        this
-        those
-        through
-        to
-        too
-        under
-        until
-        up
-        very
-        was
-        wasnt
-        we
-        wed
-        well
-        were
-        werent
-        weve
-        what
-        whats
-        when
-        whens
-        where
-        wheres
-        which
-        while
-        who
-        whos
-        whom
-        why
-        whys
-        with
-        wont
-        would
-        wouldnt
-        you
-        youd
-        youll
-        youre
-        youve
-        your
-        yours
-        yourself
-        yourselves
-      ]
-
-      brexit_stopwords = %w[abroad brexit eu europe european exit leave union]
-
-      (generic_stopwords + brexit_stopwords).uniq
     end
   end
 end

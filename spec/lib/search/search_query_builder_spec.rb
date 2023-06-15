@@ -265,7 +265,7 @@ describe Search::QueryBuilder do
     context "with stopwords" do
       let(:finder_content_item) do
         ContentItem.new(
-          "base_path" => "/find-eu-exit-guidance-business",
+          "base_path" => "/find-licences",
           "details" => {
             "facets" => facets,
             "filter" => filter,
@@ -278,7 +278,7 @@ describe Search::QueryBuilder do
 
       it "should not include stopwords in search" do
         params = {
-          "keywords" => "a mango",
+          "keywords" => "mango licence",
         }
 
         query = described_class.new(
@@ -287,12 +287,12 @@ describe Search::QueryBuilder do
         ).call.first
 
         expect(query).to include("q" => "mango")
-        expect(query).not_to include("q" => "a mango")
+        expect(query).not_to include("q" => "mango licence")
       end
 
       it "strips punctuation from stopword check" do
         params = {
-          "keywords" => "a, isn't a mango is it?",
+          "keywords" => "certification, mango license?",
         }
 
         query = described_class.new(
@@ -301,12 +301,12 @@ describe Search::QueryBuilder do
         ).call.first
 
         expect(query).to include("q" => "mango")
-        expect(query).not_to include("q" => "a, isn't a mango is it?")
+        expect(query).not_to include("q" => "certification, mango license?")
       end
 
       it "ignores case of keywords" do
         params = {
-          "keywords" => "A mango",
+          "keywords" => "PERMIT mango",
         }
 
         query = described_class.new(
@@ -315,7 +315,7 @@ describe Search::QueryBuilder do
         ).call.first
 
         expect(query).to include("q" => "mango")
-        expect(query).not_to include("q" => "A mango")
+        expect(query).not_to include("q" => "PERMIT mango")
       end
 
       it "does not strip numbers from search" do
