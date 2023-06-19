@@ -1,12 +1,14 @@
 <% add_app_component_stylesheet("mobile-filters") %>
-<button class="app-c-button-as-link app-mobile-filters-link js-toggle-mobile-filters"
-  data-toggle="mobile-filters-modal"
-  data-target="facet-wrapper"
-  data-track-category="filterClicked"
-  data-track-action="mobile-filter-button"
-  data-track-label="">
-    Filter <span class="govuk-visually-hidden"> results</span>
-    <span class="js-selected-filter-count"><%= sanitize facet_tags.display_total_selected_filters %></span>
-</button>
-<svg version="1.1" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" class="mobile-filters-expander__icon mobile-filters-expander__icon--up" aria-hidden="true" focusable="false"><path d="m798.16 609.84l-256-256c-16.683-16.683-43.691-16.683-60.331 0l-256 256c-16.683 16.683-16.683 43.691 0 60.331s43.691 16.683 60.331 0l225.84-225.84 225.84 225.84c16.683 16.683 43.691 16.683 60.331 0s16.683-43.691 0-60.331z"></path></svg>
-<svg version="1.1" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" class="mobile-filters-expander__icon mobile-filters-expander__icon--down" aria-hidden="true" focusable="false"><path d="m225.84 414.16l256 256c16.683 16.683 43.691 16.683 60.331 0l256-256c16.683-16.683 16.683-43.691 0-60.331s-43.691-16.683-60.331 0l-225.84 225.84-225.84-225.84c-16.683-16.683-43.691-16.683-60.331 0s-16.683 43.691 0 60.331z"></path></svg>
+<div class="app-c-mobile-filters">
+  <button class="app-c-button-as-link app-mobile-filters-link js-toggle-mobile-filters"
+    data-toggle="mobile-filters-modal"
+    data-target="facet-wrapper"
+    data-track-category="filterClicked"
+    data-track-action="mobile-filter-button"
+    data-track-label="">
+      Filter <span class="govuk-visually-hidden"> results</span>
+      <span class="js-selected-filter-count"><%= sanitize facet_tags.display_total_selected_filters %></span>
+  </button>
+  <svg version="1.1" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" class="mobile-filters-expander__icon mobile-filters-expander__icon--up" aria-hidden="true" focusable="false"><path d="m798.16 609.84l-256-256c-16.683-16.683-43.691-16.683-60.331 0l-256 256c-16.683 16.683-16.683 43.691 0 60.331s43.691 16.683 60.331 0l225.84-225.84 225.84 225.84c16.683 16.683 43.691 16.683 60.331 0s16.683-43.691 0-60.331z"></path></svg>
+  <svg version="1.1" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" class="mobile-filters-expander__icon mobile-filters-expander__icon--down" aria-hidden="true" focusable="false"><path d="m225.84 414.16l256 256c16.683 16.683 43.691 16.683 60.331 0l256-256c16.683-16.683 16.683-43.691 0-60.331s-43.691-16.683-60.331 0l-225.84 225.84-225.84-225.84c-16.683-16.683-43.691-16.683-60.331 0s-16.683 43.691 0 60.331z"></path></svg>
+</div>
