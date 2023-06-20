@@ -224,4 +224,52 @@ RSpec.describe ResultSetPresenter do
       end
     end
   end
+
+  describe "capitalise_ai_values function" do
+    it "replaces 'Ai assurance technique' values with 'AI assurance technique" do
+      component_data = [{
+        "hello": "i should remain unchanged",
+        "metadata": {
+          "Ai assurance technique": "This is the text displayed on the search, Ai assurance technique",
+        },
+      }]
+
+      # Clone the above search result, and then expect 'Ai' to be capitalised in the text displayed on search.
+      expected_result = {}.merge!(component_data[0])
+      expected_result[:metadata]["Ai assurance technique"] = "This is the text displayed on the search, AI assurance technique"
+
+      component_data = subject.capitalise_ai_values(component_data)
+
+      expect(component_data[0]).to eql expected_result
+    end
+
+    it "does nothing/doesn't crash if no 'Ai assurance technique' key exists" do
+      component_data = [{
+        "hello": "i should remain unchanged",
+        "metadata": {
+          "hello": "world",
+        },
+      }]
+
+      # Clone the above search result
+      expected_result = {}.merge!(component_data[0])
+
+      component_data = subject.capitalise_ai_values(component_data)
+
+      expect(component_data[0]).to eql expected_result
+    end
+
+    it "does nothing/doesn't crash if no metadata key exists" do
+      component_data = [{
+        "hello": "i should remain unchanged",
+      }]
+
+      # Clone the above search result
+      expected_result = {}.merge!(component_data[0])
+
+      component_data = subject.capitalise_ai_values(component_data)
+
+      expect(component_data[0]).to eql expected_result
+    end
+  end
 end
