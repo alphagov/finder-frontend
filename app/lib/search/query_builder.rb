@@ -243,7 +243,7 @@ module Search
       # We're using the ab test relevance:disable params here to turn off LTR for this
       # finder. It would probably be best in the long run to create a specific way of
       # doing this that uses a proper parameter, but we can't do that at the moment.
-      ab_params.merge!("relevance" => "disable") if licence_transaction_path?
+      ab_params.merge!("relevance" => "disable") if licence_transaction_path? && !force_ltr?
       ab_params.any? ? { "ab_tests" => ab_params.map { |k, v| "#{k}:#{v}" }.join(",") } : {}
     end
 
@@ -259,6 +259,10 @@ module Search
 
     def licence_transaction_path?
       finder_content_item.base_path == "/find-licences"
+    end
+
+    def force_ltr?
+      params["force-ltr"] == "true"
     end
   end
 end
