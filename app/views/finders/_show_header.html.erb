@@ -13,6 +13,14 @@
     <%= render 'govuk_publishing_components/components/contextual_breadcrumbs', content_item: content_item.as_hash, inverse: inverse, ga4_tracking: true %>
   <% end %>
 
+  <% if content_item.base_path == "/find-licences"%>
+    <div class="govuk-!-margin-top-5">
+      <%= render "govuk_publishing_components/components/intervention", {
+        suggestion_text: sanitize("This is a new tool. Your <a href='https://surveys.publishing.service.gov.uk/s/1AXTLB' class='govuk-link'>feedback</a> will help us to improve it."),
+      } %>
+    </div>
+  <% end %>
+
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
       <% if content_item.all_content_finder? %>
