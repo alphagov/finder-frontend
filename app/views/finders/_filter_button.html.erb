@@ -5,7 +5,10 @@
     data-target="facet-wrapper"
     data-track-category="filterClicked"
     data-track-action="mobile-filter-button"
-    data-track-label="">
+    data-track-label=""
+    data-module="ga4-event-tracker",
+    data-ga4-expandable=""
+    >
       Filter <span class="govuk-visually-hidden"> results</span>
       <span class="js-selected-filter-count"><%= sanitize facet_tags.display_total_selected_filters %></span>
   </button>
