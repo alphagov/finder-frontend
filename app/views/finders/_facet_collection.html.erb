@@ -11,7 +11,7 @@
         type: 'search',
         value: result_set_presenter.user_supplied_keywords,
         inline_label: false,
-        label_text: label_text
+        label_text: sanitize(content_item.label_text) || label_text
       } %>
     </div>
   <% end %>
