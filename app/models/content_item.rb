@@ -152,6 +152,10 @@ class ContentItem
     base_path.split("/")[2]
   end
 
+  def is_licence_transaction?
+    base_path == "/find-licences"
+  end
+
 private
 
   attr_reader :content_item_hash
