@@ -36,7 +36,7 @@ var $form = document.querySelector('.js-live-search-form')
 var $results = document.querySelector('.js-live-search-results-block')
 var $atomAutodiscoveryLink = document.querySelector("link[type='application/atom+xml']")
 
-if ($form && $results && $atomAutodiscoveryLink) {
+if ($form && $results) {
   // eslint-disable-next-line no-new
   new GOVUK.LiveSearch({
     $form: $form,

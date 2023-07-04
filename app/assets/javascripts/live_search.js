@@ -23,7 +23,9 @@
     this.$sortBlock = options.$results.querySelector('#js-sort-options')
     this.$paginationBlock = options.$results.querySelector('#js-pagination')
     this.action = this.$form.getAttribute('action') + '.json'
-    this.$atomAutodiscoveryLink = options.$atomAutodiscoveryLink
+    if (options.$atomAutodiscoveryLink) {
+      this.$atomAutodiscoveryLink = options.$atomAutodiscoveryLink
+    }
 
     this.baseTitle = document.querySelector("meta[name='govuk:base_title']")
     if (this.baseTitle) {
@@ -450,7 +452,9 @@
       for (var a = 0; a < this.$atomLinks.length; a++) {
         this.$atomLinks[a].setAttribute('href', encodeURI(this.atomHref.split('?')[0] + searchState))
       }
-      this.$atomAutodiscoveryLink.setAttribute('href', encodeURI(this.atomHref.split('?')[0] + searchState))
+      if (this.$atomAutodiscoveryLink) {
+        this.$atomAutodiscoveryLink.setAttribute('href', encodeURI(this.atomHref.split('?')[0] + searchState))
+      }
     }
   }
 
@@ -485,7 +489,9 @@
       this.updateSortOptions(results, action)
       this.updateResultsCountMeta(results.total)
       this.manipulateErrorMessages(results.errors)
-      this.$atomAutodiscoveryLink.setAttribute('href', results.atom_url)
+      if (this.$atomAutodiscoveryLink) {
+        this.$atomAutodiscoveryLink.setAttribute('href', results.atom_url)
+      }
       this.$loadingBlock.textContent = ''
       this.$loadingBlock.style.display = 'none'
     }
