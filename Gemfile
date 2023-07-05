@@ -8,7 +8,7 @@ gem "dalli"
 gem "gds-api-adapters"
 gem "govuk_ab_testing"
 gem "govuk_app_config"
-gem "govuk_publishing_components"
+gem "govuk_publishing_components", git: 'https://github.com/alphagov/govuk_publishing_components.git', branch: 'fix-audit-links'
 gem "rest-client"
 gem "sassc-rails"
 gem "slimmer"
