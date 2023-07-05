@@ -104,6 +104,10 @@ class ContentItem
     content_item_hash["details"]["summary"]
   end
 
+  def label_text
+    content_item_hash["details"]["label_text"]
+  end
+
   def email_alert_signup
     content_item_hash.dig("links", "email_alert_signup", 0)
   end
