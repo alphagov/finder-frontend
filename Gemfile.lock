@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/alphagov/govuk_publishing_components.git
-  revision: d9a0aeae4c4ed4ca88659bac89cb467827be22ae
+  revision: 80ee24b89d1c6e48357363118b35d402eed63f5d
   branch: fix-audit-links
   specs:
     govuk_publishing_components (35.9.0)
@@ -171,7 +171,7 @@ GEM
     googleapis-common-protos-types (1.6.0)
       google-protobuf (~> 3.14)
     govuk_ab_testing (2.4.3)
-    govuk_app_config (9.0.0)
+    govuk_app_config (9.0.1)
       logstasher (~> 2.1)
       opentelemetry-exporter-otlp (~> 0.25.0)
       opentelemetry-instrumentation-all (~> 0.39.1)
@@ -243,7 +243,7 @@ GEM
       net-protocol
     netrc (0.11.0)
     nio4r (2.5.9)
-    nokogiri (1.15.2)
+    nokogiri (1.15.3)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
     null_logger (0.0.1)
