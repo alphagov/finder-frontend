@@ -214,14 +214,25 @@
 
   LiveSearch.prototype.serializeState = function (state) {
     var params = []
+    var keywords
     if (Array.isArray(state)) {
       for (var i = 0; i < state.length; i++) {
-        params.push(state[i].name + '=' + state[i].value)
+        if (state[i].name === 'keywords') {
+          keywords = state[i].value.replace(/\s+/g, '+')
+          params.push(state[i].name + '=' + keywords)
+        } else {
+          params.push(state[i].name + '=' + state[i].value)
+        }
       }
     } else {
       for (var key in state) {
         if (Object.prototype.hasOwnProperty.call(state, key)) {
-          params.push(encodeURIComponent(key) + '=' + encodeURIComponent(state[key]))
+          if (key === 'keywords') {
+            keywords = state[key].replace(/\s+/g, '+')
+            params.push(encodeURIComponent(key) + '=' + encodeURIComponent(keywords))
+          } else {
+            params.push(encodeURIComponent(key) + '=' + encodeURIComponent(state[key]))
+          }
         }
       }
     }
