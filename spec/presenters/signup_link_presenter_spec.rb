@@ -121,6 +121,20 @@ RSpec.describe SignupLinksPresenter do
           expect(subject.signup_links[:feed_link]).to eql("/mosw-reports.atom?keywords=micropig&topic%5B%5D=hidden_facet_content_id")
         end
       end
+
+      context "with a licence transaction" do
+        let(:facet_values) do
+          []
+        end
+
+        before do
+          allow(content_item).to receive(:is_licence_transaction?).and_return(true)
+        end
+
+        it "returns nil" do
+          expect(subject.signup_links[:feed_link]).to be nil
+        end
+      end
     end
   end
 end
