@@ -45,7 +45,7 @@ RSpec.describe Registries::WorldLocationsRegistry do
 
   def world_locations_api_is_unavailable
     base_url = GdsApi::TestHelpers::Worldwide::WORLDWIDE_API_ENDPOINT
-    stub_request(:get, "#{base_url}/api/world-locations").to_return(status: 500)
+    stub_request(:get, "#{base_url}/api/content/world").to_return(status: 500)
   end
 
   def clear_cache

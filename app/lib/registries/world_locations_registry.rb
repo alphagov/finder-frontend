@@ -43,7 +43,7 @@ module Registries
     end
 
     def fetch_locations_from_worldwide_api
-      Services.worldwide_api.world_locations.with_subsequent_pages.to_a
+      Services.worldwide_api.world_locations.to_a
     end
   end
 end
