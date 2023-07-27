@@ -66,12 +66,6 @@
       <% end %>
     </div>
 
-    <% if page_under_test? %>
-      <% content_for :meta_tags do %>
-        <%= @requested_variant.analytics_meta_tag.html_safe %>
-      <% end %>
-    <% end %>
-
     <% if content_item.summary %>
       <div class="govuk-grid-column-two-thirds">
         <div class="metadata-summary ">
