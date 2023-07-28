@@ -3,7 +3,7 @@ Then(/^the links on the page have tracking attributes$/) do
 
   expect(page).to have_selector('.js-live-search-results-block[data-module="gem-track-click"]')
 
-  document_links = page.all(".gem-c-document-list__item-title")
+  document_links = page.all(".gem-c-document-list__item-title a")
   expect(document_links.count).to be_positive
 
   first_link = document_links.first
