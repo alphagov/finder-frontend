@@ -171,7 +171,7 @@ mark {
 
   font-weight: bold;
 
-  &:first-letter {
+  &::first-letter {
     text-transform: uppercase;
   }
 }
