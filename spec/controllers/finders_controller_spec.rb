@@ -109,52 +109,6 @@ describe FindersController, type: :controller do
         get :show, params: { slug: "lunch-finder" }
         expect(response.status).to eq(406)
       end
-
-      context "with AA test" do
-        %w[A B Z].each do |variant|
-          it "renders the #{variant} variant for /search/all pages" do
-            stub_content_store_has_item(
-              "/search/all",
-              all_content_finder,
-            )
-
-            @request.headers["GOVUK-ABTest-EsSixPointSeven"] = variant
-
-            get :show, params: { slug: "search/all" }
-
-            expect(response.header["Vary"]).to eq("GOVUK-ABTest-EsSixPointSeven")
-            expect(response.body).to include("EsSixPointSeven:#{variant}")
-          end
-
-          it "doesn't render the #{variant} for finders" do
-            stub_content_store_has_item(
-              "/lunch-finder",
-              lunch_finder,
-            )
-
-            @request.headers["GOVUK-ABTest-EsSixPointSeven"] = variant
-
-            get :show, params: { slug: "lunch-finder" }
-
-            expect(response.status).to eq(200)
-            expect(response.header["Vary"]).not_to eq("GOVUK-ABTest-EsSixPointSeven")
-            expect(response.body).not_to include("EsSixPointSeven:#{variant}")
-          end
-        end
-
-        it "should render the page without an AB test variant for search" do
-          stub_content_store_has_item(
-            "/search/all",
-            all_content_finder,
-          )
-
-          get :show, params: { slug: "search/all" }
-
-          expect(response.status).to eq(200)
-          expect(response.header["Vary"]).to eq("GOVUK-ABTest-EsSixPointSeven")
-          expect(response.body).not_to include("<meta name=\"govuk:ab-test\">")
-        end
-      end
     end
 
     describe "a finder content item with a default order exists" do
