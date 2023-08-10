@@ -506,6 +506,8 @@
       this.$loadingBlock.textContent = ''
       this.$loadingBlock.style.display = 'none'
     }
+    // send this event to notify the scroll tracker to reset, if listening
+    window.GOVUK.triggerEvent(this.$form, 'dynamic-page-update')
   }
 
   LiveSearch.prototype.restoreBooleans = function restoreBooleans () {
