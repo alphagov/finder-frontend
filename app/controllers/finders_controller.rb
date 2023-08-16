@@ -1,5 +1,6 @@
 class FindersController < ApplicationController
   layout "finder_layout"
+  include AbTests::ElasticSearchAaTestable
 
   before_action do
     set_expiry(content_item)
@@ -7,6 +8,10 @@ class FindersController < ApplicationController
 
   def show
     slimmer_template "gem_layout_full_width" if i_am_a_topic_page_finder
+
+    if page_under_test?
+      set_requested_variant
+    end
 
     respond_to do |format|
       format.html do
@@ -58,7 +63,7 @@ private
 
   attr_reader :search_query
 
-  helper_method :facet_tags, :i_am_a_topic_page_finder, :result_set_presenter, :content_item, :signup_links, :filter_params, :facets
+  helper_method :facet_tags, :i_am_a_topic_page_finder, :result_set_presenter, :content_item, :signup_links, :filter_params, :facets, :page_under_test?
 
   def redirect_to_destination
     @redirect = content_item.redirect

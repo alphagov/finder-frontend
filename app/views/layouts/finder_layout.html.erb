@@ -25,6 +25,7 @@
     <% end %>
     <meta name="govuk:base_title" content="<%= yield :meta_title %> - GOV.UK">
     <meta name="govuk:scroll-tracker" content="" data-module="ga4-scroll-tracker"/>
+    <%= yield :meta_tags %>
   </head>
 
   <body class="<%= yield :body_classes %>">
