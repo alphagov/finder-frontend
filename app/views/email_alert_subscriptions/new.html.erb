@@ -5,7 +5,7 @@
 <% end %>
 
 <% if @signup_presenter.beta? %>
-  <%= render 'govuk_publishing_components/components/phase_banner', phase: "beta" %>
+  <%= render 'govuk_publishing_components/components/phase_banner', phase: "beta", ga4_tracking: true %>
 <% end %>
 
 <div class="govuk-width-container">
