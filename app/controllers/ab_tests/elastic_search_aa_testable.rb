@@ -3,7 +3,7 @@ module AbTests::ElasticSearchAaTestable
     GovukAbTesting::AbTest.new(
       "EsSixPointSeven",
       dimension: 41,
-      allowed_variants: %w[A B Z],
+      allowed_variants: %w[A B C Z],
       control_variant: "Z",
     )
   end

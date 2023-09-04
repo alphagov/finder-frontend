@@ -111,7 +111,7 @@ describe FindersController, type: :controller do
       end
 
       context "with AA test" do
-        %w[A B Z].each do |variant|
+        %w[A B C Z].each do |variant|
           it "renders the #{variant} variant for /search/all pages" do
             stub_content_store_has_item(
               "/search/all",
