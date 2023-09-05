@@ -1,6 +1,6 @@
 <div class="govuk-width-container">
   <% if content_item.show_phase_banner? %>
-    <%= render 'govuk_publishing_components/components/phase_banner', phase: content_item.phase, message: sanitize(content_item.phase_message), inverse: inverse %>
+    <%= render 'govuk_publishing_components/components/phase_banner', phase: content_item.phase, message: sanitize(content_item.phase_message), inverse: inverse, ga4_tracking: true %>
   <% end %>
 
   <% if @breadcrumbs.breadcrumbs %>
