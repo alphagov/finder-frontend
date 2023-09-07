@@ -15,6 +15,10 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
     this.hasFilter = this.$optionSelect.getAttribute('data-filter-element') || ''
 
     this.checkedCheckboxes = []
+
+    this.mq = window.matchMedia('(min-width: 641px)')
+    this.isClosedOnLoad = this.$optionSelect.getAttribute('data-closed-on-load')
+    this.isClosedOnLoadMobile = this.$optionSelect.getAttribute('data-closed-on-load-mobile')
   }
 
   OptionSelect.prototype.init = function () {
@@ -57,30 +61,34 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
     var button = this.$optionSelect.querySelector('.js-container-button')
     button.addEventListener('click', this.toggleOptionSelect.bind(this))
 
-    var closedOnLoad = this.$optionSelect.getAttribute('data-closed-on-load')
-    var closedOnLoadMobile = this.$optionSelect.getAttribute('data-closed-on-load-mobile')
-
-    // By default the .filter-content container is hidden on mobile
-    // By checking if .filter-content is hidden, we are in mobile view given the current implementation
-    var isFacetsContentHidden = this.isFacetsContainerHidden()
-
-    // Check if the option select should be closed for mobile screen sizes
-    var closedForMobile = closedOnLoadMobile === 'true' && isFacetsContentHidden
-
-    // Always set the contain height to 200px for mobile screen sizes
-    if (closedForMobile) {
-      this.setContainerHeight(200)
-    }
-
-    if (closedOnLoad === 'true' || closedForMobile) {
-      this.close()
+    // Toggle option visibility depending on screen size (min-width: 641px) and
+    // presence of any 'closed' properties (`data-closed-on-load`, `data-closed-on-load-mobile`).
+    // See https://github.com/alphagov/govuk-frontend/blob/main/packages/govuk-frontend/src/govuk/settings/_media-queries.scss#L10-L14
+    if (this.mq.matches) {
+      this.toggleVisibility(true)
     } else {
-      this.setupHeight()
+      this.toggleVisibility(false)
     }
 
     var checkedString = this.checkedString()
     if (checkedString) {
       this.attachCheckedCounter(checkedString)
+    }
+  }
+
+  OptionSelect.prototype.toggleVisibility = function (isTabletOrLarger) {
+    if (isTabletOrLarger) {
+      if (this.isClosedOnLoad === 'true') {
+        this.close()
+      } else {
+        this.setupHeight()
+      }
+    } else {
+      if (this.isClosedOnLoadMobile === 'true' || this.isClosedOnLoad === 'true') {
+        this.close()
+      } else {
+        this.setContainerHeight(201)
+      }
     }
   }
 

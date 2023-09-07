@@ -46,6 +46,10 @@ class ContentItem
     content_item_hash.dig("details", "filter") || {}
   end
 
+  def open_filter_on_load
+    content_item_hash.dig("details", "open_filter_on_load") || ""
+  end
+
   def reject
     content_item_hash.dig("details", "reject") || {}
   end

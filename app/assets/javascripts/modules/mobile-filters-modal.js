@@ -17,6 +17,10 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
       this.triggerElement.addEventListener('click', this.module.toggle)
       this.triggerElement.setAttribute('aria-controls', this.module.id)
       this.triggerElement.setAttribute('aria-expanded', 'false')
+      // Open filter on page load if data attribute "open_on_load" is present
+      if (this.triggerElement.getAttribute('data-open-on-load') === 'true') {
+        this.triggerElement.click()
+      }
     }
 
     if (this.clearFiltersTrigger) {
