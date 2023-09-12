@@ -25,6 +25,10 @@ module Services
     GdsApi::Search.new(Plek.find("search-api"))
   end
 
+  def self.search_api_v2
+    GdsApi::SearchApiV2.new(Plek.find("search-api-v2"))
+  end
+
   def self.email_alert_api
     Services::EmailAlertApi.new
   end

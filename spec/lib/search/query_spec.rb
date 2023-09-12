@@ -5,6 +5,10 @@ describe Search::Query do
     stub_request(:get, %r{#{Plek.find("search-api")}/search.json})
   end
 
+  def stub_search_v2
+    stub_request(:get, %r{#{Plek.find("search-api-v2")}/search.json})
+  end
+
   def stub_batch_search
     stub_request(:get, %r{#{Plek.find("search-api")}/batch_search.json})
   end
@@ -43,6 +47,24 @@ describe Search::Query do
       "popularity" => popularity,
       "public_timestamp" => updated,
     }
+  end
+
+  context "when manually overriding parameters to use the v2 API" do
+    subject { described_class.new(content_item, { "use_v2" => "true" }).search_results }
+
+    before do
+      stub_search_v2.to_return(body: {
+        "results" => [
+          result_item("/i-am-the-v2-api", "I am the v2 API", score: nil, updated: "14-12-19", popularity: 1),
+        ],
+      }.to_json)
+    end
+
+    it "calls the v2 API" do
+      results = subject.fetch("results")
+      expect(results.length).to eq(1)
+      expect(results.first).to match(hash_including("_id" => "/i-am-the-v2-api"))
+    end
   end
 
   context "when searching using a single query" do
