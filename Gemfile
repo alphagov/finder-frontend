@@ -14,7 +14,6 @@ gem "sassc-rails"
 gem "slimmer"
 gem "sprockets-rails"
 gem "uglifier"
-gem "whenever"
 
 group :development do
   gem "better_errors"
