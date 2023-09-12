@@ -87,7 +87,11 @@ module Search
         override_sort_for_feed:,
       ).call
 
-      if queries.one?
+      if use_v2_api?
+        GovukStatsd.time("search_api_v2.finder_search") do
+          Services.search_api_v2.search(queries.first).to_hash
+        end
+      elsif queries.one?
         GovukStatsd.time("rummager.finder_search") do
           Services.rummager.search(queries.first).to_hash
         end
@@ -98,6 +102,10 @@ module Search
           )
         end
       end
+    end
+
+    def use_v2_api?
+      ActiveModel::Type::Boolean.new.cast(filter_params["use_v2"])
     end
   end
 end
