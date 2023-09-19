@@ -90,7 +90,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
   }
 
   MobileFiltersModal.prototype.addGa4Tracking = function () {
-    var indexSectionCount = document.querySelectorAll('[data-ga4-section]').length
+    var indexSectionCount = document.querySelectorAll('[data-ga4-filter-parent]').length
 
     this.triggerElement.setAttribute('data-ga4-event', JSON.stringify({
       event_name: 'select_content',

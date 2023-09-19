@@ -2,7 +2,8 @@
   <%= render "components/expander", {
     title: "Topic"
   } do %>
-    <div class="js-taxonomy-select" data-ga4-change-category="update-filter select">
+    <div class="js-taxonomy-select" data-ga4-change-category="update-filter select" data-ga4-section="Topic">
+
       <%= render "govuk_publishing_components/components/select", {
         id: 'level_one_taxon',
         label: "Topic",
@@ -10,7 +11,8 @@
         options: taxon_facet.topics
       }
       %>
-      <div class="js-required govuk-form-group gem-c-select">
+
+      <div class="js-required govuk-form-group gem-c-select" data-ga4-section="Sub-topic">
         <%= render "govuk_publishing_components/components/select", {
           id: 'level_two_taxon',
           label: "Sub-topic",
