@@ -92,7 +92,7 @@ private
   def result_set_presenter
     @result_set_presenter ||= ResultSetPresenter.new(
       content_item,
-      facets,
+      all_facets,
       results,
       filter_params,
       sort_presenter,
@@ -106,12 +106,16 @@ private
     @results ||= ResultSetParser.parse(search_results)
   end
 
-  def facets
+  def all_facets
     @facets ||= FacetsBuilder.new(content_item:, search_results:, value_hash: filter_params).facets
   end
 
+  def facets
+    all_facets.select(&:filterable?)
+  end
+
   def signup_links
-    @signup_links ||= SignupLinksPresenter.new(content_item, facets, keywords).signup_links
+    @signup_links ||= SignupLinksPresenter.new(content_item, all_facets, keywords).signup_links
   end
 
   def initialize_search_query(is_for_feed: false)
@@ -174,7 +178,7 @@ private
 
   def facet_tags
     @facet_tags ||= FacetTagsPresenter.new(
-      facets.select(&:filterable?),
+      facets,
       sort_presenter,
       i_am_a_topic_page_finder:,
     )
