@@ -1,8 +1,5 @@
-<% add_app_component_stylesheet("option-select") %>
-<% add_gem_component_stylesheet("checkboxes") %>
-
 <% cache_if option_select_facet.cacheable?, option_select_facet.cache_key do %>
-  <%= render partial: 'components/option_select', locals: {
+  <%= render partial: 'govuk_publishing_components/components/option_select', locals: {
     :key => option_select_facet.key,
     :title => option_select_facet.name,
     :aria_controls_id => "js-search-results-info",
