@@ -32,13 +32,19 @@
   <% filter_element = CGI::escapeHTML(filter) %>
 <% end %>
 
-<div
-  class="app-c-option-select" data-module="option-select" data-ga4-change-category="update-filter checkbox" data-ga4-section="<%= title %>"
-  <% if local_assigns.include?(:closed_on_load) && closed_on_load %>data-closed-on-load="true"<% end %>
-  <% if local_assigns.include?(:closed_on_load_mobile) && closed_on_load_mobile %>data-closed-on-load-mobile="true"<% end %>
-  <% if local_assigns.include?(:aria_controls_id) %>data-input-aria-controls="<%= aria_controls_id %>"<% end %>
-  <% if show_filter %>data-filter-element="<%= filter_element %>"<% end %>
->
+<%
+  helper = GovukPublishingComponents::Presenters::ComponentWrapperHelper.new(local_assigns)
+
+  helper.add_data_attribute({ module: "option-select" })
+  helper.add_data_attribute({ "ga4-change-category": "update-filter checkbox", "ga4-section": title })
+
+  helper.add_data_attribute({ "closed-on-load": true }) if local_assigns.include?(:closed_on_load) && closed_on_load
+  helper.add_data_attribute({ "closed-on-load-mobile": "true" }) if local_assigns.include?(:closed_on_load_mobile) && closed_on_load_mobile
+  helper.add_data_attribute({ "input-aria-controls": aria_controls_id }) if local_assigns.include?(:aria_controls_id)
+  helper.add_data_attribute({ "filter-element": filter_element }) if show_filter
+%>
+
+<%= tag.div(**helper.all_attributes.merge(class: "app-c-option-select")) do %>
   <h3 class="app-c-option-select__heading js-container-heading">
     <span class="app-c-option-select__title js-container-button" id="<%= title_id %>"><%= title %></span>
     <svg version="1.1" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" class="app-c-option-select__icon app-c-option-select__icon--up" aria-hidden="true" focusable="false"><path d="m798.16 609.84l-256-256c-16.683-16.683-43.691-16.683-60.331 0l-256 256c-16.683 16.683-16.683 43.691 0 60.331s43.691 16.683 60.331 0l225.84-225.84 225.84 225.84c16.683 16.683 43.691 16.683 60.331 0s16.683-43.691 0-60.331z"/></svg>
@@ -66,4 +72,4 @@
       } %>
     </div>
   <% end %>
-</div>
+<% end %>
