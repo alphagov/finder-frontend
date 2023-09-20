@@ -111,7 +111,7 @@ private
   end
 
   def facets
-    all_facets.select(&:filterable?)
+    FacetsIterator.new(all_facets.select(&:filterable?))
   end
 
   def signup_links

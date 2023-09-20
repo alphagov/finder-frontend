@@ -7,20 +7,7 @@
 
   GOVUK.analyticsGa4.Ga4FinderTracker = {
 
-    // Finds the parent div containing the filters. Loops through each child div that has data-ga4-section on it . Sets an index on each of these child divs.
     setFilterIndexes: function () {
-      var filterContainer = document.querySelector('[data-ga4-filter-container]')
-
-      if (!filterContainer) {
-        return
-      }
-
-      var filterSections = filterContainer.querySelectorAll('[data-ga4-section]')
-
-      for (var i = 0; i < filterSections.length; i++) {
-        filterSections[i].setAttribute('data-ga4-index', JSON.stringify({ index_section: i + 1, index_section_count: filterSections.length }))
-      }
-
       window.GOVUK.triggerEvent(window, 'ga4-filter-indexes-added')
     },
 
