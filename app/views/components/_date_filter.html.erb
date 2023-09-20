@@ -19,7 +19,10 @@
         value: from_value,
         controls: aria_controls_id,
         hint: "For example, 2005 or 21/11/2014",
-        error_message: date_errors_from
+        error_message: date_errors_from,
+        data: {
+          ga4_section: name + " after"
+        }
       } %>
 
       <%= render "govuk_publishing_components/components/input", {
@@ -31,7 +34,10 @@
         value: to_value,
         controls: aria_controls_id,
         hint: "For example, 2005 or 21/11/2014",
-        error_message: date_errors_to
+        error_message: date_errors_to,
+        data: {
+          ga4_section: name + " before"
+        }
       } %>
     </div>
   <% end %>

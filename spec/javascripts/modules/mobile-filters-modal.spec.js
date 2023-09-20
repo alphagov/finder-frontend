@@ -16,16 +16,16 @@ describe('Mobile filters', function () {
           '<h2 class="gem-c-title__text">Filter</h2>' +
         '</div>' +
         '<div class="facets__content">' +
-          '<select data-ga4-section>' +
+          '<select data-ga4-filter-parent>' +
             '<option value>All options</option>' +
             '<option value="1" selected="selected">Selected</option>' +
           '</select>' +
-          '<input type="checkbox" id="checkbox-one" name="checkbox-one" checked data-ga4-section>' +
+          '<input type="checkbox" id="checkbox-one" name="checkbox-one" checked data-ga4-filter-parent>' +
           '<label for="checkbox-one">Chekbox 2</label>' +
-          '<input type="checkbox" id="checkbox-two" name="checkbox-two" data-ga4-section>' +
+          '<input type="checkbox" id="checkbox-two" name="checkbox-two" data-ga4-filter-parent>' +
           '<label for="checkbox-two">Checkbox 2</label>' +
-          '<input name="input-one" type="text" value="" data-ga4-section>' +
-          '<input name="input-two" type="text" value="text input value" data-ga4-section>' +
+          '<input name="input-one" type="text" value="" data-ga4-filter-parent>' +
+          '<input name="input-two" type="text" value="text input value" data-ga4-filter-parent>' +
           '<button class="app-c-button-as-link facets__clear-link js-clear-selected-filters" type="button">' +
             'Clear all filters' +
           '</button>' +
