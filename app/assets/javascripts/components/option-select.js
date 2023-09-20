@@ -166,6 +166,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
     button.setAttribute('aria-expanded', true)
     button.setAttribute('id', containerHead.getAttribute('id'))
     button.setAttribute('aria-controls', this.$optionsContainer.getAttribute('id'))
+    button.setAttribute('data-ga4-expandable', '')
     button.innerHTML = jsContainerHeadHTML
     containerHead.parentNode.replaceChild(button, containerHead)
 

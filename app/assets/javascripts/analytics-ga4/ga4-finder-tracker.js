@@ -147,7 +147,6 @@
     },
 
     addFilterButtonTracking: function (button, section) {
-      button.setAttribute('data-ga4-expandable', '')
       var ga4JSON = { event_name: 'select_content', type: 'finder', section: section }
 
       try {

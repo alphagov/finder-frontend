@@ -68,6 +68,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}; // if this ; is omitted, none
     $button.setAttribute('type', 'button')
     $button.setAttribute('aria-expanded', expanded)
     $button.setAttribute('aria-controls', this.$content.getAttribute('id'))
+    $button.setAttribute('data-ga4-expandable', '')
 
     // GA4 Accordion tracking. Relies on the ga4-finder-tracker setting the index first, so we wrap this in a custom event.
     window.addEventListener('ga4-filter-indexes-added', function () {
