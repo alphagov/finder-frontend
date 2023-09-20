@@ -46,8 +46,8 @@
           </div>
         </div>
         <div class="facets__content" data-module="ga4-event-tracker" data-ga4-filter-container>
-          <% facets.each.with_index do |facet, index| %>
-            <%= render partial: facet, object: facet, locals: { index: } %>
+          <% facets.each_with_index_and_count do |facet, index, count| %>
+            <%= render partial: facet, object: facet, locals: { index:, count: } %>
           <% end %>
           <div class="facets__tags-block js-mobile-facet-tag-block"  data-module="remove-filter">
             <%= render "facet_tags", facet_tags.present %>
