@@ -6,6 +6,5 @@
 
 //= link components/_expander.css
 //= link components/_mobile-filters.css
-//= link components/_option-select.css
 
 //= link views/_search.css
