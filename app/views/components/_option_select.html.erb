@@ -36,7 +36,6 @@
   helper = GovukPublishingComponents::Presenters::ComponentWrapperHelper.new(local_assigns)
 
   helper.add_data_attribute({ module: "option-select" })
-  helper.add_data_attribute({ "ga4-change-category": "update-filter checkbox", "ga4-section": title })
 
   helper.add_data_attribute({ "closed-on-load": true }) if local_assigns.include?(:closed_on_load) && closed_on_load
   helper.add_data_attribute({ "closed-on-load-mobile": "true" }) if local_assigns.include?(:closed_on_load_mobile) && closed_on_load_mobile
