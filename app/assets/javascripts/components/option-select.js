@@ -166,18 +166,16 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
     button.setAttribute('aria-expanded', true)
     button.setAttribute('id', containerHead.getAttribute('id'))
     button.setAttribute('aria-controls', this.$optionsContainer.getAttribute('id'))
-    button.setAttribute('data-ga4-expandable', '')
     button.innerHTML = jsContainerHeadHTML
-    containerHead.parentNode.replaceChild(button, containerHead)
 
-    // GA4 Accordion tracking. Relies on the ga4-finder-tracker setting the index first, so we wrap this in a custom event.
-    window.addEventListener('ga4-filter-indexes-added', function () {
-      if (window.GOVUK.analyticsGa4) {
-        if (window.GOVUK.analyticsGa4.Ga4FinderTracker) {
-          window.GOVUK.analyticsGa4.Ga4FinderTracker.addFilterButtonTracking(button, button.innerHTML)
-        }
-      }
-    })
+    dataAttributes = JSON.parse(this.$optionSelect.getAttribute("data-button-data-attributes"))
+    for (const key in dataAttributes) {
+      var rawValue = dataAttributes[key]
+      var value = typeof rawValue == "object" ? JSON.stringify(rawValue) : rawValue
+      button.setAttribute('data-' + key, value)
+    }
+
+    containerHead.parentNode.replaceChild(button, containerHead)
   }
 
   OptionSelect.prototype.attachCheckedCounter = function attachCheckedCounter (checkedString) {

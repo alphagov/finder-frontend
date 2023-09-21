@@ -7,9 +7,7 @@
 
   GOVUK.analyticsGa4.Ga4FinderTracker = {
 
-    setFilterIndexes: function () {
-      window.GOVUK.triggerEvent(window, 'ga4-filter-indexes-added')
-    },
+    setFilterIndexes: function () {},
 
     // Called when the search results updates. Takes the event target, and a string containing the type of change and element type. Creates the GTM schema and pushes it.
     // changeEventMetadata is a string referring to the type of form change and the element type that triggered it. For example 'update-filter checkbox'.
@@ -146,25 +144,7 @@
       }
     },
 
-    addFilterButtonTracking: function (button, section) {
-      var ga4JSON = { event_name: 'select_content', type: 'finder', section: section }
-
-      try {
-        var index = button.closest('[data-ga4-index]') || undefined
-        if (index) {
-          ga4JSON.index = JSON.parse(index.getAttribute('data-ga4-index'))
-        } else {
-          console.warn('No data-ga4-index found on the following element or its parents:')
-          console.warn(button)
-        }
-      } catch (e) {
-        // if there's a problem with the index object, don't add the attribute
-        console.error('GA4 configuration error: ' + e.message, window.location)
-        return
-      }
-
-      button.setAttribute('data-ga4-event', JSON.stringify(ga4JSON))
-    }
+    addFilterButtonTracking: function (button, section) {}
   }
 
   global.GOVUK = GOVUK
