@@ -1,3 +1,11 @@
+<%# 
+  Always ensure the option-select and checkbox stylesheets are requested,
+  otherwise the helper methods to include the stylesheets are not called when
+  caching is used
+%>
+<% add_gem_component_stylesheet("option-select") %>
+<% add_gem_component_stylesheet("checkboxes") %>
+
 <% cache_if option_select_facet.cacheable?, option_select_facet.cache_key do %>
   <div data-ga4-change-category="update-filter checkbox" data-ga4-filter-parent data-ga4-section="<%= option_select_facet.name %>">
     <%= render partial: 'govuk_publishing_components/components/option_select', locals: {
