@@ -331,7 +331,7 @@ end
 Then(/^I can see filters based on the results$/) do
   visit finder_path("mosw-reports")
 
-  within first(".gem-c-option-select") do
+  within first(".app-c-option-select") do
     expect(page).to have_selector("input#walk_type-backward")
     expect(page).to have_content("Hopscotch")
     expect(page).to_not have_selector("input#organisations-ministry-of-silly-walks")

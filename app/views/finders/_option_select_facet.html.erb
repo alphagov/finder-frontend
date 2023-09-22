@@ -1,15 +1,17 @@
+<% add_app_component_stylesheet("option-select") %>
+<% add_gem_component_stylesheet("checkboxes") %>
+
 <% cache_if option_select_facet.cacheable?, option_select_facet.cache_key do %>
-  <div data-ga4-change-category="update-filter checkbox" data-ga4-filter-parent data-ga4-section="<%= option_select_facet.name %>">
-    <%= render partial: 'govuk_publishing_components/components/option_select', locals: {
-      :key => option_select_facet.key,
-      :title => option_select_facet.name,
-      :aria_controls_id => "js-search-results-info",
-      :options_container_id => option_select_facet.key,
-      :options => option_select_facet.options("js-search-results-info", option_select_facet.key),
-      :closed_on_load => option_select_facet.closed_on_load?(option_select_facet_counter),
-      :closed_on_load_mobile => option_select_facet.closed_on_load_mobile?,
-      :show_filter => option_select_facet.show_option_select_filter,
-      :large => option_select_facet.large?
-    } %>
-  </div>
+  <%= render partial: 'components/option_select', locals: {
+    :key => option_select_facet.key,
+    :title => option_select_facet.name,
+    :aria_controls_id => "js-search-results-info",
+    :options_container_id => option_select_facet.key,
+    :options => option_select_facet.options("js-search-results-info", option_select_facet.key),
+    :closed_on_load => option_select_facet.closed_on_load?(option_select_facet_counter),
+    :closed_on_load_mobile => option_select_facet.closed_on_load_mobile?,
+    :show_filter => option_select_facet.show_option_select_filter,
+    :large => option_select_facet.large?
+  }
+  %>
 <% end %>
