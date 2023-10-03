@@ -183,7 +183,7 @@ RSpec.describe ResultSetPresenter do
       end
     end
 
-    context "with ecommerce disabled" do
+    context "with universal analytics ecommerce disabled" do
       let(:enable_ecommerce) { false }
       let(:results) do
         [FactoryBot.build(
@@ -195,13 +195,15 @@ RSpec.describe ResultSetPresenter do
         )]
       end
 
-      it "doesn't include ecommerce attributes" do
+      it "doesn't include UA ecommerce attributes" do
         expected_hash = {
           link: {
             text: "document_title",
             path: "/path/to/doc",
             description: "document_description",
-            data_attributes: {},
+            data_attributes: {
+              ga4_ecommerce_path: "/path/to/doc",
+            },
           },
           metadata: {
             "Organisations" => "Organisations: Department for Work and Pensions",

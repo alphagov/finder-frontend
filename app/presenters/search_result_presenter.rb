@@ -27,7 +27,7 @@ class SearchResultPresenter
         text: title,
         path: link,
         description: sanitize(summary_text),
-        data_attributes: ecommerce_data(link, title),
+        data_attributes: ga4_ecommerce_data(link).merge(ecommerce_data(link, title)),
       },
       metadata: structure_metadata,
       metadata_raw: metadata,
@@ -80,23 +80,29 @@ private
         GovukError.notify(MalformedPartError.new, extra: { part:, link: })
         next
       end
+      path = "#{link}/#{part[:slug]}"
       {
         link: {
           text: part[:title],
-          path: "#{link}/#{part[:slug]}",
+          path:,
           description: part[:body],
-          data_attributes: ecommerce_data("#{link}/#{part[:slug]}", part[:title], part_index: index),
+          data_attributes: ga4_ecommerce_data(path).merge(ecommerce_data(path, part[:title], part_index: index)),
         },
       }
     end
     structured_parts.compact
   end
 
+  def ga4_ecommerce_data(path)
+    {
+      ga4_ecommerce_path: path,
+    }
+  end
+
   def ecommerce_data(link, title, part_index: nil)
     return {} unless @include_ecommerce
 
     {
-      ga4_ecommerce_path: link,
       ecommerce_path: link,
       ecommerce_row: 1,
       ecommerce_index: document.index,
