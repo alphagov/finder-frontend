@@ -1,11 +1,22 @@
-<% # we want an empty string if there are no suggestions on page load %> 
+<% # we want an empty string if there are no suggestions on page load %>
 <% _spelling_suggestion = '' %>
 <% if @spelling_suggestion_presenter.suggestions.any? %>
 <p class="govuk-body">Did you mean
   <% @spelling_suggestion_presenter.suggestions.each do |suggestion| %>
+    <%
+      ga4_data = {
+        module: "ga4-link-tracker",
+        ga4_link: {
+          event_name: "navigation",
+          type: "spelling suggestion",
+          section: "search",
+          text: suggestion[:keywords],
+        }
+      }
+    %>
     <%= link_to sanitize(suggestion[:highlighted]), suggestion[:link],
       class: "govuk-link",
-      :data => suggestion[:data_attributes]
+      :data => ga4_data.merge(suggestion[:data_attributes])
     %>
     <% _spelling_suggestion = suggestion[:keywords] %>
   <% end %>
