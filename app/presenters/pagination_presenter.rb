@@ -11,7 +11,7 @@ class PaginationPresenter
   def next_and_prev_links
     return unless can_paginate?
 
-    { previous_page:, next_page: }.compact
+    { ga4_tracking: true, previous_page:, next_page: }.compact
   end
 
 private
