@@ -136,6 +136,7 @@ RSpec.describe ResultSetPresenter do
             data_attributes: {
               ecommerce_path: "/path/to/doc",
               ga4_ecommerce_path: "/path/to/doc",
+              ga4_ecommerce_content_id: "content_id",
               ecommerce_row: 1,
               ecommerce_index: 1,
               track_category: "navFinderLinkClicked",
@@ -203,6 +204,7 @@ RSpec.describe ResultSetPresenter do
             description: "document_description",
             data_attributes: {
               ga4_ecommerce_path: "/path/to/doc",
+              ga4_ecommerce_content_id: "content_id",
             },
           },
           metadata: {

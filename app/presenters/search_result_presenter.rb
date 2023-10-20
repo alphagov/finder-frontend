@@ -96,6 +96,7 @@ private
   def ga4_ecommerce_data(path)
     {
       ga4_ecommerce_path: path,
+      ga4_ecommerce_content_id: @document.content_id,
     }
   end
 
