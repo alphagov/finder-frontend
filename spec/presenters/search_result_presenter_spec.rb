@@ -66,6 +66,7 @@ RSpec.describe SearchResultPresenter do
           description: "I am a document. I am full of words and that.",
           data_attributes: {
             ga4_ecommerce_path: link,
+            ga4_ecommerce_content_id: "content_id",
             ecommerce_path: link,
             ecommerce_row: 1,
             ecommerce_index: 1,
@@ -108,6 +109,7 @@ RSpec.describe SearchResultPresenter do
               description: "Part description",
               data_attributes: {
                 ga4_ecommerce_path: "#{link}/part-path",
+                ga4_ecommerce_content_id: "content_id",
                 ecommerce_path: "#{link}/part-path",
                 ecommerce_row: 1,
                 ecommerce_index: 1,
