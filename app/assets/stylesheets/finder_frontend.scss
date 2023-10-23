@@ -265,12 +265,6 @@ mark {
     margin-bottom: 0;
   }
 
-  .gem-c-subscription-links {
-    @include govuk-media-query($until: tablet) {
-      margin-bottom: govuk-spacing(2);
-    }
-  }
-
   // NOTE: used to override govspeak component when it's used on an inverse header
   .gem-c-inverse-header {
     .gem-c-govspeak {
