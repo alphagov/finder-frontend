@@ -264,13 +264,6 @@ mark {
   .govuk-checkboxes__label {
     margin-bottom: 0;
   }
-
-  // NOTE: used to override govspeak component when it's used on an inverse header
-  .gem-c-inverse-header {
-    .gem-c-govspeak {
-      color: govuk-colour("white");
-    }
-  }
 }
 
 .govspeak-wrapper {
