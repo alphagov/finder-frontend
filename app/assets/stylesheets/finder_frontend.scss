@@ -265,10 +265,6 @@ mark {
     margin-bottom: 0;
   }
 
-  .gem-c-intervention {
-    margin-bottom: 0;
-  }
-
   .gem-c-subscription-links {
     @include govuk-media-query($until: tablet) {
       margin-bottom: govuk-spacing(2);
