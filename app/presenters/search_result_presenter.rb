@@ -97,6 +97,8 @@ private
     {
       ga4_ecommerce_path: path,
       ga4_ecommerce_content_id: @document.content_id,
+      ga4_ecommerce_row: 1,
+      ga4_ecommerce_index: document.index,
     }
   end
 

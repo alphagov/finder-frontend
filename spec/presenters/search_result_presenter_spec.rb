@@ -67,6 +67,8 @@ RSpec.describe SearchResultPresenter do
           data_attributes: {
             ga4_ecommerce_path: link,
             ga4_ecommerce_content_id: "content_id",
+            ga4_ecommerce_row: 1,
+            ga4_ecommerce_index: 1,
             ecommerce_path: link,
             ecommerce_row: 1,
             ecommerce_index: 1,
@@ -110,6 +112,8 @@ RSpec.describe SearchResultPresenter do
               data_attributes: {
                 ga4_ecommerce_path: "#{link}/part-path",
                 ga4_ecommerce_content_id: "content_id",
+                ga4_ecommerce_row: 1,
+                ga4_ecommerce_index: 1,
                 ecommerce_path: "#{link}/part-path",
                 ecommerce_row: 1,
                 ecommerce_index: 1,
