@@ -146,6 +146,14 @@
       var consentCookie = GOVUK.getConsentCookie()
 
       if (consentCookie && consentCookie.settings) {
+        if (this.$resultsWrapper) {
+          this.$resultsWrapper.setAttribute('data-ga4-search-query', this.currentKeywords())
+          var sortedBy = this.$resultsWrapper.querySelector('.js-order-results')
+          if (sortedBy) {
+            this.$resultsWrapper.setAttribute('data-ga4-ecommerce-variant', sortedBy.options[sortedBy.selectedIndex].text)
+          }
+        }
+
         GOVUK.analyticsGa4.Ga4EcommerceTracker.init(referrer)
       } else {
         window.addEventListener('cookie-consent', function () {
