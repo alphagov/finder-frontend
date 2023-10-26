@@ -17,8 +17,6 @@ class FindersController < ApplicationController
       format.html do
         raise UnsupportedContentItem unless content_item.is_finder?
 
-        @show_banner = content_item.base_path == "/government/organisations/hm-revenue-customs/contact"
-
         if legacy_params_present?
           transform_legacy_announcement_params_and_redirect if content_item.base_path == "/search/news-and-communications"
           transform_legacy_publication_params_and_redirect if content_item.base_path == "/search/all"
