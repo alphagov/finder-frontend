@@ -57,7 +57,7 @@
       <% end %>
 
       <% if page_metadata.any? %>
-        <% page_metadata.merge!({ inverse: inverse, margin_bottom: 2 }) %>
+        <% page_metadata.merge!({ inverse: inverse, inverse_compress: true, margin_bottom: 2 }) %>
         <%= render 'govuk_publishing_components/components/metadata', page_metadata %>
       <% end %>
     </div>
