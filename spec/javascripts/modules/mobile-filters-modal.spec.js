@@ -142,10 +142,8 @@ describe('Mobile filters', function () {
           type: 'finder',
           text: 'Filter',
           section: 'Filter',
-          index: {
-            index_section: 0,
-            index_section_count: 5
-          }
+          index_section: 0,
+          index_section_count: 5
         }
         expect(button.getAttribute('data-ga4-event')).toEqual(JSON.stringify(expected))
       })

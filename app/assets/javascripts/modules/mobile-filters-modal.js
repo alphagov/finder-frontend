@@ -97,10 +97,8 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
       type: 'finder',
       text: 'Filter',
       section: 'Filter',
-      index: {
-        index_section: 0,
-        index_section_count: indexSectionCount
-      }
+      index_section: 0,
+      index_section_count: indexSectionCount
     }))
   }
 
