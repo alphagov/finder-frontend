@@ -16,11 +16,12 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
       <% if content_item.all_content_finder? %>
-      <%= render "govuk_publishing_components/components/heading", {
-        text: sanitize("Search <span class='govuk-visually-hidden'>all content</span>"),
-        heading_level: 1,
-        font_size: "xl",
-        margin_bottom: 4
+        <%= render "govuk_publishing_components/components/heading", {
+          text: sanitize("Search <span class='govuk-visually-hidden'>all content</span>"),
+          heading_level: 1,
+          font_size: "xl",
+          margin_bottom: 4,
+          inverse: inverse,
         } %>
         <div id="keywords" class="app-patch--search-input-override" role="search" aria-label="Sitewide" data-ga4-change-category="update-keyword text">
           <%= render "govuk_publishing_components/components/search", {
@@ -29,6 +30,7 @@
             name: "keywords",
             type: 'search',
             value: result_set_presenter.user_supplied_keywords,
+            on_govuk_blue: inverse,
           } %>
         </div>
         <div id="js-spelling-suggestions" class="spelling-suggestions"
@@ -44,16 +46,18 @@
         <%= link_to topic_finder_parent(filter_params)['title'], topic_finder_parent(filter_params)['base_path'], class: 'govuk-link topic-finder__taxon-link' %>
         <%= render partial: 'govuk_publishing_components/components/title', locals: {
           title: content_item.title,
-          inverse: true,
+          inverse: inverse,
         } %>
       <% else %>
         <%= render partial: 'govuk_publishing_components/components/title', locals: {
           title: content_item.title,
           context: title_context,
+          inverse: inverse,
         } %>
       <% end %>
 
       <% if page_metadata.any? %>
+        <% page_metadata.merge!({ inverse: inverse, inverse_compress: true, margin_bottom: 2 }) %>
         <%= render 'govuk_publishing_components/components/metadata', page_metadata %>
       <% end %>
     </div>
@@ -67,7 +71,7 @@
     <% if content_item.summary %>
       <div class="govuk-grid-column-two-thirds">
         <div class="metadata-summary ">
-          <%= render 'govuk_publishing_components/components/govspeak', {} do %>
+          <%= render 'govuk_publishing_components/components/govspeak', { inverse: inverse } do %>
             <%= sanitize(content_item.summary) %>
           <% end %>
         </div>
