@@ -11,7 +11,6 @@ atom_feed do |feed|
     feed.entry(result, id: result.tag(feed), url: absolute_url_for(result.path), updated: result.updated_at) do |entry|
       entry.title(result.title)
       entry.summary(result.summary, type: "html")
-      entry.content_id(result.content_id)
     end
   end
 end
