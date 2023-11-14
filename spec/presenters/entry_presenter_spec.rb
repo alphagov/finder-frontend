@@ -35,16 +35,4 @@ RSpec.describe EntryPresenter do
       expect(EntryPresenter.feed_ended_id(atom_feed_builder, "/path/to/content")).to eq("tag:www.test.gov.uk,2019:/path/to/content/feed-ended")
     end
   end
-
-  # Note - this is a simple delegation and we wouldn't normally test, but
-  # it's important for email-alert-api's monitoring of medical alerts, so
-  # worth checking that it hasn't been accidentally removed.
-  describe "#content_id" do
-    let(:document) do
-      FactoryBot.build(:document, content_id: "AAAA-BBBB")
-    end
-    it "displays the content_id" do
-      expect(EntryPresenter.new(document, true).content_id).to eq("AAAA-BBBB")
-    end
-  end
 end

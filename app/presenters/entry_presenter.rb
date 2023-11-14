@@ -1,7 +1,6 @@
 class EntryPresenter
   delegate :title,
            :path,
-           :content_id,
            to: :entry
 
   WEBSITE_ROOT = Plek.new.website_root.gsub(/https?:\/\//, "")
