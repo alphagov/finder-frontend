@@ -39,7 +39,6 @@ describe PaginationPresenter do
 
       it "returns a next page link" do
         expect(subject).to eq(
-          ga4_tracking: true,
           next_page: {
             label: "2 of 5",
             title: "Next page",
@@ -56,7 +55,6 @@ describe PaginationPresenter do
 
       it "returns a previous page link" do
         expect(subject).to eq(
-          ga4_tracking: true,
           previous_page: {
             label: "4 of 5",
             title: "Previous page",
@@ -73,7 +71,6 @@ describe PaginationPresenter do
 
       it "returns next and previous page links" do
         expect(subject).to eq(
-          ga4_tracking: true,
           next_page: {
             label: "3 of 5",
             title: "Next page",
