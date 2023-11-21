@@ -66,7 +66,7 @@ RSpec.describe SignupLinksPresenter do
         let(:facet_values) { [] }
 
         it "returns the finder URL appended with /email-signup" do
-          expect(subject.signup_links[0][:email_signup_link]).to eql("/email_signup")
+          expect(subject.signup_links[:email_signup_link]).to eql("/email_signup")
         end
       end
 
@@ -93,15 +93,7 @@ RSpec.describe SignupLinksPresenter do
         end
 
         it "returns the finder URL appended with permitted query params" do
-          expect(subject.signup_links[0][:email_signup_link]).to eql("/mosw-reports/email-signup?topic%5B%5D=hidden_facet_content_id")
-          expect(subject.signup_links[0][:email_signup_link_data_attributes][:ga4_index]).to eql({ index_link: 1, index_total: 4 })
-          expect(subject.signup_links[0][:feed_link]).to eql("/mosw-reports.atom?topic%5B%5D=hidden_facet_content_id")
-          expect(subject.signup_links[0][:feed_link_data_attributes][:ga4_index]).to eql({ index_link: 2, index_total: 4 })
-
-          expect(subject.signup_links[1][:email_signup_link]).to eql("/mosw-reports/email-signup?topic%5B%5D=hidden_facet_content_id")
-          expect(subject.signup_links[1][:email_signup_link_data_attributes][:ga4_index]).to eql({ index_link: 3, index_total: 4 })
-          expect(subject.signup_links[1][:feed_link]).to eql("/mosw-reports.atom?topic%5B%5D=hidden_facet_content_id")
-          expect(subject.signup_links[1][:feed_link_data_attributes][:ga4_index]).to eql({ index_link: 4, index_total: 4 })
+          expect(subject.signup_links[:email_signup_link]).to eql("/mosw-reports/email-signup?topic%5B%5D=hidden_facet_content_id")
         end
       end
     end
@@ -112,7 +104,7 @@ RSpec.describe SignupLinksPresenter do
           []
         end
         it "returns the finder URL appended with .atom" do
-          expect(subject.signup_links[0][:feed_link]).to eql("/mosw-reports.atom")
+          expect(subject.signup_links[:feed_link]).to eql("/mosw-reports.atom")
         end
       end
 
@@ -126,7 +118,7 @@ RSpec.describe SignupLinksPresenter do
         end
 
         it "returns the finder URL appended with permitted query params" do
-          expect(subject.signup_links[0][:feed_link]).to eql("/mosw-reports.atom?keywords=micropig&topic%5B%5D=hidden_facet_content_id")
+          expect(subject.signup_links[:feed_link]).to eql("/mosw-reports.atom?keywords=micropig&topic%5B%5D=hidden_facet_content_id")
         end
       end
 
@@ -140,105 +132,9 @@ RSpec.describe SignupLinksPresenter do
         end
 
         it "returns nil" do
-          expect(subject.signup_links[0][:feed_link]).to be nil
+          expect(subject.signup_links[:feed_link]).to be nil
         end
       end
-    end
-  end
-
-  describe "only a feed link" do
-    let(:content_item) do
-      content_item_hash = {
-        content_id: "content_id",
-        base_path: "/mosw-reports",
-        title: "A finder",
-        name: "A finder",
-        links: {},
-        signup_link: false,
-        email_alert_signup: false,
-        details: {
-          show_summaries: true,
-          document_noun: "case",
-          sort: [
-            {
-              "name" => "Most viewed",
-              "key" => "-popularity",
-            },
-            {
-              "name" => "Relevance",
-              "key" => "-relevance",
-            },
-            {
-              "name" => "Updated (newest)",
-              "key" => "-public_timestamp",
-              "default" => true,
-            },
-          ],
-        },
-      }
-      ContentItem.new(content_item_hash.deep_stringify_keys)
-    end
-
-    let(:email_signup_hash) do
-      {}
-    end
-
-    it "returns data for the feed link only" do
-      expect(subject.signup_links[0][:feed_link]).to eql("/mosw-reports.atom")
-      expect(subject.signup_links[0][:feed_link_data_attributes][:ga4_index]).to eql({ index_link: 1, index_total: 2 })
-      expect(subject.signup_links[0][:email_signup_link]).to eql(nil)
-      expect(subject.signup_links[0][:email_signup_link_data_attributes]).to eql(nil)
-
-      expect(subject.signup_links[1][:feed_link]).to eql("/mosw-reports.atom")
-      expect(subject.signup_links[1][:feed_link_data_attributes][:ga4_index]).to eql({ index_link: 2, index_total: 2 })
-      expect(subject.signup_links[1][:email_signup_link]).to eql(nil)
-      expect(subject.signup_links[1][:email_signup_link_data_attributes]).to eql(nil)
-    end
-  end
-
-  describe "only an email link" do
-    let(:content_item) do
-      content_item_hash = {
-        content_id: "content_id",
-        base_path: "/find-licences",
-        title: "A finder",
-        name: "A finder",
-        links: {
-          email_alert_signup: Array.wrap(email_signup_hash),
-        },
-        details: {
-          show_summaries: true,
-          document_noun: "case",
-          sort: [
-            {
-              "name" => "Most viewed",
-              "key" => "-popularity",
-            },
-            {
-              "name" => "Relevance",
-              "key" => "-relevance",
-            },
-            {
-              "name" => "Updated (newest)",
-              "key" => "-public_timestamp",
-              "default" => true,
-            },
-          ],
-        },
-      }
-      ContentItem.new(content_item_hash.deep_stringify_keys)
-    end
-
-    it "returns data for the email signup link only" do
-      expect(subject.signup_links[0][:feed_link]).to eql(nil)
-      expect(subject.signup_links[0][:feed_link_data_attributes]).to eql(nil)
-      expect(subject.signup_links[0][:email_signup_link]).to eql("/email_signup")
-      expect(subject.signup_links[0][:email_signup_link_data_attributes][:ga4_index]).to eql({ index_link: 1, index_total: 2 })
-
-      expect(subject.signup_links[1][:feed_link]).to eql(nil)
-      expect(subject.signup_links[1][:feed_link_data_attributes]).to eql(nil)
-      expect(subject.signup_links[1][:email_signup_link]).to eql("/email_signup")
-      expect(subject.signup_links[1][:email_signup_link_data_attributes][:ga4_index]).to eql({ index_link: 2, index_total: 2 })
     end
   end
 end
