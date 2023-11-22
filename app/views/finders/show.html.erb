@@ -4,8 +4,8 @@
   <% content_for :title, content_item.title %>
 <% end %>
 <% content_for :head do %>
-  <% if signup_links[0][:feed_link] %>
-    <%= auto_discovery_link_tag(:atom, signup_links[0][:feed_link]) %>
+  <% if signup_links[:feed_link] %>
+    <%= auto_discovery_link_tag(:atom, signup_links[:feed_link]) %>
   <% end %>
   <%= render 'finder_meta', content_item: content_item %>
 <% end %>
@@ -87,7 +87,7 @@
               data-module="ga4-link-tracker"
               data-ga4-track-links-only
               data-ga4-link='{ "event_name": "navigation", "type": "subscribe", "section": "Top" }'>
-              <%= render "govuk_publishing_components/components/subscription_links", signup_links[0] %>
+              <%= render "govuk_publishing_components/components/subscription_links", signup_links %>
             </div>
           </div>
           <div id="js-facet-tag-wrapper" class="facet-tags__container" aria-live="assertive">
@@ -115,7 +115,7 @@
           data-module="ga4-link-tracker"
           data-ga4-track-links-only
           data-ga4-link='{ "event_name": "navigation", "type": "subscribe", "section": "Footer" }'>
-          <%= render "govuk_publishing_components/components/subscription_links", signup_links[1] %>
+          <%= render "govuk_publishing_components/components/subscription_links", signup_links %>
         </div>
       </div>
     </div>
