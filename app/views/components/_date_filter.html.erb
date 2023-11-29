@@ -8,7 +8,7 @@
   date_errors_to ||= nil
 %>
 <% if key && name %>
-  <%= render "components/expander", { title: name } do %>
+  <%= render "components/expander", { title: name, data_attributes: { "ga4-filter-parent": name } } do %>
     <div class="govuk-!-margin-bottom-0" id="<%= key %>">
       <%= render "govuk_publishing_components/components/input", {
         label: {
