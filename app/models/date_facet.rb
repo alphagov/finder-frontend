@@ -45,6 +45,10 @@ class DateFacet < FilterableFacet
     { key => date_values }
   end
 
+  def ga4_section
+    name
+  end
+
 private
 
   def value_fragments

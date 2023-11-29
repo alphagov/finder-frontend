@@ -43,6 +43,10 @@ class TaxonFacet < FilterableFacet
     }
   end
 
+  def ga4_section
+    "Topic"
+  end
+
 private
 
   def value_fragments

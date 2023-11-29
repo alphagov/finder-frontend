@@ -1,7 +1,7 @@
 <% unless i_am_a_topic_page_finder %>
   <%= render "components/expander", {
     title: "Topic",
-    data_attributes: { "ga4-filter-parent": "Topic" }
+    data_attributes: { "ga4-filter-parent": taxon_facet.ga4_section }
   } do %>
     <div class="js-taxonomy-select" data-ga4-change-category="update-filter select" data-ga4-section="Topic">
       <%= render "govuk_publishing_components/components/select", {

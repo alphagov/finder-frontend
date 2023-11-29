@@ -7,7 +7,7 @@
 <% add_gem_component_stylesheet("checkboxes") %>
 
 <% cache_if option_select_facet.cacheable?, option_select_facet.cache_key do %>
-  <%= tag.div(data: { "ga4-change-category": "update-filter checkbox", "ga4-filter-parent": "", "ga4-section": option_select_facet.name }) do %>
+  <%= tag.div(data: { "ga4-change-category": "update-filter checkbox", "ga4-filter-parent": "", "ga4-section": option_select_facet.ga4_section }) do %>
     <%= render partial: 'govuk_publishing_components/components/option_select', locals: {
       :key => option_select_facet.key,
       :title => option_select_facet.name,

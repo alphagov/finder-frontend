@@ -72,6 +72,10 @@ class OptionSelectFacet < FilterableFacet
     open_on_load?
   end
 
+  def ga4_section
+    name
+  end
+
 private
 
   def value_fragments

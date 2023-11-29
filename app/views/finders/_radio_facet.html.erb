@@ -1,4 +1,4 @@
-<%= tag.div(class: "facet-container", data: { "ga4-change-category": "update-filter radio", "ga4-section": "", "ga4-filter-parent": "" }) do %>
+<%= tag.div(class: "facet-container", data: { "ga4-change-category": "update-filter radio", "ga4-section": "", "ga4-filter-parent": radio_facet.ga4_section }) do %>
   <%= render "govuk_publishing_components/components/radio", {
     name: radio_facet.key,
     small: true,
