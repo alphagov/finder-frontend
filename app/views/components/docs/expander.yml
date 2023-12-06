@@ -28,3 +28,43 @@ examples:
       margin_bottom: 9
       block: |
         This is some content that is passed to the component. It should be distinct from the component, in that the component should not style or interact with it, other than to show and hide it.
+  with_counter:
+    description: If there are form elements within the expander it can display a count of the number of form elements with a selected or input value. This is to make it appear the same as the option select component when appearing with it in search pages. Note that if any form elements are selected on page load, the component will expand by default.
+    data:
+      title: Things
+      block: |
+        <div class="govuk-form-group gem-c-select">
+          <label class="govuk-label" for="level_one_taxon">Topic</label>
+          <select name="level_one_taxon" id="level_one_taxon" class="govuk-select gem-c-select__select--full-width">
+            <option value="">All topics</option>
+            <option value="1" selected>Business and industry</option>
+            <option value="2">COVID-19</option>
+            <option value="3">Corporate information</option>
+          </select>
+        </div>
+        <div class="govuk-form-group" data-ga4-section="Sub-topic">
+          <div class="govuk-form-group gem-c-select">
+            <label class="govuk-label" for="level_two_taxon">Sub-topic</label>
+            <select name="level_two_taxon" id="level_two_taxon" class="govuk-select gem-c-select__select--full-width">
+              <option value="">All sub-topics</option>
+              <option value="2">Business and the environment</option>
+              <option value="3">Business regulation</option>
+              <option value="4">Charities and social enterprises</option>
+            </select>
+          </div>
+        </div>
+        <div class="govuk-form-group">
+          <label for="public_timestamp[from]" class="gem-c-label govuk-label">Updated after</label>
+          <input aria-describedby="hint-fe643477" class="gem-c-input govuk-input" id="public_timestamp[from]" name="public_timestamp[from]" spellcheck="false" type="text" value="2023">
+        </div>
+  with_button_data_attributes:
+    description: Allows data attributes to be passed to the component to be added to the expand/collapse button. The attributes are written to the parent element then read by the JavaScript and applied to the button. This is used for tracking purposes.
+    data:
+      title: Organisation
+      button_data_attributes:
+        ga4_expandable: ""
+        ga4_event:
+          event_name: "select_content"
+          type: "finder"
+      block: |
+        Sssh I'm hiding

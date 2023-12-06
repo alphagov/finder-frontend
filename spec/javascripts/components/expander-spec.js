@@ -126,30 +126,38 @@ describe('An expander module', function () {
     })
   })
 
-  describe('GA4 tracking', function () {
+  describe('adds data attributes to the button', function () {
+    var buttonAttrs = {
+      ga4_expandable: '',
+      ga4_event: {
+        event_name: 'select_content',
+        type: 'finder'
+      }
+    }
+
     beforeEach(function () {
       $element = document.createElement('div')
       $element.innerHTML = html
-
-      new GOVUK.Modules.Expander($element.querySelector('.app-c-expander')).init()
+      $element.querySelector('.app-c-expander').setAttribute('data-button-data-attributes', JSON.stringify(buttonAttrs))
     })
 
     afterEach(function () {
       $(document).off()
     })
 
-    it('adds the ga4 event tracker values to the button', function () {
+    it('adds button data attributes passed to the component onto the button', function () {
+      new GOVUK.Modules.Expander($element.querySelector('.app-c-expander')).init()
       var $button = $($element).find('.app-c-expander__button')
-      window.GOVUK.triggerEvent(window, 'ga4-filter-indexes-added')
-      var expected = JSON.stringify({
-        event_name: 'select_content',
-        type: 'finder',
-        section: 'Organisation',
-        index_section: 1,
-        index_section_count: 3
-      })
-
+      var expected = JSON.stringify(buttonAttrs.ga4_event)
+      expect($button.attr('data-ga4-expandable')).toEqual('')
       expect($button.attr('data-ga4-event')).toEqual(expected)
+    })
+
+    it('does not error with invalid button data attributes', function () {
+      $element.querySelector('.app-c-expander').setAttribute('data-button-data-attributes', 'invalidjson')
+      new GOVUK.Modules.Expander($element.querySelector('.app-c-expander')).init()
+      var $button = $($element).find('.app-c-expander__button')
+      expect($button.attr('data-ga4-expandable')).toEqual(undefined)
     })
   })
 })

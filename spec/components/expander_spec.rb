@@ -42,4 +42,20 @@ describe "expander", type: :view do
 
     assert_select '.app-c-expander.govuk-\!-margin-bottom-9'
   end
+
+  it "accepts button data attributes" do
+    button_attrs = {
+      ga4_expandable: "true",
+      ga4_event: {
+        event_name: "select_content",
+        type: "finder",
+      },
+    }
+
+    render_component(title: "Some title", button_data_attributes: button_attrs) do
+      "This is more info"
+    end
+
+    assert_select ".app-c-expander[data-button-data-attributes='#{button_attrs.to_json}']"
+  end
 end
