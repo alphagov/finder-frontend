@@ -7,9 +7,10 @@
   date_errors_from ||= nil
   date_errors_to ||= nil
   data_attributes ||= nil
+  button_data_attributes ||= nil
 %>
 <% if key && name %>
-  <%= render "components/expander", { title: name, data_attributes: } do %>
+  <%= render "components/expander", { title: name, data_attributes:, button_data_attributes: } do %>
     <div class="govuk-!-margin-bottom-0" id="<%= key %>">
       <%= render "govuk_publishing_components/components/input", {
         label: {
