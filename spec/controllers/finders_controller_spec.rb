@@ -110,7 +110,7 @@ describe FindersController, type: :controller do
         expect(response.status).to eq(406)
       end
 
-      context "with AA test" do
+      context "with AB test" do
         %w[A B Z].each do |variant|
           it "renders the #{variant} variant for /search/all pages" do
             stub_content_store_has_item(
@@ -118,12 +118,12 @@ describe FindersController, type: :controller do
               all_content_finder,
             )
 
-            @request.headers["GOVUK-ABTest-EsSixPointSeven"] = variant
+            @request.headers["GOVUK-ABTest-VertexSearch"] = variant
 
             get :show, params: { slug: "search/all" }
 
-            expect(response.header["Vary"]).to eq("GOVUK-ABTest-EsSixPointSeven")
-            expect(response.body).to include("EsSixPointSeven:#{variant}")
+            expect(response.header["Vary"]).to eq("GOVUK-ABTest-VertexSearch")
+            expect(response.body).to include("VertexSearch:#{variant}")
           end
 
           it "doesn't render the #{variant} for finders" do
@@ -132,13 +132,13 @@ describe FindersController, type: :controller do
               lunch_finder,
             )
 
-            @request.headers["GOVUK-ABTest-EsSixPointSeven"] = variant
+            @request.headers["GOVUK-ABTest-VertexSearch"] = variant
 
             get :show, params: { slug: "lunch-finder" }
 
             expect(response.status).to eq(200)
-            expect(response.header["Vary"]).not_to eq("GOVUK-ABTest-EsSixPointSeven")
-            expect(response.body).not_to include("EsSixPointSeven:#{variant}")
+            expect(response.header["Vary"]).not_to eq("GOVUK-ABTest-VertexSearch")
+            expect(response.body).not_to include("VertexSearch:#{variant}")
           end
         end
 
@@ -151,7 +151,7 @@ describe FindersController, type: :controller do
           get :show, params: { slug: "search/all" }
 
           expect(response.status).to eq(200)
-          expect(response.header["Vary"]).to eq("GOVUK-ABTest-EsSixPointSeven")
+          expect(response.header["Vary"]).to eq("GOVUK-ABTest-VertexSearch")
           expect(response.body).not_to include("<meta name=\"govuk:ab-test\">")
         end
       end
