@@ -131,7 +131,8 @@ describe('An expander module', function () {
       ga4_expandable: '',
       ga4_event: {
         event_name: 'select_content',
-        type: 'finder'
+        type: 'finder',
+        test_attribute_with_many_underscores: 'oh yes'
       }
     }
 

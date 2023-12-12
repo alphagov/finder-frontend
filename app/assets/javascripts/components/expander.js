@@ -74,7 +74,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}; // if this ; is omitted, none
       try {
         buttonAttributes = JSON.parse(buttonAttributes)
         for (var rawKey in buttonAttributes) {
-          var key = rawKey.replace(/_/i, '-').toLowerCase()
+          var key = rawKey.replace(/_/g, '-').toLowerCase()
           var rawValue = buttonAttributes[rawKey]
           var value = typeof rawValue === 'object' ? JSON.stringify(rawValue) : rawValue
           $button.setAttribute('data-' + key, value)
