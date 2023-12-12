@@ -17,4 +17,7 @@ module AbTests::VertexSearchAbTestable
     @requested_variant.configure_response(response)
   end
 
+  def ab_params
+    { vertex: @requested_variant.variant_name }
+  end
 end

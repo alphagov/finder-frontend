@@ -119,7 +119,7 @@ private
       content_item,
       filter_params,
       override_sort_for_feed: is_for_feed,
-      ab_params: {},
+      ab_params: page_under_test? ? ab_params : {},
     )
   end
 

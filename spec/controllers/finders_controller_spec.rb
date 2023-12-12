@@ -140,6 +140,19 @@ describe FindersController, type: :controller do
             expect(response.header["Vary"]).not_to eq("GOVUK-ABTest-VertexSearch")
             expect(response.body).not_to include("VertexSearch:#{variant}")
           end
+
+          it "sends ab_params to search query if page is being tested" do
+            stub_content_store_has_item(
+              "/search/all",
+              all_content_finder,
+            )
+
+            @request.headers["GOVUK-ABTest-VertexSearch"] = variant
+
+            expect(Search::Query).to receive(:new).with(anything, anything, hash_including(ab_params: { vertex: variant })).and_call_original
+
+            get :show, params: { slug: "search/all" }
+          end
         end
 
         it "should render the page without an AB test variant for search" do
