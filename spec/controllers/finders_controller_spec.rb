@@ -49,20 +49,7 @@ describe FindersController, type: :controller do
           { max_age: 900, public: true },
         )
 
-        url = "#{Plek.find('search-api')}/search.json"
-
-        stub_request(:get, url)
-          .with(
-            query: {
-              count: 10,
-              fields: "title,link,description_with_highlighting,public_timestamp,popularity,content_purpose_supergroup,content_store_document_type,format,is_historic,government_name,content_id,parts,walk_type,place_of_origin,date_of_introduction,creator",
-              filter_document_type: "mosw_report",
-              order: "-public_timestamp",
-              start: 0,
-              suggest: "spelling_with_highlighting",
-            },
-          )
-          .to_return(status: 200, body: rummager_response, headers: {})
+        search_api_request
       end
 
       it "correctly renders a finder page" do
@@ -111,6 +98,10 @@ describe FindersController, type: :controller do
       end
 
       context "with AB test" do
+        before do
+          search_api_request(search_api_app: "search-api-v2")
+        end
+
         %w[A B Z].each do |variant|
           it "renders the #{variant} variant for /search/all pages" do
             stub_content_store_has_item(
@@ -537,8 +528,8 @@ describe FindersController, type: :controller do
     end
   end
 
-  def search_api_request(query: {})
-    stub_request(:get, "#{Plek.find('search-api')}/search.json")
+  def search_api_request(query: {}, search_api_app: "search-api")
+    stub_request(:get, "#{Plek.find(search_api_app)}/search.json")
       .with(
         query: {
           count: 10,

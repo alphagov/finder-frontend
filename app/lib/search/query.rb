@@ -104,7 +104,7 @@ module Search
     end
 
     def use_v2_api?
-      ActiveModel::Type::Boolean.new.cast(filter_params["use_v2"])
+      ActiveModel::Type::Boolean.new.cast(filter_params["use_v2"]) || ab_params[:vertex] == "B"
     end
   end
 end
