@@ -6,4 +6,8 @@ class TopicalFacet < OptionSelectFacet
   def to_partial_path
     "option_select_facet"
   end
+
+  def ga4_section
+    name
+  end
 end

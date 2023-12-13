@@ -18,12 +18,12 @@
   <% if content_item.all_content_finder? %>
     <%= render partial: 'filter_button'%>
   <% elsif !content_item.all_content_finder? %>
-    <% if facets.select(&:filterable?).any? %>
+    <% if facets.any? %>
       <%= render partial: 'filter_button'%>
     <% end %>
   <% end %>
 
-  <% if facets.select(&:filterable?).any? %>
+  <% if facets.any? %>
     <div data-module="gem-track-click" data-track-category="filterClicked"
         data-track-action="skip-Link" data-track-label="">
       <%= render "govuk_publishing_components/components/skip_link", {
@@ -46,7 +46,9 @@
           </div>
         </div>
         <div class="facets__content" data-module="ga4-event-tracker" data-ga4-filter-container>
-          <%= render facets.select(&:filterable?) %>
+          <% facets.each_with_index_and_count do |facet, index, count| %>
+            <%= render partial: facet, object: facet, locals: { index:, count: } %>
+          <% end %>
           <div class="facets__tags-block js-mobile-facet-tag-block"  data-module="remove-filter">
             <%= render "facet_tags", facet_tags.present %>
           </div>

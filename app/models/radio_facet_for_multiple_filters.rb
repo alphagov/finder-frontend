@@ -37,6 +37,10 @@ class RadioFacetForMultipleFilters < FilterableFacet
     @filter_hashes
   end
 
+  def ga4_section
+    ""
+  end
+
 private
 
   attr_reader :filter_hashes

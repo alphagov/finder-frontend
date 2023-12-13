@@ -69,17 +69,21 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}; // if this ; is omitted, none
     $button.setAttribute('aria-expanded', expanded)
     $button.setAttribute('aria-controls', this.$content.getAttribute('id'))
 
-    // GA4 Accordion tracking. Relies on the ga4-finder-tracker setting the index first, so we wrap this in a custom event.
-    window.addEventListener('ga4-filter-indexes-added', function () {
-      if (window.GOVUK.analyticsGa4) {
-        if (window.GOVUK.analyticsGa4.Ga4FinderTracker) {
-          window.GOVUK.analyticsGa4.Ga4FinderTracker.addFilterButtonTracking($button, this.$toggle.innerHTML)
+    var buttonAttributes = this.$module.getAttribute('data-button-data-attributes')
+    if (buttonAttributes) {
+      try {
+        buttonAttributes = JSON.parse(buttonAttributes)
+        for (var rawKey in buttonAttributes) {
+          var key = rawKey.replace(/_/g, '-').toLowerCase()
+          var rawValue = buttonAttributes[rawKey]
+          var value = typeof rawValue === 'object' ? JSON.stringify(rawValue) : rawValue
+          $button.setAttribute('data-' + key, value)
         }
+      } catch (e) {
+        console.error('Error with expander button data attributes, invalid JSON passed' + e.message, window.location)
       }
-    }.bind(this))
-
+    }
     $button.innerHTML = toggleHtml
-
     this.$toggle.parentNode.replaceChild($button, this.$toggle)
   }
 

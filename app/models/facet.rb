@@ -55,6 +55,14 @@ class Facet
     {}
   end
 
+  def ga4_section
+    nil
+  end
+
+  def has_ga4_section?
+    !ga4_section.nil?
+  end
+
 private
 
   def and_word_connectors

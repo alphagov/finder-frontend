@@ -30,6 +30,10 @@ class RadioFacet < FilterableFacet
     { key => selected_value["value"] }
   end
 
+  def ga4_section
+    ""
+  end
+
 private
 
   def selected_value
