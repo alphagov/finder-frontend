@@ -128,11 +128,10 @@ describe('An expander module', function () {
 
   describe('adds data attributes to the button', function () {
     var buttonAttrs = {
-      ga4_expandable: '',
+      test_attribute_with_many_underscores: 'oh yes',
       ga4_event: {
         event_name: 'select_content',
-        type: 'finder',
-        test_attribute_with_many_underscores: 'oh yes'
+        type: 'finder'
       }
     }
 
@@ -150,7 +149,7 @@ describe('An expander module', function () {
       new GOVUK.Modules.Expander($element.querySelector('.app-c-expander')).init()
       var $button = $($element).find('.app-c-expander__button')
       var expected = JSON.stringify(buttonAttrs.ga4_event)
-      expect($button.attr('data-ga4-expandable')).toEqual('')
+      expect($button.attr('data-test-attribute-with-many-underscores')).toEqual('oh yes')
       expect($button.attr('data-ga4-event')).toEqual(expected)
     })
 
@@ -158,7 +157,7 @@ describe('An expander module', function () {
       $element.querySelector('.app-c-expander').setAttribute('data-button-data-attributes', 'invalidjson')
       new GOVUK.Modules.Expander($element.querySelector('.app-c-expander')).init()
       var $button = $($element).find('.app-c-expander__button')
-      expect($button.attr('data-ga4-expandable')).toEqual(undefined)
+      expect($button.attr('data-test-attribute-with-many-underscores')).toEqual(undefined)
     })
   })
 })
