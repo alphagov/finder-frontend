@@ -1,6 +1,6 @@
 class FindersController < ApplicationController
   layout "finder_layout"
-  include AbTests::ElasticSearchAaTestable
+  include AbTests::VertexSearchAbTestable
 
   before_action do
     set_expiry(content_item)
@@ -125,7 +125,7 @@ private
       content_item,
       filter_params,
       override_sort_for_feed: is_for_feed,
-      ab_params: {},
+      ab_params: page_under_test? ? ab_params : {},
     )
   end
 

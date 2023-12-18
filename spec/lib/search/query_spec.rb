@@ -67,6 +67,24 @@ describe Search::Query do
     end
   end
 
+  context "when in AB test variant B" do
+    subject { described_class.new(content_item, {}, ab_params: { vertex: "B" }).search_results }
+
+    before do
+      stub_search_v2.to_return(body: {
+        "results" => [
+          result_item("/i-am-the-v2-api", "I am the v2 API", score: nil, updated: "14-12-19", popularity: 1),
+        ],
+      }.to_json)
+    end
+
+    it "calls the v2 API" do
+      results = subject.fetch("results")
+      expect(results.length).to eq(1)
+      expect(results.first).to match(hash_including("_id" => "/i-am-the-v2-api"))
+    end
+  end
+
   context "when searching using a single query" do
     subject { described_class.new(content_item, filter_params).search_results }
 

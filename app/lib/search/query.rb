@@ -83,7 +83,6 @@ module Search
       queries = QueryBuilder.new(
         finder_content_item: content_item,
         params: filter_params,
-        ab_params:,
         override_sort_for_feed:,
       ).call
 
@@ -105,7 +104,7 @@ module Search
     end
 
     def use_v2_api?
-      ActiveModel::Type::Boolean.new.cast(filter_params["use_v2"])
+      ActiveModel::Type::Boolean.new.cast(filter_params["use_v2"]) || ab_params[:vertex] == "B"
     end
   end
 end

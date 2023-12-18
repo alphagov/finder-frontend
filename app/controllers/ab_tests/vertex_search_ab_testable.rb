@@ -1,7 +1,7 @@
-module AbTests::ElasticSearchAaTestable
-  def elastic_search_aa_test
+module AbTests::VertexSearchAbTestable
+  def vertex_search_ab_test
     GovukAbTesting::AbTest.new(
-      "EsSixPointSeven",
+      "VertexSearch",
       dimension: 41,
       allowed_variants: %w[A B Z],
       control_variant: "Z",
@@ -13,7 +13,11 @@ module AbTests::ElasticSearchAaTestable
   end
 
   def set_requested_variant
-    @requested_variant = elastic_search_aa_test.requested_variant(request.headers)
+    @requested_variant = vertex_search_ab_test.requested_variant(request.headers)
     @requested_variant.configure_response(response)
+  end
+
+  def ab_params
+    { vertex: @requested_variant.variant_name }
   end
 end

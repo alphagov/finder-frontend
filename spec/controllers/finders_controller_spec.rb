@@ -49,20 +49,7 @@ describe FindersController, type: :controller do
           { max_age: 900, public: true },
         )
 
-        url = "#{Plek.find('search-api')}/search.json"
-
-        stub_request(:get, url)
-          .with(
-            query: {
-              count: 10,
-              fields: "title,link,description_with_highlighting,public_timestamp,popularity,content_purpose_supergroup,content_store_document_type,format,is_historic,government_name,content_id,parts,walk_type,place_of_origin,date_of_introduction,creator",
-              filter_document_type: "mosw_report",
-              order: "-public_timestamp",
-              start: 0,
-              suggest: "spelling_with_highlighting",
-            },
-          )
-          .to_return(status: 200, body: rummager_response, headers: {})
+        search_api_request
       end
 
       it "correctly renders a finder page" do
@@ -110,7 +97,11 @@ describe FindersController, type: :controller do
         expect(response.status).to eq(406)
       end
 
-      context "with AA test" do
+      context "with AB test" do
+        before do
+          search_api_request(search_api_app: "search-api-v2")
+        end
+
         %w[A B Z].each do |variant|
           it "renders the #{variant} variant for /search/all pages" do
             stub_content_store_has_item(
@@ -118,12 +109,12 @@ describe FindersController, type: :controller do
               all_content_finder,
             )
 
-            @request.headers["GOVUK-ABTest-EsSixPointSeven"] = variant
+            @request.headers["GOVUK-ABTest-VertexSearch"] = variant
 
             get :show, params: { slug: "search/all" }
 
-            expect(response.header["Vary"]).to eq("GOVUK-ABTest-EsSixPointSeven")
-            expect(response.body).to include("EsSixPointSeven:#{variant}")
+            expect(response.header["Vary"]).to eq("GOVUK-ABTest-VertexSearch")
+            expect(response.body).to include("VertexSearch:#{variant}")
           end
 
           it "doesn't render the #{variant} for finders" do
@@ -132,13 +123,26 @@ describe FindersController, type: :controller do
               lunch_finder,
             )
 
-            @request.headers["GOVUK-ABTest-EsSixPointSeven"] = variant
+            @request.headers["GOVUK-ABTest-VertexSearch"] = variant
 
             get :show, params: { slug: "lunch-finder" }
 
             expect(response.status).to eq(200)
-            expect(response.header["Vary"]).not_to eq("GOVUK-ABTest-EsSixPointSeven")
-            expect(response.body).not_to include("EsSixPointSeven:#{variant}")
+            expect(response.header["Vary"]).not_to eq("GOVUK-ABTest-VertexSearch")
+            expect(response.body).not_to include("VertexSearch:#{variant}")
+          end
+
+          it "sends ab_params to search query if page is being tested" do
+            stub_content_store_has_item(
+              "/search/all",
+              all_content_finder,
+            )
+
+            @request.headers["GOVUK-ABTest-VertexSearch"] = variant
+
+            expect(Search::Query).to receive(:new).with(anything, anything, hash_including(ab_params: { vertex: variant })).and_call_original
+
+            get :show, params: { slug: "search/all" }
           end
         end
 
@@ -151,7 +155,7 @@ describe FindersController, type: :controller do
           get :show, params: { slug: "search/all" }
 
           expect(response.status).to eq(200)
-          expect(response.header["Vary"]).to eq("GOVUK-ABTest-EsSixPointSeven")
+          expect(response.header["Vary"]).to eq("GOVUK-ABTest-VertexSearch")
           expect(response.body).not_to include("<meta name=\"govuk:ab-test\">")
         end
       end
@@ -524,8 +528,8 @@ describe FindersController, type: :controller do
     end
   end
 
-  def search_api_request(query: {})
-    stub_request(:get, "#{Plek.find('search-api')}/search.json")
+  def search_api_request(query: {}, search_api_app: "search-api")
+    stub_request(:get, "#{Plek.find(search_api_app)}/search.json")
       .with(
         query: {
           count: 10,
