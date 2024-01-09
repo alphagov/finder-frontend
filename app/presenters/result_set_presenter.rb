@@ -39,7 +39,6 @@ class ResultSetPresenter
 
   def search_results_content
     component_data = document_list_component_data(documents_to_convert: documents)
-    component_data = capitalise_ai_values(component_data)
 
     {
       document_list_component_data: component_data,
@@ -48,19 +47,6 @@ class ResultSetPresenter
       finder_name: content_item.title,
       debug_score:,
     }
-  end
-
-  def capitalise_ai_values(component_data)
-    component_data.each do |document|
-      next unless document[:metadata]
-
-      ai_assurance_value = document[:metadata]["Ai assurance technique"]
-
-      if ai_assurance_value
-        document[:metadata]["Ai assurance technique"] = ai_assurance_value.gsub("Ai assurance technique", "AI assurance technique")
-      end
-    end
-    component_data
   end
 
   def user_supplied_keywords
