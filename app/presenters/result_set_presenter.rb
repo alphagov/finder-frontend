@@ -87,6 +87,7 @@ private
       SearchResultPresenter.new(
         document:,
         rank: index + 1,
+        result_number: start_offset + index,
         metadata_presenter_class:,
         doc_count: documents.count,
         facets:,
