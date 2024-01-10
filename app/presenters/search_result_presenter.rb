@@ -1,4 +1,7 @@
 class SearchResultPresenter
+  # Defines how many of the top results to show parts for (if present)
+  SHOW_PARTS_FOR_TOP_N_RESULTS = 3
+
   include ActionView::Helpers::SanitizeHelper
 
   delegate :title,
@@ -11,12 +14,13 @@ class SearchResultPresenter
            :original_rank,
            to: :document
 
-  def initialize(document:, rank:, metadata_presenter_class:, doc_count:, facets:, content_item:, debug_score:, include_ecommerce: true)
+  def initialize(document:, rank:, metadata_presenter_class:, doc_count:, facets:, content_item:, debug_score:, result_number:, include_ecommerce: true)
     @document = document
     @rank = rank
     @metadata = metadata_presenter_class.new(document.metadata(facets)).present
     @count = doc_count
     @debug_score = debug_score
+    @result_number = result_number
     @content_item = content_item
     @include_ecommerce = include_ecommerce
   end
@@ -32,7 +36,7 @@ class SearchResultPresenter
       metadata: structure_metadata,
       metadata_raw: metadata,
       subtext:,
-      parts: structure_parts,
+      parts: include_parts? ? structure_parts : nil,
     }
   end
 
@@ -71,6 +75,10 @@ private
       value = meta[:is_date] ? "<time datetime='#{meta[:machine_date]}'>#{meta[:human_date]}</time>" : meta[:value]
       component_metadata[meta[:label]] = sanitize("#{meta[:label]}: #{value}", tags: %w[time span])
     end
+  end
+
+  def include_parts?
+    result_number <= SHOW_PARTS_FOR_TOP_N_RESULTS
   end
 
   def structure_parts
@@ -120,5 +128,5 @@ private
     }
   end
 
-  attr_reader :document, :metadata, :content_item
+  attr_reader :document, :metadata, :content_item, :result_number
 end

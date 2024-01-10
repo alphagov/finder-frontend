@@ -17,11 +17,13 @@ RSpec.describe SearchResultPresenter do
   let(:facets) { [] }
 
   let(:rank) { 1 }
+  let(:result_number) { 1 }
 
   subject(:presenter) do
     SearchResultPresenter.new(
       document:,
       rank:,
+      result_number:,
       metadata_presenter_class: MetadataPresenter,
       doc_count: 10,
       content_item:,
@@ -29,6 +31,7 @@ RSpec.describe SearchResultPresenter do
       debug_score:,
     )
   end
+
   let(:debug_score) { false }
 
   let(:document) do
@@ -88,6 +91,7 @@ RSpec.describe SearchResultPresenter do
       }
       expect(subject.document_list_component_data).to eql(expected_document)
     end
+
     context "has parts" do
       let(:parts) do
         [
@@ -99,34 +103,6 @@ RSpec.describe SearchResultPresenter do
           {
             title: "I am a part title 2",
             slug: "part-path2",
-          },
-        ]
-      end
-      let(:expected_parts) do
-        [
-          {
-            link: {
-              text: "I am a part title",
-              path: "#{link}/part-path",
-              description: "Part description",
-              data_attributes: {
-                ga4_ecommerce_path: "#{link}/part-path",
-                ga4_ecommerce_content_id: "content_id",
-                ga4_ecommerce_row: 1,
-                ga4_ecommerce_index: 1,
-                ecommerce_path: "#{link}/part-path",
-                ecommerce_row: 1,
-                ecommerce_index: 1,
-                track_category: "navFinderLinkClicked",
-                track_action: "finder-title.1.1",
-                track_label: "#{link}/part-path",
-                track_options: {
-                  dimension22: 1,
-                  dimension28: 10,
-                  dimension29: "I am a part title",
-                },
-              },
-            },
           },
         ]
       end
@@ -147,19 +123,61 @@ RSpec.describe SearchResultPresenter do
           parts:,
         )
       end
-      it "shows only parts with required data" do
-        expect(subject.document_list_component_data[:parts]).to eq(expected_parts)
+
+      context "when the result is number 3 or lower" do
+        let(:result_number) { 3 }
+
+        let(:expected_parts) do
+          [
+            {
+              link: {
+                text: "I am a part title",
+                path: "#{link}/part-path",
+                description: "Part description",
+                data_attributes: {
+                  ga4_ecommerce_path: "#{link}/part-path",
+                  ga4_ecommerce_content_id: "content_id",
+                  ga4_ecommerce_row: 1,
+                  ga4_ecommerce_index: 1,
+                  ecommerce_path: "#{link}/part-path",
+                  ecommerce_row: 1,
+                  ecommerce_index: 1,
+                  track_category: "navFinderLinkClicked",
+                  track_action: "finder-title.1.1",
+                  track_label: "#{link}/part-path",
+                  track_options: {
+                    dimension22: 1,
+                    dimension28: 10,
+                    dimension29: "I am a part title",
+                  },
+                },
+              },
+            },
+          ]
+        end
+
+        it "shows only parts with required data" do
+          expect(subject.document_list_component_data[:parts]).to eq(expected_parts)
+        end
+
+        it "notifies of a validation error for missing part data" do
+          expect(GovukError).to receive(:notify).with(
+            instance_of(described_class::MalformedPartError),
+            extra: {
+              part: { title: "I am a part title 2", slug: "part-path2" },
+              link: "link-1",
+            },
+          )
+          subject.document_list_component_data
+        end
       end
 
-      it "notifies of a validation error for missing part data" do
-        expect(GovukError).to receive(:notify).with(
-          instance_of(described_class::MalformedPartError),
-          extra: {
-            part: { title: "I am a part title 2", slug: "part-path2" },
-            link: "link-1",
-          },
-        )
-        subject.document_list_component_data
+      context "when the result is number 4 or higher" do
+        let(:result_number) { 4 }
+
+        it "does not show any parts" do
+          expect(subject.document_list_component_data[:parts]).to be_nil
+        end
       end
     end
   end
