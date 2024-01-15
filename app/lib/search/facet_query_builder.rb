@@ -18,7 +18,7 @@ module Search
         # "1500,order:value.title" is specifying that we want 1500 results back
         # which are ordered by the title attribute of each value (option)
         # that is returned
-        key = (facet["filter_key"] || facet["key"])
+        key = facet["filter_key"] || facet["key"]
         query.merge(key => "1500,order:value.title")
       end
     end
