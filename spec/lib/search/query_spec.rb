@@ -2,15 +2,15 @@ require "spec_helper"
 
 describe Search::Query do
   def stub_search
-    stub_request(:get, %r{#{Plek.find("search-api")}/search.json})
+    stub_request(:get, %r{#{Plek.find('search-api')}/search.json})
   end
 
   def stub_search_v2
-    stub_request(:get, %r{#{Plek.find("search-api-v2")}/search.json})
+    stub_request(:get, %r{#{Plek.find('search-api-v2')}/search.json})
   end
 
   def stub_batch_search
-    stub_request(:get, %r{#{Plek.find("search-api")}/batch_search.json})
+    stub_request(:get, %r{#{Plek.find('search-api')}/batch_search.json})
   end
 
   let(:content_item) do
