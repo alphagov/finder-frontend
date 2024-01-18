@@ -87,15 +87,21 @@ module Search
       ).call
 
       if use_v2_api?
-        GovukStatsd.time("search_api_v2.finder_search") do
+        Metrics.increment_counter(:searches, api: "v2")
+
+        Metrics.observe_duration(:search_request_duration, api: "v2") do
           Services.search_api_v2.search(queries.first).to_hash
         end
       elsif queries.one?
-        GovukStatsd.time("rummager.finder_search") do
+        Metrics.increment_counter(:searches, api: "v1")
+
+        Metrics.observe_duration(:search_request_duration, api: "v1") do
           Services.rummager.search(queries.first).to_hash
         end
       else
-        GovukStatsd.time("rummager.finder_batch_search") do
+        Metrics.increment_counter(:searches, api: "v1_bulk")
+
+        Metrics.observe_duration(:search_request_duration, api: "v1_bulk") do
           merge_and_deduplicate(
             Services.rummager.batch_search(queries).to_hash,
           )
