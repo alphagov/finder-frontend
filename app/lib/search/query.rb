@@ -87,19 +87,19 @@ module Search
       ).call
 
       if use_v2_api?
-        Metrics.increment_counter(:searches, api: "v2")
+        Metrics.increment_counter(:searches, api: "v2", finder: content_item.base_path)
 
         Metrics.observe_duration(:search_request_duration, api: "v2") do
           Services.search_api_v2.search(queries.first).to_hash
         end
       elsif queries.one?
-        Metrics.increment_counter(:searches, api: "v1")
+        Metrics.increment_counter(:searches, api: "v1", finder: content_item.base_path)
 
         Metrics.observe_duration(:search_request_duration, api: "v1") do
           Services.rummager.search(queries.first).to_hash
         end
       else
-        Metrics.increment_counter(:searches, api: "v1_bulk")
+        Metrics.increment_counter(:searches, api: "v1_bulk", finder: content_item.base_path)
 
         Metrics.observe_duration(:search_request_duration, api: "v1_bulk") do
           merge_and_deduplicate(
