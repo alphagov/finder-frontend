@@ -71,17 +71,25 @@ describe Search::Query do
     subject { described_class.new(content_item, {}, ab_params: { vertex: "B" }).search_results }
 
     before do
-      stub_search_v2.to_return(body: {
+      # TODO: This is part of a "break glass" revert commit and should be fixed properly
+      stub_search.to_return(body: {
         "results" => [
-          result_item("/i-am-the-v2-api", "I am the v2 API", score: nil, updated: "14-12-19", popularity: 1),
+          result_item("/i-am-the-v1-api", "I am the v1 API", score: nil, updated: "14-12-19", popularity: 1),
         ],
       }.to_json)
+      # stub_search_v2.to_return(body: {
+      #   "results" => [
+      #     result_item("/i-am-the-v2-api", "I am the v2 API", score: nil, updated: "14-12-19", popularity: 1),
+      #   ],
+      # }.to_json)
     end
 
-    it "calls the v2 API" do
+    # TODO: This is part of a "break glass" revert commit and should be fixed properly
+    it "calls the v1 API" do
       results = subject.fetch("results")
       expect(results.length).to eq(1)
-      expect(results.first).to match(hash_including("_id" => "/i-am-the-v2-api"))
+      # expect(results.first).to match(hash_including("_id" => "/i-am-the-v2-api"))
+      expect(results.first).to match(hash_including("_id" => "/i-am-the-v1-api"))
     end
   end
 
