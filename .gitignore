@@ -2,7 +2,6 @@
 /.bundle
 /tmp/
 /.sass-cache/
-/bin
 .powrc
 .rvmrc
 .rbenv-version
