@@ -2,12 +2,13 @@
 /.bundle
 /tmp/
 /.sass-cache/
-/bin
 .powrc
 .rvmrc
 .rbenv-version
 /doc/
 /public/assets/
+/app/assets/builds/*
+!/app/assets/builds/.keep
 /coverage/*
 node_modules
 yarn-error.log
