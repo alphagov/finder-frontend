@@ -155,7 +155,7 @@ GEM
       ruby2_keywords
     erubi (1.12.0)
     execjs (2.8.1)
-    factory_bot (6.4.5)
+    factory_bot (6.4.6)
       activesupport (>= 5.0.0)
     ffi (1.16.3)
     gds-api-adapters (93.0.0)
