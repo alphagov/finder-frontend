@@ -635,7 +635,7 @@ describe('liveSearch', function () {
       liveSearch.state = { search: 'state' }
 
       expect($('#order option').length).toBe(2)
-      $('#order').remove()
+      $('option').remove()
       expect($('#order option').length).toBe(0)
       // We receive new data, which adds the sort options to the DOM.
       liveSearch.updateSortOptions(responseWithSortOptions, $.param(liveSearch.state))
