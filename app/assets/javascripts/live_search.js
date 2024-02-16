@@ -359,7 +359,15 @@
 
   LiveSearch.prototype.updateSortOptions = function updateSortOptions (results, action) {
     if (action !== this.serializeState(this.state)) { return }
-    this.updateElement(this.$sortBlock, results.sort_options_markup)
+    var currentSortOptions = this.$sortBlock.querySelector('select')
+    var newSortOptions
+
+    if (results.sort_options_markup) {
+      var EXTRACT_OPTION_TAGS = /(?<=<select .+>)(.*)(?=<\/select>)/
+      newSortOptions = results.sort_options_markup.replace(newSortOptions, EXTRACT_OPTION_TAGS)
+    }
+
+    this.updateElement(currentSortOptions, newSortOptions)
     this.bindSortElements()
   }
 
