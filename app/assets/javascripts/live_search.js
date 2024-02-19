@@ -376,7 +376,7 @@
   }
 
   LiveSearch.prototype.removeSelectElement = function removeSelectElement (sortOptionsMarkup) {
-    var SELECT_TAG_REGEX = /<\s*\/?\s*select\b[^>]*>/g
+    var SELECT_TAG_REGEX = /<\/?select\b[^>]*>/g
     return sortOptionsMarkup.replace(SELECT_TAG_REGEX, '')
   }
 
