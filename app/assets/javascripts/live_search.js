@@ -365,12 +365,19 @@
     var newSortOptions
 
     if (results.sort_options_markup) {
-      var EXTRACT_OPTION_TAGS = /(?<=<select .+>)(.*)(?=<\/select>)/
-      newSortOptions = results.sort_options_markup.replace(newSortOptions, EXTRACT_OPTION_TAGS)
+      // The select element is removed from results.sort_options_markup in order to retain the original select element. Only the option
+      // elements are updated with new markup. This is to prevent focus from being lost on the select element after the user sorts their
+      // results.
+      newSortOptions = this.removeSelectElement(results.sort_options_markup)
     }
 
     this.updateElement(currentSortOptions, newSortOptions)
     this.bindSortElements()
+  }
+
+  LiveSearch.prototype.removeSelectElement = function removeSelectElement (sortOptionsMarkup) {
+    var SELECT_TAG_REGEX = /<\s*\/?\s*select\b[^>]*>/g
+    return sortOptionsMarkup.replace(SELECT_TAG_REGEX, '')
   }
 
   LiveSearch.prototype.bindSortElements = function bindSortElements () {
