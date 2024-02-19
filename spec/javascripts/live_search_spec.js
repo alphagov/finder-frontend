@@ -645,6 +645,41 @@ describe('liveSearch', function () {
     })
   })
 
+  describe('removeSelectElement', function () {
+    it('removes the select element', function () {
+      var expectedResult = '<option ' +
+        'value="option-val" ' +
+        'data_track_category="option-data_track_category"' +
+        'data_track_action="option-data_track_action"' +
+        'data_track_label="option-data_track_label"' +
+        'selected' +
+      '/>' +
+      '<option ' +
+        'value="option-val-2" ' +
+        'data_track_category="option-data_track_category-2"' +
+        'data_track_action="option-data_track_action-2"' +
+        'data_track_label="option-data_track_label-2"' +
+        'disabled' +
+      '/>'
+
+      expect(liveSearch.removeSelectElement(responseWithSortOptions.sort_options_markup)).toEqual(expectedResult)
+    })
+
+    it('only targets select elements', function () {
+      var sortOptionsWithTypo = '<slect id="order">' +
+        '<option ' +
+          'value="option-val" ' +
+          'data_track_category="option-data_track_category"' +
+          'data_track_action="option-data_track_action"' +
+          'data_track_label="option-data_track_label"' +
+          'selected' +
+          '/>' +
+      '</slect>'
+
+      expect(liveSearch.removeSelectElement(sortOptionsWithTypo)).toEqual(sortOptionsWithTypo)
+    })
+  })
+
   describe('spelling suggestions', function () {
     var $suggestionBlock = $('<div class="spelling-suggestions" id="js-spelling-suggestions"></div>')
     var responseWithSpellingSuggestions = {
