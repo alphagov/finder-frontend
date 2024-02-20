@@ -635,13 +635,48 @@ describe('liveSearch', function () {
       liveSearch.state = { search: 'state' }
 
       expect($('#order option').length).toBe(2)
-      $('#order').remove()
+      $('option').remove()
       expect($('#order option').length).toBe(0)
       // We receive new data, which adds the sort options to the DOM.
       liveSearch.updateSortOptions(responseWithSortOptions, $.param(liveSearch.state))
       expect($('#order option').length).toBe(2)
       expect($('#order option:disabled').length).toBe(1)
       expect($('#order option:selected').length).toBe(1)
+    })
+  })
+
+  describe('removeSelectElement', function () {
+    it('removes the select element', function () {
+      var expectedResult = '<option ' +
+        'value="option-val" ' +
+        'data_track_category="option-data_track_category"' +
+        'data_track_action="option-data_track_action"' +
+        'data_track_label="option-data_track_label"' +
+        'selected' +
+      '/>' +
+      '<option ' +
+        'value="option-val-2" ' +
+        'data_track_category="option-data_track_category-2"' +
+        'data_track_action="option-data_track_action-2"' +
+        'data_track_label="option-data_track_label-2"' +
+        'disabled' +
+      '/>'
+
+      expect(liveSearch.removeSelectElement(responseWithSortOptions.sort_options_markup)).toEqual(expectedResult)
+    })
+
+    it('only targets select elements', function () {
+      var sortOptionsWithTypo = '<slect id="order">' +
+        '<option ' +
+          'value="option-val" ' +
+          'data_track_category="option-data_track_category"' +
+          'data_track_action="option-data_track_action"' +
+          'data_track_label="option-data_track_label"' +
+          'selected' +
+          '/>' +
+      '</slect>'
+
+      expect(liveSearch.removeSelectElement(sortOptionsWithTypo)).toEqual(sortOptionsWithTypo)
     })
   })
 

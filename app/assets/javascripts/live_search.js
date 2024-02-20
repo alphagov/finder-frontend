@@ -121,7 +121,8 @@
     if (this.$resultsWrapper) {
       this.$resultsWrapper.setAttribute('data-search-query', this.currentKeywords())
       var sortedBy = this.$resultsWrapper.querySelector('.js-order-results')
-      if (sortedBy) {
+      // Check that the sortedBy element exists and contains option elements
+      if (sortedBy && sortedBy.options.length > 0) {
         this.$resultsWrapper.setAttribute('data-ecommerce-variant', sortedBy.options[sortedBy.selectedIndex].text)
       }
     }
@@ -147,7 +148,8 @@
         if (this.$resultsWrapper) {
           this.$resultsWrapper.setAttribute('data-ga4-search-query', this.currentKeywords())
           var sortedBy = this.$resultsWrapper.querySelector('.js-order-results')
-          if (sortedBy) {
+          // Check that the sortedBy element exists and contains option elements
+          if (sortedBy && sortedBy.options.length > 0) {
             this.$resultsWrapper.setAttribute('data-ga4-ecommerce-variant', sortedBy.options[sortedBy.selectedIndex].text)
           }
         }
@@ -359,8 +361,23 @@
 
   LiveSearch.prototype.updateSortOptions = function updateSortOptions (results, action) {
     if (action !== this.serializeState(this.state)) { return }
-    this.updateElement(this.$sortBlock, results.sort_options_markup)
+    var currentSortOptions = this.$sortBlock.querySelector('select')
+    var newSortOptions
+
+    if (results.sort_options_markup) {
+      // The select element is removed from results.sort_options_markup in order to retain the original select element. Only the option
+      // elements are updated with new markup. This is to prevent focus from being lost on the select element after the user sorts their
+      // results.
+      newSortOptions = this.removeSelectElement(results.sort_options_markup)
+    }
+
+    this.updateElement(currentSortOptions, newSortOptions)
     this.bindSortElements()
+  }
+
+  LiveSearch.prototype.removeSelectElement = function removeSelectElement (sortOptionsMarkup) {
+    var SELECT_TAG_REGEX = /<\/?select\b[^>]*>/g
+    return sortOptionsMarkup.replace(SELECT_TAG_REGEX, '')
   }
 
   LiveSearch.prototype.bindSortElements = function bindSortElements () {
