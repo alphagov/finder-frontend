@@ -50,8 +50,8 @@ class OptionSelectFacet < FilterableFacet
     unselected? || selected_values.one?
   end
 
-  def cache_key
-    Digest::SHA256.hexdigest({ name:, selected: selected_values, allowed: allowed_values }.to_json)
+  def cache_key(index_section = nil, index_section_count = nil)
+    Digest::SHA256.hexdigest({ name:, ga4_section:, index_section:, index_section_count:, selected: selected_values, allowed: allowed_values }.to_json)
   end
 
   def query_params

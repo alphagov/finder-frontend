@@ -7,7 +7,7 @@
   index_section = index + 1
   index_section_count = count
 %>
-<% cache_if option_select_facet.cacheable?, option_select_facet.cache_key do %>
+<% cache_if option_select_facet.cacheable?, option_select_facet.cache_key(index_section, index_section_count) do %>
   <%= render partial: 'govuk_publishing_components/components/option_select', locals: {
     :key => option_select_facet.key,
     :title => option_select_facet.name,
