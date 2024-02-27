@@ -16,6 +16,7 @@ module DocumentHelper
   include GdsApi::TestHelpers::Worldwide
 
   SEARCH_ENDPOINT = "#{Plek.find('search-api')}/search.json".freeze
+  SEARCH_V2_ENDPOINT = "#{Plek.find('search-api-v2')}/search.json".freeze
 
   def stub_taxonomy_api_request
     stub_content_store_has_item("/", "links" => { "level_one_taxons" => [] })
@@ -47,6 +48,12 @@ module DocumentHelper
 
   def stub_search_api_request_with_query_param_no_results(query)
     stub_request(:get, SEARCH_ENDPOINT)
+      .with(query: hash_including("q" => query))
+      .to_return(
+        body: no_results_json,
+      )
+
+    stub_request(:get, SEARCH_V2_ENDPOINT)
       .with(query: hash_including("q" => query))
       .to_return(
         body: no_results_json,
@@ -91,10 +98,18 @@ module DocumentHelper
     stub_request(:get, SEARCH_ENDPOINT)
       .with(query: hash_including(all_content_params.merge(order: "-public_timestamp")))
       .to_return(body: all_content_results_json)
+
+    stub_request(:get, SEARCH_V2_ENDPOINT)
+      .with(query: hash_including(all_content_params.merge(order: "-public_timestamp")))
+      .to_return(body: all_content_results_json)
   end
 
   def stub_search_api_request_with_organisation_filter_all_content_results
     stub_request(:get, SEARCH_ENDPOINT)
+      .with(query: hash_including("q" => "search-term", "filter_organisations" => %w[ministry-of-magic]))
+      .to_return(body: filtered_by_organisation_all_content_results_json)
+
+    stub_request(:get, SEARCH_V2_ENDPOINT)
       .with(query: hash_including("q" => "search-term", "filter_organisations" => %w[ministry-of-magic]))
       .to_return(body: filtered_by_organisation_all_content_results_json)
   end
@@ -103,10 +118,18 @@ module DocumentHelper
     stub_request(:get, SEARCH_ENDPOINT)
       .with(query: hash_including("q" => "drving"))
       .to_return(body: spelling_suggestions_json)
+
+    stub_request(:get, SEARCH_V2_ENDPOINT)
+      .with(query: hash_including("q" => "drving"))
+      .to_return(body: spelling_suggestions_json)
   end
 
   def stub_search_api_request_with_manual_filter_all_content_results
     stub_request(:get, SEARCH_ENDPOINT)
+      .with(query: hash_including("q" => "search-term", "filter_manual" => %w[how-to-be-a-wizard]))
+      .to_return(body: filtered_by_manual_all_content_results_json)
+
+    stub_request(:get, SEARCH_V2_ENDPOINT)
       .with(query: hash_including("q" => "search-term", "filter_manual" => %w[how-to-be-a-wizard]))
       .to_return(body: filtered_by_manual_all_content_results_json)
   end
