@@ -187,6 +187,17 @@ When(/^I view the all content finder with a manual filter$/) do
       order: "-public_timestamp",
     )).to_return(body: all_content_manuals_results_json)
 
+  stub_request(:get, DocumentHelper::SEARCH_V2_ENDPOINT)
+    .with(query: hash_including(q: "Replacing bristles", order: "-public_timestamp"))
+    .to_return(body: all_content_results_json)
+
+  stub_request(:get, DocumentHelper::SEARCH_V2_ENDPOINT)
+    .with(query: hash_including(
+      filter_manual: "/guidance/care-and-use-of-a-nimbus-2000",
+      q: "Replacing bristles",
+      order: "-public_timestamp",
+    )).to_return(body: all_content_manuals_results_json)
+
   visit finder_path("search/all", manual: "/guidance/care-and-use-of-a-nimbus-2000", q: "Replacing bristles")
 end
 

@@ -425,7 +425,7 @@ describe FindersController, type: :controller do
 
   describe "with legacy query parameters for publications" do
     before do
-      search_api_request
+      search_api_request(search_api_app: "search-api-v2")
       stub_content_store_has_item("/search/all", all_content_finder)
 
       @default_params = { slug: "search/all" }
