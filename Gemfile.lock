@@ -1,3 +1,18 @@
+GIT
+  remote: https://github.com/alphagov/govuk_publishing_components.git
+  revision: 84332b5b5f5e97fed8c5d5246cc2426d197ee17a
+  branch: spike-font-size-changes-2
+  specs:
+    govuk_publishing_components (37.5.1)
+      govuk_app_config
+      govuk_personalisation (>= 0.7.0)
+      kramdown
+      plek
+      rails (>= 6)
+      rouge
+      sprockets (>= 3)
+      sprockets-rails
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -185,15 +200,6 @@ GEM
     govuk_personalisation (0.15.0)
       plek (>= 1.9.0)
       rails (>= 6, < 8)
-    govuk_publishing_components (37.5.1)
-      govuk_app_config
-      govuk_personalisation (>= 0.7.0)
-      kramdown
-      plek
-      rails (>= 6)
-      rouge
-      sprockets (>= 3)
-      sprockets-rails
     govuk_schemas (4.7.0)
       json-schema (>= 2.8, < 4.2)
     govuk_test (4.0.2)
@@ -236,7 +242,7 @@ GEM
       net-imap
       net-pop
       net-smtp
-    marcel (1.0.2)
+    marcel (1.0.4)
     matrix (0.4.2)
     method_source (1.0.0)
     mime-types (3.5.2)
@@ -677,7 +683,7 @@ DEPENDENCIES
   gds-api-adapters
   govuk_ab_testing
   govuk_app_config
-  govuk_publishing_components
+  govuk_publishing_components!
   govuk_schemas
   govuk_test
   launchy
