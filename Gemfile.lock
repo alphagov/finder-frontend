@@ -84,7 +84,7 @@ GEM
       erubi (>= 1.0.0)
       rack (>= 0.9.0)
       rouge (>= 1.0.0)
-    bigdecimal (3.1.6)
+    bigdecimal (3.1.7)
     binding_of_caller (1.0.1)
       debug_inspector (>= 1.2.0)
     bootsnap (1.18.3)
@@ -185,7 +185,7 @@ GEM
     govuk_personalisation (0.15.0)
       plek (>= 1.9.0)
       rails (>= 6, < 8)
-    govuk_publishing_components (37.5.1)
+    govuk_publishing_components (37.8.1)
       govuk_app_config
       govuk_personalisation (>= 0.7.0)
       kramdown
@@ -205,11 +205,10 @@ GEM
     http-accept (1.7.0)
     http-cookie (1.0.5)
       domain_name (~> 0.5)
-    i18n (1.14.3)
+    i18n (1.14.4)
       concurrent-ruby (~> 1.0)
-      racc (~> 1.7)
     io-console (0.7.2)
-    irb (1.11.2)
+    irb (1.12.0)
       rdoc
       reline (>= 0.4.2)
     json (2.7.1)
@@ -236,7 +235,7 @@ GEM
       net-imap
       net-pop
       net-smtp
-    marcel (1.0.2)
+    marcel (1.0.4)
     matrix (0.4.2)
     method_source (1.0.0)
     mime-types (3.5.2)
@@ -244,7 +243,7 @@ GEM
     mime-types-data (3.2024.0206)
     mini_mime (1.1.5)
     mini_portile2 (2.8.5)
-    minitest (5.22.2)
+    minitest (5.22.3)
     msgpack (1.7.2)
     multi_test (1.1.0)
     mutex_m (0.2.0)
@@ -609,10 +608,11 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
-    sentry-rails (5.16.1)
+    sentry-rails (5.17.1)
       railties (>= 5.0)
-      sentry-ruby (~> 5.16.1)
-    sentry-ruby (5.16.1)
+      sentry-ruby (~> 5.17.1)
+    sentry-ruby (5.17.1)
+      bigdecimal
       concurrent-ruby (~> 1.0, >= 1.0.2)
     simplecov (0.22.0)
       docile (~> 1.1)
