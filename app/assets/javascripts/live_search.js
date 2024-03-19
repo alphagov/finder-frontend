@@ -22,6 +22,8 @@
     this.$loadingBlock = options.$results.querySelector('#js-loading-message')
     this.$sortBlock = options.$results.querySelector('#js-sort-options')
     this.$paginationBlock = options.$results.querySelector('#js-pagination')
+    this.$skipToResultsLinkContainer = options.$results.querySelector('#js-skip-link-container')
+    this.showSkipToResultsLink = options.$results.querySelector('.js-do-not-hide-skip-link')
     this.action = this.$form.getAttribute('action') + '.json'
     if (options.$atomAutodiscoveryLink) {
       this.$atomAutodiscoveryLink = options.$atomAutodiscoveryLink
@@ -63,7 +65,8 @@
     }
 
     this.focusErrorMessagesOnLoad(this.$form)
-
+    this.toggleSkipToResultsLink()
+    
     // prevent page refresh on search submit button click
     // instead trigger the results fetch
     if (this.$searchSubmitButton) {
@@ -447,6 +450,7 @@
           liveSearch.ga4TrackFormChange(formChangeEvent) // must be before displayResults changes the DOM, otherwise will break formChangeEvent.target.closest
           liveSearch.displayResults(response, searchState)
           liveSearch.trackSearch()
+          liveSearch.toggleSkipToResultsLink()
         } else {
           liveSearch.showErrorIndicator()
         }
@@ -461,6 +465,7 @@
       this.ga4TrackFormChange(formChangeEvent) // must be before displayResults changes the DOM, otherwise will break formChangeEvent.target.closest
       this.displayResults(cachedResultData, searchState)
       this.trackSearch()
+      this.toggleSkipToResultsLink()
     }
   }
 
@@ -646,6 +651,17 @@
           }
         }
       }
+    }
+  }
+
+  LiveSearch.prototype.toggleSkipToResultsLink = function toggleSkipToResultsLink() {
+    var facetTagRemoveButtons = this.$facetTagBlock.querySelectorAll('.js-facet-tag__remove')
+
+    if(facetTagRemoveButtons.length > 0 || this.showSkipToResultsLink) {
+      this.$skipToResultsLinkContainer.removeAttribute("hidden")
+    }
+    else {
+      this.$skipToResultsLinkContainer.setAttribute("hidden", "")
     }
   }
 

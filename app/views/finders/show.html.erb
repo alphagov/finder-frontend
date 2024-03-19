@@ -17,6 +17,12 @@
   <% inverse = true %>
 <% end %>
 
+<% if signup_links[:feed_link].present? || signup_links[:email_signup_link].present? || @sort_presenter.to_hash.present? %>
+  <% hide_skip_link = false %>
+<% else %>
+  <% hide_skip_link = true %>
+<% end %>
+
 <form method="get" action="<%= content_item.base_path %>" class="js-live-search-form"
     data-ga4-change-category="clear-all-filters"
 >
@@ -71,14 +77,21 @@
                   font_size: "s",
                   margin_bottom: 2,
                   } %>
-
-                <div data-track-category="filterClicked"
-                    data-track-action="skip-Link" data-track-label="">
-                  <%= render "govuk_publishing_components/components/skip_link", {
-                    text: 'Skip to results',
-                    href: '#js-results'}
-                  %>
-                </div>
+                  <div id="js-skip-link-container" 
+                    data-track-category="filterClicked"
+                    data-track-action="skip-Link" 
+                    data-track-label="" 
+                    <% if hide_skip_link %> 
+                      hidden 
+                    <% else %> 
+                      class="js-do-not-hide-skip-link" 
+                    <% end %> 
+                  >
+                    <%= render "govuk_publishing_components/components/skip_link", {
+                      text: 'Skip to results',
+                      href: '#js-results'}
+                    %>
+                  </div>
               </div>
             </div>
 
