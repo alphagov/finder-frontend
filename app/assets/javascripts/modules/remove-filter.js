@@ -6,6 +6,8 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
 
   function RemoveFilter (element) {
     this.element = element
+
+    this.init()
   }
 
   RemoveFilter.prototype.init = function () {

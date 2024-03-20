@@ -53,7 +53,8 @@ describe('Mobile filters', function () {
   describe('Mobile filters modal', function () {
     beforeEach(function () {
       var element = $('[data-module="mobile-filters-modal"]')[0]
-      new GOVUK.Modules.MobileFiltersModal(element).init()
+      /* eslint-disable no-new */
+      new GOVUK.Modules.MobileFiltersModal(element)
     })
 
     describe('open button', function () {
@@ -155,7 +156,8 @@ describe('Mobile filters', function () {
       container.querySelector('button').dataset.openOnLoad = true
 
       var element = $('[data-module="mobile-filters-modal"]')[0]
-      new GOVUK.Modules.MobileFiltersModal(element).init()
+      /* eslint-disable no-new */
+      new GOVUK.Modules.MobileFiltersModal(element)
     })
 
     describe('open on load', function () {

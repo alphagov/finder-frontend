@@ -10,6 +10,8 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
     this.module.open = this.handleOpen.bind(this)
     this.module.close = this.handleClose.bind(this)
     this.module.clearFilters = this.handleClearFilters.bind(this)
+
+    this.init()
   }
 
   MobileFiltersModal.prototype.init = function () {

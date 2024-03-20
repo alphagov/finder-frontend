@@ -15,6 +15,7 @@
     <%=
       render_component_stylesheets
     %>
+    <%= javascript_include_tag 'es6-components', integrity: false, type: "module" %>
     <%= javascript_include_tag "application", integrity: false %>
     <meta name="robots" content="noindex">
   </head>

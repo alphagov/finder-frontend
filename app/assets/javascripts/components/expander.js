@@ -11,6 +11,8 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}; // if this ; is omitted, none
     this.$toggle = this.$module.querySelector('.js-toggle')
     this.$content = this.$module.querySelector('.js-content')
     this.$allInteractiveElements = this.$content.querySelectorAll('select, input[type=text]')
+
+    this.init()
   }
 
   Expander.prototype.init = function () {
