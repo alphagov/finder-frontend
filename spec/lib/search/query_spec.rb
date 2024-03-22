@@ -122,6 +122,33 @@ describe Search::Query do
     end
   end
 
+  context "when filtering by world location on the site search finder" do
+    subject { described_class.new(content_item, { "world_locations" => "austria" }).search_results }
+
+    let(:content_item) do
+      ContentItem.new({
+        "base_path" => "/search/all",
+        "details" => {
+          "facets" => facets,
+        },
+      })
+    end
+
+    before do
+      stub_search.to_return(body: {
+        "results" => [
+          result_item("/i-am-the-v1-api", "I am the v1 API", score: nil, updated: "14-12-19", popularity: 1),
+        ],
+      }.to_json)
+    end
+
+    it "calls the v1 API" do
+      results = subject.fetch("results")
+      expect(results.length).to eq(1)
+      expect(results.first).to match(hash_including("_id" => "/i-am-the-v1-api"))
+    end
+  end
+
   context "when searching using a single query" do
     subject { described_class.new(content_item, filter_params).search_results }
 

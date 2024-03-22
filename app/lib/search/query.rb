@@ -114,6 +114,7 @@ module Search
     def use_v2_api?
       return false if ActiveModel::Type::Boolean.new.cast(filter_params["use_v1"])
       return true if ActiveModel::Type::Boolean.new.cast(filter_params["use_v2"])
+      return false if filter_params["world_locations"].present?
 
       content_item.base_path == SITE_SEARCH_FINDER_BASE_PATH
     end
