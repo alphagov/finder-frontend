@@ -2,7 +2,7 @@ class ResultSetPresenter
   include ERB::Util
   include ActionView::Helpers::NumberHelper
 
-  attr_reader :pluralised_document_noun, :debug_score, :start_offset, :include_ecommerce
+  attr_reader :pluralised_document_noun, :debug_score, :start_offset, :include_ecommerce, :discovery_engine_attribution_token
 
   delegate :atom_url, to: :content_item
 
@@ -18,6 +18,7 @@ class ResultSetPresenter
     @metadata_presenter_class = metadata_presenter_class
     @debug_score = debug_score
     @include_ecommerce = include_ecommerce
+    @discovery_engine_attribution_token = results.discovery_engine_attribution_token.presence
   end
 
   def displayed_total
@@ -46,6 +47,7 @@ class ResultSetPresenter
       page_count: component_data.count,
       finder_name: content_item.title,
       debug_score:,
+      discovery_engine_attribution_token:,
     }
   end
 

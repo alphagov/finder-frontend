@@ -184,6 +184,30 @@ RSpec.describe ResultSetPresenter do
         search_result_objects = subject.search_results_content[:document_list_component_data]
         expect(search_result_objects.first[:subtext]).to eql(expected_document_content_with_debug)
       end
+
+      it "shows the attribution token for the search results" do
+        discovery_engine_attribution_token = "123ABC"
+
+        search_results = ResultSetParser.parse(
+          "results" => results.map(&:deep_stringify_keys),
+          "start" => 1,
+          "total" => total_number_of_results,
+          "discovery_engine_attribution_token" => discovery_engine_attribution_token,
+        )
+
+        subject = ResultSetPresenter.new(
+          content_item,
+          facets,
+          search_results,
+          filter_params,
+          sort_presenter,
+          metadata_presenter_class,
+          debug_score:,
+          include_ecommerce: enable_ecommerce,
+        )
+
+        expect(subject.search_results_content[:discovery_engine_attribution_token]).to eq(discovery_engine_attribution_token)
+      end
     end
 
     context "with universal analytics ecommerce disabled" do
