@@ -1,5 +1,8 @@
 <% content_for :head do %>
   <meta name="govuk:search-result-count" content="<%= result_set_presenter.total_count %>">
+  <% if local_assigns[:discovery_engine_attribution_token].present? %>
+    <meta name="govuk:discovery-engine-attribution-token" content="<%= local_assigns[:discovery_engine_attribution_token] %>">
+  <% end %>
 <% end %>
 
 <% if local_assigns[:debug_score] && local_assigns[:discovery_engine_attribution_token].present? %>

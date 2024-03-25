@@ -1,5 +1,5 @@
 describe('liveSearch', function () {
-  var $form, $results, _supportHistory, liveSearch, $atomAutodiscoveryLink, $count
+  var $form, $results, _supportHistory, liveSearch, $atomAutodiscoveryLink, $count, countMeta, tokenMeta
   var dummyResponse = {
     display_total: 1,
     pluralised_document_noun: 'reports',
@@ -107,6 +107,10 @@ describe('liveSearch', function () {
     $count = $form.find('#js-search-results-info')
     $('body').append($form)
     $('head').append('<meta name="govuk:base_title" content="All Content - GOV.UK">').append($atomAutodiscoveryLink)
+    countMeta = $('<meta name="govuk:search-result-count" content="">')
+    $('head').append(countMeta)
+    tokenMeta = $('<meta name="govuk:discovery-engine-attribution-token" content="">')
+    $('head').append(tokenMeta)
     _supportHistory = GOVUK.support.history
     GOVUK.support.history = function () { return true }
     window.ga = function () {}
@@ -119,6 +123,8 @@ describe('liveSearch', function () {
     $form.remove()
     $results.remove()
     $atomAutodiscoveryLink.remove()
+    countMeta.remove()
+    tokenMeta.remove()
     var url = encodeURI(window.location.pathname)
     window.history.pushState('', '', url)
     GOVUK.support.history = _supportHistory
@@ -1009,6 +1015,27 @@ describe('liveSearch', function () {
       })
 
       expect(window.GOVUK.analyticsGa4.Ga4FinderTracker.trackChangeEvent).not.toHaveBeenCalled()
+    })
+  })
+
+  describe('meta tag updating', function () {
+    beforeEach(function () {
+      countMeta.attr('content', '0')
+      tokenMeta.attr('content', '0')
+    })
+
+    it('works for the result count and attribution tokens meta tags', function () {
+      var $input = $form.find('input[name="field"]')
+      liveSearch.state = []
+
+      liveSearch.formChange({ target: $input[0] })
+      jasmine.Ajax.requests.mostRecent().respondWith({
+        status: 200,
+        response: '{"discovery_engine_attribution_token":"whatisthisthingwowitisreallysurprisinglylong","total":500,"display_total":"81 reports","facet_tags":"","search_results":"","display_selected_facets_count":"","sort_options_markup":"","next_and_prev_links":"","suggestions":"","errors":{}}'
+      })
+
+      expect(countMeta.attr('content')).toEqual('500')
+      expect(tokenMeta.attr('content')).toEqual('whatisthisthingwowitisreallysurprisinglylong')
     })
   })
 })
