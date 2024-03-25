@@ -21,7 +21,8 @@ describe('An expander module', function () {
     beforeEach(function () {
       $element = document.createElement('div')
       $element.innerHTML = html
-      new GOVUK.Modules.Expander($element.querySelector('.app-c-expander')).init()
+      /* eslint-disable no-new */
+      new GOVUK.Modules.Expander($element.querySelector('.app-c-expander'))
     })
 
     afterEach(function () {
@@ -61,7 +62,8 @@ describe('An expander module', function () {
       $($element).find('.app-c-expander').attr('data-open-on-load', true)
       $($element).find('.js-content').addClass('app-c-expander__content--visible')
 
-      new GOVUK.Modules.Expander($element.querySelector('.app-c-expander')).init()
+      /* eslint-disable no-new */
+      new GOVUK.Modules.Expander($element.querySelector('.app-c-expander'))
     })
 
     afterEach(function () {
@@ -106,7 +108,8 @@ describe('An expander module', function () {
     beforeEach(function () {
       $element = document.createElement('div')
       $element.innerHTML = html
-      new GOVUK.Modules.Expander($element.querySelector('.app-c-expander')).init()
+      /* eslint-disable no-new */
+      new GOVUK.Modules.Expander($element.querySelector('.app-c-expander'))
     })
 
     afterEach(function () {
@@ -146,7 +149,8 @@ describe('An expander module', function () {
     })
 
     it('adds button data attributes passed to the component onto the button', function () {
-      new GOVUK.Modules.Expander($element.querySelector('.app-c-expander')).init()
+      /* eslint-disable no-new */
+      new GOVUK.Modules.Expander($element.querySelector('.app-c-expander'))
       var $button = $($element).find('.app-c-expander__button')
       var expected = JSON.stringify(buttonAttrs.ga4_event)
       expect($button.attr('data-test-attribute-with-many-underscores')).toEqual('oh yes')
@@ -155,7 +159,8 @@ describe('An expander module', function () {
 
     it('does not error with invalid button data attributes', function () {
       $element.querySelector('.app-c-expander').setAttribute('data-button-data-attributes', 'invalidjson')
-      new GOVUK.Modules.Expander($element.querySelector('.app-c-expander')).init()
+      /* eslint-disable no-new */
+      new GOVUK.Modules.Expander($element.querySelector('.app-c-expander'))
       var $button = $($element).find('.app-c-expander__button')
       expect($button.attr('data-test-attribute-with-many-underscores')).toEqual(undefined)
     })

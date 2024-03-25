@@ -11,11 +11,11 @@ gem "dartsass-rails"
 gem "gds-api-adapters"
 gem "govuk_ab_testing"
 gem "govuk_app_config"
-gem "govuk_publishing_components"
+gem "govuk_publishing_components", git: "https://github.com/alphagov/govuk_publishing_components.git", branch: "deploy-try-to-update-govukfrontend"
 gem "rest-client"
 gem "slimmer"
 gem "sprockets-rails"
-gem "uglifier"
+gem "terser"
 
 group :development do
   gem "better_errors"

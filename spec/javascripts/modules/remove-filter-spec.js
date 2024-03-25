@@ -83,7 +83,8 @@ describe('remove-filter', function () {
   it('deselects a selected checkbox', function (done) {
     var checkbox = facets.querySelector('input[name=a_check_box]')
     checkbox.checked = true
-    new GOVUK.Modules.RemoveFilter(checkboxFilter).init()
+    /* eslint-disable no-new */
+    new GOVUK.Modules.RemoveFilter(checkboxFilter)
 
     expect(checkbox.checked).toBe(true)
 
@@ -98,7 +99,7 @@ describe('remove-filter', function () {
   it('clears the text search field if removing all text queries', function (done) {
     var searchField = facets.querySelector('input[name=keywords]')
     searchField.value = 'education'
-    new GOVUK.Modules.RemoveFilter(oneTextQueryFilter).init()
+    new GOVUK.Modules.RemoveFilter(oneTextQueryFilter)
 
     expect(searchField.value).toContain('education')
 
@@ -113,7 +114,8 @@ describe('remove-filter', function () {
   it('removes one text query from the text search field if there are multiple', function (done) {
     var searchField = facets.querySelector('input[name=keywords]')
     searchField.value = 'therefore the search term'
-    new GOVUK.Modules.RemoveFilter(multipleTextQueriesFilter).init()
+    /* eslint-disable no-new */
+    new GOVUK.Modules.RemoveFilter(multipleTextQueriesFilter)
 
     expect(searchField.value).toContain('the')
 
@@ -128,7 +130,8 @@ describe('remove-filter', function () {
   it('removes text queries with quotes from the text search field', function (done) {
     var searchField = facets.querySelector('input[name=keywords]')
     searchField.value = 'fee "fi" fo fum'
-    new GOVUK.Modules.RemoveFilter(quotedTextQueryFilter).init()
+    /* eslint-disable no-new */
+    new GOVUK.Modules.RemoveFilter(quotedTextQueryFilter)
 
     expect(searchField.value).toContain('"fi"')
 
@@ -143,7 +146,8 @@ describe('remove-filter', function () {
   it('removes text queries with multiple words inside quotes from the text search field', function (done) {
     var searchField = facets.querySelector('input[name=keywords]')
     searchField.value = '"fee fi fo" fum'
-    new GOVUK.Modules.RemoveFilter(quotedTextQuerySpacesFilter).init()
+    /* eslint-disable no-new */
+    new GOVUK.Modules.RemoveFilter(quotedTextQuerySpacesFilter)
 
     expect(searchField.value).toContain('"fee fi fo"')
 
@@ -160,7 +164,8 @@ describe('remove-filter', function () {
     dropdown.value = 'ba3a9702-da22-487f-86c1-8334a730e559'
     var selectedValue = dropdown.options[dropdown.selectedIndex].value
 
-    new GOVUK.Modules.RemoveFilter(dropdownFilter).init()
+    /* eslint-disable no-new */
+    new GOVUK.Modules.RemoveFilter(dropdownFilter)
 
     expect(selectedValue).toEqual('ba3a9702-da22-487f-86c1-8334a730e559')
 
@@ -174,7 +179,8 @@ describe('remove-filter', function () {
 
   describe('Clicking the "x" button in facet tags', function () {
     it('triggers a google analytics custom event', function () {
-      new GOVUK.Modules.RemoveFilter(facetTagOneFilter).init()
+      /* eslint-disable no-new */
+      new GOVUK.Modules.RemoveFilter(facetTagOneFilter)
 
       triggerRemoveFilterClick(facetTagOneFilter)
 
@@ -184,8 +190,10 @@ describe('remove-filter', function () {
     })
 
     it('triggers a google analytics custom event when second facet tag removed', function () {
-      new GOVUK.Modules.RemoveFilter(facetTagOneFilter).init()
-      new GOVUK.Modules.RemoveFilter(facetTagTwoFilter).init()
+      /* eslint-disable no-new */
+      new GOVUK.Modules.RemoveFilter(facetTagOneFilter)
+      /* eslint-disable no-new */
+      new GOVUK.Modules.RemoveFilter(facetTagTwoFilter)
 
       triggerRemoveFilterClick(facetTagOneFilter)
       triggerRemoveFilterClick(facetTagTwoFilter)
