@@ -35,6 +35,7 @@
     }
 
     this.$resultsCountMetaTag = document.querySelector("meta[name='govuk:search-result-count']")
+    this.$resultsTokenMetaTag = document.querySelector("meta[name='govuk:discovery-engine-attribution-token']")
     this.$emailLinks = document.querySelectorAll('[href*="email-signup"]')
     this.previousSearchTerm = ''
 
@@ -352,10 +353,10 @@
     }
   }
 
-  LiveSearch.prototype.updateResultsCountMeta = function updateResultsCountMeta (totalCount) {
+  LiveSearch.prototype.updateMeta = function updateMeta (tag, value) {
     // update search tracking meta data tag with new value
-    if (this.$resultsCountMetaTag) {
-      this.$resultsCountMetaTag.setAttribute('content', totalCount)
+    if (tag) {
+      tag.setAttribute('content', value)
     }
   }
 
@@ -521,7 +522,8 @@
       this.updateElement(this.$suggestionsBlock, results.suggestions)
       this.trackSpellingSuggestionsImpressions(results.suggestions)
       this.updateSortOptions(results, action)
-      this.updateResultsCountMeta(results.total)
+      this.updateMeta(this.$resultsCountMetaTag, results.total)
+      this.updateMeta(this.$resultsTokenMetaTag, results.discovery_engine_attribution_token)
       this.manipulateErrorMessages(results.errors)
       if (this.$atomAutodiscoveryLink) {
         this.$atomAutodiscoveryLink.setAttribute('href', results.atom_url)

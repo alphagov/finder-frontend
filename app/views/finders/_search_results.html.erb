@@ -1,5 +1,14 @@
 <% content_for :head do %>
   <meta name="govuk:search-result-count" content="<%= result_set_presenter.total_count %>">
+  <% if local_assigns[:discovery_engine_attribution_token].present? %>
+    <meta name="govuk:discovery-engine-attribution-token" content="<%= local_assigns[:discovery_engine_attribution_token] %>">
+  <% end %>
+<% end %>
+
+<% if local_assigns[:debug_score] && local_assigns[:discovery_engine_attribution_token].present? %>
+  <div class="debug-results debug-results--meta">
+    Discovery Engine Attribution token: <%= local_assigns[:discovery_engine_attribution_token] %>
+  </div>
 <% end %>
 
 <div class="finder-results js-finder-results">

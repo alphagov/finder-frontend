@@ -82,6 +82,7 @@ private
       next_and_prev_links: render_component("govuk_publishing_components/components/previous_and_next_navigation", pagination_presenter.next_and_prev_links),
       suggestions: render_component("finders/spelling_suggestion", suggestions: spelling_suggestion_presenter.suggestions),
       errors: search_query.errors_hash,
+      discovery_engine_attribution_token: result_set_presenter.discovery_engine_attribution_token,
     }
   end
 

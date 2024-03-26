@@ -302,6 +302,36 @@ describe FindersController, type: :controller do
         end
       end
     end
+
+    describe "the finder response is from search api v2" do
+      before do
+        search_api_request(search_api_app: "search-api-v2", discovery_engine_attribution_token: "123ABC")
+        stub_content_store_has_item(
+          "/search/all",
+          all_content_finder,
+        )
+      end
+
+      it "correctly renders the finder page" do
+        get :show, params: { slug: "search/all" }
+        expect(response.status).to eq(200)
+        expect(response).to render_template("finders/show")
+      end
+
+      it "responds with JSON" do
+        get :show, params: { slug: "search/all", format: "json" }
+
+        expect(response.status).to eq(200)
+        expect(response.media_type).to eq("application/json")
+      end
+
+      it "responds with the discovery engine attribution token" do
+        get :show, params: { slug: "search/all", format: "json" }
+
+        response_body = JSON.parse(response.body)
+        expect(response_body["discovery_engine_attribution_token"]).to eq("123ABC")
+      end
+    end
   end
 
   describe "Spelling suggestions" do
@@ -528,7 +558,7 @@ describe FindersController, type: :controller do
     end
   end
 
-  def search_api_request(query: {}, search_api_app: "search-api")
+  def search_api_request(query: {}, search_api_app: "search-api", discovery_engine_attribution_token: nil)
     stub_request(:get, "#{Plek.find(search_api_app)}/search.json")
       .with(
         query: {
@@ -540,7 +570,20 @@ describe FindersController, type: :controller do
           suggest: "spelling_with_highlighting",
         }.merge(query),
       )
-      .to_return(status: 200, body: rummager_response, headers: {})
+      .to_return(
+        status: 200,
+        body: search_response(discovery_engine_attribution_token:),
+        headers: {},
+      )
+  end
+
+  def search_response(discovery_engine_attribution_token: nil)
+    return rummager_response if discovery_engine_attribution_token.blank?
+
+    JSON.generate(
+      JSON.parse(rummager_response)
+          .merge!("discovery_engine_attribution_token" => discovery_engine_attribution_token),
+    )
   end
 
   def rummager_response
