@@ -55,3 +55,6 @@ Rails.application.configure do
   # Annotate rendered view with file names.
   # config.action_view.annotate_rendered_view_with_filenames = true
 end
+
+# TODO: remove this workaround once GovukPrometheusExporter initialisation is fixed in govuk_app_config.
+ENV["GOVUK_PROMETHEUS_EXPORTER"] = "force"
