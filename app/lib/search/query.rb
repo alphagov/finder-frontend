@@ -116,7 +116,11 @@ module Search
       return true if ActiveModel::Type::Boolean.new.cast(filter_params["use_v2"])
       return false if filter_params["world_locations"].present?
 
-      content_item.base_path == SITE_SEARCH_FINDER_BASE_PATH
+      # TODO: The following has been removed and hardcoded to false as part of a "break glass"
+      # commit:
+      #
+      # content_item.base_path == SITE_SEARCH_FINDER_BASE_PATH
+      false
     end
   end
 end

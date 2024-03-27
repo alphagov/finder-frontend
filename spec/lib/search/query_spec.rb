@@ -108,17 +108,19 @@ describe Search::Query do
     end
 
     before do
-      stub_search_v2.to_return(body: {
+      stub_search.to_return(body: {
         "results" => [
-          result_item("/i-am-the-v2-api", "I am the v2 API", score: nil, updated: "14-12-19", popularity: 1),
+          result_item("/i-am-the-v1-api", "I am the v1 API", score: nil, updated: "14-12-19", popularity: 1),
         ],
       }.to_json)
     end
 
-    it "calls the v2 API" do
+    # TODO: This is part of the "break glass" and should be changed back to the intended behaviour
+    # after investigation
+    it "calls the v1 API" do
       results = subject.fetch("results")
       expect(results.length).to eq(1)
-      expect(results.first).to match(hash_including("_id" => "/i-am-the-v2-api"))
+      expect(results.first).to match(hash_including("_id" => "/i-am-the-v1-api"))
     end
   end
 
