@@ -290,8 +290,11 @@ mark {
 }
 
 .result-info {
-  margin: 0 0 govuk-spacing(4) 0;
+  @include govuk-media-query($until: tablet) {
+    padding-bottom: govuk-spacing(2);
+  }
   border-bottom: solid 1px govuk-colour("black");
+  margin: 0 0 govuk-spacing(4) 0;
 }
 
 // NOTE: Reset from element level styles inherited from the deprecated `govuk-template`.
@@ -325,10 +328,7 @@ mark {
   cursor: pointer;
   -webkit-appearance: none;
   text-decoration: underline;
-
-  // we need consistent font-size across breakpoints
-  // so we cannot use govuk-font mixin
-  font-size: 16px;
+  @include govuk-font($size: 19);
   @include govuk-link-common;
   @include govuk-link-style-default;
 
