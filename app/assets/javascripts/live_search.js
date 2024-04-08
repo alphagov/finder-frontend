@@ -19,6 +19,7 @@
     this.$selectedFilterCount = this.$form.querySelector('.js-selected-filter-count')
     this.$facetTagBlock = options.$results.querySelector('#js-facet-tag-wrapper')
     this.$mobileFacetTagBlock = this.$form.querySelector('.js-mobile-facet-tag-block')
+    this.$facetTagRemoveButtons = this.$facetTagBlock.querySelectorAll('.js-facet-tag__remove')
     this.$loadingBlock = options.$results.querySelector('#js-loading-message')
     this.$sortBlock = options.$results.querySelector('#js-sort-options')
     this.$paginationBlock = options.$results.querySelector('#js-pagination')
@@ -655,9 +656,7 @@
   }
 
   LiveSearch.prototype.toggleSkipToResultsLink = function toggleSkipToResultsLink() {
-    var facetTagRemoveButtons = this.$facetTagBlock.querySelectorAll('.js-facet-tag__remove')
-
-    if(facetTagRemoveButtons.length > 0 || this.showSkipToResultsLink) {
+    if(this.$facetTagRemoveButtons.length > 0 || this.showSkipToResultsLink) {
       this.$skipToResultsLinkContainer.removeAttribute("hidden")
     }
     else {
