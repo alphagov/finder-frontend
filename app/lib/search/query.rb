@@ -116,6 +116,10 @@ module Search
       return true if ActiveModel::Type::Boolean.new.cast(filter_params["use_v2"])
       return false if filter_params["world_locations"].present?
 
+      # Non-keyword search is (for now) better served by v1, both in terms of cost and in terms of results (as v2 will
+      # not always return *all* documents for non-keyword searches, particularly when sorting is applied).
+      return false if filter_params["keywords"].blank?
+
       content_item.base_path == SITE_SEARCH_FINDER_BASE_PATH
     end
   end

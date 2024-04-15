@@ -96,7 +96,7 @@ describe Search::Query do
   end
 
   context "when on the site search finder" do
-    subject { described_class.new(content_item, {}).search_results }
+    subject { described_class.new(content_item, { "keywords" => "hello" }).search_results }
 
     let(:content_item) do
       ContentItem.new({
@@ -119,6 +119,33 @@ describe Search::Query do
       results = subject.fetch("results")
       expect(results.length).to eq(1)
       expect(results.first).to match(hash_including("_id" => "/i-am-the-v2-api"))
+    end
+  end
+
+  context "when on the site search finder without any keywords given" do
+    subject { described_class.new(content_item, { "keywords" => "" }).search_results }
+
+    let(:content_item) do
+      ContentItem.new({
+        "base_path" => "/search/all",
+        "details" => {
+          "facets" => facets,
+        },
+      })
+    end
+
+    before do
+      stub_search.to_return(body: {
+        "results" => [
+          result_item("/i-am-the-v1-api", "I am the v1 API", score: nil, updated: "14-12-19", popularity: 1),
+        ],
+      }.to_json)
+    end
+
+    it "calls the v1 API" do
+      results = subject.fetch("results")
+      expect(results.length).to eq(1)
+      expect(results.first).to match(hash_including("_id" => "/i-am-the-v1-api"))
     end
   end
 
