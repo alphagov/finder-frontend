@@ -15,7 +15,7 @@ gem "govuk_publishing_components"
 gem "rest-client"
 gem "slimmer"
 gem "sprockets-rails"
-gem "uglifier"
+gem "terser"
 
 group :development do
   gem "better_errors"
