@@ -10,13 +10,13 @@ describe ParamsCleaner do
 
     it "leaves normal params alone" do
       params = ActionController::Parameters.new("foo" => "bar")
-      cleaned = ParamsCleaner.new(params).cleaned
+      cleaned = ActionController::Parameters.new(ParamsCleaner.new(params).cleaned)
       expect(cleaned).to match(params)
     end
 
     it "does not touch other types of hash-params " do
       params = ActionController::Parameters.new("foo" => { "from" => "bar", "to" => "baz" })
-      cleaned = ParamsCleaner.new(params).cleaned
+      cleaned = ActionController::Parameters.new(ParamsCleaner.new(params).cleaned)
       expect(cleaned).to match(params)
     end
 
