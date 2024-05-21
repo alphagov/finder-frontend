@@ -120,11 +120,7 @@ module Search
       # not always return *all* documents for non-keyword searches, particularly when sorting is applied).
       return false if filter_params["keywords"].blank?
 
-      return false # Force V1 during incident
-
-      # rubocop:disable Lint/UnreachableCode
       content_item.base_path == SITE_SEARCH_FINDER_BASE_PATH
-      # rubocop:enable Lint/UnreachableCode
     end
   end
 end
