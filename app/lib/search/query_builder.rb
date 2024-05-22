@@ -240,10 +240,6 @@ module Search
     end
 
     def ab_query
-      # We're using the ab test relevance:disable params here to turn off LTR for this
-      # finder. It would probably be best in the long run to create a specific way of
-      # doing this that uses a proper parameter, but we can't do that at the moment.
-      ab_params.merge!("relevance" => "disable") if finder_content_item.is_licence_transaction? && !force_ltr?
       ab_params.any? ? { "ab_tests" => ab_params.map { |k, v| "#{k}:#{v}" }.join(",") } : {}
     end
 
