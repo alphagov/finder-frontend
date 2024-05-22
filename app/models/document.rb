@@ -16,6 +16,18 @@ class Document
               :original_rank,
               :parts
 
+  class DocumentInitValidator(document_hash)
+    attr_reader :document_hash
+
+    def initialise(document_hash)
+      @document_hash = document_hash
+    end
+
+    def valid?
+      document_hash.key?(:title) && document_hash.key?(:link)
+    end
+  end
+
   def initialize(document_hash, index)
     document_hash = document_hash.with_indifferent_access
     @title = document_hash.fetch(:title)
