@@ -16,7 +16,7 @@ class Document
               :original_rank,
               :parts
 
-  class DocumentInitValidator(document_hash)
+  class DocumentInitValidator
     attr_reader :document_hash
 
     def initialise(document_hash)
