@@ -19,8 +19,8 @@ class Document
   class DocumentInitValidator
     attr_reader :document_hash
 
-    def initialise(document_hash)
-      @document_hash = document_hash
+    def initialize(document_hash)
+      @document_hash = document_hash.nil? ? {} : document_hash.with_indifferent_access
     end
 
     def valid?

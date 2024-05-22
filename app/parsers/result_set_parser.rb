@@ -14,7 +14,7 @@ module ResultSetParser
     )
   end
 
-  def validated_results(results)
-    results.select { |document| Document::DocumentInitValidator.new(document).valid?}
+  def self.validated_results(results)
+    results.select { |document| Document::DocumentInitValidator.new(document).valid? }
   end
 end
