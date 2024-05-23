@@ -108,7 +108,7 @@ describe Search::Query do
     end
 
     before do
-      stub_search_v2.to_return(body: {
+      stub_search.to_return(body: {
         "results" => [
           result_item("/i-am-the-v2-api", "I am the v2 API", score: nil, updated: "14-12-19", popularity: 1),
         ],
