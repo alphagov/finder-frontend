@@ -242,7 +242,7 @@ describe FindersController, type: :controller do
 
     describe "the finder response is from search api v2" do
       before do
-        search_api_request(search_api_app: "search-api", discovery_engine_attribution_token: "123ABC", query: { q: "hello", order: nil })
+        search_api_request(search_api_app: "search-api-v2", discovery_engine_attribution_token: "123ABC", query: { q: "hello", order: nil })
         stub_content_store_has_item(
           "/search/all",
           all_content_finder,
