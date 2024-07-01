@@ -24,13 +24,10 @@
   <% end %>
 
   <% if facets.any? %>
-    <div data-module="gem-track-click" data-track-category="filterClicked"
-        data-track-action="skip-Link" data-track-label="">
       <%= render "govuk_publishing_components/components/skip_link", {
         text: 'Skip to results',
         href: '#js-results'}
       %>
-    </div>
 
     <div id="facet-wrapper" data-module="mobile-filters-modal" class="facets" role="search" aria-label="Search filters">
       <div class="facets__box">

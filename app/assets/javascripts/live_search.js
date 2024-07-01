@@ -109,8 +109,6 @@
         inputs[i].addEventListener('keypress', this.handleKeyPress.bind(this))
       }
 
-      this.indexTrackingData()
-
       document.addEventListener('popstate', this.popState.bind(this))
     } else {
       var fallback = this.$form.querySelector('.js-live-search-fallback')
@@ -258,7 +256,6 @@
 
   LiveSearch.prototype.trackingInit = function trackingInit () {
     GOVUK.modules.start(this.$resultsWrapper)
-    this.indexTrackingData()
     this.startEnhancedEcommerceTracking()
   }
 
@@ -279,39 +276,6 @@
         suggestion = spellingSuggestionAvailable.dimension81
       }
       $spellingSuggestionMetaTag.setAttribute('content', suggestion)
-    }
-  }
-
-  /**
-   * Results grouped by facet and facet value do not have an accurate document index
-   * due to the post-search sorting and grouping which the presenter performs.
-   * In this case (ie. sorted by 'Topic' which actually means group by facet, facet value),
-   * rewrite the appropriate tracking data attribute to delineate the group and document index.
-   */
-  LiveSearch.prototype.indexTrackingData = function indexTrackingData () {
-    var $groupEls = document.querySelectorAll('.filtered-results__group')
-    for (var g = 0; g < $groupEls.length; g++) {
-      var $resultEls = $groupEls[g].querySelectorAll('.gem-c-document-list__item')
-
-      for (var d = 0; d < $resultEls.length; d++) {
-        var $document = $resultEls[d]
-        var $documentLink = $document.querySelector('.gem-c-document-list__item-title')
-        var trackingAction = $documentLink.getAttribute('data-track-action')
-        trackingAction = trackingAction.replace(/\.\d+$/, '')
-        trackingAction = [trackingAction, g + 1, d + 1].join('.')
-        $documentLink.setAttribute('data-track-action', trackingAction)
-      }
-    }
-
-    var $results = document.querySelector('.js-finder-results')
-    if ($results) {
-      var $mostRelevantDocumentLink = $results.querySelector('.gem-c-document-list__item--highlight')
-
-      if ($mostRelevantDocumentLink) {
-        trackingAction = $mostRelevantDocumentLink.getAttribute('data-track-action')
-        trackingAction += 'r'
-        $mostRelevantDocumentLink.setAttribute('data-track-action', trackingAction)
-      }
     }
   }
 

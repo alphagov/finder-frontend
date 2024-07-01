@@ -33,7 +33,7 @@ describe('liveSearch', function () {
     search_results: '<div class="finder-results js-finder-results" data-module="gem-track-click">' +
       '<ol class="gem-c-document-list">' +
         '<li class="gem-c-document-list__item">' +
-          '<a data-track-category="navFinderLinkClicked" data-track-action="" data-track-label="" class="gem-c-document-list__item-title" href="aaib-reports/test-report">Test report</a>' +
+          '<a data-track-category="navFinderLinkClicked" class="gem-c-document-list__item-title" href="aaib-reports/test-report">Test report</a>' +
             '<p class="gem-c-document-list__item-description">The English business survey will provide Ministers and officials with information about the current economic and business conditions across</p>' +
             '<ul class="gem-c-document-list__item-metadata">' +
                 '<li class="gem-c-document-list__attribute">' +
@@ -559,68 +559,6 @@ describe('liveSearch', function () {
     })
   })
 
-  describe('indexTrackingData', function () {
-    var groupedResponse = {
-      search_results:
-        '<ul class="finder-results js-finder-results" data-module="gem-track-click">' +
-          '<li class="filtered-results__group">' +
-            '<h2 class="filtered-results__facet-heading">Primary group</h2>' +
-            '<ol class="gem-c-document-list">' +
-              '<li class="gem-c-document-list__item ">' +
-                '<a data-track-category="navFinderLinkClicked" data-track-action="foo" data-track-label="" class="gem-c-document-list__item-title " href="/reports/test-report-1">Test report 1</a>' +
-                '<ul class="gem-c-document-list__item-metadata"></ul>' +
-              '</li>' +
-              '<li class="gem-c-document-list__item ">' +
-                '<a data-track-category="navFinderLinkClicked" data-track-action="foo" data-track-label="" class="gem-c-document-list__item-title " href="/reports/test-report-4">Test report 4</a>' +
-                '<ul class="gem-c-document-list__item-metadata"></ul>' +
-              '</li>' +
-            '</ol>' +
-          '</li>' +
-          '<li class="filtered-results__group">' +
-            '<h2 class="filtered-results__facet-heading">Default group</h2>' +
-            '<ol class="gem-c-document-list">' +
-              '<li class="gem-c-document-list__item ">' +
-                '<a data-track-category="navFinderLinkClicked" data-track-action="foo" data-track-label="" class="gem-c-document-list__item-title " href="/reports/test-report-3">Test report 3</a>' +
-                '<ul class="gem-c-document-list__item-metadata"></ul>' +
-              '</li>' +
-              '<li class="gem-c-document-list__item ">' +
-                '<a data-track-category="navFinderLinkClicked" data-track-action="foo" data-track-label="" class="gem-c-document-list__item-title " href="/reports/test-report-2">Test report 2</a>' +
-                '<ul class="gem-c-document-list__item-metadata"></ul>' +
-              '</li>' +
-            '</ol>' +
-          '</li>' +
-        '</ul>'
-    }
-
-    beforeEach(function () {
-      liveSearch.$form = $form[0]
-      liveSearch.$resultsBlock = $results[0]
-      liveSearch.state = { search: 'state' }
-    })
-
-    it('is called by trackingInit()', function () {
-      spyOn(liveSearch, 'indexTrackingData')
-      liveSearch.trackingInit()
-      expect(liveSearch.indexTrackingData).toHaveBeenCalled()
-    })
-
-    it('re-indexes tracking actions for grouped items', function () {
-      liveSearch.displayResults(groupedResponse, $.param(liveSearch.state))
-      liveSearch.indexTrackingData()
-
-      var $firstGroup = $results.find('.filtered-results__group:nth-child(1)')
-      var $defaultGroup = $results.find('.filtered-results__group:nth-child(2)')
-
-      expect($firstGroup.find('h2').text()).toMatch('Primary group')
-      expect($firstGroup.find('a[data-track-action="foo.1.1"]').text()).toMatch('Test report 1')
-      expect($firstGroup.find('a[data-track-action="foo.1.2"]').text()).toMatch('Test report 4')
-
-      expect($defaultGroup.find('h2').text()).toMatch('Default group')
-      expect($defaultGroup.find('a[data-track-action="foo.2.1"]').text()).toMatch('Test report 3')
-      expect($defaultGroup.find('a[data-track-action="foo.2.2"]').text()).toMatch('Test report 2')
-    })
-  })
-
   it('should replace links with new links when state changes', function () {
     liveSearch.updateLinks()
     expect(liveSearch.$emailLinks[0].getAttribute('href')).toBe('https://a-url/email-signup?field=sheep&published_at=2004')
@@ -721,7 +659,7 @@ describe('liveSearch', function () {
       search_results: '<div class="finder-results js-finder-results" data-module="gem-track-click">' +
         '<ol class="gem-c-document-list">' +
           '<li class="gem-c-document-list__item">' +
-            '<a data-track-category="navFinderLinkClicked" data-track-action="" data-track-label="" class="gem-c-document-list__item-title" href="aaib-reports/test-report">Test report</a>' +
+            '<a data-track-category="navFinderLinkClicked" class="gem-c-document-list__item-title" href="aaib-reports/test-report">Test report</a>' +
               '<p class="gem-c-document-list__item-description">The English business survey will provide Ministers and officials with information about the current economic and business conditions across</p>' +
               '<ul class="gem-c-document-list__item-metadata">' +
                   '<li class="gem-c-document-list__attribute">' +
@@ -779,7 +717,7 @@ describe('liveSearch', function () {
       search_results: '<div class="finder-results js-finder-results" data-module="gem-track-click">' +
         '<ol class="gem-c-document-list">' +
           '<li class="gem-c-document-list__item">' +
-            '<a data-track-category="navFinderLinkClicked" data-track-action="" data-track-label="" class="gem-c-document-list__item-title" href="aaib-reports/test-report">Test report</a>' +
+            '<a data-track-category="navFinderLinkClicked" class="gem-c-document-list__item-title" href="aaib-reports/test-report">Test report</a>' +
               '<p class="gem-c-document-list__item-description">The English business survey will provide Ministers and officials with information about the current economic and business conditions across</p>' +
               '<ul class="gem-c-document-list__item-metadata">' +
                   '<li class="gem-c-document-list__attribute">' +
