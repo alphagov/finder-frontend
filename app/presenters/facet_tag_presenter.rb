@@ -17,7 +17,6 @@ class FacetTagPresenter
         data_facet: value["parameter_key"],
         data_name: value["name"],
         data_value: value["value"],
-        data_track_label: value["label"],
       }
     end
   end
