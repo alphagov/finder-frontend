@@ -33,13 +33,7 @@
             on_govuk_blue: inverse,
           } %>
         </div>
-        <div id="js-spelling-suggestions" class="spelling-suggestions"
-          data-analytics-ecommerce
-          data-ecommerce-start-index="1"
-          data-list-title="<%= content_item.title %> spelling suggestions"
-          data-search-query="<%= result_set_presenter.user_supplied_keywords %>"
-          data-track-click-label="Spelling suggestions"
-          >
+        <div id="js-spelling-suggestions" class="spelling-suggestions">
           <%= render 'spelling_suggestion' %>
         </div>
       <% elsif topic_finder?(filter_params) %>

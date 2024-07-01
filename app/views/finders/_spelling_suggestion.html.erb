@@ -16,7 +16,7 @@
     %>
     <%= link_to sanitize(suggestion[:highlighted]), suggestion[:link],
       class: "govuk-link",
-      :data => ga4_data.merge(suggestion[:data_attributes])
+      :data => ga4_data
     %>
     <% _spelling_suggestion = suggestion[:keywords] %>
   <% end %>

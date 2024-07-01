@@ -566,7 +566,6 @@ Then(/^I see the most viewed articles first$/) do
     expect(page).to have_content("16 November 2018")
   end
 
-  expect(page).to have_css("a[data-track-category='navFinderLinkClicked']")
   expect(page).to have_css("#order", text: "Most viewed")
 end
 
@@ -579,7 +578,6 @@ Then(/^I see services in alphabetical order$/) do
     expect(page).to have_content("Register a magical spell")
   end
 
-  expect(page).to have_css("a[data-track-category='navFinderLinkClicked']")
   expect(page).to have_css("#order", text: "A-Z")
 end
 
@@ -833,10 +831,6 @@ end
 
 And(/^I should not see an upcoming statistics facet tag$/) do
   expect(page).to_not have_css("span.facet-tag__text", text: "Upcoming statistics")
-end
-
-And(/^The top result has the correct tracking data$/) do
-  expect(page).to have_css("a[data-track-category='navFinderLinkClicked']")
 end
 
 Then(/^I can see results filtered by that manual$/) do
