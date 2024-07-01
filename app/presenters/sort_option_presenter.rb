@@ -29,12 +29,4 @@ class SortOptionPresenter
 private
 
   attr_reader :default, :selected, :disabled
-
-  def tracking_attributes
-    {
-      "data-track-category" => "dropDownClicked",
-      "data-track-action" => "clicked",
-      "data-track-label" => label,
-    }
-  end
 end
