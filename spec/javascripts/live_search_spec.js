@@ -537,8 +537,8 @@ describe('liveSearch', function () {
         '</ol>' +
       '</div>',
       suggestions: '<p class="govuk-body">Did you mean' +
-      '<a class="govuk-link govuk-!-font-weight-bold" data-ecommerce-content-id="dd395436-9b40-41f3-8157-740a453ac972"' +
-      'data-ecommerce-row="1" data-track-options="{"dimension81":"driving licences"}" href="/search/all?keywords=driving+licences&order=relevance">' +
+      '<a class="govuk-link govuk-!-font-weight-bold"' +
+      'href="/search/all?keywords=driving+licences&order=relevance">' +
       'driving licences</a> </p>'
     }
 

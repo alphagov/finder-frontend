@@ -15,12 +15,7 @@
 </div>
 
 <% if local_assigns[:zero_results] %>
-  <%= link_to "ecommerce data", "www.gov.uk",
-    class: "govuk-visually-hidden",
-    :data => {
-      :'ecommerce-content-id' => "99999999-9999-9999-9999-999999999999",
-      :'ecommerce-row' =>"0"
-    } %>
+  <%= link_to "ecommerce data", "www.gov.uk", class: "govuk-visually-hidden" %>
 
   <div class='no-results govuk-!-font-size-19'>
     <p class='govuk-body govuk-!-font-weight-bold'>There are no matching results.</p>
