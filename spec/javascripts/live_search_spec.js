@@ -130,10 +130,6 @@ describe('liveSearch', function () {
     GOVUK.support.history = _supportHistory
   })
 
-  it('sets the GA transport to beacon', function () {
-    expect(window.ga).toHaveBeenCalledWith('set', 'transport', 'beacon')
-  })
-
   it('should save initial state (serialized and compacted)', function () {
     expect(liveSearch.state).toEqual([{ name: 'field', value: 'sheep' }, { name: 'published_at', value: '2004' }])
   })
@@ -282,25 +278,6 @@ describe('liveSearch', function () {
       expect(liveSearch.updateLinks).toHaveBeenCalled()
     })
 
-    it('should trigger analytics trackpage when checkbox is changed', function () {
-      spyOn(liveSearch, 'updateResults').and.callThrough()
-      spyOn(GOVUK.SearchAnalytics, 'trackPageview')
-      spyOn(liveSearch, 'trackingInit')
-
-      liveSearch.state = []
-
-      liveSearch.formChange()
-      jasmine.Ajax.requests.mostRecent().respondWith({
-        status: 200,
-        response: '{"total":81,"display_total":"81 reports","facet_tags":"","search_results":"","display_selected_facets_count":"","sort_options_markup":"","next_and_prev_links":"","suggestions":"","errors":{}}'
-      })
-
-      expect(liveSearch.trackingInit).toHaveBeenCalled()
-      expect(GOVUK.SearchAnalytics.trackPageview).toHaveBeenCalled()
-      var trackArgs = GOVUK.SearchAnalytics.trackPageview.calls.first().args[0]
-      expect(trackArgs.split('?')[1], 'field=sheep')
-    })
-
     it("should do nothing if state hasn't changed when a checkbox is changed", function () {
       spyOn(liveSearch, 'updateResults')
 
@@ -308,56 +285,6 @@ describe('liveSearch', function () {
 
       expect(liveSearch.state).toEqual({ field: 'sheep', published_at: '2004' })
       expect(liveSearch.updateResults).not.toHaveBeenCalled()
-    })
-
-    it('should trigger filterClicked custom event when input type is text and analytics are not suppressed', function () {
-      GOVUK.LiveSearch.prototype.fireTextAnalyticsEvent = function (event) {}
-      spyOn(GOVUK.LiveSearch.prototype, 'fireTextAnalyticsEvent')
-
-      var dateInput = $form.find('input[name="published_at"]').val('2005')[0]
-      window.GOVUK.triggerEvent(dateInput, 'change')
-
-      expect(GOVUK.LiveSearch.prototype.fireTextAnalyticsEvent).toHaveBeenCalledTimes(1)
-    })
-
-    it('should trigger filterClicked for both change and enter key events on text input', function () {
-      GOVUK.LiveSearch.prototype.fireTextAnalyticsEvent = function (event) {}
-      spyOn(GOVUK.LiveSearch.prototype, 'fireTextAnalyticsEvent')
-
-      var publishedAt = $form.find('input[name="published_at"]').val('searchChange')[0]
-      window.GOVUK.triggerEvent(publishedAt, 'change')
-
-      expect(GOVUK.LiveSearch.prototype.fireTextAnalyticsEvent).toHaveBeenCalledTimes(1)
-
-      publishedAt.value = 'searchEnter'
-      window.GOVUK.triggerEvent(publishedAt, 'keypress', { keyCode: 13 })
-
-      expect(GOVUK.LiveSearch.prototype.fireTextAnalyticsEvent).toHaveBeenCalledTimes(2)
-    })
-
-    it('should not trigger multiple tracking events if the search term stays the same', function () {
-      GOVUK.LiveSearch.prototype.fireTextAnalyticsEvent = function (event) {}
-      spyOn(GOVUK.LiveSearch.prototype, 'fireTextAnalyticsEvent')
-
-      $form.find('input[name="published_at"]').val('same term').trigger('change')
-      $form.find('input[name="published_at"]').val('same term').trigger('change')
-
-      var publishedAt = $form.find('input[name="published_at"]')[0]
-      window.GOVUK.triggerEvent(publishedAt, 'keypress', { keyCode: 13 })
-
-      expect(GOVUK.LiveSearch.prototype.fireTextAnalyticsEvent).toHaveBeenCalledTimes(1)
-    })
-
-    it('should not trigger filterClicked custom event when input type is text and analytics are suppressed', function () {
-      GOVUK.LiveSearch.prototype.fireTextAnalyticsEvent = function (event) {}
-      spyOn(GOVUK.LiveSearch.prototype, 'fireTextAnalyticsEvent')
-
-      $form.find('input[name="published_at"]').val('2005').trigger({
-        type: 'change',
-        suppressAnalytics: true
-      })
-
-      expect(GOVUK.LiveSearch.prototype.fireTextAnalyticsEvent).toHaveBeenCalledTimes(0)
     })
 
     it('should display results from the cache', function () {
@@ -403,25 +330,6 @@ describe('liveSearch', function () {
       expect(liveSearch.updateLinks).toHaveBeenCalled()
     })
 
-    it('should trigger analytics trackpage when checkbox is changed', function () {
-      spyOn(liveSearch, 'updateResults').and.callThrough()
-      spyOn(GOVUK.SearchAnalytics, 'trackPageview')
-      spyOn(liveSearch, 'trackingInit')
-
-      liveSearch.state = []
-
-      liveSearch.formChange()
-      jasmine.Ajax.requests.mostRecent().respondWith({
-        status: 200,
-        response: '{"total":81,"display_total":"81 reports","facet_tags":"","search_results":"","display_selected_facets_count":"","sort_options_markup":"","next_and_prev_links":"","suggestions":"","errors":{}}'
-      })
-
-      expect(liveSearch.trackingInit).toHaveBeenCalled()
-      expect(GOVUK.SearchAnalytics.trackPageview).toHaveBeenCalled()
-      var trackArgs = GOVUK.SearchAnalytics.trackPageview.calls.first().args[0]
-      expect(trackArgs.split('?')[1], 'field=sheep')
-    })
-
     it("should do nothing if state hasn't changed when a checkbox is changed", function () {
       spyOn(liveSearch, 'updateResults')
 
@@ -429,56 +337,6 @@ describe('liveSearch', function () {
 
       expect(liveSearch.state).toEqual({ field: 'sheep', published_at: '2004' })
       expect(liveSearch.updateResults).not.toHaveBeenCalled()
-    })
-
-    it('should trigger filterClicked custom event when input type is text and analytics are not suppressed', function () {
-      GOVUK.LiveSearch.prototype.fireTextAnalyticsEvent = function (event) {}
-      spyOn(GOVUK.LiveSearch.prototype, 'fireTextAnalyticsEvent')
-
-      var dateInput = $form.find('input[name="published_at"]').val('2005')[0]
-      window.GOVUK.triggerEvent(dateInput, 'change')
-
-      expect(GOVUK.LiveSearch.prototype.fireTextAnalyticsEvent).toHaveBeenCalledTimes(1)
-    })
-
-    it('should trigger filterClicked for both change and enter key events on text input', function () {
-      GOVUK.LiveSearch.prototype.fireTextAnalyticsEvent = function (event) {}
-      spyOn(GOVUK.LiveSearch.prototype, 'fireTextAnalyticsEvent')
-
-      var publishedAt = $form.find('input[name="published_at"]').val('searchChange')[0]
-      window.GOVUK.triggerEvent(publishedAt, 'change')
-
-      expect(GOVUK.LiveSearch.prototype.fireTextAnalyticsEvent).toHaveBeenCalledTimes(1)
-
-      publishedAt.value = 'searchEnter'
-      window.GOVUK.triggerEvent(publishedAt, 'keypress', { keyCode: 13 })
-
-      expect(GOVUK.LiveSearch.prototype.fireTextAnalyticsEvent).toHaveBeenCalledTimes(2)
-    })
-
-    it('should not trigger multiple tracking events if the search term stays the same', function () {
-      GOVUK.LiveSearch.prototype.fireTextAnalyticsEvent = function (event) {}
-      spyOn(GOVUK.LiveSearch.prototype, 'fireTextAnalyticsEvent')
-
-      $form.find('input[name="published_at"]').val('same term').trigger('change')
-      $form.find('input[name="published_at"]').val('same term').trigger('change')
-
-      var publishedAt = $form.find('input[name="published_at"]')[0]
-      window.GOVUK.triggerEvent(publishedAt, 'keypress', { keyCode: 13 })
-
-      expect(GOVUK.LiveSearch.prototype.fireTextAnalyticsEvent).toHaveBeenCalledTimes(1)
-    })
-
-    it('should not trigger filterClicked custom event when input type is text and analytics are suppressed', function () {
-      GOVUK.LiveSearch.prototype.fireTextAnalyticsEvent = function (event) {}
-      spyOn(GOVUK.LiveSearch.prototype, 'fireTextAnalyticsEvent')
-
-      $form.find('input[name="published_at"]').val('2005').trigger({
-        type: 'change',
-        suppressAnalytics: true
-      })
-
-      expect(GOVUK.LiveSearch.prototype.fireTextAnalyticsEvent).toHaveBeenCalledTimes(0)
     })
 
     it('should display results from the cache', function () {
@@ -740,6 +598,7 @@ describe('liveSearch', function () {
     }
     beforeEach(function () {
       $form.append($suggestionBlock)
+      $form.append("<meta name='govuk:spelling-suggestion'>")
       liveSearch = new GOVUK.LiveSearch({ $form: $form[0], $results: $results[0], $suggestionBlock: $suggestionBlock[0], $atomAutodiscoveryLink: $atomAutodiscoveryLink[0] })
     })
 
@@ -751,6 +610,7 @@ describe('liveSearch', function () {
       liveSearch.state = { search: 'state' }
       liveSearch.displayResults(responseWithSpellingSuggestions, $.param(liveSearch.state))
       expect($('#js-spelling-suggestions a').text()).toBe('driving licences')
+      expect($('meta[name="govuk:spelling-suggestion"]').attr('content')).toBe('driving licences')
       expect($('#js-spelling-suggestions a').attr('href')).toBe('/search/all?keywords=driving+licences&order=relevance')
     })
 
@@ -758,13 +618,7 @@ describe('liveSearch', function () {
       liveSearch.state = { search: 'state' }
       liveSearch.displayResults(responseWithNoSpellingSuggestions, $.param(liveSearch.state))
       expect($('#js-spelling-suggestions').text()).toBe('')
-    })
-
-    it('tracking has been called', function () {
-      liveSearch.state = { search: 'state' }
-      spyOn(liveSearch, 'trackSpellingSuggestionsImpressions')
-      liveSearch.displayResults(responseWithSpellingSuggestions, $.param(liveSearch.state))
-      expect(liveSearch.trackSpellingSuggestionsImpressions).toHaveBeenCalled()
+      expect($('meta[name="govuk:spelling-suggestion"]').attr('content')).toBe('')
     })
   })
 
