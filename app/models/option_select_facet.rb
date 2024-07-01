@@ -15,12 +15,6 @@ class OptionSelectFacet < FilterableFacet
         value: allowed_value["value"],
         label: allowed_value["label"],
         id: "#{key}-#{allowed_value['value']}",
-        data_attributes: {
-          track_category: "filterClicked",
-          uncheck_track_category: "filterRemoved",
-          track_action: name,
-          track_label: allowed_value["label"],
-        },
         checked: selected_values.include?(allowed_value),
         controls: controls || nil,
       }
