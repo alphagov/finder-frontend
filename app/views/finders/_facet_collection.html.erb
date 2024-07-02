@@ -24,8 +24,7 @@
   <% end %>
 
   <% if facets.any? %>
-    <div data-module="gem-track-click" data-track-category="filterClicked"
-        data-track-action="skip-Link" data-track-label="">
+    <div>
       <%= render "govuk_publishing_components/components/skip_link", {
         text: 'Skip to results',
         href: '#js-results'}

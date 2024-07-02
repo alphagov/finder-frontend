@@ -9,8 +9,7 @@
       id="order"
       aria-controls="js-search-results-info"
       data-default-sort-option="<%= local_assigns[:default_value] %>"
-      data-relevance-sort-option="<%= local_assigns[:relevance_value] %>"
-      data-module='track-select-change'>
+      data-relevance-sort-option="<%= local_assigns[:relevance_value] %>">
       <% local_assigns[:options].each do |option| %>
         <option
           value='<%= option[:value] %>'
@@ -20,9 +19,6 @@
           <% if option[:selected] %>
             selected
           <% end %>
-          data-track-category='<%= option[:data_track_category] %>'
-          data-track-action='<%= option[:data_track_action] %>'
-          data-track-label='<%= option[:data_track_label] %>'
           ><%= option[:label] %></option>
       <% end %>
     </select>

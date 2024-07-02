@@ -45,7 +45,6 @@ describe TaxonFacet do
           :text,
           :sub_topics,
           :selected,
-          :data_attributes,
         )
       end
     end

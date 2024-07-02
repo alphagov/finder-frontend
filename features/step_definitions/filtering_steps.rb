@@ -488,18 +488,10 @@ end
 
 Then(/^I can see a breadcrumb for home$/) do
   expect(page).to have_link("Home", href: "/")
-  expect(page).to have_css("a[data-track-category='homeLinkClicked']", text: "Home")
-  expect(page).to have_css("a[data-track-action='homeBreadcrumb']", text: "Home")
-  expect(page).to have_css("a[data-track-label='']", text: "Home")
-  expect(page).to have_css("a[data-track-options='{}']", text: "Home")
 end
 
 Then(/^I can see a breadcrumb for all organisations$/) do
   expect(page).to have_link("Organisations", href: "/government/organisations")
-  expect(page).to have_css("a[data-track-category='breadcrumbClicked']", text: "Organisations")
-  expect(page).to have_css("a[data-track-action='2']", text: "Organisations")
-  expect(page).to have_css("a[data-track-label='/government/organisations']", text: "Organisations")
-  expect(page).to have_css("a[data-track-options='{\"dimension28\":\"3\",\"dimension29\":\"Organisations\"}']", text: "Organisations")
 end
 
 And(/^no breadcrumb for all organisations$/) do
@@ -508,10 +500,6 @@ end
 
 Then(/^I can see a breadcrumb for the organisation$/) do
   expect(page).to have_link("Ministry of Magic", href: "/government/organisations/ministry-of-magic")
-  expect(page).to have_css("a[data-track-category='breadcrumbClicked']", text: "Ministry of Magic")
-  expect(page).to have_css("a[data-track-action='3']", text: "Ministry of Magic")
-  expect(page).to have_css("a[data-track-label='/government/organisations/ministry-of-magic']", text: "Ministry of Magic")
-  expect(page).to have_css("a[data-track-options='{\"dimension28\":\"3\",\"dimension29\":\"Ministry of Magic\"}']", text: "Ministry of Magic")
 end
 
 Then(/^I can see taxonomy breadcrumbs$/) do
@@ -546,13 +534,6 @@ Then(/^I only see documents that match the checkbox filter$/) do
   end
 end
 
-Then(/^The checkbox has the correct tracking data$/) do
-  expect(page).to have_css("input[type='checkbox'][data-track-category='filterClicked']")
-  expect(page).to have_css("input[type='checkbox'][data-track-action='checkboxFacet']")
-  expect(page).to have_css("input[type='checkbox'][data-track-label='Show open cases']")
-  expect(page).to_not have_css("input[type='checkbox'][data-module='gem-track-click']")
-end
-
 Then(/^I can sort by:$/) do |table|
   expect(find_all(".js-order-results option").collect(&:text)).to eq(table.raw.flatten)
 end
@@ -585,7 +566,6 @@ Then(/^I see the most viewed articles first$/) do
     expect(page).to have_content("16 November 2018")
   end
 
-  expect(page).to have_css("a[data-track-category='navFinderLinkClicked']")
   expect(page).to have_css("#order", text: "Most viewed")
 end
 
@@ -598,7 +578,6 @@ Then(/^I see services in alphabetical order$/) do
     expect(page).to have_content("Register a magical spell")
   end
 
-  expect(page).to have_css("a[data-track-category='navFinderLinkClicked']")
   expect(page).to have_css("#order", text: "A-Z")
 end
 
@@ -852,10 +831,6 @@ end
 
 And(/^I should not see an upcoming statistics facet tag$/) do
   expect(page).to_not have_css("span.facet-tag__text", text: "Upcoming statistics")
-end
-
-And(/^The top result has the correct tracking data$/) do
-  expect(page).to have_css("a[data-track-category='navFinderLinkClicked']")
 end
 
 Then(/^I can see results filtered by that manual$/) do

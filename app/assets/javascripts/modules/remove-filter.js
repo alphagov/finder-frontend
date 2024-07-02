@@ -23,11 +23,9 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
 
     var removeFilterName = $el.getAttribute('data-name')
     var removeFilterValue = $el.getAttribute('data-value')
-    var removeFilterLabel = $el.getAttribute('data-track-label')
     var removeFilterFacet = $el.getAttribute('data-facet')
 
     var $input = this.getInput(removeFilterName, removeFilterValue, removeFilterFacet)
-    this.fireRemoveTagTrackingEvent(removeFilterLabel, removeFilterFacet)
     this.clearFacet($input, removeFilterValue, removeFilterFacet)
   }
 
@@ -73,24 +71,6 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
     var element = document.getElementById(removeFilterFacet)
 
     return element.querySelector(selector)
-  }
-
-  RemoveFilter.prototype.fireRemoveTagTrackingEvent = function (filterValue, filterFacet) {
-    var category = 'facetTagRemoved'
-    var action = filterFacet
-    var label = filterValue
-
-    GOVUK.SearchAnalytics.trackEvent(
-      category,
-      action,
-      { label: label }
-    )
-
-    GOVUK.SearchAnalytics.trackEvent(
-      category,
-      action,
-      { label: label, trackerName: 'govuk' }
-    )
   }
 
   RemoveFilter.prototype.decodeEntities = function (string) {

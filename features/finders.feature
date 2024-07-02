@@ -18,10 +18,6 @@ Feature: Filtering documents
     Then I only see documents that match the checkbox filter
     And I see the facet tag
 
-  Scenario: A finder with a checkbox facet has tracking
-    Given a collection of documents exist that can be filtered by checkbox
-    Then The checkbox has the correct tracking data
-
   Scenario: Filter document by keyword
     Given a collection of documents exist
     When I search documents by keyword: "keyword searchable"

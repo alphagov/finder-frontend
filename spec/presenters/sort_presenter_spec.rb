@@ -61,18 +61,14 @@ RSpec.describe SortPresenter do
       expect(presenter_with_sort.to_hash).to eq(
         options: [
           {
-            data_track_category: "dropDownClicked",
-            data_track_action: "clicked",
-            data_track_label: "Most viewed",
+            data_ga4_track_label: "Most viewed",
             label: "Most viewed",
             value: "most-viewed",
             disabled: false,
             selected: false,
           },
           {
-            data_track_category: "dropDownClicked",
-            data_track_action: "clicked",
-            data_track_label: "Updated (newest)",
+            data_ga4_track_label: "Updated (newest)",
             label: "Updated (newest)",
             value: "updated-newest",
             disabled: false,
@@ -95,9 +91,7 @@ RSpec.describe SortPresenter do
     it "sets an option as selected if a valid order is provided by the user" do
       expect(presenter_with_relevance_selected.to_hash[:options].find { |o| o[:selected] })
         .to eq(
-          data_track_category: "dropDownClicked",
-          data_track_action: "clicked",
-          data_track_label: "Relevance",
+          data_ga4_track_label: "Relevance",
           label: "Relevance",
           value: "relevance",
           disabled: false,
@@ -163,9 +157,7 @@ RSpec.describe SortPresenter do
     context "order is not specified and default option exists" do
       it "returns sort options with default option selected" do
         expect(presenter_with_default.to_hash[:options].find { |o| o[:selected] }).to eql(
-          data_track_action: "clicked",
-          data_track_category: "dropDownClicked",
-          data_track_label: "Updated (oldest)",
+          data_ga4_track_label: "Updated (oldest)",
           disabled: false,
           label: "Updated (oldest)",
           selected: true,

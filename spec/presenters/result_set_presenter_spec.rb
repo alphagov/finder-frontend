@@ -13,12 +13,10 @@ RSpec.describe ResultSetPresenter do
       sort_presenter,
       metadata_presenter_class,
       debug_score:,
-      include_ecommerce: enable_ecommerce,
     )
   end
 
   let(:debug_score) { false }
-  let(:enable_ecommerce) { true }
 
   let(:finder_content_id) { "content_id" }
 
@@ -134,20 +132,10 @@ RSpec.describe ResultSetPresenter do
             path: "/path/to/doc",
             description: "document_description",
             data_attributes: {
-              ecommerce_path: "/path/to/doc",
               ga4_ecommerce_path: "/path/to/doc",
               ga4_ecommerce_content_id: "content_id",
               ga4_ecommerce_row: 1,
               ga4_ecommerce_index: 1,
-              ecommerce_row: 1,
-              ecommerce_index: 1,
-              track_category: "navFinderLinkClicked",
-              track_action: "A finder.1",
-              track_label: "/path/to/doc",
-              track_options: {
-                dimension28: 1,
-                dimension29: "document_title",
-              },
             },
           },
           metadata: {
@@ -203,56 +191,9 @@ RSpec.describe ResultSetPresenter do
           sort_presenter,
           metadata_presenter_class,
           debug_score:,
-          include_ecommerce: enable_ecommerce,
         )
 
         expect(subject.search_results_content[:discovery_engine_attribution_token]).to eq(discovery_engine_attribution_token)
-      end
-    end
-
-    context "with universal analytics ecommerce disabled" do
-      let(:enable_ecommerce) { false }
-      let(:results) do
-        [FactoryBot.build(
-          :document_hash,
-          content_id: "content_id",
-          link: "/path/to/doc",
-          title: "document_title",
-          description_with_highlighting: "document_description",
-        )]
-      end
-
-      it "doesn't include UA ecommerce attributes" do
-        expected_hash = {
-          link: {
-            text: "document_title",
-            path: "/path/to/doc",
-            description: "document_description",
-            data_attributes: {
-              ga4_ecommerce_path: "/path/to/doc",
-              ga4_ecommerce_content_id: "content_id",
-              ga4_ecommerce_row: 1,
-              ga4_ecommerce_index: 1,
-            },
-          },
-          metadata: {
-            "Organisations" => "Organisations: Department for Work and Pensions",
-          },
-          metadata_raw: [
-            {
-              id: "organisations",
-              label: "Organisations",
-              value: "Department for Work and Pensions",
-              labels: ["Department for Work and Pensions"],
-              is_text: true,
-            },
-          ],
-          subtext: nil,
-          parts: [],
-        }
-
-        search_result_objects = subject.search_results_content[:document_list_component_data]
-        expect(search_result_objects.first).to eql(expected_hash)
       end
     end
   end

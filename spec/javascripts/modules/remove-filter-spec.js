@@ -18,35 +18,27 @@ describe('remove-filter', function () {
   }
 
   var checkboxFilter = createRemoveFilter(
-    '<button href="/search/news-and-communications" class="remove-filter" role="button" aria-label="Remove filter transition period" data-module="remove-filter-link" data-facet="a_check_box" data-value="true" data-track-label="transition period" data-name="">✕</button>'
+    '<button href="/search/news-and-communications" class="remove-filter" role="button" aria-label="Remove filter transition period" data-module="remove-filter-link" data-facet="a_check_box" data-value="true" data-name="">✕</button>'
   )
 
   var oneTextQueryFilter = createRemoveFilter(
-    '<button href="/search/news-and-communications?[]=education" class="remove-filter" role="button" aria-label="Remove filter education" data-module="remove-filter-link" data-facet="keywords" data-value="education" data-track-label="Education" data-name="keywords">✕</button>'
+    '<button href="/search/news-and-communications?[]=education" class="remove-filter" role="button" aria-label="Remove filter education" data-module="remove-filter-link" data-facet="keywords" data-value="education" data-name="keywords">✕</button>'
   )
 
   var multipleTextQueriesFilter = createRemoveFilter(
-    '<button href="/search/news-and-communications?[]=education" class="remove-filter" role="button" aria-label="Remove filter the" data-module="remove-filter-link" data-facet="keywords" data-value="the" data-track-label="the" data-name="keywords">✕</button>'
+    '<button href="/search/news-and-communications?[]=education" class="remove-filter" role="button" aria-label="Remove filter the" data-module="remove-filter-link" data-facet="keywords" data-value="the" data-name="keywords">✕</button>'
   )
 
   var quotedTextQueryFilter = createRemoveFilter(
-    '<button type="button" class="facet-tag__remove" aria-label="Remove filter &amp;quot;fi&amp;quot;" data-module="remove-filter-link" data-track-label="&quot;fi&quot;" data-facet="keywords" data-value="&amp;quot;fi&amp;quot;" data-name="keywords">✕</button>'
+    '<button type="button" class="facet-tag__remove" aria-label="Remove filter &amp;quot;fi&amp;quot;" data-module="remove-filter-link" data-facet="keywords" data-value="&amp;quot;fi&amp;quot;" data-name="keywords">✕</button>'
   )
 
   var quotedTextQuerySpacesFilter = createRemoveFilter(
-    '<button type="button" class="facet-tag__remove" aria-label="Remove filter &amp;quot;fee fi fo&amp;quot;" data-module="remove-filter-link" data-track-label="&quot;fee fi fo&quot;" data-facet="keywords" data-value="&amp;quot;fee fi fo&amp;quot;" data-name="keywords">✕</button>'
+    '<button type="button" class="facet-tag__remove" aria-label="Remove filter &amp;quot;fee fi fo&amp;quot;" data-module="remove-filter-link" data-facet="keywords" data-value="&amp;quot;fee fi fo&amp;quot;" data-name="keywords">✕</button>'
   )
 
   var dropdownFilter = createRemoveFilter(
-    '<button href="/search/news-and-communications?[][]=level_one_taxon&amp;[][]=ba3a9702-da22-487f-86c1-8334a730e559&amp;[][]=level_two_taxon&amp;[][]" class="remove-filter" role="button" aria-label="Remove filter Entering and staying in the UK" data-module="remove-filter-link" data-facet="level_one_taxon" data-value="ba3a9702-da22-487f-86c1-8334a730e559" data-track-label="Entering and staying in the UK" data-name="">✕</button>'
-  )
-
-  var facetTagOneFilter = createRemoveFilter(
-    '<button href="/search/news-and-communications?[][]=level_one_taxon&amp;[][]=ba3a9702-da22-487f-86c1-8334a730e559&amp;[][]=level_two_taxon&amp;[][]" class="remove-filter" role="button" aria-label="Remove filter" data-module="remove-filter-link" data-facet="level_one_taxon" data-value="ba3a9702-da22-487f-86c1-8334a730e559" data-track-label="A level one taxon" data-name="">✕</button>'
-  )
-
-  var facetTagTwoFilter = createRemoveFilter(
-    '<button href="/search/news-and-communications?[][]=level_one_taxon&amp;[][]=ba3a9702-da22-487f-86c1-8334a730e559&amp;[][]=level_two_taxon&amp;[][]" class="remove-filter" role="button" aria-label="Remove filter" data-module="remove-filter-link" data-facet="level_two_taxon" data-value="bb3a9702-da22-487f-86c1-8334a730e559" data-track-label="Sub taxon" data-name="">✕</button>'
+    '<button href="/search/news-and-communications?[][]=level_one_taxon&amp;[][]=ba3a9702-da22-487f-86c1-8334a730e559&amp;[][]=level_two_taxon&amp;[][]" class="remove-filter" role="button" aria-label="Remove filter Entering and staying in the UK" data-module="remove-filter-link" data-facet="level_one_taxon" data-value="ba3a9702-da22-487f-86c1-8334a730e559" data-name="">✕</button>'
   )
 
   var facetsHTML =
@@ -65,19 +57,17 @@ describe('remove-filter', function () {
       '<input name="public_timestamp[from]" value="" id="public_timestamp[from]" type="text">' +
     '</div>' +
     '<div id="a_check_box" class="js-remove">' +
-      '<input type="checkbox" name="a_check_box" value="true" data-module="gem-track-click">' +
+      '<input type="checkbox" name="a_check_box" value="true">' +
     '</div>'
 
   beforeEach(function () {
     facets = document.createElement('div')
     facets.innerHTML = facetsHTML
     document.body.appendChild(facets)
-    spyOn(GOVUK.SearchAnalytics, 'trackEvent')
   })
 
   afterEach(function () {
     document.body.removeChild(facets)
-    GOVUK.SearchAnalytics.trackEvent.calls.reset()
   })
 
   it('deselects a selected checkbox', function (done) {
@@ -170,29 +160,5 @@ describe('remove-filter', function () {
       expect(dropdown.options[dropdown.selectedIndex].value).toEqual('')
       done()
     }, timeout)
-  })
-
-  describe('Clicking the "x" button in facet tags', function () {
-    it('triggers a google analytics custom event', function () {
-      new GOVUK.Modules.RemoveFilter(facetTagOneFilter).init()
-
-      triggerRemoveFilterClick(facetTagOneFilter)
-
-      expect(GOVUK.SearchAnalytics.trackEvent).toHaveBeenCalledWith('facetTagRemoved', 'level_one_taxon', {
-        label: 'A level one taxon'
-      })
-    })
-
-    it('triggers a google analytics custom event when second facet tag removed', function () {
-      new GOVUK.Modules.RemoveFilter(facetTagOneFilter).init()
-      new GOVUK.Modules.RemoveFilter(facetTagTwoFilter).init()
-
-      triggerRemoveFilterClick(facetTagOneFilter)
-      triggerRemoveFilterClick(facetTagTwoFilter)
-
-      expect(GOVUK.SearchAnalytics.trackEvent).toHaveBeenCalledWith('facetTagRemoved', 'level_two_taxon', {
-        label: 'Sub taxon'
-      })
-    })
   })
 })
