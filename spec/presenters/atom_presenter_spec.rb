@@ -119,7 +119,7 @@ RSpec.describe AtomPresenter do
 
   describe "#updated_at" do
     it "provides the date of the most recent document update" do
-      expect(instance.updated_at.to_s).to eql("2019-02-01 12:21:00 UTC")
+      expect(instance.updated_at.to_s).to eql("2019-02-01 12:21:00 +0000")
     end
   end
 end

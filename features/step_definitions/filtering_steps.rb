@@ -280,7 +280,7 @@ end
 
 Then(/^I see the atom feed$/) do
   expect(page).to have_selector("id", text: "tag:www.dev.gov.uk,2005:/restrictions-on-usage-of-spells-within-school-grounds")
-  expect(page).to have_selector("updated", text: "2017-12-30T10:00:00Z")
+  expect(page).to have_selector("updated", text: "2017-12-30T10:00:00+00:00")
   expect(page).to have_selector(:css, 'link[href="http://www.dev.gov.uk/restrictions-on-usage-of-spells-within-school-grounds"]')
   expect(page).to have_selector("title", text: "Restrictions on usage of spells within school grounds")
   expect(page).to have_selector("summary", text: "Restrictions on usage of spells within school grounds")
