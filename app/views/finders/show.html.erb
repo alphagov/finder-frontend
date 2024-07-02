@@ -54,7 +54,6 @@
         <% unless result_set_presenter.sort_option.nil? %>
           data-ga4-ecommerce-variant="<%= result_set_presenter.sort_option[:data_ga4_track_label] %>"
         <% end %>
-        data-module="gem-track-click"
         >
         <div id="js-search-results-info" data-module="remove-filter" class="result-info <%= "govuk-!-margin-bottom-0" if result_set_presenter.has_sort_options %>">
           <div class="govuk-grid-row">
