@@ -32,9 +32,7 @@ RSpec.describe SortOptionPresenter do
   describe "to_hash" do
     it "returns a hash including label, value, tracking_attributes" do
       expect(sort_option.to_hash).to eq(
-        data_track_action: "clicked",
-        data_track_category: "dropDownClicked",
-        data_track_label: "Updated (newest)",
+        data_ga4_track_label: "Updated (newest)",
         disabled: false,
         label: "Updated (newest)",
         selected: false,

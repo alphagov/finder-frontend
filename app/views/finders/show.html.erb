@@ -52,7 +52,7 @@
         data-ga4-list-title="<%= content_item.title %>"
         data-ga4-search-query="<%= result_set_presenter.user_supplied_keywords %>"
         <% unless result_set_presenter.sort_option.nil? %>
-          data-ga4-ecommerce-variant="<%= result_set_presenter.sort_option[:data_track_label] %>"
+          data-ga4-ecommerce-variant="<%= result_set_presenter.sort_option[:data_ga4_track_label] %>"
         <% end %>
         data-module="gem-track-click"
         >

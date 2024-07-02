@@ -296,36 +296,28 @@ RSpec.describe StatisticsSortPresenter do
         expect(presenter.to_hash[:options]).to eq(
           [
             {
-              data_track_action: "clicked",
-              data_track_category: "dropDownClicked",
-              data_track_label: "Most viewed",
+              data_ga4_track_label: "Most viewed",
               disabled: false,
               label: "Most viewed",
               selected: false,
               value: "most-viewed",
             },
             {
-              data_track_action: "clicked",
-              data_track_category: "dropDownClicked",
-              data_track_label: "Relevance",
+              data_ga4_track_label: "Relevance",
               disabled: true,
               label: "Relevance",
               selected: false,
               value: "relevance",
             },
             {
-              data_track_action: "clicked",
-              data_track_category: "dropDownClicked",
-              data_track_label: "Updated (newest)",
+              data_ga4_track_label: "Updated (newest)",
               disabled: false,
               label: "Updated (newest)",
               selected: true,
               value: "updated-newest",
             },
             {
-              data_track_action: "clicked",
-              data_track_category: "dropDownClicked",
-              data_track_label: "Updated (oldest)",
+              data_ga4_track_label: "Updated (oldest)",
               disabled: false,
               label: "Updated (oldest)",
               selected: false,
@@ -338,9 +330,7 @@ RSpec.describe StatisticsSortPresenter do
       it "sets the default option as selected" do
         expect(presenter.to_hash[:options].find { |o| o[:selected] })
           .to eq(
-            data_track_category: "dropDownClicked",
-            data_track_action: "clicked",
-            data_track_label: "Updated (newest)",
+            data_ga4_track_label: "Updated (newest)",
             label: "Updated (newest)",
             value: "updated-newest",
             disabled: false,

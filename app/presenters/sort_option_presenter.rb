@@ -18,9 +18,7 @@ class SortOptionPresenter
     {
       label:,
       value:,
-      data_track_category: "dropDownClicked",
-      data_track_action: "clicked",
-      data_track_label: label,
+      data_ga4_track_label: label,
       selected:,
       disabled:,
     }
