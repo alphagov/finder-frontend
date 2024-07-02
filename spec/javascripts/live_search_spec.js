@@ -30,10 +30,10 @@ describe('liveSearch', function () {
         document_index: 1
       }
     ],
-    search_results: '<div class="finder-results js-finder-results" data-module="gem-track-click">' +
+    search_results: '<div class="finder-results js-finder-results">' +
       '<ol class="gem-c-document-list">' +
         '<li class="gem-c-document-list__item">' +
-          '<a data-track-category="navFinderLinkClicked" class="gem-c-document-list__item-title" href="aaib-reports/test-report">Test report</a>' +
+          '<a class="gem-c-document-list__item-title" href="aaib-reports/test-report">Test report</a>' +
             '<p class="gem-c-document-list__item-description">The English business survey will provide Ministers and officials with information about the current economic and business conditions across</p>' +
             '<ul class="gem-c-document-list__item-metadata">' +
                 '<li class="gem-c-document-list__attribute">' +
@@ -58,16 +58,10 @@ describe('liveSearch', function () {
     sort_options_markup: '<select id="order">' +
       '<option ' +
         'value="option-val" ' +
-        'data_track_category="option-data_track_category"' +
-        'data_track_action="option-data_track_action"' +
-        'data_track_label="option-data_track_label"' +
         'selected' +
         '/>' +
       '<option ' +
         'value="option-val-2" ' +
-        'data_track_category="option-data_track_category-2"' +
-        'data_track_action="option-data_track_action-2"' +
-        'data_track_label="option-data_track_label-2"' +
         'disabled' +
         '/>' +
     '</select>'
@@ -451,16 +445,10 @@ describe('liveSearch', function () {
     it('removes the select element', function () {
       var expectedResult = '<option ' +
         'value="option-val" ' +
-        'data_track_category="option-data_track_category"' +
-        'data_track_action="option-data_track_action"' +
-        'data_track_label="option-data_track_label"' +
         'selected' +
       '/>' +
       '<option ' +
         'value="option-val-2" ' +
-        'data_track_category="option-data_track_category-2"' +
-        'data_track_action="option-data_track_action-2"' +
-        'data_track_label="option-data_track_label-2"' +
         'disabled' +
       '/>'
 
@@ -471,9 +459,6 @@ describe('liveSearch', function () {
       var sortOptionsWithTypo = '<slect id="order">' +
         '<option ' +
           'value="option-val" ' +
-          'data_track_category="option-data_track_category"' +
-          'data_track_action="option-data_track_action"' +
-          'data_track_label="option-data_track_label"' +
           'selected' +
           '/>' +
       '</slect>'
@@ -514,10 +499,10 @@ describe('liveSearch', function () {
           document_index: 1
         }
       ],
-      search_results: '<div class="finder-results js-finder-results" data-module="gem-track-click">' +
+      search_results: '<div class="finder-results js-finder-results">' +
         '<ol class="gem-c-document-list">' +
           '<li class="gem-c-document-list__item">' +
-            '<a data-track-category="navFinderLinkClicked" class="gem-c-document-list__item-title" href="aaib-reports/test-report">Test report</a>' +
+            '<a class="gem-c-document-list__item-title" href="aaib-reports/test-report">Test report</a>' +
               '<p class="gem-c-document-list__item-description">The English business survey will provide Ministers and officials with information about the current economic and business conditions across</p>' +
               '<ul class="gem-c-document-list__item-metadata">' +
                   '<li class="gem-c-document-list__attribute">' +
@@ -572,10 +557,10 @@ describe('liveSearch', function () {
           document_index: 1
         }
       ],
-      search_results: '<div class="finder-results js-finder-results" data-module="gem-track-click">' +
+      search_results: '<div class="finder-results js-finder-results">' +
         '<ol class="gem-c-document-list">' +
           '<li class="gem-c-document-list__item">' +
-            '<a data-track-category="navFinderLinkClicked" class="gem-c-document-list__item-title" href="aaib-reports/test-report">Test report</a>' +
+            '<a class="gem-c-document-list__item-title" href="aaib-reports/test-report">Test report</a>' +
               '<p class="gem-c-document-list__item-description">The English business survey will provide Ministers and officials with information about the current economic and business conditions across</p>' +
               '<ul class="gem-c-document-list__item-metadata">' +
                   '<li class="gem-c-document-list__attribute">' +
