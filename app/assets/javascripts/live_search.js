@@ -49,12 +49,6 @@
     this.bindSortElements()
     this.getAndUpdateTaxonomyFacet()
 
-    if (window.ga) {
-      // Use navigator.sendBeacon
-      // https://developers.google.com/analytics/devguides/collection/analyticsjs/sending-hits#specifying_different_transport_mechanisms
-      window.ga('set', 'transport', 'beacon')
-    }
-
     if (document.readyState === 'complete') {
       this.Ga4EcommerceTracking()
     } else {
@@ -93,10 +87,6 @@
 
         if (e.keyCode === ENTER_KEY || e.type === 'change') {
           // cater for jQuery and native events
-          var suppressAnalytics = e.suppressAnalytics || (e.detail && e.detail.suppressAnalytics)
-          if (e.currentTarget.value !== this.previousSearchTerm && !suppressAnalytics) {
-            LiveSearch.prototype.fireTextAnalyticsEvent(e)
-          }
           this.formChange(e)
           this.previousSearchTerm = e.currentTarget.value
           e.preventDefault()
@@ -109,8 +99,6 @@
         inputs[i].addEventListener('keypress', this.handleKeyPress.bind(this))
       }
 
-      this.indexTrackingData()
-
       document.addEventListener('popstate', this.popState.bind(this))
     } else {
       var fallback = this.$form.querySelector('.js-live-search-fallback')
@@ -119,19 +107,6 @@
   }
 
   LiveSearch.prototype.startEnhancedEcommerceTracking = function startEnhancedEcommerceTracking () {
-    if (this.$resultsWrapper) {
-      this.$resultsWrapper.setAttribute('data-search-query', this.currentKeywords())
-      var sortedBy = this.$resultsWrapper.querySelector('.js-order-results')
-      // Check that the sortedBy element exists and contains option elements
-      if (sortedBy && sortedBy.options.length > 0) {
-        this.$resultsWrapper.setAttribute('data-ecommerce-variant', sortedBy.options[sortedBy.selectedIndex].text)
-      }
-    }
-    if (this.$suggestionsBlock) {
-      this.$suggestionsBlock.setAttribute('data-search-query', this.currentKeywords())
-    }
-    if (GOVUK.Ecommerce) { GOVUK.Ecommerce.start() }
-
     if (document.readyState === 'complete') {
       this.Ga4EcommerceTracking(this.previousSearchUrl)
     } else {
@@ -250,84 +225,17 @@
     return params.join('&')
   }
 
-  LiveSearch.prototype.setRelevantResultCustomDimension = function setRelevantResultCustomDimension () {
-    var $mostRelevantDocumentLink = this.$form.querySelector('.gem-c-document-list__item--highlight')
-    var dimensionValue = $mostRelevantDocumentLink ? 'yes' : 'no'
-    GOVUK.SearchAnalytics.setDimension(83, dimensionValue)
-  }
-
-  LiveSearch.prototype.trackingInit = function trackingInit () {
-    GOVUK.modules.start(this.$resultsWrapper)
-    this.indexTrackingData()
-    this.startEnhancedEcommerceTracking()
-  }
-
-  LiveSearch.prototype.trackPageView = function trackPageView () {
-    var newPath = window.location.pathname + '?' + this.serializeState(this.state)
-    GOVUK.SearchAnalytics.trackPageview(newPath)
-    GOVUK.SearchAnalytics.trackPageview(newPath, document.title, { trackerName: 'govuk' })
-  }
-
-  LiveSearch.prototype.trackSpellingSuggestionsImpressions = function trackSpellingSuggestionsImpressions ($suggestions) {
+  LiveSearch.prototype.updateSpellingSuggestionMetaTag = function updateSpellingSuggestionMetaTag () {
     var $spellingSuggestionMetaTag = document.querySelector("meta[name='govuk:spelling-suggestion']")
     if (this.$suggestionsBlock && $spellingSuggestionMetaTag) {
       // currently there's ever only one suggestion
       var spellingSuggestionAvailable = this.$suggestionsBlock.querySelector('a')
       var suggestion = ''
       if (spellingSuggestionAvailable) {
-        spellingSuggestionAvailable = JSON.parse(spellingSuggestionAvailable.getAttribute('data-track-options'))
-        suggestion = spellingSuggestionAvailable.dimension81
+        suggestion = spellingSuggestionAvailable.textContent
       }
       $spellingSuggestionMetaTag.setAttribute('content', suggestion)
     }
-  }
-
-  /**
-   * Results grouped by facet and facet value do not have an accurate document index
-   * due to the post-search sorting and grouping which the presenter performs.
-   * In this case (ie. sorted by 'Topic' which actually means group by facet, facet value),
-   * rewrite the appropriate tracking data attribute to delineate the group and document index.
-   */
-  LiveSearch.prototype.indexTrackingData = function indexTrackingData () {
-    var $groupEls = document.querySelectorAll('.filtered-results__group')
-    for (var g = 0; g < $groupEls.length; g++) {
-      var $resultEls = $groupEls[g].querySelectorAll('.gem-c-document-list__item')
-
-      for (var d = 0; d < $resultEls.length; d++) {
-        var $document = $resultEls[d]
-        var $documentLink = $document.querySelector('.gem-c-document-list__item-title')
-        var trackingAction = $documentLink.getAttribute('data-track-action')
-        trackingAction = trackingAction.replace(/\.\d+$/, '')
-        trackingAction = [trackingAction, g + 1, d + 1].join('.')
-        $documentLink.setAttribute('data-track-action', trackingAction)
-      }
-    }
-
-    var $results = document.querySelector('.js-finder-results')
-    if ($results) {
-      var $mostRelevantDocumentLink = $results.querySelector('.gem-c-document-list__item--highlight')
-
-      if ($mostRelevantDocumentLink) {
-        trackingAction = $mostRelevantDocumentLink.getAttribute('data-track-action')
-        trackingAction += 'r'
-        $mostRelevantDocumentLink.setAttribute('data-track-action', trackingAction)
-      }
-    }
-  }
-
-  LiveSearch.prototype.fireTextAnalyticsEvent = function fireTextAnalyticsEvent (event) {
-    var options = {
-      transport: 'beacon',
-      label: event.target.value
-    }
-    var category = 'filterClicked'
-    var action = document.querySelector('label[for="' + event.target.id + '"]').textContent
-
-    GOVUK.SearchAnalytics.trackEvent(
-      category,
-      action,
-      options
-    )
   }
 
   LiveSearch.prototype.cache = function cache (slug, data) {
@@ -447,7 +355,6 @@
           liveSearch.cache(liveSearch.serializeState(liveSearch.state), response)
           liveSearch.ga4TrackFormChange(formChangeEvent) // must be before displayResults changes the DOM, otherwise will break formChangeEvent.target.closest
           liveSearch.displayResults(response, searchState)
-          liveSearch.trackSearch()
         } else {
           liveSearch.showErrorIndicator()
         }
@@ -461,19 +368,12 @@
       this.updateUrl()
       this.ga4TrackFormChange(formChangeEvent) // must be before displayResults changes the DOM, otherwise will break formChangeEvent.target.closest
       this.displayResults(cachedResultData, searchState)
-      this.trackSearch()
     }
   }
 
   LiveSearch.prototype.updateUrl = function () {
     var newPath = encodeURI(window.location.pathname + '?' + this.serializeState(this.state))
     window.history.pushState(this.state, '', newPath)
-  }
-
-  LiveSearch.prototype.trackSearch = function () {
-    this.trackingInit()
-    this.setRelevantResultCustomDimension()
-    this.trackPageView()
   }
 
   LiveSearch.prototype.updateLinks = function updateLinks () {
@@ -520,7 +420,7 @@
       this.updateElement(this.$selectedFilterCount, results.display_selected_facets_count)
       this.updateElement(this.$paginationBlock, results.next_and_prev_links)
       this.updateElement(this.$suggestionsBlock, results.suggestions)
-      this.trackSpellingSuggestionsImpressions(results.suggestions)
+      this.updateSpellingSuggestionMetaTag()
       this.updateSortOptions(results, action)
       this.updateMeta(this.$resultsCountMetaTag, results.total)
       this.updateMeta(this.$resultsTokenMetaTag, results.discovery_engine_attribution_token)
@@ -531,8 +431,6 @@
       this.$loadingBlock.textContent = ''
       this.$loadingBlock.style.display = 'none'
     }
-    // send this event to notify the scroll tracker to reset, if listening
-    window.GOVUK.triggerEvent(this.$form, 'dynamic-page-update')
   }
 
   LiveSearch.prototype.restoreBooleans = function restoreBooleans () {

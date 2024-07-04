@@ -47,19 +47,13 @@
       <div class="govuk-grid-column-two-thirds js-live-search-results-block filtered-results"
         role="region"
         aria-label="<%= content_item.title %> search results"
-        data-analytics-ecommerce
         data-ga4-ecommerce
-        data-ecommerce-start-index="<%= result_set_presenter.start_offset %>"
         data-ga4-ecommerce-start-index="<%= result_set_presenter.start_offset %>"
-        data-list-title="<%= content_item.title %>"
         data-ga4-list-title="<%= content_item.title %>"
-        data-search-query="<%= result_set_presenter.user_supplied_keywords %>"
         data-ga4-search-query="<%= result_set_presenter.user_supplied_keywords %>"
         <% unless result_set_presenter.sort_option.nil? %>
-          data-ecommerce-variant="<%= result_set_presenter.sort_option[:data_track_label] %>"
-          data-ga4-ecommerce-variant="<%= result_set_presenter.sort_option[:data_track_label] %>"
+          data-ga4-ecommerce-variant="<%= result_set_presenter.sort_option[:data_ga4_track_label] %>"
         <% end %>
-        data-module="gem-track-click"
         >
         <div id="js-search-results-info" data-module="remove-filter" class="result-info <%= "govuk-!-margin-bottom-0" if result_set_presenter.has_sort_options %>">
           <div class="govuk-grid-row">
@@ -71,14 +65,10 @@
                   font_size: "s",
                   margin_bottom: 2,
                   } %>
-
-                <div data-track-category="filterClicked"
-                    data-track-action="skip-Link" data-track-label="">
                   <%= render "govuk_publishing_components/components/skip_link", {
                     text: 'Skip to results',
                     href: '#js-results'}
                   %>
-                </div>
               </div>
             </div>
 

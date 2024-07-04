@@ -30,10 +30,10 @@ describe('liveSearch', function () {
         document_index: 1
       }
     ],
-    search_results: '<div class="finder-results js-finder-results" data-module="gem-track-click">' +
+    search_results: '<div class="finder-results js-finder-results">' +
       '<ol class="gem-c-document-list">' +
         '<li class="gem-c-document-list__item">' +
-          '<a data-track-category="navFinderLinkClicked" data-track-action="" data-track-label="" class="gem-c-document-list__item-title" href="aaib-reports/test-report">Test report</a>' +
+          '<a class="gem-c-document-list__item-title" href="aaib-reports/test-report">Test report</a>' +
             '<p class="gem-c-document-list__item-description">The English business survey will provide Ministers and officials with information about the current economic and business conditions across</p>' +
             '<ul class="gem-c-document-list__item-metadata">' +
                 '<li class="gem-c-document-list__attribute">' +
@@ -58,16 +58,10 @@ describe('liveSearch', function () {
     sort_options_markup: '<select id="order">' +
       '<option ' +
         'value="option-val" ' +
-        'data_track_category="option-data_track_category"' +
-        'data_track_action="option-data_track_action"' +
-        'data_track_label="option-data_track_label"' +
         'selected' +
         '/>' +
       '<option ' +
         'value="option-val-2" ' +
-        'data_track_category="option-data_track_category-2"' +
-        'data_track_action="option-data_track_action-2"' +
-        'data_track_label="option-data_track_label-2"' +
         'disabled' +
         '/>' +
     '</select>'
@@ -128,10 +122,6 @@ describe('liveSearch', function () {
     var url = encodeURI(window.location.pathname)
     window.history.pushState('', '', url)
     GOVUK.support.history = _supportHistory
-  })
-
-  it('sets the GA transport to beacon', function () {
-    expect(window.ga).toHaveBeenCalledWith('set', 'transport', 'beacon')
   })
 
   it('should save initial state (serialized and compacted)', function () {
@@ -282,25 +272,6 @@ describe('liveSearch', function () {
       expect(liveSearch.updateLinks).toHaveBeenCalled()
     })
 
-    it('should trigger analytics trackpage when checkbox is changed', function () {
-      spyOn(liveSearch, 'updateResults').and.callThrough()
-      spyOn(GOVUK.SearchAnalytics, 'trackPageview')
-      spyOn(liveSearch, 'trackingInit')
-
-      liveSearch.state = []
-
-      liveSearch.formChange()
-      jasmine.Ajax.requests.mostRecent().respondWith({
-        status: 200,
-        response: '{"total":81,"display_total":"81 reports","facet_tags":"","search_results":"","display_selected_facets_count":"","sort_options_markup":"","next_and_prev_links":"","suggestions":"","errors":{}}'
-      })
-
-      expect(liveSearch.trackingInit).toHaveBeenCalled()
-      expect(GOVUK.SearchAnalytics.trackPageview).toHaveBeenCalled()
-      var trackArgs = GOVUK.SearchAnalytics.trackPageview.calls.first().args[0]
-      expect(trackArgs.split('?')[1], 'field=sheep')
-    })
-
     it("should do nothing if state hasn't changed when a checkbox is changed", function () {
       spyOn(liveSearch, 'updateResults')
 
@@ -308,56 +279,6 @@ describe('liveSearch', function () {
 
       expect(liveSearch.state).toEqual({ field: 'sheep', published_at: '2004' })
       expect(liveSearch.updateResults).not.toHaveBeenCalled()
-    })
-
-    it('should trigger filterClicked custom event when input type is text and analytics are not suppressed', function () {
-      GOVUK.LiveSearch.prototype.fireTextAnalyticsEvent = function (event) {}
-      spyOn(GOVUK.LiveSearch.prototype, 'fireTextAnalyticsEvent')
-
-      var dateInput = $form.find('input[name="published_at"]').val('2005')[0]
-      window.GOVUK.triggerEvent(dateInput, 'change')
-
-      expect(GOVUK.LiveSearch.prototype.fireTextAnalyticsEvent).toHaveBeenCalledTimes(1)
-    })
-
-    it('should trigger filterClicked for both change and enter key events on text input', function () {
-      GOVUK.LiveSearch.prototype.fireTextAnalyticsEvent = function (event) {}
-      spyOn(GOVUK.LiveSearch.prototype, 'fireTextAnalyticsEvent')
-
-      var publishedAt = $form.find('input[name="published_at"]').val('searchChange')[0]
-      window.GOVUK.triggerEvent(publishedAt, 'change')
-
-      expect(GOVUK.LiveSearch.prototype.fireTextAnalyticsEvent).toHaveBeenCalledTimes(1)
-
-      publishedAt.value = 'searchEnter'
-      window.GOVUK.triggerEvent(publishedAt, 'keypress', { keyCode: 13 })
-
-      expect(GOVUK.LiveSearch.prototype.fireTextAnalyticsEvent).toHaveBeenCalledTimes(2)
-    })
-
-    it('should not trigger multiple tracking events if the search term stays the same', function () {
-      GOVUK.LiveSearch.prototype.fireTextAnalyticsEvent = function (event) {}
-      spyOn(GOVUK.LiveSearch.prototype, 'fireTextAnalyticsEvent')
-
-      $form.find('input[name="published_at"]').val('same term').trigger('change')
-      $form.find('input[name="published_at"]').val('same term').trigger('change')
-
-      var publishedAt = $form.find('input[name="published_at"]')[0]
-      window.GOVUK.triggerEvent(publishedAt, 'keypress', { keyCode: 13 })
-
-      expect(GOVUK.LiveSearch.prototype.fireTextAnalyticsEvent).toHaveBeenCalledTimes(1)
-    })
-
-    it('should not trigger filterClicked custom event when input type is text and analytics are suppressed', function () {
-      GOVUK.LiveSearch.prototype.fireTextAnalyticsEvent = function (event) {}
-      spyOn(GOVUK.LiveSearch.prototype, 'fireTextAnalyticsEvent')
-
-      $form.find('input[name="published_at"]').val('2005').trigger({
-        type: 'change',
-        suppressAnalytics: true
-      })
-
-      expect(GOVUK.LiveSearch.prototype.fireTextAnalyticsEvent).toHaveBeenCalledTimes(0)
     })
 
     it('should display results from the cache', function () {
@@ -403,25 +324,6 @@ describe('liveSearch', function () {
       expect(liveSearch.updateLinks).toHaveBeenCalled()
     })
 
-    it('should trigger analytics trackpage when checkbox is changed', function () {
-      spyOn(liveSearch, 'updateResults').and.callThrough()
-      spyOn(GOVUK.SearchAnalytics, 'trackPageview')
-      spyOn(liveSearch, 'trackingInit')
-
-      liveSearch.state = []
-
-      liveSearch.formChange()
-      jasmine.Ajax.requests.mostRecent().respondWith({
-        status: 200,
-        response: '{"total":81,"display_total":"81 reports","facet_tags":"","search_results":"","display_selected_facets_count":"","sort_options_markup":"","next_and_prev_links":"","suggestions":"","errors":{}}'
-      })
-
-      expect(liveSearch.trackingInit).toHaveBeenCalled()
-      expect(GOVUK.SearchAnalytics.trackPageview).toHaveBeenCalled()
-      var trackArgs = GOVUK.SearchAnalytics.trackPageview.calls.first().args[0]
-      expect(trackArgs.split('?')[1], 'field=sheep')
-    })
-
     it("should do nothing if state hasn't changed when a checkbox is changed", function () {
       spyOn(liveSearch, 'updateResults')
 
@@ -429,56 +331,6 @@ describe('liveSearch', function () {
 
       expect(liveSearch.state).toEqual({ field: 'sheep', published_at: '2004' })
       expect(liveSearch.updateResults).not.toHaveBeenCalled()
-    })
-
-    it('should trigger filterClicked custom event when input type is text and analytics are not suppressed', function () {
-      GOVUK.LiveSearch.prototype.fireTextAnalyticsEvent = function (event) {}
-      spyOn(GOVUK.LiveSearch.prototype, 'fireTextAnalyticsEvent')
-
-      var dateInput = $form.find('input[name="published_at"]').val('2005')[0]
-      window.GOVUK.triggerEvent(dateInput, 'change')
-
-      expect(GOVUK.LiveSearch.prototype.fireTextAnalyticsEvent).toHaveBeenCalledTimes(1)
-    })
-
-    it('should trigger filterClicked for both change and enter key events on text input', function () {
-      GOVUK.LiveSearch.prototype.fireTextAnalyticsEvent = function (event) {}
-      spyOn(GOVUK.LiveSearch.prototype, 'fireTextAnalyticsEvent')
-
-      var publishedAt = $form.find('input[name="published_at"]').val('searchChange')[0]
-      window.GOVUK.triggerEvent(publishedAt, 'change')
-
-      expect(GOVUK.LiveSearch.prototype.fireTextAnalyticsEvent).toHaveBeenCalledTimes(1)
-
-      publishedAt.value = 'searchEnter'
-      window.GOVUK.triggerEvent(publishedAt, 'keypress', { keyCode: 13 })
-
-      expect(GOVUK.LiveSearch.prototype.fireTextAnalyticsEvent).toHaveBeenCalledTimes(2)
-    })
-
-    it('should not trigger multiple tracking events if the search term stays the same', function () {
-      GOVUK.LiveSearch.prototype.fireTextAnalyticsEvent = function (event) {}
-      spyOn(GOVUK.LiveSearch.prototype, 'fireTextAnalyticsEvent')
-
-      $form.find('input[name="published_at"]').val('same term').trigger('change')
-      $form.find('input[name="published_at"]').val('same term').trigger('change')
-
-      var publishedAt = $form.find('input[name="published_at"]')[0]
-      window.GOVUK.triggerEvent(publishedAt, 'keypress', { keyCode: 13 })
-
-      expect(GOVUK.LiveSearch.prototype.fireTextAnalyticsEvent).toHaveBeenCalledTimes(1)
-    })
-
-    it('should not trigger filterClicked custom event when input type is text and analytics are suppressed', function () {
-      GOVUK.LiveSearch.prototype.fireTextAnalyticsEvent = function (event) {}
-      spyOn(GOVUK.LiveSearch.prototype, 'fireTextAnalyticsEvent')
-
-      $form.find('input[name="published_at"]').val('2005').trigger({
-        type: 'change',
-        suppressAnalytics: true
-      })
-
-      expect(GOVUK.LiveSearch.prototype.fireTextAnalyticsEvent).toHaveBeenCalledTimes(0)
     })
 
     it('should display results from the cache', function () {
@@ -559,68 +411,6 @@ describe('liveSearch', function () {
     })
   })
 
-  describe('indexTrackingData', function () {
-    var groupedResponse = {
-      search_results:
-        '<ul class="finder-results js-finder-results" data-module="gem-track-click">' +
-          '<li class="filtered-results__group">' +
-            '<h2 class="filtered-results__facet-heading">Primary group</h2>' +
-            '<ol class="gem-c-document-list">' +
-              '<li class="gem-c-document-list__item ">' +
-                '<a data-track-category="navFinderLinkClicked" data-track-action="foo" data-track-label="" class="gem-c-document-list__item-title " href="/reports/test-report-1">Test report 1</a>' +
-                '<ul class="gem-c-document-list__item-metadata"></ul>' +
-              '</li>' +
-              '<li class="gem-c-document-list__item ">' +
-                '<a data-track-category="navFinderLinkClicked" data-track-action="foo" data-track-label="" class="gem-c-document-list__item-title " href="/reports/test-report-4">Test report 4</a>' +
-                '<ul class="gem-c-document-list__item-metadata"></ul>' +
-              '</li>' +
-            '</ol>' +
-          '</li>' +
-          '<li class="filtered-results__group">' +
-            '<h2 class="filtered-results__facet-heading">Default group</h2>' +
-            '<ol class="gem-c-document-list">' +
-              '<li class="gem-c-document-list__item ">' +
-                '<a data-track-category="navFinderLinkClicked" data-track-action="foo" data-track-label="" class="gem-c-document-list__item-title " href="/reports/test-report-3">Test report 3</a>' +
-                '<ul class="gem-c-document-list__item-metadata"></ul>' +
-              '</li>' +
-              '<li class="gem-c-document-list__item ">' +
-                '<a data-track-category="navFinderLinkClicked" data-track-action="foo" data-track-label="" class="gem-c-document-list__item-title " href="/reports/test-report-2">Test report 2</a>' +
-                '<ul class="gem-c-document-list__item-metadata"></ul>' +
-              '</li>' +
-            '</ol>' +
-          '</li>' +
-        '</ul>'
-    }
-
-    beforeEach(function () {
-      liveSearch.$form = $form[0]
-      liveSearch.$resultsBlock = $results[0]
-      liveSearch.state = { search: 'state' }
-    })
-
-    it('is called by trackingInit()', function () {
-      spyOn(liveSearch, 'indexTrackingData')
-      liveSearch.trackingInit()
-      expect(liveSearch.indexTrackingData).toHaveBeenCalled()
-    })
-
-    it('re-indexes tracking actions for grouped items', function () {
-      liveSearch.displayResults(groupedResponse, $.param(liveSearch.state))
-      liveSearch.indexTrackingData()
-
-      var $firstGroup = $results.find('.filtered-results__group:nth-child(1)')
-      var $defaultGroup = $results.find('.filtered-results__group:nth-child(2)')
-
-      expect($firstGroup.find('h2').text()).toMatch('Primary group')
-      expect($firstGroup.find('a[data-track-action="foo.1.1"]').text()).toMatch('Test report 1')
-      expect($firstGroup.find('a[data-track-action="foo.1.2"]').text()).toMatch('Test report 4')
-
-      expect($defaultGroup.find('h2').text()).toMatch('Default group')
-      expect($defaultGroup.find('a[data-track-action="foo.2.1"]').text()).toMatch('Test report 3')
-      expect($defaultGroup.find('a[data-track-action="foo.2.2"]').text()).toMatch('Test report 2')
-    })
-  })
-
   it('should replace links with new links when state changes', function () {
     liveSearch.updateLinks()
     expect(liveSearch.$emailLinks[0].getAttribute('href')).toBe('https://a-url/email-signup?field=sheep&published_at=2004')
@@ -655,16 +445,10 @@ describe('liveSearch', function () {
     it('removes the select element', function () {
       var expectedResult = '<option ' +
         'value="option-val" ' +
-        'data_track_category="option-data_track_category"' +
-        'data_track_action="option-data_track_action"' +
-        'data_track_label="option-data_track_label"' +
         'selected' +
       '/>' +
       '<option ' +
         'value="option-val-2" ' +
-        'data_track_category="option-data_track_category-2"' +
-        'data_track_action="option-data_track_action-2"' +
-        'data_track_label="option-data_track_label-2"' +
         'disabled' +
       '/>'
 
@@ -675,9 +459,6 @@ describe('liveSearch', function () {
       var sortOptionsWithTypo = '<slect id="order">' +
         '<option ' +
           'value="option-val" ' +
-          'data_track_category="option-data_track_category"' +
-          'data_track_action="option-data_track_action"' +
-          'data_track_label="option-data_track_label"' +
           'selected' +
           '/>' +
       '</slect>'
@@ -718,10 +499,10 @@ describe('liveSearch', function () {
           document_index: 1
         }
       ],
-      search_results: '<div class="finder-results js-finder-results" data-module="gem-track-click">' +
+      search_results: '<div class="finder-results js-finder-results">' +
         '<ol class="gem-c-document-list">' +
           '<li class="gem-c-document-list__item">' +
-            '<a data-track-category="navFinderLinkClicked" data-track-action="" data-track-label="" class="gem-c-document-list__item-title" href="aaib-reports/test-report">Test report</a>' +
+            '<a class="gem-c-document-list__item-title" href="aaib-reports/test-report">Test report</a>' +
               '<p class="gem-c-document-list__item-description">The English business survey will provide Ministers and officials with information about the current economic and business conditions across</p>' +
               '<ul class="gem-c-document-list__item-metadata">' +
                   '<li class="gem-c-document-list__attribute">' +
@@ -741,8 +522,8 @@ describe('liveSearch', function () {
         '</ol>' +
       '</div>',
       suggestions: '<p class="govuk-body">Did you mean' +
-      '<a class="govuk-link govuk-!-font-weight-bold" data-ecommerce-content-id="dd395436-9b40-41f3-8157-740a453ac972"' +
-      'data-ecommerce-row="1" data-track-options="{"dimension81":"driving licences"}" href="/search/all?keywords=driving+licences&order=relevance">' +
+      '<a class="govuk-link govuk-!-font-weight-bold"' +
+      'href="/search/all?keywords=driving+licences&order=relevance">' +
       'driving licences</a> </p>'
     }
 
@@ -776,10 +557,10 @@ describe('liveSearch', function () {
           document_index: 1
         }
       ],
-      search_results: '<div class="finder-results js-finder-results" data-module="gem-track-click">' +
+      search_results: '<div class="finder-results js-finder-results">' +
         '<ol class="gem-c-document-list">' +
           '<li class="gem-c-document-list__item">' +
-            '<a data-track-category="navFinderLinkClicked" data-track-action="" data-track-label="" class="gem-c-document-list__item-title" href="aaib-reports/test-report">Test report</a>' +
+            '<a class="gem-c-document-list__item-title" href="aaib-reports/test-report">Test report</a>' +
               '<p class="gem-c-document-list__item-description">The English business survey will provide Ministers and officials with information about the current economic and business conditions across</p>' +
               '<ul class="gem-c-document-list__item-metadata">' +
                   '<li class="gem-c-document-list__attribute">' +
@@ -802,6 +583,7 @@ describe('liveSearch', function () {
     }
     beforeEach(function () {
       $form.append($suggestionBlock)
+      $form.append("<meta name='govuk:spelling-suggestion'>")
       liveSearch = new GOVUK.LiveSearch({ $form: $form[0], $results: $results[0], $suggestionBlock: $suggestionBlock[0], $atomAutodiscoveryLink: $atomAutodiscoveryLink[0] })
     })
 
@@ -813,6 +595,7 @@ describe('liveSearch', function () {
       liveSearch.state = { search: 'state' }
       liveSearch.displayResults(responseWithSpellingSuggestions, $.param(liveSearch.state))
       expect($('#js-spelling-suggestions a').text()).toBe('driving licences')
+      expect($('meta[name="govuk:spelling-suggestion"]').attr('content')).toBe('driving licences')
       expect($('#js-spelling-suggestions a').attr('href')).toBe('/search/all?keywords=driving+licences&order=relevance')
     })
 
@@ -820,13 +603,7 @@ describe('liveSearch', function () {
       liveSearch.state = { search: 'state' }
       liveSearch.displayResults(responseWithNoSpellingSuggestions, $.param(liveSearch.state))
       expect($('#js-spelling-suggestions').text()).toBe('')
-    })
-
-    it('tracking has been called', function () {
-      liveSearch.state = { search: 'state' }
-      spyOn(liveSearch, 'trackSpellingSuggestionsImpressions')
-      liveSearch.displayResults(responseWithSpellingSuggestions, $.param(liveSearch.state))
-      expect(liveSearch.trackSpellingSuggestionsImpressions).toHaveBeenCalled()
+      expect($('meta[name="govuk:spelling-suggestion"]').attr('content')).toBe('')
     })
   })
 

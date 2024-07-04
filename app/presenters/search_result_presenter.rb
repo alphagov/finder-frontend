@@ -31,7 +31,7 @@ class SearchResultPresenter
         text: title,
         path: link,
         description: sanitize(summary_text),
-        data_attributes: ga4_ecommerce_data(link).merge(ecommerce_data(link, title)),
+        data_attributes: ga4_ecommerce_data(link),
       },
       metadata: structure_metadata,
       metadata_raw: metadata,
@@ -82,7 +82,7 @@ private
   end
 
   def structure_parts
-    structured_parts = parts.map.with_index(1) do |part, index|
+    structured_parts = parts.map do |part|
       has_required_data = %i[title slug body].all? { |key| part.key? key }
       unless has_required_data
         GovukError.notify(MalformedPartError.new, extra: { part:, link: })
@@ -94,7 +94,7 @@ private
           text: part[:title],
           path:,
           description: part[:body],
-          data_attributes: ga4_ecommerce_data(path).merge(ecommerce_data(path, part[:title], part_index: index)),
+          data_attributes: ga4_ecommerce_data(path),
         },
       }
     end
@@ -107,24 +107,6 @@ private
       ga4_ecommerce_content_id: @document.content_id,
       ga4_ecommerce_row: 1,
       ga4_ecommerce_index: document.index,
-    }
-  end
-
-  def ecommerce_data(link, title, part_index: nil)
-    return {} unless @include_ecommerce
-
-    {
-      ecommerce_path: link,
-      ecommerce_row: 1,
-      ecommerce_index: document.index,
-      track_category: "navFinderLinkClicked",
-      track_action: [content_item.title, document.index, part_index].compact.join("."),
-      track_label: link,
-      track_options: {
-        dimension22: part_index,
-        dimension28: @count,
-        dimension29: title,
-      }.compact,
     }
   end
 

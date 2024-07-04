@@ -11,13 +11,6 @@ class SpellingSuggestionPresenter
         keywords: suggestion["text"],
         highlighted: suggestion["highlighted"],
         link: @url,
-        data_attributes: {
-          ecommerce_path: @content_item_path,
-          ecommerce_row: 1,
-          track_options: {
-            dimension81: suggestion["text"],
-          },
-        },
       }
     end
   end

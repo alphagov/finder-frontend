@@ -39,15 +39,6 @@ class CheckboxFacet < FilterableFacet
     "checkbox_facet-#{key}_#{value}"
   end
 
-  def data
-    {
-      track_category: "filterClicked",
-      uncheck_track_category: "filterRemoved",
-      track_action: "checkboxFacet",
-      track_label: name,
-    }
-  end
-
   def query_params
     @checked ? { key => value } : {}
   end

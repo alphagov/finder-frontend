@@ -18,9 +18,7 @@ class SortOptionPresenter
     {
       label:,
       value:,
-      data_track_category: "dropDownClicked",
-      data_track_action: "clicked",
-      data_track_label: label,
+      data_ga4_track_label: label,
       selected:,
       disabled:,
     }
@@ -29,12 +27,4 @@ class SortOptionPresenter
 private
 
   attr_reader :default, :selected, :disabled
-
-  def tracking_attributes
-    {
-      "data-track-category" => "dropDownClicked",
-      "data-track-action" => "clicked",
-      "data-track-label" => label,
-    }
-  end
 end
