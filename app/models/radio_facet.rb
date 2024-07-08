@@ -4,6 +4,10 @@ class RadioFacet < FilterableFacet
     super(facet)
   end
 
+  def preposition
+    facet["preposition"]
+  end
+
   def value
     @value || default_value["value"]
   end
