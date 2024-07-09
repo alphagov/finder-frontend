@@ -106,7 +106,7 @@
     }
   }
 
-  LiveSearch.prototype.startEnhancedEcommerceTracking = function startEnhancedEcommerceTracking () {
+  LiveSearch.prototype.restartGa4EcommerceTracking = function restartGa4EcommerceTracking () {
     if (document.readyState === 'complete') {
       this.Ga4EcommerceTracking(this.previousSearchUrl)
     } else {
@@ -116,9 +116,9 @@
     }
   }
 
-  LiveSearch.prototype.trackingInit = function trackingInit () {
+  LiveSearch.prototype.reinitialiseGa4Tracking = function reinitialiseGa4Tracking () {
     GOVUK.modules.start(this.$resultsWrapper)
-    this.startEnhancedEcommerceTracking()
+    this.restartGa4EcommerceTracking()
   }
 
   LiveSearch.prototype.Ga4EcommerceTracking = function (referrer) {
@@ -359,7 +359,7 @@
           liveSearch.cache(liveSearch.serializeState(liveSearch.state), response)
           liveSearch.ga4TrackFormChange(formChangeEvent) // must be before displayResults changes the DOM, otherwise will break formChangeEvent.target.closest
           liveSearch.displayResults(response, searchState)
-          liveSearch.trackingInit()
+          liveSearch.reinitialiseGa4Tracking()
         } else {
           liveSearch.showErrorIndicator()
         }
@@ -373,7 +373,7 @@
       this.updateUrl()
       this.ga4TrackFormChange(formChangeEvent) // must be before displayResults changes the DOM, otherwise will break formChangeEvent.target.closest
       this.displayResults(cachedResultData, searchState)
-      this.trackingInit()
+      this.reinitialiseGa4Tracking()
     }
   }
 
