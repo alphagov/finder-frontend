@@ -793,6 +793,25 @@ describe('liveSearch', function () {
 
       expect(window.GOVUK.analyticsGa4.Ga4FinderTracker.trackChangeEvent).not.toHaveBeenCalled()
     })
+
+    it('reinitialises tracking when search is updated', function () {
+      spyOn(liveSearch, 'reinitialiseGa4Tracking')
+
+      expect(liveSearch.reinitialiseGa4Tracking).not.toHaveBeenCalled()
+
+      var $input = $form.find('input[name="field"]')
+      $input.attr('data-ga4-change-category', 'update-sort select')
+
+      liveSearch.state = []
+
+      liveSearch.formChange({ target: $input[0] })
+      jasmine.Ajax.requests.mostRecent().respondWith({
+        status: 200,
+        response: '{"total":81,"display_total":"81 reports","facet_tags":"","search_results":"","display_selected_facets_count":"","sort_options_markup":"","next_and_prev_links":"","suggestions":"","errors":{}}'
+      })
+
+      expect(liveSearch.reinitialiseGa4Tracking).toHaveBeenCalled()
+    })
   })
 
   describe('meta tag updating', function () {
