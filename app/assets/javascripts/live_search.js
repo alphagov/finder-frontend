@@ -106,7 +106,7 @@
     }
   }
 
-  LiveSearch.prototype.startEnhancedEcommerceTracking = function startEnhancedEcommerceTracking () {
+  LiveSearch.prototype.restartGa4EcommerceTracking = function restartGa4EcommerceTracking () {
     if (document.readyState === 'complete') {
       this.Ga4EcommerceTracking(this.previousSearchUrl)
     } else {
@@ -116,11 +116,16 @@
     }
   }
 
+  LiveSearch.prototype.reinitialiseGa4Tracking = function reinitialiseGa4Tracking () {
+    GOVUK.modules.start(this.$resultsWrapper)
+    this.restartGa4EcommerceTracking()
+  }
+
   LiveSearch.prototype.Ga4EcommerceTracking = function (referrer) {
     if (GOVUK.analyticsGa4 && GOVUK.analyticsGa4.Ga4EcommerceTracker) {
       var consentCookie = GOVUK.getConsentCookie()
 
-      if (consentCookie && consentCookie.settings) {
+      if (consentCookie && consentCookie.usage) {
         if (this.$resultsWrapper) {
           this.$resultsWrapper.setAttribute('data-ga4-search-query', this.currentKeywords())
           var sortedBy = this.$resultsWrapper.querySelector('.js-order-results')
@@ -129,7 +134,6 @@
             this.$resultsWrapper.setAttribute('data-ga4-ecommerce-variant', sortedBy.options[sortedBy.selectedIndex].text)
           }
         }
-
         GOVUK.analyticsGa4.Ga4EcommerceTracker.init(referrer)
       } else {
         window.addEventListener('cookie-consent', function () {
@@ -355,6 +359,7 @@
           liveSearch.cache(liveSearch.serializeState(liveSearch.state), response)
           liveSearch.ga4TrackFormChange(formChangeEvent) // must be before displayResults changes the DOM, otherwise will break formChangeEvent.target.closest
           liveSearch.displayResults(response, searchState)
+          liveSearch.reinitialiseGa4Tracking()
         } else {
           liveSearch.showErrorIndicator()
         }
@@ -368,6 +373,7 @@
       this.updateUrl()
       this.ga4TrackFormChange(formChangeEvent) // must be before displayResults changes the DOM, otherwise will break formChangeEvent.target.closest
       this.displayResults(cachedResultData, searchState)
+      this.reinitialiseGa4Tracking()
     }
   }
 
@@ -541,7 +547,7 @@
         if (GOVUK.analyticsGa4 && GOVUK.analyticsGa4.Ga4FinderTracker) {
           var consentCookie = GOVUK.getConsentCookie()
 
-          if (consentCookie && consentCookie.settings) {
+          if (consentCookie && consentCookie.usage) {
             GOVUK.analyticsGa4.Ga4FinderTracker.trackChangeEvent(event.target, ga4ChangeCategory)
           }
         }
