@@ -11,7 +11,7 @@
     <%=
       render_component_stylesheets
     %>
-    <%= javascript_include_tag 'application', integrity: false %>
+    <%= javascript_include_tag 'application', integrity: false, type: "module" %>
     <% if @content_item %>
       <%= render 'govuk_publishing_components/components/meta_tags', content_item: @content_item.as_hash %>
     <% end %>
