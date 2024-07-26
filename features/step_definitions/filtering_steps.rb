@@ -668,7 +668,7 @@ And(/^I select facet (.*) in the already expanded "([^"]*)" section$/) do |facet
 end
 
 When(/^I click the (.*) remove control$/) do |filter|
-  expect(page).to have_css(".js-enabled")
+  expect(page).to have_css(".govuk-frontend-supported")
 
   button = page.find("span[class='facet-tag__text']", text: filter).sibling("button[data-module='remove-filter-link']")
   button.click
