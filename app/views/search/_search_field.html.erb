@@ -10,7 +10,8 @@
   inline_label: false,
   label_text: label_text,
   size: "large",
-  id: "search-main"
+  id: "search-main",
+  disable_corrections: true,
 } %>
 
 <%= hidden_field_tag("filter_manual[]", params[:filter_manual]) if params[:filter_manual] %>
