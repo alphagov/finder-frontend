@@ -14,7 +14,6 @@
 //= require govuk_publishing_components/components/intervention
 //= require govuk_publishing_components/components/metadata
 //= require govuk_publishing_components/components/option-select
-//= require govuk_publishing_components/analytics/explicit-cross-domain-links
 //
 //= require support
 //
