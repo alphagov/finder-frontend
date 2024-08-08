@@ -236,7 +236,7 @@ describe('liveSearch', function () {
   })
 
   it('should show the filter results button if the GOVUK.support.history returns false', function () {
-    // Hide the filter button (this is done in the CSS under the .js-enabled selector normally)
+    // Hide the filter button (this is done in the CSS under the .govuk-frontend-supported selector normally)
     $form.find('.js-live-search-fallback').hide()
     expect($form.find('.js-live-search-fallback').is(':visible')).toBe(false)
     GOVUK.support.history = function () { return false }

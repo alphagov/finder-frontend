@@ -16,7 +16,7 @@
       render_component_stylesheets
     %>
     <%= javascript_include_tag 'test-dependencies.js' if Rails.env.test? %>
-    <%= javascript_include_tag 'application', integrity: false %>
+    <%= javascript_include_tag 'application', integrity: false, type: "module" %>
     <%= javascript_include_tag 'es6-components', integrity: false, type: "module" %>
     <%= csrf_meta_tags %>
     <%= yield :head %>

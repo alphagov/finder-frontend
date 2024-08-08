@@ -7,7 +7,7 @@
 .app-mobile-filters-link {
   display: none;
 
-  .js-enabled & {
+  .govuk-frontend-supported & {
     display: inline-block;
     margin-left: govuk-spacing(3);
     margin-bottom: govuk-spacing(4);
@@ -40,7 +40,7 @@
 
 // facet container should be hidden on mobile if
 // javascript is available
-.js-enabled .facets {
+.govuk-frontend-supported .facets {
   @include govuk-media-query($until: tablet) {
     display: none;
 
@@ -70,7 +70,7 @@
 // all filter styles are applicable on mobile only
 // and when javascript is enabled
 @include govuk-media-query($until: tablet) {
-  .js-enabled {
+  .govuk-frontend-supported {
     .facets__box {
       border-left: 5px solid #b1b4b6;
       padding-left: govuk-spacing(2);
