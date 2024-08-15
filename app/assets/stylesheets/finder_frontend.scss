@@ -42,7 +42,7 @@ mark {
 .filter-form {
   position: relative;
 
-  .js-enabled & .button__wrapper {
+  .govuk-frontend-supported & .button__wrapper {
     display: none;
   }
 
@@ -201,7 +201,7 @@ mark {
   border-radius: govuk-em(5, 16px);
   background-color: govuk-colour("light-grey");
 
-  .js-enabled & {
+  .govuk-frontend-supported & {
     padding: govuk-em(8, 16px) govuk-em(8, 16px) govuk-em(8, 16px) govuk-em(24, 16px);
   }
 }
@@ -213,7 +213,7 @@ mark {
   position: relative;
   z-index: 1;
 
-  .js-enabled & {
+  .govuk-frontend-supported & {
     margin-left: govuk-em(5, 16px);
   }
 }
@@ -236,7 +236,7 @@ mark {
   background: none;
   border: 0;
 
-  .js-enabled & {
+  .govuk-frontend-supported & {
     display: inline-block;
     border: 1px solid transparent;
 
