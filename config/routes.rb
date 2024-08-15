@@ -1,8 +1,6 @@
 Rails.application.routes.draw do
   mount GovukPublishingComponents::Engine, at: "/component-guide"
 
-  get "/sign-in", to: proc { [200, {}, %w[OK]] }
-
   get "/healthcheck/live", to: proc { [200, {}, %w[OK]] }
   get "/healthcheck/ready", to: proc { [200, {}, [JSON.generate({ status: :ok })]] }
 
