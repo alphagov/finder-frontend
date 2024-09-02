@@ -365,3 +365,10 @@ mark {
   padding-left: 13px;
   padding-right: 13px;
 }
+
+.app-before-content--inverse {
+  background-color: govuk-colour("blue");
+  // Stretch background colour over inner margins
+  overflow: hidden;
+  padding-top: govuk-spacing(3);
+}
