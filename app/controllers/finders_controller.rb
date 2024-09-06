@@ -24,6 +24,8 @@ class FindersController < ApplicationController
         end
 
         show_page_variables
+
+        render show_template
       end
       format.json do
         @search_query = initialize_search_query
@@ -70,6 +72,15 @@ private
     @redirect = content_item.redirect
     @finder_slug = finder_slug
     render "finders/show_redirect"
+  end
+
+  def show_template
+    if content_item.all_content_finder? &&
+        ActiveModel::Type::Boolean.new.cast(ENV["ENABLE_NEW_ALL_CONTENT_FINDER_UI"])
+      "show_all_content_finder"
+    else
+      "show"
+    end
   end
 
   def json_response

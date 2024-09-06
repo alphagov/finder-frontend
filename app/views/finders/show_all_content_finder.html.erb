@@ -1,0 +1,18 @@
+<% if result_set_presenter.user_supplied_keywords.length > 0 %>
+  <% content_for :title, "#{result_set_presenter.user_supplied_keywords} - #{content_item.title}" %>
+<% else %>
+  <% content_for :title, content_item.title %>
+<% end %>
+
+<% content_for :head do %>
+  <%= render 'finder_meta', content_item: content_item %>
+<% end %>
+<% content_for :meta_title, content_item.title %>
+
+<div class="govuk-width-container">
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds govuk-!-padding-top-6">
+      <h1 class="govuk-heading-l">Hello world 👋</h1>
+    </div>
+  </div>
+</div>

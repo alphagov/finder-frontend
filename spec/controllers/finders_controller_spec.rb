@@ -240,7 +240,7 @@ describe FindersController, type: :controller do
       end
     end
 
-    describe "the finder response is from search api v2" do
+    describe "the finder is the all content finder" do
       before do
         search_api_request(search_api_app: "search-api-v2", discovery_engine_attribution_token: "123ABC", query: { q: "hello", order: nil })
         stub_content_store_has_item(
@@ -249,24 +249,42 @@ describe FindersController, type: :controller do
         )
       end
 
-      it "correctly renders the finder page" do
-        get :show, params: { slug: "search/all", keywords: "hello" }
-        expect(response.status).to eq(200)
-        expect(response).to render_template("finders/show")
+      describe "and the new finder page feature flag is not enabled" do
+        before do
+          stub_const("ENV", ENV.to_hash.merge("ENABLE_NEW_ALL_CONTENT_FINDER_UI" => nil))
+        end
+
+        it "correctly renders the finder page" do
+          get :show, params: { slug: "search/all", keywords: "hello" }
+          expect(response.status).to eq(200)
+          expect(response).to render_template("finders/show")
+        end
+
+        it "responds with JSON" do
+          get :show, params: { slug: "search/all", keywords: "hello", format: "json" }
+
+          expect(response.status).to eq(200)
+          expect(response.media_type).to eq("application/json")
+        end
+
+        it "responds with the discovery engine attribution token" do
+          get :show, params: { slug: "search/all", keywords: "hello", format: "json" }
+
+          response_body = JSON.parse(response.body)
+          expect(response_body["discovery_engine_attribution_token"]).to eq("123ABC")
+        end
       end
 
-      it "responds with JSON" do
-        get :show, params: { slug: "search/all", keywords: "hello", format: "json" }
+      describe "and the new finder page feature flag is enabled" do
+        before do
+          stub_const("ENV", ENV.to_hash.merge("ENABLE_NEW_ALL_CONTENT_FINDER_UI" => "true"))
+        end
 
-        expect(response.status).to eq(200)
-        expect(response.media_type).to eq("application/json")
-      end
-
-      it "responds with the discovery engine attribution token" do
-        get :show, params: { slug: "search/all", keywords: "hello", format: "json" }
-
-        response_body = JSON.parse(response.body)
-        expect(response_body["discovery_engine_attribution_token"]).to eq("123ABC")
+        it "correctly renders the new template" do
+          get :show, params: { slug: "search/all", keywords: "hello" }
+          expect(response.status).to eq(200)
+          expect(response).to render_template("finders/show_all_content_finder")
+        end
       end
     end
   end
