@@ -9,10 +9,39 @@
 <% end %>
 <% content_for :meta_title, content_item.title %>
 
-<div class="govuk-width-container">
-  <div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds govuk-!-padding-top-6">
-      <h1 class="govuk-heading-l">Hello world 👋</h1>
+<form method="get" action="<%= content_item.base_path %>" class="js-live-search-form"
+    data-ga4-change-category="clear-all-filters"
+>
+  <%= hidden_field_tag :parent, @parent if @parent.present? %>
+
+  <div class="govuk-width-container">
+    <%= render 'govuk_publishing_components/components/contextual_breadcrumbs', content_item: content_item.as_hash %>
+  </div>
+
+  <div class="govuk-width-container">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        <%= render "govuk_publishing_components/components/heading", {
+          text: sanitize("Search <span class='govuk-visually-hidden'>all content on</span> GOV.UK"),
+          heading_level: 1,
+          font_size: "xl",
+          margin_bottom: 4,
+        } %>
+
+        <div id="keywords" role="search" aria-label="Sitewide" data-ga4-change-category="update-keyword text">
+          <%= render "govuk_publishing_components/components/search", {
+            id: "finder-keyword-search",
+            name: "keywords",
+            type: 'search',
+            value: result_set_presenter.user_supplied_keywords,
+            disable_corrections: true,
+          } %>
+        </div>
+
+        <%= render "search_results", result_set_presenter.search_results_content %>
+
+        <%= render "govuk_publishing_components/components/previous_and_next_navigation", @pagination.next_and_prev_links %>
+      </div>
     </div>
   </div>
 </div>
