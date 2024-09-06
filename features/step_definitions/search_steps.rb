@@ -33,6 +33,12 @@ Given(/^the all content finder exists$/) do
   stub_search_api_request_with_organisation_filter_all_content_results
   stub_search_api_request_with_manual_filter_all_content_results
   stub_search_api_request_with_misspelt_query
+  stub_search_api_request_with_query
+end
+
+Given(/^the new all content finder UI is (\w+)$/) do |state|
+  env_value = state == "enabled" ? "true" : nil
+  stub_const("ENV", ENV.to_hash.merge("ENABLE_NEW_ALL_CONTENT_FINDER_UI" => env_value))
 end
 
 Then(/^I am redirected to the (html|json) all content finder results page$/) do |format|

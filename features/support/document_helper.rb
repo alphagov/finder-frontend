@@ -114,6 +114,16 @@ module DocumentHelper
       .to_return(body: filtered_by_organisation_all_content_results_json)
   end
 
+  def stub_search_api_request_with_query
+    stub_request(:get, SEARCH_ENDPOINT)
+      .with(query: hash_including("q" => "how to walk silly"))
+      .to_return(body: all_documents_json)
+
+    stub_request(:get, SEARCH_V2_ENDPOINT)
+      .with(query: hash_including("q" => "how to walk silly"))
+      .to_return(body: all_documents_json)
+  end
+
   def stub_search_api_request_with_misspelt_query
     stub_request(:get, SEARCH_ENDPOINT)
       .with(query: hash_including("q" => "drving"))
