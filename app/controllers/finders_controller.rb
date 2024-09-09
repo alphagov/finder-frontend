@@ -13,11 +13,19 @@ class FindersController < ApplicationController
         raise UnsupportedContentItem unless content_item.is_finder?
 
         if legacy_params_present?
-          transform_legacy_announcement_params_and_redirect if content_item.base_path == "/search/news-and-communications"
-          transform_legacy_publication_params_and_redirect if content_item.base_path == "/search/all"
+          case content_item.base_path
+          when "/search/news-and-communications"
+            transform_legacy_announcement_params_and_redirect
+            return
+          when "/search/all"
+            transform_legacy_publication_params_and_redirect
+            return
+          end
         end
 
         show_page_variables
+
+        render show_template
       end
       format.json do
         @search_query = initialize_search_query
@@ -64,6 +72,19 @@ private
     @redirect = content_item.redirect
     @finder_slug = finder_slug
     render "finders/show_redirect"
+  end
+
+  def show_template
+    if content_item.all_content_finder? && enable_new_all_content_finder_ui?
+      "show_all_content_finder"
+    else
+      "show"
+    end
+  end
+
+  def enable_new_all_content_finder_ui?
+    ActiveModel::Type::Boolean.new.cast(ENV["ENABLE_NEW_ALL_CONTENT_FINDER_UI"]) ||
+      params[:enable_new_all_content_finder_ui].present?
   end
 
   def json_response
@@ -235,7 +256,7 @@ private
                       "#{base_path}?#{query_string}"
                     end
 
-    redirect_to redirect_path and return
+    redirect_to redirect_path
   end
 
   def transform_legacy_publication_params_and_redirect
@@ -329,7 +350,7 @@ private
                       "#{base_path}?#{query_string}"
                     end
 
-    redirect_to redirect_path and return
+    redirect_to redirect_path
   end
 
   def publication_finder_type
