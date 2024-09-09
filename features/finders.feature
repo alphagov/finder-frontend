@@ -74,6 +74,7 @@ Feature: Filtering documents
   Scenario: Visit a finder with metadata with a topic param set
     When I view the aaib reports finder with a topic param set
     Then I can see that the finder metadata is present and inverted
+    And the breadcrumbs are outside the main container
 
   Scenario: Visit a finder with description
     Given a finder with description exists

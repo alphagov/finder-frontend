@@ -449,6 +449,11 @@ When(/^I can see that the finder metadata is present and inverted$/) do
   expect(page).to have_css(".gem-c-metadata.gem-c-metadata--inverse")
 end
 
+And(/^the breadcrumbs are outside the main container$/) do
+  expect(page).to have_selector(".app-before-content .gem-c-breadcrumbs")
+  expect(page).not_to have_selector("#main .gem-c-breadcrumbs")
+end
+
 When(/^I can see that the description in the metadata is present$/) do
   visit "/cma-cases"
 
