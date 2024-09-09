@@ -260,6 +260,14 @@ describe FindersController, type: :controller do
           expect(response).to render_template("finders/show")
         end
 
+        it "renders the new template if the override query param is given" do
+          get :show, params: {
+            slug: "search/all", keywords: "hello", enable_new_all_content_finder_ui: "true"
+          }
+          expect(response.status).to eq(200)
+          expect(response).to render_template("finders/show_all_content_finder")
+        end
+
         it "responds with JSON" do
           get :show, params: { slug: "search/all", keywords: "hello", format: "json" }
 
