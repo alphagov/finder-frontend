@@ -40,6 +40,10 @@
           } %>
         </div>
 
+        <div class="spelling-suggestions">
+          <%= render 'spelling_suggestion' %>
+        </div>
+
         <% if result_set_presenter.total_count.positive? %>
           <%= render "govuk_publishing_components/components/document_list", {
             disable_ga4: true,
