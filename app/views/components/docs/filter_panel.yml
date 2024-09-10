@@ -1,0 +1,42 @@
+name: Filter panel
+description: Displays a result count and a toggleable panel of filters and sort options.
+uses_component_wrapper_helper: true
+accessibility_criteria: |
+  The component must:
+
+  - accept focus
+  - be focusable with a keyboard
+  - be usable with a keyboard
+  - be usable with touch
+  - indicate when it has focus
+  - toggle the visibility of the panel when interacted with
+  - indicate the expanded state when panel is visible
+  - indicate the collapsed state when panel is hidden
+  - be visible by default without Javascript enabled
+examples:
+  default:
+    data:
+      result_count: 123456
+      button_text: Filter and sort
+      block: |
+        <p class="govuk-body">
+          I can contain arbitrary content, usually a set of filters and sort options.
+        </p>
+  open:
+    data:
+      result_count: 1989
+      button_text: Open sesame
+      open: true
+      block: |
+        <p class="govuk-body">
+          I am open by default!
+        </p>
+  with_margin_bottom:
+    description: |
+      Allows the spacing at the bottom of the component to be adjusted.
+
+      This accepts a number from `0` to `9` (`0px` to `60px`) using the [GOV.UK Frontend spacing scale](https://design-system.service.gov.uk/styles/spacing/#the-responsive-spacing-scale). It defaults to having no margin bottom.
+    data:
+      result_count: 1
+      button_text: Loooooads of space
+      margin_bottom: 9
