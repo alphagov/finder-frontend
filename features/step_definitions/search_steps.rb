@@ -55,5 +55,5 @@ When(/^I search for "([^"]*)"$/) do |search_term|
 end
 
 Then(/^I see a "(.*)" spelling suggestion$/) do |suggestion|
-  expect(page).to have_link suggestion.to_s, href: "/search/all?keywords=#{suggestion}&order=relevance"
+  expect(page).to have_link suggestion.to_s, href: %r{/search/all\?keywords=#{suggestion}}
 end
