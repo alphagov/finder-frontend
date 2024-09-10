@@ -12,6 +12,8 @@
 
 <% content_for :meta_title, content_item.title %>
 
+<%= render partial: 'before_content' %>
+
 <% if topic_finder?(filter_params) && !content_item.all_content_finder? %>
   <% content_for :body_classes, "full-width" %>
   <% inverse = true %>

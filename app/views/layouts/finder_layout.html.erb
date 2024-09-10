@@ -1,4 +1,7 @@
 <% content_for :body do %>
+
+  <%= yield :before_content %>
+
   <main id="content" class="finder-frontend-content">
     <div class="finder-frontend">
       <%= yield %>
