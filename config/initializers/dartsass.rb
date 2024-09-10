@@ -1,6 +1,7 @@
 APP_STYLESHEETS = {
   "application.scss" => "application.css",
   "components/_expander.scss" => "components/_expander.css",
+  "components/_filter-panel.scss" => "components/_filter-panel.css",
   "components/_mobile-filters.scss" => "components/_mobile-filters.css",
   "views/_search.scss" => "views/_search.css",
 }.freeze

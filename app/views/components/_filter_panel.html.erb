@@ -1,0 +1,26 @@
+<% add_app_component_stylesheet("filter-panel") %>
+<%
+  raise ArgumentError, "button_text is required" unless local_assigns[:button_text]
+  raise ArgumentError, "result_count is required" unless local_assigns[:result_count]
+
+  component_helper = GovukPublishingComponents::Presenters::ComponentWrapperHelper.new(local_assigns)
+  component_helper.add_data_attribute({ module: "filter-panel" })
+  component_helper.add_class("app-c-filter-panel")
+%>
+
+<%= tag.div(**component_helper.all_attributes) do %>
+  <div class="app-c-filter-panel__header">
+    <%= render "govuk_publishing_components/components/heading", {
+      text: pluralize(number_with_delimiter(result_count), "result"),
+      heading_level: 2,
+    } %>
+
+    <button class="app-c-filter-panel__button">
+      <%= button_text %>
+    </button>
+  </div>
+
+  <div class="app-c-filter-panel__content">
+    <%= yield %>
+  </div>
+<% end %>

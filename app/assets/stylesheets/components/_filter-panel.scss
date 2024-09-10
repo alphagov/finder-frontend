@@ -1,0 +1,18 @@
+@import "govuk_publishing_components/individual_component_support";
+
+.app-c-filter-panel {
+  .app-c-filter-panel__header {
+    padding: govuk-spacing(1) 0;
+
+    h2 {
+      @include govuk-font(19);
+    }
+  }
+
+  .app-c-filter-panel__content {
+    margin: govuk-spacing(2) 0;
+    padding: govuk-spacing(3);
+
+    background-color: govuk-colour("light-grey");
+  }
+}
