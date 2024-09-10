@@ -1,0 +1,103 @@
+.app-c-filter-panel__section {
+  border-bottom: 1px solid $govuk-border-colour;
+  margin: 20px 0;
+
+  &:last-child {
+    border-bottom: 0;
+    margin-bottom: 0;
+  }
+
+  &:first-child {
+    margin-top: 0;
+  }
+
+  .govuk-form-group {
+    margin-bottom: 0;
+  }
+
+  .govuk-details {
+    margin-bottom: 0;
+
+    &__text {
+      border-left: none;
+      padding-left: 0;
+      padding-top: 5px;
+      padding-bottom: 15px;
+      margin: 0;
+    }
+
+    &[open] .govuk-details__summary::before {
+      border-style: solid;
+      border-width: 2px 2px 0 0;
+      content: '';
+      display: inline-block;
+      height: 10px;
+      left: 0;
+      position: relative;
+      vertical-align: middle;
+      width: 10px;
+      border-color: $govuk-text-colour;
+      clip-path: unset;
+
+      top: 0;
+      transform: rotate(-45deg);
+    }
+
+    .govuk-details__summary::before {
+      border-style: solid;
+      border-width: 2px 2px 0 0;
+      content: '';
+      display: inline-block;
+      height: 10px;
+      left: 0;
+      position: relative;
+      vertical-align: middle;
+      width: 10px;
+      border-color: $govuk-text-colour;
+      clip-path: unset;
+
+      top: -5px;
+      transform: rotate(135deg);
+    }
+
+    .govuk-details__summary-text {
+      display: flex;
+      width: 100%; 
+      color: $govuk-text-colour;
+      padding-left: 10px;
+      @include govuk-font(19, $weight: bold);
+    }
+  }
+
+  .govuk-details__summary, .govuk-fieldset__legend {
+    display: flex;
+    width: 100%;
+    padding-left: 0;
+  
+    &-text, .govuk-fieldset__heading {
+      display: flex;
+      width: 100%; 
+    }
+  }
+
+  .govuk-checkboxes__label, .govuk-radios__label {
+    &::before {
+      background-color: govuk-colour('white');
+    }
+  }
+}
+
+.app-c-filter-panel__section-header {
+  display: flex;
+  width: 100%;
+  margin: 0;
+}
+
+.app-c-filter-panel__section-title {
+  flex-grow: 1;
+}
+
+.app-c-filter-panel__section-count {
+  @include govuk-font(16, $weight: regular);
+  text-decoration: none;
+}
