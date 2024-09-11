@@ -1,0 +1,28 @@
+<% add_app_component_stylesheet("filter-section") %>
+
+<%
+  raise ArgumentError, "status_title is required" unless local_assigns[:status_title]
+  shared_helper = GovukPublishingComponents::Presenters::SharedHelper.new(local_assigns)
+  open ||= nil
+  status_text ||= ""
+  status_title ||= ""
+
+  margin_bottom ||= 3
+  summary_aria_attributes ||= {}
+
+  component_helper = GovukPublishingComponents::Presenters::ComponentWrapperHelper.new(local_assigns)
+  component_helper.add_class("app-c-filter-panel__section-details")
+  component_helper.add_class(shared_helper.get_margin_bottom)
+  component_helper.set_open(open)
+%>
+
+<div class="app-c-filter-panel__section">
+<%= tag.details(**component_helper.all_attributes) do %>
+    <%= tag.summary class: "app-c-filter-panel__section-summary", aria: summary_aria_attributes do %>
+      <div class="app-c-filter-panel__section-summary-text">
+      <%= sanitize("<span class=\"app-c-filter-panel__section-header\"><span class=\"app-c-filter-panel__section-title\"><span class=\"govuk-visually-hidden\">filter by </span>#{status_title}</span><span class=\"app-c-filter-panel__section-count\">#{status_text}</span></span>") %>
+    </div>
+    <% end %>
+    <%= yield %>
+  <% end %>
+</div>

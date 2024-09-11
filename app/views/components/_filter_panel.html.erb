@@ -38,6 +38,13 @@
     role: "region",
     aria: { labelledby: button_id },
   ) do %>
-    <%= yield %>
+
+    <%= render "components/filter_section", {
+      status_text: "1 Selected",
+      status_title: "Filter 1",
+      open: true
+    } do %>
+      <p>open section</p>
+    <% end %>
   <% end %>
 <% end %>

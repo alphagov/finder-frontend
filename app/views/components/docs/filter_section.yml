@@ -1,0 +1,23 @@
+name: Filter section
+description: Displays a section with status text that be expanded/collapsed
+uses_component_wrapper_helper: true
+accessibility_criteria: |
+  The component must:
+
+  - accept focus
+  - be focusable with a keyboard
+  - be usable with a keyboard
+  - be usable with touch
+  - indicate when it has focus
+  - toggle the visibility of the panel when interacted with
+  - indicate the expanded state when panel is visible
+  - indicate the collapsed state when panel is hidden
+  - be visible by default without Javascript enabled
+examples:
+  default:
+    data:
+      status_title: Filter by something
+      block: |
+        <p class="govuk-body">
+          Filter form controls
+        </p>
