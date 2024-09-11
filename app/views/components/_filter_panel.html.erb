@@ -10,17 +10,21 @@
 
 <%= tag.div(**component_helper.all_attributes) do %>
   <div class="app-c-filter-panel__header">
+    <button class="app-c-filter-panel__button govuk-link" aria-expanded="false" aria-controls="filter-panel" id="filters-button">
+      <span class="accordion-title">
+        <span class="app-c-filter-panel__button-icon"></span>
+        <%= button_text %>
+      </span>
+    </button>
+
     <%= render "govuk_publishing_components/components/heading", {
       text: pluralize(number_with_delimiter(result_count), "result"),
       heading_level: 2,
+      font_size: "s",
     } %>
-
-    <button class="app-c-filter-panel__button">
-      <%= button_text %>
-    </button>
   </div>
 
-  <div class="app-c-filter-panel__content">
+  <div class="app-c-filter-panel__content" id="filter-panel" role="region" aria-labelledby="filters-button" hidden="">
     <%= yield %>
   </div>
 <% end %>

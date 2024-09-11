@@ -1,18 +1,47 @@
 @import "govuk_publishing_components/individual_component_support";
 
-.app-c-filter-panel {
-  .app-c-filter-panel__header {
-    padding: govuk-spacing(1) 0;
+.app-c-filter-panel__content {
+  background-color:  govuk-colour("light-grey");
+  padding: govuk-spacing(3);
+}
 
-    h2 {
-      @include govuk-font(19);
-    }
+.app-c-filter-panel__header {
+  display: flex;
+
+  .gem-c-heading {
+    flex-grow: 1;
+    align-self: center;
+    text-align: right;
+    font-weight: normal;
   }
 
-  .app-c-filter-panel__content {
-    margin: govuk-spacing(2) 0;
-    padding: govuk-spacing(3);
+  .app-c-filter-panel__button {
+    flex-basis: content;
+    background-color: transparent;
+    color: $govuk-link-colour;
+    text-decoration: none;
+    border-style: none;
+    @include govuk-font(19);
 
-    background-color: govuk-colour("light-grey");
+    &--focused,
+    &:focus-visible {
+      background-color: $govuk-focus-colour;
+    }
+  }
+  
+  .app-c-filter-panel__button[aria-expanded="true"] .app-c-filter-panel__button-icon {
+    transform: translateY(0) rotate(-135deg);
+  }
+
+  .app-c-filter-panel__button-icon {
+    border: solid currentcolor;
+    border-width: 0 2px 2px 0;
+    height: 0.5rem;
+    pointer-events: none;
+    transform: translateY(-50%) rotate(45deg);
+    width: 0.5rem;
+    display: inline-block;
+    vertical-align: baseline;
+    margin-right: govuk-spacing(1);
   }
 }
