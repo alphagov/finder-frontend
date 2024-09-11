@@ -3,19 +3,29 @@
   raise ArgumentError, "button_text is required" unless local_assigns[:button_text]
   raise ArgumentError, "result_count is required" unless local_assigns[:result_count]
 
+  id_suffix = SecureRandom.hex(4)
+  panel_content_id = "filter-panel-#{id_suffix}"
+  button_id = "filter-button-#{id_suffix}"
+
   component_helper = GovukPublishingComponents::Presenters::ComponentWrapperHelper.new(local_assigns)
+  shared_helper = GovukPublishingComponents::Presenters::SharedHelper.new(local_assigns)
   component_helper.add_data_attribute({ module: "filter-panel" })
   component_helper.add_class("app-c-filter-panel")
+  component_helper.add_class(shared_helper.get_margin_bottom) if local_assigns[:margin_bottom]
 %>
 
 <%= tag.div(**component_helper.all_attributes) do %>
   <div class="app-c-filter-panel__header">
-    <button class="app-c-filter-panel__button govuk-link" aria-expanded="false" aria-controls="filter-panel" id="filters-button">
+    <%= tag.button(
+      id: button_id,
+      class: "app-c-filter-panel__button govuk-link",
+      aria: { expanded: "false", controls: panel_content_id }
+    ) do %>
       <span class="accordion-title">
         <span class="app-c-filter-panel__button-icon"></span>
         <%= button_text %>
       </span>
-    </button>
+    <% end %>
 
     <%= render "govuk_publishing_components/components/heading", {
       text: pluralize(number_with_delimiter(result_count), "result"),
@@ -24,7 +34,13 @@
     } %>
   </div>
 
-  <div class="app-c-filter-panel__content" id="filter-panel" role="region" aria-labelledby="filters-button" hidden="">
+  <%= tag.div(
+    class: "app-c-filter-panel__content",
+    id: panel_content_id,
+    role: "region",
+    aria: { labelledby: button_id },
+    hidden: "",
+  ) do %>
     <%= yield %>
-  </div>
+  <% end %>
 <% end %>
