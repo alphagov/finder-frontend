@@ -60,6 +60,13 @@ describe('Filter panel module', () => {
     expect(filterPanel.$content.hasAttribute('hidden')).toBe(false)
   })
 
+  it('default behaviour of the panel open/close is prevented', () => {
+    filterPanel.$button.addEventListener('click', (event) => {
+      expect(event.defaultPrevented).toBe(true)
+    })
+    filterPanel.$button.click()
+  })
+
   it('sets the correct attributes when panel is closed', () => {
     filterPanel.$button.click()
     filterPanel.$button.click()
