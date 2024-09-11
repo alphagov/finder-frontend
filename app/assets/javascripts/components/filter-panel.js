@@ -23,7 +23,8 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
       this.$button.classList.remove('app-c-filter-panel__button--focused')
     }
 
-    onButtonClick () {
+    onButtonClick (event) {
+      event.preventDefault()
       this.$button.classList.add('app-c-filter-panel__button--focused')
       this.toggle()
     }

@@ -55,6 +55,13 @@ describe('Filter panel module', () => {
     expect(filterPanel.$button.classList.contains('app-c-filter-panel__button--focused')).toBe(true)
   })
 
+  it('default behaviour of the panel open/close is prevented', () => {
+    filterPanel.$button.addEventListener('click', (event) => {
+      expect(event.defaultPrevented).toBe(true)
+    })
+    filterPanel.$button.click()
+  })
+
   it('sets the correct attributes when panel is closed', () => {
     filterPanel.$button.click()
     filterPanel.$button.click()
