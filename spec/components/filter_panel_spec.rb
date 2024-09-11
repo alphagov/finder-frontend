@@ -44,4 +44,12 @@ describe "Filter panel component", type: :view do
 
     assert_select ".app-c-filter-panel h2", text: "12,345,678 results"
   end
+
+  it "renders the passed block into the content area" do
+    render_component(button_text: "Filter", result_count: 42) do
+      tag.p("Hello, world!")
+    end
+
+    assert_select ".app-c-filter-panel .app-c-filter-panel__content p", text: "Hello, world!"
+  end
 end
