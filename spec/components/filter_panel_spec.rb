@@ -44,7 +44,6 @@ describe "Filter panel component", type: :view do
 
     assert_select ".app-c-filter-panel h2", text: "12,345,678 results"
   end
-<<<<<<< HEAD
 
   it "renders the passed block into the content area" do
     render_component(button_text: "Filter", result_count: 42) do
@@ -65,6 +64,4 @@ describe "Filter panel component", type: :view do
 
     assert_select ".app-c-filter-panel[open=open]"
   end
-=======
->>>>>>> 40f59a68 (Basic scaffold for a `filter_panel` components)
 end
