@@ -3,29 +3,37 @@
 .app-c-filter-panel__content {
   background-color:  govuk-colour("light-grey");
   padding: govuk-spacing(3);
+  margin-top: govuk-spacing(2);
 }
 
 .app-c-filter-panel__header {
   display: flex;
+  flex-wrap: wrap;
+  place-content: space-between;
+  align-items: center;
+  gap: govuk-spacing(2);
 
   .gem-c-heading {
-    flex-grow: 1;
-    align-self: center;
-    text-align: right;
     font-weight: normal;
   }
 
   .app-c-filter-panel__button {
-    flex-basis: content;
     background-color: transparent;
     color: $govuk-link-colour;
     text-decoration: none;
     border-style: none;
     @include govuk-font(19);
 
-    &--focused,
+    &:focus,
     &:focus-visible {
       background-color: $govuk-focus-colour;
+      @include govuk-link-hover-decoration;
+      @include govuk-focused-text;
+    }
+
+    &:hover {
+      cursor: pointer;
+      color: $govuk-link-hover-colour;
     }
   }
   

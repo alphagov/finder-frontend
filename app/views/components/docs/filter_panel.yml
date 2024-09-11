@@ -1,7 +1,16 @@
 name: Filter panel
 description: Displays a result count and a toggleable panel of filters and sort options.
 uses_component_wrapper_helper: true
-accessibility_criteria: "TODO: Fill me in"
+accessibility_criteria: |
+
+  - accept focus
+  - be focusable with a keyboard
+  - be usable with a keyboard
+  - be usable with touch
+  - indicate when it has focus
+  - toggle the visibility of the panel when interacted with
+  - indicate the expanded state when panel is visible
+  - indicate the collapsed state when panel is hidden
 examples:
   default:
     data:
