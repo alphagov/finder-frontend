@@ -150,20 +150,47 @@
           </span>
 
           <ul class="facet-tag-list">
-            <% facet_presenter[:applied_filters].each do |applied_filter| %>
-              <% applied_filter.each do |filter| %>
-                <li class="facet-tag-list__item">
-                  <a class="facet-tag-list__link" href="#">
-                    <span aria-hidden="true" class="facet-tag-list__remove-icon">
-                      &#x2715;
-                    </span>
-                    <span class="govuk-visually-hidden">
-                      Remove filter
-                    </span>
-                    <%= filter[:text] %>
-                  </a>
-                </li>
-              <% end %>
+            <%
+              filter_links = facet_presenter[:applied_filters].flat_map { |applied_filter|
+                applied_filter.map { |filter|
+                  value = if filter[:data_facet] == "level_one_taxon"
+                            "Topic: #{filter[:text]}"
+                          elsif filter[:data_facet] == "level_two_taxon"
+                            "Sub-topic: #{filter[:text]}"
+                          elsif filter[:data_facet] == "content_purpose_supergroup"
+                            "Type: #{filter[:text]}"
+                          elsif filter[:data_name] == "public_timestamp[from]"
+                            "After: #{filter[:text]}"
+                          elsif filter[:data_name] == "public_timestamp[to]"
+                            "Before: #{filter[:text]}"
+                          else
+                            filter[:text]
+                          end
+
+                  remove_param = if filter[:data_facet] == "level_one_taxon"
+                                    %w[level_one_taxon level_two_taxon]
+                                 else
+                                    [filter[:data_facet]]
+                                 end
+
+                  link = url_for(params.to_unsafe_h.except(*remove_param))
+
+                  [value, link]
+                }
+              }
+            %>
+            <% filter_links.each do |text, link| %>
+              <li class="facet-tag-list__item">
+                <%= link_to(link, class: "facet-tag-list__link") do %>
+                  <span aria-hidden="true" class="facet-tag-list__remove-icon">
+                    &#x2715;
+                  </span>
+                  <span class="govuk-visually-hidden">
+                    Remove filter
+                  </span>
+                  <%= text %>
+                <% end %>
+              </li>
             <% end %>
           </ul>
         </div>
