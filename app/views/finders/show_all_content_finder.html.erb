@@ -111,13 +111,14 @@
 
           <h3 class="govuk-heading-s">Type</h3>
           <% type_facet = facets.select { _1.key == "content_purpose_supergroup" }.first %>
-          <%= render partial: 'govuk_publishing_components/components/option_select', locals: {
-            key: type_facet.key,
-            title: type_facet.name,
-            options_container_id: type_facet.key,
-            options: type_facet.options(nil, type_facet.key),
-            show_filter: type_facet.show_option_select_filter,
-            large: type_facet.large?,
+          <% options = type_facet.options(nil, type_facet.key) %>
+          <%= render 'govuk_publishing_components/components/checkboxes', {
+            name: type_facet.key,
+            heading: type_facet.name,
+            visually_hide_heading: true,
+            no_hint_text: true,
+            items: options,
+            small: true,
           } %>
 
           <% hidden_facets = facets.select { _1.type.in?(%w[hidden hidden_clearable]) } %>
