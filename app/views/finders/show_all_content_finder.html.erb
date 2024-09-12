@@ -52,7 +52,6 @@
           button_text: "Filter and sort",
           result_count: result_set_presenter.total_count,
           margin_bottom: 3,
-          open: true, # TODO: Remove me
         } do %>
           <%
             sort_options = @sort_presenter.to_hash[:options].reject { |option|
