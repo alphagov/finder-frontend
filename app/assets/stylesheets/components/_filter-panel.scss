@@ -4,6 +4,13 @@
   background-color:  govuk-colour("light-grey");
   padding: govuk-spacing(3);
   margin-top: govuk-spacing(2);
+
+  // Fix checkboxes and radios not having white inner background when on non-white background
+  .govuk-checkboxes__label, .govuk-radios__label {
+    &::before {
+        background-color: govuk-colour('white');
+    }
+  }
 }
 
 .app-c-filter-panel__header {
@@ -36,7 +43,7 @@
       color: $govuk-link-hover-colour;
     }
   }
-  
+
   .app-c-filter-panel__button[aria-expanded="true"] .app-c-filter-panel__button-icon {
     transform: translateY(0) rotate(-135deg);
   }
