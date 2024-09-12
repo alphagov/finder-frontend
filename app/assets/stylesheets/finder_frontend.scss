@@ -390,6 +390,10 @@ mark {
     background-color: govuk-colour("light-grey");
     border: 1px solid govuk-colour("dark-grey");
     border-radius: govuk-spacing(1);
+
+    &:focus {
+      outline: 3px solid $govuk-focus-colour;
+    }
   }
 
   .facet-tag-list__remove-icon {

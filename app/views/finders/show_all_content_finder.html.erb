@@ -154,8 +154,11 @@
               <% applied_filter.each do |filter| %>
                 <li class="facet-tag-list__item">
                   <a class="facet-tag-list__link" href="#">
-                    <span class="facet-tag-list__remove-icon">
+                    <span aria-hidden="true" class="facet-tag-list__remove-icon">
                       &#x2715;
+                    </span>
+                    <span class="govuk-visually-hidden">
+                      Remove filter
                     </span>
                     <%= filter[:text] %>
                   </a>
