@@ -52,8 +52,21 @@
           button_text: "Filter and sort",
           result_count: result_set_presenter.total_count,
           margin_bottom: 3,
+          open: true # TODO: remove, just helps us show the panel open during dev
         } do %>
-          TODO: Add filter panel content here
+          <h3 class="govuk-heading-s">Sort by</h3>
+          <%= render "sort_options", @sort_presenter.to_hash %>
+
+          <h3 class="govuk-heading-s">Date</h3>
+
+          <h3 class="govuk-heading-s">Topic</h3>
+
+          <h3 class="govuk-heading-s">Type</h3>
+
+          <%= render "govuk_publishing_components/components/button", {
+            text: "Apply filters",
+            type: "submit",
+          } %>
         <% end %>
 
         <div id="search-results">
