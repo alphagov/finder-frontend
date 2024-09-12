@@ -2,6 +2,7 @@ name: Filter panel
 description: Displays a result count and a toggleable panel of filters and sort options.
 uses_component_wrapper_helper: true
 accessibility_criteria: |
+  The component must:
 
   - accept focus
   - be focusable with a keyboard
