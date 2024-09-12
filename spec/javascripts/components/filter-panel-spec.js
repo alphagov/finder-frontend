@@ -52,7 +52,7 @@ describe('Filter panel module', () => {
 
     expect(filterPanel.$button.getAttribute('aria-expanded')).toBe('true')
     expect(filterPanel.$content.hasAttribute('hidden')).toBe(false)
-  });
+  })
 
   it('sets the correct attributes when panel is opened', () => {
     filterPanel.$button.click()
