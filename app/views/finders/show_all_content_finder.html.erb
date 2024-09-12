@@ -124,7 +124,7 @@
           <% type_facet = facets.select { _1.key == "content_purpose_supergroup" }.first %>
           <% options = type_facet.options(nil, type_facet.key) %>
           <%= render 'govuk_publishing_components/components/checkboxes', {
-            name: type_facet.key,
+            name: "#{type_facet.key}[]",
             heading: type_facet.name,
             visually_hide_heading: true,
             no_hint_text: true,
