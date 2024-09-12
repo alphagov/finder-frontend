@@ -1,0 +1,55 @@
+@import "govuk_publishing_components/individual_component_support";
+
+.app-c-filter-panel__content {
+  background-color:  govuk-colour("light-grey");
+  padding: govuk-spacing(3);
+  margin-top: govuk-spacing(2);
+}
+
+.app-c-filter-panel__header {
+  display: flex;
+  flex-wrap: wrap;
+  place-content: space-between;
+  align-items: center;
+  gap: govuk-spacing(2);
+
+  .gem-c-heading {
+    font-weight: normal;
+  }
+
+  .app-c-filter-panel__button {
+    background-color: transparent;
+    color: $govuk-link-colour;
+    text-decoration: none;
+    border-style: none;
+    @include govuk-font(19);
+
+    &:focus,
+    &:focus-visible {
+      background-color: $govuk-focus-colour;
+      @include govuk-link-hover-decoration;
+      @include govuk-focused-text;
+    }
+
+    &:hover {
+      cursor: pointer;
+      color: $govuk-link-hover-colour;
+    }
+  }
+  
+  .app-c-filter-panel__button[aria-expanded="true"] .app-c-filter-panel__button-icon {
+    transform: translateY(0) rotate(-135deg);
+  }
+
+  .app-c-filter-panel__button-icon {
+    border: solid currentcolor;
+    border-width: 0 2px 2px 0;
+    height: 0.5rem;
+    pointer-events: none;
+    transform: translateY(-50%) rotate(45deg);
+    width: 0.5rem;
+    display: inline-block;
+    vertical-align: baseline;
+    margin-right: govuk-spacing(1);
+  }
+}

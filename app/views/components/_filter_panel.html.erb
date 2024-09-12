@@ -1,0 +1,43 @@
+<% add_app_component_stylesheet("filter-panel") %>
+<%
+  raise ArgumentError, "button_text is required" unless local_assigns[:button_text]
+  raise ArgumentError, "result_count is required" unless local_assigns[:result_count]
+
+  id_suffix = SecureRandom.hex(4)
+  panel_content_id = "filter-panel-#{id_suffix}"
+  button_id = "filter-button-#{id_suffix}"
+
+  component_helper = GovukPublishingComponents::Presenters::ComponentWrapperHelper.new(local_assigns)
+  shared_helper = GovukPublishingComponents::Presenters::SharedHelper.new(local_assigns)
+  component_helper.add_data_attribute({ module: "filter-panel" })
+  component_helper.add_class("app-c-filter-panel")
+  component_helper.add_class(shared_helper.get_margin_bottom) if local_assigns[:margin_bottom]
+%>
+
+<%= tag.div(**component_helper.all_attributes) do %>
+  <div class="app-c-filter-panel__header">
+    <%= tag.button(
+      id: button_id,
+      class: "app-c-filter-panel__button govuk-link",
+      aria: { expanded: "false", controls: panel_content_id }
+    ) do %>
+      <span class="app-c-filter-panel__button-icon"></span>
+      <%= button_text %>
+    <% end %>
+
+    <%= render "govuk_publishing_components/components/heading", {
+      text: pluralize(number_with_delimiter(result_count), "result"),
+      heading_level: 2,
+      font_size: "s",
+    } %>
+  </div>
+
+  <%= tag.div(
+    class: "app-c-filter-panel__content",
+    id: panel_content_id,
+    role: "region",
+    aria: { labelledby: button_id },
+  ) do %>
+    <%= yield %>
+  <% end %>
+<% end %>

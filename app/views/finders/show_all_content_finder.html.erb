@@ -44,6 +44,14 @@
           <%= render 'spelling_suggestion' %>
         </div>
 
+        <%= render "components/filter_panel", {
+          button_text: "Filter and sort",
+          result_count: result_set_presenter.total_count,
+          margin_bottom: 3,
+        } do %>
+          TODO: Add filter panel content here
+        <% end %>
+
         <% if result_set_presenter.total_count.positive? %>
           <%= render "govuk_publishing_components/components/document_list", {
             disable_ga4: true,
