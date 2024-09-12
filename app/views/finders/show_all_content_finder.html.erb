@@ -143,57 +143,62 @@
           } %>
         <% end %>
 
-        <div id="search-selected-facets">
-          <% facet_presenter = facet_tags.present %>
-          <span class="govuk-visually-hidden">
-            <%= facet_presenter[:screen_reader_filter_description] %>
-          </span>
+        <% facet_presenter = facet_tags.present %>
+        <% if facet_presenter[:applied_filters].any? || (params[:order].present? && params[:order] != @sort_presenter.default_value) %>
+          <div id="search-selected-facets">
+            <%= render "govuk_publishing_components/components/heading", {
+              text: "Selected filters and sorting",
+              heading_level: 2,
+              font_size: "s",
+              margin_bottom: 2,
+            } %>
 
-          <ul class="facet-tag-list">
-            <%
-              filter_links = facet_presenter[:applied_filters].flat_map { |applied_filter|
-                applied_filter.map { |filter|
-                  value = if filter[:data_facet] == "level_one_taxon"
-                            "Topic: #{filter[:text]}"
-                          elsif filter[:data_facet] == "level_two_taxon"
-                            "Sub-topic: #{filter[:text]}"
-                          elsif filter[:data_facet] == "content_purpose_supergroup"
-                            "Type: #{filter[:text]}"
-                          elsif filter[:data_name] == "public_timestamp[from]"
-                            "After: #{filter[:text]}"
-                          elsif filter[:data_name] == "public_timestamp[to]"
-                            "Before: #{filter[:text]}"
-                          else
-                            filter[:text]
-                          end
+            <ul class="facet-tag-list">
+              <%
+                filter_links = facet_presenter[:applied_filters].flat_map { |applied_filter|
+                  applied_filter.map { |filter|
+                    value = if filter[:data_facet] == "level_one_taxon"
+                              "Topic: #{filter[:text]}"
+                            elsif filter[:data_facet] == "level_two_taxon"
+                              "Sub-topic: #{filter[:text]}"
+                            elsif filter[:data_facet] == "content_purpose_supergroup"
+                              "Type: #{filter[:text]}"
+                            elsif filter[:data_name] == "public_timestamp[from]"
+                              "After: #{filter[:text]}"
+                            elsif filter[:data_name] == "public_timestamp[to]"
+                              "Before: #{filter[:text]}"
+                            else
+                              filter[:text]
+                            end
 
-                  remove_param = if filter[:data_facet] == "level_one_taxon"
-                                    %w[level_one_taxon level_two_taxon]
-                                 else
-                                    [filter[:data_facet]]
-                                 end
+                    remove_param = if filter[:data_facet] == "level_one_taxon"
+                                      %w[level_one_taxon level_two_taxon]
+                                  else
+                                      [filter[:data_facet]]
+                                  end
 
-                  link = url_for(params.to_unsafe_h.except(*remove_param))
+                    link = url_for(params.to_unsafe_h.except(*remove_param))
 
-                  [value, link]
+                    [value, link]
+                  }
                 }
-              }
-            %>
-            <% filter_links.each do |text, link| %>
-              <li class="facet-tag-list__item">
-                <%= link_to(link, class: "facet-tag-list__link") do %>
-                  <span aria-hidden="true" class="facet-tag-list__remove-icon">
-                    &#x2715;
-                  </span>
-                  <span class="govuk-visually-hidden">
-                    Remove filter
-                  </span>
-                  <%= text %>
-                <% end %>
-              </li>
-            <% end %>
-          </ul>
-        </div>
+              %>
+              <% filter_links.each do |text, link| %>
+                <li class="facet-tag-list__item">
+                  <%= link_to(link, class: "facet-tag-list__link") do %>
+                    <span aria-hidden="true" class="facet-tag-list__remove-icon">
+                      &#x2715;
+                    </span>
+                    <span class="govuk-visually-hidden">
+                      Remove filter
+                    </span>
+                    <%= text %>
+                  <% end %>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
 
         <div id="search-results">
           <% if result_set_presenter.total_count.positive? %>
