@@ -3,6 +3,13 @@
     background-color: transparent;
   }
 
+  .gem-c-option-select__container {
+    height: auto;
+    max-height: none;
+    overflow: visible;
+    margin-bottom: govuk-spacing(4);
+  }
+
   .app-c-expander__button, .gem-c-option-select__button {
     color: $govuk-text-colour;
   }
