@@ -16,6 +16,8 @@ class SearchController < ApplicationController
     render(action: "no_search_term") && return
   end
 
+
+
 protected
 
   def fill_in_slimmer_headers(result_count)

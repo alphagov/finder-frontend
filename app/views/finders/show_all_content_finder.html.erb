@@ -53,116 +53,22 @@
           result_count: result_set_presenter.total_count,
           margin_bottom: 3,
         } do %>
-          <%
-            sort_options = @sort_presenter.to_hash[:options].reject { |option|
-              option[:disabled]
-            }.map { |option|
-              {
-                value: option[:value],
-                text: option[:label],
-                checked: option[:selected],
-              }
-            }
-          %>
-          <%= render 'govuk_publishing_components/components/radio', {
-            name: "order",
-            id: "order",
-            heading: "Sort by",
-            heading_level: 3,
-            heading_size: "s",
-            items: sort_options,
-            small: true,
-          } %>
 
-          <h3 class="govuk-heading-s">Date</h3>
-          <% date_facet = facets.select { _1.key == "public_timestamp" }.first %>
-          <div class="govuk-!-margin-bottom-0" id="<%= date_facet.key %>">
-            <%= render "govuk_publishing_components/components/date_input", {
-              legend_text: date_facet.name + " after",
-              name: date_facet.key + "_separate_from",
-              hint: "Enter a full date or just a year, for example, 13 12 1989 or 1989",
-              error_message: date_facet.error_message_from(@search_query),
-              items: [
-                {
-                  label: "Day",
-                  name: "day",
-                  width: 2,
-                  value: params[date_facet.key + "_separate_from"]&.fetch("day", nil),
-                },
-                {
-                  label: "Month",
-                  name: "month",
-                  width: 2,
-                  value: params[date_facet.key + "_separate_from"]&.fetch("month", nil),
-                },
-                {
-                  label: "Year",
-                  name: "year",
-                  width: 4,
-                  value: params[date_facet.key + "_separate_from"]&.fetch("year", nil),
-                }
-              ]
-            } %>
-
-            <%= render "govuk_publishing_components/components/date_input", {
-              legend_text: date_facet.name + " before",
-              name: date_facet.key + "_separate_to",
-              hint: "Enter a full date or just a year, for example, 13 12 1989 or 1989",
-              error_message: date_facet.error_message_from(@search_query),
-              items: [
-                {
-                  label: "Day",
-                  name: "day",
-                  width: 2,
-                  value: params[date_facet.key + "_separate_to"]&.fetch("day", nil),
-                },
-                {
-                  label: "Month",
-                  name: "month",
-                  width: 2,
-                  value: params[date_facet.key + "_separate_to"]&.fetch("month", nil),
-                },
-                {
-                  label: "Year",
-                  name: "year",
-                  width: 4,
-                  value: params[date_facet.key + "_separate_to"]&.fetch("year", nil),
-                }
-              ]
-            } %>
+          <div class="app-c-filter-panel__section">
+            <%= render 'components/sort' %>
           </div>
 
-          <h3 class="govuk-heading-s">Topic</h3>
-          <% taxon_facet = facets.select { _1.type == "taxon" }.first %>
-          <div class="js-taxonomy-select" data-module="taxonomy-select">
-            <%= render "govuk_publishing_components/components/select", {
-              id: 'level_one_taxon',
-              label: "Topic",
-              full_width: true,
-              options: taxon_facet.topics
-            } %>
-
-            <div class="js-required govuk-form-group">
-              <%= render "govuk_publishing_components/components/select", {
-                id: 'level_two_taxon',
-                label: "Sub-topic",
-                full_width: true,
-                options: taxon_facet.sub_topics
-              } %>
-            </div>
+          <div class="app-c-filter-panel__section">
+            <%= render 'components/filters/date' %>
           </div>
 
-          <h3 class="govuk-heading-s">Type</h3>
-          <% type_facet = facets.select { _1.key == "content_purpose_supergroup" }.first %>
-          <% options = type_facet.options(nil, type_facet.key) %>
-          <%= render 'govuk_publishing_components/components/checkboxes', {
-            name: "#{type_facet.key}[]",
-            heading: type_facet.name,
-            visually_hide_heading: true,
-            no_hint_text: true,
-            items: options,
-            small: true,
-          } %>
+          <div class="app-c-filter-panel__section">
+            <%= render 'components/filters/topic' %>
+          </div>
+
+          <div class="app-c-filter-panel__section">
+            <%= render 'components/filters/type' %>
+          </div>
 
           <% hidden_facets = facets.select { _1.type.in?(%w[hidden hidden_clearable]) } %>
           <% hidden_facets.each do |hf| %>

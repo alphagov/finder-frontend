@@ -1,0 +1,22 @@
+<% if params[:content_purpose_supergroup].present? %>
+  <% type_title = "<dl class=\"app-c-filter-panel__section-header\"><dt class=\"app-c-filter-panel__section-title\"><span class=\"govuk-visually-hidden\">filter by </span>Type</dt><dd class=\"app-c-filter-panel__section-count\">#{params[:content_purpose_supergroup].count} selected</dd></dl>" %>
+<% end %>
+          
+<%= render "govuk_publishing_components/components/details", {
+    title: sanitize(type_title) || "Type",
+    open: false,
+    margin_bottom: 0,
+} do %>
+
+          <% type_facet = facets.select { _1.key == "content_purpose_supergroup" }.first %>
+          <% options = type_facet.options(nil, type_facet.key) %>
+          <%= render 'govuk_publishing_components/components/checkboxes', {
+            name: "#{type_facet.key}[]",
+            heading: type_facet.name,
+            visually_hide_heading: true,
+            no_hint_text: true,
+            items: options,
+            small: true,
+          } %>
+  
+<% end %>

@@ -1,0 +1,63 @@
+<%= render "govuk_publishing_components/components/details", {
+    title: sanitize("<dl class=\"app-c-filter-panel__section-header\"><dt class=\"app-c-filter-panel__section-title\"><span class=\"govuk-visually-hidden\">filter by </span>Date</dt><dd class=\"app-c-filter-panel__section-count\">1 selected</dd></dl>"),
+    open: false,
+    margin_bottom: 0,
+} do %>
+
+<% date_facet = facets.select { _1.key == "public_timestamp" }.first %>
+<div class="govuk-!-margin-bottom-0" id="<%= date_facet.key %>">
+  <%= render "govuk_publishing_components/components/date_input", {
+    legend_text: date_facet.name + " after",
+    name: date_facet.key + "_separate_from",
+    hint: "Enter a full date or just a year, for example, 13 12 1989 or 1989",
+    error_message: date_facet.error_message_from(@search_query),
+    items: [
+      {
+        label: "Day",
+        name: "day",
+        width: 2,
+        value: params[date_facet.key + "_separate_from"]&.fetch("day", nil),
+      },
+      {
+        label: "Month",
+        name: "month",
+        width: 2,
+        value: params[date_facet.key + "_separate_from"]&.fetch("month", nil),
+      },
+      {
+        label: "Year",
+        name: "year",
+        width: 4,
+        value: params[date_facet.key + "_separate_from"]&.fetch("year", nil),
+      }
+    ]
+  } %>
+
+  <%= render "govuk_publishing_components/components/date_input", {
+    legend_text: date_facet.name + " before",
+    name: date_facet.key + "_separate_to",
+    hint: "Enter a full date or just a year, for example, 13 12 1989 or 1989",
+    error_message: date_facet.error_message_from(@search_query),
+    items: [
+      {
+        label: "Day",
+        name: "day",
+        width: 2,
+        value: params[date_facet.key + "_separate_to"]&.fetch("day", nil),
+      },
+      {
+        label: "Month",
+        name: "month",
+        width: 2,
+        value: params[date_facet.key + "_separate_to"]&.fetch("month", nil),
+      },
+      {
+        label: "Year",
+        name: "year",
+        width: 4,
+        value: params[date_facet.key + "_separate_to"]&.fetch("year", nil),
+      }
+    ]
+  } %>
+</div>
+<% end %>

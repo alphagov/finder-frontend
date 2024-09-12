@@ -1,0 +1,31 @@
+<% if params[:level_one_taxon].present? || params[:level_two_taxon].present?
+  topics = %i[level_one_taxon level_two_taxon]
+  count = topics.count { |topic| params[topic].present? }
+
+  topic_title = "<dl class=\"app-c-filter-panel__section-header\"><dt class=\"app-c-filter-panel__section-title\"><span class=\"govuk-visually-hidden\">filter by </span>Topic</dt><dd class=\"app-c-filter-panel__section-count\">#{count} selected</dd></dl>"
+end %>
+          
+<%= render "govuk_publishing_components/components/details", {
+    title: sanitize(topic_title) || "Topic",
+    open: false,
+    margin_bottom: 0,
+} do %>
+  <% taxon_facet = facets.select { _1.type == "taxon" }.first %>
+  <div class="js-taxonomy-select" data-module="taxonomy-select">
+    <%= render "govuk_publishing_components/components/select", {
+      id: 'level_one_taxon',
+      label: "Topic",
+      full_width: true,
+      options: taxon_facet.topics
+    } %>
+
+    <div class="js-required govuk-form-group">
+      <%= render "govuk_publishing_components/components/select", {
+        id: 'level_two_taxon',
+        label: "Sub-topic",
+        full_width: true,
+        options: taxon_facet.sub_topics
+      } %>
+    </div>
+  </div>
+<% end %>

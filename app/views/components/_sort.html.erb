@@ -1,0 +1,32 @@
+<%
+case params[:order]
+  when "updated-newest"
+    heading = "<dl class=\"app-c-filter-panel__section-header\"><dt class=\"app-c-filter-panel__section-title\">Sort by</dt><dd class=\"app-c-filter-panel__section-count\">Newest</dd></dl>"
+  when "updated-oldest"
+    heading = "<dl class=\"app-c-filter-panel__section-header\"><dt class=\"app-c-filter-panel__section-title\">Sort by</dt><dd class=\"app-c-filter-panel__section-count\">Oldest</dd></dl>"
+  else
+    heading = "Sort by"
+end
+%>
+<%
+  sort_options = @sort_presenter.to_hash[:options].reject { |option|
+    option[:disabled]
+  }.map { |option|
+    {
+      value: option[:value],
+      text: option[:label],
+      checked: option[:selected],
+    }
+  }
+%>
+          
+<%= render 'govuk_publishing_components/components/radio', {
+  name: "order",
+  id: "order",
+  heading: sanitize(heading),
+  heading_level: 3,
+  heading_size: "s",
+  items: sort_options,
+  small: true,
+  margin_bottom: 0
+} %>
