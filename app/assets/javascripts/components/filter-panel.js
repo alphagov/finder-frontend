@@ -8,7 +8,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
     constructor ($module) {
       this.$module = $module
       this.$button = this.$module.querySelector('.app-c-filter-panel__button')
-      this.$panel = this.$module.querySelector(`#${this.$button.getAttribute('aria-controls')}`)
+      this.$content = this.$module.querySelector('.app-c-filter-panel__content')
     }
 
     init () {
@@ -16,7 +16,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
         this.$button.setAttribute('aria-expanded', 'true')
       } else {
         this.$button.setAttribute('aria-expanded', 'false')
-        this.$panel.setAttribute('hidden', '')
+        this.$content.setAttribute('hidden', '')
       }
 
       this.$button.addEventListener('click', this.onButtonClick.bind(this))
@@ -30,7 +30,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
     toggle () {
       const newState = this.$button.getAttribute('aria-expanded') !== 'true'
       this.$button.setAttribute('aria-expanded', newState)
-      this.$panel.toggleAttribute('hidden')
+      this.$content.toggleAttribute('hidden')
     }
   }
 

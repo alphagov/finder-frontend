@@ -37,12 +37,12 @@ describe('Filter panel module', () => {
   })
 
   it('is labelled by the open/close button', () => {
-    expect(filterPanel.$panel.getAttribute('aria-labelledby')).toBe(filterPanel.$button.id)
+    expect(filterPanel.$content.getAttribute('aria-labelledby')).toBe(filterPanel.$button.id)
   })
 
   it('closes the panel on initialisation', () => {
     expect(filterPanel.$button.getAttribute('aria-expanded')).toBe('false')
-    expect(filterPanel.$panel.hasAttribute('hidden')).toBe(true)
+    expect(filterPanel.$content.hasAttribute('hidden')).toBe(true)
   })
 
   it('does not close the panel on initialisation if the open attribute is set', () => {
@@ -51,20 +51,20 @@ describe('Filter panel module', () => {
     filterPanel.init()
 
     expect(filterPanel.$button.getAttribute('aria-expanded')).toBe('true')
-    expect(filterPanel.$panel.hasAttribute('hidden')).toBe(false)
+    expect(filterPanel.$content.hasAttribute('hidden')).toBe(false)
   });
 
   it('sets the correct attributes when panel is opened', () => {
     filterPanel.$button.click()
     expect(filterPanel.$button.getAttribute('aria-expanded')).toBe('true')
-    expect(filterPanel.$panel.hasAttribute('hidden')).toBe(false)
+    expect(filterPanel.$content.hasAttribute('hidden')).toBe(false)
   })
 
   it('sets the correct attributes when panel is closed', () => {
     filterPanel.$button.click()
     filterPanel.$button.click()
     expect(filterPanel.$button.getAttribute('aria-expanded')).toBe('false')
-    expect(filterPanel.$panel.hasAttribute('hidden')).toBe(true)
+    expect(filterPanel.$content.hasAttribute('hidden')).toBe(true)
     expect(document.activeElement).not.toBe(filterPanel.$button)
   })
 
