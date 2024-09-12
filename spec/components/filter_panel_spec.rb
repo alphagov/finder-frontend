@@ -13,11 +13,11 @@ describe "Filter panel component", type: :view do
     end
   end
 
-  it "raises an error if button_text argument is omitted" do
+  it "raises an error if button_text option is omitted" do
     expect { render_component(result_count: 42) }.to raise_error(/button_text/)
   end
 
-  it "raises an error if result_count argument is omitted" do
+  it "raises an error if result_count option is omitted" do
     expect { render_component(button_text: "Oops") }.to raise_error(/result_count/)
   end
 
