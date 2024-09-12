@@ -86,9 +86,6 @@
               value: date_facet.user_supplied_from_date,
               hint: "For example, 2005 or 21/11/2014",
               error_message: date_facet.error_message_from(@search_query),
-              data: {
-                ga4_section: date_facet.name + " after"
-              }
             } %>
 
             <%= render "govuk_publishing_components/components/input", {
@@ -100,9 +97,6 @@
               value: date_facet.user_supplied_to_date,
               hint: "For example, 2005 or 21/11/2014",
               error_message: date_facet.error_message_to(@search_query),
-              data: {
-                ga4_section: date_facet.name + " before"
-              }
             } %>
           </div>
 
