@@ -85,7 +85,7 @@
 
           <% hidden_facets = facets.select { _1.type.in?(%w[hidden hidden_clearable]) } %>
           <% hidden_facets.each do |hf| %>
-            <%# ... %>
+            <%= render hf, facet: hf %>
           <% end %>
 
           <%= render "govuk_publishing_components/components/button", {
