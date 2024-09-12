@@ -365,3 +365,34 @@ mark {
   padding-left: 13px;
   padding-right: 13px;
 }
+
+// HACK HACK HACK
+// Below are MVP hacks just for getting DAC prototype ready
+.facet-tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: govuk-spacing(1);
+
+  margin: 0 0 govuk-spacing(4) 0;
+  padding: 0;
+  list-style-type: none;
+
+  .facet-tag-list__item {
+    display: block;
+    flex: 0 1 auto;
+  }
+
+  .facet-tag-list__link {
+    display: block;
+    color: $govuk-text-colour;
+    text-decoration: none;
+    padding: govuk-spacing(2);
+    background-color: govuk-colour("light-grey");
+    border: 1px solid govuk-colour("dark-grey");
+    border-radius: govuk-spacing(1);
+  }
+
+  .facet-tag-list__remove-icon {
+    margin-right: govuk-spacing(1);
+  }
+}

@@ -148,7 +148,21 @@
           <span class="govuk-visually-hidden">
             <%= facet_presenter[:screen_reader_filter_description] %>
           </span>
-          <%= render "facet_tags", facet_tags.present %>
+
+          <ul class="facet-tag-list">
+            <% facet_presenter[:applied_filters].each do |applied_filter| %>
+              <% applied_filter.each do |filter| %>
+                <li class="facet-tag-list__item">
+                  <a class="facet-tag-list__link" href="#">
+                    <span class="facet-tag-list__remove-icon">
+                      &#x2715;
+                    </span>
+                    <%= filter[:text] %>
+                  </a>
+                </li>
+              <% end %>
+            <% end %>
+          </ul>
         </div>
 
         <div id="search-results">
