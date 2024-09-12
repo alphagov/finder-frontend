@@ -25,7 +25,7 @@ examples:
   open:
     data:
       result_count: 1989
-      button_text: Filter and sort
+      button_text: Open sesame
       open: true
       block: |
         <p class="govuk-body">
