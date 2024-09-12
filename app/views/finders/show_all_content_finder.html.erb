@@ -58,10 +58,35 @@
           <%= render "sort_options", @sort_presenter.to_hash %>
 
           <h3 class="govuk-heading-s">Date</h3>
+          <% date_facet = facets.select { _1.key == "public_timestamp" }.first %>
 
           <h3 class="govuk-heading-s">Topic</h3>
+          <% taxon_facet = facets.select { _1.type == "taxon" }.first %>
+          <div class="js-taxonomy-select" data-module="taxonomy-select">
+            <%= render "govuk_publishing_components/components/select", {
+              id: 'level_one_taxon',
+              label: "Topic",
+              full_width: true,
+              options: taxon_facet.topics
+            } %>
+
+            <div class="js-required govuk-form-group" data-ga4-section="Sub-topic">
+              <%= render "govuk_publishing_components/components/select", {
+                id: 'level_two_taxon',
+                label: "Sub-topic",
+                full_width: true,
+                options: taxon_facet.sub_topics
+              } %>
+            </div>
+          </div>
 
           <h3 class="govuk-heading-s">Type</h3>
+          <% type_facet = facets.select { _1.key == "content_purpose_supergroup" }.first %>
+
+          <% hidden_facets = facets.select { _1.type.in?(%w[hidden hidden_clearable]) } %>
+          <% hidden_facets.each do |hf| %>
+            <%# ... %>
+          <% end %>
 
           <%= render "govuk_publishing_components/components/button", {
             text: "Apply filters",

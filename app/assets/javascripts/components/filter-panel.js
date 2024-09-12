@@ -20,6 +20,17 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
       }
 
       this.$button.addEventListener('click', this.onButtonClick.bind(this))
+
+      // TODO: This does not belong here in the long run, but makes it work for now
+      const taxonomySelect = this.$module.querySelector('.js-taxonomy-select')
+      if (taxonomySelect) {
+        this.taxonomy = this.taxonomy || new GOVUK.TaxonomySelect({ $el: taxonomySelect })
+        this.taxonomy.update()
+
+        taxonomySelect.querySelector('#level_one_taxon').addEventListener('change', (_event) => {
+          this.taxonomy.update()
+        })
+      }
     }
 
     onButtonClick (event) {
