@@ -143,6 +143,14 @@
           } %>
         <% end %>
 
+        <div id="search-selected-facets">
+          <% facet_presenter = facet_tags.present %>
+          <span class="govuk-visually-hidden">
+            <%= facet_presenter[:screen_reader_filter_description] %>
+          </span>
+          <%= render "facet_tags", facet_tags.present %>
+        </div>
+
         <div id="search-results">
           <% if result_set_presenter.total_count.positive? %>
             <%= render "govuk_publishing_components/components/document_list", {
