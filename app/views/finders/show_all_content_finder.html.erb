@@ -52,6 +52,7 @@
           button_text: "Filter and sort",
           result_count: result_set_presenter.total_count,
           margin_bottom: 3,
+          open: true, # TODO: Remove me
         } do %>
           <%
             sort_options = @sort_presenter.to_hash[:options].reject { |option|
@@ -77,26 +78,58 @@
           <h3 class="govuk-heading-s">Date</h3>
           <% date_facet = facets.select { _1.key == "public_timestamp" }.first %>
           <div class="govuk-!-margin-bottom-0" id="<%= date_facet.key %>">
-            <%= render "govuk_publishing_components/components/input", {
-              label: {
-                text: date_facet.name + " after"
-              },
-              name: date_facet.key + "[from]",
-              id: date_facet.key + "[from]",
-              value: date_facet.user_supplied_from_date,
-              hint: "For example, 2005 or 21/11/2014",
+            <%= render "govuk_publishing_components/components/date_input", {
+              legend_text: date_facet.name + " after",
+              name: date_facet.key + "_separate_from",
+              hint: "Enter a full date or just a year, for example, 13 12 1989 or 1989",
               error_message: date_facet.error_message_from(@search_query),
+              items: [
+                {
+                  label: "Day",
+                  name: "day",
+                  width: 2,
+                  value: params[date_facet.key + "_separate_from"]&.fetch("day", nil),
+                },
+                {
+                  label: "Month",
+                  name: "month",
+                  width: 2,
+                  value: params[date_facet.key + "_separate_from"]&.fetch("month", nil),
+                },
+                {
+                  label: "Year",
+                  name: "year",
+                  width: 4,
+                  value: params[date_facet.key + "_separate_from"]&.fetch("year", nil),
+                }
+              ]
             } %>
 
-            <%= render "govuk_publishing_components/components/input", {
-              label: {
-                text: date_facet.name + " before"
-              },
-              name: date_facet.key + "[to]",
-              id: date_facet.key + "[to]",
-              value: date_facet.user_supplied_to_date,
-              hint: "For example, 2005 or 21/11/2014",
-              error_message: date_facet.error_message_to(@search_query),
+            <%= render "govuk_publishing_components/components/date_input", {
+              legend_text: date_facet.name + " before",
+              name: date_facet.key + "_separate_to",
+              hint: "Enter a full date or just a year, for example, 13 12 1989 or 1989",
+              error_message: date_facet.error_message_from(@search_query),
+              items: [
+                {
+                  label: "Day",
+                  name: "day",
+                  width: 2,
+                  value: params[date_facet.key + "_separate_to"]&.fetch("day", nil),
+                },
+                {
+                  label: "Month",
+                  name: "month",
+                  width: 2,
+                  value: params[date_facet.key + "_separate_to"]&.fetch("month", nil),
+                },
+                {
+                  label: "Year",
+                  name: "year",
+                  width: 4,
+                  value: params[date_facet.key + "_separate_to"]&.fetch("year", nil),
+                }
+              ]
             } %>
           </div>
 
@@ -173,6 +206,10 @@
 
                     remove_param = if filter[:data_facet] == "level_one_taxon"
                                       %w[level_one_taxon level_two_taxon]
+                                  elsif filter[:data_name] == "public_timestamp[from]"
+                                      %w[public_timestamp public_timestamp_separate_from]
+                                  elsif filter[:data_name] == "public_timestamp[to]"
+                                      %w[public_timestamp public_timestamp_separate_to]
                                   else
                                       [filter[:data_facet]]
                                   end

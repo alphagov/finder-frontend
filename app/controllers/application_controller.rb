@@ -90,6 +90,23 @@ private
         permitted_params["keywords"] = permitted_params.delete("q")
       end
 
+      # TODO: HACK for DAC test
+      # Convert a query with separate date fields into a single date field
+      from_date = permitted_params[:public_timestamp_separate_from]
+      if from_date.present?
+        permitted_params[:public_timestamp] ||= {}
+        permitted_params[:public_timestamp][:from] = [
+          from_date[:day], from_date[:month], from_date[:year]
+        ].compact_blank.join("/")
+      end
+      to_date = permitted_params[:public_timestamp_separate_to]
+      if to_date.present?
+        permitted_params[:public_timestamp] ||= {}
+        permitted_params[:public_timestamp][:to] = [
+          to_date[:day], to_date[:month], to_date[:year]
+        ].compact_blank.join("/")
+      end
+
       ParamsCleaner.new(permitted_params).cleaned
     end
   end
