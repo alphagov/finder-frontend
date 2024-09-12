@@ -43,6 +43,11 @@
           <%= render 'spelling_suggestion' %>
         </div>
 
+        <%= render "govuk_publishing_components/components/skip_link", {
+          text: 'Skip to results',
+          href: '#search-results',}
+        %>
+
         <%= render "components/filter_panel", {
           button_text: "Filter and sort",
           result_count: result_set_presenter.total_count,
@@ -51,23 +56,25 @@
           TODO: Add filter panel content here
         <% end %>
 
-        <% if result_set_presenter.total_count.positive? %>
-          <%= render "govuk_publishing_components/components/document_list", {
-            disable_ga4: true,
-            items: result_set_presenter.search_results_content[:document_list_component_data],
-          } %>
-        <% else %>
-          <div class='no-results govuk-!-font-size-19'>
-            <p class='govuk-body govuk-!-font-weight-bold'>There are no matching results.</p>
-            <p class='govuk-body'>Improve your search results by:</p>
-            <ul class="govuk-list govuk-list--bullet">
-              <li>removing filters</li>
-              <li>double-checking your spelling</li>
-              <li>using fewer keywords</li>
-              <li>searching for something less specific</li>
-            </ul>
-          </div>
-        <% end %>
+        <div id="search-results">
+          <% if result_set_presenter.total_count.positive? %>
+            <%= render "govuk_publishing_components/components/document_list", {
+              disable_ga4: true,
+              items: result_set_presenter.search_results_content[:document_list_component_data],
+            } %>
+          <% else %>
+            <div class='no-results govuk-!-font-size-19'>
+              <p class='govuk-body govuk-!-font-weight-bold'>There are no matching results.</p>
+              <p class='govuk-body'>Improve your search results by:</p>
+              <ul class="govuk-list govuk-list--bullet">
+                <li>removing filters</li>
+                <li>double-checking your spelling</li>
+                <li>using fewer keywords</li>
+                <li>searching for something less specific</li>
+              </ul>
+            </div>
+          <% end %>
+        </div>
 
         <%= render "govuk_publishing_components/components/previous_and_next_navigation", @pagination.next_and_prev_links %>
       </div>
