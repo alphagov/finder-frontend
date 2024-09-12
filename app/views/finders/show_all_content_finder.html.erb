@@ -48,8 +48,16 @@
           button_text: "Filter and sort",
           result_count: result_set_presenter.total_count,
           margin_bottom: 3,
+          open: true # TODO: temporary, to make local testing easier
         } do %>
-          TODO: Add filter panel content here
+          <% facets.each_with_index_and_count do |facet, index, count| %>
+            <%= render partial: facet, object: facet, locals: { index:, count: } %>
+          <% end %>
+          <%= render "govuk_publishing_components/components/button", {
+            text: "Apply filters",
+            type: "submit",
+            margin_top: 3,
+          } %>
         <% end %>
 
         <% if result_set_presenter.total_count.positive? %>
