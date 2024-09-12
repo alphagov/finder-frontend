@@ -144,7 +144,7 @@
         <% end %>
 
         <% facet_presenter = facet_tags.present %>
-        <% if facet_presenter[:applied_filters].any? || (params[:order].present? && params[:order] != @sort_presenter.default_value) %>
+        <% if facet_presenter[:applied_filters].any? || (params[:order].present? && !params[:order].in?(%w[relevance most-viewed])) %>
           <div id="search-selected-facets" class="govuk-!-margin-bottom-4">
             <%= render "govuk_publishing_components/components/heading", {
               text: "Selected filters and sorting",
@@ -183,7 +183,7 @@
                   }
                 }
               %>
-              <% if params[:order].present? && params[:order] != @sort_presenter.default_value %>
+              <% if params[:order].present? && !params[:order].in?(%w[relevance most-viewed]) %>
                 <li class="facet-tag-list__item">
                   <% link = url_for(params.to_unsafe_h.except(:order)) %>
                   <%= link_to(link, class: "facet-tag-list__link") do %>
