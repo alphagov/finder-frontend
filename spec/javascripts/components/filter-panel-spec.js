@@ -49,6 +49,7 @@ describe('Filter panel module', () => {
     loadFilterPanelComponent(html)
     filterPanel.$module.setAttribute('open', 'open')
     filterPanel.init()
+
     expect(filterPanel.$button.getAttribute('aria-expanded')).toBe('true')
     expect(filterPanel.$panel.hasAttribute('hidden')).toBe(false)
   });
