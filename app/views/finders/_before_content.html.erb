@@ -1,0 +1,26 @@
+<% content_for :before_content do %>
+    <div class="app-before-content<%= " app-before-content--inverse" if is_inverse? %>">
+        <div class="govuk-width-container">
+            <% if content_item.show_phase_banner? %>
+                <%= render 'govuk_publishing_components/components/phase_banner', {
+                    phase: content_item.phase, 
+                    message: sanitize(content_item.phase_message), 
+                    inverse: is_inverse?
+                } %>
+            <% end %>
+
+            <% if @breadcrumbs.breadcrumbs %>
+                <%= render 'govuk_publishing_components/components/breadcrumbs', {
+                    breadcrumbs: @breadcrumbs.breadcrumbs,
+                    inverse: is_inverse?,
+                    collapse_on_mobile: true
+                } %>
+            <% else %>
+                <%= render 'govuk_publishing_components/components/contextual_breadcrumbs', {     
+                    content_item: content_item.as_hash,
+                    inverse: is_inverse?
+                } %>
+            <% end %>
+        </div>
+    </div>
+<% end %>

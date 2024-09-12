@@ -1,18 +1,4 @@
 <div class="govuk-width-container">
-  <% if content_item.show_phase_banner? %>
-    <%= render 'govuk_publishing_components/components/phase_banner', phase: content_item.phase, message: sanitize(content_item.phase_message), inverse: inverse %>
-  <% end %>
-
-  <% if @breadcrumbs.breadcrumbs %>
-    <%= render 'govuk_publishing_components/components/breadcrumbs', {
-      breadcrumbs: @breadcrumbs.breadcrumbs,
-      inverse: inverse,
-      collapse_on_mobile: true
-    } %>
-  <% else %>
-    <%= render 'govuk_publishing_components/components/contextual_breadcrumbs', content_item: content_item.as_hash, inverse: inverse %>
-  <% end %>
-
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
       <% if content_item.all_content_finder? %>
