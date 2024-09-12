@@ -12,6 +12,7 @@ accessibility_criteria: |
   - toggle the visibility of the panel when interacted with
   - indicate the expanded state when panel is visible
   - indicate the collapsed state when panel is hidden
+  - be visible by default without Javascript enabled
 examples:
   default:
     data:

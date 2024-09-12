@@ -52,4 +52,10 @@ describe "Filter panel component", type: :view do
 
     assert_select ".app-c-filter-panel .app-c-filter-panel__content p", text: "Hello, world!"
   end
+
+  it "does not render the content hidden to begin with" do
+    render_component(button_text: "Filter", result_count: 42)
+
+    assert_select ".app-c-filter-panel[hidden]", false
+  end
 end
