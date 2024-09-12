@@ -75,10 +75,12 @@
             <%= render hf, facet: hf %>
           <% end %>
 
-          <%= render "govuk_publishing_components/components/button", {
-            text: "Apply filters",
-            type: "submit",
-          } %>
+          <div class="govuk-button-group">
+            <%= render "govuk_publishing_components/components/button", {
+              text: "Apply filters",
+              type: "submit",
+            } %>
+          </div>
         <% end %>
 
         <% facet_presenter = facet_tags.present %>

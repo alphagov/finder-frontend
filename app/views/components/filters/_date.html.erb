@@ -1,5 +1,16 @@
+<% if params[:public_timestamp_separate_from].present? || params[:public_timestamp_separate_to].present?
+  dates = %i[public_timestamp_separate_from public_timestamp_separate_to]
+  count = dates.count { |date| params[date].values_at("day", "month", "year").any?(&:present?)  }
+
+  if count > 0
+    date_title = sanitize("<dl class=\"app-c-filter-panel__section-header\"><dt class=\"app-c-filter-panel__section-title\"><span class=\"govuk-visually-hidden\">filter by </span>Date</dt><dd class=\"app-c-filter-panel__section-count\">#{count} selected</dd></dl>")
+  else
+    date_title = sanitize("<span class=\"app-c-filter-panel__section-header\"><span class=\"app-c-filter-panel__section-title\"><span class=\"govuk-visually-hidden\">filter by </span>Date</span></span>")
+  end
+end %>
+
 <%= render "govuk_publishing_components/components/details", {
-    title: sanitize("<dl class=\"app-c-filter-panel__section-header\"><dt class=\"app-c-filter-panel__section-title\"><span class=\"govuk-visually-hidden\">filter by </span>Date</dt><dd class=\"app-c-filter-panel__section-count\">1 selected</dd></dl>"),
+    title: sanitize(date_title) || "Date",
     open: false,
     margin_bottom: 0,
 } do %>

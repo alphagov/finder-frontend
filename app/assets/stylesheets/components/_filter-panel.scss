@@ -59,13 +59,9 @@
   padding-top: 20px;
   margin-bottom: 20px;
 
-
   &:first-child {
     border-top: none;
-  }
-
-  .govuk-form-group {
-    margin-bottom: 0;
+    padding-top: 0;
   }
 
   .govuk-details {
@@ -75,6 +71,7 @@
       border-left: none;
       padding-left: 0;
       margin: 0;
+      padding-bottom: 0;
     }
 
     &[open] .govuk-details__summary::before {
@@ -116,6 +113,7 @@
       width: 100%; 
       color: $govuk-text-colour;
       padding-left: 10px;
+      text-decoration: none;
       @include govuk-font(19, $weight: bold);
     }
   }
@@ -127,7 +125,7 @@
 
     &-text, .govuk-fieldset__heading {
       display: flex;
-      width: 100%; 
+      width: 100%;
     }
   }
 
@@ -150,5 +148,15 @@
 
 .app-c-filter-panel__section-count {
   @include govuk-font(16, $weight: regular);
-  text-decoration: none;
+  line-height: 1.6;
+}
+
+.app-c-filter-panel {
+  .govuk-button {
+    width: 100%;
+  }
+
+  .govuk-button-group {
+    margin-bottom:0;
+  }
 }
