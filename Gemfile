@@ -11,7 +11,9 @@ gem "dartsass-rails"
 gem "gds-api-adapters"
 gem "govuk_ab_testing"
 gem "govuk_app_config"
-gem "govuk_publishing_components"
+gem "govuk_publishing_components",
+    git: "https://github.com/alphagov/govuk_publishing_components.git",
+    branch: "final-a11y-autocomp-built-gem"
 gem "rest-client"
 gem "slimmer"
 gem "sprockets-rails"

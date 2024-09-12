@@ -31,12 +31,14 @@
         } %>
 
         <div id="keywords" role="search" aria-label="Sitewide" data-ga4-change-category="update-keyword text">
-          <%= render "govuk_publishing_components/components/search", {
+          <%= render "govuk_publishing_components/components/search_with_autocomplete", {
             id: "finder-keyword-search",
             name: "keywords",
             type: 'search',
             value: result_set_presenter.user_supplied_keywords,
             disable_corrections: true,
+            source: "https://www.gov.uk/api/search.json?suggest=autocomplete",
+            source_key: "suggested_autocomplete"
           } %>
         </div>
 
