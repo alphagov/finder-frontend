@@ -145,7 +145,7 @@
 
         <% facet_presenter = facet_tags.present %>
         <% if facet_presenter[:applied_filters].any? || (params[:order].present? && params[:order] != @sort_presenter.default_value) %>
-          <div id="search-selected-facets">
+          <div id="search-selected-facets" class="govuk-!-margin-bottom-4">
             <%= render "govuk_publishing_components/components/heading", {
               text: "Selected filters and sorting",
               heading_level: 2,
@@ -183,6 +183,20 @@
                   }
                 }
               %>
+              <% if params[:order].present? && params[:order] != @sort_presenter.default_value %>
+                <li class="facet-tag-list__item">
+                  <% link = url_for(params.to_unsafe_h.except(:order)) %>
+                  <%= link_to(link, class: "facet-tag-list__link") do %>
+                    <span aria-hidden="true" class="facet-tag-list__remove-icon">
+                      &#x2715;
+                    </span>
+                    <span class="govuk-visually-hidden">
+                      Remove
+                    </span>
+                    Sort: <%= @sort_presenter.to_hash[:options].find { _1[:value] == params[:order] }[:label] %>
+                  <% end %>
+                </li>
+              <% end %>
               <% filter_links.each do |text, link| %>
                 <li class="facet-tag-list__item">
                   <%= link_to(link, class: "facet-tag-list__link") do %>
@@ -197,10 +211,14 @@
                 </li>
               <% end %>
             </ul>
+
+            <%= link_to "Clear all filters and sorting", finder_path("search/all", q: result_set_presenter.user_supplied_keywords), class: "govuk-link govuk-link--no-visited-state" %>
           </div>
         <% end %>
 
         <div id="search-results">
+          <h2 class="govuk-visually-hidden">Search results</h2>
+
           <% if result_set_presenter.total_count.positive? %>
             <%= render "govuk_publishing_components/components/document_list", {
               disable_ga4: true,
