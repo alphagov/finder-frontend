@@ -17,4 +17,10 @@
   .gem-c-option-select__selected-counter, .app-c-expander__selected-counter {
     float: right;
   }
+
+  .govuk-checkboxes__label, .govuk-radios__label {
+    &::before {
+        background-color: govuk-colour('white');
+    }
+  }
 }
