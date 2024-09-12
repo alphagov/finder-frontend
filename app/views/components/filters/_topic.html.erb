@@ -2,7 +2,7 @@
   topics = %i[level_one_taxon level_two_taxon]
   count = topics.count { |topic| params[topic].present? }
 
-  topic_title = "<dl class=\"app-c-filter-panel__section-header\"><dt class=\"app-c-filter-panel__section-title\"><span class=\"govuk-visually-hidden\">filter by </span>Topic</dt><dd class=\"app-c-filter-panel__section-count\">#{count} selected</dd></dl>"
+  topic_title = "<span class=\"app-c-filter-panel__section-header\"><span class=\"app-c-filter-panel__section-title\"><span class=\"govuk-visually-hidden\">filter by </span>Topic</span><span class=\"app-c-filter-panel__section-count\">#{count} selected</span></span>"
 end %>
           
 <%= render "govuk_publishing_components/components/details", {

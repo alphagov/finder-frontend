@@ -2,10 +2,10 @@
 case params[:order]
   when "updated-newest"
     text = "Newest"
-    heading = "<dl class=\"app-c-filter-panel__section-header\"><dt class=\"app-c-filter-panel__section-title\">Sort by</dt><dd class=\"app-c-filter-panel__section-count\">#{text}</dd></dl>"
+    heading = "<span class=\"app-c-filter-panel__section-header\"><span class=\"app-c-filter-panel__section-title\">Sort by</span><span class=\"app-c-filter-panel__section-count\">#{text}</span></span>"
   when "updated-oldest"
     text = "Oldest"
-    heading = "<dl class=\"app-c-filter-panel__section-header\"><dt class=\"app-c-filter-panel__section-title\">Sort by</dt><dd class=\"app-c-filter-panel__section-count\">#{text}</dd></dl>"
+    heading = "<span class=\"app-c-filter-panel__section-header\"><span class=\"app-c-filter-panel__section-title\">Sort by</span><span class=\"app-c-filter-panel__section-count\">#{text}</span></span>"
   else
     heading = "Sort by"
 end

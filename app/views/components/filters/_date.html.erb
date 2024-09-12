@@ -3,7 +3,7 @@
   count = dates.count { |date| params[date].values_at("day", "month", "year").any?(&:present?)  }
 
   if count > 0
-    date_title = sanitize("<dl class=\"app-c-filter-panel__section-header\"><dt class=\"app-c-filter-panel__section-title\"><span class=\"govuk-visually-hidden\">filter by </span>Date</dt><dd class=\"app-c-filter-panel__section-count\">Entered</dd></dl>")
+    date_title = sanitize("<span class=\"app-c-filter-panel__section-header\"><span class=\"app-c-filter-panel__section-title\"><span class=\"govuk-visually-hidden\">filter by </span>Date</span><span class=\"app-c-filter-panel__section-count\">Entered</span></span>")
   else
     date_title = sanitize("<span class=\"app-c-filter-panel__section-header\"><span class=\"app-c-filter-panel__section-title\"><span class=\"govuk-visually-hidden\">filter by </span>Date</span></span>")
   end

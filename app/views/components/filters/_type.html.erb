@@ -1,6 +1,6 @@
 <%
   if params[:content_purpose_supergroup].present?
-    type_title = "<dl class=\"app-c-filter-panel__section-header\"><dt class=\"app-c-filter-panel__section-title\"><span class=\"govuk-visually-hidden\">filter by </span>Type</dt><dd class=\"app-c-filter-panel__section-count\">#{params[:content_purpose_supergroup].count} selected</dd></dl>"
+    type_title = "<span class=\"app-c-filter-panel__section-header\"><span class=\"app-c-filter-panel__section-title\"><span class=\"govuk-visually-hidden\">filter by </span>Type</span><span class=\"app-c-filter-panel__section-count\">#{params[:content_purpose_supergroup].count} selected</span></span>"
   else
    type_title = "<span class=\"app-c-filter-panel__section-header\"><span class=\"app-c-filter-panel__section-title\"><span class=\"govuk-visually-hidden\">filter by content </span>Type</span></span>"
   end
