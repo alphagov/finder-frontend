@@ -58,4 +58,10 @@ describe "Filter panel component", type: :view do
 
     assert_select ".app-c-filter-panel[hidden]", false
   end
+
+  it "respects the standard 'open' option" do
+    render_component(button_text: "Filter", result_count: 42, open: true)
+
+    assert_select ".app-c-filter-panel[open=open]"
+  end
 end

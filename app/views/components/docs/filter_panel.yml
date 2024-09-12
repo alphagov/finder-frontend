@@ -22,6 +22,15 @@ examples:
         <p class="govuk-body">
           I can contain arbitrary content, usually a set of filters and sort options.
         </p>
+  open:
+    data:
+      result_count: 1989
+      button_text: Filter and sort
+      open: true
+      block: |
+        <p class="govuk-body">
+          I am open by default!
+        </p>
   with_margin_bottom:
     description: |
       Allows the spacing at the bottom of the component to be adjusted.

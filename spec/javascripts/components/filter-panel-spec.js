@@ -36,14 +36,22 @@ describe('Filter panel module', () => {
     fixture.remove()
   })
 
-  it('panel is labelled by the open/close button', () => {
+  it('is labelled by the open/close button', () => {
     expect(filterPanel.$panel.getAttribute('aria-labelledby')).toBe(filterPanel.$button.id)
   })
 
-  it('initial state of the panel is closed', () => {
+  it('closes the panel on initialisation', () => {
     expect(filterPanel.$button.getAttribute('aria-expanded')).toBe('false')
     expect(filterPanel.$panel.hasAttribute('hidden')).toBe(true)
   })
+
+  it('does not close the panel on initialisation if the open attribute is set', () => {
+    loadFilterPanelComponent(html)
+    filterPanel.$module.setAttribute('open', 'open')
+    filterPanel.init()
+    expect(filterPanel.$button.getAttribute('aria-expanded')).toBe('true')
+    expect(filterPanel.$panel.hasAttribute('hidden')).toBe(false)
+  });
 
   it('sets the correct attributes when panel is opened', () => {
     filterPanel.$button.click()
@@ -59,7 +67,7 @@ describe('Filter panel module', () => {
     expect(document.activeElement).not.toBe(filterPanel.$button)
   })
 
-  it('default behaviour of the panel open/close is prevented', () => {
+  it('prevents any default behaviour of the panel open/close button', () => {
     filterPanel.$button.addEventListener('click', (event) => {
       expect(event.defaultPrevented).toBe(true)
     })

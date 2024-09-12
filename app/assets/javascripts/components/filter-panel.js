@@ -12,8 +12,13 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
     }
 
     init () {
-      this.$button.setAttribute('aria-expanded', 'false')
-      this.$panel.setAttribute('hidden', '')
+      if (this.$module.getAttribute('open')) {
+        this.$button.setAttribute('aria-expanded', 'true')
+      } else {
+        this.$button.setAttribute('aria-expanded', 'false')
+        this.$panel.setAttribute('hidden', '')
+      }
+
       this.$button.addEventListener('click', this.onButtonClick.bind(this))
     }
 
