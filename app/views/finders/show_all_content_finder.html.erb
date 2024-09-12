@@ -54,8 +54,26 @@
           margin_bottom: 3,
           open: true # TODO: remove, just helps us show the panel open during dev
         } do %>
-          <h3 class="govuk-heading-s">Sort by</h3>
-          <%= render "sort_options", @sort_presenter.to_hash %>
+          <%
+            sort_options = @sort_presenter.to_hash[:options].reject { |option|
+              option[:disabled]
+            }.map { |option|
+              {
+                value: option[:value],
+                text: option[:label],
+                checked: option[:selected],
+              }
+            }
+          %>
+          <%= render 'govuk_publishing_components/components/radio', {
+            name: "order",
+            id: "order",
+            heading: "Sort by",
+            heading_level: 3,
+            heading_size: "s",
+            items: sort_options,
+            small: true,
+          } %>
 
           <h3 class="govuk-heading-s">Date</h3>
           <% date_facet = facets.select { _1.key == "public_timestamp" }.first %>
