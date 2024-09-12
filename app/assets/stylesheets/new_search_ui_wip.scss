@@ -1,0 +1,13 @@
+.app-c-filter-panel {
+  .gem-c-option-select__container {
+    background-color: transparent;
+  }
+
+  .app-c-expander__button, .gem-c-option-select__button {
+    color: $govuk-text-colour;
+  }
+
+  .gem-c-option-select__selected-counter, .app-c-expander__selected-counter {
+    float: right;
+  }
+}

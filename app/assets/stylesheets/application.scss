@@ -8,4 +8,7 @@ $govuk-include-default-font-face: false;
 // for guidance
 @import "govuk_publishing_components/govuk_frontend_support";
 
+// TODO: this is temporary to test how we can best make the new search UI work
+@import "new_search_ui_wip";
+
 @import "finder_frontend";
