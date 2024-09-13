@@ -152,11 +152,16 @@
 }
 
 .app-c-filter-panel {
-  .govuk-button {
-    width: 100%;
-  }
-
   .govuk-button-group {
     margin-bottom:0;
+
+    .govuk-button {
+      flex-grow: 1;
+    }
+
+    .govuk-link {
+      text-align: center;
+      flex-basis: 35%
+    }
   }
 }

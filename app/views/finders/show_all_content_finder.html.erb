@@ -80,6 +80,11 @@
               text: "Apply filters",
               type: "submit",
             } %>
+
+          <% facet_presenter = facet_tags.present %>
+          <% if facet_presenter[:applied_filters].any? || (params[:order].present? && !params[:order].in?(%w[relevance most-viewed])) %>
+              <%= link_to "Clear all", finder_path("search/all", q: result_set_presenter.user_supplied_keywords), class: "govuk-link govuk-link--no-visited-state" %>
+          <% end %>
           </div>
         <% end %>
 
