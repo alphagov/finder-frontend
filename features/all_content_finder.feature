@@ -10,6 +10,7 @@ Feature: All content finder ("site search")
   Scenario: Making a search
     When I search all content for "how to walk silly"
     Then I can see results for my search
+    And I can see how many results there are
 
   Scenario: Spelling suggestion
     When I search all content for "drving"
