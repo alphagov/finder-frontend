@@ -49,7 +49,32 @@
           result_count: result_set_presenter.total_count,
           margin_bottom: 3,
         } do %>
-          TODO: Add filter panel content here
+          <%= render "components/filter_section", {
+            open: true,
+            heading_text: "Filter 1"
+          } do %>
+            <span>filter section content</span>
+          <% end %>
+
+          <%= render "components/filter_section", {
+            status_text: "1 Selected",
+            heading_text: "Filter 2"
+          } do %>
+            <span>filter section content</span>
+          <% end %>
+
+          <%= render "components/filter_section", {
+            heading_text: "Filter 3"
+          } do %>
+            <span>filter section content</span>
+          <% end %>
+
+          <%= render "components/filter_section", {
+            status_text: "1 Selected",
+            heading_text: "Filter 4"
+          } do %>
+            <span>filter section content</span>
+          <% end %>
         <% end %>
 
         <% if result_set_presenter.total_count.positive? %>

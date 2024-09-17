@@ -1,0 +1,75 @@
+@import "govuk_publishing_components/individual_component_support";
+@import "govuk_publishing_components/components/mixins/prefixed-transform";
+
+.app-c-filter-section {
+  border-bottom: 1px solid $govuk-border-colour;
+
+  &:last-child {
+    border-bottom: 0;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  &:first-child {
+    margin-top: 0;
+  }
+
+  &[open] .app-c-filter-section__summary {
+    &::before {
+      @include prefixed-transform($translateY: 30%, $rotate: -45deg);
+    }
+  }
+}
+
+.app-c-filter-section__summary {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  cursor: pointer;
+  color: $govuk-text-colour;
+
+  &:hover .app-c-filter-section__summary-heading {
+    @include govuk-link-decoration;
+    @include govuk-link-hover-decoration;
+  }
+
+  &:focus .app-c-filter-section__summary-heading {
+    background-color: $govuk-focus-colour;
+    @include govuk-focused-text;
+  }
+
+  &::before {
+    border-style: solid;
+    border-width: 2px 2px 0 0;
+    content: '';
+    display: inline-block;
+    height: govuk-spacing(2);
+    left: govuk-spacing(1);
+    position: relative;
+    vertical-align: middle;
+    width: govuk-spacing(2);
+    border-color: $govuk-text-colour;
+    clip-path: unset;
+    @include prefixed-transform($translateY: -25%, $rotate: 135deg);
+  }
+
+  &:focus-visible {
+    outline: none;
+  }
+}
+
+.app-c-filter-section__summary-heading {
+  margin-left: govuk-spacing(3);
+  @include govuk-font(19, $weight: bold);
+}
+
+.app-c-filter-section__summary-status {
+  padding-right: govuk-spacing(1);
+  flex-grow: 1;
+  text-align: right;
+  @include govuk-font(16, $weight: regular);
+}
+
+.app-c-filter-section__content {
+  padding: govuk-spacing(2) 0;
+}
