@@ -1,11 +1,11 @@
 <% add_app_component_stylesheet("filter-panel") %>
 <%
   raise ArgumentError, "button_text is required" unless local_assigns[:button_text]
-  raise ArgumentError, "result_count is required" unless local_assigns[:result_count]
 
   id_suffix = SecureRandom.hex(4)
   panel_content_id = "filter-panel-#{id_suffix}"
   button_id = "filter-button-#{id_suffix}"
+  result_text ||= ""
 
   component_helper = GovukPublishingComponents::Presenters::ComponentWrapperHelper.new(local_assigns)
   shared_helper = GovukPublishingComponents::Presenters::SharedHelper.new(local_assigns)
@@ -25,11 +25,13 @@
       <%= button_text %>
     <% end %>
 
-    <%= render "govuk_publishing_components/components/heading", {
-      text: pluralize(number_with_delimiter(result_count), "result"),
-      heading_level: 2,
-      font_size: "s",
-    } %>
+    <% if result_text.present? %>
+      <%= render "govuk_publishing_components/components/heading", {
+        text: result_text,
+        heading_level: 2,
+        font_size: "s",
+      } %>
+    <% end %>
   </div>
 
   <%= tag.div(
