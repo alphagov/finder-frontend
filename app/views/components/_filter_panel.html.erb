@@ -21,16 +21,13 @@
       class: "app-c-filter-panel__button govuk-link",
       aria: { expanded: "false", controls: panel_content_id }
     ) do %>
-      <span class="app-c-filter-panel__button-icon"></span>
       <%= button_text %>
     <% end %>
 
     <% if result_text.present? %>
-      <%= render "govuk_publishing_components/components/heading", {
-        text: result_text,
-        heading_level: 2,
-        font_size: "s",
-      } %>
+      <%= content_tag("h2", class: "app-c-filter-panel__count") do %>
+        <%= result_text %>
+      <% end %>
     <% end %>
   </div>
 

@@ -1,5 +1,5 @@
 @import "govuk_publishing_components/individual_component_support";
-@import "govuk_publishing_components/components/mixins/prefixed-transform";
+@import "mixins/chevron";
 
 .app-c-filter-panel__content {
   background-color:  govuk-colour("light-grey");
@@ -13,45 +13,41 @@
   place-content: space-between;
   align-items: center;
   gap: govuk-spacing(2);
+}
 
-  .gem-c-heading {
-    font-weight: normal;
+.app-c-filter-panel__count {
+  margin: 0;
+  @include govuk-font(19, $weight: regular);
+}
+
+.app-c-filter-panel__button {
+  background-color: transparent;
+  color: $govuk-link-colour;
+  text-decoration: none;
+  border-style: none;
+  padding-left: 0;
+  cursor: pointer;
+  @include chevron;
+  @include govuk-font(19);
+
+  &[aria-expanded="true"] {
+    @include chevron(true);
   }
 
-  .app-c-filter-panel__button {
-    background-color: transparent;
-    color: $govuk-link-colour;
+  &:hover {
+    @include govuk-link-decoration;
+    @include govuk-link-hover-decoration;
+  }
+
+  &:focus,
+  &:focus-visible {
     text-decoration: none;
-    border-style: none;
-    @include govuk-font(19);
-
-    &:focus,
-    &:focus-visible {
-      background-color: $govuk-focus-colour;
-      @include govuk-link-hover-decoration;
-      @include govuk-focused-text;
-    }
-
-    &:hover {
-      cursor: pointer;
-      color: $govuk-link-hover-colour;
-    }
+    background-color: $govuk-focus-colour;
+    @include govuk-link-hover-decoration;
+    @include govuk-focused-text;
   }
 
-  .app-c-filter-panel__button[aria-expanded="true"] .app-c-filter-panel__button-icon {
-    @include prefixed-transform($translateY: 0, $rotate: -135deg);
-  }
-
-  .app-c-filter-panel__button-icon {
-    border: solid currentcolor;
-    border-width: 0 2px 2px 0;
-    height: 0.5rem;
-    pointer-events: none;
-    width: 0.5rem;
-    display: inline-block;
-    vertical-align: baseline;
-    margin-right: govuk-spacing(1);
-
-    @include prefixed-transform($translateY: -50%, $rotate: 45deg);
+  &::before {
+    margin: 0 govuk-spacing(2) govuk-spacing(1) 0;
   }
 }
