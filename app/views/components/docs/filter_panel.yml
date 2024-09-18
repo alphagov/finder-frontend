@@ -31,6 +31,19 @@ examples:
         <p class="govuk-body">
           I am open by default!
         </p>
+  with_filter_section:
+    description: |
+      Pass filter section component as a block
+    data:
+      result_count: 1
+      button_text: View filter section
+      block: |
+        <%= render "components/filter_section", {
+          status_text: "1 Selected",
+          heading_text: "Filter 1"
+        } do %>
+          <span>filter section content</span>
+        <% end %>
   with_margin_bottom:
     description: |
       Allows the spacing at the bottom of the component to be adjusted.

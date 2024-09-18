@@ -1,0 +1,39 @@
+name: Filter section
+description: Displays a section with status text that be expanded/collapsed
+uses_component_wrapper_helper: true
+accessibility_criteria: |
+  The component must:
+
+  - accept focus
+  - be focusable with a keyboard
+  - be usable with a keyboard
+  - be usable with touch
+  - indicate when it has focus
+  - toggle the visibility of the section when interacted with
+  - indicate the expanded state when section is visible
+  - indicate the collapsed state when section is hidden
+examples:
+  default:
+    data:
+      heading_text: Filter by something
+      block: |
+        <span>Filter form controls</span>
+  open:
+    data:
+      heading_text: Filter by something
+      open: true
+      block: |
+        <span>Filter form controls open by default</span>
+  status_text:
+    data:
+      heading_text: Filter by something
+      status_text: 1 Selected
+      block: |
+        <span>Filter form controls with status text</span>
+  heading_level:
+    description: The heading level that the heading text will be rendered as.
+    data:
+      heading_text: Section heading is h3
+      heading_level: 3
+      block: |
+        <span>Filter form controls</span>
