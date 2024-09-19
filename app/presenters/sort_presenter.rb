@@ -62,8 +62,12 @@ private
 
   def user_selected_option
     selected = sort_options.find { |option| option_value(option) == user_selected_order }
-    if selected == popularity_option && !relevance_option.nil? && keywords.present?
+    return selected if relevance_option.nil? || popularity_option.nil?
+
+    if selected == popularity_option && keywords.present?
       relevance_option
+    elsif selected == relevance_option && keywords.blank?
+      popularity_option
     else
       selected
     end

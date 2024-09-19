@@ -115,6 +115,20 @@ RSpec.describe SortPresenter do
           expect(popularity_option[:disabled]).to be false
           expect(popularity_option[:selected]).to be true
         end
+
+        context "even when the relevance option is explicitly requested" do
+          let(:values) { super().merge("order" => "relevance") }
+
+          it "should still disable the relevance option" do
+            expect(relevance_option[:disabled]).to be true
+            expect(relevance_option[:selected]).to be false
+          end
+
+          it "should enable the popularity option" do
+            expect(popularity_option[:disabled]).to be false
+            expect(popularity_option[:selected]).to be true
+          end
+        end
       end
 
       context "when keywords are not blank" do
@@ -128,6 +142,20 @@ RSpec.describe SortPresenter do
         it "should disable the popularity option" do
           expect(popularity_option[:disabled]).to be true
           expect(popularity_option[:selected]).to be false
+        end
+
+        context "even when the popularity option is explicitly requested" do
+          let(:values) { super().merge("order" => "most-viewed") }
+
+          it "should still disable the popularity option" do
+            expect(popularity_option[:disabled]).to be true
+            expect(popularity_option[:selected]).to be false
+          end
+
+          it "should enable the relevance option" do
+            expect(relevance_option[:disabled]).to be false
+            expect(relevance_option[:selected]).to be true
+          end
         end
       end
     end
