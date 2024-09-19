@@ -1,3 +1,4 @@
+<% add_gem_component_stylesheet("button") %>
 <% add_app_component_stylesheet("filter-panel") %>
 <%
   raise ArgumentError, "button_text is required" unless local_assigns[:button_text]
@@ -6,6 +7,9 @@
   panel_content_id = "filter-panel-#{id_suffix}"
   button_id = "filter-button-#{id_suffix}"
   result_text ||= ""
+
+  show_reset_link ||= false
+  raise ArgumentError, "reset_link_href is required" if show_reset_link && !local_assigns[:reset_link_href]
 
   component_helper = GovukPublishingComponents::Presenters::ComponentWrapperHelper.new(local_assigns)
   shared_helper = GovukPublishingComponents::Presenters::SharedHelper.new(local_assigns)
@@ -38,5 +42,17 @@
     aria: { labelledby: button_id },
   ) do %>
     <%= yield %>
+
+    <div class="app-c-filter-panel__actions">
+      <%= submit_tag "Apply filters", class: "govuk-button app-c-filter-panel__action app-c-filter-panel__action--submit" %>
+
+      <% if show_reset_link %>
+        <%=
+          link_to "Clear all filters",
+            reset_link_href,
+            class: "govuk-link govuk-link--no-visited-state app-c-filter-panel__action app-c-filter-panel__action--reset"
+        %>
+      <% end %>
+    </div>
   <% end %>
 <% end %>
