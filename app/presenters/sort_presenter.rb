@@ -5,6 +5,12 @@ class SortPresenter
     @content_item_sort_options = content_item.sort_options
   end
 
+  def to_radio_options
+    return nil unless has_options?
+
+    presented_sort_options.map(&:to_radio_option).compact
+  end
+
   def to_hash
     return nil unless has_options?
 

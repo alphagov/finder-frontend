@@ -15,6 +15,7 @@ RSpec.describe SortPresenter do
       "order" => "relevance",
     )
   end
+  subject(:presenter_including_a_disabled_value) { described_class.new(content_item(sort_options: sort_options_including_a_disabled_value), values) }
 
   let(:values) { {} }
 
@@ -54,6 +55,19 @@ RSpec.describe SortPresenter do
       { "name" => "Most viewed", "key" => "-popularity" },
       { "name" => "Updated (newest)", "key" => "-public_timestamp", "default" => true },
     ]
+  end
+
+  describe "#to_radio_options" do
+    let(:values) { { "keywords" => "red", "order" => "relevance" } }
+
+    it "returns only enabled sort options as radio options" do
+      expect(presenter_with_relevance.to_radio_options).to eq(
+        [
+          { value: "updated-newest", text: "Updated (newest)", checked: false },
+          { value: "relevance", text: "Relevance", checked: true },
+        ],
+      )
+    end
   end
 
   describe "#to_hash" do
