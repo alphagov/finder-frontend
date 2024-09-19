@@ -51,3 +51,25 @@
     margin: 0 govuk-spacing(2) govuk-spacing(1) 0;
   }
 }
+
+.app-c-filter-panel__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: govuk-spacing(2);
+  padding: govuk-spacing(3) 0;
+}
+
+.app-c-filter-panel__action--submit {
+  flex: 2 0 60%;
+  margin-bottom: 0;
+}
+
+.app-c-filter-panel__action--reset {
+  flex: 1 0 30%;
+  white-space: nowrap;
+  padding: govuk-spacing(1) 0;
+  text-align: center;
+
+  @include govuk-font(19);
+}

@@ -1,5 +1,7 @@
 name: Filter panel
-description: Displays a result count and a toggleable panel of filters and sort options.
+description: |
+  Displays a result count and a toggleable panel with arbitrary content, a submit input, and an
+  optional reset link.
 uses_component_wrapper_helper: true
 accessibility_criteria: |
   The component must:
@@ -30,6 +32,20 @@ examples:
       block: |
         <p class="govuk-body">
           I am open by default!
+        </p>
+  with_reset_link:
+    description: |
+      Shows a clear link when the filter panel is open, for example if any filters are selected that
+      can be cleared.
+    data:
+      result_text: 42 widgets
+      button_text: Clearable filters
+      open: true
+      show_reset_link: true
+      reset_link_href: "http://example.org"
+      block: |
+        <p class="govuk-body">
+          Some filters
         </p>
   with_filter_section:
     description: |

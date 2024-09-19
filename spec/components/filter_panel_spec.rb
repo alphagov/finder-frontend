@@ -17,6 +17,10 @@ describe "Filter panel component", type: :view do
     expect { render_component({}) }.to raise_error(/button_text/)
   end
 
+  it "raises an error if show_reset_link option is given without reset_link_href" do
+    expect { render_component(button_text: "Filter", show_reset_link: true) }.to raise_error(/reset_link_href/)
+  end
+
   it "renders the button with the correct text" do
     render_component(button_text: "Filtern und sortieren")
 
@@ -53,5 +57,23 @@ describe "Filter panel component", type: :view do
     render_component(button_text: "Filter", open: true)
 
     assert_select ".app-c-filter-panel[open=open]"
+  end
+
+  it "renders the submit button" do
+    render_component(button_text: "Filter")
+
+    assert_select ".app-c-filter-panel input.govuk-button.app-c-filter-panel__action.app-c-filter-panel__action--submit", value: "Apply filters"
+  end
+
+  it "renders the reset link if the show_reset_link option is given" do
+    render_component(button_text: "Filter", show_reset_link: true, reset_link_href: "/reset")
+
+    assert_select ".app-c-filter-panel a.govuk-link.govuk-link--no-visited-state.app-c-filter-panel__action.app-c-filter-panel__action--reset[href='/reset']", text: "Clear all filters"
+  end
+
+  it "does not render the reset link if the show_reset_link option is not given" do
+    render_component(button_text: "Filter")
+
+    assert_select ".app-c-filter-panel a", false
   end
 end
