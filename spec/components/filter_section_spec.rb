@@ -26,8 +26,14 @@ describe "Filter section component", type: :view do
     assert_select ".app-c-filter-section[open=open]"
   end
 
-  it "set section heading text with hidden context for accessibility" do
+  it "sets the heading text" do
     render_component({ heading_text: "section heading" })
+
+    assert_select ".app-c-filter-section__summary-heading", text: "section heading"
+  end
+
+  it "adds the visually hidden heading prefix if given" do
+    render_component({ heading_text: "section heading", visually_hidden_heading_prefix: "Filter by" })
 
     assert_select ".app-c-filter-section__summary-heading", include: "section heading"
     assert_select ".app-c-filter-section__summary-heading .govuk-visually-hidden", text: "Filter by"
