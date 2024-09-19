@@ -17,6 +17,14 @@ Feature: All content finder ("site search")
     And I open the filter panel
     Then I can see a filter section for every visible facet on the all content finder
 
+  Scenario: Changing the sort order of a search
+    When I search all content for "dark gray all alone"
+    And I open the filter panel
+    And I open the "Sort by" filter section
+    And I select the "Updated (oldest)" option
+    And I apply the filters
+    Then I can see sorted results
+
   Scenario: Spelling suggestion
     When I search all content for "drving"
     Then I see a "driving" spelling suggestion

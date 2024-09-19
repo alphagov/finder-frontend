@@ -1,0 +1,15 @@
+<%= render "components/filter_section", {
+  heading_text: "Sort by",
+  status_text: @sort_presenter.status_text,
+} do %>
+  <%= render "govuk_publishing_components/components/radio", {
+    heading: "Sort order",
+    heading_level: 0,
+    # Legend is visually hidden as non-screenreader users already have the section heading above
+    visually_hidden_heading: true,
+    margin_bottom: 2,
+    name: "order",
+    small: true,
+    items: @sort_presenter.to_radio_options,
+  } %>
+<% end %>

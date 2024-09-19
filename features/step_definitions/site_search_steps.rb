@@ -26,3 +26,21 @@ Then("I can see a filter section for every visible facet on the all content find
   expect(page).not_to have_selector("h2", text: "Filter by World location")
   expect(page).not_to have_selector("h2", text: "Filter by Topical event")
 end
+
+When(/^I open the "([^"]*)" filter section$/) do |title|
+  # Capybara #click can't deal with <details> elements, so need to manually find summary first
+  section = find("details summary", text: title)
+  section.click
+end
+
+When(/^I select the "([^"]*)" option$/) do |option|
+  choose option
+end
+
+When("I apply the filters") do
+  click_on "Apply filters"
+end
+
+Then("I can see sorted results") do
+  expect(page).to have_link("Loving him was red")
+end

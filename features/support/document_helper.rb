@@ -126,11 +126,11 @@ module DocumentHelper
 
   def stub_search_api_request_with_sorted_query
     stub_request(:get, SEARCH_ENDPOINT)
-      .with(query: hash_including("q" => "dark gray all alone", "order" => "-public_timestamp"))
+      .with(query: hash_including("q" => "dark gray all alone"))
       .to_return(body: %({ "results": [], "total": 0, "start": 0}))
 
     stub_request(:get, SEARCH_V2_ENDPOINT)
-      .with(query: hash_including("q" => "dark gray all alone", "order" => "-public_timestamp"))
+      .with(query: hash_including("q" => "dark gray all alone"))
       .to_return(body: %({ "results": [], "total": 0, "start": 0}))
 
     stub_request(:get, SEARCH_ENDPOINT)
