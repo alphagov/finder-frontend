@@ -57,6 +57,24 @@ RSpec.describe SortPresenter do
     ]
   end
 
+  describe "#status_text" do
+    context "when the default sort order is selected" do
+      let(:values) { { "order" => "-public_timestamp" } }
+
+      it "returns nil" do
+        expect(presenter_with_default.status_text).to be_nil
+      end
+    end
+
+    context "when another sort order is selected" do
+      let(:values) { { "order" => "most-viewed" } }
+
+      it "returns a status message" do
+        expect(presenter_with_default.status_text).to eq("Most viewed")
+      end
+    end
+  end
+
   describe "#to_radio_options" do
     let(:values) { { "keywords" => "red", "order" => "relevance" } }
 

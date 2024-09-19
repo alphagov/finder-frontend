@@ -5,6 +5,13 @@ class SortPresenter
     @content_item_sort_options = content_item.sort_options
   end
 
+  def status_text
+    return nil unless has_options?
+    return nil if option_value(selected_option) == default_value
+
+    selected_option["name"]
+  end
+
   def to_radio_options
     return nil unless has_options?
 
