@@ -1,0 +1,22 @@
+@import "govuk_publishing_components/components/mixins/prefixed-transform";
+
+@mixin chevron($open: false) {
+  &::before {
+    border-style: solid;
+    border-width: 2px 2px 0 0;
+    content: '';
+    display: inline-block;
+    height: govuk-spacing(2);
+    left: govuk-spacing(1);
+    position: relative;
+    vertical-align: middle;
+    width: govuk-spacing(2);
+    border-color: initial;
+    clip-path: unset;
+    @include prefixed-transform($translateY: -25%, $rotate: 135deg);
+
+    @if $open {
+      @include prefixed-transform($translateY: 30%, $rotate: -45deg);
+    }
+  }
+}
