@@ -99,47 +99,64 @@ RSpec.describe SortPresenter do
         )
     end
 
-    it "should disable the relevance option if keywords are not present" do
-      expect(presenter_with_popularity_default_and_relevance.to_hash[:options].find { |o|
-        o[:value] == "relevance"
-      }[:disabled]).to be true
+    describe "disabling options based on keyword presence" do
+      let(:relevance_option) { presenter_with_popularity_default_and_relevance.to_hash[:options].find { |o| o[:value] == "relevance" } }
+      let(:popularity_option) { presenter_with_popularity_default_and_relevance.to_hash[:options].find { |o| o[:value] == "most-viewed" } }
 
-      expect(presenter_with_popularity_default_and_relevance.to_hash[:options].find { |o|
-        o[:value] == "relevance"
-      }[:selected]).to be false
-    end
+      context "when keywords are blank" do
+        let(:values) { { "keywords" => "" } }
 
-    it "should enable the popularity option if keywords are not present" do
-      expect(presenter_with_popularity_default_and_relevance.to_hash[:options].find { |o|
-        o[:value] == "most-viewed"
-      }[:disabled]).to be false
+        it "should disable the relevance option" do
+          expect(relevance_option[:disabled]).to be true
+          expect(relevance_option[:selected]).to be false
+        end
 
-      expect(presenter_with_popularity_default_and_relevance.to_hash[:options].find { |o|
-        o[:value] == "most-viewed"
-      }[:selected]).to be true
-    end
+        it "should enable the popularity option" do
+          expect(popularity_option[:disabled]).to be false
+          expect(popularity_option[:selected]).to be true
+        end
 
-    context "keywords are not blank" do
-      let(:values) { { "keywords" => "something not blank" } }
+        context "even when the relevance option is explicitly requested" do
+          let(:values) { super().merge("order" => "relevance") }
 
-      it "should not disable relevance" do
-        expect(presenter_with_popularity_default_and_relevance.to_hash[:options].find { |o|
-          o[:value] == "relevance"
-        }[:disabled]).to be false
+          it "should still disable the relevance option" do
+            expect(relevance_option[:disabled]).to be true
+            expect(relevance_option[:selected]).to be false
+          end
 
-        expect(presenter_with_popularity_default_and_relevance.to_hash[:options].find { |o|
-          o[:value] == "relevance"
-        }[:selected]).to be true
+          it "should enable the popularity option" do
+            expect(popularity_option[:disabled]).to be false
+            expect(popularity_option[:selected]).to be true
+          end
+        end
       end
 
-      it "should disable popularity" do
-        expect(presenter_with_popularity_default_and_relevance.to_hash[:options].find { |o|
-          o[:value] == "most-viewed"
-        }[:disabled]).to be true
+      context "when keywords are not blank" do
+        let(:values) { { "keywords" => "something not blank" } }
 
-        expect(presenter_with_popularity_default_and_relevance.to_hash[:options].find { |o|
-          o[:value] == "most-viewed"
-        }[:selected]).to be false
+        it "should not disable the relevance option" do
+          expect(relevance_option[:disabled]).to be false
+          expect(relevance_option[:selected]).to be true
+        end
+
+        it "should disable the popularity option" do
+          expect(popularity_option[:disabled]).to be true
+          expect(popularity_option[:selected]).to be false
+        end
+
+        context "even when the popularity option is explicitly requested" do
+          let(:values) { super().merge("order" => "most-viewed") }
+
+          it "should still disable the popularity option" do
+            expect(popularity_option[:disabled]).to be true
+            expect(popularity_option[:selected]).to be false
+          end
+
+          it "should enable the relevance option" do
+            expect(relevance_option[:disabled]).to be false
+            expect(relevance_option[:selected]).to be true
+          end
+        end
       end
     end
 
