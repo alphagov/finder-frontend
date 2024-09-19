@@ -124,6 +124,24 @@ module DocumentHelper
       .to_return(body: all_documents_json)
   end
 
+  def stub_search_api_request_with_sorted_query
+    stub_request(:get, SEARCH_ENDPOINT)
+      .with(query: hash_including("q" => "dark gray all alone", "order" => "-public_timestamp"))
+      .to_return(body: %({ "results": [], "total": 0, "start": 0}))
+
+    stub_request(:get, SEARCH_V2_ENDPOINT)
+      .with(query: hash_including("q" => "dark gray all alone", "order" => "-public_timestamp"))
+      .to_return(body: %({ "results": [], "total": 0, "start": 0}))
+
+    stub_request(:get, SEARCH_ENDPOINT)
+      .with(query: hash_including("q" => "dark gray all alone", "order" => "public_timestamp"))
+      .to_return(body: sorted_documents_json)
+
+    stub_request(:get, SEARCH_V2_ENDPOINT)
+      .with(query: hash_including("q" => "dark gray all alone", "order" => "public_timestamp"))
+      .to_return(body: sorted_documents_json)
+  end
+
   def stub_search_api_request_with_misspelt_query
     stub_request(:get, SEARCH_ENDPOINT)
       .with(query: hash_including("q" => "drving"))
@@ -664,6 +682,25 @@ module DocumentHelper
         }
       ],
       "total": 2,
+      "start": 0,
+      "facets": {},
+      "suggested_queries": []
+    })
+  end
+
+  def sorted_documents_json
+    %({
+      "results": [
+        {
+          "title": "Loving him was red",
+          "public_timestamp": "2012-10-22",
+          "summary": "Losing him was blue like I'd never known",
+          "document_type": "song",
+          "link": "/red",
+          "_id": "/red"
+        }
+      ],
+      "total": 1,
       "start": 0,
       "facets": {},
       "suggested_queries": []
