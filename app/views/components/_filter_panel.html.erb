@@ -24,9 +24,7 @@
       id: button_id,
       class: "app-c-filter-panel__button govuk-link",
       aria: { expanded: "false", controls: panel_content_id }
-    ) do %>
-      <%= button_text %>
-    <% end %>
+    ) { button_text } %>
 
     <% if result_text.present? %>
       <%= content_tag("h2", class: "app-c-filter-panel__count") do %>
