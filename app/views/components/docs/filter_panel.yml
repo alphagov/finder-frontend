@@ -60,6 +60,44 @@ examples:
         } do %>
           <span>filter section content</span>
         <% end %>
+  with_radios_and_checkboxes:
+    description: |
+      Overrides default styles of GOV.UK Frontend radios and checkboxes to ensure they have a white
+      background despite being inside a grey panel.
+    data:
+      button_text: Filter with radios and checkboxes
+      open: true
+      block: |
+        <div class="govuk-!-padding-4">
+          <%= render "govuk_publishing_components/components/radio", {
+            heading: "Radios",
+            name: "radio",
+            small: true,
+            items: [
+              { value: "1", text: "Radio 1" },
+              { value: "2", text: "Radio 2", checked: true }
+            ]
+          } %>
+          <%= render "govuk_publishing_components/components/checkboxes", {
+            name: "checkbox",
+            heading: "Checkboxes",
+            small: true,
+            items: [
+              {
+                label: "Red",
+                value: "red"
+              },
+              {
+                label: "Green",
+                value: "green"
+              },
+              {
+                label: "Blue",
+                value: "blue"
+              }
+            ]
+          } %>
+        </div>
   with_margin_bottom:
     description: |
       Allows the spacing at the bottom of the component to be adjusted.
