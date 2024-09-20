@@ -173,29 +173,28 @@ When(/^I view the all content finder with a manual filter$/) do
   content_store_has_all_content_finder
   stub_organisations_registry_request
   stub_world_locations_api_request
+  stub_topical_events_api_request
   stub_people_registry_request
   stub_manuals_registry_request
 
   stub_request(:get, DocumentHelper::SEARCH_ENDPOINT)
-    .with(query: hash_including(q: "Replacing bristles", order: "-public_timestamp"))
+    .with(query: hash_including(q: "Replacing bristles"))
     .to_return(body: all_content_results_json)
 
   stub_request(:get, DocumentHelper::SEARCH_ENDPOINT)
     .with(query: hash_including(
       filter_manual: "/guidance/care-and-use-of-a-nimbus-2000",
       q: "Replacing bristles",
-      order: "-public_timestamp",
     )).to_return(body: all_content_manuals_results_json)
 
   stub_request(:get, DocumentHelper::SEARCH_V2_ENDPOINT)
-    .with(query: hash_including(q: "Replacing bristles", order: "-public_timestamp"))
+    .with(query: hash_including(q: "Replacing bristles"))
     .to_return(body: all_content_results_json)
 
   stub_request(:get, DocumentHelper::SEARCH_V2_ENDPOINT)
     .with(query: hash_including(
       filter_manual: "/guidance/care-and-use-of-a-nimbus-2000",
       q: "Replacing bristles",
-      order: "-public_timestamp",
     )).to_return(body: all_content_manuals_results_json)
 
   visit finder_path("search/all", manual: "/guidance/care-and-use-of-a-nimbus-2000", q: "Replacing bristles")
