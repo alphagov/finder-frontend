@@ -1,0 +1,38 @@
+name: Filter summary
+description: Displays a summary of applied filters as links that can remove a specific filter. Also a link for clearing all filters.
+uses_component_wrapper_helper: true
+accessibility_criteria: |
+  The component items must:
+
+  - accept focus
+  - be focusable with a keyboard
+  - be usable with a keyboard
+  - be usable with touch
+  - indicate when it has focus
+examples:
+  default:
+    data:
+      clear_all_href: "#"
+      clear_all_text: "Clear all filters"
+      heading_level: 3
+      heading_text: "Selected filters"
+      filters: [
+        {
+          label: "Filter 1",
+          value: "Value 1",
+          remove_href: "#",
+          visually_hidden_prefix: "Remove filter",
+        },
+        {
+          label: "Filter 2",
+          value: "Value 2",
+          remove_href: "#",
+          visually_hidden_prefix: "Remove filter",
+        },
+        {
+          label: "Filter 3",
+          value: "Value that is so long that the styling needs to handle it correctly",
+          remove_href: "#",
+          visually_hidden_prefix: "Remove filter",
+        }
+      ]

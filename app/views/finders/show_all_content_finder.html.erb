@@ -77,6 +77,34 @@
           <% end %>
         <% end %>
 
+        <%= render "components/filter_summary", {
+          clear_all_href: "#",
+          clear_all_text: "Clear all filters",
+          heading_level: 3,
+          heading_text: "Selected filters",
+          margin_bottom: 2,
+          filters: [
+            {
+              label: "Filter 1",
+              value: "Value 1",
+              remove_href: "#",
+              visually_hidden_prefix: "Remove filter"
+            },
+            {
+              label: "Filter 2",
+              value: "Value 2",
+              remove_href: "#",
+              visually_hidden_prefix: "Remove filter"
+            },
+            {
+              label: "Filter 3",
+              value: "Value 3",
+              remove_href: "#",
+              visually_hidden_prefix: "Remove filter"
+            }
+          ]
+        } %>
+
         <% if result_set_presenter.total_count.positive? %>
           <%= render "govuk_publishing_components/components/document_list", {
             disable_ga4: true,
