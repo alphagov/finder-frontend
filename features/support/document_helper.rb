@@ -241,6 +241,15 @@ module DocumentHelper
       )
   end
 
+  def stub_topical_events_api_request
+    stub_request(:get, SEARCH_ENDPOINT)
+      .with(
+        query: hash_including({ filter_format: "topical_event", count: "1500" }),
+      ).to_return(
+        body: { results: [], total: 0, start: 0 }.to_json,
+      )
+  end
+
   def stub_world_locations_api_request
     stub_worldwide_api_has_locations(%w[azkaban tracy-island])
   end

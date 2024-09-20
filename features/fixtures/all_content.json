@@ -2,33 +2,71 @@
   "analytics_identifier": null,
   "base_path": "/search/all",
   "content_id": "dd395436-9b40-41f3-8157-740a453ac972",
-  "content_purpose_document_supertype": "navigation",
   "description": "Find content from government",
   "details": {
-    "default_documents_per_page": 20,
+    "default_documents_per_page": 10,
     "document_noun": "result",
     "facets": [
       {
         "display_as_result_metadata": false,
         "filter_key": "all_part_of_taxonomy_tree",
         "filterable": true,
+        "key": "_unused",
         "keys": [
           "level_one_taxon",
           "level_two_taxon"
         ],
-        "name": "topic",
+        "name": "Topic",
         "preposition": "about",
         "short_name": "topic",
         "type": "taxon"
       },
       {
+        "allowed_values": [],
         "display_as_result_metadata": false,
         "filterable": true,
         "key": "manual",
         "name": "Manual",
         "preposition": "in manual",
         "short_name": "in",
+        "show_option_select_filter": false,
         "type": "hidden_clearable"
+      },
+      {
+        "allowed_values": [
+          {
+            "label": "Services",
+            "value": "services"
+          },
+          {
+            "label": "Guidance and regulation",
+            "value": "guidance_and_regulation"
+          },
+          {
+            "label": "News and communications",
+            "value": "news_and_communications"
+          },
+          {
+            "label": "Research and statistics",
+            "value": "research_and_statistics"
+          },
+          {
+            "label": "Policy papers and consultations",
+            "value": "policy_and_engagement"
+          },
+          {
+            "label": "Transparency and freedom of information releases",
+            "value": "transparency"
+          }
+        ],
+        "display_as_result_metadata": false,
+        "filterable": true,
+        "key": "content_purpose_supergroup",
+        "name": "Type",
+        "preposition": "in",
+        "short_name": "In",
+        "show_option_select_filter": false,
+        "type": "text"
       },
       {
         "display_as_result_metadata": true,
@@ -37,40 +75,49 @@
         "name": "Organisation",
         "preposition": "from",
         "short_name": "From",
-        "type": "text",
-        "show_option_select_filter": true
+        "show_option_select_filter": true,
+        "type": "hidden_clearable"
       },
       {
         "display_as_result_metadata": false,
         "filterable": true,
-        "key": "people",
-        "name": "Person",
-        "preposition": "from",
-        "type": "text",
-        "show_option_select_filter": true
-      },
-      {
-        "display_as_result_metadata": true,
-        "filterable": true,
         "key": "world_locations",
         "name": "World location",
         "preposition": "in",
-        "type": "text",
-        "show_option_select_filter": true
+        "show_option_select_filter": false,
+        "type": "hidden_clearable"
       },
       {
         "display_as_result_metadata": true,
         "filterable": true,
-        "preposition": "Updated",
         "key": "public_timestamp",
         "name": "Updated",
+        "preposition": "Updated",
         "short_name": "Updated",
         "type": "date"
+      },
+      {
+        "allowed_values": [],
+        "display_as_result_metadata": false,
+        "filterable": true,
+        "key": "topical_events",
+        "name": "Topical event",
+        "preposition": "about",
+        "short_name": "about",
+        "show_option_select_filter": false,
+        "type": "hidden_clearable"
       }
     ],
+    "format_name": "Documents",
+    "reject": {
+      "link": [
+        "/search/all"
+      ]
+    },
     "show_summaries": true,
     "sort": [
       {
+        "default": true,
         "key": "-popularity",
         "name": "Most viewed"
       },
@@ -79,7 +126,6 @@
         "name": "Relevance"
       },
       {
-        "default": true,
         "key": "-public_timestamp",
         "name": "Updated (newest)"
       },
@@ -90,19 +136,35 @@
     ]
   },
   "document_type": "finder",
-  "email_document_supertype": "other",
-  "first_published_at": "2019-01-17T13:00:00.000+00:00",
-  "government_document_supertype": "other",
-  "links": {},
+  "first_published_at": "2019-02-14T14:57:43+00:00",
+  "links": {
+    "available_translations": [
+      {
+        "api_path": "/api/content/search/all",
+        "api_url": "https://www.integration.publishing.service.gov.uk/api/content/search/all",
+        "base_path": "/search/all",
+        "content_id": "dd395436-9b40-41f3-8157-740a453ac972",
+        "document_type": "finder",
+        "links": {},
+        "locale": "en",
+        "public_updated_at": "2024-09-20T09:17:24Z",
+        "schema_name": "finder",
+        "title": "Search",
+        "web_url": "https://www.integration.publishing.service.gov.uk/search/all",
+        "withdrawn": false
+      }
+    ]
+  },
   "locale": "en",
-  "navigation_document_supertype": "other",
-  "phase": "alpha",
-  "public_updated_at": "2019-01-17T13:00:00.000+00:00",
-  "publishing_app": "finder-frontend",
+  "phase": "live",
+  "public_updated_at": "2024-09-20T10:17:24+01:00",
+  "publishing_app": "search-api",
+  "publishing_request_id": "21-1726823845.044-10.1.34.217-616",
+  "publishing_scheduled_at": null,
   "rendering_app": "finder-frontend",
+  "scheduled_publishing_delay_seconds": null,
   "schema_name": "finder",
-  "search_user_need_document_supertype": "government",
   "title": "Search",
-  "updated_at": "2019-01-17T13:00:00.000+00:00",
-  "user_journey_document_supertype": "finding"
+  "updated_at": "2024-09-20T10:17:25+01:00",
+  "withdrawn_notice": {}
 }
