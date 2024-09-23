@@ -184,6 +184,16 @@ RSpec.describe SortPresenter do
     end
   end
 
+  describe "#selected_option_name" do
+    it "returns the human-readable name of the selected option" do
+      expect(presenter_with_relevance_selected.selected_option_name).to eq("Relevance")
+    end
+
+    it "returns nil if no option is selected" do
+      expect(presenter_with_sort.selected_option_name).to be nil
+    end
+  end
+
   describe "#has_options?" do
     it "returns false if there are no options in the content item" do
       expect(presenter_without_sort.to_hash).to be nil

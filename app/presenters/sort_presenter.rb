@@ -30,6 +30,12 @@ class SortPresenter
     default_option.try(:value)
   end
 
+  def selected_option_name
+    return nil unless selected_option
+
+    selected_option["name"]
+  end
+
   def selected_option
     user_selected_option || raw_default_option
   end
