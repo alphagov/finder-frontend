@@ -158,7 +158,7 @@ private
   end
 
   def filter_summary_presenter
-    FilterSummaryPresenter.new(sort_presenter)
+    FilterSummaryPresenter.new(sort_presenter, finder_url_builder)
   end
 
   def sort_presenter
