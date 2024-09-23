@@ -47,7 +47,6 @@
         <%= render "components/filter_panel", {
           button_text: "Filter and sort",
           result_text: result_set_presenter.displayed_total,
-          margin_bottom: 2,
         } do %>
           <%= render "components/filter_section", {
             open: true,
@@ -79,11 +78,12 @@
 
         <% if result_set_presenter.total_count.positive? %>
           <%= render "govuk_publishing_components/components/document_list", {
+            remove_top_border_from_first_child: true,
             disable_ga4: true,
             items: result_set_presenter.search_results_content[:document_list_component_data],
           } %>
         <% else %>
-          <div class='no-results govuk-!-font-size-19'>
+          <div class='no-results govuk-!-font-size-19 govuk-!-margin-top-4'>
             <p class='govuk-body govuk-!-font-weight-bold'>There are no matching results.</p>
             <p class='govuk-body'>Improve your search results by:</p>
             <ul class="govuk-list govuk-list--bullet">

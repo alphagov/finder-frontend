@@ -1,10 +1,25 @@
 @import "govuk_publishing_components/individual_component_support";
 @import "mixins/chevron";
 
+.app-c-filter-panel {
+  padding-bottom: govuk-spacing(2);
+  margin-bottom: govuk-spacing(1);
+  border-bottom: 1px solid $govuk-border-colour;
+}
+
 .app-c-filter-panel__content {
   background-color:  govuk-colour("light-grey");
   padding: 0 govuk-spacing(3);
   margin-top: govuk-spacing(2);
+
+  // GOV.UK Frontend radio and checkboxes are rendered with a transparent background, which makes
+  // them look wrong on this component's grey background. This is intentional in GOV.UK Frontend and
+  // unlikely to change (see https://github.com/alphagov/govuk-frontend/issues/1625).
+  .govuk-checkboxes__label, .govuk-radios__label {
+    &::before {
+        background-color: govuk-colour('white');
+    }
+  }
 }
 
 .app-c-filter-panel__header {
@@ -48,7 +63,7 @@
   }
 
   &::before {
-    margin: 0 govuk-spacing(2) govuk-spacing(1) 0;
+    margin: 0 govuk-spacing(3) govuk-spacing(1) 0;
   }
 }
 
