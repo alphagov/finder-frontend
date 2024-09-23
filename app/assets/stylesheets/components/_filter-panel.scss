@@ -1,6 +1,12 @@
 @import "govuk_publishing_components/individual_component_support";
 @import "mixins/chevron";
 
+.app-c-filter-panel {
+  padding-bottom: govuk-spacing(2);
+  margin-bottom: govuk-spacing(1);
+  border-bottom: 1px solid $govuk-border-colour;
+}
+
 .app-c-filter-panel__content {
   background-color:  govuk-colour("light-grey");
   padding: 0 govuk-spacing(3);
