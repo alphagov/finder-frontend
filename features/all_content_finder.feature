@@ -12,6 +12,11 @@ Feature: All content finder ("site search")
     Then I can see results for my search
     And I can see how many results there are
 
+  Scenario: Filtering results
+    When I search all content for "how to walk silly"
+    And I open the filter panel
+    Then I can see a filter section for every visible facet on the all content finder
+
   Scenario: Spelling suggestion
     When I search all content for "drving"
     Then I see a "driving" spelling suggestion
