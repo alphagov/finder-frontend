@@ -243,6 +243,68 @@ RSpec.describe SortPresenter do
     end
   end
 
+  describe "#default?" do
+    context "when a default option exists" do
+      subject { presenter_with_default }
+
+      context "and it is explicitly selected by the user" do
+        let(:values) { { "order" => "updated-oldest" } }
+
+        it { is_expected.to be_default }
+      end
+
+      context "and a different option is explicitly selected by the user" do
+        let(:values) { { "order" => "most-viewed" } }
+
+        it { is_expected.not_to be_default }
+      end
+
+      context "and a non-existent option is explicitly selected by the user" do
+        let(:values) { { "order" => "disorderly" } }
+
+        it { is_expected.to be_default }
+      end
+
+      context "and no option is explicitly selected by the user" do
+        let(:values) { {} }
+
+        it { is_expected.to be_default }
+      end
+    end
+
+    context "when no default option exists" do
+      subject { presenter_with_relevance }
+
+      context "and any option is explicitly selected by the user" do
+        let(:values) { { "order" => "disorderly" } }
+
+        it { is_expected.not_to be_default }
+      end
+
+      context "and no option is explicitly selected by the user" do
+        let(:values) { {} }
+
+        it { is_expected.to be_default }
+      end
+    end
+
+    context "when the default option is overridden based on keyword presence" do
+      subject { presenter_with_popularity_default_and_relevance }
+
+      context "and keywords are blank and relevance is explicitly selected" do
+        let(:values) { { "keywords" => "", "order" => "relevance" } }
+
+        it { is_expected.to be_default }
+      end
+
+      context "and keywords are not blank and popularity is explicitly selected" do
+        let(:values) { { "keywords" => "something not blank", "order" => "most-viewed" } }
+
+        it { is_expected.to be_default }
+      end
+    end
+  end
+
 private
 
   def content_item(sort_options: nil)

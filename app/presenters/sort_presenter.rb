@@ -15,6 +15,13 @@ class SortPresenter
     }
   end
 
+  def default?
+    return true if user_selected_order.blank?
+    return false if raw_default_option.nil?
+
+    selected_option == raw_default_option
+  end
+
   def default_option
     presented_sort_options.find(&:default?)
   end
