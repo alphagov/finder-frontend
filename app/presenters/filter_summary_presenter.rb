@@ -8,6 +8,10 @@ class FilterSummaryPresenter
     [sort_item].compact
   end
 
+  def clear_all_href
+    finder_url_builder.url_except_params(:order)
+  end
+
 private
 
   attr_reader :sort_presenter, :finder_url_builder
