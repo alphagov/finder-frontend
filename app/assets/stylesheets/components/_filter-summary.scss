@@ -1,0 +1,51 @@
+@import "govuk_publishing_components/individual_component_support";
+
+.app-c-filter-summary__heading {
+  display: block;
+  margin-bottom: govuk-spacing(2);
+  @include govuk-font(16);
+}
+
+.app-c-filter-summary__remove-filters {
+  list-style-type: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: govuk-spacing(1);
+}
+
+.app-c-filter-summary__remove-filter {
+  border: 1px solid $govuk-border-colour;
+  border-radius: govuk-em(5, 16px);
+  padding: govuk-spacing(2);
+  text-decoration: none;
+  display: flex;
+  color: $govuk-text-colour;
+  background-color: govuk-colour("light-grey");
+  @include govuk-font(16);
+
+  &:focus {
+    background-color: $govuk-focus-colour;
+    outline: 2px $govuk-text-colour solid;
+    outline-offset: 0;
+    border-color: $govuk-text-colour;
+  }
+
+  &:hover {
+    outline: 1px $govuk-text-colour solid;
+    outline-offset: 0;
+    border-color: $govuk-text-colour;
+  }
+
+  &::before {
+    content: "\00d7";
+    padding-right: govuk-spacing(1);
+    vertical-align: top;
+    line-height: 1;
+    font-size: 22px;
+  }
+}
+
+.app-c-filter-summary__remove-filter-text {
+  vertical-align: middle;
+}

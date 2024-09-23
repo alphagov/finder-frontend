@@ -1,0 +1,44 @@
+<% add_app_component_stylesheet("filter-summary") %>
+
+<%
+  shared_helper = GovukPublishingComponents::Presenters::SharedHelper.new(local_assigns)
+  filters ||= []
+
+  clear_all_href ||= nil
+  clear_all_text ||= nil
+  heading_level ||= 3
+  heading_text ||= nil
+
+  component_helper = GovukPublishingComponents::Presenters::ComponentWrapperHelper.new(local_assigns)
+  component_helper.add_class(shared_helper.get_margin_bottom) if local_assigns[:margin_bottom]
+  component_helper.add_class("app-c-filter-summary")
+%>
+
+<% if filters && filters.length > 0  %>
+  <%= tag.div(**component_helper.all_attributes) do %>
+    <% if heading_text.present? %>
+      <%= content_tag("h#{heading_level}", class: "app-c-filter-summary__heading") do %>
+        <% heading_text %>
+      <% end %>
+    <% end %>
+    <ul class="app-c-filter-summary__remove-filters">
+    <% filters.each do |filter| %>
+      <li>
+        <%= content_tag("a", class: "app-c-filter-summary__remove-filter", href: "#{filter[:remove_href]}") do %>
+          <span class="app-c-filter-summary__remove-filter-text">
+            <span class="govuk-visually-hidden"><%= filter[:visually_hidden_prefix] %></span>
+            <%= filter[:label] %>: <%= filter[:value] %>
+          </span>
+        <% end %>
+      </li>
+    <% end %>
+    </ul>
+    <% if clear_all_text.present? && clear_all_href.present? %>
+      <%= tag.div do %>
+        <%= content_tag("a", class: "app-c-filter-summary__clear-filters govuk-link", href: "#{clear_all_href}") do %>
+          <%= clear_all_text %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
