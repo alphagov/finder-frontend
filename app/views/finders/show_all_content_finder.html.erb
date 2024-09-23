@@ -62,26 +62,7 @@
           clear_all_text: "Clear all filters",
           heading_level: 3,
           heading_text: "Selected filters",
-          filters: [
-            {
-              label: "Filter 1",
-              value: "Value 1",
-              remove_href: "#",
-              visually_hidden_prefix: "Remove filter"
-            },
-            {
-              label: "Filter 2",
-              value: "Value 2",
-              remove_href: "#",
-              visually_hidden_prefix: "Remove filter"
-            },
-            {
-              label: "Filter 3",
-              value: "Value 3",
-              remove_href: "#",
-              visually_hidden_prefix: "Remove filter"
-            }
-          ]
+          filters: @filter_summary_presenter.items,
         } %>
 
         <% if result_set_presenter.total_count.positive? %>

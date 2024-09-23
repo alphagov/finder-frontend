@@ -56,6 +56,7 @@ class FindersController < ApplicationController
     @breadcrumbs = fetch_breadcrumbs
     @parent = parent
     @sort_presenter = sort_presenter
+    @filter_summary_presenter = filter_summary_presenter
     @pagination = pagination_presenter
     @spelling_suggestion_presenter = spelling_suggestion_presenter
   end
@@ -154,6 +155,10 @@ private
     parent_slug = params["parent"]
     org_info = organisation_registry[parent_slug] if parent_slug.present?
     FinderBreadcrumbsPresenter.new(org_info, content_item)
+  end
+
+  def filter_summary_presenter
+    FilterSummaryPresenter.new(sort_presenter)
   end
 
   def sort_presenter
