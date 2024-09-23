@@ -187,7 +187,7 @@ GEM
     govuk_personalisation (1.0.0)
       plek (>= 1.9.0)
       rails (>= 6, < 8)
-    govuk_publishing_components (43.1.1)
+    govuk_publishing_components (43.4.1)
       govuk_app_config
       govuk_personalisation (>= 0.7.0)
       kramdown
@@ -545,7 +545,7 @@ GEM
       mime-types (>= 1.16, < 4.0)
       netrc (~> 0.8)
     rexml (3.3.7)
-    rouge (4.3.0)
+    rouge (4.4.0)
     rspec-core (3.13.1)
       rspec-support (~> 3.13.0)
     rspec-expectations (3.13.2)
