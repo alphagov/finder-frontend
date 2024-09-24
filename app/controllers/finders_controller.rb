@@ -45,7 +45,7 @@ class FindersController < ApplicationController
         end
       end
     end
-  rescue ActionController::UnknownFormat
+  rescue ActionController::UnknownFormat, ActionController::UnfilteredParameters
     render plain: "Not acceptable", status: :not_acceptable
   rescue UnsupportedContentItem
     render plain: "Not found", status: :not_found
