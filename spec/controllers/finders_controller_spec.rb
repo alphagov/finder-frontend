@@ -484,6 +484,11 @@ describe FindersController, type: :controller do
       it "redirects to research-and-statistics finder for statistics" do
         expect(get(:show, params: @default_params.merge(publication_type: "statistics"))).to redirect_to("/search/research-and-statistics")
       end
+
+      it "returns a 406 if there are unfiltered parameters" do
+        get(:show, params: @default_params.merge(publication_type: "foi-releases", organisations: { foo: "bar" }))
+        expect(response.status).to eq(406)
+      end
     end
 
     describe "when there are legacy parameters present" do
