@@ -21,24 +21,24 @@
         <% heading_text %>
       <% end %>
     <% end %>
+
     <ul class="app-c-filter-summary__remove-filters">
-    <% filters.each do |filter| %>
-      <li>
-        <%= content_tag("a", class: "app-c-filter-summary__remove-filter", href: "#{filter[:remove_href]}") do %>
-          <span class="app-c-filter-summary__remove-filter-text">
-            <span class="govuk-visually-hidden"><%= filter[:visually_hidden_prefix] %></span>
-            <%= filter[:label] %>: <%= filter[:value] %>
-          </span>
-        <% end %>
-      </li>
-    <% end %>
-    </ul>
-    <% if clear_all_text.present? && clear_all_href.present? %>
-      <%= tag.div do %>
-        <%= content_tag("a", class: "app-c-filter-summary__clear-filters govuk-link", href: "#{clear_all_href}") do %>
-          <%= clear_all_text %>
-        <% end %>
+      <% filters.each do |filter| %>
+        <li>
+          <%= link_to filter[:remove_href], class: "app-c-filter-summary__remove-filter" do %>
+            <span class="app-c-filter-summary__remove-filter-text">
+              <span class="govuk-visually-hidden"><%= filter[:visually_hidden_prefix] %></span>
+              <%= filter[:label] %>: <%= filter[:value] %>
+            </span>
+          <% end %>
+        </li>
       <% end %>
+    </ul>
+
+    <% if clear_all_text.present? && clear_all_href.present? %>
+      <div>
+        <%= link_to clear_all_text, clear_all_href, class: "app-c-filter-summary__clear-filters govuk-link govuk-link--no-visited-state" %>
+      </div>
     <% end %>
   <% end %>
 <% end %>

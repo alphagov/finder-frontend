@@ -22,9 +22,10 @@
 .app-c-filter-summary__remove-filter {
   border: 1px solid $govuk-border-colour;
   border-radius: govuk-em(5, 16px);
-  padding: govuk-spacing(2);
+  padding: govuk-spacing(1) govuk-spacing(2);
   text-decoration: none;
   display: flex;
+  align-items: center;
   color: $govuk-text-colour;
   background-color: govuk-colour("light-grey");
   @include govuk-font(16);
@@ -43,14 +44,9 @@
   }
 
   &::before {
+    margin-top: 1px;
     content: "\00d7";
     padding-right: govuk-spacing(1);
-    vertical-align: top;
-    line-height: 1;
     font-size: 22px;
   }
-}
-
-.app-c-filter-summary__remove-filter-text {
-  vertical-align: middle;
 }
