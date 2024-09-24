@@ -53,7 +53,3 @@
   text-align: right;
   @include govuk-font(16, $weight: regular);
 }
-
-.app-c-filter-section__content {
-  padding: govuk-spacing(2) 0;
-}
