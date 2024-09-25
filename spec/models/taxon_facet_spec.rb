@@ -3,6 +3,8 @@ require "spec_helper"
 describe TaxonFacet do
   include TaxonomySpecHelper
 
+  subject { described_class.new(facet_data, allowed_values) }
+
   before do
     Rails.cache.clear
     topic_taxonomy_has_taxons([
@@ -89,9 +91,7 @@ describe TaxonFacet do
     end
 
     context "disallowed value selected" do
-      subject { described_class.new(facet_data, disallowed_values) }
-
-      let(:disallowed_values) do
+      let(:allowed_values) do
         {
           "level_one_taxon" => "disallowed-value-1",
           "level_two_taxon" => "disallowed-value-2",

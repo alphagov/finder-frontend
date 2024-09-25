@@ -1,6 +1,8 @@
 require "spec_helper"
 
 describe TopicalFacet do
+  subject { described_class.new(facet_data, value) }
+
   let(:facet_data) do
     {
       "type" => "topical",
@@ -20,8 +22,6 @@ describe TopicalFacet do
 
   describe "#sentence_fragment" do
     context "single value" do
-      subject { described_class.new(facet_data, value) }
-
       let(:value) { %w[open] }
 
       specify do
@@ -32,8 +32,6 @@ describe TopicalFacet do
     end
 
     context "multiple values" do
-      subject { described_class.new(facet_data, value) }
-
       let(:value) { %w[open closed] }
 
       specify do
@@ -47,8 +45,6 @@ describe TopicalFacet do
     end
 
     context "disallowed values" do
-      subject { described_class.new(facet_data, value) }
-
       let(:value) { %w[disallowed-value-1 disallowed-value-2] }
 
       specify { expect(subject.sentence_fragment).to be_nil }
