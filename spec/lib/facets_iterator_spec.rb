@@ -3,9 +3,9 @@ require "spec_helper"
 RSpec.describe FacetsIterator do
   subject(:facets_iterator) { described_class.new(facets) }
 
-  let(:visible_facet) { instance_double(Facet, has_ga4_section?: true) }
-  let(:another_visible_facet) { instance_double(Facet, has_ga4_section?: true) }
-  let(:hidden_facet) { instance_double(Facet, has_ga4_section?: false) }
+  let(:visible_facet) { instance_double(Facet, user_visible?: true) }
+  let(:another_visible_facet) { instance_double(Facet, user_visible?: true) }
+  let(:hidden_facet) { instance_double(Facet, user_visible?: false) }
 
   let(:facets) { [visible_facet, hidden_facet, another_visible_facet] }
 
