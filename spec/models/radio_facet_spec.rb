@@ -13,6 +13,8 @@ describe RadioFacet do
     }
   end
 
+  it { is_expected.to be_user_visible }
+
   describe "#query_params" do
     specify do
       expect(subject.query_params).to eql("type" => "selected_value")

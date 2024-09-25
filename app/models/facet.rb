@@ -3,6 +3,11 @@ class Facet
     @facet = facet
   end
 
+  # Whether or not a facet is visible to the user (true by default except for hidden facets)
+  def user_visible?
+    true
+  end
+
   def key
     facet["key"]
   end

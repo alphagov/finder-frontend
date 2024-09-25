@@ -4,6 +4,10 @@ class HiddenFacet < FilterableFacet
     super(facet)
   end
 
+  def user_visible?
+    false
+  end
+
   def sentence_fragment
     return nil unless has_filters?
 
