@@ -5,7 +5,7 @@ RSpec.describe SearchParameters do
     described_class.new(ActionController::Parameters.new(params))
   end
 
-  context "#search_term" do
+  describe "#search_term" do
     it "truncates a too-long search query" do
       max_length = Search::QueryBuilder::MAX_QUERY_LENGTH
       long_query = "a" * max_length

@@ -10,7 +10,7 @@ RSpec.describe Healthchecks::RegistriesCache do
 
   subject(:check) { described_class.new }
 
-  before :each do
+  before do
     Rails.cache.clear
   end
 

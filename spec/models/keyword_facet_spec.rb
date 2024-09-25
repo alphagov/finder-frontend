@@ -7,7 +7,7 @@ describe KeywordFacet do
 
   describe "#sentence_fragment" do
     context "keywords without quotes" do
-      subject { KeywordFacet.new(query) }
+      subject { described_class.new(query) }
 
       let(:first_word) { subject.sentence_fragment["values"].first }
       let(:second_word) { subject.sentence_fragment["values"].second }
@@ -23,7 +23,8 @@ describe KeywordFacet do
     end
 
     context "keywords with quotes" do
-      subject { KeywordFacet.new(query_with_quotes) }
+      subject { described_class.new(query_with_quotes) }
+
       let(:labels) { subject.sentence_fragment["values"].map { |v| v["label"] } }
 
       specify do
@@ -33,7 +34,8 @@ describe KeywordFacet do
     end
 
     context "keywords with multiple quotes" do
-      subject { KeywordFacet.new(query_with_multiple_quotes) }
+      subject { described_class.new(query_with_multiple_quotes) }
+
       let(:labels) { subject.sentence_fragment["values"].map { |v| v["label"] } }
 
       specify do
@@ -43,16 +45,18 @@ describe KeywordFacet do
     end
 
     context "without any keywords" do
-      subject { KeywordFacet.new }
+      subject { described_class.new }
 
       specify do
         expect(subject.sentence_fragment).to be_nil
       end
     end
   end
+
   describe "#query_params" do
     context "value selected" do
-      subject { KeywordFacet.new("keyword") }
+      subject { described_class.new("keyword") }
+
       specify do
         expect(subject.query_params).to eql("keywords" => %w[keyword])
       end

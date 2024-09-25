@@ -392,24 +392,24 @@ And("I click on the atom feed link") do
 end
 
 And("there is machine readable information") do
-  schema_sections = page.find_all("script[type='application/ld+json']", visible: false)
+  schema_sections = page.find_all("script[type='application/ld+json']", visible: :hidden)
   schemas = schema_sections.map { |section| JSON.parse(section.text(:all)) }
 
   org_schema = schemas.detect { |schema| schema["@type"] == "SearchResultsPage" }
   expect(org_schema["name"]).to_not be_nil
 
   tag = "link[rel='canonical']"
-  expect(page).to have_css(tag, visible: false)
+  expect(page).to have_css(tag, visible: :hidden)
 end
 
 Then(/^I can see that Google won't index the page$/) do
   tag = "meta[name='robots'][content='noindex']"
-  expect(page).to have_css(tag, visible: false)
+  expect(page).to have_css(tag, visible: :hidden)
 end
 
 Then(/^I can see that Google can index the page$/) do
   tag = "meta[name='robots'][content='noindex']"
-  expect(page).not_to have_css(tag, visible: false)
+  expect(page).not_to have_css(tag, visible: :hidden)
 end
 
 Given(/^a finder with description exists$/) do
@@ -458,14 +458,14 @@ When(/^I can see that the description in the metadata is present$/) do
 
   desc_text = "Find reports and updates on current and historical CMA investigations"
   desc_tag = "meta[name='description'][content='#{desc_text}']"
-  expect(page).to have_css(desc_tag, visible: false)
+  expect(page).to have_css(desc_tag, visible: :hidden)
 end
 
 When(/^I can see that the noindex tag is is present in the metadata$/) do
   visit "/cma-cases"
 
   noindex_tag = "meta[name='robots'][content='noindex']"
-  expect(page).to have_css(noindex_tag, visible: false)
+  expect(page).to have_css(noindex_tag, visible: :hidden)
 end
 
 Given(/^an organisation finder exists$/) do
@@ -739,7 +739,7 @@ Then(/^I can sign up to email alerts for allowed filters$/) do
   check("Competition disqualification")
 
   click_on("Continue")
-  expect(page.current_path).to eq("/email/subscriptions/new")
+  expect(page).to have_current_path("/email/subscriptions/new", ignore_query: true)
 end
 
 Then("I see an error about selecting at least one option") do

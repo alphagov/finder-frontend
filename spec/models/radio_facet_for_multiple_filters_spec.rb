@@ -41,6 +41,7 @@ describe RadioFacetForMultipleFilters do
   describe "#options" do
     context "valid value" do
       subject { described_class.new(facet_data, "value_1", filter_hashes) }
+
       it "sets the options, selecting the correct value" do
         expect(subject.options).to eq([
           {
@@ -64,6 +65,7 @@ describe RadioFacetForMultipleFilters do
 
     context "invalid value" do
       subject { described_class.new(facet_data, "something", filter_hashes) }
+
       it "sets the options, selecting the default value" do
         expect(subject.options).to include(
           value: "default_value",
@@ -77,6 +79,7 @@ describe RadioFacetForMultipleFilters do
   describe "#query_params" do
     context "value selected" do
       subject { described_class.new(facet_data, "value_1", filter_hashes) }
+
       specify do
         expect(subject.query_params).to eq("type" => "value_1")
       end

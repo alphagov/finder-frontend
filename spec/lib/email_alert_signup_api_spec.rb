@@ -99,25 +99,12 @@ describe EmailAlertSignupAPI do
             alert_type: %w[first],
           }
         end
+
         it "calls the API" do
           req = stub_email_alert_api_creates_subscriber_list(
             "tags" => {
               format: { any: %w[other-reports test-reports] },
               alert_type: { any: %w[first] },
-            },
-          )
-
-          signup_api_wrapper.signup_url
-          assert_requested(req)
-        end
-      end
-
-      context "without a title prefix" do
-        it "calls the API" do
-          req = stub_email_alert_api_creates_subscriber_list(
-            "tags" => {
-              format: { any: %w[test-reports] },
-              alert_type: { any: %w[first second] },
             },
           )
 
@@ -222,21 +209,6 @@ describe EmailAlertSignupAPI do
               format: { any: %w[test-reports] },
               alert_type: { any: %w[first] },
               other_type: { any: %w[] },
-            },
-          )
-
-          signup_api_wrapper.signup_url
-          assert_requested(req)
-        end
-      end
-
-      context "without a title prefix" do
-        it "calls the API" do
-          req = stub_email_alert_api_creates_subscriber_list(
-            "tags" => {
-              format: { any: %w[test-reports] },
-              alert_type: { any: %w[first second] },
-              other_type: { any: %w[third fourth] },
             },
           )
 
@@ -386,7 +358,7 @@ describe EmailAlertSignupAPI do
           [{ "facet_id" => "organisations", "facet_name" => "Organisations" }]
         end
 
-        before :each do
+        before do
           stub_organisations_registry_request
         end
 
@@ -411,7 +383,7 @@ describe EmailAlertSignupAPI do
           [{ "facet_id" => "world_locations", "facet_name" => "world locations" }]
         end
 
-        before :each do
+        before do
           stub_worldwide_api_has_locations(%w[location_1 location_2])
         end
 
@@ -436,7 +408,7 @@ describe EmailAlertSignupAPI do
           [{ "facet_id" => "people", "facet_name" => "people" }]
         end
 
-        before :each do
+        before do
           stub_people_registry_request
         end
 

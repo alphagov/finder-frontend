@@ -4,8 +4,8 @@ require_relative "./helpers/facets_helper"
 RSpec.describe ResultSetPresenter do
   include FacetsHelper
 
-  subject(:subject) do
-    ResultSetPresenter.new(
+  subject do
+    described_class.new(
       content_item,
       facets,
       search_results,
@@ -125,6 +125,7 @@ RSpec.describe ResultSetPresenter do
           description_with_highlighting: "document_description",
         )]
       end
+
       it "has the right data" do
         expected_hash = {
           link: {
@@ -183,7 +184,7 @@ RSpec.describe ResultSetPresenter do
           "discovery_engine_attribution_token" => discovery_engine_attribution_token,
         )
 
-        subject = ResultSetPresenter.new(
+        subject = described_class.new(
           content_item,
           facets,
           search_results,

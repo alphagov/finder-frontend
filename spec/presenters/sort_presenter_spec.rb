@@ -3,11 +3,6 @@ require "spec_helper"
 RSpec.describe SortPresenter do
   include GovukContentSchemaExamples
 
-  subject(:presenter_without_sort) { described_class.new(content_item(sort_options: no_sort_options), values) }
-  subject(:presenter_with_sort) { described_class.new(content_item(sort_options: sort_options_without_relevance), values) }
-  subject(:presenter_with_default) { described_class.new(content_item(sort_options: sort_options_with_default), values) }
-  subject(:presenter_with_popularity_default_and_relevance) { described_class.new(content_item(sort_options: sort_options_with_popularity_default_and_relevance), values) }
-  subject(:presenter_with_relevance) { described_class.new(content_item(sort_options: sort_options_with_relevance), values) }
   subject(:presenter_with_relevance_selected) do
     described_class.new(
       content_item(sort_options: sort_options_with_relevance),
@@ -16,17 +11,15 @@ RSpec.describe SortPresenter do
     )
   end
 
+  let(:presenter_without_sort) { described_class.new(content_item(sort_options: no_sort_options), values) }
   let(:values) { {} }
-
   let(:no_sort_options) { nil }
-
   let(:sort_options_without_relevance) do
     [
       { "name" => "Most viewed", "key" => "-popularity" },
       { "name" => "Updated (newest)", "key" => "-public_timestamp" },
     ]
   end
-
   let(:sort_options_with_relevance) do
     [
       { "name" => "Most viewed", "key" => "-popularity" },
@@ -34,27 +27,32 @@ RSpec.describe SortPresenter do
       { "name" => "Relevance", "key" => "relevance" },
     ]
   end
-
   let(:sort_options_with_default) do
     [
       { "name" => "Most viewed", "key" => "-popularity" },
       { "name" => "Updated (oldest)", "key" => "-public_timestamp", "default" => true },
     ]
   end
-
   let(:sort_options_with_popularity_default_and_relevance) do
     [
       { "name" => "Most viewed", "key" => "-popularity", "default" => true },
       { "name" => "Relevance", "key" => "relevance" },
     ]
   end
-
   let(:sort_options_with_public_timestamp_default) do
     [
       { "name" => "Most viewed", "key" => "-popularity" },
       { "name" => "Updated (newest)", "key" => "-public_timestamp", "default" => true },
     ]
   end
+
+  let(:presenter_with_sort) { described_class.new(content_item(sort_options: sort_options_without_relevance), values) }
+
+  let(:presenter_with_default) { described_class.new(content_item(sort_options: sort_options_with_default), values) }
+
+  let(:presenter_with_popularity_default_and_relevance) { described_class.new(content_item(sort_options: sort_options_with_popularity_default_and_relevance), values) }
+
+  let(:presenter_with_relevance) { described_class.new(content_item(sort_options: sort_options_with_relevance), values) }
 
   describe "#to_hash" do
     it "returns a hash containing options, default_value, and relevance_value" do
@@ -106,12 +104,12 @@ RSpec.describe SortPresenter do
       context "when keywords are blank" do
         let(:values) { { "keywords" => "" } }
 
-        it "should disable the relevance option" do
+        it "disables the relevance option" do
           expect(relevance_option[:disabled]).to be true
           expect(relevance_option[:selected]).to be false
         end
 
-        it "should enable the popularity option" do
+        it "enables the popularity option" do
           expect(popularity_option[:disabled]).to be false
           expect(popularity_option[:selected]).to be true
         end
@@ -119,12 +117,12 @@ RSpec.describe SortPresenter do
         context "even when the relevance option is explicitly requested" do
           let(:values) { super().merge("order" => "relevance") }
 
-          it "should still disable the relevance option" do
+          it "stills disable the relevance option" do
             expect(relevance_option[:disabled]).to be true
             expect(relevance_option[:selected]).to be false
           end
 
-          it "should enable the popularity option" do
+          it "enables the popularity option" do
             expect(popularity_option[:disabled]).to be false
             expect(popularity_option[:selected]).to be true
           end
@@ -134,12 +132,12 @@ RSpec.describe SortPresenter do
       context "when keywords are not blank" do
         let(:values) { { "keywords" => "something not blank" } }
 
-        it "should not disable the relevance option" do
+        it "does not disable the relevance option" do
           expect(relevance_option[:disabled]).to be false
           expect(relevance_option[:selected]).to be true
         end
 
-        it "should disable the popularity option" do
+        it "disables the popularity option" do
           expect(popularity_option[:disabled]).to be true
           expect(popularity_option[:selected]).to be false
         end
@@ -147,12 +145,12 @@ RSpec.describe SortPresenter do
         context "even when the popularity option is explicitly requested" do
           let(:values) { super().merge("order" => "most-viewed") }
 
-          it "should still disable the popularity option" do
+          it "stills disable the popularity option" do
             expect(popularity_option[:disabled]).to be true
             expect(popularity_option[:selected]).to be false
           end
 
-          it "should enable the relevance option" do
+          it "enables the relevance option" do
             expect(relevance_option[:disabled]).to be false
             expect(relevance_option[:selected]).to be true
           end
@@ -161,13 +159,14 @@ RSpec.describe SortPresenter do
     end
 
     it "returns nil when the finder doesn't have sort options" do
-      expect(presenter_without_sort.to_hash).to eql(nil)
+      expect(presenter_without_sort.to_hash).to be_nil
     end
 
     context "an unacceptable order is provided" do
       let(:values) { { "order" => "option_that_does_not_exist" } }
+
       it "no option is selected" do
-        expect(presenter_with_sort.to_hash[:options].find { |o| o[:selected] }).to be nil
+        expect(presenter_with_sort.to_hash[:options].find { |o| o[:selected] }).to be_nil
       end
     end
 
@@ -186,11 +185,11 @@ RSpec.describe SortPresenter do
 
   describe "#has_options?" do
     it "returns false if there are no options in the content item" do
-      expect(presenter_without_sort.to_hash).to be nil
+      expect(presenter_without_sort.to_hash).to be_nil
     end
 
     it "returns true if there are sort options in the content item" do
-      expect(presenter_with_sort.to_hash).to_not be nil
+      expect(presenter_with_sort.to_hash).not_to be_nil
     end
   end
 
@@ -200,7 +199,7 @@ RSpec.describe SortPresenter do
     end
 
     it "returns nil if there is not a default option specified in the content item" do
-      expect(presenter_with_sort.default_value).to be nil
+      expect(presenter_with_sort.default_value).to be_nil
     end
   end
 
@@ -223,7 +222,7 @@ RSpec.describe SortPresenter do
 
     context "no default or selected option is available" do
       it "returns nil" do
-        expect(presenter_with_relevance.selected_option).to be nil
+        expect(presenter_with_relevance.selected_option).to be_nil
       end
     end
   end
@@ -238,7 +237,7 @@ RSpec.describe SortPresenter do
 
     context "no default option is specified in the content item" do
       it "returns nil" do
-        expect(presenter_with_relevance.default_option).to be nil
+        expect(presenter_with_relevance.default_option).to be_nil
       end
     end
   end

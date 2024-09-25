@@ -37,6 +37,7 @@ describe FindersController, type: :controller do
     Rails.cache.clear
     stub_content_store_has_item("/", "links" => { "level_one_taxons" => [] })
   end
+
   after { Rails.cache.clear }
 
   describe "GET show" do
@@ -345,7 +346,7 @@ describe FindersController, type: :controller do
       "suggested_queries":[]
     })
 
-    it "should detect bad 'from' dates" do
+    it "detects bad 'from' dates" do
       stub_request(:get, /search.json/).to_return(status: 200, body: rummager_response, headers: {})
 
       get :show, params: { slug: "search/all", format: "json", public_timestamp: { from: "99-99-99", to: "01-01-01" } }
@@ -355,7 +356,7 @@ describe FindersController, type: :controller do
       expect(json_response["errors"]["public_timestamp"]["to"]).to be false
     end
 
-    it "should detect bad 'to' dates" do
+    it "detects bad 'to' dates" do
       stub_request(:get, /search.json/).to_return(status: 200, body: rummager_response, headers: {})
 
       get :show, params: { slug: "search/all", format: "json", public_timestamp: { from: "01-01-01", to: "99-99-99" } }

@@ -98,8 +98,9 @@ describe FacetsBuilder do
 
   describe "facets" do
     subject(:facet) do
-      FacetsBuilder.new(content_item:, search_results: {}, value_hash: {}).facets.first
+      described_class.new(content_item:, search_results: {}, value_hash: {}).facets.first
     end
+
     let(:detail_hash) do
       {
         "details" => {
@@ -109,10 +110,12 @@ describe FacetsBuilder do
         },
       }
     end
+
     context "option_select_facet_hash facet" do
       let(:hash_under_test) do
         option_select_facet_hash
       end
+
       it "builds a option_select facet" do
         expect(facet).to be_a(OptionSelectFacet)
         expect(facet.key).to eq("people")
@@ -123,51 +126,62 @@ describe FacetsBuilder do
       let(:hash_under_test) do
         taxon_facet_hash
       end
+
       it "builds a taxon facet" do
         expect(facet).to be_a(TaxonFacet)
         expect(facet.keys).to eq(%w[level_one_taxon level_two_taxon])
       end
     end
+
     context "date facet" do
       let(:hash_under_test) do
         date_facet_hash
       end
+
       it "builds a taxon facet" do
         expect(facet).to be_a(DateFacet)
         expect(facet.key).to eq("public_timestamp")
       end
     end
+
     context "hidden facet" do
       let(:hash_under_test) do
         hidden_facet_hash
       end
+
       it "builds a hidden facet" do
         expect(facet).to be_a(HiddenFacet)
         expect(facet.key).to eq("topic")
       end
     end
+
     context "checkbox facet" do
       let(:hash_under_test) do
         checkbox_facet_hash
       end
+
       it "builds a checkbox facet" do
         expect(facet).to be_a(CheckboxFacet)
         expect(facet.key).to eq("checkbox")
       end
     end
+
     context "radio facet" do
       let(:hash_under_test) do
         radio_facet_hash
       end
+
       it "builds a checkbox facet" do
         expect(facet).to be_a(RadioFacet)
         expect(facet.key).to eq("content_store_document_type")
       end
     end
+
     context "hidden_clearable facet" do
       let(:hash_under_test) do
         hidden_clearable_facet_hash
       end
+
       it "builds a checkbox facet" do
         expect(facet).to be_a(HiddenClearableFacet)
         expect(facet.key).to eq("manual")
@@ -177,7 +191,7 @@ describe FacetsBuilder do
 
   describe "allowed values" do
     subject(:facet) do
-      FacetsBuilder.new(content_item:, search_results:, value_hash: {}).facets.first
+      described_class.new(content_item:, search_results:, value_hash: {}).facets.first
     end
 
     let(:search_results) do
@@ -200,23 +214,28 @@ describe FacetsBuilder do
         },
       }
     end
+
     context "The allowed values are in the content item hash" do
       let(:hash_under_test) do
         option_select_facet_hash
       end
+
       it "copies allowed values from the hash" do
         expect(facet.allowed_values).to eq([{ "value" => "me" }, { "value" => "you" }])
       end
     end
+
     context "The allowed values are in the registry" do
       let(:hash_under_test) do
         option_select_facet_hash.except(:allowed_values)
       end
+
       it "gets values from the registry" do
         stub_request(:get, rummager_url).to_return(body: people_search_api_results.to_json)
         expect(facet.allowed_values).to eq([{ "label" => "Cornelius Fudge", "value" => "cornelius-fudge" }, { "label" => "Rufus Scrimgeour", "value" => "rufus-scrimgeour" }])
       end
     end
+
     context "The allowed values are in the search results" do
       let(:hash_under_test) do
         {
@@ -228,6 +247,7 @@ describe FacetsBuilder do
       let(:search_results) do
         specialist_sector_search_results.deep_stringify_keys
       end
+
       it "gets the allowed values from the search results" do
         expect(facet.allowed_values).to eq([{ "label" => "Import, export and customs for businesses", "value" => "business-tax/import-export" },
                                             { "label" => "Environmental permits", "value" => "environmental-management/environmental-permits" },

@@ -8,6 +8,8 @@ RSpec.describe Registries::WorldLocationsRegistry do
   let(:slug) { "privet-drive" }
 
   describe "when world locations api is available" do
+    subject(:registry) { described_class.new }
+
     before do
       clear_cache
       stub_worldwide_api_has_locations %w[hogwarts privet-drive diagon-alley]
@@ -15,9 +17,7 @@ RSpec.describe Registries::WorldLocationsRegistry do
 
     after { clear_cache }
 
-    subject(:registry) { described_class.new }
-
-    it "will fetch an expanded world location by slug" do
+    it "fetches an expanded world location by slug" do
       fetched_document = registry[slug]
       expect(fetched_document).to eq(
         "title" => "Privet Drive",
@@ -26,16 +26,16 @@ RSpec.describe Registries::WorldLocationsRegistry do
       )
     end
 
-    it "will return all world locations" do
+    it "returns all world locations" do
       world_locations = registry.values
 
-      expect(world_locations.length).to eql(3)
+      expect(world_locations.length).to be(3)
       expect(world_locations.keys).to eql(%w[hogwarts privet-drive diagon-alley])
     end
   end
 
   describe "when world locations API is unavailable" do
-    it "will return an (uncached) empty array" do
+    it "returns an (uncached) empty array" do
       clear_cache
       world_locations_api_is_unavailable
       expect(described_class.new[slug]).to be_nil

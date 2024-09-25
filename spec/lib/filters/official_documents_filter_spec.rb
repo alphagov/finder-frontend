@@ -2,7 +2,7 @@ require "spec_helper"
 
 describe Filters::OfficialDocumentsFilter do
   let(:filter) do
-    Filters::OfficialDocumentsFilter.new(facet, "params_value")
+    described_class.new(facet, "params_value")
   end
   let(:hashes) do
     Filters::OfficialDocumentsHashes.new.call

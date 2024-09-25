@@ -17,7 +17,7 @@ RSpec.describe Registries::ManualsRegistry do
       clear_cache
     end
 
-    it "will fetch manual information by slug" do
+    it "fetches manual information by slug" do
       manual = described_class.new
       expect(manual[slug]).to eq(
         "title" => "Care and use of a Nimbus 2000",
@@ -31,14 +31,14 @@ RSpec.describe Registries::ManualsRegistry do
       )
     end
 
-    it "will fetch the correct types of document" do
+    it "fetches the correct types of document" do
       described_class.new[slug]
       assert_requested :get, rummager_url
     end
   end
 
   describe "there is no id or title" do
-    it "will remove those results" do
+    it "removes those results" do
       stub_request(:get, rummager_url).to_return(
         body: {
           "results": [
@@ -63,7 +63,7 @@ RSpec.describe Registries::ManualsRegistry do
       clear_cache
     end
 
-    it "will return an (uncached) empty hash" do
+    it "returns an (uncached) empty hash" do
       manual = described_class.new[slug]
       expect(manual).to be_nil
       expect(Rails.cache.fetch(described_class.new.cache_key)).to be_nil

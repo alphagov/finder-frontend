@@ -2,7 +2,7 @@ require "spec_helper"
 
 describe Filters::DateFilter do
   subject(:date_filter) do
-    Filters::DateFilter.new(facet, params)
+    described_class.new(facet, params)
   end
 
   let(:facet) { { "key" => "date_key" } }
@@ -10,7 +10,7 @@ describe Filters::DateFilter do
 
   describe "#active?" do
     context "when params is nil" do
-      it "should be false" do
+      it "is false" do
         expect(date_filter).not_to be_active
       end
     end
@@ -23,7 +23,7 @@ describe Filters::DateFilter do
         }
       end
 
-      it "should be false" do
+      it "is false" do
         expect(date_filter).not_to be_active
       end
     end

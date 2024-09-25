@@ -8,11 +8,12 @@ RSpec.describe Registries::BaseRegistries do
   include GovukContentSchemaExamples
   include RegistrySpecHelper
 
+  subject { described_class.new }
+
   before do
     stub_worldwide_api_has_locations %w[hogwarts privet-drive diagon-alley]
   end
 
-  let(:subject) { described_class.new }
   let(:level_one_taxons) do
     JSON.parse(File.read(Rails.root.join("features/fixtures/level_one_taxon.json")))
   end
@@ -44,17 +45,18 @@ RSpec.describe Registries::BaseRegistries do
       stub_organisations_registry_request
       stub_topical_events_registry_request
     end
+
     after { clear_cache }
 
     it "refreshes the cache of all registries that implement refresh_cache" do
       registry_cache_keys.each do |cache_key|
-        expect(Rails.cache.fetch(cache_key)).to be nil
+        expect(Rails.cache.fetch(cache_key)).to be_nil
       end
 
       described_class.new.refresh_cache
 
       registry_cache_keys.each do |cache_key|
-        expect(Rails.cache.fetch(cache_key)).not_to be nil
+        expect(Rails.cache.fetch(cache_key)).not_to be_nil
       end
     end
   end
@@ -69,17 +71,18 @@ RSpec.describe Registries::BaseRegistries do
       stub_organisations_registry_request
       stub_topical_events_registry_request
     end
+
     after { clear_cache }
 
     it "populates the cache of all registries that implement refresh_cache" do
       registry_cache_keys.each do |cache_key|
-        expect(Rails.cache.fetch(cache_key)).to be nil
+        expect(Rails.cache.fetch(cache_key)).to be_nil
       end
 
       described_class.new.ensure_warm_cache
 
       registry_cache_keys.each do |cache_key|
-        expect(Rails.cache.fetch(cache_key)).not_to be nil
+        expect(Rails.cache.fetch(cache_key)).not_to be_nil
       end
 
       WebMock.reset!

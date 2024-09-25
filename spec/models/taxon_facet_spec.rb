@@ -3,7 +3,7 @@ require "spec_helper"
 describe TaxonFacet do
   include TaxonomySpecHelper
 
-  before :each do
+  before do
     Rails.cache.clear
     topic_taxonomy_has_taxons([
       FactoryBot.build(:level_one_taxon_hash, content_id: "allowed-value-1", title: "allowed-value-1", number_of_children: 1),
@@ -30,15 +30,15 @@ describe TaxonFacet do
   end
 
   describe "#topics" do
-    subject { TaxonFacet.new(facet_data, allowed_values) }
+    subject { described_class.new(facet_data, allowed_values) }
 
-    it "will return an array of topics" do
+    it "returns an array of topics" do
       expect(subject.topics).to be_an(Array)
-      expect(subject.topics.count).to eql(4)
+      expect(subject.topics.count).to be(4)
     end
 
     describe "topic items" do
-      it "will have values required for rendering" do
+      it "has values required for rendering" do
         topic = subject.topics.second
         expect(topic.keys).to contain_exactly(
           :value,
@@ -49,20 +49,20 @@ describe TaxonFacet do
       end
     end
 
-    it "will have a default option" do
+    it "has a default option" do
       expect(subject.topics.first[:text]).to eql("All topics")
     end
   end
 
   describe "#sub_topics" do
-    subject { TaxonFacet.new(facet_data, allowed_values) }
+    subject { described_class.new(facet_data, allowed_values) }
 
-    it "will return an array of sub-topics" do
+    it "returns an array of sub-topics" do
       expect(subject.sub_topics).to be_an(Array)
-      expect(subject.sub_topics.count).to eql(4)
+      expect(subject.sub_topics.count).to be(4)
     end
 
-    it "will provide values required for rendering items" do
+    it "provides values required for rendering items" do
       sub_topic = subject.sub_topics.second
       expect(sub_topic.keys).to contain_exactly(
         :value,
@@ -72,14 +72,14 @@ describe TaxonFacet do
       )
     end
 
-    it "will have a default option" do
+    it "has a default option" do
       expect(subject.sub_topics.first[:text]).to eql("All sub-topics")
     end
   end
 
   describe "#sentence_fragment" do
     context "allowed value selected" do
-      subject { TaxonFacet.new(facet_data, allowed_values) }
+      subject { described_class.new(facet_data, allowed_values) }
 
       specify do
         expect(subject.sentence_fragment["preposition"]).to eql("of value")
@@ -89,13 +89,15 @@ describe TaxonFacet do
     end
 
     context "disallowed value selected" do
+      subject { described_class.new(facet_data, disallowed_values) }
+
       let(:disallowed_values) do
         {
           "level_one_taxon" => "disallowed-value-1",
           "level_two_taxon" => "disallowed-value-2",
         }
       end
-      subject { TaxonFacet.new(facet_data, disallowed_values) }
+
       specify { expect(subject.sentence_fragment).to be_nil }
     end
   end

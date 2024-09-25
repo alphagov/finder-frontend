@@ -5,6 +5,7 @@ describe ContentItem do
   include ::GdsApi::TestHelpers::ContentStore
 
   subject { described_class.new(finder_content_item) }
+
   let(:finder_content_item) do
     JSON.parse(File.read(Rails.root.join("features/fixtures/news_and_communications.json")))
   end
@@ -14,7 +15,7 @@ describe ContentItem do
 
     it "returns a content item as a hash" do
       stub_content_store_has_item(base_path, finder_content_item)
-      expect(ContentItem.from_content_store(base_path).as_hash).to eql(finder_content_item)
+      expect(described_class.from_content_store(base_path).as_hash).to eql(finder_content_item)
     end
   end
 

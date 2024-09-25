@@ -74,15 +74,15 @@ describe DateParser do
 
   dates.each_pair do |input, expected|
     it "returns the correct date for #{input}" do
-      expect(DateParser.new.parse(input)).to eql(expected)
+      expect(described_class.new.parse(input)).to eql(expected)
     end
 
     it "returns the correct date for #{input} with trailing whitespace" do
-      expect(DateParser.new.parse("#{input} ")).to eql(expected)
+      expect(described_class.new.parse("#{input} ")).to eql(expected)
     end
 
     it "returns the correct date for #{input} with preceeding whitespace" do
-      expect(DateParser.new.parse(" #{input}")).to eql(expected)
+      expect(described_class.new.parse(" #{input}")).to eql(expected)
     end
   end
 
@@ -98,6 +98,6 @@ describe DateParser do
     pretend_today = Time.zone.local(year, 3, 11)
     allow(Time).to receive(:now).and_return(pretend_today)
 
-    expect(DateParser.new.parse(date_to_parse)).to eql(expected_date)
+    expect(described_class.new.parse(date_to_parse)).to eql(expected_date)
   end
 end

@@ -30,7 +30,7 @@ describe OptionSelectFacet do
 
   describe "#sentence_fragment" do
     context "single value" do
-      subject { OptionSelectFacet.new(facet_data, %w[allowed-value-1]) }
+      subject { described_class.new(facet_data, %w[allowed-value-1]) }
 
       specify do
         expect(subject.sentence_fragment["preposition"]).to eql("of value")
@@ -40,7 +40,7 @@ describe OptionSelectFacet do
     end
 
     context "multiple values" do
-      subject { OptionSelectFacet.new(facet_data, %w[allowed-value-1 allowed-value-2]) }
+      subject { described_class.new(facet_data, %w[allowed-value-1 allowed-value-2]) }
 
       specify do
         expect(subject.sentence_fragment["preposition"]).to eql("of value")
@@ -53,14 +53,16 @@ describe OptionSelectFacet do
     end
 
     context "disallowed values" do
-      subject { OptionSelectFacet.new(facet_data, ["disallowed-value-1, disallowed-value-2"]) }
+      subject { described_class.new(facet_data, ["disallowed-value-1, disallowed-value-2"]) }
+
       specify { expect(subject.sentence_fragment).to be_nil }
     end
   end
 
   describe "#query_params" do
     context "value selected" do
-      subject { OptionSelectFacet.new(facet_data, "allowed-value-1") }
+      subject { described_class.new(facet_data, "allowed-value-1") }
+
       specify do
         expect(subject.query_params).to eql("test_values" => %w[allowed-value-1])
       end
@@ -68,13 +70,15 @@ describe OptionSelectFacet do
   end
 
   describe "#unselected?" do
-    subject { OptionSelectFacet.new(facet_data, ["disallowed-value-1, disallowed-value-2"]) }
+    subject { described_class.new(facet_data, ["disallowed-value-1, disallowed-value-2"]) }
 
     context "no selected values" do
       specify { expect(subject.unselected?).to be true }
     end
 
     context "some selected values" do
+      subject { described_class.new(facet_data, "1") }
+
       let(:facet_data) do
         {
           "type" => "multi-select",
@@ -84,8 +88,6 @@ describe OptionSelectFacet do
           "allowed_values" => [{ "label" => "One", "value" => "1" }],
         }
       end
-
-      subject { OptionSelectFacet.new(facet_data, "1") }
 
       specify do
         expect(subject.unselected?).to be false
@@ -113,8 +115,8 @@ describe OptionSelectFacet do
       end
 
       specify "cache keys should differ" do
-        f1 = OptionSelectFacet.new(facet_data, "1")
-        f2 = OptionSelectFacet.new(facet_data.merge({ "allowed_values" => allowed_values_2 }), "1")
+        f1 = described_class.new(facet_data, "1")
+        f2 = described_class.new(facet_data.merge({ "allowed_values" => allowed_values_2 }), "1")
         expect(f1.cache_key).not_to eq(f2.cache_key)
       end
     end
@@ -131,8 +133,8 @@ describe OptionSelectFacet do
       end
 
       specify "cache keys should differ" do
-        f1 = OptionSelectFacet.new(facet_data, "1")
-        f2 = OptionSelectFacet.new(facet_data_2, "1")
+        f1 = described_class.new(facet_data, "1")
+        f2 = described_class.new(facet_data_2, "1")
         expect(f1.cache_key).not_to eq(f2.cache_key)
       end
     end

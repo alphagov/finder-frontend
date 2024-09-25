@@ -1,16 +1,17 @@
 require "spec_helper"
 
 RSpec.describe FinderBreadcrumbsPresenter do
+  subject(:instance) { described_class.new(org_breadcrumb_info, finder) }
+
   let(:finder_hash) { JSON.parse(File.read(Rails.root.join("features/fixtures/aaib_reports_example.json"))) }
   let(:finder) { ContentItem.new(finder_hash) }
   let(:org_breadcrumb_info) { { "title" => "Attorney General's Office", "slug" => "attorney-generals-office" } }
   let(:empty_breadcrumb_info) { nil }
-  subject(:instance) { described_class.new(org_breadcrumb_info, finder) }
 
   describe "breadcrumbs" do
     it "returns nil if there is no breadcrumb info" do
       instance = described_class.new(empty_breadcrumb_info, finder)
-      expect(instance.breadcrumbs).to be nil
+      expect(instance.breadcrumbs).to be_nil
     end
 
     it "has a link to home as the first entry" do
@@ -26,7 +27,7 @@ RSpec.describe FinderBreadcrumbsPresenter do
       org_breadcrumb_info["title"] = ""
       instance = described_class.new(org_breadcrumb_info, finder)
       urls = instance.breadcrumbs.map { |breadcrumb| breadcrumb[:url] }
-      expect(urls).to_not include("/government/organisations/attorney-generals-office")
+      expect(urls).not_to include("/government/organisations/attorney-generals-office")
     end
   end
 end

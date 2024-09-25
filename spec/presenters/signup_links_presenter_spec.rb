@@ -6,6 +6,7 @@ RSpec.describe SignupLinksPresenter do
   include TaxonomySpecHelper
 
   subject(:presenter) { described_class.new(content_item, facets, keywords) }
+
   let(:keywords) { nil }
   let(:facets) { [] }
   let(:content_item) do
@@ -103,6 +104,7 @@ RSpec.describe SignupLinksPresenter do
         let(:facet_values) do
           []
         end
+
         it "returns the finder URL appended with .atom" do
           expect(subject.signup_links[:feed_link]).to eql("/mosw-reports.atom")
         end
@@ -132,7 +134,7 @@ RSpec.describe SignupLinksPresenter do
         end
 
         it "returns nil" do
-          expect(subject.signup_links[:feed_link]).to be nil
+          expect(subject.signup_links[:feed_link]).to be_nil
         end
       end
     end

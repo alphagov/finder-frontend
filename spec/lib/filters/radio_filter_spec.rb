@@ -2,7 +2,7 @@ require "spec_helper"
 
 describe Filters::RadioFilter do
   subject(:radio_filter) do
-    Filters::RadioFilter.new(facet, params)
+    described_class.new(facet, params)
   end
 
   let(:facet) { { "allowed_values" => allowed_values, "key" => "radio_key" } }
@@ -34,7 +34,7 @@ describe Filters::RadioFilter do
       let(:allowed_values) { [] }
 
       context "when params is nil" do
-        it "should be false" do
+        it "is false" do
           expect(radio_filter).not_to be_active
         end
       end
@@ -42,7 +42,7 @@ describe Filters::RadioFilter do
       context "when params is empty" do
         let(:params) { [] }
 
-        it "should be false" do
+        it "is false" do
           expect(radio_filter).not_to be_active
         end
       end
@@ -50,7 +50,7 @@ describe Filters::RadioFilter do
 
     context "when a default allowed value is set" do
       context "when params is nil" do
-        it "should be true" do
+        it "is true" do
           expect(radio_filter).to be_active
         end
       end
@@ -58,7 +58,7 @@ describe Filters::RadioFilter do
       context "when params is an array" do
         let(:params) { [] }
 
-        it "should be true" do
+        it "is true" do
           expect(radio_filter).to be_active
         end
       end
@@ -99,13 +99,13 @@ describe Filters::RadioFilter do
       context "when an allowed option is provided" do
         let(:params) { "open_consultations" }
 
-        it "should return the option as an array" do
+        it "returns the option as an array" do
           expect(radio_filter.query_hash).to eq("radio_key" => %w[open_consultations])
         end
       end
 
       context "when no option is provided and a default value is set" do
-        it "should return the default value" do
+        it "returns the default value" do
           expect(radio_filter.query_hash).to eq("radio_key" => default_value)
         end
       end
@@ -113,7 +113,7 @@ describe Filters::RadioFilter do
       context "when the option is not a string and a default value is set" do
         let(:params) { [] }
 
-        it "should return the default value" do
+        it "returns the default value" do
           expect(radio_filter.query_hash).to eq("radio_key" => default_value)
         end
       end
@@ -122,14 +122,15 @@ describe Filters::RadioFilter do
         let(:params) { "does_not_exist" }
 
         context "a default option is set" do
-          it "should return the default value" do
+          it "returns the default value" do
             expect(radio_filter.query_hash).to eq("radio_key" => default_value)
           end
         end
 
         context "a default option is NOT provided" do
           let(:allowed_values) { [] }
-          it "should return an empty array" do
+
+          it "returns an empty array" do
             expect(radio_filter.query_hash).to eq("radio_key" => [])
           end
         end
@@ -146,7 +147,7 @@ describe Filters::RadioFilter do
       end
 
       context "when no option is selected" do
-        it "should return the corresponding default values from the option_lookup" do
+        it "returns the corresponding default values from the option_lookup" do
           expect(radio_filter.query_hash).to eq("radio_key" => %w[guidance])
         end
       end
@@ -155,7 +156,7 @@ describe Filters::RadioFilter do
         let(:params) { "does_not_exist" }
 
         context "when a default value is set" do
-          it "should return the corresponding default values from the option_lookup" do
+          it "returns the corresponding default values from the option_lookup" do
             expect(radio_filter.query_hash).to eq("radio_key" => %w[guidance])
           end
         end
@@ -163,7 +164,7 @@ describe Filters::RadioFilter do
         context "when a default value is not set" do
           let(:allowed_values) { [] }
 
-          it "should return an empty array" do
+          it "returns an empty array" do
             expect(radio_filter.query_hash).to eq("radio_key" => [])
           end
         end
@@ -171,7 +172,8 @@ describe Filters::RadioFilter do
 
       context "when an allowed option is selected" do
         let(:params) { "open_consultations" }
-        it "should return the corresponding values from the option_lookup" do
+
+        it "returns the corresponding values from the option_lookup" do
           expect(radio_filter.query_hash).to eq("radio_key" => %w[open closed])
         end
       end
