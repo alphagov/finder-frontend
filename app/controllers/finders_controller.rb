@@ -124,9 +124,15 @@ private
   end
 
   def all_facets
-    return @facets if defined?(@facets)
-
-    FacetsBuilder.new(content_item:, search_results:, value_hash: filter_params).facets
+    @all_facets ||= FacetsBuilder.new(
+      content_item:,
+      search_results:,
+      value_hash: filter_params,
+    ).facets.tap do |built_facets|
+      if content_item.all_content_finder? && enable_new_all_content_finder_ui?
+        built_facets.prepend(SortFacet.new)
+      end
+    end
   end
 
   def facets

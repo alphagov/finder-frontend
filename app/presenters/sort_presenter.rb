@@ -31,6 +31,10 @@ class SortPresenter
     content_item_sort_options
   end
 
+  def to_radio_options
+    presented_sort_options.map(&:to_radio_option).compact
+  end
+
 private
 
   attr_reader :user_selected_order, :keywords, :content_item_sort_options

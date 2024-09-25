@@ -15,8 +15,23 @@ When("I open the filter panel") do
   click_on "Filter and sort"
 end
 
+When(/^I open the "([^"]*)" filter section$/) do |title|
+  # Capybara #click can't deal with <details> elements, so need to manually find summary first
+  section = find("details summary", text: title)
+  section.click
+end
+
+When(/^I select the "([^"]*)" option$/) do |option|
+  choose option
+end
+
+When("I apply the filters") do
+  click_on "Apply filters"
+end
+
 Then("I can see a filter section for every visible facet on the all content finder") do
   # These are visible filter types and should have a section
+  expect(page).to have_selector("h2", text: "Sort by")
   expect(page).to have_selector("h2", text: "Filter by Topic")
   expect(page).to have_selector("h2", text: "Filter by Type")
   expect(page).to have_selector("h2", text: "Filter by Updated")
@@ -25,4 +40,8 @@ Then("I can see a filter section for every visible facet on the all content find
   expect(page).not_to have_selector("h2", text: "Filter by Organisation")
   expect(page).not_to have_selector("h2", text: "Filter by World location")
   expect(page).not_to have_selector("h2", text: "Filter by Topical event")
+end
+
+Then("I can see sorted results") do
+  expect(page).to have_link("Loving him was red")
 end

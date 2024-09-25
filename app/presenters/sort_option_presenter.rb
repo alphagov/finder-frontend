@@ -24,6 +24,16 @@ class SortOptionPresenter
     }
   end
 
+  def to_radio_option
+    return nil if disabled
+
+    {
+      value:,
+      text: label,
+      checked: selected,
+    }
+  end
+
 private
 
   attr_reader :default, :selected, :disabled
