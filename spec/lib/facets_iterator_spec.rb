@@ -9,9 +9,9 @@ RSpec.describe FacetsIterator do
 
   let(:facets) { [visible_facet, hidden_facet, another_visible_facet] }
 
-  describe "#each_with_index_and_count" do
-    it "yields each facet with its index in @facets_with_ga4_section and the count of facets with GA4 section" do
-      expect { |block| facets_iterator.each_with_index_and_count(&block) }
+  describe "#each_with_visible_index_and_count" do
+    it "yields each facet with its index (if visible) and the total count of visible facets" do
+      expect { |block| facets_iterator.each_with_visible_index_and_count(&block) }
         .to yield_successive_args(
           [visible_facet, 0, 2],
           [hidden_facet, nil, 2],
