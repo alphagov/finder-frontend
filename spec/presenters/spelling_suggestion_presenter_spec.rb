@@ -7,7 +7,7 @@ RSpec.describe SpellingSuggestionPresenter do
       url = "/breakfast-finder?keywords=full+english"
       content_item_path = "fake/path"
 
-      presenter = SpellingSuggestionPresenter.new(
+      presenter = described_class.new(
         suggested_queries,
         url,
         content_item_path,

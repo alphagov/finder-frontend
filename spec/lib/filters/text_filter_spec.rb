@@ -2,7 +2,7 @@ require "spec_helper"
 
 describe Filters::TextFilter do
   subject(:text_filter) do
-    Filters::TextFilter.new(facet, params)
+    described_class.new(facet, params)
   end
 
   let(:facet) { double }
@@ -10,7 +10,7 @@ describe Filters::TextFilter do
 
   describe "#active?" do
     context "when params is nil" do
-      it "should be false" do
+      it "is false" do
         expect(text_filter).not_to be_active
       end
     end
@@ -18,7 +18,7 @@ describe Filters::TextFilter do
     context "when params is empty" do
       let(:params) { [] }
 
-      it "should be false" do
+      it "is false" do
         expect(text_filter).not_to be_active
       end
     end
@@ -47,7 +47,7 @@ describe Filters::TextFilter do
       let(:params) { %w[alpha] }
       let(:facet) { { "key" => "text_key" } }
 
-      it "should contain all values" do
+      it "contains all values" do
         expect(text_filter.query_hash).to eq("text_key" => %w[alpha])
       end
     end
@@ -56,7 +56,7 @@ describe Filters::TextFilter do
       let(:params) { %w[does_not_exist] }
       let(:facet) { { "option_lookup" => { "policy_papers" => %w[guidance] }, "key" => "text_key" } }
 
-      it "should contain no values" do
+      it "contains no values" do
         expect(text_filter.query_hash).to eq("text_key" => [])
       end
     end
@@ -65,7 +65,7 @@ describe Filters::TextFilter do
       let(:params) { %w[policy_papers] }
       let(:facet) { { "option_lookup" => { "policy_papers" => %w[guidance] }, "key" => "text_key" } }
 
-      it "should contain all values" do
+      it "contains all values" do
         expect(text_filter.query_hash).to eq("text_key" => %w[guidance])
       end
     end
@@ -74,7 +74,7 @@ describe Filters::TextFilter do
       let(:params) { %w[policy_papers does_not_exist consultations] }
       let(:facet) { { "option_lookup" => { "consultations" => %w[open closed], "policy_papers" => %w[guidance] }, "key" => "text_key" } }
 
-      it "should contain all values" do
+      it "contains all values" do
         expect(text_filter.query_hash).to eq("text_key" => %w[open closed guidance])
       end
     end

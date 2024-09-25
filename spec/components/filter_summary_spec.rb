@@ -64,13 +64,6 @@ describe "Filter summary component", type: :view do
     assert_select ".app-c-filter-summary__clear-filters", href: "/url"
   end
 
-  it "renders a clear all link if text and href supplied" do
-    render_component({ filters:, clear_all_href: "/url", clear_all_text: "Clear all" })
-
-    assert_select ".app-c-filter-summary__clear-filters", count: 1
-    assert_select ".app-c-filter-summary__clear-filters", href: "/url"
-  end
-
   it "does not render a clear all link if one of text and href are omitted" do
     render_component({ filters:, clear_all_text: "Clear all" })
 

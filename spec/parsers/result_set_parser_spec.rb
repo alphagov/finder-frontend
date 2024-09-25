@@ -2,11 +2,11 @@ require "spec_helper"
 
 describe ResultSetParser do
   context "with a result set hash with some documents" do
+    subject { described_class.parse("results" => results, "start" => start, "total" => total) }
+
     let(:results) { %i[a_document_hash another_document_hash] }
     let(:total) { 2 }
     let(:start) { 1 }
-
-    subject { ResultSetParser.parse("results" => results, "start" => start, "total" => total) }
 
     before do
       allow(Document).to receive(:new).with(:a_document_hash, 1).and_return(:a_document_instance)
@@ -19,19 +19,19 @@ describe ResultSetParser do
   end
 
   context "when an attribution token is returned" do
-    let(:results) { %i[a_document_hash] }
-    let(:total) { 1 }
-    let(:start) { 1 }
-    let(:discovery_engine_attribution_token) { "123ABC" }
-
     subject do
-      ResultSetParser.parse(
+      described_class.parse(
         "results" => results,
         "start" => start,
         "total" => total,
         "discovery_engine_attribution_token" => discovery_engine_attribution_token,
       )
     end
+
+    let(:results) { %i[a_document_hash] }
+    let(:total) { 1 }
+    let(:start) { 1 }
+    let(:discovery_engine_attribution_token) { "123ABC" }
 
     before do
       allow(Document).to receive(:new).with(:a_document_hash, 1).and_return(:a_document_instance)

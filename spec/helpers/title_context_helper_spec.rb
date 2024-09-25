@@ -5,12 +5,12 @@ describe TitleContextHelper, type: :helper do
 
   let(:filter_params) { {} }
 
-  before :each do
-    stub_full_topical_events_registry_request
+  before do
+    stub_topical_events_registry_request
   end
 
   describe "#title_context" do
-    subject(:subject) { title_context(filter_params) }
+    subject { title_context(filter_params) }
 
     context "there are no topical events" do
       it "gives no context" do

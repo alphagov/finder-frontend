@@ -20,8 +20,9 @@ describe TopicalFacet do
 
   describe "#sentence_fragment" do
     context "single value" do
+      subject { described_class.new(facet_data, value) }
+
       let(:value) { %w[open] }
-      subject { TopicalFacet.new(facet_data, value) }
 
       specify do
         expect(subject.sentence_fragment["preposition"]).to eql("of value")
@@ -31,8 +32,9 @@ describe TopicalFacet do
     end
 
     context "multiple values" do
+      subject { described_class.new(facet_data, value) }
+
       let(:value) { %w[open closed] }
-      subject { TopicalFacet.new(facet_data, value) }
 
       specify do
         expect(subject.sentence_fragment["preposition"]).to eql("of value")
@@ -45,8 +47,9 @@ describe TopicalFacet do
     end
 
     context "disallowed values" do
+      subject { described_class.new(facet_data, value) }
+
       let(:value) { %w[disallowed-value-1 disallowed-value-2] }
-      subject { TopicalFacet.new(facet_data, value) }
 
       specify { expect(subject.sentence_fragment).to be_nil }
     end

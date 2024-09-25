@@ -10,18 +10,18 @@ RSpec.describe Registries::FullTopicTaxonomyRegistry do
 
   let(:base_path) { "/basepath" }
 
-  before :each do
+  before do
     clear_cache
   end
 
-  after :each do
+  after do
     clear_cache
   end
 
   describe "when topic taxonomy API is unavailable" do
     let(:registry) { described_class.new }
 
-    it "will return an (uncached) empty hash" do
+    it "returns an (uncached) empty hash" do
       topic_taxonomy_api_is_unavailable
       expect(described_class.new[base_path]).to be_nil
       expect(described_class.new.taxonomy).to eql({})
@@ -31,7 +31,7 @@ RSpec.describe Registries::FullTopicTaxonomyRegistry do
   end
 
   describe "when topic taxonomy api is available" do
-    before :each do
+    before do
       topic_taxonomy_has_taxons(level_one_taxons)
     end
 

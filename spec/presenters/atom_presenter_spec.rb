@@ -84,10 +84,6 @@ RSpec.describe AtomPresenter do
     )
   end
 
-  let(:a_date_facet) do
-    double(OptionSelectFacet, has_filters?: false)
-  end
-
   let(:document) do
     double(
       Document,

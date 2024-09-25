@@ -20,7 +20,7 @@ RSpec.describe Registries::OrganisationsRegistry do
       clear_cache
     end
 
-    it "will fetch organisation information by slug" do
+    it "fetches organisation information by slug" do
       organisation = described_class.new[slug]
       expect(organisation).to eq(
         "title" => "Ministry of Magic",
@@ -30,10 +30,10 @@ RSpec.describe Registries::OrganisationsRegistry do
       )
     end
 
-    it "will return organisations sorted by title with closed orgs at the end" do
+    it "returns organisations sorted by title with closed orgs at the end" do
       organisations = described_class.new.values
 
-      expect(organisations.length).to eql(4)
+      expect(organisations.length).to be(4)
       expect(organisations.keys).to eql(%w[department-of-mysteries gringots ministry-of-magic death-eaters])
     end
   end
@@ -44,7 +44,7 @@ RSpec.describe Registries::OrganisationsRegistry do
       clear_cache
     end
 
-    it "will return an (uncached) empty hash" do
+    it "returns an (uncached) empty hash" do
       organisation = described_class.new[slug]
       expect(organisation).to be_nil
       expect(Rails.cache.fetch(described_class.new.cache_key)).to be_nil

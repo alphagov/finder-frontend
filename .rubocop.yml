@@ -2,6 +2,7 @@ inherit_gem:
   rubocop-govuk:
     - config/default.yml
     - config/rails.yml
+    - config/rspec.yml
 
 inherit_mode:
   merge:
@@ -16,3 +17,17 @@ inherit_mode:
 #
 # See https://github.com/alphagov/rubocop-govuk/blob/main/CONTRIBUTING.md
 # **************************************************************
+
+# rubocop-rspec was not enabled on this project for most of its life. We autocorrected most
+# violations, but the following common rule violations can't be autocorrected and should be fixed
+# manually eventually:
+RSpec/ContextWording:
+  Enabled: false
+RSpec/InstanceVariable:
+  Enabled: false
+RSpec/NamedSubject:
+  Enabled: false
+RSpec/NoExpectationExample: # Some specs use methods to set up expectations
+  Enabled: false
+RSpec/VerifiedDoubles:
+  Enabled: false

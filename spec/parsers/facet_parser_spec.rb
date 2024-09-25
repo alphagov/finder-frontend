@@ -2,6 +2,8 @@ require "spec_helper"
 
 describe FacetParser do
   context "with a select facet definition" do
+    subject { described_class.parse(facet_definition, {}) }
+
     let(:facet_definition) do
       {
         "type" => "text",
@@ -26,14 +28,13 @@ describe FacetParser do
         ],
       }
     end
-    subject { FacetParser.parse(facet_definition, {}) }
 
     specify { expect(subject).to be_a OptionSelectFacet }
     specify { expect(subject.name).to eql("Case type") }
     specify { expect(subject.key).to eql("case_type") }
     specify { expect(subject.preposition).to eql("of type") }
 
-    it "should build a list of allowed values" do
+    it "builds a list of allowed values" do
       expect(subject.allowed_values[0]["label"]).to eql("Airport price control reviews")
       expect(subject.allowed_values[0]["value"]).to eql("airport-price-control-reviews")
       expect(subject.allowed_values[2]["label"]).to eql("Remittals")

@@ -16,7 +16,7 @@ RSpec.describe Registries::RolesRegistry do
       clear_cache
     end
 
-    it "will fetch role information by slug" do
+    it "fetches role information by slug" do
       role = described_class.new[slug]
       expect(role).to eq(
         "title" => "Prime Minister",
@@ -24,16 +24,16 @@ RSpec.describe Registries::RolesRegistry do
       )
     end
 
-    it "will return all roles associated with documents ascending by name" do
+    it "returns all roles associated with documents ascending by name" do
       roles = described_class.new.values
 
-      expect(roles.length).to eql(2)
+      expect(roles.length).to be(2)
       expect(roles.keys).to eql(%w[prime-minister chief-mouser])
     end
   end
 
   describe "there is no slug or title" do
-    it "will remove those results" do
+    it "removes those results" do
       stub_request(:get, rummager_url).to_return(
         body: {
           "facets": {
@@ -54,7 +54,7 @@ RSpec.describe Registries::RolesRegistry do
       clear_cache
     end
 
-    it "will return an (uncached) empty hash" do
+    it "returns an (uncached) empty hash" do
       role = described_class.new[slug]
       expect(role).to be_nil
       expect(Rails.cache.fetch(described_class.new.cache_key)).to be_nil

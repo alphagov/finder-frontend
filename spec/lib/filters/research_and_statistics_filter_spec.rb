@@ -2,7 +2,7 @@ require "spec_helper"
 
 describe Filters::ResearchAndStatisticsFilter do
   let(:filter) do
-    Filters::ResearchAndStatisticsFilter.new(facet, "params_value")
+    described_class.new(facet, "params_value")
   end
   let(:hashes) do
     Filters::ResearchAndStatsHashes.new.call

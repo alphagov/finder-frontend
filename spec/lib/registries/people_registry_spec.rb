@@ -16,7 +16,7 @@ RSpec.describe Registries::PeopleRegistry do
       clear_cache
     end
 
-    it "will fetch person information by slug" do
+    it "fetches person information by slug" do
       person = described_class.new[slug]
       expect(person).to eq(
         "title" => "Cornelius Fudge",
@@ -24,16 +24,16 @@ RSpec.describe Registries::PeopleRegistry do
       )
     end
 
-    it "will return all people associated with documents ascending by name" do
+    it "returns all people associated with documents ascending by name" do
       people = described_class.new.values
 
-      expect(people.length).to eql(2)
+      expect(people.length).to be(2)
       expect(people.keys).to eql(%w[cornelius-fudge rufus-scrimgeour])
     end
   end
 
   describe "there is no slug or title" do
-    it "will remove those results" do
+    it "removes those results" do
       stub_request(:get, rummager_url).to_return(
         body: {
           "facets": {
@@ -54,7 +54,7 @@ RSpec.describe Registries::PeopleRegistry do
       clear_cache
     end
 
-    it "will return an (uncached) empty hash" do
+    it "returns an (uncached) empty hash" do
       person = described_class.new[slug]
       expect(person).to be_nil
       expect(Rails.cache.fetch(described_class.new.cache_key)).to be_nil

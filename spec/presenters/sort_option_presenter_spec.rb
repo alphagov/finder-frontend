@@ -1,10 +1,13 @@
 require "spec_helper"
 
 RSpec.describe SortOptionPresenter do
-  subject(:sort_option) { described_class.new(label: "Updated (newest)", key: "-public_timestamp") }
-  subject(:sort_option_with_value) { described_class.new(label: "Updated (newest)", value: "frogs-frogs-frogs", key: "-public_timestamp") }
-  subject(:default_sort_option) { described_class.new(label: "Most viewed", key: "most-viewed", default: true) }
   subject(:relevance_sort_option) { described_class.new(label: "Show least relevant", key: "-relevance") }
+
+  let(:sort_option) { described_class.new(label: "Updated (newest)", key: "-public_timestamp") }
+
+  let(:sort_option_with_value) { described_class.new(label: "Updated (newest)", value: "frogs-frogs-frogs", key: "-public_timestamp") }
+
+  let(:default_sort_option) { described_class.new(label: "Most viewed", key: "most-viewed", default: true) }
 
   describe "#value" do
     context "a value is provided" do
@@ -12,6 +15,7 @@ RSpec.describe SortOptionPresenter do
         expect(sort_option_with_value.value).to eq("frogs-frogs-frogs")
       end
     end
+
     context "a value is not provided" do
       it "returns label parameterized" do
         expect(sort_option.value).to eq("updated-newest")
@@ -21,11 +25,11 @@ RSpec.describe SortOptionPresenter do
 
   describe "default?" do
     it "returns true if option is default" do
-      expect(default_sort_option.default?).to eq(true)
+      expect(default_sort_option.default?).to be(true)
     end
 
     it "returns false if option is NOT default" do
-      expect(sort_option.default?).to eq(false)
+      expect(sort_option.default?).to be(false)
     end
   end
 

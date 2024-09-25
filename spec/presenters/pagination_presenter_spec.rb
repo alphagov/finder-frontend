@@ -2,6 +2,7 @@ require "spec_helper"
 
 describe PaginationPresenter do
   subject(:links) { presenter.next_and_prev_links }
+
   let(:presenter) do
     described_class.new(
       per_page:,
@@ -18,7 +19,7 @@ describe PaginationPresenter do
   describe "#next_and_prev_links" do
     context "when per_page is unset" do
       it "returns nil" do
-        expect(subject).to be nil
+        expect(subject).to be_nil
       end
     end
 
@@ -28,7 +29,7 @@ describe PaginationPresenter do
       let(:start_offset) { 1 }
 
       it "returns nil" do
-        expect(subject).to be nil
+        expect(subject).to be_nil
       end
     end
 

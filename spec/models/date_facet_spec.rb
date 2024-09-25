@@ -12,8 +12,9 @@ describe DateFacet do
 
   describe "#sentence_fragment" do
     context "single date value" do
+      subject { described_class.new(facet_data, value) }
+
       let(:value) { { from: "22/09/1988" } }
-      subject { DateFacet.new(facet_data, value) }
 
       specify do
         expect(subject.sentence_fragment["preposition"]).to eql("occurred after")
@@ -23,8 +24,9 @@ describe DateFacet do
     end
 
     context "6 digit date value" do
+      subject { described_class.new(facet_data, value) }
+
       let(:value) { { to: "22/09/14" } }
-      subject { DateFacet.new(facet_data, value) }
 
       specify do
         expect(subject.sentence_fragment["preposition"]).to eql("occurred before")
@@ -34,13 +36,14 @@ describe DateFacet do
     end
 
     context "multiple date values" do
+      subject { described_class.new(facet_data, value) }
+
       let(:value) do
         {
           "from" => "22/09/1988",
           "to" => "22/09/2014",
         }
       end
-      subject { DateFacet.new(facet_data, value) }
 
       specify do
         expect(subject.sentence_fragment["preposition"]).to eql("occurred between")
@@ -53,13 +56,15 @@ describe DateFacet do
 
   describe "#query_params" do
     context "multiple date values" do
+      subject { described_class.new(facet_data, value) }
+
       let(:value) do
         {
           "from" => "22/09/1988",
           "to" => "22/09/2014",
         }
       end
-      subject { DateFacet.new(facet_data, value) }
+
       specify do
         expect(subject.query_params).to eql(
           "date_of_occurrence" =>

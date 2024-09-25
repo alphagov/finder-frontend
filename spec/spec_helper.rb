@@ -56,5 +56,5 @@ RSpec.configure do |config|
   #     --seed 1234
   config.order = "random"
 
-  config.before(:each) { Rails.cache.clear }
+  config.before { Rails.cache.clear }
 end

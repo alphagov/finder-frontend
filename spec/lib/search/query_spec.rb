@@ -208,7 +208,7 @@ describe Search::Query do
   context "when searching using a single query" do
     subject { described_class.new(content_item, filter_params).search_results }
 
-    before :each do
+    before do
       stub_search.to_return(body: {
         "results" => [
           result_item("/register-to-vote", "Register to Vote", score: nil, updated: "14-12-19", popularity: 3),
@@ -345,8 +345,9 @@ describe Search::Query do
       end
 
       context "with valid date params" do
-        let(:valid_date_params) { { public_timestamp: { to: "01/01/01", from: "01/02/01" } } }
         subject { described_class.new(content_item, valid_date_params) }
+
+        let(:valid_date_params) { { public_timestamp: { to: "01/01/01", from: "01/02/01" } } }
 
         it "has no errors" do
           expect(subject.valid?).to be true

@@ -31,6 +31,7 @@ describe UrlBuilder do
 
     context "when given a path, query params, and additional params" do
       subject(:url) { builder.url(page: 20) }
+
       let(:query_params) { { keywords: "dumbledore" } }
 
       it "builds a url that includes the additional params" do

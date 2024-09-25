@@ -8,6 +8,7 @@ describe ParameterParser::EmailAlertParameterParser do
   include RegistrySpecHelper
 
   subject(:parser) { described_class.new(content_item, filter_params, user_params) }
+
   let(:content_item) { { "details" => {} } }
   let(:filter_params) { {} }
   let(:user_params) { ActionController::Parameters.new(params) }
@@ -29,6 +30,7 @@ describe ParameterParser::EmailAlertParameterParser do
 
   describe "#valid?" do
     subject(:valid) { parser.valid? }
+
     let(:error_messages) { parser.errors.full_messages }
 
     context "when there are no permitted facets" do
@@ -38,11 +40,13 @@ describe ParameterParser::EmailAlertParameterParser do
 
       context "with good params provided" do
         let(:params) { { "filter" => { foo: "bar", bar: %w[foo] } } }
+
         it { is_expected.to be true }
       end
 
       context "with bad params provided" do
         let(:params) { { "filter" => { "foo": %w('><script>alert(1)</script>), bar: %w[foo] } } }
+
         it { is_expected.to be true }
       end
     end
@@ -60,22 +64,26 @@ describe ParameterParser::EmailAlertParameterParser do
             "filter" => { "case_type" => %w[ca98-and-civil-cartels consumer-enforcement] },
           }
         end
+
         it { is_expected.to be true }
       end
 
       context "with unpermitted params provided" do
         let(:params) { { "filter" => { "foo": "bar", bar: %w[foo] } } }
         let(:filter_params) { { "subscriber_list_params" => { foo: "bar", bar: %w[foo] } } }
+
         it { is_expected.to be true }
       end
 
       context "with bad keys provided in params" do
         let(:params) { { "filter" => { "'><script>alert(1)</script>": %w[foo], bar: %w[foo] } } }
+
         it { is_expected.to be true }
       end
 
       context "with bad values provided in params" do
         let(:params) { { "filter" => { "foo": %w('><script>alert(1)</script>), bar: %w[foo] } } }
+
         it { is_expected.to be true }
       end
     end
@@ -89,16 +97,19 @@ describe ParameterParser::EmailAlertParameterParser do
 
       context "with good params provided" do
         let(:params) { { "filter" => { "good_value": %w[competition-disqualification], bar: %w[foo] } } }
+
         it { is_expected.to be true }
       end
 
       context "with bad keys provided in params" do
         let(:params) { { "filter" => { "evil_key'><script>alert(1)</script>": %w[markets] } } }
+
         it { is_expected.to be false }
       end
 
       context "with bad values provided in params" do
         let(:params) { { "filter" => { "evil_value": %w('><script>alert(1)</script>) } } }
+
         it { is_expected.to be false }
       end
     end
@@ -114,11 +125,13 @@ describe ParameterParser::EmailAlertParameterParser do
 
       context "with user params provided" do
         let(:params) { { "filter" => { foo: "bar", bar: %w[foo] } } }
+
         it { is_expected.to eq({}) }
       end
 
       context "with filter params provided" do
         let(:filter_params) { { "subscriber_list_params" => { foo: "bar", bar: %w[foo] } } }
+
         it { is_expected.to eq({}) }
       end
     end
@@ -136,6 +149,7 @@ describe ParameterParser::EmailAlertParameterParser do
             "filter" => { "case_type" => %w[ca98-and-civil-cartels consumer-enforcement] },
           }
         end
+
         it { is_expected.to eq("case_type" => %w[ca98-and-civil-cartels consumer-enforcement]) }
       end
 
@@ -149,6 +163,7 @@ describe ParameterParser::EmailAlertParameterParser do
             },
           }
         end
+
         it { is_expected.to eq("case_type" => %w[ca98-and-civil-cartels consumer-enforcement]) }
       end
     end
@@ -166,6 +181,7 @@ describe ParameterParser::EmailAlertParameterParser do
             "filter" => { "people" => %w[albus-dumbledore foo bar] },
           }
         end
+
         it { is_expected.to eq("people" => %w[albus-dumbledore]) }
       end
 
@@ -180,6 +196,7 @@ describe ParameterParser::EmailAlertParameterParser do
             },
           }
         end
+
         it { is_expected.to eq("organisations" => %w[department-of-mysteries gringots], "people" => %w[albus-dumbledore]) }
       end
 
@@ -199,6 +216,7 @@ describe ParameterParser::EmailAlertParameterParser do
             },
           }
         end
+
         it { is_expected.to eq("organisations" => %w[department-of-mysteries gringots], "people" => %w[albus-dumbledore harry-potter]) }
       end
     end

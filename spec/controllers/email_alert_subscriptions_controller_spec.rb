@@ -37,7 +37,7 @@ describe EmailAlertSubscriptionsController, type: :controller do
     stub_organisations_registry_request
   end
 
-  after :each do
+  after do
     Rails.cache.clear
   end
 
@@ -54,6 +54,7 @@ describe EmailAlertSubscriptionsController, type: :controller do
       before do
         stub_content_store_has_item("/does-exist/email-signup", signup_finder)
       end
+
       it "returns a success" do
         get :new, params: { slug: "does-exist" }
 
@@ -67,6 +68,7 @@ describe EmailAlertSubscriptionsController, type: :controller do
       before do
         stub_content_store_does_not_have_item("/does-not-exist/email-signup")
       end
+
       it "returns a 404" do
         get :new, params: { slug: "does-not-exist" }
         expect(response.status).to eq(404)
@@ -211,7 +213,7 @@ describe EmailAlertSubscriptionsController, type: :controller do
         stub_content_store_has_item("/search/research-and-statistics/email-signup", research_and_stats_finder_signup_content_item)
       end
 
-      it "will redirect the user to the subscription URL" do
+      it "redirects the user to the subscription URL" do
         stub_email_alert_api_creates_subscriber_list(
           "links" => {
             "content_store_document_type" => {
@@ -247,7 +249,7 @@ describe EmailAlertSubscriptionsController, type: :controller do
       end
 
       context "when filter and subscriber_list_params params are empty" do
-        it "will render the signup page URL again" do
+        it "renders the signup page URL again" do
           post :create,
                params: {
                  slug: "search/research-and-statistics",
@@ -260,7 +262,7 @@ describe EmailAlertSubscriptionsController, type: :controller do
       end
 
       context "when the filter params are not provided" do
-        it "will redirect the user to the subscription URL" do
+        it "redirects the user to the subscription URL" do
           stub_email_alert_api_creates_subscriber_list(
             "links" => {
               "content_store_document_type" => {
@@ -293,7 +295,7 @@ describe EmailAlertSubscriptionsController, type: :controller do
       end
 
       context "when the subscriber_list_params params are not provided" do
-        it "will redirect the user to the subscription URL" do
+        it "redirects the user to the subscription URL" do
           stub_email_alert_api_creates_subscriber_list(
             "links" => {
               "content_store_document_type" => {
@@ -329,7 +331,8 @@ describe EmailAlertSubscriptionsController, type: :controller do
         stub_content_store_has_item("/cma-cases", cma_cases_content_item)
         stub_content_store_has_item("/cma-cases/email-signup", cma_cases_signup_content_item)
       end
-      it "will strip surplus keys or values" do
+
+      it "strips surplus keys or values" do
         stub_email_alert_api_creates_subscriber_list(
           "tags" => {
             "case_type" => { any: %w[consumer-enforcement] },
@@ -356,7 +359,8 @@ describe EmailAlertSubscriptionsController, type: :controller do
         stub_content_store_has_item("/cma-cases", cma_cases_content_item)
         stub_content_store_has_item("/cma-cases/email-signup", bad_input_finder_signup_content_item)
       end
-      it "will redirect the user to the signup page" do
+
+      it "redirects the user to the signup page" do
         post :create,
              params: {
                slug: "cma-cases",
@@ -367,12 +371,13 @@ describe EmailAlertSubscriptionsController, type: :controller do
       end
     end
 
-    context "when unprocessable keys are provided by the user" do
+    context "when unprocessable values are provided by the user" do
       before do
         stub_content_store_has_item("/cma-cases", cma_cases_content_item)
         stub_content_store_has_item("/cma-cases/email-signup", bad_input_finder_signup_content_item)
       end
-      it "will redirect the user to the signup page" do
+
+      it "redirects the user to the signup page" do
         post :create,
              params: {
                slug: "cma-cases",

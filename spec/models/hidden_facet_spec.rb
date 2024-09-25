@@ -1,6 +1,8 @@
 require "spec_helper"
 
 describe HiddenFacet do
+  subject { facet_class.new(facet_data, nil) }
+
   let(:facet_data) do
     {
       "key" => "test_facet",
@@ -10,8 +12,7 @@ describe HiddenFacet do
     }
   end
 
-  let(:facet_class) { HiddenFacet }
-  subject { facet_class.new(facet_data, nil) }
+  let(:facet_class) { described_class }
 
   describe "#to_partial_path" do
     context "with a Facet" do
@@ -22,16 +23,18 @@ describe HiddenFacet do
   describe "#query_params" do
     context "value selected" do
       it "returns the value" do
-        facet = HiddenFacet.new(facet_data, "hidden_value")
+        facet = described_class.new(facet_data, "hidden_value")
         expect(facet.query_params).to eql("test_facet" => %w[hidden_value])
       end
     end
+
     context "invalid value selected" do
       it "removes the invalid values" do
-        facet = HiddenFacet.new(facet_data, "not_allowed_value")
+        facet = described_class.new(facet_data, "not_allowed_value")
         expect(facet.query_params).to eql("test_facet" => [])
       end
     end
+
     context "no allowed values specified" do
       let(:facet_data) do
         {
@@ -41,8 +44,9 @@ describe HiddenFacet do
           "allowed_values" => [],
         }
       end
+
       it "returns the values without validation" do
-        facet = HiddenFacet.new(facet_data, "hidden_value")
+        facet = described_class.new(facet_data, "hidden_value")
         expect(facet.query_params).to eql("test_facet" => %w[hidden_value])
       end
     end

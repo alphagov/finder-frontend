@@ -6,6 +6,7 @@ describe SignupPresenter do
   let(:params) do
     ActionController::Parameters.new({})
   end
+
   describe "single facet" do
     let(:content_item) do
       {
@@ -30,9 +31,10 @@ describe SignupPresenter do
         },
       }
     end
+
     describe "#choices" do
       it "returns an array of signup facets" do
-        expect(SignupPresenter.new(content_item, params).choices)
+        expect(described_class.new(content_item, params).choices)
           .to eq([
             { "facet_choices" => [{ "key" => "devices",
                                     "radio_button_name" => "Medical device alerts" },
@@ -43,14 +45,16 @@ describe SignupPresenter do
           ])
       end
     end
+
     describe "#choices?" do
       it "returns true" do
-        expect(SignupPresenter.new(content_item, params).choices?).to be true
+        expect(described_class.new(content_item, params).choices?).to be true
       end
     end
+
     describe "#can_modify_choices?" do
       it "returns false" do
-        expect(SignupPresenter.new(content_item, params).can_modify_choices?).to be true
+        expect(described_class.new(content_item, params).can_modify_choices?).to be true
       end
     end
   end
@@ -84,9 +88,10 @@ describe SignupPresenter do
         },
       }
     end
+
     describe "#choices" do
       it "returns an array of signup facets" do
-        expect(SignupPresenter.new(content_item, params).choices)
+        expect(described_class.new(content_item, params).choices)
           .to eq(
             [
               {
@@ -113,14 +118,16 @@ describe SignupPresenter do
           )
       end
     end
+
     describe "#choices?" do
       it "returns true" do
-        expect(SignupPresenter.new(content_item, params).choices?).to be true
+        expect(described_class.new(content_item, params).choices?).to be true
       end
     end
+
     describe "#can_modify_choices?" do
       it "returns true" do
-        expect(SignupPresenter.new(content_item, params).can_modify_choices?).to be true
+        expect(described_class.new(content_item, params).can_modify_choices?).to be true
       end
     end
   end
@@ -133,19 +140,22 @@ describe SignupPresenter do
         },
       }
     end
+
     describe "#choices" do
       it "returns an empty array" do
-        expect(SignupPresenter.new(content_item, params).choices).to eq([])
+        expect(described_class.new(content_item, params).choices).to eq([])
       end
     end
+
     describe "#choices?" do
       it "returns false" do
-        expect(SignupPresenter.new(content_item, params).choices?).to be false
+        expect(described_class.new(content_item, params).choices?).to be false
       end
     end
+
     describe "#can_modify_choices?" do
       it "returns an empty array" do
-        expect(SignupPresenter.new(content_item, params).can_modify_choices?).to be false
+        expect(described_class.new(content_item, params).can_modify_choices?).to be false
       end
     end
   end

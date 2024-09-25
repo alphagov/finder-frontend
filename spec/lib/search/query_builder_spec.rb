@@ -30,7 +30,7 @@ describe Search::QueryBuilder do
 
   let(:params) { {} }
 
-  it "should include a count" do
+  it "includes a count" do
     expect(query).to include("count" => 1500)
   end
 
@@ -47,7 +47,7 @@ describe Search::QueryBuilder do
       )
     end
 
-    it "should use documents_per_page from content item" do
+    it "uses documents_per_page from content item" do
       expect(query).to include(
         "count" => 10,
         "start" => 0,
@@ -56,7 +56,7 @@ describe Search::QueryBuilder do
   end
 
   context "without any facets" do
-    it "should include base return fields" do
+    it "includes base return fields" do
       expect(query).to include(
         "fields" => "title,link,description_with_highlighting,public_timestamp,popularity,content_purpose_supergroup,content_store_document_type,format,is_historic,government_name,content_id,parts",
       )
@@ -83,13 +83,13 @@ describe Search::QueryBuilder do
       }
     end
 
-    it "should include base and extra return fields" do
+    it "includes base and extra return fields" do
       expect(query).to include(
         "fields" => "title,link,description_with_highlighting,public_timestamp,popularity,content_purpose_supergroup,content_store_document_type,format,is_historic,government_name,content_id,parts,alpha,beta",
       )
     end
 
-    it "should include reject fields prefixed with reject_" do
+    it "includes reject fields prefixed with reject_" do
       expect(query).to include(
         "reject_alpha" => "value",
       )
@@ -100,7 +100,7 @@ describe Search::QueryBuilder do
         facets.first["filter_key"] = "zeta"
       end
 
-      it "should use the filter value in fields" do
+      it "uses the filter value in fields" do
         expect(query).to include(
           "fields" => "title,link,description_with_highlighting,public_timestamp,popularity,content_purpose_supergroup,content_store_document_type,format,is_historic,government_name,content_id,parts,zeta,beta",
         )
@@ -124,16 +124,16 @@ describe Search::QueryBuilder do
         }
       end
 
-      it "should generate two queries" do
+      it "generates two queries" do
         expect(queries.count).to eq(2)
       end
 
-      it "should filter on just alpha in the first query" do
+      it "filters on just alpha in the first query" do
         expect(queries.first["filter_alpha"]).to eq(%w[test])
         expect(queries.first["filter_beta"]).to be_nil
       end
 
-      it "should filter on both alpha and beta in the second query" do
+      it "filters on both alpha and beta in the second query" do
         expect(queries.second["filter_alpha"]).to be_nil
         expect(queries.second["filter_beta"]).to eq(%w[test])
       end
@@ -145,6 +145,12 @@ describe Search::QueryBuilder do
           { "label" => "EU citizens", "value" => "yes", "content_id" => "yes-cont-id" },
           { "label" => "No EU citizens", "value" => "no", "content_id" => "no-cont-id" },
         ]
+      end
+      let(:params) do
+        {
+          "employ_eu_citizens" => "yes",
+          "intellectual_property" => %w[copyright patents],
+        }
       end
 
       let(:intellectual_property_allowed_values) do
@@ -167,13 +173,6 @@ describe Search::QueryBuilder do
         facets.second["allowed_values"] = intellectual_property_allowed_values
       end
 
-      let(:params) do
-        {
-          "employ_eu_citizens" => "yes",
-          "intellectual_property" => %w[copyright patents],
-        }
-      end
-
       context "with `and` combine_mode" do
         it "adds a `filter_facet_values` filter with the content_id" do
           expect(query["filter_any_facet_values"]).to eq(%w[yes-cont-id copyright-cont-id patents-cont-id])
@@ -194,18 +193,18 @@ describe Search::QueryBuilder do
   end
 
   context "without keywords" do
-    it "should not include a keyword query" do
+    it "does not include a keyword query" do
       expect(query).not_to include("q")
     end
 
-    it "should include an order query" do
+    it "includes an order query" do
       expect(query).to include("order" => "-public_timestamp")
     end
 
     context "with a custom order" do
       let(:default_order) { "custom_field" }
 
-      it "should include a custom order query" do
+      it "includes a custom order query" do
         expect(query).to include("order" => "custom_field")
       end
     end
@@ -218,11 +217,11 @@ describe Search::QueryBuilder do
       }
     end
 
-    it "should include a keyword query" do
+    it "includes a keyword query" do
       expect(query).to include("q" => "mangoes")
     end
 
-    it "should not include an order query" do
+    it "does not include an order query" do
       expect(query).not_to include("order")
     end
 
@@ -233,7 +232,7 @@ describe Search::QueryBuilder do
         }
       end
 
-      it "should include a truncated" do
+      it "includes a truncated" do
         expect(query).to include("q" => "a" * described_class::MAX_QUERY_LENGTH)
       end
     end
@@ -245,7 +244,7 @@ describe Search::QueryBuilder do
         )
       end
 
-      it "should include field boosts for eligible content items" do
+      it "includes field boosts for eligible content items" do
         expect(query).to include("boost_fields" => "licence_transaction_industry")
       end
     end
@@ -257,7 +256,7 @@ describe Search::QueryBuilder do
         }
       end
 
-      it "should include stopwords in search" do
+      it "includes stopwords in search" do
         expect(query).to include("q" => "a mango")
       end
     end
@@ -276,7 +275,7 @@ describe Search::QueryBuilder do
         )
       end
 
-      it "should not include stopwords in search" do
+      it "does not include stopwords in search" do
         params = {
           "keywords" => "mango licence",
         }
@@ -340,13 +339,13 @@ describe Search::QueryBuilder do
       }
     end
 
-    it "should include a debug query" do
+    it "includes a debug query" do
       expect(query).to include("debug" => "yes")
     end
   end
 
   context "without debug parameters" do
-    it "should not include a debug query" do
+    it "does not include a debug query" do
       expect(query).not_to include("debug")
     end
   end
@@ -359,7 +358,7 @@ describe Search::QueryBuilder do
       }
     end
 
-    it "should include an A/B query" do
+    it "includes an A/B query" do
       query = described_class.new(
         finder_content_item:,
         ab_params:,
@@ -372,7 +371,7 @@ describe Search::QueryBuilder do
   context "with a base filter" do
     let(:filter) { { "document_type" => "news_story" } }
 
-    it "should include fields prefixed with filter_" do
+    it "includes fields prefixed with filter_" do
       expect(query).to include("filter_document_type" => "news_story")
     end
   end
@@ -381,43 +380,43 @@ describe Search::QueryBuilder do
     it "starts at zero by default" do
       query = query_with_params({})
 
-      expect(query["start"]).to eql(0)
+      expect(query["start"]).to be(0)
     end
 
     it "starts at zero when page param is zero" do
       query = query_with_params("page" => 0)
 
-      expect(query["start"]).to eql(0)
+      expect(query["start"]).to be(0)
     end
 
     it "starts at zero when page param is nil" do
       query = query_with_params("page" => nil)
 
-      expect(query["start"]).to eql(0)
+      expect(query["start"]).to be(0)
     end
 
     it "starts at zero when page param is empty" do
       query = query_with_params("page" => "")
 
-      expect(query["start"]).to eql(0)
+      expect(query["start"]).to be(0)
     end
 
     it "starts at zero when page param is an array" do
       query = query_with_params("page" => %w[abc])
 
-      expect(query["start"]).to eql(0)
+      expect(query["start"]).to be(0)
     end
 
     it "starts at zero when page param is an invalid string" do
       query = query_with_params("page" => "def")
 
-      expect(query["start"]).to eql(0)
+      expect(query["start"]).to be(0)
     end
 
     it "is paginated" do
       query = query_with_params("page" => "10")
 
-      expect(query["start"]).to eql(13_500)
+      expect(query["start"]).to be(13_500)
     end
 
     def query_with_params(params)

@@ -13,7 +13,8 @@ describe RadioFacet do
 
   describe "#query_params" do
     context "value selected" do
-      subject { RadioFacet.new(facet_data, "selected_value") }
+      subject { described_class.new(facet_data, "selected_value") }
+
       specify do
         expect(subject.query_params).to eql("type" => "selected_value")
       end

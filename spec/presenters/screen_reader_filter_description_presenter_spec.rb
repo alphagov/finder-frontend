@@ -1,7 +1,7 @@
 require "spec_helper"
 
 RSpec.describe ScreenReaderFilterDescriptionPresenter do
-  subject(:presenter) { ScreenReaderFilterDescriptionPresenter.new([a_facet, a_facet_without_facet_tags], sort_option) }
+  subject(:presenter) { described_class.new([a_facet, a_facet_without_facet_tags], sort_option) }
 
   let(:sort_option) { { "key" => "updated-newest", "name" => "Updated (newest)" } }
   let(:a_facet) do
@@ -80,6 +80,7 @@ RSpec.describe ScreenReaderFilterDescriptionPresenter do
       ],
     )
   end
+
   describe "#hidden_text" do
     it "creates appropriate hidden text for the facet without a facet tag for a default value" do
       expect(presenter.present).to eql("that are Statistics (published), sorted by Updated (newest)")
@@ -90,24 +91,21 @@ RSpec.describe ScreenReaderFilterDescriptionPresenter do
       expect(presenter.present).to eql("that are Research, sorted by Updated (newest)")
     end
 
-    it "will not include a facet without a facet tag if there is no selected value or default value" do
-      allow(a_facet_without_facet_tags).to receive(:value).and_return("")
-      allow(a_facet_without_facet_tags).to receive(:allowed_values).and_return(
-        [
-          {
-            "value" => "statistics_published",
-            "label" => "Statistics (published)",
-          },
-          {
-            "value" => "statistics_upcoming",
-            "label" => "Statistics (upcoming)",
-          },
-          {
-            "value" => "research",
-            "label" => "Research",
-          },
-        ],
-      )
+    it "does not include a facet without a facet tag if there is no selected value or default value" do
+      allow(a_facet_without_facet_tags).to receive_messages(value: "", allowed_values: [
+        {
+          "value" => "statistics_published",
+          "label" => "Statistics (published)",
+        },
+        {
+          "value" => "statistics_upcoming",
+          "label" => "Statistics (upcoming)",
+        },
+        {
+          "value" => "research",
+          "label" => "Research",
+        },
+      ])
 
       expect(presenter.present).to eql("sorted by Updated (newest)")
     end

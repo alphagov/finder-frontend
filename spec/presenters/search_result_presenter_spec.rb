@@ -1,26 +1,8 @@
 require "spec_helper"
 
 RSpec.describe SearchResultPresenter do
-  let(:content_item) do
-    FactoryBot.build(
-      :content_item,
-      content_id:,
-      link:,
-      details: {
-        'show_summaries': show_summaries,
-      },
-    )
-  end
-  let(:content_id) { "content_id" }
-  let(:show_summaries) { true }
-
-  let(:facets) { [] }
-
-  let(:rank) { 1 }
-  let(:result_number) { 1 }
-
   subject(:presenter) do
-    SearchResultPresenter.new(
+    described_class.new(
       document:,
       rank:,
       result_number:,
@@ -32,8 +14,17 @@ RSpec.describe SearchResultPresenter do
     )
   end
 
+  let(:content_item) do
+    FactoryBot.build(
+      :content_item,
+      content_id:,
+      link:,
+      details: {
+        'show_summaries': show_summaries,
+      },
+    )
+  end
   let(:debug_score) { false }
-
   let(:document) do
     FactoryBot.build(
       :document,
@@ -51,14 +42,19 @@ RSpec.describe SearchResultPresenter do
       index: 1,
     )
   end
-
   let(:combined_score) { nil }
   let(:original_rank) { nil }
-
   let(:is_historic) { false }
   let(:title) { "Investigation into the distribution of road fuels in parts of Scotland" }
   let(:link) { "link-1" }
   let(:description) { "I am a document. I am full of words and that." }
+  let(:content_id) { "content_id" }
+  let(:show_summaries) { true }
+
+  let(:facets) { [] }
+
+  let(:rank) { 1 }
+  let(:result_number) { 1 }
 
   describe "#document_list_component_data" do
     it "returns a hash of the data we need to show the document" do
@@ -167,15 +163,18 @@ RSpec.describe SearchResultPresenter do
       let(:document) do
         FactoryBot.build(:document, a_key_to_filter_on: "a_filter_value", index: 1)
       end
+
       it "displays text based metadata" do
         expect(presenter.document_list_component_data[:metadata]).to eq("A key to filter on" => "A key to filter on: a_filter_value")
       end
     end
+
     context "A date based facet and a document tagged to the key of the facet" do
       let(:facets) { [FactoryBot.build(:date_facet, "key" => "a_key_to_filter_on")] }
       let(:document) do
         FactoryBot.build(:document, a_key_to_filter_on: "10-10-2009", index: 1)
       end
+
       it "displays date based metadata" do
         expect(presenter.document_list_component_data[:metadata])
           .to eq("A key to filter on" => 'A key to filter on: <time datetime="2009-10-10">10 October 2009</time>')
@@ -191,12 +190,14 @@ RSpec.describe SearchResultPresenter do
       "<span class=\"debug-results debug-results--link\">link-1</span><span class=\"debug-results debug-results--meta\">"\
       "Score: 0.005 (ranked #1)</span><span class=\"debug-results debug-results--meta\">Format: cake</span>"
     end
+
     it "returns nothing unless the document is historic or debug_score is set to true" do
-      expect(subject.document_list_component_data[:subtext]).to eql(nil)
+      expect(subject.document_list_component_data[:subtext]).to be_nil
     end
 
     context "The document is historic" do
       let(:is_historic) { true }
+
       it "returns 'Published by' text" do
         expect(subject.document_list_component_data[:subtext]).to eql(historic_subtext)
       end
@@ -204,6 +205,7 @@ RSpec.describe SearchResultPresenter do
 
     context "debug_score is true" do
       let(:debug_score) { true }
+
       it "returns debug metadata" do
         expect(subject.document_list_component_data[:subtext]).to eql(debug_subtext)
       end
@@ -212,6 +214,7 @@ RSpec.describe SearchResultPresenter do
     context "The document is historic and the debug_score is true" do
       let(:is_historic) { true }
       let(:debug_score) { true }
+
       it "returns 'Published by' and debug metadata together" do
         expect(subject.document_list_component_data[:subtext]).to eql("#{historic_subtext}#{debug_subtext}")
       end
