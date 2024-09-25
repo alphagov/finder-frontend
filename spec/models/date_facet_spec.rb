@@ -1,6 +1,8 @@
 require "spec_helper"
 
 describe DateFacet do
+  subject { described_class.new(facet_data, value) }
+
   let(:facet_data) do
     {
       "type" => "date",
@@ -12,8 +14,6 @@ describe DateFacet do
 
   describe "#sentence_fragment" do
     context "single date value" do
-      subject { described_class.new(facet_data, value) }
-
       let(:value) { { from: "22/09/1988" } }
 
       specify do
@@ -24,8 +24,6 @@ describe DateFacet do
     end
 
     context "6 digit date value" do
-      subject { described_class.new(facet_data, value) }
-
       let(:value) { { to: "22/09/14" } }
 
       specify do
@@ -36,8 +34,6 @@ describe DateFacet do
     end
 
     context "multiple date values" do
-      subject { described_class.new(facet_data, value) }
-
       let(:value) do
         {
           "from" => "22/09/1988",
@@ -56,8 +52,6 @@ describe DateFacet do
 
   describe "#query_params" do
     context "multiple date values" do
-      subject { described_class.new(facet_data, value) }
-
       let(:value) do
         {
           "from" => "22/09/1988",

@@ -1,6 +1,8 @@
 require "spec_helper"
 
 describe CheckboxFacet do
+  subject { described_class.new(facet_data, value) }
+
   let(:facet_data) do
     {
       "type" => "checkbox",
@@ -15,7 +17,7 @@ describe CheckboxFacet do
 
   describe "#sentence_fragment" do
     context "single value" do
-      subject { described_class.new(facet_data, "yes") }
+      let(:value) { "yes" }
 
       specify do
         expect(subject.sentence_fragment["preposition"]).to eql("of value")
@@ -26,7 +28,7 @@ describe CheckboxFacet do
 
     context "when multiple values are provided" do
       context "when a value is provided" do
-        subject { described_class.new(facet_data, true) }
+        let(:value) { true }
 
         specify do
           expect(subject.sentence_fragment["preposition"]).to eql("of value")
@@ -36,7 +38,7 @@ describe CheckboxFacet do
       end
 
       context "when no value is provided" do
-        subject { described_class.new(facet_data, nil) }
+        let(:value) { nil }
 
         specify { expect(subject.sentence_fragment).to be_nil }
       end
@@ -45,25 +47,21 @@ describe CheckboxFacet do
 
   describe "#checked?" do
     context "checkbox is selected" do
-      subject { described_class.new(facet_data, "yes") }
+      let(:value) { "yes" }
 
-      specify do
-        expect(subject.is_checked?).to be(true)
-      end
+      it { is_expected.to be_is_checked }
     end
 
     context "checkbox is not selected" do
-      subject { described_class.new(facet_data, nil) }
+      let(:value) { nil }
 
-      specify do
-        expect(subject.is_checked?).to be(false)
-      end
+      it { is_expected.not_to be_is_checked }
     end
   end
 
   describe "#query_params" do
     context "checkbox is selected" do
-      subject { described_class.new(facet_data, "yes") }
+      let(:value) { "yes" }
 
       specify do
         expect(subject.query_params).to eql("show_extra_information" => "selectedvalue")
@@ -71,7 +69,7 @@ describe CheckboxFacet do
     end
 
     context "checkbox is not selected" do
-      subject { described_class.new(facet_data, nil) }
+      let(:value) { nil }
 
       specify do
         expect(subject.query_params).to eql({})

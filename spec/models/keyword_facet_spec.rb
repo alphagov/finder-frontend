@@ -1,13 +1,13 @@
 require "spec_helper"
 
 describe KeywordFacet do
-  let(:query) { "Happy Christmas" }
-  let(:query_with_quotes) { "\"Merry Christmas\"" }
-  let(:query_with_multiple_quotes) { "\"Merry Christmas\"\" Happy Birthday\" i'm 100 today" }
+  subject { described_class.new(query) }
+
+  let(:labels) { subject.sentence_fragment["values"].map { |v| v["label"] } }
 
   describe "#sentence_fragment" do
     context "keywords without quotes" do
-      subject { described_class.new(query) }
+      let(:query) { "Happy Christmas" }
 
       let(:first_word) { subject.sentence_fragment["values"].first }
       let(:second_word) { subject.sentence_fragment["values"].second }
@@ -23,9 +23,7 @@ describe KeywordFacet do
     end
 
     context "keywords with quotes" do
-      subject { described_class.new(query_with_quotes) }
-
-      let(:labels) { subject.sentence_fragment["values"].map { |v| v["label"] } }
+      let(:query) { "\"Merry Christmas\"" }
 
       specify do
         expect(subject.sentence_fragment["preposition"]).to eql("containing")
@@ -34,9 +32,7 @@ describe KeywordFacet do
     end
 
     context "keywords with multiple quotes" do
-      subject { described_class.new(query_with_multiple_quotes) }
-
-      let(:labels) { subject.sentence_fragment["values"].map { |v| v["label"] } }
+      let(:query) { "\"Merry Christmas\"\" Happy Birthday\" i'm 100 today" }
 
       specify do
         expect(subject.sentence_fragment["preposition"]).to eql("containing")
@@ -45,7 +41,7 @@ describe KeywordFacet do
     end
 
     context "without any keywords" do
-      subject { described_class.new }
+      let(:query) { nil }
 
       specify do
         expect(subject.sentence_fragment).to be_nil
@@ -55,7 +51,7 @@ describe KeywordFacet do
 
   describe "#query_params" do
     context "value selected" do
-      subject { described_class.new("keyword") }
+      let(:query) { "keyword" }
 
       specify do
         expect(subject.query_params).to eql("keywords" => %w[keyword])

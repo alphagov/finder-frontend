@@ -1,6 +1,8 @@
 require "spec_helper"
 
 describe RadioFacet do
+  subject { described_class.new(facet_data, "selected_value") }
+
   let(:facet_data) do
     {
       "type" => "radio_facet",
@@ -12,12 +14,8 @@ describe RadioFacet do
   end
 
   describe "#query_params" do
-    context "value selected" do
-      subject { described_class.new(facet_data, "selected_value") }
-
-      specify do
-        expect(subject.query_params).to eql("type" => "selected_value")
-      end
+    specify do
+      expect(subject.query_params).to eql("type" => "selected_value")
     end
   end
 end
