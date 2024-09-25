@@ -1,8 +1,8 @@
 $app-colour-true-black: #000000;
 
 .metadata-summary {
-  @include govuk-font(19);
   margin-bottom: govuk-spacing(6);
+  @include govuk-font(19);
 }
 
 .finder-logo {
@@ -58,8 +58,8 @@ mark {
 }
 
 .signup-choices {
-  @include govuk-font(19);
   margin-top: 50px;
+  @include govuk-font(19);
 
   @include govuk-media-query($from: tablet) {
     max-width: (100% / 3) * 2;
@@ -77,16 +77,16 @@ mark {
 }
 
 .published-by {
-  @include govuk-font(14);
   display: block;
   color: govuk-colour("dark-grey");
+  @include govuk-font(14);
 }
 
 .debug-results {
-  @include govuk-font(16);
   display: block;
   margin: govuk-spacing(1) 0 0 0;
   word-wrap: break-word;
+  @include govuk-font(16);
 }
 
 .debug-results--link {
@@ -101,8 +101,8 @@ mark {
   margin-bottom: govuk-spacing(7);
 
   .filtered-results__facet-heading {
-    @include govuk-font($size: 24, $weight: bold);
     margin-bottom: govuk-spacing(4);
+    @include govuk-font($size: 24, $weight: bold);
   }
 }
 
@@ -135,6 +135,7 @@ mark {
 
 .facet-tags__container {
   display: none;
+
   @include govuk-media-query($from: tablet) {
     display: block;
   }
@@ -155,45 +156,39 @@ mark {
 }
 
 .facet-tags__wrapper {
-  @include govuk-media-query($until: tablet) {
-    vertical-align: baseline;
-  }
-
   vertical-align: middle;
   margin: 5px 0;
   display: inline-block;
+
+  @include govuk-media-query($until: tablet) {
+    vertical-align: baseline;
+  }
 }
 
 .facet-tags__wrapper:first-of-type .facet-tags__preposition:first-of-type {
-  @include govuk-media-query($until: tablet) {
-    display: block;
-  }
-
   font-weight: bold;
 
   &::first-letter {
     text-transform: uppercase;
   }
+
+  @include govuk-media-query($until: tablet) {
+    display: block;
+  }
 }
 
 .facet-tags__preposition {
-  @include govuk-media-query($until: tablet) {
-    display: inline-block;
-  }
-
   display: table-cell;
   padding: 0 5px 0 2px;
   vertical-align: middle;
   text-transform: lowercase;
+
+  @include govuk-media-query($until: tablet) {
+    display: inline-block;
+  }
 }
 
 .facet-tag {
-  @include govuk-media-query($until: tablet) {
-    display: inline-block;
-    background: none;
-    border: 2px solid $govuk-input-border-colour;
-  }
-
   display: table-cell;
   position: relative;
   padding: govuk-em(5, 16px);
@@ -203,6 +198,12 @@ mark {
 
   .govuk-frontend-supported & {
     padding: govuk-em(8, 16px) govuk-em(8, 16px) govuk-em(8, 16px) govuk-em(24, 16px);
+  }
+
+  @include govuk-media-query($until: tablet) {
+    display: inline-block;
+    background: none;
+    border: 2px solid $govuk-input-border-colour;
   }
 }
 
@@ -228,13 +229,13 @@ mark {
   padding: govuk-em(8, 16px);
   border-radius: govuk-em(5, 16px);
   font-weight: bold;
-  @include govuk-font(16, $weight: bold);
   text-align: left;
   cursor: pointer;
   color: $app-colour-true-black;
   text-decoration: none;
   background: none;
   border: 0;
+  @include govuk-font(16, $weight: bold);
 
   .govuk-frontend-supported & {
     display: inline-block;
@@ -255,10 +256,10 @@ mark {
 
 .finder-frontend-content {
   .app-c-search-page-heading {
+    color: govuk-colour("black");
     @include govuk-font(48, $weight: bold);
     @include govuk-responsive-margin(2, "top");
     @include govuk-responsive-margin(4, "bottom");
-    color: govuk-colour("black");
   }
 
   .govuk-checkboxes__label {
@@ -272,9 +273,9 @@ mark {
 
 .sort-options {
   .sort-options__label {
-    @include govuk-responsive-padding(1, "right");
     display: inline-block;
     margin-bottom: govuk-spacing(3);
+    @include govuk-responsive-padding(1, "right");
 
     @include govuk-media-query($from: tablet) {
       font-size: 16px;
@@ -307,8 +308,8 @@ mark {
 .topic-finder__taxon-link,
 .topic-finder__taxon-link:link,
 .topic-finder__taxon-link:visited {
-  @include govuk-font(24, $weight: bold);
   color: govuk-colour("white");
+  @include govuk-font(24, $weight: bold);
 
   &:link:focus,
   &:visited:focus {
