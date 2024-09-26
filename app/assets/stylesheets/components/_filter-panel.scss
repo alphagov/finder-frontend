@@ -32,7 +32,8 @@
 
 .app-c-filter-panel__count {
   margin: 0;
-  @include govuk-font(19, $weight: regular);
+  color: $govuk-secondary-text-colour;
+  @include govuk-font(16, $weight: regular);
 }
 
 .app-c-filter-panel__button {
