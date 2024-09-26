@@ -31,6 +31,8 @@ describe TaxonFacet do
     }
   end
 
+  it { is_expected.to be_user_visible }
+
   describe "#topics" do
     subject { described_class.new(facet_data, allowed_values) }
 

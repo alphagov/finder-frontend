@@ -3,8 +3,6 @@ require "spec_helper"
 describe HiddenFacet do
   subject { described_class.new(facet_data, value) }
 
-  let(:value) { nil }
-
   let(:facet_data) do
     {
       "key" => "test_facet",
@@ -13,6 +11,9 @@ describe HiddenFacet do
       "allowed_values" => [{ "value" => "hidden_value" }],
     }
   end
+  let(:value) { nil }
+
+  it { is_expected.not_to be_user_visible }
 
   describe "#to_partial_path" do
     context "with a Facet" do

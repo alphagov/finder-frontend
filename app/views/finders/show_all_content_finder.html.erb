@@ -48,7 +48,7 @@
           button_text: "Filter and sort",
           result_text: result_set_presenter.displayed_total,
         } do %>
-          <% facets.each_with_index_and_count do |facet, index, count| %>
+          <% facets.each_with_visible_index_and_count do |facet, index, count| %>
             <%=
               render partial: "finders/all_content_finder_facets/#{facet.to_partial_path}",
                 object: facet,

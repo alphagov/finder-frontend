@@ -19,6 +19,9 @@ describe TopicalFacet do
       },
     }
   end
+  let(:value) { nil }
+
+  it { is_expected.to be_user_visible }
 
   describe "#sentence_fragment" do
     context "single value" do

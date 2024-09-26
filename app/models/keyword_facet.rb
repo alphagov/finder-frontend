@@ -3,6 +3,10 @@ class KeywordFacet
     @keywords = keywords
   end
 
+  def user_visible?
+    false
+  end
+
   def sentence_fragment
     return nil unless has_filters?
 

@@ -13,6 +13,8 @@ describe RadioFacetForMultipleFilters do
     }
   end
 
+  let(:value) { nil }
+
   let(:filter_hashes) do
     [
       {
@@ -39,6 +41,8 @@ describe RadioFacetForMultipleFilters do
       },
     ]
   end
+
+  it { is_expected.to be_user_visible }
 
   describe "#options" do
     context "valid value" do

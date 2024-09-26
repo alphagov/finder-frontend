@@ -3,12 +3,12 @@ class FacetsIterator
 
   def initialize(facets)
     @facets = facets
-    @facets_with_ga4_section = @facets.select(&:has_ga4_section?)
+    @user_visible_facets = @facets.select(&:user_visible?)
   end
 
-  def each_with_index_and_count
+  def each_with_visible_index_and_count
     @facets.each do |facet|
-      yield facet, @facets_with_ga4_section.index(facet), @facets_with_ga4_section.count
+      yield facet, @user_visible_facets.index(facet), @user_visible_facets.count
     end
   end
 end

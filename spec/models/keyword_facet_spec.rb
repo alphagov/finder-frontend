@@ -4,6 +4,9 @@ describe KeywordFacet do
   subject { described_class.new(query) }
 
   let(:labels) { subject.sentence_fragment["values"].map { |v| v["label"] } }
+  let(:query) { nil }
+
+  it { is_expected.not_to be_user_visible }
 
   describe "#sentence_fragment" do
     context "keywords without quotes" do
