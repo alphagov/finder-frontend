@@ -17,6 +17,22 @@ Feature: All content finder ("site search")
     And I open the filter panel
     Then I can see a filter section for every visible facet on the all content finder
 
+  @javascript
+  Scenario: Making a search with filters
+    When I search all content for "chandeliers flickering"
+    And I open the filter panel
+    And I open the "Topic" filter section
+    And I select "Music" as the Topic
+    And I select "Best songs" as the Sub-topic
+    And I open the "Type" filter section
+    And I check the "Services" option
+    And I check the "Research and statistics" option
+    And I open the "Updated" filter section
+    And I enter "1989" for "Updated after"
+    And I enter "13/12/1989" for "Updated before"
+    And I apply the filters
+    Then I can see filtered results
+
   Scenario: Changing the sort order of a search
     When I search all content for "dark gray all alone"
     And I open the filter panel
@@ -24,6 +40,16 @@ Feature: All content finder ("site search")
     And I select the "Updated (oldest)" option
     And I apply the filters
     Then I can see sorted results
+
+  @javascript
+  Scenario: Entering an incorrect date
+    When I search all content for "chandeliers flickering"
+    And I open the filter panel
+    And I open the "Updated" filter section
+    And I enter "-1" for "Updated before"
+    And I apply the filters
+    Then the filter panel is open by default
+    And I can see an error message "Enter a real date"
 
   Scenario: Spelling suggestion
     When I search all content for "drving"

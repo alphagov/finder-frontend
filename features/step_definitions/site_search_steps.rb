@@ -25,6 +25,22 @@ When(/^I select the "([^"]*)" option$/) do |option|
   choose option
 end
 
+When(/^I check the "([^"]*)" option$/) do |option|
+  check option, allow_label_click: true
+end
+
+When(/^I select "([^"]*)" as the (\S+)$/) do |item, from|
+  select item, from:
+end
+
+When(/^I enter "([^"]*)" for "([^"]*)"$/) do |text, field|
+  fill_in field, with: text
+end
+
+Then("I can see filtered results") do
+  expect(page).to have_link("Death by a thousand cuts")
+end
+
 When("I apply the filters") do
   click_on "Apply filters"
 end
@@ -44,4 +60,12 @@ end
 
 Then("I can see sorted results") do
   expect(page).to have_link("Loving him was red")
+end
+
+Then("the filter panel is open by default") do
+  expect(page).to have_selector("button[aria-expanded='true']", text: "Filter and sort")
+end
+
+Then(/^I can see an error message "([^"]*)"$/) do |text|
+  expect(page).to have_selector(".govuk-error-message", text:, visible: :visible)
 end

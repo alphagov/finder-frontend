@@ -23,7 +23,16 @@ Then(/^I am able to set search terms$/) do
 end
 
 Given(/^the all content finder exists$/) do
-  topic_taxonomy_has_taxons
+  topic_taxonomy_has_taxons([
+    FactoryBot.build(
+      :level_one_taxon_hash,
+      content_id: "131313",
+      title: "Music",
+      child_taxons: [
+        FactoryBot.build(:taxon_hash, content_id: "1989", title: "Best songs"),
+      ],
+    ),
+  ])
   content_store_has_all_content_finder
   stub_topical_events_api_request
   stub_world_locations_api_request
@@ -35,6 +44,7 @@ Given(/^the all content finder exists$/) do
   stub_search_api_request_with_misspelt_query
   stub_search_api_request_with_query
   stub_search_api_request_with_sorted_query
+  stub_search_api_request_with_filtered_query
 end
 
 Given(/^the new all content finder UI is (\w+)$/) do |state|
