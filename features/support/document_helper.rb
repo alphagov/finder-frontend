@@ -119,6 +119,7 @@ module DocumentHelper
         "q" => "chandeliers flickering",
         "filter_all_part_of_taxonomy_tree" => %w[131313 1989],
         "filter_content_purpose_supergroup" => %w[research_and_statistics services],
+        "filter_public_timestamp" => "from:1989-01-01,to:1989-12-13",
       ),
       filtered_documents_json,
       including_v2: true,

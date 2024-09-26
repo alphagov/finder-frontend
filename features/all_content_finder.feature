@@ -27,6 +27,9 @@ Feature: All content finder ("site search")
     And I open the "Type" filter section
     And I check the "Services" option
     And I check the "Research and statistics" option
+    And I open the "Updated" filter section
+    And I enter "1989" for "Updated after"
+    And I enter "13/12/1989" for "Updated before"
     And I apply the filters
     Then I can see filtered results
 

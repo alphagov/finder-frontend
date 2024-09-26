@@ -33,6 +33,10 @@ When(/^I select "([^"]*)" as the (\S+)$/) do |item, from|
   select item, from:
 end
 
+When(/^I enter "([^"]*)" for "([^"]*)"$/) do |text, field|
+  fill_in field, with: text
+end
+
 Then("I can see filtered results") do
   expect(page).to have_link("Death by a thousand cuts")
 end
