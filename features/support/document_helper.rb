@@ -22,163 +22,127 @@ module DocumentHelper
     stub_content_store_has_item("/", "links" => { "level_one_taxons" => [] })
   end
 
-  def stub_search_api_request
-    stub_request(:get, SEARCH_ENDPOINT)
-      .with(query: hash_including(rummager_all_documents_params))
-      .to_return(body: all_documents_json)
+  def stub_response(query, body, including_v2: false)
+    stub_request(:get, SEARCH_ENDPOINT).with(query:).to_return(body:)
+    stub_request(:get, SEARCH_V2_ENDPOINT).with(query:).to_return(body:) if including_v2
+  end
 
-    stub_request(:get, SEARCH_ENDPOINT)
-      .with(query: rummager_hopscotch_walks_params)
-      .to_return(body: hopscotch_reports_json)
+  def stub_search_api_request
+    stub_response(hash_including(rummager_all_documents_params), all_documents_json, including_v2: true)
+    stub_response(rummager_hopscotch_walks_params, hopscotch_reports_json, including_v2: true)
   end
 
   def stub_keyword_search_api_request(term)
-    stub_request(:get, SEARCH_ENDPOINT)
-      .with(query: hash_including(mosw_search_params.merge("q" => term)))
-      .to_return(body: keyword_search_results)
+    stub_response(hash_including(mosw_search_params.merge("q" => term)), keyword_search_results)
   end
 
   def stub_search_api_request_with_government_results
-    stub_request(:get, SEARCH_ENDPOINT)
-      .with(query: hash_including({}))
-      .to_return(
-        body: government_documents_json,
-      )
+    stub_response(hash_including({}), government_documents_json)
   end
 
   def stub_search_api_request_with_query_param_no_results(query)
-    stub_request(:get, SEARCH_ENDPOINT)
-      .with(query: hash_including("q" => query))
-      .to_return(
-        body: no_results_json,
-      )
-
-    stub_request(:get, SEARCH_V2_ENDPOINT)
-      .with(query: hash_including("q" => query))
-      .to_return(
-        body: no_results_json,
-      )
+    stub_response(hash_including("q" => query), no_results_json)
   end
 
   def stub_search_api_request_with_10_government_results
-    stub_request(:get, SEARCH_ENDPOINT)
-      .with(query: rummager_10_documents_params)
-      .to_return(body: government_documents_json)
+    stub_response(rummager_10_documents_params, government_documents_json)
   end
 
   def stub_search_api_request_with_bad_data
-    stub_request(:get, SEARCH_ENDPOINT)
-      .with(query: rummager_all_documents_params)
-      .to_return(body: documents_with_bad_data_json)
+    stub_response(rummager_all_documents_params, documents_with_bad_data_json)
   end
 
   def stub_search_api_request_with_10_government_results_page_2
-    stub_request(:get, SEARCH_ENDPOINT)
-      .with(query: rummager_10_documents_page_2_params)
-      .to_return(body: government_documents_page_2_json)
+    stub_response(rummager_10_documents_page_2_params, government_documents_page_2_json)
   end
 
   def stub_search_api_request_with_news_and_communication_results
-    stub_request(:get, SEARCH_ENDPOINT)
-      .with(query: hash_including(rummager_newest_news_and_communications_params))
-      .to_return(body: newest_news_and_communication_json)
-
-    stub_request(:get, SEARCH_ENDPOINT)
-      .with(query: hash_including(rummager_popular_news_and_communications_params))
-      .to_return(body: popular_news_and_communication_json)
+    stub_response(
+      hash_including(rummager_newest_news_and_communications_params),
+      newest_news_and_communication_json,
+    )
+    stub_response(
+      hash_including(rummager_popular_news_and_communications_params),
+      popular_news_and_communication_json,
+    )
   end
 
   def stub_search_api_request_with_policy_papers_results
-    stub_request(:get, SEARCH_ENDPOINT)
-      .with(query: hash_including(policy_papers_params))
-      .to_return(body: policy_and_engagement_results_json)
+    stub_response(hash_including(policy_papers_params), policy_and_engagement_results_json)
   end
 
   def stub_search_api_request_with_all_content_results
-    stub_request(:get, SEARCH_ENDPOINT)
-      .with(query: hash_including(all_content_params.merge(order: "-public_timestamp")))
-      .to_return(body: all_content_results_json)
-
-    stub_request(:get, SEARCH_V2_ENDPOINT)
-      .with(query: hash_including(all_content_params.merge(order: "-public_timestamp")))
-      .to_return(body: all_content_results_json)
+    stub_response(
+      hash_including(all_content_params.merge(order: "-public_timestamp")),
+      all_content_results_json,
+      including_v2: true,
+    )
   end
 
   def stub_search_api_request_with_organisation_filter_all_content_results
-    stub_request(:get, SEARCH_ENDPOINT)
-      .with(query: hash_including("q" => "search-term", "filter_organisations" => %w[ministry-of-magic]))
-      .to_return(body: filtered_by_organisation_all_content_results_json)
-
-    stub_request(:get, SEARCH_V2_ENDPOINT)
-      .with(query: hash_including("q" => "search-term", "filter_organisations" => %w[ministry-of-magic]))
-      .to_return(body: filtered_by_organisation_all_content_results_json)
+    stub_response(
+      hash_including("q" => "search-term", "filter_organisations" => %w[ministry-of-magic]),
+      filtered_by_organisation_all_content_results_json,
+      including_v2: true,
+    )
   end
 
   def stub_search_api_request_with_query
-    stub_request(:get, SEARCH_ENDPOINT)
-      .with(query: hash_including("q" => "how to walk silly"))
-      .to_return(body: all_documents_json)
-
-    stub_request(:get, SEARCH_V2_ENDPOINT)
-      .with(query: hash_including("q" => "how to walk silly"))
-      .to_return(body: all_documents_json)
+    stub_response(
+      hash_including("q" => "how to walk silly"),
+      all_documents_json,
+      including_v2: true,
+    )
   end
 
   def stub_search_api_request_with_sorted_query
-    stub_request(:get, SEARCH_ENDPOINT)
-      .with(query: hash_including("q" => "dark gray all alone"))
-      .to_return(body: %({ "results": [], "total": 0, "start": 0}))
-
-    stub_request(:get, SEARCH_V2_ENDPOINT)
-      .with(query: hash_including("q" => "dark gray all alone"))
-      .to_return(body: %({ "results": [], "total": 0, "start": 0}))
-
-    stub_request(:get, SEARCH_ENDPOINT)
-      .with(query: hash_including("q" => "dark gray all alone", "order" => "public_timestamp"))
-      .to_return(body: sorted_documents_json)
-
-    stub_request(:get, SEARCH_V2_ENDPOINT)
-      .with(query: hash_including("q" => "dark gray all alone", "order" => "public_timestamp"))
-      .to_return(body: sorted_documents_json)
+    stub_response(
+      hash_including("q" => "dark gray all alone"),
+      %({ "results": [], "total": 0, "start": 0}),
+      including_v2: true,
+    )
+    stub_response(
+      hash_including("q" => "dark gray all alone", "order" => "public_timestamp"), sorted_documents_json,
+      including_v2: true
+    )
   end
 
   def stub_search_api_request_with_misspelt_query
-    stub_request(:get, SEARCH_ENDPOINT)
-      .with(query: hash_including("q" => "drving"))
-      .to_return(body: spelling_suggestions_json)
-
-    stub_request(:get, SEARCH_V2_ENDPOINT)
-      .with(query: hash_including("q" => "drving"))
-      .to_return(body: spelling_suggestions_json)
+    stub_response(hash_including("q" => "drving"), spelling_suggestions_json, including_v2: true)
   end
 
   def stub_search_api_request_with_manual_filter_all_content_results
-    stub_request(:get, SEARCH_ENDPOINT)
-      .with(query: hash_including("q" => "search-term", "filter_manual" => %w[how-to-be-a-wizard]))
-      .to_return(body: filtered_by_manual_all_content_results_json)
-
-    stub_request(:get, SEARCH_V2_ENDPOINT)
-      .with(query: hash_including("q" => "search-term", "filter_manual" => %w[how-to-be-a-wizard]))
-      .to_return(body: filtered_by_manual_all_content_results_json)
+    stub_response(
+      hash_including("q" => "search-term", "filter_manual" => %w[how-to-be-a-wizard]),
+      filtered_by_manual_all_content_results_json,
+      including_v2: true,
+    )
   end
 
   def stub_search_api_request_with_filtered_policy_papers_results
-    stub_request(:get, SEARCH_ENDPOINT)
-      .with(query: hash_including(policy_papers_params.merge("filter_content_store_document_type" => %w[case_study impact_assessment policy_paper])))
-      .to_return(body: policy_and_engagement_results_for_policy_papers_json)
-
-    stub_request(:get, SEARCH_ENDPOINT)
-      .with(query: hash_including(
+    stub_response(
+      hash_including(
         policy_papers_params.merge(
-          "filter_content_store_document_type" => %w[case_study closed_consultation consultation_outcome impact_assessment policy_paper],
+          "filter_content_store_document_type" => %w[case_study impact_assessment policy_paper],
         ),
-      ))
-      .to_return(body: policy_and_engagement_results_for_policy_papers_and_closed_consultations_json)
+      ),
+      policy_and_engagement_results_for_policy_papers_json,
+    )
+    stub_response(
+      hash_including(
+        policy_papers_params.merge(
+          "filter_content_store_document_type" => %w[
+            case_study closed_consultation consultation_outcome impact_assessment policy_paper
+          ],
+        ),
+      ),
+      policy_and_engagement_results_for_policy_papers_and_closed_consultations_json,
+    )
   end
 
   def stub_search_api_request_with_research_and_statistics_results
-    stub_request(:get, SEARCH_ENDPOINT)
-      .with(query: hash_including(
+    stub_response(
+      hash_including(
         "filter_content_store_document_type" => %w[
           independent_report
           national_statistics
@@ -189,59 +153,51 @@ module DocumentHelper
           statistics
           statistics_announcement
         ],
-      ))
-      .to_return(body: statistics_results_for_statistics_json)
+      ),
+      statistics_results_for_statistics_json,
+    )
   end
 
   def stub_search_api_request_with_statistics_results
-    stub_request(:get, SEARCH_ENDPOINT)
-      .with(query: hash_including(
+    stub_response(
+      hash_including(
         "filter_content_store_document_type" => %w[
           national_statistics
           official_statistics
           statistical_data_set
           statistics
         ],
-      ))
-      .to_return(body: statistics_results_for_statistics_json)
+      ),
+      statistics_results_for_statistics_json,
+    )
   end
 
   def stub_search_api_request_with_filtered_research_and_statistics_results
     Timecop.freeze(Time.zone.parse("2019-01-01").utc)
-    stub_request(:get, "#{Plek.find('search-api')}/search.json")
-      .with(query: hash_including(
+    stub_response(
+      hash_including(
         "filter_format" => %w[statistics_announcement],
         "filter_release_timestamp" => "from:2019-01-01",
-      ))
-      .to_return(body: upcoming_statistics_results_for_statistics_json)
+      ),
+      upcoming_statistics_results_for_statistics_json,
+    )
   end
 
   def stub_search_api_request_with_aaib_reports_results
-    stub_request(:get, SEARCH_ENDPOINT)
-      .with(query: hash_including({}))
-      .to_return(body: %({ "results": [], "total": 0, "start": 0}))
+    stub_response(hash_including({}), %({ "results": [], "total": 0, "start": 0}))
   end
 
   def stub_all_search_api_requests_with_news_and_communication_results
-    stub_request(:get, SEARCH_ENDPOINT)
-      .with(query: hash_including({}))
-      .to_return(body: newest_news_and_communication_json)
+    stub_response(hash_including({}), newest_news_and_communication_json)
   end
 
   def stub_search_api_request_with_services_results
-    stub_request(:get, SEARCH_ENDPOINT)
-      .with(query: hash_including(rummager_alphabetical_services_params))
-      .to_return(body: alpabetical_services_json)
-
-    stub_request(:get, SEARCH_ENDPOINT)
-      .with(query: hash_including(rummager_popular_services_params))
-      .to_return(body: popular_services_json)
+    stub_response(hash_including(rummager_alphabetical_services_params), alpabetical_services_json)
+    stub_response(hash_including(rummager_popular_services_params), popular_services_json)
   end
 
   def stub_search_api_request_with_no_results
-    stub_request(:get, SEARCH_ENDPOINT)
-      .with(query: rummager_0_documents_params)
-      .to_return(body: %({ "results": [], "total": 0, "start": 0}))
+    stub_response(rummager_0_documents_params, %({ "results": [], "total": 0, "start": 0}))
   end
 
   def stub_search_api_request_with_422_response(page_number)
@@ -251,21 +207,14 @@ module DocumentHelper
   end
 
   def stub_search_api_request_with_qa_finder_results
-    stub_request(:get, SEARCH_ENDPOINT)
-      .with(
-        query: hash_including({}),
-      ).to_return(
-        body: aaib_reports_search_results,
-      )
+    stub_response(hash_including({}), aaib_reports_search_results)
   end
 
   def stub_topical_events_api_request
-    stub_request(:get, SEARCH_ENDPOINT)
-      .with(
-        query: hash_including({ filter_format: "topical_event", count: "1500" }),
-      ).to_return(
-        body: { results: [], total: 0, start: 0 }.to_json,
-      )
+    stub_response(
+      hash_including({ filter_format: "topical_event", count: "1500" }),
+      { results: [], total: 0, start: 0 }.to_json,
+    )
   end
 
   def stub_world_locations_api_request
