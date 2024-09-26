@@ -34,6 +34,7 @@ Given(/^the all content finder exists$/) do
   stub_search_api_request_with_manual_filter_all_content_results
   stub_search_api_request_with_misspelt_query
   stub_search_api_request_with_query
+  stub_search_api_request_with_sorted_query
 end
 
 Given(/^the new all content finder UI is (\w+)$/) do |state|

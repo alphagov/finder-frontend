@@ -9,6 +9,8 @@ RSpec.describe SortOptionPresenter do
 
   let(:default_sort_option) { described_class.new(label: "Most viewed", key: "most-viewed", default: true) }
 
+  let(:disabled_sort_option) { described_class.new(label: "Show in order of redness", key: "redness", disabled: true) }
+
   describe "#value" do
     context "a value is provided" do
       it "returns the given value" do
@@ -42,6 +44,20 @@ RSpec.describe SortOptionPresenter do
         selected: false,
         value: "updated-newest",
       )
+    end
+  end
+
+  describe "#to_radio_option" do
+    it "returns a hash appropriate for the radio component" do
+      expect(sort_option.to_radio_option).to eq(
+        value: "updated-newest",
+        text: "Updated (newest)",
+        checked: false,
+      )
+    end
+
+    it "returns nil for a disabled option" do
+      expect(disabled_sort_option.to_radio_option).to be_nil
     end
   end
 end

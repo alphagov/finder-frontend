@@ -242,6 +242,19 @@ RSpec.describe SortPresenter do
     end
   end
 
+  describe "#to_radio_options" do
+    let(:values) { { "keywords" => "red", "order" => "relevance" } }
+
+    it "returns only enabled sort options as radio options" do
+      expect(presenter_with_relevance.to_radio_options).to eq(
+        [
+          { value: "updated-newest", text: "Updated (newest)", checked: false },
+          { value: "relevance", text: "Relevance", checked: true },
+        ],
+      )
+    end
+  end
+
 private
 
   def content_item(sort_options: nil)
