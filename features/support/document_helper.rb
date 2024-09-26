@@ -107,6 +107,23 @@ module DocumentHelper
     )
   end
 
+  def stub_search_api_request_with_filtered_query
+    stub_response(
+      hash_including("q" => "chandeliers flickering"),
+      %({ "results": [], "total": 0, "start": 0}),
+      including_v2: true,
+    )
+
+    stub_response(
+      hash_including(
+        "q" => "chandeliers flickering",
+        "filter_all_part_of_taxonomy_tree" => %w[131313 1989],
+      ),
+      filtered_documents_json,
+      including_v2: true,
+    )
+  end
+
   def stub_search_api_request_with_misspelt_query
     stub_response(hash_including("q" => "drving"), spelling_suggestions_json, including_v2: true)
   end
@@ -647,6 +664,25 @@ module DocumentHelper
           "document_type": "song",
           "link": "/red",
           "_id": "/red"
+        }
+      ],
+      "total": 1,
+      "start": 0,
+      "facets": {},
+      "suggested_queries": []
+    })
+  end
+
+  def filtered_documents_json
+    %({
+      "results": [
+        {
+          "title": "Death by a thousand cuts",
+          "public_timestamp": "2019-08-23",
+          "summary": "I can't pretend it's okay when it's not",
+          "document_type": "song",
+          "link": "/death-by-a-thousand-cuts",
+          "_id": "/death-by-a-thousand-cuts"
         }
       ],
       "total": 1,

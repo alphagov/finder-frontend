@@ -25,6 +25,14 @@ When(/^I select the "([^"]*)" option$/) do |option|
   choose option
 end
 
+When(/^I select "([^"]*)" as the (\S+)$/) do |item, from|
+  select item, from:
+end
+
+Then("I can see filtered results") do
+  expect(page).to have_link("Death by a thousand cuts")
+end
+
 When("I apply the filters") do
   click_on "Apply filters"
 end

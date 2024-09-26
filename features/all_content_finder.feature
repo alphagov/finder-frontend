@@ -17,6 +17,16 @@ Feature: All content finder ("site search")
     And I open the filter panel
     Then I can see a filter section for every visible facet on the all content finder
 
+  @javascript
+  Scenario: Making a search with filters
+    When I search all content for "chandeliers flickering"
+    And I open the filter panel
+    And I open the "Topic" filter section
+    And I select "Music" as the Topic
+    And I select "Best songs" as the Sub-topic
+    And I apply the filters
+    Then I can see filtered results
+
   Scenario: Changing the sort order of a search
     When I search all content for "dark gray all alone"
     And I open the filter panel
