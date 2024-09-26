@@ -24,6 +24,9 @@ Feature: All content finder ("site search")
     And I open the "Topic" filter section
     And I select "Music" as the Topic
     And I select "Best songs" as the Sub-topic
+    And I open the "Type" filter section
+    And I check the "Services" option
+    And I check the "Research and statistics" option
     And I apply the filters
     Then I can see filtered results
 

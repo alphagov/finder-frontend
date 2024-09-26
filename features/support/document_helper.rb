@@ -118,6 +118,7 @@ module DocumentHelper
       hash_including(
         "q" => "chandeliers flickering",
         "filter_all_part_of_taxonomy_tree" => %w[131313 1989],
+        "filter_content_purpose_supergroup" => %w[research_and_statistics services],
       ),
       filtered_documents_json,
       including_v2: true,

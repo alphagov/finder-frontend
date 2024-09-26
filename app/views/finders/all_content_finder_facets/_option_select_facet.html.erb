@@ -1,3 +1,5 @@
+<% add_gem_component_stylesheet("checkboxes") %>
+
 <%= render "components/filter_section", {
   heading_text: option_select_facet.name,
   visually_hidden_heading_prefix: "Filter by",
@@ -5,5 +7,12 @@
   index_section: index,
   index_section_count: count,
 } do %>
-  TODO: Option select facet
+  <%= render "govuk_publishing_components/components/checkboxes", {
+    name: "#{option_select_facet.key}[]",
+    heading: option_select_facet.name,
+    items: option_select_facet.options(nil, option_select_facet.key),
+    visually_hide_heading: true,
+    no_hint_text: true,
+    small: true,
+  } %>
 <% end %>

@@ -25,6 +25,10 @@ When(/^I select the "([^"]*)" option$/) do |option|
   choose option
 end
 
+When(/^I check the "([^"]*)" option$/) do |option|
+  check option, allow_label_click: true
+end
+
 When(/^I select "([^"]*)" as the (\S+)$/) do |item, from|
   select item, from:
 end
