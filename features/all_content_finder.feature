@@ -41,6 +41,16 @@ Feature: All content finder ("site search")
     And I apply the filters
     Then I can see sorted results
 
+  @javascript
+  Scenario: Entering an incorrect date
+    When I search all content for "chandeliers flickering"
+    And I open the filter panel
+    And I open the "Updated" filter section
+    And I enter "-1" for "Updated before"
+    And I apply the filters
+    Then the filter panel is open by default
+    And I can see an error message "Enter a real date"
+
   Scenario: Spelling suggestion
     When I search all content for "drving"
     Then I see a "driving" spelling suggestion

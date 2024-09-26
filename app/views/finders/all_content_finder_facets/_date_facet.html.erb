@@ -4,6 +4,8 @@
   id: "facet_date_#{date_facet.key}",
   index_section: index,
   index_section_count: count,
+  # Note date is the only validated facet, so if there is an error, it'll be here
+  open: @search_query.invalid?
 } do %>
   <%= render "govuk_publishing_components/components/input", {
     label: {

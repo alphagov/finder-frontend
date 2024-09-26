@@ -61,3 +61,11 @@ end
 Then("I can see sorted results") do
   expect(page).to have_link("Loving him was red")
 end
+
+Then("the filter panel is open by default") do
+  expect(page).to have_selector("button[aria-expanded='true']", text: "Filter and sort")
+end
+
+Then(/^I can see an error message "([^"]*)"$/) do |text|
+  expect(page).to have_selector(".govuk-error-message", text:, visible: :visible)
+end
