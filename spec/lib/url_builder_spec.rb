@@ -5,7 +5,7 @@ describe UrlBuilder do
   let(:extra_params) { {} }
   let(:path) { "/search/all" }
 
-  describe "#url_builder" do
+  describe "#url" do
     context "when given a path and query params" do
       subject(:url) { builder.url }
 
@@ -37,6 +37,26 @@ describe UrlBuilder do
       it "builds a url that includes the additional params" do
         expect(url).to eq("/search/all?keywords=dumbledore&page=20")
       end
+    end
+  end
+
+  describe "#url_except" do
+    subject(:url) { builder.url_except(excepted) }
+
+    let(:query_params) do
+      {
+        keywords: "dumbledore",
+        page: 20,
+        hash: { a: 1, b: 2, c: 2 },
+        array: %w[one two],
+        single_value: "value",
+      }
+    end
+
+    let(:excepted) { { page: 20, hash: { b: 2, c: 3 }, array: %w[one], single_value: %w[value] } }
+
+    it "builds a url without the excluded params, ignoring non-matching values" do
+      expect(url).to eq("/search/all?array%5B%5D=two&hash%5Ba%5D=1&hash%5Bc%5D=2&keywords=dumbledore")
     end
   end
 end
