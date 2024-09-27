@@ -1,14 +1,33 @@
 require "spec_helper"
 
 describe FiltersPresenter do
-  subject { described_class.new(facets, finder_url_builder) }
+  subject(:filters_presenter) { described_class.new(facets, finder_url_builder) }
 
   let(:facets) { [] }
   let(:finder_url_builder) { instance_double(UrlBuilder) }
 
+  let(:facet_without_applied_filters) { double("Facet", has_filters?: false, applied_filters: []) }
+  let(:facet_with_applied_filters) { double("Facet", has_filters?: true, applied_filters:) }
+
+  let(:applied_filters) { [{ name: "name", label: "label", query_params: { key: %w[value] } }] }
+
   describe "#any_filters" do
-    it "returns false" do
-      expect(subject).not_to be_any_filters
+    context "when there are no facets" do
+      let(:facets) { [] }
+
+      it { is_expected.not_to be_any_filters }
+    end
+
+    context "when there are only facets without applied filters" do
+      let(:facets) { [facet_without_applied_filters, facet_without_applied_filters] }
+
+      it { is_expected.not_to be_any_filters }
+    end
+
+    context "when there is at least one facet with applied filters" do
+      let(:facets) { [facet_without_applied_filters, facet_with_applied_filters] }
+
+      it { is_expected.to be_any_filters }
     end
   end
 
@@ -19,8 +38,31 @@ describe FiltersPresenter do
   end
 
   describe "#summary_items" do
-    it "returns an empty array" do
-      expect(subject.summary_items).to eq([])
+    subject(:summary_items) { described_class.new(facets, finder_url_builder).summary_items }
+
+    context "when there are no facets" do
+      let(:facets) { [] }
+
+      it { is_expected.to be_empty }
+    end
+
+    context "when there are only facets without applied filters" do
+      let(:facets) { [facet_without_applied_filters, facet_without_applied_filters] }
+
+      it { is_expected.to be_empty }
+    end
+
+    context "when there is at least one facet with applied filters" do
+      let(:facets) { [facet_without_applied_filters, facet_with_applied_filters] }
+
+      it "returns the expected summary items" do
+        expect(summary_items).to contain_exactly({
+          label: "name",
+          value: "label",
+          remove_href: "#",
+          visually_hidden_prefix: "Remove filter",
+        })
+      end
     end
   end
 end

@@ -5,11 +5,18 @@ class FiltersPresenter
   end
 
   def any_filters?
-    false
+    facets.any?(&:has_filters?)
   end
 
   def summary_items
-    []
+    facets.flat_map(&:applied_filters).map do |filter|
+      {
+        label: filter[:name],
+        value: filter[:label],
+        remove_href: "#",
+        visually_hidden_prefix: "Remove filter",
+      }
+    end
   end
 
   def reset_url
