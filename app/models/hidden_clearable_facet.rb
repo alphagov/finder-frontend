@@ -23,6 +23,16 @@ class HiddenClearableFacet < FilterableFacet
     selected_values.any?
   end
 
+  def applied_filters
+    selected_values.map do |value|
+      {
+        name:,
+        label: value["label"],
+        query_params: { key => [value["value"]] },
+      }
+    end
+  end
+
   def query_params
     { key => selected_values.map { |value| value["value"] } }
   end
