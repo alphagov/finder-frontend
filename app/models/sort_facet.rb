@@ -27,6 +27,10 @@ class SortFacet
     false
   end
 
+  def applied_filters
+    []
+  end
+
   def filterable?
     true
   end
