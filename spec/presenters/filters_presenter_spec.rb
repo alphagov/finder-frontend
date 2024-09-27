@@ -55,11 +55,16 @@ describe FiltersPresenter do
     context "when there is at least one facet with applied filters" do
       let(:facets) { [facet_without_applied_filters, facet_with_applied_filters] }
 
+      before do
+        allow(finder_url_builder).to receive(:url_except).with({ key: %w[value] })
+          .and_return("/search/foo")
+      end
+
       it "returns the expected summary items" do
         expect(summary_items).to contain_exactly({
           label: "name",
           value: "label",
-          remove_href: "#",
+          remove_href: "/search/foo",
           visually_hidden_prefix: "Remove filter",
         })
       end
