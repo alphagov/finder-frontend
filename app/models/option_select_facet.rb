@@ -36,6 +36,16 @@ class OptionSelectFacet < FilterableFacet
     selected_values.any?
   end
 
+  def applied_filters
+    selected_values.map do |value|
+      {
+        name:,
+        label: value["label"],
+        query_params: { key => [value["value"]] },
+      }
+    end
+  end
+
   def unselected?
     selected_values.empty?
   end
