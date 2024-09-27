@@ -66,7 +66,7 @@ private
 
   attr_reader :search_query
 
-  helper_method :facet_tags, :i_am_a_topic_page_finder, :result_set_presenter, :content_item, :signup_links, :filter_params, :facets
+  helper_method :facet_tags, :i_am_a_topic_page_finder, :result_set_presenter, :content_item, :signup_links, :filter_params, :facets, :filters_presenter
 
   def redirect_to_destination
     @redirect = content_item.redirect
@@ -164,6 +164,10 @@ private
 
   def sort_presenter
     @sort_presenter ||= content_item.sorter_class.new(content_item, filter_params)
+  end
+
+  def filters_presenter
+    @filters_presenter ||= FiltersPresenter.new(facets, finder_url_builder)
   end
 
   def pagination_presenter
