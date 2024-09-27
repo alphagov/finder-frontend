@@ -1,5 +1,6 @@
 class FacetsIterator
-  delegate :select, :any?, to: :@facets
+  include Enumerable
+  delegate :each, to: :@facets
 
   def initialize(facets)
     @facets = facets
