@@ -13,7 +13,7 @@
 
   component_helper = GovukPublishingComponents::Presenters::ComponentWrapperHelper.new(local_assigns)
   shared_helper = GovukPublishingComponents::Presenters::SharedHelper.new(local_assigns)
-  component_helper.add_data_attribute({ module: "filter-panel" })
+  component_helper.add_data_attribute({ module: "filter-panel ga4-event-tracker" })
   component_helper.add_class("app-c-filter-panel")
   component_helper.add_class(shared_helper.get_margin_bottom) if local_assigns[:margin_bottom]
 %>
@@ -23,7 +23,16 @@
     <%= tag.button(
       id: button_id,
       class: "app-c-filter-panel__button govuk-link",
-      aria: { expanded: "false", controls: panel_content_id }
+      aria: { expanded: "false", controls: panel_content_id },
+      "data-ga4-expandable": true,
+      "data-ga4-event" => {
+        event_name: "select_content",
+        type: "finder",
+        section: button_text,
+        text: button_text,
+        index: 0,
+        index_total: 4
+      }.to_json
     ) { button_text } %>
 
     <% if result_text.present? %>
