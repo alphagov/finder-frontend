@@ -89,7 +89,7 @@ describe FacetsBuilder do
   end
 
   let(:content_item_hash) do
-    govuk_content_schema_example("finder").merge(detail_hash).deep_stringify_keys
+    example_finder.merge(detail_hash).deep_stringify_keys
   end
 
   let(:content_item) do

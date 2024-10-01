@@ -12,22 +12,18 @@ describe FindersController, type: :controller do
   render_views
 
   let(:lunch_finder) do
-    finder = govuk_content_schema_example("finder").to_hash.merge(
-      "title" => "Lunch Finder",
-      "base_path" => "/lunch-finder",
-    )
-
+    finder = example_finder
+    finder["title"] = "Lunch Finder"
+    finder["base_path"] = "/lunch-finder"
     finder["details"]["default_documents_per_page"] = 10
     finder["details"]["sort"] = nil
     finder
   end
 
   let(:all_content_finder) do
-    finder = govuk_content_schema_example("finder").to_hash.merge(
-      "base_path" => "/search/all",
-      "content_id" => "dd395436-9b40-41f3-8157-740a453ac972",
-    )
-
+    finder = example_finder
+    finder["base_path"] = "/search/all"
+    finder["content_id"] = "dd395436-9b40-41f3-8157-740a453ac972"
     finder["details"]["default_documents_per_page"] = 10
     finder["details"]["sort"] = nil
     finder
@@ -300,12 +296,10 @@ describe FindersController, type: :controller do
 
   describe "Spelling suggestions" do
     let(:breakfast_finder) do
-      finder = govuk_content_schema_example("finder").to_hash.merge(
-        "title" => "Breakfast Finder",
-        "base_path" => "/breakfast-finder",
-        "content_id" => "42ce66de-04f3-4192-bf31-8394538e0734",
-      )
-
+      finder = example_finder
+      finder["title"] = "Breakfast Finder"
+      finder["base_path"] = "/breakfast-finder"
+      finder["content_id"] = "42ce66de-04f3-4192-bf31-8394538e0734"
       finder["details"]["default_documents_per_page"] = 10
       finder["details"]["sort"] = nil
       finder
@@ -371,11 +365,9 @@ describe FindersController, type: :controller do
     before do
       search_api_request
 
-      news_finder = govuk_content_schema_example("finder").to_hash.merge(
-        "base_path" => "/search/news-and-communications",
-        "content_id" => "622e9691-4b4f-4e9c-bce1-098b0c4f5ee2",
-      )
-
+      news_finder = example_finder
+      news_finder["base_path"] = "/search/news-and-communications"
+      news_finder["content_id"] = "622e9691-4b4f-4e9c-bce1-098b0c4f5ee2"
       news_finder["details"]["default_documents_per_page"] = 10
       news_finder["details"]["sort"] = nil
 

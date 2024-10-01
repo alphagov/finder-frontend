@@ -258,7 +258,7 @@ RSpec.describe SortPresenter do
 private
 
   def content_item(sort_options: nil)
-    finder_example = govuk_content_schema_example("finder")
+    finder_example = example_finder
     finder_example["details"]["sort"] = sort_options
     ContentItem.new(finder_example)
   end

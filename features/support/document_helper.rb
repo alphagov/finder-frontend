@@ -222,11 +222,11 @@ module DocumentHelper
   end
 
   def content_store_has_mosw_reports_finder
-    stub_content_store_has_item("/mosw-reports", govuk_content_schema_example("finder").to_json)
+    stub_content_store_has_item("/mosw-reports", example_finder.to_json)
   end
 
   def content_store_has_mosw_reports_finder_with_no_facets
-    finder = govuk_content_schema_example("finder")
+    finder = example_finder
     finder["details"]["facets"] = []
     stub_content_store_has_item("/mosw-reports", finder.to_json)
   end
@@ -243,7 +243,7 @@ module DocumentHelper
 
   def content_store_has_government_finder
     base_path = "/government/policies/benefits-reform"
-    finder = govuk_content_schema_example("finder").merge("base_path" => base_path)
+    finder = example_finder.merge("base_path" => base_path)
     finder["details"]["sort"] = [
       {
         "name": "Most viewed",
@@ -267,7 +267,7 @@ module DocumentHelper
 
   def content_store_has_government_finder_with_10_items
     base_path = "/government/policies/benefits-reform"
-    content_item = govuk_content_schema_example("finder").merge("base_path" => base_path)
+    content_item = example_finder.merge("base_path" => base_path)
     content_item["details"]["default_documents_per_page"] = 10
     stub_content_store_has_item(base_path, content_item.to_json)
   end
@@ -303,7 +303,7 @@ module DocumentHelper
   end
 
   def stub_content_store_with_cma_cases_finder
-    schema = govuk_content_schema_example("cma-cases", "finder")
+    schema = example_cma_cases_finder
 
     stub_content_store_has_item(
       schema.fetch("base_path"),
@@ -312,7 +312,7 @@ module DocumentHelper
   end
 
   def stub_content_store_with_a_taxon_tagged_finder
-    schema = govuk_content_schema_example("cma-cases", "finder").merge(
+    schema = example_cma_cases_finder.merge(
       "links" => {
         "taxons" => [
           {
@@ -353,7 +353,7 @@ module DocumentHelper
   end
 
   def stub_content_store_with_cma_cases_finder_with_description
-    schema = govuk_content_schema_example("cma-cases", "finder")
+    schema = example_cma_cases_finder
       .merge("description" => "Find reports and updates on current and historical CMA investigations")
 
     stub_content_store_has_item(
@@ -363,7 +363,7 @@ module DocumentHelper
   end
 
   def stub_content_store_with_cma_cases_finder_with_no_index
-    schema = govuk_content_schema_example("cma-cases", "finder")
+    schema = example_cma_cases_finder
     schema["details"]["no_index"] = true
 
     stub_content_store_has_item(
@@ -373,8 +373,7 @@ module DocumentHelper
   end
 
   def stub_content_store_with_cma_cases_finder_with_metadata
-    schema = govuk_content_schema_example("cma-cases", "finder")
-      .merge("from" => "An authority")
+    schema = example_cma_cases_finder.merge("from" => "An authority")
 
     stub_content_store_has_item(
       schema.fetch("base_path"),
@@ -383,8 +382,7 @@ module DocumentHelper
   end
 
   def stub_content_store_with_cma_cases_finder_with_metadata_with_topic_param
-    schema = govuk_content_schema_example("cma-cases", "finder")
-      .merge("from" => "An authority")
+    schema = example_cma_cases_finder.merge("from" => "An authority")
     schema["content_id"] = "c58fdadd-7743-46d6-9629-90bb3ccc4ef0"
 
     stub_content_store_has_item(
@@ -394,7 +392,7 @@ module DocumentHelper
   end
 
   def stub_content_store_with_cma_cases_finder_for_supergroup_checkbox_filter
-    schema = govuk_content_schema_example("cma-cases", "finder")
+    schema = example_cma_cases_finder
     schema["details"]["facets"].map! do |facet|
       if facet["key"] == "case_state"
         {
