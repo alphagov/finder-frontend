@@ -50,7 +50,16 @@
     <%= yield %>
 
     <div class="app-c-filter-panel__actions">
-      <%= submit_tag "Apply filters", class: "govuk-button app-c-filter-panel__action app-c-filter-panel__action--submit" %>
+      <%= submit_tag "Apply filters",
+        class: "govuk-button app-c-filter-panel__action app-c-filter-panel__action--submit",
+        "data-ga4-event" => {
+          event_name: "select_content",
+          type: "finder",
+          text: button_text,
+          section: "Filter and sort",
+          action: "search",
+          index: { index_section: 0, index_section_count: 4 },
+        }.to_json %>
 
       <% if show_reset_link %>
         <%=
