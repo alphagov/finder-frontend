@@ -31,13 +31,6 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
       const newState = this.$button.getAttribute('aria-expanded') !== 'true'
       this.$button.setAttribute('aria-expanded', newState)
       this.$content.toggleAttribute('hidden')
-      this.setTrackingData(newState)
-    }
-
-    setTrackingData (open) {
-      const eventTrackingData = JSON.parse(this.$button.getAttribute('data-ga4-event'))
-      eventTrackingData.action = open === true ? 'opened' : 'closed'
-      this.$button.setAttribute('data-ga4-event', JSON.stringify(eventTrackingData))
     }
   }
 

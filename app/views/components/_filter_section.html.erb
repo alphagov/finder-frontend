@@ -21,6 +21,7 @@
 
 <%= tag.details(**component_helper.all_attributes) do %>
   <%= tag.summary class: "app-c-filter-section__summary", aria: summary_aria_attributes,
+      "data-ga4-expandable": "",
       "data-ga4-event" => {
         event_name: "select_content",
         type: "finder",

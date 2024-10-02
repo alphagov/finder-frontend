@@ -12,7 +12,7 @@ describe('Filter panel module', () => {
 
   const html = `<div data-module="filter-panel" class="app-c-filter-panel">
     <div class="app-c-filter-panel__header">
-      <button class="app-c-filter-panel__button govuk-link" aria-controls="filter-panel" id="filters-button" data-ga4-event="{}">
+      <button class="app-c-filter-panel__button govuk-link" aria-controls="filter-panel" id="filters-button">
         <span class="app-c-filter-panel__button-icon"></span>
         Filter and sort
       </button>
@@ -66,14 +66,6 @@ describe('Filter panel module', () => {
     expect(filterPanel.$button.getAttribute('aria-expanded')).toBe('false')
     expect(filterPanel.$content.hasAttribute('hidden')).toBe(true)
     expect(document.activeElement).not.toBe(filterPanel.$button)
-  })
-
-  it('sets correct ga4 tracking data when panel is opened and closed', () => {
-    filterPanel.$button.click()
-    expect(JSON.parse(filterPanel.$button.getAttribute('data-ga4-event')).action).toBe('opened')
-
-    filterPanel.$button.click()
-    expect(JSON.parse(filterPanel.$button.getAttribute('data-ga4-event')).action).toBe('closed')
   })
 
   it('prevents any default behaviour of the panel open/close button', () => {
