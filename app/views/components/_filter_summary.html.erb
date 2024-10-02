@@ -45,7 +45,15 @@
 
     <% if clear_all_text.present? && clear_all_href.present? %>
       <div>
-        <%= link_to clear_all_text, clear_all_href, class: "app-c-filter-summary__clear-filters govuk-link govuk-link--no-visited-state" %>
+        <%= link_to clear_all_text, clear_all_href,
+        class: "app-c-filter-summary__clear-filters govuk-link govuk-link--no-visited-state",
+        "data-ga4-event" => {
+          event_name: "select_content",
+          type: "finder",
+          text: clear_all_text,
+          section: "Selected filters and sorting",
+          action: "remove"
+        }.to_json %>
       </div>
     <% end %>
   <% end %>
