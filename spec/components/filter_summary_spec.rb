@@ -75,4 +75,17 @@ describe "Filter summary component", type: :view do
 
     assert_select "h4.app-c-filter-summary__heading", count: 1
   end
+
+  it "renders ga4 tracking attributes to remove link" do
+    link_event_attributes = {
+      event_name: "select_content",
+      type: "finder",
+      section: "Filter 1",
+      action: "remove",
+    }
+
+    render_component(filters:, data: link_event_attributes.to_json)
+
+    assert_select ".app-c-filter-summary__remove-filter[data-ga4-event='#{link_event_attributes.to_json}']"
+  end
 end

@@ -11,6 +11,7 @@
 
   component_helper = GovukPublishingComponents::Presenters::ComponentWrapperHelper.new(local_assigns)
   component_helper.add_class(shared_helper.get_margin_bottom) if local_assigns[:margin_bottom]
+  component_helper.add_data_attribute({ module: "ga4-event-tracker" })
   component_helper.add_class("app-c-filter-summary")
 %>
 
@@ -25,7 +26,14 @@
     <ul class="app-c-filter-summary__remove-filters">
       <% filters.each do |filter| %>
         <li>
-          <%= link_to filter[:remove_href], class: "app-c-filter-summary__remove-filter" do %>
+          <%= link_to filter[:remove_href],
+          class: "app-c-filter-summary__remove-filter",
+          "data-ga4-event" => {
+            event_name: "select_content",
+            type: "finder",
+            section: filter[:label],
+            action: "remove"
+          }.to_json do %>
             <span class="app-c-filter-summary__remove-filter-text">
               <span class="govuk-visually-hidden"><%= filter[:visually_hidden_prefix] %></span>
               <%= filter[:label] %>: <%= filter[:value] %>
