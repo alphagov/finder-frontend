@@ -78,20 +78,22 @@ describe "Filter panel component", type: :view do
   end
 
   it "renders ga4 tracking attributes to open/close button element" do
+    button_text = "Filter"
+
     button_event_attributes = {
-      "ga4-expandable": "true",
-      "ga4-event": {
-        "event-name": "select_content",
-        "type": "finder",
+      event_name: "select_content",
+      type: "finder",
+      section: button_text,
+      text: button_text,
+      index: {
+        index_section: 0,
+        index_section_count: 4,
       },
     }
-
-    button_text = "Filter"
 
     render_component(button_text:, data: button_event_attributes.to_json)
 
     assert_select ".app-c-filter-panel button[data-ga4-expandable]", true
-    assert_select ".app-c-filter-panel button[data-ga4-event]", data: button_event_attributes.to_json
-    assert_select ".app-c-filter-panel button[data-ga4-event]", data: { section: button_text, text: button_text }
+    assert_select ".app-c-filter-panel button[data-ga4-event='#{button_event_attributes.to_json}']", true
   end
 end

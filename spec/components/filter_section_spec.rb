@@ -58,20 +58,22 @@ describe "Filter section component", type: :view do
   end
 
   it "renders ga4 tracking attributes to open/close summary element" do
+    heading_text = "Filter"
+
     button_event_attributes = {
-      "ga4-expandable": "true",
-      "ga4-event": {
-        "event-name": "select_content",
-        "type": "finder",
+      event_name: "select_content",
+      type: "finder",
+      section: heading_text,
+      text: heading_text,
+      index: {
+        index_section: 1,
+        index_section_count: 0,
       },
     }
-
-    heading_text = "Filter"
 
     render_component(heading_text:, data: button_event_attributes.to_json)
 
     assert_select ".app-c-filter-section summary[data-ga4-expandable]", true
-    assert_select ".app-c-filter-section summary[data-ga4-event]", data: button_event_attributes.to_json
-    assert_select ".app-c-filter-section summary[data-ga4-event]", data: { section: heading_text, text: heading_text }
+    assert_select ".app-c-filter-section summary[data-ga4-event='#{button_event_attributes.to_json}']", true
   end
 end
