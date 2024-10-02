@@ -11,10 +11,10 @@ describe('Filter section module', () => {
   }
 
   const html = `<details data-module="filter-section" class="app-c-filter-section">
-      <summary class="app-c-filter-section__summary" aria-controls="filter-section" data-ga4-event="{}">
+      <summary class="app-c-filter-section__summary" data-ga4-event="{}">
         filter section
       </summary>
-      <div id="filter-section">content</div>
+      <div>content</div>
     </details>`
 
   beforeEach(() => {

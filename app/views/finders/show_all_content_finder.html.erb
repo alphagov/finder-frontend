@@ -13,7 +13,7 @@
 <% end %>
 <% content_for :meta_title, content_item.title %>
 
-<form method="get" action="<%= content_item.base_path %>" data-ga4-change-category="clear-all-filters">
+<form method="get" action="<%= content_item.base_path %>" data-ga4-change-category="clear-all-filters" id="all-content-finder-form">
   <%= hidden_field_tag :parent, @parent if @parent.present? %>
   <%= hidden_field_tag :enable_new_all_content_finder_ui, params[:enable_new_all_content_finder_ui] if params[:enable_new_all_content_finder_ui].present? %>
 

@@ -24,14 +24,12 @@
       id: button_id,
       class: "app-c-filter-panel__button govuk-link",
       aria: { expanded: "false", controls: panel_content_id },
-      "data-ga4-expandable": true,
       "data-ga4-event" => {
         event_name: "select_content",
         type: "finder",
         section: button_text,
         text: button_text,
-        index: 0,
-        index_total: 4
+        index: { index_section: 0, index_section_count: 4 },
       }.to_json
     ) { button_text } %>
 

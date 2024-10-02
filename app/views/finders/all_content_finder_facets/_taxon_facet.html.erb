@@ -5,22 +5,22 @@
   id: "facet_taxon_#{taxon_facet.key}",
   index_section: index,
   index_section_count: count,
+  data_attributes: { "ga4-index": { index_section: index + 1, index_section_count: count } },
+  change_category: "update-filter select",
 } do %>
-  <div class="js-all-content-finder-taxonomy-select" data-ga4-change-category="update-filter select" data-ga4-section="Topic">
-    <%= render "govuk_publishing_components/components/select", {
-      id: 'level_one_taxon',
-      label: "Topic",
-      full_width: true,
-      options: taxon_facet.topics
-    } %>
+  <%= render "govuk_publishing_components/components/select", {
+    id: 'level_one_taxon',
+    label: "Topic",
+    full_width: true,
+    options: taxon_facet.topics
+  } %>
 
-    <div class="js-required govuk-form-group" data-ga4-section="Sub-topic">
-      <%= render "govuk_publishing_components/components/select", {
-        id: 'level_two_taxon',
-        label: "Sub-topic",
-        full_width: true,
-        options: taxon_facet.sub_topics
-      } %>
-    </div>
+  <div class="js-required govuk-form-group" data-ga4-section="Sub-topic">
+    <%= render "govuk_publishing_components/components/select", {
+      id: 'level_two_taxon',
+      label: "Sub-topic",
+      full_width: true,
+      options: taxon_facet.sub_topics
+    } %>
   </div>
 <% end %>

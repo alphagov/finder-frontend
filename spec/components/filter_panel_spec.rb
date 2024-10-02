@@ -90,7 +90,6 @@ describe "Filter panel component", type: :view do
 
     render_component(button_text:, data: button_event_attributes.to_json)
 
-    assert_select ".app-c-filter-panel button[data-ga4-expandable]", true
     assert_select ".app-c-filter-panel button[data-ga4-event]", data: button_event_attributes.to_json
     assert_select ".app-c-filter-panel button[data-ga4-event]", data: { section: button_text, text: button_text }
   end

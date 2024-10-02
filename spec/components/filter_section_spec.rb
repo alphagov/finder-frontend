@@ -70,7 +70,6 @@ describe "Filter section component", type: :view do
 
     render_component(heading_text:, data: button_event_attributes.to_json)
 
-    assert_select ".app-c-filter-section summary[data-ga4-expandable]", true
     assert_select ".app-c-filter-section summary[data-ga4-event]", data: button_event_attributes.to_json
     assert_select ".app-c-filter-section summary[data-ga4-event]", data: { section: heading_text, text: heading_text }
   end
