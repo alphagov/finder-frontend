@@ -25,12 +25,13 @@
       class: "app-c-filter-panel__button govuk-link",
       aria: { expanded: "false", controls: panel_content_id },
       "data-ga4-expandable": "",
-      "data-ga4-event" => {
+      "data-ga4-event": {
         event_name: "select_content",
         type: "finder",
         section: button_text,
         text: button_text,
-        index: { index_section: 0, index_section_count: 4 },
+        index_section: 0,
+        index_section_count: 4
       }.to_json
     ) { button_text } %>
 
@@ -49,6 +50,7 @@
   ) do %>
     <%= yield %>
 
+
     <div class="app-c-filter-panel__actions">
       <%= submit_tag "Apply filters",
         class: "govuk-button app-c-filter-panel__action app-c-filter-panel__action--submit",
@@ -58,14 +60,22 @@
           text: button_text,
           section: "Filter and sort",
           action: "search",
-          index: { index_section: 0, index_section_count: 4 },
+          index_section: 0,
+          index_section_count: 4,
         }.to_json %>
 
       <% if show_reset_link %>
         <%=
           link_to "Clear all filters",
             reset_link_href,
-            class: "govuk-link govuk-link--no-visited-state app-c-filter-panel__action app-c-filter-panel__action--reset"
+            class: "govuk-link govuk-link--no-visited-state app-c-filter-panel__action app-c-filter-panel__action--reset",
+            "data-ga4-event" => {
+              event_name: "select_content",
+              type: "finder",
+              text: "Clear all",
+              section: "Filter and sort",
+              action: "remove",
+            }.to_json
         %>
       <% end %>
     </div>

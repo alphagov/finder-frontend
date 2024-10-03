@@ -85,10 +85,8 @@ describe "Filter panel component", type: :view do
       type: "finder",
       section: button_text,
       text: button_text,
-      index: {
-        index_section: 0,
-        index_section_count: 4,
-      },
+      index_section: 0,
+      index_section_count: 4,
     }
 
     render_component(button_text:, data: button_event_attributes.to_json)
@@ -106,7 +104,8 @@ describe "Filter panel component", type: :view do
       text: button_text,
       section: "Filter and sort",
       action: "search",
-      index: { index_section: 0, index_section_count: 4 },
+      index_section: 0,
+      index_section_count: 4,
     }
 
     render_component(button_text:, data: button_event_attributes.to_json)
