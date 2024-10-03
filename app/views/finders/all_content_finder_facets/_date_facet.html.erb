@@ -1,6 +1,7 @@
 <%= render "components/filter_section", {
   heading_text: date_facet.name,
   visually_hidden_heading_prefix: "Filter by",
+  status_text: date_facet.status_text,
   id: "facet_date_#{date_facet.key}",
   index_section: index,
   index_section_count: count,
