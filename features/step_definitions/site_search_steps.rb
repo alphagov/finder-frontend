@@ -70,6 +70,16 @@ Then("I can see sorted results") do
   expect(page).to have_link("Loving him was red")
 end
 
+Then("the filter panel shows status text for each section") do
+  click_on "Filter and sort"
+
+  within(".app-c-filter-panel") do
+    expect(page).to have_selector("summary", text: "Filter by Topic 2 selected", normalize_ws: true)
+    expect(page).to have_selector("summary", text: "Filter by Type 2 selected", normalize_ws: true)
+    expect(page).to have_selector("summary", text: "Filter by Updated 2 selected", normalize_ws: true)
+  end
+end
+
 Then("the filter panel is open by default") do
   expect(page).to have_selector("button[aria-expanded='true']", text: "Filter and sort")
 end
