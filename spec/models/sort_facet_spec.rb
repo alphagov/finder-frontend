@@ -92,6 +92,32 @@ describe SortFacet do
     end
   end
 
+  describe "#status_text" do
+    subject(:status_text) { sort_facet.status_text }
+
+    context "when no sort order is selected" do
+      it { is_expected.to be_nil }
+    end
+
+    context "when a sort order is selected but it doesn't exist" do
+      let(:filter_params) { { "order" => "invalid" } }
+
+      it { is_expected.to be_nil }
+    end
+
+    context "when a default sort order is selected" do
+      let(:filter_params) { { "order" => "most-viewed" } }
+
+      it { is_expected.to be_nil }
+    end
+
+    context "when a custom sort order is selected" do
+      let(:filter_params) { { "order" => "updated-newest" } }
+
+      it { is_expected.to eq("Updated (newest)") }
+    end
+  end
+
   it { is_expected.to be_user_visible }
   it { is_expected.to be_filterable }
   it { is_expected.not_to be_hide_facet_tag }
