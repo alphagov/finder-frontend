@@ -41,6 +41,17 @@ Feature: All content finder ("site search")
     And I apply the filters
     Then I can see sorted results
 
+  Scenario: Removing a filter
+    When I search all content for "chandeliers flickering"
+    And I open the filter panel
+    And I open the "Topic" filter section
+    And I select "Music" as the Topic
+    And I select "Best songs" as the Sub-topic
+    And I apply the filters
+    And I click on the "Sub-topic: Best songs" filter tag
+    Then the "Sub-topic: Best songs" filter has been removed
+
+
   @javascript
   Scenario: Entering an incorrect date
     When I search all content for "chandeliers flickering"
