@@ -1,1 +1,3 @@
-<%# TODO: Hidden clearable facet %>
+<% hidden_clearable_facet.value.each do |value| %>
+  <%= hidden_field_tag "#{hidden_clearable_facet.key}[]", value %>
+<% end %>

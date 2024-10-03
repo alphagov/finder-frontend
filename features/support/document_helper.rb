@@ -136,6 +136,11 @@ module DocumentHelper
       filtered_by_manual_all_content_results_json,
       including_v2: true,
     )
+    stub_response(
+      hash_including("q" => "search-term-updated", "filter_manual" => %w[how-to-be-a-wizard]),
+      filtered_by_manual_all_content_results_json,
+      including_v2: true,
+    )
   end
 
   def stub_search_api_request_with_filtered_policy_papers_results

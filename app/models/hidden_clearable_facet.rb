@@ -1,4 +1,6 @@
 class HiddenClearableFacet < FilterableFacet
+  attr_reader :value
+
   def initialize(facet, value_hash)
     @value = Array(value_hash)
     super(facet)
