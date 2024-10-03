@@ -130,7 +130,7 @@ private
       value_hash: filter_params,
     ).facets.tap do |built_facets|
       if content_item.all_content_finder? && enable_new_all_content_finder_ui?
-        built_facets.prepend(SortFacet.new)
+        built_facets.prepend(SortFacet.new(content_item, filter_params))
       end
     end
   end

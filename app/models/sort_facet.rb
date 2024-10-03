@@ -2,6 +2,12 @@
 # sorting forms part of the overall filtering UI instead of being separate
 class SortFacet
   KEY = "order".freeze
+  DEFAULT_SORT_OPTIONS = %w[relevance most-viewed].freeze
+
+  def initialize(content_item, filter_params)
+    @content_item = content_item
+    @filter_params = filter_params
+  end
 
   def name
     "Sort by"
@@ -20,16 +26,24 @@ class SortFacet
     true
   end
 
-  # The methods below are the minimum required for this virtual facet to take the place of a real
-  # `Facet`
-
   def has_filters?
-    false
+    sort_options.keys.include?(selected_sort_option) &&
+      !DEFAULT_SORT_OPTIONS.include?(selected_sort_option)
   end
 
   def applied_filters
-    []
+    return [] unless has_filters?
+
+    [{
+      name:,
+      label: sort_options[selected_sort_option],
+      query_params: { KEY => selected_sort_option },
+      visually_hidden_prefix: "Remove",
+    }]
   end
+
+  # The methods below are the minimum required for this virtual facet to take the place of a real
+  # `Facet`
 
   def filterable?
     true
@@ -45,5 +59,15 @@ class SortFacet
 
 private
 
-  attr_reader :sort_presenter
+  attr_reader :content_item, :filter_params
+
+  def sort_options
+    # Finder Frontend's sort handling is somewhat bizarre - it doesn't use the sort option keys from
+    # the content item, but rather the sort options' names parameterized.
+    content_item.sort_options.to_h { [_1["name"].parameterize, _1["name"]] }
+  end
+
+  def selected_sort_option
+    filter_params[KEY]
+  end
 end
