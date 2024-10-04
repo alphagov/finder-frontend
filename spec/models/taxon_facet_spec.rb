@@ -8,7 +8,9 @@ describe TaxonFacet do
   before do
     Rails.cache.clear
     topic_taxonomy_has_taxons([
-      FactoryBot.build(:level_one_taxon_hash, content_id: "allowed-value-1", title: "allowed-value-1", number_of_children: 1),
+      FactoryBot.build(:level_one_taxon_hash, content_id: "allowed-value-1", title: "allowed-value-1", child_taxons: [
+        FactoryBot.build(:taxon_hash, content_id: "allowed-child-value", title: "allowed-child-value"),
+      ]),
       FactoryBot.build(:level_one_taxon_hash, content_id: "allowed-value-2", title: "allowed-value-2", number_of_children: 1),
     ])
   end
@@ -101,6 +103,66 @@ describe TaxonFacet do
       end
 
       specify { expect(subject.sentence_fragment).to be_nil }
+    end
+  end
+
+  describe "#applied_filters" do
+    context "only level one selected" do
+      let(:allowed_values) do
+        {
+          "level_one_taxon" => "allowed-value-1",
+        }
+      end
+
+      it "returns the expected applied filters" do
+        expect(subject.applied_filters).to eql([
+          {
+            name: "Topic",
+            label: "allowed-value-1",
+            query_params: {
+              "level_one_taxon" => "allowed-value-1",
+            },
+          },
+        ])
+      end
+    end
+
+    context "both level one and two selected" do
+      let(:allowed_values) do
+        {
+          "level_one_taxon" => "allowed-value-1",
+          "level_two_taxon" => "allowed-child-value",
+        }
+      end
+
+      it "returns the expected applied filters" do
+        expect(subject.applied_filters).to eql([
+          {
+            name: "Topic",
+            label: "allowed-value-1",
+            query_params: {
+              "level_one_taxon" => "allowed-value-1",
+              "level_two_taxon" => "allowed-child-value",
+            },
+          },
+          {
+            name: "Sub-topic",
+            label: "allowed-child-value",
+            query_params: { "level_two_taxon" => "allowed-child-value" },
+          },
+        ])
+      end
+    end
+
+    context "disallowed value selected" do
+      let(:allowed_values) do
+        {
+          "level_one_taxon" => "disallowed-value-1",
+          "level_two_taxon" => "disallowed-value-2",
+        }
+      end
+
+      specify { expect(subject.applied_filters).to be_empty }
     end
   end
 end

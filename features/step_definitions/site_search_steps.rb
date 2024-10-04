@@ -37,6 +37,14 @@ When(/^I enter "([^"]*)" for "([^"]*)"$/) do |text, field|
   fill_in field, with: text
 end
 
+When(/I click on the "([^"]*)" filter tag/) do |filter|
+  click_on filter
+end
+
+Then(/the "([^"]*)" filter has been removed/) do |filter|
+  expect(page).not_to have_link(filter)
+end
+
 Then("I can see filtered results") do
   expect(page).to have_link("Death by a thousand cuts")
 end

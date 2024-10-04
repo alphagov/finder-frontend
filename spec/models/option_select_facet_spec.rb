@@ -64,6 +64,57 @@ describe OptionSelectFacet do
     end
   end
 
+  describe "#applied_filters" do
+    context "single value" do
+      let(:value) { %w[allowed-value-1] }
+
+      it "returns the expected applied filters" do
+        expect(subject.applied_filters).to eql([
+          {
+            name: "Test values",
+            label: "Allowed value 1",
+            query_params: { "test_values" => %w[allowed-value-1] },
+          },
+        ])
+      end
+    end
+
+    context "multiple values" do
+      let(:value) { %w[allowed-value-1 allowed-value-2] }
+
+      it "returns the expected applied filters" do
+        expect(subject.applied_filters).to eql([
+          {
+            name: "Test values",
+            label: "Allowed value 1",
+            query_params: { "test_values" => %w[allowed-value-1] },
+          },
+          {
+            name: "Test values",
+            label: "Allowed value 2",
+            query_params: { "test_values" => %w[allowed-value-2] },
+          },
+        ])
+      end
+    end
+
+    context "disallowed values" do
+      let(:value) { ["disallowed-value-1, disallowed-value-2"] }
+
+      it "returns no applied filters" do
+        expect(subject.applied_filters).to be_empty
+      end
+    end
+
+    context "no value" do
+      let(:value) { nil }
+
+      it "returns no applied filters" do
+        expect(subject.applied_filters).to be_empty
+      end
+    end
+  end
+
   describe "#query_params" do
     context "value selected" do
       let(:value) { "allowed-value-1" }

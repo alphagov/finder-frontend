@@ -53,6 +53,52 @@ describe DateFacet do
     end
   end
 
+  describe "#applied_filters" do
+    context "no value" do
+      let(:value) { nil }
+
+      it "returns the expected applied filters" do
+        expect(subject.applied_filters).to eql([])
+      end
+    end
+
+    context "single date value" do
+      let(:value) { { from: "22/09/1988" } }
+
+      it "returns the expected applied filters" do
+        expect(subject.applied_filters).to eql([{
+          name: "Occurred after",
+          label: "22 September 1988",
+          query_params: { "date_of_occurrence" => { from: "22/09/1988" } },
+        }])
+      end
+    end
+
+    context "multiple date values" do
+      let(:value) do
+        {
+          from: "22/09/1988",
+          to: "22/09/2014",
+        }
+      end
+
+      it "returns the expected applied filters" do
+        expect(subject.applied_filters).to eql([
+          {
+            name: "Occurred after",
+            label: "22 September 1988",
+            query_params: { "date_of_occurrence" => { from: "22/09/1988" } },
+          },
+          {
+            name: "Occurred before",
+            label: "22 September 2014",
+            query_params: { "date_of_occurrence" => { to: "22/09/2014" } },
+          },
+        ])
+      end
+    end
+  end
+
   describe "#query_params" do
     context "multiple date values" do
       let(:value) do

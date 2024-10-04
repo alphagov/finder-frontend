@@ -36,6 +36,30 @@ class TaxonFacet < FilterableFacet
     selected_level_one_value.present?
   end
 
+  def applied_filters
+    return [] unless has_filters?
+
+    level_one_filter = {
+      name: "Topic",
+      label: selected_level_one_value[:text],
+      query_params: {
+        # Note that removing a topic should always remove the sub-topic too
+        LEVEL_ONE_TAXON_KEY => selected_level_one_value[:value],
+        LEVEL_TWO_TAXON_KEY => selected_level_two_value&.fetch(:value),
+      }.compact,
+    }
+
+    if selected_level_two_value
+      level_two_filter = {
+        name: "Sub-topic",
+        label: selected_level_two_value[:text],
+        query_params: { LEVEL_TWO_TAXON_KEY => selected_level_two_value[:value] },
+      }
+    end
+
+    [level_one_filter, level_two_filter].compact
+  end
+
   def query_params
     {
       LEVEL_ONE_TAXON_KEY => (selected_level_one_value || {})[:value],

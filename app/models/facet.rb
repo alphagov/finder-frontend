@@ -56,6 +56,10 @@ class Facet
     facet["allowed_values"] || []
   end
 
+  def applied_filters
+    []
+  end
+
   def query_params
     {}
   end
