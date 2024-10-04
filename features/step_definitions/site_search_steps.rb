@@ -2,6 +2,15 @@ When(/^I search all content for "([^"]*)"$/) do |search_term|
   visit "/search/all?q=#{search_term}"
 end
 
+When(/^I search for "([^"]*)" with a hidden clearable manual filter$/) do |search_term|
+  visit "/search/all?q=#{search_term}&manual%5B%5D=how-to-be-a-wizard"
+end
+
+When(/^I change my search term to "([^"]*)" and submit$/) do |search_term|
+  fill_in "Search", with: search_term
+  click_on "Search"
+end
+
 Then("I can see results for my search") do
   expect(page).to have_link("West London wobbley walk")
   expect(page).to have_link("The Gerry Anderson")
@@ -9,6 +18,10 @@ end
 
 Then("I can see how many results there are") do
   expect(page).to have_selector("h2", text: "2 results")
+end
+
+Then("my search is still filtered by manual") do
+  expect(page).to have_link("Remove filter Manual: How to be a Wizard", normalize_ws: true)
 end
 
 When("I open the filter panel") do

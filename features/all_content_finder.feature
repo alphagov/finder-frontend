@@ -12,6 +12,11 @@ Feature: All content finder ("site search")
     Then I can see results for my search
     And I can see how many results there are
 
+  Scenario: Making a search with a hidden clearable filter
+    When I search for "search-term" with a hidden clearable manual filter
+    And I change my search term to "search-term-updated" and submit
+    Then my search is still filtered by manual
+
   Scenario: Filtering results
     When I search all content for "how to walk silly"
     And I open the filter panel
