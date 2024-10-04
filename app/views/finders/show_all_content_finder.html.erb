@@ -24,12 +24,14 @@
   <div class="govuk-width-container">
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-two-thirds">
-        <%= render "govuk_publishing_components/components/heading", {
-          text: sanitize("Search <span class='govuk-visually-hidden'>all content on</span> GOV.UK"),
-          heading_level: 1,
-          font_size: "xl",
-          margin_bottom: 4,
-        } %>
+        <div class="app-all-new-content-finder__heading">
+          <%= render "govuk_publishing_components/components/heading", {
+            text: sanitize("Search <span class='govuk-visually-hidden'>all content on</span> GOV.UK"),
+            heading_level: 1,
+            font_size: "xl",
+            margin_bottom: 4,
+          } %>
+        </div>
 
         <div id="keywords" role="search" aria-label="Sitewide" data-ga4-change-category="update-keyword text">
           <%= render "govuk_publishing_components/components/search", {
@@ -42,7 +44,7 @@
           } %>
         </div>
 
-        <div class="spelling-suggestions">
+        <div class="app-all-new-content-finder__spelling-suggestions">
           <%= render 'spelling_suggestion' %>
         </div>
 

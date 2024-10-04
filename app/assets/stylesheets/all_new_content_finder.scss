@@ -1,0 +1,9 @@
+.app-all-new-content-finder__heading {
+  @include govuk-media-query($from: tablet) {
+    margin-top: govuk-spacing(4);
+  }
+}
+
+.app-all-new-content-finder__spelling-suggestions {
+  margin: 0;
+}

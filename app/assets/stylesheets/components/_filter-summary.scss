@@ -1,7 +1,7 @@
 @import "govuk_publishing_components/individual_component_support";
 
 .app-c-filter-summary {
-  padding-bottom: govuk-spacing(3);
+  padding-bottom: govuk-spacing(5);
   border-bottom: 1px solid $govuk-border-colour;
 }
 
@@ -15,7 +15,8 @@
   padding: 0;
   display: flex;
   flex-wrap: wrap;
-  gap: govuk-spacing(1);
+  margin-top: 0;
+  gap: govuk-spacing(2);
 }
 
 .app-c-filter-summary__remove-filter {
@@ -27,7 +28,7 @@
   align-items: center;
   color: $govuk-text-colour;
   background-color: govuk-colour("light-grey");
-  @include govuk-font(16);
+  @include govuk-font(19);
 
   &:focus {
     background-color: $govuk-focus-colour;
@@ -46,6 +47,6 @@
     margin-top: 1px;
     content: "\00d7";
     padding-right: govuk-spacing(1);
-    font-size: 22px;
+    @include govuk-font(24);
   }
 }

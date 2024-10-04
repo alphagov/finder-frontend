@@ -25,6 +25,7 @@
   width: 100%;
   cursor: pointer;
   color: $govuk-text-colour;
+  padding: govuk-spacing(2) 0;
   @include chevron;
 
   &:hover .app-c-filter-section__summary-heading {
