@@ -16,6 +16,10 @@ class UrlBuilder
     build_url(query_params.deep_except(excepted_param))
   end
 
+  def url_except_keys(keys)
+    build_url(query_params.except(*keys))
+  end
+
 private
 
   attr_reader :path, :query_params

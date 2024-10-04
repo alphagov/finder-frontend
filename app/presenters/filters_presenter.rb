@@ -5,11 +5,11 @@ class FiltersPresenter
   end
 
   def any_filters?
-    facets.any?(&:has_filters?)
+    applied_filters.any?
   end
 
   def summary_items
-    facets.flat_map(&:applied_filters).map do |filter|
+    applied_filters.map do |filter|
       {
         label: filter[:name],
         value: filter[:label],
@@ -20,10 +20,22 @@ class FiltersPresenter
   end
 
   def reset_url
-    "#"
+    return unless any_filters?
+
+    finder_url_builder.url_except_keys(all_filter_keys)
   end
 
 private
 
   attr_reader :facets, :finder_url_builder
+
+  def applied_filters
+    @applied_filters ||= facets.flat_map(&:applied_filters)
+  end
+
+  def all_filter_keys
+    applied_filters
+      .flat_map { |filter| filter[:query_params].keys }
+      .uniq
+  end
 end

@@ -7,9 +7,27 @@ describe FiltersPresenter do
   let(:finder_url_builder) { instance_double(UrlBuilder) }
 
   let(:facet_without_applied_filters) { double("Facet", has_filters?: false, applied_filters: []) }
-  let(:facet_with_applied_filters) { double("Facet", has_filters?: true, applied_filters:) }
-
-  let(:applied_filters) { [{ name: "name", label: "label", query_params: { key: %w[value] } }] }
+  let(:facet_with_applied_filters) do
+    double(
+      "Facet",
+      has_filters?: true,
+      applied_filters: [{ name: "name", label: "label", query_params: { key: %w[value] } }],
+    )
+  end
+  let(:another_facet_with_applied_filters) do
+    double(
+      "Facet",
+      has_filters?: true,
+      applied_filters: [
+        { name: "name1", label: "label1", query_params: { key1: %w[value1] } },
+        { name: "name2",
+          label: "label2",
+          query_params: {
+            key1: %w[anothervalue1], key2: { value2: "subvalue" }
+          } },
+      ],
+    )
+  end
 
   describe "#any_filters" do
     context "when there are no facets" do
@@ -32,8 +50,32 @@ describe FiltersPresenter do
   end
 
   describe "#reset_url" do
-    it "returns a static anchor link" do
-      expect(subject.reset_url).to eq("#")
+    subject(:reset_url) { filters_presenter.reset_url }
+
+    context "when there are no facets" do
+      let(:facets) { [] }
+
+      it { is_expected.to be_nil }
+    end
+
+    context "when there are only facets without applied filters" do
+      let(:facets) { [facet_without_applied_filters, facet_without_applied_filters] }
+
+      it { is_expected.to be_nil }
+    end
+
+    context "when there are facets with applied filters" do
+      let(:facets) { [facet_with_applied_filters, another_facet_with_applied_filters] }
+
+      before do
+        allow(finder_url_builder).to receive(:url_except_keys)
+          .with(containing_exactly(:key, :key1, :key2))
+          .and_return("/search/foo")
+      end
+
+      it "returns the expected reset URL" do
+        expect(reset_url).to eq("/search/foo")
+      end
     end
   end
 
