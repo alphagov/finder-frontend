@@ -42,6 +42,12 @@ class SortFacet
     }]
   end
 
+  def status_text
+    return nil unless has_filters?
+
+    sort_options[selected_sort_option]
+  end
+
   # The methods below are the minimum required for this virtual facet to take the place of a real
   # `Facet`
 

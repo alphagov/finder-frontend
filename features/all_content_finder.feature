@@ -32,6 +32,7 @@ Feature: All content finder ("site search")
     And I enter "13/12/1989" for "Updated before"
     And I apply the filters
     Then I can see filtered results
+    And the filter panel shows status text for each section
 
   Scenario: Changing the sort order of a search
     When I search all content for "dark gray all alone"

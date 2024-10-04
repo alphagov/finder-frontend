@@ -115,6 +115,40 @@ describe OptionSelectFacet do
     end
   end
 
+  describe "#status_text" do
+    context "single value" do
+      let(:value) { %w[allowed-value-1] }
+
+      it "returns the expected status text" do
+        expect(subject.status_text).to eq("1 selected")
+      end
+    end
+
+    context "multiple values" do
+      let(:value) { %w[allowed-value-1 allowed-value-2] }
+
+      it "returns the expected status text" do
+        expect(subject.status_text).to eq("2 selected")
+      end
+    end
+
+    context "disallowed values" do
+      let(:value) { ["disallowed-value-1, disallowed-value-2"] }
+
+      it "returns no status text" do
+        expect(subject.status_text).to be_nil
+      end
+    end
+
+    context "no value" do
+      let(:value) { nil }
+
+      it "returns no status text" do
+        expect(subject.status_text).to be_nil
+      end
+    end
+  end
+
   describe "#query_params" do
     context "value selected" do
       let(:value) { "allowed-value-1" }

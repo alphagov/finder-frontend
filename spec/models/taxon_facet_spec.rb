@@ -165,4 +165,39 @@ describe TaxonFacet do
       specify { expect(subject.applied_filters).to be_empty }
     end
   end
+
+  describe "#status_text" do
+    context "when no filters are applied" do
+      let(:allowed_values) { {} }
+
+      it "returns nil" do
+        expect(subject.status_text).to be_nil
+      end
+    end
+
+    context "when a topic filter is applied" do
+      let(:allowed_values) do
+        {
+          "level_one_taxon" => "allowed-value-1",
+        }
+      end
+
+      it "returns that one topic is selected" do
+        expect(subject.status_text).to eql("1 selected")
+      end
+    end
+
+    context "when a subtopic filter is applied" do
+      let(:allowed_values) do
+        {
+          "level_one_taxon" => "allowed-value-1",
+          "level_two_taxon" => "allowed-child-value",
+        }
+      end
+
+      it "returns that two topics are selected" do
+        expect(subject.status_text).to eql("2 selected")
+      end
+    end
+  end
 end

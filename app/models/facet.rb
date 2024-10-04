@@ -60,6 +60,12 @@ class Facet
     []
   end
 
+  def status_text
+    return nil unless has_filters?
+
+    "#{applied_filters.size} selected"
+  end
+
   def query_params
     {}
   end

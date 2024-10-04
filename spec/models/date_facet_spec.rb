@@ -99,6 +99,37 @@ describe DateFacet do
     end
   end
 
+  describe "#status_text" do
+    context "no value" do
+      let(:value) { nil }
+
+      it "returns no status text" do
+        expect(subject.status_text).to be_nil
+      end
+    end
+
+    context "single date value" do
+      let(:value) { { from: "22/09/1988" } }
+
+      it "returns the expected status text" do
+        expect(subject.status_text).to eq("1 selected")
+      end
+    end
+
+    context "multiple date values" do
+      let(:value) do
+        {
+          from: "22/09/1988",
+          to: "22/09/2014",
+        }
+      end
+
+      it "returns the expected status text" do
+        expect(subject.status_text).to eq("2 selected")
+      end
+    end
+  end
+
   describe "#query_params" do
     context "multiple date values" do
       let(:value) do
