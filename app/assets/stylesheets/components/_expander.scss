@@ -48,9 +48,10 @@
 
 .app-c-expander__icon {
   display: none;
+  flex-shrink: 0;
   width: 30px;
   height: 40px;
-  margin-inline: 9px 4px;
+  margin-inline: 10px 4px;
   fill: govuk-colour("black");
 }
 
