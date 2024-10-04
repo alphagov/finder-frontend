@@ -7,6 +7,7 @@
   panel_content_id = "filter-panel-#{id_suffix}"
   button_id = "filter-button-#{id_suffix}"
   result_text ||= ""
+  section_count ||= ""
 
   show_reset_link ||= false
   raise ArgumentError, "reset_link_href is required" if show_reset_link && !local_assigns[:reset_link_href]
@@ -31,7 +32,7 @@
         section: button_text,
         text: button_text,
         index_section: 0,
-        index_section_count: 4
+        index_section_count: section_count
       }.to_json
     ) { button_text } %>
 
@@ -61,7 +62,7 @@
           section: button_text,
           action: "search",
           index_section: 0,
-          index_section_count: 4,
+          index_section_count: section_count,
         }.to_json %>
 
       <% if show_reset_link %>

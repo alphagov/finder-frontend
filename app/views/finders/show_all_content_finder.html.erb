@@ -52,6 +52,7 @@
           open: @search_query.invalid?,
           show_reset_link: filters_presenter.any_filters?,
           reset_link_href: filters_presenter.reset_url,
+          section_count: facets.user_visible_count,
         } do %>
           <% facets.each_with_visible_index_and_count do |facet, index, count| %>
             <%=
