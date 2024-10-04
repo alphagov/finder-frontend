@@ -7,9 +7,13 @@ class FacetsIterator
     @user_visible_facets = @facets.select(&:user_visible?)
   end
 
+  def user_visible_count
+    @user_visible_facets.count
+  end
+
   def each_with_visible_index_and_count
     @facets.each do |facet|
-      yield facet, @user_visible_facets.index(facet), @user_visible_facets.count
+      yield facet, @user_visible_facets.index(facet), user_visible_count
     end
   end
 end

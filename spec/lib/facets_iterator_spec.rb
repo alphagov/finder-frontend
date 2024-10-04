@@ -9,6 +9,12 @@ RSpec.describe FacetsIterator do
 
   let(:facets) { [visible_facet, hidden_facet, another_visible_facet] }
 
+  describe "#user_visible_count" do
+    it "returns the count of visible facets" do
+      expect(facets_iterator.user_visible_count).to eq(2)
+    end
+  end
+
   describe "#each_with_visible_index_and_count" do
     it "yields each facet with its index (if visible) and the total count of visible facets" do
       expect { |block| facets_iterator.each_with_visible_index_and_count(&block) }
