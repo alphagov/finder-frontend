@@ -58,7 +58,7 @@
           event_name: "select_content",
           type: "finder",
           text: button_text,
-          section: "Filter and sort",
+          section: button_text,
           action: "search",
           index_section: 0,
           index_section_count: 4,
@@ -72,8 +72,8 @@
             "data-ga4-event" => {
               event_name: "select_content",
               type: "finder",
-              text: "Clear all",
-              section: "Filter and sort",
+              text: button_text,
+              section: button_text,
               action: "remove",
             }.to_json
         %>

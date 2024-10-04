@@ -89,7 +89,7 @@ describe "Filter panel component", type: :view do
       index_section_count: 4,
     }
 
-    render_component(button_text:, data: button_event_attributes.to_json)
+    render_component(button_text:)
 
     assert_select ".app-c-filter-panel button[data-ga4-expandable]", true
     assert_select ".app-c-filter-panel button[data-ga4-event='#{button_event_attributes.to_json}']", true
@@ -102,13 +102,13 @@ describe "Filter panel component", type: :view do
       event_name: "select_content",
       type: "finder",
       text: button_text,
-      section: "Filter and sort",
+      section: button_text,
       action: "search",
       index_section: 0,
       index_section_count: 4,
     }
 
-    render_component(button_text:, data: button_event_attributes.to_json)
+    render_component(button_text:)
 
     assert_select ".app-c-filter-panel__action--submit[data-ga4-event='#{button_event_attributes.to_json}']", true
   end
