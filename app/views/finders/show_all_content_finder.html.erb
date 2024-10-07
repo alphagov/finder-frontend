@@ -10,6 +10,7 @@
   <% if result_set_presenter.discovery_engine_attribution_token %>
     <meta name="govuk:discovery-engine-attribution-token" content="<%= result_set_presenter.discovery_engine_attribution_token %>">
   <% end %>
+  <meta name="govuk:spelling-suggestion" content="<%= @spelling_suggestion_presenter.suggestions.first&.fetch(:keywords, "") %>">
 <% end %>
 <% content_for :meta_title, content_item.title %>
 
@@ -43,9 +44,26 @@
             } %>
           </div>
 
-          <div class="spelling-suggestions">
-            <%= render 'spelling_suggestion' %>
-          </div>
+          <% if @spelling_suggestion_presenter.suggestions.any? %>
+            <% suggestion = @spelling_suggestion_presenter.suggestions.first %>
+
+            <div class="app-all-content-finder__spelling-suggestions">
+              Did you mean <%= link_to(
+                sanitize(suggestion[:highlighted], tags: %w[mark], attributes: []),
+                suggestion[:link],
+                class: "govuk-link",
+                data: {
+                  module: "ga4-link-tracker",
+                  ga4_link: {
+                    event_name: "navigation",
+                    type: "spelling suggestion",
+                    section: "Search",
+                    text: suggestion[:keywords],
+                  }
+                }
+              ) %>?
+            </div>
+          <% end %>
 
           <%= render "components/filter_panel", {
             button_text: "Filter and sort",
