@@ -34,7 +34,11 @@
         index_section: 0,
         index_section_count: section_count
       }.to_json
-    ) { button_text } %>
+    ) do %>
+      <span class="app-c-filter-panel__button-inner">
+        <%= button_text %>
+      </span>
+    <% end %>
 
     <% if result_text.present? %>
       <%= content_tag("h2", class: "app-c-filter-panel__count") do %>

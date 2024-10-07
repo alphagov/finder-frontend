@@ -51,8 +51,13 @@
   }
 
   &:hover {
-    @include govuk-link-decoration;
-    @include govuk-link-hover-decoration;
+    // Webkit does not respect `text-decoration-thickness` on <button> elements, so we add an inner
+    // span to apply the underline to.
+    // Possibly related to https://bugs.webkit.org/show_bug.cgi?id=257992
+    .app-c-filter-panel__button-inner {
+      @include govuk-link-decoration;
+      @include govuk-link-hover-decoration;
+    }
   }
 
   &:focus,
@@ -61,6 +66,10 @@
     background-color: $govuk-focus-colour;
     @include govuk-link-hover-decoration;
     @include govuk-focused-text;
+
+    .app-c-filter-panel__button-inner {
+      text-decoration: none;
+    }
   }
 
   &::before {
