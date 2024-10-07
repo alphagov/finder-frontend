@@ -26,13 +26,6 @@
     <div class="govuk-width-container">
       <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
-          <%= render "govuk_publishing_components/components/heading", {
-            text: sanitize("Search <span class='govuk-visually-hidden'>all content on</span> GOV.UK"),
-            heading_level: 1,
-            font_size: "xl",
-            margin_bottom: 4,
-          } %>
-
           <div id="keywords" role="search" aria-label="Sitewide" data-ga4-change-category="update-keyword text">
             <%= render "govuk_publishing_components/components/search", {
               id: "finder-keyword-search",
@@ -40,6 +33,14 @@
               type: 'search',
               value: result_set_presenter.user_supplied_keywords,
               disable_corrections: true,
+              label_size: "xl",
+              label_text: safe_join([
+                "Search ",
+                tag.span("all content on", class: "govuk-visually-hidden"),
+                " GOV.UK",
+              ]),
+              wrap_label_in_a_heading: true,
+              heading_level: 1,
               margin_bottom: 4,
             } %>
           </div>
