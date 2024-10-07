@@ -25,7 +25,15 @@
   width: 100%;
   cursor: pointer;
   color: $govuk-text-colour;
+  list-style: none;
   @include chevron;
+
+  // Ensure default disclosure triangle does not get shown in browsers that aren't spec-conformant
+  // around `list-style: none` (current Webkit and some older other browsers)
+  &::marker,
+  &::-webkit-details-marker {
+    display: none;
+  }
 
   &:hover .app-c-filter-section__summary-heading {
     @include govuk-link-decoration;
