@@ -96,6 +96,7 @@
           <% if result_set_presenter.total_count.positive? %>
             <%= render "govuk_publishing_components/components/document_list", {
               remove_top_border_from_first_child: true,
+              margin_bottom: 5,
               disable_ga4: true,
               items: result_set_presenter.search_results_content[:document_list_component_data],
             } %>
