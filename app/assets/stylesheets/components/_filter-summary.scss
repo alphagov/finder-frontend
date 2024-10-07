@@ -7,7 +7,7 @@
 
 .app-c-filter-summary__heading {
   margin-bottom: govuk-spacing(2);
-  @include govuk-font(16);
+  @include govuk-font(19);
 }
 
 .app-c-filter-summary__remove-filters {
@@ -27,7 +27,7 @@
   align-items: center;
   color: $govuk-text-colour;
   background-color: govuk-colour("light-grey");
-  @include govuk-font(16);
+  @include govuk-font(19);
 
   &:focus {
     background-color: $govuk-focus-colour;
@@ -48,4 +48,8 @@
     padding-right: govuk-spacing(1);
     font-size: 22px;
   }
+}
+
+.app-c-filter-summary__clear-filters {
+  @include govuk-font(19);
 }
