@@ -373,3 +373,9 @@ mark {
   overflow: hidden;
   padding-top: govuk-spacing(3);
 }
+
+.app-all-content-finder {
+  @include govuk-media-query($from: tablet) {
+    margin-top: govuk-spacing(4);
+  }
+}
