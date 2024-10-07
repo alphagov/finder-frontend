@@ -26,6 +26,7 @@
   cursor: pointer;
   color: $govuk-text-colour;
   list-style: none;
+  padding: govuk-spacing(1) 0;
   @include chevron;
 
   // Ensure default disclosure triangle does not get shown in browsers that aren't spec-conformant
