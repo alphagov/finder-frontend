@@ -1,7 +1,7 @@
 @import "govuk_publishing_components/individual_component_support";
 
 .app-c-filter-summary {
-  padding-bottom: govuk-spacing(3);
+  padding-bottom: govuk-spacing(5);
   border-bottom: 1px solid $govuk-border-colour;
 }
 
@@ -12,10 +12,11 @@
 
 .app-c-filter-summary__remove-filters {
   list-style-type: none;
+  margin-block-start: 0;
   padding: 0;
   display: flex;
   flex-wrap: wrap;
-  gap: govuk-spacing(1);
+  gap: govuk-spacing(2);
 }
 
 .app-c-filter-summary__remove-filter {
