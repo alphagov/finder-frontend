@@ -7,13 +7,14 @@
   panel_content_id = "filter-panel-#{id_suffix}"
   button_id = "filter-button-#{id_suffix}"
   result_text ||= ""
+  section_count ||= ""
 
   show_reset_link ||= false
   raise ArgumentError, "reset_link_href is required" if show_reset_link && !local_assigns[:reset_link_href]
 
   component_helper = GovukPublishingComponents::Presenters::ComponentWrapperHelper.new(local_assigns)
   shared_helper = GovukPublishingComponents::Presenters::SharedHelper.new(local_assigns)
-  component_helper.add_data_attribute({ module: "filter-panel" })
+  component_helper.add_data_attribute({ module: "filter-panel ga4-event-tracker" })
   component_helper.add_class("app-c-filter-panel")
   component_helper.add_class(shared_helper.get_margin_bottom) if local_assigns[:margin_bottom]
 %>
@@ -23,7 +24,16 @@
     <%= tag.button(
       id: button_id,
       class: "app-c-filter-panel__button govuk-link",
-      aria: { expanded: "false", controls: panel_content_id }
+      aria: { expanded: "false", controls: panel_content_id },
+      "data-ga4-expandable": "",
+      "data-ga4-event": {
+        event_name: "select_content",
+        type: "finder",
+        section: button_text,
+        text: button_text,
+        index_section: 0,
+        index_section_count: section_count
+      }.to_json
     ) { button_text } %>
 
     <% if result_text.present? %>
@@ -41,14 +51,32 @@
   ) do %>
     <%= yield %>
 
+
     <div class="app-c-filter-panel__actions">
-      <%= submit_tag "Apply filters", class: "govuk-button app-c-filter-panel__action app-c-filter-panel__action--submit" %>
+      <%= submit_tag "Apply filters",
+        class: "govuk-button app-c-filter-panel__action app-c-filter-panel__action--submit",
+        "data-ga4-event" => {
+          event_name: "select_content",
+          type: "finder",
+          text: button_text,
+          section: button_text,
+          action: "search",
+          index_section: 0,
+          index_section_count: section_count,
+        }.to_json %>
 
       <% if show_reset_link %>
         <%=
           link_to "Clear all filters",
             reset_link_href,
-            class: "govuk-link govuk-link--no-visited-state app-c-filter-panel__action app-c-filter-panel__action--reset"
+            class: "govuk-link govuk-link--no-visited-state app-c-filter-panel__action app-c-filter-panel__action--reset",
+            "data-ga4-event" => {
+              event_name: "select_content",
+              type: "finder",
+              text: button_text,
+              section: button_text,
+              action: "remove",
+            }.to_json
         %>
       <% end %>
     </div>

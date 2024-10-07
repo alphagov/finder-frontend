@@ -7,14 +7,29 @@
   visually_hidden_heading_prefix ||= ""
   heading_level ||= 2
   summary_aria_attributes ||= {}
+  index_section ||= 0
+  index_section_count ||= 0
+  change_category ||= nil
 
   component_helper = GovukPublishingComponents::Presenters::ComponentWrapperHelper.new(local_assigns)
+  component_helper.add_data_attribute({ module: "filter-section" })
+  component_helper.add_data_attribute({ "ga4-section": heading_text, "ga4-filter-parent": heading_text })
+  component_helper.add_data_attribute("ga4-change-category": change_category)
   component_helper.add_class("app-c-filter-section")
   component_helper.set_open(open)
 %>
 
 <%= tag.details(**component_helper.all_attributes) do %>
-  <%= tag.summary class: "app-c-filter-section__summary", aria: summary_aria_attributes do %>
+  <%= tag.summary class: "app-c-filter-section__summary", aria: summary_aria_attributes,
+      "data-ga4-expandable": "",
+      "data-ga4-event" => {
+        event_name: "select_content",
+        type: "finder",
+        section: heading_text,
+        text: heading_text,
+        index_section: index_section,
+        index_section_count: index_section_count,
+      }.to_json do %>
       <%= content_tag("h#{heading_level}", class: "app-c-filter-section__summary-heading") do %>
         <% if visually_hidden_heading_prefix.present? %>
           <span class="govuk-visually-hidden"><%= visually_hidden_heading_prefix %></span>

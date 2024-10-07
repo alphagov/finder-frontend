@@ -6,7 +6,9 @@
   index_section: index,
   index_section_count: count,
   # Note date is the only validated facet, so if there is an error, it'll be here
-  open: @search_query.invalid?
+  open: @search_query.invalid?,
+  data_attributes: { "ga4-index": { index_section: index + 1, index_section_count: count } },
+  change_category: "update-filter text",
 } do %>
   <%= render "govuk_publishing_components/components/input", {
     label: {

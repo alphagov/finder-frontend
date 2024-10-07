@@ -11,6 +11,7 @@
 
   component_helper = GovukPublishingComponents::Presenters::ComponentWrapperHelper.new(local_assigns)
   component_helper.add_class(shared_helper.get_margin_bottom) if local_assigns[:margin_bottom]
+  component_helper.add_data_attribute({ module: "ga4-event-tracker" })
   component_helper.add_class("app-c-filter-summary")
 %>
 
@@ -25,7 +26,14 @@
     <ul class="app-c-filter-summary__remove-filters">
       <% filters.each do |filter| %>
         <li>
-          <%= link_to filter[:remove_href], class: "app-c-filter-summary__remove-filter" do %>
+          <%= link_to filter[:remove_href],
+          class: "app-c-filter-summary__remove-filter",
+          "data-ga4-event" => {
+            event_name: "select_content",
+            type: "finder",
+            section: filter[:label],
+            action: "remove"
+          }.to_json do %>
             <span class="app-c-filter-summary__remove-filter-text">
               <span class="govuk-visually-hidden"><%= filter[:visually_hidden_prefix] %></span>
               <%= filter[:label] %>: <%= filter[:value] %>
@@ -37,7 +45,15 @@
 
     <% if clear_all_text.present? && clear_all_href.present? %>
       <div>
-        <%= link_to clear_all_text, clear_all_href, class: "app-c-filter-summary__clear-filters govuk-link govuk-link--no-visited-state" %>
+        <%= link_to clear_all_text, clear_all_href,
+        class: "app-c-filter-summary__clear-filters govuk-link govuk-link--no-visited-state",
+        "data-ga4-event" => {
+          event_name: "select_content",
+          type: "finder",
+          text: clear_all_text,
+          section: heading_text,
+          action: "remove"
+        }.to_json %>
       </div>
     <% end %>
   <% end %>
