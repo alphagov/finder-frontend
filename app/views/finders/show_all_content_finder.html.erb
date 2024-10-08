@@ -14,39 +14,36 @@
 <% end %>
 <% content_for :meta_title, content_item.title %>
 
-<div class="govuk-width-container">
-  <%= render 'govuk_publishing_components/components/contextual_breadcrumbs', content_item: content_item.as_hash %>
-</div>
+<%= render 'govuk_publishing_components/components/contextual_breadcrumbs', content_item: content_item.as_hash %>
 
 <div class="app-all-content-finder">
   <form method="get" action="<%= content_item.base_path %>" data-ga4-change-category="clear-all-filters" id="all-content-finder-form">
     <%= hidden_field_tag :parent, @parent if @parent.present? %>
     <%= hidden_field_tag :enable_new_all_content_finder_ui, params[:enable_new_all_content_finder_ui] if params[:enable_new_all_content_finder_ui].present? %>
 
-    <div class="govuk-width-container">
-      <div class="govuk-grid-row">
-        <div class="govuk-grid-column-two-thirds-from-desktop">
-          <div id="keywords" role="search" aria-label="Sitewide" data-ga4-change-category="update-keyword text">
-            <%= render "govuk_publishing_components/components/search", {
-              id: "finder-keyword-search",
-              name: "keywords",
-              type: 'search',
-              value: result_set_presenter.user_supplied_keywords,
-              disable_corrections: true,
-              label_size: "xl",
-              label_text: safe_join([
-                "Search ",
-                tag.span("all content on", class: "govuk-visually-hidden"),
-                " GOV.UK",
-              ]),
-              wrap_label_in_a_heading: true,
-              heading_level: 1,
-              margin_bottom: 4,
-            } %>
-          </div>
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds-from-desktop">
+        <div id="keywords" role="search" aria-label="Sitewide" data-ga4-change-category="update-keyword text">
+          <%= render "govuk_publishing_components/components/search", {
+            id: "finder-keyword-search",
+            name: "keywords",
+            type: 'search',
+            value: result_set_presenter.user_supplied_keywords,
+            disable_corrections: true,
+            label_size: "xl",
+            label_text: safe_join([
+              "Search ",
+              tag.span("all content on", class: "govuk-visually-hidden"),
+              " GOV.UK",
+            ]),
+            wrap_label_in_a_heading: true,
+            heading_level: 1,
+            margin_bottom: 4,
+          } %>
+        </div>
 
-          <% if @spelling_suggestion_presenter.suggestions.any? %>
-            <% suggestion = @spelling_suggestion_presenter.suggestions.first %>
+        <% if @spelling_suggestion_presenter.suggestions.any? %>
+          <% suggestion = @spelling_suggestion_presenter.suggestions.first %>
 
             <div class="app-all-content-finder__spelling-suggestions">
               Did you mean <%= link_to(
@@ -66,55 +63,54 @@
             </div>
           <% end %>
 
-          <%= render "components/filter_panel", {
-            button_text: "Filter and sort",
-            result_text: result_set_presenter.displayed_total,
-            open: @search_query.invalid?,
-            show_reset_link: filters_presenter.any_filters?,
-            reset_link_href: filters_presenter.reset_url,
-            section_count: facets.user_visible_count,
-          } do %>
-            <% facets.each_with_visible_index_and_count do |facet, index, count| %>
-              <%=
-                render partial: "finders/all_content_finder_facets/#{facet.to_partial_path}",
-                  object: facet,
-                  locals: { index:, count: }
-              %>
-            <% end %>
+        <%= render "components/filter_panel", {
+          button_text: "Filter and sort",
+          result_text: result_set_presenter.displayed_total,
+          open: @search_query.invalid?,
+          show_reset_link: filters_presenter.any_filters?,
+          reset_link_href: filters_presenter.reset_url,
+          section_count: facets.user_visible_count,
+        } do %>
+          <% facets.each_with_visible_index_and_count do |facet, index, count| %>
+            <%=
+              render partial: "finders/all_content_finder_facets/#{facet.to_partial_path}",
+                object: facet,
+                locals: { index:, count: }
+            %>
           <% end %>
+        <% end %>
 
-          <% if filters_presenter.any_filters? %>
-            <%= render "components/filter_summary", {
-              clear_all_href: filters_presenter.reset_url,
-              clear_all_text: "Clear all filters",
-              heading_level: 3,
-              heading_text: "Active filters",
-              filters: filters_presenter.summary_items,
-            } %>
-          <% end %>
+        <% if filters_presenter.any_filters? %>
+          <%= render "components/filter_summary", {
+            clear_all_href: filters_presenter.reset_url,
+            clear_all_text: "Clear all filters",
+            heading_level: 3,
+            heading_text: "Active filters",
+            filters: filters_presenter.summary_items,
+          } %>
+        <% end %>
 
-          <% if result_set_presenter.total_count.positive? %>
-            <%= render "govuk_publishing_components/components/document_list", {
-              remove_top_border_from_first_child: true,
-              margin_bottom: 5,
-              disable_ga4: true,
-              items: result_set_presenter.search_results_content[:document_list_component_data],
-            } %>
-          <% else %>
-            <div class='no-results govuk-!-font-size-19 govuk-!-margin-top-4'>
-              <p class='govuk-body govuk-!-font-weight-bold'>There are no matching results.</p>
-              <p class='govuk-body'>Improve your search results by:</p>
-              <ul class="govuk-list govuk-list--bullet">
-                <li>removing filters</li>
-                <li>double-checking your spelling</li>
-                <li>using fewer keywords</li>
-                <li>searching for something less specific</li>
-              </ul>
-            </div>
-          <% end %>
+        <% if result_set_presenter.total_count.positive? %>
+          <%= render "govuk_publishing_components/components/document_list", {
+            remove_top_border_from_first_child: true,
+            margin_bottom: 5,
+            disable_ga4: true,
+            items: result_set_presenter.search_results_content[:document_list_component_data],
+          } %>
+        <% else %>
+          <div class='no-results govuk-!-font-size-19 govuk-!-margin-top-4'>
+            <p class='govuk-body govuk-!-font-weight-bold'>There are no matching results.</p>
+            <p class='govuk-body'>Improve your search results by:</p>
+            <ul class="govuk-list govuk-list--bullet">
+              <li>removing filters</li>
+              <li>double-checking your spelling</li>
+              <li>using fewer keywords</li>
+              <li>searching for something less specific</li>
+            </ul>
+          </div>
+        <% end %>
 
-          <%= render "govuk_publishing_components/components/previous_and_next_navigation", @pagination.next_and_prev_links %>
-        </div>
+        <%= render "govuk_publishing_components/components/previous_and_next_navigation", @pagination.next_and_prev_links %>
       </div>
     </div>
   </div>
