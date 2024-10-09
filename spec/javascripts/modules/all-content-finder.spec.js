@@ -13,6 +13,9 @@ describe('AllContentFinder module', () => {
               <button class="gem-c-search__submit" type="submit">Search</button>
             </div>
           </div>
+          <div data-ga4-change-category="FooCategory">
+            <input name="foo" id="foo" type="text" value="bar" />
+          </div>
         </div>
       </div>
       <div class="js-all-content-finder-taxonomy-select">
@@ -71,6 +74,40 @@ describe('AllContentFinder module', () => {
       $taxonomySelect.dispatchEvent(event)
 
       expect(updateSpy).toHaveBeenCalledTimes(2) // Twice including the initial call on init()
+    })
+  })
+
+  describe('analytics tracking', () => {
+    beforeEach(() => {
+      spyOn(GOVUK.analyticsGa4.Ga4FinderTracker, 'trackChangeEvent')
+    })
+
+    describe('when usage tracking is declined', () => {
+      beforeEach(() => {
+        GOVUK.setConsentCookie({ usage: false })
+        allContentFinder.init()
+      })
+
+      it('does not fire analytics tracking on form element changes', () => {
+        const event = new Event('change', { bubbles: true })
+        fixture.querySelector('#foo').dispatchEvent(event)
+        expect(GOVUK.analyticsGa4.Ga4FinderTracker.trackChangeEvent).not.toHaveBeenCalled()
+      })
+    })
+
+    describe('when usage tracking is accepted', () => {
+      beforeEach(() => {
+        GOVUK.setConsentCookie({ usage: true })
+        allContentFinder.init()
+      })
+
+      it('fires analytics tracking on form element changes through the GA4 finder tracker', () => {
+        const event = new Event('change', { bubbles: true })
+        const input = fixture.querySelector('#foo')
+        input.dispatchEvent(event)
+
+        expect(GOVUK.analyticsGa4.Ga4FinderTracker.trackChangeEvent).toHaveBeenCalledWith(input, 'FooCategory')
+      })
     })
   })
 })

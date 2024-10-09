@@ -14,6 +14,14 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
 
     init () {
       this.setupTaxonomySelect()
+
+      if (this.userHasConsentedToAnalytics()) {
+        this.setupGa4FinderTracker()
+      }
+    }
+
+    userHasConsentedToAnalytics () {
+      return GOVUK.getConsentCookie() && GOVUK.getConsentCookie().usage
     }
 
     setupTaxonomySelect () {
@@ -21,6 +29,17 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
       taxonomySelect.update() // Taxonomy select needs an initial update on setup
 
       this.$taxonomySelect.addEventListener('change', () => taxonomySelect.update())
+    }
+
+    setupGa4FinderTracker () {
+      this.$form.addEventListener('change', (event) => {
+        const $closestCategoryWrapper = event.target.closest('[data-ga4-change-category]')
+
+        if ($closestCategoryWrapper) {
+          const category = $closestCategoryWrapper.getAttribute('data-ga4-change-category')
+          GOVUK.analyticsGa4.Ga4FinderTracker.trackChangeEvent(event.target, category)
+        }
+      })
     }
   }
 

@@ -44,20 +44,3 @@ if ($form && $results) {
     $atomAutodiscoveryLink: $atomAutodiscoveryLink
   })
 }
-
-const allContentFinderForm = document.getElementById('all-content-finder-form')
-
-if (allContentFinderForm) {
-  allContentFinderForm.addEventListener('change', (event) => {
-    let ga4ChangeCategory = event.target.closest('[data-ga4-change-category]')
-    if (ga4ChangeCategory) {
-      ga4ChangeCategory = ga4ChangeCategory.getAttribute('data-ga4-change-category')
-
-      const consentCookie = GOVUK.getConsentCookie()
-
-      if (consentCookie && consentCookie.usage) {
-        GOVUK.analyticsGa4.Ga4FinderTracker.trackChangeEvent(event.target, ga4ChangeCategory)
-      }
-    }
-  })
-}
