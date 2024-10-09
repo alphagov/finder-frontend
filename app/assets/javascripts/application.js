@@ -45,19 +45,6 @@ if ($form && $results) {
   })
 }
 
-// For most finders, the taxonomy select is set up in the legacy `LiveSearch` module. We are not
-// using that module in the new all content finder UI, so need to set it up separately.
-var $allContentFinderTaxonomySelect = document.querySelector('.js-all-content-finder-taxonomy-select')
-if ($allContentFinderTaxonomySelect) {
-  // eslint-disable-next-line no-new
-  var taxonomySelect = new GOVUK.TaxonomySelect({ $el: $allContentFinderTaxonomySelect })
-  taxonomySelect.update()
-
-  $allContentFinderTaxonomySelect.addEventListener('change', function () {
-    taxonomySelect.update()
-  })
-}
-
 const allContentFinderForm = document.getElementById('all-content-finder-form')
 
 if (allContentFinderForm) {
