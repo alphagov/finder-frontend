@@ -16,7 +16,7 @@
 
 <%= render 'govuk_publishing_components/components/contextual_breadcrumbs', content_item: content_item.as_hash %>
 
-<div class="app-all-content-finder">
+<div class="app-all-content-finder" data-module="all-content-finder">
   <%= tag.form(
     method: "get",
     action: content_item.base_path,
