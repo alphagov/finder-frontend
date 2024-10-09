@@ -17,7 +17,15 @@
 <%= render 'govuk_publishing_components/components/contextual_breadcrumbs', content_item: content_item.as_hash %>
 
 <div class="app-all-content-finder">
-  <form method="get" action="<%= content_item.base_path %>" data-ga4-change-category="clear-all-filters" id="all-content-finder-form">
+  <%= tag.form(
+    method: "get",
+    action: content_item.base_path,
+    id: "all-content-finder-form",
+    class: "js-all-content-finder-form",
+    data: {
+      ga4_change_category: "clear-all-filters",
+    }
+  ) do %>
     <%= hidden_field_tag :parent, @parent if @parent.present? %>
     <%= hidden_field_tag :enable_new_all_content_finder_ui, params[:enable_new_all_content_finder_ui] if params[:enable_new_all_content_finder_ui].present? %>
 
@@ -113,5 +121,5 @@
         <%= render "govuk_publishing_components/components/previous_and_next_navigation", @pagination.next_and_prev_links %>
       </div>
     </div>
-  </div>
+  <% end %>
 </div>
