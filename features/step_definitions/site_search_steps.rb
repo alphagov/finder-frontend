@@ -20,6 +20,17 @@ Then("I can see how many results there are") do
   expect(page).to have_selector("h2", text: "2 results")
 end
 
+Then(/^the GA4 ecommerce tracking tags are present$/) do
+  container = page.find(".app-all-content-finder[data-ga4-ecommerce]")
+  expect(container["data-ga4-ecommerce-start-index"]).to eq("1")
+  expect(container["data-ga4-list-title"]).to eq("Search")
+  expect(container["data-ga4-search-query"]).to eq("how to walk silly")
+  expect(container["data-ga4-ecommerce-variant"]).to eq("Relevance")
+
+  first_result = page.first("a[data-ga4-ecommerce-row]")
+  expect(first_result["data-ga4-ecommerce-path"]).to eq("/mosw-reports/west-london-wobbley-walk")
+end
+
 Then("my search is still filtered by manual") do
   expect(page).to have_link("Remove filter Manual: How to be a Wizard", normalize_ws: true)
 end

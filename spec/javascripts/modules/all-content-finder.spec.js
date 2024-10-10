@@ -80,6 +80,7 @@ describe('AllContentFinder module', () => {
   describe('analytics tracking', () => {
     beforeEach(() => {
       spyOn(GOVUK.analyticsGa4.Ga4FinderTracker, 'trackChangeEvent')
+      spyOn(GOVUK.analyticsGa4.Ga4EcommerceTracker, 'init')
     })
 
     describe('when usage tracking is declined', () => {
@@ -92,6 +93,10 @@ describe('AllContentFinder module', () => {
         const event = new Event('change', { bubbles: true })
         fixture.querySelector('#foo').dispatchEvent(event)
         expect(GOVUK.analyticsGa4.Ga4FinderTracker.trackChangeEvent).not.toHaveBeenCalled()
+      })
+
+      it('does not set up ecommerce tracking', () => {
+        expect(GOVUK.analyticsGa4.Ga4EcommerceTracker.init).not.toHaveBeenCalled()
       })
     })
 
@@ -107,6 +112,10 @@ describe('AllContentFinder module', () => {
         input.dispatchEvent(event)
 
         expect(GOVUK.analyticsGa4.Ga4FinderTracker.trackChangeEvent).toHaveBeenCalledWith(input, 'FooCategory')
+      })
+
+      it('sets up ecommerce tracking', () => {
+        expect(GOVUK.analyticsGa4.Ga4EcommerceTracker.init).toHaveBeenCalled()
       })
     })
 
@@ -124,6 +133,12 @@ describe('AllContentFinder module', () => {
         input.dispatchEvent(event)
 
         expect(GOVUK.analyticsGa4.Ga4FinderTracker.trackChangeEvent).toHaveBeenCalledWith(input, 'FooCategory')
+      })
+
+      it('sets up ecommerce tracking', () => {
+        window.dispatchEvent(new Event('cookie-consent'))
+
+        expect(GOVUK.analyticsGa4.Ga4EcommerceTracker.init).toHaveBeenCalled()
       })
     })
   })

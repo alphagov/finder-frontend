@@ -16,10 +16,10 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
       this.setupTaxonomySelect()
 
       if (this.userHasConsentedToAnalytics()) {
-        this.setupGa4FinderTracker()
+        this.setupAnalyticsTracking()
       } else {
         // Allow tracking of events as soon as user consents, not just at next page reload
-        window.addEventListener('cookie-consent', () => this.setupGa4FinderTracker())
+        window.addEventListener('cookie-consent', () => this.setupAnalyticsTracking())
       }
     }
 
@@ -34,7 +34,9 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
       this.$taxonomySelect.addEventListener('change', () => taxonomySelect.update())
     }
 
-    setupGa4FinderTracker () {
+    setupAnalyticsTracking () {
+      GOVUK.analyticsGa4.Ga4EcommerceTracker.init()
+
       this.$form.addEventListener('change', (event) => {
         const $closestCategoryWrapper = event.target.closest('[data-ga4-change-category]')
 
