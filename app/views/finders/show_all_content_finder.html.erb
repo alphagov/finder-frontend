@@ -10,27 +10,27 @@
   <% if result_set_presenter.discovery_engine_attribution_token %>
     <meta name="govuk:discovery-engine-attribution-token" content="<%= result_set_presenter.discovery_engine_attribution_token %>">
   <% end %>
+  <meta name="govuk:spelling-suggestion" content="<%= @spelling_suggestion_presenter.suggestions.first&.fetch(:keywords, "") %>">
 <% end %>
 <% content_for :meta_title, content_item.title %>
 
-<form method="get" action="<%= content_item.base_path %>" data-ga4-change-category="clear-all-filters" id="all-content-finder-form">
-  <%= hidden_field_tag :parent, @parent if @parent.present? %>
-  <%= hidden_field_tag :enable_new_all_content_finder_ui, params[:enable_new_all_content_finder_ui] if params[:enable_new_all_content_finder_ui].present? %>
+<%= render 'govuk_publishing_components/components/contextual_breadcrumbs', content_item: content_item.as_hash %>
 
-  <div class="govuk-width-container">
-    <%= render 'govuk_publishing_components/components/contextual_breadcrumbs', content_item: content_item.as_hash %>
-  </div>
+<div class="app-all-content-finder">
+  <%= tag.form(
+    method: "get",
+    action: content_item.base_path,
+    id: "all-content-finder-form",
+    class: "js-all-content-finder-form",
+    data: {
+      ga4_change_category: "clear-all-filters",
+    }
+  ) do %>
+    <%= hidden_field_tag :parent, @parent if @parent.present? %>
+    <%= hidden_field_tag :enable_new_all_content_finder_ui, params[:enable_new_all_content_finder_ui] if params[:enable_new_all_content_finder_ui].present? %>
 
-  <div class="govuk-width-container">
     <div class="govuk-grid-row">
-      <div class="govuk-grid-column-two-thirds">
-        <%= render "govuk_publishing_components/components/heading", {
-          text: sanitize("Search <span class='govuk-visually-hidden'>all content on</span> GOV.UK"),
-          heading_level: 1,
-          font_size: "xl",
-          margin_bottom: 4,
-        } %>
-
+      <div class="govuk-grid-column-two-thirds-from-desktop">
         <div id="keywords" role="search" aria-label="Sitewide" data-ga4-change-category="update-keyword text">
           <%= render "govuk_publishing_components/components/search", {
             id: "finder-keyword-search",
@@ -38,13 +38,38 @@
             type: 'search',
             value: result_set_presenter.user_supplied_keywords,
             disable_corrections: true,
-            margin_bottom: 4,
+            label_size: "xl",
+            label_text: safe_join([
+              "Search ",
+              tag.span("all content on", class: "govuk-visually-hidden"),
+              " GOV.UK",
+            ]),
+            wrap_label_in_a_heading: true,
+            heading_level: 1,
+            margin_bottom: 0,
           } %>
         </div>
 
-        <div class="spelling-suggestions">
-          <%= render 'spelling_suggestion' %>
-        </div>
+        <% if @spelling_suggestion_presenter.suggestions.any? %>
+          <% suggestion = @spelling_suggestion_presenter.suggestions.first %>
+
+            <div class="app-all-content-finder__spelling-suggestions">
+              Did you mean <%= link_to(
+                sanitize(suggestion[:highlighted], tags: %w[mark], attributes: []),
+                suggestion[:link],
+                class: "govuk-link",
+                data: {
+                  module: "ga4-link-tracker",
+                  ga4_link: {
+                    event_name: "navigation",
+                    type: "spelling suggestion",
+                    section: "Search",
+                    text: suggestion[:keywords],
+                  }
+                }
+              ) %>?
+            </div>
+          <% end %>
 
         <%= render "components/filter_panel", {
           button_text: "Filter and sort",
@@ -68,14 +93,16 @@
             clear_all_href: filters_presenter.reset_url,
             clear_all_text: "Clear all filters",
             heading_level: 3,
-            heading_text: "Selected filters",
+            heading_text: "Active filters",
             filters: filters_presenter.summary_items,
           } %>
         <% end %>
 
         <% if result_set_presenter.total_count.positive? %>
           <%= render "govuk_publishing_components/components/document_list", {
-            remove_top_border_from_first_child: true,
+            margin_top: 0,
+            margin_bottom: 5,
+            equal_item_spacing: true,
             disable_ga4: true,
             items: result_set_presenter.search_results_content[:document_list_component_data],
           } %>
@@ -95,5 +122,5 @@
         <%= render "govuk_publishing_components/components/previous_and_next_navigation", @pagination.next_and_prev_links %>
       </div>
     </div>
-  </div>
+  <% end %>
 </div>

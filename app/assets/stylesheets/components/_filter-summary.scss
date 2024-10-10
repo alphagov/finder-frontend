@@ -1,21 +1,21 @@
 @import "govuk_publishing_components/individual_component_support";
 
 .app-c-filter-summary {
-  padding-bottom: govuk-spacing(3);
-  border-bottom: 1px solid $govuk-border-colour;
+  padding-bottom: govuk-spacing(1);
 }
 
 .app-c-filter-summary__heading {
   margin-bottom: govuk-spacing(2);
-  @include govuk-font(16);
+  @include govuk-font(19);
 }
 
 .app-c-filter-summary__remove-filters {
   list-style-type: none;
+  margin-block-start: 0;
   padding: 0;
   display: flex;
   flex-wrap: wrap;
-  gap: govuk-spacing(1);
+  gap: govuk-spacing(2);
 }
 
 .app-c-filter-summary__remove-filter {
@@ -27,7 +27,7 @@
   align-items: center;
   color: $govuk-text-colour;
   background-color: govuk-colour("light-grey");
-  @include govuk-font(16);
+  @include govuk-font(19);
 
   &:focus {
     background-color: $govuk-focus-colour;
@@ -48,4 +48,8 @@
     padding-right: govuk-spacing(1);
     font-size: 22px;
   }
+}
+
+.app-c-filter-summary__clear-filters {
+  @include govuk-font(19);
 }

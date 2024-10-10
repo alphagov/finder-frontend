@@ -65,6 +65,12 @@ describe "Filter panel component", type: :view do
     assert_select ".app-c-filter-panel input.govuk-button.app-c-filter-panel__action.app-c-filter-panel__action--submit", value: "Apply filters"
   end
 
+  it "doesn't render any buttons with a name attribute" do
+    render_component(button_text: "Filter")
+
+    assert_select ".app-c-filter-panel input[name]", false
+  end
+
   it "renders the reset link if the show_reset_link option is given" do
     render_component(button_text: "Filter", show_reset_link: true, reset_link_href: "/reset")
 

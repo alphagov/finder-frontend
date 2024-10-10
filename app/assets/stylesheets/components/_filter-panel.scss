@@ -2,7 +2,7 @@
 @import "mixins/chevron";
 
 .app-c-filter-panel {
-  padding-bottom: govuk-spacing(2);
+  padding: govuk-spacing(3) 0;
   margin-bottom: govuk-spacing(1);
   border-bottom: 1px solid $govuk-border-colour;
 }
@@ -11,6 +11,7 @@
   background-color:  govuk-colour("light-grey");
   padding: 0 govuk-spacing(3);
   margin-top: govuk-spacing(2);
+  margin-bottom: govuk-spacing(1);
 
   // GOV.UK Frontend radio and checkboxes are rendered with a transparent background, which makes
   // them look wrong on this component's grey background. This is intentional in GOV.UK Frontend and
@@ -26,7 +27,7 @@
   display: flex;
   flex-wrap: wrap;
   place-content: space-between;
-  align-items: center;
+  align-items: baseline;
   gap: govuk-spacing(2);
 }
 
@@ -51,8 +52,13 @@
   }
 
   &:hover {
-    @include govuk-link-decoration;
-    @include govuk-link-hover-decoration;
+    // Webkit does not respect `text-decoration-thickness` on <button> elements, so we add an inner
+    // span to apply the underline to.
+    // Possibly related to https://bugs.webkit.org/show_bug.cgi?id=257992
+    .app-c-filter-panel__button-inner {
+      @include govuk-link-decoration;
+      @include govuk-link-hover-decoration;
+    }
   }
 
   &:focus,
@@ -61,6 +67,10 @@
     background-color: $govuk-focus-colour;
     @include govuk-link-hover-decoration;
     @include govuk-focused-text;
+
+    .app-c-filter-panel__button-inner {
+      text-decoration: none;
+    }
   }
 
   &::before {
@@ -72,8 +82,8 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: govuk-spacing(2);
-  padding: govuk-spacing(3) 0;
+  gap: govuk-spacing(3);
+  padding: govuk-spacing(4) 0;
 }
 
 .app-c-filter-panel__action--submit {
