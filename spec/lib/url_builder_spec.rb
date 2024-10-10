@@ -59,4 +59,22 @@ describe UrlBuilder do
       expect(url).to eq("/search/all?array%5B%5D=two&hash%5Ba%5D=1&hash%5Bc%5D=2&keywords=dumbledore")
     end
   end
+
+  describe "#url_except_keys" do
+    subject(:url) { builder.url_except_keys(excepted_keys) }
+
+    let(:query_params) do
+      {
+        keywords: "dumbledore",
+        hash: { a: 1, b: 2, c: 2 },
+        array: %w[one two],
+        single_value: "value",
+      }
+    end
+    let(:excepted_keys) { %i[hash array single_value] }
+
+    it "builds a URL without the excluded keys" do
+      expect(url).to eq("/search/all?keywords=dumbledore")
+    end
+  end
 end
