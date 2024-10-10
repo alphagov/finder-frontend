@@ -14,7 +14,7 @@ class SearchResultPresenter
            :original_rank,
            to: :document
 
-  def initialize(document:, rank:, metadata_presenter_class:, doc_count:, facets:, content_item:, debug_score:, result_number:, include_ecommerce: true)
+  def initialize(document:, rank:, metadata_presenter_class:, doc_count:, facets:, content_item:, debug_score:, result_number:, include_ecommerce: true, full_size_description: false)
     @document = document
     @rank = rank
     @metadata = metadata_presenter_class.new(document.metadata(facets)).present
@@ -23,6 +23,7 @@ class SearchResultPresenter
     @result_number = result_number
     @content_item = content_item
     @include_ecommerce = include_ecommerce
+    @full_size_description = full_size_description
   end
 
   def document_list_component_data
@@ -31,6 +32,7 @@ class SearchResultPresenter
         text: title,
         path: link,
         description: sanitize(summary_text),
+        full_size_description:,
         data_attributes: ga4_ecommerce_data(link),
       },
       metadata: structure_metadata,
@@ -110,5 +112,5 @@ private
     }
   end
 
-  attr_reader :document, :metadata, :content_item, :result_number
+  attr_reader :document, :metadata, :content_item, :result_number, :full_size_description
 end
