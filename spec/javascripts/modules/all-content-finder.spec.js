@@ -109,5 +109,22 @@ describe('AllContentFinder module', () => {
         expect(GOVUK.analyticsGa4.Ga4FinderTracker.trackChangeEvent).toHaveBeenCalledWith(input, 'FooCategory')
       })
     })
+
+    describe('when usage tracking is accepted after component has already initialised', () => {
+      beforeEach(() => {
+        GOVUK.setConsentCookie({ usage: false })
+        allContentFinder.init()
+      })
+
+      it('fires analytics tracking on form element changes through the GA4 finder tracker', () => {
+        window.dispatchEvent(new Event('cookie-consent'))
+
+        const event = new Event('change', { bubbles: true })
+        const input = fixture.querySelector('#foo')
+        input.dispatchEvent(event)
+
+        expect(GOVUK.analyticsGa4.Ga4FinderTracker.trackChangeEvent).toHaveBeenCalledWith(input, 'FooCategory')
+      })
+    })
   })
 })

@@ -17,6 +17,9 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
 
       if (this.userHasConsentedToAnalytics()) {
         this.setupGa4FinderTracker()
+      } else {
+        // Allow tracking of events as soon as user consents, not just at next page reload
+        window.addEventListener('cookie-consent', () => this.setupGa4FinderTracker())
       }
     }
 
