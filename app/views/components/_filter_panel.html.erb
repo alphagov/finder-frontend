@@ -34,7 +34,7 @@
           text: button_text,
           index_section: 0,
           index_section_count: section_count
-        }.to_json
+        }
       }
     ) do %>
       <%= tag.span(button_text, class: "app-c-filter-panel__button-inner") %>
@@ -67,7 +67,7 @@
             action: "search",
             index_section: 0,
             index_section_count: section_count,
-          }.to_json
+          }
         }
       ) %>
 
@@ -83,7 +83,7 @@
               text: button_text,
               section: button_text,
               action: "remove",
-            }.to_json
+            }
           }
         ) %>
       <% end %>
