@@ -82,6 +82,7 @@ private
         content_item:,
         debug_score:,
         include_ecommerce:,
+        full_size_description: content_item.all_content_finder?,
       ).document_list_component_data
     end
   end

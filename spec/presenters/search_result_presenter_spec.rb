@@ -11,6 +11,7 @@ RSpec.describe SearchResultPresenter do
       content_item:,
       facets:,
       debug_score:,
+      full_size_description:,
     )
   end
 
@@ -50,6 +51,7 @@ RSpec.describe SearchResultPresenter do
   let(:description) { "I am a document. I am full of words and that." }
   let(:content_id) { "content_id" }
   let(:show_summaries) { true }
+  let(:full_size_description) { false }
 
   let(:facets) { [] }
 
@@ -63,6 +65,7 @@ RSpec.describe SearchResultPresenter do
           text: title,
           path: link,
           description: "I am a document. I am full of words and that.",
+          full_size_description: false,
           data_attributes: {
             ga4_ecommerce_path: link,
             ga4_ecommerce_content_id: "content_id",
@@ -153,6 +156,14 @@ RSpec.describe SearchResultPresenter do
         it "does not show any parts" do
           expect(subject.document_list_component_data[:parts]).to be_nil
         end
+      end
+    end
+
+    context "with full size description" do
+      let(:full_size_description) { true }
+
+      it "returns link items with the full_size_description attribute set to true" do
+        expect(subject.document_list_component_data[:link][:full_size_description]).to be(true)
       end
     end
   end

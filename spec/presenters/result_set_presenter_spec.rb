@@ -132,6 +132,7 @@ RSpec.describe ResultSetPresenter do
             text: "document_title",
             path: "/path/to/doc",
             description: "document_description",
+            full_size_description: false,
             data_attributes: {
               ga4_ecommerce_path: "/path/to/doc",
               ga4_ecommerce_content_id: "content_id",
@@ -157,6 +158,16 @@ RSpec.describe ResultSetPresenter do
 
         search_result_objects = subject.search_results_content[:document_list_component_data]
         expect(search_result_objects.first).to eql(expected_hash)
+      end
+
+      context "on the all content finder" do
+        before do
+          allow(content_item).to receive(:all_content_finder?).and_return(true)
+        end
+
+        it "shows the full size description" do
+          expect(subject.search_results_content[:document_list_component_data].first[:link][:full_size_description]).to be true
+        end
       end
     end
 
