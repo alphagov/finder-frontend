@@ -53,7 +53,7 @@
         <% if @spelling_suggestion_presenter.suggestions.any? %>
           <% suggestion = @spelling_suggestion_presenter.suggestions.first %>
 
-            <div class="app-all-content-finder__spelling-suggestions">
+            <p class="govuk-body-s app-all-content-finder__spelling-suggestions">
               Did you mean <%= link_to(
                 sanitize(suggestion[:highlighted], tags: %w[mark], attributes: []),
                 suggestion[:link],
@@ -68,7 +68,7 @@
                   }
                 }
               ) %>?
-            </div>
+            </p>
           <% end %>
 
         <%= render "components/filter_panel", {

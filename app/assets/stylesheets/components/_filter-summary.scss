@@ -1,7 +1,9 @@
 @import "govuk_publishing_components/individual_component_support";
 
 .app-c-filter-summary {
+  margin-top: govuk-spacing(2);
   padding-bottom: govuk-spacing(1);
+  border-top: 1px solid $govuk-border-colour;
 }
 
 .app-c-filter-summary__heading {

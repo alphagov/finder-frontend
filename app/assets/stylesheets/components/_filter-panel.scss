@@ -2,9 +2,7 @@
 @import "mixins/chevron";
 
 .app-c-filter-panel {
-  padding: govuk-spacing(3) 0;
-  margin-bottom: govuk-spacing(1);
-  border-bottom: 1px solid $govuk-border-colour;
+  padding-top: govuk-spacing(3);
 }
 
 .app-c-filter-panel__content {
