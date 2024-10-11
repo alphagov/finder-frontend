@@ -12,13 +12,12 @@
     margin-left: govuk-spacing(3);
     margin-bottom: govuk-spacing(4);
     text-decoration: none;
+    position: relative;
 
     @include govuk-typography-weight-bold;
     @include govuk-media-query($from: tablet) {
       display: none;
     }
-
-    position: relative;
   }
 
   &[aria-expanded="false"] ~ .mobile-filters-expander__icon--down {

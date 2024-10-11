@@ -7,8 +7,8 @@
 }
 
 .app-c-expander__title {
-  @include govuk-font(19);
   cursor: pointer;
+  @include govuk-font(19);
 }
 
 .app-c-expander__content {
@@ -56,13 +56,13 @@
 }
 
 .app-c-expander__button {
-  @include govuk-font(19);
   border: 0;
   background: none;
   text-align: left;
   cursor: pointer;
   padding: 0;
   color: $govuk-link-colour;
+  @include govuk-font(19);
 
   &:hover {
     text-decoration: underline;
@@ -89,8 +89,8 @@
 }
 
 .app-c-expander__selected-counter {
-  @include govuk-font($size: 14);
   display: block;
   color: $govuk-text-colour;
   margin-top: 3px;
+  @include govuk-font($size: 14);
 }

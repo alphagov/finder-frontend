@@ -62,7 +62,7 @@ mark {
   @include govuk-font(19);
 
   @include govuk-media-query($from: tablet) {
-    max-width: (100% / 3) * 2;
+    max-width: calc(100% / 3) * 2;
   }
 }
 
@@ -290,11 +290,11 @@ mark {
 }
 
 .result-info {
+  border-bottom: solid 1px govuk-colour("black");
+  margin: 0 0 govuk-spacing(4) 0;
   @include govuk-media-query($until: tablet) {
     padding-bottom: govuk-spacing(2);
   }
-  border-bottom: solid 1px govuk-colour("black");
-  margin: 0 0 govuk-spacing(4) 0;
 }
 
 // NOTE: Reset from element level styles inherited from the deprecated `govuk-template`.

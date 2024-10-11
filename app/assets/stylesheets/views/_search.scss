@@ -8,9 +8,9 @@
   }
 
   h1 {
-    @include govuk-font(24);
     font-weight: bold;
     padding-bottom: 10px;
+    @include govuk-font(24);
   }
 
   .search-header {
@@ -33,8 +33,8 @@
 .search-wrapper--no-search-term {
   @include govuk-media-query($from: tablet) {
     h1 {
-      @include govuk-font(48, $weight: bold);
       padding-bottom: 15px;
+      @include govuk-font(48, $weight: bold);
     }
   }
 }
