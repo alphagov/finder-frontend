@@ -25,25 +25,23 @@
       id: button_id,
       class: "app-c-filter-panel__button govuk-link",
       aria: { expanded: "false", controls: panel_content_id },
-      "data-ga4-expandable": "",
-      "data-ga4-event": {
-        event_name: "select_content",
-        type: "finder",
-        section: button_text,
-        text: button_text,
-        index_section: 0,
-        index_section_count: section_count
-      }.to_json
+      data: {
+        ga4_expandable: "",
+        ga4_event: {
+          event_name: "select_content",
+          type: "finder",
+          section: button_text,
+          text: button_text,
+          index_section: 0,
+          index_section_count: section_count
+        }
+      }
     ) do %>
-      <span class="app-c-filter-panel__button-inner">
-        <%= button_text %>
-      </span>
+      <%= tag.span(button_text, class: "app-c-filter-panel__button-inner") %>
     <% end %>
 
     <% if result_text.present? %>
-      <%= content_tag("h2", class: "app-c-filter-panel__count") do %>
-        <%= result_text %>
-      <% end %>
+      <%= tag.h2(result_text, class: "app-c-filter-panel__count") %>
     <% end %>
   </div>
 
@@ -55,34 +53,39 @@
   ) do %>
     <%= yield %>
 
-
     <div class="app-c-filter-panel__actions">
-      <%= submit_tag "Apply filters",
+      <%= submit_tag(
+        "Apply filters",
         class: "govuk-button app-c-filter-panel__action app-c-filter-panel__action--submit",
         name: nil,
-        "data-ga4-event" => {
-          event_name: "select_content",
-          type: "finder",
-          text: button_text,
-          section: button_text,
-          action: "search",
-          index_section: 0,
-          index_section_count: section_count,
-        }.to_json %>
+        data: {
+          ga4_event: {
+            event_name: "select_content",
+            type: "finder",
+            text: button_text,
+            section: button_text,
+            action: "search",
+            index_section: 0,
+            index_section_count: section_count,
+          }
+        }
+      ) %>
 
       <% if show_reset_link %>
-        <%=
-          link_to "Clear all filters",
-            reset_link_href,
-            class: "govuk-link govuk-link--no-visited-state app-c-filter-panel__action app-c-filter-panel__action--reset",
-            "data-ga4-event" => {
+        <%= link_to(
+          "Clear all filters",
+          reset_link_href,
+          class: "govuk-link govuk-link--no-visited-state app-c-filter-panel__action app-c-filter-panel__action--reset",
+          data: {
+            ga4_event: {
               event_name: "select_content",
               type: "finder",
               text: button_text,
               section: button_text,
               action: "remove",
-            }.to_json
-        %>
+            }
+          }
+        ) %>
       <% end %>
     </div>
   <% end %>

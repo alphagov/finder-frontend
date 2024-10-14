@@ -19,23 +19,27 @@
   <%= tag.div(**component_helper.all_attributes) do %>
     <% if heading_text.present? %>
       <%= content_tag("h#{heading_level}", class: "app-c-filter-summary__heading") do %>
-        <% heading_text %>
+        <%= heading_text %>
       <% end %>
     <% end %>
 
     <ul class="app-c-filter-summary__remove-filters">
       <% filters.each do |filter| %>
         <li>
-          <%= link_to filter[:remove_href],
-          class: "app-c-filter-summary__remove-filter",
-          "data-ga4-event" => {
-            event_name: "select_content",
-            type: "finder",
-            section: filter[:label],
-            action: "remove"
-          }.to_json do %>
+          <%= link_to(
+            filter[:remove_href],
+            class: "app-c-filter-summary__remove-filter",
+            data: {
+              ga4_event: {
+                event_name: "select_content",
+                type: "finder",
+                section: filter[:label],
+                action: "remove"
+              }
+            }
+          ) do %>
             <span class="app-c-filter-summary__remove-filter-text">
-              <span class="govuk-visually-hidden"><%= filter[:visually_hidden_prefix] %></span>
+              <%= tag.span(filter[:visually_hidden_prefix], class: "govuk-visually-hidden") %>
               <%= filter[:label] %>: <%= filter[:value] %>
             </span>
           <% end %>
@@ -45,15 +49,20 @@
 
     <% if clear_all_text.present? && clear_all_href.present? %>
       <div>
-        <%= link_to clear_all_text, clear_all_href,
-        class: "app-c-filter-summary__clear-filters govuk-link govuk-link--no-visited-state",
-        "data-ga4-event" => {
-          event_name: "select_content",
-          type: "finder",
-          text: clear_all_text,
-          section: heading_text,
-          action: "remove"
-        }.to_json %>
+        <%= link_to(
+          clear_all_text,
+          clear_all_href,
+          class: "app-c-filter-summary__clear-filters govuk-link govuk-link--no-visited-state",
+          data: {
+            ga4_event: {
+              event_name: "select_content",
+              type: "finder",
+              text: clear_all_text,
+              section: heading_text,
+              action: "remove"
+            }
+          },
+        ) %>
       </div>
     <% end %>
   <% end %>
