@@ -6,14 +6,20 @@
         event_name: 'select_content',
         type: 'finder',
         section: "Topic",
-        index_section: index + 1,
-        index_section_count: count,
+        index_section: taxon_facet.section_index,
+        index_section_count: taxon_facet.section_count,
       }
     }
   %>
   <%= render "components/expander", {
     title: "Topic",
-    data_attributes: { "ga4-filter-parent": taxon_facet.ga4_section, "ga4-index": { index_section: index + 1, index_section_count: count } },
+    data_attributes: {
+      ga4_filter_parent: taxon_facet.ga4_section,
+      ga4_index: {
+        index_section: taxon_facet.section_index,
+        index_section_count: taxon_facet.section_count,
+      },
+    },
     button_data_attributes:
   } do %>
     <div class="js-taxonomy-select" data-ga4-change-category="update-filter select" data-ga4-section="Topic">

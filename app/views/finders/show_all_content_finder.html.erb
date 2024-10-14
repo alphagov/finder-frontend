@@ -92,8 +92,7 @@
           <% facets.each do |facet| %>
             <%=
               render partial: "finders/all_content_finder_facets/#{facet.to_partial_path}",
-                object: facet,
-                locals: { index: facet.section_index, count: facet.section_count }
+                object: facet
             %>
           <% end %>
         <% end %>

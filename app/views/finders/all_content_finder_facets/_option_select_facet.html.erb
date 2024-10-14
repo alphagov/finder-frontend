@@ -5,9 +5,14 @@
   visually_hidden_heading_prefix: "Filter by",
   status_text: option_select_facet.status_text,
   id: "facet_option_select_#{option_select_facet.key}",
-  index_section: index,
-  index_section_count: count,
-  data_attributes: { ga4_index: { index_section: index + 1, index_section_count: count } },
+  index_section: option_select_facet.section_index,
+  index_section_count: option_select_facet.section_count,
+  data_attributes: {
+    ga4_index: {
+      index_section: option_select_facet.section_index,
+      index_section_count: option_select_facet.section_count,
+    },
+  },
   change_category: "update-filter checkbox",
 } do %>
   <%= render "govuk_publishing_components/components/checkboxes", {

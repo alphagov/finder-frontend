@@ -3,11 +3,16 @@
   visually_hidden_heading_prefix: "Filter by",
   status_text: date_facet.status_text,
   id: "facet_date_#{date_facet.key}",
-  index_section: index,
-  index_section_count: count,
+  index_section: date_facet.section_index,
+  index_section_count: date_facet.section_count,
   # Note date is the only validated facet, so if there is an error, it'll be here
   open: @search_query.invalid?,
-  data_attributes: { ga4_index: { index_section: index + 1, index_section_count: count } },
+  data_attributes: {
+    ga4_index: {
+      index_section: date_facet.section_index,
+      index_section_count: date_facet.section_count,
+    },
+  },
   change_category: "update-filter text",
 } do %>
   <%= render "govuk_publishing_components/components/input", {

@@ -19,7 +19,7 @@ RSpec.describe FacetsIterator do
     it "yields each facet as a FacetPresenter" do
       expect { |block| facets_iterator.each(&block) }
         .to yield_successive_args(
-          an_object_having_attributes(key: "visible", section_index: 2, section_count: 2),
+          an_object_having_attributes(key: "visible", section_index: 1, section_count: 2),
           an_object_having_attributes(key: "hidden", section_index: nil, section_count: 2),
           an_object_having_attributes(key: "another", section_index: 2, section_count: 2),
         )
