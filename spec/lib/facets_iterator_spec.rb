@@ -3,9 +3,9 @@ require "spec_helper"
 RSpec.describe FacetsIterator do
   subject(:facets_iterator) { described_class.new(facets) }
 
-  let(:visible_facet) { instance_double(Facet, user_visible?: true) }
-  let(:another_visible_facet) { instance_double(Facet, user_visible?: true) }
-  let(:hidden_facet) { instance_double(Facet, user_visible?: false) }
+  let(:visible_facet) { instance_double(Facet, key: "visible", user_visible?: true) }
+  let(:another_visible_facet) { instance_double(Facet, key: "another", user_visible?: true) }
+  let(:hidden_facet) { instance_double(Facet, key: "hidden", user_visible?: false) }
 
   let(:facets) { [visible_facet, hidden_facet, another_visible_facet] }
 
@@ -15,13 +15,13 @@ RSpec.describe FacetsIterator do
     end
   end
 
-  describe "#each_with_visible_index_and_count" do
-    it "yields each facet with its index (if visible) and the total count of visible facets" do
-      expect { |block| facets_iterator.each_with_visible_index_and_count(&block) }
+  describe "#each" do
+    it "yields each facet as a FacetPresenter" do
+      expect { |block| facets_iterator.each(&block) }
         .to yield_successive_args(
-          [visible_facet, 0, 2],
-          [hidden_facet, nil, 2],
-          [another_visible_facet, 1, 2],
+          an_object_having_attributes(key: "visible", section_index: 2, section_count: 2),
+          an_object_having_attributes(key: "hidden", section_index: nil, section_count: 2),
+          an_object_having_attributes(key: "another", section_index: 2, section_count: 2),
         )
     end
   end

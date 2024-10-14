@@ -89,11 +89,11 @@
           reset_link_href: filters_presenter.reset_url,
           section_count: facets.user_visible_count,
         } do %>
-          <% facets.each_with_visible_index_and_count do |facet, index, count| %>
+          <% facets.each do |facet| %>
             <%=
               render partial: "finders/all_content_finder_facets/#{facet.to_partial_path}",
                 object: facet,
-                locals: { index:, count: }
+                locals: { index: facet.section_index, count: facet.section_count }
             %>
           <% end %>
         <% end %>
