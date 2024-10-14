@@ -44,33 +44,3 @@ if ($form && $results) {
     $atomAutodiscoveryLink: $atomAutodiscoveryLink
   })
 }
-
-// For most finders, the taxonomy select is set up in the legacy `LiveSearch` module. We are not
-// using that module in the new all content finder UI, so need to set it up separately.
-var $allContentFinderTaxonomySelect = document.querySelector('.js-all-content-finder-taxonomy-select')
-if ($allContentFinderTaxonomySelect) {
-  // eslint-disable-next-line no-new
-  var taxonomySelect = new GOVUK.TaxonomySelect({ $el: $allContentFinderTaxonomySelect })
-  taxonomySelect.update()
-
-  $allContentFinderTaxonomySelect.addEventListener('change', function () {
-    taxonomySelect.update()
-  })
-}
-
-const allContentFinderForm = document.getElementById('all-content-finder-form')
-
-if (allContentFinderForm) {
-  allContentFinderForm.addEventListener('change', (event) => {
-    let ga4ChangeCategory = event.target.closest('[data-ga4-change-category]')
-    if (ga4ChangeCategory) {
-      ga4ChangeCategory = ga4ChangeCategory.getAttribute('data-ga4-change-category')
-
-      const consentCookie = GOVUK.getConsentCookie()
-
-      if (consentCookie && consentCookie.usage) {
-        GOVUK.analyticsGa4.Ga4FinderTracker.trackChangeEvent(event.target, ga4ChangeCategory)
-      }
-    }
-  })
-}

@@ -16,7 +16,17 @@
 
 <%= render 'govuk_publishing_components/components/contextual_breadcrumbs', content_item: content_item.as_hash %>
 
-<div class="app-all-content-finder">
+<%= tag.div(
+  class: "app-all-content-finder",
+  data: {
+    module: "all-content-finder",
+    ga4_ecommerce: "",
+    ga4_ecommerce_start_index: result_set_presenter.start_offset,
+    ga4_list_title: content_item.title,
+    ga4_search_query: result_set_presenter.user_supplied_keywords,
+    ga4_ecommerce_variant: result_set_presenter.sort_option&.fetch(:data_ga4_track_label, nil),
+  },
+) do %>
   <%= tag.form(
     method: "get",
     action: content_item.base_path,
@@ -123,4 +133,4 @@
       </div>
     </div>
   <% end %>
-</div>
+<% end %>

@@ -11,6 +11,7 @@ Feature: All content finder ("site search")
     When I search all content for "how to walk silly"
     Then I can see results for my search
     And I can see how many results there are
+    And the GA4 ecommerce tracking tags are present
 
   Scenario: Making a search with a hidden clearable filter
     When I search for "search-term" with a hidden clearable manual filter
