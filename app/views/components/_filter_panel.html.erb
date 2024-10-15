@@ -41,7 +41,7 @@
     <% end %>
 
     <% if result_text.present? %>
-      <%= tag.h2(result_text, class: "app-c-filter-panel__count") %>
+      <%= tag.h2(result_text, id: "js-result-count", class: "app-c-filter-panel__count") %>
     <% end %>
   </div>
 
