@@ -4,7 +4,6 @@
   shared_helper = GovukPublishingComponents::Presenters::SharedHelper.new(local_assigns)
   open ||= nil
   status_text ||= ""
-  visually_hidden_heading_prefix ||= ""
   heading_level ||= 2
   index_section ||= 0
   index_section_count ||= 0
@@ -37,8 +36,8 @@
     }
   ) do %>
     <%= content_tag("h#{heading_level}", class: "app-c-filter-section__summary-heading") do %>
-      <% if visually_hidden_heading_prefix.present? %>
-        <%= tag.span(visually_hidden_heading_prefix, class: "govuk-visually-hidden") %>
+      <% unless local_assigns[:disable_visually_hidden_heading_prefix] %>
+        <span class="govuk-visually-hidden">Filter by</span>
       <% end %>
       <%= heading_text %>
     <% end %>

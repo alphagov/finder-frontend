@@ -24,11 +24,14 @@ examples:
       open: true
       block: |
         <span>Filter form controls open by default</span>
-  with_visually_hidden_heading_prefix:
-    description: Prefix the heading text with visually hidden text for screenreaders to make it more descriptive.
+  with_disabled_visually_hidden_heading_prefix:
+    description: |
+      The heading text is prefixed with visually hidden text ("Filter by") for screenreaders to make
+      it more descriptive. In some circumstances, for example when the heading is already
+      descriptive on its own like "Sort by", this should be able to be disabled.
     data:
       heading_text: Some metadata field
-      visually_hidden_heading_prefix: Filter by
+      disable_visually_hidden_heading_prefix: true
       block: |
         <span>Filter form controls</span>
   status_text:
