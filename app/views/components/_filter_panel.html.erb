@@ -41,7 +41,7 @@
     <% end %>
 
     <% if result_text.present? %>
-      <%= tag.h2(result_text, class: "app-c-filter-panel__count") %>
+      <%= tag.h2(result_text, id: "js-result-count", class: "app-c-filter-panel__count") %>
     <% end %>
   </div>
 
@@ -62,7 +62,7 @@
           ga4_event: {
             event_name: "select_content",
             type: "finder",
-            text: button_text,
+            text: "Apply filters",
             section: button_text,
             action: "search",
             index_section: 0,
@@ -80,9 +80,10 @@
             ga4_event: {
               event_name: "select_content",
               type: "finder",
-              text: button_text,
               section: button_text,
               action: "remove",
+              index_section: 0,
+              index_section_count: section_count,
             }
           }
         ) %>

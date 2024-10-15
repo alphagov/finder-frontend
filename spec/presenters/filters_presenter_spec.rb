@@ -106,6 +106,7 @@ describe FiltersPresenter do
         expect(summary_items).to contain_exactly({
           label: "name",
           value: "label",
+          displayed_text: "name: label",
           remove_href: "/search/foo",
           visually_hidden_prefix: "Remove filter",
         })
