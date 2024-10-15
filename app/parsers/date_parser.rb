@@ -4,7 +4,13 @@ class DateParser
   end
 
   def parse
-    DateStringParser.new.parse(date_param)
+    case date_param
+    when String
+      DateStringParser.new.parse(date_param)
+    when Hash
+      DateHashParser.new(date_param).parse
+    else raise ArgumentError, "date_param must be a String or a Hash"
+    end
   end
 
 private
