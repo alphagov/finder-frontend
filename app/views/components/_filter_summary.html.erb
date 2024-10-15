@@ -33,6 +33,7 @@
               ga4_event: {
                 event_name: "select_content",
                 type: "finder",
+                text: filter[:displayed_text],
                 section: filter[:label],
                 action: "remove"
               }
@@ -40,7 +41,7 @@
           ) do %>
             <span class="app-c-filter-summary__remove-filter-text">
               <%= tag.span(filter[:visually_hidden_prefix], class: "govuk-visually-hidden") %>
-              <%= filter[:label] %>: <%= filter[:value] %>
+              <%= filter[:displayed_text] %>
             </span>
           <% end %>
         </li>

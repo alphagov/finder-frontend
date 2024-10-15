@@ -10,18 +10,21 @@ describe "Filter summary component", type: :view do
       {
         label: "Filter 1",
         value: "Value 1",
+        displayed_text: "Displayed text 1",
         remove_href: "/remove_url",
         visually_hidden_prefix: "Remove filter",
       },
       {
         label: "Filter 2",
         value: "Value 2",
+        displayed_text: "Displayed text 21",
         remove_href: "/remove_url",
         visually_hidden_prefix: "Remove filter",
       },
       {
         label: "Filter 3",
         value: "Value that is so long that the styling needs to handle it correctly",
+        displayed_text: "Displayed text 3",
         remove_href: "/remove_url",
         visually_hidden_prefix: "Remove filter",
       },
@@ -80,6 +83,7 @@ describe "Filter summary component", type: :view do
     link_event_attributes = {
       event_name: "select_content",
       type: "finder",
+      text: "Displayed text 1",
       section: "Filter 1",
       action: "remove",
     }
