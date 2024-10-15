@@ -120,7 +120,7 @@ private
     end
 
     def date
-      @date ||= DateStringParser.new.parse(original_input)
+      @date ||= DateParser.new(original_input).parse
     end
 
     def to_param
