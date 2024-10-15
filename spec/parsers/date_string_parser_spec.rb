@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe DateParser do
+describe DateStringParser do
   # These dates have been chosen based on analytics from site search more info here: https://designpatterns.hackpad.com/Dates-vpx6XlVjIbE
   this_year = Time.zone.now.year
   dates = { # Zero padded, full year, various delimiters
