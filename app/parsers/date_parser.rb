@@ -1,30 +1,37 @@
 class DateParser
   def initialize(date_string)
-    @date_string = date_string.to_s.strip
+    @date_string = date_string
 
-    @date_string = numbers_only? ? process_number_only_inputs : @date_string
-    @date_string = delimited_date? ? process_delimited_dates : @date_string
+    normalize_date_string!
   end
 
   def parse
     return nil if date_string.blank?
     return nil if contains_invalid_characters?
 
-    if could_be_month_name?
-      date = process_month_name_inputs
-    end
-    date ||=
-      begin
-        Chronic.parse(date_string, guess: :begin, endian_precedence: :little)
-      rescue StandardError
-        nil
-      end
-    Date.new(date.year, date.month, date.day) if date
+    date = if could_be_month_name?
+             process_month_name_inputs
+           else
+             try_chronic_parse
+           end
+    return unless date
+
+    date.to_date
   end
 
 private
 
   attr_reader :date_string
+
+  def normalize_date_string!
+    @date_string = date_string.to_s.strip
+
+    if numbers_only?
+      @date_string = process_number_only_inputs
+    elsif delimited_date?
+      @date_string = process_delimited_dates
+    end
+  end
 
   def contains_invalid_characters?
     chars =
@@ -76,5 +83,11 @@ private
       this_year = Time.zone.now.year
       guessed_year != this_year ? guessed_date - 1.year : guessed_date
     end
+  end
+
+  def try_chronic_parse
+    Chronic.parse(date_string, guess: :begin, endian_precedence: :little)
+  rescue StandardError
+    nil
   end
 end
