@@ -1,6 +1,5 @@
 class FacetsIterator
   include Enumerable
-  delegate :each, to: :@facets
 
   def initialize(facets)
     @facets = facets
@@ -11,9 +10,9 @@ class FacetsIterator
     @user_visible_facets.count
   end
 
-  def each_with_visible_index_and_count
+  def each
     @facets.each do |facet|
-      yield facet, @user_visible_facets.index(facet), user_visible_count
+      yield FacetPresenter.new(facet, @user_visible_facets.index(facet), user_visible_count)
     end
   end
 end

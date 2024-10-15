@@ -4,29 +4,41 @@
   # caching is used
   add_gem_component_stylesheet("option-select")
   add_gem_component_stylesheet("checkboxes")
-  index_section = index + 1
-  index_section_count = count
 %>
-<% cache_if option_select_facet.cacheable?, option_select_facet.cache_key(index_section, index_section_count) do %>
+<% cache_if(
+  option_select_facet.cacheable?,
+  option_select_facet.cache_key(
+    option_select_facet.section_index,
+    option_select_facet.section_count,
+  ),
+) do %>
   <%= render partial: 'govuk_publishing_components/components/option_select', locals: {
-    :key => option_select_facet.key,
-    :title => option_select_facet.name,
-    :aria_controls_id => "js-search-results-info",
-    :options_container_id => option_select_facet.key,
-    :options => option_select_facet.options("js-search-results-info", option_select_facet.key),
-    :closed_on_load => option_select_facet.closed_on_load?(index),
-    :closed_on_load_mobile => option_select_facet.closed_on_load_mobile?,
-    :show_filter => option_select_facet.show_option_select_filter,
-    :large => option_select_facet.large?,
-    :data_attributes => { "ga4-change-category": "update-filter checkbox", "ga4-filter-parent": "", "ga4-section": option_select_facet.ga4_section, "ga4-index": { index_section: index_section, index_section_count: index_section_count } },
-    :button_data_attributes => {
-      "ga4-expandable": "",
-      "ga4-event": {
+    key: option_select_facet.key,
+    title: option_select_facet.name,
+    aria_controls_id: "js-search-results-info",
+    options_container_id: option_select_facet.key,
+    options: option_select_facet.options("js-search-results-info", option_select_facet.key),
+    closed_on_load: option_select_facet.closed_on_load?(option_select_facet.section_index),
+    closed_on_load_mobile: option_select_facet.closed_on_load_mobile?,
+    show_filter: option_select_facet.show_option_select_filter,
+    large: option_select_facet.large?,
+    data_attributes: {
+      ga4_change_category: "update-filter checkbox",
+      ga4_filter_parent: "",
+      ga4_section: option_select_facet.ga4_section,
+      ga4_index: {
+        index_section: option_select_facet.section_index,
+        index_section_count: option_select_facet.section_count,
+      },
+    },
+    button_data_attributes: {
+      ga4_expandable: "",
+      ga4_event: {
         event_name: 'select_content',
         type: 'finder',
         section: option_select_facet.name,
-        index_section: index_section,
-        index_section_count: index_section_count
+        index_section: option_select_facet.section_index,
+        index_section_count: option_select_facet.section_count,
       }
     }
   } %>

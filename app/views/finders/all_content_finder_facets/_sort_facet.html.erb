@@ -2,9 +2,14 @@
   heading_text: sort_facet.name,
   status_text: sort_facet.status_text,
   id: "facet_sort",
-  index_section: index,
-  index_section_count: count,
-  data_attributes: { ga4_index: { index_section: index + 1, index_section_count: count } },
+  index_section: sort_facet.section_index,
+  index_section_count: sort_facet.section_count,
+  data_attributes: {
+    ga4_index: {
+      index_section: sort_facet.section_index,
+      index_section_count: sort_facet.section_count,
+    },
+  },
   change_category: "update-filter radio",
 } do %>
   <%= render "govuk_publishing_components/components/radio", {
