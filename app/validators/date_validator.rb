@@ -41,7 +41,7 @@ private
   end
 
   def invalid_date?(user_input)
-    user_input.present? && DateStringParser.new.parse(user_input).nil?
+    user_input.present? && DateParser.new(user_input).parse.nil?
   end
 
   def error_message
