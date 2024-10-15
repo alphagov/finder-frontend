@@ -35,18 +35,6 @@ describe "Filter summary component", type: :view do
     render "components/#{component_name}", locals
   end
 
-  it "does not render a filter summary when no filters array passed" do
-    render_component({ heading_text: "Selected filters" })
-
-    assert_select ".app-c-filter-summary", false
-  end
-
-  it "does not render a filter summary when empty filters array passed" do
-    render_component({ heading_text: "Selected filters", filters: [] })
-
-    assert_select ".app-c-filter-summary", false
-  end
-
   it "renders correct number of filters with hidden accesibilty text" do
     render_component({ filters: })
 
@@ -54,20 +42,20 @@ describe "Filter summary component", type: :view do
     assert_select ".app-c-filter-summary__remove-filter-text .govuk-visually-hidden", text: "Remove filter"
   end
 
-  it "renders a heading if supplied" do
-    render_component({ heading_text: "Selected filters", filters: })
+  it "renders a different heading if supplied" do
+    render_component({ heading_text: "My awesome filters", filters: })
 
-    assert_select ".app-c-filter-summary__heading", text: "Selected filters"
+    assert_select ".app-c-filter-summary__heading", text: "My awesome filters"
   end
 
   it "renders a clear all link if supplied" do
-    render_component({ filters:, clear_all_href: "/url", clear_all_text: "Clear all" })
+    render_component({ filters:, clear_all_href: "/url", clear_all_text: "Get rid of it all" })
 
     assert_select ".app-c-filter-summary__clear-filters", count: 1
-    assert_select ".app-c-filter-summary__clear-filters", href: "/url"
+    assert_select ".app-c-filter-summary__clear-filters", href: "/url", text: "Get rid of it all"
   end
 
-  it "does not render a clear all link if one of text and href are omitted" do
+  it "does not render a clear all link if href is omitted" do
     render_component({ filters:, clear_all_text: "Clear all" })
 
     assert_select ".app-c-filter-summary__clear-filters", false

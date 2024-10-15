@@ -1,70 +1,65 @@
 <%
   add_app_component_stylesheet("filter-summary")
 
-  shared_helper = GovukPublishingComponents::Presenters::SharedHelper.new(local_assigns)
   filters ||= []
 
-  clear_all_href ||= nil
-  clear_all_text ||= nil
   heading_level ||= 3
-  heading_text ||= nil
+  heading_text ||= "Active filters"
 
+  clear_all_href ||= nil
+  clear_all_text ||= "Clear all filters"
+
+  shared_helper = GovukPublishingComponents::Presenters::SharedHelper.new(local_assigns)
   component_helper = GovukPublishingComponents::Presenters::ComponentWrapperHelper.new(local_assigns)
   component_helper.add_class(shared_helper.get_margin_bottom) if local_assigns[:margin_bottom]
   component_helper.add_data_attribute({ module: "ga4-event-tracker" })
   component_helper.add_class("app-c-filter-summary")
 %>
 
-<% if filters && filters.length > 0  %>
-  <%= tag.div(**component_helper.all_attributes) do %>
-    <% if heading_text.present? %>
-      <%= content_tag("h#{heading_level}", class: "app-c-filter-summary__heading") do %>
-        <%= heading_text %>
-      <% end %>
-    <% end %>
+<%= tag.div(**component_helper.all_attributes) do %>
+  <%= content_tag("h#{heading_level}", heading_text, class: "app-c-filter-summary__heading") %>
 
-    <ul class="app-c-filter-summary__remove-filters">
-      <% filters.each do |filter| %>
-        <li>
-          <%= link_to(
-            filter[:remove_href],
-            class: "app-c-filter-summary__remove-filter",
-            data: {
-              ga4_event: {
-                event_name: "select_content",
-                type: "finder",
-                text: filter[:displayed_text],
-                section: filter[:label],
-                action: "remove"
-              }
-            }
-          ) do %>
-            <span class="app-c-filter-summary__remove-filter-text">
-              <%= tag.span(filter[:visually_hidden_prefix], class: "govuk-visually-hidden") %>
-              <%= filter[:displayed_text] %>
-            </span>
-          <% end %>
-        </li>
-      <% end %>
-    </ul>
-
-    <% if clear_all_text.present? && clear_all_href.present? %>
-      <div>
+  <ul class="app-c-filter-summary__remove-filters">
+    <% filters.each do |filter| %>
+      <li>
         <%= link_to(
-          clear_all_text,
-          clear_all_href,
-          class: "app-c-filter-summary__clear-filters govuk-link govuk-link--no-visited-state",
+          filter[:remove_href],
+          class: "app-c-filter-summary__remove-filter",
           data: {
             ga4_event: {
               event_name: "select_content",
               type: "finder",
-              text: clear_all_text,
-              section: heading_text,
+              text: filter[:displayed_text],
+              section: filter[:label],
               action: "remove"
             }
-          },
-        ) %>
-      </div>
+          }
+        ) do %>
+          <span class="app-c-filter-summary__remove-filter-text">
+            <%= tag.span(filter[:visually_hidden_prefix], class: "govuk-visually-hidden") %>
+            <%= filter[:displayed_text] %>
+          </span>
+        <% end %>
+      </li>
     <% end %>
+  </ul>
+
+  <% if clear_all_href.present? %>
+    <div>
+      <%= link_to(
+        clear_all_text,
+        clear_all_href,
+        class: "app-c-filter-summary__clear-filters govuk-link govuk-link--no-visited-state",
+        data: {
+          ga4_event: {
+            event_name: "select_content",
+            type: "finder",
+            text: clear_all_text,
+            section: heading_text,
+            action: "remove"
+          }
+        },
+      ) %>
+    </div>
   <% end %>
 <% end %>
