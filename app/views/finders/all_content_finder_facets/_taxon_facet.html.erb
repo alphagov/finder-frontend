@@ -1,16 +1,6 @@
 <%= render "components/filter_section", {
-  heading_text: taxon_facet.name,
+  **taxon_facet.section_attributes,
   visually_hidden_heading_prefix: "Filter by",
-  status_text: taxon_facet.status_text,
-  id: "facet_taxon_#{taxon_facet.key}",
-  index_section: taxon_facet.section_index,
-  index_section_count: taxon_facet.section_count,
-  data_attributes: {
-    ga4_index: {
-      index_section: taxon_facet.section_index,
-      index_section_count: taxon_facet.section_count,
-    },
-  },
   change_category: "update-filter select",
   classes: "js-all-content-finder-taxonomy-select"
 } do %>
