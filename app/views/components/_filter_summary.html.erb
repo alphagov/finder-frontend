@@ -6,8 +6,8 @@
   heading_level ||= 3
   heading_text ||= "Active filters"
 
-  clear_all_href ||= nil
-  clear_all_text ||= "Clear all filters"
+  reset_link_href ||= nil
+  reset_link_text ||= "Clear all filters"
 
   shared_helper = GovukPublishingComponents::Presenters::SharedHelper.new(local_assigns)
   component_helper = GovukPublishingComponents::Presenters::ComponentWrapperHelper.new(local_assigns)
@@ -44,17 +44,17 @@
     <% end %>
   </ul>
 
-  <% if clear_all_href.present? %>
+  <% if reset_link_href.present? %>
     <div>
       <%= link_to(
-        clear_all_text,
-        clear_all_href,
+        reset_link_text,
+        reset_link_href,
         class: "app-c-filter-summary__clear-filters govuk-link govuk-link--no-visited-state",
         data: {
           ga4_event: {
             event_name: "select_content",
             type: "finder",
-            text: clear_all_text,
+            text: reset_link_text,
             section: heading_text,
             action: "remove"
           }

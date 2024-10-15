@@ -12,8 +12,8 @@ accessibility_criteria: |
 examples:
   default:
     data:
-      clear_all_href: "#"
-      clear_all_text: "Clear all filters"
+      reset_link_href: "#"
+      reset_link_text: "Clear all filters"
       heading_level: 3
       heading_text: "Selected filters"
       filters: [
