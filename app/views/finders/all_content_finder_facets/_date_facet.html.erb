@@ -4,31 +4,21 @@
   # Note date is the only validated facet, so if there is an error, it'll be here
   open: @search_query.invalid?,
 } do %>
-  <%= render "govuk_publishing_components/components/input", {
-    label: {
-      text: date_facet.name + " after"
-    },
-    name: date_facet.key + "[from]",
-    id: date_facet.key + "[from]",
-    value: date_facet.user_supplied_from_date,
-    hint: "For example, 2005 or 21/11/2014",
+  <%= date_input(
+    "#{date_facet.key}[from]",
+    date_facet.name,
+    date_facet.user_supplied_from_date,
+    hint: "For example, 28 2 #{Date.current.year - 2}",
     error_message: date_facet.error_message_from(@search_query),
-    data: {
-      ga4_section: date_facet.name + " after"
-    }
-  } %>
+    legend_suffix: "after",
+  ) %>
 
-  <%= render "govuk_publishing_components/components/input", {
-    label: {
-      text: date_facet.name + " before"
-    },
-    name: date_facet.key + "[to]",
-    id: date_facet.key + "[to]",
-    value: date_facet.user_supplied_to_date,
-    hint: "For example, 2005 or 21/11/2014",
+  <%= date_input(
+    "#{date_facet.key}[to]",
+    date_facet.name,
+    date_facet.user_supplied_to_date,
+    hint: "For example, 13 12 #{Date.current.year - 1}",
     error_message: date_facet.error_message_to(@search_query),
-    data: {
-      ga4_section: date_facet.name + " before"
-    }
-  } %>
+    legend_suffix: "before",
+  ) %>
 <% end %>

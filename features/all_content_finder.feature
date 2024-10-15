@@ -34,8 +34,10 @@ Feature: All content finder ("site search")
     And I check the "Services" option
     And I check the "Research and statistics" option
     And I open the "Updated" filter section
-    And I enter "1989" for "Updated after"
-    And I enter "13/12/1989" for "Updated before"
+    And I enter "1989" for "Year" under "Updated after"
+    And I enter "1989" for "Year" under "Updated before"
+    And I enter "12" for "Month" under "Updated before"
+    And I enter "13" for "Day" under "Updated before"
     And I apply the filters
     Then I can see filtered results
     And the filter panel shows status text for each section
@@ -58,13 +60,12 @@ Feature: All content finder ("site search")
     And I click on the "Sub-topic: Best songs" filter tag
     Then the "Sub-topic: Best songs" filter has been removed
 
-
   @javascript
   Scenario: Entering an incorrect date
     When I search all content for "chandeliers flickering"
     And I open the filter panel
     And I open the "Updated" filter section
-    And I enter "-1" for "Updated before"
+    And I enter "-1" for "Year" under "Updated before"
     And I apply the filters
     Then the filter panel is open by default
     And I can see an error message "Enter a real date"
