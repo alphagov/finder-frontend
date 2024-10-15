@@ -2,19 +2,14 @@ class DateParser
   def initialize(date_string)
     @date_string = date_string.to_s.strip
 
-    if @date_string.present?
-      @date_string =
-        contains_invalid_characters? ? " " : @date_string
-
-      @date_string =
-        numbers_only? ? process_number_only_inputs : @date_string
-
-      @date_string =
-        delimited_date? ? process_delimited_dates : @date_string
-    end
+    @date_string = numbers_only? ? process_number_only_inputs : @date_string
+    @date_string = delimited_date? ? process_delimited_dates : @date_string
   end
 
   def parse
+    return nil if date_string.blank?
+    return nil if contains_invalid_characters?
+
     if could_be_month_name?
       date = process_month_name_inputs
     end
