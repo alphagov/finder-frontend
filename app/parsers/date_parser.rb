@@ -1,6 +1,10 @@
 class DateParser
-  def parse(date_string)
-    date_string = date_string.to_s.strip
+  def parse(date_string_or_hash)
+    if date_string_or_hash.is_a?(Hash)
+      return Date.new(date_string_or_hash["year"].to_i, date_string_or_hash["month"].to_i, date_string_or_hash["day"].to_i)
+    end
+
+    date_string = date_string_or_hash.to_s.strip
 
     if date_string.present?
       date_string =
