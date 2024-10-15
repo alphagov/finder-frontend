@@ -1,4 +1,6 @@
 class DateParser
+  INVALID_CHARACTERS = %w[! @ £ $ % ^ & *].freeze
+
   def initialize(date_string)
     @date_string = date_string
 
@@ -29,14 +31,13 @@ private
     if numbers_only?
       @date_string = process_number_only_inputs
     elsif delimited_date?
-      @date_string = process_delimited_dates
+      # Converts spaces or dots with slashes, eg 01.01.2001 to 01/01/2001
+      @date_string = date_string.gsub(/(\d+)[. ](\d+)[. ]/, '\1/\2/')
     end
   end
 
   def contains_invalid_characters?
-    chars =
-      date_string.split("") & %w[! @ £ $ % ^ & *]
-    chars.any?
+    (date_string.split("") & INVALID_CHARACTERS).any?
   end
 
   def numbers_only?
@@ -49,11 +50,6 @@ private
 
   def delimited_date?
     date_string.match?(/(\d+)[. ](\d+)[. ]/)
-  end
-
-  # Converts spaces or dots with slashes, eg 01.01.2001 to 01/01/2001
-  def process_delimited_dates
-    date_string.gsub(/(\d+)[. ](\d+)[. ]/, '\1/\2/')
   end
 
   def process_number_only_inputs
