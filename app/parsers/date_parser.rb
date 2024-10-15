@@ -1,20 +1,22 @@
 class DateParser
-  def parse(date_string)
-    date_string = date_string.to_s.strip
+  def initialize(date_string)
+    @date_string = date_string.to_s.strip
 
-    if date_string.present?
-      date_string =
-        contains_invalid_characters?(date_string) ? " " : date_string
+    if @date_string.present?
+      @date_string =
+        contains_invalid_characters? ? " " : @date_string
 
-      date_string =
-        numbers_only?(date_string) ? process_number_only_inputs(date_string) : date_string
+      @date_string =
+        numbers_only? ? process_number_only_inputs : @date_string
 
-      date_string =
-        delimited_date?(date_string) ? process_delimited_dates(date_string) : date_string
+      @date_string =
+        delimited_date? ? process_delimited_dates : @date_string
     end
+  end
 
-    if could_be_month_name?(date_string)
-      date = process_month_name_inputs(date_string)
+  def parse
+    if could_be_month_name?
+      date = process_month_name_inputs
     end
     date ||=
       begin
@@ -27,30 +29,32 @@ class DateParser
 
 private
 
-  def contains_invalid_characters?(date_string)
+  attr_reader :date_string
+
+  def contains_invalid_characters?
     chars =
       date_string.split("") & %w[! @ £ $ % ^ & *]
     chars.any?
   end
 
-  def numbers_only?(date_string)
+  def numbers_only?
     date_string.match?(/^\d+$/)
   end
 
-  def could_be_month_name?(date_string)
+  def could_be_month_name?
     date_string.match?(/^[a-zA-Z]*$/)
   end
 
-  def delimited_date?(date_string)
+  def delimited_date?
     date_string.match?(/(\d+)[. ](\d+)[. ]/)
   end
 
   # Converts spaces or dots with slashes, eg 01.01.2001 to 01/01/2001
-  def process_delimited_dates(date_string)
+  def process_delimited_dates
     date_string.gsub(/(\d+)[. ](\d+)[. ]/, '\1/\2/')
   end
 
-  def process_number_only_inputs(date_string)
+  def process_number_only_inputs
     case date_string.length
     when 4
       # Catches if user inputs just year which Chronic would parse as a time. e.g. "2008" as "8:08pm"
@@ -70,7 +74,7 @@ private
 
   # Catches if user input could be a month name which chronic would parse as this year
   # for months prior to now, and next year for months ahead of now
-  def process_month_name_inputs(date_string)
+  def process_month_name_inputs
     guessed_date = Chronic.parse(date_string, guess: :begin)
     if guessed_date
       guessed_year = guessed_date.year

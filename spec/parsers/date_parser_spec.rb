@@ -1,7 +1,7 @@
 require "spec_helper"
 
 describe DateParser do
-  subject(:parsed_date) { described_class.new.parse(input) }
+  subject(:parsed_date) { described_class.new(input).parse }
 
   context "when given a string date" do
     # These dates have been chosen based on analytics from site search more info here: https://designpatterns.hackpad.com/Dates-vpx6XlVjIbE
