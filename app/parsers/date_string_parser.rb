@@ -1,4 +1,4 @@
-class DateParser
+class DateStringParser
   def parse(date_string)
     date_string = date_string.to_s.strip
 
