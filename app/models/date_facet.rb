@@ -6,12 +6,12 @@ class DateFacet < FilterableFacet
     super(facet)
   end
 
-  def user_supplied_from_date
-    date_values["from"]
+  def parsed_from_date
+    parsed_values["from"]
   end
 
-  def user_supplied_to_date
-    date_values["to"]
+  def parsed_to_date
+    parsed_values["to"]
   end
 
   def error_message_to(search_query)
@@ -80,15 +80,7 @@ private
   end
 
   def parsed_values
-    (date_values || {}).reduce({}) do |h, (k, v)|
-      h.merge(k => safe_date_parse(v))
-    end
-  end
-
-  def safe_date_parse(date_string)
-    DateInput.new(date_string)
-  rescue StandardError
-    nil
+    date_values.transform_values { |value| DateInput.new(value) }
   end
 
   def additional_preposition
