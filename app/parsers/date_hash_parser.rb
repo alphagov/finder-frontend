@@ -22,6 +22,7 @@ class DateHashParser
       .slice(:day, :month, :year)
       .compact_blank
       .transform_values(&:to_i)
+      .select { |_, value| value.positive? } # Avoid negative or zero values
   end
 
   def parse
