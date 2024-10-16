@@ -107,24 +107,4 @@ private
       "to" => "before",
     }.with_indifferent_access
   end
-
-  class DateInput
-    attr_reader :original_input
-
-    def initialize(date_string)
-      @original_input = date_string
-    end
-
-    def to_iso8601
-      date.iso8601
-    end
-
-    def date
-      @date ||= DateParser.new(original_input).parse
-    end
-
-    def to_param
-      original_input
-    end
-  end
 end
