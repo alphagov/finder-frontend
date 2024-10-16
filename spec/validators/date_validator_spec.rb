@@ -47,6 +47,12 @@ describe DateValidator do
         it { is_expected.to eq(public_timestamp: { from: false, to: false }) }
       end
 
+      context "with hash dates with empty fields" do
+        let(:public_timestamp) { { from: { day: "", month: "", year: "" }, to: { day: "", month: "", year: "" } } }
+
+        it { is_expected.to eq(public_timestamp: { from: false, to: false }) }
+      end
+
       context "with valid dates" do
         let(:public_timestamp) { { from: { day: "01", month: "01", year: "01" }, to: { day: "01", month: "01", year: "01" } } }
 
