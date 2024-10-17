@@ -73,7 +73,7 @@ describe DateStringParser do
     "December" => Date.new(this_year, 12, 1),
   }
 
-  subject(:parsed_date) { described_class.new.parse(input) }
+  subject(:parsed_date) { described_class.new(input).parse }
 
   dates.each_pair do |date_string, expected|
     context "for '#{date_string}'" do
