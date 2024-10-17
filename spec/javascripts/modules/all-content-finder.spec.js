@@ -15,8 +15,34 @@ describe('AllContentFinder module', () => {
           </div>
           <div data-ga4-change-category="FooCategory">
             <input name="foo" id="foo" type="text" value="bar" />
+            <input name="bar" id="bar" type="text" value="" />
           </div>
         </div>
+      </div>
+      <div class="govuk-form-group govuk-!-margin-bottom-2">
+        <fieldset class="govuk-fieldset">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--m govuk-visually-hidden">
+            <span class="govuk-fieldset__heading">Sort order</span>
+          </legend>
+          <div class="govuk-radios govuk-radios--small">
+            <div class="gem-c-radio govuk-radios__item">
+              <input type="radio" name="order" id="radio-6215576f-0" value="relevance" class="govuk-radios__input">
+              <label for="radio-6215576f-0" class="gem-c-label govuk-label govuk-radios__label">Relevance</label>
+            </div>
+            <div class="gem-c-radio govuk-radios__item">
+              <input type="radio" name="order" id="radio-6215576f-0" value="most-viewed" class="govuk-radios__input">
+              <label for="radio-6215576f-0" class="gem-c-label govuk-label govuk-radios__label">Most viewed</label>
+            </div>
+            <div class="gem-c-radio govuk-radios__item">
+              <input type="radio" name="order" id="radio-6215576f-1" value="updated-newest" class="govuk-radios__input">
+              <label for="radio-6215576f-1" class="gem-c-label govuk-label govuk-radios__label">Updated (newest)</label>
+            </div>
+            <div class="gem-c-radio govuk-radios__item">
+              <input type="radio" name="order" id="radio-6215576f-2" value="updated-oldest" class="govuk-radios__input">
+              <label for="radio-6215576f-2" class="gem-c-label govuk-label govuk-radios__label">Updated (oldest)</label>
+            </div>
+          </div>
+        </fieldset>
       </div>
       <div class="js-all-content-finder-taxonomy-select">
         <div class="govuk-form-group gem-c-select">
@@ -46,6 +72,63 @@ describe('AllContentFinder module', () => {
 
   afterEach(() => {
     fixture.remove()
+  })
+
+  describe('form submission', () => {
+    let form, mockSubmitHandler
+
+    beforeEach(() => {
+      allContentFinder.init()
+      form = fixture.querySelector('.js-all-content-finder-form')
+      mockSubmitHandler = jasmine.createSpy('submit')
+
+      form.addEventListener('submit', (e) => {
+        e.preventDefault()
+        mockSubmitHandler(new FormData(form))
+      })
+    })
+
+    it('submits the form with all the expected fields, removing empty ones', () => {
+      form.dispatchEvent(new Event('submit'))
+
+      expect(mockSubmitHandler).toHaveBeenCalled()
+      const submittedData = mockSubmitHandler.calls.mostRecent().args[0]
+
+      expect(submittedData.has('foo')).toBe(true)
+      expect(submittedData.has('bar')).toBe(false)
+      expect(submittedData.has('keywords')).toBe(false)
+    })
+
+    it('removes relevance sort order from the form data', () => {
+      form.querySelector('input[value="relevance"]').checked = true
+      form.dispatchEvent(new Event('submit'))
+
+      expect(mockSubmitHandler).toHaveBeenCalled()
+      const submittedData = mockSubmitHandler.calls.mostRecent().args[0]
+
+      expect(submittedData.has('order')).toBe(false)
+    })
+
+    it('removes most-viewed sort order from the form data', () => {
+      form.querySelector('input[value="most-viewed"]').checked = true
+      form.dispatchEvent(new Event('submit'))
+
+      expect(mockSubmitHandler).toHaveBeenCalled()
+      const submittedData = mockSubmitHandler.calls.mostRecent().args[0]
+
+      expect(submittedData.has('order')).toBe(false)
+    })
+
+    it('does not remove non-default sort order from the form data', () => {
+      form.querySelector('input[value="updated-newest"]').checked = true
+      form.dispatchEvent(new Event('submit'))
+
+      expect(mockSubmitHandler).toHaveBeenCalled()
+      const submittedData = mockSubmitHandler.calls.mostRecent().args[0]
+
+      expect(submittedData.has('order')).toBe(true)
+      expect(submittedData.get('order')).toBe('updated-newest')
+    })
   })
 
   describe('taxonomy select', () => {
