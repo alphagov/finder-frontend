@@ -1,9 +1,10 @@
 require "spec_helper"
 
 describe DateStringParser do
-  # These dates have been chosen based on analytics from site search more info here: https://designpatterns.hackpad.com/Dates-vpx6XlVjIbE
+  # These dates have been chosen based on analytics from site search
   this_year = Time.zone.now.year
-  dates = { # Zero padded, full year, various delimiters
+  dates = {
+    # Zero padded, full year, various delimiters
     "21/01/2002" => Date.new(2002, 1, 21),
     "21.01.2002" => Date.new(2002, 1, 21),
     "21-01-2002" => Date.new(2002, 1, 21),
@@ -72,32 +73,35 @@ describe DateStringParser do
     "December" => Date.new(this_year, 12, 1),
   }
 
-  dates.each_pair do |input, expected|
-    it "returns the correct date for #{input}" do
-      expect(described_class.new.parse(input)).to eql(expected)
-    end
+  subject(:parsed_date) { described_class.new.parse(input) }
 
-    it "returns the correct date for #{input} with trailing whitespace" do
-      expect(described_class.new.parse("#{input} ")).to eql(expected)
-    end
+  dates.each_pair do |date_string, expected|
+    context "for '#{date_string}'" do
+      let(:input) { date_string }
 
-    it "returns the correct date for #{input} with preceeding whitespace" do
-      expect(described_class.new.parse(" #{input}")).to eql(expected)
+      it { is_expected.to eql(expected) }
+
+      context "with leading whitespace" do
+        let(:input) { " #{date_string}" }
+
+        it { is_expected.to eql(expected) }
+      end
+
+      context "with trailing whitespace" do
+        let(:input) { "#{date_string} " }
+
+        it { is_expected.to eql(expected) }
+      end
     end
   end
 
-  it "handles dates without years correctly" do
-    date_to_parse = "26 november"
+  context "for '26 november' (dates without years)" do
+    let(:input) { "26 november" }
 
-    year = 2001
+    around do |example|
+      Timecop.freeze(Time.zone.local(2001, 3, 11)) { example.run }
+    end
 
-    # Expected date is the date we've given it with the year returned by stubbed time.now
-    expected_date = Date.new(year, 11, 26)
-
-    # Stub Time.now to a known date
-    pretend_today = Time.zone.local(year, 3, 11)
-    allow(Time).to receive(:now).and_return(pretend_today)
-
-    expect(described_class.new.parse(date_to_parse)).to eql(expected_date)
+    it { is_expected.to eql(Date.new(2001, 11, 26)) }
   end
 end
