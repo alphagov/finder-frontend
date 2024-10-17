@@ -26,17 +26,21 @@ describe "Filter section component", type: :view do
     assert_select ".app-c-filter-section[open=open]"
   end
 
-  it "sets the heading text" do
+  it "sets the heading text with a visually hidden prefix by default" do
     render_component({ heading_text: "section heading" })
 
-    assert_select ".app-c-filter-section__summary-heading", text: "section heading"
+    assert_select ".app-c-filter-section__summary-heading", text: /Filter by\s+section heading/
+    assert_select ".app-c-filter-section__summary-heading .govuk-visually-hidden", text: "Filter by"
   end
 
-  it "adds the visually hidden heading prefix if given" do
-    render_component({ heading_text: "section heading", visually_hidden_heading_prefix: "Filter by" })
+  it "allows disabling the visually hidden heading prefix" do
+    render_component({
+      heading_text: "section heading",
+      disable_visually_hidden_heading_prefix: true,
+    })
 
-    assert_select ".app-c-filter-section__summary-heading", include: "section heading"
-    assert_select ".app-c-filter-section__summary-heading .govuk-visually-hidden", text: "Filter by"
+    assert_select ".app-c-filter-section__summary-heading", text: "section heading"
+    assert_select ".app-c-filter-section__summary-heading .govuk-visually-hidden", false
   end
 
   it "set section heading text to different value to default renders correct heading level" do

@@ -1,5 +1,6 @@
 <%= render "components/filter_section", {
   **sort_facet.section_attributes,
+  disable_visually_hidden_heading_prefix: true,
   change_category: "update-filter radio",
 } do %>
   <%= render "govuk_publishing_components/components/radio", {

@@ -1,6 +1,5 @@
 <%= render "components/filter_section", {
   **date_facet.section_attributes,
-  visually_hidden_heading_prefix: "Filter by",
   change_category: "update-filter text",
   # Note date is the only validated facet, so if there is an error, it'll be here
   open: @search_query.invalid?,
