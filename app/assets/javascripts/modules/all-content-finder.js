@@ -10,10 +10,12 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
       this.$module = $module
       this.$form = $module.querySelector('.js-all-content-finder-form')
       this.$taxonomySelect = $module.querySelector('.js-all-content-finder-taxonomy-select')
+      this.defaultSortOrders = ['relevance', 'most-viewed']
     }
 
     init () {
       this.setupTaxonomySelect()
+      this.setupFormDataCleaner()
 
       if (this.userHasConsentedToAnalytics()) {
         this.setupAnalyticsTracking()
@@ -32,6 +34,22 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
       taxonomySelect.update() // Taxonomy select needs an initial update on setup
 
       this.$taxonomySelect.addEventListener('change', () => taxonomySelect.update())
+    }
+
+    // A best effort, progressive enhancement to keep URLs aesthetically pleasing and easier to
+    // manage in terms of analytics by removing empty fields and default sort order from the form
+    // data on submission (so they don't clutter up the query parameters)
+    setupFormDataCleaner () {
+      this.$form.addEventListener('formdata', (e) => {
+        const keysToRemove = [...e.formData]
+          .filter(([key, value]) =>
+            value === '' ||
+            value === null ||
+            (key === 'order' && this.defaultSortOrders.includes(value))
+          ).map(([key]) => key)
+
+        keysToRemove.forEach(key => e.formData.delete(key))
+      })
     }
 
     setupAnalyticsTracking () {
