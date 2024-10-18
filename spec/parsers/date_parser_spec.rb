@@ -19,5 +19,21 @@ describe DateParser do
         expect(date_parser.parse).to eq(Date.new(2024, 8, 17))
       end
     end
+
+    context "when given nil" do
+      let(:date_param) { nil }
+
+      it "returns nil" do
+        expect(date_parser.parse).to be_nil
+      end
+    end
+
+    context "when given an unexpected object" do
+      let(:date_param) { Object.new }
+
+      it "raises an error" do
+        expect { date_parser.parse }.to raise_error(ArgumentError, /be a String, Hash, or nil/)
+      end
+    end
   end
 end
