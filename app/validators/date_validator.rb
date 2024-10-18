@@ -25,11 +25,21 @@ private
   attr_reader :query
 
   def from_date
-    query.filter_params.dig(date_type, :from)
+    extract_date(:from)
   end
 
   def to_date
-    query.filter_params.dig(date_type, :to)
+    extract_date(:to)
+  end
+
+  def extract_date(key)
+    value = query.filter_params.dig(date_type, key)
+
+    if value.respond_to?(:compact_blank)
+      value.compact_blank
+    else
+      value
+    end
   end
 
   # The date facet on search/all filters on public_timestamp, but the specialist
@@ -41,7 +51,7 @@ private
   end
 
   def invalid_date?(user_input)
-    user_input.present? && DateParser.new.parse(user_input).nil?
+    user_input.present? && DateParser.new(user_input).parse.nil?
   end
 
   def error_message

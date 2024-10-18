@@ -61,6 +61,12 @@ When(/^I enter "([^"]*)" for "([^"]*)"$/) do |text, field|
   fill_in field, with: text
 end
 
+When(/^I enter "([^"]*)" for "([^"]*)" under "([^"]*)"$/) do |text, field, fieldset|
+  within_fieldset(fieldset) do
+    fill_in field, with: text
+  end
+end
+
 When(/I click on the "([^"]*)" filter tag/) do |filter|
   click_on filter
 end

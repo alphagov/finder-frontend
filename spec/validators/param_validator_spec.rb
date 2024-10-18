@@ -1,31 +1,23 @@
 require "spec_helper"
 
 describe ParamValidator do
-  context "bad to_date params" do
-    it "#errors_hash" do
-      bad_to_date =       { from: "01/01/01", to: "99/99/99" }
-      date_error_hash =   { public_timestamp: { from: false, to: true } }
-      bad_to_date_query = double("query")
-      validator = described_class.new(bad_to_date_query)
+  subject(:validator) { described_class.new(query) }
 
-      allow(bad_to_date_query).to receive(:filter_params)
-                              .and_return(public_timestamp: bad_to_date)
+  let(:query) { instance_double(Search::Query, filter_params: { public_timestamp: }) }
 
-      expect(validator.errors_hash).to eq(date_error_hash)
+  describe "#errors_hash" do
+    subject(:errors_hash) { validator.errors_hash }
+
+    context "without a date" do
+      let(:public_timestamp) { nil }
+
+      it { is_expected.to eq(public_timestamp: { from: false, to: false }) }
     end
-  end
 
-  context "bad from_date params" do
-    it "#errors_hash" do
-      bad_from_date =       { from: "99/99/99", to: "01/01/01" }
-      date_error_hash =     { public_timestamp: { from: true, to: false } }
-      bad_from_date_query = double("query")
-      validator = described_class.new(bad_from_date_query)
+    context "with invalid dates" do
+      let(:public_timestamp) { { from: "99/99/99", to: "99/99/99" } }
 
-      allow(bad_from_date_query).to receive(:filter_params)
-                              .and_return(public_timestamp: bad_from_date)
-
-      expect(validator.errors_hash).to eq(date_error_hash)
+      it { is_expected.to eq(public_timestamp: { from: true, to: true }) }
     end
   end
 end
