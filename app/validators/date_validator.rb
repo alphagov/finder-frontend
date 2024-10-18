@@ -55,6 +55,6 @@ private
   end
 
   def error_message
-    "Enter a real date"
+    "Enter a date"
   end
 end

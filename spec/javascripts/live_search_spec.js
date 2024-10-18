@@ -623,7 +623,7 @@ describe('liveSearch', function () {
       'For example, 2005 or 21/11/2014' +
     '</div>' +
     '<span id="error-to" class="gem-c-error-message govuk-error-message">' +
-    '<span class="govuk-visually-hidden">Error:</span> Enter a real date</span>' +
+    '<span class="govuk-visually-hidden">Error:</span> Enter a date</span>' +
     '<input name="public_timestamp[to]" value="" class="gem-c-input govuk-input govuk-input--error" id="public_timestamp[to]" ' +
     'type="text" aria-describedby="hint-3626790f error-to" aria-controls="js-search-results-info">' +
     '</div></div>')
