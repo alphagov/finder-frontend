@@ -23,7 +23,7 @@ class FiltersPresenter
         value: filter[:label],
         displayed_text: "#{filter[:name]}: #{filter[:label]}",
         remove_href: finder_url_builder.url_except(filter[:query_params]),
-        visually_hidden_prefix: "Remove filter",
+        visually_hidden_prefix: filter[:visually_hidden_prefix] || "Remove filter",
       }
     end
   end
