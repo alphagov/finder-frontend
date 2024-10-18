@@ -100,9 +100,9 @@
         <% if filters_presenter.any_filters? %>
           <%= render "components/filter_summary", {
             reset_link_href: filters_presenter.reset_url,
-            reset_link_text: "Clear all filters",
+            reset_link_text: filters_presenter.reset_link_text,
             heading_level: 3,
-            heading_text: "Active filters",
+            heading_text: filters_presenter.summary_heading_text,
             filters: filters_presenter.summary_items,
           } %>
         <% end %>

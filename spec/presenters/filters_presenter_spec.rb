@@ -6,10 +6,18 @@ describe FiltersPresenter do
   let(:facets) { [] }
   let(:finder_url_builder) { instance_double(UrlBuilder) }
 
-  let(:facet_without_applied_filters) { double("Facet", has_filters?: false, applied_filters: []) }
+  let(:facet_without_applied_filters) do
+    double(
+      "Facet",
+      key: "facet_without_applied_filters",
+      has_filters?: false,
+      applied_filters: [],
+    )
+  end
   let(:facet_with_applied_filters) do
     double(
       "Facet",
+      key: "facet_with_applied_filters",
       has_filters?: true,
       applied_filters: [{ name: "name", label: "label", query_params: { key: %w[value] } }],
     )
@@ -17,6 +25,7 @@ describe FiltersPresenter do
   let(:another_facet_with_applied_filters) do
     double(
       "Facet",
+      key: "another_facet_with_applied_filters",
       has_filters?: true,
       applied_filters: [
         { name: "name1", label: "label1", query_params: { key1: %w[value1] } },
@@ -28,6 +37,8 @@ describe FiltersPresenter do
       ],
     )
   end
+  let(:active_sort_facet) { double("SortFacet", key: "order", has_filters?: true) }
+  let(:inactive_sort_facet) { double("SortFacet", key: "order", has_filters?: false) }
 
   describe "#any_filters" do
     context "when there are no facets" do
@@ -110,6 +121,46 @@ describe FiltersPresenter do
           remove_href: "/search/foo",
           visually_hidden_prefix: "Remove filter",
         })
+      end
+    end
+  end
+
+  describe "#summary_heading_text and #reset_link_text" do
+    context "when neither filters nor sorting are active" do
+      let(:facets) { [facet_without_applied_filters, inactive_sort_facet] }
+
+      it "returns default text" do
+        expect(filters_presenter.summary_heading_text).to eq("Active filters")
+        expect(filters_presenter.reset_link_text).to eq("Clear all filters")
+      end
+    end
+
+    context "when filters are active but sorting is not" do
+      let(:facets) { [facet_with_applied_filters, inactive_sort_facet] }
+
+      it "returns the expected summary heading text and reset link text" do
+        expect(filters_presenter.summary_heading_text).to eq("Active filters")
+        expect(filters_presenter.reset_link_text).to eq("Clear all filters")
+      end
+    end
+
+    context "when sorting is active but filters are not" do
+      let(:facets) { [facet_without_applied_filters, active_sort_facet] }
+
+      it "returns the expected summary heading text and reset link text" do
+        expect(filters_presenter.summary_heading_text).to eq("Active sorting")
+        expect(filters_presenter.reset_link_text).to eq("Clear all sorting")
+      end
+    end
+
+    context "when both filters and sorting are active" do
+      let(:facets) do
+        [facet_with_applied_filters, active_sort_facet]
+      end
+
+      it "returns the expected summary heading text and reset link text" do
+        expect(filters_presenter.summary_heading_text).to eq("Active filters and sorting")
+        expect(filters_presenter.reset_link_text).to eq("Clear all filters and sorting")
       end
     end
   end
