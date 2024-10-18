@@ -9,7 +9,9 @@ class DateParser
       DateStringParser.new(date_param).parse
     when Hash
       DateHashParser.new(date_param).parse
-    else raise ArgumentError, "date_param must be a String or a Hash"
+    when nil
+      nil
+    else raise ArgumentError, "date_param must be a String, Hash, or nil"
     end
   end
 
