@@ -68,7 +68,7 @@ Feature: All content finder ("site search")
     And I enter "-1" for "Year" under "Updated before"
     And I apply the filters
     Then the filter panel is open by default
-    And I can see an error message "Enter a real date"
+    And I can see an error message "Enter a date"
 
   Scenario: Spelling suggestion
     When I search all content for "drving"

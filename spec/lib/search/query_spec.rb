@@ -362,13 +362,13 @@ describe Search::Query do
         it "stores an error for bad 'to date'" do
           query = described_class.new(content_item, invalid_to_date_params)
           expect(query.valid?).to be false
-          expect(query.errors.messages).to eq(to_date: ["Enter a real date"])
+          expect(query.errors.messages).to eq(to_date: ["Enter a date"])
         end
 
         it "stores an error for bad 'from date'" do
           query = described_class.new(content_item, invalid_from_date_params)
           expect(query.valid?).to be false
-          expect(query.errors.messages).to eq(from_date: ["Enter a real date"])
+          expect(query.errors.messages).to eq(from_date: ["Enter a date"])
         end
       end
     end

@@ -503,7 +503,7 @@
     var errorMessageElement = document.createElement('span')
     errorMessageElement.setAttribute('id', 'error-' + type)
     errorMessageElement.setAttribute('class', 'gem-c-error-message govuk-error-message')
-    errorMessageElement.innerHTML = '<span class="govuk-visually-hidden">Error:</span> Enter a real date'
+    errorMessageElement.innerHTML = '<span class="govuk-visually-hidden">Error:</span> Enter a date'
 
     var errorMessages = $input.parentNode.querySelectorAll('.gem-c-error-message')
     if (errorMessages.length === 0) {
