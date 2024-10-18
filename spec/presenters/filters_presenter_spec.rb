@@ -19,7 +19,15 @@ describe FiltersPresenter do
       "Facet",
       key: "facet_with_applied_filters",
       has_filters?: true,
-      applied_filters: [{ name: "name", label: "label", query_params: { key: %w[value] } }],
+      applied_filters: [
+        { name: "name", label: "label", query_params: { key: %w[value] } },
+        {
+          name: "name2",
+          label: "label2",
+          visually_hidden_prefix: "Get rid of",
+          query_params: { key2: %w[value2] },
+        },
+      ],
     )
   end
   let(:another_facet_with_applied_filters) do
@@ -111,16 +119,27 @@ describe FiltersPresenter do
       before do
         allow(finder_url_builder).to receive(:url_except).with({ key: %w[value] })
           .and_return("/search/foo")
+        allow(finder_url_builder).to receive(:url_except).with({ key2: %w[value2] })
+          .and_return("/search/foo2")
       end
 
       it "returns the expected summary items" do
-        expect(summary_items).to contain_exactly({
-          label: "name",
-          value: "label",
-          displayed_text: "name: label",
-          remove_href: "/search/foo",
-          visually_hidden_prefix: "Remove filter",
-        })
+        expect(summary_items).to contain_exactly(
+          {
+            label: "name",
+            value: "label",
+            displayed_text: "name: label",
+            remove_href: "/search/foo",
+            visually_hidden_prefix: "Remove filter",
+          },
+          {
+            label: "name2",
+            value: "label2",
+            displayed_text: "name2: label2",
+            remove_href: "/search/foo2",
+            visually_hidden_prefix: "Get rid of",
+          },
+        )
       end
     end
   end
