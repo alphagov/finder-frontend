@@ -49,7 +49,7 @@ describe TaxonFacet do
         expect(topic.keys).to contain_exactly(
           :value,
           :text,
-          :sub_topics,
+          :subtopics,
           :selected,
         )
       end
@@ -60,17 +60,17 @@ describe TaxonFacet do
     end
   end
 
-  describe "#sub_topics" do
+  describe "#subtopics" do
     subject { described_class.new(facet_data, allowed_values) }
 
-    it "returns an array of sub-topics" do
-      expect(subject.sub_topics).to be_an(Array)
-      expect(subject.sub_topics.count).to be(4)
+    it "returns an array of subtopics" do
+      expect(subject.subtopics).to be_an(Array)
+      expect(subject.subtopics.count).to be(4)
     end
 
     it "provides values required for rendering items" do
-      sub_topic = subject.sub_topics.second
-      expect(sub_topic.keys).to contain_exactly(
+      subtopic = subject.subtopics.second
+      expect(subtopic.keys).to contain_exactly(
         :value,
         :text,
         :data_attributes,
@@ -79,7 +79,7 @@ describe TaxonFacet do
     end
 
     it "has a default option" do
-      expect(subject.sub_topics.first[:text]).to eql("All sub-topics")
+      expect(subject.subtopics.first[:text]).to eql("All subtopics")
     end
   end
 
@@ -146,7 +146,7 @@ describe TaxonFacet do
             },
           },
           {
-            name: "Sub-topic",
+            name: "Subtopic",
             label: "allowed-child-value",
             query_params: { "level_two_taxon" => "allowed-child-value" },
           },

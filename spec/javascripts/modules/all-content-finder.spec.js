@@ -53,9 +53,9 @@ describe('AllContentFinder module', () => {
           </select>
         </div>
         <div class="js-required govuk-form-group gem-c-select">
-          <label class="govuk-label" for="level_two_taxon">Filter by sub-topic</label>
+          <label class="govuk-label" for="level_two_taxon">Filter by subtopic</label>
           <select class="govuk-select" id="level_two_taxon" name="level_two_taxon" disabled="disabled">
-            <option data-topic-parent="" value="">All sub-topics</option>
+            <option data-topic-parent="" value="">All subtopics</option>
             <option data-topic-parent="foo" value="bar">Bar</option>
           </select>
         </div>
