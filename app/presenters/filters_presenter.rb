@@ -8,6 +8,14 @@ class FiltersPresenter
     applied_filters.any?
   end
 
+  def summary_heading_text
+    "Active #{summary_phrase}"
+  end
+
+  def reset_link_text
+    "Clear all #{summary_phrase}"
+  end
+
   def summary_items
     applied_filters.map do |filter|
       {
@@ -38,5 +46,23 @@ private
     applied_filters
       .flat_map { |filter| filter[:query_params].keys }
       .uniq
+  end
+
+  def summary_phrase
+    if active_sort? && active_non_sort_filters?
+      "filters and sorting"
+    elsif active_sort?
+      "sorting"
+    else
+      "filters"
+    end
+  end
+
+  def active_sort?
+    facets.any? { |facet| facet.key == SortFacet::KEY && facet.has_filters? }
+  end
+
+  def active_non_sort_filters?
+    facets.any? { |facet| facet.key != SortFacet::KEY && facet.has_filters? }
   end
 end
