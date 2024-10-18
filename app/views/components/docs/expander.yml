@@ -42,11 +42,11 @@ examples:
             <option value="3">Corporate information</option>
           </select>
         </div>
-        <div class="govuk-form-group" data-ga4-section="Sub-topic">
+        <div class="govuk-form-group" data-ga4-section="Subtopic">
           <div class="govuk-form-group gem-c-select">
-            <label class="govuk-label" for="level_two_taxon">Sub-topic</label>
+            <label class="govuk-label" for="level_two_taxon">Subtopic</label>
             <select name="level_two_taxon" id="level_two_taxon" class="govuk-select gem-c-select__select--full-width">
-              <option value="">All sub-topics</option>
+              <option value="">All subtopics</option>
               <option value="2">Business and the environment</option>
               <option value="3">Business regulation</option>
               <option value="4">Charities and social enterprises</option>

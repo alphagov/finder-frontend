@@ -29,7 +29,7 @@ Feature: All content finder ("site search")
     And I open the filter panel
     And I open the "Topic" filter section
     And I select "Music" as the Topic
-    And I select "Best songs" as the Sub-topic
+    And I select "Best songs" as the Subtopic
     And I open the "Type" filter section
     And I check the "Services" option
     And I check the "Research and statistics" option
@@ -55,10 +55,10 @@ Feature: All content finder ("site search")
     And I open the filter panel
     And I open the "Topic" filter section
     And I select "Music" as the Topic
-    And I select "Best songs" as the Sub-topic
+    And I select "Best songs" as the Subtopic
     And I apply the filters
-    And I click on the "Sub-topic: Best songs" filter tag
-    Then the "Sub-topic: Best songs" filter has been removed
+    And I click on the "Subtopic: Best songs" filter tag
+    Then the "Subtopic: Best songs" filter has been removed
 
   @javascript
   Scenario: Entering an incorrect date
