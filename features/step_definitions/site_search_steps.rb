@@ -2,6 +2,10 @@ When(/^I search all content for "([^"]*)"$/) do |search_term|
   visit "/search/all?q=#{search_term}"
 end
 
+When(/^I search all content with a parent for "([^"]*)"$/) do |search_term|
+  visit "/search/all?parent=ministry-of-magic&organisations[]=ministry-of-magic&q=#{search_term}"
+end
+
 When(/^I search for "([^"]*)" with a hidden clearable manual filter$/) do |search_term|
   visit "/search/all?q=#{search_term}&manual%5B%5D=how-to-be-a-wizard"
 end

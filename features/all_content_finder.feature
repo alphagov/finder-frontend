@@ -12,6 +12,8 @@ Feature: All content finder ("site search")
     Then I can see results for my search
     And I can see how many results there are
     And the GA4 ecommerce tracking tags are present
+    And I can see a breadcrumb for home
+    And no breadcrumb for all organisations
 
   Scenario: Making a search with a hidden clearable filter
     When I search for "search-term" with a hidden clearable manual filter
@@ -73,3 +75,13 @@ Feature: All content finder ("site search")
   Scenario: Spelling suggestion
     When I search all content for "drving"
     Then I see a "driving" spelling suggestion
+
+  Scenario: Search with an organisation (parent) finder
+    When I search all content with a parent for "search-term"
+    And I open the filter panel
+    And I open the "Sort by" filter section
+    And I select the "Updated (newest)" option
+    And I apply the filters
+    Then I can see a breadcrumb for home
+    And I can see a breadcrumb for all organisations
+    And I can see a breadcrumb for the organisation
