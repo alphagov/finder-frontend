@@ -152,7 +152,7 @@ describe('GA4 finder change tracker', function () {
     window.GOVUK.triggerEvent(input, 'change')
 
     expected.event_data.action = 'remove'
-    expected.event_data.index = { index_section: undefined, index_section_count: undefined, index_link: undefined }
+    expected.event_data.index = { index_section: '1', index_section_count: '1', index_link: undefined }
 
     expect(window.dataLayer[1]).toEqual(expected)
   })
@@ -205,7 +205,7 @@ describe('GA4 finder change tracker', function () {
     window.GOVUK.triggerEvent(option1, 'change')
 
     expected.event_data.action = 'remove'
-    expected.event_data.index = { index_section: undefined, index_section_count: undefined, index_link: undefined }
+    expected.event_data.index = { index_section: '1', index_section_count: '1', index_link: undefined }
     expected.event_data.text = 'All types of chocolate (default)'
 
     expect(window.dataLayer[1]).toEqual(expected)
@@ -253,7 +253,7 @@ describe('GA4 finder change tracker', function () {
     window.GOVUK.triggerEvent(input, 'change')
 
     expected.event_data.action = 'remove'
-    expected.event_data.index = { index_link: undefined, index_section: undefined, index_section_count: undefined }
+    expected.event_data.index = { index_link: undefined, index_section: '5', index_section_count: '15' }
     expected.event_data.text = 'All types of chocolate (default)'
 
     expect(window.dataLayer[1]).toEqual(expected)
@@ -305,9 +305,70 @@ describe('GA4 finder change tracker', function () {
     window.GOVUK.triggerEvent(input, 'change')
 
     expected.event_data.action = 'remove'
-    expected.event_data.index = { index_section: undefined, index_section_count: undefined, index_link: undefined }
+    expected.event_data.index = { index_section: '2', index_section_count: '2', index_link: undefined }
     expected.event_data.text = undefined
 
+    expect(window.dataLayer[1]).toEqual(expected)
+  })
+
+  it('creates the correct GA4 object for adding/removing a date filter', function () {
+    inputParent = document.createElement('div')
+    inputParent.setAttribute('class', 'govuk-date-input')
+    inputParent.setAttribute('data-ga4-change-category', 'update-filter date')
+    inputParent.setAttribute('data-ga4-filter-parent', '')
+    inputParent.setAttribute('data-ga4-section', 'Last time you ate chocolate')
+    const index = { index_section: 3, index_section_count: 3 }
+    inputParent.setAttribute('data-ga4-index', JSON.stringify(index))
+
+    const legend = document.createElement('legend')
+    inputParent.appendChild(legend)
+    const dayInput = document.createElement('input')
+    dayInput.setAttribute('type', 'number')
+    inputParent.appendChild(dayInput)
+    const monthInput = document.createElement('input')
+    monthInput.setAttribute('type', 'number')
+    inputParent.appendChild(monthInput)
+    const yearInput = document.createElement('input')
+    yearInput.setAttribute('type', 'number')
+    inputParent.appendChild(yearInput)
+    form.appendChild(inputParent)
+
+    // Filling in just day does not trigger event
+    dayInput.value = '13'
+    window.GOVUK.triggerEvent(dayInput, 'change')
+    expect(window.dataLayer.length).toEqual(0)
+
+    // Filling in month still does not trigger event
+    monthInput.value = '12'
+    window.GOVUK.triggerEvent(monthInput, 'change')
+    expect(window.dataLayer.length).toEqual(0)
+
+    // Finally filling in year triggers event
+    yearInput.value = '1989'
+    window.GOVUK.triggerEvent(yearInput, 'change')
+
+    expected.event_data.event_name = 'select_content'
+    expected.event_data.section = 'Last time you ate chocolate'
+    expected.event_data.text = '13/12/1989'
+    expected.event_data.action = 'select'
+    expected.event_data.index = { index_section: '3', index_section_count: '3', index_link: undefined }
+    expect(window.dataLayer.length).toEqual(1)
+    expect(window.dataLayer[0]).toEqual(expected)
+
+    dayInput.value = ''
+    monthInput.value = ''
+    window.GOVUK.triggerEvent(yearInput, 'change')
+
+    // Clearing two out of three fields does not trigger an event
+    expect(window.dataLayer.length).toEqual(1)
+
+    yearInput.value = ''
+    window.GOVUK.triggerEvent(yearInput, 'change')
+
+    // Removing the final field triggers an event
+    expected.event_data.action = 'remove'
+    expected.event_data.text = ''
+    expect(window.dataLayer.length).toEqual(2)
     expect(window.dataLayer[1]).toEqual(expected)
   })
 
