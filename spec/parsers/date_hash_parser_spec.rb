@@ -99,6 +99,12 @@ RSpec.describe DateHashParser do
         it { is_expected.to be_nil }
       end
 
+      context "with hash with any non-numeric values (even if others are good)" do
+        let(:date_hash) { { day: 13, month: 12, year: "baz" } }
+
+        it { is_expected.to be_nil }
+      end
+
       context "with hash with non-numeric year only" do
         let(:date_hash) { { year: "baz" } }
 
