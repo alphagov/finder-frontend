@@ -62,7 +62,7 @@ describe "Filter panel component", type: :view do
   it "renders the submit button" do
     render_component(button_text: "Filter")
 
-    assert_select ".app-c-filter-panel input.govuk-button.app-c-filter-panel__action.app-c-filter-panel__action--submit", value: "Apply filters"
+    assert_select ".app-c-filter-panel input.govuk-button.app-c-filter-panel__action.app-c-filter-panel__action--submit", value: "Apply"
   end
 
   it "doesn't render any buttons with a name attribute" do
@@ -74,7 +74,7 @@ describe "Filter panel component", type: :view do
   it "renders the reset link if the show_reset_link option is given" do
     render_component(button_text: "Filter", show_reset_link: true, reset_link_href: "/reset")
 
-    assert_select ".app-c-filter-panel a.govuk-link.govuk-link--no-visited-state.app-c-filter-panel__action.app-c-filter-panel__action--reset[href='/reset']", text: "Clear all filters"
+    assert_select ".app-c-filter-panel a.govuk-link.govuk-link--no-visited-state.app-c-filter-panel__action.app-c-filter-panel__action--reset[href='/reset']", text: "Clear all"
   end
 
   it "does not render the reset link if the show_reset_link option is not given" do
@@ -103,7 +103,7 @@ describe "Filter panel component", type: :view do
   end
 
   it "renders ga4 tracking attributes to submit button element" do
-    button_text = "Apply filters"
+    button_text = "Apply"
     section_count = 4
 
     button_event_attributes = {

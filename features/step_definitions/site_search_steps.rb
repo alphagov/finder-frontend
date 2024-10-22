@@ -84,7 +84,7 @@ Then("I can see filtered results") do
 end
 
 When("I apply the filters") do
-  click_on "Apply filters"
+  click_on "Apply"
 end
 
 Then("I can see a filter section for every visible facet on the all content finder") do
