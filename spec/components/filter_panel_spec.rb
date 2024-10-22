@@ -111,7 +111,7 @@ describe "Filter panel component", type: :view do
       type: "finder",
       text: button_text,
       section: button_text,
-      action: "search",
+      action: "apply",
       index_section: 0,
       index_section_count: 4,
     }
