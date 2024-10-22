@@ -55,14 +55,14 @@
 
     <div class="app-c-filter-panel__actions">
       <%= submit_tag(
-        "Apply filters",
+        "Apply",
         class: "govuk-button app-c-filter-panel__action app-c-filter-panel__action--submit",
         name: nil,
         data: {
           ga4_event: {
             event_name: "select_content",
             type: "finder",
-            text: "Apply filters",
+            text: "Apply",
             section: button_text,
             action: "search",
             index_section: 0,
@@ -73,7 +73,7 @@
 
       <% if show_reset_link %>
         <%= link_to(
-          "Clear all filters",
+          "Clear all",
           reset_link_href,
           class: "govuk-link govuk-link--no-visited-state app-c-filter-panel__action app-c-filter-panel__action--reset",
           data: {
