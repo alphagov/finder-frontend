@@ -118,6 +118,12 @@ describe SortFacet do
     end
   end
 
+  describe "#sentence_fragment" do
+    subject(:sentence_fragment) { sort_facet.sentence_fragment }
+
+    it { is_expected.to be_nil }
+  end
+
   it { is_expected.to be_user_visible }
   it { is_expected.to be_filterable }
   it { is_expected.not_to be_hide_facet_tag }
