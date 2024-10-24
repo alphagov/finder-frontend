@@ -15,10 +15,10 @@ class TaxonFacet < FilterableFacet
     level_one_taxons.unshift(default_topic_value)
   end
 
-  def sub_topics
-    return [default_sub_topic_value] unless level_two_taxons
+  def subtopics
+    return [default_subtopic_value] unless level_two_taxons
 
-    level_two_taxons.unshift(default_sub_topic_value)
+    level_two_taxons.unshift(default_subtopic_value)
   end
 
   def sentence_fragment
@@ -43,7 +43,7 @@ class TaxonFacet < FilterableFacet
       name: "Topic",
       label: selected_level_one_value[:text],
       query_params: {
-        # Note that removing a topic should always remove the sub-topic too
+        # Note that removing a topic should always remove the subtopic too
         LEVEL_ONE_TAXON_KEY => selected_level_one_value[:value],
         LEVEL_TWO_TAXON_KEY => selected_level_two_value&.fetch(:value),
       }.compact,
@@ -51,7 +51,7 @@ class TaxonFacet < FilterableFacet
 
     if selected_level_two_value
       level_two_filter = {
-        name: "Sub-topic",
+        name: "Subtopic",
         label: selected_level_two_value[:text],
         query_params: { LEVEL_TWO_TAXON_KEY => selected_level_two_value[:value] },
       }
@@ -95,7 +95,7 @@ private
       {
         value: v["content_id"],
         text: v["title"],
-        sub_topics: v["children"],
+        subtopics: v["children"],
         selected: v["content_id"] == @value_hash[LEVEL_ONE_TAXON_KEY],
       }
     end
@@ -103,7 +103,7 @@ private
 
   def level_two_taxons
     @level_two_taxons ||= level_one_taxons
-      .map { |v| v[:sub_topics] }
+      .map { |v| v[:subtopics] }
       .compact
       .flatten
       .map do |v|
@@ -130,8 +130,8 @@ private
     end
   end
 
-  def default_sub_topic_value
-    { text: "All sub-topics", value: "", parent: "" }
+  def default_subtopic_value
+    { text: "All subtopics", value: "", parent: "" }
   end
 
   def default_topic_value
