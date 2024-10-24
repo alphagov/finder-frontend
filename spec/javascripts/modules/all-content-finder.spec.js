@@ -9,7 +9,7 @@ describe('AllContentFinder module', () => {
         <div class="govuk-grid-column-two-thirds-from-desktop">
           <div id="keywords" role="search" aria-label="Sitewide">
             <div class="gem-c-search">
-              <input enterkeyhint="search" class="gem-c-search__input js-class-toggle" id="finder-keyword-search" name="keywords" type="search" value="" />
+              <input enterkeyhint="search" class="gem-c-search__input js-class-toggle" id="finder-keyword-search" name="keywords" type="search" value="hello" />
               <button class="gem-c-search__submit" type="submit">Search</button>
             </div>
           </div>
@@ -94,9 +94,9 @@ describe('AllContentFinder module', () => {
       expect(mockSubmitHandler).toHaveBeenCalled()
       const submittedData = mockSubmitHandler.calls.mostRecent().args[0]
 
+      expect(submittedData.has('keywords')).toBe(true)
       expect(submittedData.has('foo')).toBe(true)
       expect(submittedData.has('bar')).toBe(false)
-      expect(submittedData.has('keywords')).toBe(false)
     })
 
     it('removes relevance sort order from the form data', () => {
@@ -231,6 +231,23 @@ describe('AllContentFinder module', () => {
             event_name: 'search',
             type: 'finder',
             text: 'new keyword',
+            action: 'search',
+            section: 'Search'
+          })
+        }))
+      })
+
+      it('fires a `search` event with the right text if the keyword has been removed', () => {
+        const form = fixture.querySelector('.js-all-content-finder-form')
+        form.querySelector('input[type="search"]').value = ''
+        form.dispatchEvent(new Event('submit', { bubbles: true }))
+
+        expect(GOVUK.analyticsGa4.core.sendData).toHaveBeenCalledWith(jasmine.objectContaining({
+          event: 'event_data',
+          event_data: jasmine.objectContaining({
+            event_name: 'search',
+            type: 'finder',
+            text: '',
             action: 'search',
             section: 'Search'
           })
