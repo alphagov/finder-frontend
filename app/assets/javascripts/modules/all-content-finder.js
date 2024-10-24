@@ -71,9 +71,11 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
           event_name: 'search',
           section: 'Search',
           action: 'search',
+          // standardiseSearchTerm returns undefined for empty strings, which we do _not_ want in
+          // this scenario as it would lead to the analytics tracking not picking up on the change
           text: GOVUK.analyticsGa4.core.trackFunctions.standardiseSearchTerm(
             this.$keywordInput.value
-          ),
+          ) || '',
           url: window.location.pathname
         }, 'event_data')
 
