@@ -41,16 +41,13 @@
     action: content_item.base_path,
     id: "all-content-finder-form",
     class: "js-all-content-finder-form",
-    data: {
-      ga4_change_category: "clear-all-filters",
-    }
   ) do %>
     <%= hidden_field_tag :parent, @parent if @parent.present? %>
     <%= hidden_field_tag :enable_new_all_content_finder_ui, params[:enable_new_all_content_finder_ui] if params[:enable_new_all_content_finder_ui].present? %>
 
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-two-thirds-from-desktop">
-        <div id="keywords" role="search" aria-label="Sitewide" data-ga4-change-category="update-keyword text">
+        <div id="keywords" role="search" aria-label="Sitewide">
           <%= render "govuk_publishing_components/components/search", {
             id: "finder-keyword-search",
             name: "keywords",
