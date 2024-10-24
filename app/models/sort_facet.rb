@@ -63,6 +63,10 @@ class SortFacet
     false
   end
 
+  def sentence_fragment
+    nil
+  end
+
 private
 
   attr_reader :content_item, :filter_params
