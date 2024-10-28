@@ -123,7 +123,7 @@ module RegistrySpecHelper
   def stub_manuals_registry_request
     stub_request(:get, "http://search-api.dev.gov.uk/search.json")
       .with(query: {
-        filter_document_type: %w[manual service_manual_homepage service_manual_guide],
+        filter_document_type: %w[hmrc_manual manual service_manual_homepage service_manual_guide],
         fields: %w[title],
         count: 1500,
       })

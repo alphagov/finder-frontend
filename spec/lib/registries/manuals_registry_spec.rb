@@ -4,7 +4,7 @@ RSpec.describe Registries::ManualsRegistry do
   let(:slug) { "/guidance/care-and-use-of-a-nimbus-2000" }
   let(:rummager_params) do
     {
-      filter_document_type: %w[manual service_manual_homepage service_manual_guide],
+      filter_document_type: %w[hmrc_manual manual service_manual_homepage service_manual_guide],
       fields: %w[title],
       count: 1500,
     }
