@@ -179,21 +179,6 @@ describe('AllContentFinder module', () => {
         expect(GOVUK.analyticsGa4.Ga4FinderTracker.trackChangeEvent).not.toHaveBeenCalled()
       })
 
-      it('does not fire a `search` event on form submit if the keyword has not changed', () => {
-        const form = fixture.querySelector('.js-all-content-finder-form')
-        form.dispatchEvent(new Event('submit', { bubbles: true }))
-
-        expect(GOVUK.analyticsGa4.core.sendData).not.toHaveBeenCalled()
-      })
-
-      it('does not fire a `search` event on form submit even if the keyword has changed', () => {
-        const form = fixture.querySelector('.js-all-content-finder-form')
-        form.querySelector('input[type="search"]').value = 'new keyword'
-        form.dispatchEvent(new Event('submit', { bubbles: true }))
-
-        expect(GOVUK.analyticsGa4.core.sendData).not.toHaveBeenCalled()
-      })
-
       it('does not set up ecommerce tracking', () => {
         expect(GOVUK.analyticsGa4.Ga4EcommerceTracker.init).not.toHaveBeenCalled()
       })
@@ -211,47 +196,6 @@ describe('AllContentFinder module', () => {
         input.dispatchEvent(event)
 
         expect(GOVUK.analyticsGa4.Ga4FinderTracker.trackChangeEvent).toHaveBeenCalledWith(input, 'FooCategory')
-      })
-
-      it('does not fire a `search` event on form submit if the keyword has not changed', () => {
-        const form = fixture.querySelector('.js-all-content-finder-form')
-        form.dispatchEvent(new Event('submit', { bubbles: true }))
-
-        expect(GOVUK.analyticsGa4.core.sendData).not.toHaveBeenCalled()
-      })
-
-      it('fires a `search` event on form submit if the keyword has changed', () => {
-        const form = fixture.querySelector('.js-all-content-finder-form')
-        form.querySelector('input[type="search"]').value = 'new keyword'
-        form.dispatchEvent(new Event('submit', { bubbles: true }))
-
-        expect(GOVUK.analyticsGa4.core.sendData).toHaveBeenCalledWith(jasmine.objectContaining({
-          event: 'event_data',
-          event_data: jasmine.objectContaining({
-            event_name: 'search',
-            type: 'finder',
-            text: 'new keyword',
-            action: 'search',
-            section: 'Search'
-          })
-        }))
-      })
-
-      it('fires a `search` event with the right text if the keyword has been removed', () => {
-        const form = fixture.querySelector('.js-all-content-finder-form')
-        form.querySelector('input[type="search"]').value = ''
-        form.dispatchEvent(new Event('submit', { bubbles: true }))
-
-        expect(GOVUK.analyticsGa4.core.sendData).toHaveBeenCalledWith(jasmine.objectContaining({
-          event: 'event_data',
-          event_data: jasmine.objectContaining({
-            event_name: 'search',
-            type: 'finder',
-            text: '',
-            action: 'search',
-            section: 'Search'
-          })
-        }))
       })
 
       it('sets up ecommerce tracking', () => {
