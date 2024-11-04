@@ -71,14 +71,6 @@ module DocumentHelper
     stub_response(hash_including(policy_papers_params), policy_and_engagement_results_json)
   end
 
-  def stub_search_api_request_with_all_content_results
-    stub_response(
-      hash_including(all_content_params.merge(order: "-public_timestamp")),
-      all_content_results_json,
-      including_v2: true,
-    )
-  end
-
   def stub_search_api_request_with_organisation_filter_all_content_results
     stub_response(
       hash_including("q" => "search-term", "filter_organisations" => %w[ministry-of-magic]),
@@ -230,10 +222,6 @@ module DocumentHelper
       .to_return(status: 422)
   end
 
-  def stub_search_api_request_with_qa_finder_results
-    stub_response(hash_including({}), aaib_reports_search_results)
-  end
-
   def stub_topical_events_api_request
     stub_response(
       hash_including({ filter_format: "topical_event", count: "1500" }),
@@ -253,10 +241,6 @@ module DocumentHelper
     finder = example_finder
     finder["details"]["facets"] = []
     stub_content_store_has_item("/mosw-reports", finder.to_json)
-  end
-
-  def content_store_has_qa_finder
-    stub_content_store_has_item("/aaib-reports", aaib_reports_content_item.to_json)
   end
 
   def content_store_has_news_and_communications_finder
@@ -318,12 +302,6 @@ module DocumentHelper
     finder_fixture = File.read(Rails.root.join("features/fixtures/policy_and_engagement.json"))
 
     stub_content_store_has_item("/search/policy-papers-and-consultations", finder_fixture)
-  end
-
-  def search_params(params = {})
-    default_search_params.merge(params).to_a.map { |tuple|
-      tuple.join("=")
-    }.join("&")
   end
 
   def stub_content_store_with_cma_cases_finder
@@ -398,16 +376,6 @@ module DocumentHelper
 
   def stub_content_store_with_cma_cases_finder_with_metadata
     schema = example_cma_cases_finder.merge("from" => "An authority")
-
-    stub_content_store_has_item(
-      schema.fetch("base_path"),
-      schema.to_json,
-    )
-  end
-
-  def stub_content_store_with_cma_cases_finder_with_metadata_with_topic_param
-    schema = example_cma_cases_finder.merge("from" => "An authority")
-    schema["content_id"] = "c58fdadd-7743-46d6-9629-90bb3ccc4ef0"
 
     stub_content_store_has_item(
       schema.fetch("base_path"),
@@ -552,35 +520,6 @@ module DocumentHelper
       "filter_closed_date" => "from:2015-11-01",
       "order" => "-public_timestamp",
     )
-  end
-
-  def aaib_reports_search_results
-    %({
-      "results": [
-        {
-          "title": "Acme keyword searchable walk",
-          "public_timestamp": "2010-10-06",
-          "summary": "ACME researched a new type of silly walk",
-          "document_type": "mosw_report",
-          "walk_type": [{
-            "value": "backwards",
-            "label": "Backwards"
-          }],
-          "place_of_origin": [{
-            "value": "scotland",
-            "label": "Scotland"
-          }],
-          "creator": "Wile E Coyote",
-          "date_of_introduction": "2014-08-28",
-          "link": "mosw-reports/acme-keyword-searchable-walk",
-          "_id": "mosw-reports/acme-keyword-searchable-walk"
-        }
-      ],
-      "total": 1,
-      "start": 0,
-      "facets": {},
-      "suggested_queries": []
-    })
   end
 
   def keyword_search_results
@@ -1809,104 +1748,6 @@ module DocumentHelper
       "total": 1,
       "start": 0,
       "suggested_queries": []
-    })
-  end
-
-  def all_content_results_json
-    %({
-      "results": [
-        {
-          "title": "Restrictions on usage of spells within school grounds",
-          "link": "/restrictions-on-usage-of-spells-within-school-grounds",
-          "content_id": "1234",
-          "description": "Restrictions on usage of spells within school grounds",
-          "description_with_highlighting": "Restrictions on usage of spells within school grounds",
-          "public_timestamp": "2017-12-30T10:00:00Z",
-          "part_of_taxonomy_tree": [
-            "622e9691-4b4f-4e9c-bce1-098b0c4f5ee2"
-          ],
-          "organisations": [
-            {
-              "organisation_crest": "single-identity",
-              "acronym": "MOM",
-              "link": "/organisations/ministry-of-magic",
-              "analytics_identifier": "MM1",
-              "public_timestamp": "2017-12-15T11:11:02.000+00:00",
-              "organisation_brand": "ministry-of-magic",
-              "logo_formatted_title": "Ministry of Magic",
-              "title": "Ministry of Magic",
-              "content_id": "92881ac6-2804-4522-bf48-cf8c781c98bf",
-              "slug": "ministry-of-magic",
-              "organisation_type": "other",
-              "organisation_state": "live"
-            }
-          ],
-          "index": "govuk",
-          "es_score": null,
-          "_id": "/restrictions-on-usage-of-spells-within-school-grounds",
-          "elasticsearch_type": "policy_paper",
-          "document_type": "policy_paper"
-        }
-      ],
-      "total": 1,
-      "start": 0,
-      "suggested_queries": []
-    })
-  end
-
-  def all_content_manuals_results_json
-    %({
-      "results": [
-        {
-          "title": "Replacing bristles in your Nimbus 2000",
-          "link": "/replacing-bristles-nimbus-2000",
-          "description": "Replacing bristles in your Nimbus 2000",
-          "public_timestamp": "2017-12-30T10:00:00Z",
-          "part_of_taxonomy_tree": [
-            "622e9691-4b4f-4e9c-bce1-098b0c4f5ee2"
-          ],
-          "organisations": [
-            {
-              "organisation_crest": "single-identity",
-              "acronym": "MOM",
-              "link": "/organisations/ministry-of-magic",
-              "analytics_identifier": "MM1",
-              "public_timestamp": "2017-12-15T11:11:02.000+00:00",
-              "organisation_brand": "ministry-of-magic",
-              "logo_formatted_title": "Ministry of Magic",
-              "title": "Ministry of Magic",
-              "content_id": "92881ac6-2804-4522-bf48-cf8c781c98bf",
-              "slug": "ministry-of-magic",
-              "organisation_type": "other",
-              "organisation_state": "live"
-            }
-          ],
-          "index": "govuk",
-          "es_score": null,
-          "_id": "/replacing-bristles-nimbus-2000",
-          "elasticsearch_type": "manual",
-          "document_type": "manual"
-        }
-      ],
-    "facets": {
-      "manual": [
-        {
-          "title": "Replacing bristles in your Nimbus 2000",
-          "_id": "/guidance/care-and-use-of-a-nimbus-2000"
-        },
-        {
-          "title": "Upgrading the baud rate on the Floo Network",
-          "_id": "upgrading-baud-rate-on-the-floo-network"
-        }
-      ],
-      "documents_with_no_value": 0,
-      "total_options": 2,
-      "missing_options": 0,
-      "scope": "exclude_field_filter"
-    },
-    "total": 1,
-    "start": 0,
-    "suggested_queries": []
     })
   end
 
