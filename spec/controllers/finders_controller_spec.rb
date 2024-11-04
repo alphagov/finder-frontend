@@ -246,50 +246,10 @@ describe FindersController, type: :controller do
         )
       end
 
-      describe "and the new finder page feature flag is not enabled" do
-        before do
-          stub_const("ENV", ENV.to_hash.merge("ENABLE_NEW_ALL_CONTENT_FINDER_UI" => nil))
-        end
-
-        it "correctly renders the finder page" do
-          get :show, params: { slug: "search/all", keywords: "hello" }
-          expect(response.status).to eq(200)
-          expect(response).to render_template("finders/show")
-        end
-
-        it "renders the new template if the override query param is given" do
-          get :show, params: {
-            slug: "search/all", keywords: "hello", enable_new_all_content_finder_ui: "true"
-          }
-          expect(response.status).to eq(200)
-          expect(response).to render_template("finders/show_all_content_finder")
-        end
-
-        it "responds with JSON" do
-          get :show, params: { slug: "search/all", keywords: "hello", format: "json" }
-
-          expect(response.status).to eq(200)
-          expect(response.media_type).to eq("application/json")
-        end
-
-        it "responds with the discovery engine attribution token" do
-          get :show, params: { slug: "search/all", keywords: "hello", format: "json" }
-
-          response_body = JSON.parse(response.body)
-          expect(response_body["discovery_engine_attribution_token"]).to eq("123ABC")
-        end
-      end
-
-      describe "and the new finder page feature flag is enabled" do
-        before do
-          stub_const("ENV", ENV.to_hash.merge("ENABLE_NEW_ALL_CONTENT_FINDER_UI" => "true"))
-        end
-
-        it "correctly renders the new template" do
-          get :show, params: { slug: "search/all", keywords: "hello" }
-          expect(response.status).to eq(200)
-          expect(response).to render_template("finders/show_all_content_finder")
-        end
+      it "correctly renders the new template" do
+        get :show, params: { slug: "search/all", keywords: "hello" }
+        expect(response.status).to eq(200)
+        expect(response).to render_template("finders/show_all_content_finder")
       end
     end
   end

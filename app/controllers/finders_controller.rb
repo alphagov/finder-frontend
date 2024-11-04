@@ -75,16 +75,11 @@ private
   end
 
   def show_template
-    if content_item.all_content_finder? && enable_new_all_content_finder_ui?
+    if content_item.all_content_finder?
       "show_all_content_finder"
     else
       "show"
     end
-  end
-
-  def enable_new_all_content_finder_ui?
-    ActiveModel::Type::Boolean.new.cast(ENV["ENABLE_NEW_ALL_CONTENT_FINDER_UI"]) ||
-      params[:enable_new_all_content_finder_ui].present?
   end
 
   def json_response
@@ -129,7 +124,7 @@ private
       search_results:,
       value_hash: filter_params,
     ).facets.tap do |built_facets|
-      if content_item.all_content_finder? && enable_new_all_content_finder_ui?
+      if content_item.all_content_finder?
         built_facets.prepend(SortFacet.new(content_item, filter_params))
       end
     end
