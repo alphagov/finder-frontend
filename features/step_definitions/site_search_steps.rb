@@ -61,10 +61,6 @@ When(/^I select "([^"]*)" as the (\S+)$/) do |item, from|
   select item, from:
 end
 
-When(/^I enter "([^"]*)" for "([^"]*)"$/) do |text, field|
-  fill_in field, with: text
-end
-
 When(/^I enter "([^"]*)" for "([^"]*)" under "([^"]*)"$/) do |text, field, fieldset|
   within_fieldset(fieldset) do
     fill_in field, with: text

@@ -14,24 +14,8 @@ When(/^I view the finder with no keywords and no facets$/) do
   visit finder_path("mosw-reports")
 end
 
-And(/there is a zero results message$/) do
-  expect(page).to have_content("no matching results")
-end
-
 And(/there is not a zero results message$/) do
   expect(page).to_not have_content("no matching results")
-end
-
-And(/the page title contains both keywords$/) do
-  expect(page).to have_title "Keyword1 Keyword2 - News and communications - GOV.UK"
-end
-
-And(/the page title contains only Keyword2$/) do
-  expect(page).to have_title "Keyword2 - News and communications - GOV.UK"
-end
-
-And(/the page title contains no keywords$/) do
-  expect(page).to have_title "News and communications - GOV.UK"
 end
 
 And(/the page title is updated$/) do
@@ -168,50 +152,6 @@ When(/^I view the aaib reports finder with a topic param set$/) do
   visit finder_path("aaib-reports", topic: "c58fdadd-7743-46d6-9629-90bb3ccc4ef0")
 end
 
-When(/^I view the all content finder with a manual filter$/) do
-  topic_taxonomy_has_taxons
-  content_store_has_all_content_finder
-  stub_organisations_registry_request
-  stub_world_locations_api_request
-  stub_topical_events_api_request
-  stub_people_registry_request
-  stub_manuals_registry_request
-
-  stub_request(:get, DocumentHelper::SEARCH_ENDPOINT)
-    .with(query: hash_including(q: "Replacing bristles"))
-    .to_return(body: all_content_results_json)
-
-  stub_request(:get, DocumentHelper::SEARCH_ENDPOINT)
-    .with(query: hash_including(
-      filter_manual: "/guidance/care-and-use-of-a-nimbus-2000",
-      q: "Replacing bristles",
-    )).to_return(body: all_content_manuals_results_json)
-
-  stub_request(:get, DocumentHelper::SEARCH_V2_ENDPOINT)
-    .with(query: hash_including(q: "Replacing bristles"))
-    .to_return(body: all_content_results_json)
-
-  stub_request(:get, DocumentHelper::SEARCH_V2_ENDPOINT)
-    .with(query: hash_including(
-      filter_manual: "/guidance/care-and-use-of-a-nimbus-2000",
-      q: "Replacing bristles",
-    )).to_return(body: all_content_manuals_results_json)
-
-  visit finder_path("search/all", manual: "/guidance/care-and-use-of-a-nimbus-2000", q: "Replacing bristles")
-end
-
-When(/^I view the all content finder$/) do
-  topic_taxonomy_has_taxons
-  content_store_has_all_content_finder
-  stub_organisations_registry_request
-  stub_world_locations_api_request
-  stub_people_registry_request
-  stub_manuals_registry_request
-  stub_search_api_request_with_all_content_results
-
-  visit finder_path("search/all")
-end
-
 When(/^I view a list of services$/) do
   topic_taxonomy_has_taxons
   content_store_has_services_finder
@@ -266,17 +206,6 @@ Then(/^I can see documents which are marked as being in history mode$/) do
   expect(page).to have_content("2005 to 2010 Labour government")
 end
 
-Then(/^I can see documents which have government metadata$/) do
-  within ".finder-results .gem-c-document-list__item:nth-child(1)" do
-    expect(page).to have_content("Updated:")
-    expect(page).to have_css('dl time[datetime="2007-02-14"]')
-
-    expect(page).to have_content("News Story")
-
-    expect(page).to have_content("Ministry of Justice")
-  end
-end
-
 Then(/^I see the atom feed$/) do
   expect(page).to have_selector("id", text: "tag:www.dev.gov.uk,2005:/restrictions-on-usage-of-spells-within-school-grounds")
   expect(page).to have_selector("updated", text: "2017-12-30T10:00:00+00:00")
@@ -319,11 +248,6 @@ Given(/^a collection of documents that can be filtered by dates$/) do
 end
 
 When(/^I use a date filter$/) do
-  visit_cma_cases_finder
-  apply_date_filter
-end
-
-When(/^I use a collection of documents exist that can be filtered by checkbox filter$/) do
   visit_cma_cases_finder
   apply_date_filter
 end
@@ -427,12 +351,6 @@ end
 Given(/^a finder with metadata exists$/) do
   stub_taxonomy_api_request
   stub_content_store_with_cma_cases_finder_with_metadata
-  stub_rummager_with_cma_cases
-end
-
-Given(/^a finder with metadata with a topic param set exists$/) do
-  stub_taxonomy_api_request
-  stub_content_store_with_cma_cases_finder_with_metadata_with_topic_param
   stub_rummager_with_cma_cases
 end
 
@@ -585,10 +503,6 @@ Then(/^I see services in alphabetical order$/) do
   expect(page).to have_css("#order", text: "A-Z")
 end
 
-Then(/^I see most relevant order selected$/) do
-  expect(page).to have_select("order", selected: "Relevance")
-end
-
 Then(/^I see (.*) order selected$/) do |label|
   expect(page).to have_select("order", selected: label)
 end
@@ -600,10 +514,6 @@ And(/^I see the facet tag$/) do
     expect(page).to have_css("[data-module='remove-filter-link']")
     expect(page).to have_css("[aria-label='Remove filter Open']")
   end
-end
-
-And(/^I select a taxon$/) do
-  select("Taxon_1", from: "Topic")
 end
 
 And(/^I select a Person$/) do
@@ -657,17 +567,8 @@ Then(/^I should see all world locations in the world location facet$/) do
   find("label", text: "Tracy Island")
 end
 
-And(/^I select a World Location$/) do
-  click_on("World location")
-  check("Azkaban")
-end
-
 And(/^I click button "([^"]*)" and select facet (.*)$/) do |button, facet|
   click_on(button)
-  find("label", text: facet).click
-end
-
-And(/^I select facet (.*) in the already expanded "([^"]*)" section$/) do |facet, _button|
   find("label", text: facet).click
 end
 
@@ -686,18 +587,6 @@ end
 
 And(/^I fill in some keywords$/) do
   fill_in "Search", with: "Keyword1 Keyword2\n"
-end
-
-And(/^I submit the form$/) do
-  page.execute_script("document.querySelector('.js-live-search-form').submit()")
-end
-
-Then(/^The keyword textbox is empty$/) do
-  expect(page).to have_field("Search", with: "")
-end
-
-Then(/^The keyword textbox only contains (.*)$/) do |filter|
-  expect(page).to have_field("Search", with: filter)
 end
 
 When(/^I use a checkbox filter and another disallowed filter$/) do
@@ -746,18 +635,6 @@ Then("I see an error about selecting at least one option") do
   expect(page).to have_content("Select at least one option")
 end
 
-When("I create an email subscription") do
-  within "#subscription-links-footer" do
-    click_link("Get emails")
-  end
-end
-
-Then("I should see results in the default group") do
-  within("#js-results .filtered-results__group") do
-    expect(page.all(".gem-c-document-list__item").size).to eq(9) # 9 results in fixture
-  end
-end
-
 Then("I should see results for scoped by the selected document type") do
   expect(page).to have_text("3 results")
   within("#js-results") do
@@ -767,26 +644,6 @@ Then("I should see results for scoped by the selected document type") do
     expect(page).to have_link("Installation of double glazing at Hogwarts")
 
     expect(page).to have_no_link("Proposed changes to magic tournaments")
-  end
-end
-
-Then("I see results grouped by primary facet value") do
-  within("#js-results") do
-    expect(page.all(".filtered-results__group").size).to eq(2)
-
-    within(".filtered-results__group:nth-child(1)") do
-      expect(page).to have_css("h2.filtered-results__facet-heading", text: "Aerospace")
-    end
-
-    within(".filtered-results__group:nth-child(2)") do
-      expect(page).to have_css("h2.filtered-results__facet-heading", text: "All businesses")
-    end
-  end
-end
-
-Then("I see results with top result") do
-  within("#js-results") do
-    expect(page.all(".gem-c-document-list__item--highlight").length).to eq(1)
   end
 end
 
@@ -816,10 +673,6 @@ And(/^I press (tab) key to navigate$/) do |key|
   find_field("Search").send_keys key.to_sym
 end
 
-Then(/^I click "(.*)" to expand|collapse all facets/) do |link_text|
-  click_button(link_text)
-end
-
 Then(/^I should (see|not see) a "Skip to results" link$/) do |can_be_seen|
   visibility = can_be_seen == "see"
   expect(page).to have_css('[href="#js-results"]', visible: visibility)
@@ -835,22 +688,4 @@ end
 
 And(/^I should not see an upcoming statistics facet tag$/) do
   expect(page).to_not have_css("span.facet-tag__text", text: "Upcoming statistics")
-end
-
-Then(/^I can see results filtered by that manual$/) do
-  expect(page).to have_css(".finder-results .gem-c-document-list__item", count: 1)
-
-  within ".finder-results .gem-c-document-list__item:nth-child(1)" do
-    expect(page).to_not have_content("Restrictions on usage of spells within school grounds")
-    expect(page).to have_content("Replacing bristles in your Nimbus 2000")
-  end
-end
-
-Then(/^I see all content results$/) do
-  expect(page).to have_css(".finder-results .gem-c-document-list__item", count: 1)
-
-  within ".finder-results .gem-c-document-list__item:nth-child(1)" do
-    expect(page).to have_content("Restrictions on usage of spells within school grounds")
-    expect(page).to_not have_content("Replacing bristles in your Nimbus 2000")
-  end
 end

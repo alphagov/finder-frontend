@@ -2,24 +2,8 @@ Given(/^the search page exists$/) do
   stub_content_store_has_item("/search", schema: "special_route")
 end
 
-When(/^I search for an empty string$/) do
-  visit "/search?q="
-end
-
-When(/^I search for "([^"]*)" from "([^"]*)"$/) do |search_term, organisation|
-  visit "/search?q=#{search_term}&filter_organisations[]=#{organisation}"
-end
-
-When(/^I search for "([^"]*)" in manual "([^"]*)"$/) do |search_term, manual|
-  visit "/search?q=#{search_term}&filter_manual[]=#{manual}"
-end
-
 When(/^I search for "([^"]*)" from "(.*)" on the legacy json endpoint$/) do |search_term, organisation|
   visit "/search.json?q=#{search_term}&filter_organisations[]=#{organisation}"
-end
-
-Then(/^I am able to set search terms$/) do
-  expect(page).to have_field("Search GOV.UK", with: "")
 end
 
 Given(/^the all content finder exists$/) do
@@ -50,10 +34,6 @@ end
 Then(/^I am redirected to the (html|json) all content finder results page$/) do |format|
   expect(page).to have_current_path(finder_path("search/all"), ignore_query: true)
   expect(page.response_headers["Content-Type"]).to include(format)
-end
-
-Then(/^results are filtered with a facet tag of (.*)/) do |text|
-  expect(page).to have_selector("span[class='facet-tag__text']", text:)
 end
 
 When(/^I search for "([^"]*)" on the legacy search page$/) do |search_term|
