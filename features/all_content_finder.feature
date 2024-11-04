@@ -5,7 +5,7 @@ Feature: All content finder ("site search")
 
   Background:
     Given the all content finder exists
-    And the new all content finder UI is enabled
+    And the search page exists
 
   Scenario: Making a search
     When I search all content for "how to walk silly"
@@ -85,3 +85,11 @@ Feature: All content finder ("site search")
     Then I can see a breadcrumb for home
     And I can see a breadcrumb for all organisations
     And I can see a breadcrumb for the organisation
+
+  Scenario: Legacy search page
+    When I search for "drving" on the legacy search page
+    Then I am redirected to the html all content finder results page
+
+  Scenario: Legacy JSON endpoint
+    When I search for "search-term" from "ministry-of-magic" on the legacy json endpoint
+    Then I am redirected to the json all content finder results page

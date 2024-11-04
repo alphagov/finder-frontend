@@ -14,7 +14,7 @@ When(/^I search for "([^"]*)" in manual "([^"]*)"$/) do |search_term, manual|
   visit "/search?q=#{search_term}&filter_manual[]=#{manual}"
 end
 
-When(/^I search for "([^"]*)" from "(.*)" on the json endpoint$/) do |search_term, organisation|
+When(/^I search for "([^"]*)" from "(.*)" on the legacy json endpoint$/) do |search_term, organisation|
   visit "/search.json?q=#{search_term}&filter_organisations[]=#{organisation}"
 end
 
@@ -47,11 +47,6 @@ Given(/^the all content finder exists$/) do
   stub_search_api_request_with_filtered_query
 end
 
-Given(/^the new all content finder UI is (\w+)$/) do |state|
-  env_value = state == "enabled" ? "true" : nil
-  stub_const("ENV", ENV.to_hash.merge("ENABLE_NEW_ALL_CONTENT_FINDER_UI" => env_value))
-end
-
 Then(/^I am redirected to the (html|json) all content finder results page$/) do |format|
   expect(page).to have_current_path(finder_path("search/all"), ignore_query: true)
   expect(page.response_headers["Content-Type"]).to include(format)
@@ -61,7 +56,7 @@ Then(/^results are filtered with a facet tag of (.*)/) do |text|
   expect(page).to have_selector("span[class='facet-tag__text']", text:)
 end
 
-When(/^I search for "([^"]*)"$/) do |search_term|
+When(/^I search for "([^"]*)" on the legacy search page$/) do |search_term|
   visit "/search?q=#{search_term}"
 end
 
