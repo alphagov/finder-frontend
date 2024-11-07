@@ -11,6 +11,7 @@
     <meta name="govuk:discovery-engine-attribution-token" content="<%= result_set_presenter.discovery_engine_attribution_token %>">
   <% end %>
   <meta name="govuk:spelling-suggestion" content="<%= @spelling_suggestion_presenter.suggestions.first&.fetch(:keywords, "") %>">
+  <%= @requested_variant.analytics_meta_tag.html_safe if @requested_variant.present? %>
 <% end %>
 <% content_for :meta_title, content_item.title %>
 
@@ -53,7 +54,7 @@
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-two-thirds-from-desktop">
         <div id="keywords" role="search" aria-label="Sitewide">
-          <%= render "govuk_publishing_components/components/search", {
+          <%= render "govuk_publishing_components/components/#{@ab_test_search_component}", {
             id: "finder-keyword-search",
             name: "keywords",
             type: 'search',
@@ -68,6 +69,8 @@
             wrap_label_in_a_heading: true,
             heading_level: 1,
             margin_bottom: 0,
+            source_url: @autocomplete_url,
+            source_key: "suggestions"
           } %>
         </div>
 
