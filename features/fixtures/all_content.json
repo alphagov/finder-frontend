@@ -8,6 +8,15 @@
     "document_noun": "result",
     "facets": [
       {
+        "display_as_result_metadata": true,
+        "filterable": true,
+        "key": "public_timestamp",
+        "name": "Date",
+        "preposition": "Updated",
+        "short_name": "Updated",
+        "type": "date"
+      },
+      {
         "display_as_result_metadata": false,
         "filter_key": "all_part_of_taxonomy_tree",
         "filterable": true,
@@ -88,15 +97,6 @@
         "type": "hidden_clearable"
       },
       {
-        "display_as_result_metadata": true,
-        "filterable": true,
-        "key": "public_timestamp",
-        "name": "Updated",
-        "preposition": "Updated",
-        "short_name": "Updated",
-        "type": "date"
-      },
-      {
         "allowed_values": [],
         "display_as_result_metadata": false,
         "filterable": true,
@@ -141,30 +141,30 @@
     "available_translations": [
       {
         "api_path": "/api/content/search/all",
-        "api_url": "https://www.integration.publishing.service.gov.uk/api/content/search/all",
+        "api_url": "https://www.gov.uk/api/content/search/all",
         "base_path": "/search/all",
         "content_id": "dd395436-9b40-41f3-8157-740a453ac972",
         "document_type": "finder",
         "links": {},
         "locale": "en",
-        "public_updated_at": "2024-09-20T09:17:24Z",
+        "public_updated_at": "2024-10-24T11:19:57Z",
         "schema_name": "finder",
         "title": "Search",
-        "web_url": "https://www.integration.publishing.service.gov.uk/search/all",
+        "web_url": "https://www.gov.uk/search/all",
         "withdrawn": false
       }
     ]
   },
   "locale": "en",
   "phase": "live",
-  "public_updated_at": "2024-09-20T10:17:24+01:00",
+  "public_updated_at": "2024-10-24T12:19:57+01:00",
   "publishing_app": "search-api",
-  "publishing_request_id": "21-1726823845.044-10.1.34.217-616",
+  "publishing_request_id": "21-1729768797.580-10.13.32.238-615",
   "publishing_scheduled_at": null,
   "rendering_app": "finder-frontend",
   "scheduled_publishing_delay_seconds": null,
   "schema_name": "finder",
   "title": "Search",
-  "updated_at": "2024-09-20T10:17:25+01:00",
+  "updated_at": "2024-10-24T12:19:57+01:00",
   "withdrawn_notice": {}
 }

@@ -88,7 +88,7 @@ Then("I can see a filter section for every visible facet on the all content find
   expect(page).to have_selector("h2", text: "Sort by")
   expect(page).to have_selector("h2", text: "Filter by Topic")
   expect(page).to have_selector("h2", text: "Filter by Type")
-  expect(page).to have_selector("h2", text: "Filter by Updated")
+  expect(page).to have_selector("h2", text: "Filter by Date")
 
   # These are hidden clearable filters and should not have a section
   expect(page).not_to have_selector("h2", text: "Filter by Organisation")
@@ -106,7 +106,7 @@ Then("the filter panel shows status text for each section") do
   within(".app-c-filter-panel") do
     expect(page).to have_selector("summary", text: "Filter by Topic 2 selected", normalize_ws: true)
     expect(page).to have_selector("summary", text: "Filter by Type 2 selected", normalize_ws: true)
-    expect(page).to have_selector("summary", text: "Filter by Updated 2 selected", normalize_ws: true)
+    expect(page).to have_selector("summary", text: "Filter by Date 2 selected", normalize_ws: true)
   end
 end
 

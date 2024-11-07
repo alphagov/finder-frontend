@@ -7,6 +7,7 @@ describe DateFacet do
     {
       "type" => "date",
       "name" => "Occurred",
+      "short_name" => "Happened",
       "key" => "date_of_occurrence",
       "preposition" => "occurred",
     }
@@ -67,7 +68,7 @@ describe DateFacet do
 
       it "returns the expected applied filters" do
         expect(subject.applied_filters).to eql([{
-          name: "Occurred after",
+          name: "Happened after",
           label: "22 September 1988",
           query_params: { "date_of_occurrence" => { from: "22/09/1988" } },
         }])
@@ -85,12 +86,12 @@ describe DateFacet do
       it "returns the expected applied filters" do
         expect(subject.applied_filters).to eql([
           {
-            name: "Occurred after",
+            name: "Happened after",
             label: "22 September 1988",
             query_params: { "date_of_occurrence" => { from: "22/09/1988" } },
           },
           {
-            name: "Occurred before",
+            name: "Happened before",
             label: "22 September 2014",
             query_params: { "date_of_occurrence" => { to: "22/09/2014" } },
           },

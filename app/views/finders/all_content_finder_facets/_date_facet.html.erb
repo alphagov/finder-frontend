@@ -6,7 +6,7 @@
 } do %>
   <%= date_input(
     "#{date_facet.key}[from]",
-    date_facet.name,
+    date_facet.short_name,
     date_facet.parsed_from_date&.to_hash,
     hint: "For example, 28 2 #{Date.current.year - 2}",
     error_message: date_facet.error_message_from(@search_query),
@@ -15,7 +15,7 @@
 
   <%= date_input(
     "#{date_facet.key}[to]",
-    date_facet.name,
+    date_facet.short_name,
     date_facet.parsed_to_date&.to_hash,
     hint: "For example, 13 12 #{Date.current.year - 1}",
     error_message: date_facet.error_message_to(@search_query),

@@ -41,7 +41,7 @@ class DateFacet < FilterableFacet
     present_values.map do |type, date|
       preposition = preposition_mappings[type]
       {
-        name: "#{name} #{preposition}",
+        name: "#{short_name} #{preposition}",
         label: date.date.strftime("%e %B %Y"),
         query_params: { key => { type => date.original_input } },
       }
