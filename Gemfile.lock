@@ -161,7 +161,7 @@ GEM
     faker (3.4.1)
       i18n (>= 1.8.11, < 2)
     ffi (1.17.0)
-    gds-api-adapters (97.1.0)
+    gds-api-adapters (97.3.0)
       addressable
       link_header
       null_logger
@@ -191,7 +191,7 @@ GEM
     govuk_personalisation (1.0.0)
       plek (>= 1.9.0)
       rails (>= 6, < 8)
-    govuk_publishing_components (45.2.0)
+    govuk_publishing_components (45.3.0)
       chartkick
       govuk_app_config
       govuk_personalisation (>= 0.7.0)
