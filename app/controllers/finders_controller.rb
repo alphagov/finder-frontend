@@ -62,10 +62,6 @@ class FindersController < ApplicationController
     @pagination = pagination_presenter
     @spelling_suggestion_presenter = spelling_suggestion_presenter
     @ab_test_search_component = use_autocomplete? ? "search_with_autocomplete" : "search"
-    @autocomplete_source_url = ENV.fetch(
-      "SEARCH_AUTOCOMPLETE_API_URL",
-      helpers.absolute_url_for(api_search_autocomplete_path(format: :json)),
-    )
   end
 
 private
