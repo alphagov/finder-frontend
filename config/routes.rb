@@ -4,6 +4,10 @@ Rails.application.routes.draw do
   get "/healthcheck/live", to: proc { [200, {}, %w[OK]] }
   get "/healthcheck/ready", to: proc { [200, {}, [JSON.generate({ status: :ok })]] }
 
+  namespace :api do
+    get "/search/autocomplete" => "autocompletes#index"
+  end
+
   root to: redirect("/development") unless Rails.env.test?
   get "/development" => "development#index"
 
