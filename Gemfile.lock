@@ -498,6 +498,8 @@ GEM
       nio4r (~> 2.0)
     racc (1.8.1)
     rack (3.1.8)
+    rack-cors (2.0.2)
+      rack (>= 2.0.0)
     rack-proxy (0.7.7)
       rack
     rack-session (2.0.0)
@@ -695,6 +697,7 @@ DEPENDENCIES
   launchy
   listen
   pry-byebug
+  rack-cors
   rails (= 7.2.2)
   rails-controller-testing
   rest-client
