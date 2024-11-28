@@ -251,32 +251,6 @@ describe FindersController, type: :controller do
         expect(response.status).to eq(200)
         expect(response).to render_template("finders/show_all_content_finder")
       end
-
-      describe "SearchAutocomplete AB test" do
-        it "does not render the search_with_autocomplete component in the A variant" do
-          with_variant SearchAutocomplete: "A" do
-            get :show, params: { slug: "search/all", keywords: "hello" }
-          end
-
-          expect(response.body).not_to include('"gem-c-search-with-autocomplete"')
-        end
-
-        it "renders the search_with_autocomplete component in the B variant" do
-          with_variant SearchAutocomplete: "B" do
-            get :show, params: { slug: "search/all", keywords: "hello" }
-          end
-
-          expect(response.body).to include('"gem-c-search-with-autocomplete"')
-        end
-
-        it "does not render the search_with_autocomplete component in the Z variant" do
-          with_variant SearchAutocomplete: "Z" do
-            get :show, params: { slug: "search/all", keywords: "hello" }
-          end
-
-          expect(response.body).not_to include('"gem-c-search-with-autocomplete"')
-        end
-      end
     end
   end
 

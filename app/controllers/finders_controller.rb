@@ -1,11 +1,8 @@
 class FindersController < ApplicationController
   layout "finder_layout"
 
-  include AbTest::SearchAutocompleteAbTestable
-
   before_action do
     set_expiry(content_item)
-    set_search_autocomplete_ab_test_requested_variant if content_item.all_content_finder?
   end
 
   def show
@@ -61,7 +58,6 @@ class FindersController < ApplicationController
     @sort_presenter = sort_presenter
     @pagination = pagination_presenter
     @spelling_suggestion_presenter = spelling_suggestion_presenter
-    @ab_test_search_component = use_autocomplete? ? "search_with_autocomplete" : "search"
   end
 
 private
