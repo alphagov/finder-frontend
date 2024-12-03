@@ -19,6 +19,8 @@
 //= require govuk_publishing_components/components/radio
 //= require govuk_publishing_components/components/search-with-autocomplete
 //
+//= require govuk_web_banners/dependencies
+//
 //= require support
 //
 //= require_tree ./analytics-ga4
