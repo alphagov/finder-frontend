@@ -53,7 +53,7 @@
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-two-thirds-from-desktop">
         <div id="keywords" role="search" aria-label="Sitewide">
-          <%= render "govuk_publishing_components/components/search_with_autocomplete", {
+          <%= render "govuk_publishing_components/components/#{@search_component}", {
             id: "finder-keyword-search",
             name: "keywords",
             type: 'search',
