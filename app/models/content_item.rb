@@ -164,10 +164,6 @@ class ContentItem
     base_path == "/find-licences"
   end
 
-  def has_user_research_banner?
-    base_path == "/business-finance-support"
-  end
-
 private
 
   attr_reader :content_item_hash
