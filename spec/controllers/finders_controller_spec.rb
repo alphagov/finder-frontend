@@ -252,29 +252,22 @@ describe FindersController, type: :controller do
         expect(response).to render_template("finders/show_all_content_finder")
       end
 
-      describe "SearchAutocomplete AB test" do
-        it "does not render the search_with_autocomplete component in the A variant" do
-          with_variant SearchAutocomplete: "A" do
+      describe "search autocomplete" do
+        it "renders the search autocomplete when enabled" do
+          ClimateControl.modify GOVUK_DISABLE_SEARCH_AUTOCOMPLETE: nil do
             get :show, params: { slug: "search/all", keywords: "hello" }
-          end
 
-          expect(response.body).not_to include('"gem-c-search-with-autocomplete"')
+            expect(response.body).to include("gem-c-search-with-autocomplete")
+          end
         end
 
-        it "renders the search_with_autocomplete component in the B variant" do
-          with_variant SearchAutocomplete: "B" do
+        it "does not render the autocomplete when disabled" do
+          ClimateControl.modify GOVUK_DISABLE_SEARCH_AUTOCOMPLETE: "1" do
             get :show, params: { slug: "search/all", keywords: "hello" }
+
+            expect(response.body).not_to include("gem-c-search-with-autocomplete")
+            expect(response.body).to include("gem-c-search")
           end
-
-          expect(response.body).to include('"gem-c-search-with-autocomplete"')
-        end
-
-        it "does not render the search_with_autocomplete component in the Z variant" do
-          with_variant SearchAutocomplete: "Z" do
-            get :show, params: { slug: "search/all", keywords: "hello" }
-          end
-
-          expect(response.body).not_to include('"gem-c-search-with-autocomplete"')
         end
       end
 
