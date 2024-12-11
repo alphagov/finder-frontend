@@ -58,7 +58,6 @@ class FindersController < ApplicationController
     @sort_presenter = sort_presenter
     @pagination = pagination_presenter
     @spelling_suggestion_presenter = spelling_suggestion_presenter
-    @search_component = use_autocomplete? ? "search_with_autocomplete" : "search"
   end
 
 private
@@ -386,9 +385,5 @@ private
     if arr.respond_to? "reject"
       arr.reject { |v| v == "all" }.compact.presence
     end
-  end
-
-  def use_autocomplete?
-    true unless ENV["GOVUK_DISABLE_SEARCH_AUTOCOMPLETE"]
   end
 end
