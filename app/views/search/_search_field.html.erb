@@ -6,12 +6,14 @@
 } %>
 <% end %>
 
-<%= render "govuk_publishing_components/components/search", {
+<%= render "govuk_publishing_components/components/#{search_component}", {
   inline_label: false,
   label_text: label_text,
   size: "large",
   id: "search-main",
   disable_corrections: true,
+  source_url: api_search_autocomplete_url(format: :json),
+  source_key: "suggestions",
 } %>
 
 <%= hidden_field_tag("filter_manual[]", params[:filter_manual]) if params[:filter_manual] %>
