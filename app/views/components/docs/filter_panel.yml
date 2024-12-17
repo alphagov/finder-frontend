@@ -98,12 +98,3 @@ examples:
             ]
           } %>
         </div>
-  with_margin_bottom:
-    description: |
-      Allows the spacing at the bottom of the component to be adjusted.
-
-      This accepts a number from `0` to `9` (`0px` to `60px`) using the [GOV.UK Frontend spacing scale](https://design-system.service.gov.uk/styles/spacing/#the-responsive-spacing-scale). It defaults to having no margin bottom.
-    data:
-      result_text: 1 partridge in a pear tree
-      button_text: Loooooads of space
-      margin_bottom: 9
