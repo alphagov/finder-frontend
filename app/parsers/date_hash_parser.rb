@@ -20,12 +20,12 @@ class DateHashParser
   def initialize(date_hash)
     @date_hash = date_hash
       .slice(:day, :month, :year)
-      .compact_blank
-      .transform_values(&:to_i)
+      .transform_values { |value| Integer(value, exception: false) }
+      .select { |_, value| value&.positive? }
   end
 
   def parse
-    return if date_hash.empty? || any_non_positive_values? || day_without_month?
+    return if date_hash.empty? || day_without_month?
 
     Date.new(year, month, day)
   rescue Date::Error
@@ -38,12 +38,6 @@ private
 
   def day_without_month?
     date_hash.key?(:day) && !date_hash.key?(:month)
-  end
-
-  def any_non_positive_values?
-    # If the user enters a zero or negative value, or a string that `#to_i` converts to zero, we
-    # consider the whole date invalid
-    !date_hash.values.all?(&:positive?)
   end
 
   def day
