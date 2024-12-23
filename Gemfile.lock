@@ -154,7 +154,7 @@ GEM
       dotenv (= 3.1.7)
       railties (>= 6.1)
     drb (2.2.1)
-    erubi (1.13.0)
+    erubi (1.13.1)
     execjs (2.9.1)
     factory_bot (6.5.0)
       activesupport (>= 5.0.0)
@@ -170,7 +170,7 @@ GEM
       rest-client (~> 2.0)
     globalid (1.2.1)
       activesupport (>= 6.1)
-    google-protobuf (4.29.1)
+    google-protobuf (4.29.2)
       bigdecimal
       rake (>= 13)
     googleapis-common-protos-types (1.16.0)
@@ -210,9 +210,11 @@ GEM
       capybara (>= 3.36)
       puma
       selenium-webdriver (>= 4.0)
-    govuk_web_banners (0.2.0)
+    govuk_web_banners (0.3.0)
+      govuk_app_config
       govuk_publishing_components
       rails (>= 7)
+      redis
     hashdiff (1.1.1)
     http-accept (1.7.0)
     http-cookie (1.0.8)
@@ -236,7 +238,7 @@ GEM
     listen (3.9.0)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
-    logger (1.6.3)
+    logger (1.6.4)
     logstasher (2.1.5)
       activesupport (>= 5.2)
       request_store
@@ -260,7 +262,7 @@ GEM
     minitest (5.25.4)
     msgpack (1.7.2)
     multi_test (1.1.0)
-    net-imap (0.5.2)
+    net-imap (0.5.4)
       date
       net-protocol
     net-pop (0.1.2)
@@ -378,7 +380,7 @@ GEM
     opentelemetry-instrumentation-excon (0.22.5)
       opentelemetry-api (~> 1.0)
       opentelemetry-instrumentation-base (~> 0.22.1)
-    opentelemetry-instrumentation-faraday (0.24.7)
+    opentelemetry-instrumentation-faraday (0.24.8)
       opentelemetry-api (~> 1.0)
       opentelemetry-instrumentation-base (~> 0.22.1)
     opentelemetry-instrumentation-grape (0.2.0)
@@ -548,6 +550,10 @@ GEM
       ffi (~> 1.0)
     rdoc (6.10.0)
       psych (>= 4.0.0)
+    redis (5.3.0)
+      redis-client (>= 0.22.0)
+    redis-client (0.23.0)
+      connection_pool
     regexp_parser (2.9.3)
     reline (0.6.0)
       io-console (~> 0.5)
