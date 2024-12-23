@@ -105,6 +105,12 @@ RSpec.describe DateHashParser do
         it { is_expected.to be_nil }
       end
 
+      context "with hash with a complex type value" do
+        let(:date_hash) { { day: [1], month: 12, year: 2023 } }
+
+        it { is_expected.to be_nil }
+      end
+
       context "with hash with non-numeric year only" do
         let(:date_hash) { { year: "baz" } }
 
