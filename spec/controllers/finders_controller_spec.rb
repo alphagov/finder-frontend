@@ -270,26 +270,6 @@ describe FindersController, type: :controller do
           end
         end
       end
-
-      context "when GOVUK_CHAT_PROMO_ENABLED is set to 'true'" do
-        it "shows a GOV.UK Chat promo" do
-          ClimateControl.modify GOVUK_CHAT_PROMO_ENABLED: "true" do
-            get :show, params: { slug: "search/all", keywords: "hello" }
-
-            expect(response.body).to have_selector(".gem-c-chat-entry")
-          end
-        end
-      end
-
-      context "when GOVUK_CHAT_PROMO_ENABLED isn't set" do
-        it "doesn't show a GOV.UK Chat promo" do
-          ClimateControl.modify GOVUK_CHAT_PROMO_ENABLED: nil do
-            get :show, params: { slug: "search/all", keywords: "hello" }
-
-            expect(response.body).not_to have_selector(".gem-c-chat-entry")
-          end
-        end
-      end
     end
   end
 
