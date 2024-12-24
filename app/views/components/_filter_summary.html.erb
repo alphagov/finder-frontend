@@ -9,13 +9,10 @@
   reset_link_href ||= nil
   reset_link_text ||= "Clear all filters"
 
-  shared_helper = GovukPublishingComponents::Presenters::SharedHelper.new(local_assigns)
   component_helper = GovukPublishingComponents::Presenters::ComponentWrapperHelper.new(local_assigns)
-  component_helper.add_class(shared_helper.get_margin_bottom) if local_assigns[:margin_bottom]
   component_helper.add_data_attribute({ module: "ga4-event-tracker" })
   component_helper.add_class("app-c-filter-summary")
 %>
-
 <%= tag.div(**component_helper.all_attributes) do %>
   <%= content_tag("h#{heading_level}", heading_text, class: "app-c-filter-summary__heading") %>
 
