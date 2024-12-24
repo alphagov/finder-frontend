@@ -21,7 +21,6 @@ class DateHashParser
     @date_hash = date_hash
       .slice(:day, :month, :year)
       .compact_blank
-      .transform_values(&:to_i)
   end
 
   def parse
@@ -43,19 +42,19 @@ private
   def any_non_positive_values?
     # If the user enters a zero or negative value, or a string that `#to_i` converts to zero, we
     # consider the whole date invalid
-    !date_hash.values.all?(&:positive?)
+    !date_hash.values.all? { |value| value.respond_to?(:to_i) && value.to_i.positive? }
   end
 
   def day
-    date_hash.fetch(:day, 1)
+    date_hash.fetch(:day, 1).to_i
   end
 
   def month
-    date_hash.fetch(:month, 1)
+    date_hash.fetch(:month, 1).to_i
   end
 
   def year
-    value = date_hash.fetch(:year, Date.current.year)
+    value = date_hash.fetch(:year, Date.current.year).to_i
 
     case value
     when 0..MILLENNIUM_CUTOFF
