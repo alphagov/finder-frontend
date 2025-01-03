@@ -143,14 +143,6 @@
 
         <%= render "govuk_publishing_components/components/previous_and_next_navigation", @pagination.next_and_prev_links %>
       </div>
-      <% if ENV["GOVUK_CHAT_PROMO_ENABLED"] == "true" %>
-        <div class="govuk-grid-column-one-third-from-desktop">
-          <%= render "govuk_publishing_components/components/chat_entry", {
-            heading_text: "Ask GOV.UK Chat about business and tax",
-            description_text: "Get quick, tailored answers with GOV.UK’s experimental AI chat",
-          } %>
-        </div>
-      <% end %>
     </div>
   <% end %>
 <% end %>
