@@ -2,16 +2,13 @@
 <%
   title ||= false
   open_on_load ||= false
-  margin_bottom ||= 0
 
   content_id = "expander-content-#{SecureRandom.hex(4)}"
-  shared_helper = GovukPublishingComponents::Presenters::SharedHelper.new(local_assigns)
 
   component_helper = GovukPublishingComponents::Presenters::ComponentWrapperHelper.new(local_assigns)
   component_helper.add_data_attribute({ module: "expander" })
   component_helper.add_data_attribute({ "open-on-load": open_on_load })
   component_helper.add_class("app-c-expander")
-  component_helper.add_class(shared_helper.get_margin_bottom) unless margin_bottom == 0
   component_helper.add_data_attribute({ "button-data-attributes": button_data_attributes }) if local_assigns.include?(:button_data_attributes)
 %>
 <% if title %>
