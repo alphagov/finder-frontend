@@ -13,12 +13,9 @@
   raise ArgumentError, "reset_link_href is required" if show_reset_link && !local_assigns[:reset_link_href]
 
   component_helper = GovukPublishingComponents::Presenters::ComponentWrapperHelper.new(local_assigns)
-  shared_helper = GovukPublishingComponents::Presenters::SharedHelper.new(local_assigns)
   component_helper.add_data_attribute({ module: "filter-panel ga4-event-tracker" })
   component_helper.add_class("app-c-filter-panel")
-  component_helper.add_class(shared_helper.get_margin_bottom) if local_assigns[:margin_bottom]
 %>
-
 <%= tag.div(**component_helper.all_attributes) do %>
   <div class="app-c-filter-panel__header">
     <%= tag.button(
