@@ -26,7 +26,12 @@ RSpec.describe "autocomplete API", type: :request do
   end
 
   describe "CORS headers" do
-    %w[https://www.gov.uk http://example.dev.gov.uk https://example.publishing.service.gov.uk].each do |allowed_host|
+    %w[
+      https://www.gov.uk
+      http://example.dev.gov.uk
+      https://example.publishing.service.gov.uk
+      https://preview-app-abcd123.herokuapp.com
+    ].each do |allowed_host|
       it "returns CORS headers for #{allowed_host}" do
         get "/api/search/autocomplete", params:, headers: { Origin: allowed_host }
 
