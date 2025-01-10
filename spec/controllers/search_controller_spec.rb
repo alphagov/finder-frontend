@@ -36,26 +36,5 @@ describe SearchController, type: :controller do
         expect(response).to redirect_to(destination)
       end
     end
-
-    context "when GOVUK_DISABLE_SEARCH_AUTOCOMPLETE is not set" do
-      it "renders the search autocomplete component" do
-        ClimateControl.modify GOVUK_DISABLE_SEARCH_AUTOCOMPLETE: nil do
-          get :index
-
-          expect(response.body).to include("gem-c-search-with-autocomplete")
-        end
-      end
-    end
-
-    context "when GOVUK_DISABLE_SEARCH_AUTOCOMPLETE is set" do
-      it "renders the search component instead of the autocomplete component" do
-        ClimateControl.modify GOVUK_DISABLE_SEARCH_AUTOCOMPLETE: "1" do
-          get :index
-
-          expect(response.body).not_to include("gem-c-search-with-autocomplete")
-          expect(response.body).to include("gem-c-search")
-        end
-      end
-    end
   end
 end

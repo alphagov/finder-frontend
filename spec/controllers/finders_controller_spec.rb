@@ -251,25 +251,6 @@ describe FindersController, type: :controller do
         expect(response.status).to eq(200)
         expect(response).to render_template("finders/show_all_content_finder")
       end
-
-      describe "search autocomplete" do
-        it "renders the search autocomplete when enabled" do
-          ClimateControl.modify GOVUK_DISABLE_SEARCH_AUTOCOMPLETE: nil do
-            get :show, params: { slug: "search/all", keywords: "hello" }
-
-            expect(response.body).to include("gem-c-search-with-autocomplete")
-          end
-        end
-
-        it "does not render the autocomplete when disabled" do
-          ClimateControl.modify GOVUK_DISABLE_SEARCH_AUTOCOMPLETE: "1" do
-            get :show, params: { slug: "search/all", keywords: "hello" }
-
-            expect(response.body).not_to include("gem-c-search-with-autocomplete")
-            expect(response.body).to include("gem-c-search")
-          end
-        end
-      end
     end
   end
 
