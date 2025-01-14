@@ -38,7 +38,7 @@ describe EmailAlertTitleBuilder do
     it { is_expected.to eq(subscription_list_title_prefix) }
   end
 
-  context "when there is one facet" do
+  context "when there is one facet with a hash subscription_list_title_prefix" do
     let(:subscription_list_title_prefix) do
       { "singular" => "Prefix:", "plural" => "Prefixes:" }
     end
@@ -81,6 +81,51 @@ describe EmailAlertTitleBuilder do
       let(:filter) { { "facet_id" => %w[key_one key_two] } }
 
       it { is_expected.to eq("Prefixes: topic name one and topic name two") }
+    end
+  end
+
+  context "when there is one facet with a string subscription_list_title_prefix" do
+    let(:subscription_list_title_prefix) { "Prefix" }
+
+    let(:facets) do
+      [
+        {
+          "facet_id" => "facet_id",
+          "facet_name" => "facet name",
+          "facet_choices" => [
+            {
+              "key" => "key_one",
+              "radio_button_name" => "radio button name one",
+              "topic_name" => "topic name one",
+              "prechecked" => false,
+            },
+            {
+              "key" => "key_two",
+              "radio_button_name" => "radio button name two",
+              "topic_name" => "topic name two",
+              "prechecked" => false,
+            },
+          ],
+        },
+      ]
+    end
+
+    context "when no choice is selected" do
+      let(:filter) { {} }
+
+      it { is_expected.to eq("Prefix") }
+    end
+
+    context "when one choice is selected" do
+      let(:filter) { { "facet_id" => %w[key_one] } }
+
+      it { is_expected.to eq("Prefix with topic name one") }
+    end
+
+    context "when two choices are selected" do
+      let(:filter) { { "facet_id" => %w[key_one key_two] } }
+
+      it { is_expected.to eq("Prefix with topic name one and topic name two") }
     end
   end
 
