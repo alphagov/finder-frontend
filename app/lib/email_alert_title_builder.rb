@@ -18,17 +18,11 @@ private
   attr_reader :filter, :subscription_list_title_prefix, :facets
 
   def prefix
-    if facets.size == 1 && subscription_list_title_prefix.is_a?(Hash)
-      subscription_list_title_prefix[plural_or_single].to_s.strip
-    elsif selected_facets.empty?
+    if selected_facets.empty?
       subscription_list_title_prefix.to_s.strip
     elsif subscription_list_title_prefix.present?
       "#{subscription_list_title_prefix.strip} with"
     end
-  end
-
-  def plural_or_single
-    filter.fetch(facets.first["facet_id"], []).length == 1 ? "singular" : "plural"
   end
 
   def suffix
