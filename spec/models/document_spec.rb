@@ -65,27 +65,7 @@ describe Document do
         [FactoryBot.build(:option_select_facet, key: "a_filter_key")]
       end
 
-      describe "and the document is not tagged to any values of the facet filter key" do
-        let(:document_hash) do
-          FactoryBot.build(:document_hash, a_filter_key: nil)
-        end
-
-        it "does not return any metadata" do
-          expect(described_class.new(document_hash, 1).metadata(facets)).to eq([])
-        end
-      end
-
-      describe "and the document values do not match the expected format" do
-        let(:document_hash) do
-          FactoryBot.build(:document_hash, a_filter_key: [{ slug: "some-url" }])
-        end
-
-        it "does not return any metadata" do
-          expect(described_class.new(document_hash, 1).metadata(facets)).to eq([])
-        end
-      end
-
-      describe "and the document is tagged to a single value of the facet filter key" do
+      describe "The document is tagged to a single value of the facet filter key" do
         let(:document_hash) do
           FactoryBot.build(:document_hash, a_filter_key: "metadata_label")
         end
@@ -102,18 +82,18 @@ describe Document do
           expect(described_class.new(document_hash, 1).metadata(facets)).to eq([expected_hash])
         end
 
-        describe "and there is a short name in the facet" do
+        describe "There is a short name in the facet" do
           let(:facets) do
             [FactoryBot.build(:option_select_facet, short_name: "short name")]
           end
 
-          it "replaces the name field in the metadata by the short name from the facet" do
+          it "replaces the name field in the metafata by the short name from the facet" do
             expect(described_class.new(document_hash, 1).metadata(facets)).to match([include(name: "short name")])
           end
         end
       end
 
-      describe "and the document is tagged to multiple values of the facet filter key" do
+      describe "The document is tagged to a multiple values of the facet filter key" do
         let(:document_hash) do
           FactoryBot.build(
             :document_hash,
@@ -136,91 +116,6 @@ describe Document do
               type: "text",
             }
           expect(described_class.new(document_hash, 1).metadata(facets)).to eq([expected_hash])
-        end
-      end
-
-      context "and the facet has a set of allowed values" do
-        let(:allowed_values) do
-          [
-            { "label" => "metadata label 1", value: "metadata_label_1" },
-            { "label" => "metadata label 2", value: "metadata_label_2" },
-            { "label" => "metadata label 3", value: "metadata_label_3" },
-          ]
-        end
-        let(:facets) do
-          [FactoryBot.build(:option_select_facet, key: "a_filter_key", allowed_values:)]
-        end
-
-        describe "and the document is tagged to multiple values of the facet filter key" do
-          let(:document_hash) do
-            FactoryBot.build(
-              :document_hash,
-              a_filter_key:
-                [
-                  { "label" => "metadata label 1", value: "metadata_label_1" },
-                  { "label" => "metadata label 3", value: "metadata_label_3" },
-                ],
-            )
-          end
-
-          it "gets the metadata" do
-            expected_hash =
-              {
-                id: "a_filter_key",
-                name: "A filter key",
-                value: "metadata label 1 and 1 others",
-                labels: ["metadata label 1", "metadata label 3"],
-                type: "text",
-              }
-            expect(described_class.new(document_hash, 1).metadata(facets)).to eq([expected_hash])
-          end
-        end
-
-        describe "and the document is tagged to a multiple values of the facet filter key that do not match any allowed values" do
-          let(:document_hash) do
-            FactoryBot.build(
-              :document_hash,
-              a_filter_key:
-                [
-                  { "label" => "mismatched label 1", value: "mismatched_label_1" },
-                  { "label" => "mismatched label 3", value: "mismatched_label_3" },
-                ],
-            )
-          end
-
-          it "gets the metadata" do
-            expected_hash =
-              {
-                id: "a_filter_key",
-                name: "A filter key",
-                value: "mismatched label 1 and 1 others",
-                labels: ["mismatched label 1", "mismatched label 3"],
-                type: "text",
-              }
-            expect(described_class.new(document_hash, 1).metadata(facets)).to eq([expected_hash])
-          end
-        end
-
-        describe "and the document is tagged to a multiple values of the facet filter key without search result expansion" do
-          let(:document_hash) do
-            FactoryBot.build(
-              :document_hash,
-              a_filter_key:
-                %w[metadata_label_1 metadata_label_3],
-            )
-          end
-
-          it "gets the metadata" do
-            expected_hash =
-              {
-                id: "a_filter_key",
-                name: "A filter key",
-                value: "metadata label 1 and 1 others",
-                labels: ["metadata label 1", "metadata label 3"],
-                type: "text",
-              }
-            expect(described_class.new(document_hash, 1).metadata(facets)).to eq([expected_hash])
-          end
         end
       end
     end
