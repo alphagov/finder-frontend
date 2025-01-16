@@ -87,7 +87,7 @@ describe Document do
 
       describe "and the document is tagged to a single value of the facet filter key" do
         let(:document_hash) do
-          FactoryBot.build(:document_hash, a_filter_key: "metadata_label")
+          FactoryBot.build(:document_hash, a_filter_key: "metadata_label_1")
         end
 
         it "gets metadata for a simple text value" do
@@ -95,8 +95,8 @@ describe Document do
             {
               id: "a_filter_key",
               name: "A filter key",
-              value: "metadata_label",
-              labels: %w[metadata_label],
+              value: "metadata_label_1",
+              labels: %w[metadata_label_1],
               type: "text",
             }
           expect(described_class.new(document_hash, 1).metadata(facets)).to eq([expected_hash])
@@ -109,6 +109,31 @@ describe Document do
 
           it "replaces the name field in the metadata by the short name from the facet" do
             expect(described_class.new(document_hash, 1).metadata(facets)).to match([include(name: "short name")])
+          end
+        end
+
+        context "and the facet has a set of allowed values" do
+          let(:allowed_values) do
+            [
+              { "label" => "metadata label 1", value: "metadata_label_1" },
+              { "label" => "metadata label 2", value: "metadata_label_2" },
+              { "label" => "metadata label 3", value: "metadata_label_3" },
+            ]
+          end
+          let(:facets) do
+            [FactoryBot.build(:option_select_facet, key: "a_filter_key", allowed_values:)]
+          end
+
+          it "gets the metadata" do
+            expected_hash =
+              {
+                id: "a_filter_key",
+                name: "A filter key",
+                value: "metadata label 1",
+                labels: ["metadata label 1"],
+                type: "text",
+              }
+            expect(described_class.new(document_hash, 1).metadata(facets)).to eq([expected_hash])
           end
         end
       end

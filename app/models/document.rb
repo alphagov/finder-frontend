@@ -133,6 +133,7 @@ private
   end
 
   def metadata_labels_from_allowed_values(allowed_values, document_values, facet_key)
+    document_values = [document_values] unless document_values.is_a?(Array)
     document_values.map do |document_value|
       document_value_key = document_value.is_a?(Hash) ? document_value["value"] : document_value
       matched_value = allowed_values.find { |allowed_value| allowed_value["value"] == document_value_key }
