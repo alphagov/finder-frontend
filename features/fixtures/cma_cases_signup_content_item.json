@@ -141,6 +141,10 @@
     "filter": {
       "format": "cma_case"
     },
-    "subscription_list_title_prefix": "CMA cases"
+    "subscription_list_title_prefix": {
+      "singular": "CMA cases with the following case type: ",
+      "plural": "CMA cases with the following case types: ",
+      "many": "Competition and Markets Authority (CMA) cases: "
+    }
   }
 }
