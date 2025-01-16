@@ -65,7 +65,7 @@ describe Document do
         [FactoryBot.build(:option_select_facet, key: "a_filter_key")]
       end
 
-      describe "The document is not tagged to any values of the facet filter key" do
+      describe "and the document is not tagged to any values of the facet filter key" do
         let(:document_hash) do
           FactoryBot.build(:document_hash, a_filter_key: nil)
         end
@@ -75,7 +75,7 @@ describe Document do
         end
       end
 
-      describe "The document values do not match the expected format" do
+      describe "and the document values do not match the expected format" do
         let(:document_hash) do
           FactoryBot.build(:document_hash, a_filter_key: [{ slug: "some-url" }])
         end
@@ -85,7 +85,7 @@ describe Document do
         end
       end
 
-      describe "The document is tagged to a single value of the facet filter key" do
+      describe "and the document is tagged to a single value of the facet filter key" do
         let(:document_hash) do
           FactoryBot.build(:document_hash, a_filter_key: "metadata_label")
         end
@@ -102,18 +102,18 @@ describe Document do
           expect(described_class.new(document_hash, 1).metadata(facets)).to eq([expected_hash])
         end
 
-        describe "There is a short name in the facet" do
+        describe "and there is a short name in the facet" do
           let(:facets) do
             [FactoryBot.build(:option_select_facet, short_name: "short name")]
           end
 
-          it "replaces the name field in the metafata by the short name from the facet" do
+          it "replaces the name field in the metadata by the short name from the facet" do
             expect(described_class.new(document_hash, 1).metadata(facets)).to match([include(name: "short name")])
           end
         end
       end
 
-      describe "The document is tagged to a multiple values of the facet filter key" do
+      describe "and the document is tagged to multiple values of the facet filter key" do
         let(:document_hash) do
           FactoryBot.build(
             :document_hash,
@@ -151,7 +151,7 @@ describe Document do
           [FactoryBot.build(:option_select_facet, key: "a_filter_key", allowed_values:)]
         end
 
-        describe "The document is tagged to multiple values of the facet filter key" do
+        describe "and the document is tagged to multiple values of the facet filter key" do
           let(:document_hash) do
             FactoryBot.build(
               :document_hash,
@@ -176,7 +176,7 @@ describe Document do
           end
         end
 
-        describe "The document is tagged to a multiple values of the facet filter key that do not match any allowed values" do
+        describe "and the document is tagged to a multiple values of the facet filter key that do not match any allowed values" do
           let(:document_hash) do
             FactoryBot.build(
               :document_hash,
@@ -201,7 +201,7 @@ describe Document do
           end
         end
 
-        describe "The document is tagged to a multiple values of the facet filter key without search result expansion" do
+        describe "and the document is tagged to a multiple values of the facet filter key without search result expansion" do
           let(:document_hash) do
             FactoryBot.build(
               :document_hash,
