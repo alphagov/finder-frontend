@@ -68,10 +68,10 @@ private
     metadata_facets(facets).select { |f| f.type == "date" }.map(&:key)
   end
 
-  def text_metadata_facets(facets)
-    facets = metadata_facets(facets).select { |f| f.type == "text" }
-    facets.reject do |facet|
-      facet.key == "organisations" && is_mainstream_content?
+  def text_metadata_keys(facets)
+    keys = metadata_facets(facets).select { |f| f.type == "text" }.map(&:key)
+    keys.reject do |key|
+      key == "organisations" && is_mainstream_content?
     end
   end
 
@@ -100,44 +100,36 @@ private
   end
 
   def text_metadata(facets)
-    metadata_labels = {}
-    text_metadata_facets(facets).each do |facet|
-      document_values = document_hash[facet.key]
-      next if document_values.nil?
-
-      metadata_labels[facet.key] = if facet.allowed_values.empty?
-                                     metadata_labels_from_document_values(document_values, facet.key)
-                                   else
-                                     metadata_labels_from_allowed_values(facet.allowed_values, document_values, facet.key)
-                                   end
-    end
-    metadata_labels.map(&method(:build_text_metadata)).select(&method(:metadata_value_present?))
+    text_metadata_keys(facets)
+      .map(&method(:build_text_metadata))
+      .select(&method(:metadata_value_present?))
   end
 
-  def build_text_metadata(facet_key, values)
+  def text_labels_for(key)
+    labels = Array(document_hash.fetch(key, []))
+               .map { |label| get_metadata_label(key, label) }
+               .select(&:present?)
+
+    if key == "organisations"
+      labels = labels.sort_by do |label|
+        label.sub("Closed organisation: ", "ZZ").upcase
+      end
+    end
+
+    labels
+  end
+
+  def build_text_metadata(key)
+    labels = text_labels_for(key)
+    value = format_value(labels)
+
     {
-      id: facet_key,
-      name: facet_key,
-      value: format_value(values),
-      labels: values,
+      id: key,
+      name: key,
+      value:,
+      labels:,
       type: "text",
     }
-  end
-
-  def metadata_labels_from_document_values(document_values, facet_key)
-    if document_values.is_a?(Array)
-      document_values.map { |document_value| get_metadata_label(facet_key, document_value) }
-    else
-      [get_metadata_label(facet_key, document_values)]
-    end
-  end
-
-  def metadata_labels_from_allowed_values(allowed_values, document_values, facet_key)
-    document_values.map do |document_value|
-      document_value_key = document_value.is_a?(Hash) ? document_value["value"] : document_value
-      matched_value = allowed_values.find { |allowed_value| allowed_value["value"] == document_value_key }
-      matched_value ? matched_value["label"] : get_metadata_label(facet_key, document_value)
-    end
   end
 
   def format_value(labels)
