@@ -1,5 +1,5 @@
-# Facade that speaks to rummager. Combines a content item with
-# search results from rummager.
+# Facade that speaks to Search API. Combines a content item with
+# search results from Search API.
 module Search
   class Query
     SITE_SEARCH_FINDER_BASE_PATH = "/search/all".freeze
