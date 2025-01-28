@@ -26,7 +26,7 @@
   <% if is_inverse? %>
     <%= render "govuk_publishing_components/components/inverse_header", {
       full_width: true,
-      padding_top: false
+      padding_top: 0
     } do %>
       <%= render partial: 'show_header', locals: {
         inverse: is_inverse?,
