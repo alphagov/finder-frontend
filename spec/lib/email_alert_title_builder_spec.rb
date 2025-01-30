@@ -1,5 +1,4 @@
 require "spec_helper"
-require "email_alert_title_builder"
 
 describe EmailAlertTitleBuilder do
   include TaxonomySpecHelper

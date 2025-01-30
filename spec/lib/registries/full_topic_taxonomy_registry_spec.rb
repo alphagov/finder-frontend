@@ -1,6 +1,5 @@
 require "securerandom"
 require "spec_helper"
-require "registries/base_registries"
 
 RSpec.describe Registries::FullTopicTaxonomyRegistry do
   include TaxonomySpecHelper
