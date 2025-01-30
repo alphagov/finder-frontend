@@ -486,7 +486,6 @@ module GovukContentSchemaExamples
         "filter" => {
           "document_type" => "cma_case",
         },
-        "format_name" => "Competition and Markets Authority case",
         "show_summaries" => false,
       }
       finder["links"] = {

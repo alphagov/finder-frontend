@@ -43,7 +43,6 @@
     "beta_message": "This is in beta. Please take our <a href='https://www.gov.uk'>survey</a>.",
     "document_noun":"result",
     "filter":{},
-    "format_name":"statistic",
     "show_summaries":true,
     "sort": [
       {

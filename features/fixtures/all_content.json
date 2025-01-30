@@ -108,7 +108,6 @@
         "type": "hidden_clearable"
       }
     ],
-    "format_name": "Documents",
     "reject": {
       "link": [
         "/search/all"

@@ -47,7 +47,6 @@
     "filter":{
       "content_purpose_subgroup": ["news", "speeches_and_statements"]
     },
-    "format_name":"News or communiqué",
     "show_summaries":true,
     "sort": [
       {
