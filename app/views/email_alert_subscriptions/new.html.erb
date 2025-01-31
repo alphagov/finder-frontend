@@ -26,8 +26,11 @@
       ga4_form: ga4_data,
     }) do %>
     <% if @signup_presenter.can_modify_choices? %>
-      <%= render partial: 'govuk_publishing_components/components/title', locals: {
-        title: @signup_presenter.name,
+      <%= render "govuk_publishing_components/components/heading", {
+        text: @signup_presenter.name,
+        heading_level: 1,
+        font_size: "xl",
+        margin_bottom: 8,
       } %>
 
       <% if @error_message.present? %>
@@ -69,8 +72,11 @@
 
     <% else %>
 
-      <%= render partial: 'govuk_publishing_components/components/title', locals: {
-        title: t("email_alert_subscriptions.new.title"),
+      <%= render "govuk_publishing_components/components/heading", {
+        text: t("email_alert_subscriptions.new.title"),
+        heading_level: 1,
+        font_size: "xl",
+        margin_bottom: 8,
       } %>
 
       <p class="govuk-body">
