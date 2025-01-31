@@ -8,89 +8,87 @@
   <%= render 'govuk_publishing_components/components/phase_banner', phase: "beta" %>
 <% end %>
 
-<div class="govuk-width-container">
-  <%
-    ga4_data = {
-      event_name: "form_response",
-      type: "email subscription",
-      section: t("email_alert_subscriptions.new.question", locale: :en),
-      action: "continue",
-      tool_name: "Get emails from GOV.UK",
-    }.to_json
-  %>
-  <%= form_tag(
-    email_alert_subscriptions_path(subscriber_list_params: subscriber_list_params),
-    class: 'signup-choices',
-    data: {
-      module: "ga4-form-tracker",
-      ga4_form: ga4_data,
-    }) do %>
-    <% if @signup_presenter.can_modify_choices? %>
-      <%= render "govuk_publishing_components/components/heading", {
-        text: @signup_presenter.name,
-        heading_level: 1,
-        font_size: "xl",
-        margin_bottom: 8,
-      } %>
+<%
+  ga4_data = {
+    event_name: "form_response",
+    type: "email subscription",
+    section: t("email_alert_subscriptions.new.question", locale: :en),
+    action: "continue",
+    tool_name: "Get emails from GOV.UK",
+  }.to_json
+%>
+<%= form_tag(
+  email_alert_subscriptions_path(subscriber_list_params: subscriber_list_params),
+  class: 'signup-choices',
+  data: {
+    module: "ga4-form-tracker",
+    ga4_form: ga4_data,
+  }) do %>
+  <% if @signup_presenter.can_modify_choices? %>
+    <%= render "govuk_publishing_components/components/heading", {
+      text: @signup_presenter.name,
+      heading_level: 1,
+      font_size: "xl",
+      margin_bottom: 8,
+    } %>
 
-      <% if @error_message.present? %>
-        <%
-          ga4_data = {
-            event_name: "form_error",
-            type: "email subscription",
-            text: @error_message,
-            section: t("email_alert_subscriptions.new.question", locale: :en),
-            action: "error",
-            tool_name: "Get emails from GOV.UK"
-          }.to_json
-        %>
-        <%= content_tag(:div,
-          data: {
-            module: "ga4-auto-tracker",
-            ga4_auto: ga4_data
-          }) do %>
-            <%= render "govuk_publishing_components/components/error_summary", {
-              title: "There is a problem",
-              items: [
-                {
-                  text: @error_message,
-                  href: "#signup-choices-options",
-                }
-              ]
-            } %>
-        <% end %>
+    <% if @error_message.present? %>
+      <%
+        ga4_data = {
+          event_name: "form_error",
+          type: "email subscription",
+          text: @error_message,
+          section: t("email_alert_subscriptions.new.question", locale: :en),
+          action: "error",
+          tool_name: "Get emails from GOV.UK"
+        }.to_json
+      %>
+      <%= content_tag(:div,
+        data: {
+          module: "ga4-auto-tracker",
+          ga4_auto: ga4_data
+        }) do %>
+          <%= render "govuk_publishing_components/components/error_summary", {
+            title: "There is a problem",
+            items: [
+              {
+                text: @error_message,
+                href: "#signup-choices-options",
+              }
+            ]
+          } %>
       <% end %>
-
-      <%= render "govuk_publishing_components/components/checkboxes", {
-        id: "signup-choices-options",
-        name: nil,
-        no_hint_text: true,
-        heading: t("email_alert_subscriptions.new.question"),
-        items: @signup_presenter.choices_formatted,
-        error: @error_message,
-      } %>
-
-    <% else %>
-
-      <%= render "govuk_publishing_components/components/heading", {
-        text: t("email_alert_subscriptions.new.title"),
-        heading_level: 1,
-        font_size: "xl",
-        margin_bottom: 8,
-      } %>
-
-      <p class="govuk-body">
-        <%= t("email_alert_subscriptions.new.description") %>
-      </p>
-
-      <p class="govuk-body govuk-!-margin-bottom-8">
-        <strong class="govuk-!-font-weight-bold"><%= @signup_presenter.name %></strong>
-      </p>
     <% end %>
 
-    <%= render "govuk_publishing_components/components/button", {
-      text: "Continue",
-      margin_bottom: true
+    <%= render "govuk_publishing_components/components/checkboxes", {
+      id: "signup-choices-options",
+      name: nil,
+      no_hint_text: true,
+      heading: t("email_alert_subscriptions.new.question"),
+      items: @signup_presenter.choices_formatted,
+      error: @error_message,
     } %>
+
+  <% else %>
+
+    <%= render "govuk_publishing_components/components/heading", {
+      text: t("email_alert_subscriptions.new.title"),
+      heading_level: 1,
+      font_size: "xl",
+      margin_bottom: 8,
+    } %>
+
+    <p class="govuk-body">
+      <%= t("email_alert_subscriptions.new.description") %>
+    </p>
+
+    <p class="govuk-body govuk-!-margin-bottom-8">
+      <strong class="govuk-!-font-weight-bold"><%= @signup_presenter.name %></strong>
+    </p>
   <% end %>
-</div>
+
+  <%= render "govuk_publishing_components/components/button", {
+    text: "Continue",
+    margin_bottom: true
+  } %>
+<% end %>
