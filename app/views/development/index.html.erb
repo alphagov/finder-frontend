@@ -1,17 +1,24 @@
 <% content_for :title, "Finder Frontend" %>
 
-<div id="content">
-  <%= render "govuk_publishing_components/components/title", title: "Finder Frontend" %>
+<main class="finder-frontend-content govuk-main-wrapper">
+  <div id="content">
+    <%= render "govuk_publishing_components/components/heading", {
+      text: "Finder Frontend",
+      heading_level: 1,
+      font_size: "xl",
+      margin_bottom: 8,
+    } %>
 
-  <%= render "govuk_publishing_components/components/govspeak" do %>
-    <p>This page is only visible in development and Heroku.</p>
+    <%= render "govuk_publishing_components/components/govspeak" do %>
+      <p>This page is only visible in development and Heroku.</p>
 
-    <p>The following pages are rendered by this application:</p>
+      <p>The following pages are rendered by this application:</p>
 
-    <ul>
-    <% @rendered_pages.each do |page| %>
-      <li><%= link_to page.fetch("title"), page.fetch("link") %></li>
+      <ul>
+      <% @rendered_pages.each do |page| %>
+        <li><%= link_to page.fetch("title"), page.fetch("link") %></li>
+      <% end %>
+      </ul>
     <% end %>
-    </ul>
-  <% end %>
-</div>
+  </div>
+</main>
