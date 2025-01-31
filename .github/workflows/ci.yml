@@ -67,7 +67,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           repository: alphagov/publishing-api
-          ref: deployed-to-production
+          ref: main
           path: vendor/publishing-api
 
       - name: Setup Ruby
