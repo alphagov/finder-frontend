@@ -95,7 +95,6 @@
     "filter":{
       "document_type":"aaib_report"
     },
-    "format_name":"Air Accidents Investigation Branch report",
     "show_summaries":true,
     "facets":[
       {

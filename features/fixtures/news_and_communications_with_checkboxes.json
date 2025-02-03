@@ -46,7 +46,6 @@
     "filter":{
       "content_purpose_supergroup":"news_and_communications"
     },
-    "format_name":"News or communiqué",
     "show_summaries":true,
     "sort": [
       {
