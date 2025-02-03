@@ -40,73 +40,75 @@
     } %>
   <% end %>
 
-  <div class="govuk-grid-row">
-    <div class="govuk-grid-column-one-third">
-      <%= render partial: 'facet_collection'%>
-    </div>
+  <div class="govuk-width-container">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-one-third">
+        <%= render partial: 'facet_collection'%>
+      </div>
 
-    <div class="govuk-grid-column-two-thirds js-live-search-results-block filtered-results"
-      role="region"
-      aria-label="<%= content_item.title %> search results"
-      data-ga4-ecommerce
-      data-ga4-ecommerce-start-index="<%= result_set_presenter.start_offset %>"
-      data-ga4-list-title="<%= content_item.title %>"
-      data-ga4-search-query="<%= result_set_presenter.user_supplied_keywords %>"
-      <% unless result_set_presenter.sort_option.nil? %>
-        data-ga4-ecommerce-variant="<%= result_set_presenter.sort_option[:data_ga4_track_label] %>"
-      <% end %>
-      >
-      <div id="js-search-results-info" data-module="remove-filter" class="result-info <%= "govuk-!-margin-bottom-0" if result_set_presenter.has_sort_options %>">
-        <div class="govuk-grid-row">
-          <div class="govuk-grid-column-one-half">
-            <div class="result-info__header">
-              <%= render "govuk_publishing_components/components/heading", {
-                text: result_set_presenter.displayed_total,
-                id: "js-result-count",
-                font_size: "s",
-                margin_bottom: 2,
-                } %>
-                <%= render "govuk_publishing_components/components/skip_link", {
-                  text: 'Skip to results',
-                  href: '#js-results'}
-                %>
+      <div class="govuk-grid-column-two-thirds js-live-search-results-block filtered-results"
+        role="region"
+        aria-label="<%= content_item.title %> search results"
+        data-ga4-ecommerce
+        data-ga4-ecommerce-start-index="<%= result_set_presenter.start_offset %>"
+        data-ga4-list-title="<%= content_item.title %>"
+        data-ga4-search-query="<%= result_set_presenter.user_supplied_keywords %>"
+        <% unless result_set_presenter.sort_option.nil? %>
+          data-ga4-ecommerce-variant="<%= result_set_presenter.sort_option[:data_ga4_track_label] %>"
+        <% end %>
+        >
+        <div id="js-search-results-info" data-module="remove-filter" class="result-info <%= "govuk-!-margin-bottom-0" if result_set_presenter.has_sort_options %>">
+          <div class="govuk-grid-row">
+            <div class="govuk-grid-column-one-half">
+              <div class="result-info__header">
+                <%= render "govuk_publishing_components/components/heading", {
+                  text: result_set_presenter.displayed_total,
+                  id: "js-result-count",
+                  font_size: "s",
+                  margin_bottom: 2,
+                  } %>
+                  <%= render "govuk_publishing_components/components/skip_link", {
+                    text: 'Skip to results',
+                    href: '#js-results'}
+                  %>
+              </div>
+            </div>
+
+            <div
+              class="govuk-grid-column-one-half govuk-!-text-align-right subscription-links subscription-links--desktop"
+              data-module="ga4-link-tracker"
+              data-ga4-track-links-only
+              data-ga4-link='{ "event_name": "navigation", "type": "subscribe", "section": "Top" }'>
+              <%= render "govuk_publishing_components/components/subscription_links", signup_links %>
             </div>
           </div>
-
-          <div
-            class="govuk-grid-column-one-half govuk-!-text-align-right subscription-links subscription-links--desktop"
-            data-module="ga4-link-tracker"
-            data-ga4-track-links-only
-            data-ga4-link='{ "event_name": "navigation", "type": "subscribe", "section": "Top" }'>
-            <%= render "govuk_publishing_components/components/subscription_links", signup_links %>
+          <div id="js-facet-tag-wrapper" class="facet-tags__container" aria-live="assertive">
+            <%= render "facet_tags", facet_tags.present %>
           </div>
         </div>
-        <div id="js-facet-tag-wrapper" class="facet-tags__container" aria-live="assertive">
-          <%= render "facet_tags", facet_tags.present %>
+
+        <div class="govuk-caption-l live-search-loading-message" id="js-loading-message"></div>
+
+        <div id="js-sort-options" data-ga4-change-category="update-sort select">
+          <%= render "sort_options", @sort_presenter.to_hash %>
         </div>
-      </div>
 
-      <div class="govuk-caption-l live-search-loading-message" id="js-loading-message"></div>
+        <div id="js-results">
+          <%= render "search_results", result_set_presenter.search_results_content %>
+        </div>
 
-      <div id="js-sort-options" data-ga4-change-category="update-sort select">
-        <%= render "sort_options", @sort_presenter.to_hash %>
-      </div>
+        <div id="js-pagination">
+          <%= render "govuk_publishing_components/components/previous_and_next_navigation", @pagination.next_and_prev_links %>
+        </div>
 
-      <div id="js-results">
-        <%= render "search_results", result_set_presenter.search_results_content %>
-      </div>
-
-      <div id="js-pagination">
-        <%= render "govuk_publishing_components/components/previous_and_next_navigation", @pagination.next_and_prev_links %>
-      </div>
-
-      <div
-        class="subscription-links"
-        id="subscription-links-footer"
-        data-module="ga4-link-tracker"
-        data-ga4-track-links-only
-        data-ga4-link='{ "event_name": "navigation", "type": "subscribe", "section": "Footer" }'>
-        <%= render "govuk_publishing_components/components/subscription_links", signup_links %>
+        <div
+          class="subscription-links"
+          id="subscription-links-footer"
+          data-module="ga4-link-tracker"
+          data-ga4-track-links-only
+          data-ga4-link='{ "event_name": "navigation", "type": "subscribe", "section": "Footer" }'>
+          <%= render "govuk_publishing_components/components/subscription_links", signup_links %>
+        </div>
       </div>
     </div>
   </div>
