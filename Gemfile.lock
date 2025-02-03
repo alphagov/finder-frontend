@@ -111,7 +111,7 @@ GEM
       bigdecimal
       rexml
     crass (1.0.6)
-    cucumber (9.2.0)
+    cucumber (9.2.1)
       builder (~> 3.2)
       cucumber-ci-environment (> 9, < 11)
       cucumber-core (> 13, < 14)
@@ -132,14 +132,14 @@ GEM
       bigdecimal
     cucumber-gherkin (27.0.0)
       cucumber-messages (>= 19.1.4, < 23)
-    cucumber-html-formatter (21.7.0)
+    cucumber-html-formatter (21.8.0)
       cucumber-messages (> 19, < 27)
     cucumber-messages (22.0.0)
-    cucumber-rails (3.1.0)
+    cucumber-rails (3.1.1)
       capybara (>= 3.11, < 4)
       cucumber (>= 5, < 10)
       railties (>= 5.2, < 9)
-    cucumber-tag-expressions (6.1.1)
+    cucumber-tag-expressions (6.1.2)
     dalli (3.2.8)
     dartsass-rails (0.5.1)
       railties (>= 6.0.0)
@@ -160,7 +160,7 @@ GEM
       activesupport (>= 6.1.0)
     faker (3.4.1)
       i18n (>= 1.8.11, < 2)
-    ffi (1.17.0)
+    ffi (1.17.1)
     gds-api-adapters (98.2.0)
       addressable
       link_header
@@ -504,7 +504,7 @@ GEM
     puma (6.5.0)
       nio4r (~> 2.0)
     racc (1.8.1)
-    rack (3.1.8)
+    rack (3.1.9)
     rack-cors (2.0.2)
       rack (>= 2.0.0)
     rack-proxy (0.7.7)
