@@ -3,7 +3,7 @@ describe('AllContentFinder module', () => {
 
   let allContentFinder, fixture
 
-  const html = `<div class="app-all-content-finder" data-module="all-content-finder">
+  const html = `<div id="app-all-content-finder" data-module="all-content-finder">
     <form method="get" action="/search/all" id="all-content-finder-form" class="js-all-content-finder-form">
       <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds-from-desktop">
@@ -67,7 +67,7 @@ describe('AllContentFinder module', () => {
     fixture = document.createElement('div')
     document.body.appendChild(fixture)
     fixture.innerHTML = html
-    allContentFinder = new GOVUK.Modules.AllContentFinder(fixture.querySelector('.app-all-content-finder'))
+    allContentFinder = new GOVUK.Modules.AllContentFinder(fixture.querySelector('#app-all-content-finder'))
   })
 
   afterEach(() => {
