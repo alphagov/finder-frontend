@@ -16,6 +16,7 @@
 
 <% if is_inverse? %>
   <% content_for :body_classes, "full-width" %>
+  <% content_for :main_element_class, true %>
 <% end %>
 
 <form method="get" action="<%= content_item.base_path %>" class="js-live-search-form"
