@@ -1,5 +1,4 @@
 require "gds_api/test_helpers/content_store"
-require "registries/base_registries"
 
 module TaxonomySpecHelper
   include ::GdsApi::TestHelpers::ContentStore

@@ -21,7 +21,7 @@ Bundler.require(*Rails.groups)
 module FinderFrontend
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 7.0
+    config.load_defaults 8.0
 
     # Configuration for the application, engines, and railties goes here.
     #
@@ -47,5 +47,7 @@ module FinderFrontend
     # to use CSS that has same function names as SCSS such as max.
     # https://github.com/alphagov/govuk-frontend/issues/1350
     config.assets.css_compressor = nil
+
+    config.active_support.to_time_preserves_timezone = :zone
   end
 end
