@@ -67,7 +67,7 @@
 
     <% if content_item.related.any? %>
       <div class="related-links govuk-grid-column-one-third">
-        <ul class="js-finder-results">
+        <ul class="govuk-list js-finder-results">
           <% content_item.related.each do |link| %>
             <li class="related-links__item">
               <%= link_to link['title'], link['web_url'], class: "related-links__link" %>
