@@ -29,10 +29,12 @@
       full_width: true,
       padding_top: 0
     } do %>
-      <%= render partial: 'show_header', locals: {
-        inverse: is_inverse?,
-        page_metadata: page_metadata(content_item, filter_params)
-      } %>
+      <div class="govuk-width-container">
+        <%= render partial: 'show_header', locals: {
+          inverse: is_inverse?,
+          page_metadata: page_metadata(content_item, filter_params)
+        } %>
+      </div>
     <% end %>
   <% else %>
     <%= render partial: 'show_header', locals: {
@@ -41,7 +43,7 @@
     } %>
   <% end %>
 
-  <div class="govuk-width-container">
+  <div class="<%= 'govuk-width-container' if is_inverse? %>">
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-one-third">
         <%= render partial: 'facet_collection'%>
