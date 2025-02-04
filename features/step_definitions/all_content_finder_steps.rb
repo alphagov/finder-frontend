@@ -25,7 +25,7 @@ Then("I can see how many results there are") do
 end
 
 Then(/^the GA4 ecommerce tracking tags are present$/) do
-  container = page.find(".app-all-content-finder[data-ga4-ecommerce]")
+  container = page.find("#app-all-content-finder[data-ga4-ecommerce]")
   expect(container["data-ga4-ecommerce-start-index"]).to eq("1")
   expect(container["data-ga4-list-title"]).to eq("Search")
   expect(container["data-ga4-search-query"]).to eq("how to walk silly")

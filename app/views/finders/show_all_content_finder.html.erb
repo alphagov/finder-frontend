@@ -14,19 +14,21 @@
 <% end %>
 <% content_for :meta_title, content_item.title %>
 
-<% if @breadcrumbs.breadcrumbs %>
-  <%= render 'govuk_publishing_components/components/breadcrumbs', {
-      breadcrumbs: @breadcrumbs.breadcrumbs,
-      collapse_on_mobile: true,
-  } %>
-<% else %>
-  <%= render 'govuk_publishing_components/components/contextual_breadcrumbs', {
-      content_item: content_item.as_hash,
-  } %>
+<% content_for :before_content do %>
+  <% if @breadcrumbs.breadcrumbs %>
+    <%= render 'govuk_publishing_components/components/breadcrumbs', {
+        breadcrumbs: @breadcrumbs.breadcrumbs,
+        collapse_on_mobile: true,
+    } %>
+  <% else %>
+    <%= render 'govuk_publishing_components/components/contextual_breadcrumbs', {
+        content_item: content_item.as_hash,
+    } %>
+  <% end %>
 <% end %>
 
 <%= tag.div(
-  class: "app-all-content-finder",
+  id: "app-all-content-finder",
   data: {
     module: "all-content-finder",
     ga4_ecommerce: "",
