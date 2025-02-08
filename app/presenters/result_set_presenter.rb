@@ -66,6 +66,10 @@ class ResultSetPresenter
     sort_presenter.to_hash.blank? ? true : false
   end
 
+  def debug_serving_config
+    @filter_params[:debug_serving_config].presence
+  end
+
 private
 
   attr_reader :metadata_presenter_class, :sort_presenter, :total, :documents, :facets, :content_item

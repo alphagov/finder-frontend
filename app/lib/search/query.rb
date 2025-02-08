@@ -86,6 +86,7 @@ module Search
         finder_content_item: content_item,
         params: filter_params,
         override_sort_for_feed:,
+        use_v2_api: use_v2_api?,
       ).call
 
       if use_v2_api?
