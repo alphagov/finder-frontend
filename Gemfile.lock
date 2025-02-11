@@ -209,7 +209,7 @@ GEM
       capybara (>= 3.36)
       puma
       selenium-webdriver (>= 4.0)
-    govuk_web_banners (1.0.0)
+    govuk_web_banners (1.0.1)
       govuk_app_config
       govuk_publishing_components
       rails (>= 7)
@@ -263,7 +263,7 @@ GEM
     minitest (5.25.4)
     msgpack (1.7.2)
     multi_test (1.1.0)
-    net-imap (0.5.5)
+    net-imap (0.5.6)
       date
       net-protocol
     net-pop (0.1.2)
