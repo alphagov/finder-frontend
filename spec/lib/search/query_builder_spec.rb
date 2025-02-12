@@ -4,6 +4,7 @@ describe Search::QueryBuilder do
   subject(:queries) do
     described_class.new(
       finder_content_item:,
+      use_v2_api:,
       params:,
     ).call
   end
@@ -22,6 +23,7 @@ describe Search::QueryBuilder do
       },
     )
   end
+  let(:use_v2_api) { false }
 
   let(:facets) { [] }
   let(:filter) { {} }
@@ -336,17 +338,33 @@ describe Search::QueryBuilder do
     let(:params) do
       {
         "debug" => "yes",
+        "debug_serving_config" => "my-special-serving-config",
       }
     end
 
-    it "includes a debug query" do
-      expect(query).to include("debug" => "yes")
+    context "for Search API v1" do
+      let(:use_v2_api) { false }
+
+      it "includes a debug query but no serving config one" do
+        expect(query).to include("debug" => "yes")
+        expect(query).not_to have_key("serving_config")
+      end
+    end
+
+    context "for Search API v2" do
+      let(:use_v2_api) { true }
+
+      it "includes a serving config query but not a debug one" do
+        expect(query).to include("serving_config" => "my-special-serving-config")
+        expect(query).not_to have_key("debug")
+      end
     end
   end
 
   context "without debug parameters" do
-    it "does not include a debug query" do
+    it "does not include a debug or serving config query" do
       expect(query).not_to include("debug")
+      expect(query).not_to include("serving_config")
     end
   end
 

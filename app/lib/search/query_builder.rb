@@ -14,11 +14,18 @@ module Search
 
     LICENCE_STOPWORDS = %w[licence license permit certification].freeze
 
-    def initialize(finder_content_item:, params: {}, ab_params: {}, override_sort_for_feed: false)
+    def initialize(
+      finder_content_item:,
+      params: {},
+      ab_params: {},
+      override_sort_for_feed: false,
+      use_v2_api: false
+    )
       @finder_content_item = finder_content_item
       @params = params
       @ab_params = ab_params
       @override_sort_for_feed = override_sort_for_feed
+      @use_v2_api = use_v2_api
     end
 
     def call
@@ -46,6 +53,10 @@ module Search
   private
 
     attr_reader :finder_content_item, :params, :ab_params, :override_sort_for_feed
+
+    def use_v2_api?
+      @use_v2_api
+    end
 
     def pagination_query
       {
@@ -234,9 +245,15 @@ module Search
     end
 
     def debug_query
-      {
-        "debug" => params["debug"],
-      }.compact
+      if use_v2_api?
+        {
+          "serving_config" => params["debug_serving_config"],
+        }.compact
+      else
+        {
+          "debug" => params["debug"],
+        }.compact
+      end
     end
 
     def ab_query

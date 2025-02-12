@@ -38,6 +38,23 @@
     ga4_ecommerce_variant: result_set_presenter.sort_option&.fetch(:data_ga4_track_label, nil),
   },
 ) do %>
+
+  <% if result_set_presenter.debug_serving_config %>
+    <%= render "govuk_publishing_components/components/notice", {
+      title: "Previewing different serving configuration",
+    } do %>
+      <p class="govuk-body">
+        You are temporarily using the
+        <strong><%= result_set_presenter.debug_serving_config %></strong>
+        serving configuration for results from Search API v2.
+      </p>
+
+      <p class="govuk-body">
+        <%= link_to "Return to default serving configuration", url_for(filter_params.except(:debug_serving_config)), class: "govuk-link govuk-link--no-visited-state" %>
+      </p>
+    <% end %>
+  <% end %>
+
   <%= tag.form(
     method: "get",
     action: content_item.base_path,
@@ -51,6 +68,7 @@
     },
   ) do %>
     <%= hidden_field_tag :parent, @parent if @parent.present? %>
+    <%= hidden_field_tag :debug_serving_config, result_set_presenter.debug_serving_config if result_set_presenter.debug_serving_config %>
 
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-two-thirds-from-desktop">
