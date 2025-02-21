@@ -11,7 +11,7 @@ class NestedFacetGenerator
      NestedFacet.new(sub_facet_hash, value_hash[sub_facet_key])]
   end
 
-private
+  private
 
   def main_facet_hash_without_sub_facets
     hash_dup = facet_hash.dup
@@ -42,12 +42,26 @@ private
 
   def sub_facet_hash
     {
-      "allowed_values" => facet_hash["allowed_values"].flat_map { |allowed_value| allowed_value["sub_facets"] || [] },
+      "allowed_values" => sub_facet_allowed_values,
       "key" => sub_facet_key,
       "name" => sub_facet_name,
       "type" => sub_facet_type,
       "preposition" => sub_facet_preposition,
       "filterable" => true,
     }
+  end
+
+  def sub_facet_allowed_values
+    sub_facet_values_with_main_facet_reference = []
+
+    facet_hash["allowed_values"].each do |allowed_value|
+      main_value = allowed_value["value"]
+
+      allowed_value["sub_facets"]&.each do |sub_facet|
+        sub_facet_values_with_main_facet_reference << sub_facet.merge("main_facet_value" => main_value)
+      end
+    end
+
+    sub_facet_values_with_main_facet_reference
   end
 end

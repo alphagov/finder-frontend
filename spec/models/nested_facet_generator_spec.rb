@@ -77,11 +77,14 @@ describe NestedFacetGenerator do
       {
         "allowed_values" => [
           { "label" => "Allowed value 1 Sub facet Value 1",
-            "value" => "allowed-value-1-sub-facet-value-1" },
+            "value" => "allowed-value-1-sub-facet-value-1",
+            "main_facet_value" => "allowed-value-1" },
           { "label" => "Allowed value 1 Sub facet Value 2",
-            "value" => "allowed-value-1-sub-facet-value-2" },
+            "value" => "allowed-value-1-sub-facet-value-2",
+            "main_facet_value" => "allowed-value-1" },
           { "label" => "Allowed value 2 Sub facet Value 1",
-            "value" => "allowed-value-2-sub-facet-value-1" },
+            "value" => "allowed-value-2-sub-facet-value-1",
+            "main_facet_value" => "allowed-value-2" },
         ],
         "filterable" => true,
         "key" => "test_sub_facet_key",
