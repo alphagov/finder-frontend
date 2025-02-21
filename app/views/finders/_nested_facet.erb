@@ -1,0 +1,8 @@
+<% add_gem_component_stylesheet("select") %>
+
+<%= render "govuk_publishing_components/components/select", {
+  id: nested_facet.key,
+  label: nested_facet.name,
+  full_width: true,
+  options: nested_facet.facet_options
+} %>

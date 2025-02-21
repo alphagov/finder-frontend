@@ -6,10 +6,10 @@ class FacetsBuilder
   end
 
   def facets
-    facet_hashes.map do |facet_hash|
+    facet_hashes.map { |facet_hash|
       facet_hash_with_allowed_values = facet_hash.merge("allowed_values" => allowed_values(facet_hash))
       build_facet(facet_hash_with_allowed_values)
-    end
+    }.flatten
   end
 
 private
@@ -23,7 +23,9 @@ private
   def build_facet(facet_hash)
     if facet_hash["filterable"]
       case facet_hash["type"]
-      when "text", "content_id"
+      when "text"
+        facet_hash["nested_facet"] ? NestedFacetGenerator.new(facet_hash, value_hash).generate_facets : OptionSelectFacet.new(facet_hash, value_hash[facet_hash["key"]])
+      when "content_id"
         OptionSelectFacet.new(facet_hash, value_hash[facet_hash["key"]])
       when "topical"
         TopicalFacet.new(facet_hash, value_hash[facet_hash["key"]])
