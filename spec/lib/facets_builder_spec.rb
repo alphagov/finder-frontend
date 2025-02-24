@@ -11,6 +11,52 @@ describe FacetsBuilder do
       "allowed_values": [{ "value" => "me" }, { "value" => "you" }],
     }
   end
+  let(:hash_including_nested_facets) do
+    [
+      {
+        "filterable": true,
+        "type": "text",
+        "name": "Facet Name",
+        "key": "facet_key",
+        "preposition": "with",
+        "sub_facet_key": "sub_facet_key",
+        "sub_facet_name": "Sub Facet Name",
+        "nested_facet": true,
+        "allowed_values": [
+          {
+            "label": "Allowed value 1",
+            "value": "allowed-value-1",
+          },
+          {
+            "label": "Allowed value 2",
+            "value": "allowed-value-2",
+          },
+        ],
+      },
+      {
+        "filterable": true,
+        "type": "text",
+        "name": "Sub Facet Name",
+        "key": "sub_facet_key",
+        "preposition": "with",
+        "nested_facet": true,
+        "allowed_values": [
+          {
+            "label": "Allowed value 1 Sub facet Value 1",
+            "value": "allowed-value-1-sub-facet-value-1",
+            "main_facet_label": "Allowed value 1",
+            "main_facet_value": "allowed-value-1",
+          },
+          {
+            "label": "Allowed value 1 Sub facet Value 2",
+            "value": "allowed-value-1-sub-facet-value-2",
+            "main_facet_label": "Allowed value 1",
+            "main_facet_value": "allowed-value-1",
+          },
+        ],
+      },
+    ]
+  end
   let(:taxon_facet_hash) do
     {
       "key": "_unused",
@@ -119,6 +165,33 @@ describe FacetsBuilder do
       it "builds a option_select facet" do
         expect(facet).to be_a(OptionSelectFacet)
         expect(facet.key).to eq("people")
+      end
+    end
+
+    context "nested hash facet" do
+      subject(:facets) do
+        described_class.new(content_item:, search_results: {}, value_hash: {}).facets
+      end
+
+      let(:detail_hash) do
+        {
+          "details" => {
+            "facets" => hash_under_test,
+          },
+        }
+      end
+      let(:hash_under_test) do
+        hash_including_nested_facets
+      end
+
+      it "builds two nested facets for main and sub hashes" do
+        expect(facets.count).to eq 2
+
+        main_facet = facets.select { |f| f.key == hash_under_test.first[:key] }.first
+        sub_facet = facets.select { |f| f.key == hash_under_test.second[:key] }.first
+
+        expect(main_facet.name).to eq("Facet Name")
+        expect(sub_facet.name).to eq("Sub Facet Name")
       end
     end
 
