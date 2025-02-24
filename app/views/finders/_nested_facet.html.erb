@@ -10,7 +10,7 @@
 <% end %>
 
 <% if nested_facet.is_main_facet? %>
-  <div class="govuk-!-margin-top-3">
+  <div class="govuk-!-margin-top-3" data-module="nested-facets"  data-main-facet-id="<%= nested_facet.key %>" data-sub-facet-id="<%= nested_facet.sub_facet_key %>">
     <%= content %>
   </div>
 <% else %>
