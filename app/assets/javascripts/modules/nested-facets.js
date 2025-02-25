@@ -57,6 +57,9 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
     for (let o = 0; o < optionElements.length; o++) {
       const mainFacetValue = optionElements[o].getAttribute('data-main-facet-value')
 
+      const mainFacetLabelPrefix = optionElements[o].getAttribute('data-main-facet-label') + ' - '
+      optionElements[o].text = optionElements[o].text.replace(mainFacetLabelPrefix, '')
+
       options[mainFacetValue] = options[mainFacetValue] || []
       options[mainFacetValue].push(optionElements[o])
     }

@@ -72,48 +72,62 @@ describe NestedFacet do
       end
       let(:allowed_values) do
         [
-          { "label" => "Allowed value 1 Sub facet Value 1",
+          {
+            "label" => "Allowed value 1 Sub facet Value 1",
             "value" => "allowed-value-1-sub-facet-value-1",
-            "main_facet_value" => "allowed-value-1" },
-          { "label" => "Allowed value 1 Sub facet Value 2",
+            "main_facet_label" => "Allowed value 1",
+            "main_facet_value" => "allowed-value-1",
+          },
+          {
+            "label" => "Allowed value 1 Sub facet Value 2",
             "value" => "allowed-value-1-sub-facet-value-2",
-            "main_facet_value" => "allowed-value-1" },
-          { "label" => "Allowed value 2 Sub facet Value 1",
+            "main_facet_label" => "Allowed value 1",
+            "main_facet_value" => "allowed-value-1",
+          },
+          {
+            "label" => "Allowed value 2 Sub facet Value 1",
             "value" => "allowed-value-2-sub-facet-value-1",
-            "main_facet_value" => "allowed-value-2" },
+            "main_facet_label" => "Allowed value 2",
+            "main_facet_value" => "allowed-value-2",
+          },
         ]
       end
 
       it "returns text, value and main data attributes" do
         expect(subject.facet_options).to eq(
-          [{
-            "text": "All sub facet names",
-            "value": "",
-          },
-           {
-             text: "Allowed value 1 Sub facet Value 1",
-             value: "allowed-value-1-sub-facet-value-1",
-             "data_attributes":
-               {
-                 "main_facet_value": "allowed-value-1",
-               },
-           },
-           {
-             text: "Allowed value 1 Sub facet Value 2",
-             value: "allowed-value-1-sub-facet-value-2",
-             "data_attributes":
-               {
-                 "main_facet_value": "allowed-value-1",
-               },
-           },
-           {
-             text: "Allowed value 2 Sub facet Value 1",
-             value: "allowed-value-2-sub-facet-value-1",
-             "data_attributes":
-               {
-                 "main_facet_value": "allowed-value-2",
-               },
-           }],
+          [
+            {
+              "text": "All sub facet names",
+              "value": "",
+            },
+            {
+              text: "Allowed value 1 - Allowed value 1 Sub facet Value 1",
+              value: "allowed-value-1-sub-facet-value-1",
+              "data_attributes":
+                {
+                  "main_facet_label": "Allowed value 1",
+                  "main_facet_value": "allowed-value-1",
+                },
+            },
+            {
+              text: "Allowed value 1 - Allowed value 1 Sub facet Value 2",
+              value: "allowed-value-1-sub-facet-value-2",
+              "data_attributes":
+                {
+                  "main_facet_label": "Allowed value 1",
+                  "main_facet_value": "allowed-value-1",
+                },
+            },
+            {
+              text: "Allowed value 2 - Allowed value 2 Sub facet Value 1",
+              value: "allowed-value-2-sub-facet-value-1",
+              "data_attributes":
+                {
+                  "main_facet_label": "Allowed value 2",
+                  "main_facet_value": "allowed-value-2",
+                },
+            },
+          ],
         )
       end
     end

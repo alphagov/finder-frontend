@@ -18,10 +18,10 @@ describe('nested-facets', function () {
     <label for='sub_facet_key'>Subcategory</label> 
     <select name='sub_facet_key' id='sub_facet_key'> 
     <option value=''>All subcategories</option> 
-    <option data-main-facet-value='main-facet-1' value='main-1-sub-facet-1'>Main 1 Sub Facet 1</option> 
-    <option data-main-facet-value='main-facet-1' value='main-1-sub-facet-2'>Main 1 Sub Facet 2</option> 
-    <option data-main-facet-value='main-facet-2' value='main-2-sub-facet-1'>Main 2 Sub Facet 1</option> 
-    <option data-main-facet-value='main-facet-2' value='main-2-sub-facet-2'>Main 2 Sub Facet 2</option> 
+    <option data-main-facet-value='main-facet-1' data-main-facet-label='Main 1' value='main-1-sub-facet-1'>Main 1 - Main 1 Sub Facet 1</option> 
+    <option data-main-facet-value='main-facet-1' data-main-facet-label='Main 1' value='main-1-sub-facet-2'>Main 1 - Main 1 Sub Facet 2</option> 
+    <option data-main-facet-value='main-facet-2' data-main-facet-label='Main 2' value='main-2-sub-facet-1'>Main 1 - Main 2 Sub Facet 1</option> 
+    <option data-main-facet-value='main-facet-2' data-main-facet-label='Main 2' value='main-2-sub-facet-2'>Main 2 - Main 2 Sub Facet 2</option> 
     </select> 
    `
 
