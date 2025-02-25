@@ -1,8 +1,19 @@
 <% add_gem_component_stylesheet("select") %>
 
-<%= render "govuk_publishing_components/components/select", {
-  id: nested_facet.key,
-  label: nested_facet.name,
-  full_width: true,
-  options: nested_facet.facet_options
-} %>
+<% content = capture do %>
+  <%= render "govuk_publishing_components/components/select", {
+    id: nested_facet.key,
+    label: nested_facet.name,
+    full_width: true,
+    options: nested_facet.facet_options
+  } %>
+<% end %>
+
+<% if nested_facet.is_main_facet? %>
+  <div class="govuk-!-margin-top-3">
+    <%= content %>
+  </div>
+<% else %>
+  <%= content %>
+  <hr class="govuk-section-break govuk-section-break--visible">
+<% end %>
