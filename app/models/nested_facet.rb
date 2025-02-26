@@ -12,6 +12,7 @@ class NestedFacet < OptionSelectFacet
       option = {
         text: facet_text(allowed_value),
         value: allowed_value["value"],
+        selected: selected_values.include?(allowed_value),
       }
       option.merge!(data_attributes: { main_facet_value: allowed_value["main_facet_value"], main_facet_label: allowed_value["main_facet_label"] }) unless is_main_facet?
       options << option
