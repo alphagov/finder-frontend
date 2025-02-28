@@ -23,7 +23,9 @@ private
   def build_facet(facet_hash)
     if facet_hash["filterable"]
       case facet_hash["type"]
-      when "text", "content_id"
+      when "text"
+        facet_hash["nested_facet"] ? NestedFacet.new(facet_hash, value_hash[facet_hash["key"]]) : OptionSelectFacet.new(facet_hash, value_hash[facet_hash["key"]])
+      when "content_id"
         OptionSelectFacet.new(facet_hash, value_hash[facet_hash["key"]])
       when "topical"
         TopicalFacet.new(facet_hash, value_hash[facet_hash["key"]])

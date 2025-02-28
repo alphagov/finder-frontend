@@ -88,6 +88,88 @@ describe FindersController, type: :controller do
         expect(response.media_type).to eq("application/json")
       end
 
+      context "when it receives facet option query params" do
+        let(:lunch_finder) do
+          finder = example_finder
+          finder["title"] = "Lunch Finder"
+          finder["base_path"] = "/lunch-finder"
+          finder["details"]["default_documents_per_page"] = 10
+          finder["details"]["facets"] = [
+            {
+              "allowed_values": [
+                {
+                  "label": "Allowed value 1",
+                  "value": "allowed-value-1",
+                },
+                {
+                  "label": "Allowed value 2",
+                  "value": "allowed-value-2",
+                },
+              ],
+              "filterable": true,
+              "key": "some_facet_key",
+              "name": "Some facet",
+              "nested_facet": true,
+              "type": "text",
+            },
+          ]
+          finder["details"]["sort"] = nil
+          finder
+        end
+
+        it "initializes a filterable facet with the param field value" do
+          stub_content_store_has_item(lunch_finder["base_path"], lunch_finder)
+
+          rummager_response = %({
+          "results": [],
+          "total": 0,
+          "start": 0,
+          "facets": [],
+          "suggested_queries": []
+        })
+
+          stub_request(:get, "#{Plek.find('search-api')}/search.json")
+            .with(
+              query: {
+                count: 10,
+                fields: "title,link,description_with_highlighting,public_timestamp,popularity,content_purpose_supergroup,content_store_document_type,format,is_historic,government_name,content_id,parts,some_facet_key",
+                filter_document_type: "mosw_report",
+                filter_some_facet_key: %w[allowed-value-1],
+                order: "-public_timestamp",
+                start: 0,
+                suggest: "spelling_with_highlighting",
+              },
+            )
+            .to_return(status: 200, body: rummager_response, headers: {})
+
+          expect(NestedFacet).to receive(:new).with(
+            {
+              "allowed_values" => [
+                {
+                  "label" => "Allowed value 1",
+                  "value" => "allowed-value-1",
+                },
+                {
+                  "label" => "Allowed value 2",
+                  "value" => "allowed-value-2",
+                },
+              ],
+              "filterable" => true,
+              "key" => "some_facet_key",
+              "name" => "Some facet",
+              "nested_facet" => true,
+              "type" => "text",
+            },
+            "allowed-value-1",
+          ).and_call_original
+
+          get :show, params: { slug: "lunch-finder", "some_facet_key": "allowed-value-1" }
+
+          expect(response.status).to eq(200)
+          expect(response).to render_template("finders/show")
+        end
+      end
+
       it "returns a 406 if an invalid format is requested" do
         request.headers["Accept"] = "text/plain"
         get :show, params: { slug: "lunch-finder" }
