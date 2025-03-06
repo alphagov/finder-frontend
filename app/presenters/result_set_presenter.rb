@@ -63,7 +63,7 @@ class ResultSetPresenter
   end
 
   def has_sort_options
-    sort_presenter.to_hash.blank? ? true : false
+    sort_presenter.to_hash.blank? || false
   end
 
   def debug_serving_config
