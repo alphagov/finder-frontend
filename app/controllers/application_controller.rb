@@ -37,7 +37,7 @@ private
 
       expires_in(
         content_item.as_hash.dig("cache_control", "max_age") || 5.minutes.to_i,
-        public: public_cache.nil? ? true : public_cache,
+        public: public_cache.nil? || public_cache,
       )
     end
   end

@@ -68,7 +68,7 @@ class ContentItem
 
   def cache_public
     public_cache = content_item_hash.dig("cache_control", "public")
-    public_cache.nil? ? true : public_cache
+    public_cache.nil? || public_cache
   end
 
   def phase_message
