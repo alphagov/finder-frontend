@@ -23,9 +23,7 @@ private
   def build_facet(facet_hash)
     if facet_hash["filterable"]
       case facet_hash["type"]
-      when "text"
-        facet_hash["nested_facet"] ? NestedFacet.new(facet_hash, value_hash[facet_hash["key"]]) : OptionSelectFacet.new(facet_hash, value_hash[facet_hash["key"]])
-      when "content_id"
+      when "text", "content_id"
         OptionSelectFacet.new(facet_hash, value_hash[facet_hash["key"]])
       when "topical"
         TopicalFacet.new(facet_hash, value_hash[facet_hash["key"]])
@@ -45,6 +43,8 @@ private
         RadioFacetForMultipleFilters.new(facet_hash, value_hash[facet_hash["key"]], ::Filters::ResearchAndStatsHashes.new.call)
       when "official_documents"
         RadioFacetForMultipleFilters.new(facet_hash, value_hash[facet_hash["key"]], ::Filters::OfficialDocumentsHashes.new.call)
+      when "nested"
+        NestedFacet.new(facet_hash, value_hash.slice(facet_hash["key"], facet_hash["sub_facet_key"]))
       else
         raise ArgumentError, "Unknown filterable facet type: #{facet_hash['type']}"
       end
@@ -66,15 +66,15 @@ private
 
   def allowed_values_for_facet_details(facet_key, facet_details)
     facet_details.fetch("options", {})
-      .map { |f| f.fetch("value", {}) }
-      .map { |value| present_facet_option(value, facet_key) }
-      .reject { |f| f["label"].blank? || f["value"].blank? }
+                 .map { |f| f.fetch("value", {}) }
+                 .map { |value| present_facet_option(value, facet_key) }
+                 .reject { |f| f["label"].blank? || f["value"].blank? }
   end
 
   def allowed_values_from_registry(facet_key)
     registries.all[facet_key].values
-      .map { |_, results| present_facet_option(results, facet_key) }
-      .reject { |f| f["label"].blank? || f["value"].blank? }
+              .map { |_, results| present_facet_option(results, facet_key) }
+              .reject { |f| f["label"].blank? || f["value"].blank? }
   end
 
   def present_facet_option(value, facet_key)
