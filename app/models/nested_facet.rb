@@ -17,6 +17,7 @@ class NestedFacet < FilterableFacet
       option = {
         text: allowed_value["label"],
         value: allowed_value["value"],
+        selected: @value_hash[key] == allowed_value["value"],
       }
       options << option
     end
@@ -33,6 +34,7 @@ class NestedFacet < FilterableFacet
       option = {
         text: facet_text(sub_facet_value),
         value: sub_facet_value["value"],
+        selected: @value_hash[sub_facet_key] == sub_facet_value["value"],
       }
       option.merge!(data_attributes: { main_facet_value: sub_facet_value["main_facet_value"], main_facet_label: sub_facet_value["main_facet_label"] })
 

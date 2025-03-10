@@ -1,13 +1,13 @@
-  <%= render "govuk_publishing_components/components/select", {
-    id: nested_facet.key,
-    label: nested_facet.name,
-    full_width: true,
-    options: nested_facet.main_facet_options
-  } %>
+<%= render "govuk_publishing_components/components/select", {
+  id: nested_facet.key,
+  label: nested_facet.name,
+  full_width: true,
+  options: nested_facet.main_facet_options
+} %>
 
-  <%= render "govuk_publishing_components/components/select", {
-    id: nested_facet.sub_facet_key,
-    label: nested_facet.sub_facet_name,
-    full_width: true,
-    options: nested_facet.sub_facet_options
-  } %>
+<%= render "govuk_publishing_components/components/select", {
+  id: nested_facet.sub_facet_key,
+  label: nested_facet.sub_facet_name,
+  full_width: true,
+  options: nested_facet.sub_facet_options
+} %>
