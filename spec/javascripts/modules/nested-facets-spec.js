@@ -2,19 +2,14 @@ describe('nested-facets', function () {
   'use strict'
 
   const GOVUK = window.GOVUK
-  let mainFacets
-  let subFacets
-
-  const mainFacetsHTML = `
+  let facetsWrapper
+  const facetsHTML = `
     <label for='main_facet_key'>Category</label> 
     <select name='main_facet_key' id='main_facet_key'> 
     <option value=''>All</option> 
     <option value='main-facet-1'>Main Facet 1</option> 
     <option value='main-facet-2'>Main Facet 2</option> 
     </select>
-  `
-
-  const subFacetsHTML = `
     <label for='sub_facet_key'>Subcategory</label> 
     <select name='sub_facet_key' id='sub_facet_key'> 
     <option value=''>All subcategories</option> 
@@ -26,22 +21,17 @@ describe('nested-facets', function () {
    `
 
   beforeEach(function () {
-    mainFacets = document.createElement('div')
-    mainFacets.setAttribute('data-main-facet-id', 'main_facet_key')
-    mainFacets.setAttribute('data-sub-facet-id', 'sub_facet_key')
-    mainFacets.innerHTML = mainFacetsHTML
+    facetsWrapper = document.createElement('div')
+    facetsWrapper.setAttribute('data-main-facet-id', 'main_facet_key')
+    facetsWrapper.setAttribute('data-sub-facet-id', 'sub_facet_key')
+    facetsWrapper.innerHTML = facetsHTML
 
-    subFacets = document.createElement('div')
-    subFacets.innerHTML = subFacetsHTML
-
-    document.body.appendChild(mainFacets)
-    document.body.appendChild(subFacets)
-    new GOVUK.Modules.NestedFacets(mainFacets).init()
+    document.body.appendChild(facetsWrapper)
+    new GOVUK.Modules.NestedFacets(facetsWrapper).init()
   })
 
   afterEach(function () {
-    document.body.removeChild(mainFacets)
-    document.body.removeChild(subFacets)
+    document.body.removeChild(facetsWrapper)
   })
 
   it('renders corresponding sub facets when selecting the main facet', function () {
