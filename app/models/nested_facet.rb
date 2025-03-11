@@ -42,7 +42,74 @@ class NestedFacet < FilterableFacet
     end
   end
 
+  def applied_filters
+    return [] unless has_filters?
+
+    main_facet_filter = {
+      name: name,
+      label: selected_main_facet_value[:text],
+      query_params: {
+        main_facet_key => selected_main_facet_value[:value],
+        sub_facet_key => selected_sub_facet_value&.fetch(:value),
+      }.compact,
+    }
+
+    if selected_sub_facet_value
+      sub_facet_filter = {
+        name: sub_facet_name,
+        label: selected_sub_facet_value[:text],
+        query_params: { sub_facet_key => selected_sub_facet_value[:value] },
+      }
+    end
+
+    [main_facet_filter, sub_facet_filter].compact
+  end
+
+  def has_filters?
+    selected_main_facet_value.present?
+  end
+
+  def sentence_fragment
+    return nil if selected_main_facet_value.nil?
+
+    {
+      "type" => "nested",
+      "preposition" => preposition,
+      "values" => value_fragments,
+      "word_connectors" => and_word_connectors,
+    }
+  end
+
 private
+
+  def value_fragments
+    [
+      value_fragment(selected_main_facet_value, key),
+      value_fragment(selected_sub_facet_value, sub_facet_key),
+    ].compact
+  end
+
+  def value_fragment(value, key)
+    return nil if value.nil?
+
+    {
+      "label" => value[:text],
+      "parameter_key" => key,
+      "value" => value[:value],
+    }
+  end
+
+  def selected_main_facet_value
+    @selected_main_facet_value ||= main_facet_options.find do |v|
+      v[:value] == @value_hash[key]
+    end
+  end
+
+  def selected_sub_facet_value
+    @selected_sub_facet_value ||= sub_facet_options.find do |v|
+      v[:value] == @value_hash[sub_facet_key]
+    end
+  end
 
   def facet_text(value)
     value["main_facet_label"] ? "#{value['main_facet_label']} - #{value['label']}" : value["label"]
