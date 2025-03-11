@@ -5,6 +5,7 @@ describe Search::QueryBuilder do
     described_class.new(
       finder_content_item:,
       use_v2_api:,
+      v2_serving_config:,
       params:,
     ).call
   end
@@ -24,6 +25,7 @@ describe Search::QueryBuilder do
     )
   end
   let(:use_v2_api) { false }
+  let(:v2_serving_config) { nil }
 
   let(:facets) { [] }
   let(:filter) { {} }
@@ -330,6 +332,37 @@ describe Search::QueryBuilder do
         ).call.first
 
         expect(query).to include("q" => "50")
+      end
+    end
+  end
+
+  context "with a custom v2 serving config" do
+    context "for Search API v1" do
+      let(:use_v2_api) { false }
+      let(:v2_serving_config) { "my-special-serving-config" }
+
+      it "does not include a serving config query even if one is given" do
+        expect(query).not_to have_key("serving_config")
+      end
+    end
+
+    context "for Search API v2" do
+      let(:use_v2_api) { true }
+
+      context "if a custom serving config is given" do
+        let(:v2_serving_config) { "my-special-serving-config" }
+
+        it "includes a serving config query" do
+          expect(query).to include("serving_config" => "my-special-serving-config")
+        end
+      end
+
+      context "if no custom serving config is given" do
+        let(:v2_serving_config) { nil }
+
+        it "includes the default serving config query" do
+          expect(query).to include("serving_config" => "default_search")
+        end
       end
     end
   end
