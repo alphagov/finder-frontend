@@ -181,4 +181,91 @@ describe NestedFacet do
       end
     end
   end
+
+  describe "#sentence_fragment" do
+    context "allowed value selected" do
+      let(:value_hash) do
+        { "facet_key" => "allowed-value-1", "sub_facet_key" => "allowed-value-1-sub-facet-value-1" }
+      end
+
+      specify do
+        expect(subject.sentence_fragment["preposition"]).to eql("with")
+        expect(subject.sentence_fragment["values"].first["label"]).to eql("Allowed value 1")
+        expect(subject.sentence_fragment["values"].first["parameter_key"]).to eql("facet_key")
+      end
+    end
+
+    context "disallowed value selected" do
+      let(:value_hash) do
+        {
+          "facet_key" => "disallowed-value-1",
+          "sub_facet_key" => "disallowed-value-2",
+        }
+      end
+
+      specify { expect(subject.sentence_fragment).to be_nil }
+    end
+  end
+
+  describe "#applied_filters" do
+    context "only main facet selected" do
+      let(:value_hash) do
+        {
+          "facet_key" => "allowed-value-1",
+        }
+      end
+
+      it "returns the expected applied filters" do
+        expect(subject.applied_filters).to eql([
+          {
+            name: "Facet Name",
+            label: "Allowed value 1",
+            query_params: {
+              "facet_key" => "allowed-value-1",
+            },
+          },
+        ])
+      end
+    end
+
+    context "both main and sub-facet selected" do
+      let(:value_hash) do
+        {
+          "facet_key" => "allowed-value-1",
+          "sub_facet_key" => "allowed-value-1-sub-facet-value-1",
+        }
+      end
+
+      it "returns the expected applied filters" do
+        expect(subject.applied_filters).to eql([
+          {
+            name: "Facet Name",
+            label: "Allowed value 1",
+            query_params: {
+              "facet_key" => "allowed-value-1",
+              "sub_facet_key" => "allowed-value-1-sub-facet-value-1",
+            },
+          },
+          {
+            name: "Sub Facet Name",
+            label: "Allowed value 1 - Sub facet Value 1",
+            query_params: {
+              "sub_facet_key" => "allowed-value-1-sub-facet-value-1",
+            },
+          },
+        ])
+      end
+    end
+
+    context "disallowed value selected" do
+      let(:value_hash) do
+        {
+          "facet_key" => "disallowed-value-1",
+          "sub_facet_key" => "disallowed-value-2",
+        }
+      end
+
+      specify { expect(subject.applied_filters).to be_empty }
+    end
+  end
 end
