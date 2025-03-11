@@ -35,6 +35,7 @@ module Search
         "hidden_clearable" => Filters::HiddenClearableFilter,
         "research_and_statistics" => Filters::ResearchAndStatisticsFilter,
         "official_documents" => Filters::OfficialDocumentsFilter,
+        "nested" => Filters::NestedFilter,
       }.fetch(facet["type"])
 
       filter_class.new(facet, params(facet))
@@ -43,6 +44,12 @@ module Search
     def params(facet)
       facet_key = facet["key"]
       facet_keys = facet["keys"]
+
+      if facet["sub_facet_key"]
+        return [facet_key, facet["sub_facet_key"]]
+                 .index_with { |key| user_params.fetch(key, nil) }
+                 .merge("main_facet_key" => facet_key, "sub_facet_key" => facet["sub_facet_key"])
+      end
 
       if facet_keys
         return facet_keys.index_with { |key| user_params.fetch(key, nil) }
