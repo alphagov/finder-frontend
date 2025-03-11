@@ -194,6 +194,57 @@ describe Search::QueryBuilder do
     end
   end
 
+  context "with nested facets" do
+    let(:facets) do
+      [
+        {
+          "filterable" => true,
+          "type" => "nested",
+          "name" => "Main Facet Name",
+          "key" => "main_facet_key_value",
+          "preposition" => "with",
+          "sub_facet_key" => "sub_facet_key_value",
+          "sub_facet_name" => "Sub Facet Name",
+          "nested_facet" => true,
+          "allowed_values" => [
+            {
+              "label" => "Allowed value 1",
+              "value" => "allowed-value-1",
+              "sub_facets" => [
+                {
+                  "label" => "Sub facet Value 1",
+                  "value" => "allowed-value-1-sub-facet-value-1",
+                  "main_facet_label" => "Allowed value 1",
+                  "main_facet_value" => "allowed-value-1",
+                },
+                {
+                  "label" => "Sub facet Value 2",
+                  "value" => "allowed-value-1-sub-facet-value-2",
+                  "main_facet_label" => "Allowed value 1",
+                  "main_facet_value" => "allowed-value-1",
+                },
+              ],
+            },
+          ],
+        },
+      ]
+    end
+    let(:params) do
+      {
+        "main_facet_key_value" => "allowed-value-1",
+        "sub_facet_key_value" => "allowed-value-1-sub-facet-value-1",
+      }
+    end
+
+    it "composes a query including nested facets values" do
+      expect(query).to include(
+        "fields" => "title,link,description_with_highlighting,public_timestamp,popularity,content_purpose_supergroup,content_store_document_type,format,is_historic,government_name,content_id,parts,main_facet_key_value,sub_facet_key_value",
+      )
+      expect(query["filter_main_facet_key_value"]).to eq %w[allowed-value-1]
+      expect(query["filter_sub_facet_key_value"]).to eq %w[allowed-value-1-sub-facet-value-1]
+    end
+  end
+
   context "without keywords" do
     it "does not include a keyword query" do
       expect(query).not_to include("q")
