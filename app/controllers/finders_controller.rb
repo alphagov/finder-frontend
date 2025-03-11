@@ -1,8 +1,11 @@
 class FindersController < ApplicationController
   layout "finder_layout"
 
+  include AbTest::SearchFreshnessBoostAbTestable
+
   before_action do
     set_expiry(content_item)
+    set_search_freshness_boost_ab_test_requested_variant if content_item.all_content_finder?
   end
 
   def show
@@ -144,6 +147,7 @@ private
       filter_params,
       override_sort_for_feed: is_for_feed,
       ab_params: {},
+      v2_serving_config:,
     )
   end
 
