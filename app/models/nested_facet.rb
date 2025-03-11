@@ -80,6 +80,13 @@ class NestedFacet < FilterableFacet
     }
   end
 
+  def query_params
+    {
+      main_facet_key => (selected_main_facet_value || {})[:value],
+      sub_facet_key => (selected_sub_facet_value || {})[:value],
+    }
+  end
+
 private
 
   def value_fragments
