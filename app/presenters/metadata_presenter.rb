@@ -10,6 +10,8 @@ class MetadataPresenter
         build_date_metadata(datum)
       when "text", "content_id", "nested"
         build_text_metadata(datum)
+      when "nested"
+        build_nested_metadata(datum)
       end
     end
   end
@@ -25,6 +27,16 @@ private
       value: data.fetch(:value),
       labels: data[:labels],
       is_text: true,
+    }
+  end
+
+  def build_nested_metadata(data)
+    {
+      id: data[:id],
+      label: data.fetch(:name),
+      value: data.fetch(:value),
+      labels: data[:labels],
+      is_text: false,
     }
   end
 
