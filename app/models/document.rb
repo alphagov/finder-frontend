@@ -75,12 +75,16 @@ private
     end
   end
 
+  def nested_metadata_facets(facets)
+    metadata_facets(facets).select { |f| f.type == "nested" }
+  end
+
   def metadata_facets(facets)
     facets.select(&:metadata?)
   end
 
   def all_metadata(facets)
-    text_metadata(facets) + date_metadata(facets)
+    metadata_of_type("text", facets) + date_metadata(facets) + metadata_of_type("nested", facets)
   end
 
   def date_metadata(facets)
@@ -99,28 +103,38 @@ private
     }
   end
 
-  def text_metadata(facets)
+  def metadata_of_type(type, facets)
     metadata_labels = {}
-    text_metadata_facets(facets).each do |facet|
-      document_values = document_hash[facet.key]
-      next if document_values.nil?
-
-      metadata_labels[facet.key] = if facet.allowed_values.empty?
-                                     metadata_labels_from_document_values(document_values, facet.key)
-                                   else
-                                     metadata_labels_from_allowed_values(facet.allowed_values, document_values, facet.key)
-                                   end
+    send("#{type}_metadata_facets", facets).each do |facet|
+      extract_metadata_labels(facet.allowed_values, facet.key, metadata_labels, document_hash[facet.key])
+      extract_metadata_labels(facet.sub_facets_allowed_values, facet.sub_facet_key, metadata_labels, document_hash[facet.sub_facet_key]) if facet.respond_to?(:sub_facet_key)
     end
-    metadata_labels.map(&method(:build_text_metadata)).select(&method(:metadata_value_present?))
+    build_metadata_from_labels(metadata_labels, type)
   end
 
-  def build_text_metadata(facet_key, values)
+  def extract_metadata_labels(allowed_values, facet_key, metadata_labels, document_values)
+    return if document_values.nil?
+
+    metadata_labels[facet_key] = if allowed_values.empty?
+                                   metadata_labels_from_document_values(document_values, facet_key)
+                                 else
+                                   metadata_labels_from_allowed_values(allowed_values, document_values, facet_key)
+                                 end
+  end
+
+  def build_metadata_from_labels(labels, type)
+    labels
+      .map { |facet_key, values| build_metadata(facet_key, values, type) }
+      .select(&method(:metadata_value_present?))
+  end
+
+  def build_metadata(facet_key, values, type)
     {
       id: facet_key,
       name: facet_key,
       value: format_value(values),
       labels: values,
-      type: "text",
+      type: type,
     }
   end
 
@@ -160,6 +174,9 @@ private
   end
 
   def label_for_metadata_key(facets, key)
+    facet = metadata_facets(facets).find { |f| f.try(:sub_facet_key) == key }
+    return facet.sub_facet_name if facet
+
     facet = metadata_facets(facets).find { |f| f.key == key }
 
     if format == "oim_project"

@@ -107,9 +107,9 @@ module Search
     end
 
     def metadata_fields
-      raw_facets.map do |f|
-        unfilterise(f["filter_key"] || f["key"])
-      end
+      raw_facets.map { |f|
+        f["sub_facet_key"] ? [unfilterise(f["filter_key"] || f["key"]), unfilterise(f["sub_facet_key"])] : unfilterise(f["filter_key"] || f["key"])
+      }.flatten
     end
 
     def raw_facets
