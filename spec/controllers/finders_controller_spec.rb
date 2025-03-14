@@ -321,7 +321,7 @@ describe FindersController, type: :controller do
 
     describe "the finder is the all content finder" do
       before do
-        search_api_request(search_api_app: "search-api-v2", discovery_engine_attribution_token: "123ABC", query: { q: "hello", order: nil })
+        search_api_request(search_api_app: "search-api-v2", discovery_engine_attribution_token: "123ABC", query: { q: "hello", order: nil, serving_config: "default_search" })
         stub_content_store_has_item(
           "/search/all",
           all_content_finder,
@@ -332,6 +332,53 @@ describe FindersController, type: :controller do
         get :show, params: { slug: "search/all", keywords: "hello" }
         expect(response.status).to eq(200)
         expect(response).to render_template("finders/show_all_content_finder")
+      end
+    end
+
+    describe "all content finder SearchFreshnessBoost AB test" do
+      before do
+        search_api_request(
+          search_api_app: "search-api-v2",
+          discovery_engine_attribution_token: "123ABC",
+          query: { q: "hello", order: nil, serving_config: expected_serving_config },
+        )
+        stub_content_store_has_item(
+          "/search/all",
+          all_content_finder,
+        )
+      end
+
+      context "when the variant is A" do
+        let(:expected_serving_config) { "default_search" }
+
+        it "uses the expected serving config" do
+          with_variant(SearchFreshnessBoost: "A") do
+            get :show, params: { slug: "search/all", keywords: "hello" }
+            expect(response.status).to eq(200)
+          end
+        end
+      end
+
+      context "when the variant is B" do
+        let(:expected_serving_config) { "variant_search" }
+
+        it "uses the expected serving config" do
+          with_variant(SearchFreshnessBoost: "B") do
+            get :show, params: { slug: "search/all", keywords: "hello" }
+            expect(response.status).to eq(200)
+          end
+        end
+      end
+
+      context "when the variant is Z" do
+        let(:expected_serving_config) { "default_search" }
+
+        it "uses the expected serving config" do
+          with_variant(SearchFreshnessBoost: "Z") do
+            get :show, params: { slug: "search/all", keywords: "hello" }
+            expect(response.status).to eq(200)
+          end
+        end
       end
     end
   end

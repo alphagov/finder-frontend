@@ -11,6 +11,7 @@
     <meta name="govuk:discovery-engine-attribution-token" content="<%= result_set_presenter.discovery_engine_attribution_token %>">
   <% end %>
   <meta name="govuk:spelling-suggestion" content="<%= @spelling_suggestion_presenter.suggestions.first&.fetch(:keywords, "") %>">
+  <%= @requested_variant.analytics_meta_tag.html_safe if @requested_variant.present? %>
 <% end %>
 <% content_for :meta_title, content_item.title %>
 

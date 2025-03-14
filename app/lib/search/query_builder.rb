@@ -12,6 +12,7 @@ module Search
     # find anything useful, too much noise.
     MAX_QUERY_LENGTH = 512
 
+    DEFAULT_V2_SERVING_CONFIG = "default_search".freeze
     LICENCE_STOPWORDS = %w[licence license permit certification].freeze
 
     def initialize(
@@ -19,13 +20,15 @@ module Search
       params: {},
       ab_params: {},
       override_sort_for_feed: false,
-      use_v2_api: false
+      use_v2_api: false,
+      v2_serving_config: nil
     )
       @finder_content_item = finder_content_item
       @params = params
       @ab_params = ab_params
       @override_sort_for_feed = override_sort_for_feed
       @use_v2_api = use_v2_api
+      @v2_serving_config = v2_serving_config
     end
 
     def call
@@ -37,6 +40,7 @@ module Search
         reject_query,
         order_query,
         facet_query,
+        v2_serving_config_query,
         debug_query,
         ab_query,
         suggest_query,
@@ -52,7 +56,8 @@ module Search
 
   private
 
-    attr_reader :finder_content_item, :params, :ab_params, :override_sort_for_feed
+    attr_reader :finder_content_item, :params, :ab_params, :override_sort_for_feed,
+                :v2_serving_config
 
     def use_v2_api?
       @use_v2_api
@@ -242,6 +247,14 @@ module Search
       @facet_params ||= FacetQueryBuilder.new(
         facets: raw_facets,
       ).call
+    end
+
+    def v2_serving_config_query
+      return {} unless use_v2_api?
+
+      {
+        "serving_config" => v2_serving_config || DEFAULT_V2_SERVING_CONFIG,
+      }
     end
 
     def debug_query

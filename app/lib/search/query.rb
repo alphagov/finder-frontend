@@ -12,7 +12,13 @@ module Search
       ParamValidator.new(query).validate
     end
 
-    def initialize(content_item, filter_params, ab_params: {}, override_sort_for_feed: false)
+    def initialize(
+      content_item,
+      filter_params,
+      ab_params: {},
+      override_sort_for_feed: false,
+      v2_serving_config: nil
+    )
       @content_item = content_item
       @filter_params = filter_params
       @ab_params = ab_params
@@ -23,6 +29,7 @@ module Search
         else
           filter_params["order"]
         end
+      @v2_serving_config = v2_serving_config
     end
 
     def search_results
@@ -35,7 +42,7 @@ module Search
 
   private
 
-    attr_reader :ab_params, :override_sort_for_feed, :content_item
+    attr_reader :ab_params, :override_sort_for_feed, :content_item, :v2_serving_config
 
     def merge_and_deduplicate(search_response)
       results = search_response.fetch("results")
@@ -87,6 +94,7 @@ module Search
         params: filter_params,
         override_sort_for_feed:,
         use_v2_api: use_v2_api?,
+        v2_serving_config:,
       ).call
 
       if use_v2_api?
