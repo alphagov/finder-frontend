@@ -1,19 +1,13 @@
-<% add_gem_component_stylesheet("select") %>
-
-<% content = capture do %>
   <%= render "govuk_publishing_components/components/select", {
     id: nested_facet.key,
     label: nested_facet.name,
     full_width: true,
-    options: nested_facet.facet_options
+    options: nested_facet.main_facet_options
   } %>
-<% end %>
 
-<% if nested_facet.is_main_facet? %>
-  <div class="govuk-!-margin-top-3" data-module="nested-facets"  data-main-facet-id="<%= nested_facet.key %>" data-sub-facet-id="<%= nested_facet.sub_facet_key %>">
-    <%= content %>
-  </div>
-<% else %>
-  <%= content %>
-  <hr class="govuk-section-break govuk-section-break--visible">
-<% end %>
+  <%= render "govuk_publishing_components/components/select", {
+    id: nested_facet.sub_facet_key,
+    label: nested_facet.sub_facet_name,
+    full_width: true,
+    options: nested_facet.sub_facet_options
+  } %>
