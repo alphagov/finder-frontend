@@ -69,7 +69,7 @@ private
   end
 
   def text_metadata_facets(facets)
-    facets = metadata_facets(facets).select { |f| f.type == "text" }
+    facets = metadata_facets(facets).select { |f| %w[text nested].include?(f.type) }
     facets.reject do |facet|
       facet.key == "organisations" && is_mainstream_content?
     end
@@ -102,16 +102,19 @@ private
   def text_metadata(facets)
     metadata_labels = {}
     text_metadata_facets(facets).each do |facet|
-      document_values = document_hash[facet.key]
-      next if document_values.nil?
-
-      metadata_labels[facet.key] = if facet.allowed_values.empty?
-                                     metadata_labels_from_document_values(document_values, facet.key)
-                                   else
-                                     metadata_labels_from_allowed_values(facet.allowed_values, document_values, facet.key)
-                                   end
+      metadata_labels[facet.key] = extract_facet_key_value(facet.allowed_values, facet.key, document_hash[facet.key]) if document_hash[facet.key].present?
+      metadata_labels[facet.sub_facet_key] = extract_facet_key_value(facet.sub_facets_allowed_values, facet.sub_facet_key, document_hash[facet.sub_facet_key]) if facet.respond_to?(:sub_facet_key) && document_hash[facet.sub_facet_key].present?
     end
+
     metadata_labels.map(&method(:build_text_metadata)).select(&method(:metadata_value_present?))
+  end
+
+  def extract_facet_key_value(allowed_values, facet_key, document_values)
+    if allowed_values.empty?
+      metadata_labels_from_document_values(document_values, facet_key)
+    else
+      metadata_labels_from_allowed_values(allowed_values, document_values, facet_key)
+    end
   end
 
   def build_text_metadata(facet_key, values)
@@ -160,6 +163,9 @@ private
   end
 
   def label_for_metadata_key(facets, key)
+    facet = metadata_facets(facets).find { |f| f.try(:sub_facet_key) == key }
+    return facet.sub_facet_name if facet
+
     facet = metadata_facets(facets).find { |f| f.key == key }
 
     if format == "oim_project"

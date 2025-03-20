@@ -109,7 +109,6 @@ describe FindersController, type: :controller do
               "filterable": true,
               "key": "some_facet_key",
               "name": "Some facet",
-              "nested_facet": true,
               "type": "text",
             },
           ]
@@ -142,7 +141,7 @@ describe FindersController, type: :controller do
             )
             .to_return(status: 200, body: rummager_response, headers: {})
 
-          expect(NestedFacet).to receive(:new).with(
+          expect(OptionSelectFacet).to receive(:new).with(
             {
               "allowed_values" => [
                 {
@@ -157,7 +156,6 @@ describe FindersController, type: :controller do
               "filterable" => true,
               "key" => "some_facet_key",
               "name" => "Some facet",
-              "nested_facet" => true,
               "type" => "text",
             },
             "allowed-value-1",

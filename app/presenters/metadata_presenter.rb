@@ -8,7 +8,7 @@ class MetadataPresenter
       case datum.fetch(:type)
       when "date"
         build_date_metadata(datum)
-      when "text", "content_id"
+      when "text", "content_id", "nested"
         build_text_metadata(datum)
       end
     end

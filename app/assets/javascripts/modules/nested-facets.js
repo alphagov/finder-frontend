@@ -6,8 +6,8 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
 
   function NestedFacets (module) {
     this.module = module
-    this.mainFacet = document.querySelector('#' + this.module.getAttribute('data-main-facet-id'))
-    this.subFacet = document.querySelector('#' + this.module.getAttribute('data-sub-facet-id'))
+    this.mainFacet = this.module.querySelector('#' + this.module.getAttribute('data-main-facet-id'))
+    this.subFacet = this.module.querySelector('#' + this.module.getAttribute('data-sub-facet-id'))
     this.options = this.instantiateOptions()
   }
 
