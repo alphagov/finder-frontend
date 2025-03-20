@@ -19,14 +19,14 @@ module Search
       finder_content_item:,
       params: {},
       ab_params: {},
-      override_sort_for_feed: false,
+      is_for_feed: false,
       use_v2_api: false,
       v2_serving_config: nil
     )
       @finder_content_item = finder_content_item
       @params = params
       @ab_params = ab_params
-      @override_sort_for_feed = override_sort_for_feed
+      @is_for_feed = is_for_feed
       @use_v2_api = use_v2_api
       @v2_serving_config = v2_serving_config
     end
@@ -56,7 +56,7 @@ module Search
 
   private
 
-    attr_reader :finder_content_item, :params, :ab_params, :override_sort_for_feed,
+    attr_reader :finder_content_item, :params, :ab_params, :is_for_feed,
                 :v2_serving_config
 
     def use_v2_api?
@@ -132,7 +132,7 @@ module Search
         finder_content_item,
         keywords,
         params,
-        override_sort_for_feed:,
+        is_for_feed:,
       ).call
     end
 

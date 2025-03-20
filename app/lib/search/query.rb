@@ -16,15 +16,15 @@ module Search
       content_item,
       filter_params,
       ab_params: {},
-      override_sort_for_feed: false,
+      is_for_feed: false,
       v2_serving_config: nil
     )
       @content_item = content_item
       @filter_params = filter_params
       @ab_params = ab_params
-      @override_sort_for_feed = override_sort_for_feed
+      @is_for_feed = is_for_feed
       @order =
-        if override_sort_for_feed
+        if is_for_feed
           "most-recent"
         else
           filter_params["order"]
@@ -42,7 +42,7 @@ module Search
 
   private
 
-    attr_reader :ab_params, :override_sort_for_feed, :content_item, :v2_serving_config
+    attr_reader :ab_params, :is_for_feed, :content_item, :v2_serving_config
 
     def merge_and_deduplicate(search_response)
       results = search_response.fetch("results")
@@ -92,7 +92,7 @@ module Search
       queries = QueryBuilder.new(
         finder_content_item: content_item,
         params: filter_params,
-        override_sort_for_feed:,
+        is_for_feed:,
         use_v2_api: use_v2_api?,
         v2_serving_config:,
       ).call
@@ -137,6 +137,10 @@ module Search
       ## Vertex AI Search is not designed to handle non-keyword queries well, and there are cost
       ## implications as well when it comes to bot traffic.
       return false if filter_params["keywords"].blank?
+
+      ## Feeds with keywords are sorted newest to oldest, so the relevance benefits of Vertex are
+      ## not realised.
+      return false if @is_for_feed
 
       # Use v2 iff the current finder is site search (the only migrated finder so far)
       content_item.base_path == SITE_SEARCH_FINDER_BASE_PATH

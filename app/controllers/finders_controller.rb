@@ -145,7 +145,7 @@ private
     Search::Query.new(
       content_item,
       filter_params,
-      override_sort_for_feed: is_for_feed,
+      is_for_feed: is_for_feed,
       ab_params: {},
       v2_serving_config:,
     )
