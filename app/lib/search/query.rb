@@ -138,6 +138,10 @@ module Search
       ## implications as well when it comes to bot traffic.
       return false if filter_params["keywords"].blank?
 
+      ## Feeds with keywords are sorted newest to oldest, so the relevance benefits of Vertex are
+      ## not realised.
+      return false if @override_sort_for_feed
+
       # Use v2 iff the current finder is site search (the only migrated finder so far)
       content_item.base_path == SITE_SEARCH_FINDER_BASE_PATH
     end
