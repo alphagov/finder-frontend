@@ -1,16 +1,16 @@
 module Search
   class OrderQueryBuilder
-    def initialize(content_item, keywords, params, override_sort_for_feed: false)
+    def initialize(content_item, keywords, params, is_for_feed: false)
       @content_item = content_item
       @params = params
       @keywords = keywords
-      @override_sort_for_feed = override_sort_for_feed
+      @is_for_feed = is_for_feed
     end
 
     def call
       return order_by_release_timestamp if sort_option.present? && order_by_release_timestamp?(sort_option)
 
-      return order_by_public_timestamp if override_sort_for_feed
+      return order_by_public_timestamp if is_for_feed
       return order_by_public_timestamp if sort_option.present? && order_by_public_timestamp?(sort_option)
 
       return order_by_relevance_query if sort_option.present? && order_by_relevance?(sort_option)
@@ -26,7 +26,7 @@ module Search
 
   private
 
-    attr_reader :content_item, :params, :keywords, :override_sort_for_feed
+    attr_reader :content_item, :params, :keywords, :is_for_feed
 
     def order_by_relevance?(sort_option)
       %w[relevance -relevance topic -topic].include?(sort_option["key"])

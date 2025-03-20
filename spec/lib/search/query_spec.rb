@@ -152,7 +152,7 @@ describe Search::Query do
   end
 
   context "when it's a query for a feed" do
-    subject { described_class.new(content_item, { "keywords" => "feed me" }, override_sort_for_feed: true).search_results }
+    subject { described_class.new(content_item, { "keywords" => "feed me" }, is_for_feed: true).search_results }
 
     let(:content_item) do
       ContentItem.new({
