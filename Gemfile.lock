@@ -173,7 +173,7 @@ GEM
     google-protobuf (4.30.1)
       bigdecimal
       rake (>= 13)
-    googleapis-common-protos-types (1.18.0)
+    googleapis-common-protos-types (1.19.0)
       google-protobuf (>= 3.18, < 5.a)
     govuk_ab_testing (3.0.0)
     govuk_app_config (9.16.7)
@@ -191,7 +191,7 @@ GEM
     govuk_personalisation (1.1.0)
       plek (>= 1.9.0)
       rails (>= 6, < 9)
-    govuk_publishing_components (55.0.1)
+    govuk_publishing_components (55.1.0)
       govuk_app_config
       govuk_personalisation (>= 0.7.0)
       kramdown
