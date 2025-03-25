@@ -250,6 +250,123 @@ describe Document do
       end
     end
 
+    context "There is one facet of type nested" do
+      let(:allowed_values) do
+        [
+          {
+            "label": "Allowed value 1 label",
+            "value": "allowed-value-1",
+            "sub_facets": [
+              {
+                "label": "Sub facet Value 1 label",
+                "value": "allowed-value-1-sub-facet-value-1",
+                "main_facet_label": "Allowed value 1 label",
+                "main_facet_value": "allowed-value-1",
+              },
+              {
+                "label": "Sub facet Value 2 label",
+                "value": "allowed-value-1-sub-facet-value-2",
+                "main_facet_label": "Allowed value 1 label",
+                "main_facet_value": "allowed-value-1",
+              },
+            ],
+          },
+          {
+            "label": "Allowed value 2 label",
+            "value": "allowed-value-2",
+          },
+        ]
+      end
+      let(:facets) do
+        [FactoryBot.build(:nested_facet,
+                          type: "nested",
+                          name: "Facet Name",
+                          short_name: "Main Facet Short Name",
+                          key: "main_facet_key_value",
+                          sub_facet_key: "sub_facet_key_value",
+                          sub_facet_name: "Sub Facet Name",
+                          nested_facet: true,
+                          allowed_values:)]
+      end
+
+      describe "and the document is tagged to multiple values of both main and sub facet filter keys" do
+        let(:document_hash) do
+          FactoryBot.build(
+            :document_hash,
+            main_facet_key_value:
+              [
+                { "label" => "Allowed value 1 label", value: "allowed-value-1" },
+                { "label" => "Allowed value 2 label", value: "allowed-value-2" },
+              ],
+            sub_facet_key_value: [
+              { "label" => "Sub facet Value 1 label", value: "allowed-value-1-sub-facet-value-1" },
+              { "label" => "Sub facet Value 2 label", value: "allowed-value-1-sub-facet-value-2" },
+            ],
+          )
+        end
+
+        it "gets the metadata" do
+          expected_hash =
+            [
+              {
+                id: "main_facet_key_value",
+                name: "Main Facet Short Name",
+                value: "Allowed value 1 label and 1 others",
+                labels: ["Allowed value 1 label", "Allowed value 2 label"],
+                type: "text",
+              },
+              {
+                id: "sub_facet_key_value",
+                name: "Sub Facet Name",
+                value: "Sub facet Value 1 label and 1 others",
+                labels: ["Sub facet Value 1 label", "Sub facet Value 2 label"],
+                type: "text",
+              },
+            ]
+          expect(described_class.new(document_hash, 1).metadata(facets)).to eq(expected_hash)
+        end
+      end
+
+      describe "and the document is tagged to a multiple values of the main and sub-facet facet filter keys that do not match any allowed values" do
+        let(:document_hash) do
+          FactoryBot.build(
+            :document_hash,
+            main_facet_key_value:
+              [
+                { "label" => "mismatched label 1", value: "mismatched_label_1" },
+                { "label" => "mismatched label 3", value: "mismatched_label_3" },
+              ],
+            sub_facet_key_value:
+            [
+              { "label" => "mismatched label 1", value: "mismatched_label_1" },
+              { "label" => "mismatched label 3", value: "mismatched_label_3" },
+            ],
+          )
+        end
+
+        it "gets the metadata" do
+          expected_hash =
+            [
+              {
+                id: "main_facet_key_value",
+                name: "Main Facet Short Name",
+                value: "mismatched label 1 and 1 others",
+                labels: ["mismatched label 1", "mismatched label 3"],
+                type: "text",
+              },
+              {
+                id: "sub_facet_key_value",
+                name: "Sub Facet Name",
+                value: "mismatched label 1 and 1 others",
+                labels: ["mismatched label 1", "mismatched label 3"],
+                type: "text",
+              },
+            ]
+          expect(described_class.new(document_hash, 1).metadata(facets)).to eq(expected_hash)
+        end
+      end
+    end
+
     describe "The facet key is an organisation or a document collection" do
       let(:facets) do
         [FactoryBot.build(:option_select_facet, key: "organisations"),

@@ -11,51 +11,41 @@ describe FacetsBuilder do
       "allowed_values": [{ "value" => "me" }, { "value" => "you" }],
     }
   end
-  let(:hash_including_nested_facets) do
-    [
-      {
-        "filterable": true,
-        "type": "text",
-        "name": "Facet Name",
-        "key": "facet_key",
-        "preposition": "with",
-        "sub_facet_key": "sub_facet_key",
-        "sub_facet_name": "Sub Facet Name",
-        "nested_facet": true,
-        "allowed_values": [
-          {
-            "label": "Allowed value 1",
-            "value": "allowed-value-1",
-          },
-          {
-            "label": "Allowed value 2",
-            "value": "allowed-value-2",
-          },
-        ],
-      },
-      {
-        "filterable": true,
-        "type": "text",
-        "name": "Sub Facet Name",
-        "key": "sub_facet_key",
-        "preposition": "with",
-        "nested_facet": true,
-        "allowed_values": [
-          {
-            "label": "Allowed value 1 Sub facet Value 1",
-            "value": "allowed-value-1-sub-facet-value-1",
-            "main_facet_label": "Allowed value 1",
-            "main_facet_value": "allowed-value-1",
-          },
-          {
-            "label": "Allowed value 1 Sub facet Value 2",
-            "value": "allowed-value-1-sub-facet-value-2",
-            "main_facet_label": "Allowed value 1",
-            "main_facet_value": "allowed-value-1",
-          },
-        ],
-      },
-    ]
+  let(:nested_facet_hash) do
+    {
+      "filterable": true,
+      "type": "nested",
+      "name": "Facet Name",
+      "key": "facet_key",
+      "preposition": "with",
+      "sub_facet_key": "sub_facet_key",
+      "sub_facet_name": "Sub Facet Name",
+      "nested_facet": true,
+      "allowed_values": [
+        {
+          "label": "Allowed value 1",
+          "value": "allowed-value-1",
+          "sub_facets": [
+            {
+              "label": "Sub facet Value 1",
+              "value": "allowed-value-1-sub-facet-value-1",
+              "main_facet_label": "Allowed value 1",
+              "main_facet_value": "allowed-value-1",
+            },
+            {
+              "label": "Sub facet Value 2",
+              "value": "allowed-value-1-sub-facet-value-2",
+              "main_facet_label": "Allowed value 1",
+              "main_facet_value": "allowed-value-1",
+            },
+          ],
+        },
+        {
+          "label": "Allowed value 2",
+          "value": "allowed-value-2",
+        },
+      ],
+    }
   end
   let(:taxon_facet_hash) do
     {
@@ -168,30 +158,22 @@ describe FacetsBuilder do
       end
     end
 
-    context "nested hash facet" do
-      subject(:facets) do
-        described_class.new(content_item:, search_results: {}, value_hash: {}).facets
+    context "nested_facet_hash facet" do
+      subject(:facet) do
+        described_class.new(content_item:, search_results: {}, value_hash: { "facet_key": "value for the main facet", "sub_facet_key": "value for sub-facet" }).facets.first
       end
 
-      let(:detail_hash) do
-        {
-          "details" => {
-            "facets" => hash_under_test,
-          },
-        }
-      end
       let(:hash_under_test) do
-        hash_including_nested_facets
+        nested_facet_hash
       end
 
-      it "builds two nested facets for main and sub hashes" do
-        expect(facets.count).to eq 2
-
-        main_facet = facets.select { |f| f.key == hash_under_test.first[:key] }.first
-        sub_facet = facets.select { |f| f.key == hash_under_test.second[:key] }.first
-
-        expect(main_facet.name).to eq("Facet Name")
-        expect(sub_facet.name).to eq("Sub Facet Name")
+      it "builds a nested facet" do
+        expect(facet).to be_a(NestedFacet)
+        expect(facet.name).to eq("Facet Name")
+        expect(facet.key).to eq("facet_key")
+        expect(facet.sub_facet_name).to eq("Sub Facet Name")
+        expect(facet.sub_facet_key).to eq("sub_facet_key")
+        expect(facet.instance_variable_get(:@value_hash)).to eq({ "facet_key" => "value for the main facet", "sub_facet_key" => "value for sub-facet" })
       end
     end
 
