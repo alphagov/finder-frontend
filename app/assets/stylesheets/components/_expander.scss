@@ -22,11 +22,14 @@
 .govuk-frontend-supported {
   .app-c-expander__heading {
     position: relative;
+    margin: 0;
+  }
+
+  .app-c-expander__toggle {
     display: flex;
     flex-direction: row-reverse;
     justify-content: start;
     align-items: center;
-    margin: 0;
   }
 
   .app-c-expander__content {
@@ -92,5 +95,6 @@
   display: block;
   color: $govuk-text-colour;
   margin-top: 3px;
+  margin-left: 44px;
   @include govuk-font($size: 14);
 }
