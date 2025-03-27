@@ -9,6 +9,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}; // if this ; is omitted, none
   function Expander ($module) {
     this.$module = $module
     this.$toggle = this.$module.querySelector('.js-toggle')
+    this.$toggleContainer = this.$module.querySelector('.js-toggle-container')
     this.$content = this.$module.querySelector('.js-content')
     this.$allInteractiveElements = this.$content.querySelectorAll('select, input[type=text]')
   }
@@ -102,7 +103,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}; // if this ; is omitted, none
     $selectedCounter.classList.add('app-c-expander__selected-counter')
     $selectedCounter.classList.add('js-selected-counter')
     $selectedCounter.innerHTML = selectedString
-    this.$toggleButton.parentNode.insertBefore($selectedCounter, this.$toggleButton.nextSibling)
+    this.$toggleContainer.parentNode.insertBefore($selectedCounter, null)
   }
 
   Expander.prototype.updateSelectedCount = function updateSelectedCount () {
