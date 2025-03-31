@@ -3,14 +3,14 @@ module Metrics
   COUNTERS = {
     searches: CLIENT.register(
       :counter,
-      "finder_frontend_searches",
+      "finder_frontend_searches_total",
       "Total number of requests performed to a backend search API",
     ),
   }.freeze
   HISTOGRAMS = {
     search_request_duration: CLIENT.register(
       :histogram,
-      "finder_frontend_search_request_duration",
+      "finder_frontend_search_request_duration_seconds",
       "Time taken to perform a request to a backend search API",
     ),
   }.freeze
