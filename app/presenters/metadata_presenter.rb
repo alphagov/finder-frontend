@@ -29,7 +29,7 @@ private
   end
 
   def build_date_metadata(data)
-    date = Date.parse(data.fetch(:value))
+    date = Time.zone.parse(data.fetch(:value)).to_date
     {
       label: data.fetch(:name),
       is_date: true,
