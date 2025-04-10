@@ -24,5 +24,12 @@ RSpec.describe MetadataPresenter do
     it "presents the metadata" do
       expect(subject.present).to eq(formatted_metadata)
     end
+
+    it "presents the metadata for BST timezones correctly" do
+      raw_metadata = [{ id: "opened-date", name: "Opened date", value: "2025-04-10 23:00:01 +0000", type: "date" }]
+      expected_metadata = [{ label: "Opened date", is_date: true, machine_date: "2025-04-11", human_date: "11 April 2025" }]
+
+      expect(described_class.new(raw_metadata).present).to eq expected_metadata
+    end
   end
 end
