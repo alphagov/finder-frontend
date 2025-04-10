@@ -51,6 +51,11 @@ describe DateStringParser do
     # Dates should be interpretted as UK not US
     "01/11/2014" => Date.new(2014, 11, 1),
 
+    # Datetime strings with timezones (BST & GMT)
+    "2025-04-10 23:00:05 +0000" => Date.new(2025, 4, 11),
+    "2025-04-10 23:00:05 +0100" => Date.new(2025, 4, 10),
+    "2025-02-10 23:00:05 +0000" => Date.new(2025, 2, 10),
+
     # Future date
     "22/09/25" => Date.new(2025, 9, 22),
 

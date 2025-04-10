@@ -20,6 +20,7 @@ private
   attr_reader :date_string, :chronic_date
 
   def try_parse_chronic_date
+    Chronic.time_class = Time.zone
     Chronic.parse(normalized_date_string, guess: :begin, endian_precedence: :little)
   rescue StandardError
     nil
