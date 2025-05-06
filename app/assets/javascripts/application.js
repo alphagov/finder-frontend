@@ -22,7 +22,6 @@
 //
 //= require support
 //
-//= require_tree ./analytics-ga4
 //= require live_search
 //= require taxonomy-select
 //= require_tree ./modules
