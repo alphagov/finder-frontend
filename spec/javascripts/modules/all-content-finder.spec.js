@@ -195,7 +195,7 @@ describe('AllContentFinder module', () => {
         const input = fixture.querySelector('#foo')
         input.dispatchEvent(event)
 
-        expect(GOVUK.analyticsGa4.Ga4FinderTracker.trackChangeEvent).toHaveBeenCalledWith(input, 'FooCategory')
+        expect(GOVUK.analyticsGa4.Ga4FinderTracker.trackChangeEvent).toHaveBeenCalledWith(event, 'FooCategory')
       })
 
       it('sets up ecommerce tracking', () => {
@@ -216,7 +216,7 @@ describe('AllContentFinder module', () => {
         const input = fixture.querySelector('#foo')
         input.dispatchEvent(event)
 
-        expect(GOVUK.analyticsGa4.Ga4FinderTracker.trackChangeEvent).toHaveBeenCalledWith(input, 'FooCategory')
+        expect(GOVUK.analyticsGa4.Ga4FinderTracker.trackChangeEvent).toHaveBeenCalledWith(event, 'FooCategory')
       })
 
       it('sets up ecommerce tracking', () => {

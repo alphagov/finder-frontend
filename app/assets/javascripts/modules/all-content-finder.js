@@ -65,7 +65,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
 
         if ($closestCategoryWrapper) {
           const category = $closestCategoryWrapper.getAttribute('data-ga4-change-category')
-          GOVUK.analyticsGa4.Ga4FinderTracker.trackChangeEvent(event.target, category)
+          GOVUK.analyticsGa4.Ga4FinderTracker.trackChangeEvent(event, category)
         }
       })
     }

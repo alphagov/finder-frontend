@@ -548,7 +548,7 @@
           var consentCookie = GOVUK.getConsentCookie()
 
           if (consentCookie && consentCookie.usage) {
-            GOVUK.analyticsGa4.Ga4FinderTracker.trackChangeEvent(event.target, ga4ChangeCategory)
+            GOVUK.analyticsGa4.Ga4FinderTracker.trackChangeEvent(event, ga4ChangeCategory)
           }
         }
       }
