@@ -1,6 +1,8 @@
 # The PaginationPresenter class is responsible for creating the next and
 # previous links to be displayed on finders.
 class PaginationPresenter
+  include ActiveSupport::NumberHelper
+
   def initialize(per_page:, start_offset:, total_results:, url_builder:)
     @per_page = per_page
     @start_offset = start_offset
@@ -53,7 +55,7 @@ private
   def build_page_link(page_label, page)
     {
       title: page_label,
-      label: "#{page} of #{total_pages}",
+      label: "#{number_to_delimited(page)} of #{number_to_delimited(total_pages)}",
       url: url_builder.url(page:),
     }
   end
