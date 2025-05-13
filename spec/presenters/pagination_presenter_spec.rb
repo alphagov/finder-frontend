@@ -85,5 +85,16 @@ describe PaginationPresenter do
         )
       end
     end
+
+    context "when the page numbers are large" do
+      let(:per_page) { 1 }
+      let(:total_results) { 1989 }
+      let(:start_offset) { 1312 }
+
+      it "returns links with separators" do
+        expect(subject[:previous_page][:label]).to eq("1,312 of 1,989")
+        expect(subject[:next_page][:label]).to eq("1,314 of 1,989")
+      end
+    end
   end
 end
