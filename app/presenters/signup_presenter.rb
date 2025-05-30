@@ -20,6 +20,14 @@ class SignupPresenter
     content_item["details"]["beta"]
   end
 
+  def document_type
+    content_item["document_type"]
+  end
+
+  def schema_name
+    content_item["schema_name"]
+  end
+
   def email_filter_by
     content_item.dig("details", "email_filter_by")
   end
