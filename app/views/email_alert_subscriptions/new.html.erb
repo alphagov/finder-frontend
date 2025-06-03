@@ -1,3 +1,8 @@
+<% content_for :meta_tags do %>
+  <meta name="govuk:format" content="<%= @signup_presenter.document_type %>" />
+  <meta name="govuk:schema-name" content="<%= @signup_presenter.schema_name %>" />
+<% end %>
+
 <% if @signup_presenter.can_modify_choices? %>
   <% content_for :title, @signup_presenter.page_title %>
 <% else %>
