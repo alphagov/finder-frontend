@@ -1,26 +1,25 @@
 <% if local_assigns[:options] %>
-  <%# Ensure the select component stylesheet is loaded %>
-  <% add_gem_component_stylesheet("select") %>
-  <div class="govuk-form-group sort-options gem-c-select">
-    <label for="order" class="sort-options__label govuk-label">Sort by</label>
-    <select
-      class="js-order-results govuk-select sort-options__select"
-      name="order"
-      id="order"
-      aria-controls="js-search-results-info"
-      data-default-sort-option="<%= local_assigns[:default_value] %>"
-      data-relevance-sort-option="<%= local_assigns[:relevance_value] %>">
-      <% local_assigns[:options].each do |option| %>
-        <option
-          value='<%= option[:value] %>'
-          <% if option[:disabled] %>
-            disabled
-          <% end %>
-          <% if option[:selected] %>
-            selected
-          <% end %>
-          ><%= option[:label] %></option>
-      <% end %>
-    </select>
-  </div>
+  <%
+    options = []
+    local_assigns[:options].each do |option|
+      options << {
+        text: option[:label],
+        value: option[:value],
+        selected: option[:selected],
+        disabled: option[:disabled]
+      }
+    end
+  %>
+
+  <%= render "govuk_publishing_components/components/select", {
+    id: "order",
+    name: "order",
+    label: "Sort byyy",
+    options: options,
+    aria_controls: "js-search-results-info",
+    data_attributes: {
+      default_sort_option: local_assigns[:default_value],
+      relevance_sort_option: local_assigns[:relevance_value]
+    }
+  } %>
 <% end %>

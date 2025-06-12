@@ -78,7 +78,7 @@ describe('liveSearch', function () {
   beforeEach(function () {
     jasmine.Ajax.install()
     var count = '<div aria-live="assertive" id="js-search-results-info"><h2 class="result-region-header__counter" id="f-result-count"></h2></div>'
-    var sortList = '<select id="order" class="js-order-results" data-relevance-sort-option="relevance"><option>Test 1</option><option value="relevance" disabled>Relevance</option>'
+    var sortList = '<select id="order" data-relevance-sort-option="relevance"><option>Test 1</option><option value="relevance" disabled>Relevance</option>'
     var results = '<div class="js-live-search-results-block"><div id="js-loading-message"></div><div id="js-sort-options">' + sortList + '</div></div>'
     var emailSubscriptionLinks = '<a href="https://a-url/email-signup?query_param=something">Get emails</a>'
     var feedSubscriptionLinks = '<a href="http://an-atom-url.atom?query_param=something">Subscribe to feed</a>'
