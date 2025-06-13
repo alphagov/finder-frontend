@@ -446,8 +446,8 @@ describe Search::QueryBuilder do
       context "if no custom serving config is given" do
         let(:v2_serving_config) { nil }
 
-        it "includes the default serving config query" do
-          expect(query).to include("serving_config" => "default_search")
+        it "does not include a serving config query" do
+          expect(query).not_to have_key("serving_config")
         end
       end
     end

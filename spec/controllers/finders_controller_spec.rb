@@ -319,7 +319,7 @@ describe FindersController, type: :controller do
 
     describe "the finder is the all content finder" do
       before do
-        search_api_request(search_api_app: "search-api-v2", discovery_engine_attribution_token: "123ABC", query: { q: "hello", order: nil, serving_config: "default_search" })
+        search_api_request(search_api_app: "search-api-v2", discovery_engine_attribution_token: "123ABC", query: { q: "hello", order: nil })
         stub_content_store_has_item(
           "/search/all",
           all_content_finder,
@@ -347,7 +347,7 @@ describe FindersController, type: :controller do
       end
 
       context "when the variant is A" do
-        let(:expected_serving_config) { "default_search" }
+        let(:expected_serving_config) { nil }
 
         it "uses the expected serving config" do
           with_variant(SearchFreshnessBoost: "A") do
@@ -369,7 +369,7 @@ describe FindersController, type: :controller do
       end
 
       context "when the variant is Z" do
-        let(:expected_serving_config) { "default_search" }
+        let(:expected_serving_config) { nil }
 
         it "uses the expected serving config" do
           with_variant(SearchFreshnessBoost: "Z") do

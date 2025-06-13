@@ -12,7 +12,6 @@ module Search
     # find anything useful, too much noise.
     MAX_QUERY_LENGTH = 512
 
-    DEFAULT_V2_SERVING_CONFIG = "default_search".freeze
     LICENCE_STOPWORDS = %w[licence license permit certification].freeze
 
     def initialize(
@@ -257,8 +256,8 @@ module Search
       return {} unless use_v2_api?
 
       {
-        "serving_config" => v2_serving_config || DEFAULT_V2_SERVING_CONFIG,
-      }
+        "serving_config" => v2_serving_config,
+      }.compact
     end
 
     def debug_query

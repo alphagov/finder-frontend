@@ -17,10 +17,9 @@ module AbTest::SearchFreshnessBoostAbTestable
   end
 
   def v2_serving_config
-    if @requested_variant&.variant?("B")
-      "variant_search"
-    else
-      "default_search"
-    end
+    return "variant_search" if @requested_variant&.variant?("B")
+
+    # Let Search API v2 decide which "default" serving config to use.
+    nil
   end
 end
