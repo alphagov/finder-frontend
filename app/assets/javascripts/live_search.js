@@ -128,7 +128,7 @@
       if (consentCookie && consentCookie.usage) {
         if (this.$resultsWrapper) {
           this.$resultsWrapper.setAttribute('data-ga4-search-query', this.currentKeywords())
-          var sortedBy = this.$resultsWrapper.querySelector('.js-order-results')
+          var sortedBy = this.$resultsWrapper.querySelector('#order')
           // Check that the sortedBy element exists and contains option elements
           if (sortedBy && sortedBy.options.length > 0) {
             this.$resultsWrapper.setAttribute('data-ga4-ecommerce-variant', sortedBy.options[sortedBy.selectedIndex].text)
@@ -294,7 +294,7 @@
   }
 
   LiveSearch.prototype.bindSortElements = function bindSortElements () {
-    this.$orderSelect = this.$form.querySelector('.js-order-results')
+    this.$orderSelect = this.$form.querySelector('#order')
     if (this.$orderSelect) {
       this.$relevanceOrderOption = this.$orderSelect.querySelector('option[value=' + this.$orderSelect.getAttribute('data-relevance-sort-option') + ']')
     }
