@@ -94,7 +94,10 @@ private
         GovukError.notify(MalformedPartError.new, extra: { part:, link: })
         next
       end
-      path = "#{link}/#{part[:slug]}"
+      # Prefer the fully qualified path provided by Search API.
+      # Temporarily fallback to the historical behaviour of concatenating the parent
+      # link and slug during transition period until `part[:link]` is populated.
+      path = part[:link].presence || "#{link}/#{part[:slug]}"
       {
         link: {
           text: part[:title],
