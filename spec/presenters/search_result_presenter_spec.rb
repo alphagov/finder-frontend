@@ -157,6 +157,82 @@ RSpec.describe SearchResultPresenter do
           expect(subject.document_list_component_data[:parts]).to be_nil
         end
       end
+
+      context "when a part includes a link attribute" do
+        let(:parts) do
+          [
+            {
+              title: "Outcome part",
+              slug: "outcome-path",
+              body: "Outcome description",
+              link: "/outcome/part-outcome-path",
+            },
+          ]
+        end
+
+        let(:result_number) { 2 }
+
+        let(:expected_parts) do
+          [
+            {
+              link: {
+                text: "Outcome part",
+                path: "/outcome/part-outcome-path",
+                description: "Outcome description",
+                data_attributes: {
+                  ga4_ecommerce_path: "/outcome/part-outcome-path",
+                  ga4_ecommerce_content_id: "content_id",
+                  ga4_ecommerce_row: 1,
+                  ga4_ecommerce_index: 1,
+                },
+              },
+            },
+          ]
+        end
+
+        it "uses the link attribute directly when provided" do
+          expect(subject.document_list_component_data[:parts]).to eq(expected_parts)
+        end
+      end
+
+      context "when a part includes a blank link attribute" do
+        let(:parts) do
+          [
+            {
+              title: "Fallback part",
+              slug: "fallback-path",
+              body: "Fallback description",
+              link: nil,
+            },
+          ]
+        end
+
+        let(:result_number) { 2 }
+
+        let(:expected_part_path) { "#{link}/fallback-path" }
+
+        let(:expected_parts) do
+          [
+            {
+              link: {
+                text: "Fallback part",
+                path: expected_part_path,
+                description: "Fallback description",
+                data_attributes: {
+                  ga4_ecommerce_path: expected_part_path,
+                  ga4_ecommerce_content_id: "content_id",
+                  ga4_ecommerce_row: 1,
+                  ga4_ecommerce_index: 1,
+                },
+              },
+            },
+          ]
+        end
+
+        it "falls back to building the path from the parent link and slug" do
+          expect(subject.document_list_component_data[:parts]).to eq(expected_parts)
+        end
+      end
     end
 
     context "with full size description" do
