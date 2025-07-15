@@ -85,6 +85,10 @@ private
 
   def structure_parts
     structured_parts = parts.map do |part|
+      # Silently skip parts that have no slug
+      # this is an interim conditional until `slug` is replaced by `link` in Search API
+      next if part[:slug].blank?
+
       has_required_data = %i[title slug body].all? { |key| part.key? key }
       unless has_required_data
         GovukError.notify(MalformedPartError.new, extra: { part:, link: })

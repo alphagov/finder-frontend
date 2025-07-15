@@ -157,6 +157,47 @@ RSpec.describe SearchResultPresenter do
           expect(subject.document_list_component_data[:parts]).to be_nil
         end
       end
+
+      context "when a part has a blank slug" do
+        let(:parts) do
+          [
+            {
+              title: "I am a part title",
+              slug: "part-path",
+              body: "Part description",
+            },
+            {
+              title: "I am missing slug",
+              slug: "",
+              body: "Body text",
+            },
+          ]
+        end
+
+        let(:result_number) { 3 }
+
+        let(:expected_parts) do
+          [
+            {
+              link: {
+                text: "I am a part title",
+                path: "#{link}/part-path",
+                description: "Part description",
+                data_attributes: {
+                  ga4_ecommerce_path: "#{link}/part-path",
+                  ga4_ecommerce_content_id: "content_id",
+                  ga4_ecommerce_row: 1,
+                  ga4_ecommerce_index: 1,
+                },
+              },
+            },
+          ]
+        end
+
+        it "skips the part with a blank slug without notifying" do
+          expect(subject.document_list_component_data[:parts]).to eq(expected_parts)
+        end
+      end
     end
 
     context "with full size description" do
