@@ -14,11 +14,6 @@ Rails.application.routes.draw do
   get "/search" => "search#index", as: :search
   get "/search/opensearch" => "search#opensearch"
 
-  if ENV["GOVUK_WEBSITE_ROOT"] =~ /integration/ || ENV["GOVUK_WEBSITE_ROOT"] =~ /staging/
-    get "/test-search/search" => "search#index"
-    get "/test-search/search/opensearch" => "search#opensearch"
-  end
-
   # Helper to generate email signup routes
   get "/email/subscriptions/new", to: proc { [200, {}, [""]] }, as: :email_alert_frontend_signup
 
