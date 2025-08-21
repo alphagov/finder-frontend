@@ -5,21 +5,20 @@
     </div>
   </div>
 <% end %>
-<!DOCTYPE html>
-<html>
-  <head>
-    <title><%= yield :title %> - GOV.UK</title>
-    <!--[if gt IE 8]><!--><%= stylesheet_link_tag "application", integrity: false %><!--<![endif]-->
-    <%=
-      render_component_stylesheets
-    %>
-    <%= javascript_include_tag "application", integrity: false, type: "module" %>
-    <meta name="robots" content="noindex">
-  </head>
 
-  <body>
-    <div id="wrapper">
-      <%= yield :body %>
-    </div>
-  </body>
-</html>
+<%= content_for :head do %>
+  <%= csp_meta_tag %>
+  <%= render_component_stylesheets %>
+  <%= render "govuk_publishing_components/components/meta_tags", {
+    content_item: {
+      rendering_app: "finder-frontend",
+    }
+  } %>
+  <meta name="robots" content="noindex">
+<% end %>
+
+<%= render "govuk_publishing_components/components/layout_for_public", {
+      title: "#{yield(:title)} - GOV.UK",
+  } do %>
+  <%= yield :body %>
+<% end %>
