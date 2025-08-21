@@ -7,30 +7,29 @@
     </div>
   </main>
 <% end %>
-<% @omit_feedback_footer ||= nil %>
-<!DOCTYPE html>
-<html>
-  <head>
-    <title><%= yield :title %> - GOV.UK</title>
-    <%= stylesheet_link_tag "application", media: "all", integrity: false %>
-    <%=
-      render_component_stylesheets
-    %>
-    <%= javascript_include_tag 'test-dependencies.js', type: "module" if Rails.env.test? %>
-    <%= javascript_include_tag 'application', integrity: false, type: "module" %>
-    <%= csrf_meta_tags %>
-    <%= yield :head %>
 
-    <% if params[:page] || params[:keywords] || params[:q] %>
-      <meta name="robots" content="noindex">
-    <% end %>
-    <meta name="govuk:base_title" content="<%= yield :meta_title %> - GOV.UK">
-    <%= yield :meta_tags %>
-  </head>
+<%= content_for :head do %>
+  <%= csp_meta_tag %>
+  <%= csrf_meta_tags %>
+  <%= render_component_stylesheets %>
+  <%= render "govuk_publishing_components/components/meta_tags", {
+    content_item: {
+      rendering_app: "finder-frontend",
+    }
+  } %>
+  <% if params[:page] || params[:keywords] || params[:q] %>
+    <meta name="robots" content="noindex">
+  <% end %>
+  <meta name="govuk:base_title" content="<%= yield :meta_title %> - GOV.UK">
+  <%= yield :meta_tags %>
+<% end %>
 
-  <body class="<%= yield :body_classes %>">
-    <div id="wrapper">
-      <%= yield :body %>
-    </div>
-  </body>
-</html>
+<%= render "govuk_publishing_components/components/layout_for_public", {
+      title: "#{yield(:title)} - GOV.UK",
+      full_width: i_am_a_topic_page_finder,
+      omit_feedback_footer: @omit_feedback_footer
+  } do %>
+  <div class="govuk-width-container">
+    <%= yield :body %>
+  </div>
+<% end %>
