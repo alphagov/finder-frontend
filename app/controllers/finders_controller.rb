@@ -9,7 +9,7 @@ class FindersController < ApplicationController
 
     validate_finder_params!
 
-    slimmer_template "gem_layout_full_width" if i_am_a_topic_page_finder
+    # TODO: slimmer_template "gem_layout_full_width" if i_am_a_topic_page_finder
 
     respond_to do |format|
       format.html do

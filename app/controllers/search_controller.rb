@@ -18,13 +18,6 @@ class SearchController < ApplicationController
 
 protected
 
-  def fill_in_slimmer_headers(result_count)
-    set_slimmer_headers(
-      result_count:,
-      section: "search",
-    )
-  end
-
   def redirect_to_all_content_finder(search_params)
     all_content_params = {
       keywords: search_params.search_term,

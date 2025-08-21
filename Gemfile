@@ -15,7 +15,6 @@ gem "govuk_publishing_components"
 gem "govuk_web_banners"
 gem "rack-cors"
 gem "rest-client"
-gem "slimmer"
 gem "sprockets-rails"
 gem "terser"
 
