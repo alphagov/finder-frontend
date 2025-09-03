@@ -13,8 +13,6 @@ require "cucumber/rspec/doubles"
 require "webmock/cucumber"
 WebMock.disable_net_connect!(allow_localhost: true)
 
-require "slimmer/test"
-
 GovukTest.configure
 
 # Capybara defaults to CSS3 selectors rather than XPath.
