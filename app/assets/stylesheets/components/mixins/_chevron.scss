@@ -1,4 +1,4 @@
-@import "govuk_publishing_components/components/mixins/prefixed-transform";
+@import "govuk_publishing_components/components/mixins/css3";
 
 @mixin chevron($open: false) {
   &::before {
