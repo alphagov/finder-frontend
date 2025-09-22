@@ -16,6 +16,7 @@ class ApplicationController < ActionController::Base
     rescue_from GdsApi::HTTPNotFound, with: :error_not_found
     rescue_from GdsApi::HTTPForbidden, with: :forbidden
     rescue_from GdsApi::HTTPUnprocessableEntity, with: :unprocessable_entity
+    rescue_from ActionController::BadRequest, with: :bad_request
   end
 
   if ENV["REQUIRE_BASIC_AUTH"]
@@ -72,6 +73,10 @@ private
 
   def unprocessable_entity
     render status: :unprocessable_entity, plain: "422 error: unprocessable entity"
+  end
+
+  def bad_request
+    render status: :bad_request, plain: "400 error: bad request"
   end
 
   def filter_params
