@@ -457,7 +457,7 @@ Then(/^I only see documents that match the checkbox filter$/) do
 end
 
 Then(/^I can sort by:$/) do |table|
-  expect(find_all(".js-order-results option").collect(&:text)).to eq(table.raw.flatten)
+  expect(find_all("#order option").collect(&:text)).to eq(table.raw.flatten)
 end
 
 When(/^I sort by most viewed$/) do
