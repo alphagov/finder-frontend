@@ -298,13 +298,7 @@ mark {
 .topic-finder__taxon-link,
 .topic-finder__taxon-link:link,
 .topic-finder__taxon-link:visited {
-  color: govuk-colour("white");
   @include govuk-font(24, $weight: bold);
-
-  &:link:focus,
-  &:visited:focus {
-    color: $govuk-text-colour;
-  }
 }
 
 .app-c-button-as-link {
