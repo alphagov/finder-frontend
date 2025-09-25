@@ -1,25 +1,21 @@
 <% content_for :body do %>
-  <%= yield %>
+    <%= yield %>
 <% end %>
-<!DOCTYPE html>
-<html>
-  <head>
-    <title><%= yield :title %> - GOV.UK</title>
-    <link title="Search" rel="search" type="application/opensearchdescription+xml" href="/search/opensearch.xml"/>
-    <%= stylesheet_link_tag "application", media: "all", integrity: false %>
-    <%=
-      render_component_stylesheets
-    %>
-    <%= javascript_include_tag 'application', integrity: false, type: "module" %>
-    <% if @content_item %>
-      <%= render 'govuk_publishing_components/components/meta_tags', content_item: @content_item.as_hash %>
-    <% end %>
-    <%= yield :extra_headers %>
-  </head>
 
-  <body class="mainstream <%= yield :body_classes %>">
-    <div id="wrapper" class="govuk-width-container">
-      <%= yield :body %>
-    </div>
-  </body>
-</html>
+<%= content_for :head do %>
+  <%= csp_meta_tag %>
+  <%= csrf_meta_tags %>
+  <%= render_component_stylesheets %>
+  <% if @content_item %>
+    <%= render 'govuk_publishing_components/components/meta_tags', content_item: @content_item.as_hash %>
+  <% end %>
+<% end %>
+
+<%= render "govuk_publishing_components/components/layout_for_public", {
+      title: "#{yield(:title)} - GOV.UK",
+      omit_feedback_footer: @omit_feedback_footer
+  } do %>
+  <div class="govuk-width-container">
+    <%= yield :body %>
+  </div>
+<% end %>
