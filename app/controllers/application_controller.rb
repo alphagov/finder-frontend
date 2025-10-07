@@ -75,22 +75,6 @@ private
   end
 
   def filter_params
-    # TODO: Use a whitelist based on the facets in the schema
-    @filter_params ||= begin
-      permitted_params = params
-                           .except(
-                             :controller,
-                             :action,
-                             :slug,
-                             :format,
-                           )
-
-      # Convert a query with 'q=search_term' into 'keywords=search_term'
-      if permitted_params.key?("q")
-        permitted_params["keywords"] = permitted_params.delete("q")
-      end
-
-      ParamsCleaner.new(permitted_params).cleaned
-    end
+    @filter_params ||= ParamsCleaner.call(params)
   end
 end
