@@ -224,6 +224,29 @@ describe FindersController, type: :controller do
       end
     end
 
+    describe "a finder requires valid input" do
+      it "renders a BadRequest when the keywords parameter is an array" do
+        stub_content_store_has_item("/lunch-finder", lunch_finder)
+
+        get :show, params: { slug: "lunch-finder", keywords: ["an", "array", "is invalid"] }
+        expect(response.status).to eq(400)
+      end
+
+      it "renders a BadRequest when the q parameter is an array" do
+        stub_content_store_has_item("/lunch-finder", lunch_finder)
+
+        get :show, params: { slug: "lunch-finder", q: ["an", "array", "is invalid"] }
+        expect(response.status).to eq(400)
+      end
+
+      it "renders a BadRequest when the q parameter is a hash" do
+        stub_content_store_has_item("/lunch-finder", lunch_finder)
+
+        get :show, params: { slug: "lunch-finder", q: { "invalid" => "hash" } }
+        expect(response.status).to eq(400)
+      end
+    end
+
     describe "finder item doesn't exist" do
       before do
         stub_content_store_does_not_have_item("/does-not-exist")

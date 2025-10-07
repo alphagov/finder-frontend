@@ -3,12 +3,12 @@ class FindersController < ApplicationController
 
   include AbTest::SearchFreshnessBoostAbTestable
 
-  before_action do
+  def show
     set_expiry(content_item)
     set_search_freshness_boost_ab_test_requested_variant if content_item.all_content_finder?
-  end
 
-  def show
+    validate_finder_params!
+
     slimmer_template "gem_layout_full_width" if i_am_a_topic_page_finder
 
     respond_to do |format|
@@ -70,6 +70,14 @@ private
   attr_reader :search_query
 
   helper_method :facet_tags, :i_am_a_topic_page_finder, :result_set_presenter, :content_item, :signup_links, :filter_params, :facets, :filters_presenter
+
+  def validate_finder_params!
+    # NOTE: The 'q' parameter is normalized to 'keywords' earlier (via ParamsCleaner),
+    # so this validator only checks 'keywords'.
+    unless filter_params.fetch(:keywords, "").is_a?(String)
+      raise ActionController::BadRequest, "Invalid 'keywords' query parameter"
+    end
+  end
 
   def redirect_to_destination
     @redirect = content_item.redirect
