@@ -8,6 +8,8 @@ class FindersController < ApplicationController
     set_search_freshness_boost_ab_test_requested_variant if content_item.all_content_finder?
   end
 
+  before_action :validate_finder_params!, only: :show
+
   def show
     slimmer_template "gem_layout_full_width" if i_am_a_topic_page_finder
 
@@ -70,6 +72,10 @@ private
   attr_reader :search_query
 
   helper_method :facet_tags, :i_am_a_topic_page_finder, :result_set_presenter, :content_item, :signup_links, :filter_params, :facets, :filters_presenter
+
+  def validate_finder_params!
+    FilterParamsValidator.new(filter_params).validate!
+  end
 
   def redirect_to_destination
     @redirect = content_item.redirect
