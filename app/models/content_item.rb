@@ -6,7 +6,11 @@ class ContentItem
   end
 
   def self.from_content_store(base_path)
-    content_item_hash = Services.cached_content_item(base_path)
+    content_item_hash = if local_content_item?(base_path)
+      JSON.parse(File.read("config/content/#{base_path.gsub('/', '_')}.json"))
+    else
+      Services.cached_content_item(base_path)
+    end
     new(content_item_hash)
   end
 
@@ -167,6 +171,66 @@ class ContentItem
 private
 
   attr_reader :content_item_hash
+
+  def self.local_content_item?(base_path)
+    paths = [
+      "/search",
+      "/aaib-reports",
+      "/administrative-appeals-tribunal-decisions",
+      "/ai-assurance-techniques",
+      "/algorithmic-transparency-records",
+      "/animal-disease-cases-england",
+      "/armed-forces-covenant-businesses",
+      "/asylum-support-tribunal-decisions",
+      "/business-finance-support",
+      "/capital-grant-finder",
+      "/cma-cases",
+      "/data-access-approvals-register",
+      "/data-ethics-guidance",
+      "/designs-decisions",
+      "/drug-device-alerts",
+      "/drug-safety-update",
+      "/employment-appeal-tribunal-decisions",
+      "/employment-tribunal-decisions",
+      "/eu-withdrawal-act-2018-statutory-instruments",
+      "/european-structural-investment-funds",
+      "/export-health-certificates",
+      "/find-digital-market-research",
+      "/find-funding-for-land-or-farms",
+      "/find-hmrc-contacts",
+      "/find-hmrc-manuals",
+      "/find-licences",
+      "/flood-and-coastal-erosion-risk-management-research-reports",
+      "/government/case-studies",
+      "/government/groups",
+      "/government/people",
+      "/government/statistical-data-sets",
+      "/international-development-funding",
+      "/maib-reports",
+      "/marine-equipment-approved-recommendations",
+      "/official-documents",
+      "/product-safety-alerts-reports-recalls",
+      "/protected-food-drink-names",
+      "/raib-reports",
+      "/research-for-development-outputs",
+      "/residential-property-tribunal-decisions",
+      "/search/all",
+      "/search/guidance-and-regulation",
+      "/search/news-and-communications",
+      "/search/policy-papers-and-consultations",
+      "/search/research-and-statistics",
+      "/search/services",
+      "/search/transparency-and-freedom-of-information-releases",
+      "/service-life-saving-maritime-appliances",
+      "/service-standard-reports",
+      "/sfo-cases",
+      "/support-for-veterans",
+      "/tax-and-chancery-tribunal-decisions",
+      "/traffic-commissioner-regulatory-decisions",
+      "/world/organisations"
+    ]
+    paths.include?(base_path)
+  end
 
   def is_research_and_statistics?
     base_path == "/search/research-and-statistics"

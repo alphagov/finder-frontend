@@ -61,7 +61,12 @@ module Registries
     end
 
     def fetch_taxon(base_path = "/")
-      Services.cached_content_item(base_path)
+      if base_path == "/"
+        path = "config/content/_homepage.json"
+      else
+        path = "config/content/#{base_path.gsub('/', '_')}.json"
+      end
+      JSON.parse(File.read(path))
     end
   end
 end
