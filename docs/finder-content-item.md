@@ -58,10 +58,12 @@ For example, rejecting all documents which don't have a policy would need a hash
 
 A string. Optional.
 
-You can use a minus (-) in front of the field to order in descending order (see [whitehall/lib/finders/case_studies.json](https://github.com/alphagov/whitehall/blob/master/lib/finders/case_studies.json#L12) for an example).
+You can use a minus (-) in front of the field to order in descending order (see [search-api/config/finders/case_studies_finder.yml](https://github.com/alphagov/search-api/blob/main/config/finders/case_studies_finder.yml#L21) for an example).
 
 Rummager must allow this field to be sorted on. At the time of writing [this
 was restricted to a couple of fields](https://github.com/alphagov/rummager/blob/ff35f2efb17d145f657cb520bc9892e64b713901/lib/parameter_parser/base_parameter_parser.rb#L10-L17).
+
+**Note:** If you include a custom `sort` block in the finder configuration, you must also include `relevance` as one of the available sort options. Finder Frontend requires this option to be present in the DOM, and the page's JavaScript will fail to initialize if it's missing.
 
 ## `default_documents_per_page`
 
