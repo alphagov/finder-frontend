@@ -98,3 +98,7 @@
   margin-left: 44px;
   @include govuk-font($size: 14);
 }
+
+.app-c-expander__notreal {
+  outline: 0;
+}
