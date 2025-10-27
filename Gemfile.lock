@@ -157,7 +157,7 @@ GEM
     erb (5.1.1)
     erubi (1.13.1)
     execjs (2.10.0)
-    factory_bot (6.5.5)
+    factory_bot (6.5.6)
       activesupport (>= 6.1.0)
     ffi (1.17.2)
     gds-api-adapters (101.0.0)
