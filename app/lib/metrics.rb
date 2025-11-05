@@ -1,3 +1,5 @@
+require "benchmark"
+
 module Metrics
   CLIENT = PrometheusExporter::Client.default
   COUNTERS = {
