@@ -16,6 +16,7 @@ class ApplicationController < ActionController::Base
     rescue_from GdsApi::HTTPNotFound, with: :error_not_found
     rescue_from GdsApi::HTTPForbidden, with: :forbidden
     rescue_from GdsApi::HTTPUnprocessableEntity, with: :unprocessable_entity
+    rescue_from ActionController::BadRequest, with: :bad_request
   end
 
   if ENV["REQUIRE_BASIC_AUTH"]
@@ -74,23 +75,11 @@ private
     render status: :unprocessable_entity, plain: "422 error: unprocessable entity"
   end
 
+  def bad_request
+    render status: :bad_request, plain: "400 error: bad request"
+  end
+
   def filter_params
-    # TODO: Use a whitelist based on the facets in the schema
-    @filter_params ||= begin
-      permitted_params = params
-                           .except(
-                             :controller,
-                             :action,
-                             :slug,
-                             :format,
-                           )
-
-      # Convert a query with 'q=search_term' into 'keywords=search_term'
-      if permitted_params.key?("q")
-        permitted_params["keywords"] = permitted_params.delete("q")
-      end
-
-      ParamsCleaner.new(permitted_params).cleaned
-    end
+    @filter_params ||= ParamsCleaner.call(params)
   end
 end

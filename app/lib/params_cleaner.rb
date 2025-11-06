@@ -12,38 +12,27 @@
 #   foo: ["bar", "baz"]
 #
 # We also sometimes get parameters with leading or trailing whitespace
-# in facet values (trailing whitespace in the last facet is common for
-# the business readiness finder), strip those so that searches work.
 #
+# The query parameters sometimes include 'q' and sometimes 'keywords'.
+# This change standardises them to use 'keywords' consistently.
+#
+
 class ParamsCleaner
-  attr_reader :cleaned
+  def self.call(params)
+    result_params = params.except(:controller, :action, :slug, :format)
+    if result_params.key?("q")
+      result_params["keywords"] = result_params.delete("q")
+    end
 
-  def initialize(params)
-    @cleaned = cleanup(params)
+    result_params.transform_values! { cleanup_value(_1) }
+    result_params.reject! { |_, value| value.blank? }
+    result_params.to_unsafe_hash.with_indifferent_access
   end
 
-  def fetch(key, default)
-    value = cleaned[key]
-    value.is_a?(default.class) ? value : default
-  end
-
-private
-
-  def cleanup(params)
-    param_pairs = params.to_unsafe_hash
-      .map { |k, v| [k, cleanup_value(v)] }
-
-    Hash[param_pairs]
-      .delete_if { |_, value| value.blank? }
-      .with_indifferent_access
-  end
-
-  def cleanup_value(value)
+  def self.cleanup_value(value)
     return value.strip if value.is_a?(String)
 
-    if value.is_a? Array
-      return value.map { |x| x.is_a?(String) ? x.strip : x }
-    end
+    return value.map { |element| element.try(:strip) || element } if value.is_a? Array
 
     if value.respond_to?(:keys) && value.keys.all? { |d| d.match(/\A\d+\Z/) }
       return value.values
