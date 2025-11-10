@@ -692,7 +692,7 @@ DEPENDENCIES
   factory_bot
   gds-api-adapters
   govuk_ab_testing
-  govuk_app_config
+  govuk_app_config (= 9.22.0)
   govuk_publishing_components
   govuk_schemas
   govuk_test
