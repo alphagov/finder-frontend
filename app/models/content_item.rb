@@ -6,7 +6,11 @@ class ContentItem
   end
 
   def self.from_content_store(base_path)
-    content_item_hash = Services.cached_content_item(base_path)
+    content_item_hash = if local_content_item?(base_path)
+      JSON.parse(File.read("config/content/#{base_path.gsub("/", "_")}.json"))
+    else
+      Services.cached_content_item(base_path)
+    end
     new(content_item_hash)
   end
 
@@ -167,6 +171,11 @@ class ContentItem
 private
 
   attr_reader :content_item_hash
+
+  def self.local_content_item?(base_path)
+    paths = %w[/search /search/all]
+    paths.include?(base_path)
+  end
 
   def is_research_and_statistics?
     base_path == "/search/research-and-statistics"
