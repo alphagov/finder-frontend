@@ -61,11 +61,18 @@ module Registries
 
     def fetch_level_one_taxons_from_api
       taxons = fetch_taxon.dig("links", "level_one_taxons") || []
-      taxons.map { |taxon| fetch_taxon(taxon["base_path"]) }
+      taxons.map do |taxon|
+        fetch_taxon(taxon["base_path"])
+      end
     end
 
     def fetch_taxon(base_path = "/")
-      Services.cached_content_item(base_path)
+      if base_path == "/"
+        path = "config/content/_homepage.json"
+      else
+        path = "config/content/#{base_path.gsub('/', '_')}.json"
+      end
+      JSON.parse(File.read(path))
     end
   end
 end
