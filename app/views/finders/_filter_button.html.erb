@@ -1,4 +1,6 @@
-<% add_app_component_stylesheet("mobile-filters") %>
+<% content_for :head do %>
+  <%= stylesheet_link_tag "components/_mobile-filters", media: "all" %>
+<% end %>
 <div class="app-c-mobile-filters">
   <button class="app-c-button-as-link app-mobile-filters-link js-toggle-mobile-filters"
     data-toggle="mobile-filters-modal"
