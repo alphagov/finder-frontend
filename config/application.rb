@@ -14,6 +14,8 @@ require "action_view/railtie"
 # require "action_cable/engine"
 require "rails/test_unit/railtie"
 
+require "govuk_publishing_components/middleware/ga4_optimise"
+
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
@@ -49,5 +51,8 @@ module FinderFrontend
     config.assets.css_compressor = nil
 
     config.active_support.to_time_preserves_timezone = :zone
+
+    # Use the middleware to compact data-ga4-event/link attributes
+    config.middleware.use GovukPublishingComponents::Middleware::Ga4Optimise
   end
 end
