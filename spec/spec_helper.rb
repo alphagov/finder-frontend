@@ -24,6 +24,9 @@ end
 FactoryBot.definition_file_paths = %w[./spec/factories]
 FactoryBot.find_definitions
 
+require "rspec/mocks/standalone"
+Rails.application.config.emergency_banner_redis_client = instance_double(Redis, hgetall: {})
+
 RSpec.configure do |config|
   config.raise_errors_for_deprecations!
 
