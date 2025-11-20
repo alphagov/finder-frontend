@@ -2,7 +2,9 @@ Rails.application.routes.draw do
   mount GovukPublishingComponents::Engine, at: "/component-guide"
 
   get "/healthcheck/live", to: proc { [200, {}, %w[OK]] }
-  get "/healthcheck/ready", to: proc { [200, {}, [JSON.generate({ status: :ok })]] }
+  get "/healthcheck/ready", to: GovukHealthcheck.rack_response(
+    GovukHealthcheck::EmergencyBannerRedis,
+  )
 
   namespace :api do
     get "/search/autocomplete" => "autocompletes#index"
