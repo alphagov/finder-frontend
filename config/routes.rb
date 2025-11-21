@@ -15,10 +15,18 @@ Rails.application.routes.draw do
   get "/search/opensearch" => "search#opensearch"
 
   # Helper to generate email signup routes
-  get "/email/subscriptions/new", to: proc { [200, {}, [""]] }, as: :email_alert_frontend_signup
 
-  get "/*slug/email-signup" => "email_alert_subscriptions#new", as: :new_email_alert_subscriptions
-  post "/*slug/email-signup" => "email_alert_subscriptions#create", as: :email_alert_subscriptions
+  if Rails.application.config.maintenance_mode
+    get "/email/subscriptions/new" => "maintenance#show"
+
+    get "/*slug/email-signup" => "maintenance#show"
+    post "/*slug/email-signup" => "maintenance#show"
+  else
+    get "/email/subscriptions/new", to: proc { [200, {}, [""]] }, as: :email_alert_frontend_signup
+
+    get "/*slug/email-signup" => "email_alert_subscriptions#new", as: :new_email_alert_subscriptions
+    post "/*slug/email-signup" => "email_alert_subscriptions#create", as: :email_alert_subscriptions
+  end
 
   get "/search/advanced" => "redirection#advanced_search"
   get "/search/latest" => "redirection#redirect_latest"
