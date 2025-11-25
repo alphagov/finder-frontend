@@ -1,4 +1,6 @@
-<% add_app_component_stylesheet("expander") %>
+<% content_for :head do %>
+  <%= stylesheet_link_tag "components/_expander", media: "all" %>
+<% end %>
 <%
   title ||= false
   open_on_load ||= false

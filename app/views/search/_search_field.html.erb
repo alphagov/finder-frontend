@@ -1,4 +1,7 @@
-<% add_view_stylesheet("search") %>
+<% content_for :head do %>
+  <%= stylesheet_link_tag "views/_search", media: "all" %>
+<% end %>
+
 <% label_text = capture do %>
 <%= render "govuk_publishing_components/components/heading", {
   text: "Search GOV.UK",
