@@ -1,0 +1,11 @@
+<% content_for :title, "Maintenance page" %>
+<%= render "govuk_publishing_components/components/heading", {
+  text: "Service unavailable",
+  heading_level: 1,
+  font_size: "l",
+  margin_bottom: 6,
+} %>
+
+<%= render "govuk_publishing_components/components/notice", {
+    description_govspeak: sanitize(Rails.application.config.maintenance_message),
+  } %>
