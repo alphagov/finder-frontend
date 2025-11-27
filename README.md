@@ -26,11 +26,18 @@ Renders search on GOV.UK:
 
 This is a Ruby on Rails app, and should follow [our Rails app conventions](https://docs.publishing.service.gov.uk/manual/conventions-for-rails-applications.html).
 
+### Running the app locally
+
 You can use the [GOV.UK Docker environment](https://github.com/alphagov/govuk-docker) or the local `startup.sh` script to run the app. Read the [guidance on local frontend development](https://docs.publishing.service.gov.uk/manual/local-frontend-development.html) to find out more about each approach, before you get started.
 
-If you are using GOV.UK Docker, remember to combine it with the commands that follow. See the [GOV.UK Docker usage instructions](https://github.com/alphagov/govuk-docker#usage) for examples.
+- `govuk-docker-up` builds finder-frontend and all its dependent applications
+- `govuk-docker-up app-live` builds finder-frontend pointing at the production content store and search stack
+- `govuk-docker-up app-integration` builds finder-frontend pointing at the integration content store and search stack
+- `govuk-docker-up app-live-local-search` builds finder-frontend pointing at the live content store and a local version of search api.
 
 ### Running the test suite
+
+If you are using GOV.UK Docker, remember to prefix the commands that follow with `govuk-docker-run`. See the [GOV.UK Docker usage instructions](https://github.com/alphagov/govuk-docker#usage) for examples.
 
 ```sh
 # run all the tests
