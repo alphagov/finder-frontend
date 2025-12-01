@@ -289,12 +289,6 @@ mark {
   box-sizing: border-box;
 }
 
-// NOTE: Used to remove the blue global header bar for the topic finder header.
-
-.full-width #global-header-bar { // stylelint-disable-line selector-max-id
-  display: none;
-}
-
 .topic-finder__taxon-link,
 .topic-finder__taxon-link:link,
 .topic-finder__taxon-link:visited {
