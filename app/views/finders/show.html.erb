@@ -15,7 +15,7 @@
 <%= render partial: 'before_content' %>
 
 <% if is_inverse? %>
-  <% content_for :main_element_class, true %>
+  <% content_for :inverse, true %>
 <% end %>
 
 <form method="get" action="<%= content_item.base_path %>" class="js-live-search-form"
