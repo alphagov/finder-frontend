@@ -1,5 +1,5 @@
 Given(/^the search page exists$/) do
-  stub_content_store_has_item("/search", schema: "special_route")
+  stub_content_store_has_item("/search-temp", schema: "special_route")
 end
 
 When(/^I search for "([^"]*)" from "(.*)" on the legacy json endpoint$/) do |search_term, organisation|
