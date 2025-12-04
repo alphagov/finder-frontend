@@ -344,13 +344,13 @@ describe FindersController, type: :controller do
       before do
         search_api_request(search_api_app: "search-api-v2", discovery_engine_attribution_token: "123ABC", query: { q: "hello", order: nil })
         stub_content_store_has_item(
-          "/search/all",
+          "/search/all-temp",
           all_content_finder,
         )
       end
 
       it "correctly renders the new template" do
-        get :show, params: { slug: "search/all", keywords: "hello" }
+        get :show, params: { slug: "search/all-temp", keywords: "hello" }
         expect(response.status).to eq(200)
         expect(response).to render_template("finders/show_all_content_finder")
       end
@@ -364,7 +364,7 @@ describe FindersController, type: :controller do
           query: { q: "hello", order: nil, serving_config: expected_serving_config },
         )
         stub_content_store_has_item(
-          "/search/all",
+          "/search/all-temp",
           all_content_finder,
         )
       end
@@ -374,7 +374,7 @@ describe FindersController, type: :controller do
 
         it "uses the expected serving config" do
           with_variant(SearchFreshnessBoost: "A") do
-            get :show, params: { slug: "search/all", keywords: "hello" }
+            get :show, params: { slug: "search/all-temp", keywords: "hello" }
             expect(response.status).to eq(200)
           end
         end
@@ -385,7 +385,7 @@ describe FindersController, type: :controller do
 
         it "uses the expected serving config" do
           with_variant(SearchFreshnessBoost: "B") do
-            get :show, params: { slug: "search/all", keywords: "hello" }
+            get :show, params: { slug: "search/all-temp", keywords: "hello" }
             expect(response.status).to eq(200)
           end
         end
@@ -396,7 +396,7 @@ describe FindersController, type: :controller do
 
         it "uses the expected serving config" do
           with_variant(SearchFreshnessBoost: "Z") do
-            get :show, params: { slug: "search/all", keywords: "hello" }
+            get :show, params: { slug: "search/all-temp", keywords: "hello" }
             expect(response.status).to eq(200)
           end
         end
@@ -439,7 +439,7 @@ describe FindersController, type: :controller do
 
   describe "Errors on date filters" do
     before do
-      stub_content_store_has_item("/search/all", all_content_finder)
+      stub_content_store_has_item("/search/all-temp", all_content_finder)
     end
 
     rummager_response = %({
@@ -453,7 +453,7 @@ describe FindersController, type: :controller do
     it "detects bad 'from' dates" do
       stub_request(:get, /search.json/).to_return(status: 200, body: rummager_response, headers: {})
 
-      get :show, params: { slug: "search/all", format: "json", public_timestamp: { from: "99-99-99", to: "01-01-01" } }
+      get :show, params: { slug: "search/all-temp", format: "json", public_timestamp: { from: "99-99-99", to: "01-01-01" } }
       json_response = JSON.parse(response.body)
 
       expect(json_response["errors"]["public_timestamp"]["from"]).to be true
@@ -463,7 +463,7 @@ describe FindersController, type: :controller do
     it "detects bad 'to' dates" do
       stub_request(:get, /search.json/).to_return(status: 200, body: rummager_response, headers: {})
 
-      get :show, params: { slug: "search/all", format: "json", public_timestamp: { from: "01-01-01", to: "99-99-99" } }
+      get :show, params: { slug: "search/all-temp", format: "json", public_timestamp: { from: "01-01-01", to: "99-99-99" } }
 
       json_response = JSON.parse(response.body)
       expect(json_response["errors"]["public_timestamp"]["from"]).to be false
