@@ -1,36 +1,26 @@
-<% content_for :body do %>
-  <%= yield :before_content %>
-  <%= render "govuk_web_banners/recruitment_banner" %>
-  <main id="content" class="<%= 'govuk-main-wrapper' unless content_for?(:main_element_class) %>">
-    <div class="finder-frontend">
-      <%= yield %>
-    </div>
-  </main>
+<%= content_for :head do %>
+  <%= javascript_include_tag 'application', integrity: false, type: "module" %>
+  <%= csrf_meta_tags %>
+  <% if params[:page] || params[:keywords] || params[:q] %>
+    <meta name="robots" content="noindex">
+  <% end %>
+  <meta name="govuk:base_title" content="<%= yield :meta_title %> - GOV.UK">
+  <%= yield :meta_tags %>
 <% end %>
-<% @omit_feedback_footer ||= nil %>
-<!DOCTYPE html>
-<html>
-  <head>
-    <title><%= yield :title %> - GOV.UK</title>
-    <%= stylesheet_link_tag "application", media: "all", integrity: false %>
-    <%=
-      render_component_stylesheets
-    %>
-    <%= javascript_include_tag 'test-dependencies.js', type: "module" if Rails.env.test? %>
-    <%= javascript_include_tag 'application', integrity: false, type: "module" %>
-    <%= csrf_meta_tags %>
-    <%= yield :head %>
 
-    <% if params[:page] || params[:keywords] || params[:q] %>
-      <meta name="robots" content="noindex">
-    <% end %>
-    <meta name="govuk:base_title" content="<%= yield :meta_title %> - GOV.UK">
-    <%= yield :meta_tags %>
-  </head>
+<%= render "govuk_publishing_components/components/layout_for_public", {
+    title: "#{yield :title} - GOV.UK",
+    emergency_banner: render("govuk_web_banners/emergency_banner"),
+    global_banner: render("govuk_web_banners/global_banner"),
+  } do %>
+    <div class="<%= class_names("govuk-width-container" => !@full_width) %>">
+      <%= yield :before_content %>
+      <%= render "govuk_web_banners/recruitment_banner" %>
 
-  <body class="<%= yield :body_classes %>">
-    <div id="wrapper">
-      <%= yield :body %>
+      <main id="content" class="<%= class_names('govuk-main-wrapper' => !content_for?(:inverse)) %>">
+        <div class="finder-frontend">
+          <%= yield %>
+        </div>
+      </main>
     </div>
-  </body>
-</html>
+<% end %>

@@ -1,25 +1,15 @@
-<% content_for :body do %>
-  <div class="govuk-grid-row">
-    <div class="govuk-grid-column-full">
-      <%= yield %>
-    </div>
-  </div>
+<%= content_for :head do %>
+  <meta name="robots" content="noindex">
 <% end %>
-<!DOCTYPE html>
-<html>
-  <head>
-    <title><%= yield :title %> - GOV.UK</title>
-    <!--[if gt IE 8]><!--><%= stylesheet_link_tag "application", integrity: false %><!--<![endif]-->
-    <%=
-      render_component_stylesheets
-    %>
-    <%= javascript_include_tag "application", integrity: false, type: "module" %>
-    <meta name="robots" content="noindex">
-  </head>
 
-  <body>
-    <div id="wrapper">
-      <%= yield :body %>
+<%= render "govuk_publishing_components/components/layout_for_public", {
+    title: "#{yield :title} - GOV.UK",
+  } do %>
+    <div class="govuk-width-container">
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+          <%= yield %>
+        </div>
+      </div>
     </div>
-  </body>
-</html>
+<% end %>

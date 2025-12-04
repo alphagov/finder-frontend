@@ -1,25 +1,16 @@
-<% content_for :body do %>
-  <%= yield %>
+<%= content_for :head do %>
+  <link title="Search" rel="search" type="application/opensearchdescription+xml" href="/search/opensearch.xml"/>
+  <% if @content_item %>
+    <%= render 'govuk_publishing_components/components/meta_tags', content_item: @content_item.as_hash %>
+  <% end %>
 <% end %>
-<!DOCTYPE html>
-<html>
-  <head>
-    <title><%= yield :title %> - GOV.UK</title>
-    <link title="Search" rel="search" type="application/opensearchdescription+xml" href="/search/opensearch.xml"/>
-    <%= stylesheet_link_tag "application", media: "all", integrity: false %>
-    <%=
-      render_component_stylesheets
-    %>
-    <%= javascript_include_tag 'application', integrity: false, type: "module" %>
-    <% if @content_item %>
-      <%= render 'govuk_publishing_components/components/meta_tags', content_item: @content_item.as_hash %>
-    <% end %>
-    <%= yield :extra_headers %>
-  </head>
 
-  <body class="mainstream <%= yield :body_classes %>">
-    <div id="wrapper" class="govuk-width-container">
-      <%= yield :body %>
+<%= render "govuk_publishing_components/components/layout_for_public", {
+    title: "#{yield :title} - GOV.UK",
+    emergency_banner: render("govuk_web_banners/emergency_banner"),
+    global_banner: render("govuk_web_banners/global_banner"),
+  } do %>
+    <div class="govuk-width-container">
+      <%= yield %>
     </div>
-  </body>
-</html>
+<% end %>
