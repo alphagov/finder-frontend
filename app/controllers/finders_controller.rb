@@ -101,7 +101,7 @@ private
       search_results: render_component("finders/search_results", result_set_presenter.search_results_content),
       display_selected_facets_count: facet_tags.display_total_selected_filters,
       sort_options_markup: render_component("finders/sort_options", sort_presenter.to_hash),
-      next_and_prev_links: render_component("govuk_publishing_components/components/previous_and_next_navigation", pagination_presenter.next_and_prev_links),
+      next_and_prev_links: render_component("govuk_publishing_components/components/pagination", pagination_presenter.next_and_prev_links),
       suggestions: render_component("finders/spelling_suggestion", suggestions: spelling_suggestion_presenter.suggestions),
       errors: search_query.errors_hash,
       discovery_engine_attribution_token: result_set_presenter.discovery_engine_attribution_token,
