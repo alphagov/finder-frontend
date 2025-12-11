@@ -56,7 +56,7 @@ private
     {
       title: page_label,
       label: "#{number_to_delimited(page)} of #{number_to_delimited(total_pages)}",
-      url: url_builder.url(page:),
+      href: url_builder.url(page:),
     }
   end
 end
