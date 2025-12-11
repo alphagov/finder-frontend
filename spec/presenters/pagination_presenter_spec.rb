@@ -43,7 +43,7 @@ describe PaginationPresenter do
           next_page: {
             label: "2 of 5",
             title: "Next page",
-            url: "/search?page=2",
+            href: "/search?page=2",
           },
         )
       end
@@ -59,7 +59,7 @@ describe PaginationPresenter do
           previous_page: {
             label: "4 of 5",
             title: "Previous page",
-            url: "/search?page=4",
+            href: "/search?page=4",
           },
         )
       end
@@ -75,12 +75,12 @@ describe PaginationPresenter do
           next_page: {
             label: "3 of 5",
             title: "Next page",
-            url: "/search?page=3",
+            href: "/search?page=3",
           },
           previous_page: {
             label: "1 of 5",
             title: "Previous page",
-            url: "/search?page=1",
+            href: "/search?page=1",
           },
         )
       end
