@@ -6,7 +6,7 @@ gem "rails", "8.1.1"
 
 gem "bootsnap", require: false
 gem "chronic"
-gem "connection_pool", "< 3"
+gem "connection_pool", "< 4"
 gem "dalli"
 gem "dartsass-rails"
 gem "gds-api-adapters"
