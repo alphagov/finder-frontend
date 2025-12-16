@@ -264,6 +264,7 @@ module Search
       if use_v2_api?
         {
           "serving_config" => params["debug_serving_config"],
+          "disable_query_time_boosts" => params["disable_query_time_boosts"],
         }.compact
       else
         {
