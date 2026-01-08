@@ -291,14 +291,14 @@ Then(/^I can see pagination$/) do
   visit finder_path("government/policies/benefits-reform")
 
   expect(page).not_to have_content("Previous page")
-  expect(page).to have_content("Next page")
+  expect(page).to have_link("Next page", href: "/government/policies/benefits-reform?page=2")
 end
 
 Then(/^I can browse to the next page$/) do
   stub_search_api_request_with_10_government_results_page_2
   visit finder_path("government/policies/benefits-reform", page: 2)
 
-  expect(page).to have_content("Previous page")
+  expect(page).to have_link("Previous page", href: "/government/policies/benefits-reform?page=1")
   expect(page).not_to have_content("Next page")
 end
 
