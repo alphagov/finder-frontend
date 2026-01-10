@@ -17,8 +17,8 @@ describe TaxonFacet do
 
   let(:allowed_values) do
     {
-      "level_one_taxon" => "allowed-value-1",
-      "level_two_taxon" => "allowed-value-2",
+      "level_one_taxon" => "d0f1e5a3-c8f4-4780-8678-994f19104b21",
+      "level_two_taxon" => "0133b1b3-9ecd-48ad-b226-538b46a17ff4",
     }
   end
 
@@ -40,7 +40,7 @@ describe TaxonFacet do
 
     it "returns an array of topics" do
       expect(subject.topics).to be_an(Array)
-      expect(subject.topics.count).to be(4)
+      expect(subject.topics.count).to be(22) # Real top level taxon count
     end
 
     describe "topic items" do
@@ -65,7 +65,7 @@ describe TaxonFacet do
 
     it "returns an array of subtopics" do
       expect(subject.subtopics).to be_an(Array)
-      expect(subject.subtopics.count).to be(4)
+      expect(subject.subtopics.count).to be(209)
     end
 
     it "provides values required for rendering items" do
@@ -89,7 +89,7 @@ describe TaxonFacet do
 
       specify do
         expect(subject.sentence_fragment["preposition"]).to eql("of value")
-        expect(subject.sentence_fragment["values"].first["label"]).to eql("allowed-value-1")
+        expect(subject.sentence_fragment["values"].first["label"]).to eql("Work")
         expect(subject.sentence_fragment["values"].first["parameter_key"]).to eql("level_one_taxon")
       end
     end
@@ -110,7 +110,7 @@ describe TaxonFacet do
     context "only level one selected" do
       let(:allowed_values) do
         {
-          "level_one_taxon" => "allowed-value-1",
+          "level_one_taxon" => "d0f1e5a3-c8f4-4780-8678-994f19104b21", # /work
         }
       end
 
@@ -118,9 +118,9 @@ describe TaxonFacet do
         expect(subject.applied_filters).to eql([
           {
             name: "Topic",
-            label: "allowed-value-1",
+            label: "Work",
             query_params: {
-              "level_one_taxon" => "allowed-value-1",
+              "level_one_taxon" => "d0f1e5a3-c8f4-4780-8678-994f19104b21", # /work
             },
           },
         ])
@@ -130,8 +130,8 @@ describe TaxonFacet do
     context "both level one and two selected" do
       let(:allowed_values) do
         {
-          "level_one_taxon" => "allowed-value-1",
-          "level_two_taxon" => "allowed-child-value",
+          "level_one_taxon" => "d0f1e5a3-c8f4-4780-8678-994f19104b21", # /work
+          "level_two_taxon" => "d2005b89-352f-4896-aced-1d17504330e6", # /education/education-of-disadvantaged-children
         }
       end
 
@@ -139,16 +139,16 @@ describe TaxonFacet do
         expect(subject.applied_filters).to eql([
           {
             name: "Topic",
-            label: "allowed-value-1",
+            label: "Work",
             query_params: {
-              "level_one_taxon" => "allowed-value-1",
-              "level_two_taxon" => "allowed-child-value",
+              "level_one_taxon" => "d0f1e5a3-c8f4-4780-8678-994f19104b21", # /work
+              "level_two_taxon" => "d2005b89-352f-4896-aced-1d17504330e6", # /education/education-of-disadvantaged-children
             },
           },
           {
             name: "Subtopic",
-            label: "allowed-child-value",
-            query_params: { "level_two_taxon" => "allowed-child-value" },
+            label: "Education of disadvantaged children",
+            query_params: { "level_two_taxon" => "d2005b89-352f-4896-aced-1d17504330e6" },
           },
         ])
       end
@@ -178,7 +178,7 @@ describe TaxonFacet do
     context "when a topic filter is applied" do
       let(:allowed_values) do
         {
-          "level_one_taxon" => "allowed-value-1",
+          "level_one_taxon" => "d0f1e5a3-c8f4-4780-8678-994f19104b21", # /work
         }
       end
 
@@ -190,8 +190,8 @@ describe TaxonFacet do
     context "when a subtopic filter is applied" do
       let(:allowed_values) do
         {
-          "level_one_taxon" => "allowed-value-1",
-          "level_two_taxon" => "allowed-child-value",
+          "level_one_taxon" => "d0f1e5a3-c8f4-4780-8678-994f19104b21", # /work
+          "level_two_taxon" => "d2005b89-352f-4896-aced-1d17504330e6", # /education/education-of-disadvantaged-children
         }
       end
 
