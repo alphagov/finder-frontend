@@ -30,8 +30,8 @@ Feature: All content finder ("site search")
     When I search all content for "chandeliers flickering"
     And I open the filter panel
     And I open the "Topic" filter section
-    And I select "Work" as the Topic
-    And I select "Payroll" as the Subtopic
+    And I select "Music" as the Topic
+    And I select "Best songs" as the Subtopic
     And I open the "Type" filter section
     And I check the "Services" option
     And I check the "Research and statistics" option
@@ -56,11 +56,11 @@ Feature: All content finder ("site search")
     When I search all content for "chandeliers flickering"
     And I open the filter panel
     And I open the "Topic" filter section
-    And I select "Work" as the Topic
-    And I select "Payroll" as the Subtopic
+    And I select "Music" as the Topic
+    And I select "Best songs" as the Subtopic
     And I apply the filters
-    And I click on the "Subtopic: Payroll" filter tag
-    Then the "Subtopic: Payroll" filter has been removed
+    And I click on the "Subtopic: Best songs" filter tag
+    Then the "Subtopic: Best songs" filter has been removed
 
   @javascript
   Scenario: Entering an incorrect date

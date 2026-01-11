@@ -4,10 +4,10 @@ require "spec_helper"
 RSpec.describe Registries::TopicTaxonomyRegistry do
   include TaxonomySpecHelper
 
-  let(:content_id_one) { "d0f1e5a3-c8f4-4780-8678-994f19104b21" }
-  let(:content_id_two) { "c58fdadd-7743-46d6-9629-90bb3ccc4ef0" }
-  let(:top_level_taxon_one) { FactoryBot.build(:level_one_taxon_hash, content_id: content_id_one, title: "Work") }
-  let(:top_level_taxon_two) { FactoryBot.build(:level_one_taxon_hash, content_id: content_id_two, title: "Education, training and skills") }
+  let(:content_id_one) { SecureRandom.uuid }
+  let(:content_id_two) { SecureRandom.uuid }
+  let(:top_level_taxon_one) { FactoryBot.build(:level_one_taxon_hash, content_id: content_id_one, title: content_id_one) }
+  let(:top_level_taxon_two) { FactoryBot.build(:level_one_taxon_hash, content_id: content_id_two, title: content_id_two) }
   let(:top_level_taxon_three) { FactoryBot.build(:level_one_taxon_hash, content_id: SecureRandom.uuid, title: "Alpha topic", phase: "alpha") }
 
   before do
@@ -16,7 +16,6 @@ RSpec.describe Registries::TopicTaxonomyRegistry do
 
   describe "when topic taxonomy API is unavailable" do
     it "returns an (uncached) empty hash" do
-      skip "Skipping test due to the functionality not being in use for the weekend"
       topic_taxonomy_api_is_unavailable
       expect(described_class.new[content_id_one]).to be_nil
       expect(described_class.new.taxonomy_tree).to eql({})
@@ -32,7 +31,7 @@ RSpec.describe Registries::TopicTaxonomyRegistry do
     end
 
     it "provides the taxonomy tree not including those in the alpha phase" do
-      expect(registry.taxonomy_tree.keys).to include(content_id_one, content_id_two)
+      expect(registry.taxonomy_tree.keys).to contain_exactly(content_id_one, content_id_two)
     end
 
     it "fetches an expanded topic taxon by content_id" do

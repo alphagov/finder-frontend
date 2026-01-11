@@ -36,7 +36,7 @@ describe PageMetadataHelper, type: :helper do
     end
 
     describe "it is a topic page" do
-      let(:filter_params) { { "topic" => "d0f1e5a3-c8f4-4780-8678-994f19104b21" } }
+      let(:filter_params) { { "topic" => "existing_content_id" } }
 
       it 'does not contain the "inverse" key' do
         expect(subject[:inverse]).to be true

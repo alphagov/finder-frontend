@@ -92,8 +92,8 @@ describe RedirectionController, type: :controller do
     end
 
     it "redirects with a topic parameter, translating the base path to content_id" do
-      get :advanced_search, params: { group: "services", topic: "/education/education-of-disadvantaged-children" }
-      expect(response).to redirect_to finder_path("search/services", params: { topic: "d2005b89-352f-4896-aced-1d17504330e6" })
+      get :advanced_search, params: { group: "services", topic: "/path/topic" }
+      expect(response).to redirect_to finder_path("search/services", params: { topic: "content_id" })
     end
 
     context "The topic does not exist" do

@@ -194,7 +194,6 @@ describe EmailAlertTitleBuilder do
     end
 
     it {
-      skip "Skipping test due to the functionality not being in use for the weekend"
       expect(subject).to eq("News and communicatons with people of Harry Potter, Ron Weasley, Albus Dumbledore, Cornelius Fudge, and Rufus Scrimgeour, organisations of Ministry of Magic, Gringots, and 1 other organisation, topics of Magical Education, Brexit, and Herbology, and 2 document types")
     }
   end

@@ -79,11 +79,9 @@ When(/^I view a list of news and communications$/) do
   content_store_has_news_and_communications_finder
   stub_world_locations_api_request
   stub_people_registry_request
-  stub_roles_registry_request
   stub_organisations_registry_request
-  stub_topical_events_registry_request
   stub_search_api_request_with_news_and_communication_results
-  visit finder_path("search/news-and-communications-temp")
+  visit finder_path("search/news-and-communications")
 end
 
 When(/^I view the news and communications finder$/) do
@@ -92,10 +90,8 @@ When(/^I view the news and communications finder$/) do
   stub_world_locations_api_request
   stub_all_search_api_requests_with_news_and_communication_results
   stub_people_registry_request
-  stub_roles_registry_request
   stub_organisations_registry_request
-  stub_topical_events_registry_request
-  visit finder_path("search/news-and-communications-temp")
+  visit finder_path("search/news-and-communications")
 end
 
 When(/^I view the policy papers and consultations finder$/) do
@@ -107,7 +103,7 @@ When(/^I view the policy papers and consultations finder$/) do
   stub_search_api_request_with_policy_papers_results
   stub_search_api_request_with_filtered_policy_papers_results
 
-  visit finder_path("search/policy-papers-and-consultations-temp")
+  visit finder_path("search/policy-papers-and-consultations")
 end
 
 When(/^I view the research and statistics finder$/) do
@@ -119,7 +115,7 @@ When(/^I view the research and statistics finder$/) do
   stub_search_api_request_with_research_and_statistics_results
   stub_search_api_request_with_statistics_results
   stub_search_api_request_with_filtered_research_and_statistics_results
-  visit finder_path("search/research-and-statistics-temp")
+  visit finder_path("search/research-and-statistics")
 end
 
 When(/^I view the research and statistics finder with a topic param set$/) do
@@ -137,7 +133,7 @@ When(/^I view the research and statistics finder with a topic param set$/) do
   stub_search_api_request_with_research_and_statistics_results
   stub_search_api_request_with_statistics_results
   stub_search_api_request_with_filtered_research_and_statistics_results
-  visit finder_path("search/research-and-statistics-temp", topic: "c58fdadd-7743-46d6-9629-90bb3ccc4ef0")
+  visit finder_path("search/research-and-statistics", topic: "c58fdadd-7743-46d6-9629-90bb3ccc4ef0")
 end
 
 When(/^I view the aaib reports finder with a topic param set$/) do
@@ -153,7 +149,7 @@ When(/^I view the aaib reports finder with a topic param set$/) do
   stub_manuals_registry_request
   stub_world_locations_api_request
   stub_search_api_request_with_aaib_reports_results
-  visit finder_path("aaib-reports-temp", topic: "c58fdadd-7743-46d6-9629-90bb3ccc4ef0")
+  visit finder_path("aaib-reports", topic: "c58fdadd-7743-46d6-9629-90bb3ccc4ef0")
 end
 
 When(/^I view a list of services$/) do
@@ -163,7 +159,7 @@ When(/^I view a list of services$/) do
   stub_people_registry_request
   stub_organisations_registry_request
 
-  visit finder_path("search/services-temp")
+  visit finder_path("search/services")
 end
 
 When(/^I search documents by keyword: "(.*)"$/) do |term|
@@ -359,7 +355,7 @@ Given(/^a finder with metadata exists$/) do
 end
 
 When(/^I can see that the finder metadata is present$/) do
-  visit "/cma-cases-temp"
+  visit "/cma-cases"
 
   expect(page).to have_css(".gem-c-metadata")
   expect(page).to_not have_css(".gem-c-metadata.gem-c-metadata--inverse")
@@ -376,7 +372,7 @@ And(/^the breadcrumbs are outside the main container$/) do
 end
 
 When(/^I can see that the description in the metadata is present$/) do
-  visit "/cma-cases-temp"
+  visit "/cma-cases"
 
   desc_text = "Find reports and updates on current and historical CMA investigations"
   desc_tag = "meta[name='description'][content='#{desc_text}']"
@@ -384,7 +380,7 @@ When(/^I can see that the description in the metadata is present$/) do
 end
 
 When(/^I can see that the noindex tag is is present in the metadata$/) do
-  visit "/cma-cases-temp"
+  visit "/cma-cases"
 
   noindex_tag = "meta[name='robots'][content='noindex']"
   expect(page).to have_css(noindex_tag, visible: :hidden)
@@ -429,7 +425,7 @@ Then(/^I can see a breadcrumb for the organisation$/) do
 end
 
 Then(/^I can see taxonomy breadcrumbs$/) do
-  visit finder_path("cma-cases-temp")
+  visit finder_path("cma-cases")
   expect(page).to have_selector(".govuk-breadcrumbs--collapse-on-mobile")
   expect(page).to have_selector(".govuk-breadcrumbs__list-item", text: "Competition Act and cartels")
   expect(page.find_all(".govuk-breadcrumbs__list-item").count).to eql(2)

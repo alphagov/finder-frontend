@@ -21,7 +21,6 @@ RSpec.describe Registries::FullTopicTaxonomyRegistry do
     let(:registry) { described_class.new }
 
     it "returns an (uncached) empty hash" do
-      skip "Skipping test due to the functionality not being in use for the weekend"
       topic_taxonomy_api_is_unavailable
       expect(described_class.new[base_path]).to be_nil
       expect(described_class.new.taxonomy).to eql({})

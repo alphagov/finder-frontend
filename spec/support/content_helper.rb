@@ -147,7 +147,7 @@ module GovukContentSchemaExamples
       finder = GovukSchemas::RandomExample.for_schema(frontend_schema: "finder")
       finder["schema_name"] = "finder"
       finder["document_type"] = "finder"
-      finder["base_path"] = "/cma-cases-temp"
+      finder["base_path"] = "/cma-cases"
       finder["title"] = "Competition and Markets Authority cases"
       finder["details"] = {
         "beta" => false,

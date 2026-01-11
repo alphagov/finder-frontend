@@ -109,6 +109,7 @@ module DocumentHelper
     stub_response(
       hash_including(
         "q" => "chandeliers flickering",
+        "filter_all_part_of_taxonomy_tree" => %w[131313 1989],
         "filter_content_purpose_supergroup" => %w[research_and_statistics services],
         "filter_public_timestamp" => "from:1989-01-01,to:1989-12-13",
       ),
@@ -245,7 +246,7 @@ module DocumentHelper
   def content_store_has_news_and_communications_finder
     finder_fixture = File.read(Rails.root.join("features/fixtures/news_and_communications_with_checkboxes.json"))
 
-    stub_content_store_has_item("/search/news-and-communications-temp", finder_fixture)
+    stub_content_store_has_item("/search/news-and-communications", finder_fixture)
   end
 
   def content_store_has_government_finder
@@ -269,7 +270,7 @@ module DocumentHelper
   def content_store_has_services_finder
     finder_fixture = File.read(Rails.root.join("features/fixtures/services.json"))
 
-    stub_content_store_has_item("/search/services-temp", finder_fixture)
+    stub_content_store_has_item("/search/services", finder_fixture)
   end
 
   def content_store_has_government_finder_with_10_items
@@ -282,25 +283,25 @@ module DocumentHelper
   def content_store_has_statistics_finder
     finder_fixture = File.read(Rails.root.join("features/fixtures/statistics.json"))
 
-    stub_content_store_has_item("/search/research-and-statistics-temp", finder_fixture)
+    stub_content_store_has_item("/search/research-and-statistics", finder_fixture)
   end
 
   def content_store_has_aaib_reports_finder
     finder_fixture = File.read(Rails.root.join("features/fixtures/aaib_reports_example.json"))
 
-    stub_content_store_has_item("/aaib-reports-temp", finder_fixture)
+    stub_content_store_has_item("/aaib-reports", finder_fixture)
   end
 
   def content_store_has_all_content_finder
     finder_fixture = File.read(Rails.root.join("features/fixtures/all_content.json"))
 
-    stub_content_store_has_item("/search/all-temp", finder_fixture)
+    stub_content_store_has_item("/search/all", finder_fixture)
   end
 
   def content_store_has_policy_and_engagement_finder
     finder_fixture = File.read(Rails.root.join("features/fixtures/policy_and_engagement.json"))
 
-    stub_content_store_has_item("/search/policy-papers-and-consultations-temp", finder_fixture)
+    stub_content_store_has_item("/search/policy-papers-and-consultations", finder_fixture)
   end
 
   def stub_content_store_with_cma_cases_finder
@@ -1827,7 +1828,7 @@ module DocumentHelper
   end
 
   def visit_cma_cases_finder
-    visit finder_path("cma-cases-temp")
+    visit finder_path("cma-cases")
   end
 
   def apply_date_filter
