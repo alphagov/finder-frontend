@@ -230,6 +230,13 @@ Feature: Filtering documents
     Then I see email and feed sign up links with filters applied
 
   @javascript
+  Scenario: Email links
+    When I view the news and communications finder
+    Then I see email and feed sign up links
+    And I click button "Person" and select facet Rufus Scrimgeour
+    Then I see email and feed sign up links with filters and order applied
+
+  @javascript
   Scenario: Email links while on mobile
     When I view the news and communications finder
     Then I see only one email and feed sign up link on mobile

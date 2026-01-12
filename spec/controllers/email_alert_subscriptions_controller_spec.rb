@@ -77,15 +77,15 @@ describe EmailAlertSubscriptionsController, type: :controller do
 
     context "when Email Alert API returns a 422 error" do
       before do
-        stub_content_store_has_item("/cma-cases-temp", cma_cases_content_item)
-        stub_content_store_has_item("/cma-cases-temp/email-signup", cma_cases_signup_content_item)
+        stub_content_store_has_item("/cma-cases", cma_cases_content_item)
+        stub_content_store_has_item("/cma-cases/email-signup", cma_cases_signup_content_item)
       end
 
       it "returns a 200 and displays the signup page" do
         stub_any_email_alert_api_call.to_return(status: 422)
         post :create,
              params: {
-               slug: "cma-cases-temp",
+               slug: "cma-cases",
                filter: { "case_type" => %w[overriding-case-type] },
              }
         expect(response).to be_successful
@@ -95,13 +95,13 @@ describe EmailAlertSubscriptionsController, type: :controller do
 
     context "when the finder signup page has filters (CMA Cases)" do
       before do
-        stub_content_store_has_item("/cma-cases-temp", cma_cases_content_item)
-        stub_content_store_has_item("/cma-cases-temp/email-signup", cma_cases_signup_content_item)
+        stub_content_store_has_item("/cma-cases", cma_cases_content_item)
+        stub_content_store_has_item("/cma-cases/email-signup", cma_cases_signup_content_item)
       end
 
       context "when a required filter is not provided" do
         it "returns the user to the signup page with an error" do
-          post :create, params: { slug: "cma-cases-temp" }
+          post :create, params: { slug: "cma-cases" }
           expect(response).to be_successful
           expect(response).to render_template("new")
         end
@@ -119,7 +119,7 @@ describe EmailAlertSubscriptionsController, type: :controller do
 
           post :create,
                params: {
-                 slug: "cma-cases-temp",
+                 slug: "cma-cases",
                  filter: {
                    "case_type" => %w[consumer-enforcement],
                  },
@@ -179,7 +179,7 @@ describe EmailAlertSubscriptionsController, type: :controller do
 
     context "when the signup page has 'option lookup' filters (Policy Papers and Consultations)" do
       before do
-        stub_content_store_has_item("/search/policy-papers-and-consultations-temp", policy_papers_finder_content_item)
+        stub_content_store_has_item("/search/policy-papers-and-consultations", policy_papers_finder_content_item)
         stub_content_store_has_item("/search/policy-papers-and-consultations/email-signup", policy_papers_finder_signup_content_item)
       end
 
@@ -356,7 +356,7 @@ describe EmailAlertSubscriptionsController, type: :controller do
 
     context "when unprocessable keys are provided by the user" do
       before do
-        stub_content_store_has_item("/cma-cases-temp", cma_cases_content_item)
+        stub_content_store_has_item("/cma-cases", cma_cases_content_item)
         stub_content_store_has_item("/cma-cases/email-signup", bad_input_finder_signup_content_item)
       end
 
@@ -373,7 +373,7 @@ describe EmailAlertSubscriptionsController, type: :controller do
 
     context "when unprocessable values are provided by the user" do
       before do
-        stub_content_store_has_item("/cma-cases-temp", cma_cases_content_item)
+        stub_content_store_has_item("/cma-cases", cma_cases_content_item)
         stub_content_store_has_item("/cma-cases/email-signup", bad_input_finder_signup_content_item)
       end
 

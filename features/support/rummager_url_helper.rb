@@ -27,11 +27,15 @@ module RummagerUrlHelper
   end
 
   def news_and_communications_search_params
-    base_search_params
+    base_search_params.merge(
+      "filter_content_purpose_supergroup" => "news_and_communications",
+    )
   end
 
   def services_search_params
-    base_search_params
+    base_search_params.merge(
+      "filter_content_purpose_supergroup" => "services",
+    )
   end
 
   def policy_papers_params
