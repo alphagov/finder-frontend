@@ -9,7 +9,6 @@ if Rails.env.development? && ENV["LIVE"]
   ENV["GOVUK_WEBSITE_ROOT"] = "https://www.gov.uk"
   ENV["PLEK_SERVICE_SEARCH_API_URI"] = "https://www.gov.uk/api"
   ENV["PLEK_SERVICE_CONTENT_STORE_URI"] = "https://www.gov.uk/api"
-  ENV["PLEK_SERVICE_STATIC_URI"] = "assets.publishing.service.gov.uk"
   ENV["PLEK_SERVICE_WHITEHALL_FRONTEND_URI"] = "https://www.gov.uk"
 end
 
