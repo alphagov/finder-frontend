@@ -179,7 +179,7 @@ GEM
     googleapis-common-protos-types (1.22.0)
       google-protobuf (~> 4.26)
     govuk_ab_testing (3.1.0)
-    govuk_app_config (9.23.3)
+    govuk_app_config (9.23.4)
       connection_pool (< 3)
       logstasher (~> 2.1)
       opentelemetry-exporter-otlp (>= 0.25, < 0.32)
@@ -483,7 +483,7 @@ GEM
       date
       stringio
     public_suffix (7.0.0)
-    puma (7.1.0)
+    puma (7.2.0)
       nio4r (~> 2.0)
     racc (1.8.1)
     rack (3.2.4)
@@ -693,7 +693,7 @@ DEPENDENCIES
   factory_bot
   gds-api-adapters
   govuk_ab_testing
-  govuk_app_config (= 9.23.3)
+  govuk_app_config (= 9.23.4)
   govuk_publishing_components
   govuk_schemas
   govuk_test
