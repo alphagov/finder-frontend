@@ -55,6 +55,10 @@ class ResultSetPresenter
     @filter_params.fetch("keywords", "")
   end
 
+  def sanitised_user_supplied_keywords
+    ActionController::Base.helpers.sanitize(user_supplied_keywords)
+  end
+
   def sort_option
     presenter = sort_presenter.to_hash
     return nil unless presenter
