@@ -243,7 +243,6 @@ private
     %w[
       /government/groups
       /world/organisations
-      /government/organisations/hm-revenue-customs/contact
     ].exclude?(content_item.base_path)
   end
 
