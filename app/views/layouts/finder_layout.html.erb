@@ -1,3 +1,5 @@
+<% title = yield :title %>
+
 <%= content_for :head do %>
   <%= javascript_include_tag 'application', integrity: false, type: "module" %>
   <%= csrf_meta_tags %>
@@ -9,7 +11,7 @@
 <% end %>
 
 <%= render "govuk_publishing_components/components/layout_for_public", {
-    title: "#{yield :title} - GOV.UK",
+    title: safe_join([title, "GOV.UK"], " - "),
     emergency_banner: render("govuk_web_banners/emergency_banner"),
     global_banner: render("govuk_web_banners/global_banner"),
   } do %>

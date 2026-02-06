@@ -1,5 +1,5 @@
 <% if result_set_presenter.user_supplied_keywords.length > 0 %>
-  <% content_for :title, "#{result_set_presenter.user_supplied_keywords} - #{content_item.title}" %>
+  <% content_for :title, safe_join([result_set_presenter.sanitised_user_supplied_keywords, content_item.title], " - ") %>
 <% else %>
   <% content_for :title, content_item.title %>
 <% end %>

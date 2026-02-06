@@ -1,3 +1,5 @@
+<% title = yield :title %>
+
 <%= content_for :head do %>
   <link title="Search" rel="search" type="application/opensearchdescription+xml" href="/search/opensearch.xml"/>
   <% if @content_item %>
@@ -6,7 +8,7 @@
 <% end %>
 
 <%= render "govuk_publishing_components/components/layout_for_public", {
-    title: "#{yield :title} - GOV.UK",
+    title: safe_join([title, "GOV.UK"], " - "),
     emergency_banner: render("govuk_web_banners/emergency_banner"),
     global_banner: render("govuk_web_banners/global_banner"),
   } do %>
