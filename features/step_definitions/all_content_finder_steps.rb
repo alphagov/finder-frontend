@@ -20,6 +20,14 @@ Then("I can see results for my search") do
   expect(page).to have_link("The Gerry Anderson")
 end
 
+When("I search all content with html characters") do
+  visit "/search/all?q=<+%27+%26+\""
+end
+
+Then("the title renders the characters correctly") do
+  expect(page).to have_title("< ' & \" - Search - GOV.UK")
+end
+
 Then("I can see how many results there are") do
   expect(page).to have_selector("h2", text: "2 results")
 end

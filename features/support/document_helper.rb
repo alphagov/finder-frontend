@@ -122,6 +122,10 @@ module DocumentHelper
     stub_response(hash_including("q" => "drving"), spelling_suggestions_json, including_v2: true)
   end
 
+  def stub_search_api_request_with_html_chars_query
+    stub_response(hash_including("q" => "< ' & \""), no_results_json, including_v2: true)
+  end
+
   def stub_search_api_request_with_manual_filter_all_content_results
     stub_response(
       hash_including("q" => "search-term", "filter_manual" => %w[how-to-be-a-wizard]),

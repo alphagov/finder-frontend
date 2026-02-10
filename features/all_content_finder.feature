@@ -20,6 +20,10 @@ Feature: All content finder ("site search")
     And I change my search term to "search-term-updated" and submit
     Then my search is still filtered by manual
 
+  Scenario: Making a search with html characters
+    When I search all content with html characters
+    Then the title renders the characters correctly
+
   Scenario: Filtering results
     When I search all content for "how to walk silly"
     And I open the filter panel
