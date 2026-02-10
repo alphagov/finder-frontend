@@ -26,6 +26,7 @@ Given(/^the all content finder exists$/) do
   stub_search_api_request_with_organisation_filter_all_content_results
   stub_search_api_request_with_manual_filter_all_content_results
   stub_search_api_request_with_misspelt_query
+  stub_search_api_request_with_html_chars_query
   stub_search_api_request_with_query
   stub_search_api_request_with_sorted_query
   stub_search_api_request_with_filtered_query

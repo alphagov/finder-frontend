@@ -1,9 +1,11 @@
+<% title = yield :title %>
+
 <%= content_for :head do %>
   <meta name="robots" content="noindex">
 <% end %>
 
 <%= render "govuk_publishing_components/components/layout_for_public", {
-    title: "#{yield :title} - GOV.UK",
+    title: safe_join([title, "GOV.UK"], " - "),
   } do %>
     <div class="govuk-width-container">
       <div class="govuk-grid-row">
