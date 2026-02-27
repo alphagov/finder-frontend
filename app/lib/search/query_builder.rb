@@ -31,11 +31,12 @@ module Search
     end
 
     def call
-      base_query = [
+      [
         pagination_query,
         return_fields_query,
         keyword_query,
         base_filter_query,
+        facet_filter_query,
         reject_query,
         order_query,
         facet_query,
@@ -45,12 +46,6 @@ module Search
         suggest_query,
         boost_fields_query,
       ].reduce(&:merge)
-
-      return [base_query] if filter_queries.empty?
-
-      filter_queries.map do |query|
-        base_query.clone.merge(query)
-      end
     end
 
   private
@@ -165,60 +160,29 @@ module Search
       keywords.join(" ")
     end
 
+    def facet_filter_query
+      @facet_filter_query ||= facet_filter_params.transform_keys do |k|
+        "filter_#{k}"
+      end
+    end
+
     def base_filter_query
       @base_filter_query ||= base_filter.transform_keys do |k|
         "filter_#{k}"
       end
     end
 
-    def and_filter_query
-      @and_filter_query ||= and_filter_params
-        .transform_keys do |k|
-          "filter_#{k}"
-        end
-    end
-
-    def and_filter_params
-      @and_filter_params ||= FilterQueryBuilder.new(
-        facets: and_facets,
-        user_params: params,
-      ).call
-    end
-
-    def and_facets
-      raw_facets.select do |facet|
-        facet.fetch("combine_mode", "and") == "and"
-      end
-    end
-
-    def or_filter_queries
-      @or_filter_queries ||= or_filter_params
-        .map do |k, v|
-          { "filter_#{k}" => v }
-        end
-    end
-
-    def or_filter_params
-      @or_filter_params ||= FilterQueryBuilder.new(
-        facets: or_facets,
-        user_params: params,
-      ).call
-    end
-
-    def or_facets
-      raw_facets.select do |facet|
-        facet.fetch("combine_mode", "and") == "or"
-      end
-    end
-
-    def filter_queries
-      (and_filter_query.empty? ? [] : [and_filter_query]) + or_filter_queries
-    end
-
     def reject_query
       base_reject.reduce({}) do |query, (k, v)|
         query.merge("reject_#{k}" => v)
       end
+    end
+
+    def facet_filter_params
+      @facet_filter_params ||= FilterQueryBuilder.new(
+        facets: raw_facets,
+        user_params: params,
+      ).call
     end
 
     def base_filter

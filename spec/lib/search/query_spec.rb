@@ -9,10 +9,6 @@ describe Search::Query do
     stub_request(:get, %r{#{Plek.find('search-api-v2')}/search.json})
   end
 
-  def stub_batch_search
-    stub_request(:get, %r{#{Plek.find('search-api')}/batch_search.json})
-  end
-
   let(:content_item) do
     ContentItem.new(
       "details" => {
@@ -38,7 +34,6 @@ describe Search::Query do
     ]
   end
   let(:filter_params) { { "alpha" => "foo" } }
-  let(:batch_search_filter_params) { { "alpha" => "foo", "beta" => "bar" } }
 
   def result_item(id, title, score:, popularity:, updated:)
     {
@@ -253,151 +248,31 @@ describe Search::Query do
     end
   end
 
-  context "when merging, de-duplicating and sorting" do
-    shared_examples "sorts by other fields" do
-      context "most-recent" do
-        subject { described_class.new(content_item, batch_search_filter_params.merge("order" => "most-recent")).search_results }
+  context "with valid date params" do
+    subject { described_class.new(content_item, valid_date_params) }
 
-        it "de-duplicates and sorts by public_updated descending" do
-          results = subject.fetch("results")
-          expect(results.first).to match(hash_including("_id" => "/register-to-vote"))
-          expect(results.second).to match(hash_including("_id" => "/hmrc"))
-        end
-      end
+    let(:valid_date_params) { { public_timestamp: { to: "01/01/01", from: "01/02/01" } } }
 
-      context "most-viewed" do
-        subject { described_class.new(content_item, batch_search_filter_params.merge("order" => "most-viewed")).search_results }
+    it "has no errors" do
+      expect(subject.valid?).to be true
+      expect(subject.errors.messages).to be_empty
+    end
+  end
 
-        it "de-duplicates and sorts by popularity descending" do
-          results = subject.fetch("results")
-          expect(results.first).to match(hash_including("_id" => "/register-to-vote"))
-          expect(results.second).to match(hash_including("_id" => "/hmrc"))
-        end
-      end
+  context "with invalid date params" do
+    let(:invalid_to_date_params) { { public_timestamp: { to: "99/99/99", from: "01/01/01" } } }
+    let(:invalid_from_date_params) { { public_timestamp: { to: "01/01/01", from: "99/99/99" } } }
 
-      context "a-to-z" do
-        subject { described_class.new(content_item, batch_search_filter_params.merge("order" => "a-to-z")).search_results }
-
-        it "de-duplicates and sorts by title descending" do
-          results = subject.fetch("results")
-          expect(results.first).to match(hash_including("title" => "HMRC"))
-          expect(results.second).to match(hash_including("title" => "Register to Vote"))
-        end
-      end
+    it "stores an error for bad 'to date'" do
+      query = described_class.new(content_item, invalid_to_date_params)
+      expect(query.valid?).to be false
+      expect(query.errors.messages).to eq(to_date: ["Enter a date"])
     end
 
-    context "when keywords are not used" do # Rummager returns nil for es_score
-      before do
-        stub_batch_search.to_return(body:
-          {
-            "results" => [
-              {
-                "results" => [
-                  result_item("/register-to-vote", "Register to Vote", score: nil, updated: "14-12-19", popularity: 3),
-                ],
-              },
-              {
-                "results" => [
-                  result_item("/hmrc", "HMRC", score: nil, updated: "14-12-18", popularity: 2),
-                  result_item("/register-to-vote", "Register to Vote", score: nil, updated: "14-12-19", popularity: 3),
-                ],
-              },
-            ],
-          }.to_json)
-      end
-
-      it_behaves_like "sorts by other fields"
-
-      context "default" do
-        subject { described_class.new(content_item, batch_search_filter_params).search_results }
-
-        it "de-duplicates and returns in the order rummager returns" do
-          results = subject.fetch("results")
-          expect(results.first).to match(hash_including("_id" => "/register-to-vote"))
-          expect(results.second).to match(hash_including("_id" => "/hmrc"))
-        end
-      end
-
-      context "most-relevant" do
-        subject { described_class.new(content_item, batch_search_filter_params.merge("order" => "most-relevant")).search_results }
-
-        it "de-duplicates and returns in the order rummager returns" do
-          results = subject.fetch("results")
-          expect(results.first).to match(hash_including("_id" => "/register-to-vote"))
-          expect(results.second).to match(hash_including("_id" => "/hmrc"))
-        end
-      end
-    end
-
-    context "when keywords exist in search" do
-      before do
-        stub_batch_search.to_return(body:
-        {
-          "results" => [
-            {
-              "results" => [
-                result_item("/register-to-vote", "Register to Vote", score: 1, updated: "14-12-19", popularity: 3),
-              ],
-            },
-            {
-              "results" => [
-                result_item("/hmrc", "HMRC", score: 10, updated: "14-12-18", popularity: 2),
-                result_item("/register-to-vote", "Register to Vote", score: 2, updated: "14-12-19", popularity: 3),
-              ],
-            },
-          ],
-        }.to_json)
-      end
-
-      it_behaves_like "sorts by other fields"
-
-      context "default" do
-        subject { described_class.new(content_item, batch_search_filter_params).search_results }
-
-        it "de-duplicates and sorts by es_score descending" do
-          results = subject.fetch("results")
-          expect(results.first).to match(hash_including("title" => "HMRC"))
-          expect(results.second).to match(hash_including("title" => "Register to Vote"))
-        end
-      end
-
-      context "most-relevant" do
-        subject { described_class.new(content_item, batch_search_filter_params.merge("order" => "most-relevant")).search_results }
-
-        it "de-duplicates and sorts by es_score descending" do
-          results = subject.fetch("results")
-          expect(results.first).to match(hash_including("title" => "HMRC"))
-          expect(results.second).to match(hash_including("title" => "Register to Vote"))
-        end
-      end
-
-      context "with valid date params" do
-        subject { described_class.new(content_item, valid_date_params) }
-
-        let(:valid_date_params) { { public_timestamp: { to: "01/01/01", from: "01/02/01" } } }
-
-        it "has no errors" do
-          expect(subject.valid?).to be true
-          expect(subject.errors.messages).to be_empty
-        end
-      end
-
-      context "with invalid date params" do
-        let(:invalid_to_date_params) { { public_timestamp: { to: "99/99/99", from: "01/01/01" } } }
-        let(:invalid_from_date_params) { { public_timestamp: { to: "01/01/01", from: "99/99/99" } } }
-
-        it "stores an error for bad 'to date'" do
-          query = described_class.new(content_item, invalid_to_date_params)
-          expect(query.valid?).to be false
-          expect(query.errors.messages).to eq(to_date: ["Enter a date"])
-        end
-
-        it "stores an error for bad 'from date'" do
-          query = described_class.new(content_item, invalid_from_date_params)
-          expect(query.valid?).to be false
-          expect(query.errors.messages).to eq(from_date: ["Enter a date"])
-        end
-      end
+    it "stores an error for bad 'from date'" do
+      query = described_class.new(content_item, invalid_from_date_params)
+      expect(query.valid?).to be false
+      expect(query.errors.messages).to eq(from_date: ["Enter a date"])
     end
   end
 end

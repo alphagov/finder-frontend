@@ -1,7 +1,7 @@
 require "spec_helper"
 
 describe Search::QueryBuilder do
-  subject(:queries) do
+  subject(:query) do
     described_class.new(
       finder_content_item:,
       use_v2_api:,
@@ -9,8 +9,6 @@ describe Search::QueryBuilder do
       params:,
     ).call
   end
-
-  let(:query) { queries.first }
 
   let(:finder_content_item) do
     ContentItem.new(
@@ -111,38 +109,6 @@ describe Search::QueryBuilder do
       end
     end
 
-    context "facets with or combine_mode" do
-      before do
-        facets.first["filterable"] = true
-        facets.first["type"] = "text"
-
-        facets.second["filterable"] = true
-        facets.second["type"] = "text"
-        facets.second["combine_mode"] = "or"
-      end
-
-      let(:params) do
-        {
-          "alpha" => "test",
-          "beta" => "test",
-        }
-      end
-
-      it "generates two queries" do
-        expect(queries.count).to eq(2)
-      end
-
-      it "filters on just alpha in the first query" do
-        expect(queries.first["filter_alpha"]).to eq(%w[test])
-        expect(queries.first["filter_beta"]).to be_nil
-      end
-
-      it "filters on both alpha and beta in the second query" do
-        expect(queries.second["filter_alpha"]).to be_nil
-        expect(queries.second["filter_beta"]).to eq(%w[test])
-      end
-    end
-
     context "of 'content_id' type" do
       let(:allowed_values) do
         [
@@ -177,21 +143,8 @@ describe Search::QueryBuilder do
         facets.second["allowed_values"] = intellectual_property_allowed_values
       end
 
-      context "with `and` combine_mode" do
-        it "adds a `filter_facet_values` filter with the content_id" do
-          expect(query["filter_any_facet_values"]).to eq(%w[yes-cont-id copyright-cont-id patents-cont-id])
-        end
-      end
-
-      context "with `or` combine_mode" do
-        before do
-          facets.second["combine_mode"] = "or"
-        end
-
-        it "sends the correct `filter_any_facet_values` to each query" do
-          expect(queries.first["filter_any_facet_values"]).to eq(%w[yes-cont-id])
-          expect(queries.second["filter_any_facet_values"]).to eq(%w[copyright-cont-id patents-cont-id])
-        end
+      it "adds a `filter_facet_values` filter with the content_id" do
+        expect(query["filter_any_facet_values"]).to eq(%w[yes-cont-id copyright-cont-id patents-cont-id])
       end
     end
   end
@@ -373,7 +326,7 @@ describe Search::QueryBuilder do
         query = described_class.new(
           finder_content_item:,
           params:,
-        ).call.first
+        ).call
 
         expect(query).to include("q" => "mango")
         expect(query).not_to include("q" => "mango licence")
@@ -387,7 +340,7 @@ describe Search::QueryBuilder do
         query = described_class.new(
           finder_content_item:,
           params:,
-        ).call.first
+        ).call
 
         expect(query).to include("q" => "mango")
         expect(query).not_to include("q" => "certification, mango license?")
@@ -401,7 +354,7 @@ describe Search::QueryBuilder do
         query = described_class.new(
           finder_content_item:,
           params:,
-        ).call.first
+        ).call
 
         expect(query).to include("q" => "mango")
         expect(query).not_to include("q" => "PERMIT mango")
@@ -415,7 +368,7 @@ describe Search::QueryBuilder do
         query = described_class.new(
           finder_content_item:,
           params:,
-        ).call.first
+        ).call
 
         expect(query).to include("q" => "50")
       end
@@ -499,7 +452,7 @@ describe Search::QueryBuilder do
       query = described_class.new(
         finder_content_item:,
         ab_params:,
-      ).call.first
+      ).call
 
       expect(query).to include("ab_tests" => "test_one:a,test_two:b")
     end
@@ -560,7 +513,7 @@ describe Search::QueryBuilder do
       described_class.new(
         finder_content_item:,
         params:,
-      ).call.first
+      ).call
     end
   end
 end
