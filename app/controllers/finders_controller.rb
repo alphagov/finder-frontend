@@ -221,6 +221,8 @@ private
   end
 
   def i_am_a_topic_page_finder
+    return false unless params[:topic]
+
     @i_am_a_topic_page_finder ||= taxonomy_registry.taxonomy.key? params[:topic]
   end
 
