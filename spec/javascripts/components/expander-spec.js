@@ -7,11 +7,11 @@ describe('An expander module', function () {
   var html = `
     <div class="app-c-expander" data-module="expander" data-ga4-index=\'{\"index_section\":1, \"index_section_count\": 3}\'>
       <h3 class="app-c-expander__heading">
-        <div class="app-c-expander__toggle js-toggle-container">
+        <span class="app-c-expander__toggle js-toggle-container">
           <span class="app-c-expander__title js-toggle">Organisation</span>
           <svg version="1.1" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" class="app-c-expander__icon app-c-expander__icon--up"><path d="m798.16 609.84l-256-256c-16.683-16.683-43.691-16.683-60.331 0l-256 256c-16.683 16.683-16.683 43.691 0 60.331s43.691 16.683 60.331 0l225.84-225.84 225.84 225.84c16.683 16.683 43.691 16.683 60.331 0s16.683-43.691 0-60.331z"/></svg>
           <svg version="1.1" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" class="app-c-expander__icon app-c-expander__icon--down"><path d="m225.84 414.16l256 256c16.683 16.683 43.691 16.683 60.331 0l256-256c16.683-16.683 16.683-43.691 0-60.331s-43.691-16.683-60.331 0l-225.84 225.84-225.84-225.84c-16.683-16.683-43.691-16.683-60.331 0s-16.683 43.691 0 60.331z"/></svg>
-        </div>
+        </span>
       </h3>
       <div class="app-c-expander__content js-content" id="expander-content-2386afad">
         This is some content that could appear inside this component. Its not very interesting or complicated but its still here, and thats fine.
@@ -86,11 +86,11 @@ describe('An expander module', function () {
     var html = `
       <div class="app-c-expander" data-module="expander">
         <h3 class="app-c-expander__heading">
-          <div class="app-c-expander__toggle js-toggle-container">
+          <span class="app-c-expander__toggle js-toggle-container">
             <span class="app-c-expander__title js-toggle">Topic</span>
             <svg version="1.1" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" class="app-c-expander__icon app-c-expander__icon--up"><path d="m798.16 609.84l-256-256c-16.683-16.683-43.691-16.683-60.331 0l-256 256c-16.683 16.683-16.683 43.691 0 60.331s43.691 16.683 60.331 0l225.84-225.84 225.84 225.84c16.683 16.683 43.691 16.683 60.331 0s16.683-43.691 0-60.331z"/></svg>
             <svg version="1.1" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" class="app-c-expander__icon app-c-expander__icon--down"><path d="m225.84 414.16l256 256c16.683 16.683 43.691 16.683 60.331 0l256-256c16.683-16.683 16.683-43.691 0-60.331s-43.691-16.683-60.331 0l-225.84 225.84-225.84-225.84c-16.683-16.683-43.691-16.683-60.331 0s-16.683 43.691 0 60.331z"/></svg>
-          </div>
+          </span>
         </h3>
         <div class="app-c-expander__content js-content" id="expander-content-2386afad">
           <select>
