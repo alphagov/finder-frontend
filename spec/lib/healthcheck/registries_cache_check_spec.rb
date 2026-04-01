@@ -16,6 +16,18 @@ RSpec.describe Healthcheck::RegistriesCacheCheck do
 
   after { Rails.cache.clear }
 
+  describe "#name" do
+    it "returns 'registries_have_data'" do
+      expect(check.name).to eq(:registries_have_data)
+    end
+  end
+
+  describe "#enabled?" do
+    it "returns true" do
+      expect(check.enabled?).to be(true)
+    end
+  end
+
   context "All Registries have cached data" do
     before do
       stub_worldwide_api_has_locations %w[hogwarts privet-drive diagon-alley]
@@ -31,6 +43,11 @@ RSpec.describe Healthcheck::RegistriesCacheCheck do
 
     it "has an OK status" do
       expect(check.status).to eq(GovukHealthcheck::OK)
+    end
+
+    it "does not set the message attribute" do
+      check.status
+      expect(check.message).to be_nil
     end
   end
 
