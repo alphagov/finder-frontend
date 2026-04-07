@@ -1,7 +1,7 @@
 require "spec_helper"
 require "gds_api/test_helpers/worldwide"
 
-RSpec.describe Healthchecks::RegistriesCache do
+RSpec.describe Healthcheck::RegistriesCacheCheck do
   include GdsApi::TestHelpers::Worldwide
   include TaxonomySpecHelper
   include GdsApi::TestHelpers::ContentStore

@@ -1,5 +1,5 @@
-module Healthchecks
-  class RegistriesCache
+module Healthcheck
+  class RegistriesCacheCheck
     def name
       :registries_have_data
     end
