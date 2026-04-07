@@ -1,7 +1,7 @@
 require "spec_helper"
 require "gds_api/test_helpers/worldwide"
 
-RSpec.describe Healthchecks::RegistriesCache do
+RSpec.describe Healthcheck::RegistriesCacheCheck do
   include GdsApi::TestHelpers::Worldwide
   include TaxonomySpecHelper
   include GdsApi::TestHelpers::ContentStore
@@ -15,6 +15,18 @@ RSpec.describe Healthchecks::RegistriesCache do
   end
 
   after { Rails.cache.clear }
+
+  describe "#name" do
+    it "returns 'registries_have_data'" do
+      expect(check.name).to eq(:registries_have_data)
+    end
+  end
+
+  describe "#enabled?" do
+    it "returns true" do
+      expect(check.enabled?).to be(true)
+    end
+  end
 
   context "All Registries have cached data" do
     before do
@@ -30,14 +42,18 @@ RSpec.describe Healthchecks::RegistriesCache do
     end
 
     it "has an OK status" do
-      expect(check.status).to eq :ok
-      expect(check.message).to eq "OK"
+      expect(check.status).to eq(GovukHealthcheck::OK)
+    end
+
+    it "does not set the message attribute" do
+      check.status
+      expect(check.message).to be_nil
     end
   end
 
   context "Registries caches are empty" do
     it "has a critical status" do
-      expect(check.status).to eq :critical
+      expect(check.status).to eq(GovukHealthcheck::CRITICAL)
       expect(check.message).to eq "The following registry caches are empty: world_locations, all_part_of_taxonomy_tree, part_of_taxonomy_tree, people, roles, organisations, manual, full_topic_taxonomy, topical_events."
     end
   end

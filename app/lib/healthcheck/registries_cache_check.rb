@@ -1,24 +1,21 @@
-module Healthchecks
-  class RegistriesCache
+module Healthcheck
+  class RegistriesCacheCheck
+    attr_reader :message
+
     def name
       :registries_have_data
     end
 
     def status
       if empty_registries.any?
-        :critical
+        @message = "The following registry caches are empty: #{empty_registries.keys.join(', ')}."
+        GovukHealthcheck::CRITICAL
       else
-        :ok
+        GovukHealthcheck::OK
       end
-    end
-
-    # Optional
-    def message
-      if empty_registries.any?
-        "The following registry caches are empty: #{empty_registries.keys.join(', ')}."
-      else
-        "OK"
-      end
+    rescue StandardError => e
+      @message = e.message
+      GovukHealthcheck::CRITICAL
     end
 
     # Optional
