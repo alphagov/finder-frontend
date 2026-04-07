@@ -84,7 +84,7 @@ GEM
       erubi (>= 1.0.0)
       rack (>= 0.9.0)
       rouge (>= 1.0.0)
-    bigdecimal (4.1.0)
+    bigdecimal (4.1.1)
     binding_of_caller (2.0.0)
       debug_inspector (>= 1.2.0)
     bootsnap (1.23.0)
@@ -212,7 +212,7 @@ GEM
       capybara (>= 3.36)
       puma
       selenium-webdriver (>= 4.0)
-    govuk_web_banners (1.33.0)
+    govuk_web_banners (1.33.1)
       govuk_app_config (>= 9)
       govuk_publishing_components
       rails (>= 7)
@@ -495,7 +495,7 @@ GEM
       rack (>= 3.0.14)
     rack-proxy (0.7.7)
       rack
-    rack-session (2.1.1)
+    rack-session (2.1.2)
       base64 (>= 0.1.0)
       rack (>= 3.0.0)
     rack-test (2.2.0)
