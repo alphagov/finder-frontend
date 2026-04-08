@@ -1,12 +1,14 @@
 Rails.application.routes.draw do
   mount GovukPublishingComponents::Engine, at: "/component-guide"
 
-  get "/healthcheck/live", to: proc { [200, {}, %w[OK]] }
-  get "/healthcheck/ready", to: GovukHealthcheck.rack_response(
+  checks = [
     GovukHealthcheck::EmergencyBannerRedis,
-    GovukHealthcheck::RailsCache,
-    Healthcheck::RegistriesCacheCheck,
-  )
+    ENV["PLEK_HOSTNAME_PREFIX"] == "draft-" ? nil : GovukHealthcheck::RailsCache,
+    ENV["PLEK_HOSTNAME_PREFIX"] == "draft-" ? nil : Healthcheck::RegistriesCacheCheck,
+  ].compact
+
+  get "/healthcheck/live", to: proc { [200, {}, %w[OK]] }
+  get "/healthcheck/ready", to: GovukHealthcheck.rack_response(*checks)
 
   namespace :api do
     get "/search/autocomplete" => "autocompletes#index"
