@@ -11,6 +11,7 @@
 <% end %>
 
 <%= render "govuk_publishing_components/components/layout_for_public", {
+    draft_watermark: draft_host?,
     title: safe_join([title, "GOV.UK"], " - "),
     emergency_banner: render("govuk_web_banners/emergency_banner"),
     global_banner: render("govuk_web_banners/global_banner"),
