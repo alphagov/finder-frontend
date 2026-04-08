@@ -7,7 +7,7 @@ gem "rails", "8.1.3"
 gem "bootsnap", require: false
 gem "chronic"
 gem "connection_pool", "< 3" # Do not bump via Dependabot - https://github.com/alphagov/finder-frontend/pull/3921
-gem "dalli", "~> 4"
+gem "dalli", "~> 5"
 gem "dartsass-rails"
 gem "gds-api-adapters"
 gem "govuk_ab_testing"
