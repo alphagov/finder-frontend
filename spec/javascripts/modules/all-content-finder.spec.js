@@ -169,7 +169,7 @@ describe('AllContentFinder module', () => {
 
     describe('when usage tracking is declined', () => {
       beforeEach(() => {
-        GOVUK.setConsentCookie({ usage: false })
+        GOVUK.setConsentCookie({ usage: false, aggregate: false })
         allContentFinder.init()
       })
 
@@ -186,7 +186,26 @@ describe('AllContentFinder module', () => {
 
     describe('when usage tracking is accepted', () => {
       beforeEach(() => {
-        GOVUK.setConsentCookie({ usage: true })
+        GOVUK.setConsentCookie({ usage: true, aggregate: false })
+        allContentFinder.init()
+      })
+
+      it('fires analytics tracking on form element changes through the GA4 finder tracker', () => {
+        const event = new Event('change', { bubbles: true })
+        const input = fixture.querySelector('#foo')
+        input.dispatchEvent(event)
+
+        expect(GOVUK.analyticsGa4.Ga4FinderTracker.trackChangeEvent).toHaveBeenCalledWith(event, 'FooCategory')
+      })
+
+      it('sets up ecommerce tracking', () => {
+        expect(GOVUK.analyticsGa4.Ga4EcommerceTracker.init).toHaveBeenCalled()
+      })
+    })
+
+    describe('when aggregate tracking is accepted', () => {
+      beforeEach(() => {
+        GOVUK.setConsentCookie({ usage: false, aggregate: true })        
         allContentFinder.init()
       })
 
