@@ -1,6 +1,3 @@
-window.GOVUK = window.GOVUK || {}
-window.GOVUK.Modules = window.GOVUK.Modules || {}; // if this ; is omitted, none of this JS runs :(
-
 (function (Modules) {
   /* This JavaScript provides two functional enhancements to the expander component:
     1) A count that shows how many items have been used in the expander container

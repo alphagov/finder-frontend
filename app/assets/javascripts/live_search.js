@@ -1,7 +1,6 @@
 (function () {
   'use strict'
 
-  window.GOVUK = window.GOVUK || {}
   var GOVUK = window.GOVUK
 
   function LiveSearch (options) {

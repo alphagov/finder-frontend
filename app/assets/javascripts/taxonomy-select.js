@@ -1,5 +1,3 @@
-window.GOVUK = window.GOVUK || {};
-
 (function (GOVUK) {
   'use strict'
 
