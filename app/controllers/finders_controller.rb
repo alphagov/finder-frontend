@@ -69,7 +69,7 @@ private
 
   attr_reader :search_query
 
-  helper_method :facet_tags, :i_am_a_topic_page_finder, :result_set_presenter, :content_item, :signup_links, :filter_params, :facets, :filters_presenter
+  helper_method :facet_tags, :i_am_a_topic_page_finder, :taxonomy_registry, :result_set_presenter, :content_item, :signup_links, :filter_params, :facets, :filters_presenter
 
   def validate_finder_params!
     # NOTE: The 'q' parameter is normalized to 'keywords' earlier (via ParamsCleaner),
