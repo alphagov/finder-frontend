@@ -73,7 +73,7 @@ Search content items are published by Search API and Specialist Publisher.
 
 As described in [GOV.UK Search: how it works](https://docs.publishing.service.gov.uk/manual/govuk-search.html), there are two search applications with differing responsibilities:
 
-- [Search API v2](https://github.com/alphagov/search-api-v2) which powers site search, refered to as the `all_content_finder` in this application.
+- [Search API v2](https://github.com/alphagov/search-api-v2) which powers site search, referred to as the `all_content_finder` in this application.
 - [Search API](https://github.com/alphagov/search-api) which powers all of the other finders on gov.uk
 
 The query we make for search results is performed by [`Search::Query`](app/lib/search/query.rb). Logic within this class decides which API to contact. The default behaviour is for all requests from the all_content finder to be sent to SearchAPI v2 with the following exceptions when the request will fall back to SearchAPI instead:
