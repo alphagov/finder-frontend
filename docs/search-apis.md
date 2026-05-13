@@ -11,7 +11,7 @@ precedence over any other logic. These are useful for comparing results and debu
 
 ## Using v1 as a backup in case of v2 issues
 In the event of a major issue with `search-api-v2` or its underlying SaaS search product (Google
-Vertex AI Search), a feature flag `FORCE_USE_V1_SEARCH_API` is available and will force all search
+Cloud Discovery Engine), a feature flag `FORCE_USE_V1_SEARCH_API` is available and will force all search
 traffic to use the v1 API.
 
 The v1 API provides pure keyword search and lacks the "smart" semantic search of v2, leading to

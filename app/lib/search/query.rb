@@ -77,17 +77,17 @@ module Search
       return false if ActiveModel::Type::Boolean.new.cast(ENV["FORCE_USE_V1_SEARCH_API"])
 
       # Use v1 in scenarios where v2 is not (yet) able to give us good results
-      # These scenarios should be reviewed as we continue our migration work and Vertex AI Search
-      # evolves.
+      # These scenarios should be reviewed as we continue our migration work and Google Cloud
+      # Discovery Engine evolves.
       ## Whitehall directly indexes slugs for world locations into v1, which we don't have access
       ## to in v2, breaking world location facets.
       return false if filter_params["world_locations"].present?
-      ## Vertex AI Search is not designed to handle non-keyword queries well, and there are cost
+      ## Discovery Engine is not designed to handle non-keyword queries well, and there are cost
       ## implications as well when it comes to bot traffic.
       return false if filter_params["keywords"].blank?
 
-      ## Feeds with keywords are sorted newest to oldest, so the relevance benefits of Vertex are
-      ## not realised.
+      ## Feeds with keywords are sorted newest to oldest, so the relevance benefits of Discovery
+      ## Engine are not realised.
       return false if @is_for_feed
 
       # Use v2 iff the current finder is site search (the only migrated finder so far)
