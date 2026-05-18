@@ -4,6 +4,7 @@ ruby "~> 4.0"
 
 gem "rails", "8.1.3"
 
+gem "benchmark"
 gem "bootsnap", require: false
 gem "chronic"
 gem "connection_pool", "< 3" # Do not bump via Dependabot - https://github.com/alphagov/finder-frontend/pull/3921
