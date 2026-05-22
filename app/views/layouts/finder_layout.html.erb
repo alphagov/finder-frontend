@@ -10,6 +10,16 @@
   <%= yield :meta_tags %>
 <% end %>
 
+<% if @content_item %>
+  <% if @content_item.base_path.include? "/aaib-reports" %>
+    This is test data for bug fixing, ignore if you see this! <br/>
+    <%= taxonomy_registry.taxonomy.keys %> <br/>
+    <%= "taxonomy_registry.taxonomy.key?: #{taxonomy_registry.taxonomy.key?(params[:topic])}" %><br/>
+    <%= "i_am_a_topic_page_finder: #{i_am_a_topic_page_finder}" %><br/>
+    <%= "params[:topic]: #{params[:topic]}"%><br/>
+  <% end %>
+<% end %>
+
 <%= render "govuk_publishing_components/components/layout_for_public", {
     draft_watermark: draft_host?,
     title: safe_join([title, "GOV.UK"], " - "),
