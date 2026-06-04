@@ -242,7 +242,7 @@ mark {
     border: 1px solid transparent;
 
     &:hover {
-      background: govuk-colour("mid-grey");
+      background: govuk-colour("black", $variant: "tint-80");
     }
 
     &:focus {
