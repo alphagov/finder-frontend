@@ -150,7 +150,7 @@ mark {
 
   @include govuk-media-query($from: tablet) {
     &:nth-child(odd) {
-      background-color: govuk-colour("light-grey");
+      background-color: govuk-colour("black", $variant: "tint-95");
     }
   }
 }
@@ -194,7 +194,7 @@ mark {
   padding: govuk-em(5, 16px);
   border: 1px solid govuk-colour("black", $variant: "tint-25");
   border-radius: govuk-em(5, 16px);
-  background-color: govuk-colour("light-grey");
+  background-color: govuk-colour("black", $variant: "tint-95");
 
   .govuk-frontend-supported & {
     padding: govuk-em(8, 16px) govuk-em(8, 16px) govuk-em(8, 16px) govuk-em(24, 16px);
