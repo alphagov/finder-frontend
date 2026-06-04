@@ -69,7 +69,7 @@
 @include govuk-media-query($until: tablet) {
   .govuk-frontend-supported {
     .facets__box {
-      border-left: 5px solid #b1b4b6;
+      border-left: 5px solid govuk-colour("black", $variant: "tint-80");
       padding-left: govuk-spacing(2);
       padding-bottom: 2px;
       margin-bottom: govuk-spacing(4);

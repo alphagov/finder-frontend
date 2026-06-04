@@ -78,7 +78,7 @@ mark {
 
 .published-by {
   display: block;
-  color: govuk-colour("dark-grey");
+  color: govuk-colour("black", $variant: "tint-25");
   @include govuk-font(14);
 }
 
@@ -150,7 +150,7 @@ mark {
 
   @include govuk-media-query($from: tablet) {
     &:nth-child(odd) {
-      background-color: govuk-colour("light-grey");
+      background-color: govuk-colour("black", $variant: "tint-95");
     }
   }
 }
@@ -192,9 +192,9 @@ mark {
   display: table-cell;
   position: relative;
   padding: govuk-em(5, 16px);
-  border: 1px solid govuk-colour("dark-grey");
+  border: 1px solid govuk-colour("black", $variant: "tint-25");
   border-radius: govuk-em(5, 16px);
-  background-color: govuk-colour("light-grey");
+  background-color: govuk-colour("black", $variant: "tint-95");
 
   .govuk-frontend-supported & {
     padding: govuk-em(8, 16px) govuk-em(8, 16px) govuk-em(8, 16px) govuk-em(24, 16px);
@@ -242,7 +242,7 @@ mark {
     border: 1px solid transparent;
 
     &:hover {
-      background: govuk-colour("mid-grey");
+      background: govuk-colour("black", $variant: "tint-80");
     }
 
     &:focus {
