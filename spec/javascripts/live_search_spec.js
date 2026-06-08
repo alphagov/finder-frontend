@@ -68,11 +68,11 @@ describe('liveSearch', function () {
   }
 
   function agreeToCookies () {
-    GOVUK.setCookie('cookies_policy', '{"essential":true,"settings":true,"usage":true,"campaigns":true}')
+    GOVUK.setCookie('cookies_policy', '{"essential":true,"settings":true,"usage":true,"campaigns":true,"aggregate":false}')
   }
 
   function denyCookies () {
-    GOVUK.setCookie('cookies_policy', '{"essential":false,"settings":false,"usage":false,"campaigns":false}')
+    GOVUK.setCookie('cookies_policy', '{"essential":false,"settings":false,"usage":false,"campaigns":false,"aggregate":false}')
   }
 
   beforeEach(function () {
@@ -737,6 +737,23 @@ describe('liveSearch', function () {
     })
 
     it('calls GA4 finder tracker on form update when data-ga4-change-category exists on the target', function () {
+      var $input = $form.find('input[name="field"]')
+      $input.attr('data-ga4-change-category', 'update-filter checkbox')
+
+      liveSearch.state = []
+
+      liveSearch.formChange({ target: $input[0] })
+      jasmine.Ajax.requests.mostRecent().respondWith({
+        status: 200,
+        response: '{"total":81,"display_total":"81 reports","facet_tags":"","search_results":"","display_selected_facets_count":"","sort_options_markup":"","next_and_prev_links":"","suggestions":"","errors":{}}'
+      })
+
+      expect(window.GOVUK.analyticsGa4.Ga4FinderTracker.trackChangeEvent).toHaveBeenCalled()
+    })
+
+    it('calls GA4 finder tracker on form update when data-ga4-change-category exists on the target and aggregate consent has already been given', function () {
+      window.GOVUK.setDefaultConsentCookie()
+
       var $input = $form.find('input[name="field"]')
       $input.attr('data-ga4-change-category', 'update-filter checkbox')
 
