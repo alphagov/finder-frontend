@@ -1,13 +1,6 @@
 <% content_for :before_content do %>
   <div class="app-before-content<%= " app-before-content--inverse" if is_inverse? %>">
     <div class="<%= 'govuk-width-container' if is_inverse? %>">
-      <% if content_item.show_phase_banner? %>
-        <%= render 'govuk_publishing_components/components/phase_banner', {
-            phase: content_item.phase,
-            message: sanitize(content_item.phase_message)
-        } %>
-      <% end %>
-
       <% if @breadcrumbs.breadcrumbs %>
         <%= render 'govuk_publishing_components/components/breadcrumbs', {
             breadcrumbs: @breadcrumbs.breadcrumbs,
