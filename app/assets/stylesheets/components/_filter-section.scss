@@ -1,7 +1,7 @@
 @import "mixins/chevron";
 
 .app-c-filter-section {
-  border-bottom: 1px solid $govuk-border-colour;
+  border-bottom: 1px solid govuk-functional-colour(border);
 
   &:last-child {
     border-bottom: 0;
@@ -23,7 +23,7 @@
   align-items: center;
   width: 100%;
   cursor: pointer;
-  color: $govuk-text-colour;
+  color: govuk-functional-colour(text);
   list-style: none;
   padding: govuk-spacing(1) 0;
   @include chevron;
@@ -41,7 +41,7 @@
   }
 
   &:focus .app-c-filter-section__summary-heading {
-    background-color: $govuk-focus-colour;
+    background-color: govuk-functional-colour(focus);
     @include govuk-focused-text;
   }
 

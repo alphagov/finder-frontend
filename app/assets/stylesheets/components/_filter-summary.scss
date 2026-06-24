@@ -1,6 +1,6 @@
 .app-c-filter-summary {
   padding-bottom: govuk-spacing(1);
-  border-top: 1px solid $govuk-border-colour;
+  border-top: 1px solid govuk-functional-colour(border);
 }
 
 .app-c-filter-summary__heading {
@@ -18,27 +18,27 @@
 }
 
 .app-c-filter-summary__remove-filter {
-  border: 1px solid $govuk-border-colour;
+  border: 1px solid govuk-functional-colour(border);
   border-radius: govuk-em(5, 16px);
   padding: govuk-spacing(1) govuk-spacing(2);
   text-decoration: none;
   display: flex;
   align-items: center;
-  color: $govuk-text-colour;
+  color: govuk-functional-colour(text);
   background-color: govuk-colour("black", $variant: "tint-95");
   @include govuk-font(19);
 
   &:focus {
-    background-color: $govuk-focus-colour;
-    outline: 2px $govuk-text-colour solid;
+    background-color: govuk-functional-colour(focus);
+    outline: 2px govuk-functional-colour(text) solid;
     outline-offset: 0;
-    border-color: $govuk-text-colour;
+    border-color: govuk-functional-colour(text);
   }
 
   &:hover {
-    outline: 1px $govuk-text-colour solid;
+    outline: 1px govuk-functional-colour(text) solid;
     outline-offset: 0;
-    border-color: $govuk-text-colour;
+    border-color: govuk-functional-colour(text);
   }
 
   &::before {
