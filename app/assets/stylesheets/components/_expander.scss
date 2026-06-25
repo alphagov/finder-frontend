@@ -1,7 +1,7 @@
 .app-c-expander {
   padding: 0 0 govuk-spacing(2);
   margin-bottom: govuk-spacing(2);
-  border-bottom: 1px solid $govuk-border-colour;
+  border-bottom: 1px solid govuk-functional-colour(border);
 }
 
 .app-c-expander__title {
@@ -62,7 +62,7 @@
   text-align: left;
   cursor: pointer;
   padding: 0;
-  color: $govuk-link-colour;
+  color: govuk-functional-colour(link);
   @include govuk-font(19);
 
   &:hover {
@@ -91,7 +91,7 @@
 
 .app-c-expander__selected-counter {
   display: block;
-  color: $govuk-text-colour;
+  color: govuk-functional-colour(text);
   margin-top: 3px;
   margin-left: 44px;
   @include govuk-font($size: 14);
