@@ -23,6 +23,7 @@
         <%= render 'spelling_suggestion' %>
       </div>
     <% elsif topic_finder?(filter_params) %>
+      <%= render "govuk_web_banners/recruitment_banner" %>
       <%= link_to topic_finder_parent(filter_params)['title'], topic_finder_parent(filter_params)['base_path'], class: 'govuk-link gem-c-inverse-header__link topic-finder__taxon-link' %>
       <%= render "govuk_publishing_components/components/heading", {
         text: content_item.title,
