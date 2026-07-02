@@ -289,12 +289,6 @@ mark {
   box-sizing: border-box;
 }
 
-.topic-finder__taxon-link,
-.topic-finder__taxon-link:link,
-.topic-finder__taxon-link:visited {
-  @include govuk-font(24, $weight: bold);
-}
-
 .app-c-button-as-link {
   padding: 0;
   border-width: 0;
