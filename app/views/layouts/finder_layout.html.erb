@@ -28,7 +28,7 @@
   } do %>
     <div class="<%= class_names("govuk-width-container" => !@full_width) %>">
       <%= yield :before_content %>
-      <%= render "govuk_web_banners/recruitment_banner" %>
+      <%= render "govuk_web_banners/recruitment_banner" if !@full_width %>
 
       <main id="content" class="<%= class_names('govuk-main-wrapper' => !content_for?(:inverse)) %>">
         <div class="finder-frontend">
