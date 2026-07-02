@@ -28,7 +28,7 @@ module Registries
 
     def roles_as_hash
       GovukStatsd.time("registries.roles.request_time") do
-        (fetch_roles_from_rummager || {})
+        (fetch_roles_from_search_api_v1 || {})
           .reject { |result| result.dig("value", "slug").blank? || result.dig("value", "title").blank? }
           .each_with_object({}) do |result, roles|
             slug = result["value"]["slug"]
@@ -37,12 +37,12 @@ module Registries
       end
     end
 
-    def fetch_roles_from_rummager
+    def fetch_roles_from_search_api_v1
       params = {
         facet_roles: "1500,examples:0,order:value.title",
         count: 0,
       }
-      Services.rummager.search(params).dig("facets", "roles", "options")
+      Services.search_api_v1.search(params).dig("facets", "roles", "options")
     end
   end
 end

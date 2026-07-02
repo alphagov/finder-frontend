@@ -28,7 +28,7 @@ module Registries
 
     def manuals_as_hash
       GovukStatsd.time("registries.manuals.request_time") do
-        fetch_manuals_from_rummager
+        fetch_manuals_from_search_api_v1
           .reject { |manual| manual["_id"].empty? || manual["title"].empty? }
           .each_with_object({}) do |manual, manuals|
             manuals[manual["_id"]] = { "title" => manual["title"], "slug" => manual["_id"] }
@@ -36,13 +36,13 @@ module Registries
       end
     end
 
-    def fetch_manuals_from_rummager
+    def fetch_manuals_from_search_api_v1
       params = {
         filter_document_type: %w[hmrc_manual manual service_manual_homepage service_manual_guide],
         fields: %w[title],
         count: 1500,
       }
-      Services.rummager.search(params)["results"]
+      Services.search_api_v1.search(params)["results"]
     end
   end
 end

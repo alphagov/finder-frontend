@@ -252,13 +252,13 @@ describe FacetsBuilder do
     let(:search_results) do
       {}
     end
-    let(:rummager_params) do
+    let(:search_api_v1_params) do
       {
         count: 0,
         facet_people: "1500,examples:0,order:value.title",
       }
     end
-    let(:rummager_url) { "#{Plek.find('search-api')}/search.json?#{rummager_params.to_query}" }
+    let(:search_api_v1_url) { "#{Plek.find('search-api')}/search.json?#{search_api_v1_params.to_query}" }
 
     let(:detail_hash) do
       {
@@ -286,7 +286,7 @@ describe FacetsBuilder do
       end
 
       it "gets values from the registry" do
-        stub_request(:get, rummager_url).to_return(body: people_search_api_results.to_json)
+        stub_request(:get, search_api_v1_url).to_return(body: people_search_api_results.to_json)
         expect(facet.allowed_values).to eq([{ "label" => "Cornelius Fudge", "value" => "cornelius-fudge" }, { "label" => "Rufus Scrimgeour", "value" => "rufus-scrimgeour" }])
       end
     end

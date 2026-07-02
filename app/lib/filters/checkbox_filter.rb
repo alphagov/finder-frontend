@@ -4,7 +4,7 @@ module Filters
 
     def value
       # 'params' for a checkbox should be true or false. the value
-      # we send to rummager can be params or a static value provided in
+      # we send to search-api v1 can be params or a static value provided in
       # the finder content item
       @value ||= params.nil? ? nil : facet["filter_value"] || params
     end

@@ -21,7 +21,7 @@ module Services
     end
   end
 
-  def self.rummager
+  def self.search_api_v1
     GdsApi::Search.new(Plek.find("search-api"))
   end
 

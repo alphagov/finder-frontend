@@ -2,17 +2,17 @@ require "spec_helper"
 
 RSpec.describe Registries::RolesRegistry do
   let(:slug) { "prime-minister" }
-  let(:rummager_params) do
+  let(:search_api_v1_params) do
     {
       count: 0,
       facet_roles: "1500,examples:0,order:value.title",
     }
   end
-  let(:rummager_url) { "#{Plek.find('search-api')}/search.json?#{rummager_params.to_query}" }
+  let(:search_api_v1_url) { "#{Plek.find('search-api')}/search.json?#{search_api_v1_params.to_query}" }
 
-  describe "when rummager is available" do
+  describe "when search_api_v1 is available" do
     before do
-      stub_request(:get, rummager_url).to_return(body: rummager_results)
+      stub_request(:get, search_api_v1_url).to_return(body: search_api_v1_results)
       clear_cache
     end
 
@@ -34,7 +34,7 @@ RSpec.describe Registries::RolesRegistry do
 
   describe "there is no slug or title" do
     it "removes those results" do
-      stub_request(:get, rummager_url).to_return(
+      stub_request(:get, search_api_v1_url).to_return(
         body: {
           "facets": {
             "roles": {
@@ -48,9 +48,9 @@ RSpec.describe Registries::RolesRegistry do
     end
   end
 
-  describe "when rummager is unavailable" do
+  describe "when search_api_v1 is unavailable" do
     before do
-      rummager_is_unavailable
+      search_api_v1_is_unavailable
       clear_cache
     end
 
@@ -61,15 +61,15 @@ RSpec.describe Registries::RolesRegistry do
     end
   end
 
-  def rummager_is_unavailable
-    stub_request(:get, rummager_url).to_return(status: 500)
+  def search_api_v1_is_unavailable
+    stub_request(:get, search_api_v1_url).to_return(status: 500)
   end
 
   def clear_cache
     Rails.cache.delete(described_class.new.cache_key)
   end
 
-  def rummager_results
+  def search_api_v1_results
     %({
       "results": [],
       "total": 394075,

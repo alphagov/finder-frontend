@@ -2,7 +2,7 @@ class DevelopmentController < ApplicationController
   layout "development_layout"
 
   def index
-    rendered_pages = Services.rummager.search(filter_rendering_app: "finder-frontend", count: 1000, order: "title")["results"]
+    rendered_pages = Services.search_api_v1.search(filter_rendering_app: "finder-frontend", count: 1000, order: "title")["results"]
     @rendered_pages = (rendered_pages + pages_with_inverted_header).sort_by { |hsh| hsh["title"] }
   end
 

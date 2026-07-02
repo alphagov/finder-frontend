@@ -7,7 +7,7 @@ module Filters
         topic = params["level_one_taxon"]
         subtopic = params["level_two_taxon"]
 
-        # we send a conjunctive query to rummager for part_of_taxonomy_tree
+        # we send a conjunctive query to search-api v1 for part_of_taxonomy_tree
         [topic, subtopic]
       end
     end

@@ -26,7 +26,7 @@ The lowercase singular version of whatever format the Finder is using. For examp
 
 A hash. Optional.
 
-Used to restrict the base search in Rummager. It can contain any key and value pair as long as the key is listed in `ALLOWED_FILTER_FIELDS` [in Rummager](https://github.com/alphagov/rummager/blob/be2ee6927eeab348c0bfc1e2b553c9c138a3ebc8/lib/search_parameter_parser.rb#L16).
+Used to restrict the base search in search-api v1. It can contain any key and value pair as long as the key is listed in `ALLOWED_FILTER_FIELDS` [in search-api v1](https://github.com/alphagov/search-api/blob/be2ee6927eeab348c0bfc1e2b553c9c138a3ebc8/lib/search_parameter_parser.rb#L16).
 
 For example filtering all documents with a `contact` format from HM Revenue & Customs would need a hash like:
 
@@ -43,7 +43,7 @@ For example filtering all documents with a `contact` format from HM Revenue & Cu
 
 A hash. Optional.
 
-Used to restrict the base search in Rummager. It can contain any key and value pair as long as the key is listed in `ALLOWED_FILTER_FIELDS` [in Rummager](https://github.com/alphagov/rummager/blob/be2ee6927eeab348c0bfc1e2b553c9c138a3ebc8/lib/search_parameter_parser.rb#L16). The `_MISSING` value is
+Used to restrict the base search in search_api_v1. It can contain any key and value pair as long as the key is listed in `ALLOWED_FILTER_FIELDS` [in search-api v1](https://github.com/alphagov/search-api/blob/be2ee6927eeab348c0bfc1e2b553c9c138a3ebc8/lib/search_parameter_parser.rb#L16). The `_MISSING` value is
 useful here if you find yourself chaining too many values in filter and running over the max URL length supported by `Net::HTTP`.
 
 For example, rejecting all documents which don't have a policy would need a hash like:
@@ -60,8 +60,8 @@ A string. Optional.
 
 You can use a minus (-) in front of the field to order in descending order (see [search-api/config/finders/case_studies_finder.yml](https://github.com/alphagov/search-api/blob/main/config/finders/case_studies_finder.yml#L21) for an example).
 
-Rummager must allow this field to be sorted on. At the time of writing [this
-was restricted to a couple of fields](https://github.com/alphagov/rummager/blob/ff35f2efb17d145f657cb520bc9892e64b713901/lib/parameter_parser/base_parameter_parser.rb#L10-L17).
+search-api v1 must allow this field to be sorted on. At the time of writing [this
+was restricted to a couple of fields](https://github.com/alphagov/search-api/blob/ff35f2efb17d145f657cb520bc9892e64b713901/lib/parameter_parser/base_parameter_parser.rb#L10-L17).
 
 **Note:** If you include a custom `sort` block in the finder configuration, you must also include `relevance` as one of the available sort options. Finder Frontend requires this option to be present in the DOM, and the page's JavaScript will fail to initialize if it's missing.
 
@@ -69,7 +69,7 @@ was restricted to a couple of fields](https://github.com/alphagov/rummager/blob/
 
 An integer. Optional.
 
-Used to build pagination when querying Rummager.
+Used to build pagination when querying search-api v1.
 
 ## `signup_link`
 
@@ -180,7 +180,7 @@ If `allowed_values` is missing or empty, the values are dynamically generated ba
 
 This is usually better than providing fixed values, because the user is not given options that filter out every document in their search.
 
-This behaviour is closer to what is meant by "facet" in the underlying  [search API](https://github.com/alphagov/rummager/blob/master/docs/search-api.md).
+This behaviour is closer to what is meant by "facet" in the underlying [search-api v1](https://github.com/alphagov/search-api/blob/main/docs/using-the-search-api.md).
 
 The current implementation of dynamic facets always requests the facet from the search api using a particular ordering: `1000,order:value.title`. This means it won't work for all fields.
 
@@ -245,7 +245,7 @@ longer than this due to page-level caching.
 
 A string. Required.
 
-`snake_case` string which matches to the field being searched in Rummager.
+`snake_case` string which matches to the field being searched in search-api v1.
 
 #### `filterable`
 

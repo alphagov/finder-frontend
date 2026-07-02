@@ -1,5 +1,5 @@
-module RummagerUrlHelper
-  def rummager_url(params)
+module SearchApiV1UrlHelper
+  def search_api_v1_url(params)
     "#{Plek.find('search-api')}/search.json?#{params.to_query}"
   end
 
@@ -96,4 +96,4 @@ module RummagerUrlHelper
   end
 end
 
-World(RummagerUrlHelper)
+World(SearchApiV1UrlHelper)

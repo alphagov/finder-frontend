@@ -28,7 +28,7 @@ module Registries
 
     def topical_events_as_hash
       GovukStatsd.time("registries.topical_events.request_time") do
-        fetch_topical_events_from_rummager
+        fetch_topical_events_from_search_api_v1
           .reject { |topical_event| topical_event["slug"].empty? || topical_event["title"].empty? }
           .each_with_object({}) do |topical_event, topical_events|
             topical_events[topical_event["slug"]] = { "title" => topical_event["title"], "slug" => topical_event["slug"] }
@@ -36,14 +36,14 @@ module Registries
       end
     end
 
-    def fetch_topical_events_from_rummager
+    def fetch_topical_events_from_search_api_v1
       params = {
         filter_format: "topical_event",
         fields: %w[title slug],
         count: 1500,
         order: "title",
       }
-      Services.rummager.search(params)["results"]
+      Services.search_api_v1.search(params)["results"]
     end
   end
 end
