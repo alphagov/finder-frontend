@@ -79,7 +79,7 @@ mark {
 .published-by {
   display: block;
   color: govuk-colour("dark-grey");
-  @include govuk-font(14);
+  @include govuk-font(16);
 }
 
 .debug-results {
