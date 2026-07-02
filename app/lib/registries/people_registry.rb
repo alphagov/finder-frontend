@@ -28,7 +28,7 @@ module Registries
 
     def people_as_hash
       GovukStatsd.time("registries.people.request_time") do
-        people = fetch_people_from_rummager || {}
+        people = fetch_people_from_search_api_v1 || {}
 
         people.reject { |result| result.dig("value", "slug").blank? || result.dig("value", "title").blank? }
           .each_with_object({}) do |result, orgs|
@@ -38,12 +38,12 @@ module Registries
       end
     end
 
-    def fetch_people_from_rummager
+    def fetch_people_from_search_api_v1
       params = {
         facet_people: "1500,examples:0,order:value.title",
         count: 0,
       }
-      Services.rummager.search(params).dig("facets", "people", "options")
+      Services.search_api_v1.search(params).dig("facets", "people", "options")
     end
   end
 end

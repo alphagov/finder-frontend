@@ -74,14 +74,14 @@ RSpec.describe SubscriberListParamsPresenter do
           {
             "facet_id" => "some_arbitrary_facet_id",
             "facet_name" => "some_arbitrary_facet_name",
-            "filter_key" => "a_filter_key_rummager_can_filter_by",
+            "filter_key" => "a_filter_key_search_api_v1_can_filter_by",
           },
         ]
       end
 
       params = { "some_arbitrary_facet_id" => "some-taxon" }
       presenter = described_class.new(signup_finder_content_item, params)
-      expect(presenter.subscriber_list_params).to eql("a_filter_key_rummager_can_filter_by" => %w[some-taxon])
+      expect(presenter.subscriber_list_params).to eql("a_filter_key_search_api_v1_can_filter_by" => %w[some-taxon])
     end
 
     it "translates option_lookup values into a filter key if they are present" do

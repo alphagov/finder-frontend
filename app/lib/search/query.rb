@@ -63,7 +63,7 @@ module Search
         Metrics.increment_counter(:searches, api: "v1", finder: content_item.base_path)
 
         Metrics.observe_duration(:search_request_duration, api: "v1") do
-          Services.rummager.search(query).to_hash
+          Services.search_api_v1.search(query).to_hash
         end
       end
     end

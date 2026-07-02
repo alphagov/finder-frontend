@@ -119,7 +119,7 @@ describe FindersController, type: :controller do
         it "initializes a filterable facet with the param field value" do
           stub_content_store_has_item(lunch_finder["base_path"], lunch_finder)
 
-          rummager_response = %({
+          search_api_v1_response = %({
           "results": [],
           "total": 0,
           "start": 0,
@@ -139,7 +139,7 @@ describe FindersController, type: :controller do
                 suggest: "spelling_with_highlighting",
               },
             )
-            .to_return(status: 200, body: rummager_response, headers: {})
+            .to_return(status: 200, body: search_api_v1_response, headers: {})
 
           expect(OptionSelectFacet).to receive(:new).with(
             {
@@ -184,7 +184,7 @@ describe FindersController, type: :controller do
           lunch_finder.merge("details" => lunch_finder["details"].merge("sort" => sort_options)),
         )
 
-        rummager_response = %({
+        search_api_v1_response = %({
           "results": [],
           "total": 0,
           "start": 0,
@@ -203,7 +203,7 @@ describe FindersController, type: :controller do
               suggest: "spelling_with_highlighting",
             },
           )
-          .to_return(status: 200, body: rummager_response, headers: {})
+          .to_return(status: 200, body: search_api_v1_response, headers: {})
 
         get :show, params: { format: :atom, slug: "lunch-finder" }
         expect(stub).to have_been_requested
@@ -216,7 +216,7 @@ describe FindersController, type: :controller do
         stub_content_store_has_item("/lunch-finder", lunch_finder)
 
         stub_request(:get, /\A#{Plek.find('search-api')}\/search.json/)
-          .to_return(status: 200, body: rummager_response, headers: {})
+          .to_return(status: 200, body: search_api_v1_response, headers: {})
 
         get :show, params: { slug: "lunch-finder", keywords: "<script>alert(0)</script>" }
         expect(response.body).to include("&lt;script&gt;alert(0)&lt;/script&gt;")
@@ -417,14 +417,14 @@ describe FindersController, type: :controller do
 
     before do
       stub_content_store_has_item(breakfast_finder["base_path"], breakfast_finder)
-      rummager_response = %({
+      search_api_v1_response = %({
         "results": [],
         "total": 0,
         "start": 0,
         "facets": {},
         "suggested_queries": [{ "text": "cereal", "highlighted": "<mark>cereal</mark>" }]
       })
-      stub_request(:get, /search.json/).to_return(status: 200, body: rummager_response, headers: {})
+      stub_request(:get, /search.json/).to_return(status: 200, body: search_api_v1_response, headers: {})
     end
 
     it "Gives the spelling suggestion and links to it" do
@@ -442,7 +442,7 @@ describe FindersController, type: :controller do
       stub_content_store_has_item("/search/all", all_content_finder)
     end
 
-    rummager_response = %({
+    search_api_v1_response = %({
       "results": [],
       "total": 0,
       "start": 0,
@@ -451,7 +451,7 @@ describe FindersController, type: :controller do
     })
 
     it "detects bad 'from' dates" do
-      stub_request(:get, /search.json/).to_return(status: 200, body: rummager_response, headers: {})
+      stub_request(:get, /search.json/).to_return(status: 200, body: search_api_v1_response, headers: {})
 
       get :show, params: { slug: "search/all", format: "json", public_timestamp: { from: "99-99-99", to: "01-01-01" } }
       json_response = JSON.parse(response.body)
@@ -461,7 +461,7 @@ describe FindersController, type: :controller do
     end
 
     it "detects bad 'to' dates" do
-      stub_request(:get, /search.json/).to_return(status: 200, body: rummager_response, headers: {})
+      stub_request(:get, /search.json/).to_return(status: 200, body: search_api_v1_response, headers: {})
 
       get :show, params: { slug: "search/all", format: "json", public_timestamp: { from: "01-01-01", to: "99-99-99" } }
 
@@ -649,15 +649,15 @@ describe FindersController, type: :controller do
   end
 
   def search_response(discovery_engine_attribution_token: nil)
-    return rummager_response if discovery_engine_attribution_token.blank?
+    return search_api_v1_response if discovery_engine_attribution_token.blank?
 
     JSON.generate(
-      JSON.parse(rummager_response)
+      JSON.parse(search_api_v1_response)
           .merge!("discovery_engine_attribution_token" => discovery_engine_attribution_token),
     )
   end
 
-  def rummager_response
+  def search_api_v1_response
     %({
       "results": [],
       "total": 11,

@@ -238,13 +238,13 @@ end
 Given(/^a finder tagged to the topic taxonomy$/) do
   stub_taxonomy_api_request
   stub_content_store_with_a_taxon_tagged_finder
-  stub_rummager_with_cma_cases
+  stub_search_api_v1_with_cma_cases
 end
 
 Given(/^a collection of documents that can be filtered by dates$/) do
   stub_taxonomy_api_request
   stub_content_store_with_cma_cases_finder
-  stub_rummager_with_cma_cases
+  stub_search_api_v1_with_cma_cases
 end
 
 When(/^I use a date filter$/) do
@@ -339,19 +339,19 @@ end
 Given(/^a finder with description exists$/) do
   stub_taxonomy_api_request
   stub_content_store_with_cma_cases_finder_with_description
-  stub_rummager_with_cma_cases
+  stub_search_api_v1_with_cma_cases
 end
 
 Given(/^a finder with a no_index property exists$/) do
   stub_taxonomy_api_request
   stub_content_store_with_cma_cases_finder_with_no_index
-  stub_rummager_with_cma_cases
+  stub_search_api_v1_with_cma_cases
 end
 
 Given(/^a finder with metadata exists$/) do
   stub_taxonomy_api_request
   stub_content_store_with_cma_cases_finder_with_metadata
-  stub_rummager_with_cma_cases
+  stub_search_api_v1_with_cma_cases
 end
 
 When(/^I can see that the finder metadata is present$/) do
@@ -434,7 +434,7 @@ end
 Given(/^a collection of documents exist that can be filtered by checkbox$/) do
   stub_taxonomy_api_request
   stub_content_store_with_cma_cases_finder_for_supergroup_checkbox_filter
-  stub_rummager_with_cma_cases_for_supergroups_checkbox
+  stub_search_api_v1_with_cma_cases_for_supergroups_checkbox
   visit_cma_cases_finder
 end
 
@@ -592,7 +592,7 @@ end
 When(/^I use a checkbox filter and another disallowed filter$/) do
   find("label", text: "Show open cases").click
   fill_in("closed_date[from]", with: "1st November 2015")
-  stub_rummager_with_cma_cases_for_supergroups_checkbox_and_date
+  stub_search_api_v1_with_cma_cases_for_supergroups_checkbox_and_date
   within ".js-live-search-fallback" do
     click_on "Filter results"
   end

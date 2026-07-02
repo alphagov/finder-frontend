@@ -28,8 +28,8 @@ module DocumentHelper
   end
 
   def stub_search_api_request
-    stub_response(hash_including(rummager_all_documents_params), all_documents_json, including_v2: true)
-    stub_response(rummager_hopscotch_walks_params, hopscotch_reports_json, including_v2: true)
+    stub_response(hash_including(search_api_v1_all_documents_params), all_documents_json, including_v2: true)
+    stub_response(search_api_v1_hopscotch_walks_params, hopscotch_reports_json, including_v2: true)
   end
 
   def stub_keyword_search_api_request(term)
@@ -45,24 +45,24 @@ module DocumentHelper
   end
 
   def stub_search_api_request_with_10_government_results
-    stub_response(rummager_10_documents_params, government_documents_json)
+    stub_response(search_api_v1_10_documents_params, government_documents_json)
   end
 
   def stub_search_api_request_with_bad_data
-    stub_response(rummager_all_documents_params, documents_with_bad_data_json)
+    stub_response(search_api_v1_all_documents_params, documents_with_bad_data_json)
   end
 
   def stub_search_api_request_with_10_government_results_page_2
-    stub_response(rummager_10_documents_page_2_params, government_documents_page_2_json)
+    stub_response(search_api_v1_10_documents_page_2_params, government_documents_page_2_json)
   end
 
   def stub_search_api_request_with_news_and_communication_results
     stub_response(
-      hash_including(rummager_newest_news_and_communications_params),
+      hash_including(search_api_v1_newest_news_and_communications_params),
       newest_news_and_communication_json,
     )
     stub_response(
-      hash_including(rummager_popular_news_and_communications_params),
+      hash_including(search_api_v1_popular_news_and_communications_params),
       popular_news_and_communication_json,
     )
   end
@@ -212,17 +212,17 @@ module DocumentHelper
   end
 
   def stub_search_api_request_with_services_results
-    stub_response(hash_including(rummager_alphabetical_services_params), alpabetical_services_json)
-    stub_response(hash_including(rummager_popular_services_params), popular_services_json)
+    stub_response(hash_including(search_api_v1_alphabetical_services_params), alpabetical_services_json)
+    stub_response(hash_including(search_api_v1_popular_services_params), popular_services_json)
   end
 
   def stub_search_api_request_with_no_results
-    stub_response(rummager_0_documents_params, %({ "results": [], "total": 0, "start": 0}))
+    stub_response(search_api_v1_0_documents_params, %({ "results": [], "total": 0, "start": 0}))
   end
 
   def stub_search_api_request_with_422_response(page_number)
     stub_request(:get, SEARCH_ENDPOINT)
-      .with(query: rummager_document_other_page_search_params(page_number))
+      .with(query: search_api_v1_document_other_page_search_params(page_number))
       .to_return(status: 422)
   end
 
@@ -348,13 +348,13 @@ module DocumentHelper
     )
   end
 
-  def stub_rummager_with_cma_cases
+  def stub_search_api_v1_with_cma_cases
     stub_request(:get, SEARCH_ENDPOINT)
-      .with(query: rummager_all_cma_case_documents_params)
+      .with(query: search_api_v1_all_cma_case_documents_params)
       .to_return(body: all_cma_case_documents_json)
 
     stub_request(:get, SEARCH_ENDPOINT)
-      .with(query: rummager_filtered_cma_case_documents_params)
+      .with(query: search_api_v1_filtered_cma_case_documents_params)
       .to_return(body: filtered_cma_case_documents_json)
   end
 
@@ -412,9 +412,9 @@ module DocumentHelper
     )
   end
 
-  def stub_rummager_with_cma_cases_for_supergroups_checkbox
+  def stub_search_api_v1_with_cma_cases_for_supergroups_checkbox
     stub_request(:get, SEARCH_ENDPOINT)
-      .with(query: hash_including(rummager_all_cma_case_documents_params))
+      .with(query: hash_including(search_api_v1_all_cma_case_documents_params))
       .to_return(body: all_cma_case_documents_json)
 
     open_cma_case_documents_params =
@@ -428,9 +428,9 @@ module DocumentHelper
       .to_return(body: filtered_cma_case_documents_json)
   end
 
-  def stub_rummager_with_cma_cases_for_supergroups_checkbox_and_date
+  def stub_search_api_v1_with_cma_cases_for_supergroups_checkbox_and_date
     stub_request(:get, SEARCH_ENDPOINT)
-      .with(query: hash_including(rummager_all_cma_case_documents_params))
+      .with(query: hash_including(search_api_v1_all_cma_case_documents_params))
       .to_return(body: all_cma_case_documents_json)
 
     open_cma_case_documents_params = cma_case_search_params.merge(
@@ -444,25 +444,25 @@ module DocumentHelper
       .to_return(body: filtered_cma_case_documents_json)
   end
 
-  def rummager_all_documents_params
+  def search_api_v1_all_documents_params
     mosw_search_params.merge("order" => "-public_timestamp")
   end
 
-  def rummager_0_documents_params
+  def search_api_v1_0_documents_params
     mosw_search_params_no_facets.merge(
       "order" => "-public_timestamp",
       "count" => 1500,
     )
   end
 
-  def rummager_10_documents_params
+  def search_api_v1_10_documents_params
     mosw_search_params.merge(
       "order" => "-public_timestamp",
       "count" => 10,
     )
   end
 
-  def rummager_10_documents_page_2_params
+  def search_api_v1_10_documents_page_2_params
     mosw_search_params.merge(
       "order" => "-public_timestamp",
       "count" => 10,
@@ -470,42 +470,42 @@ module DocumentHelper
     )
   end
 
-  def rummager_hopscotch_walks_params
+  def search_api_v1_hopscotch_walks_params
     mosw_search_params.merge(
       "filter_walk_type" => %w[hopscotch],
       "order" => "-public_timestamp",
     )
   end
 
-  def rummager_newest_news_and_communications_params
+  def search_api_v1_newest_news_and_communications_params
     news_and_communications_search_params.merge(
       "order" => "-public_timestamp",
       "count" => "20",
     )
   end
 
-  def rummager_popular_news_and_communications_params
+  def search_api_v1_popular_news_and_communications_params
     news_and_communications_search_params.merge(
       "order" => "-popularity",
       "count" => "20",
     )
   end
 
-  def rummager_popular_services_params
+  def search_api_v1_popular_services_params
     services_search_params.merge(
       "order" => "-popularity",
       "count" => "20",
     )
   end
 
-  def rummager_alphabetical_services_params
+  def search_api_v1_alphabetical_services_params
     services_search_params.merge(
       "order" => "title",
       "count" => "20",
     )
   end
 
-  def rummager_document_other_page_search_params(page_number)
+  def search_api_v1_document_other_page_search_params(page_number)
     count_per_page = 10
 
     mosw_search_params.merge(
@@ -515,11 +515,11 @@ module DocumentHelper
     )
   end
 
-  def rummager_all_cma_case_documents_params
+  def search_api_v1_all_cma_case_documents_params
     cma_case_search_params.merge("order" => "-public_timestamp")
   end
 
-  def rummager_filtered_cma_case_documents_params
+  def search_api_v1_filtered_cma_case_documents_params
     cma_case_search_params.merge(
       "filter_closed_date" => "from:2015-11-01",
       "order" => "-public_timestamp",

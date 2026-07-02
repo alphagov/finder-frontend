@@ -1,9 +1,9 @@
-# Used by Search::QueryBuilder to build the `facet` part of the Rummager
-# search query. This will determine the "facets" Rummager returns.
+# Used by Search::QueryBuilder to build the `facet` part of search-api v1
+# search query. This will determine the "facets" search-api v1.
 #
-# For more on facetting, see the Rummager docs:
+# For more on facetting, see the search-api docs:
 #
-#   https://github.com/alphagov/rummager/blob/master/docs/search-api.md
+#   https://github.com/alphagov/search-api/blob/master/docs/using-the-search-api.md
 module Search
   class FacetQueryBuilder
     def initialize(facets:)

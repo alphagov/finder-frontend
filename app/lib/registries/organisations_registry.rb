@@ -28,7 +28,7 @@ module Registries
 
     def organisations_as_hash
       GovukStatsd.time("registries.organisations.request_time") do
-        fetch_organisations_from_rummager
+        fetch_organisations_from_search_api_v1
           .reject { |result| result["slug"].blank? || result["title"].blank? }
           .sort_by { |result| result["title"].sub("Closed organisation: ", "ZZ").upcase }
           .each_with_object({}) do |result, orgs|
@@ -38,14 +38,14 @@ module Registries
       end
     end
 
-    def fetch_organisations_from_rummager
+    def fetch_organisations_from_search_api_v1
       params = {
         filter_format: "organisation",
         fields: %w[title slug acronym content_id],
         count: 1500,
         order: "title",
       }
-      response = Services.rummager.search(params)
+      response = Services.search_api_v1.search(params)
       response["results"]
     end
   end
