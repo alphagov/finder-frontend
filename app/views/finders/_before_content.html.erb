@@ -6,6 +6,15 @@
             breadcrumbs: @breadcrumbs.breadcrumbs,
             collapse_on_mobile: true
         } %>
+      <% elsif topic_finder_parent(filter_params) && topic_finder_parent(filter_params)['title'] %>
+        <%
+          crumbs = [{ title: "Home", url: "/" }]
+          crumbs << { title: topic_finder_parent(filter_params)['title'], url: topic_finder_parent(filter_params)['base_path'] }
+        %>
+        <%= render 'govuk_publishing_components/components/breadcrumbs', {
+          breadcrumbs: crumbs,
+          collapse_on_mobile: true
+        } %>
       <% else %>
         <%= render 'govuk_publishing_components/components/contextual_breadcrumbs', {
             content_item: content_item.as_hash
