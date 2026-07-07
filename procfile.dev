@@ -1,2 +1,2 @@
-web: bin/rails server -p 3062
+web: DEBUGGER=true bin/rails server -p 3062 --restart
 css: bin/rails dartsass:watch

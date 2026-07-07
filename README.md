@@ -50,6 +50,10 @@ bundle exec cucumber
 bundle exec rake jasmine:ci
 ```
 
+### Debugging support
+
+See [Debugging](docs/debugging-in-vs-code.md)
+
 ### Further documentation
 
 See the [`docs/`](docs/) directory for manuals and instructions.
