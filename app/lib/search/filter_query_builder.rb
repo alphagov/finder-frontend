@@ -23,19 +23,13 @@ module Search
 
     def build_filter(facet)
       filter_class = {
-        "checkbox" => Filters::CheckboxFilter,
         "date" => Filters::DateFilter,
         "hidden" => Filters::HiddenFilter,
         "text" => Filters::TextFilter,
-        "dropdown_select" => Filters::DropdownSelectFilter,
-        "topical" => Filters::TopicalFilter,
         "taxon" => Filters::TaxonFilter,
-        "radio" => Filters::RadioFilter,
-        "content_id" => Filters::ContentIdFilter,
         "hidden_clearable" => Filters::HiddenClearableFilter,
         "research_and_statistics" => Filters::ResearchAndStatisticsFilter,
         "official_documents" => Filters::OfficialDocumentsFilter,
-        "nested" => Filters::NestedFilter,
       }.fetch(facet["type"])
 
       filter_class.new(facet, params(facet))
