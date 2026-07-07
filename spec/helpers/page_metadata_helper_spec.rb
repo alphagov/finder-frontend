@@ -6,7 +6,7 @@ describe PageMetadataHelper, type: :helper do
   include TopicFinderHelper
 
   subject do
-    page_metadata(content_item, filter_params)
+    page_metadata(content_item)
   end
 
   let(:organisations) do
@@ -16,7 +16,6 @@ describe PageMetadataHelper, type: :helper do
   let(:content_item) do
     FactoryBot.build(:content_item, links: { organisations: })
   end
-  let(:filter_params) { {} }
 
   before do
     topic_taxonomy_has_taxons([FactoryBot.build(:level_one_taxon_hash, content_id: "existing_content_id")])
@@ -32,20 +31,6 @@ describe PageMetadataHelper, type: :helper do
 
       it 'does not contain the "from" key' do
         expect(subject).not_to have_key(:from)
-      end
-    end
-
-    describe "it is a topic page" do
-      let(:filter_params) { { "topic" => "existing_content_id" } }
-
-      it 'does not contain the "inverse" key' do
-        expect(subject[:inverse]).to be true
-      end
-    end
-
-    describe "it is not a topic page" do
-      it 'does not contain the "inverse" key' do
-        expect(subject).not_to have_key(:inverse)
       end
     end
   end

@@ -31,14 +31,14 @@
       <div class="govuk-width-container">
         <%= render partial: 'show_header', locals: {
           inverse: is_inverse?,
-          page_metadata: page_metadata(content_item, filter_params)
+          page_metadata: page_metadata(content_item)
         } %>
       </div>
     <% end %>
   <% else %>
     <%= render partial: 'show_header', locals: {
       inverse: is_inverse?,
-      page_metadata: page_metadata(content_item, filter_params)
+      page_metadata: page_metadata(content_item)
     } %>
   <% end %>
 
