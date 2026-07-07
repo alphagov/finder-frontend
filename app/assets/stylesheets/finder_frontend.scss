@@ -1,8 +1,15 @@
 $app-colour-true-black: #000000;
 
-.metadata-summary {
+.header-item-row {
   margin-bottom: govuk-spacing(6);
-  @include govuk-font(19);
+
+  @include govuk-media-query($from: tablet) {
+    margin-bottom: govuk-spacing(8);
+  }
+}
+
+.header-item-element {
+  margin-bottom: govuk-spacing(6);
 }
 
 .finder-logo {
@@ -11,11 +18,11 @@ $app-colour-true-black: #000000;
 
 .finder-logo__image {
   max-width: 100%;
+  margin-bottom: govuk-spacing(6);
 }
 
 .related-links {
-  margin-top: govuk-spacing(8);
-  margin-bottom: govuk-spacing(8);
+  margin-bottom: govuk-spacing(6);
 }
 
 .related-links__item {
