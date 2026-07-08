@@ -25,8 +25,6 @@ private
       case facet_hash["type"]
       when "text", "content_id"
         OptionSelectFacet.new(facet_hash, value_hash[facet_hash["key"]])
-      when "topical"
-        TopicalFacet.new(facet_hash, value_hash[facet_hash["key"]])
       when "taxon"
         TaxonFacet.new(facet_hash, value_hash.slice(*facet_hash["keys"]))
       when "date"
