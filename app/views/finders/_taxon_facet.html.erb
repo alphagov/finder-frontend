@@ -3,12 +3,12 @@
     button_data_attributes = {
       ga4_expandable: "",
       ga4_event: {
-        event_name: 'select_content',
-        type: 'finder',
+        event_name: "select_content",
+        type: "finder",
         section: "Topic",
         index_section: taxon_facet.section_index,
         index_section_count: taxon_facet.section_count,
-      }
+      },
     }
   %>
   <%= render "components/expander", {
@@ -20,22 +20,22 @@
         index_section_count: taxon_facet.section_count,
       },
     },
-    button_data_attributes:
+    button_data_attributes:,
   } do %>
     <div class="js-taxonomy-select" data-ga4-change-category="update-filter select" data-ga4-section="Topic">
       <%= render "govuk_publishing_components/components/select", {
-        id: 'level_one_taxon',
+        id: "level_one_taxon",
         label: "Topic",
         full_width: true,
-        options: taxon_facet.topics
+        options: taxon_facet.topics,
       } %>
 
       <div class="js-required govuk-form-group" data-ga4-section="Subtopic">
         <%= render "govuk_publishing_components/components/select", {
-          id: 'level_two_taxon',
+          id: "level_two_taxon",
           label: "Subtopic",
           full_width: true,
-          options: taxon_facet.subtopics
+          options: taxon_facet.subtopics,
         } %>
       </div>
     </div>

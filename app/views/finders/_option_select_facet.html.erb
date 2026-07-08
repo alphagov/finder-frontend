@@ -5,7 +5,7 @@
     option_select_facet.section_count,
   ),
 ) do %>
-  <%= render partial: 'govuk_publishing_components/components/option_select', locals: {
+  <%= render partial: "govuk_publishing_components/components/option_select", locals: {
     key: option_select_facet.key,
     title: option_select_facet.name,
     aria_controls_id: "js-search-results-info",
@@ -27,12 +27,12 @@
     button_data_attributes: {
       ga4_expandable: "",
       ga4_event: {
-        event_name: 'select_content',
-        type: 'finder',
+        event_name: "select_content",
+        type: "finder",
         section: option_select_facet.name,
         index_section: option_select_facet.section_index,
         index_section_count: option_select_facet.section_count,
-      }
-    }
+      },
+    },
   } %>
 <% end %>

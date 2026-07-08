@@ -1,6 +1,6 @@
 <% content_for :title, "Search" %>
 <% content_for :head do %>
-  <meta name="description" content="Search GOV.UK." />
+  <meta name="description" content="Search GOV.UK.">
 <% end %>
 
 <main id="content" class="search-wrapper search-wrapper--no-search-term">
@@ -12,8 +12,7 @@
     role="search"
     data-module="ga4-form-tracker"
     data-ga4-form-include-text
-    data-ga4-form='{"event_name": "search", "type": "finder", "url": "/search/all", "section": "Search", "action": "search"}'
-  >
-    <%= render 'search_field' %>
+    data-ga4-form='{"event_name": "search", "type": "finder", "url": "/search/all", "section": "Search", "action": "search"}'>
+    <%= render "search_field" %>
   </form>
 </main>

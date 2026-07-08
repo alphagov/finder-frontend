@@ -5,7 +5,7 @@
 <% end %>
 
 <% content_for :head do %>
-  <%= render 'finder_meta', content_item: content_item %>
+  <%= render "finder_meta", content_item: content_item %>
   <meta name="govuk:search-result-count" content="<%= result_set_presenter.total_count %>">
   <% if result_set_presenter.discovery_engine_attribution_token %>
     <meta name="govuk:discovery-engine-attribution-token" content="<%= result_set_presenter.discovery_engine_attribution_token %>">
@@ -17,12 +17,12 @@
 
 <% content_for :before_content do %>
   <% if @breadcrumbs.breadcrumbs %>
-    <%= render 'govuk_publishing_components/components/breadcrumbs', {
+    <%= render "govuk_publishing_components/components/breadcrumbs", {
         breadcrumbs: @breadcrumbs.breadcrumbs,
         collapse_on_mobile: true,
     } %>
   <% else %>
-    <%= render 'govuk_publishing_components/components/contextual_breadcrumbs', {
+    <%= render "govuk_publishing_components/components/contextual_breadcrumbs", {
         content_item: content_item.as_hash,
     } %>
   <% end %>
@@ -77,7 +77,7 @@
           <%= render "govuk_publishing_components/components/search_with_autocomplete", {
             id: "finder-keyword-search",
             name: "keywords",
-            type: 'search',
+            type: "search",
             value: result_set_presenter.user_supplied_keywords,
             disable_corrections: true,
             label_size: "xl",
@@ -90,7 +90,7 @@
             heading_level: 1,
             margin_bottom: 0,
             source_url: api_search_autocomplete_url(format: :json),
-            source_key: "suggestions"
+            source_key: "suggestions",
           } %>
         </div>
 
@@ -109,8 +109,8 @@
                     type: "spelling suggestion",
                     section: "Search",
                     text: suggestion[:keywords],
-                  }
-                }
+                  },
+                },
               ) %>?
             </p>
           <% end %>

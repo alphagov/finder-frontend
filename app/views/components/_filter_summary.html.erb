@@ -26,9 +26,9 @@
               type: "finder",
               text: filter[:displayed_text],
               section: filter[:label],
-              action: "remove"
-            }
-          }
+              action: "remove",
+            },
+          },
         ) do %>
           <span class="app-c-filter-summary__remove-filter-text">
             <%= tag.span(filter[:visually_hidden_prefix], class: "govuk-visually-hidden") %>
@@ -51,8 +51,8 @@
             type: "finder",
             text: reset_link_text,
             section: heading_text,
-            action: "remove"
-          }
+            action: "remove",
+          },
         },
       ) %>
     </div>

@@ -28,9 +28,9 @@
           section: button_text,
           text: button_text,
           index_section: 0,
-          index_section_count: section_count
-        }
-      }
+          index_section_count: section_count,
+        },
+      },
     ) do %>
       <%= tag.span(button_text, class: "app-c-filter-panel__button-inner") %>
     <% end %>
@@ -62,8 +62,8 @@
             action: "apply",
             index_section: 0,
             index_section_count: section_count,
-          }
-        }
+          },
+        },
       ) %>
 
       <% if show_reset_link %>
@@ -79,8 +79,8 @@
               action: "remove",
               index_section: 0,
               index_section_count: section_count,
-            }
-          }
+            },
+          },
         ) %>
       <% end %>
     </div>

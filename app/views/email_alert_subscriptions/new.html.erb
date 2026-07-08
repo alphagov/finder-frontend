@@ -1,6 +1,6 @@
 <% content_for :meta_tags do %>
-  <meta name="govuk:format" content="<%= @signup_presenter.document_type %>" />
-  <meta name="govuk:schema-name" content="<%= @signup_presenter.schema_name %>" />
+  <meta name="govuk:format" content="<%= @signup_presenter.document_type %>">
+  <meta name="govuk:schema-name" content="<%= @signup_presenter.schema_name %>">
 <% end %>
 
 <% if @signup_presenter.can_modify_choices? %>
@@ -10,7 +10,7 @@
 <% end %>
 
 <% if @signup_presenter.beta? %>
-  <%= render 'govuk_publishing_components/components/phase_banner', phase: "beta" %>
+  <%= render "govuk_publishing_components/components/phase_banner", phase: "beta" %>
 <% end %>
 
 <div class="govuk-width-container">
@@ -25,7 +25,7 @@
   %>
   <%= form_tag(
     email_alert_subscriptions_path(subscriber_list_params: subscriber_list_params),
-    class: 'signup-choices',
+    class: "signup-choices",
     data: {
       module: "ga4-form-tracker",
       ga4_form: ga4_data,
@@ -46,13 +46,13 @@
             text: @error_message,
             section: t("email_alert_subscriptions.new.question", locale: :en),
             action: "error",
-            tool_name: "Get emails from GOV.UK"
+            tool_name: "Get emails from GOV.UK",
           }.to_json
         %>
         <%= content_tag(:div,
           data: {
             module: "ga4-auto-tracker",
-            ga4_auto: ga4_data
+            ga4_auto: ga4_data,
           }) do %>
             <%= render "govuk_publishing_components/components/error_summary", {
               title: "There is a problem",
@@ -60,8 +60,8 @@
                 {
                   text: @error_message,
                   href: "#signup-choices-options",
-                }
-              ]
+                },
+              ],
             } %>
         <% end %>
       <% end %>
@@ -95,7 +95,7 @@
 
     <%= render "govuk_publishing_components/components/button", {
       text: "Continue",
-      margin_bottom: true
+      margin_bottom: true,
     } %>
   <% end %>
 </div>
