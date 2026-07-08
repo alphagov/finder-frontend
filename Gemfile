@@ -29,6 +29,7 @@ group :development, :test do
   gem "awesome_print"
   gem "debug"
   gem "dotenv-rails"
+  gem "erb_lint"
   gem "govuk_schemas"
   gem "govuk_test"
   gem "listen"
