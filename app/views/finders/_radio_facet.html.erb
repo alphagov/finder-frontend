@@ -8,11 +8,11 @@
       index_section: radio_facet.section_index,
       index_section_count: radio_facet.section_count,
     },
-  }
+  },
 ) do %>
   <%= render "govuk_publishing_components/components/radio", {
     name: radio_facet.key,
     small: true,
-    items: radio_facet.options
+    items: radio_facet.options,
   } %>
 <% end %>

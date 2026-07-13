@@ -6,7 +6,6 @@
   -%>
   <% [values].flatten.each_with_index do |value, index| -%>
 
-
     <%= hidden_field_tag key, value, id: "#{hidden_clearable_facet.key}_#{index}" %>
   <% end -%>
 </div>

@@ -6,7 +6,7 @@
 <% end %>
 <link rel="alternate" type="application/json" href="/api/content<%= content_item.base_path %>">
 
-<%= render 'govuk_publishing_components/components/meta_tags', content_item: content_item.as_hash %>
-<%= render 'govuk_publishing_components/components/machine_readable_metadata',
+<%= render "govuk_publishing_components/components/meta_tags", content_item: content_item.as_hash %>
+<%= render "govuk_publishing_components/components/machine_readable_metadata",
            schema: :search_results_page,
            content_item: content_item.as_hash %>

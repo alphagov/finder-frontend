@@ -8,7 +8,7 @@
         aria_controls: "js-search-results-info",
         label_id: "finder-keyword-search",
         name: "keywords",
-        type: 'search',
+        type: "search",
         value: result_set_presenter.user_supplied_keywords,
         inline_label: false,
         label_text: sanitize(content_item.label_text) || label_text,
@@ -17,18 +17,17 @@
     </div>
   <% end %>
   <% if content_item.all_content_finder? %>
-    <%= render partial: 'filter_button'%>
+    <%= render partial: "filter_button" %>
   <% elsif !content_item.all_content_finder? %>
     <% if facets.any? %>
-      <%= render partial: 'filter_button'%>
+      <%= render partial: "filter_button" %>
     <% end %>
   <% end %>
 
   <% if facets.any? %>
       <%= render "govuk_publishing_components/components/skip_link", {
-        text: 'Skip to results',
-        href: '#js-results'}
-      %>
+        text: "Skip to results",
+        href: "#js-results"} %>
 
     <div id="facet-wrapper" data-module="mobile-filters-modal" class="facets" role="search" aria-label="Search filters">
       <div class="facets__box">
@@ -39,7 +38,7 @@
               text: sanitize("<span class=\"js-result-count govuk-!-font-weight-regular\">#{result_set_presenter.displayed_total}</span>"),
               heading_level: 3,
               font_size: "s",
-              margin_bottom: 0
+              margin_bottom: 0,
             } %>
           </div>
         </div>
@@ -47,7 +46,7 @@
           <% facets.each do |facet| %>
             <%= render facet %>
           <% end %>
-          <div class="facets__tags-block js-mobile-facet-tag-block"  data-module="remove-filter">
+          <div class="facets__tags-block js-mobile-facet-tag-block" data-module="remove-filter">
             <%= render "facet_tags", facet_tags.present %>
           </div>
           <button class="app-c-button-as-link facets__clear-link js-clear-selected-filters" type="button">
@@ -60,7 +59,7 @@
             href: "#js-results",
             data_attributes: {
               module: "govuk-skip-link",
-            }
+            },
           } %>
       </div>
       </div>
@@ -70,7 +69,7 @@
   <div class="js-live-search-fallback button__wrapper">
     <%= render "govuk_publishing_components/components/button", {
       text: "Filter results",
-      margin_bottom: true
+      margin_bottom: true,
     } %>
   </div>
 </div>

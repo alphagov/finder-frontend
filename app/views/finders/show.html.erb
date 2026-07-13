@@ -7,45 +7,44 @@
   <% if signup_links[:feed_link] %>
     <%= auto_discovery_link_tag(:atom, signup_links[:feed_link]) %>
   <% end %>
-  <%= render 'finder_meta', content_item: content_item %>
+  <%= render "finder_meta", content_item: content_item %>
 <% end %>
 
 <% content_for :meta_title, content_item.title %>
 
-<%= render partial: 'before_content' %>
+<%= render partial: "before_content" %>
 
 <% if is_inverse? %>
   <% content_for :inverse, true %>
 <% end %>
 
 <form method="get" action="<%= content_item.base_path %>" class="js-live-search-form"
-    data-ga4-change-category="clear-all-filters"
->
+    data-ga4-change-category="clear-all-filters">
   <input type="hidden" name="parent" value="<%= @parent %>">
 
   <% if is_inverse? %>
     <%= render "govuk_publishing_components/components/inverse_header", {
       full_width: true,
-      padding_top: 0
+      padding_top: 0,
     } do %>
       <div class="govuk-width-container">
-        <%= render partial: 'show_header', locals: {
+        <%= render partial: "show_header", locals: {
           inverse: is_inverse?,
-          page_metadata: page_metadata(content_item)
+          page_metadata: page_metadata(content_item),
         } %>
       </div>
     <% end %>
   <% else %>
-    <%= render partial: 'show_header', locals: {
+    <%= render partial: "show_header", locals: {
       inverse: is_inverse?,
-      page_metadata: page_metadata(content_item)
+      page_metadata: page_metadata(content_item),
     } %>
   <% end %>
 
-  <div class="<%= 'govuk-width-container' if is_inverse? %>">
+  <div class="<%= "govuk-width-container" if is_inverse? %>">
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-one-third">
-        <%= render partial: 'facet_collection'%>
+        <%= render partial: "facet_collection" %>
       </div>
 
       <div class="govuk-grid-column-two-thirds js-live-search-results-block filtered-results"
@@ -57,8 +56,7 @@
         data-ga4-search-query="<%= result_set_presenter.user_supplied_keywords %>"
         <% unless result_set_presenter.sort_option.nil? %>
           data-ga4-ecommerce-variant="<%= result_set_presenter.sort_option[:data_ga4_track_label] %>"
-        <% end %>
-        >
+        <% end %>>
         <div id="js-search-results-info" data-module="remove-filter" class="result-info <%= "govuk-!-margin-bottom-0" if result_set_presenter.has_sort_options %>">
           <div class="govuk-grid-row">
             <div class="govuk-grid-column-one-half">
@@ -70,9 +68,8 @@
                   margin_bottom: 2,
                   } %>
                   <%= render "govuk_publishing_components/components/skip_link", {
-                    text: 'Skip to results',
-                    href: '#js-results'}
-                  %>
+                    text: "Skip to results",
+                    href: "#js-results"} %>
               </div>
             </div>
 

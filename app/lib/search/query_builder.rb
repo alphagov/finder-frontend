@@ -249,9 +249,5 @@ module Search
 
       { "boost_fields" => "licence_transaction_industry" }
     end
-
-    def force_ltr?
-      params["force-ltr"] == "true"
-    end
   end
 end

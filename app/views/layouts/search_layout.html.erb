@@ -1,9 +1,9 @@
 <% title = yield :title %>
 
 <%= content_for :head do %>
-  <link title="Search" rel="search" type="application/opensearchdescription+xml" href="/search/opensearch.xml"/>
+  <link title="Search" rel="search" type="application/opensearchdescription+xml" href="/search/opensearch.xml">
   <% if @content_item %>
-    <%= render 'govuk_publishing_components/components/meta_tags', content_item: @content_item.as_hash %>
+    <%= render "govuk_publishing_components/components/meta_tags", content_item: @content_item.as_hash %>
   <% end %>
 <% end %>
 

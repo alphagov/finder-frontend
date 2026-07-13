@@ -1,6 +1,9 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 require "simplecov"
-SimpleCov.start
+SimpleCov.start "rails" do
+  enable_coverage :branch
+  minimum_coverage 95
+end
 
 ENV["RAILS_ENV"] ||= "test"
 ENV["GOVUK_WEBSITE_ROOT"] ||= "https://www.test.gov.uk"

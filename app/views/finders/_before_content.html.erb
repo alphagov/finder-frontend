@@ -1,23 +1,23 @@
 <% content_for :before_content do %>
   <div class="app-before-content<%= " app-before-content--inverse" if is_inverse? %>">
-    <div class="<%= 'govuk-width-container' if is_inverse? %>">
+    <div class="<%= "govuk-width-container" if is_inverse? %>">
       <% if @breadcrumbs.breadcrumbs %>
-        <%= render 'govuk_publishing_components/components/breadcrumbs', {
+        <%= render "govuk_publishing_components/components/breadcrumbs", {
             breadcrumbs: @breadcrumbs.breadcrumbs,
-            collapse_on_mobile: true
+            collapse_on_mobile: true,
         } %>
       <% elsif topic_finder_parent(filter_params) && topic_finder_parent(filter_params)['title'] %>
         <%
           crumbs = [{ title: "Home", url: "/" }]
-          crumbs << { title: topic_finder_parent(filter_params)['title'], url: topic_finder_parent(filter_params)['base_path'] }
+          crumbs << { title: topic_finder_parent(filter_params)["title"], url: topic_finder_parent(filter_params)["base_path"] }
         %>
-        <%= render 'govuk_publishing_components/components/breadcrumbs', {
+        <%= render "govuk_publishing_components/components/breadcrumbs", {
           breadcrumbs: crumbs,
-          collapse_on_mobile: true
+          collapse_on_mobile: true,
         } %>
       <% else %>
-        <%= render 'govuk_publishing_components/components/contextual_breadcrumbs', {
-            content_item: content_item.as_hash
+        <%= render "govuk_publishing_components/components/contextual_breadcrumbs", {
+            content_item: content_item.as_hash,
         } %>
       <% end %>
     </div>

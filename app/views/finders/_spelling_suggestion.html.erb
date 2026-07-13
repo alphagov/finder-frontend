@@ -1,5 +1,5 @@
-<% # we want an empty string if there are no suggestions on page load %>
-<% _spelling_suggestion = '' %>
+<%# we want an empty string if there are no suggestions on page load %>
+<% _spelling_suggestion = "" %>
 <% if @spelling_suggestion_presenter.suggestions.any? %>
 <p class="govuk-body">Did you mean
   <% @spelling_suggestion_presenter.suggestions.each do |suggestion| %>
@@ -11,13 +11,12 @@
           type: "spelling suggestion",
           section: "Search",
           text: suggestion[:keywords],
-        }
+        },
       }
     %>
     <%= link_to sanitize(suggestion[:highlighted]), suggestion[:link],
       class: "govuk-link",
-      :data => ga4_data
-    %>
+      :data => ga4_data %>
     <% _spelling_suggestion = suggestion[:keywords] %>
   <% end %>
 </p>

@@ -14,7 +14,7 @@
     <div class="govuk-!-margin-bottom-0" id="<%= key %>">
       <%= render "govuk_publishing_components/components/input", {
         label: {
-          text: name + " after"
+          text: name + " after",
         },
         name: key + "[from]",
         id: key + "[from]",
@@ -23,13 +23,13 @@
         hint: "For example, 2005 or 21/11/2014",
         error_message: date_errors_from,
         data: {
-          ga4_section: name + " after"
-        }
+          ga4_section: name + " after",
+        },
       } %>
 
       <%= render "govuk_publishing_components/components/input", {
         label: {
-          text: name + " before"
+          text: name + " before",
         },
         name: key + "[to]",
         id: key + "[to]",
@@ -38,8 +38,8 @@
         hint: "For example, 2005 or 21/11/2014",
         error_message: date_errors_to,
         data: {
-          ga4_section: name + " before"
-        }
+          ga4_section: name + " before",
+        },
       } %>
     </div>
   <% end %>
