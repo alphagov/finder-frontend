@@ -245,6 +245,20 @@ describe FindersController, type: :controller do
         get :show, params: { slug: "lunch-finder", q: { "invalid" => "hash" } }
         expect(response.status).to eq(400)
       end
+
+      it "renders a BadRequest when the page parameter is negative" do
+        stub_content_store_has_item("/lunch-finder", lunch_finder)
+
+        get :show, params: { slug: "lunch-finder", q: "hash", page: "-1" }
+        expect(response.status).to eq(400)
+      end
+
+      it "renders a BadRequest when the page parameter is larger than the maximum page size" do
+        stub_content_store_has_item("/lunch-finder", lunch_finder)
+
+        get :show, params: { slug: "lunch-finder", q: "hash", page: "214748365" }
+        expect(response.status).to eq(400)
+      end
     end
 
     describe "finder item doesn't exist" do
