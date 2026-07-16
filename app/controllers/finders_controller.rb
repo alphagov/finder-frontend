@@ -50,6 +50,8 @@ class FindersController < ApplicationController
     end
   rescue ActionController::UnknownFormat, ActionController::UnfilteredParameters
     render plain: "Not acceptable", status: :not_acceptable
+  rescue GdsApi::HTTPBadRequest
+    render plain: "Bad Request", status: :bad_request
   rescue UnsupportedContentItem
     render plain: "Not found", status: :not_found
   end

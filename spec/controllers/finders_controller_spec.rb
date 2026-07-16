@@ -354,6 +354,32 @@ describe FindersController, type: :controller do
         expect(response.status).to eq(200)
         expect(response).to render_template("finders/show_all_content_finder")
       end
+
+      context "when search-api-v2 returns bad request" do
+        before do
+          stub_request(:get, "#{Plek.find('search-api-v2')}/search.json")
+            .with(
+              query: {
+                count: 10,
+                fields: "title,link,description_with_highlighting,public_timestamp,popularity,content_purpose_supergroup,content_store_document_type,format,is_historic,government_name,content_id,parts,walk_type,place_of_origin,date_of_introduction,creator",
+                filter_document_type: "mosw_report",
+                start: 99_999_999_980,
+                suggest: "spelling_with_highlighting",
+                q: "hello",
+              },
+            )
+            .to_return(
+              status: 400,
+              body: "Invalid start value",
+              headers: {},
+            )
+        end
+
+        it "returns a bad request" do
+          get :show, params: { slug: "search/all", keywords: "hello", page: "9999999999" }
+          expect(response.status).to eq(400)
+        end
+      end
     end
 
     describe "all content finder SearchFreshnessBoost AB test" do
