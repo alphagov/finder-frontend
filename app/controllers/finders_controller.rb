@@ -79,6 +79,12 @@ private
     unless filter_params.fetch(:keywords, "").is_a?(String)
       raise ActionController::BadRequest, "Invalid 'keywords' query parameter"
     end
+
+    max_page = Search::Query::MAX_RESULTS_VALUE / content_item.default_documents_per_page
+    page = filter_params.fetch(:page, 0).to_i
+    if page.negative? || page > max_page
+      raise ActionController::BadRequest, "Invalid page value"
+    end
   end
 
   def redirect_to_destination

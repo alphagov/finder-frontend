@@ -3,6 +3,7 @@
 module Search
   class Query
     SITE_SEARCH_FINDER_BASE_PATH = "/search/all".freeze
+    MAX_RESULTS_VALUE = 2_147_483_647
 
     include ActiveModel::Validations
 
