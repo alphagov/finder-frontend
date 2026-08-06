@@ -38,6 +38,22 @@ mark {
   background-color: inherit;
   color: inherit;
   @include govuk-typography-weight-bold;
+
+  // In forced color mode some browsers will keep the background transparent
+  // but set the text colour black, making the highlighted text unreadable.
+  // The following blocks fix this by setting the text colour to be the same as
+  // other text in a way that forced color mode will respect.
+
+  @media screen and (-ms-high-contrast: active) {
+    // IE does not support `CanvasText`,
+    // and `currentColor` does not work with Blink
+    color: currentColor; // stylelint-disable-line value-keyword-case
+  }
+
+  @media screen and (forced-colors: active) {
+    background-color: Canvas;  // needed for Firefox
+    color: CanvasText;
+  }
 }
 
 .related-links__link {
