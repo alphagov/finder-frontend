@@ -31,13 +31,13 @@
 
 .app-c-filter-panel__count {
   margin: 0;
-  color: $govuk-secondary-text-colour;
+  color: govuk-functional-colour(secondary-text);
   @include govuk-font(16, $weight: regular);
 }
 
 .app-c-filter-panel__button {
   background-color: transparent;
-  color: $govuk-link-colour;
+  color: govuk-functional-colour(link);
   text-decoration: none;
   border-style: none;
   padding-left: 0;
@@ -62,7 +62,7 @@
   &:focus,
   &:focus-visible {
     text-decoration: none;
-    background-color: $govuk-focus-colour;
+    background-color: govuk-functional-colour(focus);
     @include govuk-link-hover-decoration;
     @include govuk-focused-text;
 
