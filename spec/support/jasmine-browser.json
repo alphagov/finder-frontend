@@ -14,7 +14,7 @@
   "helpers": [
     "helpers/*.js",
     "vendor/jquery-1.12.4.js",
-    "vendor/jasmine-ajax-3.4.0.js"
+    "vendor/jasmine-ajax.js"
   ],
   "browser": "headlessChrome"
 }
