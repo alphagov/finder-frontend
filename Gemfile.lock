@@ -182,7 +182,7 @@ GEM
     factory_bot (6.6.0)
       activesupport (>= 6.1.0)
     ffi (1.17.4)
-    gds-api-adapters (103.4.2)
+    gds-api-adapters (103.4.4)
       addressable
       link_header
       null_logger
