@@ -1,7 +1,7 @@
 describe('An expander module', function () {
   'use strict'
 
-  var $element
+  let $element
 
   /* eslint-disable */
   var html = `
@@ -44,7 +44,7 @@ describe('An expander module', function () {
     })
 
     it('toggles the content when the button is clicked and updates aria attributes accordingly', function () {
-      var $button = $($element).find('.app-c-expander__button')
+      const $button = $($element).find('.app-c-expander__button')
 
       $button.click()
       expect($($element).find('.app-c-expander__content').hasClass('app-c-expander__content--visible')).toBe(true)
@@ -131,7 +131,7 @@ describe('An expander module', function () {
   })
 
   describe('adds data attributes to the button', function () {
-    var buttonAttrs = {
+    const buttonAttrs = {
       test_attribute_with_many_underscores: 'oh yes',
       ga4_event: {
         event_name: 'select_content',
@@ -151,8 +151,8 @@ describe('An expander module', function () {
 
     it('adds button data attributes passed to the component onto the button', function () {
       new GOVUK.Modules.Expander($element.querySelector('.app-c-expander')).init()
-      var $button = $($element).find('.app-c-expander__button')
-      var expected = JSON.stringify(buttonAttrs.ga4_event)
+      const $button = $($element).find('.app-c-expander__button')
+      const expected = JSON.stringify(buttonAttrs.ga4_event)
       expect($button.attr('data-test-attribute-with-many-underscores')).toEqual('oh yes')
       expect($button.attr('data-ga4-event')).toEqual(expected)
     })
@@ -160,7 +160,7 @@ describe('An expander module', function () {
     it('does not error with invalid button data attributes', function () {
       $element.querySelector('.app-c-expander').setAttribute('data-button-data-attributes', 'invalidjson')
       new GOVUK.Modules.Expander($element.querySelector('.app-c-expander')).init()
-      var $button = $($element).find('.app-c-expander__button')
+      const $button = $($element).find('.app-c-expander__button')
       expect($button.attr('data-test-attribute-with-many-underscores')).toEqual(undefined)
     })
   })

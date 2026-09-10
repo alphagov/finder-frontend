@@ -1,47 +1,47 @@
 describe('remove-filter', function () {
   'use strict'
 
-  var GOVUK = window.GOVUK
-  var timeout = 500
-  var facets
+  const GOVUK = window.GOVUK
+  const timeout = 500
+  let facets
 
   function createRemoveFilter (innerHTML) {
-    var filter = document.createElement('div')
+    const filter = document.createElement('div')
     filter.classList.add('remove-filter')
     filter.innerHTML = innerHTML
     return filter
   }
 
   function triggerRemoveFilterClick (element) {
-    var button = element.querySelector('button[data-module=remove-filter-link]')
+    const button = element.querySelector('button[data-module=remove-filter-link]')
     window.GOVUK.triggerEvent(button, 'click')
   }
 
-  var checkboxFilter = createRemoveFilter(
+  const checkboxFilter = createRemoveFilter(
     '<button href="/search/news-and-communications" class="remove-filter" role="button" aria-label="Remove filter transition period" data-module="remove-filter-link" data-facet="a_check_box" data-value="true" data-name="">✕</button>'
   )
 
-  var oneTextQueryFilter = createRemoveFilter(
+  const oneTextQueryFilter = createRemoveFilter(
     '<button href="/search/news-and-communications?[]=education" class="remove-filter" role="button" aria-label="Remove filter education" data-module="remove-filter-link" data-facet="keywords" data-value="education" data-name="keywords">✕</button>'
   )
 
-  var multipleTextQueriesFilter = createRemoveFilter(
+  const multipleTextQueriesFilter = createRemoveFilter(
     '<button href="/search/news-and-communications?[]=education" class="remove-filter" role="button" aria-label="Remove filter the" data-module="remove-filter-link" data-facet="keywords" data-value="the" data-name="keywords">✕</button>'
   )
 
-  var quotedTextQueryFilter = createRemoveFilter(
+  const quotedTextQueryFilter = createRemoveFilter(
     '<button type="button" class="facet-tag__remove" aria-label="Remove filter &amp;quot;fi&amp;quot;" data-module="remove-filter-link" data-facet="keywords" data-value="&amp;quot;fi&amp;quot;" data-name="keywords">✕</button>'
   )
 
-  var quotedTextQuerySpacesFilter = createRemoveFilter(
+  const quotedTextQuerySpacesFilter = createRemoveFilter(
     '<button type="button" class="facet-tag__remove" aria-label="Remove filter &amp;quot;fee fi fo&amp;quot;" data-module="remove-filter-link" data-facet="keywords" data-value="&amp;quot;fee fi fo&amp;quot;" data-name="keywords">✕</button>'
   )
 
-  var dropdownFilter = createRemoveFilter(
+  const dropdownFilter = createRemoveFilter(
     '<button href="/search/news-and-communications?[][]=level_one_taxon&amp;[][]=ba3a9702-da22-487f-86c1-8334a730e559&amp;[][]=level_two_taxon&amp;[][]" class="remove-filter" role="button" aria-label="Remove filter Entering and staying in the UK" data-module="remove-filter-link" data-facet="level_one_taxon" data-value="ba3a9702-da22-487f-86c1-8334a730e559" data-name="">✕</button>'
   )
 
-  var facetsHTML =
+  const facetsHTML =
     '<select id="level_one_taxon" name="level_one_taxon" class="js-remove">' +
       '<option value="">All topics</option>' +
       '<option value="ba3a9702-da22-487f-86c1-8334a730e559">Entering and staying in the UK</option>' +
@@ -71,7 +71,7 @@ describe('remove-filter', function () {
   })
 
   it('deselects a selected checkbox', function (done) {
-    var checkbox = facets.querySelector('input[name=a_check_box]')
+    const checkbox = facets.querySelector('input[name=a_check_box]')
     checkbox.checked = true
     new GOVUK.Modules.RemoveFilter(checkboxFilter).init()
 
@@ -86,7 +86,7 @@ describe('remove-filter', function () {
   })
 
   it('clears the text search field if removing all text queries', function (done) {
-    var searchField = facets.querySelector('input[name=keywords]')
+    const searchField = facets.querySelector('input[name=keywords]')
     searchField.value = 'education'
     new GOVUK.Modules.RemoveFilter(oneTextQueryFilter).init()
 
@@ -101,7 +101,7 @@ describe('remove-filter', function () {
   })
 
   it('removes one text query from the text search field if there are multiple', function (done) {
-    var searchField = facets.querySelector('input[name=keywords]')
+    const searchField = facets.querySelector('input[name=keywords]')
     searchField.value = 'therefore the search term'
     new GOVUK.Modules.RemoveFilter(multipleTextQueriesFilter).init()
 
@@ -116,7 +116,7 @@ describe('remove-filter', function () {
   })
 
   it('removes text queries with quotes from the text search field', function (done) {
-    var searchField = facets.querySelector('input[name=keywords]')
+    const searchField = facets.querySelector('input[name=keywords]')
     searchField.value = 'fee "fi" fo fum'
     new GOVUK.Modules.RemoveFilter(quotedTextQueryFilter).init()
 
@@ -131,7 +131,7 @@ describe('remove-filter', function () {
   })
 
   it('removes text queries with multiple words inside quotes from the text search field', function (done) {
-    var searchField = facets.querySelector('input[name=keywords]')
+    const searchField = facets.querySelector('input[name=keywords]')
     searchField.value = '"fee fi fo" fum'
     new GOVUK.Modules.RemoveFilter(quotedTextQuerySpacesFilter).init()
 
@@ -146,9 +146,9 @@ describe('remove-filter', function () {
   })
 
   it('sets default state for dropdown', function (done) {
-    var dropdown = facets.querySelector('select[name=level_one_taxon]')
+    const dropdown = facets.querySelector('select[name=level_one_taxon]')
     dropdown.value = 'ba3a9702-da22-487f-86c1-8334a730e559'
-    var selectedValue = dropdown.options[dropdown.selectedIndex].value
+    const selectedValue = dropdown.options[dropdown.selectedIndex].value
 
     new GOVUK.Modules.RemoveFilter(dropdownFilter).init()
 

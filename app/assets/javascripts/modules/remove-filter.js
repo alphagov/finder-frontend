@@ -19,20 +19,20 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
   RemoveFilter.prototype.toggleFilterHandler = function (e) {
     e.preventDefault()
     e.stopPropagation()
-    var $el = e.target
+    const $el = e.target
 
-    var removeFilterName = $el.getAttribute('data-name')
-    var removeFilterValue = $el.getAttribute('data-value')
-    var removeFilterFacet = $el.getAttribute('data-facet')
+    const removeFilterName = $el.getAttribute('data-name')
+    const removeFilterValue = $el.getAttribute('data-value')
+    const removeFilterFacet = $el.getAttribute('data-facet')
 
-    var $input = this.getInput(removeFilterName, removeFilterValue, removeFilterFacet)
+    const $input = this.getInput(removeFilterName, removeFilterValue, removeFilterFacet)
     this.clearFacet($input, removeFilterValue, removeFilterFacet)
   }
 
   RemoveFilter.prototype.clearFacet = function ($input, removeFilterValue, removeFilterFacet) {
-    var elementType = $input.tagName
-    var inputType = $input.type
-    var currentVal = $input.value
+    const elementType = $input.tagName
+    const inputType = $input.type
+    const currentVal = $input.value
 
     if (inputType === 'checkbox') {
       $input.checked = false
@@ -54,21 +54,21 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
        * Just removing " beta " from the haystack would result in
        * "alphagamma", which is wrong.
        */
-      var haystack = ' ' + currentVal.trim() + ' '
-      var needle = ' ' + this.decodeEntities(removeFilterValue.toString()) + ' '
-      var newVal = haystack.replace(needle, ' ').replace(/ {2}/g, ' ').trim()
+      const haystack = ' ' + currentVal.trim() + ' '
+      const needle = ' ' + this.decodeEntities(removeFilterValue.toString()) + ' '
+      const newVal = haystack.replace(needle, ' ').replace(/ {2}/g, ' ').trim()
       $input.value = newVal
       window.GOVUK.triggerEvent($input, 'change', { detail: { suppressAnalytics: true } })
     } else if (elementType === 'OPTION') {
-      var element = document.getElementById(removeFilterFacet)
+      const element = document.getElementById(removeFilterFacet)
       element.value = ''
       window.GOVUK.triggerEvent(element, 'change', { detail: { suppressAnalytics: true } })
     }
   }
 
   RemoveFilter.prototype.getInput = function (removeFilterName, removeFilterValue, removeFilterFacet) {
-    var selector = (removeFilterName) ? "input[name='" + removeFilterName + "']" : "[value='" + removeFilterValue + "']"
-    var element = document.getElementById(removeFilterFacet)
+    const selector = (removeFilterName) ? "input[name='" + removeFilterName + "']" : "[value='" + removeFilterValue + "']"
+    const element = document.getElementById(removeFilterFacet)
 
     return element.querySelector(selector)
   }

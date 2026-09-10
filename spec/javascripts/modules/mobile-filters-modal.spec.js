@@ -1,7 +1,7 @@
 describe('Mobile filters', function () {
   'use strict'
 
-  var container
+  let container
 
   beforeEach(function () {
     container = document.createElement('div')
@@ -52,7 +52,7 @@ describe('Mobile filters', function () {
 
   describe('Mobile filters modal', function () {
     beforeEach(function () {
-      var element = $('[data-module="mobile-filters-modal"]')[0]
+      const element = $('[data-module="mobile-filters-modal"]')[0]
       new GOVUK.Modules.MobileFiltersModal(element).init()
     })
 
@@ -66,12 +66,12 @@ describe('Mobile filters', function () {
       })
 
       it('should show the modal', function () {
-        var modal = document.querySelector('.facets')
+        const modal = document.querySelector('.facets')
         expect($(modal).hasClass('facets--visible')).toBe(true)
       })
 
       it('should hide the modal', function () {
-        var modal = document.querySelector('.facets')
+        const modal = document.querySelector('.facets')
         document.querySelector('.js-toggle-mobile-filters').click()
         expect($(modal).hasClass('facets--visible')).toBe(false)
       })
@@ -79,24 +79,24 @@ describe('Mobile filters', function () {
 
     describe('open', function () {
       beforeEach(function () {
-        var modal = document.querySelector('.facets')
+        const modal = document.querySelector('.facets')
         modal.open()
       })
 
       afterEach(function () {
-        var modal = document.querySelector('.facets')
+        const modal = document.querySelector('.facets')
         modal.close()
       })
 
       it('should show the modal', function () {
-        var modal = document.querySelector('.facets')
+        const modal = document.querySelector('.facets')
         expect($(modal).hasClass('facets--visible')).toBe(true)
       })
     })
 
     describe('close', function () {
       it('should hide the modal', function () {
-        var modal = document.querySelector('.facets')
+        const modal = document.querySelector('.facets')
         modal.open()
         modal.close()
         expect($(modal).hasClass('facets--visible')).toBe(false)
@@ -105,7 +105,7 @@ describe('Mobile filters', function () {
 
     describe('clear filters', function () {
       it('should reset checkboxes, clear text input and <select> values', function () {
-        var modal = document.querySelector('.facets')
+        const modal = document.querySelector('.facets')
         modal.clearFilters()
         expect($(modal).find('input:checked').length).toBe(0)
         // number of text inputs with value should now be 0
@@ -117,18 +117,18 @@ describe('Mobile filters', function () {
 
     describe('accessibility', function () {
       it('should add aria-expanded="false" on load to the Filter button', function () {
-        var button = document.querySelector('.js-toggle-mobile-filters')
+        const button = document.querySelector('.js-toggle-mobile-filters')
         expect(button.getAttribute('aria-expanded')).toEqual('false')
       })
 
       it('should set aria-expanded to true when clicking the Filter button', function () {
-        var button = document.querySelector('.js-toggle-mobile-filters')
+        const button = document.querySelector('.js-toggle-mobile-filters')
         button.click()
         expect(button.getAttribute('aria-expanded')).toEqual('true')
       })
 
       it('should add aria-controls on load to the Filter button', function () {
-        var button = document.querySelector('.js-toggle-mobile-filters')
+        const button = document.querySelector('.js-toggle-mobile-filters')
         expect(button.getAttribute('aria-controls')).toEqual('facet-wrapper')
         expect(document.querySelector('#facet-wrapper')).not.toEqual(null)
       })
@@ -136,8 +136,8 @@ describe('Mobile filters', function () {
 
     describe('ga4 tracking', function () {
       it('adds the ga4 event tracker to the button', function () {
-        var button = document.querySelector('.js-toggle-mobile-filters')
-        var expected = {
+        const button = document.querySelector('.js-toggle-mobile-filters')
+        const expected = {
           event_name: 'select_content',
           type: 'finder',
           text: 'Filter',
@@ -154,13 +154,13 @@ describe('Mobile filters', function () {
     beforeEach(function () {
       container.querySelector('button').dataset.openOnLoad = true
 
-      var element = $('[data-module="mobile-filters-modal"]')[0]
+      const element = $('[data-module="mobile-filters-modal"]')[0]
       new GOVUK.Modules.MobileFiltersModal(element).init()
     })
 
     describe('open on load', function () {
       it('should show the modal', function () {
-        var modal = document.querySelector('.facets')
+        const modal = document.querySelector('.facets')
         expect($(modal).hasClass('facets--visible')).toBe(true)
       })
     })
