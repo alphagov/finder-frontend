@@ -36,21 +36,21 @@
 //= require_tree ./modules
 //= require_tree ./components
 
-var $elementsRequiringJavascript = document.querySelectorAll('.js-required')
+const $elementsRequiringJavascript = document.querySelectorAll('.js-required')
 
-for (var i = 0; i < $elementsRequiringJavascript.length; i++) {
+for (let i = 0; i < $elementsRequiringJavascript.length; i++) {
   $elementsRequiringJavascript[i].style.display = 'block'
 }
 
-var $form = document.querySelector('.js-live-search-form')
-var $results = document.querySelector('.js-live-search-results-block')
-var $atomAutodiscoveryLink = document.querySelector("link[type='application/atom+xml']")
+const $form = document.querySelector('.js-live-search-form')
+const $results = document.querySelector('.js-live-search-results-block')
+const $atomAutodiscoveryLink = document.querySelector("link[type='application/atom+xml']")
 
 if ($form && $results) {
   // eslint-disable-next-line no-new
   new GOVUK.LiveSearch({
-    $form: $form,
-    $results: $results,
-    $atomAutodiscoveryLink: $atomAutodiscoveryLink
+    $form,
+    $results,
+    $atomAutodiscoveryLink
   })
 }

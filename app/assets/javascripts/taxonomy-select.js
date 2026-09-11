@@ -23,7 +23,7 @@ window.GOVUK = window.GOVUK || {};
   }
 
   TaxonomySelect.prototype.disableSubTaxonFacet = function disableSubTaxonFacet () {
-    var topLevelTaxonSelected = !!this.$topLevelTaxon().value
+    const topLevelTaxonSelected = !!this.$topLevelTaxon().value
     if (!topLevelTaxonSelected) {
       this.$subTaxon().setAttribute('disabled', true)
     } else {
@@ -32,28 +32,28 @@ window.GOVUK = window.GOVUK || {};
   }
 
   TaxonomySelect.prototype.showRelevantSubTaxons = function showRelevantSubTaxons () {
-    var taxons = this.options[this.$topLevelTaxon().value]
-    var subtaxon = this.$subTaxon()
-    var options = subtaxon.querySelectorAll('option')
+    const taxons = this.options[this.$topLevelTaxon().value]
+    const subtaxon = this.$subTaxon()
+    const options = subtaxon.querySelectorAll('option')
 
-    for (var o = 0; o < options.length; o++) {
+    for (let o = 0; o < options.length; o++) {
       if (options[o].value) {
         options[o].parentNode.removeChild(options[o])
       }
     }
     if (taxons) {
-      for (var i = 0; i < taxons.length; i++) {
+      for (let i = 0; i < taxons.length; i++) {
         subtaxon.appendChild(taxons[i])
       }
     }
   }
 
   TaxonomySelect.prototype.instantiateOptions = function instantiateOptions () {
-    var options = {}
-    var optionElements = this.$subTaxon().querySelectorAll('option')
+    const options = {}
+    const optionElements = this.$subTaxon().querySelectorAll('option')
 
-    for (var o = 0; o < optionElements.length; o++) {
-      var parent = optionElements[o].getAttribute('data-topic-parent')
+    for (let o = 0; o < optionElements.length; o++) {
+      const parent = optionElements[o].getAttribute('data-topic-parent')
 
       options[parent] = options[parent] || []
       options[parent].push(optionElements[o])
@@ -62,9 +62,9 @@ window.GOVUK = window.GOVUK || {};
   }
 
   TaxonomySelect.prototype.resetSubTaxonValue = function resetSubTaxonValue () {
-    var selected = this.$subTaxon().options[this.$subTaxon().selectedIndex]
-    var parentTaxon = this.$topLevelTaxon().value
-    var isOrphanedSubTaxon = selected && selected.getAttribute('data-topic-parent') !== parentTaxon
+    const selected = this.$subTaxon().options[this.$subTaxon().selectedIndex]
+    const parentTaxon = this.$topLevelTaxon().value
+    const isOrphanedSubTaxon = selected && selected.getAttribute('data-topic-parent') !== parentTaxon
 
     if (isOrphanedSubTaxon) {
       this.$subTaxon().value = ''
