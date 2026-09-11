@@ -11,10 +11,10 @@
     width: govuk-spacing(2);
     border-color: initial;
     clip-path: unset;
-    @include prefixed-transform($translateY: -25%, $rotate: 135deg);
+    transform: translateY(-25%) rotate(135deg);
 
     @if $open {
-      @include prefixed-transform($translateY: 30%, $rotate: -45deg);
+      transform: translateY(30%) rotate(-45deg);
     }
   }
 }
