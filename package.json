@@ -32,7 +32,7 @@
     "jasmine-browser-runner": "^5.0.0",
     "jasmine-core": "^7.0.2",
     "standard": "^17.1.2",
-    "stylelint": "^15.11.0",
+    "stylelint": "^17.4.0",
     "stylelint-config-gds": "^3.0.0"
   },
   "resolutions": {
