@@ -1,5 +1,5 @@
 describe('TaxonomySelect', function () {
-  var $facet, taxonomySelect
+  let $facet, taxonomySelect
 
   beforeEach(function () {
     $facet = $("<div class='app-taxonomy-select'><div class='govuk-form-group gem-c-select'><label class='govuk-label' for='level_one_taxon'>Filter by topic</label><select class='govuk-select' id='level_one_taxon' name='level_one_taxon'><option value=''>All topics</option><option value='christmas'>Christmas</option><option value='halloween'>Halloween</option><option value='easter'>Easter</option></select></div><div class='js-required govuk-form-group gem-c-select'><label class='govuk-label' for='level_two_taxon'>Filter by subtopic</label><select class='govuk-select' id='level_two_taxon' name='level_two_taxon' disabled='disabled'><option data-topic-parent='' value=''>All subtopics</option><option data-topic-parent='christmas' value='presents'>Presents</option><option data-topic-parent='christmas' value='christmas-tree'>Christmas tree</option><option data-topic-parent='easter' value='easter-eggs'>Easter eggs</option><option data-topic-parent='halloween' value='trick-or-treat'>Trick or treat</option><option data-topic-parent='easter' value='easter-bunny'>Easter bunny</option></select></div></div>")
@@ -23,11 +23,11 @@ describe('TaxonomySelect', function () {
 
   it('will show relevant sub taxons', function () {
     function displayedSubTopicParents () {
-      var parents = []
+      const parents = []
 
-      var options = taxonomySelect.$subTaxon().querySelectorAll('option')
-      for (var i = 0; i < options.length; i++) {
-        var option = options[i]
+      const options = taxonomySelect.$subTaxon().querySelectorAll('option')
+      for (let i = 0; i < options.length; i++) {
+        const option = options[i]
         if (option.style.display !== 'none' && option.getAttribute('data-topic-parent')) {
           parents.push(
             option.getAttribute('data-topic-parent')

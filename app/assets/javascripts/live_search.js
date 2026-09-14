@@ -2,7 +2,7 @@
   'use strict'
 
   window.GOVUK = window.GOVUK || {}
-  var GOVUK = window.GOVUK
+  const GOVUK = window.GOVUK
 
   function LiveSearch (options) {
     this.state = false
@@ -83,7 +83,7 @@
       }.bind(this))
 
       this.handleKeyPress = function (e) {
-        var ENTER_KEY = 13
+        const ENTER_KEY = 13
 
         if (e.keyCode === ENTER_KEY || e.type === 'change') {
           // cater for jQuery and native events
@@ -93,15 +93,15 @@
         }
       }
 
-      var inputs = this.$form.querySelectorAll('input[type=text],input[type=search]')
-      for (var i = 0; i < inputs.length; i++) {
+      const inputs = this.$form.querySelectorAll('input[type=text],input[type=search]')
+      for (let i = 0; i < inputs.length; i++) {
         inputs[i].addEventListener('change', this.handleKeyPress.bind(this))
         inputs[i].addEventListener('keypress', this.handleKeyPress.bind(this))
       }
 
       document.addEventListener('popstate', this.popState.bind(this))
     } else {
-      var fallback = this.$form.querySelector('.js-live-search-fallback')
+      const fallback = this.$form.querySelector('.js-live-search-fallback')
       fallback.style.display = 'block'
     }
   }
@@ -123,12 +123,12 @@
 
   LiveSearch.prototype.Ga4EcommerceTracking = function (referrer) {
     if (GOVUK.analyticsGa4 && GOVUK.analyticsGa4.Ga4EcommerceTracker) {
-      var consentCookie = GOVUK.getConsentCookie()
+      const consentCookie = GOVUK.getConsentCookie()
 
       if (consentCookie && consentCookie.usage) {
         if (this.$resultsWrapper) {
           this.$resultsWrapper.setAttribute('data-ga4-search-query', this.currentKeywords())
-          var sortedBy = this.$resultsWrapper.querySelector('.js-order-results')
+          const sortedBy = this.$resultsWrapper.querySelector('.js-order-results')
           // Check that the sortedBy element exists and contains option elements
           if (sortedBy && sortedBy.options.length > 0) {
             this.$resultsWrapper.setAttribute('data-ga4-ecommerce-variant', sortedBy.options[sortedBy.selectedIndex].text)
@@ -144,7 +144,7 @@
   }
 
   LiveSearch.prototype.getAndUpdateTaxonomyFacet = function getAndUpdateTaxonomyFacet () {
-    var taxonomySelect = document.querySelector('.js-taxonomy-select')
+    const taxonomySelect = document.querySelector('.js-taxonomy-select')
     if (taxonomySelect) {
       this.taxonomy = this.taxonomy || new GOVUK.TaxonomySelect({ $el: taxonomySelect })
       this.taxonomy.update()
@@ -152,19 +152,19 @@
   }
 
   LiveSearch.prototype.getSerializeForm = function getSerializeForm () {
-    var formElements = this.$form.elements
-    var filtered = []
+    const formElements = this.$form.elements
+    const filtered = []
 
-    for (var i = 0; i < formElements.length; i++) {
-      var el = formElements[i]
+    for (let i = 0; i < formElements.length; i++) {
+      const el = formElements[i]
       if ((el.type && el.type !== 'checkbox' && el.type !== 'radio') || el.checked) {
-        var name = el.getAttribute('name')
-        var value = el.value
+        const name = el.getAttribute('name')
+        const value = el.value
         if (name && value && name !== 'option-select-filter') {
           filtered.push(
             {
-              name: name,
-              value: value
+              name,
+              value
             }
           )
         }
@@ -203,10 +203,10 @@
   }
 
   LiveSearch.prototype.serializeState = function (state) {
-    var params = []
-    var keywords
+    const params = []
+    let keywords
     if (Array.isArray(state)) {
-      for (var i = 0; i < state.length; i++) {
+      for (let i = 0; i < state.length; i++) {
         if (state[i].name === 'keywords') {
           keywords = state[i].value.replace(/\s+/g, '+')
           params.push(state[i].name + '=' + keywords)
@@ -215,7 +215,7 @@
         }
       }
     } else {
-      for (var key in state) {
+      for (const key in state) {
         if (Object.prototype.hasOwnProperty.call(state, key)) {
           if (key === 'keywords') {
             keywords = state[key].replace(/\s+/g, '+')
@@ -230,11 +230,11 @@
   }
 
   LiveSearch.prototype.updateSpellingSuggestionMetaTag = function updateSpellingSuggestionMetaTag () {
-    var $spellingSuggestionMetaTag = document.querySelector("meta[name='govuk:spelling-suggestion']")
+    const $spellingSuggestionMetaTag = document.querySelector("meta[name='govuk:spelling-suggestion']")
     if (this.$suggestionsBlock && $spellingSuggestionMetaTag) {
       // currently there's ever only one suggestion
-      var spellingSuggestionAvailable = this.$suggestionsBlock.querySelector('a')
-      var suggestion = ''
+      const spellingSuggestionAvailable = this.$suggestionsBlock.querySelector('a')
+      let suggestion = ''
       if (spellingSuggestionAvailable) {
         suggestion = spellingSuggestionAvailable.textContent
       }
@@ -255,8 +255,8 @@
   }
 
   LiveSearch.prototype.updateTitle = function updateTitle () {
-    var keywords = this.currentKeywords()
-    var keywordsPresent = keywords !== ''
+    const keywords = this.currentKeywords()
+    const keywordsPresent = keywords !== ''
 
     if (keywordsPresent) {
       document.title = keywords + ' - ' + this.baseTitle
@@ -274,8 +274,8 @@
 
   LiveSearch.prototype.updateSortOptions = function updateSortOptions (results, action) {
     if (action !== this.serializeState(this.state)) { return }
-    var currentSortOptions = this.$sortBlock.querySelector('select')
-    var newSortOptions
+    const currentSortOptions = this.$sortBlock.querySelector('select')
+    let newSortOptions
 
     if (results.sort_options_markup) {
       // The select element is removed from results.sort_options_markup in order to retain the original select element. Only the option
@@ -289,7 +289,7 @@
   }
 
   LiveSearch.prototype.removeSelectElement = function removeSelectElement (sortOptionsMarkup) {
-    var SELECT_TAG_REGEX = /<\/?select\b[^>]*>/g
+    const SELECT_TAG_REGEX = /<\/?select\b[^>]*>/g
     return sortOptionsMarkup.replace(SELECT_TAG_REGEX, '')
   }
 
@@ -309,12 +309,12 @@
       return
     }
 
-    var keywords = this.currentKeywords()
-    var previousKeywords = this.getTextInputValue('keywords', this.previousState)
+    const keywords = this.currentKeywords()
+    const previousKeywords = this.getTextInputValue('keywords', this.previousState)
 
-    var keywordsPresent = keywords !== ''
-    var previousKeywordsPresent = previousKeywords !== ''
-    var keywordsCleared = !keywordsPresent && previousKeywordsPresent
+    const keywordsPresent = keywords !== ''
+    const previousKeywordsPresent = previousKeywords !== ''
+    const keywordsCleared = !keywordsPresent && previousKeywordsPresent
 
     if (keywordsPresent && !previousKeywordsPresent) {
       this.selectRelevanceSortOption()
@@ -326,14 +326,14 @@
   }
 
   LiveSearch.prototype.selectDefaultSortOption = function selectDefaultSortOption () {
-    var defaultSortOption = this.$orderSelect.getAttribute('data-default-sort-option')
+    const defaultSortOption = this.$orderSelect.getAttribute('data-default-sort-option')
 
     this.$orderSelect.value = defaultSortOption
     this.state = this.getSerializeForm()
   }
 
   LiveSearch.prototype.selectRelevanceSortOption = function selectRelevanceSortOption () {
-    var relevanceSortOption = this.$orderSelect.getAttribute('data-relevance-sort-option')
+    const relevanceSortOption = this.$orderSelect.getAttribute('data-relevance-sort-option')
     if (relevanceSortOption) {
       this.$relevanceOrderOption.removeAttribute('disabled')
       this.$orderSelect.value = relevanceSortOption
@@ -342,19 +342,19 @@
   }
 
   LiveSearch.prototype.updateResults = function updateResults (formChangeEvent) {
-    var searchState = this.serializeState(this.state)
-    var cachedResultData = this.cache(searchState)
-    var liveSearch = this
+    const searchState = this.serializeState(this.state)
+    const cachedResultData = this.cache(searchState)
+    const liveSearch = this
     this.previousSearchUrl = window.location.href
 
     if (typeof cachedResultData === 'undefined') {
       this.showLoadingIndicator()
-      var xhr = new XMLHttpRequest()
-      var url = this.action + '?' + encodeURI(searchState)
+      const xhr = new XMLHttpRequest()
+      const url = this.action + '?' + encodeURI(searchState)
 
-      var done = function (e) {
+      const done = function (e) {
         if (xhr.readyState === 4 && xhr.status === 200) {
-          var response = JSON.parse(e.target.response)
+          const response = JSON.parse(e.target.response)
           liveSearch.updateUrl()
           liveSearch.cache(liveSearch.serializeState(liveSearch.state), response)
           liveSearch.ga4TrackFormChange(formChangeEvent) // must be before displayResults changes the DOM, otherwise will break formChangeEvent.target.closest
@@ -378,19 +378,19 @@
   }
 
   LiveSearch.prototype.updateUrl = function () {
-    var newPath = encodeURI(window.location.pathname + '?' + this.serializeState(this.state))
+    const newPath = encodeURI(window.location.pathname + '?' + this.serializeState(this.state))
     window.history.pushState(this.state, '', newPath)
   }
 
   LiveSearch.prototype.updateLinks = function updateLinks () {
-    var searchState = '?' + this.serializeState(this.state)
+    const searchState = '?' + this.serializeState(this.state)
     if (typeof (this.emailSignupHref) !== 'undefined' && this.emailSignupHref != null) {
-      for (var e = 0; e < this.$emailLinks.length; e++) {
+      for (let e = 0; e < this.$emailLinks.length; e++) {
         this.$emailLinks[e].setAttribute('href', encodeURI(this.emailSignupHref.split('?')[0] + searchState))
       }
     }
     if (typeof (this.atomHref) !== 'undefined' && this.atomHref != null) {
-      for (var a = 0; a < this.$atomLinks.length; a++) {
+      for (let a = 0; a < this.$atomLinks.length; a++) {
         this.$atomLinks[a].setAttribute('href', encodeURI(this.atomHref.split('?')[0] + searchState))
       }
       if (this.$atomAutodiscoveryLink) {
@@ -440,16 +440,16 @@
   }
 
   LiveSearch.prototype.restoreBooleans = function restoreBooleans () {
-    var inputs = this.$form.querySelectorAll('input[type=checkbox], input[type=radio]')
+    const inputs = this.$form.querySelectorAll('input[type=checkbox], input[type=radio]')
 
-    for (var i = 0; i < inputs.length; i++) {
-      var $el = inputs[i]
+    for (let i = 0; i < inputs.length; i++) {
+      const $el = inputs[i]
       $el.setAttribute('checked', this.isBooleanSelected($el.getAttribute('name'), $el.value))
     }
   }
 
   LiveSearch.prototype.isBooleanSelected = function isBooleanSelected (name, value) {
-    var i, _i
+    let i, _i
     for (i = 0, _i = this.state.length; i < _i; i++) {
       if (this.state[i].name === name && this.state[i].value === value) {
         return true
@@ -459,16 +459,16 @@
   }
 
   LiveSearch.prototype.restoreTextInputs = function restoreTextInputs () {
-    var inputsAndSelects = this.$form.querySelectorAll('input[type=text], input[type=search], select')
+    const inputsAndSelects = this.$form.querySelectorAll('input[type=text], input[type=search], select')
 
-    for (var i = 0; i < inputsAndSelects.length; i++) {
-      var $el = inputsAndSelects[i]
+    for (let i = 0; i < inputsAndSelects.length; i++) {
+      const $el = inputsAndSelects[i]
       $el.value = this.getTextInputValue($el.getAttribute('name'), this.state)
     }
   }
 
   LiveSearch.prototype.getTextInputValue = function getTextInputValue (name, state) {
-    var i, _i
+    let i, _i
     for (i = 0, _i = state.length; i < _i; i++) {
       if (state[i].name === name) {
         return state[i].value
@@ -478,7 +478,7 @@
   }
 
   LiveSearch.prototype.focusErrorMessagesOnLoad = function ($container) {
-    var $inputWithError = $container.querySelector('.govuk-input--error')
+    const $inputWithError = $container.querySelector('.govuk-input--error')
     if ($inputWithError) {
       $inputWithError.focus()
     }
@@ -487,29 +487,29 @@
   LiveSearch.prototype.manipulateErrorMessages = function (errorsObj) {
     if (!errorsObj) return
     // finders have different date fields
-    for (var prop in errorsObj) {
+    for (const prop in errorsObj) {
       // store the name of the error item, eg. publictimestamp
-      var errorType = prop
+      const errorType = prop
       // get true/false value for each to manipulate the error message
-      for (var field in errorsObj[prop]) {
-        var fieldsObj = errorsObj[prop]
+      for (const field in errorsObj[prop]) {
+        const fieldsObj = errorsObj[prop]
         fieldsObj[field] ? this.renderErrorMessage(errorType, field) : this.removeErrorMessage(errorType, field)
       }
     }
   }
 
   LiveSearch.prototype.renderErrorMessage = function (type, field) {
-    var $input = this.$form.querySelector('input[name*="' + type + '[' + field + ']"]')
-    var errorMessageElement = document.createElement('span')
+    const $input = this.$form.querySelector('input[name*="' + type + '[' + field + ']"]')
+    const errorMessageElement = document.createElement('span')
     errorMessageElement.setAttribute('id', 'error-' + type)
     errorMessageElement.setAttribute('class', 'gem-c-error-message govuk-error-message')
     errorMessageElement.innerHTML = '<span class="govuk-visually-hidden">Error:</span> Enter a date'
 
-    var errorMessages = $input.parentNode.querySelectorAll('.gem-c-error-message')
+    const errorMessages = $input.parentNode.querySelectorAll('.gem-c-error-message')
     if (errorMessages.length === 0) {
       $input.classList.add('govuk-input--error')
       $input.insertAdjacentElement('beforebegin', errorMessageElement)
-      var parent = $input.parentNode
+      const parent = $input.parentNode
       if (parent.classList.contains('govuk-form-group')) {
         parent.classList.add('govuk-form-group--error')
       }
@@ -519,17 +519,17 @@
   }
 
   LiveSearch.prototype.removeErrorMessage = function (type, field) {
-    var $input = this.$form.querySelector('input[name*="' + type + '[' + field + ']"]')
+    const $input = this.$form.querySelector('input[name*="' + type + '[' + field + ']"]')
     if ($input) {
       // only remove the message if it's present
-      var errorMessages = $input.parentNode.querySelectorAll('.gem-c-error-message')
+      const errorMessages = $input.parentNode.querySelectorAll('.gem-c-error-message')
 
       if (errorMessages.length > 0) {
         $input.classList.remove('govuk-input--error')
-        for (var x = errorMessages.length - 1; x >= 0; x--) {
+        for (let x = errorMessages.length - 1; x >= 0; x--) {
           errorMessages[x].parentNode.removeChild(errorMessages[x])
         }
-        var inputParent = $input.parentNode
+        const inputParent = $input.parentNode
         if (inputParent.classList.contains('govuk-form-group')) {
           inputParent.classList.remove('govuk-form-group--error')
         }
@@ -540,12 +540,12 @@
 
   LiveSearch.prototype.ga4TrackFormChange = function ga4TrackFormChange (event) {
     if (event) {
-      var ga4ChangeCategory = event.target.closest('[data-ga4-change-category]')
+      let ga4ChangeCategory = event.target.closest('[data-ga4-change-category]')
       if (ga4ChangeCategory) {
         ga4ChangeCategory = ga4ChangeCategory.getAttribute('data-ga4-change-category')
 
         if (GOVUK.analyticsGa4 && GOVUK.analyticsGa4.Ga4FinderTracker) {
-          var consentCookie = GOVUK.getConsentCookie()
+          const consentCookie = GOVUK.getConsentCookie()
 
           if (consentCookie && consentCookie.usage) {
             GOVUK.analyticsGa4.Ga4FinderTracker.trackChangeEvent(event, ga4ChangeCategory)

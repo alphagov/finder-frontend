@@ -16,7 +16,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}; // if this ; is omitted, none
 
   Expander.prototype.init = function () {
     this.selectedElements = []
-    var openOnLoad = this.$module.getAttribute('data-open-on-load') === 'true'
+    const openOnLoad = this.$module.getAttribute('data-open-on-load') === 'true'
 
     this.replaceHeadingSpanWithButton(openOnLoad)
 
@@ -24,7 +24,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}; // if this ; is omitted, none
     this.$toggleButton = this.$module.querySelector('.js-button')
     this.$toggleButton.addEventListener('click', this.$module.toggleContent)
 
-    var selectedString = this.selectedString()
+    const selectedString = this.selectedString()
     if (selectedString) {
       this.attachSelectedCounter(selectedString)
       // expand the content
@@ -32,13 +32,13 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}; // if this ; is omitted, none
     }
 
     // Attach listener function to update selected count
-    var boundChangeEvents = this.bindChangeEvents.bind(this)
+    const boundChangeEvents = this.bindChangeEvents.bind(this)
     boundChangeEvents()
   }
 
   Expander.prototype.bindChangeEvents = function (e) {
-    for (var i = 0; i < this.$allInteractiveElements.length; i++) {
-      var $el = this.$allInteractiveElements[i]
+    for (let i = 0; i < this.$allInteractiveElements.length; i++) {
+      const $el = this.$allInteractiveElements[i]
       if ($el.tagName === 'SELECT') {
         $el.addEventListener('change', this.updateSelectedCount.bind(this))
       }
@@ -52,7 +52,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}; // if this ; is omitted, none
   }
 
   Expander.prototype.handleInputEvent = function (e) {
-    var ENTER_KEY = 13
+    const ENTER_KEY = 13
     // we only want to fire when ENTER key is pressed or
     // user selected a different element
     if (e.keyCode === ENTER_KEY || e.type === 'change') {
@@ -61,8 +61,8 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}; // if this ; is omitted, none
   }
 
   Expander.prototype.replaceHeadingSpanWithButton = function (expanded) {
-    var toggleHtml = this.$toggle.innerHTML
-    var $button = document.createElement('button')
+    const toggleHtml = this.$toggle.innerHTML
+    const $button = document.createElement('button')
 
     $button.classList.add('app-c-expander__button')
     $button.classList.add('js-button')
@@ -70,14 +70,14 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}; // if this ; is omitted, none
     $button.setAttribute('aria-expanded', expanded)
     $button.setAttribute('aria-controls', this.$content.getAttribute('id'))
 
-    var buttonAttributes = this.$module.getAttribute('data-button-data-attributes')
+    let buttonAttributes = this.$module.getAttribute('data-button-data-attributes')
     if (buttonAttributes) {
       try {
         buttonAttributes = JSON.parse(buttonAttributes)
-        for (var rawKey in buttonAttributes) {
-          var key = rawKey.replace(/_/g, '-').toLowerCase()
-          var rawValue = buttonAttributes[rawKey]
-          var value = typeof rawValue === 'object' ? JSON.stringify(rawValue) : rawValue
+        for (const rawKey in buttonAttributes) {
+          const key = rawKey.replace(/_/g, '-').toLowerCase()
+          const rawValue = buttonAttributes[rawKey]
+          const value = typeof rawValue === 'object' ? JSON.stringify(rawValue) : rawValue
           $button.setAttribute('data-' + key, value)
         }
       } catch (e) {
@@ -99,7 +99,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}; // if this ; is omitted, none
   }
 
   Expander.prototype.attachSelectedCounter = function attachSelectedCounter (selectedString) {
-    var $selectedCounter = document.createElement('span')
+    const $selectedCounter = document.createElement('span')
     $selectedCounter.classList.add('app-c-expander__selected-counter')
     $selectedCounter.classList.add('js-selected-counter')
     $selectedCounter.innerHTML = selectedString
@@ -107,8 +107,8 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}; // if this ; is omitted, none
   }
 
   Expander.prototype.updateSelectedCount = function updateSelectedCount () {
-    var selectedString = this.selectedString()
-    var selectedStringElement = this.$module.querySelector('.js-selected-counter')
+    const selectedString = this.selectedString()
+    const selectedStringElement = this.$module.querySelector('.js-selected-counter')
     if (selectedString) {
       if (selectedStringElement) {
         selectedStringElement.innerHTML = selectedString
@@ -122,8 +122,8 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}; // if this ; is omitted, none
 
   Expander.prototype.selectedString = function selectedString () {
     this.getAllSelectedElements()
-    var count = this.selectedElements.length
-    var selectedString = false
+    const count = this.selectedElements.length
+    let selectedString = false
     if (count > 0) {
       selectedString = count + ' selected'
     }
@@ -133,8 +133,8 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}; // if this ; is omitted, none
 
   Expander.prototype.getAllSelectedElements = function getAllSelectedElements () {
     this.selectedElements = []
-    var that = this
-    for (var i = 0; i < this.$allInteractiveElements.length; i++) {
+    const that = this
+    for (let i = 0; i < this.$allInteractiveElements.length; i++) {
       if (this.$allInteractiveElements[i].value.length > 0) {
         that.selectedElements.push(i)
       }

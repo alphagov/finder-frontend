@@ -56,13 +56,13 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
     }
     // reset all selects, uncheck checkboxes, clear text input values
     // and remove the selected count on each facet
-    var elements = this.module.querySelectorAll('input, select, .js-selected-counter')
-    var form = document.querySelector('.js-live-search-form')
-    var customEvent = document.createEvent('HTMLEvents')
+    const elements = this.module.querySelectorAll('input, select, .js-selected-counter')
+    const form = document.querySelector('.js-live-search-form')
+    const customEvent = document.createEvent('HTMLEvents')
     customEvent.initEvent('customFormChange', true, false)
-    for (var i = 0; i < elements.length; i++) {
-      var el = elements[i]
-      var tagName = el.tagName
+    for (let i = 0; i < elements.length; i++) {
+      const el = elements[i]
+      const tagName = el.tagName
       switch (tagName) {
         case 'INPUT':
           if (el.type === 'checkbox' && el.checked === true) {
@@ -90,7 +90,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
   }
 
   MobileFiltersModal.prototype.addGa4Tracking = function () {
-    var indexSectionCount = document.querySelectorAll('[data-ga4-filter-parent]').length
+    const indexSectionCount = document.querySelectorAll('[data-ga4-filter-parent]').length
 
     this.triggerElement.setAttribute('data-ga4-event', JSON.stringify({
       event_name: 'select_content',

@@ -1,6 +1,6 @@
 describe('liveSearch', function () {
-  var $form, $results, _supportHistory, liveSearch, $atomAutodiscoveryLink, $count, countMeta, tokenMeta
-  var dummyResponse = {
+  let $form, $results, _supportHistory, liveSearch, $atomAutodiscoveryLink, $count, countMeta, tokenMeta
+  const dummyResponse = {
     display_total: 1,
     pluralised_document_noun: 'reports',
     applied_filters: " \u003Cstrong\u003ECommercial - rotorcraft \u003Ca href='?format=json\u0026keywords='\u003E×\u003C/a\u003E\u003C/strong\u003E",
@@ -54,7 +54,7 @@ describe('liveSearch', function () {
     '</div>'
   }
 
-  var responseWithSortOptions = {
+  const responseWithSortOptions = {
     sort_options_markup: '<select id="order">' +
       '<option ' +
         'value="option-val" ' +
@@ -77,11 +77,11 @@ describe('liveSearch', function () {
 
   beforeEach(function () {
     jasmine.Ajax.install()
-    var count = '<div aria-live="assertive" id="js-search-results-info"><h2 class="result-region-header__counter" id="f-result-count"></h2></div>'
-    var sortList = '<select id="order" class="js-order-results" data-relevance-sort-option="relevance"><option>Test 1</option><option value="relevance" disabled>Relevance</option>'
-    var results = '<div class="js-live-search-results-block"><div id="js-loading-message"></div><div id="js-sort-options">' + sortList + '</div></div>'
-    var emailSubscriptionLinks = '<a href="https://a-url/email-signup?query_param=something">Get emails</a>'
-    var feedSubscriptionLinks = '<a href="http://an-atom-url.atom?query_param=something">Subscribe to feed</a>'
+    const count = '<div aria-live="assertive" id="js-search-results-info"><h2 class="result-region-header__counter" id="f-result-count"></h2></div>'
+    const sortList = '<select id="order" class="js-order-results" data-relevance-sort-option="relevance"><option>Test 1</option><option value="relevance" disabled>Relevance</option>'
+    const results = '<div class="js-live-search-results-block"><div id="js-loading-message"></div><div id="js-sort-options">' + sortList + '</div></div>'
+    const emailSubscriptionLinks = '<a href="https://a-url/email-signup?query_param=something">Get emails</a>'
+    const feedSubscriptionLinks = '<a href="http://an-atom-url.atom?query_param=something">Subscribe to feed</a>'
     $form = $('<form action="/somewhere" class="js-live-search-form">' +
                 '<input type="checkbox" name="field" value="sheep" checked>' +
                 '<input type="checkbox" name="people[]" value="john">' +
@@ -119,7 +119,7 @@ describe('liveSearch', function () {
     $atomAutodiscoveryLink.remove()
     countMeta.remove()
     tokenMeta.remove()
-    var url = encodeURI(window.location.pathname)
+    const url = encodeURI(window.location.pathname)
     window.history.pushState('', '', url)
     GOVUK.support.history = _supportHistory
   })
@@ -196,11 +196,11 @@ describe('liveSearch', function () {
     })
 
     it('should update the URL when the search result is already cached', function () {
-      var urls = [
+      const urls = [
         'people%5B%5D=john',
         'people%5B%5D=john&people%5B%5D=paul'
       ]
-      for (var i = 0; i < urls.length; i++) {
+      for (let i = 0; i < urls.length; i++) {
         jasmine.Ajax.stubRequest('/somewhere.json?' + urls[i]).andReturn({
           status: 200,
           response: '{}'
@@ -254,7 +254,7 @@ describe('liveSearch', function () {
     })
 
     it('should update save state and update results when checkbox is changed', function () {
-      var promise = jasmine.createSpyObj('promise', ['done'])
+      const promise = jasmine.createSpyObj('promise', ['done'])
       spyOn(liveSearch, 'updateResults').and.returnValue(promise)
       $form.find('input[name="field"]').prop('checked', false)
 
@@ -306,7 +306,7 @@ describe('liveSearch', function () {
     })
 
     it('should update save state and update results when checkbox is changed', function () {
-      var promise = jasmine.createSpyObj('promise', ['done'])
+      const promise = jasmine.createSpyObj('promise', ['done'])
       spyOn(liveSearch, 'updateResults').and.returnValue(promise)
       $form.find('input[name="field"]').prop('checked', false)
 
@@ -348,7 +348,7 @@ describe('liveSearch', function () {
   })
 
   describe('popState', function () {
-    var dummyHistoryState
+    let dummyHistoryState
 
     beforeEach(function () {
       dummyHistoryState = { originalEvent: { state: true } }
@@ -443,7 +443,7 @@ describe('liveSearch', function () {
 
   describe('removeSelectElement', function () {
     it('removes the select element', function () {
-      var expectedResult = '<option ' +
+      const expectedResult = '<option ' +
         'value="option-val" ' +
         'selected' +
       '/>' +
@@ -456,7 +456,7 @@ describe('liveSearch', function () {
     })
 
     it('only targets select elements', function () {
-      var sortOptionsWithTypo = '<slect id="order">' +
+      const sortOptionsWithTypo = '<slect id="order">' +
         '<option ' +
           'value="option-val" ' +
           'selected' +
@@ -468,8 +468,8 @@ describe('liveSearch', function () {
   })
 
   describe('spelling suggestions', function () {
-    var $suggestionBlock = $('<div class="spelling-suggestions" id="js-spelling-suggestions"></div>')
-    var responseWithSpellingSuggestions = {
+    const $suggestionBlock = $('<div class="spelling-suggestions" id="js-spelling-suggestions"></div>')
+    const responseWithSpellingSuggestions = {
       display_total: 1,
       pluralised_document_noun: 'reports',
       applied_filters: " \u003Cstrong\u003ECommercial - rotorcraft \u003Ca href='?format=json\u0026keywords='\u003E×\u003C/a\u003E\u003C/strong\u003E",
@@ -527,7 +527,7 @@ describe('liveSearch', function () {
       'driving licences</a> </p>'
     }
 
-    var responseWithNoSpellingSuggestions = {
+    const responseWithNoSpellingSuggestions = {
       display_total: 1,
       pluralised_document_noun: 'reports',
       applied_filters: " \u003Cstrong\u003ECommercial - rotorcraft \u003Ca href='?format=json\u0026keywords='\u003E×\u003C/a\u003E\u003C/strong\u003E",
@@ -608,7 +608,7 @@ describe('liveSearch', function () {
   })
 
   describe('validation of user date input', function () {
-    var $filterDateBlock = $('<div class="app-c-date-filter" id="public_timestamp">' +
+    const $filterDateBlock = $('<div class="app-c-date-filter" id="public_timestamp">' +
     '<div class="govuk-form-group">' +
     '<label for="public_timestamp[from]" class="gem-c-label govuk-label">Updated after</label>' +
     '<div id="hint-3d03f42d" class="gem-c-hint govuk-hint govuk-!-margin-bottom-3">' +
@@ -627,7 +627,7 @@ describe('liveSearch', function () {
     '<input name="public_timestamp[to]" value="" class="gem-c-input govuk-input govuk-input--error" id="public_timestamp[to]" ' +
     'type="text" aria-describedby="hint-3626790f error-to" aria-controls="js-search-results-info">' +
     '</div></div>')
-    var responseWithDateErrors = {
+    const responseWithDateErrors = {
       errors: {
         public_timestamp: {
           from: true,
@@ -696,12 +696,12 @@ describe('liveSearch', function () {
   })
 
   describe('on mobile viewport', function () {
-    var $filterButtonOnMobile = $(
+    const $filterButtonOnMobile = $(
       '<button class="app-c-button-as-link app-mobile-filters-link js-show-mobile-filters">' +
         'Filter <span class="govuk-visually-hidden"> results</span>' +
         '<span class="js-selected-filter-count"></span>' +
       '</button>')
-    var dummyResponse = {
+    const dummyResponse = {
       display_total: 1,
       display_selected_facets_count: '(6)<span class="govuk-visually-hidden"> filters currently selected</span>'
     }
@@ -737,7 +737,7 @@ describe('liveSearch', function () {
     })
 
     it('calls GA4 finder tracker on form update when data-ga4-change-category exists on the target', function () {
-      var $input = $form.find('input[name="field"]')
+      const $input = $form.find('input[name="field"]')
       $input.attr('data-ga4-change-category', 'update-filter checkbox')
 
       liveSearch.state = []
@@ -764,7 +764,7 @@ describe('liveSearch', function () {
     })
 
     it('ignores GA4 finder tracker on form update without data-ga4-change-category on the event target', function () {
-      var $input = $form.find('input[name="field"]')
+      const $input = $form.find('input[name="field"]')
 
       liveSearch.state = []
 
@@ -780,7 +780,7 @@ describe('liveSearch', function () {
     it('ignores GA4 finder tracker if cookies are rejected', function () {
       denyCookies()
 
-      var $input = $form.find('input[name="field"]')
+      const $input = $form.find('input[name="field"]')
       $input.attr('data-ga4-change-category', 'update-filter checkbox')
 
       liveSearch.state = []
@@ -799,7 +799,7 @@ describe('liveSearch', function () {
 
       expect(liveSearch.reinitialiseGa4Tracking).not.toHaveBeenCalled()
 
-      var $input = $form.find('input[name="field"]')
+      const $input = $form.find('input[name="field"]')
       $input.attr('data-ga4-change-category', 'update-sort select')
 
       liveSearch.state = []
@@ -821,7 +821,7 @@ describe('liveSearch', function () {
     })
 
     it('works for the result count and attribution tokens meta tags', function () {
-      var $input = $form.find('input[name="field"]')
+      const $input = $form.find('input[name="field"]')
       liveSearch.state = []
 
       liveSearch.formChange({ target: $input[0] })
