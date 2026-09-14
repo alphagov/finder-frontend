@@ -76,7 +76,7 @@
     }
 
     .facets__header {
-      padding: 0 0 govuk-spacing(3) 0;
+      padding: 0 0 govuk-spacing(3);
       border-bottom: 1px solid govuk-functional-colour(border);
       @supports (display: grid) {
         display: grid;
