@@ -107,8 +107,8 @@ mark {
 
 .debug-results {
   display: block;
-  margin: govuk-spacing(1) 0 0 0;
-  word-wrap: break-word;
+  margin: govuk-spacing(1) 0 0;
+  overflow-wrap: break-word;
   @include govuk-font(16);
 }
 
@@ -301,7 +301,7 @@ mark {
 
 .result-info {
   border-bottom: solid 1px govuk-colour("black");
-  margin: 0 0 govuk-spacing(4) 0;
+  margin: 0 0 govuk-spacing(4);
   @include govuk-media-query($until: tablet) {
     padding-bottom: govuk-spacing(2);
   }
