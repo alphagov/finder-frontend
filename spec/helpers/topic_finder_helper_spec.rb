@@ -9,7 +9,7 @@ describe TopicFinderHelper, type: :helper do
       topic_taxonomy_has_taxons([FactoryBot.build(:level_one_taxon_hash, content_id: "existing_content_id")])
     end
 
-    let(:has_topic) { topic_finder?("topic" => "/path/to_content") }
+    let(:has_topic) { topic_finder?("topic" => "/path/to-content") }
 
     it "returns true because there is a topic parameter that exists" do
       expect(topic_finder?("topic" => "existing_content_id")).to be_truthy
