@@ -7,7 +7,7 @@ FactoryBot.define do
     content_id { SecureRandom.uuid }
 
     sequence :base_path, 1 do |n|
-      "/path/level_one_taxon_#{n}"
+      "/path/level-one-taxon-#{n}"
     end
 
     sequence :description, 1 do |n|

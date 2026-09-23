@@ -266,7 +266,7 @@ describe FindersController, type: :controller do
     end
 
     describe "finder item returns forbidden response when user not authorised" do
-      let(:forbidden_slug) { "/#{SecureRandom.hex}" }
+      let(:forbidden_slug) { SecureRandom.hex }
 
       before do
         url = "#{Plek.find('content-store')}/content/#{forbidden_slug}"
