@@ -40,6 +40,14 @@ module Search
       ParamValidator.new(self).errors_hash
     end
 
+    def api_version
+      if use_v2_api?
+        "v2"
+      else
+        "v1"
+      end
+    end
+
   private
 
     attr_reader :ab_params, :is_for_feed, :content_item, :v2_serving_config
