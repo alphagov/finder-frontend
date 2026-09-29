@@ -27,6 +27,7 @@ class FindersController < ApplicationController
         end
 
         show_page_variables
+        set_prometheus_labels(search_query.api_version)
 
         render show_template
       end
@@ -34,6 +35,7 @@ class FindersController < ApplicationController
         @search_query = initialize_search_query
         if content_item.is_search? || content_item.is_finder?
           @spelling_suggestion_presenter = spelling_suggestion_presenter
+          set_prometheus_labels(search_query.api_version)
           render json: json_response
         else
           render json: {}, status: :not_found
@@ -45,6 +47,7 @@ class FindersController < ApplicationController
         else
           @search_query = initialize_search_query(is_for_feed: true)
           @feed = AtomPresenter.new(content_item, results, facet_tags)
+          set_prometheus_labels(search_query.api_version)
         end
       end
     end
@@ -400,5 +403,13 @@ private
     if arr.respond_to? "reject"
       arr.reject { |v| v == "all" }.compact.presence
     end
+  end
+
+  def set_prometheus_labels(search_api_version)
+    prometheus_labels = request.env.fetch("govuk.prometheus_labels", {})
+
+    request.env["govuk.prometheus_labels"] = prometheus_labels.merge(
+      search_api_version:,
+    )
   end
 end
