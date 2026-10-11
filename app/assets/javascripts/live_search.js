@@ -125,7 +125,7 @@
     if (GOVUK.analyticsGa4 && GOVUK.analyticsGa4.Ga4EcommerceTracker) {
       const consentCookie = GOVUK.getConsentCookie()
 
-      if (consentCookie && consentCookie.usage) {
+      if (consentCookie && (consentCookie.usage || consentCookie.aggregate)) {
         if (this.$resultsWrapper) {
           this.$resultsWrapper.setAttribute('data-ga4-search-query', this.currentKeywords())
           const sortedBy = this.$resultsWrapper.querySelector('.js-order-results')
@@ -547,7 +547,7 @@
         if (GOVUK.analyticsGa4 && GOVUK.analyticsGa4.Ga4FinderTracker) {
           const consentCookie = GOVUK.getConsentCookie()
 
-          if (consentCookie && consentCookie.usage) {
+          if (consentCookie && (consentCookie.usage || consentCookie.aggregate)) {
             GOVUK.analyticsGa4.Ga4FinderTracker.trackChangeEvent(event, ga4ChangeCategory)
           }
         }
