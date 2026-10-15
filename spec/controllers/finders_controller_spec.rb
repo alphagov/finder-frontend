@@ -55,12 +55,22 @@ describe FindersController, type: :controller do
         expect(response).to render_template("finders/show")
       end
 
+      it "sets search-api version as a custom prometheus label for html requests" do
+        get :show, params: { slug: "lunch-finder" }
+        expect(request.env["govuk.prometheus_labels"][:search_api_version]).to eq("v1")
+      end
+
       it "can respond with an atom feed" do
         get :show, params: { slug: "lunch-finder", format: "atom" }
         expect(response.status).to eq(200)
         expect(response.media_type).to eq("application/atom+xml")
         expect(response).to render_template("finders/show")
         expect(response.headers["Cache-Control"]).to eq("max-age=900, public")
+      end
+
+      it "sets search-api version as a custom prometheus label for atom requests" do
+        get :show, params: { slug: "lunch-finder", format: "atom" }
+        expect(request.env["govuk.prometheus_labels"][:search_api_version]).to eq("v1")
       end
 
       context "When private cache is set" do
@@ -86,6 +96,11 @@ describe FindersController, type: :controller do
 
         expect(response.status).to eq(200)
         expect(response.media_type).to eq("application/json")
+      end
+
+      it "sets search-api version as a custom prometheus label for json requests" do
+        get :show, params: { slug: "lunch-finder", format: "json" }
+        expect(request.env["govuk.prometheus_labels"][:search_api_version]).to eq("v1")
       end
 
       context "when it receives facet option query params" do
@@ -353,6 +368,11 @@ describe FindersController, type: :controller do
         get :show, params: { slug: "search/all", keywords: "hello" }
         expect(response.status).to eq(200)
         expect(response).to render_template("finders/show_all_content_finder")
+      end
+
+      it "sets search-api version as a custom prometheus label" do
+        get :show, params: { slug: "search/all", keywords: "hello" }
+        expect(request.env["govuk.prometheus_labels"][:search_api_version]).to eq("v2")
       end
 
       context "when search-api-v2 returns bad request" do
