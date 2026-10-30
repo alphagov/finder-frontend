@@ -95,7 +95,7 @@ GEM
     bigdecimal (4.1.3)
     binding_of_caller (2.0.0)
       debug_inspector (>= 1.2.0)
-    bootsnap (1.26.0)
+    bootsnap (1.26.1)
       msgpack (~> 1.5)
     brakeman (8.0.4)
       racc
@@ -291,7 +291,7 @@ GEM
     minitest (6.0.6)
       drb (~> 2.0)
       prism (~> 1.5)
-    msgpack (1.8.4)
+    msgpack (1.8.6)
     multi_test (1.1.0)
     net-imap (0.6.8)
       date
