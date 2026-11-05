@@ -360,7 +360,7 @@ mark {
 }
 
 .app-before-content--inverse {
-  background-color: $govuk-blue-tint-80;
+  background-color: govuk-colour("blue", $variant: "tint-80");
   // Stretch background colour over inner margins
   overflow: hidden;
 }
