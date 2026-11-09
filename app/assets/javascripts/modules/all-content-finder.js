@@ -31,7 +31,9 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
     }
 
     userHasConsentedToAnalytics () {
-      return GOVUK.getConsentCookie() && GOVUK.getConsentCookie().usage
+      var consentCookie = GOVUK.getConsentCookie()
+
+      return consentCookie && (consentCookie.usage || consentCookie.aggregate)
     }
 
     setupTaxonomySelect () {
