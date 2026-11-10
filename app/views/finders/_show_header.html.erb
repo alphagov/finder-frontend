@@ -35,7 +35,7 @@
     <% else %>
       <%= render "govuk_publishing_components/components/heading", {
         text: content_item.title,
-        context: title_context,
+        context: title_context(params),
         heading_level: 1,
         font_size: "xl",
         margin_bottom: 8,
