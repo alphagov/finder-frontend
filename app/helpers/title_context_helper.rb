@@ -1,8 +1,7 @@
 module TitleContextHelper
-  def title_context(filter_params = nil)
-    filter_params ||= params
-
+  def title_context(filter_params)
     topical_events = filter_params["topical_events"]
+    topical_events = topical_events.values if topical_events.respond_to?(:values)
     topical_events = [topical_events] if topical_events.is_a? String
 
     if topical_events && topical_events.count == 1
