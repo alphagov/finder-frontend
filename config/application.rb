@@ -50,8 +50,6 @@ module FinderFrontend
     # https://github.com/alphagov/govuk-frontend/issues/1350
     config.assets.css_compressor = nil
 
-    config.active_support.to_time_preserves_timezone = :zone
-
     # Use the middleware to compact data-ga4-event/link attributes
     config.middleware.use GovukPublishingComponents::Middleware::Ga4Optimise
   end
