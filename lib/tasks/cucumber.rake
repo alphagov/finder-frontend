@@ -1,4 +1,4 @@
-# :nocov:
+# simplecov:disable
 unless Rails.env.production?
   require "cucumber/rake/task"
 
@@ -12,4 +12,4 @@ unless Rails.env.production?
   desc "Alias for cucumber:ok"
   task cucumber: "cucumber:ok"
 end
-# :nocov:
+# simplecov:enable
