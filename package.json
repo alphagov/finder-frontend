@@ -26,7 +26,9 @@
     ]
   },
   "stylelint": {
-    "extends": "stylelint-config-gds/scss"
+    "customSyntax": "postcss-scss",
+    "plugins": ["stylelint-scss"],
+    "extends": ["stylelint-config-gds/scss-rules.js", "stylelint-config-gds/css-rules.js"]
   },
   "devDependencies": {
     "jasmine-browser-runner": "^5.0.0",
