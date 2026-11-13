@@ -26,13 +26,15 @@
     ]
   },
   "stylelint": {
-    "extends": "stylelint-config-gds/scss"
+    "customSyntax": "postcss-scss",
+    "plugins": ["stylelint-scss"],
+    "extends": ["stylelint-config-gds/scss-rules.js", "stylelint-config-gds/css-rules.js"]
   },
   "devDependencies": {
     "jasmine-browser-runner": "^5.0.0",
     "jasmine-core": "^7.0.2",
     "standard": "^17.1.2",
-    "stylelint": "^17.16.0",
+    "stylelint": "^18.0.0",
     "stylelint-config-gds": "^3.0.0"
   },
   "packageManager": "yarn@4.18.0"
