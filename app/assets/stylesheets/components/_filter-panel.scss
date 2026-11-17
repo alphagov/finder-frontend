@@ -1,4 +1,5 @@
-@import "mixins/chevron";
+@use 'govuk_publishing_components/base' as *;
+@use "mixins" as *;
 
 .app-c-filter-panel {
   padding-top: govuk-spacing(3);
@@ -42,11 +43,11 @@
   border-style: none;
   padding-left: 0;
   cursor: pointer;
-  @include chevron;
+  @include gem-c-chevron;
   @include govuk-font(19);
 
   &[aria-expanded="true"] {
-    @include chevron(true);
+    @include gem-c-chevron(true);
   }
 
   &:hover {
