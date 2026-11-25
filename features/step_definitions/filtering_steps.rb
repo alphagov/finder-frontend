@@ -51,27 +51,27 @@ And(/there should not be an alert$/) do
 end
 
 And("I see email and feed sign up links") do
-  expect(page).to have_css('a[href="/search/news-and-communications/email-signup"]')
-  expect(page).to have_css('a[href="/search/news-and-communications.atom"]')
+  expect(page).to have_link(href: "/search/news-and-communications/email-signup")
+  expect(page).to have_link(href: "/search/news-and-communications.atom")
 end
 
 And("I see only one email and feed sign up link on mobile") do
   width = page.driver.browser.manage.window.size.width
   height = page.driver.browser.manage.window.size.height
   page.driver.browser.manage.window.resize_to(375, 812)
-  expect(page).to have_css('a[href="/search/news-and-communications/email-signup"]', count: 1)
-  expect(page).to have_css('a[href="/search/news-and-communications.atom"]', count: 1)
+  expect(page).to have_link(href: "/search/news-and-communications/email-signup", count: 1)
+  expect(page).to have_link(href: "/search/news-and-communications.atom", count: 1)
   page.driver.browser.manage.window.resize_to(width, height)
 end
 
 And("I see email and feed sign up links with filters applied") do
-  expect(page).to have_css('a[href="/search/news-and-communications/email-signup?people%5B%5D=rufus-scrimgeour"]')
-  expect(page).to have_css('a[href="/search/news-and-communications.atom?people%5B%5D=rufus-scrimgeour"]')
+  expect(page).to have_link(href: "/search/news-and-communications/email-signup?people%5B%5D=rufus-scrimgeour")
+  expect(page).to have_link(href: "/search/news-and-communications.atom?people%5B%5D=rufus-scrimgeour")
 end
 
 And("I see email and feed sign up links with filters and order applied") do
-  expect(page).to have_css('a[href="/search/news-and-communications/email-signup?people%5B%5D=rufus-scrimgeour&order=updated-newest"]')
-  expect(page).to have_css('a[href="/search/news-and-communications.atom?people%5B%5D=rufus-scrimgeour&order=updated-newest"]')
+  expect(page).to have_link(href: "/search/news-and-communications/email-signup?people%5B%5D=rufus-scrimgeour&order=updated-newest")
+  expect(page).to have_link(href: "/search/news-and-communications.atom?people%5B%5D=rufus-scrimgeour&order=updated-newest")
 end
 
 When(/^I view a list of news and communications$/) do
@@ -266,9 +266,9 @@ Then(/^I can see filters based on the results$/) do
   visit finder_path("mosw-reports")
 
   within first(".gem-c-option-select") do
-    expect(page).to have_css("input#walk_type-backward")
+    expect(page).to have_css("#walk_type-backward")
     expect(page).to have_text("Hopscotch")
-    expect(page).to have_no_css("input#organisations-ministry-of-silly-walks")
+    expect(page).to have_no_css("#organisations-ministry-of-silly-walks")
   end
 end
 
@@ -290,8 +290,8 @@ end
 Then(/^I can see pagination$/) do
   visit finder_path("government/policies/benefits-reform")
 
-  expect(page).to have_no_text("Previous page")
   expect(page).to have_link("Next page", href: "/government/policies/benefits-reform?page=2")
+  expect(page).to have_no_text("Previous page")
 end
 
 Then(/^I can browse to the next page$/) do

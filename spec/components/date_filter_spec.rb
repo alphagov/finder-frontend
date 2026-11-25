@@ -11,8 +11,8 @@ describe "components/_date_filter", type: :view do
 
     expect(rendered).to have_css("#key")
 
-    expect(rendered).to have_css("input[name='key\[to\]']")
-    expect(rendered).to have_css("input[name='key\[from\]']")
+    expect(rendered).to have_field("key\[to\]")
+    expect(rendered).to have_field("key\[from\]")
 
     expect(rendered).to have_css("label[for='key\[to\]']", text: "name before")
     expect(rendered).to have_css("label[for='key\[from\]']", text: "name after")
