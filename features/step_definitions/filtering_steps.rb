@@ -15,7 +15,7 @@ When(/^I view the finder with no keywords and no facets$/) do
 end
 
 And(/there is not a zero results message$/) do
-  expect(page).to_not have_content("no matching results")
+  expect(page).to have_no_text("no matching results")
 end
 
 And(/the page title is updated$/) do
@@ -25,7 +25,7 @@ end
 Then(/^I can get a list of all documents with matching metadata$/) do
   visit finder_path("mosw-reports")
 
-  expect(page).to have_content("2 reports")
+  expect(page).to have_text("2 reports")
   expect(page).to have_css(".finder-results .gem-c-document-list__item", count: 2)
   expect(page).to have_css(".gem-c-metadata")
 
@@ -34,13 +34,13 @@ Then(/^I can get a list of all documents with matching metadata$/) do
       "West London wobbley walk",
       href: "/mosw-reports/west-london-wobbley-walk",
     )
-    expect(page).to have_content("30 December 2003")
-    expect(page).to have_content("Backward")
+    expect(page).to have_text("30 December 2003")
+    expect(page).to have_text("Backward")
   end
 
   visit_filtered_finder("walk_type" => "hopscotch")
 
-  expect(page).to have_content("1 report")
+  expect(page).to have_text("1 report")
   expect(page).to have_css(".finder-results .gem-c-document-list__item", count: 1)
 end
 
@@ -51,27 +51,27 @@ And(/there should not be an alert$/) do
 end
 
 And("I see email and feed sign up links") do
-  expect(page).to have_css('a[href="/search/news-and-communications/email-signup"]')
-  expect(page).to have_css('a[href="/search/news-and-communications.atom"]')
+  expect(page).to have_link(href: "/search/news-and-communications/email-signup")
+  expect(page).to have_link(href: "/search/news-and-communications.atom")
 end
 
 And("I see only one email and feed sign up link on mobile") do
   width = page.driver.browser.manage.window.size.width
   height = page.driver.browser.manage.window.size.height
   page.driver.browser.manage.window.resize_to(375, 812)
-  expect(page).to have_css('a[href="/search/news-and-communications/email-signup"]', count: 1)
-  expect(page).to have_css('a[href="/search/news-and-communications.atom"]', count: 1)
+  expect(page).to have_link(href: "/search/news-and-communications/email-signup", count: 1)
+  expect(page).to have_link(href: "/search/news-and-communications.atom", count: 1)
   page.driver.browser.manage.window.resize_to(width, height)
 end
 
 And("I see email and feed sign up links with filters applied") do
-  expect(page).to have_css('a[href="/search/news-and-communications/email-signup?people%5B%5D=rufus-scrimgeour"]')
-  expect(page).to have_css('a[href="/search/news-and-communications.atom?people%5B%5D=rufus-scrimgeour"]')
+  expect(page).to have_link(href: "/search/news-and-communications/email-signup?people%5B%5D=rufus-scrimgeour")
+  expect(page).to have_link(href: "/search/news-and-communications.atom?people%5B%5D=rufus-scrimgeour")
 end
 
 And("I see email and feed sign up links with filters and order applied") do
-  expect(page).to have_css('a[href="/search/news-and-communications/email-signup?people%5B%5D=rufus-scrimgeour&order=updated-newest"]')
-  expect(page).to have_css('a[href="/search/news-and-communications.atom?people%5B%5D=rufus-scrimgeour&order=updated-newest"]')
+  expect(page).to have_link(href: "/search/news-and-communications/email-signup?people%5B%5D=rufus-scrimgeour&order=updated-newest")
+  expect(page).to have_link(href: "/search/news-and-communications.atom?people%5B%5D=rufus-scrimgeour&order=updated-newest")
 end
 
 When(/^I view a list of news and communications$/) do
@@ -196,22 +196,22 @@ end
 
 Then(/^I should see a blue banner$/) do
   expect(page).to have_css(".gem-c-inverse-header")
-  expect(page).to have_content("Education, training and skills")
-  expect(page).to_not have_css(".app-taxonomy-select")
+  expect(page).to have_text("Education, training and skills")
+  expect(page).to have_no_css(".app-taxonomy-select")
 end
 
 Then(/^I can see documents which are marked as being in history mode$/) do
   visit finder_path("government/policies/benefits-reform")
   expect(page).to have_css(".published-by", count: 5)
-  expect(page).to have_content("2005 to 2010 Labour government")
+  expect(page).to have_text("2005 to 2010 Labour government")
 end
 
 Then(/^I see the atom feed$/) do
-  expect(page).to have_selector("id", text: "tag:www.dev.gov.uk,2005:/restrictions-on-usage-of-spells-within-school-grounds")
-  expect(page).to have_selector("updated", text: "2017-12-30T10:00:00+00:00")
-  expect(page).to have_selector(:css, 'link[href="http://www.dev.gov.uk/restrictions-on-usage-of-spells-within-school-grounds"]')
-  expect(page).to have_selector("title", text: "Restrictions on usage of spells within school grounds")
-  expect(page).to have_selector("summary", text: "Restrictions on usage of spells within school grounds")
+  expect(page).to have_css("id", text: "tag:www.dev.gov.uk,2005:/restrictions-on-usage-of-spells-within-school-grounds")
+  expect(page).to have_css("updated", text: "2017-12-30T10:00:00+00:00")
+  expect(page).to have_css('link[href="http://www.dev.gov.uk/restrictions-on-usage-of-spells-within-school-grounds"]')
+  expect(page).to have_css("title", text: "Restrictions on usage of spells within school grounds")
+  expect(page).to have_css("summary", text: "Restrictions on usage of spells within school grounds")
 end
 
 Given(/^a collection of documents with bad metadata exist$/) do
@@ -225,13 +225,13 @@ Then(/^I can get a list of all documents with good metadata$/) do
   expect(page).to have_css(".finder-results .gem-c-document-list__item", count: 2)
 
   within ".finder-results .gem-c-document-list__item:nth-child(1)" do
-    expect(page).to have_content("Backward")
-    expect(page).not_to have_content("England")
+    expect(page).to have_text("Backward")
+    expect(page).to have_no_text("England")
   end
 
   within ".finder-results .gem-c-document-list__item:nth-child(2)" do
-    expect(page).to have_content("Northern Ireland")
-    expect(page).not_to have_content("Hopscotch")
+    expect(page).to have_text("Northern Ireland")
+    expect(page).to have_no_text("Hopscotch")
   end
 end
 
@@ -266,18 +266,18 @@ Then(/^I can see filters based on the results$/) do
   visit finder_path("mosw-reports")
 
   within first(".gem-c-option-select") do
-    expect(page).to have_selector("input#walk_type-backward")
-    expect(page).to have_content("Hopscotch")
-    expect(page).to_not have_selector("input#organisations-ministry-of-silly-walks")
+    expect(page).to have_css("#walk_type-backward")
+    expect(page).to have_text("Hopscotch")
+    expect(page).to have_no_css("#organisations-ministry-of-silly-walks")
   end
 end
 
 And(/^filters are wrapped in a progressive disclosure element$/) do
-  expect(page).to have_selector("#facet-wrapper")
+  expect(page).to have_css("#facet-wrapper")
 end
 
 And(/^filters are not wrapped in a progressive disclosure element$/) do
-  expect(page).not_to have_selector("#facet-wrapper")
+  expect(page).to have_no_css("#facet-wrapper")
 end
 
 Given(/^a finder with paginated results exists$/) do
@@ -290,8 +290,8 @@ end
 Then(/^I can see pagination$/) do
   visit finder_path("government/policies/benefits-reform")
 
-  expect(page).not_to have_content("Previous page")
   expect(page).to have_link("Next page", href: "/government/policies/benefits-reform?page=2")
+  expect(page).to have_no_text("Previous page")
 end
 
 Then(/^I can browse to the next page$/) do
@@ -299,7 +299,7 @@ Then(/^I can browse to the next page$/) do
   visit finder_path("government/policies/benefits-reform", page: 2)
 
   expect(page).to have_link("Previous page", href: "/government/policies/benefits-reform?page=1")
-  expect(page).not_to have_content("Next page")
+  expect(page).to have_no_text("Next page")
 end
 
 Then(/^I browse to a huge page number and get an appropriate error$/) do
@@ -333,7 +333,7 @@ end
 
 Then(/^I can see that Google can index the page$/) do
   tag = "meta[name='robots'][content='noindex']"
-  expect(page).not_to have_css(tag, visible: :hidden)
+  expect(page).to have_no_css(tag, visible: :hidden)
 end
 
 Given(/^a finder with description exists$/) do
@@ -358,7 +358,7 @@ When(/^I can see that the finder metadata is present$/) do
   visit "/cma-cases"
 
   expect(page).to have_css(".gem-c-metadata")
-  expect(page).to_not have_css(".gem-c-metadata.gem-c-metadata--inverse")
+  expect(page).to have_no_css(".gem-c-metadata.gem-c-metadata--inverse")
 end
 
 When(/^I can see that the finder metadata is present and inverted$/) do
@@ -367,8 +367,8 @@ When(/^I can see that the finder metadata is present and inverted$/) do
 end
 
 And(/^the breadcrumbs are outside the main container$/) do
-  expect(page).to have_selector(".app-before-content .gem-c-breadcrumbs")
-  expect(page).not_to have_selector("#main .gem-c-breadcrumbs")
+  expect(page).to have_css(".app-before-content .gem-c-breadcrumbs")
+  expect(page).to have_no_css("#main .gem-c-breadcrumbs")
 end
 
 When(/^I can see that the description in the metadata is present$/) do
@@ -417,7 +417,7 @@ Then(/^I can see a breadcrumb for all organisations$/) do
 end
 
 And(/^no breadcrumb for all organisations$/) do
-  expect(page).to_not have_link("Organisations", href: "/government/organisations")
+  expect(page).to have_no_link("Organisations", href: "/government/organisations")
 end
 
 Then(/^I can see a breadcrumb for the organisation$/) do
@@ -426,8 +426,8 @@ end
 
 Then(/^I can see taxonomy breadcrumbs$/) do
   visit finder_path("cma-cases")
-  expect(page).to have_selector(".govuk-breadcrumbs--collapse-on-mobile")
-  expect(page).to have_selector(".govuk-breadcrumbs__list-item", text: "Competition Act and cartels")
+  expect(page).to have_css(".govuk-breadcrumbs--collapse-on-mobile")
+  expect(page).to have_css(".govuk-breadcrumbs__list-item", text: "Competition Act and cartels")
   expect(page.find_all(".govuk-breadcrumbs__list-item").count).to eql(2)
 end
 
@@ -446,13 +446,13 @@ When(/^I use a checkbox filter$/) do
 end
 
 Then(/^I only see documents that match the checkbox filter$/) do
-  expect(page).to have_content("1 case")
+  expect(page).to have_text("1 case")
   expect(page).to have_css(".facet-tags__preposition", text: "That Is")
   expect(page).to have_css(".facet-tag__text", text: "Open")
 
   within ".finder-results .gem-c-document-list__item:nth-child(1)" do
-    expect(page).to have_content("Big Beer Co / Salty Snacks Ltd merger inquiry")
-    expect(page).to_not have_content("Bakery market investigation")
+    expect(page).to have_text("Big Beer Co / Salty Snacks Ltd merger inquiry")
+    expect(page).to have_no_text("Bakery market investigation")
   end
 end
 
@@ -480,12 +480,12 @@ end
 
 Then(/^I see the most viewed articles first$/) do
   within ".finder-results .gem-c-document-list__item:nth-child(1)" do
-    expect(page).to have_content("Press release from Hogwarts")
-    expect(page).to have_content("25 December 2017")
+    expect(page).to have_text("Press release from Hogwarts")
+    expect(page).to have_text("25 December 2017")
   end
 
   within ".finder-results .gem-c-document-list__item:nth-child(2)" do
-    expect(page).to have_content("16 November 2018")
+    expect(page).to have_text("16 November 2018")
   end
 
   expect(page).to have_css("#order", text: "Most viewed")
@@ -493,11 +493,11 @@ end
 
 Then(/^I see services in alphabetical order$/) do
   within ".finder-results .gem-c-document-list__item:nth-child(1)" do
-    expect(page).to have_content("Apply for your full broomstick licence")
+    expect(page).to have_text("Apply for your full broomstick licence")
   end
 
   within ".finder-results .gem-c-document-list__item:nth-child(2)" do
-    expect(page).to have_content("Register a magical spell")
+    expect(page).to have_text("Register a magical spell")
   end
 
   expect(page).to have_css("#order", text: "A-Z")
@@ -510,7 +510,7 @@ end
 And(/^I see the facet tag$/) do
   within first ".facet-tags" do
     expect(page).to have_button("✕")
-    expect(page).to have_content("Open")
+    expect(page).to have_text("Open")
     expect(page).to have_css("[data-module='remove-filter-link']")
     expect(page).to have_css("[aria-label='Remove filter Open']")
   end
@@ -578,7 +578,7 @@ When(/^I click the (.*) remove control$/) do |filter|
   button = page.find("span[class='facet-tag__text']", text: filter).sibling("button[data-module='remove-filter-link']")
   button.click
 
-  expect(page).to_not have_selector("span[class='facet-tag__text']", text: filter)
+  expect(page).to have_no_css("span[class='facet-tag__text']", text: filter)
 end
 
 Then(/^The (.*) checkbox in deselected$/) do |checkbox|
@@ -632,7 +632,7 @@ Then(/^I can sign up to email alerts for allowed filters$/) do
 end
 
 Then("I see an error about selecting at least one option") do
-  expect(page).to have_content("Select at least one option")
+  expect(page).to have_text("Select at least one option")
 end
 
 Then("I should see results for scoped by the selected document type") do
@@ -687,5 +687,5 @@ Then(/^the page has a landmark to the search results$/) do
 end
 
 And(/^I should not see an upcoming statistics facet tag$/) do
-  expect(page).to_not have_css("span.facet-tag__text", text: "Upcoming statistics")
+  expect(page).to have_no_css("span.facet-tag__text", text: "Upcoming statistics")
 end

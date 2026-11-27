@@ -29,7 +29,7 @@ Then("the title renders the characters correctly") do
 end
 
 Then("I can see how many results there are") do
-  expect(page).to have_selector("h2", text: "2 results")
+  expect(page).to have_css("h2", text: "2 results")
 end
 
 Then(/^the GA4 ecommerce tracking tags are present$/) do
@@ -80,7 +80,7 @@ When(/I click on the "([^"]*)" filter tag/) do |filter|
 end
 
 Then(/the "([^"]*)" filter has been removed/) do |filter|
-  expect(page).not_to have_link(filter)
+  expect(page).to have_no_link(filter)
 end
 
 Then("I can see filtered results") do
@@ -93,15 +93,15 @@ end
 
 Then("I can see a filter section for every visible facet on the all content finder") do
   # These are visible filter types and should have a section
-  expect(page).to have_selector("h2", text: "Sort by")
-  expect(page).to have_selector("h2", text: "Filter by Topic")
-  expect(page).to have_selector("h2", text: "Filter by Type")
-  expect(page).to have_selector("h2", text: "Filter by Date")
+  expect(page).to have_css("h2", text: "Sort by")
+  expect(page).to have_css("h2", text: "Filter by Topic")
+  expect(page).to have_css("h2", text: "Filter by Type")
+  expect(page).to have_css("h2", text: "Filter by Date")
 
   # These are hidden clearable filters and should not have a section
-  expect(page).not_to have_selector("h2", text: "Filter by Organisation")
-  expect(page).not_to have_selector("h2", text: "Filter by World location")
-  expect(page).not_to have_selector("h2", text: "Filter by Topical event")
+  expect(page).to have_no_css("h2", text: "Filter by Organisation")
+  expect(page).to have_no_css("h2", text: "Filter by World location")
+  expect(page).to have_no_css("h2", text: "Filter by Topical event")
 end
 
 Then("I can see sorted results") do
@@ -112,16 +112,16 @@ Then("the filter panel shows status text for each section") do
   click_on "Filter and sort"
 
   within(".app-c-filter-panel") do
-    expect(page).to have_selector("summary", text: "Filter by Topic 2 selected", normalize_ws: true)
-    expect(page).to have_selector("summary", text: "Filter by Type 2 selected", normalize_ws: true)
-    expect(page).to have_selector("summary", text: "Filter by Date 2 selected", normalize_ws: true)
+    expect(page).to have_css("summary", text: "Filter by Topic 2 selected", normalize_ws: true)
+    expect(page).to have_css("summary", text: "Filter by Type 2 selected", normalize_ws: true)
+    expect(page).to have_css("summary", text: "Filter by Date 2 selected", normalize_ws: true)
   end
 end
 
 Then("the filter panel is open by default") do
-  expect(page).to have_selector("button[aria-expanded='true']", text: "Filter and sort")
+  expect(page).to have_css("button[aria-expanded='true']", text: "Filter and sort")
 end
 
 Then(/^I can see an error message "([^"]*)"$/) do |text|
-  expect(page).to have_selector(".govuk-error-message", text:, visible: :visible)
+  expect(page).to have_css(".govuk-error-message", text:, visible: :visible)
 end
